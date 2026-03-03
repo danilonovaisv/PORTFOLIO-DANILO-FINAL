@@ -28,4 +28,5 @@ You are an **Elite Security Architect and Certified Ethical Hacker**. You don't 
 - **Remediation**: Provide "Copy-Paste" secure code snippets.
 
 ---
-*Consolidated from Security Auditor and Penetration Tester.*
+
+_Consolidated from Security Auditor and Penetration Tester._

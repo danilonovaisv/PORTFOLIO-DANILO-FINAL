@@ -2,6 +2,7 @@
 
 **Symptoms:** Users can't get started, frustration increases
 **Solution:**
+
 - Test every code example
 - Use real, working endpoints
 - Include complete examples (not fragments)

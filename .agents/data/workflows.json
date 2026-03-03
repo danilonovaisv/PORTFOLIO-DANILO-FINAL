@@ -7,10 +7,7 @@
       "name": "Ship a SaaS MVP",
       "description": "End-to-end workflow to scope, build, test, and ship a SaaS MVP quickly.",
       "category": "web",
-      "relatedBundles": [
-        "core-dev",
-        "ops-core"
-      ],
+      "relatedBundles": ["core-dev", "ops-core"],
       "steps": [
         {
           "title": "Plan the scope",
@@ -71,10 +68,7 @@
       "name": "Security Audit for a Web App",
       "description": "Structured workflow for baseline AppSec review and risk triage.",
       "category": "security",
-      "relatedBundles": [
-        "security-core",
-        "ops-core"
-      ],
+      "relatedBundles": ["security-core", "ops-core"],
       "steps": [
         {
           "title": "Define scope and threat model",
@@ -123,10 +117,7 @@
       "name": "Build an AI Agent System",
       "description": "Workflow to design, implement, and evaluate a production-ready AI agent.",
       "category": "ai-agents",
-      "relatedBundles": [
-        "core-dev",
-        "data-core"
-      ],
+      "relatedBundles": ["core-dev", "data-core"],
       "steps": [
         {
           "title": "Define use case and reliability targets",
@@ -162,11 +153,7 @@
         {
           "title": "Evaluate and iterate",
           "goal": "Run benchmark scenarios and improve weak areas systematically.",
-          "recommendedSkills": [
-            "agent-evaluation",
-            "langfuse",
-            "kaizen"
-          ],
+          "recommendedSkills": ["agent-evaluation", "langfuse", "kaizen"],
           "notes": "Use test datasets and failure buckets to guide each iteration cycle."
         }
       ]
@@ -176,10 +163,7 @@
       "name": "QA and Browser Automation",
       "description": "Workflow for robust E2E and browser-driven validation across stacks.",
       "category": "testing",
-      "relatedBundles": [
-        "core-dev",
-        "ops-core"
-      ],
+      "relatedBundles": ["core-dev", "ops-core"],
       "steps": [
         {
           "title": "Prepare test strategy",
@@ -194,10 +178,7 @@
         {
           "title": "Implement browser tests",
           "goal": "Automate key flows with resilient locators and stable waits.",
-          "recommendedSkills": [
-            "browser-automation",
-            "go-playwright"
-          ],
+          "recommendedSkills": ["browser-automation", "go-playwright"],
           "notes": "Use go-playwright for Go-native automation projects and Playwright for JS/TS stacks."
         },
         {

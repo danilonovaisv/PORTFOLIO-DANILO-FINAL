@@ -1,17 +1,19 @@
 # Template 2: Database Incident Runbook
 
-```markdown
+````markdown
 # Database Incident Runbook
 
 ## Quick Reference
-| Issue | Command |
-|-------|---------|
-| Check connections | `SELECT count(*) FROM pg_stat_activity;` |
-| Kill query | `SELECT pg_terminate_backend(pid);` |
+
+| Issue                 | Command                                                                 |
+| --------------------- | ----------------------------------------------------------------------- |
+| Check connections     | `SELECT count(*) FROM pg_stat_activity;`                                |
+| Kill query            | `SELECT pg_terminate_backend(pid);`                                     |
 | Check replication lag | `SELECT extract(epoch from (now() - pg_last_xact_replay_timestamp()));` |
-| Check locks | `SELECT * FROM pg_locks WHERE NOT granted;` |
+| Check locks           | `SELECT * FROM pg_locks WHERE NOT granted;`                             |
 
 ## Connection Pool Exhaustion
+
 ```sql
 -- Check current connections
 SELECT datname, usename, state, count(*)
@@ -31,8 +33,10 @@ FROM pg_stat_activity
 WHERE state = 'idle'
 AND query_start < now() - interval '10 minutes';
 ```
+````
 
 ## Replication Lag
+
 ```sql
 -- Check lag on replica
 SELECT
@@ -48,6 +52,7 @@ SELECT
 ```
 
 ## Disk Space Critical
+
 ```bash
 # Check disk usage
 df -h /var/lib/postgresql/data
@@ -63,6 +68,8 @@ psql -c "VACUUM FULL large_table;"
 
 # If emergency, delete old data or expand disk
 ```
+
 ```
 
 ## Best Practices
+```

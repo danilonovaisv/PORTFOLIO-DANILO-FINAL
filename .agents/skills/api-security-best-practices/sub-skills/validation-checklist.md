@@ -8,4 +8,7 @@
 - [ ] Escape special characters
 - [ ] Validate file uploads (type, size, content)
 - [ ] Use allowlists, not blocklists
+
+```
+
 ```

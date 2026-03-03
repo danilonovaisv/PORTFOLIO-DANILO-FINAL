@@ -10,7 +10,7 @@ spec:
   service: my-service
   backends:
     - service: my-service-stable
-      weight: 900m  # 90%
+      weight: 900m # 90%
     - service: my-service-canary
-      weight: 100m  # 10%
+      weight: 100m # 10%
 ```

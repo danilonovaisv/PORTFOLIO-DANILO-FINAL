@@ -20,4 +20,7 @@
 - [PostgreSQL JSON Documentation](https://www.postgresql.org/docs/current/datatype-json.html)
 - [PostgreSQL Full Text Search](https://www.postgresql.org/docs/current/textsearch.html)
 - Internal: Performance benchmarks in `/docs/benchmarks/database-comparison.md`
+
+```
+
 ```

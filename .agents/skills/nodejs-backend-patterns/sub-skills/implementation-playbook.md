@@ -22,6 +22,7 @@ Comprehensive guidance for building scalable, maintainable, and production-ready
 ### Express.js - Minimalist Framework
 
 **Basic Setup:**
+
 ```typescript
 import express, { Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
@@ -54,6 +55,7 @@ app.listen(PORT, () => {
 ### Fastify - High Performance Framework
 
 **Basic Setup:**
+
 ```typescript
 import Fastify from 'fastify';
 import helmet from '@fastify/helmet';
@@ -65,9 +67,9 @@ const fastify = Fastify({
     level: process.env.LOG_LEVEL || 'info',
     transport: {
       target: 'pino-pretty',
-      options: { colorize: true }
-    }
-  }
+      options: { colorize: true },
+    },
+  },
 });
 
 // Plugins
@@ -79,21 +81,25 @@ await fastify.register(compress);
 fastify.post<{
   Body: { name: string; email: string };
   Reply: { id: string; name: string };
-}>('/users', {
-  schema: {
-    body: {
-      type: 'object',
-      required: ['name', 'email'],
-      properties: {
-        name: { type: 'string', minLength: 1 },
-        email: { type: 'string', format: 'email' }
-      }
-    }
+}>(
+  '/users',
+  {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['name', 'email'],
+        properties: {
+          name: { type: 'string', minLength: 1 },
+          email: { type: 'string', format: 'email' },
+        },
+      },
+    },
+  },
+  async (request, reply) => {
+    const { name, email } = request.body;
+    return { id: '123', name };
   }
-}, async (request, reply) => {
-  const { name, email } = request.body;
-  return { id: '123', name };
-});
+);
 
 await fastify.listen({ port: 3000, host: '0.0.0.0' });
 ```
@@ -103,6 +109,7 @@ await fastify.listen({ port: 3000, host: '0.0.0.0' });
 ### Pattern 1: Layered Architecture
 
 **Structure:**
+
 ```
 src/
 ├── controllers/     # Handle HTTP requests/responses
@@ -117,6 +124,7 @@ src/
 ```
 
 **Controller Layer:**
+
 ```typescript
 // controllers/user.controller.ts
 import { Request, Response, NextFunction } from 'express';
@@ -170,6 +178,7 @@ export class UserController {
 ```
 
 **Service Layer:**
+
 ```typescript
 // services/user.service.ts
 import { UserRepository } from '../repositories/user.repository';
@@ -193,7 +202,7 @@ export class UserService {
     // Create user
     const user = await this.userRepository.create({
       ...userData,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     // Remove password from response
@@ -229,6 +238,7 @@ export class UserService {
 ```
 
 **Repository Layer:**
+
 ```typescript
 // repositories/user.repository.ts
 import { Pool } from 'pg';
@@ -237,7 +247,9 @@ import { CreateUserDTO, UpdateUserDTO, UserEntity } from '../types/user.types';
 export class UserRepository {
   constructor(private db: Pool) {}
 
-  async create(userData: CreateUserDTO & { password: string }): Promise<UserEntity> {
+  async create(
+    userData: CreateUserDTO & { password: string }
+  ): Promise<UserEntity> {
     const query = `
       INSERT INTO users (name, email, password)
       VALUES ($1, $2, $3)
@@ -246,7 +258,7 @@ export class UserRepository {
     const { rows } = await this.db.query(query, [
       userData.name,
       userData.email,
-      userData.password
+      userData.password,
     ]);
     return rows[0];
   }
@@ -293,6 +305,7 @@ export class UserRepository {
 ### Pattern 2: Dependency Injection
 
 **DI Container:**
+
 ```typescript
 // di-container.ts
 import { Pool } from 'pg';
@@ -330,31 +343,39 @@ class Container {
 export const container = new Container();
 
 // Register dependencies
-container.singleton('db', () => new Pool({
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-}));
-
-container.singleton('userRepository', () =>
-  new UserRepository(container.resolve('db'))
+container.singleton(
+  'db',
+  () =>
+    new Pool({
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT || '5432'),
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    })
 );
 
-container.singleton('userService', () =>
-  new UserService(container.resolve('userRepository'))
+container.singleton(
+  'userRepository',
+  () => new UserRepository(container.resolve('db'))
 );
 
-container.register('userController', () =>
-  new UserController(container.resolve('userService'))
+container.singleton(
+  'userService',
+  () => new UserService(container.resolve('userRepository'))
 );
 
-container.singleton('authService', () =>
-  new AuthService(container.resolve('userRepository'))
+container.register(
+  'userController',
+  () => new UserController(container.resolve('userService'))
+);
+
+container.singleton(
+  'authService',
+  () => new AuthService(container.resolve('userRepository'))
 );
 ```
 
@@ -393,10 +414,7 @@ export const authenticate = async (
       throw new UnauthorizedError('No token provided');
     }
 
-    const payload = jwt.verify(
-      token,
-      process.env.JWT_SECRET!
-    ) as JWTPayload;
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as JWTPayload;
 
     req.user = payload;
     next();
@@ -412,9 +430,7 @@ export const authorize = (...roles: string[]) => {
     }
 
     // Check if user has required role
-    const hasRole = roles.some(role =>
-      req.user?.roles?.includes(role)
-    );
+    const hasRole = roles.some((role) => req.user?.roles?.includes(role));
 
     if (!hasRole) {
       return next(new UnauthorizedError('Insufficient permissions'));
@@ -439,14 +455,14 @@ export const validate = (schema: AnyZodObject) => {
       await schema.parseAsync({
         body: req.body,
         query: req.query,
-        params: req.params
+        params: req.params,
       });
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        const errors = error.errors.map(err => ({
+        const errors = error.errors.map((err) => ({
           field: err.path.join('.'),
-          message: err.message
+          message: err.message,
         }));
         next(new ValidationError('Validation failed', errors));
       } else {
@@ -463,8 +479,8 @@ const createUserSchema = z.object({
   body: z.object({
     name: z.string().min(1),
     email: z.string().email(),
-    password: z.string().min(8)
-  })
+    password: z.string().min(8),
+  }),
 });
 
 router.post('/users', validate(createUserSchema), userController.createUser);
@@ -480,7 +496,7 @@ import Redis from 'ioredis';
 
 const redis = new Redis({
   host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT || '6379')
+  port: parseInt(process.env.REDIS_PORT || '6379'),
 });
 
 export const apiLimiter = rateLimit({
@@ -517,8 +533,8 @@ const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
   transport: {
     target: 'pino-pretty',
-    options: { colorize: true }
-  }
+    options: { colorize: true },
+  },
 });
 
 export const requestLogger = (
@@ -537,7 +553,7 @@ export const requestLogger = (
       status: res.statusCode,
       duration: `${duration}ms`,
       userAgent: req.headers['user-agent'],
-      ip: req.ip
+      ip: req.ip,
     });
   });
 
@@ -566,7 +582,10 @@ export class AppError extends Error {
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, public errors?: any[]) {
+  constructor(
+    message: string,
+    public errors?: any[]
+  ) {
     super(message, 400);
   }
 }
@@ -614,7 +633,7 @@ export const errorHandler = (
     return res.status(err.statusCode).json({
       status: 'error',
       message: err.message,
-      ...(err instanceof ValidationError && { errors: err.errors })
+      ...(err instanceof ValidationError && { errors: err.errors }),
     });
   }
 
@@ -623,17 +642,18 @@ export const errorHandler = (
     error: err.message,
     stack: err.stack,
     url: req.url,
-    method: req.method
+    method: req.method,
   });
 
   // Don't leak error details in production
-  const message = process.env.NODE_ENV === 'production'
-    ? 'Internal server error'
-    : err.message;
+  const message =
+    process.env.NODE_ENV === 'production'
+      ? 'Internal server error'
+      : err.message;
 
   res.status(500).json({
     status: 'error',
-    message
+    message,
   });
 };
 
@@ -727,13 +747,16 @@ interface IUser extends Document {
   updatedAt: Date;
 }
 
-const userSchema = new Schema<IUser>({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-}, {
-  timestamps: true
-});
+const userSchema = new Schema<IUser>(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 // Indexes
 userSchema.index({ email: 1 });
@@ -818,11 +841,11 @@ export class AuthService {
 
     const token = this.generateToken({
       userId: user.id,
-      email: user.email
+      email: user.email,
     });
 
     const refreshToken = this.generateRefreshToken({
-      userId: user.id
+      userId: user.id,
     });
 
     return {
@@ -831,8 +854,8 @@ export class AuthService {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
-      }
+        email: user.email,
+      },
     };
   }
 
@@ -851,7 +874,7 @@ export class AuthService {
 
       const token = this.generateToken({
         userId: user.id,
-        email: user.email
+        email: user.email,
       });
 
       return { token };
@@ -862,13 +885,13 @@ export class AuthService {
 
   private generateToken(payload: any): string {
     return jwt.sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: '15m'
+      expiresIn: '15m',
     });
   }
 
   private generateRefreshToken(payload: any): string {
     return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET!, {
-      expiresIn: '7d'
+      expiresIn: '7d',
     });
   }
 }
@@ -886,7 +909,7 @@ const redis = new Redis({
   retryStrategy: (times) => {
     const delay = Math.min(times * 50, 2000);
     return delay;
-  }
+  },
 });
 
 export class CacheService {
@@ -952,11 +975,16 @@ export function Cacheable(ttl: number = 300) {
 import { Response } from 'express';
 
 export class ApiResponse {
-  static success<T>(res: Response, data: T, message?: string, statusCode = 200) {
+  static success<T>(
+    res: Response,
+    data: T,
+    message?: string,
+    statusCode = 200
+  ) {
     return res.status(statusCode).json({
       status: 'success',
       message,
-      data
+      data,
     });
   }
 
@@ -964,7 +992,7 @@ export class ApiResponse {
     return res.status(statusCode).json({
       status: 'error',
       message,
-      ...(errors && { errors })
+      ...(errors && { errors }),
     });
   }
 
@@ -982,8 +1010,8 @@ export class ApiResponse {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     });
   }
 }

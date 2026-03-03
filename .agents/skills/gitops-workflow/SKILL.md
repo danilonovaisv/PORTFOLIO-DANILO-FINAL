@@ -51,14 +51,25 @@ Implement declarative, Git-based continuous delivery for Kubernetes using ArgoCD
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Installation](./sub-skills/1-installation.md)
+
 ### 2. [2. Repository Structure](./sub-skills/2-repository-structure.md)
+
 ### 3. [3. Create Application](./sub-skills/3-create-application.md)
+
 ### 4. [4. App of Apps Pattern](./sub-skills/4-app-of-apps-pattern.md)
+
 ### 5. [1. Installation](./sub-skills/1-installation.md)
+
 ### 6. [2. Create GitRepository](./sub-skills/2-create-gitrepository.md)
+
 ### 7. [3. Create Kustomization](./sub-skills/3-create-kustomization.md)
+
 ### 8. [Auto-Sync Configuration](./sub-skills/auto-sync-configuration.md)
+
 ### 9. [Canary Deployment with ArgoCD Rollouts](./sub-skills/canary-deployment-with-argocd-rollouts.md)
+
 ### 10. [Blue-Green Deployment](./sub-skills/blue-green-deployment.md)
+
 ### 11. [External Secrets Operator](./sub-skills/external-secrets-operator.md)
+
 ### 12. [Sealed Secrets](./sub-skills/sealed-secrets.md)

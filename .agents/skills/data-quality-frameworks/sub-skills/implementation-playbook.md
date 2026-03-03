@@ -6,14 +6,14 @@ This file contains detailed patterns, checklists, and code samples referenced by
 
 ### 1. Data Quality Dimensions
 
-| Dimension | Description | Example Check |
-|-----------|-------------|---------------|
-| **Completeness** | No missing values | `expect_column_values_to_not_be_null` |
-| **Uniqueness** | No duplicates | `expect_column_values_to_be_unique` |
-| **Validity** | Values in expected range | `expect_column_values_to_be_in_set` |
-| **Accuracy** | Data matches reality | Cross-reference validation |
-| **Consistency** | No contradictions | `expect_column_pair_values_A_to_be_greater_than_B` |
-| **Timeliness** | Data is recent | `expect_column_max_to_be_between` |
+| Dimension        | Description              | Example Check                                      |
+| ---------------- | ------------------------ | -------------------------------------------------- |
+| **Completeness** | No missing values        | `expect_column_values_to_not_be_null`              |
+| **Uniqueness**   | No duplicates            | `expect_column_values_to_be_unique`                |
+| **Validity**     | Values in expected range | `expect_column_values_to_be_in_set`                |
+| **Accuracy**     | Data matches reality     | Cross-reference validation                         |
+| **Consistency**  | No contradictions        | `expect_column_pair_values_A_to_be_greater_than_B` |
+| **Timeliness**   | Data is recent           | `expect_column_max_to_be_between`                  |
 
 ### 2. Testing Pyramid for Data
 
@@ -169,7 +169,7 @@ def build_orders_suite() -> ExpectationSuite:
 name: orders_checkpoint
 config_version: 1.0
 class_name: Checkpoint
-run_name_template: "%Y%m%d-%H%M%S-orders-validation"
+run_name_template: '%Y%m%d-%H%M%S-orders-validation'
 
 validations:
   - batch_request:
@@ -177,7 +177,7 @@ validations:
       data_connector_name: default_inferred_data_connector_name
       data_asset_name: orders
       data_connector_query:
-        index: -1  # Latest batch
+        index: -1 # Latest batch
     expectation_suite_name: orders_suite
 
 action_list:
@@ -236,7 +236,7 @@ models:
           interval: 1
       - dbt_utils.at_least_one
       - dbt_utils.expression_is_true:
-          expression: "total_amount >= 0"
+          expression: 'total_amount >= 0'
 
     columns:
       - name: order_id
@@ -256,19 +256,20 @@ models:
       - name: order_status
         tests:
           - accepted_values:
-              values: ['pending', 'processing', 'shipped', 'delivered', 'cancelled']
+              values:
+                ['pending', 'processing', 'shipped', 'delivered', 'cancelled']
 
       - name: total_amount
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: ">= 0"
+              expression: '>= 0'
 
       - name: created_at
         tests:
           - not_null
           - dbt_utils.expression_is_true:
-              expression: "<= current_timestamp"
+              expression: '<= current_timestamp'
 
   - name: dim_customers
     columns:
@@ -552,6 +553,7 @@ if not all(r.passed for r in results.values()):
 ## Best Practices
 
 ### Do's
+
 - **Test early** - Validate source data before transformations
 - **Test incrementally** - Add tests as you find issues
 - **Document expectations** - Clear descriptions for each test
@@ -559,6 +561,7 @@ if not all(r.passed for r in results.values()):
 - **Version contracts** - Track schema changes
 
 ### Don'ts
+
 - **Don't test everything** - Focus on critical columns
 - **Don't ignore warnings** - They often precede failures
 - **Don't skip freshness** - Stale data is bad data

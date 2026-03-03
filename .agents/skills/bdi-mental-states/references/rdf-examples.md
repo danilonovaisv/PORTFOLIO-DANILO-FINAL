@@ -96,7 +96,7 @@ ex:Plan_alternate_commute a bdi:Plan ;
     bdi:addresses ex:Goal_arrive_by_9am ;
     bdi:beginsWith ex:Task_exit_Route101 ;
     bdi:endsWith ex:Task_arrive_parking ;
-    bdi:hasComponent ex:Task_exit_Route101 , ex:Task_merge_280 , 
+    bdi:hasComponent ex:Task_exit_Route101 , ex:Task_merge_280 ,
                      ex:Task_navigate_280 , ex:Task_arrive_parking .
 
 ex:Task_exit_Route101 a bdi:Task ;
@@ -125,7 +125,7 @@ ex:PlanExecution_commute a bdi:PlanExecution ;
     bdi:satisfies ex:Plan_alternate_commute ;
     bdi:addresses ex:Goal_arrive_by_9am ;
     bdi:isExecutedBy ex:Agent_commuter ;
-    bdi:hasComponent ex:Action_exit , ex:Action_merge , 
+    bdi:hasComponent ex:Action_exit , ex:Action_merge ,
                      ex:Action_drive_280 , ex:Action_park ;
     bdi:atTime ex:TimeInterval_execution ;
     bdi:bringsAbout ex:WorldState_arrived_on_time .
@@ -199,7 +199,7 @@ ex:WorldState_deadline a bdi:WorldState ;
     rdfs:comment "Project XYZ must be delivered by 2026-01-10T17:00:00" .
 
 # Agent-specific mental states
-ex:Agent_developer 
+ex:Agent_developer
     bdi:hasDesire ex:Desire_complete_coding ;
     bdi:hasIntention ex:Intention_implement_features .
 
@@ -212,7 +212,7 @@ ex:Intention_implement_features a bdi:Intention ;
     bdi:fulfils ex:Desire_complete_coding ;
     bdi:specifies ex:Plan_development .
 
-ex:Agent_manager 
+ex:Agent_manager
     bdi:hasDesire ex:Desire_ensure_delivery ;
     bdi:hasIntention ex:Intention_coordinate_team .
 
@@ -312,4 +312,3 @@ ex:WorldState_payment_complete a bdi:WorldState ;
     rdfs:comment "Payment of $250 sent to Ghadeh via Zelle" ;
     bdi:atTime "2025-10-27T10:20:00"^^xsd:dateTime .
 ```
-

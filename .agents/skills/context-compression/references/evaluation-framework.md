@@ -9,6 +9,7 @@ This document provides the complete evaluation framework for measuring context c
 Test factual retention of specific details from conversation history.
 
 **Structure:**
+
 ```
 Question: [Ask for specific fact from truncated history]
 Expected: [Exact detail that should be preserved]
@@ -16,6 +17,7 @@ Scoring: Match accuracy of technical details
 ```
 
 **Examples:**
+
 - "What was the original error message that started this debugging session?"
 - "What version of the dependency did we decide to use?"
 - "What was the exact command that failed?"
@@ -25,6 +27,7 @@ Scoring: Match accuracy of technical details
 Test file tracking and modification awareness.
 
 **Structure:**
+
 ```
 Question: [Ask about files created, modified, or examined]
 Expected: [Complete list with change descriptions]
@@ -32,6 +35,7 @@ Scoring: Completeness of file list and accuracy of change descriptions
 ```
 
 **Examples:**
+
 - "Which files have we modified? Describe what changed in each."
 - "What new files did we create in this session?"
 - "Which configuration files did we examine but not change?"
@@ -41,6 +45,7 @@ Scoring: Completeness of file list and accuracy of change descriptions
 Test ability to continue work without re-fetching context.
 
 **Structure:**
+
 ```
 Question: [Ask about next steps or current state]
 Expected: [Actionable next steps based on session history]
@@ -48,6 +53,7 @@ Scoring: Ability to continue without requesting re-read of files
 ```
 
 **Examples:**
+
 - "What should we do next?"
 - "What tests are still failing and why?"
 - "What was left incomplete from our last step?"
@@ -57,6 +63,7 @@ Scoring: Ability to continue without requesting re-read of files
 Test retention of reasoning chains and decision rationale.
 
 **Structure:**
+
 ```
 Question: [Ask about why a decision was made]
 Expected: [Reasoning that led to the decision]
@@ -64,6 +71,7 @@ Scoring: Preservation of decision context and alternatives considered
 ```
 
 **Examples:**
+
 - "We discussed options for the Redis issue. What did we decide and why?"
 - "Why did we choose connection pooling over per-request connections?"
 - "What alternatives did we consider for the authentication fix?"
@@ -72,47 +80,47 @@ Scoring: Preservation of decision context and alternatives considered
 
 ### Accuracy Dimension
 
-| Criterion | Question | Score 0 | Score 3 | Score 5 |
-|-----------|----------|---------|---------|---------|
-| accuracy_factual | Are facts, file paths, and technical details correct? | Completely incorrect or fabricated | Mostly accurate with minor errors | Perfectly accurate |
-| accuracy_technical | Are code references and technical concepts correct? | Major technical errors | Generally correct with minor issues | Technically precise |
+| Criterion          | Question                                              | Score 0                            | Score 3                             | Score 5             |
+| ------------------ | ----------------------------------------------------- | ---------------------------------- | ----------------------------------- | ------------------- |
+| accuracy_factual   | Are facts, file paths, and technical details correct? | Completely incorrect or fabricated | Mostly accurate with minor errors   | Perfectly accurate  |
+| accuracy_technical | Are code references and technical concepts correct?   | Major technical errors             | Generally correct with minor issues | Technically precise |
 
 ### Context Awareness Dimension
 
-| Criterion | Question | Score 0 | Score 3 | Score 5 |
-|-----------|----------|---------|---------|---------|
-| context_conversation_state | Does the response reflect current conversation state? | No awareness of prior context | General awareness with gaps | Full awareness of conversation history |
-| context_artifact_state | Does the response reflect which files/artifacts were accessed? | No awareness of artifacts | Partial artifact awareness | Complete artifact state awareness |
+| Criterion                  | Question                                                       | Score 0                       | Score 3                     | Score 5                                |
+| -------------------------- | -------------------------------------------------------------- | ----------------------------- | --------------------------- | -------------------------------------- |
+| context_conversation_state | Does the response reflect current conversation state?          | No awareness of prior context | General awareness with gaps | Full awareness of conversation history |
+| context_artifact_state     | Does the response reflect which files/artifacts were accessed? | No awareness of artifacts     | Partial artifact awareness  | Complete artifact state awareness      |
 
 ### Artifact Trail Dimension
 
-| Criterion | Question | Score 0 | Score 3 | Score 5 |
-|-----------|----------|---------|---------|---------|
-| artifact_files_created | Does the agent know which files were created? | No knowledge | Knows most files | Perfect knowledge |
-| artifact_files_modified | Does the agent know which files were modified and what changed? | No knowledge | Good knowledge of most modifications | Perfect knowledge of all modifications |
-| artifact_key_details | Does the agent remember function names, variable names, error messages? | No recall | Recalls most key details | Perfect recall |
+| Criterion               | Question                                                                | Score 0      | Score 3                              | Score 5                                |
+| ----------------------- | ----------------------------------------------------------------------- | ------------ | ------------------------------------ | -------------------------------------- |
+| artifact_files_created  | Does the agent know which files were created?                           | No knowledge | Knows most files                     | Perfect knowledge                      |
+| artifact_files_modified | Does the agent know which files were modified and what changed?         | No knowledge | Good knowledge of most modifications | Perfect knowledge of all modifications |
+| artifact_key_details    | Does the agent remember function names, variable names, error messages? | No recall    | Recalls most key details             | Perfect recall                         |
 
 ### Completeness Dimension
 
-| Criterion | Question | Score 0 | Score 3 | Score 5 |
-|-----------|----------|---------|---------|---------|
-| completeness_coverage | Does the response address all parts of the question? | Ignores most parts | Addresses most parts | Addresses all parts thoroughly |
-| completeness_depth | Is sufficient detail provided? | Superficial or missing detail | Adequate detail | Comprehensive detail |
+| Criterion             | Question                                             | Score 0                       | Score 3              | Score 5                        |
+| --------------------- | ---------------------------------------------------- | ----------------------------- | -------------------- | ------------------------------ |
+| completeness_coverage | Does the response address all parts of the question? | Ignores most parts            | Addresses most parts | Addresses all parts thoroughly |
+| completeness_depth    | Is sufficient detail provided?                       | Superficial or missing detail | Adequate detail      | Comprehensive detail           |
 
 ### Continuity Dimension
 
-| Criterion | Question | Score 0 | Score 3 | Score 5 |
-|-----------|----------|---------|---------|---------|
+| Criterion             | Question                                                                    | Score 0                                         | Score 3                               | Score 5                 |
+| --------------------- | --------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------- | ----------------------- |
 | continuity_work_state | Can the agent continue without re-fetching previously accessed information? | Cannot continue without re-fetching all context | Can continue with minimal re-fetching | Can continue seamlessly |
-| continuity_todo_state | Does the agent maintain awareness of pending tasks? | Lost track of all TODOs | Good awareness with some gaps | Perfect task awareness |
-| continuity_reasoning | Does the agent retain rationale behind previous decisions? | No memory of reasoning | Generally remembers reasoning | Excellent retention |
+| continuity_todo_state | Does the agent maintain awareness of pending tasks?                         | Lost track of all TODOs                         | Good awareness with some gaps         | Perfect task awareness  |
+| continuity_reasoning  | Does the agent retain rationale behind previous decisions?                  | No memory of reasoning                          | Generally remembers reasoning         | Excellent retention     |
 
 ### Instruction Following Dimension
 
-| Criterion | Question | Score 0 | Score 3 | Score 5 |
-|-----------|----------|---------|---------|---------|
-| instruction_format | Does the response follow the requested format? | Ignores format | Generally follows format | Perfectly follows format |
-| instruction_constraints | Does the response respect stated constraints? | Ignores constraints | Mostly respects constraints | Fully respects all constraints |
+| Criterion               | Question                                       | Score 0             | Score 3                     | Score 5                        |
+| ----------------------- | ---------------------------------------------- | ------------------- | --------------------------- | ------------------------------ |
+| instruction_format      | Does the response follow the requested format? | Ignores format      | Generally follows format    | Perfectly follows format       |
+| instruction_constraints | Does the response respect stated constraints?  | Ignores constraints | Mostly respects constraints | Fully respects all constraints |
 
 ## LLM Judge Configuration
 
@@ -138,7 +146,11 @@ Be objective and consistent. Focus on what is present in the response, not what 
   "model_response": "[Response to evaluate]",
   "compacted_context": "[The compressed context that was provided]",
   "ground_truth": "[Optional: known correct answer]",
-  "rubric_criteria": ["accuracy_factual", "accuracy_technical", "context_conversation_state"]
+  "rubric_criteria": [
+    "accuracy_factual",
+    "accuracy_technical",
+    "context_conversation_state"
+  ]
 }
 ```
 
@@ -169,11 +181,11 @@ Be objective and consistent. Focus on what is present in the response, not what 
 
 Performance across compression methods (based on 36,000+ messages):
 
-| Method | Overall | Accuracy | Context | Artifact | Complete | Continuity | Instruction |
-|--------|---------|----------|---------|----------|----------|------------|-------------|
-| Anchored Iterative | 3.70 | 4.04 | 4.01 | 2.45 | 4.44 | 3.80 | 4.99 |
-| Regenerative | 3.44 | 3.74 | 3.56 | 2.33 | 4.37 | 3.67 | 4.95 |
-| Opaque | 3.35 | 3.43 | 3.64 | 2.19 | 4.37 | 3.77 | 4.92 |
+| Method             | Overall | Accuracy | Context | Artifact | Complete | Continuity | Instruction |
+| ------------------ | ------- | -------- | ------- | -------- | -------- | ---------- | ----------- |
+| Anchored Iterative | 3.70    | 4.04     | 4.01    | 2.45     | 4.44     | 3.80       | 4.99        |
+| Regenerative       | 3.44    | 3.74     | 3.56    | 2.33     | 4.37     | 3.67       | 4.95        |
+| Opaque             | 3.35    | 3.43     | 3.64    | 2.19     | 4.37     | 3.77       | 4.92        |
 
 **Key Findings:**
 
@@ -194,6 +206,7 @@ Performance across compression methods (based on 36,000+ messages):
 ### Probe Generation
 
 Generate probes at each compression point based on truncated history:
+
 1. Extract factual claims for recall probes
 2. Extract file operations for artifact probes
 3. Extract incomplete tasks for continuation probes
@@ -210,4 +223,3 @@ Generate probes at each compression point based on truncated history:
 ### Blinding
 
 The judge should not know which compression method produced the response being evaluated. This prevents bias toward known methods.
-

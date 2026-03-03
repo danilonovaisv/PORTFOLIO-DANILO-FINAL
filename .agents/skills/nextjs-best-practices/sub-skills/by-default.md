@@ -1,9 +1,9 @@
 # By Default
 
-| Type | Use |
-|------|-----|
+| Type       | Use                                   |
+| ---------- | ------------------------------------- |
 | **Server** | Data fetching, layout, static content |
-| **Client** | Forms, buttons, interactive UI |
+| **Client** | Forms, buttons, interactive UI        |
 
 ---
 

@@ -9,16 +9,16 @@ class ReactXSSScanner {
     const unsafePatterns = [
       'dangerouslySetInnerHTML',
       'createMarkup',
-      'rawHtml'
+      'rawHtml',
     ];
 
-    unsafePatterns.forEach(pattern => {
+    unsafePatterns.forEach((pattern) => {
       if (code.includes(pattern) && !code.includes('DOMPurify')) {
         findings.push({
           severity: 'high',
           type: 'React XSS risk',
           description: `Pattern ${pattern} used without sanitization`,
-          fix: 'Apply proper HTML sanitization'
+          fix: 'Apply proper HTML sanitization',
         });
       }
     });
@@ -36,7 +36,7 @@ class VueXSSScanner {
         severity: 'high',
         type: 'Vue HTML injection',
         description: 'v-html directive renders raw HTML',
-        fix: 'Use v-text for plain text or sanitize HTML'
+        fix: 'Use v-text for plain text or sanitize HTML',
       });
     }
 

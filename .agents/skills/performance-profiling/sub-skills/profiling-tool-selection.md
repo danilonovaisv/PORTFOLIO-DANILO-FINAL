@@ -1,12 +1,12 @@
 # Profiling Tool Selection
 
-| Problem | Tool |
-|---------|------|
-| Page load | Lighthouse |
-| Bundle size | Bundle analyzer |
-| Runtime | DevTools Performance |
-| Memory | DevTools Memory |
-| Network | DevTools Network |
+| Problem     | Tool                 |
+| ----------- | -------------------- |
+| Page load   | Lighthouse           |
+| Bundle size | Bundle analyzer      |
+| Runtime     | DevTools Performance |
+| Memory      | DevTools Memory      |
+| Network     | DevTools Network     |
 
 ---
 

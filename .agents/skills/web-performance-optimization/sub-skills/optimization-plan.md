@@ -6,6 +6,7 @@
 
 **Solutions:**
 \`\`\`html
+
 <!-- Before: Unoptimized image -->
 <img src="/hero.jpg" alt="Hero">
 
@@ -25,6 +26,7 @@
 \`\`\`
 
 **Additional optimizations:**
+
 - Compress image to < 200KB
 - Use CDN for faster delivery
 - Preload hero image: `<link rel="preload" as="image" href="/hero.avif">`
@@ -36,11 +38,11 @@
 **Solutions:**
 
 1. **Code Splitting:**
-\`\`\`javascript
-// Before: Everything in one bundle
-import { HeavyComponent } from './HeavyComponent';
-import { Analytics } from './analytics';
-import { ChatWidget } from './chat';
+   \`\`\`javascript
+   // Before: Everything in one bundle
+   import { HeavyComponent } from './HeavyComponent';
+   import { Analytics } from './analytics';
+   import { ChatWidget } from './chat';
 
 // After: Lazy load non-critical code
 const HeavyComponent = lazy(() => import('./HeavyComponent'));
@@ -48,31 +50,35 @@ const ChatWidget = lazy(() => import('./chat'));
 
 // Load analytics after page interactive
 if (typeof window !== 'undefined') {
-  window.addEventListener('load', () => {
-    import('./analytics').then(({ Analytics }) => {
-      Analytics.init();
-    });
-  });
+window.addEventListener('load', () => {
+import('./analytics').then(({ Analytics }) => {
+Analytics.init();
+});
+});
 }
 \`\`\`
 
 2. **Remove Unused Dependencies:**
-\`\`\`bash
+   \`\`\`bash
+
 # Analyze bundle
+
 npx webpack-bundle-analyzer
 
 # Remove unused packages
-npm uninstall moment  # Use date-fns instead (smaller)
+
+npm uninstall moment # Use date-fns instead (smaller)
 npm install date-fns
 \`\`\`
 
 3. **Defer Non-Critical Scripts:**
-\`\`\`html
-<!-- Before: Blocks rendering -->
-<script src="/analytics.js"></script>
+   \`\`\`html
+   <!-- Before: Blocks rendering -->
+   <script src="/analytics.js"></script>
 
 <!-- After: Deferred -->
 <script src="/analytics.js" defer></script>
+
 \`\`\`
 
 #### Fix CLS (Cumulative Layout Shift)
@@ -81,31 +87,33 @@ npm install date-fns
 
 **Solutions:**
 \`\`\`html
+
 <!-- Before: No dimensions -->
 <img src="/product.jpg" alt="Product">
 
 <!-- After: With dimensions -->
-<img 
-  src="/product.jpg" 
-  alt="Product"
-  width="400" 
-  height="300"
-  style="aspect-ratio: 4/3;"
->
-\`\`\`
+
+<img
+src="/product.jpg"
+alt="Product"
+width="400"
+height="300"
+style="aspect-ratio: 4/3;"
+
+> \`\`\`
 
 **For dynamic content:**
 \`\`\`css
-/* Reserve space for content that loads later */
+/_ Reserve space for content that loads later _/
 .skeleton-loader {
-  min-height: 200px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+min-height: 200px;
+background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+background-size: 200% 100%;
+animation: loading 1.5s infinite;
 }
 
 @keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+0% { background-position: 200% 0; }
+100% { background-position: -200% 0; }
 }
 \`\`\`

@@ -14,6 +14,7 @@ library-name/
 ```
 
 **package.json for Library**:
+
 ```json
 {
   "name": "@scope/library-name",

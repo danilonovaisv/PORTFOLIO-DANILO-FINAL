@@ -1,7 +1,8 @@
 # Fixed
 
 - Bug fix
-```
+
+````
 
 ---
 
@@ -21,7 +22,7 @@ What did we decide?
 
 ## Consequences
 What are the trade-offs?
-```
+````
 
 ---
 

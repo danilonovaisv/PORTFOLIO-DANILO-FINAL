@@ -3,6 +3,7 @@
 Optimizes titles, descriptions, and keyword fields with platform-specific character limit validation.
 
 **Key Functions:**
+
 - `optimize_title()`: Create compelling, keyword-rich titles
 - `optimize_description()`: Generate conversion-focused descriptions
 - `optimize_keyword_field()`: Maximize Apple's 100-char keyword field

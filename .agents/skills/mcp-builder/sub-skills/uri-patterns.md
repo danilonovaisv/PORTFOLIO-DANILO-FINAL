@@ -1,10 +1,10 @@
 # URI Patterns
 
-| Pattern | Example |
-|---------|---------|
-| Fixed | `docs://readme` |
-| Parameterized | `users://{userId}` |
-| Collection | `files://project/*` |
+| Pattern       | Example             |
+| ------------- | ------------------- |
+| Fixed         | `docs://readme`     |
+| Parameterized | `users://{userId}`  |
+| Collection    | `files://project/*` |
 
 ---
 

@@ -20,7 +20,7 @@
     done
 
     # Send to AI with full file context
-````
+```
 
 ---
 

@@ -1,7 +1,7 @@
 # Hybrid Models
 
-* Reverse trials
-* Feature-limited free + premium trial
+- Reverse trials
+- Feature-limited free + premium trial
 
 ---
 

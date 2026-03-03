@@ -30,9 +30,11 @@ skills/
 ## How to Use Skills
 
 ### Step 1: Make sure skills are installed
+
 Skills should be in your `.agent/skills/` directory (or `.claude/skills/`, `.gemini/skills/`, etc.)
 
 ### Step 2: Invoke a skill in your AI chat
+
 Use the `@` symbol followed by the skill name:
 
 ```
@@ -46,6 +48,7 @@ or
 ```
 
 ### Step 3: The AI becomes an expert
+
 The AI loads that skill's knowledge and helps you with specialized expertise!
 
 ---
@@ -53,7 +56,9 @@ The AI loads that skill's knowledge and helps you with specialized expertise!
 ## Skill Categories
 
 ### Creative & Design
+
 Skills for visual design, UI/UX, and artistic creation:
+
 - `@algorithmic-art` - Create algorithmic art with p5.js
 - `@canvas-design` - Design posters and artwork (PNG/PDF output)
 - `@frontend-design` - Build production-grade frontend interfaces
@@ -64,7 +69,9 @@ Skills for visual design, UI/UX, and artistic creation:
 - `@slack-gif-creator` - Create high-quality GIFs for Slack
 
 ### Development & Engineering
+
 Skills for coding, testing, debugging, and code review:
+
 - `@test-driven-development` - Write tests before implementation (TDD)
 - `@systematic-debugging` - Debug systematically, not randomly
 - `@webapp-testing` - Test web apps with Playwright
@@ -74,7 +81,9 @@ Skills for coding, testing, debugging, and code review:
 - `@subagent-driven-development` - Coordinate multiple AI agents for parallel tasks
 
 ### Documentation & Office
+
 Skills for working with documents and office files:
+
 - `@doc-coauthoring` - Collaborate on structured documents
 - `@docx` - Create, edit, and analyze Word documents
 - `@xlsx` - Work with Excel spreadsheets (formulas, charts)
@@ -84,7 +93,9 @@ Skills for working with documents and office files:
 - `@notebooklm` - Query Google NotebookLM notebooks
 
 ### Planning & Workflow
+
 Skills for task planning and workflow optimization:
+
 - `@brainstorming` - Brainstorm and design before coding
 - `@writing-plans` - Write detailed implementation plans
 - `@planning-with-files` - File-based planning system (Manus-style)
@@ -94,7 +105,9 @@ Skills for task planning and workflow optimization:
 - `@using-superpowers` - Discover and use advanced skills
 
 ### System Extension
+
 Skills for extending AI capabilities:
+
 - `@mcp-builder` - Build MCP (Model Context Protocol) servers
 - `@skill-creator` - Create new skills or update existing ones
 - `@writing-skills` - Tools for writing and validating skill files
@@ -105,16 +118,19 @@ Skills for extending AI capabilities:
 ## Finding Skills
 
 ### Method 1: Browse this folder
+
 ```bash
 ls skills/
 ```
 
 ### Method 2: Search by keyword
+
 ```bash
 ls skills/ | grep "keyword"
 ```
 
 ### Method 3: Check the main README
+
 See the [main README](../README.md) for the complete list of all 179+ skills organized by category.
 
 ---
@@ -122,16 +138,19 @@ See the [main README](../README.md) for the complete list of all 179+ skills org
 ## 💡 Popular Skills to Try
 
 **For beginners:**
+
 - `@brainstorming` - Design before coding
 - `@systematic-debugging` - Fix bugs methodically
 - `@git-pushing` - Commit with good messages
 
 **For developers:**
+
 - `@test-driven-development` - Write tests first
 - `@react-best-practices` - Modern React patterns
 - `@senior-fullstack` - Full-stack development
 
 **For security:**
+
 - `@ethical-hacking-methodology` - Security basics
 - `@burp-suite-testing` - Web app security testing
 
@@ -140,29 +159,35 @@ See the [main README](../README.md) for the complete list of all 179+ skills org
 ## Creating Your Own Skill
 
 Want to create a new skill? Check out:
+
 1. [CONTRIBUTING.md](../CONTRIBUTING.md) - How to contribute
 2. [docs/SKILL_ANATOMY.md](../docs/SKILL_ANATOMY.md) - Skill structure guide
 3. `@skill-creator` - Use this skill to create new skills!
 
 **Basic structure:**
+
 ```markdown
 ---
 name: my-skill-name
-description: "What this skill does"
+description: 'What this skill does'
 ---
 
 # Skill Title
 
 ## Overview
+
 [What this skill does]
 
 ## When to Use
+
 - Use when [scenario]
 
 ## Instructions
+
 [Step-by-step guide]
 
 ## Examples
+
 [Code examples]
 ```
 

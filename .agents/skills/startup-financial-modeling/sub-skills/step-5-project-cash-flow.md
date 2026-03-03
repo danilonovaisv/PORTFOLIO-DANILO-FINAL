@@ -3,6 +3,7 @@
 Calculate monthly cash position and runway.
 
 **Monthly Cash Flow:**
+
 ```
 Beginning Cash
 + Revenue Collected (consider payment terms)
@@ -12,6 +13,7 @@ Beginning Cash
 ```
 
 **Runway Calculation:**
+
 ```
 If Ending Cash < 0:
   Funding Need = Negative Cash Balance

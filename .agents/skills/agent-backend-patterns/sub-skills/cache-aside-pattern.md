@@ -2,21 +2,21 @@
 
 ```typescript
 async function getMarketWithCache(id: string): Promise<Market> {
-  const cacheKey = `market:${id}`
+  const cacheKey = `market:${id}`;
 
   // Try cache
-  const cached = await redis.get(cacheKey)
-  if (cached) return JSON.parse(cached)
+  const cached = await redis.get(cacheKey);
+  if (cached) return JSON.parse(cached);
 
   // Cache miss - fetch from DB
-  const market = await db.markets.findUnique({ where: { id } })
+  const market = await db.markets.findUnique({ where: { id } });
 
-  if (!market) throw new Error('Market not found')
+  if (!market) throw new Error('Market not found');
 
   // Update cache
-  await redis.setex(cacheKey, 300, JSON.stringify(market))
+  await redis.setex(cacheKey, 300, JSON.stringify(market));
 
-  return market
+  return market;
 }
 ```
 

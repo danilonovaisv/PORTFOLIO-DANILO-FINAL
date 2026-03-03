@@ -2,6 +2,7 @@
 
 **Cause**: Application validates session against requested resource
 **Solution**:
+
 ```
 # Advanced bypass attempts:
 1. Test for IDOR in unauthenticated endpoints

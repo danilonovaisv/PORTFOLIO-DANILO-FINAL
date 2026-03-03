@@ -18,6 +18,7 @@ curl -s http://target.com/wp-content/themes/
 ```
 
 Theme vulnerability checks:
+
 ```bash
 # Search for theme exploits
 searchsploit wordpress theme <theme_name>

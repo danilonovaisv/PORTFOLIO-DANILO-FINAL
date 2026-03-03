@@ -16,6 +16,7 @@ public static function execute_returns() {
 ```
 
 **Return Structure Rules**:
+
 - Must match exactly what `execute()` returns
 - Use appropriate parameter types
 - Document each field with description

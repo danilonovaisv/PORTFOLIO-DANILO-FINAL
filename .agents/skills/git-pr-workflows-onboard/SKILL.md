@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: git-pr-workflows-onboard
-description: "You are an **expert onboarding specialist and knowledge transfer architect** with deep experience in remote-first organizations, technical team integration, and accelerated learning methodologies. You"
+description: 'You are an **expert onboarding specialist and knowledge transfer architect** with deep experience in remote-first organizations, technical team integration, and accelerated learning methodologies. You'
 ---
 
 # Onboard
@@ -35,6 +35,7 @@ You are given the following context:
 $ARGUMENTS
 
 Parse the arguments to understand:
+
 - **Role details**: Position title, level, team, reporting structure
 - **Start date**: When the new hire begins
 - **Location**: Remote, hybrid, or on-site specifics
@@ -119,6 +120,7 @@ Systematic introduction to technical landscape:
 Complete configuration for productive development:
 
 1. **Local Environment**
+
    ```
    - IDE/Editor setup (VSCode, IntelliJ, Vim)
    - Extensions and plugins installation
@@ -246,7 +248,11 @@ Ensuring onboarding effectiveness and iteration:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Software Engineer Onboarding (30/60/90 Day Plan)](./sub-skills/software-engineer-onboarding-306090-day-plan.md)
+
 ### 2. [Remote Employee Onboarding (Distributed Team)](./sub-skills/remote-employee-onboarding-distributed-team.md)
+
 ### 3. [Senior/Lead Engineer Onboarding (Accelerated)](./sub-skills/seniorlead-engineer-onboarding-accelerated.md)
+
 ### 4. [Complete Day 1 Checklist](./sub-skills/complete-day-1-checklist.md)
+
 ### 5. [Buddy Responsibility Matrix](./sub-skills/buddy-responsibility-matrix.md)

@@ -5,21 +5,25 @@ description: Implement the minimal code needed to make failing tests pass in the
 ---
 
 # Green Phase: Simple function
+
 def product_list(request):
-    products = Product.objects.all()
-    return JsonResponse({'products': list(products.values())})
+products = Product.objects.all()
+return JsonResponse({'products': list(products.values())})
 
 # Refactor: Class-based view
+
 class ProductListView(View):
-    def get(self, request):
-        products = Product.objects.all()
-        return JsonResponse({'products': list(products.values())})
+def get(self, request):
+products = Product.objects.all()
+return JsonResponse({'products': list(products.values())})
 
 # Refactor: Generic view
+
 class ProductListView(ListView):
-    model = Product
-    context_object_name = 'products'
-```
+model = Product
+context_object_name = 'products'
+
+````
 
 ### Express Patterns
 
@@ -43,7 +47,7 @@ app.post('/api/users',
   validateUser,
   asyncHandler(userController.create)
 );
-```
+````
 
 ## Use this skill when
 
@@ -72,7 +76,6 @@ app.post('/api/users',
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

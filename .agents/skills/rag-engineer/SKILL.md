@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: rag-engineer
-description: "Expert in building Retrieval-Augmented Generation systems. Masters embedding models, vector databases, chunking strategies, and retrieval optimization for LLM applications. Use when: building RAG, vector search, embeddings, semantic search, document retrieval."
+description: 'Expert in building Retrieval-Augmented Generation systems. Masters embedding models, vector databases, chunking strategies, and retrieval optimization for LLM applications. Use when: building RAG, vector search, embeddings, semantic search, document retrieval.'
 source: vibeship-spawner-skills (Apache 2.0)
 ---
 
@@ -34,8 +34,13 @@ metrics because they make the difference between helpful and hallucinating.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Semantic Chunking](./sub-skills/semantic-chunking.md)
+
 ### 2. [Hierarchical Retrieval](./sub-skills/hierarchical-retrieval.md)
+
 ### 3. [Hybrid Search](./sub-skills/hybrid-search.md)
+
 ### 4. [❌ Fixed Chunk Size](./sub-skills/fixed-chunk-size.md)
+
 ### 5. [❌ Embedding Everything](./sub-skills/embedding-everything.md)
+
 ### 6. [❌ Ignoring Evaluation](./sub-skills/ignoring-evaluation.md)

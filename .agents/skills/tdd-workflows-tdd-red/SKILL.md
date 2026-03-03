@@ -69,21 +69,25 @@ Generate failing tests using Task tool with subagent_type="unit-testing::test-au
 ## Framework Patterns
 
 **JavaScript/TypeScript (Jest/Vitest)**
+
 - Mock dependencies with `vi.fn()` or `jest.fn()`
 - Use `@testing-library` for React components
 - Property tests with `fast-check`
 
 **Python (pytest)**
+
 - Fixtures with appropriate scopes
 - Parametrize for multiple test cases
 - Hypothesis for property-based tests
 
 **Go**
+
 - Table-driven tests with subtests
 - `t.Parallel()` for parallel execution
 - Use `testify/assert` for cleaner assertions
 
 **Ruby (RSpec)**
+
 - `let` for lazy loading, `let!` for eager
 - Contexts for different scenarios
 - Shared examples for common behavior
@@ -123,6 +127,7 @@ Generate failing tests using Task tool with subagent_type="unit-testing::test-au
 ## Validation
 
 After generation:
+
 1. Run tests - confirm they fail
 2. Verify helpful failure messages
 3. Check test independence

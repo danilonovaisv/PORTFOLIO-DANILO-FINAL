@@ -19,14 +19,14 @@ Cross-language patterns for memory-safe programming including RAII, ownership, s
 
 ### 1. Memory Bug Categories
 
-| Bug Type | Description | Prevention |
-|----------|-------------|------------|
-| **Use-after-free** | Access freed memory | Ownership, RAII |
-| **Double-free** | Free same memory twice | Smart pointers |
-| **Memory leak** | Never free memory | RAII, GC |
-| **Buffer overflow** | Write past buffer end | Bounds checking |
-| **Dangling pointer** | Pointer to freed memory | Lifetime tracking |
-| **Data race** | Concurrent unsynchronized access | Ownership, Sync |
+| Bug Type             | Description                      | Prevention        |
+| -------------------- | -------------------------------- | ----------------- |
+| **Use-after-free**   | Access freed memory              | Ownership, RAII   |
+| **Double-free**      | Free same memory twice           | Smart pointers    |
+| **Memory leak**      | Never free memory                | RAII, GC          |
+| **Buffer overflow**  | Write past buffer end            | Bounds checking   |
+| **Dangling pointer** | Pointer to freed memory          | Lifetime tracking |
+| **Data race**        | Concurrent unsynchronized access | Ownership, Sync   |
 
 ### 2. Safety Spectrum
 
@@ -567,6 +567,7 @@ fn rwlock_example() {
 ## Best Practices
 
 ### Do's
+
 - **Prefer RAII** - Tie resource lifetime to scope
 - **Use smart pointers** - Avoid raw pointers in C++
 - **Understand ownership** - Know who owns what
@@ -574,6 +575,7 @@ fn rwlock_example() {
 - **Use tools** - AddressSanitizer, Valgrind, Miri
 
 ### Don'ts
+
 - **Don't use raw pointers** - Unless interfacing with C
 - **Don't return local references** - Dangling pointer
 - **Don't ignore compiler warnings** - They catch bugs

@@ -6,9 +6,9 @@ const response = await ai.generate(userInput);
 
 // ✅ Structured & Safe prompt
 const response = await ai.generate({
-  system: "You are a specialized parser...",
-  input: sanitize(userInput),
-  schema: ResponseSchema
+system: "You are a specialized parser...",
+input: sanitize(userInput),
+schema: ResponseSchema
 });
 ```
 

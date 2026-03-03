@@ -3,11 +3,13 @@
 If `multi-agent-brainstorming` is run:
 
 Require:
+
 - completed Understanding Lock
 - current Design
 - Decision Log
 
 Do NOT allow:
+
 - new ideation
 - scope expansion
 - reopening problem definition

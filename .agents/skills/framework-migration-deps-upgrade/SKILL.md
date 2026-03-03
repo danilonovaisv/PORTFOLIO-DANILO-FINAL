@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: framework-migration-deps-upgrade
-description: "You are a dependency management expert specializing in safe, incremental upgrades of project dependencies. Plan and execute dependency updates with minimal risk, proper testing, and clear migration pa"
+description: 'You are a dependency management expert specializing in safe, incremental upgrades of project dependencies. Plan and execute dependency updates with minimal risk, proper testing, and clear migration pa'
 ---
 
 # Dependency Upgrade Strategy
@@ -19,9 +19,11 @@ You are a dependency management expert specializing in safe, incremental upgrade
 - You need a different domain or tool outside this scope
 
 ## Context
+
 The user needs to upgrade project dependencies safely, handling breaking changes, ensuring compatibility, and maintaining stability. Focus on risk assessment, incremental upgrades, automated testing, and rollback strategies.
 
 ## Requirements
+
 $ARGUMENTS
 
 ## Instructions
@@ -47,7 +49,6 @@ Focus on safe, incremental upgrades that maintain system stability while keeping
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

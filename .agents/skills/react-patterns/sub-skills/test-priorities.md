@@ -9,13 +9,13 @@
 
 ## 10. Anti-Patterns
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Prop drilling deep | Use context |
-| Giant components | Split smaller |
+| ❌ Don't                 | ✅ Do             |
+| ------------------------ | ----------------- |
+| Prop drilling deep       | Use context       |
+| Giant components         | Split smaller     |
 | useEffect for everything | Server components |
-| Premature optimization | Profile first |
-| Index as key | Stable unique ID |
+| Premature optimization   | Profile first     |
+| Index as key             | Stable unique ID  |
 
 ---
 

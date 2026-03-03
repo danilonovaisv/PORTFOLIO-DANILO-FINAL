@@ -1,10 +1,10 @@
 # Multi-Agent Pattern
 
-| Agent | Role |
-|-------|------|
+| Agent   | Role                      |
+| ------- | ------------------------- |
 | Agent A | Write failing tests (RED) |
 | Agent B | Implement to pass (GREEN) |
-| Agent C | Optimize (REFACTOR) |
+| Agent C | Optimize (REFACTOR)       |
 
 ---
 

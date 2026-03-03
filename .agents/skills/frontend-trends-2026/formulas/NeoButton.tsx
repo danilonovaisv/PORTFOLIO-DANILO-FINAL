@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Formula B: Neo-Brutalist Button
- * 
+ *
  * Usage:
  * <NeoButton>Click Me</NeoButton>
  */

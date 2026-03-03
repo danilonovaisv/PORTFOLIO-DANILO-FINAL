@@ -33,7 +33,10 @@ export const createTodo = async (title: string): Promise<Todo> => {
   return response.json();
 };
 
-export const updateTodo = async (id: number, completed: boolean): Promise<Todo> => {
+export const updateTodo = async (
+  id: number,
+  completed: boolean
+): Promise<Todo> => {
   const response = await fetch(`${API_BASE}/todos/${id}`, {
     method: 'PATCH',
     headers: {

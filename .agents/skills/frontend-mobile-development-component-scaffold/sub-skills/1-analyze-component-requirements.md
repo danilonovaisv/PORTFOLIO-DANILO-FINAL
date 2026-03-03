@@ -29,7 +29,7 @@ class ComponentAnalyzer {
       state: this.extractState(input),
       hooks: this.identifyHooks(input),
       styling: this.detectStylingApproach(),
-      platform: this.detectPlatform()
+      platform: this.detectPlatform(),
     };
   }
 }

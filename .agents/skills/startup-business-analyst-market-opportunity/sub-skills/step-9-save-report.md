@@ -1,6 +1,7 @@
 # Step 9: Save Report
 
 Offer to save the report as a markdown file:
+
 - Suggest filename: `market-opportunity-analysis-YYYY-MM-DD.md`
 - Use Write tool to create file
 - Confirm file location with user
@@ -8,6 +9,7 @@ Offer to save the report as a markdown file:
 ## Tips for Best Results
 
 **Do:**
+
 - Start with bottom-up (most credible)
 - Always triangulate with top-down
 - Cite all data sources
@@ -17,6 +19,7 @@ Offer to save the report as a markdown file:
 - Explain any data gaps or limitations
 
 **Don't:**
+
 - Rely solely on top-down
 - Cherry-pick optimistic data
 - Claim >10% SOM without strong justification
@@ -46,6 +49,7 @@ What's your pricing model?
 ## Integration with Other Commands
 
 This command pairs well with:
+
 - `/financial-projections` - Use SOM to build revenue model
 - `/business-case` - Include market sizing in business case
 

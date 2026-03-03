@@ -6,3 +6,4 @@ Where to sell templates
 
 ```javascript
 ## Sales Channels
+```

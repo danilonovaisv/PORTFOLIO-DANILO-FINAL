@@ -3,6 +3,7 @@
 **VULNERABLE**: pickle.loads(), yaml.load() with untrusted data
 
 **SECURE**:
+
 ```python
 import json
 data = json.loads(user_input)  # SECURE

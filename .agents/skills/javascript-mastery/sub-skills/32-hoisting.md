@@ -11,12 +11,12 @@ let b = 5;
 // Function hoisting
 sayHi(); // Works!
 function sayHi() {
-  console.log("Hi!");
+  console.log('Hi!');
 }
 
 // Function expressions don't hoist
 sayBye(); // TypeError
 var sayBye = function () {
-  console.log("Bye!");
+  console.log('Bye!');
 };
 ```

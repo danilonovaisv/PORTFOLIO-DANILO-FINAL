@@ -27,7 +27,7 @@ public static function execute($userid, $courseid, $options = []) {
             WHERE userid = :userid
               AND courseid = :courseid
             LIMIT :limit";
-    
+
     $records = $DB->get_records_sql($sql, [
         'userid' => $params['userid'],
         'courseid' => $params['courseid'],
@@ -52,6 +52,7 @@ public static function execute($userid, $courseid, $options = []) {
 ```
 
 **Critical Steps**:
+
 1. **Always validate parameters** using `validate_parameters()`
 2. **Check context** using `validate_context()`
 3. **Verify capabilities** using `require_capability()`

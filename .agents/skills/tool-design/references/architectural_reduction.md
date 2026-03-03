@@ -9,6 +9,7 @@ A production text-to-SQL agent was rebuilt using architectural reduction princip
 ### Original Architecture (Many Specialized Tools)
 
 The original system included:
+
 - GetEntityJoins: Find relationships between entities
 - LoadCatalog: Load data catalog information
 - RecallContext: Retrieve previous context
@@ -32,6 +33,7 @@ Each tool solved a specific problem the team anticipated the model would face. T
 ### Reduced Architecture (Two Primitive Tools)
 
 The reduced system included:
+
 - ExecuteCommand: Run arbitrary bash commands in a sandbox
 - ExecuteSQL: Run SQL queries against the database
 
@@ -57,12 +59,12 @@ The agent now uses `grep`, `cat`, `find`, and `ls` to navigate YAML, Markdown, a
 
 ### Comparative Results
 
-| Metric | Original (17 tools) | Reduced (2 tools) | Change |
-|--------|---------------------|-------------------|--------|
-| Average execution time | 274.8s | 77.4s | 3.5x faster |
-| Success rate | 80% (4/5) | 100% (5/5) | +20% |
-| Average token usage | ~102k tokens | ~61k tokens | 37% fewer |
-| Average steps | ~12 steps | ~7 steps | 42% fewer |
+| Metric                 | Original (17 tools) | Reduced (2 tools) | Change      |
+| ---------------------- | ------------------- | ----------------- | ----------- |
+| Average execution time | 274.8s              | 77.4s             | 3.5x faster |
+| Success rate           | 80% (4/5)           | 100% (5/5)        | +20%        |
+| Average token usage    | ~102k tokens        | ~61k tokens       | 37% fewer   |
+| Average steps          | ~12 steps           | ~7 steps          | 42% fewer   |
 
 The worst case in the original architecture: 724 seconds, 100 steps, 145,463 tokens, and a failure. The reduced architecture completed the same query in 141 seconds with 19 steps and 67,483 tokens, successfully.
 
@@ -75,6 +77,7 @@ File systems have 50+ years of refinement. Standard Unix tools like `grep` are w
 ### Tools Were Constraining Reasoning
 
 The specialized tools were solving problems the model could handle on its own:
+
 - Pre-filtering context the model could navigate
 - Constraining options the model could evaluate
 - Wrapping interactions in validation logic the model didn't need
@@ -84,6 +87,7 @@ Each guardrail became a maintenance burden. Each model update required recalibra
 ### Good Documentation Replaces Tool Sophistication
 
 The semantic layer was already well-documented:
+
 - Dimension definitions in structured YAML
 - Measure calculations with clear naming
 - Join relationships in navigable files
@@ -108,16 +112,16 @@ def create_execute_tool(sandbox):
         name="execute_command",
         description="""
         Execute a bash command in the sandbox environment.
-        
+
         Use standard Unix tools to explore and understand the data layer:
         - ls: List directory contents
         - cat: Read file contents
         - grep: Search for patterns
         - find: Locate files
-        
+
         The sandbox contains the semantic layer documentation:
         - /data/entities/*.yaml: Entity definitions
-        - /data/measures/*.yaml: Measure calculations  
+        - /data/measures/*.yaml: Measure calculations
         - /data/joins/*.yaml: Join relationships
         - /docs/*.md: Additional documentation
         """,
@@ -171,6 +175,7 @@ Modern models can handle complexity. Constraining reasoning because you don't tr
 ### Invest in Context, Not Tooling
 
 The foundation matters more than clever tooling:
+
 - Clear file naming conventions
 - Well-structured documentation
 - Consistent data organization
@@ -203,8 +208,3 @@ Architectural reduction is not universally applicable, but the principle challen
 - Vercel Engineering: "We removed 80% of our agent's tools" (December 2025)
 - AI SDK ToolLoopAgent documentation
 - Vercel Sandbox documentation
-
-
-
-
-

@@ -12,7 +12,7 @@ alwaysApply: false
 - Employ consistent, descriptive identifiers for tables, columns, and other database objects.
 - Use white space and indentation to enhance the readability of your code.
 - Store dates in ISO 8601 format (`yyyy-mm-ddThh:mm:ss.sssss`).
-- Include comments for complex logic, using '/* ... */' for block comments and '--' for line comments.
+- Include comments for complex logic, using '/_ ... _/' for block comments and '--' for line comments.
 
 ## Naming Conventions
 
@@ -23,7 +23,7 @@ alwaysApply: false
 
 ## Tables
 
-- Avoid prefixes like 'tbl_' and ensure no table name matches any of its column names.
+- Avoid prefixes like 'tbl\_' and ensure no table name matches any of its column names.
 - Always add an `id` column of type `identity generated always` unless otherwise specified.
 - Create all tables in the `public` schema unless otherwise specified.
 - Always add the schema to SQL queries for clarity.
@@ -46,14 +46,12 @@ create table books (
 comment on table books is 'A list of all the books in the library.';
 ```
 
-
 ## Queries
 
 - When the query is shorter keep it on just a few lines. As it gets larger start adding newlines for readability
 - Add spaces for readability.
 
 Smaller queries:
-
 
 ```sql
 select *
@@ -78,7 +76,6 @@ where
 and
   status = 'employed';
 ```
-
 
 ### Joins and Subqueries
 
@@ -106,7 +103,6 @@ select count(*) as total_employees
 from employees
 where end_date is null;
 ```
-
 
 ## Complex queries and CTEs
 

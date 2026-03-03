@@ -1,18 +1,21 @@
-import { createBrowserSupabaseClient, Session } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
-import type { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import '../styles/globals.css'
+import {
+  createBrowserSupabaseClient,
+  Session,
+} from '@supabase/auth-helpers-nextjs';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import '../styles/globals.css';
 
 function MyApp({
   Component,
   pageProps,
 }: AppProps<{
-  initialSession: Session
+  initialSession: Session;
 }>) {
-  const router = useRouter()
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+  const router = useRouter();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   useEffect(() => {
     const {
@@ -20,15 +23,15 @@ function MyApp({
     } = supabaseClient.auth.onAuthStateChange((event, session) => {
       switch (event) {
         case 'SIGNED_IN':
-          router.push('/')
-          return
+          router.push('/');
+          return;
         case 'SIGNED_OUT':
-          router.push('/login')
-          return
+          router.push('/login');
+          return;
       }
-    })
-    return subscription.unsubscribe
-  }, [])
+    });
+    return subscription.unsubscribe;
+  }, []);
 
   return (
     <SessionContextProvider
@@ -37,7 +40,7 @@ function MyApp({
     >
       <Component {...pageProps} />
     </SessionContextProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

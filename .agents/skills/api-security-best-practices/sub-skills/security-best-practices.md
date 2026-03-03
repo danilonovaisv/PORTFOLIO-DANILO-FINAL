@@ -8,4 +8,7 @@
 - ✅ Don't store sensitive data in JWT payload
 - ✅ Validate token issuer and audience
 - ✅ Implement token blacklisting for logout
+
+```
+
 ```

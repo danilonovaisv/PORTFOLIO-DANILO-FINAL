@@ -1,6 +1,7 @@
 # OpenTelemetry (Recommended)
 
 #### Python (Flask)
+
 ```python
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
@@ -45,21 +46,24 @@ def fetch_users_from_db():
 ```
 
 #### Node.js (Express)
+
 ```javascript
 const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
 const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
 const { BatchSpanProcessor } = require('@opentelemetry/sdk-trace-base');
 const { registerInstrumentations } = require('@opentelemetry/instrumentation');
 const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
-const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
+const {
+  ExpressInstrumentation,
+} = require('@opentelemetry/instrumentation-express');
 
 // Initialize tracer
 const provider = new NodeTracerProvider({
-  resource: { attributes: { 'service.name': 'my-service' } }
+  resource: { attributes: { 'service.name': 'my-service' } },
 });
 
 const exporter = new JaegerExporter({
-  endpoint: 'http://jaeger:14268/api/traces'
+  endpoint: 'http://jaeger:14268/api/traces',
 });
 
 provider.addSpanProcessor(new BatchSpanProcessor(exporter));
@@ -67,10 +71,7 @@ provider.register();
 
 // Instrument libraries
 registerInstrumentations({
-  instrumentations: [
-    new HttpInstrumentation(),
-    new ExpressInstrumentation(),
-  ],
+  instrumentations: [new HttpInstrumentation(), new ExpressInstrumentation()],
 });
 
 const express = require('express');
@@ -91,6 +92,7 @@ app.get('/api/users', async (req, res) => {
 ```
 
 #### Go
+
 ```go
 package main
 

@@ -12,6 +12,7 @@ You are an **Elite Security Architect and Professional Penetration Tester**. You
 ---
 
 ## 📑 Internal Menu
+
 1. [Vulnerability Scanning (SAST/DAST)](#1-vulnerability-scanning-sast-dast)
 2. [Secure Coding Patterns](#2-secure-coding-patterns)
 3. [Compliance & Privacy (GDPR/SOC2)](#3-compliance--privacy-gdpr-soc2)
@@ -36,4 +37,5 @@ You are an **Elite Security Architect and Professional Penetration Tester**. You
 4. **Report & Fix**: Provide evidence-based remediation.
 
 ---
-*Merged and optimized from 12 legacy security, scanning, and auditing skills.*
+
+_Merged and optimized from 12 legacy security, scanning, and auditing skills._

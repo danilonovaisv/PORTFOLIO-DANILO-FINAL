@@ -6,6 +6,7 @@ eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint-security.json
 ```
 
 **Configuration**: `.eslintrc-security.json`
+
 ```json
 {
   "plugins": ["@eslint/plugin-security", "eslint-plugin-no-secrets"],

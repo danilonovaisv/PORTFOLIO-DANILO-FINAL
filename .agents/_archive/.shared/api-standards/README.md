@@ -19,7 +19,9 @@ api-standards/
 ## 🚀 Usage
 
 ### 1. Response Format
+
 All APIs must return data wrapped in the structure defined in `data/response_format.json`.
 
 ### 2. Naming
+
 Follow `endpoints_naming.md` (e.g., Kebab-case URLs, CamelCase JSON keys).

@@ -23,7 +23,7 @@ export class ConfigValidator {
     this.ajv = new Ajv({
       allErrors: true,
       strict: false,
-      coerceTypes: true
+      coerceTypes: true,
     });
     ajvFormats(this.ajv);
     this.addCustomFormats();
@@ -35,18 +35,20 @@ export class ConfigValidator {
       validate: (data: string) => {
         try {
           return new URL(data).protocol === 'https:';
-        } catch { return false; }
-      }
+        } catch {
+          return false;
+        }
+      },
     });
 
     this.ajv.addFormat('port', {
       type: 'number',
-      validate: (data: number) => data >= 1 && data <= 65535
+      validate: (data: number) => data >= 1 && data <= 65535,
     });
 
     this.ajv.addFormat('duration', {
       type: 'string',
-      validate: /^\d+[smhd]$/
+      validate: /^\d+[smhd]$/,
     });
   }
 
@@ -59,11 +61,11 @@ export class ConfigValidator {
     if (!valid && validate.errors) {
       return {
         valid: false,
-        errors: validate.errors.map(error => ({
+        errors: validate.errors.map((error) => ({
           path: error.instancePath || '/',
           message: error.message || 'Validation error',
-          keyword: error.keyword
-        }))
+          keyword: error.keyword,
+        })),
       };
     }
     return { valid: true };
@@ -83,12 +85,12 @@ export const schemas = {
       ssl: {
         type: 'object',
         properties: {
-          enabled: { type: 'boolean' }
+          enabled: { type: 'boolean' },
         },
-        required: ['enabled']
-      }
+        required: ['enabled'],
+      },
     },
-    required: ['host', 'port', 'database', 'user', 'password']
-  }
+    required: ['host', 'port', 'database', 'user', 'password'],
+  },
 };
 ```

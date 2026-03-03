@@ -1,6 +1,7 @@
 # Finding Errors
 
 **Jaeger Query:**
+
 ```
 service=my-service
 error=true

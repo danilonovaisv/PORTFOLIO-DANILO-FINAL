@@ -1,6 +1,7 @@
 # LinkedIn Post Templates
 
 **The Story Post:**
+
 ```
 [Hook: Unexpected outcome or lesson]
 
@@ -20,6 +21,7 @@
 ```
 
 **The Contrarian Take:**
+
 ```
 [Unpopular opinion stated boldly]
 
@@ -35,6 +37,7 @@ Here's why:
 ```
 
 **The List Post:**
+
 ```
 [X things I learned about [topic] after [credibility builder]:
 
@@ -50,6 +53,7 @@ Which resonates most with you?
 ```
 
 **The How-To:**
+
 ```
 How to [achieve outcome] in [timeframe]:
 

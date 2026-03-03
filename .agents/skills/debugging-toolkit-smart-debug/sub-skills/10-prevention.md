@@ -12,18 +12,18 @@
 
 // 1. Initial analysis
 const analysis = await aiAnalyze({
-  error: "Payment processing timeout",
-  frequency: "5% of checkouts",
-  environment: "production"
+  error: 'Payment processing timeout',
+  frequency: '5% of checkouts',
+  environment: 'production',
 });
 // AI suggests: "Likely N+1 query or external API timeout"
 
 // 2. Gather observability data
-const sentryData = await getSentryIssue("CHECKOUT_TIMEOUT");
+const sentryData = await getSentryIssue('CHECKOUT_TIMEOUT');
 const ddTraces = await getDataDogTraces({
-  service: "checkout",
-  operation: "process_payment",
-  duration: ">5000ms"
+  service: 'checkout',
+  operation: 'process_payment',
+  duration: '>5000ms',
 });
 
 // 3. Analyze traces
@@ -49,6 +49,7 @@ span.setAttribute('debug.paymentMethodId', methodId);
 ## Output Format
 
 Provide structured report:
+
 1. **Issue Summary**: Error, frequency, impact
 2. **Root Cause**: Detailed diagnosis with evidence
 3. **Fix Proposal**: Code changes, risk, impact

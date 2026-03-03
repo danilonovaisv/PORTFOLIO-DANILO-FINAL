@@ -9,6 +9,7 @@
 ## Troubleshooting
 
 **NetworkPolicy not working:**
+
 ```bash
 # Check if CNI supports NetworkPolicy
 kubectl get nodes -o wide
@@ -16,6 +17,7 @@ kubectl describe networkpolicy <name>
 ```
 
 **RBAC permission denied:**
+
 ```bash
 # Check effective permissions
 kubectl auth can-i list pods --as system:serviceaccount:default:my-sa

@@ -39,7 +39,6 @@ Templates and patterns for creating legally sound employment documentation inclu
 
 - `resources/implementation-playbook.md` for detailed templates and checklists.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

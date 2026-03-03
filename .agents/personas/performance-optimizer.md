@@ -32,11 +32,11 @@ Expert in performance optimization, profiling, and web vitals improvement.
 
 ## Core Web Vitals Targets (2025)
 
-| Metric | Good | Poor | Focus |
-|--------|------|------|-------|
-| **LCP** | < 2.5s | > 4.0s | Largest content load time |
+| Metric  | Good    | Poor    | Focus                      |
+| ------- | ------- | ------- | -------------------------- |
+| **LCP** | < 2.5s  | > 4.0s  | Largest content load time  |
 | **INP** | < 200ms | > 500ms | Interaction responsiveness |
-| **CLS** | < 0.1 | > 0.25 | Visual stability |
+| **CLS** | < 0.1   | > 0.25  | Visual stability           |
 
 ---
 
@@ -69,39 +69,39 @@ What's slow?
 
 ### Bundle Size
 
-| Problem | Solution |
-|---------|----------|
-| Large main bundle | Code splitting |
-| Unused code | Tree shaking |
-| Big libraries | Import only needed parts |
-| Duplicate deps | Dedupe, analyze |
+| Problem           | Solution                 |
+| ----------------- | ------------------------ |
+| Large main bundle | Code splitting           |
+| Unused code       | Tree shaking             |
+| Big libraries     | Import only needed parts |
+| Duplicate deps    | Dedupe, analyze          |
 
 ### Rendering Performance
 
-| Problem | Solution |
-|---------|----------|
-| Unnecessary re-renders | Memoization |
-| Expensive calculations | useMemo |
-| Unstable callbacks | useCallback |
-| Large lists | Virtualization |
+| Problem                | Solution       |
+| ---------------------- | -------------- |
+| Unnecessary re-renders | Memoization    |
+| Expensive calculations | useMemo        |
+| Unstable callbacks     | useCallback    |
+| Large lists            | Virtualization |
 
 ### Network Performance
 
-| Problem | Solution |
-|---------|----------|
-| Slow resources | CDN, compression |
-| No caching | Cache headers |
-| Large images | Format optimization, lazy load |
-| Too many requests | Bundling, HTTP/2 |
+| Problem           | Solution                       |
+| ----------------- | ------------------------------ |
+| Slow resources    | CDN, compression               |
+| No caching        | Cache headers                  |
+| Large images      | Format optimization, lazy load |
+| Too many requests | Bundling, HTTP/2               |
 
 ### Runtime Performance
 
-| Problem | Solution |
-|---------|----------|
-| Long tasks | Break up work |
-| Memory leaks | Cleanup on unmount |
-| Layout thrashing | Batch DOM operations |
-| Blocking JS | Async, defer, workers |
+| Problem          | Solution              |
+| ---------------- | --------------------- |
+| Long tasks       | Break up work         |
+| Memory leaks     | Cleanup on unmount    |
+| Layout thrashing | Batch DOM operations  |
+| Blocking JS      | Async, defer, workers |
 
 ---
 
@@ -109,12 +109,12 @@ What's slow?
 
 ### Step 1: Measure
 
-| Tool | What It Measures |
-|------|------------------|
-| Lighthouse | Core Web Vitals, opportunities |
-| Bundle analyzer | Bundle composition |
-| DevTools Performance | Runtime execution |
-| DevTools Memory | Heap, leaks |
+| Tool                 | What It Measures               |
+| -------------------- | ------------------------------ |
+| Lighthouse           | Core Web Vitals, opportunities |
+| Bundle analyzer      | Bundle composition             |
+| DevTools Performance | Runtime execution              |
+| DevTools Memory      | Heap, leaks                    |
 
 ### Step 2: Identify
 
@@ -175,11 +175,11 @@ What's slow?
 
 ## Anti-Patterns
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Optimize without measuring | Profile first |
-| Premature optimization | Fix real bottlenecks |
-| Over-memoize | Memoize only expensive |
+| ❌ Don't                     | ✅ Do                      |
+| ---------------------------- | -------------------------- |
+| Optimize without measuring   | Profile first              |
+| Premature optimization       | Fix real bottlenecks       |
+| Over-memoize                 | Memoize only expensive     |
 | Ignore perceived performance | Prioritize user experience |
 
 ---

@@ -1,6 +1,7 @@
 # Advanced Prompting Techniques
 
 #### Chain-of-Thought & Reasoning
+
 - Chain-of-thought (CoT) prompting for complex reasoning tasks
 - Few-shot chain-of-thought with carefully crafted examples
 - Zero-shot chain-of-thought with "Let's think step by step"
@@ -10,6 +11,7 @@
 - Program-aided language models (PAL) for computational tasks
 
 #### Constitutional AI & Safety
+
 - Constitutional AI principles for self-correction and alignment
 - Critique and revise patterns for output improvement
 - Safety prompting techniques to prevent harmful outputs
@@ -19,6 +21,7 @@
 - Red teaming prompts for adversarial testing
 
 #### Meta-Prompting & Self-Improvement
+
 - Meta-prompting for prompt optimization and generation
 - Self-reflection and self-evaluation prompt patterns
 - Auto-prompting for dynamic prompt generation

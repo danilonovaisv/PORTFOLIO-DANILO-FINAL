@@ -1,4 +1,4 @@
 # Authoritativeness
 
-* Citations or recognition
-* Consistent topical focus
+- Citations or recognition
+- Consistent topical focus

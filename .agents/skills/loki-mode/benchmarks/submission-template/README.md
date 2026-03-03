@@ -6,15 +6,15 @@
 
 ## Results
 
-| Metric | Value |
-|--------|-------|
+| Metric                    | Value                |
+| ------------------------- | -------------------- |
 | **Patch Generation Rate** | **99.67%** (299/300) |
-| Problems Solved | 299 |
-| Total Problems | 300 |
-| Fixed by RARV Retry | 0 |
-| Average Attempts | 1.0 |
-| Total Time | ~3.5 hours |
-| Avg Time/Problem | 42s |
+| Problems Solved           | 299                  |
+| Total Problems            | 300                  |
+| Fixed by RARV Retry       | 0                    |
+| Average Attempts          | 1.0                  |
+| Total Time                | ~3.5 hours           |
+| Avg Time/Problem          | 42s                  |
 
 ## System Architecture
 
@@ -28,12 +28,12 @@ Issue -> [Architect] -> [Engineer] -> [QA] -> [Reviewer] -> Patch
 
 ### Agent Roles
 
-| Agent | Role | Model | Timeout |
-|-------|------|-------|---------|
-| **Architect** | Analyze issue, identify files, design fix approach | Claude Opus 4.5 | 120s |
-| **Engineer** | Generate patch based on architect's analysis | Claude Opus 4.5 | 300s |
-| **QA** | Validate patch format (diff headers, hunks, paths) | Rule-based | 5s |
-| **Reviewer** | Analyze format issues, provide feedback for retry | Claude Opus 4.5 | 60s |
+| Agent         | Role                                               | Model           | Timeout |
+| ------------- | -------------------------------------------------- | --------------- | ------- |
+| **Architect** | Analyze issue, identify files, design fix approach | Claude Opus 4.5 | 120s    |
+| **Engineer**  | Generate patch based on architect's analysis       | Claude Opus 4.5 | 300s    |
+| **QA**        | Validate patch format (diff headers, hunks, paths) | Rule-based      | 5s      |
+| **Reviewer**  | Analyze format issues, provide feedback for retry  | Claude Opus 4.5 | 60s     |
 
 ### RARV Cycle
 
@@ -48,10 +48,10 @@ Maximum 3 retry attempts per problem.
 
 ## Comparison with Baselines
 
-| System | SWE-bench Lite Patch Gen |
-|--------|--------------------------|
-| **Loki Mode (multi-agent)** | **99.67%** (299/300) |
-| Direct Claude (single agent) | 99.67% (299/300) |
+| System                       | SWE-bench Lite Patch Gen |
+| ---------------------------- | ------------------------ |
+| **Loki Mode (multi-agent)**  | **99.67%** (299/300)     |
+| Direct Claude (single agent) | 99.67% (299/300)         |
 
 After timeout optimization, the multi-agent RARV pipeline matches single-agent performance.
 

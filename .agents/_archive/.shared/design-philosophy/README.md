@@ -20,13 +20,17 @@ design-philosophy/
 ## 🚀 Usage
 
 ### 1. Read the Manifesto
+
 Before designing any screen, read `MANIFESTO.md` to align your mindset.
 
 ### 2. Run an Audit
+
 After implementing a UI, use the checklists to verify quality.
+
 ```bash
 # Example: "Agent, please audit this page using the Tactile Checklist"
 ```
 
 ### 3. Use Presets
+
 Don't reinvent the wheel. Use the JSON presets for complex effects like "Subtle Border Glow".

@@ -26,7 +26,7 @@ Here's the code of the Edge Function, you can change the response to handle the 
 import { serve } from 'https://deno.land/std@0.197.0/http/server.ts';
 import { WebClient } from 'https://deno.land/x/slack_web_api@6.7.2/mod.js';
 
-const slackBotToken = Deno.env.get("SLACK_TOKEN") ?? "";
+const slackBotToken = Deno.env.get('SLACK_TOKEN') ?? '';
 const botClient = new WebClient(slackBotToken);
 
 console.log(`Slack URL verification function up and running!`);

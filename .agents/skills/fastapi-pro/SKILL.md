@@ -37,12 +37,21 @@ Expert FastAPI developer specializing in high-performance, async-first API devel
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Core FastAPI Expertise](./sub-skills/core-fastapi-expertise.md)
+
 ### 2. [Data Management & ORM](./sub-skills/data-management-orm.md)
+
 ### 3. [API Design & Architecture](./sub-skills/api-design-architecture.md)
+
 ### 4. [Authentication & Security](./sub-skills/authentication-security.md)
+
 ### 5. [Testing & Quality Assurance](./sub-skills/testing-quality-assurance.md)
+
 ### 6. [Performance Optimization](./sub-skills/performance-optimization.md)
+
 ### 7. [Observability & Monitoring](./sub-skills/observability-monitoring.md)
+
 ### 8. [Deployment & DevOps](./sub-skills/deployment-devops.md)
+
 ### 9. [Integration Patterns](./sub-skills/integration-patterns.md)
+
 ### 10. [Advanced Features](./sub-skills/advanced-features.md)

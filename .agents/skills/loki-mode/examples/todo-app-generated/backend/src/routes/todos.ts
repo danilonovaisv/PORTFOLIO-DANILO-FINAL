@@ -6,22 +6,25 @@ const router = Router();
 
 // GET /api/todos - Retrieve all todos
 router.get('/todos', (_req: Request, res: Response): void => {
-  db.all('SELECT * FROM todos ORDER BY createdAt DESC', (err: any, rows: Todo[]) => {
-    if (err) {
-      const errorResponse: ApiResponse<null> = {
-        success: false,
-        error: 'Database error',
-      };
-      res.status(500).json(errorResponse);
-      return;
-    }
+  db.all(
+    'SELECT * FROM todos ORDER BY createdAt DESC',
+    (err: any, rows: Todo[]) => {
+      if (err) {
+        const errorResponse: ApiResponse<null> = {
+          success: false,
+          error: 'Database error',
+        };
+        res.status(500).json(errorResponse);
+        return;
+      }
 
-    const successResponse: ApiResponse<Todo[]> = {
-      success: true,
-      data: rows || [],
-    };
-    res.json(successResponse);
-  });
+      const successResponse: ApiResponse<Todo[]> = {
+        success: true,
+        data: rows || [],
+      };
+      res.json(successResponse);
+    }
+  );
 });
 
 // POST /api/todos - Create new todo
@@ -30,7 +33,9 @@ router.post('/todos', (req: Request, res: Response): void => {
 
   // Validation
   if (!title || typeof title !== 'string' || title.trim() === '') {
-    res.status(400).json({ error: 'Title is required and must be a non-empty string' });
+    res
+      .status(400)
+      .json({ error: 'Title is required and must be a non-empty string' });
     return;
   }
 
@@ -40,25 +45,31 @@ router.post('/todos', (req: Request, res: Response): void => {
   db.run(
     'INSERT INTO todos (title, completed, createdAt, updatedAt) VALUES (?, ?, ?, ?)',
     [trimmedTitle, 0, now, now],
-    function(this: any, err: Error | null) {
+    function (this: any, err: Error | null) {
       if (err) {
         res.status(500).json({ error: 'Database error', details: err.message });
         return;
       }
 
       // Return created todo
-      db.get('SELECT * FROM todos WHERE id = ?', [this.lastID], (err: any, row: Todo) => {
-        if (err) {
-          res.status(500).json({ error: 'Database error', details: err.message });
-          return;
-        }
+      db.get(
+        'SELECT * FROM todos WHERE id = ?',
+        [this.lastID],
+        (err: any, row: Todo) => {
+          if (err) {
+            res
+              .status(500)
+              .json({ error: 'Database error', details: err.message });
+            return;
+          }
 
-        const successResponse: ApiResponse<Todo> = {
-          success: true,
-          data: row,
-        };
-        res.status(201).json(successResponse);
-      });
+          const successResponse: ApiResponse<Todo> = {
+            success: true,
+            data: row,
+          };
+          res.status(201).json(successResponse);
+        }
+      );
     }
   );
 });
@@ -91,25 +102,33 @@ router.patch('/todos/:id', (req: Request, res: Response): void => {
     db.run(
       'UPDATE todos SET completed = ?, updatedAt = ? WHERE id = ?',
       [completed ? 1 : 0, now, id],
-      function(err: Error | null) {
+      function (err: Error | null) {
         if (err) {
-          res.status(500).json({ error: 'Database error', details: err.message });
+          res
+            .status(500)
+            .json({ error: 'Database error', details: err.message });
           return;
         }
 
         // Return updated todo
-        db.get('SELECT * FROM todos WHERE id = ?', [id], (err: any, updatedRow: Todo) => {
-          if (err) {
-            res.status(500).json({ error: 'Database error', details: err.message });
-            return;
-          }
+        db.get(
+          'SELECT * FROM todos WHERE id = ?',
+          [id],
+          (err: any, updatedRow: Todo) => {
+            if (err) {
+              res
+                .status(500)
+                .json({ error: 'Database error', details: err.message });
+              return;
+            }
 
-          const successResponse: ApiResponse<Todo> = {
-            success: true,
-            data: updatedRow,
-          };
-          res.json(successResponse);
-        });
+            const successResponse: ApiResponse<Todo> = {
+              success: true,
+              data: updatedRow,
+            };
+            res.json(successResponse);
+          }
+        );
       }
     );
   });
@@ -140,9 +159,11 @@ router.delete('/todos/:id', (req: Request, res: Response): void => {
     db.run(
       'DELETE FROM todos WHERE id = ?',
       [id],
-      function(err: Error | null) {
+      function (err: Error | null) {
         if (err) {
-          res.status(500).json({ error: 'Database error', details: err.message });
+          res
+            .status(500)
+            .json({ error: 'Database error', details: err.message });
           return;
         }
 

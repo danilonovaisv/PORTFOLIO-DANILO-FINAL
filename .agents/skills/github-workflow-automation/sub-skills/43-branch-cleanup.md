@@ -43,3 +43,4 @@ jobs:
 The following branches haven't been updated in over 30 days:
 
 ${branches.map(b => `- \`${b}\``).join('\n')}
+```

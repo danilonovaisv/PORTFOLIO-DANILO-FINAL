@@ -33,6 +33,8 @@
 
 - [Event Sourcing by Martin Fowler](https://martinfowler.com/eaaDev/EventSourcing.html)
 - [EventStoreDB Documentation](https://www.eventstore.com/docs)
+
 ```
 
 ## ADR Management
+```

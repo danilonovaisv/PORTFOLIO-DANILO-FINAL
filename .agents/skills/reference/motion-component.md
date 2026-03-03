@@ -59,7 +59,7 @@ The target state to animate to.
 The state to animate to when removed (requires `AnimatePresence`).
 
 ```tsx
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
 
 <AnimatePresence>
   {isVisible && (
@@ -71,7 +71,7 @@ import { AnimatePresence, motion } from "framer-motion";
       I animate out when removed
     </motion.div>
   )}
-</AnimatePresence>
+</AnimatePresence>;
 ```
 
 ### transition
@@ -138,10 +138,7 @@ Animate while hovering.
 Animate while pressing/clicking.
 
 ```tsx
-<motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
+<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
   Click me
 </motion.button>
 ```
@@ -151,9 +148,7 @@ Animate while pressing/clicking.
 Animate while focused.
 
 ```tsx
-<motion.input
-  whileFocus={{ scale: 1.02, borderColor: "#3b82f6" }}
-/>
+<motion.input whileFocus={{ scale: 1.02, borderColor: '#3b82f6' }} />
 ```
 
 ### whileInView
@@ -175,10 +170,7 @@ Animate when element enters viewport.
 Animate while dragging.
 
 ```tsx
-<motion.div
-  drag
-  whileDrag={{ scale: 1.1, cursor: "grabbing" }}
->
+<motion.div drag whileDrag={{ scale: 1.1, cursor: 'grabbing' }}>
   Drag me
 </motion.div>
 ```
@@ -229,11 +221,7 @@ const constraintsRef = useRef(null);
 How far element can be dragged past constraints (0-1).
 
 ```tsx
-<motion.div
-  drag
-  dragConstraints={{ left: 0, right: 0 }}
-  dragElastic={0.1}
->
+<motion.div drag dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1}>
   Slightly elastic
 </motion.div>
 ```
@@ -374,18 +362,15 @@ Transform properties are GPU-accelerated:
 ## Custom Components
 
 ```tsx
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 // Create motion version of custom component
 const MotionButton = motion(Button);
 
-<MotionButton
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
+<MotionButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
   Animated Button
-</MotionButton>
+</MotionButton>;
 ```
 
 ## SVG Animation
@@ -398,7 +383,7 @@ const MotionButton = motion(Button);
     r="40"
     initial={{ pathLength: 0 }}
     animate={{ pathLength: 1 }}
-    transition={{ duration: 2, ease: "easeInOut" }}
+    transition={{ duration: 2, ease: 'easeInOut' }}
   />
 
   <motion.path

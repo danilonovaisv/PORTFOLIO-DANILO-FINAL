@@ -2,19 +2,19 @@
 
 **Good**
 
-* Entry point
-* Limited usage
-* Removes friction
+- Entry point
+- Limited usage
+- Removes friction
 
 **Better (Anchor)**
 
-* Where most customers should land
-* Full core value
-* Best value-per-dollar
+- Where most customers should land
+- Full core value
+- Best value-per-dollar
 
 **Best**
 
-* Power users / enterprise
-* Advanced controls, scale, support
+- Power users / enterprise
+- Advanced controls, scale, support
 
 ---

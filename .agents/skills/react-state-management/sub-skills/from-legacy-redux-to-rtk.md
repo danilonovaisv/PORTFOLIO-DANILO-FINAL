@@ -2,14 +2,14 @@
 
 ```typescript
 // Before (legacy Redux)
-const ADD_TODO = 'ADD_TODO'
-const addTodo = (text) => ({ type: ADD_TODO, payload: text })
+const ADD_TODO = 'ADD_TODO';
+const addTodo = (text) => ({ type: ADD_TODO, payload: text });
 function todosReducer(state = [], action) {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, { text: action.payload, completed: false }]
+      return [...state, { text: action.payload, completed: false }];
     default:
-      return state
+      return state;
   }
 }
 
@@ -20,10 +20,10 @@ const todosSlice = createSlice({
   reducers: {
     addTodo: (state, action: PayloadAction<string>) => {
       // Immer allows "mutations"
-      state.push({ text: action.payload, completed: false })
+      state.push({ text: action.payload, completed: false });
     },
   },
-})
+});
 ```
 
 ## Resources

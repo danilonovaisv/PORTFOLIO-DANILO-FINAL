@@ -5,11 +5,13 @@ This document provides detailed specifications for common design systems used in
 ## 企业微信 (WeChat Work) Style
 
 ### Core Characteristics
+
 - **Simplicity & Professionalism**: Clean interface with clear information hierarchy
 - **Operational Clarity**: Clear action paths with explicit next steps
 - **Tech Blue**: Primary color scheme emphasizing efficiency and trust
 
 ### Color Palette
+
 ```
 Primary Colors:
 - Tech Blue: #3478F6 (buttons, icons, emphasis)
@@ -29,6 +31,7 @@ Neutral Colors:
 ### Component Specifications
 
 #### Cards
+
 - Background: White (#FFFFFF)
 - Border Radius: 8px (rounded-lg)
 - Shadow: Subtle (shadow-sm)
@@ -36,29 +39,34 @@ Neutral Colors:
 - Spacing: 12px between cards
 
 #### Buttons
+
 - Primary: Blue background (#3478F6), white text
 - Height: 44px
 - Border Radius: 4px (rounded)
 - Active State: 90% opacity (active:opacity-90)
 
 #### Icons
+
 - Style: Rounded square background (rounded-lg) or pure icon
 - Primary Icons: Tech Blue (#3478F6)
 - Sizes: 24px / 32px / 48px
 
 #### List Items
+
 - Layout: Left icon/avatar (48px) + Title (15px bold) + Subtitle (13px gray) + Right arrow
 - Height: 64px
 - Divider: Left indent 64px (aligned with content)
 - Active State: Gray background (active:bg-gray-50)
 
 #### Navigation Bar (Top)
+
 - Height: 44px
 - Title: Centered, 16px bold, deep black
 - Background: White with 1px bottom border (border-gray-200)
 - Icons: Search and menu icons on right
 
 #### Tab Bar (Bottom)
+
 - Height: 50px
 - Layout: Icon + Text (vertical)
 - Selected: Tech Blue (#3478F6)
@@ -67,6 +75,7 @@ Neutral Colors:
 - Badge Support: Red circular badge with white text
 
 ### Typography
+
 - System Default: Sans-serif
 - Headings: font-semibold or font-bold
 - Title: 16px bold
@@ -75,12 +84,14 @@ Neutral Colors:
 - Helper Text: 13px gray
 
 ### Spacing & Layout
+
 - Page Margins: 16px (left/right)
 - Card Spacing: 12px
 - Content Padding: 16px
 - Mobile Width: 375px (max-w-[375px])
 
 ### Interaction Patterns
+
 - Tap Feedback: Background changes to light gray (bg-gray-50)
 - Button Press: Opacity reduces to 90%
 - Card Elevation: Subtle shadow (shadow-sm)
@@ -91,11 +102,13 @@ Neutral Colors:
 ## iOS Native Style
 
 ### Core Characteristics
+
 - **Minimalism**: Clean, spacious layouts with generous whitespace
 - **Clarity**: Clear visual hierarchy and focus on content
 - **Depth**: Subtle shadows and layering to create depth
 
 ### Color Palette
+
 ```
 System Colors:
 - Blue: #007AFF (primary actions, links)
@@ -119,12 +132,14 @@ Text Colors:
 ### Component Specifications
 
 #### Navigation Bar
+
 - Height: 44px (compact), 96px (large title)
 - Title: 34px bold (large), 17px semibold (inline)
 - Background: Translucent blur effect
 - Buttons: Text or icon, 17px regular
 
 #### Tab Bar
+
 - Height: 49px
 - Layout: Icon + Text (vertical, 10pt text)
 - Selected: Blue (#007AFF)
@@ -133,24 +148,28 @@ Text Colors:
 - Blur Effect: Translucent background
 
 #### List/Table View
+
 - Cell Height: 44px minimum
 - Layout: Left accessory + Title + Detail + Right accessory/chevron
 - Separator: 0.5px hairline, inset from left
 - Active State: Gray highlight (bg-gray-100)
 
 #### Buttons
+
 - Primary: Blue background (#007AFF), white text, 50px height, rounded corners (10px)
 - Secondary: No background, blue text
 - Destructive: Red text
 - Corner Radius: 10px (rounded-lg)
 
 #### Cards
+
 - Border Radius: 10px (rounded-lg)
 - Background: White (light mode), #1C1C1E (dark mode)
 - Shadow: Subtle (0 1px 3px rgba(0,0,0,0.1))
 - Padding: 16px
 
 ### Typography (San Francisco Font)
+
 - Large Title: 34px bold
 - Title 1: 28px regular
 - Title 2: 22px regular
@@ -164,11 +183,13 @@ Text Colors:
 - Caption 2: 11px regular
 
 ### Spacing
+
 - Edge Margins: 16px (standard), 20px (large screens)
 - Inter-Element Spacing: 8px / 16px / 24px
 - Section Spacing: 32px
 
 ### Interaction Patterns
+
 - Tap Feedback: Subtle highlight (no ripple effect)
 - Swipe Gestures: Swipe to delete, swipe back navigation
 - Pull to Refresh: System spinner at top
@@ -179,11 +200,13 @@ Text Colors:
 ## Material Design (Google) Style
 
 ### Core Characteristics
+
 - **Material Metaphor**: Physical surfaces and realistic motion
 - **Bold Graphics**: Intentional use of color, imagery, typography
 - **Motion**: Meaningful animations that provide feedback
 
 ### Color Palette
+
 ```
 Primary Colors:
 - Primary: #6200EE (brand color, main actions)
@@ -211,6 +234,7 @@ Text Colors:
 ### Component Specifications
 
 #### App Bar (Top)
+
 - Height: 56px (mobile), 64px (desktop)
 - Title: 20px medium weight
 - Background: Primary color or white
@@ -218,6 +242,7 @@ Text Colors:
 - Elevation: 4dp
 
 #### Bottom Navigation
+
 - Height: 56px
 - Layout: Icon (24px) + Label (12px)
 - Active: Primary color with ripple effect
@@ -225,12 +250,14 @@ Text Colors:
 - Elevation: 8dp
 
 #### Cards
+
 - Border Radius: 4px (rounded)
 - Background: White (light), #1E1E1E (dark)
 - Elevation: 1dp (resting), 8dp (raised)
 - Padding: 16px
 
 #### Buttons
+
 - Contained: Primary color background, white text, 36px height, 4px radius
 - Outlined: 1px border, primary color text, transparent background
 - Text: No border/background, primary color text
@@ -238,6 +265,7 @@ Text Colors:
 - Ripple Effect: Material ripple on tap
 
 #### Lists
+
 - Item Height: 48px (single-line), 64px (two-line), 88px (three-line)
 - Left Icon: 24px (40px container)
 - Right Icon: 24px
@@ -245,6 +273,7 @@ Text Colors:
 - Ripple Effect: On tap
 
 #### Floating Action Button (FAB)
+
 - Size: 56px (standard), 40px (mini)
 - Shape: Circular
 - Color: Secondary color
@@ -252,6 +281,7 @@ Text Colors:
 - Icon: 24px white
 
 ### Typography (Roboto Font)
+
 - H1: 96px light
 - H2: 60px light
 - H3: 48px regular
@@ -267,6 +297,7 @@ Text Colors:
 - Overline: 10px regular, uppercase
 
 ### Spacing & Grid
+
 - Base Unit: 8dp
 - Layout Grid: 8dp increments
 - Margins: 16dp (mobile), 24dp (tablet)
@@ -274,6 +305,7 @@ Text Colors:
 - Touch Target: 48dp minimum
 
 ### Elevation System
+
 - Level 0: 0dp (background)
 - Level 1: 1dp (cards at rest)
 - Level 2: 2dp (buttons at rest)
@@ -286,6 +318,7 @@ Text Colors:
 - Level 24: 24dp (dialog, picker)
 
 ### Interaction Patterns
+
 - Ripple Effect: Circular expanding animation from tap point
 - State Changes: Smooth color transitions (300ms)
 - Entry/Exit Animations: Fade + scale/slide
@@ -296,11 +329,13 @@ Text Colors:
 ## Ant Design Mobile Style
 
 ### Core Characteristics
+
 - **Enterprise-Grade**: Professional UI for business applications
 - **Efficiency-Oriented**: Optimized for quick task completion
 - **Consistent**: Unified design language across platforms
 
 ### Color Palette
+
 ```
 Primary Colors:
 - Brand Blue: #108EE9 (primary actions)
@@ -322,6 +357,7 @@ Neutral Colors:
 ### Component Specifications
 
 #### Navigation Bar
+
 - Height: 45px
 - Title: 18px bold, centered
 - Background: #108EE9 or white
@@ -329,6 +365,7 @@ Neutral Colors:
 - Border Bottom: 1px (#E9E9E9)
 
 #### Tab Bar
+
 - Height: 50px
 - Layout: Icon (22px) + Text (10px)
 - Active: Brand blue (#108EE9)
@@ -336,6 +373,7 @@ Neutral Colors:
 - Badge: Red dot or number
 
 #### List
+
 - Item Height: 44px minimum
 - Left Icon: 22px (44px container)
 - Right Arrow: 16px
@@ -343,12 +381,14 @@ Neutral Colors:
 - Active State: #DDDDDD background
 
 #### Buttons
+
 - Default: 47px height, 5px radius
 - Primary: Blue background (#108EE9), white text
 - Ghost: Transparent background, blue border and text
 - Disabled: Gray with 60% opacity
 
 #### Cards
+
 - Border Radius: 2px (rounded-sm)
 - Background: White
 - Border: 1px (#E9E9E9) or none
@@ -356,6 +396,7 @@ Neutral Colors:
 - Padding: 15px
 
 ### Typography (System Default)
+
 - Heading: 18px bold
 - Subheading: 15px bold
 - Body: 14px regular
@@ -363,6 +404,7 @@ Neutral Colors:
 - Button: 16px medium
 
 ### Spacing
+
 - Base Unit: 5px
 - Standard Spacing: 15px
 - Edge Margins: 15px
@@ -380,6 +422,7 @@ When generating a prototype prompt, reference the appropriate design system base
 4. **Ant Design Mobile**: Use for enterprise mobile applications with complex data and forms
 
 For each design system, include:
+
 - Complete color palette with hex codes
 - Component specifications (dimensions, spacing, states)
 - Typography scale (sizes, weights, line heights)

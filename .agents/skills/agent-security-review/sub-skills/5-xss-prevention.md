@@ -1,6 +1,7 @@
 # 5. XSS Prevention
 
 #### Sanitize HTML
+
 ```typescript
 import DOMPurify from 'isomorphic-dompurify'
 
@@ -15,6 +16,7 @@ function renderUserContent(html: string) {
 ```
 
 #### Content Security Policy
+
 ```typescript
 // next.config.js
 const securityHeaders = [
@@ -27,12 +29,15 @@ const securityHeaders = [
       img-src 'self' data: https:;
       font-src 'self';
       connect-src 'self' https://api.example.com;
-    `.replace(/\s{2,}/g, ' ').trim()
-  }
-]
+    `
+      .replace(/\s{2,}/g, ' ')
+      .trim(),
+  },
+];
 ```
 
 #### Verification Steps
+
 - [ ] User-provided HTML sanitized
 - [ ] CSP headers configured
 - [ ] No unvalidated dynamic content rendering

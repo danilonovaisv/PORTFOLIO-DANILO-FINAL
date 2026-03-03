@@ -5,6 +5,7 @@
   - Pass refined insights between agents
   - Support incremental review refinement
 - **Context Propagation Model**:
+
   ```python
   class ReviewContext:
       def __init__(self, target, metadata):

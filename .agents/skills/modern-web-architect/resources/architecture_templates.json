@@ -1,7 +1,12 @@
 {
   "project_structure": {
     "nextjs": ["app", "components", "lib", "hooks", "services", "types"],
-    "react_clean": ["src/components", "src/features", "src/services", "src/store"]
+    "react_clean": [
+      "src/components",
+      "src/features",
+      "src/services",
+      "src/store"
+    ]
   },
   "naming_conventions": {
     "files": "kebab-case",

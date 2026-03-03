@@ -1,6 +1,7 @@
 # 10. Dependency Security
 
 #### Regular Updates
+
 ```bash
 # Check for vulnerabilities
 npm audit
@@ -16,6 +17,7 @@ npm outdated
 ```
 
 #### Lock Files
+
 ```bash
 # ALWAYS commit lock files
 git add package-lock.json
@@ -25,6 +27,7 @@ npm ci  # Instead of npm install
 ```
 
 #### Verification Steps
+
 - [ ] Dependencies up to date
 - [ ] No known vulnerabilities (npm audit clean)
 - [ ] Lock files committed

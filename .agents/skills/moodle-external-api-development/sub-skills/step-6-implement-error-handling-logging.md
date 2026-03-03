@@ -17,7 +17,7 @@ public static function execute($userid, $courseid) {
 
     try {
         self::log_debug("API called: userid=$userid, courseid=$courseid");
-        
+
         // Validate parameters
         $params = self::validate_parameters(self::execute_parameters(), [
             'userid' => $userid,
@@ -25,7 +25,7 @@ public static function execute($userid, $courseid) {
         ]);
 
         // Your logic here
-        
+
         self::log_debug("API completed successfully");
         return $result;
 
@@ -47,6 +47,7 @@ public static function execute($userid, $courseid) {
 ```
 
 **Error Handling Best Practices**:
+
 - Wrap logic in try-catch blocks
 - Log errors with timestamps and context
 - Capture SQL queries on database errors

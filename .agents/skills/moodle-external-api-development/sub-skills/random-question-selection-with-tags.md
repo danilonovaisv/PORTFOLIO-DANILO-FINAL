@@ -3,7 +3,7 @@
 ```php
 private static function get_random_questions($categoryid, $tagname, $limit) {
     global $DB;
-    
+
     $sql = "SELECT q.id
             FROM {question} q
             INNER JOIN {question_versions} qv ON qv.questionid = q.id
@@ -15,12 +15,12 @@ private static function get_random_questions($categoryid, $tagname, $limit) {
               AND qc.id = :categoryid
               AND ti.itemtype = 'question'
               AND q.qtype = 'multichoice'";
-    
+
     $qids = $DB->get_fieldset_sql($sql, [
         'categoryid' => $categoryid,
         'tagname' => strtolower($tagname)
     ]);
-    
+
     shuffle($qids);
     return array_slice($qids, 0, $limit);
 }

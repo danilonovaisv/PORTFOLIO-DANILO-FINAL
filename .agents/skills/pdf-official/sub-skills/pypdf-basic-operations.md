@@ -1,6 +1,7 @@
 # pypdf - Basic Operations
 
 #### Merge PDFs
+
 ```python
 from pypdf import PdfWriter, PdfReader
 
@@ -15,6 +16,7 @@ with open("merged.pdf", "wb") as output:
 ```
 
 #### Split PDF
+
 ```python
 reader = PdfReader("input.pdf")
 for i, page in enumerate(reader.pages):
@@ -25,6 +27,7 @@ for i, page in enumerate(reader.pages):
 ```
 
 #### Extract Metadata
+
 ```python
 reader = PdfReader("document.pdf")
 meta = reader.metadata
@@ -35,6 +38,7 @@ print(f"Creator: {meta.creator}")
 ```
 
 #### Rotate Pages
+
 ```python
 reader = PdfReader("input.pdf")
 writer = PdfWriter()

@@ -2,14 +2,14 @@
 
 Use these skills **only after the audit is complete** and findings are accepted.
 
-* **programmatic-seo**
+- **programmatic-seo**
   Use when the action plan requires **scaling page creation** across many URLs.
 
-* **schema-markup**
+- **schema-markup**
   Use when structured data implementation is approved as a remediation.
 
-* **page-cro**
+- **page-cro**
   Use when the goal shifts from ranking to **conversion optimization**.
 
-* **analytics-tracking**
+- **analytics-tracking**
   Use when measurement gaps prevent confident auditing or score validation.

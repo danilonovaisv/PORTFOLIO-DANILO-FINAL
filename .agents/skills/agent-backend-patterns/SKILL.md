@@ -12,5 +12,7 @@ Backend architecture patterns and best practices for scalable server-side applic
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [RESTful API Structure](./sub-skills/restful-api-structure.md)
+
 ### 2. [Repository Pattern](./sub-skills/repository-pattern.md)
+
 ### 3. [Service Layer Pattern](./sub-skills/service-layer-pattern.md)

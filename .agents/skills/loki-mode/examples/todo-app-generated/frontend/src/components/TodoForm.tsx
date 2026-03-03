@@ -35,7 +35,11 @@ export const TodoForm = ({ onAddTodo }: TodoFormProps) => {
         disabled={isSubmitting}
         className="todo-input"
       />
-      <button type="submit" disabled={isSubmitting || !title.trim()} className="add-button">
+      <button
+        type="submit"
+        disabled={isSubmitting || !title.trim()}
+        className="add-button"
+      >
         {isSubmitting ? 'Adding...' : 'Add Todo'}
       </button>
     </form>

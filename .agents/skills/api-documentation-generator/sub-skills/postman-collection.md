@@ -1,6 +1,7 @@
 # Postman Collection
 
 Export collection for easy testing:
+
 ```json
 {
   "info": {

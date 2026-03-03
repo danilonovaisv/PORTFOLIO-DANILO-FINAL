@@ -6,6 +6,7 @@
 **Best times:** 11am-1pm, 7-9pm
 
 **What works:**
+
 - High-quality visuals
 - Behind-the-scenes Stories
 - Reels (short-form video)
@@ -14,12 +15,14 @@
 - Interactive Stories (polls, questions)
 
 **What doesn't:**
+
 - Low-quality images
 - Too much text in images
 - Ignoring Stories and Reels
 - Only promotional content
 
 **Format tips:**
+
 - Reels get 2x reach of static posts
 - First frame of Reels must hook
 - Carousels: 10 slides with educational content

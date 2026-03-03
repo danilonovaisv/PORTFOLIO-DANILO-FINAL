@@ -1,11 +1,11 @@
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import type { NextPage } from 'next'
-import styles from '../styles/Home.module.css'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import type { NextPage } from 'next';
+import styles from '../styles/Home.module.css';
 
 const LoginPage: NextPage = () => {
-  const supabaseClient = useSupabaseClient()
-  const user = useUser()
+  const supabaseClient = useSupabaseClient();
+  const user = useUser();
 
   if (!user) {
     return (
@@ -16,7 +16,7 @@ const LoginPage: NextPage = () => {
           supabaseClient={supabaseClient}
         />
       </main>
-    )
+    );
   }
 
   return (
@@ -25,7 +25,7 @@ const LoginPage: NextPage = () => {
       <p>user:</p>
       <pre>{JSON.stringify(user, null, 2)}</pre>
     </>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

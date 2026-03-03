@@ -36,7 +36,10 @@ function installPlaywright() {
   console.log('📦 Playwright not found. Installing...');
   try {
     execSync('npm install', { stdio: 'inherit', cwd: __dirname });
-    execSync('npx playwright install chromium', { stdio: 'inherit', cwd: __dirname });
+    execSync('npx playwright install chromium', {
+      stdio: 'inherit',
+      cwd: __dirname,
+    });
     console.log('✅ Playwright installed successfully');
     return true;
   } catch (e) {
@@ -86,10 +89,12 @@ function getCodeToExecute() {
 function cleanupOldTempFiles() {
   try {
     const files = fs.readdirSync(__dirname);
-    const tempFiles = files.filter(f => f.startsWith('.temp-execution-') && f.endsWith('.js'));
+    const tempFiles = files.filter(
+      (f) => f.startsWith('.temp-execution-') && f.endsWith('.js')
+    );
 
     if (tempFiles.length > 0) {
-      tempFiles.forEach(file => {
+      tempFiles.forEach((file) => {
         const filePath = path.join(__dirname, file);
         try {
           fs.unlinkSync(filePath);
@@ -109,7 +114,8 @@ function cleanupOldTempFiles() {
 function wrapCodeIfNeeded(code) {
   // Check if code already has require() and async structure
   const hasRequire = code.includes('require(');
-  const hasAsyncIIFE = code.includes('(async () => {') || code.includes('(async()=>{');
+  const hasAsyncIIFE =
+    code.includes('(async () => {') || code.includes('(async()=>{');
 
   // If it's already a complete script, return as-is
   if (hasRequire && hasAsyncIIFE) {
@@ -210,7 +216,6 @@ async function main() {
 
     // Note: Temp file will be cleaned up on next run
     // This allows long-running async operations to complete safely
-
   } catch (error) {
     console.error('❌ Execution failed:', error.message);
     if (error.stack) {
@@ -222,7 +227,7 @@ async function main() {
 }
 
 // Run main function
-main().catch(error => {
+main().catch((error) => {
   console.error('❌ Fatal error:', error.message);
   process.exit(1);
 });

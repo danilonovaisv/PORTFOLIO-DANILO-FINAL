@@ -22,11 +22,14 @@ class XSSReportGenerator {
   }
 
   groupBySeverity(findings: XSSFinding[]): Record<string, XSSFinding[]> {
-    return findings.reduce((acc, finding) => {
-      if (!acc[finding.severity]) acc[finding.severity] = [];
-      acc[finding.severity].push(finding);
-      return acc;
-    }, {} as Record<string, XSSFinding[]>);
+    return findings.reduce(
+      (acc, finding) => {
+        if (!acc[finding.severity]) acc[finding.severity] = [];
+        acc[finding.severity].push(finding);
+        return acc;
+      },
+      {} as Record<string, XSSFinding[]>
+    );
   }
 }
 ```

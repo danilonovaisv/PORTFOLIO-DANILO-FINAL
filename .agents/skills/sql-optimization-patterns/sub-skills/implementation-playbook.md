@@ -36,6 +36,7 @@ Transform slow database queries into lightning-fast operations through systemati
 Understanding EXPLAIN output is fundamental to optimization.
 
 **PostgreSQL EXPLAIN:**
+
 ```sql
 -- Basic explain
 EXPLAIN SELECT * FROM users WHERE email = 'user@example.com';
@@ -53,6 +54,7 @@ WHERE u.created_at > NOW() - INTERVAL '30 days';
 ```
 
 **Key Metrics to Watch:**
+
 - **Seq Scan**: Full table scan (usually slow for large tables)
 - **Index Scan**: Using index (good)
 - **Index Only Scan**: Using index without touching table (best)
@@ -68,6 +70,7 @@ WHERE u.created_at > NOW() - INTERVAL '30 days';
 Indexes are the most powerful optimization tool.
 
 **Index Types:**
+
 - **B-Tree**: Default, good for equality and range queries
 - **Hash**: Only for equality (=) comparisons
 - **GIN**: Full-text search, array queries, JSONB
@@ -103,6 +106,7 @@ CREATE INDEX idx_metadata ON events USING GIN(metadata);
 ### 3. Query Optimization Patterns
 
 **Avoid SELECT \*:**
+
 ```sql
 -- Bad: Fetches unnecessary columns
 SELECT * FROM users WHERE id = 123;
@@ -112,6 +116,7 @@ SELECT id, email, name FROM users WHERE id = 123;
 ```
 
 **Use WHERE Clause Efficiently:**
+
 ```sql
 -- Bad: Function prevents index usage
 SELECT * FROM users WHERE LOWER(email) = 'user@example.com';
@@ -126,6 +131,7 @@ SELECT * FROM users WHERE email = 'user@example.com';
 ```
 
 **Optimize JOINs:**
+
 ```sql
 -- Bad: Cartesian product then filter
 SELECT u.name, o.total
@@ -149,6 +155,7 @@ JOIN orders o ON u.id = o.user_id;
 ### Pattern 1: Eliminate N+1 Queries
 
 **Problem: N+1 Query Anti-Pattern**
+
 ```python
 # Bad: Executes N+1 queries
 users = db.query("SELECT * FROM users LIMIT 10")
@@ -158,6 +165,7 @@ for user in users:
 ```
 
 **Solution: Use JOINs or Batch Loading**
+
 ```sql
 -- Solution 1: JOIN
 SELECT
@@ -198,6 +206,7 @@ for order in orders:
 ### Pattern 2: Optimize Pagination
 
 **Bad: OFFSET on Large Tables**
+
 ```sql
 -- Slow for large offsets
 SELECT * FROM users
@@ -206,6 +215,7 @@ LIMIT 20 OFFSET 100000;  -- Very slow!
 ```
 
 **Good: Cursor-Based Pagination**
+
 ```sql
 -- Much faster: Use cursor (last seen ID)
 SELECT * FROM users
@@ -226,6 +236,7 @@ CREATE INDEX idx_users_cursor ON users(created_at DESC, id DESC);
 ### Pattern 3: Aggregate Efficiently
 
 **Optimize COUNT Queries:**
+
 ```sql
 -- Bad: Counts all rows
 SELECT COUNT(*) FROM orders;  -- Slow on large tables
@@ -246,6 +257,7 @@ WHERE created_at > NOW() - INTERVAL '7 days';
 ```
 
 **Optimize GROUP BY:**
+
 ```sql
 -- Bad: Group by then filter
 SELECT user_id, COUNT(*) as order_count
@@ -267,6 +279,7 @@ CREATE INDEX idx_orders_user_status ON orders(user_id, status);
 ### Pattern 4: Subquery Optimization
 
 **Transform Correlated Subqueries:**
+
 ```sql
 -- Bad: Correlated subquery (runs for each row)
 SELECT u.name, u.email,
@@ -288,6 +301,7 @@ LEFT JOIN orders o ON o.user_id = u.id;
 ```
 
 **Use CTEs for Clarity:**
+
 ```sql
 -- Using Common Table Expressions
 WITH recent_users AS (
@@ -309,6 +323,7 @@ LEFT JOIN user_order_counts uoc ON ru.id = uoc.user_id;
 ### Pattern 5: Batch Operations
 
 **Batch INSERT:**
+
 ```sql
 -- Bad: Multiple individual inserts
 INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
@@ -326,6 +341,7 @@ COPY users (name, email) FROM '/tmp/users.csv' CSV HEADER;
 ```
 
 **Batch UPDATE:**
+
 ```sql
 -- Bad: Update in loop
 UPDATE users SET status = 'active' WHERE id = 1;

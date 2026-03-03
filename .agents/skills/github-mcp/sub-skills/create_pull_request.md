@@ -1,6 +1,7 @@
 # `create_pull_request`
 
 Create a new pull request.
+
 - **owner**: Repository owner (string)
 - **repo**: Repository name (string)
 - **title**: PR title (string)

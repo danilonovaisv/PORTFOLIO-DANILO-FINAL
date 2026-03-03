@@ -4,7 +4,7 @@ JavaScript has 7 primitive types:
 
 ```javascript
 // String
-const str = "hello";
+const str = 'hello';
 
 // Number (integers and floats)
 const num = 42;
@@ -23,7 +23,7 @@ let undef; // undefined
 const empty = null;
 
 // Symbol (unique identifiers)
-const sym = Symbol("description");
+const sym = Symbol('description');
 ```
 
 **Key points**:

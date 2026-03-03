@@ -3,15 +3,19 @@
 #### 1. Replace Heavy Dependencies
 
 \`\`\`bash
+
 # Remove moment.js (67KB) → Use date-fns (12KB)
+
 npm uninstall moment
 npm install date-fns
 
 # Before
+
 import moment from 'moment';
 const formatted = moment(date).format('YYYY-MM-DD');
 
 # After
+
 import { format } from 'date-fns';
 const formatted = format(date, 'yyyy-MM-dd');
 \`\`\`
@@ -43,12 +47,12 @@ import dynamic from 'next/dynamic';
 
 // Lazy load heavy components
 const Chart = dynamic(() => import('./Chart'), {
-  loading: () => <div>Loading chart...</div>,
-  ssr: false
+loading: () => <div>Loading chart...</div>,
+ssr: false
 });
 
 const AdminPanel = dynamic(() => import('./AdminPanel'), {
-  loading: () => <div>Loading...</div>
+loading: () => <div>Loading...</div>
 });
 
 // Route-based code splitting (automatic in Next.js)
@@ -61,22 +65,23 @@ const AdminPanel = dynamic(() => import('./AdminPanel'), {
 \`\`\`javascript
 // Enable tree shaking in webpack.config.js
 module.exports = {
-  mode: 'production',
-  optimization: {
-    usedExports: true,
-    sideEffects: false
-  }
+mode: 'production',
+optimization: {
+usedExports: true,
+sideEffects: false
+}
 };
 
 // In package.json
 {
-  "sideEffects": false
+"sideEffects": false
 }
 \`\`\`
 
 #### 5. Optimize Third-Party Scripts
 
 \`\`\`html
+
 <!-- Before: Loads immediately -->
 <script src="https://analytics.com/script.js"></script>
 
@@ -89,4 +94,5 @@ module.exports = {
     document.body.appendChild(script);
   });
 </script>
+
 \`\`\`

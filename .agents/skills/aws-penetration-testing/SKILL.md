@@ -32,14 +32,14 @@ Provide comprehensive techniques for penetration testing AWS cloud environments.
 
 ## Essential Tools
 
-| Tool | Purpose | Installation |
-|------|---------|--------------|
-| Pacu | AWS exploitation framework | `git clone https://github.com/RhinoSecurityLabs/pacu` |
-| SkyArk | Shadow Admin discovery | `Import-Module .\SkyArk.ps1` |
-| Prowler | Security auditing | `pip install prowler` |
-| ScoutSuite | Multi-cloud auditing | `pip install scoutsuite` |
-| enumerate-iam | Permission enumeration | `git clone https://github.com/andresriancho/enumerate-iam` |
-| Principal Mapper | IAM analysis | `pip install principalmapper` |
+| Tool             | Purpose                    | Installation                                               |
+| ---------------- | -------------------------- | ---------------------------------------------------------- |
+| Pacu             | AWS exploitation framework | `git clone https://github.com/RhinoSecurityLabs/pacu`      |
+| SkyArk           | Shadow Admin discovery     | `Import-Module .\SkyArk.ps1`                               |
+| Prowler          | Security auditing          | `pip install prowler`                                      |
+| ScoutSuite       | Multi-cloud auditing       | `pip install scoutsuite`                                   |
+| enumerate-iam    | Permission enumeration     | `git clone https://github.com/andresriancho/enumerate-iam` |
+| Principal Mapper | IAM analysis               | `pip install principalmapper`                              |
 
 ---
 
@@ -48,17 +48,31 @@ Provide comprehensive techniques for penetration testing AWS cloud environments.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Step 1: Initial Enumeration](./sub-skills/step-1-initial-enumeration.md)
+
 ### 2. [Step 2: IAM Enumeration](./sub-skills/step-2-iam-enumeration.md)
+
 ### 3. [Step 3: Metadata SSRF (EC2)](./sub-skills/step-3-metadata-ssrf-ec2.md)
+
 ### 4. [Shadow Admin Permissions](./sub-skills/shadow-admin-permissions.md)
+
 ### 5. [Create Access Key for Another User](./sub-skills/create-access-key-for-another-user.md)
+
 ### 6. [Attach Admin Policy](./sub-skills/attach-admin-policy.md)
+
 ### 7. [Add Inline Admin Policy](./sub-skills/add-inline-admin-policy.md)
+
 ### 8. [Lambda Privilege Escalation](./sub-skills/lambda-privilege-escalation.md)
+
 ### 9. [Bucket Discovery](./sub-skills/bucket-discovery.md)
+
 ### 10. [Bucket Enumeration](./sub-skills/bucket-enumeration.md)
+
 ### 11. [Public Bucket Search](./sub-skills/public-bucket-search.md)
+
 ### 12. [Mount EBS Volume](./sub-skills/mount-ebs-volume.md)
+
 ### 13. [Shadow Copy Attack (Windows DC)](./sub-skills/shadow-copy-attack-windows-dc.md)
+
 ### 14. [Disable CloudTrail](./sub-skills/disable-cloudtrail.md)
+
 ### 15. [Example 1: SSRF to Admin](./sub-skills/example-1-ssrf-to-admin.md)

@@ -13,6 +13,7 @@ This skill provides step-by-step instructions for building production-ready Helm
 ## When to Use This Skill
 
 Use this skill when you need to:
+
 - Create new Helm charts from scratch
 - Package Kubernetes applications for distribution
 - Manage multi-environment deployments with Helm
@@ -23,6 +24,7 @@ Use this skill when you need to:
 ## Helm Overview
 
 **Helm** is the package manager for Kubernetes that:
+
 - Templates Kubernetes manifests for reusability
 - Manages application releases and rollbacks
 - Handles dependencies between charts
@@ -34,11 +36,13 @@ Use this skill when you need to:
 ### 1. Initialize Chart Structure
 
 **Create new chart:**
+
 ```bash
 helm create my-app
 ```
 
 **Standard chart structure:**
+
 ```
 my-app/
 ├── Chart.yaml           # Chart metadata
@@ -66,8 +70,8 @@ apiVersion: v2
 name: my-app
 description: A Helm chart for My Application
 type: application
-version: 1.0.0      # Chart version
-appVersion: "2.1.0" # Application version
+version: 1.0.0 # Chart version
+appVersion: '2.1.0' # Application version
 
 # Keywords for chart discovery
 keywords:
@@ -94,12 +98,12 @@ icon: https://example.com/icon.png
 # Dependencies
 dependencies:
   - name: postgresql
-    version: "12.0.0"
-    repository: "https://charts.bitnami.com/bitnami"
+    version: '12.0.0'
+    repository: 'https://charts.bitnami.com/bitnami'
     condition: postgresql.enabled
   - name: redis
-    version: "17.0.0"
-    repository: "https://charts.bitnami.com/bitnami"
+    version: '17.0.0'
+    repository: 'https://charts.bitnami.com/bitnami'
     condition: redis.enabled
 ```
 
@@ -113,7 +117,7 @@ dependencies:
 # Image configuration
 image:
   repository: myapp
-  tag: "1.0.0"
+  tag: '1.0.0'
   pullPolicy: IfNotPresent
 
 # Number of replicas
@@ -138,11 +142,11 @@ ingress:
 # Resources
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "250m"
+    memory: '256Mi'
+    cpu: '250m'
   limits:
-    memory: "512Mi"
-    cpu: "500m"
+    memory: '512Mi'
+    cpu: '500m'
 
 # Autoscaling
 autoscaling:
@@ -154,7 +158,7 @@ autoscaling:
 # Environment variables
 env:
   - name: LOG_LEVEL
-    value: "info"
+    value: 'info'
 
 # ConfigMap data
 configMap:
@@ -179,6 +183,7 @@ redis:
 **Use Go templating with Helm functions:**
 
 **templates/deployment.yaml:**
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -213,7 +218,8 @@ spec:
 
 ### 5. Create Template Helpers
 
-**templates/_helpers.tpl:**
+**templates/\_helpers.tpl:**
+
 ```yaml
 {{/*
 Expand the name of the chart.
@@ -262,21 +268,24 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 ### 6. Manage Dependencies
 
 **Add dependencies in Chart.yaml:**
+
 ```yaml
 dependencies:
   - name: postgresql
-    version: "12.0.0"
-    repository: "https://charts.bitnami.com/bitnami"
+    version: '12.0.0'
+    repository: 'https://charts.bitnami.com/bitnami'
     condition: postgresql.enabled
 ```
 
 **Update dependencies:**
+
 ```bash
 helm dependency update
 helm dependency build
 ```
 
 **Override dependency values:**
+
 ```yaml
 # values.yaml
 postgresql:
@@ -294,6 +303,7 @@ postgresql:
 ### 7. Test and Validate
 
 **Validation commands:**
+
 ```bash
 # Lint the chart
 helm lint my-app/
@@ -312,6 +322,7 @@ helm show values ./my-app
 ```
 
 **Validation script:**
+
 ```bash
 #!/bin/bash
 set -e
@@ -333,12 +344,14 @@ echo "All validations passed!"
 ### 8. Package and Distribute
 
 **Package the chart:**
+
 ```bash
 helm package my-app/
 # Creates: my-app-1.0.0.tgz
 ```
 
 **Create chart repository:**
+
 ```bash
 # Create index
 helm repo index .
@@ -349,6 +362,7 @@ aws s3 sync . s3://my-helm-charts/ --exclude "*" --include "*.tgz" --include "in
 ```
 
 **Use the chart:**
+
 ```bash
 helm repo add my-repo https://charts.example.com
 helm repo update
@@ -368,19 +382,20 @@ my-app/
 ```
 
 **values-prod.yaml:**
+
 ```yaml
 replicaCount: 5
 
 image:
-  tag: "2.1.0"
+  tag: '2.1.0'
 
 resources:
   requests:
-    memory: "512Mi"
-    cpu: "500m"
+    memory: '512Mi'
+    cpu: '500m'
   limits:
-    memory: "1Gi"
-    cpu: "1000m"
+    memory: '1Gi'
+    cpu: '1000m'
 
 autoscaling:
   enabled: true
@@ -403,6 +418,7 @@ postgresql:
 ```
 
 **Install with environment:**
+
 ```bash
 helm install my-app ./my-app -f values-prod.yaml --namespace production
 ```
@@ -410,6 +426,7 @@ helm install my-app ./my-app -f values-prod.yaml --namespace production
 ### 10. Implement Hooks and Tests
 
 **Pre-install hook:**
+
 ```yaml
 # templates/pre-install-job.yaml
 apiVersion: batch/v1
@@ -431,6 +448,7 @@ spec:
 ```
 
 **Test connection:**
+
 ```yaml
 # templates/tests/test-connection.yaml
 apiVersion: v1
@@ -449,6 +467,7 @@ spec:
 ```
 
 **Run tests:**
+
 ```bash
 helm test my-app
 ```
@@ -514,17 +533,20 @@ image: {{ .Values.global.imageRegistry }}/{{ .Values.image.repository }}
 ## Troubleshooting
 
 **Template rendering errors:**
+
 ```bash
 helm template my-app ./my-app --debug
 ```
 
 **Dependency issues:**
+
 ```bash
 helm dependency update
 helm dependency list
 ```
 
 **Installation failures:**
+
 ```bash
 helm install my-app ./my-app --dry-run --debug
 kubectl get events --sort-by='.lastTimestamp'

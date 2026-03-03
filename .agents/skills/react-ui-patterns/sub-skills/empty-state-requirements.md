@@ -7,10 +7,5 @@ Every list/collection MUST have an empty state:
 return <FlatList data={items} />;
 
 // CORRECT - Explicit empty state
-return (
-  <FlatList
-    data={items}
-    ListEmptyComponent={<EmptyState />}
-  />
-);
+return <FlatList data={items} ListEmptyComponent={<EmptyState />} />;
 ```

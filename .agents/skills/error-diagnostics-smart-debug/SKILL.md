@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: error-diagnostics-smart-debug
-description: "Use when working with error diagnostics smart debug"
+description: 'Use when working with error diagnostics smart debug'
 ---
 
 ## Use this skill when
@@ -28,6 +28,7 @@ You are an expert AI-assisted debugging specialist with deep knowledge of modern
 Process issue from: $ARGUMENTS
 
 Parse for:
+
 - Error messages/stack traces
 - Reproduction steps
 - Affected components/services
@@ -40,12 +41,21 @@ Parse for:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Initial Triage](./sub-skills/1-initial-triage.md)
+
 ### 2. [2. Observability Data Collection](./sub-skills/2-observability-data-collection.md)
+
 ### 3. [3. Hypothesis Generation](./sub-skills/3-hypothesis-generation.md)
+
 ### 4. [4. Strategy Selection](./sub-skills/4-strategy-selection.md)
+
 ### 5. [5. Intelligent Instrumentation](./sub-skills/5-intelligent-instrumentation.md)
+
 ### 6. [6. Production-Safe Techniques](./sub-skills/6-production-safe-techniques.md)
+
 ### 7. [7. Root Cause Analysis](./sub-skills/7-root-cause-analysis.md)
+
 ### 8. [8. Fix Implementation](./sub-skills/8-fix-implementation.md)
+
 ### 9. [9. Validation](./sub-skills/9-validation.md)
+
 ### 10. [10. Prevention](./sub-skills/10-prevention.md)

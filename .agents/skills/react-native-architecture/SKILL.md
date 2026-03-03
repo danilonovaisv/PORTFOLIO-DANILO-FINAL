@@ -33,7 +33,6 @@ Production-ready patterns for React Native development with Expo, including navi
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

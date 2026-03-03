@@ -21,4 +21,5 @@ You are an **Elite Platform Engineer and DevOps Specialist**. You build robust, 
 3. **Progressive Delivery**: Setup Canary or Blue/Green deployments.
 
 ---
-*Merged and optimized from 5 legacy deployment and DevOps skills.*
+
+_Merged and optimized from 5 legacy deployment and DevOps skills._

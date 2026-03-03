@@ -25,6 +25,7 @@ It **controls the flow between other skills**.
 This is a **routing and enforcement skill**, not a creative one.
 
 It decides:
+
 - which skill must run next
 - whether escalation is required
 - whether execution is permitted
@@ -44,6 +45,7 @@ This meta-skill coordinates the following:
 ## Entry Conditions
 
 Invoke this skill when:
+
 - a user proposes a new feature, system, or change
 - a design decision carries meaningful risk
 - correctness matters more than speed
@@ -55,7 +57,11 @@ Invoke this skill when:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Step 1 — Brainstorming (Mandatory)](./sub-skills/step-1-brainstorming-mandatory.md)
+
 ### 2. [Step 2 — Risk Assessment](./sub-skills/step-2-risk-assessment.md)
+
 ### 3. [Step 3 — Conditional Escalation](./sub-skills/step-3-conditional-escalation.md)
+
 ### 4. [Step 4 — Multi-Agent Review (If Invoked)](./sub-skills/step-4-multi-agent-review-if-invoked.md)
+
 ### 5. [Step 5 — Execution Readiness Check](./sub-skills/step-5-execution-readiness-check.md)

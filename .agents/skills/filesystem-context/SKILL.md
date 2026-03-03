@@ -12,6 +12,7 @@ The core insight is that files enable dynamic context discovery: agents pull rel
 ## When to Activate
 
 Activate this skill when:
+
 - Tool outputs are bloating the context window
 - Agents need to persist state across long trajectories
 - Sub-agents must share information without direct message passing
@@ -49,15 +50,16 @@ Tool calls can return massive outputs. A web search may return 10k tokens of raw
 Write large tool outputs to files instead of returning them directly to the context. The agent then uses targeted retrieval (grep, line-specific reads) to extract only the relevant portions.
 
 **Implementation**
+
 ```python
 def handle_tool_output(output: str, threshold: int = 2000) -> str:
     if len(output) < threshold:
         return output
-    
+
     # Write to scratch pad
     file_path = f"scratch/{tool_name}_{timestamp}.txt"
     write_file(file_path, output)
-    
+
     # Return reference instead of content
     key_summary = extract_summary(output, max_tokens=200)
     return f"[Output written to {file_path}. Summary: {key_summary}]"
@@ -66,6 +68,7 @@ def handle_tool_output(output: str, threshold: int = 2000) -> str:
 The agent can then use `grep` to search for specific patterns or `read_file` with line ranges to retrieve targeted sections.
 
 **Benefits**
+
 - Reduces token accumulation over long conversations
 - Preserves full output for later reference
 - Enables targeted retrieval instead of carrying everything
@@ -80,19 +83,20 @@ Write plans to the filesystem. The agent can re-read its plan at any point, remi
 
 **Implementation**
 Store plans in structured format:
+
 ```yaml
 # scratch/current_plan.yaml
-objective: "Refactor authentication module"
+objective: 'Refactor authentication module'
 status: in_progress
 steps:
   - id: 1
-    description: "Audit current auth endpoints"
+    description: 'Audit current auth endpoints'
     status: completed
   - id: 2
-    description: "Design new token validation flow"
+    description: 'Design new token validation flow'
     status: in_progress
   - id: 3
-    description: "Implement and test changes"
+    description: 'Implement and test changes'
     status: pending
 ```
 
@@ -107,6 +111,7 @@ In multi-agent systems, sub-agents typically report findings to a coordinator ag
 Sub-agents write their findings directly to the filesystem. The coordinator reads these files directly, bypassing intermediate message passing. This preserves fidelity and reduces context accumulation in the coordinator.
 
 **Implementation**
+
 ```
 workspace/
   agents/
@@ -132,6 +137,7 @@ Store skills as files. Include only skill names and brief descriptions in static
 
 **Implementation**
 Static context includes:
+
 ```
 Available skills (load with read_file when relevant):
 - database-optimization: Query tuning and indexing strategies
@@ -151,6 +157,7 @@ Sync terminal output to files automatically. The agent can then grep for relevan
 
 **Implementation**
 Terminal sessions are persisted as files:
+
 ```
 terminals/
   1.txt    # Terminal session 1 output
@@ -158,6 +165,7 @@ terminals/
 ```
 
 Agents query with targeted grep:
+
 ```bash
 grep -A 5 "error" terminals/1.txt
 ```
@@ -172,6 +180,7 @@ Agents write learned information to their own instruction files. Subsequent sess
 
 **Implementation**
 After user provides preference:
+
 ```python
 def remember_preference(key: str, value: str):
     preferences_file = "agent/user_preferences.yaml"
@@ -203,6 +212,7 @@ Semantic search and filesystem search work well together: semantic search for co
 ### When to Use Filesystem Context
 
 **Use filesystem patterns when:**
+
 - Tool outputs exceed 2000 tokens
 - Tasks span multiple conversation turns
 - Multiple agents need to share state
@@ -210,6 +220,7 @@ Semantic search and filesystem search work well together: semantic search for co
 - Logs or terminal output need selective querying
 
 **Avoid filesystem patterns when:**
+
 - Tasks complete in single turns
 - Context fits comfortably in window
 - Latency is critical (file I/O adds overhead)
@@ -218,6 +229,7 @@ Semantic search and filesystem search work well together: semantic search for co
 ### File Organization
 
 Structure files for discoverability:
+
 ```
 project/
   scratch/           # Temporary working files
@@ -235,6 +247,7 @@ Use consistent naming conventions. Include timestamps or IDs in scratch files fo
 ### Token Accounting
 
 Track where tokens originate:
+
 - Measure static vs dynamic context ratio
 - Monitor tool output sizes before and after offloading
 - Track how often dynamic context is actually loaded
@@ -244,10 +257,11 @@ Optimize based on measurements, not assumptions.
 ## Examples
 
 **Example 1: Tool Output Offloading**
+
 ```
 Input: Web search returns 8000 tokens
 Before: 8000 tokens added to message history
-After: 
+After:
   - Write to scratch/search_results_001.txt
   - Return: "[Results in scratch/search_results_001.txt. Key finding: API rate limit is 1000 req/min]"
   - Agent greps file when needing specific details
@@ -255,6 +269,7 @@ Result: ~100 tokens in context, 8000 tokens accessible on demand
 ```
 
 **Example 2: Dynamic Skill Loading**
+
 ```
 Input: User asks about database indexing
 Static context: "database-optimization: Query tuning and indexing"
@@ -263,9 +278,10 @@ Result: Full skill loaded only when relevant
 ```
 
 **Example 3: Chat History as File Reference**
+
 ```
 Trigger: Context window limit reached, summarization required
-Action: 
+Action:
   1. Write full history to history/session_001.txt
   2. Generate summary for new context window
   3. Include reference: "Full history in history/session_001.txt"
@@ -298,14 +314,17 @@ This skill connects to:
 ## References
 
 Internal reference:
+
 - [Implementation Patterns](./references/implementation-patterns.md) - Detailed pattern implementations
 
 Related skills in this collection:
+
 - context-optimization - Token reduction techniques
 - memory-systems - Persistent storage patterns
 - multi-agent-patterns - Agent coordination
 
 External resources:
+
 - LangChain Deep Agents: How agents can use filesystems for context engineering
 - Cursor: Dynamic context discovery patterns
 - Anthropic: Agent Skills specification
@@ -318,4 +337,3 @@ External resources:
 **Last Updated**: 2026-01-07
 **Author**: Agent Skills for Context Engineering Contributors
 **Version**: 1.0.0
-

@@ -15,5 +15,7 @@ Turn a user request into a **single, actionable plan** with atomic steps.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Scan Context](./sub-skills/1-scan-context.md)
+
 ### 2. [2. Minimal Interaction](./sub-skills/2-minimal-interaction.md)
+
 ### 3. [3. Generate Plan](./sub-skills/3-generate-plan.md)

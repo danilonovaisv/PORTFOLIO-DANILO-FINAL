@@ -1,10 +1,10 @@
 # Selection Principles
 
-| Scenario | Strategy |
-|----------|----------|
-| Standard release | Rolling |
-| High-risk change | Blue-green (easy rollback) |
-| Need validation | Canary (test with real traffic) |
+| Scenario         | Strategy                        |
+| ---------------- | ------------------------------- |
+| Standard release | Rolling                         |
+| High-risk change | Blue-green (easy rollback)      |
+| Need validation  | Canary (test with real traffic) |
 
 ---
 

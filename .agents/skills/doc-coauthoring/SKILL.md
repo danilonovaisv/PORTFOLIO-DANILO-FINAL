@@ -11,6 +11,7 @@ This skill provides a structured workflow for guiding users through collaborativ
 ## When to Offer This Workflow
 
 **Trigger conditions:**
+
 - User mentions writing documentation: "write a doc", "draft a proposal", "create a spec", "write up"
 - User mentions specific doc types: "PRD", "design doc", "decision doc", "RFC"
 - User seems to be starting a substantial writing task
@@ -33,22 +34,41 @@ If user declines, work freeform. If user accepts, proceed to Stage 1.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Initial Questions](./sub-skills/initial-questions.md)
+
 ### 2. [Info Dumping](./sub-skills/info-dumping.md)
+
 ### 3. [Step 1: Clarifying Questions](./sub-skills/step-1-clarifying-questions.md)
+
 ### 4. [Step 2: Brainstorming](./sub-skills/step-2-brainstorming.md)
+
 ### 5. [Step 3: Curation](./sub-skills/step-3-curation.md)
+
 ### 6. [Step 4: Gap Check](./sub-skills/step-4-gap-check.md)
+
 ### 7. [Step 5: Drafting](./sub-skills/step-5-drafting.md)
+
 ### 8. [Step 6: Iterative Refinement](./sub-skills/step-6-iterative-refinement.md)
+
 ### 9. [Quality Checking](./sub-skills/quality-checking.md)
+
 ### 10. [Near Completion](./sub-skills/near-completion.md)
+
 ### 11. [Testing Approach](./sub-skills/testing-approach.md)
+
 ### 12. [Step 1: Predict Reader Questions](./sub-skills/step-1-predict-reader-questions.md)
+
 ### 13. [Step 2: Test with Sub-Agent](./sub-skills/step-2-test-with-sub-agent.md)
+
 ### 14. [Step 3: Run Additional Checks](./sub-skills/step-3-run-additional-checks.md)
+
 ### 15. [Step 4: Report and Fix](./sub-skills/step-4-report-and-fix.md)
+
 ### 16. [Step 1: Predict Reader Questions](./sub-skills/step-1-predict-reader-questions.md)
+
 ### 17. [Step 2: Setup Testing](./sub-skills/step-2-setup-testing.md)
+
 ### 18. [Step 3: Additional Checks](./sub-skills/step-3-additional-checks.md)
+
 ### 19. [Step 4: Iterate Based on Results](./sub-skills/step-4-iterate-based-on-results.md)
+
 ### 20. [Exit Condition (Both Approaches)](./sub-skills/exit-condition-both-approaches.md)

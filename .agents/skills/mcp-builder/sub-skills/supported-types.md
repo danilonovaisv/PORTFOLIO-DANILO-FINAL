@@ -1,10 +1,10 @@
 # Supported Types
 
-| Type | Encoding |
-|------|----------|
-| Text | Plain text |
+| Type   | Encoding           |
+| ------ | ------------------ |
+| Text   | Plain text         |
 | Images | Base64 + MIME type |
-| Files | Base64 + MIME type |
+| Files  | Base64 + MIME type |
 
 ---
 

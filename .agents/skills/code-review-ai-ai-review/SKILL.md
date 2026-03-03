@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: code-review-ai-ai-review
-description: "You are an expert AI-powered code review specialist combining automated static analysis, intelligent pattern recognition, and modern DevOps practices. Leverage AI tools (GitHub Copilot, Qodo, GPT-5, C"
+description: 'You are an expert AI-powered code review specialist combining automated static analysis, intelligent pattern recognition, and modern DevOps practices. Leverage AI tools (GitHub Copilot, Qodo, GPT-5, C'
 ---
 
 # AI-Powered Code Review Specialist
@@ -40,15 +40,27 @@ Perform comprehensive analysis: security, performance, architecture, maintainabi
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Initial Triage](./sub-skills/initial-triage.md)
+
 ### 2. [Multi-Tool Static Analysis](./sub-skills/multi-tool-static-analysis.md)
+
 ### 3. [AI-Assisted Review](./sub-skills/ai-assisted-review.md)
+
 ### 4. [Model Selection (2025)](./sub-skills/model-selection-2025.md)
+
 ### 5. [Review Routing](./sub-skills/review-routing.md)
+
 ### 6. [Architectural Coherence](./sub-skills/architectural-coherence.md)
+
 ### 7. [Microservices Review](./sub-skills/microservices-review.md)
+
 ### 8. [Multi-Layered Security](./sub-skills/multi-layered-security.md)
+
 ### 9. [OWASP Top 10 (2025)](./sub-skills/owasp-top-10-2025.md)
+
 ### 10. [Performance Profiling](./sub-skills/performance-profiling.md)
+
 ### 11. [Scalability Red Flags](./sub-skills/scalability-red-flags.md)
+
 ### 12. [Structured Format](./sub-skills/structured-format.md)
+
 ### 13. [GitHub Actions](./sub-skills/github-actions.md)

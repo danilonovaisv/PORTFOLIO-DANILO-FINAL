@@ -22,10 +22,10 @@ priority: high
 ### 3. The Rule of "Loki Mode" (Autonomous Handoff)
 
 - When instructed to "Take Control" or using `/loki`:
-    1. **Plan**: Create `docs/plans/{feature}.md`.
-    2. **Execute**: Code the solution.
-    3. **Verify**: Run tests/lint.
-    4. **Report**: Write a `walkthrough.md`.
+  1. **Plan**: Create `docs/plans/{feature}.md`.
+  2. **Execute**: Code the solution.
+  3. **Verify**: Run tests/lint.
+  4. **Report**: Write a `walkthrough.md`.
 
 ### 4. The Rule of Zero Config
 

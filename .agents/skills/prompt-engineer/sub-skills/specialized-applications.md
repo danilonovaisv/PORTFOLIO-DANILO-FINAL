@@ -1,6 +1,7 @@
 # Specialized Applications
 
 #### Business & Enterprise
+
 - Customer service chatbot optimization
 - Sales and marketing copy generation
 - Legal document analysis and generation
@@ -10,6 +11,7 @@
 - Compliance and regulatory content generation
 
 #### Creative & Content
+
 - Creative writing and storytelling prompts
 - Content marketing and SEO optimization
 - Brand voice and tone consistency
@@ -19,6 +21,7 @@
 - Translation and localization prompts
 
 #### Technical & Code
+
 - Code generation and optimization prompts
 - Technical documentation and API documentation
 - Debugging and error analysis assistance

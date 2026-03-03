@@ -20,4 +20,4 @@ Visual expression: Rounded forms, organic arrangements, color from nature throug
 Philosophy: Pure order and restraint.
 Visual expression: Grid-based precision, bold photography or stark graphics, dramatic negative space. Typography precise but minimal - small essential text, large quiet zones. Swiss formalism meets Brutalist material honesty. Structure communicates, not words. Every alignment the work of countless refinements.
 
-*These are condensed examples. The actual design philosophy should be 4-6 substantial paragraphs.*
+_These are condensed examples. The actual design philosophy should be 4-6 substantial paragraphs._

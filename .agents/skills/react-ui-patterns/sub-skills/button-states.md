@@ -15,6 +15,7 @@
 Before completing any UI component:
 
 **UI States:**
+
 - [ ] Error state handled and shown to user
 - [ ] Loading state shown only when no data exists
 - [ ] Empty state provided for collections
@@ -22,6 +23,7 @@ Before completing any UI component:
 - [ ] Buttons show loading indicator when appropriate
 
 **Data & Mutations:**
+
 - [ ] Mutations have onError handler
 - [ ] All user actions have feedback (toast/visual)
 

@@ -12,12 +12,12 @@ Email/chat for premium.
 
 ## ⚠️ Sharp Edges
 
-| Issue | Severity | Solution |
-|-------|----------|----------|
-| Templates getting shared/pirated | medium | ## Handling Template Piracy |
-| Drowning in customer support requests | medium | ## Scaling Template Support |
-| All sales from one marketplace | medium | ## Diversifying Sales Channels |
-| Old templates becoming outdated | low | ## Template Update Strategy |
+| Issue                                 | Severity | Solution                       |
+| ------------------------------------- | -------- | ------------------------------ |
+| Templates getting shared/pirated      | medium   | ## Handling Template Piracy    |
+| Drowning in customer support requests | medium   | ## Scaling Template Support    |
+| All sales from one marketplace        | medium   | ## Diversifying Sales Channels |
+| Old templates becoming outdated       | low      | ## Template Update Strategy    |
 
 ## Related Skills
 

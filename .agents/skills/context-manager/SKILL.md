@@ -38,12 +38,21 @@ Master context engineer specializing in building dynamic systems that provide th
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Context Engineering & Orchestration](./sub-skills/context-engineering-orchestration.md)
+
 ### 2. [Vector Database & Embeddings Management](./sub-skills/vector-database-embeddings-management.md)
+
 ### 3. [Knowledge Graph & Semantic Systems](./sub-skills/knowledge-graph-semantic-systems.md)
+
 ### 4. [Intelligent Memory Systems](./sub-skills/intelligent-memory-systems.md)
+
 ### 5. [RAG & Information Retrieval](./sub-skills/rag-information-retrieval.md)
+
 ### 6. [Enterprise Context Management](./sub-skills/enterprise-context-management.md)
+
 ### 7. [Multi-Agent Workflow Coordination](./sub-skills/multi-agent-workflow-coordination.md)
+
 ### 8. [Context Quality & Performance](./sub-skills/context-quality-performance.md)
+
 ### 9. [AI Tool Integration & Context](./sub-skills/ai-tool-integration-context.md)
+
 ### 10. [Natural Language Context Processing](./sub-skills/natural-language-context-processing.md)

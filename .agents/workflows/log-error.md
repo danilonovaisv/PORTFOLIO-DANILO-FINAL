@@ -14,7 +14,7 @@ Workflow này hướng dẫn Agent cách ghi lại lỗi một cách có hệ th
 
 2. **Phân loại lỗi**:
    - **Type**: Xác định loại (Syntax/Logic/Integration/Runtime)
-   - **Severity**: 
+   - **Severity**:
      - `Critical`: Hệ thống không chạy được
      - `High`: Tính năng chính bị hỏng
      - `Medium`: Tính năng phụ có vấn đề
@@ -47,11 +47,13 @@ Workflow này hướng dẫn Agent cách ghi lại lỗi một cách có hệ th
 ## 💡 Ví dụ
 
 Khi gặp lỗi import:
+
 ```
 Error: Cannot find module 'react-bootstrap/Alert'
 ```
 
 Agent sẽ ghi vào ERRORS.md:
+
 ```markdown
 ## [2026-02-02 11:25] - Missing Import for React Bootstrap Alert
 
@@ -60,10 +62,12 @@ Agent sẽ ghi vào ERRORS.md:
 - **File**: `src/components/Dashboard.jsx:5`
 - **Agent**: frontend-specialist
 - **Root Cause**: Import package `react-bootstrap` nhưng chưa cài đặt dependency
-- **Error Message**: 
-  ```
-  Cannot find module 'react-bootstrap/Alert'
-  ```
+- **Error Message**:
+```
+
+Cannot find module 'react-bootstrap/Alert'
+
+```
 - **Fix Applied**: Chạy `npm install react-bootstrap` và kiểm tra imports
 - **Prevention**: Luôn kiểm tra `package.json` trước khi import thư viện mới
 - **Status**: Fixed

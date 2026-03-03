@@ -25,6 +25,9 @@ If not logged in, run `gh auth login`.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Inspect Comments](./sub-skills/1-inspect-comments.md)
+
 ### 2. [2. Categorize and Plan](./sub-skills/2-categorize-and-plan.md)
+
 ### 3. [3. Apply Fixes](./sub-skills/3-apply-fixes.md)
+
 ### 4. [4. Respond to Comments](./sub-skills/4-respond-to-comments.md)

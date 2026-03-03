@@ -5,7 +5,12 @@ interface ConfirmDialogProps {
   onCancel: () => void;
 }
 
-export const ConfirmDialog = ({ isOpen, message, onConfirm, onCancel }: ConfirmDialogProps) => {
+export const ConfirmDialog = ({
+  isOpen,
+  message,
+  onConfirm,
+  onCancel,
+}: ConfirmDialogProps) => {
   if (!isOpen) return null;
 
   return (

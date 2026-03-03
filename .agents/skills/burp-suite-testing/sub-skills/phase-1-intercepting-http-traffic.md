@@ -1,6 +1,7 @@
 # Phase 1: Intercepting HTTP Traffic
 
 #### Launch Burp's Browser
+
 Navigate to integrated browser for seamless proxy integration:
 
 1. Open Burp Suite and create/open project
@@ -9,6 +10,7 @@ Navigate to integrated browser for seamless proxy integration:
 4. Position windows to view both Burp and browser simultaneously
 
 #### Configure Interception
+
 Control which requests are captured:
 
 ```
@@ -19,6 +21,7 @@ When OFF: Requests pass through, logged to history
 ```
 
 #### Intercept and Forward Requests
+
 Process intercepted traffic:
 
 1. Set intercept toggle to **Intercept on**
@@ -29,6 +32,7 @@ Process intercepted traffic:
 6. Continue forwarding subsequent requests until page loads
 
 #### View HTTP History
+
 Access complete traffic log:
 
 1. Go to **Proxy > HTTP history** tab

@@ -1,6 +1,7 @@
 # Twitter/X Thread Templates
 
 **The Tutorial Thread:**
+
 ```
 Tweet 1: [Hook + promise of value]
 
@@ -14,6 +15,7 @@ Final tweet: [Summary + CTA]
 ```
 
 **The Story Thread:**
+
 ```
 Tweet 1: [Intriguing hook]
 
@@ -27,6 +29,7 @@ Final tweet: [Takeaway + engagement ask]
 ```
 
 **The Breakdown Thread:**
+
 ```
 Tweet 1: [Company/person] just [did thing].
 

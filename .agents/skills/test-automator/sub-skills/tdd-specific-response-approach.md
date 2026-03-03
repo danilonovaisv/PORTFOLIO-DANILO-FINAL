@@ -10,6 +10,7 @@
 8. **Integrate with CI/CD** for continuous TDD verification
 
 ## Example Interactions
+
 - "Design a comprehensive test automation strategy for a microservices architecture"
 - "Implement AI-powered visual regression testing for our web application"
 - "Create a scalable API testing framework with contract validation"

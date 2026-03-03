@@ -9,12 +9,14 @@ This file contains detailed patterns, checklists, and code samples referenced by
 Classify errors into these categories to inform your debugging strategy:
 
 **By Severity:**
+
 - **Critical**: System down, data loss, security breach, complete service unavailability
 - **High**: Major feature broken, significant user impact, data corruption risk
 - **Medium**: Partial feature degradation, workarounds available, performance issues
 - **Low**: Minor bugs, cosmetic issues, edge cases with minimal impact
 
 **By Type:**
+
 - **Runtime Errors**: Exceptions, crashes, segmentation faults, null pointer dereferences
 - **Logic Errors**: Incorrect behavior, wrong calculations, invalid state transitions
 - **Integration Errors**: API failures, network timeouts, external service issues
@@ -23,6 +25,7 @@ Classify errors into these categories to inform your debugging strategy:
 - **Security Errors**: Authentication failures, authorization violations, injection attempts
 
 **By Observability:**
+
 - **Deterministic**: Consistently reproducible with known inputs
 - **Intermittent**: Occurs sporadically, often timing or race condition related
 - **Environmental**: Only happens in specific environments or configurations
@@ -96,6 +99,7 @@ For errors in microservices and distributed systems:
 Extract maximum information from stack traces:
 
 **Key Elements:**
+
 - **Error Type**: What kind of exception/error occurred
 - **Error Message**: Contextual information about the failure
 - **Origin Point**: The deepest frame where the error was thrown
@@ -104,6 +108,7 @@ Extract maximum information from stack traces:
 - **Async Boundaries**: Identify where asynchronous operations break the trace
 
 **Analysis Strategy:**
+
 1. Start at the top of the stack (origin of error)
 2. Identify the first frame in your application code (not framework/library)
 3. Examine that frame's context: input parameters, local variables, state
@@ -124,28 +129,34 @@ Modern error tracking tools provide enhanced stack traces:
 ### Common Stack Trace Patterns
 
 **Pattern: Null Pointer Exception Deep in Framework Code**
+
 ```
 NullPointerException
   at java.util.HashMap.hash(HashMap.java:339)
   at java.util.HashMap.get(HashMap.java:556)
   at com.myapp.service.UserService.findUser(UserService.java:45)
 ```
+
 Root Cause: Application passed null to framework code. Focus on UserService.java:45.
 
 **Pattern: Timeout After Long Wait**
+
 ```
 TimeoutException: Operation timed out after 30000ms
   at okhttp3.internal.http2.Http2Stream.waitForIo
   at com.myapp.api.PaymentClient.processPayment(PaymentClient.java:89)
 ```
+
 Root Cause: External service slow/unresponsive. Need retry logic and circuit breaker.
 
 **Pattern: Race Condition in Concurrent Code**
+
 ```
 ConcurrentModificationException
   at java.util.ArrayList$Itr.checkForComodification
   at com.myapp.processor.BatchProcessor.process(BatchProcessor.java:112)
 ```
+
 Root Cause: Collection modified while being iterated. Need thread-safe data structures or synchronization.
 
 ## Log Aggregation and Pattern Matching
@@ -155,6 +166,7 @@ Root Cause: Collection modified while being iterated. Need thread-safe data stru
 Implement JSON-based structured logging for machine-readable logs:
 
 **Standard Log Schema:**
+
 ```json
 {
   "timestamp": "2025-10-11T14:23:45.123Z",
@@ -193,6 +205,7 @@ Implement JSON-based structured logging for machine-readable logs:
 ```
 
 **Key Fields to Always Include:**
+
 - `timestamp`: ISO 8601 format in UTC
 - `level`: ERROR, WARN, INFO, DEBUG, TRACE
 - `correlation_id`: Unique ID for the entire request chain
@@ -206,6 +219,7 @@ Implement JSON-based structured logging for machine-readable logs:
 Implement correlation IDs to track requests across distributed systems:
 
 **Node.js/Express Middleware:**
+
 ```javascript
 const { v4: uuidv4 } = require('uuid');
 const asyncLocalStorage = require('async-local-storage');
@@ -229,25 +243,28 @@ function makeApiCall(url, data) {
   return axios.post(url, data, {
     headers: {
       'x-correlation-id': correlationId,
-      'x-source-service': 'api-gateway'
-    }
+      'x-source-service': 'api-gateway',
+    },
   });
 }
 
 // Include in all log statements
 function log(level, message, context = {}) {
   const correlationId = asyncLocalStorage.get('correlationId');
-  console.log(JSON.stringify({
-    timestamp: new Date().toISOString(),
-    level,
-    correlation_id: correlationId,
-    message,
-    ...context
-  }));
+  console.log(
+    JSON.stringify({
+      timestamp: new Date().toISOString(),
+      level,
+      correlation_id: correlationId,
+      message,
+      ...context,
+    })
+  );
 }
 ```
 
 **Python/Flask Implementation:**
+
 ```python
 import uuid
 import logging
@@ -292,6 +309,7 @@ def log_structured(level, message, **context):
 ### Log Aggregation Architecture
 
 **Centralized Logging Pipeline:**
+
 1. **Application**: Outputs structured JSON logs to stdout/stderr
 2. **Log Shipper**: Fluentd/Fluent Bit/Vector collects logs from containers
 3. **Log Aggregator**: Elasticsearch/Loki/DataDog receives and indexes logs
@@ -299,6 +317,7 @@ def log_structured(level, message, **context):
 5. **Alerting**: Trigger alerts on error patterns and thresholds
 
 **Log Query Examples (Elasticsearch DSL):**
+
 ```json
 // Find all errors for a specific correlation ID
 {
@@ -372,6 +391,7 @@ Use log analysis to identify patterns:
 For deterministic errors in development:
 
 **Debugger Setup:**
+
 1. Set breakpoint before the error occurs
 2. Step through code execution line by line
 3. Inspect variable values and object state
@@ -380,6 +400,7 @@ For deterministic errors in development:
 6. Modify variables to test hypotheses
 
 **Modern Debugging Tools:**
+
 - **VS Code Debugger**: Integrated debugging for JavaScript, Python, Go, Java, C++
 - **Chrome DevTools**: Frontend debugging with network, performance, and memory profiling
 - **pdb/ipdb (Python)**: Interactive debugger with post-mortem analysis
@@ -402,6 +423,7 @@ For errors in production environments where debuggers aren't available:
 8. **Traffic Mirroring**: Replay production traffic in staging for safe investigation
 
 **Remote Debugging (Use Cautiously):**
+
 - Attach debugger to running process only in non-critical services
 - Use read-only breakpoints that don't pause execution
 - Time-box debugging sessions strictly
@@ -410,6 +432,7 @@ For errors in production environments where debuggers aren't available:
 ### Memory and Performance Debugging
 
 **Memory Leak Detection:**
+
 ```javascript
 // Node.js heap snapshot comparison
 const v8 = require('v8');
@@ -430,6 +453,7 @@ takeHeapSnapshot('heap-after.heapsnapshot');
 ```
 
 **Performance Profiling:**
+
 ```python
 # Python profiling with cProfile
 import cProfile
@@ -455,6 +479,7 @@ def profile_function():
 ### Input Validation and Type Safety
 
 **Defensive Programming:**
+
 ```typescript
 // TypeScript: Leverage type system for compile-time safety
 interface PaymentRequest {
@@ -479,7 +504,7 @@ function processPayment(request: PaymentRequest): PaymentResult {
     amount: z.number().positive().max(1000000),
     currency: z.enum(['USD', 'EUR', 'GBP']),
     customerId: z.string().uuid(),
-    paymentMethodId: z.string().min(1)
+    paymentMethodId: z.string().min(1),
   });
 
   const validated = schema.parse(request);
@@ -490,6 +515,7 @@ function processPayment(request: PaymentRequest): PaymentResult {
 ```
 
 **Python Type Hints and Validation:**
+
 ```python
 from typing import Optional
 from pydantic import BaseModel, validator, Field
@@ -522,6 +548,7 @@ def process_payment(request: PaymentRequest) -> PaymentResult:
 ### Error Boundaries and Graceful Degradation
 
 **React Error Boundaries:**
+
 ```typescript
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import * as Sentry from '@sentry/react';
@@ -579,6 +606,7 @@ export default ErrorBoundary;
 ```
 
 **Circuit Breaker Pattern:**
+
 ```python
 from datetime import datetime, timedelta
 from enum import Enum
@@ -662,7 +690,7 @@ async function retryWithBackoff<T>(
     maxAttempts: 3,
     baseDelayMs: 1000,
     maxDelayMs: 30000,
-    exponentialBase: 2
+    exponentialBase: 2,
   }
 ): Promise<T> {
   let lastError: Error;
@@ -674,8 +702,10 @@ async function retryWithBackoff<T>(
       lastError = error as Error;
 
       // Check if error is retryable
-      if (options.retryableErrors &&
-          !options.retryableErrors.includes(error.name)) {
+      if (
+        options.retryableErrors &&
+        !options.retryableErrors.includes(error.name)
+      ) {
         throw error; // Don't retry non-retryable errors
       }
 
@@ -689,8 +719,10 @@ async function retryWithBackoff<T>(
         const jitter = Math.random() * 0.1 * delay;
         const actualDelay = delay + jitter;
 
-        console.log(`Attempt ${attempt + 1} failed, retrying in ${actualDelay}ms`);
-        await new Promise(resolve => setTimeout(resolve, actualDelay));
+        console.log(
+          `Attempt ${attempt + 1} failed, retrying in ${actualDelay}ms`
+        );
+        await new Promise((resolve) => setTimeout(resolve, actualDelay));
       }
     }
   }
@@ -706,7 +738,7 @@ const result = await retryWithBackoff(
     baseDelayMs: 1000,
     maxDelayMs: 10000,
     exponentialBase: 2,
-    retryableErrors: ['NetworkError', 'TimeoutError']
+    retryableErrors: ['NetworkError', 'TimeoutError'],
   }
 );
 ```
@@ -716,6 +748,7 @@ const result = await retryWithBackoff(
 ### Modern Observability Stack (2025)
 
 **Recommended Architecture:**
+
 - **Metrics**: Prometheus + Grafana or DataDog
 - **Logs**: Elasticsearch/Loki + Fluentd or DataDog Logs
 - **Traces**: OpenTelemetry + Jaeger/Tempo or DataDog APM
@@ -726,6 +759,7 @@ const result = await retryWithBackoff(
 ### Sentry Integration
 
 **Node.js/Express Setup:**
+
 ```javascript
 const Sentry = require('@sentry/node');
 const { ProfilingIntegration } = require('@sentry/profiling-node');
@@ -756,11 +790,11 @@ Sentry.init({
     event.tags = {
       ...event.tags,
       region: process.env.AWS_REGION,
-      instance_id: process.env.INSTANCE_ID
+      instance_id: process.env.INSTANCE_ID,
     };
 
     return event;
-  }
+  },
 });
 
 // Express middleware
@@ -781,18 +815,18 @@ function processOrder(orderId) {
     Sentry.captureException(error, {
       tags: {
         operation: 'process_order',
-        order_id: orderId
+        order_id: orderId,
       },
       contexts: {
         order: {
           id: orderId,
           status: order?.status,
-          amount: order?.amount
-        }
+          amount: order?.amount,
+        },
       },
       user: {
-        id: order?.customerId
-      }
+        id: order?.customerId,
+      },
     });
     throw error;
   }
@@ -802,6 +836,7 @@ function processOrder(orderId) {
 ### DataDog APM Integration
 
 **Python/Flask Setup:**
+
 ```python
 from ddtrace import patch_all, tracer
 from ddtrace.contrib.flask import TraceMiddleware
@@ -844,6 +879,7 @@ def charge_payment():
 ### OpenTelemetry Implementation
 
 **Go Service with OpenTelemetry:**
+
 ```go
 package main
 
@@ -932,9 +968,9 @@ func chargeCard(ctx context.Context, paymentReq PaymentRequest) error {
 ```yaml
 # DataDog Monitor Configuration
 monitors:
-  - name: "High Error Rate - Payment Service"
+  - name: 'High Error Rate - Payment Service'
     type: metric
-    query: "avg(last_5m):sum:trace.express.request.errors{service:payment-service} / sum:trace.express.request.hits{service:payment-service} > 0.05"
+    query: 'avg(last_5m):sum:trace.express.request.errors{service:payment-service} / sum:trace.express.request.hits{service:payment-service} > 0.05'
     message: |
       Payment service error rate is {{value}}% (threshold: 5%)
 
@@ -954,11 +990,11 @@ monitors:
     options:
       notify_no_data: true
       no_data_timeframe: 10
-      escalation_message: "Error rate still elevated after 10 minutes"
+      escalation_message: 'Error rate still elevated after 10 minutes'
 
-  - name: "New Error Type Detected"
+  - name: 'New Error Type Detected'
     type: log
-    query: "logs(\"level:ERROR service:payment-service\").rollup(\"count\").by(\"error.fingerprint\").last(\"5m\") > 0"
+    query: 'logs("level:ERROR service:payment-service").rollup("count").by("error.fingerprint").last("5m") > 0'
     message: |
       New error type detected in payment service: {{error.fingerprint}}
 
@@ -970,9 +1006,9 @@ monitors:
     options:
       enable_logs_sample: true
 
-  - name: "Payment Service - P95 Latency High"
+  - name: 'Payment Service - P95 Latency High'
     type: metric
-    query: "avg(last_10m):p95:trace.express.request.duration{service:payment-service} > 2000"
+    query: 'avg(last_10m):p95:trace.express.request.duration{service:payment-service} > 2000'
     message: |
       Payment service P95 latency is {{value}}ms (threshold: 2000ms)
 
@@ -991,6 +1027,7 @@ monitors:
 ### Incident Response Workflow
 
 **Phase 1: Detection and Triage (0-5 minutes)**
+
 1. Acknowledge the alert/incident
 2. Check incident severity and user impact
 3. Assign incident commander
@@ -998,6 +1035,7 @@ monitors:
 5. Update status page if customer-facing
 
 **Phase 2: Investigation (5-30 minutes)**
+
 1. Gather observability data:
    - Error rates from Sentry/DataDog
    - Traces showing failed requests
@@ -1012,6 +1050,7 @@ monitors:
 4. Document findings in incident log
 
 **Phase 3: Mitigation (Immediate)**
+
 1. Implement immediate fix based on hypothesis:
    - Rollback recent deployment
    - Scale up resources
@@ -1022,6 +1061,7 @@ monitors:
 3. Monitor for 15-30 minutes to ensure stability
 
 **Phase 4: Recovery and Validation**
+
 1. Verify all systems operational
 2. Check data consistency
 3. Process queued/failed requests
@@ -1029,6 +1069,7 @@ monitors:
 5. Notify stakeholders
 
 **Phase 5: Post-Incident Review**
+
 1. Schedule postmortem within 48 hours
 2. Create detailed timeline of events
 3. Identify root cause (may differ from initial hypothesis)
@@ -1080,6 +1121,7 @@ GET /logs-*/_search
 ### Communication Templates
 
 **Initial Incident Notification:**
+
 ```
 🚨 INCIDENT: Payment Processing Errors
 
@@ -1103,6 +1145,7 @@ Status Page: https://status.company.com/incident/abc123
 ```
 
 **Mitigation Notification:**
+
 ```
 ✅ INCIDENT UPDATE: Mitigation Applied
 

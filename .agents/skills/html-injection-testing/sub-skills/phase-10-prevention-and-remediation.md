@@ -28,7 +28,7 @@ safe_output = escape(user_input)
 element.textContent = userInput;
 
 // JavaScript: innerHTML (dangerous!)
-element.innerHTML = userInput;  // Vulnerable!
+element.innerHTML = userInput; // Vulnerable!
 
 // JavaScript: Sanitize
 const clean = DOMPurify.sanitize(userInput);
@@ -36,6 +36,7 @@ element.innerHTML = clean;
 ```
 
 Server-side protections:
+
 - Input validation (whitelist allowed characters)
 - Output encoding (context-aware escaping)
 - Content Security Policy (CSP) headers

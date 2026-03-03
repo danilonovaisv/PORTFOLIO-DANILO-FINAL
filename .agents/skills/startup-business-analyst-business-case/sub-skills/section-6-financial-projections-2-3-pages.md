@@ -1,11 +1,13 @@
 # Section 6: Financial Projections (2-3 pages)
 
 **Revenue Model:**
+
 - Cohort-based projections
 - Key assumptions
 - Revenue breakdown by segment
 
 **3-Year Financial Summary:**
+
 ```
 | Metric | Year 1 | Year 2 | Year 3 |
 |--------|--------|--------|--------|
@@ -17,6 +19,7 @@
 ```
 
 **Unit Economics:**
+
 - CAC: $X,XXX
 - LTV: $X,XXX
 - LTV:CAC ratio: X.X
@@ -24,6 +27,7 @@
 - Gross margin: XX%
 
 **Key Metrics Trajectory:**
+
 ```
 | Metric | Current | Year 1 | Year 2 | Year 3 |
 |--------|---------|--------|--------|--------|
@@ -34,10 +38,12 @@
 ```
 
 **Scenario Analysis:**
+
 - Conservative, base, optimistic
 - Key drivers and sensitivities
 
 **Path to Profitability:**
+
 - Break-even timeline
 - Key milestones
 - Unit economics at scale

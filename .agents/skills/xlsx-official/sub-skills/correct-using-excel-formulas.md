@@ -14,6 +14,7 @@ sheet['D20'] = '=AVERAGE(D2:D19)'
 This applies to ALL calculations - totals, percentages, ratios, differences, etc. The spreadsheet should be able to recalculate when source data changes.
 
 ## Common Workflow
+
 1. **Choose tool**: pandas for data, openpyxl for formulas/formatting
 2. **Create/Load**: Create new workbook or load existing file
 3. **Modify**: Add/edit data, formulas, and formatting
@@ -22,7 +23,7 @@ This applies to ALL calculations - totals, percentages, ratios, differences, etc
    ```bash
    python recalc.py output.xlsx
    ```
-6. **Verify and fix any errors**: 
+6. **Verify and fix any errors**:
    - The script returns JSON with error details
    - If `status` is `errors_found`, check `error_summary` for specific error types and locations
    - Fix the identified errors and recalculate again

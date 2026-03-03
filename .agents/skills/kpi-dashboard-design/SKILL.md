@@ -34,16 +34,29 @@ Comprehensive patterns for designing effective Key Performance Indicator (KPI) d
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. KPI Framework](./sub-skills/1-kpi-framework.md)
+
 ### 2. [2. SMART KPIs](./sub-skills/2-smart-kpis.md)
+
 ### 3. [3. Dashboard Hierarchy](./sub-skills/3-dashboard-hierarchy.md)
+
 ### 4. [Sales KPIs](./sub-skills/sales-kpis.md)
+
 ### 5. [Marketing KPIs](./sub-skills/marketing-kpis.md)
+
 ### 6. [Product KPIs](./sub-skills/product-kpis.md)
+
 ### 7. [Finance KPIs](./sub-skills/finance-kpis.md)
+
 ### 8. [Pattern 1: Executive Summary](./sub-skills/pattern-1-executive-summary.md)
+
 ### 9. [Pattern 2: SaaS Metrics Dashboard](./sub-skills/pattern-2-saas-metrics-dashboard.md)
+
 ### 10. [Pattern 3: Real-time Operations](./sub-skills/pattern-3-real-time-operations.md)
+
 ### 11. [SQL for KPI Calculations](./sub-skills/sql-for-kpi-calculations.md)
+
 ### 12. [Python Dashboard Code (Streamlit)](./sub-skills/python-dashboard-code-streamlit.md)
+
 ### 13. [Do's](./sub-skills/dos.md)
+
 ### 14. [Don'ts](./sub-skills/donts.md)

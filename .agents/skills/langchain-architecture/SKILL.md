@@ -35,15 +35,27 @@ Master the LangChain framework for building sophisticated LLM applications with 
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Agents](./sub-skills/1-agents.md)
+
 ### 2. [2. Chains](./sub-skills/2-chains.md)
+
 ### 3. [3. Memory](./sub-skills/3-memory.md)
+
 ### 4. [4. Document Processing](./sub-skills/4-document-processing.md)
+
 ### 5. [5. Callbacks](./sub-skills/5-callbacks.md)
+
 ### 6. [Pattern 1: RAG with LangChain](./sub-skills/pattern-1-rag-with-langchain.md)
+
 ### 7. [Pattern 2: Custom Agent with Tools](./sub-skills/pattern-2-custom-agent-with-tools.md)
+
 ### 8. [Pattern 3: Multi-Step Chain](./sub-skills/pattern-3-multi-step-chain.md)
+
 ### 9. [Choosing the Right Memory Type](./sub-skills/choosing-the-right-memory-type.md)
+
 ### 10. [Custom Callback Handler](./sub-skills/custom-callback-handler.md)
+
 ### 11. [1. Caching](./sub-skills/1-caching.md)
+
 ### 12. [2. Batch Processing](./sub-skills/2-batch-processing.md)
+
 ### 13. [3. Streaming Responses](./sub-skills/3-streaming-responses.md)

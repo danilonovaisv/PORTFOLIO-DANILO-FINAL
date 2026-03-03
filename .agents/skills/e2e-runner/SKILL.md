@@ -21,12 +21,14 @@ You are an expert end-to-end testing specialist focused on Playwright test autom
 ## Tools at Your Disposal
 
 ### Playwright Testing Framework
+
 - **@playwright/test** - Core testing framework
 - **Playwright Inspector** - Debug tests interactively
 - **Playwright Trace Viewer** - Analyze test execution
 - **Playwright Codegen** - Generate test code from browser actions
 
 ### Test Commands
+
 ```bash
 # Run all E2E tests
 npx playwright test
@@ -61,6 +63,7 @@ npx playwright test --project=webkit
 ## E2E Testing Workflow
 
 ### 1. Test Planning Phase
+
 ```
 a) Identify critical user journeys
    - Authentication flows (login, logout, registration)
@@ -80,6 +83,7 @@ c) Prioritize by risk
 ```
 
 ### 2. Test Creation Phase
+
 ```
 For each user journey:
 
@@ -103,6 +107,7 @@ For each user journey:
 ```
 
 ### 3. Test Execution Phase
+
 ```
 a) Run tests locally
    - Verify all tests pass
@@ -123,6 +128,7 @@ c) Run in CI/CD
 ## Playwright Test Structure
 
 ### Test File Organization
+
 ```
 tests/
 ├── e2e/                       # End-to-end user journeys
@@ -152,45 +158,47 @@ tests/
 
 ```typescript
 // pages/MarketsPage.ts
-import { Page, Locator } from '@playwright/test'
+import { Page, Locator } from '@playwright/test';
 
 export class MarketsPage {
-  readonly page: Page
-  readonly searchInput: Locator
-  readonly marketCards: Locator
-  readonly createMarketButton: Locator
-  readonly filterDropdown: Locator
+  readonly page: Page;
+  readonly searchInput: Locator;
+  readonly marketCards: Locator;
+  readonly createMarketButton: Locator;
+  readonly filterDropdown: Locator;
 
   constructor(page: Page) {
-    this.page = page
-    this.searchInput = page.locator('[data-testid="search-input"]')
-    this.marketCards = page.locator('[data-testid="market-card"]')
-    this.createMarketButton = page.locator('[data-testid="create-market-btn"]')
-    this.filterDropdown = page.locator('[data-testid="filter-dropdown"]')
+    this.page = page;
+    this.searchInput = page.locator('[data-testid="search-input"]');
+    this.marketCards = page.locator('[data-testid="market-card"]');
+    this.createMarketButton = page.locator('[data-testid="create-market-btn"]');
+    this.filterDropdown = page.locator('[data-testid="filter-dropdown"]');
   }
 
   async goto() {
-    await this.page.goto('/markets')
-    await this.page.waitForLoadState('networkidle')
+    await this.page.goto('/markets');
+    await this.page.waitForLoadState('networkidle');
   }
 
   async searchMarkets(query: string) {
-    await this.searchInput.fill(query)
-    await this.page.waitForResponse(resp => resp.url().includes('/api/markets/search'))
-    await this.page.waitForLoadState('networkidle')
+    await this.searchInput.fill(query);
+    await this.page.waitForResponse((resp) =>
+      resp.url().includes('/api/markets/search')
+    );
+    await this.page.waitForLoadState('networkidle');
   }
 
   async getMarketCount() {
-    return await this.marketCards.count()
+    return await this.marketCards.count();
   }
 
   async clickMarket(index: number) {
-    await this.marketCards.nth(index).click()
+    await this.marketCards.nth(index).click();
   }
 
   async filterByStatus(status: string) {
-    await this.filterDropdown.selectOption(status)
-    await this.page.waitForLoadState('networkidle')
+    await this.filterDropdown.selectOption(status);
+    await this.page.waitForLoadState('networkidle');
   }
 }
 ```
@@ -199,60 +207,60 @@ export class MarketsPage {
 
 ```typescript
 // tests/e2e/markets/search.spec.ts
-import { test, expect } from '@playwright/test'
-import { MarketsPage } from '../../pages/MarketsPage'
+import { test, expect } from '@playwright/test';
+import { MarketsPage } from '../../pages/MarketsPage';
 
 test.describe('Market Search', () => {
-  let marketsPage: MarketsPage
+  let marketsPage: MarketsPage;
 
   test.beforeEach(async ({ page }) => {
-    marketsPage = new MarketsPage(page)
-    await marketsPage.goto()
-  })
+    marketsPage = new MarketsPage(page);
+    await marketsPage.goto();
+  });
 
   test('should search markets by keyword', async ({ page }) => {
     // Arrange
-    await expect(page).toHaveTitle(/Markets/)
+    await expect(page).toHaveTitle(/Markets/);
 
     // Act
-    await marketsPage.searchMarkets('trump')
+    await marketsPage.searchMarkets('trump');
 
     // Assert
-    const marketCount = await marketsPage.getMarketCount()
-    expect(marketCount).toBeGreaterThan(0)
+    const marketCount = await marketsPage.getMarketCount();
+    expect(marketCount).toBeGreaterThan(0);
 
     // Verify first result contains search term
-    const firstMarket = marketsPage.marketCards.first()
-    await expect(firstMarket).toContainText(/trump/i)
+    const firstMarket = marketsPage.marketCards.first();
+    await expect(firstMarket).toContainText(/trump/i);
 
     // Take screenshot for verification
-    await page.screenshot({ path: 'artifacts/search-results.png' })
-  })
+    await page.screenshot({ path: 'artifacts/search-results.png' });
+  });
 
   test('should handle no results gracefully', async ({ page }) => {
     // Act
-    await marketsPage.searchMarkets('xyznonexistentmarket123')
+    await marketsPage.searchMarkets('xyznonexistentmarket123');
 
     // Assert
-    await expect(page.locator('[data-testid="no-results"]')).toBeVisible()
-    const marketCount = await marketsPage.getMarketCount()
-    expect(marketCount).toBe(0)
-  })
+    await expect(page.locator('[data-testid="no-results"]')).toBeVisible();
+    const marketCount = await marketsPage.getMarketCount();
+    expect(marketCount).toBe(0);
+  });
 
   test('should clear search results', async ({ page }) => {
     // Arrange - perform search first
-    await marketsPage.searchMarkets('trump')
-    await expect(marketsPage.marketCards.first()).toBeVisible()
+    await marketsPage.searchMarkets('trump');
+    await expect(marketsPage.marketCards.first()).toBeVisible();
 
     // Act - clear search
-    await marketsPage.searchInput.clear()
-    await page.waitForLoadState('networkidle')
+    await marketsPage.searchInput.clear();
+    await page.waitForLoadState('networkidle');
 
     // Assert - all markets shown again
-    const marketCount = await marketsPage.getMarketCount()
-    expect(marketCount).toBeGreaterThan(10) // Should show all markets
-  })
-})
+    const marketCount = await marketsPage.getMarketCount();
+    expect(marketCount).toBeGreaterThan(10); // Should show all markets
+  });
+});
 ```
 
 ## Example Project-Specific Test Scenarios
@@ -260,55 +268,59 @@ test.describe('Market Search', () => {
 ### Critical User Journeys for Example Project
 
 **1. Market Browsing Flow**
+
 ```typescript
 test('user can browse and view markets', async ({ page }) => {
   // 1. Navigate to markets page
-  await page.goto('/markets')
-  await expect(page.locator('h1')).toContainText('Markets')
+  await page.goto('/markets');
+  await expect(page.locator('h1')).toContainText('Markets');
 
   // 2. Verify markets are loaded
-  const marketCards = page.locator('[data-testid="market-card"]')
-  await expect(marketCards.first()).toBeVisible()
+  const marketCards = page.locator('[data-testid="market-card"]');
+  await expect(marketCards.first()).toBeVisible();
 
   // 3. Click on a market
-  await marketCards.first().click()
+  await marketCards.first().click();
 
   // 4. Verify market details page
-  await expect(page).toHaveURL(/\/markets\/[a-z0-9-]+/)
-  await expect(page.locator('[data-testid="market-name"]')).toBeVisible()
+  await expect(page).toHaveURL(/\/markets\/[a-z0-9-]+/);
+  await expect(page.locator('[data-testid="market-name"]')).toBeVisible();
 
   // 5. Verify chart loads
-  await expect(page.locator('[data-testid="price-chart"]')).toBeVisible()
-})
+  await expect(page.locator('[data-testid="price-chart"]')).toBeVisible();
+});
 ```
 
 **2. Semantic Search Flow**
+
 ```typescript
 test('semantic search returns relevant results', async ({ page }) => {
   // 1. Navigate to markets
-  await page.goto('/markets')
+  await page.goto('/markets');
 
   // 2. Enter search query
-  const searchInput = page.locator('[data-testid="search-input"]')
-  await searchInput.fill('election')
+  const searchInput = page.locator('[data-testid="search-input"]');
+  await searchInput.fill('election');
 
   // 3. Wait for API call
-  await page.waitForResponse(resp =>
-    resp.url().includes('/api/markets/search') && resp.status() === 200
-  )
+  await page.waitForResponse(
+    (resp) =>
+      resp.url().includes('/api/markets/search') && resp.status() === 200
+  );
 
   // 4. Verify results contain relevant markets
-  const results = page.locator('[data-testid="market-card"]')
-  await expect(results).not.toHaveCount(0)
+  const results = page.locator('[data-testid="market-card"]');
+  await expect(results).not.toHaveCount(0);
 
   // 5. Verify semantic relevance (not just substring match)
-  const firstResult = results.first()
-  const text = await firstResult.textContent()
-  expect(text?.toLowerCase()).toMatch(/election|trump|biden|president|vote/)
-})
+  const firstResult = results.first();
+  const text = await firstResult.textContent();
+  expect(text?.toLowerCase()).toMatch(/election|trump|biden|president|vote/);
+});
 ```
 
 **3. Wallet Connection Flow**
+
 ```typescript
 test('user can connect wallet', async ({ page, context }) => {
   // Setup: Mock Privy wallet extension
@@ -318,109 +330,117 @@ test('user can connect wallet', async ({ page, context }) => {
       isMetaMask: true,
       request: async ({ method }) => {
         if (method === 'eth_requestAccounts') {
-          return ['0x1234567890123456789012345678901234567890']
+          return ['0x1234567890123456789012345678901234567890'];
         }
         if (method === 'eth_chainId') {
-          return '0x1'
+          return '0x1';
         }
-      }
-    }
-  })
+      },
+    };
+  });
 
   // 1. Navigate to site
-  await page.goto('/')
+  await page.goto('/');
 
   // 2. Click connect wallet
-  await page.locator('[data-testid="connect-wallet"]').click()
+  await page.locator('[data-testid="connect-wallet"]').click();
 
   // 3. Verify wallet modal appears
-  await expect(page.locator('[data-testid="wallet-modal"]')).toBeVisible()
+  await expect(page.locator('[data-testid="wallet-modal"]')).toBeVisible();
 
   // 4. Select wallet provider
-  await page.locator('[data-testid="wallet-provider-metamask"]').click()
+  await page.locator('[data-testid="wallet-provider-metamask"]').click();
 
   // 5. Verify connection successful
-  await expect(page.locator('[data-testid="wallet-address"]')).toBeVisible()
-  await expect(page.locator('[data-testid="wallet-address"]')).toContainText('0x1234')
-})
+  await expect(page.locator('[data-testid="wallet-address"]')).toBeVisible();
+  await expect(page.locator('[data-testid="wallet-address"]')).toContainText(
+    '0x1234'
+  );
+});
 ```
 
 **4. Market Creation Flow (Authenticated)**
+
 ```typescript
 test('authenticated user can create market', async ({ page }) => {
   // Prerequisites: User must be authenticated
-  await page.goto('/creator-dashboard')
+  await page.goto('/creator-dashboard');
 
   // Verify auth (or skip test if not authenticated)
-  const isAuthenticated = await page.locator('[data-testid="user-menu"]').isVisible()
-  test.skip(!isAuthenticated, 'User not authenticated')
+  const isAuthenticated = await page
+    .locator('[data-testid="user-menu"]')
+    .isVisible();
+  test.skip(!isAuthenticated, 'User not authenticated');
 
   // 1. Click create market button
-  await page.locator('[data-testid="create-market"]').click()
+  await page.locator('[data-testid="create-market"]').click();
 
   // 2. Fill market form
-  await page.locator('[data-testid="market-name"]').fill('Test Market')
-  await page.locator('[data-testid="market-description"]').fill('This is a test market')
-  await page.locator('[data-testid="market-end-date"]').fill('2025-12-31')
+  await page.locator('[data-testid="market-name"]').fill('Test Market');
+  await page
+    .locator('[data-testid="market-description"]')
+    .fill('This is a test market');
+  await page.locator('[data-testid="market-end-date"]').fill('2025-12-31');
 
   // 3. Submit form
-  await page.locator('[data-testid="submit-market"]').click()
+  await page.locator('[data-testid="submit-market"]').click();
 
   // 4. Verify success
-  await expect(page.locator('[data-testid="success-message"]')).toBeVisible()
+  await expect(page.locator('[data-testid="success-message"]')).toBeVisible();
 
   // 5. Verify redirect to new market
-  await expect(page).toHaveURL(/\/markets\/test-market/)
-})
+  await expect(page).toHaveURL(/\/markets\/test-market/);
+});
 ```
 
 **5. Trading Flow (Critical - Real Money)**
+
 ```typescript
 test('user can place trade with sufficient balance', async ({ page }) => {
   // WARNING: This test involves real money - use testnet/staging only!
-  test.skip(process.env.NODE_ENV === 'production', 'Skip on production')
+  test.skip(process.env.NODE_ENV === 'production', 'Skip on production');
 
   // 1. Navigate to market
-  await page.goto('/markets/test-market')
+  await page.goto('/markets/test-market');
 
   // 2. Connect wallet (with test funds)
-  await page.locator('[data-testid="connect-wallet"]').click()
+  await page.locator('[data-testid="connect-wallet"]').click();
   // ... wallet connection flow
 
   // 3. Select position (Yes/No)
-  await page.locator('[data-testid="position-yes"]').click()
+  await page.locator('[data-testid="position-yes"]').click();
 
   // 4. Enter trade amount
-  await page.locator('[data-testid="trade-amount"]').fill('1.0')
+  await page.locator('[data-testid="trade-amount"]').fill('1.0');
 
   // 5. Verify trade preview
-  const preview = page.locator('[data-testid="trade-preview"]')
-  await expect(preview).toContainText('1.0 SOL')
-  await expect(preview).toContainText('Est. shares:')
+  const preview = page.locator('[data-testid="trade-preview"]');
+  await expect(preview).toContainText('1.0 SOL');
+  await expect(preview).toContainText('Est. shares:');
 
   // 6. Confirm trade
-  await page.locator('[data-testid="confirm-trade"]').click()
+  await page.locator('[data-testid="confirm-trade"]').click();
 
   // 7. Wait for blockchain transaction
-  await page.waitForResponse(resp =>
-    resp.url().includes('/api/trade') && resp.status() === 200,
+  await page.waitForResponse(
+    (resp) => resp.url().includes('/api/trade') && resp.status() === 200,
     { timeout: 30000 } // Blockchain can be slow
-  )
+  );
 
   // 8. Verify success
-  await expect(page.locator('[data-testid="trade-success"]')).toBeVisible()
+  await expect(page.locator('[data-testid="trade-success"]')).toBeVisible();
 
   // 9. Verify balance updated
-  const balance = page.locator('[data-testid="wallet-balance"]')
-  await expect(balance).not.toContainText('--')
-})
+  const balance = page.locator('[data-testid="wallet-balance"]');
+  await expect(balance).not.toContainText('--');
+});
 ```
 
 ## Playwright Configuration
 
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -431,7 +451,7 @@ export default defineConfig({
   reporter: [
     ['html', { outputFolder: 'playwright-report' }],
     ['junit', { outputFile: 'playwright-results.xml' }],
-    ['json', { outputFile: 'playwright-results.json' }]
+    ['json', { outputFile: 'playwright-results.json' }],
   ],
   use: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
@@ -465,12 +485,13 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },
-})
+});
 ```
 
 ## Flaky Test Management
 
 ### Identifying Flaky Tests
+
 ```bash
 # Run test multiple times to check stability
 npx playwright test tests/markets/search.spec.ts --repeat-each=10
@@ -480,85 +501,92 @@ npx playwright test tests/markets/search.spec.ts --retries=3
 ```
 
 ### Quarantine Pattern
+
 ```typescript
 // Mark flaky test for quarantine
 test('flaky: market search with complex query', async ({ page }) => {
-  test.fixme(true, 'Test is flaky - Issue #123')
+  test.fixme(true, 'Test is flaky - Issue #123');
 
   // Test code here...
-})
+});
 
 // Or use conditional skip
 test('market search with complex query', async ({ page }) => {
-  test.skip(process.env.CI, 'Test is flaky in CI - Issue #123')
+  test.skip(process.env.CI, 'Test is flaky in CI - Issue #123');
 
   // Test code here...
-})
+});
 ```
 
 ### Common Flakiness Causes & Fixes
 
 **1. Race Conditions**
+
 ```typescript
 // ❌ FLAKY: Don't assume element is ready
-await page.click('[data-testid="button"]')
+await page.click('[data-testid="button"]');
 
 // ✅ STABLE: Wait for element to be ready
-await page.locator('[data-testid="button"]').click() // Built-in auto-wait
+await page.locator('[data-testid="button"]').click(); // Built-in auto-wait
 ```
 
 **2. Network Timing**
+
 ```typescript
 // ❌ FLAKY: Arbitrary timeout
-await page.waitForTimeout(5000)
+await page.waitForTimeout(5000);
 
 // ✅ STABLE: Wait for specific condition
-await page.waitForResponse(resp => resp.url().includes('/api/markets'))
+await page.waitForResponse((resp) => resp.url().includes('/api/markets'));
 ```
 
 **3. Animation Timing**
+
 ```typescript
 // ❌ FLAKY: Click during animation
-await page.click('[data-testid="menu-item"]')
+await page.click('[data-testid="menu-item"]');
 
 // ✅ STABLE: Wait for animation to complete
-await page.locator('[data-testid="menu-item"]').waitFor({ state: 'visible' })
-await page.waitForLoadState('networkidle')
-await page.click('[data-testid="menu-item"]')
+await page.locator('[data-testid="menu-item"]').waitFor({ state: 'visible' });
+await page.waitForLoadState('networkidle');
+await page.click('[data-testid="menu-item"]');
 ```
 
 ## Artifact Management
 
 ### Screenshot Strategy
+
 ```typescript
 // Take screenshot at key points
-await page.screenshot({ path: 'artifacts/after-login.png' })
+await page.screenshot({ path: 'artifacts/after-login.png' });
 
 // Full page screenshot
-await page.screenshot({ path: 'artifacts/full-page.png', fullPage: true })
+await page.screenshot({ path: 'artifacts/full-page.png', fullPage: true });
 
 // Element screenshot
 await page.locator('[data-testid="chart"]').screenshot({
-  path: 'artifacts/chart.png'
-})
+  path: 'artifacts/chart.png',
+});
 ```
 
 ### Trace Collection
+
 ```typescript
 // Start trace
 await browser.startTracing(page, {
   path: 'artifacts/trace.json',
   screenshots: true,
   snapshots: true,
-})
+});
 
 // ... test actions ...
 
 // Stop trace
-await browser.stopTracing()
+await browser.stopTracing();
 ```
 
 ### Video Recording
+
 ```typescript
 // Configured in playwright.config.ts
 use: {
@@ -570,6 +598,7 @@ use: {
 ## CI/CD Integration
 
 ### GitHub Actions Workflow
+
 ```yaml
 # .github/workflows/e2e.yml
 name: E2E Tests
@@ -633,17 +662,20 @@ jobs:
 ## Test Results by Suite
 
 ### Markets - Browse & Search
+
 - ✅ user can browse markets (2.3s)
 - ✅ semantic search returns relevant results (1.8s)
 - ✅ search handles no results (1.2s)
 - ❌ search with special characters (0.9s)
 
 ### Wallet - Connection
+
 - ✅ user can connect MetaMask (3.1s)
-- ⚠️  user can connect Phantom (2.8s) - FLAKY
+- ⚠️ user can connect Phantom (2.8s) - FLAKY
 - ✅ user can disconnect wallet (1.5s)
 
 ### Trading - Core Flows
+
 - ✅ user can place buy order (5.2s)
 - ❌ user can place sell order (4.8s)
 - ✅ insufficient balance shows error (1.9s)
@@ -651,12 +683,14 @@ jobs:
 ## Failed Tests
 
 ### 1. search with special characters
+
 **File:** `tests/e2e/markets/search.spec.ts:45`
 **Error:** Expected element to be visible, but was not found
 **Screenshot:** artifacts/search-special-chars-failed.png
 **Trace:** artifacts/trace-123.zip
 
 **Steps to Reproduce:**
+
 1. Navigate to /markets
 2. Enter search query with special chars: "trump & biden"
 3. Verify results
@@ -666,11 +700,13 @@ jobs:
 ---
 
 ### 2. user can place sell order
+
 **File:** `tests/e2e/trading/sell.spec.ts:28`
 **Error:** Timeout waiting for API response /api/trade
 **Video:** artifacts/videos/sell-order-failed.webm
 
 **Possible Causes:**
+
 - Blockchain network slow
 - Insufficient gas
 - Transaction reverted
@@ -680,9 +716,9 @@ jobs:
 ## Artifacts
 
 - HTML Report: playwright-report/index.html
-- Screenshots: artifacts/*.png (12 files)
-- Videos: artifacts/videos/*.webm (2 files)
-- Traces: artifacts/*.zip (2 files)
+- Screenshots: artifacts/\*.png (12 files)
+- Videos: artifacts/videos/\*.webm (2 files)
+- Traces: artifacts/\*.zip (2 files)
 - JUnit XML: playwright-results.xml
 
 ## Next Steps
@@ -695,6 +731,7 @@ jobs:
 ## Success Metrics
 
 After E2E test run:
+
 - ✅ All critical journeys passing (100%)
 - ✅ Pass rate > 95% overall
 - ✅ Flaky rate < 5%

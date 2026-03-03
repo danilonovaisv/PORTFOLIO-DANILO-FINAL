@@ -12,9 +12,9 @@ spec:
       app: backend
   action: ALLOW
   rules:
-  - from:
-    - source:
-        principals: ["cluster.local/ns/production/sa/frontend"]
+    - from:
+        - source:
+            principals: ['cluster.local/ns/production/sa/frontend']
 ```
 
 ## Best Practices

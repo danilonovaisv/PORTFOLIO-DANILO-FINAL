@@ -4,7 +4,7 @@ Event-driven functions (formerly Cloud Functions)
 
 **When to use**: ['Simple event handlers', 'Pub/Sub message processing', 'Cloud Storage triggers', 'HTTP webhooks']
 
-```javascript
+````javascript
 ```javascript
 // HTTP Function
 // index.js
@@ -14,7 +14,7 @@ functions.http('helloHttp', (req, res) => {
   const name = req.query.name || req.body.name || 'World';
   res.send(`Hello, ${name}!`);
 });
-```
+````
 
 ```javascript
 // Pub/Sub Function
@@ -75,4 +75,7 @@ gcloud functions deploy process-uploads \
   --trigger-event-filters="bucket=my-bucket" \
   --region us-central1
 ```
+
+```
+
 ```

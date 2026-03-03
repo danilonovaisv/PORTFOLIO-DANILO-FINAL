@@ -1,7 +1,7 @@
 ---
 trigger: always_on
 priority: high
-match: "**/admin/**"
+match: '**/admin/**'
 ---
 
 # 22-admin-realtime.md — The Control Center

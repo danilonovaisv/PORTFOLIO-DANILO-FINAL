@@ -21,6 +21,7 @@ curl -s http://target.com/wp-content/plugins/
 ```
 
 Common vulnerable plugins to check:
+
 ```bash
 # Search for plugin exploits
 searchsploit wordpress plugin <plugin_name>

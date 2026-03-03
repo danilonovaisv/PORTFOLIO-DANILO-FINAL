@@ -10,6 +10,7 @@ Language models exhibit predictable degradation patterns as context length incre
 ## When to Activate
 
 Activate this skill when:
+
 - Agent performance degrades unexpectedly during long conversations
 - Debugging cases where agents produce incorrect or irrelevant outputs
 - Designing systems that must handle large contexts reliably
@@ -159,6 +160,7 @@ Implement these strategies through specific architectural patterns. Use just-in-
 ## Examples
 
 **Example 1: Detecting Degradation**
+
 ```yaml
 # Context grows during long conversation
 turn_1: 1000 tokens
@@ -169,19 +171,23 @@ turn_30: 90000 tokens (significant degradation)
 ```
 
 **Example 2: Mitigating Lost-in-Middle**
+
 ```markdown
 # Organize context with critical info at edges
 
-[CURRENT TASK]                      # At start
+[CURRENT TASK] # At start
+
 - Goal: Generate quarterly report
 - Deadline: End of week
 
-[DETAILED CONTEXT]                  # Middle (less attention)
+[DETAILED CONTEXT] # Middle (less attention)
+
 - 50 pages of data
 - Multiple analysis sections
 - Supporting evidence
 
-[KEY FINDINGS]                     # At end
+[KEY FINDINGS] # At end
+
 - Revenue up 15%
 - Costs down 8%
 - Growth in Region A
@@ -209,14 +215,17 @@ This skill builds on context-fundamentals and should be studied after understand
 ## References
 
 Internal reference:
+
 - [Degradation Patterns Reference](./references/patterns.md) - Detailed technical reference
 
 Related skills in this collection:
+
 - context-fundamentals - Context basics
 - context-optimization - Mitigation techniques
 - evaluation - Detection and measurement
 
 External resources:
+
 - Research on attention mechanisms and context window limitations
 - Studies on the "lost-in-middle" phenomenon
 - Production engineering guides from AI labs

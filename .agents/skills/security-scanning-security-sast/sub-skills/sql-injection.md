@@ -3,6 +3,7 @@
 **VULNERABLE**: String formatting/concatenation with user input in SQL queries
 
 **SECURE**:
+
 ```python
 # Parameterized queries
 cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))

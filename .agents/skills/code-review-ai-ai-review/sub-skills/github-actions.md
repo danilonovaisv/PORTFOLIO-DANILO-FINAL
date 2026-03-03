@@ -52,7 +52,7 @@ jobs:
 
 ## Complete Example: AI Review Automation
 
-```python
+````python
 #!/usr/bin/env python3
 import os, json, subprocess
 from dataclasses import dataclass
@@ -145,11 +145,12 @@ if __name__ == '__main__':
     diff = reviewer.get_pr_diff()
     ai_issues = reviewer.ai_review(diff, static_results)
     reviewer.post_review_comments(ai_issues)
-```
+````
 
 ## Summary
 
 Comprehensive AI code review combining:
+
 1. Multi-tool static analysis (SonarQube, CodeQL, Semgrep)
 2. State-of-the-art LLMs (GPT-5, Claude 4.5 Sonnet)
 3. Seamless CI/CD integration (GitHub Actions, GitLab, Azure DevOps)

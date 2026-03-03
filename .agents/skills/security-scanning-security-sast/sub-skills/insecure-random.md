@@ -3,6 +3,7 @@
 **VULNERABLE**: random module for security-critical operations
 
 **SECURE**:
+
 ```python
 import secrets
 token = secrets.token_hex(16)

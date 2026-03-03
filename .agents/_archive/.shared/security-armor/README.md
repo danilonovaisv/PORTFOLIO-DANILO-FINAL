@@ -19,7 +19,9 @@ security-armor/
 ## 🚀 Usage
 
 ### 1. Pre-Deployment Audit
+
 Before any major release, run through the `checklists/vuln_scan.md`.
 
 ### 2. Header Configuration
+
 Copy the `helmet_config.json` settings into your web server (Express/Next.js) middleware to secure HTTP headers.

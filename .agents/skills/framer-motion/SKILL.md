@@ -20,7 +20,7 @@ pnpm add framer-motion
 ### Basic Usage
 
 ```tsx
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 // Simple animation
 <motion.div
@@ -29,33 +29,33 @@ import { motion } from "framer-motion";
   transition={{ duration: 0.5 }}
 >
   Content
-</motion.div>
+</motion.div>;
 ```
 
 ## Core Concepts
 
-| Concept | Guide |
-|---------|-------|
+| Concept              | Guide                                                          |
+| -------------------- | -------------------------------------------------------------- |
 | **Motion Component** | [reference/motion-component.md](reference/motion-component.md) |
-| **Variants** | [reference/variants.md](reference/variants.md) |
-| **Gestures** | [reference/gestures.md](reference/gestures.md) |
-| **Hooks** | [reference/hooks.md](reference/hooks.md) |
+| **Variants**         | [reference/variants.md](reference/variants.md)                 |
+| **Gestures**         | [reference/gestures.md](reference/gestures.md)                 |
+| **Hooks**            | [reference/hooks.md](reference/hooks.md)                       |
 
 ## Examples
 
-| Pattern | Guide |
-|---------|-------|
-| **Page Transitions** | [examples/page-transitions.md](examples/page-transitions.md) |
-| **List Animations** | [examples/list-animations.md](examples/list-animations.md) |
-| **Scroll Animations** | [examples/scroll-animations.md](examples/scroll-animations.md) |
+| Pattern                | Guide                                                            |
+| ---------------------- | ---------------------------------------------------------------- |
+| **Page Transitions**   | [examples/page-transitions.md](examples/page-transitions.md)     |
+| **List Animations**    | [examples/list-animations.md](examples/list-animations.md)       |
+| **Scroll Animations**  | [examples/scroll-animations.md](examples/scroll-animations.md)   |
 | **Micro-interactions** | [examples/micro-interactions.md](examples/micro-interactions.md) |
 
 ## Templates
 
-| Template | Purpose |
-|----------|---------|
+| Template                                                       | Purpose                 |
+| -------------------------------------------------------------- | ----------------------- |
 | [templates/page-transition.tsx](templates/page-transition.tsx) | Page transition wrapper |
-| [templates/animated-list.tsx](templates/animated-list.tsx) | Animated list component |
+| [templates/animated-list.tsx](templates/animated-list.tsx)     | Animated list component |
 
 ## Quick Reference
 
@@ -78,7 +78,7 @@ import { motion } from "framer-motion";
 <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
-  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
 >
   Click me
 </motion.button>
@@ -91,26 +91,28 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
+    transition: { staggerChildren: 0.1 },
+  },
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { opacity: 1, y: 0 },
 };
 
 <motion.ul variants={container} initial="hidden" animate="show">
-  {items.map(i => (
-    <motion.li key={i} variants={item}>{i}</motion.li>
+  {items.map((i) => (
+    <motion.li key={i} variants={item}>
+      {i}
+    </motion.li>
   ))}
-</motion.ul>
+</motion.ul>;
 ```
 
 ### AnimatePresence (Exit Animations)
 
 ```tsx
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
 
 <AnimatePresence mode="wait">
   {isVisible && (
@@ -123,7 +125,7 @@ import { AnimatePresence, motion } from "framer-motion";
       Modal content
     </motion.div>
   )}
-</AnimatePresence>
+</AnimatePresence>;
 ```
 
 ### Scroll Trigger
@@ -132,7 +134,7 @@ import { AnimatePresence, motion } from "framer-motion";
 <motion.div
   initial={{ opacity: 0, y: 50 }}
   whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-100px" }}
+  viewport={{ once: true, margin: '-100px' }}
   transition={{ duration: 0.5 }}
 >
   Animates when scrolled into view
@@ -179,19 +181,19 @@ transition={{ type: "inertia", velocity: 50 }}
 
 ```tsx
 // Built-in easings
-ease: "linear"
-ease: "easeIn"
-ease: "easeOut"
-ease: "easeInOut"
-ease: "circIn"
-ease: "circOut"
-ease: "circInOut"
-ease: "backIn"
-ease: "backOut"
-ease: "backInOut"
+ease: 'linear';
+ease: 'easeIn';
+ease: 'easeOut';
+ease: 'easeInOut';
+ease: 'circIn';
+ease: 'circOut';
+ease: 'circInOut';
+ease: 'backIn';
+ease: 'backOut';
+ease: 'backInOut';
 
 // Custom cubic-bezier
-ease: [0.17, 0.67, 0.83, 0.67]
+ease: [0.17, 0.67, 0.83, 0.67];
 ```
 
 ## Reduced Motion
@@ -237,10 +239,10 @@ const variants = {
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4 }
+  transition: { duration: 0.4 },
 };
 
-<motion.div {...fadeInUp}>Content</motion.div>
+<motion.div {...fadeInUp}>Content</motion.div>;
 ```
 
 ### Staggered List
@@ -250,13 +252,13 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-  }
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
 };
 
 const item = {
   hidden: { opacity: 0, x: -20 },
-  show: { opacity: 1, x: 0 }
+  show: { opacity: 1, x: 0 },
 };
 ```
 
@@ -293,8 +295,8 @@ const item = {
 ```tsx
 <motion.div
   initial={false}
-  animate={{ height: isOpen ? "auto" : 0 }}
-  transition={{ duration: 0.3, ease: "easeInOut" }}
+  animate={{ height: isOpen ? 'auto' : 0 }}
+  transition={{ duration: 0.3, ease: 'easeInOut' }}
   className="overflow-hidden"
 >
   <div className="p-4">Accordion content</div>

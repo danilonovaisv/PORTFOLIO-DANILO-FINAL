@@ -2,6 +2,7 @@
 
 **Cause**: Randomized identifiers reduce enumeration risk
 **Solution**:
+
 ```
 # UUID discovery techniques:
 1. Check response bodies for leaked UUIDs

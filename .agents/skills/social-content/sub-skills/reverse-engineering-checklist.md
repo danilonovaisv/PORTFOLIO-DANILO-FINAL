@@ -15,6 +15,7 @@
 ## Questions to Ask
 
 If you need more context:
+
 1. What platform(s) are you focusing on?
 2. What's your current posting frequency?
 3. Do you have existing content to repurpose?

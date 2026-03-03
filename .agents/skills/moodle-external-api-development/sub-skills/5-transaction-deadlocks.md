@@ -1,6 +1,7 @@
 # 5. Transaction Deadlocks
 
 **Solution**:
+
 - Keep transactions short
 - Always commit or rollback in finally blocks
 - Avoid nested transactions

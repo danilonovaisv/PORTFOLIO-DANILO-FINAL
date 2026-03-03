@@ -1,12 +1,12 @@
 # 2. Key Performance Factors
 
-| Factor | Impact | Solution |
-|--------|--------|----------|
-| **Shuffle** | Network I/O, disk I/O | Minimize wide transformations |
-| **Data Skew** | Uneven task duration | Salting, broadcast joins |
-| **Serialization** | CPU overhead | Use Kryo, columnar formats |
-| **Memory** | GC pressure, spills | Tune executor memory |
-| **Partitions** | Parallelism | Right-size partitions |
+| Factor            | Impact                | Solution                      |
+| ----------------- | --------------------- | ----------------------------- |
+| **Shuffle**       | Network I/O, disk I/O | Minimize wide transformations |
+| **Data Skew**     | Uneven task duration  | Salting, broadcast joins      |
+| **Serialization** | CPU overhead          | Use Kryo, columnar formats    |
+| **Memory**        | GC pressure, spills   | Tune executor memory          |
+| **Partitions**    | Parallelism           | Right-size partitions         |
 
 ## Quick Start
 

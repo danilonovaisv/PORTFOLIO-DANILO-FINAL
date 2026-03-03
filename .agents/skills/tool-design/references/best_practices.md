@@ -36,7 +36,7 @@ Good parameter names include customer_id, search_query, output_format, max_resul
 
 ### Enumeration Values
 
-When parameters accept enumerated values, use consistent naming across all tools. For boolean-style options, use prefix patterns like "include_" for affirmative options (include_history, include_metadata) and "exclude_" for negative options (exclude_archived, exclude_inactive). For categorical values, use consistent terminology like "format": "concise" | "detailed" rather than mixing "format": "short" | "long" in some tools and "format": "brief" | "complete" in others.
+When parameters accept enumerated values, use consistent naming across all tools. For boolean-style options, use prefix patterns like "include*" for affirmative options (include_history, include_metadata) and "exclude*" for negative options (exclude_archived, exclude_inactive). For categorical values, use consistent terminology like "format": "concise" | "detailed" rather than mixing "format": "short" | "long" in some tools and "format": "brief" | "complete" in others.
 
 ## Error Message Design
 
@@ -50,18 +50,18 @@ Design error messages with agent recovery as the primary consideration. Include 
 
 ```json
 {
-    "error": {
-        "code": "INVALID_CUSTOMER_ID",
-        "category": "validation",
-        "message": "Customer ID 'CUST-123' does not match required format",
-        "expected_format": {
-            "description": "Customer ID must be 9 characters",
-            "pattern": "CUST-######",
-            "example": "CUST-000001"
-        },
-        "resolution": "Provide a customer ID matching pattern CUST-######",
-        "retryable": true
-    }
+  "error": {
+    "code": "INVALID_CUSTOMER_ID",
+    "category": "validation",
+    "message": "Customer ID 'CUST-123' does not match required format",
+    "expected_format": {
+      "description": "Customer ID must be 9 characters",
+      "pattern": "CUST-######",
+      "example": "CUST-000001"
+    },
+    "resolution": "Provide a customer ID matching pattern CUST-######",
+    "retryable": true
+  }
 }
 ```
 
@@ -81,7 +81,7 @@ Verbose responses provide comprehensive information but consume significant cont
 def get_customer_response(format: str = "concise"):
     """
     Retrieve customer information.
-    
+
     Args:
         format: Response format - 'concise' for key fields only,
                 'detailed' for complete customer record
@@ -173,4 +173,3 @@ Good: Maintaining consistent naming patterns across all tools for similar concep
 ## Checklist for Tool Design
 
 Before deploying a new tool, verify that the description clearly states what the tool does and when to use it. Verify that all parameters have descriptive names and clear type information. Verify that return values are documented with structure and examples. Verify that error cases are covered with actionable messages. Verify that the tool follows naming conventions used elsewhere. Verify that examples demonstrate common usage patterns. Verify that format options are available if response size varies significantly.
-

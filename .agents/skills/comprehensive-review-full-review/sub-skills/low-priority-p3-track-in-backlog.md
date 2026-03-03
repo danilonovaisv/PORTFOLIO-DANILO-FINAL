@@ -8,6 +8,7 @@
 ## Success Criteria
 
 Review is considered successful when:
+
 - All critical security vulnerabilities are identified and documented
 - Performance bottlenecks are profiled with remediation paths
 - Test coverage gaps are mapped with priority recommendations

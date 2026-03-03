@@ -1,7 +1,7 @@
 # SEO Health Index
 
-* **Overall Score:** XX / 100
-* **Health Status:** [Excellent / Good / Fair / Poor / Critical]
+- **Overall Score:** XX / 100
+- **Health Status:** [Excellent / Good / Fair / Poor / Critical]
 
 #### Category Breakdown
 
@@ -17,10 +17,10 @@
 
 ## Interpretation Rules (Mandatory)
 
-* The score **does not replace findings**
-* Improvements must be traceable to **specific issues**
-* A high score with unresolved **Critical issues is invalid** → flag inconsistency
-* Always explain **what limits the score from being higher**
+- The score **does not replace findings**
+- Improvements must be traceable to **specific issues**
+- A high score with unresolved **Critical issues is invalid** → flag inconsistency
+- Always explain **what limits the score from being higher**
 
 ---
 
@@ -28,14 +28,14 @@
 
 If a previous audit exists:
 
-* Include **score delta** (+/−)
-* Attribute change to specific fixes
-* Avoid celebrating score increases without validating outcomes
+- Include **score delta** (+/−)
+- Attribute change to specific fixes
+- Avoid celebrating score increases without validating outcomes
 
 ---
 
 ## Explicit Limitations (Always State)
 
-* Score reflects **SEO readiness**, not guaranteed rankings
-* External factors (competition, algorithm updates) are not scored
-* Authority score is directional, not exhaustive
+- Score reflects **SEO readiness**, not guaranteed rankings
+- External factors (competition, algorithm updates) are not scored
+- Authority score is directional, not exhaustive

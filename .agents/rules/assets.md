@@ -8,8 +8,8 @@ No sistema "Ghost Era", a integridade visual é absoluta. Assets não são apena
 
 1. **Zero Placeholder Policy**: É EXPRESSAMENTE PROIBIDO o uso de "lorem ipsum" para imagens ou URLs de placeholder (ex: via.placeholder.com).
 2. **Supabase First**: Todos os assets de produção DEVEM ser servidos via Supabase Storage.
-    - Bucket: `site-assets` para UI.
-    - Bucket: `portfolio-media` para vídeos e projetos.
+   - Bucket: `site-assets` para UI.
+   - Bucket: `portfolio-media` para vídeos e projetos.
 3. **Reference Method**: Assets devem ser referenciados através do arquivo `assets.json` ou via constantes tipadas no frontend.
 
 ## ⚙️ Technical Constraints
@@ -29,4 +29,5 @@ No sistema "Ghost Era", a integridade visual é absoluta. Assets não são apena
 - [ ] Existe carregamento progressivo (blur-up) para imagens críticas?
 
 ---
-*Protocolo Ghost v3.0 | Asset Sentinel*
+
+_Protocolo Ghost v3.0 | Asset Sentinel_

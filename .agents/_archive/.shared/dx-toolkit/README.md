@@ -16,4 +16,5 @@ dx-toolkit/
 ```
 
 ## 🚀 Usage
+
 Copy `vscode_settings.json` to `.vscode/settings.json` in your project root to align the whole team's editor behavior (Auto-save, Linting on save).

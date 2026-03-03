@@ -19,6 +19,7 @@
 ## Success Metrics
 
 Track these KPIs for your prompts:
+
 - **Accuracy**: Correctness of outputs
 - **Consistency**: Reproducibility across similar inputs
 - **Latency**: Response time (P50, P95, P99)

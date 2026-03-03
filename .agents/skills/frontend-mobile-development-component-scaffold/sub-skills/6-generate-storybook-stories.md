@@ -12,7 +12,7 @@ const meta: Meta<typeof ${spec.name}> = {
   component: ${spec.name},
   tags: ['autodocs'],
   argTypes: {
-${spec.props.map(p => `    ${p.name}: { control: '${this.inferControl(p.type)}', description: '${p.description}' },`).join('\n')}
+${spec.props.map((p) => `    ${p.name}: { control: '${this.inferControl(p.type)}', description: '${p.description}' },`).join('\n')}
   },
 };
 
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof ${spec.name}>;
 
 export const Default: Story = {
   args: {
-${spec.props.map(p => `    ${p.name}: ${p.defaultValue || this.getMockValue(p.type)},`).join('\n')}
+${spec.props.map((p) => `    ${p.name}: ${p.defaultValue || this.getMockValue(p.type)},`).join('\n')}
   },
 };
 

@@ -1,11 +1,11 @@
 # State Placement
 
-| Scope | Where |
-|-------|-------|
-| Single component | useState |
-| Parent-child | Lift state up |
-| Subtree | Context |
-| App-wide | Global store |
+| Scope            | Where         |
+| ---------------- | ------------- |
+| Single component | useState      |
+| Parent-child     | Lift state up |
+| Subtree          | Context       |
+| App-wide         | Global store  |
 
 ---
 

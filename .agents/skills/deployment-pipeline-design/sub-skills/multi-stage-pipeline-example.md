@@ -5,7 +5,7 @@ name: Production Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:

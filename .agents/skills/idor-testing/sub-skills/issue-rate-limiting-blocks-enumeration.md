@@ -2,6 +2,7 @@
 
 **Cause**: Application implements request throttling
 **Solution**:
+
 ```
 # Bypass techniques:
 1. Add delays between requests (Burp Intruder throttle)

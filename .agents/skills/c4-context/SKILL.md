@@ -35,9 +35,15 @@ metadata:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Short Description](./sub-skills/short-description.md)
+
 ### 2. [Long Description](./sub-skills/long-description.md)
+
 ### 3. [Persona Name](./sub-skills/persona-name.md)
+
 ### 4. [Feature Name](./sub-skills/feature-name.md)
+
 ### 5. [Feature Name - Persona Name Journey](./sub-skills/feature-name-persona-name-journey.md)
+
 ### 6. [External System Integration Journey](./sub-skills/external-system-integration-journey.md)
+
 ### 7. [External System Name](./sub-skills/external-system-name.md)

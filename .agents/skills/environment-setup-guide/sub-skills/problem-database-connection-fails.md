@@ -2,9 +2,11 @@
 
 **Symptoms:** "Connection refused" or "Authentication failed"
 **Solution:**
+
 - Verify database is running
 - Check connection string
 - Verify credentials
+
 ```bash
 # Check if PostgreSQL is running
 sudo systemctl status postgresql

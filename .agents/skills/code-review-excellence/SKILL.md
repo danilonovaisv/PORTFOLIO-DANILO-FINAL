@@ -40,7 +40,6 @@ Transform code reviews from gatekeeping to knowledge sharing through constructiv
 
 - `resources/implementation-playbook.md` for detailed review patterns and templates.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

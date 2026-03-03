@@ -85,22 +85,22 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
   const [sections, setSections] = useState<LandingPageBlock[]>(
     initialParsed.template === LEGACY_PROJECT_TEMPLATE
       ? initialParsed.blocks.map((s) => ({
-        ...s,
-        id: s.id || uuidv4(),
-        content: {
-          ...s.content,
-          media: s.content.media?.startsWith('http')
-            ? s.content.media
-            : s.content.media
-              ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${s.content.media}`
-              : undefined,
-          media2: s.content.media2?.startsWith('http')
-            ? s.content.media2
-            : s.content.media2
-              ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${s.content.media2}`
-              : undefined,
-        },
-      }))
+          ...s,
+          id: s.id || uuidv4(),
+          content: {
+            ...s.content,
+            media: s.content.media?.startsWith('http')
+              ? s.content.media
+              : s.content.media
+                ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${s.content.media}`
+                : undefined,
+            media2: s.content.media2?.startsWith('http')
+              ? s.content.media2
+              : s.content.media2
+                ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${s.content.media2}`
+                : undefined,
+          },
+        }))
       : []
   );
 
@@ -110,10 +110,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         initialParsed.template === MASTER_PROJECT_TEMPLATE
           ? initialParsed.data
           : createDefaultMasterProjectTemplate({
-            slug: initialData?.slug,
-            title: initialData?.title,
-            cover: initialData?.cover,
-          })
+              slug: initialData?.slug,
+              title: initialData?.title,
+              cover: initialData?.cover,
+            })
       )
     );
 
@@ -123,10 +123,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         initialParsed.template === MASTER_PROJECT_TEMPLATE_V2
           ? initialParsed.data
           : createDefaultMasterProjectTemplateV2({
-            slug: initialData?.slug,
-            title: initialData?.title,
-            cover: initialData?.cover,
-          })
+              slug: initialData?.slug,
+              title: initialData?.title,
+              cover: initialData?.cover,
+            })
       )
     );
 
@@ -136,10 +136,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         initialParsed.template === MASTER_PROJECT_TEMPLATE_V3
           ? initialParsed.data
           : createDefaultMasterProjectTemplateV3({
-            slug: initialData?.slug,
-            title: initialData?.title,
-            cover: initialData?.cover,
-          })
+              slug: initialData?.slug,
+              title: initialData?.title,
+              cover: initialData?.cover,
+            })
       )
     );
 

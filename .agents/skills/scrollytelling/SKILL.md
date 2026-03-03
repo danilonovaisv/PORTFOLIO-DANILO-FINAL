@@ -16,6 +16,7 @@ Build scroll-driven narrative experiences that reveal content, trigger animation
 **Why it works**: Scrollytelling exploits a fundamental psychological principle—humans crave control. Every scroll is a micro-commitment that increases engagement. Users control the pace, creating deeper connection than passive consumption.
 
 **Measured impact**:
+
 - 400% longer time-on-page vs static content
 - 67% improvement in information recall
 - 5x higher social sharing rates
@@ -47,13 +48,13 @@ Not every section needs animation. Subtle transitions often work better than con
 
 Research analyzing 50 scrollytelling articles identified these core patterns:
 
-| Technique | Description | Best For |
-|-----------|-------------|----------|
-| **Graphic Sequence** | Discrete visuals that change completely at scroll thresholds | Data visualizations, step-by-step explanations |
-| **Animated Transition** | Smooth morphing between states | State changes, evolution over time |
-| **Pan and Zoom** | Scroll controls which portion of a visual is visible | Maps, large images, spatial narratives |
-| **Moviescroller** | Frame-by-frame progression creating video-like effects | Product showcases, 3D object reveals |
-| **Show-and-Play** | Interactive elements activate at scroll waypoints | Multimedia, audio/video integration |
+| Technique               | Description                                                  | Best For                                       |
+| ----------------------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| **Graphic Sequence**    | Discrete visuals that change completely at scroll thresholds | Data visualizations, step-by-step explanations |
+| **Animated Transition** | Smooth morphing between states                               | State changes, evolution over time             |
+| **Pan and Zoom**        | Scroll controls which portion of a visual is visible         | Maps, large images, spatial narratives         |
+| **Moviescroller**       | Frame-by-frame progression creating video-like effects       | Product showcases, 3D object reveals           |
+| **Show-and-Play**       | Interactive elements activate at scroll waypoints            | Multimedia, audio/video integration            |
 
 ## Layout Patterns
 
@@ -103,6 +104,7 @@ Combines vertical scrolling with horizontal sections or sideways timelines.
 ## When to Use Scrollytelling
 
 **Good candidates**:
+
 - Long-form journalism with multimedia
 - Brand storytelling celebrating achievements
 - Product pages showcasing features
@@ -111,6 +113,7 @@ Combines vertical scrolling with horizontal sections or sideways timelines.
 - High-consideration products needing depth
 
 **Avoid when**:
+
 - You lack strong visual assets
 - You're tight on time/budget (good scrollytelling requires more investment)
 - The story lacks distinct chronology
@@ -159,27 +162,30 @@ options:
 
 ### Technology Selection Guide
 
-| Complexity | Recommendation | Bundle Size |
-|------------|----------------|-------------|
-| Simple reveals, progress bars | Native CSS scroll-timeline | 0 KB |
-| Viewport-triggered effects | IntersectionObserver | 0 KB |
-| Complex timelines, pinning | GSAP ScrollTrigger | ~23 KB |
-| React projects | Motion (Framer Motion) | ~32 KB |
-| Smooth scroll + effects | Lenis + GSAP | ~25 KB |
+| Complexity                    | Recommendation             | Bundle Size |
+| ----------------------------- | -------------------------- | ----------- |
+| Simple reveals, progress bars | Native CSS scroll-timeline | 0 KB        |
+| Viewport-triggered effects    | IntersectionObserver       | 0 KB        |
+| Complex timelines, pinning    | GSAP ScrollTrigger         | ~23 KB      |
+| React projects                | Motion (Framer Motion)     | ~32 KB      |
+| Smooth scroll + effects       | Lenis + GSAP               | ~25 KB      |
 
 ### CSS Scroll-Driven Animations (Native - 2025+)
 
 **Browser support**:
+
 - Chrome 115+: Full support (since July 2025)
 - Safari 26+: Full support (since September 2025)
 - Firefox: Requires flag (`layout.css.scroll-driven-animations.enabled`)
 
 **Key properties**:
+
 - `animation-timeline: scroll()` - links animation to scroll position
 - `animation-timeline: view()` - links animation to element visibility
 - `animation-range` - controls when animation starts/stops
 
 **Example - View-triggered fade in**:
+
 ```css
 @supports (animation-timeline: scroll()) {
   .reveal-on-scroll {
@@ -202,6 +208,7 @@ options:
 ```
 
 **Example - Scroll-linked progress bar**:
+
 ```css
 .progress-bar {
   animation: grow linear;
@@ -209,8 +216,12 @@ options:
 }
 
 @keyframes grow {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 ```
 
@@ -389,11 +400,11 @@ Accessibility is non-negotiable. Scrollytelling can trigger vestibular disorders
 
 ### Critical WCAG Criteria
 
-| Criterion | Requirement |
-|-----------|-------------|
+| Criterion    | Requirement                                                    |
+| ------------ | -------------------------------------------------------------- |
 | **SC 2.2.2** | Auto-playing content >5 seconds needs pause/stop/hide controls |
-| **SC 2.3.3** | User-triggered animations must be disableable |
-| **SC 2.3.1** | No flashing more than 3 times per second |
+| **SC 2.3.3** | User-triggered animations must be disableable                  |
+| **SC 2.3.1** | No flashing more than 3 times per second                       |
 
 ### Reduced Motion Support (Mandatory)
 
@@ -428,13 +439,13 @@ useEffect(() => {
 
 ### Safe Animation Guidelines
 
-| Animation Type | Safety |
-|----------------|--------|
-| Fade in/out, under 0.5s | Safe |
-| Simple transforms | Safe |
-| Parallax scrolling | Triggers vestibular issues - always provide fallback |
-| Swooping, zooming | Problematic - avoid or provide fallback |
-| Looping animations | Cognitive overload - limit iterations |
+| Animation Type          | Safety                                               |
+| ----------------------- | ---------------------------------------------------- |
+| Fade in/out, under 0.5s | Safe                                                 |
+| Simple transforms       | Safe                                                 |
+| Parallax scrolling      | Triggers vestibular issues - always provide fallback |
+| Swooping, zooming       | Problematic - avoid or provide fallback              |
+| Looping animations      | Cognitive overload - limit iterations                |
 
 **Keep effects small**: Animations affecting more than 1/3 of the viewport can overwhelm users.
 
@@ -487,6 +498,7 @@ Mobile users represent 60%+ of web traffic. Scrollytelling must work excellently
 **Start with mobile**: "Starting with mobile first forces you to pare down your experience to the nuts and bolts, leaving only the necessities. This refines and focuses the content." (The Pudding)
 
 Design the core experience for mobile, then enhance for desktop—not the reverse. This approach:
+
 - Forces essential-only content decisions
 - Improves development efficiency
 - Results in less code if desktop is functionally similar
@@ -495,11 +507,11 @@ Design the core experience for mobile, then enhance for desktop—not the revers
 
 Mobile browsers toggle navigation bars during scrolling, breaking traditional `100vh` layouts.
 
-| Unit | Definition | When To Use |
-|------|------------|-------------|
-| `vh` | Large viewport (browser UI hidden) | **Legacy fallback only** |
-| `svh` | Small viewport (browser UI visible) | **Use for ~90% of layouts** (recommended) |
-| `lvh` | Large viewport (browser UI hidden) | Modals/overlays maximizing space |
+| Unit  | Definition                            | When To Use                                 |
+| ----- | ------------------------------------- | ------------------------------------------- |
+| `vh`  | Large viewport (browser UI hidden)    | **Legacy fallback only**                    |
+| `svh` | Small viewport (browser UI visible)   | **Use for ~90% of layouts** (recommended)   |
+| `lvh` | Large viewport (browser UI hidden)    | Modals/overlays maximizing space            |
 | `dvh` | Dynamic viewport (changes constantly) | **Use sparingly** - causes layout thrashing |
 
 **Critical warning**: "I initially thought 'dynamic viewport units are the future' and used dvh for every element. This was a mistake. The constant layout shifts felt broken."
@@ -508,7 +520,7 @@ Mobile browsers toggle navigation bars during scrolling, breaking traditional `1
 
 ```css
 .full-height-section {
-  height: 100vh;  /* Fallback for older browsers */
+  height: 100vh; /* Fallback for older browsers */
   height: 100svh; /* Modern solution - small viewport */
 }
 
@@ -638,12 +650,12 @@ Scroll snap works well on mobile with `mandatory` (avoid `proximity` on touch de
 
 **Minimum touch target sizes**:
 
-| Standard | Size | When |
-|----------|------|------|
-| WCAG 2.5.8 (AA) | 24×24px | Minimum compliance |
-| WCAG 2.5.5 (AAA) | 44×44px | **Best practice** |
-| Apple iOS | 44×44pt | Recommended |
-| Android | 48×48dp | Recommended |
+| Standard         | Size    | When               |
+| ---------------- | ------- | ------------------ |
+| WCAG 2.5.8 (AA)  | 24×24px | Minimum compliance |
+| WCAG 2.5.5 (AAA) | 44×44px | **Best practice**  |
+| Apple iOS        | 44×44pt | Recommended        |
+| Android          | 48×48dp | Recommended        |
 
 **Expand touch area without changing visual size**:
 
@@ -744,6 +756,7 @@ window.matchMedia(breakpoint).addEventListener('change', (e) => {
 ```
 
 **Mobile alternative patterns**:
+
 - Replace sticky graphics with inline graphics between text sections
 - Use simpler reveal animations instead of complex parallax
 - Stack static images with scroll-triggered captions
@@ -787,22 +800,26 @@ window.matchMedia(breakpoint).addEventListener('change', (e) => {
 ```javascript
 let ticking = false;
 
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    requestAnimationFrame(() => {
-      updateAnimation();
-      ticking = false;
-    });
-    ticking = true;
-  }
-}, { passive: true });
+window.addEventListener(
+  'scroll',
+  () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateAnimation();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  },
+  { passive: true }
+);
 ```
 
 **Better: Use IntersectionObserver** (no scroll events):
 
 ```javascript
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       animateElement(entry.target);
     }
@@ -813,17 +830,20 @@ const observer = new IntersectionObserver(entries => {
 ### When to Simplify or Abandon Scrollytelling on Mobile
 
 **Keep scrollytelling when**:
+
 - Transitions are truly meaningful to the narrative
 - Spatial movement or temporal change is core to understanding
 - Performance targets can be met (60fps, <3s load)
 - Testing shows mobile users successfully comprehend content
 
 **Simplify scrollytelling when**:
+
 - Performance is acceptable but animations aren't essential
 - Some complexity is nice-to-have but not required
 - Desktop experience is richer but mobile should be functional
 
 **Abandon scrollytelling when**:
+
 - Performance issues can't be resolved on mid-tier devices
 - Mobile users are confused or frustrated in testing
 - Development timeline doesn't allow proper optimization
@@ -835,6 +855,7 @@ const observer = new IntersectionObserver(entries => {
 ### Mobile Testing Checklist
 
 **Device Coverage**:
+
 - [ ] iPhone (latest 2 models) - Safari
 - [ ] iPhone - Chrome
 - [ ] iPad - Safari (portrait & landscape)
@@ -843,12 +864,14 @@ const observer = new IntersectionObserver(entries => {
 - [ ] Tablet Android - Chrome
 
 **Viewport Testing**:
+
 - [ ] Address bar hide/show transitions smooth
 - [ ] No layout jumping during scroll
 - [ ] Fixed elements stay positioned correctly
 - [ ] svh/dvh units behaving as expected
 
 **Performance Testing**:
+
 - [ ] 60fps maintained during scroll (use Chrome DevTools FPS meter)
 - [ ] No janky animations
 - [ ] Images lazy-load properly
@@ -856,12 +879,14 @@ const observer = new IntersectionObserver(entries => {
 - [ ] Test with CPU throttling (4x slowdown in DevTools)
 
 **Interaction Testing**:
+
 - [ ] Touch scrolling feels natural (momentum)
 - [ ] No accidental interactions
 - [ ] Pull-to-refresh disabled if needed
 - [ ] Scroll chaining behaves correctly
 
 **Accessibility Testing**:
+
 - [ ] Works with reduced motion enabled
 - [ ] Touch targets minimum 44×44px
 - [ ] Button alternatives for all gestures
@@ -871,15 +896,15 @@ const observer = new IntersectionObserver(entries => {
 
 ## Anti-Patterns to Avoid
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Scroll-jacking** | Overrides natural scroll, breaks accessibility | Preserve native scroll behavior |
-| **Text-graphics conflict** | User can't read text while watching animation | Separate text and animated areas |
-| **Animation overload** | Distracts from content, causes fatigue | Restraint—not every section needs effects |
-| **No length indicator** | Users don't know commitment level | Add progress indicators |
-| **Missing fallbacks** | Breaks for no-JS or reduced-motion users | Progressive enhancement |
-| **Mobile neglect** | Excludes 60% of users | Mobile-first design |
-| **Poor pacing** | Too fast or too slow content reveals | Test with real users |
+| Anti-Pattern               | Problem                                        | Solution                                  |
+| -------------------------- | ---------------------------------------------- | ----------------------------------------- |
+| **Scroll-jacking**         | Overrides natural scroll, breaks accessibility | Preserve native scroll behavior           |
+| **Text-graphics conflict** | User can't read text while watching animation  | Separate text and animated areas          |
+| **Animation overload**     | Distracts from content, causes fatigue         | Restraint—not every section needs effects |
+| **No length indicator**    | Users don't know commitment level              | Add progress indicators                   |
+| **Missing fallbacks**      | Breaks for no-JS or reduced-motion users       | Progressive enhancement                   |
+| **Mobile neglect**         | Excludes 60% of users                          | Mobile-first design                       |
+| **Poor pacing**            | Too fast or too slow content reveals           | Test with real users                      |
 
 ## Implementation Workflow
 

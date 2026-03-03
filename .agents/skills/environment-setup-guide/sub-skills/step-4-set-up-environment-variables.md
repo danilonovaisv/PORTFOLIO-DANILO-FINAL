@@ -2,10 +2,13 @@
 
 Create a \`.env\` file:
 \`\`\`bash
+
 # Copy example environment file
+
 cp .env.example .env
 
 # Edit with your values
+
 nano .env
 \`\`\`
 

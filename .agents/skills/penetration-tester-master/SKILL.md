@@ -13,6 +13,7 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 ---
 
 ## 📑 Internal Menu
+
 1. [Hacking Methodology & Planning](#1-hacking-methodology--planning)
 2. [Reconnaissance & OSINT](#2-reconnaissance--osint)
 3. [Exploitation (Web, API, Cloud)](#3-exploitation-web-api-cloud)
@@ -22,7 +23,9 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 ---
 
 ## 1. Hacking Methodology & Planning
-*Structured approach to offensive engagements.*
+
+_Structured approach to offensive engagements._
+
 - **Phases**: Recon → Scanning → Gaining Access → Maintaining Access → Covering Tracks.
 - **Checklist**: Define scope, obtain "Get Out of Jail Free" letter, and verify legal boundaries.
 - **Goal**: Move from low-privileged user or external network to Domain Admin or Data Exfiltration.
@@ -30,6 +33,7 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 ---
 
 ## 2. Reconnaissance & OSINT
+
 - **Passive**: Use **Shodan**, Google Dorks, and WHOIS.
 - **Active**: **Nmap** (Port scanning), **Wireshark** (Traffic analysis), and Subdomain enumeration (**Sublist3r**).
 - **Tools**: Find exposed Jenkins, Git configs, or unsecured API endpoints.
@@ -37,6 +41,7 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 ---
 
 ## 3. Exploitation (Web, API, Cloud)
+
 - **Web**: Master the OWASP Top 10.
   - **SQL Injection**: Use **SQLMap** for automation.
   - **XSS/HTML Injection**: Bypass CSP and steal cookies.
@@ -48,6 +53,7 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 ---
 
 ## 4. Post-Exploitation & PrivEsc
+
 - **Metasploit Framework**: Use for payload generation and session management.
 - **Linux PrivEsc**: Check for SUID binaries, kernel exploits, and misconfigured cron jobs.
 - **Windows PrivEsc**: Target DLL hijacking, Token Impersonation, and unquoted service paths.
@@ -56,6 +62,7 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 ---
 
 ## 5. Reporting & Remediation
+
 - **Evidence**: Collect screenshots, logs, and reproduction scripts (PoC).
 - **Severity**: Rank finds via CVSS (0-10).
 - **Remediation**: Provide clear, developer-friendly fixes (e.g., "Use parameterized queries" instead of "Fix SQL Injection").
@@ -72,4 +79,5 @@ You are an **Elite Red Team Lead and Professional Pentester**. This skill provid
 6. **Final Report**: Synthesize findings for the user.
 
 ---
-*Merged and optimized from 25 legacy offensive security and tool-specific skills.*
+
+_Merged and optimized from 25 legacy offensive security and tool-specific skills._

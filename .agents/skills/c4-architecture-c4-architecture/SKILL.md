@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: c4-architecture-c4-architecture
-description: "Generate comprehensive C4 architecture documentation for an existing repository/codebase using a bottom-up analysis approach."
+description: 'Generate comprehensive C4 architecture documentation for an existing repository/codebase using a bottom-up analysis approach.'
 ---
 
 # C4 Architecture Documentation Workflow
@@ -45,11 +45,19 @@ All documentation is written to a new `C4-Documentation/` directory in the repos
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1.1 Discover All Subdirectories](./sub-skills/11-discover-all-subdirectories.md)
+
 ### 2. [1.2 Process Each Directory (Bottom-Up)](./sub-skills/12-process-each-directory-bottom-up.md)
+
 ### 3. [2.1 Analyze All Code-Level Documentation](./sub-skills/21-analyze-all-code-level-documentation.md)
+
 ### 4. [2.2 Create Component Documentation](./sub-skills/22-create-component-documentation.md)
+
 ### 5. [2.3 Create Master Component Index](./sub-skills/23-create-master-component-index.md)
+
 ### 6. [3.1 Analyze Components and Deployment Definitions](./sub-skills/31-analyze-components-and-deployment-definitions.md)
+
 ### 7. [3.2 Map Components to Containers](./sub-skills/32-map-components-to-containers.md)
+
 ### 8. [4.1 Analyze System Documentation](./sub-skills/41-analyze-system-documentation.md)
+
 ### 9. [4.2 Create Context Documentation](./sub-skills/42-create-context-documentation.md)

@@ -2,17 +2,17 @@
 
 ```javascript
 // Global scope
-var globalVar = "global";
+var globalVar = 'global';
 
 function outer() {
   // Function scope
-  var functionVar = "function";
+  var functionVar = 'function';
 
   if (true) {
     // Block scope (let/const only)
-    let blockVar = "block";
-    const alsoBlock = "block";
-    var notBlock = "function"; // var ignores blocks!
+    let blockVar = 'block';
+    const alsoBlock = 'block';
+    var notBlock = 'function'; // var ignores blocks!
   }
 }
 ```

@@ -9,6 +9,6 @@ Does it need...?
 ├── Direct data fetching, no interactivity
 │   └── Server Component (default)
 │
-└── Both? 
+└── Both?
     └── Split: Server parent + Client child
 ```

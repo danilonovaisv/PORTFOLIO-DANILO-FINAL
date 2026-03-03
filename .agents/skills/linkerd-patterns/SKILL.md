@@ -34,13 +34,23 @@ Production patterns for Linkerd service mesh - the lightweight, security-first s
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Linkerd Architecture](./sub-skills/1-linkerd-architecture.md)
+
 ### 2. [2. Key Resources](./sub-skills/2-key-resources.md)
+
 ### 3. [Template 1: Mesh Installation](./sub-skills/template-1-mesh-installation.md)
+
 ### 4. [Template 2: Inject Namespace](./sub-skills/template-2-inject-namespace.md)
+
 ### 5. [Template 3: Service Profile with Retries](./sub-skills/template-3-service-profile-with-retries.md)
+
 ### 6. [Template 4: Traffic Split (Canary)](./sub-skills/template-4-traffic-split-canary.md)
+
 ### 7. [Template 5: Server Authorization Policy](./sub-skills/template-5-server-authorization-policy.md)
+
 ### 8. [Template 6: HTTPRoute for Advanced Routing](./sub-skills/template-6-httproute-for-advanced-routing.md)
+
 ### 9. [Template 7: Multi-cluster Setup](./sub-skills/template-7-multi-cluster-setup.md)
+
 ### 10. [Do's](./sub-skills/dos.md)
+
 ### 11. [Don'ts](./sub-skills/donts.md)

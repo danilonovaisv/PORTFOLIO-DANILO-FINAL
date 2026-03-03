@@ -24,3 +24,4 @@ adr link 2 "Complements" 1 "Is complemented by"
 
 ```markdown
 ## ADR Review Checklist
+```

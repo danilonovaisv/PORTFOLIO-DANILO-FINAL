@@ -1,6 +1,7 @@
 # 7. Configure Development Tools
 
 **.env.example**:
+
 ```env
 # Application
 PROJECT_NAME="Project Name"
@@ -19,6 +20,7 @@ SECRET_KEY="your-secret-key-here"
 ```
 
 **Makefile**:
+
 ```makefile
 .PHONY: install dev test lint format clean
 

@@ -1,8 +1,8 @@
 # Common Structures
 
-* Volume-discounted per seat
-* Platform fee + usage
-* Outcome-based pricing
+- Volume-discounted per seat
+- Platform fee + usage
+- Outcome-based pricing
 
 ---
 

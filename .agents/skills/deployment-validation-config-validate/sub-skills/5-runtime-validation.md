@@ -24,7 +24,7 @@ export class RuntimeConfigValidator extends EventEmitter {
     if (!validationResult.valid) {
       this.emit('validation:error', {
         path: configPath,
-        errors: validationResult.errors
+        errors: validationResult.errors,
       });
 
       if (!this.isDevelopment()) {
@@ -38,7 +38,7 @@ export class RuntimeConfigValidator extends EventEmitter {
   private watchConfig(configPath: string): void {
     const watcher = chokidar.watch(configPath, {
       persistent: true,
-      ignoreInitial: true
+      ignoreInitial: true,
     });
 
     watcher.on('change', async () => {
@@ -48,7 +48,7 @@ export class RuntimeConfigValidator extends EventEmitter {
         if (JSON.stringify(newConfig) !== JSON.stringify(this.currentConfig)) {
           this.emit('config:changed', {
             oldConfig: this.currentConfig,
-            newConfig
+            newConfig,
           });
           this.currentConfig = newConfig;
         }

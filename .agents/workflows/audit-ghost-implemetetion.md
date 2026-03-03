@@ -23,7 +23,7 @@ description: Audit Ghost Implemetetion
 ### Step 2: VFX & Particle Optimization
 
 - **Instruction:** Audit instanced meshes and post-processing (Analog Decay) for visual accuracy and performance.
-- **Skill:** `use a skill webgl-optimizer`  `use a skill framer-motion`
+- **Skill:** `use a skill webgl-optimizer` `use a skill framer-motion`
 - **MCP Action:** Use Chrome DevTools MCP to verify frame budget and GPU utilization.
 
 ## 3. Completion Protocol

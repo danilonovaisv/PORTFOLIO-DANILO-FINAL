@@ -34,10 +34,17 @@ Comprehensive guide to designing event stores for event-sourced applications.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Event Store Architecture](./sub-skills/1-event-store-architecture.md)
+
 ### 2. [2. Event Store Requirements](./sub-skills/2-event-store-requirements.md)
+
 ### 3. [Template 1: PostgreSQL Event Store Schema](./sub-skills/template-1-postgresql-event-store-schema.md)
+
 ### 4. [Template 2: Python Event Store Implementation](./sub-skills/template-2-python-event-store-implementation.md)
+
 ### 5. [Template 3: EventStoreDB Usage](./sub-skills/template-3-eventstoredb-usage.md)
+
 ### 6. [Template 4: DynamoDB Event Store](./sub-skills/template-4-dynamodb-event-store.md)
+
 ### 7. [Do's](./sub-skills/dos.md)
+
 ### 8. [Don'ts](./sub-skills/donts.md)

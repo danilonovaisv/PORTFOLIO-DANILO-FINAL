@@ -21,12 +21,12 @@ gcloud beta compute ssh instance-name --zone us-central1-a --project target-proj
 
 ## Troubleshooting
 
-| Issue | Solutions |
-|-------|-----------|
-| Authentication failures | Verify credentials; check MFA; ensure correct tenant/project; try alternative auth methods |
-| Permission denied | List current roles; try different resources; check resource policies; verify region |
-| Metadata service blocked | Check IMDSv2 (AWS); verify instance role; check firewall for 169.254.169.254 |
-| Rate limiting | Add delays; spread across regions; use multiple credentials; focus on high-value targets |
+| Issue                    | Solutions                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------ |
+| Authentication failures  | Verify credentials; check MFA; ensure correct tenant/project; try alternative auth methods |
+| Permission denied        | List current roles; try different resources; check resource policies; verify region        |
+| Metadata service blocked | Check IMDSv2 (AWS); verify instance role; check firewall for 169.254.169.254               |
+| Rate limiting            | Add delays; spread across regions; use multiple credentials; focus on high-value targets   |
 
 ## References
 

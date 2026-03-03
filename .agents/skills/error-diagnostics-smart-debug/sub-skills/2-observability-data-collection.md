@@ -1,6 +1,7 @@
 # 2. Observability Data Collection
 
 For production/staging issues, gather:
+
 - Error tracking (Sentry, Rollbar, Bugsnag)
 - APM metrics (DataDog, New Relic, Dynatrace)
 - Distributed traces (Jaeger, Zipkin, Honeycomb)
@@ -8,6 +9,7 @@ For production/staging issues, gather:
 - Session replays (LogRocket, FullStory)
 
 Query for:
+
 - Error frequency/trends
 - Affected user cohorts
 - Environment-specific patterns

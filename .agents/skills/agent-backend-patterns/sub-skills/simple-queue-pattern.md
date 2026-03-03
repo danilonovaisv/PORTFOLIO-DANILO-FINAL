@@ -2,31 +2,31 @@
 
 ```typescript
 class JobQueue<T> {
-  private queue: T[] = []
-  private processing = false
+  private queue: T[] = [];
+  private processing = false;
 
   async add(job: T): Promise<void> {
-    this.queue.push(job)
+    this.queue.push(job);
 
     if (!this.processing) {
-      this.process()
+      this.process();
     }
   }
 
   private async process(): Promise<void> {
-    this.processing = true
+    this.processing = true;
 
     while (this.queue.length > 0) {
-      const job = this.queue.shift()!
+      const job = this.queue.shift()!;
 
       try {
-        await this.execute(job)
+        await this.execute(job);
       } catch (error) {
-        console.error('Job failed:', error)
+        console.error('Job failed:', error);
       }
     }
 
-    this.processing = false
+    this.processing = false;
   }
 
   private async execute(job: T): Promise<void> {
@@ -36,18 +36,18 @@ class JobQueue<T> {
 
 // Usage for indexing markets
 interface IndexJob {
-  marketId: string
+  marketId: string;
 }
 
-const indexQueue = new JobQueue<IndexJob>()
+const indexQueue = new JobQueue<IndexJob>();
 
 export async function POST(request: Request) {
-  const { marketId } = await request.json()
+  const { marketId } = await request.json();
 
   // Add to queue instead of blocking
-  await indexQueue.add({ marketId })
+  await indexQueue.add({ marketId });
 
-  return NextResponse.json({ success: true, message: 'Job queued' })
+  return NextResponse.json({ success: true, message: 'Job queued' });
 }
 ```
 

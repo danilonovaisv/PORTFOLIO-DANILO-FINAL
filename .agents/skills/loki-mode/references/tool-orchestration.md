@@ -7,6 +7,7 @@ Research-backed patterns inspired by NVIDIA ToolOrchestra, OpenAI Agents SDK, an
 ## Overview
 
 Effective tool orchestration requires four key innovations:
+
 1. **Tracing Spans** - Hierarchical event tracking (OpenAI SDK pattern)
 2. **Efficiency Metrics** - Track computational cost per task
 3. **Reward Signals** - Outcome, efficiency, and preference rewards for learning
@@ -22,12 +23,12 @@ Every operation is wrapped in a typed span for observability:
 
 ```yaml
 span_types:
-  agent_span:     # Wraps entire agent execution
+  agent_span: # Wraps entire agent execution
   generation_span: # Wraps LLM API calls
-  function_span:  # Wraps tool/function calls
+  function_span: # Wraps tool/function calls
   guardrail_span: # Wraps validation checks
-  handoff_span:   # Wraps agent-to-agent transfers
-  custom_span:    # User-defined operations
+  handoff_span: # Wraps agent-to-agent transfers
+  custom_span: # User-defined operations
 ```
 
 ### Hierarchical Trace Structure
@@ -108,9 +109,9 @@ ToolOrchestra achieves 70% cost reduction vs GPT-5 by explicitly optimizing for 
     "retry_reasons": ["test_failure"],
     "recovery_rate": 1.0,
     "model_usage": {
-      "haiku": {"calls": 4, "est_tokens": 12000},
-      "sonnet": {"calls": 2, "est_tokens": 8000},
-      "opus": {"calls": 1, "est_tokens": 6000}
+      "haiku": { "calls": 4, "est_tokens": 12000 },
+      "sonnet": { "calls": 2, "est_tokens": 8000 },
+      "opus": { "calls": 1, "est_tokens": 6000 }
     }
   },
   "outcome": "success",
@@ -404,42 +405,42 @@ def classify_task_complexity(task):
 complexity_allocations:
   trivial:
     max_agents: 1
-    planning: null         # No planning needed
+    planning: null # No planning needed
     development: haiku
     testing: haiku
-    review: skip           # No review needed for trivial
+    review: skip # No review needed for trivial
     parallel: false
 
   simple:
     max_agents: 2
-    planning: null         # No planning needed
+    planning: null # No planning needed
     development: haiku
     testing: haiku
-    review: single         # One quick review
+    review: single # One quick review
     parallel: false
 
   moderate:
     max_agents: 4
-    planning: sonnet       # Sonnet for moderate planning
+    planning: sonnet # Sonnet for moderate planning
     development: sonnet
-    testing: haiku         # Unit tests always haiku
-    review: standard       # 3 parallel reviewers
+    testing: haiku # Unit tests always haiku
+    review: standard # 3 parallel reviewers
     parallel: true
 
   complex:
     max_agents: 8
-    planning: opus         # Opus ONLY for complex planning
-    development: sonnet    # Sonnet for implementation
-    testing: haiku         # Unit tests still haiku
-    review: deep           # 3 reviewers + devil's advocate
+    planning: opus # Opus ONLY for complex planning
+    development: sonnet # Sonnet for implementation
+    testing: haiku # Unit tests still haiku
+    review: deep # 3 reviewers + devil's advocate
     parallel: true
 
   critical:
     max_agents: 12
-    planning: opus         # Opus for critical planning
-    development: sonnet    # Sonnet for implementation
-    testing: sonnet        # Functional/E2E tests with sonnet
-    review: exhaustive     # Multiple review rounds
+    planning: opus # Opus for critical planning
+    development: sonnet # Sonnet for implementation
+    testing: sonnet # Functional/E2E tests with sonnet
+    review: exhaustive # Multiple review rounds
     parallel: true
     human_checkpoint: true # Pause for human review
 ```
@@ -523,8 +524,8 @@ def get_agent_performance_score(agent, task_type, complexity):
         "success_rate": 0.94,
         "avg_efficiency": 0.76,
         "by_subagent_type": {
-          "general-purpose": {"calls": 35, "success": 0.91},
-          "Explore": {"calls": 12, "success": 1.0}
+          "general-purpose": { "calls": 35, "success": 0.91 },
+          "Explore": { "calls": 12, "success": 1.0 }
         }
       }
     },
@@ -652,18 +653,19 @@ Based on [Measurement Imbalance research (arXiv 2506.02064)](https://arxiv.org/a
 
 **Loki Mode tracks four evaluation axes:**
 
-| Axis | Metrics | Current Coverage |
-|------|---------|------------------|
-| **Technical** | success_rate, efficiency_score, recovery_rate | Full |
-| **Human-Centered** | preference_reward, goal_adherence | Partial |
-| **Safety** | policy_adherence, quality_gates_passed | Full (via review system) |
-| **Economic** | model_usage, agents_spawned, wall_time | Full |
+| Axis               | Metrics                                       | Current Coverage         |
+| ------------------ | --------------------------------------------- | ------------------------ |
+| **Technical**      | success_rate, efficiency_score, recovery_rate | Full                     |
+| **Human-Centered** | preference_reward, goal_adherence             | Partial                  |
+| **Safety**         | policy_adherence, quality_gates_passed        | Full (via review system) |
+| **Economic**       | model_usage, agents_spawned, wall_time        | Full                     |
 
 ---
 
 ## Sources
 
 **OpenAI Agents SDK:**
+
 - [Agents SDK Documentation](https://openai.github.io/openai-agents-python/) - Core primitives: agents, handoffs, guardrails, tracing
 - [Practical Guide to Building Agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) - Orchestration patterns
 - [Building Agents Track](https://developers.openai.com/tracks/building-agents/) - Official developer guide
@@ -671,21 +673,25 @@ Based on [Measurement Imbalance research (arXiv 2506.02064)](https://arxiv.org/a
 - [Tracing Documentation](https://openai.github.io/openai-agents-python/tracing/) - Span types and observability
 
 **Efficiency & Orchestration:**
+
 - [NVIDIA ToolOrchestra](https://github.com/NVlabs/ToolOrchestra) - Multi-turn tool orchestration with RL
 - [ToolScale Dataset](https://huggingface.co/datasets/nvidia/ToolScale) - Training data synthesis
 
 **Evaluation Frameworks:**
+
 - [Assessment Framework for Agentic AI (arXiv 2512.12791)](https://arxiv.org/html/2512.12791v1) - Four-pillar evaluation model
 - [Measurement Imbalance in Agentic AI (arXiv 2506.02064)](https://arxiv.org/abs/2506.02064) - Multi-dimensional evaluation
 - [Adaptive Monitoring for Agentic AI (arXiv 2509.00115)](https://arxiv.org/abs/2509.00115) - AMDM algorithm
 
 **Best Practices:**
+
 - [Anthropic: Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) - Simplicity, transparency, tool engineering
 - [Maxim AI: Production Multi-Agent Systems](https://www.getmaxim.ai/articles/best-practices-for-building-production-ready-multi-agent-systems/) - Orchestration patterns, distributed tracing
 - [UiPath: Agent Builder Best Practices](https://www.uipath.com/blog/ai/agent-builder-best-practices) - Single-responsibility, evaluations
 - [Stanford/Harvard: Demo-to-Deployment Gap](https://www.marktechpost.com/2025/12/24/this-ai-paper-from-stanford-and-harvard-explains-why-most-agentic-ai-systems-feel-impressive-in-demos-and-then-completely-fall-apart-in-real-use/) - Tool reliability as key failure mode
 
 **Safety & Reasoning:**
+
 - [Chain of Thought Monitoring](https://openai.com/index/chain-of-thought-monitoring/) - CoT monitorability for safety
 - [Agent Builder Safety](https://platform.openai.com/docs/guides/agent-builder-safety) - Human-in-loop patterns
 - [Agentic AI Foundation](https://openai.com/index/agentic-ai-foundation/) - Industry standards (MCP, AGENTS.md, goose)

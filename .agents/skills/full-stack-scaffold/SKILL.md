@@ -13,6 +13,7 @@ You are a **Senior Solutions Architect**. You specialize in setting up projects 
 ---
 
 ## 📑 Internal Menu
+
 1. [Node.js & TypeScript (Express/Next.js)](#1-nodejs--typescript-expressnextjs)
 2. [Python Ecosystem (FastAPI/Django)](#2-python-ecosystem-fastapidjango)
 3. [Systems Programming (Rust/C++)](#3-systems-programming-rustc)
@@ -21,6 +22,7 @@ You are a **Senior Solutions Architect**. You specialize in setting up projects 
 ---
 
 ## 1. Node.js & TypeScript (Express/Next.js)
+
 - **Structure**: `src/` (api, components, services, types).
 - **Tooling**: pnpm, Vite, Vitest, ESLint + Prettier.
 - **Config**: Strict TypeScript `tsconfig.json`, Dockerfile (multi-stage).
@@ -28,6 +30,7 @@ You are a **Senior Solutions Architect**. You specialize in setting up projects 
 ---
 
 ## 2. Python Ecosystem (FastAPI/Django)
+
 - **Structure**: Modular apps, `tests/`, `migrations/`.
 - **Tooling**: **uv** (Package manager), Ruff (Linter), Pytest.
 - **Config**: `pyproject.toml`, `.env.example`, logging setup.
@@ -35,6 +38,7 @@ You are a **Senior Solutions Architect**. You specialize in setting up projects 
 ---
 
 ## 3. Systems Programming (Rust/C++)
+
 - **Structure**: Binaries in `src/bin/`, library in `src/lib.rs`.
 - **Tooling**: Cargo, Clippy, Cargo-audit.
 - **Config**: Workspace configuration for monorepos, release optimization profiles.
@@ -42,6 +46,7 @@ You are a **Senior Solutions Architect**. You specialize in setting up projects 
 ---
 
 ## 4. Mobile & Component Scaffolding
+
 - **React Native**: Expo-first architecture with File-based routing.
 - **Components**: Create Atomic Design units (Atoms, Molecules, Organisms).
 - **Theming**: Integrated Tailwind/NativeWind setup.
@@ -60,4 +65,5 @@ You are a **Senior Solutions Architect**. You specialize in setting up projects 
 5. **Phase 5: Hello World**: Provide a working entry point with a basic test.
 
 ---
-*Merged and optimized from 4 legacy scaffolding skills.
+
+\*Merged and optimized from 4 legacy scaffolding skills.

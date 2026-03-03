@@ -2,8 +2,10 @@
 
 **Symptoms:** "Port 3000 is already in use"
 **Solution:**
+
 - Find and kill process using the port
 - Use a different port
+
 ```bash
 # Find process on port 3000
 lsof -i :3000

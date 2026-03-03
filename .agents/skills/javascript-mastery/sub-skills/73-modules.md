@@ -11,9 +11,9 @@ export function square(x) {
 export default class Calculator {}
 
 // Importing
-import Calculator, { PI, square } from "./math.js";
-import * as math from "./math.js";
+import Calculator, { PI, square } from './math.js';
+import * as math from './math.js';
 
 // Dynamic import
-const module = await import("./dynamic.js");
+const module = await import('./dynamic.js');
 ```

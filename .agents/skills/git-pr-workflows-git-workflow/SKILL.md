@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: git-pr-workflows-git-workflow
-description: "Orchestrate a comprehensive git workflow from code review through PR creation, leveraging specialized agents for quality assurance, testing, and deployment readiness. This workflow implements modern g"
+description: 'Orchestrate a comprehensive git workflow from code review through PR creation, leveraging specialized agents for quality assurance, testing, and deployment readiness. This workflow implements modern g'
 ---
 
 # Complete Git Workflow with Multi-Agent Orchestration
@@ -32,6 +32,7 @@ Orchestrate a comprehensive git workflow from code review through PR creation, l
 **Target branch**: $ARGUMENTS (defaults to 'main' if not specified)
 
 **Supported flags**:
+
 - `--skip-tests`: Skip automated test execution (use with caution)
 - `--draft-pr`: Create PR as draft for work-in-progress
 - `--no-push`: Perform all checks but don't push to remote
@@ -45,12 +46,21 @@ Orchestrate a comprehensive git workflow from code review through PR creation, l
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Code Quality Assessment](./sub-skills/1-code-quality-assessment.md)
+
 ### 2. [2. Dependency and Breaking Change Analysis](./sub-skills/2-dependency-and-breaking-change-analysis.md)
+
 ### 3. [1. Test Execution and Coverage](./sub-skills/1-test-execution-and-coverage.md)
+
 ### 4. [2. Test Recommendations and Gap Analysis](./sub-skills/2-test-recommendations-and-gap-analysis.md)
+
 ### 5. [1. Change Analysis and Categorization](./sub-skills/1-change-analysis-and-categorization.md)
+
 ### 6. [2. Conventional Commit Message Creation](./sub-skills/2-conventional-commit-message-creation.md)
+
 ### 7. [1. Branch Management](./sub-skills/1-branch-management.md)
+
 ### 8. [2. Pre-Push Validation](./sub-skills/2-pre-push-validation.md)
+
 ### 9. [1. PR Description Generation](./sub-skills/1-pr-description-generation.md)
+
 ### 10. [2. PR Metadata and Automation Setup](./sub-skills/2-pr-metadata-and-automation-setup.md)

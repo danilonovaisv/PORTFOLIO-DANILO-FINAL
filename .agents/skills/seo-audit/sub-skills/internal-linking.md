@@ -1,9 +1,9 @@
 # Internal Linking
 
-* Important pages reinforced
-* Descriptive anchor text
-* No broken links
-* Balanced link distribution
+- Important pages reinforced
+- Descriptive anchor text
+- No broken links
+- Balanced link distribution
 
 ---
 

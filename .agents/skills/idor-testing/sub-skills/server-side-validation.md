@@ -7,9 +7,9 @@ def download_receipt(request, receipt_id):
         id=receipt_id,
         user=request.user  # Critical: filter by current user
     ).first()
-    
+
     if not receipt:
         return HttpResponseNotFound()
-    
+
     return FileResponse(receipt.file)
 ```

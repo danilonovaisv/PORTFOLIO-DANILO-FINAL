@@ -1,6 +1,7 @@
 # ARM Assembly Patterns
 
 #### ARM64 (AArch64) Calling Convention
+
 ```asm
 ; Arguments: X0-X7
 ; Return: X0 (and X1 for 128-bit)
@@ -17,6 +18,7 @@ ret
 ```
 
 #### ARM32 Calling Convention
+
 ```asm
 ; Arguments: R0-R3, then stack
 ; Return: R0 (and R1 for 64-bit)

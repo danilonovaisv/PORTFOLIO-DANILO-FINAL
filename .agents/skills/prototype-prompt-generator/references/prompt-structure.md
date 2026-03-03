@@ -9,15 +9,18 @@ This document provides a comprehensive template for generating high-quality prot
 A well-structured prototype prompt should contain the following sections in order:
 
 ### 1. Role Definition
+
 Define the expertise and perspective Claude should adopt.
 
 **Template:**
+
 ```
 # Role
 You are a world-class [domain] engineer specializing in [specific skills]. You excel at [key capabilities].
 ```
 
 **Example:**
+
 ```
 # Role
 You are a world-class UI/UX engineer and frontend developer, specializing in creating professional, efficient enterprise-grade mobile application interfaces using Tailwind CSS.
@@ -26,9 +29,11 @@ You are a world-class UI/UX engineer and frontend developer, specializing in cre
 ---
 
 ### 2. Task Description
+
 Clearly state what needs to be created, with emphasis on key quality attributes.
 
 **Template:**
+
 ```
 # Task
 Create a [type of prototype] for [application description].
@@ -36,6 +41,7 @@ Design style must strictly follow [design system/style guide], with core keyword
 ```
 
 **Example:**
+
 ```
 # Task
 Create a high-fidelity prototype (HTML + Tailwind CSS) for an insurance agent work application.
@@ -45,9 +51,11 @@ Design style must strictly follow WeChat Work style, with core keywords: simple 
 ---
 
 ### 3. Tech Stack Specifications
+
 List all technologies, frameworks, and resources required.
 
 **Template:**
+
 ```
 # Tech Stack
 - File Structure: [describe output file organization]
@@ -59,6 +67,7 @@ List all technologies, frameworks, and resources required.
 ```
 
 **Example:**
+
 ```
 # Tech Stack
 - Each page outputs as an independent HTML file (e.g., home.html, discover.html)
@@ -73,9 +82,11 @@ List all technologies, frameworks, and resources required.
 ---
 
 ### 4. Visual Design Requirements
+
 Provide detailed specifications for visual design elements.
 
 **Sections to include:**
+
 1. **Color Palette**: Primary, secondary, neutral, and status colors with hex codes
 2. **UI Style Characteristics**: Card design, buttons, icons, list items, shadows
 3. **Layout Structure**: Viewport dimensions, navigation bars, content areas, tab bars
@@ -202,9 +213,11 @@ Provide detailed specifications for visual design elements.
 ---
 
 ### 5. Implementation Details
+
 Provide technical implementation guidelines.
 
 **Template:**
+
 ```
 # Implementation Details
 - Page Width: [max-width] and [alignment]
@@ -218,6 +231,7 @@ Provide technical implementation guidelines.
 ```
 
 **Example:**
+
 ```
 # Implementation Details
 - Page width set to max-w-[375px] and centered to simulate phone screen
@@ -234,10 +248,12 @@ Provide technical implementation guidelines.
 ---
 
 ### 6. Tailwind Configuration
+
 If using Tailwind CSS, provide custom configuration.
 
 **Template:**
-```
+
+````
 # Tailwind Config (in <script> tag)
 
 ```javascript
@@ -258,7 +274,8 @@ tailwind.config = {
     }
   }
 }
-```
+````
+
 ```
 
 ---
@@ -268,46 +285,50 @@ Visualize the page structure and content hierarchy.
 
 **Template:**
 ```
+
 # Example Content & Structure
 
 [Page Name]
 ├─ [Section 1 Name]
-│  ├─ [Element 1]
-│  ├─ [Element 2]
-│  └─ [Element 3]
+│ ├─ [Element 1]
+│ ├─ [Element 2]
+│ └─ [Element 3]
 ├─ [Section 2 Name]
-│  ├─ [Subsection A]
-│  │  ├─ [Item 1]
-│  │  └─ [Item 2]
-│  └─ [Subsection B]
+│ ├─ [Subsection A]
+│ │ ├─ [Item 1]
+│ │ └─ [Item 2]
+│ └─ [Subsection B]
 └─ [Section 3 Name]
-    └─ [Elements]
+└─ [Elements]
+
 ```
 
 **Example:**
 ```
+
 # Example Content & Structure
 
 Work Dashboard
 ├─ Quick Access (4-grid)
-│  ├─ Manage Enterprise
-│  ├─ Select Apps
-│  ├─ Find Services
-│  └─ Submit Requests
+│ ├─ Manage Enterprise
+│ ├─ Select Apps
+│ ├─ Find Services
+│ └─ Submit Requests
 ├─ Feature Card
-│  └─ Customer Data Stats (14 customers, 1 new, ¥0.00)
+│ └─ Customer Data Stats (14 customers, 1 new, ¥0.00)
 ├─ Common Features List
-│  ├─ Customer Contact
-│  ├─ Customer Moments
-│  ├─ Customer Groups
-│  ├─ WeChat Service
-│  └─ Broadcast Assistant
+│ ├─ Customer Contact
+│ ├─ Customer Moments
+│ ├─ Customer Groups
+│ ├─ WeChat Service
+│ └─ Broadcast Assistant
 └─ Bottom TabBar
-    ├─ Messages
-    ├─ Email
-    ├─ Documents
-    ├─ Workspace (current)
-    └─ Contacts (16)
+├─ Messages
+├─ Email
+├─ Documents
+├─ Workspace (current)
+└─ Contacts (16)
+
 ```
 
 ---
@@ -317,6 +338,7 @@ Highlight unique considerations or constraints.
 
 **Template:**
 ```
+
 # Special Requirements
 
 - [Design System] Key Points:
@@ -341,6 +363,7 @@ Highlight unique considerations or constraints.
 - Performance:
   - [Consideration 1]
   - [Consideration 2]
+
 ```
 
 ---
@@ -350,22 +373,27 @@ Specify the exact deliverable format.
 
 **Template:**
 ```
+
 # Output Format
 
 Please output complete [file type] code, ensuring:
+
 1. [Requirement 1]
 2. [Requirement 2]
 3. [Requirement 3]
-...
+   ...
 
 The output should be production-ready and viewable at [viewport size] on [device type].
+
 ```
 
 **Example:**
 ```
+
 # Output Format
 
 Please output complete index.html code, ensuring:
+
 1. Perfect display on 375px width mobile screen
 2. All interactive elements have proper feedback
 3. Real image assets (no placeholders)
@@ -373,6 +401,7 @@ Please output complete index.html code, ensuring:
 5. Smooth scrolling and fixed navigation elements
 
 The output should be immediately viewable in a browser and represent a pixel-perfect work dashboard homepage.
+
 ```
 
 ---
@@ -480,26 +509,33 @@ Before finalizing a prototype prompt, verify:
 
 ### Minimal Prompt (for simple landing page)
 ```
+
 # Role
+
 You are a frontend developer specializing in clean, modern web design.
 
 # Task
+
 Create a single-page landing page (HTML + Tailwind CSS) for a SaaS product.
 Style: Modern, minimal, professional with soft colors.
 
 # Tech Stack
+
 - Single index.html file
 - Tailwind CSS (CDN)
 - Desktop-first responsive (max 1200px)
 - Use Unsplash for hero image
 
 # Visual Design
+
 - Colors: Primary #6366F1 (indigo), Background #F9FAFB (gray-50), Text #111827 (gray-900)
 - Sections: Hero (full viewport height) + Features (3 columns) + CTA
 - Typography: System sans-serif, Hero 48px bold, Body 18px regular
 
 # Output Format
+
 Single HTML file, production-ready, mobile-responsive.
+
 ```
 
 ### Complex Prompt (for multi-page app)
@@ -528,3 +564,4 @@ Single HTML file, production-ready, mobile-responsive.
 9. **Balance Detail and Brevity**: Be thorough but organized—use sections and hierarchy to keep prompts scannable
 
 10. **Test Your Mental Model**: Can someone else understand exactly what to build from this prompt? If not, add clarity.
+```

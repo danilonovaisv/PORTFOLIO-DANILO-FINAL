@@ -31,12 +31,21 @@ for page in reader.pages:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [pypdf - Basic Operations](./sub-skills/pypdf-basic-operations.md)
+
 ### 2. [pdfplumber - Text and Table Extraction](./sub-skills/pdfplumber-text-and-table-extraction.md)
+
 ### 3. [reportlab - Create PDFs](./sub-skills/reportlab-create-pdfs.md)
+
 ### 4. [pdftotext (poppler-utils)](./sub-skills/pdftotext-poppler-utils.md)
+
 ### 5. [qpdf](./sub-skills/qpdf.md)
+
 ### 6. [pdftk (if available)](./sub-skills/pdftk-if-available.md)
+
 ### 7. [Extract Text from Scanned PDFs](./sub-skills/extract-text-from-scanned-pdfs.md)
+
 ### 8. [Add Watermark](./sub-skills/add-watermark.md)
+
 ### 9. [Extract Images](./sub-skills/extract-images.md)
+
 ### 10. [Password Protection](./sub-skills/password-protection.md)

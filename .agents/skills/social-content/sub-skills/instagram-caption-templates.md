@@ -1,6 +1,7 @@
 # Instagram Caption Templates
 
 **The Carousel Hook:**
+
 ```
 [Slide 1: Bold statement or question]
 [Slides 2-9: One point per slide, visual + text]
@@ -10,6 +11,7 @@ Caption: [Expand on the topic, add context, include CTA]
 ```
 
 **The Reel Script:**
+
 ```
 Hook (0-2 sec): [Pattern interrupt or bold claim]
 Setup (2-5 sec): [Context for the tip]

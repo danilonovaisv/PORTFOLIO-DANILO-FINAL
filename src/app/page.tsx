@@ -2,11 +2,21 @@ import type { Metadata } from 'next';
 
 import dynamic from 'next/dynamic';
 
-const SiteClosure = dynamic(() => import('@/components/layout/SiteClosure').then((mod) => mod.SiteClosure));
-const FeaturedProjectsRealtime = dynamic(() => import('@/components/home/featured-projects/FeaturedProjectsRealtime'));
+const SiteClosure = dynamic(() =>
+  import('@/components/layout/SiteClosure').then((mod) => mod.SiteClosure)
+);
+const FeaturedProjectsRealtime = dynamic(
+  () => import('@/components/home/featured-projects/FeaturedProjectsRealtime')
+);
 import HomeHero from '@/components/home/hero/HomeHero';
-const PortfolioShowcase = dynamic(() => import('@/components/home/portfolio-showcase/PortfolioShowcase'));
-const VideoManifesto = dynamic(() => import('@/components/home/hero/VideoManifesto').then((mod) => mod.VideoManifesto));
+const PortfolioShowcase = dynamic(
+  () => import('@/components/home/portfolio-showcase/PortfolioShowcase')
+);
+const VideoManifesto = dynamic(() =>
+  import('@/components/home/hero/VideoManifesto').then(
+    (mod) => mod.VideoManifesto
+  )
+);
 import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';

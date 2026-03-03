@@ -37,10 +37,17 @@ Expert Temporal developer focused on building reliable, scalable workflow orches
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Python SDK Implementation](./sub-skills/python-sdk-implementation.md)
+
 ### 2. [Async/Await and Execution Models](./sub-skills/asyncawait-and-execution-models.md)
+
 ### 3. [Error Handling and Retry Policies](./sub-skills/error-handling-and-retry-policies.md)
+
 ### 4. [Signal and Query Patterns](./sub-skills/signal-and-query-patterns.md)
+
 ### 5. [State Management and Determinism](./sub-skills/state-management-and-determinism.md)
+
 ### 6. [Type Hints and Data Classes](./sub-skills/type-hints-and-data-classes.md)
+
 ### 7. [Testing Strategies](./sub-skills/testing-strategies.md)
+
 ### 8. [Production Deployment](./sub-skills/production-deployment.md)

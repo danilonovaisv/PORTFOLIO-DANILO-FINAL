@@ -41,7 +41,6 @@ Build reliable, fast, and maintainable end-to-end test suites that provide confi
 
 - `resources/implementation-playbook.md` for detailed E2E patterns and templates.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

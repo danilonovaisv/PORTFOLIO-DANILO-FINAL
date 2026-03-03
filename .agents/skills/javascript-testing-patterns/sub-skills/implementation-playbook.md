@@ -22,6 +22,7 @@ Comprehensive guide for implementing robust testing strategies in JavaScript/Typ
 ### Jest - Full-Featured Testing Framework
 
 **Setup:**
+
 ```typescript
 // jest.config.ts
 import type { Config } from 'jest';
@@ -53,6 +54,7 @@ export default config;
 ### Vitest - Fast, Vite-Native Testing
 
 **Setup:**
+
 ```typescript
 // vitest.config.ts
 import { defineConfig } from 'vitest/config';
@@ -198,8 +200,9 @@ describe('UserService', () => {
     });
 
     it('should throw error if user not found', () => {
-      expect(() => service.update('999', { name: 'Jane' }))
-        .toThrow('User not found');
+      expect(() => service.update('999', { name: 'Jane' })).toThrow(
+        'User not found'
+      );
     });
   });
 });
@@ -564,13 +567,11 @@ describe('User API Integration Tests', () => {
 
   describe('GET /api/users/:id', () => {
     it('should get user by id', async () => {
-      const createResponse = await request(app)
-        .post('/api/users')
-        .send({
-          name: 'John Doe',
-          email: 'john@example.com',
-          password: 'password123',
-        });
+      const createResponse = await request(app).post('/api/users').send({
+        name: 'John Doe',
+        email: 'john@example.com',
+        password: 'password123',
+      });
 
       const userId = createResponse.body.id;
 
@@ -586,35 +587,27 @@ describe('User API Integration Tests', () => {
     });
 
     it('should return 404 if user not found', async () => {
-      await request(app)
-        .get('/api/users/999')
-        .expect(404);
+      await request(app).get('/api/users/999').expect(404);
     });
   });
 
   describe('Authentication', () => {
     it('should require authentication for protected routes', async () => {
-      await request(app)
-        .get('/api/users/me')
-        .expect(401);
+      await request(app).get('/api/users/me').expect(401);
     });
 
     it('should allow access with valid token', async () => {
       // Create user and login
-      await request(app)
-        .post('/api/users')
-        .send({
-          name: 'John Doe',
-          email: 'john@example.com',
-          password: 'password123',
-        });
+      await request(app).post('/api/users').send({
+        name: 'John Doe',
+        email: 'john@example.com',
+        password: 'password123',
+      });
 
-      const loginResponse = await request(app)
-        .post('/api/auth/login')
-        .send({
-          email: 'john@example.com',
-          password: 'password123',
-        });
+      const loginResponse = await request(app).post('/api/auth/login').send({
+        email: 'john@example.com',
+        password: 'password123',
+      });
 
       const token = loginResponse.body.token;
 
@@ -886,7 +879,10 @@ export function createUsersFixture(count: number): User[] {
 }
 
 // Usage in tests
-import { createUserFixture, createUsersFixture } from '../fixtures/user.fixture';
+import {
+  createUserFixture,
+  createUsersFixture,
+} from '../fixtures/user.fixture';
 
 describe('UserService', () => {
   it('should process user', () => {

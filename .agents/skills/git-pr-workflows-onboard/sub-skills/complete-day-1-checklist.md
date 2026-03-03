@@ -1,6 +1,7 @@
 # Complete Day 1 Checklist
 
 **Morning (9:00 AM - 12:00 PM)**
+
 ```checklist
 - [ ] Manager welcome and agenda review (30 min)
 - [ ] HR benefits and paperwork (45 min)
@@ -11,6 +12,7 @@
 ```
 
 **Afternoon (1:00 PM - 5:00 PM)**
+
 ```checklist
 - [ ] Lunch with buddy and team (60 min)
 - [ ] Laptop setup with IT support (90 min)

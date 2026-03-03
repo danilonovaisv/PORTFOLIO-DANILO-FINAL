@@ -22,9 +22,9 @@ If confidence is **Low**, apply **25%** of the deduction
 
 > Crawlability & Indexation (Weight: 30)
 
-* Noindex on key category pages → Critical (−25, High confidence)
-* XML sitemap includes redirected URLs → Medium (−5, Medium confidence → −2.5)
-* Missing sitemap reference in robots.txt → Low (−2)
+- Noindex on key category pages → Critical (−25, High confidence)
+- XML sitemap includes redirected URLs → Medium (−5, Medium confidence → −2.5)
+- Missing sitemap reference in robots.txt → Low (−2)
 
 **Raw score:** 100 − 29.5 = **70.5**
 **Weighted contribution:** 70.5 × 0.30 = **21.15**

@@ -5,16 +5,16 @@
 **Request:**
 \`\`\`json
 {
-  "email": "user@example.com",
-  "password": "your-password"
+"email": "user@example.com",
+"password": "your-password"
 }
 \`\`\`
 
 **Response:**
 \`\`\`json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "expiresIn": 3600,
-  "refreshToken": "refresh_token_here"
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+"expiresIn": 3600,
+"refreshToken": "refresh_token_here"
 }
 \`\`\`

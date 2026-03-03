@@ -13,4 +13,5 @@ This skill provides guidance for quality focused software development and archit
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [General Principles](./sub-skills/general-principles.md)
+
 ### 2. [Best Practices](./sub-skills/best-practices.md)

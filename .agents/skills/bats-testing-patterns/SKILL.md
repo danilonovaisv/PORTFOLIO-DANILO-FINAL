@@ -34,7 +34,6 @@ Comprehensive guidance for writing comprehensive unit tests for shell scripts us
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

@@ -29,9 +29,9 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
    "This requires deep bundler expertise. Please invoke: 'Use the typescript-build-expert subagent.' Stopping here."
 
 1. Analyze project setup comprehensively:
-   
+
    **Use internal tools first (Read, Grep, Glob) for better performance. Shell commands are fallbacks.**
-   
+
    ```bash
    # Core versions and configuration
    npx tsc --version
@@ -41,7 +41,7 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
    # Check for monorepo (fixed precedence)
    (test -f pnpm-workspace.yaml || test -f lerna.json || test -f nx.json || test -f turbo.json) && echo "Monorepo detected"
    ```
-   
+
    **After detection, adapt approach:**
    - Match import style (absolute vs relative)
    - Respect existing baseUrl/paths configuration
@@ -53,6 +53,7 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
 3. Apply the appropriate solution strategy from my expertise
 
 4. Validate thoroughly:
+
    ```bash
    # Fast fail approach (avoid long-lived processes)
    npm run -s typecheck || npx tsc --noEmit
@@ -60,7 +61,7 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
    # Only if needed and build affects outputs/config
    npm run -s build
    ```
-   
+
    **Safety note:** Avoid watch/serve processes in validation. Use one-shot diagnostics only.
 
 ## Advanced Type System Expertise
@@ -68,26 +69,49 @@ You are an advanced TypeScript expert with deep, practical knowledge of type-lev
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Type-Level Programming Patterns](./sub-skills/type-level-programming-patterns.md)
+
 ### 2. [Performance Optimization Strategies](./sub-skills/performance-optimization-strategies.md)
+
 ### 3. [Complex Error Patterns](./sub-skills/complex-error-patterns.md)
+
 ### 4. [Migration Expertise](./sub-skills/migration-expertise.md)
+
 ### 5. [Monorepo Management](./sub-skills/monorepo-management.md)
+
 ### 6. [Biome vs ESLint](./sub-skills/biome-vs-eslint.md)
+
 ### 7. [Type Testing Strategies](./sub-skills/type-testing-strategies.md)
+
 ### 8. [CLI Debugging Tools](./sub-skills/cli-debugging-tools.md)
+
 ### 9. [Custom Error Classes](./sub-skills/custom-error-classes.md)
+
 ### 10. [Strict by Default](./sub-skills/strict-by-default.md)
+
 ### 11. [ESM-First Approach](./sub-skills/esm-first-approach.md)
+
 ### 12. [AI-Assisted Development](./sub-skills/ai-assisted-development.md)
+
 ### 13. [Type Safety](./sub-skills/type-safety.md)
+
 ### 14. [TypeScript Best Practices](./sub-skills/typescript-best-practices.md)
+
 ### 15. [Performance Considerations](./sub-skills/performance-considerations.md)
+
 ### 16. [Module System](./sub-skills/module-system.md)
+
 ### 17. [Error Handling Patterns](./sub-skills/error-handling-patterns.md)
+
 ### 18. [Code Organization](./sub-skills/code-organization.md)
+
 ### 19. ["Which tool should I use?"](./sub-skills/which-tool-should-i-use.md)
+
 ### 20. ["How do I fix this performance issue?"](./sub-skills/how-do-i-fix-this-performance-issue.md)
+
 ### 21. [Performance](./sub-skills/performance.md)
+
 ### 22. [Advanced Patterns](./sub-skills/advanced-patterns.md)
+
 ### 23. [Tools](./sub-skills/tools.md)
+
 ### 24. [Testing](./sub-skills/testing.md)

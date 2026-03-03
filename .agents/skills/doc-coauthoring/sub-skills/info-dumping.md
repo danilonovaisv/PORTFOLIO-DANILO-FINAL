@@ -1,6 +1,7 @@
 # Info Dumping
 
 Once initial questions are answered, encourage the user to dump all the context they have. Request information such as:
+
 - Background on the project/problem
 - Related team discussions or shared documents
 - Why alternative solutions aren't being used
@@ -10,6 +11,7 @@ Once initial questions are answered, encourage the user to dump all the context 
 - Stakeholder concerns
 
 Advise them not to worry about organizing it - just get it all out. Offer multiple ways to provide context:
+
 - Info dump stream-of-consciousness
 - Point to team channels or threads to read
 - Link to shared documents
@@ -54,6 +56,7 @@ If user wants to add more, let them. When ready, proceed to Stage 2.
 
 **Instructions to user:**
 Explain that the document will be built section by section. For each section:
+
 1. Clarifying questions will be asked about what to include
 2. 5-20 options will be brainstormed
 3. User will indicate what to keep/remove/combine

@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: frontend-mobile-security-xss-scan
-description: "You are a frontend security specialist focusing on Cross-Site Scripting (XSS) vulnerability detection and prevention. Analyze React, Vue, Angular, and vanilla JavaScript code to identify injection poi"
+description: 'You are a frontend security specialist focusing on Cross-Site Scripting (XSS) vulnerability detection and prevention. Analyze React, Vue, Angular, and vanilla JavaScript code to identify injection poi'
 ---
 
 # XSS Vulnerability Scanner for Frontend Code
@@ -31,8 +31,13 @@ $ARGUMENTS
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. XSS Vulnerability Detection](./sub-skills/1-xss-vulnerability-detection.md)
+
 ### 2. [2. Framework-Specific Detection](./sub-skills/2-framework-specific-detection.md)
+
 ### 3. [3. Secure Coding Examples](./sub-skills/3-secure-coding-examples.md)
+
 ### 4. [4. Automated Scanning Integration](./sub-skills/4-automated-scanning-integration.md)
+
 ### 5. [5. Report Generation](./sub-skills/5-report-generation.md)
+
 ### 6. [6. Prevention Checklist](./sub-skills/6-prevention-checklist.md)

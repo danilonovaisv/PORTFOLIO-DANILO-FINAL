@@ -74,45 +74,45 @@ module.exports = {
 ## Unit Testing Patterns
 
 ```javascript
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+const { expect } = require('chai');
+const { ethers } = require('hardhat');
 const {
   loadFixture,
   time,
-} = require("@nomicfoundation/hardhat-network-helpers");
+} = require('@nomicfoundation/hardhat-network-helpers');
 
-describe("Token Contract", function () {
+describe('Token Contract', function () {
   // Fixture for test setup
   async function deployTokenFixture() {
     const [owner, addr1, addr2] = await ethers.getSigners();
 
-    const Token = await ethers.getContractFactory("Token");
+    const Token = await ethers.getContractFactory('Token');
     const token = await Token.deploy();
 
     return { token, owner, addr1, addr2 };
   }
 
-  describe("Deployment", function () {
-    it("Should set the right owner", async function () {
+  describe('Deployment', function () {
+    it('Should set the right owner', async function () {
       const { token, owner } = await loadFixture(deployTokenFixture);
       expect(await token.owner()).to.equal(owner.address);
     });
 
-    it("Should assign total supply to owner", async function () {
+    it('Should assign total supply to owner', async function () {
       const { token, owner } = await loadFixture(deployTokenFixture);
       const ownerBalance = await token.balanceOf(owner.address);
       expect(await token.totalSupply()).to.equal(ownerBalance);
     });
   });
 
-  describe("Transactions", function () {
-    it("Should transfer tokens between accounts", async function () {
+  describe('Transactions', function () {
+    it('Should transfer tokens between accounts', async function () {
       const { token, owner, addr1 } = await loadFixture(deployTokenFixture);
 
       await expect(token.transfer(addr1.address, 50)).to.changeTokenBalances(
         token,
         [owner, addr1],
-        [-50, 50],
+        [-50, 50]
       );
     });
 
@@ -121,21 +121,21 @@ describe("Token Contract", function () {
       const initialBalance = await token.balanceOf(addr1.address);
 
       await expect(
-        token.connect(addr1).transfer(owner.address, 1),
-      ).to.be.revertedWith("Insufficient balance");
+        token.connect(addr1).transfer(owner.address, 1)
+      ).to.be.revertedWith('Insufficient balance');
     });
 
-    it("Should emit Transfer event", async function () {
+    it('Should emit Transfer event', async function () {
       const { token, owner, addr1 } = await loadFixture(deployTokenFixture);
 
       await expect(token.transfer(addr1.address, 50))
-        .to.emit(token, "Transfer")
+        .to.emit(token, 'Transfer')
         .withArgs(owner.address, addr1.address, 50);
     });
   });
 
-  describe("Time-based tests", function () {
-    it("Should handle time-locked operations", async function () {
+  describe('Time-based tests', function () {
+    it('Should handle time-locked operations', async function () {
       const { token } = await loadFixture(deployTokenFixture);
 
       // Increase time by 1 day
@@ -145,8 +145,8 @@ describe("Token Contract", function () {
     });
   });
 
-  describe("Gas optimization", function () {
-    it("Should use gas efficiently", async function () {
+  describe('Gas optimization', function () {
+    it('Should use gas efficiently', async function () {
       const { token } = await loadFixture(deployTokenFixture);
 
       const tx = await token.transfer(addr1.address, 100);
@@ -239,5 +239,7 @@ contract TokenTest is Test {
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Snapshot and Revert](./sub-skills/snapshot-and-revert.md)
+
 ### 2. [Mainnet Forking](./sub-skills/mainnet-forking.md)
+
 ### 3. [Impersonating Accounts](./sub-skills/impersonating-accounts.md)

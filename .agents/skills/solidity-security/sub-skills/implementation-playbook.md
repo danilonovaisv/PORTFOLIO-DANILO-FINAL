@@ -408,30 +408,30 @@ contract SecurityChecklist {
 
 ```javascript
 // Hardhat test example
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+const { expect } = require('chai');
+const { ethers } = require('hardhat');
 
-describe("Security Tests", function () {
-  it("Should prevent reentrancy attack", async function () {
+describe('Security Tests', function () {
+  it('Should prevent reentrancy attack', async function () {
     const [attacker] = await ethers.getSigners();
 
-    const VictimBank = await ethers.getContractFactory("SecureBank");
+    const VictimBank = await ethers.getContractFactory('SecureBank');
     const bank = await VictimBank.deploy();
 
-    const Attacker = await ethers.getContractFactory("ReentrancyAttacker");
+    const Attacker = await ethers.getContractFactory('ReentrancyAttacker');
     const attackerContract = await Attacker.deploy(bank.address);
 
     // Deposit funds
-    await bank.deposit({ value: ethers.utils.parseEther("10") });
+    await bank.deposit({ value: ethers.utils.parseEther('10') });
 
     // Attempt reentrancy attack
     await expect(
-      attackerContract.attack({ value: ethers.utils.parseEther("1") }),
-    ).to.be.revertedWith("ReentrancyGuard: reentrant call");
+      attackerContract.attack({ value: ethers.utils.parseEther('1') })
+    ).to.be.revertedWith('ReentrancyGuard: reentrant call');
   });
 
-  it("Should prevent integer overflow", async function () {
-    const Token = await ethers.getContractFactory("SecureToken");
+  it('Should prevent integer overflow', async function () {
+    const Token = await ethers.getContractFactory('SecureToken');
     const token = await Token.deploy();
 
     // Attempt overflow
@@ -439,15 +439,15 @@ describe("Security Tests", function () {
       .to.be.reverted;
   });
 
-  it("Should enforce access control", async function () {
+  it('Should enforce access control', async function () {
     const [owner, attacker] = await ethers.getSigners();
 
-    const Contract = await ethers.getContractFactory("SecureContract");
+    const Contract = await ethers.getContractFactory('SecureContract');
     const contract = await Contract.deploy();
 
     // Attempt unauthorized withdrawal
     await expect(contract.connect(attacker).withdraw(100)).to.be.revertedWith(
-      "Ownable: caller is not the owner",
+      'Ownable: caller is not the owner'
     );
   });
 });

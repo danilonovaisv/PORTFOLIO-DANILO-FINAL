@@ -1,38 +1,38 @@
 # Core Tools
 
-| Tool | Purpose | Example |
-|------|---------|---------|
-| `grep` | Search | `grep -rn "TODO" src/` |
-| `sed` | Replace | `sed -i 's/old/new/g' file.txt` |
-| `awk` | Extract columns | `awk '{print $1}' file.txt` |
-| `cut` | Cut fields | `cut -d',' -f1 data.csv` |
-| `sort` | Sort lines | `sort -u file.txt` |
-| `uniq` | Unique lines | `sort file.txt \| uniq -c` |
-| `wc` | Count | `wc -l file.txt` |
+| Tool   | Purpose         | Example                         |
+| ------ | --------------- | ------------------------------- |
+| `grep` | Search          | `grep -rn "TODO" src/`          |
+| `sed`  | Replace         | `sed -i 's/old/new/g' file.txt` |
+| `awk`  | Extract columns | `awk '{print $1}' file.txt`     |
+| `cut`  | Cut fields      | `cut -d',' -f1 data.csv`        |
+| `sort` | Sort lines      | `sort -u file.txt`              |
+| `uniq` | Unique lines    | `sort file.txt \| uniq -c`      |
+| `wc`   | Count           | `wc -l file.txt`                |
 
 ---
 
 ## 5. Environment Variables
 
-| Task | Command |
-|------|---------|
-| View all | `env` or `printenv` |
-| View one | `echo $PATH` |
-| Set temporary | `export VAR="value"` |
-| Set in script | `VAR="value" command` |
-| Add to PATH | `export PATH="$PATH:/new/path"` |
+| Task          | Command                         |
+| ------------- | ------------------------------- |
+| View all      | `env` or `printenv`             |
+| View one      | `echo $PATH`                    |
+| Set temporary | `export VAR="value"`            |
+| Set in script | `VAR="value" command`           |
+| Add to PATH   | `export PATH="$PATH:/new/path"` |
 
 ---
 
 ## 6. Network
 
-| Task | Command |
-|------|---------|
-| Download | `curl -O https://example.com/file` |
-| API request | `curl -X GET https://api.example.com` |
-| POST JSON | `curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' URL` |
-| Check port | `nc -zv localhost 3000` |
-| Network info | `ifconfig` or `ip addr` |
+| Task         | Command                                                                     |
+| ------------ | --------------------------------------------------------------------------- |
+| Download     | `curl -O https://example.com/file`                                          |
+| API request  | `curl -X GET https://api.example.com`                                       |
+| POST JSON    | `curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' URL` |
+| Check port   | `nc -zv localhost 3000`                                                     |
+| Network info | `ifconfig` or `ip addr`                                                     |
 
 ---
 

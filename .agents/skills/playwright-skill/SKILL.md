@@ -254,7 +254,7 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
   for (const viewport of viewports) {
     console.log(
-      `Testing ${viewport.name} (${viewport.width}x${viewport.height})`,
+      `Testing ${viewport.name} (${viewport.width}x${viewport.height})`
     );
 
     await page.setViewportSize({
@@ -364,7 +364,7 @@ For scripts using raw Playwright API, use the injected `getContextOptionsWithHea
 
 ```javascript
 const context = await browser.newContext(
-  getContextOptionsWithHeaders({ viewport: { width: 1920, height: 1080 } }),
+  getContextOptionsWithHeaders({ viewport: { width: 1920, height: 1080 } })
 );
 ```
 

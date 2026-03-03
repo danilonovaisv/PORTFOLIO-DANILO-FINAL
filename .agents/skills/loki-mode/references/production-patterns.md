@@ -7,6 +7,7 @@ Practitioner-tested patterns from Hacker News discussions and real-world deploym
 ## Overview
 
 This reference consolidates battle-tested insights from:
+
 - HN discussions on autonomous agents in production (2025)
 - Coding with LLMs practitioner experiences
 - Simon Willison's Superpowers coding agent patterns
@@ -117,9 +118,9 @@ classification_first:
       - Customer-facing changes
 
   step_2_route:
-    workable: "Automated pipeline"
-    non_workable: "Human clarification"
-    escalate: "Senior review"
+    workable: 'Automated pipeline'
+    non_workable: 'Human clarification'
+    escalate: 'Senior review'
 ```
 
 ### Deterministic Outer Loops
@@ -262,8 +263,8 @@ conversation_management:
 
 ```yaml
 skills_architecture:
-  core_interaction: "< 2k tokens"
-  skill_loading: "On-demand via search"
+  core_interaction: '< 2k tokens'
+  skill_loading: 'On-demand via search'
 
   implementation:
     skill_discovery:
@@ -272,10 +273,10 @@ skills_architecture:
       - Skills loaded only when needed
 
     skill_structure:
-      name: "unique-skill-name"
-      trigger: "Pattern that activates skill"
-      content: "Detailed instructions"
-      dependencies: ["other-skills"]
+      name: 'unique-skill-name'
+      trigger: 'Pattern that activates skill'
+      content: 'Detailed instructions'
+      dependencies: ['other-skills']
 
   benefits:
     - Minimal base context
@@ -327,9 +328,9 @@ async def context_isolated_search(query, codebase_path):
 plan_then_code:
   phase_1_planning:
     outputs:
-      - spec.md: "Detailed requirements"
-      - todo.md: "Tagged tasks [BUG], [FEAT], [REFACTOR]"
-      - approach.md: "Implementation strategy"
+      - spec.md: 'Detailed requirements'
+      - todo.md: 'Tagged tasks [BUG], [FEAT], [REFACTOR]'
+      - approach.md: 'Implementation strategy'
     constraints:
       - NO CODE in this phase
       - Human review before proceeding
@@ -429,7 +430,7 @@ policies = [
 
 ```yaml
 simulation_layer:
-  purpose: "Test agent behavior in safe environment"
+  purpose: 'Test agent behavior in safe environment'
 
   implementation:
     sandbox_environment:
@@ -533,19 +534,19 @@ def evaluate_agent_change(before_agent, after_agent, task_set):
 ```yaml
 cost_patterns:
   claude_code:
-    heavy_use: "$25/1-2 hours on large codebases"
-    api_range: "$1-5/hour depending on efficiency"
-    max_tier: "$200/month often needs 2-3 subscriptions"
+    heavy_use: '$25/1-2 hours on large codebases'
+    api_range: '$1-5/hour depending on efficiency'
+    max_tier: '$200/month often needs 2-3 subscriptions'
 
   token_economics:
-    sub_agents_multiply_cost: "Each duplicates context"
-    example: "5-task parallel job = 50,000+ tokens per subtask"
+    sub_agents_multiply_cost: 'Each duplicates context'
+    example: '5-task parallel job = 50,000+ tokens per subtask'
 
   optimization:
-    context_isolation: "Use sub-agents for noisy tasks"
+    context_isolation: 'Use sub-agents for noisy tasks'
     information_abstraction: "Summarize, don't dump"
-    fresh_conversations: "Reset after major tasks"
-    skill_on_demand: "Load only when needed"
+    fresh_conversations: 'Reset after major tasks'
+    skill_on_demand: 'Load only when needed'
 ```
 
 ---
@@ -553,6 +554,7 @@ cost_patterns:
 ## Sources
 
 **Hacker News Discussions:**
+
 - [What Actually Works in Production for Autonomous Agents](https://news.ycombinator.com/item?id=44623207)
 - [Coding with LLMs in Summer 2025](https://news.ycombinator.com/item?id=44623953)
 - [Superpowers: How I'm Using Coding Agents](https://news.ycombinator.com/item?id=45547344)
@@ -562,6 +564,7 @@ cost_patterns:
 - [Context Engineering vs Prompt Engineering](https://news.ycombinator.com/item?id=44427757)
 
 **Show HN Projects:**
+
 - [Self-Evolving Agents Repository](https://news.ycombinator.com/item?id=45099226)
 - [Package Manager for Agent Skills](https://news.ycombinator.com/item?id=46422264)
 - [Wispbit - AI Code Review Agent](https://news.ycombinator.com/item?id=44722603)

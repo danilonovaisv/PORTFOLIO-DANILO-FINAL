@@ -34,7 +34,6 @@ Transform debugging from frustrating guesswork into systematic problem-solving w
 
 - `resources/implementation-playbook.md` for detailed debugging patterns and checklists.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

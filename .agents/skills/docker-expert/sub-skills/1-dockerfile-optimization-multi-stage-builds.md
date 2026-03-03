@@ -1,12 +1,14 @@
 # 1. Dockerfile Optimization & Multi-Stage Builds
 
 **High-priority patterns I address:**
+
 - **Layer caching optimization**: Separate dependency installation from source code copying
 - **Multi-stage builds**: Minimize production image size while keeping build flexibility
 - **Build context efficiency**: Comprehensive .dockerignore and build context management
 - **Base image selection**: Alpine vs distroless vs scratch image strategies
 
 **Key techniques:**
+
 ```dockerfile
 # Optimized multi-stage pattern
 FROM node:18-alpine AS deps

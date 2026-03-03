@@ -6,6 +6,7 @@
 **Best times:** 7-9am, 12-3pm, 7-11pm
 
 **What works:**
+
 - Native, unpolished content
 - Trending sounds and formats
 - Educational content in entertaining wrapper
@@ -14,12 +15,14 @@
 - Duets and stitches
 
 **What doesn't:**
+
 - Overly produced content
 - Ignoring trends
 - Hard selling
 - Repurposed horizontal video
 
 **Format tips:**
+
 - Hook in first 1-2 seconds
 - Keep it under 30 seconds to start
 - Vertical only (9:16)

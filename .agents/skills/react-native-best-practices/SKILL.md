@@ -25,7 +25,7 @@ layer: master-skill
 ## 3. Performance Optimization
 
 - **Image Caching**: Use `expo-image` instead of React Native's `<Image />`.
-    - Features: Blurhash, caching, preloading.
+  - Features: Blurhash, caching, preloading.
 - **Reanimated**: Use `react-native-reanimated` for 60fps animations (runs on UI thread), avoiding the JS bridge.
 - **Hermes**: Ensure Hermes engine is enabled in `app.json` for faster startup and smaller bundle size.
 
@@ -42,6 +42,7 @@ layer: master-skill
 ---
 
 **Checklist**:
+
 - [ ] Is Hermes enabled?
 - [ ] Are images using `expo-image`?
 - [ ] Is navigation handled by Expo Router?

@@ -19,4 +19,5 @@ Todos os workflows estruturados para automação e auditoria estão localizados 
 Ao iniciar qualquer tarefa, o agente deve carregar o arquivo `.agentrules` na raiz como o mapa principal de navegação e cumprir as diretrizes contidas em cada arquivo registrado.
 
 ---
-*Configuração aplicada em 26/01/2026 para o ecossistema Google Antigravity.*
+
+_Configuração aplicada em 26/01/2026 para o ecossistema Google Antigravity._

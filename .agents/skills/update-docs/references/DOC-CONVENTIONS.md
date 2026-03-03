@@ -68,17 +68,17 @@ Always provide TypeScript first, then JavaScript:
 
 ````mdx
 ```tsx filename="app/page.tsx" switcher
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'My Page',
-}
+};
 ```
 
 ```jsx filename="app/page.js" switcher
 export const metadata = {
   title: 'My Page',
-}
+};
 ```
 ````
 

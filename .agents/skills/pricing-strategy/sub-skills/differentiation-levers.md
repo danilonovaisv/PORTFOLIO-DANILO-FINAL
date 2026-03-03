@@ -1,10 +1,10 @@
 # Differentiation Levers
 
-* Usage limits
-* Advanced features
-* Support level
-* Security & compliance
-* Customization / integrations
+- Usage limits
+- Advanced features
+- Support level
+- Security & compliance
+- Customization / integrations
 
 ---
 

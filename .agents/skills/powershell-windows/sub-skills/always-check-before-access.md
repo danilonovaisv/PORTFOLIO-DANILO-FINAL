@@ -1,9 +1,9 @@
 # Always Check Before Access
 
-| ❌ Wrong | ✅ Correct |
-|----------|-----------|
+| ❌ Wrong             | ✅ Correct                       |
+| -------------------- | -------------------------------- |
 | `$array.Count -gt 0` | `$array -and $array.Count -gt 0` |
-| `$text.Length` | `if ($text) { $text.Length }` |
+| `$text.Length`       | `if ($text) { $text.Length }`    |
 
 ---
 

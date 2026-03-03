@@ -8,7 +8,7 @@ description: # Sistema de Debugging de Camadas & Stacking Context (Frontend)
 
 ## 1. System Overview
 
-Este sistema multi-agente é projetado para diagnosticar e corrigir conflitos de sobreposição visual ("z-index wars") e interatividade (bloqueio de cliques) em uma arquitetura híbrida (DOM + WebGL). O fluxo separa a análise estrutural do código (identificação de *Stacking Contexts* criados por Tailwind e Framer Motion) da inspeção visual e correção técnica.
+Este sistema multi-agente é projetado para diagnosticar e corrigir conflitos de sobreposição visual ("z-index wars") e interatividade (bloqueio de cliques) em uma arquitetura híbrida (DOM + WebGL). O fluxo separa a análise estrutural do código (identificação de _Stacking Contexts_ criados por Tailwind e Framer Motion) da inspeção visual e correção técnica.
 
 **Arquitetura:**
 
@@ -25,7 +25,7 @@ Este sistema multi-agente é projetado para diagnosticar e corrigir conflitos de
 **Instructions:**
 
 - Analise os arquivos em `PROJECT_ROOT/app` e componentes UI.
-- Identifique elementos que criam novos *Stacking Contexts* (propriedades como `opacity < 1`, `transform`, `filter`, `z-index` não-auto, `isolation: isolate`).
+- Identifique elementos que criam novos _Stacking Contexts_ (propriedades como `opacity < 1`, `transform`, `filter`, `z-index` não-auto, `isolation: isolate`).
 - Atenção redobrada ao **Framer Motion**: componentes `<motion.div>` frequentemente alteram `transform`, criando contextos que "prendem" o `z-index` dos filhos.
 - Verifique a posição do componente `<Canvas>` (React Three Fiber). Ele está como `fixed` ou `absolute` cobrindo a tela?
 - Gere um relatório de "Z-Index Trap": onde um elemento filho tem `z-9999` mas está preso dentro de um pai com `z-0`.
@@ -36,7 +36,7 @@ Este sistema multi-agente é projetado para diagnosticar e corrigir conflitos de
 - use a skill-react-best-practices;
 - use a skill-concise-planning;
 
-### 🤖 Agent B: Visual Debugger (Specialist)  - use o agent '.agent/agents/debugger.md'
+### 🤖 Agent B: Visual Debugger (Specialist) - use o agent '.agent/agents/debugger.md'
 
 **Role:** QA Automation Engineer & CSS Expert.
 **Goal:** Executar testes visuais e aplicar correções de código para garantir a interatividade correta.

@@ -33,7 +33,6 @@ Build production-ready design systems with Tailwind CSS, including design tokens
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

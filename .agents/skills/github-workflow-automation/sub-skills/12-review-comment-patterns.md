@@ -20,7 +20,7 @@ Brief description of what this PR does.
    // Current
    user.profile.name;
    // Suggested
-   user?.profile?.name ?? "Unknown";
+   user?.profile?.name ?? 'Unknown';
    ```
 ````
 
@@ -39,4 +39,6 @@ Brief description of what this PR does.
 - No sensitive data exposure detected
 - API key handling looks correct
 
-````
+```
+
+```

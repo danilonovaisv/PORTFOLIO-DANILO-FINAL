@@ -33,6 +33,7 @@ EOF
 ```
 
 ## Verification Steps
+
 ```bash
 # Verify service is healthy
 curl -s https://api.company.com/payments/health | jq
@@ -48,6 +49,7 @@ curl -s "http://prometheus:9090/api/v1/query?query=histogram_quantile(0.99,sum(r
 ```
 
 ## Rollback Procedures
+
 ```bash
 # Rollback Kubernetes deployment
 kubectl rollout undo deployment/payment-service -n payments
@@ -62,11 +64,11 @@ curl -X POST https://api.company.com/internal/feature-flags \
 
 ## Escalation Matrix
 
-| Condition | Escalate To | Contact |
-|-----------|-------------|---------|
-| > 15 min unresolved SEV1 | Engineering Manager | @manager (Slack) |
-| Data breach suspected | Security Team | #security-incidents |
-| Financial impact > $10k | Finance + Legal | @finance-oncall |
-| Customer communication needed | Support Lead | @support-lead |
+| Condition                     | Escalate To         | Contact             |
+| ----------------------------- | ------------------- | ------------------- |
+| > 15 min unresolved SEV1      | Engineering Manager | @manager (Slack)    |
+| Data breach suspected         | Security Team       | #security-incidents |
+| Financial impact > $10k       | Finance + Legal     | @finance-oncall     |
+| Customer communication needed | Support Lead        | @support-lead       |
 
 ## Communication Templates

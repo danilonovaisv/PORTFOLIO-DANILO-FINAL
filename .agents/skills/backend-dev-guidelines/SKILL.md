@@ -12,11 +12,11 @@ You are a **senior backend engineer** operating production-grade services under 
 
 Your goal is to build **predictable, observable, and maintainable backend systems** using:
 
-* Layered architecture
-* Explicit error boundaries
-* Strong typing and validation
-* Centralized configuration
-* First-class observability
+- Layered architecture
+- Explicit error boundaries
+- Strong typing and validation
+- Centralized configuration
+- First-class observability
 
 This skill defines **how backend code must be written**, not merely suggestions.
 
@@ -59,13 +59,13 @@ BFRI = (Architectural Fit + Testability) − (Complexity + Data Risk + Operation
 
 Automatically applies when working on:
 
-* Routes, controllers, services, repositories
-* Express middleware
-* Prisma database access
-* Zod validation
-* Sentry error tracking
-* Configuration management
-* Backend refactors or migrations
+- Routes, controllers, services, repositories
+- Express middleware
+- Prisma database access
+- Zod validation
+- Sentry error tracking
+- Configuration management
+- Backend refactors or migrations
 
 ---
 
@@ -77,9 +77,9 @@ Automatically applies when working on:
 Routes → Controllers → Services → Repositories → Database
 ```
 
-* No layer skipping
-* No cross-layer leakage
-* Each layer has **one responsibility**
+- No layer skipping
+- No cross-layer leakage
+- Each layer has **one responsibility**
 
 ---
 
@@ -103,19 +103,17 @@ Routes must contain **zero business logic**.
 
 ### 3. Controllers Coordinate, Services Decide
 
-* Controllers:
+- Controllers:
+  - Parse request
+  - Call services
+  - Handle response formatting
+  - Handle errors via BaseController
 
-  * Parse request
-  * Call services
-  * Handle response formatting
-  * Handle errors via BaseController
-
-* Services:
-
-  * Contain business rules
-  * Are framework-agnostic
-  * Use DI
-  * Are unit-testable
+- Services:
+  - Contain business rules
+  - Are framework-agnostic
+  - Use DI
+  - Are unit-testable
 
 ---
 
@@ -168,10 +166,10 @@ config.auth.jwtSecret;
 
 ### 7. Validate All External Input with Zod
 
-* Request bodies
-* Query params
-* Route params
-* Webhook payloads
+- Request bodies
+- Query params
+- Route params
+- Webhook payloads
 
 ```ts
 const schema = z.object({
@@ -220,15 +218,13 @@ src/
 
 ## 6. Dependency Injection Rules
 
-* Services receive dependencies via constructor
-* No importing repositories directly inside controllers
-* Enables mocking and testing
+- Services receive dependencies via constructor
+- No importing repositories directly inside controllers
+- Enables mocking and testing
 
 ```ts
 export class UserService {
-  constructor(
-    private readonly userRepository: UserRepository
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 }
 ```
 
@@ -236,12 +232,11 @@ export class UserService {
 
 ## 7. Prisma & Repository Rules
 
-* Prisma client **never used directly in controllers**
-* Repositories:
-
-  * Encapsulate queries
-  * Handle transactions
-  * Expose intent-based methods
+- Prisma client **never used directly in controllers**
+- Repositories:
+  - Encapsulate queries
+  - Handle transactions
+  - Expose intent-based methods
 
 ```ts
 await userRepository.findActiveUsers();
@@ -258,9 +253,7 @@ All async route handlers must be wrapped.
 ```ts
 router.get(
   '/users',
-  asyncErrorWrapper((req, res) =>
-    controller.list(req, res)
-  )
+  asyncErrorWrapper((req, res) => controller.list(req, res))
 );
 ```
 
@@ -272,9 +265,9 @@ No unhandled promise rejections.
 
 ### Required
 
-* Sentry error tracking
-* Sentry performance tracing
-* Structured logs (where applicable)
+- Sentry error tracking
+- Sentry performance tracing
+- Structured logs (where applicable)
 
 Every critical path must be observable.
 
@@ -284,9 +277,9 @@ Every critical path must be observable.
 
 ### Required Tests
 
-* **Unit tests** for services
-* **Integration tests** for routes
-* **Repository tests** for complex queries
+- **Unit tests** for services
+- **Integration tests** for routes
+- **Repository tests** for complex queries
 
 ```ts
 describe('UserService', () => {
@@ -314,11 +307,11 @@ No tests → no merge.
 
 ## 12. Integration With Other Skills
 
-* **frontend-dev-guidelines** → API contract alignment
-* **error-tracking** → Sentry standards
-* **database-verification** → Schema correctness
-* **analytics-tracking** → Event pipelines
-* **skill-developer** → Skill governance
+- **frontend-dev-guidelines** → API contract alignment
+- **error-tracking** → Sentry standards
+- **database-verification** → Schema correctness
+- **analytics-tracking** → Event pipelines
+- **skill-developer** → Skill governance
 
 ---
 
@@ -326,13 +319,13 @@ No tests → no merge.
 
 Before finalizing backend work:
 
-* [ ] BFRI ≥ 3
-* [ ] Layered architecture respected
-* [ ] Input validated
-* [ ] Errors captured in Sentry
-* [ ] unifiedConfig used
-* [ ] Tests written
-* [ ] No anti-patterns present
+- [ ] BFRI ≥ 3
+- [ ] Layered architecture respected
+- [ ] Input validated
+- [ ] Errors captured in Sentry
+- [ ] unifiedConfig used
+- [ ] Tests written
+- [ ] No anti-patterns present
 
 ---
 
@@ -340,19 +333,29 @@ Before finalizing backend work:
 
 **Status:** Stable · Enforceable · Production-grade
 **Intended Use:** Long-lived Node.js microservices with real traffic and real risk
----
 
+---
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [architecture-overview](./sub-skills/architecture-overview.md)
+
 ### 2. [async-and-errors](./sub-skills/async-and-errors.md)
+
 ### 3. [complete-examples](./sub-skills/complete-examples.md)
+
 ### 4. [configuration](./sub-skills/configuration.md)
+
 ### 5. [database-patterns](./sub-skills/database-patterns.md)
+
 ### 6. [middleware-guide](./sub-skills/middleware-guide.md)
+
 ### 7. [routing-and-controllers](./sub-skills/routing-and-controllers.md)
+
 ### 8. [sentry-and-monitoring](./sub-skills/sentry-and-monitoring.md)
+
 ### 9. [services-and-repositories](./sub-skills/services-and-repositories.md)
+
 ### 10. [testing-guide](./sub-skills/testing-guide.md)
+
 ### 11. [validation-patterns](./sub-skills/validation-patterns.md)

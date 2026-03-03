@@ -1,10 +1,10 @@
 # Memory Tab Analysis
 
-| Pattern | Meaning |
-|---------|---------|
-| Growing heap | Possible leak |
+| Pattern        | Meaning          |
+| -------------- | ---------------- |
+| Growing heap   | Possible leak    |
 | Large retained | Check references |
-| Detached DOM | Not cleaned up |
+| Detached DOM   | Not cleaned up   |
 
 ---
 

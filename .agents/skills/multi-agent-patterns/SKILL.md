@@ -10,6 +10,7 @@ Multi-agent architectures distribute work across multiple language model instanc
 ## When to Activate
 
 Activate this skill when:
+
 - Single-agent context limits constrain task complexity
 - Tasks decompose naturally into parallel subtasks
 - Different subtasks require different tool sets or system prompts
@@ -35,11 +36,11 @@ Multi-agent architectures address these limitations by partitioning work across 
 **The Token Economics Reality**
 Multi-agent systems consume significantly more tokens than single-agent approaches. Production data shows:
 
-| Architecture | Token Multiplier | Use Case |
-|--------------|------------------|----------|
-| Single agent chat | 1× baseline | Simple queries |
-| Single agent with tools | ~4× baseline | Tool-using tasks |
-| Multi-agent system | ~15× baseline | Complex research/coordination |
+| Architecture            | Token Multiplier | Use Case                      |
+| ----------------------- | ---------------- | ----------------------------- |
+| Single agent chat       | 1× baseline      | Simple queries                |
+| Single agent with tools | ~4× baseline     | Tool-using tasks              |
+| Multi-agent system      | ~15× baseline    | Complex research/coordination |
 
 Research on the BrowseComp evaluation found that three factors explain 95% of performance variance: token usage (80% of variance), number of tool calls, and model choice. This validates the multi-agent approach of distributing work across agents with separate context windows to add capacity for parallel reasoning.
 
@@ -79,7 +80,7 @@ The fix: implement a `forward_message` tool allowing sub-agents to pass response
 def forward_message(message: str, to_user: bool = True):
     """
     Forward sub-agent response directly to user without supervisor synthesis.
-    
+
     Use when:
     - Sub-agent response is final and complete
     - Supervisor synthesis would lose important details
@@ -189,6 +190,7 @@ Mitigation: Validate agent outputs before passing to consumers. Implement retry 
 ## Examples
 
 **Example 1: Research Team Architecture**
+
 ```text
 Supervisor
 ├── Researcher (web search, document retrieval)
@@ -198,6 +200,7 @@ Supervisor
 ```
 
 **Example 2: Handoff Protocol**
+
 ```python
 def handle_customer_request(request):
     if request.type == "billing":
@@ -232,14 +235,17 @@ This skill builds on context-fundamentals and context-degradation. It connects t
 ## References
 
 Internal reference:
+
 - [Frameworks Reference](./references/frameworks.md) - Detailed framework implementation patterns
 
 Related skills in this collection:
+
 - context-fundamentals - Context basics
 - memory-systems - Cross-agent memory
 - context-optimization - Partitioning strategies
 
 External resources:
+
 - [LangGraph Documentation](https://langchain-ai.github.io/langgraph/) - Multi-agent patterns and state management
 - [AutoGen Framework](https://microsoft.github.io/autogen/) - GroupChat and conversational patterns
 - [CrewAI Documentation](https://docs.crewai.com/) - Hierarchical agent processes

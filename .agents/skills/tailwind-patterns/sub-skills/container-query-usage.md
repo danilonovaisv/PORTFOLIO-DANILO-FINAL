@@ -1,7 +1,7 @@
 # Container Query Usage
 
-| Pattern | Classes |
-|---------|---------|
-| Define container | `@container` on parent |
+| Pattern              | Classes                            |
+| -------------------- | ---------------------------------- |
+| Define container     | `@container` on parent             |
 | Container breakpoint | `@sm:`, `@md:`, `@lg:` on children |
-| Named containers | `@container/card` for specificity |
+| Named containers     | `@container/card` for specificity  |

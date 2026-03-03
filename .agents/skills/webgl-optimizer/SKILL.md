@@ -17,10 +17,10 @@ Trigger: "optimize 3d", "check draw calls", "performance audit"
 
 1. **List Files**: List all files in `src/components/canvas` recursively to understand the scope.
 2. **Analyze useFrame**:
-    - Search for `useFrame` in the identified files.
-    - identifying any `setState` calls or heavy logic inside the loop.
-    - Flag any potential performance bottlenecks.
+   - Search for `useFrame` in the identified files.
+   - identifying any `setState` calls or heavy logic inside the loop.
+   - Flag any potential performance bottlenecks.
 3. **Check Textures**:
-    - Inspect `public/assets` for large texture files (e.g., > 1MB).
-    - Recommend optimization (KTX2/Draco) if necessary.
+   - Inspect `public/assets` for large texture files (e.g., > 1MB).
+   - Recommend optimization (KTX2/Draco) if necessary.
 4. **Report**: Provide a summary of findings and specific optimization recommendations.

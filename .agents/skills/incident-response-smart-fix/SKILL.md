@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: incident-response-smart-fix
-description: "[Extended thinking: This workflow implements a sophisticated debugging and resolution pipeline that leverages AI-assisted debugging tools and observability platforms to systematically diagnose and res"
+description: '[Extended thinking: This workflow implements a sophisticated debugging and resolution pipeline that leverages AI-assisted debugging tools and observability platforms to systematically diagnose and res'
 ---
 
 # Intelligent Issue Resolution with Multi-Agent Orchestration
@@ -28,7 +28,6 @@ description: "[Extended thinking: This workflow implements a sophisticated debug
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

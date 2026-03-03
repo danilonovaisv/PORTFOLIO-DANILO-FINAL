@@ -8,9 +8,11 @@
 ## Core Principles (Inviolable)
 
 ### 1. Specification-First Development
+
 **RULE:** No code shall be written before the specification exists.
 
 **Enforcement:**
+
 ```
 IF task.type == "implementation" AND !exists(spec_file):
     BLOCK with error: "SPEC_MISSING"
@@ -20,9 +22,11 @@ IF task.type == "implementation" AND !exists(spec_file):
 **Rationale:** Specs are contracts. Code is implementation. Contract before implementation.
 
 ### 2. Git Checkpoint System
+
 **RULE:** Every completed task MUST create a git checkpoint.
 
 **Enforcement:**
+
 ```
 ON task.status == "completed":
     git add <modified_files>
@@ -33,9 +37,11 @@ ON task.status == "completed":
 **Rationale:** Git history is proof of progress. Every task is a save point.
 
 ### 3. Context Preservation
+
 **RULE:** All agents MUST inherit and preserve context from their spawning agent.
 
 **Enforcement:**
+
 ```
 ON agent.spawn():
     agent.context.parent_id = spawner.agent_id
@@ -47,9 +53,11 @@ ON agent.spawn():
 **Rationale:** Context drift kills multi-agent systems. Lineage is truth.
 
 ### 4. Iterative Specification Questions
+
 **RULE:** During spec generation, agents MUST ask clarifying questions before assuming.
 
 **Enforcement:**
+
 ```
 WHILE generating_spec:
     IF ambiguity_detected OR assumption_required:
@@ -64,9 +72,11 @@ WHILE generating_spec:
 **Rationale:** Assumptions create bugs. Questions create clarity.
 
 ### 5. Machine-Readable Rules
+
 **RULE:** All behavioral rules MUST be represented as structured artifacts, not just prose.
 
 **Enforcement:**
+
 ```
 rules/
 ├── pre-commit.schema.json     # Validation rules
@@ -82,7 +92,9 @@ rules/
 ## Agent Behavioral Contracts
 
 ### Orchestrator Agent
+
 **Responsibilities:**
+
 - Initialize .loki/ directory structure
 - Maintain CONTINUITY.md (working memory)
 - Coordinate task queue (pending → in-progress → completed)
@@ -90,62 +102,76 @@ rules/
 - Manage git checkpoints
 
 **Prohibited Actions:**
+
 - Writing implementation code directly
 - Skipping spec generation
 - Modifying completed tasks without explicit override
 
 **Context Obligations:**
+
 - MUST read CONTINUITY.md before every action
 - MUST update orchestrator.json after phase transitions
 - MUST preserve task lineage in completed.json
 
 ### Engineering Swarm Agents
+
 **Responsibilities:**
+
 - Implement features per OpenAPI spec
 - Write contract tests before implementation
 - Create git commits for completed tasks
 - Ask clarifying questions when spec is ambiguous
 
 **Prohibited Actions:**
+
 - Implementing without spec
 - Skipping tests
 - Ignoring linter/type errors
 
 **Context Obligations:**
+
 - MUST inherit parent agent's context
 - MUST log all decisions to .agent/sub-agents/${agent_id}.md
 - MUST reference spec in all implementation commits
 
 ### QA Swarm Agents
+
 **Responsibilities:**
+
 - Generate test cases from OpenAPI spec
 - Run contract validation tests
 - Report discrepancies between code and spec
 - Create bug reports in dead-letter queue
 
 **Prohibited Actions:**
+
 - Modifying implementation code
 - Skipping failing tests
 - Approving incomplete features
 
 **Context Obligations:**
+
 - MUST validate against spec as source of truth
 - MUST log test results to ledgers/
 - MUST create git commits for test additions
 
 ### DevOps Swarm Agents
+
 **Responsibilities:**
+
 - Automate deployment pipelines
 - Monitor service health
 - Configure infrastructure as code
 - Manage environment secrets
 
 **Prohibited Actions:**
+
 - Storing secrets in plaintext
 - Deploying without health checks
 - Skipping rollback procedures
 
 **Context Obligations:**
+
 - MUST log all deployments to deployment ledger
 - MUST preserve deployment context for rollback
 - MUST track infrastructure state in orchestrator.json
@@ -155,6 +181,7 @@ rules/
 ## Quality Gates (Machine-Enforceable)
 
 ### Pre-Commit Hook (BLOCKING)
+
 ```yaml
 quality_gates:
   linting:
@@ -179,6 +206,7 @@ quality_gates:
 ```
 
 ### Post-Implementation Review (AUTO-FIX)
+
 ```yaml
 auto_review:
   static_analysis:
@@ -201,26 +229,31 @@ auto_review:
 ## Memory Hierarchy (Priority Order)
 
 ### 1. CONTINUITY.md (Volatile - Every Turn)
+
 **Purpose:** What am I doing RIGHT NOW?
 **Update Frequency:** Every turn
 **Content:** Current task, phase, blockers, next steps
 
 ### 2. CONSTITUTION.md (Immutable - This File)
+
 **Purpose:** How MUST I behave?
 **Update Frequency:** Version bumps only
 **Content:** Behavioral contracts, quality gates, invariants
 
 ### 3. CLAUDE.md (Semi-Stable - Significant Changes)
+
 **Purpose:** What is this project?
 **Update Frequency:** Architecture changes
 **Content:** Tech stack, patterns, project context
 
 ### 4. Ledgers (Append-Only - Checkpoint)
+
 **Purpose:** What happened?
 **Update Frequency:** After significant events
 **Content:** Decisions, deployments, reviews
 
-### 5. .agent/sub-agents/*.json (Lineage Tracking)
+### 5. .agent/sub-agents/\*.json (Lineage Tracking)
+
 **Purpose:** Who did what and why?
 **Update Frequency:** Agent lifecycle events
 **Content:** Agent context, decisions, inherited memory
@@ -263,6 +296,7 @@ auto_review:
 ## Git Checkpoint Protocol
 
 ### Commit Message Format
+
 ```
 [Loki] ${agent_type}-${task_id}: ${task_title}
 
@@ -275,6 +309,7 @@ Tests: ${test_files}
 ```
 
 ### Example
+
 ```
 [Loki] eng-005-backend: Implement POST /api/todos endpoint
 
@@ -328,7 +363,7 @@ export const INVARIANTS = {
     if (task.status === 'completed') {
       assert(task.quality_checks.all_passed, 'QUALITY_GATE_FAILED');
     }
-  }
+  },
 };
 ```
 
@@ -341,6 +376,7 @@ export const INVARIANTS = {
 **RULE:** Architecture decisions and complex workflows MUST include Mermaid diagrams.
 
 **Example - Authentication Flow:**
+
 ```mermaid
 sequenceDiagram
     participant C as Client
@@ -358,6 +394,7 @@ sequenceDiagram
 **Storage Location:** `.loki/diagrams/${feature_name}.mmd`
 
 **When Required:**
+
 - Multi-step workflows (3+ steps)
 - System architecture changes
 - Complex state machines
@@ -368,12 +405,14 @@ sequenceDiagram
 ## Amendment Process
 
 This constitution can only be amended through:
+
 1. Version bump in header
 2. Git commit with `[CONSTITUTION]` prefix
 3. Changelog entry documenting what changed and why
 4. Re-validation of all existing agents against new rules
 
 **Example Amendment Commit:**
+
 ```
 [CONSTITUTION] v1.1.0: Add visual specification requirement
 
@@ -390,6 +429,7 @@ New rules: Section "Visual Specification Aids"
 ## Enforcement
 
 All rules in this constitution are **machine-enforceable** and **MUST** be implemented as:
+
 1. Pre-commit hooks (Git)
 2. Runtime assertions (TypeScript invariants)
 3. Quality gate validators (YAML configs)
@@ -399,4 +439,4 @@ All rules in this constitution are **machine-enforceable** and **MUST** be imple
 
 ---
 
-*"In autonomous systems, trust is built on invariants, not intentions."*
+_"In autonomous systems, trust is built on invariants, not intentions."_

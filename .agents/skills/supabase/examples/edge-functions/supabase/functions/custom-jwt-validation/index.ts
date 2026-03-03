@@ -1,7 +1,7 @@
 // Using 'default' Supabase auth middleware
 // Change to a specific provider by importing like that:
 // import { AuthMiddleware } from "../_shared/jwt/clerk.ts";
-import { AuthMiddleware } from "../_shared/jwt/default.ts";
+import { AuthMiddleware } from '../_shared/jwt/default.ts';
 
 interface reqPayload {
   name: string;

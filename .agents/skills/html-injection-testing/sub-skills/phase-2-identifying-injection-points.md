@@ -16,6 +16,7 @@ Map application for potential injection surfaces:
 ```
 
 Common vulnerable parameters:
+
 ```
 ?name=
 ?user=

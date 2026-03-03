@@ -15,6 +15,7 @@ spec:
 ```
 
 **Characteristics:**
+
 - Gradual rollout
 - Zero downtime
 - Easy rollback

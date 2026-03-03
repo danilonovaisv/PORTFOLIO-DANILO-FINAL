@@ -14,11 +14,11 @@ import {
 } from 'react-native';
 
 interface ${spec.name}Props {
-${spec.props.map(p => `  ${p.name}${p.required ? '' : '?'}: ${this.mapNativeType(p.type)};`).join('\n')}
+${spec.props.map((p) => `  ${p.name}${p.required ? '' : '?'}: ${this.mapNativeType(p.type)};`).join('\n')}
 }
 
 export const ${spec.name}: React.FC<${spec.name}Props> = ({
-  ${spec.props.map(p => p.name).join(',\n  ')}
+  ${spec.props.map((p) => p.name).join(',\n  ')}
 }) => {
   return (
     <View
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
 
   mapNativeType(webType: string): string {
     const typeMap: Record<string, string> = {
-      'string': 'string',
-      'number': 'number',
-      'boolean': 'boolean',
+      string: 'string',
+      number: 'number',
+      boolean: 'boolean',
       'React.ReactNode': 'React.ReactNode',
-      'Function': '() => void'
+      Function: '() => void',
     };
     return typeMap[webType] || webType;
   }

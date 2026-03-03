@@ -1,6 +1,7 @@
 # Migration Expertise
 
 **JavaScript to TypeScript Migration**
+
 ```bash
 # Incremental migration strategy
 # 1. Enable allowJs and checkJs (merge into existing tsconfig.json):
@@ -23,9 +24,9 @@ command -v typesync >/dev/null 2>&1 && npx typesync  # Install missing @types pa
 
 **Tool Migration Decisions**
 
-| From | To | When | Migration Effort |
-|------|-----|------|-----------------|
-| ESLint + Prettier | Biome | Need much faster speed, okay with fewer rules | Low (1 day) |
-| TSC for linting | Type-check only | Have 100+ files, need faster feedback | Medium (2-3 days) |
-| Lerna | Nx/Turborepo | Need caching, parallel builds | High (1 week) |
-| CJS | ESM | Node 18+, modern tooling | High (varies) |
+| From              | To              | When                                          | Migration Effort  |
+| ----------------- | --------------- | --------------------------------------------- | ----------------- |
+| ESLint + Prettier | Biome           | Need much faster speed, okay with fewer rules | Low (1 day)       |
+| TSC for linting   | Type-check only | Have 100+ files, need faster feedback         | Medium (2-3 days) |
+| Lerna             | Nx/Turborepo    | Need caching, parallel builds                 | High (1 week)     |
+| CJS               | ESM             | Node 18+, modern tooling                      | High (varies)     |

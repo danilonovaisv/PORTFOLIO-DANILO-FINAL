@@ -15,6 +15,7 @@ pnpm validate:postcss
 ```
 
 Este comando verifica automaticamente:
+
 - ✅ Configuração do PostCSS
 - ✅ Sintaxe do CSS
 - ✅ Versão do Tailwind CSS
@@ -38,6 +39,7 @@ pnpm validate:postcss
 ## Arquivos Protegidos
 
 ### 1. `postcss.config.cjs`
+
 ```javascript
 module.exports = {
   plugins: {
@@ -48,6 +50,7 @@ module.exports = {
 ```
 
 **❌ NUNCA ALTERE PARA:**
+
 ```javascript
 // NÃO USAR
 module.exports = {
@@ -58,6 +61,7 @@ module.exports = {
 ```
 
 ### 2. `src/app/globals.css`
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -65,6 +69,7 @@ module.exports = {
 ```
 
 **❌ NUNCA ALTERE PARA:**
+
 ```css
 /* NÃO USAR */
 @import 'tailwindcss'; /* ❌ Sintaxe v4 */

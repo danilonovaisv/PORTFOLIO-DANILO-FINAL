@@ -1,6 +1,7 @@
 # 3. The "Simulator" Pattern (User Journey)
 
 Construct multi-step flows:
+
 - **Login Flow**: Navigate -> Fill Login -> Click Submit -> Verify Dashboard URL.
 - **Checkout Flow**: Add to Cart -> View Cart -> Checkout -> Payment Mock.
 

@@ -1,10 +1,10 @@
 # Test Categories
 
-| Type | Focus |
-|------|-------|
-| Unit | Tool logic |
-| Integration | Full server |
-| Contract | Schema validation |
+| Type        | Focus             |
+| ----------- | ----------------- |
+| Unit        | Tool logic        |
+| Integration | Full server       |
+| Contract    | Schema validation |
 
 ---
 

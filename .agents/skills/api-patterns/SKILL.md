@@ -19,28 +19,28 @@ layer: master-skill
 
 ## 📑 Content Map
 
-| File | Description | When to Read |
-|------|-------------|--------------|
-| `api-style.md` | REST vs GraphQL vs tRPC decision tree | Choosing API type |
-| `rest.md` | Resource naming, HTTP methods, status codes | Designing REST API |
-| `response.md` | Envelope pattern, error format, pagination | Response structure |
-| `graphql.md` | Schema design, when to use, security | Considering GraphQL |
-| `trpc.md` | TypeScript monorepo, type safety | TS fullstack projects |
-| `versioning.md` | URI/Header/Query versioning | API evolution planning |
-| `auth.md` | JWT, OAuth, Passkey, API Keys | Auth pattern selection |
-| `rate-limiting.md` | Token bucket, sliding window | API protection |
-| `documentation.md` | OpenAPI/Swagger best practices | Documentation |
-| `security-testing.md` | OWASP API Top 10, auth/authz testing | Security audits |
+| File                  | Description                                 | When to Read           |
+| --------------------- | ------------------------------------------- | ---------------------- |
+| `api-style.md`        | REST vs GraphQL vs tRPC decision tree       | Choosing API type      |
+| `rest.md`             | Resource naming, HTTP methods, status codes | Designing REST API     |
+| `response.md`         | Envelope pattern, error format, pagination  | Response structure     |
+| `graphql.md`          | Schema design, when to use, security        | Considering GraphQL    |
+| `trpc.md`             | TypeScript monorepo, type safety            | TS fullstack projects  |
+| `versioning.md`       | URI/Header/Query versioning                 | API evolution planning |
+| `auth.md`             | JWT, OAuth, Passkey, API Keys               | Auth pattern selection |
+| `rate-limiting.md`    | Token bucket, sliding window                | API protection         |
+| `documentation.md`    | OpenAPI/Swagger best practices              | Documentation          |
+| `security-testing.md` | OWASP API Top 10, auth/authz testing        | Security audits        |
 
 ---
 
 ## 🔗 Related Skills
 
-| Need | Skill |
-|------|-------|
+| Need               | Skill                           |
+| ------------------ | ------------------------------- |
 | API implementation | `@[skills/backend-development]` |
-| Data structure | `@[skills/database-design]` |
-| Security details | `@[skills/security-hardening]` |
+| Data structure     | `@[skills/database-design]`     |
+| Security details   | `@[skills/security-hardening]`  |
 
 ---
 
@@ -61,6 +61,7 @@ Before designing an API:
 ## ❌ Anti-Patterns
 
 **DON'T:**
+
 - Default to REST for everything
 - Use verbs in REST endpoints (/getUsers)
 - Return inconsistent response formats
@@ -68,6 +69,7 @@ Before designing an API:
 - Skip rate limiting
 
 **DO:**
+
 - Choose API style based on context
 - Ask about client requirements
 - Document thoroughly
@@ -77,7 +79,6 @@ Before designing an API:
 
 ## Script
 
-| Script | Purpose | Command |
-|--------|---------|---------|
+| Script                     | Purpose                 | Command                                          |
+| -------------------------- | ----------------------- | ------------------------------------------------ |
 | `scripts/api_validator.py` | API endpoint validation | `python scripts/api_validator.py <project_path>` |
-

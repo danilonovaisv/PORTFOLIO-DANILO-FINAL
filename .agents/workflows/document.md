@@ -9,9 +9,11 @@ $ARGUMENTS
 ---
 
 ## Task
+
 Keep documentation in sync with code.
 
 ### Steps:
+
 1.  **Scan Codebase**: Read function signatures and comments.
 2.  **Generate API Docs**: Create Swagger/OpenAPI spec.
 3.  **Update README**: Refresh feature list and usage examples.
@@ -20,6 +22,7 @@ Keep documentation in sync with code.
 ---
 
 ## Usage
+
 ```
 /document api      # Generate API reference
 /document readme   # Update README.md

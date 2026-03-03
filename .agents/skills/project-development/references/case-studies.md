@@ -14,20 +14,21 @@ Analyze Hacker News discussions from 10 years ago and grade commenters on how pr
 
 This task is well-suited for LLM processing because:
 
-| Factor | Assessment |
-|--------|------------|
-| Synthesis | Combining article content + multiple comment threads |
-| Subjective judgment | Grading predictions against known outcomes |
-| Domain knowledge | Model has knowledge of what actually happened |
-| Error tolerance | Wrong grade on one comment does not break the system |
-| Batch processing | Each article is independent |
-| Natural language output | Human-readable analysis is the goal |
+| Factor                  | Assessment                                           |
+| ----------------------- | ---------------------------------------------------- |
+| Synthesis               | Combining article content + multiple comment threads |
+| Subjective judgment     | Grading predictions against known outcomes           |
+| Domain knowledge        | Model has knowledge of what actually happened        |
+| Error tolerance         | Wrong grade on one comment does not break the system |
+| Batch processing        | Each article is independent                          |
+| Natural language output | Human-readable analysis is the goal                  |
 
 ### Development Methodology
 
 **Step 1: Manual Prototype**
 
 Before building any automation, Karpathy copy-pasted one article + comment thread into ChatGPT to validate the approach. This took minutes and confirmed:
+
 - The model could produce insightful hindsight analysis
 - The output format worked for the intended use case
 - The quality exceeded what he could do manually
@@ -35,6 +36,7 @@ Before building any automation, Karpathy copy-pasted one article + comment threa
 **Step 2: Agent-Assisted Implementation**
 
 Used Opus 4.5 to build the pipeline in approximately 3 hours. The agent handled:
+
 - HTML parsing for HN frontpage
 - Algolia API integration for comments
 - Prompt template design
@@ -55,29 +57,34 @@ fetch → prompt → analyze → parse → render
 ```
 
 **Stage 1: Fetch**
+
 - Download HN frontpage for target date
 - Fetch article content via HTTP
 - Fetch comments via Algolia API
 - Output: `data/{date}/{item_id}/meta.json`, `article.txt`, `comments.json`
 
 **Stage 2: Prompt**
+
 - Load article metadata and content
 - Load comment tree
 - Generate markdown prompt from template
 - Output: `data/{date}/{item_id}/prompt.md`
 
 **Stage 3: Analyze**
+
 - Submit prompt to GPT 5.1 Thinking API
 - Parallel execution with ThreadPoolExecutor
 - Output: `data/{date}/{item_id}/response.md`
 
 **Stage 4: Parse**
+
 - Extract grades from "Final grades" section via regex
 - Extract interestingness score via regex
 - Aggregate grades across all articles
 - Output: `data/{date}/{item_id}/grades.json`, `score.json`
 
 **Stage 5: Render**
+
 - Generate static HTML with embedded JavaScript
 - Create day pages with article navigation
 - Create Hall of Fame with aggregated rankings
@@ -97,13 +104,14 @@ Let's use our benefit of hindsight now in 6 sections:
 5. Give out grades to specific people for their comments.
 6. At the end, give a final score (from 0-10).
 
-As for the format of Section 5, use the header "Final grades" and follow it 
+As for the format of Section 5, use the header "Final grades" and follow it
 with simply an unordered list in the format of "name: grade (optional comment)".
 
 Please follow the format exactly because I will be parsing it programmatically.
 ```
 
 Key techniques:
+
 - Numbered sections for structure
 - Explicit format specification with examples
 - Rationale disclosure ("because I will be parsing it")
@@ -118,7 +126,7 @@ def parse_grades(text: str) -> dict[str, dict]:
     # Match "Final grades" with optional section number or markdown
     pattern = r'(?:^|\n)(?:\d+[\.\)]\s*)?(?:#+ *)?Final grades\s*\n'
     match = re.search(pattern, text, re.IGNORECASE)
-    
+
     # Handle both ASCII and Unicode minus signs
     line_pattern = r'^[\-\*]\s*([^:]+):\s*([A-F][+\-−]?)(?:\s*\(([^)]+)\))?'
 ```
@@ -148,12 +156,14 @@ Build a text-to-SQL agent that enables anyone at Vercel to query analytics data 
 ### Initial Approach (Failed)
 
 The team built a sophisticated system with:
+
 - 17 specialized tools (schema lookup, query validation, error recovery, etc.)
 - Heavy prompt engineering to constrain reasoning
 - Careful context management
 - Hand-coded retrieval for schema information
 
 **Results**:
+
 - 80% success rate
 - 274.8 seconds average execution time
 - ~102k tokens average usage
@@ -163,6 +173,7 @@ The team built a sophisticated system with:
 ### The Problem
 
 The team was solving problems the model could handle on its own:
+
 - Pre-filtering context
 - Constraining options
 - Wrapping every interaction in validation logic
@@ -175,6 +186,7 @@ Every edge case required another patch. Every model update required re-calibrati
 The hypothesis: What if we just give Claude access to the raw files and let it figure things out?
 
 **New architecture**:
+
 - 2 tools total: ExecuteCommand (bash) + ExecuteSQL
 - Direct file system access via sandbox
 - Semantic layer as YAML/Markdown/JSON files
@@ -182,7 +194,7 @@ The hypothesis: What if we just give Claude access to the raw files and let it f
 
 ```javascript
 const agent = new ToolLoopAgent({
-  model: "anthropic/claude-opus-4.5",
+  model: 'anthropic/claude-opus-4.5',
   tools: {
     ExecuteCommand: executeCommandTool(sandbox),
     ExecuteSQL,
@@ -192,12 +204,12 @@ const agent = new ToolLoopAgent({
 
 ### Results
 
-| Metric | Before (17 tools) | After (2 tools) | Change |
-|--------|-------------------|-----------------|--------|
-| Avg execution time | 274.8s | 77.4s | 3.5x faster |
-| Success rate | 80% | 100% | +20% |
-| Avg token usage | ~102k | ~61k | 37% fewer |
-| Avg steps | ~12 | ~7 | 42% fewer |
+| Metric             | Before (17 tools) | After (2 tools) | Change      |
+| ------------------ | ----------------- | --------------- | ----------- |
+| Avg execution time | 274.8s            | 77.4s           | 3.5x faster |
+| Success rate       | 80%               | 100%            | +20%        |
+| Avg token usage    | ~102k             | ~61k            | 37% fewer   |
+| Avg steps          | ~12               | ~7              | 42% fewer   |
 
 The worst case before: 724 seconds, 100 steps, 145k tokens, and still failed.
 Same query after: 141 seconds, 19 steps, 67k tokens, succeeded.
@@ -259,6 +271,7 @@ Instead, use logit masking during decoding to constrain tool selection without m
 Treat the file system as unlimited, persistent, agent-operable memory. The model learns to write and read files on demand.
 
 Compression strategies should be restorable:
+
 - Web page content can be dropped if URL is preserved
 - Document contents can be omitted if file path remains available
 
@@ -277,6 +290,7 @@ Erasing failures removes evidence the model needs to adapt.
 ### Multi-Agent for Context Isolation
 
 The primary goal of sub-agents in Manus is context isolation, not role division. For tasks requiring discrete work:
+
 - Planner assigns tasks to sub-agents with their own context windows
 - Simple tasks: pass instructions via function call
 - Complex tasks: share full context with sub-agent
@@ -286,6 +300,7 @@ Sub-agents have a submit_results tool with constrained output schema. Constraine
 ### Layered Action Space
 
 Rather than binding every utility as a tool:
+
 - Small set (<20) of atomic functions: Bash, filesystem access, code execution
 - Most actions offload to sandbox layer
 - MCP tools exposed through CLI, executed via Bash tool
@@ -311,6 +326,7 @@ Build a research feature that can explore complex topics using multiple parallel
 ### Architecture
 
 Orchestrator-worker pattern:
+
 - Lead agent analyzes query and develops strategy
 - Lead spawns subagents for parallel exploration
 - Subagents return findings to lead for synthesis
@@ -319,6 +335,7 @@ Orchestrator-worker pattern:
 ### Performance Insight
 
 Three factors explained 95% of performance variance in BrowseComp evaluation:
+
 - Token usage: 80% of variance
 - Number of tool calls: additional factor
 - Model choice: additional factor
@@ -385,4 +402,3 @@ Multi-agent requires high-value tasks to justify the cost.
 4. **Premature optimization**: Adding complexity before basic functionality works.
 
 5. **Ignoring economics**: Token costs compound quickly; estimation and tracking are essential.
-

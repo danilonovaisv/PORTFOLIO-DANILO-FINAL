@@ -2,9 +2,9 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { createClient } from 'npm:supabase-js@2'
+import { createClient } from 'npm:supabase-js@2';
 // New approach (v2.95.0+)
-import { corsHeaders } from 'jsr:@supabase/supabase-js@2/cors'
+import { corsHeaders } from 'jsr:@supabase/supabase-js@2/cors';
 // For older versions, use hardcoded headers:
 // const corsHeaders = {
 //   'Access-Control-Allow-Origin': '*',
@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
   // read a text file from storage and print its contents
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {
@@ -32,27 +32,29 @@ Deno.serve(async (req) => {
           headers: { Authorization: req.headers.get('Authorization')! },
         },
       }
-    )
+    );
 
-    const { data, error } = await supabaseClient.storage.from('my-bucket').download('sample.txt')
-    if (error) throw error
+    const { data, error } = await supabaseClient.storage
+      .from('my-bucket')
+      .download('sample.txt');
+    if (error) throw error;
 
     // file contents are returned as a blob, we can convert it to utf-8 text by calling text() method.
-    const contents = await data.text()
+    const contents = await data.text();
 
     // prints out the contents of the file
-    console.log(contents)
+    console.log(contents);
 
     return new Response(JSON.stringify({ contents }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
-    })
+    });
   } catch (error) {
-    console.error(error)
+    console.error(error);
 
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
-    })
+    });
   }
-})
+});

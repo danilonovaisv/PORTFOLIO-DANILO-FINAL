@@ -4,7 +4,7 @@ Containerized web service on Cloud Run
 
 **When to use**: ['Web applications and APIs', 'Need any runtime or library', 'Complex services with multiple endpoints', 'Stateless containerized workloads']
 
-```javascript
+````javascript
 ```dockerfile
 # Dockerfile - Multi-stage build for smaller image
 FROM node:20-slim AS builder
@@ -28,7 +28,7 @@ EXPOSE 8080
 USER node
 
 CMD ["node", "src/index.js"]
-```
+````
 
 ```javascript
 // src/index.js
@@ -94,5 +94,4 @@ steps:
       - '--cpu=1'
       - '--min-instances=1'
       - '--max-instances=100'
-     
 ```

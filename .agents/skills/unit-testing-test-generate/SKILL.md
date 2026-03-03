@@ -33,8 +33,13 @@ $ARGUMENTS
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Analyze Code for Test Generation](./sub-skills/1-analyze-code-for-test-generation.md)
+
 ### 2. [2. Generate Python Tests with pytest](./sub-skills/2-generate-python-tests-with-pytest.md)
+
 ### 3. [3. Generate JavaScript/TypeScript Tests with Jest](./sub-skills/3-generate-javascripttypescript-tests-with-jest.md)
+
 ### 4. [4. Generate React Component Tests](./sub-skills/4-generate-react-component-tests.md)
+
 ### 5. [5. Coverage Analysis and Gap Detection](./sub-skills/5-coverage-analysis-and-gap-detection.md)
+
 ### 6. [6. Mock Generation](./sub-skills/6-mock-generation.md)

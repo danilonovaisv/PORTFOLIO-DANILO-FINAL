@@ -9,6 +9,7 @@ Define new customers acquired each month.
 Model customer retention over time.
 
 **Typical SaaS Retention:**
+
 - Month 1: 100%
 - Month 3: 90%
 - Month 6: 85%

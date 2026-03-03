@@ -37,7 +37,6 @@ Guide for implementing tasks using Conductor's TDD workflow, managing phase chec
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

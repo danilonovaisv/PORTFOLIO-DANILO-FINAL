@@ -9,25 +9,25 @@
 
 ## 9. Best Practices
 
-| Practice | Why |
-|----------|-----|
+| Practice            | Why                  |
+| ------------------- | -------------------- |
 | One assert per test | Clear failure reason |
-| Independent tests | No order dependency |
-| Fast tests | Run frequently |
-| Descriptive names | Self-documenting |
-| Clean up | Avoid side effects |
+| Independent tests   | No order dependency  |
+| Fast tests          | Run frequently       |
+| Descriptive names   | Self-documenting     |
+| Clean up            | Avoid side effects   |
 
 ---
 
 ## 10. Anti-Patterns
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Test implementation | Test behavior |
-| Duplicate test code | Use factories |
-| Complex test setup | Simplify or split |
-| Ignore flaky tests | Fix root cause |
-| Skip cleanup | Reset state |
+| ❌ Don't            | ✅ Do             |
+| ------------------- | ----------------- |
+| Test implementation | Test behavior     |
+| Duplicate test code | Use factories     |
+| Complex test setup  | Simplify or split |
+| Ignore flaky tests  | Fix root cause    |
+| Skip cleanup        | Reset state       |
 
 ---
 

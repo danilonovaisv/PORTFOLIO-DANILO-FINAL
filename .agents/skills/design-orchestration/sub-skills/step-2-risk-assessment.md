@@ -7,6 +7,7 @@ After brainstorming completes, classify the design as:
 - **High risk**
 
 Use factors such as:
+
 - user impact
 - irreversibility
 - operational cost

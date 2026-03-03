@@ -1,23 +1,23 @@
 # Investigation Order
 
-| Check | Common Issues |
-|-------|--------------|
-| **Logs** | Errors, exceptions |
-| **Resources** | Disk full, memory |
-| **Network** | DNS, firewall |
-| **Dependencies** | Database, APIs |
+| Check            | Common Issues      |
+| ---------------- | ------------------ |
+| **Logs**         | Errors, exceptions |
+| **Resources**    | Disk full, memory  |
+| **Network**      | DNS, firewall      |
+| **Dependencies** | Database, APIs     |
 
 ---
 
 ## 8. Anti-Patterns
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Deploy on Friday | Deploy early in week |
-| Rush deployment | Follow the process |
-| Skip staging | Always test first |
-| Deploy without backup | Backup before deploy |
-| Walk away after deploy | Monitor for 15+ min |
+| ❌ Don't                 | ✅ Do                |
+| ------------------------ | -------------------- |
+| Deploy on Friday         | Deploy early in week |
+| Rush deployment          | Follow the process   |
+| Skip staging             | Always test first    |
+| Deploy without backup    | Backup before deploy |
+| Walk away after deploy   | Monitor for 15+ min  |
 | Multiple changes at once | One change at a time |
 
 ---

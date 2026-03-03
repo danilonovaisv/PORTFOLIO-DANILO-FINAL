@@ -27,7 +27,7 @@ class AgentSandbox:
     def __init__(self, repo_url: str, snapshot_id: str = None):
         self.repo_url = repo_url
         self.snapshot_id = snapshot_id
-    
+
     @modal.enter()
     def setup(self):
         if self.snapshot_id:
@@ -36,24 +36,24 @@ class AgentSandbox:
         else:
             # Fresh setup from image
             self._clone_and_setup()
-    
+
     def _clone_and_setup(self):
         """Clone repo and run initial setup."""
         token = self._get_github_app_token()
         os.system(f"git clone https://x-access-token:{token}@github.com/{self.repo_url}")
         os.system("npm install")
         os.system("npm run build")
-    
+
     @modal.method()
     def execute_prompt(self, prompt: str, user_identity: dict) -> dict:
         """Execute a prompt in the sandbox."""
         # Update git config for this user
         os.system(f'git config user.name "{user_identity["name"]}"')
         os.system(f'git config user.email "{user_identity["email"]}"')
-        
+
         # Run the agent
         result = self.agent.run(prompt)
-        
+
         return {
             "result": result,
             "snapshot_id": modal.Sandbox.snapshot()
@@ -73,7 +73,7 @@ class ImageBuilder:
     def __init__(self, repositories: list[str]):
         self.repositories = repositories
         self.images = {}
-    
+
     def build_all_images(self):
         """Build images for all repositories."""
         for repo in self.repositories:
@@ -87,29 +87,29 @@ class ImageBuilder:
             except Exception as e:
                 # Log but continue with other repos
                 log.error(f"Failed to build image for {repo}: {e}")
-    
+
     def _build_image(self, repo: str) -> str:
         """Build a single repository image."""
         sandbox = modal.Sandbox.create()
-        
+
         # Clone with app token
         token = get_app_installation_token(repo)
         sandbox.exec(f"git clone https://x-access-token:{token}@github.com/{repo} /workspace")
-        
+
         # Install dependencies
         sandbox.exec("cd /workspace && npm install")
-        
+
         # Run build
         sandbox.exec("cd /workspace && npm run build")
-        
+
         # Warm caches
         sandbox.exec("cd /workspace && npm run dev &")
         time.sleep(5)  # Let dev server start
         sandbox.exec("cd /workspace && npm test -- --run")
-        
+
         # Create snapshot
         return sandbox.snapshot()
-    
+
     def get_latest_image(self, repo: str) -> str:
         """Get the most recent image for a repository."""
         if repo not in self.images:
@@ -143,49 +143,49 @@ class WarmPoolManager:
         self.target_size = target_pool_size
         self.pools = defaultdict(list)  # repo -> [WarmSandbox]
         self.max_age = timedelta(minutes=25)  # Expire before next image build
-    
+
     def get_warm_sandbox(self, repo: str) -> WarmSandbox | None:
         """Get a pre-warmed sandbox if available."""
         pool = self.pools[repo]
-        
+
         for sandbox in pool:
             if not sandbox.is_claimed and self._is_valid(sandbox):
                 sandbox.is_claimed = True
                 return sandbox
-        
+
         return None
-    
+
     def _is_valid(self, sandbox: WarmSandbox) -> bool:
         """Check if sandbox is still valid."""
         age = datetime.utcnow() - sandbox.created_at
         current_image = self.image_builder.get_latest_image(sandbox.repo)
-        
+
         return (
             age < self.max_age and
             sandbox.image_version == current_image
         )
-    
+
     def maintain_pool(self, repo: str):
         """Ensure pool has target number of warm sandboxes."""
         # Remove expired sandboxes
         self.pools[repo] = [s for s in self.pools[repo] if self._is_valid(s)]
-        
+
         # Add new sandboxes to reach target
         current_count = len([s for s in self.pools[repo] if not s.is_claimed])
         needed = self.target_size - current_count
-        
+
         for _ in range(needed):
             sandbox = self._create_warm_sandbox(repo)
             self.pools[repo].append(sandbox)
-    
+
     def _create_warm_sandbox(self, repo: str) -> WarmSandbox:
         """Create a new warm sandbox from latest image."""
         image = self.image_builder.get_latest_image(repo)
         sandbox_id = modal.Sandbox.create(image=image)
-        
+
         # Sync to latest (runs in background)
         self._sync_to_latest(sandbox_id, repo)
-        
+
         return WarmSandbox(
             sandbox_id=sandbox_id,
             repo=repo,
@@ -244,17 +244,17 @@ export class SessionDO implements DurableObject {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
-    if (request.headers.get("Upgrade") === "websocket") {
+    if (request.headers.get('Upgrade') === 'websocket') {
       return this.handleWebSocket(request);
     }
 
     switch (url.pathname) {
-      case "/message":
+      case '/message':
         return this.handleMessage(request);
-      case "/status":
+      case '/status':
         return this.getStatus();
       default:
-        return new Response("Not found", { status: 404 });
+        return new Response('Not found', { status: 404 });
     }
   }
 
@@ -266,7 +266,7 @@ export class SessionDO implements DurableObject {
     this.connections.set(connectionId, server);
 
     server.accept();
-    server.addEventListener("close", () => {
+    server.addEventListener('close', () => {
       this.connections.delete(connectionId);
     });
 
@@ -286,13 +286,13 @@ export class SessionDO implements DurableObject {
     // Store message
     this.sql.exec(
       `INSERT INTO messages (role, content, author_id, author_name) VALUES (?, ?, ?, ?)`,
-      ["user", content, author.id, author.name]
+      ['user', content, author.id, author.name]
     );
 
     // Broadcast to all connected clients
     this.broadcast({
-      type: "message",
-      role: "user",
+      type: 'message',
+      role: 'user',
       content,
       author,
     });
@@ -321,7 +321,7 @@ class EventStream {
       // Forward to Durable Object for broadcast
       await this.sessionDO.fetch(
         new Request(`https://internal/event`, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify({
             type: event.type,
             data: event.data,
@@ -380,7 +380,7 @@ Return ONLY the repository name, or "unknown" if unclear."""
         messages=[{"role": "user", "content": prompt}],
         max_tokens=50
     )
-    
+
     return response.choices[0].message.content.strip()
 
 @app.event("app_mention")
@@ -389,7 +389,7 @@ async def handle_mention(event, say, client):
     channel = event["channel"]
     message = event["text"]
     thread_ts = event.get("thread_ts", event["ts"])
-    
+
     # Get thread context if in a thread
     thread_messages = []
     if "thread_ts" in event:
@@ -398,31 +398,31 @@ async def handle_mention(event, say, client):
             ts=thread_ts
         )
         thread_messages = [m["text"] for m in result["messages"]]
-    
+
     # Get channel info for context
     channel_info = await client.conversations_info(channel=channel)
     channel_name = channel_info["channel"]["name"]
-    
+
     # Classify repository
     repo = await classify_repository(message, channel_name, thread_messages)
-    
+
     if repo == "unknown":
         await say(
             text="I'm not sure which repository you're referring to. Could you specify?",
             thread_ts=thread_ts
         )
         return
-    
+
     # Start session and process
     session = await start_session(repo, event["user"])
-    
+
     await say(
         text=f":robot_face: Starting work in `{repo}`...",
         thread_ts=thread_ts
     )
-    
+
     result = await session.process(message)
-    
+
     # Post result with Block Kit formatting
     await say(
         blocks=format_result_blocks(result),
@@ -449,7 +449,7 @@ function extractDOMInfo(element: Element): ElementInfo {
   // Get React component name if available
   let reactComponent: string | undefined;
   const fiberKey = Object.keys(element).find((key) =>
-    key.startsWith("__reactFiber")
+    key.startsWith('__reactFiber')
   );
   if (fiberKey) {
     const fiber = (element as any)[fiberKey];
@@ -470,7 +470,7 @@ function extractSelectedArea(selection: DOMRect): ElementInfo[] {
   const elements: ElementInfo[] = [];
 
   // Find all elements within selection bounds
-  document.querySelectorAll("*").forEach((el) => {
+  document.querySelectorAll('*').forEach((el) => {
     const rect = el.getBoundingClientRect();
     if (
       rect.top >= selection.top &&
@@ -487,7 +487,7 @@ function extractSelectedArea(selection: DOMRect): ElementInfo[] {
 
 // Message handler for sidebar
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === "EXTRACT_SELECTION") {
+  if (request.type === 'EXTRACT_SELECTION') {
     const elements = extractSelectedArea(request.selection);
     sendResponse({ elements });
   }
@@ -520,12 +520,12 @@ class MultiplayerSession:
         self.session_id = session_id
         self.participants: dict[str, Author] = {}
         self.prompt_queue: list[PromptContext] = []
-    
+
     def add_participant(self, author: Author):
         """Add a participant to the session."""
         self.participants[author.id] = author
         self.broadcast_event("participant_joined", author)
-    
+
     async def process_prompt(self, prompt: PromptContext):
         """Process prompt with author attribution."""
         # Update git config for this author
@@ -535,19 +535,19 @@ class MultiplayerSession:
         await self.sandbox.exec(
             f'git config user.email "{prompt.author.email}"'
         )
-        
+
         # Run agent
         result = await self.agent.run(prompt.content)
-        
+
         # If changes were made, create PR with author's token
         if result.has_changes:
             await self.create_pr(
                 branch=result.branch,
                 author=prompt.author
             )
-        
+
         return result
-    
+
     async def create_pr(self, branch: str, author: Author):
         """Create PR using the author's GitHub token."""
         async with aiohttp.ClientSession() as session:
@@ -555,7 +555,7 @@ class MultiplayerSession:
                 "Authorization": f"Bearer {author.github_token}",
                 "Accept": "application/vnd.github.v3+json"
             }
-            
+
             await session.post(
                 f"https://api.github.com/repos/{self.repo}/pulls",
                 headers=headers,
@@ -586,7 +586,7 @@ class SessionMetrics:
     pr_merged: bool
     prompts_count: int
     participants_count: int
-    
+
     @property
     def time_to_first_token(self) -> timedelta | None:
         if self.first_token_at:
@@ -597,10 +597,10 @@ class MetricsAggregator:
     def get_adoption_metrics(self, period: timedelta) -> dict:
         """Get adoption metrics for a time period."""
         sessions = self.get_sessions_in_period(period)
-        
+
         total_prs = sum(1 for s in sessions if s.pr_created)
         merged_prs = sum(1 for s in sessions if s.pr_merged)
-        
+
         return {
             "total_sessions": len(sessions),
             "prs_created": total_prs,
@@ -612,16 +612,16 @@ class MetricsAggregator:
                 1 for s in sessions if s.participants_count > 1
             )
         }
-    
+
     def get_repository_metrics(self) -> dict[str, dict]:
         """Get metrics broken down by repository."""
         metrics = {}
-        
+
         for repo in self.repositories:
             repo_sessions = self.get_sessions_for_repo(repo)
             total_prs = self.get_total_prs(repo)
             agent_prs = sum(1 for s in repo_sessions if s.pr_merged)
-            
+
             metrics[repo] = {
                 "agent_pr_percentage": agent_prs / total_prs * 100,
                 "session_count": len(repo_sessions),
@@ -629,7 +629,7 @@ class MetricsAggregator:
                     s.prompts_count for s in repo_sessions
                 ) / len(repo_sessions)
             }
-        
+
         return metrics
 ```
 
@@ -640,7 +640,7 @@ class MetricsAggregator:
 ```python
 class SandboxSecurityConfig:
     """Security configuration for sandboxes."""
-    
+
     # Network restrictions
     allowed_hosts = [
         "github.com",
@@ -648,19 +648,19 @@ class SandboxSecurityConfig:
         "registry.npmjs.org",
         "pypi.org",
     ]
-    
+
     # Resource limits
     max_memory_mb = 4096
     max_cpu_cores = 2
     max_disk_gb = 10
     max_runtime_hours = 4
-    
+
     # Secrets handling
     secrets_to_inject = [
         "GITHUB_APP_TOKEN",
         "NPM_TOKEN",
     ]
-    
+
     # Blocked operations
     blocked_commands = [
         "curl",  # Use fetch tools instead
@@ -674,7 +674,7 @@ class SandboxSecurityConfig:
 ```python
 class TokenManager:
     """Manage tokens for GitHub operations."""
-    
+
     def get_app_installation_token(self, repo: str) -> str:
         """Get short-lived token for repo access."""
         # Token expires in 1 hour
@@ -682,7 +682,7 @@ class TokenManager:
             installation_id=self.get_installation_id(repo),
             permissions={"contents": "write", "pull_requests": "write"}
         )
-    
+
     def get_user_token(self, user_id: str) -> str:
         """Get user's OAuth token for PR creation."""
         # Stored encrypted, decrypted at runtime

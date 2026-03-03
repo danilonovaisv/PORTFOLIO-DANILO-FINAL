@@ -13,6 +13,7 @@ dependencies = [
 ```
 
 **src/project_name/cli.py**:
+
 ```python
 import typer
 from rich.console import Console

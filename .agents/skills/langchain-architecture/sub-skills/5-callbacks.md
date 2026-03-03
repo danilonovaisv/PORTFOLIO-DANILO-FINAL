@@ -3,6 +3,7 @@
 Hooks for logging, monitoring, and debugging.
 
 **Use Cases:**
+
 - Request/response logging
 - Token usage tracking
 - Latency monitoring

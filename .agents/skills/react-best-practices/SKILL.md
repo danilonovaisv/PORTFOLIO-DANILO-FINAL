@@ -67,6 +67,7 @@ types/               # Global types
 ---
 
 **Checklist before PR**:
+
 - [ ] Is `'use client'` used only where necessary?
 - [ ] Are lists using stable `key` props?
 - [ ] Is data fetched on the server where possible?

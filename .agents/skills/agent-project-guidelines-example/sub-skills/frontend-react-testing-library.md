@@ -12,6 +12,7 @@ npm run test:e2e
 ```
 
 **Test structure:**
+
 ```typescript
 import { render, screen, fireEvent } from '@testing-library/react'
 import { WorkspacePanel } from './WorkspacePanel'

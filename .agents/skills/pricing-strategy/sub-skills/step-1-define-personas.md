@@ -2,7 +2,7 @@
 
 Segment by:
 
-* Company size
-* Use case
-* Sophistication
-* Budget norms
+- Company size
+- Use case
+- Sophistication
+- Budget norms

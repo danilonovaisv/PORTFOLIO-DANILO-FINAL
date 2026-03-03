@@ -33,7 +33,7 @@ const Component = ({ html }) => (
   <div dangerouslySetInnerHTML={{
     __html: DOMPurify.sanitize(html)
   }} />
-);`
+);`,
     };
 
     return patterns[vulnerability] || 'No secure pattern available';

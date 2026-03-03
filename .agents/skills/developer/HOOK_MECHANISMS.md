@@ -171,12 +171,12 @@ Claude receives this message and understands it needs to use the skill before re
 
 ### Exit Code Reference Table
 
-| Exit Code | stdout | stderr | Tool Execution | Claude Sees |
-|-----------|--------|--------|----------------|-------------|
-| 0 (UserPromptSubmit) | → Context | → User only | N/A | stdout content |
-| 0 (PreToolUse) | → User only | → User only | **Proceeds** | Nothing |
-| 2 (PreToolUse) | → User only | → **CLAUDE** | **BLOCKED** | stderr content |
-| Other | → User only | → User only | Blocked | Nothing |
+| Exit Code            | stdout      | stderr       | Tool Execution | Claude Sees    |
+| -------------------- | ----------- | ------------ | -------------- | -------------- |
+| 0 (UserPromptSubmit) | → Context   | → User only  | N/A            | stdout content |
+| 0 (PreToolUse)       | → User only | → User only  | **Proceeds**   | Nothing        |
+| 2 (PreToolUse)       | → User only | → **CLAUDE** | **BLOCKED**    | stderr content |
+| Other                | → User only | → User only  | Blocked        | Nothing        |
 
 ### Why Exit Code 2 Matters
 
@@ -222,10 +222,7 @@ Prevent repeated nagging in the same session - once Claude uses a skill, don't b
 
 ```json
 {
-  "skills_used": [
-    "database-verification",
-    "error-tracking"
-  ],
+  "skills_used": ["database-verification", "error-tracking"],
   "files_verified": []
 }
 ```
@@ -249,7 +246,7 @@ Prevent repeated nagging in the same session - once Claude uses a skill, don't b
 
 ### Limitation
 
-The hook cannot detect when the skill is *actually* invoked - it just blocks once per session per skill. This means:
+The hook cannot detect when the skill is _actually_ invoked - it just blocks once per session per skill. This means:
 
 - If Claude doesn't use the skill but makes a different edit, it won't block again
 - Trust that Claude follows the instruction
@@ -287,20 +284,24 @@ The hook cannot detect when the skill is *actually* invoked - it just blocks onc
 ### Optimization Strategies
 
 **Reduce patterns:**
+
 - Use more specific patterns (fewer to check)
 - Combine similar patterns where possible
 
 **File path patterns:**
+
 - More specific = fewer files to check
 - Example: `form/src/services/**` better than `form/**`
 
 **Content patterns:**
+
 - Only add when truly necessary
 - Simpler regex = faster matching
 
 ---
 
 **Related Files:**
+
 - [SKILL.md](SKILL.md) - Main skill guide
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Debug hook issues
 - [SKILL_RULES_REFERENCE.md](SKILL_RULES_REFERENCE.md) - Configuration reference

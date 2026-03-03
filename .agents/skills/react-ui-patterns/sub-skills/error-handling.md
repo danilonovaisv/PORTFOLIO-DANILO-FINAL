@@ -12,5 +12,5 @@ try {
 onError: (error) => {
   console.error('operation failed:', error);
   toast.error({ title: 'Operation failed' });
-}
+};
 ```

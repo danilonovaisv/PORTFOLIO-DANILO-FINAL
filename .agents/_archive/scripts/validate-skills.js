@@ -17,12 +17,14 @@ const missingDoNotUseSection = [];
 const missingInstructionsSection = [];
 const longFiles = [];
 const unknownFieldSkills = [];
-const isStrict = process.argv.includes('--strict')
-  || process.env.STRICT === '1'
-  || process.env.STRICT === 'true';
-const writeBaseline = process.argv.includes('--write-baseline')
-  || process.env.WRITE_BASELINE === '1'
-  || process.env.WRITE_BASELINE === 'true';
+const isStrict =
+  process.argv.includes('--strict') ||
+  process.env.STRICT === '1' ||
+  process.env.STRICT === 'true';
+const writeBaseline =
+  process.argv.includes('--write-baseline') ||
+  process.env.WRITE_BASELINE === '1' ||
+  process.env.WRITE_BASELINE === 'true';
 
 const NAME_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const MAX_NAME_LENGTH = 64;
@@ -47,14 +49,18 @@ const USE_SECTION_PATTERNS = [
 ];
 
 function hasUseSection(content) {
-  return USE_SECTION_PATTERNS.some(pattern => pattern.test(content));
+  return USE_SECTION_PATTERNS.some((pattern) => pattern.test(content));
 }
 
 function isPlainObject(value) {
   return value && typeof value === 'object' && !Array.isArray(value);
 }
 
-function validateStringField(fieldName, value, { min = 1, max = Infinity } = {}) {
+function validateStringField(
+  fieldName,
+  value,
+  { min = 1, max = Infinity } = {}
+) {
   if (typeof value !== 'string') {
     return `${fieldName} must be a string.`;
   }
@@ -93,21 +99,34 @@ function loadBaseline() {
     const parsed = JSON.parse(fs.readFileSync(BASELINE_PATH, 'utf8'));
     return {
       useSection: Array.isArray(parsed.useSection) ? parsed.useSection : [],
-      doNotUseSection: Array.isArray(parsed.doNotUseSection) ? parsed.doNotUseSection : [],
-      instructionsSection: Array.isArray(parsed.instructionsSection) ? parsed.instructionsSection : [],
+      doNotUseSection: Array.isArray(parsed.doNotUseSection)
+        ? parsed.doNotUseSection
+        : [],
+      instructionsSection: Array.isArray(parsed.instructionsSection)
+        ? parsed.instructionsSection
+        : [],
       longFile: Array.isArray(parsed.longFile) ? parsed.longFile : [],
     };
   } catch (err) {
-    addWarning('Failed to parse validation-baseline.json; strict mode may fail.');
-    return { useSection: [], doNotUseSection: [], instructionsSection: [], longFile: [] };
+    addWarning(
+      'Failed to parse validation-baseline.json; strict mode may fail.'
+    );
+    return {
+      useSection: [],
+      doNotUseSection: [],
+      instructionsSection: [],
+      longFile: [],
+    };
   }
 }
 
 function addStrictSectionErrors(label, missing, baselineSet) {
   if (!isStrict) return;
-  const strictMissing = missing.filter(skillId => !baselineSet.has(skillId));
+  const strictMissing = missing.filter((skillId) => !baselineSet.has(skillId));
   if (strictMissing.length) {
-    addError(`Missing "${label}" section (strict): ${strictMissing.length} skills (examples: ${strictMissing.slice(0, 5).join(', ')})`);
+    addError(
+      `Missing "${label}" section (strict): ${strictMissing.length} skills (examples: ${strictMissing.slice(0, 5).join(', ')})`
+    );
   }
 }
 
@@ -128,7 +147,11 @@ function run() {
     }
 
     const content = fs.readFileSync(skillPath, 'utf8');
-    const { data, errors: fmErrors, hasFrontmatter } = parseFrontmatter(content);
+    const {
+      data,
+      errors: fmErrors,
+      hasFrontmatter,
+    } = parseFrontmatter(content);
     const lineCount = content.split(/\r?\n/).length;
 
     if (!hasFrontmatter) {
@@ -136,7 +159,9 @@ function run() {
     }
 
     if (fmErrors && fmErrors.length) {
-      fmErrors.forEach(error => addError(`Frontmatter parse error (${skillId}): ${error}`));
+      fmErrors.forEach((error) =>
+        addError(`Frontmatter parse error (${skillId}): ${error}`)
+      );
     }
 
     if (!NAME_PATTERN.test(skillId)) {
@@ -144,7 +169,10 @@ function run() {
     }
 
     if (data.name !== undefined) {
-      const nameError = validateStringField('name', data.name, { min: 1, max: MAX_NAME_LENGTH });
+      const nameError = validateStringField('name', data.name, {
+        min: 1,
+        max: MAX_NAME_LENGTH,
+      });
       if (nameError) {
         addError(`${nameError} (${skillId})`);
       } else {
@@ -158,15 +186,22 @@ function run() {
       }
     }
 
-    const descError = data.description === undefined
-      ? 'description is required.'
-      : validateStringField('description', data.description, { min: 1, max: MAX_DESCRIPTION_LENGTH });
+    const descError =
+      data.description === undefined
+        ? 'description is required.'
+        : validateStringField('description', data.description, {
+            min: 1,
+            max: MAX_DESCRIPTION_LENGTH,
+          });
     if (descError) {
       addError(`${descError} (${skillId})`);
     }
 
     if (data.license !== undefined) {
-      const licenseError = validateStringField('license', data.license, { min: 1, max: 128 });
+      const licenseError = validateStringField('license', data.license, {
+        min: 1,
+        max: 128,
+      });
       if (licenseError) {
         addError(`${licenseError} (${skillId})`);
       }
@@ -176,7 +211,7 @@ function run() {
       const compatibilityError = validateStringField(
         'compatibility',
         data.compatibility,
-        { min: 1, max: MAX_COMPATIBILITY_LENGTH },
+        { min: 1, max: MAX_COMPATIBILITY_LENGTH }
       );
       if (compatibilityError) {
         addError(`${compatibilityError} (${skillId})`);
@@ -185,7 +220,9 @@ function run() {
 
     if (data['allowed-tools'] !== undefined) {
       if (typeof data['allowed-tools'] !== 'string') {
-        addError(`allowed-tools must be a space-delimited string. (${skillId})`);
+        addError(
+          `allowed-tools must be a space-delimited string. (${skillId})`
+        );
       } else if (!data['allowed-tools'].trim()) {
         addError(`allowed-tools cannot be empty. (${skillId})`);
       }
@@ -204,10 +241,14 @@ function run() {
     }
 
     if (data && Object.keys(data).length) {
-      const unknownFields = Object.keys(data).filter(key => !ALLOWED_FIELDS.has(key));
+      const unknownFields = Object.keys(data).filter(
+        (key) => !ALLOWED_FIELDS.has(key)
+      );
       if (unknownFields.length) {
         unknownFieldSkills.push(skillId);
-        addError(`Unknown frontmatter fields (${skillId}): ${unknownFields.join(', ')}`);
+        addError(
+          `Unknown frontmatter fields (${skillId}): ${unknownFields.join(', ')}`
+        );
       }
     }
 
@@ -229,29 +270,51 @@ function run() {
   }
 
   if (missingUseSection.length) {
-    addWarning(`Missing "Use this skill when" section: ${missingUseSection.length} skills (examples: ${missingUseSection.slice(0, 5).join(', ')})`);
+    addWarning(
+      `Missing "Use this skill when" section: ${missingUseSection.length} skills (examples: ${missingUseSection.slice(0, 5).join(', ')})`
+    );
   }
 
   if (missingDoNotUseSection.length) {
-    addWarning(`Missing "Do not use" section: ${missingDoNotUseSection.length} skills (examples: ${missingDoNotUseSection.slice(0, 5).join(', ')})`);
+    addWarning(
+      `Missing "Do not use" section: ${missingDoNotUseSection.length} skills (examples: ${missingDoNotUseSection.slice(0, 5).join(', ')})`
+    );
   }
 
   if (missingInstructionsSection.length) {
-    addWarning(`Missing "Instructions" section: ${missingInstructionsSection.length} skills (examples: ${missingInstructionsSection.slice(0, 5).join(', ')})`);
+    addWarning(
+      `Missing "Instructions" section: ${missingInstructionsSection.length} skills (examples: ${missingInstructionsSection.slice(0, 5).join(', ')})`
+    );
   }
 
   if (longFiles.length) {
-    addWarning(`SKILL.md over ${MAX_SKILL_LINES} lines: ${longFiles.length} skills (examples: ${longFiles.slice(0, 5).join(', ')})`);
+    addWarning(
+      `SKILL.md over ${MAX_SKILL_LINES} lines: ${longFiles.length} skills (examples: ${longFiles.slice(0, 5).join(', ')})`
+    );
   }
 
   if (unknownFieldSkills.length) {
-    addWarning(`Unknown frontmatter fields detected: ${unknownFieldSkills.length} skills (examples: ${unknownFieldSkills.slice(0, 5).join(', ')})`);
+    addWarning(
+      `Unknown frontmatter fields detected: ${unknownFieldSkills.length} skills (examples: ${unknownFieldSkills.slice(0, 5).join(', ')})`
+    );
   }
 
   addStrictSectionErrors('Use this skill when', missingUseSection, baselineUse);
-  addStrictSectionErrors('Do not use', missingDoNotUseSection, baselineDoNotUse);
-  addStrictSectionErrors('Instructions', missingInstructionsSection, baselineInstructions);
-  addStrictSectionErrors(`SKILL.md line count <= ${MAX_SKILL_LINES}`, longFiles, baselineLongFile);
+  addStrictSectionErrors(
+    'Do not use',
+    missingDoNotUseSection,
+    baselineDoNotUse
+  );
+  addStrictSectionErrors(
+    'Instructions',
+    missingInstructionsSection,
+    baselineInstructions
+  );
+  addStrictSectionErrors(
+    `SKILL.md line count <= ${MAX_SKILL_LINES}`,
+    longFiles,
+    baselineLongFile
+  );
 
   if (writeBaseline) {
     const baselineData = {

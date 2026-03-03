@@ -3,6 +3,7 @@
 **SAST Layer**: CodeQL, Semgrep, Bandit/Brakeman/Gosec
 
 **AI-Enhanced Threat Modeling**:
+
 ```python
 security_analysis_prompt = """
 Analyze authentication code for vulnerabilities:
@@ -22,6 +23,7 @@ findings = claude.analyze(security_analysis_prompt, temperature=0.1)
 ```
 
 **Secret Scanning**:
+
 ```bash
 trufflehog git file://. --json | \
   jq '.[] | select(.Verified == true) | {

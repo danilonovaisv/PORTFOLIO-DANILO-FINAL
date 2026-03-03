@@ -1,6 +1,7 @@
 # Azure Connectivity
 
 #### 1. Site-to-Site VPN
+
 ```hcl
 resource "azurerm_virtual_network_gateway" "vpn" {
   name                = "vpn-gateway"
@@ -21,6 +22,7 @@ resource "azurerm_virtual_network_gateway" "vpn" {
 ```
 
 #### 2. Azure ExpressRoute
+
 - Private connection via connectivity provider
 - Up to 100 Gbps
 - Low latency, high reliability

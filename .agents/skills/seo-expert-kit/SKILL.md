@@ -13,6 +13,7 @@ You are an **Elite SEO Strategist and Growth Engineer**. This skill provides a u
 ---
 
 ## 📑 Internal Menu
+
 1. [Core Fundamentals & E-E-A-T](#1-core-fundamentals--e-e-a-t)
 2. [SEO Audit & Diagnostics](#2-seo-audit--diagnostics)
 3. [Content Strategy & Planning](#3-content-strategy--planning)
@@ -23,15 +24,18 @@ You are an **Elite SEO Strategist and Growth Engineer**. This skill provides a u
 ---
 
 ## 1. Core Fundamentals & E-E-A-T
-*Principles for sustainable search visibility.*
+
+_Principles for sustainable search visibility._
 
 ### E-E-A-T Framework
+
 - **Experience**: Showcase first-hand involvement and original demonstrations.
 - **Expertise**: Verify subject-matter competence and accuracy.
 - **Authoritativeness**: Build recognition through mentions and citations.
 - **Trustworthiness**: Ensure transparency, HTTPS, and safety.
 
 ### Core Web Vitals (CWV)
+
 - **LCP (Loading)**: < 2.5s
 - **INP (Interactivity)**: < 200ms
 - **CLS (Stability)**: < 0.1
@@ -39,9 +43,11 @@ You are an **Elite SEO Strategist and Growth Engineer**. This skill provides a u
 ---
 
 ## 2. SEO Audit & Diagnostics
-*Identify and prioritize issues affecting organic performance.*
+
+_Identify and prioritize issues affecting organic performance._
 
 ### Audit Framework
+
 - **Crawlability**: Check robots.txt, XML sitemaps, and site architecture.
 - **Indexation**: Analyze indexed vs. expected pages, canonicals, and noindex usage.
 - **Health Index (0-100)**:
@@ -51,12 +57,14 @@ You are an **Elite SEO Strategist and Growth Engineer**. This skill provides a u
   - < 40: Critical
 
 ### Findings Classification
+
 For every issue identified, report: **Issue**, **Severity** (Critical/High/Med/Low), **Evidence**, and **Recommendation**.
 
 ---
 
 ## 3. Content Strategy & Planning
-*Planning for clusters and topical authority.*
+
+_Planning for clusters and topical authority._
 
 - **Keyword Research**: Analyze intent (Informational, Transactional, Navigational).
 - **Cannibalization**: Ensure multiple pages don't compete for the same primary keyword.
@@ -66,15 +74,18 @@ For every issue identified, report: **Issue**, **Severity** (Critical/High/Med/L
 ---
 
 ## 4. SEO Content Writing & Optimization
-*Writing for humans, optimizing for machines.*
+
+_Writing for humans, optimizing for machines._
 
 ### Drafting Standards
+
 - **Hook (Intro)**: State value prop and include primary keyword in first 100 words.
 - **Density**: 0.5% - 1.5% naturally integrated.
 - **Readability**: Grade 8-10 level, short paragraphs (2-3 sentences).
 - **Formatting**: Use H2/H3 logically, bullet points, and original examples.
 
 ### Meta & Snippets
+
 - **Title Tags**: 50-60 chars, primary keyword in first 30 chars.
 - **Meta Descriptions**: 150-160 chars, include CTA and action verbs.
 - **Snippet Hunter**: Use "What is [X]" definitions (40-60 words) for Featured Snippets.
@@ -82,7 +93,8 @@ For every issue identified, report: **Issue**, **Severity** (Critical/High/Med/L
 ---
 
 ## 5. Technical SEO & Structure
-*Ensuring clarity for crawlers.*
+
+_Ensuring clarity for crawlers._
 
 - **Header Hierarchy**: Single H1, logical nesting of H2-H6.
 - **Schema Markup**: Implement `Article`, `FAQPage`, `Product`, or `Organization` using JSON-LD.
@@ -92,9 +104,11 @@ For every issue identified, report: **Issue**, **Severity** (Critical/High/Med/L
 ---
 
 ## 6. Programmatic SEO & Scaling
-*Building systems that generate SEO value at scale.*
+
+_Building systems that generate SEO value at scale._
 
 ### System Design
+
 1. **Head Terms**: Broad categories (e.g., "Best [X] in [City]").
 2. **Modifiers**: Variables that create long-tail keywords.
 3. **Template Design**: Modular blocks that maintain quality for 1,000+ pages.
@@ -111,4 +125,5 @@ For every issue identified, report: **Issue**, **Severity** (Critical/High/Med/L
 5. **Final Review**: Does this provide **Genuine Value** to a human? If no, rewrite.
 
 ---
-*Merged and optimized from 13 legacy SEO skills.*
+
+_Merged and optimized from 13 legacy SEO skills._

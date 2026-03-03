@@ -153,10 +153,10 @@ async def validate_code_quality(output, context):
 
 ### Execution Modes
 
-| Mode | Behavior | Use When |
-|------|----------|----------|
+| Mode         | Behavior                                | Use When                               |
+| ------------ | --------------------------------------- | -------------------------------------- |
 | **Blocking** | Guardrail completes before agent starts | Sensitive operations, expensive models |
-| **Parallel** | Guardrail runs concurrently with agent | Fast checks, acceptable token loss |
+| **Parallel** | Guardrail runs concurrently with agent  | Fast checks, acceptable token loss     |
 
 ```python
 # Blocking mode: prevents token consumption
@@ -203,24 +203,24 @@ except OutputGuardrailTripwireTriggered as e:
 ```yaml
 guardrail_layers:
   layer_1_input:
-    - scope_validation      # Is task within bounds?
-    - pii_detection         # Contains sensitive data?
-    - injection_detection   # Prompt injection attempt?
+    - scope_validation # Is task within bounds?
+    - pii_detection # Contains sensitive data?
+    - injection_detection # Prompt injection attempt?
 
   layer_2_pre_execution:
-    - cost_estimation       # Will this exceed budget?
-    - dependency_check      # Are dependencies available?
-    - conflict_detection    # Will this conflict with in-progress work?
+    - cost_estimation # Will this exceed budget?
+    - dependency_check # Are dependencies available?
+    - conflict_detection # Will this conflict with in-progress work?
 
   layer_3_output:
-    - static_analysis       # Code quality issues?
-    - secret_detection      # Secrets in output?
-    - spec_compliance       # Matches OpenAPI spec?
+    - static_analysis # Code quality issues?
+    - secret_detection # Secrets in output?
+    - spec_compliance # Matches OpenAPI spec?
 
   layer_4_post_action:
-    - test_validation       # Tests pass?
-    - review_approval       # Review passed?
-    - deployment_safety     # Safe to deploy?
+    - test_validation # Tests pass?
+    - review_approval # Review passed?
+    - deployment_safety # Safe to deploy?
 ```
 
 ---
@@ -434,27 +434,27 @@ human_escalation_triggers:
   # Retry-based
   - condition: retry_count > 3
     action: pause_and_escalate
-    reason: "Multiple failures indicate unclear requirements"
+    reason: 'Multiple failures indicate unclear requirements'
 
   # Domain-based
   - condition: domain in ["payments", "auth", "pii"]
     action: require_approval
-    reason: "Sensitive domain requires human review"
+    reason: 'Sensitive domain requires human review'
 
   # Confidence-based
   - condition: confidence_score < 0.6
     action: pause_and_escalate
-    reason: "Low confidence in solution quality"
+    reason: 'Low confidence in solution quality'
 
   # Time-based
   - condition: wall_time > expected_time * 3
     action: pause_and_escalate
-    reason: "Task taking much longer than expected"
+    reason: 'Task taking much longer than expected'
 
   # Cost-based
   - condition: tokens_used > budget * 0.8
     action: pause_and_escalate
-    reason: "Approaching token budget limit"
+    reason: 'Approaching token budget limit'
 ```
 
 ---
@@ -626,22 +626,26 @@ class Session:
 ## Sources
 
 **OpenAI Official:**
+
 - [Agents SDK Documentation](https://openai.github.io/openai-agents-python/)
 - [Practical Guide to Building Agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf)
 - [Building Agents Track](https://developers.openai.com/tracks/building-agents/)
 - [AGENTS.md Specification](https://agents.md/)
 
 **Deep Research & Reasoning:**
+
 - [Introducing Deep Research](https://openai.com/index/introducing-deep-research/)
 - [Deep Research System Card](https://cdn.openai.com/deep-research-system-card.pdf)
 - [Introducing o3 and o4-mini](https://openai.com/index/introducing-o3-and-o4-mini/)
 - [Reasoning Best Practices](https://platform.openai.com/docs/guides/reasoning-best-practices)
 
 **Safety & Monitoring:**
+
 - [Chain of Thought Monitoring](https://openai.com/index/chain-of-thought-monitoring/)
 - [Agent Builder Safety](https://platform.openai.com/docs/guides/agent-builder-safety)
 - [Computer-Using Agent](https://openai.com/index/computer-using-agent/)
 
 **Standards & Interoperability:**
+
 - [Agentic AI Foundation](https://openai.com/index/agentic-ai-foundation/)
 - [OpenAI for Developers 2025](https://developers.openai.com/blog/openai-for-developers-2025/)

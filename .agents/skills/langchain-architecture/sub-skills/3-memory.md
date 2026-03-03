@@ -3,6 +3,7 @@
 Systems for maintaining context across interactions.
 
 **Memory Types:**
+
 - **ConversationBufferMemory**: Stores all messages
 - **ConversationSummaryMemory**: Summarizes older messages
 - **ConversationBufferWindowMemory**: Keeps last N messages

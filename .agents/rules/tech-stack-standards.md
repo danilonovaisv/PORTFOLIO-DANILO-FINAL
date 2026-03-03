@@ -32,5 +32,5 @@
 
 - **Framework**: Next.js 14+ (App Router). NÃO utilizar `pages/`.
 - **Motor 3D**: React Three Fiber (R3F) v8+ com Three.js r160+.
-  - *Restrição*: Componentes R3F (`<Canvas>`, `<Mesh>`) DEVEM ser Client Components ("use client").
+  - _Restrição_: Componentes R3F (`<Canvas>`, `<Mesh>`) DEVEM ser Client Components ("use client").
 - **State**: Zustand (Global), React Context (Compound Components).

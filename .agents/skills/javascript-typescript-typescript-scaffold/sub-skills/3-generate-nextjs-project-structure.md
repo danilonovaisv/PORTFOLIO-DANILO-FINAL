@@ -42,6 +42,7 @@ nextjs-project/
 ```
 
 **package.json**:
+
 ```json
 {
   "name": "nextjs-project",
@@ -72,6 +73,7 @@ nextjs-project/
 ```
 
 **tsconfig.json**:
+
 ```json
 {
   "compilerOptions": {
@@ -91,7 +93,7 @@ nextjs-project/
     "paths": {
       "@/*": ["./src/*"]
     },
-    "plugins": [{"name": "next"}]
+    "plugins": [{ "name": "next" }]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

@@ -6,6 +6,7 @@ Includes ClerkProvider, environment variables, and basic
 sign-in/sign-up components.
 
 Key components:
+
 - ClerkProvider: Wraps app for auth context
 - <SignIn />, <SignUp />: Pre-built auth forms
 - <UserButton />: User menu with session management

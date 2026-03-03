@@ -11,6 +11,7 @@ Accepted (Supersedes ADR-0003)
 
 ADR-0003 (2021) chose MongoDB for user profile storage due to schema flexibility
 needs. Since then:
+
 - MongoDB's multi-document transactions remain problematic for our use case
 - Our schema has stabilized and rarely changes
 - We now have PostgreSQL expertise from other services
@@ -28,3 +29,4 @@ Deprecate MongoDB and migrate user profiles to PostgreSQL.
 4. **Phase 4** (Week 6): Remove MongoDB writes, decommission
 
 ## Consequences
+```

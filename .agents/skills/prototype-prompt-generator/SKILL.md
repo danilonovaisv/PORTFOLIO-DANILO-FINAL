@@ -16,32 +16,38 @@ Generate comprehensive, production-ready prompts for UI/UX prototype creation. T
 Begin by collecting essential information from the user. Ask targeted questions to understand:
 
 **Application Type & Purpose:**
+
 - What kind of application? (e.g., enterprise tool, e-commerce, social media, dashboard)
 - Who are the target users?
 - What are the primary use cases and workflows?
 
 **Platform & Context:**
+
 - Target platform: iOS, Android, Web, WeChat Mini Program, or cross-platform?
 - Device: Mobile phone, tablet, desktop, or responsive?
 - Viewport dimensions if known (e.g., 375px for iPhone, 1200px for desktop)
 
 **Design Preferences:**
+
 - Design style: WeChat Work, iOS Native, Material Design, Ant Design Mobile, or custom?
 - Brand colors or visual preferences?
 - Any design references or inspiration?
 
 **Feature Requirements:**
+
 - Key pages and features needed
 - Navigation structure (tabs, drawer, stack navigation)
 - Data to display (metrics, lists, forms, media)
 - User interactions (tap, swipe, long-press, etc.)
 
 **Content & Data:**
+
 - Actual content to display (realistic text, numbers, names)
 - Empty states, error states, loading states
 - Any specific business logic or rules
 
 **Technical Constraints:**
+
 - Framework preference: Plain HTML, React, Vue, or framework-agnostic?
 - CSS approach: Tailwind CSS, CSS Modules, styled-components?
 - Image assets: Real images, placeholders, or specific sources?
@@ -54,26 +60,31 @@ Begin by collecting essential information from the user. Ask targeted questions 
 Based on the gathered requirements, choose the appropriate design system from `references/design-systems.md`:
 
 **WeChat Work Style:**
+
 - **When to use**: Chinese enterprise applications, work management tools, B2B platforms, internal business systems
 - **Characteristics**: Simple and professional, tech blue primary color, clear information hierarchy
 - **Key audience**: Chinese business users, corporate environments
 
 **iOS Native Style:**
+
 - **When to use**: iOS-specific apps, Apple ecosystem integration, apps targeting iPhone/iPad users
 - **Characteristics**: Minimalist, spacious layouts, San Francisco font, system colors
 - **Key audience**: Apple users, consumer apps, content-focused applications
 
 **Material Design Style:**
+
 - **When to use**: Android-first apps, Google ecosystem integration, cross-platform with Material UI
 - **Characteristics**: Bold graphics, elevation system, ripple effects, Roboto font
 - **Key audience**: Android users, Google services, developer tools
 
 **Ant Design Mobile Style:**
+
 - **When to use**: Enterprise mobile applications with complex data entry and forms
 - **Characteristics**: Efficiency-oriented, consistent components, suitable for business applications
 - **Key audience**: Business users, enterprise mobile apps, data-heavy interfaces
 
 **If the user hasn't specified a design system**, recommend one based on:
+
 - Geographic location: Chinese users → WeChat Work, Western users → iOS/Material
 - Platform: iOS → iOS Native, Android → Material Design
 - Application type: Enterprise B2B → WeChat Work or Ant Design, Consumer app → iOS or Material
@@ -86,6 +97,7 @@ Using the template from `references/prompt-structure.md`, construct a comprehens
 
 **1. Role Definition**
 Define expertise relevant to the prototype:
+
 ```
 # Role
 You are a world-class UI/UX engineer and frontend developer, specializing in [specific domain] using [technologies].
@@ -93,6 +105,7 @@ You are a world-class UI/UX engineer and frontend developer, specializing in [sp
 
 **2. Task Description**
 State clearly what to build and the design style:
+
 ```
 # Task
 Create a [type] prototype for [application description].
@@ -101,6 +114,7 @@ Design style must strictly follow [design system], with core keywords: [3-5 key 
 
 **3. Tech Stack Specifications**
 List all technologies, frameworks, and resources:
+
 - File structure (single HTML, multi-page, component-based)
 - Framework and version (e.g., Tailwind CSS CDN)
 - Device simulation (viewport size, device chrome)
@@ -113,6 +127,7 @@ Provide detailed specifications:
 
 **(a) Color Palette:**
 Include all colors with hex codes:
+
 - Background colors (main, section, card)
 - Primary and accent colors with usage
 - Status colors (success, warning, error)
@@ -121,6 +136,7 @@ Include all colors with hex codes:
 
 **(b) UI Style Characteristics:**
 Specify for each component type:
+
 - Cards: background, radius, shadow, border, padding
 - Buttons: variants (primary, secondary, ghost), dimensions, states
 - Icons: style, sizes, colors, containers
@@ -129,6 +145,7 @@ Specify for each component type:
 
 **(c) Layout Structure:**
 Describe each major section:
+
 - Top navigation bar: height, title style, icons, background
 - Content areas: grids, cards, lists, spacing
 - Quick access areas: icon grids, layouts
@@ -138,6 +155,7 @@ Describe each major section:
 
 **(d) Specific Page Content:**
 Provide actual content, not placeholders:
+
 - Real page titles and section headings
 - Actual data points (numbers, names, dates)
 - Feature names and descriptions
@@ -146,6 +164,7 @@ Provide actual content, not placeholders:
 
 **5. Implementation Details**
 Cover technical specifics:
+
 - Page width and centering approach
 - Layout systems (Flexbox, Grid, or both)
 - Fixed/sticky positioning for navigation
@@ -157,6 +176,7 @@ Cover technical specifics:
 
 **6. Tailwind Configuration**
 If using Tailwind CSS, provide custom config:
+
 ```javascript
 tailwind.config = {
   theme: {
@@ -164,14 +184,15 @@ tailwind.config = {
       colors: {
         'brand-primary': '#3478F6',
         // ... all custom colors
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
 
 **7. Content Structure & Hierarchy**
 Visualize the page structure as a tree:
+
 ```
 Page Name
 ├─ Section 1
@@ -187,6 +208,7 @@ Page Name
 
 **8. Special Requirements**
 Highlight unique considerations:
+
 - Design system-specific guidelines
 - Primary color application scenarios
 - Interaction details (tap feedback, animations, gestures)
@@ -195,6 +217,7 @@ Highlight unique considerations:
 
 **9. Output Format**
 Specify the exact deliverable:
+
 ```
 # Output Format
 
@@ -211,17 +234,20 @@ The output should be production-ready and viewable at [viewport] on [device].
 Replace all template placeholders with concrete values:
 
 **Replace vague terms with precise specifications:**
+
 - ❌ "Use blue colors" → ✅ "Primary: #3478F6 (tech blue), Link: #576B95 (link blue)"
 - ❌ "Make buttons rounded" → ✅ "Border radius: 4px (Tailwind: rounded)"
 - ❌ "Add some spacing" → ✅ "Card spacing: 12px, page margins: 16px"
 - ❌ "Display user info" → ✅ "Show username (15px bold), email (13px gray), avatar (48px circle)"
 
 **Use real content, not placeholders:**
+
 - ❌ "Lorem ipsum dolor sit amet" → ✅ "Customer Total: 14, Today's New Customers: 1, Today's Revenue: ¥0.00"
 - ❌ "[Company Name]" → ✅ "Acme Insurance Co."
 - ❌ "Feature 1, Feature 2, Feature 3" → ✅ "Customer Contact, Customer Moments, Customer Groups"
 
 **Specify all measurements:**
+
 - Component heights (44px, 50px, 64px)
 - Font sizes (13px, 15px, 16px, 18px)
 - Spacing values (8px, 12px, 16px, 24px)
@@ -229,6 +255,7 @@ Replace all template placeholders with concrete values:
 - Border radius (4px, 8px, 10px)
 
 **Define all states:**
+
 - Normal: base colors and styles
 - Hover: if applicable (desktop)
 - Active/Pressed: opacity or background changes
@@ -243,6 +270,7 @@ Every color mentioned must have a hex code. Reference the chosen design system f
 Before presenting the final prompt, verify against the checklist in `references/prompt-structure.md`:
 
 **Completeness Check:**
+
 - [ ] Role clearly defined with relevant expertise
 - [ ] Task explicitly states what to build and design style
 - [ ] All tech stack components listed with versions/CDNs
@@ -257,6 +285,7 @@ Before presenting the final prompt, verify against the checklist in `references/
 - [ ] Output format clearly defined with all deliverables
 
 **Clarity Check:**
+
 - [ ] No ambiguous terms or vague descriptions (e.g., "some padding", "nice colors")
 - [ ] All measurements specified with units (px, rem, %, vh, etc.)
 - [ ] All colors defined with hex codes (e.g., #3478F6, not just "blue")
@@ -264,6 +293,7 @@ Before presenting the final prompt, verify against the checklist in `references/
 - [ ] Layout relationships clear (parent-child, spacing, alignment, z-index)
 
 **Specificity Check:**
+
 - [ ] Design system explicitly named (WeChat Work, iOS Native, Material Design, etc.)
 - [ ] Viewport dimensions provided (e.g., 375px × 812px for iPhone)
 - [ ] Typography scale defined (sizes, weights, line heights)
@@ -271,12 +301,14 @@ Before presenting the final prompt, verify against the checklist in `references/
 - [ ] Edge cases considered (long text overflow, empty states, loading, errors)
 
 **Realism Check:**
+
 - [ ] Real content examples, not Latin placeholder text
 - [ ] Authentic data points (realistic numbers, names, dates, amounts)
 - [ ] Practical feature set (not overengineered or underspecified)
 - [ ] Appropriate complexity for the stated use case
 
 **Technical Accuracy Check:**
+
 - [ ] Valid Tailwind class names (if using Tailwind)
 - [ ] Correct CDN links with versions (e.g., https://cdn.tailwindcss.com)
 - [ ] Proper HTML structure implied (semantic elements, hierarchy)
@@ -288,12 +320,14 @@ If any checks fail, refine the prompt before proceeding.
 ### Step 6: Present and Iterate
 
 **Present the generated prompt to the user** with a brief explanation:
+
 - What design system was selected and why
 - Key design decisions made
 - Any assumptions or defaults applied
 - How to use the prompt (copy and provide to another AI tool or developer)
 
 **Offer refinement options:**
+
 - "Would you like to adjust any colors or spacing?"
 - "Should we add more pages or features?"
 - "Do you want to change the design system?"
@@ -301,6 +335,7 @@ If any checks fail, refine the prompt before proceeding.
 
 **Iterate based on feedback:**
 If the user requests changes:
+
 1. Update the relevant sections of the prompt
 2. Maintain consistency across all sections
 3. Re-verify against the quality checklist
@@ -308,6 +343,7 @@ If the user requests changes:
 
 **Save or Export:**
 Offer to save the prompt to a file:
+
 - Markdown file for documentation
 - Text file for easy copying
 - Include as a code block for immediate use
@@ -316,6 +352,7 @@ Offer to save the prompt to a file:
 
 **1. Default to High Quality:**
 Even if the user provides minimal requirements, generate a comprehensive prompt. It's easier to remove details than to add them later. Include:
+
 - Complete color palettes (8-12 colors minimum)
 - All common UI components (buttons, cards, lists, inputs)
 - Multiple component states (normal, active, disabled)
@@ -324,6 +361,7 @@ Even if the user provides minimal requirements, generate a comprehensive prompt.
 
 **2. Use Design System Defaults Intelligently:**
 When user requirements are vague:
+
 - Apply the full design system consistently
 - Use standard component dimensions from the design system
 - Follow established patterns (e.g., WeChat Work's 64px list items)
@@ -331,6 +369,7 @@ When user requirements are vague:
 
 **3. Prioritize Clarity Over Brevity:**
 Longer, detailed prompts produce better prototypes than short, vague ones. Include:
+
 - Exact hex codes instead of color names
 - Precise measurements instead of relative terms
 - Specific component layouts instead of general descriptions
@@ -338,6 +377,7 @@ Longer, detailed prompts produce better prototypes than short, vague ones. Inclu
 
 **4. Think Mobile-First:**
 For mobile applications, always consider:
+
 - Safe areas (iOS notch, Android gesture bar)
 - Touch target sizes (minimum 44px × 44px)
 - Thumb-reachable zones (bottom navigation over top)
@@ -345,12 +385,14 @@ For mobile applications, always consider:
 - One-handed operation where possible
 
 **5. Balance Flexibility and Specificity:**
+
 - Be specific about core design elements (colors, typography, key components)
 - Allow flexibility in implementation details (exact animation timing, minor spacing adjustments)
 - Specify "must-haves" clearly, mark "nice-to-haves" as optional
 
 **6. Consider the Full User Journey:**
 Include specifications for:
+
 - Entry points (splash screen, onboarding if applicable)
 - Primary workflows (happy path through key features)
 - Edge cases (empty states, error states, loading states)
@@ -358,12 +400,14 @@ Include specifications for:
 
 **7. Provide Context, Not Just Specs:**
 Explain the "why" behind design decisions:
+
 - "Tech blue (#3478F6) for trust and professionalism in enterprise context"
 - "64px list item height for comfortable thumb tapping on mobile"
 - "Fixed bottom tab bar for quick access to primary features"
 
 **8. Validate Technical Feasibility:**
 Before finalizing the prompt:
+
 - Ensure CSS/Tailwind classes can achieve the described design
 - Verify that layout patterns work with the stated grid/flexbox approach
 - Confirm that the specified viewport can accommodate all content
@@ -371,6 +415,7 @@ Before finalizing the prompt:
 
 **9. Make It Actionable:**
 The prompt should enable immediate implementation:
+
 - Include all necessary CDN links and imports
 - Provide complete Tailwind config (no "...add more as needed")
 - Specify file structure and organization
@@ -378,6 +423,7 @@ The prompt should enable immediate implementation:
 
 **10. Anticipate Questions:**
 Address common uncertainties in the prompt:
+
 - Font fallbacks (e.g., "sans-serif" system font stack)
 - Image dimensions and aspect ratios
 - Icon usage (when to use FontAwesome vs SVG vs emoji)
@@ -387,7 +433,9 @@ Address common uncertainties in the prompt:
 ## Common Patterns
 
 ### Pattern 1: Enterprise Work Dashboard (WeChat Work Style)
+
 **Typical Structure:**
+
 - Top navigation bar (44px, title + search/menu icons)
 - Quick access grid (4-column icon grid)
 - Data summary cards (key metrics in horizontal layout)
@@ -395,45 +443,55 @@ Address common uncertainties in the prompt:
 - Bottom tab bar (5 tabs, 50px height)
 
 **Key Elements:**
+
 - Tech blue (#3478F6) for primary actions and active states
 - White cards with subtle shadows on light gray background
 - 48px icons with rounded-lg containers
 - Right arrow indicators for navigation
 
 ### Pattern 2: iOS Consumer App (iOS Native Style)
+
 **Typical Structure:**
+
 - Large title navigation bar (96px when expanded)
 - Card-based content sections
 - System standard lists (44px minimum row height)
 - Tab bar with SF Symbols icons
 
 **Key Elements:**
+
 - System blue (#007AFF) for interactive elements
 - Generous whitespace (20px margins, 16px padding)
 - Subtle dividers with left inset
 - Translucent blur effects on navigation
 
 ### Pattern 3: Android App (Material Design Style)
+
 **Typical Structure:**
+
 - Top app bar (56px on mobile, 64px on tablet)
 - FAB (Floating Action Button) for primary action
 - Card-based content with elevation
 - Bottom navigation or navigation drawer
 
 **Key Elements:**
+
 - Bold primary color (#6200EE) with elevation shadows
 - Ripple effects on tap
 - 16dp grid system
 - Material icons (24px)
 
 ### Pattern 4: Enterprise Form App (Ant Design Mobile)
+
 **Typical Structure:**
+
 - Simple navigation bar (45px)
 - Form sections with grouped inputs
 - List views with detailed information
 - Fixed bottom action bar with primary button
 
 **Key Elements:**
+
 - Professional blue (#108EE9) for actions
 - Dense information layout
 - Clear form field labels and validation
@@ -464,13 +522,16 @@ Address common uncertainties in the prompt:
 This skill includes reference documentation to support prompt generation:
 
 ### references/design-systems.md
+
 Comprehensive specifications for major design systems:
+
 - **WeChat Work Style**: Chinese enterprise applications
 - **iOS Native Style**: Apple ecosystem apps
 - **Material Design**: Google/Android apps
 - **Ant Design Mobile**: Enterprise mobile apps
 
 Each design system includes:
+
 - Complete color palettes with hex codes
 - Component specifications (dimensions, spacing, states)
 - Typography scales (sizes, weights, line heights)
@@ -481,7 +542,9 @@ Each design system includes:
 **When to reference:** Always load this file when generating a prompt to ensure accurate design system specifications. Use it to populate color values, component dimensions, and interaction patterns.
 
 ### references/prompt-structure.md
+
 Detailed template and guidelines for prompt construction:
+
 - Standard prompt structure (9 sections)
 - Template syntax with placeholders
 - Examples for each section

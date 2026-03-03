@@ -34,7 +34,6 @@ Production-ready patterns for dbt (data build tool) including model organization
 
 - `resources/implementation-playbook.md` for detailed dbt patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

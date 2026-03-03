@@ -1,6 +1,7 @@
 # Propagation in HTTP Requests
 
 #### Python
+
 ```python
 from opentelemetry.propagate import inject
 
@@ -11,6 +12,7 @@ response = requests.get('http://downstream-service/api', headers=headers)
 ```
 
 #### Node.js
+
 ```javascript
 const { propagation } = require('@opentelemetry/api');
 

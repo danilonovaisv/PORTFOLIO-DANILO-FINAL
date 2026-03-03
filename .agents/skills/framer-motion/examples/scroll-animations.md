@@ -5,17 +5,17 @@ Scroll-triggered animations and parallax effects.
 ## Basic Scroll Reveal
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export function ScrollReveal({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -25,15 +25,15 @@ export function ScrollReveal({ children }: { children: React.ReactNode }) {
 // Usage
 <ScrollReveal>
   <Card>Content appears when scrolled into view</Card>
-</ScrollReveal>
+</ScrollReveal>;
 ```
 
 ## Staggered Scroll Reveal
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -60,7 +60,7 @@ export function StaggeredReveal({ items }: { items: any[] }) {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: '-50px' }}
       className="grid grid-cols-3 gap-6"
     >
       {items.map((item) => (
@@ -76,9 +76,9 @@ export function StaggeredReveal({ items }: { items: any[] }) {
 ## Scroll Progress Indicator
 
 ```tsx
-"use client";
+'use client';
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 export function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
@@ -100,16 +100,16 @@ export function ScrollProgressBar() {
 ## Parallax Section
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function ParallaxSection() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
@@ -131,20 +131,20 @@ export function ParallaxSection() {
 ## Parallax Background
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function ParallaxHero() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"],
+    offset: ['start start', 'end start'],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
@@ -154,7 +154,7 @@ export function ParallaxHero() {
         style={{ y: backgroundY }}
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url(/hero-bg.jpg)",
+          backgroundImage: 'url(/hero-bg.jpg)',
           y: backgroundY,
         }}
       />
@@ -174,16 +174,16 @@ export function ParallaxHero() {
 ## Scroll-Linked Animation
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function ScrollLinkedCard() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "center center"],
+    offset: ['start end', 'center center'],
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
@@ -205,10 +205,10 @@ export function ScrollLinkedCard() {
 ## Horizontal Scroll Section
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function HorizontalScrollSection() {
   const targetRef = useRef(null);
@@ -216,7 +216,7 @@ export function HorizontalScrollSection() {
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-75%']);
 
   return (
     <section ref={targetRef} className="relative h-[300vh]">
@@ -240,11 +240,11 @@ export function HorizontalScrollSection() {
 ## Reveal on Scroll with Different Directions
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
-type Direction = "up" | "down" | "left" | "right";
+type Direction = 'up' | 'down' | 'left' | 'right';
 
 const directionVariants = {
   up: { y: 50 },
@@ -255,7 +255,7 @@ const directionVariants = {
 
 export function DirectionalReveal({
   children,
-  direction = "up",
+  direction = 'up',
 }: {
   children: React.ReactNode;
   direction?: Direction;
@@ -264,8 +264,8 @@ export function DirectionalReveal({
     <motion.div
       initial={{ opacity: 0, ...directionVariants[direction] }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -275,16 +275,16 @@ export function DirectionalReveal({
 // Usage
 <DirectionalReveal direction="left">
   <Card>Slides in from the left</Card>
-</DirectionalReveal>
+</DirectionalReveal>;
 ```
 
 ## Number Counter on Scroll
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
 
 export function CountUp({
   target,
@@ -323,15 +323,15 @@ export function CountUp({
 ## Scroll Snap with Animations
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const sections = [
-  { id: 1, title: "Section One", color: "bg-blue-500" },
-  { id: 2, title: "Section Two", color: "bg-green-500" },
-  { id: 3, title: "Section Three", color: "bg-purple-500" },
+  { id: 1, title: 'Section One', color: 'bg-blue-500' },
+  { id: 2, title: 'Section Two', color: 'bg-green-500' },
+  { id: 3, title: 'Section Three', color: 'bg-purple-500' },
 ];
 
 export function ScrollSnapSections() {
@@ -344,17 +344,11 @@ export function ScrollSnapSections() {
   );
 }
 
-function ScrollSnapSection({
-  title,
-  color,
-}: {
-  title: string;
-  color: string;
-}) {
+function ScrollSnapSection({ title, color }: { title: string; color: string }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
 
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
@@ -365,7 +359,10 @@ function ScrollSnapSection({
       ref={ref}
       className={`h-screen snap-start flex items-center justify-center ${color}`}
     >
-      <motion.h2 style={{ scale, opacity }} className="text-6xl font-bold text-white">
+      <motion.h2
+        style={{ scale, opacity }}
+        className="text-6xl font-bold text-white"
+      >
         {title}
       </motion.h2>
     </section>
@@ -376,23 +373,28 @@ function ScrollSnapSection({
 ## Scroll-Triggered Path Animation
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function ScrollPathAnimation() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
 
   const pathLength = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
   return (
     <div ref={ref} className="h-[200vh] flex items-center justify-center">
-      <svg width="200" height="200" viewBox="0 0 100 100" className="stroke-primary">
+      <svg
+        width="200"
+        height="200"
+        viewBox="0 0 100 100"
+        className="stroke-primary"
+      >
         <motion.circle
           cx="50"
           cy="50"

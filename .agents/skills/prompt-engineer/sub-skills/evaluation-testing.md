@@ -1,6 +1,7 @@
 # Evaluation & Testing
 
 #### Performance Metrics
+
 - Task-specific accuracy and quality metrics
 - Response time and efficiency measurements
 - Cost optimization and token usage analysis
@@ -10,6 +11,7 @@
 - Edge case and robustness assessment
 
 #### Testing Methodologies
+
 - Red team testing for prompt vulnerabilities
 - Adversarial prompt testing and jailbreak attempts
 - Cross-model performance comparison

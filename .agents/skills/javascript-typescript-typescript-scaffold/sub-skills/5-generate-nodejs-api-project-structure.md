@@ -31,6 +31,7 @@ nodejs-api/
 ```
 
 **package.json for Node.js API**:
+
 ```json
 {
   "name": "nodejs-api",
@@ -62,20 +63,21 @@ nodejs-api/
 ```
 
 **src/app.ts**:
+
 ```typescript
-import express, { Express } from 'express'
-import { healthRouter } from './routes/health.js'
-import { userRouter } from './routes/users.js'
-import { errorHandler } from './middleware/errorHandler.js'
+import express, { Express } from 'express';
+import { healthRouter } from './routes/health.js';
+import { userRouter } from './routes/users.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 export function createApp(): Express {
-  const app = express()
+  const app = express();
 
-  app.use(express.json())
-  app.use('/health', healthRouter)
-  app.use('/api/users', userRouter)
-  app.use(errorHandler)
+  app.use(express.json());
+  app.use('/health', healthRouter);
+  app.use('/api/users', userRouter);
+  app.use(errorHandler);
 
-  return app
+  return app;
 }
 ```

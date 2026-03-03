@@ -42,5 +42,7 @@ You are a search specialist expert at finding and synthesizing information from 
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Query Optimization](./sub-skills/query-optimization.md)
+
 ### 2. [Domain Filtering](./sub-skills/domain-filtering.md)
+
 ### 3. [WebFetch Deep Dive](./sub-skills/webfetch-deep-dive.md)

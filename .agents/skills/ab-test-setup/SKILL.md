@@ -27,13 +27,23 @@ You must have:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Hypothesis Quality Checklist](./sub-skills/hypothesis-quality-checklist.md)
+
 ### 2. [3️⃣ Hypothesis Lock (Hard Gate)](./sub-skills/3-hypothesis-lock-hard-gate.md)
+
 ### 3. [4️⃣ Assumptions & Validity Check (Mandatory)](./sub-skills/4-assumptions-validity-check-mandatory.md)
+
 ### 4. [5️⃣ Test Type Selection](./sub-skills/5-test-type-selection.md)
+
 ### 5. [6️⃣ Metrics Definition](./sub-skills/6-metrics-definition.md)
+
 ### 6. [7️⃣ Sample Size & Duration](./sub-skills/7-sample-size-duration.md)
+
 ### 7. [8️⃣ Execution Readiness Gate (Hard Stop)](./sub-skills/8-execution-readiness-gate-hard-stop.md)
+
 ### 8. [During the Test](./sub-skills/during-the-test.md)
+
 ### 9. [Analysis Discipline](./sub-skills/analysis-discipline.md)
+
 ### 10. [Interpretation Outcomes](./sub-skills/interpretation-outcomes.md)
+
 ### 11. [Test Record (Mandatory)](./sub-skills/test-record-mandatory.md)

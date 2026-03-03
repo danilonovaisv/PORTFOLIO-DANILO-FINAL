@@ -22,6 +22,7 @@ git bisect reset
 ```
 
 **Automated Bisect:**
+
 ```bash
 # Use script to test automatically
 git bisect start HEAD v1.0.0

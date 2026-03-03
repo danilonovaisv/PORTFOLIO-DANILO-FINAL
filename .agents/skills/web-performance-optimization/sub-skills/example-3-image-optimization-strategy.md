@@ -2,3 +2,4 @@
 
 ```markdown
 ## Image Optimization
+```

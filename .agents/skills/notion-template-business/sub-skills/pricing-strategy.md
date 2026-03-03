@@ -6,3 +6,4 @@ Pricing Notion templates for profit
 
 ```javascript
 ## Template Pricing
+```

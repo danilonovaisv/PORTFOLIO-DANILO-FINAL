@@ -7,6 +7,7 @@ Esta regra garante que o projeto use a configuração correta do PostCSS com Tai
 ## Problema Conhecido
 
 **Tailwind CSS v4.1.18** possui um bug crítico que causa:
+
 ```
 RangeError: Invalid code point 11466107
 Module not found: Can't resolve './&'

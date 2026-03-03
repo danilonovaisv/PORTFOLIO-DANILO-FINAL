@@ -37,7 +37,6 @@ Master C#/.NET patterns for building production-grade APIs, MCP servers, and ent
 
 - `resources/implementation-playbook.md` for detailed .NET patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

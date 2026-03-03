@@ -6,7 +6,7 @@ name: Manage Stale Issues
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Daily
+    - cron: '0 0 * * *' # Daily
 
 jobs:
   stale:
@@ -30,10 +30,10 @@ jobs:
 
           days-before-stale: 60
           days-before-close: 14
-          stale-issue-label: "stale"
-          stale-pr-label: "stale"
-          exempt-issue-labels: "pinned,security,in-progress"
-          exempt-pr-labels: "pinned,security"
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          exempt-issue-labels: 'pinned,security,in-progress'
+          exempt-pr-labels: 'pinned,security'
 ```
 
 ---

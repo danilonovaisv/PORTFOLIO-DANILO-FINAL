@@ -6,7 +6,7 @@ kind: ClusterRole
 metadata:
   name: secret-reader
 rules:
-- apiGroups: [""]
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
+  - apiGroups: ['']
+    resources: ['secrets']
+    verbs: ['get', 'watch', 'list']
 ```

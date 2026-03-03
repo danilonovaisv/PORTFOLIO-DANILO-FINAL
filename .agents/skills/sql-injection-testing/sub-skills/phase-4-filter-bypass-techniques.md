@@ -1,6 +1,7 @@
 # Phase 4: Filter Bypass Techniques
 
 #### Character Encoding Bypass
+
 When special characters are blocked:
 
 ```sql
@@ -21,6 +22,7 @@ SELECT * FROM users WHERE name=0x61646D696E  -- 'admin' in hex
 ```
 
 #### Whitespace Bypass
+
 Substitute blocked spaces:
 
 ```sql
@@ -34,6 +36,7 @@ SELECT%0Ausername%0AFROM%0Ausers  -- Newline
 ```
 
 #### Keyword Bypass
+
 Evade blacklisted SQL keywords:
 
 ```sql

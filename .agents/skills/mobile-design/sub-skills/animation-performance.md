@@ -34,6 +34,7 @@ Anti-Patterns I Will Avoid:
 ```
 
 **Example:**
+
 ```
 🧠 CHECKPOINT:
 

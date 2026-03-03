@@ -70,6 +70,7 @@ Use for comparing automated evaluation with human judgment.
 ```
 
 **Interpretation**: Agreement adjusted for chance
+
 - κ > 0.8: Almost perfect agreement
 - κ 0.6-0.8: Substantial agreement
 - κ 0.4-0.6: Moderate agreement
@@ -102,6 +103,7 @@ Use for ordinal/continuous scores.
 #### Spearman's Rank Correlation (ρ)
 
 **Interpretation**: Correlation between rankings, not absolute values
+
 - ρ > 0.9: Very strong correlation
 - ρ 0.7-0.9: Strong correlation
 - ρ 0.5-0.7: Moderate correlation
@@ -200,6 +202,7 @@ What type of evaluation task?
 **Goal**: Ensure automated evaluation correlates with human judgment
 
 **Recommended Metrics**:
+
 1. Primary: Spearman's ρ (for ordinal scales) or Cohen's κ (for categorical)
 2. Secondary: Per-criterion agreement
 3. Diagnostic: Confusion matrix for systematic errors
@@ -207,16 +210,16 @@ What type of evaluation task?
 ```python
 def validate_automated_eval(automated_scores, human_scores, criteria):
     results = {}
-    
+
     # Overall correlation
     results['overall_spearman'] = spearmans_rho(automated_scores, human_scores)
-    
+
     # Per-criterion agreement
     for criterion in criteria:
         auto_crit = [s[criterion] for s in automated_scores]
         human_crit = [s[criterion] for s in human_scores]
         results[f'{criterion}_spearman'] = spearmans_rho(auto_crit, human_crit)
-    
+
     return results
 ```
 
@@ -225,6 +228,7 @@ def validate_automated_eval(automated_scores, human_scores, criteria):
 **Goal**: Determine which model produces better outputs
 
 **Recommended Metrics**:
+
 1. Primary: Win rate (from pairwise comparison)
 2. Secondary: Position consistency (bias check)
 3. Diagnostic: Per-criterion breakdown
@@ -235,7 +239,7 @@ def compare_models(model_a_outputs, model_b_outputs, prompts):
     for a, b, p in zip(model_a_outputs, model_b_outputs, prompts):
         comparison = await compare_with_position_swap(a, b, p)
         results.append(comparison)
-    
+
     return {
         'a_wins': sum(1 for r in results if r['winner'] == 'A'),
         'b_wins': sum(1 for r in results if r['winner'] == 'B'),
@@ -249,6 +253,7 @@ def compare_models(model_a_outputs, model_b_outputs, prompts):
 **Goal**: Track evaluation quality over time
 
 **Recommended Metrics**:
+
 1. Primary: Rolling agreement with human spot-checks
 2. Secondary: Score distribution stability
 3. Diagnostic: Bias indicators (position, length)
@@ -257,24 +262,24 @@ def compare_models(model_a_outputs, model_b_outputs, prompts):
 class QualityMonitor:
     def __init__(self, window_size=100):
         self.window = deque(maxlen=window_size)
-    
+
     def add_evaluation(self, automated, human_spot_check=None):
         self.window.append({
             'automated': automated,
             'human': human_spot_check,
             'length': len(automated['response'])
         })
-    
+
     def get_metrics(self):
         # Filter to evaluations with human spot-checks
         with_human = [e for e in self.window if e['human'] is not None]
-        
+
         if len(with_human) < 10:
             return {'insufficient_data': True}
-        
+
         auto_scores = [e['automated']['score'] for e in with_human]
         human_scores = [e['human']['score'] for e in with_human]
-        
+
         return {
             'correlation': spearmans_rho(auto_scores, human_scores),
             'mean_difference': np.mean([a - h for a, h in zip(auto_scores, human_scores)]),
@@ -289,12 +294,12 @@ class QualityMonitor:
 
 ### Good Evaluation System Indicators
 
-| Metric | Good | Acceptable | Concerning |
-|--------|------|------------|------------|
-| Spearman's ρ | > 0.8 | 0.6-0.8 | < 0.6 |
-| Cohen's κ | > 0.7 | 0.5-0.7 | < 0.5 |
-| Position consistency | > 0.9 | 0.8-0.9 | < 0.8 |
-| Length correlation | < 0.2 | 0.2-0.4 | > 0.4 |
+| Metric               | Good  | Acceptable | Concerning |
+| -------------------- | ----- | ---------- | ---------- |
+| Spearman's ρ         | > 0.8 | 0.6-0.8    | < 0.6      |
+| Cohen's κ            | > 0.7 | 0.5-0.7    | < 0.5      |
+| Position consistency | > 0.9 | 0.8-0.9    | < 0.8      |
+| Length correlation   | < 0.2 | 0.2-0.4    | > 0.4      |
 
 ### Warning Signs
 
@@ -309,23 +314,26 @@ class QualityMonitor:
 ## Evaluation System Metrics Report
 
 ### Human Agreement
+
 - Spearman's ρ: 0.82 (p < 0.001)
 - Cohen's κ: 0.74
 - Sample size: 500 evaluations
 
 ### Bias Indicators
+
 - Position consistency: 91%
 - Length-score correlation: 0.12
 
 ### Per-Criterion Performance
-| Criterion | Spearman's ρ | κ |
-|-----------|--------------|---|
-| Accuracy | 0.88 | 0.79 |
-| Clarity | 0.76 | 0.68 |
-| Completeness | 0.81 | 0.72 |
+
+| Criterion    | Spearman's ρ | κ    |
+| ------------ | ------------ | ---- |
+| Accuracy     | 0.88         | 0.79 |
+| Clarity      | 0.76         | 0.68 |
+| Completeness | 0.81         | 0.72 |
 
 ### Recommendations
+
 - All metrics within acceptable ranges
 - Monitor "Clarity" criterion - lower agreement may indicate need for rubric refinement
 ```
-

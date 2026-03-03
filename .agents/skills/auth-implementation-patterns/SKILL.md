@@ -39,7 +39,6 @@ Build secure, scalable authentication and authorization systems using industry-s
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

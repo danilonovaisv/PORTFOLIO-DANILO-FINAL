@@ -1,4 +1,4 @@
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
+const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
 
 const handler = async (_request: Request): Promise<Response> => {
   const res = await fetch('https://api.resend.com/emails', {
@@ -13,16 +13,16 @@ const handler = async (_request: Request): Promise<Response> => {
       subject: 'hello world',
       html: '<strong>it works!</strong>',
     }),
-  })
+  });
 
-  const data = await res.json()
+  const data = await res.json();
 
   return new Response(JSON.stringify(data), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-}
+  });
+};
 
-Deno.serve(handler)
+Deno.serve(handler);

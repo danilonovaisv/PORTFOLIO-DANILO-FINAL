@@ -7,6 +7,7 @@ description: Master of defensive Bash scripting for production automation, CI/CD
 metadata:
   model: sonnet
 ---
+
 ## Use this skill when
 
 - Writing or reviewing Bash scripts for automation, CI/CD, or ops
@@ -222,9 +223,15 @@ metadata:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Static Analysis & Formatting](./sub-skills/static-analysis-formatting.md)
+
 ### 2. [Testing Frameworks](./sub-skills/testing-frameworks.md)
+
 ### 3. [Modern Development Tools](./sub-skills/modern-development-tools.md)
+
 ### 4. [CI/CD & Automation](./sub-skills/cicd-automation.md)
+
 ### 5. [Style Guides & Best Practices](./sub-skills/style-guides-best-practices.md)
+
 ### 6. [Tools & Frameworks](./sub-skills/tools-frameworks.md)
+
 ### 7. [Security & Advanced Topics](./sub-skills/security-advanced-topics.md)

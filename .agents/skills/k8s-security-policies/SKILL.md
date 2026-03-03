@@ -38,18 +38,33 @@ Implement defense-in-depth security for Kubernetes clusters using network polici
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Privileged (Unrestricted)](./sub-skills/1-privileged-unrestricted.md)
+
 ### 2. [2. Baseline (Minimally restrictive)](./sub-skills/2-baseline-minimally-restrictive.md)
+
 ### 3. [3. Restricted (Most restrictive)](./sub-skills/3-restricted-most-restrictive.md)
+
 ### 4. [Default Deny All](./sub-skills/default-deny-all.md)
+
 ### 5. [Allow Frontend to Backend](./sub-skills/allow-frontend-to-backend.md)
+
 ### 6. [Allow DNS](./sub-skills/allow-dns.md)
+
 ### 7. [Role (Namespace-scoped)](./sub-skills/role-namespace-scoped.md)
+
 ### 8. [ClusterRole (Cluster-wide)](./sub-skills/clusterrole-cluster-wide.md)
+
 ### 9. [RoleBinding](./sub-skills/rolebinding.md)
+
 ### 10. [Restricted Pod](./sub-skills/restricted-pod.md)
+
 ### 11. [ConstraintTemplate](./sub-skills/constrainttemplate.md)
+
 ### 12. [Constraint](./sub-skills/constraint.md)
+
 ### 13. [PeerAuthentication (mTLS)](./sub-skills/peerauthentication-mtls.md)
+
 ### 14. [AuthorizationPolicy](./sub-skills/authorizationpolicy.md)
+
 ### 15. [CIS Kubernetes Benchmark](./sub-skills/cis-kubernetes-benchmark.md)
+
 ### 16. [NIST Cybersecurity Framework](./sub-skills/nist-cybersecurity-framework.md)

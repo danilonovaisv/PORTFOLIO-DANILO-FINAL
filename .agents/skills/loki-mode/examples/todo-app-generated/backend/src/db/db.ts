@@ -14,21 +14,24 @@ const db = new sqlite3.Database(dbPath, (err: Error | null) => {
 // Initialize database schema
 export const initDatabase = (): Promise<void> => {
   return new Promise((resolve, reject) => {
-    db.run(`
+    db.run(
+      `
       CREATE TABLE IF NOT EXISTS todos (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         completed BOOLEAN DEFAULT 0,
         createdAt TEXT DEFAULT CURRENT_TIMESTAMP
       )
-    `, (err: Error | null) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log('Database schema initialized');
-        resolve();
+    `,
+      (err: Error | null) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log('Database schema initialized');
+          resolve();
+        }
       }
-    });
+    );
   });
 };
 

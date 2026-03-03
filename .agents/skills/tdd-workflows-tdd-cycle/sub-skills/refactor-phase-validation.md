@@ -9,6 +9,7 @@
 ## Coverage Reports
 
 Generate coverage reports after each phase:
+
 - Line coverage
 - Branch coverage
 - Function coverage
@@ -17,6 +18,7 @@ Generate coverage reports after each phase:
 ## Failure Recovery
 
 If TDD discipline is broken:
+
 1. **STOP** immediately
 2. Identify which phase was violated
 3. Rollback to last valid state
@@ -26,6 +28,7 @@ If TDD discipline is broken:
 ## TDD Metrics Tracking
 
 Track and report:
+
 - Time in each phase (Red/Green/Refactor)
 - Number of test-implementation cycles
 - Coverage progression

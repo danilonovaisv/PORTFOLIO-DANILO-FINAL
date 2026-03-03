@@ -6,6 +6,7 @@
 **Best times:** 1-4pm weekdays
 
 **What works:**
+
 - Facebook Groups (community)
 - Native video
 - Live video
@@ -13,6 +14,7 @@
 - Discussion-prompting questions
 
 **What doesn't:**
+
 - Links to external sites (reach killer)
 - Pure promotional content
 - Ignoring comments

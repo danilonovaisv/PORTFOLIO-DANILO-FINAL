@@ -4,6 +4,7 @@
 if action_failed:
     next_action != same_action
 ```
+
 Track what you tried. Mutate the approach.
 
 ## The 3-Strike Error Protocol
@@ -32,30 +33,31 @@ AFTER 3 FAILURES: Escalate to User
 
 ## Read vs Write Decision Matrix
 
-| Situation | Action | Reason |
-|-----------|--------|--------|
-| Just wrote a file | DON'T read | Content still in context |
-| Viewed image/PDF | Write findings NOW | Multimodal → text before lost |
-| Browser returned data | Write to file | Screenshots don't persist |
-| Starting new phase | Read plan/findings | Re-orient if context stale |
-| Error occurred | Read relevant file | Need current state to fix |
-| Resuming after gap | Read all planning files | Recover state |
+| Situation             | Action                  | Reason                        |
+| --------------------- | ----------------------- | ----------------------------- |
+| Just wrote a file     | DON'T read              | Content still in context      |
+| Viewed image/PDF      | Write findings NOW      | Multimodal → text before lost |
+| Browser returned data | Write to file           | Screenshots don't persist     |
+| Starting new phase    | Read plan/findings      | Re-orient if context stale    |
+| Error occurred        | Read relevant file      | Need current state to fix     |
+| Resuming after gap    | Read all planning files | Recover state                 |
 
 ## The 5-Question Reboot Test
 
 If you can answer these, your context management is solid:
 
-| Question | Answer Source |
-|----------|---------------|
-| Where am I? | Current phase in task_plan.md |
-| Where am I going? | Remaining phases |
-| What's the goal? | Goal statement in plan |
-| What have I learned? | findings.md |
-| What have I done? | progress.md |
+| Question             | Answer Source                 |
+| -------------------- | ----------------------------- |
+| Where am I?          | Current phase in task_plan.md |
+| Where am I going?    | Remaining phases              |
+| What's the goal?     | Goal statement in plan        |
+| What have I learned? | findings.md                   |
+| What have I done?    | progress.md                   |
 
 ## When to Use This Pattern
 
 **Use for:**
+
 - Multi-step tasks (3+ steps)
 - Research tasks
 - Building/creating projects
@@ -63,6 +65,7 @@ If you can answer these, your context management is solid:
 - Anything requiring organization
 
 **Skip for:**
+
 - Simple questions
 - Single-file edits
 - Quick lookups
@@ -89,12 +92,12 @@ Helper scripts for automation:
 
 ## Anti-Patterns
 
-| Don't | Do Instead |
-|-------|------------|
-| Use TodoWrite for persistence | Create task_plan.md file |
-| State goals once and forget | Re-read plan before decisions |
-| Hide errors and retry silently | Log errors to plan file |
-| Stuff everything in context | Store large content in files |
-| Start executing immediately | Create plan file FIRST |
-| Repeat failed actions | Track attempts, mutate approach |
-| Create files in skill directory | Create files in your project |
+| Don't                           | Do Instead                      |
+| ------------------------------- | ------------------------------- |
+| Use TodoWrite for persistence   | Create task_plan.md file        |
+| State goals once and forget     | Re-read plan before decisions   |
+| Hide errors and retry silently  | Log errors to plan file         |
+| Stuff everything in context     | Store large content in files    |
+| Start executing immediately     | Create plan file FIRST          |
+| Repeat failed actions           | Track attempts, mutate approach |
+| Create files in skill directory | Create files in your project    |

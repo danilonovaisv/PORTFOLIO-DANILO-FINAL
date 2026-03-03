@@ -5,6 +5,7 @@
 ## 🚀 Quick Start
 
 1. **Install the repository:**
+
    ```bash
    npx antigravity-awesome-skills
    # or clone manually
@@ -408,21 +409,25 @@ Keep a small list of high-frequency skills and reuse it across tasks to reduce c
 ### Beginner → Intermediate → Advanced
 
 **Web Development:**
+
 1. Start: `Essentials` → `Web Wizard`
 2. Grow: `Full-Stack Developer` → `Architecture & Design`
 3. Master: `Observability & Monitoring` → `Security Developer`
 
 **AI/ML:**
+
 1. Start: `Essentials` → `Agent Architect`
 2. Grow: `LLM Application Developer` → `Data Engineering`
 3. Master: Advanced RAG and agent orchestration
 
 **Security:**
+
 1. Start: `Essentials` → `Security Developer`
 2. Grow: `Security Engineer` → Advanced pentesting
 3. Master: Red team tactics and threat modeling
 
 **Open Source Maintenance:**
+
 1. Start: `Essentials` → `OSS Maintainer`
 2. Grow: `Architecture & Design` → `QA & Testing`
 3. Master: `Skill Author` + release automation workflows

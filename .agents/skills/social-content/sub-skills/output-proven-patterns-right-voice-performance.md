@@ -1,6 +1,7 @@
 # Output: Proven Patterns + Right Voice = Performance
 
 The formula:
+
 ```
 1. Find what's already working (don't guess)
 2. Extract the patterns (hooks, formats, CTAs)

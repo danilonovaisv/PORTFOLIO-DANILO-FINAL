@@ -34,11 +34,13 @@ python recalc.py <excel_file> [timeout_seconds]
 ```
 
 Example:
+
 ```bash
 python recalc.py output.xlsx 30
 ```
 
 The script:
+
 - Automatically sets up LibreOffice macro on first run
 - Recalculates all formulas in all sheets
 - Scans ALL cells for Excel errors (#REF!, #DIV/0!, etc.)

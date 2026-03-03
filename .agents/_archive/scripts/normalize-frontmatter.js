@@ -23,10 +23,18 @@ function isPlainObject(value) {
 function coerceToString(value) {
   if (value === null || value === undefined) return '';
   if (typeof value === 'string') return value.trim();
-  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (typeof value === 'number' || typeof value === 'boolean')
+    return String(value);
   if (Array.isArray(value)) {
-    const simple = value.every(item => ['string', 'number', 'boolean'].includes(typeof item));
-    return simple ? value.map(item => String(item).trim()).filter(Boolean).join(', ') : JSON.stringify(value);
+    const simple = value.every((item) =>
+      ['string', 'number', 'boolean'].includes(typeof item)
+    );
+    return simple
+      ? value
+          .map((item) => String(item).trim())
+          .filter(Boolean)
+          .join(', ')
+      : JSON.stringify(value);
   }
   if (isPlainObject(value)) {
     return JSON.stringify(value);
@@ -50,16 +58,16 @@ function collectAllowedTools(value, toolSet) {
   if (typeof value === 'string') {
     value
       .split(/[\s,]+/)
-      .map(token => token.trim())
+      .map((token) => token.trim())
       .filter(Boolean)
-      .forEach(token => toolSet.add(token));
+      .forEach((token) => toolSet.add(token));
     return;
   }
   if (Array.isArray(value)) {
     value
-      .map(token => String(token).trim())
+      .map((token) => String(token).trim())
       .filter(Boolean)
-      .forEach(token => toolSet.add(token));
+      .forEach((token) => toolSet.add(token));
   }
 }
 
@@ -72,7 +80,9 @@ function normalizeSkill(skillId) {
 
   let modified = false;
   const updated = { ...data };
-  const metadata = isPlainObject(updated.metadata) ? { ...updated.metadata } : {};
+  const metadata = isPlainObject(updated.metadata)
+    ? { ...updated.metadata }
+    : {};
   if (updated.metadata !== undefined && !isPlainObject(updated.metadata)) {
     appendMetadata(metadata, 'legacy_metadata', updated.metadata);
     modified = true;
@@ -122,14 +132,24 @@ function normalizeSkill(skillId) {
   if (!modified) return false;
 
   const ordered = {};
-  for (const key of ['name', 'description', 'license', 'compatibility', 'allowed-tools', 'metadata']) {
+  for (const key of [
+    'name',
+    'description',
+    'license',
+    'compatibility',
+    'allowed-tools',
+    'metadata',
+  ]) {
     if (updated[key] !== undefined) {
       ordered[key] = updated[key];
     }
   }
 
   const fm = yaml.stringify(ordered).trimEnd();
-  const bodyPrefix = body.length && (body.startsWith('\n') || body.startsWith('\r\n')) ? '' : '\n';
+  const bodyPrefix =
+    body.length && (body.startsWith('\n') || body.startsWith('\r\n'))
+      ? ''
+      : '\n';
   const next = `---\n${fm}\n---${bodyPrefix}${body}`;
   fs.writeFileSync(skillPath, next);
   return true;

@@ -23,14 +23,17 @@ Create zero-dependency, animation-rich HTML presentations that run entirely in t
 First, determine what the user wants:
 
 **Mode A: New Presentation**
+
 - User wants to create slides from scratch
 - Proceed to Phase 1 (Content Discovery)
 
 **Mode B: PPT Conversion**
+
 - User has a PowerPoint file (.ppt, .pptx) to convert
 - Proceed to Phase 4 (PPT Extraction)
 
 **Mode C: Existing Presentation Enhancement**
+
 - User has an HTML presentation and wants to improve it
 - Read the existing file, understand the structure, then enhance
 
@@ -43,6 +46,7 @@ Before designing, understand the content. Ask via AskUserQuestion:
 ### Step 1.1: Presentation Context
 
 **Question 1: Purpose**
+
 - Header: "Purpose"
 - Question: "What is this presentation for?"
 - Options:
@@ -52,6 +56,7 @@ Before designing, understand the content. Ask via AskUserQuestion:
   - "Internal presentation" — Team updates, strategy meetings, company updates
 
 **Question 2: Slide Count**
+
 - Header: "Length"
 - Question: "Approximately how many slides?"
 - Options:
@@ -60,6 +65,7 @@ Before designing, understand the content. Ask via AskUserQuestion:
   - "Long (20+)" — Deep dive, comprehensive talk
 
 **Question 3: Content**
+
 - Header: "Content"
 - Question: "Do you have the content ready, or do you need help structuring it?"
 - Options:
@@ -80,6 +86,7 @@ Most people can't articulate design preferences in words. Instead of asking "do 
 ### Step 2.1: Mood Selection
 
 **Question 1: Feeling**
+
 - Header: "Vibe"
 - Question: "What feeling should the audience have when viewing your slides?"
 - Options:
@@ -100,20 +107,22 @@ Based on their mood selection, generate **3 distinct style previews** as mini HT
 
 **Preview Styles to Consider (pick 3 based on mood):**
 
-| Mood | Style Options |
-|------|---------------|
+| Mood                | Style Options                                          |
+| ------------------- | ------------------------------------------------------ |
 | Impressed/Confident | "Corporate Elegant", "Dark Executive", "Clean Minimal" |
-| Excited/Energized | "Neon Cyber", "Bold Gradients", "Kinetic Motion" |
-| Calm/Focused | "Paper & Ink", "Soft Muted", "Swiss Minimal" |
-| Inspired/Moved | "Cinematic Dark", "Warm Editorial", "Atmospheric" |
+| Excited/Energized   | "Neon Cyber", "Bold Gradients", "Kinetic Motion"       |
+| Calm/Focused        | "Paper & Ink", "Soft Muted", "Swiss Minimal"           |
+| Inspired/Moved      | "Cinematic Dark", "Warm Editorial", "Atmospheric"      |
 
 **IMPORTANT: Never use these generic patterns:**
+
 - Purple gradients on white backgrounds
 - Inter, Roboto, or system fonts
 - Standard blue primary colors
 - Predictable hero layouts
 
 **Instead, use distinctive choices:**
+
 - Unique font pairings (Clash Display, Satoshi, Cormorant Garamond, DM Sans, etc.)
 - Cohesive color themes with personality
 - Atmospheric backgrounds (gradients, subtle patterns, depth)
@@ -132,12 +141,14 @@ Create the previews in: `.claude-design/slide-previews/`
 ```
 
 Each preview file should be:
+
 - Self-contained (inline CSS/JS)
 - A single "title slide" showing the aesthetic
 - Animated to demonstrate motion style
 - ~50-100 lines, not a full presentation
 
 Present to user:
+
 ```
 I've created 3 style previews for you to compare:
 
@@ -159,6 +170,7 @@ Take a look and tell me:
 Then use AskUserQuestion:
 
 **Question: Pick Your Style**
+
 - Header: "Style"
 - Question: "Which style preview do you prefer?"
 - Options:
@@ -174,18 +186,21 @@ If "Mix elements", ask for specifics.
 ## Phase 3: Generate Presentation
 
 Now generate the full presentation based on:
+
 - Content from Phase 1
 - Style from Phase 2
 
 ### File Structure
 
 For single presentations:
+
 ```
 presentation.html    # Self-contained presentation
 assets/              # Images, if any
 ```
 
 For projects with multiple presentations:
+
 ```
 [presentation-name].html
 [presentation-name]-assets/
@@ -198,141 +213,150 @@ Follow this structure for all presentations:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Presentation Title</title>
 
     <!-- Fonts (use Fontshare or Google Fonts) -->
-    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=...">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=..." />
 
     <style>
-        /* ===========================================
+      /* ===========================================
            CSS CUSTOM PROPERTIES (THEME)
            Easy to modify: change these to change the whole look
            =========================================== */
-        :root {
-            /* Colors */
-            --bg-primary: #0a0f1c;
-            --bg-secondary: #111827;
-            --text-primary: #ffffff;
-            --text-secondary: #9ca3af;
-            --accent: #00ffcc;
-            --accent-glow: rgba(0, 255, 204, 0.3);
+      :root {
+        /* Colors */
+        --bg-primary: #0a0f1c;
+        --bg-secondary: #111827;
+        --text-primary: #ffffff;
+        --text-secondary: #9ca3af;
+        --accent: #00ffcc;
+        --accent-glow: rgba(0, 255, 204, 0.3);
 
-            /* Typography */
-            --font-display: 'Clash Display', sans-serif;
-            --font-body: 'Satoshi', sans-serif;
+        /* Typography */
+        --font-display: 'Clash Display', sans-serif;
+        --font-body: 'Satoshi', sans-serif;
 
-            /* Spacing */
-            --slide-padding: clamp(2rem, 5vw, 4rem);
+        /* Spacing */
+        --slide-padding: clamp(2rem, 5vw, 4rem);
 
-            /* Animation */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --duration-normal: 0.6s;
-        }
+        /* Animation */
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration-normal: 0.6s;
+      }
 
-        /* ===========================================
+      /* ===========================================
            BASE STYLES
            =========================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-        }
+      html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+      }
 
-        body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
 
-        /* ===========================================
+      /* ===========================================
            SLIDE CONTAINER
            Each section is one slide
            =========================================== */
-        .slide {
-            min-height: 100vh;
-            padding: var(--slide-padding);
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
+      .slide {
+        min-height: 100vh;
+        padding: var(--slide-padding);
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
 
-        /* ===========================================
+      /* ===========================================
            ANIMATIONS
            Trigger via .visible class (added by JS on scroll)
            =========================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity var(--duration-normal) var(--ease-out-expo),
-                        transform var(--duration-normal) var(--ease-out-expo);
-        }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity var(--duration-normal) var(--ease-out-expo),
+          transform var(--duration-normal) var(--ease-out-expo);
+      }
 
-        .slide.visible .reveal {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      .slide.visible .reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-        /* Stagger children */
-        .reveal:nth-child(1) { transition-delay: 0.1s; }
-        .reveal:nth-child(2) { transition-delay: 0.2s; }
-        .reveal:nth-child(3) { transition-delay: 0.3s; }
-        .reveal:nth-child(4) { transition-delay: 0.4s; }
+      /* Stagger children */
+      .reveal:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      .reveal:nth-child(2) {
+        transition-delay: 0.2s;
+      }
+      .reveal:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+      .reveal:nth-child(4) {
+        transition-delay: 0.4s;
+      }
 
-        /* ... more styles ... */
+      /* ... more styles ... */
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Progress bar (optional) -->
     <div class="progress-bar"></div>
 
     <!-- Navigation dots (optional) -->
     <nav class="nav-dots">
-        <!-- Generated by JS -->
+      <!-- Generated by JS -->
     </nav>
 
     <!-- Slides -->
     <section class="slide title-slide">
-        <h1 class="reveal">Presentation Title</h1>
-        <p class="reveal">Subtitle or author</p>
+      <h1 class="reveal">Presentation Title</h1>
+      <p class="reveal">Subtitle or author</p>
     </section>
 
     <section class="slide">
-        <h2 class="reveal">Slide Title</h2>
-        <p class="reveal">Content...</p>
+      <h2 class="reveal">Slide Title</h2>
+      <p class="reveal">Content...</p>
     </section>
 
     <!-- More slides... -->
 
     <script>
-        /* ===========================================
+      /* ===========================================
            SLIDE PRESENTATION CONTROLLER
            Handles navigation, animations, and interactions
            =========================================== */
 
-        class SlidePresentation {
-            constructor() {
-                // ... initialization
-            }
-
-            // ... methods
+      class SlidePresentation {
+        constructor() {
+          // ... initialization
         }
 
-        // Initialize
-        new SlidePresentation();
+        // ... methods
+      }
+
+      // Initialize
+      new SlidePresentation();
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -363,6 +387,7 @@ Every presentation should include:
 
 **Comments:**
 Every section should have clear comments explaining:
+
 - What it does
 - Why it exists
 - How to modify it
@@ -375,13 +400,14 @@ Every section should have clear comments explaining:
    - Grows larger when hovering over interactive elements
    =========================================== */
 class CustomCursor {
-    constructor() {
-        // ...
-    }
+  constructor() {
+    // ...
+  }
 }
 ```
 
 **Accessibility:**
+
 - Semantic HTML (`<section>`, `<nav>`, `<main>`)
 - Keyboard navigation works
 - ARIA labels where needed
@@ -389,24 +415,25 @@ class CustomCursor {
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-    .reveal {
-        transition: opacity 0.3s ease;
-        transform: none;
-    }
+  .reveal {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
 }
 ```
 
 **Responsive:**
+
 - Mobile-friendly (single column, adjusted spacing)
 - Disable heavy effects on mobile
 - Touch-friendly interactions
 
 ```css
 @media (max-width: 768px) {
-    .nav-dots,
-    .keyboard-hint {
-        display: none;
-    }
+  .nav-dots,
+  .keyboard-hint {
+    display: none;
+  }
 }
 ```
 
@@ -515,6 +542,7 @@ Proceed to Phase 2 (Style Discovery) with the extracted content in mind.
 ### Step 4.4: Generate HTML
 
 Convert the extracted content into the chosen style, preserving:
+
 - All text content
 - All images (referenced from assets folder)
 - Slide order
@@ -535,6 +563,7 @@ When the presentation is complete:
    - Use `open [filename].html` to launch in browser
 
 3. **Provide summary**
+
 ```
 Your presentation is ready!
 
@@ -562,6 +591,7 @@ Would you like me to make any adjustments?
 Use this guide to match animations to intended feelings:
 
 ### Dramatic / Cinematic
+
 - Slow fade-ins (1-1.5s)
 - Large scale transitions (0.9 → 1)
 - Dark backgrounds with spotlight effects
@@ -569,6 +599,7 @@ Use this guide to match animations to intended feelings:
 - Full-bleed images
 
 ### Techy / Futuristic
+
 - Neon glow effects (box-shadow with accent color)
 - Particle systems (canvas background)
 - Grid patterns
@@ -577,6 +608,7 @@ Use this guide to match animations to intended feelings:
 - Cyan, magenta, electric blue palette
 
 ### Playful / Friendly
+
 - Bouncy easing (spring physics)
 - Rounded corners (large radius)
 - Pastel or bright colors
@@ -584,6 +616,7 @@ Use this guide to match animations to intended feelings:
 - Hand-drawn or illustrated elements
 
 ### Professional / Corporate
+
 - Subtle, fast animations (200-300ms)
 - Clean sans-serif fonts
 - Navy, slate, or charcoal backgrounds
@@ -592,6 +625,7 @@ Use this guide to match animations to intended feelings:
 - Data visualization focus
 
 ### Calm / Minimal
+
 - Very slow, subtle motion
 - High whitespace
 - Muted color palette
@@ -600,6 +634,7 @@ Use this guide to match animations to intended feelings:
 - Content-focused, no distractions
 
 ### Editorial / Magazine
+
 - Strong typography hierarchy
 - Pull quotes and callouts
 - Image-text interplay
@@ -616,36 +651,43 @@ Use this guide to match animations to intended feelings:
 ```css
 /* Fade + Slide Up (most common) */
 .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s var(--ease-out-expo),
-                transform 0.6s var(--ease-out-expo);
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s var(--ease-out-expo),
+    transform 0.6s var(--ease-out-expo);
 }
 
 .visible .reveal {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Scale In */
 .reveal-scale {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.6s, transform 0.6s var(--ease-out-expo);
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.6s,
+    transform 0.6s var(--ease-out-expo);
 }
 
 /* Slide from Left */
 .reveal-left {
-    opacity: 0;
-    transform: translateX(-50px);
-    transition: opacity 0.6s, transform 0.6s var(--ease-out-expo);
+  opacity: 0;
+  transform: translateX(-50px);
+  transition:
+    opacity 0.6s,
+    transform 0.6s var(--ease-out-expo);
 }
 
 /* Blur In */
 .reveal-blur {
-    opacity: 0;
-    filter: blur(10px);
-    transition: opacity 0.8s, filter 0.8s var(--ease-out-expo);
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    opacity 0.8s,
+    filter 0.8s var(--ease-out-expo);
 }
 ```
 
@@ -654,23 +696,31 @@ Use this guide to match animations to intended feelings:
 ```css
 /* Gradient Mesh */
 .gradient-bg {
-    background:
-        radial-gradient(ellipse at 20% 80%, rgba(120, 0, 255, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(0, 255, 200, 0.2) 0%, transparent 50%),
-        var(--bg-primary);
+  background:
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgba(120, 0, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(0, 255, 200, 0.2) 0%,
+      transparent 50%
+    ),
+    var(--bg-primary);
 }
 
 /* Noise Texture */
 .noise-bg {
-    background-image: url("data:image/svg+xml,..."); /* Inline SVG noise */
+  background-image: url('data:image/svg+xml,...'); /* Inline SVG noise */
 }
 
 /* Grid Pattern */
 .grid-bg {
-    background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 ```
 
@@ -679,29 +729,29 @@ Use this guide to match animations to intended feelings:
 ```javascript
 /* 3D Tilt on Hover */
 class TiltEffect {
-    constructor(element) {
-        this.element = element;
-        this.element.style.transformStyle = 'preserve-3d';
-        this.element.style.perspective = '1000px';
-        this.bindEvents();
-    }
+  constructor(element) {
+    this.element = element;
+    this.element.style.transformStyle = 'preserve-3d';
+    this.element.style.perspective = '1000px';
+    this.bindEvents();
+  }
 
-    bindEvents() {
-        this.element.addEventListener('mousemove', (e) => {
-            const rect = this.element.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
+  bindEvents() {
+    this.element.addEventListener('mousemove', (e) => {
+      const rect = this.element.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-            this.element.style.transform = `
+      this.element.style.transform = `
                 rotateY(${x * 10}deg)
                 rotateX(${-y * 10}deg)
             `;
-        });
+    });
 
-        this.element.addEventListener('mouseleave', () => {
-            this.element.style.transform = 'rotateY(0) rotateX(0)';
-        });
-    }
+    this.element.addEventListener('mouseleave', () => {
+      this.element.style.transform = 'rotateY(0) rotateX(0)';
+    });
+  }
 }
 ```
 
@@ -712,23 +762,28 @@ class TiltEffect {
 ### Common Issues
 
 **Fonts not loading:**
+
 - Check Fontshare/Google Fonts URL
 - Ensure font names match in CSS
 
 **Animations not triggering:**
+
 - Verify Intersection Observer is running
 - Check that `.visible` class is being added
 
 **Scroll snap not working:**
+
 - Ensure `scroll-snap-type` on html/body
 - Each slide needs `scroll-snap-align: start`
 
 **Mobile issues:**
+
 - Disable heavy effects at 768px breakpoint
 - Test touch events
 - Reduce particle count or disable canvas
 
 **Performance issues:**
+
 - Use `will-change` sparingly
 - Prefer `transform` and `opacity` animations
 - Throttle scroll/mousemove handlers

@@ -170,10 +170,12 @@ async def test_activity():
 - Testing Patterns: github.com/temporalio/temporal/blob/main/docs/development/testing.md
 - Python Samples: github.com/temporalio/samples-python
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [integration-testing](./sub-skills/integration-testing.md)
+
 ### 2. [local-setup](./sub-skills/local-setup.md)
+
 ### 3. [replay-testing](./sub-skills/replay-testing.md)
+
 ### 4. [unit-testing](./sub-skills/unit-testing.md)

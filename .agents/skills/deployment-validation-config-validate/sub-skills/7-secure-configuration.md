@@ -15,7 +15,13 @@ export class SecureConfigManager {
   private encryptionKey: Buffer;
 
   constructor(masterKey: string) {
-    this.encryptionKey = crypto.pbkdf2Sync(masterKey, 'config-salt', 100000, 32, 'sha256');
+    this.encryptionKey = crypto.pbkdf2Sync(
+      masterKey,
+      'config-salt',
+      100000,
+      32,
+      'sha256'
+    );
   }
 
   encrypt(value: any): EncryptedValue {
@@ -31,7 +37,7 @@ export class SecureConfigManager {
       value: encrypted,
       algorithm,
       iv: iv.toString('hex'),
-      authTag: cipher.getAuthTag().toString('hex')
+      authTag: cipher.getAuthTag().toString('hex'),
     };
   }
 

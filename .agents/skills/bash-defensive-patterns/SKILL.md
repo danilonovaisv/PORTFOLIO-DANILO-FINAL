@@ -43,7 +43,6 @@ Refer to `resources/implementation-playbook.md` for detailed patterns, checklist
 
 - `resources/implementation-playbook.md` for detailed patterns, checklists, and templates.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

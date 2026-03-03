@@ -23,7 +23,10 @@ supabase secrets set CLOUDFLARE_TURNSTILE_SECRET_KEY=your_secret_key
 ## Invoke the function from your site
 
 ```js
-const { data, error } = await supabase.functions.invoke('cloudflare-turnstile', {
-  body: { token },
-})
+const { data, error } = await supabase.functions.invoke(
+  'cloudflare-turnstile',
+  {
+    body: { token },
+  }
+);
 ```

@@ -4,11 +4,13 @@ name: security-scanning-security-sast
 description: Static Application Security Testing (SAST) for code vulnerability
   analysis across multiple languages and frameworks
 metadata:
-  globs: "**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rb, **/*.go, **/*.rs, **/*.php"
-  keywords: sast, static analysis, code security, vulnerability scanning, bandit,
+  globs: '**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rb, **/*.go, **/*.rs, **/*.php'
+  keywords:
+    sast, static analysis, code security, vulnerability scanning, bandit,
     semgrep, eslint, sonarqube, codeql, security patterns, code review, ast
     analysis
 ---
+
 # SAST Security Plugin
 
 Static Application Security Testing (SAST) for comprehensive code vulnerability detection across multiple languages, frameworks, and security patterns.
@@ -50,18 +52,33 @@ Use for code review security analysis, injection vulnerabilities, hardcoded secr
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Python: Bandit](./sub-skills/python-bandit.md)
+
 ### 2. [JavaScript/TypeScript: ESLint Security](./sub-skills/javascripttypescript-eslint-security.md)
+
 ### 3. [Multi-Language: Semgrep](./sub-skills/multi-language-semgrep.md)
+
 ### 4. [Other Language Tools](./sub-skills/other-language-tools.md)
+
 ### 5. [SQL Injection](./sub-skills/sql-injection.md)
+
 ### 6. [Cross-Site Scripting (XSS)](./sub-skills/cross-site-scripting-xss.md)
+
 ### 7. [Hardcoded Secrets](./sub-skills/hardcoded-secrets.md)
+
 ### 8. [Path Traversal](./sub-skills/path-traversal.md)
+
 ### 9. [Insecure Deserialization](./sub-skills/insecure-deserialization.md)
+
 ### 10. [Command Injection](./sub-skills/command-injection.md)
+
 ### 11. [Insecure Random](./sub-skills/insecure-random.md)
+
 ### 12. [Django](./sub-skills/django.md)
+
 ### 13. [Flask](./sub-skills/flask.md)
+
 ### 14. [Express.js](./sub-skills/expressjs.md)
+
 ### 15. [GitHub Actions](./sub-skills/github-actions.md)
+
 ### 16. [GitLab CI](./sub-skills/gitlab-ci.md)

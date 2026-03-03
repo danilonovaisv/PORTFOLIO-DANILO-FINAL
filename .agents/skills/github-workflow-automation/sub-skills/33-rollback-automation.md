@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       reason:
-        description: "Reason for rollback"
+        description: 'Reason for rollback'
         required: true
 
 jobs:

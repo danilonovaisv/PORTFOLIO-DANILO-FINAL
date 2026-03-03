@@ -34,13 +34,23 @@ Comprehensive guide to modern React state management patterns, from local compon
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. State Categories](./sub-skills/1-state-categories.md)
+
 ### 2. [2. Selection Criteria](./sub-skills/2-selection-criteria.md)
+
 ### 3. [Zustand (Simplest)](./sub-skills/zustand-simplest.md)
+
 ### 4. [Pattern 1: Redux Toolkit with TypeScript](./sub-skills/pattern-1-redux-toolkit-with-typescript.md)
+
 ### 5. [Pattern 2: Zustand with Slices (Scalable)](./sub-skills/pattern-2-zustand-with-slices-scalable.md)
+
 ### 6. [Pattern 3: Jotai for Atomic State](./sub-skills/pattern-3-jotai-for-atomic-state.md)
+
 ### 7. [Pattern 4: React Query for Server State](./sub-skills/pattern-4-react-query-for-server-state.md)
+
 ### 8. [Pattern 5: Combining Client + Server State](./sub-skills/pattern-5-combining-client-server-state.md)
+
 ### 9. [Do's](./sub-skills/dos.md)
+
 ### 10. [Don'ts](./sub-skills/donts.md)
+
 ### 11. [From Legacy Redux to RTK](./sub-skills/from-legacy-redux-to-rtk.md)

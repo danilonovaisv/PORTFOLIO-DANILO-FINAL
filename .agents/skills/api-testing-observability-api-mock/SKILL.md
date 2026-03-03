@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: api-testing-observability-api-mock
-description: "You are an API mocking expert specializing in realistic mock services for development, testing, and demos. Design mocks that simulate real API behavior and enable parallel development."
+description: 'You are an API mocking expert specializing in realistic mock services for development, testing, and demos. Design mocks that simulate real API behavior and enable parallel development.'
 ---
 
 # API Mocking Framework
@@ -45,7 +45,6 @@ $ARGUMENTS
 ## Resources
 
 - `resources/implementation-playbook.md` for code samples, checklists, and templates.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

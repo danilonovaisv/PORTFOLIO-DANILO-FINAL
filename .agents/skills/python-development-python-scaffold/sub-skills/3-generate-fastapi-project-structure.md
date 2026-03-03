@@ -43,6 +43,7 @@ fastapi-project/
 ```
 
 **pyproject.toml**:
+
 ```toml
 [project]
 name = "project-name"
@@ -79,6 +80,7 @@ asyncio_mode = "auto"
 ```
 
 **src/project_name/main.py**:
+
 ```python
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

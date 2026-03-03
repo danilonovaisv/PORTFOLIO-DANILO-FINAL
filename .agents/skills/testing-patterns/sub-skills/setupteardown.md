@@ -1,11 +1,11 @@
 # Setup/Teardown
 
-| Phase | Action |
-|-------|--------|
-| Before All | Connect resources |
-| Before Each | Reset state |
-| After Each | Clean up |
-| After All | Disconnect |
+| Phase       | Action            |
+| ----------- | ----------------- |
+| Before All  | Connect resources |
+| Before Each | Reset state       |
+| After Each  | Clean up          |
+| After All   | Disconnect        |
 
 ---
 

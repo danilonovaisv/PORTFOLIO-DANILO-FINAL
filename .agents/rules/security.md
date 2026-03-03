@@ -10,13 +10,13 @@ trigger: always_on
 
 ## 🚫 1. FORBIDDEN ACTIONS (Cấm tuyệt đối)
 
-1. **Hardcode Secrets**: 
+1. **Hardcode Secrets**:
    - Không bao giờ viết API Key, Password, Token trực tiếp vào code.
    - Luôn sử dụng `process.env` hoặc biến môi trường.
-2. **Commit Token**: 
+2. **Commit Token**:
    - Kiểm tra file `.gitignore` trước khi commit.
    - Đảm bảo `.env` nằm trong `.gitignore`.
-3. **Delete Database**: 
+3. **Delete Database**:
    - Không bao giờ chạy lệnh `DROP TABLE` hoặc xóa file `.sqlite` nếu không có lệnh rõ ràng từ người dùng và BA bước xác nhận.
 
 ---
@@ -37,6 +37,7 @@ trigger: always_on
 ## 🚨 3. INCIDENT PROTOCOL (Quy trình sự cố)
 
 Khi phát hiện lỗ hổng hoặc nghi ngờ lộ secret:
+
 1. **DỪNG**: Ngừng mọi tác vụ hiện tại.
 2. **BÁO CÁO**: Thông báo ngay cho người dùng bằng cảnh báo đ (RED ALERT).
 3. **KHẮC PHỤC**: Đề xuất phương án xoay key (rotation) hoặc vá lỗi.

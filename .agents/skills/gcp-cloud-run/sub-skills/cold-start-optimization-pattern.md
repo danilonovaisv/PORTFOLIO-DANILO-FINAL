@@ -4,14 +4,14 @@ Minimize cold start latency for Cloud Run
 
 **When to use**: ['Latency-sensitive applications', 'User-facing APIs', 'High-traffic services']
 
-```javascript
+````javascript
 ## 1. Enable Startup CPU Boost
 
 ```bash
 gcloud run deploy my-service \
   --cpu-boost \
   --region us-central1
-```
+````
 
 ## 2. Set Minimum Instances
 
@@ -68,6 +68,8 @@ gcloud run deploy my-service \
   --cpu 2 \
   --region us-central1
 ```
+
 ```
 
 ## Anti-Patterns
+```

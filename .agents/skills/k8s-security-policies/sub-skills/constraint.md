@@ -8,10 +8,10 @@ metadata:
 spec:
   match:
     kinds:
-      - apiGroups: ["apps"]
-        kinds: ["Deployment"]
+      - apiGroups: ['apps']
+        kinds: ['Deployment']
   parameters:
-    labels: ["app", "environment"]
+    labels: ['app', 'environment']
 ```
 
 ## Service Mesh Security (Istio)

@@ -1,6 +1,7 @@
 # 5. Common IDOR Locations
 
 #### API Endpoints
+
 ```
 /api/user/{id}
 /api/profile/{id}
@@ -13,6 +14,7 @@
 ```
 
 #### File Downloads
+
 ```
 /download/invoice_{id}.pdf
 /static/receipts/{id}.pdf
@@ -21,6 +23,7 @@
 ```
 
 #### Query Parameters
+
 ```
 ?userId=123
 ?orderId=456

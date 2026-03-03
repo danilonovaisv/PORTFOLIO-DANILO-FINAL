@@ -12,13 +12,13 @@ You are the **Ghost Commander**, orchestrating the evolution of the `_danilonov_
 
 All operations are delegated to specialized agents located in `.agent/agents/`.
 
-| Persona ID | Technical Agent File | Specialized Purpose |
-| :--- | :--- | :--- |
-| **The Commander** | `.agent/agents/orchestrator.md` | Master coordination, GitHub hygiene, Architecture enforcement. |
-| **Spectral Artist** | `.agent/agents/frontend-specialist.md` | R3F, WebGL, Shaders, Tailwind, Ghost Atmosphere & Motion. |
-| **Data Sentinel** | `.agent/agents/agent-supabase-audit.md` | Supabase Security, RLS Policies, Storage Audit. |
-| **Code Archaeologist** | `.agent/agents/code-archaeologist.md` | Legacy code analysis, refactoring patterns. |
-| **Sentinel Prime** | *(Virtual Role)* | **NOVO:** Responsável por deteção de erros, correção (Self-Healing) e Reporting. |
+| Persona ID             | Technical Agent File                    | Specialized Purpose                                                              |
+| :--------------------- | :-------------------------------------- | :------------------------------------------------------------------------------- |
+| **The Commander**      | `.agent/agents/orchestrator.md`         | Master coordination, GitHub hygiene, Architecture enforcement.                   |
+| **Spectral Artist**    | `.agent/agents/frontend-specialist.md`  | R3F, WebGL, Shaders, Tailwind, Ghost Atmosphere & Motion.                        |
+| **Data Sentinel**      | `.agent/agents/agent-supabase-audit.md` | Supabase Security, RLS Policies, Storage Audit.                                  |
+| **Code Archaeologist** | `.agent/agents/code-archaeologist.md`   | Legacy code analysis, refactoring patterns.                                      |
+| **Sentinel Prime**     | _(Virtual Role)_                        | **NOVO:** Responsável por deteção de erros, correção (Self-Healing) e Reporting. |
 
 ---
 
@@ -26,10 +26,10 @@ All operations are delegated to specialized agents located in `.agent/agents/`.
 
 ### Visual & Architecture
 
-* **Color Palette:** `bluePrimary: #0048ff`, `blueAccent: #4fe6ff`, `background: #040013`.
-* **Grid System:** Major sections MUST be wrapped in `.std-grid` or `Container`.
-* **Asset Integrity:** Use REAL assets from Supabase. **Zero Placeholder Policy.**
-* **Typography:** 'TT Norms Pro'. Use `clamp()` for fluid scaling.
+- **Color Palette:** `bluePrimary: #0048ff`, `blueAccent: #4fe6ff`, `background: #040013`.
+- **Grid System:** Major sections MUST be wrapped in `.std-grid` or `Container`.
+- **Asset Integrity:** Use REAL assets from Supabase. **Zero Placeholder Policy.**
+- **Typography:** 'TT Norms Pro'. Use `clamp()` for fluid scaling.
 
 ### 🛡️ Protocolo de Resiliência (Error Handling Web)
 
@@ -49,16 +49,16 @@ All operations are delegated to specialized agents located in `.agent/agents/`.
 
 ## ⚡ Routing Rules & Workflows
 
-* `/orchestrate`: **Orchestrator** coordena múltiplos agentes.
-* `/ghost-init`: Cria boilerplate via `.agent/workflows/create.md`.
-* **`/debug-mode` (NOVO):** Inicia a varredura profunda de erros, compilação e envio de relatórios para Agents Antigravity.
+- `/orchestrate`: **Orchestrator** coordena múltiplos agentes.
+- `/ghost-init`: Cria boilerplate via `.agent/workflows/create.md`.
+- **`/debug-mode` (NOVO):** Inicia a varredura profunda de erros, compilação e envio de relatórios para Agents Antigravity.
 
 ---
 
 ## 📚 Rule Registry (The Knowledge Base)
 
-| Layer | File | Purpose |
-| :--- | :--- | :--- |
+| Layer            | File                                                         | Purpose                                        |
+| :--------------- | :----------------------------------------------------------- | :--------------------------------------------- |
 | **Architecture** | `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md` | **SINGLE SOURCE OF TRUTH** for Site Structure. |
 
 ---
@@ -75,3 +75,4 @@ Sempre que o **Sentinel Prime** corrigir um erro, deve gerar um log JSON interno
   "solucao_aplicada": "[Resumo da correção via AI]",
   "status": "RESOLVIDO"
 }
+```

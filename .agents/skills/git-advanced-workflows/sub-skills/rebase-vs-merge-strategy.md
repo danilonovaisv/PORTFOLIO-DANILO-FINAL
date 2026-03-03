@@ -1,11 +1,13 @@
 # Rebase vs Merge Strategy
 
 **When to Rebase:**
+
 - Cleaning up local commits before pushing
 - Keeping feature branch up-to-date with main
 - Creating linear history for easier review
 
 **When to Merge:**
+
 - Integrating completed features into main
 - Preserving exact history of collaboration
 - Public branches used by others

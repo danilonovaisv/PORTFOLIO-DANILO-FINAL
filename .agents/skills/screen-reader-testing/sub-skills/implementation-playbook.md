@@ -376,10 +376,10 @@ function openModal(modal) {
   lastFocus = document.activeElement;
 
   // Move focus to modal
-  modal.querySelector("h2").focus();
+  modal.querySelector('h2').focus();
 
   // Trap focus
-  modal.addEventListener("keydown", trapFocus);
+  modal.addEventListener('keydown', trapFocus);
 }
 
 function closeModal(modal) {
@@ -388,9 +388,9 @@ function closeModal(modal) {
 }
 
 function trapFocus(e) {
-  if (e.key === "Tab") {
+  if (e.key === 'Tab') {
     const focusable = modal.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -404,7 +404,7 @@ function trapFocus(e) {
     }
   }
 
-  if (e.key === "Escape") {
+  if (e.key === 'Escape') {
     closeModal(modal);
   }
 }
@@ -467,22 +467,22 @@ function trapFocus(e) {
 
 ```javascript
 // Tab keyboard navigation
-tablist.addEventListener("keydown", (e) => {
+tablist.addEventListener('keydown', (e) => {
   const tabs = [...tablist.querySelectorAll('[role="tab"]')];
   const index = tabs.indexOf(document.activeElement);
 
   let newIndex;
   switch (e.key) {
-    case "ArrowRight":
+    case 'ArrowRight':
       newIndex = (index + 1) % tabs.length;
       break;
-    case "ArrowLeft":
+    case 'ArrowLeft':
       newIndex = (index - 1 + tabs.length) % tabs.length;
       break;
-    case "Home":
+    case 'Home':
       newIndex = 0;
       break;
-    case "End":
+    case 'End':
       newIndex = tabs.length - 1;
       break;
     default:
@@ -502,18 +502,18 @@ tablist.addEventListener("keydown", (e) => {
 function logAccessibleName(element) {
   const computed = window.getComputedStyle(element);
   console.log({
-    role: element.getAttribute("role") || element.tagName,
+    role: element.getAttribute('role') || element.tagName,
     name:
-      element.getAttribute("aria-label") ||
-      element.getAttribute("aria-labelledby") ||
+      element.getAttribute('aria-label') ||
+      element.getAttribute('aria-labelledby') ||
       element.textContent,
     state: {
-      expanded: element.getAttribute("aria-expanded"),
-      selected: element.getAttribute("aria-selected"),
-      checked: element.getAttribute("aria-checked"),
+      expanded: element.getAttribute('aria-expanded'),
+      selected: element.getAttribute('aria-selected'),
+      checked: element.getAttribute('aria-checked'),
       disabled: element.disabled,
     },
-    visible: computed.display !== "none" && computed.visibility !== "hidden",
+    visible: computed.display !== 'none' && computed.visibility !== 'hidden',
   });
 }
 ```

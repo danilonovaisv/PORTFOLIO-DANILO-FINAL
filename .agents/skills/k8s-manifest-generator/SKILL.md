@@ -11,6 +11,7 @@ Step-by-step guidance for creating production-ready Kubernetes manifests includi
 ## Use this skill when
 
 Use this skill when you need to:
+
 - Create new Kubernetes Deployment manifests
 - Define Service resources for network connectivity
 - Generate ConfigMap and Secret resources for configuration management
@@ -34,7 +35,6 @@ Use this skill when you need to:
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

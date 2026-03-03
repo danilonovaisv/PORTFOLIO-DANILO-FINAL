@@ -6,3 +6,4 @@ Creating templates people pay for
 
 ```javascript
 ## Template Design
+```

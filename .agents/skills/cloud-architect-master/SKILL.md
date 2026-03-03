@@ -13,6 +13,7 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 ---
 
 ## 📑 Internal Menu
+
 1. [Multi-Cloud & Provider Selection](#1-multi-cloud--provider-selection)
 2. [Hybrid Cloud Architecture](#2-hybrid-cloud-architecture)
 3. [Cloud-Native Networking & Security](#3-cloud-native-networking--security)
@@ -22,7 +23,9 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 ---
 
 ## 1. Multi-Cloud & Provider Selection
-*Avoiding vendor lock-in while leveraging best-of-breed services.*
+
+_Avoiding vendor lock-in while leveraging best-of-breed services._
+
 - **Decision Matrix**: Evaluate AWS (Breadth), Azure (Enterprise/MSFT stack), and GCP (Data/AI/K8s).
 - **Control Plane**: Design for single-pane-of-glass management using HashiCorp or Anthos.
 - **Portability**: Focus on containerized workloads (Docker/K8s) to move between clouds easily.
@@ -30,7 +33,9 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 ---
 
 ## 2. Hybrid Cloud Architecture
-*Bridging on-premises and public cloud.*
+
+_Bridging on-premises and public cloud._
+
 - **Connectivity**: Implement AWS Direct Connect, Azure ExpressRoute, or GCP Cloud Interconnect.
 - **Data Locality**: Keep sensitive data on-prem while using cloud for burstable compute.
 - **Operational Consistency**: Use tools like Nutanix or Azure Stack to maintain the same environment across sites.
@@ -38,7 +43,9 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 ---
 
 ## 3. Cloud-Native Networking & Security
-*Zero Trust and Secure Access.*
+
+_Zero Trust and Secure Access._
+
 - **VPC Design**: Subnet isolation, NAT Gateways, and Peering.
 - **Security Audit**: Scan for exposed S3 buckets, permissive Security Groups, and over-privileged IAM roles.
 - **SSO/IAM**: Centralize identity management with OIDC/SAML.
@@ -46,6 +53,7 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 ---
 
 ## 4. Infrastructure as Code (IaC) & Automation
+
 - **Terraform/OpenTofu**: Modern state management and modular design.
 - **GitOps**: Automate deployments via ArgoCD or Flux.
 - **Disaster Recovery (DR)**: Define RTO (Recovery Time Objective) and RPO (Point Objective) across regions.
@@ -53,6 +61,7 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 ---
 
 ## 5. FinOps & Cost Optimization
+
 - **Right-sizing**: Monitor utilization and downsize over-provisioned instances.
 - **Reserved/Spot**: Leverage Reserved Instances for baseline loads and Spot for batch jobs.
 - **Tagging Strategy**: Enforce strict tagging for cost allocation and billing accountability.
@@ -69,4 +78,5 @@ You are a **Principal Cloud Architect and Infrastructure Engineer**. You design 
 3. **Simulate Cost**: Estimate expenses and optimize before deployment.
 
 ---
-*Merged and optimized from 5 legacy cloud architecture and networking skills.*
+
+_Merged and optimized from 5 legacy cloud architecture and networking skills._

@@ -6,15 +6,15 @@ const [first, second, ...rest] = [1, 2, 3, 4, 5];
 // first = 1, second = 2, rest = [3, 4, 5]
 
 // Object destructuring
-const { name, age, city = "Unknown" } = { name: "Alice", age: 25 };
+const { name, age, city = 'Unknown' } = { name: 'Alice', age: 25 };
 // name = "Alice", age = 25, city = "Unknown"
 
 // Renaming
-const { name: userName } = { name: "Bob" };
+const { name: userName } = { name: 'Bob' };
 // userName = "Bob"
 
 // Nested
 const {
   address: { street },
-} = { address: { street: "123 Main" } };
+} = { address: { street: '123 Main' } };
 ```

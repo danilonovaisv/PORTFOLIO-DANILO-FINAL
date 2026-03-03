@@ -1,6 +1,7 @@
 # reportlab - Create PDFs
 
 #### Basic PDF Creation
+
 ```python
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -20,6 +21,7 @@ c.save()
 ```
 
 #### Create PDF with Multiple Pages
+
 ```python
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak

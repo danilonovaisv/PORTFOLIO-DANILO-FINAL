@@ -4,10 +4,10 @@ The **SEO Health Index** provides a **normalized, explainable score** that summa
 
 It is designed to:
 
-* Communicate severity at a glance
-* Support prioritization
-* Track improvement over time
-* Avoid misleading “one-number SEO” claims
+- Communicate severity at a glance
+- Support prioritization
+- Track improvement over time
+- Avoid misleading “one-number SEO” claims
 
 ---
 

@@ -1,10 +1,11 @@
 # Complex Expressions
 
-| ❌ Wrong | ✅ Correct |
-|----------|-----------|
+| ❌ Wrong                    | ✅ Correct              |
+| --------------------------- | ----------------------- |
 | `"Value: $($obj.prop.sub)"` | Store in variable first |
 
 **Pattern:**
+
 ```
 $value = $obj.prop.sub
 Write-Output "Value: $value"

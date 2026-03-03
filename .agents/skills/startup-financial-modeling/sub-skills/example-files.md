@@ -1,6 +1,7 @@
 # Example Files
 
 Working financial models with formulas:
+
 - **`examples/saas-financial-model.md`** - Complete 3-year SaaS model with cohort analysis
 - **`examples/marketplace-model.md`** - Marketplace GMV and take rate projections
 - **`examples/scenario-analysis.md`** - Three-scenario framework with sensitivities

@@ -2,6 +2,7 @@
 
 **Cause**: Response doesn't clearly indicate data ownership
 **Solution**:
+
 ```
 # Verification methods:
 1. Create unique identifiable data in victim account

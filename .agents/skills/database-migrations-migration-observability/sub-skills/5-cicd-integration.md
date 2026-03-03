@@ -47,6 +47,7 @@ Focus on real-time visibility, proactive alerting, and comprehensive observabili
 ## Cross-Plugin Integration
 
 This plugin integrates with:
+
 - **sql-migrations**: Provides observability for SQL migrations
 - **nosql-migrations**: Monitors NoSQL transformations
 - **migration-integration**: Coordinates monitoring across workflows

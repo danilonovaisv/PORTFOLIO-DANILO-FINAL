@@ -1,6 +1,6 @@
 # 8. Documentation Generation
 
-```python
+````python
 from typing import Dict, List
 import yaml
 
@@ -34,7 +34,7 @@ class ConfigDocGenerator:
                 sections.append("```\n")
 
         return sections
-```
+````
 
 ## Output Format
 

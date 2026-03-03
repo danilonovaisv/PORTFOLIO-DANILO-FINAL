@@ -15,13 +15,14 @@ use external_single_structure;
 use external_value;
 
 class your_api_name extends external_api {
-    
+
     // Three required methods will go here
-    
+
 }
 ```
 
 **Key Points**:
+
 - Class must extend `external_api`
 - Namespace follows: `local_pluginname\external` or `mod_modname\external`
 - Include the security check: `defined('MOODLE_INTERNAL') || die();`

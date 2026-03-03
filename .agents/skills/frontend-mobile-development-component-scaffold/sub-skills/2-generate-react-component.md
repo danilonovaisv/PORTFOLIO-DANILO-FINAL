@@ -16,7 +16,7 @@ class ReactComponentGenerator {
       styles: this.generateStyles(spec),
       tests: options.testing ? this.generateTests(spec) : null,
       stories: options.storybook ? this.generateStories(spec) : null,
-      index: this.generateIndex(spec)
+      index: this.generateIndex(spec),
     };
   }
 
@@ -46,26 +46,34 @@ class ReactComponentGenerator {
   }
 
   generatePropTypes(spec: ComponentSpec): string {
-    const props = spec.props.map(p => {
-      const optional = p.required ? '' : '?';
-      const comment = p.description ? `  /** ${p.description} */\n` : '';
-      return `${comment}  ${p.name}${optional}: ${p.type};`;
-    }).join('\n');
+    const props = spec.props
+      .map((p) => {
+        const optional = p.required ? '' : '?';
+        const comment = p.description ? `  /** ${p.description} */\n` : '';
+        return `${comment}  ${p.name}${optional}: ${p.type};`;
+      })
+      .join('\n');
 
     return `export interface ${spec.name}Props {\n${props}\n}`;
   }
 
-  generateComponentBody(spec: ComponentSpec, options: GeneratorOptions): string {
+  generateComponentBody(
+    spec: ComponentSpec,
+    options: GeneratorOptions
+  ): string {
     const propsType = options.typescript ? `: React.FC<${spec.name}Props>` : '';
-    const destructuredProps = spec.props.map(p => p.name).join(', ');
+    const destructuredProps = spec.props.map((p) => p.name).join(', ');
 
     let body = `export const ${spec.name}${propsType} = ({ ${destructuredProps} }) => {\n`;
 
     // Add state hooks
     if (spec.state) {
-      body += spec.state.map(s =>
-        `  const [${s.name}, set${this.capitalize(s.name)}] = useState${options.typescript ? `<${s.type}>` : ''}(${s.initial});\n`
-      ).join('');
+      body += spec.state
+        .map(
+          (s) =>
+            `  const [${s.name}, set${this.capitalize(s.name)}] = useState${options.typescript ? `<${s.type}>` : ''}(${s.initial});\n`
+        )
+        .join('');
       body += '\n';
     }
 
@@ -80,7 +88,7 @@ class ReactComponentGenerator {
     if (options.accessibility) {
       body += `  const a11yProps = useA11y({\n`;
       body += `    role: '${this.inferAriaRole(spec.type)}',\n`;
-      body += `    label: ${spec.props.find(p => p.name === 'label')?.name || `'${spec.name}'`}\n`;
+      body += `    label: ${spec.props.find((p) => p.name === 'label')?.name || `'${spec.name}'`}\n`;
       body += `  });\n\n`;
     }
 
@@ -94,12 +102,17 @@ class ReactComponentGenerator {
   }
 
   generateJSX(spec: ComponentSpec, options: GeneratorOptions): string {
-    const className = spec.styling === 'css-modules' ? `className={styles.${this.camelCase(spec.name)}}` : '';
+    const className =
+      spec.styling === 'css-modules'
+        ? `className={styles.${this.camelCase(spec.name)}}`
+        : '';
     const a11y = options.accessibility ? '{...a11yProps}' : '';
 
-    return `    <div ${className} ${a11y}>\n` +
-           `      {/* TODO: Add component content */}\n` +
-           `    </div>\n`;
+    return (
+      `    <div ${className} ${a11y}>\n` +
+      `      {/* TODO: Add component content */}\n` +
+      `    </div>\n`
+    );
   }
 }
 ```

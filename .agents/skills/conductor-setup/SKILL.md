@@ -4,7 +4,7 @@ name: conductor-setup
 description: Initialize project with Conductor artifacts (product definition,
   tech stack, workflow, style guides)
 metadata:
-  argument-hint: "[--resume]"
+  argument-hint: '[--resume]'
 ---
 
 # Conductor Setup
@@ -67,14 +67,25 @@ Initialize or resume Conductor project setup. This command creates foundational 
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Section 1: Product Definition (max 5 questions)](./sub-skills/section-1-product-definition-max-5-questions.md)
+
 ### 2. [Section 2: Product Guidelines (max 3 questions)](./sub-skills/section-2-product-guidelines-max-3-questions.md)
+
 ### 3. [Section 3: Tech Stack (max 5 questions)](./sub-skills/section-3-tech-stack-max-5-questions.md)
+
 ### 4. [Section 4: Workflow Preferences (max 4 questions)](./sub-skills/section-4-workflow-preferences-max-4-questions.md)
+
 ### 5. [Section 5: Code Style Guides (max 2 questions)](./sub-skills/section-5-code-style-guides-max-2-questions.md)
+
 ### 6. [1. conductor/index.md](./sub-skills/1-conductorindexmd.md)
+
 ### 7. [2. conductor/product.md](./sub-skills/2-conductorproductmd.md)
+
 ### 8. [3. conductor/product-guidelines.md](./sub-skills/3-conductorproduct-guidelinesmd.md)
+
 ### 9. [4. conductor/tech-stack.md](./sub-skills/4-conductortech-stackmd.md)
+
 ### 10. [5. conductor/workflow.md](./sub-skills/5-conductorworkflowmd.md)
+
 ### 11. [6. conductor/tracks.md](./sub-skills/6-conductortracksmd.md)
+
 ### 12. [7. conductor/code_styleguides/](./sub-skills/7-conductorcode_styleguides.md)

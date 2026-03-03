@@ -17,8 +17,8 @@ Brief one-line description.
 ## Configuration
 
 | Variable | Description | Default |
-|----------|-------------|---------|
-| PORT | Server port | 3000 |
+| -------- | ----------- | ------- |
+| PORT     | Server port | 3000    |
 
 ## Documentation
 

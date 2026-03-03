@@ -9,7 +9,7 @@ Core ontology design patterns for Belief-Desire-Intention mental state modeling.
 ```
 bdi:MentalEntity
 ├── bdi:Belief          # Informational dimension
-├── bdi:Desire          # Motivational dimension  
+├── bdi:Desire          # Motivational dimension
 ├── bdi:Intention       # Deliberative dimension
 ├── bdi:Goal            # Description of desired end state
 └── bdi:Plan            # Structured action sequence
@@ -41,58 +41,58 @@ bdi:TimeInstant       # Point in time reference
 
 ### Motivational Relations
 
-| Property | Domain | Range | Description |
-|----------|--------|-------|-------------|
-| `motivates` | Belief | Desire | Belief provides reason for desire |
-| `isMotivatedBy` | Desire | Belief | Inverse of motivates |
-| `fulfils` | Intention | Desire | Intention commits to achieving desire |
-| `isFulfilledBy` | Desire | Intention | Inverse of fulfils |
-| `isSupportedBy` | Intention | Belief | Beliefs supporting intention viability |
+| Property        | Domain    | Range     | Description                            |
+| --------------- | --------- | --------- | -------------------------------------- |
+| `motivates`     | Belief    | Desire    | Belief provides reason for desire      |
+| `isMotivatedBy` | Desire    | Belief    | Inverse of motivates                   |
+| `fulfils`       | Intention | Desire    | Intention commits to achieving desire  |
+| `isFulfilledBy` | Desire    | Intention | Inverse of fulfils                     |
+| `isSupportedBy` | Intention | Belief    | Beliefs supporting intention viability |
 
 ### Generative Relations
 
-| Property | Domain | Range | Description |
-|----------|--------|-------|-------------|
-| `generates` | MentalProcess | MentalEntity | Process creates mental state |
-| `isGeneratedBy` | MentalEntity | MentalProcess | Inverse of generates |
-| `modifies` | MentalProcess | MentalEntity | Process updates existing state |
-| `suppresses` | MentalProcess | MentalEntity | Process deactivates state |
-| `isTriggeredBy` | MentalProcess | MentalEntity | State initiates process |
+| Property        | Domain        | Range         | Description                    |
+| --------------- | ------------- | ------------- | ------------------------------ |
+| `generates`     | MentalProcess | MentalEntity  | Process creates mental state   |
+| `isGeneratedBy` | MentalEntity  | MentalProcess | Inverse of generates           |
+| `modifies`      | MentalProcess | MentalEntity  | Process updates existing state |
+| `suppresses`    | MentalProcess | MentalEntity  | Process deactivates state      |
+| `isTriggeredBy` | MentalProcess | MentalEntity  | State initiates process        |
 
 ### Referential Relations
 
-| Property | Domain | Range | Description |
-|----------|--------|-------|-------------|
-| `refersTo` | MentalEntity | WorldState | Mental state about world |
-| `perceives` | Agent | WorldState | Agent observes world |
-| `bringsAbout` | Action | WorldState | Action causes world change |
-| `reasonsUpon` | MentalProcess | MentalEntity | Input to reasoning |
+| Property      | Domain        | Range        | Description                |
+| ------------- | ------------- | ------------ | -------------------------- |
+| `refersTo`    | MentalEntity  | WorldState   | Mental state about world   |
+| `perceives`   | Agent         | WorldState   | Agent observes world       |
+| `bringsAbout` | Action        | WorldState   | Action causes world change |
+| `reasonsUpon` | MentalProcess | MentalEntity | Input to reasoning         |
 
 ### Structural Relations
 
-| Property | Domain | Range | Description |
-|----------|--------|-------|-------------|
-| `hasPart` | MentalEntity | MentalEntity | Meronymic composition |
-| `specifies` | Intention | Plan | Intention defines plan |
-| `addresses` | Plan | Goal | Plan achieves goal |
-| `hasComponent` | Plan | Task | Plan contains tasks |
-| `precedes` | Task | Task | Task ordering |
+| Property       | Domain       | Range        | Description            |
+| -------------- | ------------ | ------------ | ---------------------- |
+| `hasPart`      | MentalEntity | MentalEntity | Meronymic composition  |
+| `specifies`    | Intention    | Plan         | Intention defines plan |
+| `addresses`    | Plan         | Goal         | Plan achieves goal     |
+| `hasComponent` | Plan         | Task         | Plan contains tasks    |
+| `precedes`     | Task         | Task         | Task ordering          |
 
 ### Temporal Relations
 
-| Property | Domain | Range | Description |
-|----------|--------|-------|-------------|
-| `atTime` | Entity | TimeInstant | Point occurrence |
-| `hasValidity` | MentalEntity | TimeInterval | Persistence bounds |
-| `hasStartTime` | TimeInterval | TimeInstant | Interval start |
-| `hasEndTime` | TimeInterval | TimeInstant | Interval end |
+| Property       | Domain       | Range        | Description        |
+| -------------- | ------------ | ------------ | ------------------ |
+| `atTime`       | Entity       | TimeInstant  | Point occurrence   |
+| `hasValidity`  | MentalEntity | TimeInterval | Persistence bounds |
+| `hasStartTime` | TimeInterval | TimeInstant  | Interval start     |
+| `hasEndTime`   | TimeInterval | TimeInstant  | Interval end       |
 
 ### Justification Relations
 
-| Property | Domain | Range | Description |
-|----------|--------|-------|-------------|
-| `isJustifiedBy` | MentalEntity | Justification | Evidential support |
-| `justifies` | Justification | MentalEntity | Inverse relation |
+| Property        | Domain        | Range         | Description        |
+| --------------- | ------------- | ------------- | ------------------ |
+| `isJustifiedBy` | MentalEntity  | Justification | Evidential support |
+| `justifies`     | Justification | MentalEntity  | Inverse relation   |
 
 ## Ontological Restrictions
 
@@ -164,34 +164,39 @@ bdi:IntentionProcess rdfs:subClassOf [
 
 The BDI ontology aligns with DOLCE Ultra Lite (DUL) foundational ontology:
 
-| BDI Class | DUL Superclass | Rationale |
-|-----------|----------------|-----------|
-| `Agent` | `dul:Agent` | Intentional entity capable of action |
-| `Belief` | `dul:InformationObject` | Information-bearing entity |
-| `Desire` | `dul:Description` | Describes desired state |
-| `Intention` | `dul:Description` | Describes committed course |
-| `Goal` | `dul:Goal` | Desired end state description |
-| `Plan` | `dul:Plan` | Organized action sequence |
-| `WorldState` | `dul:Situation` | Configuration of entities |
-| `MentalProcess` | `dul:Event` | Temporally extended occurrence |
-| `Task` | `dul:Task` | Unit of planned work |
-| `Action` | `dul:Action` | Performed task instance |
+| BDI Class       | DUL Superclass          | Rationale                            |
+| --------------- | ----------------------- | ------------------------------------ |
+| `Agent`         | `dul:Agent`             | Intentional entity capable of action |
+| `Belief`        | `dul:InformationObject` | Information-bearing entity           |
+| `Desire`        | `dul:Description`       | Describes desired state              |
+| `Intention`     | `dul:Description`       | Describes committed course           |
+| `Goal`          | `dul:Goal`              | Desired end state description        |
+| `Plan`          | `dul:Plan`              | Organized action sequence            |
+| `WorldState`    | `dul:Situation`         | Configuration of entities            |
+| `MentalProcess` | `dul:Event`             | Temporally extended occurrence       |
+| `Task`          | `dul:Task`              | Unit of planned work                 |
+| `Action`        | `dul:Action`            | Performed task instance              |
 
 ## Reused Ontology Design Patterns
 
 ### EventCore Pattern
+
 Used for mental processes with temporal aspects and participant roles.
 
-### Situation Pattern  
+### Situation Pattern
+
 Used for world state configurations that mental states reference.
 
 ### TimeIndexedSituation Pattern
+
 Used for associating mental states with validity intervals.
 
 ### BasicPlan Pattern
+
 Used for goal-plan-task structures linking intentions to actions.
 
 ### Provenance Pattern
+
 Used for justification tracking and evidential chains.
 
 ## Namespace Declarations
@@ -204,4 +209,3 @@ Used for justification tracking and evidential chains.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 ```
-

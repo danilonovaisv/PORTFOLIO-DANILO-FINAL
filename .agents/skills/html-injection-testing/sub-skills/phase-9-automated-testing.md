@@ -45,7 +45,7 @@ payloads = [
 for payload in payloads:
     encoded = urllib.parse.quote(payload)
     url = f"{target}?{param}={encoded}"
-    
+
     try:
         response = requests.get(url, timeout=5)
         if payload.lower() in response.text.lower():

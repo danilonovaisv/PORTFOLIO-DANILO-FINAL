@@ -17,4 +17,5 @@ testing-master/
 ## 🚀 Usage
 
 ### 1. Release Gate
+
 Use `checklists/pre_release.md` as the final gateway before pushing to Production. All items must be checked.

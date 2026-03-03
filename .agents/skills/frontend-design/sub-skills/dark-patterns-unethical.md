@@ -53,10 +53,10 @@ For deeper guidance on specific areas:
 
 ## Related Skills
 
-| Skill | When to Use |
-|-------|-------------|
-| **frontend-design** (this) | Before coding - Learn design principles (color, typography, UX psychology) |
-| **[web-design-guidelines](../web-design-guidelines/SKILL.md)** | After coding - Audit for accessibility, performance, and best practices |
+| Skill                                                          | When to Use                                                                |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **frontend-design** (this)                                     | Before coding - Learn design principles (color, typography, UX psychology) |
+| **[web-design-guidelines](../web-design-guidelines/SKILL.md)** | After coding - Audit for accessibility, performance, and best practices    |
 
 ## Post-Design Workflow
 

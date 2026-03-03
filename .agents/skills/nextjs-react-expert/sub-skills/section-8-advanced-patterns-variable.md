@@ -8,6 +8,7 @@
 ## 🎓 Best Practices Summary
 
 **Golden Rules:**
+
 1. **Measure first** - Use React DevTools Profiler, Chrome DevTools
 2. **Biggest impact first** - Waterfalls → Bundle → Server → Micro
 3. **Don't over-optimize** - Focus on real bottlenecks
@@ -15,6 +16,7 @@
 5. **Think about users** - Real-world conditions matter
 
 **Performance Mindset:**
+
 - Every `await` in sequence = potential waterfall
 - Every `import` = potential bundle bloat
 - Every re-render = wasted computation (if unnecessary)

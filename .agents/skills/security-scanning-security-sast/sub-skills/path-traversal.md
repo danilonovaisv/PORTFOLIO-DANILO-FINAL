@@ -3,6 +3,7 @@
 **VULNERABLE**: Opening files using unsanitized user input
 
 **SECURE**:
+
 ```python
 import os
 ALLOWED_DIR = '/var/www/uploads'

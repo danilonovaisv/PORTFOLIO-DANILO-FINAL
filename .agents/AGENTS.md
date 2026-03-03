@@ -1,7 +1,7 @@
 # 🚀 Antigravity Agent - Central Index (AGENTS.md)
 
 **Welcome to the Ghost System Workspace Orchestrator.**
-*This is the Single Source of Truth for AI Agents.*
+_This is the Single Source of Truth for AI Agents._
 
 ## 📂 1. Directory Structure
 
@@ -9,7 +9,7 @@ O diretório `.agents` está estritamente estruturado em 4 pilares geradores de 
 
 - `.agents/workflows` - Sequências definidas para execução de ações.
 - `.agents/skills` - Habilidades carregadas dinamicamente via Model Context Protocol / Composio.
-- `.agents/rules` - Regras imutáveis do projeto que definem *como* as tarefas são feitas.
+- `.agents/rules` - Regras imutáveis do projeto que definem _como_ as tarefas são feitas.
 - `.agents/personas` - Personalidades agênticas especializadas (ex: Spectral Artist, Code Archaeologist, Sentinel Prime).
 
 Qualquer outro elemento de contexto deve estar na pasta central de contexto estratégico global `.context`.
@@ -24,7 +24,7 @@ Qualquer outro elemento de contexto deve estar na pasta central de contexto estr
 
 ## 🧭 3. Reading Hierarchy
 
-Quando "spawned" para uma nova tarefa, leia a documentação *nesta exata ordem*:
+Quando "spawned" para uma nova tarefa, leia a documentação _nesta exata ordem_:
 
 1. `.agents/AGENTS.md` - O documento atual, para indexar a missão global.
 2. `.agents/rules/GEMINI.md` ou `.agents/rules/00-global-identity.md` - Para calibração de personagem.
@@ -39,4 +39,4 @@ Quando "spawned" para uma nova tarefa, leia a documentação *nesta exata ordem*
 - **Code Archaeologist (`code-archaeologist.md`)**: Analisa código existente e aplica modernizações.
 - **Sentinel Prime (`debugger.md`)**: Foco em self-healing, monitoramento de exceptions e estabilidade do fluxo de dados.
 
-*O uso dessa documentação é mandatário. O descumprimento dos fluxos aqui indicados constitui quebra de protocolo agêntico.*
+_O uso dessa documentação é mandatário. O descumprimento dos fluxos aqui indicados constitui quebra de protocolo agêntico._

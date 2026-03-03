@@ -20,18 +20,8 @@
     "author": "Asmayaseen",
     "license": "MIT",
     "category": "coding",
-    "tags": [
-      "React",
-      "animations",
-      "Framer Motion",
-      "UI",
-      "frontend"
-    ],
-    "supported_tools": [
-      "claude",
-      "codex",
-      "claude-code"
-    ],
+    "tags": ["React", "animations", "Framer Motion", "UI", "frontend"],
+    "supported_tools": ["claude", "codex", "claude-code"],
     "risk_factors": []
   },
   "security_audit": {

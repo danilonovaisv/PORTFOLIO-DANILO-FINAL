@@ -1,6 +1,7 @@
 # Phase 1: Detection and Reconnaissance
 
 #### Identify Injectable Parameters
+
 Locate user-controlled input fields that interact with database queries:
 
 ```
@@ -12,6 +13,7 @@ Locate user-controlled input fields that interact with database queries:
 ```
 
 #### Test for Basic Vulnerability Indicators
+
 Insert special characters to trigger error responses:
 
 ```sql
@@ -34,12 +36,14 @@ Insert special characters to trigger error responses:
 ```
 
 Monitor application responses for:
+
 - Database error messages revealing query structure
 - Unexpected application behavior changes
 - HTTP 500 Internal Server errors
 - Modified response content or length
 
 #### Logic Testing Payloads
+
 Verify boolean-based vulnerability presence:
 
 ```sql
@@ -48,7 +52,7 @@ page.asp?id=1 or 1=1
 page.asp?id=1' or 1=1--
 page.asp?id=1" or 1=1--
 
--- False condition tests  
+-- False condition tests
 page.asp?id=1 and 1=2
 page.asp?id=1' and 1=2--
 ```

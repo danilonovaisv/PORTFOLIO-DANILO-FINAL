@@ -40,7 +40,6 @@ Production patterns for implementing data quality with Great Expectations, dbt t
 
 - `resources/implementation-playbook.md` for detailed frameworks, templates, and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

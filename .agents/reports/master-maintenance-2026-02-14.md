@@ -62,15 +62,15 @@ To maintain system health, the user **MUST** periodically address the local envi
 
 1. **Unlock Environment:**
 
-    ```bash
-    sudo chown -R $(whoami) .
-    ```
+   ```bash
+   sudo chown -R $(whoami) .
+   ```
 
 2. **Deploy:**
 
-    ```bash
-    pnpm run build
-    firebase deploy --only hosting
-    ```
+   ```bash
+   pnpm run build
+   firebase deploy --only hosting
+   ```
 
 **Signed:** Ghost Commander

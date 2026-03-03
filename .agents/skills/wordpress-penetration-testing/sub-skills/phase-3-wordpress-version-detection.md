@@ -20,6 +20,7 @@ curl -s http://target.com/comments/feed/
 ```
 
 Version sources:
+
 - Meta generator tag in HTML
 - readme.html file
 - RSS/Atom feeds

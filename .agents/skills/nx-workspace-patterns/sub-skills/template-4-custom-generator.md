@@ -40,7 +40,10 @@ export default async function featureLibraryGenerator(
   });
 
   // Add custom files
-  const projectConfig = readProjectConfiguration(tree, `${scope}-feature-${name}`);
+  const projectConfig = readProjectConfiguration(
+    tree,
+    `${scope}-feature-${name}`
+  );
   const projectNames = names(name);
 
   generateFiles(

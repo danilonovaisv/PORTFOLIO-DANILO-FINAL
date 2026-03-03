@@ -31,11 +31,11 @@
  *    ```
  */
 
-"use client";
+'use client';
 
-import { ReactNode } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { ReactNode } from 'react';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 // ============================================================================
 // Transition Variants - Choose or customize
@@ -52,14 +52,14 @@ export const fadeVariants: Variants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   exit: {
     opacity: 0,
     transition: {
       duration: 0.2,
-      ease: "easeIn",
+      ease: 'easeIn',
     },
   },
 };
@@ -153,7 +153,7 @@ interface PageTransitionProps {
    * Choose a preset variant or provide custom variants
    * @default "slideUp"
    */
-  variant?: "fade" | "slideUp" | "scale" | "slideScale" | Variants;
+  variant?: 'fade' | 'slideUp' | 'scale' | 'slideScale' | Variants;
   /**
    * Additional CSS classes for the motion wrapper
    */
@@ -175,10 +175,10 @@ const variantMap = {
  */
 export function PageTransition({
   children,
-  variant = "slideUp",
+  variant = 'slideUp',
   className,
 }: PageTransitionProps) {
-  const variants = typeof variant === "string" ? variantMap[variant] : variant;
+  const variants = typeof variant === 'string' ? variantMap[variant] : variant;
 
   return (
     <motion.div
@@ -203,7 +203,7 @@ interface PageTransitionProviderProps {
    * Choose a preset variant or provide custom variants
    * @default "slideUp"
    */
-  variant?: "fade" | "slideUp" | "scale" | "slideScale" | Variants;
+  variant?: 'fade' | 'slideUp' | 'scale' | 'slideScale' | Variants;
   /**
    * AnimatePresence mode
    * - "wait": Wait for exit before enter (recommended)
@@ -211,7 +211,7 @@ interface PageTransitionProviderProps {
    * - "popLayout": Maintain layout during exit
    * @default "wait"
    */
-  mode?: "wait" | "sync" | "popLayout";
+  mode?: 'wait' | 'sync' | 'popLayout';
   /**
    * Additional CSS classes for the motion wrapper
    */
@@ -226,12 +226,12 @@ interface PageTransitionProviderProps {
  */
 export function PageTransitionProvider({
   children,
-  variant = "slideUp",
-  mode = "wait",
+  variant = 'slideUp',
+  mode = 'wait',
   className,
 }: PageTransitionProviderProps) {
   const pathname = usePathname();
-  const variants = typeof variant === "string" ? variantMap[variant] : variant;
+  const variants = typeof variant === 'string' ? variantMap[variant] : variant;
 
   return (
     <AnimatePresence mode={mode}>
@@ -261,7 +261,7 @@ const staggerContainerVariants: Variants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      when: "beforeChildren",
+      when: 'beforeChildren',
       staggerChildren: 0.1,
     },
   },

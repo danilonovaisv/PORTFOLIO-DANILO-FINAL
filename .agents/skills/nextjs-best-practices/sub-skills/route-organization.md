@@ -1,10 +1,10 @@
 # Route Organization
 
-| Pattern | Use |
-|---------|-----|
-| Route groups `(name)` | Organize without URL |
+| Pattern                 | Use                       |
+| ----------------------- | ------------------------- |
+| Route groups `(name)`   | Organize without URL      |
 | Parallel routes `@slot` | Multiple same-level pages |
-| Intercepting `(.)` | Modal overlays |
+| Intercepting `(.)`      | Modal overlays            |
 
 ---
 

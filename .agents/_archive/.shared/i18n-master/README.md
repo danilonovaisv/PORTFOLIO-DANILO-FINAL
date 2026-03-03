@@ -15,4 +15,5 @@ i18n-master/
 ```
 
 ## 🚀 Usage
+
 Use this module to ensure your application can properly handle multiple languages and cultural formats (dates, currency).

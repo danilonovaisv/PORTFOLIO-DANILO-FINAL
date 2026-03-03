@@ -10,12 +10,12 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 
 # 1. Tabela Resumo Geral
 
-| Página           | Ordem | Caminho Real              | Nº Sessões | Dependências Críticas                      |
-| :--------------- | :---- | :------------------------ | :--------- | :----------------------------------------- |
-| **01-HOME**      | 01    | `/app/page.tsx`           | 08         | `Header`, `Hero`, `Showcase`, `Contact`    |
-| **02-SOBRE**     | 02    | `/app/sobre/page.tsx`     | 10         | `Header`, `MotionGate`, `Assets`, `Footer` |
-| **03-PORTFOLIO** | 03    | `/app/portfolio/page.tsx` | 09         | `Gallery` (pagination 15pp), `Modal`, `ProjectSlug`, `CMS`   |
-| **04-ADMIN**     | 04    | `/app/admin/*`            | Multi      | `Auth`, `Supabase`, `ProtectedLayout`      |
+| Página           | Ordem | Caminho Real              | Nº Sessões | Dependências Críticas                                      |
+| :--------------- | :---- | :------------------------ | :--------- | :--------------------------------------------------------- |
+| **01-HOME**      | 01    | `/app/page.tsx`           | 08         | `Header`, `Hero`, `Showcase`, `Contact`                    |
+| **02-SOBRE**     | 02    | `/app/sobre/page.tsx`     | 10         | `Header`, `MotionGate`, `Assets`, `Footer`                 |
+| **03-PORTFOLIO** | 03    | `/app/portfolio/page.tsx` | 09         | `Gallery` (pagination 15pp), `Modal`, `ProjectSlug`, `CMS` |
+| **04-ADMIN**     | 04    | `/app/admin/*`            | Multi      | `Auth`, `Supabase`, `ProtectedLayout`                      |
 
 ---
 

@@ -13,7 +13,8 @@
 
 - [Container Documentation](./c4-container.md)
 - [Component Documentation](./c4-component.md)
-```
+
+````
 
 ## Context Diagram Template
 
@@ -35,7 +36,7 @@ C4Context
     Rel(system, external1, "Uses", "API")
     Rel(system, external2, "Sends events to")
     Rel(system, externalDb, "Reads from and writes to")
-```
+````
 
 **Key Principles** (from [c4model.com](https://c4model.com/diagrams/system-context)):
 

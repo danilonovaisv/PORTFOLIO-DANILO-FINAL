@@ -3,36 +3,36 @@
 // This enables autocomplete, go to definition, etc.
 
 // For @supabase/supabase-js v2.95.0+, import CORS headers directly from the SDK:
-import { corsHeaders } from 'jsr:@supabase/supabase-js@2/cors'
+import { corsHeaders } from 'jsr:@supabase/supabase-js@2/cors';
 
 // For older versions, use a shared cors.ts file:
 // import { corsHeaders } from '../_shared/cors.ts'
 
-console.log(`Function "browser-with-cors" up and running!`)
+console.log(`Function "browser-with-cors" up and running!`);
 
 Deno.serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {
-    const { name } = await req.json()
+    const { name } = await req.json();
     const data = {
       message: `Hello ${name}!`,
-    }
+    };
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
-    })
+    });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
-    })
+    });
   }
-})
+});
 
 // To invoke:
 // curl -i --location --request POST 'http://localhost:54321/functions/v1/browser-with-cors' \

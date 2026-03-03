@@ -13,7 +13,7 @@ spec:
   target:
     name: db-credentials
   data:
-  - secretKey: password
-    remoteRef:
-      key: prod/db/password
+    - secretKey: password
+      remoteRef:
+        key: prod/db/password
 ```

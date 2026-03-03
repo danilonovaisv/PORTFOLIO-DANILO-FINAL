@@ -1,11 +1,12 @@
 # Auto-Sync Configuration
 
 **ArgoCD:**
+
 ```yaml
 syncPolicy:
   automated:
-    prune: true      # Delete resources not in Git
-    selfHeal: true   # Reconcile manual changes
+    prune: true # Delete resources not in Git
+    selfHeal: true # Reconcile manual changes
     allowEmpty: false
   retry:
     limit: 5
@@ -16,6 +17,7 @@ syncPolicy:
 ```
 
 **Flux:**
+
 ```yaml
 spec:
   interval: 1m

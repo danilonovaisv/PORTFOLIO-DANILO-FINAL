@@ -6,6 +6,7 @@ description: Debug and diagnose model errors in Pollinations services. Analyze l
 # Model Debugging Skill
 
 Use this skill when:
+
 - Investigating model failures, high error rates, or service issues
 - Finding users affected by errors (403 quota, 500 backend)
 - Analyzing Tinybird/Cloudflare logs for patterns
@@ -48,6 +49,7 @@ User Request → enter.pollinations.ai (Cloudflare Worker)
 ```
 
 **Structured Logging**: enter.pollinations.ai uses LogTape with:
+
 - `requestId`: Unique per request (passed to downstream via `x-request-id` header)
 - `status`, `body`: Full error response from downstream services
 - Context: `method`, `routePath`, `userAgent`, `ipAddress`
@@ -57,9 +59,11 @@ User Request → enter.pollinations.ai (Cloudflare Worker)
 # Quick Diagnostics
 
 ## 1. Check Model Monitor
+
 View current model health at: https://monitor.pollinations.ai
 
 ## 2. Query Recent Errors from D1 Database
+
 ```bash
 # Via enter.pollinations.ai worker (requires wrangler)
 cd enter.pollinations.ai
@@ -69,6 +73,7 @@ npx wrangler d1 execute pollinations-db --remote --command "SELECT model_request
 ## 3. Capture Live Logs
 
 ### enter.pollinations.ai (Cloudflare Worker)
+
 ```bash
 cd enter.pollinations.ai
 wrangler tail --format json | tee logs.jsonl
@@ -77,6 +82,7 @@ wrangler tail --format json | npx tsx scripts/format-logs.ts
 ```
 
 ### image.pollinations.ai (EC2 systemd)
+
 ```bash
 # Real-time logs
 ssh enter-services "sudo journalctl -u image-pollinations.service -f"
@@ -89,6 +95,7 @@ ssh enter-services "sudo journalctl -u image-pollinations.service -p err -n 50"
 ```
 
 ### text.pollinations.ai (EC2 systemd)
+
 ```bash
 # Real-time logs
 ssh enter-services "sudo journalctl -u text-pollinations.service -f"
@@ -102,40 +109,47 @@ ssh enter-services "sudo journalctl -u text-pollinations.service --since '3 minu
 # Common Error Patterns
 
 ## Azure Content Safety DNS Failure
+
 **Error**: `getaddrinfo ENOTFOUND gptimagemain1-resource.cognitiveservices.azure.com`
 **Cause**: Azure Content Safety resource deleted or misconfigured
 **Impact**: Fail-open (content proceeds without safety check)
 **Fix**: Create new Azure Content Safety resource and update `.env`:
+
 ```
 AZURE_CONTENT_SAFETY_ENDPOINT=https://<new-resource>.cognitiveservices.azure.com/
 AZURE_CONTENT_SAFETY_API_KEY=<new-key>
 ```
 
 ## Azure Kontext Content Filter
+
 **Error**: `Content rejected due to sexual/hate/violence content detection`
 **Cause**: Azure's content moderation blocking prompts/images
 **Impact**: 400 error returned to user
 **Fix**: User error - prompt violates content policy
 
 ## Vertex AI Invalid Image
+
 **Error**: `Provided image is not valid`
 **Cause**: User passing unsupported image URL (e.g., Google Drive links)
 **Impact**: 400 error returned to user
 **Fix**: User error - need direct image URL
 
 ## Translation Service Down
+
 **Error**: `No active translate servers available`
 **Cause**: Translation service unavailable
 **Impact**: Prompts not translated (non-fatal)
 **Fix**: Check translation service status
 
 ## OpenAI Audio Invalid Voice
+
 **Error**: `Invalid value for audio.voice`
 **Cause**: User requesting unsupported voice name
 **Impact**: 400 error returned to user
 **Fix**: User error - use supported voices: alloy, echo, fable, onyx, nova, shimmer, coral, verse, ballad, ash, sage, etc.
 
 ## Veo No Video Data
+
 **Error**: `No video data in response`
 **Cause**: Vertex AI returned empty video response
 **Impact**: 500 error
@@ -146,17 +160,20 @@ AZURE_CONTENT_SAFETY_API_KEY=<new-key>
 # Environment Variables to Check
 
 ## image.pollinations.ai
+
 ```bash
 ssh enter-services "cat /home/ubuntu/pollinations/image.pollinations.ai/.env | grep -E 'AZURE|GOOGLE|CLOUDFLARE'"
 ```
 
 Key variables:
+
 - `AZURE_CONTENT_SAFETY_ENDPOINT` - Azure Content Safety API endpoint
 - `AZURE_CONTENT_SAFETY_API_KEY` - Azure Content Safety API key
 - `GOOGLE_PROJECT_ID` - Google Cloud project for Vertex AI
 - `AZURE_MYCELI_FLUX_KONTEXT_ENDPOINT` - Azure Kontext model endpoint
 
 ## text.pollinations.ai
+
 ```bash
 ssh enter-services "cat /home/ubuntu/pollinations/text.pollinations.ai/.env | grep -E 'AZURE|OPENAI|GOOGLE'"
 ```
@@ -166,10 +183,12 @@ ssh enter-services "cat /home/ubuntu/pollinations/text.pollinations.ai/.env | gr
 # Updating Secrets
 
 Secrets are stored encrypted with SOPS:
+
 - `image.pollinations.ai/secrets/env.json`
 - `text.pollinations.ai/secrets/env.json`
 
 To update:
+
 ```bash
 # Decrypt, edit, re-encrypt
 sops image.pollinations.ai/secrets/env.json
@@ -202,15 +221,15 @@ ssh enter-services "nslookup gptimagemain1-resource.cognitiveservices.azure.com"
 
 # Model-Specific Debugging
 
-| Model | Backend | Common Issues |
-|-------|---------|---------------|
-| `flux` | Azure/Replicate | Rate limits, content filter |
-| `kontext` | Azure Flux Kontext | Content filter (strict) |
-| `nanobanana` | Vertex AI Gemini | Invalid image URLs, content filter |
-| `seedream-pro` | ByteDance ARK | NSFW filter, API key issues |
-| `veo` | Vertex AI | Quota, empty responses |
-| `openai-audio` | Azure OpenAI | Invalid voice names |
-| `deepseek` | DeepSeek API | Rate limits, API key |
+| Model          | Backend            | Common Issues                      |
+| -------------- | ------------------ | ---------------------------------- |
+| `flux`         | Azure/Replicate    | Rate limits, content filter        |
+| `kontext`      | Azure Flux Kontext | Content filter (strict)            |
+| `nanobanana`   | Vertex AI Gemini   | Invalid image URLs, content filter |
+| `seedream-pro` | ByteDance ARK      | NSFW filter, API key issues        |
+| `veo`          | Vertex AI          | Quota, empty responses             |
+| `openai-audio` | Azure OpenAI       | Invalid voice names                |
+| `deepseek`     | DeepSeek API       | Rate limits, API key               |
 
 ---
 
@@ -221,6 +240,7 @@ The enter.pollinations.ai worker has structured logging enabled. You can query l
 ## Prerequisites
 
 ### 1. Get Account ID
+
 ```bash
 # From wrangler.toml
 grep account_id enter.pollinations.ai/wrangler.toml
@@ -232,12 +252,13 @@ grep CLOUDFLARE_ACCOUNT_ID image.pollinations.ai/.env
 ### 2. Create API Token with Workers Observability Permission
 
 **Via Cloudflare Dashboard:**
+
 1. Go to https://dash.cloudflare.com/profile/api-tokens
 2. Click **Create Token**
 3. Click **Create Custom Token**
 4. Configure:
    - **Token name**: `Workers Observability Read`
-   - **Permissions**: 
+   - **Permissions**:
      - Account → Workers Scripts → Read
      - Account → Workers Observability → Edit (required for query API)
    - **Account Resources**: Include → Your Account
@@ -247,10 +268,12 @@ grep CLOUDFLARE_ACCOUNT_ID image.pollinations.ai/.env
 ### 3. Store Token Securely
 
 The token is stored in SOPS-encrypted secrets:
+
 - **Location**: `enter.pollinations.ai/secrets/env.json`
 - **Key**: `CLOUDFLARE_OBSERVABILITY_TOKEN`
 
 To add/update:
+
 ```bash
 # Step 1: Decrypt to temp file
 cd /path/to/pollinations
@@ -416,10 +439,11 @@ The worker uses LogTape for structured logging with these key fields:
 - **duration**: Request duration in ms
 
 Downstream errors are logged with:
+
 ```typescript
-log.warn("Chat completions error {status}: {body}", {
-    status: response.status,
-    body: responseText,
+log.warn('Chat completions error {status}: {body}', {
+  status: response.status,
+  body: responseText,
 });
 ```
 
@@ -436,6 +460,7 @@ curl "https://api.europe-west2.gcp.tinybird.co/v0/pipes/model_errors.json?token=
 ```
 
 The Tinybird token is a read-only public token found in:
+
 - `apps/model-monitor/src/hooks/useModelMonitor.js`
 
 ---
@@ -451,6 +476,7 @@ The Tinybird token is a read-only public token found in:
    - Look for patterns in error messages
 
 3. **Correlate with Request ID** - If you have a specific request ID:
+
    ```bash
    # Filter by request ID
    curl -s "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/workers/observability/telemetry/query" \
@@ -469,25 +495,27 @@ The Tinybird token is a read-only public token found in:
    ```
 
 4. **Check Backend Logs** - If error is from downstream service:
+
    ```bash
    # Image service
    ssh enter-services "sudo journalctl -u image-pollinations.service --since '5 minutes ago'"
-   
+
    # Text service
    ssh enter-services "sudo journalctl -u text-pollinations.service --since '5 minutes ago'"
    ```
 
 5. **Test Model Directly** - Verify if model is actually broken:
+
    ```bash
    TOKEN=$(grep ENTER_API_TOKEN_REMOTE enter.pollinations.ai/.testingtokens | cut -d= -f2)
-   
+
    # Test text model
    curl -s 'https://gen.pollinations.ai/v1/chat/completions' \
      -H "Authorization: Bearer $TOKEN" \
      -H 'Content-Type: application/json' \
      -d '{"model": "MODEL_NAME", "messages": [{"role": "user", "content": "Test"}]}' \
      -w "\nHTTP: %{http_code}\n"
-   
+
    # Test image model
    curl -s 'https://gen.pollinations.ai/image/test?model=MODEL_NAME&width=256&height=256' \
      -H "Authorization: Bearer $TOKEN" \
@@ -501,11 +529,13 @@ The Tinybird token is a read-only public token found in:
 ## Cloudflare Observability API
 
 **What works:**
+
 - `/telemetry/keys` - List available log fields ✅
 - `/telemetry/values` - Get unique values for a field ✅
 - Token stored in SOPS: `enter.pollinations.ai/secrets/env.json` ✅
 
 **Limitations:**
+
 - `/telemetry/query` requires a saved `queryId` from the dashboard
 - For ad-hoc queries, use **Cloudflare Dashboard** → Workers & Pages → pollinations-enter → Observability → Investigate
 - Or use `wrangler tail` for real-time logs
@@ -539,39 +569,40 @@ TINYBIRD_ADMIN_TOKEN=$(jq -r '.token' enter.pollinations.ai/observability/.tinyb
 
 # Find users with frequent 403 errors (last 24 hours)
 curl -s "https://api.europe-west2.gcp.tinybird.co/v0/sql?token=$TINYBIRD_ADMIN_TOKEN" \
-  --data-urlencode "q=SELECT user_id, user_github_username, user_tier, count() as error_403_count 
-FROM generation_event 
-WHERE response_status = 403 
-  AND start_time > now() - interval 24 hour 
-  AND user_id != '' 
-  AND user_id != 'undefined' 
-GROUP BY user_id, user_github_username, user_tier 
-ORDER BY error_403_count DESC 
+  --data-urlencode "q=SELECT user_id, user_github_username, user_tier, count() as error_403_count
+FROM generation_event
+WHERE response_status = 403
+  AND start_time > now() - interval 24 hour
+  AND user_id != ''
+  AND user_id != 'undefined'
+GROUP BY user_id, user_github_username, user_tier
+ORDER BY error_403_count DESC
 LIMIT 20"
 
 # Find users with 500 errors (actual backend issues)
 curl -s "https://api.europe-west2.gcp.tinybird.co/v0/sql?token=$TINYBIRD_ADMIN_TOKEN" \
-  --data-urlencode "q=SELECT user_github_username, model_requested, error_message, count() as error_count 
-FROM generation_event 
-WHERE response_status >= 500 
-  AND start_time > now() - interval 24 hour 
-GROUP BY user_github_username, model_requested, error_message 
-ORDER BY error_count DESC 
+  --data-urlencode "q=SELECT user_github_username, model_requested, error_message, count() as error_count
+FROM generation_event
+WHERE response_status >= 500
+  AND start_time > now() - interval 24 hour
+GROUP BY user_github_username, model_requested, error_message
+ORDER BY error_count DESC
 LIMIT 20"
 
 # Check specific user's recent errors
 curl -s "https://api.europe-west2.gcp.tinybird.co/v0/sql?token=$TINYBIRD_ADMIN_TOKEN" \
-  --data-urlencode "q=SELECT start_time, response_status, model_requested, error_message 
-FROM generation_event 
-WHERE user_github_username = 'USERNAME_HERE' 
-  AND start_time > now() - interval 24 hour 
-ORDER BY start_time DESC 
+  --data-urlencode "q=SELECT start_time, response_status, model_requested, error_message
+FROM generation_event
+WHERE user_github_username = 'USERNAME_HERE'
+  AND start_time > now() - interval 24 hour
+ORDER BY start_time DESC
 LIMIT 50"
 ```
 
 ### Datasource Schema
 
 The `generation_event` datasource is defined in `enter.pollinations.ai/observability/datasources/generation_event.datasource` and includes:
+
 - `user_id`, `user_github_username`, `user_tier`
 - `response_status`, `error_message`, `error_response_code`
 - `model_requested`, `model_used`
@@ -622,15 +653,15 @@ Helper scripts for common debugging tasks. Run from repo root.
 
 # Tested Models (All Working as of 2025-12-22)
 
-| Model | Type | Endpoint | Status |
-|-------|------|----------|--------|
-| `openai` | text | POST /v1/chat/completions | ✅ |
-| `openai-fast` | text | POST /v1/chat/completions | ✅ |
-| `openai-large` | text | POST /v1/chat/completions | ✅ |
-| `openai-audio` | text | GET /text/{prompt}?model=openai-audio&voice=alloy | ✅ (MP3) |
-| `claude` | text | POST /v1/chat/completions | ✅ |
-| `gemini-fast` | text | POST /v1/chat/completions | ✅ |
-| `flux` | image | GET /image/{prompt} | ✅ |
-| `nanobanana-pro` | image | GET /image/{prompt} | ✅ |
-| `seedream-pro` | image | GET /image/{prompt} | ✅ |
-| `seedance-pro` | video | GET /image/{prompt} | ✅ (MP4) |
+| Model            | Type  | Endpoint                                          | Status   |
+| ---------------- | ----- | ------------------------------------------------- | -------- |
+| `openai`         | text  | POST /v1/chat/completions                         | ✅       |
+| `openai-fast`    | text  | POST /v1/chat/completions                         | ✅       |
+| `openai-large`   | text  | POST /v1/chat/completions                         | ✅       |
+| `openai-audio`   | text  | GET /text/{prompt}?model=openai-audio&voice=alloy | ✅ (MP3) |
+| `claude`         | text  | POST /v1/chat/completions                         | ✅       |
+| `gemini-fast`    | text  | POST /v1/chat/completions                         | ✅       |
+| `flux`           | image | GET /image/{prompt}                               | ✅       |
+| `nanobanana-pro` | image | GET /image/{prompt}                               | ✅       |
+| `seedream-pro`   | image | GET /image/{prompt}                               | ✅       |
+| `seedance-pro`   | video | GET /image/{prompt}                               | ✅ (MP4) |

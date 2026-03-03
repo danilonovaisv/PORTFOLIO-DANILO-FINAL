@@ -19,14 +19,14 @@ aws cloudtrail update-trail --name trail_name \
 
 ## Quick Reference
 
-| Task | Command |
-|------|---------|
-| Get identity | `aws sts get-caller-identity` |
-| List users | `aws iam list-users` |
-| List roles | `aws iam list-roles` |
-| List buckets | `aws s3 ls` |
-| List EC2 | `aws ec2 describe-instances` |
-| List Lambda | `aws lambda list-functions` |
+| Task         | Command                                         |
+| ------------ | ----------------------------------------------- |
+| Get identity | `aws sts get-caller-identity`                   |
+| List users   | `aws iam list-users`                            |
+| List roles   | `aws iam list-roles`                            |
+| List buckets | `aws s3 ls`                                     |
+| List EC2     | `aws ec2 describe-instances`                    |
+| List Lambda  | `aws lambda list-functions`                     |
 | Get metadata | `curl http://169.254.169.254/latest/meta-data/` |
 
 ---
@@ -34,16 +34,19 @@ aws cloudtrail update-trail --name trail_name \
 ## Constraints
 
 **Must:**
+
 - Obtain written authorization before testing
 - Document all actions for audit trail
 - Test in scope resources only
 
 **Must Not:**
+
 - Modify production data without approval
 - Leave persistent backdoors without documentation
 - Disable security controls permanently
 
 **Should:**
+
 - Check for IMDSv2 before attempting metadata attacks
 - Enumerate thoroughly before exploitation
 - Clean up test resources after engagement

@@ -1,8 +1,9 @@
 # 9. Blockchain Security (Solana)
 
 #### Wallet Verification
+
 ```typescript
-import { verify } from '@solana/web3.js'
+import { verify } from '@solana/web3.js';
 
 async function verifyWalletOwnership(
   publicKey: string,
@@ -14,38 +15,40 @@ async function verifyWalletOwnership(
       Buffer.from(message),
       Buffer.from(signature, 'base64'),
       Buffer.from(publicKey, 'base64')
-    )
-    return isValid
+    );
+    return isValid;
   } catch (error) {
-    return false
+    return false;
   }
 }
 ```
 
 #### Transaction Verification
+
 ```typescript
 async function verifyTransaction(transaction: Transaction) {
   // Verify recipient
   if (transaction.to !== expectedRecipient) {
-    throw new Error('Invalid recipient')
+    throw new Error('Invalid recipient');
   }
 
   // Verify amount
   if (transaction.amount > maxAmount) {
-    throw new Error('Amount exceeds limit')
+    throw new Error('Amount exceeds limit');
   }
 
   // Verify user has sufficient balance
-  const balance = await getBalance(transaction.from)
+  const balance = await getBalance(transaction.from);
   if (balance < transaction.amount) {
-    throw new Error('Insufficient balance')
+    throw new Error('Insufficient balance');
   }
 
-  return true
+  return true;
 }
 ```
 
 #### Verification Steps
+
 - [ ] Wallet signatures verified
 - [ ] Transaction details validated
 - [ ] Balance checks before transactions

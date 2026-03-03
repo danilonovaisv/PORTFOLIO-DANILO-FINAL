@@ -1,6 +1,7 @@
 # AWS Connectivity
 
 #### 1. Site-to-Site VPN
+
 - IPSec VPN over internet
 - Up to 1.25 Gbps per tunnel
 - Cost-effective for moderate bandwidth
@@ -29,6 +30,7 @@ resource "aws_vpn_connection" "main" {
 ```
 
 #### 2. AWS Direct Connect
+
 - Dedicated network connection
 - 1 Gbps to 100 Gbps
 - Lower latency, consistent bandwidth

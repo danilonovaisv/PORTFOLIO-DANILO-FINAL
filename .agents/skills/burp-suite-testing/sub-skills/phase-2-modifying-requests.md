@@ -1,6 +1,7 @@
 # Phase 2: Modifying Requests
 
 #### Intercept and Modify
+
 Change request parameters before forwarding:
 
 1. Enable interception: **Intercept on**
@@ -10,12 +11,13 @@ Change request parameters before forwarding:
 5. Click **Forward** to send modified request
 
 #### Common Modification Targets
-| Target | Example | Purpose |
-|--------|---------|---------|
-| Price parameters | `price=1` | Test business logic |
-| User IDs | `userId=admin` | Test access control |
-| Quantity values | `qty=-1` | Test input validation |
-| Hidden fields | `isAdmin=true` | Test privilege escalation |
+
+| Target           | Example        | Purpose                   |
+| ---------------- | -------------- | ------------------------- |
+| Price parameters | `price=1`      | Test business logic       |
+| User IDs         | `userId=admin` | Test access control       |
+| Quantity values  | `qty=-1`       | Test input validation     |
+| Hidden fields    | `isAdmin=true` | Test privilege escalation |
 
 #### Example: Price Manipulation
 

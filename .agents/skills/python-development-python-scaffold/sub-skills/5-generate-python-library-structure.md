@@ -16,6 +16,7 @@ library-name/
 ```
 
 **pyproject.toml for Library**:
+
 ```toml
 [build-system]
 requires = ["hatchling"]

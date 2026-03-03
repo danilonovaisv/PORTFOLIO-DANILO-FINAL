@@ -1,11 +1,13 @@
 # Section 10: Funding Request & Use of Proceeds (1 page)
 
 **Funding Ask:**
+
 - Amount seeking: $X.XM
 - Structure: Equity, SAFE, convertible note
 - Target valuation: $X.XM (if applicable)
 
 **Use of Proceeds:**
+
 ```
 Total Raise: $5.0M
 - Product Development: $2.0M (40%)
@@ -27,6 +29,7 @@ Total Raise: $5.0M
 ```
 
 **Milestones to Achieve:**
+
 - Revenue: $X.XM ARR (X% growth)
 - Customer: XXX customers
 - Product: Key features launched
@@ -34,11 +37,13 @@ Total Raise: $5.0M
 - Metric: Key metric targets
 
 **Expected Timeline:**
+
 - 18-24 month runway
 - Achieve milestones in 15-18 months
 - 6-month buffer for next raise
 
 **Next Round:**
+
 - Series A in 18-24 months
 - Expected metrics at that time
 - Target raise amount

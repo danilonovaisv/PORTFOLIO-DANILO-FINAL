@@ -35,7 +35,6 @@ Comprehensive guide for implementing robust testing strategies in JavaScript/Typ
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
-
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [implementation-playbook](./sub-skills/implementation-playbook.md)

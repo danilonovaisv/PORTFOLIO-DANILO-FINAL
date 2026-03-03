@@ -1,8 +1,12 @@
-import Link from "next/link"
-import { SubmitButton } from "./submit-button"
-import { signIn, signUp } from "./actions"
+import Link from 'next/link';
+import { SubmitButton } from './submit-button';
+import { signIn, signUp } from './actions';
 
-export default function Login({ searchParams }: { searchParams: { message: string } }) {
+export default function Login({
+  searchParams,
+}: {
+  searchParams: { message: string };
+}) {
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <Link
@@ -22,7 +26,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
           className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
         >
           <polyline points="15 18 9 12 15 6" />
-        </svg>{" "}
+        </svg>{' '}
         Back
       </Link>
 
@@ -67,5 +71,5 @@ export default function Login({ searchParams }: { searchParams: { message: strin
         )}
       </form>
     </div>
-  )
+  );
 }

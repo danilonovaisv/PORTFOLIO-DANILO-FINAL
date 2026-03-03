@@ -4,7 +4,7 @@
 // Creating a Promise
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("Success!");
+    resolve('Success!');
     // or: reject(new Error("Failed!"));
   }, 1000);
 });
@@ -13,7 +13,7 @@ const promise = new Promise((resolve, reject) => {
 promise
   .then((result) => console.log(result))
   .catch((error) => console.error(error))
-  .finally(() => console.log("Done"));
+  .finally(() => console.log('Done'));
 
 // Promise combinators
 Promise.all([p1, p2, p3]); // All must succeed

@@ -5,9 +5,9 @@ Animated lists, staggered items, and reorderable lists.
 ## Basic Staggered List
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,7 +26,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 300,
       damping: 24,
     },
@@ -58,9 +58,9 @@ export function StaggeredList({ items }: { items: string[] }) {
 ## List with Entry and Exit Animations
 
 ```tsx
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface Item {
   id: string;
@@ -71,10 +71,10 @@ const itemVariants = {
   initial: { opacity: 0, height: 0, y: -10 },
   animate: {
     opacity: 1,
-    height: "auto",
+    height: 'auto',
     y: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 300,
       damping: 24,
     },
@@ -115,11 +115,11 @@ export function AnimatedList({ items }: { items: Item[] }) {
 ## Todo List with Add/Remove
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Plus, X } from "lucide-react";
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Plus, X } from 'lucide-react';
 
 interface Todo {
   id: string;
@@ -129,7 +129,7 @@ interface Todo {
 
 export function AnimatedTodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [newTodo, setNewTodo] = useState("");
+  const [newTodo, setNewTodo] = useState('');
 
   function addTodo() {
     if (!newTodo.trim()) return;
@@ -137,7 +137,7 @@ export function AnimatedTodoList() {
       ...todos,
       { id: crypto.randomUUID(), text: newTodo, completed: false },
     ]);
-    setNewTodo("");
+    setNewTodo('');
   }
 
   function removeTodo(id: string) {
@@ -146,9 +146,7 @@ export function AnimatedTodoList() {
 
   function toggleTodo(id: string) {
     setTodos(
-      todos.map((t) =>
-        t.id === id ? { ...t, completed: !t.completed } : t
-      )
+      todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
   }
 
@@ -158,7 +156,7 @@ export function AnimatedTodoList() {
         <input
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addTodo()}
+          onKeyDown={(e) => e.key === 'Enter' && addTodo()}
           placeholder="Add todo..."
           className="flex-1 px-3 py-2 border rounded-lg"
         />
@@ -192,7 +190,7 @@ export function AnimatedTodoList() {
               <motion.span
                 animate={{
                   opacity: todo.completed ? 0.5 : 1,
-                  textDecoration: todo.completed ? "line-through" : "none",
+                  textDecoration: todo.completed ? 'line-through' : 'none',
                 }}
                 className="flex-1"
               >
@@ -218,11 +216,11 @@ export function AnimatedTodoList() {
 ## Reorderable List (Drag to Reorder)
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Reorder } from "framer-motion";
-import { GripVertical } from "lucide-react";
+import { useState } from 'react';
+import { Reorder } from 'framer-motion';
+import { GripVertical } from 'lucide-react';
 
 interface Item {
   id: string;
@@ -257,11 +255,11 @@ export function ReorderableList({ initialItems }: { initialItems: Item[] }) {
 ## Reorderable with Custom Handle
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Reorder, useDragControls } from "framer-motion";
-import { GripVertical, X } from "lucide-react";
+import { useState } from 'react';
+import { Reorder, useDragControls } from 'framer-motion';
+import { GripVertical, X } from 'lucide-react';
 
 interface Item {
   id: string;
@@ -306,7 +304,11 @@ function ReorderItem({
   );
 }
 
-export function ReorderableWithHandle({ initialItems }: { initialItems: Item[] }) {
+export function ReorderableWithHandle({
+  initialItems,
+}: {
+  initialItems: Item[];
+}) {
   const [items, setItems] = useState(initialItems);
 
   function removeItem(id: string) {
@@ -314,7 +316,12 @@ export function ReorderableWithHandle({ initialItems }: { initialItems: Item[] }
   }
 
   return (
-    <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-2">
+    <Reorder.Group
+      axis="y"
+      values={items}
+      onReorder={setItems}
+      className="space-y-2"
+    >
       {items.map((item) => (
         <ReorderItem key={item.id} item={item} onRemove={removeItem} />
       ))}
@@ -326,9 +333,9 @@ export function ReorderableWithHandle({ initialItems }: { initialItems: Item[] }
 ## Grid Layout Animation
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -346,7 +353,7 @@ const itemVariants = {
     opacity: 1,
     scale: 1,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 300,
       damping: 24,
     },
@@ -365,7 +372,7 @@ export function AnimatedGrid({ items }: { items: any[] }) {
         <motion.div
           key={item.id}
           variants={itemVariants}
-          whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.2)" }}
+          whileHover={{ y: -5, boxShadow: '0 10px 30px -10px rgba(0,0,0,0.2)' }}
           className="p-6 bg-card rounded-xl border"
         >
           {item.content}
@@ -379,10 +386,10 @@ export function AnimatedGrid({ items }: { items: any[] }) {
 ## Filterable List
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface Item {
   id: string;
@@ -407,7 +414,7 @@ export function FilterableList({ items }: { items: Item[] }) {
           whileTap={{ scale: 0.95 }}
           onClick={() => setFilter(null)}
           className={`px-4 py-2 rounded-lg ${
-            filter === null ? "bg-primary text-primary-foreground" : "bg-muted"
+            filter === null ? 'bg-primary text-primary-foreground' : 'bg-muted'
           }`}
         >
           All
@@ -420,8 +427,8 @@ export function FilterableList({ items }: { items: Item[] }) {
             onClick={() => setFilter(category)}
             className={`px-4 py-2 rounded-lg ${
               filter === category
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted"
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted'
             }`}
           >
             {category}
@@ -456,10 +463,10 @@ export function FilterableList({ items }: { items: Item[] }) {
 ## Infinite Scroll List
 
 ```tsx
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 export function InfiniteScrollList() {
   const [items, setItems] = useState(Array.from({ length: 10 }, (_, i) => i));
@@ -494,7 +501,7 @@ export function InfiniteScrollList() {
       <div ref={loadMoreRef} className="h-10 flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
           className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full"
         />
       </div>

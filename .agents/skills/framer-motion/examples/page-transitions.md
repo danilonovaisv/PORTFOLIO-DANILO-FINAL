@@ -8,10 +8,10 @@ Smooth transitions between pages and routes.
 
 ```tsx
 // components/page-transition.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 const pageVariants = {
   initial: {
@@ -21,14 +21,14 @@ const pageVariants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   exit: {
     opacity: 0,
     transition: {
       duration: 0.2,
-      ease: "easeIn",
+      ease: 'easeIn',
     },
   },
 };
@@ -52,7 +52,7 @@ export function PageTransition({ children }: PageTransitionProps) {
 
 // Usage in page
 // app/about/page.tsx
-import { PageTransition } from "@/components/page-transition";
+import { PageTransition } from '@/components/page-transition';
 
 export default function AboutPage() {
   return (
@@ -105,7 +105,7 @@ const slideUpVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   exit: {
@@ -157,7 +157,7 @@ const pageVariants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      when: "beforeChildren",
+      when: 'beforeChildren',
       staggerChildren: 0.1,
     },
   },
@@ -179,11 +179,7 @@ const itemVariants = {
 
 export function StaggeredPage({ children }) {
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="initial"
-      animate="enter"
-    >
+    <motion.div variants={pageVariants} initial="initial" animate="enter">
       <motion.h1 variants={itemVariants}>Page Title</motion.h1>
       <motion.p variants={itemVariants}>Description</motion.p>
       <motion.div variants={itemVariants}>{children}</motion.div>
@@ -198,10 +194,10 @@ export function StaggeredPage({ children }) {
 
 ```tsx
 // app/template.tsx
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -245,10 +241,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
 ```tsx
 // components/card.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface CardProps {
   id: string;
@@ -280,9 +276,9 @@ export function Card({ id, title, image }: CardProps) {
 }
 
 // app/posts/[id]/page.tsx
-"use client";
+('use client');
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export default function PostPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -300,7 +296,10 @@ export default function PostPage({ params }: { params: { id: string } }) {
           className="w-full h-96 object-cover rounded-xl"
         />
         <motion.div layoutId={`card-content-${id}`} className="p-6">
-          <motion.h1 layoutId={`card-title-${id}`} className="text-3xl font-bold">
+          <motion.h1
+            layoutId={`card-title-${id}`}
+            className="text-3xl font-bold"
+          >
             Post Title
           </motion.h1>
           <motion.p
@@ -322,7 +321,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
 ```tsx
 const fullPageVariants = {
   initial: (direction: number) => ({
-    x: direction > 0 ? "100%" : "-100%",
+    x: direction > 0 ? '100%' : '-100%',
     opacity: 0,
   }),
   enter: {
@@ -334,7 +333,7 @@ const fullPageVariants = {
     },
   },
   exit: (direction: number) => ({
-    x: direction > 0 ? "-100%" : "100%",
+    x: direction > 0 ? '-100%' : '100%',
     opacity: 0,
     transition: {
       duration: 0.4,
@@ -364,20 +363,20 @@ export function FullPageTransition({ children, direction = 1 }) {
 ```tsx
 const overlayVariants = {
   initial: {
-    y: "100%",
-    borderRadius: "100% 100% 0 0",
+    y: '100%',
+    borderRadius: '100% 100% 0 0',
   },
   enter: {
     y: 0,
-    borderRadius: "0% 0% 0 0",
+    borderRadius: '0% 0% 0 0',
     transition: {
       duration: 0.5,
       ease: [0.76, 0, 0.24, 1],
     },
   },
   exit: {
-    y: "100%",
-    borderRadius: "100% 100% 0 0",
+    y: '100%',
+    borderRadius: '100% 100% 0 0',
     transition: {
       duration: 0.5,
       ease: [0.76, 0, 0.24, 1],
@@ -403,11 +402,11 @@ export function OverlayTransition({ children }) {
 ## Page Transition with Loading
 
 ```tsx
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export function PageWithLoader({ children }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -431,7 +430,7 @@ export function PageWithLoader({ children }) {
         >
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full"
           />
         </motion.div>

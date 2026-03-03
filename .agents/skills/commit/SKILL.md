@@ -1,7 +1,7 @@
 ---
 name: commit
-description: "Create commit messages following Sentry conventions. Use when committing code changes, writing commit messages, or formatting git history. Follows conventional commits with Sentry-specific issue references."
-source: "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/commit"
+description: 'Create commit messages following Sentry conventions. Use when committing code changes, writing commit messages, or formatting git history. Follows conventional commits with Sentry-specific issue references.'
+source: 'https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/commit'
 risk: safe
 ---
 
@@ -12,6 +12,7 @@ Follow these conventions when creating commits for Sentry projects.
 ## When to Use This Skill
 
 Use this skill when:
+
 - Committing code changes
 - Writing commit messages
 - Formatting git history
@@ -50,20 +51,20 @@ The header is required. Scope is optional. All lines must stay under 100 charact
 
 ## Commit Types
 
-| Type | Purpose |
-|------|---------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `ref` | Refactoring (no behavior change) |
-| `perf` | Performance improvement |
-| `docs` | Documentation only |
-| `test` | Test additions or corrections |
-| `build` | Build system or dependencies |
-| `ci` | CI configuration |
-| `chore` | Maintenance tasks |
-| `style` | Code formatting (no logic change) |
-| `meta` | Repository metadata |
-| `license` | License changes |
+| Type      | Purpose                           |
+| --------- | --------------------------------- |
+| `feat`    | New feature                       |
+| `fix`     | Bug fix                           |
+| `ref`     | Refactoring (no behavior change)  |
+| `perf`    | Performance improvement           |
+| `docs`    | Documentation only                |
+| `test`    | Test additions or corrections     |
+| `build`   | Build system or dependencies      |
+| `ci`      | CI configuration                  |
+| `chore`   | Maintenance tasks                 |
+| `style`   | Code formatting (no logic change) |
+| `meta`    | Repository metadata               |
+| `license` | License changes                   |
 
 ## Subject Line Rules
 

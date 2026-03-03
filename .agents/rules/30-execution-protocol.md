@@ -33,7 +33,7 @@ You MUST operate in a semantic loop:
 
 1. **OBSERVE**: Read file, check status, ls dir.
 2. **ORIENT**: Compare Reality vs. Goal.
-3. **DECIDE**: Choose the *single* next best action.
+3. **DECIDE**: Choose the _single_ next best action.
 4. **ACT**: Execute tool/script.
 5. **VERIFY**: check exit code, read file content.
 

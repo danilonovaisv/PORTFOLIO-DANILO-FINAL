@@ -21,8 +21,10 @@ message_envelope:
   fields:
     correlation_id: string
     workflow: audit-fullstack-config
-    source_agent: [agent-orchestrator-audit, agent-supabase-audit, agent-firebase-audit]
-    target_agent: [agent-orchestrator-audit, agent-supabase-audit, agent-firebase-audit]
+    source_agent:
+      [agent-orchestrator-audit, agent-supabase-audit, agent-firebase-audit]
+    target_agent:
+      [agent-orchestrator-audit, agent-supabase-audit, agent-firebase-audit]
     message_type:
       - validate_structure
       - audit_request

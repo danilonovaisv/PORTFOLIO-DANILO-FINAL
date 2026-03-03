@@ -1,6 +1,7 @@
 # Phase 3: Authentication Bypass
 
 #### Login Form Exploitation
+
 Craft payloads to bypass credential verification:
 
 ```sql
@@ -19,6 +20,7 @@ admin' AND '1'='2
 ```
 
 Query transformation example:
+
 ```sql
 -- Original query
 SELECT * FROM users WHERE username='input' AND password='input'

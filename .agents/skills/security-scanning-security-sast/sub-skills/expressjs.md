@@ -3,6 +3,7 @@
 **VULNERABLE**: Missing helmet, CORS wildcard, no rate limiting
 
 **SECURE**:
+
 ```javascript
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');

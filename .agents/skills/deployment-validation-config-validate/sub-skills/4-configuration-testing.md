@@ -17,7 +17,7 @@ describe('Configuration Validation', () => {
       port: 5432,
       database: 'myapp',
       user: 'dbuser',
-      password: 'securepass123'
+      password: 'securepass123',
     };
 
     const result = validator.validate(config, 'database');
@@ -30,7 +30,7 @@ describe('Configuration Validation', () => {
       port: 70000,
       database: 'myapp',
       user: 'dbuser',
-      password: 'securepass123'
+      password: 'securepass123',
     };
 
     const result = validator.validate(config, 'database');

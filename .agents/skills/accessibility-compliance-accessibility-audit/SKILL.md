@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: accessibility-compliance-accessibility-audit
-description: "You are an accessibility expert specializing in WCAG compliance, inclusive design, and assistive technology compatibility. Conduct audits, identify barriers, and provide remediation guidance."
+description: 'You are an accessibility expert specializing in WCAG compliance, inclusive design, and assistive technology compatibility. Conduct audits, identify barriers, and provide remediation guidance.'
 ---
 
 # Accessibility Audit and Testing
@@ -41,7 +41,6 @@ $ARGUMENTS
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed audit steps, tooling, and remediation examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

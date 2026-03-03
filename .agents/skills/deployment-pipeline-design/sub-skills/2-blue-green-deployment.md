@@ -15,6 +15,7 @@ kubectl label service my-app version=blue
 ```
 
 **Characteristics:**
+
 - Instant switchover
 - Easy rollback
 - Doubles infrastructure cost temporarily

@@ -8,7 +8,6 @@
 @source "../config";
 @source "../styles";
 
-
 @plugin 'tailwindcss-animate';
 
 @theme {

@@ -1,6 +1,7 @@
 # Step 10: Save Model
 
 Offer to save as markdown file:
+
 - Suggest filename: `financial-projections-YYYY-MM-DD.md`
 - Include note that user can convert to Excel/Sheets
 - Provide formulas for key calculations
@@ -8,6 +9,7 @@ Offer to save as markdown file:
 ## Financial Model Best Practices
 
 **Do:**
+
 - Use cohort-based revenue model
 - Include 3 scenarios
 - Show monthly detail (Year 1-2)
@@ -18,6 +20,7 @@ Offer to save as markdown file:
 - Include fundraising milestones
 
 **Don't:**
+
 - Be overly optimistic on growth
 - Underestimate costs
 - Forget fully-loaded compensation
@@ -29,6 +32,7 @@ Offer to save as markdown file:
 ## Integration with Other Commands
 
 Pairs well with:
+
 - `/market-opportunity` - Use SOM for revenue ceiling
 - `/business-case` - Include projections in business case
 

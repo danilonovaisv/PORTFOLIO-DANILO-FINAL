@@ -1,11 +1,13 @@
 # Monorepo Management
 
 **Nx vs Turborepo Decision Matrix**
+
 - Choose **Turborepo** if: Simple structure, need speed, <20 packages
 - Choose **Nx** if: Complex dependencies, need visualization, plugins required
 - Performance: Nx often performs better on large monorepos (>50 packages)
 
 **TypeScript Monorepo Configuration**
+
 ```json
 // Root tsconfig.json
 {

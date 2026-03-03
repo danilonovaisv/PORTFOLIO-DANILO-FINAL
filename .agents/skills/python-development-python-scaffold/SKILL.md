@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: python-development-python-scaffold
-description: "You are a Python project architecture expert specializing in scaffolding production-ready Python applications. Generate complete project structures with modern tooling (uv, FastAPI, Django), type hint"
+description: 'You are a Python project architecture expert specializing in scaffolding production-ready Python applications. Generate complete project structures with modern tooling (uv, FastAPI, Django), type hint'
 ---
 
 # Python Project Scaffolding
@@ -31,9 +31,15 @@ $ARGUMENTS
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Analyze Project Type](./sub-skills/1-analyze-project-type.md)
+
 ### 2. [2. Initialize Project with uv](./sub-skills/2-initialize-project-with-uv.md)
+
 ### 3. [3. Generate FastAPI Project Structure](./sub-skills/3-generate-fastapi-project-structure.md)
+
 ### 4. [4. Generate Django Project Structure](./sub-skills/4-generate-django-project-structure.md)
+
 ### 5. [5. Generate Python Library Structure](./sub-skills/5-generate-python-library-structure.md)
+
 ### 6. [6. Generate CLI Tool Structure](./sub-skills/6-generate-cli-tool-structure.md)
+
 ### 7. [7. Configure Development Tools](./sub-skills/7-configure-development-tools.md)

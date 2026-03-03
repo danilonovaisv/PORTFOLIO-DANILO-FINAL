@@ -37,6 +37,9 @@ Create efficient, secure GitHub Actions workflows for continuous integration and
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Pattern 1: Test Workflow](./sub-skills/pattern-1-test-workflow.md)
+
 ### 2. [Pattern 2: Build and Push Docker Image](./sub-skills/pattern-2-build-and-push-docker-image.md)
+
 ### 3. [Pattern 3: Deploy to Kubernetes](./sub-skills/pattern-3-deploy-to-kubernetes.md)
+
 ### 4. [Pattern 4: Matrix Build](./sub-skills/pattern-4-matrix-build.md)

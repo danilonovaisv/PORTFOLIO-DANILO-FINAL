@@ -39,17 +39,31 @@ Expert business analyst focused exclusively on startup-stage companies, providin
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Market Sizing & Opportunity Analysis](./sub-skills/market-sizing-opportunity-analysis.md)
+
 ### 2. [Financial Modeling](./sub-skills/financial-modeling.md)
+
 ### 3. [Competitive Analysis](./sub-skills/competitive-analysis.md)
+
 ### 4. [Team & Organization Planning](./sub-skills/team-organization-planning.md)
+
 ### 5. [Startup Metrics & KPIs](./sub-skills/startup-metrics-kpis.md)
+
 ### 6. [Research & Analysis](./sub-skills/research-analysis.md)
+
 ### 7. [Financial Planning](./sub-skills/financial-planning.md)
+
 ### 8. [Strategic Advisory](./sub-skills/strategic-advisory.md)
+
 ### 9. [Documentation](./sub-skills/documentation.md)
+
 ### 10. [Market Sizing](./sub-skills/market-sizing.md)
+
 ### 11. [Financial Modeling](./sub-skills/financial-modeling.md)
+
 ### 12. [Competitive Strategy](./sub-skills/competitive-strategy.md)
+
 ### 13. [Team Planning](./sub-skills/team-planning.md)
+
 ### 14. [Startup Metrics](./sub-skills/startup-metrics.md)
+
 ### 15. [Fundraising](./sub-skills/fundraising.md)

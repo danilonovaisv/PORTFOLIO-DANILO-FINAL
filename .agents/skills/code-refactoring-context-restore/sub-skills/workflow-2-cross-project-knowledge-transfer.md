@@ -19,12 +19,14 @@ context-restore project:ml-pipeline --query "model training strategy"
 ```
 
 ## Integration Patterns
+
 - RAG (Retrieval Augmented Generation) pipelines
 - Multi-agent workflow coordination
 - Continuous learning systems
 - Enterprise knowledge management
 
 ## Future Roadmap
+
 - Enhanced multi-modal embedding support
 - Quantum-inspired vector search algorithms
 - Self-healing context reconstruction

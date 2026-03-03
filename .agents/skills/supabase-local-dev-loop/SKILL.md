@@ -15,15 +15,16 @@ author: Jeremy Longshore <jeremy@intentsolutions.io>
 # Supabase Local Dev Loop
 
 ## Prerequisites
+
 - Completed `supabase-install-auth` setup
 - Node.js 18+ with npm/pnpm
 - Code editor with TypeScript support
 - Git for version control
 
-
 See `{baseDir}/references/implementation.md` for detailed implementation guide.
 
 ## Output
+
 - Working development environment with hot reload
 - Configured test suite with mocking
 - Environment variable management
@@ -38,6 +39,7 @@ See `{baseDir}/references/errors.md` for comprehensive error handling.
 See `{baseDir}/references/examples.md` for detailed examples.
 
 ## Resources
+
 - [Supabase SDK Reference](https://supabase.com/docs/sdk)
 - [Vitest Documentation](https://vitest.dev/)
 - [tsx Documentation](https://github.com/esbuild-kit/tsx)

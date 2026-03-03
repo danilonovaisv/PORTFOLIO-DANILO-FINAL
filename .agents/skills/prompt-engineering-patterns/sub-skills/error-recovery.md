@@ -1,6 +1,7 @@
 # Error Recovery
 
 Build prompts that gracefully handle failures:
+
 - Include fallback instructions
 - Request confidence scores
 - Ask for alternative interpretations when uncertain

@@ -1,6 +1,7 @@
 # Complex Write API (Create Quiz from Categories)
 
 See attached `create_quiz_from_categories.php` for a comprehensive example including:
+
 - Multiple database insertions
 - Course module creation
 - Quiz instance configuration
@@ -11,21 +12,21 @@ See attached `create_quiz_from_categories.php` for a comprehensive example inclu
 
 ## Quick Reference: Common Moodle Tables
 
-| Table | Purpose |
-|-------|---------|
-| `{user}` | User accounts |
-| `{course}` | Courses |
-| `{course_modules}` | Activity instances in courses |
-| `{modules}` | Available activity types (quiz, forum, etc.) |
-| `{quiz}` | Quiz configurations |
-| `{quiz_attempts}` | Quiz attempt records |
-| `{question}` | Question bank |
-| `{question_categories}` | Question categories |
-| `{grade_items}` | Gradebook items |
-| `{grade_grades}` | Student grades |
-| `{groups}` | Course groups |
-| `{groups_members}` | Group memberships |
-| `{logstore_standard_log}` | Activity logs |
+| Table                     | Purpose                                      |
+| ------------------------- | -------------------------------------------- |
+| `{user}`                  | User accounts                                |
+| `{course}`                | Courses                                      |
+| `{course_modules}`        | Activity instances in courses                |
+| `{modules}`               | Available activity types (quiz, forum, etc.) |
+| `{quiz}`                  | Quiz configurations                          |
+| `{quiz_attempts}`         | Quiz attempt records                         |
+| `{question}`              | Question bank                                |
+| `{question_categories}`   | Question categories                          |
+| `{grade_items}`           | Gradebook items                              |
+| `{grade_grades}`          | Student grades                               |
+| `{groups}`                | Course groups                                |
+| `{groups_members}`        | Group memberships                            |
+| `{logstore_standard_log}` | Activity logs                                |
 
 ## Additional Resources
 

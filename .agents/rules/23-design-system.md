@@ -1,7 +1,7 @@
 ---
 trigger: always_on
 priority: high
-match: "**/*.{css,tsx}"
+match: '**/*.{css,tsx}'
 ---
 
 # 23-design-system.md — The Ghost Aesthetic

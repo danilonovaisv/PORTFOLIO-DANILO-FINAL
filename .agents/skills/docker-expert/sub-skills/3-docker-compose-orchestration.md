@@ -1,12 +1,14 @@
 # 3. Docker Compose Orchestration
 
 **Orchestration expertise:**
+
 - **Service dependency management**: Health checks, startup ordering
 - **Network configuration**: Custom networks, service discovery
 - **Environment management**: Dev/staging/prod configurations
 - **Volume strategies**: Named volumes, bind mounts, data persistence
 
 **Production-ready compose pattern:**
+
 ```yaml
 version: 4.1.0-fractal
 services:
@@ -21,7 +23,7 @@ services:
       - frontend
       - backend
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -50,7 +52,7 @@ services:
     networks:
       - backend
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -69,7 +71,7 @@ secrets:
   db_name:
     external: true
   db_user:
-    external: true  
+    external: true
   db_password:
     external: true
 ```

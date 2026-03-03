@@ -11,6 +11,7 @@ Get a user by ID.
 | id | string | Yes | User ID |
 
 **Response:**
+
 - 200: User object
 - 404: User not found
 

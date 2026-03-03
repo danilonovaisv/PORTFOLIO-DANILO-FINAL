@@ -1,11 +1,11 @@
 # Editions Comparison
 
-| Feature | Community | Professional |
-|---------|-----------|--------------|
-| Proxy | ✓ | ✓ |
-| Repeater | ✓ | ✓ |
-| Intruder | Limited | Full |
-| Scanner | ✗ | ✓ |
-| Extensions | ✓ | ✓ |
+| Feature    | Community | Professional |
+| ---------- | --------- | ------------ |
+| Proxy      | ✓         | ✓            |
+| Repeater   | ✓         | ✓            |
+| Intruder   | Limited   | Full         |
+| Scanner    | ✗         | ✓            |
+| Extensions | ✓         | ✓            |
 
 ## Outputs / Deliverables

@@ -1,12 +1,14 @@
 # 6. Performance & Resource Management
 
 **Performance optimization:**
+
 - **Resource limits**: CPU, memory constraints for stability
 - **Build performance**: Parallel builds, cache utilization
 - **Runtime performance**: Process management, signal handling
 - **Monitoring integration**: Health checks, metrics exposure
 
 **Resource management:**
+
 ```yaml
 services:
   app:

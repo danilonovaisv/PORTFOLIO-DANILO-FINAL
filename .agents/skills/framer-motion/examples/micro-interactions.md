@@ -10,7 +10,7 @@ Small, delightful animations that enhance UI interactions.
 <motion.button
   whileHover={{ scale: 1.02 }}
   whileTap={{ scale: 0.98 }}
-  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
   className="px-6 py-3 bg-primary text-primary-foreground rounded-lg"
 >
   Click me
@@ -20,10 +20,10 @@ Small, delightful animations that enhance UI interactions.
 ### Button with Icon Animation
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 export function ButtonWithArrow() {
   return (
@@ -36,7 +36,7 @@ export function ButtonWithArrow() {
         variants={{
           hover: { x: 5 },
         }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       >
         <ArrowRight className="h-4 w-4" />
       </motion.span>
@@ -48,12 +48,12 @@ export function ButtonWithArrow() {
 ### Loading Button
 
 ```tsx
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Check } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2, Check } from 'lucide-react';
 
-type ButtonState = "idle" | "loading" | "success";
+type ButtonState = 'idle' | 'loading' | 'success';
 
 export function LoadingButton({
   state,
@@ -65,13 +65,13 @@ export function LoadingButton({
   return (
     <motion.button
       onClick={onClick}
-      disabled={state !== "idle"}
-      whileHover={state === "idle" ? { scale: 1.02 } : {}}
-      whileTap={state === "idle" ? { scale: 0.98 } : {}}
+      disabled={state !== 'idle'}
+      whileHover={state === 'idle' ? { scale: 1.02 } : {}}
+      whileTap={state === 'idle' ? { scale: 0.98 } : {}}
       className="relative px-6 py-3 bg-primary text-primary-foreground rounded-lg overflow-hidden min-w-[120px]"
     >
       <AnimatePresence mode="wait">
-        {state === "idle" && (
+        {state === 'idle' && (
           <motion.span
             key="idle"
             initial={{ opacity: 0, y: 10 }}
@@ -81,7 +81,7 @@ export function LoadingButton({
             Submit
           </motion.span>
         )}
-        {state === "loading" && (
+        {state === 'loading' && (
           <motion.span
             key="loading"
             initial={{ opacity: 0 }}
@@ -92,7 +92,7 @@ export function LoadingButton({
             <Loader2 className="h-5 w-5 animate-spin" />
           </motion.span>
         )}
-        {state === "success" && (
+        {state === 'success' && (
           <motion.span
             key="success"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -116,9 +116,10 @@ export function LoadingButton({
 <motion.div
   whileHover={{
     y: -5,
-    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+    boxShadow:
+      '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
   }}
-  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
   className="p-6 bg-card rounded-xl border"
 >
   Card content
@@ -128,9 +129,9 @@ export function LoadingButton({
 ### Card with Glow Effect
 
 ```tsx
-"use client";
+'use client';
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 
 export function GlowCard({ children }: { children: React.ReactNode }) {
   const mouseX = useMotionValue(0);
@@ -164,11 +165,11 @@ export function GlowCard({ children }: { children: React.ReactNode }) {
 ### Expandable Card
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
 export function ExpandableCard({
   title,
@@ -184,7 +185,7 @@ export function ExpandableCard({
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-4 text-left"
-        whileHover={{ backgroundColor: "rgba(0,0,0,0.02)" }}
+        whileHover={{ backgroundColor: 'rgba(0,0,0,0.02)' }}
       >
         <span className="font-medium">{title}</span>
         <motion.span animate={{ rotate: isOpen ? 180 : 0 }}>
@@ -195,9 +196,9 @@ export function ExpandableCard({
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
+            animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
             <div className="p-4 pt-0 border-t">{children}</div>
@@ -214,14 +215,14 @@ export function ExpandableCard({
 ### Floating Label Input
 
 ```tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export function FloatingLabelInput({ label }: { label: string }) {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const isActive = isFocused || value.length > 0;
 
@@ -232,7 +233,9 @@ export function FloatingLabelInput({ label }: { label: string }) {
         animate={{
           y: isActive ? -24 : 0,
           scale: isActive ? 0.85 : 1,
-          color: isFocused ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
+          color: isFocused
+            ? 'hsl(var(--primary))'
+            : 'hsl(var(--muted-foreground))',
         }}
         className="absolute left-3 top-3 origin-left pointer-events-none"
       >
@@ -253,10 +256,10 @@ export function FloatingLabelInput({ label }: { label: string }) {
 ### Search Input with Icon
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Search, X } from "lucide-react";
+import { motion } from 'framer-motion';
+import { Search, X } from 'lucide-react';
 
 export function SearchInput({
   value,
@@ -299,9 +302,9 @@ export function SearchInput({
 ### Animated Toggle
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export function AnimatedToggle({
   isOn,
@@ -313,12 +316,14 @@ export function AnimatedToggle({
   return (
     <motion.button
       onClick={onToggle}
-      animate={{ backgroundColor: isOn ? "hsl(var(--primary))" : "hsl(var(--muted))" }}
+      animate={{
+        backgroundColor: isOn ? 'hsl(var(--primary))' : 'hsl(var(--muted))',
+      }}
       className="w-14 h-8 rounded-full p-1"
     >
       <motion.div
         animate={{ x: isOn ? 24 : 0 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
         className="w-6 h-6 bg-white rounded-full shadow-md"
       />
     </motion.button>
@@ -331,10 +336,10 @@ export function AnimatedToggle({
 ### Modal with Backdrop
 
 ```tsx
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { AnimatePresence, motion } from 'framer-motion';
+import { X } from 'lucide-react';
 
 export function AnimatedModal({
   isOpen,
@@ -363,7 +368,7 @@ export function AnimatedModal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md bg-background rounded-xl p-6 shadow-xl"
           >
             <motion.button
@@ -386,10 +391,10 @@ export function AnimatedModal({
 ## Notification Toast
 
 ```tsx
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { CheckCircle, X } from "lucide-react";
+import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle, X } from 'lucide-react';
 
 export function AnimatedToast({
   isVisible,
@@ -407,7 +412,7 @@ export function AnimatedToast({
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.9 }}
-          transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           className="fixed bottom-4 right-4 flex items-center gap-3 px-4 py-3 bg-green-500 text-white rounded-lg shadow-lg"
         >
           <CheckCircle className="h-5 w-5" />
@@ -429,15 +434,15 @@ export function AnimatedToast({
 ## Loading Spinner
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export function LoadingSpinner() {
   return (
     <motion.div
       animate={{ rotate: 360 }}
-      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full"
     />
   );
@@ -467,10 +472,10 @@ export function LoadingDots() {
 ## Checkbox Animation
 
 ```tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 
 export function AnimatedCheckbox({
   checked,
@@ -483,8 +488,8 @@ export function AnimatedCheckbox({
     <motion.button
       onClick={() => onChange(!checked)}
       animate={{
-        backgroundColor: checked ? "hsl(var(--primary))" : "transparent",
-        borderColor: checked ? "hsl(var(--primary))" : "hsl(var(--border))",
+        backgroundColor: checked ? 'hsl(var(--primary))' : 'transparent',
+        borderColor: checked ? 'hsl(var(--primary))' : 'hsl(var(--border))',
       }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -493,7 +498,7 @@ export function AnimatedCheckbox({
       <motion.span
         initial={false}
         animate={{ scale: checked ? 1 : 0 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       >
         <Check className="h-3 w-3 text-primary-foreground" />
       </motion.span>

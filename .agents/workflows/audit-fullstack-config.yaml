@@ -25,8 +25,8 @@ steps:
   - id: execute-full-audit
     agent: agent-orchestrator-audit
     action: run_orchestrator_script
-    description: "Orchestrator script validates project, invokes sub-agent modules (Supabase & Firebase), generates reports, and handles optional auto-fixes."
-    command: "python3 scripts/antigravity/agent_orchestrator_audit.py"
+    description: 'Orchestrator script validates project, invokes sub-agent modules (Supabase & Firebase), generates reports, and handles optional auto-fixes.'
+    command: 'python3 scripts/antigravity/agent_orchestrator_audit.py'
 
 outputs:
   - reports/storage-audit.json

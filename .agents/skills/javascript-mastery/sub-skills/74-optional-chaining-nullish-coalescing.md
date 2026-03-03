@@ -2,18 +2,18 @@
 
 ```javascript
 // Optional chaining (?.)
-const user = { address: { city: "NYC" } };
+const user = { address: { city: 'NYC' } };
 const city = user?.address?.city; // "NYC"
 const zip = user?.address?.zip; // undefined (no error)
 const fn = user?.getName?.(); // undefined if no method
 
 // Nullish coalescing (??)
-const value = null ?? "default"; // "default"
-const zero = 0 ?? "default"; // 0 (not nullish!)
-const empty = "" ?? "default"; // "" (not nullish!)
+const value = null ?? 'default'; // "default"
+const zero = 0 ?? 'default'; // 0 (not nullish!)
+const empty = '' ?? 'default'; // "" (not nullish!)
 
 // Compare with ||
-const value2 = 0 || "default"; // "default" (0 is falsy)
+const value2 = 0 || 'default'; // "default" (0 is falsy)
 ```
 
 ---

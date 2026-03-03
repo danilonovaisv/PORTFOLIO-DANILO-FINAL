@@ -26,9 +26,9 @@ Your cost to serve
 
 **Rules**
 
-* Price above the next best alternative
-* Leave customer surplus (value they keep)
-* Cost is a floor, not a pricing basis
+- Price above the next best alternative
+- Leave customer surplus (value they keep)
+- Cost is a floor, not a pricing basis
 
 ---
 

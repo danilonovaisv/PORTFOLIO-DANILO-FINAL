@@ -10,6 +10,7 @@ Hosted agents run in remote sandboxed environments rather than on local machines
 ## When to Activate
 
 Activate this skill when:
+
 - Building background coding agents that run independently of user devices
 - Designing sandboxed execution environments for agent workloads
 - Implementing multiplayer agent sessions with shared state
@@ -32,6 +33,7 @@ Spinning up full development environments quickly is the primary technical chall
 
 **Image Registry Pattern**
 Pre-build environment images on a regular cadence (every 30 minutes works well). Each image contains:
+
 - Cloned repository at a known commit
 - All runtime dependencies installed
 - Initial setup and build commands completed
@@ -41,6 +43,7 @@ When starting a session, spin up a sandbox from the most recent image. The repos
 
 **Snapshot and Restore**
 Take filesystem snapshots at key points:
+
 - After initial image build (base snapshot)
 - When agent finishes making changes (session snapshot)
 - Before sandbox exit for potential follow-up
@@ -49,12 +52,14 @@ This enables instant restoration for follow-up prompts without re-running setup.
 
 **Git Configuration for Background Agents**
 Since git operations are not tied to a specific user during image builds:
+
 - Generate GitHub app installation tokens for repository access during clone
 - Update git config's `user.name` and `user.email` when committing and pushing changes
 - Use the prompting user's identity for commits, not the app identity
 
 **Warm Pool Strategy**
 Maintain a pool of pre-warmed sandboxes for high-volume repositories:
+
 - Sandboxes are ready before users start sessions
 - Expire and recreate pool entries as new image builds complete
 - Start warming sandbox as soon as user begins typing (predictive warm-up)
@@ -63,6 +68,7 @@ Maintain a pool of pre-warmed sandboxes for high-volume repositories:
 
 **Server-First Architecture**
 Choose an agent framework structured as a server first, with TUI and desktop apps as clients. This enables:
+
 - Multiple custom clients without duplicating agent logic
 - Consistent behavior across all interaction surfaces
 - Plugin systems for extending functionality
@@ -73,6 +79,7 @@ Select frameworks where the agent can read its own source code to understand beh
 
 **Plugin System Requirements**
 The framework should support plugins that:
+
 - Listen to tool execution events (e.g., `tool.execute.before`)
 - Block or modify tool calls conditionally
 - Inject context or state at runtime
@@ -81,18 +88,21 @@ The framework should support plugins that:
 
 **Predictive Warm-Up**
 Start warming the sandbox as soon as a user begins typing their prompt:
+
 - Clone latest changes in parallel with user typing
 - Run initial setup before user hits enter
 - For fast spin-up, sandbox can be ready before user finishes typing
 
 **Parallel File Reading**
 Allow the agent to start reading files immediately, even if sync from latest base branch is not complete:
+
 - In large repositories, incoming prompts rarely modify recently-changed files
 - Agent can research immediately without waiting for git sync
 - Block file edits (not reads) until synchronization completes
 
 **Maximize Build-Time Work**
 Move everything possible to the image build step:
+
 - Full dependency installation
 - Database schema setup
 - Initial app and test suite runs (populates caches)
@@ -102,17 +112,20 @@ Move everything possible to the image build step:
 
 **Agent-Spawned Sessions**
 Create tools that allow agents to spawn new sessions:
+
 - Research tasks across different repositories
 - Parallel subtask execution for large changes
 - Multiple smaller PRs from one major task
 
 Frontier models are capable of containing themselves. The tools should:
+
 - Start a new session with specified parameters
 - Read status of any session (check-in capability)
 - Continue main work while sub-sessions run in parallel
 
 **Prompt Engineering for Self-Spawning**
 Engineer prompts to guide when agents spawn sub-sessions:
+
 - Research tasks that require cross-repository exploration
 - Breaking monolithic changes into smaller PRs
 - Parallel exploration of different approaches
@@ -121,12 +134,14 @@ Engineer prompts to guide when agents spawn sub-sessions:
 
 **Per-Session State Isolation**
 Each session requires its own isolated state storage:
+
 - Dedicated database per session (SQLite per session works well)
 - No session can impact another's performance
 - Handles hundreds of concurrent sessions
 
 **Real-Time Streaming**
 Agent work involves high-frequency updates:
+
 - Token streaming from model providers
 - Tool execution status updates
 - File change notifications
@@ -135,6 +150,7 @@ WebSocket connections with hibernation APIs reduce compute costs during idle per
 
 **Synchronization Across Clients**
 Build a single state system that synchronizes across:
+
 - Chat interfaces
 - Slack bots
 - Chrome extensions
@@ -147,12 +163,14 @@ All changes sync to the session state, enabling seamless client switching.
 
 **Why Multiplayer Matters**
 Multiplayer enables:
+
 - Teaching non-engineers to use AI effectively
 - Live QA sessions with multiple team members
 - Real-time PR review with immediate changes
 - Collaborative debugging sessions
 
 **Implementation Requirements**
+
 - Data model must not tie sessions to single authors
 - Pass authorship info to each prompt
 - Attribute code changes to the prompting user
@@ -164,11 +182,13 @@ With proper synchronization architecture, multiplayer support is nearly free to 
 
 **User-Based Commits**
 Use GitHub authentication to:
+
 - Obtain user tokens for PR creation
 - Open PRs on behalf of the user (not the app)
 - Prevent users from approving their own changes
 
 **Sandbox-to-API Flow**
+
 1. Sandbox pushes changes (updating git user config)
 2. Sandbox sends event to API with branch name and session ID
 3. API uses user's GitHub token to create PR
@@ -178,17 +198,20 @@ Use GitHub authentication to:
 
 **Slack Integration**
 The most effective distribution channel for internal adoption:
+
 - Creates virality loop as team members see others using it
 - No syntax required, natural chat interface
 - Classify repository from message, thread context, and channel name
 
 Build a classifier to determine which repository to work in:
+
 - Fast model with descriptions of available repositories
 - Include hints for common repositories
 - Allow "unknown" option for ambiguous cases
 
 **Web Interface**
 Core features:
+
 - Works on desktop and mobile
 - Real-time streaming of agent work
 - Hosted VS Code instance running inside sandbox
@@ -196,12 +219,14 @@ Core features:
 - Before/after screenshots for PRs
 
 Statistics page showing:
+
 - Sessions resulting in merged PRs (primary metric)
 - Usage over time
 - Live "humans prompting" count (prompts in last 5 minutes)
 
 **Chrome Extension**
 For non-engineering users:
+
 - Sidebar chat interface with screenshot tool
 - DOM and React internals extraction instead of raw images
 - Reduces token usage while maintaining precision
@@ -212,6 +237,7 @@ For non-engineering users:
 ### Follow-Up Message Handling
 
 Decide how to handle messages sent during execution:
+
 - **Queue approach**: Messages wait until current prompt completes
 - **Insert approach**: Messages are processed immediately
 
@@ -220,6 +246,7 @@ Queueing is simpler to manage and lets users send thoughts on next steps while a
 ### Metrics That Matter
 
 Track metrics that indicate real value:
+
 - Sessions resulting in merged PRs (primary success metric)
 - Time from session start to first model response
 - PR approval rate and revision count
@@ -228,6 +255,7 @@ Track metrics that indicate real value:
 ### Adoption Strategy
 
 Internal adoption patterns that work:
+
 - Work in public spaces (Slack channels) for visibility
 - Let the product create virality loops
 - Don't force usage over existing tools
@@ -256,14 +284,17 @@ This skill builds on multi-agent-patterns for agent coordination and tool-design
 ## References
 
 Internal reference:
+
 - [Infrastructure Patterns](./references/infrastructure-patterns.md) - Detailed implementation patterns
 
 Related skills in this collection:
+
 - multi-agent-patterns - Coordination patterns for self-spawning agents
 - tool-design - Designing tools for hosted environments
 - context-optimization - Managing context in distributed systems
 
 External resources:
+
 - [Ramp](https://builders.ramp.com/post/why-we-built-our-background-agent) - Why We Built Our Own Background Agent
 - [Modal Sandboxes](https://modal.com/docs/guide/sandbox) - Cloud sandbox infrastructure
 - [Cloudflare Durable Objects](https://developers.cloudflare.com/durable-objects/) - Per-session state management

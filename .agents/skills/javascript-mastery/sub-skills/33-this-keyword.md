@@ -6,7 +6,7 @@ console.log(this); // window (browser) or global (Node)
 
 // Object method
 const obj = {
-  name: "Alice",
+  name: 'Alice',
   greet() {
     console.log(this.name); // "Alice"
   },
@@ -14,7 +14,7 @@ const obj = {
 
 // Arrow functions (lexical this)
 const obj2 = {
-  name: "Bob",
+  name: 'Bob',
   greet: () => {
     console.log(this.name); // undefined (inherits outer this)
   },
@@ -24,9 +24,9 @@ const obj2 = {
 function greet() {
   console.log(this.name);
 }
-greet.call({ name: "Charlie" }); // "Charlie"
-greet.apply({ name: "Diana" }); // "Diana"
-const bound = greet.bind({ name: "Eve" });
+greet.call({ name: 'Charlie' }); // "Charlie"
+greet.apply({ name: 'Diana' }); // "Diana"
+const bound = greet.bind({ name: 'Eve' });
 bound(); // "Eve"
 ```
 

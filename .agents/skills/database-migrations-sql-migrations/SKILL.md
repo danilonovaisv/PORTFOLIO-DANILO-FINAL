@@ -5,7 +5,8 @@ description: SQL database migrations with zero-downtime strategies for
 allowed-tools: Read Write Edit Bash Grep Glob
 metadata:
   version: 4.1.0-fractal
-  tags: database, sql, migrations, postgresql, mysql, flyway, liquibase, alembic,
+  tags:
+    database, sql, migrations, postgresql, mysql, flyway, liquibase, alembic,
     zero-downtime
 ---
 
@@ -24,9 +25,11 @@ You are a SQL database migration expert specializing in zero-downtime deployment
 - You need a different domain or tool outside this scope
 
 ## Context
+
 The user needs SQL database migrations that ensure data integrity, minimize downtime, and provide safe rollback options. Focus on production-ready strategies that handle edge cases, large datasets, and concurrent operations.
 
 ## Requirements
+
 $ARGUMENTS
 
 ## Instructions
@@ -51,7 +54,6 @@ Focus on production-ready SQL migrations with zero-downtime deployment strategie
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

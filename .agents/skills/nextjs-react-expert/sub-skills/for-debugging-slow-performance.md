@@ -24,8 +24,8 @@
 
 ## 🔍 Validation Script
 
-| Script | Purpose | Command |
-|--------|---------|---------|
+| Script                                 | Purpose                     | Command                                                      |
+| -------------------------------------- | --------------------------- | ------------------------------------------------------------ |
 | `scripts/react_performance_checker.py` | Automated performance audit | `python scripts/react_performance_checker.py <project_path>` |
 
 ---

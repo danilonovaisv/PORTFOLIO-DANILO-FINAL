@@ -1,6 +1,7 @@
 # Phase 3: Setting Target Scope
 
 #### Define Scope
+
 Focus testing on specific target:
 
 1. Go to **Target > Site map**
@@ -9,6 +10,7 @@ Focus testing on specific target:
 4. When prompted, click **Yes** to exclude out-of-scope traffic
 
 #### Filter by Scope
+
 Remove noise from HTTP history:
 
 1. Click display filter above HTTP history
@@ -16,6 +18,7 @@ Remove noise from HTTP history:
 3. History now shows only target site traffic
 
 #### Scope Benefits
+
 - Reduces clutter from third-party requests
 - Prevents accidental testing of out-of-scope sites
 - Improves scanning efficiency

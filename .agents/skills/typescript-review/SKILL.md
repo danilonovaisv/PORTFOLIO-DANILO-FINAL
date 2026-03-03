@@ -6,7 +6,7 @@ allowed-tools: Read, Grep, Bash, Glob
 
 # TypeScript/JavaScript Code Review Skill
 
-@./../_shared/typescript-commands.md
+@./../\_shared/typescript-commands.md
 
 ## Code Review Guidelines
 

@@ -27,8 +27,8 @@
   <body>
     <div id="map"></div>
     <script type="text/javascript">
-      let protocol = new pmtiles.Protocol()
-      maplibregl.addProtocol('pmtiles', protocol.tile)
+      let protocol = new pmtiles.Protocol();
+      maplibregl.addProtocol('pmtiles', protocol.tile);
 
       const map = new maplibregl.Map({
         hash: true,
@@ -46,7 +46,7 @@
           },
           layers: protomaps_themes_base.default('protomaps', 'dark'),
         },
-      })
+      });
     </script>
   </body>
 </html>

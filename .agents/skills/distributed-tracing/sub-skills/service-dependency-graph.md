@@ -1,6 +1,7 @@
 # Service Dependency Graph
 
 Jaeger automatically generates service dependency graphs showing:
+
 - Service relationships
 - Request rates
 - Error rates

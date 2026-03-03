@@ -14,10 +14,10 @@ Execution belongs to **page-cro**.
 
 Strategic requirements:
 
-* Clear recommended tier
-* Transparent differentiation
-* Annual discount logic
-* Enterprise escape hatch
+- Clear recommended tier
+- Transparent differentiation
+- Annual discount logic
+- Enterprise escape hatch
 
 ---
 
@@ -25,15 +25,15 @@ Strategic requirements:
 
 Preferred:
 
-* New-customer pricing
-* Sales-led experimentation
-* Geographic tests
-* Packaging tests
+- New-customer pricing
+- Sales-led experimentation
+- Geographic tests
+- Packaging tests
 
 Avoid:
 
-* Blind A/B price tests on same page
-* Surprise customer discovery
+- Blind A/B price tests on same page
+- Surprise customer discovery
 
 ---
 

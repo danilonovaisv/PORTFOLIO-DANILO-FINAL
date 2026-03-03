@@ -17,5 +17,7 @@ When starting a new project, create a `CLAUDE.md` file in the root directory to 
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Template (General)](./sub-skills/template-general.md)
+
 ### 2. [Thinking Keywords](./sub-skills/thinking-keywords.md)
+
 ### 3. [Debugging](./sub-skills/debugging.md)

@@ -4,6 +4,7 @@
 Based on metrics and comparables.
 
 **Dilution:**
+
 ```
 Post-Money = Pre-Money + Investment
 Dilution % = Investment / Post-Money
@@ -13,6 +14,7 @@ Dilution % = Investment / Post-Money
 Allocate funding to extend runway and achieve milestones.
 
 **Example:**
+
 ```
 Raise: $5M at $20M pre-money
 Post-Money: $25M

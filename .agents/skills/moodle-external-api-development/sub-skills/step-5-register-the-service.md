@@ -31,6 +31,7 @@ $services = [
 ```
 
 **Service Registration Keys**:
+
 - `classname` - Full namespaced class name
 - `methodname` - Always 'execute'
 - `type` - 'read' (SELECT) or 'write' (INSERT/UPDATE/DELETE)

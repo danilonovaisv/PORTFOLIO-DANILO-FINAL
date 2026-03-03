@@ -37,11 +37,11 @@ Seguindo a especificação do documento de referência, foram criados os seguint
 
 Foram criados scripts determinísticos em `.agent/execution/` para suportar os workflows:
 
-| Script | Finalidade | Dependências |
-| :--- | :--- | :--- |
-| `supabase-check.ts` | Valida conexão e configuração básica do Supabase. | `@supabase/supabase-js`, `dotenv` |
-| `firebase-predeploy.ts` | Valida `package.json` engines e `firebase.json` rewrites. | `fs`, `path` |
-| `r3f-audit.ts` | Análise estática simples para anti-patterns em loops de renderização (useFrame). | `fs` |
+| Script                  | Finalidade                                                                       | Dependências                      |
+| :---------------------- | :------------------------------------------------------------------------------- | :-------------------------------- |
+| `supabase-check.ts`     | Valida conexão e configuração básica do Supabase.                                | `@supabase/supabase-js`, `dotenv` |
+| `firebase-predeploy.ts` | Valida `package.json` engines e `firebase.json` rewrites.                        | `fs`, `path`                      |
+| `r3f-audit.ts`          | Análise estática simples para anti-patterns em loops de renderização (useFrame). | `fs`                              |
 
 ## 4. Checklist de Integridade Final
 

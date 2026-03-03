@@ -1,6 +1,7 @@
 # Performance Optimization Strategies
 
 **Type Checking Performance**
+
 ```bash
 # Diagnose slow type checking
 npx tsc --extendedDiagnostics --incremental false | grep -E "Check time|Files:|Lines:|Nodes:"
@@ -13,6 +14,7 @@ npx tsc --extendedDiagnostics --incremental false | grep -E "Check time|Files:|L
 ```
 
 **Build Performance Patterns**
+
 - Enable `skipLibCheck: true` for library type checking only (often significantly improves performance on large projects, but avoid masking app typing issues)
 - Use `incremental: true` with `.tsbuildinfo` cache
 - Configure `include`/`exclude` precisely

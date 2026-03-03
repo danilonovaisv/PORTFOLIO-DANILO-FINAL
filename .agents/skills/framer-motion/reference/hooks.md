@@ -7,7 +7,7 @@ Framer Motion provides hooks for advanced animation control.
 Programmatic control over animations.
 
 ```tsx
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from 'framer-motion';
 
 function Component() {
   const controls = useAnimation();
@@ -21,9 +21,7 @@ function Component() {
   return (
     <>
       <button onClick={sequence}>Start sequence</button>
-      <motion.div animate={controls}>
-        Controlled animation
-      </motion.div>
+      <motion.div animate={controls}>Controlled animation</motion.div>
     </>
   );
 }
@@ -38,7 +36,7 @@ const controls = useAnimation();
 controls.start({ opacity: 1, x: 100 });
 
 // Start with variant
-controls.start("visible");
+controls.start('visible');
 
 // Start with transition
 controls.start({ x: 100 }, { duration: 0.5 });
@@ -81,7 +79,7 @@ function Component() {
 Create reactive values for animations.
 
 ```tsx
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue } from 'framer-motion';
 
 function Component() {
   const x = useMotionValue(0);
@@ -112,8 +110,8 @@ const current = x.get();
 x.set(100);
 
 // Subscribe to changes
-const unsubscribe = x.on("change", (latest) => {
-  console.log("x changed to", latest);
+const unsubscribe = x.on('change', (latest) => {
+  console.log('x changed to', latest);
 });
 
 // Jump to value (skips animation)
@@ -131,7 +129,7 @@ const velocity = x.getVelocity();
 Transform one motion value into another.
 
 ```tsx
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 function Component() {
   const x = useMotionValue(0);
@@ -146,10 +144,7 @@ function Component() {
   const scale = useTransform(x, [-100, 0, 100], [0.5, 1, 1.5]);
 
   return (
-    <motion.div
-      drag="x"
-      style={{ x, opacity, rotate, scale }}
-    >
+    <motion.div drag="x" style={{ x, opacity, rotate, scale }}>
       Drag me
     </motion.div>
   );
@@ -170,7 +165,7 @@ const opacity = useTransform(xRange, [0, 0.5, 1], [0, 1, 0]);
 const x = useMotionValue(0);
 
 const background = useTransform(x, (value) => {
-  return value > 0 ? "#22c55e" : "#ef4444";
+  return value > 0 ? '#22c55e' : '#ef4444';
 });
 ```
 
@@ -179,17 +174,14 @@ const background = useTransform(x, (value) => {
 Create spring-animated motion values.
 
 ```tsx
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 function Component() {
   const x = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 30 });
 
   return (
-    <motion.div
-      style={{ x: springX }}
-      onMouseMove={(e) => x.set(e.clientX)}
-    >
+    <motion.div style={{ x: springX }} onMouseMove={(e) => x.set(e.clientX)}>
       Follows cursor with spring
     </motion.div>
   );
@@ -200,10 +192,10 @@ function Component() {
 
 ```tsx
 const springValue = useSpring(motionValue, {
-  stiffness: 300,  // Higher = snappier
-  damping: 30,     // Higher = less bounce
-  mass: 1,         // Higher = more momentum
-  velocity: 0,     // Initial velocity
+  stiffness: 300, // Higher = snappier
+  damping: 30, // Higher = less bounce
+  mass: 1, // Higher = more momentum
+  velocity: 0, // Initial velocity
   restSpeed: 0.01, // Minimum speed to consider "at rest"
   restDelta: 0.01, // Minimum distance to consider "at rest"
 });
@@ -214,7 +206,7 @@ const springValue = useSpring(motionValue, {
 Track scroll progress.
 
 ```tsx
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -254,14 +246,11 @@ function Component() {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start end", "end start"], // When to start/end tracking
+    offset: ['start end', 'end start'], // When to start/end tracking
   });
 
   return (
-    <motion.div
-      ref={targetRef}
-      style={{ opacity: scrollYProgress }}
-    >
+    <motion.div ref={targetRef} style={{ opacity: scrollYProgress }}>
       Animates as it passes through viewport
     </motion.div>
   );
@@ -274,8 +263,8 @@ function Component() {
 const { scrollYProgress } = useScroll({
   target: ref,
   offset: [
-    "start end",    // When target's start reaches viewport's end
-    "end start",    // When target's end reaches viewport's start
+    'start end', // When target's start reaches viewport's end
+    'end start', // When target's end reaches viewport's start
   ],
 });
 
@@ -289,7 +278,7 @@ const { scrollYProgress } = useScroll({
 Get velocity of a motion value.
 
 ```tsx
-import { useMotionValue, useVelocity } from "framer-motion";
+import { useMotionValue, useVelocity } from 'framer-motion';
 
 function Component() {
   const x = useMotionValue(0);
@@ -300,7 +289,7 @@ function Component() {
       drag="x"
       style={{ x }}
       onDragEnd={() => {
-        console.log("Release velocity:", xVelocity.get());
+        console.log('Release velocity:', xVelocity.get());
       }}
     >
       Drag me
@@ -314,7 +303,7 @@ function Component() {
 Detect when element enters viewport.
 
 ```tsx
-import { useInView } from "framer-motion";
+import { useInView } from 'framer-motion';
 
 function Component() {
   const ref = useRef(null);
@@ -337,10 +326,10 @@ function Component() {
 
 ```tsx
 const isInView = useInView(ref, {
-  once: true,           // Only trigger once
-  amount: 0.5,          // Trigger when 50% visible
-  margin: "-100px",     // Adjust trigger point
-  root: scrollContainerRef,  // Custom scroll container
+  once: true, // Only trigger once
+  amount: 0.5, // Trigger when 50% visible
+  margin: '-100px', // Adjust trigger point
+  root: scrollContainerRef, // Custom scroll container
 });
 ```
 
@@ -349,7 +338,7 @@ const isInView = useInView(ref, {
 Detect reduced motion preference.
 
 ```tsx
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from 'framer-motion';
 
 function Component() {
   const prefersReducedMotion = useReducedMotion();
@@ -372,7 +361,7 @@ function Component() {
 Create custom drag handles.
 
 ```tsx
-import { motion, useDragControls } from "framer-motion";
+import { motion, useDragControls } from 'framer-motion';
 
 function DraggableCard() {
   const dragControls = useDragControls();
@@ -381,12 +370,9 @@ function DraggableCard() {
     <motion.div
       drag
       dragControls={dragControls}
-      dragListener={false}  // Disable drag on whole element
+      dragListener={false} // Disable drag on whole element
     >
-      <div
-        onPointerDown={(e) => dragControls.start(e)}
-        className="cursor-grab"
-      >
+      <div onPointerDown={(e) => dragControls.start(e)} className="cursor-grab">
         Drag Handle
       </div>
       <div>Card Content (not draggable)</div>
@@ -400,7 +386,7 @@ function DraggableCard() {
 Run code every animation frame.
 
 ```tsx
-import { useAnimationFrame } from "framer-motion";
+import { useAnimationFrame } from 'framer-motion';
 
 function Component() {
   const ref = useRef(null);
@@ -425,18 +411,14 @@ function ParallaxSection() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
   return (
-    <motion.section
-      ref={ref}
-      style={{ y, opacity }}
-      className="h-screen"
-    >
+    <motion.section ref={ref} style={{ y, opacity }} className="h-screen">
       Parallax content
     </motion.section>
   );

@@ -30,6 +30,7 @@ Generate a comprehensive market opportunity analysis for a startup, including To
 ## What This Command Does
 
 This command guides through an interactive market sizing process to:
+
 1. Define the target market and customer segments
 2. Gather relevant market data
 3. Calculate TAM using bottom-up methodology
@@ -45,11 +46,19 @@ When this command is invoked, follow these steps:
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Step 1: Gather Context](./sub-skills/step-1-gather-context.md)
+
 ### 2. [Step 2: Activate market-sizing-analysis Skill](./sub-skills/step-2-activate-market-sizing-analysis-skill.md)
+
 ### 3. [Step 3: Conduct Bottom-Up Analysis](./sub-skills/step-3-conduct-bottom-up-analysis.md)
+
 ### 4. [Step 4: Gather Market Data](./sub-skills/step-4-gather-market-data.md)
+
 ### 5. [Step 5: Top-Down Validation](./sub-skills/step-5-top-down-validation.md)
+
 ### 6. [Step 6: Calculate SAM](./sub-skills/step-6-calculate-sam.md)
+
 ### 7. [Step 7: Estimate SOM](./sub-skills/step-7-estimate-som.md)
+
 ### 8. [Step 8: Create Market Sizing Report](./sub-skills/step-8-create-market-sizing-report.md)
+
 ### 9. [Step 9: Save Report](./sub-skills/step-9-save-report.md)

@@ -10,6 +10,7 @@ When agent sessions generate millions of tokens of conversation history, compres
 ## When to Activate
 
 Activate this skill when:
+
 - Agent sessions exceed context window limits
 - Codebases exceed context windows (5M+ token systems)
 - Designing conversation summarization strategies
@@ -41,6 +42,7 @@ The right metric is tokens-per-task: total tokens consumed from task start to co
 Artifact trail integrity is the weakest dimension across all compression methods, scoring 2.2-2.5 out of 5.0 in evaluations. Even structured summarization with explicit file sections struggles to maintain complete file tracking across long sessions.
 
 Coding agents need to know:
+
 - Which files were created
 - Which files were modified and what changed
 - Which files were read but not changed
@@ -54,22 +56,27 @@ Effective structured summaries include explicit sections:
 
 ```markdown
 ## Session Intent
+
 [What the user is trying to accomplish]
 
 ## Files Modified
+
 - auth.controller.ts: Fixed JWT token generation
 - config/redis.ts: Updated connection pooling
 - tests/auth.test.ts: Added mock setup for new config
 
 ## Decisions Made
+
 - Using Redis connection pool instead of per-request connections
 - Retry logic with exponential backoff for transient failures
 
 ## Current State
+
 - 14 tests passing, 2 failing
 - Remaining: mock setup for session service tests
 
 ## Next Steps
+
 1. Fix remaining test failures
 2. Run full test suite
 3. Update documentation
@@ -81,12 +88,12 @@ This structure prevents silent loss of file paths or decisions because each sect
 
 When to trigger compression matters as much as how to compress:
 
-| Strategy | Trigger Point | Trade-off |
-|----------|---------------|-----------|
-| Fixed threshold | 70-80% context utilization | Simple but may compress too early |
-| Sliding window | Keep last N turns + summary | Predictable context size |
-| Importance-based | Compress low-relevance sections first | Complex but preserves signal |
-| Task-boundary | Compress at logical task completions | Clean summaries but unpredictable timing |
+| Strategy         | Trigger Point                         | Trade-off                                |
+| ---------------- | ------------------------------------- | ---------------------------------------- |
+| Fixed threshold  | 70-80% context utilization            | Simple but may compress too early        |
+| Sliding window   | Keep last N turns + summary           | Predictable context size                 |
+| Importance-based | Compress low-relevance sections first | Complex but preserves signal             |
+| Task-boundary    | Compress at logical task completions  | Clean summaries but unpredictable timing |
 
 The sliding window approach with structured summaries provides the best balance of predictability and quality for most coding agent use cases.
 
@@ -96,12 +103,12 @@ Traditional metrics like ROUGE or embedding similarity fail to capture functiona
 
 Probe-based evaluation directly measures functional quality by asking questions after compression:
 
-| Probe Type | What It Tests | Example Question |
-|------------|---------------|------------------|
-| Recall | Factual retention | "What was the original error message?" |
-| Artifact | File tracking | "Which files have we modified?" |
-| Continuation | Task planning | "What should we do next?" |
-| Decision | Reasoning chain | "What did we decide about the Redis issue?" |
+| Probe Type   | What It Tests     | Example Question                            |
+| ------------ | ----------------- | ------------------------------------------- |
+| Recall       | Factual retention | "What was the original error message?"      |
+| Artifact     | File tracking     | "Which files have we modified?"             |
+| Continuation | Task planning     | "What should we do next?"                   |
+| Decision     | Reasoning chain   | "What did we decide about the Redis issue?" |
 
 If compression preserved the right information, the agent answers correctly. If not, it guesses or hallucinates.
 
@@ -147,27 +154,30 @@ This is particularly important when the agent cannot distinguish essential compl
 ### When to Use Each Approach
 
 **Use anchored iterative summarization when:**
+
 - Sessions are long-running (100+ messages)
 - File tracking matters (coding, debugging)
 - You need to verify what was preserved
 
 **Use opaque compression when:**
+
 - Maximum token savings required
 - Sessions are relatively short
 - Re-fetching costs are low
 
 **Use regenerative summaries when:**
+
 - Summary interpretability is critical
 - Sessions have clear phase boundaries
 - Full context review is acceptable on each compression
 
 ### Compression Ratio Considerations
 
-| Method | Compression Ratio | Quality Score | Trade-off |
-|--------|-------------------|---------------|-----------|
-| Anchored Iterative | 98.6% | 3.70 | Best quality, slightly less compression |
-| Regenerative | 98.7% | 3.44 | Good quality, moderate compression |
-| Opaque | 99.3% | 3.35 | Best compression, quality loss |
+| Method             | Compression Ratio | Quality Score | Trade-off                               |
+| ------------------ | ----------------- | ------------- | --------------------------------------- |
+| Anchored Iterative | 98.6%             | 3.70          | Best quality, slightly less compression |
+| Regenerative       | 98.7%             | 3.44          | Good quality, moderate compression      |
+| Opaque             | 99.3%             | 3.35          | Best compression, quality loss          |
 
 The 0.7% additional tokens retained by structured summarization buys 0.35 quality points. For any task where re-fetching costs matter, this trade-off favors structured approaches.
 
@@ -176,6 +186,7 @@ The 0.7% additional tokens retained by structured summarization buys 0.35 qualit
 **Example 1: Debugging Session Compression**
 
 Original context (89,000 tokens, 178 messages):
+
 - 401 error on /api/auth/login endpoint
 - Traced through auth controller, middleware, session store
 - Found stale Redis connection
@@ -186,12 +197,15 @@ Structured summary after compression:
 
 ```markdown
 ## Session Intent
+
 Debug 401 Unauthorized error on /api/auth/login despite valid credentials.
 
 ## Root Cause
+
 Stale Redis connection in session store. JWT generated correctly but session could not be persisted.
 
 ## Files Modified
+
 - auth.controller.ts: No changes (read only)
 - middleware/cors.ts: No changes (examined)
 - config/redis.ts: Fixed connection pooling configuration
@@ -199,9 +213,11 @@ Stale Redis connection in session store. JWT generated correctly but session cou
 - tests/auth.test.ts: Updated mock setup
 
 ## Test Status
+
 14 passing, 2 failing (mock setup issues)
 
 ## Next Steps
+
 1. Fix remaining test failures (mock session service)
 2. Run full test suite
 3. Deploy to staging
@@ -212,9 +228,11 @@ Stale Redis connection in session store. JWT generated correctly but session cou
 After compression, asking "What was the original error?":
 
 Good response (structured summarization):
+
 > "The original error was a 401 Unauthorized response from the /api/auth/login endpoint. Users received this error with valid credentials. Root cause was stale Redis connection in session store."
 
 Poor response (aggressive compression):
+
 > "We were debugging an authentication issue. The login was failing. We fixed some configuration problems."
 
 The structured response preserves endpoint, error code, and root cause. The aggressive response loses all technical detail.
@@ -242,14 +260,17 @@ This skill connects to several others in the collection:
 ## References
 
 Internal reference:
+
 - [Evaluation Framework Reference](./references/evaluation-framework.md) - Detailed probe types and scoring rubrics
 
 Related skills in this collection:
+
 - context-degradation - Understanding what compression prevents
 - context-optimization - Broader optimization strategies
 - evaluation - Building evaluation frameworks
 
 External resources:
+
 - Factory Research: Evaluating Context Compression for AI Agents (December 2025)
 - Research on LLM-as-judge evaluation methodology (Zheng et al., 2023)
 - Netflix Engineering: "The Infinite Software Crisis" - Three-phase workflow and context compression at scale (AI Summit 2025)
@@ -262,4 +283,3 @@ External resources:
 **Last Updated**: 2025-12-26
 **Author**: Agent Skills for Context Engineering Contributors
 **Version**: 1.1.0
-

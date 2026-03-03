@@ -8,15 +8,15 @@ Comprehensive guide for setting up local Temporal development environment with p
 
 ```yaml
 # docker-compose.yml
-version: "3.8"
+version: '3.8'
 
 services:
   temporal:
     image: temporalio/auto-setup:latest
     container_name: temporal-dev
     ports:
-      - "7233:7233" # Temporal server
-      - "8233:8233" # Web UI
+      - '7233:7233' # Temporal server
+      - '8233:8233' # Web UI
     environment:
       - DB=postgresql
       - POSTGRES_USER=temporal
@@ -34,7 +34,7 @@ services:
       - POSTGRES_PASSWORD=temporal
       - POSTGRES_DB=temporal
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -47,7 +47,7 @@ services:
       - TEMPORAL_ADDRESS=temporal:7233
       - TEMPORAL_CORS_ORIGINS=http://localhost:3000
     ports:
-      - "8080:8080"
+      - '8080:8080'
 
 volumes:
   postgres_data:
@@ -445,7 +445,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Start Temporal server
         run: docker-compose up -d

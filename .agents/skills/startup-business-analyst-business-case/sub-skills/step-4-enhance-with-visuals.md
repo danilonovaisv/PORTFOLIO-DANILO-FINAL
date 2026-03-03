@@ -1,6 +1,7 @@
 # Step 4: Enhance with Visuals
 
 Suggest including:
+
 - Charts for market sizing (TAM funnel)
 - Product screenshots or mockups
 - Positioning maps

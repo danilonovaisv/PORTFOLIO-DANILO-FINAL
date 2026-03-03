@@ -1,9 +1,9 @@
 # Naming Convention
 
-| Pattern | Example |
-|---------|---------|
-| Feature-based | `login.spec.ts` |
-| Descriptive | `user-can-checkout.spec.ts` |
+| Pattern       | Example                     |
+| ------------- | --------------------------- |
+| Feature-based | `login.spec.ts`             |
+| Descriptive   | `user-can-checkout.spec.ts` |
 
 ---
 

@@ -12,12 +12,13 @@ test('retries failed operations 3 times', async () => {
     return 'success';
   };
 
-  const result = await retryOperation(operation);
+const result = await retryOperation(operation);
 
-  expect(result).toBe('success');
-  expect(attempts).toBe(3);
+expect(result).toBe('success');
+expect(attempts).toBe(3);
 });
-```
+
+````
 Clear name, tests real behavior, one thing
 </Good>
 
@@ -31,11 +32,13 @@ test('retry works', async () => {
   await retryOperation(mock);
   expect(mock).toHaveBeenCalledTimes(3);
 });
-```
+````
+
 Vague name, tests mock not code
 </Bad>
 
 **Requirements:**
+
 - One behavior
 - Clear name
 - Real code (no mocks unless unavoidable)

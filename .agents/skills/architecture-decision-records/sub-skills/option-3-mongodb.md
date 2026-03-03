@@ -11,6 +11,7 @@ We will use **PostgreSQL 15** as our primary database.
 ## Rationale
 
 PostgreSQL provides the best balance of:
+
 1. **ACID compliance** essential for e-commerce transactions
 2. **Built-in capabilities** (full-text search, JSONB, PostGIS) reduce
    infrastructure complexity

@@ -1,6 +1,7 @@
 # Senior/Lead Engineer Onboarding (Accelerated)
 
 **Week 1: Rapid Immersion**
+
 - [ ] Day 1: Leadership team introductions
 - [ ] Day 2: Full system architecture deep-dive
 - [ ] Day 3: Current challenges and priorities briefing
@@ -9,6 +10,7 @@
 - [ ] End of week: Initial observations documented
 
 **Week 2-3: Assessment and Planning**
+
 - [ ] Review last quarter's postmortems
 - [ ] Analyze technical debt backlog
 - [ ] Audit current team processes
@@ -17,6 +19,7 @@
 - [ ] Propose initial technical improvements
 
 **Week 4: Taking Ownership**
+
 - [ ] Lead first team ceremony (retro or planning)
 - [ ] Own critical technical decision
 - [ ] Establish 1:1 cadence with team members
@@ -25,6 +28,7 @@
 - [ ] Submit first major architectural proposal
 
 **30-Day Deliverables:**
+
 - Technical assessment document
 - Team process improvement plan
 - Relationship map established

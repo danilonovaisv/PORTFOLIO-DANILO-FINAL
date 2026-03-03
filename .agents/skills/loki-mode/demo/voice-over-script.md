@@ -41,6 +41,7 @@ Complete narration for Loki Mode demo video.
 > [Show: .loki directory being created]
 >
 > The .loki directory contains:
+>
 > - CONTINUITY.md - the working memory that persists across context resets
 > - Queue files for task management
 > - State tracking for the orchestrator
@@ -56,6 +57,7 @@ Complete narration for Loki Mode demo video.
 > [Show: Tasks being generated]
 >
 > See how it breaks down the todo app into specific tasks:
+>
 > - Set up backend with Express
 > - Create SQLite database schema
 > - Implement API endpoints
@@ -96,6 +98,7 @@ Complete narration for Loki Mode demo video.
 > [Show: Multiple agents being spawned]
 >
 > Loki Mode spawns specialized agents:
+>
 > - A backend agent implementing the Express server
 > - A frontend agent building the React UI
 > - A database agent setting up SQLite
@@ -123,6 +126,7 @@ Complete narration for Loki Mode demo video.
 > [Show: Three reviewers being dispatched]
 >
 > Loki Mode dispatches THREE reviewers in parallel:
+>
 > 1. Code quality reviewer - checks patterns and best practices
 > 2. Business logic reviewer - verifies requirements are met
 > 3. Security reviewer - scans for vulnerabilities
@@ -157,6 +161,7 @@ Complete narration for Loki Mode demo video.
 > [Show: CONTINUITY.md contents]
 >
 > This file tracks:
+>
 > - Current task and progress
 > - Decisions made and why
 > - Mistakes and learnings
@@ -224,23 +229,23 @@ Complete narration for Loki Mode demo video.
 
 ## Timing Summary
 
-| Section | Start | Duration |
-|---------|-------|----------|
-| Introduction | 0:00 | 30s |
-| Setup | 0:30 | 30s |
-| Invocation | 1:00 | 30s |
-| Bootstrap | 1:30 | 60s |
-| Discovery | 2:30 | 60s |
-| Architecture | 3:30 | 60s |
-| Kanban | 4:30 | 60s |
-| Agents | 5:30 | 90s |
-| Model Selection | 7:00 | 30s |
-| Code Review | 7:30 | 90s |
-| Quality Gates | 9:00 | 60s |
-| CONTINUITY | 10:00 | 60s |
-| Memory | 11:00 | 60s |
-| Completion | 12:00 | 60s |
-| Recap | 13:00 | 60s |
-| CTA | 14:00 | 30s |
+| Section         | Start | Duration |
+| --------------- | ----- | -------- |
+| Introduction    | 0:00  | 30s      |
+| Setup           | 0:30  | 30s      |
+| Invocation      | 1:00  | 30s      |
+| Bootstrap       | 1:30  | 60s      |
+| Discovery       | 2:30  | 60s      |
+| Architecture    | 3:30  | 60s      |
+| Kanban          | 4:30  | 60s      |
+| Agents          | 5:30  | 90s      |
+| Model Selection | 7:00  | 30s      |
+| Code Review     | 7:30  | 90s      |
+| Quality Gates   | 9:00  | 60s      |
+| CONTINUITY      | 10:00 | 60s      |
+| Memory          | 11:00 | 60s      |
+| Completion      | 12:00 | 60s      |
+| Recap           | 13:00 | 60s      |
+| CTA             | 14:00 | 30s      |
 
 **Total: ~14.5 minutes**

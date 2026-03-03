@@ -5,6 +5,7 @@
   - Sequential processing for dependent insights
   - Intelligent timeout and fallback mechanisms
 - **Execution Flow**:
+
   ```python
   def execute_review(review_context):
       # Parallel independent agents

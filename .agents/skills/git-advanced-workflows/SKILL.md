@@ -36,16 +36,29 @@ Master advanced Git techniques to maintain clean history, collaborate effectivel
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Interactive Rebase](./sub-skills/1-interactive-rebase.md)
+
 ### 2. [2. Cherry-Picking](./sub-skills/2-cherry-picking.md)
+
 ### 3. [3. Git Bisect](./sub-skills/3-git-bisect.md)
+
 ### 4. [4. Worktrees](./sub-skills/4-worktrees.md)
+
 ### 5. [5. Reflog](./sub-skills/5-reflog.md)
+
 ### 6. [Workflow 1: Clean Up Feature Branch Before PR](./sub-skills/workflow-1-clean-up-feature-branch-before-pr.md)
+
 ### 7. [Workflow 2: Apply Hotfix to Multiple Releases](./sub-skills/workflow-2-apply-hotfix-to-multiple-releases.md)
+
 ### 8. [Workflow 3: Find Bug Introduction](./sub-skills/workflow-3-find-bug-introduction.md)
+
 ### 9. [Workflow 4: Multi-Branch Development](./sub-skills/workflow-4-multi-branch-development.md)
+
 ### 10. [Workflow 5: Recover from Mistakes](./sub-skills/workflow-5-recover-from-mistakes.md)
+
 ### 11. [Rebase vs Merge Strategy](./sub-skills/rebase-vs-merge-strategy.md)
+
 ### 12. [Autosquash Workflow](./sub-skills/autosquash-workflow.md)
+
 ### 13. [Split Commit](./sub-skills/split-commit.md)
+
 ### 14. [Partial Cherry-Pick](./sub-skills/partial-cherry-pick.md)

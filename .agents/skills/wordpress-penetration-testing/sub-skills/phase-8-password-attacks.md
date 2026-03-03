@@ -24,6 +24,7 @@ wpscan --url http://target.com -U admin -P wordlist.txt
 ```
 
 Password attack methods:
+
 - `wp-login` - Standard login form
 - `xmlrpc` - XML-RPC multicall (faster)
 - `xmlrpc-multicall` - Multiple passwords per request

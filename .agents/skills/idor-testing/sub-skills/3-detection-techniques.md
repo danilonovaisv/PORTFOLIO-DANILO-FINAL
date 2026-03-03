@@ -1,6 +1,7 @@
 # 3. Detection Techniques
 
 #### URL Parameter Manipulation
+
 ```
 # Step 1: Capture original authenticated request
 GET /api/user/profile?id=1001 HTTP/1.1
@@ -14,6 +15,7 @@ Cookie: session=attacker_session
 ```
 
 #### Request Body Manipulation
+
 ```
 # Original POST request
 POST /api/address/update HTTP/1.1
@@ -27,6 +29,7 @@ Cookie: session=attacker_session
 ```
 
 #### HTTP Method Switching
+
 ```
 # Original GET request may be protected
 GET /api/admin/users/1000 → 403 Forbidden

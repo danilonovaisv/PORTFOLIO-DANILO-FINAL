@@ -12,6 +12,7 @@ poetry run pytest tests/test_auth.py -v
 ```
 
 **Test structure:**
+
 ```python
 import pytest
 from httpx import AsyncClient

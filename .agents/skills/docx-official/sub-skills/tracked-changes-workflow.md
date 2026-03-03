@@ -1,6 +1,7 @@
 # Tracked changes workflow
 
 1. **Get markdown representation**: Convert document to markdown with tracked changes preserved:
+
    ```bash
    pandoc --track-changes=all path-to-file.docx -o current.md
    ```
@@ -44,6 +45,7 @@
    **Note**: Always grep `word/document.xml` immediately before writing a script to get current line numbers and verify text content. Line numbers change after each script run.
 
 5. **Pack the document**: After all batches are complete, convert the unpacked directory back to .docx:
+
    ```bash
    python ooxml/scripts/pack.py unpacked reviewed-document.docx
    ```
@@ -60,12 +62,12 @@
      ```
    - Check that no unintended changes were introduced
 
-
 ## Converting Documents to Images
 
 To visually analyze Word documents, convert them to images using a two-step process:
 
 1. **Convert DOCX to PDF**:
+
    ```bash
    soffice --headless --convert-to pdf document.docx
    ```
@@ -77,6 +79,7 @@ To visually analyze Word documents, convert them to images using a two-step proc
    This creates files like `page-1.jpg`, `page-2.jpg`, etc.
 
 Options:
+
 - `-r 150`: Sets resolution to 150 DPI (adjust for quality/size balance)
 - `-jpeg`: Output JPEG format (use `-png` for PNG if preferred)
 - `-f N`: First page to convert (e.g., `-f 2` starts from page 2)
@@ -84,12 +87,15 @@ Options:
 - `page`: Prefix for output files
 
 Example for specific range:
+
 ```bash
 pdftoppm -jpeg -r 150 -f 2 -l 5 document.pdf page  # Converts only pages 2-5
 ```
 
 ## Code Style Guidelines
+
 **IMPORTANT**: When generating code for DOCX operations:
+
 - Write concise code
 - Avoid verbose variable names and redundant operations
 - Avoid unnecessary print statements

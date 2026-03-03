@@ -7,12 +7,12 @@ metadata:
   name: read-pods
   namespace: production
 subjects:
-- kind: User
-  name: jane
-  apiGroup: rbac.authorization.k8s.io
-- kind: ServiceAccount
-  name: default
-  namespace: production
+  - kind: User
+    name: jane
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: default
+    namespace: production
 roleRef:
   kind: Role
   name: pod-reader

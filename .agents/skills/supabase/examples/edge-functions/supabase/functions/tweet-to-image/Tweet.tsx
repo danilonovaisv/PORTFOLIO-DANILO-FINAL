@@ -1,5 +1,5 @@
-import React from 'https://esm.sh/react@18.2.0?deno-std=0.140.0'
-import type { FormattedTweet } from './types.ts'
+import React from 'https://esm.sh/react@18.2.0?deno-std=0.140.0';
+import type { FormattedTweet } from './types.ts';
 
 /**
  * Supports plain text, images, quote tweets.
@@ -16,15 +16,18 @@ export default function Tweet({
   public_metrics,
   referenced_tweets,
 }: FormattedTweet) {
-  const authorUrl = `https://twitter.com/${author.username}`
-  const likeUrl = `https://twitter.com/intent/like?tweet_id=${id}`
-  const retweetUrl = `https://twitter.com/intent/retweet?tweet_id=${id}`
-  const replyUrl = `https://twitter.com/intent/tweet?in_reply_to=${id}`
-  const tweetUrl = `https://twitter.com/${author.username}/status/${id}`
-  const createdAt = new Date(created_at)
+  const authorUrl = `https://twitter.com/${author.username}`;
+  const likeUrl = `https://twitter.com/intent/like?tweet_id=${id}`;
+  const retweetUrl = `https://twitter.com/intent/retweet?tweet_id=${id}`;
+  const replyUrl = `https://twitter.com/intent/tweet?in_reply_to=${id}`;
+  const tweetUrl = `https://twitter.com/${author.username}/status/${id}`;
+  const createdAt = new Date(created_at);
 
-  const formattedText = text.replace(/https:\/\/[\n\S]+/g, '').replace('&amp;', '&')
-  const quoteTweet = referenced_tweets && referenced_tweets.find((t) => t.type === 'quoted')
+  const formattedText = text
+    .replace(/https:\/\/[\n\S]+/g, '')
+    .replace('&amp;', '&');
+  const quoteTweet =
+    referenced_tweets && referenced_tweets.find((t) => t.type === 'quoted');
 
   return (
     <div tw="flex">
@@ -35,5 +38,5 @@ export default function Tweet({
         </h2>
       </div>
     </div>
-  )
+  );
 }

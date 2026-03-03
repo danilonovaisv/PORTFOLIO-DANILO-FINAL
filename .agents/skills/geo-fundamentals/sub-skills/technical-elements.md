@@ -10,12 +10,12 @@
 
 ## 6. Entity Building
 
-| Action | Purpose |
-|--------|---------|
-| Google Knowledge Panel | Entity recognition |
-| Wikipedia (if notable) | Authority source |
+| Action                     | Purpose              |
+| -------------------------- | -------------------- |
+| Google Knowledge Panel     | Entity recognition   |
+| Wikipedia (if notable)     | Authority source     |
 | Consistent info across web | Entity consolidation |
-| Industry mentions | Authority signals |
+| Industry mentions          | Authority signals    |
 
 ---
 

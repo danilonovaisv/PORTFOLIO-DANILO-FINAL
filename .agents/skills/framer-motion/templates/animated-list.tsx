@@ -27,17 +27,17 @@
  * ```
  */
 
-"use client";
+'use client';
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useState } from 'react';
 import {
   AnimatePresence,
   motion,
   Reorder,
   useDragControls,
   Variants,
-} from "framer-motion";
-import { GripVertical, X } from "lucide-react";
+} from 'framer-motion';
+import { GripVertical, X } from 'lucide-react';
 
 // ============================================================================
 // Animation Variants
@@ -65,7 +65,7 @@ const itemVariants: Variants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 300,
       damping: 24,
     },
@@ -140,7 +140,7 @@ export function AnimatedListItem({
       layout
       variants={itemVariants}
       exit="exit"
-      className={`group relative ${className || ""}`}
+      className={`group relative ${className || ''}`}
     >
       {children}
       {showRemove && onRemove && (
@@ -200,7 +200,7 @@ export function DynamicList<T>({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, x: -50 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 300,
               damping: 24,
             }}
@@ -221,13 +221,16 @@ interface ReorderableListProps<T> {
   items: T[];
   onReorder: (items: T[]) => void;
   keyExtractor: (item: T) => string;
-  renderItem: (item: T, dragControls: ReturnType<typeof useDragControls>) => ReactNode;
+  renderItem: (
+    item: T,
+    dragControls: ReturnType<typeof useDragControls>
+  ) => ReactNode;
   className?: string;
   /**
    * Axis for reordering
    * @default "y"
    */
-  axis?: "x" | "y";
+  axis?: 'x' | 'y';
 }
 
 /**
@@ -255,7 +258,7 @@ export function ReorderableList<T>({
   keyExtractor,
   renderItem,
   className,
-  axis = "y",
+  axis = 'y',
 }: ReorderableListProps<T>) {
   return (
     <Reorder.Group
@@ -281,16 +284,15 @@ function ReorderableItemWrapper<T>({
   renderItem,
 }: {
   item: T;
-  renderItem: (item: T, dragControls: ReturnType<typeof useDragControls>) => ReactNode;
+  renderItem: (
+    item: T,
+    dragControls: ReturnType<typeof useDragControls>
+  ) => ReactNode;
 }) {
   const dragControls = useDragControls();
 
   return (
-    <Reorder.Item
-      value={item}
-      dragControls={dragControls}
-      dragListener={false}
-    >
+    <Reorder.Item value={item} dragControls={dragControls} dragListener={false}>
       {renderItem(item, dragControls)}
     </Reorder.Item>
   );
@@ -322,7 +324,7 @@ export function DragHandle({ dragControls, className }: DragHandleProps) {
   return (
     <div
       onPointerDown={(e) => dragControls.start(e)}
-      className={`cursor-grab active:cursor-grabbing touch-none ${className || ""}`}
+      className={`cursor-grab active:cursor-grabbing touch-none ${className || ''}`}
     >
       <GripVertical className="h-5 w-5 text-muted-foreground" />
     </div>
@@ -356,7 +358,7 @@ export function ReorderableTodoList({
   initialItems = [],
 }: ReorderableTodoListProps) {
   const [items, setItems] = useState<TodoItem[]>(initialItems);
-  const [newItemText, setNewItemText] = useState("");
+  const [newItemText, setNewItemText] = useState('');
 
   function addItem() {
     if (!newItemText.trim()) return;
@@ -368,7 +370,7 @@ export function ReorderableTodoList({
         completed: false,
       },
     ]);
-    setNewItemText("");
+    setNewItemText('');
   }
 
   function removeItem(id: string) {
@@ -391,7 +393,7 @@ export function ReorderableTodoList({
           type="text"
           value={newItemText}
           onChange={(e) => setNewItemText(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addItem()}
+          onKeyDown={(e) => e.key === 'Enter' && addItem()}
           placeholder="Add new item..."
           className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
         />
@@ -458,7 +460,7 @@ function TodoListItem({
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, x: -50 }}
-      transition={{ type: "spring", stiffness: 300, damping: 24 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
       className="flex items-center gap-3 p-4 bg-card rounded-lg border"
     >
       {/* Drag handle */}
@@ -482,7 +484,7 @@ function TodoListItem({
       <motion.span
         animate={{
           opacity: item.completed ? 0.5 : 1,
-          textDecoration: item.completed ? "line-through" : "none",
+          textDecoration: item.completed ? 'line-through' : 'none',
         }}
         className="flex-1"
       >

@@ -2,13 +2,13 @@
 
 ```javascript
 function first() {
-  console.log("first start");
+  console.log('first start');
   second();
-  console.log("first end");
+  console.log('first end');
 }
 
 function second() {
-  console.log("second");
+  console.log('second');
 }
 
 first();

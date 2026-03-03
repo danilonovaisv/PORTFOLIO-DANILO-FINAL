@@ -2,9 +2,9 @@
 
 ```javascript
 const users = [
-  { name: "Alice", age: 25 },
-  { name: "Bob", age: 30 },
-  { name: "Charlie", age: 35 },
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 35 },
 ];
 
 // map: transform each element
@@ -23,6 +23,6 @@ const totalAge = users.reduce((sum, u) => sum + u.age, 0);
 const result = users
   .filter((u) => u.age >= 30)
   .map((u) => u.name)
-  .join(", ");
+  .join(', ');
 // "Bob, Charlie"
 ```

@@ -1,6 +1,7 @@
 # Step 1: Gather Context
 
 Ask the user for essential information:
+
 - **Product/Service Description:** What problem is being solved?
 - **Target Customers:** Who is the ideal customer? (industry, size, geography)
 - **Business Model:** How does pricing work? (subscription, transaction, etc.)

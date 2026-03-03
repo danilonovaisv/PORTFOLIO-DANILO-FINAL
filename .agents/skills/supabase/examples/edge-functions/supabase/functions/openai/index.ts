@@ -1,8 +1,8 @@
-import 'https://deno.land/x/xhr@0.3.0/mod.ts'
-import { CreateCompletionRequest } from 'https://esm.sh/openai@3.1.0'
+import 'https://deno.land/x/xhr@0.3.0/mod.ts';
+import { CreateCompletionRequest } from 'https://esm.sh/openai@3.1.0';
 
 Deno.serve(async (req) => {
-  const { query } = await req.json()
+  const { query } = await req.json();
 
   const completionConfig: CreateCompletionRequest = {
     model: 'text-davinci-003',
@@ -10,7 +10,7 @@ Deno.serve(async (req) => {
     max_tokens: 256,
     temperature: 0,
     stream: true,
-  }
+  };
 
   return fetch('https://api.openai.com/v1/completions', {
     method: 'POST',
@@ -19,5 +19,5 @@ Deno.serve(async (req) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(completionConfig),
-  })
-})
+  });
+});

@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import JSONInput from 'react-json-editor-ajrm'
-import locale from 'react-json-editor-ajrm/locale/en'
-import { supabase } from './utils/supabaseClient'
-import { functionsList } from './functionsList'
+import React, { useState } from 'react';
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import JSONInput from 'react-json-editor-ajrm';
+import locale from 'react-json-editor-ajrm/locale/en';
+import { supabase } from './utils/supabaseClient';
+import { functionsList } from './functionsList';
 
-const sampleObject = { name: 'world' }
+const sampleObject = { name: 'world' };
 
 function App() {
-  const { user } = Auth.useUser()
-  const [supaFunction, setSupaFunction] = useState(functionsList[0])
-  const [requestJson, setRequestJson] = useState(sampleObject)
-  const [responseJson, setResponseJson] = useState({})
+  const { user } = Auth.useUser();
+  const [supaFunction, setSupaFunction] = useState(functionsList[0]);
+  const [requestJson, setRequestJson] = useState(sampleObject);
+  const [responseJson, setResponseJson] = useState({});
 
   const invokeFunction = async () => {
-    setResponseJson({ loading: true })
+    setResponseJson({ loading: true });
     const { data, error } = await supabase.functions.invoke(supaFunction, {
       body: JSON.stringify(requestJson),
-    })
-    if (error) alert(error)
-    setResponseJson(data)
-  }
+    });
+    if (error) alert(error);
+    setResponseJson(data);
+  };
 
   return (
     <div className="p-2">
@@ -54,8 +54,9 @@ function App() {
             ))}
           </select>
           <p className="mb-2">
-            Note: when using locally, this selection doesn't have any effect and the function that's
-            currently being served via the CLI is called instead.
+            Note: when using locally, this selection doesn't have any effect and
+            the function that's currently being served via the CLI is called
+            instead.
           </p>
           <h4 className="mb-2 text-2xl">Body</h4>
           <JSONInput
@@ -74,7 +75,9 @@ function App() {
         </div>
         <div className="p-2">
           <h3 className="mb-2 text-3xl">Response</h3>
-          <pre className="bg-gray-300 p-2	">{JSON.stringify(responseJson, null, 2)}</pre>
+          <pre className="bg-gray-300 p-2	">
+            {JSON.stringify(responseJson, null, 2)}
+          </pre>
         </div>
         <div className="p-2">
           <h3 className="mb-2 text-3xl">Log in to see RLS in action</h3>
@@ -94,7 +97,7 @@ function App() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

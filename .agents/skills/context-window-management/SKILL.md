@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: context-window-management
-description: "Strategies for managing LLM context windows including summarization, trimming, routing, and avoiding context rot Use when: context window, token limit, context management, context engineering, long context."
+description: 'Strategies for managing LLM context windows including summarization, trimming, routing, and avoiding context rot Use when: context window, token limit, context management, context engineering, long context.'
 source: vibeship-spawner-skills (Apache 2.0)
 ---
 
@@ -32,8 +32,13 @@ Your cor
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Tiered Context Strategy](./sub-skills/tiered-context-strategy.md)
+
 ### 2. [Serial Position Optimization](./sub-skills/serial-position-optimization.md)
+
 ### 3. [Intelligent Summarization](./sub-skills/intelligent-summarization.md)
+
 ### 4. [❌ Naive Truncation](./sub-skills/naive-truncation.md)
+
 ### 5. [❌ Ignoring Token Costs](./sub-skills/ignoring-token-costs.md)
+
 ### 6. [❌ One-Size-Fits-All](./sub-skills/one-size-fits-all.md)

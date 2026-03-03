@@ -16,6 +16,7 @@ Based on a real production application: [Zenith](https://zenith.chat) - AI-power
 ## When to Use
 
 Reference this skill when working on the specific project it's designed for. Project skills contain:
+
 - Architecture overview
 - File structure
 - Code patterns
@@ -27,6 +28,7 @@ Reference this skill when working on the specific project it's designed for. Pro
 ## Architecture Overview
 
 **Tech Stack:**
+
 - **Frontend**: Next.js 15 (App Router), TypeScript, React
 - **Backend**: FastAPI (Python), Pydantic models
 - **Database**: Supabase (PostgreSQL)
@@ -35,6 +37,7 @@ Reference this skill when working on the specific project it's designed for. Pro
 - **Testing**: Playwright (E2E), pytest (backend), React Testing Library
 
 **Services:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                         Frontend                            │
@@ -99,11 +102,19 @@ project/
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [API Response Format (FastAPI)](./sub-skills/api-response-format-fastapi.md)
+
 ### 2. [Frontend API Calls (TypeScript)](./sub-skills/frontend-api-calls-typescript.md)
+
 ### 3. [Agent AI Integration (Structured Output)](./sub-skills/agent-ai-integration-structured-output.md)
+
 ### 4. [Custom Hooks (React)](./sub-skills/custom-hooks-react.md)
+
 ### 5. [Backend (pytest)](./sub-skills/backend-pytest.md)
+
 ### 6. [Frontend (React Testing Library)](./sub-skills/frontend-react-testing-library.md)
+
 ### 7. [Pre-Deployment Checklist](./sub-skills/pre-deployment-checklist.md)
+
 ### 8. [Deployment Commands](./sub-skills/deployment-commands.md)
+
 ### 9. [Environment Variables](./sub-skills/environment-variables.md)

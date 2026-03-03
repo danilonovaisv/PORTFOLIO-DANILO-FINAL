@@ -1,7 +1,7 @@
 ---
 version: 4.1.0-fractal
 name: backend-development-feature-development
-description: "Orchestrate end-to-end backend feature development from requirements to deployment. Use when coordinating multi-phase feature delivery across teams and services."
+description: 'Orchestrate end-to-end backend feature development from requirements to deployment. Use when coordinating multi-phase feature delivery across teams and services.'
 ---
 
 Orchestrate end-to-end feature development from requirements to production deployment:
@@ -38,7 +38,11 @@ Orchestrate end-to-end feature development from requirements to production deplo
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Development Methodology](./sub-skills/development-methodology.md)
+
 ### 2. [Feature Complexity](./sub-skills/feature-complexity.md)
+
 ### 3. [Deployment Strategy](./sub-skills/deployment-strategy.md)
+
 ### 4. [Required Parameters](./sub-skills/required-parameters.md)
+
 ### 5. [Optional Parameters](./sub-skills/optional-parameters.md)

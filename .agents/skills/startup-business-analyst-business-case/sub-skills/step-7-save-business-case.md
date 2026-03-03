@@ -1,6 +1,7 @@
 # Step 7: Save Business Case
 
 Offer to save as markdown:
+
 - Filename: `business-case-[company-name]-YYYY-MM-DD.md`
 - Suggest converting to PDF for sharing
 - Provide tips for presentation format
@@ -8,6 +9,7 @@ Offer to save as markdown:
 ## Best Practices
 
 **Do:**
+
 - Lead with customer problem
 - Quantify everything
 - Show, don't just tell (use data)
@@ -18,6 +20,7 @@ Offer to save as markdown:
 - Focus on differentiation
 
 **Don't:**
+
 - Use jargon without explanation
 - Make unsupported claims
 - Ignore competition
@@ -29,6 +32,7 @@ Offer to save as markdown:
 ## Integration with Other Commands
 
 This command synthesizes outputs from:
+
 - `/market-opportunity` - Include TAM/SAM/SOM analysis
 - `/financial-projections` - Include full financial model
 

@@ -14,6 +14,7 @@ Runway = Cash Balance / Monthly Burn Rate
 ```
 
 **Include Funding Events:**
+
 - Timing of raises
 - Amount raised
 - Use of proceeds

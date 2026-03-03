@@ -1,10 +1,10 @@
 # Claude Desktop Config
 
-| Field | Purpose |
-|-------|---------|
-| command | Executable to run |
-| args | Command arguments |
-| env | Environment variables |
+| Field   | Purpose               |
+| ------- | --------------------- |
+| command | Executable to run     |
+| args    | Command arguments     |
+| env     | Environment variables |
 
 ---
 

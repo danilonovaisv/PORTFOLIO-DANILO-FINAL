@@ -207,7 +207,7 @@ SELECT ?mentalState ?type WHERE {
     ?interval bdi:hasStartTime ?start ;
               bdi:hasEndTime ?end .
     ?mentalState a ?type .
-    FILTER(?start <= "2026-01-04T10:00:00"^^xsd:dateTime && 
+    FILTER(?start <= "2026-01-04T10:00:00"^^xsd:dateTime &&
            ?end >= "2026-01-04T10:00:00"^^xsd:dateTime)
 }
 ```
@@ -383,9 +383,9 @@ PREFIX bdi: <https://w3id.org/fossr/ontology/bdi/>
 
 SELECT ?plan WHERE {
     ?plan a bdi:Plan .
-    FILTER NOT EXISTS { 
+    FILTER NOT EXISTS {
         ?plan bdi:beginsWith ?first ;
-              bdi:endsWith ?last 
+              bdi:endsWith ?last
     }
 }
 # Expected: Empty result set
@@ -417,4 +417,3 @@ SELECT ?desire ?agent1 ?agent2 WHERE {
     FILTER(?agent1 != ?agent2)
 }
 ```
-

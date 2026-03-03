@@ -51,7 +51,10 @@ export default function FeaturedProjectCardFrame({
       const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
       const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
 
-      visualRef.current.style.setProperty('translate', `${(offsetX * 12).toFixed(2)}px ${(offsetY * 10).toFixed(2)}px`);
+      visualRef.current.style.setProperty(
+        'translate',
+        `${(offsetX * 12).toFixed(2)}px ${(offsetY * 10).toFixed(2)}px`
+      );
     },
     [reducedMotion]
   );

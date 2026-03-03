@@ -1,7 +1,7 @@
 ---
 name: screenshots
-description: "Generate marketing screenshots of your app using Playwright. Use when the user wants to create screenshots for Product Hunt, social media, landing pages, or documentation."
-source: "https://github.com/Shpigford/skills/tree/main/screenshots"
+description: 'Generate marketing screenshots of your app using Playwright. Use when the user wants to create screenshots for Product Hunt, social media, landing pages, or documentation.'
+source: 'https://github.com/Shpigford/skills/tree/main/screenshots'
 risk: safe
 ---
 
@@ -12,6 +12,7 @@ Generate marketing-quality screenshots of your app using Playwright directly. Sc
 ## When to Use This Skill
 
 Use this skill when:
+
 - User wants to create screenshots for Product Hunt
 - Creating screenshots for social media
 - Generating images for landing pages
@@ -21,11 +22,13 @@ Use this skill when:
 ## Prerequisites
 
 Playwright must be available. Check for it:
+
 ```bash
 npx playwright --version 2>/dev/null || npm ls playwright 2>/dev/null | grep playwright
 ```
 
 If not found, inform the user:
+
 > Playwright is required. Install it with: `npm install -D playwright` or `npm install -D @playwright/test`
 
 ## Step 1: Determine App URL
@@ -33,10 +36,12 @@ If not found, inform the user:
 If `$1` is provided, use it as the app URL.
 
 If no URL is provided:
+
 1. Check if a dev server is likely running by looking for `package.json` scripts
 2. Use `AskUserQuestion` to ask the user for the URL or offer to help start the dev server
 
 Common default URLs to suggest:
+
 - `http://localhost:3000` (Next.js, Create React App, Rails)
 - `http://localhost:5173` (Vite)
 - `http://localhost:4000` (Phoenix)
@@ -47,6 +52,7 @@ Common default URLs to suggest:
 Use `AskUserQuestion` with the following questions:
 
 **Question 1: Screenshot count**
+
 - Header: "Count"
 - Question: "How many screenshots do you need?"
 - Options:
@@ -55,6 +61,7 @@ Use `AskUserQuestion` with the following questions:
   - "10+" - Full marketing suite
 
 **Question 2: Purpose**
+
 - Header: "Purpose"
 - Question: "What will these screenshots be used for?"
 - Options:
@@ -64,6 +71,7 @@ Use `AskUserQuestion` with the following questions:
   - "Documentation" - UI reference and tutorials
 
 **Question 3: Authentication**
+
 - Header: "Auth"
 - Question: "Does the app require login to access the features you want to screenshot?"
 - Options:
@@ -71,6 +79,7 @@ Use `AskUserQuestion` with the following questions:
   - "Yes, I'll provide credentials" - Need to log in first
 
 If user selects "Yes, I'll provide credentials", ask follow-up questions:
+
 - "What is the login page URL?" (e.g., `/login`, `/sign-in`)
 - "What is the email/username?"
 - "What is the password?"
@@ -98,18 +107,18 @@ Thoroughly explore the codebase to understand the app and identify screenshot op
 
 Read the routing configuration to discover all available pages:
 
-| Framework | File to Read | What to Look For |
-|-----------|--------------|------------------|
-| **Next.js App Router** | `app/` directory structure | Each folder with `page.tsx` is a route |
-| **Next.js Pages Router** | `pages/` directory | Each file is a route |
-| **Rails** | `config/routes.rb` | Read the entire file for all routes |
-| **React Router** | Search for `createBrowserRouter` or `<Route` | Route definitions with paths |
-| **Vue Router** | `src/router/index.js` or `router.js` | Routes array with path definitions |
-| **SvelteKit** | `src/routes/` directory | Each folder with `+page.svelte` is a route |
-| **Remix** | `app/routes/` directory | File-based routing |
-| **Laravel** | `routes/web.php` | Route definitions |
-| **Django** | `urls.py` files | URL patterns |
-| **Express** | Search for `app.get`, `router.get` | Route handlers |
+| Framework                | File to Read                                 | What to Look For                           |
+| ------------------------ | -------------------------------------------- | ------------------------------------------ |
+| **Next.js App Router**   | `app/` directory structure                   | Each folder with `page.tsx` is a route     |
+| **Next.js Pages Router** | `pages/` directory                           | Each file is a route                       |
+| **Rails**                | `config/routes.rb`                           | Read the entire file for all routes        |
+| **React Router**         | Search for `createBrowserRouter` or `<Route` | Route definitions with paths               |
+| **Vue Router**           | `src/router/index.js` or `router.js`         | Routes array with path definitions         |
+| **SvelteKit**            | `src/routes/` directory                      | Each folder with `+page.svelte` is a route |
+| **Remix**                | `app/routes/` directory                      | File-based routing                         |
+| **Laravel**              | `routes/web.php`                             | Route definitions                          |
+| **Django**               | `urls.py` files                              | URL patterns                               |
+| **Express**              | Search for `app.get`, `router.get`           | Route handlers                             |
 
 **Important**: Actually read these files, don't just check if they exist. The route definitions tell you what pages are available for screenshots.
 
@@ -129,6 +138,7 @@ Look for components that represent screenshottable features:
 ### 3.4: Check for Marketing Assets
 
 Look for existing marketing content that hints at key features:
+
 - Landing page components (often in `components/landing/` or `components/marketing/`)
 - Feature list components
 - Pricing tables
@@ -137,6 +147,7 @@ Look for existing marketing content that hints at key features:
 ### 3.5: Build Feature List
 
 Create a comprehensive list of discovered features with:
+
 - Feature name (from README or component name)
 - URL path (from routes)
 - CSS selector to focus on (from component structure)
@@ -147,6 +158,7 @@ Create a comprehensive list of discovered features with:
 Present the discovered features to the user and ask them to confirm or modify the list.
 
 Use `AskUserQuestion`:
+
 - Header: "Features"
 - Question: "I found these features in your codebase. Which would you like to screenshot?"
 - Options: List 3-4 key features discovered, plus "Let me pick specific ones"
@@ -180,7 +192,7 @@ const SCREENSHOTS_DIR = './screenshots';
 
 // Authentication config (if needed)
 const AUTH = {
-  needed: [true|false],
+  needed: [true | false],
   loginUrl: '[LOGIN_URL]',
   email: '[EMAIL]',
   password: '[PASSWORD]',
@@ -199,7 +211,7 @@ async function main() {
   // Create context with HiDPI settings
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 },
-    deviceScaleFactor: 2,  // This is the key for true retina screenshots
+    deviceScaleFactor: 2, // This is the key for true retina screenshots
   });
 
   const page = await context.newPage();
@@ -210,34 +222,46 @@ async function main() {
     await page.goto(AUTH.loginUrl);
 
     // Smart login: try multiple common patterns for email/username field
-    const emailField = page.locator([
-      'input[type="email"]',
-      'input[name="email"]',
-      'input[id="email"]',
-      'input[placeholder*="email" i]',
-      'input[name="username"]',
-      'input[id="username"]',
-      'input[type="text"]',
-    ].join(', ')).first();
+    const emailField = page
+      .locator(
+        [
+          'input[type="email"]',
+          'input[name="email"]',
+          'input[id="email"]',
+          'input[placeholder*="email" i]',
+          'input[name="username"]',
+          'input[id="username"]',
+          'input[type="text"]',
+        ].join(', ')
+      )
+      .first();
     await emailField.fill(AUTH.email);
 
     // Smart login: try multiple common patterns for password field
-    const passwordField = page.locator([
-      'input[type="password"]',
-      'input[name="password"]',
-      'input[id="password"]',
-    ].join(', ')).first();
+    const passwordField = page
+      .locator(
+        [
+          'input[type="password"]',
+          'input[name="password"]',
+          'input[id="password"]',
+        ].join(', ')
+      )
+      .first();
     await passwordField.fill(AUTH.password);
 
     // Smart login: try multiple common patterns for submit button
-    const submitButton = page.locator([
-      'button[type="submit"]',
-      'input[type="submit"]',
-      'button:has-text("Sign in")',
-      'button:has-text("Log in")',
-      'button:has-text("Login")',
-      'button:has-text("Submit")',
-    ].join(', ')).first();
+    const submitButton = page
+      .locator(
+        [
+          'button[type="submit"]',
+          'input[type="submit"]',
+          'button:has-text("Sign in")',
+          'button:has-text("Log in")',
+          'button:has-text("Login")',
+          'button:has-text("Submit")',
+        ].join(', ')
+      )
+      .first();
     await submitButton.click();
 
     await page.waitForLoadState('networkidle');
@@ -259,7 +283,8 @@ async function main() {
     if (shot.actions) {
       for (const action of shot.actions) {
         if (action.click) await page.click(action.click);
-        if (action.fill) await page.fill(action.fill.selector, action.fill.value);
+        if (action.fill)
+          await page.fill(action.fill.selector, action.fill.value);
         if (action.wait) await page.waitForTimeout(action.wait);
       }
     }
@@ -285,6 +310,7 @@ node screenshot-script.mjs
 ```
 
 After running, clean up the temporary script:
+
 ```bash
 rm screenshot-script.mjs
 ```
@@ -307,7 +333,7 @@ For scrollable content, capture the entire page:
 ```javascript
 await page.screenshot({
   path: `${SCREENSHOTS_DIR}/full-page.png`,
-  fullPage: true
+  fullPage: true,
 });
 ```
 
@@ -346,13 +372,13 @@ const context = await browser.newContext({
 
 Use descriptive, kebab-case filenames with numeric prefixes for ordering:
 
-| Feature | Filename |
-|---------|----------|
+| Feature            | Filename                    |
+| ------------------ | --------------------------- |
 | Dashboard overview | `01-dashboard-overview.png` |
-| Link management | `02-link-inbox.png` |
-| Edition editor | `03-edition-editor.png` |
-| Analytics | `04-analytics.png` |
-| Settings | `05-settings.png` |
+| Link management    | `02-link-inbox.png`         |
+| Edition editor     | `03-edition-editor.png`     |
+| Analytics          | `04-analytics.png`          |
+| Settings           | `05-settings.png`           |
 
 ## Step 9: Verify and Summarize
 
@@ -371,6 +397,7 @@ Provide a summary to the user:
 4. Suggest any follow-up actions
 
 Example output:
+
 ```
 Generated 5 marketing screenshots:
 

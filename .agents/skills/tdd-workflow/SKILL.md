@@ -39,9 +39,15 @@ layer: master-skill
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [What to Write](./sub-skills/what-to-write.md)
+
 ### 2. [RED Phase Rules](./sub-skills/red-phase-rules.md)
+
 ### 3. [Minimum Code](./sub-skills/minimum-code.md)
+
 ### 4. [GREEN Phase Rules](./sub-skills/green-phase-rules.md)
+
 ### 5. [What to Improve](./sub-skills/what-to-improve.md)
+
 ### 6. [REFACTOR Rules](./sub-skills/refactor-rules.md)
+
 ### 7. [Multi-Agent Pattern](./sub-skills/multi-agent-pattern.md)

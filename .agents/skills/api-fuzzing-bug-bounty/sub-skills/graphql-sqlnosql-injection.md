@@ -2,10 +2,7 @@
 
 ```graphql
 mutation {
-  login(input: {
-    email: "test' or 1=1--"
-    password: "password"
-  }) {
+  login(input: { email: "test' or 1=1--", password: "password" }) {
     success
     jwt
   }

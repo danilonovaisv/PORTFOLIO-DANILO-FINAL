@@ -9,10 +9,15 @@ Test for username enumeration vulnerabilities:
 ```
 
 # Password reset
+
 "Email sent if account exists" (secure)
 "No account with that email" (leaks info)
 
 # API responses
+
 {"error": "user_not_found"}
 {"error": "invalid_password"}
+
+```
+
 ```

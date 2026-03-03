@@ -18,7 +18,7 @@ You are an advanced agent. You rely on **externalized memory**.
 ### 2. The Adjustment Log
 
 - **Location**: `.context/logs/adjustment_log.md`
-- **Purpose**: A chronological record of *why* changes were made.
+- **Purpose**: A chronological record of _why_ changes were made.
 - **Rule**: Append an entry after every significant task. Format: `[Date] [Context] Change description`.
 
 ## 🤖 Agent Routing (The "AntiGravity" Protocol)

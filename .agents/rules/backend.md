@@ -1,6 +1,6 @@
 ---
 trigger: glob
-glob: "**/*.{py,js,ts,go,rs,sql,php,java,dockerfile,tf,yaml,yml}"
+glob: '**/*.{py,js,ts,go,rs,sql,php,java,dockerfile,tf,yaml,yml}'
 ---
 
 # BACKEND.MD - Systems & Logic Standards

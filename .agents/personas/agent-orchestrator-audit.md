@@ -38,10 +38,10 @@ Coordinate the `audit-fullstack-config` directive in three phases:
 - Invoke specialized audit modules (library call) for Supabase Storage (`agent-supabase-audit`) and Firebase Hosting (`agent-firebase-audit`).
 
 3. Merge findings into master severity matrix.
-2. Generate deterministic fix plan (`reports/FIX_PLAN.md`).
-3. Apply fixes only when explicitly authorized (`--auto-fix`).
-4. Re-run both audits after mutation.
-5. Export final artifacts and versioned summary.
+4. Generate deterministic fix plan (`reports/FIX_PLAN.md`).
+5. Apply fixes only when explicitly authorized (`--auto-fix`).
+6. Re-run both audits after mutation.
+7. Export final artifacts and versioned summary.
 
 ## Guardrails
 

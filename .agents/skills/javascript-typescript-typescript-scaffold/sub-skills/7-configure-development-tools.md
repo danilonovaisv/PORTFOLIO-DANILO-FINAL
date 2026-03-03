@@ -1,6 +1,7 @@
 # 7. Configure Development Tools
 
 **.env.example**:
+
 ```env
 NODE_ENV=development
 PORT=3000
@@ -9,8 +10,9 @@ JWT_SECRET=your-secret-key
 ```
 
 **vitest.config.ts**:
+
 ```typescript
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
@@ -21,17 +23,15 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
     },
   },
-})
+});
 ```
 
 **.eslintrc.json**:
+
 ```json
 {
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-unused-vars": "error"

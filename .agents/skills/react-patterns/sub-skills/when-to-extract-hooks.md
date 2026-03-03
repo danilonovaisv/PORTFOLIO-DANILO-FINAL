@@ -1,8 +1,8 @@
 # When to Extract Hooks
 
-| Pattern | Extract When |
-|---------|-------------|
+| Pattern             | Extract When              |
+| ------------------- | ------------------------- |
 | **useLocalStorage** | Same storage logic needed |
-| **useDebounce** | Multiple debounced values |
-| **useFetch** | Repeated fetch patterns |
-| **useForm** | Complex form state |
+| **useDebounce**     | Multiple debounced values |
+| **useFetch**        | Repeated fetch patterns   |
+| **useForm**         | Complex form state        |

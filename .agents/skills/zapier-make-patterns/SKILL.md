@@ -33,8 +33,13 @@ and when it needs to g
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Basic Trigger-Action Pattern](./sub-skills/basic-trigger-action-pattern.md)
+
 ### 2. [Multi-Step Sequential Pattern](./sub-skills/multi-step-sequential-pattern.md)
+
 ### 3. [Conditional Branching Pattern](./sub-skills/conditional-branching-pattern.md)
+
 ### 4. [❌ Text in Dropdown Fields](./sub-skills/text-in-dropdown-fields.md)
+
 ### 5. [❌ No Error Handling](./sub-skills/no-error-handling.md)
+
 ### 6. [❌ Hardcoded Values](./sub-skills/hardcoded-values.md)

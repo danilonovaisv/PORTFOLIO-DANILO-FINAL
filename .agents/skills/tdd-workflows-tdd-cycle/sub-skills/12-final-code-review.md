@@ -8,6 +8,7 @@
 ## Incremental Development Mode
 
 For test-by-test development:
+
 1. Write ONE failing test
 2. Make ONLY that test pass
 3. Refactor if needed
@@ -18,6 +19,7 @@ Use this approach by adding `--incremental` flag to focus on one test at a time.
 ## Test Suite Mode
 
 For comprehensive test suite development:
+
 1. Write ALL tests for a feature/module (failing)
 2. Implement code to pass ALL tests
 3. Refactor entire module

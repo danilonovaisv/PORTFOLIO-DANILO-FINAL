@@ -18,11 +18,11 @@ marts/            Final analytics tables
 
 ### 2. Naming Conventions
 
-| Layer | Prefix | Example |
-|-------|--------|---------|
-| Staging | `stg_` | `stg_stripe__payments` |
-| Intermediate | `int_` | `int_payments_pivoted` |
-| Marts | `dim_`, `fct_` | `dim_customers`, `fct_orders` |
+| Layer        | Prefix         | Example                       |
+| ------------ | -------------- | ----------------------------- |
+| Staging      | `stg_`         | `stg_stripe__payments`        |
+| Intermediate | `int_`         | `int_payments_pivoted`        |
+| Marts        | `dim_`, `fct_` | `dim_customers`, `fct_orders` |
 
 ## Quick Start
 
@@ -32,11 +32,11 @@ name: 'analytics'
 version: '1.0.0'
 profile: 'analytics'
 
-model-paths: ["models"]
-analysis-paths: ["analyses"]
-test-paths: ["tests"]
-seed-paths: ["seeds"]
-macro-paths: ["macros"]
+model-paths: ['models']
+analysis-paths: ['analyses']
+test-paths: ['tests']
+seed-paths: ['seeds']
+macro-paths: ['macros']
 
 vars:
   start_date: '2020-01-01'
@@ -93,8 +93,8 @@ sources:
     loader: fivetran
     loaded_at_field: _fivetran_synced
     freshness:
-      warn_after: {count: 12, period: hour}
-      error_after: {count: 24, period: hour}
+      warn_after: { count: 12, period: hour }
+      error_after: { count: 24, period: hour }
     tables:
       - name: customers
         description: Stripe customer records
@@ -401,7 +401,7 @@ models:
         description: Total amount paid by customer
         tests:
           - dbt_utils.expression_is_true:
-              expression: ">= 0"
+              expression: '>= 0'
 
   - name: fct_orders
     description: Order fact table with all order transactions
@@ -526,6 +526,7 @@ dbt ls --select tag:critical     # List models by tag
 ## Best Practices
 
 ### Do's
+
 - **Use staging layer** - Clean data once, use everywhere
 - **Test aggressively** - Not null, unique, relationships
 - **Document everything** - Column descriptions, model descriptions
@@ -533,6 +534,7 @@ dbt ls --select tag:critical     # List models by tag
 - **Version control** - dbt project in Git
 
 ### Don'ts
+
 - **Don't skip staging** - Raw → mart is tech debt
 - **Don't hardcode dates** - Use `{{ var('start_date') }}`
 - **Don't repeat logic** - Extract to macros

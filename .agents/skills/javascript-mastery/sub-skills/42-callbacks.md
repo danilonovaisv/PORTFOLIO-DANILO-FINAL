@@ -4,7 +4,7 @@
 // Callback pattern
 function fetchData(callback) {
   setTimeout(() => {
-    callback(null, { data: "result" });
+    callback(null, { data: 'result' });
   }, 1000);
 }
 

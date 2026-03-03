@@ -14,6 +14,7 @@ else:
 ```
 
 **Characteristics:**
+
 - Deploy without releasing
 - A/B testing
 - Instant rollback

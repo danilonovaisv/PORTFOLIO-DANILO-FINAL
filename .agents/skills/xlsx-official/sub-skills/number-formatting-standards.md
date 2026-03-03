@@ -1,6 +1,7 @@
 # Number Formatting Standards
 
 #### Required Format Rules
+
 - **Years**: Format as text strings (e.g., "2024" not "2,024")
 - **Currency**: Use $#,##0 format; ALWAYS specify units in headers ("Revenue ($mm)")
 - **Zeros**: Use number formatting to make all zeros "-", including percentages (e.g., "$#,##0;($#,##0);-")

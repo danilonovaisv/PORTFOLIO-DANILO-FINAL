@@ -1,7 +1,7 @@
 # What to Test
 
-| Area | Focus |
-|------|-------|
-| API endpoints | Request/response |
-| Database | Queries, transactions |
-| External services | Contracts |
+| Area              | Focus                 |
+| ----------------- | --------------------- |
+| API endpoints     | Request/response      |
+| Database          | Queries, transactions |
+| External services | Contracts             |

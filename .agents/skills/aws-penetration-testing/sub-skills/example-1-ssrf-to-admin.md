@@ -21,13 +21,13 @@ aws sts get-caller-identity
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Access Denied on all commands | Enumerate permissions with enumerate-iam |
-| Metadata endpoint blocked | Check for IMDSv2, try container metadata |
-| GuardDuty alerts | Use Pacu with custom user-agent |
-| Expired credentials | Re-fetch from metadata (temp creds rotate) |
-| CloudTrail logging actions | Consider disable or log obfuscation |
+| Issue                         | Solution                                   |
+| ----------------------------- | ------------------------------------------ |
+| Access Denied on all commands | Enumerate permissions with enumerate-iam   |
+| Metadata endpoint blocked     | Check for IMDSv2, try container metadata   |
+| GuardDuty alerts              | Use Pacu with custom user-agent            |
+| Expired credentials           | Re-fetch from metadata (temp creds rotate) |
+| CloudTrail logging actions    | Consider disable or log obfuscation        |
 
 ---
 

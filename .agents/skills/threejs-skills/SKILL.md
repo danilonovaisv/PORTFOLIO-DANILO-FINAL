@@ -1,7 +1,7 @@
 ---
 name: threejs-skills
-description: "Three.js skills for creating 3D elements and interactive experiences"
-source: "https://github.com/CloudAI-X/threejs-skills"
+description: 'Three.js skills for creating 3D elements and interactive experiences'
+source: 'https://github.com/CloudAI-X/threejs-skills'
 risk: safe
 ---
 

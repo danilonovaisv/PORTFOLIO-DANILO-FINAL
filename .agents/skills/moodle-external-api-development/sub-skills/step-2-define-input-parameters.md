@@ -14,6 +14,7 @@ public static function execute_parameters() {
 ```
 
 **Common Parameter Types**:
+
 - `PARAM_INT` - Integers
 - `PARAM_TEXT` - Plain text (HTML stripped)
 - `PARAM_RAW` - Raw text (no cleaning)
@@ -22,11 +23,13 @@ public static function execute_parameters() {
 - `PARAM_ALPHANUMEXT` - Alphanumeric with extended chars
 
 **Structures**:
+
 - `external_value` - Single value
 - `external_single_structure` - Object with named fields
 - `external_multiple_structure` - Array of items
 
 **Value Flags**:
+
 - `VALUE_REQUIRED` - Parameter must be provided
 - `VALUE_OPTIONAL` - Parameter is optional
 - `VALUE_DEFAULT, defaultvalue` - Optional with default

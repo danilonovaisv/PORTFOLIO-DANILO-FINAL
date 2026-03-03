@@ -487,25 +487,25 @@ lighthouse https://example.com --only-categories=accessibility
 // Make custom element keyboard accessible
 class AccessibleDropdown extends HTMLElement {
   connectedCallback() {
-    this.setAttribute("tabindex", "0");
-    this.setAttribute("role", "combobox");
-    this.setAttribute("aria-expanded", "false");
+    this.setAttribute('tabindex', '0');
+    this.setAttribute('role', 'combobox');
+    this.setAttribute('aria-expanded', 'false');
 
-    this.addEventListener("keydown", (e) => {
+    this.addEventListener('keydown', (e) => {
       switch (e.key) {
-        case "Enter":
-        case " ":
+        case 'Enter':
+        case ' ':
           this.toggle();
           e.preventDefault();
           break;
-        case "Escape":
+        case 'Escape':
           this.close();
           break;
-        case "ArrowDown":
+        case 'ArrowDown':
           this.focusNext();
           e.preventDefault();
           break;
-        case "ArrowUp":
+        case 'ArrowUp':
           this.focusPrevious();
           e.preventDefault();
           break;

@@ -1,11 +1,11 @@
 # Optimization Actions
 
-| Finding | Action |
-|---------|--------|
-| Big library | Import specific modules |
+| Finding        | Action                  |
+| -------------- | ----------------------- |
+| Big library    | Import specific modules |
 | Duplicate deps | Dedupe, update versions |
-| Route in main | Code split |
-| Unused exports | Tree shake |
+| Route in main  | Code split              |
+| Unused exports | Tree shake              |
 
 ---
 

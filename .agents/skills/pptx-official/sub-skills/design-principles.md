@@ -1,12 +1,14 @@
 # Design Principles
 
 **CRITICAL**: Before creating any presentation, analyze the content and choose appropriate design elements:
+
 1. **Consider the subject matter**: What is this presentation about? What tone, industry, or mood does it suggest?
 2. **Check for branding**: If the user mentions a company/organization, consider their brand colors and identity
 3. **Match palette to content**: Select colors that reflect the subject
 4. **State your approach**: Explain your design choices before writing code
 
 **Requirements**:
+
 - ✅ State your content-informed design approach BEFORE writing code
 - ✅ Use web-safe fonts only: Arial, Helvetica, Times New Roman, Georgia, Courier New, Verdana, Tahoma, Trebuchet MS, Impact
 - ✅ Create clear visual hierarchy through size, weight, and color
@@ -16,6 +18,7 @@
 #### Color Palette Selection
 
 **Choosing colors creatively**:
+
 - **Think beyond defaults**: What colors genuinely match this specific topic? Avoid autopilot choices.
 - **Consider multiple angles**: Topic, industry, mood, energy level, target audience, brand identity (if mentioned)
 - **Be adventurous**: Try unexpected combinations - a healthcare presentation doesn't have to be green, finance doesn't have to be navy
@@ -46,6 +49,7 @@
 #### Visual Details Options
 
 **Geometric Patterns**:
+
 - Diagonal section dividers instead of horizontal
 - Asymmetric column widths (30/70, 40/60, 25/75)
 - Rotated text headers at 90° or 270°
@@ -54,6 +58,7 @@
 - Overlapping shapes for depth
 
 **Border & Frame Treatments**:
+
 - Thick single-color borders (10-20pt) on one side only
 - Double-line borders with contrasting colors
 - Corner brackets instead of full frames
@@ -61,6 +66,7 @@
 - Underline accents beneath headers (3-5pt thick)
 
 **Typography Treatments**:
+
 - Extreme size contrast (72pt headlines vs 11pt body)
 - All-caps headers with wide letter spacing
 - Numbered sections in oversized display type
@@ -69,6 +75,7 @@
 - Outlined text for emphasis
 
 **Chart & Data Styling**:
+
 - Monochrome charts with single accent color for key data
 - Horizontal bar charts instead of vertical
 - Dot plots instead of bar charts
@@ -77,6 +84,7 @@
 - Oversized numbers for key metrics
 
 **Layout Innovations**:
+
 - Full-bleed images with text overlays
 - Sidebar column (20-30% width) for navigation/context
 - Modular grid systems (3×3, 4×4 blocks)
@@ -85,6 +93,7 @@
 - Magazine-style multi-column layouts
 
 **Background Treatments**:
+
 - Solid color blocks occupying 40-60% of slide
 - Gradient fills (vertical or diagonal only)
 - Split backgrounds (two colors, diagonal or vertical)

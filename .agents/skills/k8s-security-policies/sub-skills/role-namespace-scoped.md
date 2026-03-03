@@ -7,7 +7,7 @@ metadata:
   name: pod-reader
   namespace: production
 rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
+  - apiGroups: ['']
+    resources: ['pods']
+    verbs: ['get', 'watch', 'list']
 ```

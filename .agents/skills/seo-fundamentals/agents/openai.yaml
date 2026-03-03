@@ -1,7 +1,7 @@
 interface:
-  display_name: "SEO Fundamentals"
-  short_description: "SEO, E-E-A-T, Core Web Vitals guidance"
-  icon_small: "./assets/icon-small.svg"
-  icon_large: "./assets/icon-large.svg"
-  brand_color: "#059669"
-  default_prompt: "Use $seo-fundamentals to improve SEO for this page."
+  display_name: 'SEO Fundamentals'
+  short_description: 'SEO, E-E-A-T, Core Web Vitals guidance'
+  icon_small: './assets/icon-small.svg'
+  icon_large: './assets/icon-large.svg'
+  brand_color: '#059669'
+  default_prompt: 'Use $seo-fundamentals to improve SEO for this page.'

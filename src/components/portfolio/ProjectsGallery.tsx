@@ -9,6 +9,7 @@ import React, {
   type RefObject,
 } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -72,6 +73,9 @@ export const ProjectsGallery = ({
   initialPage = 1,
   totalProjectsCount,
 }: ProjectsGalleryProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [activeFilter, setActiveFilter] = useState<string>(
     mapCategoryToPillar(initialCategory)
   );
@@ -99,15 +103,29 @@ export const ProjectsGallery = ({
   const [pageAnnouncement, setPageAnnouncement] = useState('');
 
   // Sync activeFilter changes with page reset
+  const pushPageToUrl = useCallback((page: number) => {
+    const params = new URLSearchParams(searchParams?.toString());
+    if (page > 1) {
+      params.set('page', String(page));
+    } else {
+      params.delete('page');
+    }
+    const qs = params.toString();
+    const url = qs ? `${pathname}?${qs}` : pathname;
+    router.push(url);
+  }, [pathname, router, searchParams]);
+
   const handleFilterChange = useCallback((newFilter: string) => {
     setActiveFilter(newFilter);
     setCurrentPage(1);
+    // Reset page in URL
+    pushPageToUrl(1);
 
     // Smooth scroll to top of gallery on filter change
     if (galleryWrapperRef.current) {
       galleryWrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, []);
+  }, [pushPageToUrl]);
 
   const totalPages = Math.max(
     1,
@@ -131,6 +149,12 @@ export const ProjectsGallery = ({
     }
     setPageAnnouncement(`Página ${currentPage} de ${totalPages}`);
   }, [currentPage, totalPages]);
+
+  const goToPage = useCallback((nextPage: number) => {
+    setCurrentPage(nextPage);
+    pushPageToUrl(nextPage);
+    galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [pushPageToUrl]);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
@@ -298,10 +322,7 @@ export const ProjectsGallery = ({
               {totalPages > 1 && (
                 <div className="col-span-full mt-16 mb-8 flex justify-center items-center gap-6">
                   <button
-                    onClick={() => {
-                      setCurrentPage(p => Math.max(1, p - 1));
-                      galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }}
+                    onClick={() => goToPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
                     aria-label="Página anterior"
                     aria-controls="portfolio-filter-panel"
@@ -323,10 +344,7 @@ export const ProjectsGallery = ({
                     {currentPage} / {totalPages}
                   </span>
                   <button
-                    onClick={() => {
-                      setCurrentPage(p => Math.min(totalPages, p + 1));
-                      galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }}
+                    onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
                     disabled={currentPage === totalPages}
                     aria-label="Próxima página"
                     aria-controls="portfolio-filter-panel"

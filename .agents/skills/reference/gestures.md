@@ -9,8 +9,8 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 ```tsx
 <motion.div
   whileHover={{ scale: 1.1 }}
-  onHoverStart={() => console.log("Hover started")}
-  onHoverEnd={() => console.log("Hover ended")}
+  onHoverStart={() => console.log('Hover started')}
+  onHoverEnd={() => console.log('Hover ended')}
 >
   Hover me
 </motion.div>
@@ -22,8 +22,8 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 <motion.button
   whileHover={{
     scale: 1.05,
-    backgroundColor: "#3b82f6",
-    color: "#ffffff",
+    backgroundColor: '#3b82f6',
+    color: '#ffffff',
   }}
   transition={{ duration: 0.2 }}
 >
@@ -37,9 +37,9 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 <motion.div
   whileHover={{
     y: -5,
-    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
   }}
-  transition={{ type: "spring", stiffness: 300 }}
+  transition={{ type: 'spring', stiffness: 300 }}
   className="p-6 rounded-lg border"
 >
   Card content
@@ -51,10 +51,7 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 ### Basic Tap
 
 ```tsx
-<motion.button
-  whileTap={{ scale: 0.95 }}
-  onTap={() => console.log("Tapped!")}
->
+<motion.button whileTap={{ scale: 0.95 }} onTap={() => console.log('Tapped!')}>
   Click me
 </motion.button>
 ```
@@ -65,13 +62,13 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 <motion.button
   whileTap={{ scale: 0.95 }}
   onTapStart={(event, info) => {
-    console.log("Tap started at", info.point);
+    console.log('Tap started at', info.point);
   }}
   onTap={(event, info) => {
-    console.log("Tap completed at", info.point);
+    console.log('Tap completed at', info.point);
   }}
   onTapCancel={() => {
-    console.log("Tap cancelled");
+    console.log('Tap cancelled');
   }}
 >
   Button
@@ -84,7 +81,7 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
-  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
 >
   Interactive Button
 </motion.button>
@@ -96,8 +93,8 @@ Framer Motion provides gesture recognition for hover, tap, pan, and drag.
 <motion.input
   whileFocus={{
     scale: 1.02,
-    borderColor: "#3b82f6",
-    boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)",
+    borderColor: '#3b82f6',
+    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)',
   }}
   className="px-4 py-2 border rounded"
 />
@@ -110,13 +107,13 @@ Pan recognizes movement without dragging.
 ```tsx
 <motion.div
   onPan={(event, info) => {
-    console.log("Delta:", info.delta.x, info.delta.y);
-    console.log("Offset:", info.offset.x, info.offset.y);
-    console.log("Point:", info.point.x, info.point.y);
-    console.log("Velocity:", info.velocity.x, info.velocity.y);
+    console.log('Delta:', info.delta.x, info.delta.y);
+    console.log('Offset:', info.offset.x, info.offset.y);
+    console.log('Point:', info.point.x, info.point.y);
+    console.log('Velocity:', info.velocity.x, info.velocity.y);
   }}
-  onPanStart={(event, info) => console.log("Pan started")}
-  onPanEnd={(event, info) => console.log("Pan ended")}
+  onPanStart={(event, info) => console.log('Pan started')}
+  onPanEnd={(event, info) => console.log('Pan ended')}
 >
   Pan me
 </motion.div>
@@ -133,9 +130,9 @@ function SwipeCard({ onSwipe }) {
         const velocity = 500;
 
         if (info.offset.x > threshold || info.velocity.x > velocity) {
-          onSwipe("right");
+          onSwipe('right');
         } else if (info.offset.x < -threshold || info.velocity.x < -velocity) {
-          onSwipe("left");
+          onSwipe('left');
         }
       }}
     >
@@ -173,7 +170,7 @@ function SwipeCard({ onSwipe }) {
   }}
 >
   Constrained drag
-</motion.div>
+</motion.div>;
 
 // Reference element
 const constraintsRef = useRef(null);
@@ -184,7 +181,7 @@ const constraintsRef = useRef(null);
     dragConstraints={constraintsRef}
     className="w-20 h-20 bg-blue-500 rounded"
   />
-</div>
+</div>;
 ```
 
 ### Drag Elasticity
@@ -193,7 +190,7 @@ const constraintsRef = useRef(null);
 <motion.div
   drag
   dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-  dragElastic={0.2}  // 0 = no elasticity, 1 = full elasticity
+  dragElastic={0.2} // 0 = no elasticity, 1 = full elasticity
 >
   Elastic drag
 </motion.div>
@@ -204,7 +201,7 @@ const constraintsRef = useRef(null);
 ```tsx
 <motion.div
   drag
-  dragMomentum={true}  // Enable momentum (default)
+  dragMomentum={true} // Enable momentum (default)
   dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
 >
   Momentum drag
@@ -225,14 +222,20 @@ const constraintsRef = useRef(null);
 <motion.div
   drag
   onDragStart={(event, info) => {
-    console.log("Drag started at", info.point);
+    console.log('Drag started at', info.point);
   }}
   onDrag={(event, info) => {
-    console.log("Dragging:", info.point, info.delta, info.offset, info.velocity);
+    console.log(
+      'Dragging:',
+      info.point,
+      info.delta,
+      info.offset,
+      info.velocity
+    );
   }}
   onDragEnd={(event, info) => {
-    console.log("Drag ended at", info.point);
-    console.log("Velocity:", info.velocity);
+    console.log('Drag ended at', info.point);
+    console.log('Velocity:', info.velocity);
   }}
 >
   Drag me
@@ -254,7 +257,7 @@ const constraintsRef = useRef(null);
 ### Drag Controls
 
 ```tsx
-import { motion, useDragControls } from "framer-motion";
+import { motion, useDragControls } from 'framer-motion';
 
 function DraggableCard() {
   const dragControls = useDragControls();
@@ -262,10 +265,7 @@ function DraggableCard() {
   return (
     <>
       {/* Handle to initiate drag */}
-      <div
-        onPointerDown={(e) => dragControls.start(e)}
-        className="cursor-grab"
-      >
+      <div onPointerDown={(e) => dragControls.start(e)} className="cursor-grab">
         Drag handle
       </div>
 
@@ -284,8 +284,8 @@ function DraggableCard() {
   drag
   whileDrag={{
     scale: 1.1,
-    cursor: "grabbing",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+    cursor: 'grabbing',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
   }}
   className="cursor-grab"
 >
@@ -296,7 +296,7 @@ function DraggableCard() {
 ## Sortable List (Reorder)
 
 ```tsx
-import { Reorder } from "framer-motion";
+import { Reorder } from 'framer-motion';
 
 function SortableList() {
   const [items, setItems] = useState([1, 2, 3, 4]);
@@ -325,7 +325,7 @@ function SortableList() {
 ### Custom Drag Handle for Reorder
 
 ```tsx
-import { Reorder, useDragControls } from "framer-motion";
+import { Reorder, useDragControls } from 'framer-motion';
 
 function SortableItem({ item }) {
   const dragControls = useDragControls();

@@ -2,6 +2,7 @@
 
 **Cause**: Server-side access control is implemented
 **Solution**:
+
 ```
 # Try alternative attack vectors:
 1. HTTP method switching (GET → POST → PUT)

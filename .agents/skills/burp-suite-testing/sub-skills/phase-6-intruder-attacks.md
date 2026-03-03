@@ -1,6 +1,7 @@
 # Phase 6: Intruder Attacks
 
 #### Configure Intruder
+
 Set up automated attack:
 
 1. Send request to Intruder (right-click > Send to Intruder)
@@ -10,12 +11,12 @@ Set up automated attack:
 
 #### Attack Types
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| Sniper | Single position, iterate payloads | Fuzzing one parameter |
-| Battering ram | Same payload all positions | Credential testing |
-| Pitchfork | Parallel payload iteration | Username:password pairs |
-| Cluster bomb | All payload combinations | Full brute force |
+| Type          | Description                       | Use Case                |
+| ------------- | --------------------------------- | ----------------------- |
+| Sniper        | Single position, iterate payloads | Fuzzing one parameter   |
+| Battering ram | Same payload all positions        | Credential testing      |
+| Pitchfork     | Parallel payload iteration        | Username:password pairs |
+| Cluster bomb  | All payload combinations          | Full brute force        |
 
 #### Configure Payloads
 
@@ -31,6 +32,7 @@ Set 2: password, 123456, admin, letmein
 ```
 
 #### Analyze Results
+
 Review attack output:
 
 - Sort by response length to find anomalies

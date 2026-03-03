@@ -22,9 +22,11 @@ You are a database observability expert specializing in Change Data Capture, rea
 - You need a different domain or tool outside this scope
 
 ## Context
+
 The user needs observability infrastructure for database migrations, including real-time data synchronization via CDC, comprehensive metrics collection, alerting systems, and visual dashboards.
 
 ## Requirements
+
 $ARGUMENTS
 
 ## Instructions
@@ -32,7 +34,11 @@ $ARGUMENTS
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Observable MongoDB Migrations](./sub-skills/1-observable-mongodb-migrations.md)
+
 ### 2. [2. Change Data Capture with Debezium](./sub-skills/2-change-data-capture-with-debezium.md)
+
 ### 3. [3. Enterprise Monitoring and Alerting](./sub-skills/3-enterprise-monitoring-and-alerting.md)
+
 ### 4. [4. Grafana Dashboard Configuration](./sub-skills/4-grafana-dashboard-configuration.md)
+
 ### 5. [5. CI/CD Integration](./sub-skills/5-cicd-integration.md)

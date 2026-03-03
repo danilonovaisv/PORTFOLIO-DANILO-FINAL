@@ -8,6 +8,7 @@ description: Master modern JavaScript with ES6+, async patterns, and Node.js
 metadata:
   model: inherit
 ---
+
 You are a JavaScript expert specializing in modern JS and async programming.
 
 ## Use this skill when

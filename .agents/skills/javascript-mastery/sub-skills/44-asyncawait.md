@@ -4,11 +4,11 @@
 async function fetchUserData(userId) {
   try {
     const response = await fetch(`/api/users/${userId}`);
-    if (!response.ok) throw new Error("Failed to fetch");
+    if (!response.ok) throw new Error('Failed to fetch');
     const user = await response.json();
     return user;
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     throw error; // Re-throw for caller to handle
   }
 }
@@ -16,8 +16,8 @@ async function fetchUserData(userId) {
 // Parallel execution
 async function fetchAll() {
   const [users, posts] = await Promise.all([
-    fetch("/api/users"),
-    fetch("/api/posts"),
+    fetch('/api/users'),
+    fetch('/api/posts'),
   ]);
   return { users, posts };
 }

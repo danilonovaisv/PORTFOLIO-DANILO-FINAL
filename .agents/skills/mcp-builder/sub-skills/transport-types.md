@@ -1,9 +1,9 @@
 # Transport Types
 
-| Type | Use |
-|------|-----|
-| **Stdio** | Local, CLI-based |
-| **SSE** | Web-based, streaming |
+| Type          | Use                      |
+| ------------- | ------------------------ |
+| **Stdio**     | Local, CLI-based         |
+| **SSE**       | Web-based, streaming     |
 | **WebSocket** | Real-time, bidirectional |
 
 ---

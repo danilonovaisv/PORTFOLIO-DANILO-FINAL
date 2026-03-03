@@ -35,16 +35,29 @@ Master PCI DSS (Payment Card Industry Data Security Standard) compliance for sec
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Build and Maintain Secure Network](./sub-skills/build-and-maintain-secure-network.md)
+
 ### 2. [Protect Cardholder Data](./sub-skills/protect-cardholder-data.md)
+
 ### 3. [Maintain Vulnerability Management](./sub-skills/maintain-vulnerability-management.md)
+
 ### 4. [Implement Strong Access Control](./sub-skills/implement-strong-access-control.md)
+
 ### 5. [Monitor and Test Networks](./sub-skills/monitor-and-test-networks.md)
+
 ### 6. [Maintain Information Security Policy](./sub-skills/maintain-information-security-policy.md)
+
 ### 7. [Using Payment Processor Tokens](./sub-skills/using-payment-processor-tokens.md)
+
 ### 8. [Custom Tokenization (Advanced)](./sub-skills/custom-tokenization-advanced.md)
+
 ### 9. [Data at Rest](./sub-skills/data-at-rest.md)
+
 ### 10. [Data in Transit](./sub-skills/data-in-transit.md)
+
 ### 11. [Input Validation](./sub-skills/input-validation.md)
+
 ### 12. [SAQ A (Least Requirements)](./sub-skills/saq-a-least-requirements.md)
+
 ### 13. [SAQ A-EP](./sub-skills/saq-a-ep.md)
+
 ### 14. [SAQ D (Most Requirements)](./sub-skills/saq-d-most-requirements.md)

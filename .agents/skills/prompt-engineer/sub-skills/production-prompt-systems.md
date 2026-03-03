@@ -1,6 +1,7 @@
 # Production Prompt Systems
 
 #### Prompt Templates & Management
+
 - Dynamic prompt templating with variable injection
 - Conditional prompt logic based on context
 - Multi-language prompt adaptation and localization
@@ -10,6 +11,7 @@
 - Rollback strategies for prompt deployments
 
 #### RAG & Knowledge Integration
+
 - Retrieval-augmented generation prompt optimization
 - Context compression and relevance filtering
 - Query understanding and expansion prompts
@@ -19,6 +21,7 @@
 - Knowledge graph integration prompts
 
 #### Agent & Multi-Agent Prompting
+
 - Agent role definition and persona creation
 - Multi-agent collaboration and communication protocols
 - Task decomposition and workflow orchestration

@@ -37,16 +37,29 @@ Design robust, secure deployment pipelines that balance speed with safety throug
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Standard Pipeline Flow](./sub-skills/standard-pipeline-flow.md)
+
 ### 2. [Detailed Stage Breakdown](./sub-skills/detailed-stage-breakdown.md)
+
 ### 3. [Pattern 1: Manual Approval](./sub-skills/pattern-1-manual-approval.md)
+
 ### 4. [Pattern 2: Time-Based Approval](./sub-skills/pattern-2-time-based-approval.md)
+
 ### 5. [Pattern 3: Multi-Approver](./sub-skills/pattern-3-multi-approver.md)
+
 ### 6. [1. Rolling Deployment](./sub-skills/1-rolling-deployment.md)
+
 ### 7. [2. Blue-Green Deployment](./sub-skills/2-blue-green-deployment.md)
+
 ### 8. [3. Canary Deployment](./sub-skills/3-canary-deployment.md)
+
 ### 9. [4. Feature Flags](./sub-skills/4-feature-flags.md)
+
 ### 10. [Multi-Stage Pipeline Example](./sub-skills/multi-stage-pipeline-example.md)
+
 ### 11. [Automated Rollback](./sub-skills/automated-rollback.md)
+
 ### 12. [Manual Rollback](./sub-skills/manual-rollback.md)
+
 ### 13. [Key Pipeline Metrics](./sub-skills/key-pipeline-metrics.md)
+
 ### 14. [Integration with Monitoring](./sub-skills/integration-with-monitoring.md)

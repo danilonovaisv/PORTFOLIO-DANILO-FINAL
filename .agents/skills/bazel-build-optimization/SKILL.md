@@ -34,13 +34,23 @@ Production patterns for Bazel in large-scale monorepos.
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Bazel Architecture](./sub-skills/1-bazel-architecture.md)
+
 ### 2. [2. Key Concepts](./sub-skills/2-key-concepts.md)
+
 ### 3. [Template 1: WORKSPACE Configuration](./sub-skills/template-1-workspace-configuration.md)
+
 ### 4. [Template 2: .bazelrc Configuration](./sub-skills/template-2-bazelrc-configuration.md)
+
 ### 5. [Template 3: TypeScript Library BUILD](./sub-skills/template-3-typescript-library-build.md)
+
 ### 6. [Template 4: Python Library BUILD](./sub-skills/template-4-python-library-build.md)
+
 ### 7. [Template 5: Custom Rule for Docker](./sub-skills/template-5-custom-rule-for-docker.md)
+
 ### 8. [Template 6: Query and Dependency Analysis](./sub-skills/template-6-query-and-dependency-analysis.md)
+
 ### 9. [Template 7: Remote Execution Setup](./sub-skills/template-7-remote-execution-setup.md)
+
 ### 10. [Do's](./sub-skills/dos.md)
+
 ### 11. [Don'ts](./sub-skills/donts.md)

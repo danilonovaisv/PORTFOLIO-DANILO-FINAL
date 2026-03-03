@@ -1,12 +1,14 @@
 # 5. Development Workflow Integration
 
 **Development patterns:**
+
 - **Hot reloading setup**: Volume mounting and file watching
 - **Debug configuration**: Port exposure and debugging tools
 - **Testing integration**: Test-specific containers and environments
 - **Development containers**: Remote development container support via CLI tools
 
 **Development workflow:**
+
 ```yaml
 # Development override
 services:
@@ -22,6 +24,6 @@ services:
       - NODE_ENV=development
       - DEBUG=app:*
     ports:
-      - "9229:9229"  # Debug port
+      - '9229:9229' # Debug port
     command: npm run dev
 ```

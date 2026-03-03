@@ -1,6 +1,7 @@
 # x86-64 Instruction Patterns
 
 #### Function Prologue/Epilogue
+
 ```asm
 ; Standard prologue
 push rbp           ; Save base pointer
@@ -24,6 +25,7 @@ ret
 #### Calling Conventions
 
 **System V AMD64 (Linux, macOS)**
+
 ```asm
 ; Arguments: RDI, RSI, RDX, RCX, R8, R9, then stack
 ; Return: RAX (and RDX for 128-bit)
@@ -42,6 +44,7 @@ call func
 ```
 
 **Microsoft x64 (Windows)**
+
 ```asm
 ; Arguments: RCX, RDX, R8, R9, then stack
 ; Shadow space: 32 bytes reserved on stack

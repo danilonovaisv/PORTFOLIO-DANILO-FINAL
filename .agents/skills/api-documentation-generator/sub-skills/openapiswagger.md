@@ -1,6 +1,7 @@
 # OpenAPI/Swagger
 
 Generate interactive documentation:
+
 ```yaml
 openapi: 3.0.0
 info:

@@ -22,6 +22,7 @@ nmap -p 80,443 --script http-wordpress-enum target.com
 ```
 
 Key WordPress files and directories:
+
 - `/wp-admin/` - Admin dashboard
 - `/wp-login.php` - Login page
 - `/wp-content/` - Themes, plugins, uploads

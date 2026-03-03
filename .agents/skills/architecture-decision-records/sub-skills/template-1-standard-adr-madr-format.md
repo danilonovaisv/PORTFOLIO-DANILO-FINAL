@@ -11,6 +11,7 @@ Accepted
 
 We need to select a primary database for our new e-commerce platform. The system
 will handle:
+
 - ~10,000 concurrent users
 - Complex product catalog with hierarchical categories
 - Transaction processing for orders and payments
@@ -22,10 +23,11 @@ compliance for financial transactions.
 
 ## Decision Drivers
 
-* **Must have ACID compliance** for payment processing
-* **Must support complex queries** for reporting
-* **Should support full-text search** to reduce infrastructure complexity
-* **Should have good JSON support** for flexible product attributes
-* **Team familiarity** reduces onboarding time
+- **Must have ACID compliance** for payment processing
+- **Must support complex queries** for reporting
+- **Should support full-text search** to reduce infrastructure complexity
+- **Should have good JSON support** for flexible product attributes
+- **Team familiarity** reduces onboarding time
 
 ## Considered Options
+```

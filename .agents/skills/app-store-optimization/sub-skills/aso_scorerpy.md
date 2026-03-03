@@ -3,6 +3,7 @@
 Calculates comprehensive ASO health score across multiple dimensions.
 
 **Key Functions:**
+
 - `calculate_overall_score()`: Compute 0-100 ASO score
 - `score_metadata_quality()`: Evaluate title, description, keywords
 - `score_ratings_reviews()`: Assess rating quality and volume

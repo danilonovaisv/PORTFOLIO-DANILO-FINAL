@@ -3,6 +3,7 @@
 Generates comprehensive pre-launch and update checklists.
 
 **Key Functions:**
+
 - `generate_prelaunch_checklist()`: Complete submission validation
 - `validate_app_store_compliance()`: Check Apple guidelines
 - `validate_play_store_compliance()`: Check Google policies

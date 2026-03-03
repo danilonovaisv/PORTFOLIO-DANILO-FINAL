@@ -60,11 +60,11 @@ description: Calibragem Descoberta
 
 **🟢 OVERRIDE INITIALIZED: SYSTEM ONLINE**
 
-| Módulo | Status | Detalhes |
-| :--- | :--- | :--- |
-| **Indexador Root** | ✅ Verificado | `AGENTS.md` carregado. |
-| **UI/UX & Auditor Protocol** | ✅ Ativado | Mandato de Sincronização (Ler: `[PAGINA] - PROTOTIPO INTERATIVO.md` + `.jpg`) configurado. Atualizações de doc confirmadas sob alteração. |
-| **Arquitetura Ghost** | ✅ Validada | `RULES-PORTFOLIO-STRUCTURE.md` + subpastas `.agents` íntegras. |
-| **Environment** | - | *Status do Next.js + R3F* |
+| Módulo                       | Status        | Detalhes                                                                                                                                  |
+| :--------------------------- | :------------ | :---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Indexador Root**           | ✅ Verificado | `AGENTS.md` carregado.                                                                                                                    |
+| **UI/UX & Auditor Protocol** | ✅ Ativado    | Mandato de Sincronização (Ler: `[PAGINA] - PROTOTIPO INTERATIVO.md` + `.jpg`) configurado. Atualizações de doc confirmadas sob alteração. |
+| **Arquitetura Ghost**        | ✅ Validada   | `RULES-PORTFOLIO-STRUCTURE.md` + subpastas `.agents` íntegras.                                                                            |
+| **Environment**              | -             | _Status do Next.js + R3F_                                                                                                                 |
 
 **Próxima Ação recomendada do Orchestrator:** ...

@@ -49,11 +49,7 @@ function App() {
       <main className="app-main">
         <TodoForm onAddTodo={addTodo} />
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
 
         {loading ? (
           <div className="loading">Loading todos...</div>

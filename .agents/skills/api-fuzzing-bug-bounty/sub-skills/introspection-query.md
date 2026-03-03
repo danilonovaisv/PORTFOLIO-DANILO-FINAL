@@ -3,7 +3,31 @@
 Fetch entire backend schema:
 
 ```graphql
-{__schema{queryType{name},mutationType{name},types{kind,name,description,fields(includeDeprecated:true){name,args{name,type{name,kind}}}}}}
+{
+  __schema {
+    queryType {
+      name
+    }
+    mutationType {
+      name
+    }
+    types {
+      kind
+      name
+      description
+      fields(includeDeprecated: true) {
+        name
+        args {
+          name
+          type {
+            name
+            kind
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 **URL-encoded version:**

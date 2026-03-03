@@ -10,6 +10,7 @@ python manage.py startapp core
 ```
 
 **pyproject.toml for Django**:
+
 ```toml
 [project]
 name = "django-project"

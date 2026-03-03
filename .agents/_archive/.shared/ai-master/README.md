@@ -19,7 +19,9 @@ ai-master/
 ## 🚀 Usage
 
 ### 1. Model Selection
+
 Use `presets/model_configs.json` to configure the optimal temperature and tokens for your task (Creative vs. Biological vs. Coding).
 
 ### 2. Prompt Engineering
+
 Before sending a heavy prompt, audit it against `checklists/prompt_audit.md` to ensure it follows the "Chain of Thought" or "ReAct" standards.

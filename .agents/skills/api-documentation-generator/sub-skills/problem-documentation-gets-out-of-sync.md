@@ -1,7 +1,8 @@
 # Problem: Documentation Gets Out of Sync
 
 **Symptoms:** Examples don't work, parameters are wrong, endpoints return different data
-**Solution:** 
+**Solution:**
+
 - Generate docs from code comments/annotations
 - Use tools like Swagger/OpenAPI
 - Add API tests that validate documentation

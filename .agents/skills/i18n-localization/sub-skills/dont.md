@@ -10,13 +10,13 @@
 
 ## 6. Common Issues
 
-| Issue | Solution |
-|-------|----------|
+| Issue               | Solution                     |
+| ------------------- | ---------------------------- |
 | Missing translation | Fallback to default language |
-| Hardcoded strings | Use linter/checker script |
-| Date format | Use Intl.DateTimeFormat |
-| Number format | Use Intl.NumberFormat |
-| Pluralization | Use ICU message format |
+| Hardcoded strings   | Use linter/checker script    |
+| Date format         | Use Intl.DateTimeFormat      |
+| Number format       | Use Intl.NumberFormat        |
+| Pluralization       | Use ICU message format       |
 
 ---
 
@@ -25,11 +25,11 @@
 ```css
 /* CSS Logical Properties */
 .container {
-  margin-inline-start: 1rem;  /* Not margin-left */
-  padding-inline-end: 1rem;   /* Not padding-right */
+  margin-inline-start: 1rem; /* Not margin-left */
+  padding-inline-end: 1rem; /* Not padding-right */
 }
 
-[dir="rtl"] .icon {
+[dir='rtl'] .icon {
   transform: scaleX(-1);
 }
 ```
@@ -51,6 +51,6 @@ Before shipping:
 
 ## Script
 
-| Script | Purpose | Command |
-|--------|---------|---------|
+| Script                    | Purpose                                         | Command                                         |
+| ------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | `scripts/i18n_checker.py` | Detect hardcoded strings & missing translations | `python scripts/i18n_checker.py <project_path>` |

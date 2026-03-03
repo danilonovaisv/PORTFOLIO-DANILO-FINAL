@@ -23,7 +23,11 @@ function getExtraHeadersFromEnv() {
   if (headersJson) {
     try {
       const parsed = JSON.parse(headersJson);
-      if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+      if (
+        typeof parsed === 'object' &&
+        parsed !== null &&
+        !Array.isArray(parsed)
+      ) {
         return parsed;
       }
       console.warn('PW_EXTRA_HEADERS must be a JSON object, ignoring...');
@@ -44,16 +48,16 @@ async function launchBrowser(browserType = 'chromium', options = {}) {
   const defaultOptions = {
     headless: process.env.HEADLESS !== 'false',
     slowMo: process.env.SLOW_MO ? parseInt(process.env.SLOW_MO) : 0,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   };
-  
+
   const browsers = { chromium, firefox, webkit };
   const browser = browsers[browserType];
-  
+
   if (!browser) {
     throw new Error(`Invalid browser type: ${browserType}`);
   }
-  
+
   return await browser.launch({ ...defaultOptions, ...options });
 }
 
@@ -64,20 +68,20 @@ async function launchBrowser(browserType = 'chromium', options = {}) {
  */
 async function createPage(context, options = {}) {
   const page = await context.newPage();
-  
+
   if (options.viewport) {
     await page.setViewportSize(options.viewport);
   }
-  
+
   if (options.userAgent) {
     await page.setExtraHTTPHeaders({
-      'User-Agent': options.userAgent
+      'User-Agent': options.userAgent,
     });
   }
-  
+
   // Set default timeout
   page.setDefaultTimeout(options.timeout || 30000);
-  
+
   return page;
 }
 
@@ -89,21 +93,21 @@ async function createPage(context, options = {}) {
 async function waitForPageReady(page, options = {}) {
   const waitOptions = {
     waitUntil: options.waitUntil || 'networkidle',
-    timeout: options.timeout || 30000
+    timeout: options.timeout || 30000,
   };
-  
+
   try {
-    await page.waitForLoadState(waitOptions.waitUntil, { 
-      timeout: waitOptions.timeout 
+    await page.waitForLoadState(waitOptions.waitUntil, {
+      timeout: waitOptions.timeout,
     });
   } catch (e) {
     console.warn('Page load timeout, continuing...');
   }
-  
+
   // Additional wait for dynamic content if selector provided
   if (options.waitForSelector) {
-    await page.waitForSelector(options.waitForSelector, { 
-      timeout: options.timeout 
+    await page.waitForSelector(options.waitForSelector, {
+      timeout: options.timeout,
     });
   }
 }
@@ -117,21 +121,23 @@ async function waitForPageReady(page, options = {}) {
 async function safeClick(page, selector, options = {}) {
   const maxRetries = options.retries || 3;
   const retryDelay = options.retryDelay || 1000;
-  
+
   for (let i = 0; i < maxRetries; i++) {
     try {
-      await page.waitForSelector(selector, { 
+      await page.waitForSelector(selector, {
         state: 'visible',
-        timeout: options.timeout || 5000 
+        timeout: options.timeout || 5000,
       });
       await page.click(selector, {
         force: options.force || false,
-        timeout: options.timeout || 5000
+        timeout: options.timeout || 5000,
       });
       return true;
     } catch (e) {
       if (i === maxRetries - 1) {
-        console.error(`Failed to click ${selector} after ${maxRetries} attempts`);
+        console.error(
+          `Failed to click ${selector} after ${maxRetries} attempts`
+        );
         throw e;
       }
       console.log(`Retry ${i + 1}/${maxRetries} for clicking ${selector}`);
@@ -148,15 +154,15 @@ async function safeClick(page, selector, options = {}) {
  * @param {Object} options - Type options
  */
 async function safeType(page, selector, text, options = {}) {
-  await page.waitForSelector(selector, { 
+  await page.waitForSelector(selector, {
     state: 'visible',
-    timeout: options.timeout || 10000 
+    timeout: options.timeout || 10000,
   });
-  
+
   if (options.clear !== false) {
     await page.fill(selector, '');
   }
-  
+
   if (options.slow) {
     await page.type(selector, text, { delay: options.delay || 100 });
   } else {
@@ -171,8 +177,8 @@ async function safeType(page, selector, text, options = {}) {
  */
 async function extractTexts(page, selector) {
   await page.waitForSelector(selector, { timeout: 10000 });
-  return await page.$$eval(selector, elements => 
-    elements.map(el => el.textContent?.trim()).filter(Boolean)
+  return await page.$$eval(selector, (elements) =>
+    elements.map((el) => el.textContent?.trim()).filter(Boolean)
   );
 }
 
@@ -185,13 +191,13 @@ async function extractTexts(page, selector) {
 async function takeScreenshot(page, name, options = {}) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const filename = `${name}-${timestamp}.png`;
-  
+
   await page.screenshot({
     path: filename,
     fullPage: options.fullPage !== false,
-    ...options
+    ...options,
   });
-  
+
   console.log(`Screenshot saved: ${filename}`);
   return filename;
 }
@@ -206,19 +212,23 @@ async function authenticate(page, credentials, selectors = {}) {
   const defaultSelectors = {
     username: 'input[name="username"], input[name="email"], #username, #email',
     password: 'input[name="password"], #password',
-    submit: 'button[type="submit"], input[type="submit"], button:has-text("Login"), button:has-text("Sign in")'
+    submit:
+      'button[type="submit"], input[type="submit"], button:has-text("Login"), button:has-text("Sign in")',
   };
-  
+
   const finalSelectors = { ...defaultSelectors, ...selectors };
-  
+
   await safeType(page, finalSelectors.username, credentials.username);
   await safeType(page, finalSelectors.password, credentials.password);
   await safeClick(page, finalSelectors.submit);
-  
+
   // Wait for navigation or success indicator
   await Promise.race([
     page.waitForNavigation({ waitUntil: 'networkidle' }),
-    page.waitForSelector(selectors.successIndicator || '.dashboard, .user-menu, .logout', { timeout: 10000 })
+    page.waitForSelector(
+      selectors.successIndicator || '.dashboard, .user-menu, .logout',
+      { timeout: 10000 }
+    ),
   ]).catch(() => {
     console.log('Login might have completed without navigation');
   });
@@ -233,10 +243,10 @@ async function authenticate(page, credentials, selectors = {}) {
 async function scrollPage(page, direction = 'down', distance = 500) {
   switch (direction) {
     case 'down':
-      await page.evaluate(d => window.scrollBy(0, d), distance);
+      await page.evaluate((d) => window.scrollBy(0, d), distance);
       break;
     case 'up':
-      await page.evaluate(d => window.scrollBy(0, -d), distance);
+      await page.evaluate((d) => window.scrollBy(0, -d), distance);
       break;
     case 'top':
       await page.evaluate(() => window.scrollTo(0, 0));
@@ -255,16 +265,16 @@ async function scrollPage(page, direction = 'down', distance = 500) {
  */
 async function extractTableData(page, tableSelector) {
   await page.waitForSelector(tableSelector);
-  
+
   return await page.evaluate((selector) => {
     const table = document.querySelector(selector);
     if (!table) return null;
-    
-    const headers = Array.from(table.querySelectorAll('thead th')).map(th => 
+
+    const headers = Array.from(table.querySelectorAll('thead th')).map((th) =>
       th.textContent?.trim()
     );
-    
-    const rows = Array.from(table.querySelectorAll('tbody tr')).map(tr => {
+
+    const rows = Array.from(table.querySelectorAll('tbody tr')).map((tr) => {
       const cells = Array.from(tr.querySelectorAll('td'));
       if (headers.length > 0) {
         return cells.reduce((obj, cell, index) => {
@@ -272,10 +282,10 @@ async function extractTableData(page, tableSelector) {
           return obj;
         }, {});
       } else {
-        return cells.map(cell => cell.textContent?.trim());
+        return cells.map((cell) => cell.textContent?.trim());
       }
     });
-    
+
     return { headers, rows };
   }, tableSelector);
 }
@@ -294,14 +304,14 @@ async function handleCookieBanner(page, timeout = 3000) {
     'button:has-text("I agree")',
     '.cookie-accept',
     '#cookie-accept',
-    '[data-testid="cookie-accept"]'
+    '[data-testid="cookie-accept"]',
   ];
-  
+
   for (const selector of commonSelectors) {
     try {
-      const element = await page.waitForSelector(selector, { 
+      const element = await page.waitForSelector(selector, {
         timeout: timeout / commonSelectors.length,
-        state: 'visible'
+        state: 'visible',
       });
       if (element) {
         await element.click();
@@ -312,7 +322,7 @@ async function handleCookieBanner(page, timeout = 3000) {
       // Continue to next selector
     }
   }
-  
+
   return false;
 }
 
@@ -324,7 +334,7 @@ async function handleCookieBanner(page, timeout = 3000) {
  */
 async function retryWithBackoff(fn, maxRetries = 3, initialDelay = 1000) {
   let lastError;
-  
+
   for (let i = 0; i < maxRetries; i++) {
     try {
       return await fn();
@@ -332,10 +342,10 @@ async function retryWithBackoff(fn, maxRetries = 3, initialDelay = 1000) {
       lastError = error;
       const delay = initialDelay * Math.pow(2, i);
       console.log(`Attempt ${i + 1} failed, retrying in ${delay}ms...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
-  
+
   throw lastError;
 }
 
@@ -350,7 +360,7 @@ async function createContext(browser, options = {}) {
   // Merge environment headers with any passed in options
   const mergedHeaders = {
     ...envHeaders,
-    ...options.extraHTTPHeaders
+    ...options.extraHTTPHeaders,
   };
 
   const defaultOptions = {
@@ -363,7 +373,9 @@ async function createContext(browser, options = {}) {
     locale: options.locale || 'en-US',
     timezoneId: options.timezoneId || 'America/New_York',
     // Only include extraHTTPHeaders if we have any
-    ...(Object.keys(mergedHeaders).length > 0 && { extraHTTPHeaders: mergedHeaders })
+    ...(Object.keys(mergedHeaders).length > 0 && {
+      extraHTTPHeaders: mergedHeaders,
+    }),
   };
 
   return await browser.newContext({ ...defaultOptions, ...options });
@@ -378,7 +390,9 @@ async function detectDevServers(customPorts = []) {
   const http = require('http');
 
   // Common dev server ports
-  const commonPorts = [3000, 3001, 3002, 5173, 8080, 8000, 4200, 5000, 9000, 1234];
+  const commonPorts = [
+    3000, 3001, 3002, 5173, 8080, 8000, 4200, 5000, 9000, 1234,
+  ];
   const allPorts = [...new Set([...commonPorts, ...customPorts])];
 
   const detectedServers = [];
@@ -388,19 +402,22 @@ async function detectDevServers(customPorts = []) {
   for (const port of allPorts) {
     try {
       await new Promise((resolve, reject) => {
-        const req = http.request({
-          hostname: 'localhost',
-          port: port,
-          path: '/',
-          method: 'HEAD',
-          timeout: 500
-        }, (res) => {
-          if (res.statusCode < 500) {
-            detectedServers.push(`http://localhost:${port}`);
-            console.log(`  ✅ Found server on port ${port}`);
+        const req = http.request(
+          {
+            hostname: 'localhost',
+            port: port,
+            path: '/',
+            method: 'HEAD',
+            timeout: 500,
+          },
+          (res) => {
+            if (res.statusCode < 500) {
+              detectedServers.push(`http://localhost:${port}`);
+              console.log(`  ✅ Found server on port ${port}`);
+            }
+            resolve();
           }
-          resolve();
-        });
+        );
 
         req.on('error', () => resolve());
         req.on('timeout', () => {
@@ -437,5 +454,5 @@ module.exports = {
   retryWithBackoff,
   createContext,
   detectDevServers,
-  getExtraHeadersFromEnv
+  getExtraHeadersFromEnv,
 };

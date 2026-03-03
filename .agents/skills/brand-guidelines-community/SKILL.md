@@ -18,9 +18,15 @@ To access Anthropic's official brand identity and style resources, use this skil
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Colors](./sub-skills/colors.md)
+
 ### 2. [Typography](./sub-skills/typography.md)
+
 ### 3. [Smart Font Application](./sub-skills/smart-font-application.md)
+
 ### 4. [Text Styling](./sub-skills/text-styling.md)
+
 ### 5. [Shape and Accent Colors](./sub-skills/shape-and-accent-colors.md)
+
 ### 6. [Font Management](./sub-skills/font-management.md)
+
 ### 7. [Color Application](./sub-skills/color-application.md)

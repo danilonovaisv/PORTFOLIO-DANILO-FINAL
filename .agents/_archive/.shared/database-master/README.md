@@ -17,4 +17,5 @@ database-master/
 ```
 
 ## 🚀 Usage
+
 Reference `schemas/` for standard user/auth models to ensure consistency across services.

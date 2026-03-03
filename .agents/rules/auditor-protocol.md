@@ -17,35 +17,36 @@ Todo request de alteração de código deve passar por este fluxo:
 
 1. **Identificar Alvo**: Se o usuário quer alterar a "Home", localize `.context/HOME - PROTOTIPO INTERATIVO.md`.
 2. **Cross-Check**: Compare o prompt do usuário com a descrição na documentação.
-   - *Exemplo*: O doc diz "Fundo Escuro". Usuário pede "Fundo Branco".
+   - _Exemplo_: O doc diz "Fundo Escuro". Usuário pede "Fundo Branco".
 3. **BLOCKING ACTION**: Se houver divergência, **PARE**.
-   - Pergunte ao usuário: *"Isso contradiz a regra 'X' no documento 'Y'. Deseja proceder e atualizar a documentação, ou manter o padrão?"*
+   - Pergunte ao usuário: _"Isso contradiz a regra 'X' no documento 'Y'. Deseja proceder e atualizar a documentação, ou manter o padrão?"_
 
 ### FASE B: Sincronização (Após aprovação)
 
 1. Se o usuário confirmar a mudança (ex: "Sim, mude para fundo branco"):
 2. **Execute o Código**: Faça a alteração no `.tsx`.
 3. **ATUALIZE O DOC**: Imediatamente reescreva o arquivo em `.context/` refletindo a nova realidade.
-   - *Ação*: Use `skill-planning-with-files` para editar o markdown.
+   - _Ação_: Use `skill-planning-with-files` para editar o markdown.
 4. **Log**: Adicione uma nota no histórico de mudanças do arquivo.
 
 ## 3. CHECKLIST DE VALIDAÇÃO POR PÁGINA
 
 Ao tocar nestes arquivos, valide contra estes documentos:
 
-| Rota (`src/app`) | Documento Obrigatório (`.context/`) |
-| :--- | :--- |
-| `/` (Home) | `HOME - PROTOTIPO INTERATIVO.md` |
-| `/sobre` | `SOBRE-PROTOTIPO-INTERATIVO.md` |
-| `/portfolio` | `PORTFOLIO-PROTOTIPO-INTERATIVO.md` |
-| `/admin` | `ADMIN - PROTOTIPO INTERATIVO.md` |
-| `/projects/[slug]` | `PROTOTIPO INTERATIVO DA LANDING PAGE.md` |
-| `global.css` / `tailwind` | `GHOST-DESIGN-SYSTEM.md` |
+| Rota (`src/app`)          | Documento Obrigatório (`.context/`)       |
+| :------------------------ | :---------------------------------------- |
+| `/` (Home)                | `HOME - PROTOTIPO INTERATIVO.md`          |
+| `/sobre`                  | `SOBRE-PROTOTIPO-INTERATIVO.md`           |
+| `/portfolio`              | `PORTFOLIO-PROTOTIPO-INTERATIVO.md`       |
+| `/admin`                  | `ADMIN - PROTOTIPO INTERATIVO.md`         |
+| `/projects/[slug]`        | `PROTOTIPO INTERATIVO DA LANDING PAGE.md` |
+| `global.css` / `tailwind` | `GHOST-DESIGN-SYSTEM.md`                  |
 
 ## 4. MODO DE RESPOSTA
 
 Se você identificar uma inconsistência, sua resposta deve começar com:
+
 > 🕵️ **AUDITOR ALERT**: Detectei um desvio do documento [NOME_DO_DOC].
 > **Original**: [O que diz o doc]
 > **Solicitado**: [O que o usuário pediu]
-> *Deseja aplicar a mudança e atualizar a documentação?*
+> _Deseja aplicar a mudança e atualizar a documentação?_

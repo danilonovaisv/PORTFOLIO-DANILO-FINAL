@@ -1,12 +1,12 @@
 # Buddy Responsibility Matrix
 
-| Week | Frequency | Activities | Time Commitment |
-|------|-----------|------------|----------------|
-| 1 | Daily | Morning check-in, pair programming, question answering | 2 hours/day |
-| 2-3 | 3x/week | Code review together, architecture discussions, social lunch | 1 hour/day |
-| 4 | 2x/week | Project collaboration, introduction facilitation | 30 min/day |
-| 5-8 | Weekly | Progress check-in, career development chat | 1 hour/week |
-| 9-12 | Bi-weekly | Mentorship transition, success celebration | 30 min/week |
+| Week | Frequency | Activities                                                   | Time Commitment |
+| ---- | --------- | ------------------------------------------------------------ | --------------- |
+| 1    | Daily     | Morning check-in, pair programming, question answering       | 2 hours/day     |
+| 2-3  | 3x/week   | Code review together, architecture discussions, social lunch | 1 hour/day      |
+| 4    | 2x/week   | Project collaboration, introduction facilitation             | 30 min/day      |
+| 5-8  | Weekly    | Progress check-in, career development chat                   | 1 hour/week     |
+| 9-12 | Bi-weekly | Mentorship transition, success celebration                   | 30 min/week     |
 
 ## Execution Guidelines
 

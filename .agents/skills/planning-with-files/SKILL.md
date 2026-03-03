@@ -18,19 +18,19 @@ hooks:
         - type: command
           command: "echo '[planning-with-files] Ready. Auto-activates for complex tasks, or invoke manually with /planning-with-files'"
   PreToolUse:
-    - matcher: "Write|Edit|Bash"
+    - matcher: 'Write|Edit|Bash'
       hooks:
         - type: command
-          command: "cat task_plan.md 2>/dev/null | head -30 || true"
+          command: 'cat task_plan.md 2>/dev/null | head -30 || true'
   PostToolUse:
-    - matcher: "Write|Edit"
+    - matcher: 'Write|Edit'
       hooks:
         - type: command
           command: "echo '[planning-with-files] File updated. If this completes a phase, update task_plan.md status.'"
   Stop:
     - hooks:
         - type: command
-          command: "${CLAUDE_PLUGIN_ROOT}/scripts/check-complete.sh"
+          command: '${CLAUDE_PLUGIN_ROOT}/scripts/check-complete.sh'
 ---
 
 # Planning with Files
@@ -44,10 +44,10 @@ When using this skill:
 - **Templates** are stored in the skill directory at `${CLAUDE_PLUGIN_ROOT}/templates/`
 - **Your planning files** (`task_plan.md`, `findings.md`, `progress.md`) should be created in **your project directory** — the folder where you're working
 
-| Location | What Goes There |
-|----------|-----------------|
-| Skill directory (`${CLAUDE_PLUGIN_ROOT}/`) | Templates, scripts, reference docs |
-| Your project directory | `task_plan.md`, `findings.md`, `progress.md` |
+| Location                                   | What Goes There                              |
+| ------------------------------------------ | -------------------------------------------- |
+| Skill directory (`${CLAUDE_PLUGIN_ROOT}/`) | Templates, scripts, reference docs           |
+| Your project directory                     | `task_plan.md`, `findings.md`, `progress.md` |
 
 This ensures your planning files live alongside your code, not buried in the skill installation folder.
 
@@ -74,19 +74,24 @@ Filesystem = Disk (persistent, unlimited)
 
 ## File Purposes
 
-| File | Purpose | When to Update |
-|------|---------|----------------|
-| `task_plan.md` | Phases, progress, decisions | After each phase |
-| `findings.md` | Research, discoveries | After ANY discovery |
-| `progress.md` | Session log, test results | Throughout session |
+| File           | Purpose                     | When to Update      |
+| -------------- | --------------------------- | ------------------- |
+| `task_plan.md` | Phases, progress, decisions | After each phase    |
+| `findings.md`  | Research, discoveries       | After ANY discovery |
+| `progress.md`  | Session log, test results   | Throughout session  |
 
 ## Critical Rules
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [1. Create Plan First](./sub-skills/1-create-plan-first.md)
+
 ### 2. [2. The 2-Action Rule](./sub-skills/2-the-2-action-rule.md)
+
 ### 3. [3. Read Before Decide](./sub-skills/3-read-before-decide.md)
+
 ### 4. [4. Update After Act](./sub-skills/4-update-after-act.md)
+
 ### 5. [5. Log ALL Errors](./sub-skills/5-log-all-errors.md)
+
 ### 6. [6. Never Repeat Failures](./sub-skills/6-never-repeat-failures.md)

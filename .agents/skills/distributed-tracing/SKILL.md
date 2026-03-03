@@ -37,17 +37,31 @@ Track requests across distributed systems to understand latency, dependencies, a
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Trace Structure](./sub-skills/trace-structure.md)
+
 ### 2. [Key Components](./sub-skills/key-components.md)
+
 ### 3. [Kubernetes Deployment](./sub-skills/kubernetes-deployment.md)
+
 ### 4. [Docker Compose](./sub-skills/docker-compose.md)
+
 ### 5. [OpenTelemetry (Recommended)](./sub-skills/opentelemetry-recommended.md)
+
 ### 6. [HTTP Headers](./sub-skills/http-headers.md)
+
 ### 7. [Propagation in HTTP Requests](./sub-skills/propagation-in-http-requests.md)
+
 ### 8. [Kubernetes Deployment](./sub-skills/kubernetes-deployment.md)
+
 ### 9. [Probabilistic Sampling](./sub-skills/probabilistic-sampling.md)
+
 ### 10. [Rate Limiting Sampling](./sub-skills/rate-limiting-sampling.md)
+
 ### 11. [Adaptive Sampling](./sub-skills/adaptive-sampling.md)
+
 ### 12. [Finding Slow Requests](./sub-skills/finding-slow-requests.md)
+
 ### 13. [Finding Errors](./sub-skills/finding-errors.md)
+
 ### 14. [Service Dependency Graph](./sub-skills/service-dependency-graph.md)
+
 ### 15. [Correlated Logs](./sub-skills/correlated-logs.md)

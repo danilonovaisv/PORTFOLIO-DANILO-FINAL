@@ -48,6 +48,7 @@ FOR multi-item feedback:
 ## When To Push Back
 
 Push back when:
+
 - Suggestion breaks existing functionality
 - Reviewer lacks full context
 - Violates YAGNI (unused feature)
@@ -56,6 +57,7 @@ Push back when:
 - Conflicts with your human partner's architectural decisions
 
 **How to push back:**
+
 - Use technical reasoning, not defensiveness
 - Ask specific questions
 - Reference working tests/code
@@ -66,6 +68,7 @@ Push back when:
 ## Acknowledging Correct Feedback
 
 When feedback IS correct:
+
 ```
 ✅ "Fixed. [Brief description of what changed]"
 ✅ "Good catch - [specific issue]. Fixed in [location]."
@@ -85,6 +88,7 @@ When feedback IS correct:
 ## Gracefully Correcting Your Pushback
 
 If you pushed back and were wrong:
+
 ```
 ✅ "You were right - I checked [X] and it does [Y]. Implementing now."
 ✅ "Verified this and you're correct. My initial understanding was wrong because [reason]. Fixing."
@@ -98,37 +102,41 @@ State the correction factually and move on.
 
 ## Common Mistakes
 
-| Mistake | Fix |
-|---------|-----|
-| Performative agreement | State requirement or just act |
-| Blind implementation | Verify against codebase first |
-| Batch without testing | One at a time, test each |
-| Assuming reviewer is right | Check if breaks things |
-| Avoiding pushback | Technical correctness > comfort |
-| Partial implementation | Clarify all items first |
+| Mistake                      | Fix                                 |
+| ---------------------------- | ----------------------------------- |
+| Performative agreement       | State requirement or just act       |
+| Blind implementation         | Verify against codebase first       |
+| Batch without testing        | One at a time, test each            |
+| Assuming reviewer is right   | Check if breaks things              |
+| Avoiding pushback            | Technical correctness > comfort     |
+| Partial implementation       | Clarify all items first             |
 | Can't verify, proceed anyway | State limitation, ask for direction |
 
 ## Real Examples
 
 **Performative Agreement (Bad):**
+
 ```
 Reviewer: "Remove legacy code"
 ❌ "You're absolutely right! Let me remove that..."
 ```
 
 **Technical Verification (Good):**
+
 ```
 Reviewer: "Remove legacy code"
 ✅ "Checking... build target is 10.15+, this API needs 13+. Need legacy for backward compat. Current impl has wrong bundle ID - fix it or drop pre-13 support?"
 ```
 
 **YAGNI (Good):**
+
 ```
 Reviewer: "Implement proper metrics tracking with database, date filters, CSV export"
 ✅ "Grepped codebase - nothing calls this endpoint. Remove it (YAGNI)? Or is there usage I'm missing?"
 ```
 
 **Unclear Item (Good):**
+
 ```
 your human partner: "Fix items 1-6"
 You understand 1,2,3,6. Unclear on 4,5.

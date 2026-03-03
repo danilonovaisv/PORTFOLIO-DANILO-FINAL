@@ -1,20 +1,20 @@
 # File Operations
 
-| Operation | Pattern |
-|-----------|---------|
-| Read | `Get-Content "file.json" -Raw | ConvertFrom-Json` |
-| Write | `$data | ConvertTo-Json -Depth 10 | Out-File "file.json" -Encoding UTF8` |
+| Operation | Pattern                       |
+| --------- | ----------------------------- | ------------------------ | ------------------------------------ |
+| Read      | `Get-Content "file.json" -Raw | ConvertFrom-Json`        |
+| Write     | `$data                        | ConvertTo-Json -Depth 10 | Out-File "file.json" -Encoding UTF8` |
 
 ---
 
 ## 9. Common Errors
 
-| Error Message | Cause | Fix |
-|---------------|-------|-----|
-| "parameter 'or'" | Missing parentheses | Wrap cmdlets in () |
-| "Unexpected token" | Unicode character | Use ASCII only |
-| "Cannot find property" | Null object | Check null first |
-| "Cannot convert" | Type mismatch | Use .ToString() |
+| Error Message          | Cause               | Fix                |
+| ---------------------- | ------------------- | ------------------ |
+| "parameter 'or'"       | Missing parentheses | Wrap cmdlets in () |
+| "Unexpected token"     | Unicode character   | Use ASCII only     |
+| "Cannot find property" | Null object         | Check null first   |
+| "Cannot convert"       | Type mismatch       | Use .ToString()    |
 
 ---
 

@@ -11,17 +11,17 @@ import {
   Row,
   Section,
   Text,
-} from 'npm:@react-email/components@0.0.22'
-import * as React from 'npm:react@18.3.1'
+} from 'npm:@react-email/components@0.0.22';
+import * as React from 'npm:react@18.3.1';
 
 interface SignUpEmailProps {
-  username: string
-  lang: string
-  token: string
-  supabase_url: string
-  email_action_type: string
-  redirect_to: string
-  token_hash: string
+  username: string;
+  lang: string;
+  token: string;
+  supabase_url: string;
+  email_action_type: string;
+  redirect_to: string;
+  token_hash: string;
 }
 
 /** Translations of the text for English */
@@ -38,23 +38,25 @@ const translationsEn = {
   policies: 'Policies',
   help_center: 'Help center',
   community: 'Community',
-}
+};
 
 /** Translations of the text for Japanese */
 const translationsJa = {
   confirm_email_address: 'メールアドレスの確認',
-  h1: (username: string) => `${username}様ようこそ！メールアドレスの確認をお願いします`,
+  h1: (username: string) =>
+    `${username}様ようこそ！メールアドレスの確認をお願いします`,
   your_confirmation_code:
     'Storyへの登録ありがとうございます。メールアドレスの確認を完了してください。',
   click_here: 'こちらをクリックしてメールアドレスの確認を完了させてください',
-  copy_and_paste: 'それかこちらのログインコードを使ってWebサイトで認証を完了させてください。',
+  copy_and_paste:
+    'それかこちらのログインコードを使ってWebサイトで認証を完了させてください。',
   if_you_did_not_request:
     'もしメールのリクエストをしていない場合は、無視していただいて構いません。',
   blog: 'ブログ',
   policies: 'ポリシー',
   help_center: 'ヘルプセンター',
   community: 'コミュニティ',
-}
+};
 
 export const SignUpEmail = ({
   username,
@@ -65,7 +67,7 @@ export const SignUpEmail = ({
   redirect_to,
   token_hash,
 }: SignUpEmailProps) => {
-  const translations = lang.includes('ja') ? translationsJa : translationsEn
+  const translations = lang.includes('ja') ? translationsJa : translationsEn;
 
   return (
     <Html>
@@ -74,7 +76,11 @@ export const SignUpEmail = ({
       <Body style={main}>
         <Container style={container}>
           <Section style={logoContainer}>
-            <Img src="https://welcome-five-ebon.vercel.app/logo.png" width="120" alt="Story" />
+            <Img
+              src="https://welcome-five-ebon.vercel.app/logo.png"
+              width="120"
+              alt="Story"
+            />
           </Section>
           <Heading style={h1}>{translations.h1(username)}</Heading>
           <Text style={heroText}>{translations.your_confirmation_code}</Text>
@@ -90,7 +96,9 @@ export const SignUpEmail = ({
           >
             {translations.click_here}
           </Link>
-          <Text style={{ ...text, marginBottom: '14px' }}>{translations.copy_and_paste}</Text>
+          <Text style={{ ...text, marginBottom: '14px' }}>
+            {translations.copy_and_paste}
+          </Text>
 
           <Section style={codeBox}>
             <Text style={confirmationCodeText}>{token}</Text>
@@ -101,7 +109,11 @@ export const SignUpEmail = ({
           <Section>
             <Row style={footerLogos}>
               <Column style={{ width: '66%' }}>
-                <Img src="https://welcome-five-ebon.vercel.app/logo.png" width="120" alt="Story" />
+                <Img
+                  src="https://welcome-five-ebon.vercel.app/logo.png"
+                  width="120"
+                  alt="Story"
+                />
               </Column>
             </Row>
           </Section>
@@ -148,8 +160,8 @@ export const SignUpEmail = ({
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
 SignUpEmail.PreviewProps = {
   username: 'dshukertjr',
@@ -158,9 +170,9 @@ SignUpEmail.PreviewProps = {
   email_action_type: 'confirm',
   redirect_to: 'https://dshukertjr.dev',
   token_hash: '123456',
-} as SignUpEmailProps
+} as SignUpEmailProps;
 
-export default SignUpEmail
+export default SignUpEmail;
 
 const link = {
   color: '#2754C5',
@@ -168,35 +180,35 @@ const link = {
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',
   textDecoration: 'underline',
-}
+};
 
 const footerLink = {
   color: '#ffffff',
   textDecoration: 'underline',
-}
+};
 
 const footerLogos = {
   marginBottom: '32px',
   paddingLeft: '8px',
   paddingRight: '8px',
   width: '100%',
-}
+};
 
 const main = {
   backgroundColor: '#fce7f3',
   margin: '0 auto',
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-}
+};
 
 const container = {
   margin: '0 auto',
   padding: '0px 20px',
-}
+};
 
 const logoContainer = {
   marginTop: '32px',
-}
+};
 
 const h1 = {
   color: '#9333ea',
@@ -205,29 +217,29 @@ const h1 = {
   margin: '30px 0',
   padding: '0',
   lineHeight: '42px',
-}
+};
 
 const heroText = {
   fontSize: '20px',
   lineHeight: '28px',
   marginBottom: '30px',
-}
+};
 
 const codeBox = {
   background: 'rgb(245, 244, 245)',
   borderRadius: '4px',
   marginBottom: '30px',
   padding: '40px 10px',
-}
+};
 
 const confirmationCodeText = {
   fontSize: '30px',
   textAlign: 'center' as const,
   verticalAlign: 'middle',
-}
+};
 
 const text = {
   color: '#000',
   fontSize: '14px',
   lineHeight: '24px',
-}
+};

@@ -7,30 +7,35 @@ This file contains detailed patterns, checklists, and code samples referenced by
 Generate comprehensive documentation by analyzing the codebase and creating the following artifacts:
 
 ### 1. **API Documentation**
+
 - Extract endpoint definitions, parameters, and responses from code
 - Generate OpenAPI/Swagger specifications
 - Create interactive API documentation (Swagger UI, Redoc)
 - Include authentication, rate limiting, and error handling details
 
 ### 2. **Architecture Documentation**
+
 - Create system architecture diagrams (Mermaid, PlantUML)
 - Document component relationships and data flows
 - Explain service dependencies and communication patterns
 - Include scalability and reliability considerations
 
 ### 3. **Code Documentation**
+
 - Generate inline documentation and docstrings
 - Create README files with setup, usage, and contribution guidelines
 - Document configuration options and environment variables
 - Provide troubleshooting guides and code examples
 
 ### 4. **User Documentation**
+
 - Write step-by-step user guides
 - Create getting started tutorials
 - Document common workflows and use cases
 - Include accessibility and localization notes
 
 ### 5. **Documentation Automation**
+
 - Configure CI/CD pipelines for automatic doc generation
 - Set up documentation linting and validation
 - Implement documentation coverage checks
@@ -39,6 +44,7 @@ Generate comprehensive documentation by analyzing the codebase and creating the 
 ### Quality Standards
 
 Ensure all generated documentation:
+
 - Is accurate and synchronized with current code
 - Uses consistent terminology and formatting
 - Includes practical examples and use cases
@@ -50,6 +56,7 @@ Ensure all generated documentation:
 ### Example 1: Code Analysis for Documentation
 
 **API Documentation Extraction**
+
 ```python
 import ast
 from typing import Dict, List
@@ -91,6 +98,7 @@ class APIDocExtractor:
 ```
 
 **Schema Extraction**
+
 ```python
 def extract_pydantic_schemas(file_path):
     """Extract Pydantic model definitions for API documentation"""
@@ -123,6 +131,7 @@ def extract_pydantic_schemas(file_path):
 ### Example 2: OpenAPI Specification Generation
 
 **OpenAPI Template**
+
 ```yaml
 openapi: 3.0.0
 info:
@@ -201,6 +210,7 @@ components:
 ### Example 3: Architecture Diagrams
 
 **System Architecture (Mermaid)**
+
 ```mermaid
 graph TB
     subgraph "Frontend"
@@ -237,12 +247,14 @@ graph TB
 ```
 
 **Component Documentation**
-```markdown
+
+````markdown
 ## User Service
 
 **Purpose**: Manages user accounts, authentication, and profiles
 
 **Technology Stack**:
+
 - Language: Python 3.11
 - Framework: FastAPI
 - Database: PostgreSQL
@@ -250,12 +262,14 @@ graph TB
 - Authentication: JWT
 
 **API Endpoints**:
+
 - `POST /users` - Create new user
 - `GET /users/{id}` - Get user details
 - `PUT /users/{id}` - Update user
 - `POST /auth/login` - User login
 
 **Configuration**:
+
 ```yaml
 user_service:
   port: 8001
@@ -266,7 +280,9 @@ user_service:
     secret: ${JWT_SECRET}
     expiry: 3600
 ```
-```
+````
+
+````
 
 ### Example 4: README Generation
 
@@ -294,7 +310,7 @@ ${FEATURES_LIST}
 
 ```bash
 pip install ${PACKAGE_NAME}
-```
+````
 
 ### From source
 
@@ -314,11 +330,11 @@ ${QUICK_START_CODE}
 
 ### Environment Variables
 
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| DATABASE_URL | PostgreSQL connection string | - | Yes |
-| REDIS_URL | Redis connection string | - | Yes |
-| SECRET_KEY | Application secret key | - | Yes |
+| Variable     | Description                  | Default | Required |
+| ------------ | ---------------------------- | ------- | -------- |
+| DATABASE_URL | PostgreSQL connection string | -       | Yes      |
+| REDIS_URL    | Redis connection string      | -       | Yes      |
+| SECRET_KEY   | Application secret key       | -       | Yes      |
 
 ## Development
 
@@ -360,7 +376,8 @@ pytest --cov=your_package
 ## License
 
 This project is licensed under the ${LICENSE} License - see the [LICENSE](LICENSE) file for details.
-```
+
+````
 
 ### Example 5: Function Documentation Generator
 
@@ -403,7 +420,7 @@ def {func.__name__}({", ".join(params)}){return_type}:
     """
 '''
     return doc_template
-```
+````
 
 ### Example 6: User Guide Template
 
@@ -423,7 +440,6 @@ def {func.__name__}({", ".join(params)}){return_type}:
    You'll find the "Create New" button in the top right corner.
 
 3. **Fill in the Details**
-
    - **Name**: Enter a descriptive name
    - **Description**: Add optional details
    - **Settings**: Configure as needed
@@ -451,43 +467,48 @@ def {func.__name__}({", ".join(params)}){return_type}:
 
 ### Troubleshooting
 
-| Error | Meaning | Solution |
-|-------|---------|----------|
-| "Name required" | The name field is empty | Enter a name |
-| "Permission denied" | You don't have access | Contact admin |
-| "Server error" | Technical issue | Try again later |
+| Error               | Meaning                 | Solution        |
+| ------------------- | ----------------------- | --------------- |
+| "Name required"     | The name field is empty | Enter a name    |
+| "Permission denied" | You don't have access   | Contact admin   |
+| "Server error"      | Technical issue         | Try again later |
 ```
 
 ### Example 7: Interactive API Playground
 
 **Swagger UI Setup**
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>API Documentation</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/swagger-ui.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/swagger-ui.css"
+    />
+  </head>
+  <body>
     <div id="swagger-ui"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/swagger-ui-bundle.js"></script>
     <script>
-        window.onload = function() {
-            SwaggerUIBundle({
-                url: "/api/openapi.json",
-                dom_id: '#swagger-ui',
-                deepLinking: true,
-                presets: [SwaggerUIBundle.presets.apis],
-                layout: "StandaloneLayout"
-            });
-        }
+      window.onload = function () {
+        SwaggerUIBundle({
+          url: '/api/openapi.json',
+          dom_id: '#swagger-ui',
+          deepLinking: true,
+          presets: [SwaggerUIBundle.presets.apis],
+          layout: 'StandaloneLayout',
+        });
+      };
     </script>
-</body>
+  </body>
 </html>
 ```
 
 **Code Examples Generator**
+
 ```python
 def generate_code_examples(endpoint):
     """Generate code examples for API endpoints in multiple languages"""
@@ -527,6 +548,7 @@ curl -X {endpoint['method']} https://api.example.com{endpoint['path']} \\
 ### Example 8: Documentation CI/CD
 
 **GitHub Actions Workflow**
+
 ```yaml
 name: Generate Documentation
 
@@ -542,31 +564,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements-docs.txt
-        npm install -g @redocly/cli
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-docs.txt
+          npm install -g @redocly/cli
 
-    - name: Generate API documentation
-      run: |
-        python scripts/generate_openapi.py > docs/api/openapi.json
-        redocly build-docs docs/api/openapi.json -o docs/api/index.html
+      - name: Generate API documentation
+        run: |
+          python scripts/generate_openapi.py > docs/api/openapi.json
+          redocly build-docs docs/api/openapi.json -o docs/api/index.html
 
-    - name: Generate code documentation
-      run: sphinx-build -b html docs/source docs/build
+      - name: Generate code documentation
+        run: sphinx-build -b html docs/source docs/build
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build
 ```
 
 ### Example 9: Documentation Coverage Validation

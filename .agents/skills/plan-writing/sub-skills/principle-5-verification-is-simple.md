@@ -1,10 +1,10 @@
 # Principle 5: Verification is Simple
 
-| ❌ Wrong | ✅ Right |
-|----------|----------|
-| "Verify the component works correctly" | "Run `npm run dev`, click button, see toast" |
-| "Test the API" | "curl localhost:3000/api/users returns 200" |
-| "Check styles" | "Open browser, verify dark mode toggle works" |
+| ❌ Wrong                               | ✅ Right                                      |
+| -------------------------------------- | --------------------------------------------- |
+| "Verify the component works correctly" | "Run `npm run dev`, click button, see toast"  |
+| "Test the API"                         | "curl localhost:3000/api/users returns 200"   |
+| "Check styles"                         | "Open browser, verify dark mode toggle works" |
 
 ---
 
@@ -29,7 +29,9 @@ One sentence: What are we building/fixing?
 > Keep it minimal. Add complexity only when required.
 
 ## Notes
+
 [Any important considerations]
+
 ```
 
 ---
@@ -50,3 +52,4 @@ One sentence: What are we building/fixing?
 - Adding a feature
 - Fixing a bug (if complex)
 - Refactoring multiple files
+```

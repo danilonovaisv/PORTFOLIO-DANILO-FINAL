@@ -1,17 +1,19 @@
 # 8. Sensitive Data Exposure
 
 #### Logging
+
 ```typescript
 // ❌ WRONG: Logging sensitive data
-console.log('User login:', { email, password })
-console.log('Payment:', { cardNumber, cvv })
+console.log('User login:', { email, password });
+console.log('Payment:', { cardNumber, cvv });
 
 // ✅ CORRECT: Redact sensitive data
-console.log('User login:', { email, userId })
-console.log('Payment:', { last4: card.last4, userId })
+console.log('User login:', { email, userId });
+console.log('Payment:', { last4: card.last4, userId });
 ```
 
 #### Error Messages
+
 ```typescript
 // ❌ WRONG: Exposing internal details
 catch (error) {
@@ -32,6 +34,7 @@ catch (error) {
 ```
 
 #### Verification Steps
+
 - [ ] No passwords, tokens, or secrets in logs
 - [ ] Error messages generic for users
 - [ ] Detailed errors only in server logs

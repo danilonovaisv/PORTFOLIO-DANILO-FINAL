@@ -9,6 +9,7 @@ semgrep ci --config=auto  # CI mode
 ```
 
 **Custom Rules**: `.semgrep.yml`
+
 ```yaml
 rules:
   - id: sql-injection-format-string
@@ -17,8 +18,8 @@ rules:
     severity: ERROR
     languages: [python]
     metadata:
-      cwe: "CWE-89"
-      owasp: "A03:2021-Injection"
+      cwe: 'CWE-89'
+      owasp: 'A03:2021-Injection'
 
   - id: dangerous-innerHTML
     pattern: $ELEM.innerHTML = $VAR
@@ -26,14 +27,14 @@ rules:
     severity: ERROR
     languages: [javascript, typescript]
     metadata:
-      cwe: "CWE-79"
+      cwe: 'CWE-79'
 
   - id: hardcoded-aws-credentials
     patterns:
       - pattern: $KEY = "AKIA..."
       - metavariable-regex:
           metavariable: $KEY
-          regex: "(aws_access_key_id|AWS_ACCESS_KEY_ID)"
+          regex: '(aws_access_key_id|AWS_ACCESS_KEY_ID)'
     message: Hardcoded AWS credentials detected
     severity: ERROR
     languages: [python, javascript, java]

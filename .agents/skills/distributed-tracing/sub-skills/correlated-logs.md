@@ -19,12 +19,14 @@ def process_request():
 ## Troubleshooting
 
 **No traces appearing:**
+
 - Check collector endpoint
 - Verify network connectivity
 - Check sampling configuration
 - Review application logs
 
 **High latency overhead:**
+
 - Reduce sampling rate
 - Use batch span processor
 - Check exporter configuration

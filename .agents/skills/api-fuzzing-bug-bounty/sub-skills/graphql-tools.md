@@ -1,12 +1,12 @@
 # GraphQL Tools
 
-| Tool | Purpose |
-|------|---------|
-| GraphCrawler | Schema discovery |
-| graphw00f | Fingerprinting |
+| Tool         | Purpose               |
+| ------------ | --------------------- |
+| GraphCrawler | Schema discovery      |
+| graphw00f    | Fingerprinting        |
 | clairvoyance | Schema reconstruction |
-| InQL | Burp extension |
-| GraphQLmap | Exploitation |
+| InQL         | Burp extension        |
+| GraphQLmap   | Exploitation          |
 
 ---
 

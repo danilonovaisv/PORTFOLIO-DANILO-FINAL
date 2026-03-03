@@ -1,7 +1,7 @@
 # OKLCH vs RGB/HSL
 
-| Format | Advantage |
-|--------|-----------|
+| Format    | Advantage                               |
+| --------- | --------------------------------------- |
 | **OKLCH** | Perceptually uniform, better for design |
-| **HSL** | Intuitive hue/saturation |
-| **RGB** | Legacy compatibility |
+| **HSL**   | Intuitive hue/saturation                |
+| **RGB**   | Legacy compatibility                    |

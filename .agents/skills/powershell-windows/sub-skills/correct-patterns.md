@@ -1,9 +1,9 @@
 # Correct Patterns
 
-| Operation | Syntax |
-|-----------|--------|
-| Empty array | `$array = @()` |
-| Add item | `$array += $item` |
+| Operation     | Syntax            |
+| ------------- | ----------------- | --------- |
+| Empty array   | `$array = @()`    |
+| Add item      | `$array += $item` |
 | ArrayList add | `$list.Add($item) | Out-Null` |
 
 ---

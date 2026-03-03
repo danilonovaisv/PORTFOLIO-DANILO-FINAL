@@ -3,6 +3,7 @@
 Analyzes user reviews for sentiment, issues, and feature requests.
 
 **Key Functions:**
+
 - `analyze_sentiment()`: Calculate positive/negative/neutral ratios
 - `extract_common_themes()`: Identify frequently mentioned topics
 - `identify_issues()`: Surface bugs and user complaints

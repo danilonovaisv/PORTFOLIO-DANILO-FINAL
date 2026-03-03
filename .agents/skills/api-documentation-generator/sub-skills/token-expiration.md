@@ -7,9 +7,11 @@ Tokens expire after 1 hour. Use the refresh token to get a new access token:
 **Request:**
 \`\`\`json
 {
-  "refreshToken": "refresh_token_here"
+"refreshToken": "refresh_token_here"
 }
 \`\`\`
+
 ```
 
 ## Best Practices
+```

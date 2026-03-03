@@ -16,6 +16,7 @@ ssh-audit -p 2222 192.168.1.100
 ```
 
 Key configuration weaknesses to identify:
+
 - Weak key exchange algorithms (diffie-hellman-group1-sha1)
 - Weak ciphers (arcfour, 3des-cbc)
 - Weak MACs (hmac-md5, hmac-sha1-96)

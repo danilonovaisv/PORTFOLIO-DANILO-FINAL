@@ -3,6 +3,7 @@
 **VULNERABLE**: @csrf_exempt, DEBUG=True, weak SECRET_KEY, missing security middleware
 
 **SECURE**:
+
 ```python
 # settings.py
 DEBUG = False

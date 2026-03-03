@@ -6,6 +6,7 @@
 - Context: Establishes continuous security monitoring
 
 ## Configuration Options
+
 - scanning_depth: "quick" | "standard" | "comprehensive" (default: comprehensive)
 - compliance_frameworks: ["OWASP", "CIS", "SOC2", "GDPR", "HIPAA", "PCI-DSS"]
 - remediation_priority: "cvss_score" | "exploitability" | "business_impact"
@@ -13,6 +14,7 @@
 - authentication_methods: ["oauth2", "saml", "mfa", "biometric", "passwordless"]
 
 ## Success Criteria
+
 - All critical vulnerabilities (CVSS 7+) remediated
 - OWASP Top 10 vulnerabilities addressed
 - Zero high-risk findings in penetration testing
@@ -25,6 +27,7 @@
 - Security tests integrated into CI/CD pipeline
 
 ## Coordination Notes
+
 - Each phase provides detailed findings that inform subsequent phases
 - Security-auditor agent coordinates with domain-specific agents for fixes
 - All code changes undergo security review before implementation

@@ -11,6 +11,7 @@ Comprehensive guidance for creating, organizing, and managing Helm charts for pa
 ## Use this skill when
 
 Use this skill when you need to:
+
 - Create new Helm charts from scratch
 - Package Kubernetes applications for distribution
 - Manage multi-environment deployments with Helm
@@ -33,7 +34,6 @@ Use this skill when you need to:
 ## Resources
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
-
 
 ## 🧠 Knowledge Modules (Fractal Skills)
 

@@ -10,13 +10,9 @@ const variants = {
   visible: { opacity: 1 },
 };
 
-<motion.div
-  variants={variants}
-  initial="hidden"
-  animate="visible"
->
+<motion.div variants={variants} initial="hidden" animate="visible">
   Fades in
-</motion.div>
+</motion.div>;
 ```
 
 ## Multiple Properties
@@ -37,7 +33,7 @@ const variants = {
 
 <motion.div variants={variants} initial="hidden" animate="visible">
   Fades in, slides up, and scales
-</motion.div>
+</motion.div>;
 ```
 
 ## Transitions in Variants
@@ -53,7 +49,7 @@ const variants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   exit: {
@@ -76,9 +72,9 @@ const container = {
   visible: {
     opacity: 1,
     transition: {
-      when: "beforeChildren",  // Animate parent first
-      staggerChildren: 0.1,    // Delay between children
-      delayChildren: 0.3,      // Delay before first child
+      when: 'beforeChildren', // Animate parent first
+      staggerChildren: 0.1, // Delay between children
+      delayChildren: 0.3, // Delay before first child
     },
   },
 };
@@ -92,7 +88,7 @@ const item = {
   <motion.li variants={item}>Item 1</motion.li>
   <motion.li variants={item}>Item 2</motion.li>
   <motion.li variants={item}>Item 3</motion.li>
-</motion.ul>
+</motion.ul>;
 ```
 
 ## Stagger Options
@@ -104,7 +100,7 @@ const container = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      staggerDirection: 1,  // 1 = forward, -1 = reverse
+      staggerDirection: 1, // 1 = forward, -1 = reverse
       delayChildren: 0.2,
     },
   },
@@ -112,8 +108,8 @@ const container = {
     opacity: 0,
     transition: {
       staggerChildren: 0.05,
-      staggerDirection: -1,  // Reverse stagger on exit
-      when: "afterChildren", // Wait for children to exit
+      staggerDirection: -1, // Reverse stagger on exit
+      when: 'afterChildren', // Wait for children to exit
     },
   },
 };
@@ -126,9 +122,9 @@ const variants = {
   visible: {
     opacity: 1,
     transition: {
-      when: "beforeChildren",  // Parent animates first
+      when: 'beforeChildren', // Parent animates first
       // or
-      when: "afterChildren",   // Children animate first
+      when: 'afterChildren', // Children animate first
     },
   },
 };
@@ -152,12 +148,12 @@ const variants = {
     <motion.li
       key={item.id}
       variants={variants}
-      custom={i}  // Pass index to variant
+      custom={i} // Pass index to variant
     >
       {item.name}
     </motion.li>
   ))}
-</motion.ul>
+</motion.ul>;
 ```
 
 ## Hover/Tap Variants
@@ -166,11 +162,11 @@ const variants = {
 const buttonVariants = {
   initial: {
     scale: 1,
-    backgroundColor: "#3b82f6",
+    backgroundColor: '#3b82f6',
   },
   hover: {
     scale: 1.05,
-    backgroundColor: "#2563eb",
+    backgroundColor: '#2563eb',
   },
   tap: {
     scale: 0.95,
@@ -184,7 +180,7 @@ const buttonVariants = {
   whileTap="tap"
 >
   Click me
-</motion.button>
+</motion.button>;
 ```
 
 ## Complex Card Example
@@ -202,14 +198,14 @@ const cardVariants = {
     scale: 1,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
-      when: "beforeChildren",
+      ease: 'easeOut',
+      when: 'beforeChildren',
       staggerChildren: 0.1,
     },
   },
   hover: {
     y: -5,
-    boxShadow: "0 10px 30px -10px rgba(0,0,0,0.2)",
+    boxShadow: '0 10px 30px -10px rgba(0,0,0,0.2)',
     transition: {
       duration: 0.2,
     },
@@ -230,7 +226,7 @@ const contentVariants = {
   <motion.h3 variants={contentVariants}>Title</motion.h3>
   <motion.p variants={contentVariants}>Description</motion.p>
   <motion.button variants={contentVariants}>Action</motion.button>
-</motion.div>
+</motion.div>;
 ```
 
 ## List Animation
@@ -263,7 +259,7 @@ const itemVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 300,
       damping: 24,
     },
@@ -282,16 +278,12 @@ const itemVariants = {
     exit="exit"
   >
     {items.map((item) => (
-      <motion.li
-        key={item.id}
-        variants={itemVariants}
-        layout
-      >
+      <motion.li key={item.id} variants={itemVariants} layout>
         {item.name}
       </motion.li>
     ))}
   </motion.ul>
-</AnimatePresence>
+</AnimatePresence>;
 ```
 
 ## Page Transition Variants
@@ -307,7 +299,7 @@ const pageVariants = {
     x: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   exit: {
@@ -315,7 +307,7 @@ const pageVariants = {
     x: 20,
     transition: {
       duration: 0.3,
-      ease: "easeIn",
+      ease: 'easeIn',
     },
   },
 };
@@ -328,7 +320,7 @@ const pageVariants = {
   exit="exit"
 >
   Page content
-</motion.div>
+</motion.div>;
 ```
 
 ## Sidebar Variants
@@ -338,20 +330,20 @@ const sidebarVariants = {
   open: {
     x: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 300,
       damping: 30,
-      when: "beforeChildren",
+      when: 'beforeChildren',
       staggerChildren: 0.05,
     },
   },
   closed: {
-    x: "-100%",
+    x: '-100%',
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 400,
       damping: 40,
-      when: "afterChildren",
+      when: 'afterChildren',
       staggerChildren: 0.05,
       staggerDirection: -1,
     },
@@ -372,7 +364,7 @@ const linkVariants = {
 <motion.aside
   variants={sidebarVariants}
   initial="closed"
-  animate={isOpen ? "open" : "closed"}
+  animate={isOpen ? 'open' : 'closed'}
 >
   <nav>
     {links.map((link) => (
@@ -381,7 +373,7 @@ const linkVariants = {
       </motion.a>
     ))}
   </nav>
-</motion.aside>
+</motion.aside>;
 ```
 
 ## Best Practices

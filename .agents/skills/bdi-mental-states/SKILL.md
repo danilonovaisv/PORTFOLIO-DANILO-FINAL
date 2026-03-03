@@ -10,6 +10,7 @@ Transform external RDF context into agent mental states (beliefs, desires, inten
 ## When to Activate
 
 Activate this skill when:
+
 - Processing external RDF context into agent beliefs about world states
 - Modeling rational agency with perception, deliberation, and action cycles
 - Enabling explainability through traceable reasoning chains
@@ -24,11 +25,13 @@ Activate this skill when:
 ### Mental Reality Architecture
 
 **Mental States (Endurants)**: Persistent cognitive attributes
+
 - `Belief`: What the agent believes to be true about the world
 - `Desire`: What the agent wishes to bring about
 - `Intention`: What the agent commits to achieving
 
 **Mental Processes (Perdurants)**: Events that modify mental states
+
 - `BeliefProcess`: Forming/updating beliefs from perception
 - `DesireProcess`: Generating desires from beliefs
 - `IntentionProcess`: Committing to desires as actionable intentions
@@ -89,6 +92,7 @@ Intentions specify plans that address goals through task sequences:
 Triples-to-Beliefs-to-Triples implements bidirectional flow between RDF knowledge graphs and internal mental states:
 
 **Phase 1: Triples-to-Beliefs**
+
 ```turtle
 # External RDF context triggers belief formation
 :WorldState_notification a bdi:WorldState ;
@@ -100,6 +104,7 @@ Triples-to-Beliefs-to-Triples implements bidirectional flow between RDF knowledg
 ```
 
 **Phase 2: Beliefs-to-Triples**
+
 ```turtle
 # Mental deliberation produces new RDF output
 :Intention_pay a bdi:Intention ;
@@ -112,12 +117,12 @@ Triples-to-Beliefs-to-Triples implements bidirectional flow between RDF knowledg
 
 ## Notation Selection by Level
 
-| C4 Level | Notation | Mental State Representation |
-|----------|----------|----------------------------|
-| L1 Context | ArchiMate | Agent boundaries, external perception sources |
-| L2 Container | ArchiMate | BDI reasoning engine, belief store, plan executor |
-| L3 Component | UML | Mental state managers, process handlers |
-| L4 Code | UML/RDF | Belief/Desire/Intention classes, ontology instances |
+| C4 Level     | Notation  | Mental State Representation                         |
+| ------------ | --------- | --------------------------------------------------- |
+| L1 Context   | ArchiMate | Agent boundaries, external perception sources       |
+| L2 Container | ArchiMate | BDI reasoning engine, belief store, plan executor   |
+| L3 Component | UML       | Mental state managers, process handlers             |
+| L4 Code      | UML/RDF   | Belief/Desire/Intention classes, ontology instances |
 
 ## Justification and Explainability
 
@@ -157,7 +162,7 @@ SELECT ?mentalState WHERE {
     ?mentalState bdi:hasValidity ?interval .
     ?interval bdi:hasStartTime ?start ;
               bdi:hasEndTime ?end .
-    FILTER(?start <= "2025-01-04T10:00:00"^^xsd:dateTime && 
+    FILTER(?start <= "2025-01-04T10:00:00"^^xsd:dateTime &&
            ?end >= "2025-01-04T10:00:00"^^xsd:dateTime)
 }
 ```
@@ -186,10 +191,10 @@ Augment LLM outputs with ontological constraints:
 def augment_llm_with_bdi_ontology(prompt, ontology_graph):
     ontology_context = serialize_ontology(ontology_graph, format='turtle')
     augmented_prompt = f"{ontology_context}\n\n{prompt}"
-    
+
     response = llm.generate(augmented_prompt)
     triples = extract_rdf_triples(response)
-    
+
     is_consistent = validate_triples(triples, ontology_graph)
     return triples if is_consistent else retry_with_feedback()
 ```
@@ -200,13 +205,13 @@ Map BDI ontology to executable production rules:
 
 ```prolog
 % Belief triggers desire formation
-[HEAD: belief(agent_a, store_open)] / 
-[CONDITIONALS: time(weekday_afternoon)] » 
+[HEAD: belief(agent_a, store_open)] /
+[CONDITIONALS: time(weekday_afternoon)] »
 [TAIL: generate_desire(agent_a, buy_groceries)].
 
 % Desire triggers intention commitment
-[HEAD: desire(agent_a, buy_groceries)] / 
-[CONDITIONALS: belief(agent_a, has_shopping_list)] » 
+[HEAD: desire(agent_a, buy_groceries)] /
+[CONDITIONALS: belief(agent_a, has_shopping_list)] »
 [TAIL: commit_intention(agent_a, buy_groceries)].
 ```
 
@@ -283,13 +288,14 @@ SELECT ?task ?nextTask WHERE {
 ## References
 
 See `references/` folder for detailed documentation:
+
 - `bdi-ontology-core.md` - Core ontology patterns and class definitions
 - `rdf-examples.md` - Complete RDF/Turtle examples
 - `sparql-competency.md` - Full competency question SPARQL queries
 - `framework-integration.md` - SEMAS, JADE, LAG integration patterns
 
 Primary sources:
+
 - Zuppiroli et al. "The Belief-Desire-Intention Ontology" (2025)
 - Rao & Georgeff "BDI agents: From theory to practice" (1995)
 - Bratman "Intention, plans, and practical reason" (1987)
-

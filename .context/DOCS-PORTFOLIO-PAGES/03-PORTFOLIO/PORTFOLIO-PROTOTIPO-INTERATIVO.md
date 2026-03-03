@@ -180,6 +180,7 @@ Ordem final (canônica):
 - A11y/Motion: overlay também em `:focus-visible`; `prefers-reduced-motion` mantém cards estáticos.
 
 ### Paginação & Limites
+
 - Limite padrão: **15 cards por página** (`PORTFOLIO_PAGE_SIZE`, centralizado em `src/config/portfolio.ts`).
 - Navegação: botões “Voltar” / “Avançar” com `aria-label`, `aria-disabled`, foco visível e anúncio via `aria-live`.
 - Estado inicial de página pode ser setado por querystring `?page=`; troca de filtro reseta página para 1.

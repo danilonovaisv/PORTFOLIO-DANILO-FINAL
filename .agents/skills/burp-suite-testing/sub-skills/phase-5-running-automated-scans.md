@@ -1,6 +1,7 @@
 # Phase 5: Running Automated Scans
 
 #### Launch New Scan
+
 Initiate vulnerability scanning (Professional only):
 
 1. Go to **Dashboard** tab
@@ -10,14 +11,15 @@ Initiate vulnerability scanning (Professional only):
 
 #### Scan Configuration Options
 
-| Mode | Description | Duration |
-|------|-------------|----------|
-| Lightweight | High-level overview | ~15 minutes |
-| Fast | Quick vulnerability check | ~30 minutes |
-| Balanced | Standard comprehensive scan | ~1-2 hours |
-| Deep | Thorough testing | Several hours |
+| Mode        | Description                 | Duration      |
+| ----------- | --------------------------- | ------------- |
+| Lightweight | High-level overview         | ~15 minutes   |
+| Fast        | Quick vulnerability check   | ~30 minutes   |
+| Balanced    | Standard comprehensive scan | ~1-2 hours    |
+| Deep        | Thorough testing            | Several hours |
 
 #### Monitor Scan Progress
+
 Track scanning activity:
 
 1. View task status in **Dashboard**
@@ -25,6 +27,7 @@ Track scanning activity:
 3. Check **Issues** tab for discovered vulnerabilities
 
 #### Review Identified Issues
+
 Analyze scan findings:
 
 1. Select scan task in Dashboard

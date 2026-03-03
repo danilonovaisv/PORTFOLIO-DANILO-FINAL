@@ -1,6 +1,7 @@
 # MCP-Ready Documentation
 
 For RAG indexing:
+
 - Clear H1-H3 hierarchy
 - JSON/YAML examples for data structures
 - Mermaid diagrams for flows
@@ -10,12 +11,12 @@ For RAG indexing:
 
 ## 7. Structure Principles
 
-| Principle | Why |
-|-----------|-----|
-| **Scannable** | Headers, lists, tables |
-| **Examples first** | Show, don't just tell |
-| **Progressive detail** | Simple → Complex |
-| **Up to date** | Outdated = misleading |
+| Principle              | Why                    |
+| ---------------------- | ---------------------- |
+| **Scannable**          | Headers, lists, tables |
+| **Examples first**     | Show, don't just tell  |
+| **Progressive detail** | Simple → Complex       |
+| **Up to date**         | Outdated = misleading  |
 
 ---
 
