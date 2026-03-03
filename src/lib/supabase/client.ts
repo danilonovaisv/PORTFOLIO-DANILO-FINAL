@@ -1,11 +1,12 @@
+import { createBrowserClient } from '@supabase/ssr';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 import type { Database } from '@/lib/supabase.types';
 
 let supabaseClient: any = null;
 
-export async function createClientComponentClient() {
+export function createClientComponentClient() {
   if (process.env.PLAYWRIGHT_TEST) {
-    // ... (mock logic mantida para brevidade no diff)
+    // ... (mock logic)
     const mockQuery = {
       eq: () => mockQuery,
       order: () => mockQuery,
@@ -37,7 +38,6 @@ export async function createClientComponentClient() {
   }
 
   try {
-    const { createBrowserClient } = await import('@supabase/ssr');
     supabaseClient = createBrowserClient<Database>(supabaseUrl, supabaseKey, {
       cookieOptions: {
         name: '__session',
