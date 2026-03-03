@@ -61,12 +61,12 @@ export function AboutClosing() {
   }, [isMobile, prefersReducedMotion]);
 
   const activeVideo = isMobile
-    ? (closingVideoMobile || closingVideoDesk)
+    ? closingVideoMobile || closingVideoDesk
     : closingVideoDesk;
 
   const activePoster = isMobile
-    ? (posterMobile || posterDesk || DEFAULT_VIDEO_POSTER)
-    : (posterDesk || DEFAULT_VIDEO_POSTER);
+    ? posterMobile || posterDesk || DEFAULT_VIDEO_POSTER
+    : posterDesk || DEFAULT_VIDEO_POSTER;
 
   return (
     <section

@@ -32,7 +32,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   const Container = MotionDiv ?? motion.div;
 
   return (
-    <div className="fixed inset-0 z-20 pointer-events-none md:hidden">
+    <div className="fixed inset-0 pointer-events-none md:hidden isolate">
       {phrases.map((phrase, index) => (
         <MobilePhrase
           key={index}
@@ -112,10 +112,10 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   return (
     <Container
       style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
-      className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
+      className="absolute inset-y-0 right-0 w-[55%] flex items-center justify-start pointer-events-none pr-4 pl-2"
     >
-      {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-3rem) */}
-      <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,7vw,3rem)] leading-[1.3] tracking-tight block w-full mx-auto">
+      {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: lado a lado) */}
+      <span className="text-blueAccent italic font-bold text-[clamp(1.4rem,4.5vw,2.2rem)] leading-[1.25] tracking-tight block w-full text-left">
         {mobileText}
       </span>
     </Container>

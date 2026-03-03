@@ -30,7 +30,9 @@ export default function FeaturedProjectCardFrame({
     project.homeFeatured,
     project.featuredOnHome ?? project.isFeatured
   );
-  const logoSrc = homeFeatured.logoPath ? getAssetUrl(homeFeatured.logoPath) : null;
+  const logoSrc = homeFeatured.logoPath
+    ? getAssetUrl(homeFeatured.logoPath)
+    : null;
   const showLogo =
     homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' && !!logoSrc;
   const showThumb = !showLogo && !!mediaSource;

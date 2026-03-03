@@ -9,13 +9,19 @@ import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 
-const Grainient = dynamic(() => import('@/components/Grainient'), {
-  ssr: false,
-});
-const GhostCursor = dynamic(() => import('@/components/GhostCursor'), {
-  ssr: false,
-});
-const Aurora = dynamic(() => import('@/components/Aurora'), {
+const Grainient = dynamic(
+  () => import('@/components/ui/backgrounds/Grainient'),
+  {
+    ssr: false,
+  }
+);
+const GhostCursor = dynamic(
+  () => import('@/components/ui/backgrounds/GhostCursor'),
+  {
+    ssr: false,
+  }
+);
+const Aurora = dynamic(() => import('@/components/ui/backgrounds/Aurora'), {
   ssr: false,
 });
 
@@ -111,12 +117,28 @@ export default function FeaturedProjectAnimatedBackground({
             <Grainient
               className="h-full w-full"
               maxDevicePixelRatio={1.25}
-              color1="#8705f2"
-              color2="#0048ff"
-              color3="#4fe6ff"
-              grainAmount={0.055}
-              contrast={1.2}
-              zoom={0.95}
+              color1="#0048ff"
+              color2="#996fd6"
+              color3="#8705f2"
+              timeSpeed={0.25}
+              colorBalance={0}
+              warpStrength={1}
+              warpFrequency={5}
+              warpSpeed={2}
+              warpAmplitude={50}
+              blendAngle={0}
+              blendSoftness={0.05}
+              rotationAmount={500}
+              noiseScale={2}
+              grainAmount={0.1}
+              grainScale={2}
+              grainAnimated={false}
+              contrast={1.5}
+              gamma={1}
+              saturation={1}
+              centerX={0}
+              centerY={0}
+              zoom={0.9}
             />
           ) : null}
 
@@ -124,12 +146,16 @@ export default function FeaturedProjectAnimatedBackground({
             <GhostCursor
               className="absolute inset-0"
               color="#8705f2"
-              brightness={1.05}
-              edgeIntensity={0.18}
-              bloomStrength={0.22}
-              bloomRadius={0.9}
-              bloomThreshold={0.02}
-              grainIntensity={0.03}
+              brightness={2}
+              edgeIntensity={0}
+              trailLength={50}
+              inertia={0.5}
+              grainIntensity={0.05}
+              bloomStrength={0.1}
+              bloomRadius={1}
+              bloomThreshold={0.025}
+              fadeDelayMs={1000}
+              fadeDurationMs={1500}
               maxDevicePixelRatio={0.65}
               targetPixels={180000}
             />
@@ -139,10 +165,10 @@ export default function FeaturedProjectAnimatedBackground({
             <Aurora
               className="h-full w-full"
               maxDevicePixelRatio={1.1}
-              colorStops={['#0048ff', '#4fe6ff', '#8705f2']}
-              amplitude={0.9}
-              blend={0.36}
-              speed={0.85}
+              colorStops={['#b301f4', '#0048ff', '#8705f2']}
+              amplitude={1.0}
+              blend={0.5}
+              speed={1}
             />
           ) : null}
         </div>

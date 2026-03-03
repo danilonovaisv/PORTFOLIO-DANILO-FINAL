@@ -17,7 +17,9 @@ describe('buildFeaturedProjectBackgroundAssignment', () => {
     );
 
     expect(assignment).toHaveLength(4);
-    expect(new Set(assignment)).toEqual(new Set(FEATURED_PROJECT_BACKGROUND_POOL));
+    expect(new Set(assignment)).toEqual(
+      new Set(FEATURED_PROJECT_BACKGROUND_POOL)
+    );
     expect(Math.max(...counts) - Math.min(...counts)).toBeLessThanOrEqual(1);
   });
 
@@ -26,8 +28,8 @@ describe('buildFeaturedProjectBackgroundAssignment', () => {
       id: `project-${index}`,
     }));
 
-    expect(
+    expect(buildFeaturedProjectBackgroundAssignment(projects, 99)).toEqual(
       buildFeaturedProjectBackgroundAssignment(projects, 99)
-    ).toEqual(buildFeaturedProjectBackgroundAssignment(projects, 99));
+    );
   });
 });

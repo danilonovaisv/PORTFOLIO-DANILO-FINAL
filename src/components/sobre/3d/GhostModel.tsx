@@ -59,26 +59,25 @@ const GhostModel: React.FC<GhostModelProps> = ({
   const config = useMemo(
     () => ({
       // Desktop: Centralizado (0)
-      // Mobile: Canto esquerdo superior (ajuste negativo em X, positivo em Y)
-      // 🟣 [CONFIG VISUAL]: Posição Base X - Define onde o Ghost começa horizontalmente (Desktop vs Mobile)
-      baseX: isMobile ? -viewport.width / 3 : 0,
+      // Mobile: Posicionado no lado esquerdo para layout lado a lado
+      // 🟣 [CONFIG VISUAL]: Posição Base X
+      baseX: isMobile ? -viewport.width / 4.5 : 0,
 
-      // Desktop: ancorado no centro do viewport
-      // Mobile: 17% do topo (alinhado com título)
-      startY: isMobile ? viewport.height * 0.17 : 0,
-      endY: isMobile ? viewport.height * 0.17 : 0, // Mantém posição fixa até o final
+      // Centralizado verticalmente em ambas as telas
+      startY: 0,
+      endY: 0,
 
-      // Intensidade flutuante
-      floatBase: isMobile ? 0.09 : 0.05,
-      floatAmplitude: 0.2,
+      // Intensidade flutuante (Movimento mais pronunciado)
+      floatBase: isMobile ? 0.15 : 0.12,
+      floatAmplitude: 0.45,
       tiltBase: 0.15,
 
       // Escala ajustada para maior presença
-      // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost (0.22 mobile, 0.65 desktop)
-      baseScale: isMobile ? 0.22 : 0.585,
-      // Compensa pivot do GLB para centralização visual no desktop
-      modelOffsetY: isMobile ? 0 : -1.9,
-      // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final (+15%)
+      // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost
+      baseScale: isMobile ? 0.35 : 0.585,
+      // Compensa pivot do GLB para centralização visual
+      modelOffsetY: isMobile ? -0.8 : -1.9,
+      // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final
       scaleBoost: 0.15, // +15% no final
       scrollResponse: isMobile ? 0.65 : 0.85,
       scrollYResponse: isMobile ? 0.22 : 0.3,
@@ -142,10 +141,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
     // === FINAL PHASE & EXIT ===
     const targetX = THREE.MathUtils.lerp(config.baseX, 0, finalPhaseProgress);
-    const mobileFinalY = isMobile ? 0 : config.startY;
     const targetY = THREE.MathUtils.lerp(
       config.startY,
-      mobileFinalY,
+      0, // Centered at the end
       finalPhaseProgress
     );
 

@@ -232,13 +232,12 @@ Design · Motion · Creative Development
 
 ---
 
-
 ## Gerenciamento de Pacotes (Deploy Cloud Functions)
 
-Para garantir consistência e evitar problemas de deploy no Firebase Cloud Build (especialmente erros de sincronia do lockfile), este projeto utiliza estritamente o **pnpm** de ponta a ponta. 
+Para garantir consistência e evitar problemas de deploy no Firebase Cloud Build (especialmente erros de sincronia do lockfile), este projeto utiliza estritamente o **pnpm** de ponta a ponta.
 
 **Estratégia Adotada:**
+
 1. O uso de `package-lock.json` é desencorajado.
 2. O `package.json` (tanto na raiz quanto na pasta `functions/`) define o `packageManager` como `pnpm@<versão>`. Isso garante que o buildpack do Google Cloud Functions utilize o pnpm nativamente.
 3. No GitHub Actions, o passo de build utiliza o `pnpm-lock.yaml` original, sem converções forçadas para `npm`. O lockfile deve ser mantido sempre atualizado para o `sharp` ou outras dependências SSR do Next.js.
-

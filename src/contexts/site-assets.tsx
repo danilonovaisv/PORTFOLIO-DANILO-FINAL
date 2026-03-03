@@ -74,9 +74,9 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
 
   // Fallbacks para vídeos conhecidos quando o asset não vem do Supabase (ex.: falha de fetch)
   const fallbackPaths: Record<string, string> = {
-    'home.manifesto_video': 'site-assets/home/home.manifesto_video.mp4',
+    'home.manifesto_video': 'site-assets/home/video.manifesto.desk.mp4',
     'home.manifesto_video_mobile':
-      'site-assets/home/home.manifesto_video_mobile.mp4',
+      'site-assets/home/video.manifesto.mobile.mp4',
     'home.manifesto_poster_desk': 'site-assets/home/video.manifesto.desk.mp4',
     'home.manifesto_poster_mobile':
       'site-assets/home/video.manifesto.mobile.webp',
@@ -95,7 +95,8 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
       'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4',
     'about.beliefs.ghost-transformed': 'site-assets/about/beliefs/ghost.glb',
     'about.closing_video': 'site-assets/about/Closing/video.closing.desk.mp4',
-    'about.closing_video_mobile': 'site-assets/about/Closing/video.closing.mobile.mp4',
+    'about.closing_video_mobile':
+      'site-assets/about/Closing/video.closing.mobile.mp4',
   };
 
   if (context?.getUrl(key)) return context.getUrl(key);

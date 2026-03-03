@@ -73,7 +73,7 @@ export function AboutBeliefs() {
   return (
     <MotionSection
       ref={containerRef}
-      className="relative w-full isolate z-[var(--z-layer-base)]"
+      className="relative w-full isolate z-10"
       data-testid="about-beliefs-section"
       style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
     >
@@ -83,7 +83,7 @@ export function AboutBeliefs() {
         prefersReducedMotion={prefersReduced}
       />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
-      <MotionDiv className="relative z-[var(--z-layer-content)]">
+      <MotionDiv className="relative z-10">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -107,7 +107,7 @@ export function AboutBeliefs() {
       </MotionDiv>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
-      <div className="relative z-[var(--z-layer-content)]">
+      <div className="relative z-20">
         <BeliefMobileTextLayer
           phrases={PHRASES}
           scrollYProgress={prefersReduced ? undefined : scrollYProgress}
@@ -116,21 +116,21 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 4: Final Text Overlay (Z-10) - Overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-[var(--z-layer-content)]">
+      {/* LAYER 4: Final Text Overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-30">
         <BeliefFinalSectionOverlay
           MotionDiv={MotionDiv}
           prefersReducedMotion={prefersReduced}
         />
       </div>
 
-      {/* LAYER 3: Canvas 3D (sem captura de eventos) - Overlay */}
+      {/* LAYER 3: Canvas 3D (Sempre acima do texto, z-40) - Overlay */}
       <div
-        className="absolute inset-0 z-[var(--z-layer-3d)] w-full h-full pointer-events-none"
+        className="absolute inset-0 z-40 w-full h-full pointer-events-none"
         aria-hidden
       >
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
-          <div className="w-full h-full md:absolute md:inset-0 relative">
+        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
+          <div className="w-full h-full md:absolute md:inset-0 relative translate-z-0">
             {!prefersReducedMotion ? (
               <GhostScene scrollProgress={scrollYProgress} />
             ) : null}

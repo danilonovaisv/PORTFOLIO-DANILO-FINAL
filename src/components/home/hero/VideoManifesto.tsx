@@ -119,7 +119,7 @@ export function VideoManifesto({
   const baseSrcMobile =
     mounted && isLikelyVideoUrl(assetMobile?.publicUrl)
       ? (assetMobile?.publicUrl as string)
-      : srcMobile ?? src;
+      : (srcMobile ?? src);
 
   // Escolhe a fonte correta para o dispositivo atual
   const activeSrc = isMobile ? baseSrcMobile : baseSrcDesk;

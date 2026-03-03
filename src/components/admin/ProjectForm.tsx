@@ -89,8 +89,7 @@ export function ProjectForm({
       featured_on_home: project?.featured_on_home ?? false,
       home_featured: {
         cardStyle:
-          project?.home_featured?.cardStyle ??
-          DEFAULT_HOME_FEATURED_CARD_STYLE,
+          project?.home_featured?.cardStyle ?? DEFAULT_HOME_FEATURED_CARD_STYLE,
         logoPath: project?.home_featured?.logoPath ?? null,
       },
       is_published: project?.is_published ?? true,

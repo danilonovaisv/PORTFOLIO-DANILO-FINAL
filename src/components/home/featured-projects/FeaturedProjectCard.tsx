@@ -52,9 +52,7 @@ export default function FeaturedProjectCard({
 
   const CardContent = () => (
     <div>
-      <div
-        className="flex-1 min-h-[300px]"
-      >
+      <div className="flex-1 min-h-[300px]">
         <FeaturedProjectCardFrame
           project={project}
           backgroundVariant={backgroundVariant}
@@ -91,7 +89,7 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
+          <div className="btn-icon-circle bg-bluePrimary md:group-hover:bg-[#8705f2] shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
             <ArrowUpRight className="w-6 h-6" />
           </div>
         </div>

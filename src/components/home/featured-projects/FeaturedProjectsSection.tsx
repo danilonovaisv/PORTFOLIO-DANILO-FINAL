@@ -51,7 +51,10 @@ export default function FeaturedProjectsSection({
   }, [projects]);
   const backgroundVariants = useMemo(
     () =>
-      buildFeaturedProjectBackgroundAssignment(featuredProjects, backgroundSeed),
+      buildFeaturedProjectBackgroundAssignment(
+        featuredProjects,
+        backgroundSeed
+      ),
     [featuredProjects, backgroundSeed]
   );
 
@@ -105,7 +108,9 @@ export default function FeaturedProjectsSection({
                   onOpen={onProjectOpen}
                   priority={index < 3}
                   backgroundVariant={
-                    backgroundVariants[index] ?? backgroundVariants[0] ?? 'grainient'
+                    backgroundVariants[index] ??
+                    backgroundVariants[0] ??
+                    'grainient'
                   }
                 />
               </motion.div>

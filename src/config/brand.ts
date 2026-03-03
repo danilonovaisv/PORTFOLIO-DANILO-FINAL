@@ -46,12 +46,16 @@ export const BRAND = {
       logoDark: asset('site-assets/global/logos/global.logo_header_dark.svg'),
     },
     video: {
-      manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
-      manifestoMobile: asset('site-assets/home/home.manifesto_video_mobile.mp4'),
+      manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
+      manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
       manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.mp4'),
-      manifestoPosterMobile: asset('site-assets/home/video.manifesto.mobile.webp'),
+      manifestoPosterMobile: asset(
+        'site-assets/home/video.manifesto.mobile.webp'
+      ),
       aboutClosing: asset('site-assets/about/Closing/video.closing.desk.mp4'),
-      aboutClosingMobile: asset('site-assets/about/Closing/video.closing.mobile.mp4'),
+      aboutClosingMobile: asset(
+        'site-assets/about/Closing/video.closing.mobile.mp4'
+      ),
     },
     fonts: {
       primary: 'TT Norms Pro',
@@ -59,12 +63,16 @@ export const BRAND = {
     },
   },
   video: {
-    manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
-    manifestoMobile: asset('site-assets/home/home.manifesto_video_mobile.mp4'),
+    manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
+    manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
     manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.mp4'),
-    manifestoPosterMobile: asset('site-assets/home/video.manifesto.mobile.webp'),
+    manifestoPosterMobile: asset(
+      'site-assets/home/video.manifesto.mobile.webp'
+    ),
     aboutClosing: asset('site-assets/about/Closing/video.closing.desk.mp4'),
-    aboutClosingMobile: asset('site-assets/about/Closing/video.closing.mobile.mp4'),
+    aboutClosingMobile: asset(
+      'site-assets/about/Closing/video.closing.mobile.mp4'
+    ),
   },
 
   // Leis de Layout (Absolute Laws)

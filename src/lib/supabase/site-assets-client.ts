@@ -8,7 +8,7 @@ import {
 export type SiteAsset = NormalizedSiteAsset;
 
 export async function getClientSiteAssets() {
-  const supabase = createClientComponentClient();
+  const supabase = await createClientComponentClient();
   const { data, error } = await supabase
     .from('site_assets')
     .select(
