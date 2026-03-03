@@ -39,17 +39,20 @@
 - Banco / view pública
   - `supabase/migrations/20260301011000_home_featured_animated_cards.sql`
 
-## 2. Alternância aleatória dos backgrounds
+## 2. Atribuição determinística dos backgrounds
 
 - Pool fixo:
   - `['grainient', 'ghost', 'aurora']`
-- A distribuição acontece no client dentro de `FeaturedProjectsSection`.
-- A função `buildFeaturedProjectBackgroundAssignment()`:
-  - cria uma lista distribuída reaproveitando o pool inteiro antes de repetir
-  - aplica shuffle determinístico com seed de montagem
-  - mantém consistência durante a mesma renderização/mount da seção
-- O projeto não salva qual background recebeu.
-- Um refresh ou nova navegação pode resultar em outra combinação, mas sempre com distribuição equilibrada entre os cards carregados.
+- O background continua não persistido no projeto/post.
+- A atribuição acontece no client dentro de `FeaturedProjectsSection`, mas agora é estável por projeto.
+- A função `getFeaturedProjectBackgroundVariant()`:
+  - aplica hash estável no `project.id`
+  - resolve o índice dentro do pool fixo
+  - garante que o mesmo projeto receba sempre o mesmo background enquanto o `id` não mudar
+- O `surface` estático em `FeaturedProjectAnimatedBackground` usa um mapa constante por variante.
+- Isso elimina divergência entre SSR e o primeiro render do client, mesmo quando a lista é atualizada pelo realtime.
+- A HOME mantém o `stableShuffle(..., { window: 'daily', scope: 'home' })` tanto no server quanto no client.
+- O shuffle diário pode alterar a ordem dos cards ao mudar a janela diária ou o conjunto de projetos, mas o `variant` não depende mais da posição da lista.
 
 ## 3. Layouts persistidos no admin
 
@@ -168,8 +171,9 @@ Se adicionar um quarto background:
 - HOME:
   - abrir `/` e confirmar que os 4 cards de destaque mostram backgrounds animados
   - validar que os 3 tipos aparecem distribuídos entre os cards
-  - dar refresh e confirmar que a combinação pode mudar
+  - dar refresh e confirmar que cada projeto mantém o mesmo background enquanto a seleção do dia não mudar
   - confirmar que o texto do card continua legível
+  - confirmar ausência de hydration mismatch no console
 - Hover:
   - mover o mouse sobre cada card
   - verificar zoom leve + parallax sutil

@@ -30,7 +30,7 @@ type FeaturedProjectAnimatedBackgroundProps = {
   className?: string;
 };
 
-const FALLBACK_SURFACES: Record<FeaturedProjectBackgroundVariant, string> = {
+const SURFACE_BY_VARIANT: Record<FeaturedProjectBackgroundVariant, string> = {
   grainient:
     'bg-[linear-gradient(145deg,rgba(4,0,19,1)_0%,rgba(135,5,242,0.62)_45%,rgba(0,72,255,0.9)_100%)]',
   ghost:
@@ -99,7 +99,7 @@ export default function FeaturedProjectAnimatedBackground({
     reducedMotion || !supportsWebGL
   );
 
-  const surface = FALLBACK_SURFACES[variant];
+  const surface = SURFACE_BY_VARIANT[variant];
 
   return (
     <div

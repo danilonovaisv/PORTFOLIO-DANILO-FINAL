@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import {
@@ -10,7 +10,7 @@ import {
 } from '@/config/motion';
 import FeaturedProjectCard from '@/components/home/featured-projects/FeaturedProjectCard';
 import CTAProjectCard from '@/components/home/featured-projects/CTAProjectCard';
-import { buildFeaturedProjectBackgroundAssignment } from '@/components/home/featured-projects/animated-backgrounds';
+import { getFeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
 import { Container } from '@/components/layout/Container';
 
@@ -40,29 +40,12 @@ export default function FeaturedProjectsSection({
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
   const reducedMotion = useMotionGate();
-  const [backgroundSeed] = useState(() => {
-    // Deterministic seed based on project IDs to avoid SSR hydration mismatch
-    const hashStr = projects.map((p) => p.id).join('|');
-    let hash = 5381;
-    for (let i = 0; i < hashStr.length; i++) {
-      hash = (hash * 33) ^ hashStr.charCodeAt(i);
-    }
-    return Math.abs(hash) || 42;
-  });
   const featuredProjects = useMemo(() => {
     const source = projects.filter(
       (project) => project.featuredOnHome ?? project.isFeatured
     );
     return source;
   }, [projects]);
-  const backgroundVariants = useMemo(
-    () =>
-      buildFeaturedProjectBackgroundAssignment(
-        featuredProjects,
-        backgroundSeed
-      ),
-    [featuredProjects, backgroundSeed]
-  );
 
   // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {
@@ -113,11 +96,9 @@ export default function FeaturedProjectsSection({
                   project={project}
                   onOpen={onProjectOpen}
                   priority={index < 3}
-                  backgroundVariant={
-                    backgroundVariants[index] ??
-                    backgroundVariants[0] ??
-                    'grainient'
-                  }
+                  backgroundVariant={getFeaturedProjectBackgroundVariant(
+                    project.id
+                  )}
                 />
               </motion.div>
             );

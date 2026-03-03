@@ -10,6 +10,7 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
+import { stableShuffle } from '@/lib/utils/stable-shuffle';
 
 type HomeProjectRow =
   Database['public']['Tables']['portfolio_projects']['Row'] & {
@@ -24,6 +25,32 @@ type FeaturedProjectsRealtimeProps = {
 };
 
 const POLLING_INTERVAL_MS = 45_000;
+
+function normalizeHomeFeaturedProjects(projects: PortfolioProject[]) {
+  return stableShuffle(projects, {
+    window: 'daily',
+    scope: 'home',
+  });
+}
+
+function getProjectsSignature(projects: PortfolioProject[]) {
+  return projects
+    .map((project) =>
+      [
+        project.id,
+        project.slug,
+        project.title,
+        project.client,
+        String(project.year),
+        project.image,
+        project.imageLandscape ?? '',
+        project.imageSquare ?? '',
+        project.landingPageSlug ?? '',
+        String(project.featuredOnHome ?? false),
+      ].join('::')
+    )
+    .join('|');
+}
 
 export default function FeaturedProjectsRealtime({
   initialProjects,
@@ -70,22 +97,22 @@ export default function FeaturedProjectsRealtime({
             index
           )
       );
+      const normalizedProjects = normalizeHomeFeaturedProjects(nextProjects);
 
-      if (nextProjects.length === 0) {
+      if (normalizedProjects.length === 0) {
         setProjects((current) =>
           current.length > 0 ? current : initialProjects
         );
         return;
       }
 
-      // Optimization: Only update state if projects have changed
       setProjects((current) => {
         const isSame =
-          current.length === nextProjects.length &&
-          current.every((p, i) => p.slug === nextProjects[i].slug); // Basic check, can be deeper if needed
+          getProjectsSignature(current) ===
+          getProjectsSignature(normalizedProjects);
 
         if (isSame) return current;
-        return nextProjects;
+        return normalizedProjects;
       });
     } catch (error) {
       if (isDev) {
