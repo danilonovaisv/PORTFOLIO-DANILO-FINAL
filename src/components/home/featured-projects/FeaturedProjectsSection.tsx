@@ -63,13 +63,20 @@ export default function FeaturedProjectsSection({
 
   useEffect(() => {
     // Não quebrar hidratação: randomiza só depois do mount
-    const shuffled = [...initialVariants].map(() => {
-      const pool = [...FEATURED_PROJECT_BACKGROUND_POOL];
-      const pick = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
-      return pick;
-    });
-    setClientVariants(shuffled);
-  }, [initialVariants]);
+    const shuffleOnce = () => {
+      const shuffled = initialVariants.map(() => {
+        const pool = [...FEATURED_PROJECT_BACKGROUND_POOL];
+        return pool[Math.floor(Math.random() * pool.length)];
+      });
+      setClientVariants(shuffled);
+    };
+
+    shuffleOnce();
+
+    if (reducedMotion) return;
+    const id = window.setInterval(shuffleOnce, 9000);
+    return () => window.clearInterval(id);
+  }, [initialVariants, reducedMotion]);
 
   // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {

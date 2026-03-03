@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 
 /**
  * CTAProjectCard - Featured Projects Section CTA
@@ -25,13 +24,13 @@ export default function CTAProjectCard() {
         you see?
       </h3>
 
-      <Link
-        href="/portfolio"
-        className="relative z-[var(--z-layer-cta)] inline-flex min-h-[48px] items-center gap-3 text-sm font-medium uppercase tracking-[0.14em] text-white transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#040013] group-hover:text-bluePrimary"
-      >
-        <span>view projects</span>
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1" />
-      </Link>
+      <div className="relative z-[var(--z-layer-cta)]">
+        <AntigravityCTA
+          text="view projects"
+          href="/portfolio"
+          className="static"
+        />
+      </div>
     </div>
   );
 }
