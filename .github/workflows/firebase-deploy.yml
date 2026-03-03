@@ -234,9 +234,6 @@ jobs:
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
 
-          echo "📦 Gerando package-lock.json temporário com legacy peer deps..."
-          npm install --legacy-peer-deps --package-lock-only --ignore-scripts
-
           firebase experiments:enable webframeworks
           firebase deploy --only hosting,functions \
             --project "${{ steps.firebase_project.outputs.project_id }}" \
@@ -244,6 +241,7 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
           NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+          NO_UPDATE_NOTIFIER: '1'
 
       # ── 16. Notifications ──────────────────────────────────────────────────────
       - name: Notify success

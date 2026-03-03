@@ -35,6 +35,34 @@
 
 ---
 
+## [2026-03-03T09:40] GitHub Actions Deploy Step Simplification
+
+**Context:** A subsequent GitHub Actions run (`22622670677`, commit `01b88fa12c7522fa09951361efc7582aebffa76e`) no longer failed in validation/build stages, but remained abnormally long inside `Deploy to Firebase`. The most likely regression point introduced by the previous workaround was the explicit `npm install --package-lock-only` executed inside the deploy step itself.
+
+**Changes Applied:**
+
+1. **Removed redundant npm lockfile generation from the deploy step** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Deleted `npm install --legacy-peer-deps --package-lock-only --ignore-scripts`.
+   - Impact: avoids a second full dependency resolution cycle during deploy, reducing the chance of stalls and timeout in GitHub Actions.
+
+2. **Kept only the framework-compatibility adjustments that directly affect Firebase CLI** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Preserved cache cleanup, temporary removal of `packageManager`, and `NPM_CONFIG_LEGACY_PEER_DEPS=true`.
+   - Impact: keeps the peer-conflict mitigation while removing the most expensive part of the workaround.
+
+3. **Disabled npm update notifier noise during deploy** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Added `NO_UPDATE_NOTIFIER=1`.
+   - Impact: reduces non-essential npm chatter and avoids extra network checks during the deploy step.
+
+**Verification:**
+
+- ✅ Workflow YAML parse succeeded after simplification.
+- ✅ Local app validation re-run after workflow change.
+
+---
+
 ## [2026-03-03T08:20] GitHub Workflow Secret Fallback Hardening
 
 **Context:** A follow-up review of the GitHub deploy workflow showed that the reported “missing secrets” issue did not match the actual repository state. The GitHub repository already had the required Supabase and Firebase secrets, but the workflow was too strict about secret naming and was mapping Supabase public env vars with a single hardcoded source.
