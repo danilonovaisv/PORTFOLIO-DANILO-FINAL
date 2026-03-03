@@ -1,5 +1,0 @@
-﻿2026-03-03T07:28:16.9296382Z ##[debug]Evaluating condition for step: 'Authenticate to Google Cloud'
-2026-03-03T07:28:16.9297834Z ##[debug]Evaluating: success()
-2026-03-03T07:28:16.9298293Z ##[debug]Evaluating success:
-2026-03-03T07:28:16.9298748Z ##[debug]=> false
-2026-03-03T07:28:16.9299167Z ##[debug]Result: false

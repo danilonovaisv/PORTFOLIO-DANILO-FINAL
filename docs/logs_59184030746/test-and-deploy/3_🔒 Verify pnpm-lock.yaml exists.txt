@@ -1,0 +1,26 @@
+﻿2026-03-03T13:16:33.0066588Z ##[group]Run if [ ! -f "pnpm-lock.yaml" ]; then
+2026-03-03T13:16:33.0067144Z [36;1mif [ ! -f "pnpm-lock.yaml" ]; then[0m
+2026-03-03T13:16:33.0067669Z [36;1m  echo "❌ FATAL: pnpm-lock.yaml não encontrado no repositório!"[0m
+2026-03-03T13:16:33.0068151Z [36;1m  echo ""[0m
+2026-03-03T13:16:33.0068478Z [36;1m  echo "Para corrigir:"[0m
+2026-03-03T13:16:33.0068882Z [36;1m  echo "  1) Rode localmente: pnpm install"[0m
+2026-03-03T13:16:33.0069857Z [36;1m  echo "  2) Commit o arquivo: git add pnpm-lock.yaml && git commit -m 'chore: add pnpm lockfile'"[0m
+2026-03-03T13:16:33.0070492Z [36;1m  echo "  3) Push para o repositório"[0m
+2026-03-03T13:16:33.0070867Z [36;1m  echo ""[0m
+2026-03-03T13:16:33.0071305Z [36;1m  echo "Nunca use --no-frozen-lockfile em CI — isso viola determinismo."[0m
+2026-03-03T13:16:33.0071788Z [36;1m  exit 1[0m
+2026-03-03T13:16:33.0072071Z [36;1mfi[0m
+2026-03-03T13:16:33.0072595Z [36;1mecho "✅ pnpm-lock.yaml encontrado ($(wc -l < pnpm-lock.yaml) linhas, $(du -sh pnpm-lock.yaml | cut -f1))"[0m
+2026-03-03T13:16:33.0130216Z shell: /usr/bin/bash -e ***0***
+2026-03-03T13:16:33.0130796Z env:
+2026-03-03T13:16:33.0131238Z   NODE_VERSION: 20
+2026-03-03T13:16:33.0131722Z   PNPM_VERSION: 10.30.3
+2026-03-03T13:16:33.0132459Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T13:16:33.0135072Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T13:16:33.0135954Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T13:16:33.0136817Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T13:16:33.0138387Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T13:16:33.0148150Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-03T13:16:33.0148584Z   FIREBASE_PROJECT_ID: ***
+2026-03-03T13:16:33.0148912Z ##[endgroup]
+2026-03-03T13:16:33.0285965Z ✅ pnpm-lock.yaml encontrado (21597 linhas, 728K)

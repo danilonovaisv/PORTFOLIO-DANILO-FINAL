@@ -114,26 +114,33 @@ Showcase curado de trabalhos de alta qualidade em layout editorial estilo revist
 
 #### Layout Desktop
 
+O desktop deve seguir a composição da referência `HOME-DESKTOP.jpg`, com hierarquia visual em três linhas:
+
+- **Linha 1:** card estreito à esquerda + card largo à direita
+- **Linha 2:** um card hero full-width ocupando toda a largura útil
+- **Linha 3:** card de projeto à esquerda + CTA card à direita, ambos alinhados pela base
+
 **Grid Irregular (Magazine-style):**
 
 ```text
 ┌─────────────┐ ┌──────────────────────────────┐
 │   Card 1    │ │         Card 2               │
-│ (336×500)   │ │       (840×500)              │
+│  vertical   │ │        horizontal            │
 └─────────────┘ └──────────────────────────────┘
 
 ┌──────────────────────────────────────────────┐
-│              Card 3 (1176×600)               │
+│              Card 3 hero full                │
 └──────────────────────────────────────────────┘
 
 ┌────────────────────────────┐ ┌─────────────┐
-│        Card 4 (784×500)    │ │ CTA Card    │
+│        Card 4 médio        │ │ CTA Card    │
 └────────────────────────────┘ └─────────────┘
 ```
 
 **Implementação (Tailwind Grid):**
 
 ```jsx
+<div className="grid grid-cols-12 gap-6">
 // Row 1
 <div className="md:col-span-5"><ProjectCard /></div>
 <div className="md:col-span-7"><ProjectCard /></div>
@@ -144,17 +151,28 @@ Showcase curado de trabalhos de alta qualidade em layout editorial estilo revist
 // Row 3
 <div className="md:col-span-8"><ProjectCard /></div>
 <div className="md:col-span-4"><CTACard /></div>
+</div>
 ```
+
+**Observações visuais obrigatórias:**
+
+- Os quatro cards de projeto não devem ter exatamente o mesmo formato.
+- O primeiro card deve ler como bloco vertical menor.
+- O segundo card deve ler como bloco principal da primeira linha.
+- O terceiro card deve ser o maior da seção.
+- O quarto card deve preparar visualmente a transição para o CTA.
+- O CTA card deve fechar a composição como bloco editorial escuro, e não como card de projeto adicional.
+- O wrapper clicável de cada `ProjectCard` deve permanecer `block` e `w-full`; não reutilizar classes globais que convertam o card em `inline-flex`, porque isso quebra a leitura editorial do grid.
 
 #### Estrutura de Project Card
 
 - **Imagem/Vídeo:** cobre o card, `object-fit: cover`
-- **Pills (tags):** absoluto, top-right, bg `#E6EFEF` 70% opacity
-  - Implementado em `FeaturedProjectCardFrame` com render das 2 primeiras tags disponíveis do projeto
 - **Info Block:**
   - Título (H3, medium weight)
   - Meta: `Cliente • Ano` (`#6B7280`, small)
   - Ícone de seta em círculo azul (translada à direita no hover)
+- **Sem tags visuais:** os cards da HOME não exibem pills/tags sobre a imagem na composição final
+- **Logo invertido:** quando o card usar `ANIMATED_BG_INVERTED_LOGO`, o logo deve permanecer visualmente fixo no centro exato do frame
 
 #### Interações (Desktop)
 

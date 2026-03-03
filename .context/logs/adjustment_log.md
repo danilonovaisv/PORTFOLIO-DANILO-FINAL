@@ -1,5 +1,25 @@
 # Adjustment Log
 
+## [2026-03-03T13:26] Firebase Cloud Build Peer Conflict Mitigation
+
+**Context:** Run `docs/logs_59184030746` failed in `Deploy to Firebase` during Cloud Build with `ERESOLVE` while resolving `firebase-frameworks@0.11.8` (peer `sharp ^0.32 || ^0.33`) against `sharp@0.34.5` from the project and `motion-studio-mcp`. The failure occurs inside Firebase’s build environment, which ignores the runner’s `NPM_CONFIG_LEGACY_PEER_DEPS`.
+
+**Changes Applied:**
+
+1. **Force legacy peer resolution for Cloud Build npm** ✅
+   - File: `.npmrc`
+   - Added `legacy-peer-deps=true` so the file copied into the functions bundle instructs Cloud Build’s npm to tolerate the peer mismatch introduced by `firebase-frameworks`.
+   - Impact: prevents Cloud Build from aborting on the `sharp` peer constraint while keeping pnpm workflows unaffected.
+
+**Verification:**
+
+- ✅ Local `pnpm install --frozen-lockfile --ignore-scripts` (lockfile in sync).
+- ✅ `pnpm run lint`
+- ✅ `pnpm run typecheck`
+- ✅ `pnpm run build`
+
+---
+
 ## [2026-03-03T08:10] GitHub Actions Firebase Deploy Workaround Hardening
 
 **Context:** The latest failed GitHub Actions run (`Firebase Deploy`, run `22621501095`, commit `41d63605372cda52058f81085cc4aced5857b854`) no longer failed in install, lint, typecheck, or app build. The only failing step was `Deploy to Firebase`, where Firebase Hosting with Web Frameworks invoked npm internally and failed on the peer conflict between `firebase-frameworks@0.11.8` and `sharp@0.34.5` during packaging.

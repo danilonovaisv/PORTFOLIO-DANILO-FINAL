@@ -36,7 +36,6 @@ export default function FeaturedProjectCardFrame({
   const showLogo =
     homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' && !!logoSrc;
   const showThumb = !showLogo && !!mediaSource;
-  const tagPills = (project.tags ?? []).filter(Boolean).slice(0, 2);
 
   const handlePointerMove = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -101,19 +100,6 @@ export default function FeaturedProjectCardFrame({
           </div>
         ) : null}
       </div>
-
-      {tagPills.length > 0 ? (
-        <div className="pointer-events-none absolute right-4 top-4 z-[var(--z-layer-content)] flex max-w-[70%] flex-wrap justify-end gap-2">
-          {tagPills.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-[rgba(230,239,239,0.7)] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[#0e0e0e] backdrop-blur-sm"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      ) : null}
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,0,19,0.08)_0%,rgba(4,0,19,0.2)_52%,rgba(4,0,19,0.5)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(135,5,242,0.12),transparent_72%)] opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:opacity-100" />

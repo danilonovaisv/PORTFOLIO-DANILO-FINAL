@@ -1,0 +1,46 @@
+﻿2026-03-03T13:18:23.7115741Z ##[group]Run TARGET_PROJECT="***"
+2026-03-03T13:18:23.7116243Z [36;1mTARGET_PROJECT="***"[0m
+2026-03-03T13:18:23.7116746Z [36;1mfirebase projects:list --json 2>/dev/null > firebase-projects.json || true[0m
+2026-03-03T13:18:23.7117248Z [36;1m[0m
+2026-03-03T13:18:23.7117522Z [36;1mnode -e "[0m
+2026-03-03T13:18:23.7117837Z [36;1m  const fs = require('fs');[0m
+2026-03-03T13:18:23.7118762Z [36;1m  const raw = fs.readFileSync('firebase-projects.json', 'utf8');[0m
+2026-03-03T13:18:23.7119236Z [36;1m  let data;[0m
+2026-03-03T13:18:23.7119901Z [36;1m  try *** data = JSON.parse(raw); *** catch ***[0m
+2026-03-03T13:18:23.7120507Z [36;1m    console.log('⚠️ Could not parse firebase projects JSON — skipping validation.');[0m
+2026-03-03T13:18:23.7121053Z [36;1m    process.exit(0);[0m
+2026-03-03T13:18:23.7121389Z [36;1m  ***[0m
+2026-03-03T13:18:23.7121683Z [36;1m[0m
+2026-03-03T13:18:23.7122119Z [36;1m  const projects = Array.isArray(data) ? data : (data.results || data.result || []);[0m
+2026-03-03T13:18:23.7122809Z [36;1m  const ids = projects.map(p => p.projectId || p.projectid || p.id).filter(Boolean);[0m
+2026-03-03T13:18:23.7123422Z [36;1m  console.log('📋 Projects accessible:', ids.join(', ') || '(none)');[0m
+2026-03-03T13:18:23.7123956Z [36;1m[0m
+2026-03-03T13:18:23.7124408Z [36;1m  if (ids.includes('$***TARGET_PROJECT***')) ***[0m
+2026-03-03T13:18:23.7124942Z [36;1m    console.log('✅ Acesso ao projeto validado para $***TARGET_PROJECT***');[0m
+2026-03-03T13:18:23.7125424Z [36;1m  *** else ***[0m
+2026-03-03T13:18:23.7125995Z [36;1m    console.log('⚠️ Projeto $***TARGET_PROJECT*** não aparece na lista — tentando de qualquer forma.');[0m
+2026-03-03T13:18:23.7126606Z [36;1m  ***[0m
+2026-03-03T13:18:23.7126886Z [36;1m"[0m
+2026-03-03T13:18:23.7175660Z shell: /usr/bin/bash -e ***0***
+2026-03-03T13:18:23.7176018Z env:
+2026-03-03T13:18:23.7176307Z   NODE_VERSION: 20
+2026-03-03T13:18:23.7176603Z   PNPM_VERSION: 10.30.3
+2026-03-03T13:18:23.7177054Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T13:18:23.7178504Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T13:18:23.7179032Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T13:18:23.7179832Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T13:18:23.7181387Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T13:18:23.7191196Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-03T13:18:23.7191609Z   FIREBASE_PROJECT_ID: ***
+2026-03-03T13:18:23.7191987Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T13:18:23.7192738Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-474a7ae9ceb7652a.json
+2026-03-03T13:18:23.7193756Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-474a7ae9ceb7652a.json
+2026-03-03T13:18:23.7194715Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-474a7ae9ceb7652a.json
+2026-03-03T13:18:23.7195401Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-03T13:18:23.7195765Z   CLOUDSDK_PROJECT: ***
+2026-03-03T13:18:23.7196110Z   GCLOUD_PROJECT: ***
+2026-03-03T13:18:23.7196437Z   GCP_PROJECT: ***
+2026-03-03T13:18:23.7196770Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-03T13:18:23.7197080Z ##[endgroup]
+2026-03-03T13:18:24.8378438Z 📋 Projects accessible: ***
+2026-03-03T13:18:24.8382091Z ✅ Acesso ao projeto validado para ***
