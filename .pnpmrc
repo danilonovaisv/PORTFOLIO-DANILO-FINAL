@@ -1,4 +1,6 @@
+# .pnpmrc — Config legada para retrocompatibilidade
+# As configurações foram migradas para .npmrc (padrão do pnpm)
+# ATENÇÃO: frozen-lockfile=false foi REMOVIDO (inseguro para CI)
 store-dir=~/.local/share/pnpm/store
 cache-dir=~/.cache/pnpm
 link-workspace-packages=true
-frozen-lockfile=false
