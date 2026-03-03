@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import PortfolioClient from '@/app/portfolio/PortfolioClient';
-import { listProjects } from '@/lib/supabase/queries/projects';
+import { listProjects, listProjectsPaged } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
 import { getSupabasePublicKey } from '@/lib/supabase/env';
+import { ENABLE_SERVER_PAGINATION, PORTFOLIO_PAGE_SIZE } from '@/config/portfolio';
 
 import { BRAND } from '@/config/brand';
 import {
@@ -17,7 +18,7 @@ export const revalidate = 3600; // 1 hour caching for better TTFB
 
 type PortfolioPageProps = {
   params?: Promise<Record<string, string>>;
-  searchParams?: Promise<{ category?: string | string[] }>;
+  searchParams?: Promise<{ category?: string | string[]; page?: string | string[] }>;
 };
 
 export async function generateMetadata({
@@ -113,7 +114,12 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
   const categoryParam = Array.isArray(resolvedSearchParams?.category)
     ? resolvedSearchParams?.category[0]
     : resolvedSearchParams?.category;
+  const pageParam = Array.isArray(resolvedSearchParams?.page)
+    ? resolvedSearchParams?.page[0]
+    : resolvedSearchParams?.page;
+  const initialPage = Math.max(1, Number.parseInt(pageParam ?? '1', 10) || 1);
   let projects: PortfolioProject[] = [];
+  let totalProjectsCount = 0;
 
   try {
     const fallbackProjects = buildFallbackProjects();
@@ -123,24 +129,39 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
 
     if (hasSupabaseEnv) {
       const supabase = createStaticClient();
-
-      const dbProjects = await listProjects({}, supabase);
-      projects = dbProjects.map((project, index) =>
-        mapDbProjectToPortfolioProject(project, index)
-      );
+      if (ENABLE_SERVER_PAGINATION) {
+        const { data: dbProjects, count } = await listProjectsPaged(
+          {},
+          { page: initialPage, pageSize: PORTFOLIO_PAGE_SIZE },
+          supabase
+        );
+        totalProjectsCount = count ?? 0;
+        projects = dbProjects.map((project, index) =>
+          mapDbProjectToPortfolioProject(project, index)
+        );
+      } else {
+        const dbProjects = await listProjects({}, supabase);
+        projects = dbProjects.map((project, index) =>
+          mapDbProjectToPortfolioProject(project, index)
+        );
+        totalProjectsCount = projects.length;
+      }
 
       // If the database is empty (common in local dev/CI), fall back to curated static projects
       if (projects.length === 0) {
         console.warn('[Portfolio] No projects returned from Supabase, using fallback projects.');
         projects = fallbackProjects;
+        totalProjectsCount = fallbackProjects.length;
       }
     } else {
       console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
       projects = fallbackProjects;
+      totalProjectsCount = fallbackProjects.length;
     }
   } catch (error) {
     console.error('[Portfolio] Error occurred:', error instanceof Error ? error.message : error);
     projects = buildFallbackProjects();
+    totalProjectsCount = projects.length;
   }
 
   return (
@@ -168,7 +189,12 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
           ),
         }}
       />
-      <PortfolioClient projects={projects} initialCategory={categoryParam} />
+      <PortfolioClient
+        projects={projects}
+        initialCategory={categoryParam}
+        initialPage={initialPage}
+        totalProjectsCount={totalProjectsCount}
+      />
     </>
   );
 }

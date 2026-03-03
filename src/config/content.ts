@@ -90,7 +90,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2022,
       tags: ['Strategy', 'Identity'],
-      img: projectMedia('projects/campaign/hero.webp'),
+      img: projectMedia('projects/campaign/cover.webp'),
       layout: {
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
         cols: 'md:col-span-7',

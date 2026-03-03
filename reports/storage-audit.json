@@ -1,6 +1,6 @@
 {
   "agent": "agent-supabase-audit",
-  "timestamp_utc": "2026-03-03T05:49:24+00:00",
+  "timestamp_utc": "2026-03-03T21:06:11+00:00",
   "auto_fix": false,
   "storage_security_score": 50,
   "storage_performance_score": 92,
@@ -22,8 +22,12 @@
       "recommendation": "Move service-role logic to server-only modules and remove from client bundles.",
       "auto_fixable": false,
       "evidence": {
-        "files": ["src/app/admin/(protected)/layout.tsx"],
-        "snippets": ["SUPABASE_SERVICE_ROLE_KEY"]
+        "files": [
+          "src/app/admin/(protected)/layout.tsx"
+        ],
+        "snippets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ]
       }
     },
     {
@@ -35,8 +39,12 @@
       "recommendation": "Move service-role logic to server-only modules and remove from client bundles.",
       "auto_fixable": false,
       "evidence": {
-        "files": ["src/app/admin/(protected)/settings/page.tsx"],
-        "snippets": ["SUPABASE_SERVICE_ROLE_KEY"]
+        "files": [
+          "src/app/admin/(protected)/settings/page.tsx"
+        ],
+        "snippets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ]
       }
     },
     {
@@ -48,14 +56,21 @@
       "recommendation": "Adopt hashed or versioned filenames for immutable cache safety.",
       "auto_fixable": false,
       "evidence": {
-        "files": ["public/site.assets/3d/ghost.glb"],
-        "snippets": ["count=1"]
+        "files": [
+          "public/site.assets/3d/ghost.glb"
+        ],
+        "snippets": [
+          "count=1"
+        ]
       }
     }
   ],
   "applied_fixes": [],
   "meta": {
-    "public_buckets_detected": ["portfolio-media", "site-assets"],
+    "public_buckets_detected": [
+      "portfolio-media",
+      "site-assets"
+    ],
     "unexpected_public_buckets": [],
     "storage_policy_operations": [
       "all",
@@ -65,6 +80,6 @@
       "update"
     ],
     "missing_storage_policy_operations": [],
-    "tracked_files_scanned": 15202
+    "tracked_files_scanned": 20584
   }
 }

@@ -51,22 +51,14 @@ export default function FeaturedProjectCardFrame({
       const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
       const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
 
-      visualRef.current.style.setProperty(
-        '--featured-card-x',
-        `${(offsetX * 12).toFixed(2)}px`
-      );
-      visualRef.current.style.setProperty(
-        '--featured-card-y',
-        `${(offsetY * 10).toFixed(2)}px`
-      );
+      visualRef.current.style.setProperty('translate', `${(offsetX * 12).toFixed(2)}px ${(offsetY * 10).toFixed(2)}px`);
     },
     [reducedMotion]
   );
 
   const resetPointerMotion = useCallback(() => {
     if (!visualRef.current) return;
-    visualRef.current.style.setProperty('--featured-card-x', '0px');
-    visualRef.current.style.setProperty('--featured-card-y', '0px');
+    visualRef.current.style.setProperty('translate', '0px 0px');
   }, []);
 
   return (
@@ -82,7 +74,7 @@ export default function FeaturedProjectCardFrame({
     >
       <div
         ref={visualRef}
-        className="absolute -inset-[4%] will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] featured-card-visual"
+        className="absolute -inset-[4%] will-change-transform transition-[transform,translate] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:scale-[1.03]"
       >
         <FeaturedProjectAnimatedBackground variant={backgroundVariant} />
 
@@ -94,7 +86,7 @@ export default function FeaturedProjectCardFrame({
               aria-hidden="true"
               fill
               sizes={project.layout.sizes ?? '100vw'}
-              className="object-cover opacity-55 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px md:group-hover:opacity-68"
+              className="object-cover opacity-5 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px md:group-hover:opacity-10"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={applyImageFallback}

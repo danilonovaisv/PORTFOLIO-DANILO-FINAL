@@ -16,11 +16,15 @@ const PortfolioModal = dynamic(() => import('@/components/portfolio/PortfolioMod
 type PortfolioClientProps = {
   projects: PortfolioProject[];
   initialCategory?: string;
+  initialPage?: number;
+  totalProjectsCount?: number;
 };
 
 export default function PortfolioClient({
   projects,
   initialCategory,
+  initialPage,
+  totalProjectsCount,
 }: PortfolioClientProps) {
   const router = useRouter();
   const [selectedProject, setSelectedProject] =
@@ -75,6 +79,8 @@ export default function PortfolioClient({
           projects={projects}
           onProjectSelect={handleOpenProject}
           initialCategory={initialCategory}
+          initialPage={initialPage}
+          totalProjectsCount={totalProjectsCount}
         />
 
         {/* CTA Section - After Cards, Following AntigravityCTA Pattern */}

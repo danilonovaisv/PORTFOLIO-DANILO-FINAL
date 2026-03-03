@@ -114,12 +114,12 @@
         "updated_at": "2026-01-14 08:41:59.898698+00"
       },
       {
-        "id": "c65940d7-3778-407c-8555-97517ce9ed95",
-        "key": "v4.danilo.",
+        "id": "14e5a849-778a-41b4-87d8-fff63fc6b9bd",
+        "key": "dntro.ai-video.assets-do-projeto.cover-16x9.post-dntro.4a29c6fed1075c24",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/v4/danilo/.emptyFolderPlaceholder",
-        "file_path": "v4/danilo/.emptyFolderPlaceholder",
-        "updated_at": "2026-02-27 05:14:24.20093+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/cover-16x9/post-dntro.4a29c6fed1075c24.webp",
+        "file_path": "dntro/ai-video/assets-do-projeto/cover-16x9/post-dntro.4a29c6fed1075c24.webp",
+        "updated_at": "2026-03-02 09:17:14.738923+00"
       },
       {
         "id": "ad8aed84-334a-4396-b308-7a6859cc28cd",
@@ -176,6 +176,22 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-1x1/thumb-hellmanns-1-1.04460c10601d0801.webp",
         "file_path": "hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-1x1/thumb-hellmanns-1-1.04460c10601d0801.webp",
         "updated_at": "2026-02-28 09:06:01.869217+00"
+      },
+      {
+        "id": "9509ce7f-1e01-4c65-84e8-1625e8bc6711",
+        "key": "dntro.ai-video.assets-do-projeto.cover-1x1.post-dntro2.1b78139bd7912430",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/cover-1x1/post-dntro2.1b78139bd7912430.webp",
+        "file_path": "dntro/ai-video/assets-do-projeto/cover-1x1/post-dntro2.1b78139bd7912430.webp",
+        "updated_at": "2026-03-02 09:17:16.621476+00"
+      },
+      {
+        "id": "aa5c2684-5138-4325-abc3-f5cf6b721e7a",
+        "key": "dntro.ai-video.assets-do-projeto.home-featured-logo.logo-dntro.37069eae9bc88eef",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.37069eae9bc88eef.webp",
+        "file_path": "dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.37069eae9bc88eef.webp",
+        "updated_at": "2026-03-02 09:17:17.239281+00"
       },
       {
         "id": "b81ea55e-7ac2-4cb1-ac6e-0b93c2e8b40f",
@@ -354,28 +370,12 @@
         "updated_at": "2026-02-28 09:43:10.665146+00"
       },
       {
-        "id": "01015ac5-bf06-4983-ba2f-031ee815be08",
-        "key": "projects.key-visual.gallery.converted-10-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/gallery/converted-10-webp.webp",
-        "file_path": "projects/key-visual/gallery/converted-10-webp.webp",
-        "updated_at": "2026-01-16 23:49:53.065414+00"
-      },
-      {
         "id": "19201b8e-1978-4545-83f2-1c4537cdcd33",
         "key": "landing-pages.glad-manifesto.master-v3-block-image-image-3-media1",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-3-media1.jpeg",
         "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-3-media1.jpeg",
         "updated_at": "2026-02-28 09:43:10.716245+00"
-      },
-      {
-        "id": "1efa824b-4034-48ac-8eaa-6ca367703d2d",
-        "key": "projects.key-visual.hero",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/hero.png",
-        "file_path": "projects/key-visual/hero.png",
-        "updated_at": "2026-01-22 21:55:38.915809+00"
       },
       {
         "id": "4a1de91c-5d4d-4e57-84fa-351c815faf67",
@@ -530,6 +530,14 @@
         "updated_at": "2026-02-28 08:45:44.420588+00"
       },
       {
+        "id": "aa54f71c-4351-491c-9d65-b44ab159ed0a",
+        "key": "hellmann-s.hellmanns-parcerias.assets-do-projeto.cover-16x9.thumb-hellmas-16-9.4779abad5cf6a704",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmas-16-9.4779abad5cf6a704.webp",
+        "file_path": "hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmas-16-9.4779abad5cf6a704.webp",
+        "updated_at": "2026-03-01 05:52:31.645222+00"
+      },
+      {
         "id": "a044494b-ccf0-48e6-a965-07dbebc12bc2",
         "key": "projects.key-visual.cover",
         "bucket": "site-assets",
@@ -584,6 +592,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-9.webp",
         "file_path": "projects/key-visual/section-9.webp",
         "updated_at": "2026-01-21 23:01:50.211384+00"
+      },
+      {
+        "id": "e58a9bfe-4b04-4f69-8a79-185c2008347f",
+        "key": "hellmann-s.hellmanns-parcerias.assets-do-projeto.cover-1x1.thumb-hellmas-1-1.6341b09275286630",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-1x1/thumb-hellmas-1-1.6341b09275286630.webp",
+        "file_path": "hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-1x1/thumb-hellmas-1-1.6341b09275286630.webp",
+        "updated_at": "2026-03-01 05:52:35.749131+00"
       },
       {
         "id": "9aa417b4-630c-45f2-ab0e-fc0d10d88e76",
@@ -658,14 +674,6 @@
         "updated_at": "2026-02-28 08:45:47.768636+00"
       },
       {
-        "id": "4303961a-16ba-4ade-85e2-b48b45579943",
-        "key": "projects.key-visual.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.png",
-        "file_path": "projects/key-visual/thumb.png",
-        "updated_at": "2026-01-22 21:55:38.026792+00"
-      },
-      {
         "id": "69400209-5e62-4ee2-9da4-305195188081",
         "key": "projects.key-visual.section-8",
         "bucket": "site-assets",
@@ -698,12 +706,28 @@
         "updated_at": "2026-02-28 08:45:47.732119+00"
       },
       {
+        "id": "070a1d1e-0192-48b1-94a1-9f33d145f847",
+        "key": "down-qu-mica.video-manifesto.assets-do-projeto.cover-16x9.thumb-glad.5de7c334e6491aa0",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.5de7c334e6491aa0.webm",
+        "file_path": "down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.5de7c334e6491aa0.webm",
+        "updated_at": "2026-03-01 06:01:11.100599+00"
+      },
+      {
         "id": "baa864c0-1a6d-4cd6-86c3-34c50c70e1b0",
         "key": "projects.key-visual.section-12",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-12.webp",
         "file_path": "projects/key-visual/section-12.webp",
         "updated_at": "2026-01-21 22:59:20.060372+00"
+      },
+      {
+        "id": "7c6bf588-a318-44a5-bb90-050f6095b932",
+        "key": "down-qu-mica.video-manifesto.assets-do-projeto.cover-1x1.thumb-glad.5de7c334e6491aa0",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad.5de7c334e6491aa0.webm",
+        "file_path": "down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad.5de7c334e6491aa0.webm",
+        "updated_at": "2026-03-01 06:01:12.925917+00"
       },
       {
         "id": "2636df6a-b8d9-4f97-9d0b-d789c0641753",
@@ -722,14 +746,6 @@
         "updated_at": "2026-01-21 23:01:49.941436+00"
       },
       {
-        "id": "917f0113-2a89-4549-a8e8-9f14ffd70c03",
-        "key": "projects.key-visual.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.mp4",
-        "file_path": "projects/key-visual/thumb.mp4",
-        "updated_at": "2026-01-22 23:32:30.144373+00"
-      },
-      {
         "id": "e0d0cff9-68ef-4506-90fe-a7a9257bca12",
         "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-13-media1",
         "bucket": "site-assets",
@@ -746,12 +762,28 @@
         "updated_at": "2026-02-28 08:45:47.860667+00"
       },
       {
+        "id": "40f1ea9d-805f-4dba-b2f8-ec47642db26b",
+        "key": "home.video.manifesto.desk",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.desk.mp4",
+        "file_path": "home/video.manifesto.desk.mp4",
+        "updated_at": "2026-03-03 01:12:42.930186+00"
+      },
+      {
         "id": "3ca03782-226a-46da-bb19-ad1a1d271063",
         "key": "landing-pages.hellmanns-parcerias.master-v3-block-text-image-11-media1",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-text-image-11-media1.webp",
         "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-text-image-11-media1.webp",
         "updated_at": "2026-02-28 08:45:48.172235+00"
+      },
+      {
+        "id": "9b26d138-1a37-4076-b832-63e7749bd593",
+        "key": "down-qu-mica.video-manifesto.assets-do-projeto.cover-16x9.thumb-glad.ead956218f26b9c0",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+        "file_path": "down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+        "updated_at": "2026-03-01 06:05:49.151462+00"
       },
       {
         "id": "84365aa3-e6cb-495a-917b-d67010dcb962",
@@ -768,6 +800,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-3-media2.webp",
         "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-3-media2.webp",
         "updated_at": "2026-02-28 08:45:48.805578+00"
+      },
+      {
+        "id": "3cfd9cdf-f29a-4937-bd0f-ba4828a82a02",
+        "key": "down-qu-mica.video-manifesto.assets-do-projeto.cover-1x1.thumb-glad.ead956218f26b9c0",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad.ead956218f26b9c0.webp",
+        "file_path": "down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad.ead956218f26b9c0.webp",
+        "updated_at": "2026-03-01 06:05:51.808761+00"
       },
       {
         "id": "17c1caf0-c31f-4af3-9d23-d372c5d7b137",
@@ -810,6 +850,14 @@
         "updated_at": "2026-02-23 19:24:52.383124+00"
       },
       {
+        "id": "f60ed89d-9d32-4dd7-bf3e-8336716405e7",
+        "key": "home.video.manifesto.mobile",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.mobile.mp4",
+        "file_path": "home/video.manifesto.mobile.mp4",
+        "updated_at": "2026-03-03 01:12:43.060145+00"
+      },
+      {
         "id": "4b6cfd83-c2f6-4aa4-824c-d274d745ced7",
         "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-14-media2",
         "bucket": "site-assets",
@@ -842,84 +890,36 @@
         "updated_at": "2026-02-28 08:45:51.242155+00"
       },
       {
-        "id": "21f433fe-1616-4539-a522-6cc3e74cdd1e",
-        "key": "projects.rebranding.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/thumb.mp4",
-        "file_path": "projects/rebranding/thumb.mp4",
-        "updated_at": "2026-01-23 19:10:11.851633+00"
+        "id": "8c67cd93-187c-4e37-b66b-d1fae760441f",
+        "key": "about.Closing.video.closing.desk",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/Closing/video.closing.desk.mp4",
+        "file_path": "about/Closing/video.closing.desk.mp4",
+        "updated_at": "2026-03-03 01:28:08.429989+00"
       },
       {
-        "id": "423a411d-a7ec-4982-862a-62bd059eed7a",
-        "key": "projects.rebranding.hero",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/hero.png",
-        "file_path": "projects/rebranding/hero.png",
-        "updated_at": "2026-01-23 19:10:12.398339+00"
+        "id": "d924a68b-5535-4127-9647-f77524d1c5e5",
+        "key": "about.Closing.video.closing.mobile",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/Closing/video.closing.mobile.mp4",
+        "file_path": "about/Closing/video.closing.mobile.mp4",
+        "updated_at": "2026-03-03 01:28:08.537522+00"
       },
       {
-        "id": "dcd967ed-ab88-49b2-9a0b-ea6983a74711",
-        "key": "projects.rebranding.gallery.converted-2-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-2-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-2-webp.webp",
-        "updated_at": "2026-01-23 19:10:14.241812+00"
+        "id": "3aa7acee-1891-465a-b39f-2f243791bc77",
+        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-6-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-6-media1.webp",
+        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-6-media1.webp",
+        "updated_at": "2026-03-02 08:02:58.159908+00"
       },
       {
-        "id": "910f7fbf-7c91-4aad-8ace-8b4bea271979",
-        "key": "projects.rebranding.gallery.converted-3-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-3-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-3-webp.webp",
-        "updated_at": "2026-01-23 19:10:16.174274+00"
-      },
-      {
-        "id": "95312a79-6fb1-454a-b408-6eb8588c2643",
-        "key": "projects.rebranding.gallery.converted-7-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-7-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-7-webp.webp",
-        "updated_at": "2026-01-23 19:10:17.21724+00"
-      },
-      {
-        "id": "2d1a1a1a-87de-4f78-9496-ac979dd20f18",
-        "key": "projects.rebranding.gallery.converted-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-webp.webp",
-        "updated_at": "2026-01-23 19:10:18.052139+00"
-      },
-      {
-        "id": "96721904-a6f9-4ad0-8ba1-8f9f6ffe2122",
-        "key": "projects.rebranding.gallery.converted-4-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-4-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-4-webp.webp",
-        "updated_at": "2026-01-23 19:10:19.023044+00"
-      },
-      {
-        "id": "5890307e-2690-467f-b4eb-3a77b382b5df",
-        "key": "projects.rebranding.gallery.converted-8-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-8-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-8-webp.webp",
-        "updated_at": "2026-01-23 19:10:19.611757+00"
-      },
-      {
-        "id": "6d309797-fc89-4132-8d61-d0e7c394024c",
-        "key": "projects.rebranding.gallery.converted-6-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-6-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-6-webp.webp",
-        "updated_at": "2026-01-23 19:10:20.119719+00"
-      },
-      {
-        "id": "fb034c7f-35eb-40b4-8574-ad1b5ecff7c1",
-        "key": "projects.rebranding.gallery.converted-5-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-5-webp.webp",
-        "file_path": "projects/rebranding/gallery/converted-5-webp.webp",
-        "updated_at": "2026-01-23 19:10:21.258878+00"
+        "id": "d832feb7-1b09-4cdf-b9d8-d6a32c137575",
+        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-6-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-6-media2.webp",
+        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-6-media2.webp",
+        "updated_at": "2026-03-02 08:02:58.979522+00"
       },
       {
         "id": "f4dbe198-952e-47d1-9efc-80fd039f617b",
@@ -928,6 +928,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/HEADER-FOLHA-TIMBRADA.png",
         "file_path": "assets-prop/HEADER-FOLHA-TIMBRADA.png",
         "updated_at": "2026-02-20 16:26:29.017094+00"
+      },
+      {
+        "id": "c0ab00d2-8cda-41aa-8a60-debcaa07746a",
+        "key": "landing-pages.key-vision.master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad.webp",
+        "file_path": "landing-pages/key-vision/master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad.webp",
+        "updated_at": "2026-03-02 08:06:14.05888+00"
       },
       {
         "id": "af19ecf6-a78e-4a94-9874-e6ce3dbac86b",
@@ -946,14 +954,6 @@
         "updated_at": "2026-02-23 19:24:53.046057+00"
       },
       {
-        "id": "0bce0960-cd21-4e82-b003-da1b81272a64",
-        "key": "about.beliefs.VIDEO-SKILLS-MOBILE-FINAL",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
-        "file_path": "about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
-        "updated_at": "2026-01-24 07:46:47.47816+00"
-      },
-      {
         "id": "adc9d3da-eae7-49c1-b946-93b4965ec781",
         "key": "landing-pages.key-vision.master-v3-block-image-image-11-media2",
         "bucket": "site-assets",
@@ -962,12 +962,12 @@
         "updated_at": "2026-02-23 19:24:53.204717+00"
       },
       {
-        "id": "763576cb-b964-4546-b032-a0bffb4336ce",
-        "key": "about.beliefs.VIDEO-SKILLS-FINAL_compressed",
+        "id": "beb43dfa-7069-4b52-a659-f59f4ad7efb4",
+        "key": "landing-pages.key-vision.master-v3-logo-d5944868-3777-47ef-817b-5b824098d593",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4",
-        "file_path": "about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4",
-        "updated_at": "2026-01-24 09:29:49.298263+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
+        "file_path": "landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
+        "updated_at": "2026-03-02 08:06:15.461882+00"
       },
       {
         "id": "9203f7cc-1510-43c9-8136-05f62ebff6ff",
@@ -994,6 +994,54 @@
         "updated_at": "2026-01-28 06:46:01.058864+00"
       },
       {
+        "id": "c4663d56-c140-4b3f-9268-462490da7417",
+        "key": "civic.key-visual.assets-do-projeto.cover-16x9.thumb-honda.c2d0c6ccb21001ea",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+        "file_path": "civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+        "updated_at": "2026-03-02 08:19:06.932879+00"
+      },
+      {
+        "id": "574e2fca-029e-4473-a0df-7c51f0434823",
+        "key": "civic.key-visual.assets-do-projeto.cover-1x1.thumb-honda.c2d0c6ccb21001ea",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp",
+        "file_path": "civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp",
+        "updated_at": "2026-03-02 08:19:08.915122+00"
+      },
+      {
+        "id": "353dd2d5-30a6-43ad-b0a0-126fdf9efc33",
+        "key": "dolce-gusto.campaign.assets-do-projeto.cover-16x9.converted.ab5a0d2f366f14af",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/converted.ab5a0d2f366f14af.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/cover-16x9/converted.ab5a0d2f366f14af.webp",
+        "updated_at": "2026-03-03 14:32:50.356606+00"
+      },
+      {
+        "id": "85f67826-d6d1-40d3-b226-80088a99649c",
+        "key": "dolce-gusto.campaign.assets-do-projeto.cover-1x1.converted-2.ba95967101ca4223",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-1x1/converted-2.ba95967101ca4223.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/cover-1x1/converted-2.ba95967101ca4223.webp",
+        "updated_at": "2026-03-03 14:32:50.961316+00"
+      },
+      {
+        "id": "9f442d46-b3b4-4638-888a-d12ae51584ed",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted-2.ba95967101ca4223",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
+        "updated_at": "2026-03-03 14:32:51.67399+00"
+      },
+      {
+        "id": "08a83f0c-ce0f-4a41-84b2-d373c99a0616",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted.ab5a0d2f366f14af",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
+        "updated_at": "2026-03-03 14:32:52.427406+00"
+      },
+      {
         "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
         "key": "about.beliefs.ghost",
         "bucket": "site-assets",
@@ -1002,12 +1050,52 @@
         "updated_at": "2026-02-20 05:28:27.214163+00"
       },
       {
-        "id": "3f1270d3-f9a8-4a49-9334-8f4741b88601",
-        "key": "home.VIDEO-MANIFESTO-MOBILE",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/VIDEO-MANIFESTO-MOBILE.mp4",
-        "file_path": "home/VIDEO-MANIFESTO-MOBILE.mp4",
-        "updated_at": "2026-02-25 08:18:51.680274+00"
+        "id": "5ea5cd9c-9a21-4248-87d0-ba9b82665598",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20220123-minime-449-419-desk.0d30169f2fc04991",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
+        "updated_at": "2026-03-03 14:32:53.472389+00"
+      },
+      {
+        "id": "80135f50-5bdb-48da-9897-61b025ed6f6c",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
+        "updated_at": "2026-03-03 14:32:54.552463+00"
+      },
+      {
+        "id": "f7588123-d2d4-4e43-b678-d8dbb9178ecc",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20230126-starbucks-mail-sunny-day-blend.f338916feb907c54",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
+        "updated_at": "2026-03-03 14:32:55.482433+00"
+      },
+      {
+        "id": "c1c81542-e271-4f95-8ff7-b5dbc68fa70d",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.email.96c1cdb4e15f2e33",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
+        "updated_at": "2026-03-03 14:32:56.39273+00"
+      },
+      {
+        "id": "d7319eb1-5a26-4325-9fd0-267dbd39f165",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.post-estatico.e8a28c28ae6dfecd",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
+        "updated_at": "2026-03-03 14:32:57.979219+00"
+      },
+      {
+        "id": "6f30dade-75d5-439e-8392-7b65c56f9598",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.tela-o-de-led.7c90188ca2811448",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/tela-o-de-led.7c90188ca2811448.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/tela-o-de-led.7c90188ca2811448.webp",
+        "updated_at": "2026-03-03 14:32:59.700135+00"
       },
       {
         "id": "2d583cfb-d136-4ae6-ab38-64239986ff7d",
@@ -1018,12 +1106,220 @@
         "updated_at": "2026-02-24 07:47:59.632313+00"
       },
       {
-        "id": "bcacec33-c31a-4828-a952-bed5e2ae2920",
-        "key": "home.home.manifesto_video",
+        "id": "539d447c-b385-42d1-bc75-810b64be11e6",
+        "key": "dntro.ai-video.assets-do-projeto.home-featured-logo.logo-dntro.ad664e2dafa57dc5",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.ad664e2dafa57dc5.png",
+        "file_path": "dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.ad664e2dafa57dc5.png",
+        "updated_at": "2026-03-03 16:29:26.832847+00"
+      },
+      {
+        "id": "b3ad8351-1cff-4c06-ac56-d6a33b98cf89",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.cover-16x9.thumb-mercado-pago-16-9.697076790eb01674",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.697076790eb01674.webp",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.697076790eb01674.webp",
+        "updated_at": "2026-03-03 17:03:26.0883+00"
+      },
+      {
+        "id": "6b499ff3-509d-41e9-b632-286d0f6a3f83",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.cover-1x1.thumb-mercado-pago-1-1.4fa5572945d226cc",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-1x1/thumb-mercado-pago-1-1.4fa5572945d226cc.webp",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/cover-1x1/thumb-mercado-pago-1-1.4fa5572945d226cc.webp",
+        "updated_at": "2026-03-03 17:03:26.960013+00"
+      },
+      {
+        "id": "69aa99e2-461a-41a2-8d34-ba1f0bc410f1",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.home-featured-logo.converted-4.224e4f6abe5435a9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/converted-4.224e4f6abe5435a9.webp",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/converted-4.224e4f6abe5435a9.webp",
+        "updated_at": "2026-03-03 17:03:27.896306+00"
+      },
+      {
+        "id": "cca5cb75-f729-425a-a066-ad6b312c189d",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.gallery.converted.683b21845f6454b3",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted.683b21845f6454b3.webp",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted.683b21845f6454b3.webp",
+        "updated_at": "2026-03-03 17:03:28.762215+00"
+      },
+      {
+        "id": "15f7cab8-d0d3-4d29-82c8-0abececa87eb",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.gallery.converted-2.4b5634b790dd7202",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-2.4b5634b790dd7202.webp",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-2.4b5634b790dd7202.webp",
+        "updated_at": "2026-03-03 17:03:29.645453+00"
+      },
+      {
+        "id": "61433f5f-7927-4c8a-b9cb-cf90c2745a06",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.gallery.converted-3.50a9fb83c5321438",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-3.50a9fb83c5321438.webp",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-3.50a9fb83c5321438.webp",
+        "updated_at": "2026-03-03 17:03:30.785402+00"
+      },
+      {
+        "id": "e4b5a8ee-f894-41ed-a0a9-8c0333d2bd02",
+        "key": "mercado-livre.ai-video.assets-do-projeto.cover-16x9.thumb-mercado-pago-16-9.697076790eb01674",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.697076790eb01674.webp",
+        "file_path": "mercado-livre/ai-video/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.697076790eb01674.webp",
+        "updated_at": "2026-03-03 17:02:18.976292+00"
+      },
+      {
+        "id": "37bb51ce-e9b2-4d0d-af93-3e30e62b18b3",
+        "key": "mercado-livre.ai-video.assets-do-projeto.cover-1x1.thumb-mercado-pago-1-1.4fa5572945d226cc",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video/assets-do-projeto/cover-1x1/thumb-mercado-pago-1-1.4fa5572945d226cc.webp",
+        "file_path": "mercado-livre/ai-video/assets-do-projeto/cover-1x1/thumb-mercado-pago-1-1.4fa5572945d226cc.webp",
+        "updated_at": "2026-03-03 17:02:19.98873+00"
+      },
+      {
+        "id": "c3005950-07b8-4726-b53f-e96c44e0e523",
+        "key": "mercado-livre.ai-video.assets-do-projeto.home-featured-logo.converted-4.224e4f6abe5435a9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video/assets-do-projeto/home-featured-logo/converted-4.224e4f6abe5435a9.webp",
+        "file_path": "mercado-livre/ai-video/assets-do-projeto/home-featured-logo/converted-4.224e4f6abe5435a9.webp",
+        "updated_at": "2026-03-03 17:02:20.909132+00"
+      },
+      {
+        "id": "14653120-87ee-407b-91bb-d9beb590628f",
+        "key": "mercado-livre.ai-video.assets-do-projeto.gallery.converted.683b21845f6454b3",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video/assets-do-projeto/gallery/converted.683b21845f6454b3.webp",
+        "file_path": "mercado-livre/ai-video/assets-do-projeto/gallery/converted.683b21845f6454b3.webp",
+        "updated_at": "2026-03-03 17:02:21.803362+00"
+      },
+      {
+        "id": "db6ea57f-7a5a-45ec-9f6a-3b2b055a486e",
+        "key": "mercado-livre.ai-video.assets-do-projeto.gallery.converted-2.4b5634b790dd7202",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video/assets-do-projeto/gallery/converted-2.4b5634b790dd7202.webp",
+        "file_path": "mercado-livre/ai-video/assets-do-projeto/gallery/converted-2.4b5634b790dd7202.webp",
+        "updated_at": "2026-03-03 17:02:22.79631+00"
+      },
+      {
+        "id": "42300c58-88a4-445e-add5-706762d8ed7b",
+        "key": "mercado-livre.ai-video.assets-do-projeto.gallery.converted-3.50a9fb83c5321438",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video/assets-do-projeto/gallery/converted-3.50a9fb83c5321438.webp",
+        "file_path": "mercado-livre/ai-video/assets-do-projeto/gallery/converted-3.50a9fb83c5321438.webp",
+        "updated_at": "2026-03-03 17:02:23.73067+00"
+      },
+      {
+        "id": "4115da49-8795-4765-b6fb-77c3e7bce9b8",
+        "key": "civic.key-visual.assets-do-projeto.home-featured-logo.logo-honda.a85702e811bf9bb0",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda.a85702e811bf9bb0.webp",
+        "file_path": "civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda.a85702e811bf9bb0.webp",
+        "updated_at": "2026-03-02 08:53:28.726915+00"
+      },
+      {
+        "id": "79e2fa66-d818-461b-927c-ea8070972790",
+        "key": "landing-pages.dntro.master-v3-cover-4c08756b-9594-46ed-a8fd-370935d55b3e",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video.mp4",
-        "file_path": "home/home.manifesto_video.mp4",
-        "updated_at": "2026-02-26 12:38:23.249618+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-cover-4c08756b-9594-46ed-a8fd-370935d55b3e.webp",
+        "file_path": "landing-pages/dntro/master-v3-cover-4c08756b-9594-46ed-a8fd-370935d55b3e.webp",
+        "updated_at": "2026-03-02 09:13:22.271473+00"
+      },
+      {
+        "id": "e0111bcd-c6e6-4aca-80ad-e77417e5d5ee",
+        "key": "landing-pages.dntro.master-v3-logo-c87eac2f-c2d1-49b7-b743-302b7f6af7d2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-logo-c87eac2f-c2d1-49b7-b743-302b7f6af7d2.webp",
+        "file_path": "landing-pages/dntro/master-v3-logo-c87eac2f-c2d1-49b7-b743-302b7f6af7d2.webp",
+        "updated_at": "2026-03-02 09:13:22.932036+00"
+      },
+      {
+        "id": "0670ad5f-b084-46dc-b37f-034325aeb266",
+        "key": "landing-pages.dntro.master-v3-block-image-image-8-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-8-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-image-8-media1.webp",
+        "updated_at": "2026-03-02 09:13:23.792079+00"
+      },
+      {
+        "id": "4fc6dbbc-bcfd-4d11-911a-a58555a777b3",
+        "key": "landing-pages.dntro.master-v3-block-image-video-6-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-6-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-video-6-media1.webp",
+        "updated_at": "2026-03-02 09:13:24.151457+00"
+      },
+      {
+        "id": "d81ea6aa-4726-41d6-91df-c654edd6ce29",
+        "key": "landing-pages.dntro.master-v3-block-text-image-2-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-text-image-2-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-text-image-2-media1.webp",
+        "updated_at": "2026-03-02 09:13:24.266775+00"
+      },
+      {
+        "id": "16714823-8a7e-4cb9-9de4-4b27e46aa99e",
+        "key": "landing-pages.dntro.master-v3-block-image-video-8-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-8-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-video-8-media1.webp",
+        "updated_at": "2026-03-02 09:13:24.64037+00"
+      },
+      {
+        "id": "63994ed8-8dd5-42bd-821f-aa40d0e95617",
+        "key": "landing-pages.dntro.master-v3-block-image-video-9-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-9-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-video-9-media1.webp",
+        "updated_at": "2026-03-02 09:13:24.723866+00"
+      },
+      {
+        "id": "f28e838e-95e7-4665-bf26-c0b373b0c3d0",
+        "key": "landing-pages.dntro.master-v3-block-image-11-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-11-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-11-media1.webp",
+        "updated_at": "2026-03-02 09:13:24.797837+00"
+      },
+      {
+        "id": "dd224853-0aa3-4f46-a523-50b8ea1fddb1",
+        "key": "landing-pages.dntro.master-v3-block-image-image-10-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-10-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-image-10-media1.webp",
+        "updated_at": "2026-03-02 09:13:24.957034+00"
+      },
+      {
+        "id": "4811b036-5f61-484f-9d61-8abf984e5f8b",
+        "key": "landing-pages.dntro.master-v3-block-image-video-7-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-7-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-video-7-media1.webp",
+        "updated_at": "2026-03-02 09:13:25.000148+00"
+      },
+      {
+        "id": "16ccdd22-cced-4276-b3b7-2b778d3af618",
+        "key": "landing-pages.dntro.master-v3-block-image-image-3-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-3-media1.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-image-3-media1.webp",
+        "updated_at": "2026-03-02 09:13:25.036627+00"
+      },
+      {
+        "id": "8dc4ff81-0065-410a-a623-2d8c125385ce",
+        "key": "landing-pages.dntro.master-v3-block-image-image-3-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-3-media2.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-image-3-media2.webp",
+        "updated_at": "2026-03-02 09:13:26.007037+00"
+      },
+      {
+        "id": "bff18731-8dfd-49fd-a922-855b2a6db9fb",
+        "key": "landing-pages.dntro.master-v3-block-image-image-10-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-10-media2.webp",
+        "file_path": "landing-pages/dntro/master-v3-block-image-image-10-media2.webp",
+        "updated_at": "2026-03-02 09:13:26.611539+00"
       },
       {
         "id": "32d7baa2-7280-406d-86bd-1ca59fbc58a1",

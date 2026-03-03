@@ -2,11 +2,11 @@ import type { HomeFeaturedCardStyle, HomeFeaturedConfig } from '@/types/project'
 
 export const HOME_FEATURED_CARD_STYLE_OPTIONS = [
   'ANIMATED_BG_INVERTED_LOGO',
-  'ANIMATED_BG_THUMB_OVERLAY_50',
+  'ANIMATED_BG_THUMB_OVERLAY_5',
 ] as const;
 
 export const DEFAULT_HOME_FEATURED_CARD_STYLE: HomeFeaturedCardStyle =
-  'ANIMATED_BG_THUMB_OVERLAY_50';
+  'ANIMATED_BG_THUMB_OVERLAY_5';
 
 type HomeFeaturedLike = {
   enabled?: unknown;

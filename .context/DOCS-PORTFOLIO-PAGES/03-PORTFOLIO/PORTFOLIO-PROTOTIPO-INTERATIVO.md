@@ -179,6 +179,12 @@ Ordem final (canônica):
 - Responsivo: desktop 12 col, tablet 8 col, mobile 1 col (altura auto).
 - A11y/Motion: overlay também em `:focus-visible`; `prefers-reduced-motion` mantém cards estáticos.
 
+### Paginação & Limites
+- Limite padrão: **15 cards por página** (`PORTFOLIO_PAGE_SIZE`, centralizado em `src/config/portfolio.ts`).
+- Navegação: botões “Voltar” / “Avançar” com `aria-label`, `aria-disabled`, foco visível e anúncio via `aria-live`.
+- Estado inicial de página pode ser setado por querystring `?page=`; troca de filtro reseta página para 1.
+- Edge cases: quando não houver itens em uma categoria, exibir mensagem de vazio; botões de paginação ficam desabilitados em first/last.
+
 ## 🃏 PROJECT CARD — ANATOMIA COMPLETA
 
 ### Estrutura Visual

@@ -25,7 +25,7 @@ export type DbProject = {
   featured_portfolio_order: number | null;
   home_featured: {
     enabled?: boolean;
-    cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_50';
+    cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_5';
     logoPath?: string | null;
   } | null;
   is_published: boolean;

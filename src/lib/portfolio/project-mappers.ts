@@ -28,7 +28,7 @@ type StaticProject = {
   landingPageSlug?: string | null;
   homeFeatured?: {
     enabled?: boolean;
-    cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_50';
+    cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_5';
     logoPath?: string | null;
   };
   layout: {

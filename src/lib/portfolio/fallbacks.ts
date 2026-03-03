@@ -73,7 +73,7 @@ export function buildFallbackProjects(): PortfolioProject[] {
             featuredOnHome: true,
             homeFeatured: {
                 enabled: true,
-                cardStyle: 'ANIMATED_BG_THUMB_OVERLAY_50',
+                cardStyle: 'ANIMATED_BG_THUMB_OVERLAY_5',
             },
             featuredOnPortfolio: true,
         };

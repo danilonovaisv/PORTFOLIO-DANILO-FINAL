@@ -2,6 +2,7 @@
 
 import React, {
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -17,12 +18,15 @@ import { cn } from '@/lib/utils';
 import styles from '@/components/portfolio/ProjectsGallery.module.css';
 import { StandardGrid } from '@/components/layout/Container';
 import { GHOST_EASE } from '@/config/motion';
+import { PORTFOLIO_PAGE_SIZE, ENABLE_SERVER_PAGINATION } from '@/config/portfolio';
 
 interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
   onProjectSelect?: (_project: PortfolioProject) => void;
   onOpenProject?: (_project: PortfolioProject) => void;
   initialCategory?: string;
+  initialPage?: number;
+  totalProjectsCount?: number;
 }
 
 const CATEGORY_PILLARS = [
@@ -65,6 +69,8 @@ export const ProjectsGallery = ({
   onProjectSelect,
   onOpenProject,
   initialCategory,
+  initialPage = 1,
+  totalProjectsCount,
 }: ProjectsGalleryProps) => {
   const [activeFilter, setActiveFilter] = useState<string>(
     mapCategoryToPillar(initialCategory)
@@ -89,8 +95,8 @@ export const ProjectsGallery = ({
   const { scrollState } = useLERPScroll(trackRef, galleryWrapperRef, useLerp);
 
   // PAGINATION LOGIC
-  const ITEMS_PER_PAGE = 15;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(() => Math.max(1, initialPage));
+  const [pageAnnouncement, setPageAnnouncement] = useState('');
 
   // Sync activeFilter changes with page reset
   const handleFilterChange = useCallback((newFilter: string) => {
@@ -103,10 +109,28 @@ export const ProjectsGallery = ({
     }
   }, []);
 
-  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(
+      (ENABLE_SERVER_PAGINATION && totalProjectsCount)
+        ? totalProjectsCount / PORTFOLIO_PAGE_SIZE
+        : filteredProjects.length / PORTFOLIO_PAGE_SIZE
+    )
+  );
+
   const paginatedProjects = useMemo(() => {
-    return filteredProjects.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    if (ENABLE_SERVER_PAGINATION) return filteredProjects;
+    const start = (currentPage - 1) * PORTFOLIO_PAGE_SIZE;
+    return filteredProjects.slice(start, start + PORTFOLIO_PAGE_SIZE);
   }, [filteredProjects, currentPage]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+      return;
+    }
+    setPageAnnouncement(`Página ${currentPage} de ${totalPages}`);
+  }, [currentPage, totalPages]);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
@@ -242,6 +266,9 @@ export const ProjectsGallery = ({
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
         <StandardGrid>
+          <div className="sr-only" aria-live="polite" role="status">
+            {pageAnnouncement}
+          </div>
           {items.length === 0 ? (
             <div className="relative rounded-2xl border border-white/10 bg-neutral/40 p-8 text-center">
               <h3 className="text-lg font-semibold text-white">Nenhum projeto nesta categoria</h3>
@@ -276,7 +303,10 @@ export const ProjectsGallery = ({
                       galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     disabled={currentPage === 1}
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff]"
+                    aria-label="Página anterior"
+                    aria-controls="portfolio-filter-panel"
+                    aria-disabled={currentPage === 1}
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -285,7 +315,11 @@ export const ProjectsGallery = ({
                       Voltar
                     </span>
                   </button>
-                  <span className="text-white/40 font-mono text-sm tracking-widest">
+                  <span
+                    className="text-white/40 font-mono text-sm tracking-widest"
+                    aria-live="polite"
+                    role="status"
+                  >
                     {currentPage} / {totalPages}
                   </span>
                   <button
@@ -294,7 +328,10 @@ export const ProjectsGallery = ({
                       galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     disabled={currentPage === totalPages}
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff]"
+                    aria-label="Próxima página"
+                    aria-controls="portfolio-filter-panel"
+                    aria-disabled={currentPage === totalPages}
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       Avançar

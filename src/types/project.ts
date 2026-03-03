@@ -34,7 +34,7 @@ export type ProjectDestinationType =
 
 export type HomeFeaturedCardStyle =
   | 'ANIMATED_BG_INVERTED_LOGO'
-  | 'ANIMATED_BG_THUMB_OVERLAY_50';
+  | 'ANIMATED_BG_THUMB_OVERLAY_5';
 
 export interface HomeFeaturedConfig {
   enabled: boolean;

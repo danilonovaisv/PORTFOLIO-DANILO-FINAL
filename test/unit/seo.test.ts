@@ -120,85 +120,34 @@ describe('SEO Utils', () => {
       expect(result.endsWith('.')).toBe(true);
     });
 
-    // NOTE: The current implementation only truncates at word boundaries if the cut point is > 80 chars.
-    // Since default max is 60, normalizeMetaTitle usually does NOT truncate at word boundaries.
-
-    it('respects word boundaries when truncating (only if max is large enough)', () => {
-      // We need a max > 80 to trigger the word boundary logic
+    it('respects word boundaries when truncating', () => {
       const title =
         'This is a very long title that should be truncated intelligently and not in the middle of a word like thisone';
-      // 90 chars
-      // "This is a very long title that should be truncated intelligently and not in the" (length 79)
-      // "This is a very long title that should be truncated intelligently and not in the middle" (length 86)
 
       const max = 90;
       const result = normalizeMetaTitle(title, max);
 
-      // Candidate: slice(0, 89)
-      // "This is a very long title that should be truncated intelligently and not in the middle of"
-      // lastSpace: 85 (after 'middle')
-      // 85 > 80 -> True.
-      // Trimmed: "This is a very long title that should be truncated intelligently and not in the middle"
-
       expect(result).toBe(
-        'This is a very long title that should be truncated intelligently and not in the middle.'
+        'This is a very long title that should be truncated intelligently and not in the middle...'
       );
     });
 
-    it('does not respect word boundaries when max is small (<= 80)', () => {
+    it('respects word boundaries even when max is small', () => {
       const title = 'This is a very long title that should be truncated';
       const max = 30;
-      // Candidate: slice(0, 29) -> "This is a very long title tha"
-      // lastSpace: 26.
-      // 26 > 80 -> False.
-      // Returns candidate + '.'
 
       const result = normalizeMetaTitle(title, max);
-      expect(result).toBe('This is a very long title tha.');
+      expect(result).toBe('This is a very long title...');
     });
 
     it('removes trailing punctuation', () => {
-      // If we don't truncate, it should keep it? No, normalizeMetaTitle only cleans up if it truncates?
-      // Wait, truncateAtWordBoundary is called unconditionally?
-      // normalizeMetaTitle calls truncateAtWordBoundary(normalized, max)
-
-      // truncateAtWordBoundary:
-      // if (value.length <= max) return value;
-      // ...
-
       // So if not truncated, punctuation is preserved.
       expect(normalizeMetaTitle('Title!')).toBe('Title!');
 
       // If truncated, punctuation is removed.
-      // But only if logic allows.
-
-      // Case 1: Hard truncation (max <= 80)
-      // "This is a long title!" (21 chars)
-      // max = 20.
-      // candidate = "This is a long title" (20 chars? No max-1 = 19)
-      // candidate = "This is a long titl"
-      // replace handles trailing punctuation.
-
-      // const text = 'This is a long title!!!!!';
-      // normalizeMetaTitle(text, 20)
-      // candidate = "This is a long titl"
-      // no punctuation to remove.
-
-      // What if we cut exactly at punctuation?
-      // "This is a long." (15 chars)
-      // max = 14.
-      // candidate = "This is a long" (13 chars)
-      // result "This is a long."
-
-      // What if text: "This is a long!!!!!!! text"
-      // max = 15.
-      // candidate = "This is a long" (14 chars)
-      // result "This is a long."
-
       const textWithPunct = 'This is a long!!!!!!!';
       const result = normalizeMetaTitle(textWithPunct, 15);
-      // candidate "This is a long"
-      expect(result).toBe('This is a long.');
+      expect(result).toBe('This is a...');
     });
   });
 

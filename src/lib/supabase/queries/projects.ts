@@ -14,6 +14,11 @@ type ProjectFilters = {
   featuredOnPortfolio?: boolean;
 };
 
+type Pagination = {
+  page?: number; // 1-based
+  pageSize?: number;
+};
+
 export type DbProjectWithTags = DbProject & {
   tags?: Array<{ tag: DbTag } | null> | null;
   landing_page_slug?: string | null;
@@ -72,6 +77,70 @@ export async function listProjects(
   const { data, error } = await query.returns<DbProjectWithTags[]>();
   if (error) throw error;
   return data;
+}
+
+// Paginado opcional: retorna itens e contagem total para UX.
+export async function listProjectsPaged(
+  filters: ProjectFilters = {},
+  pagination: Pagination = {},
+  supabaseClient?: SupabaseClient
+) {
+  const supabase = supabaseClient ?? (await createClient());
+
+  const selectQuery = filters.tagSlug
+    ? '*, tags:portfolio_project_tags!inner(tag:portfolio_tags!inner(id, slug, label, kind))'
+    : '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))';
+
+  const { page = 1, pageSize } = pagination;
+  const useRange = pageSize && pageSize > 0;
+
+  let query = supabase
+    .from('public_projects_view')
+    .select(selectQuery, { count: 'exact' });
+
+  if (filters.tagSlug) {
+    query = query.eq('tags.tag.slug', filters.tagSlug);
+  }
+
+  if (filters.year) {
+    query = query.eq('year', filters.year);
+  }
+
+  if (filters.search) {
+    query = query.or(
+      `title.ilike.%${filters.search}%,client_name.ilike.%${filters.search}%`
+    );
+  }
+
+  if (filters.featuredOnHome) {
+    query = query.eq('featured_on_home', true);
+    query = query.order('featured_home_order', {
+      ascending: true,
+      nullsFirst: false,
+    });
+  } else if (filters.featuredOnPortfolio) {
+    query = query.eq('featured_on_portfolio', true);
+    query = query.order('featured_portfolio_order', {
+      ascending: true,
+      nullsFirst: false,
+    });
+  } else {
+    query = query
+      .order('featured_on_portfolio', { ascending: false, nullsFirst: false })
+      .order('featured_portfolio_order', { ascending: true, nullsFirst: false })
+      .order('year', { ascending: false });
+  }
+
+  if (useRange) {
+    const from = (page - 1) * pageSize!;
+    const to = from + pageSize! - 1;
+    query = query.range(from, to);
+  }
+
+  const { data, error, count } = await query.returns<DbProjectWithTags[]>();
+  if (error) throw error;
+
+  return { data, count: count ?? data.length };
 }
 
 export async function getProject(id: string) {
