@@ -1,0 +1,890 @@
+﻿2026-03-03T07:27:36.8712112Z ##[debug]Starting: test-and-deploy
+2026-03-03T07:27:36.8748057Z ##[debug]Cleaning runner temp folder: /home/runner/work/_temp
+2026-03-03T07:27:36.8898354Z ##[debug]Starting: Set up job
+2026-03-03T07:27:36.8899932Z Current runner version: '2.331.0'
+2026-03-03T07:27:36.8923010Z ##[group]Runner Image Provisioner
+2026-03-03T07:27:36.8924159Z Hosted Compute Agent
+2026-03-03T07:27:36.8924955Z Version: 20260213.493
+2026-03-03T07:27:36.8925858Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-03-03T07:27:36.8926811Z Build Date: 2026-02-13T00:28:41Z
+2026-03-03T07:27:36.8928273Z Worker ID: ***bc3d1468-a094-4efb-aa1e-6cffc7606ee0***
+2026-03-03T07:27:36.8929301Z Azure Region: northcentralus
+2026-03-03T07:27:36.8930312Z ##[endgroup]
+2026-03-03T07:27:36.8932107Z ##[group]Operating System
+2026-03-03T07:27:36.8933074Z Ubuntu
+2026-03-03T07:27:36.8933772Z 24.04.3
+2026-03-03T07:27:36.8934539Z LTS
+2026-03-03T07:27:36.8935352Z ##[endgroup]
+2026-03-03T07:27:36.8936097Z ##[group]Runner Image
+2026-03-03T07:27:36.8936907Z Image: ubuntu-24.04
+2026-03-03T07:27:36.8938191Z Version: 20260224.36.1
+2026-03-03T07:27:36.8939621Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260224.36/images/ubuntu/Ubuntu2404-Readme.md
+2026-03-03T07:27:36.8941424Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260224.36
+2026-03-03T07:27:36.8942662Z ##[endgroup]
+2026-03-03T07:27:36.8944209Z ##[group]GITHUB_TOKEN Permissions
+2026-03-03T07:27:36.8946394Z Contents: read
+2026-03-03T07:27:36.8947511Z Metadata: read
+2026-03-03T07:27:36.8948423Z ##[endgroup]
+2026-03-03T07:27:36.8951233Z Secret source: Actions
+2026-03-03T07:27:36.8952463Z ##[debug]Primary repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:27:36.8953606Z Prepare workflow directory
+2026-03-03T07:27:36.9029251Z ##[debug]Creating pipeline directory: '/home/runner/work/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:36.9033739Z ##[debug]Creating workspace directory: '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:36.9036989Z ##[debug]Update context data
+2026-03-03T07:27:36.9044292Z ##[debug]Evaluating job-level environment variables
+2026-03-03T07:27:36.9570314Z ##[debug]Evaluating: secrets.NEXT_PUBLIC_SUPABASE_URL
+2026-03-03T07:27:36.9578888Z ##[debug]Evaluating Index:
+2026-03-03T07:27:36.9582901Z ##[debug]..Evaluating secrets:
+2026-03-03T07:27:36.9598157Z ##[debug]..=> Object
+2026-03-03T07:27:36.9611293Z ##[debug]..Evaluating String:
+2026-03-03T07:27:36.9613531Z ##[debug]..=> 'NEXT_PUBLIC_SUPABASE_URL'
+2026-03-03T07:27:36.9621397Z ##[debug]=> '***'
+2026-03-03T07:27:36.9627547Z ##[debug]Result: '***'
+2026-03-03T07:27:36.9643961Z ##[debug]Evaluating: secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY
+2026-03-03T07:27:36.9646337Z ##[debug]Evaluating Index:
+2026-03-03T07:27:36.9648082Z ##[debug]..Evaluating secrets:
+2026-03-03T07:27:36.9649656Z ##[debug]..=> Object
+2026-03-03T07:27:36.9651179Z ##[debug]..Evaluating String:
+2026-03-03T07:27:36.9652714Z ##[debug]..=> 'NEXT_PUBLIC_SUPABASE_ANON_KEY'
+2026-03-03T07:27:36.9658595Z ##[debug]=> '***'
+2026-03-03T07:27:36.9663219Z ##[debug]Result: '***'
+2026-03-03T07:27:36.9665662Z ##[debug]Evaluating: secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY
+2026-03-03T07:27:36.9667596Z ##[debug]Evaluating Index:
+2026-03-03T07:27:36.9669160Z ##[debug]..Evaluating secrets:
+2026-03-03T07:27:36.9670713Z ##[debug]..=> Object
+2026-03-03T07:27:36.9672150Z ##[debug]..Evaluating String:
+2026-03-03T07:27:36.9673663Z ##[debug]..=> 'NEXT_PUBLIC_SUPABASE_ANON_KEY'
+2026-03-03T07:27:36.9678642Z ##[debug]=> '***'
+2026-03-03T07:27:36.9683466Z ##[debug]Result: '***'
+2026-03-03T07:27:36.9685727Z ##[debug]Evaluating: secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY
+2026-03-03T07:27:36.9687721Z ##[debug]Evaluating Index:
+2026-03-03T07:27:36.9689308Z ##[debug]..Evaluating secrets:
+2026-03-03T07:27:36.9690681Z ##[debug]..=> Object
+2026-03-03T07:27:36.9692175Z ##[debug]..Evaluating String:
+2026-03-03T07:27:36.9693634Z ##[debug]..=> 'NEXT_PUBLIC_SUPABASE_ANON_KEY'
+2026-03-03T07:27:36.9698806Z ##[debug]=> '***'
+2026-03-03T07:27:36.9703979Z ##[debug]Result: '***'
+2026-03-03T07:27:36.9706184Z ##[debug]Evaluating: secrets.SUPABASE_SERVICE_ROLE_KEY
+2026-03-03T07:27:36.9708471Z ##[debug]Evaluating Index:
+2026-03-03T07:27:36.9710113Z ##[debug]..Evaluating secrets:
+2026-03-03T07:27:36.9711518Z ##[debug]..=> Object
+2026-03-03T07:27:36.9713049Z ##[debug]..Evaluating String:
+2026-03-03T07:27:36.9714784Z ##[debug]..=> 'SUPABASE_SERVICE_ROLE_KEY'
+2026-03-03T07:27:36.9719834Z ##[debug]=> '***'
+2026-03-03T07:27:36.9724905Z ##[debug]Result: '***'
+2026-03-03T07:27:36.9742886Z ##[debug]Evaluating job container
+2026-03-03T07:27:36.9747506Z ##[debug]Evaluating job service containers
+2026-03-03T07:27:36.9751823Z ##[debug]Evaluating job defaults
+2026-03-03T07:27:36.9792420Z Prepare all required actions
+2026-03-03T07:27:36.9849993Z Getting action download info
+2026-03-03T07:27:37.3409689Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-03-03T07:27:37.3441621Z ##[debug]Copied action archive '/opt/actionarchivecache/actions_checkout/34e114876b0b11c390a56381ad16ebd13914f8d5.tar.gz' to '/home/runner/work/_actions/_temp_8bb8ba3e-2ff2-496e-9a29-77a5bb367e7d/f8b2b96c-85f2-49e5-9b6e-2f72566b96b8.tar.gz'
+2026-03-03T07:27:37.4531475Z ##[debug]Unwrap 'actions-checkout-34e1148' to '/home/runner/work/_actions/actions/checkout/v4'
+2026-03-03T07:27:37.4669984Z ##[debug]Archive '/home/runner/work/_actions/_temp_8bb8ba3e-2ff2-496e-9a29-77a5bb367e7d/f8b2b96c-85f2-49e5-9b6e-2f72566b96b8.tar.gz' has been unzipped into '/home/runner/work/_actions/actions/checkout/v4'.
+2026-03-03T07:27:37.4776424Z Download action repository 'pnpm/action-setup@v4' (SHA:41ff72655975bd51cab0327fa583b6e92b6d3061)
+2026-03-03T07:27:37.8882352Z ##[debug]Download 'https://api.github.com/repos/pnpm/action-setup/tarball/41ff72655975bd51cab0327fa583b6e92b6d3061' to '/home/runner/work/_actions/_temp_c4ce84c1-027a-451b-878f-b1c8f8ae92f6/1792f6f6-3add-4762-ab68-56687f53c614.tar.gz'
+2026-03-03T07:27:37.9479809Z ##[debug]Unwrap 'pnpm-action-setup-41ff726' to '/home/runner/work/_actions/pnpm/action-setup/v4'
+2026-03-03T07:27:37.9594890Z ##[debug]Archive '/home/runner/work/_actions/_temp_c4ce84c1-027a-451b-878f-b1c8f8ae92f6/1792f6f6-3add-4762-ab68-56687f53c614.tar.gz' has been unzipped into '/home/runner/work/_actions/pnpm/action-setup/v4'.
+2026-03-03T07:27:37.9632779Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-03-03T07:27:37.9691424Z ##[debug]Copied action archive '/opt/actionarchivecache/actions_setup-node/49933ea5288caeca8642d1e84afbd3f7d6820020.tar.gz' to '/home/runner/work/_actions/_temp_b89cec57-95b0-434a-b83b-f076e3a3aa38/cc4ffe81-8ea4-43f4-b53e-115599200dc1.tar.gz'
+2026-03-03T07:27:38.0278848Z ##[debug]Unwrap 'actions-setup-node-49933ea' to '/home/runner/work/_actions/actions/setup-node/v4'
+2026-03-03T07:27:38.0550346Z ##[debug]Archive '/home/runner/work/_actions/_temp_b89cec57-95b0-434a-b83b-f076e3a3aa38/cc4ffe81-8ea4-43f4-b53e-115599200dc1.tar.gz' has been unzipped into '/home/runner/work/_actions/actions/setup-node/v4'.
+2026-03-03T07:27:38.0601855Z Download action repository 'google-github-actions/auth@v2' (SHA:c200f3691d83b41bf9bbd8638997a462592937ed)
+2026-03-03T07:27:38.3599945Z ##[debug]Download 'https://api.github.com/repos/google-github-actions/auth/tarball/c200f3691d83b41bf9bbd8638997a462592937ed' to '/home/runner/work/_actions/_temp_3031cc49-0a9d-4079-ba36-a5c7b0dd6df1/b8048e27-9403-4f7a-a332-f97e1f3dc977.tar.gz'
+2026-03-03T07:27:38.3822835Z ##[debug]Unwrap 'google-github-actions-auth-c200f36' to '/home/runner/work/_actions/google-github-actions/auth/v2'
+2026-03-03T07:27:38.3894140Z ##[debug]Archive '/home/runner/work/_actions/_temp_3031cc49-0a9d-4079-ba36-a5c7b0dd6df1/b8048e27-9403-4f7a-a332-f97e1f3dc977.tar.gz' has been unzipped into '/home/runner/work/_actions/google-github-actions/auth/v2'.
+2026-03-03T07:27:38.3935960Z ##[debug]action.yml for action: '/home/runner/work/_actions/actions/checkout/v4/action.yml'.
+2026-03-03T07:27:38.4807108Z ##[debug]action.yml for action: '/home/runner/work/_actions/pnpm/action-setup/v4/action.yml'.
+2026-03-03T07:27:38.4892732Z ##[debug]action.yml for action: '/home/runner/work/_actions/actions/setup-node/v4/action.yml'.
+2026-03-03T07:27:38.5019386Z ##[debug]action.yml for action: '/home/runner/work/_actions/google-github-actions/auth/v2/action.yml'.
+2026-03-03T07:27:38.5257515Z ##[debug]Set step '__actions_checkout' display name to: 'Checkout code'
+2026-03-03T07:27:38.5264056Z ##[debug]Set step '__run' display name to: '🔒 Verify pnpm-lock.yaml exists'
+2026-03-03T07:27:38.5269942Z ##[debug]Set step '__pnpm_action-setup' display name to: 'Setup pnpm'
+2026-03-03T07:27:38.5275015Z ##[debug]Set step '__actions_setup-node' display name to: 'Setup Node.js'
+2026-03-03T07:27:38.5280118Z ##[debug]Set step '__run_2' display name to: 'Install dependencies'
+2026-03-03T07:27:38.5284908Z ##[debug]Set step '__run_3' display name to: 'Validate Supabase env vars'
+2026-03-03T07:27:38.5289700Z ##[debug]Set step '__run_4' display name to: 'Run linter'
+2026-03-03T07:27:38.5294256Z ##[debug]Set step '__run_5' display name to: 'Run type check'
+2026-03-03T07:27:38.5299293Z ##[debug]Set step '__run_6' display name to: 'Validate and Install functions'
+2026-03-03T07:27:38.5304096Z ##[debug]Set step '__run_7' display name to: 'Build Cloud Functions'
+2026-03-03T07:27:38.5309561Z ##[debug]Set step '__run_8' display name to: 'Generate .env.production for deployment'
+2026-03-03T07:27:38.5314728Z ##[debug]Set step '__run_9' display name to: 'Build Next.js application'
+2026-03-03T07:27:38.5319632Z ##[debug]Set step '__run_10' display name to: 'Prepare hosting files'
+2026-03-03T07:27:38.5324539Z ##[debug]Set step '__run_11' display name to: 'Validate Firebase Auth Secret'
+2026-03-03T07:27:38.5329536Z ##[debug]Set step 'auth' display name to: 'Authenticate to Google Cloud'
+2026-03-03T07:27:38.5334569Z ##[debug]Set step 'firebase_project' display name to: 'Resolve Firebase project id'
+2026-03-03T07:27:38.5339578Z ##[debug]Set step '__run_12' display name to: 'Install Firebase CLI'
+2026-03-03T07:27:38.5344459Z ##[debug]Set step '__run_13' display name to: 'Validate Firebase project access'
+2026-03-03T07:27:38.5349927Z ##[debug]Set step '__run_14' display name to: 'Deploy to Firebase'
+2026-03-03T07:27:38.5354632Z ##[debug]Set step '__run_15' display name to: 'Notify success'
+2026-03-03T07:27:38.5359440Z ##[debug]Set step '__run_16' display name to: 'Notify failure'
+2026-03-03T07:27:38.5361384Z Complete job name: test-and-deploy
+2026-03-03T07:27:38.5645740Z ##[debug]Collect running processes for tracking orphan processes.
+2026-03-03T07:27:38.5904759Z ##[debug]Finishing: Set up job
+2026-03-03T07:27:38.6056045Z ##[debug]Evaluating condition for step: 'Checkout code'
+2026-03-03T07:27:38.6082679Z ##[debug]Evaluating: success()
+2026-03-03T07:27:38.6085336Z ##[debug]Evaluating success:
+2026-03-03T07:27:38.6094466Z ##[debug]=> true
+2026-03-03T07:27:38.6098316Z ##[debug]Result: true
+2026-03-03T07:27:38.6115014Z ##[debug]Starting: Checkout code
+2026-03-03T07:27:38.6238122Z ##[debug]Register post job cleanup for action: actions/checkout@v4
+2026-03-03T07:27:38.6344619Z ##[debug]Loading inputs
+2026-03-03T07:27:38.6357211Z ##[debug]Evaluating: github.repository
+2026-03-03T07:27:38.6358998Z ##[debug]Evaluating Index:
+2026-03-03T07:27:38.6360364Z ##[debug]..Evaluating github:
+2026-03-03T07:27:38.6361820Z ##[debug]..=> Object
+2026-03-03T07:27:38.6363074Z ##[debug]..Evaluating String:
+2026-03-03T07:27:38.6364435Z ##[debug]..=> 'repository'
+2026-03-03T07:27:38.6366032Z ##[debug]=> 'danilonovaisv/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:38.6367959Z ##[debug]Result: 'danilonovaisv/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:38.6376115Z ##[debug]Evaluating: github.token
+2026-03-03T07:27:38.6377695Z ##[debug]Evaluating Index:
+2026-03-03T07:27:38.6379036Z ##[debug]..Evaluating github:
+2026-03-03T07:27:38.6380421Z ##[debug]..=> Object
+2026-03-03T07:27:38.6381694Z ##[debug]..Evaluating String:
+2026-03-03T07:27:38.6383028Z ##[debug]..=> 'token'
+2026-03-03T07:27:38.6384734Z ##[debug]=> '***'
+2026-03-03T07:27:38.6386243Z ##[debug]Result: '***'
+2026-03-03T07:27:38.6433473Z ##[debug]Loading env
+2026-03-03T07:27:38.6541152Z ##[group]Run actions/checkout@v4
+2026-03-03T07:27:38.6542747Z with:
+2026-03-03T07:27:38.6544059Z   repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:27:38.6546034Z   token: ***
+2026-03-03T07:27:38.6547150Z   ssh-strict: true
+2026-03-03T07:27:38.6548580Z   ssh-user: git
+2026-03-03T07:27:38.6549828Z   persist-credentials: true
+2026-03-03T07:27:38.6551097Z   clean: true
+2026-03-03T07:27:38.6552285Z   sparse-checkout-cone-mode: true
+2026-03-03T07:27:38.6553631Z   fetch-depth: 1
+2026-03-03T07:27:38.6554843Z   fetch-tags: false
+2026-03-03T07:27:38.6556023Z   show-progress: true
+2026-03-03T07:27:38.6557199Z   lfs: false
+2026-03-03T07:27:38.6558706Z   submodules: false
+2026-03-03T07:27:38.6559909Z   set-safe-directory: true
+2026-03-03T07:27:38.6561532Z env:
+2026-03-03T07:27:38.6562650Z   NODE_VERSION: 20
+2026-03-03T07:27:38.6563821Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:27:38.6565577Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:27:38.6571020Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:27:38.6576417Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:27:38.6582036Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:27:38.6587847Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:27:38.6589199Z ##[endgroup]
+2026-03-03T07:27:38.7672909Z ##[debug]GITHUB_WORKSPACE = '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:38.7676961Z ##[debug]qualified repository = 'danilonovaisv/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:38.7681132Z ##[debug]ref = 'refs/heads/main'
+2026-03-03T07:27:38.7683556Z ##[debug]commit = '9c58568f410d8d7c9bc49d4f8e232e138feb7b7d'
+2026-03-03T07:27:38.7685797Z ##[debug]clean = true
+2026-03-03T07:27:38.7687975Z ##[debug]filter = undefined
+2026-03-03T07:27:38.7689952Z ##[debug]fetch depth = 1
+2026-03-03T07:27:38.7691940Z ##[debug]fetch tags = false
+2026-03-03T07:27:38.7693905Z ##[debug]show progress = true
+2026-03-03T07:27:38.7696135Z ##[debug]lfs = false
+2026-03-03T07:27:38.7698460Z ##[debug]submodules = false
+2026-03-03T07:27:38.7700518Z ##[debug]recursive submodules = false
+2026-03-03T07:27:38.7702624Z ##[debug]GitHub Host URL = 
+2026-03-03T07:27:38.7705831Z ::add-matcher::/home/runner/work/_actions/actions/checkout/v4/dist/problem-matcher.json
+2026-03-03T07:27:38.7795557Z ##[debug]Added matchers: 'checkout-git'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:27:38.7802893Z Syncing repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:27:38.7806398Z ::group::Getting Git version info
+2026-03-03T07:27:38.7808781Z ##[group]Getting Git version info
+2026-03-03T07:27:38.7811036Z Working directory is '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:38.7813925Z ##[debug]Getting git version
+2026-03-03T07:27:38.7815248Z [command]/usr/bin/git version
+2026-03-03T07:27:38.7870378Z git version 2.53.0
+2026-03-03T07:27:38.7894412Z ##[debug]0
+2026-03-03T07:27:38.7897248Z ##[debug]git version 2.53.0
+2026-03-03T07:27:38.7899037Z ##[debug]
+2026-03-03T07:27:38.7901472Z ##[debug]Set git useragent to: git/2.53.0 (github-actions-checkout)
+2026-03-03T07:27:38.7903989Z ::endgroup::
+2026-03-03T07:27:38.7905470Z ##[endgroup]
+2026-03-03T07:27:38.7912490Z ::add-mask::***
+2026-03-03T07:27:38.7922995Z Temporarily overriding HOME='/home/runner/work/_temp/596c74f0-c5a5-414c-b762-52e77af3906f' before making global git config changes
+2026-03-03T07:27:38.7926104Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-03T07:27:38.7929875Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:27:38.7970067Z ##[debug]0
+2026-03-03T07:27:38.7971903Z ##[debug]
+2026-03-03T07:27:38.7975469Z Deleting the contents of '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:27:38.7979710Z ::group::Initializing the repository
+2026-03-03T07:27:38.7981224Z ##[group]Initializing the repository
+2026-03-03T07:27:38.7984384Z [command]/usr/bin/git init /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:27:38.8112354Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-03-03T07:27:38.8116302Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-03-03T07:27:38.8119570Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-03-03T07:27:38.8121553Z hint: call:
+2026-03-03T07:27:38.8122602Z hint:
+2026-03-03T07:27:38.8124666Z hint: 	git config --global init.defaultBranch <name>
+2026-03-03T07:27:38.8126266Z hint:
+2026-03-03T07:27:38.8127989Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-03-03T07:27:38.8130443Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-03-03T07:27:38.8132584Z hint:
+2026-03-03T07:27:38.8133701Z hint: 	git branch -m <name>
+2026-03-03T07:27:38.8134939Z hint:
+2026-03-03T07:27:38.8136646Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-03-03T07:27:38.8139693Z Initialized empty Git repository in /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.git/
+2026-03-03T07:27:38.8142919Z ##[debug]0
+2026-03-03T07:27:38.8145609Z ##[debug]Initialized empty Git repository in /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.git/
+2026-03-03T07:27:38.8148238Z ##[debug]
+2026-03-03T07:27:38.8150001Z [command]/usr/bin/git remote add origin https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:27:38.8172909Z ##[debug]0
+2026-03-03T07:27:38.8174665Z ##[debug]
+2026-03-03T07:27:38.8176596Z ::endgroup::
+2026-03-03T07:27:38.8178552Z ##[endgroup]
+2026-03-03T07:27:38.8180531Z ::group::Disabling automatic garbage collection
+2026-03-03T07:27:38.8182118Z ##[group]Disabling automatic garbage collection
+2026-03-03T07:27:38.8183996Z [command]/usr/bin/git config --local gc.auto 0
+2026-03-03T07:27:38.8214140Z ##[debug]0
+2026-03-03T07:27:38.8215967Z ##[debug]
+2026-03-03T07:27:38.8217963Z ::endgroup::
+2026-03-03T07:27:38.8219076Z ##[endgroup]
+2026-03-03T07:27:38.8220859Z ::group::Setting up auth
+2026-03-03T07:27:38.8222768Z ##[group]Setting up auth
+2026-03-03T07:27:38.8224558Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-03T07:27:38.8252073Z ##[debug]1
+2026-03-03T07:27:38.8253906Z ##[debug]
+2026-03-03T07:27:38.8259966Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-03T07:27:38.8686357Z ##[debug]0
+2026-03-03T07:27:38.8689705Z ##[debug]
+2026-03-03T07:27:38.8693302Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-03T07:27:38.8722728Z ##[debug]1
+2026-03-03T07:27:38.8724640Z ##[debug]
+2026-03-03T07:27:38.8728959Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-03T07:27:38.8975134Z ##[debug]0
+2026-03-03T07:27:38.8978536Z ##[debug]
+2026-03-03T07:27:38.8982915Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-03T07:27:38.9030136Z ##[debug]1
+2026-03-03T07:27:38.9033321Z ##[debug]
+2026-03-03T07:27:38.9037936Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-03T07:27:38.9315254Z ##[debug]0
+2026-03-03T07:27:38.9318799Z ##[debug]
+2026-03-03T07:27:38.9323170Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-03-03T07:27:38.9357785Z ##[debug]0
+2026-03-03T07:27:38.9361015Z ##[debug]
+2026-03-03T07:27:38.9367643Z ::endgroup::
+2026-03-03T07:27:38.9369567Z ##[endgroup]
+2026-03-03T07:27:38.9372946Z ::group::Fetching the repository
+2026-03-03T07:27:38.9375295Z ##[group]Fetching the repository
+2026-03-03T07:27:38.9381301Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9c58568f410d8d7c9bc49d4f8e232e138feb7b7d:refs/remotes/origin/main
+2026-03-03T07:28:05.7753345Z From https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:28:05.7754574Z  * [new ref]           9c58568f410d8d7c9bc49d4f8e232e138feb7b7d -> origin/main
+2026-03-03T07:28:05.7789486Z ##[debug]0
+2026-03-03T07:28:05.7790519Z ##[debug]
+2026-03-03T07:28:05.7791633Z ::endgroup::
+2026-03-03T07:28:05.7792167Z ##[endgroup]
+2026-03-03T07:28:05.7793095Z ::group::Determining the checkout info
+2026-03-03T07:28:05.7793584Z ##[group]Determining the checkout info
+2026-03-03T07:28:05.7794258Z ::endgroup::
+2026-03-03T07:28:05.7794575Z ##[endgroup]
+2026-03-03T07:28:05.7801048Z [command]/usr/bin/git sparse-checkout disable
+2026-03-03T07:28:05.7845186Z ##[debug]0
+2026-03-03T07:28:05.7846178Z ##[debug]
+2026-03-03T07:28:05.7851511Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-03-03T07:28:05.7883479Z ##[debug]0
+2026-03-03T07:28:05.7884499Z ##[debug]
+2026-03-03T07:28:05.7885553Z ::group::Checking out the ref
+2026-03-03T07:28:05.7886209Z ##[group]Checking out the ref
+2026-03-03T07:28:05.7890546Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-03-03T07:28:06.9195476Z Updating files:   9% (1411/15228)
+2026-03-03T07:28:06.9773449Z Updating files:  10% (1523/15228)
+2026-03-03T07:28:07.1051717Z Updating files:  11% (1676/15228)
+2026-03-03T07:28:07.2647599Z Updating files:  12% (1828/15228)
+2026-03-03T07:28:07.4854952Z Updating files:  13% (1980/15228)
+2026-03-03T07:28:07.6236084Z Updating files:  14% (2132/15228)
+2026-03-03T07:28:07.7661137Z Updating files:  15% (2285/15228)
+2026-03-03T07:28:07.8483769Z Updating files:  16% (2437/15228)
+2026-03-03T07:28:07.9778691Z Updating files:  16% (2468/15228)
+2026-03-03T07:28:08.0390510Z Updating files:  17% (2589/15228)
+2026-03-03T07:28:08.1867498Z Updating files:  18% (2742/15228)
+2026-03-03T07:28:08.3139873Z Updating files:  19% (2894/15228)
+2026-03-03T07:28:08.3705234Z Updating files:  20% (3046/15228)
+2026-03-03T07:28:08.5373620Z Updating files:  21% (3198/15228)
+2026-03-03T07:28:08.7599878Z Updating files:  22% (3351/15228)
+2026-03-03T07:28:08.8361980Z Updating files:  23% (3503/15228)
+2026-03-03T07:28:08.8621986Z Updating files:  23% (3628/15228)
+2026-03-03T07:28:08.9847900Z Updating files:  24% (3655/15228)
+2026-03-03T07:28:09.1241828Z Updating files:  25% (3807/15228)
+2026-03-03T07:28:09.2325315Z Updating files:  26% (3960/15228)
+2026-03-03T07:28:09.2969657Z Updating files:  27% (4112/15228)
+2026-03-03T07:28:09.3089830Z Updating files:  28% (4264/15228)
+2026-03-03T07:28:09.3204464Z Updating files:  29% (4417/15228)
+2026-03-03T07:28:09.3324783Z Updating files:  30% (4569/15228)
+2026-03-03T07:28:09.3441938Z Updating files:  31% (4721/15228)
+2026-03-03T07:28:09.3545511Z Updating files:  32% (4873/15228)
+2026-03-03T07:28:09.3648253Z Updating files:  33% (5026/15228)
+2026-03-03T07:28:09.3749804Z Updating files:  34% (5178/15228)
+2026-03-03T07:28:09.3859049Z Updating files:  35% (5330/15228)
+2026-03-03T07:28:09.3966731Z Updating files:  36% (5483/15228)
+2026-03-03T07:28:09.4072041Z Updating files:  37% (5635/15228)
+2026-03-03T07:28:09.4175711Z Updating files:  38% (5787/15228)
+2026-03-03T07:28:09.4281188Z Updating files:  39% (5939/15228)
+2026-03-03T07:28:09.4385932Z Updating files:  40% (6092/15228)
+2026-03-03T07:28:09.4489365Z Updating files:  41% (6244/15228)
+2026-03-03T07:28:09.4592085Z Updating files:  42% (6396/15228)
+2026-03-03T07:28:09.4693902Z Updating files:  43% (6549/15228)
+2026-03-03T07:28:09.4795504Z Updating files:  44% (6701/15228)
+2026-03-03T07:28:09.4896363Z Updating files:  45% (6853/15228)
+2026-03-03T07:28:09.4999616Z Updating files:  46% (7005/15228)
+2026-03-03T07:28:09.5102041Z Updating files:  47% (7158/15228)
+2026-03-03T07:28:09.5204692Z Updating files:  48% (7310/15228)
+2026-03-03T07:28:09.5307256Z Updating files:  49% (7462/15228)
+2026-03-03T07:28:09.5410738Z Updating files:  50% (7614/15228)
+2026-03-03T07:28:09.5722840Z Updating files:  51% (7767/15228)
+2026-03-03T07:28:09.7904661Z Updating files:  52% (7919/15228)
+2026-03-03T07:28:09.8429274Z Updating files:  53% (8071/15228)
+2026-03-03T07:28:10.3586166Z Updating files:  53% (8131/15228)
+2026-03-03T07:28:10.4933147Z Updating files:  54% (8224/15228)
+2026-03-03T07:28:10.7229298Z Updating files:  55% (8376/15228)
+2026-03-03T07:28:10.7695461Z Updating files:  56% (8528/15228)
+2026-03-03T07:28:10.8324582Z Updating files:  57% (8680/15228)
+2026-03-03T07:28:10.8362465Z Updating files:  58% (8833/15228)
+2026-03-03T07:28:10.9235853Z Updating files:  58% (8844/15228)
+2026-03-03T07:28:10.9781523Z Updating files:  59% (8985/15228)
+2026-03-03T07:28:11.0257974Z Updating files:  60% (9137/15228)
+2026-03-03T07:28:11.1425708Z Updating files:  61% (9290/15228)
+2026-03-03T07:28:11.2215042Z Updating files:  62% (9442/15228)
+2026-03-03T07:28:11.2494453Z Updating files:  63% (9594/15228)
+2026-03-03T07:28:11.2708497Z Updating files:  64% (9746/15228)
+2026-03-03T07:28:11.2805748Z Updating files:  65% (9899/15228)
+2026-03-03T07:28:11.2928451Z Updating files:  66% (10051/15228)
+2026-03-03T07:28:11.3033279Z Updating files:  67% (10203/15228)
+2026-03-03T07:28:11.3153485Z Updating files:  68% (10356/15228)
+2026-03-03T07:28:11.3259463Z Updating files:  69% (10508/15228)
+2026-03-03T07:28:11.3918765Z Updating files:  70% (10660/15228)
+2026-03-03T07:28:11.5550331Z Updating files:  71% (10812/15228)
+2026-03-03T07:28:11.6540300Z Updating files:  72% (10965/15228)
+2026-03-03T07:28:11.8268535Z Updating files:  73% (11117/15228)
+2026-03-03T07:28:11.8580209Z Updating files:  74% (11269/15228)
+2026-03-03T07:28:12.0707874Z Updating files:  74% (11300/15228)
+2026-03-03T07:28:12.2512362Z Updating files:  75% (11421/15228)
+2026-03-03T07:28:12.3870174Z Updating files:  76% (11574/15228)
+2026-03-03T07:28:12.5269003Z Updating files:  77% (11726/15228)
+2026-03-03T07:28:12.6255743Z Updating files:  78% (11878/15228)
+2026-03-03T07:28:12.6749903Z Updating files:  79% (12031/15228)
+2026-03-03T07:28:12.8365493Z Updating files:  80% (12183/15228)
+2026-03-03T07:28:12.8533852Z Updating files:  80% (12286/15228)
+2026-03-03T07:28:12.8643008Z Updating files:  81% (12335/15228)
+2026-03-03T07:28:12.8752125Z Updating files:  82% (12487/15228)
+2026-03-03T07:28:12.8873046Z Updating files:  83% (12640/15228)
+2026-03-03T07:28:12.8985837Z Updating files:  84% (12792/15228)
+2026-03-03T07:28:12.9094627Z Updating files:  85% (12944/15228)
+2026-03-03T07:28:12.9206307Z Updating files:  86% (13097/15228)
+2026-03-03T07:28:12.9331875Z Updating files:  87% (13249/15228)
+2026-03-03T07:28:12.9449612Z Updating files:  88% (13401/15228)
+2026-03-03T07:28:12.9559805Z Updating files:  89% (13553/15228)
+2026-03-03T07:28:13.1599204Z Updating files:  90% (13706/15228)
+2026-03-03T07:28:13.2394107Z Updating files:  91% (13858/15228)
+2026-03-03T07:28:13.2440539Z Updating files:  92% (14010/15228)
+2026-03-03T07:28:13.2583655Z Updating files:  93% (14163/15228)
+2026-03-03T07:28:13.2765516Z Updating files:  94% (14315/15228)
+2026-03-03T07:28:13.2859334Z Updating files:  95% (14467/15228)
+2026-03-03T07:28:13.2935325Z Updating files:  96% (14619/15228)
+2026-03-03T07:28:13.3011788Z Updating files:  97% (14772/15228)
+2026-03-03T07:28:13.8294238Z Updating files:  98% (14924/15228)
+2026-03-03T07:28:13.8465346Z Updating files:  99% (15076/15228)
+2026-03-03T07:28:13.8769969Z Updating files:  99% (15078/15228)
+2026-03-03T07:28:13.8770614Z Updating files: 100% (15228/15228)
+2026-03-03T07:28:13.8771218Z Updating files: 100% (15228/15228), done.
+2026-03-03T07:28:13.9744679Z Switched to a new branch 'main'
+2026-03-03T07:28:13.9746948Z branch 'main' set up to track 'origin/main'.
+2026-03-03T07:28:14.0115230Z ##[debug]0
+2026-03-03T07:28:14.0116196Z ##[debug]branch 'main' set up to track 'origin/main'.
+2026-03-03T07:28:14.0116913Z ##[debug]
+2026-03-03T07:28:14.0117989Z ::endgroup::
+2026-03-03T07:28:14.0118486Z ##[endgroup]
+2026-03-03T07:28:14.0161827Z ##[debug]0
+2026-03-03T07:28:14.0162634Z ##[debug]commit 9c58568f410d8d7c9bc49d4f8e232e138feb7b7d
+2026-03-03T07:28:14.0163434Z ##[debug]Author: danilonovaisv <danilo_novais@yahoo.com.br>
+2026-03-03T07:28:14.0163869Z ##[debug]Date:   Tue Mar 3 04:25:03 2026 -0300
+2026-03-03T07:28:14.0164199Z ##[debug]
+2026-03-03T07:28:14.0164656Z ##[debug]    feat: Update audit reports and fix plans, refactor test scripts, and add deployment documentation.
+2026-03-03T07:28:14.0165174Z ##[debug]
+2026-03-03T07:28:14.0166351Z [command]/usr/bin/git log -1 --format=%H
+2026-03-03T07:28:14.0194202Z 9c58568f410d8d7c9bc49d4f8e232e138feb7b7d
+2026-03-03T07:28:14.0199878Z ##[debug]0
+2026-03-03T07:28:14.0200558Z ##[debug]9c58568f410d8d7c9bc49d4f8e232e138feb7b7d
+2026-03-03T07:28:14.0200918Z ##[debug]
+2026-03-03T07:28:14.0206806Z ##[debug]Unsetting HOME override
+2026-03-03T07:28:14.0216614Z ::remove-matcher owner=checkout-git::
+2026-03-03T07:28:14.0230358Z ##[debug]Removed matchers: 'checkout-git'
+2026-03-03T07:28:14.0282616Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:14.0318550Z ##[debug]Save intra-action state isPost = true
+2026-03-03T07:28:14.0319224Z ##[debug]Save intra-action state setSafeDirectory = true
+2026-03-03T07:28:14.0319910Z ##[debug]Save intra-action state repositoryPath = /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:28:14.0324570Z ##[debug]Set output commit = 9c58568f410d8d7c9bc49d4f8e232e138feb7b7d
+2026-03-03T07:28:14.0325121Z ##[debug]Set output ref = refs/heads/main
+2026-03-03T07:28:14.0331925Z ##[debug]Finishing: Checkout code
+2026-03-03T07:28:14.0345901Z ##[debug]Evaluating condition for step: '🔒 Verify pnpm-lock.yaml exists'
+2026-03-03T07:28:14.0350777Z ##[debug]Evaluating: success()
+2026-03-03T07:28:14.0351267Z ##[debug]Evaluating success:
+2026-03-03T07:28:14.0351892Z ##[debug]=> true
+2026-03-03T07:28:14.0352448Z ##[debug]Result: true
+2026-03-03T07:28:14.0353506Z ##[debug]Starting: 🔒 Verify pnpm-lock.yaml exists
+2026-03-03T07:28:14.0366648Z ##[debug]Loading inputs
+2026-03-03T07:28:14.0371360Z ##[debug]Loading env
+2026-03-03T07:28:14.0390310Z ##[group]Run if [ ! -f "pnpm-lock.yaml" ]; then
+2026-03-03T07:28:14.0390832Z [36;1mif [ ! -f "pnpm-lock.yaml" ]; then[0m
+2026-03-03T07:28:14.0391321Z [36;1m  echo "❌ FATAL: pnpm-lock.yaml não encontrado no repositório!"[0m
+2026-03-03T07:28:14.0391774Z [36;1m  echo ""[0m
+2026-03-03T07:28:14.0392055Z [36;1m  echo "Para corrigir:"[0m
+2026-03-03T07:28:14.0392409Z [36;1m  echo "  1) Rode localmente: pnpm install"[0m
+2026-03-03T07:28:14.0393043Z [36;1m  echo "  2) Commit o arquivo: git add pnpm-lock.yaml && git commit -m 'chore: add pnpm lockfile'"[0m
+2026-03-03T07:28:14.0393594Z [36;1m  echo "  3) Push para o repositório"[0m
+2026-03-03T07:28:14.0393922Z [36;1m  echo ""[0m
+2026-03-03T07:28:14.0394319Z [36;1m  echo "Nunca use --no-frozen-lockfile em CI — isso viola determinismo."[0m
+2026-03-03T07:28:14.0394754Z [36;1m  exit 1[0m
+2026-03-03T07:28:14.0394996Z [36;1mfi[0m
+2026-03-03T07:28:14.0395490Z [36;1mecho "✅ pnpm-lock.yaml encontrado ($(wc -l < pnpm-lock.yaml) linhas, $(du -sh pnpm-lock.yaml | cut -f1))"[0m
+2026-03-03T07:28:14.0452116Z shell: /usr/bin/bash -e ***0***
+2026-03-03T07:28:14.0452485Z env:
+2026-03-03T07:28:14.0452728Z   NODE_VERSION: 20
+2026-03-03T07:28:14.0453006Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:14.0453448Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:14.0454889Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:14.0456339Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:14.0458133Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:14.0459664Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:14.0459965Z ##[endgroup]
+2026-03-03T07:28:14.0538473Z ##[debug]/usr/bin/bash -e /home/runner/work/_temp/54d80141-59fe-4ed6-ba64-acb920019865.sh
+2026-03-03T07:28:14.0614321Z ✅ pnpm-lock.yaml encontrado (21650 linhas, 732K)
+2026-03-03T07:28:14.0624710Z ##[debug]Finishing: 🔒 Verify pnpm-lock.yaml exists
+2026-03-03T07:28:14.0633877Z ##[debug]Evaluating condition for step: 'Setup pnpm'
+2026-03-03T07:28:14.0635918Z ##[debug]Evaluating: success()
+2026-03-03T07:28:14.0636600Z ##[debug]Evaluating success:
+2026-03-03T07:28:14.0637128Z ##[debug]=> true
+2026-03-03T07:28:14.0637941Z ##[debug]Result: true
+2026-03-03T07:28:14.0638690Z ##[debug]Starting: Setup pnpm
+2026-03-03T07:28:14.0658974Z ##[debug]Register post job cleanup for action: pnpm/action-setup@v4
+2026-03-03T07:28:14.0672563Z ##[debug]Loading inputs
+2026-03-03T07:28:14.0674823Z ##[debug]Evaluating: env.PNPM_VERSION
+2026-03-03T07:28:14.0675222Z ##[debug]Evaluating Index:
+2026-03-03T07:28:14.0675542Z ##[debug]..Evaluating env:
+2026-03-03T07:28:14.0675903Z ##[debug]..=> Object
+2026-03-03T07:28:14.0676220Z ##[debug]..Evaluating String:
+2026-03-03T07:28:14.0676554Z ##[debug]..=> 'PNPM_VERSION'
+2026-03-03T07:28:14.0680198Z ##[debug]=> '10.30.3'
+2026-03-03T07:28:14.0680560Z ##[debug]Result: '10.30.3'
+2026-03-03T07:28:14.0685162Z ##[debug]Loading env
+2026-03-03T07:28:14.0690904Z ##[group]Run pnpm/action-setup@v4
+2026-03-03T07:28:14.0691214Z with:
+2026-03-03T07:28:14.0691449Z   version: 10.30.3
+2026-03-03T07:28:14.0691714Z   dest: ~/setup-pnpm
+2026-03-03T07:28:14.0691978Z   run_install: null
+2026-03-03T07:28:14.0692249Z   package_json_file: package.json
+2026-03-03T07:28:14.0692543Z   standalone: false
+2026-03-03T07:28:14.0692791Z env:
+2026-03-03T07:28:14.0693027Z   NODE_VERSION: 20
+2026-03-03T07:28:14.0693275Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:14.0693718Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:14.0695141Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:14.0696571Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:14.0698240Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:14.0699753Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:14.0700057Z ##[endgroup]
+2026-03-03T07:28:14.1273730Z ::group::Running self-installer...
+2026-03-03T07:28:14.1274202Z ##[group]Running self-installer...
+2026-03-03T07:28:14.6745074Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-03-03T07:28:14.6836357Z Packages: +1
+2026-03-03T07:28:14.6836856Z +
+2026-03-03T07:28:15.1122269Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-03-03T07:28:15.1394215Z 
+2026-03-03T07:28:15.1394727Z dependencies:
+2026-03-03T07:28:15.1395212Z + pnpm 10.30.3
+2026-03-03T07:28:15.1395468Z 
+2026-03-03T07:28:15.1425499Z Done in 838ms
+2026-03-03T07:28:15.1600260Z ::endgroup::
+2026-03-03T07:28:15.1600591Z ##[endgroup]
+2026-03-03T07:28:15.1603970Z Installation Completed!
+2026-03-03T07:28:15.1659375Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:15.1663516Z ##[debug]PNPM_HOME='/home/runner/setup-pnpm/node_modules/.bin'
+2026-03-03T07:28:15.1665131Z ##[debug]Save intra-action state is_post = true
+2026-03-03T07:28:15.1665810Z ##[debug]Set output dest = /home/runner/setup-pnpm
+2026-03-03T07:28:15.1666384Z ##[debug]Set output bin_dest = /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T07:28:15.1667192Z ##[debug]Finishing: Setup pnpm
+2026-03-03T07:28:15.1675919Z ##[debug]Evaluating condition for step: 'Setup Node.js'
+2026-03-03T07:28:15.1678287Z ##[debug]Evaluating: success()
+2026-03-03T07:28:15.1678807Z ##[debug]Evaluating success:
+2026-03-03T07:28:15.1679323Z ##[debug]=> true
+2026-03-03T07:28:15.1679795Z ##[debug]Result: true
+2026-03-03T07:28:15.1680504Z ##[debug]Starting: Setup Node.js
+2026-03-03T07:28:15.1715562Z ##[debug]Register post job cleanup for action: actions/setup-node@v4
+2026-03-03T07:28:15.1728266Z ##[debug]Loading inputs
+2026-03-03T07:28:15.1730052Z ##[debug]Evaluating: env.NODE_VERSION
+2026-03-03T07:28:15.1730412Z ##[debug]Evaluating Index:
+2026-03-03T07:28:15.1730731Z ##[debug]..Evaluating env:
+2026-03-03T07:28:15.1731068Z ##[debug]..=> Object
+2026-03-03T07:28:15.1731394Z ##[debug]..Evaluating String:
+2026-03-03T07:28:15.1731708Z ##[debug]..=> 'NODE_VERSION'
+2026-03-03T07:28:15.1732176Z ##[debug]=> '20'
+2026-03-03T07:28:15.1732445Z ##[debug]Result: '20'
+2026-03-03T07:28:15.1745178Z ##[debug]Evaluating: (((github.server_url == 'https://github.com') && github.token) || '')
+2026-03-03T07:28:15.1745859Z ##[debug]Evaluating Or:
+2026-03-03T07:28:15.1748669Z ##[debug]..Evaluating And:
+2026-03-03T07:28:15.1751181Z ##[debug]....Evaluating Equal:
+2026-03-03T07:28:15.1752396Z ##[debug]......Evaluating Index:
+2026-03-03T07:28:15.1752729Z ##[debug]........Evaluating github:
+2026-03-03T07:28:15.1753120Z ##[debug]........=> Object
+2026-03-03T07:28:15.1753452Z ##[debug]........Evaluating String:
+2026-03-03T07:28:15.1753791Z ##[debug]........=> 'server_url'
+2026-03-03T07:28:15.1754193Z ##[debug]......=> 'https://github.com'
+2026-03-03T07:28:15.1754587Z ##[debug]......Evaluating String:
+2026-03-03T07:28:15.1776967Z ##[debug]......=> 'https://github.com'
+2026-03-03T07:28:15.1781250Z ##[debug]....=> true
+2026-03-03T07:28:15.1781826Z ##[debug]....Evaluating Index:
+2026-03-03T07:28:15.1782160Z ##[debug]......Evaluating github:
+2026-03-03T07:28:15.1782695Z ##[debug]......=> Object
+2026-03-03T07:28:15.1783013Z ##[debug]......Evaluating String:
+2026-03-03T07:28:15.1783376Z ##[debug]......=> 'token'
+2026-03-03T07:28:15.1783944Z ##[debug]....=> '***'
+2026-03-03T07:28:15.1784375Z ##[debug]..=> '***'
+2026-03-03T07:28:15.1785037Z ##[debug]=> '***'
+2026-03-03T07:28:15.1790623Z ##[debug]Expanded: ((('https://github.com' == 'https://github.com') && '***') || '')
+2026-03-03T07:28:15.1791247Z ##[debug]Result: '***'
+2026-03-03T07:28:15.1793873Z ##[debug]Loading env
+2026-03-03T07:28:15.1799447Z ##[group]Run actions/setup-node@v4
+2026-03-03T07:28:15.1799765Z with:
+2026-03-03T07:28:15.1800002Z   node-version: 20
+2026-03-03T07:28:15.1800249Z   cache: pnpm
+2026-03-03T07:28:15.1800521Z   cache-dependency-path: pnpm-lock.yaml
+2026-03-03T07:28:15.1800867Z   always-auth: false
+2026-03-03T07:28:15.1801135Z   check-latest: false
+2026-03-03T07:28:15.1801533Z   token: ***
+2026-03-03T07:28:15.1801777Z env:
+2026-03-03T07:28:15.1802003Z   NODE_VERSION: 20
+2026-03-03T07:28:15.1802265Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:15.1802679Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:15.1804101Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:15.1805523Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:15.1806990Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:15.1808809Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:15.1809188Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T07:28:15.1809547Z ##[endgroup]
+2026-03-03T07:28:15.3632705Z ##[debug]isExplicit: 
+2026-03-03T07:28:15.3634061Z ##[debug]explicit? false
+2026-03-03T07:28:15.3649812Z ##[debug]isExplicit: 20.20.0
+2026-03-03T07:28:15.3650683Z ##[debug]explicit? true
+2026-03-03T07:28:15.3663470Z ##[debug]isExplicit: 22.22.0
+2026-03-03T07:28:15.3664183Z ##[debug]explicit? true
+2026-03-03T07:28:15.3675298Z ##[debug]isExplicit: 24.13.1
+2026-03-03T07:28:15.3676087Z ##[debug]explicit? true
+2026-03-03T07:28:15.3676977Z ##[debug]evaluating 3 versions
+2026-03-03T07:28:15.3701838Z ##[debug]matched: 20.20.0
+2026-03-03T07:28:15.3703421Z ##[debug]checking cache: /opt/hostedtoolcache/node/20.20.0/x64
+2026-03-03T07:28:15.3704563Z ##[debug]Found tool in cache node 20.20.0 x64
+2026-03-03T07:28:15.3705268Z Found in cache @ /opt/hostedtoolcache/node/20.20.0/x64
+2026-03-03T07:28:15.3711228Z ::group::Environment details
+2026-03-03T07:28:15.3711821Z ##[group]Environment details
+2026-03-03T07:28:15.7686641Z node: v20.20.0
+2026-03-03T07:28:15.7687178Z npm: 10.8.2
+2026-03-03T07:28:15.7687813Z yarn: 1.22.22
+2026-03-03T07:28:15.7689645Z ::endgroup::
+2026-03-03T07:28:15.7690186Z ##[endgroup]
+2026-03-03T07:28:15.7717171Z [command]/home/runner/setup-pnpm/node_modules/.bin/pnpm store path --silent
+2026-03-03T07:28:16.1628220Z /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10
+2026-03-03T07:28:16.1709956Z ##[debug]pnpm's cache folder "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10" configured for the root directory
+2026-03-03T07:28:16.1713978Z ##[debug]followSymbolicLinks 'true'
+2026-03-03T07:28:16.1742109Z ##[debug]followSymbolicLinks 'true'
+2026-03-03T07:28:16.1743065Z ##[debug]implicitDescendants 'true'
+2026-03-03T07:28:16.1743776Z ##[debug]matchDirectories 'true'
+2026-03-03T07:28:16.1744684Z ##[debug]omitBrokenSymbolicLinks 'true'
+2026-03-03T07:28:16.1745247Z ##[debug]excludeHiddenFiles 'false'
+2026-03-03T07:28:16.1750006Z ##[debug]Search path '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/pnpm-lock.yaml'
+2026-03-03T07:28:16.1758276Z ##[debug]/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/pnpm-lock.yaml
+2026-03-03T07:28:16.1825602Z ##[debug]Found 1 files to hash.
+2026-03-03T07:28:16.1826873Z ##[debug]primary key is node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c
+2026-03-03T07:28:16.1828875Z ##[debug]Cache service version: v2
+2026-03-03T07:28:16.1831548Z ##[debug]Resolved Keys:
+2026-03-03T07:28:16.1832685Z ##[debug]["node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c"]
+2026-03-03T07:28:16.1836154Z ##[debug]Checking zstd --quiet --version
+2026-03-03T07:28:16.1924963Z ##[debug]1.5.7
+2026-03-03T07:28:16.1927618Z ##[debug]zstd version: 1.5.7
+2026-03-03T07:28:16.1937818Z ##[debug][Request] GetCacheEntryDownloadURL https://results-receiver.actions.githubusercontent.com/twirp/github.actions.results.api.v1.CacheService/GetCacheEntryDownloadURL
+2026-03-03T07:28:16.2999122Z ##[debug][Response] - 200
+2026-03-03T07:28:16.3002579Z ##[debug]Headers: ***
+2026-03-03T07:28:16.3003123Z ##[debug]  "content-length": "56",
+2026-03-03T07:28:16.3003753Z ##[debug]  "content-type": "application/json",
+2026-03-03T07:28:16.3004429Z ##[debug]  "date": "Tue, 03 Mar 2026 07:28:16 GMT",
+2026-03-03T07:28:16.3005090Z ##[debug]  "x-github-backend": "Kubernetes",
+2026-03-03T07:28:16.3005817Z ##[debug]  "x-github-request-id": "F001:2F801D:1DCACF3:22804E9:69A68D90"
+2026-03-03T07:28:16.3006550Z ##[debug]***
+2026-03-03T07:28:16.3007691Z ##[debug]Body: ***
+2026-03-03T07:28:16.3008149Z ##[debug]  "ok": false,
+2026-03-03T07:28:16.3008694Z ##[debug]  "signed_download_url": "",
+2026-03-03T07:28:16.3009236Z ##[debug]  "matched_key": ""
+2026-03-03T07:28:16.3009752Z ##[debug]***
+2026-03-03T07:28:16.3012281Z ##[debug]Cache not found for version 0641630a525767172d854a286e06e59932e54bc6757f2212bc334150f7228163 of keys: node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c
+2026-03-03T07:28:16.3013919Z pnpm cache is not found
+2026-03-03T07:28:16.3021567Z ##[add-matcher]/home/runner/work/_actions/actions/setup-node/v4/.github/tsc.json
+2026-03-03T07:28:16.3053201Z ##[debug]Added matchers: 'tsc'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:28:16.3055171Z ##[add-matcher]/home/runner/work/_actions/actions/setup-node/v4/.github/eslint-stylish.json
+2026-03-03T07:28:16.3069130Z ##[debug]Added matchers: 'eslint-stylish'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:28:16.3071752Z ##[add-matcher]/home/runner/work/_actions/actions/setup-node/v4/.github/eslint-compact.json
+2026-03-03T07:28:16.3076966Z ##[debug]Added matchers: 'eslint-compact'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:28:16.3112659Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:16.3115498Z ##[debug]Save intra-action state SETUP_NODE_CACHE_PACKAGE_MANAGER = pnpm
+2026-03-03T07:28:16.3116359Z ##[debug]Save intra-action state CACHE_PATHS = ["/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10"]
+2026-03-03T07:28:16.3117744Z ##[debug]Save intra-action state CACHE_KEY = node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c
+2026-03-03T07:28:16.3118864Z ##[debug]Set output node-version = v20.20.0
+2026-03-03T07:28:16.3119289Z ##[debug]Set output cache-hit = false
+2026-03-03T07:28:16.3119937Z ##[debug]Finishing: Setup Node.js
+2026-03-03T07:28:16.3128779Z ##[debug]Evaluating condition for step: 'Install dependencies'
+2026-03-03T07:28:16.3130835Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.3131421Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.3132175Z ##[debug]=> true
+2026-03-03T07:28:16.3132923Z ##[debug]Result: true
+2026-03-03T07:28:16.3133611Z ##[debug]Starting: Install dependencies
+2026-03-03T07:28:16.3142342Z ##[debug]Loading inputs
+2026-03-03T07:28:16.3143516Z ##[debug]Loading env
+2026-03-03T07:28:16.3148686Z ##[group]Run pnpm install --frozen-lockfile --ignore-scripts
+2026-03-03T07:28:16.3149183Z [36;1mpnpm install --frozen-lockfile --ignore-scripts[0m
+2026-03-03T07:28:16.3208081Z shell: /usr/bin/bash -e ***0***
+2026-03-03T07:28:16.3208439Z env:
+2026-03-03T07:28:16.3208689Z   NODE_VERSION: 20
+2026-03-03T07:28:16.3208955Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:16.3209388Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:16.3210853Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:16.3212363Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:16.3213829Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:16.3215327Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:16.3215704Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T07:28:16.3216082Z ##[endgroup]
+2026-03-03T07:28:16.3272624Z ##[debug]/usr/bin/bash -e /home/runner/work/_temp/8371ceb6-db82-4e84-bd92-46901511594a.sh
+2026-03-03T07:28:16.7372832Z Scope: all 2 workspace projects
+2026-03-03T07:28:16.8936308Z  ERR_PNPM_OUTDATED_LOCKFILE  Cannot install with "frozen-lockfile" because pnpm-lock.yaml is not up to date with <ROOT>/package.json
+2026-03-03T07:28:16.8937106Z 
+2026-03-03T07:28:16.8938222Z Note that in CI environments this setting is true by default. If you still need to run install in such cases, use "pnpm install --no-frozen-lockfile"
+2026-03-03T07:28:16.8938948Z 
+2026-03-03T07:28:16.8939115Z   Failure reason:
+2026-03-03T07:28:16.8939658Z   specifiers in the lockfile don't match specifiers in package.json:
+2026-03-03T07:28:16.8940303Z * 1 dependencies are mismatched:
+2026-03-03T07:28:16.8940799Z   - sharp (lockfile: 0.34.5, manifest: 0.33.5)
+2026-03-03T07:28:16.8941106Z 
+2026-03-03T07:28:16.9186991Z ##[error]Process completed with exit code 1.
+2026-03-03T07:28:16.9199929Z ##[debug]Finishing: Install dependencies
+2026-03-03T07:28:16.9219737Z ##[debug]Evaluating condition for step: 'Validate Supabase env vars'
+2026-03-03T07:28:16.9222128Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9222606Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9223110Z ##[debug]=> false
+2026-03-03T07:28:16.9223550Z ##[debug]Result: false
+2026-03-03T07:28:16.9229916Z ##[debug]Evaluating condition for step: 'Run linter'
+2026-03-03T07:28:16.9231333Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9231770Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9232246Z ##[debug]=> false
+2026-03-03T07:28:16.9232658Z ##[debug]Result: false
+2026-03-03T07:28:16.9238281Z ##[debug]Evaluating condition for step: 'Run type check'
+2026-03-03T07:28:16.9239952Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9240438Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9240940Z ##[debug]=> false
+2026-03-03T07:28:16.9241371Z ##[debug]Result: false
+2026-03-03T07:28:16.9246513Z ##[debug]Evaluating condition for step: 'Validate and Install functions'
+2026-03-03T07:28:16.9248395Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9249148Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9249914Z ##[debug]=> false
+2026-03-03T07:28:16.9250615Z ##[debug]Result: false
+2026-03-03T07:28:16.9256005Z ##[debug]Evaluating condition for step: 'Build Cloud Functions'
+2026-03-03T07:28:16.9257530Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9257976Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9258438Z ##[debug]=> false
+2026-03-03T07:28:16.9258887Z ##[debug]Result: false
+2026-03-03T07:28:16.9263969Z ##[debug]Evaluating condition for step: 'Generate .env.production for deployment'
+2026-03-03T07:28:16.9265256Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9265688Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9266134Z ##[debug]=> false
+2026-03-03T07:28:16.9266557Z ##[debug]Result: false
+2026-03-03T07:28:16.9273094Z ##[debug]Evaluating condition for step: 'Build Next.js application'
+2026-03-03T07:28:16.9274594Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9275014Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9275452Z ##[debug]=> false
+2026-03-03T07:28:16.9275861Z ##[debug]Result: false
+2026-03-03T07:28:16.9281091Z ##[debug]Evaluating condition for step: 'Prepare hosting files'
+2026-03-03T07:28:16.9282414Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9282842Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9283291Z ##[debug]=> false
+2026-03-03T07:28:16.9283697Z ##[debug]Result: false
+2026-03-03T07:28:16.9288906Z ##[debug]Evaluating condition for step: 'Validate Firebase Auth Secret'
+2026-03-03T07:28:16.9290263Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9290702Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9291133Z ##[debug]=> false
+2026-03-03T07:28:16.9291563Z ##[debug]Result: false
+2026-03-03T07:28:16.9296390Z ##[debug]Evaluating condition for step: 'Authenticate to Google Cloud'
+2026-03-03T07:28:16.9297838Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9298296Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9298750Z ##[debug]=> false
+2026-03-03T07:28:16.9299170Z ##[debug]Result: false
+2026-03-03T07:28:16.9308199Z ##[debug]Evaluating: secrets.FIREBASE_PROJECT
+2026-03-03T07:28:16.9308690Z ##[debug]Evaluating Index:
+2026-03-03T07:28:16.9309017Z ##[debug]..Evaluating secrets:
+2026-03-03T07:28:16.9309356Z ##[debug]..=> Object
+2026-03-03T07:28:16.9309663Z ##[debug]..Evaluating String:
+2026-03-03T07:28:16.9309999Z ##[debug]..=> 'FIREBASE_PROJECT'
+2026-03-03T07:28:16.9310431Z ##[debug]=> '***'
+2026-03-03T07:28:16.9310743Z ##[debug]Result: '***'
+2026-03-03T07:28:16.9311356Z ##[debug]Evaluating condition for step: 'Resolve Firebase project id'
+2026-03-03T07:28:16.9312584Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9313044Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9313504Z ##[debug]=> false
+2026-03-03T07:28:16.9313927Z ##[debug]Result: false
+2026-03-03T07:28:16.9319194Z ##[debug]Evaluating condition for step: 'Install Firebase CLI'
+2026-03-03T07:28:16.9320437Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9320859Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9321289Z ##[debug]=> false
+2026-03-03T07:28:16.9321690Z ##[debug]Result: false
+2026-03-03T07:28:16.9326540Z ##[debug]Evaluating condition for step: 'Validate Firebase project access'
+2026-03-03T07:28:16.9327960Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9328399Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9328833Z ##[debug]=> false
+2026-03-03T07:28:16.9329245Z ##[debug]Result: false
+2026-03-03T07:28:16.9334690Z ##[debug]Evaluating: steps.auth.outputs.credentials_file_path
+2026-03-03T07:28:16.9335155Z ##[debug]Evaluating Index:
+2026-03-03T07:28:16.9335461Z ##[debug]..Evaluating Index:
+2026-03-03T07:28:16.9335765Z ##[debug]....Evaluating Index:
+2026-03-03T07:28:16.9336071Z ##[debug]......Evaluating steps:
+2026-03-03T07:28:16.9336391Z ##[debug]......=> Object
+2026-03-03T07:28:16.9336687Z ##[debug]......Evaluating String:
+2026-03-03T07:28:16.9336988Z ##[debug]......=> 'auth'
+2026-03-03T07:28:16.9337470Z ##[debug]....=> Object
+2026-03-03T07:28:16.9337768Z ##[debug]....Evaluating String:
+2026-03-03T07:28:16.9338072Z ##[debug]....=> 'outputs'
+2026-03-03T07:28:16.9338353Z ##[debug]..=> Object
+2026-03-03T07:28:16.9338632Z ##[debug]..Evaluating String:
+2026-03-03T07:28:16.9338935Z ##[debug]..=> 'credentials_file_path'
+2026-03-03T07:28:16.9339251Z ##[debug]=> null
+2026-03-03T07:28:16.9354079Z ##[debug]Result: null
+2026-03-03T07:28:16.9356019Z ##[debug]Evaluating condition for step: 'Deploy to Firebase'
+2026-03-03T07:28:16.9357587Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9358041Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9358693Z ##[debug]=> false
+2026-03-03T07:28:16.9359143Z ##[debug]Result: false
+2026-03-03T07:28:16.9364443Z ##[debug]Evaluating condition for step: 'Notify success'
+2026-03-03T07:28:16.9365662Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9366101Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9366556Z ##[debug]=> false
+2026-03-03T07:28:16.9366970Z ##[debug]Result: false
+2026-03-03T07:28:16.9372352Z ##[debug]Evaluating condition for step: 'Notify failure'
+2026-03-03T07:28:16.9374475Z ##[debug]Evaluating: failure()
+2026-03-03T07:28:16.9374933Z ##[debug]Evaluating failure:
+2026-03-03T07:28:16.9378257Z ##[debug]=> true
+2026-03-03T07:28:16.9378791Z ##[debug]Result: true
+2026-03-03T07:28:16.9379364Z ##[debug]Starting: Notify failure
+2026-03-03T07:28:16.9387928Z ##[debug]Loading inputs
+2026-03-03T07:28:16.9389048Z ##[debug]Loading env
+2026-03-03T07:28:16.9393639Z ##[group]Run echo "❌ Pipeline de deploy falhou."
+2026-03-03T07:28:16.9394065Z [36;1mecho "❌ Pipeline de deploy falhou."[0m
+2026-03-03T07:28:16.9394521Z [36;1mecho "### Falha no Pipeline de Deploy ❌" >> $GITHUB_STEP_SUMMARY[0m
+2026-03-03T07:28:16.9395103Z [36;1mecho "Verifique os logs do GitHub Actions para detalhes." >> $GITHUB_STEP_SUMMARY[0m
+2026-03-03T07:28:16.9445423Z shell: /usr/bin/bash -e ***0***
+2026-03-03T07:28:16.9445764Z env:
+2026-03-03T07:28:16.9446009Z   NODE_VERSION: 20
+2026-03-03T07:28:16.9446344Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:16.9446778Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:16.9448377Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:16.9449818Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:16.9451279Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:16.9452791Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:16.9453316Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T07:28:16.9453728Z ##[endgroup]
+2026-03-03T07:28:16.9508025Z ##[debug]/usr/bin/bash -e /home/runner/work/_temp/c128ea2e-80c1-49ae-a718-50f71c8914a5.sh
+2026-03-03T07:28:16.9533560Z ❌ Pipeline de deploy falhou.
+2026-03-03T07:28:16.9550572Z ##[debug]Finishing: Notify failure
+2026-03-03T07:28:16.9558269Z ##[debug]Evaluating condition for step: 'Post Setup Node.js'
+2026-03-03T07:28:16.9560060Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9560515Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9561061Z ##[debug]=> false
+2026-03-03T07:28:16.9561508Z ##[debug]Result: false
+2026-03-03T07:28:16.9566973Z ##[debug]Evaluating condition for step: 'Post Setup pnpm'
+2026-03-03T07:28:16.9569916Z ##[debug]Evaluating: always()
+2026-03-03T07:28:16.9570385Z ##[debug]Evaluating always:
+2026-03-03T07:28:16.9571322Z ##[debug]=> true
+2026-03-03T07:28:16.9571795Z ##[debug]Result: true
+2026-03-03T07:28:16.9572473Z ##[debug]Starting: Post Setup pnpm
+2026-03-03T07:28:16.9592758Z ##[debug]Loading inputs
+2026-03-03T07:28:16.9594335Z ##[debug]Evaluating: env.PNPM_VERSION
+2026-03-03T07:28:16.9594737Z ##[debug]Evaluating Index:
+2026-03-03T07:28:16.9595045Z ##[debug]..Evaluating env:
+2026-03-03T07:28:16.9595370Z ##[debug]..=> Object
+2026-03-03T07:28:16.9595668Z ##[debug]..Evaluating String:
+2026-03-03T07:28:16.9595994Z ##[debug]..=> 'PNPM_VERSION'
+2026-03-03T07:28:16.9596344Z ##[debug]=> '10.30.3'
+2026-03-03T07:28:16.9596624Z ##[debug]Result: '10.30.3'
+2026-03-03T07:28:16.9600578Z ##[debug]Loading env
+2026-03-03T07:28:16.9605261Z Post job cleanup.
+2026-03-03T07:28:17.0188364Z Pruning is unnecessary.
+2026-03-03T07:28:17.0234059Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:17.0236750Z ##[debug]Finishing: Post Setup pnpm
+2026-03-03T07:28:17.0244892Z ##[debug]Evaluating condition for step: 'Post Checkout code'
+2026-03-03T07:28:17.0246594Z ##[debug]Evaluating: always()
+2026-03-03T07:28:17.0247062Z ##[debug]Evaluating always:
+2026-03-03T07:28:17.0248780Z ##[debug]=> true
+2026-03-03T07:28:17.0249274Z ##[debug]Result: true
+2026-03-03T07:28:17.0249928Z ##[debug]Starting: Post Checkout code
+2026-03-03T07:28:17.0283512Z ##[debug]Loading inputs
+2026-03-03T07:28:17.0284951Z ##[debug]Evaluating: github.repository
+2026-03-03T07:28:17.0285317Z ##[debug]Evaluating Index:
+2026-03-03T07:28:17.0285633Z ##[debug]..Evaluating github:
+2026-03-03T07:28:17.0285969Z ##[debug]..=> Object
+2026-03-03T07:28:17.0286277Z ##[debug]..Evaluating String:
+2026-03-03T07:28:17.0286586Z ##[debug]..=> 'repository'
+2026-03-03T07:28:17.0286997Z ##[debug]=> 'danilonovaisv/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:28:17.0288089Z ##[debug]Result: 'danilonovaisv/PORTFOLIO-DANILO-FINAL'
+2026-03-03T07:28:17.0290165Z ##[debug]Evaluating: github.token
+2026-03-03T07:28:17.0290540Z ##[debug]Evaluating Index:
+2026-03-03T07:28:17.0290843Z ##[debug]..Evaluating github:
+2026-03-03T07:28:17.0291154Z ##[debug]..=> Object
+2026-03-03T07:28:17.0291431Z ##[debug]..Evaluating String:
+2026-03-03T07:28:17.0291728Z ##[debug]..=> 'token'
+2026-03-03T07:28:17.0292127Z ##[debug]=> '***'
+2026-03-03T07:28:17.0292508Z ##[debug]Result: '***'
+2026-03-03T07:28:17.0303991Z ##[debug]Loading env
+2026-03-03T07:28:17.0308791Z Post job cleanup.
+2026-03-03T07:28:17.1330717Z ##[debug]Getting git version
+2026-03-03T07:28:17.1346335Z [command]/usr/bin/git version
+2026-03-03T07:28:17.1385567Z git version 2.53.0
+2026-03-03T07:28:17.1408564Z ##[debug]0
+2026-03-03T07:28:17.1409452Z ##[debug]git version 2.53.0
+2026-03-03T07:28:17.1409957Z ##[debug]
+2026-03-03T07:28:17.1410928Z ##[debug]Set git useragent to: git/2.53.0 (github-actions-checkout)
+2026-03-03T07:28:17.1414082Z ::add-mask::***
+2026-03-03T07:28:17.1430217Z Temporarily overriding HOME='/home/runner/work/_temp/82559a9b-7a00-4025-8952-ae8a8df2b33a' before making global git config changes
+2026-03-03T07:28:17.1431925Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-03T07:28:17.1444684Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T07:28:17.1474808Z ##[debug]0
+2026-03-03T07:28:17.1475557Z ##[debug]
+2026-03-03T07:28:17.1483020Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-03T07:28:17.1512955Z ##[debug]1
+2026-03-03T07:28:17.1513658Z ##[debug]
+2026-03-03T07:28:17.1519457Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-03T07:28:17.1806846Z ##[debug]0
+2026-03-03T07:28:17.1807872Z ##[debug]
+2026-03-03T07:28:17.1816363Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-03T07:28:17.1844297Z http.https://github.com/.extraheader
+2026-03-03T07:28:17.1850752Z ##[debug]0
+2026-03-03T07:28:17.1851367Z ##[debug]http.https://github.com/.extraheader
+2026-03-03T07:28:17.1851715Z ##[debug]
+2026-03-03T07:28:17.1857494Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-03-03T07:28:17.1886767Z ##[debug]0
+2026-03-03T07:28:17.1887226Z ##[debug]
+2026-03-03T07:28:17.1893384Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-03T07:28:17.2175721Z ##[debug]0
+2026-03-03T07:28:17.2176500Z ##[debug]
+2026-03-03T07:28:17.2183721Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-03T07:28:17.2214848Z ##[debug]1
+2026-03-03T07:28:17.2215662Z ##[debug]
+2026-03-03T07:28:17.2223124Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-03T07:28:17.2516427Z ##[debug]0
+2026-03-03T07:28:17.2518800Z ##[debug]
+2026-03-03T07:28:17.2519580Z ##[debug]Unsetting HOME override
+2026-03-03T07:28:17.2594455Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:17.2596991Z ##[debug]Finishing: Post Checkout code
+2026-03-03T07:28:17.2637779Z ##[debug]Starting: Complete job
+2026-03-03T07:28:17.2640106Z Uploading runner diagnostic logs
+2026-03-03T07:28:17.2652424Z ##[debug]Starting diagnostic file upload.
+2026-03-03T07:28:17.2652829Z ##[debug]Setting up diagnostic log folders.
+2026-03-03T07:28:17.2654845Z ##[debug]Creating diagnostic log files folder.
+2026-03-03T07:28:17.2663923Z ##[debug]Copying 1 worker diagnostic logs.
+2026-03-03T07:28:17.2673417Z ##[debug]Copying 1 runner diagnostic logs.
+2026-03-03T07:28:17.2674610Z ##[debug]Zipping diagnostic files.
+2026-03-03T07:28:17.2760602Z ##[debug]Uploading diagnostic metadata file.
+2026-03-03T07:28:17.2790496Z ##[debug]Diagnostic file upload complete.
+2026-03-03T07:28:17.2791160Z Completed runner diagnostic log upload
+2026-03-03T07:28:17.2791521Z Cleaning up orphan processes
+2026-03-03T07:28:17.3095813Z ##[debug]Finishing: Complete job
+2026-03-03T07:28:17.3126601Z ##[debug]Finishing: test-and-deploy

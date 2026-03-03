@@ -1,0 +1,5 @@
+﻿2026-03-03T07:28:16.9255996Z ##[debug]Evaluating condition for step: 'Build Cloud Functions'
+2026-03-03T07:28:16.9257525Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9257973Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9258434Z ##[debug]=> false
+2026-03-03T07:28:16.9258884Z ##[debug]Result: false

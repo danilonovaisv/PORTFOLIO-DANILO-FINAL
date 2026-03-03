@@ -1,0 +1,21 @@
+﻿2026-03-03T07:28:16.9334682Z ##[debug]Evaluating: steps.auth.outputs.credentials_file_path
+2026-03-03T07:28:16.9335152Z ##[debug]Evaluating Index:
+2026-03-03T07:28:16.9335459Z ##[debug]..Evaluating Index:
+2026-03-03T07:28:16.9335763Z ##[debug]....Evaluating Index:
+2026-03-03T07:28:16.9336069Z ##[debug]......Evaluating steps:
+2026-03-03T07:28:16.9336389Z ##[debug]......=> Object
+2026-03-03T07:28:16.9336684Z ##[debug]......Evaluating String:
+2026-03-03T07:28:16.9336985Z ##[debug]......=> 'auth'
+2026-03-03T07:28:16.9337466Z ##[debug]....=> Object
+2026-03-03T07:28:16.9337765Z ##[debug]....Evaluating String:
+2026-03-03T07:28:16.9338069Z ##[debug]....=> 'outputs'
+2026-03-03T07:28:16.9338350Z ##[debug]..=> Object
+2026-03-03T07:28:16.9338630Z ##[debug]..Evaluating String:
+2026-03-03T07:28:16.9338932Z ##[debug]..=> 'credentials_file_path'
+2026-03-03T07:28:16.9339248Z ##[debug]=> null
+2026-03-03T07:28:16.9354071Z ##[debug]Result: null
+2026-03-03T07:28:16.9355970Z ##[debug]Evaluating condition for step: 'Deploy to Firebase'
+2026-03-03T07:28:16.9357582Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9358038Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9358689Z ##[debug]=> false
+2026-03-03T07:28:16.9359140Z ##[debug]Result: false

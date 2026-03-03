@@ -1,0 +1,126 @@
+﻿2026-03-03T07:28:15.1675911Z ##[debug]Evaluating condition for step: 'Setup Node.js'
+2026-03-03T07:28:15.1678279Z ##[debug]Evaluating: success()
+2026-03-03T07:28:15.1678805Z ##[debug]Evaluating success:
+2026-03-03T07:28:15.1679319Z ##[debug]=> true
+2026-03-03T07:28:15.1679792Z ##[debug]Result: true
+2026-03-03T07:28:15.1680502Z ##[debug]Starting: Setup Node.js
+2026-03-03T07:28:15.1715550Z ##[debug]Register post job cleanup for action: actions/setup-node@v4
+2026-03-03T07:28:15.1728253Z ##[debug]Loading inputs
+2026-03-03T07:28:15.1730045Z ##[debug]Evaluating: env.NODE_VERSION
+2026-03-03T07:28:15.1730409Z ##[debug]Evaluating Index:
+2026-03-03T07:28:15.1730728Z ##[debug]..Evaluating env:
+2026-03-03T07:28:15.1731066Z ##[debug]..=> Object
+2026-03-03T07:28:15.1731391Z ##[debug]..Evaluating String:
+2026-03-03T07:28:15.1731705Z ##[debug]..=> 'NODE_VERSION'
+2026-03-03T07:28:15.1732173Z ##[debug]=> '20'
+2026-03-03T07:28:15.1732442Z ##[debug]Result: '20'
+2026-03-03T07:28:15.1745122Z ##[debug]Evaluating: (((github.server_url == 'https://github.com') && github.token) || '')
+2026-03-03T07:28:15.1745856Z ##[debug]Evaluating Or:
+2026-03-03T07:28:15.1748657Z ##[debug]..Evaluating And:
+2026-03-03T07:28:15.1751170Z ##[debug]....Evaluating Equal:
+2026-03-03T07:28:15.1752390Z ##[debug]......Evaluating Index:
+2026-03-03T07:28:15.1752726Z ##[debug]........Evaluating github:
+2026-03-03T07:28:15.1753117Z ##[debug]........=> Object
+2026-03-03T07:28:15.1753450Z ##[debug]........Evaluating String:
+2026-03-03T07:28:15.1753788Z ##[debug]........=> 'server_url'
+2026-03-03T07:28:15.1754190Z ##[debug]......=> 'https://github.com'
+2026-03-03T07:28:15.1754584Z ##[debug]......Evaluating String:
+2026-03-03T07:28:15.1776953Z ##[debug]......=> 'https://github.com'
+2026-03-03T07:28:15.1781242Z ##[debug]....=> true
+2026-03-03T07:28:15.1781821Z ##[debug]....Evaluating Index:
+2026-03-03T07:28:15.1782157Z ##[debug]......Evaluating github:
+2026-03-03T07:28:15.1782692Z ##[debug]......=> Object
+2026-03-03T07:28:15.1783011Z ##[debug]......Evaluating String:
+2026-03-03T07:28:15.1783352Z ##[debug]......=> 'token'
+2026-03-03T07:28:15.1783941Z ##[debug]....=> '***'
+2026-03-03T07:28:15.1784373Z ##[debug]..=> '***'
+2026-03-03T07:28:15.1785033Z ##[debug]=> '***'
+2026-03-03T07:28:15.1790613Z ##[debug]Expanded: ((('https://github.com' == 'https://github.com') && '***') || '')
+2026-03-03T07:28:15.1791244Z ##[debug]Result: '***'
+2026-03-03T07:28:15.1793870Z ##[debug]Loading env
+2026-03-03T07:28:15.1799441Z ##[group]Run actions/setup-node@v4
+2026-03-03T07:28:15.1799762Z with:
+2026-03-03T07:28:15.1800000Z   node-version: 20
+2026-03-03T07:28:15.1800246Z   cache: pnpm
+2026-03-03T07:28:15.1800519Z   cache-dependency-path: pnpm-lock.yaml
+2026-03-03T07:28:15.1800864Z   always-auth: false
+2026-03-03T07:28:15.1801132Z   check-latest: false
+2026-03-03T07:28:15.1801531Z   token: ***
+2026-03-03T07:28:15.1801775Z env:
+2026-03-03T07:28:15.1802001Z   NODE_VERSION: 20
+2026-03-03T07:28:15.1802262Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:15.1802675Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:15.1804081Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:15.1805520Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:15.1806988Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:15.1808804Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:15.1809185Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T07:28:15.1809544Z ##[endgroup]
+2026-03-03T07:28:15.3632664Z ##[debug]isExplicit: 
+2026-03-03T07:28:15.3634050Z ##[debug]explicit? false
+2026-03-03T07:28:15.3649801Z ##[debug]isExplicit: 20.20.0
+2026-03-03T07:28:15.3650678Z ##[debug]explicit? true
+2026-03-03T07:28:15.3663463Z ##[debug]isExplicit: 22.22.0
+2026-03-03T07:28:15.3664168Z ##[debug]explicit? true
+2026-03-03T07:28:15.3675284Z ##[debug]isExplicit: 24.13.1
+2026-03-03T07:28:15.3676081Z ##[debug]explicit? true
+2026-03-03T07:28:15.3676969Z ##[debug]evaluating 3 versions
+2026-03-03T07:28:15.3701813Z ##[debug]matched: 20.20.0
+2026-03-03T07:28:15.3702892Z ##[debug]checking cache: /opt/hostedtoolcache/node/20.20.0/x64
+2026-03-03T07:28:15.3704553Z ##[debug]Found tool in cache node 20.20.0 x64
+2026-03-03T07:28:15.3705262Z Found in cache @ /opt/hostedtoolcache/node/20.20.0/x64
+2026-03-03T07:28:15.3711215Z ::group::Environment details
+2026-03-03T07:28:15.3711814Z ##[group]Environment details
+2026-03-03T07:28:15.7686592Z node: v20.20.0
+2026-03-03T07:28:15.7687171Z npm: 10.8.2
+2026-03-03T07:28:15.7687803Z yarn: 1.22.22
+2026-03-03T07:28:15.7689633Z ::endgroup::
+2026-03-03T07:28:15.7690177Z ##[endgroup]
+2026-03-03T07:28:15.7717149Z [command]/home/runner/setup-pnpm/node_modules/.bin/pnpm store path --silent
+2026-03-03T07:28:16.1628172Z /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10
+2026-03-03T07:28:16.1709923Z ##[debug]pnpm's cache folder "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10" configured for the root directory
+2026-03-03T07:28:16.1713965Z ##[debug]followSymbolicLinks 'true'
+2026-03-03T07:28:16.1742093Z ##[debug]followSymbolicLinks 'true'
+2026-03-03T07:28:16.1743021Z ##[debug]implicitDescendants 'true'
+2026-03-03T07:28:16.1743773Z ##[debug]matchDirectories 'true'
+2026-03-03T07:28:16.1744681Z ##[debug]omitBrokenSymbolicLinks 'true'
+2026-03-03T07:28:16.1745245Z ##[debug]excludeHiddenFiles 'false'
+2026-03-03T07:28:16.1749994Z ##[debug]Search path '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/pnpm-lock.yaml'
+2026-03-03T07:28:16.1758260Z ##[debug]/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/pnpm-lock.yaml
+2026-03-03T07:28:16.1825571Z ##[debug]Found 1 files to hash.
+2026-03-03T07:28:16.1826865Z ##[debug]primary key is node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c
+2026-03-03T07:28:16.1828866Z ##[debug]Cache service version: v2
+2026-03-03T07:28:16.1831538Z ##[debug]Resolved Keys:
+2026-03-03T07:28:16.1832680Z ##[debug]["node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c"]
+2026-03-03T07:28:16.1836116Z ##[debug]Checking zstd --quiet --version
+2026-03-03T07:28:16.1924918Z ##[debug]1.5.7
+2026-03-03T07:28:16.1927598Z ##[debug]zstd version: 1.5.7
+2026-03-03T07:28:16.1937795Z ##[debug][Request] GetCacheEntryDownloadURL https://results-receiver.actions.githubusercontent.com/twirp/github.actions.results.api.v1.CacheService/GetCacheEntryDownloadURL
+2026-03-03T07:28:16.2999078Z ##[debug][Response] - 200
+2026-03-03T07:28:16.3002555Z ##[debug]Headers: ***
+2026-03-03T07:28:16.3003111Z ##[debug]  "content-length": "56",
+2026-03-03T07:28:16.3003745Z ##[debug]  "content-type": "application/json",
+2026-03-03T07:28:16.3004418Z ##[debug]  "date": "Tue, 03 Mar 2026 07:28:16 GMT",
+2026-03-03T07:28:16.3005084Z ##[debug]  "x-github-backend": "Kubernetes",
+2026-03-03T07:28:16.3005810Z ##[debug]  "x-github-request-id": "F001:2F801D:1DCACF3:22804E9:69A68D90"
+2026-03-03T07:28:16.3006545Z ##[debug]***
+2026-03-03T07:28:16.3007681Z ##[debug]Body: ***
+2026-03-03T07:28:16.3008142Z ##[debug]  "ok": false,
+2026-03-03T07:28:16.3008652Z ##[debug]  "signed_download_url": "",
+2026-03-03T07:28:16.3009230Z ##[debug]  "matched_key": ""
+2026-03-03T07:28:16.3009747Z ##[debug]***
+2026-03-03T07:28:16.3012267Z ##[debug]Cache not found for version 0641630a525767172d854a286e06e59932e54bc6757f2212bc334150f7228163 of keys: node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c
+2026-03-03T07:28:16.3013908Z pnpm cache is not found
+2026-03-03T07:28:16.3021554Z ##[add-matcher]/home/runner/work/_actions/actions/setup-node/v4/.github/tsc.json
+2026-03-03T07:28:16.3053170Z ##[debug]Added matchers: 'tsc'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:28:16.3055158Z ##[add-matcher]/home/runner/work/_actions/actions/setup-node/v4/.github/eslint-stylish.json
+2026-03-03T07:28:16.3069085Z ##[debug]Added matchers: 'eslint-stylish'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:28:16.3071259Z ##[add-matcher]/home/runner/work/_actions/actions/setup-node/v4/.github/eslint-compact.json
+2026-03-03T07:28:16.3076951Z ##[debug]Added matchers: 'eslint-compact'. Problem matchers scan action output for known warning or error strings and report these inline.
+2026-03-03T07:28:16.3112640Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:16.3115491Z ##[debug]Save intra-action state SETUP_NODE_CACHE_PACKAGE_MANAGER = pnpm
+2026-03-03T07:28:16.3116349Z ##[debug]Save intra-action state CACHE_PATHS = ["/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10"]
+2026-03-03T07:28:16.3117740Z ##[debug]Save intra-action state CACHE_KEY = node-cache-Linux-x64-pnpm-d01b80eddc328c2c5ed9aab1464817405fee92a3cce03942446839e45148126c
+2026-03-03T07:28:16.3118859Z ##[debug]Set output node-version = v20.20.0
+2026-03-03T07:28:16.3119285Z ##[debug]Set output cache-hit = false
+2026-03-03T07:28:16.3119934Z ##[debug]Finishing: Setup Node.js

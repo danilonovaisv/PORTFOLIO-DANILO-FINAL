@@ -1,0 +1,53 @@
+﻿2026-03-03T07:28:14.0633868Z ##[debug]Evaluating condition for step: 'Setup pnpm'
+2026-03-03T07:28:14.0635913Z ##[debug]Evaluating: success()
+2026-03-03T07:28:14.0636597Z ##[debug]Evaluating success:
+2026-03-03T07:28:14.0637124Z ##[debug]=> true
+2026-03-03T07:28:14.0637937Z ##[debug]Result: true
+2026-03-03T07:28:14.0638687Z ##[debug]Starting: Setup pnpm
+2026-03-03T07:28:14.0658966Z ##[debug]Register post job cleanup for action: pnpm/action-setup@v4
+2026-03-03T07:28:14.0672553Z ##[debug]Loading inputs
+2026-03-03T07:28:14.0674815Z ##[debug]Evaluating: env.PNPM_VERSION
+2026-03-03T07:28:14.0675217Z ##[debug]Evaluating Index:
+2026-03-03T07:28:14.0675539Z ##[debug]..Evaluating env:
+2026-03-03T07:28:14.0675900Z ##[debug]..=> Object
+2026-03-03T07:28:14.0676218Z ##[debug]..Evaluating String:
+2026-03-03T07:28:14.0676551Z ##[debug]..=> 'PNPM_VERSION'
+2026-03-03T07:28:14.0680190Z ##[debug]=> '10.30.3'
+2026-03-03T07:28:14.0680556Z ##[debug]Result: '10.30.3'
+2026-03-03T07:28:14.0685156Z ##[debug]Loading env
+2026-03-03T07:28:14.0690843Z ##[group]Run pnpm/action-setup@v4
+2026-03-03T07:28:14.0691212Z with:
+2026-03-03T07:28:14.0691447Z   version: 10.30.3
+2026-03-03T07:28:14.0691712Z   dest: ~/setup-pnpm
+2026-03-03T07:28:14.0691975Z   run_install: null
+2026-03-03T07:28:14.0692247Z   package_json_file: package.json
+2026-03-03T07:28:14.0692541Z   standalone: false
+2026-03-03T07:28:14.0692788Z env:
+2026-03-03T07:28:14.0693025Z   NODE_VERSION: 20
+2026-03-03T07:28:14.0693273Z   PNPM_VERSION: 10.30.3
+2026-03-03T07:28:14.0693715Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T07:28:14.0695138Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T07:28:14.0696569Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T07:28:14.0698237Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T07:28:14.0699750Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T07:28:14.0700054Z ##[endgroup]
+2026-03-03T07:28:14.1273696Z ::group::Running self-installer...
+2026-03-03T07:28:14.1274198Z ##[group]Running self-installer...
+2026-03-03T07:28:14.6744992Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-03-03T07:28:14.6836313Z Packages: +1
+2026-03-03T07:28:14.6836848Z +
+2026-03-03T07:28:15.1122227Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-03-03T07:28:15.1394166Z 
+2026-03-03T07:28:15.1394718Z dependencies:
+2026-03-03T07:28:15.1395209Z + pnpm 10.30.3
+2026-03-03T07:28:15.1395464Z 
+2026-03-03T07:28:15.1425477Z Done in 838ms
+2026-03-03T07:28:15.1600228Z ::endgroup::
+2026-03-03T07:28:15.1600587Z ##[endgroup]
+2026-03-03T07:28:15.1603960Z Installation Completed!
+2026-03-03T07:28:15.1659356Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:15.1663503Z ##[debug]PNPM_HOME='/home/runner/setup-pnpm/node_modules/.bin'
+2026-03-03T07:28:15.1665124Z ##[debug]Save intra-action state is_post = true
+2026-03-03T07:28:15.1665805Z ##[debug]Set output dest = /home/runner/setup-pnpm
+2026-03-03T07:28:15.1666380Z ##[debug]Set output bin_dest = /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T07:28:15.1667169Z ##[debug]Finishing: Setup pnpm

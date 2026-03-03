@@ -1,0 +1,5 @@
+﻿2026-03-03T07:28:16.9238271Z ##[debug]Evaluating condition for step: 'Run type check'
+2026-03-03T07:28:16.9239946Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9240435Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9240937Z ##[debug]=> false
+2026-03-03T07:28:16.9241369Z ##[debug]Result: false

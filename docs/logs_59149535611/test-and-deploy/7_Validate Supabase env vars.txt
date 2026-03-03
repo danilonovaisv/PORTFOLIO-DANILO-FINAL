@@ -1,0 +1,5 @@
+﻿2026-03-03T07:28:16.9219726Z ##[debug]Evaluating condition for step: 'Validate Supabase env vars'
+2026-03-03T07:28:16.9222122Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9222603Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9223107Z ##[debug]=> false
+2026-03-03T07:28:16.9223548Z ##[debug]Result: false

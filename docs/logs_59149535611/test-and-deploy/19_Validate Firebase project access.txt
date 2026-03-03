@@ -1,0 +1,5 @@
+﻿2026-03-03T07:28:16.9326532Z ##[debug]Evaluating condition for step: 'Validate Firebase project access'
+2026-03-03T07:28:16.9327955Z ##[debug]Evaluating: success()
+2026-03-03T07:28:16.9328397Z ##[debug]Evaluating success:
+2026-03-03T07:28:16.9328831Z ##[debug]=> false
+2026-03-03T07:28:16.9329243Z ##[debug]Result: false

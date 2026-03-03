@@ -1,0 +1,20 @@
+﻿2026-03-03T07:28:16.9566965Z ##[debug]Evaluating condition for step: 'Post Setup pnpm'
+2026-03-03T07:28:16.9569910Z ##[debug]Evaluating: always()
+2026-03-03T07:28:16.9570382Z ##[debug]Evaluating always:
+2026-03-03T07:28:16.9571317Z ##[debug]=> true
+2026-03-03T07:28:16.9571792Z ##[debug]Result: true
+2026-03-03T07:28:16.9572470Z ##[debug]Starting: Post Setup pnpm
+2026-03-03T07:28:16.9592749Z ##[debug]Loading inputs
+2026-03-03T07:28:16.9594330Z ##[debug]Evaluating: env.PNPM_VERSION
+2026-03-03T07:28:16.9594734Z ##[debug]Evaluating Index:
+2026-03-03T07:28:16.9595042Z ##[debug]..Evaluating env:
+2026-03-03T07:28:16.9595367Z ##[debug]..=> Object
+2026-03-03T07:28:16.9595665Z ##[debug]..Evaluating String:
+2026-03-03T07:28:16.9595991Z ##[debug]..=> 'PNPM_VERSION'
+2026-03-03T07:28:16.9596342Z ##[debug]=> '10.30.3'
+2026-03-03T07:28:16.9596621Z ##[debug]Result: '10.30.3'
+2026-03-03T07:28:16.9600574Z ##[debug]Loading env
+2026-03-03T07:28:16.9605257Z Post job cleanup.
+2026-03-03T07:28:17.0188323Z Pruning is unnecessary.
+2026-03-03T07:28:17.0233986Z ##[debug]Node Action run completed with exit code 0
+2026-03-03T07:28:17.0236745Z ##[debug]Finishing: Post Setup pnpm
