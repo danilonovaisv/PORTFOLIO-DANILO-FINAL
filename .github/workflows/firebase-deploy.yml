@@ -16,10 +16,12 @@ env:
   PNPM_VERSION: '10.30.3'
   # ── Supabase ────────────────────────────────────────────────────────────────
   NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
   SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+  FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS || secrets.FIREBASE_SERVICE_ACCOUNT_JSON || secrets.FIREBASE_SERVICE_ACCOUNT }}
+  FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT || secrets.GOOGLE_CLOUD_PROJECT }}
 
 jobs:
   test-and-deploy:
@@ -82,8 +84,12 @@ jobs:
             echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_URL não configurada em GitHub Secrets."
             exit 1
           fi
-          if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
-            echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_ANON_KEY não configurada em GitHub Secrets."
+          if [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" ]; then
+            echo "❌ ERRO: nenhuma chave pública do Supabase foi resolvida (NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY)."
+            exit 1
+          fi
+          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "❌ ERRO: SUPABASE_SERVICE_ROLE_KEY não configurada em GitHub Secrets."
             exit 1
           fi
           echo "✅ Variáveis do Supabase validadas com sucesso."
@@ -115,11 +121,11 @@ jobs:
       # ── 10. Generate .env.production ──────────────────────────────────────────
       - name: Generate .env.production for deployment
         run: |
-          echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" > .env.production
-          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" >> .env.production
-          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" >> .env.production
-          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" >> .env.production
-          echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> .env.production
+          echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY" >> .env.production
+          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" >> .env.production
+          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" >> .env.production
+          echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> .env.production
 
       # ── 11. Build Next.js ──────────────────────────────────────────────────────
       - name: Build Next.js application
@@ -135,9 +141,9 @@ jobs:
       # ── 13. Firebase Auth ──────────────────────────────────────────────────────
       - name: Validate Firebase Auth Secret
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
-            echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS não configurado no GitHub Secrets."
-            echo "Vá em Settings > Secrets and variables > Actions e adicione o JSON da conta de serviço."
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "❌ ERRO: nenhuma credencial Firebase foi resolvida."
+            echo "Defina um destes secrets: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS, FIREBASE_SERVICE_ACCOUNT_JSON ou FIREBASE_SERVICE_ACCOUNT."
             exit 1
           fi
 
@@ -145,7 +151,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
+          credentials_json: ${{ env.FIREBASE_SERVICE_ACCOUNT_JSON }}
           create_credentials_file: true
           export_environment_variables: true
 
@@ -153,11 +159,11 @@ jobs:
       - name: Resolve Firebase project id
         id: firebase_project
         env:
-          SECRET_FB_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
+          SECRET_FB_PROJECT: ${{ env.FIREBASE_PROJECT_ID }}
         run: |
           if [ -n "$SECRET_FB_PROJECT" ]; then
             PROJECT_ID="$SECRET_FB_PROJECT"
-            SOURCE="GitHub Secret FIREBASE_PROJECT"
+            SOURCE="GitHub Secret FIREBASE_PROJECT/GOOGLE_CLOUD_PROJECT"
           elif [ -n "${{ steps.auth.outputs.project_id }}" ]; then
             PROJECT_ID="${{ steps.auth.outputs.project_id }}"
             SOURCE="Service Account project_id"

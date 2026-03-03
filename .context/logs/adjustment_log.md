@@ -1,5 +1,37 @@
 # Adjustment Log
 
+## [2026-03-03T08:20] GitHub Workflow Secret Fallback Hardening
+
+**Context:** A follow-up review of the GitHub deploy workflow showed that the reported “missing secrets” issue did not match the actual repository state. The GitHub repository already had the required Supabase and Firebase secrets, but the workflow was too strict about secret naming and was mapping Supabase public env vars with a single hardcoded source.
+
+**Changes Applied:**
+
+1. **Added Firebase secret alias fallback** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - `google-github-actions/auth` now accepts the first available value from:
+     - `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS`
+     - `FIREBASE_SERVICE_ACCOUNT_JSON`
+     - `FIREBASE_SERVICE_ACCOUNT`
+   - Impact: deploy keeps working even if the repository standardizes on one of the existing alias names.
+
+2. **Added Firebase project ID fallback** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Project resolution now prefers `FIREBASE_PROJECT` and falls back to `GOOGLE_CLOUD_PROJECT`, then service-account metadata, then `.firebaserc`.
+   - Impact: reduces unnecessary secret coupling because `.firebaserc` and auth metadata already identify `portfolio-danilo-novais`.
+
+3. **Corrected Supabase public key mapping** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` now prefer the publishable secret and only fall back to anon when necessary.
+   - Validation also explicitly requires `SUPABASE_SERVICE_ROLE_KEY`.
+   - Impact: build/runtime env now better matches the app’s own env resolution order.
+
+**Verification:**
+
+- ✅ `gh secret list --repo danilonovaisv/PORTFOLIO-DANILO-FINAL`
+- ✅ YAML parse for `.github/workflows/firebase-deploy.yml`
+- ✅ `pnpm run lint`
+- ✅ `pnpm run typecheck`
+
 ## [2026-03-03T07:55] PNPM Lockfile Config Normalization
 
 **Context:** A deploy log under `docs/logs_59149535611` showed the pipeline aborting in `pnpm install --frozen-lockfile` after a manifest/lock drift involving `sharp`. During local reproduction, the workspace also exposed ambiguous lockfile behavior because lockfile policy was partially declared in `pnpm-workspace.yaml` instead of pnpm's main config surface.
