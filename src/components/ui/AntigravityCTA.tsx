@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { BRAND } from '@/config/brand';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { cn } from '@/lib/utils';
 
 /**
  * AntigravityCTA - Botão CTA inspirado em Lo&Behold Studio
@@ -82,16 +83,16 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       href={as === 'a' ? href : undefined}
       type={as === 'button' ? type : undefined}
       onClick={onClick}
-      className={`
-        relative group 
-        cta-button
-        inline-flex items-center 
-        cursor-pointer 
-        min-w-fit
-        rounded-full
-        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background
-        ${className}
-      `}
+      className={cn(
+        'relative group',
+        'cta-button',
+        'inline-flex items-center',
+        'cursor-pointer',
+        'min-w-fit',
+        'rounded-full',
+        'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        className
+      )}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       variants={buttonVariants}
@@ -101,9 +102,9 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         reduceMotion
           ? { duration: 0 }
           : {
-              duration: 0.2,
-              ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
-            }
+            duration: 0.2,
+            ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
+          }
       }
       role="button"
       tabIndex={0}

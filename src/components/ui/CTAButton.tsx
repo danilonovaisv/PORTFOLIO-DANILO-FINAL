@@ -9,6 +9,7 @@ import { useId } from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface CTAButtonProps {
   href?: string;
@@ -75,23 +76,23 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         className={`flex items-center justify-center w-12 h-12 md:w-14 md:h-14 ${v.iconBg} text-white rounded-full -ml-4 md:-ml-5 z-10 transition-all duration-300`}
       >
         <ArrowRight
-          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${
-            prefersReducedMotion
+          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${prefersReducedMotion
               ? ''
               : 'transition-transform duration-300 group-hover:rotate-0'
-          }`}
+            }`}
         />
       </span>
     </>
   );
 
-  const baseClasses = `
-    inline-flex items-center group relative cta-button
-    ${prefersReducedMotion ? '' : 'hover:-translate-y-px transition ease-out duration-200'}
-    ${disabled ? 'opacity-50 pointer-events-none' : ''}
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ghost-green focus-visible:ring-offset-4 focus-visible:ring-offset-transparent
-    ${className}
-  `;
+  const baseClasses = cn(
+    'inline-flex items-center group relative cta-button',
+    !prefersReducedMotion &&
+    'hover:-translate-y-px transition ease-out duration-200',
+    disabled && 'opacity-50 pointer-events-none',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ghost-green focus-visible:ring-offset-4 focus-visible:ring-offset-transparent',
+    className
+  );
 
   if (href) {
     const isInternal = href.startsWith('/') || href.startsWith('#');
