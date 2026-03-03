@@ -158,6 +158,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                         <button
                                             key={`${media}-${idx}`}
                                             onClick={() => setActiveMedia(media)}
+                                            aria-label={`Visualizar miniatura ${idx + 1}`}
                                             className={`relative w-32 md:w-48 aspect-video flex-shrink-0 rounded-lg overflow-hidden border-2 cursor-pointer transition-colors outline-none
                                                 ${isActive ? 'border-[#4fe6ff] ring-4 ring-[#4fe6ff]/20 z-10' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
                                             `}
@@ -236,7 +237,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                             {/* External link / CTA */}
                             {project.detail?.externalUrl && (
                                 <div className="pt-16 mt-12 flex justify-start">
-                                    <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer">
+                                    <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer" aria-label="Ver projeto completo externamente">
                                         <div className="h-16 px-8 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="text-white text-lg font-medium tracking-wide lowercase">ver projeto completo</span>
                                         </div>

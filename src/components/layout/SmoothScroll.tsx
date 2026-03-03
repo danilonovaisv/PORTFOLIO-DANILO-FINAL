@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import Lenis from 'lenis';
+import type Lenis from 'lenis';
 import { ScrollContext } from '@/contexts/ScrollContext';
 
 import { useAntigravityStore } from '@/store/antigravity.store';
@@ -39,23 +39,32 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       return;
     }
 
-    const lenis = new Lenis({
-      lerp: 0.08,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.2,
-    });
+    let lenis: any;
+    let rafId: number;
 
-    setLenisInstance(lenis);
+    const initLenis = async () => {
+      const LenisModule = (await import('lenis')).default;
+      lenis = new LenisModule({
+        lerp: 0.08,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.2,
+      });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+      setLenisInstance(lenis);
 
-    requestAnimationFrame(raf);
+      function raf(time: number) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
+    };
+
+    initLenis();
 
     return () => {
-      lenis.destroy();
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenis) lenis.destroy();
       setLenisInstance(null);
     };
   }, [flags.reducedMotion, isAdminRoute]);

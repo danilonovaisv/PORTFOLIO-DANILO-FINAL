@@ -598,8 +598,8 @@ function normalizeMasterTemplate(
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
-        .map((item, index) => normalizeGalleryItem(item, index, fallbackAlt))
-        .filter((item): item is MasterProjectGalleryItem => item !== null)
+      .map((item, index) => normalizeGalleryItem(item, index, fallbackAlt))
+      .filter((item): item is MasterProjectGalleryItem => item !== null)
     : defaults.gallery_grid;
 
   const navigationRecord = asRecord(record.navigation);
@@ -680,8 +680,8 @@ function normalizeMasterTemplateV2(
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
-        .map((item, index) => normalizeGalleryItemV2(item, index, fallbackAlt))
-        .filter((item): item is MasterProjectV2GalleryItem => item !== null)
+      .map((item, index) => normalizeGalleryItemV2(item, index, fallbackAlt))
+      .filter((item): item is MasterProjectV2GalleryItem => item !== null)
     : defaults.gallery_grid;
 
   const navigationRecord = asRecord(record.navigation);
@@ -776,8 +776,8 @@ function normalizeMasterTemplateV3(
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
-        .map((item, index) => normalizeLandingBlock(item, index, fallbackAlt))
-        .filter((item): item is LandingPageBlock => item !== null)
+      .map((item, index) => normalizeLandingBlock(item, index, fallbackAlt))
+      .filter((item): item is LandingPageBlock => item !== null)
     : defaults.gallery_grid;
 
   const navigationRecord = asRecord(record.navigation);
@@ -791,10 +791,10 @@ function normalizeMasterTemplateV3(
       asString(record.project_slug) ?? fallback.slug ?? defaults.project_slug,
     hero_cover_image: heroCoverRecord
       ? normalizeAsset(
-          heroCoverRecord,
-          fallbackAlt,
-          fallback.cover ?? defaults.hero_cover_image?.src
-        )
+        heroCoverRecord,
+        fallbackAlt,
+        fallback.cover ?? defaults.hero_cover_image?.src
+      )
       : defaults.hero_cover_image,
     hero_logo_image: heroLogoRecord
       ? normalizeAsset(heroLogoRecord, `${defaults.project_title} logo`)
@@ -930,12 +930,13 @@ export function getProjectSeoDescription(
     parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
     parsed.template === MASTER_PROJECT_TEMPLATE_V3
   ) {
+    const defaultDesc = `Conheça o projeto ${parsed.data.project_title} de Danilo Novais. Uma experiência de ${parsed.data.project_services?.join(', ') || 'design e desenvolvimento'} com foco em narrativa visual e performance.`;
     return (
-      parsed.data.seo?.description ||
-      parsed.data.project_summary ||
-      `Projeto ${parsed.data.project_title} por Danilo Novais.`
+      parsed.data.seo?.description?.trim() ||
+      parsed.data.project_summary?.trim() ||
+      defaultDesc
     );
   }
 
-  return `Landing page do projeto ${fallbackTitle} por Danilo Novais, com visão criativa, direção de arte e foco em narrativa visual e performance digital.`;
+  return `Landing page do projeto ${fallbackTitle} por Danilo Novais. Creative Development especializado em WebGL, Motion Design e branding editorial de alta performance.`;
 }

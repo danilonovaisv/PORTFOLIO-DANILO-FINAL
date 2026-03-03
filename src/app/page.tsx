@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 
-import { SiteClosure } from '@/components/layout/SiteClosure';
-import FeaturedProjectsRealtime from '@/components/home/featured-projects/FeaturedProjectsRealtime';
+import dynamic from 'next/dynamic';
+
+const SiteClosure = dynamic(() => import('@/components/layout/SiteClosure').then((mod) => mod.SiteClosure));
+const FeaturedProjectsRealtime = dynamic(() => import('@/components/home/featured-projects/FeaturedProjectsRealtime'));
 import HomeHero from '@/components/home/hero/HomeHero';
-import PortfolioShowcase from '@/components/home/portfolio-showcase/PortfolioShowcase';
-import { VideoManifesto } from '@/components/home/hero/VideoManifesto';
+const PortfolioShowcase = dynamic(() => import('@/components/home/portfolio-showcase/PortfolioShowcase'));
+const VideoManifesto = dynamic(() => import('@/components/home/hero/VideoManifesto').then((mod) => mod.VideoManifesto));
 import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
@@ -14,10 +16,17 @@ import type { PortfolioProject } from '@/types/project';
 import JsonLd from '@/components/ui/JsonLd';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
+import {
+  normalizeMetaDescription,
+  normalizeMetaTitle,
+  toCanonicalUrl,
+} from '@/lib/seo';
+
 export const metadata: Metadata = {
-  title: 'Danilo Novais | Creative Developer',
-  description:
-    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais - Creative Developer especializado em WebGL, R3F, Next.js e experiências digitais interativas.',
+  title: normalizeMetaTitle('Danilo Novais | Creative Developer'),
+  description: normalizeMetaDescription(
+    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais - Creative Developer especializado em WebGL, R3F, Next.js e experiências digitais interativas.'
+  ),
   keywords: [
     'Danilo Novais',
     'Creative Developer',
@@ -34,7 +43,7 @@ export const metadata: Metadata = {
     title: 'Danilo Novais | Creative Developer',
     description:
       'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais.',
-    url: `https://${BRAND.domain}`,
+    url: toCanonicalUrl('/'),
     siteName: BRAND.name,
     images: [
       {
@@ -54,7 +63,7 @@ export const metadata: Metadata = {
     images: ['/opengraph-image'],
   },
   alternates: {
-    canonical: `https://${BRAND.domain}`,
+    canonical: toCanonicalUrl('/'),
   },
   formatDetection: {
     telephone: false,

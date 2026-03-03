@@ -3,13 +3,15 @@
 import { useCallback, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { PortfolioProject } from '@/types/project';
+import dynamic from 'next/dynamic';
 import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
-import { ProjectsGallery } from '@/components/portfolio/ProjectsGallery';
-import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
+
+const ProjectsGallery = dynamic(() => import('@/components/portfolio/ProjectsGallery').then((mod) => mod.ProjectsGallery));
+const PortfolioModal = dynamic(() => import('@/components/portfolio/PortfolioModal').then((mod) => mod.PortfolioModal), { ssr: false });
 
 type PortfolioClientProps = {
   projects: PortfolioProject[];

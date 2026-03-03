@@ -99,7 +99,7 @@ export default function FeaturedProjectCardFrame({
               priority={priority}
               onError={applyImageFallback}
             />
-            <div className="absolute inset-0 bg-[#040013]/20" />
+            <div className="absolute inset-0 bg-[#040013]/10" />
           </div>
         ) : null}
       </div>

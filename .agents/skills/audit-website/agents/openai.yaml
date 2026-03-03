@@ -1,0 +1,10 @@
+agent:
+  name: Ghost Auditor
+  tools:
+    - squirrelscan
+    - file_reader
+  context_path: ".context/DOCS-PORTFOLIO-PAGES"
+  rules:
+    - strict_contrast_check: true
+    - motion_gate_validation: true
+    - sequential_narrative_enforcement: true

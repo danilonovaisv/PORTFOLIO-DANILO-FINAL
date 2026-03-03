@@ -1,0 +1,965 @@
+[
+  {
+    "id": "accessibility-compliance-accessibility-audit",
+    "path": "skills/accessibility-compliance-accessibility-audit",
+    "category": "uncategorized",
+    "name": "accessibility-compliance-accessibility-audit",
+    "description": "You are an accessibility expert specializing in WCAG compliance, inclusive design, and assistive technology compatibility. Conduct audits, identify barriers, and provide remediation guidance.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "commit",
+    "path": "skills/commit",
+    "category": "uncategorized",
+    "name": "commit",
+    "description": "Create commit messages following Sentry conventions. Use when committing code changes, writing commit messages, or formatting git history. Follows conventional commits with Sentry-specific issue references.",
+    "risk": "safe",
+    "source": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/commit"
+  },
+  {
+    "id": "concise-planning",
+    "path": "skills/concise-planning",
+    "category": "uncategorized",
+    "name": "concise-planning",
+    "description": "Use when a user asks for a plan for a coding task, to generate a clear, actionable, and atomic checklist.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "core-components",
+    "path": "skills/core-components",
+    "category": "uncategorized",
+    "name": "core-components",
+    "description": "Core component library and design system patterns. Use when building UI, using design tokens, or working with the component library.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "create-pr",
+    "path": "skills/create-pr",
+    "category": "uncategorized",
+    "name": "create-pr",
+    "description": "Create pull requests following Sentry conventions. Use when opening PRs, writing PR descriptions, or preparing changes for review. Follows Sentry's code review guidelines.",
+    "risk": "safe",
+    "source": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/create-pr"
+  },
+  {
+    "id": "database-design",
+    "path": "skills/database-design",
+    "category": "uncategorized",
+    "name": "database-design",
+    "description": "Database design principles and decision-making. Schema design, indexing strategy, ORM selection, serverless databases.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "e2e-runner",
+    "path": "skills/e2e-runner",
+    "category": "uncategorized",
+    "name": "e2e-runner",
+    "description": "End-to-end testing specialist using Playwright. Use PROACTIVELY for generating, maintaining, and running E2E tests. Manages test journeys, quarantines flaky tests, uploads artifacts (screenshots, videos, traces), and ensures critical user flows work.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "e2e-testing-patterns",
+    "path": "skills/e2e-testing-patterns",
+    "category": "uncategorized",
+    "name": "e2e-testing-patterns",
+    "description": "Master end-to-end testing with Playwright and Cypress to build reliable test suites that catch bugs, improve confidence, and enable fast deployment. Use when implementing E2E tests, debugging flaky tests, or establishing testing standards.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "firebase",
+    "path": "skills/firebase",
+    "category": "uncategorized",
+    "name": "firebase",
+    "description": "Firebase gives you a complete backend in minutes - auth, database, storage, functions, hosting. But the ease of setup hides real complexity. Security rules are your last line of defense, and they're often wrong. Firestore queries are limited, and you learn this after you've designed your data model.  This skill covers Firebase Authentication, Firestore, Realtime Database, Cloud Functions, Cloud Storage, and Firebase Hosting. Key insight: Firebase is optimized for read-heavy, denormalized data. I",
+    "risk": "unknown",
+    "source": "vibeship-spawner-skills (Apache 2.0)"
+  },
+  {
+    "id": "framer-motion",
+    "path": "skills/framer-motion",
+    "category": "uncategorized",
+    "name": "framer-motion",
+    "description": "Comprehensive Framer Motion animation library for React. Covers motion components, variants, gestures, page transitions, and scroll animations. Use when adding animations to React/Next.js applications.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-code-review",
+    "path": "skills/frontend-code-review",
+    "category": "uncategorized",
+    "name": "frontend-code-review",
+    "description": "Trigger when the user requests a review of frontend files (e.g., `.tsx`, `.ts`, `.js`). Support both pending-change reviews and focused file reviews while applying the checklist rules.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-design",
+    "path": "skills/frontend-design",
+    "category": "uncategorized",
+    "name": "frontend-design",
+    "description": "Create distinctive, production-grade frontend interfaces with intentional aesthetics, high craft, and non-generic visual identity. Use when building or styling web UIs, components, pages, dashboards, or frontend applications.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-dev-guidelines",
+    "path": "skills/frontend-dev-guidelines",
+    "category": "uncategorized",
+    "name": "frontend-dev-guidelines",
+    "description": "Opinionated frontend development standards for modern React + TypeScript applications. Covers Suspense-first data fetching, lazy loading, feature-based architecture, MUI v7 styling, TanStack Router, performance optimization, and strict TypeScript practices.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-developer",
+    "path": "skills/frontend-developer",
+    "category": "uncategorized",
+    "name": "frontend-developer",
+    "description": "Build React components, implement responsive layouts, and handle client-side state management. Masters React 19, Next.js 15, and modern frontend architecture. Optimizes performance and ensures accessibility. Use PROACTIVELY when creating UI components or fixing frontend issues.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-mobile-development-component-scaffold",
+    "path": "skills/frontend-mobile-development-component-scaffold",
+    "category": "uncategorized",
+    "name": "frontend-mobile-development-component-scaffold",
+    "description": "You are a React component architecture expert specializing in scaffolding production-ready, accessible, and performant components. Generate complete component implementations with TypeScript, tests, s",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-mobile-security-xss-scan",
+    "path": "skills/frontend-mobile-security-xss-scan",
+    "category": "uncategorized",
+    "name": "frontend-mobile-security-xss-scan",
+    "description": "You are a frontend security specialist focusing on Cross-Site Scripting (XSS) vulnerability detection and prevention. Analyze React, Vue, Angular, and vanilla JavaScript code to identify injection poi",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-patterns",
+    "path": "skills/frontend-patterns",
+    "category": "uncategorized",
+    "name": "frontend-patterns",
+    "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-security-coder",
+    "path": "skills/frontend-security-coder",
+    "category": "uncategorized",
+    "name": "frontend-security-coder",
+    "description": "Expert in secure frontend coding practices specializing in XSS prevention, output sanitization, and client-side security patterns. Use PROACTIVELY for frontend security implementations or client-side security code reviews.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "frontend-slides",
+    "path": "skills/frontend-slides",
+    "category": "uncategorized",
+    "name": "frontend-slides",
+    "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
+    "risk": "safe",
+    "source": "https://github.com/zarazhangrui/frontend-slides"
+  },
+  {
+    "id": "geo-fundamentals",
+    "path": "skills/geo-fundamentals",
+    "category": "uncategorized",
+    "name": "geo-fundamentals",
+    "description": "Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity).",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "git-advanced-workflows",
+    "path": "skills/git-advanced-workflows",
+    "category": "uncategorized",
+    "name": "git-advanced-workflows",
+    "description": "Master advanced Git workflows including rebasing, cherry-picking, bisect, worktrees, and reflog to maintain clean history and recover from any situation. Use when managing complex Git histories, collaborating on feature branches, or troubleshooting repository issues.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "git-pr-workflows-git-workflow",
+    "path": "skills/git-pr-workflows-git-workflow",
+    "category": "uncategorized",
+    "name": "git-pr-workflows-git-workflow",
+    "description": "Orchestrate a comprehensive git workflow from code review through PR creation, leveraging specialized agents for quality assurance, testing, and deployment readiness. This workflow implements modern g",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "git-pr-workflows-onboard",
+    "path": "skills/git-pr-workflows-onboard",
+    "category": "uncategorized",
+    "name": "git-pr-workflows-onboard",
+    "description": "You are an **expert onboarding specialist and knowledge transfer architect** with deep experience in remote-first organizations, technical team integration, and accelerated learning methodologies. You",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "git-pr-workflows-pr-enhance",
+    "path": "skills/git-pr-workflows-pr-enhance",
+    "category": "uncategorized",
+    "name": "git-pr-workflows-pr-enhance",
+    "description": "You are a PR optimization expert specializing in creating high-quality pull requests that facilitate efficient code reviews. Generate comprehensive PR descriptions, automate review processes, and ensu",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "git-pushing",
+    "path": "skills/git-pushing",
+    "category": "uncategorized",
+    "name": "git-pushing",
+    "description": "Stage, commit, and push git changes with conventional commit messages. Use when user wants to commit and push changes, mentions pushing to remote, or asks to save and push their work. Also activates when user says \"push changes\", \"commit and push\", \"push this\", \"push to github\", or similar git workflow requests.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "i18n-localization",
+    "path": "skills/i18n-localization",
+    "category": "uncategorized",
+    "name": "i18n-localization",
+    "description": "Internationalization and localization patterns. Detecting hardcoded strings, managing translations, locale files, RTL support.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "interactive-portfolio",
+    "path": "skills/interactive-portfolio",
+    "category": "uncategorized",
+    "name": "interactive-portfolio",
+    "description": "Expert in building portfolios that actually land jobs and clients - not just showing work, but creating memorable experiences. Covers developer portfolios, designer portfolios, creative portfolios, and portfolios that convert visitors into opportunities. Use when: portfolio, personal website, showcase work, developer portfolio, designer portfolio.",
+    "risk": "unknown",
+    "source": "vibeship-spawner-skills (Apache 2.0)"
+  },
+  {
+    "id": "iterate-pr",
+    "path": "skills/iterate-pr",
+    "category": "uncategorized",
+    "name": "iterate-pr",
+    "description": "Iterate on a PR until CI passes. Use when you need to fix CI failures, address review feedback, or continuously push fixes until all checks are green. Automates the feedback-fix-push-wait cycle.",
+    "risk": "safe",
+    "source": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/iterate-pr"
+  },
+  {
+    "id": "lint-and-validate",
+    "path": "skills/lint-and-validate",
+    "category": "uncategorized",
+    "name": "lint-and-validate",
+    "description": "Automatic quality control, linting, and static analysis procedures. Use after every code modification to ensure syntax correctness and project standards. Triggers onKeywords: lint, format, check, validate, types, static analysis.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "mobile-design",
+    "path": "skills/mobile-design",
+    "category": "uncategorized",
+    "name": "mobile-design",
+    "description": "Mobile-first design and engineering doctrine for iOS and Android apps. Covers touch interaction, performance, platform conventions, offline behavior, and mobile-specific decision-making. Teaches principles and constraints, not fixed layouts. Use for React Native, Flutter, or native mobile apps.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "nextjs-app-router-patterns",
+    "path": "skills/nextjs-app-router-patterns",
+    "category": "uncategorized",
+    "name": "nextjs-app-router-patterns",
+    "description": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "nextjs-best-practices",
+    "path": "skills/nextjs-best-practices",
+    "category": "uncategorized",
+    "name": "nextjs-best-practices",
+    "description": "Next.js App Router principles. Server Components, data fetching, routing patterns.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "nextjs-react-expert",
+    "path": "skills/nextjs-react-expert",
+    "category": "uncategorized",
+    "name": "nextjs-react-expert",
+    "description": "React and Next.js performance optimization from Vercel Engineering. Use when building React components, optimizing performance, eliminating waterfalls, reducing bundle size, reviewing code for performance issues, or implementing server/client-side optimizations.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "nextjs-supabase-auth",
+    "path": "skills/nextjs-supabase-auth",
+    "category": "uncategorized",
+    "name": "nextjs-supabase-auth",
+    "description": "Expert integration of Supabase Auth with Next.js App Router Use when: supabase auth next, authentication next.js, login supabase, auth middleware, protected route.",
+    "risk": "unknown",
+    "source": "vibeship-spawner-skills (Apache 2.0)"
+  },
+  {
+    "id": "performance-engineer",
+    "path": "skills/performance-engineer",
+    "category": "uncategorized",
+    "name": "performance-engineer",
+    "description": "Expert performance engineer specializing in modern observability, application optimization, and scalable system performance. Masters OpenTelemetry, distributed tracing, load testing, multi-tier caching, Core Web Vitals, and performance monitoring. Handles end-to-end optimization, real user monitoring, and scalability patterns. Use PROACTIVELY for performance optimization, observability, or scalability challenges.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "performance-profiling",
+    "path": "skills/performance-profiling",
+    "category": "uncategorized",
+    "name": "performance-profiling",
+    "description": "Performance profiling principles. Measurement, analysis, and optimization techniques.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "performance-testing-review-ai-review",
+    "path": "skills/performance-testing-review-ai-review",
+    "category": "uncategorized",
+    "name": "performance-testing-review-ai-review",
+    "description": "You are an expert AI-powered code review specialist combining automated static analysis, intelligent pattern recognition, and modern DevOps practices. Leverage AI tools (GitHub Copilot, Qodo, GPT-5, C",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "performance-testing-review-multi-agent-review",
+    "path": "skills/performance-testing-review-multi-agent-review",
+    "category": "uncategorized",
+    "name": "performance-testing-review-multi-agent-review",
+    "description": "Use when working with performance testing review multi agent review",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "plan-writing",
+    "path": "skills/plan-writing",
+    "category": "uncategorized",
+    "name": "plan-writing",
+    "description": "Structured task planning with clear breakdowns, dependencies, and verification criteria. Use when implementing features, refactoring, or any multi-step work.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "planning-with-files",
+    "path": "skills/planning-with-files",
+    "category": "uncategorized",
+    "name": "planning-with-files",
+    "description": "Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "playwright-skill",
+    "path": "skills/playwright-skill",
+    "category": "uncategorized",
+    "name": "playwright-skill",
+    "description": "Complete browser automation with Playwright. Auto-detects dev servers, writes clean test scripts to /tmp. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flows, check links, automate any browser task. Use when user wants to test websites, automate browser interactions, validate web functionality, or perform any browser-based testing.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "react-modernization",
+    "path": "skills/react-modernization",
+    "category": "uncategorized",
+    "name": "react-modernization",
+    "description": "Upgrade React applications to latest versions, migrate from class components to hooks, and adopt concurrent features. Use when modernizing React codebases, migrating to React Hooks, or upgrading to latest React versions.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "react-native-architecture",
+    "path": "skills/react-native-architecture",
+    "category": "uncategorized",
+    "name": "react-native-architecture",
+    "description": "Build production React Native apps with Expo, navigation, native modules, offline sync, and cross-platform patterns. Use when developing mobile apps, implementing native integrations, or architecting React Native projects.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "react-patterns",
+    "path": "skills/react-patterns",
+    "category": "uncategorized",
+    "name": "react-patterns",
+    "description": "Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "react-state-management",
+    "path": "skills/react-state-management",
+    "category": "uncategorized",
+    "name": "react-state-management",
+    "description": "Master modern React state management with Redux Toolkit, Zustand, Jotai, and React Query. Use when setting up global state, managing server state, or choosing between state management solutions.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "react-ui-patterns",
+    "path": "skills/react-ui-patterns",
+    "category": "uncategorized",
+    "name": "react-ui-patterns",
+    "description": "Modern React UI patterns for loading states, error handling, and data fetching. Use when building UI components, handling async data, or managing UI states.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "screen-reader-testing",
+    "path": "skills/screen-reader-testing",
+    "category": "uncategorized",
+    "name": "screen-reader-testing",
+    "description": "Test web applications with screen readers including VoiceOver, NVDA, and JAWS. Use when validating screen reader compatibility, debugging accessibility issues, or ensuring assistive technology support.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "screenshots",
+    "path": "skills/screenshots",
+    "category": "uncategorized",
+    "name": "screenshots",
+    "description": "Generate marketing screenshots of your app using Playwright. Use when the user wants to create screenshots for Product Hunt, social media, landing pages, or documentation.",
+    "risk": "safe",
+    "source": "https://github.com/Shpigford/skills/tree/main/screenshots"
+  },
+  {
+    "id": "scroll-experience",
+    "path": "skills/scroll-experience",
+    "category": "uncategorized",
+    "name": "scroll-experience",
+    "description": "Expert in building immersive scroll-driven experiences - parallax storytelling, scroll animations, interactive narratives, and cinematic web experiences. Like NY Times interactives, Apple product pages, and award-winning web experiences. Makes websites feel like experiences, not just pages. Use when: scroll animation, parallax, scroll storytelling, interactive story, cinematic website.",
+    "risk": "unknown",
+    "source": "vibeship-spawner-skills (Apache 2.0)"
+  },
+  {
+    "id": "seo-audit",
+    "path": "skills/seo-audit",
+    "category": "uncategorized",
+    "name": "seo-audit",
+    "description": "Diagnose and audit SEO issues affecting crawlability, indexation, rankings, and organic performance. Use when the user asks for an SEO audit, technical SEO review, ranking diagnosis, on-page SEO review, meta tag audit, or SEO health check. This skill identifies issues and prioritizes actions but does not execute changes. For large-scale page creation, use programmatic-seo. For structured data, use schema-markup.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-authority-builder",
+    "path": "skills/seo-authority-builder",
+    "category": "uncategorized",
+    "name": "seo-authority-builder",
+    "description": "Analyzes content for E-E-A-T signals and suggests improvements to build authority and trust. Identifies missing credibility elements. Use PROACTIVELY for YMYL topics.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-cannibalization-detector",
+    "path": "skills/seo-cannibalization-detector",
+    "category": "uncategorized",
+    "name": "seo-cannibalization-detector",
+    "description": "Analyzes multiple provided pages to identify keyword overlap and potential cannibalization issues. Suggests differentiation strategies. Use PROACTIVELY when reviewing similar content.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-content-auditor",
+    "path": "skills/seo-content-auditor",
+    "category": "uncategorized",
+    "name": "seo-content-auditor",
+    "description": "Analyzes provided content for quality, E-E-A-T signals, and SEO best practices. Scores content and provides improvement recommendations based on established guidelines. Use PROACTIVELY for content review.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-content-planner",
+    "path": "skills/seo-content-planner",
+    "category": "uncategorized",
+    "name": "seo-content-planner",
+    "description": "Creates comprehensive content outlines and topic clusters for SEO. Plans content calendars and identifies topic gaps. Use PROACTIVELY for content strategy and planning.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-content-refresher",
+    "path": "skills/seo-content-refresher",
+    "category": "uncategorized",
+    "name": "seo-content-refresher",
+    "description": "Identifies outdated elements in provided content and suggests updates to maintain freshness. Finds statistics, dates, and examples that need updating. Use PROACTIVELY for older content.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-content-writer",
+    "path": "skills/seo-content-writer",
+    "category": "uncategorized",
+    "name": "seo-content-writer",
+    "description": "Writes SEO-optimized content based on provided keywords and topic briefs. Creates engaging, comprehensive content following best practices. Use PROACTIVELY for content creation tasks.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-fundamentals",
+    "path": "skills/seo-fundamentals",
+    "category": "uncategorized",
+    "name": "seo-fundamentals",
+    "description": "Core principles of SEO including E-E-A-T, Core Web Vitals, technical foundations, content quality, and how modern search engines evaluate pages. This skill explains *why* SEO works, not how to execute specific optimizations.\n",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-keyword-strategist",
+    "path": "skills/seo-keyword-strategist",
+    "category": "uncategorized",
+    "name": "seo-keyword-strategist",
+    "description": "Analyzes keyword usage in provided content, calculates density, suggests semantic variations and LSI keywords based on the topic. Prevents over-optimization. Use PROACTIVELY for content optimization.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-meta-optimizer",
+    "path": "skills/seo-meta-optimizer",
+    "category": "uncategorized",
+    "name": "seo-meta-optimizer",
+    "description": "Creates optimized meta titles, descriptions, and URL suggestions based on character limits and best practices. Generates compelling, keyword-rich metadata. Use PROACTIVELY for new content.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-snippet-hunter",
+    "path": "skills/seo-snippet-hunter",
+    "category": "uncategorized",
+    "name": "seo-snippet-hunter",
+    "description": "Formats content to be eligible for featured snippets and SERP features. Creates snippet-optimized content blocks based on best practices. Use PROACTIVELY for question-based content.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "seo-structure-architect",
+    "path": "skills/seo-structure-architect",
+    "category": "uncategorized",
+    "name": "seo-structure-architect",
+    "description": "Analyzes and optimizes content structure including header hierarchy, suggests schema markup, and internal linking opportunities. Creates search-friendly content organization. Use PROACTIVELY for content structuring.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "supabase-auth-storage-realtime-core",
+    "path": "skills/supabase-auth-storage-realtime-core",
+    "category": "uncategorized",
+    "name": "supabase-auth-storage-realtime-core",
+    "description": "Execute Supabase secondary workflow: Auth + Storage + Realtime. Use when implementing a secondary use case or complementing the primary workflow. Trigger with phrases like \"supabase auth storage realtime\" or \"implement full stack features with supabase\".",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "supabase-automation",
+    "path": "skills/supabase-automation",
+    "category": "uncategorized",
+    "name": "supabase-automation",
+    "description": "Automate Supabase database queries, table management, project administration, storage, edge functions, and SQL execution via Rube MCP (Composio). Always search tools first for current schemas.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "supabase-postgres-best-practices",
+    "path": "skills/supabase-postgres-best-practices",
+    "category": "uncategorized",
+    "name": "supabase-postgres-best-practices",
+    "description": "Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "tailwind-design-system",
+    "path": "skills/tailwind-design-system",
+    "category": "uncategorized",
+    "name": "tailwind-design-system",
+    "description": "Build scalable design systems with Tailwind CSS, design tokens, component libraries, and responsive patterns. Use when creating component libraries, implementing design systems, or standardizing UI patterns.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "tailwind-patterns",
+    "path": "skills/tailwind-patterns",
+    "category": "uncategorized",
+    "name": "tailwind-patterns",
+    "description": "Tailwind CSS v4 principles. CSS-first configuration, container queries, modern patterns, design token architecture.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "testing-patterns",
+    "path": "skills/testing-patterns",
+    "category": "uncategorized",
+    "name": "testing-patterns",
+    "description": "Jest testing patterns, factory functions, mocking strategies, and TDD workflow. Use when writing unit tests, creating test factories, or following TDD red-green-refactor cycle.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "threejs-skills",
+    "path": "skills/threejs-skills",
+    "category": "uncategorized",
+    "name": "threejs-skills",
+    "description": "Three.js skills for creating 3D elements and interactive experiences",
+    "risk": "safe",
+    "source": "https://github.com/CloudAI-X/threejs-skills"
+  },
+  {
+    "id": "track-management",
+    "path": "skills/track-management",
+    "category": "uncategorized",
+    "name": "track-management",
+    "description": "Use this skill when creating, managing, or working with Conductor tracks - the logical work units for features, bugs, and refactors. Applies to spec.md, plan.md, and track lifecycle operations.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "typescript-advanced-types",
+    "path": "skills/typescript-advanced-types",
+    "category": "uncategorized",
+    "name": "typescript-advanced-types",
+    "description": "Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "typescript-expert",
+    "path": "skills/typescript-expert",
+    "category": "uncategorized",
+    "name": "typescript-expert",
+    "description": "TypeScript and JavaScript expert with deep knowledge of type-level programming, performance optimization, monorepo management, migration strategies, and modern tooling. Use PROACTIVELY for any TypeScript/JavaScript issues including complex type gymnastics, build performance, debugging, and architectural decisions. If a specialized expert is a better fit, I will recommend switching and stop.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "typescript-pro",
+    "path": "skills/typescript-pro",
+    "category": "uncategorized",
+    "name": "typescript-pro",
+    "description": "Master TypeScript with advanced types, generics, and strict type safety. Handles complex type systems, decorators, and enterprise-grade patterns. Use PROACTIVELY for TypeScript architecture, type inference optimization, or advanced typing patterns.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "typescript-review",
+    "path": "skills/typescript-review",
+    "category": "uncategorized",
+    "name": "typescript-review",
+    "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/JavaScript code.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "ui-skills",
+    "path": "skills/ui-skills",
+    "category": "uncategorized",
+    "name": "ui-skills",
+    "description": "Opinionated, evolving constraints to guide agents when building interfaces",
+    "risk": "safe",
+    "source": "https://github.com/ibelick/ui-skills"
+  },
+  {
+    "id": "ui-ux-designer",
+    "path": "skills/ui-ux-designer",
+    "category": "uncategorized",
+    "name": "ui-ux-designer",
+    "description": "Create interface designs, wireframes, and design systems. Masters user research, accessibility standards, and modern design tools. Specializes in design tokens, component libraries, and inclusive design. Use PROACTIVELY for design systems, user flows, or interface optimization.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "ui-ux-pro-max",
+    "path": "skills/ui-ux-pro-max",
+    "category": "uncategorized",
+    "name": "ui-ux-pro-max",
+    "description": "UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 9 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient. Integrations: shadcn/ui MCP for component search and examples.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "ui-visual-validator",
+    "path": "skills/ui-visual-validator",
+    "category": "uncategorized",
+    "name": "ui-visual-validator",
+    "description": "Rigorous visual validation expert specializing in UI testing, design system compliance, and accessibility verification. Masters screenshot analysis, visual regression testing, and component validation. Use PROACTIVELY to verify UI modifications have achieved their intended goals through comprehensive visual analysis.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "vercel-automation",
+    "path": "skills/vercel-automation",
+    "category": "uncategorized",
+    "name": "vercel-automation",
+    "description": "Automate Vercel tasks via Rube MCP (Composio): manage deployments, domains, DNS, env vars, projects, and teams. Always search tools first for current schemas.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "vercel-deploy",
+    "path": "skills/vercel-deploy",
+    "category": "uncategorized",
+    "name": "vercel-deploy",
+    "description": "Deploy applications and websites to Vercel using the bundled `scripts/deploy.sh` claimable-preview flow. Use when the user asks to deploy to Vercel, wants a preview URL, or says to push a project live on Vercel.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "vercel-deploy-claimable",
+    "path": "skills/vercel-deploy-claimable",
+    "category": "uncategorized",
+    "name": "vercel-deploy-claimable",
+    "description": "Deploy applications and websites to Vercel. Use this skill when the user requests deployment actions such as 'Deploy my app', 'Deploy this to production', 'Create a preview deployment', 'Deploy and give me the link', or 'Push this live'. No authentication required - returns preview URL and claimable deployment link.",
+    "risk": "safe",
+    "source": "https://github.com/vercel-labs/agent-skills/tree/main/skills/claude.ai/vercel-deploy-claimable"
+  },
+  {
+    "id": "vercel-deployment",
+    "path": "skills/vercel-deployment",
+    "category": "uncategorized",
+    "name": "vercel-deployment",
+    "description": "Expert knowledge for deploying to Vercel with Next.js Use when: vercel, deploy, deployment, hosting, production.",
+    "risk": "safe",
+    "source": "vibeship-spawner-skills (Apache 2.0)"
+  },
+  {
+    "id": "react-best-practices",
+    "path": "skills/react-best-practices",
+    "category": "uncategorized",
+    "name": "vercel-react-best-practices",
+    "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "verification-before-completion",
+    "path": "skills/verification-before-completion",
+    "category": "uncategorized",
+    "name": "verification-before-completion",
+    "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "vitest-supabase",
+    "path": "skills/vitest-supabase",
+    "category": "uncategorized",
+    "name": "vitest",
+    "description": "Vitest fast unit testing framework powered by Vite with Jest-compatible API. Use when writing tests, mocking, configuring coverage, or working with test filtering and fixtures.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "vulnerability-scanner",
+    "path": "skills/vulnerability-scanner",
+    "category": "uncategorized",
+    "name": "vulnerability-scanner",
+    "description": "Advanced vulnerability analysis principles. OWASP 2025, Supply Chain Security, attack surface mapping, risk prioritization.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "web-artifacts-builder",
+    "path": "skills/web-artifacts-builder",
+    "category": "uncategorized",
+    "name": "web-artifacts-builder",
+    "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "web-design-guidelines",
+    "path": "skills/web-design-guidelines",
+    "category": "uncategorized",
+    "name": "web-design-guidelines",
+    "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "web-performance-optimization",
+    "path": "skills/web-performance-optimization",
+    "category": "uncategorized",
+    "name": "web-performance-optimization",
+    "description": "Optimize website and web application performance including loading speed, Core Web Vitals, bundle size, caching strategies, and runtime performance",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "webgl-optimizer",
+    "path": "skills/webgl-optimizer",
+    "category": "uncategorized",
+    "name": "webgl-optimizer",
+    "description": "Skill to check WebGL performance, focusing on useFrame usage and texture sizes.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "webgl-performance",
+    "path": "skills/webgl-performance",
+    "category": "uncategorized",
+    "name": "webgl-performance",
+    "description": "Expert guidelines for high-performance React Three Fiber (R3F) development.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "id": "workflow-patterns",
+    "path": "skills/workflow-patterns",
+    "category": "uncategorized",
+    "name": "workflow-patterns",
+    "description": "Use this skill when implementing tasks according to Conductor's TDD workflow, handling phase checkpoints, managing git commits for tasks, or understanding the verification protocol.",
+    "risk": "unknown",
+    "source": "unknown"
+  },
+  {
+    "knowledge_base_meta": {
+      "description": "Índice de repositórios de Habilidades (Skills) e Superpoderes para Agentes de IA",
+      "owner": "danilonovaisv",
+      "generated_at": "2026-02-08"
+    },
+    "repositories": [
+      {
+        "name": "antigravity-awesome-skills",
+        "description": "Repositório principal contendo uma vasta biblioteca de 'Skills' (habilidades modulares) para agentes, abrangendo desenvolvimento, design, segurança e automação.",
+        "url": "https://github.com/danilonovaisv/antigravity-awesome-skills",
+        "root_paths": ["skills/", "docs/"],
+        "key_knowledge_files": [
+          {
+            "category": "Core Framework",
+            "paths": [
+              "README.md",
+              "docs/SKILL_ANATOMY.md",
+              "docs/GETTING_STARTED.md",
+              "data/catalog.json"
+            ]
+          },
+          {
+            "category": "Skills (Destaques)",
+            "note": "Cada caminho abaixo contém um arquivo SKILL.md com instruções para o agente",
+            "paths": [
+              "skills/loki-mode/SKILL.md",
+              "skills/python-pro/SKILL.md",
+              "skills/react-best-practices/SKILL.md",
+              "skills/postgres-best-practices/SKILL.md",
+              "skills/prompt-engineering/SKILL.md",
+              "skills/security-auditor/SKILL.md",
+              "skills/seo-audit/SKILL.md",
+              "skills/systematic-debugging/SKILL.md",
+              "skills/tdd-workflow/SKILL.md",
+              "skills/ui-ux-designer/SKILL.md",
+              "skills/voice-ai-development/SKILL.md",
+              "skills/web-performance-optimization/SKILL.md",
+              "skills/writing-skills/SKILL.md"
+            ]
+          },
+          {
+            "category": "Loki Mode (Advanced)",
+            "paths": [
+              "skills/loki-mode/README.md",
+              "skills/loki-mode/autonomy/CONSTITUTION.md",
+              "skills/loki-mode/docs/COMPETITIVE-ANALYSIS.md",
+              "skills/loki-mode/references/agent-types.md"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "superpowers",
+        "description": "Framework e ferramentas para estender as capacidades dos agentes (brainstorming, execução de planos, revisão de código).",
+        "url": "https://github.com/danilonovaisv/superpowers",
+        "root_paths": ["agents/", "commands/", "skills/"],
+        "key_knowledge_files": [
+          {
+            "category": "Commands & Abilities",
+            "paths": [
+              "README.md",
+              "commands/brainstorm.md",
+              "commands/execute-plan.md",
+              "commands/write-plan.md"
+            ]
+          },
+          {
+            "category": "Agent Personas",
+            "paths": [
+              "agents/code-reviewer.md",
+              "skills/requesting-code-review/code-reviewer.md"
+            ]
+          },
+          {
+            "category": "Development Flows",
+            "paths": [
+              "skills/subagent-driven-development/SKILL.md",
+              "skills/subagent-driven-development/spec-reviewer-prompt.md",
+              "skills/subagent-driven-development/implementer-prompt.md"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "agent-skills-for-context-engineering",
+        "description": "Focado em engenharia de contexto, avaliação de LLMs (LLM-as-a-Judge) e pipelines de raciocínio complexo.",
+        "url": "https://github.com/danilonovaisv/agent-skills-for-context-engineering",
+        "root_paths": ["examples/", "skills/", "docs/"],
+        "key_knowledge_files": [
+          {
+            "category": "LLM as Judge & Evaluation",
+            "paths": [
+              "examples/llm-as-judge-skills/README.md",
+              "examples/llm-as-judge-skills/prompts/evaluation/direct-scoring-prompt.md",
+              "examples/llm-as-judge-skills/prompts/evaluation/pairwise-comparison-prompt.md",
+              "skills/evaluation/SKILL.md"
+            ]
+          },
+          {
+            "category": "Thinking & Research",
+            "paths": [
+              "examples/interleaved_thinking/SKILL.md",
+              "examples/interleaved_thinking/docs/interleavedthinking.md",
+              "examples/digital-brain-skill/SKILL.md",
+              "examples/book-sft-pipeline/SKILL.md"
+            ]
+          },
+          {
+            "category": "Context Management",
+            "paths": [
+              "skills/context-compression/SKILL.md",
+              "skills/context-degradation/SKILL.md",
+              "skills/context-optimization/SKILL.md"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "agent-skills",
+        "description": "Estrutura base para construção e build de habilidades de agentes (MCP - Model Context Protocol).",
+        "url": "https://github.com/danilonovaisv/agent-skills",
+        "root_paths": ["packages/skills-build/", "skills/"],
+        "key_knowledge_files": [
+          {
+            "category": "Infrastructure",
+            "paths": [
+              "README.md",
+              "AGENTS.md",
+              ".mcp.json",
+              "packages/skills-build/src/build.ts"
+            ]
+          },
+          {
+            "category": "Specific Skills",
+            "paths": [
+              "skills/supabase-postgres-best-practices/SKILL.md",
+              "skills/supabase-postgres-best-practices/references/security-rls-basics.md"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

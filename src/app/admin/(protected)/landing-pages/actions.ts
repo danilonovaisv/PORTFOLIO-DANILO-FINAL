@@ -84,42 +84,46 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
       resourceId: parsed.id,
       status: 'success',
     });
-  } else {
-    const insertPayload: TablesInsert<'landing_pages'> = {
-      title: parsed.title,
-      slug: parsed.slug,
-      cover: parsed.cover ?? null,
-      content: parsed.content,
-      created_at: new Date().toISOString(),
-    };
 
-    const { data, error } = await supabase
-      .from('landing_pages')
-      .insert(insertPayload)
-      .select('id')
-      .single();
+    revalidatePath('/admin/landing-pages');
+    revalidatePath('/portfolio');
+    return { ok: true as const, id: parsed.id };
+  }
 
-    if (error) {
-      await logAdminAudit(supabase, user, {
-        action: 'landing_page.create',
-        resource: 'landing_pages',
-        status: 'error',
-        errorMessage: error.message,
-      });
-      throw error;
-    }
+  const insertPayload: TablesInsert<'landing_pages'> = {
+    title: parsed.title,
+    slug: parsed.slug,
+    cover: parsed.cover ?? null,
+    content: parsed.content,
+    created_at: new Date().toISOString(),
+  };
 
+  const { data, error } = await supabase
+    .from('landing_pages')
+    .insert(insertPayload)
+    .select('id')
+    .single();
+
+  if (error) {
     await logAdminAudit(supabase, user, {
       action: 'landing_page.create',
       resource: 'landing_pages',
-      resourceId: data?.id ?? null,
-      status: 'success',
+      status: 'error',
+      errorMessage: error.message,
     });
+    throw error;
   }
+
+  await logAdminAudit(supabase, user, {
+    action: 'landing_page.create',
+    resource: 'landing_pages',
+    resourceId: data?.id ?? null,
+    status: 'success',
+  });
 
   revalidatePath('/admin/landing-pages');
   revalidatePath('/portfolio');
-  return { ok: true as const };
+  return { ok: true as const, id: data.id };
 }
 
 export async function deleteLandingPageAction(id: string) {

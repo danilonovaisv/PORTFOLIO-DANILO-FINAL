@@ -17,10 +17,10 @@ interface CTAButtonProps {
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   children: React.ReactNode;
-  // Adicionado 'ghost' à tipagem
   variant?: 'primary' | 'secondary' | 'accent' | 'ghost';
   className?: string;
   id?: string;
+  'aria-label'?: string;
 }
 
 export const CTAButton: React.FC<CTAButtonProps> = ({
@@ -32,6 +32,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   variant = 'primary',
   className = '',
   id,
+  'aria-label': ariaLabel,
 }) => {
   const prefersReducedMotion = useMotionGate();
   const generatedId = useId();
@@ -76,11 +77,10 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         className={`flex items-center justify-center w-12 h-12 md:w-14 md:h-14 ${v.iconBg} text-white rounded-full -ml-4 md:-ml-5 z-10 transition-all duration-300`}
       >
         <ArrowRight
-          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${
-            prefersReducedMotion
-              ? ''
-              : 'transition-transform duration-300 group-hover:rotate-0'
-          }`}
+          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${prefersReducedMotion
+            ? ''
+            : 'transition-transform duration-300 group-hover:rotate-0'
+            }`}
         />
       </span>
     </>
@@ -89,7 +89,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   const baseClasses = cn(
     'inline-flex items-center group relative cta-button',
     !prefersReducedMotion &&
-      'hover:-translate-y-px transition ease-out duration-200',
+    'hover:-translate-y-px transition ease-out duration-200',
     disabled && 'opacity-50 pointer-events-none',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ghost-green focus-visible:ring-offset-4 focus-visible:ring-offset-transparent',
     className
@@ -101,6 +101,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
       id: uniqueId,
       className: baseClasses,
       href,
+      'aria-label': ariaLabel,
       ...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' }),
     };
 
@@ -125,6 +126,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
     type,
     onClick,
     disabled,
+    'aria-label': ariaLabel,
   };
 
   return <button {...buttonProps}>{buttonContent}</button>;

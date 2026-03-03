@@ -1,4 +1,13 @@
 @import 'tailwindcss';
+@source "../components";
+@source "../app";
+@source "../lib";
+@source "../hooks";
+@source "../store";
+@source "../types";
+@source "../config";
+@source "../styles";
+
 
 @plugin 'tailwindcss-animate';
 

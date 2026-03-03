@@ -36,6 +36,7 @@ export default function JsonLd({
     '@id': `${baseUrl}/#person`,
     name: BRAND.name,
     url: baseUrl,
+    email: 'contato@portfoliodanilo.com',
     image: logoUrl ?? BRAND.assets.logos.logoLight,
     jobTitle: 'Creative Developer & Designer',
     worksFor: {

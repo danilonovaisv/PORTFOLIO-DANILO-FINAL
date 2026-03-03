@@ -36,12 +36,16 @@ export function normalizeHomeFeaturedConfig(
   const rawLogoPath =
     typeof input?.logoPath === 'string' ? input.logoPath.trim() : '';
 
+  const cardStyle = isHomeFeaturedCardStyle(input?.cardStyle)
+    ? input.cardStyle
+    : rawLogoPath
+      ? 'ANIMATED_BG_INVERTED_LOGO'
+      : DEFAULT_HOME_FEATURED_CARD_STYLE;
+
   return {
     enabled:
       typeof input?.enabled === 'boolean' ? input.enabled : fallbackEnabled,
-    cardStyle: isHomeFeaturedCardStyle(input?.cardStyle)
-      ? input.cardStyle
-      : DEFAULT_HOME_FEATURED_CARD_STYLE,
+    cardStyle,
     logoPath: rawLogoPath || null,
   };
 }

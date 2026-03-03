@@ -103,7 +103,7 @@ export default async function TrabalhosPage(props: Props) {
   const projects = (baseProjects ?? []).map((project) => ({
     ...project,
     tags: tagsByProject.get(project.id) ?? [],
-  }));
+  })) as any[];
 
   const filteredProjects = tagFilter
     ? projects.filter((project) =>

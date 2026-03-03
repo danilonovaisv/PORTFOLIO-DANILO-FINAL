@@ -27,11 +27,12 @@ export interface LandingPageBlockContent {
   alt?: string;
   alt2?: string;
   poster?: string;
+  order?: number;
   poster2?: string;
   mediaType?: 'image' | 'video' | 'youtube';
   mediaType2?: 'image' | 'video' | 'youtube';
-  autoplay?: boolean;
   bandColor?: string;
+  [key: string]: any;
 }
 
 export interface LandingPageBlock {
@@ -43,4 +44,5 @@ export interface LandingPageBlock {
   file2?: File | null;
   previewUrl?: string;
   previewUrl2?: string;
+  order?: number;
 }

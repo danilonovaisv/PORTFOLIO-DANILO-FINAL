@@ -33,12 +33,12 @@ export function toCanonicalUrl(pathname: string = '/'): string {
 
 function truncateAtWordBoundary(value: string, max: number): string {
   if (value.length <= max) return value;
-  const candidate = value.slice(0, Math.max(0, max - 1));
+  const candidate = value.slice(0, Math.max(0, max - 3));
   const lastSpace = candidate.lastIndexOf(' ');
-  const trimmed = (lastSpace > 80 ? candidate.slice(0, lastSpace) : candidate)
+  const trimmed = (lastSpace > 0 ? candidate.slice(0, lastSpace) : candidate)
     .replace(/[.,;:!?-]+$/g, '')
     .trim();
-  return `${trimmed}.`;
+  return `${trimmed}...`;
 }
 
 export function normalizeMetaTitle(title: string, max = 60): string {
@@ -49,7 +49,7 @@ export function normalizeMetaTitle(title: string, max = 60): string {
 export function normalizeMetaDescription(
   description: string,
   {
-    min = 120,
+    min = 0,
     max = 160,
     fallbackTail = ' Portfólio com foco em branding, motion e experiências digitais de alta performance.',
   }: DescriptionOptions = {}

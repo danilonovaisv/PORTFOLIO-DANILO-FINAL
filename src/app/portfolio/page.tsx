@@ -30,22 +30,25 @@ export async function generateMetadata({
   const category = categoryRaw?.toLowerCase();
   const categoryMeta: Record<
     string,
-    { label: string; description: string }
+    { label: string; description: string; keywords: string[] }
   > = {
     branding: {
       label: 'Brand & Campaigns',
       description:
         'Seleção de projetos de Brand & Campaigns com foco em presença, direção visual e consistência de marca.',
+      keywords: ['Branding', 'Design Identidade', 'Direção de Arte', 'Campanhas Criativas', 'Visual Identity'],
     },
     motion: {
       label: 'Videos & Motions',
       description:
         'Projetos de motion design, vídeo e direção criativa com ritmo editorial, narrativa e impacto visual.',
+      keywords: ['Motion Design', 'Video Editing', 'Direção Criativa', 'Animação 2D', 'After Effects', 'Editorial Video'],
     },
     web: {
       label: 'Websites & Tech',
       description:
         'Experiências web e digitais com foco em performance, interatividade e design que conecta pessoas e marcas.',
+      keywords: ['Web Design', 'Next.js', 'React', 'WebGL', 'Three.js', 'User Experience', 'Front-end Engineering'],
     },
   };
 
@@ -65,6 +68,12 @@ export async function generateMetadata({
   return {
     title,
     description,
+    keywords: [
+      'Danilo Novais',
+      'Portfólio',
+      'Creative Developer',
+      ...(metaForCategory?.keywords || ['Branding', 'Motion Design', 'Web Development']),
+    ],
     openGraph: {
       title,
       description,

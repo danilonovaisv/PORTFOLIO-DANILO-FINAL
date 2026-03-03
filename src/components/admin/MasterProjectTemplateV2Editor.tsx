@@ -1,27 +1,19 @@
 'use client';
 
-import {
-  ArrowDown,
-  ArrowUp,
-  Image as ImageIcon,
-  Plus,
-  Trash2,
-  Video,
-} from 'lucide-react';
-import Image from 'next/image';
-import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
+import { Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type {
   MasterProjectAsset,
   MasterProjectTemplateV2Data,
   MasterProjectV2FeatureItem,
   MasterProjectV2GalleryItem,
 } from '@/types/project-template';
-const getYoutubeId = (url: string) => {
-  const match = url.match(
-    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#&?]*).*/
-  );
-  return match && match[2].length === 11 ? match[2] : null;
-};
+
+// Common components
+import { MediaAssetField } from './templates/MediaAssetField';
+import { CommonProjectMetadataFields } from './templates/CommonProjectMetadataFields';
+import { CommonSEOAndNavFields } from './templates/CommonSEOAndNavFields';
+import { labelClasses, inputClasses } from './templates/CommonTemplateStyles';
 
 export type MasterProjectV2AssetDraft = MasterProjectAsset & {
   file?: File | null;
@@ -45,204 +37,42 @@ export type MasterProjectTemplateV2Draft = Omit<
   gallery_grid: MasterProjectV2GalleryDraft[];
 };
 
-type MasterProjectTemplateV2EditorProps = {
+interface MasterProjectTemplateV2EditorProps {
   value: MasterProjectTemplateV2Draft;
   onChange: (_next: MasterProjectTemplateV2Draft) => void;
+}
+
+const parseFeatures = (value: string): MasterProjectV2FeatureDraft[] => {
+  return value
+    .split('\n')
+    .map((line) => {
+      const parts = line.split(':');
+      if (parts.length >= 2) {
+        return {
+          title: parts[0].trim(),
+          description: parts.slice(1).join(':').trim(),
+        } as MasterProjectV2FeatureDraft;
+      }
+      return null;
+    })
+    .filter((f): f is MasterProjectV2FeatureDraft => f !== null);
 };
 
-const splitTokenList = (value: string): string[] =>
-  value
-    .split(/[\s,]+/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-const splitLines = (value: string): string[] =>
-  value
-    .split('\n')
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-const parseFeatures = (value: string): MasterProjectV2FeatureDraft[] =>
-  value
-    .split('\n')
-    .reduce<MasterProjectV2FeatureDraft[]>((acc, line, index) => {
-      const [titleRaw, descriptionRaw] = line.split('|');
-      const title = titleRaw?.trim();
-      if (!title) return acc;
-
-      acc.push({
-        id: `feature-${index + 1}`,
-        title,
-        description: descriptionRaw?.trim() || undefined,
-      });
-      return acc;
-    }, []);
-
-const toFeatureText = (features?: MasterProjectV2FeatureDraft[]) =>
-  (features ?? [])
-    .map(
-      (feature) =>
-        `${feature.title}${feature.description ? ` | ${feature.description}` : ''}`
-    )
-    .join('\n');
+const toFeatureText = (features?: MasterProjectV2FeatureDraft[]) => {
+  if (!features) return '';
+  return features.map((f) => `${f.title}: ${f.description}`).join('\n');
+};
 
 const createGalleryDraft = (index: number): MasterProjectV2GalleryDraft => ({
-  id: `grid-item-${index + 1}`,
-  kind: 'image',
-  layout_type: 'grid_2_col',
-  media_align: 'left',
+  id: `v2-gallery-${Date.now()}-${index}`,
   src: '',
   alt: '',
-  title: '',
-  eyebrow: '',
-  description: '',
-  quote: '',
+  kind: 'image',
+  poster: '',
+  order: index,
+  layout_type: 'full-width',
   features: [],
 });
-
-const inputClasses =
-  'w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none transition-colors focus:border-blue-500';
-
-const labelClasses = 'text-[11px] uppercase tracking-[0.15em] text-slate-400';
-
-function MediaField({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: MasterProjectV2AssetDraft;
-  onChange: (_next: MasterProjectV2AssetDraft) => void;
-}) {
-  const isVideo = value.kind === 'video';
-  const preview = value.previewUrl || value.src;
-  const missingAlt = !isVideo && !value.alt?.trim();
-
-  return (
-    <div className="space-y-3 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-      <p className={labelClasses}>{label}</p>
-
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <label className="space-y-1">
-          <span className={labelClasses}>Tipo</span>
-          <select
-            className={inputClasses}
-            value={value.kind || 'image'}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              onChange({
-                ...value,
-                kind: event.target.value === 'video' ? 'video' : 'image',
-              })
-            }
-          >
-            <option value="image">Imagem</option>
-            <option value="video">Vídeo</option>
-          </select>
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>Upload</span>
-          <input
-            className={`${inputClasses} file:mr-3 file:rounded-md file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
-            type="file"
-            accept={isVideo ? 'video/*' : 'image/*'}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const file = event.target.files?.[0];
-              if (!file) return;
-
-              onChange({
-                ...value,
-                file,
-                previewUrl: URL.createObjectURL(file),
-              });
-            }}
-          />
-        </label>
-      </div>
-
-      <label className="space-y-1">
-        <span className={labelClasses}>URL / Caminho</span>
-        <input
-          className={inputClasses}
-          placeholder={
-            isVideo
-              ? 'landing-pages/meu-projeto/hero-video.mp4'
-              : 'landing-pages/meu-projeto/hero.webp'
-          }
-          value={value.src || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onChange({
-              ...value,
-              src: event.target.value,
-              file: null,
-              previewUrl: '',
-            })
-          }
-        />
-      </label>
-
-      <label className="space-y-1">
-        <span className={labelClasses}>
-          Texto alternativo (obrigatório para imagem)
-        </span>
-        <input
-          className={inputClasses}
-          value={value.alt || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onChange({ ...value, alt: event.target.value })
-          }
-        />
-      </label>
-      {missingAlt ? (
-        <p className="text-xs text-red-300">
-          Alt text obrigatório para mídia de imagem.
-        </p>
-      ) : null}
-
-      {isVideo ? (
-        <label className="space-y-1">
-          <span className={labelClasses}>Poster (opcional)</span>
-          <input
-            className={inputClasses}
-            placeholder="landing-pages/meu-projeto/poster.webp"
-            value={value.poster || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              onChange({ ...value, poster: event.target.value })
-            }
-          />
-        </label>
-      ) : null}
-
-      {preview ? (
-        <div className="relative h-56 w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
-          {isVideo ? (
-            getYoutubeId(preview) ? (
-              <YouTubePlayer
-                videoId={getYoutubeId(preview)!}
-                className="h-56 w-full border-0"
-              />
-            ) : (
-              <video
-                src={preview}
-                className="h-56 w-full object-cover"
-                controls
-                playsInline
-              />
-            )
-          ) : (
-            <Image
-              src={preview}
-              alt={value.alt || 'Pré-visualização'}
-              fill
-              className="object-cover"
-              unoptimized
-            />
-          )}
-        </div>
-      ) : null}
-    </div>
-  );
-}
 
 export default function MasterProjectTemplateV2Editor({
   value,
@@ -272,198 +102,36 @@ export default function MasterProjectTemplateV2Editor({
   const moveItem = (index: number, direction: 'up' | 'down') => {
     const target = direction === 'up' ? index - 1 : index + 1;
     if (target < 0 || target >= value.gallery_grid.length) return;
-
     const next = [...value.gallery_grid];
     [next[index], next[target]] = [next[target], next[index]];
     update({ gallery_grid: next });
   };
 
   return (
-    <div className="space-y-8">
-      <section className="space-y-4 rounded-2xl border border-white/10 bg-slate-900/35 p-5">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Base da Página (V2)
-        </h3>
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="space-y-1">
-            <span className={labelClasses}>Título do projeto</span>
-            <input
-              className={inputClasses}
-              value={value.project_title}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ project_title: event.target.value })
-              }
-            />
-          </label>
+    <div className="space-y-6">
+      <header className="flex items-center justify-between">
+        <h2 className="text-xl font-bold tracking-tight text-white">
+          Base da Página (V2 Grid)
+        </h2>
+      </header>
 
-          <label className="space-y-1">
-            <span className={labelClasses}>Subtítulo</span>
-            <input
-              className={inputClasses}
-              value={value.project_subtitle || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ project_subtitle: event.target.value || '' })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Slug do projeto</span>
-            <input
-              className={inputClasses}
-              value={value.project_slug}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ project_slug: event.target.value })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Cor de destaque</span>
-            <div className="flex gap-2">
-              <input
-                type="color"
-                className="h-10 w-12 rounded border border-white/10 bg-transparent"
-                value={value.highlight_color || '#0048ff'}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  update({ highlight_color: event.target.value })
-                }
-                title="Cor de destaque"
-              />
-              <input
-                className={inputClasses}
-                value={value.highlight_color || '#0048ff'}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  update({ highlight_color: event.target.value || '#0048ff' })
-                }
-              />
-            </div>
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Cor do tema (Liquid Ether)</span>
-            <div className="flex gap-2">
-              <input
-                type="color"
-                className="h-10 w-12 rounded border border-white/10 bg-transparent"
-                value={value.theme_color || '#0048ff'}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  update({ theme_color: event.target.value })
-                }
-                title="Cor do tema"
-              />
-              <input
-                className={inputClasses}
-                value={value.theme_color || '#0048ff'}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  update({ theme_color: event.target.value || '#0048ff' })
-                }
-              />
-            </div>
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Cliente</span>
-            <input
-              className={inputClasses}
-              value={value.project_client || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ project_client: event.target.value })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Ano</span>
-            <input
-              className={inputClasses}
-              type="number"
-              value={value.project_year || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  project_year: event.target.value
-                    ? Number(event.target.value)
-                    : undefined,
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>
-              Tags (separadas por espaço ou vírgula)
-            </span>
-            <input
-              className={inputClasses}
-              value={value.project_tags.join(', ')}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ project_tags: splitTokenList(event.target.value) })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>
-              Serviços (separados por espaço ou vírgula)
-            </span>
-            <input
-              className={inputClasses}
-              value={(value.project_services || []).join(', ')}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ project_services: splitTokenList(event.target.value) })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Resumo</span>
-            <textarea
-              className={`${inputClasses} min-h-28`}
-              value={value.project_summary || ''}
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-                update({ project_summary: event.target.value })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Headline da intro</span>
-            <input
-              className={inputClasses}
-              value={value.intro_headline || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ intro_headline: event.target.value })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>
-              Parágrafos da introdução (1 por linha)
-            </span>
-            <textarea
-              className={`${inputClasses} min-h-32`}
-              value={(value.intro_body || []).join('\n')}
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-                update({ intro_body: splitLines(event.target.value) })
-              }
-            />
-          </label>
-        </div>
+      <section className="rounded-2xl border border-white/5 bg-slate-900/20 p-6">
+        <CommonProjectMetadataFields value={value} update={update} />
       </section>
 
       <section className="space-y-4">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Hero
+          Hero e Identidade
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
-          <MediaField
-            label="Capa da Hero"
+          <MediaAssetField
+            label="Background da Hero"
             value={value.hero_cover_image}
             onChange={(next) => update({ hero_cover_image: next })}
+            requireAlt
           />
-          <MediaField
-            label="Logo Hero (opcional)"
+          <MediaAssetField
+            label="Logo Central (Project Logo)"
             value={
               value.hero_logo_image || {
                 src: '',
@@ -473,133 +141,22 @@ export default function MasterProjectTemplateV2Editor({
               }
             }
             onChange={(next) => update({ hero_logo_image: next })}
+            requireAlt
           />
         </div>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-white/10 bg-slate-900/35 p-5">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Navegação e SEO
-        </h3>
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="space-y-1">
-            <span className={labelClasses}>Texto botão voltar</span>
-            <input
-              className={inputClasses}
-              value={value.navigation?.back_label || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  navigation: {
-                    ...value.navigation,
-                    back_label: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Texto próximo projeto</span>
-            <input
-              className={inputClasses}
-              value={value.navigation?.next_label || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  navigation: {
-                    ...value.navigation,
-                    next_label: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Slug próximo projeto</span>
-            <input
-              className={inputClasses}
-              value={value.navigation?.next_project_slug || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  navigation: {
-                    ...value.navigation,
-                    next_project_slug: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>CTA</span>
-            <input
-              className={inputClasses}
-              value={value.cta?.label || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  cta: {
-                    ...value.cta,
-                    label: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Link CTA</span>
-            <input
-              className={inputClasses}
-              value={value.cta?.href || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  cta: {
-                    ...value.cta,
-                    href: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>SEO descrição</span>
-            <textarea
-              className={`${inputClasses} min-h-24`}
-              value={value.seo?.description || ''}
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-                update({
-                  seo: {
-                    ...value.seo,
-                    description: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>SEO og:image</span>
-            <input
-              className={inputClasses}
-              value={value.seo?.og_image || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  seo: {
-                    ...value.seo,
-                    og_image: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-        </div>
-      </section>
+      <CommonSEOAndNavFields
+        navigation={value.navigation}
+        cta={value.cta}
+        seo={value.seo}
+        update={update}
+      />
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-            Conteúdo Dinâmico (gallery_grid)
+            Galeria de Mídia (Grid Dinâmico V2)
           </h3>
           <button
             type="button"
@@ -611,315 +168,112 @@ export default function MasterProjectTemplateV2Editor({
                 ],
               })
             }
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white hover:bg-blue-500"
+            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-blue-500"
           >
             <Plus size={14} />
-            Adicionar bloco
+            Adicionar Item
           </button>
         </div>
 
-        <div className="space-y-4">
-          {value.gallery_grid.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-white/15 bg-slate-950/30 px-4 py-12 text-center text-sm text-slate-400">
-              Nenhum bloco no gallery_grid. Adicione o primeiro bloco.
-            </div>
-          ) : null}
-
-          {value.gallery_grid.map((item, index) => {
-            const preview = item.previewUrl || item.src;
-            const missingAlt = item.kind !== 'video' && !item.alt?.trim();
-            const isQuote = item.layout_type === 'grid_quote';
-            const isSplit = item.layout_type === 'grid_split';
-            const isFeatures = item.layout_type === 'grid_features_3';
-
-            return (
-              <div
+        <div className="grid gap-8">
+          <AnimatePresence mode="popLayout">
+            {value.gallery_grid.map((item, index) => (
+              <motion.div
                 key={item.id}
-                className={`space-y-4 rounded-2xl border border-white/10 bg-slate-900/35 p-5 ${item.layout_type === 'grid_quote' ? 'flex flex-col items-center justify-center !ml-0 !mr-0 text-center' : ''}`}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="group relative overflow-hidden rounded-xl border border-white/5 bg-slate-900/20 transition-all hover:border-blue-500/20"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-xs uppercase tracking-[0.14em] text-slate-300">
-                    Bloco {index + 1}
-                  </p>
-
+                <header className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-bold text-blue-400">
+                      ITEM {(index + 1).toString().padStart(2, '0')}
+                    </span>
+                    <select
+                      className="bg-transparent text-[11px] font-bold uppercase tracking-widest text-slate-400 outline-none"
+                      value={item.layout_type}
+                      onChange={(e) =>
+                        updateGalleryItem(item.id, {
+                          layout_type: e.target.value as any,
+                        })
+                      }
+                      title="Tipo de layout do bloco"
+                    >
+                      <option value="full-width">Full Width</option>
+                      <option value="contain">Contain</option>
+                      <option value="grid-2">Grid 2 Cols</option>
+                      <option value="with-features">With Features</option>
+                    </select>
+                  </div>
                   <div className="flex items-center gap-1">
                     <button
-                      type="button"
                       onClick={() => moveItem(index, 'up')}
-                      className="rounded-md border border-white/10 bg-black/40 p-2 text-slate-300 hover:text-white"
-                      aria-label="Mover para cima"
+                      disabled={index === 0}
+                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
-                      <ArrowUp size={14} />
+                      SUBIR
                     </button>
                     <button
-                      type="button"
                       onClick={() => moveItem(index, 'down')}
-                      className="rounded-md border border-white/10 bg-black/40 p-2 text-slate-300 hover:text-white"
-                      aria-label="Mover para baixo"
+                      disabled={index === value.gallery_grid.length - 1}
+                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
-                      <ArrowDown size={14} />
+                      DESCER
                     </button>
                     <button
-                      type="button"
                       onClick={() => removeGalleryItem(item.id)}
-                      className="rounded-md border border-red-400/30 bg-red-500/10 p-2 text-red-300 hover:text-red-200"
-                      aria-label="Remover bloco"
+                      className="rounded p-2 text-red-400 hover:bg-red-500/10"
                     >
-                      <Trash2 size={14} />
+                      EXCLUIR
                     </button>
                   </div>
-                </div>
+                </header>
 
-                <div className="grid gap-4 md:grid-cols-2">
-                  <label className="space-y-1">
-                    <span className={labelClasses}>Tipo de layout</span>
-                    <select
-                      className={inputClasses}
-                      value={item.layout_type}
-                      onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                        updateGalleryItem(item.id, {
-                          layout_type: event.target
-                            .value as MasterProjectV2GalleryItem['layout_type'],
-                        })
-                      }
-                    >
-                      <option value="grid_2_col">Grid 2 colunas</option>
-                      <option value="grid_1_col">Grid 1 coluna</option>
-                      <option value="grid_feat">Full Highlight</option>
-                      <option value="grid_features_3">Destaques 3</option>
-                      <option value="grid_quote">Citação</option>
-                      <option value="grid_split">Split</option>
-                    </select>
-                  </label>
+                <div className="p-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <MediaAssetField
+                      label="Asset Principal"
+                      value={item}
+                      onChange={(next) => updateGalleryItem(item.id, next)}
+                      requireAlt
+                    />
 
-                  <label className="space-y-1">
-                    <span className={labelClasses}>Tipo de mídia</span>
-                    <select
-                      className={inputClasses}
-                      value={item.kind}
-                      onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                        updateGalleryItem(item.id, {
-                          kind:
-                            event.target.value === 'video' ? 'video' : 'image',
-                        })
-                      }
-                    >
-                      <option value="image">Imagem</option>
-                      <option value="video">Vídeo</option>
-                    </select>
-                  </label>
-
-                  {isSplit ? (
-                    <label className="space-y-1">
-                      <span className={labelClasses}>Posição da mídia</span>
-                      <select
-                        className={inputClasses}
-                        value={item.media_align || 'left'}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLSelectElement>
-                        ) =>
-                          updateGalleryItem(item.id, {
-                            media_align:
-                              event.target.value === 'right' ? 'right' : 'left',
-                          })
-                        }
-                      >
-                        <option value="left">Esquerda</option>
-                        <option value="right">Direita</option>
-                      </select>
-                    </label>
-                  ) : null}
-
-                  {!isQuote ? (
-                    <>
-                      <label className="space-y-1 md:col-span-2">
-                        <span className={labelClasses}>URL / Caminho</span>
+                    <div className="space-y-4">
+                      <label className="space-y-1">
+                        <span className={labelClasses}>Título do Bloco</span>
                         <input
                           className={inputClasses}
-                          value={item.src}
-                          onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
-                          ) =>
+                          value={item.title || ''}
+                          onChange={(e) =>
                             updateGalleryItem(item.id, {
-                              src: event.target.value,
-                              file: null,
-                              previewUrl: '',
+                              title: e.target.value,
                             })
                           }
                         />
                       </label>
 
                       <label className="space-y-1">
-                        <span className={labelClasses}>Upload</span>
-                        <input
-                          type="file"
-                          className={`${inputClasses} file:mr-3 file:rounded-md file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
-                          accept={item.kind === 'video' ? 'video/*' : 'image/*'}
-                          onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            const file = event.target.files?.[0];
-                            if (!file) return;
+                        <span className={labelClasses}>
+                          Features (Formato: Rótulo: Valor - 1 por linha)
+                        </span>
+                        <textarea
+                          className={`${inputClasses} min-h-32 font-mono whitespace-pre`}
+                          value={toFeatureText(item.features)}
+                          onChange={(e) =>
                             updateGalleryItem(item.id, {
-                              file,
-                              previewUrl: URL.createObjectURL(file),
-                            });
-                          }}
-                        />
-                      </label>
-
-                      <label className="space-y-1">
-                        <span className={labelClasses}>Poster (vídeo)</span>
-                        <input
-                          className={inputClasses}
-                          value={item.poster || ''}
-                          onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
-                          ) =>
-                            updateGalleryItem(item.id, {
-                              poster: event.target.value,
+                              features: parseFeatures(e.target.value),
                             })
                           }
                         />
                       </label>
-                    </>
-                  ) : null}
-
-                  {item.kind !== 'video' ? (
-                    <label className="space-y-1 md:col-span-2">
-                      <span className={labelClasses}>Alt (obrigatório)</span>
-                      <input
-                        className={inputClasses}
-                        value={item.alt}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLInputElement>
-                        ) =>
-                          updateGalleryItem(item.id, {
-                            alt: event.target.value,
-                          })
-                        }
-                      />
-                    </label>
-                  ) : null}
-                  {missingAlt ? (
-                    <p className="md:col-span-2 text-xs text-red-300">
-                      Alt text obrigatório para blocos de imagem.
-                    </p>
-                  ) : null}
-
-                  <label className="space-y-1">
-                    <span className={labelClasses}>Sobretítulo</span>
-                    <input
-                      className={inputClasses}
-                      value={item.eyebrow || ''}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        updateGalleryItem(item.id, {
-                          eyebrow: event.target.value,
-                        })
-                      }
-                    />
-                  </label>
-
-                  <label className="space-y-1">
-                    <span className={labelClasses}>Título</span>
-                    <input
-                      className={inputClasses}
-                      value={item.title || ''}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        updateGalleryItem(item.id, {
-                          title: event.target.value,
-                        })
-                      }
-                    />
-                  </label>
-
-                  <label className="space-y-1 md:col-span-2">
-                    <span className={labelClasses}>Descrição</span>
-                    <textarea
-                      className={`${inputClasses} min-h-24`}
-                      value={item.description || ''}
-                      onChange={(
-                        event: React.ChangeEvent<HTMLTextAreaElement>
-                      ) =>
-                        updateGalleryItem(item.id, {
-                          description: event.target.value,
-                        })
-                      }
-                    />
-                  </label>
-
-                  <label className="space-y-1 md:col-span-2">
-                    <span className={labelClasses}>Citação</span>
-                    <input
-                      className={inputClasses}
-                      value={item.quote || ''}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        updateGalleryItem(item.id, {
-                          quote: event.target.value,
-                        })
-                      }
-                    />
-                  </label>
-
-                  {isFeatures ? (
-                    <label className="space-y-1 md:col-span-2">
-                      <span className={labelClasses}>
-                        Destaques (1 por linha: título | descrição)
-                      </span>
-                      <textarea
-                        className={`${inputClasses} min-h-24`}
-                        value={toFeatureText(item.features)}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLTextAreaElement>
-                        ) =>
-                          updateGalleryItem(item.id, {
-                            features: parseFeatures(event.target.value),
-                          })
-                        }
-                      />
-                    </label>
-                  ) : null}
+                    </div>
+                  </div>
                 </div>
-
-                {preview ? (
-                  <div className="relative h-48 w-full overflow-hidden rounded-xl border border-white/10 bg-black/50">
-                    {item.kind === 'video' ? (
-                      getYoutubeId(preview) ? (
-                        <YouTubePlayer
-                          videoId={getYoutubeId(preview)!}
-                          className="h-48 w-full border-0"
-                        />
-                      ) : (
-                        <video
-                          src={preview}
-                          className="h-48 w-full object-cover"
-                          controls
-                          playsInline
-                        />
-                      )
-                    ) : (
-                      <Image
-                        src={preview}
-                        alt={item.alt || 'Pré-visualização'}
-                        fill
-                        className="object-cover"
-                        unoptimized
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex h-24 items-center justify-center rounded-xl border border-dashed border-white/10 text-xs text-slate-500">
-                    {item.kind === 'video' ? (
-                      <Video className="mr-2 h-4 w-4" />
-                    ) : (
-                      <ImageIcon className="mr-2 h-4 w-4" />
-                    )}
-                    Sem pré-visualização
-                  </div>
-                )}
-              </div>
-            );
-          })}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </section>
     </div>

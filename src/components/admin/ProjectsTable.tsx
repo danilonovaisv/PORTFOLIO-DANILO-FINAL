@@ -30,7 +30,11 @@ type Project = {
   url_landscape: string | null;
   url_square: string | null;
   landing_page_id: string | null;
-  landing_pages?: { content: any } | null;
+  landing_pages?: {
+    content: {
+      template?: string;
+    } | null;
+  } | null;
   project_type: string | null;
   slug: string | null;
   tags: Array<{ tag: { label: string; slug: string } }>;
@@ -167,7 +171,10 @@ export default function ProjectsTable({ projects }: Props) {
                         Landing Page
                       </span>
                       <span className="text-slate-500 italic max-w-[120px] truncate">
-                        {project.landing_pages?.content?.template
+                        {project.landing_pages?.content &&
+                        typeof project.landing_pages.content === 'object' &&
+                        !Array.isArray(project.landing_pages.content) &&
+                        'template' in project.landing_pages.content
                           ? String(project.landing_pages.content.template)
                               .replace('master-project-', 'V')
                               .replace('-alpa', ' ALPA')

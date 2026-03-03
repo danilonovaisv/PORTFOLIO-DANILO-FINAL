@@ -26,6 +26,14 @@ export type MasterProjectGalleryLayout =
   | 'split-right';
 
 export type MasterProjectV2GalleryLayoutType =
+  | 'full-width'
+  | 'contain'
+  | 'grid-2'
+  | 'grid-1'
+  | 'with-features'
+  | 'features-3'
+  | 'quote'
+  | 'split'
   | 'grid_2_col'
   | 'grid_1_col'
   | 'grid_feat'
@@ -35,9 +43,10 @@ export type MasterProjectV2GalleryLayoutType =
 
 export interface MasterProjectAsset {
   src: string;
-  alt: string;
+  alt?: string;
   kind?: MasterProjectMediaKind;
   poster?: string;
+  order?: number;
 }
 
 export interface MasterProjectGalleryItem extends MasterProjectAsset {

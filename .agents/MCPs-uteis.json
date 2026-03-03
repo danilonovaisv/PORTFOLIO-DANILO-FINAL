@@ -1,0 +1,70 @@
+{
+  "curated_active": [
+    {
+      "name": "GitHub MCP Server",
+      "url": "https://github.com/github/github-mcp-server",
+      "package": "@modelcontextprotocol/server-github",
+      "status": "config_only_via_npx",
+      "config": ".agent/mcp-config.json"
+    },
+    {
+      "name": "Chrome DevTools MCP",
+      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "package": "chrome-devtools-mcp",
+      "status": "config_only_via_npx",
+      "config": ".agent/mcp-config.json"
+    }
+  ],
+  "core_development": [
+    "https://github.com/github/github-mcp-server",
+    "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "https://github.com/codacy/codacy-mcp-server",
+    "https://github.com/CircleCI-Public/mcp-server-circleci",
+    "https://github.com/DeployHQ/deployhq-mcp-server"
+  ],
+  "frontend_and_ui": [
+    "https://github.com/21st-dev/magic-mcp",
+    "https://www.canva.dev/docs/apps/mcp-server/",
+    "https://github.com/datawrapper/datawrapper-mcp",
+    "https://github.com/browserstack/mcp-server"
+  ],
+  "database_and_storage": [
+    "https://github.com/chroma-core/chroma-mcp",
+    "https://github.com/cloudinary/mcp-servers",
+    "https://github.com/ClickHouse/mcp-clickhouse",
+    "https://github.com/FalkorDB/FalkorDB-MCPServer"
+  ],
+  "ai_agent_memory_and_rag": [
+    "https://github.com/agentset-ai/mcp-server",
+    "https://github.com/anyproto/anytype-mcp",
+    "https://github.com/elastic/mcp-server-elasticsearch",
+    "https://github.com/zilliztech/claude-context"
+  ],
+  "automation_and_actions": [
+    "https://github.com/browserbase/mcp-server-browserbase",
+    "https://github.com/firecrawl/firecrawl-mcp-server",
+    "https://github.com/apify/apify-mcp-server",
+    "https://github.com/useparagon/paragon-mcp"
+  ],
+  "observability_and_debug": [
+    "https://github.com/AgentOps-AI/agentops-mcp",
+    "https://github.com/Arize-ai/phoenix/tree/main/js/packages/phoenix-mcp",
+    "https://github.com/dynatrace-oss/dynatrace-mcp",
+    "https://github.com/comet-ml/opik-mcp"
+  ],
+  "communication_and_notifications": [
+    "https://www.courier.com/docs/tools/mcp",
+    "https://github.com/ClickSend/clicksend-mcp-server",
+    "https://github.com/zencoderai/slack-mcp-server"
+  ],
+  "firebase_and_cloud": [
+    "https://github.com/firebase/firebase-tools/blob/master/src/mcp",
+    "https://github.com/cloudflare/mcp-server-cloudflare",
+    "https://github.com/microsoft/mcp/tree/main/servers/Azure.Mcp.Server"
+  ],
+  "3d_and_media_processing": [
+    "https://github.com/cloudinary/mcp-servers",
+    "https://github.com/cartesia-ai/cartesia-mcp",
+    "https://github.com/AllVoiceLab/allvoicelab-mcp"
+  ]
+}

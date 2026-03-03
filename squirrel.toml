@@ -1,6 +1,5 @@
 [project]
 domains = []
-name = "portfoliodanilo"
 
 [crawler]
 max_pages = 100

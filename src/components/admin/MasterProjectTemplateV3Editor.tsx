@@ -1,19 +1,7 @@
 'use client';
-import {
-  ArrowDown,
-  ArrowUp,
-  Columns2,
-  Image as ImageIcon,
-  Plus,
-  Quote,
-  Trash2,
-  Type,
-  Video,
-} from 'lucide-react';
-import Image from 'next/image';
+
+import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
-import type { ComponentType } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,25 +11,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import type { BlockType, LandingPageBlock } from '@/types/landing-page';
-import type {
-  MasterProjectAsset,
-  MasterProjectTemplateV3Data,
-} from '@/types/project-template';
+import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 
-const YOUTUBE_PATTERN =
-  /(youtu.be\/|youtube.com\/watch\?v=|youtube.com\/embed\/|youtube.com\/shorts\/)/i;
-
-const getYoutubeId = (url: string) => {
-  const match = url.match(
-    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#&?]*).*/
-  );
-  return match && match[2].length === 11 ? match[2] : null;
-};
-
-export type MasterProjectV3AssetDraft = MasterProjectAsset & {
-  file?: File | null;
-  previewUrl?: string;
-};
+// Common components
+import { MediaAssetField } from './templates/MediaAssetField';
+import { CommonProjectMetadataFields } from './templates/CommonProjectMetadataFields';
+import { CommonSEOAndNavFields } from './templates/CommonSEOAndNavFields';
+// V3 specific sub-components (could be further extracted if needed)
+import { BlockEditorV3 } from './templates/v3/BlockEditorV3';
+import {
+  BASIC_PRESETS,
+  COMPOSITION_PRESETS,
+  createBlockDraft,
+} from './templates/v3/presets';
 
 export type MasterProjectV3GalleryDraft = LandingPageBlock;
 
@@ -49,374 +31,14 @@ export type MasterProjectTemplateV3Draft = Omit<
   MasterProjectTemplateV3Data,
   'hero_cover_image' | 'hero_logo_image' | 'gallery_grid'
 > & {
-  hero_cover_image?: MasterProjectV3AssetDraft;
-  hero_logo_image?: MasterProjectV3AssetDraft;
+  hero_cover_image?: any;
+  hero_logo_image?: any;
   gallery_grid: MasterProjectV3GalleryDraft[];
 };
 
-type MasterProjectTemplateV3EditorProps = {
+interface MasterProjectTemplateV3EditorProps {
   value: MasterProjectTemplateV3Draft;
   onChange: (_next: MasterProjectTemplateV3Draft) => void;
-};
-
-const inputClasses =
-  'w-full rounded-sm border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500';
-const labelClasses =
-  'mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400';
-
-const splitTokenList = (value: string): string[] =>
-  value
-    .split(/[\s,]+/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-const splitLines = (value: string): string[] =>
-  value
-    .split('\n')
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-const blockLabelMap: Record<BlockType, string> = {
-  text: 'Texto Puro',
-  image: 'Imagem Full',
-  video: 'Vídeo Full',
-  'video-autoplay': 'Vídeo Autoplay (Loop)',
-  'image-text': 'Imagem + Texto',
-  'text-image': 'Texto + Imagem',
-  'image-image': 'Imagem Dupla (Grid)',
-  'image-video': 'Imagem + Vídeo',
-  'video-text': 'Vídeo + Texto',
-  'quote-band': 'Faixa de Citação (Full)',
-};
-
-type BlockPreset = {
-  type: BlockType;
-  label: string;
-  icon: ComponentType<{ className?: string }>;
-};
-
-const BASIC_PRESETS: BlockPreset[] = [
-  { type: 'text', label: 'Texto Puro', icon: Type },
-  { type: 'image', label: 'Imagem Full', icon: ImageIcon },
-  { type: 'video', label: 'Vídeo Full', icon: Video },
-  { type: 'video-autoplay', label: 'Vídeo Autoplay (Loop)', icon: Video },
-  { type: 'quote-band', label: 'Faixa de Citação (Full)', icon: Quote },
-];
-
-const COMPOSITION_PRESETS: BlockPreset[] = [
-  { type: 'image-text', label: 'Imagem + Texto', icon: ImageIcon },
-  { type: 'text-image', label: 'Texto + Imagem', icon: Type },
-  { type: 'image-image', label: 'Imagem Dupla (Grid)', icon: Columns2 },
-  { type: 'image-video', label: 'Imagem + Vídeo', icon: ImageIcon },
-  { type: 'video-text', label: 'Vídeo + Texto', icon: Video },
-];
-
-const createBlockDraft = (
-  type: BlockType,
-  index: number
-): LandingPageBlock => ({
-  id: `block-${type}-${index + 1}`,
-  type,
-  content: {
-    text: '',
-    text2: '',
-    media: '',
-    media2: '',
-    alt: '',
-    alt2: '',
-    poster: '',
-    poster2: '',
-    autoplay: type === 'video-autoplay',
-    bandColor: type === 'quote-band' ? '#0048ff' : undefined,
-  },
-  file: null,
-  file2: null,
-  previewUrl: '',
-  previewUrl2: '',
-});
-
-function isVideoMode(kind: 'image' | 'video', value?: string) {
-  if (kind === 'video') return true;
-  return Boolean(value && YOUTUBE_PATTERN.test(value));
-}
-
-function MediaAssetField({
-  label,
-  value,
-  onChange,
-  requireAlt = false,
-}: {
-  label: string;
-  value: MasterProjectV3AssetDraft;
-  onChange: (_next: MasterProjectV3AssetDraft) => void;
-  requireAlt?: boolean;
-}) {
-  const isVideo = value.kind === 'video';
-  const preview = value.previewUrl || value.src;
-  const missingAlt = requireAlt && !isVideo && !value.alt?.trim();
-  const youtubeId = preview ? getYoutubeId(preview) : null;
-
-  return (
-    <div>
-      <p className={labelClasses}>{label}</p>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <label className="space-y-1">
-          <span className={labelClasses}>Tipo</span>
-          <select
-            className={inputClasses}
-            value={value.kind || 'image'}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              onChange({
-                ...value,
-                kind: event.target.value === 'video' ? 'video' : 'image',
-              })
-            }
-          >
-            <option value="image">Imagem</option>
-            <option value="video">Vídeo</option>
-          </select>
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>Upload</span>
-          <input
-            className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
-            type="file"
-            accept={isVideo ? 'video/*' : 'image/*'}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const file = event.target.files?.[0];
-              if (!file) return;
-
-              onChange({
-                ...value,
-                file,
-                previewUrl: URL.createObjectURL(file),
-              });
-            }}
-          />
-        </label>
-      </div>
-
-      <label className="space-y-1">
-        <span className={labelClasses}>URL / Caminho</span>
-        <input
-          className={inputClasses}
-          placeholder={
-            isVideo
-              ? 'landing-pages/meu-projeto/hero-video.mp4'
-              : 'landing-pages/meu-projeto/hero.webp'
-          }
-          value={value.src || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onChange({
-              ...value,
-              src: event.target.value,
-              file: null,
-              previewUrl: '',
-            })
-          }
-        />
-      </label>
-
-      <label className="space-y-1">
-        <span className={labelClasses}>Texto alternativo</span>
-        <input
-          className={inputClasses}
-          value={value.alt || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onChange({ ...value, alt: event.target.value })
-          }
-        />
-      </label>
-
-      {missingAlt && (
-        <p className="text-xs text-red-300">
-          Alt text obrigatório para imagem.
-        </p>
-      )}
-
-      {isVideo && (
-        <label className="space-y-1">
-          <span className={labelClasses}>Poster (opcional)</span>
-          <input
-            className={inputClasses}
-            value={value.poster || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              onChange({ ...value, poster: event.target.value })
-            }
-          />
-        </label>
-      )}
-
-      {preview && (
-        <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
-          {isVideo ? (
-            youtubeId ? (
-              <YouTubePlayer
-                videoId={youtubeId}
-                className="h-56 w-full border-0"
-              />
-            ) : (
-              <video
-                src={preview}
-                className="h-56 w-full object-cover"
-                controls
-                playsInline
-              />
-            )
-          ) : (
-            <Image
-              src={preview}
-              alt={value.alt || 'Pré-visualização'}
-              fill
-              className="object-cover"
-              unoptimized
-            />
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function BlockMediaField({
-  block,
-  mediaKey,
-  altKey,
-  posterKey,
-  fileKey,
-  previewKey,
-  label,
-  kind,
-  onChange,
-}: {
-  block: LandingPageBlock;
-  mediaKey: 'media' | 'media2';
-  altKey: 'alt' | 'alt2';
-  posterKey: 'poster' | 'poster2';
-  fileKey: 'file' | 'file2';
-  previewKey: 'previewUrl' | 'previewUrl2';
-  label: string;
-  kind: 'image' | 'video';
-  onChange: (_next: LandingPageBlock) => void;
-}) {
-  const isVideo = isVideoMode(kind, block.content[mediaKey]);
-  const preview = block[previewKey] || block.content[mediaKey];
-  const missingAlt = !isVideo && !block.content[altKey]?.trim();
-  const youtubeId = preview ? getYoutubeId(preview) : null;
-
-  return (
-    <div>
-      <p className={labelClasses}>{label}</p>
-      <label className="space-y-1">
-        <span className={labelClasses}>URL / Caminho</span>
-        <input
-          className={inputClasses}
-          value={block.content[mediaKey] || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onChange({
-              ...block,
-              [fileKey]: null,
-              [previewKey]: '',
-              content: {
-                ...block.content,
-                [mediaKey]: event.target.value,
-              },
-            })
-          }
-        />
-      </label>
-
-      <label className="space-y-1">
-        <span className={labelClasses}>Upload</span>
-        <input
-          type="file"
-          className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
-          accept={isVideo ? 'video/*' : 'image/*'}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const file = event.target.files?.[0];
-            if (!file) return;
-
-            onChange({
-              ...block,
-              [fileKey]: file,
-              [previewKey]: URL.createObjectURL(file),
-            });
-          }}
-        />
-      </label>
-
-      <label className="space-y-1">
-        <span className={labelClasses}>Alt text (imagem)</span>
-        <input
-          className={inputClasses}
-          value={block.content[altKey] || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onChange({
-              ...block,
-              content: {
-                ...block.content,
-                [altKey]: event.target.value,
-              },
-            })
-          }
-        />
-      </label>
-
-      {missingAlt && (
-        <p className="text-xs text-red-300">
-          Alt text obrigatório para imagens.
-        </p>
-      )}
-
-      {isVideo && (
-        <label className="space-y-1">
-          <span className={labelClasses}>Poster (vídeo)</span>
-          <input
-            className={inputClasses}
-            value={block.content[posterKey] || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              onChange({
-                ...block,
-                content: {
-                  ...block.content,
-                  [posterKey]: event.target.value,
-                },
-              })
-            }
-          />
-        </label>
-      )}
-
-      {preview && (
-        <div className="relative h-44 w-full overflow-hidden border border-white/10 bg-black/40">
-          {isVideo ? (
-            youtubeId ? (
-              <YouTubePlayer
-                videoId={youtubeId}
-                className="h-44 w-full border-0"
-              />
-            ) : (
-              <video
-                src={preview}
-                className="h-44 w-full object-cover"
-                controls
-                playsInline
-              />
-            )
-          ) : (
-            <Image
-              src={preview}
-              alt="Preview"
-              fill
-              className="object-cover"
-              unoptimized
-            />
-          )}
-        </div>
-      )}
-    </div>
-  );
 }
 
 export default function MasterProjectTemplateV3Editor({
@@ -460,141 +82,19 @@ export default function MasterProjectTemplateV3Editor({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-bold text-white">Base da Página (V3 ALPA)</h2>
+      <header className="flex items-center justify-between">
+        <h2 className="text-xl font-bold tracking-tight text-white">
+          Base da Página (V3 ALPA)
+        </h2>
+      </header>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <label className="space-y-1">
-          <span className={labelClasses}>Título do projeto</span>
-          <input
-            className={inputClasses}
-            value={value.project_title}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({ project_title: event.target.value })
-            }
-          />
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>Subtítulo</span>
-          <input
-            className={inputClasses}
-            value={value.project_subtitle || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({ project_subtitle: event.target.value || '' })
-            }
-          />
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>Slug do projeto</span>
-          <input
-            className={inputClasses}
-            value={value.project_slug}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({ project_slug: event.target.value })
-            }
-          />
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>Cliente</span>
-          <input
-            className={inputClasses}
-            value={value.project_client || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({ project_client: event.target.value })
-            }
-          />
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>Ano</span>
-          <input
-            className={inputClasses}
-            type="number"
-            value={value.project_year || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({
-                project_year: event.target.value
-                  ? Number(event.target.value)
-                  : undefined,
-              })
-            }
-          />
-        </label>
-
-        <label className="space-y-1">
-          <span className={labelClasses}>
-            Cor do tema (ALPA + Liquid Ether)
-          </span>
-          <div className="flex gap-2">
-            <input
-              type="color"
-              className="h-10 w-12 border border-white/10 bg-transparent"
-              value={value.theme_color || '#0048ff'}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ theme_color: event.target.value })
-              }
-              title="Cor do tema"
-            />
-            <input
-              className={inputClasses}
-              value={value.theme_color || '#0048ff'}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({ theme_color: event.target.value || '#0048ff' })
-              }
-            />
-          </div>
-        </label>
-
-        <label className="space-y-1 md:col-span-2">
-          <span className={labelClasses}>
-            Tags (separadas por espaço ou vírgula)
-          </span>
-          <input
-            className={inputClasses}
-            value={value.project_tags.join(', ')}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({ project_tags: splitTokenList(event.target.value) })
-            }
-          />
-        </label>
-
-        <label className="space-y-1 md:col-span-2">
-          <span className={labelClasses}>Resumo</span>
-          <textarea
-            className={`${inputClasses} min-h-24`}
-            value={value.project_summary || ''}
-            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-              update({ project_summary: event.target.value })
-            }
-          />
-        </label>
-
-        <label className="space-y-1 md:col-span-2">
-          <span className={labelClasses}>Headline da introdução</span>
-          <input
-            className={inputClasses}
-            value={value.intro_headline || ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              update({ intro_headline: event.target.value })
-            }
-          />
-        </label>
-
-        <label className="space-y-1 md:col-span-2">
-          <span className={labelClasses}>
-            Parágrafos da introdução (1 por linha)
-          </span>
-          <textarea
-            className={`${inputClasses} min-h-28`}
-            value={(value.intro_body || []).join('\n')}
-            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-              update({ intro_body: splitLines(event.target.value) })
-            }
-          />
-        </label>
-      </div>
+      <section className="rounded-2xl border border-white/5 bg-slate-900/20 p-6">
+        <CommonProjectMetadataFields
+          value={value}
+          update={update}
+          showThemeColor
+        />
+      </section>
 
       <section className="space-y-4">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
@@ -630,125 +130,12 @@ export default function MasterProjectTemplateV3Editor({
         </div>
       </section>
 
-      <section className="space-y-4 border border-white/10 bg-slate-900/35 p-5">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Navegação e SEO
-        </h3>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="space-y-1">
-            <span className={labelClasses}>Texto do botão voltar</span>
-            <input
-              className={inputClasses}
-              value={value.navigation?.back_label || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  navigation: {
-                    ...value.navigation,
-                    back_label: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Texto do próximo projeto</span>
-            <input
-              className={inputClasses}
-              value={value.navigation?.next_label || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  navigation: {
-                    ...value.navigation,
-                    next_label: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Slug do próximo projeto</span>
-            <input
-              className={inputClasses}
-              value={value.navigation?.next_project_slug || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  navigation: {
-                    ...value.navigation,
-                    next_project_slug: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Texto do CTA final</span>
-            <input
-              className={inputClasses}
-              value={value.cta?.label || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  cta: {
-                    ...value.cta,
-                    label: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Link do CTA</span>
-            <input
-              className={inputClasses}
-              value={value.cta?.href || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  cta: {
-                    ...value.cta,
-                    href: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Descrição SEO</span>
-            <textarea
-              className={`${inputClasses} min-h-24`}
-              value={value.seo?.description || ''}
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-                update({
-                  seo: {
-                    ...value.seo,
-                    description: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>SEO og:image</span>
-            <input
-              className={inputClasses}
-              value={value.seo?.og_image || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                update({
-                  seo: {
-                    ...value.seo,
-                    og_image: event.target.value,
-                  },
-                })
-              }
-            />
-          </label>
-        </div>
-      </section>
+      <CommonSEOAndNavFields
+        navigation={value.navigation}
+        cta={value.cta}
+        seo={value.seo}
+        update={update}
+      />
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
@@ -760,7 +147,7 @@ export default function MasterProjectTemplateV3Editor({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-blue-500"
               >
                 <Plus size={14} />
                 Adicionar bloco
@@ -806,279 +193,63 @@ export default function MasterProjectTemplateV3Editor({
           </DropdownMenu>
         </div>
 
-        <div className="space-y-4">
-          {value.gallery_grid.length === 0 ? (
-            <div className="border border-dashed border-white/15 bg-slate-950/30 px-4 py-12 text-center text-sm text-slate-400">
-              Nenhum bloco no gallery_grid. Adicione o primeiro bloco.
+        <div className="space-y-6">
+          {value.gallery_grid.length === 0 && (
+            <div className="rounded-xl border border-dashed border-white/10 py-12 text-center text-sm text-slate-500">
+              Nenhum bloco adicionado. Comece adicionando um novo bloco no menu
+              acima.
             </div>
-          ) : null}
+          )}
 
-          <AnimatePresence mode="popLayout">
-            {value.gallery_grid.map((block, index) => {
-              const updateCurrentBlock = (next: LandingPageBlock) =>
-                updateBlock(block.id, next);
-
-              return (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{
-                    opacity: 0,
-                    scale: 0.95,
-                    transition: { duration: 0.2 },
-                  }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  key={block.id}
-                  className={`space-y-4 rounded-sm border border-white/10 bg-slate-900/35 p-5 ${
-                    block.type === 'quote-band'
-                      ? 'flex flex-col items-center justify-center text-center !ml-0 !mr-0'
-                      : ''
-                  }`}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-xs uppercase tracking-[0.14em] text-slate-300">
-                      Bloco {index + 1} · {blockLabelMap[block.type]}
-                    </p>
-
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={() => moveBlock(index, 'up')}
-                        className="border border-white/10 bg-black/40 p-2 text-slate-300 hover:text-white"
-                        aria-label="Mover para cima"
-                      >
-                        <ArrowUp size={14} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => moveBlock(index, 'down')}
-                        className="border border-white/10 bg-black/40 p-2 text-slate-300 hover:text-white"
-                        aria-label="Mover para baixo"
-                      >
-                        <ArrowDown size={14} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => removeBlock(block.id)}
-                        className="border border-red-400/30 bg-red-500/10 p-2 text-red-300 hover:text-red-200"
-                        aria-label="Remover bloco"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
+          <AnimatePresence>
+            {value.gallery_grid.map((block, index) => (
+              <motion.div
+                key={block.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="group relative overflow-hidden rounded-xl border border-white/5 bg-slate-900/20 transition-all hover:border-blue-500/20"
+              >
+                <header className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-bold text-blue-400/60">
+                      {(index + 1).toString().padStart(2, '0')}
+                    </span>
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                      {block.type.replace('-', ' & ')}
+                    </span>
                   </div>
+                  <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                    <button
+                      onClick={() => moveBlock(index, 'up')}
+                      disabled={index === 0}
+                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                    >
+                      SUBIR
+                    </button>
+                    <button
+                      onClick={() => moveBlock(index, 'down')}
+                      disabled={index === value.gallery_grid.length - 1}
+                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                    >
+                      DESCER
+                    </button>
+                    <button
+                      onClick={() => removeBlock(block.id)}
+                      className="rounded p-2 text-red-400 hover:bg-red-500/10"
+                    >
+                      EXCLUIR
+                    </button>
+                  </div>
+                </header>
 
-                  {block.type === 'text' ? (
-                    <label className="space-y-1">
-                      <span className={labelClasses}>Conteúdo de texto</span>
-                      <textarea
-                        className={`${inputClasses} min-h-28`}
-                        value={block.content.text || ''}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLTextAreaElement>
-                        ) =>
-                          updateCurrentBlock({
-                            ...block,
-                            content: {
-                              ...block.content,
-                              text: event.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </label>
-                  ) : null}
-
-                  {block.type === 'quote-band' ? (
-                    <div className="max-w-3xl mx-auto w-full space-y-6 flex flex-col items-center justify-center !ml-0 !mr-0">
-                      <label className="space-y-1 w-full">
-                        <span className={labelClasses}>Citação</span>
-                        <textarea
-                          className={`${inputClasses} min-h-20 text-center w-full`}
-                          value={block.content.text || ''}
-                          onChange={(
-                            event: React.ChangeEvent<HTMLTextAreaElement>
-                          ) =>
-                            updateCurrentBlock({
-                              ...block,
-                              content: {
-                                ...block.content,
-                                text: event.target.value,
-                              },
-                            })
-                          }
-                        />
-                      </label>
-
-                      <label className="space-y-1 w-full">
-                        <span className={labelClasses}>
-                          Texto de apoio (opcional)
-                        </span>
-                        <textarea
-                          className={`${inputClasses} min-h-20 text-center w-full`}
-                          value={block.content.text2 || ''}
-                          onChange={(
-                            event: React.ChangeEvent<HTMLTextAreaElement>
-                          ) =>
-                            updateCurrentBlock({
-                              ...block,
-                              content: {
-                                ...block.content,
-                                text2: event.target.value,
-                              },
-                            })
-                          }
-                        />
-                      </label>
-
-                      <div className="flex flex-col items-center gap-2 w-full max-w-xs mx-auto">
-                        <span className={labelClasses}>Cor da faixa</span>
-                        <div className="flex gap-2 w-full">
-                          <input
-                            type="color"
-                            className="h-10 w-12 border border-white/10 bg-transparent"
-                            value={block.content.bandColor || '#0048ff'}
-                            onChange={(
-                              event: React.ChangeEvent<HTMLInputElement>
-                            ) =>
-                              updateCurrentBlock({
-                                ...block,
-                                content: {
-                                  ...block.content,
-                                  bandColor: event.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <input
-                            className={inputClasses}
-                            value={block.content.bandColor || '#0048ff'}
-                            onChange={(
-                              event: React.ChangeEvent<HTMLInputElement>
-                            ) =>
-                              updateCurrentBlock({
-                                ...block,
-                                content: {
-                                  ...block.content,
-                                  bandColor: event.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {block.type === 'image' ? (
-                    <BlockMediaField
-                      block={block}
-                      label="Imagem Full"
-                      mediaKey="media"
-                      altKey="alt"
-                      posterKey="poster"
-                      fileKey="file"
-                      previewKey="previewUrl"
-                      kind="image"
-                      onChange={updateCurrentBlock}
-                    />
-                  ) : null}
-
-                  {block.type === 'video' || block.type === 'video-autoplay' ? (
-                    <BlockMediaField
-                      block={block}
-                      label={
-                        block.type === 'video-autoplay'
-                          ? 'Vídeo Autoplay (Loop)'
-                          : 'Vídeo Full'
-                      }
-                      mediaKey="media"
-                      altKey="alt"
-                      posterKey="poster"
-                      fileKey="file"
-                      previewKey="previewUrl"
-                      kind="video"
-                      onChange={updateCurrentBlock}
-                    />
-                  ) : null}
-
-                  {(block.type === 'image-text' ||
-                    block.type === 'text-image' ||
-                    block.type === 'video-text') && (
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <BlockMediaField
-                        block={block}
-                        label={
-                          block.type === 'video-text'
-                            ? 'Mídia (Vídeo)'
-                            : 'Mídia (Imagem)'
-                        }
-                        mediaKey="media"
-                        altKey="alt"
-                        posterKey="poster"
-                        fileKey="file"
-                        previewKey="previewUrl"
-                        kind={block.type === 'video-text' ? 'video' : 'image'}
-                        onChange={updateCurrentBlock}
-                      />
-
-                      <label className="space-y-1">
-                        <span className={labelClasses}>Texto</span>
-                        <textarea
-                          className={`${inputClasses} min-h-40`}
-                          value={block.content.text || ''}
-                          onChange={(
-                            event: React.ChangeEvent<HTMLTextAreaElement>
-                          ) =>
-                            updateCurrentBlock({
-                              ...block,
-                              content: {
-                                ...block.content,
-                                text: event.target.value,
-                              },
-                            })
-                          }
-                        />
-                      </label>
-                    </div>
-                  )}
-
-                  {(block.type === 'image-image' ||
-                    block.type === 'image-video') && (
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <BlockMediaField
-                        block={block}
-                        label="Mídia 01"
-                        mediaKey="media"
-                        altKey="alt"
-                        posterKey="poster"
-                        fileKey="file"
-                        previewKey="previewUrl"
-                        kind="image"
-                        onChange={updateCurrentBlock}
-                      />
-
-                      <BlockMediaField
-                        block={block}
-                        label={
-                          block.type === 'image-video'
-                            ? 'Mídia 02 (Vídeo)'
-                            : 'Mídia 02'
-                        }
-                        mediaKey="media2"
-                        altKey="alt2"
-                        posterKey="poster2"
-                        fileKey="file2"
-                        previewKey="previewUrl2"
-                        kind={block.type === 'image-video' ? 'video' : 'image'}
-                        onChange={updateCurrentBlock}
-                      />
-                    </div>
-                  )}
-                </motion.div>
-              );
-            })}
+                <BlockEditorV3
+                  block={block}
+                  onChange={(updates) => updateBlock(block.id, updates)}
+                />
+              </motion.div>
+            ))}
           </AnimatePresence>
         </div>
       </section>
