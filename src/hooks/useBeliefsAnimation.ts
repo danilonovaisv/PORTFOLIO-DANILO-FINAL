@@ -1,5 +1,6 @@
 'use client';
-import { useTransform, MotionValue, useReducedMotion } from 'framer-motion';
+import { useTransform, MotionValue } from 'framer-motion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 /* ────────────────────────────────────────────────────────
 CONSTANTS & CONFIG

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
 import FeaturedProjectAnimatedBackground from '@/components/home/featured-projects/FeaturedProjectAnimatedBackground';
@@ -26,6 +26,7 @@ export default function FeaturedProjectCardFrame({
   reducedMotion,
 }: FeaturedProjectCardFrameProps) {
   const visualRef = useRef<HTMLDivElement | null>(null);
+  const [logoFailed, setLogoFailed] = useState(false);
   const homeFeatured = resolveHomeFeaturedConfig(
     project.homeFeatured,
     project.featuredOnHome ?? project.isFeatured
@@ -34,7 +35,9 @@ export default function FeaturedProjectCardFrame({
     ? getAssetUrl(homeFeatured.logoPath)
     : null;
   const showLogo =
-    homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' && !!logoSrc;
+    homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' &&
+    !!logoSrc &&
+    !logoFailed;
   const showThumb = !showLogo && !!mediaSource;
 
   const handlePointerMove = useCallback(
@@ -96,7 +99,7 @@ export default function FeaturedProjectCardFrame({
               priority={priority}
               onError={applyImageFallback}
             />
-            <div className="absolute inset-0 bg-[#040013]/50" />
+            <div className="absolute inset-0 bg-[#040013]/80" />
           </div>
         ) : null}
       </div>
@@ -117,7 +120,10 @@ export default function FeaturedProjectCardFrame({
               className="object-contain opacity-95 drop-shadow-[0_20px_40px_rgba(4,0,19,0.5)]"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
-              onError={applyImageFallback}
+              onError={(event) => {
+                applyImageFallback(event);
+                setLogoFailed(true);
+              }}
             />
           </div>
         </div>

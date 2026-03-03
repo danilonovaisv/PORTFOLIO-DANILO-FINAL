@@ -1,0 +1,94 @@
+{
+  "version": 3,
+  "caseSensitive": false,
+  "basePath": "",
+  "rewrites": { "beforeFiles": [], "afterFiles": [], "fallback": [] },
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "permanent": true,
+      "internal": true,
+      "priority": true,
+      "regex": "^(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))\\/$"
+    },
+    {
+      "source": "/portfolio/key_vision",
+      "destination": "/portfolio/key-vision",
+      "permanent": true,
+      "regex": "^(?!\\/_next)\\/portfolio\\/key_vision(?:\\/)?$"
+    },
+    {
+      "source": "/portfolio/brand_video",
+      "destination": "/portfolio/brand-video",
+      "permanent": true,
+      "regex": "^(?!\\/_next)\\/portfolio\\/brand_video(?:\\/)?$"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacidade",
+      "permanent": true,
+      "regex": "^(?!\\/_next)\\/privacy-policy(?:\\/)?$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/:path*",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' blob: https://www.youtube.com https://s.ytimg.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io umkmwbkwvulxtdodzmzf.supabase.co; img-src 'self' blob: data: umkmwbkwvulxtdodzmzf.supabase.co https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' umkmwbkwvulxtdodzmzf.supabase.co https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co https://raw.githack.com https://www.gstatic.com https://raw.githubusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com ws://localhost:* ws://127.0.0.1:*; media-src 'self' blob: data: umkmwbkwvulxtdodzmzf.supabase.co https://*.supabase.co https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com"
+        },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=900, stale-while-revalidate=3600"
+        }
+      ],
+      "regex": "^(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))?(?:\\/)?$"
+    },
+    {
+      "source": "/_next/static/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ],
+      "regex": "^\\/_next\\/static(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))?(?:\\/)?$"
+    },
+    {
+      "source": "/fonts/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ],
+      "regex": "^\\/fonts(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))?(?:\\/)?$"
+    },
+    {
+      "source": "/captions/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ],
+      "regex": "^\\/captions(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))?(?:\\/)?$"
+    }
+  ]
+}

@@ -141,16 +141,24 @@ O desktop deve seguir a composição da referência `HOME-DESKTOP.jpg`, com hier
 
 ```jsx
 <div className="grid grid-cols-12 gap-6">
-// Row 1
-<div className="md:col-span-5"><ProjectCard /></div>
-<div className="md:col-span-7"><ProjectCard /></div>
-
-// Row 2
-<div className="md:col-span-12"><ProjectCard /></div>
-
-// Row 3
-<div className="md:col-span-8"><ProjectCard /></div>
-<div className="md:col-span-4"><CTACard /></div>
+  // Row 1
+  <div className="md:col-span-5">
+    <ProjectCard />
+  </div>
+  <div className="md:col-span-7">
+    <ProjectCard />
+  </div>
+  // Row 2
+  <div className="md:col-span-12">
+    <ProjectCard />
+  </div>
+  // Row 3
+  <div className="md:col-span-8">
+    <ProjectCard />
+  </div>
+  <div className="md:col-span-4">
+    <CTACard />
+  </div>
 </div>
 ```
 
@@ -213,7 +221,7 @@ duration: 0.7s
 
 ## 4.6 Backgrounds Cards
 
-- 01. Gradiente: `https://reactbits.dev/tools/background-studio?bg=grainient`
+- 1.  Gradiente: `https://reactbits.dev/tools/background-studio?bg=grainient`
   - Install: `pnpm dlx shadcn@latest add @react-bits/Grainient-TS-TW`
   - Usage:
 
@@ -245,10 +253,10 @@ import Grainient from './Grainient';
     centerY={0}
     zoom={0.9}
   />
-</div>
+</div>;
 ```
 
-- 02. Ghost Cursor: `https://reactbits.dev/tools/background-studio?bg=ghost-cursor`
+- 2.  Ghost Cursor: `https://reactbits.dev/tools/background-studio?bg=ghost-cursor`
   - Install: `pnpm dlx shadcn@latest add @react-bits/GhostCursor-TS-TW`
   - Usage:
 
@@ -269,10 +277,10 @@ import GhostCursor from './GhostCursor';
     fadeDelayMs={1000}
     fadeDurationMs={1500}
   />
-</div>
+</div>;
 ```
 
-- 03. Aurora: `https://reactbits.dev/tools/background-studio?bg=aurora`
+- 3.  Aurora: `https://reactbits.dev/tools/background-studio?bg=aurora`
   - Install: `pnpm dlx shadcn@latest add @react-bits/Aurora-TS-TW`
   - Usage:
 
@@ -284,7 +292,7 @@ import Aurora from './Aurora';
   blend={0.5}
   amplitude={1.0}
   speed={1}
-/>
+/>;
 ```
 
 Tecnologia:

@@ -118,10 +118,10 @@ export default function FeaturedProjectAnimatedBackground({
               className="h-full w-full"
               maxDevicePixelRatio={1.25}
               color1="#0048ff"
-              color2="#996fd6"
-              color3="#8705f2"
-              timeSpeed={0.25}
-              colorBalance={0}
+              color2="#8705f2"
+              color3="#9bc5fd"
+              timeSpeed={2.5}
+              colorBalance={0.18}
               warpStrength={1}
               warpFrequency={5}
               warpSpeed={2}

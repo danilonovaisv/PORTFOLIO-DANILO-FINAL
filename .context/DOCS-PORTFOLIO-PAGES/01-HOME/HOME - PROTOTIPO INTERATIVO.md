@@ -649,10 +649,11 @@ duration: 0.7s
 
 # **BACKGROUNDS CARDS**
 
- - 01. Gradiente: https://reactbits.dev/tools/background-studio?bg=grainient
-         - Install: pnpm dlx shadcn@latest add @react-bits/Grainient-TS-TW
-         - Usage:
-``````
+- 1. Gradiente: https://reactbits.dev/tools/background-studio?bg=grainient
+     - Install: pnpm dlx shadcn@latest add @react-bits/Grainient-TS-TW
+     - Usage:
+
+`````
 import Grainient from './Grainient';
 
 <div style={{ width: '100%', height: '600px', position: 'relative' }}>
@@ -685,7 +686,8 @@ import Grainient from './Grainient';
 - 02. Ghost Cursor: https://reactbits.dev/tools/background-studio?bg=ghost-cursor
          - Install: pnpm dlx shadcn@latest add @react-bits/GhostCursor-TS-TW
          - Usage:
-``````
+`````
+
 import GhostCursor from './GhostCursor'
 
 <div style={{ height: 600, position: 'relative' }}>
@@ -708,17 +710,20 @@ import GhostCursor from './GhostCursor'
     // Fade-out behavior
     fadeDelayMs={1000}
     fadeDurationMs={1500}
-  />
+
+/>
+
 </div>
 
 ‘’’’’’’
 
- - 03. Aurora: https://reactbits.dev/tools/background-studio?bg=aurora
-         - Install: pnpm dlx shadcn@latest add @react-bits/Aurora-TS-TW
-         - Usage:
-``````
+- 3. Aurora: https://reactbits.dev/tools/background-studio?bg=aurora
+     - Install: pnpm dlx shadcn@latest add @react-bits/Aurora-TS-TW
+     - Usage:
+
+````
 import Aurora from './Aurora';
-  
+
 <Aurora
   colorStops={["#b301f4","#0048ff","#8705f2"]}
   blend={0.5}
@@ -852,7 +857,7 @@ Fornecer informações claras de contato e habilitar envio de mensagem.
 
 #### Conteúdo
 
-**Headline:** "contato"  
+**Headline:** "contato"
 **Subheadline:** "Tem uma pergunta ou quer trabalhar junto?"
 
 **Canais Diretos:**
@@ -1264,3 +1269,4 @@ Este portfólio não é apenas uma vitrine de trabalhos — é uma **declaraçã
 - [ ] Integração com CMS (Sanity/Contentful)
 
 ---
+````

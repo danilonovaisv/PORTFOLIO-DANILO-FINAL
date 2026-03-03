@@ -1,0 +1,50 @@
+{
+  "[project]/src/components/canvas/header/HeaderGlassCanvas.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/canvas/header/HeaderGlassCanvas.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/c1f3c_three_build_three_core_9934bd06.js",
+      "static/chunks/c1f3c_three_build_three_module_d85068c8.js",
+      "static/chunks/c1f3c_three_build_three_module_0ad1d41c.js",
+      "static/chunks/1409f_@react-three_fiber_dist_fb826afd._.js",
+      "static/chunks/node_modules__pnpm_7db6d991._.js",
+      "static/chunks/src_components_canvas_header_HeaderGlassCanvas_tsx_1620cb10._.js",
+      "static/chunks/src_components_canvas_header_HeaderGlassCanvas_tsx_e0b8e31a._.js"
+    ]
+  },
+  "[project]/src/components/ui/backgrounds/Grainient.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ui/backgrounds/Grainient.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/af6d0_ogl_src_b6259485._.js",
+      "static/chunks/src_components_ui_backgrounds_Grainient_tsx_34311011._.js",
+      "static/chunks/src_components_ui_backgrounds_Grainient_tsx_4dc03843._.js"
+    ]
+  },
+  "[project]/src/components/ui/backgrounds/GhostCursor.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ui/backgrounds/GhostCursor.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/c1f3c_three_build_three_core_9934bd06.js",
+      "static/chunks/c1f3c_three_build_three_module_d85068c8.js",
+      "static/chunks/c1f3c_three_examples_jsm_15118155._.js",
+      "static/chunks/src_components_ui_backgrounds_GhostCursor_tsx_03c56965._.js",
+      "static/chunks/src_components_ui_backgrounds_GhostCursor_tsx_4dc03843._.js"
+    ]
+  },
+  "[project]/src/components/ui/backgrounds/Aurora.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ui/backgrounds/Aurora.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/af6d0_ogl_src_381c9e88._.js",
+      "static/chunks/src_components_ui_backgrounds_Aurora_tsx_2f177f92._.js",
+      "static/chunks/src_components_ui_backgrounds_Aurora_tsx_4dc03843._.js"
+    ]
+  },
+  "[project]/src/components/canvas/home/hero/GhostScene.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/canvas/home/hero/GhostScene.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/c1f3c_three_build_three_core_9934bd06.js",
+      "static/chunks/c1f3c_three_build_three_module_d85068c8.js",
+      "static/chunks/c1f3c_three_examples_jsm_bc5f7720._.js",
+      "static/chunks/src_331dfffa._.js",
+      "static/chunks/src_components_canvas_home_hero_GhostScene_tsx_4dc03843._.js"
+    ]
+  }
+}

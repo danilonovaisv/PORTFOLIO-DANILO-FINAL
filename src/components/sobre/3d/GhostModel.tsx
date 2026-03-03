@@ -150,8 +150,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-      config.floatAmplitude *
-      0.5
+        config.floatAmplitude *
+        0.5
       : 0;
     const scrollWaveX =
       Math.sin(t * Math.PI * 2.2) *

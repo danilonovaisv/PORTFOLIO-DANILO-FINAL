@@ -10,9 +10,13 @@ import {
 } from '@/config/motion';
 import FeaturedProjectCard from '@/components/home/featured-projects/FeaturedProjectCard';
 import CTAProjectCard from '@/components/home/featured-projects/CTAProjectCard';
-import { getFeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
+import {
+  FEATURED_PROJECT_BACKGROUND_POOL,
+  getFeaturedProjectBackgroundVariant,
+} from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
 import { Container } from '@/components/layout/Container';
+import { useEffect, useState } from 'react';
 
 const { duration, offset } = MOTION_TOKENS;
 
@@ -46,6 +50,26 @@ export default function FeaturedProjectsSection({
     );
     return source;
   }, [projects]);
+
+  // Mantém a seleção inicial determinística (SSR) e randomiza após o mount
+  const initialVariants = useMemo(
+    () =>
+      featuredProjects.map((project) =>
+        getFeaturedProjectBackgroundVariant(project.id)
+      ),
+    [featuredProjects]
+  );
+  const [clientVariants, setClientVariants] = useState(initialVariants);
+
+  useEffect(() => {
+    // Não quebrar hidratação: randomiza só depois do mount
+    const shuffled = [...initialVariants].map(() => {
+      const pool = [...FEATURED_PROJECT_BACKGROUND_POOL];
+      const pick = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+      return pick;
+    });
+    setClientVariants(shuffled);
+  }, [initialVariants]);
 
   // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {
@@ -96,9 +120,10 @@ export default function FeaturedProjectsSection({
                   project={project}
                   onOpen={onProjectOpen}
                   priority={index < 3}
-                  backgroundVariant={getFeaturedProjectBackgroundVariant(
-                    project.id
-                  )}
+                  backgroundVariant={
+                    clientVariants[index] ??
+                    getFeaturedProjectBackgroundVariant(project.id)
+                  }
                 />
               </motion.div>
             );

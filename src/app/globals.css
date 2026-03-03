@@ -560,10 +560,10 @@ html.admin-page body {
 /* Featured Card Visual Tilt Effect */
 .featured-card-visual {
   transform: translate3d(
-      var(--featured-card-x, 0px),
-      var(--featured-card-y, 0px),
-      0
-    );
+    var(--featured-card-x, 0px),
+    var(--featured-card-y, 0px),
+    0
+  );
 }
 
 /* Stitch Text Glow */

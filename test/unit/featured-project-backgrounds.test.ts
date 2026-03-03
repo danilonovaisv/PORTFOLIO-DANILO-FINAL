@@ -34,9 +34,7 @@ describe('buildFeaturedProjectBackgroundAssignment', () => {
     }));
 
     expect(buildFeaturedProjectBackgroundAssignment(projects)).toEqual(
-      projects.map((project) =>
-        getFeaturedProjectBackgroundVariant(project.id)
-      )
+      projects.map((project) => getFeaturedProjectBackgroundVariant(project.id))
     );
   });
 });

@@ -102,9 +102,9 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         reduceMotion
           ? { duration: 0 }
           : {
-            duration: 0.2,
-            ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
-          }
+              duration: 0.2,
+              ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
+            }
       }
       role="button"
       tabIndex={0}
