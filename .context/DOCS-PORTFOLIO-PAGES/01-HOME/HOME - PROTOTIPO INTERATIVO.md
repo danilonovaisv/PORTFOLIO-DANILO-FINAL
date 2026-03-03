@@ -590,7 +590,7 @@ Showcase curado de trabalhos de alta qualidade em layout editorial estilo revist
 └──────────────────────────────────────────────┘
 
 ┌────────────────────────────┐ ┌─────────────┐
-│        Card 4 (784×400)    │ │ CTA Card    │
+│        Card 4 (784×500)    │ │ CTA Card    │
 └────────────────────────────┘ └─────────────┘
 ```
 
@@ -637,27 +637,110 @@ cards: { scale: 0.96 → 1, staggerChildren: 0.12 }
 duration: 0.7s
 ```
 
-#### Projetos Destacados
+### BAckground Animado
 
-1. **Magic — devolvendo a magia ao rádio**
-   - Categoria: `branding & campanha`
-   - Cliente: Magic | 2023
-   - Imagem: `Brand-Identity copy.webp`
+- 3 opções de backgrounds animados;
+- Alteram em ordem aleatória nos cards da sessão “Featured Projects”;
+- O background animado não é fixo no post publicado, as três versões se alternam entre todos os cards destaque da HOME;
+- No dashboard do ADMIN de inclusão de trabalhos, reservar uma area só para os destaques HOME, de escolha entre background animado e logos invertidos ou background animado e thumb com overlay 50%;
+- O logo invertido do card sempre fixo no centro;
+- Interação com mouse nos cards com o cursor, leve zoom, animação de movimento e mudança de cor do cta small do rodapé do card (o mesmo que ja existe) e leve glow no background do card e cta `#8705f2`;
+- Demais configurações dos cards permanecem as mesmas;
 
-2. **Uma marca ousada e consistente**
-   - Categoria: `branding`
-   - Cliente: Confidencial | 2022
-   - Imagem: `Branding-Project.webp`
+# **BACKGROUNDS CARDS**
 
-3. **Key visual para campanha sazonal**
-   - Categoria: `campanha`
-   - Cliente: Confidencial | 2021
-   - Imagem: `Key-Visual.webp`
+ - 01. Gradiente: https://reactbits.dev/tools/background-studio?bg=grainient
+         - Install: pnpm dlx shadcn@latest add @react-bits/Grainient-TS-TW
+         - Usage:
+``````
+import Grainient from './Grainient';
 
-4. **Experiência web em movimento**
-   - Categoria: `web & motion`
-   - Cliente: Confidencial | 2023
-   - Imagem: `webdesigner-2%202.gif`
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Grainient
+    color1="#0048ff"
+    color2="#996fd6"
+    color3="#8705f2"
+    timeSpeed={0.25}
+    colorBalance={0}
+    warpStrength={1}
+    warpFrequency={5}
+    warpSpeed={2}
+    warpAmplitude={50}
+    blendAngle={0}
+    blendSoftness={0.05}
+    rotationAmount={500}
+    noiseScale={2}
+    grainAmount={0.1}
+    grainScale={2}
+    grainAnimated={false}
+    contrast={1.5}
+    gamma={1}
+    saturation={1}
+    centerX={0}
+    centerY={0}
+    zoom={0.9}
+  />
+</div>
+````
+- 02. Ghost Cursor: https://reactbits.dev/tools/background-studio?bg=ghost-cursor
+         - Install: pnpm dlx shadcn@latest add @react-bits/GhostCursor-TS-TW
+         - Usage:
+``````
+import GhostCursor from './GhostCursor'
+
+<div style={{ height: 600, position: 'relative' }}>
+  <GhostCursor
+    // Visuals
+    color="#8705f2"
+    brightness={2}
+    edgeIntensity={0}
+
+    // Trail and motion
+    trailLength={50}
+    inertia={0.5}
+
+    // Post-processing
+    grainIntensity={0.05}
+    bloomStrength={0.1}
+    bloomRadius={1}
+    bloomThreshold={0.025}
+
+    // Fade-out behavior
+    fadeDelayMs={1000}
+    fadeDurationMs={1500}
+  />
+</div>
+
+‘’’’’’’
+
+ - 03. Aurora: https://reactbits.dev/tools/background-studio?bg=aurora
+         - Install: pnpm dlx shadcn@latest add @react-bits/Aurora-TS-TW
+         - Usage:
+``````
+import Aurora from './Aurora';
+  
+<Aurora
+  colorStops={["#b301f4","#0048ff","#8705f2"]}
+  blend={0.5}
+  amplitude={1.0}
+  speed={1}
+/>
+‘’’’’’’’
+
+Tecnologia:
+• React
+• Three.js
+• Shader simulation
+• WebGL alpha true
+
+Performance
+• PixelRatio limitado
+• Resize observer otimizado
+• IntersectionObserver para pausar fora da viewport
+• Não interfere no scroll
+
+
+
 
 #### CTA Card
 

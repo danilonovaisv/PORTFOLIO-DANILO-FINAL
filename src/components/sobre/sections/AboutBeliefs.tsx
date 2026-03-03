@@ -124,9 +124,9 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 3: Canvas 3D (Sempre acima do texto, z-40) - Overlay */}
+      {/* LAYER 3: Canvas 3D (Soberania absoluta: z-999) - Overlay */}
       <div
-        className="absolute inset-0 z-40 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-[999] w-full h-full pointer-events-none"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">

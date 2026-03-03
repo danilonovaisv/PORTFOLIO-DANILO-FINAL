@@ -61,22 +61,22 @@ const GhostModel: React.FC<GhostModelProps> = ({
       // Desktop: Centralizado (0)
       // Mobile: Posicionado no lado esquerdo para layout lado a lado
       // 🟣 [CONFIG VISUAL]: Posição Base X
-      baseX: isMobile ? -viewport.width / 4.5 : 0,
+      baseX: isMobile ? -viewport.width / 4.0 : 0,
 
-      // Centralizado verticalmente em ambas as telas
-      startY: 0,
-      endY: 0,
+      // Centralizado verticalmente no desktop, mas no topo no mobile
+      // 🟣 [CONFIG VISUAL]: Posição Base Y (Cima = Positivo em R3F)
+      baseY: isMobile ? viewport.height / 3.5 : 0,
 
-      // Intensidade flutuante (Movimento mais pronunciado)
-      floatBase: isMobile ? 0.15 : 0.12,
-      floatAmplitude: 0.45,
-      tiltBase: 0.15,
+      // Intensidade flutuante (Movimento MUITO mais pronunciado)
+      floatBase: isMobile ? 0.18 : 0.15,
+      floatAmplitude: 0.75,
+      tiltBase: 0.2,
 
       // Escala ajustada para maior presença
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost
-      baseScale: isMobile ? 0.35 : 0.585,
+      baseScale: isMobile ? 0.42 : 0.585,
       // Compensa pivot do GLB para centralização visual
-      modelOffsetY: isMobile ? -0.8 : -1.9,
+      modelOffsetY: isMobile ? -1.0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final
       scaleBoost: 0.15, // +15% no final
       scrollResponse: isMobile ? 0.65 : 0.85,
@@ -142,7 +142,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // === FINAL PHASE & EXIT ===
     const targetX = THREE.MathUtils.lerp(config.baseX, 0, finalPhaseProgress);
     const targetY = THREE.MathUtils.lerp(
-      config.startY,
+      config.baseY,
       0, // Centered at the end
       finalPhaseProgress
     );
@@ -150,8 +150,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-        config.floatAmplitude *
-        0.5
+      config.floatAmplitude *
+      0.5
       : 0;
     const scrollWaveX =
       Math.sin(t * Math.PI * 2.2) *
