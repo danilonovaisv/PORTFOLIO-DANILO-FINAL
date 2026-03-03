@@ -73,8 +73,8 @@ export default function FeaturedProjectCard({
             <span aria-hidden className="opacity-50">
               •
             </span>
-            <span className="font-light">
-              {project.client} / {project.year}
+            <span className="font-light text-[#6B7280]">
+              {project.client} • {project.year}
             </span>
           </div>
           {/* Title */}
@@ -90,7 +90,7 @@ export default function FeaturedProjectCard({
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
           <div className="btn-icon-circle bg-bluePrimary md:group-hover:bg-[#8705f2] shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
-            <ArrowUpRight className="w-6 h-6" />
+            <ArrowUpRight className="h-6 w-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:translate-x-5" />
           </div>
         </div>
       </div>

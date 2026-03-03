@@ -563,8 +563,7 @@ html.admin-page body {
       var(--featured-card-x, 0px),
       var(--featured-card-y, 0px),
       0
-    )
-    scale(1.03);
+    );
 }
 
 /* Stitch Text Glow */
