@@ -234,6 +234,9 @@ jobs:
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
 
+          echo "🔒 Gerando package-lock.json fresquinho para o build do Cloud Functions..."
+          npm_config_package_lock=true npm install --package-lock-only --ignore-scripts --legacy-peer-deps --no-fund --no-audit
+
           firebase experiments:enable webframeworks
           firebase deploy --only hosting,functions \
             --project "${{ steps.firebase_project.outputs.project_id }}" \
