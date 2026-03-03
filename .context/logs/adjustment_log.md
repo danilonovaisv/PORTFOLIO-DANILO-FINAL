@@ -1,5 +1,34 @@
 # Adjustment Log
 
+## [2026-03-03T07:05] Firebase Deploy Dependency Conflict Remediation
+
+**Context:** Firebase Hosting with Web Frameworks was failing during `prepareFrameworks()` because `firebase-tools` copies the root `package.json` into the generated functions directory and runs `npm i --omit dev --no-audit`. The project declared `firebase-frameworks@0.11.8`, which still peers on `sharp ^0.32 || ^0.33`, while the app stack is on `next@16.1.6` and `sharp@0.34.5`.
+
+**Changes Applied:**
+
+1. **Removed direct `firebase-frameworks` dependency** ✅
+   - File: `package.json`
+   - Removed `firebase-frameworks` from app dependencies.
+   - Impact: prevents npm peer-resolution failure during Firebase deploy packaging.
+
+2. **Regenerated workspace lockfile** ✅
+   - File: `pnpm-lock.yaml`
+   - Removed the `firebase-frameworks` subtree and its transitive packages from the root importer.
+   - Impact: keeps install metadata aligned with the corrected dependency graph.
+
+3. **Aligned generated functions build manifest** ✅
+   - File: `functions/next_build/package.json`
+   - Removed the same dependency from the checked-in build output manifest.
+   - Impact: avoids reintroducing the same conflict in alternate deploy flows that reuse `functions/next_build`.
+
+**Verification:**
+
+- ✅ Root `package.json` no longer declares `firebase-frameworks`.
+- ✅ `pnpm-lock.yaml` no longer resolves `firebase-frameworks` for the root importer.
+- ⚠️ Local validation is limited by the current shell using Node `v25.6.1` while the project targets Node `20`; deploy should be re-run under Node 20 / Firebase runtime parity.
+
+---
+
 ## [2026-02-11T05:15] CSP WebSocket & Source Map Remediation
 
 **Context:** Resolving persistent console errors on landing pages related to Content Security Policy (connect-src) blocking local WebSockets and missing dependency source maps.
