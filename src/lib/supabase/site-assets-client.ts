@@ -1,3 +1,5 @@
+'use client';
+
 import { createClientComponentClient } from '@/lib/supabase/client';
 import type { DbAsset } from '@/types/admin';
 import {

@@ -69,10 +69,10 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
     hover: { y: -3, opacity: 1 },
   };
 
-  // Variantes de animação do botão completo
+  // Variantes de animação do botão completo (Ghost Era Specification)
   const buttonVariants = {
     initial: { y: 0 },
-    hover: { y: -2 },
+    hover: { y: -1 }, // Sutil -1px deslocamento
   };
 
   const mainColor = color || BRAND.colors.bluePrimary; // Default Blue
@@ -84,6 +84,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       onClick={onClick}
       className={`
         relative group 
+        cta-button
         inline-flex items-center 
         cursor-pointer 
         min-w-fit
@@ -96,7 +97,14 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       variants={buttonVariants}
       initial="initial"
       animate={isHovered ? 'hover' : 'initial'}
-      transition={reduceMotion ? { duration: 0 } : springTransition}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : {
+              duration: 0.2,
+              ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
+            }
+      }
       role="button"
       tabIndex={0}
       aria-label={`${text} - Clique para acessar`}

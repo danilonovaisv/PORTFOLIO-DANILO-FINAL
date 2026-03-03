@@ -1,5 +1,5 @@
 ---
-description: Chưa biết bắt đầu từ đâu? Lập kế hoạch trước.
+description: # /plan - Project Planning Mode
 ---
 
 # /plan - Project Planning Mode
@@ -57,6 +57,7 @@ RULES:
 ## After Planning
 
 Tell user:
+
 ```
 [OK] Plan created: docs/PLAN-{slug}.md
 

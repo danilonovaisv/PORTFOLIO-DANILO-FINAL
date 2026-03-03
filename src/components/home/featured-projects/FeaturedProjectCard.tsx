@@ -98,7 +98,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full min-h-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary rounded-md text-center md:text-left';
+    'group block h-full min-h-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary rounded-md text-center md:text-left cta-button';
 
   if (isModalMode) {
     return (

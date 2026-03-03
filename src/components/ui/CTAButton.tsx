@@ -86,7 +86,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   );
 
   const baseClasses = `
-    inline-flex items-center group relative
+    inline-flex items-center group relative cta-button
     ${prefersReducedMotion ? '' : 'hover:-translate-y-px transition ease-out duration-200'}
     ${disabled ? 'opacity-50 pointer-events-none' : ''}
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ghost-green focus-visible:ring-offset-4 focus-visible:ring-offset-transparent

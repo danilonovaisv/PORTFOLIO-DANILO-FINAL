@@ -134,20 +134,24 @@ body {
 }
 
 /* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */
-.flex > *,
-.inline-flex > * {
+.flex>*,
+.inline-flex>* {
   min-width: 0;
 }
 
 /* ========================================================================
    Utilitários de Text Wrapping Inteligente (Ghost System V3)
    ======================================================================== */
-.text-balance {
-  text-wrap: balance;
+@supports (text-wrap: balance) {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-.text-pretty {
-  text-wrap: pretty;
+@supports (text-wrap: pretty) {
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
 
 .no-hyphens {
@@ -172,8 +176,10 @@ body {
   font-weight: 700;
   /* Bold */
   line-height: 1.1;
-  text-wrap: balance;
-  /* Native protection against orphans */
+
+  @supports (text-wrap: balance) {
+    text-wrap: balance;
+  }
 }
 
 .text-h2 {
@@ -181,7 +187,10 @@ body {
   font-weight: 700;
   /* Bold */
   line-height: 1.15;
-  text-wrap: balance;
+
+  @supports (text-wrap: balance) {
+    text-wrap: balance;
+  }
 }
 
 .text-h3 {
@@ -196,7 +205,10 @@ body {
   font-weight: 500;
   /* Medium - Better readability on mobile */
   line-height: 1.5;
-  text-wrap: pretty;
+
+  @supports (text-wrap: pretty) {
+    text-wrap: pretty;
+  }
 }
 
 .text-body {
@@ -204,7 +216,10 @@ body {
   font-weight: 400;
   /* Regular */
   line-height: 1.5;
-  text-wrap: pretty;
+
+  @supports (text-wrap: pretty) {
+    text-wrap: pretty;
+  }
 }
 
 @media (max-width: 767px) {
@@ -421,20 +436,16 @@ html.admin-page body {
    Ghost Portfolio Hero Glows
    ======================================================================== */
 .portfolio-hero-glow-primary {
-  background: radial-gradient(
-    circle at 75% 55%,
-    oklch(from var(--color-primary) l c h / 0.12),
-    transparent 50%
-  );
+  background: radial-gradient(circle at 75% 55%,
+      oklch(from var(--color-primary) l c h / 0.12),
+      transparent 50%);
   filter: blur(40px);
 }
 
 .portfolio-hero-glow-accent {
-  background: radial-gradient(
-    circle at 25% 45%,
-    oklch(from var(--color-accent) l c h / 0.08),
-    transparent 45%
-  );
+  background: radial-gradient(circle at 25% 45%,
+      oklch(from var(--color-accent) l c h / 0.08),
+      transparent 45%);
   filter: blur(40px);
 }
 
@@ -534,9 +545,17 @@ html.admin-page body {
 
 .no-scrollbar {
   -ms-overflow-style: none;
+
   /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+  @supports (scrollbar-width: none) {
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+/* Featured Card Visual Tilt Effect */
+.featured-card-visual {
+  transform: translate3d(var(--featured-card-x, 0px), var(--featured-card-y, 0px), 0) scale(1.03);
 }
 
 /* Stitch Text Glow */
@@ -544,8 +563,59 @@ html.admin-page body {
   text-shadow: 0 0 20px rgba(79, 230, 255, 0.3);
 }
 
-/* related resource: globals.css:2737:3 */
-.bg-transparent {
-  /* the element was section.relative.w-full.group.overflow-hidden.bg-transparent */
-  overflow: auto;
+/* Base para todos os CTAs que devem ter este comportamento */
+.cta-button {
+  /* Transições para suavizar as mudanças de estado */
+  transition-property:
+    color,
+    background-color,
+    border-color,
+    text-decoration-color,
+    fill,
+    stroke,
+    opacity,
+    box-shadow,
+    transform,
+    filter,
+    backdrop-filter,
+    -webkit-text-decoration-color,
+    -webkit-backdrop-filter;
+  transition-duration: 0.2s;
+  /* Equivalente a duration-200 */
+  transition-timing-function: cubic-bezier(0,
+      0,
+      0.2,
+      1);
+  /* Equivalente a ease-out */
+  transition-delay: 0s;
+
+  /* Garante que o elemento pode ser transformado */
+  transform: none;
+  /* Estado inicial */
+
+  /* Outros estilos base do CTA */
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Comportamento de hover para o CTA */
+.cta-button:hover {
+  transform: translateY(-1px);
+  /* Move o botão 1px para cima no hover */
+}
+
+@keyframes button-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-button {
+  animation: button-animation 0.5s cubic-bezier(0, 0, 0.2, 1) forwards;
 }

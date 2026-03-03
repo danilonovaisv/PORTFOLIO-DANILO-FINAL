@@ -40,9 +40,15 @@ export default function FeaturedProjectsSection({
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
   const reducedMotion = useMotionGate();
-  const [backgroundSeed] = useState(() =>
-    Math.floor(Math.random() * 2147483647)
-  );
+  const [backgroundSeed] = useState(() => {
+    // Deterministic seed based on project IDs to avoid SSR hydration mismatch
+    const hashStr = projects.map((p) => p.id).join('|');
+    let hash = 5381;
+    for (let i = 0; i < hashStr.length; i++) {
+      hash = (hash * 33) ^ hashStr.charCodeAt(i);
+    }
+    return Math.abs(hash) || 42;
+  });
   const featuredProjects = useMemo(() => {
     const source = projects.filter(
       (project) => project.featuredOnHome ?? project.isFeatured
@@ -66,11 +72,11 @@ export default function FeaturedProjectsSection({
     visible: reducedMotion
       ? { opacity: 1 }
       : {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          transition: ghostTransition(0, duration.normal),
-        },
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: ghostTransition(0, duration.normal),
+      },
   };
 
   return (

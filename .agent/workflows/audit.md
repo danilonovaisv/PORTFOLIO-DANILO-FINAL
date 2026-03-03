@@ -1,5 +1,5 @@
 ---
-description: Sắp bàn giao khách? Kiểm tra lại toàn diện cho chắc.
+description: # /audit - Comprehensive Quality Check
 ---
 
 # /audit - Comprehensive Quality Check

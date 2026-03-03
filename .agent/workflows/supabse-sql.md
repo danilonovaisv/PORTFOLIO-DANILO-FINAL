@@ -1,3 +1,7 @@
+---
+description: # 📜 Supabase SQL Style Guide
+---
+
 # 📜 Supabase SQL Style Guide
 
 **Trigger:** Requests to write SQL queries, table schemas, or functions.

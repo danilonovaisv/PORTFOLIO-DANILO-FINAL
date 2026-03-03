@@ -57,7 +57,7 @@ const subscribeToAssets = async () => {
           }
         }
       )
-      .subscribe((status: string, err: Error | null) => {
+      .subscribe((status: string, err?: Error | undefined) => {
         if (
           status === 'CHANNEL_ERROR' ||
           status === 'TIMED_OUT' ||

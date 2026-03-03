@@ -1,5 +1,5 @@
 ---
-description: Sợ bug khi sửa code? Viết test tự động.
+description: # /test - Test Generation and Execution
 ---
 
 # /test - Test Generation and Execution

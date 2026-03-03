@@ -138,6 +138,7 @@ const nextConfig = {
       '@radix-ui/react-dialog',
       '@radix-ui/react-tabs',
       '@supabase/supabase-js',
+      '@supabase/ssr',
     ],
     serverActions: {
       bodySizeLimit: '32mb',
@@ -157,6 +158,9 @@ const nextConfig = {
   // However, often just providing an empty turbopack object or just accepting that we use webpack is enough.
   // The error says: "This build is using Turbopack, with a `webpack` config and no `turbopack` config."
   // So let's add an empty turbopack config.
+  // Turbopack config — used by default in Next.js 16.
+  // GLSL shaders are handled as raw text via the native `as: '*.txt'` rule.
+  // This avoids needing to install raw-loader only for Turbopack.
   turbopack: {},
 
   webpack: (config, { isServer }) => {

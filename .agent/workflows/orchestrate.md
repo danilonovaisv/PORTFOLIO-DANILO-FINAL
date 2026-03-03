@@ -1,5 +1,5 @@
 ---
-description: Task quá chua? Gọi cả hội đồng chuyên gia vào làm.
+description: # Multi-Agent Orchestration
 ---
 
 # Multi-Agent Orchestration

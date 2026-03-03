@@ -1,3 +1,7 @@
+---
+description: # ⚡ Supabase Realtime Expert Guide
+---
+
 # ⚡ Supabase Realtime Expert Guide
 
 **Trigger:** Requests to implement, debug, or optimize Supabase Realtime.

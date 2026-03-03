@@ -207,12 +207,13 @@ export function normalizeAssetList(
   }
 
   return Array.from(merged.values()).sort((a, b) => {
+    if (!a || !b) return 0;
     const pageA = a.page ?? '';
     const pageB = b.page ?? '';
     if (pageA === pageB) {
       const orderA = a.sort_order ?? Number.MAX_SAFE_INTEGER;
       const orderB = b.sort_order ?? Number.MAX_SAFE_INTEGER;
-      if (orderA === orderB) return a.key.localeCompare(b.key);
+      if (orderA === orderB) return a.key?.localeCompare(b.key ?? '') ?? 0;
       return orderA - orderB;
     }
     return pageA.localeCompare(pageB);

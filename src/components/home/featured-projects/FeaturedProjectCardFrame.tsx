@@ -72,18 +72,14 @@ export default function FeaturedProjectCardFrame({
         'card-shell relative isolate overflow-hidden rounded-md border border-white/10 bg-white/[0.03] transition-[transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
         reducedMotion
           ? ''
-          : 'md:group-hover:-translate-y-1 md:group-hover:scale-[1.01] md:group-hover:border-white/20 md:group-hover:shadow-[0_28px_84px_-28px_rgba(135,5,242,0.55)]'
+          : 'md:group-hover:-translate-y-px md:group-hover:scale-[1.01] md:group-hover:border-white/20 md:group-hover:shadow-[0_28px_84px_-28px_rgba(135,5,242,0.55)]'
       )}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointerMotion}
     >
       <div
         ref={visualRef}
-        className="absolute -inset-[4%] will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        style={{
-          transform:
-            'translate3d(var(--featured-card-x, 0px), var(--featured-card-y, 0px), 0) scale(1.03)',
-        }}
+        className="absolute -inset-[4%] will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] featured-card-visual"
       >
         <FeaturedProjectAnimatedBackground variant={backgroundVariant} />
 

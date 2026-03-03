@@ -1,3 +1,7 @@
+---
+description: # 🛡️ Supabase RLS Policy Expert
+---
+
 # 🛡️ Supabase RLS Policy Expert
 
 **Trigger:** Requests to create or audit Row Level Security (RLS) policies.

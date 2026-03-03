@@ -26,8 +26,8 @@ export default function PortfolioCTA({
       rel={external ? 'noopener noreferrer' : undefined}
       className={cn(
         'inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full',
-        'bg-primary px-6 py-3 text-sm font-medium tracking-[0.08em] text-white sm:text-base',
-        'transition-colors duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]',
+        'bg-primary px-6 py-3 text-sm font-medium tracking-[0.08em] text-white sm:text-base cta-button',
+        'transition-all duration-200 ease-[cubic-bezier(0,0,0.2,1)]',
         'hover:bg-[#0038d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}

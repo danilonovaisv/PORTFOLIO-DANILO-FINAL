@@ -1,3 +1,7 @@
+---
+description: # 🗄️ Declarative Database Schema Management
+---
+
 # 🗄️ Declarative Database Schema Management
 
 **Trigger:** Requests to modify database tables, views, or migrations.

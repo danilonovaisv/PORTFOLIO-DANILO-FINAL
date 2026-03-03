@@ -1,3 +1,14 @@
+/**
+ * @file src/lib/supabase/server.ts
+ * @boundary SERVER ONLY — SSR/RSC Supabase client.
+ *
+ * CONTRACT:
+ * - ONLY use this in Server Components, Route Handlers, Server Actions, and Middleware.
+ * - Do NOT import in Client Components or browser-only code.
+ * - Use `@/lib/supabase/client.ts` for browser/client usage.
+ */
+import 'server-only';
+
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';

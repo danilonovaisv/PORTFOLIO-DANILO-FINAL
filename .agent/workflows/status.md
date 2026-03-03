@@ -1,5 +1,5 @@
 ---
-description: Dự án đang đến đâu rồi? Xem Dashboard báo cáo.
+description: # /status - Show Status
 ---
 
 # /status - Show Status
@@ -82,5 +82,6 @@ Show current project and agent status.
 ## Technical
 
 Status uses these scripts:
+
 - `python .agent/scripts/session_manager.py status`
 - `python .agent/scripts/auto_preview.py status`

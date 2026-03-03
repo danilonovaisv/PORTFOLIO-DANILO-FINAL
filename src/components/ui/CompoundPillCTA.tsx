@@ -101,7 +101,7 @@ export const CompoundPillCTA = ({
       <Link
         href={href}
         className={cn(
-          'group inline-flex items-center gap-[5px] transition-opacity duration-200 ease-out hover:opacity-90',
+          'group cta-button inline-flex items-center gap-[5px] transition-opacity duration-200 ease-out hover:opacity-90',
           isCompact && 'gap-2'
         )}
       >

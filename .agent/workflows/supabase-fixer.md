@@ -1,3 +1,7 @@
+---
+description: # 🔧 Supabase Integration Fixer
+---
+
 # 🔧 Supabase Integration Fixer
 
 **Trigger:** Reports of 403 errors, Realtime stalls, or Storage permission issues.
