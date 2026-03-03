@@ -13,11 +13,11 @@ async function main() {
     .from('portfolio_projects')
     .select('*, landing_pages(content)')
     .limit(1);
-    
+
   if (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
   } else {
-    console.log("Success, data length:", data?.length);
+    console.log('Success, data length:', data?.length);
   }
 }
 main();

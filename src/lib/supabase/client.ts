@@ -48,20 +48,21 @@ function createMockClient() {
   return {
     from: () => mockQuery,
     auth: {
-      getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+      getSession: () =>
+        Promise.resolve({ data: { session: null }, error: null }),
       onAuthStateChange: () => ({
-        data: { subscription: { unsubscribe: () => { } } },
+        data: { subscription: { unsubscribe: () => {} } },
       }),
     },
     storage: {
       from: () => ({ getPublicUrl: () => ({ data: { publicUrl: '' } }) }),
     },
     realtime: {
-      setAuth: () => { },
+      setAuth: () => {},
     },
     channel: () => ({
-      on: () => ({ on: () => ({ subscribe: () => { } }) }),
-      subscribe: () => { },
+      on: () => ({ on: () => ({ subscribe: () => {} }) }),
+      subscribe: () => {},
     }),
     removeChannel: () => Promise.resolve(),
   } as unknown as ReturnType<typeof createBrowserClient<Database>>;
@@ -101,7 +102,7 @@ export function createClientComponentClient(): ReturnType<
   if (!supabaseUrl || !supabaseKey) {
     throw new Error(
       '[Supabase Browser] Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. ' +
-      'Check your .env.local file.'
+        'Check your .env.local file.'
     );
   }
 

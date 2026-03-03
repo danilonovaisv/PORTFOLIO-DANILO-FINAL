@@ -9,9 +9,12 @@ const queryUrl = `${supabaseUrl}/rest/v1/portfolio_projects?select=id,title,clie
 
 fetch(queryUrl, {
   headers: {
-    'apikey': supabaseKey,
-    'Authorization': `Bearer ${supabaseKey}`
-  }
-}).then(res => res.json()).then(data => {
-  console.log(JSON.stringify(data, null, 2));
-}).catch(err => console.error(err));
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(JSON.stringify(data, null, 2));
+  })
+  .catch((err) => console.error(err));

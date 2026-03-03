@@ -1,0 +1,1131 @@
+﻿2026-03-03T06:51:20.5869076Z Current runner version: '2.331.0'
+2026-03-03T06:51:20.5898581Z ##[group]Runner Image Provisioner
+2026-03-03T06:51:20.5900069Z Hosted Compute Agent
+2026-03-03T06:51:20.5901002Z Version: 20260213.493
+2026-03-03T06:51:20.5901872Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-03-03T06:51:20.5902859Z Build Date: 2026-02-13T00:28:41Z
+2026-03-03T06:51:20.5903957Z Worker ID: ***d3c91747-b1df-48a0-bbbf-866100b95880***
+2026-03-03T06:51:20.5905163Z Azure Region: northcentralus
+2026-03-03T06:51:20.5905982Z ##[endgroup]
+2026-03-03T06:51:20.5908210Z ##[group]Operating System
+2026-03-03T06:51:20.5909128Z Ubuntu
+2026-03-03T06:51:20.5909969Z 24.04.3
+2026-03-03T06:51:20.5910750Z LTS
+2026-03-03T06:51:20.5911511Z ##[endgroup]
+2026-03-03T06:51:20.5912288Z ##[group]Runner Image
+2026-03-03T06:51:20.5913102Z Image: ubuntu-24.04
+2026-03-03T06:51:20.5913965Z Version: 20260224.36.1
+2026-03-03T06:51:20.5915503Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260224.36/images/ubuntu/Ubuntu2404-Readme.md
+2026-03-03T06:51:20.5917712Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260224.36
+2026-03-03T06:51:20.5918954Z ##[endgroup]
+2026-03-03T06:51:20.5920584Z ##[group]GITHUB_TOKEN Permissions
+2026-03-03T06:51:20.5923344Z Contents: read
+2026-03-03T06:51:20.5924357Z Metadata: read
+2026-03-03T06:51:20.5925157Z ##[endgroup]
+2026-03-03T06:51:20.5928684Z Secret source: Actions
+2026-03-03T06:51:20.5929702Z Prepare workflow directory
+2026-03-03T06:51:20.6508422Z Prepare all required actions
+2026-03-03T06:51:20.6550441Z Getting action download info
+2026-03-03T06:51:21.0340684Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-03-03T06:51:21.1580978Z Download action repository 'pnpm/action-setup@v4' (SHA:41ff72655975bd51cab0327fa583b6e92b6d3061)
+2026-03-03T06:51:21.6503851Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-03-03T06:51:21.7473224Z Download action repository 'google-github-actions/auth@v2' (SHA:c200f3691d83b41bf9bbd8638997a462592937ed)
+2026-03-03T06:51:22.5392244Z Complete job name: test-and-deploy
+2026-03-03T06:51:22.6569123Z ##[group]Run actions/checkout@v4
+2026-03-03T06:51:22.6570890Z with:
+2026-03-03T06:51:22.6572177Z   repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:51:22.6574118Z   token: ***
+2026-03-03T06:51:22.6575226Z   ssh-strict: true
+2026-03-03T06:51:22.6576376Z   ssh-user: git
+2026-03-03T06:51:22.6577713Z   persist-credentials: true
+2026-03-03T06:51:22.6578970Z   clean: true
+2026-03-03T06:51:22.6580140Z   sparse-checkout-cone-mode: true
+2026-03-03T06:51:22.6581495Z   fetch-depth: 1
+2026-03-03T06:51:22.6582630Z   fetch-tags: false
+2026-03-03T06:51:22.6583781Z   show-progress: true
+2026-03-03T06:51:22.6584947Z   lfs: false
+2026-03-03T06:51:22.6586035Z   submodules: false
+2026-03-03T06:51:22.6587325Z   set-safe-directory: true
+2026-03-03T06:51:22.6588904Z env:
+2026-03-03T06:51:22.6589964Z   NODE_VERSION: 20
+2026-03-03T06:51:22.6591114Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:51:22.6592874Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:51:22.6598643Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:51:22.6603984Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:51:22.6609685Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:51:22.6615271Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:51:22.6616693Z ##[endgroup]
+2026-03-03T06:51:22.7899991Z Syncing repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:51:22.7903986Z ##[group]Getting Git version info
+2026-03-03T06:51:22.7906003Z Working directory is '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-03T06:51:22.7909207Z [command]/usr/bin/git version
+2026-03-03T06:51:22.7935281Z git version 2.53.0
+2026-03-03T06:51:22.7966349Z ##[endgroup]
+2026-03-03T06:51:22.7993040Z Temporarily overriding HOME='/home/runner/work/_temp/eb2346ed-e3d6-4041-a674-83ab7ff87889' before making global git config changes
+2026-03-03T06:51:22.7998645Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-03T06:51:22.8004083Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:51:22.8047447Z Deleting the contents of '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-03T06:51:22.8052650Z ##[group]Initializing the repository
+2026-03-03T06:51:22.8057679Z [command]/usr/bin/git init /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:51:22.8149499Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-03-03T06:51:22.8153136Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-03-03T06:51:22.8157173Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-03-03T06:51:22.8160221Z hint: call:
+2026-03-03T06:51:22.8162069Z hint:
+2026-03-03T06:51:22.8164209Z hint: 	git config --global init.defaultBranch <name>
+2026-03-03T06:51:22.8167189Z hint:
+2026-03-03T06:51:22.8169768Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-03-03T06:51:22.8173413Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-03-03T06:51:22.8176807Z hint:
+2026-03-03T06:51:22.8178138Z hint: 	git branch -m <name>
+2026-03-03T06:51:22.8179416Z hint:
+2026-03-03T06:51:22.8180972Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-03-03T06:51:22.8184297Z Initialized empty Git repository in /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.git/
+2026-03-03T06:51:22.8191098Z [command]/usr/bin/git remote add origin https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:51:22.8214386Z ##[endgroup]
+2026-03-03T06:51:22.8217985Z ##[group]Disabling automatic garbage collection
+2026-03-03T06:51:22.8220810Z [command]/usr/bin/git config --local gc.auto 0
+2026-03-03T06:51:22.8256004Z ##[endgroup]
+2026-03-03T06:51:22.8259461Z ##[group]Setting up auth
+2026-03-03T06:51:22.8264837Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-03T06:51:22.8306300Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-03T06:51:22.8677856Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-03T06:51:22.8717350Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-03T06:51:22.8978578Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-03T06:51:22.9028503Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-03T06:51:22.9290243Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-03-03T06:51:22.9334020Z ##[endgroup]
+2026-03-03T06:51:22.9338017Z ##[group]Fetching the repository
+2026-03-03T06:51:22.9347862Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +098981bf2ad7913667fd13632220d3f6f371f3fa:refs/remotes/origin/main
+2026-03-03T06:51:50.5599698Z From https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:51:50.5600895Z  * [new ref]           098981bf2ad7913667fd13632220d3f6f371f3fa -> origin/main
+2026-03-03T06:51:50.5639238Z ##[endgroup]
+2026-03-03T06:51:50.5640092Z ##[group]Determining the checkout info
+2026-03-03T06:51:50.5643076Z ##[endgroup]
+2026-03-03T06:51:50.5650369Z [command]/usr/bin/git sparse-checkout disable
+2026-03-03T06:51:50.5704786Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-03-03T06:51:50.5741386Z ##[group]Checking out the ref
+2026-03-03T06:51:50.5748770Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-03-03T06:51:51.7097581Z Updating files:   9% (1411/15227)
+2026-03-03T06:51:51.7673329Z Updating files:  10% (1523/15227)
+2026-03-03T06:51:51.8961236Z Updating files:  11% (1675/15227)
+2026-03-03T06:51:52.0558850Z Updating files:  12% (1828/15227)
+2026-03-03T06:51:52.2776942Z Updating files:  13% (1980/15227)
+2026-03-03T06:51:52.4166380Z Updating files:  14% (2132/15227)
+2026-03-03T06:51:52.5611361Z Updating files:  15% (2285/15227)
+2026-03-03T06:51:52.6437039Z Updating files:  16% (2437/15227)
+2026-03-03T06:51:52.7714282Z Updating files:  16% (2468/15227)
+2026-03-03T06:51:52.8330893Z Updating files:  17% (2589/15227)
+2026-03-03T06:51:52.9817479Z Updating files:  18% (2741/15227)
+2026-03-03T06:51:53.1105280Z Updating files:  19% (2894/15227)
+2026-03-03T06:51:53.1679979Z Updating files:  20% (3046/15227)
+2026-03-03T06:51:53.3368335Z Updating files:  21% (3198/15227)
+2026-03-03T06:51:53.5638183Z Updating files:  22% (3350/15227)
+2026-03-03T06:51:53.6369012Z Updating files:  23% (3503/15227)
+2026-03-03T06:51:53.6672116Z Updating files:  23% (3619/15227)
+2026-03-03T06:51:53.7909838Z Updating files:  24% (3655/15227)
+2026-03-03T06:51:53.9321942Z Updating files:  25% (3807/15227)
+2026-03-03T06:51:54.0417703Z Updating files:  26% (3960/15227)
+2026-03-03T06:51:54.1057120Z Updating files:  27% (4112/15227)
+2026-03-03T06:51:54.1197536Z Updating files:  28% (4264/15227)
+2026-03-03T06:51:54.1331095Z Updating files:  29% (4416/15227)
+2026-03-03T06:51:54.1458816Z Updating files:  30% (4569/15227)
+2026-03-03T06:51:54.1583511Z Updating files:  31% (4721/15227)
+2026-03-03T06:51:54.1695254Z Updating files:  32% (4873/15227)
+2026-03-03T06:51:54.1798738Z Updating files:  33% (5025/15227)
+2026-03-03T06:51:54.1900880Z Updating files:  34% (5178/15227)
+2026-03-03T06:51:54.2003848Z Updating files:  35% (5330/15227)
+2026-03-03T06:51:54.2111371Z Updating files:  36% (5482/15227)
+2026-03-03T06:51:54.2216372Z Updating files:  37% (5634/15227)
+2026-03-03T06:51:54.2320029Z Updating files:  38% (5787/15227)
+2026-03-03T06:51:54.2422961Z Updating files:  39% (5939/15227)
+2026-03-03T06:51:54.2525689Z Updating files:  40% (6091/15227)
+2026-03-03T06:51:54.2627764Z Updating files:  41% (6244/15227)
+2026-03-03T06:51:54.2730089Z Updating files:  42% (6396/15227)
+2026-03-03T06:51:54.2833462Z Updating files:  43% (6548/15227)
+2026-03-03T06:51:54.2937568Z Updating files:  44% (6700/15227)
+2026-03-03T06:51:54.3041388Z Updating files:  45% (6853/15227)
+2026-03-03T06:51:54.3143646Z Updating files:  46% (7005/15227)
+2026-03-03T06:51:54.3247313Z Updating files:  47% (7157/15227)
+2026-03-03T06:51:54.3351222Z Updating files:  48% (7309/15227)
+2026-03-03T06:51:54.3454544Z Updating files:  49% (7462/15227)
+2026-03-03T06:51:54.3557609Z Updating files:  50% (7614/15227)
+2026-03-03T06:51:54.3871749Z Updating files:  51% (7766/15227)
+2026-03-03T06:51:54.6058011Z Updating files:  52% (7919/15227)
+2026-03-03T06:51:54.6378733Z Updating files:  53% (8071/15227)
+2026-03-03T06:51:55.1749404Z Updating files:  53% (8130/15227)
+2026-03-03T06:51:55.3011903Z Updating files:  54% (8223/15227)
+2026-03-03T06:51:55.5301991Z Updating files:  55% (8375/15227)
+2026-03-03T06:51:55.5838011Z Updating files:  56% (8528/15227)
+2026-03-03T06:51:55.6247320Z Updating files:  57% (8680/15227)
+2026-03-03T06:51:55.6496129Z Updating files:  57% (8777/15227)
+2026-03-03T06:51:55.7408571Z Updating files:  58% (8832/15227)
+2026-03-03T06:51:55.7942918Z Updating files:  59% (8984/15227)
+2026-03-03T06:51:55.8421984Z Updating files:  60% (9137/15227)
+2026-03-03T06:51:55.9593487Z Updating files:  61% (9289/15227)
+2026-03-03T06:51:56.0401044Z Updating files:  62% (9441/15227)
+2026-03-03T06:51:56.0744885Z Updating files:  63% (9594/15227)
+2026-03-03T06:51:56.0958265Z Updating files:  64% (9746/15227)
+2026-03-03T06:51:56.1065864Z Updating files:  65% (9898/15227)
+2026-03-03T06:51:56.1199465Z Updating files:  66% (10050/15227)
+2026-03-03T06:51:56.1296153Z Updating files:  67% (10203/15227)
+2026-03-03T06:51:56.1412845Z Updating files:  68% (10355/15227)
+2026-03-03T06:51:56.1516819Z Updating files:  69% (10507/15227)
+2026-03-03T06:51:56.2175744Z Updating files:  70% (10659/15227)
+2026-03-03T06:51:56.3803894Z Updating files:  71% (10812/15227)
+2026-03-03T06:51:56.4789610Z Updating files:  72% (10964/15227)
+2026-03-03T06:51:56.6343936Z Updating files:  73% (11116/15227)
+2026-03-03T06:51:56.6542486Z Updating files:  73% (11224/15227)
+2026-03-03T06:51:56.8947671Z Updating files:  74% (11268/15227)
+2026-03-03T06:51:57.0783967Z Updating files:  75% (11421/15227)
+2026-03-03T06:51:57.2123968Z Updating files:  76% (11573/15227)
+2026-03-03T06:51:57.3451848Z Updating files:  77% (11725/15227)
+2026-03-03T06:51:57.4487381Z Updating files:  78% (11878/15227)
+2026-03-03T06:51:57.4981465Z Updating files:  79% (12030/15227)
+2026-03-03T06:51:57.5543994Z Updating files:  80% (12182/15227)
+2026-03-03T06:51:57.5654161Z Updating files:  81% (12334/15227)
+2026-03-03T06:51:57.5760140Z Updating files:  82% (12487/15227)
+2026-03-03T06:51:57.5868288Z Updating files:  83% (12639/15227)
+2026-03-03T06:51:57.5978040Z Updating files:  84% (12791/15227)
+2026-03-03T06:51:57.6089447Z Updating files:  85% (12943/15227)
+2026-03-03T06:51:57.6200028Z Updating files:  86% (13096/15227)
+2026-03-03T06:51:57.6229033Z Updating files:  87% (13248/15227)
+2026-03-03T06:51:57.6312658Z Updating files:  87% (13287/15227)
+2026-03-03T06:51:57.6431166Z Updating files:  88% (13400/15227)
+2026-03-03T06:51:57.6540371Z Updating files:  89% (13553/15227)
+2026-03-03T06:51:57.8569607Z Updating files:  90% (13705/15227)
+2026-03-03T06:51:57.9572247Z Updating files:  91% (13857/15227)
+2026-03-03T06:51:57.9618007Z Updating files:  92% (14009/15227)
+2026-03-03T06:51:57.9761731Z Updating files:  93% (14162/15227)
+2026-03-03T06:51:57.9944202Z Updating files:  94% (14314/15227)
+2026-03-03T06:51:58.0038912Z Updating files:  95% (14466/15227)
+2026-03-03T06:51:58.0113403Z Updating files:  96% (14618/15227)
+2026-03-03T06:51:58.0188727Z Updating files:  97% (14771/15227)
+2026-03-03T06:51:58.5372039Z Updating files:  98% (14923/15227)
+2026-03-03T06:51:58.5842164Z Updating files:  99% (15075/15227)
+2026-03-03T06:51:58.5842862Z Updating files: 100% (15227/15227)
+2026-03-03T06:51:58.5843652Z Updating files: 100% (15227/15227), done.
+2026-03-03T06:51:58.6621347Z Switched to a new branch 'main'
+2026-03-03T06:51:58.6624049Z branch 'main' set up to track 'origin/main'.
+2026-03-03T06:51:58.6944033Z ##[endgroup]
+2026-03-03T06:51:58.6992122Z [command]/usr/bin/git log -1 --format=%H
+2026-03-03T06:51:58.7019692Z 098981bf2ad7913667fd13632220d3f6f371f3fa
+2026-03-03T06:51:58.7209569Z ##[group]Run if [ ! -f "pnpm-lock.yaml" ]; then
+2026-03-03T06:51:58.7210155Z [36;1mif [ ! -f "pnpm-lock.yaml" ]; then[0m
+2026-03-03T06:51:58.7210669Z [36;1m  echo "❌ FATAL: pnpm-lock.yaml não encontrado no repositório!"[0m
+2026-03-03T06:51:58.7211113Z [36;1m  echo ""[0m
+2026-03-03T06:51:58.7211400Z [36;1m  echo "Para corrigir:"[0m
+2026-03-03T06:51:58.7211773Z [36;1m  echo "  1) Rode localmente: pnpm install"[0m
+2026-03-03T06:51:58.7212338Z [36;1m  echo "  2) Commit o arquivo: git add pnpm-lock.yaml && git commit -m 'chore: add pnpm lockfile'"[0m
+2026-03-03T06:51:58.7212919Z [36;1m  echo "  3) Push para o repositório"[0m
+2026-03-03T06:51:58.7213253Z [36;1m  echo ""[0m
+2026-03-03T06:51:58.7213654Z [36;1m  echo "Nunca use --no-frozen-lockfile em CI — isso viola determinismo."[0m
+2026-03-03T06:51:58.7214090Z [36;1m  exit 1[0m
+2026-03-03T06:51:58.7214333Z [36;1mfi[0m
+2026-03-03T06:51:58.7214864Z [36;1mecho "✅ pnpm-lock.yaml encontrado ($(wc -l < pnpm-lock.yaml) linhas, $(du -sh pnpm-lock.yaml | cut -f1))"[0m
+2026-03-03T06:51:58.7268138Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:51:58.7268479Z env:
+2026-03-03T06:51:58.7268721Z   NODE_VERSION: 20
+2026-03-03T06:51:58.7268993Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:51:58.7269434Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:51:58.7270915Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:51:58.7272368Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:51:58.7274279Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:51:58.7276223Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:51:58.7276855Z ##[endgroup]
+2026-03-03T06:51:58.7453713Z ✅ pnpm-lock.yaml encontrado (21650 linhas, 732K)
+2026-03-03T06:51:58.7522397Z ##[group]Run pnpm/action-setup@v4
+2026-03-03T06:51:58.7522753Z with:
+2026-03-03T06:51:58.7522999Z   version: 10.30.3
+2026-03-03T06:51:58.7523260Z   dest: ~/setup-pnpm
+2026-03-03T06:51:58.7523525Z   run_install: null
+2026-03-03T06:51:58.7523796Z   package_json_file: package.json
+2026-03-03T06:51:58.7524096Z   standalone: false
+2026-03-03T06:51:58.7524341Z env:
+2026-03-03T06:51:58.7524573Z   NODE_VERSION: 20
+2026-03-03T06:51:58.7524830Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:51:58.7525270Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:51:58.7527045Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:51:58.7528781Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:51:58.7530261Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:51:58.7531784Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:51:58.7532110Z ##[endgroup]
+2026-03-03T06:51:58.8103919Z ##[group]Running self-installer...
+2026-03-03T06:51:59.3825313Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-03-03T06:51:59.3930237Z Packages: +1
+2026-03-03T06:51:59.3933679Z +
+2026-03-03T06:51:59.8457339Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-03-03T06:51:59.8732296Z 
+2026-03-03T06:51:59.8732849Z dependencies:
+2026-03-03T06:51:59.8733346Z + pnpm 10.30.3
+2026-03-03T06:51:59.8733601Z 
+2026-03-03T06:51:59.8761483Z Done in 886ms
+2026-03-03T06:51:59.8945229Z ##[endgroup]
+2026-03-03T06:51:59.8949861Z Installation Completed!
+2026-03-03T06:51:59.9100855Z ##[group]Run actions/setup-node@v4
+2026-03-03T06:51:59.9101216Z with:
+2026-03-03T06:51:59.9101459Z   node-version: 20
+2026-03-03T06:51:59.9101712Z   cache: pnpm
+2026-03-03T06:51:59.9101994Z   cache-dependency-path: pnpm-lock.yaml
+2026-03-03T06:51:59.9102352Z   always-auth: false
+2026-03-03T06:51:59.9102625Z   check-latest: false
+2026-03-03T06:51:59.9103033Z   token: ***
+2026-03-03T06:51:59.9103280Z env:
+2026-03-03T06:51:59.9103510Z   NODE_VERSION: 20
+2026-03-03T06:51:59.9103768Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:51:59.9104182Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:51:59.9105605Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:51:59.9107265Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:51:59.9108773Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:51:59.9110320Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:51:59.9110693Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:51:59.9111058Z ##[endgroup]
+2026-03-03T06:52:00.1028843Z Found in cache @ /opt/hostedtoolcache/node/20.20.0/x64
+2026-03-03T06:52:00.1036771Z ##[group]Environment details
+2026-03-03T06:52:00.5067074Z node: v20.20.0
+2026-03-03T06:52:00.5067676Z npm: 10.8.2
+2026-03-03T06:52:00.5068108Z yarn: 1.22.22
+2026-03-03T06:52:00.5069923Z ##[endgroup]
+2026-03-03T06:52:00.5095939Z [command]/home/runner/setup-pnpm/node_modules/.bin/pnpm store path --silent
+2026-03-03T06:52:00.8907900Z /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.pnpm-store/v10
+2026-03-03T06:52:01.0233845Z pnpm cache is not found
+2026-03-03T06:52:01.0352928Z ##[group]Run pnpm install --frozen-lockfile --ignore-scripts
+2026-03-03T06:52:01.0353480Z [36;1mpnpm install --frozen-lockfile --ignore-scripts[0m
+2026-03-03T06:52:01.0408878Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:01.0409219Z env:
+2026-03-03T06:52:01.0409464Z   NODE_VERSION: 20
+2026-03-03T06:52:01.0409740Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:01.0410187Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:01.0411647Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:01.0413109Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:01.0414593Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:01.0416116Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:01.0416493Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:01.0416996Z ##[endgroup]
+2026-03-03T06:52:01.4716266Z Scope: all 2 workspace projects
+2026-03-03T06:52:01.6071085Z Lockfile is up to date, resolution step is skipped
+2026-03-03T06:52:01.7651384Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-03-03T06:52:01.9767604Z Packages: +2026
+2026-03-03T06:52:01.9769053Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-03-03T06:52:02.7658396Z Progress: resolved 2026, reused 3, downloaded 65, added 24
+2026-03-03T06:52:03.7665243Z Progress: resolved 2026, reused 3, downloaded 137, added 51
+2026-03-03T06:52:04.7671682Z Progress: resolved 2026, reused 3, downloaded 337, added 253
+2026-03-03T06:52:05.7674584Z Progress: resolved 2026, reused 3, downloaded 521, added 496
+2026-03-03T06:52:06.7683099Z Progress: resolved 2026, reused 3, downloaded 619, added 570
+2026-03-03T06:52:07.7748783Z Progress: resolved 2026, reused 3, downloaded 770, added 637
+2026-03-03T06:52:08.7732117Z Progress: resolved 2026, reused 3, downloaded 883, added 695
+2026-03-03T06:52:09.7741045Z Progress: resolved 2026, reused 3, downloaded 1092, added 896
+2026-03-03T06:52:10.7743751Z Progress: resolved 2026, reused 3, downloaded 1191, added 950
+2026-03-03T06:52:11.7747027Z Progress: resolved 2026, reused 3, downloaded 1211, added 958
+2026-03-03T06:52:12.7751353Z Progress: resolved 2026, reused 3, downloaded 1367, added 1038
+2026-03-03T06:52:13.7776139Z Progress: resolved 2026, reused 3, downloaded 1599, added 1177
+2026-03-03T06:52:14.7778412Z Progress: resolved 2026, reused 3, downloaded 1820, added 1346
+2026-03-03T06:52:15.7808270Z Progress: resolved 2026, reused 3, downloaded 1970, added 1442
+2026-03-03T06:52:16.7816267Z Progress: resolved 2026, reused 3, downloaded 2012, added 1938
+2026-03-03T06:52:17.2492387Z Progress: resolved 2026, reused 3, downloaded 2012, added 2026, done
+2026-03-03T06:52:18.6086875Z 
+2026-03-03T06:52:18.6087594Z dependencies:
+2026-03-03T06:52:18.6089108Z + @dataconnect/admin-generated @dataconnect/admin-generated@file:src/dataconnect-admin-generated(firebase-admin@13.7.0(encoding@0.1.13))
+2026-03-03T06:52:18.6091828Z + @dataconnect/generated @dataconnect/generated@file:src/dataconnect-generated(@tanstack-query-firebase/react@2.1.1(@tanstack/react-query@5.90.21(react@19.2.4))(firebase@12.10.0))(firebase@12.10.0)
+2026-03-03T06:52:18.6093590Z + @genkit-ai/google-genai 1.29.0
+2026-03-03T06:52:18.6094340Z + @google/adk 0.4.0
+2026-03-03T06:52:18.6094880Z + @gsap/react 2.1.2
+2026-03-03T06:52:18.6095401Z + @hookform/resolvers 5.2.2
+2026-03-03T06:52:18.6096017Z + @modelcontextprotocol/sdk 1.27.1
+2026-03-03T06:52:18.6096960Z + @radix-ui/react-alert-dialog 1.1.15
+2026-03-03T06:52:18.6097637Z + @radix-ui/react-avatar 1.1.11
+2026-03-03T06:52:18.6098288Z + @radix-ui/react-checkbox 1.3.3
+2026-03-03T06:52:18.6098896Z + @radix-ui/react-collapsible 1.1.12
+2026-03-03T06:52:18.6099550Z + @radix-ui/react-dialog 1.1.15
+2026-03-03T06:52:18.6100215Z + @radix-ui/react-dropdown-menu 2.1.16
+2026-03-03T06:52:18.6100837Z + @radix-ui/react-label 2.1.8
+2026-03-03T06:52:18.6101463Z + @radix-ui/react-menubar 1.1.16
+2026-03-03T06:52:18.6102106Z + @radix-ui/react-popover 1.1.15
+2026-03-03T06:52:18.6102693Z + @radix-ui/react-radio-group 1.3.8
+2026-03-03T06:52:18.6104031Z + @radix-ui/react-separator 1.1.8
+2026-03-03T06:52:18.6104802Z + @radix-ui/react-slider 1.3.6
+2026-03-03T06:52:18.6105461Z + @radix-ui/react-slot 1.2.4
+2026-03-03T06:52:18.6106108Z + @radix-ui/react-switch 1.2.6
+2026-03-03T06:52:18.6106914Z + @radix-ui/react-tabs 1.1.13
+2026-03-03T06:52:18.6107539Z + @radix-ui/react-toast 1.2.15
+2026-03-03T06:52:18.6108171Z + @radix-ui/react-tooltip 1.2.8
+2026-03-03T06:52:18.6108758Z + @react-three/drei 10.7.7
+2026-03-03T06:52:18.6109274Z + @react-three/fiber 9.5.0
+2026-03-03T06:52:18.6109897Z + @react-three/postprocessing 3.0.4
+2026-03-03T06:52:18.6110473Z + @supabase/ssr 0.9.0
+2026-03-03T06:52:18.6110965Z + @supabase/supabase-js 2.98.0
+2026-03-03T06:52:18.6111570Z + class-variance-authority 0.7.1
+2026-03-03T06:52:18.6112129Z + clsx 2.1.1
+2026-03-03T06:52:18.6112637Z + embla-carousel-react 8.6.0
+2026-03-03T06:52:18.6113579Z + firebase 12.10.0
+2026-03-03T06:52:18.6114094Z + firebase-admin 13.7.0
+2026-03-03T06:52:18.6114650Z + firebase-frameworks 0.11.8
+2026-03-03T06:52:18.6115233Z + firebase-functions 7.0.6
+2026-03-03T06:52:18.6115722Z + framer-motion 12.34.4
+2026-03-03T06:52:18.6116188Z + gsap 3.14.2
+2026-03-03T06:52:18.6116884Z + husky 9.1.7
+2026-03-03T06:52:18.6117347Z + lenis 1.3.17
+2026-03-03T06:52:18.6117844Z + lightningcss 1.31.1
+2026-03-03T06:52:18.6118344Z + lint-staged 16.3.1
+2026-03-03T06:52:18.6118843Z + lucide-react 0.576.0
+2026-03-03T06:52:18.6119305Z + maath 0.10.8
+2026-03-03T06:52:18.6119782Z + motion 12.34.4
+2026-03-03T06:52:18.6120350Z + motion-studio-mcp 5.3.0
+2026-03-03T06:52:18.6120851Z + next 16.1.6
+2026-03-03T06:52:18.6121304Z + ogl 1.0.11
+2026-03-03T06:52:18.6121752Z + openai 6.25.0
+2026-03-03T06:52:18.6122276Z + postprocessing 6.38.3
+2026-03-03T06:52:18.6122757Z + react 19.2.4
+2026-03-03T06:52:18.6123058Z + react-day-picker 9.14.0
+2026-03-03T06:52:18.6123490Z + react-dom 19.2.4
+2026-03-03T06:52:18.6124008Z + react-hook-form 7.71.2
+2026-03-03T06:52:18.6124593Z + react-markdown 10.1.0
+2026-03-03T06:52:18.6125127Z + server-only 0.0.1
+2026-03-03T06:52:18.6125611Z + sharp 0.34.5
+2026-03-03T06:52:18.6126097Z + tailwind-merge 3.5.0
+2026-03-03T06:52:18.6126827Z + tailwindcss-animate 1.0.7
+2026-03-03T06:52:18.6127405Z + three 0.183.2
+2026-03-03T06:52:18.6127902Z + three-stdlib 2.36.1
+2026-03-03T06:52:18.6128410Z + uuid 13.0.0
+2026-03-03T06:52:18.6128849Z + zod 4.3.6
+2026-03-03T06:52:18.6129276Z + zustand 5.0.11
+2026-03-03T06:52:18.6129683Z 
+2026-03-03T06:52:18.6129899Z devDependencies:
+2026-03-03T06:52:18.6130440Z + @jest/globals 30.2.0
+2026-03-03T06:52:18.6130998Z + @next/bundle-analyzer 16.1.6
+2026-03-03T06:52:18.6131624Z + @next/eslint-plugin-next 16.1.6
+2026-03-03T06:52:18.6132225Z + @playwright/test 1.58.2
+2026-03-03T06:52:18.6132797Z + @tailwindcss/postcss 4.2.1
+2026-03-03T06:52:18.6133472Z + @tailwindcss/typography 0.5.19
+2026-03-03T06:52:18.6134086Z + @testing-library/dom 10.4.1
+2026-03-03T06:52:18.6134749Z + @testing-library/jest-dom 6.9.1
+2026-03-03T06:52:18.6135396Z + @testing-library/react 16.3.2
+2026-03-03T06:52:18.6136037Z + @testing-library/user-event 14.6.1
+2026-03-03T06:52:18.6136911Z + @types/jest 30.0.0
+2026-03-03T06:52:18.6137432Z + @types/node 25.3.3
+2026-03-03T06:52:18.6137940Z + @types/pg 8.18.0
+2026-03-03T06:52:18.6138440Z + @types/react 19.2.14
+2026-03-03T06:52:18.6138992Z + @types/react-dom 19.2.3
+2026-03-03T06:52:18.6139444Z + @types/three 0.183.1
+2026-03-03T06:52:18.6139977Z + @typescript-eslint/eslint-plugin 8.56.1
+2026-03-03T06:52:18.6140586Z + @typescript-eslint/parser 8.56.1
+2026-03-03T06:52:18.6141089Z + autoprefixer 10.4.27
+2026-03-03T06:52:18.6141544Z + commander 14.0.3
+2026-03-03T06:52:18.6141968Z + depcheck 1.4.7
+2026-03-03T06:52:18.6142365Z + dotenv 17.3.1
+2026-03-03T06:52:18.6142735Z + esbuild 0.27.3
+2026-03-03T06:52:18.6143213Z + eslint 10.0.2
+2026-03-03T06:52:18.6143699Z + eslint-config-next 16.1.6
+2026-03-03T06:52:18.6144378Z + eslint-config-prettier 10.1.8
+2026-03-03T06:52:18.6145066Z + eslint-plugin-import 2.32.0
+2026-03-03T06:52:18.6145719Z + eslint-plugin-prettier 5.5.5
+2026-03-03T06:52:18.6146379Z + eslint-plugin-react 7.37.5
+2026-03-03T06:52:18.6147619Z + firebase-tools 15.8.0
+2026-03-03T06:52:18.6148162Z + jest 30.2.0
+2026-03-03T06:52:18.6148727Z + jest-environment-jsdom 30.2.0
+2026-03-03T06:52:18.6149282Z + knip 5.85.0
+2026-03-03T06:52:18.6149737Z + pg 8.19.0
+2026-03-03T06:52:18.6150211Z + postcss 8.5.8
+2026-03-03T06:52:18.6150641Z + prettier 3.8.1
+2026-03-03T06:52:18.6151053Z + rimraf 6.1.3
+2026-03-03T06:52:18.6151479Z + serve 14.2.5
+2026-03-03T06:52:18.6151909Z + shadcn 3.8.5
+2026-03-03T06:52:18.6152395Z + tailwindcss 4.2.1
+2026-03-03T06:52:18.6152863Z + ts-jest 29.4.6
+2026-03-03T06:52:18.6153252Z + ts-node 10.9.2
+2026-03-03T06:52:18.6153619Z + tsx 4.21.0
+2026-03-03T06:52:18.6153990Z + typescript 5.9.3
+2026-03-03T06:52:18.6154334Z + which 6.0.1
+2026-03-03T06:52:18.6154678Z + yaml 2.8.2
+2026-03-03T06:52:18.6154848Z 
+2026-03-03T06:52:18.6439507Z Done in 17.5s using pnpm v10.30.3
+2026-03-03T06:52:18.6957030Z ##[group]Run echo "🔍 Verificando variáveis de ambiente do Supabase..."
+2026-03-03T06:52:18.6957689Z [36;1mecho "🔍 Verificando variáveis de ambiente do Supabase..."[0m
+2026-03-03T06:52:18.6958171Z [36;1mif [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then[0m
+2026-03-03T06:52:18.6958668Z [36;1m  echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_URL não configurada em GitHub Secrets."[0m
+2026-03-03T06:52:18.6959134Z [36;1m  exit 1[0m
+2026-03-03T06:52:18.6959386Z [36;1mfi[0m
+2026-03-03T06:52:18.6959726Z [36;1mif [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then[0m
+2026-03-03T06:52:18.6960259Z [36;1m  echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_ANON_KEY não configurada em GitHub Secrets."[0m
+2026-03-03T06:52:18.6960741Z [36;1m  exit 1[0m
+2026-03-03T06:52:18.6960991Z [36;1mfi[0m
+2026-03-03T06:52:18.6961319Z [36;1mecho "✅ Variáveis do Supabase validadas com sucesso."[0m
+2026-03-03T06:52:18.7012094Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:18.7012441Z env:
+2026-03-03T06:52:18.7012762Z   NODE_VERSION: 20
+2026-03-03T06:52:18.7013033Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:18.7013447Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:18.7014879Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:18.7016307Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:18.7018176Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:18.7019755Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:18.7020122Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:18.7020492Z ##[endgroup]
+2026-03-03T06:52:18.7101376Z 🔍 Verificando variáveis de ambiente do Supabase...
+2026-03-03T06:52:18.7102367Z ✅ Variáveis do Supabase validadas com sucesso.
+2026-03-03T06:52:18.7129981Z ##[group]Run pnpm run lint
+2026-03-03T06:52:18.7130331Z [36;1mpnpm run lint[0m
+2026-03-03T06:52:18.7180753Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:18.7181086Z env:
+2026-03-03T06:52:18.7181330Z   NODE_VERSION: 20
+2026-03-03T06:52:18.7181607Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:18.7182061Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:18.7183482Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:18.7184929Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:18.7186392Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:18.7188113Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:18.7188494Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:18.7188866Z ##[endgroup]
+2026-03-03T06:52:19.1065066Z 
+2026-03-03T06:52:19.1066338Z > danilo-novais-portfolio@1.0.1 lint /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:52:19.1067798Z > eslint src test tailwind.config.ts
+2026-03-03T06:52:19.1068263Z 
+2026-03-03T06:52:22.9025019Z ##[group]Run pnpm run typecheck
+2026-03-03T06:52:22.9025392Z [36;1mpnpm run typecheck[0m
+2026-03-03T06:52:22.9076878Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:22.9077244Z env:
+2026-03-03T06:52:22.9077486Z   NODE_VERSION: 20
+2026-03-03T06:52:22.9077753Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:22.9078191Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:22.9079633Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:22.9081070Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:22.9082543Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:22.9084044Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:22.9084412Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:22.9084769Z ##[endgroup]
+2026-03-03T06:52:23.2897668Z 
+2026-03-03T06:52:23.2898878Z > danilo-novais-portfolio@1.0.1 typecheck /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:52:23.2899957Z > NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx
+2026-03-03T06:52:23.2900362Z 
+2026-03-03T06:52:38.4944456Z ##[group]Run if grep -q '"link:' functions/package.json; then
+2026-03-03T06:52:38.4945384Z [36;1mif grep -q '"link:' functions/package.json; then[0m
+2026-03-03T06:52:38.4946285Z [36;1m  echo "⚠️  Detectado protocolo 'link:' em functions/package.json"[0m
+2026-03-03T06:52:38.4948552Z [36;1m  sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json[0m
+2026-03-03T06:52:38.4949336Z [36;1m  echo "✅ Corrigido para 'file:../src/'"[0m
+2026-03-03T06:52:38.4949936Z [36;1mfi[0m
+2026-03-03T06:52:38.5010401Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:38.5010766Z env:
+2026-03-03T06:52:38.5011012Z   NODE_VERSION: 20
+2026-03-03T06:52:38.5011282Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:38.5011715Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:38.5013160Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:38.5014598Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:38.5016091Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:38.5017907Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:38.5018280Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:38.5018639Z ##[endgroup]
+2026-03-03T06:52:38.5146079Z ##[group]Run cd functions && pnpm run build
+2026-03-03T06:52:38.5146766Z [36;1mcd functions && pnpm run build[0m
+2026-03-03T06:52:38.5198565Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:38.5198914Z env:
+2026-03-03T06:52:38.5199158Z   NODE_VERSION: 20
+2026-03-03T06:52:38.5199429Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:38.5199856Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:38.5201291Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:38.5202737Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:38.5204218Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:38.5205743Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:38.5206105Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:38.5206466Z ##[endgroup]
+2026-03-03T06:52:38.9363948Z 
+2026-03-03T06:52:38.9365076Z > functions@ build /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions
+2026-03-03T06:52:38.9365745Z > tsc
+2026-03-03T06:52:38.9365954Z 
+2026-03-03T06:52:41.0634853Z ##[group]Run echo "NEXT_PUBLIC_SUPABASE_URL=***" > .env.production
+2026-03-03T06:52:41.0635635Z [36;1mecho "NEXT_PUBLIC_SUPABASE_URL=***" > .env.production[0m
+2026-03-03T06:52:41.0637508Z [36;1mecho "NEXT_PUBLIC_SUPABASE_ANON_KEY=***" >> .env.production[0m
+2026-03-03T06:52:41.0639201Z [36;1mecho "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=***" >> .env.production[0m
+2026-03-03T06:52:41.0640932Z [36;1mecho "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=***" >> .env.production[0m
+2026-03-03T06:52:41.0642683Z [36;1mecho "SUPABASE_SERVICE_ROLE_KEY=***" >> .env.production[0m
+2026-03-03T06:52:41.0693542Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:41.0693867Z env:
+2026-03-03T06:52:41.0694110Z   NODE_VERSION: 20
+2026-03-03T06:52:41.0694390Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:41.0694829Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:41.0696250Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:41.0698573Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:41.0700180Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:41.0701754Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:41.0702132Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:41.0702498Z ##[endgroup]
+2026-03-03T06:52:41.0811510Z ##[group]Run pnpm run build
+2026-03-03T06:52:41.0811879Z [36;1mpnpm run build[0m
+2026-03-03T06:52:41.0862272Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:52:41.0862610Z env:
+2026-03-03T06:52:41.0862858Z   NODE_VERSION: 20
+2026-03-03T06:52:41.0863133Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:52:41.0863570Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:52:41.0865011Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:52:41.0866457Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:52:41.0868392Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:52:41.0869937Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:52:41.0870298Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:52:41.0870660Z   NEXTJS_IGNORE_ESLINT: 1
+2026-03-03T06:52:41.0870939Z ##[endgroup]
+2026-03-03T06:52:41.4881571Z 
+2026-03-03T06:52:41.4883418Z > danilo-novais-portfolio@1.0.1 build /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:52:41.4884822Z > pnpm run validate-env && pnpm run prebuild && next build
+2026-03-03T06:52:41.4885339Z 
+2026-03-03T06:52:41.9065616Z 
+2026-03-03T06:52:41.9067496Z > danilo-novais-portfolio@1.0.1 validate-env /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:52:41.9068461Z > node scripts/validate-env.cjs
+2026-03-03T06:52:41.9068734Z 
+2026-03-03T06:52:41.9348954Z Aviso: Não foi possível ler .env.local. Verificando process.env... ENOENT: no such file or directory, open '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.env.local'
+2026-03-03T06:52:41.9354260Z CI/.env.local validado com sucesso (3 chaves).
+2026-03-03T06:52:42.3545654Z 
+2026-03-03T06:52:42.3547156Z > danilo-novais-portfolio@1.0.1 prebuild /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:52:42.3548456Z > node scripts/generate-build-info.cjs
+2026-03-03T06:52:42.3548926Z 
+2026-03-03T06:52:43.0156130Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+2026-03-03T06:52:43.0247558Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-03-03T06:52:43.0248649Z This information is used to shape Next.js' roadmap and prioritize features.
+2026-03-03T06:52:43.0249687Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-03-03T06:52:43.0250449Z https://nextjs.org/telemetry
+2026-03-03T06:52:43.0250680Z 
+2026-03-03T06:52:43.0450101Z ▲ Next.js 16.1.6 (Turbopack)
+2026-03-03T06:52:43.0450826Z - Environments: .env.production
+2026-03-03T06:52:43.0451659Z - Experiments (use with caution):
+2026-03-03T06:52:43.0452730Z   · optimizePackageImports
+2026-03-03T06:52:43.0453303Z   · serverActions
+2026-03-03T06:52:43.0454543Z 
+2026-03-03T06:52:43.1375456Z   Creating an optimized production build ...
+2026-03-03T06:53:18.4706083Z ✓ Compiled successfully in 35.0s
+2026-03-03T06:53:18.4739451Z   Skipping validation of types
+2026-03-03T06:53:18.8175362Z   Collecting page data using 3 workers ...
+2026-03-03T06:53:20.1170929Z   Generating static pages using 3 workers (0/30) ...
+2026-03-03T06:53:20.1915068Z   Generating static pages using 3 workers (7/30) 
+2026-03-03T06:53:21.0358300Z   Generating static pages using 3 workers (14/30) 
+2026-03-03T06:53:21.2455803Z   Generating static pages using 3 workers (22/30) 
+2026-03-03T06:53:21.7912536Z ✓ Generating static pages using 3 workers (30/30) in 1674.2ms
+2026-03-03T06:53:21.7981970Z   Finalizing page optimization ...
+2026-03-03T06:53:22.1444556Z 
+2026-03-03T06:53:22.1469520Z Route (app)
+2026-03-03T06:53:22.1470285Z ┌ ○ /
+2026-03-03T06:53:22.1470679Z ├ ○ /_not-found
+2026-03-03T06:53:22.1471165Z ├ ƒ /admin
+2026-03-03T06:53:22.1471669Z ├ ƒ /admin/config
+2026-03-03T06:53:22.1472215Z ├ ƒ /admin/copy-agent
+2026-03-03T06:53:22.1472850Z ├ ƒ /admin/landing-pages
+2026-03-03T06:53:22.1473559Z ├ ƒ /admin/landing-pages/[id]
+2026-03-03T06:53:22.1474216Z ├ ƒ /admin/landing-pages/new
+2026-03-03T06:53:22.1475176Z ├ ○ /admin/login
+2026-03-03T06:53:22.1475735Z ├ ƒ /admin/midia
+2026-03-03T06:53:22.1476285Z ├ ƒ /admin/scene-generator
+2026-03-03T06:53:22.1477082Z ├ ƒ /admin/settings
+2026-03-03T06:53:22.1477575Z ├ ƒ /admin/tags
+2026-03-03T06:53:22.1478076Z ├ ƒ /admin/trabalhos
+2026-03-03T06:53:22.1478602Z ├ ƒ /admin/trabalhos/[id]
+2026-03-03T06:53:22.1479157Z ├ ƒ /admin/trabalhos/new
+2026-03-03T06:53:22.1479727Z ├ ƒ /api/admin/storage/upload
+2026-03-03T06:53:22.1480256Z ├ ƒ /api/contact
+2026-03-03T06:53:22.1480745Z ├ ƒ /api/report-error
+2026-03-03T06:53:22.1481203Z ├ ƒ /api/site-assets
+2026-03-03T06:53:22.1481515Z ├ ƒ /auth/callback
+2026-03-03T06:53:22.1481781Z ├ ○ /contato
+2026-03-03T06:53:22.1482084Z ├ ○ /contato/opengraph-image
+2026-03-03T06:53:22.1482419Z ├ ƒ /examples/supabase
+2026-03-03T06:53:22.1482735Z ├ ○ /opengraph-image
+2026-03-03T06:53:22.1483022Z ├ ƒ /portfolio
+2026-03-03T06:53:22.1483561Z ├ ƒ /portfolio/[slug]
+2026-03-03T06:53:22.1483915Z ├ ○ /portfolio/opengraph-image
+2026-03-03T06:53:22.1484251Z ├ ○ /privacidade
+2026-03-03T06:53:22.1484537Z ├ ○ /privacy-policy
+2026-03-03T06:53:22.1484826Z ├ ƒ /projects/[slug]
+2026-03-03T06:53:22.1485102Z ├ ○ /robots.txt
+2026-03-03T06:53:22.1485365Z ├ ○ /sitemap.xml
+2026-03-03T06:53:22.1485621Z ├ ○ /sobre
+2026-03-03T06:53:22.1485907Z └ ○ /sobre/opengraph-image
+2026-03-03T06:53:22.1486090Z 
+2026-03-03T06:53:22.1486096Z 
+2026-03-03T06:53:22.1486247Z ƒ Proxy (Middleware)
+2026-03-03T06:53:22.1486415Z 
+2026-03-03T06:53:22.1486881Z ○  (Static)   prerendered as static content
+2026-03-03T06:53:22.1487346Z ƒ  (Dynamic)  server-rendered on demand
+2026-03-03T06:53:22.1487566Z 
+2026-03-03T06:53:22.2516700Z ##[group]Run bash scripts/prepare-hosting.sh
+2026-03-03T06:53:22.2517433Z [36;1mbash scripts/prepare-hosting.sh[0m
+2026-03-03T06:53:22.2591146Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:53:22.2591738Z env:
+2026-03-03T06:53:22.2592213Z   NODE_VERSION: 20
+2026-03-03T06:53:22.2592708Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:22.2593455Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:22.2596254Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:22.2599385Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:22.2602347Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:22.2605381Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:22.2606067Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:22.2606962Z ##[endgroup]
+2026-03-03T06:53:22.2735895Z Consolidating static files into deploy-public...
+2026-03-03T06:53:22.3255821Z deploy-public prepared.
+2026-03-03T06:53:22.3299589Z ##[group]Run if [ -z "***
+2026-03-03T06:53:22.3300191Z [36;1mif [ -z "***[0m
+2026-03-03T06:53:22.3300680Z [36;1m  ***[0m
+2026-03-03T06:53:22.3301189Z [36;1m  ***[0m
+2026-03-03T06:53:22.3301767Z [36;1m  ***[0m
+2026-03-03T06:53:22.3315017Z [36;1m  ***[0m
+2026-03-03T06:53:22.3315858Z [36;1m  ***[0m
+2026-03-03T06:53:22.3316369Z [36;1m  ***[0m
+2026-03-03T06:53:22.3317074Z [36;1m  ***[0m
+2026-03-03T06:53:22.3317608Z [36;1m  ***[0m
+2026-03-03T06:53:22.3318239Z [36;1m  ***[0m
+2026-03-03T06:53:22.3319276Z [36;1m  ***[0m
+2026-03-03T06:53:22.3319696Z [36;1m  ***[0m
+2026-03-03T06:53:22.3320063Z [36;1m***" ]; then[0m
+2026-03-03T06:53:22.3320866Z [36;1m  echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS não configurado no GitHub Secrets."[0m
+2026-03-03T06:53:22.3322160Z [36;1m  echo "Vá em Settings > Secrets and variables > Actions e adicione o JSON da conta de serviço."[0m
+2026-03-03T06:53:22.3322972Z [36;1m  exit 1[0m
+2026-03-03T06:53:22.3323397Z [36;1mfi[0m
+2026-03-03T06:53:22.3380644Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:53:22.3381015Z env:
+2026-03-03T06:53:22.3381275Z   NODE_VERSION: 20
+2026-03-03T06:53:22.3381551Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:22.3381989Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:22.3383465Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:22.3384975Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:22.3386486Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:22.3388267Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:22.3388647Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:22.3389022Z ##[endgroup]
+2026-03-03T06:53:22.3472269Z /home/runner/work/_temp/4c8d2179-f914-493f-a2d6-5c49f46d3c25.sh: line 1: [: too many arguments
+2026-03-03T06:53:22.3548481Z ##[group]Run google-github-actions/auth@v2
+2026-03-03T06:53:22.3548852Z with:
+2026-03-03T06:53:22.3558920Z   credentials_json: ***
+2026-03-03T06:53:22.3559230Z   create_credentials_file: true
+2026-03-03T06:53:22.3559552Z   export_environment_variables: true
+2026-03-03T06:53:22.3559898Z   universe: googleapis.com
+2026-03-03T06:53:22.3560189Z   cleanup_credentials: true
+2026-03-03T06:53:22.3560482Z   access_token_lifetime: 3600s
+2026-03-03T06:53:22.3560901Z   access_token_scopes: https://www.googleapis.com/auth/cloud-platform
+2026-03-03T06:53:22.3561609Z   id_token_include_email: false
+2026-03-03T06:53:22.3561898Z env:
+2026-03-03T06:53:22.3562162Z   NODE_VERSION: 20
+2026-03-03T06:53:22.3562432Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:22.3562839Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:22.3564264Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:22.3565716Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:22.3567448Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:22.3568996Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:22.3569363Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:22.3569725Z ##[endgroup]
+2026-03-03T06:53:22.4542405Z Created credentials file at "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json"
+2026-03-03T06:53:22.4699074Z ##[group]Run if [ -n "$SECRET_FB_PROJECT" ]; then
+2026-03-03T06:53:22.4699580Z [36;1mif [ -n "$SECRET_FB_PROJECT" ]; then[0m
+2026-03-03T06:53:22.4699972Z [36;1m  PROJECT_ID="$SECRET_FB_PROJECT"[0m
+2026-03-03T06:53:22.4700382Z [36;1m  SOURCE="GitHub Secret FIREBASE_PROJECT"[0m
+2026-03-03T06:53:22.4700836Z [36;1melif [ -n "***" ]; then[0m
+2026-03-03T06:53:22.4701211Z [36;1m  PROJECT_ID="***"[0m
+2026-03-03T06:53:22.4701546Z [36;1m  SOURCE="Service Account project_id"[0m
+2026-03-03T06:53:22.4701921Z [36;1melif [ -f .firebaserc ]; then[0m
+2026-03-03T06:53:22.4702664Z [36;1m  PROJECT_ID=$(node -e "const fs=require('fs');const rc=JSON.parse(fs.readFileSync('.firebaserc','utf8'));process.stdout.write(rc?.projects?.default||'')")[0m
+2026-03-03T06:53:22.4703437Z [36;1m  SOURCE=".firebaserc (projects.default)"[0m
+2026-03-03T06:53:22.4703790Z [36;1mfi[0m
+2026-03-03T06:53:22.4704029Z [36;1m[0m
+2026-03-03T06:53:22.4704281Z [36;1mif [ -z "$PROJECT_ID" ]; then[0m
+2026-03-03T06:53:22.4704786Z [36;1m  echo "❌ ERRO: Não foi possível resolver o Firebase Project ID."[0m
+2026-03-03T06:53:22.4705469Z [36;1m  echo "Defina FIREBASE_PROJECT no GitHub Secrets ou configure .firebaserc/projects.default"[0m
+2026-03-03T06:53:22.4706005Z [36;1m  exit 1[0m
+2026-03-03T06:53:22.4706256Z [36;1mfi[0m
+2026-03-03T06:53:22.4706495Z [36;1m[0m
+2026-03-03T06:53:22.4706989Z [36;1mecho "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"[0m
+2026-03-03T06:53:22.4707474Z [36;1mecho "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"[0m
+2026-03-03T06:53:22.4758243Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:53:22.4758599Z env:
+2026-03-03T06:53:22.4758870Z   NODE_VERSION: 20
+2026-03-03T06:53:22.4759143Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:22.4759588Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:22.4761044Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:22.4762519Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:22.4764059Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:22.4765620Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:22.4765991Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:22.4767009Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:22.4768064Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:22.4769055Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:22.4769734Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-03T06:53:22.4770070Z   CLOUDSDK_PROJECT: ***
+2026-03-03T06:53:22.4770379Z   GCLOUD_PROJECT: ***
+2026-03-03T06:53:22.4770673Z   GCP_PROJECT: ***
+2026-03-03T06:53:22.4770984Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-03T06:53:22.4771307Z   SECRET_FB_PROJECT: ***
+2026-03-03T06:53:22.4771583Z ##[endgroup]
+2026-03-03T06:53:22.4852251Z ✅ Projeto Firebase resolvido: *** (GitHub Secret FIREBASE_PROJECT)
+2026-03-03T06:53:22.4879489Z ##[group]Run npm install -g firebase-tools@latest
+2026-03-03T06:53:22.4879979Z [36;1mnpm install -g firebase-tools@latest[0m
+2026-03-03T06:53:22.4931028Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:53:22.4931377Z env:
+2026-03-03T06:53:22.4931626Z   NODE_VERSION: 20
+2026-03-03T06:53:22.4931908Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:22.4932346Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:22.4933812Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:22.4935308Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:22.4937016Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:22.4938601Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:22.4938985Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:22.4939752Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:22.4940868Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:22.4941845Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:22.4942546Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-03T06:53:22.4942884Z   CLOUDSDK_PROJECT: ***
+2026-03-03T06:53:22.4943202Z   GCLOUD_PROJECT: ***
+2026-03-03T06:53:22.4943500Z   GCP_PROJECT: ***
+2026-03-03T06:53:22.4943813Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-03T06:53:22.4944101Z ##[endgroup]
+2026-03-03T06:53:35.2330472Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-03-03T06:53:37.6987059Z npm warn deprecated json-ptr@3.1.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+2026-03-03T06:53:37.7897900Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-03-03T06:53:41.1978564Z 
+2026-03-03T06:53:41.1979181Z added 746 packages in 19s
+2026-03-03T06:53:41.1979481Z 
+2026-03-03T06:53:41.1979677Z 93 packages are looking for funding
+2026-03-03T06:53:41.1980056Z   run `npm fund` for details
+2026-03-03T06:53:41.2350601Z ##[group]Run TARGET_PROJECT="***"
+2026-03-03T06:53:41.2351085Z [36;1mTARGET_PROJECT="***"[0m
+2026-03-03T06:53:41.2351557Z [36;1mfirebase projects:list --json 2>/dev/null > firebase-projects.json || true[0m
+2026-03-03T06:53:41.2352038Z [36;1m[0m
+2026-03-03T06:53:41.2352287Z [36;1mnode -e "[0m
+2026-03-03T06:53:41.2352571Z [36;1m  const fs = require('fs');[0m
+2026-03-03T06:53:41.2353007Z [36;1m  const raw = fs.readFileSync('firebase-projects.json', 'utf8');[0m
+2026-03-03T06:53:41.2353442Z [36;1m  let data;[0m
+2026-03-03T06:53:41.2353777Z [36;1m  try *** data = JSON.parse(raw); *** catch ***[0m
+2026-03-03T06:53:41.2354334Z [36;1m    console.log('⚠️ Could not parse firebase projects JSON — skipping validation.');[0m
+2026-03-03T06:53:41.2354858Z [36;1m    process.exit(0);[0m
+2026-03-03T06:53:41.2355228Z [36;1m  ***[0m
+2026-03-03T06:53:41.2355472Z [36;1m[0m
+2026-03-03T06:53:41.2355917Z [36;1m  const projects = Array.isArray(data) ? data : (data.results || data.result || []);[0m
+2026-03-03T06:53:41.2356703Z [36;1m  const ids = projects.map(p => p.projectId || p.projectid || p.id).filter(Boolean);[0m
+2026-03-03T06:53:41.2357308Z [36;1m  console.log('📋 Projects accessible:', ids.join(', ') || '(none)');[0m
+2026-03-03T06:53:41.2357748Z [36;1m[0m
+2026-03-03T06:53:41.2358044Z [36;1m  if (ids.includes('$***TARGET_PROJECT***')) ***[0m
+2026-03-03T06:53:41.2358558Z [36;1m    console.log('✅ Acesso ao projeto validado para $***TARGET_PROJECT***');[0m
+2026-03-03T06:53:41.2359033Z [36;1m  *** else ***[0m
+2026-03-03T06:53:41.2359566Z [36;1m    console.log('⚠️ Projeto $***TARGET_PROJECT*** não aparece na lista — tentando de qualquer forma.');[0m
+2026-03-03T06:53:41.2360165Z [36;1m  ***[0m
+2026-03-03T06:53:41.2360409Z [36;1m"[0m
+2026-03-03T06:53:41.2410954Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:53:41.2411663Z env:
+2026-03-03T06:53:41.2411910Z   NODE_VERSION: 20
+2026-03-03T06:53:41.2412188Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:41.2412636Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:41.2414141Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:41.2415603Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:41.2417294Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:41.2418868Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:41.2419250Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:41.2419990Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:41.2421007Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:41.2421943Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:41.2422610Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-03T06:53:41.2422949Z   CLOUDSDK_PROJECT: ***
+2026-03-03T06:53:41.2423254Z   GCLOUD_PROJECT: ***
+2026-03-03T06:53:41.2423561Z   GCP_PROJECT: ***
+2026-03-03T06:53:41.2423869Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-03T06:53:41.2424155Z ##[endgroup]
+2026-03-03T06:53:42.4889075Z 📋 Projects accessible: ***
+2026-03-03T06:53:42.4893858Z ✅ Acesso ao projeto validado para ***
+2026-03-03T06:53:42.4976357Z ##[group]Run firebase experiments:enable webframeworks
+2026-03-03T06:53:42.4977631Z [36;1mfirebase experiments:enable webframeworks[0m
+2026-03-03T06:53:42.4978358Z [36;1mfirebase deploy --only hosting,functions \[0m
+2026-03-03T06:53:42.4979143Z [36;1m  --project "***" \[0m
+2026-03-03T06:53:42.4979676Z [36;1m  --debug --non-interactive[0m
+2026-03-03T06:53:42.5061310Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:53:42.5062019Z env:
+2026-03-03T06:53:42.5062474Z   NODE_VERSION: 20
+2026-03-03T06:53:42.5062992Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:53:42.5063823Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:53:42.5067053Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:53:42.5069976Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:53:42.5072767Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:53:42.5075863Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:53:42.5076741Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:53:42.5078163Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:42.5080137Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:42.5081853Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:53:42.5083124Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-03T06:53:42.5083735Z   CLOUDSDK_PROJECT: ***
+2026-03-03T06:53:42.5084493Z   GCLOUD_PROJECT: ***
+2026-03-03T06:53:42.5085053Z   GCP_PROJECT: ***
+2026-03-03T06:53:42.5085682Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-03T06:53:42.5086250Z ##[endgroup]
+2026-03-03T06:53:43.1901390Z Enabled experiment [1mwebframeworks[22m
+2026-03-03T06:53:44.6261262Z [2026-03-03T06:53:44.624Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+2026-03-03T06:53:44.7160333Z [2026-03-03T06:53:44.715Z] Running auto auth
+2026-03-03T06:53:44.7167790Z [2026-03-03T06:53:44.716Z] [iam] checking project *** for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+2026-03-03T06:53:44.7173733Z [2026-03-03T06:53:44.717Z] No OAuth tokens found
+2026-03-03T06:53:44.7185395Z [2026-03-03T06:53:44.718Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions [none]
+2026-03-03T06:53:44.7188032Z [2026-03-03T06:53:44.718Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions  x-goog-user-project=***
+2026-03-03T06:53:44.7191093Z [2026-03-03T06:53:44.718Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]***
+2026-03-03T06:53:44.8123874Z [2026-03-03T06:53:44.811Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions 200
+2026-03-03T06:53:44.8127327Z [2026-03-03T06:53:44.812Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]***
+2026-03-03T06:53:44.8129822Z [2026-03-03T06:53:44.812Z] No OAuth tokens found
+2026-03-03T06:53:44.8133691Z [2026-03-03T06:53:44.812Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions [none]
+2026-03-03T06:53:44.8137407Z [2026-03-03T06:53:44.813Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions ***"permissions":["iam.serviceAccounts.actAs"]***
+2026-03-03T06:53:44.9072014Z [2026-03-03T06:53:44.906Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions 200
+2026-03-03T06:53:44.9074330Z [2026-03-03T06:53:44.906Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions ***"permissions":["iam.serviceAccounts.actAs"]***
+2026-03-03T06:53:44.9078867Z [2026-03-03T06:53:44.907Z] No OAuth tokens found
+2026-03-03T06:53:44.9082722Z [2026-03-03T06:53:44.908Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/*** [none]
+2026-03-03T06:53:45.1684302Z [2026-03-03T06:53:45.167Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/*** 200
+2026-03-03T06:53:45.1688717Z [2026-03-03T06:53:45.168Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/*** ***"projectId":"***","projectNumber":"350817205989","displayName":"Portfolio Danilo Novais","name":"projects/***","resources":***"hostingSite":"***","realtimeDatabaseInstance":"***-default-rtdb"***,"state":"ACTIVE","etag":"1_bf95d783-2600-4e83-8996-b07fd41db756"***
+2026-03-03T06:54:05.1299307Z [2026-03-03T06:54:05.129Z] No OAuth tokens found
+2026-03-03T06:54:05.1304390Z [2026-03-03T06:54:05.130Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites pageToken=&pageSize=10
+2026-03-03T06:54:05.6110934Z [2026-03-03T06:54:05.610Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites 200
+2026-03-03T06:54:05.6113649Z [2026-03-03T06:54:05.610Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites ***"sites":[***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***]***
+2026-03-03T06:54:05.6115542Z [2026-03-03T06:54:05.611Z] No OAuth tokens found
+2026-03-03T06:54:05.6119537Z [2026-03-03T06:54:05.611Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config [none]
+2026-03-03T06:54:05.9808364Z [2026-03-03T06:54:05.980Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config 200
+2026-03-03T06:54:05.9814466Z [2026-03-03T06:54:05.980Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config ***"projectId":"***","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","databaseURL":"https://***-default-rtdb.firebaseio.com","storageBucket":"***.firebasestorage.app","apiKey":"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4","authDomain":"***.firebaseapp.com","messagingSenderId":"350817205989","measurementId":"G-PM34VYPZZW","projectNumber":"350817205989","version":"2"***
+2026-03-03T06:54:43.1980305Z 
+2026-03-03T06:54:43.1981064Z    Thank you for trying our early preview of Next.js support on Firebase Hosting.
+2026-03-03T06:54:43.1982312Z    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+2026-03-03T06:54:43.1983776Z    The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+2026-03-03T06:54:43.1984396Z 
+2026-03-03T06:54:43.1984814Z    Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+2026-03-03T06:54:43.1985676Z    File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+2026-03-03T06:54:43.1987267Z    Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+2026-03-03T06:54:43.1987841Z 
+2026-03-03T06:54:43.1988425Z    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+2026-03-03T06:54:43.1989043Z 
+2026-03-03T06:54:43.2003161Z 
+2026-03-03T06:54:43.2004598Z WARNING: Your package.json contains a custom build that is being ignored. Only the Next.js default build script (e.g, "next build") is respected. If you have a more advanced build process you should build a custom integration https://firebase.google.com/docs/hosting/express
+2026-03-03T06:54:43.2005792Z 
+2026-03-03T06:54:53.1951962Z [2026-03-03T06:54:53.194Z] No OAuth tokens found
+2026-03-03T06:54:53.1954506Z [2026-03-03T06:54:53.195Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** [none]
+2026-03-03T06:54:53.5704824Z [2026-03-03T06:54:53.570Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** 200
+2026-03-03T06:54:53.5708678Z [2026-03-03T06:54:53.570Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** ***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***
+2026-03-03T06:54:54.3393576Z ▲ Next.js 16.1.6 (Turbopack)
+2026-03-03T06:54:54.3394060Z 
+2026-03-03T06:54:54.3394493Z - Environments: .env.production
+2026-03-03T06:54:54.3395247Z - Experiments (use with caution):
+2026-03-03T06:54:54.3396056Z   · optimizePackageImports
+2026-03-03T06:54:54.3397039Z   · serverActions
+2026-03-03T06:54:54.3397340Z 
+2026-03-03T06:54:54.3397352Z 
+2026-03-03T06:54:54.4227697Z   Creating an optimized production build ...
+2026-03-03T06:54:54.4228202Z 
+2026-03-03T06:54:59.7849836Z 
+2026-03-03T06:54:59.7852017Z 
+2026-03-03T06:54:59.7854751Z [0.55ms] [@tailwindcss/postcss] src/components/home/hero/HeroCopy.module.css
+2026-03-03T06:54:59.7856006Z [0.52ms]   ↳ Quick bail check
+2026-03-03T06:54:59.7856389Z 
+2026-03-03T06:54:59.7856442Z 
+2026-03-03T06:54:59.7909964Z 
+2026-03-03T06:54:59.7911153Z [0.10ms] [@tailwindcss/postcss] src/components/portfolio/ProjectsGallery.module.css
+2026-03-03T06:54:59.7912612Z [0.05ms]   ↳ Quick bail check
+2026-03-03T06:54:59.7913018Z 
+2026-03-03T06:54:59.7913027Z 
+2026-03-03T06:54:59.7952327Z 
+2026-03-03T06:54:59.7954046Z [0.05ms] [@tailwindcss/postcss] src/components/layout/header/DesktopFluidHeader.module.css
+2026-03-03T06:54:59.7955175Z 
+2026-03-03T06:54:59.7955853Z [0.03ms]   ↳ Quick bail check
+2026-03-03T06:54:59.7956233Z 
+2026-03-03T06:54:59.7956871Z 
+2026-03-03T06:55:18.4244917Z 
+2026-03-03T06:55:18.4245374Z 
+2026-03-03T06:55:18.4253215Z [18853.39ms] [@tailwindcss/postcss] src/app/globals.css
+2026-03-03T06:55:18.4254758Z [    0.08ms]   ↳ Quick bail check
+2026-03-03T06:55:18.4257904Z [  132.66ms]   ↳ Setup compiler
+2026-03-03T06:55:18.4258836Z [    0.85ms]     ↳ PostCSS AST -> Tailwind CSS AST
+2026-03-03T06:55:18.4287838Z [  131.77ms]     ↳ Create compiler
+2026-03-03T06:55:18.4288802Z 
+2026-03-03T06:55:18.4289845Z [    0.21ms]   ↳ Register full rebuild paths
+2026-03-03T06:55:18.4291040Z [    1.44ms]   ↳ Setup scanner
+2026-03-03T06:55:18.4291772Z [16031.43ms]   ↳ Scan for candidates
+2026-03-03T06:55:18.4292539Z [  262.39ms]   ↳ Register dependency messages
+2026-03-03T06:55:18.4293266Z [ 2301.89ms]   ↳ Build utilities
+2026-03-03T06:55:18.4293864Z [  108.26ms]   ↳ Optimization
+2026-03-03T06:55:18.4294454Z [    2.91ms]     ↳ AST -> CSS
+2026-03-03T06:55:18.4295068Z [   59.61ms]     ↳ Lightning CSS
+2026-03-03T06:55:18.4295730Z [   45.69ms]     ↳ CSS -> PostCSS AST
+2026-03-03T06:55:18.4296449Z [   14.51ms]   ↳ Update PostCSS AST
+2026-03-03T06:55:18.4313659Z 
+2026-03-03T06:55:18.4313671Z 
+2026-03-03T06:55:29.0953062Z ✓ Compiled successfully in 34.3s
+2026-03-03T06:55:29.0960922Z 
+2026-03-03T06:55:29.1130991Z   Skipping validation of types
+2026-03-03T06:55:29.1131851Z 
+2026-03-03T06:55:29.3914849Z   Collecting page data using 3 workers ...
+2026-03-03T06:55:29.3919739Z 
+2026-03-03T06:55:30.7902865Z   Generating static pages using 3 workers (0/30) ...
+2026-03-03T06:55:30.7905651Z 
+2026-03-03T06:55:30.8442352Z   Generating static pages using 3 workers (7/30) 
+2026-03-03T06:55:30.8449077Z 
+2026-03-03T06:55:31.4660836Z   Generating static pages using 3 workers (14/30) 
+2026-03-03T06:55:31.4661384Z 
+2026-03-03T06:55:31.9316124Z   Generating static pages using 3 workers (22/30) 
+2026-03-03T06:55:31.9318156Z 
+2026-03-03T06:55:32.1985842Z ✓ Generating static pages using 3 workers (30/30) in 1408.4ms
+2026-03-03T06:55:32.1986476Z 
+2026-03-03T06:55:32.2053329Z   Finalizing page optimization ...
+2026-03-03T06:55:32.2055331Z 
+2026-03-03T06:55:32.5576150Z 
+2026-03-03T06:55:32.5576170Z 
+2026-03-03T06:55:32.5600369Z Route (app)
+2026-03-03T06:55:32.5601570Z ┌ ○ /
+2026-03-03T06:55:32.5603428Z ├ ○ /_not-found
+2026-03-03T06:55:32.5603998Z ├ ƒ /admin
+2026-03-03T06:55:32.5604493Z ├ ƒ /admin/config
+2026-03-03T06:55:32.5605038Z ├ ƒ /admin/copy-agent
+2026-03-03T06:55:32.5605591Z ├ ƒ /admin/landing-pages
+2026-03-03T06:55:32.5606134Z ├ ƒ /admin/landing-pages/[id]
+2026-03-03T06:55:32.5606904Z ├ ƒ /admin/landing-pages/new
+2026-03-03T06:55:32.5607412Z ├ ○ /admin/login
+2026-03-03T06:55:32.5607830Z ├ ƒ /admin/midia
+2026-03-03T06:55:32.5608266Z ├ ƒ /admin/scene-generator
+2026-03-03T06:55:32.5608721Z ├ ƒ /admin/settings
+2026-03-03T06:55:32.5609124Z ├ ƒ /admin/tags
+2026-03-03T06:55:32.5609554Z ├ ƒ /admin/trabalhos
+2026-03-03T06:55:32.5610011Z ├ ƒ /admin/trabalhos/[id]
+2026-03-03T06:55:32.5610490Z ├ ƒ /admin/trabalhos/new
+2026-03-03T06:55:32.5610969Z ├ ƒ /api/admin/storage/upload
+2026-03-03T06:55:32.5611452Z ├ ƒ /api/contact
+2026-03-03T06:55:32.5611895Z ├ ƒ /api/report-error
+2026-03-03T06:55:32.5612341Z ├ ƒ /api/site-assets
+2026-03-03T06:55:32.5612771Z ├ ƒ /auth/callback
+2026-03-03T06:55:32.5613198Z ├ ○ /contato
+2026-03-03T06:55:32.5613634Z ├ ○ /contato/opengraph-image
+2026-03-03T06:55:32.5614118Z ├ ƒ /examples/supabase
+2026-03-03T06:55:32.5614564Z ├ ○ /opengraph-image
+2026-03-03T06:55:32.5614982Z ├ ƒ /portfolio
+2026-03-03T06:55:32.5615434Z ├ ƒ /portfolio/[slug]
+2026-03-03T06:55:32.5615948Z ├ ○ /portfolio/opengraph-image
+2026-03-03T06:55:32.5616432Z ├ ○ /privacidade
+2026-03-03T06:55:32.5617023Z ├ ○ /privacy-policy
+2026-03-03T06:55:32.5617468Z ├ ƒ /projects/[slug]
+2026-03-03T06:55:32.5617902Z ├ ○ /robots.txt
+2026-03-03T06:55:32.5618306Z ├ ○ /sitemap.xml
+2026-03-03T06:55:32.5618700Z ├ ○ /sobre
+2026-03-03T06:55:32.5619147Z └ ○ /sobre/opengraph-image
+2026-03-03T06:55:32.5619421Z 
+2026-03-03T06:55:32.5619429Z 
+2026-03-03T06:55:32.5619647Z ƒ Proxy (Middleware)
+2026-03-03T06:55:32.5619899Z 
+2026-03-03T06:55:32.5620230Z 
+2026-03-03T06:55:32.5620553Z ○  (Static)   prerendered as static content
+2026-03-03T06:55:32.5621155Z ƒ  (Dynamic)  server-rendered on demand
+2026-03-03T06:55:32.5621460Z 
+2026-03-03T06:55:32.5621466Z 
+2026-03-03T06:55:48.5246919Z Building a Cloud Function to run this application. This is needed due to:
+2026-03-03T06:55:48.5248300Z  • non-static component /admin/(protected)/config/page
+2026-03-03T06:55:48.5249324Z  • non-static component /admin/(protected)/copy-agent/page
+2026-03-03T06:55:48.5250363Z  • non-static component /admin/(protected)/landing-pages/[id]/page
+2026-03-03T06:55:48.5251432Z  • non-static component /admin/(protected)/landing-pages/new/page
+2026-03-03T06:55:48.5252473Z  • non-static component /admin/(protected)/landing-pages/page
+2026-03-03T06:55:48.5253690Z [2026-03-03T06:55:48.525Z]  • non-static component /admin/(protected)/midia/page
+2026-03-03T06:55:48.5254994Z [2026-03-03T06:55:48.525Z]  • non-static component /admin/(protected)/page
+2026-03-03T06:55:48.5256339Z [2026-03-03T06:55:48.525Z]  • non-static component /admin/(protected)/scene-generator/page
+2026-03-03T06:55:48.5257753Z [2026-03-03T06:55:48.525Z]  • non-static component /admin/(protected)/settings/page
+2026-03-03T06:55:48.5263979Z [2026-03-03T06:55:48.525Z]  • non-static component /admin/(protected)/tags/page
+2026-03-03T06:55:48.5265581Z [2026-03-03T06:55:48.526Z]  • non-static component /admin/(protected)/trabalhos/[id]/page
+2026-03-03T06:55:48.5267867Z [2026-03-03T06:55:48.526Z]  • non-static component /admin/(protected)/trabalhos/new/page
+2026-03-03T06:55:48.5269532Z [2026-03-03T06:55:48.526Z]  • non-static component /admin/(protected)/trabalhos/page
+2026-03-03T06:55:48.5271156Z [2026-03-03T06:55:48.526Z]  • non-static component /api/admin/storage/upload/route
+2026-03-03T06:55:48.5272577Z [2026-03-03T06:55:48.526Z]  • non-static component /api/contact/route
+2026-03-03T06:55:48.5274000Z [2026-03-03T06:55:48.526Z]  • non-static component /api/report-error/route
+2026-03-03T06:55:48.5275417Z [2026-03-03T06:55:48.526Z]  • non-static component /api/site-assets/route
+2026-03-03T06:55:48.5277014Z [2026-03-03T06:55:48.526Z]  • non-static component /auth/callback/route
+2026-03-03T06:55:48.5278413Z [2026-03-03T06:55:48.527Z]  • non-static component /examples/supabase/page
+2026-03-03T06:55:48.5279811Z [2026-03-03T06:55:48.527Z]  • non-static component /portfolio/[slug]/page
+2026-03-03T06:55:48.5281148Z [2026-03-03T06:55:48.527Z]  • non-static component /portfolio/page
+2026-03-03T06:55:48.5282516Z [2026-03-03T06:55:48.527Z]  • non-static component /projects/[slug]/page
+2026-03-03T06:55:48.5283894Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/config
+2026-03-03T06:55:48.5285193Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/copy-agent
+2026-03-03T06:55:48.5286768Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/landing-pages/[id]
+2026-03-03T06:55:48.5288153Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/landing-pages/new
+2026-03-03T06:55:48.5289425Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/landing-pages
+2026-03-03T06:55:48.5290699Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/midia
+2026-03-03T06:55:48.5291866Z [2026-03-03T06:55:48.527Z]  • route with server action /admin
+2026-03-03T06:55:48.5293082Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/scene-generator
+2026-03-03T06:55:48.5294430Z [2026-03-03T06:55:48.527Z]  • route with server action /admin/settings
+2026-03-03T06:55:48.5295576Z [2026-03-03T06:55:48.528Z]  • route with server action /admin/tags
+2026-03-03T06:55:48.5296844Z [2026-03-03T06:55:48.528Z]  • route with server action /admin/trabalhos/[id]
+2026-03-03T06:55:48.5298258Z [2026-03-03T06:55:48.528Z]  • route with server action /admin/trabalhos/new
+2026-03-03T06:55:48.5299570Z [2026-03-03T06:55:48.528Z]  • route with server action /admin/trabalhos
+2026-03-03T06:55:48.5300105Z 
+2026-03-03T06:56:10.1335299Z Warning: Global esbuild version (0.27.3) does not match the required version (^0.19.2).
+2026-03-03T06:57:10.3437117Z [2026-03-03T06:57:10.343Z] No OAuth tokens found
+2026-03-03T06:57:10.3439623Z [2026-03-03T06:57:10.343Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** [none]
+2026-03-03T06:57:10.6942838Z [2026-03-03T06:57:10.693Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** 200
+2026-03-03T06:57:10.6946309Z [2026-03-03T06:57:10.694Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** ***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***
+2026-03-03T06:57:34.5254044Z npm error code ERESOLVE
+2026-03-03T06:57:34.5254888Z npm error ERESOLVE could not resolve
+2026-03-03T06:57:34.5255548Z npm error
+2026-03-03T06:57:34.5256313Z npm error While resolving: firebase-frameworks@0.11.8
+2026-03-03T06:57:34.5257424Z npm error Found: sharp@0.34.5
+2026-03-03T06:57:34.5258115Z npm error node_modules/sharp
+2026-03-03T06:57:34.5258931Z npm error   sharp@"0.34.5" from the root project
+2026-03-03T06:57:34.5259743Z npm error   sharp@"^0.34.2" from motion-studio-mcp@5.3.0
+2026-03-03T06:57:34.5260498Z npm error   node_modules/motion-studio-mcp
+2026-03-03T06:57:34.5261773Z npm error     motion-studio-mcp@"https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest" from the root project
+2026-03-03T06:57:34.5262472Z npm error   1 more (next)
+2026-03-03T06:57:34.5263033Z npm error
+2026-03-03T06:57:34.5263368Z npm error Could not resolve dependency:
+2026-03-03T06:57:34.5263916Z npm error peerOptional sharp@"^0.32 || ^0.33" from firebase-frameworks@0.11.8
+2026-03-03T06:57:34.5264447Z npm error node_modules/firebase-frameworks
+2026-03-03T06:57:34.5264934Z npm error   firebase-frameworks@"^0.11.8" from the root project
+2026-03-03T06:57:34.5265323Z npm error
+2026-03-03T06:57:34.5265680Z npm error Conflicting peer dependency: sharp@0.33.5
+2026-03-03T06:57:34.5266067Z npm error node_modules/sharp
+2026-03-03T06:57:34.5266881Z npm error   peerOptional sharp@"^0.32 || ^0.33" from firebase-frameworks@0.11.8
+2026-03-03T06:57:34.5267448Z npm error   node_modules/firebase-frameworks
+2026-03-03T06:57:34.5267944Z npm error     firebase-frameworks@"^0.11.8" from the root project
+2026-03-03T06:57:34.5268341Z npm error
+2026-03-03T06:57:34.5268712Z npm error Fix the upstream dependency conflict, or retry
+2026-03-03T06:57:34.5269237Z npm error this command with --force or --legacy-peer-deps
+2026-03-03T06:57:34.5269855Z npm error to accept an incorrect (and potentially broken) dependency resolution.
+2026-03-03T06:57:34.5270330Z npm error
+2026-03-03T06:57:34.5270563Z npm error
+2026-03-03T06:57:34.5270854Z npm error For a full report see:
+2026-03-03T06:57:34.5271516Z npm error /home/runner/.npm/_logs/2026-03-03T06_57_11_745Z-eresolve-report.txt
+2026-03-03T06:57:34.5272914Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-03-03T06_57_11_745Z-debug-0.log
+2026-03-03T06:57:34.5509438Z [2026-03-03T06:57:34.550Z] Error: Command failed: npm i --omit dev --no-audit
+2026-03-03T06:57:34.5510065Z     at genericNodeError (node:internal/errors:984:15)
+2026-03-03T06:57:34.5510518Z     at wrappedFn (node:internal/errors:538:14)
+2026-03-03T06:57:34.5510956Z     at checkExecSyncError (node:child_process:891:11)
+2026-03-03T06:57:34.5511617Z     at execSync (node:child_process:963:15)
+2026-03-03T06:57:34.5512878Z     at prepareFrameworks (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/frameworks/index.js:373:42)
+2026-03-03T06:57:34.5514428Z     at async deploy (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/index.js:80:9)
+2026-03-03T06:57:34.5514949Z 
+2026-03-03T06:57:34.5515144Z Error: An unexpected error has occurred.
+2026-03-03T06:57:34.8268023Z ##[error]Process completed with exit code 2.
+2026-03-03T06:57:34.8323849Z ##[group]Run echo "❌ Pipeline de deploy falhou."
+2026-03-03T06:57:34.8324338Z [36;1mecho "❌ Pipeline de deploy falhou."[0m
+2026-03-03T06:57:34.8325172Z [36;1mecho "### Falha no Pipeline de Deploy ❌" >> $GITHUB_STEP_SUMMARY[0m
+2026-03-03T06:57:34.8325919Z [36;1mecho "Verifique os logs do GitHub Actions para detalhes." >> $GITHUB_STEP_SUMMARY[0m
+2026-03-03T06:57:34.8382508Z shell: /usr/bin/bash -e ***0***
+2026-03-03T06:57:34.8382919Z env:
+2026-03-03T06:57:34.8383232Z   NODE_VERSION: 20
+2026-03-03T06:57:34.8383501Z   PNPM_VERSION: 10.30.3
+2026-03-03T06:57:34.8383930Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-03T06:57:34.8385386Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-03T06:57:34.8387117Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-03T06:57:34.8388727Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-03T06:57:34.8390277Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-03T06:57:34.8390642Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-03T06:57:34.8391431Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:57:34.8392478Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:57:34.8393428Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json
+2026-03-03T06:57:34.8394084Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-03T06:57:34.8394421Z   CLOUDSDK_PROJECT: ***
+2026-03-03T06:57:34.8394723Z   GCLOUD_PROJECT: ***
+2026-03-03T06:57:34.8395017Z   GCP_PROJECT: ***
+2026-03-03T06:57:34.8395320Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-03T06:57:34.8395602Z ##[endgroup]
+2026-03-03T06:57:34.8467513Z ❌ Pipeline de deploy falhou.
+2026-03-03T06:57:34.8544121Z Post job cleanup.
+2026-03-03T06:57:34.9468493Z Removed exported credentials at "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-d119acbe3c634d04.json".
+2026-03-03T06:57:34.9552667Z Post job cleanup.
+2026-03-03T06:57:35.0096459Z Pruning is unnecessary.
+2026-03-03T06:57:35.0251702Z Post job cleanup.
+2026-03-03T06:57:35.1272037Z [command]/usr/bin/git version
+2026-03-03T06:57:35.1314079Z git version 2.53.0
+2026-03-03T06:57:35.1367441Z Temporarily overriding HOME='/home/runner/work/_temp/0417f4c2-15d7-4546-83ff-1dbf4358bba1' before making global git config changes
+2026-03-03T06:57:35.1369231Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-03T06:57:35.1385066Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-03T06:57:35.1422233Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-03T06:57:35.1457359Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-03T06:57:35.1739879Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-03T06:57:35.1761867Z http.https://github.com/.extraheader
+2026-03-03T06:57:35.1776119Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-03-03T06:57:35.1809653Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-03T06:57:35.2087526Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-03T06:57:35.2121289Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-03T06:57:35.2523018Z Cleaning up orphan processes

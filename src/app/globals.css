@@ -134,8 +134,8 @@ body {
 }
 
 /* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */
-.flex>*,
-.inline-flex>* {
+.flex > *,
+.inline-flex > * {
   min-width: 0;
 }
 
@@ -436,16 +436,20 @@ html.admin-page body {
    Ghost Portfolio Hero Glows
    ======================================================================== */
 .portfolio-hero-glow-primary {
-  background: radial-gradient(circle at 75% 55%,
-      oklch(from var(--color-primary) l c h / 0.12),
-      transparent 50%);
+  background: radial-gradient(
+    circle at 75% 55%,
+    oklch(from var(--color-primary) l c h / 0.12),
+    transparent 50%
+  );
   filter: blur(40px);
 }
 
 .portfolio-hero-glow-accent {
-  background: radial-gradient(circle at 25% 45%,
-      oklch(from var(--color-accent) l c h / 0.08),
-      transparent 45%);
+  background: radial-gradient(
+    circle at 25% 45%,
+    oklch(from var(--color-accent) l c h / 0.08),
+    transparent 45%
+  );
   filter: blur(40px);
 }
 
@@ -555,7 +559,12 @@ html.admin-page body {
 
 /* Featured Card Visual Tilt Effect */
 .featured-card-visual {
-  transform: translate3d(var(--featured-card-x, 0px), var(--featured-card-y, 0px), 0) scale(1.03);
+  transform: translate3d(
+      var(--featured-card-x, 0px),
+      var(--featured-card-y, 0px),
+      0
+    )
+    scale(1.03);
 }
 
 /* Stitch Text Glow */
@@ -582,10 +591,7 @@ html.admin-page body {
     -webkit-backdrop-filter;
   transition-duration: 0.2s;
   /* Equivalente a duration-200 */
-  transition-timing-function: cubic-bezier(0,
-      0,
-      0.2,
-      1);
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   /* Equivalente a ease-out */
   transition-delay: 0s;
 

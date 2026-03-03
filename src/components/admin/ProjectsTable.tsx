@@ -167,9 +167,7 @@ export default function ProjectsTable({ projects }: Props) {
                         Landing Page
                       </span>
                       <span className="text-slate-500 italic max-w-[120px] truncate">
-                        {project.landing_pages?.content &&
-                        typeof project.landing_pages.content === 'object' &&
-                        'template' in project.landing_pages.content
+                        {project.landing_pages?.content?.template
                           ? String(project.landing_pages.content.template)
                               .replace('master-project-', 'V')
                               .replace('-alpa', ' ALPA')
