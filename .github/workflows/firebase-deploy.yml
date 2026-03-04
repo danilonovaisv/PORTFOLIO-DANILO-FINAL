@@ -236,7 +236,7 @@ jobs:
 
           echo "🔒 Gerando package-lock.json fresquinho para o build do Cloud Functions..."
           npm config delete //github.com/:_authToken || true
-          npm config set github-oauth "" || true
+          npm config delete github-oauth || true
           GIT_TERMINAL_PROMPT=0 npm_config_package_lock=true npm install --package-lock-only --ignore-scripts --legacy-peer-deps --omit=dev --no-fund --no-audit --progress=false
 
           firebase experiments:enable webframeworks
