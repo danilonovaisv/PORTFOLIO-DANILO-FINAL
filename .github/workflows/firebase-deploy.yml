@@ -226,19 +226,6 @@ jobs:
           echo "🧹 Limpando cache do frameworks backend..."
           rm -rf ".firebase/${{ steps.firebase_project.outputs.project_id }}/functions"
 
-          echo "🩹 Gerando manifest temporário compatível com npm para o frameworks backend..."
-          node -e "
-            const fs = require('fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            delete pkg.packageManager;
-            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-
-          echo "🔒 Gerando package-lock.json fresquinho para o build do Cloud Functions..."
-          npm config delete //github.com/:_authToken || true
-          npm config delete github-oauth || true
-          GIT_TERMINAL_PROMPT=0 npm_config_package_lock=true npm install --package-lock-only --ignore-scripts --legacy-peer-deps --omit=dev --no-fund --no-audit --progress=false
-
           firebase experiments:enable webframeworks
           firebase deploy --only hosting,functions \
             --project "${{ steps.firebase_project.outputs.project_id }}" \
