@@ -140,7 +140,7 @@ export function AboutWhatIDo() {
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-5xl font-black text-purpleDetails transition-all duration-300 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffffff1a] border border-purpleDetails/40"
+                  className="shrink-0 font-display text-5xl font-black text-purpleDetails transition-all duration-300 flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
                   aria-hidden="true"
                 >
                   {service.id}
@@ -201,7 +201,7 @@ export function AboutWhatIDo() {
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff1a] border border-purpleDetails/40"
+                  className="shrink-0 font-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
                   aria-hidden="true"
                 >
                   {service.id}

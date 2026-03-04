@@ -2,6 +2,7 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import { getSupabasePublicKey } from '@/lib/supabase/env';
+import { isServiceRoleConfigured } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { SettingsForm } from './SettingsForm';
 
@@ -42,7 +43,7 @@ export default async function SettingsPage() {
     },
     {
       name: 'Supabase Service Role',
-      status: process.env.SUPABASE_SERVICE_ROLE_KEY ? 'Configurado' : 'Ausente',
+      status: isServiceRoleConfigured() ? 'Configurado' : 'Ausente',
     },
     {
       name: 'OpenAI API Key',
@@ -77,11 +78,10 @@ export default async function SettingsPage() {
                 {field.name}
               </p>
               <p
-                className={`text-sm font-medium ${
-                  field.status === 'Configurado'
+                className={`text-sm font-medium ${field.status === 'Configurado'
                     ? 'text-emerald-400'
                     : 'text-rose-400'
-                }`}
+                  }`}
               >
                 {field.status}
               </p>

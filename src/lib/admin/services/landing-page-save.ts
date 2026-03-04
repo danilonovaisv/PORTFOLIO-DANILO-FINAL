@@ -7,7 +7,6 @@ import {
   stripMasterV3Draft,
 } from '@/lib/admin/transformers/landing-page';
 import {
-  LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
@@ -312,11 +311,11 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
     ...nextTemplate,
     hero_cover_image: nextTemplate.hero_cover_image
       ? {
-          ...nextTemplate.hero_cover_image,
-          src: heroCoverSrc,
-          file: null,
-          previewUrl: '',
-        }
+        ...nextTemplate.hero_cover_image,
+        src: heroCoverSrc,
+        file: null,
+        previewUrl: '',
+      }
       : undefined,
     hero_logo_image: heroLogo,
     gallery_grid: galleryGrid,

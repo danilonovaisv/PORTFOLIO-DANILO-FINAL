@@ -9,6 +9,7 @@ import { AdminErrorDisplay } from '@/components/admin/AdminErrorDisplay';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { isAdminUser, shouldEnforceAdminRole } from '@/lib/admin/authz';
+import { isServiceRoleConfigured } from '@/lib/supabase/admin';
 
 function isRedirectError(error: unknown): boolean {
   if (!error || typeof error !== 'object' || !('digest' in error)) {
@@ -57,7 +58,7 @@ export default async function ProtectedLayout({
       redirect('/');
     }
 
-    const missingServiceRole = !process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const missingServiceRole = !isServiceRoleConfigured();
 
     return (
       <AdminShellNoSSR

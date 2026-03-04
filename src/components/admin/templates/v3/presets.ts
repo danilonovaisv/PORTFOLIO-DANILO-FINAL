@@ -1,5 +1,4 @@
 import {
-  Type,
   Image as ImageIcon,
   Video,
   Layout,
