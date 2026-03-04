@@ -215,13 +215,24 @@ jobs:
         run: |
           TMP_PKG_JSON=$(mktemp)
           cp package.json "$TMP_PKG_JSON"
+          TMP_FUNC_PKG_JSON=$(mktemp)
+          cp functions/package.json "$TMP_FUNC_PKG_JSON"
 
           restore_on_exit() {
             mv "$TMP_PKG_JSON" package.json
-            rm -f package-lock.json
+            mv "$TMP_FUNC_PKG_JSON" functions/package.json
+            rm -f package-lock.json functions/package-lock.json
           }
 
           trap restore_on_exit EXIT
+
+          echo "📦 Gerando package-lock.json (root) para satisfazer builder do Firebase (npm ci)."
+          npm install --package-lock-only --ignore-scripts
+
+          echo "📦 Gerando package-lock.json (functions)."
+          cd functions
+          npm install --package-lock-only --ignore-scripts
+          cd ..
 
           echo "🧹 Limpando cache do frameworks backend..."
           rm -rf ".firebase/${{ steps.firebase_project.outputs.project_id }}/functions"

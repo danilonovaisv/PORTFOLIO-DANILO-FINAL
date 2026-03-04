@@ -6,9 +6,27 @@
       "Bash(head:*)",
       "Bash(grep:*)",
       "Bash(cat:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(cat /Users/danilonovais/PORTFOLIO-DANILO-FINAL/package.json | python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k:d[k] for k in ['scripts','dependencies','devDependencies'] if k in d}, indent=2\\)\\)\")",
+      "Bash(ls /Users/danilonovais/PORTFOLIO-DANILO-FINAL/scripts/ | grep -i tailwind && echo \"---\" && find /Users/danilonovais/PORTFOLIO-DANILO-FINAL -name \"remove-invalid-tailwind*\" -not -path \"*/.git/*\" 2>/dev/null)",
+      "Bash(find /Users/danilonovais/PORTFOLIO-DANILO-FINAL -name \"remove-invalid-tailwind*\" -not -path \"*/.git/*\" 2>/dev/null && git show HEAD -- \"scripts/remove-invalid-tailwind-selectors.cjs\" 2>/dev/null | head -60)",
+      "Bash(pnpm run build 2>&1 | tail -60)",
+      "Bash(pnpm run build 2>&1 | grep -A5 -B5 \"bg-\\\\\\\\\\\\[\" | head -30)",
+      "Bash(find /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src -name \"*.css\" | head -10 && echo \"---\" && find /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context -name \"*.css\" 2>/dev/null | head -5)",
+      "Bash(node -e \"\nconst fs = require\\('fs'\\);\n// Look for the source file scanner pattern in the main index\nconst content = fs.readFileSync\\('/Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules/@tailwindcss/postcss/dist/index.js', 'utf8'\\);\n// Find glob patterns or extension arrays\nconst matches = content.match\\(/extensions?[^;]{0,200}/ig\\)?.slice\\(0,5\\);\nconsole.log\\('ext matches:', matches\\);\n// find DS_Store\nconst ds = content.includes\\('DS_Store'\\);\nconsole.log\\('mentions DS_Store:', ds\\);\n// Find what file types are excluded/included\nconst ignores = content.match\\(/ignore[^;]{0,100}/ig\\)?.slice\\(0,5\\);\nconsole.log\\('ignore patterns:', ignores\\);\n\" 2>/dev/null)",
+      "Bash(node -e \"\nconst fs = require\\('fs'\\);\nconst content = fs.readFileSync\\('/Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules/@tailwindcss/postcss/dist/index.js', 'utf8'\\);\n// Look for glob patterns\nconst globs = content.match\\(/[''\\\\`][^''\\\\`]*\\\\*[^''\\\\`]*[''\\\\`]/g\\)?.slice\\(0,15\\);\nconsole.log\\('glob patterns:', globs\\);\n\" 2>/dev/null)",
+      "Bash(python3 -c \"\nimport os\n\nds_files = [\n    '/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/.DS_Store',\n    '/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/app/.DS_Store',\n    '/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/.DS_Store',\n    '/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/.DS_Store',\n    '/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/dataconnect-generated/.DS_Store',\n]\n\n# The classes we're looking for:\n# bg-[.\\\\x04!] = bytes: b'bg-[.\\\\x04!]' = 62 67 2d 5b 2e 04 21 5d\n# bg-[1\\\\x1d\\\\x08] = bytes: b'bg-[1\\\\x1d\\\\x08]'\n\ntargets = [\n    \\(b'bg-[', 'bg-[ prefix'\\),\n    \\(b'\\\\x62\\\\x67\\\\x2d\\\\x5b\\\\x2e\\\\x04\\\\x21\\\\x5d', 'bg-[.4!]'\\),\n    \\(b'\\\\x62\\\\x67\\\\x2d\\\\x5b\\\\x31\\\\x1d\\\\x08\\\\x5d', 'bg-[1\\\\x1d\\\\x08]'\\),\n]\n\nfor f in ds_files:\n    if not os.path.exists\\(f\\):\n        continue\n    with open\\(f, 'rb'\\) as fp:\n        data = fp.read\\(\\)\n    print\\(f'=== {f} \\(size: {len\\(data\\)}\\) ==='\\)\n    for pat, name in targets:\n        idx = data.find\\(pat\\)\n        if idx >= 0:\n            ctx = data[max\\(0,idx-5\\):idx+15]\n            print\\(f'  FOUND {name} at {idx}: {ctx.hex\\(\\)} \\({repr\\(ctx\\)}\\)'\\)\n        # Also search for approximate: byte 0x04 or 0x1d near bg-\n        for i in range\\(len\\(data\\)-4\\):\n            chunk = data[i:i+4]\n            if chunk == b'bg-[':\n                nearby = data[i:i+20]\n                print\\(f'  Found bg-[ at {i}: {nearby.hex\\(\\)} = {repr\\(nearby\\)}'\\)\n                break\n\")",
+      "Bash(node -e \"\nconst path = require\\('path'\\);\nconst tailwindPkg = require\\(path.join\\('/Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules/tailwindcss', 'package.json'\\)\\);\nconsole.log\\('Tailwind version:', tailwindPkg.version\\);\n\n// Find oxide/scanner module\nconst scannerFiles = require\\('fs'\\).readdirSync\\('/Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules/tailwindcss/'\\).filter\\(f => f.includes\\('scanner'\\) || f.includes\\('oxide'\\) || f.includes\\('extractor'\\)\\);\nconsole.log\\('Scanner-related files:', scannerFiles.slice\\(0, 10\\)\\);\n\" 2>/dev/null)",
+      "Bash(ls /Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules/@tailwindcss/postcss/node_modules/ 2>/dev/null | head -10 && echo \"---\" && find /Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules -name \"Scanner*\" -o -name \"*oxide*\" 2>/dev/null | grep -v \".git\" | head -10)",
+      "Bash(cat /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.next/dev/build/postcss.js.map 2>/dev/null | python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('sources', ['no sources']\\)[:5]\\)\" 2>/dev/null)",
+      "Bash(sleep 30 && curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(pkill -f \"next dev\" 2>/dev/null; pnpm run build 2>&1 | tail -40)",
+      "Bash(pnpm run build 2>&1 | grep -E \"\\(error|Error|warn|CSS|LightningCSS|background-color|Unexpected token|⨯\\)\" | head -20)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["github", "supabase"]
+  "enabledMcpjsonServers": [
+    "github",
+    "supabase"
+  ]
 }

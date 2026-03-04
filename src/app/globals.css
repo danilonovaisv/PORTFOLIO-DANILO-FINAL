@@ -1,16 +1,12 @@
-@import 'tailwindcss';
-@source "../components";
-@source "../app";
-@source "../lib";
-@source "../hooks";
-@source "../store";
-@source "../types";
-@source "../config";
-@source "../styles";
-@source not "../dataconnect-generated";
-@source not "../../docs";
-@source not "../../.context";
-@source not "../../.agent";
+@import "tailwindcss" source(none);
+@source "../components/**/*.{tsx,ts,jsx,js,css,mdx}";
+@source "../app/**/*.{tsx,ts,jsx,js,css,mdx}";
+@source "../lib/**/*.{tsx,ts,jsx,js}";
+@source "../hooks/**/*.{tsx,ts,jsx,js}";
+@source "../store/**/*.{tsx,ts,jsx,js}";
+@source "../types/**/*.{tsx,ts}";
+@source "../config/**/*.{tsx,ts,js}";
+@source "../styles/**/*.css";
 
 @plugin 'tailwindcss-animate';
 

@@ -1,2182 +1,2757 @@
-2026-03-04T02:25:40.1113785Z Current runner version: '2.331.0'
-2026-03-04T02:25:40.1138595Z ##[group]Runner Image Provisioner
-2026-03-04T02:25:40.1140169Z Hosted Compute Agent
-2026-03-04T02:25:40.1141553Z Version: 20260213.493
-2026-03-04T02:25:40.1142866Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
-2026-03-04T02:25:40.1144611Z Build Date: 2026-02-13T00:28:41Z
-2026-03-04T02:25:40.1146264Z Worker ID: ***ada3c6bc-d37e-4d24-9bcd-b924b7badbef***
-2026-03-04T02:25:40.1147866Z Azure Region: northcentralus
-2026-03-04T02:25:40.1149169Z ##[endgroup]
-2026-03-04T02:25:40.1151375Z ##[group]Operating System
-2026-03-04T02:25:40.1152749Z Ubuntu
-2026-03-04T02:25:40.1153897Z 24.04.3
-2026-03-04T02:25:40.1155075Z LTS
-2026-03-04T02:25:40.1156168Z ##[endgroup]
-2026-03-04T02:25:40.1157325Z ##[group]Runner Image
-2026-03-04T02:25:40.1158652Z Image: ubuntu-24.04
-2026-03-04T02:25:40.1159777Z Version: 20260224.36.1
-2026-03-04T02:25:40.1161977Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260224.36/images/ubuntu/Ubuntu2404-Readme.md
-2026-03-04T02:25:40.1165018Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260224.36
-2026-03-04T02:25:40.1166907Z ##[endgroup]
-2026-03-04T02:25:40.1169237Z ##[group]GITHUB_TOKEN Permissions
-2026-03-04T02:25:40.1172373Z Contents: read
-2026-03-04T02:25:40.1173666Z Metadata: read
-2026-03-04T02:25:40.1175043Z ##[endgroup]
-2026-03-04T02:25:40.1178186Z Secret source: Actions
-2026-03-04T02:25:40.1180160Z Prepare workflow directory
-2026-03-04T02:25:40.1831639Z Prepare all required actions
-2026-03-04T02:25:40.1888568Z Getting action download info
-2026-03-04T02:25:40.4887814Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
-2026-03-04T02:25:40.6333056Z Download action repository 'pnpm/action-setup@v4' (SHA:41ff72655975bd51cab0327fa583b6e92b6d3061)
-2026-03-04T02:25:41.0937855Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
-2026-03-04T02:25:41.1658272Z Download action repository 'google-github-actions/auth@v2' (SHA:c200f3691d83b41bf9bbd8638997a462592937ed)
-2026-03-04T02:25:41.6473232Z Complete job name: test-and-deploy
-2026-03-04T02:25:41.7344846Z ##[group]Run actions/checkout@v4
-2026-03-04T02:25:41.7346494Z with:
-2026-03-04T02:25:41.7347755Z   repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:25:41.7349521Z   token: ***
-2026-03-04T02:25:41.7350624Z   ssh-strict: true
-2026-03-04T02:25:41.7351764Z   ssh-user: git
-2026-03-04T02:25:41.7352916Z   persist-credentials: true
-2026-03-04T02:25:41.7354270Z   clean: true
-2026-03-04T02:25:41.7355427Z   sparse-checkout-cone-mode: true
-2026-03-04T02:25:41.7356745Z   fetch-depth: 1
-2026-03-04T02:25:41.7357885Z   fetch-tags: false
-2026-03-04T02:25:41.7359043Z   show-progress: true
-2026-03-04T02:25:41.7360213Z   lfs: false
-2026-03-04T02:25:41.7361287Z   submodules: false
-2026-03-04T02:25:41.7362451Z   set-safe-directory: true
-2026-03-04T02:25:41.7364084Z env:
-2026-03-04T02:25:41.7365156Z   NODE_VERSION: 20
-2026-03-04T02:25:41.7366293Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:25:41.7367959Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:25:41.7372770Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:25:41.7374763Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:25:41.7376761Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:25:41.7381882Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:25:41.7413150Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:25:41.7414688Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:25:41.7415905Z ##[endgroup]
-2026-03-04T02:25:41.8440315Z Syncing repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:25:41.8443706Z ##[group]Getting Git version info
-2026-03-04T02:25:41.8445941Z Working directory is '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
-2026-03-04T02:25:41.8448673Z [command]/usr/bin/git version
-2026-03-04T02:25:41.8497241Z git version 2.53.0
-2026-03-04T02:25:41.8520108Z ##[endgroup]
-2026-03-04T02:25:41.8539322Z Temporarily overriding HOME='/home/runner/work/_temp/3e9d9a85-4718-47a5-b532-0f87b47c439b' before making global git config changes
-2026-03-04T02:25:41.8542800Z Adding repository directory to the temporary git global config as a safe directory
-2026-03-04T02:25:41.8545894Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:25:41.8579554Z Deleting the contents of '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
-2026-03-04T02:25:41.8582636Z ##[group]Initializing the repository
-2026-03-04T02:25:41.8586748Z [command]/usr/bin/git init /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:25:41.8677751Z hint: Using 'master' as the name for the initial branch. This default branch name
-2026-03-04T02:25:41.8681121Z hint: will change to "main" in Git 3.0. To configure the initial branch name
-2026-03-04T02:25:41.8683195Z hint: to use in all of your new repositories, which will suppress this warning,
-2026-03-04T02:25:41.8685352Z hint: call:
-2026-03-04T02:25:41.8686447Z hint:
-2026-03-04T02:25:41.8687824Z hint:   git config --global init.defaultBranch <name>
-2026-03-04T02:25:41.8689409Z hint:
-2026-03-04T02:25:41.8690814Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-2026-03-04T02:25:41.8692832Z hint: 'development'. The just-created branch can be renamed via this command:
-2026-03-04T02:25:41.8694820Z hint:
-2026-03-04T02:25:41.8695911Z hint:   git branch -m <name>
-2026-03-04T02:25:41.8697122Z hint:
-2026-03-04T02:25:41.8698589Z hint: Disable this message with "git config set advice.defaultBranchName false"
-2026-03-04T02:25:41.8701100Z Initialized empty Git repository in /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.git/
-2026-03-04T02:25:41.8705383Z [command]/usr/bin/git remote add origin https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:25:41.8720508Z ##[endgroup]
-2026-03-04T02:25:41.8722715Z ##[group]Disabling automatic garbage collection
-2026-03-04T02:25:41.8724449Z [command]/usr/bin/git config --local gc.auto 0
-2026-03-04T02:25:41.8747052Z ##[endgroup]
-2026-03-04T02:25:41.8748884Z ##[group]Setting up auth
-2026-03-04T02:25:41.8752862Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-03-04T02:25:41.8782447Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-03-04T02:25:41.9062324Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-03-04T02:25:41.9089454Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-03-04T02:25:41.9262874Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-03-04T02:25:41.9290955Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-03-04T02:25:41.9460894Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-03-04T02:25:41.9488499Z ##[endgroup]
-2026-03-04T02:25:41.9490405Z ##[group]Fetching the repository
-2026-03-04T02:25:41.9496219Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +11b7ae4819043334a5f587640351464779f4b44e:refs/remotes/origin/main
-2026-03-04T02:26:10.6826966Z From https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:26:10.6827732Z  * [new ref]           11b7ae4819043334a5f587640351464779f4b44e -> origin/main
-2026-03-04T02:26:10.6853117Z ##[endgroup]
-2026-03-04T02:26:10.6853756Z ##[group]Determining the checkout info
-2026-03-04T02:26:10.6854779Z ##[endgroup]
-2026-03-04T02:26:10.6860088Z [command]/usr/bin/git sparse-checkout disable
-2026-03-04T02:26:10.6899111Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-03-04T02:26:10.6919847Z ##[group]Checking out the ref
-2026-03-04T02:26:10.6924318Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-03-04T02:26:12.2177045Z Updating files:  27% (5636/20624)
-2026-03-04T02:26:12.3445651Z Updating files:  28% (5775/20624)
-2026-03-04T02:26:12.6055508Z Updating files:  29% (5981/20624)
-2026-03-04T02:26:12.6828072Z Updating files:  30% (6188/20624)
-2026-03-04T02:26:12.7497424Z Updating files:  31% (6394/20624)
-2026-03-04T02:26:12.8506276Z Updating files:  31% (6465/20624)
-2026-03-04T02:26:12.9970739Z Updating files:  32% (6600/20624)
-2026-03-04T02:26:13.0979750Z Updating files:  33% (6806/20624)
-2026-03-04T02:26:13.2228147Z Updating files:  34% (7013/20624)
-2026-03-04T02:26:13.4400500Z Updating files:  35% (7219/20624)
-2026-03-04T02:26:13.6585960Z Updating files:  36% (7425/20624)
-2026-03-04T02:26:13.7398982Z Updating files:  37% (7631/20624)
-2026-03-04T02:26:13.8400750Z Updating files:  37% (7724/20624)
-2026-03-04T02:26:14.0328927Z Updating files:  38% (7838/20624)
-2026-03-04T02:26:14.1947849Z Updating files:  39% (8044/20624)
-2026-03-04T02:26:14.3240796Z Updating files:  40% (8250/20624)
-2026-03-04T02:26:14.4884342Z Updating files:  41% (8456/20624)
-2026-03-04T02:26:14.7318540Z Updating files:  42% (8663/20624)
-2026-03-04T02:26:14.7448900Z Updating files:  43% (8869/20624)
-2026-03-04T02:26:14.8635551Z Updating files:  43% (8912/20624)
-2026-03-04T02:26:15.0102644Z Updating files:  44% (9075/20624)
-2026-03-04T02:26:15.1691441Z Updating files:  45% (9281/20624)
-2026-03-04T02:26:15.2197916Z Updating files:  46% (9488/20624)
-2026-03-04T02:26:15.2265551Z Updating files:  47% (9694/20624)
-2026-03-04T02:26:15.2335442Z Updating files:  48% (9900/20624)
-2026-03-04T02:26:15.2405076Z Updating files:  49% (10106/20624)
-2026-03-04T02:26:15.2474071Z Updating files:  50% (10312/20624)
-2026-03-04T02:26:15.2543812Z Updating files:  51% (10519/20624)
-2026-03-04T02:26:15.2611782Z Updating files:  52% (10725/20624)
-2026-03-04T02:26:15.2681901Z Updating files:  53% (10931/20624)
-2026-03-04T02:26:15.2749695Z Updating files:  54% (11137/20624)
-2026-03-04T02:26:15.2817775Z Updating files:  55% (11344/20624)
-2026-03-04T02:26:15.2886041Z Updating files:  56% (11550/20624)
-2026-03-04T02:26:15.2953220Z Updating files:  57% (11756/20624)
-2026-03-04T02:26:15.3020933Z Updating files:  58% (11962/20624)
-2026-03-04T02:26:15.3088100Z Updating files:  59% (12169/20624)
-2026-03-04T02:26:15.3155580Z Updating files:  60% (12375/20624)
-2026-03-04T02:26:15.3224184Z Updating files:  61% (12581/20624)
-2026-03-04T02:26:15.3293313Z Updating files:  62% (12787/20624)
-2026-03-04T02:26:15.3383813Z Updating files:  63% (12994/20624)
-2026-03-04T02:26:15.5466114Z Updating files:  64% (13200/20624)
-2026-03-04T02:26:15.7419415Z Updating files:  65% (13406/20624)
-2026-03-04T02:26:16.1164551Z Updating files:  65% (13515/20624)
-2026-03-04T02:26:16.3017211Z Updating files:  66% (13612/20624)
-2026-03-04T02:26:16.4965816Z Updating files:  67% (13819/20624)
-2026-03-04T02:26:16.5968582Z Updating files:  68% (14025/20624)
-2026-03-04T02:26:16.6727048Z Updating files:  69% (14231/20624)
-2026-03-04T02:26:16.7332662Z Updating files:  70% (14437/20624)
-2026-03-04T02:26:16.7598223Z Updating files:  71% (14644/20624)
-2026-03-04T02:26:16.8504378Z Updating files:  71% (14674/20624)
-2026-03-04T02:26:16.9448524Z Updating files:  72% (14850/20624)
-2026-03-04T02:26:16.9665116Z Updating files:  73% (15056/20624)
-2026-03-04T02:26:16.9753127Z Updating files:  74% (15262/20624)
-2026-03-04T02:26:16.9853356Z Updating files:  75% (15468/20624)
-2026-03-04T02:26:16.9960445Z Updating files:  76% (15675/20624)
-2026-03-04T02:26:17.0242323Z Updating files:  77% (15881/20624)
-2026-03-04T02:26:17.2066544Z Updating files:  78% (16087/20624)
-2026-03-04T02:26:17.3237893Z Updating files:  79% (16293/20624)
-2026-03-04T02:26:17.5730053Z Updating files:  80% (16500/20624)
-2026-03-04T02:26:17.7400448Z Updating files:  81% (16706/20624)
-2026-03-04T02:26:17.8633187Z Updating files:  81% (16798/20624)
-2026-03-04T02:26:18.0395541Z Updating files:  82% (16912/20624)
-2026-03-04T02:26:18.1484139Z Updating files:  83% (17118/20624)
-2026-03-04T02:26:18.4537082Z Updating files:  84% (17325/20624)
-2026-03-04T02:26:18.5093403Z Updating files:  85% (17531/20624)
-2026-03-04T02:26:18.5164454Z Updating files:  86% (17737/20624)
-2026-03-04T02:26:18.5238738Z Updating files:  87% (17943/20624)
-2026-03-04T02:26:18.5312069Z Updating files:  88% (18150/20624)
-2026-03-04T02:26:18.5387078Z Updating files:  89% (18356/20624)
-2026-03-04T02:26:18.5459508Z Updating files:  90% (18562/20624)
-2026-03-04T02:26:18.5534571Z Updating files:  91% (18768/20624)
-2026-03-04T02:26:18.7285776Z Updating files:  92% (18975/20624)
-2026-03-04T02:26:18.7412013Z Updating files:  93% (19181/20624)
-2026-03-04T02:26:18.8273881Z Updating files:  93% (19227/20624)
-2026-03-04T02:26:18.8302695Z Updating files:  94% (19387/20624)
-2026-03-04T02:26:18.8554903Z Updating files:  95% (19593/20624)
-2026-03-04T02:26:18.8632651Z Updating files:  96% (19800/20624)
-2026-03-04T02:26:18.8700316Z Updating files:  97% (20006/20624)
-2026-03-04T02:26:19.1893912Z Updating files:  98% (20212/20624)
-2026-03-04T02:26:19.4347294Z Updating files:  99% (20418/20624)
-2026-03-04T02:26:19.4348289Z Updating files: 100% (20624/20624)
-2026-03-04T02:26:19.4353453Z Updating files: 100% (20624/20624), done.
-2026-03-04T02:26:19.6405677Z Switched to a new branch 'main'
-2026-03-04T02:26:19.6406789Z branch 'main' set up to track 'origin/main'.
-2026-03-04T02:26:19.8018890Z ##[endgroup]
-2026-03-04T02:26:19.8055170Z [command]/usr/bin/git log -1 --format=%H
-2026-03-04T02:26:19.8074533Z 11b7ae4819043334a5f587640351464779f4b44e
-2026-03-04T02:26:19.8225428Z ##[group]Run if [ ! -f "pnpm-lock.yaml" ]; then
-2026-03-04T02:26:19.8225965Z [36;1mif [ ! -f "pnpm-lock.yaml" ]; then[0m
-2026-03-04T02:26:19.8226544Z [36;1m  echo "⚠️ pnpm-lock.yaml não encontrado; gerando lock temporário apenas para este deploy."[0m
-2026-03-04T02:26:19.8227065Z [36;1m  touch pnpm-lock.yaml[0m
-2026-03-04T02:26:19.8227378Z [36;1melse[0m
-2026-03-04T02:26:19.8227857Z [36;1m  echo "✅ pnpm-lock.yaml encontrado ($(wc -l < pnpm-lock.yaml) linhas, $(du -sh pnpm-lock.yaml | cut -f1))"[0m
-2026-03-04T02:26:19.8228408Z [36;1mfi[0m
-2026-03-04T02:26:19.8261933Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:19.8262278Z env:
-2026-03-04T02:26:19.8262545Z   NODE_VERSION: 20
-2026-03-04T02:26:19.8262830Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:19.8263270Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:19.8264988Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:19.8265489Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:19.8266059Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:19.8267559Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:19.8277015Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:19.8277426Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:19.8277757Z ##[endgroup]
-2026-03-04T02:26:19.8587719Z ✅ pnpm-lock.yaml encontrado (21590 linhas, 728K)
-2026-03-04T02:26:19.8647547Z ##[group]Run pnpm/action-setup@v4
-2026-03-04T02:26:19.8647911Z with:
-2026-03-04T02:26:19.8648175Z   version: 10.30.3
-2026-03-04T02:26:19.8648459Z   dest: ~/setup-pnpm
-2026-03-04T02:26:19.8648735Z   run_install: null
-2026-03-04T02:26:19.8649031Z   package_json_file: package.json
-2026-03-04T02:26:19.8649346Z   standalone: false
-2026-03-04T02:26:19.8649607Z env:
-2026-03-04T02:26:19.8649848Z   NODE_VERSION: 20
-2026-03-04T02:26:19.8650123Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:19.8650622Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:19.8652022Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:19.8652503Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:19.8653022Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:19.8654721Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:19.8663718Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:19.8664183Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:19.8664478Z ##[endgroup]
-2026-03-04T02:26:19.9172052Z ##[group]Running self-installer...
-2026-03-04T02:26:20.4850875Z Progress: resolved 1, reused 0, downloaded 0, added 0
-2026-03-04T02:26:20.5032473Z Packages: +1
-2026-03-04T02:26:20.5035743Z +
-2026-03-04T02:26:20.8424838Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
-2026-03-04T02:26:20.8675467Z 
-2026-03-04T02:26:20.8676073Z dependencies:
-2026-03-04T02:26:20.8676616Z + pnpm 10.30.3
-2026-03-04T02:26:20.8676822Z 
-2026-03-04T02:26:20.8702925Z Done in 788ms
-2026-03-04T02:26:20.8822476Z ##[endgroup]
-2026-03-04T02:26:20.8826245Z Installation Completed!
-2026-03-04T02:26:20.8945732Z ##[group]Run actions/setup-node@v4
-2026-03-04T02:26:20.8946069Z with:
-2026-03-04T02:26:20.8946331Z   node-version: 20
-2026-03-04T02:26:20.8946601Z   cache: pnpm
-2026-03-04T02:26:20.8946899Z   cache-dependency-path: pnpm-lock.yaml
-2026-03-04T02:26:20.8947235Z   always-auth: false
-2026-03-04T02:26:20.8947511Z   check-latest: false
-2026-03-04T02:26:20.8947886Z   token: ***
-2026-03-04T02:26:20.8948140Z env:
-2026-03-04T02:26:20.8948380Z   NODE_VERSION: 20
-2026-03-04T02:26:20.8948647Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:20.8949100Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:20.8950459Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:20.8950937Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:20.8951452Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:20.8952927Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:20.8962012Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:20.8962380Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:20.8962779Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:20.8963141Z ##[endgroup]
-2026-03-04T02:26:21.0585983Z Found in cache @ /opt/hostedtoolcache/node/20.20.0/x64
-2026-03-04T02:26:21.0592086Z ##[group]Environment details
-2026-03-04T02:26:21.3734669Z node: v20.20.0
-2026-03-04T02:26:21.3735224Z npm: 10.8.2
-2026-03-04T02:26:21.3735704Z yarn: 1.22.22
-2026-03-04T02:26:21.3737387Z ##[endgroup]
-2026-03-04T02:26:21.3758720Z [command]/home/runner/setup-pnpm/node_modules/.bin/pnpm store path --silent
-2026-03-04T02:26:21.6953607Z /tmp/pnpm-store-user/v10
-2026-03-04T02:26:21.8310548Z pnpm cache is not found
-2026-03-04T02:26:21.8382885Z ##[group]Run if [ ! -s pnpm-lock.yaml ]; then
-2026-03-04T02:26:21.8383325Z [36;1mif [ ! -s pnpm-lock.yaml ]; then[0m
-2026-03-04T02:26:21.8383762Z [36;1m  echo "⚠️ Gerando pnpm-lock.yaml (lock ausente ou vazio)."[0m
-2026-03-04T02:26:21.8384580Z [36;1m  pnpm install --ignore-scripts --frozen-lockfile=false[0m
-2026-03-04T02:26:21.8384982Z [36;1melse[0m
-2026-03-04T02:26:21.8385337Z [36;1m  pnpm install --frozen-lockfile --ignore-scripts[0m
-2026-03-04T02:26:21.8385725Z [36;1mfi[0m
-2026-03-04T02:26:21.8418039Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:21.8418383Z env:
-2026-03-04T02:26:21.8418640Z   NODE_VERSION: 20
-2026-03-04T02:26:21.8418920Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:21.8419348Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:21.8420690Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:21.8421175Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:21.8421709Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:21.8423240Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:21.8432419Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:21.8432813Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:21.8433173Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:21.8433531Z ##[endgroup]
-2026-03-04T02:26:22.1870952Z Scope: all 2 workspace projects
-2026-03-04T02:26:22.3017344Z Lockfile is up to date, resolution step is skipped
-2026-03-04T02:26:22.4374519Z Progress: resolved 1, reused 0, downloaded 0, added 0
-2026-03-04T02:26:22.6031519Z Packages: +2020
-2026-03-04T02:26:22.6032424Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-2026-03-04T02:26:23.4384288Z Progress: resolved 2020, reused 3, downloaded 84, added 31
-2026-03-04T02:26:24.4403572Z Progress: resolved 2020, reused 3, downloaded 252, added 254
-2026-03-04T02:26:25.4430453Z Progress: resolved 2020, reused 3, downloaded 406, added 397
-2026-03-04T02:26:26.4445636Z Progress: resolved 2020, reused 3, downloaded 607, added 583
-2026-03-04T02:26:27.4451652Z Progress: resolved 2020, reused 3, downloaded 798, added 799
-2026-03-04T02:26:28.4468671Z Progress: resolved 2020, reused 3, downloaded 915, added 873
-2026-03-04T02:26:29.4499380Z Progress: resolved 2020, reused 3, downloaded 1097, added 1096
-2026-03-04T02:26:30.4509169Z Progress: resolved 2020, reused 3, downloaded 1196, added 1159
-2026-03-04T02:26:31.4512682Z Progress: resolved 2020, reused 3, downloaded 1377, added 1381
-2026-03-04T02:26:32.4545560Z Progress: resolved 2020, reused 3, downloaded 1585, added 1587
-2026-03-04T02:26:33.4551867Z Progress: resolved 2020, reused 3, downloaded 1894, added 1897
-2026-03-04T02:26:34.4552368Z Progress: resolved 2020, reused 3, downloaded 2004, added 2002
-2026-03-04T02:26:34.7552462Z Progress: resolved 2020, reused 3, downloaded 2006, added 2020, done
-2026-03-04T02:26:35.4845703Z 
-2026-03-04T02:26:35.4846589Z dependencies:
-2026-03-04T02:26:35.4851161Z + @dataconnect/admin-generated @dataconnect/admin-generated@file:src/dataconnect-admin-generated(firebase-admin@13.7.0(encoding@0.1.13))
-2026-03-04T02:26:35.4853579Z + @dataconnect/generated @dataconnect/generated@file:src/dataconnect-generated(@tanstack-query-firebase/react@2.1.1(@tanstack/react-query@5.90.21(react@19.2.4))(firebase@12.10.0))(firebase@12.10.0)
-2026-03-04T02:26:35.4856227Z + @genkit-ai/google-genai 1.29.0
-2026-03-04T02:26:35.4856771Z + @google/adk 0.4.0
-2026-03-04T02:26:35.4857243Z + @gsap/react 2.1.2
-2026-03-04T02:26:35.4857744Z + @hookform/resolvers 5.2.2
-2026-03-04T02:26:35.4858341Z + @modelcontextprotocol/sdk 1.27.1
-2026-03-04T02:26:35.4859005Z + @radix-ui/react-alert-dialog 1.1.15
-2026-03-04T02:26:35.4859577Z + @radix-ui/react-avatar 1.1.11
-2026-03-04T02:26:35.4860087Z + @radix-ui/react-checkbox 1.3.3
-2026-03-04T02:26:35.4860655Z + @radix-ui/react-collapsible 1.1.12
-2026-03-04T02:26:35.4861230Z + @radix-ui/react-dialog 1.1.15
-2026-03-04T02:26:35.4861862Z + @radix-ui/react-dropdown-menu 2.1.16
-2026-03-04T02:26:35.4862423Z + @radix-ui/react-label 2.1.8
-2026-03-04T02:26:35.4863403Z + @radix-ui/react-menubar 1.1.16
-2026-03-04T02:26:35.4864219Z + @radix-ui/react-popover 1.1.15
-2026-03-04T02:26:35.4864859Z + @radix-ui/react-radio-group 1.3.8
-2026-03-04T02:26:35.4865503Z + @radix-ui/react-separator 1.1.8
-2026-03-04T02:26:35.4866097Z + @radix-ui/react-slider 1.3.6
-2026-03-04T02:26:35.4866623Z + @radix-ui/react-slot 1.2.4
-2026-03-04T02:26:35.4867184Z + @radix-ui/react-switch 1.2.6
-2026-03-04T02:26:35.4867731Z + @radix-ui/react-tabs 1.1.13
-2026-03-04T02:26:35.4868320Z + @radix-ui/react-toast 1.2.15
-2026-03-04T02:26:35.4868939Z + @radix-ui/react-tooltip 1.2.8
-2026-03-04T02:26:35.4869484Z + @react-three/drei 10.7.7
-2026-03-04T02:26:35.4870000Z + @react-three/fiber 9.5.0
-2026-03-04T02:26:35.4870574Z + @react-three/postprocessing 3.0.4
-2026-03-04T02:26:35.4871113Z + @supabase/ssr 0.9.0
-2026-03-04T02:26:35.4871641Z + @supabase/supabase-js 2.98.0
-2026-03-04T02:26:35.4872209Z + class-variance-authority 0.7.1
-2026-03-04T02:26:35.4872730Z + clsx 2.1.1
-2026-03-04T02:26:35.4873152Z + embla-carousel-react 8.6.0
-2026-03-04T02:26:35.4873606Z + firebase 12.10.0
-2026-03-04T02:26:35.4874226Z + firebase-admin 13.7.0
-2026-03-04T02:26:35.4874750Z + firebase-functions 7.0.6
-2026-03-04T02:26:35.4875216Z + framer-motion 12.34.5
-2026-03-04T02:26:35.4875596Z + gsap 3.14.2
-2026-03-04T02:26:35.4875952Z + husky 9.1.7
-2026-03-04T02:26:35.4876362Z + lenis 1.3.17
-2026-03-04T02:26:35.4876809Z + lightningcss 1.31.1
-2026-03-04T02:26:35.4877294Z + lint-staged 16.3.2
-2026-03-04T02:26:35.4877786Z + lucide-react 0.576.0
-2026-03-04T02:26:35.4878237Z + maath 0.10.8
-2026-03-04T02:26:35.4878610Z + motion 12.34.5
-2026-03-04T02:26:35.4879041Z + motion-studio-mcp 5.3.0
-2026-03-04T02:26:35.4879514Z + next 16.1.6
-2026-03-04T02:26:35.4879935Z + ogl 1.0.11
-2026-03-04T02:26:35.4880306Z + openai 6.25.0
-2026-03-04T02:26:35.4880743Z + postprocessing 6.38.3
-2026-03-04T02:26:35.4881155Z + react 19.2.4
-2026-03-04T02:26:35.4881614Z + react-day-picker 9.14.0
-2026-03-04T02:26:35.4882403Z + react-dom 19.2.4
-2026-03-04T02:26:35.4882885Z + react-hook-form 7.71.2
-2026-03-04T02:26:35.4883411Z + react-markdown 10.1.0
-2026-03-04T02:26:35.4883895Z + server-only 0.0.1
-2026-03-04T02:26:35.4884490Z + sharp 0.34.5
-2026-03-04T02:26:35.4884954Z + tailwind-merge 3.5.0
-2026-03-04T02:26:35.4885494Z + tailwindcss-animate 1.0.7
-2026-03-04T02:26:35.4885983Z + three 0.183.2
-2026-03-04T02:26:35.4886420Z + three-stdlib 2.36.1
-2026-03-04T02:26:35.4886899Z + uuid 13.0.0
-2026-03-04T02:26:35.4887297Z + zod 4.3.6
-2026-03-04T02:26:35.4887714Z + zustand 5.0.11
-2026-03-04T02:26:35.4887973Z 
-2026-03-04T02:26:35.4888146Z devDependencies:
-2026-03-04T02:26:35.4888685Z + @jest/globals 30.2.0
-2026-03-04T02:26:35.4889225Z + @next/bundle-analyzer 16.1.6
-2026-03-04T02:26:35.4889784Z + @next/eslint-plugin-next 16.1.6
-2026-03-04T02:26:35.4890304Z + @playwright/test 1.58.2
-2026-03-04T02:26:35.4890815Z + @tailwindcss/postcss 4.2.1
-2026-03-04T02:26:35.4891434Z + @tailwindcss/typography 0.5.19
-2026-03-04T02:26:35.4892285Z + @testing-library/dom 10.4.1
-2026-03-04T02:26:35.4893018Z + @testing-library/jest-dom 6.9.1
-2026-03-04T02:26:35.4893580Z + @testing-library/react 16.3.2
-2026-03-04T02:26:35.4894312Z + @testing-library/user-event 14.6.1
-2026-03-04T02:26:35.4894897Z + @types/jest 30.0.0
-2026-03-04T02:26:35.4895380Z + @types/node 25.3.3
-2026-03-04T02:26:35.4895889Z + @types/pg 8.18.0
-2026-03-04T02:26:35.4896403Z + @types/react 19.2.14
-2026-03-04T02:26:35.4896936Z + @types/react-dom 19.2.3
-2026-03-04T02:26:35.4897525Z + @types/three 0.183.1
-2026-03-04T02:26:35.4898121Z + @typescript-eslint/eslint-plugin 8.56.1
-2026-03-04T02:26:35.4898793Z + @typescript-eslint/parser 8.56.1
-2026-03-04T02:26:35.4899339Z + autoprefixer 10.4.27
-2026-03-04T02:26:35.4899811Z + commander 14.0.3
-2026-03-04T02:26:35.4900269Z + depcheck 1.4.7
-2026-03-04T02:26:35.4900763Z + dotenv 17.3.1
-2026-03-04T02:26:35.4901230Z + esbuild 0.27.3
-2026-03-04T02:26:35.4901668Z + eslint 10.0.2
-2026-03-04T02:26:35.4902158Z + eslint-config-next 16.1.6
-2026-03-04T02:26:35.4902770Z + eslint-config-prettier 10.1.8
-2026-03-04T02:26:35.4903592Z + eslint-plugin-import 2.32.0
-2026-03-04T02:26:35.4904448Z + eslint-plugin-prettier 5.5.5
-2026-03-04T02:26:35.4905032Z + eslint-plugin-react 7.37.5
-2026-03-04T02:26:35.4905582Z + firebase-tools 15.8.0
-2026-03-04T02:26:35.4906074Z + jest 30.2.0
-2026-03-04T02:26:35.4906609Z + jest-environment-jsdom 30.2.0
-2026-03-04T02:26:35.4907157Z + knip 5.85.0
-2026-03-04T02:26:35.4907612Z + pg 8.19.0
-2026-03-04T02:26:35.4908066Z + postcss 8.5.8
-2026-03-04T02:26:35.4908524Z + prettier 3.8.1
-2026-03-04T02:26:35.4909007Z + rimraf 6.1.3
-2026-03-04T02:26:35.4909478Z + serve 14.2.6
-2026-03-04T02:26:35.4909930Z + shadcn 3.8.5
-2026-03-04T02:26:35.4910382Z + tailwindcss 4.2.1
-2026-03-04T02:26:35.4910860Z + ts-jest 29.4.6
-2026-03-04T02:26:35.4911336Z + ts-node 10.9.2
-2026-03-04T02:26:35.4911788Z + tsx 4.21.0
-2026-03-04T02:26:35.4912254Z + typescript 5.9.3
-2026-03-04T02:26:35.4912684Z + which 6.0.1
-2026-03-04T02:26:35.4913090Z + yaml 2.8.2
-2026-03-04T02:26:35.4913349Z 
-2026-03-04T02:26:35.5045106Z Done in 13.6s using pnpm v10.30.3
-2026-03-04T02:26:35.5342647Z ##[group]Run echo "🔍 Verificando variáveis de ambiente do Supabase..."
-2026-03-04T02:26:35.5343235Z [36;1mecho "🔍 Verificando variáveis de ambiente do Supabase..."[0m
-2026-03-04T02:26:35.5343697Z [36;1mif [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then[0m
-2026-03-04T02:26:35.5344541Z [36;1m  echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_URL não configurada em GitHub Secrets."[0m
-2026-03-04T02:26:35.5345002Z [36;1m  exit 1[0m
-2026-03-04T02:26:35.5345271Z [36;1mfi[0m
-2026-03-04T02:26:35.5345627Z [36;1mif [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" ]; then[0m
-2026-03-04T02:26:35.5346354Z [36;1m  echo "❌ ERRO: nenhuma chave pública do Supabase foi resolvida (NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY)."[0m
-2026-03-04T02:26:35.5346989Z [36;1m  exit 1[0m
-2026-03-04T02:26:35.5347249Z [36;1mfi[0m
-2026-03-04T02:26:35.5347551Z [36;1mif [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then[0m
-2026-03-04T02:26:35.5348238Z [36;1m  echo "❌ ERRO: SUPABASE_SERVICE_ROLE_KEY não configurada em GitHub Secrets."[0m
-2026-03-04T02:26:35.5348687Z [36;1m  exit 1[0m
-2026-03-04T02:26:35.5348944Z [36;1mfi[0m
-2026-03-04T02:26:35.5349288Z [36;1mecho "✅ Variáveis do Supabase validadas com sucesso."[0m
-2026-03-04T02:26:35.5376833Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:35.5377177Z env:
-2026-03-04T02:26:35.5377435Z   NODE_VERSION: 20
-2026-03-04T02:26:35.5377711Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:35.5378130Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:35.5379499Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:35.5379977Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:35.5380487Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:35.5381951Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:35.5390908Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:35.5391284Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:35.5391639Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:35.5392009Z ##[endgroup]
-2026-03-04T02:26:35.5442477Z 🔍 Verificando variáveis de ambiente do Supabase...
-2026-03-04T02:26:35.5443254Z ✅ Variáveis do Supabase validadas com sucesso.
-2026-03-04T02:26:35.5464891Z ##[group]Run pnpm run lint
-2026-03-04T02:26:35.5465240Z [36;1mpnpm run lint[0m
-2026-03-04T02:26:35.5489424Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:35.5489756Z env:
-2026-03-04T02:26:35.5490020Z   NODE_VERSION: 20
-2026-03-04T02:26:35.5490299Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:35.5490724Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:35.5492048Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:35.5492528Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:35.5493078Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:35.5494753Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:35.5503595Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:35.5504052Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:35.5504405Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:35.5504791Z ##[endgroup]
-2026-03-04T02:26:35.8783170Z 
-2026-03-04T02:26:35.8783843Z > danilo-novais-portfolio@1.0.1 lint /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:26:35.8784581Z > eslint src test tailwind.config.ts
-2026-03-04T02:26:35.8784803Z 
-2026-03-04T02:26:39.0278941Z ##[group]Run pnpm run typecheck
-2026-03-04T02:26:39.0279309Z [36;1mpnpm run typecheck[0m
-2026-03-04T02:26:39.0307876Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:39.0308228Z env:
-2026-03-04T02:26:39.0308486Z   NODE_VERSION: 20
-2026-03-04T02:26:39.0308765Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:39.0309190Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:39.0310631Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:39.0311109Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:39.0311625Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:39.0313087Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:39.0322348Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:39.0322735Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:39.0323082Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:39.0323445Z ##[endgroup]
-2026-03-04T02:26:39.3602244Z 
-2026-03-04T02:26:39.3603612Z > danilo-novais-portfolio@1.0.1 typecheck /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:26:39.3604826Z > NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx
-2026-03-04T02:26:39.3605237Z 
-2026-03-04T02:26:52.4690613Z ##[group]Run if grep -q '"link:' functions/package.json; then
-2026-03-04T02:26:52.4691123Z [36;1mif grep -q '"link:' functions/package.json; then[0m
-2026-03-04T02:26:52.4691636Z [36;1m  echo "⚠️  Detectado protocolo 'link:' em functions/package.json"[0m
-2026-03-04T02:26:52.4692161Z [36;1m  sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json[0m
-2026-03-04T02:26:52.4692599Z [36;1m  echo "✅ Corrigido para 'file:../src/'"[0m
-2026-03-04T02:26:52.4693102Z [36;1mfi[0m
-2026-03-04T02:26:52.4720556Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:52.4720896Z env:
-2026-03-04T02:26:52.4721159Z   NODE_VERSION: 20
-2026-03-04T02:26:52.4721444Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:52.4721868Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:52.4723250Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:52.4723734Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:52.4724453Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:52.4726063Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:52.4735361Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:52.4735742Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:52.4736100Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:52.4736462Z ##[endgroup]
-2026-03-04T02:26:52.4816748Z ##[group]Run cd functions && pnpm run build
-2026-03-04T02:26:52.4817142Z [36;1mcd functions && pnpm run build[0m
-2026-03-04T02:26:52.4841733Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:52.4842081Z env:
-2026-03-04T02:26:52.4842332Z   NODE_VERSION: 20
-2026-03-04T02:26:52.4842610Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:52.4843031Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:52.4844567Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:52.4845063Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:52.4845591Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:52.4847158Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:52.4856123Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:52.4856505Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:52.4856857Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:52.4857221Z ##[endgroup]
-2026-03-04T02:26:52.8094720Z 
-2026-03-04T02:26:52.8095831Z > functions@ build /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions
-2026-03-04T02:26:52.8096645Z > tsc
-2026-03-04T02:26:52.8096875Z 
-2026-03-04T02:26:54.6212577Z ##[group]Run echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production
-2026-03-04T02:26:54.6213643Z [36;1mecho "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production[0m
-2026-03-04T02:26:54.6214772Z [36;1mecho "NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY" >> .env.production[0m
-2026-03-04T02:26:54.6215900Z [36;1mecho "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" >> .env.production[0m
-2026-03-04T02:26:54.6217244Z [36;1mecho "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" >> .env.production[0m
-2026-03-04T02:26:54.6218460Z [36;1mecho "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> .env.production[0m
-2026-03-04T02:26:54.6251785Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:54.6252132Z env:
-2026-03-04T02:26:54.6252404Z   NODE_VERSION: 20
-2026-03-04T02:26:54.6252692Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:54.6253164Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:54.6254744Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:54.6255258Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:54.6255779Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:54.6257277Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:54.6266415Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:54.6266802Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:54.6267164Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:54.6267528Z ##[endgroup]
-2026-03-04T02:26:54.6350712Z ##[group]Run pnpm run build
-2026-03-04T02:26:54.6351061Z [36;1mpnpm run build[0m
-2026-03-04T02:26:54.6375758Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:26:54.6376095Z env:
-2026-03-04T02:26:54.6376355Z   NODE_VERSION: 20
-2026-03-04T02:26:54.6376634Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:26:54.6377062Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:26:54.6378439Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:26:54.6378920Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:26:54.6379434Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:26:54.6381038Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:26:54.6390060Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:26:54.6390440Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:26:54.6390801Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:26:54.6391171Z   NEXTJS_IGNORE_ESLINT: 1
-2026-03-04T02:26:54.6391459Z ##[endgroup]
-2026-03-04T02:26:54.9697853Z 
-2026-03-04T02:26:54.9699265Z > danilo-novais-portfolio@1.0.1 build /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:26:54.9700133Z > pnpm run validate-env && pnpm run prebuild && next build
-2026-03-04T02:26:54.9700463Z 
-2026-03-04T02:26:55.3107383Z 
-2026-03-04T02:26:55.3108731Z > danilo-novais-portfolio@1.0.1 validate-env /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:26:55.3109550Z > node scripts/validate-env.cjs
-2026-03-04T02:26:55.3109811Z 
-2026-03-04T02:26:55.3334976Z Aviso: Não foi possível ler .env.local. Verificando process.env... ENOENT: no such file or directory, open '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.env.local'
-2026-03-04T02:26:55.3339712Z CI/.env.local validado com sucesso (3 chaves).
-2026-03-04T02:26:55.6824127Z 
-2026-03-04T02:26:55.6825482Z > danilo-novais-portfolio@1.0.1 prebuild /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:26:55.6826735Z > node scripts/generate-build-info.cjs
-2026-03-04T02:26:55.6827137Z 
-2026-03-04T02:26:56.2261732Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
-2026-03-04T02:26:56.2323810Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
-2026-03-04T02:26:56.2325298Z This information is used to shape Next.js' roadmap and prioritize features.
-2026-03-04T02:26:56.2326776Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-2026-03-04T02:26:56.2327851Z https://nextjs.org/telemetry
-2026-03-04T02:26:56.2328234Z 
-2026-03-04T02:26:56.2489257Z ▲ Next.js 16.1.6 (Turbopack)
-2026-03-04T02:26:56.2489960Z - Environments: .env.production
-2026-03-04T02:26:56.2490618Z - Experiments (use with caution):
-2026-03-04T02:26:56.2491319Z   · optimizePackageImports
-2026-03-04T02:26:56.2491871Z   · serverActions
-2026-03-04T02:26:56.2492142Z 
-2026-03-04T02:26:56.3268135Z   Creating an optimized production build ...
-2026-03-04T02:27:28.2306222Z ✓ Compiled successfully in 31.6s
-2026-03-04T02:27:28.2380665Z   Skipping validation of types
-2026-03-04T02:27:28.4585812Z   Collecting page data using 3 workers ...
-2026-03-04T02:27:29.9095833Z   Generating static pages using 3 workers (0/31) ...
-2026-03-04T02:27:29.9760125Z   Generating static pages using 3 workers (7/31) 
-2026-03-04T02:27:30.7065395Z   Generating static pages using 3 workers (15/31) 
-2026-03-04T02:27:30.9050782Z   Generating static pages using 3 workers (23/31) 
-2026-03-04T02:27:31.6760415Z ✓ Generating static pages using 3 workers (31/31) in 1766.4ms
-2026-03-04T02:27:31.6815151Z   Finalizing page optimization ...
-2026-03-04T02:27:31.9442183Z 
-2026-03-04T02:27:31.9463309Z Route (app)
-2026-03-04T02:27:31.9465727Z ┌ ○ /
-2026-03-04T02:27:31.9466319Z ├ ○ /_not-found
-2026-03-04T02:27:31.9466864Z ├ ƒ /admin
-2026-03-04T02:27:31.9467389Z ├ ƒ /admin/config
-2026-03-04T02:27:31.9467963Z ├ ƒ /admin/copy-agent
-2026-03-04T02:27:31.9468584Z ├ ƒ /admin/landing-pages
-2026-03-04T02:27:31.9469508Z ├ ƒ /admin/landing-pages/[id]
-2026-03-04T02:27:31.9470152Z ├ ƒ /admin/landing-pages/new
-2026-03-04T02:27:31.9470723Z ├ ○ /admin/login
-2026-03-04T02:27:31.9471201Z ├ ƒ /admin/midia
-2026-03-04T02:27:31.9471787Z ├ ƒ /admin/scene-generator
-2026-03-04T02:27:31.9472404Z ├ ƒ /admin/settings
-2026-03-04T02:27:31.9472938Z ├ ƒ /admin/tags
-2026-03-04T02:27:31.9473493Z ├ ƒ /admin/trabalhos
-2026-03-04T02:27:31.9474212Z ├ ƒ /admin/trabalhos/[id]
-2026-03-04T02:27:31.9474862Z ├ ƒ /admin/trabalhos/new
-2026-03-04T02:27:31.9475524Z ├ ƒ /api/admin/storage/upload
-2026-03-04T02:27:31.9476318Z ├ ƒ /api/contact
-2026-03-04T02:27:31.9476905Z ├ ƒ /api/report-error
-2026-03-04T02:27:31.9477519Z ├ ƒ /api/site-assets
-2026-03-04T02:27:31.9478090Z ├ ƒ /auth/callback
-2026-03-04T02:27:31.9478617Z ├ ○ /contato
-2026-03-04T02:27:31.9479199Z ├ ○ /contato/opengraph-image
-2026-03-04T02:27:31.9479847Z ├ ƒ /examples/supabase
-2026-03-04T02:27:31.9480434Z ├ ○ /opengraph-image
-2026-03-04T02:27:31.9480944Z ├ ƒ /portfolio
-2026-03-04T02:27:31.9481526Z ├ ƒ /portfolio/[slug]
-2026-03-04T02:27:31.9482172Z ├ ○ /portfolio/opengraph-image
-2026-03-04T02:27:31.9497331Z ├ ○ /privacidade
-2026-03-04T02:27:31.9498120Z ├ ○ /privacy-policy
-2026-03-04T02:27:31.9498671Z ├ ƒ /projects/[slug]
-2026-03-04T02:27:31.9499190Z ├ ○ /robots.txt
-2026-03-04T02:27:31.9499720Z ├ ○ /sitemap.xml
-2026-03-04T02:27:31.9500227Z ├ ○ /sobre
-2026-03-04T02:27:31.9500890Z └ ○ /sobre/opengraph-image
-2026-03-04T02:27:31.9501284Z 
-2026-03-04T02:27:31.9501296Z 
-2026-03-04T02:27:31.9501570Z ƒ Proxy (Middleware)
-2026-03-04T02:27:31.9501891Z 
-2026-03-04T02:27:31.9502350Z ○  (Static)   prerendered as static content
-2026-03-04T02:27:31.9503134Z ƒ  (Dynamic)  server-rendered on demand
-2026-03-04T02:27:31.9503522Z 
-2026-03-04T02:27:32.0180111Z ##[group]Run bash scripts/prepare-hosting.sh
-2026-03-04T02:27:32.0180815Z [36;1mbash scripts/prepare-hosting.sh[0m
-2026-03-04T02:27:32.0221521Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:27:32.0222087Z env:
-2026-03-04T02:27:32.0222507Z   NODE_VERSION: 20
-2026-03-04T02:27:32.0222956Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:32.0223585Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:32.0226342Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:32.0227215Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:32.0228129Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:32.0230809Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:32.0248551Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:32.0249206Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:32.0249820Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:32.0250466Z ##[endgroup]
-2026-03-04T02:27:32.0338741Z Consolidating static files into deploy-public...
-2026-03-04T02:27:32.0691996Z deploy-public prepared.
-2026-03-04T02:27:32.0716636Z ##[group]Run if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
-2026-03-04T02:27:32.0717138Z [36;1mif [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then[0m
-2026-03-04T02:27:32.0717616Z [36;1m  echo "❌ ERRO: nenhuma credencial Firebase foi resolvida."[0m
-2026-03-04T02:27:32.0718349Z [36;1m  echo "Defina um destes secrets: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS, FIREBASE_SERVICE_ACCOUNT_JSON ou FIREBASE_SERVICE_ACCOUNT."[0m
-2026-03-04T02:27:32.0718991Z [36;1m  exit 1[0m
-2026-03-04T02:27:32.0719256Z [36;1mfi[0m
-2026-03-04T02:27:32.0747101Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:27:32.0747430Z env:
-2026-03-04T02:27:32.0747683Z   NODE_VERSION: 20
-2026-03-04T02:27:32.0747965Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:32.0748389Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:32.0749792Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:32.0750272Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:32.0750824Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:32.0752305Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:32.0761869Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:32.0762255Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:32.0762609Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:32.0762977Z ##[endgroup]
-2026-03-04T02:27:32.0877065Z ##[group]Run google-github-actions/auth@v2
-2026-03-04T02:27:32.0877432Z with:
-2026-03-04T02:27:32.0886413Z   credentials_json: ***
-2026-03-04T02:27:32.0886718Z   create_credentials_file: true
-2026-03-04T02:27:32.0887047Z   export_environment_variables: true
-2026-03-04T02:27:32.0887383Z   universe: googleapis.com
-2026-03-04T02:27:32.0887690Z   cleanup_credentials: true
-2026-03-04T02:27:32.0887994Z   access_token_lifetime: 3600s
-2026-03-04T02:27:32.0888394Z   access_token_scopes: https://www.googleapis.com/auth/cloud-platform
-2026-03-04T02:27:32.0888967Z   id_token_include_email: false
-2026-03-04T02:27:32.0889263Z env:
-2026-03-04T02:27:32.0889514Z   NODE_VERSION: 20
-2026-03-04T02:27:32.0889780Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:32.0890178Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:32.0891537Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:32.0892004Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:32.0892553Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:32.0894252Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:32.0903095Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:32.0903480Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:32.0903827Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:32.0904304Z ##[endgroup]
-2026-03-04T02:27:32.1714846Z Created credentials file at "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json"
-2026-03-04T02:27:32.1847654Z ##[group]Run if [ -n "$SECRET_FB_PROJECT" ]; then
-2026-03-04T02:27:32.1848141Z [36;1mif [ -n "$SECRET_FB_PROJECT" ]; then[0m
-2026-03-04T02:27:32.1848518Z [36;1m  PROJECT_ID="$SECRET_FB_PROJECT"[0m
-2026-03-04T02:27:32.1848952Z [36;1m  SOURCE="GitHub Secret FIREBASE_PROJECT/GOOGLE_CLOUD_PROJECT"[0m
-2026-03-04T02:27:32.1849443Z [36;1melif [ -n "***" ]; then[0m
-2026-03-04T02:27:32.1849806Z [36;1m  PROJECT_ID="***"[0m
-2026-03-04T02:27:32.1850133Z [36;1m  SOURCE="Service Account project_id"[0m
-2026-03-04T02:27:32.1850490Z [36;1melif [ -f .firebaserc ]; then[0m
-2026-03-04T02:27:32.1851173Z [36;1m  PROJECT_ID=$(node -e "const fs=require('fs');const rc=JSON.parse(fs.readFileSync('.firebaserc','utf8'));process.stdout.write(rc?.projects?.default||'')")[0m
-2026-03-04T02:27:32.1851888Z [36;1m  SOURCE=".firebaserc (projects.default)"[0m
-2026-03-04T02:27:32.1852239Z [36;1mfi[0m
-2026-03-04T02:27:32.1852486Z [36;1m[0m
-2026-03-04T02:27:32.1852791Z [36;1mif [ -z "$PROJECT_ID" ]; then[0m
-2026-03-04T02:27:32.1853248Z [36;1m  echo "❌ ERRO: Não foi possível resolver o Firebase Project ID."[0m
-2026-03-04T02:27:32.1853855Z [36;1m  echo "Defina FIREBASE_PROJECT no GitHub Secrets ou configure .firebaserc/projects.default"[0m
-2026-03-04T02:27:32.1854556Z [36;1m  exit 1[0m
-2026-03-04T02:27:32.1854841Z [36;1mfi[0m
-2026-03-04T02:27:32.1855106Z [36;1m[0m
-2026-03-04T02:27:32.1855434Z [36;1mecho "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"[0m
-2026-03-04T02:27:32.1855906Z [36;1mecho "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"[0m
-2026-03-04T02:27:32.1882912Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:27:32.1883253Z env:
-2026-03-04T02:27:32.1883516Z   NODE_VERSION: 20
-2026-03-04T02:27:32.1883797Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:32.1884379Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:32.1885766Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:32.1886245Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:32.1886772Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:32.1888256Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:32.1897343Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:32.1897720Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:32.1898093Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:32.1898793Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:32.1899736Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:32.1900612Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:32.1901239Z   CLOUDSDK_CORE_PROJECT: ***
-2026-03-04T02:27:32.1901581Z   CLOUDSDK_PROJECT: ***
-2026-03-04T02:27:32.1901898Z   GCLOUD_PROJECT: ***
-2026-03-04T02:27:32.1902194Z   GCP_PROJECT: ***
-2026-03-04T02:27:32.1902521Z   GOOGLE_CLOUD_PROJECT: ***
-2026-03-04T02:27:32.1903027Z   SECRET_FB_PROJECT: ***
-2026-03-04T02:27:32.1903342Z ##[endgroup]
-2026-03-04T02:27:32.1955716Z ✅ Projeto Firebase resolvido: *** (GitHub Secret FIREBASE_PROJECT/GOOGLE_CLOUD_PROJECT)
-2026-03-04T02:27:32.1976946Z ##[group]Run npm install -g firebase-tools@latest
-2026-03-04T02:27:32.1977372Z [36;1mnpm install -g firebase-tools@latest[0m
-2026-03-04T02:27:32.2001096Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:27:32.2001432Z env:
-2026-03-04T02:27:32.2001697Z   NODE_VERSION: 20
-2026-03-04T02:27:32.2001987Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:32.2002412Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:32.2003848Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:32.2004498Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:32.2005018Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:32.2006477Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:32.2015436Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:32.2015821Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:32.2016191Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:32.2016930Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:32.2017863Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:32.2018731Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:32.2019354Z   CLOUDSDK_CORE_PROJECT: ***
-2026-03-04T02:27:32.2019686Z   CLOUDSDK_PROJECT: ***
-2026-03-04T02:27:32.2019991Z   GCLOUD_PROJECT: ***
-2026-03-04T02:27:32.2020295Z   GCP_PROJECT: ***
-2026-03-04T02:27:32.2020604Z   GOOGLE_CLOUD_PROJECT: ***
-2026-03-04T02:27:32.2020898Z ##[endgroup]
-2026-03-04T02:27:46.6915101Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
-2026-03-04T02:27:48.8585513Z npm warn deprecated json-ptr@3.1.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-2026-03-04T02:27:48.9746542Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-2026-03-04T02:27:51.8323204Z 
-2026-03-04T02:27:51.8323719Z added 746 packages in 20s
-2026-03-04T02:27:51.8324234Z 
-2026-03-04T02:27:51.8324551Z 93 packages are looking for funding
-2026-03-04T02:27:51.8325012Z   run `npm fund` for details
-2026-03-04T02:27:51.8581647Z ##[group]Run TARGET_PROJECT="***"
-2026-03-04T02:27:51.8582091Z [36;1mTARGET_PROJECT="***"[0m
-2026-03-04T02:27:51.8582549Z [36;1mfirebase projects:list --json 2>/dev/null > firebase-projects.json || true[0m
-2026-03-04T02:27:51.8583006Z [36;1m[0m
-2026-03-04T02:27:51.8583260Z [36;1mnode -e "[0m
-2026-03-04T02:27:51.8583559Z [36;1m  const fs = require('fs');[0m
-2026-03-04T02:27:51.8584127Z [36;1m  const raw = fs.readFileSync('firebase-projects.json', 'utf8');[0m
-2026-03-04T02:27:51.8584545Z [36;1m  let data;[0m
-2026-03-04T02:27:51.8584909Z [36;1m  try *** data = JSON.parse(raw); *** catch ***[0m
-2026-03-04T02:27:51.8585437Z [36;1m    console.log('⚠️ Could not parse firebase projects JSON — skipping validation.');[0m
-2026-03-04T02:27:51.8585926Z [36;1m    process.exit(0);[0m
-2026-03-04T02:27:51.8586229Z [36;1m  ***[0m
-2026-03-04T02:27:51.8586488Z [36;1m[0m
-2026-03-04T02:27:51.8586927Z [36;1m  const projects = Array.isArray(data) ? data : (data.results || data.result || []);[0m
-2026-03-04T02:27:51.8587531Z [36;1m  const ids = projects.map(p => p.projectId || p.projectid || p.id).filter(Boolean);[0m
-2026-03-04T02:27:51.8588101Z [36;1m  console.log('📋 Projects accessible:', ids.join(', ') || '(none)');[0m
-2026-03-04T02:27:51.8588539Z [36;1m[0m
-2026-03-04T02:27:51.8588846Z [36;1m  if (ids.includes('$***TARGET_PROJECT***')) ***[0m
-2026-03-04T02:27:51.8589517Z [36;1m    console.log('✅ Acesso ao projeto validado para $***TARGET_PROJECT***');[0m
-2026-03-04T02:27:51.8589988Z [36;1m  *** else ***[0m
-2026-03-04T02:27:51.8590516Z [36;1m    console.log('⚠️ Projeto $***TARGET_PROJECT*** não aparece na lista — tentando de qualquer forma.');[0m
-2026-03-04T02:27:51.8591038Z [36;1m  ***[0m
-2026-03-04T02:27:51.8591296Z [36;1m"[0m
-2026-03-04T02:27:51.8618568Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:27:51.8618906Z env:
-2026-03-04T02:27:51.8619162Z   NODE_VERSION: 20
-2026-03-04T02:27:51.8619442Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:51.8619878Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:51.8621272Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:51.8621755Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:51.8622272Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:51.8623748Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:51.8632754Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:51.8633147Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:51.8633505Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:51.8634262Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:51.8635199Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:51.8636067Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:51.8636697Z   CLOUDSDK_CORE_PROJECT: ***
-2026-03-04T02:27:51.8637030Z   CLOUDSDK_PROJECT: ***
-2026-03-04T02:27:51.8637346Z   GCLOUD_PROJECT: ***
-2026-03-04T02:27:51.8637661Z   GCP_PROJECT: ***
-2026-03-04T02:27:51.8637973Z   GOOGLE_CLOUD_PROJECT: ***
-2026-03-04T02:27:51.8638268Z ##[endgroup]
-2026-03-04T02:27:53.0269245Z 📋 Projects accessible: ***
-2026-03-04T02:27:53.0272932Z ✅ Acesso ao projeto validado para ***
-2026-03-04T02:27:53.0328001Z ##[group]Run TMP_PKG_JSON=$(mktemp)
-2026-03-04T02:27:53.0328468Z [36;1mTMP_PKG_JSON=$(mktemp)[0m
-2026-03-04T02:27:53.0328828Z [36;1mcp package.json "$TMP_PKG_JSON"[0m
-2026-03-04T02:27:53.0329173Z [36;1m[0m
-2026-03-04T02:27:53.0329469Z [36;1mrestore_on_exit() ***[0m
-2026-03-04T02:27:53.0329798Z [36;1m  mv "$TMP_PKG_JSON" package.json[0m
-2026-03-04T02:27:53.0330161Z [36;1m  rm -f package-lock.json[0m
-2026-03-04T02:27:53.0330482Z [36;1m***[0m
-2026-03-04T02:27:53.0330742Z [36;1m[0m
-2026-03-04T02:27:53.0331016Z [36;1mtrap restore_on_exit EXIT[0m
-2026-03-04T02:27:53.0331327Z [36;1m[0m
-2026-03-04T02:27:53.0331655Z [36;1mecho "🧹 Limpando cache do frameworks backend..."[0m
-2026-03-04T02:27:53.0332132Z [36;1mrm -rf ".firebase/***/functions"[0m
-2026-03-04T02:27:53.0332500Z [36;1m[0m
-2026-03-04T02:27:53.0332811Z [36;1mfirebase experiments:enable webframeworks[0m
-2026-03-04T02:27:53.0333235Z [36;1mfirebase deploy --only hosting,functions \[0m
-2026-03-04T02:27:53.0333728Z [36;1m  --project "***" \[0m
-2026-03-04T02:27:53.0334240Z [36;1m  --debug --non-interactive[0m
-2026-03-04T02:27:53.0361615Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:27:53.0361951Z env:
-2026-03-04T02:27:53.0362216Z   NODE_VERSION: 20
-2026-03-04T02:27:53.0362511Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:27:53.0362939Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:27:53.0364481Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:27:53.0364985Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:27:53.0365509Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:27:53.0366992Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:27:53.0376253Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:27:53.0376640Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:27:53.0377005Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:27:53.0377705Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:53.0378821Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:53.0379694Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:27:53.0380325Z   CLOUDSDK_CORE_PROJECT: ***
-2026-03-04T02:27:53.0380666Z   CLOUDSDK_PROJECT: ***
-2026-03-04T02:27:53.0380989Z   GCLOUD_PROJECT: ***
-2026-03-04T02:27:53.0381300Z   GCP_PROJECT: ***
-2026-03-04T02:27:53.0381627Z   GOOGLE_CLOUD_PROJECT: ***
-2026-03-04T02:27:53.0381941Z   NPM_CONFIG_LEGACY_PEER_DEPS: true
-2026-03-04T02:27:53.0382276Z   NO_UPDATE_NOTIFIER: 1
-2026-03-04T02:27:53.0382563Z ##[endgroup]
-2026-03-04T02:27:53.0451969Z 🧹 Limpando cache do frameworks backend...
-2026-03-04T02:27:53.5812036Z Enabled experiment [1mwebframeworks[22m
-2026-03-04T02:27:54.7271335Z [2026-03-04T02:27:54.725Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-2026-03-04T02:27:54.8195526Z [2026-03-04T02:27:54.819Z] Running auto auth
-2026-03-04T02:27:54.8202633Z [2026-03-04T02:27:54.819Z] [iam] checking project *** for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
-2026-03-04T02:27:54.8208143Z [2026-03-04T02:27:54.820Z] No OAuth tokens found
-2026-03-04T02:27:54.8219112Z [2026-03-04T02:27:54.821Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions [none]
-2026-03-04T02:27:54.8221626Z [2026-03-04T02:27:54.821Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions  x-goog-user-project=***
-2026-03-04T02:27:54.8226869Z [2026-03-04T02:27:54.821Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]***
-2026-03-04T02:27:54.9569723Z [2026-03-04T02:27:54.956Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions 200
-2026-03-04T02:27:54.9574954Z [2026-03-04T02:27:54.956Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]***
-2026-03-04T02:27:54.9578437Z [2026-03-04T02:27:54.957Z] No OAuth tokens found
-2026-03-04T02:27:54.9580452Z [2026-03-04T02:27:54.957Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions [none]
-2026-03-04T02:27:54.9583403Z [2026-03-04T02:27:54.957Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions ***"permissions":["iam.serviceAccounts.actAs"]***
-2026-03-04T02:27:55.0559191Z [2026-03-04T02:27:55.055Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions 200
-2026-03-04T02:27:55.0561986Z [2026-03-04T02:27:55.055Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions ***"permissions":["iam.serviceAccounts.actAs"]***
-2026-03-04T02:27:55.0564777Z [2026-03-04T02:27:55.056Z] No OAuth tokens found
-2026-03-04T02:27:55.0568414Z [2026-03-04T02:27:55.056Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/*** [none]
-2026-03-04T02:27:55.2383196Z [2026-03-04T02:27:55.237Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/*** 200
-2026-03-04T02:27:55.2386674Z [2026-03-04T02:27:55.238Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/*** ***"projectId":"***","projectNumber":"350817205989","displayName":"Portfolio Danilo Novais","name":"projects/***","resources":***"hostingSite":"***","realtimeDatabaseInstance":"***-default-rtdb"***,"state":"ACTIVE","etag":"1_bf95d783-2600-4e83-8996-b07fd41db756"***
-2026-03-04T02:28:11.4397042Z [2026-03-04T02:28:11.439Z] No OAuth tokens found
-2026-03-04T02:28:11.4402159Z [2026-03-04T02:28:11.439Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites pageToken=&pageSize=10
-2026-03-04T02:28:12.0173299Z [2026-03-04T02:28:12.016Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites 200
-2026-03-04T02:28:12.0175833Z [2026-03-04T02:28:12.017Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites ***"sites":[***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***]***
-2026-03-04T02:28:12.0177337Z [2026-03-04T02:28:12.017Z] No OAuth tokens found
-2026-03-04T02:28:12.0180815Z [2026-03-04T02:28:12.017Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config [none]
-2026-03-04T02:28:12.4735332Z [2026-03-04T02:28:12.473Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config 200
-2026-03-04T02:28:12.4739441Z [2026-03-04T02:28:12.473Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config ***"projectId":"***","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","databaseURL":"https://***-default-rtdb.firebaseio.com","storageBucket":"***.firebasestorage.app","apiKey":"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4","authDomain":"***.firebaseapp.com","messagingSenderId":"350817205989","measurementId":"G-PM34VYPZZW","projectNumber":"350817205989","version":"2"***
-2026-03-04T02:28:44.1232918Z 
-2026-03-04T02:28:44.1235677Z    Thank you for trying our early preview of Next.js support on Firebase Hosting.
-2026-03-04T02:28:44.1236564Z    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
-2026-03-04T02:28:44.1237299Z    The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
-2026-03-04T02:28:44.1237671Z 
-2026-03-04T02:28:44.1237963Z    Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
-2026-03-04T02:28:44.1238626Z    File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
-2026-03-04T02:28:44.1239395Z    Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
-2026-03-04T02:28:44.1239830Z 
-2026-03-04T02:28:44.1240255Z    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
-2026-03-04T02:28:44.1240711Z 
-2026-03-04T02:28:44.1250448Z 
-2026-03-04T02:28:44.1251887Z WARNING: Your package.json contains a custom build that is being ignored. Only the Next.js default build script (e.g, "next build") is respected. If you have a more advanced build process you should build a custom integration https://firebase.google.com/docs/hosting/express
-2026-03-04T02:28:44.1252918Z 
-2026-03-04T02:28:52.4801334Z [2026-03-04T02:28:52.479Z] No OAuth tokens found
-2026-03-04T02:28:52.4803480Z [2026-03-04T02:28:52.480Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** [none]
-2026-03-04T02:28:52.8537120Z [2026-03-04T02:28:52.853Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** 200
-2026-03-04T02:28:52.8539913Z [2026-03-04T02:28:52.853Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** ***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***
-2026-03-04T02:28:53.4838613Z ▲ Next.js 16.1.6 (Turbopack)
-2026-03-04T02:28:53.4839115Z 
-2026-03-04T02:28:53.4839782Z - Environments: .env.production
-2026-03-04T02:28:53.4840534Z - Experiments (use with caution):
-2026-03-04T02:28:53.4841223Z   · optimizePackageImports
-2026-03-04T02:28:53.4841806Z   · serverActions
-2026-03-04T02:28:53.4842050Z 
-2026-03-04T02:28:53.4842070Z 
-2026-03-04T02:28:53.5589664Z   Creating an optimized production build ...
-2026-03-04T02:28:53.5590180Z 
-2026-03-04T02:28:58.0094843Z 
-2026-03-04T02:28:58.0097708Z [0.26ms] [@tailwindcss/postcss] src/components/layout/header/DesktopFluidHeader.module.css
-2026-03-04T02:28:58.0098548Z 
-2026-03-04T02:28:58.0099212Z [0.24ms]   ↳ Quick bail check
-2026-03-04T02:28:58.0099610Z 
-2026-03-04T02:28:58.0099619Z 
-2026-03-04T02:28:58.0120356Z 
-2026-03-04T02:28:58.0121525Z 
-2026-03-04T02:28:58.0129399Z [0.11ms] [@tailwindcss/postcss] src/components/home/hero/HeroCopy.module.css
-2026-03-04T02:28:58.0131692Z 
-2026-03-04T02:28:58.0138062Z [0.10ms]   ↳ Quick bail check
-2026-03-04T02:28:58.0138436Z 
-2026-03-04T02:28:58.0140612Z 
-2026-03-04T02:28:58.0141563Z 
-2026-03-04T02:28:58.0177846Z 
-2026-03-04T02:28:58.0178687Z 
-2026-03-04T02:28:58.0185162Z [0.08ms] [@tailwindcss/postcss] src/components/portfolio/ProjectsGallery.module.css
-2026-03-04T02:28:58.0186316Z [0.07ms]   ↳ Quick bail check
-2026-03-04T02:28:58.0186668Z 
-2026-03-04T02:28:58.0192192Z 
-2026-03-04T02:28:58.0192998Z 
-2026-03-04T02:29:16.8154376Z 
-2026-03-04T02:29:16.8156820Z 
-2026-03-04T02:29:16.8185599Z [18961.53ms] [@tailwindcss/postcss] src/app/globals.css
-2026-03-04T02:29:16.8186965Z [    0.07ms]   ↳ Quick bail check
-2026-03-04T02:29:16.8187875Z [  116.23ms]   ↳ Setup compiler
-2026-03-04T02:29:16.8189214Z [    0.64ms]     ↳ PostCSS AST -> Tailwind CSS AST
-2026-03-04T02:29:16.8190206Z [  115.56ms]     ↳ Create compiler
-2026-03-04T02:29:16.8191155Z [    0.15ms]   ↳ Register full rebuild paths
-2026-03-04T02:29:16.8192059Z [    1.77ms]   ↳ Setup scanner
-2026-03-04T02:29:16.8192912Z [16328.23ms]   ↳ Scan for candidates
-2026-03-04T02:29:16.8193851Z [  175.24ms]   ↳ Register dependency messages
-2026-03-04T02:29:16.8194917Z [ 2212.70ms]   ↳ Build utilities
-2026-03-04T02:29:16.8195693Z [  114.31ms]   ↳ Optimization
-2026-03-04T02:29:16.8196466Z [    4.03ms]     ↳ AST -> CSS
-2026-03-04T02:29:16.8197748Z [   57.47ms]     ↳ Lightning CSS
-2026-03-04T02:29:16.8198630Z [   52.73ms]     ↳ CSS -> PostCSS AST
-2026-03-04T02:29:16.8199535Z [   12.41ms]   ↳ Update PostCSS AST
-2026-03-04T02:29:16.8203899Z 
-2026-03-04T02:29:16.8204482Z 
-2026-03-04T02:29:25.3360551Z ✓ Compiled successfully in 31.5s
-2026-03-04T02:29:25.3361166Z 
-2026-03-04T02:29:25.3404938Z   Skipping validation of types
-2026-03-04T02:29:25.3416603Z 
-2026-03-04T02:29:25.5714860Z   Collecting page data using 3 workers ...
-2026-03-04T02:29:25.5717505Z 
-2026-03-04T02:29:26.7859310Z   Generating static pages using 3 workers (0/31) ...
-2026-03-04T02:29:26.7860380Z 
-2026-03-04T02:29:26.8273238Z   Generating static pages using 3 workers (7/31) 
-2026-03-04T02:29:26.8273714Z 
-2026-03-04T02:29:27.4015386Z   Generating static pages using 3 workers (15/31) 
-2026-03-04T02:29:27.4054722Z 
-2026-03-04T02:29:27.8856481Z   Generating static pages using 3 workers (23/31) 
-2026-03-04T02:29:27.8857941Z 
-2026-03-04T02:29:28.1374320Z ✓ Generating static pages using 3 workers (31/31) in 1351.5ms
-2026-03-04T02:29:28.1374918Z 
-2026-03-04T02:29:28.1445279Z   Finalizing page optimization ...
-2026-03-04T02:29:28.1445716Z 
-2026-03-04T02:29:28.3804596Z 
-2026-03-04T02:29:28.3805134Z 
-2026-03-04T02:29:28.3826596Z Route (app)
-2026-03-04T02:29:28.3827745Z ┌ ○ /
-2026-03-04T02:29:28.3829936Z ├ ○ /_not-found
-2026-03-04T02:29:28.3830522Z ├ ƒ /admin
-2026-03-04T02:29:28.3831310Z ├ ƒ /admin/config
-2026-03-04T02:29:28.3831886Z ├ ƒ /admin/copy-agent
-2026-03-04T02:29:28.3832463Z ├ ƒ /admin/landing-pages
-2026-03-04T02:29:28.3833031Z ├ ƒ /admin/landing-pages/[id]
-2026-03-04T02:29:28.3833623Z ├ ƒ /admin/landing-pages/new
-2026-03-04T02:29:28.3834384Z ├ ○ /admin/login
-2026-03-04T02:29:28.3834845Z ├ ƒ /admin/midia
-2026-03-04T02:29:28.3835366Z ├ ƒ /admin/scene-generator
-2026-03-04T02:29:28.3835938Z ├ ƒ /admin/settings
-2026-03-04T02:29:28.3836451Z ├ ƒ /admin/tags
-2026-03-04T02:29:28.3836941Z ├ ƒ /admin/trabalhos
-2026-03-04T02:29:28.3837470Z ├ ƒ /admin/trabalhos/[id]
-2026-03-04T02:29:28.3838022Z ├ ƒ /admin/trabalhos/new
-2026-03-04T02:29:28.3838608Z ├ ƒ /api/admin/storage/upload
-2026-03-04T02:29:28.3839139Z ├ ƒ /api/contact
-2026-03-04T02:29:28.3839621Z ├ ƒ /api/report-error
-2026-03-04T02:29:28.3840158Z ├ ƒ /api/site-assets
-2026-03-04T02:29:28.3840662Z ├ ƒ /auth/callback
-2026-03-04T02:29:28.3841077Z ├ ○ /contato
-2026-03-04T02:29:28.3841620Z ├ ○ /contato/opengraph-image
-2026-03-04T02:29:28.3842265Z ├ ƒ /examples/supabase
-2026-03-04T02:29:28.3842799Z ├ ○ /opengraph-image
-2026-03-04T02:29:28.3843298Z ├ ƒ /portfolio
-2026-03-04T02:29:28.3843780Z ├ ƒ /portfolio/[slug]
-2026-03-04T02:29:28.3844529Z ├ ○ /portfolio/opengraph-image
-2026-03-04T02:29:28.3845110Z ├ ○ /privacidade
-2026-03-04T02:29:28.3845613Z ├ ○ /privacy-policy
-2026-03-04T02:29:28.3846137Z ├ ƒ /projects/[slug]
-2026-03-04T02:29:28.3846632Z ├ ○ /robots.txt
-2026-03-04T02:29:28.3847112Z ├ ○ /sitemap.xml
-2026-03-04T02:29:28.3847636Z ├ ○ /sobre
-2026-03-04T02:29:28.3848115Z └ ○ /sobre/opengraph-image
-2026-03-04T02:29:28.3848388Z 
-2026-03-04T02:29:28.3848400Z 
-2026-03-04T02:29:28.3848670Z ƒ Proxy (Middleware)
-2026-03-04T02:29:28.3848936Z 
-2026-03-04T02:29:28.3848946Z 
-2026-03-04T02:29:28.3849354Z ○  (Static)   prerendered as static content
-2026-03-04T02:29:28.3850128Z ƒ  (Dynamic)  server-rendered on demand
-2026-03-04T02:29:28.3850493Z 
-2026-03-04T02:29:28.3850502Z 
-2026-03-04T02:29:41.2531413Z Building a Cloud Function to run this application. This is needed due to:
-2026-03-04T02:29:41.2532810Z  • non-static component /admin/(protected)/config/page
-2026-03-04T02:29:41.2533549Z  • non-static component /admin/(protected)/copy-agent/page
-2026-03-04T02:29:41.2534312Z  • non-static component /admin/(protected)/landing-pages/[id]/page
-2026-03-04T02:29:41.2534909Z  • non-static component /admin/(protected)/landing-pages/new/page
-2026-03-04T02:29:41.2535475Z  • non-static component /admin/(protected)/landing-pages/page
-2026-03-04T02:29:41.2541019Z [2026-03-04T02:29:41.253Z]  • non-static component /admin/(protected)/midia/page
-2026-03-04T02:29:41.2542193Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/page
-2026-03-04T02:29:41.2543131Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/scene-generator/page
-2026-03-04T02:29:41.2543913Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/settings/page
-2026-03-04T02:29:41.2545039Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/tags/page
-2026-03-04T02:29:41.2545862Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/trabalhos/[id]/page
-2026-03-04T02:29:41.2546663Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/trabalhos/new/page
-2026-03-04T02:29:41.2547488Z [2026-03-04T02:29:41.254Z]  • non-static component /admin/(protected)/trabalhos/page
-2026-03-04T02:29:41.2548240Z [2026-03-04T02:29:41.254Z]  • non-static component /api/admin/storage/upload/route
-2026-03-04T02:29:41.2549010Z [2026-03-04T02:29:41.254Z]  • non-static component /api/contact/route
-2026-03-04T02:29:41.2549701Z [2026-03-04T02:29:41.254Z]  • non-static component /api/report-error/route
-2026-03-04T02:29:41.2550399Z [2026-03-04T02:29:41.254Z]  • non-static component /api/site-assets/route
-2026-03-04T02:29:41.2551082Z [2026-03-04T02:29:41.254Z]  • non-static component /auth/callback/route
-2026-03-04T02:29:41.2551804Z [2026-03-04T02:29:41.254Z]  • non-static component /examples/supabase/page
-2026-03-04T02:29:41.2552567Z [2026-03-04T02:29:41.254Z]  • non-static component /portfolio/[slug]/page
-2026-03-04T02:29:41.2553488Z [2026-03-04T02:29:41.254Z]  • non-static component /portfolio/page
-2026-03-04T02:29:41.2554610Z [2026-03-04T02:29:41.254Z]  • non-static component /projects/[slug]/page
-2026-03-04T02:29:41.2555349Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/config
-2026-03-04T02:29:41.2556047Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/copy-agent
-2026-03-04T02:29:41.2556865Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/landing-pages/[id]
-2026-03-04T02:29:41.2557684Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/landing-pages/new
-2026-03-04T02:29:41.2558371Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/landing-pages
-2026-03-04T02:29:41.2559062Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/midia
-2026-03-04T02:29:41.2559635Z [2026-03-04T02:29:41.255Z]  • route with server action /admin
-2026-03-04T02:29:41.2560263Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/scene-generator
-2026-03-04T02:29:41.2560893Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/settings
-2026-03-04T02:29:41.2561471Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/tags
-2026-03-04T02:29:41.2562102Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/trabalhos/[id]
-2026-03-04T02:29:41.2562738Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/trabalhos/new
-2026-03-04T02:29:41.2563354Z [2026-03-04T02:29:41.255Z]  • route with server action /admin/trabalhos
-2026-03-04T02:29:41.2563864Z 
-2026-03-04T02:30:00.0727705Z Warning: Global esbuild version (0.27.3) does not match the required version (^0.19.2).
-2026-03-04T02:31:00.2258159Z [2026-03-04T02:31:00.225Z] No OAuth tokens found
-2026-03-04T02:31:00.2260417Z [2026-03-04T02:31:00.225Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** [none]
-2026-03-04T02:31:00.5150900Z [2026-03-04T02:31:00.514Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** 200
-2026-03-04T02:31:00.5153357Z [2026-03-04T02:31:00.514Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** ***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***
-2026-03-04T02:31:24.2135065Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
-2026-03-04T02:31:25.7187446Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-2026-03-04T02:31:38.7855508Z 
-2026-03-04T02:31:38.7856242Z added 728 packages in 37s
-2026-03-04T02:31:38.7856657Z 
-2026-03-04T02:31:38.7856886Z 172 packages are looking for funding
-2026-03-04T02:31:38.7857491Z   run `npm fund` for details
-2026-03-04T02:31:38.8187867Z [2026-03-04T02:31:38.816Z] [web frameworks] effective firebase.json:  ***
-2026-03-04T02:31:38.8189248Z   "hosting": [
-2026-03-04T02:31:38.8189925Z     ***
-2026-03-04T02:31:38.8190483Z       "source": ".",
-2026-03-04T02:31:38.8191078Z       "ignore": [
-2026-03-04T02:31:38.8191636Z         "firebase.json",
-2026-03-04T02:31:38.8192262Z         "**/.*",
-2026-03-04T02:31:38.8192847Z         "**/node_modules/**",
-2026-03-04T02:31:38.8195276Z         ".env",
-2026-03-04T02:31:38.8195763Z         ".env.local",
-2026-03-04T02:31:38.8196224Z         ".env.development",
-2026-03-04T02:31:38.8196712Z         "functions/**",
-2026-03-04T02:31:38.8197202Z         "test/**",
-2026-03-04T02:31:38.8197619Z         "docs/**",
-2026-03-04T02:31:38.8198031Z         "scripts/**"
-2026-03-04T02:31:38.8198473Z       ],
-2026-03-04T02:31:38.8198954Z       "frameworksBackend": ***
-2026-03-04T02:31:38.8199557Z         "region": "us-central1"
-2026-03-04T02:31:38.8200055Z       ***,
-2026-03-04T02:31:38.8200748Z       "headers": [
-2026-03-04T02:31:38.8201183Z         ***
-2026-03-04T02:31:38.8201570Z           "source": "**",
-2026-03-04T02:31:38.8202052Z           "headers": [
-2026-03-04T02:31:38.8202506Z             ***
-2026-03-04T02:31:38.8203023Z               "key": "Strict-Transport-Security",
-2026-03-04T02:31:38.8203802Z               "value": "max-age=31536000; includeSubDomains; preload"
-2026-03-04T02:31:38.8204585Z             ***,
-2026-03-04T02:31:38.8205019Z             ***
-2026-03-04T02:31:38.8205450Z               "key": "X-Frame-Options",
-2026-03-04T02:31:38.8205984Z               "value": "DENY"
-2026-03-04T02:31:38.8206444Z             ***,
-2026-03-04T02:31:38.8206854Z             ***
-2026-03-04T02:31:38.8207404Z               "key": "X-Content-Type-Options",
-2026-03-04T02:31:38.8208041Z               "value": "nosniff"
-2026-03-04T02:31:38.8208573Z             ***,
-2026-03-04T02:31:38.8208999Z             ***
-2026-03-04T02:31:38.8209425Z               "key": "Referrer-Policy",
-2026-03-04T02:31:38.8210129Z               "value": "strict-origin-when-cross-origin"
-2026-03-04T02:31:38.8210758Z             ***
-2026-03-04T02:31:38.8211167Z           ]
-2026-03-04T02:31:38.8211543Z         ***,
-2026-03-04T02:31:38.8211906Z         ***
-2026-03-04T02:31:38.8212356Z           "source": "/_next/static/**",
-2026-03-04T02:31:38.8212873Z           "headers": [
-2026-03-04T02:31:38.8213319Z             ***
-2026-03-04T02:31:38.8213758Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8214585Z               "value": "public, max-age=31536000, immutable"
-2026-03-04T02:31:38.8215153Z             ***
-2026-03-04T02:31:38.8215557Z           ]
-2026-03-04T02:31:38.8215951Z         ***,
-2026-03-04T02:31:38.8216368Z         ***
-2026-03-04T02:31:38.8216935Z           "source": "**/*.@(glb|gltf|bin|hdr|exr|mp4|webm|mov|m3u8)",
-2026-03-04T02:31:38.8217571Z           "headers": [
-2026-03-04T02:31:38.8218040Z             ***
-2026-03-04T02:31:38.8218522Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8219503Z               "value": "public, max-age=3600, stale-while-revalidate=86400"
-2026-03-04T02:31:38.8220168Z             ***
-2026-03-04T02:31:38.8220560Z           ]
-2026-03-04T02:31:38.8220922Z         ***,
-2026-03-04T02:31:38.8221296Z         ***
-2026-03-04T02:31:38.8221740Z           "source": "**/*.@(glb|gltf|bin)",
-2026-03-04T02:31:38.8222275Z           "headers": [
-2026-03-04T02:31:38.8222739Z             ***
-2026-03-04T02:31:38.8223204Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8223844Z               "value": "public, max-age=31536000, immutable"
-2026-03-04T02:31:38.8224563Z             ***
-2026-03-04T02:31:38.8224953Z           ]
-2026-03-04T02:31:38.8225346Z         ***,
-2026-03-04T02:31:38.8225750Z         ***
-2026-03-04T02:31:38.8226202Z           "source": "/api/**",
-2026-03-04T02:31:38.8226685Z           "headers": [
-2026-03-04T02:31:38.8227110Z             ***
-2026-03-04T02:31:38.8227582Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8228116Z               "value": "no-store"
-2026-03-04T02:31:38.8228606Z             ***
-2026-03-04T02:31:38.8229004Z           ]
-2026-03-04T02:31:38.8229385Z         ***,
-2026-03-04T02:31:38.8229778Z         ***
-2026-03-04T02:31:38.8230211Z           "source": "/:path*",
-2026-03-04T02:31:38.8230697Z           "headers": [
-2026-03-04T02:31:38.8231116Z             ***
-2026-03-04T02:31:38.8231618Z               "key": "Content-Security-Policy",
-2026-03-04T02:31:38.8240040Z               "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://www.youtube.com https://s.ytimg.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io umkmwbkwvulxtdodzmzf.supabase.co; img-src 'self' blob: data: umkmwbkwvulxtdodzmzf.supabase.co https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' umkmwbkwvulxtdodzmzf.supabase.co https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co https://raw.githack.com https://www.gstatic.com https://raw.githubusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' blob: data: umkmwbkwvulxtdodzmzf.supabase.co https://*.supabase.co https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com"
-2026-03-04T02:31:38.8248152Z             ***,
-2026-03-04T02:31:38.8248586Z             ***
-2026-03-04T02:31:38.8249077Z               "key": "X-Content-Type-Options",
-2026-03-04T02:31:38.8249648Z               "value": "nosniff"
-2026-03-04T02:31:38.8250104Z             ***,
-2026-03-04T02:31:38.8250507Z             ***
-2026-03-04T02:31:38.8250960Z               "key": "X-Frame-Options",
-2026-03-04T02:31:38.8251469Z               "value": "DENY"
-2026-03-04T02:31:38.8251895Z             ***,
-2026-03-04T02:31:38.8252312Z             ***
-2026-03-04T02:31:38.8252757Z               "key": "Referrer-Policy",
-2026-03-04T02:31:38.8253396Z               "value": "strict-origin-when-cross-origin"
-2026-03-04T02:31:38.8254064Z             ***,
-2026-03-04T02:31:38.8254472Z             ***
-2026-03-04T02:31:38.8254941Z               "key": "Permissions-Policy",
-2026-03-04T02:31:38.8255652Z               "value": "camera=(), microphone=(), geolocation=(), payment=()"
-2026-03-04T02:31:38.8256273Z             ***,
-2026-03-04T02:31:38.8256664Z             ***
-2026-03-04T02:31:38.8257168Z               "key": "Strict-Transport-Security",
-2026-03-04T02:31:38.8257856Z               "value": "max-age=31536000; includeSubDomains; preload"
-2026-03-04T02:31:38.8258452Z             ***,
-2026-03-04T02:31:38.8258881Z             ***
-2026-03-04T02:31:38.8259491Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8260244Z               "value": "public, max-age=0, s-maxage=900, stale-while-revalidate=3600"
-2026-03-04T02:31:38.8260937Z             ***
-2026-03-04T02:31:38.8261335Z           ]
-2026-03-04T02:31:38.8261727Z         ***,
-2026-03-04T02:31:38.8262150Z         ***
-2026-03-04T02:31:38.8262601Z           "source": "/_next/static/:path*",
-2026-03-04T02:31:38.8263108Z           "headers": [
-2026-03-04T02:31:38.8263534Z             ***
-2026-03-04T02:31:38.8264108Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8264715Z               "value": "public, max-age=31536000, immutable"
-2026-03-04T02:31:38.8265267Z             ***
-2026-03-04T02:31:38.8265667Z           ]
-2026-03-04T02:31:38.8266052Z         ***,
-2026-03-04T02:31:38.8266444Z         ***
-2026-03-04T02:31:38.8266872Z           "source": "/fonts/:path*",
-2026-03-04T02:31:38.8267340Z           "headers": [
-2026-03-04T02:31:38.8267786Z             ***
-2026-03-04T02:31:38.8268255Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8268901Z               "value": "public, max-age=31536000, immutable"
-2026-03-04T02:31:38.8269450Z             ***
-2026-03-04T02:31:38.8269841Z           ]
-2026-03-04T02:31:38.8270204Z         ***,
-2026-03-04T02:31:38.8270595Z         ***
-2026-03-04T02:31:38.8271040Z           "source": "/captions/:path*",
-2026-03-04T02:31:38.8271542Z           "headers": [
-2026-03-04T02:31:38.8271972Z             ***
-2026-03-04T02:31:38.8272421Z               "key": "Cache-Control",
-2026-03-04T02:31:38.8273127Z               "value": "public, max-age=86400, stale-while-revalidate=604800"
-2026-03-04T02:31:38.8273782Z             ***
-2026-03-04T02:31:38.8274289Z           ]
-2026-03-04T02:31:38.8274692Z         ***,
-2026-03-04T02:31:38.8275066Z         ***
-2026-03-04T02:31:38.8275487Z           "source": "/_not-found",
-2026-03-04T02:31:38.8275996Z           "headers": [
-2026-03-04T02:31:38.8276427Z             ***
-2026-03-04T02:31:38.8276874Z               "key": "x-nextjs-stale-time",
-2026-03-04T02:31:38.8277578Z               "value": "300"
-2026-03-04T02:31:38.8278024Z             ***,
-2026-03-04T02:31:38.8278430Z             ***
-2026-03-04T02:31:38.8278895Z               "key": "x-nextjs-prerender",
-2026-03-04T02:31:38.8279401Z               "value": "1"
-2026-03-04T02:31:38.8279847Z             ***,
-2026-03-04T02:31:38.8280241Z             ***
-2026-03-04T02:31:38.8280704Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8281542Z               "value": "_N_T_/layout,_N_T_/_not-found/layout,_N_T_/_not-found/page,_N_T_/_not-found"
-2026-03-04T02:31:38.8282272Z             ***
-2026-03-04T02:31:38.8282657Z           ]
-2026-03-04T02:31:38.8283052Z         ***,
-2026-03-04T02:31:38.8283448Z         ***
-2026-03-04T02:31:38.8283902Z           "source": "/_global-error",
-2026-03-04T02:31:38.8284532Z           "headers": [
-2026-03-04T02:31:38.8285000Z             ***
-2026-03-04T02:31:38.8285470Z               "key": "x-nextjs-stale-time",
-2026-03-04T02:31:38.8286034Z               "value": "300"
-2026-03-04T02:31:38.8286503Z             ***,
-2026-03-04T02:31:38.8286894Z             ***
-2026-03-04T02:31:38.8287360Z               "key": "x-nextjs-prerender",
-2026-03-04T02:31:38.8287896Z               "value": "1"
-2026-03-04T02:31:38.8288335Z             ***,
-2026-03-04T02:31:38.8288718Z             ***
-2026-03-04T02:31:38.8289190Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8290139Z               "value": "_N_T_/layout,_N_T_/_global-error/layout,_N_T_/_global-error/page,_N_T_/_global-error"
-2026-03-04T02:31:38.8290917Z             ***
-2026-03-04T02:31:38.8291309Z           ]
-2026-03-04T02:31:38.8291689Z         ***,
-2026-03-04T02:31:38.8292077Z         ***
-2026-03-04T02:31:38.8292582Z           "source": "/contato/opengraph-image",
-2026-03-04T02:31:38.8293169Z           "headers": [
-2026-03-04T02:31:38.8293603Z             ***
-2026-03-04T02:31:38.8294159Z               "key": "cache-control",
-2026-03-04T02:31:38.8294785Z               "value": "public, max-age=0, must-revalidate"
-2026-03-04T02:31:38.8295516Z             ***,
-2026-03-04T02:31:38.8295939Z             ***
-2026-03-04T02:31:38.8296409Z               "key": "content-type",
-2026-03-04T02:31:38.8296939Z               "value": "image/png"
-2026-03-04T02:31:38.8297425Z             ***,
-2026-03-04T02:31:38.8297828Z             ***
-2026-03-04T02:31:38.8298284Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8299558Z               "value": "_N_T_/layout,_N_T_/contato/layout,_N_T_/contato/opengraph-image/layout,_N_T_/contato/opengraph-image/route,_N_T_/contato/opengraph-image"
-2026-03-04T02:31:38.8300637Z             ***
-2026-03-04T02:31:38.8301032Z           ]
-2026-03-04T02:31:38.8301413Z         ***,
-2026-03-04T02:31:38.8301782Z         ***
-2026-03-04T02:31:38.8302188Z           "source": "/contato",
-2026-03-04T02:31:38.8302676Z           "headers": [
-2026-03-04T02:31:38.8303119Z             ***
-2026-03-04T02:31:38.8303584Z               "key": "x-nextjs-stale-time",
-2026-03-04T02:31:38.8304256Z               "value": "300"
-2026-03-04T02:31:38.8304718Z             ***,
-2026-03-04T02:31:38.8305142Z             ***
-2026-03-04T02:31:38.8305621Z               "key": "x-nextjs-prerender",
-2026-03-04T02:31:38.8306167Z               "value": "1"
-2026-03-04T02:31:38.8306606Z             ***,
-2026-03-04T02:31:38.8307035Z             ***
-2026-03-04T02:31:38.8307503Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8308287Z               "value": "_N_T_/layout,_N_T_/contato/layout,_N_T_/contato/page,_N_T_/contato"
-2026-03-04T02:31:38.8308981Z             ***
-2026-03-04T02:31:38.8309364Z           ]
-2026-03-04T02:31:38.8309724Z         ***,
-2026-03-04T02:31:38.8310107Z         ***
-2026-03-04T02:31:38.8310552Z           "source": "/opengraph-image",
-2026-03-04T02:31:38.8311085Z           "headers": [
-2026-03-04T02:31:38.8311511Z             ***
-2026-03-04T02:31:38.8311965Z               "key": "cache-control",
-2026-03-04T02:31:38.8312607Z               "value": "public, max-age=0, must-revalidate"
-2026-03-04T02:31:38.8313393Z             ***,
-2026-03-04T02:31:38.8313788Z             ***
-2026-03-04T02:31:38.8314371Z               "key": "content-type",
-2026-03-04T02:31:38.8314912Z               "value": "image/png"
-2026-03-04T02:31:38.8315410Z             ***,
-2026-03-04T02:31:38.8315815Z             ***
-2026-03-04T02:31:38.8316278Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8317289Z               "value": "_N_T_/layout,_N_T_/opengraph-image/layout,_N_T_/opengraph-image/route,_N_T_/opengraph-image"
-2026-03-04T02:31:38.8318154Z             ***
-2026-03-04T02:31:38.8318537Z           ]
-2026-03-04T02:31:38.8318928Z         ***,
-2026-03-04T02:31:38.8319299Z         ***
-2026-03-04T02:31:38.8319789Z           "source": "/portfolio/opengraph-image",
-2026-03-04T02:31:38.8320351Z           "headers": [
-2026-03-04T02:31:38.8320772Z             ***
-2026-03-04T02:31:38.8321218Z               "key": "cache-control",
-2026-03-04T02:31:38.8321861Z               "value": "public, max-age=0, must-revalidate"
-2026-03-04T02:31:38.8322477Z             ***,
-2026-03-04T02:31:38.8322860Z             ***
-2026-03-04T02:31:38.8323316Z               "key": "content-type",
-2026-03-04T02:31:38.8323868Z               "value": "image/png"
-2026-03-04T02:31:38.8324471Z             ***,
-2026-03-04T02:31:38.8324861Z             ***
-2026-03-04T02:31:38.8325312Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8326648Z               "value": "_N_T_/layout,_N_T_/portfolio/layout,_N_T_/portfolio/opengraph-image/layout,_N_T_/portfolio/opengraph-image/route,_N_T_/portfolio/opengraph-image"
-2026-03-04T02:31:38.8327769Z             ***
-2026-03-04T02:31:38.8328137Z           ]
-2026-03-04T02:31:38.8328516Z         ***,
-2026-03-04T02:31:38.8328912Z         ***
-2026-03-04T02:31:38.8329366Z           "source": "/privacy-policy",
-2026-03-04T02:31:38.8329901Z           "headers": [
-2026-03-04T02:31:38.8330306Z             ***
-2026-03-04T02:31:38.8330738Z               "key": "location",
-2026-03-04T02:31:38.8331267Z               "value": "/privacidade"
-2026-03-04T02:31:38.8331898Z             ***,
-2026-03-04T02:31:38.8332298Z             ***
-2026-03-04T02:31:38.8332756Z               "key": "x-nextjs-stale-time",
-2026-03-04T02:31:38.8333288Z               "value": "300"
-2026-03-04T02:31:38.8333735Z             ***,
-2026-03-04T02:31:38.8334250Z             ***
-2026-03-04T02:31:38.8334710Z               "key": "x-nextjs-prerender",
-2026-03-04T02:31:38.8335229Z               "value": "1"
-2026-03-04T02:31:38.8335661Z             ***,
-2026-03-04T02:31:38.8336128Z             ***
-2026-03-04T02:31:38.8336617Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8337533Z               "value": "_N_T_/layout,_N_T_/privacy-policy/layout,_N_T_/privacy-policy/page,_N_T_/privacy-policy"
-2026-03-04T02:31:38.8338358Z             ***
-2026-03-04T02:31:38.8338754Z           ]
-2026-03-04T02:31:38.8339134Z         ***,
-2026-03-04T02:31:38.8339543Z         ***
-2026-03-04T02:31:38.8354247Z           "source": "/privacidade",
-2026-03-04T02:31:38.8354801Z           "headers": [
-2026-03-04T02:31:38.8355295Z             ***
-2026-03-04T02:31:38.8355811Z               "key": "x-nextjs-stale-time",
-2026-03-04T02:31:38.8356366Z               "value": "300"
-2026-03-04T02:31:38.8356817Z             ***,
-2026-03-04T02:31:38.8357221Z             ***
-2026-03-04T02:31:38.8357686Z               "key": "x-nextjs-prerender",
-2026-03-04T02:31:38.8358215Z               "value": "1"
-2026-03-04T02:31:38.8358670Z             ***,
-2026-03-04T02:31:38.8359054Z             ***
-2026-03-04T02:31:38.8359518Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8360392Z               "value": "_N_T_/layout,_N_T_/privacidade/layout,_N_T_/privacidade/page,_N_T_/privacidade"
-2026-03-04T02:31:38.8361169Z             ***
-2026-03-04T02:31:38.8361559Z           ]
-2026-03-04T02:31:38.8361927Z         ***,
-2026-03-04T02:31:38.8362307Z         ***
-2026-03-04T02:31:38.8362742Z           "source": "/robots.txt",
-2026-03-04T02:31:38.8363232Z           "headers": [
-2026-03-04T02:31:38.8363662Z             ***
-2026-03-04T02:31:38.8368085Z               "key": "cache-control",
-2026-03-04T02:31:38.8368777Z               "value": "public, max-age=0, must-revalidate"
-2026-03-04T02:31:38.8369421Z             ***,
-2026-03-04T02:31:38.8369857Z             ***
-2026-03-04T02:31:38.8370334Z               "key": "content-type",
-2026-03-04T02:31:38.8370899Z               "value": "text/plain"
-2026-03-04T02:31:38.8371388Z             ***,
-2026-03-04T02:31:38.8371788Z             ***
-2026-03-04T02:31:38.8372264Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8373127Z               "value": "_N_T_/layout,_N_T_/robots.txt/layout,_N_T_/robots.txt/route,_N_T_/robots.txt"
-2026-03-04T02:31:38.8373897Z             ***
-2026-03-04T02:31:38.8374744Z           ]
-2026-03-04T02:31:38.8375132Z         ***,
-2026-03-04T02:31:38.8375511Z         ***
-2026-03-04T02:31:38.8375948Z           "source": "/sitemap.xml",
-2026-03-04T02:31:38.8376409Z           "headers": [
-2026-03-04T02:31:38.8376826Z             ***
-2026-03-04T02:31:38.8377316Z               "key": "cache-control",
-2026-03-04T02:31:38.8377937Z               "value": "public, max-age=0, must-revalidate"
-2026-03-04T02:31:38.8378432Z             ***,
-2026-03-04T02:31:38.8378797Z             ***
-2026-03-04T02:31:38.8379350Z               "key": "content-type",
-2026-03-04T02:31:38.8379900Z               "value": "application/xml"
-2026-03-04T02:31:38.8380372Z             ***,
-2026-03-04T02:31:38.8380737Z             ***
-2026-03-04T02:31:38.8381156Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8381953Z               "value": "_N_T_/layout,_N_T_/sitemap.xml/layout,_N_T_/sitemap.xml/route,_N_T_/sitemap.xml"
-2026-03-04T02:31:38.8382664Z             ***
-2026-03-04T02:31:38.8383047Z           ]
-2026-03-04T02:31:38.8383427Z         ***,
-2026-03-04T02:31:38.8383813Z         ***
-2026-03-04T02:31:38.8384436Z           "source": "/sobre/opengraph-image",
-2026-03-04T02:31:38.8384976Z           "headers": [
-2026-03-04T02:31:38.8385407Z             ***
-2026-03-04T02:31:38.8386054Z               "key": "cache-control",
-2026-03-04T02:31:38.8386693Z               "value": "public, max-age=0, must-revalidate"
-2026-03-04T02:31:38.8387256Z             ***,
-2026-03-04T02:31:38.8387658Z             ***
-2026-03-04T02:31:38.8388099Z               "key": "content-type",
-2026-03-04T02:31:38.8388647Z               "value": "image/png"
-2026-03-04T02:31:38.8389126Z             ***,
-2026-03-04T02:31:38.8389575Z             ***
-2026-03-04T02:31:38.8390036Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8391247Z               "value": "_N_T_/layout,_N_T_/sobre/layout,_N_T_/sobre/opengraph-image/layout,_N_T_/sobre/opengraph-image/route,_N_T_/sobre/opengraph-image"
-2026-03-04T02:31:38.8392291Z             ***
-2026-03-04T02:31:38.8392675Z           ]
-2026-03-04T02:31:38.8393052Z         ***,
-2026-03-04T02:31:38.8393447Z         ***
-2026-03-04T02:31:38.8393842Z           "source": "/sobre",
-2026-03-04T02:31:38.8394480Z           "headers": [
-2026-03-04T02:31:38.8394975Z             ***
-2026-03-04T02:31:38.8395554Z               "key": "x-nextjs-stale-time",
-2026-03-04T02:31:38.8396193Z               "value": "300"
-2026-03-04T02:31:38.8396681Z             ***,
-2026-03-04T02:31:38.8397080Z             ***
-2026-03-04T02:31:38.8397613Z               "key": "x-nextjs-prerender",
-2026-03-04T02:31:38.8398184Z               "value": "1"
-2026-03-04T02:31:38.8398572Z             ***,
-2026-03-04T02:31:38.8398917Z             ***
-2026-03-04T02:31:38.8399316Z               "key": "x-next-cache-tags",
-2026-03-04T02:31:38.8400077Z               "value": "_N_T_/layout,_N_T_/sobre/layout,_N_T_/sobre/page,_N_T_/sobre"
-2026-03-04T02:31:38.8400704Z             ***
-2026-03-04T02:31:38.8401066Z           ]
-2026-03-04T02:31:38.8401442Z         ***,
-2026-03-04T02:31:38.8401836Z         ***
-2026-03-04T02:31:38.8402269Z           "source": "**/*.[jt]s",
-2026-03-04T02:31:38.8402764Z           "headers": [
-2026-03-04T02:31:38.8403191Z             ***
-2026-03-04T02:31:38.8403625Z               "key": "Set-Cookie",
-2026-03-04T02:31:38.8413120Z               "value": "__FIREBASE_DEFAULTS__=eyJjb25maWciOnsicHJvamVjdElkIjoicG9ydGZvbGlvLWRhbmlsby1ub3ZhaXMiLCJhcHBJZCI6IjE6MzUwODE3MjA1OTg5OndlYjpmN2FlMzJmMTJkMzUzZWYwODFkZTBjIiwiZGF0YWJhc2VVUkwiOiJodHRwczovL3Bv***LWRlZmF1bHQtcnRkYi5maXJlYmFzZWlvLmNvbSIsInN0b3JhZ2VCdWNrZXQiOiJwb3J0Zm9saW8tZGFuaWxvLW5vdmFpcy5maXJlYmFzZXN0b3JhZ2UuYXBwIiwiYXBpS2V5IjoiQUl6YVN5RFRkMWtDTlhtV1hGS3FyYkVqcnRDM3Q1NURmelNKWFU0IiwiYXV0aERvbWFpbiI6InBv***LmZpcmViYXNlYXBwLmNvbSIsIm1lc3NhZ2luZ1NlbmRlcklkIjoiMzUwODE3MjA1OTg5IiwibWVhc3VyZW1lbnRJZCI6IkctUE0zNFZZUFpaVyIsInByb2plY3ROdW1iZXIiOiIzNTA4MTcyMDU5ODkiLCJ2ZXJzaW9uIjoiMiJ9LCJfYXV0aFRva2VuU3luY1VSTCI6Ii9fX3Nlc3Npb24ifQ; SameSite=Strict; Expires=2028-01-27T13:11:38.816Z; Path=/;"
-2026-03-04T02:31:38.8417651Z             ***
-2026-03-04T02:31:38.8417964Z           ]
-2026-03-04T02:31:38.8418244Z         ***
-2026-03-04T02:31:38.8418528Z       ],
-2026-03-04T02:31:38.8418898Z       "site": "***",
-2026-03-04T02:31:38.8419336Z       "rewrites": [
-2026-03-04T02:31:38.8419982Z         ***
-2026-03-04T02:31:38.8420379Z           "source": "**",
-2026-03-04T02:31:38.8420895Z           "function": ***
-2026-03-04T02:31:38.8421549Z             "functionId": "ssrportfoliodanilonovai",
-2026-03-04T02:31:38.8422243Z             "region": "us-central1",
-2026-03-04T02:31:38.8422729Z             "pinTag": true
-2026-03-04T02:31:38.8423301Z           ***
-2026-03-04T02:31:38.8423738Z         ***
-2026-03-04T02:31:38.8424263Z       ],
-2026-03-04T02:31:38.8424672Z       "redirects": [
-2026-03-04T02:31:38.8425124Z         ***
-2026-03-04T02:31:38.8425600Z           "source": "/portfolio/key_vision",
-2026-03-04T02:31:38.8426275Z           "destination": "/portfolio/key-vision",
-2026-03-04T02:31:38.8426868Z           "type": 308
-2026-03-04T02:31:38.8427352Z         ***,
-2026-03-04T02:31:38.8427770Z         ***
-2026-03-04T02:31:38.8428389Z           "source": "/portfolio/brand_video",
-2026-03-04T02:31:38.8429150Z           "destination": "/portfolio/brand-video",
-2026-03-04T02:31:38.8429769Z           "type": 308
-2026-03-04T02:31:38.8430415Z         ***,
-2026-03-04T02:31:38.8430863Z         ***
-2026-03-04T02:31:38.8431377Z           "source": "/privacy-policy",
-2026-03-04T02:31:38.8432031Z           "destination": "/privacidade",
-2026-03-04T02:31:38.8432647Z           "type": 308
-2026-03-04T02:31:38.8433147Z         ***
-2026-03-04T02:31:38.8433584Z       ],
-2026-03-04T02:31:38.8434148Z       "cleanUrls": true,
-2026-03-04T02:31:38.8434682Z       "trailingSlash": false,
-2026-03-04T02:31:38.8435420Z       "public": ".firebase/***/hosting",
-2026-03-04T02:31:38.8436112Z       "webFramework": "next_ssr"
-2026-03-04T02:31:38.8436636Z     ***
-2026-03-04T02:31:38.8437081Z   ],
-2026-03-04T02:31:38.8437539Z   "functions": [
-2026-03-04T02:31:38.8438023Z     ***
-2026-03-04T02:31:38.8438482Z       "source": "functions",
-2026-03-04T02:31:38.8439027Z       "codebase": "default",
-2026-03-04T02:31:38.8439567Z       "ignore": [
-2026-03-04T02:31:38.8440051Z         "node_modules",
-2026-03-04T02:31:38.8440536Z         ".git",
-2026-03-04T02:31:38.8441040Z         "firebase-debug.log",
-2026-03-04T02:31:38.8441650Z         "firebase-debug.*.log"
-2026-03-04T02:31:38.8442155Z       ],
-2026-03-04T02:31:38.8442614Z       "runtime": "nodejs20"
-2026-03-04T02:31:38.8443168Z     ***,
-2026-03-04T02:31:38.8443620Z     ***
-2026-03-04T02:31:38.8444375Z       "source": ".firebase/***/functions",
-2026-03-04T02:31:38.8445195Z       "codebase": "firebase-frameworks-***"
-2026-03-04T02:31:38.8445850Z     ***
-2026-03-04T02:31:38.8446237Z   ]
-2026-03-04T02:31:38.8446616Z ***
-2026-03-04T02:31:38.8447188Z [2026-03-04T02:31:38.818Z] No OAuth tokens found
-2026-03-04T02:31:38.8448779Z [2026-03-04T02:31:38.819Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/***/locations/-/functions [none]
-2026-03-04T02:31:39.4950270Z [2026-03-04T02:31:39.494Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/***/locations/-/functions 200
-2026-03-04T02:31:39.4951668Z [2026-03-04T02:31:39.494Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/***/locations/-/functions ***
-2026-03-04T02:31:39.4954384Z [2026-03-04T02:31:39.495Z] No OAuth tokens found
-2026-03-04T02:31:39.4959352Z [2026-03-04T02:31:39.495Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/-/functions filter=environment%3D%22GEN_2%22
-2026-03-04T02:31:40.0885705Z [2026-03-04T02:31:40.088Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/-/functions 200
-2026-03-04T02:31:40.0980440Z [2026-03-04T02:31:40.088Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/-/functions ***"functions":[***"name":"projects/***/locations/southamerica-east1/functions/annotate_gcs","description":"Vision API Image Annotate with GCS","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/05265522-299e-4eaf-8df0-50fbe3e25625","runtime":"python310","entryPoint":"annotate_gcs","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate_gcs/function-source.zip","generation":"1749079648113526"***,"environmentVariables":***"BUILD_CONFIG_TEST":"build_test"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate_gcs/function-source.zip","generation":"1749079648113526"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/annotate-gcs","timeoutSeconds":120,"environmentVariables":***"ANNOTATIONS_BUCKET":"vision-annotations-350817205989","FEATURES":"FACE_DETECTION,PRODUCT_SEARCH,SAFE_SEARCH_DETECTION","INPUT_BUCKET":"vision-input-350817205989","LOG_LEVEL":"","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_INTERNAL_ONLY","uri":"https://annotate-gcs-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"gcf-sa@***.iam.gserviceaccount.com","availableMemory":"256M","allTrafficOnLatestRevision":true,"revision":"annotate-gcs-00001-lah","maxInstanceRequestConcurrency":1,"availableCpu":"0.1666"***,"eventTrigger":***"trigger":"projects/***/locations/southamerica-east1/triggers/annotate-gcs-598050","triggerRegion":"southamerica-east1","eventType":"google.cloud.storage.object.v1.finalized","eventFilters":[***"attribute":"bucket","value":"vision-input-350817205989"***],"pubsubTopic":"projects/***/topics/eventarc-southamerica-east1-annotate-gcs-598050-778","serviceAccountEmail":"gcf-sa@***.iam.gserviceaccount.com","retryPolicy":"RETRY_POLICY_RETRY"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.157179306Z","labels":***"goog-solutions-console-solution-id":"aiml-image-processing-on-cloud-functions","goog-ccm":"true","goog-solutions-console-deployment-name":"aiml-image-processing-on-cloud-functions"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/annotate_gcs","satisfiesPzs":true,"createTime":"2025-06-04T23:27:28.541042455Z","satisfiesPzi":true***,***"name":"projects/***/locations/southamerica-east1/functions/knowledge-base-webhook","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/aa75bb76-f163-4099-8520-5cb3a11d8bfb","runtime":"python312","entryPoint":"on_cloud_event","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"knowledge-base-webhook/function-source.zip","generation":"1745479179400411"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/knowledge-base-repo","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"knowledge-base-webhook/function-source.zip","generation":"1745479179400411"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/knowledge-base-webhook","timeoutSeconds":300,"environmentVariables":***"DATABASE":"knowledge-base-database","DOCAI_LOCATION":"us","DOCAI_PROCESSOR":"projects/***/locations/us/processors/19044296709a82ba","INDEX_ID":"projects/***/locations/southamerica-east1/indexes/1677837151800131584","LOCATION":"southamerica-east1","LOG_EXECUTION_ID":"true","OUTPUT_BUCKET":"knowledge-base-bucket-***","PROJECT_ID":"***"***,"maxInstanceCount":20,"ingressSettings":"ALLOW_ALL","uri":"https://knowledge-base-webhook-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"knowledge-base-webhook-sa@***.iam.gserviceaccount.com","availableMemory":"4G","allTrafficOnLatestRevision":true,"revision":"knowledge-base-webhook-00001-laq","maxInstanceRequestConcurrency":1,"availableCpu":"2"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.052209545Z","labels":***"goog-ccm":"true","goog-solutions-console-deployment-name":"generative-ai-knowledge-base","goog-solutions-console-solution-id":"generative-ai-knowledge-base"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/knowledge-base-webhook","satisfiesPzs":true,"createTime":"2025-04-24T07:19:39.844004529Z","satisfiesPzi":true***,***"name":"projects/***/locations/southamerica-east1/functions/function-1","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/a243a8b1-69ad-4293-ac69-ead6cab9ec4e","runtime":"nodejs20","entryPoint":"helloGCS","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"function-1/function-source.zip","generation":"1748470570876615"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"function-1/function-source.zip","generation":"1748470570876615"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/function-1","timeoutSeconds":60,"environmentVariables":***"LOG_EXECUTION_ID":"true"***,"maxInstanceCount":100,"ingressSettings":"ALLOW_ALL","uri":"https://function-1-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"function-1-00001-kes","maxInstanceRequestConcurrency":1,"availableCpu":"167m"***,"eventTrigger":***"trigger":"projects/***/locations/southamerica-east1/triggers/function-1-805841","triggerRegion":"southamerica-east1","eventType":"google.cloud.storage.object.v1.metadataUpdated","eventFilters":[***"attribute":"bucket","value":"bucket-portfolio-danilo"***],"pubsubTopic":"projects/***/topics/eventarc-southamerica-east1-function-1-805841-242","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","retryPolicy":"RETRY_POLICY_DO_NOT_RETRY"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.191979762Z","labels":***"deployment-tool":"console-cloud","goog-managed-by":"storage"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/function-1","satisfiesPzs":true,"createTime":"2025-05-28T22:16:11.383618549Z","satisfiesPzi":true***,***"name":"projects/***/locations/southamerica-east1/functions/annotate-http","description":"Vision API Image Annotate via HTTP, external","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/e39fa15f-e73c-4276-9683-1d08ac2384c7","runtime":"python311","entryPoint":"annotate_http","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate-http/function-source.zip","generation":"1749079648299518"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate-http/function-source.zip","generation":"1749079648299518"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/annotate-http","timeoutSeconds":120,"environmentVariables":***"ANNOTATIONS_BUCKET":"vision-annotations-350817205989","FEATURES":"FACE_DETECTION,PRODUCT_SEARCH,SAFE_SEARCH_DETECTION","INPUT_BUCKET":"vision-input-350817205989","LOG_LEVEL":"","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://annotate-http-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"gcf-sa@***.iam.gserviceaccount.com","availableMemory":"256M","allTrafficOnLatestRevision":true,"revision":"annotate-http-00001-siq","maxInstanceRequestConcurrency":1,"availableCpu":"0.1666"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.206256333Z","labels":***"goog-ccm":"true","goog-solutions-console-deployment-name":"aiml-image-processing-on-cloud-functions","goog-solutions-console-solution-id":"aiml-image-processing-on-cloud-functions"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/annotate-http","satisfiesPzs":true,"createTime":"2025-06-04T23:27:28.687018198Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/heartbeat","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/5e96f185-17f1-4168-b19b-a1e0fa1d160a","runtime":"nodejs20","entryPoint":"heartbeat","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"heartbeat/function-source.zip","generation":"1772542528552184"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"heartbeat/function-source.zip","generation":"1772542528552184"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/heartbeat","timeoutSeconds":60,"environmentVariables":***"FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/heartbeat","FUNCTION_TARGET":"heartbeat","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://heartbeat-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"heartbeat-00006-foz","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-03-03T12:58:22.849562309Z","labels":***"deployment-tool":"cli-firebase","firebase-functions-hash":"082c9968dd6c9b3e5af8e21bb4c65998cbe56096"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/heartbeat","createTime":"2026-02-24T01:36:04.099834050Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/setWebhook","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/6b6c0c7e-3a04-4856-b6f4-2a81b39cf04e","runtime":"nodejs24","entryPoint":"setWebhook","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"setWebhook/function-source.zip","generation":"1770665898519818"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"setWebhook/function-source.zip","generation":"1770665898519818"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/setwebhook","timeoutSeconds":60,"environmentVariables":***"FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/setWebhook","FUNCTION_TARGET":"setWebhook","LOG_EXECUTION_ID":"true","FUNCTION_SIGNATURE_TYPE":"http"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://setwebhook-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"secretEnvironmentVariables":[***"key":"TELEGRAM_BOT_TOKEN","projectId":"***","secret":"TELEGRAM_BOT_TOKEN","version":"1"***],"revision":"setwebhook-00004-puw","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:22.649412416Z","labels":***"firebase-functions-codebase":"chatbot","firebase-functions-hash":"c81f6b3ccfe3ff1067b17b7f11bb96a6debe0f75","deployment-tool":"cli-firebase"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/setWebhook","createTime":"2026-02-06T04:17:28.641956946Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/4f54018b-f381-4228-a78d-4e67fc3f2a14","runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":3,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-03-04T01:40:36.477698487Z","labels":***"firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"75eb4960f4892553cdae3905659a4a5d4c0581be","deployment-tool":"cli-firebase"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","createTime":"2026-02-15T13:30:47.483217832Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/telegramWebhook","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/6b6c0c7e-3a04-4856-b6f4-2a81b39cf04e","runtime":"nodejs24","entryPoint":"telegramWebhook","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"telegramWebhook/function-source.zip","generation":"1770665852757718"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"telegramWebhook/function-source.zip","generation":"1770665852757718"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/telegramwebhook","timeoutSeconds":60,"environmentVariables":***"FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/telegramWebhook","FUNCTION_TARGET":"telegramWebhook","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://telegramwebhook-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"secretEnvironmentVariables":[***"key":"TELEGRAM_BOT_TOKEN","projectId":"***","secret":"TELEGRAM_BOT_TOKEN","version":"1"***],"revision":"telegramwebhook-00004-xos","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:22.738256405Z","labels":***"firebase-functions-hash":"c81f6b3ccfe3ff1067b17b7f11bb96a6debe0f75","deployment-tool":"cli-firebase","firebase-functions-codebase":"chatbot"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/telegramWebhook","createTime":"2026-02-06T04:16:22.008114279Z","satisfiesPzi":true***]***
-2026-03-04T02:31:40.1037723Z [2026-03-04T02:31:40.089Z] Converting a function to an endpoint with an invalid memory option 244.140625
-2026-03-04T02:31:40.1038518Z [2026-03-04T02:31:40.089Z] Converting a function to an endpoint with an invalid memory option 3814.697265625
-2026-03-04T02:31:40.1039288Z [2026-03-04T02:31:40.090Z] Converting a function to an endpoint with an invalid memory option 244.140625
-2026-03-04T02:31:40.1040238Z i  hosting: The following function(s) are pinned to site *** and will be deployed as well: ssrportfoliodanilonovai 
-2026-03-04T02:31:40.1040666Z 
-2026-03-04T02:31:40.1040878Z === Deploying to '***'...
-2026-03-04T02:31:40.1041072Z 
-2026-03-04T02:31:40.1041239Z i  deploying functions, hosting 
-2026-03-04T02:31:40.1041651Z [2026-03-04T02:31:40.092Z] No OAuth tokens found
-2026-03-04T02:31:40.1042597Z [2026-03-04T02:31:40.092Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com [none]
-2026-03-04T02:31:40.1044116Z [2026-03-04T02:31:40.092Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com  x-goog-user-project=***
-2026-03-04T02:31:40.2958545Z [2026-03-04T02:31:40.295Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com 200
-2026-03-04T02:31:40.2960821Z [2026-03-04T02:31:40.295Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com [omitted]
-2026-03-04T02:31:40.3174708Z [2026-03-04T02:31:40.317Z] No OAuth tokens found
-2026-03-04T02:31:40.3177395Z [2026-03-04T02:31:40.317Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** [none]
-2026-03-04T02:31:40.4262438Z [2026-03-04T02:31:40.425Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** 200
-2026-03-04T02:31:40.4265408Z [2026-03-04T02:31:40.426Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** ***"projectNumber":"350817205989","projectId":"***","lifecycleState":"ACTIVE","name":"Portfolio Danilo Novais","labels":***"firebase":"enabled","firebase-core":"disabled","generative-language":"enabled"***,"createTime":"2025-04-23T19:44:33.277227Z","parent":***"type":"organization","id":"106397661751"***
-2026-03-04T02:31:40.4268654Z i  functions: preparing codebase default for deployment 
-2026-03-04T02:31:40.4269631Z i  functions: preparing codebase firebase-frameworks-*** for deployment 
-2026-03-04T02:31:40.4270764Z i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
-2026-03-04T02:31:40.4273129Z [2026-03-04T02:31:40.427Z] No OAuth tokens found
-2026-03-04T02:31:40.4275253Z [2026-03-04T02:31:40.427Z] No OAuth tokens found
-2026-03-04T02:31:40.4277054Z i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
-2026-03-04T02:31:40.4278711Z [2026-03-04T02:31:40.427Z] No OAuth tokens found
-2026-03-04T02:31:40.4280026Z i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
-2026-03-04T02:31:40.4281348Z [2026-03-04T02:31:40.428Z] No OAuth tokens found
-2026-03-04T02:31:40.4283407Z [2026-03-04T02:31:40.428Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com [none]
-2026-03-04T02:31:40.4284970Z [2026-03-04T02:31:40.428Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com  x-goog-user-project=***
-2026-03-04T02:31:40.4289204Z [2026-03-04T02:31:40.428Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com [none]
-2026-03-04T02:31:40.4290822Z [2026-03-04T02:31:40.428Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com  x-goog-user-project=***
-2026-03-04T02:31:40.4308294Z [2026-03-04T02:31:40.430Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com [none]
-2026-03-04T02:31:40.4309678Z [2026-03-04T02:31:40.430Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com  x-goog-user-project=***
-2026-03-04T02:31:40.4324381Z [2026-03-04T02:31:40.432Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com [none]
-2026-03-04T02:31:40.4325804Z [2026-03-04T02:31:40.432Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com  x-goog-user-project=***
-2026-03-04T02:31:40.5455086Z [2026-03-04T02:31:40.545Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com 200
-2026-03-04T02:31:40.5457127Z [2026-03-04T02:31:40.545Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com [omitted]
-2026-03-04T02:31:40.5458337Z ✔  functions: required API cloudfunctions.googleapis.com is enabled 
-2026-03-04T02:31:40.5761714Z [2026-03-04T02:31:40.575Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com 200
-2026-03-04T02:31:40.5763184Z [2026-03-04T02:31:40.575Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com [omitted]
-2026-03-04T02:31:40.5764586Z ✔  functions: required API cloudbuild.googleapis.com is enabled 
-2026-03-04T02:31:40.5991971Z [2026-03-04T02:31:40.598Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com 200
-2026-03-04T02:31:40.5993489Z [2026-03-04T02:31:40.599Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com [omitted]
-2026-03-04T02:31:40.6047733Z [2026-03-04T02:31:40.604Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com 200
-2026-03-04T02:31:40.6049229Z [2026-03-04T02:31:40.604Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com [omitted]
-2026-03-04T02:31:40.6050476Z ✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
-2026-03-04T02:31:40.6061599Z [2026-03-04T02:31:40.606Z] No OAuth tokens found
-2026-03-04T02:31:40.6063273Z [2026-03-04T02:31:40.606Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/***/adminSdkConfig [none]
-2026-03-04T02:31:40.9750804Z [2026-03-04T02:31:40.974Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/***/adminSdkConfig 200
-2026-03-04T02:31:40.9753068Z [2026-03-04T02:31:40.974Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/***/adminSdkConfig ***"projectId":"***","databaseURL":"https://***-default-rtdb.firebaseio.com","storageBucket":"***.firebasestorage.app"***
-2026-03-04T02:31:40.9754705Z [2026-03-04T02:31:40.975Z] No OAuth tokens found
-2026-03-04T02:31:40.9758392Z [2026-03-04T02:31:40.975Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs [none]
-2026-03-04T02:31:41.1041705Z [2026-03-04T02:31:41.103Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs 200
-2026-03-04T02:31:41.1043334Z [2026-03-04T02:31:41.103Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs ***"configs":[***"name":"projects/***/configs/telegram"***]***
-2026-03-04T02:31:41.1044984Z [2026-03-04T02:31:41.104Z] No OAuth tokens found
-2026-03-04T02:31:41.1048960Z [2026-03-04T02:31:41.104Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables [none]
-2026-03-04T02:31:41.1794200Z [2026-03-04T02:31:41.178Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables 200
-2026-03-04T02:31:41.1796699Z [2026-03-04T02:31:41.179Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables ***"variables":[***"name":"projects/***/configs/telegram/variables/bot_token","updateTime":"2026-02-06T02:47:01.290552158Z"***]***
-2026-03-04T02:31:41.1799173Z [2026-03-04T02:31:41.179Z] No OAuth tokens found
-2026-03-04T02:31:41.1800758Z [2026-03-04T02:31:41.179Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables/bot_token [none]
-2026-03-04T02:31:41.2528611Z [2026-03-04T02:31:41.252Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables/bot_token 200
-2026-03-04T02:31:41.2531706Z [2026-03-04T02:31:41.252Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables/bot_token ***"name":"projects/***/configs/telegram/variables/bot_token","updateTime":"2026-02-06T02:47:01.290552158Z","text":"8464621503:AAEv4K10FW7iowQvV5ITXJM3-PTi320ULt0"***
-2026-03-04T02:31:41.2548297Z [2026-03-04T02:31:41.254Z] Validating nodejs source
-2026-03-04T02:31:41.2551506Z ⚠  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
-2026-03-04T02:31:41.6012326Z [2026-03-04T02:31:41.600Z] > [functions] package.json contents: ***
-2026-03-04T02:31:41.6013108Z   "name": "functions",
-2026-03-04T02:31:41.6013607Z   "type": "module",
-2026-03-04T02:31:41.6014528Z   "scripts": ***
-2026-03-04T02:31:41.6015017Z     "lint": "eslint .",
-2026-03-04T02:31:41.6015481Z     "build": "tsc",
-2026-03-04T02:31:41.6016016Z     "build:watch": "tsc --watch",
-2026-03-04T02:31:41.6017141Z     "serve": "pnpm run build && firebase emulators:start --only functions",
-2026-03-04T02:31:41.6017968Z     "shell": "pnpm run build && firebase functions:shell",
-2026-03-04T02:31:41.6018617Z     "start": "pnpm run shell",
-2026-03-04T02:31:41.6019180Z     "deploy": "firebase deploy --only functions",
-2026-03-04T02:31:41.6019734Z     "logs": "firebase functions:log"
-2026-03-04T02:31:41.6020234Z   ***,
-2026-03-04T02:31:41.6020629Z   "engines": ***
-2026-03-04T02:31:41.6021016Z     "node": "20"
-2026-03-04T02:31:41.6021408Z   ***,
-2026-03-04T02:31:41.6021807Z   "main": "lib/index.js",
-2026-03-04T02:31:41.6022281Z   "dependencies": ***
-2026-03-04T02:31:41.6023000Z     "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
-2026-03-04T02:31:41.6023807Z     "firebase-admin": "^13.6.1",
-2026-03-04T02:31:41.6024535Z     "firebase-functions": "^7.0.5"
-2026-03-04T02:31:41.6025069Z   ***,
-2026-03-04T02:31:41.6025526Z   "devDependencies": ***
-2026-03-04T02:31:41.6026187Z     "@typescript-eslint/eslint-plugin": "^8.24.0",
-2026-03-04T02:31:41.6026893Z     "@typescript-eslint/parser": "^8.24.0",
-2026-03-04T02:31:41.6027405Z     "eslint": "^9.20.1",
-2026-03-04T02:31:41.6027982Z     "firebase-functions-test": "^3.4.1",
-2026-03-04T02:31:41.6028573Z     "typescript": "^5.7.3"
-2026-03-04T02:31:41.6029068Z   ***,
-2026-03-04T02:31:41.6029489Z   "private": true,
-2026-03-04T02:31:41.6030011Z   "packageManager": "pnpm@10.30.3"
-2026-03-04T02:31:41.6030551Z ***
-2026-03-04T02:31:41.6031132Z [2026-03-04T02:31:41.601Z] Building nodejs source
-2026-03-04T02:31:41.6032214Z i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
-2026-03-04T02:31:41.6033492Z [2026-03-04T02:31:41.602Z] Could not find functions.yaml. Must use http discovery
-2026-03-04T02:31:41.6060713Z [2026-03-04T02:31:41.605Z] Found firebase-functions binary at '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions/node_modules/.bin/firebase-functions'
-2026-03-04T02:31:41.7125406Z Serving at port 8782
-2026-03-04T02:31:41.7137125Z 
-2026-03-04T02:31:41.9921022Z [2026-03-04T02:31:41.991Z] Got response from /__/functions.yaml ***"endpoints":***"heartbeat":***"availableMemoryMb":256,"timeoutSeconds":null,"minInstances":null,"maxInstances":10,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":***,"httpsTrigger":***,"entryPoint":"heartbeat"***,"specVersion":"v1alpha1","requiredAPIs":[],"extensions":***
-2026-03-04T02:31:46.0149601Z [2026-03-04T02:31:46.014Z] Validating nodejs source
-2026-03-04T02:31:46.0151941Z ⚠  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
-2026-03-04T02:31:46.3244603Z [2026-03-04T02:31:46.324Z] > [functions] package.json contents: ***
-2026-03-04T02:31:46.3245477Z   "name": "danilo-novais-portfolio",
-2026-03-04T02:31:46.3245983Z   "private": true,
-2026-03-04T02:31:46.3246403Z   "version": "1.0.1",
-2026-03-04T02:31:46.3246808Z   "type": "module",
-2026-03-04T02:31:46.3247184Z   "keywords": [
-2026-03-04T02:31:46.3247559Z     "react",
-2026-03-04T02:31:46.3247910Z     "three",
-2026-03-04T02:31:46.3248264Z     "threejs",
-2026-03-04T02:31:46.3248649Z     "react-three-fiber"
-2026-03-04T02:31:46.3249055Z   ],
-2026-03-04T02:31:46.3249503Z   "engines": ***
-2026-03-04T02:31:46.3249891Z     "node": "20"
-2026-03-04T02:31:46.3250300Z   ***,
-2026-03-04T02:31:46.3250678Z   "pnpm": ***
-2026-03-04T02:31:46.3251086Z     "overrides": ***
-2026-03-04T02:31:46.3251591Z       "fast-xml-parser": ">=5.3.4"
-2026-03-04T02:31:46.3252107Z     ***,
-2026-03-04T02:31:46.3252542Z     "ignoredBuiltDependencies": [
-2026-03-04T02:31:46.3253053Z       "@firebase/util",
-2026-03-04T02:31:46.3253494Z       "esbuild",
-2026-03-04T02:31:46.3253897Z       "msw",
-2026-03-04T02:31:46.3254779Z       "protobufjs",
-2026-03-04T02:31:46.3255199Z       "re2",
-2026-03-04T02:31:46.3255609Z       "sharp",
-2026-03-04T02:31:46.3256008Z       "sqlite3",
-2026-03-04T02:31:46.3256431Z       "unrs-resolver"
-2026-03-04T02:31:46.3256865Z     ]
-2026-03-04T02:31:46.3257243Z   ***,
-2026-03-04T02:31:46.3257675Z   "dependencies": ***
-2026-03-04T02:31:46.3258473Z     "@dataconnect/admin-generated": "file:dataconnect-admin-generated-0.0.1.tgz",
-2026-03-04T02:31:46.3259485Z     "@dataconnect/generated": "file:dataconnect-generated-1.0.0.tgz",
-2026-03-04T02:31:46.3260181Z     "@genkit-ai/google-genai": "^1.29.0",
-2026-03-04T02:31:46.3260697Z     "@google/adk": "^0.4.0",
-2026-03-04T02:31:46.3261162Z     "@gsap/react": "^2.1.2",
-2026-03-04T02:31:46.3261692Z     "@hookform/resolvers": "^5.2.2",
-2026-03-04T02:31:46.3262240Z     "@modelcontextprotocol/sdk": "^1.27.1",
-2026-03-04T02:31:46.3263272Z     "@radix-ui/react-alert-dialog": "^1.1.15",
-2026-03-04T02:31:46.3263852Z     "@radix-ui/react-avatar": "^1.1.11",
-2026-03-04T02:31:46.3264695Z     "@radix-ui/react-checkbox": "^1.3.3",
-2026-03-04T02:31:46.3265300Z     "@radix-ui/react-collapsible": "^1.1.12",
-2026-03-04T02:31:46.3265874Z     "@radix-ui/react-dialog": "^1.1.15",
-2026-03-04T02:31:46.3266455Z     "@radix-ui/react-dropdown-menu": "^2.1.16",
-2026-03-04T02:31:46.3267037Z     "@radix-ui/react-label": "^2.1.8",
-2026-03-04T02:31:46.3267580Z     "@radix-ui/react-menubar": "^1.1.16",
-2026-03-04T02:31:46.3268140Z     "@radix-ui/react-popover": "^1.1.15",
-2026-03-04T02:31:46.3268679Z     "@radix-ui/react-radio-group": "^1.3.8",
-2026-03-04T02:31:46.3269231Z     "@radix-ui/react-separator": "^1.1.8",
-2026-03-04T02:31:46.3269729Z     "@radix-ui/react-slider": "^1.3.6",
-2026-03-04T02:31:46.3270276Z     "@radix-ui/react-slot": "^1.2.4",
-2026-03-04T02:31:46.3270884Z     "@radix-ui/react-switch": "^1.2.6",
-2026-03-04T02:31:46.3271505Z     "@radix-ui/react-tabs": "^1.1.13",
-2026-03-04T02:31:46.3272120Z     "@radix-ui/react-toast": "^1.2.15",
-2026-03-04T02:31:46.3272914Z     "@radix-ui/react-tooltip": "^1.2.8",
-2026-03-04T02:31:46.3273433Z     "@react-three/drei": "^10.7.7",
-2026-03-04T02:31:46.3274083Z     "@react-three/fiber": "^9.5.0",
-2026-03-04T02:31:46.3274604Z     "@react-three/postprocessing": "^3.0.4",
-2026-03-04T02:31:46.3275084Z     "@supabase/ssr": "0.9.0",
-2026-03-04T02:31:46.3275552Z     "@supabase/supabase-js": "^2.98.0",
-2026-03-04T02:31:46.3276059Z     "class-variance-authority": "^0.7.1",
-2026-03-04T02:31:46.3276529Z     "clsx": "^2.1.1",
-2026-03-04T02:31:46.3277009Z     "embla-carousel-react": "^8.6.0",
-2026-03-04T02:31:46.3277556Z     "firebase": "^12.10.0",
-2026-03-04T02:31:46.3278062Z     "firebase-admin": "^13.7.0",
-2026-03-04T02:31:46.3278663Z     "firebase-functions": "^7.0.6",
-2026-03-04T02:31:46.3279341Z     "framer-motion": "^12.34.5",
-2026-03-04T02:31:46.3279808Z     "gsap": "^3.14.2",
-2026-03-04T02:31:46.3280159Z     "husky": "^9.1.7",
-2026-03-04T02:31:46.3280508Z     "lenis": "^1.3.17",
-2026-03-04T02:31:46.3280871Z     "lightningcss": "1.31.1",
-2026-03-04T02:31:46.3281274Z     "lint-staged": "^16.3.2",
-2026-03-04T02:31:46.3281667Z     "lucide-react": "^0.576.0",
-2026-03-04T02:31:46.3282003Z     "maath": "^0.10.8",
-2026-03-04T02:31:46.3282347Z     "motion": "^12.34.5",
-2026-03-04T02:31:46.3283015Z     "motion-studio-mcp": "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest",
-2026-03-04T02:31:46.3283579Z     "next": "16.1.6",
-2026-03-04T02:31:46.3283867Z     "ogl": "^1.0.11",
-2026-03-04T02:31:46.3284428Z     "openai": "^6.25.0",
-2026-03-04T02:31:46.3284785Z     "postprocessing": "^6.38.3",
-2026-03-04T02:31:46.3285102Z     "react": "^19.2.4",
-2026-03-04T02:31:46.3285435Z     "react-day-picker": "^9.14.0",
-2026-03-04T02:31:46.3285754Z     "react-dom": "^19.2.4",
-2026-03-04T02:31:46.3286104Z     "react-hook-form": "^7.71.2",
-2026-03-04T02:31:46.3286466Z     "react-markdown": "^10.1.0",
-2026-03-04T02:31:46.3286776Z     "server-only": "^0.0.1",
-2026-03-04T02:31:46.3287075Z     "sharp": "0.34.5",
-2026-03-04T02:31:46.3287563Z     "tailwind-merge": "^3.5.0",
-2026-03-04T02:31:46.3287935Z     "tailwindcss-animate": "^1.0.7",
-2026-03-04T02:31:46.3288261Z     "three": "^0.183.2",
-2026-03-04T02:31:46.3288594Z     "three-stdlib": "^2.36.1",
-2026-03-04T02:31:46.3288904Z     "uuid": "^13.0.0",
-2026-03-04T02:31:46.3289192Z     "zod": "^4.3.6",
-2026-03-04T02:31:46.3289490Z     "zustand": "^5.0.11",
-2026-03-04T02:31:46.3289811Z     "firebase-frameworks": "^0.11.0"
-2026-03-04T02:31:46.3290162Z   ***,
-2026-03-04T02:31:46.3290426Z   "overrides": ***
-2026-03-04T02:31:46.3290711Z     "esbuild": "0.27.3",
-2026-03-04T02:31:46.3291031Z     "test-exclude": "7.0.1",
-2026-03-04T02:31:46.3291481Z     "tar": "7.5.7",
-2026-03-04T02:31:46.3291870Z     "hono": "4.11.7",
-2026-03-04T02:31:46.3292323Z     "fast-xml-parser": "5.3.4",
-2026-03-04T02:31:46.3292796Z     "cookie": "0.7.0",
-2026-03-04T02:31:46.3293257Z     "@react-three/drei": ***
-2026-03-04T02:31:46.3293719Z       "react": "$react",
-2026-03-04T02:31:46.3294339Z       "react-dom": "$react-dom"
-2026-03-04T02:31:46.3294850Z     ***,
-2026-03-04T02:31:46.3295280Z     "@react-three/postprocessing": ***
-2026-03-04T02:31:46.3295759Z       "react": "$react",
-2026-03-04T02:31:46.3296254Z       "react-dom": "$react-dom"
-2026-03-04T02:31:46.3296753Z     ***
-2026-03-04T02:31:46.3297145Z   ***,
-2026-03-04T02:31:46.3297600Z   "packageManager": "pnpm@10.30.3",
-2026-03-04T02:31:46.3298137Z   "main": "server.js"
-2026-03-04T02:31:46.3298605Z ***
-2026-03-04T02:31:46.3299129Z [2026-03-04T02:31:46.324Z] Building nodejs source
-2026-03-04T02:31:46.3300434Z i  functions: Loading and analyzing source code for codebase firebase-frameworks-*** to determine what to deploy 
-2026-03-04T02:31:46.3301620Z [2026-03-04T02:31:46.324Z] Could not find functions.yaml. Must use http discovery
-2026-03-04T02:31:46.3303562Z [2026-03-04T02:31:46.326Z] Found firebase-functions binary at '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.firebase/***/functions/node_modules/.bin/firebase-functions'
-2026-03-04T02:31:46.4185810Z Serving at port 8647
-2026-03-04T02:31:46.4187175Z 
-2026-03-04T02:31:46.5354579Z [2026-03-04T02:31:46.534Z] Got response from /__/functions.yaml ***"endpoints":***"ssrportfoliodanilonovai":***"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":***,"httpsTrigger":***,"entryPoint":"ssrportfoliodanilonovai"***,"specVersion":"v1alpha1","requiredAPIs":[],"extensions":***
-2026-03-04T02:31:50.5452045Z i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
-2026-03-04T02:31:50.5454701Z [2026-03-04T02:31:50.545Z] No OAuth tokens found
-2026-03-04T02:31:50.5457802Z [2026-03-04T02:31:50.545Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com [none]
-2026-03-04T02:31:50.5459616Z [2026-03-04T02:31:50.545Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com  x-goog-user-project=***
-2026-03-04T02:31:50.7305781Z [2026-03-04T02:31:50.730Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com 200
-2026-03-04T02:31:50.7308003Z [2026-03-04T02:31:50.730Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com [omitted]
-2026-03-04T02:31:50.7309688Z ✔  extensions: required API firebaseextensions.googleapis.com is enabled 
-2026-03-04T02:31:50.7340528Z [2026-03-04T02:31:50.733Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-2026-03-04T02:31:50.7341767Z [2026-03-04T02:31:50.734Z] Running auto auth
-2026-03-04T02:31:50.7345142Z [2026-03-04T02:31:50.734Z] [iam] checking project *** for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
-2026-03-04T02:31:50.7347405Z [2026-03-04T02:31:50.734Z] No OAuth tokens found
-2026-03-04T02:31:50.7349279Z [2026-03-04T02:31:50.734Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions [none]
-2026-03-04T02:31:50.7350694Z [2026-03-04T02:31:50.734Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions  x-goog-user-project=***
-2026-03-04T02:31:50.7352197Z [2026-03-04T02:31:50.734Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["firebase.projects.get","firebaseextensions.instances.list"]***
-2026-03-04T02:31:50.8566571Z [2026-03-04T02:31:50.856Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions 200
-2026-03-04T02:31:50.8568373Z [2026-03-04T02:31:50.856Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["firebase.projects.get","firebaseextensions.instances.list"]***
-2026-03-04T02:31:50.8571269Z [2026-03-04T02:31:50.856Z] No OAuth tokens found
-2026-03-04T02:31:50.8574109Z [2026-03-04T02:31:50.857Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/***/instances pageSize=100&pageToken=
-2026-03-04T02:31:51.0325081Z [2026-03-04T02:31:51.032Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/***/instances 200
-2026-03-04T02:31:51.0326404Z [2026-03-04T02:31:51.032Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/***/instances ***
-2026-03-04T02:31:51.0348363Z i  functions: Loaded environment variables from .env. 
-2026-03-04T02:31:51.0353370Z i  functions: preparing functions directory for uploading... 
-2026-03-04T02:32:01.8880469Z i  functions: packaged /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions (249.06 MB) for uploading 
-2026-03-04T02:32:01.8883680Z i  functions: preparing .firebase/***/functions directory for uploading... 
-2026-03-04T02:32:04.1897033Z i  functions: packaged /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.firebase/***/functions (60.09 MB) for uploading 
-2026-03-04T02:32:04.1921035Z i  functions: ensuring required API run.googleapis.com is enabled... 
-2026-03-04T02:32:04.1924534Z [2026-03-04T02:32:04.192Z] No OAuth tokens found
-2026-03-04T02:32:04.1925381Z i  functions: ensuring required API eventarc.googleapis.com is enabled... 
-2026-03-04T02:32:04.1926846Z [2026-03-04T02:32:04.192Z] No OAuth tokens found
-2026-03-04T02:32:04.1927513Z i  functions: ensuring required API pubsub.googleapis.com is enabled... 
-2026-03-04T02:32:04.1928431Z [2026-03-04T02:32:04.192Z] No OAuth tokens found
-2026-03-04T02:32:04.1929637Z i  functions: ensuring required API storage.googleapis.com is enabled... 
-2026-03-04T02:32:04.1930708Z [2026-03-04T02:32:04.192Z] No OAuth tokens found
-2026-03-04T02:32:04.1933113Z [2026-03-04T02:32:04.193Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com [none]
-2026-03-04T02:32:04.1935782Z [2026-03-04T02:32:04.193Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com  x-goog-user-project=350817205989
-2026-03-04T02:32:04.1962200Z [2026-03-04T02:32:04.195Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com [none]
-2026-03-04T02:32:04.1964986Z [2026-03-04T02:32:04.195Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com  x-goog-user-project=350817205989
-2026-03-04T02:32:04.1974490Z [2026-03-04T02:32:04.197Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com [none]
-2026-03-04T02:32:04.1976160Z [2026-03-04T02:32:04.197Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com  x-goog-user-project=350817205989
-2026-03-04T02:32:04.1987827Z [2026-03-04T02:32:04.198Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com [none]
-2026-03-04T02:32:04.1990625Z [2026-03-04T02:32:04.198Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com  x-goog-user-project=350817205989
-2026-03-04T02:32:04.3641187Z [2026-03-04T02:32:04.363Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com 200
-2026-03-04T02:32:04.3643089Z [2026-03-04T02:32:04.363Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com [omitted]
-2026-03-04T02:32:04.3645116Z ✔  functions: required API eventarc.googleapis.com is enabled 
-2026-03-04T02:32:04.3733633Z [2026-03-04T02:32:04.373Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com 200
-2026-03-04T02:32:04.3735930Z [2026-03-04T02:32:04.373Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com [omitted]
-2026-03-04T02:32:04.3737241Z ✔  functions: required API pubsub.googleapis.com is enabled 
-2026-03-04T02:32:04.3754177Z [2026-03-04T02:32:04.375Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com 200
-2026-03-04T02:32:04.3756079Z [2026-03-04T02:32:04.375Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com [omitted]
-2026-03-04T02:32:04.3757496Z ✔  functions: required API run.googleapis.com is enabled 
-2026-03-04T02:32:04.3799636Z [2026-03-04T02:32:04.379Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com 200
-2026-03-04T02:32:04.3801923Z [2026-03-04T02:32:04.379Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com [omitted]
-2026-03-04T02:32:04.3803360Z ✔  functions: required API storage.googleapis.com is enabled 
-2026-03-04T02:32:04.3810838Z i  functions: generating the service identity for pubsub.googleapis.com... 
-2026-03-04T02:32:04.3813054Z [2026-03-04T02:32:04.381Z] No OAuth tokens found
-2026-03-04T02:32:04.3814150Z i  functions: generating the service identity for eventarc.googleapis.com... 
-2026-03-04T02:32:04.3815040Z [2026-03-04T02:32:04.381Z] No OAuth tokens found
-2026-03-04T02:32:04.3817218Z [2026-03-04T02:32:04.381Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity [none]
-2026-03-04T02:32:04.3818748Z [2026-03-04T02:32:04.381Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity  x-goog-user-project=350817205989
-2026-03-04T02:32:04.3820250Z [2026-03-04T02:32:04.381Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity ***
-2026-03-04T02:32:04.3823811Z [2026-03-04T02:32:04.382Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity [none]
-2026-03-04T02:32:04.3825502Z [2026-03-04T02:32:04.382Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity  x-goog-user-project=350817205989
-2026-03-04T02:32:04.3826926Z [2026-03-04T02:32:04.382Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity ***
-2026-03-04T02:32:04.5796640Z [2026-03-04T02:32:04.579Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity 200
-2026-03-04T02:32:04.5799428Z [2026-03-04T02:32:04.579Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity ***"name":"operations/finished.DONE_OPERATION","done":true,"response":***"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-350817205989@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"118155262370014226082"***
-2026-03-04T02:32:04.6251273Z [2026-03-04T02:32:04.624Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity 200
-2026-03-04T02:32:04.6256900Z [2026-03-04T02:32:04.624Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity ***"name":"operations/finished.DONE_OPERATION","done":true,"response":***"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-350817205989@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"110776938226831059605"***
-2026-03-04T02:32:04.6272627Z [2026-03-04T02:32:04.627Z] No OAuth tokens found
-2026-03-04T02:32:04.6274264Z [2026-03-04T02:32:04.627Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** [none]
-2026-03-04T02:32:04.7465375Z [2026-03-04T02:32:04.746Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** 200
-2026-03-04T02:32:04.7469080Z [2026-03-04T02:32:04.746Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** ***"projectNumber":"350817205989","projectId":"***","lifecycleState":"ACTIVE","name":"Portfolio Danilo Novais","labels":***"firebase":"enabled","firebase-core":"disabled","generative-language":"enabled"***,"createTime":"2025-04-23T19:44:33.277227Z","parent":***"type":"organization","id":"106397661751"***
-2026-03-04T02:32:04.7471772Z [2026-03-04T02:32:04.746Z] No OAuth tokens found
-2026-03-04T02:32:04.7472830Z [2026-03-04T02:32:04.746Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/350817205989 [none]
-2026-03-04T02:32:05.0923181Z [2026-03-04T02:32:05.091Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/350817205989 200
-2026-03-04T02:32:05.0939411Z [2026-03-04T02:32:05.092Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/350817205989 ***"kind":"compute#project","id":"6236362438918620630","creationTimestamp":"2025-10-22T08:41:45.457-07:00","name":"***","commonInstanceMetadata":***"kind":"compute#metadata","fingerprint":"Gst5Vv_56EI="***,"quotas":[***"metric":"SNAPSHOTS","limit":1000,"usage":0***,***"metric":"NETWORKS","limit":5,"usage":1***,***"metric":"FIREWALLS","limit":100,"usage":4***,***"metric":"IMAGES","limit":100,"usage":0***,***"metric":"STATIC_ADDRESSES","limit":8,"usage":0***,***"metric":"ROUTES","limit":200,"usage":0***,***"metric":"FORWARDING_RULES","limit":15,"usage":0***,***"metric":"TARGET_POOLS","limit":50,"usage":0***,***"metric":"HEALTH_CHECKS","limit":75,"usage":0***,***"metric":"IN_USE_ADDRESSES","limit":4,"usage":0***,***"metric":"TARGET_INSTANCES","limit":50,"usage":0***,***"metric":"TARGET_HTTP_PROXIES","limit":10,"usage":0***,***"metric":"URL_MAPS","limit":10,"usage":0***,***"metric":"BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"INSTANCE_TEMPLATES","limit":100,"usage":0***,***"metric":"TARGET_VPN_GATEWAYS","limit":5,"usage":0***,***"metric":"VPN_TUNNELS","limit":10,"usage":0***,***"metric":"BACKEND_BUCKETS","limit":3,"usage":0***,***"metric":"ROUTERS","limit":10,"usage":0***,***"metric":"TARGET_SSL_PROXIES","limit":10,"usage":0***,***"metric":"TARGET_HTTPS_PROXIES","limit":10,"usage":0***,***"metric":"SSL_CERTIFICATES","limit":10,"usage":0***,***"metric":"SUBNETWORKS","limit":100,"usage":0***,***"metric":"TARGET_TCP_PROXIES","limit":10,"usage":0***,***"metric":"CPUS_ALL_REGIONS","limit":12,"usage":0***,***"metric":"SECURITY_POLICIES","limit":0,"usage":0***,***"metric":"SECURITY_POLICY_RULES","limit":0,"usage":0***,***"metric":"XPN_SERVICE_PROJECTS","limit":1000,"usage":0***,***"metric":"PACKET_MIRRORINGS","limit":20,"usage":0***,***"metric":"NETWORK_ENDPOINT_GROUPS","limit":100,"usage":0***,***"metric":"INTERCONNECTS","limit":6,"usage":0***,***"metric":"SSL_POLICIES","limit":10,"usage":0***,***"metric":"GLOBAL_INTERNAL_ADDRESSES","limit":5000,"usage":0***,***"metric":"VPN_GATEWAYS","limit":5,"usage":0***,***"metric":"MACHINE_IMAGES","limit":100,"usage":0***,***"metric":"SECURITY_POLICY_CEVAL_RULES","limit":0,"usage":0***,***"metric":"GPUS_ALL_REGIONS","limit":0,"usage":0***,***"metric":"EXTERNAL_VPN_GATEWAYS","limit":5,"usage":0***,***"metric":"PUBLIC_ADVERTISED_PREFIXES","limit":1,"usage":0***,***"metric":"PUBLIC_DELEGATED_PREFIXES","limit":10,"usage":0***,***"metric":"STATIC_BYOIP_ADDRESSES","limit":128,"usage":0***,***"metric":"NETWORK_FIREWALL_POLICIES","limit":10,"usage":0***,***"metric":"INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES","limit":15,"usage":0***,***"metric":"GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES","limit":15,"usage":0***,***"metric":"GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES","limit":100,"usage":0***],"selfLink":"https://www.googleapis.com/compute/v1/projects/***","defaultServiceAccount":"350817205989-compute@developer.gserviceaccount.com","xpnProjectStatus":"UNSPECIFIED_XPN_PROJECT_STATUS","defaultNetworkTier":"PREMIUM","vmDnsSetting":"ZONAL_ONLY","cloudArmorTier":"CA_STANDARD"***
-2026-03-04T02:32:05.0952619Z [2026-03-04T02:32:05.093Z] No OAuth tokens found
-2026-03-04T02:32:05.0953680Z [2026-03-04T02:32:05.094Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions [none]
-2026-03-04T02:32:05.0955732Z [2026-03-04T02:32:05.094Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions ***"status":"CREATED","labels":***"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"***
-2026-03-04T02:32:06.1093357Z [2026-03-04T02:32:06.108Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions 200
-2026-03-04T02:32:06.1096006Z [2026-03-04T02:32:06.109Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions ***"name":"projects/350817205989/sites/***/versions/1e9af783f61b7c7c","status":"CREATED","config":***,"labels":***"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"***
-2026-03-04T02:32:06.1100169Z [2026-03-04T02:32:06.109Z] No OAuth tokens found
-2026-03-04T02:32:06.1101868Z [2026-03-04T02:32:06.110Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/***/billingInfo [none]
-2026-03-04T02:32:06.2438389Z [2026-03-04T02:32:06.243Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/***/billingInfo 200
-2026-03-04T02:32:06.2443039Z [2026-03-04T02:32:06.243Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/***/billingInfo ***"name":"projects/***/billingInfo","projectId":"***","billingAccountName":"billingAccounts/01AD43-A1038C-940B24","billingEnabled":true***
-2026-03-04T02:32:06.2455932Z [2026-03-04T02:32:06.245Z] No OAuth tokens found
-2026-03-04T02:32:06.2458597Z [2026-03-04T02:32:06.245Z] No OAuth tokens found
-2026-03-04T02:32:06.2460487Z [2026-03-04T02:32:06.245Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl [none]
-2026-03-04T02:32:06.2475493Z [2026-03-04T02:32:06.247Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl [none]
-2026-03-04T02:32:06.3891135Z [2026-03-04T02:32:06.388Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl 200
-2026-03-04T02:32:06.3897147Z [2026-03-04T02:32:06.388Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl ***"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/f5cf86ca-8187-4d24-9e01-7259782e4739.zip?GoogleAccessId=service-350817205989@gcf-admin-robot.iam.gserviceaccount.com&Expires=1772593326&Signature=Ze%2F3IlV%2BvVicKzQUf%2FXKL4vFEVIY7%2FsPSZxTuxEzCHNxhaliARhctcDfTxsy22f%2Bng3QojHv288vwFu15xQisL151k2m2hO3CGe8uuZ1v8kyS5jMr0jFx3U%2F%2BB0yVZx5hZ%2F2zOjz4WEQO0iflP7vUsJNuWt7BS7b2YGjAdqYfUxcsuE3dYOCmOxvhq7DfLxyZcaVYfP10W4G0ns4SxeLrab%2F1XW9llAg4ic%2F3mVdcQh1njnFiMwdgYkB73f9Cby36HVjewJOPLLlJPZkI0shOGLILE4Bp5254LOEdICx7InUbZL0poB03kxdPjgPghmicaqOyvBVSUsaiy8GXQjt0A%3D%3D","storageSource":***"bucket":"gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com","object":"f5cf86ca-8187-4d24-9e01-7259782e4739.zip"***
-2026-03-04T02:32:06.3905370Z [2026-03-04T02:32:06.389Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/f5cf86ca-8187-4d24-9e01-7259782e4739.zip GoogleAccessId=service-350817205989%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1772593326&Signature=Ze%2F3IlV%2BvVicKzQUf%2FXKL4vFEVIY7%2FsPSZxTuxEzCHNxhaliARhctcDfTxsy22f%2Bng3QojHv288vwFu15xQisL151k2m2hO3CGe8uuZ1v8kyS5jMr0jFx3U%2F%2BB0yVZx5hZ%2F2zOjz4WEQO0iflP7vUsJNuWt7BS7b2YGjAdqYfUxcsuE3dYOCmOxvhq7DfLxyZcaVYfP10W4G0ns4SxeLrab%2F1XW9llAg4ic%2F3mVdcQh1njnFiMwdgYkB73f9Cby36HVjewJOPLLlJPZkI0shOGLILE4Bp5254LOEdICx7InUbZL0poB03kxdPjgPghmicaqOyvBVSUsaiy8GXQjt0A%3D%3D
-2026-03-04T02:32:06.3909263Z [2026-03-04T02:32:06.389Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/f5cf86ca-8187-4d24-9e01-7259782e4739.zip [stream]
-2026-03-04T02:32:06.4162451Z [2026-03-04T02:32:06.415Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl 200
-2026-03-04T02:32:06.4168919Z [2026-03-04T02:32:06.415Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl ***"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/9239085d-713c-4818-8279-6b0f3691424b.zip?GoogleAccessId=service-350817205989@gcf-admin-robot.iam.gserviceaccount.com&Expires=1772593326&Signature=eAa76c2rOyfMHd%2BYTwyF38FtZW5mkZbtLcqMJ%2BF2iY2oj2WonGn0S2yoLzB8YoMoKoOHpjUhGDsA0Idpzkxx4WqYQ1BVqyetw8hXhmlKzU8jl80VRJmwP60Xnl%2Buulc3Yvn4UDa9039BCT%2FTpeEDva7fnu6I6H4Elyzxw87G594U7VBBd%2Bl03asmvcDOcLm84FOPFDXl3FUuPlbJm%2Bz62CtTv%2Fr98orv2pEB%2B2wEueSZyFN%2BYKVzTu2IwqiXsf3n6K8sdahZYNU2PFudVJqoc%2Fe55MN%2FzwK9KdS%2BwZE%2BtbIxnOBIOcqBo867GNeO3N3FRFflHXH5ryy29Tr9N499XA%3D%3D","storageSource":***"bucket":"gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com","object":"9239085d-713c-4818-8279-6b0f3691424b.zip"***
-2026-03-04T02:32:06.4178680Z [2026-03-04T02:32:06.416Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/9239085d-713c-4818-8279-6b0f3691424b.zip GoogleAccessId=service-350817205989%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1772593326&Signature=eAa76c2rOyfMHd%2BYTwyF38FtZW5mkZbtLcqMJ%2BF2iY2oj2WonGn0S2yoLzB8YoMoKoOHpjUhGDsA0Idpzkxx4WqYQ1BVqyetw8hXhmlKzU8jl80VRJmwP60Xnl%2Buulc3Yvn4UDa9039BCT%2FTpeEDva7fnu6I6H4Elyzxw87G594U7VBBd%2Bl03asmvcDOcLm84FOPFDXl3FUuPlbJm%2Bz62CtTv%2Fr98orv2pEB%2B2wEueSZyFN%2BYKVzTu2IwqiXsf3n6K8sdahZYNU2PFudVJqoc%2Fe55MN%2FzwK9KdS%2BwZE%2BtbIxnOBIOcqBo867GNeO3N3FRFflHXH5ryy29Tr9N499XA%3D%3D
-2026-03-04T02:32:06.4183130Z [2026-03-04T02:32:06.416Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/9239085d-713c-4818-8279-6b0f3691424b.zip [stream]
-2026-03-04T02:32:07.2169602Z [2026-03-04T02:32:07.216Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/f5cf86ca-8187-4d24-9e01-7259782e4739.zip 200
-2026-03-04T02:32:07.2172036Z [2026-03-04T02:32:07.216Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/f5cf86ca-8187-4d24-9e01-7259782e4739.zip [omitted]
-2026-03-04T02:32:07.2174204Z ✔  functions: .firebase/***/functions source uploaded successfully 
-2026-03-04T02:32:07.6397704Z [2026-03-04T02:32:07.639Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/9239085d-713c-4818-8279-6b0f3691424b.zip 200
-2026-03-04T02:32:07.6400245Z [2026-03-04T02:32:07.639Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/9239085d-713c-4818-8279-6b0f3691424b.zip [omitted]
-2026-03-04T02:32:07.6402149Z ✔  functions: functions source uploaded successfully 
-2026-03-04T02:32:07.6417521Z i  hosting[***]: beginning deploy... 
-2026-03-04T02:32:07.6677957Z i  hosting[***]: found 173 files in .firebase/***/hosting 
-2026-03-04T02:32:07.6678927Z [2026-03-04T02:32:07.667Z] [hosting] uploading with 200 concurrency
-2026-03-04T02:32:07.6687235Z [2026-03-04T02:32:07.668Z] [hosting] hash cache [LmZpcmViYXNlL3Bv***L2hvc3Rpbmc] not populated
-2026-03-04T02:32:08.6559549Z [2026-03-04T02:32:08.655Z] No OAuth tokens found
-2026-03-04T02:32:08.6565789Z [2026-03-04T02:32:08.656Z] [hosting] hash cache [LmZpcmViYXNlL3Bv***L2hvc3Rpbmc] stored for 173 files
-2026-03-04T02:32:08.6568238Z [2026-03-04T02:32:08.656Z] [hosting][hash queue][FINAL] ***"max":983,"min":10,"avg":85.96531791907516,"active":0,"complete":173,"success":173,"errored":0,"retried":0,"total":173,"elapsed":988***
-2026-03-04T02:32:08.6570407Z [2026-03-04T02:32:08.656Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/1e9af783f61b7c7c:populateFiles [none]
-2026-03-04T02:32:08.6718308Z [2026-03-04T02:32:08.656Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/1e9af783f61b7c7c:populateFiles ***"files":***"/cv-danilo-novais.pdf":"f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec","/test.txt":"04d9dadd1711eb2fd667240d7f7fd2b8d0c4ee611ee3655e3aa6263c8558416b","/robots.txt":"9e2c31aa413e3c46d2fa568e3c5ba5b500c0b9fb540913af6ad27653eda864e8","/sitemap.xml":"39beebcc4013c43403b6e7a8f695e85fe293c04b96ff9feb17190048888be268","/privacy-policy.html":"7e12ab10ffdad8d7776e605121ae9222ec8afc9e6b15d7491457f05eb91f935e","/privacy-policy.htm":"9b2a0aa3a4cf9cfa85243e5a1a9389b9a705cf1c271505bae517a5a94bb0a922","/manifest.json":"b1a6fa8c76d18579154e385b3ce8251ec403c7a5fa7455121dc821bb6eac26e2","/privacidade.html":"4b518464b29dbe186cd4a7519b1d1f5fab8bd96b60eb3b2c4c2b787c5a8a4ffb","/build-info.json":"6d2d0a775923ba2a13f93a93ef729a5cfa33e5acd8ddd91a0a0e7075455670da","/_not-found.html":"2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec","/_global-error.html":"e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390","/500.html":"e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390","/404.html":"2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec","/contato.html":"461071013779cfb1b2fca4307e8028a237c073fc0c3664b9779ae2067bbc66d3","/404.css":"1316d469958467bfcfe16e3c86932fcfe70363e48c09a681aeb5c383f05595a4","/404.js":"5c8a9bfd773f9a8829aec3ea7460c0c7b8ef4922d2d39a1a06ac208fbb3009df","/site.assets/images:videos/404.webp":"ed930956360f5fbfe04500818e56116278a3c15327da371a2eb678e833870f9b","/site.assets/global/logos/LogoDark.svg":"8a09b53fe5aff3eb8e0604f55c927b003541f8133f2a527a35f35f9ae8c239ca","/site.assets/global/404.webp":"ed930956360f5fbfe04500818e56116278a3c15327da371a2eb678e833870f9b","/site.assets/global/logos/Faivcon.svg":"0fb868b2545396d503bf45942db5880efdb8a72837e11bebb5666395ce4d26cc","/site.assets/global/logos/FaivconLight.svg":"345ac6b342990c3ef4ecf09ac4d19d7e190cdd54d557a6fe6781e67785f11935","/opengraph-image":"cc4c1a3260611c467e3c285207aa38da2c5f3820ca0ca7143df90be38871e8dc","/site.assets/images:videos/converted-(5).webp":"94eaffb9707d4a93a246362a45d8a2afc54b6562c6bc70187d69dd77ee5ece04","/sobre.html":"6467f27ff3e0f62c3356ad9ed1af9ae2484c98d60abf18fc0cc54dc97fcf3acc","/site.assets/images:videos/nescau.webp":"36805cbb5e136578aded1baabe74295015af741b27f2335b60181ff0be618b91","/site.assets/images:videos/404.png":"f43f8c71a2f428ba5c604280c6cbf22fb8d0a0980657d78650f159f0a7a303b5","/index.html":"ce8d1f1ab58872385c4eedc7c021231ba9a2009137e6db3c729926a04ef65cb0","/site.assets/global/logos/LogoLight.svg":"41505c254632cbca69791b77053c9dae46570b0e7f21dc3392308a47e4c0870b","/site.assets/images:videos/converted-(10).webp":"88ba5b0fdc9fe955bd3a7f119c5546ea03724f900646505b6335d4cdc19481b7","/site.assets/clients/clients.strip.8.svg":"c3d76f3217e62056a331f8b7f2a7594738e357153b5b91f001081339923fbdf3","/site.assets/clients/clients.strip.7.svg":"17727131c5eb7985dceb19d94e184dcfb1b2d124cc2cf57ba9a05f581cf3bf92","/site.assets/clients/clients.strip.6.svg":"9db2f1f18c833ebadb0e6704b6282ce08c430d16e9d2c1b37fd95fa4c30e3d15","/site.assets/clients/clients.strip.5.svg":"a4a7ff8f6c6bc72628f11a4478f7a012a27b45850946375a6366b251b3e75bb3","/site.assets/clients/clients.strip.3.svg":"8ae668bf2e24ce211aa4af855b5fadb40252aaaa8dcaeb6c58fddd9c1e9d3514","/site.assets/clients/clients.strip.9.svg":"63e5aaab07b454211204bcaf8dcbdb723c7917478de7776b68422874806a5ffc","/site.assets/clients/clients.strip.2.svg":"9600bde30b168166abc6c79eaa3f0fc29197ab7dc177fefba9146c6b8532738a","/site.assets/clients/clients.strip.12.svg":"c2fc6ad2e951450c64dbfd1f8d02facb9bc3dcb63d6a1394edb1f2b038202326","/site.assets/clients/clients.strip.11.svg":"96c075dad67105f13f190ab57f61fccddd046251e3ace9951f4a4a28d81e3df7","/site.assets/clients/clients.strip.4.svg":"2bbe4d0315225a594f365ec90c5b4876b7161b684009ae42cea339e94e11e5b5","/site.assets/clients/clients.strip.10.svg":"835030cb8b750b6bdccb6e056eac1c9b28a522f2fa37f5b66e6ac7d6411134a1","/site.assets/clients/clients.strip.1.svg":"a5a1f7eab719be0d54e1ab09bbd0b1d3b4cdfc4ff6a5925ba4aaf723e89deec7","/site.assets/about/origin/about.origin_image.1.webp":"34561df5f473fce798c3b2c7ab4568b48e78eb06765a5c2c2659cd68407cbfd4","/site.assets/demo/cs3.webp":"36805cbb5e136578aded1baabe74295015af741b27f2335b60181ff0be618b91","/site.assets/images:videos/converted-(3).webp":"c464c7d13447a3de7e738df04bbfed8bf45b31bcd2b4634e94b9fae14a764ece","/site.assets/about/origin/about.origin_image.3.webp":"f42e836aa4dd95a454a0b5d23dd0c0024509a7b5c0837715fdd1ef6af6b35aa1","/site.assets/3d/Ghost.jsx":"0981ee37e3bd86f8bc69679956579b0e1ac80744870250c93d944eeb399318ae","/site.assets/images:videos/converted-(9).webp":"bdf0c4e49b9a2d12f69d1369dc47f6c01677481f17fd6f01f715a67299d27798","/site.assets/images:videos/converted-(6).webp":"a1335c51360c35f2080690785537a275bad195787f8794c95ccaa1c1229016d4","/site.assets/about/origin/about.origin_image.4.webp":"91e1884d60729b2d725e754b3bcd5ca11ee898c4250c7cc7cb6d93f671f40f75","/site.assets/images:videos/converted-(7).webp":"4c96f5197eb5359411b6b9edaf23d7132f2ace63ce6c72ff549888930c0c553b","/site.assets/demo/cs1.webp":"15e50b7c9125ed63a5809af839122b7f8523cf3c193e5068e6dd8c19ed29d70b","/site.assets/demo/cs4.webp":"c464c7d13447a3de7e738df04bbfed8bf45b31bcd2b4634e94b9fae14a764ece","/sobre/opengraph-image":"34ddd2ed68e6f6377ef23a2b337373571d4783939be6575059716d70a2b13e72","/site.assets/images:videos/converted-(1).webp":"22892a21c5735992ee2fb6a25d6a7776f144e73c2e62012db09d347211e61b83","/site.assets/images:videos/converted-(8).webp":"234d0e959c254c4f8f7b79f572f24f5d79f300774909d6c99eae3529881347d3","/site.assets/global/fonts/TT Norms Pro Black.ttf":"b97fb8cadb64713dbe5a40d7596cbbcc864baf6db7ca314d5311c4591769859b","/site.assets/about/origin/about.origin_image.2.webp":"b4cda56c0caffe9954ae6cbf6f3ec39b75e69c48823cd1c39a14926089468bc9","/captions/ambient.vtt":"71956d0cad8f2ce0e274b20caab1f510ac41531cbe4dae66efa5fa161dde6c9b","/site.assets/home/showcase/Branding-Project.webp":"f63f25b69b09d864459053af9a0a4a3c04cac7545cf63738b0cf50b7f852de0d","/fonts/tt-norms-pro-black.woff2":"5081762a384a4ee606306b68bc1f19ea27d774c7bec0765f66bc80c2c78b3974","/admin/login.html":"e7c13858b8eeb1daa7ca50d102ccdd87e491414deffaed17bacd62453115fce0","/_next/static/chunks/turbopack-b7203c6a26c04968.js":"1c3f5717158375acf51b6db3018739de68528ec8428f955890ff164063519036","/_next/static/chunks/ffb9fd29e31fa9db.js":"7303eb924301168c4f755a3453d9d782b229667acd58fe02dab2d448a3ca875e","/_next/static/chunks/f9dffce05e1ed190.js":"8c983f5b0a34d3e8430031341d3fb7027e9520d7847434009402b30b5e883596","/site.assets/demo/cs2.webp":"22892a21c5735992ee2fb6a25d6a7776f144e73c2e62012db09d347211e61b83","/_next/static/chunks/edffba10544ff742.js":"2273fe1e808a077f964861f146c6b9c2fc7f42721e1a6d3726e950de0046098b","/_next/static/chunks/e96a2a55ba4e7f37.js":"682d541e41bc6c196af30eecd2ef3a7d0d2ba6b99695e0bb65e1c2e23879d531","/_next/static/chunks/e6595cb7a11191dd.js":"23a7c43e2131c8e093b6f14fd0993127704199fb1785c39e9c8d6c3da587d80e","/assets/3d/bar-v2.glb":"e5de8f7dbcff5ecbbf71f5ef0af144d901715a44064f5f081f1f186d6cf148d7","/_next/static/chunks/e262aa3a7770bf09.js":"2f5584c5148550c25d7d630c4f1a3d96cf10ce4913f53422c36ee97ff5db33d5","/fonts/tt-norms-pro-regular.woff2":"e9184c99e0cfb4bbbab39f8cd4a4a81c1ba759f4b2fea282f5f531d9ae5030c4","/portfolio/opengraph-image":"a60c6c2a9168ccb3e54b99e29f7139b505aec76f94d5c1403873235cbf8d48ae","/_next/static/chunks/e62a856bee7ef6aa.js":"a3274d5e4538d8ac0810830297799e7275170abf8303a269afb090cb5352ffef","/fonts/TT Norms Pro Light.woff2":"d7be1c57a2a41455e349f684096fb7d8600818b3586aa3107267d7394ff40b09","/fonts/TT Norms Pro Black.woff2":"5081762a384a4ee606306b68bc1f19ea27d774c7bec0765f66bc80c2c78b3974","/fonts/TT Norms Pro Thin.woff2":"523de859bad00dbe9c66ffecc944896676b33e0c589157f0382366fa303c6560","/fonts/TT Norms Pro Medium.woff2":"003a9ed92ac39b780c540a77ef3d05782fb6fb18e4dc7169a36cd94e9785ad7a","/fonts/TT Norms Pro Bold.woff2":"808f4e0ef7ce1eaabf33499db3a2d173a042c654c07f1d13d0177e65e8c45f7f","/fonts/TT Norms Pro Regular.woff2":"e9184c99e0cfb4bbbab39f8cd4a4a81c1ba759f4b2fea282f5f531d9ae5030c4","/_next/static/chunks/e153d4b90062cd33.js":"16a25e235a862536febee555ec9297b8740962ed03caa17c4154c62de7407796","/site.assets/home/showcase/Key-Visual.webp":"c1cf13437b6f091e18677c68a7e5cfb295b39dc4a798ca16695d8f60d6aaf058","/_next/static/chunks/e09a588b122392ce.js":"d757e37cab1d538288bdb3eaa3a67951848e0693725a7e4bf805cb0b606acdf0","/_next/static/chunks/dde3e8d618480d2f.js":"10dc4c68fb2c98c8ea7234d3c693f15d8647918049eaf2505a1e6a2449aafa0b","/_next/static/chunks/d34ceb3d3e857df8.js":"9765361f14875243ff28830ee74ece80856849b5375b3217cce2f32b8d48db5b","/_next/static/chunks/dd9d90c9dfe830bf.js":"6574e7e8e1a5f0ed7c3f088c3748a42f51ce03d025b2581cd3c75862bbc1841b","/_next/static/chunks/d246a5be2c6e0a1e.js":"ba73a2baa79195c1565c7946e93f6e177ddd2d40604b51088c7c699da6f5bbfa","/_next/static/chunks/d0968ee4324c5cf0.css":"99123cc402212571bfa4143cff529b56bb0a81f31bfb1ec157c459ea8fb709c8","/_next/static/chunks/c7e715f3fa890615.js":"a71ceeb409d66f2e1fbc237bb884c61840ffc24582102c65984bd91a67ba8199","/_next/static/chunks/bf85def12027ecf2.js":"2828f8a7f17a9ed9c51e0f4dcccd75591b0ff8f46b75c65e9105b09639dbe512","/_next/static/chunks/be75462bca2f6f7b.js":"0d97b62c9a064d921e0421497eb07720db45e9783c6f7fa1300e5ea4c14d0c77","/_next/static/chunks/a8e696d7039884d6.js":"df939a4ea8ab4cebd93091ca9f15626812418bfe8fe852b3043eee074f3b5a30","/_next/static/chunks/a80ff3921673b269.js":"0f3bc24ed4038a4ddc908fde6a8f8435c89a04cf8873f4cacfc99c657c8bae20","/_next/static/chunks/a9def94ac94a8fb8.js":"996d322647cb53f9a1dac2991d89d1bc3480a0fb495d3d3dda35ffc3d35820d9","/_next/static/chunks/a4a704463b90f8fe.js":"3b117016680e781c1992c43e617d9e488f0b67c88166ab403cf9b341597c9eed","/_next/static/chunks/a3a5cb0a160b063b.js":"96fd97e888e758e889a94a15ce6244ca2e6b3906c7f2810de9441e1a020ac780","/_next/static/chunks/9ac933e7cdee367a.js":"c6b54f2bf149165b7e3b511f76d1c7615debc59e05b2809b3cfa1c156f4e0e3d","/_next/static/chunks/8d5e48d0a5dd8329.js":"7dc6dbc78475d0c3400231117f85a9e336cdba37bfbb4860677c4644346c1083","/fonts/TT Norms Pro Thin.ttf":"7e605f417fb4891266a6c6ec60dcd8d2921dc22f042ee7a299e547e5ae5a94eb","/_next/static/chunks/8d0858e4707973d3.js":"5da77e4afb60df33ace376f3fab0378e9bc59453ff1615af95e3f5a05be0a3c8","/fonts/TT Norms Pro Regular.ttf":"da3b6b224cf324f4951770ac2fd85e5ba944594ca7554eb14b90edb7107c7415","/fonts/TT Norms Pro Black.ttf":"b97fb8cadb64713dbe5a40d7596cbbcc864baf6db7ca314d5311c4591769859b","/_next/static/chunks/95d8f0c71d6215df.js":"880480da0f08957c50b511ea5ea0da1649fea8d8613125d40d571ac5f428bca8","/fonts/TT Norms Pro Light.ttf":"86356b765f86b21d6157986f8fd8a5eeb9b08b1d51f74b5e734698fa335e2408","/_next/static/chunks/8887aaa01b8096de.js":"c7fd5b4b7a3e25b63e9692423b07504ead3e8dc9265fe92b7de3c5c10e436ed5","/_next/static/chunks/84666873cb739a58.js":"faa42633399bc42414aa46b588ca57d46336ddf1722b3ecd4a03d28ab42a9354","/_next/static/chunks/83e2b33f4a84a92c.js":"0a57d170e8ecde39c05511369cba4edd1128368be244251492196dd5f44928e7","/_next/static/chunks/7db13dca11d18e59.js":"876fb89bf6fa44f64d72c3424185b9dc742a9ba3168dbc04dfa41a5474bd9be2","/_next/static/chunks/9bc209c508be94fb.js":"4098cbb90bcb44873cb8a11a2c9fc86bdef50cf90a431e3d4de33ba497039c6d","/_next/static/chunks/791d4d14bded506c.js":"0250d5e1aa57bb34753447f9319b6bfc0953c4795cc7aa375a1234111be30a96","/_next/static/chunks/77d005e36065bbc5.js":"a86d0aa631c0864e55195d2e2e308aeaef95ef8248955bdd580bc69f1ef58092","/_next/static/chunks/99dacf13df3421e7.js":"72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f","/_next/static/chunks/6f63a87e8f85829a.js":"54f8f50a5bd371f4c48da38e25eb736c6f0b183e683942fc6101c33bccd63ec5","/contato/opengraph-image":"3b3b9c087d8aa7213c818856a5935fe81654d496b0a3e1e4bd3aac3a1b7b95fc","/_next/static/chunks/6922d817006e8242.js":"e0199f5a403e6356e1d847e4b93e0dc42d8c23a8bee33b3a9376d7bb1ac25e05","/_next/static/chunks/a6dad97d9634a72d.js":"45b36f93bb08c52e360d14b0e8449c88770aa8cf5d59bff1c76cbe6e198fe7c5","/_next/static/chunks/a6dad97d9634a72d.js.map":"755290295d3187db8976f6cfcb864952be20de0bfc6d42f4b9f031fb5ee55b3f","/_next/static/chunks/65920204d1a1cf56.js":"dd1ccb0d41d10975be7bcfd4fadf5a8d17537fd82a38129928005d695c1f9188","/_next/static/chunks/604b520fd924436d.js":"53c431c2947f7601bc428837d955317d357cd941dae3d85853f13de4aa236d2f","/_next/static/chunks/9e6b82b843747326.js":"6aeb04bd59eceafb3ed0762923799bc94bb54db333f18866c034f9df5e4f1b29","/fonts/TT Norms Pro Medium.ttf":"6e7ebdba9a4df0b9134a12f7e9f4de46cc88e3392464845c7c2d5b83dce38054","/_next/static/chunks/5a568a9209600a07.js":"b09cc545dca5d792ead7306627fed6c298edbf477028e58309ee0004bae25ede","/site.assets/3d/ghost.glb":"4a73d179225c896621aa4b15b81abe6d4753797144fe9f681a6e3938b214fd58","/fonts/TT Norms Pro Bold.ttf":"3ca4d569e08a873e515991a31842921e06f4119301e3ae9825ca82bf03b4e871","/_next/static/chunks/5991b0f33828d09d.js":"333229a5ec9ecab596b7ae751f5f644c139e31377d18bdb2b2a260754bb909ea","/models/ghost.glb":"4a73d179225c896621aa4b15b81abe6d4753797144fe9f681a6e3938b214fd58","/_next/static/chunks/43d75eae8d09b8b4.js":"a912a47172076227ce3e4dd208fc5bdf6ff241b06616bdd8572a6723999bb627","/_next/static/chunks/45035dc4c3906be2.js":"bd9a6a0afc3bba4aa276a486ea9388db13609b4ed4a9abaac4cf31c8e9357489","/_next/static/chunks/3d3ed6a31bd7f715.js":"b6fbb05ef1d4fe4db5b48edfaaa233366b1ae9857cc54078e1e0ca3003a2eed7","/_next/static/chunks/3b8bb1bb46ae5ee1.js":"9f3c2b940ab414e6ade643dbad719823efd13444c8783aabf59697e3a476e361","/_next/static/chunks/3561f5621a05112e.js":"123a0f8f5aea7892e09d9a8d31d3c77a91101f3b91301f5b909a00e41ac73451","/_next/static/chunks/2ed6dada56686e92.css":"fcc355c76c91c8b3f8c4958bcfec4b8606ac1b65471de1002882bd62e498f399","/_next/static/chunks/3ea235b9368b5261.js":"66af99daef3a24803d0b27121d16446920a12572f1784518461b2d06fa61b1c3","/_next/static/chunks/24beee69ba2e06e4.css":"a6c00d542a36290ea848acd31a3674059922174c0079dcde9a6c0c755c329616","/_next/static/chunks/23e7316e7857183e.js":"75ec5a044c02cce1bbcb2fc077240833cf61891f3a116aaa4642b79b2f2492e4","/_next/static/chunks/1fad0b6517d2cf9b.js":"2ef91faa7e5227fed96789b8a3ba8ff2fd547c5f58bc5b139fcd64538e7ad19e","/_next/static/chunks/1f683d019fef8e13.js":"9fe16396e175dbe55b5e4395ac61ed13b49fe73c3d076ec2f7d30625482a2034","/_next/static/chunks/473e556d8979566a.js":"64e1ec4caee14023c8ad49d3ec9d8c3b728f2e6f6997a2b3414a1a5695976b03","/_next/static/chunks/177983b023cc9b7b.js":"8ea3fdb07accd63e2610416026b0e5ab20c17719897e3d271107f4884580747e","/_next/static/chunks/16701c056fb70b19.js":"9b7ff074556c26a3a1341ff3d84b7c472dc9927c5b5b3f205a413181dd7f3860","/_next/static/chunks/11b7eb9ec1f2fcf2.js":"e879c534a3910f6f93b1c3db375f42c1a1708da42ffe3589370766e8446efc55","/_next/static/chunks/0229fe47a1909139.js":"07142b74fb1d25b8751b3ce539afd5da2250a81bbbad0316c0fa5ea8ff46b3df","/_next/static/chunks/1008a40f95a9defc.js":"dcc50198d58c5312bfecf26b5b5dd0a13516f36c2ea8b65b465f1cc186cc299f","/_next/static/H_KpidcivaOG4RmPP9JM9/_ssgManifest.js":"d8d8790f4e673a23bec506f00699bed8a258ac0e4965bb1ca8598172cfc0ec97","/_next/static/H_KpidcivaOG4RmPP9JM9/_clientMiddlewareManifest.json":"5536dd95a4c2e8eca49d77a8bd7f3d49e1dc5eb3c31d20baf138c8de190f9096","/_next/static/chunks/163236b0d9153a64.js":"659f6b88a8413bc50fe25cc72ae321dcc4eb07631047853aac08282b9a8dd220","/_next/static/chunks/25656ab1b2e17a52.js":"899c56240315543ee2e458e1ab82c1333db6eb95507f859d889401abffb9c682","/_next/static/H_KpidcivaOG4RmPP9JM9/_buildManifest.js":"eadf3650017b2094542d95eeda190a7ef5689624c557c1c1ae4d5a0d53057195","/_next/static/chunks/69ac0d6262b3cd30.css":"b33f5a491e53e8c9a24bf46fbd2e009660d1d0d0f8b2618a85744513913a3a37","/_next/static/chunks/2d138e33797d0c46.js":"0d6c14075dc316e74a3c9fdc6f2696a36d0e5cf22fc82714974222838e7d5fab","/_next/static/chunks/19b254ed201d4087.js":"6f949447fc946817478c8524240e78213cd24952a51cc8a1457a1b2b4050c101","/_next/static/chunks/8cd7eb995e5bd0dc.js":"d9dfe0bc8f39cd250df4b8d1921d0b469d92a5c050c487be81a2e8dc0e7d8097","/_next/static/chunks/223a13daaefbb777.js":"ef48e3d166716a96f0a8efeef6492c02de13f2cd202e0abed09b37a0ea2115aa","/_next/static/chunks/5ab7710b36e213a6.js":"4d078b44405e0b60faf6bd07a4a1783d2fa33c6294c31e77a14068f5f9062396","/_next/static/chunks/48e2b29829b0abc8.js":"73f8b53b10c30fd67dace8b8943c0a96cdc981b78db11fd47864afabd47e1628","/site.assets/about/method/about.method.mobile_video.mp4":"7ae2dfa6df57540d85344c21872b6507681211eaaa27b118b61747fc126d879a","/_next/static/chunks/1d9eb95d46bc1ca4.js":"91e57d0b957138832c66127296a18231175655809010969ae298b06a2a01cd79","/_next/static/chunks/5aecdec56bd4ebc7.js":"ebe12ff8dcbd115499e517cd5aba1af0afdca6f70377643019a99d8d93b62a66","/site.assets/about/closing/video.closing.desk.mp4":"78f1aedbe748e752d6187d818d6f6444ad467aa909871983d5b760942fec83d7","/site.assets/images:videos/VIDEOGANHOU CAUSOU.mp4":"85ba2d2cbdd1b194b89f0411c4317b4d789ab8177dad75168fffaecb5f7a3f5e","/site.assets/about/hero/about.hero.mobile_video.mp4":"cc9e85abaebd30d05e3f67848ed5ba23ae4c9ab263ca945ceb52723ae1c0dc12","/site.assets/about/closing/video.closing.mobile.mp4":"289fc06e8843a0a1ae2108534827b421856cff2a806a8118004824d83af04928","/site.assets/portfolio/portfolio.hero_mobile_video.mp4":"f1fe48871d6b949a14d0ca571b83966d2dd6efb132339b294484b70924f8b16d","/site.assets/images:videos/converted-(4).webp":"3f035f0b33c0a09d7df7261f8b1a107108e24e5bc77ac204ad7a5104664a0389","/site.assets/demo/cs5.webp":"3f035f0b33c0a09d7df7261f8b1a107108e24e5bc77ac204ad7a5104664a0389","/site.assets/home/showcase/show.video.mp4":"44193802c58ea456c5a270a16a55bf47fc8553e5ed4b903569097449c619f597","/site.assets/home/showcase/webdesigner-2.gif":"a6c0235f57f1f59b9760eb21d616fb98bd8fe404529da19ca3a67a94399c6a79","/site.assets/about/hero/about.hero.desktop_video.mp4":"07fb8d63198b5f8d6185d29ed63a3d95428a778465fa0fda50af5f26615c59a0","/site.assets/home/video.manifesto.mobile.mp4":"90764200cc13ed221bc27935981f2c76d61749f165b69a11c0796ffba299e7f9","/site.assets/home/video.manifesto.desk.mp4":"23c28ff7225e2f3e9c6026ab1a82d319bedf12da0a434b31c35c52859696a58b","/site.assets/portfolio/portfolio.hero_desktop_video.mp4":"8b4bcdae1611c70aaba1d4f5450104275605dbfdda0baec62991ad3a1c63f0db","/site.assets/about/method/about.method.desktop_video.mp4":"16a7557f93d32615af70ecd94353a6bab684e52f9347183ca8072cc06a10c820","/site.assets/images:videos/VIDEO HORIZONTAL 3072X1536 PIXEL COM TELEFONE_compressed.mp4":"2629054916e822faaac380970eadab831200258b0a12b25941b5c0c3461ba29c","/site.assets/images:videos/VIDEOMANIFESTOGLAD.mp4":"07b9240d7a8133c85ff8b2ab64e5cf09d0049301b85ad08033f8fbcc52b17d96"***
-2026-03-04T02:32:09.2369678Z [2026-03-04T02:32:09.236Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/1e9af783f61b7c7c:populateFiles 200
-2026-03-04T02:32:09.2386487Z [2026-03-04T02:32:09.236Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/1e9af783f61b7c7c:populateFiles ***"uploadRequiredHashes":["54f8f50a5bd371f4c48da38e25eb736c6f0b183e683942fc6101c33bccd63ec5","a3274d5e4538d8ac0810830297799e7275170abf8303a269afb090cb5352ffef","0f3bc24ed4038a4ddc908fde6a8f8435c89a04cf8873f4cacfc99c657c8bae20","899c56240315543ee2e458e1ab82c1333db6eb95507f859d889401abffb9c682","b33f5a491e53e8c9a24bf46fbd2e009660d1d0d0f8b2618a85744513913a3a37","72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f","7dc6dbc78475d0c3400231117f85a9e336cdba37bfbb4860677c4644346c1083","10dc4c68fb2c98c8ea7234d3c693f15d8647918049eaf2505a1e6a2449aafa0b","659f6b88a8413bc50fe25cc72ae321dcc4eb07631047853aac08282b9a8dd220","0250d5e1aa57bb34753447f9319b6bfc0953c4795cc7aa375a1234111be30a96","2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec","0d97b62c9a064d921e0421497eb07720db45e9783c6f7fa1300e5ea4c14d0c77","e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390","e7c13858b8eeb1daa7ca50d102ccdd87e491414deffaed17bacd62453115fce0","53c431c2947f7601bc428837d955317d357cd941dae3d85853f13de4aa236d2f","ce8d1f1ab58872385c4eedc7c021231ba9a2009137e6db3c729926a04ef65cb0","b09cc545dca5d792ead7306627fed6c298edbf477028e58309ee0004bae25ede","6d2d0a775923ba2a13f93a93ef729a5cfa33e5acd8ddd91a0a0e7075455670da","996d322647cb53f9a1dac2991d89d1bc3480a0fb495d3d3dda35ffc3d35820d9","7e12ab10ffdad8d7776e605121ae9222ec8afc9e6b15d7491457f05eb91f935e","39beebcc4013c43403b6e7a8f695e85fe293c04b96ff9feb17190048888be268","6467f27ff3e0f62c3356ad9ed1af9ae2484c98d60abf18fc0cc54dc97fcf3acc","4b518464b29dbe186cd4a7519b1d1f5fab8bd96b60eb3b2c4c2b787c5a8a4ffb","461071013779cfb1b2fca4307e8028a237c073fc0c3664b9779ae2067bbc66d3"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files"***
-2026-03-04T02:32:09.2399152Z [2026-03-04T02:32:09.237Z] No OAuth tokens found
-2026-03-04T02:32:09.2399884Z [2026-03-04T02:32:09.237Z] No OAuth tokens found
-2026-03-04T02:32:09.2400574Z [2026-03-04T02:32:09.238Z] No OAuth tokens found
-2026-03-04T02:32:09.2401238Z [2026-03-04T02:32:09.238Z] No OAuth tokens found
-2026-03-04T02:32:09.2401910Z [2026-03-04T02:32:09.238Z] No OAuth tokens found
-2026-03-04T02:32:09.2402585Z [2026-03-04T02:32:09.238Z] No OAuth tokens found
-2026-03-04T02:32:09.2403257Z [2026-03-04T02:32:09.238Z] No OAuth tokens found
-2026-03-04T02:32:09.2404065Z [2026-03-04T02:32:09.238Z] No OAuth tokens found
-2026-03-04T02:32:09.2404762Z [2026-03-04T02:32:09.239Z] No OAuth tokens found
-2026-03-04T02:32:09.2405468Z [2026-03-04T02:32:09.239Z] No OAuth tokens found
-2026-03-04T02:32:09.2406125Z [2026-03-04T02:32:09.239Z] No OAuth tokens found
-2026-03-04T02:32:09.2406785Z [2026-03-04T02:32:09.239Z] No OAuth tokens found
-2026-03-04T02:32:09.2407460Z [2026-03-04T02:32:09.239Z] No OAuth tokens found
-2026-03-04T02:32:09.2408125Z [2026-03-04T02:32:09.239Z] No OAuth tokens found
-2026-03-04T02:32:09.2408756Z [2026-03-04T02:32:09.240Z] No OAuth tokens found
-2026-03-04T02:32:09.2409419Z [2026-03-04T02:32:09.240Z] No OAuth tokens found
-2026-03-04T02:32:09.2410081Z [2026-03-04T02:32:09.240Z] No OAuth tokens found
-2026-03-04T02:32:09.2410735Z [2026-03-04T02:32:09.240Z] No OAuth tokens found
-2026-03-04T02:32:09.2411403Z [2026-03-04T02:32:09.240Z] No OAuth tokens found
-2026-03-04T02:32:09.2412081Z [2026-03-04T02:32:09.240Z] No OAuth tokens found
-2026-03-04T02:32:09.2412750Z [2026-03-04T02:32:09.241Z] No OAuth tokens found
-2026-03-04T02:32:09.2413421Z [2026-03-04T02:32:09.241Z] No OAuth tokens found
-2026-03-04T02:32:09.2415518Z [2026-03-04T02:32:09.241Z] No OAuth tokens found
-2026-03-04T02:32:09.2416876Z [2026-03-04T02:32:09.241Z] No OAuth tokens found
-2026-03-04T02:32:09.2425443Z [2026-03-04T02:32:09.241Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/54f8f50a5bd371f4c48da38e25eb736c6f0b183e683942fc6101c33bccd63ec5 [none]
-2026-03-04T02:32:09.2429034Z [2026-03-04T02:32:09.241Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/54f8f50a5bd371f4c48da38e25eb736c6f0b183e683942fc6101c33bccd63ec5 [stream]
-2026-03-04T02:32:09.2442309Z [2026-03-04T02:32:09.243Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/a3274d5e4538d8ac0810830297799e7275170abf8303a269afb090cb5352ffef [none]
-2026-03-04T02:32:09.2445841Z [2026-03-04T02:32:09.243Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/a3274d5e4538d8ac0810830297799e7275170abf8303a269afb090cb5352ffef [stream]
-2026-03-04T02:32:09.2452409Z [2026-03-04T02:32:09.244Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0f3bc24ed4038a4ddc908fde6a8f8435c89a04cf8873f4cacfc99c657c8bae20 [none]
-2026-03-04T02:32:09.2462260Z [2026-03-04T02:32:09.244Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0f3bc24ed4038a4ddc908fde6a8f8435c89a04cf8873f4cacfc99c657c8bae20 [stream]
-2026-03-04T02:32:09.2464735Z [2026-03-04T02:32:09.245Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/899c56240315543ee2e458e1ab82c1333db6eb95507f859d889401abffb9c682 [none]
-2026-03-04T02:32:09.2467060Z [2026-03-04T02:32:09.245Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/899c56240315543ee2e458e1ab82c1333db6eb95507f859d889401abffb9c682 [stream]
-2026-03-04T02:32:09.2469902Z [2026-03-04T02:32:09.246Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b33f5a491e53e8c9a24bf46fbd2e009660d1d0d0f8b2618a85744513913a3a37 [none]
-2026-03-04T02:32:09.2472318Z [2026-03-04T02:32:09.246Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b33f5a491e53e8c9a24bf46fbd2e009660d1d0d0f8b2618a85744513913a3a37 [stream]
-2026-03-04T02:32:09.2475488Z [2026-03-04T02:32:09.247Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f [none]
-2026-03-04T02:32:09.2477186Z [2026-03-04T02:32:09.247Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f [stream]
-2026-03-04T02:32:09.2480900Z [2026-03-04T02:32:09.247Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7dc6dbc78475d0c3400231117f85a9e336cdba37bfbb4860677c4644346c1083 [none]
-2026-03-04T02:32:09.2482608Z [2026-03-04T02:32:09.247Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7dc6dbc78475d0c3400231117f85a9e336cdba37bfbb4860677c4644346c1083 [stream]
-2026-03-04T02:32:09.2487791Z [2026-03-04T02:32:09.248Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/10dc4c68fb2c98c8ea7234d3c693f15d8647918049eaf2505a1e6a2449aafa0b [none]
-2026-03-04T02:32:09.2489506Z [2026-03-04T02:32:09.248Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/10dc4c68fb2c98c8ea7234d3c693f15d8647918049eaf2505a1e6a2449aafa0b [stream]
-2026-03-04T02:32:09.2494173Z [2026-03-04T02:32:09.249Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/659f6b88a8413bc50fe25cc72ae321dcc4eb07631047853aac08282b9a8dd220 [none]
-2026-03-04T02:32:09.2495869Z [2026-03-04T02:32:09.249Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/659f6b88a8413bc50fe25cc72ae321dcc4eb07631047853aac08282b9a8dd220 [stream]
-2026-03-04T02:32:09.2500248Z [2026-03-04T02:32:09.249Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0250d5e1aa57bb34753447f9319b6bfc0953c4795cc7aa375a1234111be30a96 [none]
-2026-03-04T02:32:09.2501930Z [2026-03-04T02:32:09.249Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0250d5e1aa57bb34753447f9319b6bfc0953c4795cc7aa375a1234111be30a96 [stream]
-2026-03-04T02:32:09.2506847Z [2026-03-04T02:32:09.250Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec [none]
-2026-03-04T02:32:09.2508552Z [2026-03-04T02:32:09.250Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec [stream]
-2026-03-04T02:32:09.2513033Z [2026-03-04T02:32:09.251Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0d97b62c9a064d921e0421497eb07720db45e9783c6f7fa1300e5ea4c14d0c77 [none]
-2026-03-04T02:32:09.2514923Z [2026-03-04T02:32:09.251Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0d97b62c9a064d921e0421497eb07720db45e9783c6f7fa1300e5ea4c14d0c77 [stream]
-2026-03-04T02:32:09.2519893Z [2026-03-04T02:32:09.251Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390 [none]
-2026-03-04T02:32:09.2524657Z [2026-03-04T02:32:09.251Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390 [stream]
-2026-03-04T02:32:09.2528116Z [2026-03-04T02:32:09.252Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e7c13858b8eeb1daa7ca50d102ccdd87e491414deffaed17bacd62453115fce0 [none]
-2026-03-04T02:32:09.2531501Z [2026-03-04T02:32:09.252Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e7c13858b8eeb1daa7ca50d102ccdd87e491414deffaed17bacd62453115fce0 [stream]
-2026-03-04T02:32:09.2535234Z [2026-03-04T02:32:09.253Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/53c431c2947f7601bc428837d955317d357cd941dae3d85853f13de4aa236d2f [none]
-2026-03-04T02:32:09.2538767Z [2026-03-04T02:32:09.253Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/53c431c2947f7601bc428837d955317d357cd941dae3d85853f13de4aa236d2f [stream]
-2026-03-04T02:32:09.2544455Z [2026-03-04T02:32:09.254Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/ce8d1f1ab58872385c4eedc7c021231ba9a2009137e6db3c729926a04ef65cb0 [none]
-2026-03-04T02:32:09.2547881Z [2026-03-04T02:32:09.254Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/ce8d1f1ab58872385c4eedc7c021231ba9a2009137e6db3c729926a04ef65cb0 [stream]
-2026-03-04T02:32:09.2551284Z [2026-03-04T02:32:09.254Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b09cc545dca5d792ead7306627fed6c298edbf477028e58309ee0004bae25ede [none]
-2026-03-04T02:32:09.2555222Z [2026-03-04T02:32:09.254Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b09cc545dca5d792ead7306627fed6c298edbf477028e58309ee0004bae25ede [stream]
-2026-03-04T02:32:09.2558880Z [2026-03-04T02:32:09.255Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6d2d0a775923ba2a13f93a93ef729a5cfa33e5acd8ddd91a0a0e7075455670da [none]
-2026-03-04T02:32:09.2562586Z [2026-03-04T02:32:09.255Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6d2d0a775923ba2a13f93a93ef729a5cfa33e5acd8ddd91a0a0e7075455670da [stream]
-2026-03-04T02:32:09.2566485Z [2026-03-04T02:32:09.256Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/996d322647cb53f9a1dac2991d89d1bc3480a0fb495d3d3dda35ffc3d35820d9 [none]
-2026-03-04T02:32:09.2570384Z [2026-03-04T02:32:09.256Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/996d322647cb53f9a1dac2991d89d1bc3480a0fb495d3d3dda35ffc3d35820d9 [stream]
-2026-03-04T02:32:09.2573846Z [2026-03-04T02:32:09.256Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7e12ab10ffdad8d7776e605121ae9222ec8afc9e6b15d7491457f05eb91f935e [none]
-2026-03-04T02:32:09.2575896Z [2026-03-04T02:32:09.256Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7e12ab10ffdad8d7776e605121ae9222ec8afc9e6b15d7491457f05eb91f935e [stream]
-2026-03-04T02:32:09.2590326Z [2026-03-04T02:32:09.257Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/39beebcc4013c43403b6e7a8f695e85fe293c04b96ff9feb17190048888be268 [none]
-2026-03-04T02:32:09.2595052Z [2026-03-04T02:32:09.257Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/39beebcc4013c43403b6e7a8f695e85fe293c04b96ff9feb17190048888be268 [stream]
-2026-03-04T02:32:09.2598718Z [2026-03-04T02:32:09.258Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6467f27ff3e0f62c3356ad9ed1af9ae2484c98d60abf18fc0cc54dc97fcf3acc [none]
-2026-03-04T02:32:09.2602707Z [2026-03-04T02:32:09.258Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6467f27ff3e0f62c3356ad9ed1af9ae2484c98d60abf18fc0cc54dc97fcf3acc [stream]
-2026-03-04T02:32:09.2606269Z [2026-03-04T02:32:09.259Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/4b518464b29dbe186cd4a7519b1d1f5fab8bd96b60eb3b2c4c2b787c5a8a4ffb [none]
-2026-03-04T02:32:09.2609679Z [2026-03-04T02:32:09.259Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/4b518464b29dbe186cd4a7519b1d1f5fab8bd96b60eb3b2c4c2b787c5a8a4ffb [stream]
-2026-03-04T02:32:09.2613379Z [2026-03-04T02:32:09.259Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/461071013779cfb1b2fca4307e8028a237c073fc0c3664b9779ae2067bbc66d3 [none]
-2026-03-04T02:32:09.2616922Z [2026-03-04T02:32:09.259Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/461071013779cfb1b2fca4307e8028a237c073fc0c3664b9779ae2067bbc66d3 [stream]
-2026-03-04T02:32:09.2619555Z [2026-03-04T02:32:09.260Z] [hosting][populate queue][FINAL] ***"max":586,"min":586,"avg":586,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":605***
-2026-03-04T02:32:09.2621166Z [2026-03-04T02:32:09.260Z] [hosting] uploads queued: 24
-2026-03-04T02:32:09.6697253Z i  hosting: uploading new files [0/24] (0%) 
-2026-03-04T02:32:09.8648599Z [2026-03-04T02:32:09.864Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b09cc545dca5d792ead7306627fed6c298edbf477028e58309ee0004bae25ede 200
-2026-03-04T02:32:09.8650758Z [2026-03-04T02:32:09.864Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b09cc545dca5d792ead7306627fed6c298edbf477028e58309ee0004bae25ede [stream]
-2026-03-04T02:32:09.9172941Z [2026-03-04T02:32:09.916Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b33f5a491e53e8c9a24bf46fbd2e009660d1d0d0f8b2618a85744513913a3a37 200
-2026-03-04T02:32:09.9175385Z [2026-03-04T02:32:09.916Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/b33f5a491e53e8c9a24bf46fbd2e009660d1d0d0f8b2618a85744513913a3a37 [stream]
-2026-03-04T02:32:09.9226442Z [2026-03-04T02:32:09.922Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/659f6b88a8413bc50fe25cc72ae321dcc4eb07631047853aac08282b9a8dd220 200
-2026-03-04T02:32:09.9228834Z [2026-03-04T02:32:09.922Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/659f6b88a8413bc50fe25cc72ae321dcc4eb07631047853aac08282b9a8dd220 [stream]
-2026-03-04T02:32:09.9266449Z [2026-03-04T02:32:09.926Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f 200
-2026-03-04T02:32:09.9270002Z [2026-03-04T02:32:09.926Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f [stream]
-2026-03-04T02:32:09.9274356Z [2026-03-04T02:32:09.927Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/39beebcc4013c43403b6e7a8f695e85fe293c04b96ff9feb17190048888be268 200
-2026-03-04T02:32:09.9278177Z [2026-03-04T02:32:09.927Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/39beebcc4013c43403b6e7a8f695e85fe293c04b96ff9feb17190048888be268 [stream]
-2026-03-04T02:32:09.9280315Z [2026-03-04T02:32:09.927Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/10dc4c68fb2c98c8ea7234d3c693f15d8647918049eaf2505a1e6a2449aafa0b 200
-2026-03-04T02:32:09.9282279Z [2026-03-04T02:32:09.927Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/10dc4c68fb2c98c8ea7234d3c693f15d8647918049eaf2505a1e6a2449aafa0b [stream]
-2026-03-04T02:32:09.9288797Z [2026-03-04T02:32:09.928Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/53c431c2947f7601bc428837d955317d357cd941dae3d85853f13de4aa236d2f 200
-2026-03-04T02:32:09.9292675Z [2026-03-04T02:32:09.928Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/53c431c2947f7601bc428837d955317d357cd941dae3d85853f13de4aa236d2f [stream]
-2026-03-04T02:32:09.9310649Z [2026-03-04T02:32:09.930Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/54f8f50a5bd371f4c48da38e25eb736c6f0b183e683942fc6101c33bccd63ec5 200
-2026-03-04T02:32:09.9314376Z [2026-03-04T02:32:09.930Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/54f8f50a5bd371f4c48da38e25eb736c6f0b183e683942fc6101c33bccd63ec5 [stream]
-2026-03-04T02:32:09.9331440Z [2026-03-04T02:32:09.932Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0250d5e1aa57bb34753447f9319b6bfc0953c4795cc7aa375a1234111be30a96 200
-2026-03-04T02:32:09.9335377Z [2026-03-04T02:32:09.932Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0250d5e1aa57bb34753447f9319b6bfc0953c4795cc7aa375a1234111be30a96 [stream]
-2026-03-04T02:32:09.9371616Z [2026-03-04T02:32:09.936Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6467f27ff3e0f62c3356ad9ed1af9ae2484c98d60abf18fc0cc54dc97fcf3acc 200
-2026-03-04T02:32:09.9373726Z [2026-03-04T02:32:09.936Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6467f27ff3e0f62c3356ad9ed1af9ae2484c98d60abf18fc0cc54dc97fcf3acc [stream]
-2026-03-04T02:32:09.9459039Z [2026-03-04T02:32:09.945Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7e12ab10ffdad8d7776e605121ae9222ec8afc9e6b15d7491457f05eb91f935e 200
-2026-03-04T02:32:09.9461139Z [2026-03-04T02:32:09.945Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7e12ab10ffdad8d7776e605121ae9222ec8afc9e6b15d7491457f05eb91f935e [stream]
-2026-03-04T02:32:09.9603871Z [2026-03-04T02:32:09.960Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0d97b62c9a064d921e0421497eb07720db45e9783c6f7fa1300e5ea4c14d0c77 200
-2026-03-04T02:32:09.9606216Z [2026-03-04T02:32:09.960Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0d97b62c9a064d921e0421497eb07720db45e9783c6f7fa1300e5ea4c14d0c77 [stream]
-2026-03-04T02:32:09.9796680Z [2026-03-04T02:32:09.979Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/4b518464b29dbe186cd4a7519b1d1f5fab8bd96b60eb3b2c4c2b787c5a8a4ffb 200
-2026-03-04T02:32:09.9798757Z [2026-03-04T02:32:09.979Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/4b518464b29dbe186cd4a7519b1d1f5fab8bd96b60eb3b2c4c2b787c5a8a4ffb [stream]
-2026-03-04T02:32:09.9801363Z [2026-03-04T02:32:09.979Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/996d322647cb53f9a1dac2991d89d1bc3480a0fb495d3d3dda35ffc3d35820d9 200
-2026-03-04T02:32:09.9803406Z [2026-03-04T02:32:09.979Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/996d322647cb53f9a1dac2991d89d1bc3480a0fb495d3d3dda35ffc3d35820d9 [stream]
-2026-03-04T02:32:10.0052895Z [2026-03-04T02:32:10.004Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/899c56240315543ee2e458e1ab82c1333db6eb95507f859d889401abffb9c682 200
-2026-03-04T02:32:10.0055305Z [2026-03-04T02:32:10.005Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/899c56240315543ee2e458e1ab82c1333db6eb95507f859d889401abffb9c682 [stream]
-2026-03-04T02:32:10.0199442Z [2026-03-04T02:32:10.019Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec 200
-2026-03-04T02:32:10.0201611Z [2026-03-04T02:32:10.019Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/2ef393cb6ce6fa2e14389b2fdc01b74394cec1a580e90312cc31ea7f16094eec [stream]
-2026-03-04T02:32:10.0215242Z [2026-03-04T02:32:10.021Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390 200
-2026-03-04T02:32:10.0217252Z [2026-03-04T02:32:10.021Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e506afa071b7082b05e749050a200ccf36e26aa79370e1103fdca89bcba5e390 [stream]
-2026-03-04T02:32:10.0255953Z [2026-03-04T02:32:10.025Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0f3bc24ed4038a4ddc908fde6a8f8435c89a04cf8873f4cacfc99c657c8bae20 200
-2026-03-04T02:32:10.0258076Z [2026-03-04T02:32:10.025Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/0f3bc24ed4038a4ddc908fde6a8f8435c89a04cf8873f4cacfc99c657c8bae20 [stream]
-2026-03-04T02:32:10.0265924Z [2026-03-04T02:32:10.026Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/ce8d1f1ab58872385c4eedc7c021231ba9a2009137e6db3c729926a04ef65cb0 200
-2026-03-04T02:32:10.0267653Z [2026-03-04T02:32:10.026Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/ce8d1f1ab58872385c4eedc7c021231ba9a2009137e6db3c729926a04ef65cb0 [stream]
-2026-03-04T02:32:10.0451689Z [2026-03-04T02:32:10.044Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7dc6dbc78475d0c3400231117f85a9e336cdba37bfbb4860677c4644346c1083 200
-2026-03-04T02:32:10.0453849Z [2026-03-04T02:32:10.044Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/7dc6dbc78475d0c3400231117f85a9e336cdba37bfbb4860677c4644346c1083 [stream]
-2026-03-04T02:32:10.0710163Z [2026-03-04T02:32:10.070Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e7c13858b8eeb1daa7ca50d102ccdd87e491414deffaed17bacd62453115fce0 200
-2026-03-04T02:32:10.0712598Z [2026-03-04T02:32:10.070Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/e7c13858b8eeb1daa7ca50d102ccdd87e491414deffaed17bacd62453115fce0 [stream]
-2026-03-04T02:32:10.1065002Z [2026-03-04T02:32:10.105Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/a3274d5e4538d8ac0810830297799e7275170abf8303a269afb090cb5352ffef 200
-2026-03-04T02:32:10.1067143Z [2026-03-04T02:32:10.106Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/a3274d5e4538d8ac0810830297799e7275170abf8303a269afb090cb5352ffef [stream]
-2026-03-04T02:32:10.3858630Z [2026-03-04T02:32:10.385Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6d2d0a775923ba2a13f93a93ef729a5cfa33e5acd8ddd91a0a0e7075455670da 200
-2026-03-04T02:32:10.3871543Z [2026-03-04T02:32:10.385Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/6d2d0a775923ba2a13f93a93ef729a5cfa33e5acd8ddd91a0a0e7075455670da [stream]
-2026-03-04T02:32:10.3873808Z [2026-03-04T02:32:10.386Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/461071013779cfb1b2fca4307e8028a237c073fc0c3664b9779ae2067bbc66d3 200
-2026-03-04T02:32:10.3876047Z [2026-03-04T02:32:10.386Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/1e9af783f61b7c7c/files/461071013779cfb1b2fca4307e8028a237c073fc0c3664b9779ae2067bbc66d3 [stream]
-2026-03-04T02:32:10.3877574Z [2026-03-04T02:32:10.387Z] [hosting][upload queue][FINAL] ***"max":1146,"min":624,"avg":767.6666666666666,"active":0,"complete":24,"success":24,"errored":0,"retried":0,"total":24,"elapsed":1151***
-2026-03-04T02:32:10.3878365Z i  hosting: upload complete 
-2026-03-04T02:32:10.3879079Z ✔  hosting[***]: file upload complete 
-2026-03-04T02:32:10.3879842Z [2026-03-04T02:32:10.387Z] [hosting] deploy completed after 2746ms
-2026-03-04T02:32:10.3884170Z i  functions: Skipping the deploy of unchanged functions. 
-2026-03-04T02:32:10.3894470Z ✔  functions[heartbeat(us-central1)] Skipped (No changes detected) 
-2026-03-04T02:32:10.3896706Z i  functions: updating Node.js 20 (2nd Gen) function firebase-frameworks-***:ssrportfoliodanilonovai(us-central1)... 
-2026-03-04T02:32:10.3909069Z [2026-03-04T02:32:10.390Z] No OAuth tokens found
-2026-03-04T02:32:10.3916520Z [2026-03-04T02:32:10.391Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai updateMask=name%2CbuildConfig.runtime%2CbuildConfig.entryPoint%2CbuildConfig.source.storageSource.bucket%2CbuildConfig.source.storageSource.object%2CbuildConfig.environmentVariables%2CbuildConfig.sourceToken%2CserviceConfig.environmentVariables%2CserviceConfig.ingressSettings%2CserviceConfig.timeoutSeconds%2CserviceConfig.serviceAccountEmail%2CserviceConfig.availableMemory%2CserviceConfig.minInstanceCount%2CserviceConfig.maxInstanceCount%2CserviceConfig.maxInstanceRequestConcurrency%2CserviceConfig.availableCpu%2CserviceConfig.vpcConnector%2CserviceConfig.vpcConnectorEgressSettings%2Clabels
-2026-03-04T02:32:10.3928411Z [2026-03-04T02:32:10.391Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai ***"name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com","object":"f5cf86ca-8187-4d24-9e01-7259782e4739.zip"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"serviceConfig":***"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null***,"labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***
-2026-03-04T02:32:11.3436445Z [2026-03-04T02:32:11.343Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai 200
-2026-03-04T02:32:11.3440543Z [2026-03-04T02:32:11.343Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2"***,"done":false***
-2026-03-04T02:32:11.3443332Z [2026-03-04T02:32:11.343Z] No OAuth tokens found
-2026-03-04T02:32:11.3445121Z [2026-03-04T02:32:11.344Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:11.3999213Z [2026-03-04T02:32:11.399Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:11.4003826Z [2026-03-04T02:32:11.399Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2"***,"done":false***
-2026-03-04T02:32:11.9011530Z [2026-03-04T02:32:11.900Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:11.9012971Z [2026-03-04T02:32:11.900Z] No OAuth tokens found
-2026-03-04T02:32:11.9015419Z [2026-03-04T02:32:11.901Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:11.9494656Z [2026-03-04T02:32:11.949Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:11.9513693Z [2026-03-04T02:32:11.949Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","state":"NOT_STARTED","stateMessages":[***"severity":"WARNING","type":"BuildAnalysisWarning","message":"Node.js 20 is no longer supported by the Node.js community as of 30 April, 2026. Node.js 20 will be deprecated on 2026-04-30. We recommend you to upgrade to the latest version of Node.js as soon as possible."***]***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION"***,"done":false***
-2026-03-04T02:32:12.9495520Z [2026-03-04T02:32:12.948Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:12.9496451Z [2026-03-04T02:32:12.949Z] No OAuth tokens found
-2026-03-04T02:32:12.9497819Z [2026-03-04T02:32:12.949Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:13.0036712Z [2026-03-04T02:32:13.003Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:13.0057552Z [2026-03-04T02:32:13.003Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:32:15.0037607Z [2026-03-04T02:32:15.003Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:15.0038734Z [2026-03-04T02:32:15.003Z] No OAuth tokens found
-2026-03-04T02:32:15.0040740Z [2026-03-04T02:32:15.003Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:15.0389639Z [2026-03-04T02:32:15.038Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:15.0409380Z [2026-03-04T02:32:15.038Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:32:19.0394891Z [2026-03-04T02:32:19.038Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:19.0397711Z [2026-03-04T02:32:19.039Z] No OAuth tokens found
-2026-03-04T02:32:19.0400396Z [2026-03-04T02:32:19.039Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:19.0744710Z [2026-03-04T02:32:19.074Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:19.0768131Z [2026-03-04T02:32:19.074Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:32:27.0755716Z [2026-03-04T02:32:27.074Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:27.0757105Z [2026-03-04T02:32:27.075Z] No OAuth tokens found
-2026-03-04T02:32:27.0758559Z [2026-03-04T02:32:27.075Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:27.1268110Z [2026-03-04T02:32:27.126Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:27.1288260Z [2026-03-04T02:32:27.126Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:32:37.1270980Z [2026-03-04T02:32:37.126Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:37.1272076Z [2026-03-04T02:32:37.127Z] No OAuth tokens found
-2026-03-04T02:32:37.1274752Z [2026-03-04T02:32:37.127Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:37.1862819Z [2026-03-04T02:32:37.185Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:37.1888478Z [2026-03-04T02:32:37.186Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:32:47.1862365Z [2026-03-04T02:32:47.185Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:47.1863622Z [2026-03-04T02:32:47.186Z] No OAuth tokens found
-2026-03-04T02:32:47.1866367Z [2026-03-04T02:32:47.186Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:47.2849264Z [2026-03-04T02:32:47.284Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:47.2868142Z [2026-03-04T02:32:47.284Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:32:57.2858580Z [2026-03-04T02:32:57.285Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:32:57.2859860Z [2026-03-04T02:32:57.285Z] No OAuth tokens found
-2026-03-04T02:32:57.2862208Z [2026-03-04T02:32:57.286Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:32:57.3387010Z [2026-03-04T02:32:57.338Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:32:57.3408426Z [2026-03-04T02:32:57.338Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:33:07.3398675Z [2026-03-04T02:33:07.339Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:33:07.3399882Z [2026-03-04T02:33:07.339Z] No OAuth tokens found
-2026-03-04T02:33:07.3402158Z [2026-03-04T02:33:07.339Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:33:07.4039545Z [2026-03-04T02:33:07.403Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:33:07.4057543Z [2026-03-04T02:33:07.403Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:33:17.4051166Z [2026-03-04T02:33:17.404Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:33:17.4053008Z [2026-03-04T02:33:17.404Z] No OAuth tokens found
-2026-03-04T02:33:17.4055659Z [2026-03-04T02:33:17.404Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:33:17.4793697Z [2026-03-04T02:33:17.478Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:33:17.4813590Z [2026-03-04T02:33:17.479Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:33:27.4801160Z [2026-03-04T02:33:27.479Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:33:27.4802204Z [2026-03-04T02:33:27.480Z] No OAuth tokens found
-2026-03-04T02:33:27.4804841Z [2026-03-04T02:33:27.480Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:33:27.5673473Z [2026-03-04T02:33:27.566Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:33:27.5694004Z [2026-03-04T02:33:27.567Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/0c8feda2-35a3-4521-8de4-d4492df3c222"***,"done":false***
-2026-03-04T02:33:37.5683644Z [2026-03-04T02:33:37.567Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
-2026-03-04T02:33:37.5685060Z [2026-03-04T02:33:37.568Z] No OAuth tokens found
-2026-03-04T02:33:37.5686950Z [2026-03-04T02:33:37.568Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a [none]
-2026-03-04T02:33:37.6532745Z [2026-03-04T02:33:37.652Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a 200
-2026-03-04T02:33:37.6563642Z [2026-03-04T02:33:37.652Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a ***"name":"projects/***/locations/us-central1/operations/operation-1772591530437-64c29a080eb8b-0461f2d3-6b19833a","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:32:11.321401911Z","endTime":"2026-03-04T02:33:33.777694405Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772591531266973"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION"***,"done":true,"error":***"code":3,"message":"Build failed with status: FAILURE and message: npm error code ERESOLVE\nnpm error ERESOLVE could not resolve\nnpm error\nnpm error While resolving: firebase-frameworks@0.11.8\nnpm error Found: sharp@0.34.5\nnpm error node_modules/sharp\nnpm error   sharp@\"0.34.5\" from the root project\nnpm error   sharp@\"^0.34.2\" from motion-studio-mcp@5.3.0\nnpm error   node_modules/motion-studio-mcp\nnpm error     motion-studio-mcp@\"https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest\" from the root project\nnpm error   1 more (next)\nnpm error\nnpm error Could not resolve dependency:\nnpm error peerOptional sharp@\"^0.32 || ^0.33\" from firebase-frameworks@0.11.8\nnpm error node_modules/firebase-frameworks\nnpm error   firebase-frameworks@\"^0.11.0\" from the root project\nnpm error\nnpm error Conflicting peer dependency: sharp@0.33.5\nnpm error node_modules/sharp\nnpm error   peerOptional sharp@\"^0.32 || ^0.33\" from firebase-frameworks@0.11.8\nnpm error   node_modules/firebase-frameworks\nnpm error     firebase-frameworks@\"^0.11.0\" from the root project\nnpm error\nnpm error Fix the upstream dependency conflict, or retry\nnpm error this command with --force or --legacy-peer-deps\nnpm error to accept an incorrect (and potentially broken) dependency resolution.\nnpm error\nnpm error\nnpm error For a full report see:\nnpm error /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-eresolve-report.txt\nnpm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989."***
-2026-03-04T02:33:37.6583127Z [2026-03-04T02:33:37.653Z] Got source token undefined for region us-central1
-2026-03-04T02:33:37.6583835Z Build failed with status: FAILURE and message: npm error code ERESOLVE
-2026-03-04T02:33:37.6584506Z npm error ERESOLVE could not resolve
-2026-03-04T02:33:37.6584856Z npm error
-2026-03-04T02:33:37.6585239Z npm error While resolving: firebase-frameworks@0.11.8
-2026-03-04T02:33:37.6585665Z npm error Found: sharp@0.34.5
-2026-03-04T02:33:37.6586002Z npm error node_modules/sharp
-2026-03-04T02:33:37.6586388Z npm error   sharp@"0.34.5" from the root project
-2026-03-04T02:33:37.6586849Z npm error   sharp@"^0.34.2" from motion-studio-mcp@5.3.0
-2026-03-04T02:33:37.6587277Z npm error   node_modules/motion-studio-mcp
-2026-03-04T02:33:37.6588039Z npm error     motion-studio-mcp@"https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest" from the root project
-2026-03-04T02:33:37.6588675Z npm error   1 more (next)
-2026-03-04T02:33:37.6588974Z npm error
-2026-03-04T02:33:37.6589294Z npm error Could not resolve dependency:
-2026-03-04T02:33:37.6589810Z npm error peerOptional sharp@"^0.32 || ^0.33" from firebase-frameworks@0.11.8
-2026-03-04T02:33:37.6590307Z npm error node_modules/firebase-frameworks
-2026-03-04T02:33:37.6590785Z npm error   firebase-frameworks@"^0.11.0" from the root project
-2026-03-04T02:33:37.6591172Z npm error
-2026-03-04T02:33:37.6591529Z npm error Conflicting peer dependency: sharp@0.33.5
-2026-03-04T02:33:37.6591915Z npm error node_modules/sharp
-2026-03-04T02:33:37.6592394Z npm error   peerOptional sharp@"^0.32 || ^0.33" from firebase-frameworks@0.11.8
-2026-03-04T02:33:37.6592907Z npm error   node_modules/firebase-frameworks
-2026-03-04T02:33:37.6593383Z npm error     firebase-frameworks@"^0.11.0" from the root project
-2026-03-04T02:33:37.6593769Z npm error
-2026-03-04T02:33:37.6594544Z npm error Fix the upstream dependency conflict, or retry
-2026-03-04T02:33:37.6595059Z npm error this command with --force or --legacy-peer-deps
-2026-03-04T02:33:37.6595647Z npm error to accept an incorrect (and potentially broken) dependency resolution.
-2026-03-04T02:33:37.6596088Z npm error
-2026-03-04T02:33:37.6596342Z npm error
-2026-03-04T02:33:37.6596640Z npm error For a full report see:
-2026-03-04T02:33:37.6597136Z npm error /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-eresolve-report.txt
-2026-03-04T02:33:37.6598533Z npm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989.
-2026-03-04T02:33:37.6599701Z [2026-03-04T02:33:37.654Z] Total Function Deployment time: 87264
-2026-03-04T02:33:37.6600165Z [2026-03-04T02:33:37.654Z] 1 Functions Deployed
-2026-03-04T02:33:37.6600580Z [2026-03-04T02:33:37.654Z] 1 Functions Errored
-2026-03-04T02:33:37.6601028Z [2026-03-04T02:33:37.654Z] 0 Function Deployments Aborted
-2026-03-04T02:33:37.6601534Z [2026-03-04T02:33:37.654Z] Average Function Deployment time: 87264
-2026-03-04T02:33:37.6601819Z 
-2026-03-04T02:33:37.6602058Z Functions deploy had errors with the following functions:
-2026-03-04T02:33:37.6602693Z   firebase-frameworks-***:ssrportfoliodanilonovai(us-central1)
-2026-03-04T02:33:37.6603476Z [2026-03-04T02:33:37.655Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
-2026-03-04T02:33:37.6604566Z [2026-03-04T02:33:37.655Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
-2026-03-04T02:33:37.6605229Z [2026-03-04T02:33:37.655Z] No OAuth tokens found
-2026-03-04T02:33:37.6606188Z [2026-03-04T02:33:37.655Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1/projects/***/locations/us-central1/repositories/gcf-artifacts [none]
-2026-03-04T02:33:37.7654833Z [2026-03-04T02:33:37.764Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/***/locations/us-central1/repositories/gcf-artifacts 200
-2026-03-04T02:33:37.7667702Z [2026-03-04T02:33:37.765Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/***/locations/us-central1/repositories/gcf-artifacts ***"name":"projects/***/locations/us-central1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":***"goog-managed-by":"cloudfunctions"***,"createTime":"2026-01-12T06:16:13.804009Z","updateTime":"2026-03-03T20:58:38.275486Z","mode":"STANDARD_REPOSITORY","cleanupPolicies":***"firebase-functions-cleanup":***"id":"firebase-functions-cleanup","action":"DELETE","condition":***"tagState":"ANY","olderThan":"604800s"***,"sizeBytes":"24060271580","vulnerabilityScanningConfig":***"lastEnableTime":"2026-01-12T06:16:13.330841263Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."***,"satisfiesPzi":true,"registryUri":"us-central1-docker.pkg.dev/***/gcf-artifacts"***
-2026-03-04T02:33:37.7673486Z [2026-03-04T02:33:37.766Z] Functions deploy failed.
-2026-03-04T02:33:37.7674349Z [2026-03-04T02:33:37.766Z] ***
-2026-03-04T02:33:37.7674872Z   "endpoint": ***
-2026-03-04T02:33:37.7675408Z     "id": "ssrportfoliodanilonovai",
-2026-03-04T02:33:37.7676031Z     "project": "***",
-2026-03-04T02:33:37.7676468Z     "region": "us-central1",
-2026-03-04T02:33:37.7677021Z     "entryPoint": "ssrportfoliodanilonovai",
-2026-03-04T02:33:37.7677544Z     "platform": "gcfv2",
-2026-03-04T02:33:37.7677910Z     "runtime": "nodejs20",
-2026-03-04T02:33:37.7678239Z     "httpsTrigger": ***,
-2026-03-04T02:33:37.7678538Z     "labels": ***
-2026-03-04T02:33:37.7678854Z       "deployment-tool": "cli-firebase"
-2026-03-04T02:33:37.7679183Z     ***,
-2026-03-04T02:33:37.7679445Z     "serviceAccount": null,
-2026-03-04T02:33:37.7679968Z     "ingressSettings": null,
-2026-03-04T02:33:37.7680296Z     "availableMemoryMb": null,
-2026-03-04T02:33:37.7680612Z     "timeoutSeconds": null,
-2026-03-04T02:33:37.7680914Z     "maxInstances": null,
-2026-03-04T02:33:37.7681214Z     "minInstances": null,
-2026-03-04T02:33:37.7681500Z     "concurrency": 80,
-2026-03-04T02:33:37.7681785Z     "vpc": null,
-2026-03-04T02:33:37.7682075Z     "environmentVariables": ***
-2026-03-04T02:33:37.7682484Z       "VERCEL_URL": "***.web.app",
-2026-03-04T02:33:37.7682863Z       "__FIREBASE_FRAMEWORKS_ENTRY__": "next.js",
-2026-03-04T02:33:37.7685396Z       "__FIREBASE_DEFAULTS__": "***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***",
-2026-03-04T02:33:37.7687712Z       "FIREBASE_CONFIG": "***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***",
-2026-03-04T02:33:37.7688441Z       "GCLOUD_PROJECT": "***",
-2026-03-04T02:33:37.7689087Z       "EVENTARC_CLOUD_EVENT_SOURCE": "projects/***/locations/us-central1/services/ssrportfoliodanilonovai"
-2026-03-04T02:33:37.7689600Z     ***,
-2026-03-04T02:33:37.7690005Z     "codebase": "firebase-frameworks-***",
-2026-03-04T02:33:37.7690415Z     "runServiceId": "ssrportfoliodanilonovai",
-2026-03-04T02:33:37.7690762Z     "cpu": 1,
-2026-03-04T02:33:37.7691063Z     "securityLevel": "SECURE_ALWAYS",
-2026-03-04T02:33:37.7691399Z     "targetedByOnly": false,
-2026-03-04T02:33:37.7691775Z     "hash": "e824853e4a2ac5d33c003ac5ee49752ecd990517"
-2026-03-04T02:33:37.7692131Z   ***,
-2026-03-04T02:33:37.7692387Z   "op": "update",
-2026-03-04T02:33:37.7692662Z   "original": ***
-2026-03-04T02:33:37.7693056Z     "name": "FirebaseError",
-2026-03-04T02:33:37.7693394Z     "children": [],
-2026-03-04T02:33:37.7693686Z     "exit": 1,
-2026-03-04T02:33:37.7699982Z     "message": "Build failed with status: FAILURE and message: npm error code ERESOLVE\nnpm error ERESOLVE could not resolve\nnpm error\nnpm error While resolving: firebase-frameworks@0.11.8\nnpm error Found: sharp@0.34.5\nnpm error node_modules/sharp\nnpm error   sharp@\"0.34.5\" from the root project\nnpm error   sharp@\"^0.34.2\" from motion-studio-mcp@5.3.0\nnpm error   node_modules/motion-studio-mcp\nnpm error     motion-studio-mcp@\"https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest\" from the root project\nnpm error   1 more (next)\nnpm error\nnpm error Could not resolve dependency:\nnpm error peerOptional sharp@\"^0.32 || ^0.33\" from firebase-frameworks@0.11.8\nnpm error node_modules/firebase-frameworks\nnpm error   firebase-frameworks@\"^0.11.0\" from the root project\nnpm error\nnpm error Conflicting peer dependency: sharp@0.33.5\nnpm error node_modules/sharp\nnpm error   peerOptional sharp@\"^0.32 || ^0.33\" from firebase-frameworks@0.11.8\nnpm error   node_modules/firebase-frameworks\nnpm error     firebase-frameworks@\"^0.11.0\" from the root project\nnpm error\nnpm error Fix the upstream dependency conflict, or retry\nnpm error this command with --force or --legacy-peer-deps\nnpm error to accept an incorrect (and potentially broken) dependency resolution.\nnpm error\nnpm error\nnpm error For a full report see:\nnpm error /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-eresolve-report.txt\nnpm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989.",
-2026-03-04T02:33:37.7705629Z     "original": ***
-2026-03-04T02:33:37.7705916Z       "code": 3,
-2026-03-04T02:33:37.7711834Z       "message": "Build failed with status: FAILURE and message: npm error code ERESOLVE\nnpm error ERESOLVE could not resolve\nnpm error\nnpm error While resolving: firebase-frameworks@0.11.8\nnpm error Found: sharp@0.34.5\nnpm error node_modules/sharp\nnpm error   sharp@\"0.34.5\" from the root project\nnpm error   sharp@\"^0.34.2\" from motion-studio-mcp@5.3.0\nnpm error   node_modules/motion-studio-mcp\nnpm error     motion-studio-mcp@\"https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest\" from the root project\nnpm error   1 more (next)\nnpm error\nnpm error Could not resolve dependency:\nnpm error peerOptional sharp@\"^0.32 || ^0.33\" from firebase-frameworks@0.11.8\nnpm error node_modules/firebase-frameworks\nnpm error   firebase-frameworks@\"^0.11.0\" from the root project\nnpm error\nnpm error Conflicting peer dependency: sharp@0.33.5\nnpm error node_modules/sharp\nnpm error   peerOptional sharp@\"^0.32 || ^0.33\" from firebase-frameworks@0.11.8\nnpm error   node_modules/firebase-frameworks\nnpm error     firebase-frameworks@\"^0.11.0\" from the root project\nnpm error\nnpm error Fix the upstream dependency conflict, or retry\nnpm error this command with --force or --legacy-peer-deps\nnpm error to accept an incorrect (and potentially broken) dependency resolution.\nnpm error\nnpm error\nnpm error For a full report see:\nnpm error /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-eresolve-report.txt\nnpm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_33_00_242Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0c8feda2-35a3-4521-8de4-d4492df3c222?project=350817205989."
-2026-03-04T02:33:37.7717463Z     ***,
-2026-03-04T02:33:37.7717730Z     "status": 3,
-2026-03-04T02:33:37.7718005Z     "code": 3
-2026-03-04T02:33:37.7718268Z   ***
-2026-03-04T02:33:37.7718527Z ***
-2026-03-04T02:33:37.7719091Z [2026-03-04T02:33:37.767Z] Error: Failed to update function ssrportfoliodanilonovai in region us-central1
-2026-03-04T02:33:37.7720015Z     at /opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:440:19
-2026-03-04T02:33:37.7720788Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-2026-03-04T02:33:37.7721698Z     at async Fabricator.updateV2Function (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:424:32)
-2026-03-04T02:33:37.7722835Z     at async Fabricator.updateEndpoint (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:160:13)
-2026-03-04T02:33:37.7723881Z     at async handle (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:91:17)
-2026-03-04T02:33:37.7724503Z 
-2026-03-04T02:33:37.7724714Z Error: There was an error deploying functions
-2026-03-04T02:33:38.0756645Z ##[error]Process completed with exit code 2.
-2026-03-04T02:33:38.0803715Z ##[group]Run echo "❌ Pipeline de deploy falhou."
-2026-03-04T02:33:38.0804705Z [36;1mecho "❌ Pipeline de deploy falhou."[0m
-2026-03-04T02:33:38.0805158Z [36;1mecho "### Falha no Pipeline de Deploy ❌" >> $GITHUB_STEP_SUMMARY[0m
-2026-03-04T02:33:38.0805720Z [36;1mecho "Verifique os logs do GitHub Actions para detalhes." >> $GITHUB_STEP_SUMMARY[0m
-2026-03-04T02:33:38.0832478Z shell: /usr/bin/bash -e ***0***
-2026-03-04T02:33:38.0832810Z env:
-2026-03-04T02:33:38.0833086Z   NODE_VERSION: 20
-2026-03-04T02:33:38.0833369Z   PNPM_VERSION: 10.30.3
-2026-03-04T02:33:38.0833795Z   NEXT_PUBLIC_SUPABASE_URL: ***
-2026-03-04T02:33:38.0835312Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
-2026-03-04T02:33:38.0835813Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
-2026-03-04T02:33:38.0836347Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
-2026-03-04T02:33:38.0837823Z   SUPABASE_SERVICE_ROLE_KEY: ***
-2026-03-04T02:33:38.0846807Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
-2026-03-04T02:33:38.0847230Z   FIREBASE_PROJECT_ID: ***
-2026-03-04T02:33:38.0847729Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-2026-03-04T02:33:38.0848432Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:33:38.0849367Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:33:38.0850239Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json
-2026-03-04T02:33:38.0850868Z   CLOUDSDK_CORE_PROJECT: ***
-2026-03-04T02:33:38.0851210Z   CLOUDSDK_PROJECT: ***
-2026-03-04T02:33:38.0851523Z   GCLOUD_PROJECT: ***
-2026-03-04T02:33:38.0851836Z   GCP_PROJECT: ***
-2026-03-04T02:33:38.0852155Z   GOOGLE_CLOUD_PROJECT: ***
-2026-03-04T02:33:38.0852455Z ##[endgroup]
-2026-03-04T02:33:38.0900617Z ❌ Pipeline de deploy falhou.
-2026-03-04T02:33:38.0969987Z Post job cleanup.
-2026-03-04T02:33:38.1724177Z Removed exported credentials at "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-2581fab59fcb6e51.json".
-2026-03-04T02:33:38.1790066Z Post job cleanup.
-2026-03-04T02:33:38.2277973Z Pruning is unnecessary.
-2026-03-04T02:33:38.2385541Z Post job cleanup.
-2026-03-04T02:33:38.3261428Z [command]/usr/bin/git version
-2026-03-04T02:33:38.3298747Z git version 2.53.0
-2026-03-04T02:33:38.3339565Z Temporarily overriding HOME='/home/runner/work/_temp/af094426-0c30-4cba-b211-f471ded3d494' before making global git config changes
-2026-03-04T02:33:38.3341289Z Adding repository directory to the temporary git global config as a safe directory
-2026-03-04T02:33:38.3355870Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
-2026-03-04T02:33:38.3390001Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-03-04T02:33:38.3425512Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-03-04T02:33:38.3657798Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-03-04T02:33:38.3676448Z http.https://github.com/.extraheader
-2026-03-04T02:33:38.3687366Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
-2026-03-04T02:33:38.3713810Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-03-04T02:33:38.4010894Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-03-04T02:33:38.4054324Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-03-04T02:33:38.4498484Z Cleaning up orphan processes
+2026-03-04T02:49:04.6246146Z Current runner version: '2.331.0'
+2026-03-04T02:49:04.6273203Z ##[group]Runner Image Provisioner
+2026-03-04T02:49:04.6274529Z Hosted Compute Agent
+2026-03-04T02:49:04.6275571Z Version: 20260213.493
+2026-03-04T02:49:04.6276677Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-03-04T02:49:04.6277758Z Build Date: 2026-02-13T00:28:41Z
+2026-03-04T02:49:04.6278999Z Worker ID: ***597171cc-cb30-4f34-920a-fda3599598d7***
+2026-03-04T02:49:04.6280204Z Azure Region: centralus
+2026-03-04T02:49:04.6281085Z ##[endgroup]
+2026-03-04T02:49:04.6283000Z ##[group]Operating System
+2026-03-04T02:49:04.6283973Z Ubuntu
+2026-03-04T02:49:04.6284878Z 24.04.3
+2026-03-04T02:49:04.6285925Z LTS
+2026-03-04T02:49:04.6286693Z ##[endgroup]
+2026-03-04T02:49:04.6287570Z ##[group]Runner Image
+2026-03-04T02:49:04.6288505Z Image: ubuntu-24.04
+2026-03-04T02:49:04.6289419Z Version: 20260224.36.1
+2026-03-04T02:49:04.6291017Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260224.36/images/ubuntu/Ubuntu2404-Readme.md
+2026-03-04T02:49:04.6293089Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260224.36
+2026-03-04T02:49:04.6294351Z ##[endgroup]
+2026-03-04T02:49:04.6296400Z ##[group]GITHUB_TOKEN Permissions
+2026-03-04T02:49:04.6299318Z Contents: read
+2026-03-04T02:49:04.6300214Z Metadata: read
+2026-03-04T02:49:04.6301157Z ##[endgroup]
+2026-03-04T02:49:04.6303601Z Secret source: Actions
+2026-03-04T02:49:04.6304853Z Prepare workflow directory
+2026-03-04T02:49:04.6852621Z Prepare all required actions
+2026-03-04T02:49:04.6890764Z Getting action download info
+2026-03-04T02:49:05.0629066Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-03-04T02:49:05.1922547Z Download action repository 'pnpm/action-setup@v4' (SHA:41ff72655975bd51cab0327fa583b6e92b6d3061)
+2026-03-04T02:49:05.6760965Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-03-04T02:49:05.7695043Z Download action repository 'google-github-actions/auth@v2' (SHA:c200f3691d83b41bf9bbd8638997a462592937ed)
+2026-03-04T02:49:06.3158699Z Complete job name: test-and-deploy
+2026-03-04T02:49:06.4222580Z ##[group]Run actions/checkout@v4
+2026-03-04T02:49:06.4224262Z with:
+2026-03-04T02:49:06.4225812Z   repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:49:06.4227629Z   token: ***
+2026-03-04T02:49:06.4228756Z   ssh-strict: true
+2026-03-04T02:49:06.4229897Z   ssh-user: git
+2026-03-04T02:49:06.4231061Z   persist-credentials: true
+2026-03-04T02:49:06.4232334Z   clean: true
+2026-03-04T02:49:06.4233508Z   sparse-checkout-cone-mode: true
+2026-03-04T02:49:06.4234845Z   fetch-depth: 1
+2026-03-04T02:49:06.4236202Z   fetch-tags: false
+2026-03-04T02:49:06.4237376Z   show-progress: true
+2026-03-04T02:49:06.4238559Z   lfs: false
+2026-03-04T02:49:06.4239651Z   submodules: false
+2026-03-04T02:49:06.4240844Z   set-safe-directory: true
+2026-03-04T02:49:06.4242366Z env:
+2026-03-04T02:49:06.4243445Z   NODE_VERSION: 20
+2026-03-04T02:49:06.4244631Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:49:06.4246484Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:49:06.4251698Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:49:06.4253643Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:49:06.4255855Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:49:06.4261440Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:49:06.4296217Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:49:06.4297767Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:49:06.4299017Z ##[endgroup]
+2026-03-04T02:49:06.5414182Z Syncing repository: danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:49:06.5417945Z ##[group]Getting Git version info
+2026-03-04T02:49:06.5420018Z Working directory is '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-04T02:49:06.5422797Z [command]/usr/bin/git version
+2026-03-04T02:49:06.5466717Z git version 2.53.0
+2026-03-04T02:49:06.5493319Z ##[endgroup]
+2026-03-04T02:49:06.5514392Z Temporarily overriding HOME='/home/runner/work/_temp/e6e3d30d-2af8-4bee-986a-1c260cd1850a' before making global git config changes
+2026-03-04T02:49:06.5519021Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-04T02:49:06.5522040Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:49:06.5561410Z Deleting the contents of '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL'
+2026-03-04T02:49:06.5564978Z ##[group]Initializing the repository
+2026-03-04T02:49:06.5569426Z [command]/usr/bin/git init /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:49:06.5665729Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-03-04T02:49:06.5668522Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-03-04T02:49:06.5672508Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-03-04T02:49:06.5675994Z hint: call:
+2026-03-04T02:49:06.5677965Z hint:
+2026-03-04T02:49:06.5680168Z hint:   git config --global init.defaultBranch <name>
+2026-03-04T02:49:06.5682949Z hint:
+2026-03-04T02:49:06.5685786Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-03-04T02:49:06.5689605Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-03-04T02:49:06.5691914Z hint:
+2026-03-04T02:49:06.5693035Z hint:   git branch -m <name>
+2026-03-04T02:49:06.5694304Z hint:
+2026-03-04T02:49:06.5696724Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-03-04T02:49:06.5701254Z Initialized empty Git repository in /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.git/
+2026-03-04T02:49:06.5705937Z [command]/usr/bin/git remote add origin https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:49:06.5723161Z ##[endgroup]
+2026-03-04T02:49:06.5726907Z ##[group]Disabling automatic garbage collection
+2026-03-04T02:49:06.5729701Z [command]/usr/bin/git config --local gc.auto 0
+2026-03-04T02:49:06.5760376Z ##[endgroup]
+2026-03-04T02:49:06.5763623Z ##[group]Setting up auth
+2026-03-04T02:49:06.5767564Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-04T02:49:06.5802601Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-04T02:49:06.6150973Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-04T02:49:06.6188841Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-04T02:49:06.6433671Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-04T02:49:06.6488037Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-04T02:49:06.6750361Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-03-04T02:49:06.6789633Z ##[endgroup]
+2026-03-04T02:49:06.6793130Z ##[group]Fetching the repository
+2026-03-04T02:49:06.6802590Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0dec961f4d455f5efbdb7db25562a4bc1e4a12f4:refs/remotes/origin/main
+2026-03-04T02:49:35.4756214Z From https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:49:35.4757913Z  * [new ref]           0dec961f4d455f5efbdb7db25562a4bc1e4a12f4 -> origin/main
+2026-03-04T02:49:35.4791755Z ##[endgroup]
+2026-03-04T02:49:35.4792964Z ##[group]Determining the checkout info
+2026-03-04T02:49:35.4794249Z ##[endgroup]
+2026-03-04T02:49:35.4799977Z [command]/usr/bin/git sparse-checkout disable
+2026-03-04T02:49:35.4842054Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-03-04T02:49:35.4873155Z ##[group]Checking out the ref
+2026-03-04T02:49:35.4874065Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-03-04T02:49:36.6717809Z Updating files:  29% (6047/20626)
+2026-03-04T02:49:36.7620232Z Updating files:  30% (6188/20626)
+2026-03-04T02:49:36.9459493Z Updating files:  31% (6395/20626)
+2026-03-04T02:49:37.1077191Z Updating files:  32% (6601/20626)
+2026-03-04T02:49:37.2232299Z Updating files:  33% (6807/20626)
+2026-03-04T02:49:37.3651341Z Updating files:  34% (7013/20626)
+2026-03-04T02:49:37.5511890Z Updating files:  35% (7220/20626)
+2026-03-04T02:49:37.6212164Z Updating files:  35% (7363/20626)
+2026-03-04T02:49:37.8568075Z Updating files:  36% (7426/20626)
+2026-03-04T02:49:38.0556142Z Updating files:  37% (7632/20626)
+2026-03-04T02:49:38.2637167Z Updating files:  38% (7838/20626)
+2026-03-04T02:49:38.4389068Z Updating files:  39% (8045/20626)
+2026-03-04T02:49:38.5388818Z Updating files:  40% (8251/20626)
+2026-03-04T02:49:38.5778279Z Updating files:  40% (8368/20626)
+2026-03-04T02:49:38.7537277Z Updating files:  41% (8457/20626)
+2026-03-04T02:49:39.0121121Z Updating files:  42% (8663/20626)
+2026-03-04T02:49:39.1668141Z Updating files:  43% (8870/20626)
+2026-03-04T02:49:39.3245646Z Updating files:  44% (9076/20626)
+2026-03-04T02:49:39.5021990Z Updating files:  45% (9282/20626)
+2026-03-04T02:49:39.5405314Z Updating files:  46% (9488/20626)
+2026-03-04T02:49:39.5643749Z Updating files:  46% (9576/20626)
+2026-03-04T02:49:39.5780370Z Updating files:  47% (9695/20626)
+2026-03-04T02:49:39.5918719Z Updating files:  48% (9901/20626)
+2026-03-04T02:49:39.6057806Z Updating files:  49% (10107/20626)
+2026-03-04T02:49:39.6194036Z Updating files:  50% (10313/20626)
+2026-03-04T02:49:39.6348545Z Updating files:  51% (10520/20626)
+2026-03-04T02:49:39.6484083Z Updating files:  52% (10726/20626)
+2026-03-04T02:49:39.6630794Z Updating files:  53% (10932/20626)
+2026-03-04T02:49:39.6778238Z Updating files:  54% (11139/20626)
+2026-03-04T02:49:39.6926359Z Updating files:  55% (11345/20626)
+2026-03-04T02:49:39.7064095Z Updating files:  56% (11551/20626)
+2026-03-04T02:49:39.7203001Z Updating files:  57% (11757/20626)
+2026-03-04T02:49:39.7341188Z Updating files:  58% (11964/20626)
+2026-03-04T02:49:39.7476843Z Updating files:  59% (12170/20626)
+2026-03-04T02:49:39.7612947Z Updating files:  60% (12376/20626)
+2026-03-04T02:49:39.7751096Z Updating files:  61% (12582/20626)
+2026-03-04T02:49:39.7890109Z Updating files:  62% (12789/20626)
+2026-03-04T02:49:39.8347447Z Updating files:  63% (12995/20626)
+2026-03-04T02:49:40.0622091Z Updating files:  64% (13201/20626)
+2026-03-04T02:49:40.5512541Z Updating files:  65% (13407/20626)
+2026-03-04T02:49:40.6457828Z Updating files:  65% (13539/20626)
+2026-03-04T02:49:40.8323663Z Updating files:  66% (13614/20626)
+2026-03-04T02:49:41.0329033Z Updating files:  67% (13820/20626)
+2026-03-04T02:49:41.1399091Z Updating files:  68% (14026/20626)
+2026-03-04T02:49:41.2246869Z Updating files:  69% (14232/20626)
+2026-03-04T02:49:41.2898501Z Updating files:  70% (14439/20626)
+2026-03-04T02:49:41.4113186Z Updating files:  71% (14645/20626)
+2026-03-04T02:49:41.5099776Z Updating files:  72% (14851/20626)
+2026-03-04T02:49:41.5339131Z Updating files:  73% (15057/20626)
+2026-03-04T02:49:41.5384863Z Updating files:  74% (15264/20626)
+2026-03-04T02:49:41.5473512Z Updating files:  74% (15355/20626)
+2026-03-04T02:49:41.5623832Z Updating files:  75% (15470/20626)
+2026-03-04T02:49:41.5761950Z Updating files:  76% (15676/20626)
+2026-03-04T02:49:41.6070583Z Updating files:  77% (15883/20626)
+2026-03-04T02:49:41.7860351Z Updating files:  78% (16089/20626)
+2026-03-04T02:49:41.9131391Z Updating files:  79% (16295/20626)
+2026-03-04T02:49:42.1776410Z Updating files:  80% (16501/20626)
+2026-03-04T02:49:42.4832297Z Updating files:  81% (16708/20626)
+2026-03-04T02:49:42.5829777Z Updating files:  82% (16914/20626)
+2026-03-04T02:49:42.6736266Z Updating files:  82% (17009/20626)
+2026-03-04T02:49:42.7875330Z Updating files:  83% (17120/20626)
+2026-03-04T02:49:42.9240967Z Updating files:  84% (17326/20626)
+2026-03-04T02:49:42.9866558Z Updating files:  85% (17533/20626)
+2026-03-04T02:49:43.0010137Z Updating files:  86% (17739/20626)
+2026-03-04T02:49:43.0154174Z Updating files:  87% (17945/20626)
+2026-03-04T02:49:43.0302331Z Updating files:  88% (18151/20626)
+2026-03-04T02:49:43.0445288Z Updating files:  89% (18358/20626)
+2026-03-04T02:49:43.0595729Z Updating files:  90% (18564/20626)
+2026-03-04T02:49:43.0752607Z Updating files:  91% (18770/20626)
+2026-03-04T02:49:43.2654687Z Updating files:  92% (18976/20626)
+2026-03-04T02:49:43.3735769Z Updating files:  93% (19183/20626)
+2026-03-04T02:49:43.3807410Z Updating files:  94% (19389/20626)
+2026-03-04T02:49:43.4113123Z Updating files:  95% (19595/20626)
+2026-03-04T02:49:43.4233225Z Updating files:  96% (19801/20626)
+2026-03-04T02:49:43.4344577Z Updating files:  97% (20008/20626)
+2026-03-04T02:49:43.5487515Z Updating files:  98% (20214/20626)
+2026-03-04T02:49:43.7257658Z Updating files:  98% (20390/20626)
+2026-03-04T02:49:43.9938983Z Updating files:  99% (20420/20626)
+2026-03-04T02:49:43.9940004Z Updating files: 100% (20626/20626)
+2026-03-04T02:49:43.9940706Z Updating files: 100% (20626/20626), done.
+2026-03-04T02:49:44.0400805Z Switched to a new branch 'main'
+2026-03-04T02:49:44.0404196Z branch 'main' set up to track 'origin/main'.
+2026-03-04T02:49:44.3102318Z ##[endgroup]
+2026-03-04T02:49:44.3148173Z [command]/usr/bin/git log -1 --format=%H
+2026-03-04T02:49:44.3171415Z 0dec961f4d455f5efbdb7db25562a4bc1e4a12f4
+2026-03-04T02:49:44.3347785Z ##[group]Run if [ ! -f "pnpm-lock.yaml" ]; then
+2026-03-04T02:49:44.3348329Z [36;1mif [ ! -f "pnpm-lock.yaml" ]; then[0m
+2026-03-04T02:49:44.3349006Z [36;1m  echo "⚠️ pnpm-lock.yaml não encontrado; gerando lock temporário apenas para este deploy."[0m
+2026-03-04T02:49:44.3349611Z [36;1m  touch pnpm-lock.yaml[0m
+2026-03-04T02:49:44.3349948Z [36;1melse[0m
+2026-03-04T02:49:44.3350490Z [36;1m  echo "✅ pnpm-lock.yaml encontrado ($(wc -l < pnpm-lock.yaml) linhas, $(du -sh pnpm-lock.yaml | cut -f1))"[0m
+2026-03-04T02:49:44.3351097Z [36;1mfi[0m
+2026-03-04T02:49:44.3406250Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:49:44.3406621Z env:
+2026-03-04T02:49:44.3406899Z   NODE_VERSION: 20
+2026-03-04T02:49:44.3407210Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:49:44.3407686Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:49:44.3409192Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:49:44.3409739Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:49:44.3410361Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:49:44.3411976Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:49:44.3422121Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:49:44.3422557Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:49:44.3422886Z ##[endgroup]
+2026-03-04T02:49:44.3601794Z ✅ pnpm-lock.yaml encontrado (21841 linhas, 736K)
+2026-03-04T02:49:44.3664002Z ##[group]Run pnpm/action-setup@v4
+2026-03-04T02:49:44.3664382Z with:
+2026-03-04T02:49:44.3664653Z   version: 10.30.3
+2026-03-04T02:49:44.3664952Z   dest: ~/setup-pnpm
+2026-03-04T02:49:44.3665266Z   run_install: null
+2026-03-04T02:49:44.3665805Z   package_json_file: package.json
+2026-03-04T02:49:44.3666144Z   standalone: false
+2026-03-04T02:49:44.3666428Z env:
+2026-03-04T02:49:44.3666690Z   NODE_VERSION: 20
+2026-03-04T02:49:44.3666979Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:49:44.3667461Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:49:44.3668938Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:49:44.3669470Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:49:44.3670034Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:49:44.3671601Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:49:44.3681577Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:49:44.3681992Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:49:44.3682310Z ##[endgroup]
+2026-03-04T02:49:44.4222435Z ##[group]Running self-installer...
+2026-03-04T02:49:45.0271378Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-03-04T02:49:45.0365271Z Packages: +1
+2026-03-04T02:49:45.0366003Z +
+2026-03-04T02:49:45.5000039Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-03-04T02:49:45.5338927Z 
+2026-03-04T02:49:45.5339457Z dependencies:
+2026-03-04T02:49:45.5339822Z + pnpm 10.30.3
+2026-03-04T02:49:45.5340000Z 
+2026-03-04T02:49:45.5369447Z Done in 950ms
+2026-03-04T02:49:45.5537668Z ##[endgroup]
+2026-03-04T02:49:45.5541382Z Installation Completed!
+2026-03-04T02:49:45.5679250Z ##[group]Run actions/setup-node@v4
+2026-03-04T02:49:45.5679632Z with:
+2026-03-04T02:49:45.5679912Z   node-version: 20
+2026-03-04T02:49:45.5680201Z   cache: pnpm
+2026-03-04T02:49:45.5680529Z   cache-dependency-path: pnpm-lock.yaml
+2026-03-04T02:49:45.5680903Z   always-auth: false
+2026-03-04T02:49:45.5681204Z   check-latest: false
+2026-03-04T02:49:45.5681599Z   token: ***
+2026-03-04T02:49:45.5681871Z env:
+2026-03-04T02:49:45.5682141Z   NODE_VERSION: 20
+2026-03-04T02:49:45.5682437Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:49:45.5682903Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:49:45.5684345Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:49:45.5684879Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:49:45.5685573Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:49:45.5687129Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:49:45.5696995Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:49:45.5697417Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:49:45.5697840Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:49:45.5698234Z ##[endgroup]
+2026-03-04T02:49:45.7485537Z Found in cache @ /opt/hostedtoolcache/node/20.20.0/x64
+2026-03-04T02:49:45.7492013Z ##[group]Environment details
+2026-03-04T02:49:47.6948442Z node: v20.20.0
+2026-03-04T02:49:47.6948994Z npm: 10.8.2
+2026-03-04T02:49:47.6949443Z yarn: 1.22.22
+2026-03-04T02:49:47.6950797Z ##[endgroup]
+2026-03-04T02:49:47.6979219Z [command]/home/runner/setup-pnpm/node_modules/.bin/pnpm store path --silent
+2026-03-04T02:49:48.1629546Z /tmp/pnpm-store-user/v10
+2026-03-04T02:49:48.3172562Z pnpm cache is not found
+2026-03-04T02:49:48.3276617Z ##[group]Run if [ ! -s pnpm-lock.yaml ]; then
+2026-03-04T02:49:48.3277135Z [36;1mif [ ! -s pnpm-lock.yaml ]; then[0m
+2026-03-04T02:49:48.3277625Z [36;1m  echo "⚠️ Gerando pnpm-lock.yaml (lock ausente ou vazio)."[0m
+2026-03-04T02:49:48.3278177Z [36;1m  pnpm install --ignore-scripts --frozen-lockfile=false[0m
+2026-03-04T02:49:48.3278598Z [36;1melse[0m
+2026-03-04T02:49:48.3278957Z [36;1m  pnpm install --frozen-lockfile --ignore-scripts[0m
+2026-03-04T02:49:48.3279356Z [36;1mfi[0m
+2026-03-04T02:49:48.3350594Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:49:48.3351168Z env:
+2026-03-04T02:49:48.3351624Z   NODE_VERSION: 20
+2026-03-04T02:49:48.3352131Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:49:48.3352893Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:49:48.3355729Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:49:48.3356622Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:49:48.3357567Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:49:48.3360563Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:49:48.3378222Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:49:48.3378894Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:49:48.3379523Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:49:48.3380172Z ##[endgroup]
+2026-03-04T02:49:48.7597885Z Scope: all 2 workspace projects
+2026-03-04T02:49:48.8919073Z Lockfile is up to date, resolution step is skipped
+2026-03-04T02:49:49.0432506Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-03-04T02:49:49.2377414Z Packages: +2027
+2026-03-04T02:49:49.2379000Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-03-04T02:49:50.0467742Z Progress: resolved 2027, reused 0, downloaded 13, added 0
+2026-03-04T02:49:51.0446674Z Progress: resolved 2027, reused 3, downloaded 143, added 131
+2026-03-04T02:49:52.0441825Z Progress: resolved 2027, reused 3, downloaded 384, added 382
+2026-03-04T02:49:53.0445086Z Progress: resolved 2027, reused 3, downloaded 585, added 575
+2026-03-04T02:49:54.0456205Z Progress: resolved 2027, reused 3, downloaded 692, added 630
+2026-03-04T02:49:55.0547828Z Progress: resolved 2027, reused 3, downloaded 812, added 806
+2026-03-04T02:49:56.0512562Z Progress: resolved 2027, reused 3, downloaded 971, added 983
+2026-03-04T02:49:57.0514596Z Progress: resolved 2027, reused 3, downloaded 1105, added 1107
+2026-03-04T02:49:58.0523462Z Progress: resolved 2027, reused 3, downloaded 1190, added 1194
+2026-03-04T02:49:59.0528166Z Progress: resolved 2027, reused 3, downloaded 1322, added 1294
+2026-03-04T02:50:00.0545242Z Progress: resolved 2027, reused 3, downloaded 1523, added 1530
+2026-03-04T02:50:01.0593938Z Progress: resolved 2027, reused 3, downloaded 1775, added 1764
+2026-03-04T02:50:02.0571765Z Progress: resolved 2027, reused 3, downloaded 1949, added 1963
+2026-03-04T02:50:03.0589101Z Progress: resolved 2027, reused 3, downloaded 1993, added 1981
+2026-03-04T02:50:03.5083999Z Progress: resolved 2027, reused 3, downloaded 2013, added 2027, done
+2026-03-04T02:50:04.3861749Z 
+2026-03-04T02:50:04.3862906Z dependencies:
+2026-03-04T02:50:04.3864561Z + @dataconnect/admin-generated @dataconnect/admin-generated@file:src/dataconnect-admin-generated(firebase-admin@13.7.0(encoding@0.1.13))
+2026-03-04T02:50:04.3867670Z + @dataconnect/generated @dataconnect/generated@file:src/dataconnect-generated(@tanstack-query-firebase/react@2.1.1(@tanstack/react-query@5.90.21(react@19.2.4))(firebase@12.10.0))(firebase@12.10.0)
+2026-03-04T02:50:04.3869406Z + @genkit-ai/google-genai 1.29.0
+2026-03-04T02:50:04.3870046Z + @google/adk 0.4.0
+2026-03-04T02:50:04.3870607Z + @gsap/react 2.1.2
+2026-03-04T02:50:04.3871239Z + @hookform/resolvers 5.2.2
+2026-03-04T02:50:04.3871929Z + @modelcontextprotocol/sdk 1.27.1
+2026-03-04T02:50:04.3872699Z + @radix-ui/react-alert-dialog 1.1.15
+2026-03-04T02:50:04.3873432Z + @radix-ui/react-avatar 1.1.11
+2026-03-04T02:50:04.3874122Z + @radix-ui/react-checkbox 1.3.3
+2026-03-04T02:50:04.3874931Z + @radix-ui/react-collapsible 1.1.12
+2026-03-04T02:50:04.3876419Z + @radix-ui/react-dialog 1.1.15
+2026-03-04T02:50:04.3877231Z + @radix-ui/react-dropdown-menu 2.1.16
+2026-03-04T02:50:04.3877943Z + @radix-ui/react-label 2.1.8
+2026-03-04T02:50:04.3878757Z + @radix-ui/react-menubar 1.1.16
+2026-03-04T02:50:04.3879491Z + @radix-ui/react-popover 1.1.15
+2026-03-04T02:50:04.3880234Z + @radix-ui/react-radio-group 1.3.8
+2026-03-04T02:50:04.3880983Z + @radix-ui/react-separator 1.1.8
+2026-03-04T02:50:04.3881708Z + @radix-ui/react-slider 1.3.6
+2026-03-04T02:50:04.3882407Z + @radix-ui/react-slot 1.2.4
+2026-03-04T02:50:04.3883091Z + @radix-ui/react-switch 1.2.6
+2026-03-04T02:50:04.3883774Z + @radix-ui/react-tabs 1.1.13
+2026-03-04T02:50:04.3884353Z + @radix-ui/react-toast 1.2.15
+2026-03-04T02:50:04.3885081Z + @radix-ui/react-tooltip 1.2.8
+2026-03-04T02:50:04.3885977Z + @react-three/drei 10.7.7
+2026-03-04T02:50:04.3886615Z + @react-three/fiber 9.5.0
+2026-03-04T02:50:04.3887324Z + @react-three/postprocessing 3.0.4
+2026-03-04T02:50:04.3888062Z + @supabase/ssr 0.9.0
+2026-03-04T02:50:04.3888765Z + @supabase/supabase-js 2.98.0
+2026-03-04T02:50:04.3889524Z + class-variance-authority 0.7.1
+2026-03-04T02:50:04.3890168Z + clsx 2.1.1
+2026-03-04T02:50:04.3890688Z + embla-carousel-react 8.6.0
+2026-03-04T02:50:04.3891305Z + firebase 12.10.0
+2026-03-04T02:50:04.3891878Z + firebase-admin 13.7.0
+2026-03-04T02:50:04.3892498Z + firebase-functions 7.0.6
+2026-03-04T02:50:04.3893128Z + framer-motion 12.34.5
+2026-03-04T02:50:04.3893696Z + gsap 3.14.2
+2026-03-04T02:50:04.3894210Z + husky 9.1.7
+2026-03-04T02:50:04.3894716Z + lenis 1.3.17
+2026-03-04T02:50:04.3895265Z + lightningcss 1.31.1
+2026-03-04T02:50:04.3896086Z + lint-staged 16.3.2
+2026-03-04T02:50:04.3896690Z + lucide-react 0.576.0
+2026-03-04T02:50:04.3897223Z + maath 0.10.8
+2026-03-04T02:50:04.3897736Z + motion 12.34.5
+2026-03-04T02:50:04.3898324Z + motion-studio-mcp 5.3.0
+2026-03-04T02:50:04.3898898Z + next 16.1.6
+2026-03-04T02:50:04.3899409Z + ogl 1.0.11
+2026-03-04T02:50:04.3899938Z + openai 6.25.0
+2026-03-04T02:50:04.3900515Z + postprocessing 6.38.3
+2026-03-04T02:50:04.3901154Z + react 19.2.4
+2026-03-04T02:50:04.3901962Z + react-day-picker 9.14.0
+2026-03-04T02:50:04.3902526Z + react-dom 19.2.4
+2026-03-04T02:50:04.3903066Z + react-hook-form 7.71.2
+2026-03-04T02:50:04.3903419Z + react-markdown 10.1.0
+2026-03-04T02:50:04.3903751Z + server-only 0.0.1
+2026-03-04T02:50:04.3904050Z + sharp 0.33.5
+2026-03-04T02:50:04.3904350Z + tailwind-merge 3.5.0
+2026-03-04T02:50:04.3904684Z + tailwindcss-animate 1.0.7
+2026-03-04T02:50:04.3905008Z + three 0.183.2
+2026-03-04T02:50:04.3905364Z + three-stdlib 2.36.1
+2026-03-04T02:50:04.3906114Z + uuid 13.0.0
+2026-03-04T02:50:04.3906595Z + zod 4.3.6
+2026-03-04T02:50:04.3907075Z + zustand 5.0.11
+2026-03-04T02:50:04.3907358Z 
+2026-03-04T02:50:04.3907575Z devDependencies:
+2026-03-04T02:50:04.3908182Z + @jest/globals 30.2.0
+2026-03-04T02:50:04.3908781Z + @next/bundle-analyzer 16.1.6
+2026-03-04T02:50:04.3909437Z + @next/eslint-plugin-next 16.1.6
+2026-03-04T02:50:04.3910102Z + @playwright/test 1.58.2
+2026-03-04T02:50:04.3910778Z + @tailwindcss/postcss 4.2.1
+2026-03-04T02:50:04.3911216Z + @tailwindcss/typography 0.5.19
+2026-03-04T02:50:04.3911837Z + @testing-library/dom 10.4.1
+2026-03-04T02:50:04.3912434Z + @testing-library/jest-dom 6.9.1
+2026-03-04T02:50:04.3913020Z + @testing-library/react 16.3.2
+2026-03-04T02:50:04.3913790Z + @testing-library/user-event 14.6.1
+2026-03-04T02:50:04.3914454Z + @types/jest 30.0.0
+2026-03-04T02:50:04.3915049Z + @types/node 25.3.3
+2026-03-04T02:50:04.3915781Z + @types/pg 8.18.0
+2026-03-04T02:50:04.3916346Z + @types/react 19.2.14
+2026-03-04T02:50:04.3916963Z + @types/react-dom 19.2.3
+2026-03-04T02:50:04.3917364Z + @types/three 0.183.1
+2026-03-04T02:50:04.3917776Z + @typescript-eslint/eslint-plugin 8.56.1
+2026-03-04T02:50:04.3918250Z + @typescript-eslint/parser 8.56.1
+2026-03-04T02:50:04.3918633Z + autoprefixer 10.4.27
+2026-03-04T02:50:04.3918975Z + commander 14.0.3
+2026-03-04T02:50:04.3919292Z + depcheck 1.4.7
+2026-03-04T02:50:04.3919605Z + dotenv 17.3.1
+2026-03-04T02:50:04.3919899Z + esbuild 0.27.3
+2026-03-04T02:50:04.3920432Z + eslint 10.0.2
+2026-03-04T02:50:04.3920795Z + eslint-config-next 16.1.6
+2026-03-04T02:50:04.3921209Z + eslint-config-prettier 10.1.8
+2026-03-04T02:50:04.3921765Z + eslint-plugin-import 2.32.0
+2026-03-04T02:50:04.3922292Z + eslint-plugin-prettier 5.5.5
+2026-03-04T02:50:04.3922866Z + eslint-plugin-react 7.37.5
+2026-03-04T02:50:04.3923432Z + firebase-tools 15.8.0
+2026-03-04T02:50:04.3924009Z + jest 30.2.0
+2026-03-04T02:50:04.3924649Z + jest-environment-jsdom 30.2.0
+2026-03-04T02:50:04.3925258Z + knip 5.85.0
+2026-03-04T02:50:04.3925994Z + pg 8.19.0
+2026-03-04T02:50:04.3926516Z + postcss 8.5.8
+2026-03-04T02:50:04.3927046Z + prettier 3.8.1
+2026-03-04T02:50:04.3927551Z + rimraf 6.1.3
+2026-03-04T02:50:04.3928081Z + serve 14.2.6
+2026-03-04T02:50:04.3928604Z + shadcn 3.8.5
+2026-03-04T02:50:04.3929139Z + tailwindcss 4.2.1
+2026-03-04T02:50:04.3929684Z + ts-jest 29.4.6
+2026-03-04T02:50:04.3930139Z + ts-node 10.9.2
+2026-03-04T02:50:04.3930545Z + tsx 4.21.0
+2026-03-04T02:50:04.3930987Z + typescript 5.9.3
+2026-03-04T02:50:04.3931456Z + which 6.0.1
+2026-03-04T02:50:04.3931815Z + yaml 2.8.2
+2026-03-04T02:50:04.3932053Z 
+2026-03-04T02:50:04.4173338Z Done in 16s using pnpm v10.30.3
+2026-03-04T02:50:04.4644926Z ##[group]Run echo "🔍 Verificando variáveis de ambiente do Supabase..."
+2026-03-04T02:50:04.4645809Z [36;1mecho "🔍 Verificando variáveis de ambiente do Supabase..."[0m
+2026-03-04T02:50:04.4646326Z [36;1mif [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then[0m
+2026-03-04T02:50:04.4646878Z [36;1m  echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_URL não configurada em GitHub Secrets."[0m
+2026-03-04T02:50:04.4647370Z [36;1m  exit 1[0m
+2026-03-04T02:50:04.4647649Z [36;1mfi[0m
+2026-03-04T02:50:04.4648028Z [36;1mif [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" ]; then[0m
+2026-03-04T02:50:04.4648843Z [36;1m  echo "❌ ERRO: nenhuma chave pública do Supabase foi resolvida (NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY)."[0m
+2026-03-04T02:50:04.4649621Z [36;1m  exit 1[0m
+2026-03-04T02:50:04.4649909Z [36;1mfi[0m
+2026-03-04T02:50:04.4650236Z [36;1mif [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then[0m
+2026-03-04T02:50:04.4650994Z [36;1m  echo "❌ ERRO: SUPABASE_SERVICE_ROLE_KEY não configurada em GitHub Secrets."[0m
+2026-03-04T02:50:04.4651491Z [36;1m  exit 1[0m
+2026-03-04T02:50:04.4651765Z [36;1mfi[0m
+2026-03-04T02:50:04.4652133Z [36;1mecho "✅ Variáveis do Supabase validadas com sucesso."[0m
+2026-03-04T02:50:04.4701858Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:04.4702222Z env:
+2026-03-04T02:50:04.4702491Z   NODE_VERSION: 20
+2026-03-04T02:50:04.4702797Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:04.4703286Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:04.4704945Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:04.4705751Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:04.4706490Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:04.4708062Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:04.4717977Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:04.4718395Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:04.4718796Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:04.4719184Z ##[endgroup]
+2026-03-04T02:50:04.4789783Z 🔍 Verificando variáveis de ambiente do Supabase...
+2026-03-04T02:50:04.4790443Z ✅ Variáveis do Supabase validadas com sucesso.
+2026-03-04T02:50:04.4816433Z ##[group]Run pnpm run lint
+2026-03-04T02:50:04.4816808Z [36;1mpnpm run lint[0m
+2026-03-04T02:50:04.4860567Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:04.4860930Z env:
+2026-03-04T02:50:04.4861200Z   NODE_VERSION: 20
+2026-03-04T02:50:04.4861508Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:04.4861968Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:04.4863424Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:04.4863956Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:04.4864541Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:04.4866364Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:04.4876278Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:04.4876708Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:04.4877122Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:04.4877529Z ##[endgroup]
+2026-03-04T02:50:04.8528152Z 
+2026-03-04T02:50:04.8529715Z > danilo-novais-portfolio@1.0.1 lint /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:50:04.8531036Z > eslint src test tailwind.config.ts
+2026-03-04T02:50:04.8531483Z 
+2026-03-04T02:50:08.3108945Z ##[group]Run pnpm run typecheck
+2026-03-04T02:50:08.3109378Z [36;1mpnpm run typecheck[0m
+2026-03-04T02:50:08.3159644Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:08.3160001Z env:
+2026-03-04T02:50:08.3160281Z   NODE_VERSION: 20
+2026-03-04T02:50:08.3160588Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:08.3161042Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:08.3162510Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:08.3163047Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:08.3163613Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:08.3165195Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:08.3174948Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:08.3175365Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:08.3175852Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:08.3176255Z ##[endgroup]
+2026-03-04T02:50:08.6907230Z 
+2026-03-04T02:50:08.6908351Z > danilo-novais-portfolio@1.0.1 typecheck /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:50:08.6909465Z > NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx
+2026-03-04T02:50:08.6909918Z 
+2026-03-04T02:50:22.3379525Z ##[group]Run if grep -q '"link:' functions/package.json; then
+2026-03-04T02:50:22.3380092Z [36;1mif grep -q '"link:' functions/package.json; then[0m
+2026-03-04T02:50:22.3380639Z [36;1m  echo "⚠️  Detectado protocolo 'link:' em functions/package.json"[0m
+2026-03-04T02:50:22.3381240Z [36;1m  sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json[0m
+2026-03-04T02:50:22.3381726Z [36;1m  echo "✅ Corrigido para 'file:../src/'"[0m
+2026-03-04T02:50:22.3382300Z [36;1mfi[0m
+2026-03-04T02:50:22.3432445Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:22.3432799Z env:
+2026-03-04T02:50:22.3433080Z   NODE_VERSION: 20
+2026-03-04T02:50:22.3433386Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:22.3433849Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:22.3435327Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:22.3436064Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:22.3436633Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:22.3438259Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:22.3448150Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:22.3448569Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:22.3448964Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:22.3449377Z ##[endgroup]
+2026-03-04T02:50:22.3568135Z ##[group]Run cd functions && pnpm run build
+2026-03-04T02:50:22.3568572Z [36;1mcd functions && pnpm run build[0m
+2026-03-04T02:50:22.3616786Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:22.3617146Z env:
+2026-03-04T02:50:22.3617431Z   NODE_VERSION: 20
+2026-03-04T02:50:22.3617742Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:22.3618195Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:22.3619661Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:22.3620197Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:22.3620770Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:22.3622336Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:22.3632211Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:22.3632628Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:22.3633012Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:22.3633419Z ##[endgroup]
+2026-03-04T02:50:22.7330458Z 
+2026-03-04T02:50:22.7331985Z > functions@ build /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions
+2026-03-04T02:50:22.7332779Z > tsc
+2026-03-04T02:50:22.7332974Z 
+2026-03-04T02:50:24.7860457Z ##[group]Run echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production
+2026-03-04T02:50:24.7861223Z [36;1mecho "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production[0m
+2026-03-04T02:50:24.7861953Z [36;1mecho "NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY" >> .env.production[0m
+2026-03-04T02:50:24.7862719Z [36;1mecho "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" >> .env.production[0m
+2026-03-04T02:50:24.7863591Z [36;1mecho "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" >> .env.production[0m
+2026-03-04T02:50:24.7864379Z [36;1mecho "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> .env.production[0m
+2026-03-04T02:50:24.7914412Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:24.7914776Z env:
+2026-03-04T02:50:24.7915056Z   NODE_VERSION: 20
+2026-03-04T02:50:24.7915353Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:24.7916047Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:24.7917518Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:24.7918049Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:24.7918606Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:24.7920167Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:24.7930065Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:24.7930489Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:24.7930881Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:24.7931284Z ##[endgroup]
+2026-03-04T02:50:24.8034139Z ##[group]Run pnpm run build
+2026-03-04T02:50:24.8034526Z [36;1mpnpm run build[0m
+2026-03-04T02:50:24.8081934Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:50:24.8082286Z env:
+2026-03-04T02:50:24.8082556Z   NODE_VERSION: 20
+2026-03-04T02:50:24.8082855Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:50:24.8083311Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:50:24.8084760Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:50:24.8085288Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:50:24.8086266Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:50:24.8087835Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:50:24.8098606Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:50:24.8099028Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:50:24.8099416Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:50:24.8099817Z   NEXTJS_IGNORE_ESLINT: 1
+2026-03-04T02:50:24.8100131Z ##[endgroup]
+2026-03-04T02:50:25.1808465Z 
+2026-03-04T02:50:25.1809600Z > danilo-novais-portfolio@1.0.1 build /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:50:25.1810559Z > pnpm run validate-env && pnpm run prebuild && next build
+2026-03-04T02:50:25.1810919Z 
+2026-03-04T02:50:25.5579287Z 
+2026-03-04T02:50:25.5580691Z > danilo-novais-portfolio@1.0.1 validate-env /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:50:25.5581727Z > node scripts/validate-env.cjs
+2026-03-04T02:50:25.5582026Z 
+2026-03-04T02:50:25.5837951Z Aviso: Não foi possível ler .env.local. Verificando process.env... ENOENT: no such file or directory, open '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.env.local'
+2026-03-04T02:50:25.5841946Z CI/.env.local validado com sucesso (3 chaves).
+2026-03-04T02:50:25.9690652Z 
+2026-03-04T02:50:25.9692000Z > danilo-novais-portfolio@1.0.1 prebuild /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:50:25.9692894Z > node scripts/generate-build-info.cjs
+2026-03-04T02:50:25.9693197Z 
+2026-03-04T02:50:26.5924902Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+2026-03-04T02:50:26.6313753Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-03-04T02:50:26.6315301Z This information is used to shape Next.js' roadmap and prioritize features.
+2026-03-04T02:50:26.6317526Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-03-04T02:50:26.6318921Z https://nextjs.org/telemetry
+2026-03-04T02:50:26.6319358Z 
+2026-03-04T02:50:26.6498788Z ▲ Next.js 16.1.6 (Turbopack)
+2026-03-04T02:50:26.6499568Z - Environments: .env.production
+2026-03-04T02:50:26.6500429Z - Experiments (use with caution):
+2026-03-04T02:50:26.6501514Z   · optimizePackageImports
+2026-03-04T02:50:26.6502269Z   · serverActions
+2026-03-04T02:50:26.6503014Z 
+2026-03-04T02:50:26.7248865Z   Creating an optimized production build ...
+2026-03-04T02:50:59.2967331Z ✓ Compiled successfully in 32.2s
+2026-03-04T02:50:59.3015730Z   Skipping validation of types
+2026-03-04T02:50:59.5861282Z   Collecting page data using 3 workers ...
+2026-03-04T02:51:01.2943743Z   Generating static pages using 3 workers (0/31) ...
+2026-03-04T02:51:01.3678433Z   Generating static pages using 3 workers (7/31) 
+2026-03-04T02:51:02.1289751Z   Generating static pages using 3 workers (15/31) 
+2026-03-04T02:51:02.2957989Z   Generating static pages using 3 workers (23/31) 
+2026-03-04T02:51:03.1786986Z ✓ Generating static pages using 3 workers (31/31) in 1884.3ms
+2026-03-04T02:51:03.1842062Z   Finalizing page optimization ...
+2026-03-04T02:51:03.5481041Z 
+2026-03-04T02:51:03.5502998Z Route (app)
+2026-03-04T02:51:03.5505221Z ┌ ○ /
+2026-03-04T02:51:03.5506111Z ├ ○ /_not-found
+2026-03-04T02:51:03.5506704Z ├ ƒ /admin
+2026-03-04T02:51:03.5507316Z ├ ƒ /admin/config
+2026-03-04T02:51:03.5507976Z ├ ƒ /admin/copy-agent
+2026-03-04T02:51:03.5508697Z ├ ƒ /admin/landing-pages
+2026-03-04T02:51:03.5509875Z ├ ƒ /admin/landing-pages/[id]
+2026-03-04T02:51:03.5510694Z ├ ƒ /admin/landing-pages/new
+2026-03-04T02:51:03.5511311Z ├ ○ /admin/login
+2026-03-04T02:51:03.5511876Z ├ ƒ /admin/midia
+2026-03-04T02:51:03.5512511Z ├ ƒ /admin/scene-generator
+2026-03-04T02:51:03.5513186Z ├ ƒ /admin/settings
+2026-03-04T02:51:03.5513773Z ├ ƒ /admin/tags
+2026-03-04T02:51:03.5514391Z ├ ƒ /admin/trabalhos
+2026-03-04T02:51:03.5515044Z ├ ƒ /admin/trabalhos/[id]
+2026-03-04T02:51:03.5515909Z ├ ƒ /admin/trabalhos/new
+2026-03-04T02:51:03.5516893Z ├ ƒ /api/admin/storage/upload
+2026-03-04T02:51:03.5517582Z ├ ƒ /api/contact
+2026-03-04T02:51:03.5518235Z ├ ƒ /api/report-error
+2026-03-04T02:51:03.5518917Z ├ ƒ /api/site-assets
+2026-03-04T02:51:03.5519550Z ├ ƒ /auth/callback
+2026-03-04T02:51:03.5520155Z ├ ○ /contato
+2026-03-04T02:51:03.5520822Z ├ ○ /contato/opengraph-image
+2026-03-04T02:51:03.5521544Z ├ ƒ /examples/supabase
+2026-03-04T02:51:03.5522221Z ├ ○ /opengraph-image
+2026-03-04T02:51:03.5522839Z ├ ƒ /portfolio
+2026-03-04T02:51:03.5523520Z ├ ƒ /portfolio/[slug]
+2026-03-04T02:51:03.5524284Z ├ ○ /portfolio/opengraph-image
+2026-03-04T02:51:03.5524981Z ├ ○ /privacidade
+2026-03-04T02:51:03.5525863Z ├ ○ /privacy-policy
+2026-03-04T02:51:03.5526535Z ├ ƒ /projects/[slug]
+2026-03-04T02:51:03.5527151Z ├ ○ /robots.txt
+2026-03-04T02:51:03.5527727Z ├ ○ /sitemap.xml
+2026-03-04T02:51:03.5528320Z ├ ○ /sobre
+2026-03-04T02:51:03.5528970Z └ ○ /sobre/opengraph-image
+2026-03-04T02:51:03.5529358Z 
+2026-03-04T02:51:03.5529368Z 
+2026-03-04T02:51:03.5529719Z ƒ Proxy (Middleware)
+2026-03-04T02:51:03.5530085Z 
+2026-03-04T02:51:03.5530546Z ○  (Static)   prerendered as static content
+2026-03-04T02:51:03.5531453Z ƒ  (Dynamic)  server-rendered on demand
+2026-03-04T02:51:03.5531905Z 
+2026-03-04T02:51:03.6475278Z ##[group]Run bash scripts/prepare-hosting.sh
+2026-03-04T02:51:03.6476369Z [36;1mbash scripts/prepare-hosting.sh[0m
+2026-03-04T02:51:03.6535043Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:51:03.6535572Z env:
+2026-03-04T02:51:03.6535878Z   NODE_VERSION: 20
+2026-03-04T02:51:03.6536181Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:03.6536640Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:03.6538106Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:03.6538665Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:03.6539218Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:03.6540773Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:03.6550617Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:03.6551039Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:03.6551444Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:03.6551850Z ##[endgroup]
+2026-03-04T02:51:03.6653142Z Consolidating static files into deploy-public...
+2026-03-04T02:51:03.7169323Z deploy-public prepared.
+2026-03-04T02:51:03.7199836Z ##[group]Run if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+2026-03-04T02:51:03.7200387Z [36;1mif [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then[0m
+2026-03-04T02:51:03.7200905Z [36;1m  echo "❌ ERRO: nenhuma credencial Firebase foi resolvida."[0m
+2026-03-04T02:51:03.7201733Z [36;1m  echo "Defina um destes secrets: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS, FIREBASE_SERVICE_ACCOUNT_JSON ou FIREBASE_SERVICE_ACCOUNT."[0m
+2026-03-04T02:51:03.7202514Z [36;1m  exit 1[0m
+2026-03-04T02:51:03.7202793Z [36;1mfi[0m
+2026-03-04T02:51:03.7252620Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:51:03.7252984Z env:
+2026-03-04T02:51:03.7253250Z   NODE_VERSION: 20
+2026-03-04T02:51:03.7253556Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:03.7254200Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:03.7257124Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:03.7258021Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:03.7258781Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:03.7260527Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:03.7270406Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:03.7270824Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:03.7271214Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:03.7271612Z ##[endgroup]
+2026-03-04T02:51:03.7451676Z ##[group]Run google-github-actions/auth@v2
+2026-03-04T02:51:03.7452291Z with:
+2026-03-04T02:51:03.7469798Z   credentials_json: ***
+2026-03-04T02:51:03.7470344Z   create_credentials_file: true
+2026-03-04T02:51:03.7470916Z   export_environment_variables: true
+2026-03-04T02:51:03.7471505Z   universe: googleapis.com
+2026-03-04T02:51:03.7472040Z   cleanup_credentials: true
+2026-03-04T02:51:03.7472574Z   access_token_lifetime: 3600s
+2026-03-04T02:51:03.7473552Z   access_token_scopes: https://www.googleapis.com/auth/cloud-platform
+2026-03-04T02:51:03.7474330Z   id_token_include_email: false
+2026-03-04T02:51:03.7474852Z env:
+2026-03-04T02:51:03.7475275Z   NODE_VERSION: 20
+2026-03-04T02:51:03.7475893Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:03.7476600Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:03.7479184Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:03.7480017Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:03.7481027Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:03.7483856Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:03.7501837Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:03.7502499Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:03.7503098Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:03.7503753Z ##[endgroup]
+2026-03-04T02:51:03.8500019Z Created credentials file at "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json"
+2026-03-04T02:51:03.8660132Z ##[group]Run if [ -n "$SECRET_FB_PROJECT" ]; then
+2026-03-04T02:51:03.8660649Z [36;1mif [ -n "$SECRET_FB_PROJECT" ]; then[0m
+2026-03-04T02:51:03.8661070Z [36;1m  PROJECT_ID="$SECRET_FB_PROJECT"[0m
+2026-03-04T02:51:03.8661561Z [36;1m  SOURCE="GitHub Secret FIREBASE_PROJECT/GOOGLE_CLOUD_PROJECT"[0m
+2026-03-04T02:51:03.8662109Z [36;1melif [ -n "***" ]; then[0m
+2026-03-04T02:51:03.8662509Z [36;1m  PROJECT_ID="***"[0m
+2026-03-04T02:51:03.8662873Z [36;1m  SOURCE="Service Account project_id"[0m
+2026-03-04T02:51:03.8663275Z [36;1melif [ -f .firebaserc ]; then[0m
+2026-03-04T02:51:03.8664037Z [36;1m  PROJECT_ID=$(node -e "const fs=require('fs');const rc=JSON.parse(fs.readFileSync('.firebaserc','utf8'));process.stdout.write(rc?.projects?.default||'')")[0m
+2026-03-04T02:51:03.8664838Z [36;1m  SOURCE=".firebaserc (projects.default)"[0m
+2026-03-04T02:51:03.8665221Z [36;1mfi[0m
+2026-03-04T02:51:03.8665898Z [36;1m[0m
+2026-03-04T02:51:03.8666398Z [36;1mif [ -z "$PROJECT_ID" ]; then[0m
+2026-03-04T02:51:03.8667197Z [36;1m  echo "❌ ERRO: Não foi possível resolver o Firebase Project ID."[0m
+2026-03-04T02:51:03.8667964Z [36;1m  echo "Defina FIREBASE_PROJECT no GitHub Secrets ou configure .firebaserc/projects.default"[0m
+2026-03-04T02:51:03.8679110Z [36;1m  exit 1[0m
+2026-03-04T02:51:03.8679617Z [36;1mfi[0m
+2026-03-04T02:51:03.8680023Z [36;1m[0m
+2026-03-04T02:51:03.8680394Z [36;1mecho "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"[0m
+2026-03-04T02:51:03.8680939Z [36;1mecho "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"[0m
+2026-03-04T02:51:03.8730803Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:51:03.8731154Z env:
+2026-03-04T02:51:03.8731429Z   NODE_VERSION: 20
+2026-03-04T02:51:03.8731733Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:03.8732189Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:03.8733641Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:03.8734167Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:03.8734755Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:03.8736593Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:03.8746440Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:03.8746855Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:03.8747245Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:03.8748012Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:03.8749056Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:03.8750029Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:03.8750723Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-04T02:51:03.8751090Z   CLOUDSDK_PROJECT: ***
+2026-03-04T02:51:03.8751431Z   GCLOUD_PROJECT: ***
+2026-03-04T02:51:03.8751757Z   GCP_PROJECT: ***
+2026-03-04T02:51:03.8752315Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-04T02:51:03.8752668Z   SECRET_FB_PROJECT: ***
+2026-03-04T02:51:03.8752975Z ##[endgroup]
+2026-03-04T02:51:03.8830596Z ✅ Projeto Firebase resolvido: *** (GitHub Secret FIREBASE_PROJECT/GOOGLE_CLOUD_PROJECT)
+2026-03-04T02:51:03.8857372Z ##[group]Run npm install -g firebase-tools@latest
+2026-03-04T02:51:03.8857860Z [36;1mnpm install -g firebase-tools@latest[0m
+2026-03-04T02:51:03.8906195Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:51:03.8906545Z env:
+2026-03-04T02:51:03.8906816Z   NODE_VERSION: 20
+2026-03-04T02:51:03.8907119Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:03.8907574Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:03.8909031Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:03.8909567Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:03.8910129Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:03.8911688Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:03.8921453Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:03.8921874Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:03.8922249Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:03.8923041Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:03.8924070Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:03.8925031Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:03.8925836Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-04T02:51:03.8926208Z   CLOUDSDK_PROJECT: ***
+2026-03-04T02:51:03.8926540Z   GCLOUD_PROJECT: ***
+2026-03-04T02:51:03.8926867Z   GCP_PROJECT: ***
+2026-03-04T02:51:03.8927198Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-04T02:51:03.8927511Z ##[endgroup]
+2026-03-04T02:51:20.0593325Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-03-04T02:51:22.8803795Z npm warn deprecated json-ptr@3.1.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+2026-03-04T02:51:23.0277993Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-03-04T02:51:26.0610352Z 
+2026-03-04T02:51:26.0610936Z added 746 packages in 22s
+2026-03-04T02:51:26.0611433Z 
+2026-03-04T02:51:26.0611695Z 93 packages are looking for funding
+2026-03-04T02:51:26.0612125Z   run `npm fund` for details
+2026-03-04T02:51:26.0932266Z ##[group]Run TARGET_PROJECT="***"
+2026-03-04T02:51:26.0932774Z [36;1mTARGET_PROJECT="***"[0m
+2026-03-04T02:51:26.0933277Z [36;1mfirebase projects:list --json 2>/dev/null > firebase-projects.json || true[0m
+2026-03-04T02:51:26.0933785Z [36;1m[0m
+2026-03-04T02:51:26.0934056Z [36;1mnode -e "[0m
+2026-03-04T02:51:26.0934381Z [36;1m  const fs = require('fs');[0m
+2026-03-04T02:51:26.0934842Z [36;1m  const raw = fs.readFileSync('firebase-projects.json', 'utf8');[0m
+2026-03-04T02:51:26.0935295Z [36;1m  let data;[0m
+2026-03-04T02:51:26.0935895Z [36;1m  try *** data = JSON.parse(raw); *** catch ***[0m
+2026-03-04T02:51:26.0936484Z [36;1m    console.log('⚠️ Could not parse firebase projects JSON — skipping validation.');[0m
+2026-03-04T02:51:26.0937049Z [36;1m    process.exit(0);[0m
+2026-03-04T02:51:26.0937378Z [36;1m  ***[0m
+2026-03-04T02:51:26.0937651Z [36;1m[0m
+2026-03-04T02:51:26.0938120Z [36;1m  const projects = Array.isArray(data) ? data : (data.results || data.result || []);[0m
+2026-03-04T02:51:26.0938791Z [36;1m  const ids = projects.map(p => p.projectId || p.projectid || p.id).filter(Boolean);[0m
+2026-03-04T02:51:26.0939411Z [36;1m  console.log('📋 Projects accessible:', ids.join(', ') || '(none)');[0m
+2026-03-04T02:51:26.0939856Z [36;1m[0m
+2026-03-04T02:51:26.0940376Z [36;1m  if (ids.includes('$***TARGET_PROJECT***')) ***[0m
+2026-03-04T02:51:26.0941093Z [36;1m    console.log('✅ Acesso ao projeto validado para $***TARGET_PROJECT***');[0m
+2026-03-04T02:51:26.0941598Z [36;1m  *** else ***[0m
+2026-03-04T02:51:26.0942161Z [36;1m    console.log('⚠️ Projeto $***TARGET_PROJECT*** não aparece na lista — tentando de qualquer forma.');[0m
+2026-03-04T02:51:26.0942753Z [36;1m  ***[0m
+2026-03-04T02:51:26.0943037Z [36;1m"[0m
+2026-03-04T02:51:26.0994104Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:51:26.0994459Z env:
+2026-03-04T02:51:26.0994733Z   NODE_VERSION: 20
+2026-03-04T02:51:26.0995030Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:26.0995742Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:26.0997233Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:26.0997768Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:26.0998326Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:26.1000561Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:26.1010535Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:26.1010948Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:26.1011326Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:26.1012093Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:26.1013126Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:26.1014110Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:26.1014803Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-04T02:51:26.1015165Z   CLOUDSDK_PROJECT: ***
+2026-03-04T02:51:26.1015666Z   GCLOUD_PROJECT: ***
+2026-03-04T02:51:26.1015997Z   GCP_PROJECT: ***
+2026-03-04T02:51:26.1016327Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-04T02:51:26.1016641Z ##[endgroup]
+2026-03-04T02:51:27.3725786Z 📋 Projects accessible: ***
+2026-03-04T02:51:27.3730273Z ✅ Acesso ao projeto validado para ***
+2026-03-04T02:51:27.3794347Z ##[group]Run TMP_PKG_JSON=$(mktemp)
+2026-03-04T02:51:27.3794776Z [36;1mTMP_PKG_JSON=$(mktemp)[0m
+2026-03-04T02:51:27.3795135Z [36;1mcp package.json "$TMP_PKG_JSON"[0m
+2026-03-04T02:51:27.3795756Z [36;1m[0m
+2026-03-04T02:51:27.3796218Z [36;1mrestore_on_exit() ***[0m
+2026-03-04T02:51:27.3796598Z [36;1m  mv "$TMP_PKG_JSON" package.json[0m
+2026-03-04T02:51:27.3796986Z [36;1m  rm -f package-lock.json[0m
+2026-03-04T02:51:27.3797337Z [36;1m***[0m
+2026-03-04T02:51:27.3797611Z [36;1m[0m
+2026-03-04T02:51:27.3797905Z [36;1mtrap restore_on_exit EXIT[0m
+2026-03-04T02:51:27.3798235Z [36;1m[0m
+2026-03-04T02:51:27.3798588Z [36;1mecho "🧹 Limpando cache do frameworks backend..."[0m
+2026-03-04T02:51:27.3799115Z [36;1mrm -rf ".firebase/***/functions"[0m
+2026-03-04T02:51:27.3799475Z [36;1m[0m
+2026-03-04T02:51:27.3799802Z [36;1mfirebase experiments:enable webframeworks[0m
+2026-03-04T02:51:27.3800257Z [36;1mfirebase deploy --only hosting,functions \[0m
+2026-03-04T02:51:27.3800758Z [36;1m  --project "***" \[0m
+2026-03-04T02:51:27.3801112Z [36;1m  --debug --non-interactive[0m
+2026-03-04T02:51:27.3851312Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:51:27.3851679Z env:
+2026-03-04T02:51:27.3851957Z   NODE_VERSION: 20
+2026-03-04T02:51:27.3852262Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:51:27.3852718Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:51:27.3854175Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:51:27.3854704Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:51:27.3855260Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:51:27.3856966Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:51:27.3866899Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:51:27.3867324Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:51:27.3867702Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:51:27.3868469Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:27.3869744Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:27.3870734Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:51:27.3871439Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-04T02:51:27.3871822Z   CLOUDSDK_PROJECT: ***
+2026-03-04T02:51:27.3872166Z   GCLOUD_PROJECT: ***
+2026-03-04T02:51:27.3872503Z   GCP_PROJECT: ***
+2026-03-04T02:51:27.3872844Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-04T02:51:27.3873186Z   NPM_CONFIG_LEGACY_PEER_DEPS: true
+2026-03-04T02:51:27.3873536Z   NO_UPDATE_NOTIFIER: 1
+2026-03-04T02:51:27.3873837Z ##[endgroup]
+2026-03-04T02:51:27.3977833Z 🧹 Limpando cache do frameworks backend...
+2026-03-04T02:51:28.0196498Z Enabled experiment [1mwebframeworks[22m
+2026-03-04T02:51:29.3511571Z [2026-03-04T02:51:29.349Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+2026-03-04T02:51:29.4908514Z [2026-03-04T02:51:29.490Z] Running auto auth
+2026-03-04T02:51:29.4914433Z [2026-03-04T02:51:29.490Z] [iam] checking project *** for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+2026-03-04T02:51:29.4919829Z [2026-03-04T02:51:29.491Z] No OAuth tokens found
+2026-03-04T02:51:29.4930858Z [2026-03-04T02:51:29.492Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions [none]
+2026-03-04T02:51:29.4933646Z [2026-03-04T02:51:29.492Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions  x-goog-user-project=***
+2026-03-04T02:51:29.4937606Z [2026-03-04T02:51:29.493Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]***
+2026-03-04T02:51:29.6323841Z [2026-03-04T02:51:29.631Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions 200
+2026-03-04T02:51:29.6328435Z [2026-03-04T02:51:29.632Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]***
+2026-03-04T02:51:29.6331496Z [2026-03-04T02:51:29.632Z] No OAuth tokens found
+2026-03-04T02:51:29.6333373Z [2026-03-04T02:51:29.632Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions [none]
+2026-03-04T02:51:29.6345307Z [2026-03-04T02:51:29.633Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions ***"permissions":["iam.serviceAccounts.actAs"]***
+2026-03-04T02:51:29.7737706Z [2026-03-04T02:51:29.773Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions 200
+2026-03-04T02:51:29.7741059Z [2026-03-04T02:51:29.773Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/***/serviceAccounts/***@appspot.gserviceaccount.com:testIamPermissions ***"permissions":["iam.serviceAccounts.actAs"]***
+2026-03-04T02:51:29.7743495Z [2026-03-04T02:51:29.774Z] No OAuth tokens found
+2026-03-04T02:51:29.7748454Z [2026-03-04T02:51:29.774Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/*** [none]
+2026-03-04T02:51:30.0044778Z [2026-03-04T02:51:30.004Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/*** 200
+2026-03-04T02:51:30.0048313Z [2026-03-04T02:51:30.004Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/*** ***"projectId":"***","projectNumber":"350817205989","displayName":"Portfolio Danilo Novais","name":"projects/***","resources":***"hostingSite":"***","realtimeDatabaseInstance":"***-default-rtdb"***,"state":"ACTIVE","etag":"1_bf95d783-2600-4e83-8996-b07fd41db756"***
+2026-03-04T02:51:47.2523987Z [2026-03-04T02:51:47.252Z] No OAuth tokens found
+2026-03-04T02:51:47.2529748Z [2026-03-04T02:51:47.252Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites pageToken=&pageSize=10
+2026-03-04T02:51:47.6801590Z [2026-03-04T02:51:47.679Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites 200
+2026-03-04T02:51:47.6804303Z [2026-03-04T02:51:47.679Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites ***"sites":[***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***]***
+2026-03-04T02:51:47.6806399Z [2026-03-04T02:51:47.680Z] No OAuth tokens found
+2026-03-04T02:51:47.6810001Z [2026-03-04T02:51:47.680Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config [none]
+2026-03-04T02:51:48.0629397Z [2026-03-04T02:51:48.062Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config 200
+2026-03-04T02:51:48.0635724Z [2026-03-04T02:51:48.062Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config ***"projectId":"***","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","databaseURL":"https://***-default-rtdb.firebaseio.com","storageBucket":"***.firebasestorage.app","apiKey":"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4","authDomain":"***.firebaseapp.com","messagingSenderId":"350817205989","measurementId":"G-PM34VYPZZW","projectNumber":"350817205989","version":"2"***
+2026-03-04T02:52:21.3925290Z 
+2026-03-04T02:52:21.3926334Z    Thank you for trying our early preview of Next.js support on Firebase Hosting.
+2026-03-04T02:52:21.3927658Z    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+2026-03-04T02:52:21.3928851Z    The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+2026-03-04T02:52:21.3929321Z 
+2026-03-04T02:52:21.3929699Z    Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+2026-03-04T02:52:21.3930440Z    File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+2026-03-04T02:52:21.3931347Z    Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+2026-03-04T02:52:21.3931824Z 
+2026-03-04T02:52:21.3932315Z    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+2026-03-04T02:52:21.3932831Z 
+2026-03-04T02:52:21.3945595Z 
+2026-03-04T02:52:21.3947211Z WARNING: Your package.json contains a custom build that is being ignored. Only the Next.js default build script (e.g, "next build") is respected. If you have a more advanced build process you should build a custom integration https://firebase.google.com/docs/hosting/express
+2026-03-04T02:52:21.3948340Z 
+2026-03-04T02:52:30.4191016Z [2026-03-04T02:52:30.418Z] No OAuth tokens found
+2026-03-04T02:52:30.4193217Z [2026-03-04T02:52:30.419Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** [none]
+2026-03-04T02:52:30.7760070Z [2026-03-04T02:52:30.775Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** 200
+2026-03-04T02:52:30.7763353Z [2026-03-04T02:52:30.775Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** ***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***
+2026-03-04T02:52:31.5017646Z ▲ Next.js 16.1.6 (Turbopack)
+2026-03-04T02:52:31.5018167Z 
+2026-03-04T02:52:31.5018581Z - Environments: .env.production
+2026-03-04T02:52:31.5019322Z - Experiments (use with caution):
+2026-03-04T02:52:31.5020207Z   · optimizePackageImports
+2026-03-04T02:52:31.5020925Z   · serverActions
+2026-03-04T02:52:31.5021247Z 
+2026-03-04T02:52:31.5021258Z 
+2026-03-04T02:52:31.5734002Z   Creating an optimized production build ...
+2026-03-04T02:52:31.5734535Z 
+2026-03-04T02:52:36.4724439Z 
+2026-03-04T02:52:36.4729253Z 
+2026-03-04T02:52:36.4735222Z [0.63ms] [@tailwindcss/postcss] src/components/portfolio/ProjectsGallery.module.css
+2026-03-04T02:52:36.4744354Z 
+2026-03-04T02:52:36.4750192Z [0.59ms]   ↳ Quick bail check
+2026-03-04T02:52:36.4753479Z 
+2026-03-04T02:52:36.4761890Z 
+2026-03-04T02:52:36.4762137Z 
+2026-03-04T02:52:36.4966799Z 
+2026-03-04T02:52:36.4968663Z [0.11ms] [@tailwindcss/postcss] src/components/home/hero/HeroCopy.module.css
+2026-03-04T02:52:36.4969803Z 
+2026-03-04T02:52:36.5006884Z [0.08ms]   ↳ Quick bail check
+2026-03-04T02:52:36.5008111Z 
+2026-03-04T02:52:36.5008338Z 
+2026-03-04T02:52:36.5008374Z 
+2026-03-04T02:52:36.5008399Z 
+2026-03-04T02:52:36.5009239Z [0.04ms] [@tailwindcss/postcss] src/components/layout/header/DesktopFluidHeader.module.css
+2026-03-04T02:52:36.5010006Z 
+2026-03-04T02:52:36.5010422Z [0.02ms]   ↳ Quick bail check
+2026-03-04T02:52:36.5010847Z 
+2026-03-04T02:52:36.5010857Z 
+2026-03-04T02:52:36.5010865Z 
+2026-03-04T02:52:55.4480452Z 
+2026-03-04T02:52:55.4493798Z [19330.78ms] [@tailwindcss/postcss] src/app/globals.css
+2026-03-04T02:52:55.4494347Z 
+2026-03-04T02:52:55.4511417Z [    1.74ms]   ↳ Quick bail check
+2026-03-04T02:52:55.4512482Z 
+2026-03-04T02:52:55.4514976Z [  340.27ms]   ↳ Setup compiler
+2026-03-04T02:52:55.4516091Z [    1.58ms]     ↳ PostCSS AST -> Tailwind CSS AST
+2026-03-04T02:52:55.4516943Z [  338.63ms]     ↳ Create compiler
+2026-03-04T02:52:55.4517753Z [    0.20ms]   ↳ Register full rebuild paths
+2026-03-04T02:52:55.4518536Z [    2.17ms]   ↳ Setup scanner
+2026-03-04T02:52:55.4519262Z [16395.75ms]   ↳ Scan for candidates
+2026-03-04T02:52:55.4520088Z [  301.79ms]   ↳ Register dependency messages
+2026-03-04T02:52:55.4520882Z [ 2172.70ms]   ↳ Build utilities
+2026-03-04T02:52:55.4521242Z 
+2026-03-04T02:52:55.4521562Z [  105.14ms]   ↳ Optimization
+2026-03-04T02:52:55.4522219Z [    4.34ms]     ↳ AST -> CSS
+2026-03-04T02:52:55.4522943Z [   53.58ms]     ↳ Lightning CSS
+2026-03-04T02:52:55.4523702Z [   47.17ms]     ↳ CSS -> PostCSS AST
+2026-03-04T02:52:55.4524462Z [   10.31ms]   ↳ Update PostCSS AST
+2026-03-04T02:52:55.4524837Z 
+2026-03-04T02:52:55.4524846Z 
+2026-03-04T02:53:04.6298915Z ✓ Compiled successfully in 32.7s
+2026-03-04T02:53:04.6301557Z 
+2026-03-04T02:53:04.6349719Z   Skipping validation of types
+2026-03-04T02:53:04.6350517Z 
+2026-03-04T02:53:04.9134024Z   Collecting page data using 3 workers ...
+2026-03-04T02:53:04.9135140Z 
+2026-03-04T02:53:06.6155388Z   Generating static pages using 3 workers (0/31) ...
+2026-03-04T02:53:06.6157980Z 
+2026-03-04T02:53:06.6898815Z   Generating static pages using 3 workers (7/31) 
+2026-03-04T02:53:06.6903340Z 
+2026-03-04T02:53:07.4918703Z   Generating static pages using 3 workers (15/31) 
+2026-03-04T02:53:07.4919237Z 
+2026-03-04T02:53:07.7489383Z   Generating static pages using 3 workers (23/31) 
+2026-03-04T02:53:07.7491820Z 
+2026-03-04T02:53:08.2794361Z ✓ Generating static pages using 3 workers (31/31) in 1663.8ms
+2026-03-04T02:53:08.2795207Z 
+2026-03-04T02:53:08.2862790Z   Finalizing page optimization ...
+2026-03-04T02:53:08.2864756Z 
+2026-03-04T02:53:08.6181049Z 
+2026-03-04T02:53:08.6181905Z 
+2026-03-04T02:53:08.6202794Z Route (app)
+2026-03-04T02:53:08.6204384Z ┌ ○ /
+2026-03-04T02:53:08.6205136Z ├ ○ /_not-found
+2026-03-04T02:53:08.6205904Z ├ ƒ /admin
+2026-03-04T02:53:08.6206437Z ├ ƒ /admin/config
+2026-03-04T02:53:08.6207805Z ├ ƒ /admin/copy-agent
+2026-03-04T02:53:08.6208441Z ├ ƒ /admin/landing-pages
+2026-03-04T02:53:08.6209106Z ├ ƒ /admin/landing-pages/[id]
+2026-03-04T02:53:08.6209769Z ├ ƒ /admin/landing-pages/new
+2026-03-04T02:53:08.6210352Z ├ ○ /admin/login
+2026-03-04T02:53:08.6210871Z ├ ƒ /admin/midia
+2026-03-04T02:53:08.6211475Z ├ ƒ /admin/scene-generator
+2026-03-04T02:53:08.6212127Z ├ ƒ /admin/settings
+2026-03-04T02:53:08.6212655Z ├ ƒ /admin/tags
+2026-03-04T02:53:08.6213258Z ├ ƒ /admin/trabalhos
+2026-03-04T02:53:08.6213834Z ├ ƒ /admin/trabalhos/[id]
+2026-03-04T02:53:08.6214441Z ├ ƒ /admin/trabalhos/new
+2026-03-04T02:53:08.6215070Z ├ ƒ /api/admin/storage/upload
+2026-03-04T02:53:08.6216654Z ├ ƒ /api/contact
+2026-03-04T02:53:08.6217254Z ├ ƒ /api/report-error
+2026-03-04T02:53:08.6218324Z ├ ƒ /api/site-assets
+2026-03-04T02:53:08.6218913Z ├ ƒ /auth/callback
+2026-03-04T02:53:08.6219469Z ├ ○ /contato
+2026-03-04T02:53:08.6220083Z ├ ○ /contato/opengraph-image
+2026-03-04T02:53:08.6220567Z ├ ƒ /examples/supabase
+2026-03-04T02:53:08.6220928Z ├ ○ /opengraph-image
+2026-03-04T02:53:08.6221249Z ├ ƒ /portfolio
+2026-03-04T02:53:08.6221583Z ├ ƒ /portfolio/[slug]
+2026-03-04T02:53:08.6221972Z ├ ○ /portfolio/opengraph-image
+2026-03-04T02:53:08.6222332Z ├ ○ /privacidade
+2026-03-04T02:53:08.6222670Z ├ ○ /privacy-policy
+2026-03-04T02:53:08.6223003Z ├ ƒ /projects/[slug]
+2026-03-04T02:53:08.6223321Z ├ ○ /robots.txt
+2026-03-04T02:53:08.6223621Z ├ ○ /sitemap.xml
+2026-03-04T02:53:08.6223915Z ├ ○ /sobre
+2026-03-04T02:53:08.6224253Z └ ○ /sobre/opengraph-image
+2026-03-04T02:53:08.6224461Z 
+2026-03-04T02:53:08.6224467Z 
+2026-03-04T02:53:08.6224637Z ƒ Proxy (Middleware)
+2026-03-04T02:53:08.6224826Z 
+2026-03-04T02:53:08.6224831Z 
+2026-03-04T02:53:08.6225092Z ○  (Static)   prerendered as static content
+2026-03-04T02:53:08.6225930Z ƒ  (Dynamic)  server-rendered on demand
+2026-03-04T02:53:08.6226414Z 
+2026-03-04T02:53:08.6226422Z 
+2026-03-04T02:53:22.0282892Z Building a Cloud Function to run this application. This is needed due to:
+2026-03-04T02:53:22.0284441Z  • non-static component /admin/(protected)/config/page
+2026-03-04T02:53:22.0286099Z  • non-static component /admin/(protected)/copy-agent/page
+2026-03-04T02:53:22.0287332Z  • non-static component /admin/(protected)/landing-pages/[id]/page
+2026-03-04T02:53:22.0288428Z  • non-static component /admin/(protected)/landing-pages/new/page
+2026-03-04T02:53:22.0289357Z  • non-static component /admin/(protected)/landing-pages/page
+2026-03-04T02:53:22.0290558Z [2026-03-04T02:53:22.028Z]  • non-static component /admin/(protected)/midia/page
+2026-03-04T02:53:22.0291827Z [2026-03-04T02:53:22.028Z]  • non-static component /admin/(protected)/page
+2026-03-04T02:53:22.0296562Z [2026-03-04T02:53:22.028Z]  • non-static component /admin/(protected)/scene-generator/page
+2026-03-04T02:53:22.0299023Z [2026-03-04T02:53:22.029Z]  • non-static component /admin/(protected)/settings/page
+2026-03-04T02:53:22.0300575Z [2026-03-04T02:53:22.029Z]  • non-static component /admin/(protected)/tags/page
+2026-03-04T02:53:22.0302128Z [2026-03-04T02:53:22.029Z]  • non-static component /admin/(protected)/trabalhos/[id]/page
+2026-03-04T02:53:22.0303728Z [2026-03-04T02:53:22.029Z]  • non-static component /admin/(protected)/trabalhos/new/page
+2026-03-04T02:53:22.0305270Z [2026-03-04T02:53:22.029Z]  • non-static component /admin/(protected)/trabalhos/page
+2026-03-04T02:53:22.0306991Z [2026-03-04T02:53:22.029Z]  • non-static component /api/admin/storage/upload/route
+2026-03-04T02:53:22.0308363Z [2026-03-04T02:53:22.030Z]  • non-static component /api/contact/route
+2026-03-04T02:53:22.0309695Z [2026-03-04T02:53:22.030Z]  • non-static component /api/report-error/route
+2026-03-04T02:53:22.0311045Z [2026-03-04T02:53:22.030Z]  • non-static component /api/site-assets/route
+2026-03-04T02:53:22.0312350Z [2026-03-04T02:53:22.030Z]  • non-static component /auth/callback/route
+2026-03-04T02:53:22.0314053Z [2026-03-04T02:53:22.030Z]  • non-static component /examples/supabase/page
+2026-03-04T02:53:22.0315399Z [2026-03-04T02:53:22.030Z]  • non-static component /portfolio/[slug]/page
+2026-03-04T02:53:22.0322126Z [2026-03-04T02:53:22.030Z]  • non-static component /portfolio/page
+2026-03-04T02:53:22.0323357Z [2026-03-04T02:53:22.030Z]  • non-static component /projects/[slug]/page
+2026-03-04T02:53:22.0324593Z [2026-03-04T02:53:22.030Z]  • route with server action /admin/config
+2026-03-04T02:53:22.0325859Z [2026-03-04T02:53:22.030Z]  • route with server action /admin/copy-agent
+2026-03-04T02:53:22.0326828Z [2026-03-04T02:53:22.030Z]  • route with server action /admin/landing-pages/[id]
+2026-03-04T02:53:22.0327955Z [2026-03-04T02:53:22.030Z]  • route with server action /admin/landing-pages/new
+2026-03-04T02:53:22.0329318Z [2026-03-04T02:53:22.030Z]  • route with server action /admin/landing-pages
+2026-03-04T02:53:22.0330460Z [2026-03-04T02:53:22.030Z]  • route with server action /admin/midia
+2026-03-04T02:53:22.0331628Z [2026-03-04T02:53:22.030Z]  • route with server action /admin
+2026-03-04T02:53:22.0332886Z [2026-03-04T02:53:22.031Z]  • route with server action /admin/scene-generator
+2026-03-04T02:53:22.0334161Z [2026-03-04T02:53:22.031Z]  • route with server action /admin/settings
+2026-03-04T02:53:22.0335301Z [2026-03-04T02:53:22.031Z]  • route with server action /admin/tags
+2026-03-04T02:53:22.0336711Z [2026-03-04T02:53:22.031Z]  • route with server action /admin/trabalhos/[id]
+2026-03-04T02:53:22.0337940Z [2026-03-04T02:53:22.031Z]  • route with server action /admin/trabalhos/new
+2026-03-04T02:53:22.0339149Z [2026-03-04T02:53:22.031Z]  • route with server action /admin/trabalhos
+2026-03-04T02:53:22.0339697Z 
+2026-03-04T02:53:41.6918487Z Warning: Global esbuild version (0.27.3) does not match the required version (^0.19.2).
+2026-03-04T02:54:41.8729668Z [2026-03-04T02:54:41.872Z] No OAuth tokens found
+2026-03-04T02:54:41.8731799Z [2026-03-04T02:54:41.872Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** [none]
+2026-03-04T02:54:42.7995808Z [2026-03-04T02:54:42.799Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** 200
+2026-03-04T02:54:42.7998802Z [2026-03-04T02:54:42.799Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/***/sites/*** ***"name":"projects/***/sites/***","defaultUrl":"https://***.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"***
+2026-03-04T02:55:09.2493486Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-03-04T02:55:11.0789913Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-03-04T02:55:25.2948637Z 
+2026-03-04T02:55:25.2949674Z added 739 packages in 41s
+2026-03-04T02:55:25.2951812Z 
+2026-03-04T02:55:25.2952300Z 175 packages are looking for funding
+2026-03-04T02:55:25.2953152Z   run `npm fund` for details
+2026-03-04T02:55:25.3437039Z [2026-03-04T02:55:25.341Z] [web frameworks] effective firebase.json:  ***
+2026-03-04T02:55:25.3437996Z   "hosting": [
+2026-03-04T02:55:25.3438531Z     ***
+2026-03-04T02:55:25.3438986Z       "source": ".",
+2026-03-04T02:55:25.3439618Z       "ignore": [
+2026-03-04T02:55:25.3440129Z         "firebase.json",
+2026-03-04T02:55:25.3466278Z         "**/.*",
+2026-03-04T02:55:25.3466783Z         "**/node_modules/**",
+2026-03-04T02:55:25.3467295Z         ".env",
+2026-03-04T02:55:25.3468010Z         ".env.local",
+2026-03-04T02:55:25.3468503Z         ".env.development",
+2026-03-04T02:55:25.3469018Z         "functions/**",
+2026-03-04T02:55:25.3469490Z         "test/**",
+2026-03-04T02:55:25.3469940Z         "docs/**",
+2026-03-04T02:55:25.3470373Z         "scripts/**"
+2026-03-04T02:55:25.3470836Z       ],
+2026-03-04T02:55:25.3471300Z       "frameworksBackend": ***
+2026-03-04T02:55:25.3472228Z         "region": "us-central1"
+2026-03-04T02:55:25.3472775Z       ***,
+2026-03-04T02:55:25.3473213Z       "headers": [
+2026-03-04T02:55:25.3473894Z         ***
+2026-03-04T02:55:25.3474518Z           "source": "**",
+2026-03-04T02:55:25.3475137Z           "headers": [
+2026-03-04T02:55:25.3475911Z             ***
+2026-03-04T02:55:25.3476599Z               "key": "Strict-Transport-Security",
+2026-03-04T02:55:25.3477498Z               "value": "max-age=31536000; includeSubDomains; preload"
+2026-03-04T02:55:25.3478271Z             ***,
+2026-03-04T02:55:25.3478820Z             ***
+2026-03-04T02:55:25.3479430Z               "key": "X-Frame-Options",
+2026-03-04T02:55:25.3480089Z               "value": "DENY"
+2026-03-04T02:55:25.3480686Z             ***,
+2026-03-04T02:55:25.3481223Z             ***
+2026-03-04T02:55:25.3481850Z               "key": "X-Content-Type-Options",
+2026-03-04T02:55:25.3482587Z               "value": "nosniff"
+2026-03-04T02:55:25.3483202Z             ***,
+2026-03-04T02:55:25.3483747Z             ***
+2026-03-04T02:55:25.3484363Z               "key": "Referrer-Policy",
+2026-03-04T02:55:25.3485131Z               "value": "strict-origin-when-cross-origin"
+2026-03-04T02:55:25.3486005Z             ***
+2026-03-04T02:55:25.3486629Z           ]
+2026-03-04T02:55:25.3487149Z         ***,
+2026-03-04T02:55:25.3487686Z         ***
+2026-03-04T02:55:25.3488328Z           "source": "/_next/static/**",
+2026-03-04T02:55:25.3488989Z           "headers": [
+2026-03-04T02:55:25.3489574Z             ***
+2026-03-04T02:55:25.3490171Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3490957Z               "value": "public, max-age=31536000, immutable"
+2026-03-04T02:55:25.3491667Z             ***
+2026-03-04T02:55:25.3492191Z           ]
+2026-03-04T02:55:25.3492807Z         ***,
+2026-03-04T02:55:25.3493366Z         ***
+2026-03-04T02:55:25.3494082Z           "source": "**/*.@(glb|gltf|bin|hdr|exr|mp4|webm|mov|m3u8)",
+2026-03-04T02:55:25.3494861Z           "headers": [
+2026-03-04T02:55:25.3535760Z             ***
+2026-03-04T02:55:25.3536791Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3537611Z               "value": "public, max-age=3600, stale-while-revalidate=86400"
+2026-03-04T02:55:25.3538318Z             ***
+2026-03-04T02:55:25.3538750Z           ]
+2026-03-04T02:55:25.3539173Z         ***,
+2026-03-04T02:55:25.3539603Z         ***
+2026-03-04T02:55:25.3540098Z           "source": "**/*.@(glb|gltf|bin)",
+2026-03-04T02:55:25.3540645Z           "headers": [
+2026-03-04T02:55:25.3541119Z             ***
+2026-03-04T02:55:25.3541691Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3542401Z               "value": "public, max-age=31536000, immutable"
+2026-03-04T02:55:25.3543027Z             ***
+2026-03-04T02:55:25.3543452Z           ]
+2026-03-04T02:55:25.3543867Z         ***,
+2026-03-04T02:55:25.3544293Z         ***
+2026-03-04T02:55:25.3555879Z           "source": "/api/**",
+2026-03-04T02:55:25.3556430Z           "headers": [
+2026-03-04T02:55:25.3556931Z             ***
+2026-03-04T02:55:25.3557460Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3558069Z               "value": "no-store"
+2026-03-04T02:55:25.3558598Z             ***
+2026-03-04T02:55:25.3559024Z           ]
+2026-03-04T02:55:25.3559461Z         ***,
+2026-03-04T02:55:25.3559900Z         ***
+2026-03-04T02:55:25.3560384Z           "source": "/:path*",
+2026-03-04T02:55:25.3560932Z           "headers": [
+2026-03-04T02:55:25.3561433Z             ***
+2026-03-04T02:55:25.3561987Z               "key": "Content-Security-Policy",
+2026-03-04T02:55:25.3571081Z               "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://www.youtube.com https://s.ytimg.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io umkmwbkwvulxtdodzmzf.supabase.co; img-src 'self' blob: data: umkmwbkwvulxtdodzmzf.supabase.co https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' umkmwbkwvulxtdodzmzf.supabase.co https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co https://raw.githack.com https://www.gstatic.com https://raw.githubusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' blob: data: umkmwbkwvulxtdodzmzf.supabase.co https://*.supabase.co https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com"
+2026-03-04T02:55:25.3609470Z             ***,
+2026-03-04T02:55:25.3609799Z             ***
+2026-03-04T02:55:25.3610193Z               "key": "X-Content-Type-Options",
+2026-03-04T02:55:25.3610625Z               "value": "nosniff"
+2026-03-04T02:55:25.3610970Z             ***,
+2026-03-04T02:55:25.3611259Z             ***
+2026-03-04T02:55:25.3611601Z               "key": "X-Frame-Options",
+2026-03-04T02:55:25.3611970Z               "value": "DENY"
+2026-03-04T02:55:25.3612300Z             ***,
+2026-03-04T02:55:25.3612580Z             ***
+2026-03-04T02:55:25.3612904Z               "key": "Referrer-Policy",
+2026-03-04T02:55:25.3613341Z               "value": "strict-origin-when-cross-origin"
+2026-03-04T02:55:25.3613736Z             ***,
+2026-03-04T02:55:25.3614017Z             ***
+2026-03-04T02:55:25.3614347Z               "key": "Permissions-Policy",
+2026-03-04T02:55:25.3614847Z               "value": "camera=(), microphone=(), geolocation=(), payment=()"
+2026-03-04T02:55:25.3615291Z             ***,
+2026-03-04T02:55:25.3615841Z             ***
+2026-03-04T02:55:25.3616203Z               "key": "Strict-Transport-Security",
+2026-03-04T02:55:25.3616699Z               "value": "max-age=31536000; includeSubDomains; preload"
+2026-03-04T02:55:25.3617121Z             ***,
+2026-03-04T02:55:25.3617589Z             ***
+2026-03-04T02:55:25.3617929Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3618453Z               "value": "public, max-age=0, s-maxage=900, stale-while-revalidate=3600"
+2026-03-04T02:55:25.3618934Z             ***
+2026-03-04T02:55:25.3619210Z           ]
+2026-03-04T02:55:25.3619488Z         ***,
+2026-03-04T02:55:25.3619763Z         ***
+2026-03-04T02:55:25.3620080Z           "source": "/_next/static/:path*",
+2026-03-04T02:55:25.3620444Z           "headers": [
+2026-03-04T02:55:25.3620744Z             ***
+2026-03-04T02:55:25.3621059Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3621491Z               "value": "public, max-age=31536000, immutable"
+2026-03-04T02:55:25.3621880Z             ***
+2026-03-04T02:55:25.3622152Z           ]
+2026-03-04T02:55:25.3622422Z         ***,
+2026-03-04T02:55:25.3622695Z         ***
+2026-03-04T02:55:25.3623117Z           "source": "/fonts/:path*",
+2026-03-04T02:55:25.3623758Z           "headers": [
+2026-03-04T02:55:25.3624339Z             ***
+2026-03-04T02:55:25.3624885Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3625793Z               "value": "public, max-age=31536000, immutable"
+2026-03-04T02:55:25.3626483Z             ***
+2026-03-04T02:55:25.3626974Z           ]
+2026-03-04T02:55:25.3627433Z         ***,
+2026-03-04T02:55:25.3627891Z         ***
+2026-03-04T02:55:25.3628458Z           "source": "/captions/:path*",
+2026-03-04T02:55:25.3629117Z           "headers": [
+2026-03-04T02:55:25.3629644Z             ***
+2026-03-04T02:55:25.3630163Z               "key": "Cache-Control",
+2026-03-04T02:55:25.3630974Z               "value": "public, max-age=86400, stale-while-revalidate=604800"
+2026-03-04T02:55:25.3631722Z             ***
+2026-03-04T02:55:25.3632699Z           ]
+2026-03-04T02:55:25.3633143Z         ***,
+2026-03-04T02:55:25.3633592Z         ***
+2026-03-04T02:55:25.3634077Z           "source": "/_not-found",
+2026-03-04T02:55:25.3634709Z           "headers": [
+2026-03-04T02:55:25.3635637Z             ***
+2026-03-04T02:55:25.3636242Z               "key": "x-nextjs-stale-time",
+2026-03-04T02:55:25.3636854Z               "value": "300"
+2026-03-04T02:55:25.3637383Z             ***,
+2026-03-04T02:55:25.3637837Z             ***
+2026-03-04T02:55:25.3638460Z               "key": "x-nextjs-prerender",
+2026-03-04T02:55:25.3639055Z               "value": "1"
+2026-03-04T02:55:25.3639566Z             ***,
+2026-03-04T02:55:25.3640062Z             ***
+2026-03-04T02:55:25.3640598Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3641609Z               "value": "_N_T_/layout,_N_T_/_not-found/layout,_N_T_/_not-found/page,_N_T_/_not-found"
+2026-03-04T02:55:25.3642548Z             ***
+2026-03-04T02:55:25.3643000Z           ]
+2026-03-04T02:55:25.3643447Z         ***,
+2026-03-04T02:55:25.3643905Z         ***
+2026-03-04T02:55:25.3644410Z           "source": "/_global-error",
+2026-03-04T02:55:25.3644987Z           "headers": [
+2026-03-04T02:55:25.3645701Z             ***
+2026-03-04T02:55:25.3646259Z               "key": "x-nextjs-stale-time",
+2026-03-04T02:55:25.3646863Z               "value": "300"
+2026-03-04T02:55:25.3647385Z             ***,
+2026-03-04T02:55:25.3648161Z             ***
+2026-03-04T02:55:25.3648722Z               "key": "x-nextjs-prerender",
+2026-03-04T02:55:25.3649357Z               "value": "1"
+2026-03-04T02:55:25.3649890Z             ***,
+2026-03-04T02:55:25.3650393Z             ***
+2026-03-04T02:55:25.3650924Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3651982Z               "value": "_N_T_/layout,_N_T_/_global-error/layout,_N_T_/_global-error/page,_N_T_/_global-error"
+2026-03-04T02:55:25.3652911Z             ***
+2026-03-04T02:55:25.3653359Z           ]
+2026-03-04T02:55:25.3653800Z         ***,
+2026-03-04T02:55:25.3654238Z         ***
+2026-03-04T02:55:25.3654730Z           "source": "/contato",
+2026-03-04T02:55:25.3655268Z           "headers": [
+2026-03-04T02:55:25.3656022Z             ***
+2026-03-04T02:55:25.3656588Z               "key": "x-nextjs-stale-time",
+2026-03-04T02:55:25.3657393Z               "value": "300"
+2026-03-04T02:55:25.3657937Z             ***,
+2026-03-04T02:55:25.3658403Z             ***
+2026-03-04T02:55:25.3658938Z               "key": "x-nextjs-prerender",
+2026-03-04T02:55:25.3659555Z               "value": "1"
+2026-03-04T02:55:25.3660105Z             ***,
+2026-03-04T02:55:25.3660581Z             ***
+2026-03-04T02:55:25.3661136Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3662069Z               "value": "_N_T_/layout,_N_T_/contato/layout,_N_T_/contato/page,_N_T_/contato"
+2026-03-04T02:55:25.3662911Z             ***
+2026-03-04T02:55:25.3663380Z           ]
+2026-03-04T02:55:25.3663842Z         ***,
+2026-03-04T02:55:25.3680699Z         ***
+2026-03-04T02:55:25.3681353Z           "source": "/portfolio/opengraph-image",
+2026-03-04T02:55:25.3681932Z           "headers": [
+2026-03-04T02:55:25.3682402Z             ***
+2026-03-04T02:55:25.3682764Z               "key": "cache-control",
+2026-03-04T02:55:25.3683367Z               "value": "public, max-age=0, must-revalidate"
+2026-03-04T02:55:25.3683793Z             ***,
+2026-03-04T02:55:25.3684201Z             ***
+2026-03-04T02:55:25.3684536Z               "key": "content-type",
+2026-03-04T02:55:25.3685028Z               "value": "image/png"
+2026-03-04T02:55:25.3685379Z             ***,
+2026-03-04T02:55:25.3685986Z             ***
+2026-03-04T02:55:25.3686329Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3687502Z               "value": "_N_T_/layout,_N_T_/portfolio/layout,_N_T_/portfolio/opengraph-image/layout,_N_T_/portfolio/opengraph-image/route,_N_T_/portfolio/opengraph-image"
+2026-03-04T02:55:25.3688397Z             ***
+2026-03-04T02:55:25.3688687Z           ]
+2026-03-04T02:55:25.3689071Z         ***,
+2026-03-04T02:55:25.3689355Z         ***
+2026-03-04T02:55:25.3689718Z           "source": "/opengraph-image",
+2026-03-04T02:55:25.3690162Z           "headers": [
+2026-03-04T02:55:25.3690485Z             ***
+2026-03-04T02:55:25.3691114Z               "key": "cache-control",
+2026-03-04T02:55:25.3691698Z               "value": "public, max-age=0, must-revalidate"
+2026-03-04T02:55:25.3692112Z             ***,
+2026-03-04T02:55:25.3692508Z             ***
+2026-03-04T02:55:25.3692832Z               "key": "content-type",
+2026-03-04T02:55:25.3693325Z               "value": "image/png"
+2026-03-04T02:55:25.3693670Z             ***,
+2026-03-04T02:55:25.3694070Z             ***
+2026-03-04T02:55:25.3694397Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3695169Z               "value": "_N_T_/layout,_N_T_/opengraph-image/layout,_N_T_/opengraph-image/route,_N_T_/opengraph-image"
+2026-03-04T02:55:25.3695985Z             ***
+2026-03-04T02:55:25.3696286Z           ]
+2026-03-04T02:55:25.3696677Z         ***,
+2026-03-04T02:55:25.3696955Z         ***
+2026-03-04T02:55:25.3697380Z           "source": "/privacy-policy",
+2026-03-04T02:55:25.3697751Z           "headers": [
+2026-03-04T02:55:25.3698166Z             ***
+2026-03-04T02:55:25.3698496Z               "key": "location",
+2026-03-04T02:55:25.3698971Z               "value": "/privacidade"
+2026-03-04T02:55:25.3699358Z             ***,
+2026-03-04T02:55:25.3699699Z             ***
+2026-03-04T02:55:25.3700100Z               "key": "x-nextjs-stale-time",
+2026-03-04T02:55:25.3700520Z               "value": "300"
+2026-03-04T02:55:25.3700987Z             ***,
+2026-03-04T02:55:25.3701501Z             ***
+2026-03-04T02:55:25.3702028Z               "key": "x-nextjs-prerender",
+2026-03-04T02:55:25.3702626Z               "value": "1"
+2026-03-04T02:55:25.3703120Z             ***,
+2026-03-04T02:55:25.3703605Z             ***
+2026-03-04T02:55:25.3704134Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3705182Z               "value": "_N_T_/layout,_N_T_/privacy-policy/layout,_N_T_/privacy-policy/page,_N_T_/privacy-policy"
+2026-03-04T02:55:25.3706256Z             ***
+2026-03-04T02:55:25.3706680Z           ]
+2026-03-04T02:55:25.3707107Z         ***,
+2026-03-04T02:55:25.3707547Z         ***
+2026-03-04T02:55:25.3708041Z           "source": "/privacidade",
+2026-03-04T02:55:25.3708832Z           "headers": [
+2026-03-04T02:55:25.3709349Z             ***
+2026-03-04T02:55:25.3709894Z               "key": "x-nextjs-stale-time",
+2026-03-04T02:55:25.3710508Z               "value": "300"
+2026-03-04T02:55:25.3710966Z             ***,
+2026-03-04T02:55:25.3711259Z             ***
+2026-03-04T02:55:25.3711735Z               "key": "x-nextjs-prerender",
+2026-03-04T02:55:25.3712105Z               "value": "1"
+2026-03-04T02:55:25.3712607Z             ***,
+2026-03-04T02:55:25.3713072Z             ***
+2026-03-04T02:55:25.3713603Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3714609Z               "value": "_N_T_/layout,_N_T_/privacidade/layout,_N_T_/privacidade/page,_N_T_/privacidade"
+2026-03-04T02:55:25.3715671Z             ***
+2026-03-04T02:55:25.3716123Z           ]
+2026-03-04T02:55:25.3716571Z         ***,
+2026-03-04T02:55:25.3717022Z         ***
+2026-03-04T02:55:25.3717510Z           "source": "/robots.txt",
+2026-03-04T02:55:25.3718080Z           "headers": [
+2026-03-04T02:55:25.3718578Z             ***
+2026-03-04T02:55:25.3719089Z               "key": "cache-control",
+2026-03-04T02:55:25.3719797Z               "value": "public, max-age=0, must-revalidate"
+2026-03-04T02:55:25.3720512Z             ***,
+2026-03-04T02:55:25.3720969Z             ***
+2026-03-04T02:55:25.3721481Z               "key": "content-type",
+2026-03-04T02:55:25.3722089Z               "value": "text/plain"
+2026-03-04T02:55:25.3722636Z             ***,
+2026-03-04T02:55:25.3723105Z             ***
+2026-03-04T02:55:25.3723625Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3724575Z               "value": "_N_T_/layout,_N_T_/robots.txt/layout,_N_T_/robots.txt/route,_N_T_/robots.txt"
+2026-03-04T02:55:25.3725620Z             ***
+2026-03-04T02:55:25.3726079Z           ]
+2026-03-04T02:55:25.3726516Z         ***,
+2026-03-04T02:55:25.3726941Z         ***
+2026-03-04T02:55:25.3727428Z           "source": "/sitemap.xml",
+2026-03-04T02:55:25.3728202Z           "headers": [
+2026-03-04T02:55:25.3728683Z             ***
+2026-03-04T02:55:25.3729181Z               "key": "cache-control",
+2026-03-04T02:55:25.3729896Z               "value": "public, max-age=0, must-revalidate"
+2026-03-04T02:55:25.3730533Z             ***,
+2026-03-04T02:55:25.3730990Z             ***
+2026-03-04T02:55:25.3731494Z               "key": "content-type",
+2026-03-04T02:55:25.3732123Z               "value": "application/xml"
+2026-03-04T02:55:25.3732694Z             ***,
+2026-03-04T02:55:25.3733139Z             ***
+2026-03-04T02:55:25.3733658Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3734613Z               "value": "_N_T_/layout,_N_T_/sitemap.xml/layout,_N_T_/sitemap.xml/route,_N_T_/sitemap.xml"
+2026-03-04T02:55:25.3735649Z             ***
+2026-03-04T02:55:25.3736168Z           ]
+2026-03-04T02:55:25.3736743Z         ***,
+2026-03-04T02:55:25.3737208Z         ***
+2026-03-04T02:55:25.3737679Z           "source": "/sobre",
+2026-03-04T02:55:25.3738236Z           "headers": [
+2026-03-04T02:55:25.3738753Z             ***
+2026-03-04T02:55:25.3739312Z               "key": "x-nextjs-stale-time",
+2026-03-04T02:55:25.3739960Z               "value": "300"
+2026-03-04T02:55:25.3740508Z             ***,
+2026-03-04T02:55:25.3740977Z             ***
+2026-03-04T02:55:25.3741502Z               "key": "x-nextjs-prerender",
+2026-03-04T02:55:25.3742086Z               "value": "1"
+2026-03-04T02:55:25.3742596Z             ***,
+2026-03-04T02:55:25.3743045Z             ***
+2026-03-04T02:55:25.3743559Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3744417Z               "value": "_N_T_/layout,_N_T_/sobre/layout,_N_T_/sobre/page,_N_T_/sobre"
+2026-03-04T02:55:25.3745271Z             ***
+2026-03-04T02:55:25.3745850Z           ]
+2026-03-04T02:55:25.3746291Z         ***,
+2026-03-04T02:55:25.3746717Z         ***
+2026-03-04T02:55:25.3747236Z           "source": "/sobre/opengraph-image",
+2026-03-04T02:55:25.3747833Z           "headers": [
+2026-03-04T02:55:25.3748325Z             ***
+2026-03-04T02:55:25.3748857Z               "key": "cache-control",
+2026-03-04T02:55:25.3749763Z               "value": "public, max-age=0, must-revalidate"
+2026-03-04T02:55:25.3750422Z             ***,
+2026-03-04T02:55:25.3750884Z             ***
+2026-03-04T02:55:25.3751397Z               "key": "content-type",
+2026-03-04T02:55:25.3752007Z               "value": "image/png"
+2026-03-04T02:55:25.3752548Z             ***,
+2026-03-04T02:55:25.3752990Z             ***
+2026-03-04T02:55:25.3753504Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3754862Z               "value": "_N_T_/layout,_N_T_/sobre/layout,_N_T_/sobre/opengraph-image/layout,_N_T_/sobre/opengraph-image/route,_N_T_/sobre/opengraph-image"
+2026-03-04T02:55:25.3756278Z             ***
+2026-03-04T02:55:25.3756774Z           ]
+2026-03-04T02:55:25.3757284Z         ***,
+2026-03-04T02:55:25.3759399Z         ***
+2026-03-04T02:55:25.3760068Z           "source": "/contato/opengraph-image",
+2026-03-04T02:55:25.3760526Z           "headers": [
+2026-03-04T02:55:25.3760901Z             ***
+2026-03-04T02:55:25.3761282Z               "key": "cache-control",
+2026-03-04T02:55:25.3761778Z               "value": "public, max-age=0, must-revalidate"
+2026-03-04T02:55:25.3762232Z             ***,
+2026-03-04T02:55:25.3762560Z             ***
+2026-03-04T02:55:25.3762920Z               "key": "content-type",
+2026-03-04T02:55:25.3763338Z               "value": "image/png"
+2026-03-04T02:55:25.3763726Z             ***,
+2026-03-04T02:55:25.3764114Z             ***
+2026-03-04T02:55:25.3764723Z               "key": "x-next-cache-tags",
+2026-03-04T02:55:25.3766187Z               "value": "_N_T_/layout,_N_T_/contato/layout,_N_T_/contato/opengraph-image/layout,_N_T_/contato/opengraph-image/route,_N_T_/contato/opengraph-image"
+2026-03-04T02:55:25.3767728Z             ***
+2026-03-04T02:55:25.3768063Z           ]
+2026-03-04T02:55:25.3768511Z         ***,
+2026-03-04T02:55:25.3768843Z         ***
+2026-03-04T02:55:25.3769274Z           "source": "**/*.[jt]s",
+2026-03-04T02:55:25.3770099Z           "headers": [
+2026-03-04T02:55:25.3770601Z             ***
+2026-03-04T02:55:25.3771072Z               "key": "Set-Cookie",
+2026-03-04T02:55:25.3780734Z               "value": "__FIREBASE_DEFAULTS__=eyJjb25maWciOnsicHJvamVjdElkIjoicG9ydGZvbGlvLWRhbmlsby1ub3ZhaXMiLCJhcHBJZCI6IjE6MzUwODE3MjA1OTg5OndlYjpmN2FlMzJmMTJkMzUzZWYwODFkZTBjIiwiZGF0YWJhc2VVUkwiOiJodHRwczovL3Bv***LWRlZmF1bHQtcnRkYi5maXJlYmFzZWlvLmNvbSIsInN0b3JhZ2VCdWNrZXQiOiJwb3J0Zm9saW8tZGFuaWxvLW5vdmFpcy5maXJlYmFzZXN0b3JhZ2UuYXBwIiwiYXBpS2V5IjoiQUl6YVN5RFRkMWtDTlhtV1hGS3FyYkVqcnRDM3Q1NURmelNKWFU0IiwiYXV0aERvbWFpbiI6InBv***LmZpcmViYXNlYXBwLmNvbSIsIm1lc3NhZ2luZ1NlbmRlcklkIjoiMzUwODE3MjA1OTg5IiwibWVhc3VyZW1lbnRJZCI6IkctUE0zNFZZUFpaVyIsInByb2plY3ROdW1iZXIiOiIzNTA4MTcyMDU5ODkiLCJ2ZXJzaW9uIjoiMiJ9LCJfYXV0aFRva2VuU3luY1VSTCI6Ii9fX3Nlc3Npb24ifQ; SameSite=Strict; Expires=2028-01-27T13:35:25.341Z; Path=/;"
+2026-03-04T02:55:25.3784765Z             ***
+2026-03-04T02:55:25.3785084Z           ]
+2026-03-04T02:55:25.3785383Z         ***
+2026-03-04T02:55:25.3786036Z       ],
+2026-03-04T02:55:25.3786486Z       "site": "***",
+2026-03-04T02:55:25.3787086Z       "rewrites": [
+2026-03-04T02:55:25.3787635Z         ***
+2026-03-04T02:55:25.3788151Z           "source": "**",
+2026-03-04T02:55:25.3788736Z           "function": ***
+2026-03-04T02:55:25.3789465Z             "functionId": "ssrportfoliodanilonovai",
+2026-03-04T02:55:25.3790257Z             "region": "us-central1",
+2026-03-04T02:55:25.3790878Z             "pinTag": true
+2026-03-04T02:55:25.3791473Z           ***
+2026-03-04T02:55:25.3791982Z         ***
+2026-03-04T02:55:25.3792467Z       ],
+2026-03-04T02:55:25.3792956Z       "redirects": [
+2026-03-04T02:55:25.3793495Z         ***
+2026-03-04T02:55:25.3794099Z           "source": "/portfolio/key_vision",
+2026-03-04T02:55:25.3794854Z           "destination": "/portfolio/key-vision",
+2026-03-04T02:55:25.3795835Z           "type": 308
+2026-03-04T02:55:25.3796409Z         ***,
+2026-03-04T02:55:25.3797026Z         ***
+2026-03-04T02:55:25.3797643Z           "source": "/portfolio/brand_video",
+2026-03-04T02:55:25.3798647Z           "destination": "/portfolio/brand-video",
+2026-03-04T02:55:25.3799406Z           "type": 308
+2026-03-04T02:55:25.3799959Z         ***,
+2026-03-04T02:55:25.3800462Z         ***
+2026-03-04T02:55:25.3801040Z           "source": "/privacy-policy",
+2026-03-04T02:55:25.3801778Z           "destination": "/privacidade",
+2026-03-04T02:55:25.3802416Z           "type": 308
+2026-03-04T02:55:25.3802998Z         ***
+2026-03-04T02:55:25.3803531Z       ],
+2026-03-04T02:55:25.3804037Z       "cleanUrls": true,
+2026-03-04T02:55:25.3804631Z       "trailingSlash": false,
+2026-03-04T02:55:25.3805648Z       "public": ".firebase/***/hosting",
+2026-03-04T02:55:25.3806135Z       "webFramework": "next_ssr"
+2026-03-04T02:55:25.3806506Z     ***
+2026-03-04T02:55:25.3806796Z   ],
+2026-03-04T02:55:25.3807070Z   "functions": [
+2026-03-04T02:55:25.3807363Z     ***
+2026-03-04T02:55:25.3807657Z       "source": "functions",
+2026-03-04T02:55:25.3807989Z       "codebase": "default",
+2026-03-04T02:55:25.3808313Z       "ignore": [
+2026-03-04T02:55:25.3808613Z         "node_modules",
+2026-03-04T02:55:25.3808922Z         ".git",
+2026-03-04T02:55:25.3809216Z         "firebase-debug.log",
+2026-03-04T02:55:25.3809577Z         "firebase-debug.*.log"
+2026-03-04T02:55:25.3809916Z       ],
+2026-03-04T02:55:25.3810203Z       "runtime": "nodejs20"
+2026-03-04T02:55:25.3810527Z     ***,
+2026-03-04T02:55:25.3810798Z     ***
+2026-03-04T02:55:25.3811206Z       "source": ".firebase/***/functions",
+2026-03-04T02:55:25.3811710Z       "codebase": "firebase-frameworks-***"
+2026-03-04T02:55:25.3812076Z     ***
+2026-03-04T02:55:25.3812340Z   ]
+2026-03-04T02:55:25.3812606Z ***
+2026-03-04T02:55:25.3812974Z [2026-03-04T02:55:25.343Z] No OAuth tokens found
+2026-03-04T02:55:25.3813923Z [2026-03-04T02:55:25.344Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/***/locations/-/functions [none]
+2026-03-04T02:55:26.1646688Z [2026-03-04T02:55:26.164Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/***/locations/-/functions 200
+2026-03-04T02:55:26.1649258Z [2026-03-04T02:55:26.164Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/***/locations/-/functions ***
+2026-03-04T02:55:26.1651490Z [2026-03-04T02:55:26.164Z] No OAuth tokens found
+2026-03-04T02:55:26.1658223Z [2026-03-04T02:55:26.165Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/-/functions filter=environment%3D%22GEN_2%22
+2026-03-04T02:55:26.8383419Z [2026-03-04T02:55:26.837Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/-/functions 200
+2026-03-04T02:55:26.8500453Z [2026-03-04T02:55:26.838Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/-/functions ***"functions":[***"name":"projects/***/locations/southamerica-east1/functions/annotate_gcs","description":"Vision API Image Annotate with GCS","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/05265522-299e-4eaf-8df0-50fbe3e25625","runtime":"python310","entryPoint":"annotate_gcs","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate_gcs/function-source.zip","generation":"1749079648113526"***,"environmentVariables":***"BUILD_CONFIG_TEST":"build_test"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate_gcs/function-source.zip","generation":"1749079648113526"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/annotate-gcs","timeoutSeconds":120,"environmentVariables":***"ANNOTATIONS_BUCKET":"vision-annotations-350817205989","FEATURES":"FACE_DETECTION,PRODUCT_SEARCH,SAFE_SEARCH_DETECTION","INPUT_BUCKET":"vision-input-350817205989","LOG_LEVEL":"","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_INTERNAL_ONLY","uri":"https://annotate-gcs-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"gcf-sa@***.iam.gserviceaccount.com","availableMemory":"256M","allTrafficOnLatestRevision":true,"revision":"annotate-gcs-00001-lah","maxInstanceRequestConcurrency":1,"availableCpu":"0.1666"***,"eventTrigger":***"trigger":"projects/***/locations/southamerica-east1/triggers/annotate-gcs-598050","triggerRegion":"southamerica-east1","eventType":"google.cloud.storage.object.v1.finalized","eventFilters":[***"attribute":"bucket","value":"vision-input-350817205989"***],"pubsubTopic":"projects/***/topics/eventarc-southamerica-east1-annotate-gcs-598050-778","serviceAccountEmail":"gcf-sa@***.iam.gserviceaccount.com","retryPolicy":"RETRY_POLICY_RETRY"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.157179306Z","labels":***"goog-solutions-console-solution-id":"aiml-image-processing-on-cloud-functions","goog-ccm":"true","goog-solutions-console-deployment-name":"aiml-image-processing-on-cloud-functions"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/annotate_gcs","satisfiesPzs":true,"createTime":"2025-06-04T23:27:28.541042455Z","satisfiesPzi":true***,***"name":"projects/***/locations/southamerica-east1/functions/knowledge-base-webhook","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/aa75bb76-f163-4099-8520-5cb3a11d8bfb","runtime":"python312","entryPoint":"on_cloud_event","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"knowledge-base-webhook/function-source.zip","generation":"1745479179400411"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/knowledge-base-repo","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"knowledge-base-webhook/function-source.zip","generation":"1745479179400411"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/knowledge-base-webhook","timeoutSeconds":300,"environmentVariables":***"DATABASE":"knowledge-base-database","DOCAI_LOCATION":"us","DOCAI_PROCESSOR":"projects/***/locations/us/processors/19044296709a82ba","INDEX_ID":"projects/***/locations/southamerica-east1/indexes/1677837151800131584","LOCATION":"southamerica-east1","LOG_EXECUTION_ID":"true","OUTPUT_BUCKET":"knowledge-base-bucket-***","PROJECT_ID":"***"***,"maxInstanceCount":20,"ingressSettings":"ALLOW_ALL","uri":"https://knowledge-base-webhook-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"knowledge-base-webhook-sa@***.iam.gserviceaccount.com","availableMemory":"4G","allTrafficOnLatestRevision":true,"revision":"knowledge-base-webhook-00001-laq","maxInstanceRequestConcurrency":1,"availableCpu":"2"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.052209545Z","labels":***"goog-ccm":"true","goog-solutions-console-deployment-name":"generative-ai-knowledge-base","goog-solutions-console-solution-id":"generative-ai-knowledge-base"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/knowledge-base-webhook","satisfiesPzs":true,"createTime":"2025-04-24T07:19:39.844004529Z","satisfiesPzi":true***,***"name":"projects/***/locations/southamerica-east1/functions/function-1","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/a243a8b1-69ad-4293-ac69-ead6cab9ec4e","runtime":"nodejs20","entryPoint":"helloGCS","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"function-1/function-source.zip","generation":"1748470570876615"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"function-1/function-source.zip","generation":"1748470570876615"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/function-1","timeoutSeconds":60,"environmentVariables":***"LOG_EXECUTION_ID":"true"***,"maxInstanceCount":100,"ingressSettings":"ALLOW_ALL","uri":"https://function-1-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"function-1-00001-kes","maxInstanceRequestConcurrency":1,"availableCpu":"167m"***,"eventTrigger":***"trigger":"projects/***/locations/southamerica-east1/triggers/function-1-805841","triggerRegion":"southamerica-east1","eventType":"google.cloud.storage.object.v1.metadataUpdated","eventFilters":[***"attribute":"bucket","value":"bucket-portfolio-danilo"***],"pubsubTopic":"projects/***/topics/eventarc-southamerica-east1-function-1-805841-242","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","retryPolicy":"RETRY_POLICY_DO_NOT_RETRY"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.191979762Z","labels":***"goog-managed-by":"storage","deployment-tool":"console-cloud"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/function-1","satisfiesPzs":true,"createTime":"2025-05-28T22:16:11.383618549Z","satisfiesPzi":true***,***"name":"projects/***/locations/southamerica-east1/functions/annotate-http","description":"Vision API Image Annotate via HTTP, external","buildConfig":***"build":"projects/350817205989/locations/southamerica-east1/builds/e39fa15f-e73c-4276-9683-1d08ac2384c7","runtime":"python311","entryPoint":"annotate_http","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate-http/function-source.zip","generation":"1749079648299518"***,"dockerRepository":"projects/***/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate-http/function-source.zip","generation":"1749079648299518"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/southamerica-east1/services/annotate-http","timeoutSeconds":120,"environmentVariables":***"ANNOTATIONS_BUCKET":"vision-annotations-350817205989","FEATURES":"FACE_DETECTION,PRODUCT_SEARCH,SAFE_SEARCH_DETECTION","INPUT_BUCKET":"vision-input-350817205989","LOG_LEVEL":"","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://annotate-http-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"gcf-sa@***.iam.gserviceaccount.com","availableMemory":"256M","allTrafficOnLatestRevision":true,"revision":"annotate-http-00001-siq","maxInstanceRequestConcurrency":1,"availableCpu":"0.1666"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:23.206256333Z","labels":***"goog-ccm":"true","goog-solutions-console-deployment-name":"aiml-image-processing-on-cloud-functions","goog-solutions-console-solution-id":"aiml-image-processing-on-cloud-functions"***,"environment":"GEN_2","url":"https://southamerica-east1-***.cloudfunctions.net/annotate-http","satisfiesPzs":true,"createTime":"2025-06-04T23:27:28.687018198Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/heartbeat","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/5e96f185-17f1-4168-b19b-a1e0fa1d160a","runtime":"nodejs20","entryPoint":"heartbeat","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"heartbeat/function-source.zip","generation":"1772542528552184"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"heartbeat/function-source.zip","generation":"1772542528552184"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/heartbeat","timeoutSeconds":60,"environmentVariables":***"FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/heartbeat","FUNCTION_TARGET":"heartbeat","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://heartbeat-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"heartbeat-00006-foz","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-03-03T12:58:22.849562309Z","labels":***"firebase-functions-hash":"082c9968dd6c9b3e5af8e21bb4c65998cbe56096","deployment-tool":"cli-firebase"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/heartbeat","createTime":"2026-02-24T01:36:04.099834050Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/setWebhook","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/6b6c0c7e-3a04-4856-b6f4-2a81b39cf04e","runtime":"nodejs24","entryPoint":"setWebhook","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"setWebhook/function-source.zip","generation":"1770665898519818"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"setWebhook/function-source.zip","generation":"1770665898519818"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/setwebhook","timeoutSeconds":60,"environmentVariables":***"FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/setWebhook","FUNCTION_TARGET":"setWebhook","LOG_EXECUTION_ID":"true","FUNCTION_SIGNATURE_TYPE":"http"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://setwebhook-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"secretEnvironmentVariables":[***"key":"TELEGRAM_BOT_TOKEN","projectId":"***","secret":"TELEGRAM_BOT_TOKEN","version":"1"***],"revision":"setwebhook-00004-puw","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:22.649412416Z","labels":***"firebase-functions-codebase":"chatbot","firebase-functions-hash":"c81f6b3ccfe3ff1067b17b7f11bb96a6debe0f75","deployment-tool":"cli-firebase"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/setWebhook","createTime":"2026-02-06T04:17:28.641956946Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/4f54018b-f381-4228-a78d-4e67fc3f2a14","runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":3,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-03-04T02:33:33.785171410Z","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"e824853e4a2ac5d33c003ac5ee49752ecd990517"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","createTime":"2026-02-15T13:30:47.483217832Z","satisfiesPzi":true***,***"name":"projects/***/locations/us-central1/functions/telegramWebhook","buildConfig":***"build":"projects/350817205989/locations/us-central1/builds/6b6c0c7e-3a04-4856-b6f4-2a81b39cf04e","runtime":"nodejs24","entryPoint":"telegramWebhook","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"telegramWebhook/function-source.zip","generation":"1770665852757718"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"telegramWebhook/function-source.zip","generation":"1770665852757718"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/telegramwebhook","timeoutSeconds":60,"environmentVariables":***"FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/telegramWebhook","FUNCTION_TARGET":"telegramWebhook","LOG_EXECUTION_ID":"true"***,"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://telegramwebhook-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"secretEnvironmentVariables":[***"key":"TELEGRAM_BOT_TOKEN","projectId":"***","secret":"TELEGRAM_BOT_TOKEN","version":"1"***],"revision":"telegramwebhook-00004-xos","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","updateTime":"2026-02-15T13:01:22.738256405Z","labels":***"firebase-functions-codebase":"chatbot","firebase-functions-hash":"c81f6b3ccfe3ff1067b17b7f11bb96a6debe0f75","deployment-tool":"cli-firebase"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/telegramWebhook","createTime":"2026-02-06T04:16:22.008114279Z","satisfiesPzi":true***]***
+2026-03-04T02:55:26.8564765Z [2026-03-04T02:55:26.839Z] Converting a function to an endpoint with an invalid memory option 244.140625
+2026-03-04T02:55:26.8565869Z [2026-03-04T02:55:26.839Z] Converting a function to an endpoint with an invalid memory option 3814.697265625
+2026-03-04T02:55:26.8566749Z [2026-03-04T02:55:26.839Z] Converting a function to an endpoint with an invalid memory option 244.140625
+2026-03-04T02:55:26.8567804Z i  hosting: The following function(s) are pinned to site *** and will be deployed as well: ssrportfoliodanilonovai 
+2026-03-04T02:55:26.8568291Z 
+2026-03-04T02:55:26.8568523Z === Deploying to '***'...
+2026-03-04T02:55:26.8568736Z 
+2026-03-04T02:55:26.8568926Z i  deploying functions, hosting 
+2026-03-04T02:55:26.8569373Z [2026-03-04T02:55:26.841Z] No OAuth tokens found
+2026-03-04T02:55:26.8570444Z [2026-03-04T02:55:26.841Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com [none]
+2026-03-04T02:55:26.8572090Z [2026-03-04T02:55:26.842Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com  x-goog-user-project=***
+2026-03-04T02:55:27.0935848Z [2026-03-04T02:55:27.093Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com 200
+2026-03-04T02:55:27.0938497Z [2026-03-04T02:55:27.093Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudresourcemanager.googleapis.com [omitted]
+2026-03-04T02:55:27.1202101Z [2026-03-04T02:55:27.119Z] No OAuth tokens found
+2026-03-04T02:55:27.1204771Z [2026-03-04T02:55:27.120Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** [none]
+2026-03-04T02:55:27.2811638Z [2026-03-04T02:55:27.280Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** 200
+2026-03-04T02:55:27.2816634Z [2026-03-04T02:55:27.280Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** ***"projectNumber":"350817205989","projectId":"***","lifecycleState":"ACTIVE","name":"Portfolio Danilo Novais","labels":***"firebase":"enabled","firebase-core":"disabled","generative-language":"enabled"***,"createTime":"2025-04-23T19:44:33.277227Z","parent":***"type":"organization","id":"106397661751"***
+2026-03-04T02:55:27.2820234Z i  functions: preparing codebase default for deployment 
+2026-03-04T02:55:27.2821616Z i  functions: preparing codebase firebase-frameworks-*** for deployment 
+2026-03-04T02:55:27.2823103Z i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+2026-03-04T02:55:27.2826141Z [2026-03-04T02:55:27.282Z] No OAuth tokens found
+2026-03-04T02:55:27.2829058Z [2026-03-04T02:55:27.282Z] No OAuth tokens found
+2026-03-04T02:55:27.2831105Z i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+2026-03-04T02:55:27.2833250Z [2026-03-04T02:55:27.283Z] No OAuth tokens found
+2026-03-04T02:55:27.2835089Z i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+2026-03-04T02:55:27.2837161Z [2026-03-04T02:55:27.283Z] No OAuth tokens found
+2026-03-04T02:55:27.2840165Z [2026-03-04T02:55:27.283Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com [none]
+2026-03-04T02:55:27.2843090Z [2026-03-04T02:55:27.283Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com  x-goog-user-project=***
+2026-03-04T02:55:27.2847152Z [2026-03-04T02:55:27.284Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com [none]
+2026-03-04T02:55:27.2850418Z [2026-03-04T02:55:27.284Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com  x-goog-user-project=***
+2026-03-04T02:55:27.2867823Z [2026-03-04T02:55:27.286Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com [none]
+2026-03-04T02:55:27.2870481Z [2026-03-04T02:55:27.286Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com  x-goog-user-project=***
+2026-03-04T02:55:27.2883625Z [2026-03-04T02:55:27.288Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com [none]
+2026-03-04T02:55:27.2886769Z [2026-03-04T02:55:27.288Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com  x-goog-user-project=***
+2026-03-04T02:55:27.4191428Z [2026-03-04T02:55:27.418Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com 200
+2026-03-04T02:55:27.4194104Z [2026-03-04T02:55:27.418Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudfunctions.googleapis.com [omitted]
+2026-03-04T02:55:27.4196319Z ✔  functions: required API cloudfunctions.googleapis.com is enabled 
+2026-03-04T02:55:27.4534161Z [2026-03-04T02:55:27.453Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com 200
+2026-03-04T02:55:27.4536128Z [2026-03-04T02:55:27.453Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/runtimeconfig.googleapis.com [omitted]
+2026-03-04T02:55:27.4599387Z [2026-03-04T02:55:27.459Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com 200
+2026-03-04T02:55:27.4601149Z [2026-03-04T02:55:27.459Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/cloudbuild.googleapis.com [omitted]
+2026-03-04T02:55:27.4602562Z ✔  functions: required API cloudbuild.googleapis.com is enabled 
+2026-03-04T02:55:27.4826566Z [2026-03-04T02:55:27.482Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com 200
+2026-03-04T02:55:27.4828422Z [2026-03-04T02:55:27.482Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/artifactregistry.googleapis.com [omitted]
+2026-03-04T02:55:27.4829668Z ✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+2026-03-04T02:55:27.4839875Z [2026-03-04T02:55:27.483Z] No OAuth tokens found
+2026-03-04T02:55:27.4841892Z [2026-03-04T02:55:27.483Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/***/adminSdkConfig [none]
+2026-03-04T02:55:27.9967777Z [2026-03-04T02:55:27.996Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/***/adminSdkConfig 200
+2026-03-04T02:55:27.9970855Z [2026-03-04T02:55:27.996Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/***/adminSdkConfig ***"projectId":"***","databaseURL":"https://***-default-rtdb.firebaseio.com","storageBucket":"***.firebasestorage.app"***
+2026-03-04T02:55:27.9972923Z [2026-03-04T02:55:27.997Z] No OAuth tokens found
+2026-03-04T02:55:27.9975237Z [2026-03-04T02:55:27.997Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs [none]
+2026-03-04T02:55:28.1790778Z [2026-03-04T02:55:28.178Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs 200
+2026-03-04T02:55:28.1793393Z [2026-03-04T02:55:28.178Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs ***"configs":[***"name":"projects/***/configs/telegram"***]***
+2026-03-04T02:55:28.1795004Z [2026-03-04T02:55:28.179Z] No OAuth tokens found
+2026-03-04T02:55:28.1799870Z [2026-03-04T02:55:28.179Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables [none]
+2026-03-04T02:55:28.2799487Z [2026-03-04T02:55:28.279Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables 200
+2026-03-04T02:55:28.2803006Z [2026-03-04T02:55:28.279Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables ***"variables":[***"name":"projects/***/configs/telegram/variables/bot_token","updateTime":"2026-02-06T02:47:01.290552158Z"***]***
+2026-03-04T02:55:28.2805214Z [2026-03-04T02:55:28.280Z] No OAuth tokens found
+2026-03-04T02:55:28.2807345Z [2026-03-04T02:55:28.280Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables/bot_token [none]
+2026-03-04T02:55:28.3622781Z [2026-03-04T02:55:28.361Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables/bot_token 200
+2026-03-04T02:55:28.3627466Z [2026-03-04T02:55:28.362Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/***/configs/telegram/variables/bot_token ***"name":"projects/***/configs/telegram/variables/bot_token","updateTime":"2026-02-06T02:47:01.290552158Z","text":"8464621503:AAEv4K10FW7iowQvV5ITXJM3-PTi320ULt0"***
+2026-03-04T02:55:28.3642072Z [2026-03-04T02:55:28.364Z] Validating nodejs source
+2026-03-04T02:55:28.3646364Z ⚠  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+2026-03-04T02:55:28.7947077Z [2026-03-04T02:55:28.794Z] > [functions] package.json contents: ***
+2026-03-04T02:55:28.7947947Z   "name": "functions",
+2026-03-04T02:55:28.7948507Z   "type": "module",
+2026-03-04T02:55:28.7948868Z   "scripts": ***
+2026-03-04T02:55:28.7949759Z     "lint": "eslint .",
+2026-03-04T02:55:28.7950320Z     "build": "tsc",
+2026-03-04T02:55:28.7950817Z     "build:watch": "tsc --watch",
+2026-03-04T02:55:28.7951394Z     "serve": "pnpm run build && firebase emulators:start --only functions",
+2026-03-04T02:55:28.7952020Z     "shell": "pnpm run build && firebase functions:shell",
+2026-03-04T02:55:28.7952505Z     "start": "pnpm run shell",
+2026-03-04T02:55:28.7952946Z     "deploy": "firebase deploy --only functions",
+2026-03-04T02:55:28.7953413Z     "logs": "firebase functions:log"
+2026-03-04T02:55:28.7953971Z   ***,
+2026-03-04T02:55:28.7954448Z   "engines": ***
+2026-03-04T02:55:28.7954950Z     "node": "20"
+2026-03-04T02:55:28.7955635Z   ***,
+2026-03-04T02:55:28.7956162Z   "main": "lib/index.js",
+2026-03-04T02:55:28.7956784Z   "dependencies": ***
+2026-03-04T02:55:28.7957724Z     "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
+2026-03-04T02:55:28.7958706Z     "firebase-admin": "^13.6.1",
+2026-03-04T02:55:28.7959485Z     "firebase-functions": "^7.0.5"
+2026-03-04T02:55:28.7960121Z   ***,
+2026-03-04T02:55:28.7960685Z   "devDependencies": ***
+2026-03-04T02:55:28.7961483Z     "@typescript-eslint/eslint-plugin": "^8.24.0",
+2026-03-04T02:55:28.7962362Z     "@typescript-eslint/parser": "^8.24.0",
+2026-03-04T02:55:28.7963085Z     "eslint": "^9.20.1",
+2026-03-04T02:55:28.7963766Z     "firebase-functions-test": "^3.4.1",
+2026-03-04T02:55:28.7964429Z     "typescript": "^5.7.3"
+2026-03-04T02:55:28.7965036Z   ***,
+2026-03-04T02:55:28.7965898Z   "private": true,
+2026-03-04T02:55:28.7966492Z   "packageManager": "pnpm@10.30.3"
+2026-03-04T02:55:28.7967096Z ***
+2026-03-04T02:55:28.7967730Z [2026-03-04T02:55:28.794Z] Building nodejs source
+2026-03-04T02:55:28.7969013Z i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+2026-03-04T02:55:28.7970335Z [2026-03-04T02:55:28.795Z] Could not find functions.yaml. Must use http discovery
+2026-03-04T02:55:28.7994707Z [2026-03-04T02:55:28.799Z] Found firebase-functions binary at '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions/node_modules/.bin/firebase-functions'
+2026-03-04T02:55:28.9465763Z Serving at port 8847
+2026-03-04T02:55:28.9470933Z 
+2026-03-04T02:55:29.2873347Z [2026-03-04T02:55:29.286Z] Got response from /__/functions.yaml ***"endpoints":***"heartbeat":***"availableMemoryMb":256,"timeoutSeconds":null,"minInstances":null,"maxInstances":10,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":***,"httpsTrigger":***,"entryPoint":"heartbeat"***,"specVersion":"v1alpha1","requiredAPIs":[],"extensions":***
+2026-03-04T02:55:33.3109620Z [2026-03-04T02:55:33.310Z] Validating nodejs source
+2026-03-04T02:55:33.3113596Z ⚠  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+2026-03-04T02:55:33.6965774Z [2026-03-04T02:55:33.695Z] > [functions] package.json contents: ***
+2026-03-04T02:55:33.6966757Z   "name": "danilo-novais-portfolio",
+2026-03-04T02:55:33.6967425Z   "private": true,
+2026-03-04T02:55:33.6967974Z   "version": "1.0.1",
+2026-03-04T02:55:33.6968518Z   "type": "module",
+2026-03-04T02:55:33.6969077Z   "keywords": [
+2026-03-04T02:55:33.6969613Z     "react",
+2026-03-04T02:55:33.6970085Z     "three",
+2026-03-04T02:55:33.6970580Z     "threejs",
+2026-03-04T02:55:33.6971098Z     "react-three-fiber"
+2026-03-04T02:55:33.6971638Z   ],
+2026-03-04T02:55:33.6972120Z   "engines": ***
+2026-03-04T02:55:33.6972639Z     "node": "20"
+2026-03-04T02:55:33.6973173Z   ***,
+2026-03-04T02:55:33.6973660Z   "pnpm": ***
+2026-03-04T02:55:33.6974185Z     "overrides": ***
+2026-03-04T02:55:33.6974801Z       "fast-xml-parser": ">=5.3.4"
+2026-03-04T02:55:33.6975398Z     ***,
+2026-03-04T02:55:33.6976341Z     "ignoredBuiltDependencies": [
+2026-03-04T02:55:33.6977435Z       "@firebase/util",
+2026-03-04T02:55:33.6977993Z       "esbuild",
+2026-03-04T02:55:33.6978528Z       "msw",
+2026-03-04T02:55:33.6979052Z       "protobufjs",
+2026-03-04T02:55:33.6979595Z       "re2",
+2026-03-04T02:55:33.6980101Z       "sharp",
+2026-03-04T02:55:33.6980582Z       "sqlite3",
+2026-03-04T02:55:33.6981073Z       "unrs-resolver"
+2026-03-04T02:55:33.6981576Z     ]
+2026-03-04T02:55:33.6982049Z   ***,
+2026-03-04T02:55:33.6982550Z   "dependencies": ***
+2026-03-04T02:55:33.6983492Z     "@dataconnect/admin-generated": "file:dataconnect-admin-generated-0.0.1.tgz",
+2026-03-04T02:55:33.6984724Z     "@dataconnect/generated": "file:dataconnect-generated-1.0.0.tgz",
+2026-03-04T02:55:33.6986078Z     "@genkit-ai/google-genai": "^1.29.0",
+2026-03-04T02:55:33.6986688Z     "@google/adk": "^0.4.0",
+2026-03-04T02:55:33.6987209Z     "@gsap/react": "^2.1.2",
+2026-03-04T02:55:33.6987752Z     "@hookform/resolvers": "^5.2.2",
+2026-03-04T02:55:33.6988347Z     "@modelcontextprotocol/sdk": "^1.27.1",
+2026-03-04T02:55:33.6989032Z     "@radix-ui/react-alert-dialog": "^1.1.15",
+2026-03-04T02:55:33.6989695Z     "@radix-ui/react-avatar": "^1.1.11",
+2026-03-04T02:55:33.6990340Z     "@radix-ui/react-checkbox": "^1.3.3",
+2026-03-04T02:55:33.6990997Z     "@radix-ui/react-collapsible": "^1.1.12",
+2026-03-04T02:55:33.6991663Z     "@radix-ui/react-dialog": "^1.1.15",
+2026-03-04T02:55:33.6992326Z     "@radix-ui/react-dropdown-menu": "^2.1.16",
+2026-03-04T02:55:33.6992946Z     "@radix-ui/react-label": "^2.1.8",
+2026-03-04T02:55:33.6993547Z     "@radix-ui/react-menubar": "^1.1.16",
+2026-03-04T02:55:33.6994162Z     "@radix-ui/react-popover": "^1.1.15",
+2026-03-04T02:55:33.6994781Z     "@radix-ui/react-radio-group": "^1.3.8",
+2026-03-04T02:55:33.6995578Z     "@radix-ui/react-separator": "^1.1.8",
+2026-03-04T02:55:33.6996263Z     "@radix-ui/react-slider": "^1.3.6",
+2026-03-04T02:55:33.6996898Z     "@radix-ui/react-slot": "^1.2.4",
+2026-03-04T02:55:33.6997537Z     "@radix-ui/react-switch": "^1.2.6",
+2026-03-04T02:55:33.6998212Z     "@radix-ui/react-tabs": "^1.1.13",
+2026-03-04T02:55:33.6999603Z     "@radix-ui/react-toast": "^1.2.15",
+2026-03-04T02:55:33.7000263Z     "@radix-ui/react-tooltip": "^1.2.8",
+2026-03-04T02:55:33.7000943Z     "@react-three/drei": "^10.7.7",
+2026-03-04T02:55:33.7009404Z     "@react-three/fiber": "^9.5.0",
+2026-03-04T02:55:33.7010131Z     "@react-three/postprocessing": "^3.0.4",
+2026-03-04T02:55:33.7010809Z     "@supabase/ssr": "0.9.0",
+2026-03-04T02:55:33.7011451Z     "@supabase/supabase-js": "^2.98.0",
+2026-03-04T02:55:33.7012159Z     "class-variance-authority": "^0.7.1",
+2026-03-04T02:55:33.7012805Z     "clsx": "^2.1.1",
+2026-03-04T02:55:33.7013402Z     "embla-carousel-react": "^8.6.0",
+2026-03-04T02:55:33.7014034Z     "firebase": "^12.10.0",
+2026-03-04T02:55:33.7014617Z     "firebase-admin": "^13.7.0",
+2026-03-04T02:55:33.7015276Z     "firebase-functions": "^7.0.6",
+2026-03-04T02:55:33.7016171Z     "framer-motion": "^12.34.5",
+2026-03-04T02:55:33.7016785Z     "gsap": "^3.14.2",
+2026-03-04T02:55:33.7017362Z     "husky": "^9.1.7",
+2026-03-04T02:55:33.7017948Z     "lenis": "^1.3.17",
+2026-03-04T02:55:33.7018492Z     "lightningcss": "1.31.1",
+2026-03-04T02:55:33.7019039Z     "lint-staged": "^16.3.2",
+2026-03-04T02:55:33.7019634Z     "lucide-react": "^0.576.0",
+2026-03-04T02:55:33.7020220Z     "maath": "^0.10.8",
+2026-03-04T02:55:33.7020747Z     "motion": "^12.34.5",
+2026-03-04T02:55:33.7021851Z     "motion-studio-mcp": "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest",
+2026-03-04T02:55:33.7022934Z     "next": "16.1.6",
+2026-03-04T02:55:33.7023486Z     "ogl": "^1.0.11",
+2026-03-04T02:55:33.7024045Z     "openai": "^6.25.0",
+2026-03-04T02:55:33.7024690Z     "postprocessing": "^6.38.3",
+2026-03-04T02:55:33.7025303Z     "react": "^19.2.4",
+2026-03-04T02:55:33.7026165Z     "react-day-picker": "^9.14.0",
+2026-03-04T02:55:33.7026831Z     "react-dom": "^19.2.4",
+2026-03-04T02:55:33.7027481Z     "react-hook-form": "^7.71.2",
+2026-03-04T02:55:33.7028169Z     "react-markdown": "^10.1.0",
+2026-03-04T02:55:33.7029120Z     "server-only": "^0.0.1",
+2026-03-04T02:55:33.7029703Z     "sharp": "0.33.5",
+2026-03-04T02:55:33.7030273Z     "tailwind-merge": "^3.5.0",
+2026-03-04T02:55:33.7030960Z     "tailwindcss-animate": "^1.0.7",
+2026-03-04T02:55:33.7031621Z     "three": "^0.183.2",
+2026-03-04T02:55:33.7032263Z     "three-stdlib": "^2.36.1",
+2026-03-04T02:55:33.7032881Z     "uuid": "^13.0.0",
+2026-03-04T02:55:33.7033424Z     "zod": "^4.3.6",
+2026-03-04T02:55:33.7033970Z     "zustand": "^5.0.11",
+2026-03-04T02:55:33.7034644Z     "firebase-frameworks": "^0.11.0"
+2026-03-04T02:55:33.7035318Z   ***,
+2026-03-04T02:55:33.7036096Z   "overrides": ***
+2026-03-04T02:55:33.7036676Z     "esbuild": "0.27.3",
+2026-03-04T02:55:33.7037293Z     "test-exclude": "7.0.1",
+2026-03-04T02:55:33.7037890Z     "tar": "7.5.7",
+2026-03-04T02:55:33.7038421Z     "hono": "4.11.7",
+2026-03-04T02:55:33.7039037Z     "fast-xml-parser": "5.3.4",
+2026-03-04T02:55:33.7039677Z     "cookie": "0.7.0",
+2026-03-04T02:55:33.7040293Z     "@react-three/drei": ***
+2026-03-04T02:55:33.7040945Z       "react": "$react",
+2026-03-04T02:55:33.7041575Z       "react-dom": "$react-dom"
+2026-03-04T02:55:33.7042279Z     ***,
+2026-03-04T02:55:33.7042893Z     "@react-three/postprocessing": ***
+2026-03-04T02:55:33.7043595Z       "react": "$react",
+2026-03-04T02:55:33.7044251Z       "react-dom": "$react-dom"
+2026-03-04T02:55:33.7044902Z     ***
+2026-03-04T02:55:33.7045636Z   ***,
+2026-03-04T02:55:33.7046248Z   "packageManager": "pnpm@10.30.3",
+2026-03-04T02:55:33.7046949Z   "main": "server.js"
+2026-03-04T02:55:33.7047518Z ***
+2026-03-04T02:55:33.7048211Z [2026-03-04T02:55:33.696Z] Building nodejs source
+2026-03-04T02:55:33.7049898Z i  functions: Loading and analyzing source code for codebase firebase-frameworks-*** to determine what to deploy 
+2026-03-04T02:55:33.7051498Z [2026-03-04T02:55:33.696Z] Could not find functions.yaml. Must use http discovery
+2026-03-04T02:55:33.7054296Z [2026-03-04T02:55:33.698Z] Found firebase-functions binary at '/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.firebase/***/functions/node_modules/.bin/firebase-functions'
+2026-03-04T02:55:33.8068635Z Serving at port 8007
+2026-03-04T02:55:33.8069104Z 
+2026-03-04T02:55:33.9491003Z [2026-03-04T02:55:33.948Z] Got response from /__/functions.yaml ***"endpoints":***"ssrportfoliodanilonovai":***"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":***,"httpsTrigger":***,"entryPoint":"ssrportfoliodanilonovai"***,"specVersion":"v1alpha1","requiredAPIs":[],"extensions":***
+2026-03-04T02:55:37.9605874Z i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+2026-03-04T02:55:37.9608158Z [2026-03-04T02:55:37.960Z] No OAuth tokens found
+2026-03-04T02:55:37.9611987Z [2026-03-04T02:55:37.960Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com [none]
+2026-03-04T02:55:37.9614963Z [2026-03-04T02:55:37.961Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com  x-goog-user-project=***
+2026-03-04T02:55:38.1185096Z [2026-03-04T02:55:38.118Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com 200
+2026-03-04T02:55:38.1187905Z [2026-03-04T02:55:38.118Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/***/services/firebaseextensions.googleapis.com [omitted]
+2026-03-04T02:55:38.1189959Z ✔  extensions: required API firebaseextensions.googleapis.com is enabled 
+2026-03-04T02:55:38.1222224Z [2026-03-04T02:55:38.121Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+2026-03-04T02:55:38.1224247Z [2026-03-04T02:55:38.122Z] Running auto auth
+2026-03-04T02:55:38.1227420Z [2026-03-04T02:55:38.122Z] [iam] checking project *** for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+2026-03-04T02:55:38.1229766Z [2026-03-04T02:55:38.122Z] No OAuth tokens found
+2026-03-04T02:55:38.1232467Z [2026-03-04T02:55:38.123Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions [none]
+2026-03-04T02:55:38.1235301Z [2026-03-04T02:55:38.123Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions  x-goog-user-project=***
+2026-03-04T02:55:38.1238501Z [2026-03-04T02:55:38.123Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["firebase.projects.get","firebaseextensions.instances.list"]***
+2026-03-04T02:55:38.2515242Z [2026-03-04T02:55:38.251Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions 200
+2026-03-04T02:55:38.2518699Z [2026-03-04T02:55:38.251Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/***:testIamPermissions ***"permissions":["firebase.projects.get","firebaseextensions.instances.list"]***
+2026-03-04T02:55:38.2520858Z [2026-03-04T02:55:38.251Z] No OAuth tokens found
+2026-03-04T02:55:38.2523568Z [2026-03-04T02:55:38.252Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/***/instances pageSize=100&pageToken=
+2026-03-04T02:55:38.4457260Z [2026-03-04T02:55:38.445Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/***/instances 200
+2026-03-04T02:55:38.4458768Z [2026-03-04T02:55:38.445Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/***/instances ***
+2026-03-04T02:55:38.4483335Z i  functions: Loaded environment variables from .env. 
+2026-03-04T02:55:38.4488904Z i  functions: preparing functions directory for uploading... 
+2026-03-04T02:55:48.7531873Z i  functions: packaged /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/functions (249.06 MB) for uploading 
+2026-03-04T02:55:48.7534072Z i  functions: preparing .firebase/***/functions directory for uploading... 
+2026-03-04T02:55:51.2149960Z i  functions: packaged /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/.firebase/***/functions (60.09 MB) for uploading 
+2026-03-04T02:55:51.2173200Z i  functions: ensuring required API run.googleapis.com is enabled... 
+2026-03-04T02:55:51.2176955Z [2026-03-04T02:55:51.217Z] No OAuth tokens found
+2026-03-04T02:55:51.2177996Z i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+2026-03-04T02:55:51.2179244Z [2026-03-04T02:55:51.217Z] No OAuth tokens found
+2026-03-04T02:55:51.2180262Z i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+2026-03-04T02:55:51.2186376Z [2026-03-04T02:55:51.218Z] No OAuth tokens found
+2026-03-04T02:55:51.2187636Z i  functions: ensuring required API storage.googleapis.com is enabled... 
+2026-03-04T02:55:51.2189633Z [2026-03-04T02:55:51.218Z] No OAuth tokens found
+2026-03-04T02:55:51.2191188Z [2026-03-04T02:55:51.218Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com [none]
+2026-03-04T02:55:51.2193564Z [2026-03-04T02:55:51.218Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com  x-goog-user-project=350817205989
+2026-03-04T02:55:51.2214850Z [2026-03-04T02:55:51.221Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com [none]
+2026-03-04T02:55:51.2217609Z [2026-03-04T02:55:51.221Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com  x-goog-user-project=350817205989
+2026-03-04T02:55:51.2227441Z [2026-03-04T02:55:51.222Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com [none]
+2026-03-04T02:55:51.2230742Z [2026-03-04T02:55:51.222Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com  x-goog-user-project=350817205989
+2026-03-04T02:55:51.2245304Z [2026-03-04T02:55:51.223Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com [none]
+2026-03-04T02:55:51.2248007Z [2026-03-04T02:55:51.223Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com  x-goog-user-project=350817205989
+2026-03-04T02:55:51.3895818Z [2026-03-04T02:55:51.389Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com 200
+2026-03-04T02:55:51.3897750Z [2026-03-04T02:55:51.389Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/eventarc.googleapis.com [omitted]
+2026-03-04T02:55:51.3899030Z ✔  functions: required API eventarc.googleapis.com is enabled 
+2026-03-04T02:55:51.3943610Z [2026-03-04T02:55:51.394Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com 200
+2026-03-04T02:55:51.3945171Z [2026-03-04T02:55:51.394Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/run.googleapis.com [omitted]
+2026-03-04T02:55:51.3946398Z ✔  functions: required API run.googleapis.com is enabled 
+2026-03-04T02:55:51.3961066Z [2026-03-04T02:55:51.395Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com 200
+2026-03-04T02:55:51.3963445Z [2026-03-04T02:55:51.395Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/pubsub.googleapis.com [omitted]
+2026-03-04T02:55:51.3965274Z ✔  functions: required API pubsub.googleapis.com is enabled 
+2026-03-04T02:55:51.3987234Z [2026-03-04T02:55:51.398Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com 200
+2026-03-04T02:55:51.3989777Z [2026-03-04T02:55:51.398Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/350817205989/services/storage.googleapis.com [omitted]
+2026-03-04T02:55:51.3991490Z ✔  functions: required API storage.googleapis.com is enabled 
+2026-03-04T02:55:51.3999488Z i  functions: generating the service identity for pubsub.googleapis.com... 
+2026-03-04T02:55:51.4001481Z [2026-03-04T02:55:51.400Z] No OAuth tokens found
+2026-03-04T02:55:51.4002644Z i  functions: generating the service identity for eventarc.googleapis.com... 
+2026-03-04T02:55:51.4003727Z [2026-03-04T02:55:51.400Z] No OAuth tokens found
+2026-03-04T02:55:51.4006539Z [2026-03-04T02:55:51.400Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity [none]
+2026-03-04T02:55:51.4009626Z [2026-03-04T02:55:51.400Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity  x-goog-user-project=350817205989
+2026-03-04T02:55:51.4012678Z [2026-03-04T02:55:51.400Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity ***
+2026-03-04T02:55:51.4015372Z [2026-03-04T02:55:51.401Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity [none]
+2026-03-04T02:55:51.4017620Z [2026-03-04T02:55:51.401Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity  x-goog-user-project=350817205989
+2026-03-04T02:55:51.4019445Z [2026-03-04T02:55:51.401Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity ***
+2026-03-04T02:55:51.5699660Z [2026-03-04T02:55:51.569Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity 200
+2026-03-04T02:55:51.5703391Z [2026-03-04T02:55:51.569Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity ***"name":"operations/finished.DONE_OPERATION","done":true,"response":***"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-350817205989@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"110776938226831059605"***
+2026-03-04T02:55:51.6086373Z [2026-03-04T02:55:51.608Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity 200
+2026-03-04T02:55:51.6091857Z [2026-03-04T02:55:51.608Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity ***"name":"operations/finished.DONE_OPERATION","done":true,"response":***"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-350817205989@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"118155262370014226082"***
+2026-03-04T02:55:51.6105233Z [2026-03-04T02:55:51.610Z] No OAuth tokens found
+2026-03-04T02:55:51.6107115Z [2026-03-04T02:55:51.610Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** [none]
+2026-03-04T02:55:51.7268340Z [2026-03-04T02:55:51.726Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** 200
+2026-03-04T02:55:51.7273265Z [2026-03-04T02:55:51.726Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/*** ***"projectNumber":"350817205989","projectId":"***","lifecycleState":"ACTIVE","name":"Portfolio Danilo Novais","labels":***"firebase":"enabled","firebase-core":"disabled","generative-language":"enabled"***,"createTime":"2025-04-23T19:44:33.277227Z","parent":***"type":"organization","id":"106397661751"***
+2026-03-04T02:55:51.7276830Z [2026-03-04T02:55:51.727Z] No OAuth tokens found
+2026-03-04T02:55:51.7278336Z [2026-03-04T02:55:51.727Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/350817205989 [none]
+2026-03-04T02:55:52.1144642Z [2026-03-04T02:55:52.114Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/350817205989 200
+2026-03-04T02:55:52.1163656Z [2026-03-04T02:55:52.114Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/350817205989 ***"kind":"compute#project","id":"6236362438918620630","creationTimestamp":"2025-10-22T08:41:45.457-07:00","name":"***","commonInstanceMetadata":***"kind":"compute#metadata","fingerprint":"Gst5Vv_56EI="***,"quotas":[***"metric":"SNAPSHOTS","limit":1000,"usage":0***,***"metric":"NETWORKS","limit":5,"usage":1***,***"metric":"FIREWALLS","limit":100,"usage":4***,***"metric":"IMAGES","limit":100,"usage":0***,***"metric":"STATIC_ADDRESSES","limit":8,"usage":0***,***"metric":"ROUTES","limit":200,"usage":0***,***"metric":"FORWARDING_RULES","limit":15,"usage":0***,***"metric":"TARGET_POOLS","limit":50,"usage":0***,***"metric":"HEALTH_CHECKS","limit":75,"usage":0***,***"metric":"IN_USE_ADDRESSES","limit":4,"usage":0***,***"metric":"TARGET_INSTANCES","limit":50,"usage":0***,***"metric":"TARGET_HTTP_PROXIES","limit":10,"usage":0***,***"metric":"URL_MAPS","limit":10,"usage":0***,***"metric":"BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"INSTANCE_TEMPLATES","limit":100,"usage":0***,***"metric":"TARGET_VPN_GATEWAYS","limit":5,"usage":0***,***"metric":"VPN_TUNNELS","limit":10,"usage":0***,***"metric":"BACKEND_BUCKETS","limit":3,"usage":0***,***"metric":"ROUTERS","limit":10,"usage":0***,***"metric":"TARGET_SSL_PROXIES","limit":10,"usage":0***,***"metric":"TARGET_HTTPS_PROXIES","limit":10,"usage":0***,***"metric":"SSL_CERTIFICATES","limit":10,"usage":0***,***"metric":"SUBNETWORKS","limit":100,"usage":0***,***"metric":"TARGET_TCP_PROXIES","limit":10,"usage":0***,***"metric":"CPUS_ALL_REGIONS","limit":12,"usage":0***,***"metric":"SECURITY_POLICIES","limit":0,"usage":0***,***"metric":"SECURITY_POLICY_RULES","limit":0,"usage":0***,***"metric":"XPN_SERVICE_PROJECTS","limit":1000,"usage":0***,***"metric":"PACKET_MIRRORINGS","limit":20,"usage":0***,***"metric":"NETWORK_ENDPOINT_GROUPS","limit":100,"usage":0***,***"metric":"INTERCONNECTS","limit":6,"usage":0***,***"metric":"SSL_POLICIES","limit":10,"usage":0***,***"metric":"GLOBAL_INTERNAL_ADDRESSES","limit":5000,"usage":0***,***"metric":"VPN_GATEWAYS","limit":5,"usage":0***,***"metric":"MACHINE_IMAGES","limit":100,"usage":0***,***"metric":"SECURITY_POLICY_CEVAL_RULES","limit":0,"usage":0***,***"metric":"GPUS_ALL_REGIONS","limit":0,"usage":0***,***"metric":"EXTERNAL_VPN_GATEWAYS","limit":5,"usage":0***,***"metric":"PUBLIC_ADVERTISED_PREFIXES","limit":1,"usage":0***,***"metric":"PUBLIC_DELEGATED_PREFIXES","limit":10,"usage":0***,***"metric":"STATIC_BYOIP_ADDRESSES","limit":128,"usage":0***,***"metric":"NETWORK_FIREWALL_POLICIES","limit":10,"usage":0***,***"metric":"INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES","limit":15,"usage":0***,***"metric":"GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES","limit":15,"usage":0***,***"metric":"GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES","limit":50,"usage":0***,***"metric":"GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES","limit":100,"usage":0***],"selfLink":"https://www.googleapis.com/compute/v1/projects/***","defaultServiceAccount":"350817205989-compute@developer.gserviceaccount.com","xpnProjectStatus":"UNSPECIFIED_XPN_PROJECT_STATUS","defaultNetworkTier":"PREMIUM","vmDnsSetting":"ZONAL_ONLY","cloudArmorTier":"CA_STANDARD"***
+2026-03-04T02:55:52.1178704Z [2026-03-04T02:55:52.115Z] No OAuth tokens found
+2026-03-04T02:55:52.1180316Z [2026-03-04T02:55:52.115Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions [none]
+2026-03-04T02:55:52.1182555Z [2026-03-04T02:55:52.115Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions ***"status":"CREATED","labels":***"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"***
+2026-03-04T02:55:53.0616452Z [2026-03-04T02:55:53.061Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions 200
+2026-03-04T02:55:53.0620667Z [2026-03-04T02:55:53.061Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/***/versions ***"name":"projects/350817205989/sites/***/versions/f033f6fc7b7bd455","status":"CREATED","config":***,"labels":***"firebase-web-framework":"next_ssr","deployment-tool":"cli-firebase"***
+2026-03-04T02:55:53.0623983Z [2026-03-04T02:55:53.062Z] No OAuth tokens found
+2026-03-04T02:55:53.0626453Z [2026-03-04T02:55:53.062Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/***/billingInfo [none]
+2026-03-04T02:55:53.2202502Z [2026-03-04T02:55:53.219Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/***/billingInfo 200
+2026-03-04T02:55:53.2204908Z [2026-03-04T02:55:53.220Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/***/billingInfo ***"name":"projects/***/billingInfo","projectId":"***","billingAccountName":"billingAccounts/01AD43-A1038C-940B24","billingEnabled":true***
+2026-03-04T02:55:53.2215968Z [2026-03-04T02:55:53.221Z] No OAuth tokens found
+2026-03-04T02:55:53.2218654Z [2026-03-04T02:55:53.221Z] No OAuth tokens found
+2026-03-04T02:55:53.2220613Z [2026-03-04T02:55:53.221Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl [none]
+2026-03-04T02:55:53.2232637Z [2026-03-04T02:55:53.222Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl [none]
+2026-03-04T02:55:53.4083972Z [2026-03-04T02:55:53.407Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl 200
+2026-03-04T02:55:53.4095197Z [2026-03-04T02:55:53.408Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl ***"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/3e868091-7512-47f9-b64c-29f9fc22f5ff.zip?GoogleAccessId=service-350817205989@gcf-admin-robot.iam.gserviceaccount.com&Expires=1772594753&Signature=f6Br17BTRmtXTv7IscVldOmi30nqaJXWN6NmxXGS%2BLfHEic4NzYnXln%2FwVKLHl%2BRMBlm2a2ieRVtB%2B868QiRnlH8f42oiYE%2BggMP5PLXpa9kDj8j3MTQ94smEjGtixNZQfB5KIVjdAFUda0mZZWzkQKbqqYQ8ocCnsNoRq0AuJwXPrPhVvKlZb%2FDfnfTkJWhI07p4vd6h6ICco2bbmTpSIcl3cQ7006FESZaojTTXH8YTFYYDf1W2JzT77ZkYiqgtQtSUZ%2BWHeGkzGaPZmMhSaYB9QmrhCXaRQ%2B%2Fw%2FbqVrEuGewGYJynU0Aekg1k2PS0WnQlFmX%2FdeeXTqHAm6IiCw%3D%3D","storageSource":***"bucket":"gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com","object":"3e868091-7512-47f9-b64c-29f9fc22f5ff.zip"***
+2026-03-04T02:55:53.4107634Z [2026-03-04T02:55:53.409Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/3e868091-7512-47f9-b64c-29f9fc22f5ff.zip GoogleAccessId=service-350817205989%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1772594753&Signature=f6Br17BTRmtXTv7IscVldOmi30nqaJXWN6NmxXGS%2BLfHEic4NzYnXln%2FwVKLHl%2BRMBlm2a2ieRVtB%2B868QiRnlH8f42oiYE%2BggMP5PLXpa9kDj8j3MTQ94smEjGtixNZQfB5KIVjdAFUda0mZZWzkQKbqqYQ8ocCnsNoRq0AuJwXPrPhVvKlZb%2FDfnfTkJWhI07p4vd6h6ICco2bbmTpSIcl3cQ7006FESZaojTTXH8YTFYYDf1W2JzT77ZkYiqgtQtSUZ%2BWHeGkzGaPZmMhSaYB9QmrhCXaRQ%2B%2Fw%2FbqVrEuGewGYJynU0Aekg1k2PS0WnQlFmX%2FdeeXTqHAm6IiCw%3D%3D
+2026-03-04T02:55:53.4111314Z [2026-03-04T02:55:53.409Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/3e868091-7512-47f9-b64c-29f9fc22f5ff.zip [stream]
+2026-03-04T02:55:53.4184404Z [2026-03-04T02:55:53.418Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl 200
+2026-03-04T02:55:53.4195219Z [2026-03-04T02:55:53.418Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions:generateUploadUrl ***"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/baf51ed1-7b11-4775-8485-75a2f19be266.zip?GoogleAccessId=service-350817205989@gcf-admin-robot.iam.gserviceaccount.com&Expires=1772594753&Signature=CIc0lzvLKwmp8XzFUz1cjJLEF6z04OUa72wrPD%2FHcFqk%2B0W4nLl1dGIUxoyTF9H2MelJdwfRXb3AZxqypUUIIBdSkZzEBFdU8nH2lRdgLz4BUGphPNZT2XfiDxsa%2FU2VWUoefLaOtWWWTWyyfSSkuER4wgrAPxdEalGNT5BwRIGCbAQKWinAFqKsiu1q4FvTqqFgW1f9EB%2FbTdqTCE5%2BDWUObLl%2FdWifb0njsZbPkoIi9PgmVE5pwXw%2FG5Y3MGySuALUXPg94OARx9yP%2By5V3Ju0CWkiwh7cA3XhMQIsNovOqC2f1m56Tzzif3F%2FH2%2FrOcqLzp5WhBoKc%2FgEiB%2B6%2Fw%3D%3D","storageSource":***"bucket":"gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com","object":"baf51ed1-7b11-4775-8485-75a2f19be266.zip"***
+2026-03-04T02:55:53.4207225Z [2026-03-04T02:55:53.418Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/baf51ed1-7b11-4775-8485-75a2f19be266.zip GoogleAccessId=service-350817205989%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1772594753&Signature=CIc0lzvLKwmp8XzFUz1cjJLEF6z04OUa72wrPD%2FHcFqk%2B0W4nLl1dGIUxoyTF9H2MelJdwfRXb3AZxqypUUIIBdSkZzEBFdU8nH2lRdgLz4BUGphPNZT2XfiDxsa%2FU2VWUoefLaOtWWWTWyyfSSkuER4wgrAPxdEalGNT5BwRIGCbAQKWinAFqKsiu1q4FvTqqFgW1f9EB%2FbTdqTCE5%2BDWUObLl%2FdWifb0njsZbPkoIi9PgmVE5pwXw%2FG5Y3MGySuALUXPg94OARx9yP%2By5V3Ju0CWkiwh7cA3XhMQIsNovOqC2f1m56Tzzif3F%2FH2%2FrOcqLzp5WhBoKc%2FgEiB%2B6%2Fw%3D%3D
+2026-03-04T02:55:53.4213677Z [2026-03-04T02:55:53.418Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/baf51ed1-7b11-4775-8485-75a2f19be266.zip [stream]
+2026-03-04T02:55:54.0860579Z [2026-03-04T02:55:54.085Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/3e868091-7512-47f9-b64c-29f9fc22f5ff.zip 200
+2026-03-04T02:55:54.0862617Z [2026-03-04T02:55:54.085Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/3e868091-7512-47f9-b64c-29f9fc22f5ff.zip [omitted]
+2026-03-04T02:55:54.0864174Z ✔  functions: .firebase/***/functions source uploaded successfully 
+2026-03-04T02:55:55.8064189Z [2026-03-04T02:55:55.805Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/baf51ed1-7b11-4775-8485-75a2f19be266.zip 200
+2026-03-04T02:55:55.8066408Z [2026-03-04T02:55:55.806Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com/baf51ed1-7b11-4775-8485-75a2f19be266.zip [omitted]
+2026-03-04T02:55:55.8067862Z ✔  functions: functions source uploaded successfully 
+2026-03-04T02:55:55.8083599Z i  hosting[***]: beginning deploy... 
+2026-03-04T02:55:55.8328591Z i  hosting[***]: found 173 files in .firebase/***/hosting 
+2026-03-04T02:55:55.8329253Z [2026-03-04T02:55:55.832Z] [hosting] uploading with 200 concurrency
+2026-03-04T02:55:55.8336368Z [2026-03-04T02:55:55.833Z] [hosting] hash cache [LmZpcmViYXNlL3Bv***L2hvc3Rpbmc] not populated
+2026-03-04T02:55:56.6834228Z [2026-03-04T02:55:56.683Z] No OAuth tokens found
+2026-03-04T02:55:56.6841199Z [2026-03-04T02:55:56.683Z] [hosting] hash cache [LmZpcmViYXNlL3Bv***L2hvc3Rpbmc] stored for 173 files
+2026-03-04T02:55:56.6844062Z [2026-03-04T02:55:56.684Z] [hosting][hash queue][FINAL] ***"max":846,"min":9,"avg":61.20809248554913,"active":0,"complete":173,"success":173,"errored":0,"retried":0,"total":173,"elapsed":851***
+2026-03-04T02:55:56.6847520Z [2026-03-04T02:55:56.684Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/f033f6fc7b7bd455:populateFiles [none]
+2026-03-04T02:55:56.6940394Z [2026-03-04T02:55:56.684Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/f033f6fc7b7bd455:populateFiles ***"files":***"/cv-danilo-novais.pdf":"f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec","/test.txt":"04d9dadd1711eb2fd667240d7f7fd2b8d0c4ee611ee3655e3aa6263c8558416b","/robots.txt":"9e2c31aa413e3c46d2fa568e3c5ba5b500c0b9fb540913af6ad27653eda864e8","/privacy-policy.html":"e1e2d706e8085791c7a7218e24571f96469c58e2c52303d3ee849f7168ba6cd1","/privacy-policy.htm":"9b2a0aa3a4cf9cfa85243e5a1a9389b9a705cf1c271505bae517a5a94bb0a922","/manifest.json":"b1a6fa8c76d18579154e385b3ce8251ec403c7a5fa7455121dc821bb6eac26e2","/privacidade.html":"b3f4bf679a16b03b75dd322d457520dcdc39abd1906b91232374548c634bb0ba","/build-info.json":"cb1cfdea0cbdcee9e65f9e5c7106b1386712bb4b28871412e61469302b9431b0","/sitemap.xml":"a39cf9dfe36a980872944a93d5b3798a8c6ed0910f0306a37750bc3171d4839c","/_global-error.html":"d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272","/_not-found.html":"3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1","/404.js":"5c8a9bfd773f9a8829aec3ea7460c0c7b8ef4922d2d39a1a06ac208fbb3009df","/500.html":"d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272","/contato.html":"709ff496ebb5cb4765bbcc71a471ba05fccb6ed33d6e39f66830e0d0f47f0ece","/404.css":"1316d469958467bfcfe16e3c86932fcfe70363e48c09a681aeb5c383f05595a4","/404.html":"3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1","/site.assets/global/404.webp":"ed930956360f5fbfe04500818e56116278a3c15327da371a2eb678e833870f9b","/site.assets/global/logos/LogoDark.svg":"8a09b53fe5aff3eb8e0604f55c927b003541f8133f2a527a35f35f9ae8c239ca","/site.assets/global/logos/Faivcon.svg":"0fb868b2545396d503bf45942db5880efdb8a72837e11bebb5666395ce4d26cc","/site.assets/images:videos/404.webp":"ed930956360f5fbfe04500818e56116278a3c15327da371a2eb678e833870f9b","/site.assets/global/logos/FaivconLight.svg":"345ac6b342990c3ef4ecf09ac4d19d7e190cdd54d557a6fe6781e67785f11935","/opengraph-image":"cc4c1a3260611c467e3c285207aa38da2c5f3820ca0ca7143df90be38871e8dc","/site.assets/images:videos/converted-(5).webp":"94eaffb9707d4a93a246362a45d8a2afc54b6562c6bc70187d69dd77ee5ece04","/site.assets/images:videos/404.png":"f43f8c71a2f428ba5c604280c6cbf22fb8d0a0980657d78650f159f0a7a303b5","/sobre.html":"9e7bd83734761f828052cfc36feca4e7832c2c3d77242022033d4397775ecc43","/site.assets/images:videos/nescau.webp":"36805cbb5e136578aded1baabe74295015af741b27f2335b60181ff0be618b91","/index.html":"acaff77b33aeb86400c3aabbcfde6e6dc1564724549d5e2913fd6d43341ec2d4","/site.assets/global/logos/LogoLight.svg":"41505c254632cbca69791b77053c9dae46570b0e7f21dc3392308a47e4c0870b","/site.assets/images:videos/converted-(10).webp":"88ba5b0fdc9fe955bd3a7f119c5546ea03724f900646505b6335d4cdc19481b7","/site.assets/clients/clients.strip.8.svg":"c3d76f3217e62056a331f8b7f2a7594738e357153b5b91f001081339923fbdf3","/site.assets/clients/clients.strip.6.svg":"9db2f1f18c833ebadb0e6704b6282ce08c430d16e9d2c1b37fd95fa4c30e3d15","/site.assets/clients/clients.strip.3.svg":"8ae668bf2e24ce211aa4af855b5fadb40252aaaa8dcaeb6c58fddd9c1e9d3514","/site.assets/clients/clients.strip.2.svg":"9600bde30b168166abc6c79eaa3f0fc29197ab7dc177fefba9146c6b8532738a","/site.assets/clients/clients.strip.12.svg":"c2fc6ad2e951450c64dbfd1f8d02facb9bc3dcb63d6a1394edb1f2b038202326","/site.assets/clients/clients.strip.10.svg":"835030cb8b750b6bdccb6e056eac1c9b28a522f2fa37f5b66e6ac7d6411134a1","/site.assets/clients/clients.strip.5.svg":"a4a7ff8f6c6bc72628f11a4478f7a012a27b45850946375a6366b251b3e75bb3","/site.assets/clients/clients.strip.11.svg":"96c075dad67105f13f190ab57f61fccddd046251e3ace9951f4a4a28d81e3df7","/site.assets/clients/clients.strip.4.svg":"2bbe4d0315225a594f365ec90c5b4876b7161b684009ae42cea339e94e11e5b5","/site.assets/clients/clients.strip.1.svg":"a5a1f7eab719be0d54e1ab09bbd0b1d3b4cdfc4ff6a5925ba4aaf723e89deec7","/site.assets/clients/clients.strip.9.svg":"63e5aaab07b454211204bcaf8dcbdb723c7917478de7776b68422874806a5ffc","/site.assets/clients/clients.strip.7.svg":"17727131c5eb7985dceb19d94e184dcfb1b2d124cc2cf57ba9a05f581cf3bf92","/site.assets/images:videos/converted-(3).webp":"c464c7d13447a3de7e738df04bbfed8bf45b31bcd2b4634e94b9fae14a764ece","/site.assets/about/origin/about.origin_image.1.webp":"34561df5f473fce798c3b2c7ab4568b48e78eb06765a5c2c2659cd68407cbfd4","/site.assets/demo/cs3.webp":"36805cbb5e136578aded1baabe74295015af741b27f2335b60181ff0be618b91","/site.assets/about/origin/about.origin_image.3.webp":"f42e836aa4dd95a454a0b5d23dd0c0024509a7b5c0837715fdd1ef6af6b35aa1","/site.assets/3d/Ghost.jsx":"0981ee37e3bd86f8bc69679956579b0e1ac80744870250c93d944eeb399318ae","/site.assets/demo/cs1.webp":"15e50b7c9125ed63a5809af839122b7f8523cf3c193e5068e6dd8c19ed29d70b","/site.assets/images:videos/converted-(9).webp":"bdf0c4e49b9a2d12f69d1369dc47f6c01677481f17fd6f01f715a67299d27798","/site.assets/images:videos/converted-(7).webp":"4c96f5197eb5359411b6b9edaf23d7132f2ace63ce6c72ff549888930c0c553b","/site.assets/images:videos/converted-(6).webp":"a1335c51360c35f2080690785537a275bad195787f8794c95ccaa1c1229016d4","/site.assets/about/origin/about.origin_image.4.webp":"91e1884d60729b2d725e754b3bcd5ca11ee898c4250c7cc7cb6d93f671f40f75","/site.assets/demo/cs4.webp":"c464c7d13447a3de7e738df04bbfed8bf45b31bcd2b4634e94b9fae14a764ece","/site.assets/images:videos/converted-(8).webp":"234d0e959c254c4f8f7b79f572f24f5d79f300774909d6c99eae3529881347d3","/site.assets/images:videos/converted-(1).webp":"22892a21c5735992ee2fb6a25d6a7776f144e73c2e62012db09d347211e61b83","/sobre/opengraph-image":"34ddd2ed68e6f6377ef23a2b337373571d4783939be6575059716d70a2b13e72","/site.assets/global/fonts/TT Norms Pro Black.ttf":"b97fb8cadb64713dbe5a40d7596cbbcc864baf6db7ca314d5311c4591769859b","/site.assets/about/origin/about.origin_image.2.webp":"b4cda56c0caffe9954ae6cbf6f3ec39b75e69c48823cd1c39a14926089468bc9","/captions/ambient.vtt":"71956d0cad8f2ce0e274b20caab1f510ac41531cbe4dae66efa5fa161dde6c9b","/fonts/tt-norms-pro-black.woff2":"5081762a384a4ee606306b68bc1f19ea27d774c7bec0765f66bc80c2c78b3974","/site.assets/home/showcase/Branding-Project.webp":"f63f25b69b09d864459053af9a0a4a3c04cac7545cf63738b0cf50b7f852de0d","/_next/static/liif3lGbmIGCjf29cCBKY/_ssgManifest.js":"d8d8790f4e673a23bec506f00699bed8a258ac0e4965bb1ca8598172cfc0ec97","/admin/login.html":"91efed213219e0766081b2ce137ca37c1d153af476ba4b18c5cf6d52f3f27bb4","/_next/static/liif3lGbmIGCjf29cCBKY/_clientMiddlewareManifest.json":"5536dd95a4c2e8eca49d77a8bd7f3d49e1dc5eb3c31d20baf138c8de190f9096","/_next/static/liif3lGbmIGCjf29cCBKY/_buildManifest.js":"eadf3650017b2094542d95eeda190a7ef5689624c557c1c1ae4d5a0d53057195","/site.assets/demo/cs2.webp":"22892a21c5735992ee2fb6a25d6a7776f144e73c2e62012db09d347211e61b83","/assets/3d/bar-v2.glb":"e5de8f7dbcff5ecbbf71f5ef0af144d901715a44064f5f081f1f186d6cf148d7","/_next/static/chunks/turbopack-b7203c6a26c04968.js":"1c3f5717158375acf51b6db3018739de68528ec8428f955890ff164063519036","/_next/static/chunks/ffb9fd29e31fa9db.js":"7303eb924301168c4f755a3453d9d782b229667acd58fe02dab2d448a3ca875e","/_next/static/chunks/edffba10544ff742.js":"2273fe1e808a077f964861f146c6b9c2fc7f42721e1a6d3726e950de0046098b","/_next/static/chunks/f9dffce05e1ed190.js":"8c983f5b0a34d3e8430031341d3fb7027e9520d7847434009402b30b5e883596","/fonts/TT Norms Pro Black.woff2":"5081762a384a4ee606306b68bc1f19ea27d774c7bec0765f66bc80c2c78b3974","/portfolio/opengraph-image":"a60c6c2a9168ccb3e54b99e29f7139b505aec76f94d5c1403873235cbf8d48ae","/fonts/TT Norms Pro Thin.woff2":"523de859bad00dbe9c66ffecc944896676b33e0c589157f0382366fa303c6560","/fonts/TT Norms Pro Regular.woff2":"e9184c99e0cfb4bbbab39f8cd4a4a81c1ba759f4b2fea282f5f531d9ae5030c4","/fonts/TT Norms Pro Medium.woff2":"003a9ed92ac39b780c540a77ef3d05782fb6fb18e4dc7169a36cd94e9785ad7a","/fonts/tt-norms-pro-regular.woff2":"e9184c99e0cfb4bbbab39f8cd4a4a81c1ba759f4b2fea282f5f531d9ae5030c4","/fonts/TT Norms Pro Light.woff2":"d7be1c57a2a41455e349f684096fb7d8600818b3586aa3107267d7394ff40b09","/_next/static/chunks/e96a2a55ba4e7f37.js":"682d541e41bc6c196af30eecd2ef3a7d0d2ba6b99695e0bb65e1c2e23879d531","/fonts/TT Norms Pro Bold.woff2":"808f4e0ef7ce1eaabf33499db3a2d173a042c654c07f1d13d0177e65e8c45f7f","/site.assets/home/showcase/Key-Visual.webp":"c1cf13437b6f091e18677c68a7e5cfb295b39dc4a798ca16695d8f60d6aaf058","/_next/static/chunks/e6595cb7a11191dd.js":"23a7c43e2131c8e093b6f14fd0993127704199fb1785c39e9c8d6c3da587d80e","/_next/static/chunks/e262aa3a7770bf09.js":"2f5584c5148550c25d7d630c4f1a3d96cf10ce4913f53422c36ee97ff5db33d5","/_next/static/chunks/e15c1eb4e1abde13.js":"6111e2175ec9ad6cd46531ffb4546bb355ed97a01d7be3971fa3a5e6a149152a","/_next/static/chunks/e09a588b122392ce.js":"d757e37cab1d538288bdb3eaa3a67951848e0693725a7e4bf805cb0b606acdf0","/_next/static/chunks/e153d4b90062cd33.js":"16a25e235a862536febee555ec9297b8740962ed03caa17c4154c62de7407796","/_next/static/chunks/d34ceb3d3e857df8.js":"9765361f14875243ff28830ee74ece80856849b5375b3217cce2f32b8d48db5b","/_next/static/chunks/dd9d90c9dfe830bf.js":"6574e7e8e1a5f0ed7c3f088c3748a42f51ce03d025b2581cd3c75862bbc1841b","/_next/static/chunks/e6a3e25521df344e.js":"9ed9cce17bbab7886877a58cb5aa2de06d2e8bb39465f6f119ca2a01aa7e6430","/_next/static/chunks/d246a5be2c6e0a1e.js":"ba73a2baa79195c1565c7946e93f6e177ddd2d40604b51088c7c699da6f5bbfa","/_next/static/chunks/d0968ee4324c5cf0.css":"99123cc402212571bfa4143cff529b56bb0a81f31bfb1ec157c459ea8fb709c8","/_next/static/chunks/c7e715f3fa890615.js":"a71ceeb409d66f2e1fbc237bb884c61840ffc24582102c65984bd91a67ba8199","/_next/static/chunks/bf85def12027ecf2.js":"2828f8a7f17a9ed9c51e0f4dcccd75591b0ff8f46b75c65e9105b09639dbe512","/_next/static/chunks/b3671a6aaa5e84b1.js":"c4d1dedbdaaff1f4ee9c134e2537032cfd6ad13ebb5edc6b36f122e793718983","/_next/static/chunks/a8e696d7039884d6.js":"df939a4ea8ab4cebd93091ca9f15626812418bfe8fe852b3043eee074f3b5a30","/_next/static/chunks/a753425f5d03cf65.js":"0e4aaa76dd0fab78fab26712a2d54c9144a9df0c53298f21e05b2641c6048bb5","/_next/static/chunks/ad35a4b8c0397b39.js":"cabc749beac01c228442b25c37a557d83ec254651370f7123ab9e6a7d7dd716b","/_next/static/chunks/a4a704463b90f8fe.js":"3b117016680e781c1992c43e617d9e488f0b67c88166ab403cf9b341597c9eed","/_next/static/chunks/a3aa149754026c03.js":"14e8df057e7d75087b02ebfa28782baf6e5555087e5da340efd6b0fb8d9e1e49","/_next/static/chunks/a3a5cb0a160b063b.js":"96fd97e888e758e889a94a15ce6244ca2e6b3906c7f2810de9441e1a020ac780","/fonts/TT Norms Pro Regular.ttf":"da3b6b224cf324f4951770ac2fd85e5ba944594ca7554eb14b90edb7107c7415","/_next/static/chunks/9ac933e7cdee367a.js":"c6b54f2bf149165b7e3b511f76d1c7615debc59e05b2809b3cfa1c156f4e0e3d","/fonts/TT Norms Pro Black.ttf":"b97fb8cadb64713dbe5a40d7596cbbcc864baf6db7ca314d5311c4591769859b","/fonts/TT Norms Pro Thin.ttf":"7e605f417fb4891266a6c6ec60dcd8d2921dc22f042ee7a299e547e5ae5a94eb","/fonts/TT Norms Pro Medium.ttf":"6e7ebdba9a4df0b9134a12f7e9f4de46cc88e3392464845c7c2d5b83dce38054","/_next/static/chunks/8d0858e4707973d3.js":"5da77e4afb60df33ace376f3fab0378e9bc59453ff1615af95e3f5a05be0a3c8","/_next/static/chunks/8887aaa01b8096de.js":"c7fd5b4b7a3e25b63e9692423b07504ead3e8dc9265fe92b7de3c5c10e436ed5","/fonts/TT Norms Pro Light.ttf":"86356b765f86b21d6157986f8fd8a5eeb9b08b1d51f74b5e734698fa335e2408","/_next/static/chunks/85711013b617dec1.js":"e10312cf2c01d68e1932bd8407a920816a09818c7d6870975522cdd8ca37b5ca","/_next/static/chunks/84666873cb739a58.js":"faa42633399bc42414aa46b588ca57d46336ddf1722b3ecd4a03d28ab42a9354","/_next/static/chunks/83e2b33f4a84a92c.js":"0a57d170e8ecde39c05511369cba4edd1128368be244251492196dd5f44928e7","/_next/static/chunks/95d8f0c71d6215df.js":"880480da0f08957c50b511ea5ea0da1649fea8d8613125d40d571ac5f428bca8","/_next/static/chunks/7db13dca11d18e59.js":"876fb89bf6fa44f64d72c3424185b9dc742a9ba3168dbc04dfa41a5474bd9be2","/_next/static/chunks/77d005e36065bbc5.js":"a86d0aa631c0864e55195d2e2e308aeaef95ef8248955bdd580bc69f1ef58092","/contato/opengraph-image":"3b3b9c087d8aa7213c818856a5935fe81654d496b0a3e1e4bd3aac3a1b7b95fc","/_next/static/chunks/6922d817006e8242.js":"e0199f5a403e6356e1d847e4b93e0dc42d8c23a8bee33b3a9376d7bb1ac25e05","/_next/static/chunks/a6dad97d9634a72d.js":"45b36f93bb08c52e360d14b0e8449c88770aa8cf5d59bff1c76cbe6e198fe7c5","/_next/static/chunks/9bc209c508be94fb.js":"4098cbb90bcb44873cb8a11a2c9fc86bdef50cf90a431e3d4de33ba497039c6d","/site.assets/3d/ghost.glb":"4a73d179225c896621aa4b15b81abe6d4753797144fe9f681a6e3938b214fd58","/fonts/TT Norms Pro Bold.ttf":"3ca4d569e08a873e515991a31842921e06f4119301e3ae9825ca82bf03b4e871","/_next/static/chunks/a6dad97d9634a72d.js.map":"755290295d3187db8976f6cfcb864952be20de0bfc6d42f4b9f031fb5ee55b3f","/_next/static/chunks/60a1f995b527ff72.js":"dbb6d7e9658b43cf7026da45682562572c14f5729a3190a82544321e935f9358","/_next/static/chunks/65920204d1a1cf56.js":"dd1ccb0d41d10975be7bcfd4fadf5a8d17537fd82a38129928005d695c1f9188","/_next/static/chunks/5fdaf982378b932e.js":"5cd968ca35e84659c85273ba795ea4f67947c0001d114e0a60bb18bc7f148ada","/_next/static/chunks/99dacf13df3421e7.js":"72673c2cf81b219b9a1ad651949b391e8c64ac03e844453ee50320ad351eb30f","/_next/static/chunks/5991b0f33828d09d.js":"333229a5ec9ecab596b7ae751f5f644c139e31377d18bdb2b2a260754bb909ea","/_next/static/chunks/9e6b82b843747326.js":"6aeb04bd59eceafb3ed0762923799bc94bb54db333f18866c034f9df5e4f1b29","/models/ghost.glb":"4a73d179225c896621aa4b15b81abe6d4753797144fe9f681a6e3938b214fd58","/_next/static/chunks/45035dc4c3906be2.js":"bd9a6a0afc3bba4aa276a486ea9388db13609b4ed4a9abaac4cf31c8e9357489","/_next/static/chunks/43d75eae8d09b8b4.js":"a912a47172076227ce3e4dd208fc5bdf6ff241b06616bdd8572a6723999bb627","/_next/static/chunks/3ea235b9368b5261.js":"66af99daef3a24803d0b27121d16446920a12572f1784518461b2d06fa61b1c3","/_next/static/chunks/3d3ed6a31bd7f715.js":"b6fbb05ef1d4fe4db5b48edfaaa233366b1ae9857cc54078e1e0ca3003a2eed7","/_next/static/chunks/3b8bb1bb46ae5ee1.js":"9f3c2b940ab414e6ade643dbad719823efd13444c8783aabf59697e3a476e361","/_next/static/chunks/3748bd4eefa3abdc.js":"6788cebf04c2a273d0a50f7784238ee088750aed905c5dac40e76e5a976ffd2c","/_next/static/chunks/3561f5621a05112e.js":"123a0f8f5aea7892e09d9a8d31d3c77a91101f3b91301f5b909a00e41ac73451","/_next/static/chunks/340b56e83afa6194.js":"057a6b319382e66851c005e1455640d16aeea5f528e1913764dc00ce4e048395","/_next/static/chunks/2ed6dada56686e92.css":"fcc355c76c91c8b3f8c4958bcfec4b8606ac1b65471de1002882bd62e498f399","/_next/static/chunks/24beee69ba2e06e4.css":"a6c00d542a36290ea848acd31a3674059922174c0079dcde9a6c0c755c329616","/_next/static/chunks/23e7316e7857183e.js":"75ec5a044c02cce1bbcb2fc077240833cf61891f3a116aaa4642b79b2f2492e4","/_next/static/chunks/473e556d8979566a.js":"64e1ec4caee14023c8ad49d3ec9d8c3b728f2e6f6997a2b3414a1a5695976b03","/_next/static/chunks/1fad0b6517d2cf9b.js":"2ef91faa7e5227fed96789b8a3ba8ff2fd547c5f58bc5b139fcd64538e7ad19e","/_next/static/chunks/1bf0395e12d30812.js":"cc03cdd4f9f562cfbfa5d81993c6d1fcd4bd5c7e24f503e48ed9a31c7302dc03","/_next/static/chunks/1f683d019fef8e13.js":"9fe16396e175dbe55b5e4395ac61ed13b49fe73c3d076ec2f7d30625482a2034","/_next/static/chunks/177983b023cc9b7b.js":"8ea3fdb07accd63e2610416026b0e5ab20c17719897e3d271107f4884580747e","/_next/static/chunks/1008a40f95a9defc.js":"dcc50198d58c5312bfecf26b5b5dd0a13516f36c2ea8b65b465f1cc186cc299f","/_next/static/chunks/0229fe47a1909139.js":"07142b74fb1d25b8751b3ce539afd5da2250a81bbbad0316c0fa5ea8ff46b3df","/_next/static/chunks/11b7eb9ec1f2fcf2.js":"e879c534a3910f6f93b1c3db375f42c1a1708da42ffe3589370766e8446efc55","/_next/static/chunks/16701c056fb70b19.js":"9b7ff074556c26a3a1341ff3d84b7c472dc9927c5b5b3f205a413181dd7f3860","/_next/static/chunks/6e18c52e236c56de.css":"88e9a04c44bc3cf7590bc18739f2b40bdaef3746f56b3f03a70fa5717d21b6ea","/_next/static/chunks/19b254ed201d4087.js":"6f949447fc946817478c8524240e78213cd24952a51cc8a1457a1b2b4050c101","/_next/static/chunks/2d138e33797d0c46.js":"0d6c14075dc316e74a3c9fdc6f2696a36d0e5cf22fc82714974222838e7d5fab","/_next/static/chunks/5ab7710b36e213a6.js":"4d078b44405e0b60faf6bd07a4a1783d2fa33c6294c31e77a14068f5f9062396","/_next/static/chunks/8cd7eb995e5bd0dc.js":"d9dfe0bc8f39cd250df4b8d1921d0b469d92a5c050c487be81a2e8dc0e7d8097","/_next/static/chunks/223a13daaefbb777.js":"ef48e3d166716a96f0a8efeef6492c02de13f2cd202e0abed09b37a0ea2115aa","/_next/static/chunks/48e2b29829b0abc8.js":"73f8b53b10c30fd67dace8b8943c0a96cdc981b78db11fd47864afabd47e1628","/_next/static/chunks/1d9eb95d46bc1ca4.js":"91e57d0b957138832c66127296a18231175655809010969ae298b06a2a01cd79","/site.assets/about/method/about.method.mobile_video.mp4":"7ae2dfa6df57540d85344c21872b6507681211eaaa27b118b61747fc126d879a","/_next/static/chunks/5aecdec56bd4ebc7.js":"ebe12ff8dcbd115499e517cd5aba1af0afdca6f70377643019a99d8d93b62a66","/site.assets/about/closing/video.closing.desk.mp4":"78f1aedbe748e752d6187d818d6f6444ad467aa909871983d5b760942fec83d7","/site.assets/images:videos/VIDEOGANHOU CAUSOU.mp4":"85ba2d2cbdd1b194b89f0411c4317b4d789ab8177dad75168fffaecb5f7a3f5e","/site.assets/about/hero/about.hero.mobile_video.mp4":"cc9e85abaebd30d05e3f67848ed5ba23ae4c9ab263ca945ceb52723ae1c0dc12","/site.assets/about/closing/video.closing.mobile.mp4":"289fc06e8843a0a1ae2108534827b421856cff2a806a8118004824d83af04928","/site.assets/portfolio/portfolio.hero_mobile_video.mp4":"f1fe48871d6b949a14d0ca571b83966d2dd6efb132339b294484b70924f8b16d","/site.assets/images:videos/converted-(4).webp":"3f035f0b33c0a09d7df7261f8b1a107108e24e5bc77ac204ad7a5104664a0389","/site.assets/demo/cs5.webp":"3f035f0b33c0a09d7df7261f8b1a107108e24e5bc77ac204ad7a5104664a0389","/site.assets/home/showcase/webdesigner-2.gif":"a6c0235f57f1f59b9760eb21d616fb98bd8fe404529da19ca3a67a94399c6a79","/site.assets/home/showcase/show.video.mp4":"44193802c58ea456c5a270a16a55bf47fc8553e5ed4b903569097449c619f597","/site.assets/about/hero/about.hero.desktop_video.mp4":"07fb8d63198b5f8d6185d29ed63a3d95428a778465fa0fda50af5f26615c59a0","/site.assets/home/video.manifesto.mobile.mp4":"90764200cc13ed221bc27935981f2c76d61749f165b69a11c0796ffba299e7f9","/site.assets/home/video.manifesto.desk.mp4":"23c28ff7225e2f3e9c6026ab1a82d319bedf12da0a434b31c35c52859696a58b","/site.assets/portfolio/portfolio.hero_desktop_video.mp4":"8b4bcdae1611c70aaba1d4f5450104275605dbfdda0baec62991ad3a1c63f0db","/site.assets/about/method/about.method.desktop_video.mp4":"16a7557f93d32615af70ecd94353a6bab684e52f9347183ca8072cc06a10c820","/site.assets/images:videos/VIDEO HORIZONTAL 3072X1536 PIXEL COM TELEFONE_compressed.mp4":"2629054916e822faaac380970eadab831200258b0a12b25941b5c0c3461ba29c","/site.assets/images:videos/VIDEOMANIFESTOGLAD.mp4":"07b9240d7a8133c85ff8b2ab64e5cf09d0049301b85ad08033f8fbcc52b17d96"***
+2026-03-04T02:55:57.0368323Z [2026-03-04T02:55:57.036Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/f033f6fc7b7bd455:populateFiles 200
+2026-03-04T02:55:57.0381703Z [2026-03-04T02:55:57.036Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/***/versions/f033f6fc7b7bd455:populateFiles ***"uploadRequiredHashes":["88e9a04c44bc3cf7590bc18739f2b40bdaef3746f56b3f03a70fa5717d21b6ea","6111e2175ec9ad6cd46531ffb4546bb355ed97a01d7be3971fa3a5e6a149152a","e10312cf2c01d68e1932bd8407a920816a09818c7d6870975522cdd8ca37b5ca","dbb6d7e9658b43cf7026da45682562572c14f5729a3190a82544321e935f9358","cabc749beac01c228442b25c37a557d83ec254651370f7123ab9e6a7d7dd716b","b3f4bf679a16b03b75dd322d457520dcdc39abd1906b91232374548c634bb0ba","057a6b319382e66851c005e1455640d16aeea5f528e1913764dc00ce4e048395","acaff77b33aeb86400c3aabbcfde6e6dc1564724549d5e2913fd6d43341ec2d4","3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1","5cd968ca35e84659c85273ba795ea4f67947c0001d114e0a60bb18bc7f148ada","cc03cdd4f9f562cfbfa5d81993c6d1fcd4bd5c7e24f503e48ed9a31c7302dc03","e1e2d706e8085791c7a7218e24571f96469c58e2c52303d3ee849f7168ba6cd1","d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272","91efed213219e0766081b2ce137ca37c1d153af476ba4b18c5cf6d52f3f27bb4","0e4aaa76dd0fab78fab26712a2d54c9144a9df0c53298f21e05b2641c6048bb5","c4d1dedbdaaff1f4ee9c134e2537032cfd6ad13ebb5edc6b36f122e793718983","14e8df057e7d75087b02ebfa28782baf6e5555087e5da340efd6b0fb8d9e1e49","cb1cfdea0cbdcee9e65f9e5c7106b1386712bb4b28871412e61469302b9431b0","9ed9cce17bbab7886877a58cb5aa2de06d2e8bb39465f6f119ca2a01aa7e6430","9e7bd83734761f828052cfc36feca4e7832c2c3d77242022033d4397775ecc43","6788cebf04c2a273d0a50f7784238ee088750aed905c5dac40e76e5a976ffd2c","a39cf9dfe36a980872944a93d5b3798a8c6ed0910f0306a37750bc3171d4839c","709ff496ebb5cb4765bbcc71a471ba05fccb6ed33d6e39f66830e0d0f47f0ece"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files"***
+2026-03-04T02:55:57.0393578Z [2026-03-04T02:55:57.037Z] No OAuth tokens found
+2026-03-04T02:55:57.0394383Z [2026-03-04T02:55:57.037Z] No OAuth tokens found
+2026-03-04T02:55:57.0395157Z [2026-03-04T02:55:57.037Z] No OAuth tokens found
+2026-03-04T02:55:57.0396108Z [2026-03-04T02:55:57.037Z] No OAuth tokens found
+2026-03-04T02:55:57.0396794Z [2026-03-04T02:55:57.038Z] No OAuth tokens found
+2026-03-04T02:55:57.0397237Z [2026-03-04T02:55:57.038Z] No OAuth tokens found
+2026-03-04T02:55:57.0397692Z [2026-03-04T02:55:57.038Z] No OAuth tokens found
+2026-03-04T02:55:57.0398134Z [2026-03-04T02:55:57.038Z] No OAuth tokens found
+2026-03-04T02:55:57.0398585Z [2026-03-04T02:55:57.039Z] No OAuth tokens found
+2026-03-04T02:55:57.0399267Z [2026-03-04T02:55:57.039Z] No OAuth tokens found
+2026-03-04T02:55:57.0399729Z [2026-03-04T02:55:57.039Z] No OAuth tokens found
+2026-03-04T02:55:57.0400177Z [2026-03-04T02:55:57.039Z] No OAuth tokens found
+2026-03-04T02:55:57.0401047Z [2026-03-04T02:55:57.039Z] No OAuth tokens found
+2026-03-04T02:55:57.0403134Z [2026-03-04T02:55:57.040Z] No OAuth tokens found
+2026-03-04T02:55:57.0405049Z [2026-03-04T02:55:57.040Z] No OAuth tokens found
+2026-03-04T02:55:57.0407157Z [2026-03-04T02:55:57.040Z] No OAuth tokens found
+2026-03-04T02:55:57.0409302Z [2026-03-04T02:55:57.040Z] No OAuth tokens found
+2026-03-04T02:55:57.0411689Z [2026-03-04T02:55:57.041Z] No OAuth tokens found
+2026-03-04T02:55:57.0413764Z [2026-03-04T02:55:57.041Z] No OAuth tokens found
+2026-03-04T02:55:57.0416094Z [2026-03-04T02:55:57.041Z] No OAuth tokens found
+2026-03-04T02:55:57.0418199Z [2026-03-04T02:55:57.041Z] No OAuth tokens found
+2026-03-04T02:55:57.0420343Z [2026-03-04T02:55:57.041Z] No OAuth tokens found
+2026-03-04T02:55:57.0422200Z [2026-03-04T02:55:57.042Z] No OAuth tokens found
+2026-03-04T02:55:57.0426843Z [2026-03-04T02:55:57.042Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/88e9a04c44bc3cf7590bc18739f2b40bdaef3746f56b3f03a70fa5717d21b6ea [none]
+2026-03-04T02:55:57.0430455Z [2026-03-04T02:55:57.042Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/88e9a04c44bc3cf7590bc18739f2b40bdaef3746f56b3f03a70fa5717d21b6ea [stream]
+2026-03-04T02:55:57.0442103Z [2026-03-04T02:55:57.043Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6111e2175ec9ad6cd46531ffb4546bb355ed97a01d7be3971fa3a5e6a149152a [none]
+2026-03-04T02:55:57.0445924Z [2026-03-04T02:55:57.043Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6111e2175ec9ad6cd46531ffb4546bb355ed97a01d7be3971fa3a5e6a149152a [stream]
+2026-03-04T02:55:57.0449625Z [2026-03-04T02:55:57.044Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e10312cf2c01d68e1932bd8407a920816a09818c7d6870975522cdd8ca37b5ca [none]
+2026-03-04T02:55:57.0453173Z [2026-03-04T02:55:57.044Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e10312cf2c01d68e1932bd8407a920816a09818c7d6870975522cdd8ca37b5ca [stream]
+2026-03-04T02:55:57.0457088Z [2026-03-04T02:55:57.045Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/dbb6d7e9658b43cf7026da45682562572c14f5729a3190a82544321e935f9358 [none]
+2026-03-04T02:55:57.0460645Z [2026-03-04T02:55:57.045Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/dbb6d7e9658b43cf7026da45682562572c14f5729a3190a82544321e935f9358 [stream]
+2026-03-04T02:55:57.0465283Z [2026-03-04T02:55:57.046Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cabc749beac01c228442b25c37a557d83ec254651370f7123ab9e6a7d7dd716b [none]
+2026-03-04T02:55:57.0469119Z [2026-03-04T02:55:57.046Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cabc749beac01c228442b25c37a557d83ec254651370f7123ab9e6a7d7dd716b [stream]
+2026-03-04T02:55:57.0473087Z [2026-03-04T02:55:57.047Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/b3f4bf679a16b03b75dd322d457520dcdc39abd1906b91232374548c634bb0ba [none]
+2026-03-04T02:55:57.0476883Z [2026-03-04T02:55:57.047Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/b3f4bf679a16b03b75dd322d457520dcdc39abd1906b91232374548c634bb0ba [stream]
+2026-03-04T02:55:57.0481307Z [2026-03-04T02:55:57.047Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/057a6b319382e66851c005e1455640d16aeea5f528e1913764dc00ce4e048395 [none]
+2026-03-04T02:55:57.0484848Z [2026-03-04T02:55:57.047Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/057a6b319382e66851c005e1455640d16aeea5f528e1913764dc00ce4e048395 [stream]
+2026-03-04T02:55:57.0489550Z [2026-03-04T02:55:57.048Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/acaff77b33aeb86400c3aabbcfde6e6dc1564724549d5e2913fd6d43341ec2d4 [none]
+2026-03-04T02:55:57.0493181Z [2026-03-04T02:55:57.048Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/acaff77b33aeb86400c3aabbcfde6e6dc1564724549d5e2913fd6d43341ec2d4 [stream]
+2026-03-04T02:55:57.0497585Z [2026-03-04T02:55:57.049Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1 [none]
+2026-03-04T02:55:57.0501157Z [2026-03-04T02:55:57.049Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1 [stream]
+2026-03-04T02:55:57.0505614Z [2026-03-04T02:55:57.050Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/5cd968ca35e84659c85273ba795ea4f67947c0001d114e0a60bb18bc7f148ada [none]
+2026-03-04T02:55:57.0509212Z [2026-03-04T02:55:57.050Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/5cd968ca35e84659c85273ba795ea4f67947c0001d114e0a60bb18bc7f148ada [stream]
+2026-03-04T02:55:57.0515119Z [2026-03-04T02:55:57.051Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cc03cdd4f9f562cfbfa5d81993c6d1fcd4bd5c7e24f503e48ed9a31c7302dc03 [none]
+2026-03-04T02:55:57.0519004Z [2026-03-04T02:55:57.051Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cc03cdd4f9f562cfbfa5d81993c6d1fcd4bd5c7e24f503e48ed9a31c7302dc03 [stream]
+2026-03-04T02:55:57.0523245Z [2026-03-04T02:55:57.052Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e1e2d706e8085791c7a7218e24571f96469c58e2c52303d3ee849f7168ba6cd1 [none]
+2026-03-04T02:55:57.0527013Z [2026-03-04T02:55:57.052Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e1e2d706e8085791c7a7218e24571f96469c58e2c52303d3ee849f7168ba6cd1 [stream]
+2026-03-04T02:55:57.0532100Z [2026-03-04T02:55:57.052Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272 [none]
+2026-03-04T02:55:57.0535960Z [2026-03-04T02:55:57.052Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272 [stream]
+2026-03-04T02:55:57.0539939Z [2026-03-04T02:55:57.053Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/91efed213219e0766081b2ce137ca37c1d153af476ba4b18c5cf6d52f3f27bb4 [none]
+2026-03-04T02:55:57.0543511Z [2026-03-04T02:55:57.053Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/91efed213219e0766081b2ce137ca37c1d153af476ba4b18c5cf6d52f3f27bb4 [stream]
+2026-03-04T02:55:57.0548079Z [2026-03-04T02:55:57.054Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/0e4aaa76dd0fab78fab26712a2d54c9144a9df0c53298f21e05b2641c6048bb5 [none]
+2026-03-04T02:55:57.0551685Z [2026-03-04T02:55:57.054Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/0e4aaa76dd0fab78fab26712a2d54c9144a9df0c53298f21e05b2641c6048bb5 [stream]
+2026-03-04T02:55:57.0556529Z [2026-03-04T02:55:57.055Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/c4d1dedbdaaff1f4ee9c134e2537032cfd6ad13ebb5edc6b36f122e793718983 [none]
+2026-03-04T02:55:57.0560153Z [2026-03-04T02:55:57.055Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/c4d1dedbdaaff1f4ee9c134e2537032cfd6ad13ebb5edc6b36f122e793718983 [stream]
+2026-03-04T02:55:57.0564076Z [2026-03-04T02:55:57.056Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/14e8df057e7d75087b02ebfa28782baf6e5555087e5da340efd6b0fb8d9e1e49 [none]
+2026-03-04T02:55:57.0568220Z [2026-03-04T02:55:57.056Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/14e8df057e7d75087b02ebfa28782baf6e5555087e5da340efd6b0fb8d9e1e49 [stream]
+2026-03-04T02:55:57.0572017Z [2026-03-04T02:55:57.056Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cb1cfdea0cbdcee9e65f9e5c7106b1386712bb4b28871412e61469302b9431b0 [none]
+2026-03-04T02:55:57.0575847Z [2026-03-04T02:55:57.056Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cb1cfdea0cbdcee9e65f9e5c7106b1386712bb4b28871412e61469302b9431b0 [stream]
+2026-03-04T02:55:57.0580915Z [2026-03-04T02:55:57.057Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9ed9cce17bbab7886877a58cb5aa2de06d2e8bb39465f6f119ca2a01aa7e6430 [none]
+2026-03-04T02:55:57.0584523Z [2026-03-04T02:55:57.057Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9ed9cce17bbab7886877a58cb5aa2de06d2e8bb39465f6f119ca2a01aa7e6430 [stream]
+2026-03-04T02:55:57.0589401Z [2026-03-04T02:55:57.058Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9e7bd83734761f828052cfc36feca4e7832c2c3d77242022033d4397775ecc43 [none]
+2026-03-04T02:55:57.0592986Z [2026-03-04T02:55:57.058Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9e7bd83734761f828052cfc36feca4e7832c2c3d77242022033d4397775ecc43 [stream]
+2026-03-04T02:55:57.0597241Z [2026-03-04T02:55:57.059Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6788cebf04c2a273d0a50f7784238ee088750aed905c5dac40e76e5a976ffd2c [none]
+2026-03-04T02:55:57.0601122Z [2026-03-04T02:55:57.059Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6788cebf04c2a273d0a50f7784238ee088750aed905c5dac40e76e5a976ffd2c [stream]
+2026-03-04T02:55:57.0605173Z [2026-03-04T02:55:57.060Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/a39cf9dfe36a980872944a93d5b3798a8c6ed0910f0306a37750bc3171d4839c [none]
+2026-03-04T02:55:57.0609023Z [2026-03-04T02:55:57.060Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/a39cf9dfe36a980872944a93d5b3798a8c6ed0910f0306a37750bc3171d4839c [stream]
+2026-03-04T02:55:57.0612655Z [2026-03-04T02:55:57.060Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/709ff496ebb5cb4765bbcc71a471ba05fccb6ed33d6e39f66830e0d0f47f0ece [none]
+2026-03-04T02:55:57.0614700Z [2026-03-04T02:55:57.061Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/709ff496ebb5cb4765bbcc71a471ba05fccb6ed33d6e39f66830e0d0f47f0ece [stream]
+2026-03-04T02:55:57.0619041Z [2026-03-04T02:55:57.061Z] [hosting][populate queue][FINAL] ***"max":360,"min":360,"avg":360,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":379***
+2026-03-04T02:55:57.0620550Z [2026-03-04T02:55:57.061Z] [hosting] uploads queued: 23
+2026-03-04T02:55:57.4698511Z [2026-03-04T02:55:57.469Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/91efed213219e0766081b2ce137ca37c1d153af476ba4b18c5cf6d52f3f27bb4 200
+2026-03-04T02:55:57.4701872Z [2026-03-04T02:55:57.469Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/91efed213219e0766081b2ce137ca37c1d153af476ba4b18c5cf6d52f3f27bb4 [stream]
+2026-03-04T02:55:57.5258657Z [2026-03-04T02:55:57.525Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/b3f4bf679a16b03b75dd322d457520dcdc39abd1906b91232374548c634bb0ba 200
+2026-03-04T02:55:57.5261158Z [2026-03-04T02:55:57.525Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/b3f4bf679a16b03b75dd322d457520dcdc39abd1906b91232374548c634bb0ba [stream]
+2026-03-04T02:55:57.5292493Z [2026-03-04T02:55:57.528Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cc03cdd4f9f562cfbfa5d81993c6d1fcd4bd5c7e24f503e48ed9a31c7302dc03 200
+2026-03-04T02:55:57.5295356Z [2026-03-04T02:55:57.528Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cc03cdd4f9f562cfbfa5d81993c6d1fcd4bd5c7e24f503e48ed9a31c7302dc03 [stream]
+2026-03-04T02:55:57.5559149Z [2026-03-04T02:55:57.555Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/709ff496ebb5cb4765bbcc71a471ba05fccb6ed33d6e39f66830e0d0f47f0ece 200
+2026-03-04T02:55:57.5562268Z [2026-03-04T02:55:57.555Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/709ff496ebb5cb4765bbcc71a471ba05fccb6ed33d6e39f66830e0d0f47f0ece [stream]
+2026-03-04T02:55:57.5698962Z [2026-03-04T02:55:57.569Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1 200
+2026-03-04T02:55:57.5703151Z [2026-03-04T02:55:57.569Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/3cff4540e908c69013a33af4445033d172d68ab60bb5cd4248550828e861a6d1 [stream]
+2026-03-04T02:55:57.5706754Z [2026-03-04T02:55:57.570Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/0e4aaa76dd0fab78fab26712a2d54c9144a9df0c53298f21e05b2641c6048bb5 200
+2026-03-04T02:55:57.5709099Z [2026-03-04T02:55:57.570Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/0e4aaa76dd0fab78fab26712a2d54c9144a9df0c53298f21e05b2641c6048bb5 [stream]
+2026-03-04T02:55:57.5715672Z [2026-03-04T02:55:57.571Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e1e2d706e8085791c7a7218e24571f96469c58e2c52303d3ee849f7168ba6cd1 200
+2026-03-04T02:55:57.5717781Z [2026-03-04T02:55:57.571Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e1e2d706e8085791c7a7218e24571f96469c58e2c52303d3ee849f7168ba6cd1 [stream]
+2026-03-04T02:55:57.5816712Z [2026-03-04T02:55:57.581Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cabc749beac01c228442b25c37a557d83ec254651370f7123ab9e6a7d7dd716b 200
+2026-03-04T02:55:57.5818745Z [2026-03-04T02:55:57.581Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cabc749beac01c228442b25c37a557d83ec254651370f7123ab9e6a7d7dd716b [stream]
+2026-03-04T02:55:57.5895346Z [2026-03-04T02:55:57.589Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6111e2175ec9ad6cd46531ffb4546bb355ed97a01d7be3971fa3a5e6a149152a 200
+2026-03-04T02:55:57.5899968Z [2026-03-04T02:55:57.589Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6111e2175ec9ad6cd46531ffb4546bb355ed97a01d7be3971fa3a5e6a149152a [stream]
+2026-03-04T02:55:57.5902472Z [2026-03-04T02:55:57.589Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/a39cf9dfe36a980872944a93d5b3798a8c6ed0910f0306a37750bc3171d4839c 200
+2026-03-04T02:55:57.5905125Z [2026-03-04T02:55:57.589Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/a39cf9dfe36a980872944a93d5b3798a8c6ed0910f0306a37750bc3171d4839c [stream]
+2026-03-04T02:55:57.5933243Z [2026-03-04T02:55:57.592Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9e7bd83734761f828052cfc36feca4e7832c2c3d77242022033d4397775ecc43 200
+2026-03-04T02:55:57.5936201Z [2026-03-04T02:55:57.593Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9e7bd83734761f828052cfc36feca4e7832c2c3d77242022033d4397775ecc43 [stream]
+2026-03-04T02:55:57.6212805Z [2026-03-04T02:55:57.620Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/acaff77b33aeb86400c3aabbcfde6e6dc1564724549d5e2913fd6d43341ec2d4 200
+2026-03-04T02:55:57.6215708Z [2026-03-04T02:55:57.620Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/acaff77b33aeb86400c3aabbcfde6e6dc1564724549d5e2913fd6d43341ec2d4 [stream]
+2026-03-04T02:55:57.6443366Z [2026-03-04T02:55:57.643Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e10312cf2c01d68e1932bd8407a920816a09818c7d6870975522cdd8ca37b5ca 200
+2026-03-04T02:55:57.6446122Z [2026-03-04T02:55:57.644Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/e10312cf2c01d68e1932bd8407a920816a09818c7d6870975522cdd8ca37b5ca [stream]
+2026-03-04T02:55:57.6526746Z [2026-03-04T02:55:57.652Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/14e8df057e7d75087b02ebfa28782baf6e5555087e5da340efd6b0fb8d9e1e49 200
+2026-03-04T02:55:57.6529601Z [2026-03-04T02:55:57.652Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/14e8df057e7d75087b02ebfa28782baf6e5555087e5da340efd6b0fb8d9e1e49 [stream]
+2026-03-04T02:55:57.6968166Z [2026-03-04T02:55:57.696Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/057a6b319382e66851c005e1455640d16aeea5f528e1913764dc00ce4e048395 200
+2026-03-04T02:55:57.6970543Z [2026-03-04T02:55:57.696Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/057a6b319382e66851c005e1455640d16aeea5f528e1913764dc00ce4e048395 [stream]
+2026-03-04T02:55:57.7135374Z [2026-03-04T02:55:57.713Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272 200
+2026-03-04T02:55:57.7138596Z [2026-03-04T02:55:57.713Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/d41c9807d121b4d40398d1d95ead60d6a78201450c93a86ed64454e0f16d5272 [stream]
+2026-03-04T02:55:57.7306951Z [2026-03-04T02:55:57.730Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/dbb6d7e9658b43cf7026da45682562572c14f5729a3190a82544321e935f9358 200
+2026-03-04T02:55:57.7309556Z [2026-03-04T02:55:57.730Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/dbb6d7e9658b43cf7026da45682562572c14f5729a3190a82544321e935f9358 [stream]
+2026-03-04T02:55:57.7398275Z [2026-03-04T02:55:57.739Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9ed9cce17bbab7886877a58cb5aa2de06d2e8bb39465f6f119ca2a01aa7e6430 200
+2026-03-04T02:55:57.7400895Z [2026-03-04T02:55:57.739Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/9ed9cce17bbab7886877a58cb5aa2de06d2e8bb39465f6f119ca2a01aa7e6430 [stream]
+2026-03-04T02:55:57.7504168Z [2026-03-04T02:55:57.750Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/88e9a04c44bc3cf7590bc18739f2b40bdaef3746f56b3f03a70fa5717d21b6ea 200
+2026-03-04T02:55:57.7506827Z [2026-03-04T02:55:57.750Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/88e9a04c44bc3cf7590bc18739f2b40bdaef3746f56b3f03a70fa5717d21b6ea [stream]
+2026-03-04T02:55:57.7574857Z [2026-03-04T02:55:57.757Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6788cebf04c2a273d0a50f7784238ee088750aed905c5dac40e76e5a976ffd2c 200
+2026-03-04T02:55:57.7577830Z [2026-03-04T02:55:57.757Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/6788cebf04c2a273d0a50f7784238ee088750aed905c5dac40e76e5a976ffd2c [stream]
+2026-03-04T02:55:57.8121280Z [2026-03-04T02:55:57.811Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/c4d1dedbdaaff1f4ee9c134e2537032cfd6ad13ebb5edc6b36f122e793718983 200
+2026-03-04T02:55:57.8123799Z [2026-03-04T02:55:57.811Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/c4d1dedbdaaff1f4ee9c134e2537032cfd6ad13ebb5edc6b36f122e793718983 [stream]
+2026-03-04T02:55:57.8165301Z [2026-03-04T02:55:57.816Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/5cd968ca35e84659c85273ba795ea4f67947c0001d114e0a60bb18bc7f148ada 200
+2026-03-04T02:55:57.8168520Z [2026-03-04T02:55:57.816Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/5cd968ca35e84659c85273ba795ea4f67947c0001d114e0a60bb18bc7f148ada [stream]
+2026-03-04T02:55:57.8330344Z i  hosting: uploading new files [22/23] (95%) 
+2026-03-04T02:55:57.8553163Z [2026-03-04T02:55:57.854Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cb1cfdea0cbdcee9e65f9e5c7106b1386712bb4b28871412e61469302b9431b0 200
+2026-03-04T02:55:57.8558461Z [2026-03-04T02:55:57.854Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/***/versions/f033f6fc7b7bd455/files/cb1cfdea0cbdcee9e65f9e5c7106b1386712bb4b28871412e61469302b9431b0 [stream]
+2026-03-04T02:55:57.8562109Z [2026-03-04T02:55:57.855Z] [hosting][upload queue][FINAL] ***"max":815,"min":429,"avg":609.7826086956524,"active":0,"complete":23,"success":23,"errored":0,"retried":0,"total":23,"elapsed":819***
+2026-03-04T02:55:57.8563892Z i  hosting: upload complete 
+2026-03-04T02:55:57.8565087Z ✔  hosting[***]: file upload complete 
+2026-03-04T02:55:57.8566356Z [2026-03-04T02:55:57.855Z] [hosting] deploy completed after 2047ms
+2026-03-04T02:55:57.8568308Z i  functions: Skipping the deploy of unchanged functions. 
+2026-03-04T02:55:57.8580715Z ✔  functions[heartbeat(us-central1)] Skipped (No changes detected) 
+2026-03-04T02:55:57.8582644Z i  functions: updating Node.js 20 (2nd Gen) function firebase-frameworks-***:ssrportfoliodanilonovai(us-central1)... 
+2026-03-04T02:55:57.8596880Z [2026-03-04T02:55:57.859Z] No OAuth tokens found
+2026-03-04T02:55:57.8606634Z [2026-03-04T02:55:57.859Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai updateMask=name%2CbuildConfig.runtime%2CbuildConfig.entryPoint%2CbuildConfig.source.storageSource.bucket%2CbuildConfig.source.storageSource.object%2CbuildConfig.environmentVariables%2CbuildConfig.sourceToken%2CserviceConfig.environmentVariables%2CserviceConfig.ingressSettings%2CserviceConfig.timeoutSeconds%2CserviceConfig.serviceAccountEmail%2CserviceConfig.availableMemory%2CserviceConfig.minInstanceCount%2CserviceConfig.maxInstanceCount%2CserviceConfig.maxInstanceRequestConcurrency%2CserviceConfig.availableCpu%2CserviceConfig.vpcConnector%2CserviceConfig.vpcConnectorEgressSettings%2Clabels
+2026-03-04T02:55:57.8620087Z [2026-03-04T02:55:57.859Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai ***"name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-uploads-350817205989.us-central1.cloudfunctions.appspot.com","object":"3e868091-7512-47f9-b64c-29f9fc22f5ff.zip"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"serviceConfig":***"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null***,"labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***
+2026-03-04T02:55:58.7091476Z [2026-03-04T02:55:58.708Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai 200
+2026-03-04T02:55:58.7098365Z [2026-03-04T02:55:58.708Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/functions/ssrportfoliodanilonovai ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2"***,"done":false***
+2026-03-04T02:55:58.7102395Z [2026-03-04T02:55:58.709Z] No OAuth tokens found
+2026-03-04T02:55:58.7104247Z [2026-03-04T02:55:58.709Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:55:58.7818981Z [2026-03-04T02:55:58.781Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:55:58.7824834Z [2026-03-04T02:55:58.781Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2"***,"done":false***
+2026-03-04T02:55:59.2828991Z [2026-03-04T02:55:59.282Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:55:59.2830516Z [2026-03-04T02:55:59.282Z] No OAuth tokens found
+2026-03-04T02:55:59.2833648Z [2026-03-04T02:55:59.283Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:55:59.3821380Z [2026-03-04T02:55:59.381Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:55:59.3842811Z [2026-03-04T02:55:59.381Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","state":"NOT_STARTED","stateMessages":[***"severity":"WARNING","type":"BuildAnalysisWarning","message":"Node.js 20 is no longer supported by the Node.js community as of 30 April, 2026. Node.js 20 will be deprecated on 2026-04-30. We recommend you to upgrade to the latest version of Node.js as soon as possible."***]***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION"***,"done":false***
+2026-03-04T02:56:00.3830879Z [2026-03-04T02:56:00.382Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:00.3832489Z [2026-03-04T02:56:00.382Z] No OAuth tokens found
+2026-03-04T02:56:00.3835074Z [2026-03-04T02:56:00.383Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:00.4789279Z [2026-03-04T02:56:00.478Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:00.4812491Z [2026-03-04T02:56:00.478Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:02.4800446Z [2026-03-04T02:56:02.479Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:02.4802013Z [2026-03-04T02:56:02.479Z] No OAuth tokens found
+2026-03-04T02:56:02.4803841Z [2026-03-04T02:56:02.480Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:02.5883671Z [2026-03-04T02:56:02.587Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:02.5908956Z [2026-03-04T02:56:02.588Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:06.5891068Z [2026-03-04T02:56:06.588Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:06.5893488Z [2026-03-04T02:56:06.589Z] No OAuth tokens found
+2026-03-04T02:56:06.5896686Z [2026-03-04T02:56:06.589Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:06.7451305Z [2026-03-04T02:56:06.744Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:06.7474865Z [2026-03-04T02:56:06.744Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:14.7462637Z [2026-03-04T02:56:14.745Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:14.7464364Z [2026-03-04T02:56:14.746Z] No OAuth tokens found
+2026-03-04T02:56:14.7467135Z [2026-03-04T02:56:14.746Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:14.8836556Z [2026-03-04T02:56:14.883Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:14.8857744Z [2026-03-04T02:56:14.883Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:24.8836839Z [2026-03-04T02:56:24.882Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:24.8839724Z [2026-03-04T02:56:24.883Z] No OAuth tokens found
+2026-03-04T02:56:24.8843595Z [2026-03-04T02:56:24.883Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:24.9952498Z [2026-03-04T02:56:24.994Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:24.9976153Z [2026-03-04T02:56:24.994Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:34.9961664Z [2026-03-04T02:56:34.995Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:34.9963474Z [2026-03-04T02:56:34.996Z] No OAuth tokens found
+2026-03-04T02:56:34.9966872Z [2026-03-04T02:56:34.996Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:35.1728135Z [2026-03-04T02:56:35.172Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:35.1748478Z [2026-03-04T02:56:35.172Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:45.1741047Z [2026-03-04T02:56:45.173Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:45.1742678Z [2026-03-04T02:56:45.174Z] No OAuth tokens found
+2026-03-04T02:56:45.1746468Z [2026-03-04T02:56:45.174Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:45.3131765Z [2026-03-04T02:56:45.312Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:45.3154865Z [2026-03-04T02:56:45.312Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:56:55.3144819Z [2026-03-04T02:56:55.313Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:56:55.3146539Z [2026-03-04T02:56:55.314Z] No OAuth tokens found
+2026-03-04T02:56:55.3149168Z [2026-03-04T02:56:55.314Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:56:55.4445913Z [2026-03-04T02:56:55.444Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:56:55.4471308Z [2026-03-04T02:56:55.444Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:57:05.4451634Z [2026-03-04T02:57:05.444Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:57:05.4453746Z [2026-03-04T02:57:05.445Z] No OAuth tokens found
+2026-03-04T02:57:05.4456912Z [2026-03-04T02:57:05.445Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:57:05.5704860Z [2026-03-04T02:57:05.570Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:57:05.5728889Z [2026-03-04T02:57:05.570Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:57:15.5712986Z [2026-03-04T02:57:15.570Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:57:15.5714852Z [2026-03-04T02:57:15.571Z] No OAuth tokens found
+2026-03-04T02:57:15.5717523Z [2026-03-04T02:57:15.571Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:57:15.6958729Z [2026-03-04T02:57:15.695Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:57:15.6978990Z [2026-03-04T02:57:15.695Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:57:25.6977215Z [2026-03-04T02:57:25.697Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:57:25.6978730Z [2026-03-04T02:57:25.697Z] No OAuth tokens found
+2026-03-04T02:57:25.6981270Z [2026-03-04T02:57:25.697Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:57:25.8386570Z [2026-03-04T02:57:25.838Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:57:25.8407121Z [2026-03-04T02:57:25.838Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:57:35.8383499Z [2026-03-04T02:57:35.837Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:57:35.8385965Z [2026-03-04T02:57:35.838Z] No OAuth tokens found
+2026-03-04T02:57:35.8388350Z [2026-03-04T02:57:35.838Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:57:35.9629406Z [2026-03-04T02:57:35.962Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:57:35.9653207Z [2026-03-04T02:57:35.962Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989"***,***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-central1/builds/71a624a3-f7c0-4e46-a0a8-ba5920232200"***,"done":false***
+2026-03-04T02:57:45.9638128Z [2026-03-04T02:57:45.963Z] [update-firebase-frameworks-***-us-central1-ssrportfoliodanilonovai] Retrying task index 0
+2026-03-04T02:57:45.9639537Z [2026-03-04T02:57:45.963Z] No OAuth tokens found
+2026-03-04T02:57:45.9641956Z [2026-03-04T02:57:45.963Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 [none]
+2026-03-04T02:57:46.7239645Z [2026-03-04T02:57:46.723Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 200
+2026-03-04T02:57:46.7431220Z [2026-03-04T02:57:46.723Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1 ***"name":"projects/***/locations/us-central1/operations/operation-1772592957923-64c29f5969fb7-b2afec58-100c36d1","metadata":***"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-03-04T02:55:58.675626985Z","endTime":"2026-03-04T02:57:43.265827431Z","target":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":***"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/***/locations/us-central1/functions/ssrportfoliodanilonovai","buildConfig":***"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":***"storageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772592958622601"***,"environmentVariables":***"GOOGLE_NODE_RUN_SCRIPTS":""***,"dockerRepository":"projects/***/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":***"resolvedStorageSource":***"bucket":"gcf-v2-sources-350817205989-us-central1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1772571290114202"***,"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/***/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":***,"serviceConfig":***"service":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":***"VERCEL_URL":"***.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***","FIREBASE_CONFIG":"***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***","GCLOUD_PROJECT":"***","EVENTARC_CLOUD_EVENT_SOURCE":"projects/***/locations/us-central1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"***,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00077-kuc","maxInstanceRequestConcurrency":80,"availableCpu":"1"***,"state":"ACTIVE","labels":***"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-***","firebase-functions-hash":"09543a89b50c6205ebc97d28ec562cea57564c3e"***,"environment":"GEN_2","url":"https://us-central1-***.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true***,"stages":[***"name":"SERVICE","state":"NOT_STARTED"***],"operationType":"UPDATE_FUNCTION"***,"done":true,"error":***"code":3,"message":"Build failed with status: FAILURE and message: npm error code EUSAGE\nnpm error\nnpm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm error\nnpm error Invalid: lock file's @grpc/grpc-js@1.9.15 does not satisfy @grpc/grpc-js@1.14.3\nnpm error Missing: @tanstack-query-firebase/react@2.1.1 from lock file\nnpm error Missing: @tanstack/react-query@5.90.21 from lock file\nnpm error Missing: @grpc/grpc-js@1.9.15 from lock file\nnpm error Missing: genkit@1.29.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.21.0 from lock file\nnpm error Missing: @opentelemetry/core@2.6.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.6.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.6.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@3.0.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.6.0 from lock file\nnpm error Missing: @mikro-orm/mariadb@6.6.8 from lock file\nnpm error Missing: @mikro-orm/mssql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/mysql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/postgresql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/sqlite@6.6.8 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-logs-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-metrics-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-gcp@0.40.3 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.205.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-node@2.6.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-resource-util@3.0.0 from lock file\nnpm error Missing: @google-cloud/precise-date@4.0.0 from lock file\nnpm error Missing: googleapis@137.1.0 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.40.0 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: @mikro-orm/knex@6.6.8 from lock file\nnpm error Missing: mariadb@3.4.5 from lock file\nnpm error Missing: knex@3.1.0 from lock file\nnpm error Missing: sqlstring@2.3.3 from lock file\nnpm error Missing: tedious@19.2.1 from lock file\nnpm error Missing: tsqlstring@1.0.1 from lock file\nnpm error Missing: mysql2@3.18.2 from lock file\nnpm error Missing: pg@8.19.0 from lock file\nnpm error Missing: postgres-array@3.0.4 from lock file\nnpm error Missing: postgres-date@2.1.0 from lock file\nnpm error Missing: postgres-interval@4.0.2 from lock file\nnpm error Missing: sqlite3@5.1.7 from lock file\nnpm error Missing: sqlstring-sqlite@0.1.1 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.205.0 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.205.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@2.6.0 from lock file\nnpm error Missing: @tanstack/query-core@5.90.20 from lock file\nnpm error Missing: @types/react@19.2.14 from lock file\nnpm error Missing: csstype@3.2.3 from lock file\nnpm error Invalid: lock file's picomatch@2.3.1 does not satisfy picomatch@4.0.3\nnpm error Missing: @genkit-ai/ai@1.29.0 from lock file\nnpm error Missing: @genkit-ai/core@1.29.0 from lock file\nnpm error Missing: uuid@10.0.0 from lock file\nnpm error Missing: @types/node@20.19.35 from lock file\nnpm error Missing: dotprompt@1.1.2 from lock file\nnpm error Missing: json5@2.2.3 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: partial-json@0.1.7 from lock file\nnpm error Missing: uri-templates@0.2.0 from lock file\nnpm error Missing: uuid@10.0.0 from lock file\nnpm error Missing: @cfworker/json-schema@4.1.1 from lock file\nnpm error Missing: @genkit-ai/firebase@1.29.0 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/exporter-jaeger@1.30.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-node@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @types/json-schema@7.0.15 from lock file\nnpm error Missing: async-mutex@0.5.0 from lock file\nnpm error Missing: express@4.22.1 from lock file\nnpm error Missing: get-port@5.1.1 from lock file\nnpm error Missing: json-schema@0.4.0 from lock file\nnpm error Missing: zod@3.25.76 from lock file\nnpm error Missing: @genkit-ai/google-cloud@1.29.0 from lock file\nnpm error Missing: @google-cloud/logging-winston@6.0.1 from lock file\nnpm error Missing: winston@3.19.0 from lock file\nnpm error Missing: @google-cloud/modelarmor@0.4.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.19.0 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@2.4.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-resource-util@2.4.0 from lock file\nnpm error Missing: @opentelemetry/auto-instrumentations-node@0.49.2 from lock file\nnpm error Missing: @opentelemetry/instrumentation@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-pino@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-winston@0.39.0 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: @google-cloud/logging@11.2.1 from lock file\nnpm error Missing: lodash.mapvalues@4.6.0 from lock file\nnpm error Missing: winston-transport@4.9.0 from lock file\nnpm error Missing: @google-cloud/common@5.0.2 from lock file\nnpm error Missing: dot-prop@6.0.1 from lock file\nnpm error Missing: eventid@2.0.1 from lock file\nnpm error Missing: pumpify@2.0.1 from lock file\nnpm error Missing: uuid@9.0.1 from lock file\nnpm error Missing: google-gax@5.0.6 from lock file\nnpm error Missing: @opentelemetry/instrumentation-amqplib@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-aws-lambda@0.43.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-aws-sdk@0.43.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-bunyan@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-cassandra-driver@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-connect@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-cucumber@0.8.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-dataloader@0.11.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-dns@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-express@0.41.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-fastify@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-fs@0.14.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-generic-pool@0.38.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-graphql@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-grpc@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-hapi@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-http@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-ioredis@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-kafkajs@0.2.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-knex@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-koa@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-lru-memoizer@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-memcached@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mongodb@0.46.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mongoose@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mysql@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mysql2@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-nestjs-core@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-net@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-pg@0.43.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-redis@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-redis-4@0.41.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-restify@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-router@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-socket.io@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-tedious@0.13.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-undici@0.5.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-alibaba-cloud@0.29.7 from lock file\nnpm error Missing: @opentelemetry/resource-detector-aws@1.12.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-azure@0.2.12 from lock file\nnpm error Missing: @opentelemetry/resource-detector-container@0.4.4 from lock file\nnpm error Missing: @opentelemetry/resource-detector-gcp@0.29.13 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: jaeger-client@3.19.0 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @types/shimmer@1.2.0 from lock file\nnpm error Missing: import-in-the-middle@1.15.0 from lock file\nnpm error Missing: require-in-the-middle@7.5.2 from lock file\nnpm error Missing: shimmer@1.2.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/propagator-aws-xray@1.26.2 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @types/aws-lambda@8.10.122 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/propagation-utils@0.30.16 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @types/bunyan@1.8.9 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/connect@3.4.36 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/redis-common@0.36.2 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/memcached@2.2.10 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/mysql@2.15.22 from lock file\nnpm error Missing: @opentelemetry/sql-common@0.40.1 from lock file\nnpm error Missing: @types/pg@8.6.1 from lock file\nnpm error Missing: @types/pg-pool@2.0.4 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/tedious@4.0.14 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-grpc@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-http@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-proto@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-zipkin@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-node@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-grpc-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: pg-protocol@1.12.0 from lock file\nnpm error Missing: pg-types@2.2.0 from lock file\nnpm error Missing: is-obj@2.0.0 from lock file\nnpm error Missing: handlebars@4.7.8 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: googleapis-common@7.2.0 from lock file\nnpm error Missing: url-template@2.0.8 from lock file\nnpm error Missing: uuid@9.0.1 from lock file\nnpm error Missing: minimist@1.2.8 from lock file\nnpm error Missing: neo-async@2.6.2 from lock file\nnpm error Missing: source-map@0.6.1 from lock file\nnpm error Missing: uglify-js@3.19.3 from lock file\nnpm error Missing: wordwrap@1.0.0 from lock file\nnpm error Missing: acorn@8.16.0 from lock file\nnpm error Missing: acorn-import-attributes@1.9.5 from lock file\nnpm error Missing: cjs-module-lexer@1.4.3 from lock file\nnpm error Missing: module-details-from-path@1.0.4 from lock file\nnpm error Missing: node-int64@0.4.0 from lock file\nnpm error Missing: opentracing@0.14.7 from lock file\nnpm error Missing: thriftrw@3.11.4 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: xorshift@1.2.0 from lock file\nnpm error Missing: colorette@2.0.19 from lock file\nnpm error Missing: commander@10.0.1 from lock file\nnpm error Missing: debug@4.3.4 from lock file\nnpm error Missing: esm@3.2.25 from lock file\nnpm error Missing: get-package-type@0.1.0 from lock file\nnpm error Missing: getopts@2.3.0 from lock file\nnpm error Missing: interpret@2.2.0 from lock file\nnpm error Missing: lodash@4.17.23 from lock file\nnpm error Missing: pg-connection-string@2.6.2 from lock file\nnpm error Missing: rechoir@0.8.0 from lock file\nnpm error Missing: resolve-from@5.0.0 from lock file\nnpm error Missing: tarn@3.0.2 from lock file\nnpm error Missing: tildify@2.0.0 from lock file\nnpm error Missing: @types/geojson@7946.0.16 from lock file\nnpm error Missing: @types/node@24.11.0 from lock file\nnpm error Missing: denque@2.1.0 from lock file\nnpm error Missing: iconv-lite@0.6.3 from lock file\nnpm error Missing: lru-cache@10.4.3 from lock file\nnpm error Missing: picomatch@2.3.1 from lock file\nnpm error Missing: aws-ssl-profiles@1.1.2 from lock file\nnpm error Missing: generate-function@2.3.1 from lock file\nnpm error Missing: lru.min@1.1.4 from lock file\nnpm error Missing: named-placeholders@1.1.6 from lock file\nnpm error Missing: sql-escaper@1.3.3 from lock file\nnpm error Missing: is-property@1.0.2 from lock file\nnpm error Missing: pg-cloudflare@1.3.0 from lock file\nnpm error Missing: pg-connection-string@2.11.0 from lock file\nnpm error Missing: pg-pool@3.12.0 from lock file\nnpm error Missing: pgpass@1.0.5 from lock file\nnpm error Missing: pg-int8@1.0.1 from lock file\nnpm error Missing: postgres-array@2.0.0 from lock file\nnpm error Missing: postgres-bytea@1.0.1 from lock file\nnpm error Missing: postgres-date@1.0.7 from lock file\nnpm error Missing: postgres-interval@1.2.0 from lock file\nnpm error Missing: split2@4.2.0 from lock file\nnpm error Missing: pump@3.0.4 from lock file\nnpm error Missing: resolve@1.22.11 from lock file\nnpm error Missing: is-core-module@2.16.1 from lock file\nnpm error Missing: path-parse@1.0.7 from lock file\nnpm error Missing: supports-preserve-symlinks-flag@1.0.0 from lock file\nnpm error Missing: bindings@1.5.0 from lock file\nnpm error Missing: node-addon-api@7.1.1 from lock file\nnpm error Missing: node-gyp@8.4.1 from lock file\nnpm error Missing: prebuild-install@7.1.3 from lock file\nnpm error Missing: tar@7.5.7 from lock file\nnpm error Missing: file-uri-to-path@1.0.0 from lock file\nnpm error Missing: env-paths@2.2.1 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: make-fetch-happen@9.1.0 from lock file\nnpm error Missing: nopt@5.0.0 from lock file\nnpm error Missing: npmlog@6.0.2 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: agentkeepalive@4.6.0 from lock file\nnpm error Missing: cacache@15.3.0 from lock file\nnpm error Missing: http-cache-semantics@4.2.0 from lock file\nnpm error Missing: http-proxy-agent@4.0.1 from lock file\nnpm error Missing: https-proxy-agent@5.0.1 from lock file\nnpm error Missing: is-lambda@1.0.1 from lock file\nnpm error Missing: lru-cache@6.0.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass-collect@1.0.2 from lock file\nnpm error Missing: minipass-fetch@1.4.1 from lock file\nnpm error Missing: minipass-flush@1.0.5 from lock file\nnpm error Missing: minipass-pipeline@1.2.4 from lock file\nnpm error Missing: negotiator@0.6.4 from lock file\nnpm error Missing: promise-retry@2.0.1 from lock file\nnpm error Missing: socks-proxy-agent@6.2.1 from lock file\nnpm error Missing: ssri@8.0.1 from lock file\nnpm error Missing: humanize-ms@1.2.1 from lock file\nnpm error Missing: @npmcli/fs@1.1.1 from lock file\nnpm error Missing: @npmcli/move-file@1.1.2 from lock file\nnpm error Missing: chownr@2.0.0 from lock file\nnpm error Missing: fs-minipass@2.1.0 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: infer-owner@1.0.4 from lock file\nnpm error Missing: lru-cache@6.0.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: mkdirp@1.0.4 from lock file\nnpm error Missing: p-map@4.0.0 from lock file\nnpm error Missing: promise-inflight@1.0.1 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: unique-filename@1.1.1 from lock file\nnpm error Missing: @gar/promisify@1.1.3 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: encoding@0.1.13 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass-sized@1.0.3 from lock file\nnpm error Missing: minizlib@2.1.2 from lock file\nnpm error Missing: iconv-lite@0.6.3 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: abbrev@1.1.1 from lock file\nnpm error Missing: are-we-there-yet@3.0.1 from lock file\nnpm error Missing: console-control-strings@1.1.0 from lock file\nnpm error Missing: gauge@4.0.4 from lock file\nnpm error Missing: set-blocking@2.0.0 from lock file\nnpm error Missing: delegates@1.0.0 from lock file\nnpm error Missing: aproba@2.1.0 from lock file\nnpm error Missing: color-support@1.1.3 from lock file\nnpm error Missing: has-unicode@2.0.1 from lock file\nnpm error Missing: signal-exit@3.0.7 from lock file\nnpm error Missing: string-width@4.2.3 from lock file\nnpm error Missing: strip-ansi@6.0.1 from lock file\nnpm error Missing: wide-align@1.1.5 from lock file\nnpm error Missing: aggregate-error@3.1.0 from lock file\nnpm error Missing: clean-stack@2.2.0 from lock file\nnpm error Missing: indent-string@4.0.0 from lock file\nnpm error Missing: expand-template@2.0.3 from lock file\nnpm error Missing: github-from-package@0.0.0 from lock file\nnpm error Missing: mkdirp-classic@0.5.3 from lock file\nnpm error Missing: napi-build-utils@2.0.0 from lock file\nnpm error Missing: node-abi@3.87.0 from lock file\nnpm error Missing: rc@1.2.8 from lock file\nnpm error Missing: simple-get@4.0.1 from lock file\nnpm error Missing: tar-fs@2.1.4 from lock file\nnpm error Missing: tunnel-agent@0.6.0 from lock file\nnpm error Missing: err-code@2.0.3 from lock file\nnpm error Missing: retry@0.12.0 from lock file\nnpm error Missing: deep-extend@0.6.0 from lock file\nnpm error Missing: ini@1.3.8 from lock file\nnpm error Missing: strip-json-comments@2.0.1 from lock file\nnpm error Missing: decompress-response@6.0.0 from lock file\nnpm error Missing: simple-concat@1.0.1 from lock file\nnpm error Missing: mimic-response@3.1.0 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error Missing: socks@2.8.7 from lock file\nnpm error Missing: smart-buffer@4.2.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: tailwindcss@4.2.1 from lock file\nnpm error Missing: @isaacs/fs-minipass@4.0.1 from lock file\nnpm error Missing: chownr@3.0.0 from lock file\nnpm error Missing: minizlib@3.1.0 from lock file\nnpm error Missing: yallist@5.0.0 from lock file\nnpm error Missing: chownr@1.1.4 from lock file\nnpm error Missing: tar-stream@2.2.0 from lock file\nnpm error Missing: bl@4.1.0 from lock file\nnpm error Missing: fs-constants@1.0.0 from lock file\nnpm error Missing: buffer@5.7.1 from lock file\nnpm error Missing: @azure/core-auth@1.10.1 from lock file\nnpm error Missing: @azure/identity@4.13.0 from lock file\nnpm error Missing: @azure/keyvault-keys@4.10.0 from lock file\nnpm error Missing: @js-joda/core@5.7.0 from lock file\nnpm error Missing: bl@6.1.6 from lock file\nnpm error Missing: js-md4@0.3.2 from lock file\nnpm error Missing: native-duplexpair@1.0.0 from lock file\nnpm error Missing: sprintf-js@1.1.3 from lock file\nnpm error Missing: @azure/abort-controller@2.1.2 from lock file\nnpm error Missing: @azure/core-util@1.13.1 from lock file\nnpm error Missing: @typespec/ts-http-runtime@0.3.3 from lock file\nnpm error Missing: @azure/core-client@1.10.1 from lock file\nnpm error Missing: @azure/core-rest-pipeline@1.22.2 from lock file\nnpm error Missing: @azure/core-tracing@1.3.1 from lock file\nnpm error Missing: @azure/logger@1.3.0 from lock file\nnpm error Missing: @azure/msal-browser@4.29.0 from lock file\nnpm error Missing: @azure/msal-node@3.8.8 from lock file\nnpm error Missing: open@10.2.0 from lock file\nnpm error Missing: @azure-rest/core-client@2.5.1 from lock file\nnpm error Missing: @azure/core-http-compat@2.3.2 from lock file\nnpm error Missing: @azure/core-lro@2.7.2 from lock file\nnpm error Missing: @azure/core-paging@1.6.2 from lock file\nnpm error Missing: @azure/keyvault-common@2.0.0 from lock file\nnpm error Missing: @azure/msal-common@15.15.0 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: http-proxy-agent@7.0.2 from lock file\nnpm error Missing: default-browser@5.5.0 from lock file\nnpm error Missing: define-lazy-prop@3.0.0 from lock file\nnpm error Missing: is-inside-container@1.0.0 from lock file\nnpm error Missing: wsl-utils@0.1.0 from lock file\nnpm error Missing: bundle-name@4.1.0 from lock file\nnpm error Missing: default-browser-id@5.0.1 from lock file\nnpm error Missing: run-applescript@7.1.0 from lock file\nnpm error Missing: is-docker@3.0.0 from lock file\nnpm error Missing: bufrw@1.4.0 from lock file\nnpm error Missing: error@7.0.2 from lock file\nnpm error Missing: long@2.4.0 from lock file\nnpm error Missing: ansi-color@0.2.2 from lock file\nnpm error Missing: hexer@1.5.0 from lock file\nnpm error Missing: xtend@4.0.2 from lock file\nnpm error Missing: string-template@0.2.1 from lock file\nnpm error Missing: process@0.10.1 from lock file\nnpm error Missing: unique-slug@2.0.2 from lock file\nnpm error Missing: imurmurhash@0.1.4 from lock file\nnpm error Missing: string-width@4.2.3 from lock file\nnpm error Missing: @colors/colors@1.6.0 from lock file\nnpm error Missing: @dabh/diagnostics@2.0.8 from lock file\nnpm error Missing: async@3.2.6 from lock file\nnpm error Missing: logform@2.7.0 from lock file\nnpm error Missing: one-time@1.0.0 from lock file\nnpm error Missing: safe-stable-stringify@2.5.0 from lock file\nnpm error Missing: stack-trace@0.0.10 from lock file\nnpm error Missing: triple-beam@1.4.1 from lock file\nnpm error Missing: @so-ric/colorspace@1.1.6 from lock file\nnpm error Missing: enabled@2.0.0 from lock file\nnpm error Missing: kuler@2.0.0 from lock file\nnpm error Missing: color@5.0.3 from lock file\nnpm error Missing: text-hex@1.0.0 from lock file\nnpm error Missing: @types/triple-beam@1.3.5 from lock file\nnpm error Missing: fecha@4.2.3 from lock file\nnpm error Missing: fn.name@1.1.0 from lock file\nnpm error Missing: is-wsl@3.1.1 from lock file\nnpm error Missing: undici-types@6.21.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: lodash.merge@4.6.2 from lock file\nnpm error Missing: accepts@1.3.8 from lock file\nnpm error Missing: body-parser@1.20.4 from lock file\nnpm error Missing: content-disposition@0.5.4 from lock file\nnpm error Missing: cookie-signature@1.0.7 from lock file\nnpm error Missing: debug@2.6.9 from lock file\nnpm error Missing: finalhandler@1.3.2 from lock file\nnpm error Missing: fresh@0.5.2 from lock file\nnpm error Missing: merge-descriptors@1.0.3 from lock file\nnpm error Missing: path-to-regexp@0.1.12 from lock file\nnpm error Missing: qs@6.14.2 from lock file\nnpm error Missing: send@0.19.2 from lock file\nnpm error Missing: serve-static@1.16.3 from lock file\nnpm error Missing: type-is@1.6.18 from lock file\nnpm error Missing: mime-types@2.1.35 from lock file\nnpm error Missing: negotiator@0.6.3 from lock file\nnpm error Missing: iconv-lite@0.4.24 from lock file\nnpm error Missing: raw-body@2.5.3 from lock file\nnpm error Missing: ms@2.0.0 from lock file\nnpm error Missing: mime-db@1.52.0 from lock file\nnpm error Missing: mime@1.6.0 from lock file\nnpm error Missing: media-typer@0.3.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: google-auth-library@10.6.1 from lock file\nnpm error Missing: google-logging-utils@1.1.3 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: proto3-json-serializer@3.0.4 from lock file\nnpm error Missing: retry-request@8.0.2 from lock file\nnpm error Missing: gaxios@7.1.3 from lock file\nnpm error Missing: gcp-metadata@8.1.2 from lock file\nnpm error Missing: teeny-request@10.1.0 from lock file\nnpm error Missing: https-proxy-agent@5.0.1 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: fs.realpath@1.0.0 from lock file\nnpm error Missing: inflight@1.0.6 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: path-is-absolute@1.0.1 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: concat-map@0.0.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file\nnpm error Missing: @opentelemetry/propagator-b3@1.25.1 from lock file\nnpm error Missing: @opentelemetry/propagator-jaeger@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: color-convert@3.1.3 from lock file\nnpm error Missing: color-string@2.1.4 from lock file\nnpm error Missing: color-name@2.1.0 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: is-fullwidth-code-point@3.0.0 from lock file\nnpm error Missing: ansi-regex@5.0.1 from lock file\nnpm error Missing: ms@2.1.2 from lock file\nnpm error Missing: @tootallnate/once@1.1.2 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error Missing: undici-types@7.16.0 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: @types/readable-stream@4.0.23 from lock file\nnpm error Missing: readable-stream@4.7.0 from lock file\nnpm error Missing: events@3.3.0 from lock file\nnpm error Missing: process@0.11.10 from lock file\nnpm error Missing: is-fullwidth-code-point@3.0.0 from lock file\nnpm error Missing: strip-ansi@6.0.1 from lock file\nnpm error Missing: ansi-regex@5.0.1 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error\nnpm error Clean install a project\nnpm error\nnpm error Usage:\nnpm error npm ci\nnpm error\nnpm error Options:\nnpm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]\nnpm error [--no-bin-links] [--no-fund] [--dry-run]\nnpm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm error [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm error\nnpm error aliases: clean-install, ic, install-clean, isntall-clean\nnpm error\nnpm error Run \"npm help ci\" for more info\nnpm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_56_41_127Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989."***
+2026-03-04T02:57:46.7567834Z [2026-03-04T02:57:46.724Z] Got source token undefined for region us-central1
+2026-03-04T02:57:46.7568526Z Build failed with status: FAILURE and message: npm error code EUSAGE
+2026-03-04T02:57:46.7568975Z npm error
+2026-03-04T02:57:46.7570174Z npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+2026-03-04T02:57:46.7571017Z npm error
+2026-03-04T02:57:46.7571562Z npm error Invalid: lock file's @grpc/grpc-js@1.9.15 does not satisfy @grpc/grpc-js@1.14.3
+2026-03-04T02:57:46.7572265Z npm error Missing: @tanstack-query-firebase/react@2.1.1 from lock file
+2026-03-04T02:57:46.7572878Z npm error Missing: @tanstack/react-query@5.90.21 from lock file
+2026-03-04T02:57:46.7573411Z npm error Missing: @grpc/grpc-js@1.9.15 from lock file
+2026-03-04T02:57:46.7573894Z npm error Missing: genkit@1.29.0 from lock file
+2026-03-04T02:57:46.7574562Z npm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.21.0 from lock file
+2026-03-04T02:57:46.7575255Z npm error Missing: @opentelemetry/core@2.6.0 from lock file
+2026-03-04T02:57:46.7576073Z npm error Missing: @opentelemetry/resources@2.6.0 from lock file
+2026-03-04T02:57:46.7576672Z npm error Missing: @opentelemetry/sdk-metrics@2.6.0 from lock file
+2026-03-04T02:57:46.7577377Z npm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@3.0.0 from lock file
+2026-03-04T02:57:46.7578103Z npm error Missing: @opentelemetry/sdk-trace-base@2.6.0 from lock file
+2026-03-04T02:57:46.7578688Z npm error Missing: @mikro-orm/mariadb@6.6.8 from lock file
+2026-03-04T02:57:46.7579222Z npm error Missing: @mikro-orm/mssql@6.6.8 from lock file
+2026-03-04T02:57:46.7579735Z npm error Missing: @mikro-orm/mysql@6.6.8 from lock file
+2026-03-04T02:57:46.7580275Z npm error Missing: @mikro-orm/postgresql@6.6.8 from lock file
+2026-03-04T02:57:46.7580810Z npm error Missing: @mikro-orm/sqlite@6.6.8 from lock file
+2026-03-04T02:57:46.7581363Z npm error Missing: @opentelemetry/api-logs@0.205.0 from lock file
+2026-03-04T02:57:46.7582018Z npm error Missing: @opentelemetry/exporter-logs-otlp-http@0.205.0 from lock file
+2026-03-04T02:57:46.7582746Z npm error Missing: @opentelemetry/exporter-metrics-otlp-http@0.205.0 from lock file
+2026-03-04T02:57:46.7583615Z npm error Missing: @opentelemetry/exporter-trace-otlp-http@0.205.0 from lock file
+2026-03-04T02:57:46.7584328Z npm error Missing: @opentelemetry/resource-detector-gcp@0.40.3 from lock file
+2026-03-04T02:57:46.7584955Z npm error Missing: @opentelemetry/sdk-logs@0.205.0 from lock file
+2026-03-04T02:57:46.7585794Z npm error Missing: @opentelemetry/sdk-trace-node@2.6.0 from lock file
+2026-03-04T02:57:46.7586478Z npm error Missing: @google-cloud/opentelemetry-resource-util@3.0.0 from lock file
+2026-03-04T02:57:46.7587130Z npm error Missing: @google-cloud/precise-date@4.0.0 from lock file
+2026-03-04T02:57:46.7587681Z npm error Missing: googleapis@137.1.0 from lock file
+2026-03-04T02:57:46.7588208Z npm error Missing: @grpc/proto-loader@0.8.0 from lock file
+2026-03-04T02:57:46.7588814Z npm error Missing: @opentelemetry/semantic-conventions@1.40.0 from lock file
+2026-03-04T02:57:46.7589414Z npm error Missing: @grpc/proto-loader@0.8.0 from lock file
+2026-03-04T02:57:46.7589942Z npm error Missing: @mikro-orm/knex@6.6.8 from lock file
+2026-03-04T02:57:46.7590417Z npm error Missing: mariadb@3.4.5 from lock file
+2026-03-04T02:57:46.7590864Z npm error Missing: knex@3.1.0 from lock file
+2026-03-04T02:57:46.7591319Z npm error Missing: sqlstring@2.3.3 from lock file
+2026-03-04T02:57:46.7591784Z npm error Missing: tedious@19.2.1 from lock file
+2026-03-04T02:57:46.7592254Z npm error Missing: tsqlstring@1.0.1 from lock file
+2026-03-04T02:57:46.7592878Z npm error Missing: mysql2@3.18.2 from lock file
+2026-03-04T02:57:46.7593638Z npm error Missing: pg@8.19.0 from lock file
+2026-03-04T02:57:46.7594471Z npm error Missing: postgres-array@3.0.4 from lock file
+2026-03-04T02:57:46.7595040Z npm error Missing: postgres-date@2.1.0 from lock file
+2026-03-04T02:57:46.7595770Z npm error Missing: postgres-interval@4.0.2 from lock file
+2026-03-04T02:57:46.7596288Z npm error Missing: sqlite3@5.1.7 from lock file
+2026-03-04T02:57:46.7596797Z npm error Missing: sqlstring-sqlite@0.1.1 from lock file
+2026-03-04T02:57:46.7597649Z npm error Missing: @opentelemetry/core@2.1.0 from lock file
+2026-03-04T02:57:46.7598260Z npm error Missing: @opentelemetry/otlp-exporter-base@0.205.0 from lock file
+2026-03-04T02:57:46.7598924Z npm error Missing: @opentelemetry/otlp-transformer@0.205.0 from lock file
+2026-03-04T02:57:46.7599515Z npm error Missing: @opentelemetry/core@2.1.0 from lock file
+2026-03-04T02:57:46.7600068Z npm error Missing: @opentelemetry/resources@2.1.0 from lock file
+2026-03-04T02:57:46.7600653Z npm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file
+2026-03-04T02:57:46.7601216Z npm error Missing: @opentelemetry/core@2.1.0 from lock file
+2026-03-04T02:57:46.7601773Z npm error Missing: @opentelemetry/resources@2.1.0 from lock file
+2026-03-04T02:57:46.7602366Z npm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file
+2026-03-04T02:57:46.7602937Z npm error Missing: @opentelemetry/core@2.1.0 from lock file
+2026-03-04T02:57:46.7603462Z npm error Missing: @opentelemetry/core@2.1.0 from lock file
+2026-03-04T02:57:46.7604057Z npm error Missing: @opentelemetry/resources@2.1.0 from lock file
+2026-03-04T02:57:46.7604636Z npm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file
+2026-03-04T02:57:46.7605233Z npm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file
+2026-03-04T02:57:46.7606063Z npm error Missing: @opentelemetry/core@2.1.0 from lock file
+2026-03-04T02:57:46.7606611Z npm error Missing: @opentelemetry/resources@2.1.0 from lock file
+2026-03-04T02:57:46.7607224Z npm error Missing: @opentelemetry/context-async-hooks@2.6.0 from lock file
+2026-03-04T02:57:46.7607824Z npm error Missing: @tanstack/query-core@5.90.20 from lock file
+2026-03-04T02:57:46.7608342Z npm error Missing: @types/react@19.2.14 from lock file
+2026-03-04T02:57:46.7608816Z npm error Missing: csstype@3.2.3 from lock file
+2026-03-04T02:57:46.7609394Z npm error Invalid: lock file's picomatch@2.3.1 does not satisfy picomatch@4.0.3
+2026-03-04T02:57:46.7609982Z npm error Missing: @genkit-ai/ai@1.29.0 from lock file
+2026-03-04T02:57:46.7610649Z npm error Missing: @genkit-ai/core@1.29.0 from lock file
+2026-03-04T02:57:46.7611128Z npm error Missing: uuid@10.0.0 from lock file
+2026-03-04T02:57:46.7611593Z npm error Missing: @types/node@20.19.35 from lock file
+2026-03-04T02:57:46.7612070Z npm error Missing: dotprompt@1.1.2 from lock file
+2026-03-04T02:57:46.7612528Z npm error Missing: json5@2.2.3 from lock file
+2026-03-04T02:57:46.7612981Z npm error Missing: node-fetch@3.3.2 from lock file
+2026-03-04T02:57:46.7613470Z npm error Missing: partial-json@0.1.7 from lock file
+2026-03-04T02:57:46.7613963Z npm error Missing: uri-templates@0.2.0 from lock file
+2026-03-04T02:57:46.7614422Z npm error Missing: uuid@10.0.0 from lock file
+2026-03-04T02:57:46.7614913Z npm error Missing: @cfworker/json-schema@4.1.1 from lock file
+2026-03-04T02:57:46.7615723Z npm error Missing: @genkit-ai/firebase@1.29.0 from lock file
+2026-03-04T02:57:46.7616492Z npm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file
+2026-03-04T02:57:46.7617117Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7617701Z npm error Missing: @opentelemetry/exporter-jaeger@1.30.1 from lock file
+2026-03-04T02:57:46.7618312Z npm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file
+2026-03-04T02:57:46.7618893Z npm error Missing: @opentelemetry/sdk-node@0.52.1 from lock file
+2026-03-04T02:57:46.7619490Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7620058Z npm error Missing: @types/json-schema@7.0.15 from lock file
+2026-03-04T02:57:46.7620558Z npm error Missing: async-mutex@0.5.0 from lock file
+2026-03-04T02:57:46.7621033Z npm error Missing: express@4.22.1 from lock file
+2026-03-04T02:57:46.7621504Z npm error Missing: get-port@5.1.1 from lock file
+2026-03-04T02:57:46.7621969Z npm error Missing: json-schema@0.4.0 from lock file
+2026-03-04T02:57:46.7622427Z npm error Missing: zod@3.25.76 from lock file
+2026-03-04T02:57:46.7622940Z npm error Missing: @genkit-ai/google-cloud@1.29.0 from lock file
+2026-03-04T02:57:46.7623698Z npm error Missing: @google-cloud/logging-winston@6.0.1 from lock file
+2026-03-04T02:57:46.7624223Z npm error Missing: winston@3.19.0 from lock file
+2026-03-04T02:57:46.7624742Z npm error Missing: @google-cloud/modelarmor@0.4.1 from lock file
+2026-03-04T02:57:46.7625576Z npm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.19.0 from lock file
+2026-03-04T02:57:46.7626271Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7626834Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7627419Z npm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file
+2026-03-04T02:57:46.7628114Z npm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@2.4.1 from lock file
+2026-03-04T02:57:46.7628810Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7629478Z npm error Missing: @google-cloud/opentelemetry-resource-util@2.4.0 from lock file
+2026-03-04T02:57:46.7630208Z npm error Missing: @opentelemetry/auto-instrumentations-node@0.49.2 from lock file
+2026-03-04T02:57:46.7630879Z npm error Missing: @opentelemetry/instrumentation@0.52.1 from lock file
+2026-03-04T02:57:46.7631532Z npm error Missing: @opentelemetry/instrumentation-pino@0.41.0 from lock file
+2026-03-04T02:57:46.7632210Z npm error Missing: @opentelemetry/instrumentation-winston@0.39.0 from lock file
+2026-03-04T02:57:46.7632786Z npm error Missing: node-fetch@3.3.2 from lock file
+2026-03-04T02:57:46.7633312Z npm error Missing: @google-cloud/logging@11.2.1 from lock file
+2026-03-04T02:57:46.7633850Z npm error Missing: lodash.mapvalues@4.6.0 from lock file
+2026-03-04T02:57:46.7634374Z npm error Missing: winston-transport@4.9.0 from lock file
+2026-03-04T02:57:46.7634906Z npm error Missing: @google-cloud/common@5.0.2 from lock file
+2026-03-04T02:57:46.7635498Z npm error Missing: dot-prop@6.0.1 from lock file
+2026-03-04T02:57:46.7635961Z npm error Missing: eventid@2.0.1 from lock file
+2026-03-04T02:57:46.7636534Z npm error Missing: pumpify@2.0.1 from lock file
+2026-03-04T02:57:46.7636983Z npm error Missing: uuid@9.0.1 from lock file
+2026-03-04T02:57:46.7637441Z npm error Missing: google-gax@5.0.6 from lock file
+2026-03-04T02:57:46.7638021Z npm error Missing: @opentelemetry/instrumentation-amqplib@0.41.0 from lock file
+2026-03-04T02:57:46.7638734Z npm error Missing: @opentelemetry/instrumentation-aws-lambda@0.43.0 from lock file
+2026-03-04T02:57:46.7639435Z npm error Missing: @opentelemetry/instrumentation-aws-sdk@0.43.1 from lock file
+2026-03-04T02:57:46.7640119Z npm error Missing: @opentelemetry/instrumentation-bunyan@0.40.0 from lock file
+2026-03-04T02:57:46.7640853Z npm error Missing: @opentelemetry/instrumentation-cassandra-driver@0.40.0 from lock file
+2026-03-04T02:57:46.7641592Z npm error Missing: @opentelemetry/instrumentation-connect@0.38.0 from lock file
+2026-03-04T02:57:46.7642277Z npm error Missing: @opentelemetry/instrumentation-cucumber@0.8.0 from lock file
+2026-03-04T02:57:46.7642992Z npm error Missing: @opentelemetry/instrumentation-dataloader@0.11.0 from lock file
+2026-03-04T02:57:46.7643676Z npm error Missing: @opentelemetry/instrumentation-dns@0.38.0 from lock file
+2026-03-04T02:57:46.7644351Z npm error Missing: @opentelemetry/instrumentation-express@0.41.1 from lock file
+2026-03-04T02:57:46.7645032Z npm error Missing: @opentelemetry/instrumentation-fastify@0.38.0 from lock file
+2026-03-04T02:57:46.7645796Z npm error Missing: @opentelemetry/instrumentation-fs@0.14.0 from lock file
+2026-03-04T02:57:46.7646492Z npm error Missing: @opentelemetry/instrumentation-generic-pool@0.38.1 from lock file
+2026-03-04T02:57:46.7647202Z npm error Missing: @opentelemetry/instrumentation-graphql@0.42.0 from lock file
+2026-03-04T02:57:46.7647869Z npm error Missing: @opentelemetry/instrumentation-grpc@0.52.1 from lock file
+2026-03-04T02:57:46.7648536Z npm error Missing: @opentelemetry/instrumentation-hapi@0.40.0 from lock file
+2026-03-04T02:57:46.7649198Z npm error Missing: @opentelemetry/instrumentation-http@0.52.1 from lock file
+2026-03-04T02:57:46.7650008Z npm error Missing: @opentelemetry/instrumentation-ioredis@0.42.0 from lock file
+2026-03-04T02:57:46.7650689Z npm error Missing: @opentelemetry/instrumentation-kafkajs@0.2.0 from lock file
+2026-03-04T02:57:46.7651352Z npm error Missing: @opentelemetry/instrumentation-knex@0.39.0 from lock file
+2026-03-04T02:57:46.7652001Z npm error Missing: @opentelemetry/instrumentation-koa@0.42.0 from lock file
+2026-03-04T02:57:46.7652702Z npm error Missing: @opentelemetry/instrumentation-lru-memoizer@0.39.0 from lock file
+2026-03-04T02:57:46.7653426Z npm error Missing: @opentelemetry/instrumentation-memcached@0.38.0 from lock file
+2026-03-04T02:57:46.7654121Z npm error Missing: @opentelemetry/instrumentation-mongodb@0.46.0 from lock file
+2026-03-04T02:57:46.7654810Z npm error Missing: @opentelemetry/instrumentation-mongoose@0.41.0 from lock file
+2026-03-04T02:57:46.7655592Z npm error Missing: @opentelemetry/instrumentation-mysql@0.40.0 from lock file
+2026-03-04T02:57:46.7656281Z npm error Missing: @opentelemetry/instrumentation-mysql2@0.40.0 from lock file
+2026-03-04T02:57:46.7656991Z npm error Missing: @opentelemetry/instrumentation-nestjs-core@0.39.0 from lock file
+2026-03-04T02:57:46.7657674Z npm error Missing: @opentelemetry/instrumentation-net@0.38.0 from lock file
+2026-03-04T02:57:46.7658319Z npm error Missing: @opentelemetry/instrumentation-pg@0.43.0 from lock file
+2026-03-04T02:57:46.7658981Z npm error Missing: @opentelemetry/instrumentation-redis@0.41.0 from lock file
+2026-03-04T02:57:46.7659657Z npm error Missing: @opentelemetry/instrumentation-redis-4@0.41.1 from lock file
+2026-03-04T02:57:46.7660338Z npm error Missing: @opentelemetry/instrumentation-restify@0.40.0 from lock file
+2026-03-04T02:57:46.7661017Z npm error Missing: @opentelemetry/instrumentation-router@0.39.0 from lock file
+2026-03-04T02:57:46.7661716Z npm error Missing: @opentelemetry/instrumentation-socket.io@0.41.0 from lock file
+2026-03-04T02:57:46.7662534Z npm error Missing: @opentelemetry/instrumentation-tedious@0.13.0 from lock file
+2026-03-04T02:57:46.7663213Z npm error Missing: @opentelemetry/instrumentation-undici@0.5.0 from lock file
+2026-03-04T02:57:46.7663934Z npm error Missing: @opentelemetry/resource-detector-alibaba-cloud@0.29.7 from lock file
+2026-03-04T02:57:46.7664659Z npm error Missing: @opentelemetry/resource-detector-aws@1.12.0 from lock file
+2026-03-04T02:57:46.7665333Z npm error Missing: @opentelemetry/resource-detector-azure@0.2.12 from lock file
+2026-03-04T02:57:46.7666142Z npm error Missing: @opentelemetry/resource-detector-container@0.4.4 from lock file
+2026-03-04T02:57:46.7666831Z npm error Missing: @opentelemetry/resource-detector-gcp@0.29.13 from lock file
+2026-03-04T02:57:46.7667451Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7668014Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7668596Z npm error Missing: @opentelemetry/sdk-trace-base@1.30.1 from lock file
+2026-03-04T02:57:46.7669245Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7669821Z npm error Missing: jaeger-client@3.19.0 from lock file
+2026-03-04T02:57:46.7670360Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7670890Z npm error Missing: @types/shimmer@1.2.0 from lock file
+2026-03-04T02:57:46.7671426Z npm error Missing: import-in-the-middle@1.15.0 from lock file
+2026-03-04T02:57:46.7671985Z npm error Missing: require-in-the-middle@7.5.2 from lock file
+2026-03-04T02:57:46.7672486Z npm error Missing: shimmer@1.2.1 from lock file
+2026-03-04T02:57:46.7672991Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7673594Z npm error Missing: @opentelemetry/propagator-aws-xray@1.26.2 from lock file
+2026-03-04T02:57:46.7674209Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7674764Z npm error Missing: @types/aws-lambda@8.10.122 from lock file
+2026-03-04T02:57:46.7675529Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7676130Z npm error Missing: @opentelemetry/propagation-utils@0.30.16 from lock file
+2026-03-04T02:57:46.7676734Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7677262Z npm error Missing: @types/bunyan@1.8.9 from lock file
+2026-03-04T02:57:46.7677780Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7678291Z npm error Missing: @types/connect@3.4.36 from lock file
+2026-03-04T02:57:46.7678816Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7679340Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7679868Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7680458Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7681057Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7681593Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7682192Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7682819Z npm error Missing: @opentelemetry/redis-common@0.36.2 from lock file
+2026-03-04T02:57:46.7683379Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7683896Z npm error Missing: @types/memcached@2.2.10 from lock file
+2026-03-04T02:57:46.7684457Z npm error Missing: @opentelemetry/sdk-metrics@1.30.1 from lock file
+2026-03-04T02:57:46.7685022Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7685647Z npm error Missing: @types/mysql@2.15.22 from lock file
+2026-03-04T02:57:46.7686199Z npm error Missing: @opentelemetry/sql-common@0.40.1 from lock file
+2026-03-04T02:57:46.7686727Z npm error Missing: @types/pg@8.6.1 from lock file
+2026-03-04T02:57:46.7687214Z npm error Missing: @types/pg-pool@2.0.4 from lock file
+2026-03-04T02:57:46.7687759Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7688439Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7688986Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7689503Z npm error Missing: @types/tedious@4.0.14 from lock file
+2026-03-04T02:57:46.7690020Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7690576Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7691137Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7691700Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7692261Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7692817Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7693362Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7693910Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7694469Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7695018Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7695686Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7696234Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7696869Z npm error Missing: @opentelemetry/exporter-trace-otlp-grpc@0.52.1 from lock file
+2026-03-04T02:57:46.7697579Z npm error Missing: @opentelemetry/exporter-trace-otlp-http@0.52.1 from lock file
+2026-03-04T02:57:46.7698293Z npm error Missing: @opentelemetry/exporter-trace-otlp-proto@0.52.1 from lock file
+2026-03-04T02:57:46.7698963Z npm error Missing: @opentelemetry/exporter-zipkin@1.25.1 from lock file
+2026-03-04T02:57:46.7699569Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7700139Z npm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7700866Z npm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file
+2026-03-04T02:57:46.7701479Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7702094Z npm error Missing: @opentelemetry/sdk-trace-node@1.25.1 from lock file
+2026-03-04T02:57:46.7702753Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7703358Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7704020Z npm error Missing: @opentelemetry/otlp-grpc-exporter-base@0.52.1 from lock file
+2026-03-04T02:57:46.7704692Z npm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file
+2026-03-04T02:57:46.7705297Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7705998Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7706569Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7707166Z npm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file
+2026-03-04T02:57:46.7707828Z npm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file
+2026-03-04T02:57:46.7708429Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7709016Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7709584Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7710140Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7710729Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7711368Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7711961Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7712552Z npm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file
+2026-03-04T02:57:46.7713195Z npm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file
+2026-03-04T02:57:46.7713945Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7714463Z npm error Missing: pg-protocol@1.12.0 from lock file
+2026-03-04T02:57:46.7714943Z npm error Missing: pg-types@2.2.0 from lock file
+2026-03-04T02:57:46.7715535Z npm error Missing: is-obj@2.0.0 from lock file
+2026-03-04T02:57:46.7716008Z npm error Missing: handlebars@4.7.8 from lock file
+2026-03-04T02:57:46.7716506Z npm error Missing: uuid@8.3.2 from lock file
+2026-03-04T02:57:46.7716990Z npm error Missing: googleapis-common@7.2.0 from lock file
+2026-03-04T02:57:46.7717494Z npm error Missing: url-template@2.0.8 from lock file
+2026-03-04T02:57:46.7717950Z npm error Missing: uuid@9.0.1 from lock file
+2026-03-04T02:57:46.7718394Z npm error Missing: minimist@1.2.8 from lock file
+2026-03-04T02:57:46.7718859Z npm error Missing: neo-async@2.6.2 from lock file
+2026-03-04T02:57:46.7719329Z npm error Missing: source-map@0.6.1 from lock file
+2026-03-04T02:57:46.7719830Z npm error Missing: uglify-js@3.19.3 from lock file
+2026-03-04T02:57:46.7720328Z npm error Missing: wordwrap@1.0.0 from lock file
+2026-03-04T02:57:46.7720773Z npm error Missing: acorn@8.16.0 from lock file
+2026-03-04T02:57:46.7721294Z npm error Missing: acorn-import-attributes@1.9.5 from lock file
+2026-03-04T02:57:46.7721845Z npm error Missing: cjs-module-lexer@1.4.3 from lock file
+2026-03-04T02:57:46.7722399Z npm error Missing: module-details-from-path@1.0.4 from lock file
+2026-03-04T02:57:46.7722918Z npm error Missing: node-int64@0.4.0 from lock file
+2026-03-04T02:57:46.7723397Z npm error Missing: opentracing@0.14.7 from lock file
+2026-03-04T02:57:46.7723875Z npm error Missing: thriftrw@3.11.4 from lock file
+2026-03-04T02:57:46.7724325Z npm error Missing: uuid@8.3.2 from lock file
+2026-03-04T02:57:46.7724768Z npm error Missing: xorshift@1.2.0 from lock file
+2026-03-04T02:57:46.7725229Z npm error Missing: colorette@2.0.19 from lock file
+2026-03-04T02:57:46.7725973Z npm error Missing: commander@10.0.1 from lock file
+2026-03-04T02:57:46.7726575Z npm error Missing: debug@4.3.4 from lock file
+2026-03-04T02:57:46.7727009Z npm error Missing: esm@3.2.25 from lock file
+2026-03-04T02:57:46.7727489Z npm error Missing: get-package-type@0.1.0 from lock file
+2026-03-04T02:57:46.7727973Z npm error Missing: getopts@2.3.0 from lock file
+2026-03-04T02:57:46.7728432Z npm error Missing: interpret@2.2.0 from lock file
+2026-03-04T02:57:46.7728889Z npm error Missing: lodash@4.17.23 from lock file
+2026-03-04T02:57:46.7729398Z npm error Missing: pg-connection-string@2.6.2 from lock file
+2026-03-04T02:57:46.7729896Z npm error Missing: rechoir@0.8.0 from lock file
+2026-03-04T02:57:46.7730364Z npm error Missing: resolve-from@5.0.0 from lock file
+2026-03-04T02:57:46.7730823Z npm error Missing: tarn@3.0.2 from lock file
+2026-03-04T02:57:46.7731260Z npm error Missing: tildify@2.0.0 from lock file
+2026-03-04T02:57:46.7731755Z npm error Missing: @types/geojson@7946.0.16 from lock file
+2026-03-04T02:57:46.7732261Z npm error Missing: @types/node@24.11.0 from lock file
+2026-03-04T02:57:46.7732739Z npm error Missing: denque@2.1.0 from lock file
+2026-03-04T02:57:46.7733198Z npm error Missing: iconv-lite@0.6.3 from lock file
+2026-03-04T02:57:46.7733663Z npm error Missing: lru-cache@10.4.3 from lock file
+2026-03-04T02:57:46.7734132Z npm error Missing: picomatch@2.3.1 from lock file
+2026-03-04T02:57:46.7734629Z npm error Missing: aws-ssl-profiles@1.1.2 from lock file
+2026-03-04T02:57:46.7735155Z npm error Missing: generate-function@2.3.1 from lock file
+2026-03-04T02:57:46.7735760Z npm error Missing: lru.min@1.1.4 from lock file
+2026-03-04T02:57:46.7736258Z npm error Missing: named-placeholders@1.1.6 from lock file
+2026-03-04T02:57:46.7736754Z npm error Missing: sql-escaper@1.3.3 from lock file
+2026-03-04T02:57:46.7737231Z npm error Missing: is-property@1.0.2 from lock file
+2026-03-04T02:57:46.7737725Z npm error Missing: pg-cloudflare@1.3.0 from lock file
+2026-03-04T02:57:46.7738265Z npm error Missing: pg-connection-string@2.11.0 from lock file
+2026-03-04T02:57:46.7738783Z npm error Missing: pg-pool@3.12.0 from lock file
+2026-03-04T02:57:46.7739365Z npm error Missing: pgpass@1.0.5 from lock file
+2026-03-04T02:57:46.7739826Z npm error Missing: pg-int8@1.0.1 from lock file
+2026-03-04T02:57:46.7740381Z npm error Missing: postgres-array@2.0.0 from lock file
+2026-03-04T02:57:46.7741079Z npm error Missing: postgres-bytea@1.0.1 from lock file
+2026-03-04T02:57:46.7741878Z npm error Missing: postgres-date@1.0.7 from lock file
+2026-03-04T02:57:46.7750405Z npm error Missing: postgres-interval@1.2.0 from lock file
+2026-03-04T02:57:46.7750945Z npm error Missing: split2@4.2.0 from lock file
+2026-03-04T02:57:46.7751416Z npm error Missing: pump@3.0.4 from lock file
+2026-03-04T02:57:46.7751889Z npm error Missing: resolve@1.22.11 from lock file
+2026-03-04T02:57:46.7752397Z npm error Missing: is-core-module@2.16.1 from lock file
+2026-03-04T02:57:46.7752902Z npm error Missing: path-parse@1.0.7 from lock file
+2026-03-04T02:57:46.7753479Z npm error Missing: supports-preserve-symlinks-flag@1.0.0 from lock file
+2026-03-04T02:57:46.7754042Z npm error Missing: bindings@1.5.0 from lock file
+2026-03-04T02:57:46.7754538Z npm error Missing: node-addon-api@7.1.1 from lock file
+2026-03-04T02:57:46.7755015Z npm error Missing: node-gyp@8.4.1 from lock file
+2026-03-04T02:57:46.7755648Z npm error Missing: prebuild-install@7.1.3 from lock file
+2026-03-04T02:57:46.7756121Z npm error Missing: tar@7.5.7 from lock file
+2026-03-04T02:57:46.7756604Z npm error Missing: file-uri-to-path@1.0.0 from lock file
+2026-03-04T02:57:46.7757092Z npm error Missing: env-paths@2.2.1 from lock file
+2026-03-04T02:57:46.7757540Z npm error Missing: glob@7.2.3 from lock file
+2026-03-04T02:57:46.7758023Z npm error Missing: make-fetch-happen@9.1.0 from lock file
+2026-03-04T02:57:46.7758488Z npm error Missing: nopt@5.0.0 from lock file
+2026-03-04T02:57:46.7758916Z npm error Missing: npmlog@6.0.2 from lock file
+2026-03-04T02:57:46.7759357Z npm error Missing: rimraf@3.0.2 from lock file
+2026-03-04T02:57:46.7759827Z npm error Missing: agentkeepalive@4.6.0 from lock file
+2026-03-04T02:57:46.7760535Z npm error Missing: cacache@15.3.0 from lock file
+2026-03-04T02:57:46.7761042Z npm error Missing: http-cache-semantics@4.2.0 from lock file
+2026-03-04T02:57:46.7761564Z npm error Missing: http-proxy-agent@4.0.1 from lock file
+2026-03-04T02:57:46.7762076Z npm error Missing: https-proxy-agent@5.0.1 from lock file
+2026-03-04T02:57:46.7762562Z npm error Missing: is-lambda@1.0.1 from lock file
+2026-03-04T02:57:46.7763019Z npm error Missing: lru-cache@6.0.0 from lock file
+2026-03-04T02:57:46.7763474Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7763955Z npm error Missing: minipass-collect@1.0.2 from lock file
+2026-03-04T02:57:46.7764446Z npm error Missing: minipass-fetch@1.4.1 from lock file
+2026-03-04T02:57:46.7764938Z npm error Missing: minipass-flush@1.0.5 from lock file
+2026-03-04T02:57:46.7765657Z npm error Missing: minipass-pipeline@1.2.4 from lock file
+2026-03-04T02:57:46.7766257Z npm error Missing: negotiator@0.6.4 from lock file
+2026-03-04T02:57:46.7766755Z npm error Missing: promise-retry@2.0.1 from lock file
+2026-03-04T02:57:46.7767270Z npm error Missing: socks-proxy-agent@6.2.1 from lock file
+2026-03-04T02:57:46.7767736Z npm error Missing: ssri@8.0.1 from lock file
+2026-03-04T02:57:46.7768200Z npm error Missing: humanize-ms@1.2.1 from lock file
+2026-03-04T02:57:46.7768673Z npm error Missing: @npmcli/fs@1.1.1 from lock file
+2026-03-04T02:57:46.7769160Z npm error Missing: @npmcli/move-file@1.1.2 from lock file
+2026-03-04T02:57:46.7769626Z npm error Missing: chownr@2.0.0 from lock file
+2026-03-04T02:57:46.7770085Z npm error Missing: fs-minipass@2.1.0 from lock file
+2026-03-04T02:57:46.7770537Z npm error Missing: glob@7.2.3 from lock file
+2026-03-04T02:57:46.7770987Z npm error Missing: infer-owner@1.0.4 from lock file
+2026-03-04T02:57:46.7771540Z npm error Missing: lru-cache@6.0.0 from lock file
+2026-03-04T02:57:46.7771996Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7772441Z npm error Missing: mkdirp@1.0.4 from lock file
+2026-03-04T02:57:46.7773025Z npm error Missing: p-map@4.0.0 from lock file
+2026-03-04T02:57:46.7773514Z npm error Missing: promise-inflight@1.0.1 from lock file
+2026-03-04T02:57:46.7773992Z npm error Missing: rimraf@3.0.2 from lock file
+2026-03-04T02:57:46.7774465Z npm error Missing: unique-filename@1.1.1 from lock file
+2026-03-04T02:57:46.7774961Z npm error Missing: @gar/promisify@1.1.3 from lock file
+2026-03-04T02:57:46.7775589Z npm error Missing: rimraf@3.0.2 from lock file
+2026-03-04T02:57:46.7776120Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7776567Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7777019Z npm error Missing: encoding@0.1.13 from lock file
+2026-03-04T02:57:46.7777468Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7777940Z npm error Missing: minipass-sized@1.0.3 from lock file
+2026-03-04T02:57:46.7778405Z npm error Missing: minizlib@2.1.2 from lock file
+2026-03-04T02:57:46.7778856Z npm error Missing: iconv-lite@0.6.3 from lock file
+2026-03-04T02:57:46.7779329Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7779790Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7780238Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7780684Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7781126Z npm error Missing: abbrev@1.1.1 from lock file
+2026-03-04T02:57:46.7781613Z npm error Missing: are-we-there-yet@3.0.1 from lock file
+2026-03-04T02:57:46.7782170Z npm error Missing: console-control-strings@1.1.0 from lock file
+2026-03-04T02:57:46.7782672Z npm error Missing: gauge@4.0.4 from lock file
+2026-03-04T02:57:46.7783138Z npm error Missing: set-blocking@2.0.0 from lock file
+2026-03-04T02:57:46.7783614Z npm error Missing: delegates@1.0.0 from lock file
+2026-03-04T02:57:46.7784067Z npm error Missing: aproba@2.1.0 from lock file
+2026-03-04T02:57:46.7784534Z npm error Missing: color-support@1.1.3 from lock file
+2026-03-04T02:57:46.7785014Z npm error Missing: has-unicode@2.0.1 from lock file
+2026-03-04T02:57:46.7785737Z npm error Missing: signal-exit@3.0.7 from lock file
+2026-03-04T02:57:46.7786210Z npm error Missing: string-width@4.2.3 from lock file
+2026-03-04T02:57:46.7786685Z npm error Missing: strip-ansi@6.0.1 from lock file
+2026-03-04T02:57:46.7787148Z npm error Missing: wide-align@1.1.5 from lock file
+2026-03-04T02:57:46.7787633Z npm error Missing: aggregate-error@3.1.0 from lock file
+2026-03-04T02:57:46.7788112Z npm error Missing: clean-stack@2.2.0 from lock file
+2026-03-04T02:57:46.7788581Z npm error Missing: indent-string@4.0.0 from lock file
+2026-03-04T02:57:46.7789076Z npm error Missing: expand-template@2.0.3 from lock file
+2026-03-04T02:57:46.7789604Z npm error Missing: github-from-package@0.0.0 from lock file
+2026-03-04T02:57:46.7790137Z npm error Missing: mkdirp-classic@0.5.3 from lock file
+2026-03-04T02:57:46.7790649Z npm error Missing: napi-build-utils@2.0.0 from lock file
+2026-03-04T02:57:46.7791135Z npm error Missing: node-abi@3.87.0 from lock file
+2026-03-04T02:57:46.7791589Z npm error Missing: rc@1.2.8 from lock file
+2026-03-04T02:57:46.7792046Z npm error Missing: simple-get@4.0.1 from lock file
+2026-03-04T02:57:46.7792507Z npm error Missing: tar-fs@2.1.4 from lock file
+2026-03-04T02:57:46.7792971Z npm error Missing: tunnel-agent@0.6.0 from lock file
+2026-03-04T02:57:46.7793437Z npm error Missing: err-code@2.0.3 from lock file
+2026-03-04T02:57:46.7793878Z npm error Missing: retry@0.12.0 from lock file
+2026-03-04T02:57:46.7794331Z npm error Missing: deep-extend@0.6.0 from lock file
+2026-03-04T02:57:46.7794779Z npm error Missing: ini@1.3.8 from lock file
+2026-03-04T02:57:46.7795269Z npm error Missing: strip-json-comments@2.0.1 from lock file
+2026-03-04T02:57:46.7795903Z npm error Missing: decompress-response@6.0.0 from lock file
+2026-03-04T02:57:46.7796409Z npm error Missing: simple-concat@1.0.1 from lock file
+2026-03-04T02:57:46.7796897Z npm error Missing: mimic-response@3.1.0 from lock file
+2026-03-04T02:57:46.7797360Z npm error Missing: agent-base@6.0.2 from lock file
+2026-03-04T02:57:46.7797929Z npm error Missing: socks@2.8.7 from lock file
+2026-03-04T02:57:46.7798398Z npm error Missing: smart-buffer@4.2.0 from lock file
+2026-03-04T02:57:46.7798851Z npm error Missing: minipass@3.3.6 from lock file
+2026-03-04T02:57:46.7799296Z npm error Missing: tailwindcss@4.2.1 from lock file
+2026-03-04T02:57:46.7799781Z npm error Missing: @isaacs/fs-minipass@4.0.1 from lock file
+2026-03-04T02:57:46.7800243Z npm error Missing: chownr@3.0.0 from lock file
+2026-03-04T02:57:46.7800683Z npm error Missing: minizlib@3.1.0 from lock file
+2026-03-04T02:57:46.7801135Z npm error Missing: yallist@5.0.0 from lock file
+2026-03-04T02:57:46.7801576Z npm error Missing: chownr@1.1.4 from lock file
+2026-03-04T02:57:46.7802027Z npm error Missing: tar-stream@2.2.0 from lock file
+2026-03-04T02:57:46.7802466Z npm error Missing: bl@4.1.0 from lock file
+2026-03-04T02:57:46.7802920Z npm error Missing: fs-constants@1.0.0 from lock file
+2026-03-04T02:57:46.7803377Z npm error Missing: buffer@5.7.1 from lock file
+2026-03-04T02:57:46.7803900Z npm error Missing: @azure/core-auth@1.10.1 from lock file
+2026-03-04T02:57:46.7804411Z npm error Missing: @azure/identity@4.13.0 from lock file
+2026-03-04T02:57:46.7804931Z npm error Missing: @azure/keyvault-keys@4.10.0 from lock file
+2026-03-04T02:57:46.7805675Z npm error Missing: @js-joda/core@5.7.0 from lock file
+2026-03-04T02:57:46.7806236Z npm error Missing: bl@6.1.6 from lock file
+2026-03-04T02:57:46.7806660Z npm error Missing: js-md4@0.3.2 from lock file
+2026-03-04T02:57:46.7807134Z npm error Missing: native-duplexpair@1.0.0 from lock file
+2026-03-04T02:57:46.7807618Z npm error Missing: sprintf-js@1.1.3 from lock file
+2026-03-04T02:57:46.7808135Z npm error Missing: @azure/abort-controller@2.1.2 from lock file
+2026-03-04T02:57:46.7808666Z npm error Missing: @azure/core-util@1.13.1 from lock file
+2026-03-04T02:57:46.7809208Z npm error Missing: @typespec/ts-http-runtime@0.3.3 from lock file
+2026-03-04T02:57:46.7809751Z npm error Missing: @azure/core-client@1.10.1 from lock file
+2026-03-04T02:57:46.7810466Z npm error Missing: @azure/core-rest-pipeline@1.22.2 from lock file
+2026-03-04T02:57:46.7811504Z npm error Missing: @azure/core-tracing@1.3.1 from lock file
+2026-03-04T02:57:46.7812015Z npm error Missing: @azure/logger@1.3.0 from lock file
+2026-03-04T02:57:46.7812528Z npm error Missing: @azure/msal-browser@4.29.0 from lock file
+2026-03-04T02:57:46.7813043Z npm error Missing: @azure/msal-node@3.8.8 from lock file
+2026-03-04T02:57:46.7813507Z npm error Missing: open@10.2.0 from lock file
+2026-03-04T02:57:46.7814016Z npm error Missing: @azure-rest/core-client@2.5.1 from lock file
+2026-03-04T02:57:46.7814569Z npm error Missing: @azure/core-http-compat@2.3.2 from lock file
+2026-03-04T02:57:46.7815090Z npm error Missing: @azure/core-lro@2.7.2 from lock file
+2026-03-04T02:57:46.7816235Z npm error Missing: @azure/core-paging@1.6.2 from lock file
+2026-03-04T02:57:46.7816903Z npm error Missing: @azure/keyvault-common@2.0.0 from lock file
+2026-03-04T02:57:46.7817460Z npm error Missing: @azure/msal-common@15.15.0 from lock file
+2026-03-04T02:57:46.7817935Z npm error Missing: uuid@8.3.2 from lock file
+2026-03-04T02:57:46.7818418Z npm error Missing: http-proxy-agent@7.0.2 from lock file
+2026-03-04T02:57:46.7818922Z npm error Missing: default-browser@5.5.0 from lock file
+2026-03-04T02:57:46.7819424Z npm error Missing: define-lazy-prop@3.0.0 from lock file
+2026-03-04T02:57:46.7819942Z npm error Missing: is-inside-container@1.0.0 from lock file
+2026-03-04T02:57:46.7820432Z npm error Missing: wsl-utils@0.1.0 from lock file
+2026-03-04T02:57:46.7820904Z npm error Missing: bundle-name@4.1.0 from lock file
+2026-03-04T02:57:46.7821407Z npm error Missing: default-browser-id@5.0.1 from lock file
+2026-03-04T02:57:46.7821925Z npm error Missing: run-applescript@7.1.0 from lock file
+2026-03-04T02:57:46.7822417Z npm error Missing: is-docker@3.0.0 from lock file
+2026-03-04T02:57:46.7822860Z npm error Missing: bufrw@1.4.0 from lock file
+2026-03-04T02:57:46.7823292Z npm error Missing: error@7.0.2 from lock file
+2026-03-04T02:57:46.7823882Z npm error Missing: long@2.4.0 from lock file
+2026-03-04T02:57:46.7824342Z npm error Missing: ansi-color@0.2.2 from lock file
+2026-03-04T02:57:46.7824788Z npm error Missing: hexer@1.5.0 from lock file
+2026-03-04T02:57:46.7825214Z npm error Missing: xtend@4.0.2 from lock file
+2026-03-04T02:57:46.7825826Z npm error Missing: string-template@0.2.1 from lock file
+2026-03-04T02:57:46.7826300Z npm error Missing: process@0.10.1 from lock file
+2026-03-04T02:57:46.7826764Z npm error Missing: unique-slug@2.0.2 from lock file
+2026-03-04T02:57:46.7827231Z npm error Missing: imurmurhash@0.1.4 from lock file
+2026-03-04T02:57:46.7827699Z npm error Missing: string-width@4.2.3 from lock file
+2026-03-04T02:57:46.7828182Z npm error Missing: @colors/colors@1.6.0 from lock file
+2026-03-04T02:57:46.7828685Z npm error Missing: @dabh/diagnostics@2.0.8 from lock file
+2026-03-04T02:57:46.7829156Z npm error Missing: async@3.2.6 from lock file
+2026-03-04T02:57:46.7829593Z npm error Missing: logform@2.7.0 from lock file
+2026-03-04T02:57:46.7830059Z npm error Missing: one-time@1.0.0 from lock file
+2026-03-04T02:57:46.7830569Z npm error Missing: safe-stable-stringify@2.5.0 from lock file
+2026-03-04T02:57:46.7831078Z npm error Missing: stack-trace@0.0.10 from lock file
+2026-03-04T02:57:46.7831550Z npm error Missing: triple-beam@1.4.1 from lock file
+2026-03-04T02:57:46.7832056Z npm error Missing: @so-ric/colorspace@1.1.6 from lock file
+2026-03-04T02:57:46.7832529Z npm error Missing: enabled@2.0.0 from lock file
+2026-03-04T02:57:46.7832963Z npm error Missing: kuler@2.0.0 from lock file
+2026-03-04T02:57:46.7833392Z npm error Missing: color@5.0.3 from lock file
+2026-03-04T02:57:46.7833833Z npm error Missing: text-hex@1.0.0 from lock file
+2026-03-04T02:57:46.7834324Z npm error Missing: @types/triple-beam@1.3.5 from lock file
+2026-03-04T02:57:46.7834789Z npm error Missing: fecha@4.2.3 from lock file
+2026-03-04T02:57:46.7835217Z npm error Missing: fn.name@1.1.0 from lock file
+2026-03-04T02:57:46.7835952Z npm error Missing: is-wsl@3.1.1 from lock file
+2026-03-04T02:57:46.7836425Z npm error Missing: undici-types@6.21.0 from lock file
+2026-03-04T02:57:46.7837011Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7837633Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7838154Z npm error Missing: lodash.merge@4.6.2 from lock file
+2026-03-04T02:57:46.7838614Z npm error Missing: accepts@1.3.8 from lock file
+2026-03-04T02:57:46.7839076Z npm error Missing: body-parser@1.20.4 from lock file
+2026-03-04T02:57:46.7839579Z npm error Missing: content-disposition@0.5.4 from lock file
+2026-03-04T02:57:46.7840103Z npm error Missing: cookie-signature@1.0.7 from lock file
+2026-03-04T02:57:46.7840563Z npm error Missing: debug@2.6.9 from lock file
+2026-03-04T02:57:46.7841011Z npm error Missing: finalhandler@1.3.2 from lock file
+2026-03-04T02:57:46.7841457Z npm error Missing: fresh@0.5.2 from lock file
+2026-03-04T02:57:46.7841934Z npm error Missing: merge-descriptors@1.0.3 from lock file
+2026-03-04T02:57:46.7842450Z npm error Missing: path-to-regexp@0.1.12 from lock file
+2026-03-04T02:57:46.7842906Z npm error Missing: qs@6.14.2 from lock file
+2026-03-04T02:57:46.7843331Z npm error Missing: send@0.19.2 from lock file
+2026-03-04T02:57:46.7843789Z npm error Missing: serve-static@1.16.3 from lock file
+2026-03-04T02:57:46.7844256Z npm error Missing: type-is@1.6.18 from lock file
+2026-03-04T02:57:46.7844716Z npm error Missing: mime-types@2.1.35 from lock file
+2026-03-04T02:57:46.7845183Z npm error Missing: negotiator@0.6.3 from lock file
+2026-03-04T02:57:46.7846017Z npm error Missing: iconv-lite@0.4.24 from lock file
+2026-03-04T02:57:46.7846482Z npm error Missing: raw-body@2.5.3 from lock file
+2026-03-04T02:57:46.7846915Z npm error Missing: ms@2.0.0 from lock file
+2026-03-04T02:57:46.7847347Z npm error Missing: mime-db@1.52.0 from lock file
+2026-03-04T02:57:46.7847776Z npm error Missing: mime@1.6.0 from lock file
+2026-03-04T02:57:46.7848231Z npm error Missing: media-typer@0.3.0 from lock file
+2026-03-04T02:57:46.7848934Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7849537Z npm error Missing: @grpc/proto-loader@0.8.0 from lock file
+2026-03-04T02:57:46.7850072Z npm error Missing: google-auth-library@10.6.1 from lock file
+2026-03-04T02:57:46.7850606Z npm error Missing: google-logging-utils@1.1.3 from lock file
+2026-03-04T02:57:46.7851101Z npm error Missing: node-fetch@3.3.2 from lock file
+2026-03-04T02:57:46.7851622Z npm error Missing: proto3-json-serializer@3.0.4 from lock file
+2026-03-04T02:57:46.7852138Z npm error Missing: retry-request@8.0.2 from lock file
+2026-03-04T02:57:46.7852599Z npm error Missing: gaxios@7.1.3 from lock file
+2026-03-04T02:57:46.7853059Z npm error Missing: gcp-metadata@8.1.2 from lock file
+2026-03-04T02:57:46.7853543Z npm error Missing: teeny-request@10.1.0 from lock file
+2026-03-04T02:57:46.7854044Z npm error Missing: https-proxy-agent@5.0.1 from lock file
+2026-03-04T02:57:46.7854514Z npm error Missing: glob@7.2.3 from lock file
+2026-03-04T02:57:46.7854967Z npm error Missing: fs.realpath@1.0.0 from lock file
+2026-03-04T02:57:46.7855609Z npm error Missing: inflight@1.0.6 from lock file
+2026-03-04T02:57:46.7856146Z npm error Missing: minimatch@3.1.5 from lock file
+2026-03-04T02:57:46.7856637Z npm error Missing: path-is-absolute@1.0.1 from lock file
+2026-03-04T02:57:46.7857141Z npm error Missing: brace-expansion@1.1.12 from lock file
+2026-03-04T02:57:46.7857636Z npm error Missing: balanced-match@1.0.2 from lock file
+2026-03-04T02:57:46.7858117Z npm error Missing: concat-map@0.0.1 from lock file
+2026-03-04T02:57:46.7858625Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7859223Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7859837Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7860454Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7861200Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7861766Z npm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7862348Z npm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file
+2026-03-04T02:57:46.7862971Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7863567Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7864114Z npm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7864682Z npm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file
+2026-03-04T02:57:46.7865299Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7865999Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7866593Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7867233Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7867883Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7868524Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7869168Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7869806Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7870443Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7871078Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7871657Z npm error Missing: @opentelemetry/core@1.30.1 from lock file
+2026-03-04T02:57:46.7872217Z npm error Missing: @opentelemetry/resources@1.30.1 from lock file
+2026-03-04T02:57:46.7872825Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7873590Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7874239Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7874882Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7875615Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7876289Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7876899Z npm error Missing: @opentelemetry/api-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7877458Z npm error Missing: @opentelemetry/resources@1.25.1 from lock file
+2026-03-04T02:57:46.7878015Z npm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file
+2026-03-04T02:57:46.7878580Z npm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file
+2026-03-04T02:57:46.7879177Z npm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file
+2026-03-04T02:57:46.7879808Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7880458Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7881100Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7881740Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7882389Z npm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file
+2026-03-04T02:57:46.7883016Z npm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file
+2026-03-04T02:57:46.7883648Z npm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file
+2026-03-04T02:57:46.7884274Z npm error Missing: @opentelemetry/propagator-b3@1.25.1 from lock file
+2026-03-04T02:57:46.7884896Z npm error Missing: @opentelemetry/propagator-jaeger@1.25.1 from lock file
+2026-03-04T02:57:46.7885689Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7886299Z npm error Missing: @opentelemetry/core@1.25.1 from lock file
+2026-03-04T02:57:46.7887091Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7887745Z npm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file
+2026-03-04T02:57:46.7888392Z npm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file
+2026-03-04T02:57:46.7888952Z npm error Missing: color-convert@3.1.3 from lock file
+2026-03-04T02:57:46.7889438Z npm error Missing: color-string@2.1.4 from lock file
+2026-03-04T02:57:46.7889912Z npm error Missing: color-name@2.1.0 from lock file
+2026-03-04T02:57:46.7890374Z npm error Missing: minimatch@3.1.5 from lock file
+2026-03-04T02:57:46.7890863Z npm error Missing: brace-expansion@1.1.12 from lock file
+2026-03-04T02:57:46.7891361Z npm error Missing: balanced-match@1.0.2 from lock file
+2026-03-04T02:57:46.7891894Z npm error Missing: is-fullwidth-code-point@3.0.0 from lock file
+2026-03-04T02:57:46.7892411Z npm error Missing: ansi-regex@5.0.1 from lock file
+2026-03-04T02:57:46.7892857Z npm error Missing: ms@2.1.2 from lock file
+2026-03-04T02:57:46.7893331Z npm error Missing: @tootallnate/once@1.1.2 from lock file
+2026-03-04T02:57:46.7893815Z npm error Missing: agent-base@6.0.2 from lock file
+2026-03-04T02:57:46.7894318Z npm error Missing: undici-types@7.16.0 from lock file
+2026-03-04T02:57:46.7894787Z npm error Missing: minimatch@3.1.5 from lock file
+2026-03-04T02:57:46.7895268Z npm error Missing: brace-expansion@1.1.12 from lock file
+2026-03-04T02:57:46.7896026Z npm error Missing: balanced-match@1.0.2 from lock file
+2026-03-04T02:57:46.7896554Z npm error Missing: @types/readable-stream@4.0.23 from lock file
+2026-03-04T02:57:46.7897083Z npm error Missing: readable-stream@4.7.0 from lock file
+2026-03-04T02:57:46.7897548Z npm error Missing: events@3.3.0 from lock file
+2026-03-04T02:57:46.7897994Z npm error Missing: process@0.11.10 from lock file
+2026-03-04T02:57:46.7898507Z npm error Missing: is-fullwidth-code-point@3.0.0 from lock file
+2026-03-04T02:57:46.7899015Z npm error Missing: strip-ansi@6.0.1 from lock file
+2026-03-04T02:57:46.7899595Z npm error Missing: ansi-regex@5.0.1 from lock file
+2026-03-04T02:57:46.7900054Z npm error Missing: agent-base@6.0.2 from lock file
+2026-03-04T02:57:46.7900416Z npm error
+2026-03-04T02:57:46.7900740Z npm error Clean install a project
+2026-03-04T02:57:46.7901070Z npm error
+2026-03-04T02:57:46.7901333Z npm error Usage:
+2026-03-04T02:57:46.7901613Z npm error npm ci
+2026-03-04T02:57:46.7901889Z npm error
+2026-03-04T02:57:46.7902163Z npm error Options:
+2026-03-04T02:57:46.7902682Z npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+2026-03-04T02:57:46.7903427Z npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+2026-03-04T02:57:46.7904201Z npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+2026-03-04T02:57:46.7904928Z npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+2026-03-04T02:57:46.7905629Z npm error [--no-bin-links] [--no-fund] [--dry-run]
+2026-03-04T02:57:46.7906227Z npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2026-03-04T02:57:46.7906887Z npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2026-03-04T02:57:46.7907330Z npm error
+2026-03-04T02:57:46.7907771Z npm error aliases: clean-install, ic, install-clean, isntall-clean
+2026-03-04T02:57:46.7908200Z npm error
+2026-03-04T02:57:46.7908529Z npm error Run "npm help ci" for more info
+2026-03-04T02:57:46.7909970Z npm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_56_41_127Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989.
+2026-03-04T02:57:46.7911274Z [2026-03-04T02:57:46.725Z] Total Function Deployment time: 108867
+2026-03-04T02:57:46.7911792Z [2026-03-04T02:57:46.725Z] 1 Functions Deployed
+2026-03-04T02:57:46.7912370Z [2026-03-04T02:57:46.725Z] 1 Functions Errored
+2026-03-04T02:57:46.7912855Z [2026-03-04T02:57:46.725Z] 0 Function Deployments Aborted
+2026-03-04T02:57:46.7913409Z [2026-03-04T02:57:46.725Z] Average Function Deployment time: 108866
+2026-03-04T02:57:46.7913716Z 
+2026-03-04T02:57:46.7913995Z Functions deploy had errors with the following functions:
+2026-03-04T02:57:46.7914702Z   firebase-frameworks-***:ssrportfoliodanilonovai(us-central1)
+2026-03-04T02:57:46.7915723Z [2026-03-04T02:57:46.727Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+2026-03-04T02:57:46.7916818Z [2026-03-04T02:57:46.727Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+2026-03-04T02:57:46.7917546Z [2026-03-04T02:57:46.727Z] No OAuth tokens found
+2026-03-04T02:57:46.7918621Z [2026-03-04T02:57:46.727Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1/projects/***/locations/us-central1/repositories/gcf-artifacts [none]
+2026-03-04T02:57:46.9007639Z [2026-03-04T02:57:46.900Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/***/locations/us-central1/repositories/gcf-artifacts 200
+2026-03-04T02:57:46.9015686Z [2026-03-04T02:57:46.900Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/***/locations/us-central1/repositories/gcf-artifacts ***"name":"projects/***/locations/us-central1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":***"goog-managed-by":"cloudfunctions"***,"createTime":"2026-01-12T06:16:13.804009Z","updateTime":"2026-03-04T02:45:37.172782Z","mode":"STANDARD_REPOSITORY","cleanupPolicies":***"firebase-functions-cleanup":***"id":"firebase-functions-cleanup","action":"DELETE","condition":***"tagState":"ANY","olderThan":"604800s"***,"sizeBytes":"24060267810","vulnerabilityScanningConfig":***"lastEnableTime":"2026-01-12T06:16:13.330841263Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."***,"satisfiesPzi":true,"registryUri":"us-central1-docker.pkg.dev/***/gcf-artifacts"***
+2026-03-04T02:57:46.9020562Z [2026-03-04T02:57:46.900Z] Functions deploy failed.
+2026-03-04T02:57:46.9021047Z [2026-03-04T02:57:46.901Z] ***
+2026-03-04T02:57:46.9021418Z   "endpoint": ***
+2026-03-04T02:57:46.9021793Z     "id": "ssrportfoliodanilonovai",
+2026-03-04T02:57:46.9022257Z     "project": "***",
+2026-03-04T02:57:46.9022602Z     "region": "us-central1",
+2026-03-04T02:57:46.9023025Z     "entryPoint": "ssrportfoliodanilonovai",
+2026-03-04T02:57:46.9023449Z     "platform": "gcfv2",
+2026-03-04T02:57:46.9023794Z     "runtime": "nodejs20",
+2026-03-04T02:57:46.9024163Z     "httpsTrigger": ***,
+2026-03-04T02:57:46.9024512Z     "labels": ***
+2026-03-04T02:57:46.9024873Z       "deployment-tool": "cli-firebase"
+2026-03-04T02:57:46.9025234Z     ***,
+2026-03-04T02:57:46.9025746Z     "serviceAccount": null,
+2026-03-04T02:57:46.9026110Z     "ingressSettings": null,
+2026-03-04T02:57:46.9026486Z     "availableMemoryMb": null,
+2026-03-04T02:57:46.9026824Z     "timeoutSeconds": null,
+2026-03-04T02:57:46.9027145Z     "maxInstances": null,
+2026-03-04T02:57:46.9027466Z     "minInstances": null,
+2026-03-04T02:57:46.9027775Z     "concurrency": 80,
+2026-03-04T02:57:46.9028235Z     "vpc": null,
+2026-03-04T02:57:46.9028803Z     "environmentVariables": ***
+2026-03-04T02:57:46.9029477Z       "VERCEL_URL": "***.web.app",
+2026-03-04T02:57:46.9030037Z       "__FIREBASE_FRAMEWORKS_ENTRY__": "next.js",
+2026-03-04T02:57:46.9032581Z       "__FIREBASE_DEFAULTS__": "***\"config\":***\"projectId\":\"***\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\",\"apiKey\":\"AIzaSyDTd1kCNXmWXFKqrbEjrtC3t55DfzSJXU4\",\"authDomain\":\"***.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"***,\"_authTokenSyncURL\":\"/__session\"***",
+2026-03-04T02:57:46.9035972Z       "FIREBASE_CONFIG": "***\"projectId\":\"***\",\"databaseURL\":\"https://***-default-rtdb.firebaseio.com\",\"storageBucket\":\"***.firebasestorage.app\"***",
+2026-03-04T02:57:46.9036825Z       "GCLOUD_PROJECT": "***",
+2026-03-04T02:57:46.9038173Z       "EVENTARC_CLOUD_EVENT_SOURCE": "projects/***/locations/us-central1/services/ssrportfoliodanilonovai"
+2026-03-04T02:57:46.9039152Z     ***,
+2026-03-04T02:57:46.9039831Z     "codebase": "firebase-frameworks-***",
+2026-03-04T02:57:46.9040449Z     "runServiceId": "ssrportfoliodanilonovai",
+2026-03-04T02:57:46.9040834Z     "cpu": 1,
+2026-03-04T02:57:46.9041161Z     "securityLevel": "SECURE_ALWAYS",
+2026-03-04T02:57:46.9041526Z     "targetedByOnly": false,
+2026-03-04T02:57:46.9041928Z     "hash": "09543a89b50c6205ebc97d28ec562cea57564c3e"
+2026-03-04T02:57:46.9042314Z   ***,
+2026-03-04T02:57:46.9042590Z   "op": "update",
+2026-03-04T02:57:46.9042886Z   "original": ***
+2026-03-04T02:57:46.9043196Z     "name": "FirebaseError",
+2026-03-04T02:57:46.9043526Z     "children": [],
+2026-03-04T02:57:46.9043823Z     "exit": 1,
+2026-03-04T02:57:46.9183933Z     "message": "Build failed with status: FAILURE and message: npm error code EUSAGE\nnpm error\nnpm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm error\nnpm error Invalid: lock file's @grpc/grpc-js@1.9.15 does not satisfy @grpc/grpc-js@1.14.3\nnpm error Missing: @tanstack-query-firebase/react@2.1.1 from lock file\nnpm error Missing: @tanstack/react-query@5.90.21 from lock file\nnpm error Missing: @grpc/grpc-js@1.9.15 from lock file\nnpm error Missing: genkit@1.29.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.21.0 from lock file\nnpm error Missing: @opentelemetry/core@2.6.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.6.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.6.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@3.0.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.6.0 from lock file\nnpm error Missing: @mikro-orm/mariadb@6.6.8 from lock file\nnpm error Missing: @mikro-orm/mssql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/mysql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/postgresql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/sqlite@6.6.8 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-logs-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-metrics-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-gcp@0.40.3 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.205.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-node@2.6.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-resource-util@3.0.0 from lock file\nnpm error Missing: @google-cloud/precise-date@4.0.0 from lock file\nnpm error Missing: googleapis@137.1.0 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.40.0 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: @mikro-orm/knex@6.6.8 from lock file\nnpm error Missing: mariadb@3.4.5 from lock file\nnpm error Missing: knex@3.1.0 from lock file\nnpm error Missing: sqlstring@2.3.3 from lock file\nnpm error Missing: tedious@19.2.1 from lock file\nnpm error Missing: tsqlstring@1.0.1 from lock file\nnpm error Missing: mysql2@3.18.2 from lock file\nnpm error Missing: pg@8.19.0 from lock file\nnpm error Missing: postgres-array@3.0.4 from lock file\nnpm error Missing: postgres-date@2.1.0 from lock file\nnpm error Missing: postgres-interval@4.0.2 from lock file\nnpm error Missing: sqlite3@5.1.7 from lock file\nnpm error Missing: sqlstring-sqlite@0.1.1 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.205.0 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.205.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@2.6.0 from lock file\nnpm error Missing: @tanstack/query-core@5.90.20 from lock file\nnpm error Missing: @types/react@19.2.14 from lock file\nnpm error Missing: csstype@3.2.3 from lock file\nnpm error Invalid: lock file's picomatch@2.3.1 does not satisfy picomatch@4.0.3\nnpm error Missing: @genkit-ai/ai@1.29.0 from lock file\nnpm error Missing: @genkit-ai/core@1.29.0 from lock file\nnpm error Missing: uuid@10.0.0 from lock file\nnpm error Missing: @types/node@20.19.35 from lock file\nnpm error Missing: dotprompt@1.1.2 from lock file\nnpm error Missing: json5@2.2.3 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: partial-json@0.1.7 from lock file\nnpm error Missing: uri-templates@0.2.0 from lock file\nnpm error Missing: uuid@10.0.0 from lock file\nnpm error Missing: @cfworker/json-schema@4.1.1 from lock file\nnpm error Missing: @genkit-ai/firebase@1.29.0 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/exporter-jaeger@1.30.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-node@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @types/json-schema@7.0.15 from lock file\nnpm error Missing: async-mutex@0.5.0 from lock file\nnpm error Missing: express@4.22.1 from lock file\nnpm error Missing: get-port@5.1.1 from lock file\nnpm error Missing: json-schema@0.4.0 from lock file\nnpm error Missing: zod@3.25.76 from lock file\nnpm error Missing: @genkit-ai/google-cloud@1.29.0 from lock file\nnpm error Missing: @google-cloud/logging-winston@6.0.1 from lock file\nnpm error Missing: winston@3.19.0 from lock file\nnpm error Missing: @google-cloud/modelarmor@0.4.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.19.0 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@2.4.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-resource-util@2.4.0 from lock file\nnpm error Missing: @opentelemetry/auto-instrumentations-node@0.49.2 from lock file\nnpm error Missing: @opentelemetry/instrumentation@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-pino@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-winston@0.39.0 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: @google-cloud/logging@11.2.1 from lock file\nnpm error Missing: lodash.mapvalues@4.6.0 from lock file\nnpm error Missing: winston-transport@4.9.0 from lock file\nnpm error Missing: @google-cloud/common@5.0.2 from lock file\nnpm error Missing: dot-prop@6.0.1 from lock file\nnpm error Missing: eventid@2.0.1 from lock file\nnpm error Missing: pumpify@2.0.1 from lock file\nnpm error Missing: uuid@9.0.1 from lock file\nnpm error Missing: google-gax@5.0.6 from lock file\nnpm error Missing: @opentelemetry/instrumentation-amqplib@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-aws-lambda@0.43.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-aws-sdk@0.43.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-bunyan@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-cassandra-driver@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-connect@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-cucumber@0.8.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-dataloader@0.11.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-dns@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-express@0.41.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-fastify@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-fs@0.14.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-generic-pool@0.38.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-graphql@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-grpc@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-hapi@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-http@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-ioredis@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-kafkajs@0.2.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-knex@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-koa@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-lru-memoizer@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-memcached@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mongodb@0.46.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mongoose@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mysql@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mysql2@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-nestjs-core@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-net@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-pg@0.43.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-redis@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-redis-4@0.41.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-restify@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-router@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-socket.io@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-tedious@0.13.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-undici@0.5.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-alibaba-cloud@0.29.7 from lock file\nnpm error Missing: @opentelemetry/resource-detector-aws@1.12.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-azure@0.2.12 from lock file\nnpm error Missing: @opentelemetry/resource-detector-container@0.4.4 from lock file\nnpm error Missing: @opentelemetry/resource-detector-gcp@0.29.13 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: jaeger-client@3.19.0 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @types/shimmer@1.2.0 from lock file\nnpm error Missing: import-in-the-middle@1.15.0 from lock file\nnpm error Missing: require-in-the-middle@7.5.2 from lock file\nnpm error Missing: shimmer@1.2.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/propagator-aws-xray@1.26.2 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @types/aws-lambda@8.10.122 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/propagation-utils@0.30.16 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @types/bunyan@1.8.9 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/connect@3.4.36 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/redis-common@0.36.2 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/memcached@2.2.10 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/mysql@2.15.22 from lock file\nnpm error Missing: @opentelemetry/sql-common@0.40.1 from lock file\nnpm error Missing: @types/pg@8.6.1 from lock file\nnpm error Missing: @types/pg-pool@2.0.4 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/tedious@4.0.14 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-grpc@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-http@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-proto@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-zipkin@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-node@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-grpc-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: pg-protocol@1.12.0 from lock file\nnpm error Missing: pg-types@2.2.0 from lock file\nnpm error Missing: is-obj@2.0.0 from lock file\nnpm error Missing: handlebars@4.7.8 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: googleapis-common@7.2.0 from lock file\nnpm error Missing: url-template@2.0.8 from lock file\nnpm error Missing: uuid@9.0.1 from lock file\nnpm error Missing: minimist@1.2.8 from lock file\nnpm error Missing: neo-async@2.6.2 from lock file\nnpm error Missing: source-map@0.6.1 from lock file\nnpm error Missing: uglify-js@3.19.3 from lock file\nnpm error Missing: wordwrap@1.0.0 from lock file\nnpm error Missing: acorn@8.16.0 from lock file\nnpm error Missing: acorn-import-attributes@1.9.5 from lock file\nnpm error Missing: cjs-module-lexer@1.4.3 from lock file\nnpm error Missing: module-details-from-path@1.0.4 from lock file\nnpm error Missing: node-int64@0.4.0 from lock file\nnpm error Missing: opentracing@0.14.7 from lock file\nnpm error Missing: thriftrw@3.11.4 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: xorshift@1.2.0 from lock file\nnpm error Missing: colorette@2.0.19 from lock file\nnpm error Missing: commander@10.0.1 from lock file\nnpm error Missing: debug@4.3.4 from lock file\nnpm error Missing: esm@3.2.25 from lock file\nnpm error Missing: get-package-type@0.1.0 from lock file\nnpm error Missing: getopts@2.3.0 from lock file\nnpm error Missing: interpret@2.2.0 from lock file\nnpm error Missing: lodash@4.17.23 from lock file\nnpm error Missing: pg-connection-string@2.6.2 from lock file\nnpm error Missing: rechoir@0.8.0 from lock file\nnpm error Missing: resolve-from@5.0.0 from lock file\nnpm error Missing: tarn@3.0.2 from lock file\nnpm error Missing: tildify@2.0.0 from lock file\nnpm error Missing: @types/geojson@7946.0.16 from lock file\nnpm error Missing: @types/node@24.11.0 from lock file\nnpm error Missing: denque@2.1.0 from lock file\nnpm error Missing: iconv-lite@0.6.3 from lock file\nnpm error Missing: lru-cache@10.4.3 from lock file\nnpm error Missing: picomatch@2.3.1 from lock file\nnpm error Missing: aws-ssl-profiles@1.1.2 from lock file\nnpm error Missing: generate-function@2.3.1 from lock file\nnpm error Missing: lru.min@1.1.4 from lock file\nnpm error Missing: named-placeholders@1.1.6 from lock file\nnpm error Missing: sql-escaper@1.3.3 from lock file\nnpm error Missing: is-property@1.0.2 from lock file\nnpm error Missing: pg-cloudflare@1.3.0 from lock file\nnpm error Missing: pg-connection-string@2.11.0 from lock file\nnpm error Missing: pg-pool@3.12.0 from lock file\nnpm error Missing: pgpass@1.0.5 from lock file\nnpm error Missing: pg-int8@1.0.1 from lock file\nnpm error Missing: postgres-array@2.0.0 from lock file\nnpm error Missing: postgres-bytea@1.0.1 from lock file\nnpm error Missing: postgres-date@1.0.7 from lock file\nnpm error Missing: postgres-interval@1.2.0 from lock file\nnpm error Missing: split2@4.2.0 from lock file\nnpm error Missing: pump@3.0.4 from lock file\nnpm error Missing: resolve@1.22.11 from lock file\nnpm error Missing: is-core-module@2.16.1 from lock file\nnpm error Missing: path-parse@1.0.7 from lock file\nnpm error Missing: supports-preserve-symlinks-flag@1.0.0 from lock file\nnpm error Missing: bindings@1.5.0 from lock file\nnpm error Missing: node-addon-api@7.1.1 from lock file\nnpm error Missing: node-gyp@8.4.1 from lock file\nnpm error Missing: prebuild-install@7.1.3 from lock file\nnpm error Missing: tar@7.5.7 from lock file\nnpm error Missing: file-uri-to-path@1.0.0 from lock file\nnpm error Missing: env-paths@2.2.1 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: make-fetch-happen@9.1.0 from lock file\nnpm error Missing: nopt@5.0.0 from lock file\nnpm error Missing: npmlog@6.0.2 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: agentkeepalive@4.6.0 from lock file\nnpm error Missing: cacache@15.3.0 from lock file\nnpm error Missing: http-cache-semantics@4.2.0 from lock file\nnpm error Missing: http-proxy-agent@4.0.1 from lock file\nnpm error Missing: https-proxy-agent@5.0.1 from lock file\nnpm error Missing: is-lambda@1.0.1 from lock file\nnpm error Missing: lru-cache@6.0.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass-collect@1.0.2 from lock file\nnpm error Missing: minipass-fetch@1.4.1 from lock file\nnpm error Missing: minipass-flush@1.0.5 from lock file\nnpm error Missing: minipass-pipeline@1.2.4 from lock file\nnpm error Missing: negotiator@0.6.4 from lock file\nnpm error Missing: promise-retry@2.0.1 from lock file\nnpm error Missing: socks-proxy-agent@6.2.1 from lock file\nnpm error Missing: ssri@8.0.1 from lock file\nnpm error Missing: humanize-ms@1.2.1 from lock file\nnpm error Missing: @npmcli/fs@1.1.1 from lock file\nnpm error Missing: @npmcli/move-file@1.1.2 from lock file\nnpm error Missing: chownr@2.0.0 from lock file\nnpm error Missing: fs-minipass@2.1.0 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: infer-owner@1.0.4 from lock file\nnpm error Missing: lru-cache@6.0.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: mkdirp@1.0.4 from lock file\nnpm error Missing: p-map@4.0.0 from lock file\nnpm error Missing: promise-inflight@1.0.1 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: unique-filename@1.1.1 from lock file\nnpm error Missing: @gar/promisify@1.1.3 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: encoding@0.1.13 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass-sized@1.0.3 from lock file\nnpm error Missing: minizlib@2.1.2 from lock file\nnpm error Missing: iconv-lite@0.6.3 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: abbrev@1.1.1 from lock file\nnpm error Missing: are-we-there-yet@3.0.1 from lock file\nnpm error Missing: console-control-strings@1.1.0 from lock file\nnpm error Missing: gauge@4.0.4 from lock file\nnpm error Missing: set-blocking@2.0.0 from lock file\nnpm error Missing: delegates@1.0.0 from lock file\nnpm error Missing: aproba@2.1.0 from lock file\nnpm error Missing: color-support@1.1.3 from lock file\nnpm error Missing: has-unicode@2.0.1 from lock file\nnpm error Missing: signal-exit@3.0.7 from lock file\nnpm error Missing: string-width@4.2.3 from lock file\nnpm error Missing: strip-ansi@6.0.1 from lock file\nnpm error Missing: wide-align@1.1.5 from lock file\nnpm error Missing: aggregate-error@3.1.0 from lock file\nnpm error Missing: clean-stack@2.2.0 from lock file\nnpm error Missing: indent-string@4.0.0 from lock file\nnpm error Missing: expand-template@2.0.3 from lock file\nnpm error Missing: github-from-package@0.0.0 from lock file\nnpm error Missing: mkdirp-classic@0.5.3 from lock file\nnpm error Missing: napi-build-utils@2.0.0 from lock file\nnpm error Missing: node-abi@3.87.0 from lock file\nnpm error Missing: rc@1.2.8 from lock file\nnpm error Missing: simple-get@4.0.1 from lock file\nnpm error Missing: tar-fs@2.1.4 from lock file\nnpm error Missing: tunnel-agent@0.6.0 from lock file\nnpm error Missing: err-code@2.0.3 from lock file\nnpm error Missing: retry@0.12.0 from lock file\nnpm error Missing: deep-extend@0.6.0 from lock file\nnpm error Missing: ini@1.3.8 from lock file\nnpm error Missing: strip-json-comments@2.0.1 from lock file\nnpm error Missing: decompress-response@6.0.0 from lock file\nnpm error Missing: simple-concat@1.0.1 from lock file\nnpm error Missing: mimic-response@3.1.0 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error Missing: socks@2.8.7 from lock file\nnpm error Missing: smart-buffer@4.2.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: tailwindcss@4.2.1 from lock file\nnpm error Missing: @isaacs/fs-minipass@4.0.1 from lock file\nnpm error Missing: chownr@3.0.0 from lock file\nnpm error Missing: minizlib@3.1.0 from lock file\nnpm error Missing: yallist@5.0.0 from lock file\nnpm error Missing: chownr@1.1.4 from lock file\nnpm error Missing: tar-stream@2.2.0 from lock file\nnpm error Missing: bl@4.1.0 from lock file\nnpm error Missing: fs-constants@1.0.0 from lock file\nnpm error Missing: buffer@5.7.1 from lock file\nnpm error Missing: @azure/core-auth@1.10.1 from lock file\nnpm error Missing: @azure/identity@4.13.0 from lock file\nnpm error Missing: @azure/keyvault-keys@4.10.0 from lock file\nnpm error Missing: @js-joda/core@5.7.0 from lock file\nnpm error Missing: bl@6.1.6 from lock file\nnpm error Missing: js-md4@0.3.2 from lock file\nnpm error Missing: native-duplexpair@1.0.0 from lock file\nnpm error Missing: sprintf-js@1.1.3 from lock file\nnpm error Missing: @azure/abort-controller@2.1.2 from lock file\nnpm error Missing: @azure/core-util@1.13.1 from lock file\nnpm error Missing: @typespec/ts-http-runtime@0.3.3 from lock file\nnpm error Missing: @azure/core-client@1.10.1 from lock file\nnpm error Missing: @azure/core-rest-pipeline@1.22.2 from lock file\nnpm error Missing: @azure/core-tracing@1.3.1 from lock file\nnpm error Missing: @azure/logger@1.3.0 from lock file\nnpm error Missing: @azure/msal-browser@4.29.0 from lock file\nnpm error Missing: @azure/msal-node@3.8.8 from lock file\nnpm error Missing: open@10.2.0 from lock file\nnpm error Missing: @azure-rest/core-client@2.5.1 from lock file\nnpm error Missing: @azure/core-http-compat@2.3.2 from lock file\nnpm error Missing: @azure/core-lro@2.7.2 from lock file\nnpm error Missing: @azure/core-paging@1.6.2 from lock file\nnpm error Missing: @azure/keyvault-common@2.0.0 from lock file\nnpm error Missing: @azure/msal-common@15.15.0 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: http-proxy-agent@7.0.2 from lock file\nnpm error Missing: default-browser@5.5.0 from lock file\nnpm error Missing: define-lazy-prop@3.0.0 from lock file\nnpm error Missing: is-inside-container@1.0.0 from lock file\nnpm error Missing: wsl-utils@0.1.0 from lock file\nnpm error Missing: bundle-name@4.1.0 from lock file\nnpm error Missing: default-browser-id@5.0.1 from lock file\nnpm error Missing: run-applescript@7.1.0 from lock file\nnpm error Missing: is-docker@3.0.0 from lock file\nnpm error Missing: bufrw@1.4.0 from lock file\nnpm error Missing: error@7.0.2 from lock file\nnpm error Missing: long@2.4.0 from lock file\nnpm error Missing: ansi-color@0.2.2 from lock file\nnpm error Missing: hexer@1.5.0 from lock file\nnpm error Missing: xtend@4.0.2 from lock file\nnpm error Missing: string-template@0.2.1 from lock file\nnpm error Missing: process@0.10.1 from lock file\nnpm error Missing: unique-slug@2.0.2 from lock file\nnpm error Missing: imurmurhash@0.1.4 from lock file\nnpm error Missing: string-width@4.2.3 from lock file\nnpm error Missing: @colors/colors@1.6.0 from lock file\nnpm error Missing: @dabh/diagnostics@2.0.8 from lock file\nnpm error Missing: async@3.2.6 from lock file\nnpm error Missing: logform@2.7.0 from lock file\nnpm error Missing: one-time@1.0.0 from lock file\nnpm error Missing: safe-stable-stringify@2.5.0 from lock file\nnpm error Missing: stack-trace@0.0.10 from lock file\nnpm error Missing: triple-beam@1.4.1 from lock file\nnpm error Missing: @so-ric/colorspace@1.1.6 from lock file\nnpm error Missing: enabled@2.0.0 from lock file\nnpm error Missing: kuler@2.0.0 from lock file\nnpm error Missing: color@5.0.3 from lock file\nnpm error Missing: text-hex@1.0.0 from lock file\nnpm error Missing: @types/triple-beam@1.3.5 from lock file\nnpm error Missing: fecha@4.2.3 from lock file\nnpm error Missing: fn.name@1.1.0 from lock file\nnpm error Missing: is-wsl@3.1.1 from lock file\nnpm error Missing: undici-types@6.21.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: lodash.merge@4.6.2 from lock file\nnpm error Missing: accepts@1.3.8 from lock file\nnpm error Missing: body-parser@1.20.4 from lock file\nnpm error Missing: content-disposition@0.5.4 from lock file\nnpm error Missing: cookie-signature@1.0.7 from lock file\nnpm error Missing: debug@2.6.9 from lock file\nnpm error Missing: finalhandler@1.3.2 from lock file\nnpm error Missing: fresh@0.5.2 from lock file\nnpm error Missing: merge-descriptors@1.0.3 from lock file\nnpm error Missing: path-to-regexp@0.1.12 from lock file\nnpm error Missing: qs@6.14.2 from lock file\nnpm error Missing: send@0.19.2 from lock file\nnpm error Missing: serve-static@1.16.3 from lock file\nnpm error Missing: type-is@1.6.18 from lock file\nnpm error Missing: mime-types@2.1.35 from lock file\nnpm error Missing: negotiator@0.6.3 from lock file\nnpm error Missing: iconv-lite@0.4.24 from lock file\nnpm error Missing: raw-body@2.5.3 from lock file\nnpm error Missing: ms@2.0.0 from lock file\nnpm error Missing: mime-db@1.52.0 from lock file\nnpm error Missing: mime@1.6.0 from lock file\nnpm error Missing: media-typer@0.3.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: google-auth-library@10.6.1 from lock file\nnpm error Missing: google-logging-utils@1.1.3 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: proto3-json-serializer@3.0.4 from lock file\nnpm error Missing: retry-request@8.0.2 from lock file\nnpm error Missing: gaxios@7.1.3 from lock file\nnpm error Missing: gcp-metadata@8.1.2 from lock file\nnpm error Missing: teeny-request@10.1.0 from lock file\nnpm error Missing: https-proxy-agent@5.0.1 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: fs.realpath@1.0.0 from lock file\nnpm error Missing: inflight@1.0.6 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: path-is-absolute@1.0.1 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: concat-map@0.0.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file\nnpm error Missing: @opentelemetry/propagator-b3@1.25.1 from lock file\nnpm error Missing: @opentelemetry/propagator-jaeger@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: color-convert@3.1.3 from lock file\nnpm error Missing: color-string@2.1.4 from lock file\nnpm error Missing: color-name@2.1.0 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: is-fullwidth-code-point@3.0.0 from lock file\nnpm error Missing: ansi-regex@5.0.1 from lock file\nnpm error Missing: ms@2.1.2 from lock file\nnpm error Missing: @tootallnate/once@1.1.2 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error Missing: undici-types@7.16.0 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: @types/readable-stream@4.0.23 from lock file\nnpm error Missing: readable-stream@4.7.0 from lock file\nnpm error Missing: events@3.3.0 from lock file\nnpm error Missing: process@0.11.10 from lock file\nnpm error Missing: is-fullwidth-code-point@3.0.0 from lock file\nnpm error Missing: strip-ansi@6.0.1 from lock file\nnpm error Missing: ansi-regex@5.0.1 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error\nnpm error Clean install a project\nnpm error\nnpm error Usage:\nnpm error npm ci\nnpm error\nnpm error Options:\nnpm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]\nnpm error [--no-bin-links] [--no-fund] [--dry-run]\nnpm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm error [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm error\nnpm error aliases: clean-install, ic, install-clean, isntall-clean\nnpm error\nnpm error Run \"npm help ci\" for more info\nnpm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_56_41_127Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989.",
+2026-03-04T02:57:46.9303945Z     "original": ***
+2026-03-04T02:57:46.9304259Z       "code": 3,
+2026-03-04T02:57:46.9443991Z       "message": "Build failed with status: FAILURE and message: npm error code EUSAGE\nnpm error\nnpm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm error\nnpm error Invalid: lock file's @grpc/grpc-js@1.9.15 does not satisfy @grpc/grpc-js@1.14.3\nnpm error Missing: @tanstack-query-firebase/react@2.1.1 from lock file\nnpm error Missing: @tanstack/react-query@5.90.21 from lock file\nnpm error Missing: @grpc/grpc-js@1.9.15 from lock file\nnpm error Missing: genkit@1.29.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.21.0 from lock file\nnpm error Missing: @opentelemetry/core@2.6.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.6.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.6.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@3.0.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.6.0 from lock file\nnpm error Missing: @mikro-orm/mariadb@6.6.8 from lock file\nnpm error Missing: @mikro-orm/mssql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/mysql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/postgresql@6.6.8 from lock file\nnpm error Missing: @mikro-orm/sqlite@6.6.8 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-logs-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-metrics-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-http@0.205.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-gcp@0.40.3 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.205.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-node@2.6.0 from lock file\nnpm error Missing: @google-cloud/opentelemetry-resource-util@3.0.0 from lock file\nnpm error Missing: @google-cloud/precise-date@4.0.0 from lock file\nnpm error Missing: googleapis@137.1.0 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.40.0 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: @mikro-orm/knex@6.6.8 from lock file\nnpm error Missing: mariadb@3.4.5 from lock file\nnpm error Missing: knex@3.1.0 from lock file\nnpm error Missing: sqlstring@2.3.3 from lock file\nnpm error Missing: tedious@19.2.1 from lock file\nnpm error Missing: tsqlstring@1.0.1 from lock file\nnpm error Missing: mysql2@3.18.2 from lock file\nnpm error Missing: pg@8.19.0 from lock file\nnpm error Missing: postgres-array@3.0.4 from lock file\nnpm error Missing: postgres-date@2.1.0 from lock file\nnpm error Missing: postgres-interval@4.0.2 from lock file\nnpm error Missing: sqlite3@5.1.7 from lock file\nnpm error Missing: sqlstring-sqlite@0.1.1 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.205.0 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.205.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@2.1.0 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@2.1.0 from lock file\nnpm error Missing: @opentelemetry/core@2.1.0 from lock file\nnpm error Missing: @opentelemetry/resources@2.1.0 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@2.6.0 from lock file\nnpm error Missing: @tanstack/query-core@5.90.20 from lock file\nnpm error Missing: @types/react@19.2.14 from lock file\nnpm error Missing: csstype@3.2.3 from lock file\nnpm error Invalid: lock file's picomatch@2.3.1 does not satisfy picomatch@4.0.3\nnpm error Missing: @genkit-ai/ai@1.29.0 from lock file\nnpm error Missing: @genkit-ai/core@1.29.0 from lock file\nnpm error Missing: uuid@10.0.0 from lock file\nnpm error Missing: @types/node@20.19.35 from lock file\nnpm error Missing: dotprompt@1.1.2 from lock file\nnpm error Missing: json5@2.2.3 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: partial-json@0.1.7 from lock file\nnpm error Missing: uri-templates@0.2.0 from lock file\nnpm error Missing: uuid@10.0.0 from lock file\nnpm error Missing: @cfworker/json-schema@4.1.1 from lock file\nnpm error Missing: @genkit-ai/firebase@1.29.0 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/exporter-jaeger@1.30.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-node@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @types/json-schema@7.0.15 from lock file\nnpm error Missing: async-mutex@0.5.0 from lock file\nnpm error Missing: express@4.22.1 from lock file\nnpm error Missing: get-port@5.1.1 from lock file\nnpm error Missing: json-schema@0.4.0 from lock file\nnpm error Missing: zod@3.25.76 from lock file\nnpm error Missing: @genkit-ai/google-cloud@1.29.0 from lock file\nnpm error Missing: @google-cloud/logging-winston@6.0.1 from lock file\nnpm error Missing: winston@3.19.0 from lock file\nnpm error Missing: @google-cloud/modelarmor@0.4.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-monitoring-exporter@0.19.0 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-cloud-trace-exporter@2.4.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @google-cloud/opentelemetry-resource-util@2.4.0 from lock file\nnpm error Missing: @opentelemetry/auto-instrumentations-node@0.49.2 from lock file\nnpm error Missing: @opentelemetry/instrumentation@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-pino@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-winston@0.39.0 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: @google-cloud/logging@11.2.1 from lock file\nnpm error Missing: lodash.mapvalues@4.6.0 from lock file\nnpm error Missing: winston-transport@4.9.0 from lock file\nnpm error Missing: @google-cloud/common@5.0.2 from lock file\nnpm error Missing: dot-prop@6.0.1 from lock file\nnpm error Missing: eventid@2.0.1 from lock file\nnpm error Missing: pumpify@2.0.1 from lock file\nnpm error Missing: uuid@9.0.1 from lock file\nnpm error Missing: google-gax@5.0.6 from lock file\nnpm error Missing: @opentelemetry/instrumentation-amqplib@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-aws-lambda@0.43.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-aws-sdk@0.43.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-bunyan@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-cassandra-driver@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-connect@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-cucumber@0.8.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-dataloader@0.11.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-dns@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-express@0.41.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-fastify@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-fs@0.14.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-generic-pool@0.38.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-graphql@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-grpc@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-hapi@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-http@0.52.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-ioredis@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-kafkajs@0.2.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-knex@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-koa@0.42.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-lru-memoizer@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-memcached@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mongodb@0.46.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mongoose@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mysql@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-mysql2@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-nestjs-core@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-net@0.38.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-pg@0.43.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-redis@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-redis-4@0.41.1 from lock file\nnpm error Missing: @opentelemetry/instrumentation-restify@0.40.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-router@0.39.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-socket.io@0.41.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-tedious@0.13.0 from lock file\nnpm error Missing: @opentelemetry/instrumentation-undici@0.5.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-alibaba-cloud@0.29.7 from lock file\nnpm error Missing: @opentelemetry/resource-detector-aws@1.12.0 from lock file\nnpm error Missing: @opentelemetry/resource-detector-azure@0.2.12 from lock file\nnpm error Missing: @opentelemetry/resource-detector-container@0.4.4 from lock file\nnpm error Missing: @opentelemetry/resource-detector-gcp@0.29.13 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: jaeger-client@3.19.0 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @types/shimmer@1.2.0 from lock file\nnpm error Missing: import-in-the-middle@1.15.0 from lock file\nnpm error Missing: require-in-the-middle@7.5.2 from lock file\nnpm error Missing: shimmer@1.2.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/propagator-aws-xray@1.26.2 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @types/aws-lambda@8.10.122 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/propagation-utils@0.30.16 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @types/bunyan@1.8.9 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/connect@3.4.36 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/redis-common@0.36.2 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/memcached@2.2.10 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/mysql@2.15.22 from lock file\nnpm error Missing: @opentelemetry/sql-common@0.40.1 from lock file\nnpm error Missing: @types/pg@8.6.1 from lock file\nnpm error Missing: @types/pg-pool@2.0.4 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @types/tedious@4.0.14 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-grpc@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-http@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-trace-otlp-proto@0.52.1 from lock file\nnpm error Missing: @opentelemetry/exporter-zipkin@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-node@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-grpc-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: pg-protocol@1.12.0 from lock file\nnpm error Missing: pg-types@2.2.0 from lock file\nnpm error Missing: is-obj@2.0.0 from lock file\nnpm error Missing: handlebars@4.7.8 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: googleapis-common@7.2.0 from lock file\nnpm error Missing: url-template@2.0.8 from lock file\nnpm error Missing: uuid@9.0.1 from lock file\nnpm error Missing: minimist@1.2.8 from lock file\nnpm error Missing: neo-async@2.6.2 from lock file\nnpm error Missing: source-map@0.6.1 from lock file\nnpm error Missing: uglify-js@3.19.3 from lock file\nnpm error Missing: wordwrap@1.0.0 from lock file\nnpm error Missing: acorn@8.16.0 from lock file\nnpm error Missing: acorn-import-attributes@1.9.5 from lock file\nnpm error Missing: cjs-module-lexer@1.4.3 from lock file\nnpm error Missing: module-details-from-path@1.0.4 from lock file\nnpm error Missing: node-int64@0.4.0 from lock file\nnpm error Missing: opentracing@0.14.7 from lock file\nnpm error Missing: thriftrw@3.11.4 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: xorshift@1.2.0 from lock file\nnpm error Missing: colorette@2.0.19 from lock file\nnpm error Missing: commander@10.0.1 from lock file\nnpm error Missing: debug@4.3.4 from lock file\nnpm error Missing: esm@3.2.25 from lock file\nnpm error Missing: get-package-type@0.1.0 from lock file\nnpm error Missing: getopts@2.3.0 from lock file\nnpm error Missing: interpret@2.2.0 from lock file\nnpm error Missing: lodash@4.17.23 from lock file\nnpm error Missing: pg-connection-string@2.6.2 from lock file\nnpm error Missing: rechoir@0.8.0 from lock file\nnpm error Missing: resolve-from@5.0.0 from lock file\nnpm error Missing: tarn@3.0.2 from lock file\nnpm error Missing: tildify@2.0.0 from lock file\nnpm error Missing: @types/geojson@7946.0.16 from lock file\nnpm error Missing: @types/node@24.11.0 from lock file\nnpm error Missing: denque@2.1.0 from lock file\nnpm error Missing: iconv-lite@0.6.3 from lock file\nnpm error Missing: lru-cache@10.4.3 from lock file\nnpm error Missing: picomatch@2.3.1 from lock file\nnpm error Missing: aws-ssl-profiles@1.1.2 from lock file\nnpm error Missing: generate-function@2.3.1 from lock file\nnpm error Missing: lru.min@1.1.4 from lock file\nnpm error Missing: named-placeholders@1.1.6 from lock file\nnpm error Missing: sql-escaper@1.3.3 from lock file\nnpm error Missing: is-property@1.0.2 from lock file\nnpm error Missing: pg-cloudflare@1.3.0 from lock file\nnpm error Missing: pg-connection-string@2.11.0 from lock file\nnpm error Missing: pg-pool@3.12.0 from lock file\nnpm error Missing: pgpass@1.0.5 from lock file\nnpm error Missing: pg-int8@1.0.1 from lock file\nnpm error Missing: postgres-array@2.0.0 from lock file\nnpm error Missing: postgres-bytea@1.0.1 from lock file\nnpm error Missing: postgres-date@1.0.7 from lock file\nnpm error Missing: postgres-interval@1.2.0 from lock file\nnpm error Missing: split2@4.2.0 from lock file\nnpm error Missing: pump@3.0.4 from lock file\nnpm error Missing: resolve@1.22.11 from lock file\nnpm error Missing: is-core-module@2.16.1 from lock file\nnpm error Missing: path-parse@1.0.7 from lock file\nnpm error Missing: supports-preserve-symlinks-flag@1.0.0 from lock file\nnpm error Missing: bindings@1.5.0 from lock file\nnpm error Missing: node-addon-api@7.1.1 from lock file\nnpm error Missing: node-gyp@8.4.1 from lock file\nnpm error Missing: prebuild-install@7.1.3 from lock file\nnpm error Missing: tar@7.5.7 from lock file\nnpm error Missing: file-uri-to-path@1.0.0 from lock file\nnpm error Missing: env-paths@2.2.1 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: make-fetch-happen@9.1.0 from lock file\nnpm error Missing: nopt@5.0.0 from lock file\nnpm error Missing: npmlog@6.0.2 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: agentkeepalive@4.6.0 from lock file\nnpm error Missing: cacache@15.3.0 from lock file\nnpm error Missing: http-cache-semantics@4.2.0 from lock file\nnpm error Missing: http-proxy-agent@4.0.1 from lock file\nnpm error Missing: https-proxy-agent@5.0.1 from lock file\nnpm error Missing: is-lambda@1.0.1 from lock file\nnpm error Missing: lru-cache@6.0.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass-collect@1.0.2 from lock file\nnpm error Missing: minipass-fetch@1.4.1 from lock file\nnpm error Missing: minipass-flush@1.0.5 from lock file\nnpm error Missing: minipass-pipeline@1.2.4 from lock file\nnpm error Missing: negotiator@0.6.4 from lock file\nnpm error Missing: promise-retry@2.0.1 from lock file\nnpm error Missing: socks-proxy-agent@6.2.1 from lock file\nnpm error Missing: ssri@8.0.1 from lock file\nnpm error Missing: humanize-ms@1.2.1 from lock file\nnpm error Missing: @npmcli/fs@1.1.1 from lock file\nnpm error Missing: @npmcli/move-file@1.1.2 from lock file\nnpm error Missing: chownr@2.0.0 from lock file\nnpm error Missing: fs-minipass@2.1.0 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: infer-owner@1.0.4 from lock file\nnpm error Missing: lru-cache@6.0.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: mkdirp@1.0.4 from lock file\nnpm error Missing: p-map@4.0.0 from lock file\nnpm error Missing: promise-inflight@1.0.1 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: unique-filename@1.1.1 from lock file\nnpm error Missing: @gar/promisify@1.1.3 from lock file\nnpm error Missing: rimraf@3.0.2 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: encoding@0.1.13 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass-sized@1.0.3 from lock file\nnpm error Missing: minizlib@2.1.2 from lock file\nnpm error Missing: iconv-lite@0.6.3 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: abbrev@1.1.1 from lock file\nnpm error Missing: are-we-there-yet@3.0.1 from lock file\nnpm error Missing: console-control-strings@1.1.0 from lock file\nnpm error Missing: gauge@4.0.4 from lock file\nnpm error Missing: set-blocking@2.0.0 from lock file\nnpm error Missing: delegates@1.0.0 from lock file\nnpm error Missing: aproba@2.1.0 from lock file\nnpm error Missing: color-support@1.1.3 from lock file\nnpm error Missing: has-unicode@2.0.1 from lock file\nnpm error Missing: signal-exit@3.0.7 from lock file\nnpm error Missing: string-width@4.2.3 from lock file\nnpm error Missing: strip-ansi@6.0.1 from lock file\nnpm error Missing: wide-align@1.1.5 from lock file\nnpm error Missing: aggregate-error@3.1.0 from lock file\nnpm error Missing: clean-stack@2.2.0 from lock file\nnpm error Missing: indent-string@4.0.0 from lock file\nnpm error Missing: expand-template@2.0.3 from lock file\nnpm error Missing: github-from-package@0.0.0 from lock file\nnpm error Missing: mkdirp-classic@0.5.3 from lock file\nnpm error Missing: napi-build-utils@2.0.0 from lock file\nnpm error Missing: node-abi@3.87.0 from lock file\nnpm error Missing: rc@1.2.8 from lock file\nnpm error Missing: simple-get@4.0.1 from lock file\nnpm error Missing: tar-fs@2.1.4 from lock file\nnpm error Missing: tunnel-agent@0.6.0 from lock file\nnpm error Missing: err-code@2.0.3 from lock file\nnpm error Missing: retry@0.12.0 from lock file\nnpm error Missing: deep-extend@0.6.0 from lock file\nnpm error Missing: ini@1.3.8 from lock file\nnpm error Missing: strip-json-comments@2.0.1 from lock file\nnpm error Missing: decompress-response@6.0.0 from lock file\nnpm error Missing: simple-concat@1.0.1 from lock file\nnpm error Missing: mimic-response@3.1.0 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error Missing: socks@2.8.7 from lock file\nnpm error Missing: smart-buffer@4.2.0 from lock file\nnpm error Missing: minipass@3.3.6 from lock file\nnpm error Missing: tailwindcss@4.2.1 from lock file\nnpm error Missing: @isaacs/fs-minipass@4.0.1 from lock file\nnpm error Missing: chownr@3.0.0 from lock file\nnpm error Missing: minizlib@3.1.0 from lock file\nnpm error Missing: yallist@5.0.0 from lock file\nnpm error Missing: chownr@1.1.4 from lock file\nnpm error Missing: tar-stream@2.2.0 from lock file\nnpm error Missing: bl@4.1.0 from lock file\nnpm error Missing: fs-constants@1.0.0 from lock file\nnpm error Missing: buffer@5.7.1 from lock file\nnpm error Missing: @azure/core-auth@1.10.1 from lock file\nnpm error Missing: @azure/identity@4.13.0 from lock file\nnpm error Missing: @azure/keyvault-keys@4.10.0 from lock file\nnpm error Missing: @js-joda/core@5.7.0 from lock file\nnpm error Missing: bl@6.1.6 from lock file\nnpm error Missing: js-md4@0.3.2 from lock file\nnpm error Missing: native-duplexpair@1.0.0 from lock file\nnpm error Missing: sprintf-js@1.1.3 from lock file\nnpm error Missing: @azure/abort-controller@2.1.2 from lock file\nnpm error Missing: @azure/core-util@1.13.1 from lock file\nnpm error Missing: @typespec/ts-http-runtime@0.3.3 from lock file\nnpm error Missing: @azure/core-client@1.10.1 from lock file\nnpm error Missing: @azure/core-rest-pipeline@1.22.2 from lock file\nnpm error Missing: @azure/core-tracing@1.3.1 from lock file\nnpm error Missing: @azure/logger@1.3.0 from lock file\nnpm error Missing: @azure/msal-browser@4.29.0 from lock file\nnpm error Missing: @azure/msal-node@3.8.8 from lock file\nnpm error Missing: open@10.2.0 from lock file\nnpm error Missing: @azure-rest/core-client@2.5.1 from lock file\nnpm error Missing: @azure/core-http-compat@2.3.2 from lock file\nnpm error Missing: @azure/core-lro@2.7.2 from lock file\nnpm error Missing: @azure/core-paging@1.6.2 from lock file\nnpm error Missing: @azure/keyvault-common@2.0.0 from lock file\nnpm error Missing: @azure/msal-common@15.15.0 from lock file\nnpm error Missing: uuid@8.3.2 from lock file\nnpm error Missing: http-proxy-agent@7.0.2 from lock file\nnpm error Missing: default-browser@5.5.0 from lock file\nnpm error Missing: define-lazy-prop@3.0.0 from lock file\nnpm error Missing: is-inside-container@1.0.0 from lock file\nnpm error Missing: wsl-utils@0.1.0 from lock file\nnpm error Missing: bundle-name@4.1.0 from lock file\nnpm error Missing: default-browser-id@5.0.1 from lock file\nnpm error Missing: run-applescript@7.1.0 from lock file\nnpm error Missing: is-docker@3.0.0 from lock file\nnpm error Missing: bufrw@1.4.0 from lock file\nnpm error Missing: error@7.0.2 from lock file\nnpm error Missing: long@2.4.0 from lock file\nnpm error Missing: ansi-color@0.2.2 from lock file\nnpm error Missing: hexer@1.5.0 from lock file\nnpm error Missing: xtend@4.0.2 from lock file\nnpm error Missing: string-template@0.2.1 from lock file\nnpm error Missing: process@0.10.1 from lock file\nnpm error Missing: unique-slug@2.0.2 from lock file\nnpm error Missing: imurmurhash@0.1.4 from lock file\nnpm error Missing: string-width@4.2.3 from lock file\nnpm error Missing: @colors/colors@1.6.0 from lock file\nnpm error Missing: @dabh/diagnostics@2.0.8 from lock file\nnpm error Missing: async@3.2.6 from lock file\nnpm error Missing: logform@2.7.0 from lock file\nnpm error Missing: one-time@1.0.0 from lock file\nnpm error Missing: safe-stable-stringify@2.5.0 from lock file\nnpm error Missing: stack-trace@0.0.10 from lock file\nnpm error Missing: triple-beam@1.4.1 from lock file\nnpm error Missing: @so-ric/colorspace@1.1.6 from lock file\nnpm error Missing: enabled@2.0.0 from lock file\nnpm error Missing: kuler@2.0.0 from lock file\nnpm error Missing: color@5.0.3 from lock file\nnpm error Missing: text-hex@1.0.0 from lock file\nnpm error Missing: @types/triple-beam@1.3.5 from lock file\nnpm error Missing: fecha@4.2.3 from lock file\nnpm error Missing: fn.name@1.1.0 from lock file\nnpm error Missing: is-wsl@3.1.1 from lock file\nnpm error Missing: undici-types@6.21.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: lodash.merge@4.6.2 from lock file\nnpm error Missing: accepts@1.3.8 from lock file\nnpm error Missing: body-parser@1.20.4 from lock file\nnpm error Missing: content-disposition@0.5.4 from lock file\nnpm error Missing: cookie-signature@1.0.7 from lock file\nnpm error Missing: debug@2.6.9 from lock file\nnpm error Missing: finalhandler@1.3.2 from lock file\nnpm error Missing: fresh@0.5.2 from lock file\nnpm error Missing: merge-descriptors@1.0.3 from lock file\nnpm error Missing: path-to-regexp@0.1.12 from lock file\nnpm error Missing: qs@6.14.2 from lock file\nnpm error Missing: send@0.19.2 from lock file\nnpm error Missing: serve-static@1.16.3 from lock file\nnpm error Missing: type-is@1.6.18 from lock file\nnpm error Missing: mime-types@2.1.35 from lock file\nnpm error Missing: negotiator@0.6.3 from lock file\nnpm error Missing: iconv-lite@0.4.24 from lock file\nnpm error Missing: raw-body@2.5.3 from lock file\nnpm error Missing: ms@2.0.0 from lock file\nnpm error Missing: mime-db@1.52.0 from lock file\nnpm error Missing: mime@1.6.0 from lock file\nnpm error Missing: media-typer@0.3.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @grpc/proto-loader@0.8.0 from lock file\nnpm error Missing: google-auth-library@10.6.1 from lock file\nnpm error Missing: google-logging-utils@1.1.3 from lock file\nnpm error Missing: node-fetch@3.3.2 from lock file\nnpm error Missing: proto3-json-serializer@3.0.4 from lock file\nnpm error Missing: retry-request@8.0.2 from lock file\nnpm error Missing: gaxios@7.1.3 from lock file\nnpm error Missing: gcp-metadata@8.1.2 from lock file\nnpm error Missing: teeny-request@10.1.0 from lock file\nnpm error Missing: https-proxy-agent@5.0.1 from lock file\nnpm error Missing: glob@7.2.3 from lock file\nnpm error Missing: fs.realpath@1.0.0 from lock file\nnpm error Missing: inflight@1.0.6 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: path-is-absolute@1.0.1 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: concat-map@0.0.1 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/core@1.30.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.30.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/api-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/resources@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-logs@0.52.1 from lock file\nnpm error Missing: @opentelemetry/sdk-metrics@1.25.1 from lock file\nnpm error Missing: @opentelemetry/sdk-trace-base@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: @opentelemetry/otlp-exporter-base@0.52.1 from lock file\nnpm error Missing: @opentelemetry/otlp-transformer@0.52.1 from lock file\nnpm error Missing: @opentelemetry/context-async-hooks@1.25.1 from lock file\nnpm error Missing: @opentelemetry/propagator-b3@1.25.1 from lock file\nnpm error Missing: @opentelemetry/propagator-jaeger@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/core@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.25.1 from lock file\nnpm error Missing: @opentelemetry/semantic-conventions@1.28.0 from lock file\nnpm error Missing: color-convert@3.1.3 from lock file\nnpm error Missing: color-string@2.1.4 from lock file\nnpm error Missing: color-name@2.1.0 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: is-fullwidth-code-point@3.0.0 from lock file\nnpm error Missing: ansi-regex@5.0.1 from lock file\nnpm error Missing: ms@2.1.2 from lock file\nnpm error Missing: @tootallnate/once@1.1.2 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error Missing: undici-types@7.16.0 from lock file\nnpm error Missing: minimatch@3.1.5 from lock file\nnpm error Missing: brace-expansion@1.1.12 from lock file\nnpm error Missing: balanced-match@1.0.2 from lock file\nnpm error Missing: @types/readable-stream@4.0.23 from lock file\nnpm error Missing: readable-stream@4.7.0 from lock file\nnpm error Missing: events@3.3.0 from lock file\nnpm error Missing: process@0.11.10 from lock file\nnpm error Missing: is-fullwidth-code-point@3.0.0 from lock file\nnpm error Missing: strip-ansi@6.0.1 from lock file\nnpm error Missing: ansi-regex@5.0.1 from lock file\nnpm error Missing: agent-base@6.0.2 from lock file\nnpm error\nnpm error Clean install a project\nnpm error\nnpm error Usage:\nnpm error npm ci\nnpm error\nnpm error Options:\nnpm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]\nnpm error [--no-bin-links] [--no-fund] [--dry-run]\nnpm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm error [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm error\nnpm error aliases: clean-install, ic, install-clean, isntall-clean\nnpm error\nnpm error Run \"npm help ci\" for more info\nnpm error A complete log of this run can be found in: /www-data-home/.npm/_logs/2026-03-04T02_56_41_127Z-debug-0.log. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/71a624a3-f7c0-4e46-a0a8-ba5920232200?project=350817205989."
+2026-03-04T02:57:46.9563910Z     ***,
+2026-03-04T02:57:46.9564194Z     "status": 3,
+2026-03-04T02:57:46.9564486Z     "code": 3
+2026-03-04T02:57:46.9564767Z   ***
+2026-03-04T02:57:46.9565046Z ***
+2026-03-04T02:57:46.9565788Z [2026-03-04T02:57:46.902Z] Error: Failed to update function ssrportfoliodanilonovai in region us-central1
+2026-03-04T02:57:46.9566750Z     at /opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:440:19
+2026-03-04T02:57:46.9567623Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-03-04T02:57:46.9568681Z     at async Fabricator.updateV2Function (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:424:32)
+2026-03-04T02:57:46.9569951Z     at async Fabricator.updateEndpoint (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:160:13)
+2026-03-04T02:57:46.9571114Z     at async handle (/opt/hostedtoolcache/node/20.20.0/x64/lib/node_modules/firebase-tools/lib/deploy/functions/release/fabricator.js:91:17)
+2026-03-04T02:57:46.9571680Z 
+2026-03-04T02:57:46.9571902Z Error: There was an error deploying functions
+2026-03-04T02:57:47.2346560Z ##[error]Process completed with exit code 2.
+2026-03-04T02:57:47.2408515Z ##[group]Run echo "❌ Pipeline de deploy falhou."
+2026-03-04T02:57:47.2409002Z [36;1mecho "❌ Pipeline de deploy falhou."[0m
+2026-03-04T02:57:47.2409519Z [36;1mecho "### Falha no Pipeline de Deploy ❌" >> $GITHUB_STEP_SUMMARY[0m
+2026-03-04T02:57:47.2410147Z [36;1mecho "Verifique os logs do GitHub Actions para detalhes." >> $GITHUB_STEP_SUMMARY[0m
+2026-03-04T02:57:47.2459672Z shell: /usr/bin/bash -e ***0***
+2026-03-04T02:57:47.2460019Z env:
+2026-03-04T02:57:47.2460293Z   NODE_VERSION: 20
+2026-03-04T02:57:47.2460593Z   PNPM_VERSION: 10.30.3
+2026-03-04T02:57:47.2461038Z   NEXT_PUBLIC_SUPABASE_URL: ***
+2026-03-04T02:57:47.2462489Z   NEXT_PUBLIC_SUPABASE_ANON_KEY: ***
+2026-03-04T02:57:47.2463009Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ***
+2026-03-04T02:57:47.2463568Z   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ***
+2026-03-04T02:57:47.2465120Z   SUPABASE_SERVICE_ROLE_KEY: ***
+2026-03-04T02:57:47.2474983Z   FIREBASE_SERVICE_ACCOUNT_JSON: ***
+2026-03-04T02:57:47.2475603Z   FIREBASE_PROJECT_ID: ***
+2026-03-04T02:57:47.2476011Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-03-04T02:57:47.2476778Z   CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:57:47.2477824Z   GOOGLE_APPLICATION_CREDENTIALS: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:57:47.2478775Z   GOOGLE_GHA_CREDS_PATH: /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json
+2026-03-04T02:57:47.2479457Z   CLOUDSDK_CORE_PROJECT: ***
+2026-03-04T02:57:47.2479820Z   CLOUDSDK_PROJECT: ***
+2026-03-04T02:57:47.2480156Z   GCLOUD_PROJECT: ***
+2026-03-04T02:57:47.2480479Z   GCP_PROJECT: ***
+2026-03-04T02:57:47.2480819Z   GOOGLE_CLOUD_PROJECT: ***
+2026-03-04T02:57:47.2481133Z ##[endgroup]
+2026-03-04T02:57:47.2550299Z ❌ Pipeline de deploy falhou.
+2026-03-04T02:57:47.2627272Z Post job cleanup.
+2026-03-04T02:57:47.3466104Z Removed exported credentials at "/home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL/gha-creds-c2e5cbdc1a3dd4bf.json".
+2026-03-04T02:57:47.3550279Z Post job cleanup.
+2026-03-04T02:57:47.4111740Z Pruning is unnecessary.
+2026-03-04T02:57:47.4217948Z Post job cleanup.
+2026-03-04T02:57:47.5216801Z [command]/usr/bin/git version
+2026-03-04T02:57:47.5266469Z git version 2.53.0
+2026-03-04T02:57:47.5311064Z Temporarily overriding HOME='/home/runner/work/_temp/b77d5649-78e9-4673-920d-c70c07d726a6' before making global git config changes
+2026-03-04T02:57:47.5312723Z Adding repository directory to the temporary git global config as a safe directory
+2026-03-04T02:57:47.5315357Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PORTFOLIO-DANILO-FINAL/PORTFOLIO-DANILO-FINAL
+2026-03-04T02:57:47.5365791Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-03-04T02:57:47.5408123Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-03-04T02:57:47.5725600Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-03-04T02:57:47.5751105Z http.https://github.com/.extraheader
+2026-03-04T02:57:47.5767608Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-03-04T02:57:47.5804671Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-03-04T02:57:47.6110347Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-03-04T02:57:47.6147225Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-03-04T02:57:47.6534370Z Cleaning up orphan processes
