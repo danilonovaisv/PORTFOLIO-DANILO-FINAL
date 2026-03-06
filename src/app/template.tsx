@@ -1,10 +1,17 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { GHOST_EASE } from '@/config/motion';
+import dynamic from 'next/dynamic';
 import { useMotionGate } from '@/hooks/useMotionGate';
+
+// Dynamically import the motion wrapper to prevent Turbopack HMR proxy.mjs crash.
+// This isolates the framer-motion module boundary so the HMR graph does not
+// lose the factory reference when sibling modules change.
+const MotionWrapper = dynamic(() => import('@/components/layout/MotionWrapper'), {
+  ssr: false,
+  loading: () => null,
+});
 
 /**
  * Ghost Era Page Template
@@ -34,17 +41,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.95,
-        ease: GHOST_EASE,
-      }}
-      className="w-full flex-col flex grow"
-    >
+    <MotionWrapper pathname={pathname}>
       {children}
-    </motion.div>
+    </MotionWrapper>
   );
 }
