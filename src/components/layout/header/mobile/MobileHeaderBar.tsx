@@ -56,8 +56,8 @@ export default function MobileHeaderBar({
     >
       <div
         className={`w-full h-[60px] pointer-events-auto transition-colors duration-300 ${isLight
-            ? 'bg-background/40 border-b border-white/10 shadow-xl'
-            : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
+          ? 'bg-background/40 border-b border-white/10 shadow-xl'
+          : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
           }`}
       >
         <div className="flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-16">
@@ -68,7 +68,7 @@ export default function MobileHeaderBar({
                 alt="Danilo Novais — Creative Developer"
                 width={80}
                 height={80}
-                style={{ height: 'clamp(32px, 8vw, 44px)', width: 'auto' }}
+                style={{ height: 'clamp(36px, 10vw, 48px)', width: 'auto' }}
                 className="object-contain"
                 priority
                 unoptimized

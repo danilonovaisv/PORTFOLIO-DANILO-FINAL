@@ -21,7 +21,7 @@ export const AntigravityDebugger: React.FC = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-9999 bg-black/90 text-[10px] font-mono p-3 rounded-lg border border-white/10 shadow-2xl backdrop-blur-md text-white w-52">
+    <div className="fixed top-20 left-3 lg:top-auto lg:bottom-4 lg:right-4 lg:left-auto z-[9999] bg-black/90 text-[10px] font-mono p-3 rounded-lg border border-white/10 shadow-2xl backdrop-blur-md text-white w-44 lg:w-52 ml-[env(safe-area-inset-left)] lg:ml-0 lg:mr-[env(safe-area-inset-right)]">
       <div className="mb-2 uppercase tracking-wider text-neutral-500 font-bold border-b border-white/10 pb-1 flex justify-between">
         Antigravity System
         <span className="text-green-500">●</span>
