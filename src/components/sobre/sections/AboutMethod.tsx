@@ -55,18 +55,17 @@ export default function AboutMethod() {
             src={
               (isMobile
                 ? ABOUT_CONTENT.method.videos.mobile
-                : ABOUT_CONTENT.method.videos.desktop) || ''
+                : ABOUT_CONTENT.method.videos.desktop) || undefined
             }
             autoPlay={!prefersReducedMotion}
             loop={!prefersReducedMotion}
             muted
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-            className={`w-full h-full ${
-              isMobile
+            className={`w-full h-full ${isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-center opacity-55'
-            }`}
+              }`}
             aria-hidden="true"
           >
             <track

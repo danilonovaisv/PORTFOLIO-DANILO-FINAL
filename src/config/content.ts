@@ -28,7 +28,7 @@ export const HOME_CONTENT = {
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
         label: 'baixar curriculum',
-        href: '/cv-danilo-novais.pdf',
+        href: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CURRICULUM-2026.html',
         variant: 'secondary',
         download: true,
         external: true,
@@ -326,7 +326,7 @@ export const ABOUT_CONTENT = {
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
         label: 'baixar curriculum',
-        href: '/cv-danilo-novais.pdf',
+        href: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CURRICULUM-2026.html',
         variant: 'secondary',
         download: true,
         external: true,

@@ -34,10 +34,12 @@ export function AboutClosing() {
 
   // Closing Assets
   const closingVideoDesk = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.closingDesktop
+    SITE_ASSET_KEYS.about.closingDesktop,
+    BRAND.assets.video.aboutClosing
   );
   const closingVideoMobile = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.closingMobile
+    SITE_ASSET_KEYS.about.closingMobile,
+    BRAND.assets.video.aboutClosingMobile
   );
   const posterDesk = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.homeManifestoPosterDesk,
@@ -105,25 +107,27 @@ export function AboutClosing() {
           <div className="mt-12 md:mt-11 w-full max-w-[1680px] mx-auto overflow-hidden rounded-lg bg-black/30 relative">
             <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
 
-            <video
-              ref={videoRef}
-              className="w-full h-full object-cover"
-              src={activeVideo ?? ''}
-              autoPlay={!prefersReducedMotion}
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              aria-label="Demonstração visual de experiências"
-              poster={activePoster}
-            >
-              <track
-                kind="captions"
-                src={DEFAULT_CAPTIONS}
-                srcLang="pt-BR"
-                label="Português"
-              />
-            </video>
+            {activeVideo && (
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                src={activeVideo}
+                autoPlay={!prefersReducedMotion}
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="Demonstração visual de experiências"
+                poster={activePoster}
+              >
+                <track
+                  kind="captions"
+                  src={DEFAULT_CAPTIONS}
+                  srcLang="pt-BR"
+                  label="Português"
+                />
+              </video>
+            )}
           </div>
         </div>
 

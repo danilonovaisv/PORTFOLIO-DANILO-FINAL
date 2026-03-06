@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CV Danilo Novais - Completo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+:root {
+    --primary-accent: #0048ff;
+    --text-primary: #202121;
+    --text-secondary: #626363;
+    --bg-sidebar: #f8f9fa;
+}
+html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    background-color: #e5e5e5;
+    padding: 2rem 0;
+}
+.font-outfit {
+    font-family: 'Outfit', sans-serif;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+.page {
+    width: 210mm;
+    height: 297mm;
+    background-color: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    margin: 0 auto 2rem auto;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+@media print {
+    body { 
+        background-color: white; 
+        padding: 0;
+    }
+    .page { 
+        box-shadow: none;
+        margin: 0;
+    }
+    .page-break { 
+        page-break-before: always; 
+        break-before: page; 
+    }
+    .no-print { display: none !important; }
+}
+
+
+.circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+    max-height: 250px;
+}
+.circle-bg {
+    fill: none;
+    stroke: #e2e8f0;
+    stroke-width: 2.5;
+}
+.circle {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+}
+.percentage {
+    fill: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 10px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page flex flex-col">
+    <div class="p-10 pt-12 flex-grow flex flex-col relative h-full">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-10">
+            <div class="flex items-center gap-6">
+                <!-- Limit logo size slightly -->
+                <img src="public/Faivcon.svg" alt="Logo" class="w-[72px] h-[72px] shrink-0 object-contain">
+                <div class="pt-0">
+                    <h1 class="text-5xl font-extrabold font-outfit tracking-tighter text-[var(--text-primary)] mb-1 uppercase leading-[0.9]">Danilo Novais Vilela</h1>
+                    <p class="text-lg text-[var(--primary-accent)] font-semibold tracking-wide">Head de Criação | Diretor de Criação Sênior</p>
+                </div>
+            </div>
+            
+            <div class="w-20 h-20 shrink-0 flex items-center justify-end">
+                <img src="docs/QR.jpg" alt="QR Code" class="w-[72px] h-[72px] shrink-0 object-contain rounded-md border border-gray-100">
+            </div>
+        </header>
+
+        <div class="grid grid-cols-12 gap-12 flex-grow relative">
+            <!-- Left Col (8/12) -->
+            <div class="col-span-8 flex flex-col pr-4 pb-4 space-y-10">
+                <!-- Resumo Executivo -->
+                <section>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">menu</span>
+                        <h2 class="text-lg font-extrabold font-outfit uppercase tracking-widest">Resumo Executivo</h2>
+                    </div>
+                    <div class="space-y-3 text-[var(--text-secondary)] leading-relaxed text-[11px] pr-2 text-justify">
+                        <p>Diretor de Criação com mais de 10 anos de experiência no mercado publicitário, com vivência em campanhas B2B, B2C e públicos de todos os segmentos.</p>
+                        <p>Especialista em transformar estratégia em sistemas criativos escaláveis, conectando branding, conteúdo e performance.</p>
+                        <p>Experiência consolidada em liderança de times multidisciplinares, campanhas 360°, reposicionamento de marca e experiências digitais.</p>
+                        <p>Atuação focada em estruturação de operações criativas, organização de processos, redução de retrabalho e geração de impacto mensurável através de dados e KPIs.</p>
+                        <p>Integração profunda de inteligência artificial e automações para ganho de eficiência, escalabilidade e qualidade nas entregas.</p>
+                    </div>
+                </section>
+                
+                <!-- Experiência -->
+                <section class="flex-grow">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">work</span>
+                        <h2 class="text-lg font-extrabold font-outfit uppercase tracking-widest">Experiência Profissional</h2>
+                    </div>
+                    <div class="space-y-8 border-l-2 border-gray-200 ml-2">
+                        <div class="relative pl-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-[var(--primary-accent)] bg-white z-10"></div>
+                            <div class="flex justify-between items-start mb-0.5">
+                                <div>
+                                    <h3 class="text-sm font-bold">Diretor de Criação</h3>
+                                    <p class="text-[var(--primary-accent)] font-bold text-xs">ALL SET COMUNICAÇÃO</p>
+                                </div>
+                                <span class="text-[10px] font-bold text-[var(--text-secondary)] bg-gray-100 px-2 py-0.5 rounded mt-1">2015 – 2025</span>
+                            </div>
+                            <p class="text-[11px] text-[var(--text-secondary)] mb-3 italic">Liderança estratégica da operação criativa da agência.</p>
+                            <div class="grid grid-cols-2 gap-4 text-[10.5px]">
+                                <div>
+                                    <h4 class="font-bold mb-1.5 uppercase tracking-tight text-[var(--text-primary)]">Principais Responsabilidades:</h4>
+                                    <ul class="space-y-1 text-[var(--text-secondary)]">
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Estruturação de direção criativa por cliente</span></li>
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Implementação de sistemas de campanha multicanal</span></li>
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Fluxo de briefing, validação e entregas</span></li>
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Gestão e direcionamento de time criativo</span></li>
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Apresentação e defesa estratégica de conceitos</span></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1.5 uppercase tracking-tight text-[var(--text-primary)]">Impactos Gerados:</h4>
+                                    <ul class="space-y-1 text-[var(--text-secondary)]">
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Redução de retrabalho e ganho de eficiência</span></li>
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Maior consistência e padronização de marca</span></li>
+                                        <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Otimização baseada em performance criativa</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-[var(--primary-accent)] bg-white z-10"></div>
+                            <div class="flex justify-between items-start mb-0.5">
+                                <div>
+                                    <h3 class="text-sm font-bold">Direção de Arte</h3>
+                                    <p class="text-[var(--primary-accent)] font-bold text-xs">SUN COMUNICAÇÃO</p>
+                                </div>
+                                <span class="text-[10px] font-bold text-[var(--text-secondary)] bg-gray-100 px-2 py-0.5 rounded mt-1">2014 – 2015</span>
+                            </div>
+                            <ul class="text-[11px] text-[var(--text-secondary)] space-y-1 mt-2">
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Desenvolvimento de key visuals estratégicos</span></li>
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Padronização de identidade visual e brand guidelines</span></li>
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Integração entre criação e copy e adaptação multiformato</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-gray-300 bg-white z-10"></div>
+                            <div class="flex justify-between items-start mb-0.5">
+                                <div>
+                                    <h3 class="text-sm font-bold leading-tight">Consultor de Mkt e Dir. Criativa</h3>
+                                    <p class="text-[var(--primary-accent)] font-bold text-xs uppercase">Ilha do Sol Bar & Música</p>
+                                </div>
+                                <span class="text-[10px] font-bold text-[var(--text-secondary)] bg-gray-100 px-2 py-0.5 rounded mt-1">2012 – 2013</span>
+                            </div>
+                            <ul class="text-[11px] text-[var(--text-secondary)] space-y-1 mt-2">
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Estruturação de posicionamento estratégico</span></li>
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Planejamento e execução de campanhas promocionais</span></li>
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Direção criativa de eventos e ativações</span></li>
+                            </ul>
+                            <p class="text-[11px] text-[var(--text-primary)] font-bold mt-2 italic px-1">Impactos: Aumento de fluxo através do fortalecimento da identidade de marca.</p>
+                        </div>
+                        
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar (4/12) -->
+            <aside class="col-span-4 bg-[var(--bg-sidebar)] shadow-[inset_2px_0_12px_rgba(0,0,0,0.03)] -mt-10 -mb-10 -mr-10 p-8 pt-12 flex flex-col justify-between" style="border-top-left-radius: 40px;">
+                <div>
+                    <!-- Contato -->
+                    <section class="mb-10">
+                        <h3 class="text-[10px] font-extrabold uppercase tracking-[0.2em] mb-4 text-[var(--text-primary)] border-b-2 border-gray-200 pb-2">Contato</h3>
+                        
+<div class="space-y-4">
+    <div class="flex items-center gap-3 group">
+        <div class="w-8 h-8 shrink-0 rounded-full bg-white shadow flex items-center justify-center border border-gray-100 group-hover:border-[var(--primary-accent)] transition-colors duration-300">
+            <span class="material-symbols-outlined text-[var(--primary-accent)] text-sm">location_on</span>
+        </div>
+        <span class="text-[var(--text-secondary)] font-medium text-[11px]">São Paulo, Brasil</span>
+    </div>
+    <div class="flex items-center gap-3 group">
+        <div class="w-8 h-8 shrink-0 rounded-full bg-white shadow flex items-center justify-center border border-gray-100 group-hover:border-[var(--primary-accent)] transition-colors duration-300">
+            <span class="material-symbols-outlined text-[var(--primary-accent)] text-sm">call</span>
+        </div>
+        <a class="text-[var(--text-secondary)] font-medium text-[11px] hover:text-[var(--primary-accent)] transition-colors duration-300" href="tel:+5511983966838">+55 11 98396-6838</a>
+    </div>
+    <div class="flex items-center gap-3 group">
+        <div class="w-8 h-8 shrink-0 rounded-full bg-white shadow flex items-center justify-center border border-gray-100 group-hover:border-[var(--primary-accent)] transition-colors duration-300">
+            <span class="material-symbols-outlined text-[var(--primary-accent)] text-sm">mail</span>
+        </div>
+        <a class="text-[var(--text-secondary)] font-medium text-[11px] hover:text-[var(--primary-accent)] transition-colors duration-300" href="mailto:dannovaisv@gmail.com">dannovaisv@gmail.com</a>
+    </div>
+    <div class="flex items-center gap-3 group">
+        <div class="w-8 h-8 shrink-0 rounded-full bg-white shadow flex items-center justify-center border border-gray-100 group-hover:border-[var(--primary-accent)] transition-colors duration-300">
+            <span class="material-symbols-outlined text-[var(--primary-accent)] text-sm">mail</span>
+        </div>
+        <a class="text-[var(--text-secondary)] font-medium text-[11px] hover:text-[var(--primary-accent)] transition-colors duration-300" href="mailto:danilo@portfoliodanilo.com">danilo@portfoliodanilo.com</a>
+    </div>
+    <div class="flex items-center gap-3 group">
+        <div class="w-8 h-8 shrink-0 rounded-full bg-white shadow flex items-center justify-center border border-gray-100 group-hover:border-[var(--primary-accent)] transition-colors duration-300">
+            <span class="material-symbols-outlined text-[var(--primary-accent)] text-sm">language</span>
+        </div>
+        <a class="text-[var(--text-secondary)] font-medium text-[11px] hover:text-[var(--primary-accent)] transition-colors duration-300" href="https://portfoliodanilo.com" target="_blank" rel="noreferrer">portfoliodanilo.com</a>
+    </div>
+</div>
+
+<div class="flex gap-2.5 mt-5 pt-5 border-t border-gray-200 justify-start">
+    <a href="https://linkedin.com/in/danilonovais" target="_blank" rel="noreferrer" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center border border-gray-100 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)] text-gray-500 transition-colors duration-300">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+    </a>
+    <a href="https://instagram.com/danilo_novais" target="_blank" rel="noreferrer" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center border border-gray-100 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)] text-gray-500 transition-colors duration-300">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://facebook.com/danilonovaisvilela" target="_blank" rel="noreferrer" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center border border-gray-100 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)] text-gray-500 transition-colors duration-300">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.729 0 1.324-.597 1.324-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg>
+    </a>
+    <a href="https://twitter.com/danilo_novais" target="_blank" rel="noreferrer" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center border border-gray-100 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)] text-gray-500 transition-colors duration-300">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+</div>
+
+
+                    </section>
+                    
+                    <!-- Competências -->
+                    <section class="mb-6">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">bar_chart</span>
+                            <h3 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[var(--text-primary)]">Competências Estratégicas</h3>
+                        </div>
+                        <div class="space-y-4 text-[10px]">
+                            <div class="space-y-4">
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Creative Leadership</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 95%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Direção de Criação e Direção de Arte</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 98%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Branding e Reposicionamento de Marca</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 92%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Campanhas Integradas 360°</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 90%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Estruturação de Operações Criativas</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 88%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Performance Criativa e Conteúdo Digital</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 85%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">IA aplicada ao fluxo criativo</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 94%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Experiência Digital e Multicanal</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 90%;"></div>
+    </div>
+    
+        </div></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-200 text-center">
+                    <button class="no-print mb-3 w-full flex items-center justify-center gap-2 border-2 border-[var(--text-primary)] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[var(--text-primary)] hover:text-white transition-colors duration-300" onclick="window.print()">
+                        <span class="material-symbols-outlined text-sm">print</span> IMPRIMIR CV
+                    </button>
+                    <div class="text-[8px] text-[var(--text-secondary)] font-bold uppercase tracking-widest opacity-60 text-center">
+                        CV Danilo Novais Vilela • Página 1 de 2
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page page-break flex flex-col">
+    <div class="p-10 pt-16 flex-grow flex flex-col relative h-full"> 
+        <div class="grid grid-cols-12 gap-12 flex-grow relative">
+            
+            <!-- Left Col (8/12) -->
+            <div class="col-span-8 flex flex-col pr-4 pb-4 space-y-10">
+                <!-- Continuação Experiências -->
+                <section>
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">work</span>
+                        <h2 class="text-lg font-extrabold font-outfit uppercase tracking-widest">Experiência Profissional <span class="text-gray-400 font-medium text-sm lowercase">(Cont.)</span></h2>
+                    </div>
+                    <div>
+                        <!-- CANAL DA GENTE -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-gray-300 bg-white z-10"></div>
+                            <div class="flex justify-between items-start mb-0.5">
+                                <div>
+                                    <h3 class="text-sm font-bold leading-tight">Produtor e Diretor de Conteúdo</h3>
+                                    <p class="text-[var(--primary-accent)] font-bold text-xs">CANAL DA GENTE</p>
+                                </div>
+                                <span class="text-[10px] font-bold text-[var(--text-secondary)] bg-gray-100 px-2 py-0.5 rounded mt-1">2011 – 2013</span>
+                            </div>
+                            <ul class="text-[11px] text-[var(--text-secondary)] space-y-1 mt-2">
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Direção de pré e pós-produção</span></li>
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Criação de roteiros comerciais</span></li>
+                                <li class="flex items-start gap-1.5"><span class="text-[var(--primary-accent)]">•</span> <span class="leading-tight">Coordenação de gravações e edição e controle de qualidade e exibição</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Formação Acadêmica -->
+                <section>
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">school</span>
+                        <h2 class="text-lg font-extrabold font-outfit uppercase tracking-widest">Formação Acadêmica</h2>
+                    </div>
+                    
+                    <div class="space-y-6 border-l-2 border-gray-200 ml-2">
+                        <!-- Items -->
+                        <div class="relative pl-6 pb-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-[var(--primary-accent)] bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">Inteligência Artificial - Design</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">EBAC - Escola Britânica de Artes Criativas & Tecnologia</p>
+                            <span class="text-[9px] font-bold text-[var(--text-primary)] bg-gray-100 px-1.5 py-0.5 rounded">Cursando desde Junho 2025</span>
+                        </div>
+                        
+                        <div class="relative pl-6 pb-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-[var(--primary-accent)] bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">UX/UI Designer</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">EBAC - Escola Britânica de Artes Criativas & Tecnologia</p>
+                            <span class="text-[9px] font-bold text-[var(--text-secondary)] bg-gray-100 px-1.5 py-0.5 rounded">2020 – 2021</span>
+                        </div>
+                        
+                        <div class="relative pl-6 pb-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-[var(--primary-accent)] bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">Liderança Criativa - São Paulo</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">Miami Ad School / ESPM</p>
+                            <span class="text-[9px] font-bold text-[var(--text-secondary)] bg-gray-100 px-1.5 py-0.5 rounded">2015 – 2016</span>
+                        </div>
+
+                        <div class="relative pl-6 pb-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-gray-300 bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">MBA - Marketing Digital</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">IGTI - Instituto de Gestão da Tecnologia</p>
+                            <span class="text-[9px] font-bold text-[var(--text-secondary)] bg-gray-100 px-1.5 py-0.5 rounded">2013 – 2015</span>
+                        </div>
+
+                        <div class="relative pl-6 pb-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-gray-300 bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">MBA - Marketing</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">ESAMC - Administração, Mkt e Comunicação</p>
+                            <span class="text-[9px] font-bold text-[var(--text-secondary)] bg-gray-100 px-1.5 py-0.5 rounded">2012 – 2013</span>
+                        </div>
+                        
+                        <div class="relative pl-6 pb-6">
+                                                        <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-gray-300 bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">Comunicação Social - Publicidade e Propaganda</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">ESAMC - Administração, Mkt e Comunicação</p>
+                            <span class="text-[9px] font-bold text-[var(--text-secondary)] bg-gray-100 px-1.5 py-0.5 rounded">2007 – 2011</span>
+                        </div>
+
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[5px] top-1.5 w-[10px] h-[10px] rounded-full border-2 border-gray-300 bg-white z-10"></div>
+                            <h3 class="text-[13px] font-bold text-[var(--text-primary)] leading-tight">Comunicação Social - Designer Gráfico</h3>
+                            <p class="text-[var(--text-secondary)] text-[11px] mb-1">ESAMC - Administração, Mkt e Comunicação</p>
+                            <span class="text-[9px] font-bold text-[var(--text-secondary)] bg-gray-100 px-1.5 py-0.5 rounded">2007 – 2011</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar (4/12) -->
+            <aside class="col-span-4 bg-[var(--bg-sidebar)] shadow-[inset_2px_0_12px_rgba(0,0,0,0.03)] -mt-16 -mb-10 -mr-10 p-8 pt-[80px] flex flex-col justify-between" style="border-top-left-radius: 40px;">
+                <div>
+                    <!-- Ferramentas -->
+                    <section class="mb-10">
+                        <div class="flex items-center gap-2 mb-5">
+                            <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">build</span>
+                            <h3 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[var(--text-primary)] border-b-2 border-transparent">Ferramentas</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="space-y-4">
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Photo Shop</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 98%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">InDesign</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 95%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Illustrator</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 95%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Dreamweaver</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 70%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Premiere</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 85%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">After Effects</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 80%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Pacote Office</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 90%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Web Design</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 90%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Criação</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 98%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Branding</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 95%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Design de Embalagem</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 90%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">IA aplicada à criação</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 94%;"></div>
+    </div>
+    
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-bold uppercase text-[var(--text-primary)] tracking-tight">Automação de fluxo</span>
+                
+            </div>
+            
+    <div class="h-1.5 w-full bg-gray-200 mt-1.5 rounded-full overflow-hidden">
+        <div class="h-full bg-[var(--primary-accent)] rounded-full" style="width: 88%;"></div>
+    </div>
+    
+        </div></div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="flex items-center gap-2 mb-5">
+                            <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">info</span>
+                            <h3 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[var(--text-primary)]">Informações Adicionais</h3>
+                        </div>
+                        <ul class="space-y-3 text-[11px] text-[var(--text-secondary)]">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-[var(--primary-accent)] opacity-80 mt-0.5 text-sm">arrow_right</span>
+                                <span class="leading-tight">Experiência em campanhas B2B e B2C para diversos segmentos</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-[var(--primary-accent)] opacity-80 mt-0.5 text-sm">arrow_right</span>
+                                <span class="leading-tight">Experiência com públicos de todos os perfis socioeconômicos (A a D)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-[var(--primary-accent)] opacity-80 mt-0.5 text-sm">arrow_right</span>
+                                <span class="leading-tight">Atuação em branding, digital, eventos e comunicação de ponta a ponta</span>
+                            </li>
+                            <li class="flex items-start gap-2 mt-2">
+                                <span class="material-symbols-outlined text-[var(--primary-accent)] opacity-80 text-sm mt-0.5">verified</span>
+                                <span class="leading-tight font-bold text-[var(--text-primary)]">Disponível para posições de Head de Criação ou Diretor de Criação Sênior</span>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <div class="flex items-center gap-2 mb-5">
+                            <span class="material-symbols-outlined text-[var(--primary-accent)] text-lg font-bold">language</span>
+                            <h3 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[var(--text-primary)]">Idiomas</h3>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 mb-3">
+                            <div class="flex flex-col items-center">
+                                <div class="relative w-12 h-12">
+                                    <svg class="circular-chart" viewBox="0 0 36 36">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <path class="circle stroke-[var(--primary-accent)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="100, 100"></path>
+                                        <text class="percentage" x="50%" y="54%">100%</text>
+                                    </svg>
+                                </div>
+                                <span class="mt-1.5 text-[8px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Português</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="relative w-12 h-12">
+                                    <svg class="circular-chart" viewBox="0 0 36 36">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <path class="circle stroke-[var(--primary-accent)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="85, 100"></path>
+                                        <text class="percentage" x="50%" y="54%">85%</text>
+                                    </svg>
+                                </div>
+                                <span class="mt-1.5 text-[8px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Inglês</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="relative w-12 h-12">
+                                    <svg class="circular-chart" viewBox="0 0 36 36">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <path class="circle stroke-[var(--primary-accent)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="40, 100"></path>
+                                        <text class="percentage" x="50%" y="54%">40%</text>
+                                    </svg>
+                                </div>
+                                <span class="mt-1.5 text-[8px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">Espanhol</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <div class="text-[8px] text-[var(--text-secondary)] font-bold uppercase tracking-widest opacity-60 text-center">
+                        CV Danilo Novais Vilela • Página 2 de 2
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
