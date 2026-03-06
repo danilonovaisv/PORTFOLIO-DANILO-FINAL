@@ -71,9 +71,9 @@ jobs:
         run: |
           if [ ! -s pnpm-lock.yaml ]; then
             echo "⚠️ Gerando pnpm-lock.yaml (lock ausente ou vazio)."
-            pnpm install --ignore-scripts --frozen-lockfile=false
+            pnpm install --ignore-scripts --no-frozen-lockfile
           else
-            pnpm install --frozen-lockfile --ignore-scripts
+            pnpm install --no-frozen-lockfile --ignore-scripts
           fi
 
       # ── 6. Validate Supabase env vars ─────────────────────────────────────────
