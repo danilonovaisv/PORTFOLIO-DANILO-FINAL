@@ -127,3 +127,17 @@ node_modules
 ~/Library/pnpm/store/.pnpm-store-new
 .pnpm-store_old
 .pnpm-store-new/
+
+# Corrupt / stale build dirs (auto-generated, never commit)
+.next_corrupt_*/
+.next_trash/
+
+# Local npm/pnpm caches (heavy, never commit)
+tmp-npm-cache/
+.npm_cache_local/
+.pnpm-cache/
+
+# Orphan root-level artifacts from sessions
+build-error.log
+firebase-deploy.log
+*.patch
