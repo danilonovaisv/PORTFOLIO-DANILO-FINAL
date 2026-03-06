@@ -91,3 +91,49 @@ Arquivo: `.github/workflows/firebase-deploy.yml`
 - `pnpm exec next build` conclui com sucesso em ambiente padrão.
 - `NODE_ENV=development pnpm exec next build` reproduz a falha remota em `/_global-error`.
 - Portanto, a correção correta é isolar o workaround do lockfile e impedir que `NODE_ENV=development` contamine o build remoto do Firebase Frameworks.
+
+---
+
+## Complemento — limpeza do workflow após estabilização (2026-03-06)
+
+### Contexto
+
+Depois que o deploy voltou a passar, o workflow ainda mantinha contenções temporárias que escondiam regressões reais:
+
+- step `🔒 Ensure pnpm-lock.yaml` criando lockfile fake
+- `pnpm install --no-frozen-lockfile --ignore-scripts`
+- `continue-on-error: true` em `lint` e `typecheck`
+
+### Correção aplicada
+
+Arquivo: `.github/workflows/firebase-deploy.yml`
+
+1. Removido o step que criava `pnpm-lock.yaml` temporário.
+2. Restaurado o install determinístico com:
+   - `pnpm install --frozen-lockfile --ignore-scripts`
+3. Reativados `lint` e `typecheck` como gates obrigatórios.
+4. Mantido o workaround realmente necessário apenas no step de deploy:
+   - geração explícita de `package-lock.json` para o builder remoto do Firebase Frameworks
+
+### Validação realizada
+
+- `pnpm run lint` conclui com sucesso.
+- `pnpm run typecheck` conclui com sucesso.
+- `pnpm run build` conclui com sucesso.
+- YAML do workflow validado localmente com parser nativo (`ruby` + `YAML.load_file`).
+
+### Observações sobre mudanças locais fora do fix
+
+Durante a limpeza, foram identificadas alterações locais não relacionadas ao deploy e preservadas sem modificação:
+
+- `.npmrc`
+- `pnpm-lock.yaml` removido localmente
+- `src/app/template.tsx`
+- `src/components/layout/MotionWrapper.tsx`
+- `report.html`
+
+Classificação:
+
+- `template.tsx` e `MotionWrapper.tsx`: provável trabalho em progresso para contornar crash de HMR/Turbopack.
+- `report.html`: artefato gerado de auditoria local.
+- `.npmrc` e deleção local de `pnpm-lock.yaml`: estado local de ambiente, não parte desta correção de CI.

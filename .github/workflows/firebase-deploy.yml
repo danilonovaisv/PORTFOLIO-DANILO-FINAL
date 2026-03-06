@@ -36,25 +36,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ── 2. GUARDRAIL — Lockfile obrigatório ─────────────────────────────────
-      # CI falha imediatamente se pnpm-lock.yaml não existir no repo.
-      # Nunca silenciar este passo — installs sem lockfile não são determinísticos.
-      - name: 🔒 Ensure pnpm-lock.yaml
-        run: |
-          if [ ! -f "pnpm-lock.yaml" ]; then
-            echo "⚠️ pnpm-lock.yaml não encontrado; gerando lock temporário apenas para este deploy."
-            touch pnpm-lock.yaml
-          else
-            echo "✅ pnpm-lock.yaml encontrado ($(wc -l < pnpm-lock.yaml) linhas, $(du -sh pnpm-lock.yaml | cut -f1))"
-          fi
-
-      # ── 3. Setup pnpm (versão fixa) ──────────────────────────────────────────
+      # ── 2. Setup pnpm (versão fixa) ──────────────────────────────────────────
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      # ── 4. Setup Node.js + cache pnpm ───────────────────────────────────────
+      # ── 3. Setup Node.js + cache pnpm ───────────────────────────────────────
       # cache-dependency-path: aponta para o lockfile na raiz do monorepo.
       # Se o projeto estiver em subpasta, ajustar para: "apps/web/pnpm-lock.yaml"
       - name: Setup Node.js
@@ -64,19 +52,11 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
-      # ── 5. Install determinístico ─────────────────────────────────────────────
-      # --frozen-lockfile: falha se o lockfile precisar ser atualizado (CI-safe)
-      # --ignore-scripts: segurança — scripts de build rodam em etapas controladas
+      # ── 4. Install determinístico ─────────────────────────────────────────────
       - name: Install dependencies
-        run: |
-          if [ ! -s pnpm-lock.yaml ]; then
-            echo "⚠️ Gerando pnpm-lock.yaml (lock ausente ou vazio)."
-            pnpm install --ignore-scripts --no-frozen-lockfile
-          else
-            pnpm install --no-frozen-lockfile --ignore-scripts
-          fi
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
-      # ── 6. Validate Supabase env vars ─────────────────────────────────────────
+      # ── 5. Validate Supabase env vars ─────────────────────────────────────────
       - name: Validate Supabase env vars
         run: |
           echo "🔍 Verificando variáveis de ambiente do Supabase..."
@@ -94,19 +74,15 @@ jobs:
           fi
           echo "✅ Variáveis do Supabase validadas com sucesso."
 
-      # ── 7. Lint (code quality) ────────────────────────────────────────────────
+      # ── 6. Lint (code quality) ────────────────────────────────────────────────
       - name: Run linter
         run: pnpm run lint
-        # TEMP: Bypass lint errors (no-unused-vars) on deploy loops. Must fix in codebase later.
-        continue-on-error: true
 
-      # ── 8. Type check ─────────────────────────────────────────────────────────
+      # ── 7. Type check ─────────────────────────────────────────────────────────
       - name: Run type check
         run: pnpm run typecheck
-        # TEMP: Bypass type errors on deploy loops. Must fix in codebase later.
-        continue-on-error: true
 
-      # ── 9. Validate and build Cloud Functions ─────────────────────────────────
+      # ── 8. Validate and build Cloud Functions ─────────────────────────────────
       - name: Validate and Install functions
         run: |
           if grep -q '"link:' functions/package.json; then
@@ -118,7 +94,7 @@ jobs:
       - name: Build Cloud Functions
         run: cd functions && pnpm run build
 
-      # ── 10. Generate .env.production ──────────────────────────────────────────
+      # ── 9. Generate .env.production ──────────────────────────────────────────
       - name: Generate .env.production for deployment
         run: |
           echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production
@@ -127,18 +103,18 @@ jobs:
           echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" >> .env.production
           echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> .env.production
 
-      # ── 11. Build Next.js ──────────────────────────────────────────────────────
+      # ── 10. Build Next.js ──────────────────────────────────────────────────────
       - name: Build Next.js application
         run: pnpm run build
         env:
           # TEMP: bypass lint rules during next build
           NEXTJS_IGNORE_ESLINT: '1'
 
-      # ── 12. Prepare hosting ────────────────────────────────────────────────────
+      # ── 11. Prepare hosting ────────────────────────────────────────────────────
       - name: Prepare hosting files
         run: bash scripts/prepare-hosting.sh
 
-      # ── 13. Firebase Auth ──────────────────────────────────────────────────────
+      # ── 12. Firebase Auth ──────────────────────────────────────────────────────
       - name: Validate Firebase Auth Secret
         run: |
           if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
@@ -155,7 +131,7 @@ jobs:
           create_credentials_file: true
           export_environment_variables: true
 
-      # ── 14. Resolve Firebase Project ID ───────────────────────────────────────
+      # ── 13. Resolve Firebase Project ID ───────────────────────────────────────
       - name: Resolve Firebase project id
         id: firebase_project
         env:
@@ -181,7 +157,7 @@ jobs:
           echo "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"
           echo "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"
 
-      # ── 15. Firebase CLI + Deploy ──────────────────────────────────────────────
+      # ── 14. Firebase CLI + Deploy ──────────────────────────────────────────────
       - name: Install Firebase CLI
         run: npm install -g firebase-tools@latest
 
@@ -250,7 +226,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
           NO_UPDATE_NOTIFIER: '1'
 
-      # ── 16. Notifications ──────────────────────────────────────────────────────
+      # ── 15. Notifications ──────────────────────────────────────────────────────
       - name: Notify success
         if: success()
         run: |
