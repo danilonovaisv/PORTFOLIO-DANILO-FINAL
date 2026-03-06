@@ -73,7 +73,13 @@ The central orchestration layer for the portfolio.
 - [KI-005: Asset Map](.context/knowledge/KI-005-Asset-Map.md)
 - **KI-006: WebGL Performance Patterns** - Object pooling, ref-based state, Vanilla Three.js mutation.
 - **KI-007: Deep Clean Protocol** - SafetyGuardian and quarantine procedures.
-- **[NEW] KI-008: Node Permissions (EPERM)** - Documented lifecycle of permission issues in CI/CD environments.
+- **KI-008: Node Permissions (EPERM)** - Documented lifecycle of permission issues in CI/CD environments.
+- **KI-009: Tailwind Oxide Scanner — CSS Parsing Error (PERSISTENT BUG)** ⚠️
+  - **Symptom:** `pnpm dev` / `pnpm build` falham com `"Unexpected token .bg-\[\.\4 \!\]"` e `"background-color: .!"`.
+  - **Root Cause:** `@tailwindcss/oxide` (Rust/WASM) em modo auto-detecção varre **todos** os arquivos do projeto, incluindo imagens JPEG e logs com ANSI escapes (caracteres de controle U+0004). O LightningCSS rejeita os seletores CSS inválidos gerados.
+  - **Fix:** Em `src/app/globals.css`, substituir `@import 'tailwindcss'` por `@import "tailwindcss" source(none)` + `@source` explícitos com filtros de extensão (`*.{tsx,ts,jsx,js,css,mdx}`).
+  - **Diagnóstico Rápido:** Se o erro retornar, verificar primeiro se `globals.css` ainda tem `source(none)`. Sem ele, o oxide varre binários e recria o bug.
+  - **Referência Completa:** `.context/logs/adjustment_log.md` → entrada `[2026-03-04T01:15]`.
 
 ## 5. Security & Data Engineering
 
