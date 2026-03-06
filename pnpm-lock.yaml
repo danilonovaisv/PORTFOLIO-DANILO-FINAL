@@ -316,8 +316,8 @@ importers:
         specifier: ^14.2.6
         version: 14.2.6
       shadcn:
-        specifier: ^3.8.5
-        version: 3.8.5(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3)
+        specifier: ^4.0.0
+        version: 4.0.0(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3)
       tailwindcss:
         specifier: 4.2.1
         version: 4.2.1
@@ -7547,7 +7547,7 @@ packages:
     resolution: {integrity: sha512-FFMLEnIejK/zDABn+vqGVAUN4T0+3fw+cVAY8MMT65yR+j5uMuvWdd4npACWhh94OVWQs79CrBBuwOwGRZAQiA==}
 
   motion-studio-mcp@https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest:
-    resolution: {tarball: https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest}
+    resolution: {integrity: sha512-zLnELIUoY2ZXtt8RNTxIQG4Q4OQrnSjKlf2RyKiJ6C/5c+Ji6Lspiy/9lFU26N4Gs8RnLl9Z/4TJpA9rLBfMmQ==, tarball: https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest}
     version: 5.4.1
     hasBin: true
 
@@ -8711,8 +8711,8 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  shadcn@3.8.5:
-    resolution: {integrity: sha512-jPRx44e+eyeV7xwY3BLJXcfrks00+M0h5BGB9l6DdcBW4BpAj4x3lVmVy0TXPEs2iHEisxejr62sZAAw6B1EVA==}
+  shadcn@4.0.0:
+    resolution: {integrity: sha512-D3FRsynbtnnIK6P3x0dC1Clez14UoZdOukE46nuuc3R55m0/1awfCm4p1SF14rS+HWVgWOncOWnDyQeZxSW22w==}
     hasBin: true
 
   sharp@0.34.5:
@@ -20247,7 +20247,7 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
-  shadcn@3.8.5(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3):
+  shadcn@4.0.0(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3):
     dependencies:
       '@antfu/ni': 25.0.0
       '@babel/core': 7.29.0
