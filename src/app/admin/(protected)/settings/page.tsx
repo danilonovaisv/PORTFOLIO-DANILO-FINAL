@@ -78,10 +78,11 @@ export default async function SettingsPage() {
                 {field.name}
               </p>
               <p
-                className={`text-sm font-medium ${field.status === 'Configurado'
+                className={`text-sm font-medium ${
+                  field.status === 'Configurado'
                     ? 'text-emerald-400'
                     : 'text-rose-400'
-                  }`}
+                }`}
               >
                 {field.status}
               </p>

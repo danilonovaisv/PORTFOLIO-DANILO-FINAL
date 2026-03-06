@@ -2,7 +2,10 @@
 
 import { LandingPageBlock } from '@/types/landing-page';
 import { MediaAssetField } from '@/components/admin/templates/MediaAssetField';
-import { inputClasses, labelClasses } from '@/components/admin/templates/CommonTemplateStyles';
+import {
+  inputClasses,
+  labelClasses,
+} from '@/components/admin/templates/CommonTemplateStyles';
 
 interface BlockEditorV3Props {
   block: LandingPageBlock;
@@ -114,21 +117,21 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
       {(block.type === 'image-text' ||
         block.type === 'text-image' ||
         block.type === 'video-text') && (
-          <div className="grid gap-4 md:grid-cols-2">
-            {renderMediaField(
-              block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)'
-            )}
+        <div className="grid gap-4 md:grid-cols-2">
+          {renderMediaField(
+            block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)'
+          )}
 
-            <label className="space-y-1">
-              <span className={labelClasses}>Texto</span>
-              <textarea
-                className={`${inputClasses} min-h-40`}
-                value={block.content.text || ''}
-                onChange={(e) => updateContent({ text: e.target.value })}
-              />
-            </label>
-          </div>
-        )}
+          <label className="space-y-1">
+            <span className={labelClasses}>Texto</span>
+            <textarea
+              className={`${inputClasses} min-h-40`}
+              value={block.content.text || ''}
+              onChange={(e) => updateContent({ text: e.target.value })}
+            />
+          </label>
+        </div>
+      )}
 
       {(block.type === 'image-image' || block.type === 'image-video') && (
         <div className="grid gap-4 md:grid-cols-2">

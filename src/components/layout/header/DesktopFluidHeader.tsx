@@ -82,8 +82,9 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${isLight ? 'header--light' : ''
-        }`}
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${
+        isLight ? 'header--light' : ''
+      }`}
     >
       <div
         className={
@@ -92,8 +93,9 @@ export default function DesktopFluidHeader({
       >
         <div ref={wrapRef} className="pointer-events-auto w-full relative">
           <div
-            className={`${styles.headerContainer} ${isLight ? styles.headerLight : styles.headerDark
-              } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
+            className={`${styles.headerContainer} ${
+              isLight ? styles.headerLight : styles.headerDark
+            } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
           >
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">
@@ -145,15 +147,21 @@ export default function DesktopFluidHeader({
                     ? 'text-bluePrimary font-semibold'
                     : '';
 
-                  const LinkComponent = isExternalHref(item.href) || item.external ? motion.a : motion.button;
-                  const linkProps = isExternalHref(item.href) || item.external ? {
-                    href: item.href,
-                    target: "_blank",
-                    rel: "noopener noreferrer"
-                  } : {
-                    type: "button" as const,
-                    onClick: () => onNavigate(item.href)
-                  };
+                  const LinkComponent =
+                    isExternalHref(item.href) || item.external
+                      ? motion.a
+                      : motion.button;
+                  const linkProps =
+                    isExternalHref(item.href) || item.external
+                      ? {
+                          href: item.href,
+                          target: '_blank',
+                          rel: 'noopener noreferrer',
+                        }
+                      : {
+                          type: 'button' as const,
+                          onClick: () => onNavigate(item.href),
+                        };
 
                   return (
                     <LinkComponent
@@ -169,8 +177,20 @@ export default function DesktopFluidHeader({
                         className="absolute -bottom-1 left-0 h-[1px] w-full bg-current origin-center"
                         variants={{
                           initial: { scaleX: 0 },
-                          hover: { scaleX: 1, transition: { duration: reducedMotion ? 0 : 0.3, ease: GHOST_EASE } },
-                          active: { scaleX: 1, transition: { duration: reducedMotion ? 0 : 0.3, ease: GHOST_EASE } }
+                          hover: {
+                            scaleX: 1,
+                            transition: {
+                              duration: reducedMotion ? 0 : 0.3,
+                              ease: GHOST_EASE,
+                            },
+                          },
+                          active: {
+                            scaleX: 1,
+                            transition: {
+                              duration: reducedMotion ? 0 : 0.3,
+                              ease: GHOST_EASE,
+                            },
+                          },
                         }}
                       />
                     </LinkComponent>

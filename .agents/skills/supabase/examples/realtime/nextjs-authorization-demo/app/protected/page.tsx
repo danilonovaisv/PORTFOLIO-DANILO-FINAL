@@ -38,12 +38,10 @@ export default function Chat() {
         .select('topic')
         .eq('topic', selectedRoom);
 
-      await supabase
-        .from('rooms_users')
-        .upsert({
-          user_id: user.data?.[0].id,
-          room_topic: room.data?.[0].topic,
-        });
+      await supabase.from('rooms_users').upsert({
+        user_id: user.data?.[0].id,
+        room_topic: room.data?.[0].topic,
+      });
       addMessage(true, true, `Added ${email} to channel ${selectedRoom}`);
     }
   };

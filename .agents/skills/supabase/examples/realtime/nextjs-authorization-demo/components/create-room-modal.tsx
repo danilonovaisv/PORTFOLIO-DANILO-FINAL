@@ -24,12 +24,10 @@ export default function CreateRoomModal({
       .select('topic');
 
     if (rooms_response.data) {
-      await supabase
-        .from('rooms_users')
-        .insert({
-          user_id: user.data.user!.id,
-          room_topic: rooms_response.data![0].topic,
-        });
+      await supabase.from('rooms_users').insert({
+        user_id: user.data.user!.id,
+        room_topic: rooms_response.data![0].topic,
+      });
 
       await channel?.send({
         type: 'broadcast',

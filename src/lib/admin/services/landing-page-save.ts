@@ -311,11 +311,11 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
     ...nextTemplate,
     hero_cover_image: nextTemplate.hero_cover_image
       ? {
-        ...nextTemplate.hero_cover_image,
-        src: heroCoverSrc,
-        file: null,
-        previewUrl: '',
-      }
+          ...nextTemplate.hero_cover_image,
+          src: heroCoverSrc,
+          file: null,
+          previewUrl: '',
+        }
       : undefined,
     hero_logo_image: heroLogo,
     gallery_grid: galleryGrid,

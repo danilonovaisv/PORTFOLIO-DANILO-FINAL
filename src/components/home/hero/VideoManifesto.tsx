@@ -204,11 +204,11 @@ export function VideoManifesto({
         style={
           !isMobile && !shouldReduceMotion
             ? {
-              scale: deskScale,
-              x: deskX,
-              borderRadius: deskBR,
-              transformOrigin: 'bottom right',
-            }
+                scale: deskScale,
+                x: deskX,
+                borderRadius: deskBR,
+                transformOrigin: 'bottom right',
+              }
             : {}
         }
       >

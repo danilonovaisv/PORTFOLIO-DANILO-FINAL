@@ -22,12 +22,12 @@ const CONTROL_ESCAPE_RE = /\\[0-9a-fA-F]{1,4} /;
 
 /** @type {import('postcss').PluginCreator} */
 const plugin = () => ({
-    postcssPlugin: 'remove-invalid-tailwind-selectors',
-    Rule(rule) {
-        if (CONTROL_ESCAPE_RE.test(rule.selector)) {
-            rule.remove();
-        }
-    },
+  postcssPlugin: 'remove-invalid-tailwind-selectors',
+  Rule(rule) {
+    if (CONTROL_ESCAPE_RE.test(rule.selector)) {
+      rule.remove();
+    }
+  },
 });
 
 plugin.postcss = true;

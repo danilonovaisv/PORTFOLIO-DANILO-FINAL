@@ -301,7 +301,7 @@ git branch -D upgrade/{package_name}-{target_version}
 - [Changelog]({get_changelog_url(package_name, target_version)})
 - [Community Discussions](<{get_community_url(package_name)}>)
   """
-      return guide
+  return guide
 
 ````
 
