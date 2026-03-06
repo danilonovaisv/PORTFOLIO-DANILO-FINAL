@@ -13,6 +13,7 @@ const getSupabasePublicKeyStatus = () => {
 
 export default async function SettingsPage() {
   let dbKey = null;
+  const hasServiceRole = isServiceRoleConfigured();
 
   try {
     const supabase = await createClient({ admin: true });
@@ -98,6 +99,7 @@ export default async function SettingsPage() {
         <SettingsForm
           hasOpenAIKeyEnv={hasOpenAIKeyEnv}
           hasOpenAIKeyDb={hasOpenAIKeyDb}
+          hasServiceRole={hasServiceRole}
         />
       </section>
     </div>

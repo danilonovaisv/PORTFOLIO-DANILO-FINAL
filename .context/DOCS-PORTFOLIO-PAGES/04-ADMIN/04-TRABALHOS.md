@@ -61,3 +61,17 @@ Para evitar criação de múltiplos diretórios órfãos:
   - Projetos: `/{MARCA}/{NOME-DO-PROJETO}/assets-do-projeto/`
   - Arquivos soltos da galeria (se houver): `/{MARCA}/{NOME-DO-PROJETO}/assets-do-projeto/gallery/`
 - Foram corrigidas as declarações do cliente visual em `ProjectForm.tsx` para assegurar que toda submissão (16:9, 1:1, galerias dinâmicas) utilizem este caminho, consolidando arquivos por sessão sem espalhamento na raiz do bucket.
+
+## 10. Regras de Sincronia com Supabase Storage
+
+- Uploads de `portfolio-media` são **idempotentes por path/hash**. Se o editor reenviar o mesmo arquivo para o mesmo trabalho, o endpoint retorna o path existente em vez de falhar com `The resource already exists`.
+- Ao salvar um trabalho editado, o backend compara o estado anterior com o estado final salvo e remove do bucket apenas os arquivos que deixaram de ser referenciados:
+  - capa 16:9 substituida;
+  - capa 1:1 substituida;
+  - logo do destaque da Home substituido;
+  - imagens/videos removidos da galeria.
+- Em renames de cliente/slug, o sistema continua movendo a pasta do projeto para o novo prefixo. Se um arquivo identico ja existir no destino, o rename trata isso como reaproveitamento valido e limpa a origem para evitar duplicacao/orfaos.
+- O resultado esperado para o editor e:
+  - adicionar assets cria apenas os arquivos novos;
+  - remover assets limpa o Storage correspondente;
+  - substituir assets atualiza a referencia do projeto e apaga o arquivo antigo que saiu de uso.

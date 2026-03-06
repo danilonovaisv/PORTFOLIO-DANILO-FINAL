@@ -108,6 +108,14 @@ export async function POST(request: Request) {
       });
 
     if (error) {
+      const alreadyExists = error.message
+        .toLowerCase()
+        .includes('already exists');
+
+      if (bucket === 'portfolio-media' && alreadyExists) {
+        return NextResponse.json({ path }, { status: 200 });
+      }
+
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 

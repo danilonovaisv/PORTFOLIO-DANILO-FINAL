@@ -25,3 +25,11 @@ Apoiar criação de material visual com batch, presets e múltiplos modelos para
 ## 4. Inconformidades observadas
 
 - Inconformidade média: alinhar disponibilidade real dos modelos listados com providers ativos para evitar expectativa incorreta.
+
+## 5. Dependencias operacionais
+
+- O gerador depende de uma `OPENAI_API_KEY` valida.
+- Fonte da chave:
+  - variavel de ambiente do servidor; ou
+  - `site_settings.openai_api_key`, desde que `SUPABASE_SERVICE_ROLE_KEY` esteja configurada.
+- Se nenhuma fonte valida estiver disponivel, a tela deve retornar erro operacional orientando o editor a revisar `/admin/settings`.

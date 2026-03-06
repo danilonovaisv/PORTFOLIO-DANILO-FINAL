@@ -65,6 +65,26 @@ export async function moveProjectFolder(
       .move(file, newFilePath);
 
     if (error) {
+      const alreadyExists = error.message
+        .toLowerCase()
+        .includes('already exists');
+
+      if (alreadyExists) {
+        const { error: removeError } = await supabase.storage
+          .from(bucket)
+          .remove([file]);
+
+        if (!removeError) {
+          moved.push(file);
+          continue;
+        }
+
+        console.error(
+          `[storage-utils] Error removing duplicated source ${file}`,
+          removeError
+        );
+      }
+
       console.error(
         `[storage-utils] Error moving ${file} → ${newFilePath}`,
         error
@@ -78,23 +98,21 @@ export async function moveProjectFolder(
   return { moved, failed };
 }
 
-export async function deleteProjectFolder(
+export async function deleteStorageFiles(
   supabase: SupabaseClient,
   bucket: string,
-  prefix: string
+  files: string[]
 ): Promise<{ deleted: number; failed: string[] }> {
-  const files = await listAllFiles(supabase, bucket, prefix);
   if (files.length === 0) return { deleted: 0, failed: [] };
 
   const failed: string[] = [];
   let deleted = 0;
 
-  // Storage API allows deleting multiple files at once — batch in chunks of 100
   for (let i = 0; i < files.length; i += 100) {
     const chunk = files.slice(i, i + 100);
     const { error } = await supabase.storage.from(bucket).remove(chunk);
     if (error) {
-      console.error(`[storage-utils] Error deleting batch`, error);
+      console.error(`[storage-utils] Error deleting explicit file batch`, error);
       failed.push(...chunk);
     } else {
       deleted += chunk.length;
@@ -102,4 +120,13 @@ export async function deleteProjectFolder(
   }
 
   return { deleted, failed };
+}
+
+export async function deleteProjectFolder(
+  supabase: SupabaseClient,
+  bucket: string,
+  prefix: string
+): Promise<{ deleted: number; failed: string[] }> {
+  const files = await listAllFiles(supabase, bucket, prefix);
+  return deleteStorageFiles(supabase, bucket, files);
 }

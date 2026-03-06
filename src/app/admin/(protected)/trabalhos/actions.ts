@@ -12,8 +12,14 @@ import { requireAdminAccess } from '@/lib/admin/server-access';
 import {
   moveProjectFolder,
   deleteProjectFolder,
+  deleteStorageFiles,
 } from '@/lib/supabase/storage-utils';
 import { normalizeBrand, normalizeProject } from '@/lib/assets/storagePath';
+import {
+  findRemovedProjectStoragePaths,
+  type ProjectStorageSnapshot,
+  type StoragePathRewrite,
+} from '@/lib/admin/project-storage';
 
 export async function upsertProjectAction(input: ProjectMutationInput) {
   const validation = validatePayload(projectMutationSchema, input);
@@ -57,15 +63,42 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     let newFolderNew: string | null = null;
     let oldFolderProjects: string | null = null;
     let newFolderProjects: string | null = null;
+    let previousProjectSnapshot: ProjectStorageSnapshot | null = null;
 
     if (input.id) {
       const { data: oldProject } = await supabase
         .from('portfolio_projects')
-        .select('slug, client_slug')
+        .select(
+          'slug, client_slug, url_landscape, url_square, gallery, home_featured'
+        )
         .eq('id', input.id)
         .single();
 
       if (oldProject) {
+        previousProjectSnapshot = {
+          url_landscape: oldProject.url_landscape,
+          url_square: oldProject.url_square,
+          gallery: Array.isArray(oldProject.gallery)
+            ? oldProject.gallery
+                .map((item) => {
+                  if (!item || typeof item !== 'object') return null;
+                  const path =
+                    'path' in item && typeof item.path === 'string'
+                      ? item.path
+                      : null;
+
+                  if (!path) return null;
+                  return { path };
+                })
+                .filter((item): item is { path: string } => Boolean(item))
+            : [],
+          home_featured:
+            oldProject.home_featured &&
+            typeof oldProject.home_featured === 'object'
+              ? (oldProject.home_featured as ProjectStorageSnapshot['home_featured'])
+              : null,
+        };
+
         const oldV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
         const newV4 = `v4/${client_slug}/${newSlug}`;
         const oldNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
@@ -132,8 +165,10 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
     // ── STORAGE MOVE AFTER DB WRITE ──────────────────────────────────────
     const storageMoveFailures: string[] = [];
+    const storageRewrites: StoragePathRewrite[] = [];
 
     if (oldFolderV4 && newFolderV4) {
+      storageRewrites.push({ from: oldFolderV4, to: newFolderV4 });
       const { failed } = await moveProjectFolder(
         supabase,
         'portfolio-media',
@@ -143,6 +178,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       storageMoveFailures.push(...failed);
     }
     if (oldFolderNew && newFolderNew) {
+      storageRewrites.push({ from: oldFolderNew, to: newFolderNew });
       const { failed } = await moveProjectFolder(
         supabase,
         'portfolio-media',
@@ -152,6 +188,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       storageMoveFailures.push(...failed);
     }
     if (oldFolderProjects && newFolderProjects) {
+      storageRewrites.push({ from: oldFolderProjects, to: newFolderProjects });
       const { failed } = await moveProjectFolder(
         supabase,
         'portfolio-media',
@@ -168,6 +205,38 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
         '[Trabalhos] Partial storage rename failure — files still at old path:',
         storageMoveFailures
       );
+    }
+
+    const nextProjectSnapshot: ProjectStorageSnapshot = {
+      url_landscape: finalUrlLandscape,
+      url_square: finalUrlSquare,
+      gallery: Array.isArray(finalGallery) ? finalGallery : [],
+      home_featured:
+        projectData.home_featured &&
+        typeof projectData.home_featured === 'object'
+          ? (projectData.home_featured as ProjectStorageSnapshot['home_featured'])
+          : null,
+    };
+
+    const orphanedPaths = findRemovedProjectStoragePaths(
+      previousProjectSnapshot,
+      nextProjectSnapshot,
+      storageRewrites
+    );
+
+    if (orphanedPaths.length > 0) {
+      const { failed } = await deleteStorageFiles(
+        supabase,
+        'portfolio-media',
+        orphanedPaths
+      );
+
+      if (failed.length > 0) {
+        console.error(
+          '[Trabalhos] Partial storage cleanup failure — orphaned files may remain:',
+          failed
+        );
+      }
     }
 
     // Cache revalidation

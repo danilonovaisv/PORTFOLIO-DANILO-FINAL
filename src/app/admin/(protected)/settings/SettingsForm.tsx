@@ -6,13 +6,19 @@ import { saveOpenAIKey, removeOpenAIKey } from './actions';
 type Props = {
   hasOpenAIKeyEnv: boolean;
   hasOpenAIKeyDb: boolean;
+  hasServiceRole: boolean;
 };
 
-export function SettingsForm({ hasOpenAIKeyEnv, hasOpenAIKeyDb }: Props) {
+export function SettingsForm({
+  hasOpenAIKeyEnv,
+  hasOpenAIKeyDb,
+  hasServiceRole,
+}: Props) {
   const [key, setKey] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const canPersistDbKey = hasServiceRole && !hasOpenAIKeyEnv;
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,6 +93,7 @@ export function SettingsForm({ hasOpenAIKeyEnv, hasOpenAIKeyDb }: Props) {
                 value={key}
                 onChange={(e) => setKey(e.target.value)}
                 placeholder="sk-..."
+                disabled={!hasServiceRole}
                 className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
               />
             </div>
@@ -94,7 +101,7 @@ export function SettingsForm({ hasOpenAIKeyEnv, hasOpenAIKeyDb }: Props) {
             <div className="flex gap-3">
               <button
                 type="submit"
-                disabled={loading || !key.trim()}
+                disabled={loading || !key.trim() || !canPersistDbKey}
                 className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-600 disabled:opacity-50"
               >
                 {loading ? 'Salvando...' : 'Salvar Chave'}
@@ -104,13 +111,21 @@ export function SettingsForm({ hasOpenAIKeyEnv, hasOpenAIKeyDb }: Props) {
                 <button
                   type="button"
                   onClick={handleRemove}
-                  disabled={loading}
+                  disabled={loading || !canPersistDbKey}
                   className="rounded-md bg-slate-800 border border-white/10 px-4 py-2 text-sm font-semibold text-rose-400 transition hover:bg-slate-700 disabled:opacity-50"
                 >
                   Remover Chave Salva
                 </button>
               )}
             </div>
+
+            {!hasServiceRole && (
+              <p className="text-sm text-amber-400">
+                Configure `SUPABASE_SERVICE_ROLE_KEY` no servidor para salvar e
+                ler a chave da OpenAI pelo banco. Sem isso, apenas a variável
+                de ambiente `OPENAI_API_KEY` funciona.
+              </p>
+            )}
 
             {error && <p className="text-sm text-rose-400 mt-2">{error}</p>}
             {success && (
