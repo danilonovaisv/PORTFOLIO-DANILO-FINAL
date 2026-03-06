@@ -10,8 +10,8 @@ Exibir visão rápida operacional (projetos, tags, destaques Home/Portfólio).
 
 ## 2. Estratégia de dados
 
-- consultas paralelas via `Promise.all`.
 - contagens por tabelas `portfolio_projects` e `portfolio_tags`.
+- **current code state:** queries are executed sequentially (not in parallel).
 
 ## 3. Pontos fortes
 
@@ -20,4 +20,5 @@ Exibir visão rápida operacional (projetos, tags, destaques Home/Portfólio).
 
 ## 4. Inconformidades observadas
 
+- Inconformidade crítica de performance: migrar consultas de métricas para `Promise.all` para reduzir latência total do dashboard.
 - Inconformidade baixa: incluir tratamento visual de erro parcial nas métricas para cenários de latência/falha seletiva.
