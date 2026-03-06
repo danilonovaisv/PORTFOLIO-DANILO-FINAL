@@ -686,6 +686,7 @@ import Grainient from './Grainient';
 - 02. Ghost Cursor: https://reactbits.dev/tools/background-studio?bg=ghost-cursor
          - Install: pnpm dlx shadcn@latest add @react-bits/GhostCursor-TS-TW
          - Usage:
+         
 `````
 
 import GhostCursor from './GhostCursor'
@@ -715,7 +716,7 @@ import GhostCursor from './GhostCursor'
 
 </div>
 
-‘’’’’’’
+´´´´´´´´
 
 - 3. Aurora: https://reactbits.dev/tools/background-studio?bg=aurora
      - Install: pnpm dlx shadcn@latest add @react-bits/Aurora-TS-TW

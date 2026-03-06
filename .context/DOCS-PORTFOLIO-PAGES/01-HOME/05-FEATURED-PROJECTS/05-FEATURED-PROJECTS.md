@@ -88,9 +88,10 @@ Importante:
 ## 4. Regras de render dos cards
 
 - O background animado é sempre a camada mais baixa do card.
-- O overlay de branding fica acima:
-  - logo invertido central
-  - ou thumb com overlay 50%
+- Duas opções de card, overlay ou branding, as duas ficam acima:
+  - logo invertido (negativa) central, deixando o backgrond animado em evidência
+  - ou thumb com overlay 10%
+  - Escolha feita no dashbord, forçar a seguir o modelo que foi escolhido
 - O conteúdo editorial do card permanece igual:
   - categoria / cliente / ano
   - título
