@@ -4,173 +4,156 @@
 
 **⚠️ Desvio Visual/Técnico (parcial)**
 
-A seção **05-FEATURED-PROJECTS** está próxima do esperado em estrutura de card, glow/CTA, camadas e integração ADMIN, mas há desvios em motion fine-tuning (escala acima do limite pedido), nomenclatura/legado de migração e inconsistência entre regra de randomização “a cada render” vs estratégia híbrida atual (SSR determinístico + randomização client-side periódica).
+A seção está madura em estrutura e integração ADMIN, porém ainda não atinge 100% de fidelidade ao briefing desta auditoria por três pontos principais: (1) regra de randomização não ocorre estritamente “a cada render” (há SSR determinístico + randomização client-side), (2) escala de hover acima do limite solicitado, e (3) lacuna no ADMIN para upload de thumb exclusivo do modo 2.
 
 ---
 
-## Metodologia e Fontes auditadas
+## Fontes e rastreabilidade
 
-### Código (fonte operacional)
-- `src/components/home/featured-projects/*`
+### Código auditado (verdade operacional)
+- `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
+- `src/components/home/featured-projects/FeaturedProjectCard.tsx`
+- `src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`
+- `src/components/home/featured-projects/FeaturedProjectAnimatedBackground.tsx`
+- `src/components/home/featured-projects/animated-backgrounds.ts`
 - `src/components/admin/ProjectForm.tsx`
 - `src/lib/portfolio/home-featured.ts`
-- `src/lib/portfolio/project-mappers.ts`
 - `src/lib/admin/schemas/project.ts`
 - `supabase/migrations/20260301011000_home_featured_animated_cards.sql`
 - `test/unit/featured-project-backgrounds.test.ts`
 
-### Documentação de referência interna
+### Documentação interna (.context)
 - `.context/DOCS-PORTFOLIO-PAGES/01-HOME/05-FEATURED-PROJECTS/05-FEATURED-PROJECTS.md`
-- `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md`
-- `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md`
-- `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/03-DASHBOARD.md`
 
-### Evidência visual (site em produção)
-- `browser:/tmp/codex_browser_invocations/3d2cb45e15965d6d/artifacts/artifacts/featured-desktop.png`
-- `browser:/tmp/codex_browser_invocations/3d2cb45e15965d6d/artifacts/artifacts/featured-tablet.png`
-- `browser:/tmp/codex_browser_invocations/3d2cb45e15965d6d/artifacts/artifacts/featured-mobile.png`
-
-### Transparência sobre fontes externas obrigatórias solicitadas
-- **GitHub externo `danilonovaisv/DATABASE_AGENT_NEXT`**: tentativa de acesso via `git ls-remote` falhou por autenticação/visibilidade (provável repositório privado).
-- **Vector Store `vs_69520b1fb834819197e445db9aab8d69`**: não há ferramenta de consulta de vector store disponível neste ambiente.
-- Conclusão: auditoria executada com base no código local (verdade operacional atual) + `.context`.
+### Transparência das fontes externas obrigatórias pedidas no prompt
+- **GitHub externo (`danilonovaisv/DATABASE_AGENT_NEXT`)**: tentativa feita via `git ls-remote`, sem acesso por autenticação/visibilidade.
+- **Vector Store (`vs_69520b1fb834819197e445db9aab8d69`)**: não há ferramenta de consulta disponível no ambiente atual (MCP resources vazios).
 
 ---
 
-## BACKGROUND SYSTEM
+## 1) BACKGROUND SYSTEM
 
-### ✅ 3 backgrounds permitidos disponíveis
-Implementados em pool fixo:
+### ✅ 3 backgrounds disponíveis
+Pool implementado com 3 variantes exatas:
 - `grainient`
 - `ghost`
 - `aurora`
 
-### ✅ Sem persistência do background no CMS
-A persistência no banco salva apenas metadados de layout (`home_featured`), não variante de background.
+### ✅ Sem persistência de background no CMS
+A persistência `home_featured` guarda estilo de card + logo, não guarda variante do background.
 
-### ⚠️ Randomização híbrida (não “puramente a cada render do SSR”)
-- Há variante determinística por `project.id` para hidratação estável.
-- Após mount no client, ocorre randomização por card e re-randomização a cada 9s.
+### ⚠️ Randomização em modo híbrido (não literal ao requisito “a cada render”)
+Implementação atual:
+- SSR/hidratação inicial usa variante determinística por `project.id`.
+- Após mount, o client faz randomização e novo shuffle periódico (9s).
 
-**Diagnóstico:**
-- Atende ao objetivo de evitar background hardcoded e manter dinâmica visual orgânica.
-- Não segue literalmente o critério “escolha já no render SSR sempre aleatória”.
+**Conclusão técnica:** evita mismatch de hidratação e mantém dinâmica visual, mas não atende literalmente o item “escolha aleatória no render do card” em todos os renders.
 
 ---
 
-## CARD STRUCTURE
+## 2) CARD STRUCTURE
 
-### ✅ Estrutura de camadas correta
+### ✅ Estrutura de camadas conforme esperado
 Card contém:
 1. Animated background layer
 2. Logo invertido central (modo logo)
 3. Thumb + overlay (modo thumb)
 4. CTA small no rodapé
-5. Glow/gradientes sutis
+5. Glow/gradiente de reforço
 
-### ✅ Logo invertido centralizado e estável
-- Centro visual preservado via `flex items-center justify-center`.
-- Logo não recebe transform específico de hover.
+### ✅ Logo invertido central e estável
+- Centralização via `flex items-center justify-center`.
+- Logo não recebe transform de hover dedicado.
 
-### ✅ Overlay de thumb em 5% (modo thumb)
-- `opacity-5` na thumb + camada adicional escura leve.
+### ✅ Overlay do modo thumb em 5%
+No modo thumb, a imagem recebe `opacity-5` + camada escura sutil adicional.
 
-### ⚠️ Nomenclatura legacy em migration
-- Migration inicial cita `ANIMATED_BG_THUMB_OVERLAY_50`, porém o código/tipos atuais usam `ANIMATED_BG_THUMB_OVERLAY_5`.
-- Funcionalmente está corrigido no app, mas merece reconciliação histórica/DB para evitar confusão.
-
----
-
-## HOVER INTERACTION
-
-### ✅ Interações presentes
-- Zoom leve
-- Parallax sutil por ponteiro
-- Glow roxo no shell e CTA
-- CTA muda para `#8705f2`
-
-### ⚠️ Zoom acima do limite definido no briefing
-- Regra esperada: **máx. 1.02**
-- Implementado: `md:group-hover:scale-[1.03]`
-
-### ⚠️ Duração/easing parcialmente fora da recomendação estrita
-- Easing Ghost padrão `[0.22,1,0.36,1]` está sendo usado em múltiplos pontos.
-- Porém durações estão predominantemente em `300ms/500ms/700ms`, não no alvo recomendado de `0.2s` hover e `0.15s` hover-out.
+### ⚠️ Divergência histórica em migration/documentação
+A migration inicial menciona `ANIMATED_BG_THUMB_OVERLAY_50`, enquanto app/schema atuais usam `ANIMATED_BG_THUMB_OVERLAY_5`.
 
 ---
 
-## PERFORMANCE
+## 3) HOVER INTERACTION
 
-### ✅ Há controles técnicos para reduzir custo
-- `usePrefersReducedMotion`
-- `useWebGLSupport`
-- Interseção/visibilidade para só animar quando em viewport
-- `maxDevicePixelRatio` configurado por background
+### ✅ Interação presente
+- Leve elevação/translate
+- Parallax de cursor
+- Glow roxo `#8705f2`
+- CTA com troca de cor e glow no hover
 
-### ⚠️ FPS medido em ambiente headless não é confiável
-A coleta automatizada via Playwright headless retornou números inconsistentes (throttling/background scheduling), portanto **não é válida como prova de FPS real**.
+### ⚠️ Zoom acima da regra
+- Esperado no briefing: **máximo 1.02**
+- Encontrado: `md:group-hover:scale-[1.03]`
 
-**Recomendação de validação final:** medir em browser real com DevTools Performance e `prefers-reduced-motion` habilitado/desabilitado.
-
----
-
-## RESPONSIVIDADE
-
-### ✅ Breakpoints auditados visualmente
-- 375 (mobile)
-- 768 (tablet)
-- 1440 (desktop)
-
-### ✅ Itens validados
-- Grid de cards mantém composição
-- CTA legível
-- Elementos centrais e hierarquia visual preservados
-
-### ⚠️ Pendência recomendada
-Executar régua de spacing com referência `.std-grid` em inspeção manual comparando pixel a pixel com o layout de referência da `.context`.
+### ⚠️ Timing fora do alvo recomendado
+A curva ghost (`[0.22, 1, 0.36, 1]`) aparece em pontos-chave, mas tempos usados (300/500/700ms) estão acima do alvo sugerido (0.2s hover-in / 0.15s hover-out).
 
 ---
 
-## ADMIN DASHBOARD
+## 4) PERFORMANCE (WebGL/Canvas)
 
-### ✅ Área “Destaques HOME” existe no formulário de projetos
-Campos encontrados:
-- Toggle `featured_on_home`
-- Seletor de modo do card (`logo invertido` / `thumb overlay 5%`)
-- Upload de logo invertido
+### ✅ Salvaguardas implementadas
+- `prefers-reduced-motion`
+- checagem de suporte WebGL
+- `IntersectionObserver` (anima quando visível)
+- `visibilitychange` (pausa com documento oculto)
+- limitação de pixel ratio / target pixels nos backgrounds
 
-### ✅ Persistência implementada
-- `home_featured` salvo via action `upsertProjectAction`
-- Mapeamento de volta para HOME via `project-mappers`
-- Render respeita `homeFeatured.cardStyle` + `logoPath`
+### ⚠️ FPS > 50 sem prova forte neste ciclo
+Não foi coletada medição confiável de FPS em browser real instrumentado nesta execução (headless não é evidência final de performance visual real).
 
-### ⚠️ Gap funcional vs briefing
-Briefing menciona **thumb upload específico do modo 2**. No estado atual, modo 2 reutiliza mídias gerais do projeto (`url_landscape/url_square/image`) em vez de um campo dedicado exclusivo “thumb do card destaque”.
+---
+
+## 5) RESPONSIVIDADE
+
+### ⚠️ Parcial (auditoria por código + estrutura)
+- A estrutura de grid responsivo está definida para mobile/tablet/desktop.
+- Nesta execução não foi gerada bateria de screenshots para confirmação visual final dos breakpoints 375 / 768 / 1440.
+
+---
+
+## 6) ADMIN DASHBOARD
+
+### ✅ Área “Destaques HOME” existe
+Campos presentes:
+- toggle de destaque na Home
+- seletor de modo do card
+- upload de logo invertido
+
+### ✅ Persistência e render integrados
+- `home_featured` é validado em schema
+- salvo via action/admin form
+- mapeado para render na HOME
+
+### ⚠️ Gap frente ao briefing
+Não há campo dedicado para **upload de thumb exclusivo do modo 2**; o modo thumb reaproveita mídias gerais do projeto.
 
 ---
 
 ## RESUMO DE CORREÇÕES PRIORITÁRIAS
 
-1. **Ajustar zoom hover de `1.03` para `1.02`** para conformidade exata com a regra.  
-2. **Normalizar timing de micro-interações** para `0.2s` hover-in e `0.15s` hover-out onde aplicável.  
-3. **Unificar nomenclatura histórica overlay 5%** (`*_OVERLAY_5`) em migration/docs legadas para remover ambiguidade.  
-4. **(Opcional de arquitetura)** decidir oficialmente entre randomização pura por render ou estratégia híbrida atual e atualizar documento da seção para evitar conflito de interpretação.  
-5. **(Admin evolução)** avaliar campo de thumb dedicado para modo 2, se for requisito rígido de direção de arte.
+1. Ajustar hover scale para **1.02** no card frame.
+2. Refinar durações para o alvo **0.2s / 0.15s** mantendo easing ghost.
+3. Decidir oficialmente entre randomização “pura por render” vs modelo híbrido atual e alinhar documentação.
+4. Corrigir nomenclatura legada `*_OVERLAY_50` para `*_OVERLAY_5` em artefatos históricos/documentais.
+5. (Se requisito rígido) incluir campo ADMIN de thumb dedicado para modo 2.
 
 ---
 
-## DEFINIÇÃO DE SUCESSO (Checklist)
+## CHECKLIST DE SUCESSO (atual)
 
-- [x] Backgrounds animados ativos (3 variantes)
-- [x] Sem persistência de background no CMS
-- [x] Interação hover presente com glow e CTA dinâmico
-- [x] Integração ADMIN funcional (layout + logo invertido)
-- [x] Responsividade validada nos 3 breakpoints
-- [ ] Conformidade estrita de motion (zoom/timings)
-- [ ] Validação FPS final em ambiente gráfico real (não headless)
+- [x] 3 backgrounds implementados
+- [x] Background não persistido no CMS
+- [x] Estrutura do card com camadas corretas
+- [x] CTA + glow + interação hover presentes
+- [x] Integração ADMIN funcional
+- [ ] Randomização estritamente “a cada render do card”
+- [ ] Motion 100% no envelope solicitado (scale/timing)
+- [ ] Validação final FPS > 50 em browser real com instrumentação
+- [ ] Validação visual final dos 3 breakpoints com evidência de screenshot
 
 ---
 
-## Conclusão Executiva
+## CONCLUSÃO EXECUTIVA
 
-A sessão está **tecnicamente sólida e visualmente muito próxima do alvo**, com integração ADMIN correta e base de background animado robusta. Para atingir **100% de fidelidade** ao briefing informado, os ajustes principais são de **micro-motion e padronização final de regra** (escala/timing + alinhamento de documentação/migration).
+A sessão **05-FEATURED-PROJECTS** está tecnicamente consistente e próxima do alvo de direção de arte, mas ainda em estado **⚠️ parcial** para fidelidade total do briefing desta auditoria. O caminho para 100% é de ajuste fino (motion), governança da regra de randomização e fechamento dos gaps de evidência (FPS/screenshot + thumb dedicado no ADMIN, se mandatória).
