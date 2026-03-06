@@ -10,18 +10,18 @@ import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 
 const Grainient = dynamic(
-  () => import('@/components/ui/backgrounds/Grainient'),
+  () => import('@/components/Grainient'),
   {
     ssr: false,
   }
 );
 const GhostCursor = dynamic(
-  () => import('@/components/ui/backgrounds/GhostCursor'),
+  () => import('@/components/GhostCursor'),
   {
     ssr: false,
   }
 );
-const Aurora = dynamic(() => import('@/components/ui/backgrounds/Aurora'), {
+const Aurora = dynamic(() => import('@/components/Aurora'), {
   ssr: false,
 });
 

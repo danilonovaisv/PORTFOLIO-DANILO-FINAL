@@ -51,8 +51,8 @@ export default function FeaturedProjectCard({
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
   const CardContent = () => (
-    <div className="flex h-full w-full flex-col">
-      <div className="relative w-full flex-1 min-h-[300px] md:min-h-[360px] lg:min-h-[420px]">
+    <div>
+      <div className="flex-1 min-h-[300px]">
         <FeaturedProjectCardFrame
           project={project}
           backgroundVariant={backgroundVariant}
@@ -63,7 +63,7 @@ export default function FeaturedProjectCard({
       </div>
 
       {/* Metadata - Mobile: text left, arrow right | Desktop: left-aligned */}
-      <div className="mt-6 flex shrink-0 flex-row items-start justify-between gap-4 px-1 text-left md:gap-6">
+      <div className="mt-6 flex flex-row justify-between items-start gap-4 md:gap-6 px-1 text-left">
         <div className="flex-1">
           {/* Category / Client / Year */}
           <div className="flex items-center justify-start gap-2 text-white/60 text-xs md:text-sm leading-tight mb-2">
@@ -80,7 +80,7 @@ export default function FeaturedProjectCard({
           {/* Title */}
           <h3
             id={headingId}
-            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-150 md:group-hover:duration-200 md:group-hover:text-bluePrimary"
+            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-150 hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:text-[#8705f2]"
           >
             {project.title}
           </h3>
@@ -89,8 +89,8 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle bg-bluePrimary md:group-hover:bg-[#8705f2] shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
-            <ArrowUpRight className="h-6 w-6 transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:translate-x-5" />
+          <div className="btn-icon-circle bg-bluePrimary md:group-hover:bg-[#8705f2] shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] hover:duration-200 md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
+            <ArrowUpRight className="h-6 w-6 transition-transform duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] hover:duration-200 md:group-hover:translate-x-5" />
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group flex flex-col h-full w-full min-h-[48px] rounded-md text-center md:text-left transition-transform duration-200 ease-out hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary';
+    'group block h-full w-full min-h-[48px] rounded-md text-center md:text-left transition-transform duration-200 ease-out hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary';
 
   if (isModalMode) {
     return (

@@ -75,8 +75,8 @@ Layouts disponíveis:
   - background animado + logo invertido central fixo
   - exige `logoPath`
   - se não houver logo, o render cai automaticamente para o layout de thumb overlay
-- `ANIMATED_BG_THUMB_OVERLAY_50`
-  - background animado + thumb do projeto com overlay escuro de 50%
+- `ANIMATED_BG_THUMB_OVERLAY_10`
+  - background animado + thumb do projeto com overlay escuro de 10% (10% de opacidade)
   - usa as capas já existentes (`url_landscape`, `url_square` ou fallback estático)
 
 Importante:
