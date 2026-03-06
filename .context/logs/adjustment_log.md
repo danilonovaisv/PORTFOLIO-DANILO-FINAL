@@ -1,5 +1,73 @@
 # Adjustment Log
 
+## [2026-03-04T01:15] Tailwind Oxide Scanner — CSS Parsing Error (PERSISTENT BUG — KI-009)
+
+**Context:** O servidor de desenvolvimento (`pnpm dev` / Turbopack) e o build de produção (`pnpm build`) retornavam erro fatal de parsing CSS com mensagens como:
+
+```text
+Parsing CSS: src/app/globals.css
+  Error: unexpected token ".bg-\[\.\4 \!\]"
+  background-color: .!;
+```
+
+**Causa Raiz:**
+
+O scanner `@tailwindcss/oxide` (Rust/WASM) operava em modo de **auto-detecção**, varrendo todos os arquivos do projeto. Ao atingir:
+
+- **Imagens JPEG** em `.context/` — bytes binários coincidiam com padrões de classe Tailwind.
+- **Logs com ANSI escapes** em `docs/log-erro.md` — caracteres de controle (U+0004) eram interpretados como parte de valores arbitrários.
+
+O oxide gerava seletores CSS inválidos como `.bg-\[\.\4\!\]` (onde `\4` é o escape CSS para U+0004). O LightningCSS no modo dev/Turbopack recusava parsear esse CSS malformado, causando crash total do servidor de desenvolvimento e do build.
+
+**Fix Aplicado — `src/app/globals.css`:**
+
+```diff
+-@import 'tailwindcss';
+-@source "../components";
+-@source "../app";
+-@source "../lib";
+-@source "../hooks";
+-@source "../store";
+-@source "../types";
+-@source "../config";
+-@source "../styles";
+-@source not "../dataconnect-generated";
+-@source not "../../docs";
+-@source not "../../.context";
+-@source not "../../.agent";
++@import "tailwindcss" source(none);
++@source "../components/**/*.{tsx,ts,jsx,js,css,mdx}";
++@source "../app/**/*.{tsx,ts,jsx,js,css,mdx}";
++@source "../lib/**/*.{tsx,ts,jsx,js}";
++@source "../hooks/**/*.{tsx,ts,jsx,js}";
++@source "../store/**/*.{tsx,ts,jsx,js}";
++@source "../types/**/*.{tsx,ts}";
++@source "../config/**/*.{tsx,ts,js}";
++@source "../styles/**/*.css";
+```
+
+**Mecanismo do Fix:**
+
+- `source(none)` **desativa completamente** a auto-detecção do oxide scanner (opt-out total).
+- Os `@source` explícitos com filtros de extensão garantem que **apenas arquivos de texto com código-fonte** sejam escaneados.
+- Binários, imagens, logs com ANSI escapes e quaisquer outros arquivos não-código **nunca entram no pipeline do LightningCSS**.
+
+**Por que `@source not` era frágil:**
+
+O padrão anterior com `@source not` era uma lista negra — qualquer novo diretório criado fora do controle (`.agent`, `.context`, `docs/`) poderia reintroduzir o problema. Com `source(none)` + `@source` explícitos, o scanner é **opt-in por definição**.
+
+**Verificação:**
+
+- ✅ `pnpm dev` → GET / 200 (sem erro de parsing CSS)
+- ✅ `pnpm build` → Build completo sem warnings de LightningCSS
+- ✅ Zero ocorrências de: "Parsing CSS", "background-color: .!", "Unexpected token"
+
+**Ação Preventiva:**
+
+> ⚠️ **SE ESTE ERRO RETORNAR**, a primeira ação é verificar se `globals.css` ainda usa `@import "tailwindcss" source(none)`. Se alguém reverteu para `@import 'tailwindcss'` sem `source(none)`, o oxide voltará a varrer todos os arquivos. Consulte **KI-009** no knowledge-graph.
+
+---
+
 ## [2026-03-03T13:26] Firebase Cloud Build Peer Conflict Mitigation
 
 **Context:** Run `docs/logs_59184030746` failed in `Deploy to Firebase` during Cloud Build with `ERESOLVE` while resolving `firebase-frameworks@0.11.8` (peer `sharp ^0.32 || ^0.33`) against `sharp@0.34.5` from the project and `motion-studio-mcp`. The failure occurs inside Firebase’s build environment, which ignores the runner’s `NPM_CONFIG_LEGACY_PEER_DEPS`.
