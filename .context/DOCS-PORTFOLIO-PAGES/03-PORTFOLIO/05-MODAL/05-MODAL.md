@@ -37,5 +37,5 @@ Exibir conteúdo detalhado do projeto sem sair da página, mantendo acessibilida
 
 ## 5. Inconformidades observadas
 
-- Inconformidade média (Motion): backdrop do `PortfolioModal` usa `easeInOut` no transition do overlay. Padronizar para `GHOST_EASE` para aderência estrita ao protocolo.
-- Inconformidade visual: presença de cores hex hardcoded no modal (`#040013`, `#0b0d3a`, `#4fe6ff`) em vez de tokens centralizados de marca.
+- Medium non-compliance (Motion): The `PortfolioModal` backdrop uses `easeInOut` for the overlay transition. It should be standardized to `GHOST_EASE` for strict protocol adherence.
+- Visual non-compliance: Presence of hardcoded hex colors in the modal (`#040013`, `#0b0d3a`, `#4fe6ff`) instead of centralized brand tokens.
