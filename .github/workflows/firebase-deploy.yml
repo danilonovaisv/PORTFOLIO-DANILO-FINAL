@@ -228,13 +228,13 @@ jobs:
 
           echo "📦 Gerando package-lock.json (root) para satisfazer builder do Firebase (npm ci)."
           mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts
+          npm install --package-lock-only --ignore-scripts --legacy-peer-deps
           mv node_modules_bak node_modules || true
 
           echo "📦 Gerando package-lock.json (functions)."
           cd functions
           mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts
+          npm install --package-lock-only --ignore-scripts --legacy-peer-deps
           mv node_modules_bak node_modules || true
           cd ..
 
