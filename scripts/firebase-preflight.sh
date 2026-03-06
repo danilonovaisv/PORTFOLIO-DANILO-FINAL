@@ -80,7 +80,17 @@ else
   ERRORS=$((ERRORS + 1))
 fi
 
-# Check 5: Verify Node version
+# Check 5: Verify npm resolution mode for Firebase Cloud Build
+echo -e "\n📦 Checking npm peer dependency strategy..."
+if [ -f ".npmrc" ] && grep -q '^legacy-peer-deps=true$' ".npmrc"; then
+  echo -e "${GREEN}✅ OK: legacy-peer-deps habilitado para o builder remoto do Firebase${NC}"
+else
+  echo -e "${RED}❌ ERRO: .npmrc sem legacy-peer-deps=true${NC}"
+  echo -e "${YELLOW}   O Cloud Build do Firebase usa npm e pode falhar com ERESOLVE em firebase-frameworks/sharp.${NC}"
+  ERRORS=$((ERRORS + 1))
+fi
+
+# Check 6: Verify Node version
 echo -e "\n🟢 Checking Node.js version..."
 NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
 if [ "$NODE_VERSION" -eq 20 ]; then
