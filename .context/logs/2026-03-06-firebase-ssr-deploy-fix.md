@@ -137,3 +137,50 @@ Classificação:
 - `template.tsx` e `MotionWrapper.tsx`: provável trabalho em progresso para contornar crash de HMR/Turbopack.
 - `report.html`: artefato gerado de auditoria local.
 - `.npmrc` e deleção local de `pnpm-lock.yaml`: estado local de ambiente, não parte desta correção de CI.
+
+---
+
+## Complemento — regressão por remoção do lockfile versionado (2026-03-06)
+
+### Contexto
+
+Após o workflow voltar a ficar verde, runs posteriores falharam de novo. Os artefatos em `docs/AUDIT-PLAN/` mostraram duas falhas correlatas:
+
+1. `actions/setup-node@v4` abortando em `Setup Node.js` com:
+   - `Some specified paths were not resolved, unable to cache dependencies.`
+2. relatório de resolução npm registrando novamente:
+   - `firebase-frameworks@0.11.8`
+   - `peerOptional sharp@"^0.32 || ^0.33"`
+   - conflito com `sharp@0.34.5`
+
+### Causa raiz
+
+O commit `2ee8491d1` removeu `pnpm-lock.yaml` do repositório e reduziu `.npmrc` para uma versão sem `legacy-peer-deps=true`.
+
+Efeitos:
+
+- sem `pnpm-lock.yaml`, o step `Setup Node.js` não consegue resolver `cache-dependency-path`;
+- sem `legacy-peer-deps=true`, o builder npm do Firebase volta a expor o conflito `firebase-frameworks` vs `sharp`.
+
+### Correção aplicada
+
+Arquivos:
+
+- `.npmrc`
+- `pnpm-lock.yaml`
+
+1. Restaurado `pnpm-lock.yaml` a partir do último commit verde conhecido:
+   - `ccc597336ec34f6193c9129dcf38af0fc9d8841f`
+2. Reintroduzido `legacy-peer-deps=true` no `.npmrc` atual sem alterar a estratégia local de `store-dir`.
+
+### Validação realizada
+
+- `CI=true pnpm install --frozen-lockfile --ignore-scripts` conclui com sucesso.
+- `pnpm run lint` conclui com sucesso.
+- `pnpm run typecheck` conclui com sucesso.
+- `pnpm run build` conclui com sucesso.
+- `cd functions && pnpm run build` conclui com sucesso.
+
+### Interpretação
+
+Esta regressão não foi causada pelo endurecimento do workflow. Ela foi introduzida depois, pela remoção do lockfile versionado e pela deriva de `.npmrc` em relação ao estado validado em produção.
