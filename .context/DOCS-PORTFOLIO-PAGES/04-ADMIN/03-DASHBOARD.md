@@ -11,7 +11,7 @@ Exibir visão rápida operacional (projetos, tags, destaques Home/Portfólio).
 ## 2. Estratégia de dados
 
 - contagens por tabelas `portfolio_projects` e `portfolio_tags`.
-- **estado atual do código:** consultas executadas sequencialmente (não paralelas).
+- **current code state:** queries are executed sequentially (not in parallel).
 
 ## 3. Pontos fortes
 
