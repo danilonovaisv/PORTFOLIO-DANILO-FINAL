@@ -38,6 +38,8 @@ interface AntigravityCTAProps {
    */
   as?: 'a' | 'div' | 'button';
   type?: 'button' | 'submit' | 'reset';
+  target?: string;
+  rel?: string;
 }
 
 const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
@@ -50,6 +52,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   className = 'fixed bottom-20 right-4 sm:bottom-12 sm:right-8 lg:bottom-12 lg:right-12 z-100 md:z-50',
   as = 'a',
   type,
+  target,
+  rel,
 }) => {
   // State para controlar hover
   const [isHovered, setIsHovered] = useState(false);
@@ -81,6 +85,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   return (
     <Component
       href={as === 'a' ? href : undefined}
+      target={as === 'a' ? target : undefined}
+      rel={as === 'a' ? rel : undefined}
       type={as === 'button' ? type : undefined}
       onClick={onClick}
       className={cn(
@@ -102,9 +108,9 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         reduceMotion
           ? { duration: 0 }
           : {
-              duration: 0.2,
-              ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
-            }
+            duration: 0.2,
+            ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
+          }
       }
       role="button"
       tabIndex={0}

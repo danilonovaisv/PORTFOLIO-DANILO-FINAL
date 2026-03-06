@@ -27,10 +27,9 @@ export const HOME_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'baixar curriculum',
-        href: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CURRICULUM-2026.html',
+        label: 'visualizar curriculum',
+        href: '/api/view-cv',
         variant: 'secondary',
-        download: true,
         external: true,
       },
     ],
@@ -325,10 +324,9 @@ export const ABOUT_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'baixar curriculum',
-        href: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CURRICULUM-2026.html',
+        label: 'visualizar curriculum',
+        href: '/api/view-cv',
         variant: 'secondary',
-        download: true,
         external: true,
       },
     ],

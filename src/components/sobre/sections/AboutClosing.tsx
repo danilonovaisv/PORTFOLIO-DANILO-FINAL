@@ -145,6 +145,8 @@ export function AboutClosing() {
                 href={cta.href}
                 text={cta.label}
                 className="relative"
+                target={cta.external ? '_blank' : undefined}
+                rel={cta.external ? 'noopener noreferrer' : undefined}
               />
             ))}
           </div>

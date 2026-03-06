@@ -8,6 +8,7 @@ import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from '@/components/home/portfolio-showcase/CategoryStripe';
 import { getAssetUrl } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { HOME_CONTENT } from '@/config/content';
 
 // Category data with assets
 const CATEGORIES = [
@@ -103,13 +104,18 @@ export default function PortfolioShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}
           transition={{ duration: 0.6, ease: GHOST_EASE, delay: 0.4 }}
-          className="flex justify-center mt-12 lg:mt-16"
+          className="flex flex-row flex-wrap items-center justify-center gap-6 mt-12 lg:mt-16 md:gap-8"
         >
-          <AntigravityCTA
-            href="/#contact"
-            text="let's build something great"
-            className="relative"
-          />
+          {HOME_CONTENT.showcase.ctas.map((cta, index) => (
+            <AntigravityCTA
+              key={index}
+              href={cta.href}
+              text={cta.label}
+              className="relative"
+              target={cta.external ? '_blank' : undefined}
+              rel={cta.external ? 'noopener noreferrer' : undefined}
+            />
+          ))}
         </motion.div>
       </Container>
     </section>
