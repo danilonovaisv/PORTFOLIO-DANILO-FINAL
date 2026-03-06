@@ -227,14 +227,15 @@ jobs:
           trap restore_on_exit EXIT
 
           echo "📦 Gerando package-lock.json (root) para satisfazer builder do Firebase (npm ci)."
+          echo "   Forçando inclusão de dev/optional/peer para evitar lock incompleto em CI."
           mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts --legacy-peer-deps
+          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer
           mv node_modules_bak node_modules || true
 
           echo "📦 Gerando package-lock.json (functions)."
           cd functions
           mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts --legacy-peer-deps
+          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer
           mv node_modules_bak node_modules || true
           cd ..
 
@@ -247,6 +248,11 @@ jobs:
             --debug --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+          # Ensure temporary lockfiles include the full graph expected by `npm ci` in Cloud Build.
+          NODE_ENV: 'development'
+          NPM_CONFIG_PRODUCTION: 'false'
+          NPM_CONFIG_INCLUDE: 'dev,optional,peer'
+          NPM_CONFIG_OMIT: ''
           NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
           NO_UPDATE_NOTIFIER: '1'
 
