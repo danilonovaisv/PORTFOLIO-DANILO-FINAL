@@ -92,7 +92,7 @@ SESSÃO 08-FOOTER
 3. (Média) Normalizar nomes de spec (`02-HERO-HOME.md` e `10-FOOTER`) para remover ambiguidade documental.
 
 ✅ DEFINIÇÃO DE “100% FIDELIDADE”
-- Todos tokens hex mapeados corretamente para variáveis e render final.
+- Todos os tokens hex mapeados corretamente para variáveis e render final.
 - Ordem de sessões 1→8 explícita no DOM e sem fusões ambíguas.
 - Motion com easing `[0.22,1,0.36,1]`, reveal y≤18, sem scale/bounce/rotate em UI.
 - Sem gaps de aria-label e com foco/teclado íntegros.
