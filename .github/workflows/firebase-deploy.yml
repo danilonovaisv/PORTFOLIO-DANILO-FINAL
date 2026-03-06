@@ -248,12 +248,6 @@ jobs:
             --debug --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
-          # Ensure temporary lockfiles include the full graph expected by `npm ci` in Cloud Build.
-          NODE_ENV: 'development'
-          NPM_CONFIG_PRODUCTION: 'false'
-          NPM_CONFIG_INCLUDE: 'dev,optional,peer'
-          NPM_CONFIG_OMIT: ''
-          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
           NO_UPDATE_NOTIFIER: '1'
 
       # ── 16. Notifications ──────────────────────────────────────────────────────

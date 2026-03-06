@@ -52,3 +52,42 @@ Arquivo: `.github/workflows/firebase-deploy.yml`
 ### Resultado esperado
 
 O Cloud Build deve deixar de falhar com `npm ci` por lock incompleto e seguir para atualização da função SSR normalmente.
+
+---
+
+## Complemento — Firebase Frameworks rebuild contaminado por `NODE_ENV` (2026-03-06)
+
+### Contexto
+
+Depois da correção do lockfile, o run mais recente do GitHub Actions deixou de falhar em `npm ci` e passou a quebrar no build remoto do Next.js dentro do Firebase Frameworks:
+
+- `Error occurred prerendering page "/_global-error"`
+- `TypeError: Cannot read properties of null (reading 'useContext')`
+- seguido de `ENOENT: .../.next/export-marker.json`
+
+### Causa raiz
+
+O step `Deploy to Firebase` exportava variáveis globais destinadas ao workaround do lockfile:
+
+- `NODE_ENV=development`
+- `NPM_CONFIG_PRODUCTION=false`
+- `NPM_CONFIG_INCLUDE=dev,optional,peer`
+- `NPM_CONFIG_OMIT=''`
+- `NPM_CONFIG_LEGACY_PEER_DEPS=true`
+
+O Firebase Frameworks ignora o build local customizado e executa um novo `next build` remotamente. Com isso, o build remoto passou a rodar com `NODE_ENV=development`, exibindo o aviso de `non-standard NODE_ENV` e reproduzindo localmente a quebra de prerender em `/_global-error`.
+
+### Correção aplicada
+
+Arquivo: `.github/workflows/firebase-deploy.yml`
+
+1. Removidas do `env:` do step de deploy todas as variáveis globais de npm/Node que vazavam para o builder remoto.
+2. Mantida a geração explícita dos lockfiles temporários via flags nos comandos:
+   - `npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer`
+3. Preservado apenas `GOOGLE_APPLICATION_CREDENTIALS` e `NO_UPDATE_NOTIFIER` no ambiente do deploy.
+
+### Validação realizada
+
+- `pnpm exec next build` conclui com sucesso em ambiente padrão.
+- `NODE_ENV=development pnpm exec next build` reproduz a falha remota em `/_global-error`.
+- Portanto, a correção correta é isolar o workaround do lockfile e impedir que `NODE_ENV=development` contamine o build remoto do Firebase Frameworks.
