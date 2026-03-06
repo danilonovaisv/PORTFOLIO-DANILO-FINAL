@@ -37,4 +37,5 @@ Exibir conteúdo detalhado do projeto sem sair da página, mantendo acessibilida
 
 ## 5. Inconformidades observadas
 
-- Sem inconformidades críticas encontradas na camada de acessibilidade base do modal.
+- Inconformidade média (Motion): backdrop do `PortfolioModal` usa `easeInOut` no transition do overlay. Padronizar para `GHOST_EASE` para aderência estrita ao protocolo.
+- Inconformidade visual: presença de cores hex hardcoded no modal (`#040013`, `#0b0d3a`, `#4fe6ff`) em vez de tokens centralizados de marca.
