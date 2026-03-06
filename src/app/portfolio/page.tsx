@@ -5,7 +5,13 @@ import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers'
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
 import { getSupabasePublicKey } from '@/lib/supabase/env';
-import { ENABLE_SERVER_PAGINATION, PORTFOLIO_PAGE_SIZE } from '@/config/portfolio';
+import {
+  ENABLE_SERVER_PAGINATION,
+  PORTFOLIO_PAGE_SIZE,
+  mapCategoryToPortfolioFilter,
+  getPortfolioFilterById,
+  normalizePortfolioCategoryQuery,
+} from '@/config/portfolio';
 
 import { BRAND } from '@/config/brand';
 import {
@@ -28,7 +34,7 @@ export async function generateMetadata({
   const categoryRaw = Array.isArray(resolved?.category)
     ? resolved?.category[0]
     : (resolved as { category?: string })?.category;
-  const category = categoryRaw?.toLowerCase();
+  const category = normalizePortfolioCategoryQuery(categoryRaw);
   const categoryMeta: Record<
     string,
     { label: string; description: string; keywords: string[] }
@@ -114,6 +120,9 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
   const categoryParam = Array.isArray(resolvedSearchParams?.category)
     ? resolvedSearchParams?.category[0]
     : resolvedSearchParams?.category;
+  const activeFilter = getPortfolioFilterById(
+    mapCategoryToPortfolioFilter(categoryParam)
+  );
   const pageParam = Array.isArray(resolvedSearchParams?.page)
     ? resolvedSearchParams?.page[0]
     : resolvedSearchParams?.page;
@@ -123,6 +132,11 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
 
   try {
     const fallbackProjects = buildFallbackProjects();
+    const filteredFallbackProjects = activeFilter.categories?.length
+      ? fallbackProjects.filter((project) =>
+          activeFilter.categories?.includes(project.category)
+        )
+      : fallbackProjects;
     const hasSupabaseEnv =
       Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
       Boolean(getSupabasePublicKey());
@@ -131,7 +145,11 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
       const supabase = createStaticClient();
       if (ENABLE_SERVER_PAGINATION) {
         const { data: dbProjects, count } = await listProjectsPaged(
-          {},
+          {
+            projectTypes: activeFilter.projectTypes
+              ? [...activeFilter.projectTypes]
+              : undefined,
+          },
           { page: initialPage, pageSize: PORTFOLIO_PAGE_SIZE },
           supabase
         );
@@ -140,7 +158,14 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
           mapDbProjectToPortfolioProject(project, index)
         );
       } else {
-        const dbProjects = await listProjects({}, supabase);
+        const dbProjects = await listProjects(
+          {
+            projectTypes: activeFilter.projectTypes
+              ? [...activeFilter.projectTypes]
+              : undefined,
+          },
+          supabase
+        );
         projects = dbProjects.map((project, index) =>
           mapDbProjectToPortfolioProject(project, index)
         );
@@ -150,17 +175,22 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
       // If the database is empty (common in local dev/CI), fall back to curated static projects
       if (projects.length === 0) {
         console.warn('[Portfolio] No projects returned from Supabase, using fallback projects.');
-        projects = fallbackProjects;
-        totalProjectsCount = fallbackProjects.length;
+        projects = filteredFallbackProjects;
+        totalProjectsCount = filteredFallbackProjects.length;
       }
     } else {
       console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
-      projects = fallbackProjects;
-      totalProjectsCount = fallbackProjects.length;
+      projects = filteredFallbackProjects;
+      totalProjectsCount = filteredFallbackProjects.length;
     }
   } catch (error) {
     console.error('[Portfolio] Error occurred:', error instanceof Error ? error.message : error);
-    projects = buildFallbackProjects();
+    const fallbackProjects = buildFallbackProjects();
+    projects = activeFilter.categories?.length
+      ? fallbackProjects.filter((project) =>
+          activeFilter.categories?.includes(project.category)
+        )
+      : fallbackProjects;
     totalProjectsCount = projects.length;
   }
 

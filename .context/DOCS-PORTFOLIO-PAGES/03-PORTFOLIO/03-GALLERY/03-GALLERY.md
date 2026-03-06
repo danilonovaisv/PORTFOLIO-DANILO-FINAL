@@ -16,6 +16,8 @@ Entregar galeria editorial filtrável com leitura por categorias e ritmo visual 
 
 - `section#portfolio-gallery`
 - barra sticky de filtros
+- filtro inicial padrão: `All Cases`
+- categorias visíveis: `All Cases`, `Brand & Campaigns`, `Videos & Motions`, `Websites & Tech`
 - grid de cards com padrão de tamanho
 - estado vazio por categoria
 
@@ -27,6 +29,9 @@ Entregar galeria editorial filtrável com leitura por categorias e ritmo visual 
 ## 4. Interatividade e motion
 
 - Framer Motion em filtro ativo e entrada dos cards.
+- `All Cases` exibe todos os trabalhos sem segmentação.
+- mudança de filtro sincroniza `category` na URL; `All Cases` remove o query param e mantém a rota canônica `/portfolio`.
+- troca de filtro reseta a paginação para página 1.
 - LERP scroll ativado apenas quando:
   - não mobile
   - motion permitido

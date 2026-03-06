@@ -179,6 +179,14 @@ Ordem final (canônica):
 - Responsivo: desktop 12 col, tablet 8 col, mobile 1 col (altura auto).
 - A11y/Motion: overlay também em `:focus-visible`; `prefers-reduced-motion` mantém cards estáticos.
 
+### Categorias da Gallery
+
+- Ordem do menu: `All Cases`, `Brand & Campaigns`, `Videos & Motions`, `Websites & Tech`.
+- Estado inicial obrigatório ao abrir `/portfolio`: `All Cases`.
+- `All Cases` mostra todos os trabalhos, sem segmentação.
+- Filtros segmentados continuam funcionando por pilar editorial.
+- A mudança de filtro sincroniza a URL via `?category=`; `All Cases` remove o parâmetro e mantém a canônica `/portfolio`.
+
 ### Paginação & Limites
 
 - Limite padrão: **15 cards por página** (`PORTFOLIO_PAGE_SIZE`, centralizado em `src/config/portfolio.ts`).

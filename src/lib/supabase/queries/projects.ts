@@ -9,6 +9,7 @@ type ProjectFilters = {
   tagSlug?: string;
   year?: number;
   search?: string;
+  projectTypes?: string[];
   includeUnpublished?: boolean;
   featuredOnHome?: boolean;
   featuredOnPortfolio?: boolean;
@@ -51,6 +52,10 @@ export async function listProjects(
     query = query.or(
       `title.ilike.%${filters.search}%,client_name.ilike.%${filters.search}%`
     );
+  }
+
+  if (filters.projectTypes?.length) {
+    query = query.in('project_type', filters.projectTypes);
   }
 
   if (filters.featuredOnHome) {
@@ -110,6 +115,10 @@ export async function listProjectsPaged(
     query = query.or(
       `title.ilike.%${filters.search}%,client_name.ilike.%${filters.search}%`
     );
+  }
+
+  if (filters.projectTypes?.length) {
+    query = query.in('project_type', filters.projectTypes);
   }
 
   if (filters.featuredOnHome) {

@@ -14,11 +14,19 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ProjectCard, type ProjectCardSize } from '@/components/portfolio/ProjectCard';
-import { PortfolioProject, ProjectCategory } from '@/types/project';
+import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { StandardGrid } from '@/components/layout/Container';
 import { GHOST_EASE } from '@/config/motion';
-import { PORTFOLIO_PAGE_SIZE, ENABLE_SERVER_PAGINATION } from '@/config/portfolio';
+import {
+  PORTFOLIO_PAGE_SIZE,
+  ENABLE_SERVER_PAGINATION,
+  PORTFOLIO_FILTERS,
+  type PortfolioFilterId,
+  mapCategoryToPortfolioFilter,
+  getPortfolioFilterById,
+  getPortfolioCategoryQueryValue,
+} from '@/config/portfolio';
 
 interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
@@ -27,37 +35,6 @@ interface ProjectsGalleryProps {
   initialCategory?: string;
   initialPage?: number;
   totalProjectsCount?: number;
-}
-
-const CATEGORY_PILLARS = [
-  {
-    id: 'brand-campaigns',
-    label: 'Brand & Campaigns',
-    categories: ['branding', 'campanha', 'packaging', 'institucional'] as ProjectCategory[],
-  },
-  { id: 'videos-motions', label: 'Videos & Motions', categories: ['motion'] as ProjectCategory[] },
-  {
-    id: 'web-tech',
-    label: 'Websites & Tech',
-    categories: ['web', 'Landing Page'] as ProjectCategory[],
-  },
-] as const;
-
-function mapCategoryToPillar(category?: string) {
-  const normalized = category?.trim().toLowerCase();
-  if (!normalized) return 'brand-campaigns';
-  if (normalized === 'motion' || normalized === 'videos-motions' || normalized === 'videos & motions') {
-    return 'videos-motions';
-  }
-  if (
-    normalized === 'web' ||
-    normalized === 'web-tech' ||
-    normalized === 'websites & tech' ||
-    normalized === 'websites-tech'
-  ) {
-    return 'web-tech';
-  }
-  return 'brand-campaigns';
 }
 
 /**
@@ -75,8 +52,8 @@ export const ProjectsGallery = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [activeFilter, setActiveFilter] = useState<string>(
-    mapCategoryToPillar(initialCategory)
+  const [activeFilter, setActiveFilter] = useState<PortfolioFilterId>(
+    mapCategoryToPortfolioFilter(initialCategory)
   );
   const filterRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -86,9 +63,10 @@ export const ProjectsGallery = ({
 
   // Filter logic
   const filteredProjects = useMemo(() => {
-    const pillar = CATEGORY_PILLARS.find((p) => p.id === activeFilter);
-    if (!pillar || !('categories' in pillar)) return projects;
-    return projects.filter((p) => pillar.categories.includes(p.category));
+    const pillar = getPortfolioFilterById(activeFilter);
+    const categories = pillar.categories;
+    if (!categories?.length) return projects;
+    return projects.filter((project) => categories.includes(project.category));
   }, [activeFilter, projects]);
 
   // LERP only for larger sets to avoid end-of-list distortion in short galleries.
@@ -102,8 +80,16 @@ export const ProjectsGallery = ({
   const [pageAnnouncement, setPageAnnouncement] = useState('');
 
   // Sync activeFilter changes with page reset
-  const pushPageToUrl = useCallback((page: number) => {
+  const pushStateToUrl = useCallback((filterId: PortfolioFilterId, page: number) => {
     const params = new URLSearchParams(searchParams?.toString());
+    const category = getPortfolioCategoryQueryValue(filterId);
+
+    if (category) {
+      params.set('category', category);
+    } else {
+      params.delete('category');
+    }
+
     if (page > 1) {
       params.set('page', String(page));
     } else {
@@ -114,17 +100,16 @@ export const ProjectsGallery = ({
     router.push(url);
   }, [pathname, router, searchParams]);
 
-  const handleFilterChange = useCallback((newFilter: string) => {
+  const handleFilterChange = useCallback((newFilter: PortfolioFilterId) => {
     setActiveFilter(newFilter);
     setCurrentPage(1);
-    // Reset page in URL
-    pushPageToUrl(1);
+    pushStateToUrl(newFilter, 1);
 
     // Smooth scroll to top of gallery on filter change
     if (galleryWrapperRef.current) {
       galleryWrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [pushPageToUrl]);
+  }, [pushStateToUrl]);
 
   const totalPages = Math.max(
     1,
@@ -142,6 +127,14 @@ export const ProjectsGallery = ({
   }, [filteredProjects, currentPage]);
 
   useEffect(() => {
+    setActiveFilter(mapCategoryToPortfolioFilter(initialCategory));
+  }, [initialCategory]);
+
+  useEffect(() => {
+    setCurrentPage(Math.max(1, initialPage));
+  }, [initialPage]);
+
+  useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
       return;
@@ -151,9 +144,9 @@ export const ProjectsGallery = ({
 
   const goToPage = useCallback((nextPage: number) => {
     setCurrentPage(nextPage);
-    pushPageToUrl(nextPage);
+    pushStateToUrl(activeFilter, nextPage);
     galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [pushPageToUrl]);
+  }, [activeFilter, pushStateToUrl]);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
@@ -173,7 +166,7 @@ export const ProjectsGallery = ({
     () =>
       Math.max(
         0,
-        CATEGORY_PILLARS.findIndex((pillar) => pillar.id === activeFilter)
+        PORTFOLIO_FILTERS.findIndex((pillar) => pillar.id === activeFilter)
       ),
     [activeFilter]
   );
@@ -194,16 +187,16 @@ export const ProjectsGallery = ({
       let nextIndex = index;
 
       if (event.key === 'ArrowRight') {
-        nextIndex = (index + 1) % CATEGORY_PILLARS.length;
+        nextIndex = (index + 1) % PORTFOLIO_FILTERS.length;
       } else if (event.key === 'ArrowLeft') {
-        nextIndex = (index - 1 + CATEGORY_PILLARS.length) % CATEGORY_PILLARS.length;
+        nextIndex = (index - 1 + PORTFOLIO_FILTERS.length) % PORTFOLIO_FILTERS.length;
       } else if (event.key === 'Home') {
         nextIndex = 0;
       } else if (event.key === 'End') {
-        nextIndex = CATEGORY_PILLARS.length - 1;
+        nextIndex = PORTFOLIO_FILTERS.length - 1;
       }
 
-      const nextFilter = CATEGORY_PILLARS[nextIndex];
+      const nextFilter = PORTFOLIO_FILTERS[nextIndex];
       handleFilterChange(nextFilter.id);
       filterRefs.current[nextIndex]?.focus();
     },
@@ -243,7 +236,7 @@ export const ProjectsGallery = ({
             aria-label="Filtros de categorias do portfólio"
             className="flex items-center gap-4 md:gap-8 overflow-x-auto whitespace-nowrap pb-1"
           >
-            {CATEGORY_PILLARS.map((pillar, index) => (
+            {PORTFOLIO_FILTERS.map((pillar, index) => (
               <button
                 key={pillar.id}
                 id={`portfolio-filter-${pillar.id}`}
@@ -283,7 +276,7 @@ export const ProjectsGallery = ({
       <div
         id="portfolio-filter-panel"
         role="tabpanel"
-        aria-labelledby={`portfolio-filter-${CATEGORY_PILLARS[activeFilterIndex]?.id ?? CATEGORY_PILLARS[0].id
+        aria-labelledby={`portfolio-filter-${PORTFOLIO_FILTERS[activeFilterIndex]?.id ?? PORTFOLIO_FILTERS[0].id
           }`}
         className="w-full relative z-[1]"
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}

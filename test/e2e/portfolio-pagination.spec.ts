@@ -6,6 +6,10 @@ const cardLocator = '[id^=\"portfolio-card-\"]';
 test('paginação mantém limite e estados first/last', async ({ page }) => {
   await page.goto('/portfolio');
 
+  await expect(
+    page.getByRole('tab', { name: /All Cases/i })
+  ).toHaveAttribute('aria-selected', 'true');
+
   const cards = page.locator(cardLocator);
   const countPage1 = await cards.count();
   expect(countPage1).toBeLessThanOrEqual(PORTFOLIO_PAGE_SIZE);
@@ -29,9 +33,22 @@ test('filtro reseta página para 1', async ({ page }) => {
   await page.goto('/portfolio?page=2');
   const tabVideos = page.getByRole('tab', { name: /Videos & Motions/i });
   await tabVideos.click();
+  await expect(page).toHaveURL(/category=motion/);
   await expect(page).not.toHaveURL(/page=2/);
 
   const cards = page.locator(cardLocator);
   const count = await cards.count();
   expect(count).toBeLessThanOrEqual(PORTFOLIO_PAGE_SIZE);
+});
+
+test('All Cases limpa category da URL e permanece ativo ao abrir a página', async ({
+  page,
+}) => {
+  await page.goto('/portfolio?category=motion');
+
+  const tabAllCases = page.getByRole('tab', { name: /All Cases/i });
+  await tabAllCases.click();
+
+  await expect(page).toHaveURL('/portfolio');
+  await expect(tabAllCases).toHaveAttribute('aria-selected', 'true');
 });
