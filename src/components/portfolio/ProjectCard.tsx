@@ -12,7 +12,6 @@ import {
   applyImageFallback,
   isVideo,
 } from '@/lib/utils';
-import styles from '@/components/portfolio/ProjectsGallery.module.css';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -117,6 +116,17 @@ export const ProjectCard = ({
   const hasHoverRef = React.useRef(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
+  const sizeClasses = {
+    sm: 'col-span-4 lg:col-span-4 aspect-[4/5] w-full',
+    md: 'col-span-4 lg:col-span-4 aspect-[4/5] w-full',
+    lg: 'col-span-8 lg:col-span-8 aspect-[8/5] w-full',
+    wide: 'col-span-8 lg:col-span-12 aspect-[16/9] lg:aspect-[16/7] w-full',
+    tall: 'col-span-4 lg:col-span-4 aspect-[3/5] w-full',
+  };
+
+  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-[#0b0d3a] border border-white/10 h-full transition-all duration-250 ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
+  const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-[4/5] max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
+
   return (
     <motion.button
       type="button"
@@ -127,7 +137,9 @@ export const ProjectCard = ({
       aria-haspopup={isModalDestination ? 'dialog' : undefined}
       aria-labelledby={headingId}
       className={cn(
-        styles.card,
+        baseCardClasses,
+        sizeClasses[size],
+        mobileCardClasses,
         'group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}
@@ -135,7 +147,7 @@ export const ProjectCard = ({
       onMouseLeave={() => setIsHovered(false)}
       {...motionProps}
     >
-      <div className={styles.cardImageWrapper}>
+      <div className="absolute inset-0 h-full z-0">
         {/* Static image — always visible by default */}
         {imagesDiffer ? (
           <>
@@ -203,7 +215,7 @@ export const ProjectCard = ({
         )}
       </div>
 
-      <div className={styles.cardOverlay}>
+      <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 opacity-0 transition-all duration-250 ease-out bg-[#0048ff]/85 z-10 group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
         <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
           <p className="text-[11px] uppercase tracking-[0.18em] text-white/70 mb-2">
             {project.displayCategory}

@@ -16,7 +16,6 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ProjectCard, type ProjectCardSize } from '@/components/portfolio/ProjectCard';
 import { PortfolioProject, ProjectCategory } from '@/types/project';
 import { cn } from '@/lib/utils';
-import styles from '@/components/portfolio/ProjectsGallery.module.css';
 import { StandardGrid } from '@/components/layout/Container';
 import { GHOST_EASE } from '@/config/motion';
 import { PORTFOLIO_PAGE_SIZE, ENABLE_SERVER_PAGINATION } from '@/config/portfolio';
@@ -254,7 +253,7 @@ export const ProjectsGallery = ({
                 type="button"
                 role="tab"
                 aria-controls="portfolio-filter-panel"
-                aria-selected={activeFilter === pillar.id ? true : false}
+                aria-selected={activeFilter === pillar.id}
                 tabIndex={activeFilter === pillar.id ? 0 : -1}
                 onClick={() => handleFilterChange(pillar.id)}
                 onKeyDown={(event) =>
@@ -286,7 +285,7 @@ export const ProjectsGallery = ({
         role="tabpanel"
         aria-labelledby={`portfolio-filter-${CATEGORY_PILLARS[activeFilterIndex]?.id ?? CATEGORY_PILLARS[0].id
           }`}
-        className={cn('gallery', styles.gallery)}
+        className="w-full relative z-[1]"
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
         <StandardGrid>
@@ -303,7 +302,11 @@ export const ProjectsGallery = ({
           ) : (
             <div
               ref={trackRef}
-              className={cn(styles.track, getTrackClasses())}
+              className={cn(
+                'w-full grid grid-cols-8 lg:grid-cols-12 gap-[10px] lg:gap-3 p-0 will-change-transform',
+                'max-sm:flex max-sm:flex-col max-sm:items-center max-sm:h-auto max-sm:will-change-auto max-sm:static',
+                getTrackClasses()
+              )}
             >
               <AnimatePresence mode="popLayout">
                 {items.map((item, index) => (

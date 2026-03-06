@@ -7,6 +7,8 @@ import type { NavItem } from '@/components/layout/header/types';
 import styles from '@/components/layout/header/DesktopFluidHeader.module.css';
 
 import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
+import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useAntigravityStore } from '@/store/antigravity.store';
 
@@ -80,9 +82,8 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-[1000] w-full pointer-events-none transition-all duration-300 ease-in-out ${
-        isLight ? 'header--light' : ''
-      }`}
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${isLight ? 'header--light' : ''
+        }`}
     >
       <div
         className={
@@ -91,9 +92,8 @@ export default function DesktopFluidHeader({
       >
         <div ref={wrapRef} className="pointer-events-auto w-full relative">
           <div
-            className={`${styles.headerContainer} ${
-              isLight ? styles.headerLight : styles.headerDark
-            } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
+            className={`${styles.headerContainer} ${isLight ? styles.headerLight : styles.headerDark
+              } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
           >
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">
@@ -132,49 +132,48 @@ export default function DesktopFluidHeader({
                   const isActive = activeHref === hash;
 
                   const common =
-                    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em]';
+                    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
                   const baseText = isLight ? 'text-white' : 'text-white/70';
                   const hoverText = isLight
-                    ? 'hover:text-blueAccent'
+                    ? 'hover:text-bluePrimary'
                     : 'hover:text-white';
-                  const activeText = isLight
-                    ? 'text-blueAccent'
-                    : 'text-bluePrimary';
+                  const activeText = 'text-bluePrimary';
                   const textColor = isActive
                     ? `${activeText} font-semibold`
                     : `${baseText} ${hoverText} font-medium`;
                   const pageOverride = shouldHighlightPage
                     ? 'text-bluePrimary font-semibold'
                     : '';
-                  const underline = isActive
-                    ? 'after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-current'
-                    : 'after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-current group-hover:after:w-full after:transition-all after:duration-300';
 
-                  if (isExternalHref(item.href) || item.external) {
-                    return (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`group ${common} ${textColor} ${pageOverride} relative flex items-center`}
-                      >
-                        <span className="tracking-tight">{item.label}</span>
-                        <span className={underline} />
-                      </a>
-                    );
-                  }
+                  const LinkComponent = isExternalHref(item.href) || item.external ? motion.a : motion.button;
+                  const linkProps = isExternalHref(item.href) || item.external ? {
+                    href: item.href,
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                  } : {
+                    type: "button" as const,
+                    onClick: () => onNavigate(item.href)
+                  };
 
                   return (
-                    <button
+                    <LinkComponent
                       key={item.href}
-                      type="button"
-                      onClick={() => onNavigate(item.href)}
-                      className={`group ${common} ${textColor} ${pageOverride} relative flex items-center`}
+                      {...linkProps}
+                      className={`group ${common} ${textColor} ${pageOverride}`}
+                      whileHover={!isActive ? 'hover' : undefined}
+                      initial="initial"
+                      animate={isActive ? 'active' : 'initial'}
                     >
                       <span className="tracking-tight">{item.label}</span>
-                      <span className={underline} />
-                    </button>
+                      <motion.span
+                        className="absolute -bottom-1 left-0 h-[1px] w-full bg-current origin-center"
+                        variants={{
+                          initial: { scaleX: 0 },
+                          hover: { scaleX: 1, transition: { duration: reducedMotion ? 0 : 0.3, ease: GHOST_EASE } },
+                          active: { scaleX: 1, transition: { duration: reducedMotion ? 0 : 0.3, ease: GHOST_EASE } }
+                        }}
+                      />
+                    </LinkComponent>
                   );
                 })}
               </nav>

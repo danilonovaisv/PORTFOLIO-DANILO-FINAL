@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
@@ -63,6 +63,45 @@ export function VideoManifesto({
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'start start'],
+  });
+
+  const deskScale = useTransform(scrollYProgress, [0.4, 1], [0.85, 1]);
+  const deskX = useTransform(scrollYProgress, [0.4, 1], ['15%', '0%']);
+  const deskBR = useTransform(scrollYProgress, [0.6, 1], ['16px', '0px']);
+
+  const [hasPlayedHold, setHasPlayedHold] = useState(false);
+
+  useEffect(() => {
+    if (isMobile || hasPlayedHold || shouldReduceMotion) return;
+
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      // Quando o video atingir 99% a 100% da viewport (start top)
+      if (latest >= 0.99 && !hasPlayedHold) {
+        setHasPlayedHold(true);
+
+        // Travar Scroll por 2 segundos
+        document.body.style.overflow = 'hidden';
+
+        // Unmute automático e tentar tocar áudio se não estiver
+        setMuted(false);
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {
+            // Se autoplay foi bloqueado pelo browser
+          });
+        }
+
+        setTimeout(() => {
+          document.body.style.overflow = '';
+        }, 2000);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress, hasPlayedHold, isMobile, shouldReduceMotion]);
 
   // Mutar sempre por padrão; som só habilita via ação explícita do usuário (botão)
   useEffect(() => {
@@ -158,10 +197,20 @@ export function VideoManifesto({
       }
       viewport={viewportConfig}
     >
-      <div
+      <motion.div
         ref={wrapperRef}
         // Change aspect ratio handling to allow natural height on mobile without cutting
         className="video-wrapper relative w-full bg-black/5"
+        style={
+          !isMobile && !shouldReduceMotion
+            ? {
+              scale: deskScale,
+              x: deskX,
+              borderRadius: deskBR,
+              transformOrigin: 'bottom right',
+            }
+            : {}
+        }
       >
         <video
           ref={videoRef}
@@ -239,7 +288,7 @@ export function VideoManifesto({
             </svg>
           )}
         </button>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }
