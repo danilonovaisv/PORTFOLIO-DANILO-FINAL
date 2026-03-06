@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useAntigravityStore } from '@/store/antigravity.store';
+import { isNavItemActive } from '@/components/layout/header/nav-state';
 
 const HeaderGlassCanvas = dynamic(
   () => import('@/components/canvas/header/HeaderGlassCanvas'),
@@ -25,7 +26,6 @@ export interface DesktopFluidHeaderProps {
   onNavigate: (_href: string) => void;
   activeHref?: string;
   isLight?: boolean;
-  isPageActive?: boolean;
 }
 
 function isExternalHref(href: string) {
@@ -42,7 +42,6 @@ export default function DesktopFluidHeader({
   onNavigate,
   activeHref,
   isLight,
-  isPageActive,
 }: DesktopFluidHeaderProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useMotionGate();
@@ -50,7 +49,6 @@ export default function DesktopFluidHeader({
   const [allowCanvas, setAllowCanvas] = useState(false);
 
   const nav = useMemo(() => navItems, [navItems]);
-  const shouldHighlightPage = Boolean(isPageActive);
 
   useEffect(() => {
     if (reducedMotion || !mountWebGL) {
@@ -129,10 +127,7 @@ export default function DesktopFluidHeader({
                 data-testid="site-navigation"
               >
                 {nav.map((item) => {
-                  const hash = item.href.startsWith('/#')
-                    ? item.href.substring(1)
-                    : item.href;
-                  const isActive = activeHref === hash;
+                  const isActive = isNavItemActive(item.href, activeHref);
 
                   const common =
                     'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
@@ -144,9 +139,6 @@ export default function DesktopFluidHeader({
                   const textColor = isActive
                     ? `${activeText} font-semibold`
                     : `${baseText} ${hoverText} font-medium`;
-                  const pageOverride = shouldHighlightPage
-                    ? 'text-bluePrimary font-semibold'
-                    : '';
 
                   const LinkComponent =
                     isExternalHref(item.href) || item.external
@@ -168,7 +160,7 @@ export default function DesktopFluidHeader({
                     <LinkComponent
                       key={item.href}
                       {...linkProps}
-                      className={`group ${common} ${textColor} ${pageOverride}`}
+                      className={`group ${common} ${textColor}`}
                       whileHover={!isActive ? 'hover' : undefined}
                       initial="initial"
                       animate={isActive ? 'active' : 'initial'}

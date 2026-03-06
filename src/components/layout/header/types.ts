@@ -40,12 +40,11 @@ export interface MobileStaggeredMenuProps {
   navItems: NavItem[];
   logoUrl: string;
   isLight?: boolean;
-  gradient: [string, string];
-  accentColor: string;
+  gradient?: [string, string];
+  accentColor?: string;
   isOpen: boolean;
-  isFixed?: boolean;
-  onOpen?: () => void;
-  onClose?: () => void;
-  onNavigate?: (_href: string) => void;
-  staggerDelay?: number;
+  onOpen: () => void;
+  onClose: () => void;
+  onNavigate: (_href: string) => void;
+  activeHref?: string;
 }

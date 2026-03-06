@@ -30,6 +30,11 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
     // Combine hero media + gallery
     const galleryMedia = useMemo(() => {
         const list: string[] = [];
+        const hiddenMedia = new Set(
+            [project.thumbnailMedia].filter(
+                (entry): entry is string => typeof entry === 'string' && entry.trim() !== ''
+            )
+        );
 
         // Ensure heroMedia is always available in the thumbnails
         if (heroMedia && heroMedia.trim() !== '') {
@@ -38,13 +43,19 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
         if (project.detail?.gallery) {
             project.detail.gallery.forEach(m => {
-                if (m && typeof m === 'string' && m.trim() !== '' && !list.includes(m)) {
+                if (
+                    m &&
+                    typeof m === 'string' &&
+                    m.trim() !== '' &&
+                    !hiddenMedia.has(m) &&
+                    !list.includes(m)
+                ) {
                     list.push(m);
                 }
             });
         }
         return list;
-    }, [project.detail?.gallery, heroMedia]);
+    }, [project.detail?.gallery, project.thumbnailMedia, heroMedia]);
 
     useEffect(() => {
         if (galleryMedia.length > 0 && !galleryMedia.includes(activeMedia)) {
@@ -82,7 +93,13 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                 <section className="relative w-full group overflow-hidden bg-transparent">
                     {/* HERO MEDIA */}
                     <div className="relative w-full aspect-video max-h-[70vh] bg-black/50 overflow-hidden flex items-center justify-center">
-                        {activeYouTubeEmbed ? (
+                        {!activeMedia ? (
+                            <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
+                                <div className="max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                                    Este post nao possui midia interna publicada. A thumb permanece apenas na listagem.
+                                </div>
+                            </div>
+                        ) : activeYouTubeEmbed ? (
                             <iframe
                                 src={activeYouTubeEmbed}
                                 title={project.title}
@@ -129,7 +146,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         )}
 
                         {/* Ghost Ambient Gradient */}
-                        {!isVid && !activeYouTubeEmbed && (
+                        {!activeMedia ? null : !isVid && !activeYouTubeEmbed && (
                             <div className="absolute inset-0 bg-gradient-to-t from-[#040013] via-[#040013]/20 to-transparent opacity-90 pointer-events-none z-10" />
                         )}
 

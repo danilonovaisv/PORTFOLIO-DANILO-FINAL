@@ -370,9 +370,7 @@ export function mapDbProjectToPortfolioProject(
   ].filter(Boolean) as string[];
 
   const primaryImage = primaryImageCandidates[0] || '';
-  const videoPreview = thumbnailIsVideo
-    ? thumbnailMedia
-    : toVideoPreview(gallery);
+  const videoPreview = toVideoPreview(galleryWithYoutube);
 
   const detail = {
     description: project.description ?? '',

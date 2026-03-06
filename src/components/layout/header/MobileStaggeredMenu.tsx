@@ -9,26 +9,7 @@ import {
 
 import React, { useEffect } from 'react';
 import { useMobileMenuAnimation } from '@/hooks/useMobileMenuAnimation';
-
-export interface NavItem {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
-export interface MobileStaggeredMenuProps {
-  navItems: NavItem[];
-  logoUrl: string;
-  isLight?: boolean;
-  gradient?: [string, string];
-  accentColor?: string;
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  onNavigate: (_href: string) => void;
-  activeHref?: string;
-  isPageActive?: boolean;
-}
+import type { MobileStaggeredMenuProps } from '@/components/layout/header/types';
 
 export default function MobileStaggeredMenu({
   navItems,
@@ -40,7 +21,6 @@ export default function MobileStaggeredMenu({
   onClose,
   onNavigate,
   activeHref,
-  isPageActive,
 }: MobileStaggeredMenuProps) {
   const {
     refs: {
@@ -152,7 +132,6 @@ export default function MobileStaggeredMenu({
         onNavigate={onNavigate}
         onClose={onClose}
         activeHref={activeHref}
-        isPageActive={isPageActive}
       />
     </div>
   );

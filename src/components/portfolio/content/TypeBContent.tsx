@@ -4,6 +4,7 @@ import { FC, useMemo } from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import type { PortfolioProject } from '@/types/project';
 import { AdaptiveMediaLayout } from '@/components/portfolio/content/AdaptiveMediaLayout';
+import { getModalHeroMedia } from '@/components/portfolio/content/modal-media';
 
 interface TypeBContentProps {
   project: PortfolioProject;
@@ -17,29 +18,13 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
   const prefersReducedMotion = useMotionGate();
   const shouldReduce = !!prefersReducedMotion;
 
-  // [BUG FIX #9]: Prioritize video for motion projects
-  const primaryMedia = useMemo(() => {
-    if (project.thumbnailMedia) {
-      return project.thumbnailMedia;
-    }
-    if (project.category === 'motion' && project.videoPreview) {
-      return project.videoPreview;
-    }
-    return project.imageLandscape ?? project.imageSquare ?? project.image;
-  }, [
-    project.thumbnailMedia,
-    project.category,
-    project.videoPreview,
-    project.image,
-    project.imageLandscape,
-    project.imageSquare,
-  ]);
+  const primaryMedia = useMemo(() => getModalHeroMedia(project), [project]);
 
   return (
     <div className="w-full">
       <AdaptiveMediaLayout
         project={project}
-        heroMedia={primaryMedia}
+        heroMedia={primaryMedia ?? ''}
         shouldReduce={shouldReduce}
       />
     </div>

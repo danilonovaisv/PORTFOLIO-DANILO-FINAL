@@ -109,10 +109,10 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
               title="Alinhamento do Texto"
             >
               <option value="">Padrão</option>
-              <option value="text-left">Esquerda</option>
-              <option value="text-center">Centralizado</option>
-              <option value="text-right">Direita</option>
-              <option value="text-justify">Justificado</option>
+              <option value="left">Esquerda</option>
+              <option value="center">Centralizado</option>
+              <option value="right">Direita</option>
+              <option value="justify">Justificado</option>
             </select>
           </div>
           <div className="space-y-1">
@@ -135,6 +135,10 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
           className="w-full h-full min-h-[200px] bg-slate-950/50 border border-white/10 rounded-xl p-4 outline-none focus:border-blue-500/50 transition-all resize-none font-sans"
           placeholder="# Título... \n\nParágrafo com conteúdo..."
         />
+        <p className="text-[11px] text-slate-500">
+          Este campo aceita Markdown seguro. Títulos, listas, links e ênfase
+          são preservados no front.
+        </p>
       </div>
     );
   };

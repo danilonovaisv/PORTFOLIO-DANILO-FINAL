@@ -27,8 +27,8 @@ export const HOME_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'visualizar curriculum',
-        href: '/api/view-cv',
+        label: 'baixar curriculum',
+        href: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/CV%20Danilo%20Novais%20-%20Completo.pdf',
         variant: 'secondary',
         external: true,
       },
@@ -324,8 +324,8 @@ export const ABOUT_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'visualizar curriculum',
-        href: '/api/view-cv',
+        label: 'baixar curriculum',
+        href: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/CV%20Danilo%20Novais%20-%20Completo.pdf',
         variant: 'secondary',
         external: true,
       },

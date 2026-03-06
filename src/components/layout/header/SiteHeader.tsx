@@ -15,6 +15,7 @@ import type {
 import DesktopFluidHeader from '@/components/layout/header/DesktopFluidHeader';
 import MobileStaggeredMenu from '@/components/layout/header/MobileStaggeredMenu';
 import { useActiveSection } from '@/components/layout/header/useActiveSection';
+import { resolveActiveNavHref } from '@/components/layout/header/nav-state';
 
 function isHashHref(href: string) {
   return href.startsWith('#') || href.startsWith('/#');
@@ -69,13 +70,12 @@ export default function SiteHeader({
 
   const activeSection = useActiveSection(sectionIds);
   const pathname = usePathname();
+  const normalizedNavItems: NavItem[] = useMemo(() => navItems, [navItems]);
 
-  const activeHref = useMemo(() => {
-    if (pathname === '/') return activeSection;
-    return pathname ?? undefined;
-  }, [pathname, activeSection]);
-
-  const isSobrePage = pathname?.startsWith('/sobre');
+  const activeHref = useMemo(
+    () => resolveActiveNavHref(pathname, activeSection, normalizedNavItems),
+    [pathname, activeSection, normalizedNavItems]
+  );
 
   const onNavigate = useCallback(
     (href: string) => {
@@ -110,8 +110,6 @@ export default function SiteHeader({
     },
     [router]
   );
-
-  const normalizedNavItems: NavItem[] = useMemo(() => navItems, [navItems]);
 
   useEffect(() => {
     const sections = Array.from(
@@ -148,7 +146,6 @@ export default function SiteHeader({
           navItems={normalizedNavItems}
           logoUrl={logoDesktop}
           isLight={isOnLightSection}
-          isPageActive={isSobrePage}
           onNavigate={onNavigate}
           activeHref={activeHref}
         />
@@ -164,7 +161,6 @@ export default function SiteHeader({
           onClose={() => setIsOpen(false)}
           onNavigate={onNavigate}
           activeHref={activeHref}
-          isPageActive={isSobrePage}
         />
       )}
     </>

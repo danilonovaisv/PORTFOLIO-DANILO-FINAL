@@ -4,12 +4,8 @@ import React, { forwardRef, RefObject } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, Mail } from 'lucide-react';
 import { SOCIALS } from '@/config/navigation';
-
-export interface NavItem {
-  label: string;
-  href: string;
-  external?: boolean;
-}
+import type { NavItem } from '@/components/layout/header/types';
+import { isNavItemActive } from '@/components/layout/header/nav-state';
 
 interface MobileMenuPanelProps {
   navItems: NavItem[];
@@ -19,7 +15,6 @@ interface MobileMenuPanelProps {
   onNavigate: (_href: string) => void;
   onClose: () => void;
   activeHref?: string;
-  isPageActive?: boolean;
 }
 
 const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
@@ -32,7 +27,6 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
       onNavigate,
       onClose,
       activeHref,
-      isPageActive,
     },
     ref
   ) => {
@@ -59,23 +53,16 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
         {/* Menu items */}
         <ul className="flex flex-col gap-4" role="list">
           {navItems.map((item) => {
-            const hash = item.href.startsWith('/#')
-              ? item.href.substring(1)
-              : item.href;
-            const isActive = activeHref === hash;
-            const pageHighlight = isPageActive
-              ? 'text-blueAccent font-semibold'
-              : '';
+            const isActive = isNavItemActive(item.href, activeHref);
 
             return (
               <li key={item.href} className="overflow-hidden leading-none">
                 <button
                   onClick={() => onNavigate(item.href)}
-                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl font-light tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
-                    pageHighlight ||
-                    (isActive
+                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
+                    isActive
                       ? 'text-blueAccent font-medium underline underline-offset-4'
-                      : 'text-white/80 hover:text-white')
+                      : 'text-white/80 hover:text-white font-light'
                   }`}
                 >
                   {item.label}

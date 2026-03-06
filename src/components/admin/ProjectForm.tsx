@@ -13,6 +13,7 @@ import {
   GalleryManager,
   type GalleryItem,
 } from '@/components/admin/GalleryManager';
+import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { upsertTagAction } from '@/app/admin/(protected)/tags/actions';
 import {
   PROJECT_TYPE_OPTIONS,
@@ -102,6 +103,7 @@ export function ProjectForm({
 
   const selectedTags = form.watch('tags') || [];
   const featuredOnHome = form.watch('featured_on_home') ?? false;
+  const caseBody = form.watch('case_body') ?? '';
   const homeFeaturedCardStyle =
     form.watch('home_featured.cardStyle') ?? DEFAULT_HOME_FEATURED_CARD_STYLE;
   const landingPagesWithTemplate = useMemo(
@@ -559,6 +561,22 @@ export function ProjectForm({
               informações do projeto.
             </p>
           </label>
+
+          <div className="rounded-xl border border-white/10 bg-slate-950/60 p-4">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+              Preview Markdown
+            </p>
+            {caseBody.trim() ? (
+              <CaseBodyRenderer
+                content={caseBody}
+                className="prose-sm md:prose-base"
+              />
+            ) : (
+              <p className="text-sm text-slate-500">
+                O preview aparece aqui assim que houver conteúdo em Markdown.
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

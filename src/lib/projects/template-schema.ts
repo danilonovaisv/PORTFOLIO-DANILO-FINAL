@@ -174,10 +174,10 @@ const inferMediaType = (
 const asTextAlign = (
   value: unknown
 ): 'left' | 'center' | 'right' | 'justify' | undefined => {
-  if (value === 'left') return 'left';
-  if (value === 'center') return 'center';
-  if (value === 'right') return 'right';
-  if (value === 'justify') return 'justify';
+  if (value === 'left' || value === 'text-left') return 'left';
+  if (value === 'center' || value === 'text-center') return 'center';
+  if (value === 'right' || value === 'text-right') return 'right';
+  if (value === 'justify' || value === 'text-justify') return 'justify';
   return undefined;
 };
 
