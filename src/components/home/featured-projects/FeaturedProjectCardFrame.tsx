@@ -39,6 +39,9 @@ export default function FeaturedProjectCardFrame({
     !!logoSrc &&
     !logoFailed;
   const showThumb = !showLogo && !!mediaSource;
+  const topWashClass = showThumb
+    ? 'bg-[linear-gradient(180deg,rgba(4,0,19,0.01)_0%,rgba(4,0,19,0.07)_56%,rgba(4,0,19,0.18)_100%)]'
+    : 'bg-[linear-gradient(180deg,rgba(4,0,19,0.04)_0%,rgba(4,0,19,0.14)_56%,rgba(4,0,19,0.38)_100%)]';
 
   const handlePointerMove = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -77,7 +80,7 @@ export default function FeaturedProjectCardFrame({
     >
       <div
         ref={visualRef}
-        className="absolute -inset-[4%] will-change-transform transition-[transform,translate] duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:scale-[1.02]"
+        className="absolute -inset-[4%] will-change-transform transition-[translate,transform] duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]"
       >
         <FeaturedProjectAnimatedBackground variant={backgroundVariant} />
 
@@ -89,17 +92,17 @@ export default function FeaturedProjectCardFrame({
               aria-hidden="true"
               fill
               sizes={project.layout.sizes ?? '100vw'}
-              className="object-cover opacity-5 transition-[transform,opacity] duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px md:group-hover:opacity-10"
+              className="object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={applyImageFallback}
             />
-            <div className="absolute inset-0 bg-[#040013]/10" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,0,19,0.00)_0%,rgba(4,0,19,0.04)_54%,rgba(4,0,19,0.10)_100%)]" />
           </div>
         ) : null}
       </div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,0,19,0.08)_0%,rgba(4,0,19,0.2)_52%,rgba(4,0,19,0.5)_100%)]" />
+      <div className={`absolute inset-0 ${topWashClass}`} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(135,5,242,0.12),transparent_72%)] opacity-0 transition-opacity duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:opacity-100" />
       <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
@@ -112,7 +115,7 @@ export default function FeaturedProjectCardFrame({
               aria-hidden="true"
               fill
               sizes="(max-width: 768px) 45vw, 240px"
-              className="object-contain opacity-100"
+              className="object-contain opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={(event) => {
@@ -126,8 +129,8 @@ export default function FeaturedProjectCardFrame({
 
       {!showLogo && !showThumb ? (
         <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center px-8">
-          <span className="text-bluePrimary/50 text-base font-mono uppercase tracking-[0.35em] text-center">
-            {project.displayCategory}
+          <span className="text-white/82 text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center text-balance drop-shadow-[0_18px_32px_rgba(4,0,19,0.42)]">
+            {project.client || project.title}
           </span>
         </div>
       ) : null}

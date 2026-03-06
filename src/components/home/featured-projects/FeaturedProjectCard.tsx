@@ -15,6 +15,7 @@ interface FeaturedProjectCardProps {
   onOpen?: (_project: PortfolioProject) => void;
   priority?: boolean;
   backgroundVariant: FeaturedProjectBackgroundVariant;
+  frameClassName?: string;
 }
 
 export default function FeaturedProjectCard({
@@ -22,6 +23,7 @@ export default function FeaturedProjectCard({
   onOpen,
   priority = false,
   backgroundVariant,
+  frameClassName,
 }: FeaturedProjectCardProps) {
   const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
@@ -52,7 +54,7 @@ export default function FeaturedProjectCard({
 
   const CardContent = () => (
     <div className="flex h-full w-full flex-col">
-      <div className="relative w-full flex-1 min-h-[300px] md:min-h-[360px] lg:min-h-[420px]">
+      <div className={`relative w-full flex-1 ${frameClassName ?? ''}`}>
         <FeaturedProjectCardFrame
           project={project}
           backgroundVariant={backgroundVariant}
@@ -98,7 +100,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group flex flex-col h-full w-full min-h-[48px] rounded-md text-center md:text-left transition-transform duration-200 ease-out hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary';
+    'group block h-full w-full min-h-[48px] rounded-md text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
   if (isModalMode) {
     return (

@@ -82,9 +82,8 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${
-        isLight ? 'header--light' : ''
-      }`}
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${isLight ? 'header--light' : ''
+        }`}
     >
       <div
         className={
@@ -93,9 +92,8 @@ export default function DesktopFluidHeader({
       >
         <div ref={wrapRef} className="pointer-events-auto w-full relative">
           <div
-            className={`${styles.headerContainer} ${
-              isLight ? styles.headerLight : styles.headerDark
-            } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
+            className={`${styles.headerContainer} ${isLight ? styles.headerLight : styles.headerDark
+              } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
           >
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">
@@ -116,9 +114,12 @@ export default function DesktopFluidHeader({
                 <Image
                   src={logoUrl}
                   alt="Danilo"
-                  width={40}
+                  width={150}
                   height={40}
                   className="h-10 w-auto object-contain transition-colors duration-300"
+                  style={{ width: 'auto', height: 'auto' }}
+                  priority
+                  loading="eager"
                 />
               </Link>
 
@@ -154,14 +155,14 @@ export default function DesktopFluidHeader({
                   const linkProps =
                     isExternalHref(item.href) || item.external
                       ? {
-                          href: item.href,
-                          target: '_blank',
-                          rel: 'noopener noreferrer',
-                        }
+                        href: item.href,
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                      }
                       : {
-                          type: 'button' as const,
-                          onClick: () => onNavigate(item.href),
-                        };
+                        type: 'button' as const,
+                        onClick: () => onNavigate(item.href),
+                      };
 
                   return (
                     <LinkComponent

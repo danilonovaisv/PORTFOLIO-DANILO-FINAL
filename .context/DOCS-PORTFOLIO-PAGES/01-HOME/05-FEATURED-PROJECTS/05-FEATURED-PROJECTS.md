@@ -74,9 +74,8 @@ Layouts disponíveis:
 - `ANIMATED_BG_INVERTED_LOGO`
   - background animado + logo invertido central fixo
   - exige `logoPath`
-  - se não houver logo, o render cai automaticamente para o layout de thumb overlay
-- `ANIMATED_BG_THUMB_OVERLAY_10`
-  - background animado + thumb do projeto com overlay escuro de 10% (10% de opacidade)
+- `ANIMATED_BG_THUMB`
+  - Thumb do projeto sem overlay
   - usa as capas já existentes (`url_landscape`, `url_square` ou fallback estático)
 
 Importante:
@@ -90,7 +89,7 @@ Importante:
 - O background animado é sempre a camada mais baixa do card.
 - Duas opções de card, overlay ou branding, as duas ficam acima:
   - logo invertido (negativa) central, deixando o backgrond animado em evidência
-  - ou thumb com overlay 10%
+  - ou thumb sem overlay
   - Escolha feita no dashbord, forçar a seguir o modelo que foi escolhido
 - O conteúdo editorial do card permanece igual:
   - categoria / cliente / ano
@@ -433,3 +432,22 @@ Se adicionar um quarto background:
   - `@react-bits/Grainient-TS-TW`
   - `@react-bits/GhostCursor-TS-TW`
   - `@react-bits/Aurora-TS-TW`
+
+## 10. Estado Implementado em 2026-03-06
+
+- O grid da HOME foi ajustado para uma composição editorial fixa com alturas distintas por linha:
+  - linha 1 com dois cards altos
+  - linha 2 com hero horizontal mais baixo e full-width
+  - linha 3 com card médio + CTA alinhados
+- A versão mobile permanece full-width e abandona a leitura de blocos vazios; os cards usam altura reduzida para manter ritmo semelhante à referência mobile.
+- A atribuição de `backgroundVariant` ficou 100% determinística por `project.id` no render da seção.
+  - não há mais rotação aleatória no client
+  - isso elimina drift visual entre SSR, hidratação e realtime
+- O hover dos cards segue a regra Ghost:
+  - sem `scale`
+  - apenas `translateY`, glow e parallax de ponteiro
+- O frame com thumb agora privilegia a imagem do projeto como plano principal.
+  - o background animado permanece como camada base
+  - overlays foram reduzidos para não apagar a thumb
+- O fallback de cards sem thumb/logo foi fortalecido com tipografia central legível, evitando cards “escuros e vazios”.
+- O wrapper clicável do `ProjectCard` voltou ao comportamento `block w-full h-full`, preservando a leitura correta do grid editorial.

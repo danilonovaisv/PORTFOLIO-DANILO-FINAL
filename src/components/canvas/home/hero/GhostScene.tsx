@@ -140,7 +140,7 @@ export default function GhostScene() {
         tDiffuse: { value: null },
         uTime: { value: 0.0 },
         uResolution: {
-          value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+          value: new THREE.Vector2(Math.max(1, window.innerWidth), Math.max(1, window.innerHeight)),
         },
         uAnalogGrain: { value: 0.4 },
         uAnalogBleeding: { value: 1.0 },
@@ -616,21 +616,19 @@ export default function GhostScene() {
         updateMousePos(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
-
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('touchstart', onTouchMove, { passive: true });
     window.addEventListener('touchmove', onTouchMove, { passive: true });
 
     const onResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const width = Math.max(1, window.innerWidth);
+      const height = Math.max(1, window.innerHeight);
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      composer.setSize(window.innerWidth, window.innerHeight);
-      bloomPass.setSize(window.innerWidth, window.innerHeight);
-      analogDecayPass.uniforms.uResolution.value.set(
-        window.innerWidth,
-        window.innerHeight
-      );
+      renderer.setSize(width, height);
+      composer.setSize(width, height);
+      bloomPass.setSize(width, height);
+      analogDecayPass.uniforms.uResolution.value.set(width, height);
     };
     window.addEventListener('resize', onResize);
 
@@ -884,8 +882,7 @@ export default function GhostScene() {
           <div className="h-0.5 w-full overflow-hidden bg-white/10">
             <div
               ref={progressBarRef}
-              className="h-full bg-blue-500 transition-all duration-300 ease-out"
-              style={{ width: '0%' }}
+              className="h-full bg-blue-500 transition-all duration-300 ease-out w-0"
             />
           </div>
         </div>

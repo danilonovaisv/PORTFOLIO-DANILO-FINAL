@@ -29,7 +29,7 @@ export const AntigravityDebugger: React.FC = () => {
 
       {/* Narrative State */}
       <div className="mb-3">
-        <label className="text-neutral-500 block">Narrative State</label>
+        <span className="text-neutral-500 block">Narrative State</span>
         <div className="text-blue-400 font-bold text-xs">
           {store.narrativeState}
         </div>
@@ -62,7 +62,7 @@ export const AntigravityDebugger: React.FC = () => {
 
       {/* Viewport */}
       <div>
-        <label className="text-neutral-500 block">Viewport</label>
+        <span className="text-neutral-500 block">Viewport</span>
         <span className="text-neutral-300">
           {store.viewport.width}px × {store.viewport.height}px
         </span>

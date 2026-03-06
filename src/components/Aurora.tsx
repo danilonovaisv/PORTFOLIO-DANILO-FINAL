@@ -160,15 +160,15 @@ export default function Aurora(props: AuroraProps) {
         uTime: { value: 0 },
         uAmplitude: { value: amplitude },
         uColorStops: { value: colorStopsArray },
-        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
+        uResolution: { value: [Math.max(1, ctn.offsetWidth), Math.max(1, ctn.offsetHeight)] },
         uBlend: { value: blend },
       },
     });
 
     function resize() {
       if (!ctn) return;
-      const width = ctn.offsetWidth;
-      const height = ctn.offsetHeight;
+      const width = Math.max(1, ctn.offsetWidth);
+      const height = Math.max(1, ctn.offsetHeight);
       renderer.setSize(width, height);
       if (program) {
         program.uniforms.uResolution.value = [width, height];

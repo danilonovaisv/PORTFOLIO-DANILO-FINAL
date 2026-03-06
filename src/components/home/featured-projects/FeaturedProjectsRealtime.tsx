@@ -176,49 +176,40 @@ export default function FeaturedProjectsRealtime({
         }
 
         channel = supabase
-          .channel('portfolio_projects', {
-            config: {
-              broadcast: { self: false, ack: true },
-            },
-          })
+          .channel('projects_realtime_channel')
           .on(
             'postgres_changes',
-            {
-              event: '*',
-              schema: 'public',
-              table: 'portfolio_projects',
-            },
-            () => {
+            { event: '*', schema: 'public', table: 'portfolio_projects' },
+            (payload) => {
+              if (isDev) {
+                console.warn('[FeaturedProjectsRealtime] DB Change:', payload);
+              }
               void loadFeaturedProjects();
             }
           )
-          .on('broadcast', { event: 'portfolio_projects' }, () => {
+          .on('broadcast', { event: 'refresh_projects' }, () => {
+            if (isDev) {
+              console.warn('[FeaturedProjectsRealtime] Broadcast refresh');
+            }
             void loadFeaturedProjects();
           })
-          .subscribe((status: string, err?: Error) => {
+          .subscribe((status, err) => {
             if (status === 'SUBSCRIBED') {
+              if (isDev) {
+                console.warn('[FeaturedProjectsRealtime] Subscribed');
+              }
               stopPolling();
             }
-            if (
-              status === 'CHANNEL_ERROR' ||
-              status === 'TIMED_OUT' ||
-              status === 'CLOSED'
-            ) {
+            if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+              if (isDev) {
+                console.warn('[FeaturedProjectsRealtime] Subscription error:', status, err);
+              }
               startPolling();
-            }
-            if (status === 'CHANNEL_ERROR' && isDev) {
-              console.warn(
-                '[FeaturedProjectsRealtime] Subscription error:',
-                err
-              );
             }
           });
       } catch (error) {
         if (isDev) {
-          console.warn(
-            '[FeaturedProjectsRealtime] Realtime setup failed:',
-            error
-          );
+          console.warn('[FeaturedProjectsRealtime] Setup error:', error);
         }
       }
     };

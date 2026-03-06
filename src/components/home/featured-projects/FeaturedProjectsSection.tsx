@@ -10,13 +10,9 @@ import {
 } from '@/config/motion';
 import FeaturedProjectCard from '@/components/home/featured-projects/FeaturedProjectCard';
 import CTAProjectCard from '@/components/home/featured-projects/CTAProjectCard';
-import {
-  FEATURED_PROJECT_BACKGROUND_POOL,
-  getFeaturedProjectBackgroundVariant,
-} from '@/components/home/featured-projects/animated-backgrounds';
+import { getFeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
 import { Container } from '@/components/layout/Container';
-import { useEffect, useState } from 'react';
 
 const { duration, offset } = MOTION_TOKENS;
 
@@ -32,12 +28,26 @@ type FeaturedProjectsSectionProps = {
  * - Row 2: 12col (full-width)
  * - Row 3: 8col + 4col (CTA) = 12
  */
-const BENTO_GRID_LAYOUT = [
-  'md:col-span-4 lg:col-span-5', // Card 0: 5 colunas
-  'md:col-span-4 lg:col-span-7', // Card 1: 7 colunas
-  'md:col-span-8 lg:col-span-12', // Card 2: Full-width
-  'md:col-span-5 lg:col-span-8', // Card 3: 8 colunas (antes do CTA)
-];
+const FEATURED_GRID_LAYOUT = [
+  {
+    gridClass: 'md:col-span-4 lg:col-span-5',
+    frameClass: 'min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
+  },
+  {
+    gridClass: 'md:col-span-4 lg:col-span-7',
+    frameClass: 'min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
+  },
+  {
+    gridClass: 'md:col-span-8 lg:col-span-12',
+    frameClass: 'min-h-[220px] md:min-h-[320px] lg:min-h-[380px]',
+  },
+  {
+    gridClass: 'md:col-span-5 lg:col-span-8',
+    frameClass: 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]',
+  },
+] as const;
+
+const CTA_FRAME_CLASS = 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
 export default function FeaturedProjectsSection({
   projects,
@@ -51,46 +61,20 @@ export default function FeaturedProjectsSection({
     return source;
   }, [projects]);
 
-  // Mantém a seleção inicial determinística (SSR) e randomiza após o mount
-  const initialVariants = useMemo(
-    () =>
-      featuredProjects.map((project) =>
-        getFeaturedProjectBackgroundVariant(project.id)
-      ),
-    [featuredProjects]
-  );
-  const [clientVariants, setClientVariants] = useState(initialVariants);
-
-  useEffect(() => {
-    // Não quebrar hidratação: randomiza só depois do mount
-    const shuffleOnce = () => {
-      const shuffled = initialVariants.map(() => {
-        const pool = [...FEATURED_PROJECT_BACKGROUND_POOL];
-        return pool[Math.floor(Math.random() * pool.length)];
-      });
-      setClientVariants(shuffled);
-    };
-
-    shuffleOnce();
-
-    if (reducedMotion) return;
-    const id = window.setInterval(shuffleOnce, 9000);
-    return () => window.clearInterval(id);
-  }, [initialVariants, reducedMotion]);
-
-  // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {
     hidden: reducedMotion
-      ? {}
-      : { opacity: 0, y: offset.dramatic, filter: 'blur(4px)' },
-    visible: reducedMotion
       ? { opacity: 1 }
       : {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          transition: ghostTransition(0, duration.normal),
+          opacity: 0,
+          y: offset.standard,
+          filter: 'blur(6px)',
         },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: ghostTransition(0, duration.normal),
+    },
   };
 
   return (
@@ -104,16 +88,17 @@ export default function FeaturedProjectsSection({
         <motion.div
           initial={reducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.18, margin: '-64px 0px' }}
           variants={staggerContainer(0.12)}
           // Layout fixo Bento Grid - 12 colunas com gaps consistentes
           className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-6"
         >
           {featuredProjects.slice(0, 4).map((project, index) => {
             if (!project) return null;
-            // Usar layout fixo baseado no índice, não no project.layout.cols
-            const gridCols =
-              BENTO_GRID_LAYOUT[index] || 'md:col-span-4 lg:col-span-4';
+            const layout = FEATURED_GRID_LAYOUT[index];
+            const gridCols = layout?.gridClass ?? 'md:col-span-4 lg:col-span-4';
+            const frameClass =
+              layout?.frameClass ?? 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
             return (
               <motion.div
@@ -127,10 +112,10 @@ export default function FeaturedProjectsSection({
                   project={project}
                   onOpen={onProjectOpen}
                   priority={index < 3}
-                  backgroundVariant={
-                    clientVariants[index] ??
-                    getFeaturedProjectBackgroundVariant(project.id)
-                  }
+                  backgroundVariant={getFeaturedProjectBackgroundVariant(
+                    project.id
+                  )}
+                  frameClassName={frameClass}
                 />
               </motion.div>
             );
@@ -141,7 +126,7 @@ export default function FeaturedProjectsSection({
             variants={cardVariants}
             className="w-full col-span-4 md:col-span-3 lg:col-span-4 h-full flex flex-col"
           >
-            <CTAProjectCard />
+            <CTAProjectCard className={CTA_FRAME_CLASS} />
           </motion.div>
         </motion.div>
       </Container>
