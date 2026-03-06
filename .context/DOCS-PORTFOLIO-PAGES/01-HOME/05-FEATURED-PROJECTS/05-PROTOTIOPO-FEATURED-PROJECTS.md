@@ -1,4 +1,3 @@
-
 ### 4.5 Featured Projects (Grid)
 
 #### Objetivo
@@ -116,7 +115,7 @@ import Grainient from './Grainient';
 - 02. Ghost Cursor: https://reactbits.dev/tools/background-studio?bg=ghost-cursor
          - Install: pnpm dlx shadcn@latest add @react-bits/GhostCursor-TS-TW
          - Usage:
-         
+
 `````
 
 import GhostCursor from './GhostCursor'
@@ -205,3 +204,4 @@ duration: 300ms
 
 ---
 
+````

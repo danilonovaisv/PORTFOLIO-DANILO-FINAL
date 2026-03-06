@@ -11,9 +11,9 @@ permissions:
   contents: read
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: '20'
   # ── pnpm version pinned — muda aqui para atualizar globalmente ─────────────
-  PNPM_VERSION: "10.30.3"
+  PNPM_VERSION: '10.30.3'
   # ── Supabase ────────────────────────────────────────────────────────────────
   NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
   NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
@@ -61,8 +61,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
-          cache-dependency-path: "pnpm-lock.yaml"
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
       # ── 5. Install determinístico ─────────────────────────────────────────────
       # --frozen-lockfile: falha se o lockfile precisar ser atualizado (CI-safe)
@@ -132,7 +132,7 @@ jobs:
         run: pnpm run build
         env:
           # TEMP: bypass lint rules during next build
-          NEXTJS_IGNORE_ESLINT: "1"
+          NEXTJS_IGNORE_ESLINT: '1'
 
       # ── 12. Prepare hosting ────────────────────────────────────────────────────
       - name: Prepare hosting files
@@ -247,8 +247,8 @@ jobs:
             --debug --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
-          NPM_CONFIG_LEGACY_PEER_DEPS: "true"
-          NO_UPDATE_NOTIFIER: "1"
+          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+          NO_UPDATE_NOTIFIER: '1'
 
       # ── 16. Notifications ──────────────────────────────────────────────────────
       - name: Notify success
