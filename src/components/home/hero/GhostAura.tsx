@@ -27,11 +27,15 @@ export default function GhostAura() {
           'blur-2xl sm:blur-3xl',
           'opacity-[0.08]'
         )}
-        animate={reduce ? {} : {
-          y: [0, 30, 0],
-          x: [0, -10, 0],
-          opacity: [0.06, 0.1, 0.06],
-        }}
+        animate={
+          reduce
+            ? {}
+            : {
+                y: [0, 30, 0],
+                x: [0, -10, 0],
+                opacity: [0.06, 0.1, 0.06],
+              }
+        }
         transition={{
           duration: 6,
           repeat: Infinity,
@@ -48,11 +52,15 @@ export default function GhostAura() {
           'blur-2xl sm:blur-3xl',
           'opacity-[0.06]'
         )}
-        animate={reduce ? {} : {
-          y: [0, -25, 0],
-          x: [0, 15, 0],
-          opacity: [0.05, 0.1, 0.05],
-        }}
+        animate={
+          reduce
+            ? {}
+            : {
+                y: [0, -25, 0],
+                x: [0, 15, 0],
+                opacity: [0.05, 0.1, 0.05],
+              }
+        }
         transition={{
           duration: 7,
           repeat: Infinity,
@@ -69,9 +77,13 @@ export default function GhostAura() {
           'blur-[60px] sm:blur-[80px] md:blur-[100px]',
           'bg-primary/10'
         )}
-        animate={reduce ? {} : {
-          opacity: [0.05, 0.12, 0.05],
-        }}
+        animate={
+          reduce
+            ? {}
+            : {
+                opacity: [0.05, 0.12, 0.05],
+              }
+        }
         transition={{
           duration: 8,
           repeat: Infinity,
@@ -88,10 +100,14 @@ export default function GhostAura() {
           'blur-2xl sm:blur-[60px] md:blur-[80px]',
           'bg-accent/10'
         )}
-        animate={reduce ? {} : {
-          y: [0, -20, 0],
-          opacity: [0.04, 0.09, 0.04],
-        }}
+        animate={
+          reduce
+            ? {}
+            : {
+                y: [0, -20, 0],
+                opacity: [0.04, 0.09, 0.04],
+              }
+        }
         transition={{
           duration: 5,
           repeat: Infinity,
@@ -109,9 +125,13 @@ export default function GhostAura() {
           'blur-xl sm:blur-2xl md:blur-[70px]',
           'bg-[rgba(0,240,255,0.08)]'
         )}
-        animate={reduce ? {} : {
-          opacity: [0.06, 0.12, 0.06],
-        }}
+        animate={
+          reduce
+            ? {}
+            : {
+                opacity: [0.06, 0.12, 0.06],
+              }
+        }
         transition={{
           duration: 4,
           repeat: Infinity,

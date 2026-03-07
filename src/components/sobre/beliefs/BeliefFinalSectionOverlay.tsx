@@ -17,11 +17,11 @@ export const BeliefFinalSectionOverlay: React.FC<
   const motionProps = prefersReducedMotion
     ? {}
     : {
-      initial: { opacity: 0, y: 18, filter: 'blur(10px)' },
-      whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
-      viewport: viewportConfig,
-      transition: { duration: 0.8, ease: ghostEase },
-    };
+        initial: { opacity: 0, y: 18, filter: 'blur(10px)' },
+        whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
+        viewport: viewportConfig,
+        transition: { duration: 0.8, ease: ghostEase },
+      };
   return (
     <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none">
       <Container

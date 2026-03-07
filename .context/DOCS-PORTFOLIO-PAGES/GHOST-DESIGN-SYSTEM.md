@@ -102,9 +102,14 @@
 
 ### 2.3 Allowed vs Forbidden Motion
 
-- **Allowed (content/UI):** `opacity`, `blur`, `translateY` (max `18px`)
-- **Forbidden (content/UI):** `scale`, `bounce`, `rotate`
-- **Reduced Motion:** Disable parallax/lerp and replace reveals with simple fade.
+**Ghost Protocol Motion Mandates:**
+
+- **Offsets:** Vertical (`y`) offsets for UI content MUST NOT exceed `18px`.
+- **Allowed (content/UI):** `opacity`, `blur`, `translateY` (max `18px`).
+- **Forbidden (content/UI):** `scale` (e.g., `scaleY`, `scaleX`), `bounce`, `translateX` (`x`), `rotate`.
+- **Easing:** All core animations must use `GSAP_GHOST_EASE` / Framer `GHOST_EASE`: `[0.22, 1, 0.36, 1]`.
+- **Reduced Motion:** `useMotionGate` or `prefersReducedMotion` MUST be implemented in ALL animated components to disable parallax/lerp and replace reveals with a simple fade.
+- **Z-Index (WebGL):** 3D Canvas (R3F) MUST use exactly `z-30`. No `z-999` allowed.
 
 ### 2.4 Interaction Rules
 

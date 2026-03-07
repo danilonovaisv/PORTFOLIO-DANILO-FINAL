@@ -134,7 +134,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         ) : (
                             <div className="absolute inset-0 w-full h-full z-0 cursor-pointer" onClick={() => setLightboxSource(activeMedia)}>
                                 <Image
-                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80, format: 'webp' })}
+                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80 })}
                                     alt={project.title}
                                     fill
                                     className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.02]"
@@ -197,7 +197,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                 </div>
                                             ) : (
                                                 <Image
-                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70, format: 'webp' })}
+                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70 })}
                                                     alt={`Thumbnail ${idx}`}
                                                     fill
                                                     className="object-cover"

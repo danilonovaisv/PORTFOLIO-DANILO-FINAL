@@ -196,9 +196,9 @@ export function VideoManifesto({
         style={
           !isMobile && !shouldReduceMotion
             ? {
-              borderRadius: deskBR,
-              transformOrigin: 'bottom right',
-            }
+                borderRadius: deskBR,
+                transformOrigin: 'bottom right',
+              }
             : {}
         }
       >

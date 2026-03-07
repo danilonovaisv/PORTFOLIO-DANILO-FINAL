@@ -57,12 +57,13 @@ export function getAssetUrl(
     return `${SUPABASE_STORAGE_URL}/${restOfPath}`;
   }
 
-  // Use render endpoint for optimized images (800w, 85q, format=webp)
+  // Supabase image rendering already negotiates modern formats automatically.
+  // Avoid explicit format here because unsupported values break thumbnail URLs.
   const renderBase = SUPABASE_STORAGE_URL.replace(
     '/object/public',
     '/render/image/public'
   );
-  return `${renderBase}/${restOfPath}?width=800&quality=85&format=webp`;
+  return `${renderBase}/${restOfPath}?width=800&quality=85`;
 }
 
 export function applyImageFallback(
