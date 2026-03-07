@@ -48,7 +48,7 @@ export const BRAND = {
     video: {
       manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
       manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-      manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.mp4'),
+      manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
       manifestoPosterMobile: asset(
         'site-assets/home/video.manifesto.mobile.webp'
       ),
@@ -65,7 +65,7 @@ export const BRAND = {
   video: {
     manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
     manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-    manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.mp4'),
+    manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
     manifestoPosterMobile: asset(
       'site-assets/home/video.manifesto.mobile.webp'
     ),

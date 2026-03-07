@@ -83,7 +83,19 @@ export const metadata: Metadata = {
   },
 };
 
+import { preload } from 'react-dom';
+
 export default async function HomePage() {
+  // Preload video posters for LCP optimization
+  preload(BRAND.assets.video.manifestoPosterDesk, {
+    as: 'image',
+    fetchPriority: 'high',
+  });
+  preload(BRAND.assets.video.manifestoPosterMobile, {
+    as: 'image',
+    fetchPriority: 'high',
+  });
+
   let featuredProjects: PortfolioProject[] = [];
   try {
     const supabase = createStaticClient();

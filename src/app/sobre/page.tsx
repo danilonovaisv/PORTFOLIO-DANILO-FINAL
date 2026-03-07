@@ -10,7 +10,6 @@ import {
 import AboutBeliefsNoSSR from '@/components/sobre/sections/AboutBeliefsNoSSR';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
-import { generateVideoSchema } from '@/lib/schema';
 
 import { BRAND } from '@/config/brand';
 import { toCanonicalUrl } from '@/lib/seo';
@@ -63,9 +62,21 @@ export const metadata: Metadata = {
   },
 };
 
+import { preload } from 'react-dom';
+
 export default function AboutPage() {
   const siteUrl = toCanonicalUrl('/');
   const selfUrl = toCanonicalUrl('/sobre');
+
+  // Preload video posters for LCP optimization
+  preload(BRAND.assets.video.manifestoPosterDesk, {
+    as: 'image',
+    fetchPriority: 'high',
+  });
+  preload(BRAND.assets.video.manifestoPosterMobile, {
+    as: 'image',
+    fetchPriority: 'high',
+  });
 
   return (
     <div className="min-h-screen bg-background text-white">
@@ -75,21 +86,6 @@ export default function AboutPage() {
           { name: 'Home', url: siteUrl },
           { name: 'Sobre', url: selfUrl },
         ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            generateVideoSchema({
-              name: 'Sobre Danilo Novais — Trajetória Criativa',
-              description:
-                'Vídeo apresentando a trajetória, método e visão criativa de Danilo Novais como Creative Developer.',
-              thumbnailUrl: `https://${BRAND.domain}/opengraph-image`,
-              uploadDate: '2025-01-01',
-              embedUrl: `https://${BRAND.domain}/sobre`,
-            })
-          ),
-        }}
       />
       {/* Seção 01 — Hero/Manifesto */}
       <Suspense fallback={<SectionSkeleton label="Hero" />}>
