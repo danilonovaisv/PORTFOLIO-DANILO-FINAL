@@ -53,7 +53,7 @@ export function HeroHeader() {
       </span>
 
       <motion.h1
-        initial={reduced ? false : { opacity: 0, y: 20, filter: 'blur(6px)' }}
+        initial={reduced ? false : { opacity: 0, y: 18, filter: 'blur(6px)' }}
         animate={reduced ? {} : { opacity: 1, y: 0, filter: 'blur(0px)' }}
         transition={{ duration: 0.8, ease: GHOST_EASE, delay: 0.15 }}
         className="hero-title hero-reveal mt-2"

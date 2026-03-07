@@ -98,9 +98,9 @@ export const MOTION_TOKENS = {
     /** Standard entrance - 18px (max for Ghost) */
     standard: 18,
     /** Larger movements for special cases - 30px */
-    large: 30,
+    large: 18,
     /** Hero/dramatic entrances - 40px (use sparingly) */
-    dramatic: 40,
+    dramatic: 18,
   },
 } as const;
 

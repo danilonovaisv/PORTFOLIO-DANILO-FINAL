@@ -54,13 +54,13 @@ export function CategoryStripe({
   });
 
   const smoothProgress = useSpring(scrollYProgress, GHOST_SPRING);
-  const parallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
+  const parallaxY = useTransform(smoothProgress, [0, 1], [-18, 18]);
   const isVideo = category.thumbnail.endsWith('.mp4');
 
   return (
     <motion.div
       ref={stripeRef}
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
       transition={{
