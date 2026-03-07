@@ -1,9 +1,16 @@
 'use client';
 
-import { useState, useTransition, useEffect } from 'react';
+import { useState, useTransition, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
+import Script from 'next/script';
+
+declare global {
+  interface Window {
+    onTurnstileSuccess?: (_token: string) => void;
+  }
+}
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -13,11 +20,17 @@ export default function LoginForm() {
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // Check for auth errors from callback
   useEffect(() => {
+    window.onTurnstileSuccess = (token: string) => {
+      setTurnstileToken(token);
+    };
+
     const authError = searchParams.get('error');
     const authMsg = searchParams.get('message');
     if (authError) {
@@ -26,6 +39,10 @@ export default function LoginForm() {
     if (authMsg) {
       setSuccessMsg(authMsg);
     }
+
+    return () => {
+      delete window.onTurnstileSuccess;
+    };
   }, [searchParams]);
 
   // Check if already logged in on mount
@@ -58,6 +75,9 @@ export default function LoginForm() {
           const { data, error: signUpError } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+              captchaToken: turnstileToken || undefined,
+            },
           });
 
           if (signUpError) {
@@ -86,10 +106,20 @@ export default function LoginForm() {
           await supabase.auth.signInWithPassword({
             email,
             password,
+            options: {
+              captchaToken: turnstileToken || undefined,
+            },
           });
 
         if (signInError) {
           console.error('SignIn error:', signInError);
+          // Auto-retry or clear token if captcha failed
+          if (signInError.message.includes('captcha')) {
+            setTurnstileToken(null);
+            if (typeof window !== 'undefined' && (window as any).turnstile) {
+              (window as any).turnstile.reset();
+            }
+          }
           setError(signInError.message);
           return;
         }
@@ -139,7 +169,12 @@ export default function LoginForm() {
         </button>
       </div>
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="afterInteractive"
+      />
+
+      <form ref={formRef} className="space-y-4" onSubmit={handleSubmit}>
         <label className="flex flex-col gap-2">
           <span className="text-sm text-slate-300">Email</span>
           <input
@@ -179,6 +214,16 @@ export default function LoginForm() {
             {error}
           </div>
         )}
+
+        <div
+          className="cf-turnstile min-h-[65px]"
+          data-sitekey={
+            process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+            '1x00000000000000000000AA'
+          }
+          data-callback="onTurnstileSuccess"
+          data-theme="dark"
+        />
 
         <button
           type="submit"
