@@ -10,11 +10,13 @@ import {
   OriginStickyGallery,
 } from '@/components/sobre/origin/OriginComponents';
 import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMotionGate();
 
   const resolveFallbackHost = (path: FallbackImage) =>
     buildSupabaseStorageUrl('site-assets', path) ?? undefined;
@@ -56,6 +58,7 @@ function AboutOrigin() {
     archRef,
     archRightRef,
     contentCount: contentBlocks.length,
+    prefersReducedMotion: !!prefersReducedMotion,
   });
 
   return (

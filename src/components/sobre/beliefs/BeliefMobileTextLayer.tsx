@@ -82,11 +82,11 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const exitStart = endPoint - segmentSize * 0.34;
   const exitEnd = endPoint - segmentSize * 0.02;
 
-  // X: Entra da ESQUERDA, mantém centro, sai para a DIREITA.
-  const x = useTransform(
+  // Y: Entra de BAIXO, mantém centro, sai para CIMA.
+  const y = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['-24px', '0px', '0px', '24px'],
+    ['18px', '0px', '0px', '-18px'],
     { ease: ghostEase }
   );
 
@@ -111,7 +111,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 
   return (
     <Container
-      style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
+      style={prefersReducedMotion ? undefined : { y, opacity, filter: blur }}
       className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
       {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-3rem) */}

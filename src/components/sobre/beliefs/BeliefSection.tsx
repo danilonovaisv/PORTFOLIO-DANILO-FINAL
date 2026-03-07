@@ -42,10 +42,16 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
   scrollYProgress,
   animationRange,
 }) => {
-  const lineX = useTransform(
+  const lineY = useTransform(
     scrollYProgress,
     [animationRange[0] + index * 0.02, animationRange[1] + index * 0.02],
-    ['-100%', '0%'],
+    ['18px', '0px'],
+    { ease: ghostEase as any }
+  );
+  const lineOpacity = useTransform(
+    scrollYProgress,
+    [animationRange[0] + index * 0.02, animationRange[1] + index * 0.02],
+    [0, 1],
     { ease: ghostEase as any }
   );
   return (
@@ -55,7 +61,8 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
       // 🟣 [CONFIG VISUAL]: Define o tamanho da fonte (Desktop: clamp de 2.8rem a 6rem)
       style={
         {
-          x: lineX,
+          y: lineY,
+          opacity: lineOpacity,
           fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
           lineHeight: 0.9,
         } as any

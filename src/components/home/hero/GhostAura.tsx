@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 /**
  * GhostAura - Camadas visuais etéreas flutuantes
@@ -11,6 +12,7 @@ import { cn } from '@/lib/utils';
  * Performance: Usa blur mais leve no mobile para evitar jank
  */
 export default function GhostAura() {
+  const reduce = useMotionGate();
   // Mobile usa blur menor para performance
   const auraCommon = 'absolute rounded-full bg-white pointer-events-none';
 
@@ -25,7 +27,7 @@ export default function GhostAura() {
           'blur-2xl sm:blur-3xl',
           'opacity-[0.08]'
         )}
-        animate={{
+        animate={reduce ? {} : {
           y: [0, 30, 0],
           x: [0, -10, 0],
           opacity: [0.06, 0.1, 0.06],
@@ -33,7 +35,7 @@ export default function GhostAura() {
         transition={{
           duration: 6,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: [0.22, 1, 0.36, 1],
         }}
       />
 
@@ -46,7 +48,7 @@ export default function GhostAura() {
           'blur-2xl sm:blur-3xl',
           'opacity-[0.06]'
         )}
-        animate={{
+        animate={reduce ? {} : {
           y: [0, -25, 0],
           x: [0, 15, 0],
           opacity: [0.05, 0.1, 0.05],
@@ -54,7 +56,7 @@ export default function GhostAura() {
         transition={{
           duration: 7,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: [0.22, 1, 0.36, 1],
         }}
       />
 
@@ -67,14 +69,13 @@ export default function GhostAura() {
           'blur-[60px] sm:blur-[80px] md:blur-[100px]',
           'bg-primary/10'
         )}
-        animate={{
-          scale: [1, 1.15, 1],
+        animate={reduce ? {} : {
           opacity: [0.05, 0.12, 0.05],
         }}
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: [0.22, 1, 0.36, 1],
         }}
       />
 
@@ -87,14 +88,14 @@ export default function GhostAura() {
           'blur-2xl sm:blur-[60px] md:blur-[80px]',
           'bg-accent/10'
         )}
-        animate={{
+        animate={reduce ? {} : {
           y: [0, -20, 0],
           opacity: [0.04, 0.09, 0.04],
         }}
         transition={{
           duration: 5,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: [0.22, 1, 0.36, 1],
           delay: 1,
         }}
       />
@@ -108,14 +109,13 @@ export default function GhostAura() {
           'blur-xl sm:blur-2xl md:blur-[70px]',
           'bg-[rgba(0,240,255,0.08)]'
         )}
-        animate={{
-          scale: [1, 1.2, 1],
+        animate={reduce ? {} : {
           opacity: [0.06, 0.12, 0.06],
         }}
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: [0.22, 1, 0.36, 1],
           delay: 0.05,
         }}
       />

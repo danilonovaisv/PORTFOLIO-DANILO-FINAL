@@ -61,7 +61,7 @@ export default function PortfolioShowcase() {
         {/* Headline - "portfólio" italic, "showcase" normal */}
         <motion.header
           initial={
-            prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
+            prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }
           }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}
@@ -101,7 +101,7 @@ export default function PortfolioShowcase() {
         {/* CTA Button - Compound Fusion Style */}
         <motion.div
           initial={
-            prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+            prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }
           }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}

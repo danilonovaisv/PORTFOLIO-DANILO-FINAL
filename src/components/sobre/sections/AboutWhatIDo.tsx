@@ -127,7 +127,6 @@ export function AboutWhatIDo() {
             {SERVICES.map((service, index) => (
               <motion.article
                 key={service.id}
-                layout
                 initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={viewportConfig}
@@ -187,10 +186,10 @@ export function AboutWhatIDo() {
                 key={service.id}
                 initial={
                   prefersReducedMotion
-                    ? { opacity: 1, x: 0 }
-                    : { opacity: 0, x: 80 }
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 18 }
                 }
-                whileInView={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{
                   duration: 0.4,

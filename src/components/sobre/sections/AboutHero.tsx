@@ -29,7 +29,7 @@ export function AboutHero() {
   const mediaY = useTransform(
     smoothProgress,
     [0, 1],
-    prefersReducedMotion ? [0, 0] : [48, -48]
+    prefersReducedMotion ? [0, 0] : [18, -18]
   );
 
   const shouldPlayVideo = !prefersReducedMotion;
@@ -90,7 +90,7 @@ export function AboutHero() {
               <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
                 {/* Intro & Manifesto - Unified for natural wrapping */}
                 <motion.div
-                  initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
+                  initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={viewportConfig}
                   transition={{
@@ -132,7 +132,7 @@ export function AboutHero() {
 
                 {/* Description - Responsive line breaks */}
                 <motion.div
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={viewportConfig}
                   transition={{

@@ -27,7 +27,7 @@ const MorphText: React.FC<{
     ease: ghostEase,
   });
   const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
-  const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
+  const y = useTransform(progress, range, [18, 0], { ease: ghostEase });
 
   return (
     <motion.span

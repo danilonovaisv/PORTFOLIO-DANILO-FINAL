@@ -132,7 +132,7 @@ const ContactForm: React.FC = () => {
 
   return (
     <motion.div
-      initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+      initial={prefersReducedMotion ? {} : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
       transition={{ duration: 0.6, ease: GHOST_EASE }}
@@ -254,7 +254,7 @@ const ContactForm: React.FC = () => {
               disabled={isSubmitting}
               whileHover={{ y: -2 }}
               whileTap={{ y: 1 }}
-              transition={{ type: 'tween', ease: GHOST_EASE, duration: 0.3 }}
+              transition={{ type: 'tween', ease: GHOST_EASE, duration: 0.2 }}
               className="w-full h-[64px] md:h-[72px] flex items-center justify-center gap-3 bg-bluePrimary text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)] will-change-transform"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}

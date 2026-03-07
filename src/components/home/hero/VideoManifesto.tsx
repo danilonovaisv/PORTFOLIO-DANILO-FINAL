@@ -70,8 +70,6 @@ export function VideoManifesto({
     offset: ['start end', 'start start'],
   });
 
-  const deskScale = useTransform(scrollYProgress, [0.4, 1], [0.85, 1]);
-  const deskX = useTransform(scrollYProgress, [0.4, 1], ['15%', '0%']);
   const deskBR = useTransform(scrollYProgress, [0.6, 1], ['16px', '0px']);
 
   const [hasPlayedHold, setHasPlayedHold] = useState(false);
@@ -84,9 +82,6 @@ export function VideoManifesto({
       if (latest >= 0.99 && !hasPlayedHold) {
         setHasPlayedHold(true);
 
-        // Travar Scroll por 2 segundos
-        document.body.style.overflow = 'hidden';
-
         // Unmute automático e tentar tocar áudio se não estiver
         setMuted(false);
         if (videoRef.current) {
@@ -94,10 +89,6 @@ export function VideoManifesto({
             // Se autoplay foi bloqueado pelo browser
           });
         }
-
-        setTimeout(() => {
-          document.body.style.overflow = '';
-        }, 2000);
       }
     });
 
@@ -205,11 +196,9 @@ export function VideoManifesto({
         style={
           !isMobile && !shouldReduceMotion
             ? {
-                scale: deskScale,
-                x: deskX,
-                borderRadius: deskBR,
-                transformOrigin: 'bottom right',
-              }
+              borderRadius: deskBR,
+              transformOrigin: 'bottom right',
+            }
             : {}
         }
       >
@@ -246,7 +235,6 @@ export function VideoManifesto({
           className="toggle-sound absolute top-3 right-3 h-14 w-14 sm:h-12 sm:w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#0048ff] focus-visible:outline-offset-2"
           onClick={() => setMuted((m: boolean) => !m)}
           aria-label={muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-          aria-pressed={!muted}
         >
           {muted ? (
             <svg

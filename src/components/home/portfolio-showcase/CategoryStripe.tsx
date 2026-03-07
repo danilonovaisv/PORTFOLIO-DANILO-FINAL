@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { cn } from '@/lib/utils';
@@ -11,8 +11,9 @@ import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
-// ... (GHOST_SPRING, Category interface, etc.)
-const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;
+import { useGhostParallaxY } from '@/hooks/useGhostParallaxY';
+
+// ... (Category interface, etc.)
 
 interface Category {
   id: string;
@@ -48,19 +49,13 @@ export function CategoryStripe({
       : title;
 
   const stripeRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: stripeRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, GHOST_SPRING);
-  const parallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
+  const parallaxY = useGhostParallaxY(stripeRef, 18);
   const isVideo = category.thumbnail.endsWith('.mp4');
 
   return (
     <motion.div
       ref={stripeRef}
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
       transition={{
