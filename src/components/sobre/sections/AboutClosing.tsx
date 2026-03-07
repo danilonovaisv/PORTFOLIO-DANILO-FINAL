@@ -11,6 +11,7 @@ import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { BRAND } from '@/config/brand';
 
 import { motionTokens } from '@/config/about-motion';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 /** SSR-safe breakpoint hook — returns true when viewport is ≤ 767px (mobile) */
@@ -120,12 +121,7 @@ export function AboutClosing() {
                 aria-label="Demonstração visual de experiências"
                 poster={activePoster}
               >
-                <track
-                  kind="captions"
-                  src={DEFAULT_CAPTIONS}
-                  srcLang="pt-BR"
-                  label="Português"
-                />
+                <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
               </video>
             )}
           </div>

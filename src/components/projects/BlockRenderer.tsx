@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { sanitizeTailwindValue } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
@@ -185,12 +186,7 @@ export default function BlockRenderer({
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-            />
+            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
           </video>
         </div>
       );

@@ -179,6 +179,9 @@
    - Contrast AA+ is mandatory.
    - `prefers-reduced-motion` must disable "Ghost" easing.
    - Interactive elements focus states must be visible.
+5. **Mobile Video Caption Rule:**
+   - On screens `<= 767px`, decorative or autoplay videos must omit `<track kind="captions">`.
+   - Desktop and tablet may retain caption tracks when the media context demands it.
 
 ---
 

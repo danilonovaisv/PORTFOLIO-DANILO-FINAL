@@ -74,7 +74,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
       // Escala ajustada para maior presença
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost
-      baseScale: isMobile ? 0.42 : 0.585,
+      baseScale: isMobile ? 0.378 : 0.585,
       // Compensa pivot do GLB para centralização visual
       modelOffsetY: isMobile ? -1.0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final

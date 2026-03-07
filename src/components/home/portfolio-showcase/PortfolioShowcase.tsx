@@ -14,6 +14,7 @@ const CATEGORIES = [
   {
     id: 'brand-campaigns',
     title: 'Brand & Campaigns',
+    mobileTitle: ['Brand', '& Campaigns'],
     slug: 'branding',
     thumbnail: getAssetUrl('site-assets/home/showcase/Branding-Project.webp'),
     alignment: 'right' as const,
@@ -22,6 +23,7 @@ const CATEGORIES = [
   {
     id: 'videos-motions',
     title: 'Videos & Motions',
+    mobileTitle: ['Videos', '& Motions'],
     slug: 'motion',
     thumbnail: getAssetUrl('site-assets/home/showcase/show.video.mp4'),
     alignment: 'center' as const,
@@ -30,6 +32,7 @@ const CATEGORIES = [
   {
     id: 'web-tech',
     title: 'Websites & Tech',
+    mobileTitle: ['Websites', '& Tech'],
     slug: 'web',
     // GIF substituído por frame estático WebP para reduzir LCP e peso inicial
     thumbnail: getAssetUrl('site-assets/home/showcase/Branding-Project.webp'),

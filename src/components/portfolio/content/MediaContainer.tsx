@@ -9,6 +9,7 @@ import {
     isVideo,
     isYouTubeUrl,
 } from '@/lib/utils';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { Play } from 'lucide-react';
 
@@ -62,12 +63,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                                 void event.currentTarget.play().catch(() => undefined);
                             }}
                         >
-                            <track
-                                kind="captions"
-                                src={DEFAULT_CAPTIONS}
-                                srcLang="pt-BR"
-                                label="Português"
-                            />
+                            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                         </video>
                     ) : (
                         <Image
@@ -142,12 +138,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                                             playsInline
                                             preload="metadata"
                                         >
-                                            <track
-                                                kind="captions"
-                                                src={DEFAULT_CAPTIONS}
-                                                srcLang="pt-BR"
-                                                label="Português"
-                                            />
+                                            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                                         </video>
                                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                                             <Play className="w-5 h-5 text-white fill-current opacity-80" />

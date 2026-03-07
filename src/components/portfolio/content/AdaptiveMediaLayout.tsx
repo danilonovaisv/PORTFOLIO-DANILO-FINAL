@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import { getAssetUrl, isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
@@ -128,12 +129,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     void event.currentTarget.play().catch(() => undefined);
                                 }}
                             >
-                                <track
-                                    kind="captions"
-                                    src={DEFAULT_CAPTIONS}
-                                    srcLang="pt-BR"
-                                    label="Português"
-                                />
+                                <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                             </video>
                         ) : (
                             <div className="absolute inset-0 w-full h-full z-0 cursor-pointer" onClick={() => setLightboxSource(activeMedia)}>

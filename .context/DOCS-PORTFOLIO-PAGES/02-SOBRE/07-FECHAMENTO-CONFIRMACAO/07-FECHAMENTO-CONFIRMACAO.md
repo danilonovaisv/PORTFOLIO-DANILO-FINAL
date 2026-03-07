@@ -43,7 +43,7 @@ Concluir a narrativa com credibilidade e convite direto para ação (contato e m
 ## 6. Acessibilidade & SEO
 
 - Heading principal presente.
-- Vídeos com `track` e `poster`.
+- Desktop mantém `track` e `poster`; mobile remove legendas embutidas por regra global.
 - CTAs com link semântico.
 
 ## 7. Integrações ou Recursos Especiais

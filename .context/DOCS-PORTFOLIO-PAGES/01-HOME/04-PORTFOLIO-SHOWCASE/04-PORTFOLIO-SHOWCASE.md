@@ -79,6 +79,8 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Mantém estrutura simplificada.
 - Mobile:
   - Versão compacta sem thumbnails (boa decisão de performance).
+  - Categorias quebradas sempre antes do `&`, em duas linhas.
+  - Títulos com escala maior e peso light para reforçar leitura editorial no mobile.
 - Breakpoints:
   - Comutação explícita `lg`.
 - Grid/Flex:
@@ -126,6 +128,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 
 - Performance:
   - Boa otimização mobile ao remover thumbnails.
+  - Tipografia maior no mobile substitui densidade visual sem reintroduzir mídia pesada.
 - Bundle size:
   - Aceitável.
 - Code splitting:

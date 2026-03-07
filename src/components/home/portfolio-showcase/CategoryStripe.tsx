@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { cn } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
@@ -16,6 +17,7 @@ const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;
 interface Category {
   id: string;
   title: string | string[] | readonly string[];
+  mobileTitle?: string[] | readonly string[];
   slug: string;
   thumbnail: string;
   alignment: 'left' | 'center' | 'right';
@@ -40,6 +42,10 @@ export function CategoryStripe({
   const title = Array.isArray(category.title)
     ? category.title
     : [category.title];
+  const mobileTitle =
+    category.mobileTitle && category.mobileTitle.length > 0
+      ? [...category.mobileTitle]
+      : title;
 
   const stripeRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -106,12 +112,7 @@ export function CategoryStripe({
                     poster={DEFAULT_VIDEO_POSTER}
                     className="object-cover w-full h-full"
                   >
-                    <track
-                      kind="captions"
-                      src={DEFAULT_CAPTIONS}
-                      srcLang="pt-BR"
-                      label="Português"
-                    />
+                    <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                   </video>
                 ) : (
                   <Image
@@ -166,10 +167,10 @@ export function CategoryStripe({
           {/* Title + Arrow Row */}
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-col flex-1">
-              {title.map((line, i) => (
+              {mobileTitle.map((line, i) => (
                 <span
                   key={i}
-                  className="text-lg sm:text-xl font-medium tracking-tight text-white leading-tight"
+                  className="text-[1.9rem] sm:text-[2.2rem] font-light tracking-[-0.04em] text-white leading-[0.92]"
                 >
                   {line}
                 </span>

@@ -46,7 +46,7 @@ Traduzir processo criativo em método prático, gerando confiança através de c
 ## 6. Acessibilidade & SEO
 
 - Uso de heading e textos legíveis.
-- Captions no vídeo via `track`.
+- Desktop mantém `track` de captions; mobile remove legendas embutidas por regra global.
 - Contraste adequado no conteúdo textual.
 
 ## 7. Integrações ou Recursos Especiais

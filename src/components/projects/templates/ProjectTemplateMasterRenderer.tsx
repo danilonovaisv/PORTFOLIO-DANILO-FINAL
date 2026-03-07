@@ -11,6 +11,7 @@ import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
   MasterProjectAsset,
@@ -203,12 +204,7 @@ export default function ProjectTemplateMasterRenderer({
                     playsInline
                     preload="metadata"
                   >
-                    <track
-                      kind="captions"
-                      src={DEFAULT_CAPTIONS}
-                      srcLang="pt-BR"
-                      label="Português"
-                    />
+                    <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                   </video>
                 ) : (
                   <Image

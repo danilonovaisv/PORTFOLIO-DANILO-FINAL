@@ -12,6 +12,7 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
   MasterProjectAsset,
@@ -84,12 +85,7 @@ function GalleryMedia({
         playsInline
         preload={priority ? 'metadata' : 'none'}
       >
-        <track
-          kind="captions"
-          src={DEFAULT_CAPTIONS}
-          srcLang="pt-BR"
-          label="Português"
-        />
+        <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
       </video>
     );
   }
@@ -174,12 +170,7 @@ export default function MasterProjectTemplate({
                 playsInline
                 preload="metadata"
               >
-                <track
-                  kind="captions"
-                  src={DEFAULT_CAPTIONS}
-                  srcLang="pt-BR"
-                  label="Português"
-                />
+                <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
               </video>
             ) : (
               <Image

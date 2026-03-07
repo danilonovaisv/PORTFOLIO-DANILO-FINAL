@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
@@ -230,12 +231,7 @@ export function VideoManifesto({
           }}
           aria-label="Vídeo showreel demonstrando projetos de design gráfico"
         >
-          <track
-            kind="captions"
-            src="/captions/ambient.vtt"
-            srcLang="pt-BR"
-            label="Português"
-          />
+          <ResponsiveCaptionTrack src="/captions/ambient.vtt" />
         </video>
 
         {/* Overlay Ghost System */}

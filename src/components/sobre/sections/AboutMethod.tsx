@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
@@ -69,12 +70,7 @@ export default function AboutMethod() {
             }`}
             aria-hidden="true"
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-            />
+            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
           </video>
         </motion.div>
 

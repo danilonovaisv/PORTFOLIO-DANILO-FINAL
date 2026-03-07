@@ -39,7 +39,7 @@ export const HOME_CONTENT = {
         label: 'Brand & Campaigns',
         titleDesktop: 'Brand & Campaigns',
         // Otimizado: Quebra forçada para evitar viúva em mobile pequeno
-        titleMobile: 'Brand &\nCampaigns',
+        titleMobile: 'Brand\n& Campaigns',
         align: 'end',
         thumb: siteAsset('home/showcase/Branding-Project.webp'),
       },
@@ -47,7 +47,7 @@ export const HOME_CONTENT = {
         id: 'videos-motions',
         label: 'Videos & Motions',
         titleDesktop: 'Videos & Motions',
-        titleMobile: 'Videos &\nMotions',
+        titleMobile: 'Videos\n& Motions',
         align: 'center',
         thumb: siteAsset('home/showcase/Key-Visual.webp'),
       },
@@ -57,7 +57,7 @@ export const HOME_CONTENT = {
         // Otimizado: Balanceamento visual para desktop
         titleDesktop: 'Web Campaigns,\nWebsites & Tech',
         // Otimizado: Quebra estratégica para mobile (3 linhas equilibradas)
-        titleMobile: 'Web Campaigns,\nWebsites & Tech',
+        titleMobile: 'Web Campaigns, Websites\n& Tech',
         align: 'start',
         thumb: siteAsset('home/showcase/webdesigner-2.gif'),
       },

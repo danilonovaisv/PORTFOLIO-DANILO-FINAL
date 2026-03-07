@@ -21,6 +21,7 @@ import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
@@ -260,12 +261,7 @@ function AssetLightbox({
               void event.currentTarget.play().catch(() => undefined);
             }}
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-            />
+            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
           </video>
         )}
       </div>
@@ -368,12 +364,7 @@ function AssetInteractive({
           playsInline
           preload="metadata"
         >
-          <track
-            kind="captions"
-            src={DEFAULT_CAPTIONS}
-            srcLang="pt-BR"
-            label="Português"
-          />
+          <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
         </video>
       )}
 
