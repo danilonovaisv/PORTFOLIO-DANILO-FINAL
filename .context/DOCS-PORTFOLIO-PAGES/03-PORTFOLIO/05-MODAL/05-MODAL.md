@@ -39,3 +39,10 @@ Exibir conteúdo detalhado do projeto sem sair da página, mantendo acessibilida
 
 - Medium non-compliance (Motion): The `PortfolioModal` backdrop uses `easeInOut` for the overlay transition. It should be standardized to `GHOST_EASE` for strict protocol adherence.
 - Visual non-compliance: Presence of hardcoded hex colors in the modal (`#040013`, `#0b0d3a`, `#4fe6ff`) instead of centralized brand tokens.
+
+## 6. Atualização de estado — 2026-03-06
+
+- `PortfolioModal.tsx` foi alinhado com as variants oficiais do modal.
+- backdrop agora usa easing Ghost vindo de `modal/variants.ts`.
+- backdrop, gradiente ambiente, selection e focus ring migraram para tokens (`background`, `neutral`, `primary`).
+- trap de foco, `Esc`, portal e focus return permanecem preservados.

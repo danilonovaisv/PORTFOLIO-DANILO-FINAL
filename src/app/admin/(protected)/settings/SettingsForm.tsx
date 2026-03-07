@@ -122,8 +122,8 @@ export function SettingsForm({
             {!hasServiceRole && (
               <p className="text-sm text-amber-400">
                 Configure `SUPABASE_SERVICE_ROLE_KEY` no servidor para salvar e
-                ler a chave da OpenAI pelo banco. Sem isso, apenas a variável
-                de ambiente `OPENAI_API_KEY` funciona.
+                ler a chave da OpenAI pelo banco. Sem isso, apenas a variável de
+                ambiente `OPENAI_API_KEY` funciona.
               </p>
             )}
 

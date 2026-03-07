@@ -59,3 +59,4 @@ Entregar galeria editorial filtrável com leitura por categorias e ritmo visual 
 ## 8. Inconformidades observadas
 
 - Inconformidade baixa: revisar cobertura de navegação por teclado na mudança de filtro (manter foco contextual quando necessário).
+- Atualização 2026-03-06: `PortfolioClient` passou a assinar `portfolio_projects` via realtime no browser client do Supabase e aciona `router.refresh()` após mutações vindas do admin, reduzindo defasagem visual da galeria pública.

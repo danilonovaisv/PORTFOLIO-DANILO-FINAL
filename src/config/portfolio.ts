@@ -58,7 +58,11 @@ export const PORTFOLIO_FILTERS: readonly PortfolioFilterDefinition[] = [
     label: 'Websites & Tech',
     queryValue: 'web',
     categories: ['web', 'Landing Page'],
-    projectTypes: ['Websites & Tech', 'Web Campaigns, Websites & Tech', 'Web & Digital'],
+    projectTypes: [
+      'Websites & Tech',
+      'Web Campaigns, Websites & Tech',
+      'Web & Digital',
+    ],
     aliases: ['web', 'web-tech', 'websites & tech', 'websites-tech'],
   },
 ] as const;

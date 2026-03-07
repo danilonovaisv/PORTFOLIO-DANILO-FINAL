@@ -1,7 +1,9 @@
 import { getModalHeroMedia } from '@/components/portfolio/content/modal-media';
 import type { PortfolioProject } from '@/types/project';
 
-function buildProject(overrides: Partial<PortfolioProject> = {}): PortfolioProject {
+function buildProject(
+  overrides: Partial<PortfolioProject> = {}
+): PortfolioProject {
   return {
     id: 'project-1',
     slug: 'project-1',

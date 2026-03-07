@@ -140,7 +140,10 @@ export default function GhostScene() {
         tDiffuse: { value: null },
         uTime: { value: 0.0 },
         uResolution: {
-          value: new THREE.Vector2(Math.max(1, window.innerWidth), Math.max(1, window.innerHeight)),
+          value: new THREE.Vector2(
+            Math.max(1, window.innerWidth),
+            Math.max(1, window.innerHeight)
+          ),
         },
         uAnalogGrain: { value: 0.4 },
         uAnalogBleeding: { value: 1.0 },

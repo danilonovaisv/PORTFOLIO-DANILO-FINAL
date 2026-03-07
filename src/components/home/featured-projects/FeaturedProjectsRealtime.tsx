@@ -202,7 +202,11 @@ export default function FeaturedProjectsRealtime({
             }
             if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
               if (isDev) {
-                console.warn('[FeaturedProjectsRealtime] Subscription error:', status, err);
+                console.warn(
+                  '[FeaturedProjectsRealtime] Subscription error:',
+                  status,
+                  err
+                );
               }
               startPolling();
             }

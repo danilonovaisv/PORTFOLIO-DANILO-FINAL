@@ -8,24 +8,25 @@ import { Suspense } from 'react';
 async function DashboardStats() {
   const supabase = await createClient();
 
-  // Fetch results individually to prevent cascading failure
-  const projectsRes = await supabase
-    .from('portfolio_projects')
-    .select('id', { count: 'exact', head: true });
-
-  const tagsRes = await supabase
-    .from('portfolio_tags')
-    .select('id', { count: 'exact', head: true });
-
-  const featuredHomeRes = await supabase
-    .from('portfolio_projects')
-    .select('id', { count: 'exact', head: true })
-    .eq('featured_on_home', true);
-
-  const featuredPortfolioRes = await supabase
-    .from('portfolio_projects')
-    .select('id', { count: 'exact', head: true })
-    .eq('featured_on_portfolio', true);
+  const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
+    await Promise.all([
+      supabase.from('portfolio_projects').select('id', {
+        count: 'exact',
+        head: true,
+      }),
+      supabase.from('portfolio_tags').select('id', {
+        count: 'exact',
+        head: true,
+      }),
+      supabase
+        .from('portfolio_projects')
+        .select('id', { count: 'exact', head: true })
+        .eq('featured_on_home', true),
+      supabase
+        .from('portfolio_projects')
+        .select('id', { count: 'exact', head: true })
+        .eq('featured_on_portfolio', true),
+    ]);
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -98,7 +98,8 @@ export default function FeaturedProjectsSection({
             const layout = FEATURED_GRID_LAYOUT[index];
             const gridCols = layout?.gridClass ?? 'md:col-span-4 lg:col-span-4';
             const frameClass =
-              layout?.frameClass ?? 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
+              layout?.frameClass ??
+              'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
             return (
               <motion.div

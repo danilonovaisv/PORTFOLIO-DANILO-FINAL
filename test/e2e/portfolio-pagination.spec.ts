@@ -6,9 +6,10 @@ const cardLocator = '[id^=\"portfolio-card-\"]';
 test('paginação mantém limite e estados first/last', async ({ page }) => {
   await page.goto('/portfolio');
 
-  await expect(
-    page.getByRole('tab', { name: /All Cases/i })
-  ).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByRole('tab', { name: /All Cases/i })).toHaveAttribute(
+    'aria-selected',
+    'true'
+  );
 
   const cards = page.locator(cardLocator);
   const countPage1 = await cards.count();

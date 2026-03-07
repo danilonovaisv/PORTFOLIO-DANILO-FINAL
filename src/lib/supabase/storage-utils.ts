@@ -112,7 +112,10 @@ export async function deleteStorageFiles(
     const chunk = files.slice(i, i + 100);
     const { error } = await supabase.storage.from(bucket).remove(chunk);
     if (error) {
-      console.error(`[storage-utils] Error deleting explicit file batch`, error);
+      console.error(
+        `[storage-utils] Error deleting explicit file batch`,
+        error
+      );
       failed.push(...chunk);
     } else {
       deleted += chunk.length;

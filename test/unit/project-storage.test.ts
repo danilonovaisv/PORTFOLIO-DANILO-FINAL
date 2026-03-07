@@ -10,7 +10,8 @@ describe('project storage reconciliation', () => {
       collectProjectStoragePaths({
         url_landscape:
           'https://demo.supabase.co/storage/v1/object/public/portfolio-media/acme/case/assets-do-projeto/cover/image.webp',
-        url_square: 'portfolio-media/acme/case/assets-do-projeto/cover/square.webp',
+        url_square:
+          'portfolio-media/acme/case/assets-do-projeto/cover/square.webp',
         home_featured: {
           logoPath: 'acme/case/assets-do-projeto/home-featured/logo.webp',
         },
@@ -48,8 +49,7 @@ describe('project storage reconciliation', () => {
         {
           url_landscape:
             'acme-old/case-old/assets-do-projeto/cover/old-cover.webp',
-          url_square:
-            'acme-old/case-old/assets-do-projeto/cover/square.webp',
+          url_square: 'acme-old/case-old/assets-do-projeto/cover/square.webp',
           gallery: [
             { path: 'acme-old/case-old/assets-do-projeto/gallery/keep.webp' },
             {
@@ -60,8 +60,7 @@ describe('project storage reconciliation', () => {
         {
           url_landscape:
             'acme-new/case-new/assets-do-projeto/cover/new-cover.webp',
-          url_square:
-            'acme-new/case-new/assets-do-projeto/cover/square.webp',
+          url_square: 'acme-new/case-new/assets-do-projeto/cover/square.webp',
           gallery: [
             { path: 'acme-new/case-new/assets-do-projeto/gallery/keep.webp' },
           ],

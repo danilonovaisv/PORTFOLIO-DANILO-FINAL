@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import {
+  getBackdropVariants,
   getContainerVariants,
 } from '@/components/portfolio/modal/variants';
 import TypeAContent from '@/components/portfolio/content/TypeAContent';
@@ -82,6 +83,10 @@ export const PortfolioModal = ({
     () => getContainerVariants(shouldReduceMotion),
     [shouldReduceMotion]
   );
+  const backdropVariants = useMemo(
+    () => getBackdropVariants(shouldReduceMotion),
+    [shouldReduceMotion]
+  );
 
   const titleId = project
     ? `portfolio-modal-${project.slug.replace(/[^a-z0-9-]/gi, '')}`
@@ -95,11 +100,11 @@ export const PortfolioModal = ({
         <>
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-[1200] pointer-events-none bg-[#040013]/95 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            className="fixed inset-0 z-[1200] pointer-events-none bg-background/95 backdrop-blur-sm"
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             aria-hidden="true"
           />
 
@@ -113,17 +118,17 @@ export const PortfolioModal = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[1210] flex flex-col font-display selection:bg-[#4fe6ff] selection:text-black overflow-x-hidden overflow-y-auto h-[100dvh] w-screen"
+            className="fixed inset-0 z-[1210] flex h-[100dvh] w-screen flex-col overflow-x-hidden overflow-y-auto font-display selection:bg-primary selection:text-black"
           >
             {/* Ambient Background Gradient inside modal */}
-            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#0b0d3a] via-[#040013] to-[#040013] opacity-80"></div>
+            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral via-background to-background opacity-80" />
 
             <div className="fixed top-4 right-4 md:top-8 md:right-8 z-[1220]">
               <button
                 ref={closeRef}
                 onClick={onClose}
                 aria-label="Fechar modal"
-                className="flex items-center justify-center w-[48px] h-[48px] md:w-[68px] md:h-[68px] rounded-full bg-black/40 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-all duration-300 group shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+                className="group flex h-[48px] w-[48px] items-center justify-center rounded-full border border-white/10 bg-black/40 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-[68px] md:w-[68px]"
               >
                 <X className="text-white/70 group-hover:text-white transition-colors" size={28} strokeWidth={1.5} />
               </button>

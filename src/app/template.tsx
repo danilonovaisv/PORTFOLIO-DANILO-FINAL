@@ -8,10 +8,13 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 // Dynamically import the motion wrapper to prevent Turbopack HMR proxy.mjs crash.
 // This isolates the framer-motion module boundary so the HMR graph does not
 // lose the factory reference when sibling modules change.
-const MotionWrapper = dynamic(() => import('@/components/layout/MotionWrapper'), {
-  ssr: false,
-  loading: () => null,
-});
+const MotionWrapper = dynamic(
+  () => import('@/components/layout/MotionWrapper'),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 /**
  * Ghost Era Page Template
@@ -40,9 +43,5 @@ export default function Template({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return (
-    <MotionWrapper pathname={pathname}>
-      {children}
-    </MotionWrapper>
-  );
+  return <MotionWrapper pathname={pathname}>{children}</MotionWrapper>;
 }

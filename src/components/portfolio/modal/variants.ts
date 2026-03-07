@@ -36,12 +36,15 @@ export const getBackdropVariants = (shouldReduceMotion: boolean | null) => ({
     opacity: 1,
     transition: {
       duration: shouldReduceMotion ? 0.15 : MODAL_TIMELINE.BACKDROP,
-      ease: 'linear' as const,
+      ease: easing,
     },
   },
   exit: {
     opacity: 0,
-    transition: { duration: shouldReduceMotion ? 0.15 : 0.15, ease: 'linear' as const },
+    transition: {
+      duration: shouldReduceMotion ? 0.15 : 0.15,
+      ease: easing,
+    },
   },
 });
 

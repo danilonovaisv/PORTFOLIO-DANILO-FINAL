@@ -136,8 +136,8 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
           placeholder="# Título... \n\nParágrafo com conteúdo..."
         />
         <p className="text-[11px] text-slate-500">
-          Este campo aceita Markdown seguro. Títulos, listas, links e ênfase
-          são preservados no front.
+          Este campo aceita Markdown seguro. Títulos, listas, links e ênfase são
+          preservados no front.
         </p>
       </div>
     );

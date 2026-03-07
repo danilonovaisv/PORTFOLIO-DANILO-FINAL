@@ -418,6 +418,11 @@ function resolveMediaUrl(path: string) {
 
 function AdminMediaThumb({ path, alt }: { path: string; alt: string }) {
   const src = resolveMediaUrl(path);
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError || !src) {
+    return <AdminMediaThumbFallback label={alt} />;
+  }
 
   if (isVideo(src)) {
     return (
@@ -431,6 +436,7 @@ function AdminMediaThumb({ path, alt }: { path: string; alt: string }) {
           poster={DEFAULT_VIDEO_POSTER}
           className="h-full w-full object-cover"
           aria-label={alt}
+          onError={() => setHasError(true)}
         />
       </div>
     );
@@ -443,7 +449,16 @@ function AdminMediaThumb({ path, alt }: { path: string; alt: string }) {
       width={64}
       height={40}
       className="h-10 w-16 rounded border border-white/10 object-cover"
+      onError={() => setHasError(true)}
     />
+  );
+}
+
+function AdminMediaThumbFallback({ label }: { label: string }) {
+  return (
+    <div className="flex h-10 w-16 items-center justify-center rounded border border-white/10 bg-neutral/60 px-1 text-center text-[9px] font-medium uppercase tracking-[0.14em] text-white/70">
+      <span className="line-clamp-2">{label}</span>
+    </div>
   );
 }
 

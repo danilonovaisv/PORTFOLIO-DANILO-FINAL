@@ -22,3 +22,8 @@ Exibir visão rápida operacional (projetos, tags, destaques Home/Portfólio).
 
 - Inconformidade crítica de performance: migrar consultas de métricas para `Promise.all` para reduzir latência total do dashboard.
 - Inconformidade baixa: incluir tratamento visual de erro parcial nas métricas para cenários de latência/falha seletiva.
+
+## 5. Atualização de estado — 2026-03-06
+
+- `src/app/admin/(protected)/page.tsx` agora resolve `projects`, `tags`, `featured_on_home` e `featured_on_portfolio` em paralelo com `Promise.all`.
+- O dashboard preserva a leitura individual de `error?.message` por card, então falhas parciais continuam localizadas.

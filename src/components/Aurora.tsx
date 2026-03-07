@@ -160,7 +160,9 @@ export default function Aurora(props: AuroraProps) {
         uTime: { value: 0 },
         uAmplitude: { value: amplitude },
         uColorStops: { value: colorStopsArray },
-        uResolution: { value: [Math.max(1, ctn.offsetWidth), Math.max(1, ctn.offsetHeight)] },
+        uResolution: {
+          value: [Math.max(1, ctn.offsetWidth), Math.max(1, ctn.offsetHeight)],
+        },
         uBlend: { value: blend },
       },
     });

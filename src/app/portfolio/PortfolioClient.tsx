@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { PortfolioProject } from '@/types/project';
 import dynamic from 'next/dynamic';
@@ -9,6 +9,7 @@ import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import { createClientComponentClient } from '@/lib/supabase/client';
 
 const ProjectsGallery = dynamic(() => import('@/components/portfolio/ProjectsGallery').then((mod) => mod.ProjectsGallery));
 const PortfolioModal = dynamic(() => import('@/components/portfolio/PortfolioModal').then((mod) => mod.PortfolioModal), { ssr: false });
@@ -27,10 +28,32 @@ export default function PortfolioClient({
   totalProjectsCount,
 }: PortfolioClientProps) {
   const router = useRouter();
+  const [supabase] = useState(() => createClientComponentClient());
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('portfolio_projects_public')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'portfolio_projects',
+        },
+        () => {
+          router.refresh();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      void supabase.removeChannel(channel);
+    };
+  }, [router, supabase]);
 
   const handleOpenProject = useCallback((project: PortfolioProject) => {
     const destination = project.destination

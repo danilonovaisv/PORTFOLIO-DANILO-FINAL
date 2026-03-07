@@ -24,9 +24,9 @@ describe('header nav state', () => {
   });
 
   it('destaca portfolio em rotas internas de case', () => {
-    expect(resolveActiveNavHref('/projects/case-alpha', undefined, navItems)).toBe(
-      '/portfolio'
-    );
+    expect(
+      resolveActiveNavHref('/projects/case-alpha', undefined, navItems)
+    ).toBe('/portfolio');
   });
 
   it('compara item ativo de forma direta e padronizada', () => {
