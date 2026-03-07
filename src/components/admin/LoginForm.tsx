@@ -9,6 +9,9 @@ import Script from 'next/script';
 declare global {
   interface Window {
     onTurnstileSuccess?: (_token: string) => void;
+    turnstile?: {
+      reset: () => void;
+    };
   }
 }
 
@@ -25,12 +28,15 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Check for auth errors from callback
+  // Register Turnstile callback
   useEffect(() => {
+    // Define the callback on the window object
     window.onTurnstileSuccess = (token: string) => {
       setTurnstileToken(token);
+      setError(null);
     };
 
+    // Check for auth errors from callback URL
     const authError = searchParams.get('error');
     const authMsg = searchParams.get('message');
     if (authError) {
@@ -41,7 +47,7 @@ export default function LoginForm() {
     }
 
     return () => {
-      delete window.onTurnstileSuccess;
+      window.onTurnstileSuccess = undefined;
     };
   }, [searchParams]);
 
@@ -71,18 +77,27 @@ export default function LoginForm() {
       try {
         const supabase = createClientComponentClient();
 
+        // Check if token is present
+        if (!turnstileToken) {
+          setError('Por favor, complete a verificação de segurança (Captcha).');
+          return;
+        }
+
         if (mode === 'signup') {
           const { data, error: signUpError } = await supabase.auth.signUp({
             email,
             password,
             options: {
-              captchaToken: turnstileToken || undefined,
+              captchaToken: turnstileToken,
             },
           });
 
           if (signUpError) {
             console.error('SignUp error:', signUpError);
             setError(signUpError.message);
+            // Reset turnstile on error
+            if (window.turnstile) window.turnstile.reset();
+            setTurnstileToken(null);
             return;
           }
 
@@ -97,6 +112,9 @@ export default function LoginForm() {
               'Cadastro realizado. Se necessário, confirme seu email.'
             );
             setMode('login');
+            // Reset turnstile after success too if we want a fresh one
+            if (window.turnstile) window.turnstile.reset();
+            setTurnstileToken(null);
           }
           return;
         }
@@ -107,17 +125,20 @@ export default function LoginForm() {
             email,
             password,
             options: {
-              captchaToken: turnstileToken || undefined,
+              captchaToken: turnstileToken,
             },
           });
 
         if (signInError) {
           console.error('SignIn error:', signInError);
           // Auto-retry or clear token if captcha failed
-          if (signInError.message.includes('captcha')) {
+          if (
+            signInError.message.toLowerCase().includes('captcha') ||
+            signInError.message.toLowerCase().includes('token')
+          ) {
             setTurnstileToken(null);
-            if (typeof window !== 'undefined' && (window as any).turnstile) {
-              (window as any).turnstile.reset();
+            if (window.turnstile) {
+              window.turnstile.reset();
             }
           }
           setError(signInError.message);
@@ -129,7 +150,7 @@ export default function LoginForm() {
           router.refresh();
           setTimeout(() => {
             window.location.href = ADMIN_NAVIGATION.dashboard;
-          }, 500);
+          }, 400);
         } else {
           setError('Falha ao estabelecer sessão. Tente novamente.');
         }
