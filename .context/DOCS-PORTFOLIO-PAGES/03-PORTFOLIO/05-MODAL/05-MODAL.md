@@ -53,3 +53,4 @@ Exibir conteúdo detalhado do projeto sem sair da página, mantendo acessibilida
 - `modal-media.ts` agora seleciona apenas mídia específica do case para o hero interno; capa/thumb permanecem restritas ao grid.
 - Quando o projeto não possui mídia interna além da capa, o modal assume estado vazio controlado em vez de repetir a thumb.
 - Embed do YouTube permanece com autoplay, mute e loop via utilitário central `getYouTubeEmbedUrl`.
+- Os botões de fechamento nas primitives de `dialog` e `sheet` passaram a expor `aria-label` explícito, fortalecendo a navegação por leitor de tela e teclado.

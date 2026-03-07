@@ -63,18 +63,18 @@ export const ProjectCard = ({
 
   // Build the static image: prefer non-video thumbnailMedia, then layout-appropriate images
   const staticImageCandidates = [
-    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
     prefersSquareOnDesktop
       ? (project.imageSquare ?? project.imageLandscape ?? project.image)
       : (project.imageLandscape ?? project.imageSquare ?? project.image),
+    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
   ].filter(Boolean) as string[];
 
   const desktopImage = getAssetUrl(staticImageCandidates[0] || ASSET_PLACEHOLDER);
 
   // Mobile image — prefer landscape
   const mobileImageCandidates = [
-    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
     project.imageLandscape ?? project.imageSquare ?? project.image,
+    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
   ].filter(Boolean) as string[];
 
   const mobileImage = getAssetUrl(mobileImageCandidates[0] || ASSET_PLACEHOLDER);
@@ -162,6 +162,7 @@ export const ProjectCard = ({
               )}
               style={{ objectPosition }}
               sizes={sizes}
+              quality={60}
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={applyImageFallback}
@@ -176,6 +177,7 @@ export const ProjectCard = ({
               )}
               style={{ objectPosition }}
               sizes={sizes}
+              quality={60}
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={applyImageFallback}
@@ -192,6 +194,7 @@ export const ProjectCard = ({
             )}
             style={{ objectPosition }}
             sizes={sizes}
+            quality={60}
             loading={priority ? 'eager' : 'lazy'}
             priority={priority}
             onError={applyImageFallback}

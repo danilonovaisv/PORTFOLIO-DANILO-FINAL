@@ -13,6 +13,7 @@ import CTAProjectCard from '@/components/home/featured-projects/CTAProjectCard';
 import { getFeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
 import { Container } from '@/components/layout/Container';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const { duration, offset } = MOTION_TOKENS;
 
@@ -49,6 +50,27 @@ const FEATURED_GRID_LAYOUT = [
 
 const CTA_FRAME_CLASS = 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
+function FeaturedProjectsSkeleton() {
+  return (
+    <div
+      aria-hidden="true"
+      className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-6"
+    >
+      {FEATURED_GRID_LAYOUT.map((layout, index) => (
+        <div
+          key={`featured-skeleton-${index}`}
+          className={`col-span-4 ${layout.gridClass}`}
+        >
+          <Skeleton className={`w-full rounded-md ${layout.frameClass}`} />
+        </div>
+      ))}
+      <div className="col-span-4 md:col-span-3 lg:col-span-4">
+        <Skeleton className={`w-full rounded-md ${CTA_FRAME_CLASS}`} />
+      </div>
+    </div>
+  );
+}
+
 export default function FeaturedProjectsSection({
   projects,
   onProjectOpen,
@@ -60,6 +82,21 @@ export default function FeaturedProjectsSection({
     );
     return source;
   }, [projects]);
+
+  if (featuredProjects.length === 0) {
+    return (
+      <section
+        id="featured-projects"
+        aria-label="Projetos em Destaque"
+        className="relative z-10 bg-background py-16 md:py-24"
+      >
+        <Container>
+          <h2 className="sr-only">Projetos em Destaque</h2>
+          <FeaturedProjectsSkeleton />
+        </Container>
+      </section>
+    );
+  }
 
   const cardVariants = {
     hidden: reducedMotion

@@ -93,7 +93,7 @@ export default function SiteFooter() {
         </nav>
 
         {/* 3. Social Media (Order 3 on Mobile, Right on Desktop) */}
-        <div
+        <nav
           className="flex flex-row items-center justify-center gap-4 order-3 lg:order-0"
           aria-label="Redes sociais"
         >
@@ -110,7 +110,7 @@ export default function SiteFooter() {
               <span className="sr-only">{social.label}</span>
             </a>
           ))}
-        </div>
+        </nav>
       </div>
     </footer>
   );

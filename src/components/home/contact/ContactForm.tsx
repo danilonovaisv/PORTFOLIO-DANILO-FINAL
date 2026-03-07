@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
@@ -30,8 +30,10 @@ const ContactForm: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [shouldLoadTurnstile, setShouldLoadTurnstile] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.onTurnstileSuccess = (token: string) => {
       setFormData((prev) => ({ ...prev, 'cf-turnstile-response': token }));
     };
@@ -39,6 +41,22 @@ const ContactForm: React.FC = () => {
       delete window.onTurnstileSuccess;
     };
   }, []);
+
+  useEffect(() => {
+    if (shouldLoadTurnstile || !formRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setShouldLoadTurnstile(true);
+        observer.disconnect();
+      },
+      { rootMargin: '240px 0px' }
+    );
+
+    observer.observe(formRef.current);
+    return () => observer.disconnect();
+  }, [shouldLoadTurnstile]);
 
   const validateField = (name: string, value: string) => {
     switch (name) {
@@ -166,15 +184,20 @@ const ContactForm: React.FC = () => {
           </div>
         ) : (
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             action={CONTACT_FORM.action}
             method="POST"
             className="space-y-8"
+            onFocusCapture={() => setShouldLoadTurnstile(true)}
+            onPointerEnter={() => setShouldLoadTurnstile(true)}
           >
-            <Script
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-              strategy="afterInteractive"
-            />
+            {shouldLoadTurnstile ? (
+              <Script
+                src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+                strategy="afterInteractive"
+              />
+            ) : null}
             <noscript>
               <p className="p-4 mb-4 text-sm text-amber-800 bg-amber-50 rounded-lg">
                 JavaScript está desativado. O formulário será enviado via
@@ -240,14 +263,20 @@ const ContactForm: React.FC = () => {
               </p>
             )}
 
-            <div
-              className="cf-turnstile"
-              data-sitekey={
-                process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
-                '1x00000000000000000000AA'
-              }
-              data-callback="onTurnstileSuccess"
-            ></div>
+            {shouldLoadTurnstile ? (
+              <div
+                className="cf-turnstile min-h-[65px]"
+                data-sitekey={
+                  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+                  '1x00000000000000000000AA'
+                }
+                data-callback="onTurnstileSuccess"
+              />
+            ) : (
+              <div className="flex min-h-[65px] items-center rounded-xl border border-[#111111]/10 bg-[#f8fafc] px-4 text-sm text-[#111111]/60">
+                Verificação de segurança carregada sob demanda para priorizar performance.
+              </div>
+            )}
 
             <motion.button
               type="submit"

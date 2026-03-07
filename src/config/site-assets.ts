@@ -1,3 +1,6 @@
+import { BRAND } from '@/config/brand';
+import { PORTFOLIO_CONTENT } from '@/config/content';
+
 export type SiteAssetDefinition = {
   key: string;
   label: string;
@@ -82,6 +85,29 @@ export const SITE_ASSET_KEYS = {
       { length: 12 },
       (_, i) => `clients.clients.strip.${i + 1}`
     ),
+  },
+} as const;
+
+export const SITE_ASSET_PRELOADS = {
+  homeHero: {
+    videos: [BRAND.assets.video.manifesto, BRAND.assets.video.manifestoMobile],
+    posters: [
+      BRAND.assets.video.manifestoPosterDesk,
+      BRAND.assets.video.manifestoPosterMobile,
+    ],
+    keys: [
+      SITE_ASSET_KEYS.heroVideos.homeManifesto,
+      SITE_ASSET_KEYS.heroVideos.homeManifestoMobile,
+      SITE_ASSET_KEYS.heroVideos.homeManifestoPosterDesk,
+      SITE_ASSET_KEYS.heroVideos.homeManifestoPosterMobile,
+    ],
+  },
+  portfolioHero: {
+    videos: [
+      PORTFOLIO_CONTENT.hero.video.desktop,
+      PORTFOLIO_CONTENT.hero.video.mobile,
+    ],
+    keys: [SITE_ASSET_KEYS.portfolio.heroDesktop, SITE_ASSET_KEYS.portfolio.heroMobile],
   },
 } as const;
 

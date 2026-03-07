@@ -275,7 +275,7 @@ const nextConfig = {
    * Mantida INTACTA
    */
   images: {
-    unoptimized: true,
+    unoptimized: false,
     // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
     remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
       {

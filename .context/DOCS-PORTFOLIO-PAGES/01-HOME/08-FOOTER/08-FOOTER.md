@@ -165,3 +165,8 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
 
 - Sessão de encerramento com alto impacto em SEO interno (links e contexto semântico).
 - Garantir contraste, foco visível e área de toque adequada em mobile.
+
+## 12. Atualização de estado — 2026-03-07
+
+- `SiteFooter.tsx` agora usa `nav` também no agrupamento de links sociais, removendo wrapper genérico onde a intenção já era navegação.
+- A hierarquia semântica do rodapé ficou: `footer` → `nav` institucional + `nav` social.

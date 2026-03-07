@@ -15,6 +15,7 @@ import {
 } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
@@ -25,6 +26,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { margin: '200px' });
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+  const shouldReduceMotion = useMotionGate();
 
   // Easing Ghost Padrão
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
@@ -40,14 +42,14 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
     { ease: ghostEase }
   );
 
-  if (is3DDisabled) {
+  if (is3DDisabled || isMobile || shouldReduceMotion) {
     return (
       <motion.div
         ref={containerRef}
         style={{ opacity, filter: blur }}
         className="w-full h-full pointer-events-none"
       >
-        <div className="h-full w-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
+        <div className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,rgba(79,230,255,0.16),transparent_40%),linear-gradient(180deg,#040013_0%,#0b0d3a_100%)]" />
       </motion.div>
     );
   }

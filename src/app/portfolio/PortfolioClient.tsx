@@ -32,9 +32,13 @@ export default function PortfolioClient({
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showClientsBrands, setShowClientsBrands] = useState(false);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
+  const brandsSentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
+
     const channel = supabase
       .channel('portfolio_projects_public')
       .on(
@@ -54,6 +58,29 @@ export default function PortfolioClient({
       void supabase.removeChannel(channel);
     };
   }, [router, supabase]);
+
+  useEffect(() => {
+    const sentinel = brandsSentinelRef.current;
+    if (!sentinel || showClientsBrands) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShowClientsBrands(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '320px 0px',
+      }
+    );
+
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [showClientsBrands]);
 
   const handleOpenProject = useCallback((project: PortfolioProject) => {
     const destination = project.destination
@@ -118,7 +145,20 @@ export default function PortfolioClient({
         </section>
 
         <div className="relative z-30 bg-background">
-          <ClientsBrandsSection />
+          <div
+            ref={brandsSentinelRef}
+            aria-hidden="true"
+            className="h-px w-full"
+          />
+          {showClientsBrands ? (
+            <ClientsBrandsSection />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="bg-bluePrimary"
+              style={{ minHeight: '16rem' }}
+            />
+          )}
           <ContactSection />
         </div>
       </div>

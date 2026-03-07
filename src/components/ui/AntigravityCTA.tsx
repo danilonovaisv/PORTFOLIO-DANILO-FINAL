@@ -96,6 +96,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         'cursor-pointer',
         'min-w-fit',
         'rounded-full',
+        'text-white no-underline visited:text-white hover:text-white',
         'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}
@@ -146,7 +147,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           backgroundColor: mainColor, // Custom or Default Blue
         }}
       >
-        <span className="text-sm sm:text-base lg:text-lg font-medium tracking-wide sm:tracking-wider whitespace-nowrap leading-none font-sans">
+        <span className="text-sm sm:text-base lg:text-lg font-medium tracking-wide sm:tracking-wider whitespace-nowrap leading-none font-sans text-white">
           {text}
         </span>
       </motion.div>

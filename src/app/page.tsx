@@ -24,7 +24,7 @@ import { createStaticClient } from '@/lib/supabase/static';
 import { stableShuffle } from '@/lib/utils/stable-shuffle';
 import type { PortfolioProject } from '@/types/project';
 import JsonLd from '@/components/ui/JsonLd';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { SITE_ASSET_KEYS, SITE_ASSET_PRELOADS } from '@/config/site-assets';
 
 import {
   normalizeMetaDescription,
@@ -86,15 +86,18 @@ export const metadata: Metadata = {
 import { preload } from 'react-dom';
 
 export default async function HomePage() {
-  // Preload video posters for LCP optimization
-  preload(BRAND.assets.video.manifestoPosterDesk, {
-    as: 'image',
-    fetchPriority: 'high',
-  });
-  preload(BRAND.assets.video.manifestoPosterMobile, {
-    as: 'image',
-    fetchPriority: 'high',
-  });
+  for (const poster of SITE_ASSET_PRELOADS.homeHero.posters) {
+    preload(poster, {
+      as: 'image',
+      fetchPriority: 'high',
+    });
+  }
+
+  for (const video of SITE_ASSET_PRELOADS.homeHero.videos) {
+    preload(video, {
+      as: 'video',
+    });
+  }
 
   let featuredProjects: PortfolioProject[] = [];
   try {

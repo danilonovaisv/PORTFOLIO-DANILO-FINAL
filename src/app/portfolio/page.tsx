@@ -14,6 +14,7 @@ import {
 } from '@/config/portfolio';
 
 import { BRAND } from '@/config/brand';
+import { SITE_ASSET_PRELOADS } from '@/config/site-assets';
 import {
   normalizeMetaDescription,
   normalizeMetaTitle,
@@ -114,8 +115,15 @@ import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 
 import JsonLd from '@/components/ui/JsonLd';
 import { generateVideoSchema } from '@/lib/schema';
+import { preload } from 'react-dom';
 
 export default async function PortfolioPage(_props: PortfolioPageProps) {
+  for (const video of SITE_ASSET_PRELOADS.portfolioHero.videos) {
+    preload(video, {
+      as: 'video',
+    });
+  }
+
   const resolvedSearchParams = await _props.searchParams;
   const categoryParam = Array.isArray(resolvedSearchParams?.category)
     ? resolvedSearchParams?.category[0]

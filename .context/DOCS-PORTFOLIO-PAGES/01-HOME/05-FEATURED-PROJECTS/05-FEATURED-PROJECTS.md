@@ -172,6 +172,12 @@ O desktop deve seguir a composição da referência `HOME-DESKTOP.jpg`, com hier
 - O CTA card deve fechar a composição como bloco editorial escuro, e não como card de projeto adicional.
 - O wrapper clicável de cada `ProjectCard` deve permanecer `block` e `w-full`; não reutilizar classes globais que convertam o card em `inline-flex`, porque isso quebra a leitura editorial do grid.
 
+## 4.6 Atualização de estado — 2026-03-07
+
+- `FeaturedProjectsSection.tsx` ganhou skeleton editorial para o estado em que a coleção ainda não chegou do realtime/fallback.
+- O skeleton preserva a composição magazine da seção e evita CLS perceptível durante o hydrate inicial.
+- O grid permanece mobile-first; em telas pequenas o fallback reduz placeholders vazios e mantém cards em pilha vertical.
+
 #### Estrutura de Project Card
 
 - **Imagem/Vídeo:** cobre o card, `object-fit: cover`
