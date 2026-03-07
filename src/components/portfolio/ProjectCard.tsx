@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import {
   ASSET_PLACEHOLDER,
   applyImageFallback,
+  getAssetUrl,
   isVideo,
 } from '@/lib/utils';
 
@@ -68,7 +69,7 @@ export const ProjectCard = ({
       : (project.imageLandscape ?? project.imageSquare ?? project.image),
   ].filter(Boolean) as string[];
 
-  const desktopImage = staticImageCandidates[0] || ASSET_PLACEHOLDER;
+  const desktopImage = getAssetUrl(staticImageCandidates[0] || ASSET_PLACEHOLDER);
 
   // Mobile image — prefer landscape
   const mobileImageCandidates = [
@@ -76,13 +77,13 @@ export const ProjectCard = ({
     project.imageLandscape ?? project.imageSquare ?? project.image,
   ].filter(Boolean) as string[];
 
-  const mobileImage = mobileImageCandidates[0] || ASSET_PLACEHOLDER;
+  const mobileImage = getAssetUrl(mobileImageCandidates[0] || ASSET_PLACEHOLDER);
 
   // Video source for hover — from thumbnailMedia or videoPreview (only if it's actually a video)
   const videoSource = isVideo(project.thumbnailMedia)
-    ? project.thumbnailMedia
+    ? getAssetUrl(project.thumbnailMedia, { isVideo: true })
     : isVideo(project.videoPreview)
-      ? project.videoPreview
+      ? getAssetUrl(project.videoPreview, { isVideo: true })
       : undefined;
 
   const hasVideo = !!videoSource;

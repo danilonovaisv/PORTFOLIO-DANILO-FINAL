@@ -148,7 +148,14 @@ export function buildSupabaseStorageUrl(
     const params = new URLSearchParams();
     if (options.width) params.set('width', options.width.toString());
     if (options.quality) params.set('quality', options.quality.toString());
-    if (options.format) params.set('format', options.format);
+    if (options.format) {
+      // Ghost Design System v3.1 Guardrail: Only webp or origin allowed
+      const safeFormat =
+        options.format === 'origin' || options.format === 'webp'
+          ? options.format
+          : 'webp';
+      params.set('format', safeFormat);
+    }
     if (options.resize) params.set('resize', options.resize);
 
     const queryString = params.toString();

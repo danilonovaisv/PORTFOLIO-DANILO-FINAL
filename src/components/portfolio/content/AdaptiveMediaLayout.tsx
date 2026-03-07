@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import { isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
+import { getAssetUrl, isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
@@ -41,21 +41,21 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
             )
         );
 
-        // Ensure heroMedia is always available in the thumbnails
-        if (heroMedia && heroMedia.trim() !== '') {
-            list.push(heroMedia);
+        // Ensure heroMedia is always available in the thumbnails (if valid)
+        const resolvedHero = getAssetUrl(heroMedia, { isVideo: isVideo(heroMedia) });
+        if (resolvedHero && !hiddenMedia.has(heroMedia)) {
+            list.push(resolvedHero);
         }
 
         if (project.detail?.gallery) {
             project.detail.gallery.forEach(m => {
-                if (
-                    m &&
-                    typeof m === 'string' &&
-                    m.trim() !== '' &&
-                    !hiddenMedia.has(m) &&
-                    !list.includes(m)
-                ) {
-                    list.push(m);
+                if (m && typeof m === 'string' && m.trim() !== '') {
+                    const isVidInternal = isVideo(m);
+                    const resolved = getAssetUrl(m, { isVideo: isVidInternal });
+
+                    if (!hiddenMedia.has(m) && !list.includes(resolved)) {
+                        list.push(resolved);
+                    }
                 }
             });
         }
@@ -71,7 +71,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
     useEffect(() => {
         if (heroMedia && heroMedia.trim() !== '') {
-            setActiveMedia(heroMedia);
+            setActiveMedia(getAssetUrl(heroMedia, { isVideo: isVideo(heroMedia) }));
         } else if (galleryMedia.length > 0) {
             setActiveMedia(galleryMedia[0]);
         }

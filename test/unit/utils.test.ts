@@ -73,21 +73,25 @@ describe('Asset Utilities', () => {
 
     it('normalizes and prepends Supabase URL with optimization by default', () => {
       const path = 'projects/hero.jpg';
-      const expected = SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
+      const expected =
+        SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
         `/${path}?width=800&quality=85&format=webp`;
       expect(getAssetUrl(path)).toBe(expected);
     });
 
     it('removes redundant storage paths during normalization', () => {
       const complexPath = 'storage/v1/object/public/test/image.png';
-      const expected = SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
+      const expected =
+        SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
         `/test/image.png?width=800&quality=85&format=webp`;
       expect(getAssetUrl(complexPath)).toBe(expected);
     });
 
     it('returns direct URL for videos when explicitly requested', () => {
       const path = 'projects/presentation.mp4';
-      expect(getAssetUrl(path, { isVideo: true })).toBe(`${SUPABASE_STORAGE_URL}/${path}`);
+      expect(getAssetUrl(path, { isVideo: true })).toBe(
+        `${SUPABASE_STORAGE_URL}/${path}`
+      );
     });
   });
 
@@ -99,7 +103,8 @@ describe('Asset Utilities', () => {
 
     it('delegates to getAssetUrl for relative paths (uses optimized render API)', () => {
       const path = 'ghost/texture.png';
-      const expected = SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
+      const expected =
+        SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
         `/${path}?width=800&quality=85&format=webp`;
       expect(getGhostAssetUrl(path)).toBe(expected);
     });
