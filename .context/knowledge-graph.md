@@ -40,15 +40,15 @@ The central orchestration layer for the portfolio.
 - `HeroSection` **embeds** `GhostCanvas` and triggers `useGhostReveal`.
 - `PostProcessing` applies `AnalogDecay` to the entire scene.
 
-## Current Status (Post-Audit 2026-02-21)
+## Current Status (Post-Audit 2026-03-07)
 
-- **Last Sync:** 2026-02-21
-- **Last Audit:** ALPA (V3) Template Integration & Project Migration (Phase 3 Complete)
-- **Focus:** Editorial Minimalism, ALPA template stability, and YouTube media automation.
+- **Last Sync:** 2026-03-07
+- **Last Audit:** WebGL Performance fixes, Asset Normalization, and Mobile Header alignment.
+- **Focus:** Stability of the Ghost Engine (Zero-Jank WebGL), Mobile UX, and reliable Supabase asset fetching.
 - **Storage Status:** Cleaned. Old builds and redundant assets quarantined.
 - **Production Bundle:** Optimized. Reference images moved to docs/.
 
-### Recent Optimizations (2026-02-21)
+### Recent Optimizations (2026-03-07)
 
 1. **ALPA Template (V3)** - Strict YouTube parameters, zero border-radius, and 100vw quote bands.
 2. **Admin Project List** - Integrated project variants (16:9, 1:1) and template identification.
@@ -56,6 +56,9 @@ The central orchestration layer for the portfolio.
 4. **Zero-Allocation Loop** - `GhostModel.tsx` optimized to avoid object creation in `useFrame`.
 5. **Z-Index Hierarchy** - Strictly defined in `globals.css` and `GHOST-DESIGN-SYSTEM.md`.
 6. **Project Migration** - Successfully migrated 4 candidate projects to ALPA V3.
+7. **Asset URL Normalization** - Refactored `getAssetUrl` for resilient resolution of relative paths and direct Supabase storage links.
+8. **Aurora WebGL Safeguard** - Addressed `GL_INVALID_FRAMEBUFFER_OPERATION` by enforcing minimum 1x1 dimensions on rendering targets.
+9. **Mobile Header Experience** - Unified `MobileMenuPanel` styling and animations compliant with the Ghost ease.
 
 ### Audit Findings
 

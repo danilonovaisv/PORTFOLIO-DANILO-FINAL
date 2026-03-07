@@ -1,5 +1,29 @@
 # Adjustment Log
 
+## [2026-03-07T16:48] Document & Knowledge Sync
+
+**Context:** Executed `/sync-docs-and-knowledge` workflow to reconcile "Ghost System" memory with current system status.
+
+**Changes Applied:**
+
+1. **Knowledge Graph Reconciliation** ✅
+   - File: `.context/knowledge-graph.md`
+   - Updated the `Current Status` section to reflect `2026-03-07`.
+   - Appended recent optimizations correctly, capturing the asset path normalization logic (`getAssetUrl` refactored) and WebGL safeguards (`GL_INVALID_FRAMEBUFFER_OPERATION` mitigation).
+   - Verified that global condition management stays mapped appropriately to the `AntigravityStore`, `ContentStore`, `ExperienceStore`, and `PortfolioModalStore`.
+
+2. **Design Token Validation** ✅
+   - Mapped `tailwind.config.ts`, `globals.css` and `.context/GHOST-DESIGN-SYSTEM.md`.
+   - Confirmed tokens (`--color-bluePrimary`, `--background`, etc) are consistent with correct definitions and overrides from the design system specifications.
+
+3. **Structural Layout Validation** ✅
+   - Executed `python3 scripts/validate_structure.py`.
+   - Status: PASSED for all 18 mapped components without structural drifts, enforcing the `RULES-PORTFOLIO-STRUCTURE.md`.
+
+**Verification:**
+
+- Architecture is compliant and fully synchronized.
+
 ## [2026-03-04T01:15] Tailwind Oxide Scanner — CSS Parsing Error (PERSISTENT BUG — KI-009)
 
 **Context:** O servidor de desenvolvimento (`pnpm dev` / Turbopack) e o build de produção (`pnpm build`) retornavam erro fatal de parsing CSS com mensagens como:
