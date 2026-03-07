@@ -134,8 +134,8 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
     const fallbackProjects = buildFallbackProjects();
     const filteredFallbackProjects = activeFilter.categories?.length
       ? fallbackProjects.filter((project) =>
-          activeFilter.categories?.includes(project.category)
-        )
+        activeFilter.categories?.includes(project.category)
+      )
       : fallbackProjects;
     const hasSupabaseEnv =
       Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
@@ -188,8 +188,8 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
     const fallbackProjects = buildFallbackProjects();
     projects = activeFilter.categories?.length
       ? fallbackProjects.filter((project) =>
-          activeFilter.categories?.includes(project.category)
-        )
+        activeFilter.categories?.includes(project.category)
+      )
       : fallbackProjects;
     totalProjectsCount = projects.length;
   }
@@ -199,8 +199,8 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
       <JsonLd
         pageType="portfolio"
         breadcrumbs={[
-          { name: 'Home', url: `https://${BRAND.domain}` },
-          { name: 'Portfolio', url: `https://${BRAND.domain}/portfolio` },
+          { name: 'Home', url: toCanonicalUrl('/') },
+          { name: 'Portfolio', url: toCanonicalUrl('/portfolio') },
         ]}
       />
       <script

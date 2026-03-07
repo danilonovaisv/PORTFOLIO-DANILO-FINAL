@@ -38,7 +38,10 @@ function normalizePath(path: string) {
     .replace(/^\/+/, '');
 }
 
-export function getAssetUrl(path?: string | null): string {
+export function getAssetUrl(
+  path?: string | null,
+  options?: { isVideo?: boolean }
+): string {
   if (!path) return ASSET_PLACEHOLDER;
   const trimmed = path.trim();
   if (!trimmed) return ASSET_PLACEHOLDER;
@@ -47,7 +50,19 @@ export function getAssetUrl(path?: string | null): string {
   const normalized = normalizePath(trimmed);
   if (!normalized) return ASSET_PLACEHOLDER;
 
-  return `${SUPABASE_STORAGE_URL}/${normalized}`;
+  // Ghost Design System v3.1: Use render API for images, object/public for video
+  const restOfPath = normalized; // normalizePath already removes redundant parts
+
+  if (options?.isVideo) {
+    return `${SUPABASE_STORAGE_URL}/${restOfPath}`;
+  }
+
+  // Use render endpoint for optimized images (800w, 85q, format=webp)
+  const renderBase = SUPABASE_STORAGE_URL.replace(
+    '/object/public',
+    '/render/image/public'
+  );
+  return `${renderBase}/${restOfPath}?width=800&quality=85&format=webp`;
 }
 
 export function applyImageFallback(
@@ -155,13 +170,18 @@ export const isYouTubeUrl = (value?: string | null): boolean =>
 export function getYouTubeEmbedUrl(value: string): string | null {
   const id = extractYouTubeId(value);
   if (!id) return null;
+  // Ghost Design System v3.1: Mandatory parameters for immersive player
   const params = new URLSearchParams({
     autoplay: '1',
-    mute: '0',
-    controls: '1',
+    mute: '1',
+    loop: '1',
+    playlist: id, // Mandatory for loop
+    controls: '0',
     rel: '0',
     modestbranding: '1',
     playsinline: '1',
+    iv_load_policy: '3',
+    fs: '0',
   });
   return `https://www.youtube.com/embed/${id}?${params.toString()}`;
 }

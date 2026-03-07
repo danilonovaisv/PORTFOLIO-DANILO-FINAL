@@ -5,7 +5,7 @@ export const easing = GHOST_EASE;
 // Canon Timeline Delays (Ghost Era v2.0)
 export const MODAL_TIMELINE = {
   BACKDROP: 0.18,
-  CONTAINER: 0.26,
+  CONTAINER: 0.6,
   MEDIA: 0.52,
   TITLE: 0.76,
   META: 0.96,

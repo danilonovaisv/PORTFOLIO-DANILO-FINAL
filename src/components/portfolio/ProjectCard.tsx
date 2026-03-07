@@ -228,6 +228,12 @@ export const ProjectCard = ({
             {project.client && project.year ? <span aria-hidden="true">•</span> : null}
             {project.year ? <span>{project.year}</span> : null}
           </div>
+          {/* Metadata invisível para SEO/Acessibilidade: Ghost v3.1 */}
+          {project.tags && project.tags.length > 0 && (
+            <div className="sr-only">
+              Tags: {project.tags.join(', ')}
+            </div>
+          )}
         </div>
       </div>
     </motion.button>

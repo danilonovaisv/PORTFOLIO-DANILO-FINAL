@@ -4,6 +4,7 @@ import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 import { BRAND } from '@/config/brand';
 import JsonLd from '@/components/ui/JsonLd';
+import { toCanonicalUrl } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Contato | Vamos Conversar',
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     title: 'Contato | Danilo Novais',
     description:
       'Entre em contato para projetos de branding, motion e experiências digitais. Resposta rápida e foco em soluções sob medida.',
-    url: `https://${BRAND.domain}/contato`,
+    url: toCanonicalUrl('/contato'),
     siteName: BRAND.name,
     images: [
       {
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     images: ['/contato/opengraph-image'],
   },
   alternates: {
-    canonical: `https://${BRAND.domain}/contato`,
+    canonical: toCanonicalUrl('/contato'),
   },
 };
 
@@ -44,8 +45,8 @@ export default function ContactPage() {
       <JsonLd
         pageType="contact"
         breadcrumbs={[
-          { name: 'Home', url: `https://${BRAND.domain}` },
-          { name: 'Contato', url: `https://${BRAND.domain}/contato` },
+          { name: 'Home', url: toCanonicalUrl('/') },
+          { name: 'Contato', url: toCanonicalUrl('/contato') },
         ]}
       />
       <h1 className="sr-only">Contato com Danilo Novais</h1>

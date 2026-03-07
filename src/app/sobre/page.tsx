@@ -13,6 +13,7 @@ import JsonLd from '@/components/ui/JsonLd';
 import { generateVideoSchema } from '@/lib/schema';
 
 import { BRAND } from '@/config/brand';
+import { toCanonicalUrl } from '@/lib/seo';
 
 /** Minimal skeleton fallback for Suspense boundaries */
 function SectionSkeleton({ label }: { label: string }) {
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     title: 'Sobre | Danilo Novais',
     description:
       'Trajetória, método e visão criativa de Danilo Novais com foco em experiências digitais, branding e motion design.',
-    url: `https://${BRAND.domain}/sobre`,
+    url: toCanonicalUrl('/sobre'),
     siteName: BRAND.name,
     images: [
       {
@@ -58,18 +59,21 @@ export const metadata: Metadata = {
     images: ['/opengraph-image'],
   },
   alternates: {
-    canonical: `https://${BRAND.domain}/sobre`,
+    canonical: toCanonicalUrl('/sobre'),
   },
 };
 
 export default function AboutPage() {
+  const siteUrl = toCanonicalUrl('/');
+  const selfUrl = toCanonicalUrl('/sobre');
+
   return (
     <div className="min-h-screen bg-background text-white">
       <JsonLd
         pageType="about"
         breadcrumbs={[
-          { name: 'Home', url: `https://${BRAND.domain}` },
-          { name: 'Sobre', url: `https://${BRAND.domain}/sobre` },
+          { name: 'Home', url: siteUrl },
+          { name: 'Sobre', url: selfUrl },
         ]}
       />
       <script

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteFooter from '@/components/layout/SiteFooter';
 import { BRAND } from '@/config/brand';
+import JsonLd from '@/components/ui/JsonLd';
+import { toCanonicalUrl } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade',
@@ -11,7 +13,7 @@ export const metadata: Metadata = {
     title: 'Política de Privacidade | Danilo Novais',
     description:
       'Informações sobre coleta, uso e proteção de dados no portfólio de Danilo Novais.',
-    url: `https://${BRAND.domain}/privacidade`,
+    url: toCanonicalUrl('/privacidade'),
     siteName: BRAND.name,
     images: [
       {
@@ -32,13 +34,23 @@ export const metadata: Metadata = {
     images: ['/opengraph-image'],
   },
   alternates: {
-    canonical: `https://${BRAND.domain}/privacidade`,
+    canonical: toCanonicalUrl('/privacidade'),
   },
 };
 
 export default function PrivacyPage() {
+  const siteUrl = toCanonicalUrl('/');
+  const selfUrl = toCanonicalUrl('/privacidade');
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <JsonLd
+        pageType="legal"
+        breadcrumbs={[
+          { name: 'Home', url: siteUrl },
+          { name: 'Privacidade', url: selfUrl },
+        ]}
+      />
       <section className="std-grid py-16 md:py-24">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">

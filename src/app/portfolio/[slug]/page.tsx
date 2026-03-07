@@ -201,6 +201,11 @@ export default async function ProjectPage({ params }: Props) {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
       <JsonLd
         pageType="project"
+        breadcrumbs={[
+          { name: 'Home', url: toCanonicalUrl('/') },
+          { name: 'Portfolio', url: toCanonicalUrl('/portfolio') },
+          { name: project.title, url: toCanonicalUrl(`/portfolio/${slug}`) },
+        ]}
         project={{
           title: project.title,
           description: description || '',
@@ -208,7 +213,7 @@ export default async function ProjectPage({ params }: Props) {
           client: project.client,
           category: project.displayCategory,
           year: project.year,
-          url: `${baseUrl}/portfolio/${slug}`,
+          url: toCanonicalUrl(`/portfolio/${slug}`),
         }}
       />
       {isVideo(project.image) && (

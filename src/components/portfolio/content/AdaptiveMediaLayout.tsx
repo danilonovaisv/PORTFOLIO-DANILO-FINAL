@@ -31,7 +31,12 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
     const galleryMedia = useMemo(() => {
         const list: string[] = [];
         const hiddenMedia = new Set(
-            [project.thumbnailMedia].filter(
+            [
+                project.thumbnailMedia,
+                project.image,
+                project.imageLandscape,
+                project.imageSquare
+            ].filter(
                 (entry): entry is string => typeof entry === 'string' && entry.trim() !== ''
             )
         );
@@ -104,7 +109,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 src={activeYouTubeEmbed}
                                 title={project.title}
                                 className="absolute inset-0 w-full h-full border-none z-0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen
                             />
                         ) : isVid ? (

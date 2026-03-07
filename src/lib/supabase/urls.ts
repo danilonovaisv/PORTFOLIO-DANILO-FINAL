@@ -186,7 +186,14 @@ export function injectSupabaseProxy(
       parsed.searchParams.set('width', options.width.toString());
     if (options.quality)
       parsed.searchParams.set('quality', options.quality.toString());
-    if (options.format) parsed.searchParams.set('format', options.format);
+    if (options.format) {
+      // Ghost Design System v3.1 Guardrail: Only webp or origin allowed
+      const safeFormat =
+        options.format === 'origin' || options.format === 'webp'
+          ? options.format
+          : 'webp';
+      parsed.searchParams.set('format', safeFormat);
+    }
     if (options.resize) parsed.searchParams.set('resize', options.resize);
 
     return parsed.toString();

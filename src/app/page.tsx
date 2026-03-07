@@ -101,12 +101,11 @@ export default async function HomePage() {
     console.error('Error fetching projects:', error?.message || error);
   }
 
+  const siteUrl = toCanonicalUrl('/');
+
   return (
     <>
-      <JsonLd
-        pageType="home"
-        breadcrumbs={[{ name: 'Home', url: `https://${BRAND.domain}` }]}
-      />
+      <JsonLd pageType="home" breadcrumbs={[{ name: 'Home', url: siteUrl }]} />
       <HomeHero />
       <VideoManifesto
         src={BRAND.assets.video.manifesto}

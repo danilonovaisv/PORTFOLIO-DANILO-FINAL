@@ -17,7 +17,7 @@ type ProjectSchema = {
 
 type JsonLdProps = {
   logoUrl?: string;
-  pageType?: 'home' | 'about' | 'contact' | 'portfolio' | 'project';
+  pageType?: 'home' | 'about' | 'contact' | 'portfolio' | 'project' | 'legal';
   breadcrumbs?: BreadcrumbItem[];
   project?: ProjectSchema;
 };
@@ -29,6 +29,25 @@ export default function JsonLd({
   project,
 }: JsonLdProps) {
   const baseUrl = `https://${BRAND.domain}`;
+  const logo = logoUrl ?? BRAND.assets.logos.logoLight;
+
+  // Organization Schema
+  const organizationSchema = {
+    '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
+    name: BRAND.name,
+    url: baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: logo,
+    },
+    sameAs: [
+      'https://github.com/danilonovaisv',
+      'https://www.linkedin.com/in/danilonovaisv',
+      'https://instagram.com/_novais',
+      'https://x.com/_novais',
+    ],
+  };
 
   // Core Person Schema (sempre incluído)
   const personSchema = {
@@ -37,11 +56,10 @@ export default function JsonLd({
     name: BRAND.name,
     url: baseUrl,
     email: 'contato@portfoliodanilo.com',
-    image: logoUrl ?? BRAND.assets.logos.logoLight,
+    image: logo,
     jobTitle: 'Creative Developer & Designer',
     worksFor: {
-      '@type': 'Organization',
-      name: 'Freelance / Independent',
+      '@id': `${baseUrl}/#organization`,
     },
     address: {
       '@type': 'PostalAddress',
@@ -96,12 +114,7 @@ export default function JsonLd({
       'Você não vê o design. Mas ele vê você. Portfólio de experiências digitais premium.',
     inLanguage: 'pt-BR',
     publisher: {
-      '@id': `${baseUrl}/#person`,
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${baseUrl}/portfolio?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      '@id': `${baseUrl}/#organization`,
     },
   };
 
@@ -113,7 +126,7 @@ export default function JsonLd({
     pageSchemas.portfolio = {
       '@type': 'CollectionPage',
       '@id': `${baseUrl}/portfolio#collection`,
-      name: 'Portfolio - Danilo Novais',
+      name: `Portfolio | ${BRAND.name}`,
       description:
         'Seleção curada de projetos de Branding, Motion Design e Creative Development.',
       url: `${baseUrl}/portfolio`,
@@ -131,7 +144,7 @@ export default function JsonLd({
     pageSchemas.profilePage = {
       '@type': 'ProfilePage',
       '@id': `${baseUrl}/sobre#profile`,
-      name: 'Sobre | Danilo Novais',
+      name: `Sobre | ${BRAND.name}`,
       description: 'Trajetória, método e visão criativa de Danilo Novais.',
       url: `${baseUrl}/sobre`,
       mainEntity: {
@@ -156,7 +169,7 @@ export default function JsonLd({
     pageSchemas.contactPage = {
       '@type': 'ContactPage',
       '@id': `${baseUrl}/contato#contact`,
-      name: 'Contato | Danilo Novais',
+      name: `Contato | ${BRAND.name}`,
       description:
         'Entre em contato para projetos de branding, motion e experiências digitais.',
       url: `${baseUrl}/contato`,
@@ -194,11 +207,24 @@ export default function JsonLd({
         '@id': `${baseUrl}/#person`,
       },
       provider: {
-        '@type': 'Organization',
-        name: project.client,
+        '@id': `${baseUrl}/#organization`,
       },
       genre: project.category,
       keywords: [project.category, 'Creative Development', 'Danilo Novais'],
+    };
+  }
+
+  // Legal/Privacy Page
+  if (pageType === 'legal') {
+    pageSchemas.webPage = {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/privacidade#legal`,
+      name: 'Política de Privacidade',
+      description: 'Termos e políticas de privacidade.',
+      url: `${baseUrl}/privacidade`,
+      publisher: {
+        '@id': `${baseUrl}/#organization`,
+      },
     };
   }
 
@@ -215,7 +241,12 @@ export default function JsonLd({
     };
   }
 
-  const graph = [personSchema, websiteSchema, ...Object.values(pageSchemas)];
+  const graph = [
+    organizationSchema,
+    personSchema,
+    websiteSchema,
+    ...Object.values(pageSchemas),
+  ];
 
   return (
     <script
