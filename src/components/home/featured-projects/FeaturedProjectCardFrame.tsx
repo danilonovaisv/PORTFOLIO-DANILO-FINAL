@@ -34,6 +34,10 @@ export default function FeaturedProjectCardFrame({
   const logoSrc = homeFeatured.logoPath
     ? getAssetUrl(homeFeatured.logoPath)
     : null;
+  const shouldBypassNextOptimization =
+    !!logoSrc &&
+    (/\/storage\/v1\/render\/image\/public\//.test(logoSrc) ||
+      /\.svg(?:$|\?)/i.test(logoSrc));
   const showLogo =
     homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' &&
     !!logoSrc &&
@@ -115,6 +119,7 @@ export default function FeaturedProjectCardFrame({
               aria-hidden="true"
               fill
               sizes="(max-width: 768px) 52vw, 280px"
+              unoptimized={shouldBypassNextOptimization}
               className="object-contain object-center brightness-0 invert opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}

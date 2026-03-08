@@ -1,5 +1,28 @@
 # Adjustment Log
 
+## [2026-03-08T04:38] Featured Project Logo Render Fix
+
+**Context:** The published Firebase site was returning browser `400` errors for some logos in the Featured Projects bento grid. The header logo and favicon assets were healthy, but project-specific logos loaded through `next/image` were failing when the source URL was already a Supabase `render/image/public` endpoint.
+
+**Root Cause:**
+
+- Some `homeFeatured.logoPath` values already resolved to Supabase image-render URLs with resize params.
+- `FeaturedProjectCardFrame` passed those URLs into `next/image`, which triggered a second optimization layer through `/_next/image`.
+- This produced invalid nested optimization requests and caused broken logos plus console noise in production.
+
+**Changes Applied:** ✅
+
+1. **Bypassed duplicate optimization for pre-rendered Supabase logos**
+   - File: `src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`
+   - Added a guard that sets `unoptimized` when the logo source already points to `/storage/v1/render/image/public/` or is an SVG.
+   - Impact: remote featured logos now render directly without `/_next/image` wrapping a pre-optimized Supabase URL.
+
+**Verification:**
+
+- ✅ Production browser inspection on `https://portfolio-danilo-novais.web.app/`
+- ✅ Header logo still loads correctly
+- ✅ Root cause isolated to featured project logo rendering path
+
 ## [2026-03-07T16:48] Document & Knowledge Sync
 
 **Context:** Executed `/sync-docs-and-knowledge` workflow to reconcile "Ghost System" memory with current system status.
@@ -883,3 +906,31 @@ Corrigido falhas nos testes unitários:
 
 - ✅ Modificações puramente estilísticas e A11y validando-se a inexistência de efeitos colaterais estruturais.
 - ✅ `docs/AUDIT_PENTEST.md` formalizado com relatório atual.
+
+---
+
+## [2026-03-08T05:20] Correção do Logo DNTRO + Deploy Firebase Next 16
+
+**Context:** Análise de [`docs/logo-erro.md`](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/docs/logo-erro.md) e correção do erro visual na home, seguida de ajuste do fluxo de deploy do Firebase Hosting com `frameworksBackend`.
+
+**Changes Applied:**
+
+1. **Featured logo fix** ✅
+   - File: `src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`
+   - Aplicado `unoptimized` para logos já servidos por `/storage/v1/render/image/public/` e para SVGs, removendo a dupla otimização via `/_next/image` que gerava `400` nos cards em destaque.
+
+2. **Compatibilidade Firebase Hosting + Next 16** ✅
+   - Files: `next.config.mjs`, `scripts/firebase-next-adapter.cjs`, `.agents/FIREBASE_DEPLOY_NEXT15.md`
+   - Criado adapter para escrever `.next/export-marker.json` no build.
+   - Corrigido `next.config.mjs` para expor `adapterPath` apenas em `PHASE_PRODUCTION_BUILD`, evitando falha de runtime no Cloud Run por módulo ausente.
+
+3. **Documentação sincronizada** ✅
+   - File: `docs/logo-erro.md`
+   - Documento reescrito com RCA do bug visual e distinção clara entre erro de logo e falhas antigas de pipeline.
+
+**Verification:**
+
+- ✅ `pnpm run build` passou com Next 16/Turbopack e gerou artefato compatível para o Firebase.
+- ✅ Deploy final concluído em `https://portfolio-danilo-novais.web.app`.
+- ✅ `GET /portfolio` respondeu `200` após o redeploy corretivo.
+- ✅ Navegação limpa via browser em contexto novo: home sem erros de console do logo e `/portfolio` carregando sem `500`.

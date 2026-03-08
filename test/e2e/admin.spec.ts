@@ -6,6 +6,11 @@ test.describe('Admin Login Page', () => {
   }) => {
     await page.goto('/admin/login');
 
+    // Inject mock flag to bypass Turnstile CAPTCHA in LoginForm
+    await page.evaluate(() => {
+      (window as any).__IS_PLAYWRIGHT_MOCK__ = true;
+    });
+
     // Verify presence of login form container
     await expect(
       page.locator('h1', { hasText: 'Entrar no painel' })
