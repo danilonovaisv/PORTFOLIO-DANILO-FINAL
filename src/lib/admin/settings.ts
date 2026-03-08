@@ -1,5 +1,11 @@
-import { createAdminClient, isServiceRoleConfigured } from '@/lib/supabase/admin';
-import { extractLegacyTokenValue, getActiveTokenSecret } from '@/lib/admin/tokens';
+import {
+  createAdminClient,
+  isServiceRoleConfigured,
+} from '@/lib/supabase/admin';
+import {
+  extractLegacyTokenValue,
+  getActiveTokenSecret,
+} from '@/lib/admin/tokens';
 
 export async function getOpenAIKey(): Promise<string | null> {
   const envKey = process.env.OPENAI_API_KEY;

@@ -27,9 +27,9 @@ export default function LiquidEther({
   style = {},
   className = '',
   autoDemo = true,
-  autoSpeed = 0.5,
-  autoIntensity = 2.2,
-  takeoverDuration = 0.25,
+  autoSpeed = 0.2,
+  autoIntensity = 1.15,
+  takeoverDuration = 0.18,
   autoResumeDelay = 1000,
   autoRampDuration = 0.6,
 }: LiquidEtherProps) {

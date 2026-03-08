@@ -1,12 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import FeaturedProjectCardFrame from '@/components/home/featured-projects/FeaturedProjectCardFrame';
-import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
+import {
+  getRandomFeaturedProjectBackgroundVariant,
+  type FeaturedProjectBackgroundVariant,
+} from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
 import { isVideo } from '@/lib/utils';
 
@@ -27,14 +30,42 @@ export default function FeaturedProjectCard({
 }: FeaturedProjectCardProps) {
   const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const [preferWideAsset, setPreferWideAsset] = useState(true);
+  const [resolvedBackgroundVariant, setResolvedBackgroundVariant] =
+    useState<FeaturedProjectBackgroundVariant>(backgroundVariant);
 
-  // Resolve the best static image for the card (never a video)
-  const staticImageCandidates = [
+  useEffect(() => {
+    if (reducedMotion) return;
+    setResolvedBackgroundVariant(getRandomFeaturedProjectBackgroundVariant());
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    const node = frameRef.current;
+    if (!node || typeof ResizeObserver === 'undefined') return;
+
+    const observer = new ResizeObserver(([entry]) => {
+      setPreferWideAsset(entry.contentRect.width >= 540);
+    });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const staticImage = useMemo(() => {
+    const staticImageCandidates = [
+      preferWideAsset ? project.imageLandscape : project.imageSquare,
+      preferWideAsset ? project.imageSquare : project.imageLandscape,
+      project.image,
+    ].filter((url): url is string => !!url && !isVideo(url));
+
+    return staticImageCandidates[0];
+  }, [
+    preferWideAsset,
+    project.image,
     project.imageLandscape,
     project.imageSquare,
-    project.image,
-  ].filter((url): url is string => !!url && !isVideo(url));
-  const staticImage = staticImageCandidates[0];
+  ]);
 
   // The media source for the static poster/image — always an image, never a video
   const mediaSource = staticImage;
@@ -54,10 +85,13 @@ export default function FeaturedProjectCard({
 
   const CardContent = () => (
     <div className="flex h-full w-full flex-col">
-      <div className={`relative w-full flex-1 ${frameClassName ?? ''}`}>
+      <div
+        ref={frameRef}
+        className={`relative w-full flex-1 ${frameClassName ?? ''}`}
+      >
         <FeaturedProjectCardFrame
           project={project}
-          backgroundVariant={backgroundVariant}
+          backgroundVariant={resolvedBackgroundVariant}
           mediaSource={mediaSource}
           priority={priority}
           reducedMotion={reducedMotion}

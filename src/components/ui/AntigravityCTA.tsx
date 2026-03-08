@@ -1,86 +1,51 @@
 'use client';
 
-import React, { useRef, useState, type MouseEvent } from 'react';
+import React, { useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { BRAND } from '@/config/brand';
+import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { cn } from '@/lib/utils';
-
-/**
- * AntigravityCTA - Botão CTA inspirado em Lo&Behold Studio
- *
- * Características principais:
- * - Pílula e círculo separados mas conectados na ponta
- * - Animação ao hover: deslocamento vertical sutil e ajuste de opacidade
- * - Spring physics: stiffness 300, damping 25
- *
- * @param text - Texto do botão (default: "let's build something great")
- * @param href - URL de destino
- * @param onClick - Callback ao clicar
- * @param className - Classes CSS customizadas (sobrescreve posicionamento padrão)
- */
 
 interface AntigravityCTAProps {
   text?: string;
   href?: string;
-  onClick?: (_event: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => void;
-  /**
-   * Custom color override for the button (Pill + Circle).
-   * Used in Project Templates to match the project's theme.
-   * If provided, overrides the default Blue (bluePrimary).
-   */
+  onClick?: (
+    _event: MouseEvent<HTMLAnchorElement | HTMLDivElement | HTMLButtonElement>
+  ) => void;
   color?: string;
   className?: string;
-  /**
-   * Render as a div instead of an anchor.
-   * Useful when placed inside another Link component to avoid invalid nesting.
-   */
   as?: 'a' | 'div' | 'button';
   type?: 'button' | 'submit' | 'reset';
   target?: string;
   rel?: string;
+  size?: 'default' | 'compact';
 }
 
 const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   text = "let's build something great",
   href = '/',
   onClick,
-  color, // Custom color prop
-  // Mobile: bottom-20 para evitar gesture bar, right-4 para edge comfort
-  // Desktop: posição original
+  color,
   className = 'fixed bottom-20 right-4 sm:bottom-12 sm:right-8 lg:bottom-12 lg:right-12 z-100 md:z-50',
   as = 'a',
   type,
   target,
   rel,
+  size = 'default',
 }) => {
-  // State para controlar hover
   const [isHovered, setIsHovered] = useState(false);
-  const iconRef = useRef<HTMLDivElement>(null);
   const Component = motion[as as keyof typeof motion] as any;
   const reduceMotion = useMotionGate();
-
-  // Spring physics config
-  const springTransition = {
-    type: 'spring' as const,
-    stiffness: 300,
-    damping: 25,
-  };
-
-  // Variantes do ícone seguindo Ghost Motion (sem rotate/scale)
-  const arrowVariants = {
-    initial: { y: 0, opacity: 0.92 },
-    hover: { y: -3, opacity: 1 },
-  };
-
-  // Variantes de animação do botão completo (Ghost Era Specification)
-  const buttonVariants = {
-    initial: { y: 0 },
-    hover: { y: -1 }, // Sutil -1px deslocamento
-  };
-
-  const mainColor = color || BRAND.colors.bluePrimary; // Default Blue
+  const mainColor = color || BRAND.colors.bluePrimary;
+  const isCompact = size === 'compact';
+  const transition = reduceMotion
+    ? { duration: 0 }
+    : {
+        duration: 0.24,
+        ease: GHOST_EASE,
+      };
 
   return (
     <Component
@@ -90,98 +55,88 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       type={as === 'button' ? type : undefined}
       onClick={onClick}
       className={cn(
-        'relative group',
-        'cta-button',
-        'inline-flex items-center',
-        'cursor-pointer',
-        'min-w-fit',
-        'rounded-full',
-        'text-white no-underline visited:text-white hover:text-white',
+        'relative group cta-button inline-flex items-center cursor-pointer min-w-fit rounded-full text-white no-underline visited:text-white hover:text-white',
         'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      variants={buttonVariants}
-      initial="initial"
-      animate={isHovered ? 'hover' : 'initial'}
-      transition={
-        reduceMotion
-          ? { duration: 0 }
-          : {
-              duration: 0.2,
-              ease: [0, 0, 0.2, 1], // cubic-bezier(0, 0, 0.2, 1)
-            }
-      }
+      initial={false}
+      animate={{ y: isHovered ? -1 : 0 }}
+      transition={transition}
       role="button"
       tabIndex={0}
       aria-label={`${text} - Clique para acessar`}
     >
-      {/* Ghost Glow - Apenas no hover, muito sutil */}
       <motion.div
-        className="absolute inset-0 rounded-full blur-2xl opacity-0 pointer-events-none"
+        className="pointer-events-none absolute inset-0 rounded-full blur-2xl"
         style={{ backgroundColor: 'var(--color-purpleDetails)' }}
-        animate={{
-          opacity: isHovered ? 0.2 : 0,
-        }}
-        transition={reduceMotion ? { duration: 0 } : springTransition}
+        initial={false}
+        animate={{ opacity: isHovered ? 0.2 : 0 }}
+        transition={transition}
       />
 
-      {/* Pílula de Texto - Mobile-First Sizing */}
       <motion.div
-        className="
-          relative z-10 
-          flex items-center justify-center 
-          h-12 sm:h-14 lg:h-[68px]
-          pl-5 pr-4 sm:pl-8 sm:pr-6 lg:pl-10 lg:pr-8
-          w-[220px] sm:w-[280px] lg:w-[340px]
-          text-white 
-          shadow-lg
-          rounded-full
-          select-none
-          transition-colors duration-200
-          active:translate-y-px
-          will-change-transform
-        "
-        style={{
-          backgroundColor: mainColor, // Custom or Default Blue
+        className={cn(
+          'relative z-10 inline-flex items-center rounded-full',
+          isCompact ? 'gap-2' : 'gap-0.5 sm:gap-1'
+        )}
+        initial={false}
+        animate={{
+          columnGap: isHovered
+            ? isCompact
+              ? '0.875rem'
+              : '0.5rem'
+            : isCompact
+              ? '0.5rem'
+              : '0.125rem',
         }}
+        transition={transition}
       >
-        <span className="text-sm sm:text-base lg:text-lg font-medium tracking-wide sm:tracking-wider whitespace-nowrap leading-none font-sans text-white">
-          {text}
-        </span>
-      </motion.div>
+        <div
+          className={cn(
+            'relative z-10 flex items-center justify-center rounded-full text-white shadow-lg select-none transition-colors duration-200 active:translate-y-px will-change-transform',
+            isCompact
+              ? 'h-10 pl-4 pr-3 text-sm sm:h-11 sm:pl-5 sm:pr-4'
+              : 'h-12 w-[220px] pl-5 pr-4 text-sm sm:h-14 sm:w-[280px] sm:pl-8 sm:pr-6 sm:text-base lg:h-[68px] lg:w-[340px] lg:pl-10 lg:pr-8 lg:text-lg'
+          )}
+          style={{ backgroundColor: mainColor }}
+        >
+          <span className="whitespace-nowrap font-sans font-medium leading-none tracking-wide text-white sm:tracking-wider">
+            {text}
+          </span>
+        </div>
 
-      {/* Círculo com Ícone - Mobile-First Touch Target (min 48px) */}
-      <motion.div
-        ref={iconRef}
-        className="
-          relative z-20 
-          flex items-center justify-center 
-          h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px]
-          -ml-0.5 sm:-ml-1
-          text-white 
-          shadow-lg
-          rounded-full
-          transition-colors duration-200
-          active:translate-y-px
-          will-change-transform
-        "
-        style={{
-          // Circle becomes Purple on hover, otherwise matches Pill
-          backgroundColor: isHovered ? 'var(--color-purpleDetails)' : mainColor,
-        }}
-        variants={arrowVariants}
-        initial="initial"
-        animate={isHovered ? 'hover' : 'initial'}
-        transition={reduceMotion ? { duration: 0 } : springTransition}
-      >
-        <ArrowUpRight
-          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <div
+          className={cn(
+            'relative z-20 flex items-center justify-center rounded-full text-white shadow-lg transition-colors duration-200 active:translate-y-px will-change-transform',
+            isCompact
+              ? 'h-10 w-10 sm:h-11 sm:w-11'
+              : 'h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px]'
+          )}
+          style={{
+            backgroundColor: isHovered
+              ? 'var(--color-purpleDetails)'
+              : mainColor,
+          }}
+        >
+          <motion.div
+            initial={false}
+            animate={{ x: isHovered ? (isCompact ? 3 : 5) : 0 }}
+            transition={transition}
+          >
+            <ArrowUpRight
+              className={cn(
+                isCompact
+                  ? 'h-4 w-4 sm:h-5 sm:w-5'
+                  : 'h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7'
+              )}
+              strokeWidth={2.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </motion.div>
+        </div>
       </motion.div>
     </Component>
   );

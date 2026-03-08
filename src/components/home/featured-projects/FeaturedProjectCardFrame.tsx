@@ -108,14 +108,14 @@ export default function FeaturedProjectCardFrame({
 
       {showLogo ? (
         <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center px-10">
-          <div className="relative h-[28%] w-[58%] max-h-[120px] max-w-[280px] min-w-[160px]">
+          <div className="relative h-[32%] w-[64%] max-h-[140px] max-w-[320px] min-w-[170px]">
             <Image
               src={logoSrc}
               alt=""
               aria-hidden="true"
               fill
-              sizes="(max-width: 768px) 45vw, 240px"
-              className="object-contain opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
+              sizes="(max-width: 768px) 52vw, 280px"
+              className="object-contain brightness-0 invert opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={(event) => {

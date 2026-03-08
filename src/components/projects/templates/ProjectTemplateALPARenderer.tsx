@@ -761,6 +761,11 @@ export default function ProjectTemplateALPARenderer({
                   className="relative"
                 />
               </div>
+              <HeroBackCTA
+                href={backHref}
+                label={LANDING_PAGE_BACK.label}
+                size="compact"
+              />
             </div>
           </motion.section>
         </div>

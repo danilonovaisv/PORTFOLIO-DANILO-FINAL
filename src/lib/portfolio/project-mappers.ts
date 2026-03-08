@@ -352,6 +352,8 @@ export function mapDbProjectToPortfolioProject(
   const galleryWithYoutube = appendYouTubeMedia(gallery, rawProjectLink);
   const landscapeUrl = resolveProjectMedia(project.url_landscape);
   const squareUrl = resolveProjectMedia(project.url_square);
+  const staticLandscapeUrl = !isVideo(landscapeUrl) ? landscapeUrl : undefined;
+  const staticSquareUrl = !isVideo(squareUrl) ? squareUrl : undefined;
   const thumbnailMedia =
     resolveProjectMedia(project.thumbnail_path) ||
     resolveProjectMedia(project.hero_image_path);
@@ -362,8 +364,8 @@ export function mapDbProjectToPortfolioProject(
     : undefined;
   const primaryImageCandidates = [
     !thumbnailIsVideo ? thumbnailMedia : undefined,
-    landscapeUrl,
-    squareUrl,
+    staticLandscapeUrl,
+    staticSquareUrl,
     heroImageUrl,
     // Filter gallery to only include non-video entries
     ...gallery.filter((url) => !isVideo(url)),
@@ -393,8 +395,8 @@ export function mapDbProjectToPortfolioProject(
     tags,
     year: project.year ?? 0,
     image: primaryImage,
-    imageLandscape: landscapeUrl,
-    imageSquare: squareUrl,
+    imageLandscape: staticLandscapeUrl,
+    imageSquare: staticSquareUrl,
     thumbnailMedia: thumbnailMedia ?? undefined,
     type,
     layout,

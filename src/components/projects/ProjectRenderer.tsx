@@ -131,6 +131,13 @@ function LegacyProjectRenderer({
               />
             </Link>
           </div>
+          <div className="flex justify-center">
+            <HeroBackCTA
+              href={backHref}
+              label={LANDING_PAGE_BACK.label}
+              size="compact"
+            />
+          </div>
         </div>
       </section>
     </div>

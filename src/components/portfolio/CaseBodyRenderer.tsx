@@ -1,13 +1,6 @@
-/**
- * CaseBodyRenderer - Ghost Era v3.0
- *
- * Reliable Markdown-to-HTML rendering using react-markdown.
- * Allows safe rendering and robust markdown support without writing custom regex.
- */
-
 'use client';
 
-import ReactMarkdown from 'react-markdown';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 interface CaseBodyRendererProps {
   content: string;
@@ -18,13 +11,11 @@ export function CaseBodyRenderer({
   content,
   className = '',
 }: CaseBodyRendererProps) {
-  if (!content || typeof content !== 'string') return null;
-
   return (
-    <div
-      className={`case-body-content prose prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:text-balance prose-p:text-balance prose-img:rounded-xl prose-a:text-[#4fe6ff] hover:prose-a:text-[#4fe6ff]/80 prose-strong:text-white prose-li:marker:text-[#4fe6ff] ${className}`}
-    >
-      <ReactMarkdown skipHtml>{content}</ReactMarkdown>
-    </div>
+    <GhostMarkdown
+      content={content}
+      className={`case-body-content ${className}`}
+      proseClassName="prose-lg prose-headings:font-display prose-headings:text-balance prose-p:text-balance"
+    />
   );
 }

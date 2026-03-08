@@ -91,7 +91,9 @@ export default function ResetPasswordPage() {
     }
 
     setState('success');
-    setSuccessMsg('Senha atualizada com sucesso. Redirecionando para o painel.');
+    setSuccessMsg(
+      'Senha atualizada com sucesso. Redirecionando para o painel.'
+    );
 
     window.setTimeout(() => {
       router.replace('/admin');

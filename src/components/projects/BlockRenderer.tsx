@@ -4,12 +4,12 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
-import ReactMarkdown from 'react-markdown';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { sanitizeTailwindValue } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -28,13 +28,7 @@ interface BlockRendererProps {
   index: number;
 }
 
-/** Configuration for text styling in blocks */
-interface TextConfig {
-  fontSize?: string;
-  fontWeight?: string;
-  textAlign?: string;
-  color?: string;
-}
+type TextConfig = LandingPageBlock['content']['textConfig'];
 
 export default function BlockRenderer({
   block,
@@ -57,11 +51,6 @@ export default function BlockRenderer({
 
   const renderText = (text?: string, config?: TextConfig, className = '') => {
     if (!text) return null;
-
-    // Sanitiza HTML embutido removendo atributos style/class perigosos que geram style como string (React error #62)
-    const sanitizedText = text
-      .replace(/\sstyle\s*=\s*(?:"[^"]*"|'[^']*')/gi, '')
-      .replace(/\sclass(Name)?\s*=\s*(?:"[^"]*"|'[^']*')/gi, '');
 
     const textClasses = [
       config?.fontSize || 'text-lg md:text-xl',
@@ -92,57 +81,12 @@ export default function BlockRenderer({
           `}</style>
         )}
 
-        <div
-          className={`prose prose-invert max-w-none ${className} ${dynamicColorClass}`}
-        >
-          <ReactMarkdown
-            skipHtml
-            components={{
-              p: ({ children }) => <p className={textClasses}>{children}</p>,
-              h1: ({ children }) => (
-                <h2
-                  className={`${config?.textAlign || ''} font-bold text-4xl md:text-6xl mb-8`}
-                >
-                  {children}
-                </h2>
-              ),
-              h2: ({ children }) => (
-                <h3
-                  className={`${config?.textAlign || ''} font-bold text-3xl md:text-5xl mb-6`}
-                >
-                  {children}
-                </h3>
-              ),
-              h3: ({ children }) => (
-                <h4
-                  className={`${config?.textAlign || ''} font-bold text-2xl md:text-4xl mb-4`}
-                >
-                  {children}
-                </h4>
-              ),
-              ul: ({ children }) => (
-                <ul
-                  className={`${textClasses} list-disc pl-6 mb-4 space-y-2 text-left`}
-                >
-                  {children}
-                </ul>
-              ),
-              ol: ({ children }) => (
-                <ol
-                  className={`${textClasses} list-decimal pl-6 mb-4 space-y-2 text-left`}
-                >
-                  {children}
-                </ol>
-              ),
-              strong: ({ children }) => (
-                <strong className="font-bold text-white">{children}</strong>
-              ),
-              em: ({ children }) => <em className="italic">{children}</em>,
-            }}
-          >
-            {sanitizedText}
-          </ReactMarkdown>
-        </div>
+        <GhostMarkdown
+          content={text}
+          textConfig={config}
+          className={`${className} ${dynamicColorClass}`}
+          proseClassName={`max-w-none ${textClasses}`}
+        />
       </>
     );
   };

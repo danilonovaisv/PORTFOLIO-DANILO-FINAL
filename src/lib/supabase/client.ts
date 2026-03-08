@@ -41,15 +41,76 @@ function createMockClient() {
     eq: () => mockQuery,
     order: () => mockQuery,
     limit: () => mockQuery,
-    returns: () => Promise.resolve({ data: [], error: null }),
+    returns: () =>
+      Promise.resolve({
+        data: [
+          {
+            id: 'mock-project-1',
+            title: 'Mock Project E2E',
+            slug: 'mock-project',
+            client_name: 'E2E Client',
+            project_type: 'Mock',
+            is_published: true,
+            featured_on_home: true,
+          },
+        ],
+        error: null,
+      }),
     select: () => mockQuery,
-    single: () => Promise.resolve({ data: null, error: null }),
+    single: () =>
+      Promise.resolve({
+        data: {
+          id: 'mock-project-1',
+          title: 'Mock Project E2E',
+          slug: 'mock-project',
+          client_name: 'E2E Client',
+          project_type: 'Mock',
+          is_published: true,
+        },
+        error: null,
+      }),
   };
   return {
     from: () => mockQuery,
     auth: {
       getSession: () =>
-        Promise.resolve({ data: { session: null }, error: null }),
+        Promise.resolve({
+          data: {
+            session: {
+              user: {
+                id: 'e2e-mock-user',
+                email: 'admin@test.com',
+                app_metadata: { role: 'admin' },
+              },
+              access_token: 'mock-token',
+            },
+          },
+          error: null,
+        }),
+      signInWithPassword: ({ email }: { email: string }) =>
+        Promise.resolve({
+          data: {
+            session: {
+              user: {
+                id: 'e2e-mock-user',
+                email: email,
+                app_metadata: { role: 'admin' },
+              },
+              access_token: 'mock-token',
+            },
+          },
+          error: null,
+        }),
+      signUp: ({ email }: { email: string }) =>
+        Promise.resolve({
+          data: {
+            user: { id: 'e2e-mock-user', email },
+            session: null,
+          },
+          error: null,
+        }),
+      signInWithOtp: () => Promise.resolve({ data: {}, error: null }),
+      resetPasswordForEmail: () => Promise.resolve({ data: {}, error: null }),
       onAuthStateChange: () => ({
         data: { subscription: { unsubscribe: () => {} } },
       }),

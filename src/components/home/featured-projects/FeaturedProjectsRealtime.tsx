@@ -10,7 +10,7 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
-import { stableShuffle } from '@/lib/utils/stable-shuffle';
+import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
 
 type HomeProjectRow =
   Database['public']['Tables']['portfolio_projects']['Row'] & {
@@ -27,10 +27,7 @@ type FeaturedProjectsRealtimeProps = {
 const POLLING_INTERVAL_MS = 45_000;
 
 function normalizeHomeFeaturedProjects(projects: PortfolioProject[]) {
-  return stableShuffle(projects, {
-    window: 'daily',
-    scope: 'home',
-  });
+  return shuffleHomeProjects(projects);
 }
 
 function getProjectsSignature(projects: PortfolioProject[]) {

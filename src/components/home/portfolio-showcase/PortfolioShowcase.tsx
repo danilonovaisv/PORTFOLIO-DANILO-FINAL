@@ -8,6 +8,7 @@ import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from '@/components/home/portfolio-showcase/CategoryStripe';
 import { getAssetUrl } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
 // Category data with assets
 const CATEGORIES = [
@@ -16,7 +17,7 @@ const CATEGORIES = [
     title: 'Brand & Campaigns',
     mobileTitle: ['Brand', '& Campaigns'],
     slug: 'branding',
-    thumbnail: getAssetUrl('site-assets/home/showcase/Branding-Project.webp'),
+    thumbnail: getAssetUrl(SITE_ASSET_KEYS.portfolioShowcase.brandCampaigns),
     alignment: 'right' as const,
     showLabel: true, // Show floating label on this stripe
   },
@@ -25,7 +26,9 @@ const CATEGORIES = [
     title: 'Videos & Motions',
     mobileTitle: ['Videos', '& Motions'],
     slug: 'motion',
-    thumbnail: getAssetUrl('site-assets/home/showcase/show.video.mp4'),
+    thumbnail: getAssetUrl(SITE_ASSET_KEYS.portfolioShowcase.videosMotions, {
+      isVideo: true,
+    }),
     alignment: 'center' as const,
     showLabel: false,
   },
@@ -34,8 +37,7 @@ const CATEGORIES = [
     title: 'Websites & Tech',
     mobileTitle: ['Websites', '& Tech'],
     slug: 'web',
-    // GIF substituído por frame estático WebP para reduzir LCP e peso inicial
-    thumbnail: getAssetUrl('site-assets/home/showcase/Branding-Project.webp'),
+    thumbnail: getAssetUrl(SITE_ASSET_KEYS.portfolioShowcase.websitesTech),
     alignment: 'left' as const,
     showLabel: false,
   },

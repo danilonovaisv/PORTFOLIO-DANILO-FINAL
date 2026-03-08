@@ -57,7 +57,7 @@
     "build-check": "pnpm run typecheck && pnpm run lint",
     "test": "pnpm run lint && pnpm run typecheck && jest",
     "test:watch": "jest --watch",
-    "test:e2e": "PLAYWRIGHT_TEST=true playwright test",
+    "test:e2e": "PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true playwright test",
     "audit:v4": "npx tsx scripts/audit-v4-migration.ts",
     "audit:v4:storage": "npx tsx scripts/audit-supabase-storage.ts",
     "audit:storage-pg": "node scripts/audit-storage-pg.mjs",
@@ -210,5 +210,5 @@
       "react-dom": "$react-dom"
     }
   },
-  "packageManager": "pnpm@10.30.3"
+  "packageManager": "pnpm@10.31.0"
 }

@@ -29,3 +29,9 @@ Expor estado operacional mínimo (sessão e credenciais críticas) para diagnós
 - Persistencia em banco depende de `SUPABASE_SERVICE_ROLE_KEY`.
   - Sem service role, o painel deixa explicito que a chave salva no banco nao pode ser usada.
   - Nesse cenario, apenas a variavel de ambiente `OPENAI_API_KEY` habilita `Scene Generator` e `Copy Agent`.
+
+## 5. Atualização de estado — 2026-03-08
+
+- `AntigravityCTA` foi refatorado para usar uma única timeline Ghost na interação de hover.
+- O deslocamento horizontal da seta e a abertura visual entre pílula e círculo agora respondem ao mesmo trigger e ao mesmo easing (`GHOST_EASE`).
+- O componente ganhou variante `compact`, usada nos CTAs pequenos de retorno das landings para sincronizar comportamento com os CTAs principais.

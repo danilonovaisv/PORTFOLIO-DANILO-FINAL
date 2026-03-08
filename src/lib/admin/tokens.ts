@@ -1,4 +1,7 @@
-import { createAdminClient, isServiceRoleConfigured } from '@/lib/supabase/admin';
+import {
+  createAdminClient,
+  isServiceRoleConfigured,
+} from '@/lib/supabase/admin';
 import type { Database } from '@/lib/supabase.types';
 
 export const TOKEN_STATUSES = ['active', 'inactive'] as const;
@@ -13,7 +16,10 @@ export type AdminTokenEnvironment = (typeof TOKEN_ENVIRONMENTS)[number];
 export type AdminTokenRow = Database['public']['Tables']['admin_tokens']['Row'];
 
 export function normalizeTokenProvider(value: string): string {
-  return value.trim().toLowerCase().replace(/[\s_]+/g, '-');
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_]+/g, '-');
 }
 
 export function maskTokenSecret(secret?: string | null): string {
@@ -28,7 +34,8 @@ export function extractLegacyTokenValue(value: unknown): string | null {
   if (typeof value === 'object' && value !== null) {
     const record = value as Record<string, unknown>;
     const candidate = [record.key, record.value, record.token].find(
-      (entry): entry is string => typeof entry === 'string' && entry.trim().length > 0
+      (entry): entry is string =>
+        typeof entry === 'string' && entry.trim().length > 0
     );
     return candidate?.trim() ?? null;
   }

@@ -24,7 +24,7 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
   const renderMediaField = (
     label: string,
-    options?: { secondary?: boolean; kind?: 'image' | 'video' }
+    options?: { secondary?: boolean; kind?: 'image' | 'video' | 'youtube' }
   ) => {
     const mediaKey = options?.secondary ? 'media2' : 'media';
     const altKey = options?.secondary ? 'alt2' : 'alt';
@@ -34,12 +34,16 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
     const previewKey = options?.secondary ? 'previewUrl2' : 'previewUrl';
     const kind =
       options?.kind ??
-      (block.content[mediaTypeKey] === 'video' ? 'video' : 'image');
+      (block.content[mediaTypeKey] === 'youtube'
+        ? 'youtube'
+        : block.content[mediaTypeKey] === 'video'
+          ? 'video'
+          : 'image');
 
     const value = {
       src: block.content[mediaKey] || '',
       alt: block.content[altKey] || '',
-      kind,
+      kind: kind === 'youtube' ? 'video' : kind,
       poster: block.content[posterKey] || '',
       file: block[fileKey] || null,
       previewUrl: block[previewKey] || '',
@@ -49,7 +53,9 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
       <MediaAssetField
         label={label}
         value={value}
-        onChange={(next) => {
+        mode={kind}
+        allowYouTube
+        onChange={(next, nextMode = kind) => {
           onChange({
             [fileKey]: next.file ?? null,
             [previewKey]: next.previewUrl || '',
@@ -58,11 +64,16 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
               [mediaKey]: next.src,
               [altKey]: next.alt,
               [posterKey]: next.poster,
-              [mediaTypeKey]: next.kind === 'video' ? 'video' : 'image',
+              [mediaTypeKey]:
+                nextMode === 'youtube'
+                  ? 'youtube'
+                  : nextMode === 'video'
+                    ? 'video'
+                    : 'image',
             },
           });
         }}
-        requireAlt={kind !== 'video'}
+        requireAlt={kind === 'image'}
       />
     );
   };
@@ -158,7 +169,10 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
           {renderMediaField('Mídia 01', { kind: 'image' })}
           {renderMediaField(
             block.type === 'image-video' ? 'Mídia 02 (Vídeo)' : 'Mídia 02',
-            { secondary: true, kind: block.type === 'image-video' ? 'video' : 'image' }
+            {
+              secondary: true,
+              kind: block.type === 'image-video' ? 'video' : 'image',
+            }
           )}
         </div>
       )}

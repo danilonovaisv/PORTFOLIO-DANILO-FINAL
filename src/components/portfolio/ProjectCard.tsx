@@ -63,19 +63,21 @@ export const ProjectCard = ({
 
   // Build the static image: prefer non-video thumbnailMedia, then layout-appropriate images
   const staticImageCandidates = [
-    prefersSquareOnDesktop
-      ? (project.imageSquare ?? project.imageLandscape ?? project.image)
-      : (project.imageLandscape ?? project.imageSquare ?? project.image),
-    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
-  ].filter(Boolean) as string[];
+    prefersSquareOnDesktop ? project.imageSquare : project.imageLandscape,
+    prefersSquareOnDesktop ? project.imageLandscape : project.imageSquare,
+    project.image,
+    project.thumbnailMedia,
+  ].filter((candidate): candidate is string => !!candidate && !isVideo(candidate));
 
   const desktopImage = getAssetUrl(staticImageCandidates[0] || ASSET_PLACEHOLDER);
 
   // Mobile image — prefer landscape
   const mobileImageCandidates = [
-    project.imageLandscape ?? project.imageSquare ?? project.image,
-    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
-  ].filter(Boolean) as string[];
+    project.imageLandscape,
+    project.imageSquare,
+    project.image,
+    project.thumbnailMedia,
+  ].filter((candidate): candidate is string => !!candidate && !isVideo(candidate));
 
   const mobileImage = getAssetUrl(mobileImageCandidates[0] || ASSET_PLACEHOLDER);
 
@@ -219,7 +221,7 @@ export const ProjectCard = ({
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-primary/85 p-6 text-center opacity-0 transition-all duration-250 ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-bluePrimary/85 p-6 text-center opacity-0 transition-all duration-250 ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
         <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
           <p className="text-[11px] uppercase tracking-[0.18em] text-white/70 mb-2">
             {project.displayCategory}

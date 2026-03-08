@@ -116,7 +116,9 @@ export function SettingsForm({
     setUserDraft(emptyUserDraft);
   };
 
-  const runTokenAction = (fn: () => Promise<{ ok: boolean; error?: string; message?: string }>) => {
+  const runTokenAction = (
+    fn: () => Promise<{ ok: boolean; error?: string; message?: string }>
+  ) => {
     startTransition(async () => {
       setTokenError(null);
       setTokenMessage(null);
@@ -131,7 +133,9 @@ export function SettingsForm({
     });
   };
 
-  const runUserAction = (fn: () => Promise<{ ok: boolean; error?: string; message?: string }>) => {
+  const runUserAction = (
+    fn: () => Promise<{ ok: boolean; error?: string; message?: string }>
+  ) => {
     startTransition(async () => {
       setUserError(null);
       setUserMessage(null);
@@ -244,9 +248,7 @@ export function SettingsForm({
       <section className="grid gap-6 xl:grid-cols-[1.1fr_1.4fr]">
         <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
           <div className="mb-4">
-            <h3 className="text-lg font-medium text-white">
-              CRUD de Tokens
-            </h3>
+            <h3 className="text-lg font-medium text-white">CRUD de Tokens</h3>
             <p className="mt-1 text-sm text-slate-400">
               Provider livre, segredo mascarado na listagem e teste automatico
               para OpenAI.
@@ -302,7 +304,8 @@ export function SettingsForm({
             <div className="grid gap-4 md:grid-cols-2">
               <label>
                 <span className={labelClasses}>
-                  Valor do token {editingTokenId ? '(preencha apenas para trocar)' : ''}
+                  Valor do token{' '}
+                  {editingTokenId ? '(preencha apenas para trocar)' : ''}
                 </span>
                 <input
                   type="password"
@@ -406,9 +409,13 @@ export function SettingsForm({
                       <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
                         {token.provider} · {token.environment} · {token.status}
                       </p>
-                      <p className="text-sm text-slate-300">{token.maskedSecret}</p>
+                      <p className="text-sm text-slate-300">
+                        {token.maskedSecret}
+                      </p>
                       {token.description ? (
-                        <p className="text-sm text-slate-400">{token.description}</p>
+                        <p className="text-sm text-slate-400">
+                          {token.description}
+                        </p>
                       ) : null}
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -431,7 +438,9 @@ export function SettingsForm({
                       </button>
                       <button
                         type="button"
-                        onClick={() => runTokenAction(() => testAdminToken(token.id))}
+                        onClick={() =>
+                          runTokenAction(() => testAdminToken(token.id))
+                        }
                         className="rounded-md border border-cyan-400/30 px-3 py-1.5 text-xs font-semibold text-cyan-300 transition hover:bg-cyan-500/10"
                       >
                         Testar
@@ -439,7 +448,10 @@ export function SettingsForm({
                       <button
                         type="button"
                         onClick={() => {
-                          if (!window.confirm(`Excluir o token "${token.name}"?`)) return;
+                          if (
+                            !window.confirm(`Excluir o token "${token.name}"?`)
+                          )
+                            return;
                           runTokenAction(() => deleteAdminToken(token.id));
                         }}
                         className="rounded-md border border-rose-400/30 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-500/10"
@@ -581,14 +593,18 @@ export function SettingsForm({
                       <p className="text-sm font-semibold text-white">
                         {adminUser.fullName}
                       </p>
-                      <p className="text-sm text-slate-300">{adminUser.email}</p>
+                      <p className="text-sm text-slate-300">
+                        {adminUser.email}
+                      </p>
                       <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
                         {adminUser.role} · {adminUser.status}
                       </p>
                       <p className="text-xs text-slate-500">
                         Ultimo login:{' '}
                         {adminUser.lastSignInAt
-                          ? new Date(adminUser.lastSignInAt).toLocaleString('pt-BR')
+                          ? new Date(adminUser.lastSignInAt).toLocaleString(
+                              'pt-BR'
+                            )
                           : 'nunca'}
                       </p>
                     </div>
@@ -618,7 +634,9 @@ export function SettingsForm({
                           ) {
                             return;
                           }
-                          runUserAction(() => deleteAdminUser(adminUser.userId));
+                          runUserAction(() =>
+                            deleteAdminUser(adminUser.userId)
+                          );
                         }}
                         className="rounded-md border border-rose-400/30 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-500/10"
                       >

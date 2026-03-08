@@ -42,7 +42,9 @@ const DISABLED_BAN_DURATION = '876000h';
 
 const normalizeText = (value?: string | null) => value?.trim() ?? '';
 
-async function ensureTokenTableReady(supabase: Awaited<ReturnType<typeof requireAdminAccess>>['supabase']) {
+async function ensureTokenTableReady(
+  supabase: Awaited<ReturnType<typeof requireAdminAccess>>['supabase']
+) {
   const { error } = await supabase.from('admin_tokens').select('id').limit(1);
   if (error) {
     throw new Error(
@@ -64,9 +66,13 @@ async function ensureLastOwnerGuard(
     throw new Error(error.message);
   }
 
-  const remainingOwners = (data ?? []).filter((row) => row.user_id !== targetUserId);
+  const remainingOwners = (data ?? []).filter(
+    (row) => row.user_id !== targetUserId
+  );
   if (remainingOwners.length === 0) {
-    throw new Error('Nao e permitido remover ou rebaixar o ultimo owner do dashboard ADMIN.');
+    throw new Error(
+      'Nao e permitido remover ou rebaixar o ultimo owner do dashboard ADMIN.'
+    );
   }
 }
 
@@ -92,13 +98,18 @@ async function revokeAdminRow(
   supabase: Awaited<ReturnType<typeof requireAdminAccess>>['supabase'],
   userId: string
 ) {
-  const { error } = await supabase.from('admin_users').delete().eq('user_id', userId);
+  const { error } = await supabase
+    .from('admin_users')
+    .delete()
+    .eq('user_id', userId);
   if (error) {
     throw new Error(error.message);
   }
 }
 
-export async function createAdminToken(input: TokenPayload): Promise<ActionResult> {
+export async function createAdminToken(
+  input: TokenPayload
+): Promise<ActionResult> {
   try {
     const { supabase, user } = await requireAdminAccess({
       requireServiceRole: true,
@@ -110,7 +121,10 @@ export async function createAdminToken(input: TokenPayload): Promise<ActionResul
     const secret = normalizeText(input.secret);
 
     if (!name || !provider || !secret) {
-      return { ok: false, error: 'Nome, provider e valor do token sao obrigatorios.' };
+      return {
+        ok: false,
+        error: 'Nome, provider e valor do token sao obrigatorios.',
+      };
     }
 
     const { error } = await supabase.from('admin_tokens').insert({
@@ -120,8 +134,8 @@ export async function createAdminToken(input: TokenPayload): Promise<ActionResul
       secret,
       status: input.status,
       environment: input.environment,
-        created_by: user?.id ?? null,
-        updated_by: user?.id ?? null,
+      created_by: user?.id ?? null,
+      updated_by: user?.id ?? null,
     });
 
     if (error) {
@@ -140,7 +154,10 @@ export async function createAdminToken(input: TokenPayload): Promise<ActionResul
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao criar token.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao criar token.',
     };
   }
 }
@@ -174,7 +191,10 @@ export async function updateAdminToken(
     const nextSecret = normalizeText(input.secret) || existing.secret;
 
     if (!name || !provider || !nextSecret) {
-      return { ok: false, error: 'Nome, provider e valor do token sao obrigatorios.' };
+      return {
+        ok: false,
+        error: 'Nome, provider e valor do token sao obrigatorios.',
+      };
     }
 
     const { error } = await supabase
@@ -207,7 +227,10 @@ export async function updateAdminToken(
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao atualizar token.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao atualizar token.',
     };
   }
 }
@@ -219,7 +242,10 @@ export async function deleteAdminToken(tokenId: string): Promise<ActionResult> {
     });
     await ensureTokenTableReady(supabase);
 
-    const { error } = await supabase.from('admin_tokens').delete().eq('id', tokenId);
+    const { error } = await supabase
+      .from('admin_tokens')
+      .delete()
+      .eq('id', tokenId);
     if (error) {
       return { ok: false, error: error.message };
     }
@@ -236,7 +262,10 @@ export async function deleteAdminToken(tokenId: string): Promise<ActionResult> {
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao excluir token.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao excluir token.',
     };
   }
 }
@@ -265,7 +294,8 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
     if (data.provider !== 'openai') {
       return {
         ok: false,
-        error: 'Teste automatico disponivel apenas para tokens com provider "openai".',
+        error:
+          'Teste automatico disponivel apenas para tokens com provider "openai".',
       };
     }
 
@@ -304,12 +334,17 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao testar token.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao testar token.',
     };
   }
 }
 
-export async function createAdminUser(input: AdminUserPayload): Promise<ActionResult> {
+export async function createAdminUser(
+  input: AdminUserPayload
+): Promise<ActionResult> {
   try {
     const { supabase, user } = await requireAdminAccess({
       requireServiceRole: true,
@@ -323,7 +358,10 @@ export async function createAdminUser(input: AdminUserPayload): Promise<ActionRe
       return { ok: false, error: 'Nome e email sao obrigatorios.' };
     }
 
-    const listed = await supabase.auth.admin.listUsers({ page: 1, perPage: 500 });
+    const listed = await supabase.auth.admin.listUsers({
+      page: 1,
+      perPage: 500,
+    });
     if (listed.error) {
       return { ok: false, error: listed.error.message };
     }
@@ -341,14 +379,20 @@ export async function createAdminUser(input: AdminUserPayload): Promise<ActionRe
       });
 
       if (invited.error || !invited.data.user) {
-        return { ok: false, error: invited.error?.message ?? 'Falha ao convidar usuario.' };
+        return {
+          ok: false,
+          error: invited.error?.message ?? 'Falha ao convidar usuario.',
+        };
       }
 
       targetUserId = invited.data.user.id;
     }
 
     if (!targetUserId) {
-      return { ok: false, error: 'Nao foi possivel resolver o usuario administrativo.' };
+      return {
+        ok: false,
+        error: 'Nao foi possivel resolver o usuario administrativo.',
+      };
     }
 
     const userUpdate = await supabase.auth.admin.updateUserById(targetUserId, {
@@ -362,7 +406,8 @@ export async function createAdminUser(input: AdminUserPayload): Promise<ActionRe
         ...(existing?.user_metadata ?? {}),
         full_name: fullName,
       },
-      ban_duration: input.status === 'disabled' ? DISABLED_BAN_DURATION : 'none',
+      ban_duration:
+        input.status === 'disabled' ? DISABLED_BAN_DURATION : 'none',
     });
 
     if (userUpdate.error) {
@@ -389,7 +434,10 @@ export async function createAdminUser(input: AdminUserPayload): Promise<ActionRe
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao criar usuario ADMIN.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao criar usuario ADMIN.',
     };
   }
 }
@@ -413,7 +461,10 @@ export async function updateAdminUser(
 
     const currentUser = await supabase.auth.admin.getUserById(userId);
     if (currentUser.error || !currentUser.data.user) {
-      return { ok: false, error: currentUser.error?.message ?? 'Usuario nao encontrado.' };
+      return {
+        ok: false,
+        error: currentUser.error?.message ?? 'Usuario nao encontrado.',
+      };
     }
 
     const { data: currentRow } = await supabase
@@ -440,7 +491,8 @@ export async function updateAdminUser(
         ...(currentUser.data.user.user_metadata ?? {}),
         full_name: fullName,
       },
-      ban_duration: input.status === 'disabled' ? DISABLED_BAN_DURATION : 'none',
+      ban_duration:
+        input.status === 'disabled' ? DISABLED_BAN_DURATION : 'none',
     });
 
     if (updateResult.error) {
@@ -462,7 +514,10 @@ export async function updateAdminUser(
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao atualizar usuario ADMIN.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao atualizar usuario ADMIN.',
     };
   }
 }
@@ -475,7 +530,10 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
 
     const currentUser = await supabase.auth.admin.getUserById(userId);
     if (currentUser.error || !currentUser.data.user) {
-      return { ok: false, error: currentUser.error?.message ?? 'Usuario nao encontrado.' };
+      return {
+        ok: false,
+        error: currentUser.error?.message ?? 'Usuario nao encontrado.',
+      };
     }
 
     const { data: currentRow } = await supabase
@@ -515,7 +573,10 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
   } catch (err) {
     return {
       ok: false,
-      error: err instanceof Error ? err.message : 'Erro desconhecido ao excluir usuario ADMIN.',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'Erro desconhecido ao excluir usuario ADMIN.',
     };
   }
 }

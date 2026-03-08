@@ -2,13 +2,7 @@
 
 import Image from 'next/image';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
-
-const getYoutubeId = (url: string) => {
-  const match = url.match(
-    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#&?]*).*/
-  );
-  return match && match[2].length === 11 ? match[2] : null;
-};
+import { extractYouTubeId } from '@/lib/utils';
 
 const inputClasses =
   'w-full rounded-sm border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500';
@@ -27,8 +21,10 @@ interface MediaAsset {
 interface MediaAssetFieldProps {
   label: string;
   value: MediaAsset;
-  onChange: (_next: MediaAsset) => void;
+  onChange: (_next: MediaAsset, _mode?: 'image' | 'video' | 'youtube') => void;
   requireAlt?: boolean;
+  mode?: 'image' | 'video' | 'youtube';
+  allowYouTube?: boolean;
 }
 
 export function MediaAssetField({
@@ -36,11 +32,15 @@ export function MediaAssetField({
   value,
   onChange,
   requireAlt = false,
+  mode,
+  allowYouTube = false,
 }: MediaAssetFieldProps) {
-  const isVideo = value.kind === 'video';
+  const selectedMode = mode ?? (value.kind === 'video' ? 'video' : 'image');
+  const isVideo = selectedMode === 'video';
+  const isYoutube = selectedMode === 'youtube';
   const preview = value.previewUrl || value.src;
-  const missingAlt = requireAlt && !isVideo && !value.alt?.trim();
-  const youtubeId = preview ? getYoutubeId(preview) : null;
+  const missingAlt = requireAlt && !isVideo && !isYoutube && !value.alt?.trim();
+  const youtubeId = preview ? extractYouTubeId(preview) : null;
 
   return (
     <div className="space-y-3">
@@ -51,37 +51,56 @@ export function MediaAssetField({
           <select
             aria-label="Tipo de Asset"
             className={inputClasses}
-            value={value.kind || 'image'}
+            value={selectedMode}
             onChange={(event) =>
-              onChange({
-                ...value,
-                kind: event.target.value === 'video' ? 'video' : 'image',
-              })
+              onChange(
+                {
+                  ...value,
+                  kind: event.target.value === 'image' ? 'image' : 'video',
+                  file: event.target.value === 'youtube' ? null : value.file,
+                  previewUrl:
+                    event.target.value === 'youtube' ? '' : value.previewUrl,
+                  poster: event.target.value === 'youtube' ? '' : value.poster,
+                },
+                event.target.value as 'image' | 'video' | 'youtube'
+              )
             }
           >
             <option value="image">Imagem</option>
             <option value="video">Vídeo</option>
+            {allowYouTube ? <option value="youtube">YouTube</option> : null}
           </select>
         </label>
 
-        <label className="space-y-1">
-          <span className={labelClasses}>Upload</span>
-          <input
-            className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
-            type="file"
-            accept={isVideo ? 'video/*' : 'image/*'}
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              if (!file) return;
+        {isYoutube ? (
+          <div className="space-y-1">
+            <span className={labelClasses}>Upload</span>
+            <div
+              className={`${inputClasses} flex min-h-10 items-center text-slate-500`}
+            >
+              YouTube usa apenas URL.
+            </div>
+          </div>
+        ) : (
+          <label className="space-y-1">
+            <span className={labelClasses}>Upload</span>
+            <input
+              className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
+              type="file"
+              accept={isVideo ? 'video/*' : 'image/*'}
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (!file) return;
 
-              onChange({
-                ...value,
-                file,
-                previewUrl: URL.createObjectURL(file),
-              });
-            }}
-          />
-        </label>
+                onChange({
+                  ...value,
+                  file,
+                  previewUrl: URL.createObjectURL(file),
+                });
+              }}
+            />
+          </label>
+        )}
       </div>
 
       <label className="space-y-1">
@@ -89,9 +108,11 @@ export function MediaAssetField({
         <input
           className={inputClasses}
           placeholder={
-            isVideo
-              ? 'landing-pages/meu-projeto/hero-video.mp4'
-              : 'landing-pages/meu-projeto/hero.webp'
+            isYoutube
+              ? 'https://www.youtube.com/watch?v=VIDEO_ID'
+              : isVideo
+                ? 'landing-pages/meu-projeto/hero-video.mp4'
+                : 'landing-pages/meu-projeto/hero.webp'
           }
           value={value.src || ''}
           onChange={(event) =>
@@ -135,7 +156,12 @@ export function MediaAssetField({
 
       {preview && (
         <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
-          {isVideo ? (
+          {isYoutube && youtubeId ? (
+            <YouTubePlayer
+              videoId={youtubeId}
+              className="h-56 w-full border-0"
+            />
+          ) : isVideo ? (
             youtubeId ? (
               <YouTubePlayer
                 videoId={youtubeId}

@@ -29,6 +29,12 @@ export function getFeaturedProjectBackgroundVariant(
   ];
 }
 
+export function getRandomFeaturedProjectBackgroundVariant(): FeaturedProjectBackgroundVariant {
+  return FEATURED_PROJECT_BACKGROUND_POOL[
+    Math.floor(Math.random() * FEATURED_PROJECT_BACKGROUND_POOL.length)
+  ];
+}
+
 export function buildFeaturedProjectBackgroundAssignment(
   projects: Pick<PortfolioProject, 'id'>[]
 ): FeaturedProjectBackgroundVariant[] {

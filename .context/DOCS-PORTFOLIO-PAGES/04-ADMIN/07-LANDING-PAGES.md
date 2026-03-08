@@ -32,3 +32,10 @@ Gerenciar páginas detalhadas de projetos (`/projects/[slug]`) com templates ver
 - `save/delete` em `landing_pages` agora exigem `service_role` para evitar `new row violates row-level security policy`.
 - Uploads de assets da landing page passaram a usar endpoint server-side do admin (`/api/admin/storage/upload`).
 - Criado script SQL de manutenção para claim admin e limpeza de objetos órfãos: `supabase/sql/2026-02-20_admin_claim_and_cached_egress_cleanup.sql`.
+
+## 6. Atualização de estado — 2026-03-08
+
+- O editor V3 passou a aceitar `YouTube` como tipo explícito de mídia em blocos dinâmicos, preservando `mediaType = youtube` no roundtrip do formulário.
+- A serialização do Template V3 continua saneando `media/media2/poster`, mas agora não força URL de YouTube a cair no fluxo de imagem comum.
+- O CTA de retorno das landings foi reduzido para `voltar` e duplicado no fechamento dos templates (`legacy`, `master`, `master-v2`, `master-v3`) com variante compacta.
+- `LiquidEther` teve o auto motion desacelerado (`autoSpeed` menor) e takeover mais curto para responder mais rápido a mouse/touch sem competir com o conteúdo.

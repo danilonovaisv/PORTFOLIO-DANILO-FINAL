@@ -75,3 +75,9 @@ Para evitar criação de múltiplos diretórios órfãos:
   - adicionar assets cria apenas os arquivos novos;
   - remover assets limpa o Storage correspondente;
   - substituir assets atualiza a referencia do projeto e apaga o arquivo antigo que saiu de uso.
+
+## 11. Atualização de estado — 2026-03-08
+
+- O overlay de interação do `ProjectCard` foi fixado em `Blue Primary` (`#0048ff`) para hover/focus/touch no Showcase do portfólio.
+- Cards destacados da Home com `ANIMATED_BG_INVERTED_LOGO` agora usam `object-contain`, caixa mais flexível e inversão monocromática sobre fundo azul.
+- O `FeaturedProjectCard` passou a observar a largura real do container para escolher entre thumb quadrada e thumb wide, evitando mismatch entre grid e aspect ratio.

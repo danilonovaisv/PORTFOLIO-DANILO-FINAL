@@ -80,6 +80,11 @@ export const SITE_ASSET_KEYS = {
     heroDesktop: 'portfolio.hero.portfolio.hero_desktop_video',
     heroMobile: 'portfolio.hero.portfolio.hero_mobile_video',
   },
+  portfolioShowcase: {
+    brandCampaigns: 'home/showcase/Branding-Project.webp',
+    videosMotions: 'home/showcase/show.video.mp4',
+    websitesTech: 'home/showcase/Key-Visual.webp',
+  },
   clients: {
     strips: Array.from(
       { length: 12 },
@@ -107,7 +112,10 @@ export const SITE_ASSET_PRELOADS = {
       PORTFOLIO_CONTENT.hero.video.desktop,
       PORTFOLIO_CONTENT.hero.video.mobile,
     ],
-    keys: [SITE_ASSET_KEYS.portfolio.heroDesktop, SITE_ASSET_KEYS.portfolio.heroMobile],
+    keys: [
+      SITE_ASSET_KEYS.portfolio.heroDesktop,
+      SITE_ASSET_KEYS.portfolio.heroMobile,
+    ],
   },
 } as const;
 

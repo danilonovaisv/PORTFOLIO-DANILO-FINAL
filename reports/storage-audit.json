@@ -22,12 +22,8 @@
       "recommendation": "Move service-role logic to server-only modules and remove from client bundles.",
       "auto_fixable": false,
       "evidence": {
-        "files": [
-          "src/app/admin/(protected)/settings/SettingsForm.tsx"
-        ],
-        "snippets": [
-          "SUPABASE_SERVICE_ROLE_KEY"
-        ]
+        "files": ["src/app/admin/(protected)/settings/SettingsForm.tsx"],
+        "snippets": ["SUPABASE_SERVICE_ROLE_KEY"]
       }
     },
     {
@@ -39,21 +35,14 @@
       "recommendation": "Adopt hashed or versioned filenames for immutable cache safety.",
       "auto_fixable": false,
       "evidence": {
-        "files": [
-          "public/site.assets/3d/ghost.glb"
-        ],
-        "snippets": [
-          "count=1"
-        ]
+        "files": ["public/site.assets/3d/ghost.glb"],
+        "snippets": ["count=1"]
       }
     }
   ],
   "applied_fixes": [],
   "meta": {
-    "public_buckets_detected": [
-      "portfolio-media",
-      "site-assets"
-    ],
+    "public_buckets_detected": ["portfolio-media", "site-assets"],
     "unexpected_public_buckets": [],
     "storage_policy_operations": [
       "all",

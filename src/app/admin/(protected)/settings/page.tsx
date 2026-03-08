@@ -2,7 +2,10 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import { getSupabasePublicKey } from '@/lib/supabase/env';
-import { createAdminClient, isServiceRoleConfigured } from '@/lib/supabase/admin';
+import {
+  createAdminClient,
+  isServiceRoleConfigured,
+} from '@/lib/supabase/admin';
 import { extractLegacyTokenValue, maskTokenSecret } from '@/lib/admin/tokens';
 import { listAdminUsers } from '@/lib/admin/admin-users';
 import { requireAdminAccess } from '@/lib/admin/server-access';
@@ -63,7 +66,10 @@ export default async function SettingsPage() {
         provider: row.provider,
         description: row.description,
         status: row.status as 'active' | 'inactive',
-        environment: row.environment as 'development' | 'staging' | 'production',
+        environment: row.environment as
+          | 'development'
+          | 'staging'
+          | 'production',
         maskedSecret: maskTokenSecret(row.secret),
         createdAt: row.created_at,
         updatedAt: row.updated_at,

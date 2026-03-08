@@ -1,4 +1,7 @@
-import { createAdminClient, isServiceRoleConfigured } from '@/lib/supabase/admin';
+import {
+  createAdminClient,
+  isServiceRoleConfigured,
+} from '@/lib/supabase/admin';
 import type { Database } from '@/lib/supabase.types';
 
 export const ADMIN_USER_ROLES = ['owner', 'editor'] as const;
@@ -86,7 +89,9 @@ export async function listAdminUsers(): Promise<AdminUserListItem[]> {
         role: normalizeAdminUserRole(
           row?.role ?? String(user.app_metadata?.role ?? 'owner')
         ),
-        status: isUserDisabled((user as { banned_until?: string | null }).banned_until)
+        status: isUserDisabled(
+          (user as { banned_until?: string | null }).banned_until
+        )
           ? 'disabled'
           : 'active',
         createdAt: user.created_at,

@@ -28,3 +28,12 @@ Administrar ativos do site com metadados, papéis de mídia e sincronização de
 ## 4. Inconformidades observadas
 
 - Inconformidade média: em revalidação, manter rotas públicas atualizadas (`/sobre` em vez de `/about` quando aplicável no projeto atual).
+
+## 5. Atualização de estado — 2026-03-08
+
+- A vitrine `Portfolio Showcase` da HOME agora referencia `SITE_ASSET_KEYS.portfolioShowcase` como fonte central para thumbs e vídeo.
+- A auditoria de storage confirmou disponibilidade pública dos três assets de showcase:
+  - `home/showcase/Branding-Project.webp`
+  - `home/showcase/Key-Visual.webp`
+  - `home/showcase/show.video.mp4`
+- O stripe `Websites & Tech` deixou de reaproveitar thumb errada de branding e passou a usar asset dedicado.

@@ -325,7 +325,9 @@ const normalizeLandingBlock = (
   const type = asBlockType(record.type);
   const contentRecord = asRecord(record.content) ?? {};
 
-  const media = asString(contentRecord.media ?? contentRecord.media1 ?? record.src);
+  const media = asString(
+    contentRecord.media ?? contentRecord.media1 ?? record.src
+  );
   const media2 = asString(contentRecord.media2 ?? record.src2);
 
   if (blockNeedsPrimaryMedia(type) && !media) return null;
@@ -341,9 +343,13 @@ const normalizeLandingBlock = (
       textConfig2: normalizeTextConfig(contentRecord.textConfig2),
       media,
       media2,
-      alt: asString(contentRecord.alt ?? contentRecord.alt1 ?? record.alt) ?? fallbackAlt,
+      alt:
+        asString(contentRecord.alt ?? contentRecord.alt1 ?? record.alt) ??
+        fallbackAlt,
       alt2: asString(contentRecord.alt2 ?? record.alt2),
-      poster: asString(contentRecord.poster ?? contentRecord.poster1 ?? record.poster),
+      poster: asString(
+        contentRecord.poster ?? contentRecord.poster1 ?? record.poster
+      ),
       poster2: asString(contentRecord.poster2 ?? record.poster2),
       mediaType: inferMediaType(media, contentRecord.mediaType),
       mediaType2: inferMediaType(media2, contentRecord.mediaType2),
