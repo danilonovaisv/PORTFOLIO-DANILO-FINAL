@@ -1,7 +1,6 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { motion, Variants } from 'framer-motion';
@@ -65,15 +64,14 @@ export default function MobileHeaderBar({
         <div className="flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-16">
           <motion.div variants={itemVariants}>
             <Link href="/" onClick={onLogoClick}>
-              <Image
+              <img
                 src={logoUrl}
                 alt="Danilo Novais — Creative Developer"
-                width={80}
-                height={80}
-                style={{ height: 'clamp(36px, 10vw, 48px)', width: 'auto' }}
-                className="object-contain"
-                priority
-                unoptimized
+                width={124}
+                height={39}
+                className="block h-auto w-[clamp(88px,24vw,124px)] object-contain"
+                loading="eager"
+                decoding="async"
               />
             </Link>
           </motion.div>

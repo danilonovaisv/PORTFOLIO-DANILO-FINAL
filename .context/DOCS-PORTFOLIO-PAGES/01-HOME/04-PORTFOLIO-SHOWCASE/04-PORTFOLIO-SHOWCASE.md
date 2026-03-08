@@ -174,3 +174,10 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 
 - Referência de layout relacionada: `.context/PORTFOLIO-PAGE-LAYOUYT.jpg` (consistência visual).
 - Parallax deve respeitar prefers-reduced-motion e limites de translate para preservar legibilidade.
+
+## 12. Atualização de Estado — 2026-03-08
+
+- `CategoryStripe.tsx` mantém a thumb desktop em frame fixo `288x162` com wrapper arredondado e fundo de contenção.
+- Para imagens estáticas, a mídia da stripe agora usa `object-contain object-center` em vez de `object-cover`, evitando thumbs estouradas ou cortadas no showcase.
+- O wrapper animado da mídia foi reduzido para `h-full`, eliminando a expansão vertical que fazia a thumb ultrapassar o frame durante o hover/parallax.
+- Vídeos continuam em `object-cover`, preservando leitura visual sem alterar o comportamento mobile, onde as thumbs seguem ocultas.

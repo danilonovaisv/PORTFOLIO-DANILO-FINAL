@@ -107,15 +107,15 @@ export default function FeaturedProjectCardFrame({
       <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
       {showLogo ? (
-        <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center px-10">
-          <div className="relative h-[32%] w-[64%] max-h-[140px] max-w-[320px] min-w-[170px]">
+        <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center px-6 sm:px-8 md:px-10">
+          <div className="relative h-[36%] w-[72%] max-h-[176px] max-w-[420px] min-h-[88px] min-w-[180px]">
             <Image
               src={logoSrc}
               alt=""
               aria-hidden="true"
               fill
               sizes="(max-width: 768px) 52vw, 280px"
-              className="object-contain brightness-0 invert opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
+              className="object-contain object-center brightness-0 invert opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
               loading={priority ? 'eager' : 'lazy'}
               priority={priority}
               onError={(event) => {

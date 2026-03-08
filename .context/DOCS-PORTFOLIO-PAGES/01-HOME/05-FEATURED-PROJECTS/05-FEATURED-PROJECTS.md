@@ -225,6 +225,13 @@ duration: 0.7s
   - glow leve no background do card e no CTA em `#8705f2`
 - Demais configurações dos cards permanecem as mesmas
 
+## 4.7 Atualização de Estado — 2026-03-08
+
+- `FeaturedProjectCardFrame.tsx` ampliou a área reservada ao logo central quando o card usa `ANIMATED_BG_INVERTED_LOGO`.
+- O frame interno agora usa proporção e limites maiores (`h-[36%]`, `w-[72%]`, `max-w-[420px]`, `max-h-[176px]`) com `object-contain object-center`.
+- O padding lateral da camada de branding foi recalibrado para evitar recorte em logos horizontais longos dentro dos cards animados.
+- Validação em build (`next start`) confirmou o logo central do card com caixa aproximada de `420x172px`, sem clipping no estado final renderizado.
+
 ## 4.6 Backgrounds Cards
 
 - 1.  Gradiente: `https://reactbits.dev/tools/background-studio?bg=grainient`

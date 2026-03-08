@@ -92,10 +92,10 @@ export function CategoryStripe({
               ease: GHOST_EASE,
             }}
           >
-            <div className="relative w-[288px] aspect-video">
+            <div className="relative w-[288px] aspect-video rounded-lg bg-white/[0.03]">
               <motion.div
                 style={{ y: prefersReducedMotion ? 0 : parallaxY }}
-                className="absolute inset-0 w-full h-[120%]"
+                className="absolute inset-0 w-full h-full"
               >
                 {isVideo ? (
                   <video
@@ -114,7 +114,7 @@ export function CategoryStripe({
                     src={category.thumbnail}
                     alt={title.join(' ')}
                     fill
-                    className="object-cover"
+                    className="object-contain object-center"
                     sizes="288px"
                     loading="lazy"
                     priority={false}
