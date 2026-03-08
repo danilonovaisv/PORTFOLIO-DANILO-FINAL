@@ -23,7 +23,7 @@ module.exports = async function firebaseNextAdapter() {
         await fs.writeFile(
           exportMarkerPath,
           `${JSON.stringify(exportMarker, null, 2)}\n`,
-          'utf8',
+          'utf8'
         );
       }
     },

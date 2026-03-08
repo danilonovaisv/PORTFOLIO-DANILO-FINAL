@@ -141,7 +141,10 @@ const createNextConfig = (phase) => ({
   experimental: {
     ...(phase === PHASE_PRODUCTION_BUILD
       ? {
-          adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
+          adapterPath: path.join(
+            __dirname,
+            'scripts/firebase-next-adapter.cjs'
+          ),
         }
       : {}),
     optimizePackageImports: [

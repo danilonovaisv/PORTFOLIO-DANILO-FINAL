@@ -140,12 +140,13 @@ const getAssetKind = (
   src?: string,
   mediaType?: LandingPageBlock['content']['mediaType']
 ): AssetKind => {
+  const value = src ?? '';
+  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
+
   if (mediaType === 'youtube') return 'youtube';
   if (mediaType === 'video') return 'video';
 
-  const value = src ?? '';
   if (!value) return 'image';
-  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
   if (VIDEO_PATTERN.test(value)) return 'video';
   return 'image';
 };
@@ -589,7 +590,9 @@ export default function ProjectTemplateALPARenderer({
           <motion.section
             key={block.id}
             className="alpa-quote-band w-full px-4 py-20 md:px-8 md:py-32 flex items-center justify-center !ml-0 !mr-0"
-            style={{ backgroundColor: mixHex(bandColor, '#050013', 0.18) }}
+            {...({
+              style: { backgroundColor: mixHex(bandColor, '#050013', 0.18) },
+            } as any)}
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.35 }}
@@ -636,9 +639,11 @@ export default function ProjectTemplateALPARenderer({
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
           <LiquidEther
             colors={etherColors}
-            mouseForce={20}
-            isViscous
-            viscous={30}
+            mouseForce={12}
+            isViscous={false}
+            iterationsPoisson={16}
+            autoSpeed={0.1}
+            autoIntensity={0.8}
             isBounce={false}
             autoDemo
             className="h-full w-full"
@@ -683,7 +688,9 @@ export default function ProjectTemplateALPARenderer({
 
                 <div
                   className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
-                  style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
+                  {...({
+                    style: { color: mixHex(accentColor, '#ffffff', 0.4) },
+                  } as any)}
                 >
                   {project.project_client ? (
                     <span>{project.project_client}</span>

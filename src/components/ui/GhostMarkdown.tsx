@@ -12,7 +12,9 @@ type GhostMarkdownProps = {
 };
 
 function normalizeMarkdownLineBreaks(content: string) {
-  return content.replace(/(?<!\n)\n(?!\n)/g, '  \n');
+  // We avoid lookbehind as it can fail in older browsers and causes issues
+  // Instead, we will rely on CSS `whitespace-pre-wrap` in the bodyClass
+  return content.replace(/\r\n/g, '\n');
 }
 
 function resolveAlignmentClass(textAlign?: TextConfig['textAlign']) {
@@ -41,15 +43,15 @@ export function GhostMarkdown({
 
   const alignClass = resolveAlignmentClass(textConfig?.textAlign);
   const bodyClass = cn(
-    'text-body leading-relaxed text-white/84',
+    'text-body leading-relaxed text-white/84 whitespace-pre-wrap',
     textConfig?.fontSize,
     textConfig?.fontWeight,
     alignClass
   );
-  const headingStyle =
+  const headingProps =
     textConfig?.color && textConfig.color.startsWith('#')
-      ? { color: textConfig.color }
-      : undefined;
+      ? { style: { color: textConfig.color } }
+      : {};
 
   return (
     <div
@@ -71,7 +73,7 @@ export function GhostMarkdown({
                 'text-h1 mb-6 text-balance font-semibold text-white',
                 alignClass
               )}
-              style={headingStyle}
+              {...headingProps}
             >
               {children}
             </h1>
@@ -82,7 +84,7 @@ export function GhostMarkdown({
                 'text-h2 mb-5 text-balance font-semibold text-white',
                 alignClass
               )}
-              style={headingStyle}
+              {...headingProps}
             >
               {children}
             </h2>
@@ -93,7 +95,7 @@ export function GhostMarkdown({
                 'text-h3 mb-4 text-balance font-semibold text-white',
                 alignClass
               )}
-              style={headingStyle}
+              {...headingProps}
             >
               {children}
             </h3>

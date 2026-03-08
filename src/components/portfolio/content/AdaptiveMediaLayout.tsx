@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import { getAssetUrl, isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
+import { getAssetUrl, isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback, ASSET_PLACEHOLDER } from '@/lib/utils';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
@@ -44,7 +44,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
         // Ensure heroMedia is always available in the thumbnails (if valid)
         const resolvedHero = getAssetUrl(heroMedia, { isVideo: isVideo(heroMedia) });
-        if (resolvedHero && !hiddenMedia.has(heroMedia)) {
+        if (resolvedHero && resolvedHero !== ASSET_PLACEHOLDER && !hiddenMedia.has(heroMedia)) {
             list.push(resolvedHero);
         }
 
@@ -54,7 +54,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     const isVidInternal = isVideo(m);
                     const resolved = getAssetUrl(m, { isVideo: isVidInternal });
 
-                    if (!hiddenMedia.has(m) && !list.includes(resolved)) {
+                    if (resolved !== ASSET_PLACEHOLDER && !hiddenMedia.has(m) && !list.includes(resolved)) {
                         list.push(resolved);
                     }
                 }

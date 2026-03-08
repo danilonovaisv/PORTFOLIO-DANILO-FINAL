@@ -313,8 +313,8 @@ importers:
         specifier: ^14.2.6
         version: 14.2.6
       shadcn:
-        specifier: ^4.0.0
-        version: 4.0.0(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3)
+        specifier: ^4.0.1
+        version: 4.0.1(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3)
       tailwindcss:
         specifier: 4.2.1
         version: 4.2.1
@@ -8699,8 +8699,8 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  shadcn@4.0.0:
-    resolution: {integrity: sha512-D3FRsynbtnnIK6P3x0dC1Clez14UoZdOukE46nuuc3R55m0/1awfCm4p1SF14rS+HWVgWOncOWnDyQeZxSW22w==}
+  shadcn@4.0.1:
+    resolution: {integrity: sha512-b7K0SVjpvyn6ObduBjZig96Nl3OrySa2k72IxVE03sJYCxTX4WsH0898R0RiOGrTpbr1UmvP7WwN1bJRl3YnRw==}
     hasBin: true
 
   sharp@0.34.5:
@@ -20226,7 +20226,7 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
-  shadcn@4.0.0(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3):
+  shadcn@4.0.1(@cfworker/json-schema@4.1.1)(@types/node@25.3.5)(typescript@5.9.3):
     dependencies:
       '@antfu/ni': 25.0.0
       '@babel/core': 7.29.0

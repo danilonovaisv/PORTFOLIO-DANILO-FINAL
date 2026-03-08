@@ -161,13 +161,14 @@ const inferMediaType = (
   src?: string,
   fallback?: unknown
 ): LandingPageBlock['content']['mediaType'] => {
+  if (src && YOUTUBE_PATTERN.test(src)) return 'youtube';
+  if (src && VIDEO_FILE_PATTERN.test(src)) return 'video';
+
   if (fallback === 'image' || fallback === 'video' || fallback === 'youtube') {
     return fallback;
   }
 
   if (!src) return undefined;
-  if (YOUTUBE_PATTERN.test(src)) return 'youtube';
-  if (VIDEO_FILE_PATTERN.test(src)) return 'video';
   return 'image';
 };
 
@@ -194,19 +195,6 @@ const normalizeTextConfig = (
     textAlign: asTextAlign(record.textAlign),
   };
 };
-
-const blockNeedsPrimaryMedia = (type: BlockType): boolean =>
-  type === 'image' ||
-  type === 'video' ||
-  type === 'video-autoplay' ||
-  type === 'image-text' ||
-  type === 'text-image' ||
-  type === 'image-image' ||
-  type === 'image-video' ||
-  type === 'video-text';
-
-const blockNeedsSecondaryMedia = (type: BlockType): boolean =>
-  type === 'image-image' || type === 'image-video';
 
 const normalizeAsset = (
   value: unknown,
@@ -330,8 +318,9 @@ const normalizeLandingBlock = (
   );
   const media2 = asString(contentRecord.media2 ?? record.src2);
 
-  if (blockNeedsPrimaryMedia(type) && !media) return null;
-  if (blockNeedsSecondaryMedia(type) && !media2) return null;
+  // We no longer return null here. It caused "desaparecimento do bloco de texto"
+  // if the user forgot or didn't want to add an image yet.
+  // The frontend handles missing media gracefully with `<AssetInteractive>`.
 
   const normalized: LandingPageBlock = {
     id: asString(record.id) ?? `block-${index + 1}`,
