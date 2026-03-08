@@ -9,6 +9,7 @@ import {
   TextAreaField,
 } from '@/components/home/contact/FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
+import { getTurnstileSiteKey } from '@/lib/turnstile';
 import Script from 'next/script';
 
 declare global {
@@ -266,10 +267,7 @@ const ContactForm: React.FC = () => {
             {shouldLoadTurnstile ? (
               <div
                 className="cf-turnstile min-h-[65px]"
-                data-sitekey={
-                  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
-                  '1x00000000000000000000AA'
-                }
+                data-sitekey={getTurnstileSiteKey()}
                 data-callback="onTurnstileSuccess"
               />
             ) : (

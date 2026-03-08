@@ -33,13 +33,21 @@ A área `/admin` é o CMS operacional do portfólio para:
 ### 3.1 Grupo público de autenticação
 
 - `/admin/login`
+- `/admin/reset-password`
+- `/auth/callback`
 
 Comportamento:
 
 - layout próprio com card central e link `← Voltar ao site`
 - metadata com `robots noindex,nofollow`
 - login por email/senha via Supabase Auth
+- login social com Google e GitHub via OAuth
+- envio de magic link para acesso sem senha
+- fluxo de recuperação com `resetPasswordForEmail()` e troca de senha em `/admin/reset-password`
+- callback OAuth/email centralizado em `/auth/callback?next=/admin`
 - após sucesso: `router.refresh()` + redirect hard para dashboard
+- CAPTCHA via Cloudflare Turnstile com fallback para chave pública de produção; não usar chave de teste em deploy
+- URLs de produção padronizadas em `https://portfoliodanilo.com`
 
 ### 3.2 Grupo protegido
 
@@ -218,6 +226,27 @@ Criação/edição (`new`, `[id]`):
 `src/lib/admin/audit.ts`:
 
 - grava eventos em `admin_audit_log`
+
+## 8. Contrato de Auth (estado atual)
+
+### 8.1 Redirects canônicos
+
+- `https://portfoliodanilo.com/auth/callback`
+- `https://portfoliodanilo.com/admin/login`
+- `https://portfoliodanilo.com/admin/reset-password`
+
+### 8.2 Regras operacionais
+
+- `site_url` do Supabase Auth deve permanecer em `https://portfoliodanilo.com`
+- qualquer referência residual a `http://portfoliodanilo.com` deve ser tratada como desvio de configuração
+- `next` no callback é sanitizado para impedir open redirect
+- OAuth e emails de auth retornam sempre para rotas HTTPS autorizadas
+
+### 8.3 Causa raiz corrigida em março/2026
+
+- o frontend publicado estava carregando Turnstile com fallback de chave pública de teste por ausência de `NEXT_PUBLIC_TURNSTILE_SITE_KEY` no build/runtime
+- o Supabase estava com CAPTCHA habilitado e validando contra configuração real; o mismatch gerava falha visual `captcha verification process failed` e retornos `500 unexpected_failure` no fluxo `grant_type=password`
+- o `site_url` do projeto também estava em `http://portfoliodanilo.com`, criando inconsistência entre produção HTTPS e redirects de auth
 - inclui ator, ação, recurso, status, metadados e erros
 - falha de log não bloqueia o fluxo principal
 

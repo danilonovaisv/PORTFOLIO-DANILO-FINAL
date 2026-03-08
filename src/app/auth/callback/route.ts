@@ -1,12 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { buildAbsoluteAuthUrl, sanitizeNextPath } from '@/lib/auth/redirects';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url);
+  const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/admin';
+  const next = sanitizeNextPath(searchParams.get('next'), '/admin');
 
   if (code) {
     const cookieStore = await cookies();
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     if (!supabaseUrl || !supabaseKey) {
       return NextResponse.redirect(
-        `${origin}/admin/login?error=missing_config`
+        buildAbsoluteAuthUrl('/admin/login?error=missing_config')
       );
     }
 
@@ -44,12 +45,12 @@ export async function GET(request: NextRequest) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
+      return NextResponse.redirect(buildAbsoluteAuthUrl(next));
     }
   }
 
   // Something went wrong, redirect to login with error
   return NextResponse.redirect(
-    `${origin}/admin/login?error=auth_callback_failed`
+    buildAbsoluteAuthUrl('/admin/login?error=auth_callback_failed')
   );
 }
