@@ -13,7 +13,7 @@ interface BlockEditorV3Props {
 }
 
 export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
-  const updateContent = (updates: any) => {
+  const updateContent = (updates: Record<string, unknown>) => {
     onChange({
       content: {
         ...block.content,
@@ -22,25 +22,27 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
     });
   };
 
-  /**
-   * Internal helper to bridge LandingPageBlock content to MediaAssetField
-   */
-  const renderMediaField = (label: string, suffix: string = '') => {
-    const mediaKey = suffix ? `media${suffix}` : 'media';
-    const altKey = suffix ? `alt${suffix}` : 'alt';
-    const posterKey = suffix ? `poster${suffix}` : 'poster';
-    const fileKey = suffix ? `file${suffix}` : 'file';
-    const previewKey = suffix ? `previewUrl${suffix}` : 'previewUrl';
+  const renderMediaField = (
+    label: string,
+    options?: { secondary?: boolean; kind?: 'image' | 'video' }
+  ) => {
+    const mediaKey = options?.secondary ? 'media2' : 'media';
+    const altKey = options?.secondary ? 'alt2' : 'alt';
+    const posterKey = options?.secondary ? 'poster2' : 'poster';
+    const mediaTypeKey = options?.secondary ? 'mediaType2' : 'mediaType';
+    const fileKey = options?.secondary ? 'file2' : 'file';
+    const previewKey = options?.secondary ? 'previewUrl2' : 'previewUrl';
+    const kind =
+      options?.kind ??
+      (block.content[mediaTypeKey] === 'video' ? 'video' : 'image');
 
     const value = {
       src: block.content[mediaKey] || '',
       alt: block.content[altKey] || '',
-      kind: block.type.includes('video')
-        ? ('video' as const)
-        : ('image' as const),
+      kind,
       poster: block.content[posterKey] || '',
-      file: block.content[fileKey] || null,
-      previewUrl: block.content[previewKey] || '',
+      file: block[fileKey] || null,
+      previewUrl: block[previewKey] || '',
     };
 
     return (
@@ -48,21 +50,36 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         label={label}
         value={value}
         onChange={(next) => {
-          updateContent({
-            [mediaKey]: next.src,
-            [altKey]: next.alt,
-            [posterKey]: next.poster,
-            [fileKey]: next.file,
-            [previewKey]: next.previewUrl,
+          onChange({
+            [fileKey]: next.file ?? null,
+            [previewKey]: next.previewUrl || '',
+            content: {
+              ...block.content,
+              [mediaKey]: next.src,
+              [altKey]: next.alt,
+              [posterKey]: next.poster,
+              [mediaTypeKey]: next.kind === 'video' ? 'video' : 'image',
+            },
           });
         }}
-        requireAlt={!block.type.includes('video')}
+        requireAlt={kind !== 'video'}
       />
     );
   };
 
   return (
     <div className="p-6 space-y-6">
+      {block.type === 'text' ? (
+        <label className="space-y-1 block">
+          <span className={labelClasses}>Texto</span>
+          <textarea
+            className={`${inputClasses} min-h-40`}
+            value={block.content.text || ''}
+            onChange={(e) => updateContent({ text: e.target.value })}
+          />
+        </label>
+      ) : null}
+
       {block.type === 'quote-band' ? (
         <div className="max-w-3xl mx-auto w-full space-y-6 flex flex-col items-center justify-center">
           <label className="space-y-1 w-full">
@@ -105,13 +122,15 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         </div>
       ) : null}
 
-      {block.type === 'image' && renderMediaField('Imagem Full')}
+      {block.type === 'image' &&
+        renderMediaField('Imagem Full', { kind: 'image' })}
 
       {(block.type === 'video' || block.type === 'video-autoplay') &&
         renderMediaField(
           block.type === 'video-autoplay'
             ? 'Vídeo Autoplay (Loop)'
-            : 'Vídeo Full'
+            : 'Vídeo Full',
+          { kind: 'video' }
         )}
 
       {(block.type === 'image-text' ||
@@ -119,7 +138,8 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         block.type === 'video-text') && (
         <div className="grid gap-4 md:grid-cols-2">
           {renderMediaField(
-            block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)'
+            block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)',
+            { kind: block.type === 'video-text' ? 'video' : 'image' }
           )}
 
           <label className="space-y-1">
@@ -135,10 +155,10 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
       {(block.type === 'image-image' || block.type === 'image-video') && (
         <div className="grid gap-4 md:grid-cols-2">
-          {renderMediaField('Mídia 01', '1')}
+          {renderMediaField('Mídia 01', { kind: 'image' })}
           {renderMediaField(
             block.type === 'image-video' ? 'Mídia 02 (Vídeo)' : 'Mídia 02',
-            '2'
+            { secondary: true, kind: block.type === 'image-video' ? 'video' : 'image' }
           )}
         </div>
       )}

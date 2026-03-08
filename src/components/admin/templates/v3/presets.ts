@@ -8,6 +8,7 @@ import {
 import type { BlockType, LandingPageBlock } from '@/types/landing-page';
 
 export const BASIC_PRESETS = [
+  { type: 'text' as BlockType, label: 'Texto', icon: MessageSquare },
   { type: 'image' as BlockType, label: 'Imagem Full', icon: ImageIcon },
   { type: 'video' as BlockType, label: 'Vídeo Full', icon: Video },
   { type: 'video-autoplay' as BlockType, label: 'Vídeo Autoplay', icon: Video },

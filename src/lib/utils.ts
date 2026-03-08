@@ -2,6 +2,10 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type React from 'react';
 import { SUPABASE_STORAGE_URL } from '@/config/brand';
+import {
+  buildSupabaseStorageUrl,
+  normalizeStoragePath,
+} from '@/lib/supabase/urls';
 
 // --- STYLING UTILS ---
 
@@ -47,23 +51,32 @@ export function getAssetUrl(
   if (!trimmed) return ASSET_PLACEHOLDER;
   if (/^https?:\/\//.test(trimmed)) return trimmed;
 
-  const normalized = normalizePath(trimmed);
+  const normalized = normalizeStoragePath(normalizePath(trimmed)) ?? '';
   if (!normalized) return ASSET_PLACEHOLDER;
 
-  // Ghost Design System v3.1: Use render API for images, object/public for video
-  const restOfPath = normalized; // normalizePath already removes redundant parts
+  const explicitBucketMatch = normalized.match(/^(site-assets|portfolio-media)\/(.+)$/i);
+  const siteAssetPrefixes = ['about/', 'clients/', 'global/', 'home/', 'landing-pages/'];
+  const bucket = explicitBucketMatch
+    ? explicitBucketMatch[1].toLowerCase()
+    : siteAssetPrefixes.some((prefix) => normalized.startsWith(prefix))
+      ? 'site-assets'
+      : 'portfolio-media';
+  const filePath = explicitBucketMatch ? explicitBucketMatch[2] : normalized;
+  const resolved = buildSupabaseStorageUrl(bucket, filePath, options?.isVideo ? undefined : {
+    width: 800,
+    quality: 85,
+  });
 
-  if (options?.isVideo) {
-    return `${SUPABASE_STORAGE_URL}/${restOfPath}`;
+  if (resolved) {
+    return resolved;
   }
 
-  // Supabase image rendering already negotiates modern formats automatically.
-  // Avoid explicit format here because unsupported values break thumbnail URLs.
-  const renderBase = SUPABASE_STORAGE_URL.replace(
-    '/object/public',
-    '/render/image/public'
-  );
-  return `${renderBase}/${restOfPath}?width=800&quality=85`;
+  if (options?.isVideo) {
+    return `${SUPABASE_STORAGE_URL}/${normalized}`;
+  }
+
+  const renderBase = SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public');
+  return `${renderBase}/${normalized}?width=800&quality=85`;
 }
 
 export function applyImageFallback(

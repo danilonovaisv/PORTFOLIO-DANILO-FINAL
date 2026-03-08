@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { uploadSiteAsset } from '@/lib/supabase/storage';
 import {
+  sanitizeMasterV3BlockContent,
   toStoragePath,
   stripMasterDraft,
   stripMasterV2Draft,
@@ -274,7 +275,11 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
   }
 
   const galleryGrid = await Promise.all(
-    nextTemplate.gallery_grid.map(async (block: any) => {
+    nextTemplate.gallery_grid.map(async (rawBlock: any) => {
+      const block = {
+        ...rawBlock,
+        content: sanitizeMasterV3BlockContent(rawBlock.content),
+      };
       let mediaPath = block.content.media;
       let media2Path = block.content.media2;
 
@@ -292,13 +297,22 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
         media2Path = toStoragePath(media2Path);
       }
 
+      const posterPath = block.content.poster
+        ? toStoragePath(block.content.poster)
+        : block.content.poster;
+      const poster2Path = block.content.poster2
+        ? toStoragePath(block.content.poster2)
+        : block.content.poster2;
+
       return {
         ...block,
-        content: {
+        content: sanitizeMasterV3BlockContent({
           ...block.content,
           media: mediaPath,
           media2: media2Path,
-        },
+          poster: posterPath,
+          poster2: poster2Path,
+        }),
         file: null,
         file2: null,
         previewUrl: '',

@@ -1,8 +1,8 @@
 # ADMIN — PROTOTIPO INTERATIVO (AS-BUILT)
 
-Versão: **1.0**  
-Data: **2026-02-09**  
-Status: **Novo documento canônico, sincronizado com código e runtime local (`/admin`)**
+Versão: **1.1**  
+Data: **2026-03-08**  
+Status: **Documento canônico sincronizado com o código, runtime local (`/admin`) e Supabase remoto**
 
 ## 1. Objetivo do módulo
 
@@ -199,8 +199,12 @@ Criação/edição (`new`, `[id]`):
 ### 6.6 Settings/Config
 
 - `/admin/settings`:
-  - sessão atual (email/uid/providers)
   - saúde de credenciais (Supabase URL, chave pública, OpenAI key)
+  - CRUD completo de `admin_tokens`
+  - CRUD completo de usuários ADMIN
+  - teste automático de token OpenAI
+  - mascaramento seguro de segredo
+  - auditoria de alterações via `admin_audit_log`
 - `/admin/config`:
   - redirect para `/admin/settings`
 
@@ -258,6 +262,141 @@ Ações auditadas incluem (exemplos):
 - `landing_page.create/update/delete`
 
 ## 8. Acessibilidade e UX no admin
+
+## 9. Atualização 2026-03-08 — Dashboard ADMIN Audit & Fixes
+
+### 9.1 Home / cards destaque
+
+- causa raiz confirmada: `home_featured.logoPath` era salvo no bucket `portfolio-media`, mas o frontend montava URL pública sem inferir bucket
+- correção aplicada em `src/lib/utils.ts`
+  - `getAssetUrl()` passou a inferir `site-assets` vs `portfolio-media`
+  - logos de `home_featured` agora resolvem corretamente mesmo sem prefixo de bucket
+
+### 9.2 Landing Page V3 / blocos
+
+- causa raiz confirmada:
+  - preset `text` removido de `BASIC_PRESETS`
+  - `BlockEditorV3` salvava campos transitórios (`file`, `previewUrl`, `file1`, `previewUrl1`) dentro de `block.content`
+  - persistência esperava uploads apenas no topo do bloco (`block.file`, `block.file2`) e campos canônicos `media/media2`
+  - leitura posterior ignorava aliases quebrados como `media1`, `alt1`, `poster1`
+- correções aplicadas:
+  - `src/components/admin/templates/v3/presets.ts`: bloco `text` restaurado
+  - `src/components/admin/templates/v3/BlockEditorV3.tsx`
+    - uploads voltaram para `file/file2` no topo do bloco
+    - persistência canônica em `content.media`, `content.media2`, `content.alt`, `content.alt2`, `content.poster`, `content.poster2`
+    - editor explícito para bloco `text`
+  - `src/lib/admin/transformers/landing-page.ts`
+    - sanitização central de blocos V3
+    - remoção de chaves transitórias antes de salvar
+  - `src/lib/admin/services/landing-page-save.ts`
+    - upload e persistência agora usam somente o shape canônico
+  - `src/lib/projects/template-schema.ts`
+    - parser tolera payload legado com `media1/alt1/poster1`
+
+### 9.3 Backfill remoto de landing pages V3
+
+- páginas corrigidas no Supabase remoto:
+  - `dntro`
+  - `glad-manifesto`
+- ação aplicada:
+  - remoção de `file*` e `previewUrl*` persistidos em JSON
+  - conversão de `media1/alt1/poster1` para `media/alt/poster`
+
+### 9.4 Tokens administrativos
+
+- migration aplicada: `supabase/migrations/20260308120000_admin_tokens_and_admin_user_sync.sql`
+- nova tabela: `public.admin_tokens`
+  - campos: `id`, `name`, `provider`, `description`, `secret`, `status`, `environment`, `created_at`, `updated_at`, `created_by`, `updated_by`
+  - RLS: apenas `public.is_admin()`
+  - gatilho `set_updated_at()`
+- compatibilidade:
+  - `site_settings.openai_api_key` continua como fallback legado
+  - backfill automático criou `OpenAI API Key` em `admin_tokens`
+- lookup de runtime:
+  - `src/lib/admin/settings.ts` agora busca `OPENAI_API_KEY` do ambiente
+  - depois consulta `admin_tokens`
+  - por último usa `site_settings.openai_api_key`
+
+### 9.5 Usuários ADMIN
+
+- modelo atual consolidado:
+  - verdade operacional de login: `auth.users.app_metadata.role`
+  - espelho administrativo: `public.admin_users`
+- ajustes aplicados:
+  - backfill de admins existentes do Auth para `public.admin_users`
+  - `/admin/settings` agora permite:
+    - convidar admin por email
+    - promover usuário existente
+    - editar nome/email/role/status
+    - remover acesso ADMIN sem excluir a conta Auth
+  - proteção contra remoção/rebaixamento do último `owner`
+
+### 9.6 Viewer de imagens do modal de post
+
+- causa raiz confirmada:
+  - área principal usava `aspect-video` fixa + `object-cover`
+  - lightbox não tinha navegação anterior/próxima
+- correções aplicadas:
+  - `src/components/portfolio/content/AdaptiveMediaLayout.tsx`
+    - imagem principal passou a usar `object-contain`
+    - preservação do aspect ratio real
+    - preload da imagem vizinha
+  - `src/components/portfolio/ImageLightbox.tsx`
+    - navegação por setas visuais
+    - navegação por teclado (`ArrowLeft`, `ArrowRight`, `Escape`)
+
+### 9.7 Realtime e persistência
+
+- auditoria do código não encontrou um listener V3 dedicado causando corrupção direta
+- a principal causa real de perda de conteúdo era o payload malformado salvo no banco
+- efeito colateral observado pelo usuário:
+  - ao reabrir e editar, o parser descartava chaves não canônicas e “sumia” com mídia/itens
+- estado atual:
+  - leitura e escrita do V3 convergiram para o mesmo contrato JSON
+
+## 10. Contratos canônicos
+
+### 10.1 Shape V3 persistido
+
+Cada bloco salvo em `landing_pages.content.gallery_grid` deve respeitar:
+
+- `id`
+- `type`
+- `content`
+  - `text?`
+  - `text2?`
+  - `textConfig?`
+  - `textConfig2?`
+  - `media?`
+  - `media2?`
+  - `alt?`
+  - `alt2?`
+  - `poster?`
+  - `poster2?`
+  - `mediaType?`
+  - `mediaType2?`
+  - `bandColor?`
+
+Campos proibidos no JSON persistido:
+
+- `file`
+- `file1`
+- `file2`
+- `previewUrl`
+- `previewUrl1`
+- `previewUrl2`
+- `media1`
+- `alt1`
+- `poster1`
+
+### 10.2 Fluxo de persistência V3
+
+1. editor monta estado local com uploads transitórios no topo do bloco
+2. `prepareLandingPageData()` chama `saveMasterTemplateV3()`
+3. uploads vão para `site-assets/landing-pages/<slug>/...`
+4. `sanitizeMasterV3BlockContent()` remove campos transitórios
+5. `stripMasterV3Draft()` serializa apenas o shape canônico
+6. releitura passa por `normalizeMasterTemplateV3()` e retorna o mesmo contrato
 
 Implementado:
 

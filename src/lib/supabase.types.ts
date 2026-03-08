@@ -14,6 +14,48 @@ export type Database = {
   };
   public: {
     Tables: {
+      admin_tokens: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          description: string | null;
+          environment: string;
+          id: string;
+          name: string;
+          provider: string;
+          secret: string;
+          status: string;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          description?: string | null;
+          environment?: string;
+          id?: string;
+          name: string;
+          provider: string;
+          secret: string;
+          status?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          description?: string | null;
+          environment?: string;
+          id?: string;
+          name?: string;
+          provider?: string;
+          secret?: string;
+          status?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [];
+      };
       admin_users: {
         Row: {
           created_at: string;
