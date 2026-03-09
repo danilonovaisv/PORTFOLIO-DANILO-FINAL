@@ -23,6 +23,7 @@ import { useLandingBackLink } from '@/components/projects/templates/useLandingBa
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -96,6 +97,43 @@ type ZoomAsset = {
 
 type ProjectTemplateALPARendererProps = {
   project: MasterProjectTemplateV3Data;
+};
+
+
+type IntroBodyBlock = {
+  type: 'text' | 'video_youtube';
+  value: string;
+  settings: { autoplay: boolean };
+};
+
+const toIntroBodyBlocks = (
+  introBody?: MasterProjectTemplateV3Data['intro_body']
+): IntroBodyBlock[] => {
+  if (!Array.isArray(introBody)) return [];
+
+  return introBody
+    .map((item) => {
+      if (typeof item === 'string') {
+        if (!item.trim()) return null;
+        return { type: 'text' as const, value: item, settings: { autoplay: false } };
+      }
+
+      if (!item || typeof item !== 'object') return null;
+      const block = item as IntroBodyBlock;
+      if (!block.value?.trim()) return null;
+
+      return {
+        type: block.type === 'video_youtube' ? 'video_youtube' : 'text',
+        value: block.value,
+        settings: {
+          autoplay:
+            typeof block.settings?.autoplay === 'boolean'
+              ? block.settings.autoplay
+              : block.type === 'video_youtube',
+        },
+      };
+    })
+    .filter(Boolean) as IntroBodyBlock[];
 };
 
 const getYouTubeId = (url: string): string | null => {
@@ -400,13 +438,20 @@ export default function ProjectTemplateALPARenderer({
   const [zoomAsset, setZoomAsset] = useState<ZoomAsset | null>(null);
   const lastFocusedTriggerRef = useRef<HTMLElement | null>(null);
 
-  const introParagraphs = useMemo(() => {
-    if (project.intro_body && project.intro_body.length > 0) {
-      return project.intro_body;
+  const introBlocks = useMemo(() => {
+    const structured = toIntroBodyBlocks(project.intro_body);
+    if (structured.length > 0) return structured;
+
+    if (project.project_summary?.trim()) {
+      return [
+        {
+          type: 'text' as const,
+          value: project.project_summary,
+          settings: { autoplay: false },
+        },
+      ];
     }
-    if (project.project_summary) {
-      return [project.project_summary];
-    }
+
     return [];
   }, [project.intro_body, project.project_summary]);
 
@@ -725,14 +770,41 @@ export default function ProjectTemplateALPARenderer({
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
                 {project.intro_headline || project.project_title}
               </h2>
-              {introParagraphs.map((paragraph, paragraphIndex) => (
-                <p
-                  key={`intro-${paragraphIndex}`}
-                  className="max-w-3xl text-base leading-relaxed text-white/82 md:text-lg"
-                >
-                  {paragraph}
-                </p>
-              ))}
+              {introBlocks.map((block, paragraphIndex) => {
+                if (block.type === 'video_youtube') {
+                  const videoId = getYouTubeId(block.value);
+                  if (!videoId) return null;
+
+                  const shouldAutoplay = block.settings?.autoplay ?? true;
+                  const autoplayParams = shouldAutoplay
+                    ? 'autoplay=1&mute=1&loop=1'
+                    : 'autoplay=0&mute=1&loop=0';
+
+                  return (
+                    <div
+                      key={`intro-video-${paragraphIndex}`}
+                      className="w-full max-w-3xl overflow-hidden bg-black/40"
+                    >
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videoId}?${autoplayParams}&playlist=${videoId}&playsinline=1&rel=0&modestbranding=1`}
+                        title={`Vídeo do projeto ${project.project_title}`}
+                        className="aspect-video h-full w-full border-0"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  );
+                }
+
+                return (
+                  <GhostMarkdown
+                    key={`intro-md-${paragraphIndex}`}
+                    content={block.value}
+                    className="max-w-3xl"
+                    proseClassName="prose-headings:text-bluePrimary prose-p:text-white/82"
+                  />
+                );
+              })}
             </div>
           </motion.section>
 

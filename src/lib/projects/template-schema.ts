@@ -15,6 +15,7 @@ import {
   type MasterProjectTemplateData,
   type MasterProjectTemplateV2Data,
   type MasterProjectTemplateV3Data,
+  type TemplateV3IntroBlock,
   type MasterProjectV2FeatureItem,
   type MasterProjectV2GalleryItem,
   type ParsedLandingPageContent,
@@ -85,13 +86,64 @@ const asStringArray = (value: unknown): string[] => {
 };
 
 const asIntroParagraphs = (value: unknown): string[] => {
-  if (Array.isArray(value)) return asStringArray(value);
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => {
+        if (typeof item === 'string') return item;
+        const record = asRecord(item);
+        if (!record) return undefined;
+        return asString(record.value);
+      })
+      .filter((item): item is string => Boolean(item));
+  }
+
   const text = asString(value);
   if (!text) return [];
   return text
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean);
+};
+
+const asV3IntroBlocks = (value: unknown): TemplateV3IntroBlock[] | undefined => {
+  if (!Array.isArray(value)) return undefined;
+
+  const blocks = value
+    .map((item) => {
+      if (typeof item === 'string') {
+        const normalized = asString(item);
+        if (!normalized) return null;
+        return {
+          type: 'text' as const,
+          value: normalized,
+          settings: { autoplay: false },
+        };
+      }
+
+      const record = asRecord(item);
+      if (!record) return null;
+
+      const type = record.type === 'video_youtube' ? 'video_youtube' : 'text';
+      const blockValue = asString(record.value);
+      if (!blockValue) return null;
+
+      const settingsRecord = asRecord(record.settings);
+      const autoplaySetting = asBoolean(settingsRecord?.autoplay);
+
+      return {
+        type,
+        value: blockValue,
+        settings: {
+          autoplay:
+            type === 'video_youtube'
+              ? autoplaySetting ?? true
+              : autoplaySetting ?? false,
+        },
+      };
+    })
+    .filter(Boolean) as TemplateV3IntroBlock[];
+
+  return blocks.length > 0 ? blocks : undefined;
 };
 
 const asMediaKind = (value: unknown): 'image' | 'video' =>
@@ -809,7 +861,9 @@ function normalizeMasterTemplateV3(
       asString(record.summary) ??
       defaults.project_summary,
     intro_headline: asString(record.intro_headline) ?? defaults.intro_headline,
-    intro_body: asIntroParagraphs(record.intro_body ?? record.intro_paragraphs),
+    intro_body:
+      asV3IntroBlocks(record.intro_body ?? record.intro_paragraphs) ??
+      asIntroParagraphs(record.intro_body ?? record.intro_paragraphs),
     highlight_color:
       asString(record.highlight_color) ?? defaults.highlight_color,
     theme_color: asString(record.theme_color) ?? defaults.theme_color,
