@@ -208,6 +208,51 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
     }
   };
 
+
+  const normalizeTemplateV3IntroBody = (
+    introBody: MasterProjectTemplateV3Draft['intro_body']
+  ) => {
+    if (!Array.isArray(introBody)) return [];
+
+    return introBody
+      .map((item) => {
+        if (typeof item === 'string') {
+          if (!item.trim()) return null;
+          return {
+            type: 'text' as const,
+            value: item,
+            settings: { autoplay: false },
+          };
+        }
+
+        if (!item || typeof item !== 'object') return null;
+
+        const type = item.type === 'video_youtube' ? 'video_youtube' : 'text';
+        const value = typeof item.value === 'string' ? item.value : '';
+        if (!value.trim()) return null;
+
+        return {
+          type,
+          value,
+          settings: {
+            autoplay:
+              typeof item.settings?.autoplay === 'boolean'
+                ? item.settings.autoplay
+                : type === 'video_youtube',
+          },
+        };
+      })
+      .filter(
+        (
+          item
+        ): item is {
+          type: 'text' | 'video_youtube';
+          value: string;
+          settings: { autoplay: boolean };
+        } => Boolean(item)
+      );
+  };
+
   const handleSave = async () => {
     if (!title || !slug) {
       toast({
@@ -230,7 +275,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         sections,
         masterTemplate,
         masterTemplateV2,
-        masterTemplateV3,
+        masterTemplateV3: {
+          ...masterTemplateV3,
+          intro_body: normalizeTemplateV3IntroBody(masterTemplateV3.intro_body),
+        },
       });
 
       const result = await saveLandingPageAction({

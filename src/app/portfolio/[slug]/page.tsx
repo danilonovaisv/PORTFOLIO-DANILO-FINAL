@@ -23,8 +23,98 @@ import {
   toCanonicalUrl,
 } from '@/lib/seo';
 import RotatingHighlights from '@/components/portfolio/RotatingHighlights';
+import ReactMarkdown from 'react-markdown';
 
 export const dynamic = 'force-dynamic';
+
+
+type PortfolioBodyBlock = {
+  type: 'text' | 'video_youtube';
+  value: string;
+  settings: {
+    autoplay: boolean;
+  };
+};
+
+const extractYoutubeId = (rawValue: string): string | null => {
+  const value = rawValue.trim();
+  if (!value) return null;
+  if (/^[a-zA-Z0-9_-]{11}$/.test(value)) return value;
+
+  const safeUrl = value.startsWith('http') ? value : `https://${value}`;
+
+  try {
+    const parsed = new URL(safeUrl);
+    const host = parsed.hostname.replace(/^www\./, '');
+
+    if (host === 'youtu.be') {
+      const id = parsed.pathname.replace('/', '');
+      return id.length === 11 ? id : null;
+    }
+
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      const byQuery = parsed.searchParams.get('v');
+      if (byQuery?.length === 11) return byQuery;
+
+      const parts = parsed.pathname.split('/').filter(Boolean);
+      const embedIndex = parts.findIndex((part) =>
+        ['embed', 'shorts', 'v'].includes(part)
+      );
+      if (embedIndex >= 0) {
+        const id = parts[embedIndex + 1];
+        return id?.length === 11 ? id : null;
+      }
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+};
+
+const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] => {
+  if (!value?.trim()) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+    if (!Array.isArray(parsed)) {
+      return [{ type: 'text', value, settings: { autoplay: false } }];
+    }
+
+    const blocks = parsed
+      .map((item) => {
+        if (!item || typeof item !== 'object') return null;
+
+        const block = item as {
+          type?: unknown;
+          value?: unknown;
+          settings?: { autoplay?: unknown };
+        };
+
+        if (typeof block.value !== 'string' || !block.value.trim()) return null;
+
+        const type = block.type === 'video_youtube' ? 'video_youtube' : 'text';
+
+        return {
+          type,
+          value: block.value,
+          settings: {
+            autoplay:
+              typeof block.settings?.autoplay === 'boolean'
+                ? block.settings.autoplay
+                : type === 'video_youtube',
+          },
+        };
+      })
+      .filter(Boolean) as PortfolioBodyBlock[];
+
+    return blocks.length > 0
+      ? blocks
+      : [{ type: 'text', value, settings: { autoplay: false } }];
+  } catch {
+    return [{ type: 'text', value, settings: { autoplay: false } }];
+  }
+};
 
 function normalizeSlug(value: string): string {
   return value
@@ -186,6 +276,7 @@ export default async function ProjectPage({ params }: Props) {
       .map((paragraph) => paragraph.trim())
       .filter(Boolean)
     : [];
+  const portfolioBodyBlocks = parsePortfolioBodyBlocks(project.caseBody);
   const highlights = (project.detail?.highlights ?? project.tags ?? [])
     .map((item) => item.trim())
     .filter(Boolean);
@@ -313,7 +404,35 @@ export default async function ProjectPage({ params }: Props) {
       <section className="px-6 md:px-12 pb-32 max-w-5xl mx-auto">
         <div className="prose prose-invert prose-lg md:prose-xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Sobre o projeto</h2>
-          {narrativeParagraphs.length > 0 ? (
+          {portfolioBodyBlocks.length > 0 ? (
+            portfolioBodyBlocks.map((block, index) => {
+              if (block.type === 'video_youtube') {
+                const videoId = extractYoutubeId(block.value);
+                if (!videoId) return null;
+
+                return (
+                  <div key={`${project.id}-video-${index}`} className="aspect-video w-full bg-neutral-900">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}`}
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      className="h-full w-full border-0"
+                      title={`${project.title} video ${index + 1}`}
+                    />
+                  </div>
+                );
+              }
+
+              return (
+                <div
+                  key={`${project.id}-markdown-${index}`}
+                  className="prose prose-invert max-w-none font-figtree prose-headings:text-bluePrimary"
+                >
+                  <ReactMarkdown>{block.value}</ReactMarkdown>
+                </div>
+              );
+            })
+          ) : narrativeParagraphs.length > 0 ? (
             narrativeParagraphs.map((paragraph, index) => (
               <p
                 key={`${project.id}-paragraph-${index}`}
