@@ -69,9 +69,8 @@ export function AboutBeliefs() {
   return (
     <MotionSection
       ref={containerRef}
-      className="relative w-full isolate z-10"
-      data-testid="about-beliefs-section"
-      style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
+      style={{ minHeight: `var(--section-min-height, ${(PHRASES.length + 2) * 100}vh)` }}
+      className="relative w-full isolate z-10 [--section-min-height:550vh] md:[--section-min-height:800vh]"
     >
       <BeliefFixedHeader
         scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
@@ -113,14 +112,14 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 4: Final Text Overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-30">
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-50">
         <BeliefFinalSectionOverlay
           MotionDiv={MotionDiv}
           prefersReducedMotion={prefersReduced}
         />
       </div>
 
-      {/* LAYER 3: Canvas 3D (Soberania absoluta: z-999) - Overlay */}
+      {/* LAYER 3: Canvas 3D (Soberania absoluta: z-30) - Overlay */}
       <div
         className="absolute inset-0 z-30 w-full h-full pointer-events-none"
         aria-hidden
