@@ -84,3 +84,14 @@ Regras:
 - Blocos `text` usam renderização Markdown com tokenização tipográfica existente.
 - Títulos (`h1/h2/h3`) devem respeitar o tom Ghost e, para V3, permanecer compatíveis com `--color-bluePrimary` via classe utilitária (`prose-headings:text-bluePrimary`) nas áreas de conteúdo.
 - Quebras e escapes do markdown são preservados ao salvar/carregar o JSONB (sem perda de barras invertidas e quebras relevantes).
+
+## 8. Atualização de estado — 2026-03-09
+
+- O renderer do Template V3 passou a diferenciar mídia de bloco editorial e mídia "full". Blocos standalone de imagem e vídeo usam `displayMode = full` para respeitar a proporção nativa do asset sem crop.
+- Embeds de YouTube que exigem autoplay agora são montados com `autoplay=1`, `mute=1`, `playsinline=1`, `loop=1` e `playlist=[videoId]`, alinhando o comportamento com a política real dos browsers.
+- Cards/thumbs conectados às landings passaram a aceitar imagem e MP4 de forma nativa, com detecção por tipo de mídia e fallback seguro para assets inválidos.
+- O runtime prioriza capas estruturadas (`project.covers.*`) antes de links legados quebrados como `projects/.../thumb.*` e `projects/.../hero.*`, reduzindo falso positivo de mídia inexistente.
+- Referências operacionais detalhadas:
+  - `20-TASK-01-LANDING-V3-YOUTUBE-AUTOPLAY.md`
+  - `21-TASK-02-LANDING-V3-FULL-IMAGE.md`
+  - `22-TASK-03-THUMBS-MP4.md`

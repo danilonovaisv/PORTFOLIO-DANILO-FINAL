@@ -342,10 +342,7 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     const resize = () => {
       const hostRect = host.getBoundingClientRect();
       const parentRect = parent.getBoundingClientRect();
-      const cssW = Math.max(
-        1,
-        Math.floor(hostRect.width || parentRect.width)
-      );
+      const cssW = Math.max(1, Math.floor(hostRect.width || parentRect.width));
       const cssH = Math.max(
         1,
         Math.floor(hostRect.height || parentRect.height)

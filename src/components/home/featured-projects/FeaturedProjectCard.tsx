@@ -61,9 +61,7 @@ export default function FeaturedProjectCard({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsCardInView(
-          entry.isIntersecting && entry.intersectionRatio > 0.18
-        );
+        setIsCardInView(entry.isIntersecting && entry.intersectionRatio > 0.18);
       },
       { threshold: [0, 0.18, 0.35] }
     );
@@ -89,12 +87,15 @@ export default function FeaturedProjectCard({
     const scheduleRotation = () => {
       clearScheduledRotation();
 
-      timeoutId = window.setTimeout(() => {
-        setResolvedBackgroundVariant((current) =>
-          getNextFeaturedProjectBackgroundVariant(current)
-        );
-        scheduleRotation();
-      }, 6500 + Math.round(Math.random() * 3500));
+      timeoutId = window.setTimeout(
+        () => {
+          setResolvedBackgroundVariant((current) =>
+            getNextFeaturedProjectBackgroundVariant(current)
+          );
+          scheduleRotation();
+        },
+        6500 + Math.round(Math.random() * 3500)
+      );
     };
 
     const handleVisibilityChange = () => {
