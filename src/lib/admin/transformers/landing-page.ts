@@ -76,10 +76,10 @@ export const toMasterDraft = (
   },
   hero_logo_image: value.hero_logo_image
     ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
+      ...value.hero_logo_image,
+      file: null,
+      previewUrl: '',
+    }
     : undefined,
   gallery_grid: value.gallery_grid.map((item) => ({
     ...item,
@@ -100,11 +100,11 @@ export const stripMasterDraft = (
   },
   hero_logo_image: value.hero_logo_image
     ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
+      src: value.hero_logo_image.src,
+      alt: value.hero_logo_image.alt,
+      kind: value.hero_logo_image.kind,
+      poster: value.hero_logo_image.poster,
+    }
     : undefined,
   gallery_grid: value.gallery_grid.map((item) => ({
     id: item.id,
@@ -131,10 +131,10 @@ export const toMasterV2Draft = (
   },
   hero_logo_image: value.hero_logo_image
     ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
+      ...value.hero_logo_image,
+      file: null,
+      previewUrl: '',
+    }
     : undefined,
   gallery_grid: value.gallery_grid.map((item) => ({
     ...item,
@@ -155,11 +155,11 @@ export const stripMasterV2Draft = (
   },
   hero_logo_image: value.hero_logo_image
     ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
+      src: value.hero_logo_image.src,
+      alt: value.hero_logo_image.alt,
+      kind: value.hero_logo_image.kind,
+      poster: value.hero_logo_image.poster,
+    }
     : undefined,
   gallery_grid: value.gallery_grid.map((item) => ({
     id: item.id,
@@ -187,17 +187,17 @@ export const toMasterV3Draft = (
   ...value,
   hero_cover_image: value.hero_cover_image
     ? {
-        ...value.hero_cover_image,
-        file: null,
-        previewUrl: '',
-      }
+      ...value.hero_cover_image,
+      file: null,
+      previewUrl: '',
+    }
     : undefined,
   hero_logo_image: value.hero_logo_image
     ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
+      ...value.hero_logo_image,
+      file: null,
+      previewUrl: '',
+    }
     : undefined,
   gallery_grid: value.gallery_grid.map((block) => ({
     ...block,
@@ -215,23 +215,24 @@ export const stripMasterV3Draft = (
   ...value,
   hero_cover_image: value.hero_cover_image
     ? {
-        src: value.hero_cover_image.src,
-        alt: value.hero_cover_image.alt,
-        kind: value.hero_cover_image.kind,
-        poster: value.hero_cover_image.poster,
-      }
+      src: value.hero_cover_image.src,
+      alt: value.hero_cover_image.alt,
+      kind: value.hero_cover_image.kind,
+      poster: value.hero_cover_image.poster,
+    }
     : undefined,
   hero_logo_image: value.hero_logo_image
     ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
+      src: value.hero_logo_image.src,
+      alt: value.hero_logo_image.alt,
+      kind: value.hero_logo_image.kind,
+      poster: value.hero_logo_image.poster,
+    }
     : undefined,
   gallery_grid: value.gallery_grid.map((block) => ({
     id: block.id,
     type: block.type,
     content: sanitizeMasterV3BlockContent(block.content),
+    order: block.order,
   })),
 });
