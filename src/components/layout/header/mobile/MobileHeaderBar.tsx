@@ -66,7 +66,7 @@ export default function MobileHeaderBar({
             <Link href="/" onClick={onLogoClick}>
               <img
                 src={logoUrl}
-                alt="Danilo Novais — Creative Developer"
+                alt="Danilo Novais — Head de Criação & Diretor de Criação Sênior"
                 width={124}
                 height={39}
                 className="block h-auto w-[clamp(88px,24vw,124px)] object-contain"

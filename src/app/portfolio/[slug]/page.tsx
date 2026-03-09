@@ -208,7 +208,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       project.client,
       project.displayCategory,
       'Danilo Novais',
-      'Creative Developer',
+      'Head de Criação',
     ],
     openGraph: {
       title,

@@ -1,6 +1,6 @@
 'use client';
 
-import { Plus } from 'lucide-react';
+import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   DropdownMenu,
@@ -220,26 +220,32 @@ export default function MasterProjectTemplateV3Editor({
                       {block.type.replace('-', ' & ')}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="flex items-center gap-1">
                     <button
+                      type="button"
                       onClick={() => moveBlock(index, 'up')}
                       disabled={index === 0}
-                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                      aria-label="Mover bloco para cima"
+                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-slate-400 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-20"
                     >
-                      SUBIR
+                      <ChevronUp size={16} />
                     </button>
                     <button
+                      type="button"
                       onClick={() => moveBlock(index, 'down')}
                       disabled={index === value.gallery_grid.length - 1}
-                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                      aria-label="Mover bloco para baixo"
+                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-slate-400 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-20"
                     >
-                      DESCER
+                      <ChevronDown size={16} />
                     </button>
                     <button
+                      type="button"
                       onClick={() => removeBlock(block.id)}
-                      className="rounded p-2 text-red-400 hover:bg-red-500/10"
+                      aria-label="Excluir bloco"
+                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-red-400 transition-colors hover:bg-red-500/10"
                     >
-                      EXCLUIR
+                      <Trash2 size={14} />
                     </button>
                   </div>
                 </header>

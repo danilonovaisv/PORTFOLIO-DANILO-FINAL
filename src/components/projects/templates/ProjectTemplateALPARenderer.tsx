@@ -415,21 +415,41 @@ function AssetInteractive({
   );
 }
 
-function BlockText({
+function BlockTextMd({
   text,
+  textConfig,
   alignClass,
 }: {
   text?: string;
+  textConfig?: import('@/types/landing-page').TextConfig;
   alignClass?: string;
 }) {
   if (!text?.trim()) return null;
 
+  const mergedConfig = textConfig
+    ? {
+        ...textConfig,
+        textAlign:
+          textConfig.textAlign ??
+          ((alignClass?.includes('right')
+            ? 'right'
+            : alignClass?.includes('center')
+              ? 'center'
+              : undefined) as import('@/types/landing-page').TextConfig['textAlign']),
+      }
+    : alignClass?.includes('right')
+      ? { textAlign: 'right' as const }
+      : alignClass?.includes('center')
+        ? { textAlign: 'center' as const }
+        : undefined;
+
   return (
-    <p
-      className={`max-w-3xl whitespace-pre-line text-lg leading-relaxed text-white/86 md:text-xl ${alignClass || 'text-center'}`}
-    >
-      {text}
-    </p>
+    <GhostMarkdown
+      content={text}
+      textConfig={mergedConfig}
+      className="w-full"
+      proseClassName="prose-headings:text-white"
+    />
   );
 }
 
@@ -504,8 +524,11 @@ export default function ProjectTemplateALPARenderer({
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: GHOST_EASE, delay: blockDelay }}
           >
-            <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 text-center">
-              <BlockText text={block.content.text} />
+            <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 text-center">
+              <BlockTextMd
+                text={block.content.text}
+                textConfig={block.content.textConfig}
+              />
             </div>
           </motion.section>
         );
@@ -555,9 +578,10 @@ export default function ProjectTemplateALPARenderer({
                 prefersReducedMotion={prefersReducedMotion}
                 onOpen={openAsset}
               />
-              <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center md:items-start md:text-left">
-                <BlockText
+              <div className="flex w-full flex-col gap-4 text-center md:text-left">
+                <BlockTextMd
                   text={block.content.text}
+                  textConfig={block.content.textConfig}
                   alignClass="text-center md:text-left"
                 />
               </div>
@@ -577,9 +601,10 @@ export default function ProjectTemplateALPARenderer({
             transition={{ duration: 0.6, ease: GHOST_EASE, delay: blockDelay }}
           >
             <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-              <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center md:items-end md:text-right">
-                <BlockText
+              <div className="flex w-full flex-col gap-4 text-center md:text-right">
+                <BlockTextMd
                   text={block.content.text}
+                  textConfig={block.content.textConfig}
                   alignClass="text-center md:text-right"
                 />
               </div>

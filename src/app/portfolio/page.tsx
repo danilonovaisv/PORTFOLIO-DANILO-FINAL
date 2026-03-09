@@ -79,7 +79,7 @@ export async function generateMetadata({
     keywords: [
       'Danilo Novais',
       'Portfólio',
-      'Creative Developer',
+      'Head de Criação',
       ...(metaForCategory?.keywords || ['Branding', 'Motion Design', 'Web Development']),
     ],
     openGraph: {

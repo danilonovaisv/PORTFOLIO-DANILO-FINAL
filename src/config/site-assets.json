@@ -18,14 +18,6 @@
         "updated_at": "2026-03-06 07:01:01.532921+00"
       },
       {
-        "id": "f0774555-65f9-4222-91c3-8d5f215a5313",
-        "key": "home.showcase.webdesigner-2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/webdesigner-2.gif",
-        "file_path": "home/showcase/webdesigner-2.gif",
-        "updated_at": "2026-01-14 20:07:58.064148+00"
-      },
-      {
         "id": "1d64ed44-95d9-4e49-9db7-6eaacc97fb70",
         "key": "projects.key-visual.section-4",
         "bucket": "site-assets",
@@ -122,12 +114,12 @@
         "updated_at": "2026-01-14 08:41:59.898698+00"
       },
       {
-        "id": "14e5a849-778a-41b4-87d8-fff63fc6b9bd",
-        "key": "dntro.ai-video.assets-do-projeto.cover-16x9.post-dntro.4a29c6fed1075c24",
+        "id": "8cc432c1-bbc6-4452-93fe-165f4b3ba85a",
+        "key": "swift.key-vision.assets-do-projeto.cover-16x9.thumb.5b0e14348c108da3",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/cover-16x9/post-dntro.4a29c6fed1075c24.webp",
-        "file_path": "dntro/ai-video/assets-do-projeto/cover-16x9/post-dntro.4a29c6fed1075c24.webp",
-        "updated_at": "2026-03-02 09:17:14.738923+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
+        "file_path": "swift/key-vision/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
+        "updated_at": "2026-03-08 10:19:40.212045+00"
       },
       {
         "id": "ad8aed84-334a-4396-b308-7a6859cc28cd",
@@ -186,20 +178,20 @@
         "updated_at": "2026-02-28 09:06:01.869217+00"
       },
       {
-        "id": "9509ce7f-1e01-4c65-84e8-1625e8bc6711",
-        "key": "dntro.ai-video.assets-do-projeto.cover-1x1.post-dntro2.1b78139bd7912430",
+        "id": "9124ec6a-178e-4af4-9e90-d43de2a871a2",
+        "key": "swift.key-vision.assets-do-projeto.cover-1x1.thumb.5b0e14348c108da3",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/cover-1x1/post-dntro2.1b78139bd7912430.webp",
-        "file_path": "dntro/ai-video/assets-do-projeto/cover-1x1/post-dntro2.1b78139bd7912430.webp",
-        "updated_at": "2026-03-02 09:17:16.621476+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/cover-1x1/thumb.5b0e14348c108da3.mp4",
+        "file_path": "swift/key-vision/assets-do-projeto/cover-1x1/thumb.5b0e14348c108da3.mp4",
+        "updated_at": "2026-03-08 10:19:42.119024+00"
       },
       {
-        "id": "aa5c2684-5138-4325-abc3-f5cf6b721e7a",
-        "key": "dntro.ai-video.assets-do-projeto.home-featured-logo.logo-dntro.37069eae9bc88eef",
+        "id": "8d1a674c-b05f-4b93-887e-5b2967d62e04",
+        "key": "swift.key-vision.assets-do-projeto.gallery.kvs-swift-week.db2ca2c6acdc4bda",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.37069eae9bc88eef.webp",
-        "file_path": "dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.37069eae9bc88eef.webp",
-        "updated_at": "2026-03-02 09:17:17.239281+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/kvs-swift-week.db2ca2c6acdc4bda.webp",
+        "file_path": "swift/key-vision/assets-do-projeto/gallery/kvs-swift-week.db2ca2c6acdc4bda.webp",
+        "updated_at": "2026-03-08 10:19:42.957056+00"
       },
       {
         "id": "b81ea55e-7ac2-4cb1-ac6e-0b93c2e8b40f",
@@ -232,6 +224,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Branding-Project.webp",
         "file_path": "home/showcase/Branding-Project.webp",
         "updated_at": "2026-01-14 20:07:57.062582+00"
+      },
+      {
+        "id": "c759d3c4-0d98-40e3-bb43-20d1ceaf048e",
+        "key": "swift.key-vision.assets-do-projeto.gallery.caixa-week.a28bcda1a214e17e",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/caixa-week.a28bcda1a214e17e.webp",
+        "file_path": "swift/key-vision/assets-do-projeto/gallery/caixa-week.a28bcda1a214e17e.webp",
+        "updated_at": "2026-03-08 10:19:44.215323+00"
       },
       {
         "id": "cb46b77d-05d5-4a7a-9ede-8aa2f795b22e",
@@ -330,20 +330,20 @@
         "updated_at": "2026-01-14 08:17:47.612619+00"
       },
       {
-        "id": "4193959f-52d3-4fe9-bc62-4a4d457011dc",
-        "key": "landing-pages.glad-manifesto.master-v3-cover-5243a5d8-d491-48a4-b4ab-ee75ff067eab",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-cover-5243a5d8-d491-48a4-b4ab-ee75ff067eab.png",
-        "file_path": "landing-pages/glad-manifesto/master-v3-cover-5243a5d8-d491-48a4-b4ab-ee75ff067eab.png",
-        "updated_at": "2026-02-28 09:43:08.734749+00"
-      },
-      {
         "id": "a86499a0-f68f-41f0-a8d1-942c57a70e78",
         "key": "home.showcase.Key-Visual",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Key-Visual.webp",
         "file_path": "home/showcase/Key-Visual.webp",
         "updated_at": "2026-01-14 20:07:57.204927+00"
+      },
+      {
+        "id": "6c05aef9-3b02-4d65-84d1-525c43b5ccec",
+        "key": "swift.key-vision.assets-do-projeto.gallery.mock-week3.f9dd02c40e2acdf3",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/mock-week3.f9dd02c40e2acdf3.webp",
+        "file_path": "swift/key-vision/assets-do-projeto/gallery/mock-week3.f9dd02c40e2acdf3.webp",
+        "updated_at": "2026-03-08 10:19:45.632754+00"
       },
       {
         "id": "bddbc797-1380-4f66-82db-f7c69fea86e3",
@@ -354,20 +354,12 @@
         "updated_at": "2026-02-23 19:24:50.678123+00"
       },
       {
-        "id": "ad7a8ec0-b65b-4c33-9ec2-d350c7193480",
-        "key": "landing-pages.glad-manifesto.master-v3-logo-76e103b9-54ef-4afe-bd2a-858a1d93488a",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-logo-76e103b9-54ef-4afe-bd2a-858a1d93488a.png",
-        "file_path": "landing-pages/glad-manifesto/master-v3-logo-76e103b9-54ef-4afe-bd2a-858a1d93488a.png",
-        "updated_at": "2026-02-28 09:43:09.570141+00"
-      },
-      {
-        "id": "eb8866c6-dfe7-4b59-90b5-5da568fa5523",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-5-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-5-media1.webp",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-5-media1.webp",
-        "updated_at": "2026-02-28 09:43:10.286886+00"
+        "id": "8d96630e-b8ee-41fd-a9ff-bc68a38d60d7",
+        "key": "swift.key-vision.assets-do-projeto.gallery.mock-week2.372fec5ccd7832ad",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
+        "file_path": "swift/key-vision/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
+        "updated_at": "2026-03-08 10:19:46.595279+00"
       },
       {
         "id": "e6304408-e674-4ebf-b5db-a15af4f698fa",
@@ -386,36 +378,12 @@
         "updated_at": "2026-02-23 19:24:51.546142+00"
       },
       {
-        "id": "6f411011-3a92-4651-9577-668bdad82b7f",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-4-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-4-media1.webp",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-4-media1.webp",
-        "updated_at": "2026-02-28 09:43:10.665146+00"
-      },
-      {
         "id": "d4fde9db-e78b-4f9f-8bc8-357571e90b2e",
         "key": "global.CV.Faivcon",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/Faivcon.svg",
         "file_path": "global/CV/Faivcon.svg",
         "updated_at": "2026-03-06 17:29:14.879741+00"
-      },
-      {
-        "id": "19201b8e-1978-4545-83f2-1c4537cdcd33",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-3-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-3-media1.jpeg",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-3-media1.jpeg",
-        "updated_at": "2026-02-28 09:43:10.716245+00"
-      },
-      {
-        "id": "4a1de91c-5d4d-4e57-84fa-351c815faf67",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-5-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-5-media2.jpeg",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-5-media2.jpeg",
-        "updated_at": "2026-02-28 09:43:11.268558+00"
       },
       {
         "id": "6c396a65-5bea-46a3-b4bf-ac27f237db34",
@@ -458,20 +426,20 @@
         "updated_at": "2026-01-14 18:59:39.460374+00"
       },
       {
-        "id": "4d6803fc-a75a-42c2-b8d8-a1672df00859",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-3-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-3-media2.webp",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-3-media2.webp",
-        "updated_at": "2026-02-28 09:43:11.39231+00"
-      },
-      {
         "id": "ad5e909b-1594-4885-b285-8fd24c4e5271",
         "key": "global.CV.CURRICULUM-2026",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/CURRICULUM-2026.html",
         "file_path": "global/CV/CURRICULUM-2026.html",
         "updated_at": "2026-03-06 17:34:28.91625+00"
+      },
+      {
+        "id": "401e7de9-5ff2-4852-afb5-94d293d9bcd6",
+        "key": "swift.key-vision.assets-do-projeto.gallery.11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef.webp",
+        "file_path": "swift/key-vision/assets-do-projeto/gallery/11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef.webp",
+        "updated_at": "2026-03-08 10:19:47.403096+00"
       },
       {
         "id": "85edc6e3-7d48-47d7-aebe-d0ae8f483d46",
@@ -546,28 +514,12 @@
         "updated_at": "2026-01-14 19:56:35.071207+00"
       },
       {
-        "id": "eba2e40c-0105-44c1-aae8-42d48883e6a0",
-        "key": "home.showcase.show.video",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/show.video.mp4",
-        "file_path": "home/showcase/show.video.mp4",
-        "updated_at": "2026-01-14 20:05:56.778327+00"
-      },
-      {
-        "id": "28117ea8-6fb5-4ab1-bd05-801d545f7863",
-        "key": "projects.key-vision.gallery.converted-5-webp",
+        "id": "dd0ef861-c8bb-4275-bbb7-25b44d30beb3",
+        "key": "swift.key-vision.assets-do-projeto.gallery.mock-week.c9185127dde6d861",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/gallery/converted-5-webp.webp",
-        "file_path": "projects/key-vision/gallery/converted-5-webp.webp",
-        "updated_at": "2026-01-14 19:56:35.475491+00"
-      },
-      {
-        "id": "75078f34-af8f-4eed-9472-2f4acda6e4e0",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-cover-0d09136e-60a3-4eca-b289-b68372c68728",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-cover-0d09136e-60a3-4eca-b289-b68372c68728.png",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-cover-0d09136e-60a3-4eca-b289-b68372c68728.png",
-        "updated_at": "2026-02-28 08:45:44.420588+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/mock-week.c9185127dde6d861.webp",
+        "file_path": "swift/key-vision/assets-do-projeto/gallery/mock-week.c9185127dde6d861.webp",
+        "updated_at": "2026-03-08 10:19:49.944734+00"
       },
       {
         "id": "aa54f71c-4351-491c-9d65-b44ab159ed0a",
@@ -650,44 +602,12 @@
         "updated_at": "2026-02-23 19:24:51.921857+00"
       },
       {
-        "id": "a0ae2dcb-00af-4e2f-a3fd-c254b05361cd",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-logo-eefa11fc-2d01-4b42-b288-cebb47a287cc",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-logo-eefa11fc-2d01-4b42-b288-cebb47a287cc.png",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-logo-eefa11fc-2d01-4b42-b288-cebb47a287cc.png",
-        "updated_at": "2026-02-28 08:45:46.232101+00"
-      },
-      {
-        "id": "d6330a79-a320-4e65-8666-e94dac807e39",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-7-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-7-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-7-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.165287+00"
-      },
-      {
-        "id": "7e38fa85-433c-4ad0-ae34-b80a23427d78",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-1-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-1-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-1-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.190294+00"
-      },
-      {
         "id": "e8550421-e338-4d4d-8cee-1b64597084db",
         "key": "projects.key-visual.section-11",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-11.webp",
         "file_path": "projects/key-visual/section-11.webp",
         "updated_at": "2026-01-21 22:59:19.991001+00"
-      },
-      {
-        "id": "9e444af8-30e1-4c10-ac20-1a4a04bf8323",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-3-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-3-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-3-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.413322+00"
       },
       {
         "id": "f7b492e0-fe27-4bd9-8e85-c3a6924cf59e",
@@ -704,14 +624,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-7.webp",
         "file_path": "projects/key-visual/section-7.webp",
         "updated_at": "2026-01-21 23:01:50.186152+00"
-      },
-      {
-        "id": "1c2b19c4-1067-41ff-89fe-c3aa5e3210e8",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-9-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-9-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-9-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.768636+00"
       },
       {
         "id": "69400209-5e62-4ee2-9da4-305195188081",
@@ -736,14 +648,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
         "updated_at": "2026-02-23 19:24:52.065271+00"
-      },
-      {
-        "id": "fceb44ec-c7be-4bd1-942a-ed6e3b7efaac",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-14-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-14-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-14-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.732119+00"
       },
       {
         "id": "070a1d1e-0192-48b1-94a1-9f33d145f847",
@@ -802,44 +706,12 @@
         "updated_at": "2026-01-21 23:01:49.941436+00"
       },
       {
-        "id": "9abd98ce-044a-487a-b0fd-1723e74dc627",
-        "key": "mercado-livre.ai-video-mp.assets-do-projeto.home-featured-logo.mercado-pago-seeklogo.f0166fca8c3ab20d",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/mercado-pago-seeklogo.f0166fca8c3ab20d.png",
-        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/mercado-pago-seeklogo.f0166fca8c3ab20d.png",
-        "updated_at": "2026-03-06 18:07:24.680713+00"
-      },
-      {
-        "id": "e0d0cff9-68ef-4506-90fe-a7a9257bca12",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-13-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-13-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-13-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.842619+00"
-      },
-      {
-        "id": "5a497fcc-4aee-4d7c-b7d9-f66b72d7c7fd",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-5-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-5-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-5-media1.webp",
-        "updated_at": "2026-02-28 08:45:47.860667+00"
-      },
-      {
         "id": "40f1ea9d-805f-4dba-b2f8-ec47642db26b",
         "key": "home.video.manifesto.desk",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.desk.mp4",
         "file_path": "home/video.manifesto.desk.mp4",
         "updated_at": "2026-03-03 01:12:42.930186+00"
-      },
-      {
-        "id": "3ca03782-226a-46da-bb19-ad1a1d271063",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-text-image-11-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-text-image-11-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-text-image-11-media1.webp",
-        "updated_at": "2026-02-28 08:45:48.172235+00"
       },
       {
         "id": "9b26d138-1a37-4076-b832-63e7749bd593",
@@ -850,44 +722,12 @@
         "updated_at": "2026-03-01 06:05:49.151462+00"
       },
       {
-        "id": "84365aa3-e6cb-495a-917b-d67010dcb962",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-10-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-10-media1.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-10-media1.webp",
-        "updated_at": "2026-02-28 08:45:48.570712+00"
-      },
-      {
-        "id": "53309cb0-9eda-4cf6-a6c4-5ece04de6bcc",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-3-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-3-media2.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-3-media2.webp",
-        "updated_at": "2026-02-28 08:45:48.805578+00"
-      },
-      {
         "id": "3cfd9cdf-f29a-4937-bd0f-ba4828a82a02",
         "key": "down-qu-mica.video-manifesto.assets-do-projeto.cover-1x1.thumb-glad.ead956218f26b9c0",
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad.ead956218f26b9c0.webp",
         "file_path": "down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad.ead956218f26b9c0.webp",
         "updated_at": "2026-03-01 06:05:51.808761+00"
-      },
-      {
-        "id": "17c1caf0-c31f-4af3-9d23-d372c5d7b137",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-13-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-13-media2.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-13-media2.webp",
-        "updated_at": "2026-02-28 08:45:49.195075+00"
-      },
-      {
-        "id": "984f22c3-70b4-4b63-aa47-aaf2defd4e7e",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-5-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-5-media2.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-5-media2.webp",
-        "updated_at": "2026-02-28 08:45:49.485585+00"
       },
       {
         "id": "026f8dea-3408-47c7-bc71-4026f4d19bea",
@@ -922,14 +762,6 @@
         "updated_at": "2026-03-03 01:12:43.060145+00"
       },
       {
-        "id": "4b6cfd83-c2f6-4aa4-824c-d274d745ced7",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-14-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-14-media2.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-14-media2.webp",
-        "updated_at": "2026-02-28 08:45:49.903777+00"
-      },
-      {
         "id": "d394778d-3737-40e7-8879-bc0d9394fb0a",
         "key": "mercado-livre.ai-video-mp.assets-do-projeto.gallery.converted-2.4b5634b790dd7202",
         "bucket": "portfolio-media",
@@ -938,12 +770,12 @@
         "updated_at": "2026-03-06 18:07:25.619385+00"
       },
       {
-        "id": "75c5d8bc-1c69-48af-8598-464f3a685290",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-9-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-9-media2.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-9-media2.webp",
-        "updated_at": "2026-02-28 08:45:50.677061+00"
+        "id": "e705b520-da21-4428-9826-74951b9de16e",
+        "key": "assets-prop.og-image",
+        "bucket": "portfolio-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png",
+        "file_path": "assets-prop/og-image.png",
+        "updated_at": "2026-03-09 03:11:10.141916+00"
       },
       {
         "id": "02b78e6d-f5f3-4dc5-b4ff-4751a138d65c",
@@ -960,14 +792,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
         "updated_at": "2026-02-23 19:24:53.011233+00"
-      },
-      {
-        "id": "9376adf6-77ed-4dbd-9359-b3f9123ce749",
-        "key": "landing-pages.hellmanns-parcerias.master-v3-block-image-image-10-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmanns-parcerias/master-v3-block-image-image-10-media2.webp",
-        "file_path": "landing-pages/hellmanns-parcerias/master-v3-block-image-image-10-media2.webp",
-        "updated_at": "2026-02-28 08:45:51.242155+00"
       },
       {
         "id": "cbd0b662-6e33-4be7-b799-abd0ee5a698c",
@@ -1000,22 +824,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/CV Danilo Novais - Completo.pdf",
         "file_path": "global/CV/CV Danilo Novais - Completo.pdf",
         "updated_at": "2026-03-06 20:14:24.932135+00"
-      },
-      {
-        "id": "3aa7acee-1891-465a-b39f-2f243791bc77",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-6-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-6-media1.webp",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-6-media1.webp",
-        "updated_at": "2026-03-02 08:02:58.159908+00"
-      },
-      {
-        "id": "d832feb7-1b09-4cdf-b9d8-d6a32c137575",
-        "key": "landing-pages.glad-manifesto.master-v3-block-image-image-6-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/glad-manifesto/master-v3-block-image-image-6-media2.webp",
-        "file_path": "landing-pages/glad-manifesto/master-v3-block-image-image-6-media2.webp",
-        "updated_at": "2026-03-02 08:02:58.979522+00"
       },
       {
         "id": "f4dbe198-952e-47d1-9efc-80fd039f617b",
@@ -1058,12 +866,36 @@
         "updated_at": "2026-02-23 19:24:53.204717+00"
       },
       {
+        "id": "994b989d-f3cd-4e8f-a0e4-bf8fd8ef49db",
+        "key": "home.showcase.webdesigner-2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/webdesigner-2.gif",
+        "file_path": "home/showcase/webdesigner-2.gif",
+        "updated_at": "2026-03-08 04:36:30.509668+00"
+      },
+      {
         "id": "beb43dfa-7069-4b52-a659-f59f4ad7efb4",
         "key": "landing-pages.key-vision.master-v3-logo-d5944868-3777-47ef-817b-5b824098d593",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
         "file_path": "landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
         "updated_at": "2026-03-02 08:06:15.461882+00"
+      },
+      {
+        "id": "d4ad4c93-983d-4a66-9a28-16cd0296c3b2",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.home-featured-logo.",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/.emptyFolderPlaceholder",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/.emptyFolderPlaceholder",
+        "updated_at": "2026-03-09 04:16:28.46124+00"
+      },
+      {
+        "id": "3bfc5dd9-8648-4e62-801c-f5b74bc189c6",
+        "key": "mercado-livre.ai-video-mp.assets-do-projeto.home-featured-logo.mp-logo.b35db998902eb999",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/mp-logo.b35db998902eb999.png",
+        "file_path": "mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/mp-logo.b35db998902eb999.png",
+        "updated_at": "2026-03-09 04:17:05.195852+00"
       },
       {
         "id": "9203f7cc-1510-43c9-8136-05f62ebff6ff",
@@ -1090,6 +922,22 @@
         "updated_at": "2026-01-28 06:46:01.058864+00"
       },
       {
+        "id": "86f2fc0c-233a-4350-a45a-f251b11181a3",
+        "key": "about.hero.about.hero.desktop",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop.mp4",
+        "file_path": "about/hero/about.hero.desktop.mp4",
+        "updated_at": "2026-03-09 04:32:46.191543+00"
+      },
+      {
+        "id": "4a2f0a1a-2237-4e55-a111-2db11d6e26ff",
+        "key": "about.hero.about.hero.mobile",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile.mp4",
+        "file_path": "about/hero/about.hero.mobile.mp4",
+        "updated_at": "2026-03-09 04:33:01.21076+00"
+      },
+      {
         "id": "c4663d56-c140-4b3f-9268-462490da7417",
         "key": "civic.key-visual.assets-do-projeto.cover-16x9.thumb-honda.c2d0c6ccb21001ea",
         "bucket": "portfolio-media",
@@ -1114,6 +962,14 @@
         "updated_at": "2026-03-02 08:19:08.915122+00"
       },
       {
+        "id": "ca989bf5-68cd-4220-b948-c6f969aedb13",
+        "key": "landing-pages.dntro.master-v3-hero-7de2aa36-f635-426c-bf97-4408de702124",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-hero-7de2aa36-f635-426c-bf97-4408de702124.webp",
+        "file_path": "landing-pages/dntro/master-v3-hero-7de2aa36-f635-426c-bf97-4408de702124.webp",
+        "updated_at": "2026-03-09 05:05:25.830033+00"
+      },
+      {
         "id": "87867a3b-85dd-4225-9ec9-88deab96595b",
         "key": "eudora.eudora.assets-do-projeto.cover-1x1.thumb-1-1.5a12ad6b73a3c927",
         "bucket": "portfolio-media",
@@ -1128,6 +984,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/eudora/eudora/assets-do-projeto/gallery/converted.f48657bf2f860eb0.webp",
         "file_path": "eudora/eudora/assets-do-projeto/gallery/converted.f48657bf2f860eb0.webp",
         "updated_at": "2026-03-07 03:59:31.165771+00"
+      },
+      {
+        "id": "766fde9c-6e80-49ad-9663-a1b248c95c4f",
+        "key": "landing-pages.dntro.master-v3-logo-8b676670-690d-4fa5-b937-e960763cee46",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-logo-8b676670-690d-4fa5-b937-e960763cee46.webp",
+        "file_path": "landing-pages/dntro/master-v3-logo-8b676670-690d-4fa5-b937-e960763cee46.webp",
+        "updated_at": "2026-03-09 05:05:26.437547+00"
       },
       {
         "id": "d6df20d7-c9bb-4e6d-8e94-aaf0e3e19d0b",
@@ -1146,6 +1010,14 @@
         "updated_at": "2026-03-07 03:59:45.376006+00"
       },
       {
+        "id": "9d6f9f6c-69f3-4e13-98e5-47217f304778",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032051989-7-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032051989-7-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032051989-7-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.23804+00"
+      },
+      {
         "id": "849fa756-b6e6-4c0e-ba4c-89df2bc04192",
         "key": "eudora.eudora.assets-do-projeto.gallery.881a00f6-1a3c-414f-9b6e-4d6ffffec3dd.a3de015a60c2a92b",
         "bucket": "portfolio-media",
@@ -1154,36 +1026,44 @@
         "updated_at": "2026-03-07 03:59:53.470503+00"
       },
       {
-        "id": "353dd2d5-30a6-43ad-b0a0-126fdf9efc33",
-        "key": "dolce-gusto.campaign.assets-do-projeto.cover-16x9.converted.ab5a0d2f366f14af",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/converted.ab5a0d2f366f14af.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/cover-16x9/converted.ab5a0d2f366f14af.webp",
-        "updated_at": "2026-03-03 14:32:50.356606+00"
+        "id": "f4bfb1e8-8f97-4858-9ed2-22b9581d0adc",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032336324-12-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032336324-12-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032336324-12-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.532101+00"
       },
       {
-        "id": "85f67826-d6d1-40d3-b226-80088a99649c",
-        "key": "dolce-gusto.campaign.assets-do-projeto.cover-1x1.converted-2.ba95967101ca4223",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-1x1/converted-2.ba95967101ca4223.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/cover-1x1/converted-2.ba95967101ca4223.webp",
-        "updated_at": "2026-03-03 14:32:50.961316+00"
+        "id": "ea5d5bc5-e240-40c2-937e-47b32b0762a6",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773031661873-1-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773031661873-1-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773031661873-1-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.596982+00"
       },
       {
-        "id": "9f442d46-b3b4-4638-888a-d12ae51584ed",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted-2.ba95967101ca4223",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
-        "updated_at": "2026-03-03 14:32:51.67399+00"
+        "id": "a7a38c35-dde6-4928-9452-ebf49bc286bb",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032057757-8-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032057757-8-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032057757-8-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.625492+00"
       },
       {
-        "id": "08a83f0c-ce0f-4a41-84b2-d373c99a0616",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted.ab5a0d2f366f14af",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
-        "updated_at": "2026-03-03 14:32:52.427406+00"
+        "id": "a94940d4-8bdb-4330-8f5e-047966357d4a",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032064170-9-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032064170-9-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032064170-9-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.658634+00"
+      },
+      {
+        "id": "1157f3df-6455-471d-8e69-588882b55383",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773031891765-5-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773031891765-5-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773031891765-5-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.833754+00"
       },
       {
         "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
@@ -1194,54 +1074,6 @@
         "updated_at": "2026-02-20 05:28:27.214163+00"
       },
       {
-        "id": "5ea5cd9c-9a21-4248-87d0-ba9b82665598",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20220123-minime-449-419-desk.0d30169f2fc04991",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
-        "updated_at": "2026-03-03 14:32:53.472389+00"
-      },
-      {
-        "id": "80135f50-5bdb-48da-9897-61b025ed6f6c",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
-        "updated_at": "2026-03-03 14:32:54.552463+00"
-      },
-      {
-        "id": "f7588123-d2d4-4e43-b678-d8dbb9178ecc",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20230126-starbucks-mail-sunny-day-blend.f338916feb907c54",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
-        "updated_at": "2026-03-03 14:32:55.482433+00"
-      },
-      {
-        "id": "c1c81542-e271-4f95-8ff7-b5dbc68fa70d",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.email.96c1cdb4e15f2e33",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
-        "updated_at": "2026-03-03 14:32:56.39273+00"
-      },
-      {
-        "id": "d7319eb1-5a26-4325-9fd0-267dbd39f165",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.post-estatico.e8a28c28ae6dfecd",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
-        "updated_at": "2026-03-03 14:32:57.979219+00"
-      },
-      {
-        "id": "6f30dade-75d5-439e-8392-7b65c56f9598",
-        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.tela-o-de-led.7c90188ca2811448",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/tela-o-de-led.7c90188ca2811448.webp",
-        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/tela-o-de-led.7c90188ca2811448.webp",
-        "updated_at": "2026-03-03 14:32:59.700135+00"
-      },
-      {
         "id": "2d583cfb-d136-4ae6-ab38-64239986ff7d",
         "key": "global.logos.FAVICON-DANILO-APPLE",
         "bucket": "site-assets",
@@ -1250,12 +1082,92 @@
         "updated_at": "2026-02-24 07:47:59.632313+00"
       },
       {
-        "id": "539d447c-b385-42d1-bc75-810b64be11e6",
-        "key": "dntro.ai-video.assets-do-projeto.home-featured-logo.logo-dntro.ad664e2dafa57dc5",
+        "id": "532fdf66-b56a-4e2c-9946-2f72c7104225",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032693158-13-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032693158-13-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032693158-13-m1.webp",
+        "updated_at": "2026-03-09 05:05:27.591009+00"
+      },
+      {
+        "id": "b085ba3b-eddb-472d-9395-b1f9b4be9be9",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032081607-11-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032081607-11-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032081607-11-m1.webp",
+        "updated_at": "2026-03-09 05:05:28.019052+00"
+      },
+      {
+        "id": "53455a63-50a5-441a-b652-256a5f8f7fbb",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032076282-10-m1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032076282-10-m1.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032076282-10-m1.webp",
+        "updated_at": "2026-03-09 05:05:28.985434+00"
+      },
+      {
+        "id": "9ad7e0c9-6a7a-48d0-bf2a-047366afbbc9",
+        "key": "landing-pages.dntro.master-v3-grid-block-1773032081607-11-m2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032081607-11-m2.webp",
+        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032081607-11-m2.webp",
+        "updated_at": "2026-03-09 05:05:29.064591+00"
+      },
+      {
+        "id": "85c2b787-4607-4539-977b-58e458720544",
+        "key": "home.showcase.show.video",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/show.video.mp4",
+        "file_path": "home/showcase/show.video.mp4",
+        "updated_at": "2026-03-08 01:32:07.939178+00"
+      },
+      {
+        "id": "10704306-1e1f-412e-9211-287420f784e1",
+        "key": "dolce-gusto.campaign.assets-do-projeto.cover-16x9.thumb-dg-16-9.8ef92ed37a30b3b2",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.ad664e2dafa57dc5.png",
-        "file_path": "dntro/ai-video/assets-do-projeto/home-featured-logo/logo-dntro.ad664e2dafa57dc5.png",
-        "updated_at": "2026-03-03 16:29:26.832847+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+        "updated_at": "2026-03-08 10:12:10.371677+00"
+      },
+      {
+        "id": "4a398087-4350-4b58-90ad-ef3599b64249",
+        "key": "dolce-gusto.campaign.assets-do-projeto.cover-1x1.thumb-dg-1-1.1e424f3b05e8f5a8",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-1x1/thumb-dg-1-1.1e424f3b05e8f5a8.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/cover-1x1/thumb-dg-1-1.1e424f3b05e8f5a8.webp",
+        "updated_at": "2026-03-08 10:12:12.638464+00"
+      },
+      {
+        "id": "8d697ce4-df68-4013-b7ef-101c2d093ba1",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted-2.ba95967101ca4223",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
+        "updated_at": "2026-03-08 10:12:13.456047+00"
+      },
+      {
+        "id": "04d2ef2a-b73b-4498-b024-95069c68dcb0",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
+        "updated_at": "2026-03-08 10:12:14.625752+00"
+      },
+      {
+        "id": "6da518f2-3e91-41ed-9ce5-3d270eb2ebbf",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.tel-o-de-led.7c90188ca2811448",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/tel-o-de-led.7c90188ca2811448.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/tel-o-de-led.7c90188ca2811448.webp",
+        "updated_at": "2026-03-08 10:12:16.311844+00"
+      },
+      {
+        "id": "d12a3565-fb57-468b-b3d0-882f93503620",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20220123-minime-449-419-desk.0d30169f2fc04991",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
+        "updated_at": "2026-03-08 10:12:17.282924+00"
       },
       {
         "id": "4115da49-8795-4765-b6fb-77c3e7bce9b8",
@@ -1266,12 +1178,36 @@
         "updated_at": "2026-03-02 08:53:28.726915+00"
       },
       {
-        "id": "79e2fa66-d818-461b-927c-ea8070972790",
-        "key": "landing-pages.dntro.master-v3-cover-4c08756b-9594-46ed-a8fd-370935d55b3e",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-cover-4c08756b-9594-46ed-a8fd-370935d55b3e.webp",
-        "file_path": "landing-pages/dntro/master-v3-cover-4c08756b-9594-46ed-a8fd-370935d55b3e.webp",
-        "updated_at": "2026-03-02 09:13:22.271473+00"
+        "id": "21d55e04-6577-4dc2-84c2-15e8dae46781",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.20230126-starbucks-mail-sunny-day-blend.f338916feb907c54",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
+        "updated_at": "2026-03-08 10:12:18.301689+00"
+      },
+      {
+        "id": "7f2fa7c6-80ec-41b8-bc9a-81c0ebaf3678",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted.ab5a0d2f366f14af",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
+        "updated_at": "2026-03-08 10:12:19.107399+00"
+      },
+      {
+        "id": "1004991d-bae0-4f62-9230-162a7abf4b06",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.post-estatico.e8a28c28ae6dfecd",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
+        "updated_at": "2026-03-08 10:12:20.625072+00"
+      },
+      {
+        "id": "4e18b77a-6fe4-4b92-88dd-0bb902357568",
+        "key": "dolce-gusto.campaign.assets-do-projeto.gallery.email.96c1cdb4e15f2e33",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
+        "file_path": "dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
+        "updated_at": "2026-03-08 10:12:21.650137+00"
       },
       {
         "id": "36934dc4-b57a-4f06-b6ac-2e2d005c0aea",
@@ -1280,110 +1216,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/LogoDark.webp",
         "file_path": "global/logos/LogoDark.webp",
         "updated_at": "2026-03-06 06:06:16.831917+00"
-      },
-      {
-        "id": "e0111bcd-c6e6-4aca-80ad-e77417e5d5ee",
-        "key": "landing-pages.dntro.master-v3-logo-c87eac2f-c2d1-49b7-b743-302b7f6af7d2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-logo-c87eac2f-c2d1-49b7-b743-302b7f6af7d2.webp",
-        "file_path": "landing-pages/dntro/master-v3-logo-c87eac2f-c2d1-49b7-b743-302b7f6af7d2.webp",
-        "updated_at": "2026-03-02 09:13:22.932036+00"
-      },
-      {
-        "id": "0670ad5f-b084-46dc-b37f-034325aeb266",
-        "key": "landing-pages.dntro.master-v3-block-image-image-8-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-8-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-image-8-media1.webp",
-        "updated_at": "2026-03-02 09:13:23.792079+00"
-      },
-      {
-        "id": "4fc6dbbc-bcfd-4d11-911a-a58555a777b3",
-        "key": "landing-pages.dntro.master-v3-block-image-video-6-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-6-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-video-6-media1.webp",
-        "updated_at": "2026-03-02 09:13:24.151457+00"
-      },
-      {
-        "id": "d81ea6aa-4726-41d6-91df-c654edd6ce29",
-        "key": "landing-pages.dntro.master-v3-block-text-image-2-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-text-image-2-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-text-image-2-media1.webp",
-        "updated_at": "2026-03-02 09:13:24.266775+00"
-      },
-      {
-        "id": "16714823-8a7e-4cb9-9de4-4b27e46aa99e",
-        "key": "landing-pages.dntro.master-v3-block-image-video-8-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-8-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-video-8-media1.webp",
-        "updated_at": "2026-03-02 09:13:24.64037+00"
-      },
-      {
-        "id": "63994ed8-8dd5-42bd-821f-aa40d0e95617",
-        "key": "landing-pages.dntro.master-v3-block-image-video-9-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-9-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-video-9-media1.webp",
-        "updated_at": "2026-03-02 09:13:24.723866+00"
-      },
-      {
-        "id": "f28e838e-95e7-4665-bf26-c0b373b0c3d0",
-        "key": "landing-pages.dntro.master-v3-block-image-11-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-11-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-11-media1.webp",
-        "updated_at": "2026-03-02 09:13:24.797837+00"
-      },
-      {
-        "id": "dd224853-0aa3-4f46-a523-50b8ea1fddb1",
-        "key": "landing-pages.dntro.master-v3-block-image-image-10-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-10-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-image-10-media1.webp",
-        "updated_at": "2026-03-02 09:13:24.957034+00"
-      },
-      {
-        "id": "4811b036-5f61-484f-9d61-8abf984e5f8b",
-        "key": "landing-pages.dntro.master-v3-block-image-video-7-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-video-7-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-video-7-media1.webp",
-        "updated_at": "2026-03-02 09:13:25.000148+00"
-      },
-      {
-        "id": "16ccdd22-cced-4276-b3b7-2b778d3af618",
-        "key": "landing-pages.dntro.master-v3-block-image-image-3-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-3-media1.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-image-3-media1.webp",
-        "updated_at": "2026-03-02 09:13:25.036627+00"
-      },
-      {
-        "id": "8dc4ff81-0065-410a-a623-2d8c125385ce",
-        "key": "landing-pages.dntro.master-v3-block-image-image-3-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-3-media2.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-image-3-media2.webp",
-        "updated_at": "2026-03-02 09:13:26.007037+00"
-      },
-      {
-        "id": "bff18731-8dfd-49fd-a922-855b2a6db9fb",
-        "key": "landing-pages.dntro.master-v3-block-image-image-10-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-block-image-image-10-media2.webp",
-        "file_path": "landing-pages/dntro/master-v3-block-image-image-10-media2.webp",
-        "updated_at": "2026-03-02 09:13:26.611539+00"
-      },
-      {
-        "id": "32d7baa2-7280-406d-86bd-1ca59fbc58a1",
-        "key": "about.hero.about.hero.mobile_video",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile_video.mp4",
-        "file_path": "about/hero/about.hero.mobile_video.mp4",
-        "updated_at": "2026-02-26 13:15:55.891138+00"
       },
       {
         "id": "cc0f1155-28bb-465b-abba-a9cc4fa2005e",
@@ -1408,14 +1240,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4",
         "file_path": "portfolio/hero/portfolio.hero_mobile_video.mp4",
         "updated_at": "2026-02-26 13:17:13.889125+00"
-      },
-      {
-        "id": "66822369-b8e8-4c5d-a65e-b03592f859ca",
-        "key": "about.hero.about.hero.desktop_video",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop_video.mp4",
-        "file_path": "about/hero/about.hero.desktop_video.mp4",
-        "updated_at": "2026-02-26 13:15:56.10581+00"
       },
       {
         "id": "0df74dc4-c48a-42d3-abdb-6018c06e00db",

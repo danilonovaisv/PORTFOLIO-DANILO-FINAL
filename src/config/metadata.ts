@@ -11,15 +11,16 @@ export const siteMetadata: Metadata = {
   metadataBase: new URL(`https://portfoliodanilo.com`),
 
   title: {
-    default: 'Danilo Novais | Creative Developer',
-    template: '%s | Danilo Novais | Creative Developer',
+    default: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
+    template: '%s | Danilo Novais',
   },
 
   description:
-    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais.',
+    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
 
   keywords: [
-    'Creative Developer',
+    'Head de Criação',
+    'Diretor de Criação',
     'Creative Development',
     'Creative technologist',
     'Design System',
@@ -53,24 +54,24 @@ export const siteMetadata: Metadata = {
     locale: 'pt_BR',
     url: 'https://portfoliodanilo.com',
     siteName: 'Danilo Novais',
-    title: 'Danilo Novais | Creative Developer',
+    title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
-      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais.',
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     images: [
       {
         url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Danilo Novais | Creative Developer',
+        alt: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Danilo Novais | Creative Developer',
+    title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
-      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais.',
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     images: [
       'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png',
     ],

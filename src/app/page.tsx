@@ -33,13 +33,15 @@ import {
 } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: normalizeMetaTitle('Danilo Novais | Creative Developer'),
+  title: normalizeMetaTitle(
+    'Danilo Novais | Head de Criação & Diretor de Criação Sênior'
+  ),
   description: normalizeMetaDescription(
-    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais - Creative Developer especializado em WebGL, R3F, Next.js e experiências digitais interativas.'
+    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.'
   ),
   keywords: [
     'Danilo Novais',
-    'Creative Developer',
+    'Head de Criação',
     'WebGL',
     'R3F',
     'React Three Fiber',
@@ -50,9 +52,9 @@ export const metadata: Metadata = {
     'Interactive Design',
   ],
   openGraph: {
-    title: 'Danilo Novais | Creative Developer',
+    title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
-      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais.',
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     url: toCanonicalUrl('/'),
     siteName: BRAND.name,
     images: [
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Danilo Novais | Creative Developer Portfolio',
+        alt: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
       },
     ],
     locale: 'pt_BR',
@@ -68,8 +70,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Danilo Novais | Creative Developer',
-    description: 'Você não vê o design. Mas ele vê você.',
+    title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
+    description:
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     images: ['/opengraph-image'],
   },
   alternates: {
