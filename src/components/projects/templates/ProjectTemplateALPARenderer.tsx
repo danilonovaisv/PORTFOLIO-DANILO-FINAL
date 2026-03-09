@@ -99,7 +99,6 @@ type ProjectTemplateALPARendererProps = {
   project: MasterProjectTemplateV3Data;
 };
 
-
 type IntroBodyBlock = {
   type: 'text' | 'video_youtube';
   value: string;
@@ -115,7 +114,11 @@ const toIntroBodyBlocks = (
     .map((item) => {
       if (typeof item === 'string') {
         if (!item.trim()) return null;
-        return { type: 'text' as const, value: item, settings: { autoplay: false } };
+        return {
+          type: 'text' as const,
+          value: item,
+          settings: { autoplay: false },
+        };
       }
 
       if (!item || typeof item !== 'object') return null;

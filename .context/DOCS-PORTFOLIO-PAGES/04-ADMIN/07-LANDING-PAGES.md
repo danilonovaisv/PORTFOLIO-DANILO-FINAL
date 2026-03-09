@@ -39,6 +39,7 @@ Gerenciar páginas detalhadas de projetos (`/projects/[slug]`) com templates ver
 - A serialização do Template V3 continua saneando `media/media2/poster`, mas agora não força URL de YouTube a cair no fluxo de imagem comum.
 - O CTA de retorno das landings foi reduzido para `voltar` e duplicado no fechamento dos templates (`legacy`, `master`, `master-v2`, `master-v3`) com variante compacta.
 - `LiquidEther` teve o auto motion desacelerado (`autoSpeed` menor) e takeover mais curto para responder mais rápido a mouse/touch sem competir com o conteúdo.
+- **Correção Template V3 Markdown & YouTube:** Foi substituído o uso de `splitLines` por `splitBlocks` (`\n\n`) nos campos de intro para preservar quebras de linha e estrutura do Markdown. Atualizamos também o `parsePortfolioBodyBlocks` (`[slug]/page.tsx`) com um parser resiliente para interagir com blocos de forma mais autônoma. Títulos em `GhostMarkdown` não forçam mais a cor branca para aceitar classes do Design System como `--color-bluePrimary`.
 
 ---
 
@@ -66,6 +67,7 @@ No campo `intro_body`, o formato suportado e normalizado passa a ser:
 ```
 
 Regras:
+
 - `type`: `text` ou `video_youtube`.
 - `value`: string obrigatória.
 - `settings.autoplay`: boolean opcional (default `true` para `video_youtube` e `false` para `text`).

@@ -22,14 +22,21 @@
       "recommendation": "Adopt hashed or versioned filenames for immutable cache safety.",
       "auto_fixable": false,
       "evidence": {
-        "files": ["public/site.assets/3d/ghost.glb"],
-        "snippets": ["count=1"]
+        "files": [
+          "public/site.assets/3d/ghost.glb"
+        ],
+        "snippets": [
+          "count=1"
+        ]
       }
     }
   ],
   "applied_fixes": [],
   "meta": {
-    "public_buckets_detected": ["portfolio-media", "site-assets"],
+    "public_buckets_detected": [
+      "portfolio-media",
+      "site-assets"
+    ],
     "unexpected_public_buckets": [],
     "storage_policy_operations": [
       "all",

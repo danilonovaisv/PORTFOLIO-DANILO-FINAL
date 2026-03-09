@@ -78,12 +78,23 @@ const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] =
   try {
     const parsed = JSON.parse(value);
     if (!Array.isArray(parsed)) {
-      return [{ type: 'text', value, settings: { autoplay: false } }];
+      const isYoutube = extractYoutubeId(value);
+      return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
     }
 
     const blocks = parsed
       .map((item) => {
-        if (!item || typeof item !== 'object') return null;
+        if (!item || typeof item !== 'object') {
+          if (typeof item === 'string' && item.trim()) {
+            const isYoutube = extractYoutubeId(item);
+            return {
+              type: isYoutube ? 'video_youtube' : 'text',
+              value: item,
+              settings: { autoplay: !!isYoutube },
+            };
+          }
+          return null;
+        }
 
         const block = item as {
           type?: unknown;
@@ -93,7 +104,8 @@ const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] =
 
         if (typeof block.value !== 'string' || !block.value.trim()) return null;
 
-        const type = block.type === 'video_youtube' ? 'video_youtube' : 'text';
+        const isYoutube = extractYoutubeId(block.value);
+        const type = block.type === 'video_youtube' || isYoutube ? 'video_youtube' : 'text';
 
         return {
           type,
@@ -108,11 +120,13 @@ const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] =
       })
       .filter(Boolean) as PortfolioBodyBlock[];
 
-    return blocks.length > 0
-      ? blocks
-      : [{ type: 'text', value, settings: { autoplay: false } }];
+    if (blocks.length > 0) return blocks;
+
+    const isYoutube = extractYoutubeId(value);
+    return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
   } catch {
-    return [{ type: 'text', value, settings: { autoplay: false } }];
+    const isYoutube = extractYoutubeId(value);
+    return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
   }
 };
 

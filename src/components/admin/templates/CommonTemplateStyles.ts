@@ -15,3 +15,9 @@ export const splitLines = (value: string): string[] =>
     .split('\n')
     .map((item) => item.trim())
     .filter(Boolean);
+
+export const splitBlocks = (value: string): string[] =>
+  value
+    .split(/\n\s*\n/)
+    .map((item) => item.trim())
+    .filter(Boolean);

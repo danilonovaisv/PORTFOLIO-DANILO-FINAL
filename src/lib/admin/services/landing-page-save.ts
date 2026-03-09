@@ -246,7 +246,6 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
   return { coverPath: heroCoverSrc, content: cleanTemplate };
 }
 
-
 function normalizeTemplateV3IntroBody(introBody: unknown) {
   if (!Array.isArray(introBody)) return [];
 
@@ -286,8 +285,14 @@ function normalizeTemplateV3IntroBody(introBody: unknown) {
         settings: { autoplay },
       };
     })
-    .filter((item): item is { type: 'text' | 'video_youtube'; value: string; settings: { autoplay: boolean } } =>
-      Boolean(item)
+    .filter(
+      (
+        item
+      ): item is {
+        type: 'text' | 'video_youtube';
+        value: string;
+        settings: { autoplay: boolean };
+      } => Boolean(item)
     );
 }
 

@@ -208,7 +208,6 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
     }
   };
 
-
   const normalizeTemplateV3IntroBody = (
     introBody: MasterProjectTemplateV3Draft['intro_body']
   ) => {

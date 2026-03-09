@@ -105,7 +105,9 @@ const asIntroParagraphs = (value: unknown): string[] => {
     .filter(Boolean);
 };
 
-const asV3IntroBlocks = (value: unknown): TemplateV3IntroBlock[] | undefined => {
+const asV3IntroBlocks = (
+  value: unknown
+): TemplateV3IntroBlock[] | undefined => {
   if (!Array.isArray(value)) return undefined;
 
   const blocks = value
@@ -136,8 +138,8 @@ const asV3IntroBlocks = (value: unknown): TemplateV3IntroBlock[] | undefined => 
         settings: {
           autoplay:
             type === 'video_youtube'
-              ? autoplaySetting ?? true
-              : autoplaySetting ?? false,
+              ? (autoplaySetting ?? true)
+              : (autoplaySetting ?? false),
         },
       };
     })

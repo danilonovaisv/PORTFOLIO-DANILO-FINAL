@@ -81,7 +81,7 @@ export function CategoryStripe({
           )}
         >
           <motion.div
-            className="relative overflow-hidden rounded-lg shrink-0"
+            className="relative overflow-hidden rounded-lg shrink-0 h-[162px]"
             initial={false}
             animate={{
               width: isHovered ? 288 : 0,
@@ -92,10 +92,10 @@ export function CategoryStripe({
               ease: GHOST_EASE,
             }}
           >
-            <div className="relative w-[288px] aspect-video rounded-lg bg-white/[0.03]">
+            <div className="relative w-[288px] h-full rounded-lg bg-[#0a0f1c] overflow-hidden">
               <motion.div
                 style={{ y: prefersReducedMotion ? 0 : parallaxY }}
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 w-full h-[120%] -top-[10%]"
               >
                 {isVideo ? (
                   <video
@@ -114,7 +114,7 @@ export function CategoryStripe({
                     src={category.thumbnail}
                     alt={title.join(' ')}
                     fill
-                    className="object-contain object-center"
+                    className="object-cover object-center"
                     sizes="288px"
                     loading="lazy"
                     priority={false}
