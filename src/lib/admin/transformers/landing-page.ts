@@ -199,9 +199,10 @@ export const toMasterV3Draft = (
         previewUrl: '',
       }
     : undefined,
-  gallery_grid: value.gallery_grid.map((block) => ({
+  gallery_grid: value.gallery_grid.map((block, index) => ({
     ...block,
     content: sanitizeMasterV3BlockContent(block.content),
+    order: block.order ?? index,
     file: null,
     file2: null,
     previewUrl: '',
@@ -229,10 +230,10 @@ export const stripMasterV3Draft = (
         poster: value.hero_logo_image.poster,
       }
     : undefined,
-  gallery_grid: value.gallery_grid.map((block) => ({
+  gallery_grid: value.gallery_grid.map((block, index) => ({
     id: block.id,
     type: block.type,
     content: sanitizeMasterV3BlockContent(block.content),
-    order: block.order,
+    order: block.order ?? index,
   })),
 });

@@ -45,21 +45,31 @@ export default function MasterProjectTemplateV3Editor({
   value,
   onChange,
 }: MasterProjectTemplateV3EditorProps) {
+  const reindexBlocks = (blocks: LandingPageBlock[]) =>
+    blocks.map((block, index) => ({
+      ...block,
+      order: index,
+    }));
+
   const update = (updates: Partial<MasterProjectTemplateV3Draft>) => {
     onChange({ ...value, ...updates });
   };
 
   const updateBlock = (id: string, updates: Partial<LandingPageBlock>) => {
     update({
-      gallery_grid: value.gallery_grid.map((block) =>
-        block.id === id ? { ...block, ...updates } : block
+      gallery_grid: reindexBlocks(
+        value.gallery_grid.map((block) =>
+          block.id === id ? { ...block, ...updates } : block
+        )
       ),
     });
   };
 
   const removeBlock = (id: string) => {
     update({
-      gallery_grid: value.gallery_grid.filter((block) => block.id !== id),
+      gallery_grid: reindexBlocks(
+        value.gallery_grid.filter((block) => block.id !== id)
+      ),
     });
   };
 
@@ -68,15 +78,15 @@ export default function MasterProjectTemplateV3Editor({
     if (target < 0 || target >= value.gallery_grid.length) return;
     const next = [...value.gallery_grid];
     [next[index], next[target]] = [next[target], next[index]];
-    update({ gallery_grid: next });
+    update({ gallery_grid: reindexBlocks(next) });
   };
 
   const addBlock = (type: BlockType) => {
     update({
-      gallery_grid: [
+      gallery_grid: reindexBlocks([
         ...value.gallery_grid,
         createBlockDraft(type, value.gallery_grid.length),
-      ],
+      ]),
     });
   };
 
@@ -206,9 +216,9 @@ export default function MasterProjectTemplateV3Editor({
               <motion.div
                 key={block.id}
                 layout
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                exit={{ opacity: 0, y: 12 }}
                 className="group relative overflow-hidden rounded-xl border border-white/5 bg-slate-900/20 transition-all hover:border-blue-500/20"
               >
                 <header className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-3">

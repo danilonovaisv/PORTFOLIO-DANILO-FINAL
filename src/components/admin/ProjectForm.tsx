@@ -15,6 +15,7 @@ import {
 } from '@/components/admin/GalleryManager';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { upsertTagAction } from '@/app/admin/(protected)/tags/actions';
+import { upsertProjectAction } from '@/app/admin/(protected)/trabalhos/actions';
 import {
   PROJECT_TYPE_OPTIONS,
   projectFormSchema,
@@ -293,12 +294,6 @@ export function ProjectForm({
 
         // Collect Tag IDs
         const selectedTagIds = form.watch('tags') || [];
-
-        // Server Action Call
-        // Dynamic import to avoid cycles or ensure correct loading if necessary,
-        // but standard import is preferred. I'll add the import at the top later.
-        const { upsertProjectAction } =
-          await import('@/app/admin/(protected)/trabalhos/actions');
 
         const result = await upsertProjectAction({
           id: project?.id,
