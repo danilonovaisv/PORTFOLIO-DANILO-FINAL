@@ -69,7 +69,9 @@ export function AboutBeliefs() {
   return (
     <MotionSection
       ref={containerRef}
-      style={{ minHeight: `var(--section-min-height, ${(PHRASES.length + 2) * 100}vh)` }}
+      style={{
+        minHeight: `var(--section-min-height, ${(PHRASES.length + 2) * 100}vh)`,
+      }}
       className="relative w-full isolate z-10 [--section-min-height:550vh] md:[--section-min-height:800vh]"
     >
       <BeliefFixedHeader

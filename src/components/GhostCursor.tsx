@@ -245,6 +245,7 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     const host = containerRef.current;
     const parent = host?.parentElement;
     if (!host || !parent) return;
+    const grandParent = parent.parentElement;
 
     const prevParentPos = parent.style.position;
     if (!prevParentPos || prevParentPos === 'static') {
@@ -339,9 +340,16 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     composer.addPass(UnpremultiplyPass);
 
     const resize = () => {
-      const rect = host.getBoundingClientRect();
-      const cssW = Math.max(1, Math.floor(rect.width));
-      const cssH = Math.max(1, Math.floor(rect.height));
+      const hostRect = host.getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+      const cssW = Math.max(
+        1,
+        Math.floor(hostRect.width || parentRect.width)
+      );
+      const cssH = Math.max(
+        1,
+        Math.floor(hostRect.height || parentRect.height)
+      );
 
       const currentDPR = Math.min(
         typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
@@ -375,6 +383,12 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     resizeObsRef.current = ro;
     ro.observe(parent);
     ro.observe(host);
+    if (grandParent instanceof HTMLElement) {
+      ro.observe(grandParent);
+    }
+
+    const deferredResizeId = window.requestAnimationFrame(resize);
+    const timeoutResizeId = window.setTimeout(resize, 120);
 
     const start =
       typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -472,6 +486,8 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     ensureLoop();
 
     return () => {
+      window.cancelAnimationFrame(deferredResizeId);
+      window.clearTimeout(timeoutResizeId);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       runningRef.current = false;
       rafRef.current = null;
@@ -559,7 +575,7 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none absolute inset-0 ${className ?? ''}`}
+      className={`pointer-events-none absolute inset-0 h-full w-full ${className ?? ''}`}
       style={mergedStyle}
     />
   );

@@ -63,10 +63,11 @@ export default function AboutMethod() {
             muted
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-            className={`w-full h-full ${isMobile
+            className={`w-full h-full ${
+              isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-center opacity-55'
-              }`}
+            }`}
             aria-hidden="true"
           >
             <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />

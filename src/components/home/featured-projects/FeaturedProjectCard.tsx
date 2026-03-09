@@ -7,11 +7,11 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import FeaturedProjectCardFrame from '@/components/home/featured-projects/FeaturedProjectCardFrame';
 import {
-  getRandomFeaturedProjectBackgroundVariant,
+  getNextFeaturedProjectBackgroundVariant,
   type FeaturedProjectBackgroundVariant,
 } from '@/components/home/featured-projects/animated-backgrounds';
+import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
 import type { PortfolioProject } from '@/types/project';
-import { isVideo } from '@/lib/utils';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
@@ -32,13 +32,13 @@ export default function FeaturedProjectCard({
   const isModalMode = typeof onOpen === 'function';
   const frameRef = useRef<HTMLDivElement | null>(null);
   const [preferWideAsset, setPreferWideAsset] = useState(true);
+  const [isCardInView, setIsCardInView] = useState(false);
   const [resolvedBackgroundVariant, setResolvedBackgroundVariant] =
     useState<FeaturedProjectBackgroundVariant>(backgroundVariant);
 
   useEffect(() => {
-    if (reducedMotion) return;
-    setResolvedBackgroundVariant(getRandomFeaturedProjectBackgroundVariant());
-  }, [reducedMotion]);
+    setResolvedBackgroundVariant(backgroundVariant);
+  }, [backgroundVariant, project.id]);
 
   useEffect(() => {
     const node = frameRef.current;
@@ -52,22 +52,84 @@ export default function FeaturedProjectCard({
     return () => observer.disconnect();
   }, []);
 
-  const staticImage = useMemo(() => {
-    const staticImageCandidates = [
-      preferWideAsset ? project.imageLandscape : project.imageSquare,
-      preferWideAsset ? project.imageSquare : project.imageLandscape,
-      project.image,
-    ].filter((url): url is string => !!url && !isVideo(url));
+  useEffect(() => {
+    const node = frameRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsCardInView(true);
+      return;
+    }
 
-    return staticImageCandidates[0];
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsCardInView(
+          entry.isIntersecting && entry.intersectionRatio > 0.18
+        );
+      },
+      { threshold: [0, 0.18, 0.35] }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion || !isCardInView) {
+      return;
+    }
+
+    let timeoutId: number | null = null;
+
+    const clearScheduledRotation = () => {
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    };
+
+    const scheduleRotation = () => {
+      clearScheduledRotation();
+
+      timeoutId = window.setTimeout(() => {
+        setResolvedBackgroundVariant((current) =>
+          getNextFeaturedProjectBackgroundVariant(current)
+        );
+        scheduleRotation();
+      }, 6500 + Math.round(Math.random() * 3500));
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearScheduledRotation();
+        return;
+      }
+
+      scheduleRotation();
+    };
+
+    scheduleRotation();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearScheduledRotation();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isCardInView, reducedMotion]);
+
+  const staticImage = useMemo(() => {
+    return getCardMediaCandidates(
+      project,
+      preferWideAsset ? 'landscape' : 'square'
+    )[0];
   }, [
     preferWideAsset,
+    project,
     project.image,
     project.imageLandscape,
     project.imageSquare,
+    project.thumbnailMedia,
+    project.videoPreview,
   ]);
 
-  // The media source for the static poster/image — always an image, never a video
   const mediaSource = staticImage;
 
   const handleClick = () => {
@@ -125,8 +187,8 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle bg-bluePrimary md:group-hover:bg-[#8705f2] shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
-            <ArrowUpRight className="h-6 w-6 transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:translate-x-5" />
+          <div className="btn-icon-circle bg-bluePrimary shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
+            <ArrowUpRight className="h-6 w-6" />
           </div>
         </div>
       </div>

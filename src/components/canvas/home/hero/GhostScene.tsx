@@ -589,12 +589,6 @@ export default function GhostScene() {
     const isMobile = isTouchDevice || isMobileWidth;
 
     // Event Listeners
-    let scrollY = 0;
-    const onScroll = () => {
-      scrollY = window.scrollY;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-
     const mouse = new THREE.Vector2();
     let hasReceivedMouseInput = false;
     let touchTimeout: NodeJS.Timeout;
@@ -700,13 +694,12 @@ export default function GhostScene() {
         Math.sin(time * autoSpeed * 1.3) * 1.5;
 
       if (!hasReceivedMouseInput) {
-        targetX = autoX;
-        const scrollOffset = (scrollY / window.innerHeight) * -15;
-        targetY = autoY + scrollOffset;
+        // Repouso: sem input real, o ghost não deve "caçar" o cursor sozinho.
+        targetX = 0;
+        targetY = 0;
       } else {
         targetX = mouse.x * 12 + autoX * 0.1;
-        targetY =
-          mouse.y * 8 + autoY * 0.1 + (scrollY / window.innerHeight) * -15;
+        targetY = mouse.y * 8 + autoY * 0.1;
       }
 
       // Copiar posição atual antes de mover
@@ -851,7 +844,6 @@ export default function GhostScene() {
       window.removeEventListener('touchstart', onTouchMove);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('resize', onResize);
-      window.removeEventListener('scroll', onScroll);
 
       if (mountElement.contains(renderer.domElement)) {
         mountElement.removeChild(renderer.domElement);

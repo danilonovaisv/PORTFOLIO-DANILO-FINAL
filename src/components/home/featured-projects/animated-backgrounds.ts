@@ -35,6 +35,16 @@ export function getRandomFeaturedProjectBackgroundVariant(): FeaturedProjectBack
   ];
 }
 
+export function getNextFeaturedProjectBackgroundVariant(
+  current: FeaturedProjectBackgroundVariant
+): FeaturedProjectBackgroundVariant {
+  const candidates = FEATURED_PROJECT_BACKGROUND_POOL.filter(
+    (variant) => variant !== current
+  );
+
+  return candidates[Math.floor(Math.random() * candidates.length)] ?? current;
+}
+
 export function buildFeaturedProjectBackgroundAssignment(
   projects: Pick<PortfolioProject, 'id'>[]
 ): FeaturedProjectBackgroundVariant[] {

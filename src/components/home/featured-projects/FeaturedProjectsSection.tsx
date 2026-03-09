@@ -141,7 +141,9 @@ export default function FeaturedProjectsSection({
             return (
               <motion.div
                 key={project.id}
+                layout="position"
                 variants={cardVariants}
+                transition={ghostTransition(0, duration.normal)}
                 // Mobile: full-width (col-span-4) | Desktop: Bento Grid fixo
                 // Added h-full and flex flex-col to ensure child card stretches
                 className={`w-full col-span-4 ${gridCols} h-full flex flex-col`}
@@ -161,7 +163,9 @@ export default function FeaturedProjectsSection({
 
           {/* CTA Card - Sempre 4 colunas no desktop, alinhado com o Card 3 para completar a row */}
           <motion.div
+            layout="position"
             variants={cardVariants}
+            transition={ghostTransition(0, duration.normal)}
             className="w-full col-span-4 md:col-span-3 lg:col-span-4 h-full flex flex-col"
           >
             <CTAProjectCard className={CTA_FRAME_CLASS} />

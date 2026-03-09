@@ -10,7 +10,10 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
-import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
+import {
+  shuffleHomeProjects,
+  shuffleHomeProjectsLive,
+} from '@/lib/portfolio/shuffle-projects';
 
 type HomeProjectRow =
   Database['public']['Tables']['portfolio_projects']['Row'] & {
@@ -25,6 +28,7 @@ type FeaturedProjectsRealtimeProps = {
 };
 
 const POLLING_INTERVAL_MS = 45_000;
+const HOME_ROTATION_INTERVAL_MS = 12_000;
 
 function normalizeHomeFeaturedProjects(projects: PortfolioProject[]) {
   return shuffleHomeProjects(projects);
@@ -55,6 +59,8 @@ export default function FeaturedProjectsRealtime({
   const router = useRouter();
   const supabase = useMemo(() => createClientComponentClient(), []);
   const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
+  const [displayProjects, setDisplayProjects] =
+    useState<PortfolioProject[]>(initialProjects);
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -227,6 +233,49 @@ export default function FeaturedProjectsRealtime({
     };
   }, [loadFeaturedProjects, supabase, isDev]);
 
+  useEffect(() => {
+    setDisplayProjects(projects);
+  }, [projects]);
+
+  useEffect(() => {
+    if (projects.length <= 1 || isModalOpen) {
+      return;
+    }
+
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+
+    const startRotation = () => {
+      if (intervalId || document.visibilityState !== 'visible') return;
+
+      intervalId = setInterval(() => {
+        setDisplayProjects((current) => shuffleHomeProjectsLive(current));
+      }, HOME_ROTATION_INTERVAL_MS);
+    };
+
+    const stopRotation = () => {
+      if (!intervalId) return;
+      clearInterval(intervalId);
+      intervalId = null;
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        startRotation();
+        return;
+      }
+
+      stopRotation();
+    };
+
+    startRotation();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      stopRotation();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isModalOpen, projects.length]);
+
   const handleOpenProject = useCallback(
     (project: PortfolioProject) => {
       if (project.landingPageSlug) {
@@ -258,7 +307,7 @@ export default function FeaturedProjectsRealtime({
   return (
     <>
       <FeaturedProjectsSection
-        projects={projects}
+        projects={displayProjects}
         onProjectOpen={handleOpenProject}
       />
       <PortfolioModal

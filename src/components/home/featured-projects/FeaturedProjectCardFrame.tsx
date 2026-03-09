@@ -7,7 +7,8 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import FeaturedProjectAnimatedBackground from '@/components/home/featured-projects/FeaturedProjectAnimatedBackground';
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
-import { applyImageFallback, cn, getAssetUrl } from '@/lib/utils';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { applyImageFallback, cn, getAssetUrl, isVideo } from '@/lib/utils';
 import type { PortfolioProject } from '@/types/project';
 
 type FeaturedProjectCardFrameProps = {
@@ -43,6 +44,10 @@ export default function FeaturedProjectCardFrame({
     !!logoSrc &&
     !logoFailed;
   const showThumb = !showLogo && !!mediaSource;
+  const thumbIsVideo = showThumb && isVideo(mediaSource);
+  const thumbUrl = showThumb
+    ? getAssetUrl(mediaSource, thumbIsVideo ? { isVideo: true } : undefined)
+    : null;
   const topWashClass = showThumb
     ? 'bg-[linear-gradient(180deg,rgba(4,0,19,0.01)_0%,rgba(4,0,19,0.07)_56%,rgba(4,0,19,0.18)_100%)]'
     : 'bg-[linear-gradient(180deg,rgba(4,0,19,0.04)_0%,rgba(4,0,19,0.14)_56%,rgba(4,0,19,0.38)_100%)]';
@@ -90,17 +95,31 @@ export default function FeaturedProjectCardFrame({
 
         {showThumb ? (
           <div className="absolute inset-0">
-            <Image
-              src={mediaSource}
-              alt=""
-              aria-hidden="true"
-              fill
-              sizes={project.layout.sizes ?? '100vw'}
-              className="object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px"
-              loading={priority ? 'eager' : 'lazy'}
-              priority={priority}
-              onError={applyImageFallback}
-            />
+            {thumbIsVideo && thumbUrl ? (
+              <video
+                src={thumbUrl}
+                aria-hidden="true"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={DEFAULT_VIDEO_POSTER}
+                className="h-full w-full object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px"
+              />
+            ) : thumbUrl ? (
+              <Image
+                src={thumbUrl}
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes={project.layout.sizes ?? '100vw'}
+                className="object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px"
+                loading={priority ? 'eager' : 'lazy'}
+                priority={priority}
+                onError={applyImageFallback}
+              />
+            ) : null}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,0,19,0.00)_0%,rgba(4,0,19,0.04)_54%,rgba(4,0,19,0.10)_100%)]" />
           </div>
         ) : null}

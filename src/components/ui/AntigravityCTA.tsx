@@ -107,36 +107,34 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           </span>
         </div>
 
-        <div
+        <motion.div
           className={cn(
             'relative z-20 flex items-center justify-center rounded-full text-white shadow-lg transition-colors duration-200 active:translate-y-px will-change-transform',
             isCompact
               ? 'h-10 w-10 sm:h-11 sm:w-11'
               : 'h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px]'
           )}
-          style={{
+          initial={false}
+          animate={{
+            x: isHovered ? (isCompact ? 3 : 5) : 0,
             backgroundColor: isHovered
               ? 'var(--color-purpleDetails)'
               : mainColor,
           }}
+          transition={transition}
+          style={{ willChange: 'transform, background-color' }}
         >
-          <motion.div
-            initial={false}
-            animate={{ x: isHovered ? (isCompact ? 3 : 5) : 0 }}
-            transition={transition}
-          >
-            <ArrowUpRight
-              className={cn(
-                isCompact
-                  ? 'h-4 w-4 sm:h-5 sm:w-5'
-                  : 'h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7'
-              )}
-              strokeWidth={2.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </motion.div>
-        </div>
+          <ArrowUpRight
+            className={cn(
+              isCompact
+                ? 'h-4 w-4 sm:h-5 sm:w-5'
+                : 'h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7'
+            )}
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </motion.div>
       </motion.div>
     </Component>
   );

@@ -7,7 +7,9 @@ import { BRAND } from '@/config/brand';
 import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 
-export const metadata: Metadata = siteMetadata;
+export async function generateMetadata(): Promise<Metadata> {
+  return siteMetadata;
+}
 export const viewport: Viewport = siteViewport;
 
 // Define a function to safely get environment variables

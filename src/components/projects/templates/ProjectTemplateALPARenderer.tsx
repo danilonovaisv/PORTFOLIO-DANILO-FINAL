@@ -281,7 +281,7 @@ function AssetLightbox({
         ) : asset.kind === 'youtube' && asset.youtubeId ? (
           <div className="aspect-video w-full bg-black">
             <iframe
-              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=0&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
+              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
               title={asset.alt || 'Vídeo do YouTube'}
               className="h-full w-full border-none"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -318,6 +318,7 @@ function AssetInteractive({
   poster,
   className,
   videoAutoplay,
+  displayMode = 'inline',
   prefersReducedMotion,
   onOpen,
 }: {
@@ -327,6 +328,7 @@ function AssetInteractive({
   poster?: string;
   className?: string;
   videoAutoplay?: boolean;
+  displayMode?: 'inline' | 'full';
   prefersReducedMotion: boolean;
   onOpen: (
     _asset: ZoomAsset,
@@ -348,6 +350,7 @@ function AssetInteractive({
 
   const resolvedPoster = resolveSiteAssetUrl(poster);
   const youtubeId = kind === 'youtube' ? getYouTubeId(src) : null;
+  const isFullDisplay = displayMode === 'full';
 
   return (
     <button
@@ -368,15 +371,27 @@ function AssetInteractive({
       aria-label="Abrir asset ampliado"
     >
       {kind === 'image' ? (
-        <div className="relative aspect-[16/10] w-full bg-black/30">
-          <Image
+        isFullDisplay ? (
+          // Native img preserves the intrinsic media ratio for full-width editorial blocks.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={resolved}
             alt={alt || 'Asset do projeto'}
-            fill
-            sizes="(max-width: 768px) 100vw, 80vw"
-            className="object-cover"
+            className="block h-auto w-full bg-black/30 object-contain"
+            loading="lazy"
+            decoding="async"
           />
-        </div>
+        ) : (
+          <div className="relative aspect-[16/10] w-full bg-black/30">
+            <Image
+              src={resolved}
+              alt={alt || 'Asset do projeto'}
+              fill
+              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover"
+            />
+          </div>
+        )
       ) : kind === 'youtube' && youtubeId ? (
         <div className="relative aspect-video w-full bg-black/50">
           <Image
@@ -396,7 +411,11 @@ function AssetInteractive({
         </div>
       ) : (
         <video
-          className="aspect-video w-full bg-black object-cover"
+          className={
+            isFullDisplay
+              ? 'block max-h-[82vh] w-full bg-black object-contain'
+              : 'aspect-video w-full bg-black object-cover'
+          }
           src={resolved}
           poster={resolvedPoster}
           autoPlay={videoAutoplay && !prefersReducedMotion}
@@ -551,6 +570,7 @@ export default function ProjectTemplateALPARenderer({
               kind={kind}
               poster={block.content.poster}
               videoAutoplay={block.type === 'video-autoplay'}
+              displayMode="full"
               prefersReducedMotion={prefersReducedMotion}
               onOpen={openAsset}
             />

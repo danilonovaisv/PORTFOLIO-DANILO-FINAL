@@ -27,6 +27,7 @@ import {
   getPortfolioFilterById,
   getPortfolioCategoryQueryValue,
 } from '@/config/portfolio';
+import { shufflePortfolioProjectsLive } from '@/lib/portfolio/shuffle-projects';
 
 interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
@@ -60,6 +61,9 @@ export const ProjectsGallery = ({
   const galleryWrapperRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 640px)');
+  const [liveProjects, setLiveProjects] = useState<PortfolioProject[]>(projects);
+  const [isLiveRotationPaused, setIsLiveRotationPaused] = useState(false);
+  const [isGalleryInView, setIsGalleryInView] = useState(false);
 
   // Filter logic
   const filteredProjects = useMemo(() => {
@@ -127,6 +131,80 @@ export const ProjectsGallery = ({
   }, [filteredProjects, currentPage]);
 
   useEffect(() => {
+    setLiveProjects(paginatedProjects);
+  }, [paginatedProjects]);
+
+  useEffect(() => {
+    const node = galleryWrapperRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsGalleryInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsGalleryInView(
+          entry.isIntersecting && entry.intersectionRatio > 0.12
+        );
+      },
+      { threshold: [0, 0.12, 0.24] }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (
+      prefersReducedMotion ||
+      isMobile ||
+      isLiveRotationPaused ||
+      !isGalleryInView ||
+      paginatedProjects.length <= 1
+    ) {
+      return;
+    }
+
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+
+    const startRotation = () => {
+      if (intervalId || document.visibilityState !== 'visible') return;
+      intervalId = setInterval(() => {
+        setLiveProjects((current) => shufflePortfolioProjectsLive(current));
+      }, 14_000);
+    };
+
+    const stopRotation = () => {
+      if (!intervalId) return;
+      clearInterval(intervalId);
+      intervalId = null;
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        startRotation();
+        return;
+      }
+
+      stopRotation();
+    };
+
+    startRotation();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      stopRotation();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [
+    isGalleryInView,
+    isLiveRotationPaused,
+    isMobile,
+    paginatedProjects.length,
+    prefersReducedMotion,
+  ]);
+
+  useEffect(() => {
     setActiveFilter(mapCategoryToPortfolioFilter(initialCategory));
   }, [initialCategory]);
 
@@ -155,11 +233,11 @@ export const ProjectsGallery = ({
 
   const items = useMemo(
     () =>
-      paginatedProjects.map((project, index) => ({
+      liveProjects.map((project, index) => ({
         project,
         size: project.layout?.size ?? sizePattern[index % sizePattern.length],
       })),
-    [paginatedProjects, sizePattern]
+    [liveProjects, sizePattern]
   );
 
   const activeFilterIndex = useMemo(
@@ -300,6 +378,10 @@ export const ProjectsGallery = ({
                 'max-sm:flex max-sm:flex-col max-sm:items-center max-sm:h-auto max-sm:will-change-auto max-sm:static',
                 getTrackClasses()
               )}
+              onMouseEnter={() => setIsLiveRotationPaused(true)}
+              onMouseLeave={() => setIsLiveRotationPaused(false)}
+              onFocusCapture={() => setIsLiveRotationPaused(true)}
+              onBlurCapture={() => setIsLiveRotationPaused(false)}
             >
               <AnimatePresence mode="popLayout">
                 {items.map((item, index) => (
