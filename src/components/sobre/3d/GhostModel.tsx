@@ -58,9 +58,10 @@ const GhostModel: React.FC<GhostModelProps> = ({
   // Configuração responsiva refinada para Mobile/Desktop - Posições Absolutas
   const config = useMemo(
     () => ({
-      // Desktop & Mobile: Posicionado no lado esquerdo para layout lado-a-lado com o texto na direita
-      // 🟣 [CONFIG VISUAL]: Posição Base X - Ancora estruturalmente à esquerda da std-grid
-      baseX: -viewport.width / (isMobile ? 3.5 : 4.0),
+      // Desktop: Centralizado na página (0)
+      // Mobile: Posicionado no lado esquerdo para layout lado-a-lado com o texto na direita
+      // 🟣 [CONFIG VISUAL]: Posição Base X
+      baseX: isMobile ? -viewport.width / 3.5 : 0,
 
       // Centralizado verticalmente no desktop, levemente deslocado no mobile se necessário
       // 🟣 [CONFIG VISUAL]: Posição Base Y (Cima = Positivo em R3F)
