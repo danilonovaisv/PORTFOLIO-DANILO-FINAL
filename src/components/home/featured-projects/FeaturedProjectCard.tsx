@@ -31,7 +31,6 @@ export default function FeaturedProjectCard({
   const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const [preferWideAsset, setPreferWideAsset] = useState(true);
   const [isCardInView, setIsCardInView] = useState(false);
   const [resolvedBackgroundVariant, setResolvedBackgroundVariant] =
     useState<FeaturedProjectBackgroundVariant>(backgroundVariant);
@@ -39,18 +38,6 @@ export default function FeaturedProjectCard({
   useEffect(() => {
     setResolvedBackgroundVariant(backgroundVariant);
   }, [backgroundVariant, project.id]);
-
-  useEffect(() => {
-    const node = frameRef.current;
-    if (!node || typeof ResizeObserver === 'undefined') return;
-
-    const observer = new ResizeObserver(([entry]) => {
-      setPreferWideAsset(entry.contentRect.width >= 540);
-    });
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const node = frameRef.current;
@@ -116,22 +103,13 @@ export default function FeaturedProjectCard({
     };
   }, [isCardInView, reducedMotion]);
 
-  const staticImage = useMemo(() => {
-    return getCardMediaCandidates(
-      project,
-      preferWideAsset ? 'landscape' : 'square'
-    )[0];
-  }, [
-    preferWideAsset,
-    project,
-    project.image,
-    project.imageLandscape,
-    project.imageSquare,
-    project.thumbnailMedia,
-    project.videoPreview,
-  ]);
+  const desktopMediaSource = useMemo(() => {
+    return getCardMediaCandidates(project, 'landscape')[0];
+  }, [project]);
 
-  const mediaSource = staticImage;
+  const mobileMediaSource = useMemo(() => {
+    return getCardMediaCandidates(project, 'square')[0] ?? desktopMediaSource;
+  }, [project, desktopMediaSource]);
 
   const handleClick = () => {
     if (onOpen) {
@@ -155,7 +133,8 @@ export default function FeaturedProjectCard({
         <FeaturedProjectCardFrame
           project={project}
           backgroundVariant={resolvedBackgroundVariant}
-          mediaSource={mediaSource}
+          desktopMediaSource={desktopMediaSource}
+          mobileMediaSource={mobileMediaSource}
           priority={priority}
           reducedMotion={reducedMotion}
         />

@@ -32,23 +32,28 @@ type FeaturedProjectsSectionProps = {
 const FEATURED_GRID_LAYOUT = [
   {
     gridClass: 'md:col-span-4 lg:col-span-5',
-    frameClass: 'min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
   },
   {
     gridClass: 'md:col-span-4 lg:col-span-7',
-    frameClass: 'min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
   },
   {
     gridClass: 'md:col-span-8 lg:col-span-12',
-    frameClass: 'min-h-[220px] md:min-h-[320px] lg:min-h-[380px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[320px] lg:min-h-[380px]',
   },
   {
     gridClass: 'md:col-span-5 lg:col-span-8',
-    frameClass: 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[320px] lg:min-h-[360px]',
   },
 ] as const;
 
-const CTA_FRAME_CLASS = 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
+const CTA_FRAME_CLASS =
+  'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
 function FeaturedProjectsSkeleton() {
   return (

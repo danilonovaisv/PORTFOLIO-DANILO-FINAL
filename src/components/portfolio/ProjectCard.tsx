@@ -69,7 +69,7 @@ export const ProjectCard = ({
     ASSET_PLACEHOLDER;
 
   const mobileMediaCandidate =
-    getCardMediaCandidates(project, 'landscape')[0] ?? desktopMediaCandidate;
+    getCardMediaCandidates(project, 'square')[0] ?? desktopMediaCandidate;
 
   const desktopMediaIsVideo = isVideo(desktopMediaCandidate);
   const mobileMediaIsVideo = isVideo(mobileMediaCandidate);
@@ -140,7 +140,7 @@ export const ProjectCard = ({
   };
 
   const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-all duration-250 ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
-  const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-[4/5] max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
+  const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-square max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
 
   return (
     <motion.button
