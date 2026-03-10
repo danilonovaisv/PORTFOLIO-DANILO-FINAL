@@ -3,7 +3,7 @@
 // GhostScene.tsx
 import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows } from '@react-three/drei';
+import { ContactShadows, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import GhostModel from '@/components/sobre/3d/GhostModel'; // Caminho relativo para GhostModel
 import {
@@ -59,48 +59,55 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
       className="w-full h-full pointer-events-none"
     >
       <Canvas
-        shadows={{ type: THREE.PCFShadowMap }}
+        shadows={{ type: THREE.PCFSoftShadowMap }}
         dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-        // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6 define o quão perto/longe o objeto parece estar. FOV=35 define a distorção da perspectiva.
+        gl={{
+          antialias: true,
+          alpha: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.1,
+        }}
+        // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6
         camera={{ position: [0, 0, 6], fov: 35 }}
         frameloop={isInView ? 'always' : 'demand'}
         aria-hidden="true"
       >
-        {/* Low Ambient for higher contrast shadows */}
-        <ambientLight intensity={1.2} />
+        {/* Environment map é VITAL para dar profundidade e volume aos materiais PBS do GLTF */}
+        <Environment preset="city" />
 
-        {/* Strong Key Light (Front-Right) */}
+        <ambientLight intensity={1.5} />
+
+        {/* Strong Key Light (Front-Right) com sombras suaves */}
         <spotLight
-          position={[5, 10, 5]}
-          angle={0.25}
-          penumbra={0.2}
-          intensity={2.5}
+          position={[5, 8, 5]}
+          angle={0.4}
+          penumbra={0.5}
+          intensity={3.5}
           castShadow
-          shadow-bias={-0.0001}
+          shadow-bias={-0.0005}
         />
 
         {/* Fill Light (Left) - Soft */}
-        <pointLight position={[-5, 5, -5]} intensity={0.5} color="#e6e6ff" />
+        <pointLight position={[-5, 5, -5]} intensity={1.2} color="#e6e6ff" />
 
         {/* Rim Light (Back) - Creates silhouette/separation */}
         <pointLight
-          position={[0, 5, -10]}
-          intensity={3}
+          position={[0, 4, -8]}
+          intensity={4}
           color="#ffffff"
-          distance={20}
+          distance={25}
         />
 
         <Suspense fallback={null}>
           <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
         </Suspense>
-        {/* Stronger, grounded shadow */}
-        {/* 🟣 [CONFIG VISUAL]: Sombra de contato - Scale=18 define o tamanho da mancha no chão. Opacity=0.6 a intensidade. */}
+
+        {/* 🟣 [CONFIG VISUAL]: Sombra de contato */}
         <ContactShadows
           position={[0, -2.5, 0]}
-          opacity={0.6}
-          scale={18}
-          blur={2.5}
+          opacity={0.8}
+          scale={15}
+          blur={2}
           far={5}
           color="#000000"
         />

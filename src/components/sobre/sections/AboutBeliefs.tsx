@@ -122,16 +122,19 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 3: Canvas 3D (Soberania absoluta: z-30) - Overlay */}
+      {/* LAYER 3: Canvas 3D (Z-50 para garantir sobreposição visual ao texto do Z-40 e Z-20) */}
       <div
-        className="absolute inset-0 z-30 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-50 w-full h-full pointer-events-none"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
-          <div className="w-full h-full md:absolute md:inset-0 relative translate-z-0">
-            {!prefersReducedMotion ? (
-              <GhostScene scrollProgress={scrollYProgress} />
-            ) : null}
+          {/* O container interno âncora o Canvas na mesma grid do texto */}
+          <div className="std-grid w-full h-full">
+            <div className="col-span-12 w-full h-full relative translate-z-0">
+              {!prefersReducedMotion ? (
+                <GhostScene scrollProgress={scrollYProgress} />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

@@ -58,23 +58,22 @@ const GhostModel: React.FC<GhostModelProps> = ({
   // Configuração responsiva refinada para Mobile/Desktop - Posições Absolutas
   const config = useMemo(
     () => ({
-      // Desktop: Centralizado (0)
-      // Mobile: Posicionado no lado esquerdo para layout lado a lado
-      // 🟣 [CONFIG VISUAL]: Posição Base X
-      baseX: isMobile ? -viewport.width / 4.0 : 0,
+      // Desktop & Mobile: Posicionado no lado esquerdo para layout lado-a-lado com o texto na direita
+      // 🟣 [CONFIG VISUAL]: Posição Base X - Ancora estruturalmente à esquerda da std-grid
+      baseX: -viewport.width / (isMobile ? 3.5 : 4.0),
 
-      // Centralizado verticalmente no desktop, mas a 20% do topo no mobile (viewport.height / 2 é o topo, logo viewport.height * 0.3 = 20% abaixo)
+      // Centralizado verticalmente no desktop, levemente deslocado no mobile se necessário
       // 🟣 [CONFIG VISUAL]: Posição Base Y (Cima = Positivo em R3F)
-      baseY: isMobile ? viewport.height * 0.3 : 0,
+      baseY: isMobile ? viewport.height * 0.15 : 0,
 
-      // Intensidade flutuante (Movimento MUITO mais pronunciado)
+      // Intensidade flutuante
       floatBase: isMobile ? 0.18 : 0.15,
       floatAmplitude: 0.75,
       tiltBase: 0.2,
 
-      // Escala ajustada para maior presença
+      // Escala ajustada para maior presença no desktop, e reduzida no mobile (menos opressivo)
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost
-      baseScale: isMobile ? 0.378 : 0.585,
+      baseScale: isMobile ? 0.32 : 0.585,
       // Compensa pivot do GLB para centralização visual
       modelOffsetY: isMobile ? -1.0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final
@@ -150,8 +149,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-        config.floatAmplitude *
-        0.5
+      config.floatAmplitude *
+      0.5
       : 0;
     const scrollWaveX =
       Math.sin(t * Math.PI * 2.2) *
