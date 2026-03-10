@@ -13,7 +13,7 @@ permissions:
 env:
   NODE_VERSION: '20'
   # ── pnpm version pinned — muda aqui para atualizar globalmente ─────────────
-  PNPM_VERSION: '10.31.0'
+  PNPM_VERSION: '10.32.0'
   # ── Supabase ────────────────────────────────────────────────────────────────
   NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
   NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
