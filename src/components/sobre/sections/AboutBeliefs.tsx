@@ -69,6 +69,7 @@ export function AboutBeliefs() {
   return (
     <MotionSection
       ref={containerRef}
+      data-testid="about-beliefs-section"
       style={{
         minHeight: `var(--section-min-height, ${(PHRASES.length + 2) * 100}vh)`,
       }}

@@ -62,13 +62,17 @@ fi
 #    O Firebase Cloud Build usa npm internamente e falha se pnpm for o packageManager.
 TMP_PKG_JSON=$(mktemp)
 cp package.json "$TMP_PKG_JSON"
+TMP_FUNC_PKG_JSON=$(mktemp)
+cp functions/package.json "$TMP_FUNC_PKG_JSON"
 node -e "
   const fs = require('fs');
-  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-  delete pkg.packageManager;
-  fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+  for (const file of ['package.json', 'functions/package.json']) {
+    const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+    delete pkg.packageManager;
+    fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + '\n');
+  }
 "
-echo "✅ Campo packageManager removido temporariamente do package.json"
+echo "✅ Campo packageManager removido temporariamente dos package.json do deploy"
 
 # 3. Gerar package-lock.json fresco alinhado com as dependências atuais.
 #    --package-lock-only: não instala módulos, apenas gera/atualiza o lock file.
@@ -79,14 +83,24 @@ npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null 
   echo "⚠️  AVISO: Não foi possível gerar package-lock.json (deploy continua)"
 echo "✅ package-lock.json gerado"
 
+echo "📦 Gerando functions/package-lock.json consistente para Cloud Build..."
+(
+  cd functions
+  npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
+    npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
+    echo "⚠️  AVISO: Não foi possível gerar functions/package-lock.json (deploy continua)"
+)
+echo "✅ functions/package-lock.json gerado"
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Restaurar package.json e limpar arquivos temporários ao sair (sucesso ou falha)
 restore_on_exit() {
-  echo "🔄 Restaurando package.json original..."
+  echo "🔄 Restaurando package.json originais..."
   mv "$TMP_PKG_JSON" package.json
+  mv "$TMP_FUNC_PKG_JSON" functions/package.json
   # Remover package-lock.json gerado: projeto usa pnpm, nunca deve versionar npm lock
-  rm -f package-lock.json
+  rm -f package-lock.json functions/package-lock.json
   echo "✅ Limpeza concluída."
 }
 trap restore_on_exit EXIT

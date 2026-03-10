@@ -37,6 +37,22 @@ let cachedClient: any;
  * Returns a lightweight mock client for SSR or Testing environments.
  */
 function createMockClient() {
+  const isMockLoggedIn = () => {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      return sessionStorage.getItem('__MOCK_LOGGED_IN') === 'true';
+    }
+    return false;
+  };
+  const setMockLoggedIn = (val: boolean) => {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      if (val) {
+        sessionStorage.setItem('__MOCK_LOGGED_IN', 'true');
+      } else {
+        sessionStorage.removeItem('__MOCK_LOGGED_IN');
+      }
+    }
+  };
+
   const mockQuery = {
     eq: () => mockQuery,
     order: () => mockQuery,
@@ -76,19 +92,22 @@ function createMockClient() {
       getSession: () =>
         Promise.resolve({
           data: {
-            session: {
-              user: {
-                id: 'e2e-mock-user',
-                email: 'admin@test.com',
-                app_metadata: { role: 'admin' },
-              },
-              access_token: 'mock-token',
-            },
+            session: isMockLoggedIn()
+              ? {
+                user: {
+                  id: 'e2e-mock-user',
+                  email: 'admin@test.com',
+                  app_metadata: { role: 'admin' },
+                },
+                access_token: 'mock-token',
+              }
+              : null,
           },
           error: null,
         }),
-      signInWithPassword: ({ email }: { email: string }) =>
-        Promise.resolve({
+      signInWithPassword: ({ email }: { email: string }) => {
+        setMockLoggedIn(true);
+        return Promise.resolve({
           data: {
             session: {
               user: {
@@ -100,7 +119,8 @@ function createMockClient() {
             },
           },
           error: null,
-        }),
+        });
+      },
       signUp: ({ email }: { email: string }) =>
         Promise.resolve({
           data: {
@@ -112,18 +132,18 @@ function createMockClient() {
       signInWithOtp: () => Promise.resolve({ data: {}, error: null }),
       resetPasswordForEmail: () => Promise.resolve({ data: {}, error: null }),
       onAuthStateChange: () => ({
-        data: { subscription: { unsubscribe: () => {} } },
+        data: { subscription: { unsubscribe: () => { } } },
       }),
     },
     storage: {
       from: () => ({ getPublicUrl: () => ({ data: { publicUrl: '' } }) }),
     },
     realtime: {
-      setAuth: () => {},
+      setAuth: () => { },
     },
     channel: () => ({
-      on: () => ({ on: () => ({ subscribe: () => {} }) }),
-      subscribe: () => {},
+      on: () => ({ on: () => ({ subscribe: () => { } }) }),
+      subscribe: () => { },
     }),
     removeChannel: () => Promise.resolve(),
   } as unknown as ReturnType<typeof createBrowserClient<Database>>;
@@ -163,7 +183,7 @@ export function createClientComponentClient(): ReturnType<
   if (!supabaseUrl || !supabaseKey) {
     throw new Error(
       '[Supabase Browser] Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. ' +
-        'Check your .env.local file.'
+      'Check your .env.local file.'
     );
   }
 
