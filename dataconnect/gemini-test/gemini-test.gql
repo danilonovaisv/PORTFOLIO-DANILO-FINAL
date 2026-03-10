@@ -13,7 +13,11 @@ mutation CreateUser($email: String!, $name: String!, $password: String!)
   )
 }
 
-query GetProjectsByUser($userId: UUID!) @auth(level: USER) {
+query GetProjectsByUser($userId: UUID!)
+@auth(
+  level: USER
+  insecureReason: "This is a test operation"
+) {
   projects(where: { userId: { eq: $userId } }) {
     id
     title
@@ -41,6 +45,10 @@ mutation CreateProject(
   )
 }
 
-mutation DeleteProject($id: UUID!) @auth(level: USER) {
+mutation DeleteProject($id: UUID!)
+@auth(
+  level: USER
+  insecureReason: "This is a test operation"
+) {
   project_delete(key: { id: $id })
 }

@@ -451,34 +451,23 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = parent.getBoundingClientRect();
-      const x = THREE.MathUtils.clamp(
-        (e.clientX - rect.left) / Math.max(1, rect.width),
-        0,
-        1
-      );
-      const y = THREE.MathUtils.clamp(
-        1 - (e.clientY - rect.top) / Math.max(1, rect.height),
-        0,
-        1
-      );
+      const x = (e.clientX - rect.left) / Math.max(1, rect.width);
+      const y = 1 - (e.clientY - rect.top) / Math.max(1, rect.height);
       currentMouseRef.current.set(x, y);
       pointerActiveRef.current = true;
       lastMoveTimeRef.current = performance.now();
       ensureLoop();
     };
-    const onPointerEnter = () => {
-      pointerActiveRef.current = true;
-      ensureLoop();
-    };
-    const onPointerLeave = () => {
+    const onPointerLeaveWindow = () => {
       pointerActiveRef.current = false;
       lastMoveTimeRef.current = performance.now();
       ensureLoop();
     };
 
-    parent.addEventListener('pointermove', onPointerMove, { passive: true });
-    parent.addEventListener('pointerenter', onPointerEnter, { passive: true });
-    parent.addEventListener('pointerleave', onPointerLeave, { passive: true });
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerleave', onPointerLeaveWindow, {
+      passive: true,
+    });
 
     ensureLoop();
 
@@ -489,9 +478,8 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
       runningRef.current = false;
       rafRef.current = null;
 
-      parent.removeEventListener('pointermove', onPointerMove);
-      parent.removeEventListener('pointerenter', onPointerEnter);
-      parent.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerleave', onPointerLeaveWindow);
       resizeObsRef.current?.disconnect();
 
       scene.clear();

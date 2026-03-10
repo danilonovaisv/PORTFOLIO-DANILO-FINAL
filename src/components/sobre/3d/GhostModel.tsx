@@ -63,9 +63,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
       // 🟣 [CONFIG VISUAL]: Posição Base X
       baseX: isMobile ? -viewport.width / 4.0 : 0,
 
-      // Centralizado verticalmente no desktop, mas no topo no mobile
+      // Centralizado verticalmente no desktop, mas a 20% do topo no mobile (viewport.height / 2 é o topo, logo viewport.height * 0.3 = 20% abaixo)
       // 🟣 [CONFIG VISUAL]: Posição Base Y (Cima = Positivo em R3F)
-      baseY: isMobile ? viewport.height / 3.5 : 0,
+      baseY: isMobile ? viewport.height * 0.3 : 0,
 
       // Intensidade flutuante (Movimento MUITO mais pronunciado)
       floatBase: isMobile ? 0.18 : 0.15,

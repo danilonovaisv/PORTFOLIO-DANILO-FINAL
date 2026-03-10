@@ -10,10 +10,7 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
-import {
-  shuffleHomeProjects,
-  shuffleHomeProjectsLive,
-} from '@/lib/portfolio/shuffle-projects';
+import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
 
 type HomeProjectRow =
   Database['public']['Tables']['portfolio_projects']['Row'] & {
@@ -28,7 +25,6 @@ type FeaturedProjectsRealtimeProps = {
 };
 
 const POLLING_INTERVAL_MS = 45_000;
-const HOME_ROTATION_INTERVAL_MS = 12_000;
 
 function normalizeHomeFeaturedProjects(projects: PortfolioProject[]) {
   return shuffleHomeProjects(projects);
@@ -237,44 +233,7 @@ export default function FeaturedProjectsRealtime({
     setDisplayProjects(projects);
   }, [projects]);
 
-  useEffect(() => {
-    if (projects.length <= 1 || isModalOpen) {
-      return;
-    }
-
-    let intervalId: ReturnType<typeof setInterval> | null = null;
-
-    const startRotation = () => {
-      if (intervalId || document.visibilityState !== 'visible') return;
-
-      intervalId = setInterval(() => {
-        setDisplayProjects((current) => shuffleHomeProjectsLive(current));
-      }, HOME_ROTATION_INTERVAL_MS);
-    };
-
-    const stopRotation = () => {
-      if (!intervalId) return;
-      clearInterval(intervalId);
-      intervalId = null;
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        startRotation();
-        return;
-      }
-
-      stopRotation();
-    };
-
-    startRotation();
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      stopRotation();
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [isModalOpen, projects.length]);
+  // A rotação contínua (setInterval) foi desativada para que a ordem mude apenas ao entrar ou dar refresh na página.
 
   const handleOpenProject = useCallback(
     (project: PortfolioProject) => {

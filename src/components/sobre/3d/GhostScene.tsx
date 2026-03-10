@@ -42,15 +42,13 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
     { ease: ghostEase }
   );
 
-  if (is3DDisabled || isMobile || shouldReduceMotion) {
+  if (is3DDisabled || shouldReduceMotion) {
     return (
       <motion.div
         ref={containerRef}
         style={{ opacity, filter: blur }}
         className="w-full h-full pointer-events-none"
-      >
-        <div className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,rgba(79,230,255,0.16),transparent_40%),linear-gradient(180deg,#040013_0%,#0b0d3a_100%)]" />
-      </motion.div>
+      />
     );
   }
 
