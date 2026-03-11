@@ -105,7 +105,7 @@ export function CategoryStripe({
                     muted
                     playsInline
                     poster={DEFAULT_VIDEO_POSTER}
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-cover"
                   >
                     <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                   </video>
@@ -114,7 +114,7 @@ export function CategoryStripe({
                     src={category.thumbnail}
                     alt={title.join(' ')}
                     fill
-                    className="object-contain object-center"
+                    className="object-cover object-center"
                     sizes="288px"
                     loading="lazy"
                     priority={false}
