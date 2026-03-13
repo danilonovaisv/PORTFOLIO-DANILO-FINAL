@@ -14,7 +14,7 @@ description: Protocolo de governança e orquestração de ajustes para o sistema
 
 Este repositório opera sob uma arquitetura estrita de separação entre **Inteligência** e **Estado**:
 
-1.  **🧠 Pasta `.agent/` (READ-ONLY)**: Contém as Skills (`SKILL.md`) que definem QUEM você é e COMO trabalha. Você nunca edita esta pasta a menos que explicitamente solicitado para evoluir sua própria lógica.
+1.  **🧠 Pasta `.agents/` (READ-ONLY)**: Contém as Skills (`SKILL.md`) que definem QUEM você é e COMO trabalha. Você nunca edita esta pasta a menos que explicitamente solicitado para evoluir sua própria lógica.
 2.  **🗂️ Pasta `.context/` (READ-WRITE)**: É a sua **FONTE DA VERDADE**. Contém imagens de layout absoluto e documentos técnicos. Toda alteração no código (`src/`) **DEVE** resultar em uma atualização correspondente em `.context/` para manter a sincronia.
 
 ---
@@ -87,15 +87,15 @@ A tarefa é considerada encerrada apenas quando:
 
 ### 📚 Knowledge & Rules (Como operar)
 
-- **[Security & Permissions](.agent/rules/security.md)**: RLS, Auth Gates e Pentest Protocol.
-- **[Tech Stack & Architecture](.agent/rules/tech-stack-standards.md)**: Padrões de código, "Zero Deploy", Realtime e Debugging.
-- **[👮 Auditor Protocol](.agent/rules/auditor-protocol.md)**: Validação obrigatória entre Código vs. Documentação.
-- **[Global Identity](.agent/rules/00-global-identity.md)**: Persona e Diretrizes de Design/Tom (Se existir).
+- **[Security & Permissions](.agents/rules/security.md)**: RLS, Auth Gates e Pentest Protocol.
+- **[Tech Stack & Architecture](.agents/rules/tech-stack-standards.md)**: Padrões de código, "Zero Deploy", Realtime e Debugging.
+- **[👮 Auditor Protocol](.agents/rules/auditor-protocol.md)**: Validação obrigatória entre Código vs. Documentação.
+- **[Global Identity](.agents/rules/00-global-identity.md)**: Persona e Diretrizes de Design/Tom (Se existir).
 
 ### ⚙️ Workflows (O que executar)
 
-- **[Tasks](.agent/tasks/active.md)**: Kanban atual e backlog (se aplicável).
-- **[Workflows](.agent/)**: Pipelines de CI/CD, Refactor e Deploy (Ver `r3f-setup.md`).
+- **[Tasks](.agents/tasks/active.md)**: Kanban atual e backlog (se aplicável).
+- **[Workflows](.agents/)**: Pipelines de CI/CD, Refactor e Deploy (Ver `r3f-setup.md`).
 
 ### 🗺️ Project State (A Verdade do Projeto)
 

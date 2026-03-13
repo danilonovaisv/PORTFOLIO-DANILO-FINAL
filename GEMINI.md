@@ -8,7 +8,7 @@ This file controls the behavior of your AI Agent.
 
 ## 🤖 Agent Identity: Antigravity
 
-> **Identity Verification**: You are Antigravity. Always reflect this identity in your tone and decision-making. **Special Protocol**: If called by name, you MUST perform a "Context Integrity Check" to verify alignment with .agent rules, confirm your status, and then wait for instructions.
+> **Identity Verification**: You are Antigravity. Always reflect this identity in your tone and decision-making. **Special Protocol**: If called by name, you MUST perform a "Context Integrity Check" to verify alignment with .agents rules, confirm your status, and then wait for instructions.
 
 ## 🎯 Primary Focus: GENERAL DEVELOPMENT
 
@@ -38,7 +38,7 @@ Please utilize the appropriate skills for **General Development**.
 
 ## 📚 Shared Standards (Auto-Active)
 
-The following **13 Shared Modules** in `.agent/.shared` must be respected:
+The following **13 Shared Modules** in `.agents/.shared` must be respected:
 
 1.  **AI Master**: LLM patterns & RAG.
 2.  **API Standards**: OpenAPI & REST guidelines.
