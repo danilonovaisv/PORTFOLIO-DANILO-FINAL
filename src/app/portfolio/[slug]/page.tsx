@@ -16,7 +16,7 @@ import type { PortfolioProject } from '@/types/project';
 import { isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { generateVideoSchema } from '@/lib/schema';
-import { getSupabasePublicKey } from '@/lib/supabase/env';
+
 import {
   normalizeMetaDescription,
   normalizeMetaTitle,
@@ -238,34 +238,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  const hasSupabaseEnv =
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-    Boolean(getSupabasePublicKey());
 
-  const staticSlugs = HOME_CONTENT.featuredProjects
-    .map((p) => ({ slug: normalizeSlug(p.slug) }))
-    .filter((item) => Boolean(item.slug));
-
-  if (hasSupabaseEnv) {
-    try {
-      const supabase = createStaticClient();
-      const dbProjects = await listProjects({}, supabase);
-      const dbSlugs = dbProjects.map((p) => ({ slug: p.slug }));
-      const allSlugs = [...dbSlugs, ...staticSlugs]
-        .map((s) => normalizeSlug(s.slug || ''))
-        .filter(Boolean);
-      const uniqueSlugs = Array.from(new Set(allSlugs)).map((slug) => ({
-        slug,
-      }));
-      return uniqueSlugs;
-    } catch (error) {
-      console.error('Error fetching projects for static params:', error);
-    }
-  }
-
-  return staticSlugs;
-}
 
 type Props = {
   params: Promise<{ slug: string }>;
