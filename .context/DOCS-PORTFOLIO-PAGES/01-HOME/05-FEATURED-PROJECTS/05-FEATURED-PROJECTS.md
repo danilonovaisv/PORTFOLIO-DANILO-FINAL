@@ -218,6 +218,11 @@ duration: 0.7s
   - background animado + thumb com overlay 50%
 - O logo invertido do card fica fixo no centro
 - Interação com mouse nos cards:
+
+## 4.7 Atualização de estado — 2026-03-15
+
+- Os backgrounds animados da HOME agora respeitam `prefers-reduced-motion`, suporte WebGL e `hover/pointer: fine` antes de ativar shaders/cursor.
+- Em dispositivos touch/coarse, a camada animada deixa de montar o runtime pesado e preserva apenas a superfície estática do card, reduzindo custo de render no mobile.
   - cursor tracking sutil
   - leve zoom
   - animação de movimento

@@ -102,6 +102,7 @@ export default function RootLayout({
             <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
           </div>
         </SmoothScroll>
+        <div id="modal-root" data-portal-root />
       </body>
     </html>
   );

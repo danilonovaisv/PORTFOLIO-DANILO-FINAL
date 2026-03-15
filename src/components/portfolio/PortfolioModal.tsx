@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
 import { PortfolioProject } from '@/types/project';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
+import { usePortalRoot } from '@/hooks/usePortalRoot';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import {
   getBackdropVariants,
@@ -27,14 +28,12 @@ export const PortfolioModal = ({
   project,
 }: PortfolioModalProps) => {
   const shouldReduceMotion = useMotionGate();
-  const [mounted, setMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const portalRoot = usePortalRoot();
 
   useBodyLock(isOpen);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (isOpen) {
@@ -92,7 +91,7 @@ export const PortfolioModal = ({
     ? `portfolio-modal-${project.slug.replace(/[^a-z0-9-]/gi, '')}`
     : undefined;
 
-  if (!mounted) return null;
+  if (!portalRoot) return null;
 
   return createPortal(
     <AnimatePresence>
@@ -160,6 +159,6 @@ export const PortfolioModal = ({
         </>
       ) : null}
     </AnimatePresence>,
-    document.body
+    portalRoot
   );
 };

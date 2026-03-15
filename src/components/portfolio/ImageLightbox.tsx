@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
+import { usePortalRoot } from '@/hooks/usePortalRoot';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { getYouTubeEmbedUrl, isVideo, isYouTubeUrl } from '@/lib/utils';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
@@ -34,16 +35,12 @@ export function ImageLightbox({
   onPrev,
 }: ImageLightboxProps) {
   const shouldReduceMotion = useMotionGate();
-  const [mounted, setMounted] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const lastFocusRef = useRef<HTMLElement | null>(null);
+  const portalRoot = usePortalRoot();
 
   useBodyLock(isOpen);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -87,7 +84,7 @@ export function ImageLightbox({
     void video.play().catch(() => undefined);
   }, [isOpen, src]);
 
-  if (!mounted) return null;
+  if (!portalRoot) return null;
 
   const backdropTransition = shouldReduceMotion
     ? { duration: 0.16 }
@@ -194,6 +191,6 @@ export function ImageLightbox({
         </motion.div>
       ) : null}
     </AnimatePresence>,
-    document.body
+    portalRoot
   );
 }

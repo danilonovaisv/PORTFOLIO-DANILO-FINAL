@@ -179,6 +179,7 @@ export function VideoManifesto({
   return (
     <motion.section
       ref={sectionRef}
+      aria-labelledby="video-manifesto-heading"
       className="video-manifesto w-full overflow-hidden rounded-[2px]"
       initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
       whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -189,6 +190,9 @@ export function VideoManifesto({
       }
       viewport={viewportConfig}
     >
+      <h2 id="video-manifesto-heading" className="sr-only">
+        Video manifesto
+      </h2>
       <motion.div
         ref={wrapperRef}
         // Change aspect ratio handling to allow natural height on mobile without cutting

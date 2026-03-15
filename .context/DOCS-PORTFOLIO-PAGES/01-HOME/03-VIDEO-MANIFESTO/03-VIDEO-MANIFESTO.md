@@ -171,3 +171,8 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 
 - Referência visual global da home: `.context/HOME-PORTFOLIO-BLACK---GHOST.jpg`.
 - Carregamento lazy com poster é obrigatório para proteger FCP/LCP em redes lentas.
+
+## 12. Atualização de estado — 2026-03-15
+
+- A seção recebeu `aria-labelledby` com `h2.sr-only`, reforçando a hierarquia semântica sem alterar a composição editorial.
+- O comportamento de autoplay/loop continua condicionado ao gate de motion, mantendo a política de baixo ruído para usuários com redução de movimento.

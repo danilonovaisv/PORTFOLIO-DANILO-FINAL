@@ -84,17 +84,26 @@ Sua análise deve cruzar o código atual com os seguintes documentos técnicos m
 - [ ] **Aesthetics:** O glow está dentro dos parâmetros Ghost Blue?
 - [ ] **Motion:** O easing segue `[0.22, 1, 0.36, 1]`?
 
+- **Skill:** `use a skill agent-code-guide`, `use a skill framer-motion`,`use a skill supabase` e `use a skill ui-ux-designer`
+- **MCP Action:** `context7`, `supabase`, `motion-studio`, `GitHub`
+
 ### FASE 3: IMPLEMENTAÇÃO ORQUESTRADA
 
 1. **Sub-tarefa A:** Correção de bugs estruturais (@ghost_architect).
 2. **Sub-tarefa B:** Polimento visual e shaders (@spectral_artist).
 3. **Sub-tarefa C:** Ajustes de micro-interações (@motion_choreographer).
 
+- **Skill:** `use a skill agent-code-guide`, `use a skill framer-motion`,`use a skill supabase` e `use a skill ui-ux-designer`
+- **MCP Action:** `context7`, `supabase`, `motion-studio`, `GitHub`
+
 ### FASE 4: VETAGEM FINAL (QA)
 
 - [ ] Teste de performance (FPS > 50).
 - [ ] Verificação de acessibilidade (Aria labels).
 - [ ] Snapshot visual mobile-first.
+
+- **Skill:** `use a skill agent-code-guide`, `use a skill framer-motion`,`use a skill supabase` e `use a skill ui-ux-designer`
+- **MCP Action:** `context7`, `supabase`, `motion-studio`, `GitHub`
 
 ## 📝 3. LOG DE SAÍDA (RESUMO)
 

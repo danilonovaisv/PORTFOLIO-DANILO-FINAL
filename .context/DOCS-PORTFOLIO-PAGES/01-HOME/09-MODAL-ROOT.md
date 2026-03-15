@@ -168,3 +168,9 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
 
 - Elemento central para UX de exploração sem perda de contexto da HOME.
 - Necessário monitorar lock de scroll, restauração de foco e fechamento por teclado.
+
+## 12. Atualização de estado — 2026-03-15
+
+- O portal dos overlays deixou de depender diretamente de `document.body` e passou a usar um root dedicado (`#modal-root`) montado em `src/app/layout.tsx`.
+- `useBodyLock` foi endurecido com contagem global de locks, evitando unlock prematuro quando modal e lightbox coexistem no mesmo fluxo.
+- `PortfolioModal` e `ImageLightbox` continuam com `role="dialog"`, `aria-modal="true"` e restauração de foco, mas agora compartilham a mesma infraestrutura de portal.

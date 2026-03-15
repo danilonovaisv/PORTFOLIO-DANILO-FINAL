@@ -1,36 +1,37 @@
 # Implementation Plan — Ajustes Orquestrados (Ghost)
 
-Data: 2026-02-20
-Workflow base: `.agent/workflows/ajustes-orquestrados.md`
+Data: 2026-03-15
+Workflow base: `.agents/workflows/ajustes-orquestrados.md`
 Fonte de verdade: `docs/AUDIT_EXECUTION_PLAN.md`
 
 ## Escopo desta execução
-- Home: Header/Hero/Video Manifesto.
-- Portfolio: Gallery filters + Project cards + modal a11y continuity.
-- Global: spacing consistency (24 mobile / 64 desktop) em `.std-grid`.
-- Governança: atualização de `.context` e relatório em `AUDIT_PENTEST.md`.
+- Global: root único para overlays (`#modal-root`) e lock de scroll seguro para múltiplos modais.
+- Home: endurecer motion pesado em coarse/touch nos cards destaque e reforçar semântica do Video Manifesto.
+- Portfolio: continuidade de modal acessível preservada sem acoplamento direto a `document.body`.
+- Governança: sincronizar `.context` e registrar evidência em `docs/AUDIT_PENTEST.md`.
 
 ## Fase 1 — Escaneamento técnico
-- Mapear componentes reais usados nas rotas Home e Portfolio.
-- Conferir tokens/motion/easing ativos no código.
-- Conferir stack atual (Next/React) e dependências de assets.
+- Mapear os componentes reais envolvidos em modal, lightbox, manifesto e backgrounds animados.
+- Validar o estado atual da stack: Next.js `16.1.6`, React `19.2.4`, Framer Motion `12.36.0`.
+- Cruzar a documentação local em `.context` com o comportamento efetivo do código.
+- Validar via Context7 padrões oficiais de App Router para modal/parallel routes e reduced motion no Motion.
 
 ## Fase 2 — Conformidade
-- Grid: aplicar padrão de container 24/64.
-- Aesthetics: reforçar overlay/contraste no manifesto de vídeo.
-- Motion: remover `scale` dos cards e manter Ghost easing `[0.22,1,0.36,1]`.
-- A11y: adicionar semântica de tabs/filtros e estado selecionado.
+- Modal Root: remover dependência implícita de `document.body` como destino único de portal e padronizar um root dedicado.
+- Body Lock: impedir unlock prematuro quando mais de um overlay estiver aberto na mesma sessão.
+- Motion: desligar fundos/cursor WebGL quando `prefers-reduced-motion` estiver ativo ou o dispositivo não tiver `hover/pointer: fine`.
+- Semântica: adicionar heading técnico à seção `VideoManifesto`.
 
 ## Fase 3 — Implementação
-- Ajustar z-index e stacking context do Hero para manter copy acima do WebGL.
-- Corrigir overlay do Video Manifesto (`bg-background/80`, sem bloquear interação).
-- Atualizar `ProjectsGallery` com ARIA (`tablist`/`tab`/`aria-selected`) e navegação por teclado.
-- Remover `scale` no hover de `ProjectCard`.
-- Validar restauração de foco no fechamento de modal e robustez dos gatilhos.
-- Ajustar `.std-grid` para 24px mobile / 64px desktop.
+- Criar `usePortalRoot()` e mover `PortfolioModal` e `ImageLightbox` para `#modal-root`.
+- Inserir `#modal-root` em `src/app/layout.tsx`.
+- Reescrever `useBodyLock` com contador global e snapshot/restauração única de estilos.
+- Desligar `FeaturedProjectAnimatedBackground` quando o dispositivo for coarse/touch.
+- Desligar `CustomCursor` fora de cenários `hover: hover` + `pointer: fine`.
+- Adicionar `aria-labelledby` e `h2.sr-only` ao `VideoManifesto`.
 
 ## Fase 4 — Vetagem (QA)
-- Rodar `pnpm lint` e `pnpm typecheck`.
-- Revisar rapidamente estados mobile/desktop nos componentes alterados.
-- Registrar mudanças em `.context/logs/adjustment_log.md`.
-- Consolidar achados e fixes em `AUDIT_PENTEST.md`.
+- Rodar lint/typecheck focado nos arquivos alterados.
+- Confirmar que os imports ficaram limpos e sem regressão de hidratação.
+- Atualizar `.context` para refletir modal root dedicado e motion gating em touch.
+- Consolidar achados, falsos positivos e correções em `docs/AUDIT_PENTEST.md`.

@@ -7,62 +7,96 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 
+type BodyLockSnapshot = {
+  bodyOverflow: string;
+  bodyPosition: string;
+  bodyTop: string;
+  bodyLeft: string;
+  bodyRight: string;
+  bodyPaddingRight: string;
+  htmlOverflow: string;
+};
+
+let activeBodyLocks = 0;
+let lockedScrollY = 0;
+let snapshot: BodyLockSnapshot | null = null;
+
+function applyBodyLock() {
+  if (typeof window === 'undefined') return;
+
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (activeBodyLocks === 0) {
+    lockedScrollY = window.scrollY;
+    snapshot = {
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyLeft: body.style.left,
+      bodyRight: body.style.right,
+      bodyPaddingRight: body.style.paddingRight,
+      htmlOverflow: html.style.overflow,
+    };
+
+    const scrollbarWidth = window.innerWidth - html.clientWidth;
+
+    body.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${lockedScrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.paddingRight = `${Math.max(0, scrollbarWidth)}px`;
+    html.style.overflow = 'hidden';
+  }
+
+  activeBodyLocks += 1;
+}
+
+function releaseBodyLock() {
+  if (typeof window === 'undefined' || activeBodyLocks === 0) return;
+
+  activeBodyLocks -= 1;
+
+  if (activeBodyLocks > 0) return;
+
+  const html = document.documentElement;
+  const body = document.body;
+
+  body.style.overflow = snapshot?.bodyOverflow ?? '';
+  body.style.position = snapshot?.bodyPosition ?? '';
+  body.style.top = snapshot?.bodyTop ?? '';
+  body.style.left = snapshot?.bodyLeft ?? '';
+  body.style.right = snapshot?.bodyRight ?? '';
+  body.style.paddingRight = snapshot?.bodyPaddingRight ?? '';
+  html.style.overflow = snapshot?.htmlOverflow ?? '';
+
+  window.scrollTo(0, lockedScrollY);
+  snapshot = null;
+}
+
 /**
  * Hook para bloquear scroll do body
  * Usado principalmente em modais para evitar scroll indesejado
  */
 export function useBodyLock(isLocked: boolean): void {
-  const scrollPositionRef = useRef<number>(0);
-  const lockedRef = useRef<boolean>(false);
+  const appliedRef = useRef(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const html = document.documentElement;
-    const body = document.body;
-
     if (isLocked) {
-      // Salva a posição atual do scroll
-      scrollPositionRef.current = window.scrollY;
-      lockedRef.current = true;
-
-      // Aplica estilos para bloquear scroll
-      const scrollbarWidth = window.innerWidth - html.clientWidth;
-
-      body.style.overflow = 'hidden';
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollPositionRef.current}px`;
-      body.style.left = '0';
-      body.style.right = '0';
-      body.style.paddingRight = `${scrollbarWidth}px`;
-      html.style.overflow = 'hidden';
-    } else {
-      // Remove os estilos e restaura a posição do scroll
-      lockedRef.current = false;
-      body.style.overflow = '';
-      body.style.position = '';
-      body.style.top = '';
-      body.style.left = '';
-      body.style.right = '';
-      body.style.paddingRight = '';
-      html.style.overflow = '';
-
-      // Restaura a posição do scroll
-      window.scrollTo(0, scrollPositionRef.current);
+      if (!appliedRef.current) {
+        applyBodyLock();
+        appliedRef.current = true;
+      }
+    } else if (appliedRef.current) {
+      releaseBodyLock();
+      appliedRef.current = false;
     }
 
-    // Cleanup ao desmontar
     return () => {
-      // Apenas limpa se ainda estava locked (componente desmontado enquanto modal aberto)
-      if (lockedRef.current) {
-        body.style.overflow = '';
-        body.style.position = '';
-        body.style.top = '';
-        body.style.left = '';
-        body.style.right = '';
-        body.style.paddingRight = '';
-        html.style.overflow = '';
-        window.scrollTo(0, scrollPositionRef.current);
+      if (appliedRef.current) {
+        releaseBodyLock();
+        appliedRef.current = false;
       }
     };
   }, [isLocked]);

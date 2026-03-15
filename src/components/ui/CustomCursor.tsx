@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export interface CustomCursorProps {
   color?: string;
@@ -17,6 +18,7 @@ export default function CustomCursor({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const motionGate = useMotionGate();
+  const supportsFinePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -28,7 +30,7 @@ export default function CustomCursor({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
-  if (motionGate) return null;
+  if (motionGate || !supportsFinePointer) return null;
 
   return (
     <motion.div

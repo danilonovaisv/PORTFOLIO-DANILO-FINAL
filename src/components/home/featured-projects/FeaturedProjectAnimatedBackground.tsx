@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
@@ -89,8 +90,9 @@ export default function FeaturedProjectAnimatedBackground({
 }: FeaturedProjectAnimatedBackgroundProps) {
   const reducedMotion = usePrefersReducedMotion();
   const supportsWebGL = useWebGLSupport();
+  const supportsFinePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
   const { containerRef, shouldAnimate } = useAnimatedBackgroundVisibility(
-    reducedMotion || !supportsWebGL
+    reducedMotion || !supportsWebGL || !supportsFinePointer
   );
 
   const surface = SURFACE_BY_VARIANT[variant];
