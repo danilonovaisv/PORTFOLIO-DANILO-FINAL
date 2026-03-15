@@ -127,7 +127,6 @@ export function AboutWhatIDo() {
             {SERVICES.map((service, index) => (
               <motion.article
                 key={service.id}
-                layout
                 initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={viewportConfig}
@@ -167,15 +166,15 @@ export function AboutWhatIDo() {
       <div className="block py-16 lg:hidden">
         <div className="std-grid">
           {/* Header */}
-          <header className="mb-12 text-center">
+          <header className="mb-10 text-center px-4">
             <h2
               id="what-i-do-heading-mobile"
-              className="font-display text-[2.5rem] font-black leading-[1.1] tracking-tight text-white"
+              className="font-display text-[2.25rem] font-black leading-[1.1] tracking-tight text-white text-balance"
             >
               Do <span className="text-bluePrimary">insight</span> ao{' '}
               <span className="text-bluePrimary">impacto</span>.
             </h2>
-            <p className="mt-2 font-display text-[1.75rem] font-black leading-[1.1] tracking-tight text-white/90">
+            <p className="mt-2 font-display text-[1.5rem] font-black leading-[1.1] tracking-tight text-white/90 text-balance">
               Mesmo quando você não percebe.
             </p>
           </header>
@@ -190,7 +189,7 @@ export function AboutWhatIDo() {
                     ? { opacity: 1, x: 0 }
                     : { opacity: 0, x: 18 }
                 }
-                whileInView={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{
                   duration: 0.4,

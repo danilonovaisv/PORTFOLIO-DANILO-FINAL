@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -28,14 +28,17 @@ const MotionWrapper = dynamic(
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const shouldReduceMotion = useMotionGate();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Reset scroll to top on path change (Lenis handles smooth, but we make sure)
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  // ♿ Reduced motion: render without transition wrapper
-  if (shouldReduceMotion) {
+  // ♿ Reduced motion or Server-Side: render without transition wrapper
+  // This avoids the "Bail out to client-side rendering" warning in Next.js
+  if (!mounted || shouldReduceMotion) {
     return (
       <div className="w-full flex-col flex grow" key={pathname}>
         {children}

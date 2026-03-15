@@ -3,6 +3,7 @@
 import { RefObject, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -13,6 +14,7 @@ interface UseOriginAnimationsProps {
   archRef: RefObject<HTMLDivElement | null>;
   archRightRef: RefObject<HTMLDivElement | null>;
   contentCount: number;
+  prefersReducedMotion: boolean;
 }
 
 export function useOriginAnimations({
@@ -20,6 +22,7 @@ export function useOriginAnimations({
   archRef,
   archRightRef,
   contentCount,
+  prefersReducedMotion,
 }: UseOriginAnimationsProps) {
   useEffect(() => {
     if (!isClient) return;
@@ -38,9 +41,6 @@ export function useOriginAnimations({
         const maskOverlays = archRightEl.querySelectorAll('.origin-mask');
         const titles = archEl.querySelectorAll('[data-origin-title]');
         const copies = archEl.querySelectorAll('[data-origin-copy]');
-        const prefersReducedMotion = window.matchMedia(
-          '(prefers-reduced-motion: reduce)'
-        ).matches;
         const triggers: ScrollTrigger[] = [];
 
         if (blocks.length === 0 || images.length === 0) return;
@@ -56,8 +56,8 @@ export function useOriginAnimations({
             opacity: 1,
             filter: 'blur(0px)',
           });
-          gsap.set(maskOverlays, { scaleY: 1, transformOrigin: 'top center' });
-          gsap.set(maskOverlays[0], { scaleY: 0 });
+          gsap.set(maskOverlays, { top: 0, height: '100%' });
+          gsap.set(maskOverlays[0], { height: '0%' });
 
           gsap.set(titles, { opacity: 0.45, y: 6, filter: 'blur(2px)' });
           gsap.set(copies, { opacity: 0.4, y: 6, filter: 'blur(2px)' });
@@ -89,7 +89,7 @@ export function useOriginAnimations({
 
         function revealImage(activeIndex: number, direction: 'up' | 'down') {
           const duration = prefersReducedMotion ? 0.2 : 0.72;
-          const ease = prefersReducedMotion ? 'none' : 'power3.inOut';
+          const ease = prefersReducedMotion ? 'none' : GSAP_GHOST_EASE;
 
           images.forEach((img, i) => {
             const isActive = i === activeIndex;
@@ -110,7 +110,7 @@ export function useOriginAnimations({
 
           maskOverlays.forEach((mask, i) => {
             gsap.to(mask, {
-              scaleY: i <= activeIndex ? 0 : 1,
+              height: i <= activeIndex ? '0%' : '100%',
               duration,
               ease,
             });
@@ -125,7 +125,7 @@ export function useOriginAnimations({
               filter: 'blur(0px)',
               duration: prefersReducedMotion ? 0.2 : 0.42,
               delay: prefersReducedMotion ? 0 : isActive ? 0.14 : 0,
-              ease: prefersReducedMotion ? 'none' : 'power3.out',
+              ease: prefersReducedMotion ? 'none' : GSAP_GHOST_EASE,
             });
           });
 
@@ -137,7 +137,7 @@ export function useOriginAnimations({
               filter: 'blur(0px)',
               duration: prefersReducedMotion ? 0.2 : 0.44,
               delay: prefersReducedMotion ? 0 : isActive ? 0.18 : 0,
-              ease: prefersReducedMotion ? 'none' : 'power3.out',
+              ease: prefersReducedMotion ? 'none' : GSAP_GHOST_EASE,
             });
           });
         }
@@ -150,7 +150,7 @@ export function useOriginAnimations({
               opacity: 0.85,
               filter: 'blur(4px)',
               duration: 0.8,
-              ease: 'power3.inOut',
+              ease: GSAP_GHOST_EASE,
             });
           }
         }
@@ -160,7 +160,7 @@ export function useOriginAnimations({
           y: 16,
           duration: prefersReducedMotion ? 0.22 : 0.9,
           delay: prefersReducedMotion ? 0 : 0.12,
-          ease: prefersReducedMotion ? 'none' : 'power3.out',
+          ease: prefersReducedMotion ? 'none' : GSAP_GHOST_EASE,
           scrollTrigger: {
             trigger: archEl,
             start: 'top 85%',
@@ -196,5 +196,5 @@ export function useOriginAnimations({
     });
 
     return () => mm.revert();
-  }, [isClient, archRef, archRightRef, contentCount]);
+  }, [isClient, archRef, archRightRef, contentCount, prefersReducedMotion]);
 }

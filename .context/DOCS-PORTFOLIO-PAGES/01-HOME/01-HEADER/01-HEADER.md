@@ -182,3 +182,12 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 
 - Referência visual esperada: `.context/HOME-PORTFOLIO-BLACK---GHOST.jpg`.
 - Ponto crítico arquitetural: evitar duplicidade de landmarks `<main>` entre layout raiz e client layout.
+
+## 12. Atualização de Estado — 2026-03-08
+
+- `SiteHeader.tsx` passou a resolver explicitamente os dois assets de marca do header:
+  - `SITE_ASSET_KEYS.logos.headerLight`
+  - `SITE_ASSET_KEYS.logos.headerDark`
+- A troca de logo agora acompanha `isOnLightSection`, preservando contraste quando o header atravessa fundos claros.
+- `DesktopFluidHeader.tsx` e `MobileHeaderBar.tsx` usam sizing estável com `img` nativa e `object-contain`, evitando o desaparecimento/corte do logo observado no runtime.
+- Validação em build (`next start`) confirmou o logo desktop visível com caixa estável de aproximadamente `150x47px`.

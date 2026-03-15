@@ -44,7 +44,7 @@ export const DesktopCard = ({
     >
       <div className="flex items-center gap-3">
         {/* Ícone Circular - Azul com Glow Roxo no Hover */}
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bluePrimary text-white transition-all duration-300 group-hover:bg-purpleDetails group-hover:shadow-[0_0_24px_rgba(135,5,242,0.6)] group-hover:scale-110">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bluePrimary text-white transition-all duration-300 group-hover:bg-purpleDetails group-hover:shadow-[0_0_24px_rgba(135,5,242,0.6)]">
           <ArrowUpRight size={18} strokeWidth={2.5} />
         </span>
         <p className="text-[1.05rem] font-semibold leading-snug text-white text-left">

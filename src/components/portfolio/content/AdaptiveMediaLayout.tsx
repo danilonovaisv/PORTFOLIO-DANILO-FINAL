@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import { getAssetUrl, isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
+import { getAssetUrl, isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback, ASSET_PLACEHOLDER } from '@/lib/utils';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
@@ -44,7 +44,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
         // Ensure heroMedia is always available in the thumbnails (if valid)
         const resolvedHero = getAssetUrl(heroMedia, { isVideo: isVideo(heroMedia) });
-        if (resolvedHero && !hiddenMedia.has(heroMedia)) {
+        if (resolvedHero && resolvedHero !== ASSET_PLACEHOLDER && !hiddenMedia.has(heroMedia)) {
             list.push(resolvedHero);
         }
 
@@ -54,7 +54,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     const isVidInternal = isVideo(m);
                     const resolved = getAssetUrl(m, { isVideo: isVidInternal });
 
-                    if (!hiddenMedia.has(m) && !list.includes(resolved)) {
+                    if (resolved !== ASSET_PLACEHOLDER && !hiddenMedia.has(m) && !list.includes(resolved)) {
                         list.push(resolved);
                     }
                 }
@@ -62,6 +62,11 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
         }
         return list;
     }, [project.detail?.gallery, project.thumbnailMedia, heroMedia]);
+
+    const activeMediaIndex = useMemo(
+        () => galleryMedia.findIndex((media) => media === activeMedia),
+        [activeMedia, galleryMedia]
+    );
 
     useEffect(() => {
         if (galleryMedia.length > 0 && !galleryMedia.includes(activeMedia)) {
@@ -78,6 +83,18 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
         }
     }, [heroMedia, galleryMedia]);
 
+    useEffect(() => {
+        if (activeMediaIndex < 0) return;
+        const preloadCandidates = [galleryMedia[activeMediaIndex - 1], galleryMedia[activeMediaIndex + 1]].filter(
+            (entry): entry is string => Boolean(entry) && !isVideo(entry)
+        );
+
+        preloadCandidates.forEach((entry) => {
+            const image = new window.Image();
+            image.src = entry;
+        });
+    }, [activeMediaIndex, galleryMedia]);
+
     const contentVariants = getContentVariants(shouldReduce);
     const isMotion = project.category === 'motion';
 
@@ -85,6 +102,29 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
         ? getYouTubeEmbedUrl(activeMedia)
         : null;
     const isVid = isVideo(activeMedia);
+    const activeLightboxIndex = lightboxSource
+        ? galleryMedia.findIndex((media) => media === lightboxSource)
+        : -1;
+
+    const openLightbox = (media: string) => {
+        if (isVideo(media) || isYouTubeUrl(media)) return;
+        setLightboxSource(media);
+    };
+
+    const stepLightbox = (direction: 'prev' | 'next') => {
+        if (activeLightboxIndex < 0 || galleryMedia.length <= 1) return;
+        const delta = direction === 'next' ? 1 : -1;
+        const nextIndex = (activeLightboxIndex + delta + galleryMedia.length) % galleryMedia.length;
+        const nextMedia = galleryMedia[nextIndex];
+        if (!nextMedia) return;
+        if (isVideo(nextMedia) || isYouTubeUrl(nextMedia)) {
+            setLightboxSource(null);
+            setActiveMedia(nextMedia);
+            return;
+        }
+        setLightboxSource(nextMedia);
+        setActiveMedia(nextMedia);
+    };
 
     return (
         <AnimatePresence mode="wait">
@@ -132,12 +172,16 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                             </video>
                         ) : (
-                            <div className="absolute inset-0 w-full h-full z-0 cursor-pointer" onClick={() => setLightboxSource(activeMedia)}>
+                            <div
+                                className="absolute inset-0 flex w-full h-full items-center justify-center z-0 cursor-pointer px-4 py-4 md:px-8 md:py-8"
+                                onClick={() => openLightbox(activeMedia)}
+                            >
                                 <Image
-                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80, format: 'webp' })}
+                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80 })}
                                     alt={project.title}
-                                    fill
-                                    className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.02]"
+                                    width={1920}
+                                    height={1080}
+                                    className="max-h-full h-auto w-auto max-w-full object-contain opacity-90 transition-transform duration-700 group-hover:scale-[1.02]"
                                     sizes="100vw"
                                     priority
                                     unoptimized
@@ -197,7 +241,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                 </div>
                                             ) : (
                                                 <Image
-                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70, format: 'webp' })}
+                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70 })}
                                                     alt={`Thumbnail ${idx}`}
                                                     fill
                                                     className="object-cover"
@@ -274,6 +318,10 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     src={lightboxSource}
                     alt={project.title}
                     onClose={() => setLightboxSource(null)}
+                    hasPrev={galleryMedia.length > 1}
+                    hasNext={galleryMedia.length > 1}
+                    onPrev={() => stepLightbox('prev')}
+                    onNext={() => stepLightbox('next')}
                 />
             </motion.div>
         </AnimatePresence>

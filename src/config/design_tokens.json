@@ -3,7 +3,7 @@
   "blueAccent": "#4fe6ff",
   "background": "#040013",
   "text": "#fcffff",
-  "textSecondary": "#a1a3a3",
+  "textSecondary": "#fcffff",
   "surface": "#0b0d3a",
   "error": "#ff3366",
   "fontDisplay": "clamp(2.5rem, 5vw + 1rem, 5.5rem)",

@@ -437,6 +437,13 @@ export default function MasterProjectTemplate({
                 />
               </div>
             </div>
+            <div className="mt-6 flex justify-center md:justify-start">
+              <HeroBackCTA
+                href={backHref}
+                label={LANDING_PAGE_BACK.label}
+                size="compact"
+              />
+            </div>
           </div>
         </motion.section>
       </div>

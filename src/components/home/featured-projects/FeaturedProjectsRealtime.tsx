@@ -10,7 +10,7 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
-import { stableShuffle } from '@/lib/utils/stable-shuffle';
+import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
 
 type HomeProjectRow =
   Database['public']['Tables']['portfolio_projects']['Row'] & {
@@ -27,10 +27,7 @@ type FeaturedProjectsRealtimeProps = {
 const POLLING_INTERVAL_MS = 45_000;
 
 function normalizeHomeFeaturedProjects(projects: PortfolioProject[]) {
-  return stableShuffle(projects, {
-    window: 'daily',
-    scope: 'home',
-  });
+  return shuffleHomeProjects(projects);
 }
 
 function getProjectsSignature(projects: PortfolioProject[]) {
@@ -58,6 +55,8 @@ export default function FeaturedProjectsRealtime({
   const router = useRouter();
   const supabase = useMemo(() => createClientComponentClient(), []);
   const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
+  const [displayProjects, setDisplayProjects] =
+    useState<PortfolioProject[]>(initialProjects);
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -230,6 +229,12 @@ export default function FeaturedProjectsRealtime({
     };
   }, [loadFeaturedProjects, supabase, isDev]);
 
+  useEffect(() => {
+    setDisplayProjects(projects);
+  }, [projects]);
+
+  // A rotação contínua (setInterval) foi desativada para que a ordem mude apenas ao entrar ou dar refresh na página.
+
   const handleOpenProject = useCallback(
     (project: PortfolioProject) => {
       if (project.landingPageSlug) {
@@ -261,7 +266,7 @@ export default function FeaturedProjectsRealtime({
   return (
     <>
       <FeaturedProjectsSection
-        projects={projects}
+        projects={displayProjects}
         onProjectOpen={handleOpenProject}
       />
       <PortfolioModal

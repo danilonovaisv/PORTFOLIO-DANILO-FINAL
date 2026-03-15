@@ -94,7 +94,7 @@ export default function ContactSection() {
           {/* Left Side: Headline + Contact Info */}
           <motion.div
             initial={
-              reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }
+              reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }
             }
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}

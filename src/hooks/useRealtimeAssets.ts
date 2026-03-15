@@ -116,10 +116,14 @@ const POLLING_CONFIG = {
   maxBackoff: 600000, // 10 minutes max
 };
 
-export function useRealtimeAsset(assetKey: string) {
+export function useRealtimeAsset(
+  assetKey: string,
+  options?: { enabled?: boolean }
+) {
+  const enabled = options?.enabled ?? true;
   const storeAsset = useContentStore((state) => state.assets[assetKey]);
   const upsertAsset = useContentStore((state) => state.upsertAsset);
-  const [loading, setLoading] = useState(!storeAsset);
+  const [loading, setLoading] = useState(enabled && !storeAsset);
   const [error, setError] = useState<Error | null>(null);
 
   // Refs for polling management
@@ -163,13 +167,23 @@ export function useRealtimeAsset(assetKey: string) {
 
   // 1. State Sync Effect: Handle loading state based on store presence
   useEffect(() => {
+    if (!enabled) {
+      setLoading(false);
+      return;
+    }
+
     if (storeAsset) {
       setLoading(false);
     }
-  }, [storeAsset]);
+  }, [enabled, storeAsset]);
 
   // 2. Polling & Subscription Effect: Manage lifecycle independent of store updates
   useEffect(() => {
+    if (!enabled || !assetKey) {
+      setLoading(false);
+      return;
+    }
+
     let isDisposed = false;
     const isMounted = () => !isDisposed;
 
@@ -244,7 +258,7 @@ export function useRealtimeAsset(assetKey: string) {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleVisibilityChange);
     };
-  }, [assetKey, fetchInitial]); // Removed storeAsset to prevent re-execution on updates
+  }, [assetKey, enabled, fetchInitial]); // Removed storeAsset to prevent re-execution on updates
 
   const assetWithUrl = storeAsset
     ? {

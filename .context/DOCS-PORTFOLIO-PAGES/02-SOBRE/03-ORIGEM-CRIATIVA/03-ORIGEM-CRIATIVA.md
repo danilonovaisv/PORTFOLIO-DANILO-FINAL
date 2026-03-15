@@ -95,7 +95,7 @@ Narrar trajetória criativa em capítulos, com memória visual progressiva e lei
 - Inconformidade 2 (Média): transição de background por capítulo
   - Protótipo descreve variação sutil de fundo por progresso (`#040013 -> #0a001a`).
   - Implementação atual não aplica essa transição de cor da seção.
-- Inconformidade 3 (Baixa): texto com erro ortográfico
-  - Em `src/components/sobre/origin/data.ts` há “arte comestratégia” (faltando espaço em “com estratégia”).
+- Inconformidade 3 (Resolvida em 2026-03-07): erro ortográfico
+  - `src/components/sobre/origin/data.ts` foi corrigido para “arte com estratégia”.
 - Conformidade forte:
   - Pin da galeria e reveal com máscara estão alinhados ao comportamento esperado.

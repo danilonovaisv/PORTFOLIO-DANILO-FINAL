@@ -73,7 +73,7 @@ export default function ClientsBrandsSection() {
                 key={logo.id}
                 role="listitem"
                 variants={{
-                  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+                  hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
                   show: {
                     opacity: 1,
                     y: 0,

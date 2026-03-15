@@ -2,6 +2,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import withBundleAnalyzer from '@next/bundle-analyzer';
+import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -128,7 +129,7 @@ const cspHeader = Object.entries(cspConfig)
   .map(([key, values]) => `${key} ${values.join(' ')}`)
   .join('; ');
 
-const nextConfig = {
+const createNextConfig = (phase) => ({
   /**
    * Mantém exatamente como você já tinha
    */
@@ -138,6 +139,14 @@ const nextConfig = {
   staticPageGenerationTimeout: 180,
 
   experimental: {
+    ...(phase === PHASE_PRODUCTION_BUILD
+      ? {
+          adapterPath: path.join(
+            __dirname,
+            'scripts/firebase-next-adapter.cjs'
+          ),
+        }
+      : {}),
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
@@ -156,17 +165,9 @@ const nextConfig = {
     },
   },
 
-  // As of Next.js 16, Turbopack is default but requires no webpack config or an explicit empty turbopack config
-  // to silence the error about conflict when using both.
-  // Since we use webpack for GLSL shaders, we suppress the warning/error.
-  // We can't easily migrate GLSL loader to turbopack yet without a plugin, so we keep webpack.
-  // In Next.js 15+, to avoid the error we can try disabling turbopack via flag, but here we can't change the command.
-  // However, often just providing an empty turbopack object or just accepting that we use webpack is enough.
-  // The error says: "This build is using Turbopack, with a `webpack` config and no `turbopack` config."
-  // So let's add an empty turbopack config.
-  // Turbopack config — used by default in Next.js 16.
-  // GLSL shaders are handled as raw text via the native `as: '*.txt'` rule.
-  // This avoids needing to install raw-loader only for Turbopack.
+  // Keep Turbopack enabled for plain `next build`, but generate the legacy
+  // export marker through the custom adapter so Firebase Hosting can consume
+  // the build output.
   turbopack: {},
 
   webpack: (config, { isServer }) => {
@@ -275,7 +276,7 @@ const nextConfig = {
    * Mantida INTACTA
    */
   images: {
-    unoptimized: true,
+    unoptimized: false,
     // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
     remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
       {
@@ -300,10 +301,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-};
+});
 
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-export default bundleAnalyzer(nextConfig);
+export default bundleAnalyzer((phase) => createNextConfig(phase));

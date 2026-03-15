@@ -32,7 +32,9 @@ function buildProject(
 describe('getModalHeroMedia', () => {
   it('nao reutiliza a thumb quando ha midia interna de conteudo', () => {
     const project = buildProject();
-    expect(getModalHeroMedia(project)).toBe(project.imageLandscape);
+    expect(getModalHeroMedia(project)).toBe(
+      'https://cdn.example.com/gallery-1.webp'
+    );
   });
 
   it('prioriza video real da galeria para projetos motion', () => {
@@ -66,5 +68,20 @@ describe('getModalHeroMedia', () => {
     expect(getModalHeroMedia(project)).toBe(
       'https://cdn.example.com/gallery-1.webp'
     );
+  });
+
+  it('retorna vazio quando so existem assets de capa e thumb', () => {
+    const project = buildProject({
+      detail: {
+        description: 'Descricao',
+        gallery: [
+          'https://cdn.example.com/thumb.webp',
+          'https://cdn.example.com/landscape.webp',
+          'https://cdn.example.com/square.webp',
+        ],
+      },
+    });
+
+    expect(getModalHeroMedia(project)).toBeUndefined();
   });
 });

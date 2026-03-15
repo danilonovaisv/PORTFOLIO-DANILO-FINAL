@@ -14,6 +14,7 @@ import {
 } from '@/config/portfolio';
 
 import { BRAND } from '@/config/brand';
+import { SITE_ASSET_PRELOADS } from '@/config/site-assets';
 import {
   normalizeMetaDescription,
   normalizeMetaTitle,
@@ -78,7 +79,7 @@ export async function generateMetadata({
     keywords: [
       'Danilo Novais',
       'Portfólio',
-      'Creative Developer',
+      'Head de Criação',
       ...(metaForCategory?.keywords || ['Branding', 'Motion Design', 'Web Development']),
     ],
     openGraph: {
@@ -111,11 +112,19 @@ export async function generateMetadata({
 }
 
 import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
+import { shufflePortfolioProjects } from '@/lib/portfolio/shuffle-projects';
 
 import JsonLd from '@/components/ui/JsonLd';
 import { generateVideoSchema } from '@/lib/schema';
+import { preload } from 'react-dom';
 
 export default async function PortfolioPage(_props: PortfolioPageProps) {
+  for (const video of SITE_ASSET_PRELOADS.portfolioHero.videos) {
+    preload(video, {
+      as: 'video',
+    });
+  }
+
   const resolvedSearchParams = await _props.searchParams;
   const categoryParam = Array.isArray(resolvedSearchParams?.category)
     ? resolvedSearchParams?.category[0]
@@ -169,6 +178,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
         projects = dbProjects.map((project, index) =>
           mapDbProjectToPortfolioProject(project, index)
         );
+        projects = shufflePortfolioProjects(projects);
         totalProjectsCount = projects.length;
       }
 
@@ -176,11 +186,13 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
       if (projects.length === 0) {
         console.warn('[Portfolio] No projects returned from Supabase, using fallback projects.');
         projects = filteredFallbackProjects;
+        projects = shufflePortfolioProjects(projects);
         totalProjectsCount = filteredFallbackProjects.length;
       }
     } else {
       console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
       projects = filteredFallbackProjects;
+      projects = shufflePortfolioProjects(projects);
       totalProjectsCount = filteredFallbackProjects.length;
     }
   } catch (error) {
@@ -191,6 +203,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
         activeFilter.categories?.includes(project.category)
       )
       : fallbackProjects;
+    projects = shufflePortfolioProjects(projects);
     totalProjectsCount = projects.length;
   }
 

@@ -234,10 +234,12 @@ Design · Motion · Creative Development
 
 ## Gerenciamento de Pacotes (Deploy Cloud Functions)
 
-Para garantir consistência e evitar problemas de deploy no Firebase Cloud Build (especialmente erros de sincronia do lockfile), este projeto utiliza estritamente o **pnpm** de ponta a ponta.
+O desenvolvimento local e a CI usam **pnpm** como gerenciador principal, mas o deploy do Firebase Frameworks/Cloud Build ainda executa `npm ci` dentro dos artefatos das funções.
 
 **Estratégia Adotada:**
 
-1. O uso de `package-lock.json` é desencorajado.
-2. O `package.json` (tanto na raiz quanto na pasta `functions/`) define o `packageManager` como `pnpm@<versão>`. Isso garante que o buildpack do Google Cloud Functions utilize o pnpm nativamente.
-3. No GitHub Actions, o passo de build utiliza o `pnpm-lock.yaml` original, sem converções forçadas para `npm`. O lockfile deve ser mantido sempre atualizado para o `sharp` ou outras dependências SSR do Next.js.
+1. O repositório versiona apenas `pnpm-lock.yaml`.
+2. `package.json` na raiz e em `functions/` mantém `packageManager` alinhado com a versão do `pnpm` usada na CI.
+3. No momento do deploy, o workflow remove `packageManager` temporariamente desses manifests e gera `package-lock.json` efêmeros para a raiz e para `functions/`.
+4. Esses lockfiles temporários existem apenas durante o deploy para satisfazer o `npm ci` do Cloud Build e são removidos ao final.
+5. Se o Cloud Build falhar com `npm ci` e mensagem de lockfile fora de sincronia, a primeira verificação deve ser esse passo de geração temporária de lockfiles.

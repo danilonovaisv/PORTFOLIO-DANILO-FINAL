@@ -1,14 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import FeaturedProjectCardFrame from '@/components/home/featured-projects/FeaturedProjectCardFrame';
-import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
+import {
+  getNextFeaturedProjectBackgroundVariant,
+  type FeaturedProjectBackgroundVariant,
+} from '@/components/home/featured-projects/animated-backgrounds';
+import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
 import type { PortfolioProject } from '@/types/project';
-import { isVideo } from '@/lib/utils';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
@@ -27,17 +30,86 @@ export default function FeaturedProjectCard({
 }: FeaturedProjectCardProps) {
   const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const [isCardInView, setIsCardInView] = useState(false);
+  const [resolvedBackgroundVariant, setResolvedBackgroundVariant] =
+    useState<FeaturedProjectBackgroundVariant>(backgroundVariant);
 
-  // Resolve the best static image for the card (never a video)
-  const staticImageCandidates = [
-    project.imageLandscape,
-    project.imageSquare,
-    project.image,
-  ].filter((url): url is string => !!url && !isVideo(url));
-  const staticImage = staticImageCandidates[0];
+  useEffect(() => {
+    setResolvedBackgroundVariant(backgroundVariant);
+  }, [backgroundVariant, project.id]);
 
-  // The media source for the static poster/image — always an image, never a video
-  const mediaSource = staticImage;
+  useEffect(() => {
+    const node = frameRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsCardInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsCardInView(entry.isIntersecting && entry.intersectionRatio > 0.18);
+      },
+      { threshold: [0, 0.18, 0.35] }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion || !isCardInView) {
+      return;
+    }
+
+    let timeoutId: number | null = null;
+
+    const clearScheduledRotation = () => {
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    };
+
+    const scheduleRotation = () => {
+      clearScheduledRotation();
+
+      timeoutId = window.setTimeout(
+        () => {
+          setResolvedBackgroundVariant((current) =>
+            getNextFeaturedProjectBackgroundVariant(current)
+          );
+          scheduleRotation();
+        },
+        6500 + Math.round(Math.random() * 3500)
+      );
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearScheduledRotation();
+        return;
+      }
+
+      scheduleRotation();
+    };
+
+    scheduleRotation();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearScheduledRotation();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isCardInView, reducedMotion]);
+
+  const desktopMediaSource = useMemo(() => {
+    return getCardMediaCandidates(project, 'landscape')[0];
+  }, [project]);
+
+  const mobileMediaSource = useMemo(() => {
+    return getCardMediaCandidates(project, 'square')[0] ?? desktopMediaSource;
+  }, [project, desktopMediaSource]);
 
   const handleClick = () => {
     if (onOpen) {
@@ -54,11 +126,15 @@ export default function FeaturedProjectCard({
 
   const CardContent = () => (
     <div className="flex h-full w-full flex-col">
-      <div className={`relative w-full flex-1 ${frameClassName ?? ''}`}>
+      <div
+        ref={frameRef}
+        className={`relative w-full flex-1 ${frameClassName ?? ''}`}
+      >
         <FeaturedProjectCardFrame
           project={project}
-          backgroundVariant={backgroundVariant}
-          mediaSource={mediaSource}
+          backgroundVariant={resolvedBackgroundVariant}
+          desktopMediaSource={desktopMediaSource}
+          mobileMediaSource={mobileMediaSource}
           priority={priority}
           reducedMotion={reducedMotion}
         />
@@ -91,8 +167,8 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle bg-bluePrimary md:group-hover:bg-[#8705f2] shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
-            <ArrowUpRight className="h-6 w-6 transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:translate-x-5" />
+          <div className="btn-icon-circle bg-bluePrimary shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
+            <ArrowUpRight className="h-6 w-6" />
           </div>
         </div>
       </div>

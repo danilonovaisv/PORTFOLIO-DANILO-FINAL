@@ -10,11 +10,13 @@ import {
   OriginStickyGallery,
 } from '@/components/sobre/origin/OriginComponents';
 import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMotionGate();
 
   const resolveFallbackHost = (path: FallbackImage) =>
     buildSupabaseStorageUrl('site-assets', path) ?? undefined;
@@ -56,6 +58,7 @@ function AboutOrigin() {
     archRef,
     archRightRef,
     contentCount: contentBlocks.length,
+    prefersReducedMotion: !!prefersReducedMotion,
   });
 
   return (
@@ -64,9 +67,9 @@ function AboutOrigin() {
       ref={containerRef}
       aria-label="Origem Criativa"
     >
-      <div className="std-grid py-24">
-        <div className="mb-24 text-center select-none">
-          <h2 className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.2em] uppercase">
+      <div className="std-grid py-16 md:py-24">
+        <div className="mb-12 md:mb-24 text-center select-none">
+          <h2 className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.1em] md:tracking-[0.2em] uppercase">
             ORIGEM
           </h2>
         </div>

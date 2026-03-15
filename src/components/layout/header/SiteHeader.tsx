@@ -129,11 +129,17 @@ export default function SiteHeader({
     return () => observer.disconnect();
   }, []);
 
-  const logoUrl =
+  const headerLogoLight =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.logos.headerLight,
       BRAND.assets.logos.logoLight
     ) ?? BRAND.assets.logos.logoLight;
+  const headerLogoDark =
+    useSiteAssetUrl(
+      SITE_ASSET_KEYS.logos.headerDark,
+      BRAND.assets.logos.logoDark
+    ) ?? BRAND.assets.logos.logoDark;
+  const logoUrl = isOnLightSection ? headerLogoDark : headerLogoLight;
   const logoDesktop = logoUrl;
   const logoMobile = logoUrl;
 

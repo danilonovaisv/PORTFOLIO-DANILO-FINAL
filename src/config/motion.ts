@@ -17,12 +17,12 @@ export const MOTION_TOKENS = {
   // DURATIONS
   // ─────────────────────────────────────────────────────────────────────────
   duration: {
-    /** Atmospheric, slow reveals - 1.2s */
-    slow: 1.2,
+    /** Atmospheric, slow reveals - 1.5s */
+    slow: 1.5,
     /** Standard transitions - 0.8s */
     normal: 0.8,
-    /** Quick interactions - 0.4s */
-    fast: 0.4,
+    /** Quick interactions - 0.2s */
+    fast: 0.2,
     /** Micro-interactions - 0.2s */
     instant: 0.2,
     /** Modal/overlay animations - 0.5s */

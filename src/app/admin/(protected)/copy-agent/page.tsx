@@ -3,7 +3,7 @@
 import { useActionState, useState, type ChangeEvent } from 'react';
 import { generateProjectCopy } from '@/app/admin/(protected)/copy-agent/actions';
 import { Loader2, Copy, Check, PenTool } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import {
   COPY_FIELD_LIMITS,
@@ -420,9 +420,10 @@ export default function CopyAgentPage() {
 
               <div className="flex-1 p-6 overflow-y-auto max-h-[700px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                 {displayContent ? (
-                  <div className="prose prose-invert prose-sm max-w-none prose-headings:text-indigo-300 prose-a:text-indigo-400">
-                    <ReactMarkdown>{displayContent}</ReactMarkdown>
-                  </div>
+                  <GhostMarkdown
+                    content={displayContent}
+                    proseClassName="prose-sm prose-headings:text-indigo-300 prose-a:text-indigo-400"
+                  />
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-3">
                     <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">

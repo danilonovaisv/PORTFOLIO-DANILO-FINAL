@@ -5,5 +5,5 @@ export const LANDING_PAGE_CTA = Object.freeze({
 });
 
 export const LANDING_PAGE_BACK = Object.freeze({
-  label: 'voltar ao portfólio',
+  label: 'voltar',
 });

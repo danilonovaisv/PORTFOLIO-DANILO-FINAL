@@ -204,19 +204,17 @@ export function AboutHero() {
               */}
               <div
                 aria-hidden="true"
-                className="font-h1 text-[clamp(1.8rem,4vw+1rem,3.5rem)] font-bold text-white leading-tight flex flex-col gap-1 text-balance"
+                className="font-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-white leading-[1.1] flex flex-col gap-0.5 text-balance"
               >
                 <span>
                   Sou <span className="text-bluePrimary">Danilo Novais.</span>
                 </span>
                 <span>
                   Você <span className="text-bluePrimary">não vê tudo</span>{' '}
-                  {/* whitespace-nowrap impede a quebra: "o | que eu faço" */}
                   <span className="whitespace-nowrap">o que eu faço.</span>
                 </span>
                 <span>
                   Mas sente quando{' '}
-                  {/* whitespace-nowrap impede que 'funciona' fique sozinho */}
                   <span className="text-bluePrimary whitespace-nowrap">
                     funciona.
                   </span>

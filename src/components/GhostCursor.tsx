@@ -245,6 +245,7 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     const host = containerRef.current;
     const parent = host?.parentElement;
     if (!host || !parent) return;
+    const grandParent = parent.parentElement;
 
     const prevParentPos = parent.style.position;
     if (!prevParentPos || prevParentPos === 'static') {
@@ -339,9 +340,13 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     composer.addPass(UnpremultiplyPass);
 
     const resize = () => {
-      const rect = host.getBoundingClientRect();
-      const cssW = Math.max(1, Math.floor(rect.width));
-      const cssH = Math.max(1, Math.floor(rect.height));
+      const hostRect = host.getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+      const cssW = Math.max(1, Math.floor(hostRect.width || parentRect.width));
+      const cssH = Math.max(
+        1,
+        Math.floor(hostRect.height || parentRect.height)
+      );
 
       const currentDPR = Math.min(
         typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
@@ -375,6 +380,12 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
     resizeObsRef.current = ro;
     ro.observe(parent);
     ro.observe(host);
+    if (grandParent instanceof HTMLElement) {
+      ro.observe(grandParent);
+    }
+
+    const deferredResizeId = window.requestAnimationFrame(resize);
+    const timeoutResizeId = window.setTimeout(resize, 120);
 
     const start =
       typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -440,45 +451,35 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = parent.getBoundingClientRect();
-      const x = THREE.MathUtils.clamp(
-        (e.clientX - rect.left) / Math.max(1, rect.width),
-        0,
-        1
-      );
-      const y = THREE.MathUtils.clamp(
-        1 - (e.clientY - rect.top) / Math.max(1, rect.height),
-        0,
-        1
-      );
+      const x = (e.clientX - rect.left) / Math.max(1, rect.width);
+      const y = 1 - (e.clientY - rect.top) / Math.max(1, rect.height);
       currentMouseRef.current.set(x, y);
       pointerActiveRef.current = true;
       lastMoveTimeRef.current = performance.now();
       ensureLoop();
     };
-    const onPointerEnter = () => {
-      pointerActiveRef.current = true;
-      ensureLoop();
-    };
-    const onPointerLeave = () => {
+    const onPointerLeaveWindow = () => {
       pointerActiveRef.current = false;
       lastMoveTimeRef.current = performance.now();
       ensureLoop();
     };
 
-    parent.addEventListener('pointermove', onPointerMove, { passive: true });
-    parent.addEventListener('pointerenter', onPointerEnter, { passive: true });
-    parent.addEventListener('pointerleave', onPointerLeave, { passive: true });
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerleave', onPointerLeaveWindow, {
+      passive: true,
+    });
 
     ensureLoop();
 
     return () => {
+      window.cancelAnimationFrame(deferredResizeId);
+      window.clearTimeout(timeoutResizeId);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       runningRef.current = false;
       rafRef.current = null;
 
-      parent.removeEventListener('pointermove', onPointerMove);
-      parent.removeEventListener('pointerenter', onPointerEnter);
-      parent.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerleave', onPointerLeaveWindow);
       resizeObsRef.current?.disconnect();
 
       scene.clear();
@@ -559,7 +560,7 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none absolute inset-0 ${className ?? ''}`}
+      className={`pointer-events-none absolute inset-0 h-full w-full ${className ?? ''}`}
       style={mergedStyle}
     />
   );

@@ -60,6 +60,7 @@ export const ProjectsGallery = ({
   const galleryWrapperRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 640px)');
+  const [liveProjects, setLiveProjects] = useState<PortfolioProject[]>(projects);
 
   // Filter logic
   const filteredProjects = useMemo(() => {
@@ -127,6 +128,12 @@ export const ProjectsGallery = ({
   }, [filteredProjects, currentPage]);
 
   useEffect(() => {
+    setLiveProjects(paginatedProjects);
+  }, [paginatedProjects]);
+
+  // A rotação contínua (setInterval) foi desativada para que a ordem mude apenas ao entrar ou recarregar a página.
+
+  useEffect(() => {
     setActiveFilter(mapCategoryToPortfolioFilter(initialCategory));
   }, [initialCategory]);
 
@@ -155,11 +162,11 @@ export const ProjectsGallery = ({
 
   const items = useMemo(
     () =>
-      paginatedProjects.map((project, index) => ({
+      liveProjects.map((project, index) => ({
         project,
         size: project.layout?.size ?? sizePattern[index % sizePattern.length],
       })),
-    [paginatedProjects, sizePattern]
+    [liveProjects, sizePattern]
   );
 
   const activeFilterIndex = useMemo(
@@ -246,7 +253,7 @@ export const ProjectsGallery = ({
                 type="button"
                 role="tab"
                 aria-controls="portfolio-filter-panel"
-                aria-selected={activeFilter === pillar.id}
+                aria-selected={activeFilter === pillar.id ? 'true' : 'false'}
                 tabIndex={activeFilter === pillar.id ? 0 : -1}
                 onClick={() => handleFilterChange(pillar.id)}
                 onKeyDown={(event) =>
@@ -322,7 +329,7 @@ export const ProjectsGallery = ({
                     disabled={currentPage === 1}
                     aria-label="Página anterior"
                     aria-controls="portfolio-filter-panel"
-                    aria-disabled={currentPage === 1}
+                    aria-disabled={currentPage === 1 ? 'true' : 'false'}
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
@@ -344,7 +351,7 @@ export const ProjectsGallery = ({
                     disabled={currentPage === totalPages}
                     aria-label="Próxima página"
                     aria-controls="portfolio-filter-panel"
-                    aria-disabled={currentPage === totalPages}
+                    aria-disabled={currentPage === totalPages ? 'true' : 'false'}
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">

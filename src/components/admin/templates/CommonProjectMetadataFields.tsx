@@ -4,7 +4,7 @@ import {
   inputClasses,
   labelClasses,
   splitTokenList,
-  splitLines,
+  splitBlocks,
 } from './CommonTemplateStyles';
 
 interface CommonProjectMetadataFieldsProps {
@@ -17,7 +17,14 @@ interface CommonProjectMetadataFieldsProps {
     project_tags: string[];
     project_summary?: string;
     intro_headline?: string;
-    intro_body?: string[];
+    intro_body?: Array<
+      | string
+      | {
+          type: 'text' | 'video_youtube';
+          value: string;
+          settings: { autoplay: boolean };
+        }
+    >;
     highlight_color?: string;
     theme_color?: string;
   };
@@ -150,11 +157,15 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1 md:col-span-2">
-        <span className={labelClasses}>Parágrafos da intro (1 por linha)</span>
+        <span className={labelClasses}>
+          Blocos da intro (separe por linha em branco)
+        </span>
         <textarea
           className={`${inputClasses} min-h-28`}
-          value={(value.intro_body || []).join('\n')}
-          onChange={(e) => update({ intro_body: splitLines(e.target.value) })}
+          value={(value.intro_body || [])
+            .map((item) => (typeof item === 'string' ? item : item.value))
+            .join('\n\n')}
+          onChange={(e) => update({ intro_body: splitBlocks(e.target.value) })}
         />
       </label>
     </div>

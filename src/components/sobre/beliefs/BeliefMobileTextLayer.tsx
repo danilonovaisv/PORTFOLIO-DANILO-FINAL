@@ -66,27 +66,26 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   prefersReducedMotion,
 }) => {
   const Container = MotionDiv ?? motion.div;
-  const phraseZoneStart = 0.16;
-  const phraseZoneEnd = 0.94;
+  // O container pai usa (PHRASES.length + 2) * 100vh de altura. Para mobile,
+  // cada frase ocupa uma "tela" na timeline e a última tela fica reservada
+  // ao manifesto final. Esse mapeamento mantém a ordem estável em qualquer
+  // viewport e evita saltos entre frases.
+  const totalScreens = totalPhrases + 1;
+  const segmentSize = 1 / totalScreens;
+  const timelineOffset = 0.08;
 
-  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil
-  // A timeline das frases começa apenas após entrada do header + Ghost.
-  const phraseZoneSize = phraseZoneEnd - phraseZoneStart;
-  const segmentSize = phraseZoneSize / totalPhrases;
-  const startPoint = phraseZoneStart + index * segmentSize;
+  const startPoint = index * segmentSize + timelineOffset;
   const endPoint = startPoint + segmentSize;
+  const entryStart = startPoint;
+  const entryEnd = startPoint + segmentSize * 0.35;
+  const exitStart = endPoint - segmentSize * 0.35;
+  const exitEnd = endPoint;
 
-  // Entry/Exit mais longos para evitar "piscar" e manter legibilidade.
-  const entryStart = startPoint + segmentSize * 0.02;
-  const entryEnd = startPoint + segmentSize * 0.34;
-  const exitStart = endPoint - segmentSize * 0.34;
-  const exitEnd = endPoint - segmentSize * 0.02;
-
-  // X: Entra da ESQUERDA, mantém centro, sai para a DIREITA.
+  // Mobile: entra pela esquerda, estabiliza no centro e sai à direita.
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['-24px', '0px', '0px', '24px'],
+    ['-40px', '0px', '0px', '40px'],
     { ease: ghostEase }
   );
 
@@ -102,7 +101,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const blur = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['blur(6px)', 'blur(0px)', 'blur(0px)', 'blur(6px)'],
+    ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)'],
     { ease: ghostEase }
   );
 
@@ -114,8 +113,8 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
       style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
       className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
-      {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-3rem) */}
-      <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,7vw,3rem)] leading-[1.3] tracking-tight block w-full mx-auto">
+      {/* Mobile: frase corrida com quebra natural, sem disputa com o ghost/header. */}
+      <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,7vw,3rem)] leading-[1.3] tracking-tight block w-full mx-auto text-balance">
         {mobileText}
       </span>
     </Container>

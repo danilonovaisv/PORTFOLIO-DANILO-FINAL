@@ -15,6 +15,7 @@ import {
   type MasterProjectTemplateData,
   type MasterProjectTemplateV2Data,
   type MasterProjectTemplateV3Data,
+  type TemplateV3IntroBlock,
   type MasterProjectV2FeatureItem,
   type MasterProjectV2GalleryItem,
   type ParsedLandingPageContent,
@@ -85,13 +86,66 @@ const asStringArray = (value: unknown): string[] => {
 };
 
 const asIntroParagraphs = (value: unknown): string[] => {
-  if (Array.isArray(value)) return asStringArray(value);
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => {
+        if (typeof item === 'string') return item;
+        const record = asRecord(item);
+        if (!record) return undefined;
+        return asString(record.value);
+      })
+      .filter((item): item is string => Boolean(item));
+  }
+
   const text = asString(value);
   if (!text) return [];
   return text
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean);
+};
+
+const asV3IntroBlocks = (
+  value: unknown
+): TemplateV3IntroBlock[] | undefined => {
+  if (!Array.isArray(value)) return undefined;
+
+  const blocks = value
+    .map((item) => {
+      if (typeof item === 'string') {
+        const normalized = asString(item);
+        if (!normalized) return null;
+        return {
+          type: 'text' as const,
+          value: normalized,
+          settings: { autoplay: false },
+        };
+      }
+
+      const record = asRecord(item);
+      if (!record) return null;
+
+      const type = record.type === 'video_youtube' ? 'video_youtube' : 'text';
+      const blockValue = asString(record.value);
+      if (!blockValue) return null;
+
+      const settingsRecord = asRecord(record.settings);
+      const autoplaySetting = asBoolean(settingsRecord?.autoplay);
+
+      return {
+        type,
+        value: blockValue,
+        settings: {
+          autoplay:
+            type === 'video_youtube'
+              ? (autoplaySetting ?? true)
+              : (autoplaySetting ?? false),
+        },
+      };
+    })
+    .filter(Boolean) as TemplateV3IntroBlock[];
+
+  return blocks.length > 0 ? blocks : undefined;
 };
 
 const asMediaKind = (value: unknown): 'image' | 'video' =>
@@ -161,13 +215,14 @@ const inferMediaType = (
   src?: string,
   fallback?: unknown
 ): LandingPageBlock['content']['mediaType'] => {
+  if (src && YOUTUBE_PATTERN.test(src)) return 'youtube';
+  if (src && VIDEO_FILE_PATTERN.test(src)) return 'video';
+
   if (fallback === 'image' || fallback === 'video' || fallback === 'youtube') {
     return fallback;
   }
 
   if (!src) return undefined;
-  if (YOUTUBE_PATTERN.test(src)) return 'youtube';
-  if (VIDEO_FILE_PATTERN.test(src)) return 'video';
   return 'image';
 };
 
@@ -194,19 +249,6 @@ const normalizeTextConfig = (
     textAlign: asTextAlign(record.textAlign),
   };
 };
-
-const blockNeedsPrimaryMedia = (type: BlockType): boolean =>
-  type === 'image' ||
-  type === 'video' ||
-  type === 'video-autoplay' ||
-  type === 'image-text' ||
-  type === 'text-image' ||
-  type === 'image-image' ||
-  type === 'image-video' ||
-  type === 'video-text';
-
-const blockNeedsSecondaryMedia = (type: BlockType): boolean =>
-  type === 'image-image' || type === 'image-video';
 
 const normalizeAsset = (
   value: unknown,
@@ -325,11 +367,14 @@ const normalizeLandingBlock = (
   const type = asBlockType(record.type);
   const contentRecord = asRecord(record.content) ?? {};
 
-  const media = asString(contentRecord.media ?? record.src);
+  const media = asString(
+    contentRecord.media ?? contentRecord.media1 ?? record.src
+  );
   const media2 = asString(contentRecord.media2 ?? record.src2);
 
-  if (blockNeedsPrimaryMedia(type) && !media) return null;
-  if (blockNeedsSecondaryMedia(type) && !media2) return null;
+  // We no longer return null here. It caused "desaparecimento do bloco de texto"
+  // if the user forgot or didn't want to add an image yet.
+  // The frontend handles missing media gracefully with `<AssetInteractive>`.
 
   const normalized: LandingPageBlock = {
     id: asString(record.id) ?? `block-${index + 1}`,
@@ -341,9 +386,13 @@ const normalizeLandingBlock = (
       textConfig2: normalizeTextConfig(contentRecord.textConfig2),
       media,
       media2,
-      alt: asString(contentRecord.alt ?? record.alt) ?? fallbackAlt,
+      alt:
+        asString(contentRecord.alt ?? contentRecord.alt1 ?? record.alt) ??
+        fallbackAlt,
       alt2: asString(contentRecord.alt2 ?? record.alt2),
-      poster: asString(contentRecord.poster ?? record.poster),
+      poster: asString(
+        contentRecord.poster ?? contentRecord.poster1 ?? record.poster
+      ),
       poster2: asString(contentRecord.poster2 ?? record.poster2),
       mediaType: inferMediaType(media, contentRecord.mediaType),
       mediaType2: inferMediaType(media2, contentRecord.mediaType2),
@@ -814,7 +863,9 @@ function normalizeMasterTemplateV3(
       asString(record.summary) ??
       defaults.project_summary,
     intro_headline: asString(record.intro_headline) ?? defaults.intro_headline,
-    intro_body: asIntroParagraphs(record.intro_body ?? record.intro_paragraphs),
+    intro_body:
+      asV3IntroBlocks(record.intro_body ?? record.intro_paragraphs) ??
+      asIntroParagraphs(record.intro_body ?? record.intro_paragraphs),
     highlight_color:
       asString(record.highlight_color) ?? defaults.highlight_color,
     theme_color: asString(record.theme_color) ?? defaults.theme_color,

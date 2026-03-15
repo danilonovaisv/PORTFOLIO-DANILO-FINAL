@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { SOCIALS } from '@/config/navigation';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +14,8 @@ import {
 } from 'lucide-react';
 
 const ContactDetails: FC = () => {
+  const prefersReducedMotion = useMotionGate();
+
   const contactInfo = [
     {
       label: SOCIALS.emailPrimary.replace('mailto:', ''),
@@ -57,8 +60,8 @@ const ContactDetails: FC = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={prefersReducedMotion ? {} : { opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
       transition={{ duration: 0.8, ease: GHOST_EASE }}
     >

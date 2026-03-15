@@ -10,6 +10,7 @@ import {
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
 import { normalizeHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
+import { isLegacyProjectMediaAsset } from '@/lib/portfolio/card-media';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { isVideo, isYouTubeUrl } from '@/lib/utils';
 
@@ -352,25 +353,47 @@ export function mapDbProjectToPortfolioProject(
   const galleryWithYoutube = appendYouTubeMedia(gallery, rawProjectLink);
   const landscapeUrl = resolveProjectMedia(project.url_landscape);
   const squareUrl = resolveProjectMedia(project.url_square);
+  const staticLandscapeUrl = !isVideo(landscapeUrl) ? landscapeUrl : undefined;
+  const staticSquareUrl = !isVideo(squareUrl) ? squareUrl : undefined;
   const thumbnailMedia =
     resolveProjectMedia(project.thumbnail_path) ||
     resolveProjectMedia(project.hero_image_path);
   const thumbnailIsVideo = isVideo(thumbnailMedia);
+  const heroMedia = resolveProjectMedia(project.hero_image_path);
+  const shouldPreferStructuredCardMedia =
+    Boolean(landscapeUrl || squareUrl) &&
+    (isLegacyProjectMediaAsset(thumbnailMedia) ||
+      isLegacyProjectMediaAsset(heroMedia));
   // Dedicated static hero fallback (never a video)
   const heroImageUrl = !isVideo(project.hero_image_path)
     ? resolveProjectMedia(project.hero_image_path)
     : undefined;
   const primaryImageCandidates = [
     !thumbnailIsVideo ? thumbnailMedia : undefined,
-    landscapeUrl,
-    squareUrl,
+    staticLandscapeUrl,
+    staticSquareUrl,
     heroImageUrl,
     // Filter gallery to only include non-video entries
     ...gallery.filter((url) => !isVideo(url)),
   ].filter(Boolean) as string[];
 
   const primaryImage = primaryImageCandidates[0] || '';
-  const videoPreview = toVideoPreview(galleryWithYoutube);
+  const videoPreview =
+    [
+      shouldPreferStructuredCardMedia
+        ? undefined
+        : thumbnailIsVideo
+          ? thumbnailMedia
+          : undefined,
+      shouldPreferStructuredCardMedia
+        ? undefined
+        : isVideo(heroMedia)
+          ? heroMedia
+          : undefined,
+      isVideo(landscapeUrl) ? landscapeUrl : undefined,
+      isVideo(squareUrl) ? squareUrl : undefined,
+      toVideoPreview(galleryWithYoutube),
+    ].find((entry): entry is string => Boolean(entry)) ?? undefined;
 
   const detail = {
     description: project.description ?? '',
@@ -393,8 +416,8 @@ export function mapDbProjectToPortfolioProject(
     tags,
     year: project.year ?? 0,
     image: primaryImage,
-    imageLandscape: landscapeUrl,
-    imageSquare: squareUrl,
+    imageLandscape: landscapeUrl ?? undefined,
+    imageSquare: squareUrl ?? undefined,
     thumbnailMedia: thumbnailMedia ?? undefined,
     type,
     layout,

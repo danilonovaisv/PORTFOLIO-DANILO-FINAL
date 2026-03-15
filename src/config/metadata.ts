@@ -8,18 +8,19 @@ import { BRAND } from '@/config/brand';
  */
 
 export const siteMetadata: Metadata = {
-  metadataBase: new URL(`https://${BRAND.domain}`),
+  metadataBase: new URL(`https://portfoliodanilo.com`),
 
   title: {
-    default: `${BRAND.name} | Creative Developer`,
-    template: `%s | ${BRAND.name}`,
+    default: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
+    template: '%s | Danilo Novais',
   },
 
   description:
-    'Portfólio de Danilo Novais - Creative Developer especializado em design digital, branding e motion design. Você não vê o design. Mas ele vê você.',
+    'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
 
   keywords: [
-    'Creative Developer',
+    'Head de Criação',
+    'Diretor de Criação',
     'Creative Development',
     'Creative technologist',
     'Design System',
@@ -44,39 +45,36 @@ export const siteMetadata: Metadata = {
     'Front-end Engineering',
   ],
 
-  authors: [{ name: BRAND.name, url: `https://${BRAND.domain}` }],
-  creator: BRAND.name,
-  publisher: BRAND.name,
+  authors: [{ name: 'Danilo Novais', url: 'https://portfoliodanilo.com' }],
+  creator: 'Danilo Novais',
+  publisher: 'Danilo Novais',
 
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: `https://${BRAND.domain}`,
-    siteName: BRAND.name,
-    title: `${BRAND.name} | Creative Developer`,
+    url: 'https://portfoliodanilo.com',
+    siteName: 'Danilo Novais',
+    title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
-      'Você não vê o design. Mas ele vê você. Portfólio de projetos criativos.',
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     images: [
       {
-        url: '/opengraph-image',
+        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png',
         width: 1200,
         height: 630,
-        alt: `${BRAND.name} - Creative Developer`,
-      },
-      {
-        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
-        width: 800,
-        height: 400,
-        alt: `${BRAND.name} Logo`,
+        alt: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: `${BRAND.name} | Creative Developer`,
-    description: 'Você não vê o design. Mas ele vê você.',
-    images: ['/opengraph-image'],
+    title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
+    description:
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
+    images: [
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png',
+    ],
     creator: '@_novais',
   },
 

@@ -14,7 +14,7 @@ Apresentar cada projeto como bloco editorial clicável, com metadados claros e c
 
 - Card em `motion.button` com:
   - mídia (imagem ou vídeo)
-  - overlay com categoria, título, cliente/ano, tags
+  - overlay com categoria, título, cliente/ano
 - IDs de acessibilidade por card (`aria-labelledby`).
 
 ## 3. Interatividade
@@ -46,3 +46,9 @@ Apresentar cada projeto como bloco editorial clicável, com metadados claros e c
 ## 7. Inconformidades observadas
 
 - Inconformidade média: consolidar regra de roteamento em campo explícito no modelo de dados (evitar inferência por texto de tag/categoria).
+
+## 8. Atualização de estado — 2026-03-07
+
+- `ProjectCard.tsx` mantém as tags fora da UI visível; elas seguem apenas em `sr-only` para contexto sem ruído editorial.
+- `src/lib/utils.ts` parou de forçar `format=webp` nas URLs de `render/image/public`, evitando erro de querystring no Supabase.
+- Cards continuam com reveal Ghost (`opacity + translateY + blur`) e foco visível, sem reintroduzir ruído visual.

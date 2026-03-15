@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
@@ -17,9 +17,22 @@ type ImageLightboxProps = {
   src: string | null;
   alt: string;
   onClose: () => void;
+  hasNext?: boolean;
+  hasPrev?: boolean;
+  onNext?: () => void;
+  onPrev?: () => void;
 };
 
-export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps) {
+export function ImageLightbox({
+  isOpen,
+  src,
+  alt,
+  onClose,
+  hasNext = false,
+  hasPrev = false,
+  onNext,
+  onPrev,
+}: ImageLightboxProps) {
   const shouldReduceMotion = useMotionGate();
   const [mounted, setMounted] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -45,6 +58,18 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
       if (event.key === 'Escape') {
         event.preventDefault();
         onClose();
+        return;
+      }
+
+      if (event.key === 'ArrowRight' && hasNext && onNext) {
+        event.preventDefault();
+        onNext();
+        return;
+      }
+
+      if (event.key === 'ArrowLeft' && hasPrev && onPrev) {
+        event.preventDefault();
+        onPrev();
       }
     };
 
@@ -103,6 +128,28 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
             >
               <X size={18} />
             </button>
+
+            {hasPrev && onPrev ? (
+              <button
+                type="button"
+                onClick={onPrev}
+                aria-label="Imagem anterior"
+                className="absolute left-2 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                <ChevronLeft size={18} />
+              </button>
+            ) : null}
+
+            {hasNext && onNext ? (
+              <button
+                type="button"
+                onClick={onNext}
+                aria-label="Próxima imagem"
+                className="absolute right-2 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                <ChevronRight size={18} />
+              </button>
+            ) : null}
 
             <div className="relative flex max-h-full max-w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/60 shadow-2xl">
               {youtubeEmbedUrl ? (

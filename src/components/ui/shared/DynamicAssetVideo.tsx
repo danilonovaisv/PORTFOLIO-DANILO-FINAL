@@ -25,6 +25,7 @@ type DynamicAssetVideoProps = {
   captionSrc?: string;
   captionLang?: string;
   captionLabel?: string;
+  disableRealtime?: boolean;
 };
 
 const VIDEO_EXTENSIONS_REGEX = /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
@@ -59,10 +60,13 @@ export const DynamicAssetVideo = forwardRef<
       captionSrc: _captionSrc = DEFAULT_CAPTIONS,
       captionLang: _captionLang = 'pt-BR',
       captionLabel: _captionLabel = 'Português',
+      disableRealtime = false,
     },
     ref
   ) => {
-    const { asset, loading, error } = useRealtimeAsset(assetKey);
+    const { asset, loading, error } = useRealtimeAsset(assetKey, {
+      enabled: !disableRealtime,
+    });
     const normalizedFallback = fallbackUrl?.trim() || null;
     const safeAssetUrl = isLikelyVideoUrl(asset?.publicUrl)
       ? asset?.publicUrl

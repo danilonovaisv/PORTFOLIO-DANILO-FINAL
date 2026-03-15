@@ -13,7 +13,7 @@ permissions:
 env:
   NODE_VERSION: '20'
   # ── pnpm version pinned — muda aqui para atualizar globalmente ─────────────
-  PNPM_VERSION: '10.30.3'
+  PNPM_VERSION: '10.32.0'
   # ── Supabase ────────────────────────────────────────────────────────────────
   NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
   NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
@@ -39,8 +39,6 @@ jobs:
       # ── 2. Setup pnpm (versão fixa) ──────────────────────────────────────────
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
 
       # ── 3. Setup Node.js + cache pnpm ───────────────────────────────────────
       # cache-dependency-path: aponta para o lockfile na raiz do monorepo.
@@ -202,16 +200,29 @@ jobs:
 
           trap restore_on_exit EXIT
 
+          echo "🩹 Removendo packageManager temporariamente para o Cloud Build gerar lockfiles via npm."
+          node -e "
+            const fs = require('fs');
+            for (const file of ['package.json', 'functions/package.json']) {
+              if (fs.existsSync(file)) {
+                const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+                delete pkg.packageManager;
+                fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + '\n');
+                console.log(\`✅ packageManager removido temporariamente de \${file}\`);
+              }
+            }
+          "
+
           echo "📦 Gerando package-lock.json (root) para satisfazer builder do Firebase (npm ci)."
           echo "   Forçando inclusão de dev/optional/peer para evitar lock incompleto em CI."
           mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer
+          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer --no-audit --no-fund
           mv node_modules_bak node_modules || true
 
           echo "📦 Gerando package-lock.json (functions)."
           cd functions
           mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer
+          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer --no-audit --no-fund
           mv node_modules_bak node_modules || true
           cd ..
 
@@ -225,6 +236,7 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
           NO_UPDATE_NOTIFIER: '1'
+          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
 
       # ── 15. Notifications ──────────────────────────────────────────────────────
       - name: Notify success

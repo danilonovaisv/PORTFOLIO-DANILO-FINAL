@@ -1,6 +1,6 @@
 'use client';
 
-import { LandingPageBlock } from '@/types/landing-page';
+import { LandingPageBlock, TextConfig } from '@/types/landing-page';
 import { MediaAssetField } from '@/components/admin/templates/MediaAssetField';
 import {
   inputClasses,
@@ -12,8 +12,128 @@ interface BlockEditorV3Props {
   onChange: (_updates: Partial<LandingPageBlock>) => void;
 }
 
+const FONT_SIZE_OPTIONS = [
+  { value: '', label: 'Padrão' },
+  { value: 'text-base', label: 'Normal (base)' },
+  { value: 'text-lg', label: 'Grande (lg)' },
+  { value: 'text-xl', label: 'Extra grande (xl)' },
+  { value: 'text-2xl', label: '2XL' },
+  { value: 'text-3xl', label: '3XL' },
+];
+
+const FONT_WEIGHT_OPTIONS = [
+  { value: '', label: 'Padrão' },
+  { value: 'font-light', label: 'Light' },
+  { value: 'font-normal', label: 'Normal' },
+  { value: 'font-medium', label: 'Medium' },
+  { value: 'font-semibold', label: 'Semibold' },
+  { value: 'font-bold', label: 'Bold' },
+];
+
+const ALIGN_OPTIONS = [
+  { value: '', label: 'Auto' },
+  { value: 'left', label: 'Esquerda' },
+  { value: 'center', label: 'Centro' },
+  { value: 'right', label: 'Direita' },
+  { value: 'justify', label: 'Justificado' },
+] as const;
+
+function TextConfigPanel({
+  config,
+  onChange,
+  label,
+}: {
+  config?: TextConfig;
+  onChange: (_next: TextConfig) => void;
+  label: string;
+}) {
+  const value = config || {};
+  const update = (patch: Partial<TextConfig>) =>
+    onChange({ ...value, ...patch });
+
+  return (
+    <details className="rounded border border-white/5 bg-white/[0.02]">
+      <summary className="cursor-pointer px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 transition-colors hover:text-slate-300">
+        ⚙ Formatação: {label}
+      </summary>
+      <div className="grid grid-cols-2 gap-3 px-3 pb-3 pt-1 sm:grid-cols-4">
+        <label className="space-y-1">
+          <span className={labelClasses}>Tamanho</span>
+          <select
+            className={inputClasses}
+            value={value.fontSize || ''}
+            onChange={(e) => update({ fontSize: e.target.value || undefined })}
+          >
+            {FONT_SIZE_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="space-y-1">
+          <span className={labelClasses}>Peso</span>
+          <select
+            className={inputClasses}
+            value={value.fontWeight || ''}
+            onChange={(e) =>
+              update({ fontWeight: e.target.value || undefined })
+            }
+          >
+            {FONT_WEIGHT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="space-y-1">
+          <span className={labelClasses}>Alinhamento</span>
+          <select
+            className={inputClasses}
+            value={value.textAlign || ''}
+            onChange={(e) =>
+              update({
+                textAlign: (e.target.value ||
+                  undefined) as TextConfig['textAlign'],
+              })
+            }
+          >
+            {ALIGN_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="space-y-1">
+          <span className={labelClasses}>Cor</span>
+          <div className="flex gap-1">
+            <input
+              type="color"
+              className="h-9 w-10 border border-white/10 bg-transparent"
+              value={value.color || '#ffffff'}
+              onChange={(e) => update({ color: e.target.value })}
+              title="Cor do texto"
+            />
+            <input
+              className={inputClasses}
+              value={value.color || ''}
+              onChange={(e) => update({ color: e.target.value || undefined })}
+              placeholder="#ffffff"
+            />
+          </div>
+        </label>
+      </div>
+    </details>
+  );
+}
+
 export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
-  const updateContent = (updates: any) => {
+  const updateContent = (updates: Record<string, unknown>) => {
     onChange({
       content: {
         ...block.content,
@@ -22,70 +142,116 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
     });
   };
 
-  /**
-   * Internal helper to bridge LandingPageBlock content to MediaAssetField
-   */
-  const renderMediaField = (label: string, suffix: string = '') => {
-    const mediaKey = suffix ? `media${suffix}` : 'media';
-    const altKey = suffix ? `alt${suffix}` : 'alt';
-    const posterKey = suffix ? `poster${suffix}` : 'poster';
-    const fileKey = suffix ? `file${suffix}` : 'file';
-    const previewKey = suffix ? `previewUrl${suffix}` : 'previewUrl';
+  const renderMediaField = (
+    label: string,
+    options?: { secondary?: boolean; kind?: 'image' | 'video' | 'youtube' }
+  ) => {
+    const mediaKey = options?.secondary ? 'media2' : 'media';
+    const altKey = options?.secondary ? 'alt2' : 'alt';
+    const posterKey = options?.secondary ? 'poster2' : 'poster';
+    const mediaTypeKey = options?.secondary ? 'mediaType2' : 'mediaType';
+    const fileKey = options?.secondary ? 'file2' : 'file';
+    const previewKey = options?.secondary ? 'previewUrl2' : 'previewUrl';
+    const kind =
+      options?.kind ??
+      (block.content[mediaTypeKey] === 'youtube'
+        ? 'youtube'
+        : block.content[mediaTypeKey] === 'video'
+          ? 'video'
+          : 'image');
 
     const value = {
       src: block.content[mediaKey] || '',
       alt: block.content[altKey] || '',
-      kind: block.type.includes('video')
-        ? ('video' as const)
-        : ('image' as const),
+      kind: kind === 'youtube' ? 'video' : kind,
       poster: block.content[posterKey] || '',
-      file: block.content[fileKey] || null,
-      previewUrl: block.content[previewKey] || '',
+      file: block[fileKey] || null,
+      previewUrl: block[previewKey] || '',
     };
 
     return (
       <MediaAssetField
         label={label}
         value={value}
-        onChange={(next) => {
-          updateContent({
-            [mediaKey]: next.src,
-            [altKey]: next.alt,
-            [posterKey]: next.poster,
-            [fileKey]: next.file,
-            [previewKey]: next.previewUrl,
+        mode={kind}
+        allowYouTube
+        onChange={(next, nextMode = kind) => {
+          onChange({
+            [fileKey]: next.file ?? null,
+            [previewKey]: next.previewUrl || '',
+            content: {
+              ...block.content,
+              [mediaKey]: next.src,
+              [altKey]: next.alt,
+              [posterKey]: next.poster,
+              [mediaTypeKey]:
+                nextMode === 'youtube'
+                  ? 'youtube'
+                  : nextMode === 'video'
+                    ? 'video'
+                    : 'image',
+            },
           });
         }}
-        requireAlt={!block.type.includes('video')}
+        requireAlt={kind === 'image'}
       />
     );
   };
 
+  const renderTextField = (
+    label: string,
+    fieldKey: 'text' | 'text2' = 'text',
+    configKey: 'textConfig' | 'textConfig2' = 'textConfig'
+  ) => (
+    <div className="space-y-2">
+      <label className="block space-y-1">
+        <span className={labelClasses}>{label}</span>
+        <textarea
+          className={`${inputClasses} min-h-40 font-mono text-sm`}
+          value={block.content[fieldKey] || ''}
+          onChange={(e) => updateContent({ [fieldKey]: e.target.value })}
+          placeholder="Suporta **negrito**, *itálico*, # Títulos, - Listas e > Citações"
+        />
+        <span className="block text-[10px] text-slate-500">
+          Suporta Markdown: **negrito**, *itálico*, # Título, - Lista, {'>'}{' '}
+          Citação
+        </span>
+      </label>
+      <TextConfigPanel
+        label={label}
+        config={block.content[configKey] as TextConfig | undefined}
+        onChange={(next) => updateContent({ [configKey]: next })}
+      />
+    </div>
+  );
+
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6 p-6">
+      {block.type === 'text' ? renderTextField('Texto') : null}
+
       {block.type === 'quote-band' ? (
-        <div className="max-w-3xl mx-auto w-full space-y-6 flex flex-col items-center justify-center">
-          <label className="space-y-1 w-full">
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center space-y-6">
+          <label className="block w-full space-y-1">
             <span className={labelClasses}>Citação</span>
             <textarea
-              className={`${inputClasses} min-h-20 text-center w-full`}
+              className={`${inputClasses} min-h-20 text-center`}
               value={block.content.text || ''}
               onChange={(e) => updateContent({ text: e.target.value })}
             />
           </label>
 
-          <label className="space-y-1 w-full">
+          <label className="block w-full space-y-1">
             <span className={labelClasses}>Texto de apoio (opcional)</span>
             <textarea
-              className={`${inputClasses} min-h-20 text-center w-full`}
+              className={`${inputClasses} min-h-20 text-center`}
               value={block.content.text2 || ''}
               onChange={(e) => updateContent({ text2: e.target.value })}
             />
           </label>
 
-          <div className="flex flex-col items-center gap-2 w-full max-w-xs mx-auto">
+          <div className="mx-auto flex w-full max-w-xs flex-col items-center gap-2">
             <span className={labelClasses}>Cor da faixa</span>
-            <div className="flex gap-2 w-full">
+            <div className="flex w-full gap-2">
               <input
                 type="color"
                 className="h-10 w-12 border border-white/10 bg-transparent"
@@ -105,13 +271,15 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         </div>
       ) : null}
 
-      {block.type === 'image' && renderMediaField('Imagem Full')}
+      {block.type === 'image' &&
+        renderMediaField('Imagem Full', { kind: 'image' })}
 
       {(block.type === 'video' || block.type === 'video-autoplay') &&
         renderMediaField(
           block.type === 'video-autoplay'
             ? 'Vídeo Autoplay (Loop)'
-            : 'Vídeo Full'
+            : 'Vídeo Full',
+          { kind: 'video' }
         )}
 
       {(block.type === 'image-text' ||
@@ -119,26 +287,22 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         block.type === 'video-text') && (
         <div className="grid gap-4 md:grid-cols-2">
           {renderMediaField(
-            block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)'
+            block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)',
+            { kind: block.type === 'video-text' ? 'video' : 'image' }
           )}
-
-          <label className="space-y-1">
-            <span className={labelClasses}>Texto</span>
-            <textarea
-              className={`${inputClasses} min-h-40`}
-              value={block.content.text || ''}
-              onChange={(e) => updateContent({ text: e.target.value })}
-            />
-          </label>
+          {renderTextField('Texto')}
         </div>
       )}
 
       {(block.type === 'image-image' || block.type === 'image-video') && (
         <div className="grid gap-4 md:grid-cols-2">
-          {renderMediaField('Mídia 01', '1')}
+          {renderMediaField('Mídia 01', { kind: 'image' })}
           {renderMediaField(
             block.type === 'image-video' ? 'Mídia 02 (Vídeo)' : 'Mídia 02',
-            '2'
+            {
+              secondary: true,
+              kind: block.type === 'image-video' ? 'video' : 'image',
+            }
           )}
         </div>
       )}

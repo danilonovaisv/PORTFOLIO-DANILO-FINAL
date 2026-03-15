@@ -75,7 +75,7 @@ describe('Asset Utilities', () => {
       const path = 'projects/hero.jpg';
       const expected =
         SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
-        `/${path}?width=800&quality=85&format=webp`;
+        `/portfolio-media/${path}?width=800&quality=85`;
       expect(getAssetUrl(path)).toBe(expected);
     });
 
@@ -83,14 +83,14 @@ describe('Asset Utilities', () => {
       const complexPath = 'storage/v1/object/public/test/image.png';
       const expected =
         SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
-        `/test/image.png?width=800&quality=85&format=webp`;
+        `/portfolio-media/test/image.png?width=800&quality=85`;
       expect(getAssetUrl(complexPath)).toBe(expected);
     });
 
     it('returns direct URL for videos when explicitly requested', () => {
       const path = 'projects/presentation.mp4';
       expect(getAssetUrl(path, { isVideo: true })).toBe(
-        `${SUPABASE_STORAGE_URL}/${path}`
+        `${SUPABASE_STORAGE_URL}/portfolio-media/${path}`
       );
     });
   });
@@ -105,7 +105,7 @@ describe('Asset Utilities', () => {
       const path = 'ghost/texture.png';
       const expected =
         SUPABASE_STORAGE_URL.replace('/object/public', '/render/image/public') +
-        `/${path}?width=800&quality=85&format=webp`;
+        `/portfolio-media/${path}?width=800&quality=85`;
       expect(getGhostAssetUrl(path)).toBe(expected);
     });
   });

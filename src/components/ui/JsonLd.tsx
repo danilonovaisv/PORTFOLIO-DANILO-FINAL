@@ -57,7 +57,7 @@ export default function JsonLd({
     url: baseUrl,
     email: 'contato@portfoliodanilo.com',
     image: logo,
-    jobTitle: 'Creative Developer & Designer',
+    jobTitle: 'Head de Criação & Diretor de Criação Sênior',
     worksFor: {
       '@id': `${baseUrl}/#organization`,
     },
@@ -78,7 +78,7 @@ export default function JsonLd({
       'https://x.com/_novais',
     ],
     description:
-      'Creative Developer especializado em WebGL, React Three Fiber, Next.js e experiências digitais interativas premium.',
+      'Head de Criação & Diretor de Criação Sênior especializado em branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     knowsAbout: [
       'WebGL',
       'React Three Fiber',
@@ -95,7 +95,7 @@ export default function JsonLd({
     ],
     hasOccupation: {
       '@type': 'Occupation',
-      name: 'Creative Developer',
+      name: 'Head de Criação & Diretor de Criação Sênior',
       occupationLocation: {
         '@type': 'Country',
         name: 'Brazil',
@@ -108,7 +108,7 @@ export default function JsonLd({
   const websiteSchema = {
     '@type': 'WebSite',
     '@id': `${baseUrl}/#website`,
-    name: `${BRAND.name} | Creative Developer`,
+    name: `${BRAND.name} | Head de Criação & Diretor de Criação Sênior`,
     url: baseUrl,
     description:
       'Você não vê o design. Mas ele vê você. Portfólio de experiências digitais premium.',

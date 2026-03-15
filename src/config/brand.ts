@@ -30,7 +30,7 @@ export const BRAND = {
     textInverse: '#0e0e0e', // Texto em fundos claros
     textEmphasis: '#2E85F2', // Palavras destacadas
     textHighlight: '#4fe6ff', // Destaques curtos
-    textSecondary: '#a1a3a3', // Infos secundárias
+    textSecondary: '#fcffff', // Infos secundárias em superfícies escuras
 
     neutral: '#0b0d3a', // Gradientes sutis
     neutralLight: '#F5F5F5', // Fundos secundários
@@ -48,7 +48,7 @@ export const BRAND = {
     video: {
       manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
       manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-      manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.mp4'),
+      manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
       manifestoPosterMobile: asset(
         'site-assets/home/video.manifesto.mobile.webp'
       ),
@@ -65,7 +65,7 @@ export const BRAND = {
   video: {
     manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
     manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-    manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.mp4'),
+    manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
     manifestoPosterMobile: asset(
       'site-assets/home/video.manifesto.mobile.webp'
     ),

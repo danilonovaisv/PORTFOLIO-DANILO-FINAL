@@ -1,6 +1,7 @@
 'use client';
 
 import type { MouseEvent } from 'react';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { cn } from '@/lib/utils';
 
 type PortfolioCTAProps = {
@@ -19,22 +20,17 @@ export default function PortfolioCTA({
   external = false,
 }: PortfolioCTAProps) {
   return (
-    <a
+    <AntigravityCTA
+      as="a"
       href={href}
-      onClick={onClick}
+      text={label}
+      onClick={onClick ? (event) => onClick(event as MouseEvent<HTMLAnchorElement>) : undefined}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       className={cn(
-        'inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full',
-        'bg-primary px-6 py-3 text-sm font-medium tracking-[0.08em] text-white sm:text-base cta-button',
-        'transition-all duration-200 ease-[cubic-bezier(0,0,0.2,1)]',
-        'hover:bg-[#0038d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        'relative inline-flex w-full max-w-full justify-start md:w-auto',
         className
       )}
-      aria-label={label}
-    >
-      <span>{label}</span>
-      <span aria-hidden>→</span>
-    </a>
+    />
   );
 }

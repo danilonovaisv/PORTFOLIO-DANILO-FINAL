@@ -23,6 +23,7 @@ import { useLandingBackLink } from '@/components/projects/templates/useLandingBa
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -98,6 +99,46 @@ type ProjectTemplateALPARendererProps = {
   project: MasterProjectTemplateV3Data;
 };
 
+type IntroBodyBlock = {
+  type: 'text' | 'video_youtube';
+  value: string;
+  settings: { autoplay: boolean };
+};
+
+const toIntroBodyBlocks = (
+  introBody?: MasterProjectTemplateV3Data['intro_body']
+): IntroBodyBlock[] => {
+  if (!Array.isArray(introBody)) return [];
+
+  return introBody
+    .map((item) => {
+      if (typeof item === 'string') {
+        if (!item.trim()) return null;
+        return {
+          type: 'text' as const,
+          value: item,
+          settings: { autoplay: false },
+        };
+      }
+
+      if (!item || typeof item !== 'object') return null;
+      const block = item as IntroBodyBlock;
+      if (!block.value?.trim()) return null;
+
+      return {
+        type: block.type === 'video_youtube' ? 'video_youtube' : 'text',
+        value: block.value,
+        settings: {
+          autoplay:
+            typeof block.settings?.autoplay === 'boolean'
+              ? block.settings.autoplay
+              : block.type === 'video_youtube',
+        },
+      };
+    })
+    .filter(Boolean) as IntroBodyBlock[];
+};
+
 const getYouTubeId = (url: string): string | null => {
   const candidate = url.trim();
   if (!candidate) return null;
@@ -140,12 +181,13 @@ const getAssetKind = (
   src?: string,
   mediaType?: LandingPageBlock['content']['mediaType']
 ): AssetKind => {
+  const value = src ?? '';
+  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
+
   if (mediaType === 'youtube') return 'youtube';
   if (mediaType === 'video') return 'video';
 
-  const value = src ?? '';
   if (!value) return 'image';
-  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
   if (VIDEO_PATTERN.test(value)) return 'video';
   return 'image';
 };
@@ -239,7 +281,7 @@ function AssetLightbox({
         ) : asset.kind === 'youtube' && asset.youtubeId ? (
           <div className="aspect-video w-full bg-black">
             <iframe
-              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=0&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
+              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
               title={asset.alt || 'Vídeo do YouTube'}
               className="h-full w-full border-none"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -276,6 +318,7 @@ function AssetInteractive({
   poster,
   className,
   videoAutoplay,
+  displayMode = 'inline',
   prefersReducedMotion,
   onOpen,
 }: {
@@ -285,6 +328,7 @@ function AssetInteractive({
   poster?: string;
   className?: string;
   videoAutoplay?: boolean;
+  displayMode?: 'inline' | 'full';
   prefersReducedMotion: boolean;
   onOpen: (
     _asset: ZoomAsset,
@@ -306,6 +350,7 @@ function AssetInteractive({
 
   const resolvedPoster = resolveSiteAssetUrl(poster);
   const youtubeId = kind === 'youtube' ? getYouTubeId(src) : null;
+  const isFullDisplay = displayMode === 'full';
 
   return (
     <button
@@ -326,15 +371,27 @@ function AssetInteractive({
       aria-label="Abrir asset ampliado"
     >
       {kind === 'image' ? (
-        <div className="relative aspect-[16/10] w-full bg-black/30">
-          <Image
+        isFullDisplay ? (
+          // Native img preserves the intrinsic media ratio for full-width editorial blocks.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={resolved}
             alt={alt || 'Asset do projeto'}
-            fill
-            sizes="(max-width: 768px) 100vw, 80vw"
-            className="object-cover"
+            className="block h-auto w-full bg-black/30 object-contain"
+            loading="lazy"
+            decoding="async"
           />
-        </div>
+        ) : (
+          <div className="relative aspect-[16/10] w-full bg-black/30">
+            <Image
+              src={resolved}
+              alt={alt || 'Asset do projeto'}
+              fill
+              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover"
+            />
+          </div>
+        )
       ) : kind === 'youtube' && youtubeId ? (
         <div className="relative aspect-video w-full bg-black/50">
           <Image
@@ -354,7 +411,11 @@ function AssetInteractive({
         </div>
       ) : (
         <video
-          className="aspect-video w-full bg-black object-cover"
+          className={
+            isFullDisplay
+              ? 'block max-h-[82vh] w-full bg-black object-contain'
+              : 'aspect-video w-full bg-black object-cover'
+          }
           src={resolved}
           poster={resolvedPoster}
           autoPlay={videoAutoplay && !prefersReducedMotion}
@@ -373,21 +434,41 @@ function AssetInteractive({
   );
 }
 
-function BlockText({
+function BlockTextMd({
   text,
+  textConfig,
   alignClass,
 }: {
   text?: string;
+  textConfig?: import('@/types/landing-page').TextConfig;
   alignClass?: string;
 }) {
   if (!text?.trim()) return null;
 
+  const mergedConfig = textConfig
+    ? {
+        ...textConfig,
+        textAlign:
+          textConfig.textAlign ??
+          ((alignClass?.includes('right')
+            ? 'right'
+            : alignClass?.includes('center')
+              ? 'center'
+              : undefined) as import('@/types/landing-page').TextConfig['textAlign']),
+      }
+    : alignClass?.includes('right')
+      ? { textAlign: 'right' as const }
+      : alignClass?.includes('center')
+        ? { textAlign: 'center' as const }
+        : undefined;
+
   return (
-    <p
-      className={`max-w-3xl whitespace-pre-line text-lg leading-relaxed text-white/86 md:text-xl ${alignClass || 'text-center'}`}
-    >
-      {text}
-    </p>
+    <GhostMarkdown
+      content={text}
+      textConfig={mergedConfig}
+      className="w-full"
+      proseClassName="prose-headings:text-white"
+    />
   );
 }
 
@@ -399,13 +480,20 @@ export default function ProjectTemplateALPARenderer({
   const [zoomAsset, setZoomAsset] = useState<ZoomAsset | null>(null);
   const lastFocusedTriggerRef = useRef<HTMLElement | null>(null);
 
-  const introParagraphs = useMemo(() => {
-    if (project.intro_body && project.intro_body.length > 0) {
-      return project.intro_body;
+  const introBlocks = useMemo(() => {
+    const structured = toIntroBodyBlocks(project.intro_body);
+    if (structured.length > 0) return structured;
+
+    if (project.project_summary?.trim()) {
+      return [
+        {
+          type: 'text' as const,
+          value: project.project_summary,
+          settings: { autoplay: false },
+        },
+      ];
     }
-    if (project.project_summary) {
-      return [project.project_summary];
-    }
+
     return [];
   }, [project.intro_body, project.project_summary]);
 
@@ -455,8 +543,11 @@ export default function ProjectTemplateALPARenderer({
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: GHOST_EASE, delay: blockDelay }}
           >
-            <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 text-center">
-              <BlockText text={block.content.text} />
+            <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 text-center">
+              <BlockTextMd
+                text={block.content.text}
+                textConfig={block.content.textConfig}
+              />
             </div>
           </motion.section>
         );
@@ -479,6 +570,7 @@ export default function ProjectTemplateALPARenderer({
               kind={kind}
               poster={block.content.poster}
               videoAutoplay={block.type === 'video-autoplay'}
+              displayMode="full"
               prefersReducedMotion={prefersReducedMotion}
               onOpen={openAsset}
             />
@@ -506,9 +598,10 @@ export default function ProjectTemplateALPARenderer({
                 prefersReducedMotion={prefersReducedMotion}
                 onOpen={openAsset}
               />
-              <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center md:items-start md:text-left">
-                <BlockText
+              <div className="flex w-full flex-col gap-4 text-center md:text-left">
+                <BlockTextMd
                   text={block.content.text}
+                  textConfig={block.content.textConfig}
                   alignClass="text-center md:text-left"
                 />
               </div>
@@ -528,9 +621,10 @@ export default function ProjectTemplateALPARenderer({
             transition={{ duration: 0.6, ease: GHOST_EASE, delay: blockDelay }}
           >
             <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-              <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center md:items-end md:text-right">
-                <BlockText
+              <div className="flex w-full flex-col gap-4 text-center md:text-right">
+                <BlockTextMd
                   text={block.content.text}
+                  textConfig={block.content.textConfig}
                   alignClass="text-center md:text-right"
                 />
               </div>
@@ -589,7 +683,9 @@ export default function ProjectTemplateALPARenderer({
           <motion.section
             key={block.id}
             className="alpa-quote-band w-full px-4 py-20 md:px-8 md:py-32 flex items-center justify-center !ml-0 !mr-0"
-            style={{ backgroundColor: mixHex(bandColor, '#050013', 0.18) }}
+            {...({
+              style: { backgroundColor: mixHex(bandColor, '#050013', 0.18) },
+            } as any)}
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.35 }}
@@ -636,9 +732,11 @@ export default function ProjectTemplateALPARenderer({
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
           <LiquidEther
             colors={etherColors}
-            mouseForce={20}
-            isViscous
-            viscous={30}
+            mouseForce={12}
+            isViscous={false}
+            iterationsPoisson={16}
+            autoSpeed={0.1}
+            autoIntensity={0.8}
             isBounce={false}
             autoDemo
             className="h-full w-full"
@@ -683,7 +781,9 @@ export default function ProjectTemplateALPARenderer({
 
                 <div
                   className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
-                  style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
+                  {...({
+                    style: { color: mixHex(accentColor, '#ffffff', 0.4) },
+                  } as any)}
                 >
                   {project.project_client ? (
                     <span>{project.project_client}</span>
@@ -718,14 +818,41 @@ export default function ProjectTemplateALPARenderer({
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
                 {project.intro_headline || project.project_title}
               </h2>
-              {introParagraphs.map((paragraph, paragraphIndex) => (
-                <p
-                  key={`intro-${paragraphIndex}`}
-                  className="max-w-3xl text-base leading-relaxed text-white/82 md:text-lg"
-                >
-                  {paragraph}
-                </p>
-              ))}
+              {introBlocks.map((block, paragraphIndex) => {
+                if (block.type === 'video_youtube') {
+                  const videoId = getYouTubeId(block.value);
+                  if (!videoId) return null;
+
+                  const shouldAutoplay = block.settings?.autoplay ?? true;
+                  const autoplayParams = shouldAutoplay
+                    ? 'autoplay=1&mute=1&loop=1'
+                    : 'autoplay=0&mute=1&loop=0';
+
+                  return (
+                    <div
+                      key={`intro-video-${paragraphIndex}`}
+                      className="w-full max-w-3xl overflow-hidden bg-black/40"
+                    >
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videoId}?${autoplayParams}&playlist=${videoId}&playsinline=1&rel=0&modestbranding=1`}
+                        title={`Vídeo do projeto ${project.project_title}`}
+                        className="aspect-video h-full w-full border-0"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  );
+                }
+
+                return (
+                  <GhostMarkdown
+                    key={`intro-md-${paragraphIndex}`}
+                    content={block.value}
+                    className="max-w-3xl"
+                    proseClassName="prose-headings:text-bluePrimary prose-p:text-white/82"
+                  />
+                );
+              })}
             </div>
           </motion.section>
 
@@ -761,6 +888,11 @@ export default function ProjectTemplateALPARenderer({
                   className="relative"
                 />
               </div>
+              <HeroBackCTA
+                href={backHref}
+                label={LANDING_PAGE_BACK.label}
+                size="compact"
+              />
             </div>
           </motion.section>
         </div>

@@ -16,6 +16,11 @@ generate:
       packageJsonDir: ../..
       react: true
       angular: false
+    - outputDir: ../../supabase-asset-migrate/src/dataconnect-generated
+      package: '@dataconnect/generated'
+      packageJsonDir: ../../supabase-asset-migrate
+      react: false
+      angular: false
     - outputDir: ../../functions/next_build/src/dataconnect-generated
       package: '@dataconnect/generated'
       packageJsonDir: ../../functions/next_build

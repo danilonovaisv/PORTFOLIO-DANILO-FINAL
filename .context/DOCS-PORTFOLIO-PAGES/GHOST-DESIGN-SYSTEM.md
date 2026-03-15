@@ -102,9 +102,14 @@
 
 ### 2.3 Allowed vs Forbidden Motion
 
-- **Allowed (content/UI):** `opacity`, `blur`, `translateY` (max `18px`)
-- **Forbidden (content/UI):** `scale`, `bounce`, `rotate`
-- **Reduced Motion:** Disable parallax/lerp and replace reveals with simple fade.
+**Ghost Protocol Motion Mandates:**
+
+- **Offsets:** Vertical (`y`) offsets for UI content MUST NOT exceed `18px`.
+- **Allowed (content/UI):** `opacity`, `blur`, `translateY` (max `18px`).
+- **Forbidden (content/UI):** `scale` (e.g., `scaleY`, `scaleX`), `bounce`, `translateX` (`x`), `rotate`.
+- **Easing:** All core animations must use `GSAP_GHOST_EASE` / Framer `GHOST_EASE`: `[0.22, 1, 0.36, 1]`.
+- **Reduced Motion:** `useMotionGate` or `prefersReducedMotion` MUST be implemented in ALL animated components to disable parallax/lerp and replace reveals with a simple fade.
+- **Z-Index (WebGL):** 3D Canvas (R3F) MUST use exactly `z-30`. No `z-999` allowed.
 
 ### 2.4 Interaction Rules
 
@@ -175,10 +180,14 @@
    - No animations running off-screen.
    - Use `WILL-CHANGE` sparingly.
    - R3F Canvas must define `dpr={[1, 2]}`.
+   - Parallax e animações atreladas ao scroll via **ScrollTrigger** devem ser declarativas. Uso de `onUpdate` per-frame para CSSOM é **proibido** por impactar lagginess; mapeie o `yPercent` nativamente no GSAP para não ferir o Core Web Vitals (INP e TBT).
+   - Otimizar o **LCP** utilizando preload programático de `posters` e/ou `videos` no root layout ou view do Hero (`fetchPriority="high"`).
 4. **Acessibility:**
    - Contrast AA+ is mandatory.
    - `prefers-reduced-motion` must disable "Ghost" easing.
    - Interactive elements focus states must be visible.
+   - **Elementos WebGL decorativos:** Componentes envolvendo `<Canvas>` da biblioteca R3F **DEVEM** incluir sempre o atributo `aria-hidden="true"` para retirar a carga inútil dos leitores de tela em elementos sem ação que compõem o cenário do Ghost System.
+   - Componentes iterativos sem `<a>` ou `<button>` devem conter propriedades de navegação como `tabIndex={0}`, `onFocus` e `onBlur` equivalentes ao `onMouseEnter`/`onMouseLeave`.
 5. **Mobile Video Caption Rule:**
    - On screens `<= 767px`, decorative or autoplay videos must omit `<track kind="captions">`.
    - Desktop and tablet may retain caption tracks when the media context demands it.

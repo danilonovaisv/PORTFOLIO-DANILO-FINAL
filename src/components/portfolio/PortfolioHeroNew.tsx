@@ -56,6 +56,8 @@ export default function PortfolioHeroNew() {
             fallbackUrl={fallbackVideo}
             poster={HERO_POSTER}
             className="h-full w-full object-cover"
+            preload="auto"
+            disableRealtime={process.env.NODE_ENV === 'production'}
           />
         ) : (
           <Image

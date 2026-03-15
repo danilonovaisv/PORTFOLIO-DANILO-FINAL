@@ -272,6 +272,11 @@ transition: 300ms ease
 - **Animação:** Itens aparecem com stagger (100ms delay)
 - **Interação:** Tap X ou link fecha menu
 
+#### Estado validado em 2026-03-08
+
+- O header passou a alternar corretamente entre os assets `headerLight` e `headerDark` conforme a seção observada.
+- O logo desktop/mobile usa sizing estável com `object-contain`, eliminando o desaparecimento visual reportado no runtime.
+
 ---
 
 ### 4.2 Hero
@@ -567,6 +572,11 @@ stagger: 120ms entre faixas
 - Sem hover (thumbnails ocultas)
 - CTA centralizado
 
+#### Estado validado em 2026-03-08
+
+- Thumbnails desktop estáticas agora respeitam o frame da stripe com `object-contain object-center`.
+- O parallax da mídia foi limitado ao tamanho do próprio frame, evitando imagens estouradas no `Portfolio Showcase`.
+
 ---
 
 ### 4.5 Featured Projects (Grid)
@@ -646,6 +656,11 @@ duration: 0.7s
 - O logo invertido do card sempre fixo no centro;
 - Interação com mouse nos cards com o cursor, leve zoom, animação de movimento e mudança de cor do cta small do rodapé do card (o mesmo que ja existe) e leve glow no background do card e cta `#8705f2`;
 - Demais configurações dos cards permanecem as mesmas;
+
+#### Estado validado em 2026-03-08
+
+- O container do logo invertido nos cards animados foi ampliado e recentrado para impedir clipping em marcas horizontais.
+- A renderização final confirmada em build mantém o logo central dentro do frame sem cortes aparentes.
 
 # **BACKGROUNDS CARDS**
 

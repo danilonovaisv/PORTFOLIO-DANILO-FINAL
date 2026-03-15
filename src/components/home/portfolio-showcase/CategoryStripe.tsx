@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { cn } from '@/lib/utils';
@@ -11,8 +11,9 @@ import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
-// ... (GHOST_SPRING, Category interface, etc.)
-const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;
+import { useGhostParallaxY } from '@/hooks/useGhostParallaxY';
+
+// ... (Category interface, etc.)
 
 interface Category {
   id: string;
@@ -86,7 +87,7 @@ export function CategoryStripe({
           )}
         >
           <motion.div
-            className="relative overflow-hidden rounded-lg shrink-0"
+            className="relative overflow-hidden rounded-lg shrink-0 h-[162px]"
             initial={false}
             animate={{
               width: isHovered ? 288 : 0,
@@ -97,10 +98,10 @@ export function CategoryStripe({
               ease: GHOST_EASE,
             }}
           >
-            <div className="relative w-[288px] aspect-video">
+            <div className="relative w-[288px] h-full rounded-lg bg-[#0a0f1c] overflow-hidden">
               <motion.div
                 style={{ y: prefersReducedMotion ? 0 : parallaxY }}
-                className="absolute inset-0 w-full h-[120%]"
+                className="absolute inset-0 h-full w-full"
               >
                 {isVideo ? (
                   <video
@@ -110,7 +111,7 @@ export function CategoryStripe({
                     muted
                     playsInline
                     poster={DEFAULT_VIDEO_POSTER}
-                    className="object-cover w-full h-full"
+                    className="h-full w-full object-cover"
                   >
                     <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                   </video>
@@ -119,7 +120,7 @@ export function CategoryStripe({
                     src={category.thumbnail}
                     alt={title.join(' ')}
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
                     sizes="288px"
                     loading="lazy"
                     priority={false}

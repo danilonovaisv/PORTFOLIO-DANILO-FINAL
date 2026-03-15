@@ -2,8 +2,13 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import { getSupabasePublicKey } from '@/lib/supabase/env';
-import { isServiceRoleConfigured } from '@/lib/supabase/admin';
-import { createClient } from '@/lib/supabase/server';
+import {
+  createAdminClient,
+  isServiceRoleConfigured,
+} from '@/lib/supabase/admin';
+import { extractLegacyTokenValue, maskTokenSecret } from '@/lib/admin/tokens';
+import { listAdminUsers } from '@/lib/admin/admin-users';
+import { requireAdminAccess } from '@/lib/admin/server-access';
 import { SettingsForm } from './SettingsForm';
 
 const getSupabasePublicKeyStatus = () => {
@@ -12,26 +17,74 @@ const getSupabasePublicKeyStatus = () => {
 };
 
 export default async function SettingsPage() {
-  let dbKey = null;
-  const hasServiceRole = isServiceRoleConfigured();
+  await requireAdminAccess();
 
-  try {
-    const supabase = await createClient({ admin: true });
-    const { data } = await supabase
-      .from('site_settings')
-      .select('value')
-      .eq('key', 'openai_api_key')
-      .maybeSingle();
-    dbKey = data;
-  } catch (err) {
-    console.warn(
-      '[Settings] Falha ao consultar site_settings. Supabase Service Role config ausente?',
-      err
-    );
+  const hasServiceRole = isServiceRoleConfigured();
+  let hasOpenAIKeyDb = false;
+  let tokens: Array<{
+    id: string;
+    name: string;
+    provider: string;
+    description: string | null;
+    status: 'active' | 'inactive';
+    environment: 'development' | 'staging' | 'production';
+    maskedSecret: string;
+    createdAt: string;
+    updatedAt: string;
+  }> = [];
+  let adminUsers: Array<{
+    userId: string;
+    email: string;
+    fullName: string;
+    role: 'owner' | 'editor';
+    status: 'active' | 'disabled';
+    createdAt: string;
+    lastSignInAt: string | null;
+  }> = [];
+
+  if (hasServiceRole) {
+    try {
+      const adminClient = createAdminClient();
+      const [{ data: tokenRows }, { data: legacySetting }, listedAdminUsers] =
+        await Promise.all([
+          adminClient
+            .from('admin_tokens')
+            .select('*')
+            .order('provider', { ascending: true })
+            .order('name', { ascending: true }),
+          adminClient
+            .from('site_settings')
+            .select('value')
+            .eq('key', 'openai_api_key')
+            .maybeSingle(),
+          listAdminUsers(),
+        ]);
+
+      tokens = (tokenRows ?? []).map((row) => ({
+        id: row.id,
+        name: row.name,
+        provider: row.provider,
+        description: row.description,
+        status: row.status as 'active' | 'inactive',
+        environment: row.environment as
+          | 'development'
+          | 'staging'
+          | 'production',
+        maskedSecret: maskTokenSecret(row.secret),
+        createdAt: row.created_at,
+        updatedAt: row.updated_at,
+      }));
+      adminUsers = listedAdminUsers;
+      hasOpenAIKeyDb =
+        tokens.some(
+          (token) => token.provider === 'openai' && token.status === 'active'
+        ) || Boolean(extractLegacyTokenValue(legacySetting?.value));
+    } catch (err) {
+      console.warn('[Settings] Falha ao carregar tokens/admin users', err);
+    }
   }
 
   const hasOpenAIKeyEnv = Boolean(process.env.OPENAI_API_KEY);
-  const hasOpenAIKeyDb = Boolean(dbKey?.value);
 
   const credentialFields = [
     {
@@ -60,22 +113,22 @@ export default async function SettingsPage() {
         </p>
         <h1 className="text-3xl font-semibold">Configurações do Sistema</h1>
         <p className="mt-2 text-sm text-slate-300">
-          Verifique o status das integrações e variáveis de ambiente necessárias
-          para o funcionamento do CMS.
+          Tokens, acessos administrativos e status das integrações críticas do
+          dashboard ADMIN.
         </p>
       </div>
 
       <section>
-        <h2 className="text-lg font-medium text-white mb-4">
+        <h2 className="mb-4 text-lg font-medium text-white">
           Status de Integração
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {credentialFields.map((field) => (
             <div
               key={field.name}
-              className="p-4 rounded-xl border border-white/5 bg-slate-900/40"
+              className="rounded-xl border border-white/5 bg-slate-900/40 p-4"
             >
-              <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">
+              <p className="mb-1 text-xs uppercase tracking-wider text-slate-400">
                 {field.name}
               </p>
               <p
@@ -93,13 +146,15 @@ export default async function SettingsPage() {
       </section>
 
       <section>
-        <h2 className="text-lg font-medium text-white mb-4">
-          Chaves do Sistema
+        <h2 className="mb-4 text-lg font-medium text-white">
+          Gestão Administrativa
         </h2>
         <SettingsForm
           hasOpenAIKeyEnv={hasOpenAIKeyEnv}
           hasOpenAIKeyDb={hasOpenAIKeyDb}
           hasServiceRole={hasServiceRole}
+          tokens={tokens}
+          adminUsers={adminUsers}
         />
       </section>
     </div>

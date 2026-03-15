@@ -32,19 +32,19 @@ export default function FloatingCards() {
         });
       });
 
-      // 2. Scroll Parallax (Desacoplado)
-      ScrollTrigger.create({
-        trigger: gridRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-        onUpdate: (self) => {
-          gsap.to(cards, {
-            yPercent: (i) => -self.progress * (20 + i * 10),
-            ease: 'none',
-            overwrite: 'auto',
-          });
-        },
+      // 2. Scroll Parallax (Otimizado para Performance / SEM onUpdate)
+      cards.forEach((card, i) => {
+        const element = card as HTMLElement;
+        gsap.to(element, {
+          yPercent: -(20 + i * 10),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
+        });
       });
 
       // Fade in background on scroll
@@ -61,7 +61,9 @@ export default function FloatingCards() {
     { scope: containerRef }
   );
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseEnter = (
+    e: React.MouseEvent<HTMLDivElement> | React.FocusEvent<HTMLDivElement>
+  ) => {
     gsap.to(e.currentTarget, {
       scale: 1.05,
       rotateY: 10,
@@ -72,7 +74,9 @@ export default function FloatingCards() {
     });
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseLeave = (
+    e: React.MouseEvent<HTMLDivElement> | React.FocusEvent<HTMLDivElement>
+  ) => {
     gsap.to(e.currentTarget, {
       scale: 1,
       rotateY: 0,
@@ -98,6 +102,8 @@ export default function FloatingCards() {
             className={`card-item ${styles['card-3d-wrapper']}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onFocus={handleMouseEnter}
+            onBlur={handleMouseLeave}
             tabIndex={0}
             role="article"
             aria-label={card.title}

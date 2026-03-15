@@ -29,6 +29,22 @@ export function getFeaturedProjectBackgroundVariant(
   ];
 }
 
+export function getRandomFeaturedProjectBackgroundVariant(): FeaturedProjectBackgroundVariant {
+  return FEATURED_PROJECT_BACKGROUND_POOL[
+    Math.floor(Math.random() * FEATURED_PROJECT_BACKGROUND_POOL.length)
+  ];
+}
+
+export function getNextFeaturedProjectBackgroundVariant(
+  current: FeaturedProjectBackgroundVariant
+): FeaturedProjectBackgroundVariant {
+  const candidates = FEATURED_PROJECT_BACKGROUND_POOL.filter(
+    (variant) => variant !== current
+  );
+
+  return candidates[Math.floor(Math.random() * candidates.length)] ?? current;
+}
+
 export function buildFeaturedProjectBackgroundAssignment(
   projects: Pick<PortfolioProject, 'id'>[]
 ): FeaturedProjectBackgroundVariant[] {
