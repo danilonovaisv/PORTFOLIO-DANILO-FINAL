@@ -124,7 +124,7 @@ export function AboutBeliefs() {
 
       {/* LAYER 3: Canvas 3D (Z-50 para garantir sobreposição visual ao texto do Z-40 e Z-20) */}
       <div
-        className="absolute inset-0 z-50 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-0 w-full h-full pointer-events-none"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">

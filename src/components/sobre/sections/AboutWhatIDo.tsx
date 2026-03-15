@@ -73,8 +73,8 @@ export function AboutWhatIDo() {
 
   // Spring for smoother motion (Ghost feel)
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 50,
+    damping: 20,
     restDelta: 0.001,
   });
 
@@ -186,8 +186,8 @@ export function AboutWhatIDo() {
                 key={service.id}
                 initial={
                   prefersReducedMotion
-                    ? { opacity: 1, y: 0 }
-                    : { opacity: 0, y: 18 }
+                    ? { opacity: 1, x: 0 }
+                    : { opacity: 0, x: 18 }
                 }
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}

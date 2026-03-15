@@ -70,6 +70,8 @@ export function VideoManifesto({
     offset: ['start end', 'start start'],
   });
 
+  const deskScale = useTransform(scrollYProgress, [0.4, 1], [1, 1]);
+  const deskX = useTransform(scrollYProgress, [0.4, 1], ['15%', '0%']);
   const deskBR = useTransform(scrollYProgress, [0.6, 1], ['16px', '0px']);
 
   const [hasPlayedHold, setHasPlayedHold] = useState(false);
