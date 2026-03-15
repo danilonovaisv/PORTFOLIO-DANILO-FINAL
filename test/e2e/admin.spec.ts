@@ -30,6 +30,17 @@ test.describe('Admin Login Page', () => {
     // Perform login (mocked in client.ts)
     await emailInput.fill('admin@test.com');
     await passwordInput.fill('password123');
+
+    // Intercept the redirect to /admin so the backend (which has no real session cookie)
+    // doesn't bounce us back to /admin/login.
+    await page.route('**/admin', (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: '<!DOCTYPE html><html><head><title>Admin</title></head><body><h1>Painel</h1></body></html>',
+      });
+    });
+
     await submitButton.click();
 
     // Verify redirection to admin dashboard

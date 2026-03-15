@@ -91,6 +91,14 @@ export interface MasterProjectTemplateCta {
   href?: string;
 }
 
+export interface TemplateV3IntroBlock {
+  type: 'text' | 'video_youtube';
+  value: string;
+  settings: {
+    autoplay: boolean;
+  };
+}
+
 export interface MasterProjectTemplateData {
   schema_version: '1.0';
   template: typeof MASTER_PROJECT_TEMPLATE;
@@ -150,7 +158,7 @@ export interface MasterProjectTemplateV3Data {
   project_services?: string[];
   project_summary?: string;
   intro_headline?: string;
-  intro_body?: string[];
+  intro_body?: Array<string | TemplateV3IntroBlock>;
   highlight_color: string;
   theme_color?: string;
   gallery_grid: LandingPageBlock[];

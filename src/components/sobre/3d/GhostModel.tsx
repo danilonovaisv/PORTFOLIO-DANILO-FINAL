@@ -58,23 +58,23 @@ const GhostModel: React.FC<GhostModelProps> = ({
   // Configuração responsiva refinada para Mobile/Desktop - Posições Absolutas
   const config = useMemo(
     () => ({
-      // Desktop: Centralizado (0)
-      // Mobile: Posicionado no lado esquerdo para layout lado a lado
+      // Desktop: Centralizado na página (0)
+      // Mobile: Posicionado no lado esquerdo para layout lado-a-lado com o texto na direita
       // 🟣 [CONFIG VISUAL]: Posição Base X
-      baseX: isMobile ? -viewport.width / 4.0 : 0,
+      baseX: isMobile ? -viewport.width / 3.5 : 0,
 
-      // Centralizado verticalmente no desktop, mas no topo no mobile
+      // Centralizado verticalmente no desktop, levemente deslocado no mobile se necessário
       // 🟣 [CONFIG VISUAL]: Posição Base Y (Cima = Positivo em R3F)
-      baseY: isMobile ? viewport.height / 3.5 : 0,
+      baseY: isMobile ? viewport.height * 0.15 : 0,
 
-      // Intensidade flutuante (Movimento MUITO mais pronunciado)
+      // Intensidade flutuante
       floatBase: isMobile ? 0.18 : 0.15,
       floatAmplitude: 0.75,
       tiltBase: 0.2,
 
-      // Escala ajustada para maior presença
+      // Escala ajustada para maior presença no desktop, e reduzida no mobile (menos opressivo)
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost
-      baseScale: isMobile ? 0.378 : 0.585,
+      baseScale: isMobile ? 0.32 : 0.585,
       // Compensa pivot do GLB para centralização visual
       modelOffsetY: isMobile ? -1.0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final

@@ -354,6 +354,28 @@ Ações auditadas incluem (exemplos):
 - estado atual:
   - leitura e escrita do V3 convergiram para o mesmo contrato JSON
 
+### 9.8 Follow-up 2026-03-09 — Save de projetos + estabilidade do editor V3
+
+- causa raiz confirmada no save de projetos:
+  - `src/components/admin/ProjectForm.tsx` chamava `upsertProjectAction` via `await import(...)`
+  - no App Router, isso quebrava a referência estática esperada para Server Actions no client
+- correções aplicadas:
+  - `src/components/admin/ProjectForm.tsx`
+    - `upsertProjectAction` voltou a ser importado estaticamente
+    - fluxo de submit do CMS de projetos voltou a usar o proxy correto da Server Action
+  - `src/app/admin/(protected)/trabalhos/[id]/page.tsx`
+    - normalização da galeria agora preserva `type` e `youtube_video_id`
+    - roundtrip de itens `youtube` e `video` deixa de degradar para imagem genérica ao reabrir o projeto
+  - `src/components/admin/MasterProjectTemplateV3Editor.tsx`
+    - reindexação explícita de `gallery_grid.order` ao adicionar, mover, editar e remover blocos
+    - animação dos cards do editor removeu `scale` e ficou apenas em `opacity` + `translateY`, alinhada ao protocolo Ghost
+  - `src/lib/admin/transformers/landing-page.ts`
+    - `toMasterV3Draft()` e `stripMasterV3Draft()` agora garantem `order` canônico por índice quando ausente
+- estado atual:
+  - save de projetos usa binding estável de Server Action
+  - reabertura/edição de projetos não perde metadados de galeria
+  - ordem persistida do template V3 fica determinística
+
 ## 10. Contratos canônicos
 
 ### 10.1 Shape V3 persistido

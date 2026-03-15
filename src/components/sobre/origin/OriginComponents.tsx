@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 interface OriginInfoBlockProps {
   block: OriginBlock & { img?: string };
@@ -17,10 +18,11 @@ interface OriginInfoBlockProps {
  */
 export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
   const isRightAligned = block.textAlign === 'right';
+  const prefersReducedMotion = useMotionGate();
 
   return (
     <div
-      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
+      className={`min-h-[65vh] flex flex-col justify-start pt-16 pb-20 lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
         isRightAligned
           ? 'lg:items-end lg:justify-start lg:text-right'
           : 'lg:items-end lg:justify-start lg:text-left'
@@ -32,7 +34,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
         {/* Text Content - Mobile */}
         <div className="text-center px-4">
           <motion.h2
-            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+            initial={
+              prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 16, filter: 'blur(8px)' }
+            }
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={viewportConfig}
             transition={{
@@ -46,7 +52,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+            initial={
+              prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 16, filter: 'blur(8px)' }
+            }
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={viewportConfig}
             transition={{
@@ -62,7 +72,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
         {/* Image - Mobile (400px dimensions per spec) */}
         <motion.div
-          initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }}
+          initial={
+            prefersReducedMotion
+              ? { opacity: 0.85 }
+              : { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }
+          }
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
           viewport={viewportConfig}
           transition={{

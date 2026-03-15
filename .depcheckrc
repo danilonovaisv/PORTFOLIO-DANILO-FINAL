@@ -1,49 +1,41 @@
-{
-  "ignores": [
-    "@dataconnect/admin-generated",
-    "@dataconnect/generated",
-    "@genkit-ai/google-genai",
-    "@google/adk",
-    "@modelcontextprotocol/sdk",
-    "@react-three/postprocessing",
-    "firebase-admin",
-    "firebase-frameworks",
-    "firebase-functions",
-    "husky",
-    "lightningcss",
-    "lint-staged",
-    "motion-studio-mcp",
-    "postprocessing",
-    "tailwindcss-animate",
-    "@tailwindcss/postcss",
-    "@tailwindcss/typography",
-    "@testing-library/user-event",
-    "@types/jest",
-    "autoprefixer",
-    "esbuild",
-    "eslint-config-next",
-    "eslint-plugin-react",
-    "jest-environment-jsdom",
-    "knip",
-    "postcss",
-    "rimraf",
-    "serve",
-    "shadcn",
-    "ts-node",
-    "which"
-  ],
-  "skip-missing": false,
-  "parsers": {
-    "**/*.ts": ["typescript"],
-    "**/*.tsx": ["typescript"],
-    "**/*.js": ["es6", "jsx"],
-    "**/*.mjs": ["es6"]
-  },
-  "detectors": ["requireCallExpression", "importDeclaration", "exportDeclaration"],
-  "specials": [
-    "bin",
-    "jest",
-    "next",
-    "eslint"
-  ]
-}
+ignores:
+  - "@next/eslint-plugin-next"
+  - "@types/pg"
+  - "@dataconnect/admin-generated"
+  - "@dataconnect/generated"
+  - "@genkit-ai/google-genai"
+  - "@google/adk"
+  - "@modelcontextprotocol/sdk"
+  - "@react-three/postprocessing"
+  - "firebase-admin"
+  - "firebase-functions"
+  - "husky"
+  - "lightningcss"
+  - "lint-staged"
+  - "postprocessing"
+  - "server-only"
+  - "tailwindcss-animate"
+  - "@tailwindcss/postcss"
+  - "@tailwindcss/typography"
+  - "@testing-library/user-event"
+  - "@types/jest"
+  - "autoprefixer"
+  - "esbuild"
+  - "eslint-config-next"
+  - "eslint-plugin-react"
+  - "jest-environment-jsdom"
+  - "knip"
+  - "postcss"
+  - "rimraf"
+  - "serve"
+  - "shadcn"
+  - "ts-node"
+  - "which"
+ignore-matches:
+  - "eslint-plugin-*"
+  - "eslint-config-*"
+ignore-dirs:
+  - ".agents"
+  - ".claude"
+  - "supabase"
+  - "docs"

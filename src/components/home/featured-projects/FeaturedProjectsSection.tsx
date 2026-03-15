@@ -32,23 +32,28 @@ type FeaturedProjectsSectionProps = {
 const FEATURED_GRID_LAYOUT = [
   {
     gridClass: 'md:col-span-4 lg:col-span-5',
-    frameClass: 'min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
   },
   {
     gridClass: 'md:col-span-4 lg:col-span-7',
-    frameClass: 'min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[420px] lg:min-h-[520px]',
   },
   {
     gridClass: 'md:col-span-8 lg:col-span-12',
-    frameClass: 'min-h-[220px] md:min-h-[320px] lg:min-h-[380px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[320px] lg:min-h-[380px]',
   },
   {
     gridClass: 'md:col-span-5 lg:col-span-8',
-    frameClass: 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]',
+    frameClass:
+      'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[320px] lg:min-h-[360px]',
   },
 ] as const;
 
-const CTA_FRAME_CLASS = 'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
+const CTA_FRAME_CLASS =
+  'max-md:aspect-square max-md:h-auto min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
 function FeaturedProjectsSkeleton() {
   return (
@@ -141,7 +146,9 @@ export default function FeaturedProjectsSection({
             return (
               <motion.div
                 key={project.id}
+                layout="position"
                 variants={cardVariants}
+                transition={ghostTransition(0, duration.normal)}
                 // Mobile: full-width (col-span-4) | Desktop: Bento Grid fixo
                 // Added h-full and flex flex-col to ensure child card stretches
                 className={`w-full col-span-4 ${gridCols} h-full flex flex-col`}
@@ -161,7 +168,9 @@ export default function FeaturedProjectsSection({
 
           {/* CTA Card - Sempre 4 colunas no desktop, alinhado com o Card 3 para completar a row */}
           <motion.div
+            layout="position"
             variants={cardVariants}
+            transition={ghostTransition(0, duration.normal)}
             className="w-full col-span-4 md:col-span-3 lg:col-span-4 h-full flex flex-col"
           >
             <CTAProjectCard className={CTA_FRAME_CLASS} />

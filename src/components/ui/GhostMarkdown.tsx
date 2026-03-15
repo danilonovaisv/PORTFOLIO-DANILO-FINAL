@@ -3,6 +3,7 @@
 import ReactMarkdown from 'react-markdown';
 import { cn } from '@/lib/utils';
 import type { TextConfig } from '@/types/landing-page';
+import { useMemo } from 'react';
 
 type GhostMarkdownProps = {
   content?: string | null;
@@ -53,6 +54,60 @@ export function GhostMarkdown({
       ? { style: { color: textConfig.color } }
       : {};
 
+  const components = useMemo(
+    () => ({
+      p: ({ children }: any) => (
+        <p className={cn(bodyClass, 'mb-4')}>{children}</p>
+      ),
+      h1: ({ children }: any) => (
+        <h1
+          className={cn('text-h1 mb-6 text-balance font-semibold', alignClass)}
+          {...headingProps}
+        >
+          {children}
+        </h1>
+      ),
+      h2: ({ children }: any) => (
+        <h2
+          className={cn('text-h2 mb-5 text-balance font-semibold', alignClass)}
+          {...headingProps}
+        >
+          {children}
+        </h2>
+      ),
+      h3: ({ children }: any) => (
+        <h3
+          className={cn('text-h3 mb-4 text-balance font-semibold', alignClass)}
+          {...headingProps}
+        >
+          {children}
+        </h3>
+      ),
+      ul: ({ children }: any) => (
+        <ul className={cn(bodyClass, 'mb-4 list-disc space-y-2 pl-6')}>
+          {children}
+        </ul>
+      ),
+      ol: ({ children }: any) => (
+        <ol className={cn(bodyClass, 'mb-4 list-decimal space-y-2 pl-6')}>
+          {children}
+        </ol>
+      ),
+      blockquote: ({ children }: any) => (
+        <blockquote className="mb-4 border-l border-bluePrimary/60 pl-4 text-white/78">
+          {children}
+        </blockquote>
+      ),
+      strong: ({ children }: any) => (
+        <strong className="font-semibold text-white">{children}</strong>
+      ),
+      em: ({ children }: any) => (
+        <em className="italic text-white/90">{children}</em>
+      ),
+    }),
+    [bodyClass, alignClass, headingProps]
+  );
+
   return (
     <div
       className={cn(
@@ -61,70 +116,7 @@ export function GhostMarkdown({
         className
       )}
     >
-      <ReactMarkdown
-        skipHtml
-        components={{
-          p: ({ children }) => (
-            <p className={cn(bodyClass, 'mb-4')}>{children}</p>
-          ),
-          h1: ({ children }) => (
-            <h1
-              className={cn(
-                'text-h1 mb-6 text-balance font-semibold text-white',
-                alignClass
-              )}
-              {...headingProps}
-            >
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2
-              className={cn(
-                'text-h2 mb-5 text-balance font-semibold text-white',
-                alignClass
-              )}
-              {...headingProps}
-            >
-              {children}
-            </h2>
-          ),
-          h3: ({ children }) => (
-            <h3
-              className={cn(
-                'text-h3 mb-4 text-balance font-semibold text-white',
-                alignClass
-              )}
-              {...headingProps}
-            >
-              {children}
-            </h3>
-          ),
-          ul: ({ children }) => (
-            <ul className={cn(bodyClass, 'mb-4 list-disc space-y-2 pl-6')}>
-              {children}
-            </ul>
-          ),
-          ol: ({ children }) => (
-            <ol className={cn(bodyClass, 'mb-4 list-decimal space-y-2 pl-6')}>
-              {children}
-            </ol>
-          ),
-          blockquote: ({ children }) => (
-            <blockquote className="mb-4 border-l border-bluePrimary/60 pl-4 text-white/78">
-              {children}
-            </blockquote>
-          ),
-          strong: ({ children }) => (
-            <strong className="font-semibold text-white">{children}</strong>
-          ),
-          em: ({ children }) => (
-            <em className="italic text-white/90">{children}</em>
-          ),
-        }}
-      >
-        {normalized}
-      </ReactMarkdown>
+      <ReactMarkdown components={components}>{normalized}</ReactMarkdown>
     </div>
   );
 }

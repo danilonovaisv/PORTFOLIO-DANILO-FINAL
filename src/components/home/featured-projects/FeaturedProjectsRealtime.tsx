@@ -55,6 +55,8 @@ export default function FeaturedProjectsRealtime({
   const router = useRouter();
   const supabase = useMemo(() => createClientComponentClient(), []);
   const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
+  const [displayProjects, setDisplayProjects] =
+    useState<PortfolioProject[]>(initialProjects);
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -227,6 +229,12 @@ export default function FeaturedProjectsRealtime({
     };
   }, [loadFeaturedProjects, supabase, isDev]);
 
+  useEffect(() => {
+    setDisplayProjects(projects);
+  }, [projects]);
+
+  // A rotação contínua (setInterval) foi desativada para que a ordem mude apenas ao entrar ou dar refresh na página.
+
   const handleOpenProject = useCallback(
     (project: PortfolioProject) => {
       if (project.landingPageSlug) {
@@ -258,7 +266,7 @@ export default function FeaturedProjectsRealtime({
   return (
     <>
       <FeaturedProjectsSection
-        projects={projects}
+        projects={displayProjects}
         onProjectOpen={handleOpenProject}
       />
       <PortfolioModal

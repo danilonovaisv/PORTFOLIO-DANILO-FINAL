@@ -46,17 +46,27 @@ export default async function EditProjectPage(props: Props) {
           (
             item: any
           ): item is {
-            path: string;
+            path?: string;
             caption?: string;
+            type?: 'image' | 'youtube' | 'video';
+            youtube_video_id?: string;
           } =>
             typeof item === 'object' &&
             item !== null &&
-            'path' in item &&
-            typeof (item as { path?: unknown }).path === 'string'
+            (typeof (item as { path?: unknown }).path === 'string' ||
+              (item as { type?: unknown }).type === 'youtube')
         )
         .map((item: any) => ({
-          path: item.path,
+          path: typeof item.path === 'string' ? item.path : undefined,
           caption: typeof item.caption === 'string' ? item.caption : undefined,
+          type:
+            item.type === 'video' || item.type === 'youtube'
+              ? item.type
+              : 'image',
+          youtube_video_id:
+            typeof item.youtube_video_id === 'string'
+              ? item.youtube_video_id
+              : undefined,
         }))
     : null;
 

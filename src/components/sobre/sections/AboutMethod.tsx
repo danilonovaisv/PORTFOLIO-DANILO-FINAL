@@ -82,7 +82,7 @@ export default function AboutMethod() {
       </div>
 
       <div className="std-grid relative z-10 w-full h-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-12 w-full h-full pt-[50vh] md:pt-[100px]">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 w-full h-full pt-[40vh] md:pt-[100px]">
           {/* Content Area: Cols 2-7 (Span 6) */}
           <div className="w-full lg:col-start-2 lg:col-span-6 flex flex-col justify-center px-0 lg:pr-20 py-20 lg:py-32">
             <motion.div

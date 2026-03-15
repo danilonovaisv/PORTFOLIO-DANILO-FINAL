@@ -7,13 +7,15 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import FeaturedProjectAnimatedBackground from '@/components/home/featured-projects/FeaturedProjectAnimatedBackground';
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
-import { applyImageFallback, cn, getAssetUrl } from '@/lib/utils';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { applyImageFallback, cn, getAssetUrl, isVideo } from '@/lib/utils';
 import type { PortfolioProject } from '@/types/project';
 
 type FeaturedProjectCardFrameProps = {
   project: PortfolioProject;
   backgroundVariant: FeaturedProjectBackgroundVariant;
-  mediaSource?: string;
+  desktopMediaSource?: string;
+  mobileMediaSource?: string;
   priority?: boolean;
   reducedMotion: boolean;
 };
@@ -21,7 +23,8 @@ type FeaturedProjectCardFrameProps = {
 export default function FeaturedProjectCardFrame({
   project,
   backgroundVariant,
-  mediaSource,
+  desktopMediaSource,
+  mobileMediaSource,
   priority = false,
   reducedMotion,
 }: FeaturedProjectCardFrameProps) {
@@ -42,7 +45,35 @@ export default function FeaturedProjectCardFrame({
     homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' &&
     !!logoSrc &&
     !logoFailed;
-  const showThumb = !showLogo && !!mediaSource;
+
+  // Decide if we should show standard card thumbnails
+  const showThumb = !showLogo && (!!desktopMediaSource || !!mobileMediaSource);
+
+  const desktopThumbIsVideo =
+    showThumb && !!desktopMediaSource && isVideo(desktopMediaSource);
+  const mobileThumbIsVideo =
+    showThumb && !!mobileMediaSource && isVideo(mobileMediaSource);
+
+  const desktopThumbUrl =
+    showThumb && desktopMediaSource
+      ? getAssetUrl(
+          desktopMediaSource,
+          desktopThumbIsVideo ? { isVideo: true } : undefined
+        )
+      : null;
+
+  const mobileThumbUrl =
+    showThumb && mobileMediaSource
+      ? getAssetUrl(
+          mobileMediaSource,
+          mobileThumbIsVideo ? { isVideo: true } : undefined
+        )
+      : null;
+
+  const baseMediaDiffers =
+    desktopThumbUrl !== mobileThumbUrl ||
+    desktopThumbIsVideo !== mobileThumbIsVideo;
+
   const topWashClass = showThumb
     ? 'bg-[linear-gradient(180deg,rgba(4,0,19,0.01)_0%,rgba(4,0,19,0.07)_56%,rgba(4,0,19,0.18)_100%)]'
     : 'bg-[linear-gradient(180deg,rgba(4,0,19,0.04)_0%,rgba(4,0,19,0.14)_56%,rgba(4,0,19,0.38)_100%)]';
@@ -71,6 +102,9 @@ export default function FeaturedProjectCardFrame({
     visualRef.current.style.setProperty('translate', '0px 0px');
   }, []);
 
+  const commonMediaClasses =
+    'object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px';
+
   return (
     <div
       className={cn(
@@ -90,17 +124,93 @@ export default function FeaturedProjectCardFrame({
 
         {showThumb ? (
           <div className="absolute inset-0">
-            <Image
-              src={mediaSource}
-              alt=""
-              aria-hidden="true"
-              fill
-              sizes={project.layout.sizes ?? '100vw'}
-              className="object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px"
-              loading={priority ? 'eager' : 'lazy'}
-              priority={priority}
-              onError={applyImageFallback}
-            />
+            {baseMediaDiffers ? (
+              <>
+                {/* Desktop Media */}
+                {desktopThumbIsVideo && desktopThumbUrl ? (
+                  <video
+                    src={desktopThumbUrl}
+                    aria-hidden="true"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={DEFAULT_VIDEO_POSTER}
+                    className={cn(
+                      'hidden md:block h-full w-full',
+                      commonMediaClasses
+                    )}
+                  />
+                ) : desktopThumbUrl ? (
+                  <Image
+                    src={desktopThumbUrl}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes={project.layout.sizes ?? '100vw'}
+                    className={cn('hidden md:block', commonMediaClasses)}
+                    loading={priority ? 'eager' : 'lazy'}
+                    priority={priority}
+                    onError={applyImageFallback}
+                  />
+                ) : null}
+                {/* Mobile Media */}
+                {mobileThumbIsVideo && mobileThumbUrl ? (
+                  <video
+                    src={mobileThumbUrl}
+                    aria-hidden="true"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={DEFAULT_VIDEO_POSTER}
+                    className={cn(
+                      'block md:hidden h-full w-full',
+                      commonMediaClasses
+                    )}
+                  />
+                ) : mobileThumbUrl ? (
+                  <Image
+                    src={mobileThumbUrl}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes={project.layout.sizes ?? '100vw'}
+                    className={cn('block md:hidden', commonMediaClasses)}
+                    loading={priority ? 'eager' : 'lazy'}
+                    priority={priority}
+                    onError={applyImageFallback}
+                  />
+                ) : null}
+              </>
+            ) : /* Same media for both */
+            desktopThumbIsVideo && desktopThumbUrl ? (
+              <video
+                src={desktopThumbUrl}
+                aria-hidden="true"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={DEFAULT_VIDEO_POSTER}
+                className={cn('h-full w-full', commonMediaClasses)}
+              />
+            ) : desktopThumbUrl ? (
+              <Image
+                src={desktopThumbUrl}
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes={project.layout.sizes ?? '100vw'}
+                className={commonMediaClasses}
+                loading={priority ? 'eager' : 'lazy'}
+                priority={priority}
+                onError={applyImageFallback}
+              />
+            ) : null}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,0,19,0.00)_0%,rgba(4,0,19,0.04)_54%,rgba(4,0,19,0.10)_100%)]" />
           </div>
         ) : null}
@@ -111,8 +221,8 @@ export default function FeaturedProjectCardFrame({
       <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
       {showLogo ? (
-        <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center px-6 sm:px-8 md:px-10">
-          <div className="relative h-[36%] w-[72%] max-h-[176px] max-w-[420px] min-h-[88px] min-w-[180px]">
+        <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center p-6 sm:p-8 md:p-12">
+          <div className="relative h-full w-full max-h-[160px] max-w-[320px]">
             <Image
               src={logoSrc}
               alt=""

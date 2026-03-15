@@ -39,7 +39,9 @@ export default async function Image() {
       </div>
 
       <h1 style={styles.title}>Danilo Novais</h1>
-      <p style={styles.subtitle}>Creative Developer & Specialized Motion</p>
+      <p style={styles.subtitle}>
+        Head de Criação &amp; Diretor de Criação Sênior
+      </p>
 
       <div style={styles.bio}>
         Conheça o método e a visão por trás das experiências que transformam o

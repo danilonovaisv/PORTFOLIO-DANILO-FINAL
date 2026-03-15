@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@supabase/supabase-js": "^2.98.0",
     "dotenv": "^17.3.1",
     "mime-types": "^3.0.2",

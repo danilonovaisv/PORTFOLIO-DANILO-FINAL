@@ -23,7 +23,7 @@ describe('JsonLd Component', () => {
       );
       expect(person).toBeDefined();
       expect(person.name).toBe(BRAND.name);
-      expect(person.jobTitle).toContain('Creative Developer');
+      expect(person.jobTitle).toContain('Head de Criação');
     }
   });
 

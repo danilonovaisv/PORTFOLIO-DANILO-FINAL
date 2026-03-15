@@ -106,7 +106,7 @@ export default function FeaturedProjectAnimatedBackground({
     >
       <div className={cn('absolute inset-0', surface)} />
       {shouldAnimate ? (
-        <div className="absolute inset-0 opacity-90">
+        <div className="absolute inset-0 h-full w-full opacity-90">
           {variant === 'grainient' ? (
             <Grainient
               className="h-full w-full"
@@ -137,22 +137,24 @@ export default function FeaturedProjectAnimatedBackground({
           ) : null}
 
           {variant === 'ghost' ? (
-            <GhostCursor
-              className="absolute inset-0"
-              color="#8705f2"
-              brightness={2}
-              edgeIntensity={0}
-              trailLength={50}
-              inertia={0.5}
-              grainIntensity={0.05}
-              bloomStrength={0.1}
-              bloomRadius={1}
-              bloomThreshold={0.025}
-              fadeDelayMs={1000}
-              fadeDurationMs={1500}
-              maxDevicePixelRatio={0.65}
-              targetPixels={180000}
-            />
+            <div className="relative h-full w-full overflow-hidden">
+              <GhostCursor
+                className="absolute inset-0 h-full w-full"
+                color="#8705f2"
+                brightness={2}
+                edgeIntensity={0}
+                trailLength={50}
+                inertia={0.5}
+                grainIntensity={0.05}
+                bloomStrength={0.1}
+                bloomRadius={1}
+                bloomThreshold={0.025}
+                fadeDelayMs={1000}
+                fadeDurationMs={1500}
+                maxDevicePixelRatio={0.65}
+                targetPixels={180000}
+              />
+            </div>
           ) : null}
 
           {variant === 'aurora' ? (

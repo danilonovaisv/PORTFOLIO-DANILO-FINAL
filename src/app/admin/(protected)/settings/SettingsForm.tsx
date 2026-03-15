@@ -653,8 +653,8 @@ export function SettingsForm({
 
       {!hasServiceRole ? (
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-200">
-          Configure `SUPABASE_SERVICE_ROLE_KEY` no servidor para habilitar o
-          CRUD seguro de tokens e usuarios ADMIN.
+          Configure a chave de servico do Supabase (Service Role) no servidor
+          para habilitar o CRUD seguro de tokens e usuarios ADMIN.
         </div>
       ) : null}
     </div>
