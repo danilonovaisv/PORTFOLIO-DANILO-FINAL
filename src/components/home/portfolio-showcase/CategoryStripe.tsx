@@ -49,7 +49,13 @@ export function CategoryStripe({
       : title;
 
   const stripeRef = useRef<HTMLDivElement>(null);
-  const parallaxY = useGhostParallaxY(stripeRef, 10);
+  const { scrollYProgress } = useScroll({
+    target: stripeRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, GHOST_SPRING);
+  const parallaxY = useTransform(smoothProgress, [0, 1], [-18, 18]);
   const isVideo = category.thumbnail.endsWith('.mp4');
 
   return (
