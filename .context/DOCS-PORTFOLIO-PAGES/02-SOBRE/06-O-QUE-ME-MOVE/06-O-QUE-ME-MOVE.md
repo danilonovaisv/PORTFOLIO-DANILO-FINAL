@@ -23,6 +23,20 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 | **4 – Manifesto Final**            | Texto fixo "ISS0 É GHOST DESIGN."  | 3 linhas, `font-display`, cor branca, efeito _morphing_ com espaçamento reduzido                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **5 – Ghost 3D**                   | Modelo GLB animado                 | `useGLTF` → `ghost.glb` <br> Z‑index máximo, flutuação constante, resposta a cursor (desktop) e scroll (mobile) <br> **Desktop**: totalmente centralizado na seção (centro horizontal e vertical) <br> **Mobile**: posicionado a 20% do topo da seção e alinhado à esquerda; na última tela, transiciona para o centro da seção <br> Entrada `scale: 0.95 → 1` + fade (1.2 s) <br> Em mobile, a escala base do Ghost fica **10% menor** para preservar respiro entre header, texto e canvas; última frase: `scale +10%` e centralização |
 
+### Registro de Layer
+
+- Estado validado em `2026-03-15`.
+- A implementação da sessão em `src/components/sobre/sections/AboutBeliefs.tsx` trata o Ghost 3D como **camada autoritativa superior**.
+- Wrapper externo do Ghost: `absolute inset-0 z-[90] pointer-events-none`.
+- Wrapper sticky do Ghost: `sticky top-0 z-[90]`.
+- Container interno do canvas: `relative z-[90]`.
+- Todas as demais camadas da sessão devem permanecer abaixo desse teto:
+  - conteúdo scrollável: `z-10`
+  - texto mobile fixed: `z-20` no wrapper local e `z-70` no componente fixed
+  - manifesto final: `z-50`
+  - header sticky: `z-40`
+- Regra obrigatória: nenhuma nova camada da sessão pode ultrapassar `z-[90]` sem revisão explícita desta documentação.
+
 ---
 
 ## 🎨 Sistema de Troca de Cor do Background

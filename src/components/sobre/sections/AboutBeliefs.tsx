@@ -122,15 +122,15 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 3: Canvas 3D (Z-50 para garantir sobreposição visual ao texto do Z-40 e Z-20) */}
+      {/* LAYER 5: Ghost 3D is the authoritative top layer for the whole section. */}
       <div
-        className="absolute inset-0 z-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-[90] w-full h-full pointer-events-none"
         aria-hidden
       >
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
+        <div className="sticky top-0 z-[90] w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
           {/* O container interno âncora o Canvas na mesma grid do texto */}
           <div className="std-grid w-full h-full">
-            <div className="col-span-12 w-full h-full relative translate-z-0">
+            <div className="relative col-span-12 z-[90] w-full h-full translate-z-0">
               {!prefersReducedMotion ? (
                 <GhostScene scrollProgress={scrollYProgress} />
               ) : null}
