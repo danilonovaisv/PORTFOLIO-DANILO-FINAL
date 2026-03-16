@@ -17,6 +17,7 @@ This workflow helps you identify and track feature implementations that were sta
 ## Detection Patterns
 
 ### Feature Indicators
+
 - "Let's implement..." / "We should add..."
 - "Create a new..." / "Build a..."
 - "Add support for..." / "Implement..."
@@ -24,6 +25,7 @@ This workflow helps you identify and track feature implementations that were sta
 - TODO comments mentioned in chat
 
 ### Drop Indicators
+
 - Topic changes without completion
 - "We'll come back to this..."
 - "For now, let's focus on..."
@@ -81,12 +83,14 @@ This workflow helps you identify and track feature implementations that were sta
 ## Automation Features
 
 ### Smart Detection
+
 - Tracks code snippets without completion
 - Identifies "TODO" mentions in chat
 - Detects architecture discussions without follow-up
 - Recognizes priority language ("critical", "important", "later")
 
 ### Status Tracking
+
 - **New** - Just identified
 - **In Progress** - Being worked on
 - **Blocked** - Waiting on something
@@ -94,6 +98,7 @@ This workflow helps you identify and track feature implementations that were sta
 - **Archived** - No longer relevant
 
 ### Priority Assignment
+
 - **Critical** - Production issues, security, blockers
 - **Important** - Core features, user-facing
 - **Low** - Nice-to-have, optimizations
@@ -101,11 +106,13 @@ This workflow helps you identify and track feature implementations that were sta
 ## Prevention Strategies
 
 ### During Development
+
 - **Finish before switching** - Complete one feature before starting another
 - **Explicit parking** - "Parking this for now, will return at X"
 - **Mini-milestones** - Break features into completable chunks
 
 ### In Chat
+
 - **Clear transitions** - "Done with X, moving to Y"
 - **Status updates** - "Feature X is now complete"
 - **Backlog management** - "Adding to dropped threads"
@@ -113,11 +120,13 @@ This workflow helps you identify and track feature implementations that were sta
 ## Team Collaboration
 
 ### Shared Visibility
+
 - Team members can see what's dropped
 - Avoid duplicate work on same features
 - Coordinate who picks up dropped threads
 
 ### Handoff Protocol
+
 - Clear documentation of state
 - Next steps defined
 - Dependencies noted
@@ -125,12 +134,14 @@ This workflow helps you identify and track feature implementations that were sta
 ## Analytics
 
 ### Metrics to Track
+
 - **Drop rate** - Features started vs completed
 - **Average drop time** - How long features stay dropped
 - **Category patterns** - Which types get dropped most
 - **Resolution rate** - How many get picked up later
 
 ### Improvement Insights
+
 - Identify why features get dropped
 - Optimize task sizing
 - Improve estimation accuracy
@@ -139,6 +150,7 @@ This workflow helps you identify and track feature implementations that were sta
 ## Philosophy
 
 /dropped-threads helps maintain development momentum by ensuring good ideas don't get lost. It's not about guilt - it's about visibility and intentional decision-making. Every dropped thread is either:
+
 1. **Worth completing** - Schedule it
 2. **Worth parking** - Document and revisit later
 3. **Worth abandoning** - Explicitly decide and move on

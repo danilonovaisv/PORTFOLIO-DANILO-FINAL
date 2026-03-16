@@ -26,16 +26,19 @@ The MAx configuration system provides centralized control over all aspects of th
 ## Quick Start
 
 ### Check Current Status
+
 ```bash
 max-config status
 ```
 
 ### List All Components
+
 ```bash
 max-config list
 ```
 
 ### View Component Configuration
+
 ```bash
 max-config show quality
 max-config show safety
@@ -43,6 +46,7 @@ max-config show memory
 ```
 
 ### Configure Settings
+
 ```bash
 # Enable/disable components
 max-config toggle quality
@@ -61,6 +65,7 @@ max-config get safety protected_branches
 ## Component Configuration
 
 ### 🔧 Quality Configuration
+
 Controls code quality, linting, and formatting:
 
 ```bash
@@ -82,6 +87,7 @@ max-config set quality ignore_patterns "E402,E501,W503"
 ```
 
 **Settings:**
+
 - `enabled` - Enable quality system
 - `pre_commit_hooks` - Run hooks before commits
 - `max_complexity` - Maximum cyclomatic complexity
@@ -94,6 +100,7 @@ max-config set quality ignore_patterns "E402,E501,W503"
 - `isort_enabled` - Enable import sorting
 
 ### 🔒 Safety Configuration
+
 Controls push safety and repository protection:
 
 ```bash
@@ -112,6 +119,7 @@ max-config set safety auto_approve_patterns "docs/,README*,*.md"
 ```
 
 **Settings:**
+
 - `enabled` - Enable push safety
 - `require_confirmation` - Require confirmation for pushes
 - `protected_branches` - Branches requiring confirmation
@@ -121,6 +129,7 @@ max-config set safety auto_approve_patterns "docs/,README*,*.md"
 - `emergency_bypass_enabled` - Allow --no-verify bypass
 
 ### 🧠 Memory Configuration
+
 Controls memory capture and management:
 
 ```bash
@@ -141,6 +150,7 @@ max-config set memory compression_enabled true
 ```
 
 **Settings:**
+
 - `enabled` - Enable memory system
 - `auto_capture` - Automatically capture memories
 - `capture_frequency` - When to capture
@@ -152,6 +162,7 @@ max-config set memory compression_enabled true
 - `default_format` - Storage format
 
 ### 📊 Quality Summary Configuration
+
 Controls automatic quality summary generation:
 
 ```bash
@@ -172,6 +183,7 @@ max-config set quality_summary exclude_patterns "*test*,*__pycache__*"
 ```
 
 **Settings:**
+
 - `enabled` - Enable quality summaries
 - `auto_generate` - Generate automatically
 - `generate_on_commit` - Generate after commits
@@ -183,6 +195,7 @@ max-config set quality_summary exclude_patterns "*test*,*__pycache__*"
 - `output_dir` - Output directory
 
 ### ⚡ Workflow Configuration
+
 Controls workflow automation and execution:
 
 ```bash
@@ -201,6 +214,7 @@ max-config set workflow cache_ttl_hours 24
 ```
 
 **Settings:**
+
 - `enabled` - Enable workflow system
 - `auto_load_workflows` - Auto-load workflows
 - `workflow_dirs` - Workflow directories
@@ -212,6 +226,7 @@ max-config set workflow cache_ttl_hours 24
 - `cache_ttl_hours` - Cache TTL
 
 ### 🤖 Model Configuration
+
 Controls AI model selection and optimization:
 
 ```bash
@@ -230,6 +245,7 @@ max-config set model temperature_default 0.7
 ```
 
 **Settings:**
+
 - `default_model` - Default AI model
 - `cost_optimization` - Optimize for cost
 - `auto_upgrade_threshold` - Upgrade threshold
@@ -242,6 +258,7 @@ max-config set model temperature_default 0.7
 - `context_compression` - Compress context
 
 ### 🎨 UI Configuration
+
 Controls user interface and experience:
 
 ```bash
@@ -262,6 +279,7 @@ max-config set ui confirm_before_exit true
 ```
 
 **Settings:**
+
 - `theme` - UI theme
 - `font_size` - Font size
 - `font_family` - Font family
@@ -273,6 +291,7 @@ max-config set ui confirm_before_exit true
 - `confirm_before_exit` - Confirm before exit
 
 ### ⚡ Performance Configuration
+
 Controls performance optimization:
 
 ```bash
@@ -290,6 +309,7 @@ max-config set performance preload_common_modules true
 ```
 
 **Settings:**
+
 - `enable_caching` - Enable caching
 - `cache_size_mb` - Cache size in MB
 - `enable_parallel_processing` - Parallel processing
@@ -301,6 +321,7 @@ max-config set performance preload_common_modules true
 - `cpu_limit_percent` - CPU limit
 
 ### 📝 Logging Configuration
+
 Controls logging and debugging:
 
 ```bash
@@ -319,6 +340,7 @@ max-config set logging backup_count 5
 ```
 
 **Settings:**
+
 - `enabled` - Enable logging
 - `level` - Log level
 - `format` - Log format
@@ -331,6 +353,7 @@ max-config set logging backup_count 5
 - `include_traceback` - Include traceback
 
 ### 🔗 Integration Configuration
+
 Controls external tool integrations:
 
 ```bash
@@ -350,6 +373,7 @@ max-config set integration email_notifications false
 ```
 
 **Settings:**
+
 - `git_enabled` - Git integration
 - `git_hooks_enabled` - Git hooks
 - `model_agent_extender_integration` - Model Agent Extender VS Code integration
@@ -362,6 +386,7 @@ max-config set integration email_notifications false
 - `email_notifications` - Email notifications
 
 ### 🛡️ Security Configuration
+
 Controls security and privacy:
 
 ```bash
@@ -380,6 +405,7 @@ max-config set security max_requests_per_minute 60
 ```
 
 **Settings:**
+
 - `enable_encryption` - Enable encryption
 - `encrypt_sensitive_data` - Encrypt sensitive data
 - `audit_log_enabled` - Audit logging
@@ -392,6 +418,7 @@ max-config set security max_requests_per_minute 60
 - `max_requests_per_minute` - Rate limit
 
 ### 🧪 Experimental Configuration
+
 Controls experimental features:
 
 ```bash
@@ -409,6 +436,7 @@ max-config set experimental.beta_features.workflow_automation true
 ```
 
 **Settings:**
+
 - `enabled` - Enable experimental features
 - `features` - Experimental feature flags
 - `beta_features` - Beta feature flags
@@ -416,6 +444,7 @@ max-config set experimental.beta_features.workflow_automation true
 ## Global Settings
 
 ### Auto-save and Backup
+
 ```bash
 # Configure auto-save
 max-config set auto_save_config true
@@ -433,6 +462,7 @@ max-config set sync_interval_minutes 30
 ## Configuration Management
 
 ### Export/Import Configuration
+
 ```bash
 # Export to JSON
 max-config export my-config.json
@@ -446,6 +476,7 @@ max-config import my-config.yaml --format yaml
 ```
 
 ### Backup and Restore
+
 ```bash
 # Create manual backup
 max-config backup
@@ -458,12 +489,14 @@ max-config restore max-config_20240120_120000.json
 ```
 
 ### Validation
+
 ```bash
 # Validate current configuration
 max-config validate
 ```
 
 ### Reset Configuration
+
 ```bash
 # Reset specific component
 max-config reset quality
@@ -573,29 +606,37 @@ The main configuration is stored in `.max/max-config.json`:
 ## Best Practices
 
 ### 1. Start with Defaults
+
 Begin with the default configuration and only modify what you need.
 
 ### 2. Use Component Toggles
+
 Enable/disable entire components rather than individual settings when starting out.
 
 ### 3. Backup Before Major Changes
+
 Always create a backup before making significant configuration changes.
 
 ### 4. Validate Changes
+
 Use `max-config validate` to ensure your configuration is valid.
 
 ### 5. Document Customizations
+
 Keep track of why you changed specific settings for future reference.
 
 ### 6. Test Incrementally
+
 Make changes incrementally and test each change.
 
 ### 7. Use Environment-Specific Configs
+
 Consider different configurations for development vs. production.
 
 ## Examples
 
 ### Development Setup
+
 ```bash
 # Enable all development tools
 max-config set quality enabled true
@@ -606,6 +647,7 @@ max-config set experimental.features.ai_code_completion true
 ```
 
 ### Production Setup
+
 ```bash
 # Conservative production settings
 max-config set quality enabled true
@@ -616,6 +658,7 @@ max-config set security enable_rate_limiting true
 ```
 
 ### Minimal Setup
+
 ```bash
 # Bare essentials only
 max-config set quality enabled false
@@ -627,16 +670,19 @@ max-config set workflow enabled false
 ## Troubleshooting
 
 ### Configuration Not Loading
+
 1. Check file permissions on `.max/max-config.json`
 2. Validate JSON syntax: `python3 -m json.tool .max/max-config.json`
 3. Reset to defaults: `max-config reset`
 
 ### Settings Not Applying
+
 1. Check if component is enabled: `max-config show <component>`
 2. Validate configuration: `max-config validate`
 3. Restart MAx to apply changes
 
 ### Performance Issues
+
 1. Disable experimental features: `max-config set experimental enabled false`
 2. Reduce cache size: `max-config set performance cache_size_mb 256`
 3. Disable parallel processing: `max-config set performance enable_parallel_processing false`
@@ -644,6 +690,7 @@ max-config set workflow enabled false
 ## Integration with Other Tools
 
 The configuration system integrates with:
+
 - **Git Hooks** - Uses safety and quality settings
 - **Model Agent Extender** - Uses UI and integration settings
 - **API Server** - Uses model and performance settings
@@ -652,6 +699,7 @@ The configuration system integrates with:
 ## Advanced Usage
 
 ### Programmatic Configuration
+
 ```python
 from .windsurf.max_config import get_config_manager
 
@@ -669,6 +717,7 @@ manager.save_config()
 ```
 
 ### Configuration Templates
+
 Create templates for different environments:
 
 ```bash
@@ -680,6 +729,7 @@ max-config import dev-config.json
 ```
 
 ### Dynamic Configuration
+
 Some settings can be changed at runtime and will take effect immediately, while others require a restart.
 
 ---

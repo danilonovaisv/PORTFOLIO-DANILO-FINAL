@@ -21,41 +21,49 @@ Core MAx Framework commands for efficient development workflow.
 ## Essential Commands
 
 ### 🧪 Testing System
+
 - `/test` - Run comprehensive tests with auto-fix
 - `/test quick` - Quick test run (minimal output)
 - `/test file <path>` - Run specific test file
 
 ### � Progress Tracking
+
 - `/bookmark` - Create manual progress bookmark
 - `/bookmark list` - List all bookmarks
 - `/bookmark show` - Show latest bookmark
 - `/bookmark session` - Show session information
 
 ### �📋 Task Management
+
 - `/task pin` - Pin important task to queue
 - `/task unpin` - Remove pinned task
 - `/task pop` - Execute all pinned tasks
 - `/task show` - Show pinned tasks
 
 ### ⚡ Performance
+
 - `/perf stats` - Show performance metrics
 - `/perf optimize` - Optimize system performance
 - `/perf clear-cache` - Clear all caches
 
 ### 📏 Quality & Standards
+
 - `/standards check` - Check coding standards
 - `/standards plan` - Generate refactoring plan
 - `/standards refactor` - Apply safe refactoring
 
 ### 🤖 AI Tools
+
 - `/ai analyze` - Analyze code quality
 - `/ai generate-tests` - Generate unit tests
 
 ### 🗂️ Workspace
+
 - `/ws organize` - Auto-organize workspace
 - `/ws status` - Show workspace status
 
 ### 🧠 Memory
+
 - `/memory capture` - Store important insights
 - `/memory retrieve` - Retrieve stored insights
 - `/memory list` - List captured insights

@@ -9,12 +9,14 @@ This workflow automatically generates comprehensive summaries of quality improve
 ## Usage
 
 ### Automatic Generation (Recommended)
+
 ```bash
 # After successful commit, run:
 quality-summary
 ```
 
 ### Manual Generation
+
 ```bash
 # Generate summary for last commit
 quality-summary --last
@@ -43,6 +45,7 @@ quality-summary --since "2024-01-01" --until "2024-01-31"
 ## Integration
 
 This workflow integrates with:
+
 - Pre-commit hooks (automatic detection)
 - Git history analysis
 - MAx command system
@@ -51,6 +54,7 @@ This workflow integrates with:
 ## Configuration
 
 Edit `.max/quality-config.json` to customize:
+
 - File patterns to include/exclude
 - Summary categories and formatting
 - Output locations

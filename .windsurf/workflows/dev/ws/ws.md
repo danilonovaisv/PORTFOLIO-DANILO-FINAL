@@ -25,15 +25,19 @@ Simple workspace commands without prefixes for instant access.
 ## Commands
 
 ### /ws refresh
+
 Refresh workspace organization and structure.
 
 ### /ws status
+
 Show current workspace structure and organization health.
 
 ### /ws organize
+
 Automatically organize workspace files and directories.
 
 ### /ws help
+
 Show all available workspace commands.
 
 This provides quick access without needing to remember prefixes.

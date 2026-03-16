@@ -28,18 +28,23 @@ Access MAx Framework development utilities with unified commands.
 ## Commands
 
 ### /dev debug
+
 Paste an error and get category + next steps.
 
 ### /dev context
+
 Estimate prompt size risk before sending (check character count).
 
 ### /dev dropped
+
 Find unfinished features and dropped work.
 
 ### /dev optimize
+
 Get cost and model optimization recommendations.
 
 ### /dev migrate
+
 Migrate `.windsurf` setup to a new workspace.
 
 This replaces the old `/bug-continue`, `/context-track`, `/dropped-threads`, `/optimization`, and `/migrate` commands.

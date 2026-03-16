@@ -31,7 +31,9 @@ Manage MAx Framework system architecture documentation with automatic updates.
 ## Commands
 
 ### /docs architecture
+
 Generate comprehensive system architecture documentation including:
+
 - Framework structure and components
 - Command system architecture
 - Workflow system design
@@ -40,7 +42,9 @@ Generate comprehensive system architecture documentation including:
 - Integration points and APIs
 
 ### /docs update
+
 Update documentation after quality gate passes:
+
 - Scans for recent changes
 - Updates component diagrams
 - Refreshes command mappings
@@ -48,14 +52,18 @@ Update documentation after quality gate passes:
 - Updates version timestamps
 
 ### /docs status
+
 Show current documentation status:
+
 - Last update time
 - Sections needing updates
 - Quality gate sync status
 - Architecture drift detection
 
 ### /docs view <section>
+
 View specific documentation section:
+
 - `framework` - Core framework architecture
 - `commands` - Command system design
 - `workflows` - Workflow architecture
@@ -64,10 +72,13 @@ View specific documentation section:
 - `integrations` - External integrations
 
 ### /docs list
+
 List all available documentation sections with metadata.
 
 ### /docs check
+
 Check documentation freshness and consistency:
+
 - Compare with current codebase
 - Flag outdated sections
 - Suggest updates needed
@@ -75,6 +86,7 @@ Check documentation freshness and consistency:
 ## Automatic Updates
 
 The `/docs update` command automatically triggers:
+
 - **After quality gate passes** - When `/quality-summary` completes successfully
 - **On major changes** - When core files are modified
 - **Scheduled updates** - At configurable intervals

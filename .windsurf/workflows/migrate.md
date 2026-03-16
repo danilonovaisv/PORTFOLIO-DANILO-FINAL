@@ -70,13 +70,17 @@ Add this section to your existing persona.md:
 ## Workflow Commands
 
 ### /start-session
+
 [existing content]
 
 ### /end-session
+
 [existing content]
 
 ### /humanify
+
 Extracts human insights and learning from your work:
+
 - Analyzes what was built and changed
 - Identifies key technical insights
 - Creates human-readable takeaways
@@ -122,18 +126,22 @@ done
 ## What Changes in the Migration
 
 ### Fixed Credit Calculation
+
 - Old: `💳 500 - X = Y credits remaining`
 - New: `💳 X credits used`
 
 ### New Commands
+
 - `/humanify` - Extract learning insights
 - Enhanced `/start-session` and `/end-session`
 
 ### New Directories
+
 - `.max/insights/` - Store humanify outputs
 - Better organized workflows
 
 ### Updated Rules
+
 - Fixed credit tracking
 - Better model tier guidance
 - Enhanced rabbithole prevention
@@ -150,14 +158,17 @@ After migration, verify:
 ## Troubleshooting
 
 ### Persona Not Loading
+
 - Check `.max/persona.md` exists and is valid YAML frontmatter
 - Verify rules file has `trigger: always_on`
 
 ### Commands Not Working
+
 - Ensure workflow files are in `.max/workflows/`
 - Check file names match exactly
 
 ### Credit Calc Still Wrong
+
 - Update rules file with new format
 - Clear IDE cache and restart
 

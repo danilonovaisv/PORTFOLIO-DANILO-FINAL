@@ -90,7 +90,9 @@ export default function FeaturedProjectAnimatedBackground({
 }: FeaturedProjectAnimatedBackgroundProps) {
   const reducedMotion = usePrefersReducedMotion();
   const supportsWebGL = useWebGLSupport();
-  const supportsFinePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
+  const supportsFinePointer = useMediaQuery(
+    '(hover: hover) and (pointer: fine)'
+  );
   const { containerRef, shouldAnimate } = useAnimatedBackgroundVisibility(
     reducedMotion || !supportsWebGL || !supportsFinePointer
   );

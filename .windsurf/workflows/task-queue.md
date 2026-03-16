@@ -19,19 +19,25 @@ The task queue helps you visualize and organize work toward goals and subgoals, 
 ## Queue Commands
 
 ### /queue show
+
 Display current queue with priorities
 
 ### /queue add "Task description" [priority]
+
 Add task to queue
+
 - Priority: high, medium, low
 
 ### /queue next
+
 Move to next task in queue
 
 ### /queue complete
+
 Mark current task as complete
 
 ### /queue reorder
+
 Reorder tasks by priority
 
 ## Queue Visualization
@@ -81,9 +87,11 @@ Reorder tasks by priority
 ## Forward Focus Features
 
 ### 1. **Goal Alignment**
+
 Every task links to a higher-level goal
 
 ### 2. **Progress Tracking**
+
 Visual progress bars for each goal
 
 ```
@@ -91,9 +99,11 @@ Visual progress bars for each goal
 ```
 
 ### 3. **Time Estimates**
+
 Track and improve estimation accuracy
 
 ### 4. **Dependency Management**
+
 Visualize task dependencies
 
 ```
@@ -146,20 +156,24 @@ Task A → Task B → Task C
 ## Integration with Workflows
 
 ### /start-session
+
 - Load current queue
 - Show today's focus tasks
 
 ### /end-session
+
 - Update task progress
 - Estimate next session work
 
 ### /dropped-threads
+
 - Add dropped items to queue
 - Prioritize automatically
 
 ## Queue Analytics
 
 ### Metrics
+
 - **Completion Rate**: Tasks completed vs added
 - **Estimation Accuracy**: Estimated vs actual time
 - **Goal Progress**: Overall goal completion
@@ -187,6 +201,7 @@ Focus Time: 70% on HIGH priority
 ## Philosophy
 
 The queue keeps you forward-focused by:
+
 - Making goals visible and concrete
 - Breaking large goals into doable tasks
 - Providing clear next steps

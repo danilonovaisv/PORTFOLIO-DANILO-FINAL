@@ -28,24 +28,28 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ## Features
 
 ### 🧪 Comprehensive Test Discovery
+
 - **All test patterns**: `test_*.py`, `*_test.py`, `tests/**/*.py`
 - **Recursive discovery**: Finds tests in all subdirectories
 - **Multiple frameworks**: unittest, pytest, and custom test runners
 - **Smart filtering**: Excludes hidden and non-test files
 
 ### 🔧 Automatic Error Fixing
+
 - **Missing imports**: Automatically adds required imports
 - **Undefined variables**: Fixes common variable issues
 - **Syntax errors**: Corrects common syntax problems
 - **Missing test methods**: Adds basic test methods when needed
 
 ### 📊 Detailed Debugging Output
+
 - **Verbose logging**: Step-by-step test execution
 - **Full tracebacks**: Complete error stack traces
 - **Stdout/Stderr capture**: All test output captured and displayed
 - **Performance metrics**: Test execution timing and duration
 
 ### 📋 Comprehensive Reporting
+
 - **Real-time progress**: Live test execution updates
 - **Success rates**: Pass/fail statistics and percentages
 - **Error categorization**: Grouped by error type and severity
@@ -54,6 +58,7 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ## Test Execution Flow
 
 ### 1. Discovery Phase
+
 ```bash
 📋 Found 15 test files:
    - tests/test_commands.py
@@ -64,6 +69,7 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ```
 
 ### 2. Individual Test Execution
+
 ```bash
 🔍 Testing: test_example_feature.py
   📝 Running: test_example_feature.py
@@ -86,6 +92,7 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ```
 
 ### 3. Pytest Suite Execution
+
 ```bash
 🚀 Running comprehensive test suite...
   📝 Command: python -m pytest -v --tb=long --durations=10 --capture=no --color=yes
@@ -99,6 +106,7 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ```
 
 ### 4. Auto-Fix Phase
+
 ```bash
 🔧 Applying auto-fixes...
   🔧 Analyzing: test_quality_standards.py
@@ -109,6 +117,7 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ```
 
 ### 5. Final Report
+
 ```bash
 📊 COMPREHENSIVE TEST REPORT
 ============================================================
@@ -143,22 +152,26 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ## Auto-Fix Capabilities
 
 ### 📦 Import Fixes
+
 - **Missing unittest**: Adds `import unittest`
 - **Missing pytest**: Adds `import pytest`
 - **Missing pathlib**: Adds `from pathlib import Path`
 - **Missing sys**: Adds `import sys`
 
 ### 🔧 Variable Fixes
+
 - **Missing setUp**: Adds `setUp(self)` method to test classes
 - **Undefined self**: Fixes common `self.` reference issues
 - **Missing fixtures**: Adds basic pytest fixtures
 
 ### ⚡ Syntax Fixes
+
 - **Print statements**: Converts `print "text"` to `print("text")`
 - **Function definitions**: Adds missing colons
 - **Indentation**: Fixes basic indentation issues
 
 ### 🧪 Test Method Fixes
+
 - **Missing test methods**: Adds basic `test_example(self)` method
 - **Empty test classes**: Adds test methods to empty test classes
 - **Missing assertions**: Adds basic assertion to empty test methods
@@ -166,21 +179,25 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ## Debugging Features
 
 ### 📊 Verbose Output
+
 ```bash
 /test --verbose
 ```
+
 - **Step-by-step execution**: Shows each test file being processed
 - **Detailed error information**: Full stdout, stderr, and tracebacks
 - **Fix tracking**: Shows each automatic fix being applied
 - **Performance timing**: Shows execution time for each test
 
 ### 🔍 Error Analysis
+
 - **Error categorization**: Groups errors by type (Import, Syntax, Assertion, etc.)
 - **Root cause analysis**: Identifies common patterns in failures
 - **Fix suggestions**: Provides specific fix recommendations
 - **Impact assessment**: Shows how fixes affect test results
 
 ### 📈 Performance Metrics
+
 - **Test timing**: Shows slowest tests with execution times
 - **Success rates**: Tracks pass/fail rates over time
 - **Fix effectiveness**: Measures success of auto-fix attempts
@@ -189,6 +206,7 @@ Run all tests in all test suites with comprehensive error fixing and detailed de
 ## Integration
 
 ### 🔄 CI/CD Integration
+
 ```yaml
 # .github/workflows/test.yml
 name: Comprehensive Tests
@@ -203,6 +221,7 @@ jobs:
 ```
 
 ### 🔧 Pre-commit Hook
+
 ```bash
 #!/bin/sh
 # .git/hooks/pre-commit
@@ -214,6 +233,7 @@ fi
 ```
 
 ### 📊 Quality Gate Integration
+
 ```bash
 # Run as part of quality gate
 /max-quality --include-tests
@@ -225,6 +245,7 @@ fi
 ## Configuration
 
 ### 📋 Test Configuration
+
 The test runner can be configured via command-line arguments:
 
 - **--verbose**: Enable detailed output (default: True)
@@ -233,6 +254,7 @@ The test runner can be configured via command-line arguments:
 - **--quick**: Quick test mode (minimal output, no fixes)
 
 ### 🔧 Auto-Fix Settings
+
 Auto-fix can be controlled via environment variables:
 
 ```bash
@@ -248,18 +270,21 @@ export MAX_TEST_AGGRESSIVE_FIX=1
 ## Benefits
 
 ### 🎯 Comprehensive Coverage
+
 - **All test files**: Discovers and runs every test
 - **Multiple frameworks**: Supports unittest, pytest, and custom runners
 - **Recursive discovery**: Finds tests in all directories
 - **Smart filtering**: Excludes non-test files automatically
 
 ### 🔧 Intelligent Fixing
+
 - **Common errors**: Fixes most frequent test issues
 - **Safe operations**: Only applies proven fixes
 - **Rollback capability**: Tracks all changes for easy rollback
 - **Fix validation**: Re-runs tests to verify fixes
 
 ### 📊 Detailed Insights
+
 - **Real-time feedback**: Live progress and results
 - **Error analysis**: Deep dive into failure causes
 - **Performance metrics**: Identify slow tests and bottlenecks

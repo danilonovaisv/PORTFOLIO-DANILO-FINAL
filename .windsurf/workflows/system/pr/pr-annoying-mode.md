@@ -9,6 +9,7 @@ This workflow activates an extremely picky code reviewer that finds annoying qua
 ## Usage
 
 ### Basic Usage
+
 ```bash
 # Run annoying mode on entire repository
 /pr-annoying-mode
@@ -24,6 +25,7 @@ This workflow activates an extremely picky code reviewer that finds annoying qua
 ```
 
 ### Command Line Interface
+
 ```bash
 # Direct Python execution
 python3 .max/pr_annoying_mode.py
@@ -35,12 +37,14 @@ python3 .max/pr_annoying_mode.py --files src/main.py --fix --output feedback.md
 ## What It Finds
 
 ### 🔥 Infuriating Issues (Actually Bad)
+
 These are real problems that should be fixed immediately:
 
 - **Security Issues**: `eval()`, `exec()`, `shell=True`, hardcoded passwords
 - **Performance Issues**: `range(len())`, string concatenation in loops, missing list comprehensions
 
 ### 😤 Frustrating Issues (Hard to Maintain)
+
 These make code difficult to work with:
 
 - **Complex Functions**: Cyclomatic complexity > 15
@@ -48,9 +52,11 @@ These make code difficult to work with:
 - **Deep Nesting**: Code nested > 4 levels deep
 
 ### 😠 Annoying Issues (Shows Laziness)
+
 These indicate lazy coding practices:
 
 #### Bad Variable Names
+
 ```python
 # ❌ Annoying
 data = get_user_info()
@@ -64,6 +70,7 @@ user_instance = create_instance()
 ```
 
 #### Useless Comments
+
 ```python
 # ❌ Annoying
 # Get the user data
@@ -82,6 +89,7 @@ user_data = get_user()
 ```
 
 #### Bad Function Names
+
 ```python
 # ❌ Annoying
 def get_x():
@@ -95,6 +103,7 @@ def handle_api_error():
 ```
 
 #### Magic Numbers
+
 ```python
 # ❌ Annoying
 if timeout > 30:
@@ -112,6 +121,7 @@ if timeout > DEFAULT_TIMEOUT_SECONDS:
 ```
 
 #### Bad Imports
+
 ```python
 # ❌ Annoying
 from module import *
@@ -125,6 +135,7 @@ import json
 ```
 
 #### Questionable Logic
+
 ```python
 # ❌ Annoying
 if True:  # Why?!
@@ -199,11 +210,13 @@ Found 23 annoying issues that standard linters missed:
 PR Annoying Mode can automatically fix some issues:
 
 ### ✅ Auto-Fixable Issues
+
 - **Bad Imports**: Split multiple imports, remove wildcard imports
 - **Questionable Logic**: Add specific exception types, comment dead code
 - **Magic Numbers**: Suggest constant definitions (manual implementation)
 
 ### ❌ Manual Fixes Required
+
 - **Naming Issues**: Need human judgment for good names
 - **Complexity Issues**: Require refactoring
 - **Comment Issues**: Need meaningful content
@@ -242,26 +255,34 @@ self.annoying_patterns["my_pet_peeves"] = [
 ## Best Practices
 
 ### 1. Use in Development
+
 Run PR Annoying Mode before committing:
+
 ```bash
 python3 .max/pr_annoying_mode.py --fix
 ```
 
 ### 2. Use in Code Review
+
 Add it to your PR checklist:
+
 - [ ] Standard linting passes
 - [ ] Tests pass
 - [ ] PR Annoying Mode passes
 - [ ] Manual review
 
 ### 3. Team Configuration
+
 Customize patterns for your team's standards:
+
 - Add project-specific naming conventions
 - Include domain-specific magic numbers
 - Set appropriate complexity thresholds
 
 ### 4. Gradual Adoption
+
 Start with the most critical issues:
+
 ```bash
 # Focus on infuriating issues first
 python3 .max/pr_annoying_mode.py --files $(git diff --name-only HEAD~1)
@@ -270,26 +291,34 @@ python3 .max/pr_annoying_mode.py --files $(git diff --name-only HEAD~1)
 ## Why This is Useful
 
 ### 1. Catches What Linters Miss
+
 Standard linters focus on syntax and style. PR Annoying Mode focuses on:
+
 - **Code readability**
 - **Maintainability**
 - **Best practices**
 - **Common anti-patterns**
 
 ### 2. Educational Value
+
 Great for:
+
 - **Junior developers**: Learn best practices
 - **Code reviews**: Consistent quality standards
 - **Onboarding**: Team coding standards
 
 ### 3. Prevents Technical Debt
+
 Catches issues early before they become:
+
 - **Hard to maintain**
 - **Confusing to understand**
 - **Expensive to refactor**
 
 ### 4. Team Alignment
+
 Ensures everyone follows the same:
+
 - **Naming conventions**
 - **Coding patterns**
 - **Quality standards**
@@ -297,6 +326,7 @@ Ensures everyone follows the same:
 ## Advanced Usage
 
 ### Custom Severity Levels
+
 ```python
 # Add your own severity levels
 severity_order = {
@@ -308,6 +338,7 @@ severity_order = {
 ```
 
 ### Integration with CI/CD
+
 ```yaml
 # .github/workflows/annoying-check.yml
 name: PR Annoying Mode Check
@@ -327,6 +358,7 @@ jobs:
 ```
 
 ### Team-Specific Rules
+
 ```python
 # Add team-specific patterns
 def add_team_patterns(self):
@@ -345,19 +377,25 @@ def add_team_patterns(self):
 ## Troubleshooting
 
 ### False Positives
+
 If you get false positives:
+
 1. **Customize patterns**: Remove or modify problematic patterns
 2. **Add exceptions**: Whitelist specific files or patterns
 3. **Adjust thresholds**: Change complexity or nesting limits
 
 ### Performance Issues
+
 For large repositories:
+
 1. **Limit scope**: Use `--files` to check only changed files
 2. **Parallel processing**: Run on multiple files simultaneously
 3. **Cache results**: Cache AST parsing results
 
 ### Team Adoption
+
 If team resists:
+
 1. **Start small**: Begin with most critical issues
 2. **Explain benefits**: Show how it prevents technical debt
 3. **Customize**: Adapt to team's coding style
@@ -366,6 +404,7 @@ If team resists:
 ## Examples in Practice
 
 ### Before PR Annoying Mode
+
 ```python
 def process_data(data):
     # Process the data
@@ -378,6 +417,7 @@ def process_data(data):
 ```
 
 ### After PR Annoying Mode Feedback
+
 ```
 😠 ANNOYING ISSUES:
   🤔 process_data.py:2 - Obvious comments are annoying
@@ -387,6 +427,7 @@ def process_data(data):
 ```
 
 ### Improved Code
+
 ```python
 def transform_positive_values(data):
     """Transform positive values by doubling them."""

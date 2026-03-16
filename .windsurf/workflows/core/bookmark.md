@@ -39,30 +39,33 @@ Create and manage automatic bookmarks for tracking progress, sessions, and miles
 The bookmark system automatically creates bookmarks for key events:
 
 ### 🚀 Session Management
+
 - **Session Start**: Automatically created when session begins
 - **Session End**: Automatically created when session ends
 - **Duration Tracking**: Calculates session duration automatically
 
 ### 📊 Progress Tracking
+
 - **Test Runs**: After test executions (passed/failed)
 - **Quality Checks**: After quality gate runs (score tracking)
 - **Milestones**: Major development milestones
 
 ### 🔄 Context Tracking
+
 - **Git Status**: Current branch and modified files
 - **Working Directory**: Current directory context
 - **Timestamp**: Precise timing for all events
 
 ## Bookmark Types
 
-| Type | Description | When Created |
-|------|-------------|--------------|
-| `session_start` | Session begins | Automatic |
-| `session_end` | Session ends | Automatic |
-| `manual` | Manual bookmark | User request |
-| `progress` | Milestone reached | Automatic |
-| `test_run` | Test execution | Automatic |
-| `quality_check` | Quality gate | Automatic |
+| Type            | Description       | When Created |
+| --------------- | ----------------- | ------------ |
+| `session_start` | Session begins    | Automatic    |
+| `session_end`   | Session ends      | Automatic    |
+| `manual`        | Manual bookmark   | User request |
+| `progress`      | Milestone reached | Automatic    |
+| `test_run`      | Test execution    | Automatic    |
+| `quality_check` | Quality gate      | Automatic    |
 
 ## Bookmark Data Structure
 
@@ -101,6 +104,7 @@ Sessions provide comprehensive tracking:
 ## Automatic Integration
 
 ### Test Integration
+
 ```python
 # Automatically called after test runs
 from .max.core.commands.bookmark_handler import auto_test_bookmark
@@ -109,6 +113,7 @@ auto_test_bookmark("passed")  # or "failed"
 ```
 
 ### Quality Integration
+
 ```python
 # Automatically called after quality checks
 from .max.core.commands.bookmark_handler import auto_quality_bookmark
@@ -117,6 +122,7 @@ auto_quality_bookmark(8.5)  # Quality score
 ```
 
 ### Progress Integration
+
 ```python
 # Automatically called for milestones
 from .max.core.commands.bookmark_handler import auto_progress_bookmark
@@ -127,6 +133,7 @@ auto_progress_bookmark("Feature X completed")
 ## Use Cases
 
 ### 📝 Daily Development
+
 ```bash
 # Start day
 # (Automatic session_start bookmark)
@@ -143,6 +150,7 @@ auto_progress_bookmark("Feature X completed")
 ```
 
 ### 🎯 Feature Development
+
 ```bash
 # Feature start
 /bookmark "feature_start"
@@ -157,6 +165,7 @@ auto_progress_bookmark("Feature X completed")
 ```
 
 ### 🐛 Bug Fixing
+
 ```bash
 # Bug identified
 /bookmark "bug_identified"
@@ -175,12 +184,15 @@ auto_progress_bookmark("Feature X completed")
 ## Session Management
 
 ### Automatic Session Tracking
+
 Sessions are automatically tracked when:
+
 - MAx Framework starts up
 - MAx Framework shuts down
 - Significant time gaps between interactions
 
 ### Manual Session Control
+
 ```bash
 # Start new session manually
 /bookmark session_start
@@ -195,6 +207,7 @@ Sessions are automatically tracked when:
 ## Progress Analysis
 
 ### Bookmark History
+
 ```bash
 # View all bookmarks
 /bookmark list
@@ -207,6 +220,7 @@ Sessions are automatically tracked when:
 ```
 
 ### Session Analytics
+
 ```bash
 # Session summary
 /bookmark session
@@ -221,6 +235,7 @@ Sessions are automatically tracked when:
 ## Storage
 
 Bookmarks are stored in:
+
 - **Location**: `.max/bookmarks/`
 - **Bookmarks**: `bookmarks.json`
 - **Sessions**: `session.json`
@@ -238,6 +253,7 @@ Bookmarks are stored in:
 ## Examples
 
 ### Daily Workflow
+
 ```bash
 $ /bookmark list
 🔖 Latest bookmarks:
@@ -248,6 +264,7 @@ $ /bookmark list
 ```
 
 ### Feature Development
+
 ```bash
 $ /bookmark show progress_1640092800
 🔖 Bookmark Details:

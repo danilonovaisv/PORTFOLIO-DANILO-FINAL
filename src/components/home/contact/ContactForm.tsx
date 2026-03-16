@@ -272,8 +272,8 @@ const ContactForm: React.FC = () => {
               />
               {!shouldLoadTurnstile ? (
                 <div className="absolute inset-0 flex items-center rounded-xl border border-[#111111]/10 bg-[#f8fafc] px-4 text-sm text-[#111111]/60">
-                  Verificação de segurança carregada sob demanda para
-                  priorizar performance.
+                  Verificação de segurança carregada sob demanda para priorizar
+                  performance.
                 </div>
               ) : null}
             </div>

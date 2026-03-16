@@ -13,21 +13,25 @@ This workflow analyzes code and automatically generates unit tests for new featu
 ## Usage
 
 ### Analyze a File
+
 ```
 /ai-code-quality analyze --file path/to/file.py
 ```
 
 ### Generate Tests for a File
+
 ```
 /ai-code-quality generate --file path/to/file.py
 ```
 
 ### Run Generated Tests
+
 ```
 /ai-code-quality test --test-file path/to/test_file.py
 ```
 
 ### Get Quality Report
+
 ```
 /ai-code-quality report
 ```
@@ -35,6 +39,7 @@ This workflow analyzes code and automatically generates unit tests for new featu
 ## Output Format
 
 ### Analysis Results
+
 ```json
 {
   "file": "path/to/file.py",
@@ -53,6 +58,7 @@ This workflow analyzes code and automatically generates unit tests for new featu
 ```
 
 ### Quality Report
+
 ```json
 {
   "timestamp": "2026-02-20 14:30",
@@ -73,18 +79,21 @@ This workflow analyzes code and automatically generates unit tests for new featu
 ## Features Detected
 
 ### Functions
+
 - **Name**: Function identifier
 - **Dependencies**: Imported modules and functions
 - **Complexity**: Simple, Medium, or Complex
 - **Test Requirements**: Mocking, fixtures, etc.
 
 ### Classes
+
 - **Name**: Class identifier
 - **Methods**: List of methods found
 - **Inheritance**: Base classes
 - **Test Requirements**: Constructor testing, etc.
 
 ### Modules
+
 - **Name**: Module identifier
 - **Imports**: List of imports
 - **Dependencies**: Required modules
@@ -92,6 +101,7 @@ This workflow analyzes code and automatically generates unit tests for new featu
 ## Test Generation
 
 ### Function Tests
+
 ```python
 def test_function_name(self):
     """Test function_name"""
@@ -107,6 +117,7 @@ def test_function_name(self):
 ```
 
 ### Class Tests
+
 ```python
 class TestClassName(unittest.TestCase):
     """Test ClassName class"""
@@ -125,6 +136,7 @@ class TestClassName(unittest.TestCase):
 ```
 
 ### Module Tests
+
 ```python
 def test_module_name_imports(self):
     """Test module_name module imports"""
@@ -141,17 +153,20 @@ def test_module_name_imports(self):
 ## Integration with Development Workflow
 
 ### Before Commit
+
 ```
 /ai-code-quality generate --file new_feature.py
 /ai-code-quality test --test-file tests/new_feature_test.py
 ```
 
 ### During Development
+
 - Run analysis after adding new functions
 - Generate tests for new classes
 - Check quality report weekly
 
 ### Code Review
+
 - Ensure all new features have tests
 - Verify coverage meets standards
 - Check quality metrics
@@ -173,11 +188,13 @@ The system estimates coverage based on:
 ## Quality Standards
 
 ### Code Quality Metrics
+
 - **Test Coverage**: Minimum 80%
 - **Test Files**: One per source file
 - **Feature Coverage**: All features tested
 
 ### Generated Test Quality
+
 - **Structure**: Follows unittest conventions
 - **Documentation**: Clear docstrings
 - **Fixtures**: Proper setup/teardown
@@ -186,18 +203,22 @@ The system estimates coverage based on:
 ## Advanced Features
 
 ### Custom Test Templates
+
 The system uses templates for different feature types:
+
 - Function template
 - Class template
 - Method template
 - Module template
 
 ### Dependency Analysis
+
 - Identifies imported modules
 - Detects external dependencies
 - Suggests mocking requirements
 
 ### Coverage Prediction
+
 - Estimates test coverage
 - Identifies untested code paths
 - Recommends additional tests
@@ -205,6 +226,7 @@ The system uses templates for different feature types:
 ## Examples
 
 ### Example 1: Simple Function
+
 ```python
 # Code
 def add_numbers(a, b):
@@ -225,6 +247,7 @@ def test_add_numbers(self):
 ```
 
 ### Example 2: Complex Class
+
 ```python
 # Code
 class DataProcessor:
@@ -262,18 +285,21 @@ class TestDataProcessor(unittest.TestCase):
 ## Best Practices
 
 ### When to Use
+
 - **New Features**: Generate tests immediately
 - **Refactoring**: Update tests accordingly
 - **Code Review**: Verify test coverage
 - **Quality Gates**: Enforce coverage standards
 
 ### Test Maintenance
+
 - Review generated tests
 - Add specific test cases
 - Update tests when code changes
 - Run tests regularly
 
 ### Coverage Goals
+
 - **New Code**: 90%+ coverage
 - **Existing Code**: 80%+ coverage
 - **Critical Path**: 95%+ coverage
@@ -281,6 +307,7 @@ class TestDataProcessor(unittest.TestCase):
 ## Configuration
 
 ### Test Directory Structure
+
 ```
 project/
 ├── src/
@@ -292,6 +319,7 @@ project/
 ```
 
 ### Customization
+
 - Modify templates in `ai_code_quality.py`
 - Add custom test patterns
 - Configure coverage thresholds
@@ -299,6 +327,7 @@ project/
 ## Philosophy
 
 The AI Code Quality system ensures:
+
 - **No untested code** - Automatic test generation
 - **Quality standards** - Consistent test structure
 - **Coverage tracking** - Monitor test coverage
@@ -309,12 +338,14 @@ This helps maintain high code quality while reducing the burden of writing tests
 ## Troubleshooting
 
 ### Common Issues
+
 1. **Syntax Errors**: Fix code before analysis
 2. **Missing Imports**: Add required imports
 3. **Test Failures**: Review generated tests
 4. **Low Coverage**: Add more test cases
 
 ### Error Messages
+
 - "Syntax error in file": Fix Python syntax
 - "Could not read file": Check file permissions
 - "Test execution timed out": Optimize tests

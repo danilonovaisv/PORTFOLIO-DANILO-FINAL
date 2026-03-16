@@ -9,6 +9,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ## Core MAx Commands
 
 ### Framework Management
+
 ```bash
 # Full versions
 /max status
@@ -29,6 +30,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ### Complete Command Namespace Structure
 
 #### 📋 Task Commands
+
 ```bash
 # Full prefixed versions
 /task-pin <text>
@@ -46,6 +48,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🧭 Planning Commands
+
 ```bash
 # Full prefixed versions
 /plan-set <focus>
@@ -59,6 +62,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🔍 Review Commands
+
 ```bash
 # Full prefixed versions
 /last-review
@@ -82,6 +86,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🐛 Development Commands
+
 ```bash
 # Full prefixed versions
 /dev-debug <error>
@@ -99,6 +104,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🤖 AI Code Commands
+
 ```bash
 # Full prefixed versions
 /ai-analyze --file <path>
@@ -114,6 +120,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🗂️ Workspace Commands
+
 ```bash
 # Full prefixed versions
 /workspace-refresh
@@ -132,6 +139,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🗓️ Session Commands
+
 ```bash
 # Full prefixed versions
 /session-start
@@ -145,6 +153,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 📖 Meta Commands
+
 ```bash
 # Full prefixed versions
 /meta-explain [concept]
@@ -162,6 +171,7 @@ The `/max` command is the main entry point for all MAx Framework operations. Eve
 ```
 
 #### 🧠 Memory Commands
+
 ```bash
 # Full prefixed versions
 /memory-capture <model> <task> <output>

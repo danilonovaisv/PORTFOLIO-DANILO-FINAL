@@ -9,18 +9,21 @@ Test your knowledge of the MAx Framework (Model Awareness eXtension) AI assistan
 ## Game Modes
 
 ### 1. Framework Quiz 🎓
+
 - Multiple choice questions about MAx Framework
 - Categories: Personas, Contracts, Workflows, Components, Principles
 - Track your progress
 - Build your score
 
 ### 2. Contract Crossword 🧩
+
 - Fill in crossword with MAx contract terminology
 - Across and down clues
 - Test your vocabulary
 - Learn contract terms
 
 ### 3. Workflow Match 🔗
+
 - Match workflows to their descriptions
 - Test your understanding of commands
 - Learn workflow purposes
@@ -47,6 +50,7 @@ Test your knowledge of the MAx Framework (Model Awareness eXtension) AI assistan
 ## Knowledge Areas
 
 The game tests your knowledge of:
+
 - MAx AI personas and their roles
 - Contract system and invariants
 - Workflow commands and purposes

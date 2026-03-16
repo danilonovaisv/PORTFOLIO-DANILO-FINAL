@@ -9,6 +9,7 @@ This workflow provides comprehensive code refactoring with robust regression tes
 ## Usage
 
 ### Basic Commands
+
 ```bash
 # Analyze code for refactoring opportunities
 /refactor
@@ -32,6 +33,7 @@ This workflow provides comprehensive code refactoring with robust regression tes
 ```
 
 ### Command Line Interface
+
 ```bash
 # Direct Python execution
 python3 .max/refactor_system.py
@@ -43,6 +45,7 @@ python3 .max/refactor_system.py --files src/main.py --auto-apply --confidence 0.
 ## Refactoring Types
 
 ### 🔧 Function-Level Refactoring
+
 - **Extract Function**: Break down long functions into smaller ones
 - **Extract Variable**: Pull out repeated expressions into variables
 - **Rename Variable**: Improve variable naming for clarity
@@ -51,6 +54,7 @@ python3 .max/refactor_system.py --files src/main.py --auto-apply --confidence 0.
 - **Inline Function**: Replace simple function calls with direct code
 
 ### 🏗️ Structure-Level Refactoring
+
 - **Move Code**: Reorganize code structure
 - **Simplify Conditional**: Reduce complex conditional logic
 - **Introduce Parameter**: Add parameters for flexibility
@@ -59,12 +63,14 @@ python3 .max/refactor_system.py --files src/main.py --auto-apply --confidence 0.
 ## Regression Testing
 
 ### 🧪 Test Types
+
 1. **Unit Tests**: Test individual functions and methods
 2. **Integration Tests**: Test module interactions
 3. **Behavioral Tests**: Test overall behavior preservation
 4. **Performance Tests**: Ensure performance isn't degraded
 
 ### 🛡️ Safety Features
+
 - **Automatic Backup**: Creates backup before refactoring
 - **Pre-Test Validation**: Runs tests before refactoring
 - **Post-Test Verification**: Runs tests after refactoring
@@ -74,6 +80,7 @@ python3 .max/refactor_system.py --files src/main.py --auto-apply --confidence 0.
 ## Example Workflow
 
 ### 1. Analysis Phase
+
 ```bash
 $ /refactor --analyze-only
 
@@ -95,6 +102,7 @@ $ /refactor --analyze-only
 ```
 
 ### 2. Regression Testing Phase
+
 ```bash
 🧪 Generating regression tests...
 📋 Generated 42 regression tests
@@ -115,6 +123,7 @@ $ /refactor --analyze-only
 ```
 
 ### 3. Safe Refactoring Phase
+
 ```bash
 🛡️  Starting safe refactoring process...
 💾 Creating backup...
@@ -140,6 +149,7 @@ Apply rename_variable to utils/helpers.py:23? (y/N): y
 ## Refactoring Patterns Detected
 
 ### 📏 Code Quality Issues
+
 ```python
 # ❌ Long function detected
 def process_data(data, config, options):
@@ -158,6 +168,7 @@ def process_data(data, config, options):
 ```
 
 ### 🏷️ Naming Issues
+
 ```python
 # ❌ Generic variable names
 data = get_user_info()
@@ -171,6 +182,7 @@ user_instance = create_instance()
 ```
 
 ### 🔀 Logic Issues
+
 ```python
 # ❌ Redundant nested condition
 if condition:
@@ -183,6 +195,7 @@ if condition:
 ```
 
 ### 📐 Structure Issues
+
 ```python
 # ❌ Too many parameters
 def create_user(name, email, age, address, phone, role, department, salary):
@@ -196,6 +209,7 @@ def create_user(user_config):
 ## Regression Test Generation
 
 ### 🧪 Automatic Test Creation
+
 The system automatically generates tests for:
 
 1. **Function Behavior**: Tests that functions work the same way
@@ -204,15 +218,16 @@ The system automatically generates tests for:
 4. **API Contracts**: Maintains public API compatibility
 
 ### 📝 Test Templates
+
 ```python
 # Generated test example
 def test_process_data_behavior():
     # Setup
     from src.analyzer import process_data
-    
+
     # Execution
     result = process_data(sample_data, config, options)
-    
+
     # Assertions
     assert result is not None
     assert isinstance(result, dict)
@@ -222,6 +237,7 @@ def test_process_data_behavior():
 ## Safety Mechanisms
 
 ### 🛡️ Multi-Layer Protection
+
 1. **Backup Creation**: Git stash or file backup
 2. **Pre-Test Validation**: Ensure tests pass before refactoring
 3. **Confidence Filtering**: Only apply high-confidence changes
@@ -230,11 +246,13 @@ def test_process_data_behavior():
 6. **Automatic Rollback**: Restore if tests fail
 
 ### 📊 Confidence Scoring
+
 - **0.8-1.0 (🔥 High)**: Safe to apply automatically
 - **0.6-0.8 (⚡ Medium)**: Apply with confirmation
 - **0.0-0.6 (💡 Low)**: Manual review required
 
 ### 🎯 Risk Levels
+
 - **🟢 Low**: Simple renames, formatting changes
 - **🟡 Medium**: Function extraction, logic changes
 - **🔴 High**: API changes, major restructuring
@@ -242,6 +260,7 @@ def test_process_data_behavior():
 ## Integration with Quality Gate
 
 ### 🔗 Quality Gate Integration
+
 The refactor system integrates with the MAx quality gate:
 
 ```bash
@@ -253,6 +272,7 @@ The refactor system integrates with the MAx quality gate:
 ```
 
 ### 📋 Quality Gate Checklist
+
 - [ ] Standard linting passes
 - [ ] PR Annoying Mode passes
 - [ ] Regression tests pass
@@ -262,6 +282,7 @@ The refactor system integrates with the MAx quality gate:
 ## Advanced Usage
 
 ### 🎯 Targeted Refactoring
+
 ```bash
 # Refactor specific files
 /refactor --files src/main.py utils/helpers.py
@@ -274,6 +295,7 @@ The refactor system integrates with the MAx quality gate:
 ```
 
 ### 📊 Custom Patterns
+
 Add custom refactoring patterns:
 
 ```python
@@ -284,6 +306,7 @@ self.patterns[RefactorType.CUSTOM] = [
 ```
 
 ### 🔄 Continuous Refactoring
+
 Set up automated refactoring:
 
 ```yaml
@@ -302,6 +325,7 @@ jobs:
 ## Best Practices
 
 ### 1. Before Refactoring
+
 ```bash
 # Ensure clean state
 git status
@@ -314,6 +338,7 @@ git status
 ```
 
 ### 2. During Refactoring
+
 ```bash
 # Start with high confidence
 /refactor --confidence 0.9
@@ -325,6 +350,7 @@ git status
 ```
 
 ### 3. After Refactoring
+
 ```bash
 # Verify all tests pass
 /refactor --tests-only
@@ -341,6 +367,7 @@ git diff
 ### ❌ Common Issues
 
 #### Tests Failing After Refactor
+
 ```bash
 # Check what changed
 git diff
@@ -353,6 +380,7 @@ git stash pop
 ```
 
 #### Too Many False Positives
+
 ```bash
 # Increase confidence threshold
 /refactor --confidence 0.8
@@ -362,6 +390,7 @@ git stash pop
 ```
 
 #### Performance Degradation
+
 ```bash
 # Run performance tests
 /refactor --tests-only --performance
@@ -371,6 +400,7 @@ git diff
 ```
 
 ### 🔧 Debug Mode
+
 ```bash
 # Enable verbose output
 /refactor --verbose
@@ -385,6 +415,7 @@ git diff
 ## Configuration
 
 ### ⚙️ System Configuration
+
 ```python
 # In .max/max-config.json
 {
@@ -400,6 +431,7 @@ git diff
 ```
 
 ### 🎯 Custom Rules
+
 ```python
 # Custom refactoring rules
 custom_patterns = {
@@ -413,6 +445,7 @@ custom_patterns = {
 ## Examples in Practice
 
 ### Before Refactoring
+
 ```python
 def process_user_data(data):
     # Process user data
@@ -427,6 +460,7 @@ def process_user_data(data):
 ```
 
 ### After Refactoring
+
 ```python
 def process_user_data(user_data):
     """Process and filter active, verified user data."""
@@ -448,6 +482,7 @@ def create_user_objects(users):
 ```
 
 ### Regression Test Results
+
 ```
 📊 Test Results:
    ✅ Passed: 42 (same as before)
@@ -461,6 +496,7 @@ def create_user_objects(users):
 ## Performance Impact
 
 ### 📈 Benefits
+
 - **Maintainability**: Easier to understand and modify
 - **Readability**: Cleaner, more descriptive code
 - **Testability**: Smaller functions are easier to test
@@ -468,6 +504,7 @@ def create_user_objects(users):
 - **Debugging**: Easier to isolate issues
 
 ### ⚡ Performance Considerations
+
 - **Function Call Overhead**: Minimal for most cases
 - **Memory Usage**: Slightly increased due to more functions
 - **Compilation Time**: Negligible impact

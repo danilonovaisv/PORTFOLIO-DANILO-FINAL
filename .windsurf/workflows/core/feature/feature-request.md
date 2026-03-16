@@ -30,6 +30,7 @@ fr create "Quick feature" "Simple description"
 ### Basic Operations
 
 #### Create Feature Request
+
 ```bash
 # Basic creation
 max:feature-request create "Add dark mode" "Implement dark theme for UI" --priority high
@@ -42,6 +43,7 @@ m:fr create "Complex feature" --file feature_description.md --priority critical
 ```
 
 #### List and Filter
+
 ```bash
 # List all requests
 max:feature-request list
@@ -57,6 +59,7 @@ m:fr list --status open --priority high
 ```
 
 #### View Details
+
 ```bash
 # Show specific request
 max:feature-request show FR-20250220-001
@@ -66,6 +69,7 @@ m:fr show FR-20250220-001
 ```
 
 #### Update Requests
+
 ```bash
 # Update status
 max:fr update FR-20250220-001 --status in_progress
@@ -78,6 +82,7 @@ m:fr update FR-20250220-001 --status completed --priority low
 ```
 
 #### Delete Requests
+
 ```bash
 # Delete a request
 max:feature-request delete FR-20250220-001
@@ -90,6 +95,7 @@ max:feature-request delete FR-20250220-001
 The system automatically detects and annotates code blocks in feature request descriptions:
 
 #### Python Code Annotation
+
 ```python
 def process_data(data):
     # 📝 Function: process_data - defines reusable logic
@@ -101,6 +107,7 @@ def process_data(data):
 ```
 
 #### Shell Command Annotation
+
 ```bash
 cd /Users/ethandellaposta/Documents/git/MAx
 # 📋 Navigate to directory: /Users/ethandellaposta/Documents/git/MAx
@@ -111,9 +118,10 @@ git log --oneline --since="2 weeks ago"
 ```
 
 #### Mixed Content Annotation
+
 The system handles mixed content with multiple annotation types:
 
-```
+````
 Based on my analysis, I can see that the workflow needs updates.
 
 Command cd, git
@@ -130,30 +138,30 @@ def main():
     # 📝 Function: main - defines reusable logic
     system = FeatureRequestSystem()
     # 📝 Import: FeatureRequestSystem - brings in external functionality
-```
+````
 
 ## Command Reference
 
 ### Actions
 
-| Action | Description | Example |
-|--------|-------------|---------|
-| `create` | Create new feature request | `max:fr create "Title" "Description"` |
-| `list` | List feature requests | `max:fr list --status open` |
-| `show` | Show specific request | `max:fr show FR-20250220-001` |
+| Action   | Description                    | Example                                     |
+| -------- | ------------------------------ | ------------------------------------------- |
+| `create` | Create new feature request     | `max:fr create "Title" "Description"`       |
+| `list`   | List feature requests          | `max:fr list --status open`                 |
+| `show`   | Show specific request          | `max:fr show FR-20250220-001`               |
 | `update` | Update request status/priority | `max:fr update FR-001 --status in_progress` |
-| `delete` | Delete a request | `max:fr delete FR-20250220-001` |
+| `delete` | Delete a request               | `max:fr delete FR-20250220-001`             |
 
 ### Options
 
-| Option | Description | Values |
-|--------|-------------|--------|
-| `--title` | Request title | String |
-| `--description` | Request description | String |
-| `--priority` | Priority level | low, medium, high, critical |
-| `--status` | Status filter | open, in_progress, completed, rejected |
-| `--tags` | Categorization tags | List of strings |
-| `--file` | Read description from file | File path |
+| Option          | Description                | Values                                 |
+| --------------- | -------------------------- | -------------------------------------- |
+| `--title`       | Request title              | String                                 |
+| `--description` | Request description        | String                                 |
+| `--priority`    | Priority level             | low, medium, high, critical            |
+| `--status`      | Status filter              | open, in_progress, completed, rejected |
+| `--tags`        | Categorization tags        | List of strings                        |
+| `--file`        | Read description from file | File path                              |
 
 ### Alias Hierarchy
 
@@ -181,13 +189,13 @@ The system detects:
 
 ### Annotation Types
 
-| Type | Trigger | Example |
-|------|---------|---------|
-| Function definition | `def ` or `class ` | `# 📝 Function: name - defines reusable logic` |
-| Import statements | `import ` or `from ` | `# 📝 Import: module - brings in external functionality` |
-| Control structures | `if `, `for `, `while ` | `# 📝 Conditional logic - controls program flow` |
-| Shell commands | `cd `, `git `, `ls ` | `# 📋 Navigate to directory: path` |
-| Command chaining | `&&`, `||`, `|` | `# 📋 Chain command - execute if previous succeeds` |
+| Type                | Trigger                 | Example                                                  |
+| ------------------- | ----------------------- | -------------------------------------------------------- | ---- | --- | --------------------------------------------------- |
+| Function definition | `def ` or `class `      | `# 📝 Function: name - defines reusable logic`           |
+| Import statements   | `import ` or `from `    | `# 📝 Import: module - brings in external functionality` |
+| Control structures  | `if `, `for `, `while ` | `# 📝 Conditional logic - controls program flow`         |
+| Shell commands      | `cd `, `git `, `ls `    | `# 📋 Navigate to directory: path`                       |
+| Command chaining    | `&&`, `                 |                                                          | `, ` | `   | `# 📋 Chain command - execute if previous succeeds` |
 
 ### Annotation Logic
 
@@ -283,7 +291,7 @@ Feature requests are stored in `.max/feature_requests.json` with the following s
 
 Include code blocks and commands in descriptions:
 
-```markdown
+````markdown
 Need to implement the following:
 
 ```python
@@ -291,8 +299,10 @@ def new_feature():
     # Implementation here
     pass
 ```
+````
 
 Shell commands for testing:
+
 ```bash
 cd project && python test_new_feature.py
 ```
@@ -319,7 +329,7 @@ m:fr update FR-001 --status completed
 
 ### Complete Workflow
 
-```bash
+````bash
 # Create feature request with detailed description
 max:feature-request create "Add user authentication" """
 Implement OAuth2 authentication with the following:
@@ -332,9 +342,10 @@ def setup_oauth(app):
     # 📝 Function: setup_oauth - defines reusable logic
     oauth = OAuth(app)
     # Configure OAuth providers...
-```
+````
 
 Shell commands for setup:
+
 ```bash
 # 📋 Navigate to directory: /project
 cd /project
@@ -343,17 +354,22 @@ git checkout -b feature/auth
 # 📋 Chain command - execute if previous succeeds
 && pip install authlib
 ```
+
 """ --priority high --tags security,authentication
 
 # List high priority open requests
+
 max:fr list --status open --priority high
 
 # Update status when starting work
+
 m:fr update FR-20250220-001 --status in_progress
 
 # Mark as completed when done
+
 feature-request update FR-20250220-001 --status completed
-```
+
+````
 
 ### Quick Operations
 
@@ -366,7 +382,7 @@ fr create "Quick fix" "Minor bug fix" --priority low
 
 # Rapid status update
 m:fr update FR-001 --status completed
-```
+````
 
 ---
 

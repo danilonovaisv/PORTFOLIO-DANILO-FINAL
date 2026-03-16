@@ -25,44 +25,49 @@ The animation is seeded by MAx's core qualities, each represented by specific vi
 
 ### 🔧 Core Qualities
 
-| Quality | Symbol | Representation |
-|---------|--------|----------------|
-| **Precision** | ⚡ | Lightning-fast accuracy |
-| **Adaptability** | 🔄 | Flexible rotation |
-| **Intelligence** | 🧠 | Deep thinking |
-| **Creativity** | ✨ | Spark of innovation |
-| **Framework** | 🏗️ | Structured building |
-| **Automation** | ⚙️ | Smooth operation |
-| **Optimization** | 📈 | Continuous improvement |
-| **Clarity** | 💎 | Diamond precision |
+| Quality          | Symbol | Representation          |
+| ---------------- | ------ | ----------------------- |
+| **Precision**    | ⚡     | Lightning-fast accuracy |
+| **Adaptability** | 🔄     | Flexible rotation       |
+| **Intelligence** | 🧠     | Deep thinking           |
+| **Creativity**   | ✨     | Spark of innovation     |
+| **Framework**    | 🏗️     | Structured building     |
+| **Automation**   | ⚙️     | Smooth operation        |
+| **Optimization** | 📈     | Continuous improvement  |
+| **Clarity**      | 💎     | Diamond precision       |
 
 ## Animation States
 
 ### 🟢 Idle State
+
 - **Description**: Calm, ready state with subtle breathing
 - **Visual Elements**: Stars ⭐ and diamonds 💎
 - **Duration**: 0.2s per frame
 - **Purpose**: Shows MAx is ready and waiting
 
 ### 🧠 Thinking State
+
 - **Description**: Intelligence quality with brain activity
 - **Visual Elements**: Brain 🧠 and thought bubbles 💭
 - **Duration**: 0.15s per frame
 - **Purpose**: Represents deep processing and analysis
 
 ### ⚡ Processing State
+
 - **Description**: Precision and automation with gears/lightning
 - **Visual Elements**: Lightning ⚡ and gears ⚙️
 - **Duration**: 0.1s per frame
 - **Purpose**: Shows active computation and automation
 
 ### ✨ Creative State
+
 - **Description**: Creativity and adaptability with sparkles/rotation
 - **Visual Elements**: Sparkles ✨ and rotation 🔄
 - **Duration**: 0.12s per frame
 - **Purpose**: Represents innovation and flexibility
 
 ### 📈 Optimizing State
+
 - **Description**: Framework and optimization with charts/blocks
 - **Visual Elements**: Charts 📈 and building blocks 🏗️
 - **Duration**: 0.08s per frame
@@ -81,6 +86,7 @@ The MAx persona is represented as a structured box with the letters "M", "A", "x
 ```
 
 This design represents:
+
 - **Structure**: Box framework for organized thinking
 - **Identity**: "MAx" clearly displayed
 - **Simplicity**: Clean, readable pixel art
@@ -98,11 +104,13 @@ This design represents:
 ### 🔄 State Transitions
 
 The animation naturally flows through states:
+
 ```
 Idle → Thinking → Processing → Creative → Optimizing → Idle
 ```
 
 This represents the typical MAx workflow:
+
 1. **Ready** (Idle)
 2. **Analyze** (Thinking)
 3. **Execute** (Processing)
@@ -112,6 +120,7 @@ This represents the typical MAx workflow:
 ### 💾 Data Persistence
 
 Animation data is saved to `.max/max_persona_animation.json`:
+
 - Frame definitions
 - Duration settings
 - Quality mappings
@@ -133,6 +142,7 @@ MaxPersonaAnimator
 ### 📊 Frame Structure
 
 Each frame contains:
+
 - **2D pixel array**: Character grid
 - **Duration**: Display time in seconds
 - **State**: Animation context
@@ -141,6 +151,7 @@ Each frame contains:
 ### 🎮 Customization
 
 You can customize:
+
 - **Quality symbols**: Modify the qualities dictionary
 - **Animation timing**: Adjust frame durations
 - **Visual elements**: Change base shape or overlays
@@ -149,6 +160,7 @@ You can customize:
 ## Examples
 
 ### Basic Usage
+
 ```bash
 /max-persona
 ```
@@ -156,6 +168,7 @@ You can customize:
 Shows all animation states in sequence with automatic cycling.
 
 ### Custom Animation
+
 ```python
 from max_persona_animator import MaxPersonaAnimator
 
@@ -164,6 +177,7 @@ animator.animate("thinking", cycles=5, colored=True)
 ```
 
 ### Combined Animation
+
 ```python
 # Show all qualities in sequence
 combined = animator.create_combined_animation()
@@ -176,6 +190,7 @@ for frame in combined:
 ### 🤖 MAx Framework Integration
 
 The persona animation is integrated into MAx as:
+
 - **Command**: `/max-persona` or `/m:persona`
 - **Workflow**: Part of the MAx management system
 - **Quality reflection**: Represents framework characteristics
@@ -190,6 +205,7 @@ The persona animation is integrated into MAx as:
 ### 🔗 IDE Integration
 
 The animation works in:
+
 - **Terminal**: Full color and animation support
 - **IDE Command Palette**: Static display of current state
 - **Status Bars**: Compact persona indicators

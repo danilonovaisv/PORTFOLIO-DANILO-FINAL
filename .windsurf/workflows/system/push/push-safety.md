@@ -9,11 +9,13 @@ This workflow prevents accidental pushes without confirmation and provides confi
 ## Usage
 
 ### Check Current Status
+
 ```bash
 push-safety status
 ```
 
 ### Enable/Disable Push Safety
+
 ```bash
 # Enable push safety (default)
 push-safety enable
@@ -23,6 +25,7 @@ push-safety disable
 ```
 
 ### Manage Protected Branches
+
 ```bash
 # Add protected branch
 push-safety protect --add staging
@@ -32,6 +35,7 @@ push-safety protect --remove staging
 ```
 
 ### Manage Auto-approve Patterns
+
 ```bash
 # Add auto-approve pattern (documentation changes)
 push-safety auto --add "*.md"
@@ -43,6 +47,7 @@ push-safety auto --remove "*.md"
 ## How It Works
 
 ### Pre-push Hook
+
 The `.git/hooks/pre-push` hook automatically runs before every push operation:
 
 1. **Analyzes the push** - Checks what files and branches will be pushed
@@ -53,20 +58,24 @@ The `.git/hooks/pre-push` hook automatically runs before every push operation:
 ### Safety Rules
 
 #### Protected Branches
+
 - **Default**: `main`, `master`, `develop`
 - **Behavior**: Always requires confirmation when pushing to these branches
 
 #### Dangerous Patterns
+
 - **Examples**: `force.*push`, `delete.*branch`, `reset.*--hard`
 - **Behavior**: Always requires confirmation for these operations
 
 #### Auto-approve Patterns
+
 - **Examples**: `docs/`, `README*`, `*.md`
 - **Behavior**: Automatically approves pushes with only these file types
 
 ## Configuration
 
 ### Default Configuration
+
 ```json
 {
   "require_confirmation": true,
@@ -80,17 +89,18 @@ The `.git/hooks/pre-push` hook automatically runs before every push operation:
 
 ### Configuration Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `require_confirmation` | boolean | true | Whether to require confirmation for pushes |
-| `protected_branches` | array | ["main", "master", "develop"] | Branches that always require confirmation |
-| `dangerous_patterns` | array | ["force.*push", ...] | Patterns that trigger confirmation |
-| `auto_approve_patterns` | array | ["docs/", "*.md"] | File patterns that are auto-approved |
-| `quiet_mode` | boolean | false | Reduce output verbosity |
+| Option                  | Type    | Default                       | Description                                |
+| ----------------------- | ------- | ----------------------------- | ------------------------------------------ |
+| `require_confirmation`  | boolean | true                          | Whether to require confirmation for pushes |
+| `protected_branches`    | array   | ["main", "master", "develop"] | Branches that always require confirmation  |
+| `dangerous_patterns`    | array   | ["force.*push", ...]          | Patterns that trigger confirmation         |
+| `auto_approve_patterns` | array   | ["docs/", "*.md"]             | File patterns that are auto-approved       |
+| `quiet_mode`            | boolean | false                         | Reduce output verbosity                    |
 
 ## Examples
 
 ### Scenario 1: Documentation Push
+
 ```bash
 # Only README.md changes
 git add README.md
@@ -101,6 +111,7 @@ git push origin main
 ```
 
 ### Scenario 2: Code Changes to Main
+
 ```bash
 # Code changes to main branch
 git add src/
@@ -121,6 +132,7 @@ git push origin main
 ```
 
 ### Scenario 3: Force Push
+
 ```bash
 # Force push (always requires confirmation)
 git push --force-with-lease origin main
@@ -139,12 +151,15 @@ git push --force-with-lease origin main
 ## Integration
 
 ### IDE Integration
+
 The pre-push hook works automatically with:
+
 - **VS Code/Windsurf** - Git operations trigger the hook
 - **Git CLI** - All git push commands are protected
 - **GUI Git tools** - Any tool using git hooks is protected
 
 ### Bypassing Safety (Emergency Only)
+
 If you need to bypass push safety in an emergency:
 
 ```bash
@@ -165,6 +180,7 @@ git push --no-verify origin main
 ## Troubleshooting
 
 ### Hook Not Running
+
 ```bash
 # Check if hook is executable
 ls -la .git/hooks/pre-push
@@ -174,6 +190,7 @@ chmod +x .git/hooks/pre-push
 ```
 
 ### Configuration Issues
+
 ```bash
 # Check configuration
 push-safety status
@@ -184,7 +201,9 @@ push-safety status
 ```
 
 ### Hook Bypassed
+
 If the hook was bypassed, check:
+
 - Was `--no-verify` used?
 - Is the hook executable?
 - Are there any git configuration overrides?

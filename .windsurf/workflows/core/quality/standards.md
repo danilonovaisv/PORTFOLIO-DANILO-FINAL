@@ -31,18 +31,21 @@ Enforces MAx Framework coding standards for file size limits and code organizati
 ## Coding Standards Contract
 
 ### 📏 File Size Limits
+
 - **Maximum file length**: 100 lines
 - **Maximum function length**: 30 lines
 - **Maximum class length**: 80 lines
 - **Maximum nesting depth**: 4 levels
 
 ### 🎯 Code Organization Principles
+
 - **Single responsibility**: Each file has one clear purpose
 - **Strong cohesion**: Related functionality grouped together
 - **Polymorphic design**: Use abstract base classes and interfaces
 - **Small functions**: Break down complex logic into simple functions
 
 ### 🏗️ Architectural Guidelines
+
 - **Modular design**: Split large files into cohesive modules
 - **Interface segregation**: Create focused, minimal interfaces
 - **Dependency inversion**: Depend on abstractions, not implementations
@@ -51,11 +54,13 @@ Enforces MAx Framework coding standards for file size limits and code organizati
 ## Violation Types
 
 ### 🚨 Errors (Must Fix)
+
 - **Large files**: Files exceeding 100 lines
 - **Long functions**: Functions exceeding 30 lines
 - **Large classes**: Classes exceeding 80 lines
 
 ### ⚠️ Warnings (Should Fix)
+
 - **Deep nesting**: Nesting depth exceeding 4 levels
 - **Missing polymorphism**: Classes lacking polymorphic design
 - **Low cohesion**: Unrelated code mixed in same module
@@ -63,6 +68,7 @@ Enforces MAx Framework coding standards for file size limits and code organizati
 ## Refactoring Strategies
 
 ### 📁 File Splitting
+
 ```python
 # ❌ Large file (command_executor.py - 500+ lines)
 class CommandExecutor:
@@ -89,6 +95,7 @@ class FeatureRequestHandler:
 ```
 
 ### 🔧 Function Extraction
+
 ```python
 # ❌ Long function (50 lines)
 def process_data(data, config, options):
@@ -114,6 +121,7 @@ def format_output(data):
 ```
 
 ### 🏛️ Polymorphic Design
+
 ```python
 # ❌ Missing polymorphism
 class DataProcessor:
@@ -151,6 +159,7 @@ The coding standards checker integrates with the MAx quality gate system:
 ## Strict Enforcement
 
 ### 🔒 Pre-commit Hook
+
 The MAx Framework includes a strict pre-commit hook that enforces coding standards:
 
 ```bash
@@ -163,13 +172,16 @@ git commit  # Will fail if standards violations exist
 ```
 
 ### 🚨 Blocking Behavior
+
 In strict mode, violations will:
+
 - **Block commits** - Cannot commit with violations
 - **Block operations** - Cannot proceed with violations
 - **Provide guidance** - Clear fix suggestions
 - **Show impact** - Detailed violation reports
 
 ### ⚡ Quick Fix Commands
+
 ```bash
 # Check current violations
 /standards check --strict
@@ -187,11 +199,13 @@ In strict mode, violations will:
 ## Enforcement Levels
 
 ### 🟢 Non-strict Mode
+
 - Reports violations but allows continuation
 - Provides warnings and suggestions
 - Suitable for development phase
 
 ### 🔴 Strict Mode
+
 - Blocks operations on violations
 - Exits with error code
 - Enforces compliance before proceeding
@@ -200,6 +214,7 @@ In strict mode, violations will:
 ## Automated Enforcement
 
 ### Pre-commit Hook
+
 ```bash
 #!/bin/sh
 # .git/hooks/pre-commit
@@ -212,6 +227,7 @@ fi
 ```
 
 ### CI/CD Integration
+
 ```yaml
 # .github/workflows/standards.yml
 name: Coding Standards
@@ -228,18 +244,21 @@ jobs:
 ## Benefits
 
 ### 🧠 Mental Model Improvements
+
 - **Easier navigation**: Small files are quick to scan
 - **Better understanding**: Single-purpose modules are intuitive
 - **Faster onboarding**: New developers grasp structure quickly
 - **Reduced cognitive load**: Less code to reason about at once
 
 ### 🔧 Maintenance Benefits
+
 - **Easier testing**: Small functions are simple to test
 - **Better reusability**: Focused modules can be reused
 - **Simpler debugging**: Issues are isolated to small areas
 - **Safer refactoring**: Changes have limited scope
 
 ### 📈 Quality Improvements
+
 - **Higher cohesion**: Related code stays together
 - **Lower coupling**: Modules have minimal dependencies
 - **Better extensibility**: Polymorphic design enables growth

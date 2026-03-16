@@ -1,13 +1,17 @@
 # /plan - 🚀 DijkstraLLM26 Intelligent Task Planning Algorithm v2.6 🚀
 
 ## ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║                    🧠 REVOLUTIONARY AI MODEL PATHFINDING SYSTEM 🧠                 ║
+
+# ║ 🧠 REVOLUTIONARY AI MODEL PATHFINDING SYSTEM 🧠 ║
+
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 ## 🎯 **Core Innovation - Graph-Based Intelligence**
+
 The DijkstraLLM26 algorithm is MAx's **revolutionary pathfinding system** that transforms how AI models are selected and tasks are planned through sophisticated graph theory principles.
 
 ### � **What Makes It Revolutionary**
+
 - **🎯 Model-Weighted Graph Navigation**: Each edge weighted by AI model capability
 - **📊 Multi-Scale Zoom Levels**: From atomic tasks (1 min) to strategic vision (days)
 - **⚡ Context Switch Optimization**: Minimizes computational overhead through intelligent grouping
@@ -17,14 +21,17 @@ The DijkstraLLM26 algorithm is MAx's **revolutionary pathfinding system** that t
 ## 📋 **Commands - Your Gateway to Intelligence**
 
 ### 🔥 `/plan <task_description>` - **Intelligent Task Planning**
+
 Generates a **complete execution blueprint** for any task with optimal AI model selection.
 
 **🚀 Example Usage:**
+
 ```bash
 /plan create a REST API with authentication
 ```
 
 **📊 Revolutionary Output:**
+
 ```
 🎯 Task Plan Generated
 📝 Task: create a REST API with authentication
@@ -51,14 +58,17 @@ Generates a **complete execution blueprint** for any task with optimal AI model 
 ```
 
 ### ⚡ `/plan::optimize <task1> <task2> <task3> ...` - **Sequence Optimization**
+
 **Revolutionary task sequencing** that minimizes model switching and maximizes efficiency.
 
 **🎯 Example Usage:**
+
 ```bash
 /plan::optimize "fix bug" "write tests" "update docs" "deploy"
 ```
 
 **🚀 Intelligent Output:**
+
 ```
 🚀 Task Sequence Optimization
 📋 Total Tasks: 4
@@ -77,14 +87,17 @@ Generates a **complete execution blueprint** for any task with optimal AI model 
 ```
 
 ### 📈 `/plan::sequence <current_complexity> <target_complexity>` - **Complexity Scaling**
+
 **Intelligent model progression planning** for complexity advancement.
 
 **🎯 Example Usage:**
+
 ```bash
 /plan::sequence 25 85
 ```
 
 **🚀 Strategic Output:**
+
 ```
 📈 Model Progression Plan
 🔢 Current Complexity: 25.0
@@ -97,30 +110,34 @@ gpt-4 → gpt-4-turbo → claude-3-opus
 ## 🤖 **AI Model Tier System - Power Hierarchy**
 
 ### ⚡ **Tier 1: LIGHTNING** - `gpt-3.5-turbo`
+
 - **Cost**: 1.0x | **Speed**: 1.0x | **Max Complexity**: 20
 - **Perfect for**: Simple tasks, quick fixes, basic analysis
 
 ### 🧠 **Tier 2: BALANCED** - `gpt-4`
+
 - **Cost**: 2.0x | **Speed**: 2.5x | **Max Complexity**: 40
 - **Perfect for**: Moderate complexity, feature implementation
 
 ### 🔥 **Tier 3: TURBO** - `gpt-4-turbo`
+
 - **Cost**: 3.5x | **Speed**: 4.0x | **Max Complexity**: 70
 - **Perfect for**: Complex challenges, system design
 
 ### 👑 **Tier 4: ULTIMATE** - `claude-3-opus`
+
 - **Cost**: 5.0x | **Speed**: 6.0x | **Max Complexity**: 100
 - **Perfect for**: Strategic vision, architecture, complex systems
 
 ## 🔍 **Multi-Scale Zoom Levels**
 
-| Level | Name | Time Range | Preferred Models | Use Case |
-|-------|------|------------|-------------------|----------|
-| **0** | 🔬 **Atomic** | 1-10 min | gpt-3.5-turbo, gpt-4 | Single commands |
-| **1** | ⚡ **Feature** | 10-60 min | gpt-4, gpt-4-turbo | Feature implementation |
-| **2** | 🏗️ **Component** | 1-5 hours | gpt-4-turbo, claude-3-opus | Component development |
-| **3** | 🌐 **System** | 5-24 hours | claude-3-opus | System architecture |
-| **4** | 🚀 **Vision** | 1+ days | claude-3-opus | Strategic planning |
+| Level | Name             | Time Range | Preferred Models           | Use Case               |
+| ----- | ---------------- | ---------- | -------------------------- | ---------------------- |
+| **0** | 🔬 **Atomic**    | 1-10 min   | gpt-3.5-turbo, gpt-4       | Single commands        |
+| **1** | ⚡ **Feature**   | 10-60 min  | gpt-4, gpt-4-turbo         | Feature implementation |
+| **2** | 🏗️ **Component** | 1-5 hours  | gpt-4-turbo, claude-3-opus | Component development  |
+| **3** | 🌐 **System**    | 5-24 hours | claude-3-opus              | System architecture    |
+| **4** | 🚀 **Vision**    | 1+ days    | claude-3-opus              | Strategic planning     |
 
 ## 📊 **Revolutionary Cost Function**
 
@@ -137,6 +154,7 @@ Where:
 ## 🎯 **Adaptive Next Steps Generation**
 
 ### 📋 **Base Steps** (All Tasks - 5 steps)
+
 1. 🔍 Analyze current requirements and constraints
 2. 📋 Break down task into smaller, manageable components
 3. 🎯 Identify key deliverables and success criteria
@@ -144,6 +162,7 @@ Where:
 5. 🛠️ Prepare necessary tools and resources
 
 ### 🚀 **Advanced Steps** (Complexity > 50 - +5 steps)
+
 6. 🏗️ Design system architecture and data flow
 7. 📝 Create detailed implementation plan
 8. 🧪 Set up testing framework and validation
@@ -151,6 +170,7 @@ Where:
 10. 🔄 Plan iteration and feedback loops
 
 ### 👑 **Expert Steps** (Complexity > 75 - +5 steps)
+
 11. 🤝 Identify stakeholders and communication plan
 12. 🔒 Consider security and compliance requirements
 13. 📈 Plan scalability and performance optimization
@@ -160,18 +180,21 @@ Where:
 ## 🚀 **Revolutionary Benefits**
 
 ### ⚡ **Immediate Benefits**
+
 - **🎯 Optimal Model Selection**: Always uses the right AI model for each task
 - **� Cost Efficiency**: Minimizes total computational cost through intelligent pathfinding
 - **⏱️ Time Optimization**: Reduces context switching overhead dramatically
 - **� Scalable Planning**: Handles tasks from simple commands to complex system design
 
 ### 🧠 **Strategic Benefits**
+
 - **🔍 Multi-Scale Vision**: Zoom capabilities from atomic to strategic levels
 - **📚 Adaptive Learning**: Improves from execution patterns over time
 - **🌐 Cross-Repository Compatibility**: Standard API works across all projects
 - **� Professional-Grade Planning**: Enterprise-level task management
 
 ### 🎨 **User Experience**
+
 - **🚀 Simple Commands**: Powerful results with intuitive syntax
 - **📊 Clear Recommendations**: Confidence scores and cost estimates
 - **👁️ Visual Progress Tracking**: Model paths and execution sequences
@@ -199,6 +222,7 @@ Context switches: 4 (optimized for minimal overhead)
 **📁 Config File**: `.max/config/dijkstrallm26_config.json`
 
 **⚙️ Adjustable Parameters**:
+
 - **Model Tiers**: Custom cost and capability settings
 - **Cost Weights**: Fine-tune optimization priorities
 - **Confidence Thresholds**: Set minimum success probabilities

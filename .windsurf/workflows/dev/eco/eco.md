@@ -10,16 +10,17 @@ Track and visualize the environmental impact of your AI model choices. Every mod
 
 ### Model Energy Equivalents
 
-| Model | Credits | Energy (kWh) | CO2 (kg) | Trees Needed | Equivalent |
-|--------|----------|---------------|----------|--------------|------------|
-| SWE-1.5 (FREE) | 0 | 0.01 | 0.005 | 0.0002 | LED bulb 1 hour |
-| Sonnet | 2 | 0.05 | 0.025 | 0.001 | LED bulb 5 hours |
-| Opus | 2 | 0.08 | 0.040 | 0.002 | LED bulb 8 hours |
-| Opus (normal) | 20 | 0.80 | 0.400 | 0.020 | LED bulb 80 hours |
+| Model          | Credits | Energy (kWh) | CO2 (kg) | Trees Needed | Equivalent        |
+| -------------- | ------- | ------------ | -------- | ------------ | ----------------- |
+| SWE-1.5 (FREE) | 0       | 0.01         | 0.005    | 0.0002       | LED bulb 1 hour   |
+| Sonnet         | 2       | 0.05         | 0.025    | 0.001        | LED bulb 5 hours  |
+| Opus           | 2       | 0.08         | 0.040    | 0.002        | LED bulb 8 hours  |
+| Opus (normal)  | 20      | 0.80         | 0.400    | 0.020        | LED bulb 80 hours |
 
 ### Visual Indicators
 
 #### 🌱 Eco Mode (SWE-1.5 - FREE)
+
 ```
 🌱 ECO MODE 🌱
 Energy: Minimal
@@ -28,6 +29,7 @@ Trees saved: 0.0002 per prompt
 ```
 
 #### ⚡ Boosted Mode (Sonnet)
+
 ```
 ⚡ BOOSTED ⚡
 Energy: 5x eco mode
@@ -36,6 +38,7 @@ Trees needed: 0.001 per prompt
 ```
 
 #### 🚀 Warp Drive (Opus)
+
 ```
 🚀 WARP DRIVE 🚀
 Energy: 8x eco mode
@@ -72,6 +75,7 @@ Equivalent to: 750 hours LED lighting
 ## Visualization Formats
 
 ### 1. Progress Bars
+
 ```
 🌱 Eco Mode:     ██████████ 80%
 ⚡ Boosted:      ██        15%
@@ -79,6 +83,7 @@ Equivalent to: 750 hours LED lighting
 ```
 
 ### 2. Tree Counter
+
 ```
 🌳 Trees Saved This Session: 0.025
 🌳 Trees Needed This Session: 0.000
@@ -86,6 +91,7 @@ Equivalent to: 750 hours LED lighting
 ```
 
 ### 3. Energy Meter
+
 ```
 ⚡ Energy Used: 0.98 kWh
 📊 Daily Average: 0.16 kWh
@@ -95,16 +101,19 @@ Equivalent to: 750 hours LED lighting
 ## Impact Goals
 
 ### Eco Warrior Target
+
 - **90%+ Eco mode** usage
 - **<5% Warp Drive** usage
 - **Net negative** CO2 (plant trees)
 
 ### Balanced Target
+
 - **70% Eco mode** usage
 - **25% Boosted** usage
 - **5% Warp Drive** usage
 
 ### Power User Target
+
 - **50% Eco mode** usage
 - **40% Boosted** usage
 - **10% Warp Drive** usage
@@ -130,6 +139,7 @@ Equivalent to: 750 hours LED lighting
 ## Integration with Max
 
 ### /eco Command
+
 ```
 /eco show          - Show current impact
 /eco goal [target]  - Set impact goal
@@ -147,6 +157,7 @@ Equivalent to: 750 hours LED lighting
 ### Recommendations
 
 When choosing models, Max shows:
+
 ```
 Option A) [ SWE-1.5 — FREE ] 🌱 Eco Mode - Zero cost, minimal impact
 Option B) [ Sonnet — ~$0.06 ] ⚡ Boosted - 5x energy, 5x CO2
@@ -156,16 +167,20 @@ Option C) [ Opus — ~$0.06 ] 🚀 Warp Drive - 8x energy, 8x CO2
 ## Carbon Offsetting
 
 ### Built-in Calculator
+
 ```bash
 /eco offset
 ```
+
 Calculates:
+
 - Monthly CO2 emissions
 - Trees needed to offset
 - Cost of carbon credits
 - Recommended offset programs
 
 ### Offset Partnerships
+
 - **One Tree Planted** - $1 per tree
 - **Cool Effect** - Verified carbon projects
 - **Gold Standard** - Premium offsets
@@ -173,6 +188,7 @@ Calculates:
 ## Philosophy
 
 Making environmental impact visible:
+
 1. **Creates awareness** - Users see the cost of choices
 2. **Encourages efficiency** - Eco mode becomes attractive
 3. **Enables balance** - Use power when needed, eco when possible

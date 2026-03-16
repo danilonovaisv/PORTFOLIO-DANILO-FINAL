@@ -10,26 +10,26 @@ Quick reference for formatting Max persona responses with rich typography and vi
 
 ## Quick Reference
 
-| Element | Syntax | Use |
-|:--------|:-------|:----|
-| **Bold** | `**text**` | Strong emphasis |
-| *Italic* | `*text*` | Emphasis |
-| `Code` | `` `code` `` | Variables, functions, paths |
-| Link | `[text](url)` | URLs |
-| List | `- item` | Unordered items |
-| Steps | `1. step` | Sequential procedures |
-| Quote | `> text` | Citations, callouts |
+| Element  | Syntax        | Use                         |
+| :------- | :------------ | :-------------------------- |
+| **Bold** | `**text**`    | Strong emphasis             |
+| _Italic_ | `*text*`      | Emphasis                    |
+| `Code`   | `` `code` ``  | Variables, functions, paths |
+| Link     | `[text](url)` | URLs                        |
+| List     | `- item`      | Unordered items             |
+| Steps    | `1. step`     | Sequential procedures       |
+| Quote    | `> text`      | Citations, callouts         |
 
 ---
 
 ## Headers
 
-| Level | Syntax | When to Use |
-|:------|:-------|:------------|
-| H1 | `# Title` | Main title — one per document |
-| H2 | `## Section` | Major sections |
-| H3 | `### Subsection` | Subsections within H2 |
-| H4 | `#### Minor` | Rare — sub-subsections |
+| Level | Syntax           | When to Use                   |
+| :---- | :--------------- | :---------------------------- |
+| H1    | `# Title`        | Main title — one per document |
+| H2    | `## Section`     | Major sections                |
+| H3    | `### Subsection` | Subsections within H2         |
+| H4    | `#### Minor`     | Rare — sub-subsections        |
 
 ---
 
@@ -41,16 +41,18 @@ These blocks are **required** when the content type appears in a response:
 
 Always use fenced blocks with language tags:
 
-```markdown
+````markdown
 ```bash
 npm install
 ```
+````
 
 ```diff
 - old line
 + new line
 ```
-```
+
+````
 
 ### Callouts
 
@@ -66,7 +68,7 @@ Caution — could cause confusion or mistakes
 :::danger
 Destructive or irreversible action
 :::
-```
+````
 
 ### Collapsible Sections
 
@@ -87,8 +89,8 @@ Hidden content here
 
 ```markdown
 | Left-aligned | Center | Right |
-|:-------------|:------:|------:|
-| Data         | Data   | Data  |
+| :----------- | :----: | ----: |
+| Data         |  Data  |  Data |
 ```
 
 ---
@@ -113,15 +115,15 @@ D) Something else
 
 ## Category Emojis
 
-| Emoji | Category |
-|:------|:---------|
-| 📋 | Task Management |
-| 🧭 | Planning & Focus |
-| 🔍 | Review & Analysis |
-| 🐛 | Debugging & Tools |
-| 🤖 | AI & Code Quality |
-| 🗓️ | Session Lifecycle |
-| 📖 | Framework Info |
+| Emoji | Category          |
+| :---- | :---------------- |
+| 📋    | Task Management   |
+| 🧭    | Planning & Focus  |
+| 🔍    | Review & Analysis |
+| 🐛    | Debugging & Tools |
+| 🤖    | AI & Code Quality |
+| 🗓️    | Session Lifecycle |
+| 📖    | Framework Info    |
 
 <details>
 <summary>Advanced Formatting</summary>

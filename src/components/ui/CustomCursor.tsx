@@ -18,7 +18,9 @@ export default function CustomCursor({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const motionGate = useMotionGate();
-  const supportsFinePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
+  const supportsFinePointer = useMediaQuery(
+    '(hover: hover) and (pointer: fine)'
+  );
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {

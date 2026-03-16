@@ -9,6 +9,7 @@ The template system allows you to quickly bootstrap projects with common code pa
 ## Template Categories
 
 ### 1. **Frontend Templates**
+
 - React + TypeScript + Vite
 - Next.js + TypeScript
 - Vue 3 + TypeScript
@@ -16,6 +17,7 @@ The template system allows you to quickly bootstrap projects with common code pa
 - Angular + TypeScript
 
 ### 2. **Backend Templates**
+
 - Node.js + Express + TypeScript
 - Node.js + Fastify + TypeScript
 - Python + FastAPI
@@ -24,23 +26,27 @@ The template system allows you to quickly bootstrap projects with common code pa
 - Rust + Axum
 
 ### 3. **Full-Stack Templates**
+
 - Next.js Full Stack
 - Nuxt.js Full Stack
 - SvelteKit Full Stack
 - Remix Full Stack
 
 ### 4. **Mobile Templates**
+
 - React Native + TypeScript
 - Flutter
 - Expo + TypeScript
 
 ### 5. **DevOps Templates**
+
 - Docker + Docker Compose
 - Kubernetes + Helm
 - Terraform + AWS
 - GitHub Actions CI/CD
 
 ### 6. **Database Templates**
+
 - PostgreSQL + Prisma
 - MongoDB + Mongoose
 - Redis + Node.js
@@ -49,6 +55,7 @@ The template system allows you to quickly bootstrap projects with common code pa
 ## Monorepo Templates
 
 ### 1. **Packages Monorepo**
+
 ```
 monorepo/
 ├── packages/
@@ -64,6 +71,7 @@ monorepo/
 ```
 
 ### 2. **Microservices Monorepo**
+
 ```
 monorepo/
 ├── services/
@@ -84,6 +92,7 @@ monorepo/
 ```
 
 ### 3. **Full-Stack Monorepo**
+
 ```
 monorepo/
 ├── apps/
@@ -102,20 +111,25 @@ monorepo/
 ## Template Commands
 
 ### /templates list
+
 Show all available templates
 
 ### /templates show [template-name]
+
 Display template details and structure
 
 ### /templates create [template-name] [project-name]
+
 Create new project from template
 
 ### /templates combine [template1,template2,...] [project-name]
+
 Combine multiple templates (monorepo)
 
 ## Template Structure
 
 Each template includes:
+
 - `template.json` - Metadata and dependencies
 - `files/` - Template files with placeholders
 - `scripts/` - Setup scripts
@@ -151,6 +165,7 @@ Each template includes:
 Templates use placeholders for customization:
 
 ### Placeholders
+
 - `{{PROJECT_NAME}}` - Project name
 - `{{PACKAGE_NAME}}` - Package name
 - `{{AUTHOR_NAME}}` - Author name
@@ -158,6 +173,7 @@ Templates use placeholders for customization:
 - `{{REPO_URL}}` - Repository URL
 
 ### Example Template File
+
 ```typescript
 // src/App.tsx
 import React from 'react';
@@ -177,11 +193,13 @@ export default App;
 ## Combining Templates
 
 ### Monorepo Example
+
 ```bash
 /templates combine react-typescript,nodejs-express,shared-types my-monorepo
 ```
 
 Creates:
+
 - `packages/web/` - React frontend
 - `packages/api/` - Node.js backend
 - `packages/shared/` - Shared types
@@ -190,16 +208,17 @@ Creates:
 
 ### Template Combinations
 
-| Frontend | Backend | Shared | Result |
-|----------|---------|--------|---------|
-| React + TypeScript | Node.js + Express | Shared Types | Full-stack monorepo |
-| Next.js | - | - | Next.js full-stack |
-| Vue 3 | Python FastAPI | Pydantic | Python full-stack |
-| SvelteKit | - | - | SvelteKit full-stack |
+| Frontend           | Backend           | Shared       | Result               |
+| ------------------ | ----------------- | ------------ | -------------------- |
+| React + TypeScript | Node.js + Express | Shared Types | Full-stack monorepo  |
+| Next.js            | -                 | -            | Next.js full-stack   |
+| Vue 3              | Python FastAPI    | Pydantic     | Python full-stack    |
+| SvelteKit          | -                 | -            | SvelteKit full-stack |
 
 ## Template Registry
 
 ### Adding Custom Templates
+
 ```bash
 mkdir ~/.max/templates/my-template
 # Add template files
@@ -207,6 +226,7 @@ max templates register my-template
 ```
 
 ### Template Sources
+
 1. **Built-in** - Shipped with Max
 2. **Community** - GitHub registry
 3. **Local** - User's custom templates
@@ -215,16 +235,19 @@ max templates register my-template
 ## Integration with Max
 
 ### /start-session
+
 - Detects template used
 - Loads template-specific persona
 - Sets up template workflows
 
 ### /optimize
+
 - Template-specific optimizations
 - Bundle size considerations
 - Performance patterns
 
 ### /queue
+
 - Template setup tasks
 - Common onboarding steps
 - Best practices checklist
@@ -232,16 +255,19 @@ max templates register my-template
 ## Future Enhancements
 
 ### 1. **Interactive Template Builder**
+
 - Web UI for combining templates
 - Visual configuration
 - Real-time preview
 
 ### 2. **Template Marketplace**
+
 - Community contributions
 - Ratings and reviews
 - Version management
 
 ### 3. **AI Template Generation**
+
 - Generate templates from examples
 - Learn from existing codebases
 - Custom template creation
@@ -249,6 +275,7 @@ max templates register my-template
 ## Philosophy
 
 Templates accelerate development by:
+
 - Providing proven patterns
 - Reducing boilerplate
 - Ensuring best practices

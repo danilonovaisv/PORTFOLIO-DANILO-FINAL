@@ -12,31 +12,37 @@ This workflow allows you to pin tasks from the Next block for later execution.
 ## Usage
 
 ### Pin a Task
+
 ```
 /pin C) [ ⚡ Sonnet — ~$0.06 ] Set up pre-commit hooks
 ```
 
 ### Pin with Notes
+
 ```
 /pin C) [ ⚡ Sonnet — ~$0.06 ] Set up pre-commit hooks --notes "Important for code quality"
 ```
 
 ### Show All Pins
+
 ```
 /pin show
 ```
 
 ### Unpin a Specific Task
+
 ```
 /pin unpin pin_1234567890
 ```
 
 ### Pop All Pins (Execute and Clear)
+
 ```
 /pin pop
 ```
 
 ### Clear All Pins
+
 ```
 /pin clear
 ```
@@ -44,11 +50,13 @@ This workflow allows you to pin tasks from the Next block for later execution.
 ## Output Format
 
 ### Pinning a Task
+
 ```
 📌 Pinned task: ⚡ Set up pre-commit hooks
 ```
 
 ### Showing Pins
+
 ```
 ============================================================
 📌 PINNED TASKS
@@ -67,6 +75,7 @@ Commands: /unpin <id>, /pop, /clear-pins
 ```
 
 ### Popping Pins
+
 ```
 📤 Popped 1 pinned tasks:
   • ⚡ Set up pre-commit hooks
@@ -75,13 +84,17 @@ Commands: /unpin <id>, /pop, /clear-pins
 ## Integration with Workflows
 
 ### Before /end-session
+
 Run /pin show to review any unpinned tasks before ending session.
 
 ### After /start-session
+
 Run /pin pop to execute any tasks pinned from previous session.
 
 ### During Development
+
 Pin tasks that require:
+
 - Different environment setup
 - More time than available
 - External dependencies
@@ -109,17 +122,20 @@ Pins are stored in `.max/pinned_tasks.json`:
 ## Advanced Features
 
 ### Session Persistence
+
 - Pins survive across IDE restarts
 - Pins survive across session restarts
 - Timestamps track when tasks were pinned
 
 ### Task Metadata
+
 - Model recommendation preserved
 - Cost information saved
 - Optional notes for context
 - Session ID for tracking
 
 ### Bulk Operations
+
 - /pin pop executes all pinned tasks
 - /pin clear removes all pins
 - Batch unpinning with multiple IDs
@@ -127,12 +143,14 @@ Pins are stored in `.max/pinned_tasks.json`:
 ## Examples
 
 ### Example 1: Pin a Complex Task
+
 ```
 User: /pin C) [ 🚀 Opus — ~$0.06 🔥 PROMO ] Design microservices architecture
 AI: 📌 Pinned task: 🚀 Design microservices architecture
 ```
 
 ### Example 2: Pin Multiple Tasks
+
 ```
 User: /pin A) [ 🌱 SWE-1.5 — FREE ] Fix typo in README
 AI: 📌 Pinned task: 🌱 Fix typo in README
@@ -142,6 +160,7 @@ AI: 📌 Pinned task: ⚡ Add error handling
 ```
 
 ### Example 3: Show and Pop
+
 ```
 User: /pin show
 AI: [Shows all pinned tasks]
@@ -155,18 +174,21 @@ AI: 📤 Popped 2 pinned tasks:
 ## Best Practices
 
 ### When to Pin
+
 - **Complex tasks** requiring more time
 - **Multi-step workflows** needing context
 - **Environment-dependent** tasks
 - **High-cost** tasks to budget for later
 
 ### Pin Management
+
 - Review pins regularly with /pin show
 - Clear completed pins with /unpin
 - Use descriptive notes
 - Pin related tasks together
 
 ### Session Workflow
+
 1. Start session → /pin pop (execute previous pins)
 2. Work on tasks → /pin complex ones for later
 3. End session → /pin show (review remaining pins)
@@ -174,6 +196,7 @@ AI: 📤 Popped 2 pinned tasks:
 ## Philosophy
 
 The /pin command helps with:
+
 - **Task management** - Save tasks for later
 - **Context preservation** - Keep task details
 - **Session continuity** - Work across sessions

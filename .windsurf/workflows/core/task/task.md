@@ -28,18 +28,23 @@ Simple task management commands without prefixes.
 ## Commands
 
 ### /task pin
+
 Pin a task to your queue for later execution.
 
 ### /task show
+
 List all currently pinned tasks.
 
 ### /task unpin
+
 Remove a specific pinned task by ID.
 
 ### /task pop
+
 Execute and clear all pinned tasks.
 
 ### /task queue
+
 Show task queue status and backlog.
 
 This provides quick task access without prefixes.

@@ -34,16 +34,19 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ## Behavior Changes During Flush
 
 ### Model Selection
+
 - **Forced**: SWE-1.5 (FREE)
 - **Reason**: Fastest execution, zero cost
 - **Auto-answer**: Minimal responses
 
 ### Command Execution
+
 - **No prompts**: Auto-accept all safe commands
 - **No confirmations**: Assume yes for everything
 - **Fast mode**: Skip verbose output
 
 ### Response Format
+
 - **Minimal**: Only essential information
 - **No Next blocks**: Reduces context growth
 - **No callouts**: Plain text only
@@ -51,6 +54,7 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ## Output Format
 
 ### During Flush
+
 ```
 🔄 Flushing queue...
 � Processing: Set up pre-commit hooks...
@@ -61,6 +65,7 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ```
 
 ### After Flush
+
 ```
 🎯 Flush complete!
    Processed: 2 messages
@@ -72,17 +77,20 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ## Integration
 
 ### When to Use /flush
+
 - **End of session** - Clear remaining tasks
 - **Context full** - Reduce memory usage
 - **Quick cleanup** - Fast queue clearing
 - **Tab management** - Prepare for new tab
 
 ### Before /flush
+
 - Save important work
 - Review pinned tasks
 - Check for critical items
 
 ### After /flush
+
 - Review execution results
 - Check for errors
 - Resume normal work
@@ -90,16 +98,19 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ## Safety Features
 
 ### Auto-Safe Mode
+
 - Only executes safe commands
 - Skips destructive operations
 - Preserves important files
 
 ### Command Filtering
+
 - **Allowed**: File operations, setup, documentation
 - **Blocked**: rm, mv, system changes
 - **Manual**: Complex operations requiring review
 
 ### Error Handling
+
 - Continues on individual failures
 - Logs errors for review
 - Doesn't stop the flush
@@ -107,6 +118,7 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ## Advanced Options
 
 ### Flush with Limits
+
 ```
 /flush --max-tasks 5
 /flush --timeout 60s
@@ -114,6 +126,7 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ```
 
 ### Flush with Report
+
 ```
 /flush --report
 ```
@@ -121,6 +134,7 @@ This workflow executes all queued tasks as quickly as possible using the free mo
 ## Examples
 
 ### Example 1: Basic Flush
+
 ```
 User: /flush
 AI: 🔄 Flushing queue...
@@ -132,6 +146,7 @@ AI: 🔄 Flushing queue...
 ```
 
 ### Example 2: Flush with Report
+
 ```
 User: /flush --report
 AI: 🔄 Flushing queue...
@@ -150,6 +165,7 @@ AI: 🔄 Flushing queue...
 ## Configuration
 
 ### Flush Settings
+
 Stored in `.max/flush_config.json`:
 
 ```json
@@ -164,6 +180,7 @@ Stored in `.max/flush_config.json`:
 ```
 
 ### Customization
+
 - Adjust timeout for complex tasks
 - Set max tasks for large queues
 - Enable/disable auto-accept
@@ -172,12 +189,14 @@ Stored in `.max/flush_config.json`:
 ## Philosophy
 
 The /flush command prioritizes:
+
 - **Speed** - Process messages as fast as possible
 - **Efficiency** - Use free model
 - **Simplicity** - Minimal responses
 - **Continuity** - Preserve important work
 
 ### Flush vs Pop
+
 - **/flush**: Processes queued messages in the message queue
 - **/pop**: Executes pinned tasks that were saved for later
 
@@ -186,6 +205,7 @@ This helps maintain productivity while managing context limits and keeping the w
 ## Recovery
 
 If /flush is interrupted:
+
 - Partial execution is logged
 - Remaining pins are preserved
 - Can resume with /flush again

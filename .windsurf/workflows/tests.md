@@ -38,24 +38,28 @@ Manage, run, and analyze all tests across the MAx Framework with comprehensive r
 ## Test Categories
 
 ### 🧪 **Unit Tests**
+
 - **Individual component testing**
 - **Function and method validation**
 - **Class and module testing**
 - **Edge case coverage**
 
 ### 🔗 **Integration Tests**
+
 - **Component interaction testing**
 - **Cross-module functionality**
 - **API integration validation**
 - **Workflow testing**
 
 ### 🏗️ **System Tests**
+
 - **End-to-end workflows**
 - **Framework integration**
 - **Performance validation**
 - **User scenario testing**
 
 ### 📋 **Contract Tests**
+
 - **AI contract validation**
 - **Code quality standards**
 - **Performance contracts**
@@ -64,27 +68,33 @@ Manage, run, and analyze all tests across the MAx Framework with comprehensive r
 ## Test Focus Areas
 
 ### 🎯 **Contracts Focus**
+
 ```bash
 /tests --focus contracts
 ```
+
 - AI contract compliance
 - Code quality standards
 - Performance benchmarks
 - Security validations
 
 ### ⚡ **Commands Focus**
+
 ```bash
 /tests --focus commands
 ```
+
 - Command execution testing
 - Argument parsing validation
 - Error handling verification
 - Integration testing
 
 ### 🔍 **Quality Focus**
+
 ```bash
 /tests --focus quality
 ```
+
 - Code quality metrics
 - Style guide compliance
 - Documentation coverage
@@ -93,9 +103,11 @@ Manage, run, and analyze all tests across the MAx Framework with comprehensive r
 ## Test Execution Options
 
 ### 📊 **Comprehensive Mode**
+
 ```bash
 /tests
 ```
+
 - **All test categories**
 - **Detailed reporting**
 - **Performance metrics**
@@ -103,27 +115,33 @@ Manage, run, and analyze all tests across the MAx Framework with comprehensive r
 - **Error categorization**
 
 ### ⚡ **Quick Mode**
+
 ```bash
 /tests --quick
 ```
+
 - **Essential tests only**
 - **Minimal output**
 - **Fast execution**
 - **Basic reporting**
 
 ### 🔧 **Auto-Fix Mode**
+
 ```bash
 /tests --auto-fix
 ```
+
 - **Automatic error fixing**
 - **Import resolution**
 - **Syntax correction**
 - **Missing method addition**
 
 ### 📋 **Report Mode**
+
 ```bash
 /tests --report
 ```
+
 - **Detailed test report**
 - **Coverage statistics**
 - **Performance analysis**
@@ -132,12 +150,14 @@ Manage, run, and analyze all tests across the MAx Framework with comprehensive r
 ## Test Discovery
 
 ### 🔍 **Test File Patterns**
+
 - `test_*.py` - Unit test files
 - `*_test.py` - Alternative test naming
 - `tests/**/*.py` - Test directory structure
 - `**/test_*.py` - Recursive discovery
 
 ### 📁 **Test Directory Structure**
+
 ```
 tests/
 ├── unit/                    # Unit tests
@@ -161,6 +181,7 @@ tests/
 ## Test Results
 
 ### 📊 **Success Metrics**
+
 ```bash
 ✅ PASSED: 42 tests (85%)
 ⚠️ SKIPPED: 5 tests (10%)
@@ -170,6 +191,7 @@ tests/
 ```
 
 ### 🚨 **Failure Analysis**
+
 ```bash
 ❌ FAILED TESTS:
 1. test_command_execution
@@ -189,6 +211,7 @@ tests/
 ```
 
 ### 🔧 **Auto-Fix Results**
+
 ```bash
 🔧 APPLIED FIXES:
 1. Added missing import: import unittest
@@ -200,6 +223,7 @@ tests/
 ## Configuration
 
 ### ⚙️ **Test Configuration**
+
 ```json
 {
   "test_paths": ["tests/", "test_*.py", "*_test.py"],
@@ -213,6 +237,7 @@ tests/
 ```
 
 ### 🎯 **Environment Variables**
+
 ```bash
 # Enable auto-fix
 export MAX_TESTS_AUTO_FIX=1
@@ -230,6 +255,7 @@ export MAX_TESTS_SEQUENTIAL=1
 ## Integration
 
 ### 🔄 **CI/CD Integration**
+
 ```yaml
 # .github/workflows/tests.yml
 name: Comprehensive Tests
@@ -249,6 +275,7 @@ jobs:
 ```
 
 ### 🔧 **Pre-commit Hook**
+
 ```bash
 #!/bin/sh
 # .git/hooks/pre-commit
@@ -260,6 +287,7 @@ fi
 ```
 
 ### 📊 **Quality Gate Integration**
+
 ```bash
 # Run as part of quality gate
 /max-quality --include-tests
@@ -271,6 +299,7 @@ fi
 ## Advanced Features
 
 ### 🎯 **Test Filtering**
+
 ```bash
 # Run tests matching pattern
 /tests --pattern "test_*contract*"
@@ -286,6 +315,7 @@ fi
 ```
 
 ### 📈 **Performance Testing**
+
 ```bash
 # Run performance benchmarks
 /tests --performance
@@ -298,6 +328,7 @@ fi
 ```
 
 ### 🔍 **Debug Mode**
+
 ```bash
 # Run with debugger
 /tests --debug
@@ -312,27 +343,33 @@ fi
 ## Reports
 
 ### 📊 **Coverage Report**
+
 ```bash
 /tests --coverage
 ```
+
 - **Line coverage**: 87.3%
 - **Branch coverage**: 82.1%
 - **Function coverage**: 91.5%
 - **Missing coverage**: 12.7%
 
 ### 📈 **Trend Analysis**
+
 ```bash
 /tests --trends
 ```
+
 - **Test count trend**: +5 tests this week
 - **Success rate trend**: 92% → 95%
 - **Performance trend**: -0.2s average
 - **Coverage trend**: +2.3% this month
 
 ### 📋 **Detailed Report**
+
 ```bash
 /tests --report --detailed
 ```
+
 - **Test execution summary**
 - **Failure analysis**
 - **Performance metrics**
@@ -342,24 +379,28 @@ fi
 ## Benefits
 
 ### 🎯 **Comprehensive Coverage**
+
 - **All test types**: Unit, integration, system, contracts
 - **Multiple frameworks**: unittest, pytest, custom
 - **Cross-platform**: Linux, macOS, Windows
 - **Language support**: Python, JavaScript, Shell
 
 ### 🔧 **Intelligent Testing**
+
 - **Auto-fix capabilities**: Common error resolution
 - **Smart discovery**: Automatic test finding
 - **Parallel execution**: Faster test runs
 - **Caching**: Avoid redundant work
 
 ### 📊 **Detailed Insights**
+
 - **Real-time progress**: Live test execution
 - **Performance metrics**: Timing and resource usage
 - **Trend analysis**: Historical test data
 - **Quality metrics**: Coverage and success rates
 
 ### 🚀 **Developer Friendly**
+
 - **Easy integration**: CI/CD, pre-commit hooks
 - **Flexible configuration**: Customizable behavior
 - **Rich reporting**: Multiple output formats
