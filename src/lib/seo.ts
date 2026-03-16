@@ -1,6 +1,7 @@
 import { BRAND } from '@/config/brand';
 
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
+export const SITE_TITLE_SUFFIX = ' | Danilo Novais';
 
 type DescriptionOptions = {
   min?: number;
@@ -31,6 +32,17 @@ export function toCanonicalUrl(pathname: string = '/'): string {
   return `${getCanonicalSiteUrl().replace(/\/$/, '')}${normalizedPath}`;
 }
 
+export function toAbsoluteUrl(
+  value: string,
+  base: string = getCanonicalSiteUrl()
+): string {
+  try {
+    return new URL(value, base).toString();
+  } catch {
+    return value;
+  }
+}
+
 function truncateAtWordBoundary(value: string, max: number): string {
   if (value.length <= max) return value;
   const candidate = value.slice(0, Math.max(0, max - 3));
@@ -44,6 +56,21 @@ function truncateAtWordBoundary(value: string, max: number): string {
 export function normalizeMetaTitle(title: string, max = 60): string {
   const normalized = collapseWhitespace(title);
   return truncateAtWordBoundary(normalized, max);
+}
+
+export function normalizeTemplatedTitle(
+  title: string,
+  {
+    max = 60,
+    suffix = SITE_TITLE_SUFFIX,
+  }: {
+    max?: number;
+    suffix?: string;
+  } = {}
+): string {
+  const normalized = collapseWhitespace(title);
+  const available = Math.max(0, max - collapseWhitespace(suffix).length);
+  return truncateAtWordBoundary(normalized, available);
 }
 
 export function normalizeMetaDescription(

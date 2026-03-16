@@ -1,4 +1,5 @@
 import { BRAND } from '@/config/brand';
+import { toAbsoluteUrl } from '@/lib/seo';
 
 type BreadcrumbItem = {
   name: string;
@@ -29,7 +30,7 @@ export default function JsonLd({
   project,
 }: JsonLdProps) {
   const baseUrl = `https://${BRAND.domain}`;
-  const logo = logoUrl ?? BRAND.assets.logos.logoLight;
+  const logo = toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl);
 
   // Organization Schema
   const organizationSchema = {
@@ -37,10 +38,7 @@ export default function JsonLd({
     '@id': `${baseUrl}/#organization`,
     name: BRAND.name,
     url: baseUrl,
-    logo: {
-      '@type': 'ImageObject',
-      url: logo,
-    },
+    logo,
     sameAs: [
       'https://github.com/danilonovaisv',
       'https://www.linkedin.com/in/danilonovaisv',

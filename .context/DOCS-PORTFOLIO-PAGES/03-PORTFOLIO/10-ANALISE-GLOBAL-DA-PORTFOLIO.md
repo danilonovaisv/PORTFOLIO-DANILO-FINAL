@@ -56,3 +56,43 @@
 ## Conclusão
 
 A página `/portfolio` está tecnicamente sólida, com boa base de acessibilidade, motion controlado e integração com Supabase. Os maiores ganhos agora estão em governança de dados (destino do card) e qualidade editorial do conteúdo dinâmico por case.
+
+---
+
+## Atualização 2026-03-15 — Ajustes executados após auditoria Squirrel site-wide
+
+### O que foi confirmado como problema real
+
+- JSON-LD global inválido por `Organization.logo` fora do shape esperado.
+- Títulos SEO duplicando a marca por conflito entre `metadata.title` e o template global do App Router.
+- `Multiple H1` em `/portfolio/video-manifesto` por H1 vindo do markdown do case.
+- Achados de `alt` na Home compatíveis com thumbs/logos dos cards destaque.
+
+### O que foi corrigido
+
+- [src/components/ui/JsonLd.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/ui/JsonLd.tsx)
+  - `Organization.logo` agora sai como URL absoluta string.
+- [src/lib/seo.ts](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/seo.ts)
+  - nova normalização para títulos templated.
+- [src/app/portfolio/page.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/app/portfolio/page.tsx)
+  - títulos de categorias deixaram de embutir a marca no valor base.
+- [src/app/portfolio/[slug]/page.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/app/portfolio/[slug]/page.tsx)
+  - título do case passou a respeitar o template.
+  - H1 do markdown foi rebaixado para H2 na renderização pública.
+- [src/components/home/featured-projects/FeaturedProjectCardFrame.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/home/featured-projects/FeaturedProjectCardFrame.tsx)
+  - thumbs e logos agora expõem `alt` descritivo.
+
+### Decisão de escopo
+
+- Itens ligados a `Video Captions` e acessibilidade de vídeos decorativos/autoplay foram mantidos fora desta rodada.
+- A inconsistência de CSP observada no ambiente publicado permanece como item de validação pós-deploy, porque localmente o header está correto.
+
+### Validação executada
+
+- `pnpm exec eslint` nos arquivos alterados.
+- `pnpm run typecheck`
+- `pnpm run build`
+- Playwright local confirmando:
+  - `/portfolio?category=branding` -> `Portfólio | Brand & Campaigns | Danilo Novais`
+  - `/sobre` -> `Sobre — Trajetória e Visão | Danilo Novais`
+  - `/portfolio/video-manifesto` -> um único H1 no layout e heading interno rebaixado para H2

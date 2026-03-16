@@ -45,6 +45,13 @@ export default function FeaturedProjectCardFrame({
     homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' &&
     !!logoSrc &&
     !logoFailed;
+  const visualAltText =
+    project.client && project.client !== project.title
+      ? `${project.title} para ${project.client}`
+      : project.title;
+  const logoAltText = project.client
+    ? `Logo de ${project.client}`
+    : `Identidade visual de ${project.title}`;
 
   // Decide if we should show standard card thumbnails
   const showThumb = !showLogo && (!!desktopMediaSource || !!mobileMediaSource);
@@ -145,8 +152,7 @@ export default function FeaturedProjectCardFrame({
                 ) : desktopThumbUrl ? (
                   <Image
                     src={desktopThumbUrl}
-                    alt=""
-                    aria-hidden="true"
+                    alt={visualAltText}
                     fill
                     sizes={project.layout.sizes ?? '100vw'}
                     className={cn('hidden md:block', commonMediaClasses)}
@@ -174,8 +180,7 @@ export default function FeaturedProjectCardFrame({
                 ) : mobileThumbUrl ? (
                   <Image
                     src={mobileThumbUrl}
-                    alt=""
-                    aria-hidden="true"
+                    alt={visualAltText}
                     fill
                     sizes={project.layout.sizes ?? '100vw'}
                     className={cn('block md:hidden', commonMediaClasses)}
@@ -201,8 +206,7 @@ export default function FeaturedProjectCardFrame({
             ) : desktopThumbUrl ? (
               <Image
                 src={desktopThumbUrl}
-                alt=""
-                aria-hidden="true"
+                alt={visualAltText}
                 fill
                 sizes={project.layout.sizes ?? '100vw'}
                 className={commonMediaClasses}
@@ -225,8 +229,7 @@ export default function FeaturedProjectCardFrame({
           <div className="relative h-full w-full max-h-[160px] max-w-[320px]">
             <Image
               src={logoSrc}
-              alt=""
-              aria-hidden="true"
+              alt={logoAltText}
               fill
               sizes="(max-width: 768px) 52vw, 280px"
               unoptimized={shouldBypassNextOptimization}

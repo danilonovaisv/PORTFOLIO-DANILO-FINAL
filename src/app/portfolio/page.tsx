@@ -17,7 +17,7 @@ import { BRAND } from '@/config/brand';
 import { SITE_ASSET_PRELOADS } from '@/config/site-assets';
 import {
   normalizeMetaDescription,
-  normalizeMetaTitle,
+  normalizeTemplatedTitle,
   toCanonicalUrl,
 } from '@/lib/seo';
 
@@ -62,13 +62,13 @@ export async function generateMetadata({
 
   const metaForCategory = category ? categoryMeta[category] : undefined;
   const rawTitle = metaForCategory
-    ? `Portfólio | ${metaForCategory.label} — Danilo Novais`
+    ? `Portfólio | ${metaForCategory.label}`
     : 'Portfólio — Projetos de Branding, Motion e Web';
   const rawDescription =
     metaForCategory?.description ??
     'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development de Danilo Novais, com foco em presença, narrativa e performance.';
 
-  const title = normalizeMetaTitle(rawTitle);
+  const title = normalizeTemplatedTitle(rawTitle);
   const description = normalizeMetaDescription(rawDescription);
   const baseUrl = toCanonicalUrl('/portfolio');
   const url = category ? `${baseUrl}?category=${category}` : baseUrl;

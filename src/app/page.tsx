@@ -33,9 +33,11 @@ import {
 } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: normalizeMetaTitle(
-    'Danilo Novais | Head de Criação & Diretor de Criação Sênior'
-  ),
+  title: {
+    absolute: normalizeMetaTitle(
+      'Danilo Novais | Head de Criação & Diretor de Criação Sênior'
+    ),
+  },
   description: normalizeMetaDescription(
     'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.'
   ),

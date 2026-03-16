@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 import { HOME_CONTENT } from '@/config/content';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -19,7 +20,7 @@ import { generateVideoSchema } from '@/lib/schema';
 
 import {
   normalizeMetaDescription,
-  normalizeMetaTitle,
+  normalizeTemplatedTitle,
   toCanonicalUrl,
 } from '@/lib/seo';
 import RotatingHighlights from '@/components/portfolio/RotatingHighlights';
@@ -198,7 +199,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     `${project.title} para ${project.client}.`;
   const description = normalizeMetaDescription(metadataDescription);
   const url = toCanonicalUrl(`/portfolio/${slug}`);
-  const title = normalizeMetaTitle(`${project.title} | ${BRAND.name}`);
+  const title = normalizeTemplatedTitle(project.title);
 
   return {
     title,
@@ -245,6 +246,14 @@ type Props = {
 };
 
 import JsonLd from '@/components/ui/JsonLd';
+
+const projectMarkdownComponents = {
+  h1: ({ children }: { children?: ReactNode }) => (
+    <h2 className="mt-10 mb-4 text-2xl md:text-3xl font-semibold text-white">
+      {children}
+    </h2>
+  ),
+};
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
@@ -415,7 +424,9 @@ export default async function ProjectPage({ params }: Props) {
                   key={`${project.id}-markdown-${index}`}
                   className="prose prose-invert max-w-none font-figtree prose-headings:text-bluePrimary"
                 >
-                  <ReactMarkdown>{block.value}</ReactMarkdown>
+                  <ReactMarkdown components={projectMarkdownComponents}>
+                    {block.value}
+                  </ReactMarkdown>
                 </div>
               );
             })

@@ -264,18 +264,19 @@ const ContactForm: React.FC = () => {
               </p>
             )}
 
-            {shouldLoadTurnstile ? (
+            <div className="relative min-h-[65px]">
               <div
                 className="cf-turnstile min-h-[65px]"
                 data-sitekey={getTurnstileSiteKey()}
                 data-callback="onTurnstileSuccess"
               />
-            ) : (
-              <div className="flex min-h-[65px] items-center rounded-xl border border-[#111111]/10 bg-[#f8fafc] px-4 text-sm text-[#111111]/60">
-                Verificação de segurança carregada sob demanda para priorizar
-                performance.
-              </div>
-            )}
+              {!shouldLoadTurnstile ? (
+                <div className="absolute inset-0 flex items-center rounded-xl border border-[#111111]/10 bg-[#f8fafc] px-4 text-sm text-[#111111]/60">
+                  Verificação de segurança carregada sob demanda para
+                  priorizar performance.
+                </div>
+              ) : null}
+            </div>
 
             <motion.button
               type="submit"

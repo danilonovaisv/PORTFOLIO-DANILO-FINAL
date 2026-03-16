@@ -12,7 +12,7 @@ import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 
 import { BRAND } from '@/config/brand';
-import { toCanonicalUrl } from '@/lib/seo';
+import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';
 
 /** Minimal skeleton fallback for Suspense boundaries */
 function SectionSkeleton({ label }: { label: string }) {
@@ -30,9 +30,9 @@ function SectionSkeleton({ label }: { label: string }) {
 }
 
 export const metadata: Metadata = {
-  title: 'Sobre — Trajetória e Visão | Danilo Novais',
+  title: normalizeTemplatedTitle('Sobre — Trajetória e Visão'),
   description:
-    'Conheça a trajetória, o método e a visão de Danilo Novais — Head de Criação & Diretor de Criação Sênior focado em branding, campanhas, vídeo, motion e soluções digitais que conectam pessoas e marcas.',
+    'Conheça a trajetória, o método e a visão de Danilo Novais, com foco em branding, campanhas, vídeo, motion e soluções digitais.',
   openGraph: {
     title:
       'Sobre | Danilo Novais — Head de Criação & Diretor de Criação Sênior',
