@@ -13,7 +13,7 @@ jest.mock('react-markdown', () => ({
     skipHtml?: boolean;
   }) => {
     const safeContent = skipHtml
-      ? children.replace(/<[^>]+>/g, '')
+      ? children.replace(/[<>]/g, '')
       : children;
 
     return (
