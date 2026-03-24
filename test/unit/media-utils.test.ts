@@ -8,7 +8,7 @@ describe('getMediaAspectRatio', () => {
   beforeEach(() => {
     originalImage = global.Image;
     originalCreateElement = document.createElement.bind(document);
-    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    consoleWarnSpy = jest.spyOn(require('@/lib/logger').logger, 'warn').mockImplementation(() => {});
 
     // Mock Image
     class MockImage {
