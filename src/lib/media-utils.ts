@@ -1,4 +1,5 @@
 import { isVideo, isYouTubeUrl } from '@/lib/utils';
+import { logger } from '@/lib/logger';
 
 export type MediaAspectRatio = 'horizontal' | 'vertical' | 'square';
 
@@ -29,7 +30,7 @@ export function getMediaAspectRatio(
 
     video.onerror = () => {
       // Fallback for video errors
-      console.warn(
+      logger.warn(
         `[media-utils] Failed to load video metadata for: ${mediaUrl}`
       );
       callback('horizontal');
@@ -44,7 +45,7 @@ export function getMediaAspectRatio(
     };
 
     img.onerror = () => {
-      console.warn(`[media-utils] Failed to load image for: ${mediaUrl}`);
+      logger.warn(`[media-utils] Failed to load image for: ${mediaUrl}`);
       callback('horizontal');
     };
   }
