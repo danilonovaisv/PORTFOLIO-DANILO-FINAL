@@ -45,7 +45,6 @@ export function resolveFluorescentColor(color: FluorescentColorName): string {
 // Função para resolver cores do config (suporta nomes personalizados)
 export function resolveConfigColor(colorName: string): string {
   if (!colorName || typeof colorName !== 'string') {
-    console.warn('resolveConfigColor received invalid color:', colorName);
     return '#00ffff'; // Safe fallback
   }
 
@@ -60,7 +59,6 @@ export function resolveConfigColor(colorName: string): string {
     return colorName;
   }
   // Fallback para cyan se não encontrar
-  console.warn(`[ghostConfig] Cor não encontrada: ${colorName}, usando cyan`);
   return FLUORESCENT_COLORS.cyan;
 }
 
