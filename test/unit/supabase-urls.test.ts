@@ -282,6 +282,15 @@ describe('Supabase URL Utilities', () => {
       );
     });
 
+    it('returns null and logs error for invalid protocol-relative URLs (//)', () => {
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      expect(validateExternalUrl('//')).toBeNull();
+      expect(consoleSpy).toHaveBeenCalledWith('URL externa inválida: //');
+      consoleSpy.mockRestore();
+    });
+
     it('returns null for invalid URL strings', () => {
       const consoleSpy = jest
         .spyOn(console, 'error')
