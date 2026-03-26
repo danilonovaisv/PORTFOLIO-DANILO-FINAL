@@ -1,57 +1,73 @@
-# 🧠 Hướng Dẫn Về "Kỹ Năng" (Skills System)
+# 🧠 Guia de "Habilidades" (Sistema de Habilidades)
 
-> **Antigravity IDE** không chỉ là một con bot chat. Nó là một tập hợp của **573 Siêu Kỹ Năng (Master Skills)**, mỗi người phụ trách một mảng công nghệ chuyên sâu.
-
----
-
-## 1. Cơ Chế Hoạt Động
-
-### 🧩 Skill là gì?
-Hãy tưởng tượng **Skill** giống như việc "cài phần mềm vào não" của AI.
-*   Bình thường: AI biết chung chung về mọi thứ.
-*   Khi nạp Skill: AI đột nhiên trở thành chuyên gia trong lĩnh vực cụ thể.
-
-### ⚡ Lazy Loading (Nạp Theo Nhu Cầu)
-Hệ thống **KHÔNG** nạp tất cả 573 chuyên gia cùng lúc (vì sẽ quá tải).
-*   Khi bạn nói: *"Giúp tôi code giao diện mobile"* -> Hệ thống tự động gọi ông `mobile-design` và `react-native-architecture` vào phòng họp.
-*   Khi bạn nói: *"Check lỗi bảo mật"* -> Hệ thống gọi ông `security-auditor` vào.
+> **O Antigravity IDE** não é apenas um chatbot. É uma coleção de **573 Habilidades Mestras**, cada uma especializada em uma área específica da tecnologia.
 
 ---
 
-## 2. Danh Sách Các Chuyên Gia (Master Skills)
+## 1. Como Funciona
 
-### 💻 Nhóm Phát Triển (Development)
-*   **`nextjs-react-expert`**: Trùm Frontend, Next.js App Router.
-*   **`backend-specialist`**: Trùm Backend (Node.js/Python/Go), API Design.
-*   **`mobile-developer`**: Chuyên trị React Native, Flutter, iOS.
-*   **`database-architect`**: Thiết kế DB (SQL/NoSQL) chuẩn 3NF, tối ưu Index.
+### 🧩 O que são Habilidades?
 
-### ☁️ Nhóm Hạ Tầng (DevOps & Cloud)
-*   **`devops-engineer`**: Docker, CI/CD, Kubernetes.
-*   **`cloud-architect`**: Kiến trúc AWS/GCP/Azure.
-*   **`incident-responder`**: Xử lý sự cố sập server, SRE.
+Imagine as **Habilidades** como "instalar um software no cérebro da IA".
 
-### 🛡️ Nhóm Bảo Mật (Security)
-*   **`security-auditor`**: Soát xét code tìm lỗ hổng.
-*   **`penetration-tester`**: Đóng vai hacker mũ trắng tấn công thử nghiệm.
+* Normalmente: A IA conhece uma gama geral de assuntos.
 
-### 🤖 Nhóm Trí Tuệ Nhân Tạo (AI & Data)
-*   **`ai-engineer`**: Xây dựng ứng dụng LLM, RAG System.
-*   **`data-engineer`**: Xử lý dữ liệu lớn, ETL Pipeline.
-*   **`prompt-engineer`**: Tối ưu hóa câu lệnh cho AI.
+* Ao ser carregada com uma Habilidade: A IA se torna repentinamente especialista em uma área específica.
 
-### 🎨 Nhóm Thẩm Mỹ & Growth
-*   **`ui-ux-pro-max`**: Thiết kế giao diện đẹp mê ly (Linear/Magic UI).
-*   **`seo-specialist`**: Tối ưu từ khóa, đưa Web lên Top Google.
-*   **`business-analyst`**: Phân tích nghiệp vụ, viết PRD.
+### ⚡ Carregamento Lento (Lazy Loading)
+O sistema **NÃO** carrega todos os 573 especialistas de uma vez (pois isso causaria sobrecarga).
+
+* Quando você diz: *"Ajude-me a codificar a interface mobile"* -> O sistema automaticamente chama os especialistas em `design mobile` e `arquitetura react-native` para a sala de reunião.
+
+* Quando você diz: *"Verificar vulnerabilidades de segurança"* -> O sistema faz chamadas no `security-auditor`.
 
 ---
 
-## 3. Cách Sử Dụng Hiệu Quả
+## 2. Lista de Especialistas (Habilidades Principais)
 
-Bạn **không cần** phải nhớ tên Skill để gọi. Chỉ cần mô tả rõ ràng yêu cầu:
+### 💻 Equipe de Desenvolvimento
+* **`nextjs-react-expert`**: Especialista em Frontend, Roteador de Aplicativos Next.js.
 
-*   ❌ **Sai**: "Làm cho cái này." (AI sẽ dùng kiến thức chung chung).
-*   ✅ **Đúng**: "Tôi muốn xây dựng ứng dụng **React Native** (sẽ kích hoạt Skill Mobile) có tính năng **Chat AI** (kích hoạt Skill AI) và bảo mật cao (kích hoạt Skill Security)."
+* **`backend-specialist`**: Especialista em Backend (Node.js/Python/Go), Design de API.
 
-> **Mẹo**: Hãy khai báo rõ Tech Stack bạn muốn dùng ngay từ đầu, AI sẽ tự động "triệu hồi" đúng chuyên gia phù hợp nhất!
+* **`mobile-developer`**: Especialista em React Native, Flutter, iOS.
+
+* **`database-architect`**: Design de banco de dados (SQL/NoSQL) com padrões 3NF, otimização de índices.
+
+### ☁️ Equipe de Infraestrutura (DevOps e Nuvem)
+* **`devops-engineer`**: Docker, CI/CD, Kubernetes.
+
+* Arquiteto de Nuvem: Arquitetura AWS/GCP/Azure.
+
+* Analista de Resposta a Incidentes: Solução de problemas de indisponibilidade de servidores, SRE.
+
+### 🛡️ Equipe de Segurança
+* Auditor de Segurança: Revisão de código para identificação de vulnerabilidades.
+
+* Testador de Penetração: Atuação como hacker ético, conduzindo ataques de teste.
+
+### 🤖 Equipe de Inteligência Artificial (IA e Dados)
+* Engenheiro de IA: Desenvolvimento de sistemas LLM e RAG.
+
+* Engenheiro de Dados: Processamento de Big Data, pipeline ETL.
+
+* Engenheiro de Prompt: Otimização de comandos de IA.
+
+### 🎨 Equipe de Estética e Crescimento
+* UI/UX: Design de interfaces impressionantes (Linear UI/Magic UI).
+
+* **Especialista em SEO**: Otimização de palavras-chave, posicionando seu site no topo do Google.
+
+* **Analista de Negócios**: Análise de negócios, elaboração de PRDs.
+
+---
+
+## 3. Uso Eficaz
+
+Você **não** precisa se lembrar dos nomes das Skills para chamá-las. Basta descrever claramente suas necessidades:
+
+* ❌ **Incorreto**: "Faça isso." (A IA usará conhecimento geral).
+
+* ✅ **Correto**: "Quero criar um aplicativo **React Native** (que ativará a Skill Mobile) com funcionalidade de **Chat com IA** (ativa a Skill de IA) e alta segurança (ativa a Skill de Segurança)."
+
+> **Dica**: Informe claramente a pilha de tecnologias que deseja usar desde o início; a IA automaticamente "invocará" o especialista mais adequado!

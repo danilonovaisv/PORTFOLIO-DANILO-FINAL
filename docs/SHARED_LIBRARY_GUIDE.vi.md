@@ -1,53 +1,69 @@
-# 📚 Hướng Dẫn Về "Thư Viện Dùng Chung" (.shared)
+# 📚 Guia para a "Biblioteca Compartilhada" (.shared)
 
-> **.shared** là "Tàng thư các tuyệt kỹ" của Antigravity. Đây là nơi chứa các file mẫu, cấu hình chuẩn và checklist xác thực.
-
----
-
-## 1. Tại sao cần .shared?
-
-Thay vì mỗi dự án phải setup lại từ đầu (copy file `.eslintrc`, cấu hình lại Docker, viết lại file helper...), Antigravity lưu trữ tất cả **Best Practices** vào đây.
-Khi cần, Agent chỉ việc "copy-paste" ra dùng. Nhanh và Chuẩn.
+> **.shared** é o "tesouro de técnicas" do Antigravity. Contém arquivos de exemplo, configurações padrão e listas de verificação de validação.
 
 ---
 
-## 2. Danh mục 17 Kho Tàng (Modules)
+## 1. Por que você precisa do .shared?
 
-### 🧠 Cốt Lõi & AI
-*   **`ai-master`**: Chứa các Prompt mẫu, cấu hình RAG System.
-*   **`core`**: Cấu trúc dự án mẫu (Project Structure).
+Em vez de ter que configurar cada projeto do zero (copiando o arquivo `.eslintrc`, reconfigurando o Docker, reescrevendo arquivos auxiliares...), o Antigravity armazena todas as **Melhores Práticas** aqui.
 
-### 🛡️ Bảo Mật & Tuân Thủ
-*   **`security-armor`**: Bộ quy tắc chống hack (OWASP), script quét lỗ hổng.
-*   **`compliance`**: Mẫu pháp lý (Privacy Policy, GDPR Checklists).
-*   **`api-standards`**: Chuẩn thiết kế API (RESTful, Error Codes).
-
-### 🎨 Giao Diện & Trải Nghiệm
-*   **`design-system`**: Bộ Token màu sắc, Typography chuẩn.
-*   **`ui-ux-pro-max`**: Các hiệu ứng động cao cấp (Motion Presets).
-*   **`design-philosophy`**: Triết lý thiết kế (Linear, Magic UI).
-
-### 🏗️ Hạ Tầng & Vận Hành
-*   **`infra-blueprints`**: File cấu hình Docker, Terraform, CI/CD.
-*   **`database-master`**: Các mẫu Schema DB (E-commerce, Social, SaaS).
-*   **`metrics`**: Cấu hình giám sát (Logging, Telemetry).
-*   **`resilience-patterns`**: Mẫu thiết kế chịu lỗi (Circuit Breaker).
-
-### 📈 Tăng Trưởng & Chất Lượng
-*   **`seo-master`**: Checklist SEO, mẫu JSON-LD.
-*   **`testing-master`**: Kịch bản test mẫu (E2E, Unit Test).
-*   **`vitals-templates`**: Tiêu chuẩn hiệu năng (Lighthouse Config).
-*   **`i18n-master`**: File ngôn ngữ mẫu (Đa ngôn ngữ).
-*   **`dx-toolkit`**: Công cụ hỗ trợ Dev (VSCode Settings, Linting).
+Quando necessário, o Agente simplesmente "copia e cola" e usa. Rápido e preciso.
 
 ---
 
-## 3. Cách Sử Dụng
+## 2. Lista de 17 Repositórios (Módulos)
 
-Bạn **không cần** sửa trực tiếp vào thư mục này.
-Agent sẽ tự động:
-1.  **Đọc** file mẫu từ đây khi bạn yêu cầu tạo tính năng tương ứng.
-2.  **Copy** file ra dự án của bạn (nếu chưa có).
-3.  **Validate** code của bạn dựa trên checklist trong này (khi chạy `/audit`).
+### 🧠 Core e AI
+* **`ai-master`**: Contém prompts de exemplo e configurações do sistema RAG.
 
-> **Ví dụ**: Khi bạn bảo *"Tạo database cho web bán hàng"*, Agent sẽ vào `database-master`, lấy file `ecommerce.sql` ra làm nền tảng.
+* **core`**: Estrutura de projeto de exemplo.
+
+### 🛡️ Segurança e Conformidade
+* **`security-armor`**: Código anti-hacking (OWASP), scripts de varredura de vulnerabilidades.
+
+* **`compliance`**: Modelos legais (Política de Privacidade, Checklists GDPR).
+
+* **`api-standards`**: Padrões de design de API (RESTful, Códigos de Erro).
+
+### 🎨 Interface e Experiência do Usuário
+* **`design-system`**: Tokens de cores e tipografia padrão.
+
+* **`ui-ux-pro-max`**: Efeitos de animação avançados (Motion Presets).
+
+* **design-philosophy`**: Filosofia de design (Linear, Magic UI).
+
+### 🏗️ Infraestrutura e Operações
+* **`infra-blueprints`**: Arquivos de configuração de Docker, Terraform e CI/CD.
+
+* **`database-master`**: Modelos de esquema de banco de dados (E-commerce, Social, SaaS).
+
+* **`metrics`**: Configuração de monitoramento (Registro, Telemetria).
+
+* **`resilience-patterns`**: Padrões de projeto tolerantes a falhas (Disjuntor).
+
+### 📈 Crescimento e Qualidade
+* **`seo-master`**: Lista de verificação de SEO, modelo JSON-LD.
+
+* **testing-master`**: Scripts de teste de exemplo (E2E, Teste Unitário).
+
+* **vitals-templates`**: Benchmarks de desempenho (Configuração do Lighthouse).
+
+* **i18n-master`**: Arquivos de idioma de exemplo (Multilíngue).
+
+* **dx-toolkit`**: Ferramentas de suporte ao desenvolvimento (Configurações do VSCode, Linting).
+
+---
+
+## 3. Como usar
+
+Você **não** precisa editar esta pasta diretamente.
+
+O agente irá automaticamente:
+1. **Ler** o arquivo de exemplo daqui quando você solicitar a criação de um recurso correspondente.
+
+2. **Copie** o arquivo para o seu projeto (caso ele ainda não exista).
+
+3. **Valide** seu código com base na lista de verificação aqui (ao executar `/audit`).
+
+> **Exemplo**: Quando você diz *"Criar um banco de dados para um site de e-commerce"*, o agente irá para `database-master` e recuperará o arquivo `ecommerce.sql` como base.

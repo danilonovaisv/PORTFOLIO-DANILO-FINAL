@@ -1,100 +1,117 @@
-# 📘 Hướng Dẫn Sử Dụng Hệ Thống Workflow (Quy Trình)
+# 📘 Guia do Usuário do Sistema de Fluxo de Trabalho
 
-> **Antigravity IDE** cung cấp **21 quy trình (Workflow)** chuyên biệt, được tự động kích hoạt dựa trên **Lĩnh vực (Industry)** bạn chọn khi cài đặt.
-
----
-
-## 1. Nhóm Cốt Lõi (Core - Ai cũng có)
-*Dành cho mọi dự án, từ cơ bản đến nâng cao.*
-
-### `/brainstorm` - Khởi tạo ý tưởng
-- **Khi nào dùng**: Khi bạn có ý tưởng mơ hồ, cần AI gợi ý cách triển khai.
-- **Cách dùng**: `/brainstorm [ý tưởng]`
-- **Ví dụ**: `/brainstorm ứng dụng đặt món ăn healthy`
-
-### `/plan` - Lập kế hoạch
-- **Khi nào dùng**: Trước khi code tính năng mới. AI sẽ chia nhỏ task và ước lượng thời gian.
-- **Cách dùng**: `/plan [tên tính năng]`
-
-### `/status` - Dashboard trạng thái
-- **Khi nào dùng**: Xem "sức khỏe" dự án, tiến độ các task.
-- **Cách dùng**: `/status`
-
-### `/debug` - Sửa lỗi thông minh
-- **Khi nào dùng**: Khi gặp lỗi khó hiểu hoặc muốn tối ưu code.
-- **Cách dùng**: `/debug [mô tả lỗi hoặc dán log lỗi]`
+> **O Antigravity IDE** oferece **21 fluxos de trabalho especializados**, ativados automaticamente com base no **Setor** selecionado durante a instalação.
 
 ---
 
-## 2. Nhóm Xây dựng (Builder - Cho Dev)
-*Tự động kích hoạt cho nhóm ngành: General, Logistics, Other.*
+## 1. Grupo Principal (Todos têm acesso a ele)
+*Para todos os projetos, do básico ao avançado.*
 
-### `/create` - Tạo tính năng mới
-- **Khi nào dùng**: Build một module hoàn chỉnh (Frontend + Backend + DB).
-- **Cách dùng**: `/create [tên module]`
-- **Ví dụ**: `/create user-authentication`
+### `/brainstorm` - Geração de Ideias
+- **Quando usar**: Quando você tem uma ideia vaga e precisa que a IA sugira como implementá-la.
 
-### `/enhance` - Nâng cấp, sửa đổi
-- **Khi nào dùng**: Thêm nút bấm, đổi màu sắc, sửa logic nhỏ.
-- **Cách dùng**: `/enhance [yêu cầu thay đổi]`
+- **Como usar**: `/brainstorm [ideia]`
 
-### `/orchestrate` - Điều phối Đa Agent (Cao cấp)
-- **Khi nào dùng**: Làm tính năng cực lớn cần 3-4 chuyên gia (Frontend, Backend, Security) làm cùng lúc.
-- **Cách dùng**: `/orchestrate [yêu cầu phức tạp]`
+- **Exemplo**: `/brainstorm aplicativo de pedidos de comida saudável`
 
----
+### `/plan` - Planejamento
+- **Quando usar**: Antes de codificar um novo recurso. A IA irá dividir a tarefa e estimar o tempo necessário.
 
-## 3. Nhóm Chất lượng & Bảo mật (Enterprise)
-*Tự động kích hoạt cho nhóm ngành: Finance, Healthcare.*
+- **Como usar**: `/plan [nome do recurso]`
 
-### `/audit` - Tổng kiểm tra
-- **Khi nào dùng**: Trước khi bàn giao. Check toàn diện Security, SEO, Performance.
-- **Cách dùng**: `/audit`
+### `/status` - Painel de Status
+- **Quando usar**: Visualize o "status" do projeto e o progresso das tarefas.
 
-### `/security` - Bảo mật chuyên sâu
-- **Khi nào dùng**: Hardening hệ thống, quét lỗ hổng, check API Key lộ.
-- **Cách dùng**: `/security scan`
+- **Como usar**: `/status`
 
-### `/test` - Kiểm thử tự động
-- **Khi nào dùng**: Viết Unit Test, E2E Test cho dự án.
-- **Cách dùng**: `/test [tên file/module]`
+### `/debug` - Depuração Inteligente
+- **Quando usar**: Ao encontrar erros confusos ou para otimizar o código.
+
+- **Como usar**: `/debug [descrição do erro ou cole o log de erros]`
 
 ---
+## 2. Grupo de Construção (Builder - Para Desenvolvedores)
+*Ativado automaticamente para os grupos de setores: Geral, Logística, Outros.*
 
-## 4. Nhóm Tăng trưởng & Thẩm mỹ (Growth & Design)
-*Tự động kích hoạt cho nhóm ngành: F&B, Personal, Education.*
+### `/create` - Criar novas funcionalidades
 
-### `/ui-ux-pro-max` - Thiết kế đỉnh cao
-- **Khi nào dùng**: Cần giao diện đẹp, hiệu ứng lung linh (Linear/Magic UI).
-- **Cách dùng**: `/ui-ux-pro-max [mô tả màn hình]`
+- **Quando usar**: Construir um módulo completo (Frontend + Backend + Banco de Dados).
 
-### `/seo` - Tối ưu tìm kiếm
-- **Khi nào dùng**: Để trang web lên Top Google. Tạo Sitemap, Schema JSON-LD.
-- **Cách dùng**: `/seo audit`
+- **Uso**: `/create [nome do módulo]`
+- **Exemplo**: `/create user-authentication`
 
----
+### `/enhance` - Atualizar, Modificar
+- **Quando usar**: Adicionar botões, alterar cores, corrigir pequenas alterações de lógica.
 
-## 5. Nhóm Vận hành & Con người (Ops & Team)
-*Dành cho Tech Lead hoặc DevOps.*
+- **Uso**: `/enhance [solicitar alteração]`
 
-### `/onboard` - Hướng dẫn người mới
-- **Khi nào dùng**: Khi team có thành viên mới. AI sẽ chỉ họ cách setup, giải thích code.
-- **Cách dùng**: `/onboard`
+### `/orchestrate` - Coordenação Multiagente (Avançado)
 
-### `/document` - Viết tài liệu
-- **Khi nào dùng**: Tự động update README, API Docs từ code.
-- **Cách dùng**: `/document all`
+- **Quando usar**: Para trabalhar em funcionalidades extremamente grandes que exigem 3 a 4 especialistas (Frontend, Backend, Segurança) trabalhando simultaneamente.
 
-### `/monitor` - Giám sát
-- **Khi nào dùng**: Setup logging, theo dõi lỗi trên Production.
-- **Cách dùng**: `/monitor setup`
-
-### `/deploy` - Phát hành
-- **Khi nào dùng**: Deploy lên Vercel, VPS, Docker.
-- **Cách dùng**: `/deploy`
+- **Uso**: `/orchestrate [solicitação complexa]`
 
 ---
+## 3. Grupo de Qualidade e Segurança (Empresarial)
+*Ativado automaticamente para grupos setoriais: Finanças, Saúde.*
 
-## 💡 Mẹo sử dụng
-- Bạn có thể **kết hợp** các lệnh. Ví dụ: Dùng `/plan` trước, sau đó dùng `/orchestrate` để thực thi plan đó.
-- Nếu không nhớ lệnh? Chỉ cần gõ `/help` hoặc hỏi AI bằng tiếng Việt, nó sẽ tìm workflow phù hợp cho bạn.
+### `/audit` - Auditoria Total
+- **Quando usar**: Antes da entrega. Verificação abrangente de Segurança, SEO e Desempenho.
+
+- **Uso**: `/audit`
+
+### `/security` - Segurança Avançada
+- **Quando usar**: Reforço da segurança do sistema, varredura de vulnerabilidades, verificação de chaves de API expostas.
+
+- **Uso**: `/security scan`
+
+### `/test` - Testes Automatizados
+- **Quando usar**: Para escrever testes unitários e testes de ponta a ponta (E2E) para projetos.
+
+- **Uso**: `/test [nome do arquivo/módulo]`
+
+---
+## 4. Grupo de Crescimento e Design
+*Ativado automaticamente para os grupos de setores: Alimentos e Bebidas, Pessoal e Educação.*
+
+### `/ui-ux-pro-max` - Design de Alta Qualidade
+- **Quando usar**: Para uma interface bonita e efeitos deslumbrantes (Linear UI/Magic UI).
+
+- **Como usar**: `/ui-ux-pro-max [descrição da tela]`
+
+### `/seo` - Otimização para Mecanismos de Busca (SEO)
+- **Quando usar**: Para posicionar seu site no topo do Google. Crie um Sitemap e um Schema JSON-LD.
+
+- **Como usar**: `/seo audit`
+
+---
+## 5. Operações e Recursos Humanos (Ops e Equipe)
+*Para Líder Técnico ou DevOps.*
+
+### `/onboard` - Integração de Novos Membros
+
+- **Quando usar**: Quando a equipe recebe novos membros. A IA os guiará na configuração e explicará o código.
+
+- **Como usar**: `/onboard`
+
+### `/document` - Escrita de Documentação
+- **Quando usar**: Atualiza automaticamente o README e a documentação da API a partir do código.
+
+- **Como usar**: `/document all`
+
+### `/monitor` - Monitoramento
+- **Quando usar**: Configurar logs e monitorar erros em Produção.
+
+- **Como usar**: `/monitor setup`
+
+### `/deploy` - Implantação
+
+- **Quando usar**: Implantar em Vercel, VPS ou Docker.
+
+- **Como usar**: `/deploy`
+
+---
+## 💡 Dicas de uso
+- Você pode **combinar** comandos. Por exemplo: use `/plan` primeiro e depois use `/orchestrate` para executar o plano.
+
+- Não se lembra do comando? Basta digitar `/help` ou perguntar à IA em vietnamita, e ela encontrará o fluxo de trabalho adequado para você.

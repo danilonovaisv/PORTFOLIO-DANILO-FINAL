@@ -1,103 +1,141 @@
-# 🛰️ Antigravity IDE - Master Operations Guide
-**Version**: 3.5.54 (Enterprise Multi-Agent Edition)
-**Language**: Tiếng Việt (Giao diện) - English (Technical)
+# 🛰️ Guia de Operações do Antigravity IDE
+**Versão**: 3.5.54 (Enterprise Multi-Agent Edition)
 
-Chào mừng bạn đến với hệ thống Antigravity IDE đã được "độ" lên mức tối đa. Đây không còn là một công cụ lập trình thông thường, mà là một **Phòng tác chiến AI** với đầy đủ tri thức nghiệp vụ và dây chuyền sản xuất chuyên nghiệp.
+**Idioma**: Vietnamita (Interface) - Inglês (Técnico)
 
----
-
-## 🛠️ 1. Tiền đề (Prerequisites)
-Để hệ thống hoạt động với 100% công suất, bạn nên cài đặt:
-- **Node.js**: Để chạy lệnh cài đặt và quản lý gói.
-- **Python 3.x**: (**Khuyên dùng**) Để các Skill thực thi được các kịch bản tự động như Scanners, Evaluators.
-
-## 🚀 2. Khởi động nhanh (Quick Start)
-
-Để cài đặt hoặc cập nhật hệ thống lên mức Global (toàn cục), hãy sử dụng các lệnh sau:
-
-- **Cài đặt mới**: `npx antigravity-ide` (Cài vào thư mục hiện tại) hoặc `npx antigravity-ide [tên-dự-án]`.
-- **Cập nhật tính năng**: `npx antigravity-ide update` (Bảo tồn nội dung custom).
+Bem-vindo ao sistema Antigravity IDE atualizado. Ele deixou de ser apenas uma ferramenta de programação comum e se tornou uma **Sala de Guerra de IA** com conhecimento completo de negócios e uma linha de produção profissional.
 
 ---
 
-## 🏎️ 2. Chế độ Động cơ (Engine Modes)
-Antigravity hỗ trợ hai chế độ vận hành linh hoạt tùy theo nhu cầu dự án:
+## 🛠️ 1. Pré-requisitos
+Para garantir que o sistema opere com 100% de capacidade, você deve instalar:
 
-- **Standard Mode (Node.js)**: 
-  - *Mục tiêu*: Nhẹ nhàng, tốc độ, Zero-Config.
-  - *Sử dụng*: Phù hợp dự án Web, Portfolio, SaaS vừa và nhỏ.
-  - *Yêu cầu*: Chỉ cần Node.js (đã có sẵn khi dùng npx).
-- **Advanced Mode (Python)**:
-  - *Mục tiêu*: Chuyên sâu, Bảo mật cao, AI phức tạp.
-  - *Sử dụng*: Phù hợp dự án Enterprise, Big Data, Pentest.
-  - *Yêu cầu*: Cần cài đặt Python 3.x trên hệ thống.
+- **Node.js**: Para executar comandos de instalação e gerenciar pacotes.
 
-Hệ thống sẽ tự động ưu tiên gọi công cụ tương ứng với chế độ bạn đã chọn trong `.config.json`.
+- **Python 3.x**: (**Recomendado**) Para habilitar as Skills e executar scripts automatizados, como Scanners e Evaluators.
 
----
+## 🚀 2. Início Rápido
 
-## 🧠 3. Triết lý vận hành: Quy trình PDCA
-Hệ thống hoạt động theo chu kỳ quản trị 4 bước để đảm bảo không bao giờ có code lỗi hoặc thiết kế cẩu thả:
+Para instalar ou atualizar o sistema para o nível Global, use os seguintes comandos:
 
-1.  **🔴 PLAN (Planner)**: Sử dụng `/plan` để Agent phác thảo PRD và bản kế hoạch chi tiết (Task Breakdown). **Bạn duyệt xong Agent mới được làm.**
-2.  **🔵 DO (Workers)**: Các chuyên gia (Backend, Frontend, Security, DB) sẽ thi công song song dựa trên bản kế hoạch đã duyệt.
-3.  **🟡 CHECK (Inspector)**: `quality-inspector` sẽ thanh tra code dựa trên bộ chỉ số `metrics` và danh sách `scenarios` kiểm thử.
-4.  **🟢 ACT (Orchestrator)**: `orchestrator` tổng hợp báo cáo và đưa ra quyết định cuối cùng (Merge code hoặc yêu cầu Worker sửa lại).
+- **Nova instalação**: `npx antigravity-ide` (Instala no diretório atual) ou `npx antigravity-ide [nome-do-projeto]`.
+
+- **Atualização de recursos**: `npx antigravity-ide update` (Preserva o conteúdo personalizado).
 
 ---
 
-## 🎭 3. Hệ thống Agent Chuyên gia (Specialist Agents)
+## 🏎️ 2. Modos do Motor
 
-Mỗi Agent trong hệ thống đều có "não bộ" riêng được nạp qua các file `.md` trong kho Global:
+O Antigravity oferece dois modos de operação flexíveis, dependendo das necessidades do projeto:
 
-- **`project-planner`**: Kiến trúc sư trưởng, người viết PRD và chia nhỏ task.
-- **`backend-specialist`**: Phù thủy Server/API, tuân thủ tuyệt đối API Standards và 3NF Database.
-- **`frontend-specialist`**: Nghệ sĩ giao diện, chuyên gia về Premium UI/UX và Micro-interactions.
-- **`security-auditor`**: Hiệp sĩ bảo vệ, soi lỗi XSS, SQL Injection qua bộ `security-armor`.
-- **`quality-inspector`**: Thanh tra viên, người "bắt lỗi" dựa trên benchmarks và scenarios.
-- **`orchestrator`**: Vị thuyền trưởng điều phối toàn bộ luồng công việc.
+- **Modo Padrão (Node.js)**:
+
+- *Objetivo*: Leve, rápido e sem necessidade de configuração.
+
+- *Uso*: Adequado para projetos Web, de Portfólio e SaaS de pequeno e médio porte.
+
+- *Requisitos*: Apenas o Node.js é necessário (já disponível ao usar o npx).
+
+- **Modo Avançado (Python)**:
+
+- *Objetivos*: Inteligência Artificial complexa, de alta segurança e com profundidade.
+
+- *Uso*: Adequado para projetos corporativos, Big Data e Pentest.
+
+- *Requisitos*: O Python 3.x deve estar instalado no sistema.
+
+O sistema priorizará automaticamente a chamada da ferramenta correspondente ao modo selecionado em `.config.json`.
 
 ---
 
-## 📚 4. Kho tài nguyên Shared (`.shared/`)
-Đây là nơi lưu trữ "DNA" của hệ thống, giúp Agent thông minh hơn theo thời gian:
+## 🧠 3. Filosofia Operacional: Processo PDCA
+O sistema opera de acordo com um ciclo de gerenciamento de 4 etapas para garantir que não haja erros de código ou projetos mal elaborados:
 
-| Th mục | Nội dung |
+1. **🔴 PLANEJAMENTO (Planejador)**: Use `/plan` para que o Agente defina o PRD (Procedimento de Desenvolvimento do Produto) e o plano detalhado (Detalhamento das Tarefas). **Você só pode começar a trabalhar depois que o Agente for aprovado.**
+2. **🔵 EXECUÇÃO (Trabalhadores)**: Especialistas (Backend, Frontend, Segurança, Banco de Dados) trabalharão em paralelo com base no plano aprovado. 3. **🟡 VERIFICAÇÃO (Inspetor)**: O `inspetor de qualidade` inspecionará o código com base nas listas de testes `métricas` e `cenários`.
+
+4. **🟢 AGÊNCIA (Orquestrador)**: O `orquestrador` compila o relatório e toma a decisão final (mesclar o código ou solicitar que o Worker o revise).
+
+---
+
+## 🎭 3. Sistema de Agentes Especialistas
+
+Cada Agente no sistema possui seu próprio "cérebro" carregado por meio de arquivos `.md` no repositório global:
+
+- **`planejador de projeto`**: O arquiteto líder, que escreve o PRD e divide as tarefas.
+
+- **`especialista em backend`**: Especialista em servidor/API, seguindo rigorosamente os padrões de API e a 3FN (Terceira Forma Normal) do banco de dados.
+
+- **`especialista em frontend`**: Artista de interface, especialista em UI/UX premium e microinterações.
+
+- **`security-auditor`**: Cavaleiro da segurança, detectando vulnerabilidades de XSS e SQL Injection através da `security-armadura`.
+
+- **`quality-inspector`**: Inspetor, aquele que "detecta erros" com base em benchmarks e cenários.
+
+- **`orchestrator`**: O capitão que coordena todo o fluxo de trabalho.
+
+---
+
+## 📚 4. Repositório de Recursos Compartilhados (`.shared/`)
+É aqui que o "DNA" do sistema é armazenado, tornando o Agente mais inteligente com o tempo:
+
+| Diretório | Conteúdo |
+
 | :--- | :--- |
-| `domain-blueprints` | Tri thức nghiệp vụ: Fintech, Healthcare, Logistics, F&B, Real Estate... |
-| `api-standards` | Chuẩn giao tiếp: Response format, Error codes, Auth patterns, Naming. |
-| `database-master` | Các Schema mẫu chuẩn 3NF cho Auth, E-commerce, CMS. |
-| `design-system` | Presets thẩm mỹ (Luxury, Tech, Soft) và quy chuẩn Micro-interactions. |
-| `security-armor` | Bộ quy tắc "bất khả xâm phạm" cho ứng dụng. |
-| `testing-master` | Kho kịch bản kiểm thử (Test Scenarios) cho các luồng thanh toán, đăng nhập. |
-| `compliance` | Mẫu pháp lý: Chính sách bảo mật (Privacy Policy) và Điều khoản (TOS). |
-| `metrics` | Các chỉ số Benchmarks về tốc độ và chất lượng code. |
-| `core` | Hệ điều hành (OS) của Agent: Tính cách cốt lõi, Cấu trúc dự án mẫu (Archetypes). |
+
+| `domain-blueprints` | Conhecimento de negócios: Fintech, Saúde, Logística, Alimentos e Bebidas, Imobiliário... |
+
+| `api-standards` | Padrões de comunicação: Formato de resposta, Códigos de erro, Padrões de autenticação, Nomenclatura. |
+
+| `database-master` | Modelos de esquema 3NF padrão para autenticação, comércio eletrônico e CMS. |
+
+| `design-system` | Predefinições estéticas (Luxo, Tecnologia, Suave) e padrões de microinteração. |
+
+| `security-armor` | Um conjunto de regras "impenetráveis" para o aplicativo. |
+
+| `testing-master` | Repositório de cenários de teste para fluxos de pagamento e login. |
+
+| `compliance` | Modelos legais: Política de Privacidade e Termos de Serviço (TOS). |
+
+| `metrics` | Benchmarks para velocidade e qualidade do código. |
+
+| `core` | Sistema Operacional (SO) do Agente: Personalidade Principal, Estrutura de Projeto de Exemplo (Arquétipos). |
 
 ---
 
-## ⌨️ 5. Hệ thống lệnh Slash Command (`/`)
+## ⌨️ 5. Sistema de Comandos de Barra (`/`)
 
-Sử dụng phím **`/`** trong khung chat để kích hoạt các Workflow chuyên sâu:
+Use a tecla **`/`** na caixa de bate-papo para ativar fluxos de trabalho avançados:
 
-- `/brainstorm`: Lên ý tưởng, cấu trúc dự án.
-- `/create`: Khởi tạo dự án mới, App Builder.
-- `/plan`: Lập kế hoạch, phân rã tác vụ.
-- `/ui-ux-pro-max`: Thiết kế giao diện Premium.
-- `/orchestrate`: Điều phối đa Agent phức tạp.
-- `/audit`: Kiểm định chất lượng toàn diện (Security, SEO).
-- `/security`: Hardening & Bảo mật chuyên sâu.
-- `/seo`: Tối ưu hóa tìm kiếm & Growth.
-- `/onboard`: Hướng dẫn thành viên mới.
-- `/document`: Tự động viết tài liệu.
-- `/monitor`: Thiết lập giám sát vận hành.
-- `/status`: Xem Dashboard tiến độ.
+- `/brainstorm`: Brainstorming, estruturação de projetos.
+
+- `/create`: Criação de um novo projeto, Construtor de Aplicativos.
+
+- `/plan`: Planejamento, detalhamento de tarefas.
+
+- `/ui-ux-pro-max`: Design de interface de usuário premium.
+
+- `/orchestrate`: Coordenação complexa de múltiplos agentes.
+
+- `/audit`: Garantia de qualidade abrangente (Segurança, SEO).
+
+- `/security`: Reforço e segurança aprofundados.
+
+- `/seo`: Otimização e crescimento para mecanismos de busca.
+
+- `/onboard`: Integração de novos membros.
+
+- `/document`: Escrita automática de documentação.
+
+- `/monitor`: Configuração do monitoramento operacional.
+
+- `/status`: Visualização do painel de progresso.
 
 ---
 
-## 🛡️ 6. Nguyên tắc "Vỏ Việt - Lõi Anh"
-- **Giao tiếp với người dùng**: Ưu tiên tiếng Việt súc tích, chuyên nghiệp.
-- **Tư duy Kỹ thuật**: Sử dụng tiếng Anh cho biến, hàm, kiến trúc để Agent đạt hiệu suất cao nhất và code dễ bảo trì toàn cầu.
+## 🛡️ 6. O Princípio "Vietnamese Shell - English Core"
+- **Comunicação com o Usuário**: Priorizar um vietnamita conciso e profissional.
 
----
-**Antigravity IDE - Sẵn sàng bẻ gãy mọi quy luật trọng lực để đưa dự án của bạn lên tầm cao mới.** 🚀🛰️
+**Pensamento Técnico**: Use inglês para variáveis, funções e arquitetura para maximizar o desempenho do agente e garantir um código globalmente sustentável.
+
+--- **Antigravity IDE - Pronto para desafiar todas as leis da gravidade e levar seu projeto para o próximo nível.** 🚀🛰️

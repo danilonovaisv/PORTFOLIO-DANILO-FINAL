@@ -1,53 +1,76 @@
-# Hướng Dẫn Khắc Phục Lỗi (Troubleshooting)
+# Guia de Solução de Problemas
 
-Tổng hợp các vấn đề thường gặp khi sử dụng Antigravity IDE và cách xử lý.
+Uma compilação de problemas comuns encontrados ao usar o Antigravity IDE e como resolvê-los.
 
-## 🛠️ Lỗi Cài Đặt
+## 🛠️ Erros de Instalação
 
-### `command not found: antigravity`
--   **Nguyên nhân**: Chưa cài global hoặc lỗi đường dẫn PATH.
--   **Cách sửa**:
-    -   Chạy lại `npm install -g antigravity-ide`
-    -   Hoặc dùng trực tiếp `npx antigravity-ide` (không cần cài).
+### `comando não encontrado: antigravity`
+- **Causa**: Versão global não instalada ou erro no PATH.
 
-### `EACCES: permission denied`
--   **Nguyên nhân**: Không đủ quyền ghi file hệ thống.
--   **Cách sửa**:
-    -   Mac/Linux: Thêm `sudo` trước lệnh.
-    -   Windows: Chạy CMD/PowerShell dưới quyền Admin.
+- **Solução**:
 
-## 🤖 Lỗi AI & Runtime
+- Execute `npm install -g antigravity-ide` novamente.
 
-### "Agent is not responding" (Agent im lặng)
--   **Kiểm tra**: File `.env` đã có API Key chưa?
--   **Cách sửa**:
-    -   Xem lại `GEMINI_API_KEY`.
-    -   Check mạng internet.
+- Ou use `npx antigravity-ide` diretamente (nenhuma instalação é necessária).
 
-### "Token limit exceeded" (Hết token)
--   **Nguyên nhân**: Cuộc hội thoại quá dài, tràn bộ nhớ context.
--   **Cách sửa**:
-    -   Tắt chat đi mở lại hội thoại mới.
-    -   Dùng model xịn hơn (Gemini 1.5 Pro) nếu có thể.
+### `EACCES: permissão negada`
 
-## 📦 Lỗi Thư Viện (Dependencies)
+- **Causa**: Permissões de gravação de arquivo de sistema insuficientes.
+
+- **Solução**:
+
+- Mac/Linux: Adicione `sudo` antes do comando.
+
+- Windows: Execute o CMD/PowerShell como administrador.
+
+## 🤖 Erros de IA e de Tempo de Execução
+
+### "O agente não está respondendo"
+- **Verificação**: O arquivo `.env` contém a chave da API?
+
+- **Solução**:
+
+- Verifique `GEMINI_API_KEY`.
+
+- Verifique sua conexão com a internet.
+
+### "Limite de tokens excedido"
+
+- **Causa**: A conversa é muito longa, causando um estouro de memória de contexto.
+
+- **Solução**:
+
+- Feche o chat e abra uma nova conversa.
+
+- Use um modelo melhor (Gemini 1.5 Pro), se possível.
+
+## 📦 Erros de Biblioteca (Dependências)
 
 ### `npm ERR! legacy-peer-deps`
--   **Nguyên nhân**: Xung đột phiên bản (thường gặp với React cũ/mới).
--   **Cách sửa**:
-    -   Thêm cờ: `npm install --legacy-peer-deps`
+
+- **Causa**: Conflito de versões (comum em versões antigas/novas do React).
+
+- **Como corrigir**:
+
+- Adicione a flag: `npm install --legacy-peer-deps`
 
 ---
 
-## 🆘 Vẫn không sửa được?
-Hãy tạo Issue trên [GitHub](https://github.com/Dokhacgiakhoa/google-antigravity/issues) để team hỗ trợ nhé!
+## 🆘 Ainda não está corrigido?
 
-## 🐛 Known Bugs (Các lỗi đã biết)
+Por favor, crie uma Issue no [GitHub](https://github.com/Dokhacgiakhoa/google-antigravity/issues) para obter suporte da equipe!
+
+## 🐛 Bugs conhecidos
 
 ### `ReferenceError: commonRules is not defined`
--   **Nguyên nhân**: Máy bạn đang cài sẵn phiên bản cũ (v3.5.54 hoặc cũ hơn) ở chế độ Global, gây xung đột với lệnh `npx`.
--   **Cách sửa triệt để**: Gỡ bỏ bản Global cũ để npx tải bản mới nhất.
-    ```bash
-    npm uninstall -g antigravity-ide
-    npx antigravity-ide@latest
-    ```
+- **Causa**: Sua máquina possui uma versão antiga (v3.5.54 ou anterior) instalada no modo Global, causando um conflito com o comando `npx`.
+
+- **Solução completa**: Desinstale a versão Global antiga para que o npx baixe a versão mais recente.
+
+``bash
+
+npm uninstall -g antigravity-ide
+
+npx antigravity-ide@latest
+
+```

@@ -1,63 +1,75 @@
-# 🔄 Hướng Dẫn Cập Nhật (Update Guide)
+# 🔄 Guia de Atualização
 
-AntiGravity IDE có cơ chế cập nhật "kép" độc đáo. Bạn cần hiểu rõ để chọn phương pháp phù hợp.
+O AntiGravity IDE possui um mecanismo de atualização "duplo" exclusivo. É necessário compreendê-lo para escolher o método apropriado.
 
 ---
 
-## 1. Cập nhật Core (CLI & System Rules)
-Đây là việc cập nhật bản thân công cụ `npx antigravity-ide`.
+## 1. Atualização do Núcleo (CLI e Regras do Sistema)
+Isso envolve a atualização da própria ferramenta `npx antigravity-ide`.
 
-### Cách làm:
-Chỉ cần chạy lệnh "vạn năng" trong thư mục dự án của bạn:
+### Como fazer:
+Basta executar o comando "universal" no diretório do seu projeto:
 ```bash
 npx antigravity-ide
 ```
-Hệ thống sẽ tự động khởi động **Repair & Update Mode**:
-1.  **Check**: Kiểm tra tính toàn vẹn của dự án.
-2.  **Update**: Cập nhật Engine và Rules mới nhất từ NPM.
-3.  **Repair**: Khôi phục các file hệ thống bị hỏng hoặc mất.
-4.  **Sync**: Đồng bộ DNA chuẩn v4.0.8 mới nhất.
+O sistema iniciará automaticamente o **Modo de Reparo e Atualização**:
 
-### Kiểm tra phiên bản hiện tại:
+1. **Verificar**: Verifica a integridade do projeto.
+
+2. **Atualizar**: Atualiza o Engine e as Regras mais recentes do NPM.
+
+3. **Reparar**: Restaura arquivos de sistema corrompidos ou perdidos.
+
+4. **Sincronizar**: Sincroniza o DNA padrão mais recente, versão 4.0.8.
+
+### Verificar versão atual:
 ```bash
 npx antigravity-ide --version
 ```
 
 ---
+## 2. Atualizar Habilidades e Fluxo de Trabalho (Autoatualização)
+Isso atualiza o **conteúdo interno** do seu projeto (Habilidades, Prompts, Fluxos de Trabalho) sem alterar a estrutura do projeto.
 
-## 2. Cập nhật Kỹ năng & Workflow (Self-Update)
-Đây là cập nhật **nội dung bên trong** dự án của bạn (Skills, Prompts, Workflows) mà không thay đổi cấu trúc dự án.
-
-### Sử dụng Workflow:
-Trong quá trình chat với AI, bạn có thể ra lệnh:
+### Usando o Fluxo de Trabalho:
+Durante o chat com a IA, você pode executar o comando:
 ```
 /update
 ```
-AI sẽ kiểm tra các thay đổi trong kho kiến thức trung tâm và đồng bộ về dự án của bạn.
+A IA verificará as alterações na base de conhecimento central e as sincronizará com o seu projeto.
 
-### Sử dụng CLI:
+### Usando a CLI:
 ```bash
 npx antigravity-ide update
 ```
-Lệnh này sẽ tải lại danh sách các `Global Skills` mới nhất về máy.
+Este comando recarregará a lista mais recente de `Habilidades Globais` em sua máquina.
 
 ---
 
-## 3. Chiến lược Cập nhật An toàn (Safe Update Strategy)
+## 3. Estratégia de Atualização Segura
 
-Khi cập nhật một dự án đang chạy (Production), hãy tuân thủ quy tắc:
+Ao atualizar um projeto em execução (Produção), siga estas regras:
 
-1. **Backup**: Luôn commit code lên Git trước khi update.
-2. **Review**: Khi chạy `init` lại, hệ thống sẽ hỏi `Overwrite?`.
-   - Chọn **No** để tạo file `.new`.
-   - Dùng công cụ Diff (như trong VS Code) để so sánh file cũ và file `.new`.
-   - Thủ công copy những phần cải tiến mới vào file cũ.
-3. **Test**: Chạy `/test` workflow sau khi cập nhật để đảm bảo không có gì bị hỏng.
+1. **Backup**: Sempre faça commit do código no Git antes de atualizar.
+
+2. **Revisão**: Ao executar `init` novamente, o sistema perguntará "Sobrescrever?".
+
+- Selecione **Não** para criar um arquivo `.new`.
+
+- Use a ferramenta Diff (como no VS Code) para comparar o arquivo antigo com o arquivo `.new`.
+
+- Copie manualmente as novas melhorias para o arquivo antigo.
+
+3. **Teste**: Execute o fluxo de trabalho `/test` após a atualização para garantir que nada esteja quebrado.
 
 ---
 
-## 4. Xử lý sự cố sau cập nhật
-Nếu Agent hoạt động lạ sau khi update:
-1. Xóa thư mục `.agent/skills` và chạy lại `init`.
-2. Kiểm tra file `GEMINI.md` xem có bị mất các rule quan trọng không.
-3. Tham khảo [TROUBLESHOOTING.vi.md](./TROUBLESHOOTING.vi.md).
+## 4. Solução de Problemas Após Atualizações
+
+Se o Agente apresentar comportamento estranho após a atualização:
+
+1. Exclua a pasta `.agent/skills` e execute `init` novamente.
+
+2. Verifique o arquivo `GEMINI.md` para ver se alguma regra importante está faltando.
+
+3. Consulte [TROUBLESHOOTING.vi.md](./TROUBLESHOOTING.vi.md).
