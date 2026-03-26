@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 import type { SupabaseClient, User } from '@supabase/supabase-js';
 import { isAdminUser, shouldEnforceAdminRole } from '@/lib/admin/authz';
 import { createClient } from '@/lib/supabase/server';
@@ -50,7 +51,7 @@ export async function requireAdminAccess(
     supabase = await createClient({ admin: true });
     privilegeLevel = 'service_role';
   } catch (error) {
-    console.warn(
+    logger.warn(
       '[Admin Access] service role unavailable, using request-scoped client.',
       {
         reason: error instanceof Error ? error.message : 'unknown',
