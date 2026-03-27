@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { Edit, ExternalLink, Plus, Trash2 } from 'lucide-react';
+import { Edit, ExternalLink, Plus } from 'lucide-react';
 import {
-  deleteLandingPageAction,
   listLandingPagesAction,
 } from '@/app/admin/(protected)/landing-pages/actions';
+import { DeleteLandingPageButton } from '@/components/admin/DeleteLandingPageButton';
 import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
@@ -121,8 +121,10 @@ export default async function LandingPagesListPage() {
                           <Link
                             href={`/projects/${page.slug}`}
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="p-2 text-slate-400 transition-colors hover:text-white"
                             title="Ver página pública"
+                            aria-label={`Ver página pública: ${page.title}`}
                           >
                             <ExternalLink size={18} />
                           </Link>
@@ -130,23 +132,14 @@ export default async function LandingPagesListPage() {
                             href={`/admin/landing-pages/${page.id}`}
                             className="p-2 text-slate-400 transition-colors hover:text-blue-400"
                             title="Editar"
+                            aria-label={`Editar projeto: ${page.title}`}
                           >
                             <Edit size={18} />
                           </Link>
-                          <form
-                            action={async () => {
-                              'use server';
-                              await deleteLandingPageAction(page.id);
-                            }}
-                          >
-                            <button
-                              className="p-2 text-slate-400 transition-colors hover:text-red-400"
-                              title="Excluir"
-                              type="submit"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </form>
+                          <DeleteLandingPageButton
+                            id={page.id}
+                            title={page.title}
+                          />
                         </div>
                       </td>
                     </tr>
@@ -194,29 +187,24 @@ export default async function LandingPagesListPage() {
                     <Link
                       href={`/projects/${page.slug}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="text-slate-400 hover:text-white flex items-center gap-1 text-xs"
+                      aria-label={`Ver página pública: ${page.title}`}
                     >
                       <ExternalLink size={16} /> Ver
                     </Link>
                     <Link
                       href={`/admin/landing-pages/${page.id}`}
                       className="text-slate-400 hover:text-blue-400 flex items-center gap-1 text-xs"
+                      aria-label={`Editar projeto: ${page.title}`}
                     >
                       <Edit size={16} /> Editar
                     </Link>
-                    <form
-                      action={async () => {
-                        'use server';
-                        await deleteLandingPageAction(page.id);
-                      }}
-                    >
-                      <button
-                        type="submit"
-                        className="text-slate-400 hover:text-red-400 flex items-center gap-1 text-xs"
-                      >
-                        <Trash2 size={16} /> Excluir
-                      </button>
-                    </form>
+                    <DeleteLandingPageButton
+                      id={page.id}
+                      title={page.title}
+                      compact
+                    />
                   </div>
                 </div>
               ))}

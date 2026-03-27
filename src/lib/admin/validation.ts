@@ -14,6 +14,8 @@ export function errorResponse(
 ): ActionResponse {
   console.error(`[Admin Action Error] ${message}`, error);
 
+  const isProduction = process.env.NODE_ENV === 'production';
+
   let details = '';
   let code = '';
   let hint = '';
@@ -24,6 +26,13 @@ export function errorResponse(
     hint = (error as any).hint || '';
   } else if (error instanceof Error) {
     details = error.message;
+  }
+
+  if (isProduction) {
+    return {
+      ok: false,
+      error: code ? `[${code}] ${message}` : message,
+    };
   }
 
   const finalMessage = details ? `${message} Detalhes: ${details}` : message;
