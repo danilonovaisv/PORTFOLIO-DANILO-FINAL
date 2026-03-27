@@ -34,6 +34,10 @@ export function isAdminUser(user: User | null | undefined): boolean {
 }
 
 export function shouldEnforceAdminRole(): boolean {
+  if (process.env.NODE_ENV === 'production') {
+    return true;
+  }
+
   const value = process.env.ADMIN_ENFORCE_ROLE?.trim().toLowerCase();
   return value !== 'false' && value !== '0' && value !== 'off';
 }

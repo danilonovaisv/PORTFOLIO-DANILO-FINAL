@@ -33,3 +33,10 @@ Apoiar criação de material visual com batch, presets e múltiplos modelos para
   - variavel de ambiente do servidor; ou
   - `site_settings.openai_api_key`, desde que `SUPABASE_SERVICE_ROLE_KEY` esteja configurada.
 - Se nenhuma fonte valida estiver disponivel, a tela deve retornar erro operacional orientando o editor a revisar `/admin/settings`.
+
+## 6. Atualização de estado — 2026-03-27
+
+- Disponibilidade de modelos foi alinhada ao backend real:
+  - somente `dall-e-3` fica elegível para geração de imagens no estado atual.
+  - demais opções permanecem visíveis como indisponíveis (`Em breve`) até integração efetiva por provedor.
+- Objetivo: eliminar mismatch entre seleção visual de modelo e execução real no servidor.
