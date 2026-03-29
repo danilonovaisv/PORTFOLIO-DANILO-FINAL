@@ -23,6 +23,11 @@ export const InputField: React.FC<InputFieldProps> = ({
         className="block text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
       >
         {label}
+        {props.required && (
+          <span className="text-red-500 ml-1" aria-hidden="true">
+            *
+          </span>
+        )}
       </label>
       <input
         id={id}
@@ -36,6 +41,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       {error && (
         <p
           id={`${id}-error`}
+          role="alert"
           className="mt-2 text-xs text-red-600 font-bold uppercase"
         >
           {error}
@@ -66,6 +72,11 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
         className="block text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
       >
         {label}
+        {props.required && (
+          <span className="text-red-500 ml-1" aria-hidden="true">
+            *
+          </span>
+        )}
       </label>
       <textarea
         id={id}
@@ -79,6 +90,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       {error && (
         <p
           id={`${id}-error`}
+          role="alert"
           className="mt-2 text-xs text-red-600 font-bold uppercase"
         >
           {error}
