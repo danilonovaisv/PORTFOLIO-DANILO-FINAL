@@ -32,15 +32,21 @@ interface ProjectCardProps {
  * ProjectCard - Ghost Era v2.1
  * Card editorial com hover states refinados.
  * Sempre mostra imagem estática por padrão; vídeo aparece no hover se disponível.
+ *
+ * ⚡ BOLT OPTIMIZATION: Wrapped with React.memo to prevent unnecessary re-renders.
+ * ProjectsGallery renders many of these cards and often re-renders on pagination
+ * or filter changes. Memoizing prevents recalculating media URLs, motion
+ * properties, and DOM layout for cards whose props haven't changed.
+ * Expected impact: Significant reduction in render time during gallery interactions.
  */
-export const ProjectCard = ({
+export const ProjectCard = React.memo(function ProjectCard({
   project,
   index,
   onClick,
   className = '',
   priority = false,
   size = 'md',
-}: ProjectCardProps) => {
+}: ProjectCardProps) {
   const reduceMotion = useMotionGate();
 
   const motionProps = reduceMotion
@@ -306,4 +312,4 @@ export const ProjectCard = ({
       </div>
     </motion.button>
   );
-};
+});
