@@ -37,6 +37,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         <p
           id={`${id}-error`}
           className="mt-2 text-xs text-red-600 font-bold uppercase"
+          role="alert"
         >
           {error}
         </p>
@@ -80,6 +81,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
         <p
           id={`${id}-error`}
           className="mt-2 text-xs text-red-600 font-bold uppercase"
+          role="alert"
         >
           {error}
         </p>
