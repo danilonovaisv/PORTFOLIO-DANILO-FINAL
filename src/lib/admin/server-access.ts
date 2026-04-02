@@ -1,4 +1,4 @@
-import { logger } from "@/lib/logger";
+import { logger } from '@/lib/logger';
 import type { SupabaseClient, User } from '@supabase/supabase-js';
 import { isAdminUser, shouldEnforceAdminRole } from '@/lib/admin/authz';
 import { createClient } from '@/lib/supabase/server';

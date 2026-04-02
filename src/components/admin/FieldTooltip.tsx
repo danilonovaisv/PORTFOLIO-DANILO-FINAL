@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleHelp } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -32,7 +32,7 @@ export function FieldTooltip({
               type="button"
               className="inline-flex h-5 w-5 items-center justify-center rounded-full text-slate-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             >
-              <CircleHelp size={14} aria-hidden="true" />
+              <HelpCircle size={14} aria-hidden="true" />
             </button>
           </TooltipTrigger>
           <TooltipContent

@@ -3,10 +3,10 @@ import {
   Mail,
   Phone,
   MapPin,
-  Linkedin,
-  Instagram,
-  Twitter,
-  Facebook, // Adicionado conforme spec
+  LinkedinIcon,
+  InstagramIcon,
+  TwitterIcon,
+  FacebookIcon, // Adicionado conforme spec
 } from 'lucide-react';
 import { getGhostAssetUrl } from '@/lib/utils';
 
@@ -198,22 +198,22 @@ export const SOCIALS = [
   {
     platform: 'LinkedIn',
     url: 'https://www.linkedin.com/in/danilonovaisv',
-    icon: <Linkedin className="w-5 h-5" />,
+    icon: <LinkedinIcon className="w-5 h-5" />,
   },
   {
-    platform: 'Instagram',
+    platform: 'InstagramIcon',
     url: 'https://instagram.com/danilo_novais',
-    icon: <Instagram className="w-5 h-5" />,
+    icon: <InstagramIcon className="w-5 h-5" />,
   },
   {
-    platform: 'Facebook', // Adicionado da Spec
+    platform: 'FacebookIcon', // Adicionado da Spec
     url: 'https://facebook.com/danilonovaisvilela',
-    icon: <Facebook className="w-5 h-5" />,
+    icon: <FacebookIcon className="w-5 h-5" />,
   },
   {
-    platform: 'Twitter',
+    platform: 'TwitterIcon',
     url: 'https://twitter.com/danilo_novais',
-    icon: <Twitter className="w-5 h-5" />,
+    icon: <TwitterIcon className="w-5 h-5" />,
   },
 ];
 

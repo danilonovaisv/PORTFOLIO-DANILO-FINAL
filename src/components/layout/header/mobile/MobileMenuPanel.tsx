@@ -2,7 +2,7 @@
 
 import React, { forwardRef, RefObject } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, Mail } from 'lucide-react';
+import { InstagramIcon, LinkedinIcon, Mail } from 'lucide-react';
 import { SOCIALS } from '@/config/navigation';
 import type { NavItem } from '@/components/layout/header/types';
 import { isNavItemActive } from '@/components/layout/header/nav-state';
@@ -89,12 +89,12 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
               {
                 label: 'LinkedIn',
                 href: SOCIALS.linkedin,
-                icon: <Linkedin className="w-5 h-5" />,
+                icon: <LinkedinIcon className="w-5 h-5" />,
               },
               {
-                label: 'Instagram',
+                label: 'InstagramIcon',
                 href: SOCIALS.instagram,
-                icon: <Instagram className="w-5 h-5" />,
+                icon: <InstagramIcon className="w-5 h-5" />,
               },
               {
                 label: 'Email',
