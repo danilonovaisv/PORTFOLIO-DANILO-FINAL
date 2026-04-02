@@ -36,3 +36,9 @@ Garantir que somente usuários autorizados acessem `/admin/*`, com navegação u
 
 - Corrigido mismatch de hidratação no shell mobile: o `Sheet` do menu admin passa a montar somente após `mounted` no client.
 - Guardas de acesso agora suportam flag `requireServiceRole` para operações críticas que precisam bypass de RLS com `service_role`.
+
+## 7. Atualização de estado — 2026-03-27
+
+- Hardening de autorização aplicado em produção: `shouldEnforceAdminRole()` agora sempre retorna `true` quando `NODE_ENV=production`.
+- O bypass via `ADMIN_ENFORCE_ROLE` permanece disponível apenas em ambientes não-produtivos.
+- Objetivo: reduzir risco operacional de exposição acidental do CMS por configuração incorreta de ambiente.

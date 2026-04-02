@@ -1,11 +1,11 @@
-# 🗑️ Hướng Dẫn Gỡ Cài Đặt (Uninstall Guide)
+# 🗑️ Guia de Desinstalação
 
-Tài liệu này hướng dẫn cách gỡ bỏ hoàn toàn **AntiGravity IDE** khỏi hệ thống của bạn, bao gồm cả các file cấu hình và bộ nhớ đệm (cache).
+Este documento orienta você sobre como remover completamente o **AntiGravity IDE** do seu sistema, incluindo arquivos de configuração e cache.
 
 ---
 
-## 1. Gỡ bỏ Global Config
-AntiGravity lưu trữ cấu hình chung (tên Agent, ngôn ngữ mặc định) tại thư mục Home của người dùng. Để xóa sạch:
+## 1. Remover Configuração Global
+O AntiGravity armazena a configuração global (nome do agente, idioma padrão) no diretório Home do usuário. Para limpar:
 
 ### Windows (PowerShell)
 ```powershell
@@ -18,41 +18,46 @@ rm -rf ~/.antigravity
 ```
 
 ---
-
-## 2. Gỡ bỏ NPX Cache (Tùy chọn)
-Nếu bạn không muốn `npx` lưu giữ bản copy của AntiGravity:
+## 2. Remover o cache do NPX (Opcional)
+Se você não quiser que o `npx` mantenha uma cópia do AntiGravity:
 
 ```bash
 npm cache clean --force
 ```
-*Lưu ý: Lệnh này sẽ xóa toàn bộ cache của npm, không chỉ riêng AntiGravity.*
+*Observação: Este comando limpará todo o cache do npm, não apenas o do AntiGravity.*
 
-Nếu bạn muốn xóa riêng gói này (nếu đã cài global):
+Se você quiser remover este pacote separadamente (se instalado globalmente):
+
 ```bash
 npm uninstall -g antigravity-ide
 ```
 
 ---
+## 3. Remover do Projeto (Projeto Local)
+Se você inicializou o projeto e deseja "começar do zero":
 
-## 3. Gỡ bỏ khỏi Dự án (Local Project)
-Nếu bạn đã khởi tạo dự án và muốn "xóa bài làm lại từ đầu":
+1. **Exclua o arquivo `.agent` Pasta:**
 
-1. **Xóa thư mục `.agent`**:
-   Đây là nơi chứa "não bộ", kỹ năng và quy tắc của Agent.
-   ```bash
-   rm -rf .agent
-   ```
+É aqui que se encontram o "cérebro", as habilidades e as regras do Agente.
 
-2. **Xóa các file cấu hình**:
-   ```bash
-   rm GEMINI.md README.md .gitignore .editorconfig .gitattributes package.json
-   ```
+```bash
+
+rm -rf .agent
+
+```
+
+2. **Exclua os arquivos de configuração:**
+
+```bash
+
+rm GEMINI.md README.md .gitignore .editorconfig .gitattributes package.json
+
+```
 
 ---
-
-## 4. Kiểm tra lại
-Gõ lệnh sau để đảm bảo hệ thống không còn nhận diện AntiGravity:
+## 4. Verifique
+Digite o seguinte comando para garantir que o sistema não reconheça mais o AntiGravity:
 ```bash
 antigravity --version
 ```
-Nếu báo lỗi `command not found` hoặc tương tự, bạn đã gỡ bỏ thành công.
+Se a mensagem exibida for "comando não encontrado" ou similar, você desinstalou o programa com sucesso.

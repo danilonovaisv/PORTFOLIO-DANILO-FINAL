@@ -20,14 +20,20 @@ export const InputField: React.FC<InputFieldProps> = ({
     <div>
       <label
         htmlFor={id}
-        className="block text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
+        className="flex items-center text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
       >
         {label}
+        {props.required && (
+          <span className="text-red-500 ml-1" aria-hidden="true" title="Obrigatório">
+            *
+          </span>
+        )}
       </label>
       <input
         id={id}
         aria-invalid={isInvalid}
         aria-describedby={error ? `${id}-error` : undefined}
+        aria-required={props.required ? 'true' : undefined}
         className={`w-full min-h-[48px] rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 ${
           error ? 'border-red-500' : ''
         } ${className}`}
@@ -37,6 +43,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         <p
           id={`${id}-error`}
           className="mt-2 text-xs text-red-600 font-bold uppercase"
+          role="alert"
         >
           {error}
         </p>
@@ -63,14 +70,20 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
     <div>
       <label
         htmlFor={id}
-        className="block text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
+        className="flex items-center text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
       >
         {label}
+        {props.required && (
+          <span className="text-red-500 ml-1" aria-hidden="true" title="Obrigatório">
+            *
+          </span>
+        )}
       </label>
       <textarea
         id={id}
         aria-invalid={isInvalid}
         aria-describedby={error ? `${id}-error` : undefined}
+        aria-required={props.required ? 'true' : undefined}
         className={`w-full resize-none rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${
           error ? 'border-red-500' : ''
         } ${className}`}
@@ -80,6 +93,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
         <p
           id={`${id}-error`}
           className="mt-2 text-xs text-red-600 font-bold uppercase"
+          role="alert"
         >
           {error}
         </p>

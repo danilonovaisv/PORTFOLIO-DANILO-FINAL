@@ -1,106 +1,126 @@
-# 📦 Hướng Dẫn Cài Đặt Node.js & Sử Dụng NPX
+# 📦 Guia de Instalação do Node.js e Guia de Uso do NPX
 
-> **Easy Vibe, Lazy Code. One Command to Rule Them All.** 🛰️🚀
+> **Ambiente tranquilo, código fácil. Um comando para governar todos.** 🛰️🚀
 
-Lệnh `npx` là cách nhanh nhất và an toàn nhất để trải nghiệm **AntiGravity IDE** mà không cần cài đặt cố định vào máy. Tài liệu này sẽ hướng dẫn bạn thiết lập môi trường từ con số 0.
-
----
-
-## 1. NPX là gì?
-`npx` (Node Package Runner) là một công cụ đi kèm với **npm** (v5.2.0+). Nó cho phép bạn:
-- Chạy các gói (packages) mà không cần cài đặt global (`-g`).
-- Đảm bảo bạn luôn sử dụng phiên bản mới nhất.
-- Tránh xung đột giữa các phiên bản phần mềm cũ và mới.
+O comando `npx` é a maneira mais rápida e segura de experimentar o **AntiGravity IDE** sem instalação permanente em sua máquina. Este documento irá guiá-lo na configuração do ambiente do zero.
 
 ---
 
-## 2. Các bước cài đặt (Từng bước)
+## 1. O que é NPX?
 
-### Bước 1: Tải và cài đặt Node.js
-Để có `npx`, bạn cần cài đặt **Node.js** (bao gồm npm).
-1. Truy cập trang chủ: [nodejs.org](https://nodejs.org/)
-2. Chọn phiên bản **LTS** (Recommended For Most Users) - Đây là bản ổn định nhất.
-3. Chạy file cài đặt (`.msi` trên Windows, `.pkg` trên Mac) và bấm **Next** cho đến khi hoàn tất.
+`npx` (Node Package Runner) é uma ferramenta incluída no **npm** (v5.2.0+). Ele permite:
 
-### Bước 2: Kiểm tra cài đặt
-Mở Terminal (Command Prompt hoặc PowerShell trên Windows) và gõ:
+- Executar pacotes sem instalá-los globalmente (`-g`).
+
+- Garantir que você sempre use a versão mais recente.
+
+- Evitar conflitos entre versões antigas e novas do software.
+
+---
+
+## 2. Etapas de Instalação (Passo a Passo)
+
+### Etapa 1: Baixe e Instale o Node.js
+Para obter o `npx`, você precisa instalar o **Node.js** (incluindo o npm).
+
+1. Acesse a página inicial: [nodejs.org](https://nodejs.org/)
+2. Selecione a versão **LTS** (Recomendada para a maioria dos usuários) - Esta é a versão mais estável.
+
+3. Execute o arquivo de instalação (`.msi` no Windows, `.pkg` no Mac) e clique em **Avançar** até concluir.
+
+### Etapa 2: Verificar a Instalação
+Abra o Terminal (Prompt de Comando ou PowerShell no Windows) e digite:
 ```bash
 node -v
 npm -v
 npx -v
 ```
-> [!TIP]
-> Nếu các lệnh trên trả về số phiên bản (ví dụ: `v20.x.x`), nghĩa là bạn đã cài đặt thành công!
+> [!DICA]
+> Se os comandos acima retornarem o número da versão (por exemplo, `v20.x.x`), significa que você instalou com sucesso!
 
-### Bước 3: Cài đặt Python (Tùy chọn - Cho AI/Data)
-Nếu bạn dự định sử dụng các tính năng cao cấp (Advanced AI, Data Science, Security Scanner), bạn nên cài đặt thêm **Python**.
-1. Truy cập: [python.org](https://www.python.org/downloads/)
-2. Tải bản mới nhất và cài đặt.
-3. **Quan trọng**: Tích chọn "Add Python to PATH" trong khi cài đặt.
+### Etapa 3: Instalar o Python (Opcional - Para IA/Dados)
+Se você planeja usar recursos avançados (IA Avançada, Ciência de Dados, Scanner de Segurança), você deve instalar o **Python**.
+
+1. Acesse: [python.org](https://www.python.org/downloads/)
+2. Baixe a versão mais recente e instale-a.
+
+3. **Importante**: Marque a opção "Adicionar Python ao PATH" durante a instalação.
 
 ---
 
-## 3. Khởi độnɡ AntiGravity IDE (Lệnh Vạn Năng)
-Bạn chỉ cần một lệnh duy nhất để xử lý mọi tình huốnɡ (Tạo mới, Cập nhật, Sửa lỗi, Đồng bộ):
+## 3. Iniciando o AntiGravity IDE (Comando Universal)
+Você só precisa de um comando para lidar com todas as situações (Criar, Atualizar, Corrigir, Sincronizar):
 
 ```bash
-npx antigravity-ide [tên_dự_án]
+npx antigravity-ide [nome_do_projeto]
 ```
-- **Nếu thư mục chưa có gì**: Hệ thống sẽ tạo mới (Create).
-- **Nếu đã là dự án Antigravity IDE**: Hệ thống sẽ tự động kiểm tra, sửa lỗi (Repair), cập nhật Rules mới nhất (Update) và đồng bộ DNA (Fix).
+- **Se o diretório estiver vazio**: O sistema criará um novo (Criar).
+
+- **Se já for um projeto do AntiGravity IDE**: O sistema verificará automaticamente, corrigirá erros (Reparar), atualizará as regras mais recentes (Atualizar) e sincronizará o DNA (Corrigir).
 
 ---
+## 4. Referência Rápida da CLI
 
-## 4. Tra cứu nhanh CLI (Quick Reference)
+| Situação | Comando | Significado |
 
-| Tình huống | Lệnh (Command) | Ý nghĩa |
 | :--- | :--- | :--- |
-| **Cài lần đầu** | `npx antigravity-ide .` | Khởi tạo vào thư mục hiện tại. |
-| **Sửa lỗi/Update** | `npx antigravity-ide` | Tự động rà soát và vá lỗi (Repair & Update). |
-| **Đè lại toàn bộ** | `npx antigravity-ide --force` | Cưỡng bức khôi phục các Rule về bản gốc. |
-| **Check bản IDE** | `npx antigravity-ide --version` | Kiểm tra phiên bản Engine. |
 
-### Tham số phổ biến:
-- **`-s, --skip-prompts`**: Khởi tạo thần tốc bằng các giá trị mặc định.
-- **`-t, --template <type>`**: Chọn mẫu project (`minimal`, `standard`, `full`).
-- **`-f, --force`**: Cưỡng bức ghi đè khi sửa lỗi dự án cũ.
+| **Primeira Instalação** | `npx antigravity-ide .` | Inicializa no diretório atual. |
+
+| **Corrigir/Atualizar** | `npx antigravity-ide` | Analisa e corrige erros automaticamente (Reparar e Atualizar).
+
+| **Sobrescrever** | `npx antigravity-ide --force` | Força a restauração das regras ao seu estado original.
+
+| **Verificar versão da IDE** | `npx antigravity-ide --version` | Verifica a versão do mecanismo.
+
+### Parâmetros comuns:
+- **`-s, --skip-prompts`**: Inicializa rapidamente usando os valores padrão.
+
+- **`-t, --template <tipo>`**: Seleciona o modelo do projeto (`minimal`, `standard`, `full`).
+
+- **`-f, --force`**: Força a sobrescrita ao corrigir erros no projeto antigo.
 
 ---
 
-## 5. Xử lý Trùng lặp File (Conflict Resolution)
-Nếu bạn cài đặt vào một thư mục đã có sẵn các file cấu hình (như `GEMINI.md`, `package.json`), hệ thống sẽ hỏi bạn cách xử lý để bảo vệ dữ liệu cũ.
+## 5. Resolução de Arquivos Duplicados
+Se você instalar em um diretório que já contém arquivos de configuração (como `GEMINI.md`, `package.json`), o sistema perguntará como proceder para proteger os dados antigos.
 
-### 🛡️ Cơ chế Tương tác (Mặc định)
-Hệ thống sẽ dừng lại và hỏi bạn từng file:
+### 🛡️ Mecanismo Interativo (Padrão)
+O sistema irá parar e perguntar sobre cada arquivo:
 ```bash
-⚠️  File "GEMINI.md" already exists. Overwrite? / File đã tồn tại. Ghi đè? [y/N]
+⚠️ O arquivo "GEMINI.md" já existe. Sobrescrever? / O arquivo já existe. Sobrescrever? [s/N]
 ```
-- **Yes (y)**: Ghi đè file cũ bằng file mới nhất.
-- **No (n)**: Tạo file backup an toàn (ví dụ: `GEMINI.new.md`) và giữ nguyên file cũ.
+- **Sim (s)**: Sobrescrever o arquivo antigo com o arquivo mais recente.
 
-### 🔥 Ghi đè Cưỡng bức (Force Overwrite)
-Nếu bạn muốn reset dự án và chấp nhận mất cấu hình cũ, hãy dùng cờ `--force`:
+- **Não (n)**: Criar um arquivo de backup seguro (por exemplo, `GEMINI.novo.md`) e manter o arquivo antigo.
+
+### 🔥 Forçar Sobrescrita
+Se você deseja redefinir o projeto e aceitar a perda da configuração antiga, use a flag `--force`:
 ```bash
 npx antigravity-ide . --force
 ```
-> **Tác dụng**: Bỏ qua tất cả câu hỏi và ghi đè toàn bộ file trùng lặp để đưa dự án về trạng thái chuẩn nhất.
+> **Efeito**: Ignora todos os avisos e sobrescreve todos os arquivos duplicados para retornar o projeto ao seu estado mais preciso.
 
 ---
 
-## 🛠️ Các lỗi thường gặp (Troubleshooting)
+## 🛠️ Erros Comuns (Solução de Problemas)
 
-### 1. `command not found: npx`
-- **Nguyên nhân**: Node.js chưa được cài đặt hoặc chưa được thêm vào biến môi trường (PATH).
-- **Cách sửa**: Khởi động lại máy tính sau khi cài Node.js. Nếu vẫn không được, hãy cài lại Node.js và tích hợp tùy chọn "Add to PATH".
+### 1. `comando não encontrado: npx`
+- **Causa**: O Node.js não está instalado ou não foi adicionado à variável de ambiente (PATH).
 
-### 2. Lỗi quyền truy cập (`EACCES` hoặc `Permission Denied`)
-- **Windows**: Hãy chạy Terminal dưới quyền **Administrator**.
-- **Mac/Linux**: Bạn có thể cần thêm `sudo` trước lệnh: `sudo npx antigravity-ide`.
+- **Solução**: Reinicie o computador após instalar o Node.js. Se o problema persistir, reinstale o Node.js e adicione a opção "Adicionar ao PATH".
 
-### 3. Phiên bản Node.js quá cũ
-- **Yêu cầu**: AntiGravity IDE hoạt động tốt nhất trên Node.js **v18** trở lên.
+### 2. Erro de Controle de Acesso (`EACCES` ou `Permissão Negada`)
+- **Windows**: Execute o Terminal como **Administrador**.
+
+- **Mac/Linux**: Pode ser necessário adicionar `sudo` antes do comando: `sudo npx antigravity-ide`.
+
+### 3. Versão Desatualizada do Node.js
+
+- **Requisito**: O AntiGravity IDE funciona melhor com o Node.js **v18** ou posterior.
 
 ---
 
-## 💡 Luôn luôn cập nhật?
-Bạn không cần gõ `@latest` nữa. Mỗi khi bạn chạy `npx antigravity-ide`, hệ thống sẽ tự động kiểm tra và nâng cấp lên phiên bản mới nhất từ NPM để đảm bảo bạn luôn có những Kỹ năng và Agent hiện đại nhất.
+## 💡 Sempre atualizado?
+
+Você não precisa mais digitar `@latest`. Sempre que executar `npx antigravity-ide`, o sistema verificará e atualizará automaticamente para a versão mais recente do NPM, garantindo que você sempre tenha as Skills e os Agents mais recentes.

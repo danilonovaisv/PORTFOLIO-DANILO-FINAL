@@ -95,3 +95,10 @@ Regras:
   - `20-TASK-01-LANDING-V3-YOUTUBE-AUTOPLAY.md`
   - `21-TASK-02-LANDING-V3-FULL-IMAGE.md`
   - `22-TASK-03-THUMBS-MP4.md`
+
+## 9. Atualização de estado — 2026-03-27
+
+- A listagem de landing pages recebeu melhoria de acessibilidade nas ações de linha:
+  - links de **ver/editar** agora incluem `aria-label` explícito com contexto do título.
+  - links externos usam `rel="noopener noreferrer"` por segurança operacional.
+- Fluxo de exclusão migrou para botão client-side com confirmação explícita (`window.confirm`) antes de executar `deleteLandingPageAction`.

@@ -50,12 +50,14 @@ async function resolveSceneModelCapabilities() {
   return normalizeAIModels(AI_MODELS).map((model) => {
     const enabledByEnv = envEnabledSet ? envEnabledSet.has(model.id) : true;
 
-    // No estado atual, todos os modelos de imagem usam backend OpenAI.
-    const requiresOpenAI = model.id !== 'sora';
+    // Estado operacional atual: geração de imagens estável apenas via DALL-E 3.
+    // Modelos alternativos permanecem visíveis, porém indisponíveis, até
+    // integração backend dedicada por provedor.
     const available =
+      model.id === 'dall-e-3' &&
       model.available &&
       enabledByEnv &&
-      (requiresOpenAI ? hasOpenAIKey : false);
+      hasOpenAIKey;
 
     return {
       ...model,

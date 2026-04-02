@@ -49,3 +49,10 @@ Expor estado operacional mínimo (sessão e credenciais críticas) para diagnós
   - `26-TASK-07-PORTFOLIO-SHOWCASE-MEDIA-FRAMING.md`
   - `27-TASK-08-CTA-MOTION-SYNC.md`
   - `28-TASK-09-ABOUT-BELIEFS-MOBILE.md`
+
+## 7. Atualização de estado — 2026-03-27
+
+- `errorResponse` do módulo admin foi endurecido para produção:
+  - em `NODE_ENV=production`, respostas para UI retornam apenas mensagem segura (e `code`, quando disponível).
+  - detalhes técnicos completos permanecem apenas no log de servidor.
+- Objetivo: reduzir exposição de detalhes internos em mensagens de erro do painel.
