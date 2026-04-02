@@ -1,6 +1,6 @@
 interface:
-  display_name: "PORTFOLIO DANILO FINAL"
-  short_description: "Repo-specific patterns and workflows for PORTFOLIO-DANILO-FINAL"
-  default_prompt: "Use the PORTFOLIO-DANILO-FINAL repo skill to follow existing architecture, testing, and workflow conventions."
+  display_name: 'PORTFOLIO DANILO FINAL'
+  short_description: 'Repo-specific patterns and workflows for PORTFOLIO-DANILO-FINAL'
+  default_prompt: 'Use the PORTFOLIO-DANILO-FINAL repo skill to follow existing architecture, testing, and workflow conventions.'
 policy:
   allow_implicit_invocation: true

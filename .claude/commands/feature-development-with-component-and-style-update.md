@@ -1,7 +1,7 @@
 ---
 name: feature-development-with-component-and-style-update
 description: Workflow command scaffold for feature-development-with-component-and-style-update in PORTFOLIO-DANILO-FINAL.
-allowed_tools: ["Bash", "Read", "Write", "Grep", "Glob"]
+allowed_tools: ['Bash', 'Read', 'Write', 'Grep', 'Glob']
 ---
 
 # /feature-development-with-component-and-style-update

@@ -1,7 +1,7 @@
 ---
 name: feature-development
 description: Workflow command scaffold for feature-development in PORTFOLIO-DANILO-FINAL.
-allowed_tools: ["Bash", "Read", "Write", "Grep", "Glob"]
+allowed_tools: ['Bash', 'Read', 'Write', 'Grep', 'Glob']
 ---
 
 # /feature-development

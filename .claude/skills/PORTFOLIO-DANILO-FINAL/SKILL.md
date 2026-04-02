@@ -1,4 +1,4 @@
-```markdown
+````markdown
 # PORTFOLIO-DANILO-FINAL Development Patterns
 
 > Auto-generated skill from repository analysis
@@ -12,10 +12,12 @@ This skill teaches the core development patterns, coding conventions, and workfl
 ## Coding Conventions
 
 **File Naming**
+
 - Use **PascalCase** for component and module files.
   - Example: `UserProfile.tsx`, `AdminDashboard.tsx`
 
 **Import Style**
+
 - Use **aliases** for imports to improve clarity and maintainability.
   - Example:
     ```typescript
@@ -24,14 +26,18 @@ This skill teaches the core development patterns, coding conventions, and workfl
     ```
 
 **Export Style**
+
 - Use **named exports** for all modules and components.
   - Example:
     ```typescript
     // src/components/Button.tsx
-    export const Button = () => { /* ... */ };
+    export const Button = () => {
+      /* ... */
+    };
     ```
 
 **Commit Messages**
+
 - Use prefixes: `feat`, `fix`, `chore`, `docs`
 - Average commit message length: ~74 characters
   - Example: `feat: add accessibility support to ContactForm component`
@@ -52,12 +58,14 @@ This skill teaches the core development patterns, coding conventions, and workfl
 5. Optionally update documentation or context files
 
 **Example:**
+
 ```typescript
 // src/components/AccessibleButton.tsx
 export const AccessibleButton = ({ label, ...props }) => (
   <button aria-label={label} {...props}>{label}</button>
 );
 ```
+````
 
 ---
 
@@ -73,6 +81,7 @@ export const AccessibleButton = ({ label, ...props }) => (
 5. Optionally update `package.json`, `pnpm-lock.yaml`
 
 **Example:**
+
 ```typescript
 // src/lib/admin/validateUser.ts
 export const validateUser = (user) => user.role === 'admin';
@@ -91,6 +100,7 @@ export const validateUser = (user) => user.role === 'admin';
 4. Optionally update audit or report files (`reports/...`, `docs/...`)
 
 **Example:**
+
 ```json
 // public/build-info.json
 {
@@ -111,6 +121,7 @@ export const validateUser = (user) => user.role === 'admin';
 3. Optionally update types or documentation
 
 **Example:**
+
 ```sql
 -- supabase/examples/edge-functions/supabase/migrations/20240610_add_projects.sql
 CREATE TABLE projects (
@@ -132,13 +143,14 @@ CREATE TABLE projects (
 3. Update or add related tests to spy on logger (`test/unit/*.test.ts`, `test/components/**/*.test.tsx`)
 
 **Example:**
+
 ```typescript
 // src/lib/logger.ts
 export const logger = {
   warn: (msg: string) => {
     // Custom logging logic
     console.warn(`[WARN]: ${msg}`);
-  }
+  },
 };
 
 // src/lib/media-utils.ts
@@ -159,6 +171,7 @@ export const processMedia = (file) => {
 - **Test File Pattern:** `*.test.ts`
 - **Location:** Typically under `test/unit/` or `test/components/`
 - **Example:**
+
   ```typescript
   // test/components/AccessibleButton.test.ts
   import { test, expect } from '@playwright/test';
@@ -173,12 +186,14 @@ export const processMedia = (file) => {
 
 ## Commands
 
-| Command         | Purpose                                                    |
-|-----------------|------------------------------------------------------------|
-| /feature-ui     | Start a new UI feature or component update workflow        |
-| /admin-feature  | Add or update an admin section feature                     |
-| /update-deps    | Update dependencies and refresh build/audit info           |
-| /new-table      | Add a new database table and update edge/serverless logic  |
-| /refactor-logger| Refactor code to use logger utility instead of console.warn|
+| Command          | Purpose                                                     |
+| ---------------- | ----------------------------------------------------------- |
+| /feature-ui      | Start a new UI feature or component update workflow         |
+| /admin-feature   | Add or update an admin section feature                      |
+| /update-deps     | Update dependencies and refresh build/audit info            |
+| /new-table       | Add a new database table and update edge/serverless logic   |
+| /refactor-logger | Refactor code to use logger utility instead of console.warn |
+
+```
 
 ```
