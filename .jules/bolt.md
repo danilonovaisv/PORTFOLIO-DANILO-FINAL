@@ -1,0 +1,3 @@
+## 2024-05-24 - [ProjectCard React.memo optimization]
+**Learning:** React.memo is highly effective for list items like `ProjectCard` in `ProjectsGallery` where the parent re-renders due to pagination or filtering, but the individual card data remains unchanged. It prevents recalculation of expensive internal logic like media candidate resolution and Framer Motion animation props.
+**Action:** Always consider `React.memo` for components rendered within arrays/lists that receive stable primitive props or stable callback references (like `onProjectSelect` wrapped in `useCallback`), especially if they contain heavy computation or complex UI logic.
