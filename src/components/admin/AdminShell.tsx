@@ -12,7 +12,7 @@ import {
   PenTool,
   ImageIcon,
   Menu,
-  House,
+  Home,
 } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { signOut } from '@/lib/supabase/auth-actions';
@@ -110,7 +110,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 href="/"
                 className="mt-3 flex items-center gap-3 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-300 transition motion-reduce:transition-none hover:bg-white/5"
               >
-                <House size={18} />
+                <Home size={18} />
                 Ir para o Site
               </Link>
             </nav>
@@ -192,7 +192,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                         onClick={() => setMobileMenuOpen(false)}
                         className="mt-3 flex min-h-12 items-center gap-3 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/5"
                       >
-                        <House size={18} />
+                        <Home size={18} />
                         Ir para o Site
                       </Link>
                     </nav>

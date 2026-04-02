@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button';
 import {
   Mail,
   MapPin,
-  Linkedin,
-  Instagram,
-  Twitter,
-  Facebook,
+  LinkedinIcon,
+  InstagramIcon,
+  TwitterIcon,
+  FacebookIcon,
 } from 'lucide-react';
 
 const ContactDetails: FC = () => {
@@ -39,22 +39,22 @@ const ContactDetails: FC = () => {
     {
       platform: 'LinkedIn',
       url: SOCIALS.linkedin,
-      icon: <Linkedin className="w-5 h-5" />,
+      icon: <LinkedinIcon className="w-5 h-5" />,
     },
     {
-      platform: 'Instagram',
+      platform: 'InstagramIcon',
       url: SOCIALS.instagram,
-      icon: <Instagram className="w-5 h-5" />,
+      icon: <InstagramIcon className="w-5 h-5" />,
     },
     {
-      platform: 'Facebook',
+      platform: 'FacebookIcon',
       url: SOCIALS.facebook,
-      icon: <Facebook className="w-5 h-5" />,
+      icon: <FacebookIcon className="w-5 h-5" />,
     },
     {
-      platform: 'Twitter',
+      platform: 'TwitterIcon',
       url: SOCIALS.twitter,
-      icon: <Twitter className="w-5 h-5" />,
+      icon: <TwitterIcon className="w-5 h-5" />,
     },
   ];
 
