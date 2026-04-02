@@ -24,7 +24,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       >
         {label}
         {props.required && (
-          <span className="text-red-500 ml-1" aria-hidden="true" title="Obrigatório">
+          <span className="text-red-500 ml-1" aria-hidden="true">
             *
           </span>
         )}
@@ -42,6 +42,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       {error && (
         <p
           id={`${id}-error`}
+          role="alert"
           className="mt-2 text-xs text-red-600 font-bold uppercase"
           role="alert"
         >
@@ -74,7 +75,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       >
         {label}
         {props.required && (
-          <span className="text-red-500 ml-1" aria-hidden="true" title="Obrigatório">
+          <span className="text-red-500 ml-1" aria-hidden="true">
             *
           </span>
         )}
@@ -92,6 +93,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       {error && (
         <p
           id={`${id}-error`}
+          role="alert"
           className="mt-2 text-xs text-red-600 font-bold uppercase"
           role="alert"
         >
