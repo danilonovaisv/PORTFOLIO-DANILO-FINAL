@@ -25,7 +25,7 @@
     "incremental": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     // "types": ["node", "react", "jest", "@testing-library/jest-dom"]  -- legacy, managed above
     "plugins": [
       {
