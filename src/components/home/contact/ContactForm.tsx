@@ -159,7 +159,7 @@ const ContactForm: React.FC = () => {
     >
       <div className="p-0">
         {submitSuccess ? (
-          <div className="text-center py-12">
+          <div className="text-center py-12" role="status" aria-live="polite">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 text-green-600 mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

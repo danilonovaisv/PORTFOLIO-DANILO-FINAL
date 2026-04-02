@@ -96,6 +96,8 @@ export default function GhostScene() {
       preserveDrawingBuffer: false,
     });
 
+    // Apply adaptive pixel ratio for performance on high-DPI and low-end devices
+    renderer.setPixelRatio(performanceConfig.pixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.9;
