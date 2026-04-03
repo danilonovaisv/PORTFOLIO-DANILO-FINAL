@@ -17,7 +17,7 @@ description: Quality Assurance Loop
 
 1. **Lint**: `npm run lint`
 2. **Types**: `npm run type-check`
-3. **Circular Deps**: `npx madge --circular src/`
+3. **Circular Deps**: `pnpm exec madge --circular src/`
 
 ### Phase B: Dynamic Analysis
 

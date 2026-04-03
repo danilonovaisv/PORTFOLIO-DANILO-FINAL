@@ -4,15 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { viewportConfig } from '@/config/motion';
+import { Mail, Phone, Globe } from 'lucide-react';
 import {
-  Mail,
-  Phone,
-  InstagramIcon,
-  LinkedinIcon,
-  TwitterIcon,
-  FacebookIcon,
-  Globe,
-} from 'lucide-react';
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from '@/components/shared/icons/SocialIcons';
 
 import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';
@@ -46,24 +44,24 @@ export default function ContactSection() {
 
   const socialLinks = [
     {
-      label: 'InstagramIcon',
+      label: 'Instagram',
       href: SOCIALS.instagram,
-      icon: <InstagramIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Instagram className="h-5 w-5" aria-hidden="true" />,
     },
     {
-      label: 'FacebookIcon',
+      label: 'Facebook',
       href: SOCIALS.facebook,
-      icon: <FacebookIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Facebook className="h-5 w-5" aria-hidden="true" />,
     },
     {
       label: 'LinkedIn',
       href: SOCIALS.linkedin,
-      icon: <LinkedinIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Linkedin className="h-5 w-5" aria-hidden="true" />,
     },
     {
-      label: 'TwitterIcon',
+      label: 'Twitter',
       href: SOCIALS.twitter,
-      icon: <TwitterIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Twitter className="h-5 w-5" aria-hidden="true" />,
     },
     {
       label: 'Portfolio',

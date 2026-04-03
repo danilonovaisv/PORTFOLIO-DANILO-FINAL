@@ -12,6 +12,9 @@ export const InputField: React.FC<InputFieldProps> = ({
   error,
   id,
   className = '',
+  'aria-invalid': _ariaInvalid,
+  'aria-required': _ariaRequired,
+  'aria-describedby': _ariaDescribedBy,
   ...props
 }) => {
   const isInvalid = !!error;
@@ -31,9 +34,9 @@ export const InputField: React.FC<InputFieldProps> = ({
       </label>
       <input
         id={id}
-        aria-invalid={isInvalid}
+        aria-invalid={isInvalid ? 'true' : 'false'}
         aria-describedby={error ? `${id}-error` : undefined}
-        aria-required={props.required ? 'true' : undefined}
+        aria-required={props.required ? 'true' : 'false'}
         className={`w-full min-h-[48px] rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 ${
           error ? 'border-red-500' : ''
         } ${className}`}
@@ -44,7 +47,6 @@ export const InputField: React.FC<InputFieldProps> = ({
           id={`${id}-error`}
           role="alert"
           className="mt-2 text-xs text-red-600 font-bold uppercase"
-          role="alert"
         >
           {error}
         </p>
@@ -63,6 +65,9 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   error,
   id,
   className = '',
+  'aria-invalid': _ariaInvalid,
+  'aria-required': _ariaRequired,
+  'aria-describedby': _ariaDescribedBy,
   ...props
 }) => {
   const isInvalid = !!error;
@@ -82,9 +87,9 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       </label>
       <textarea
         id={id}
-        aria-invalid={isInvalid}
+        aria-invalid={isInvalid ? 'true' : 'false'}
         aria-describedby={error ? `${id}-error` : undefined}
-        aria-required={props.required ? 'true' : undefined}
+        aria-required={props.required ? 'true' : 'false'}
         className={`w-full resize-none rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${
           error ? 'border-red-500' : ''
         } ${className}`}
@@ -95,7 +100,6 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
           id={`${id}-error`}
           role="alert"
           className="mt-2 text-xs text-red-600 font-bold uppercase"
-          role="alert"
         >
           {error}
         </p>
