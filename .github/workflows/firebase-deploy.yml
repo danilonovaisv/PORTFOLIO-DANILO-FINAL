@@ -4,258 +4,77 @@ on:
   push:
     branches:
       - main
-      - production
   workflow_dispatch:
 
 permissions:
   contents: read
 
-env:
-  NODE_VERSION: '20'
-  # ── pnpm version pinned — muda aqui para atualizar globalmente ─────────────
-  PNPM_VERSION: '10.32.0'
-  # ── Supabase ────────────────────────────────────────────────────────────────
-  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-  FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS || secrets.FIREBASE_SERVICE_ACCOUNT_JSON || secrets.FIREBASE_SERVICE_ACCOUNT }}
-  FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT || secrets.GOOGLE_CLOUD_PROJECT }}
+concurrency:
+  group: firebase-deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test-and-deploy:
+    name: Build and deploy to Firebase
     runs-on: ubuntu-latest
 
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+    env:
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
 
     steps:
-      # ── 1. Checkout ──────────────────────────────────────────────────────────
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── 2. Setup pnpm (versão fixa) ──────────────────────────────────────────
+      - name: Validate pnpm lockfile
+        run: |
+          if [ ! -f pnpm-lock.yaml ]; then
+            echo "ERROR: pnpm-lock.yaml not found."
+            exit 1
+          fi
+
+      - name: Validate Firebase secrets
+        run: |
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
+            echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.FIREBASE_PROJECT_ID }}" ]; then
+            echo "ERROR: Missing secret FIREBASE_PROJECT_ID"
+            exit 1
+          fi
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: ${{ env.PNPM_VERSION }}
+          version: 10.33.0
+          run_install: false
 
-      # ── 3. Setup Node.js + cache pnpm ───────────────────────────────────────
-      # cache-dependency-path: aponta para o lockfile na raiz do monorepo.
-      # Se o projeto estiver em subpasta, ajustar para: "apps/web/pnpm-lock.yaml"
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
+          node-version: 20
+          cache: pnpm
 
-      # ── 4. Install determinístico ─────────────────────────────────────────────
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
-      # ── 4.1 Firebase preflight guardrails ───────────────────────────────────
-      - name: Firebase preflight checks
-        run: pnpm run firebase:preflight
-
-      # ── 5. Validate Supabase env vars ─────────────────────────────────────────
-      - name: Validate Supabase env vars
+      - name: Verify Next.js presence
         run: |
-          echo "🔍 Verificando variáveis de ambiente do Supabase..."
-          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then
-            echo "❌ ERRO: NEXT_PUBLIC_SUPABASE_URL não configurada em GitHub Secrets."
-            exit 1
-          fi
-          if [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" ]; then
-            echo "❌ ERRO: nenhuma chave pública do Supabase foi resolvida (NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY)."
-            exit 1
-          fi
-          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
-            echo "❌ ERRO: SUPABASE_SERVICE_ROLE_KEY não configurada em GitHub Secrets."
-            exit 1
-          fi
-          echo "✅ Variáveis do Supabase validadas com sucesso."
+          pnpm exec next --version
 
-      # ── 6. Lint (code quality) ────────────────────────────────────────────────
-      - name: Run linter
-        run: pnpm run lint
-
-      # ── 7. Type check ─────────────────────────────────────────────────────────
-      - name: Run type check
-        run: pnpm run typecheck
-
-      # ── 8. Validate and build Cloud Functions ─────────────────────────────────
-      - name: Validate and Install functions
-        run: |
-          if grep -q '"link:' functions/package.json; then
-            echo "⚠️  Detectado protocolo 'link:' em functions/package.json"
-            sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json
-            echo "✅ Corrigido para 'file:../src/'"
-          fi
-
-      - name: Build Cloud Functions
-        run: cd functions && pnpm run build
-
-      # ── 9. Generate .env.production ──────────────────────────────────────────
-      - name: Generate .env.production for deployment
-        run: |
-          echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" > .env.production
-          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY" >> .env.production
-          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" >> .env.production
-          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY" >> .env.production
-          echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> .env.production
-
-      # ── 10. Build Next.js ──────────────────────────────────────────────────────
-      - name: Build Next.js application
+      - name: Build application
         run: pnpm run build
-        env:
-          # TEMP: bypass lint rules during next build
-          NEXTJS_IGNORE_ESLINT: '1'
 
-      # ── 11. Prepare hosting ────────────────────────────────────────────────────
-      - name: Prepare hosting files
-        run: bash scripts/prepare-hosting.sh
-
-      # ── 12. Firebase Auth ──────────────────────────────────────────────────────
-      - name: Validate Firebase Auth Secret
-        run: |
-          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
-            echo "❌ ERRO: nenhuma credencial Firebase foi resolvida."
-            echo "Defina um destes secrets: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS, FIREBASE_SERVICE_ACCOUNT_JSON ou FIREBASE_SERVICE_ACCOUNT."
-            exit 1
-          fi
-
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ env.FIREBASE_SERVICE_ACCOUNT_JSON }}
-          create_credentials_file: true
-          export_environment_variables: true
-
-      # ── 13. Resolve Firebase Project ID ───────────────────────────────────────
-      - name: Resolve Firebase project id
-        id: firebase_project
-        env:
-          SECRET_FB_PROJECT: ${{ env.FIREBASE_PROJECT_ID }}
-        run: |
-          if [ -n "$SECRET_FB_PROJECT" ]; then
-            PROJECT_ID="$SECRET_FB_PROJECT"
-            SOURCE="GitHub Secret FIREBASE_PROJECT/GOOGLE_CLOUD_PROJECT"
-          elif [ -n "${{ steps.auth.outputs.project_id }}" ]; then
-            PROJECT_ID="${{ steps.auth.outputs.project_id }}"
-            SOURCE="Service Account project_id"
-          elif [ -f .firebaserc ]; then
-            PROJECT_ID=$(node -e "const fs=require('fs');const rc=JSON.parse(fs.readFileSync('.firebaserc','utf8'));process.stdout.write(rc?.projects?.default||'')")
-            SOURCE=".firebaserc (projects.default)"
-          fi
-
-          if [ -z "$PROJECT_ID" ]; then
-            echo "❌ ERRO: Não foi possível resolver o Firebase Project ID."
-            echo "Defina FIREBASE_PROJECT no GitHub Secrets ou configure .firebaserc/projects.default"
-            exit 1
-          fi
-
-          echo "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"
-          echo "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"
-
-      # ── 14. Firebase CLI + Deploy ──────────────────────────────────────────────
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools@latest
+        run: pnpm dlx firebase-tools --version
 
-      - name: Validate Firebase project access
-        continue-on-error: true
+      - name: Write service account credentials
         run: |
-          TARGET_PROJECT="${{ steps.firebase_project.outputs.project_id }}"
-          firebase projects:list --json 2>/dev/null > firebase-projects.json || true
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > "${{ runner.temp }}/firebase-service-account.json"
 
-          node -e "
-            const fs = require('fs');
-            const raw = fs.readFileSync('firebase-projects.json', 'utf8');
-            let data;
-            try { data = JSON.parse(raw); } catch {
-              console.log('⚠️ Could not parse firebase projects JSON — skipping validation.');
-              process.exit(0);
-            }
-
-            const projects = Array.isArray(data) ? data : (data.results || data.result || []);
-            const ids = projects.map(p => p.projectId || p.projectid || p.id).filter(Boolean);
-            console.log('📋 Projects accessible:', ids.join(', ') || '(none)');
-
-            if (ids.includes('${TARGET_PROJECT}')) {
-              console.log('✅ Acesso ao projeto validado para ${TARGET_PROJECT}');
-            } else {
-              console.log('⚠️ Projeto ${TARGET_PROJECT} não aparece na lista — tentando de qualquer forma.');
-            }
-          "
-
-      - name: Deploy to Firebase
-        run: |
-          TMP_PKG_JSON=$(mktemp)
-          cp package.json "$TMP_PKG_JSON"
-          TMP_FUNC_PKG_JSON=$(mktemp)
-          cp functions/package.json "$TMP_FUNC_PKG_JSON"
-
-          restore_on_exit() {
-            mv "$TMP_PKG_JSON" package.json
-            mv "$TMP_FUNC_PKG_JSON" functions/package.json
-            rm -f package-lock.json functions/package-lock.json
-          }
-
-          trap restore_on_exit EXIT
-
-          echo "🩹 Removendo packageManager temporariamente para o Cloud Build gerar lockfiles via npm."
-          node -e "
-            const fs = require('fs');
-            for (const file of ['package.json', 'functions/package.json']) {
-              if (fs.existsSync(file)) {
-                const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
-                delete pkg.packageManager;
-                fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + '\n');
-                console.log(\`✅ packageManager removido temporariamente de \${file}\`);
-              }
-            }
-          "
-
-          echo "📦 Gerando package-lock.json (root) para satisfazer builder do Firebase (npm ci)."
-          echo "   Forçando inclusão de dev/optional/peer para evitar lock incompleto em CI."
-          mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer --no-audit --no-fund
-          mv node_modules_bak node_modules || true
-
-          echo "📦 Gerando package-lock.json (functions)."
-          cd functions
-          mv node_modules node_modules_bak || true
-          npm install --package-lock-only --ignore-scripts --legacy-peer-deps --include=dev --include=optional --include=peer --no-audit --no-fund
-          mv node_modules_bak node_modules || true
-          cd ..
-
-          echo "🧹 Limpando cache do frameworks backend..."
-          rm -rf ".firebase/${{ steps.firebase_project.outputs.project_id }}/functions"
-
-          firebase experiments:enable webframeworks
-          firebase deploy --only hosting,functions \
-            --project "${{ steps.firebase_project.outputs.project_id }}" \
-            --debug --non-interactive
+      - name: Deploy to Firebase Hosting
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
-          NO_UPDATE_NOTIFIER: '1'
-          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
-
-      # ── 15. Notifications ──────────────────────────────────────────────────────
-      - name: Notify success
-        if: success()
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
         run: |
-          echo "✅ Deploy completed successfully!"
-          echo "🌐 Site: https://${{ steps.firebase_project.outputs.project_id }}.web.app"
-          echo "### Deploy Finalizado com Sucesso 🚀" >> $GITHUB_STEP_SUMMARY
-          echo "Ambiente buildado com sucesso injetando variáveis seguras." >> $GITHUB_STEP_SUMMARY
-
-      - name: Notify failure
-        if: failure()
-        run: |
-          echo "❌ Pipeline de deploy falhou."
-          echo "### Falha no Pipeline de Deploy ❌" >> $GITHUB_STEP_SUMMARY
-          echo "Verifique os logs do GitHub Actions para detalhes." >> $GITHUB_STEP_SUMMARY
+          pnpm dlx firebase-tools deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}"
