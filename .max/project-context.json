@@ -1,13 +1,23 @@
 {
-  "scanned_at": "2026-04-02T23:31:22.862Z",
+  "scanned_at": "2026-04-03T00:23:46.987Z",
   "project_name": "PORTFOLIO-DANILO-FINAL",
   "project_path": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL",
-  "type": ["node"],
-  "languages": ["TypeScript", "JavaScript"],
-  "frameworks": ["Next.js", "TypeScript"],
+  "type": [
+    "node"
+  ],
+  "languages": [
+    "TypeScript",
+    "JavaScript"
+  ],
+  "frameworks": [
+    "Next.js",
+    "TypeScript"
+  ],
   "build_system": null,
   "package_manager": "pnpm",
-  "entry_points": ["src"],
+  "entry_points": [
+    "src"
+  ],
   "config_files": {
     "package.json": {
       "name": "portfolio-danilo-final",
@@ -70,7 +80,9 @@
     },
     "README.md": "# Portfólio — Danilo Novais\n\n**Next.js · WebGL · Motion · Design Systems**\n\nEste repositório contém o código-fonte do **portfólio institucional de Danilo Novais**, desenvolvido com **Next.js (App Router)** e uma abordagem **experimental-premium**, combinando **WebGL atmosférico**, **motion editorial** e **arquitetura escalável**.\n\nO projeto foi concebido para ir além de um portfólio tradicional, tratando **luz, movimento e tipografia como sistema**, não como efeitos isolados.\n\n🌐 **Site:** [https://portfoliodanilo.com](https://portfoliodanilo.com)\n\n---\n\n## ✦ Visão Geral\n\nA Home Page é composta por uma narrativa visual contínua, com as seguintes seções (ordem não-negociável):\n\n1. **Header** — navegação global (Fluid Glass no desktop / Staggered Menu no mobile)\n2. **Hero** — Ghost WebGL + te"
   },
-  "source_structure": ["src"],
+  "source_structure": [
+    "src"
+  ],
   "dependencies": [
     "@dataconnect/admin-generated",
     "@dataconnect/generated",
