@@ -58,5 +58,4 @@ command = "pnpm run test"
 [[actions]]
 name = "Clean project"
 icon = "debug"
-command = "Clean project"
-platform = "darwin"
+command = "rm -rf .next .turbo node_modules && pnpm install"

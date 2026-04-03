@@ -46,5 +46,3 @@ config_file = "agents/reviewer.toml"
 description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
 config_file = "agents/docs-researcher.toml"
 
-# Seção 'projects' adicionada como um mapa vazio, pois estava faltando ou incorreta
-[projects]

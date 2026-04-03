@@ -21,9 +21,17 @@
       "Bash(cat /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.next/dev/build/postcss.js.map 2>/dev/null | python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('sources', ['no sources']\\)[:5]\\)\" 2>/dev/null)",
       "Bash(sleep 30 && curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
       "Bash(pkill -f \"next dev\" 2>/dev/null; pnpm run build 2>&1 | tail -40)",
-      "Bash(pnpm run build 2>&1 | grep -E \"\\(error|Error|warn|CSS|LightningCSS|background-color|Unexpected token|⨯\\)\" | head -20)"
+      "Bash(pnpm run build 2>&1 | grep -E \"\\(error|Error|warn|CSS|LightningCSS|background-color|Unexpected token|⨯\\)\" | head -20)",
+      "Bash(rm /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.git/worktrees/competent-tereshkova/index.lock)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["github", "supabase"]
+  "enabledMcpjsonServers": [
+    "github",
+    "supabase"
+  ]
 }
