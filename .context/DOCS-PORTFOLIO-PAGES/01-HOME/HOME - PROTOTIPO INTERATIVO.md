@@ -90,7 +90,7 @@ Portfolio (terciaria)
 
 ### 2.2 Typography
 
-**Family:** `TT Norms Pro` (Primary), `Geist Mono` (Code/Tech details).
+**Family:** `Manrope` (Primary), `Geist Mono` (Code/Tech details).
 
 #### Fluid Typography Tokens (`clamp`)
 
@@ -206,7 +206,7 @@ const containerVars = {
 
 **Fonts:**
 
-- TT Norms Pro (Hosted on Supabase Storage).
+- Manrope Variable Font (self-hosted, wght 200–800).
 - Fallback: `sans-serif`.
 
 **Logos:**
@@ -520,7 +520,7 @@ Apresentar categorias de trabalho com sofisticação editorial, usando movimento
 **Estrutura de Cada Stripe:**
 
 - Thumbnail (288px, 16:9, oculta por padrão)
-- Título (2xl–5xl, TT Norms Pro Normal 24-40px)
+- Título (2xl–5xl, Manrope Regular 24-40px)
 - Ícone de ação (badge circular azul com seta)
 
 #### Interações (Desktop)
@@ -1093,7 +1093,7 @@ duration: 200ms
 
 - **Formulários:** FormSubmit.co
 - **Assets:** Supabase Storage
-- **Fontes:** Self-hosted (TT Norms Pro .woff2)
+- **Fontes:** Self-hosted (Manrope .woff2)
 - **Deploy:** Vercel / Netlify / Cloudflare Pages
 - **Versionamento:** Git (GitHub)
 

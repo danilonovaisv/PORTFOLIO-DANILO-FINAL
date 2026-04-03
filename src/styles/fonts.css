@@ -1,48 +1,12 @@
-/* TT Norms Pro - Primary Font */
+/* Manrope — Primary Variable Font (wght 200–800)
+   Self-hosted from public/fonts/ — no CDN dependency.
+   Single @font-face enables weight interpolation across all roles:
+   200=ExtraLight, 300=Light, 400=Regular, 500=Medium, 600=SemiBold, 700=Bold, 800=ExtraBold
+*/
 @font-face {
-  font-family: 'TT Norms Pro';
-  src: url('/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TT Norms Pro';
-  src: url('/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TT Norms Pro';
-  src: url('/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TT Norms Pro';
-  src: url('/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TT Norms Pro';
-  src: url('/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TT Norms Pro';
-  src: url('/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
-  font-weight: 900;
+  font-family: 'Manrope';
+  src: url('/fonts/Manrope-VariableFont_wght.woff2') format('woff2-variations');
+  font-weight: 200 800;
   font-style: normal;
   font-display: swap;
 }

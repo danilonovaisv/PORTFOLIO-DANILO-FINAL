@@ -11,7 +11,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Cores mapeadas via CSS (globals.css v4 compatibility)
+      // Font families — Manrope as primary typeface (wght 200–800 variable)
+      fontFamily: {
+        sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       colors: {
         bluePrimary: 'var(--color-bluePrimary)',
         blueAccent: 'var(--color-blueAccent)',

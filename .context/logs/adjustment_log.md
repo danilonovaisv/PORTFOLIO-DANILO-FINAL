@@ -1,6 +1,67 @@
 # Adjustment Log
 
-## [2026-03-08T04:38] Featured Project Logo Render Fix
+## [2026-04-03T02:30] Typography Refactor — TT Norms Pro → Manrope Variable Font
+
+**Context:** Systemic typography refactor replacing TT Norms Pro with Manrope Variable Font (wght 200–800, self-hosted). Audit revealed that TT Norms Pro `.woff2` files never existed in `public/fonts/` — the site was silently serving browser fallback fonts (`ui-sans-serif`) with 3 HTTP 404s per pageview from broken `<link rel="preload">` tags. Manrope `.woff2` files (including the variable font) were already present in `public/fonts/`.
+
+**Root Cause of Font 404s:**
+
+- `src/styles/fonts.css` declared 6 `@font-face` blocks pointing to `TT Norms Pro *.woff2` files.
+- `src/app/layout.tsx` preloaded 3 of those files (Regular, Medium, Bold).
+- None of those files existed in `public/fonts/` — only Manrope files were present.
+
+**Changes Applied:**
+
+1. **`src/styles/fonts.css`** ✅
+   - Removed: 6 `@font-face` declarations for TT Norms Pro (Thin 100, Light 300, Regular 400, Medium 500, Bold 700, Black 900)
+   - Added: 1 `@font-face` for `Manrope` variable font (`wght: 200 800`, `format: woff2-variations`)
+   - Kept: `PPSupplyMono` declaration unchanged
+
+2. **`src/app/layout.tsx`** ✅
+   - Removed: 3 broken `<link rel="preload">` for TT Norms Pro files (404 per pageview)
+   - Added: 1 `<link rel="preload">` for `Manrope-VariableFont_wght.woff2`
+   - Net: 3 preload requests → 1, font payload ~186 KB → 54 KB
+
+3. **`src/app/globals.css`** ✅
+   - `--font-family-sans`: `'TT Norms Pro'...` → `'Manrope'...`
+   - `--font-family-outfit`: marked `@deprecated` (no usage found in codebase)
+   - `.text-display font-weight`: `900` → `800` (Manrope has no weight 900; ExtraBold 800 is the maximum)
+   - `.text-h2 font-weight`: `700` → `600` (corrects pre-existing divergence between code and design system spec §1.2)
+
+4. **`tailwind.config.ts`** ✅
+   - Added explicit `fontFamily.sans` and `fontFamily.display` tokens pointing to Manrope
+   - Resolves ambiguity for `font-display` Tailwind class used in ~15 components without a declared token
+
+5. **`src/config/brand.ts`** ✅
+   - `BRAND.assets.fonts.primary`: `'TT Norms Pro'` → `'Manrope'`
+
+6. **`project_truth.json`** ✅
+   - `typography.fontFamily.sans`: updated to Manrope stack
+   - `typography.fontFamily.outfit`: removed (deprecated, no usage confirmed)
+
+7. **Documentation** ✅
+   - `.context/GHOST-DESIGN-SYSTEM.md`: §1.2 Typography updated (both copies)
+   - `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md`: §1.2 Typography updated
+   - `.context/DOCS-PORTFOLIO-PAGES/01-HOME/*.md`, `02-SOBRE/*.md`: batch replaced
+   - `README.md`: Typography stack line updated
+   - `AGENTS.md` rule `.context/` references aligned
+
+**Verification:**
+
+- ✅ `pnpm run build` — exit code 0, 33 routes compiled
+- ✅ Zero TypeScript errors introduced
+- ✅ Font file `Manrope-VariableFont_wght.woff2` confirmed present in `public/fonts/`
+
+**Impact:**
+
+- **Bug fix:** Eliminates 3 silent HTTP 404s per pageview (broken TT Norms Pro preloads)
+- **Performance:** Font payload 186 KB → 54 KB; 6 requests → 1
+- **UX:** Site now loads with Manrope instead of browser default system font
+- **Design System:** `font-weight` tokens now aligned between code and GHOST-DESIGN-SYSTEM.md spec
+
+---
+
+
 
 **Context:** The published Firebase site was returning browser `400` errors for some logos in the Featured Projects bento grid. The header logo and favicon assets were healthy, but project-specific logos loaded through `next/image` were failing when the source URL was already a Supabase `render/image/public` endpoint.
 

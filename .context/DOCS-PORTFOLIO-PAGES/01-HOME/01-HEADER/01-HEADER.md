@@ -41,7 +41,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 - CTA’s:
   - Navegação primária para rotas e anchor `#contact`.
 - Fonts utilizadas:
-  - Família global via `TT Norms Pro` (herdada de `globals.css`).
+  - Família global via `Manrope` (herdada de `globals.css`).
 - Peso das fontes:
   - Itens com `font-medium`/`font-semibold` conforme estado.
 - Tokens aplicados:
