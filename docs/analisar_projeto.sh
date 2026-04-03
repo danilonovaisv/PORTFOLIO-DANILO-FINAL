@@ -9,7 +9,7 @@ echo "=========================================" >> $RELATORIO
 
 # Etapa 1: Verificação de erros com ESLint
 echo -e "\n--- Erros de ESLint ---" >> $RELATORIO
-if npx eslint . --ext .js,.ts > eslint_output.txt 2>&1; then
+if pnpm exec eslint . --ext .js,.ts > eslint_output.txt 2>&1; then
   echo "Nenhum erro de ESLint encontrado." >> $RELATORIO
 else
   cat eslint_output.txt >> $RELATORIO
@@ -19,7 +19,7 @@ rm -f eslint_output.txt
 # Etapa 2: Verificação de erros de compilação TypeScript (se aplicável)
 if [ -f "tsconfig.json" ]; then
   echo -e "\n--- Erros de compilação TypeScript ---" >> $RELATORIO
-  if npx tsc --noEmit > tsc_output.txt 2>&1; then
+  if pnpm exec tsc --noEmit > tsc_output.txt 2>&1; then
     echo "Nenhum erro de compilação TypeScript encontrado." >> $RELATORIO
   else
     cat tsc_output.txt >> $RELATORIO

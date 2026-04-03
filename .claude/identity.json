@@ -1,0 +1,12 @@
+{
+  "version": "2.0",
+  "technicalLevel": "technical",
+  "preferredStyle": {
+    "verbosity": "minimal",
+    "codeComments": true,
+    "explanations": true
+  },
+  "domains": ["python", "next.js", "react"],
+  "suggestedBy": "ecc-tools-repo-analysis",
+  "createdAt": "2026-04-02T01:33:35.891Z"
+}

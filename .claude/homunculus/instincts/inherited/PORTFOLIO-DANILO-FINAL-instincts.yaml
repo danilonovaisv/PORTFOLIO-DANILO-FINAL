@@ -1,0 +1,727 @@
+# Instincts generated from https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+# Generated: 2026-04-02T01:33:35.891Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: PORTFOLIO-DANILO-FINAL-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Commit Length
+
+## Action
+
+Write moderate-length commit messages (~74 characters)
+
+## Evidence
+
+- Average commit message length: 74 chars
+- Based on 200 commits
+
+---
+id: PORTFOLIO-DANILO-FINAL-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: PORTFOLIO-DANILO-FINAL-import-alias
+trigger: "when importing modules"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Import Alias
+
+## Action
+
+Use path aliases (@/, ~/) instead of relative imports
+
+## Evidence
+
+- Import analysis shows alias pattern
+- Example: import { x } from '@/lib/x'
+
+---
+id: PORTFOLIO-DANILO-FINAL-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: PORTFOLIO-DANILO-FINAL-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: app, components, config, contexts, data
+
+---
+id: PORTFOLIO-DANILO-FINAL-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: PORTFOLIO-DANILO-FINAL-test-framework
+trigger: "when writing tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Test Framework
+
+## Action
+
+Use playwright as the test framework
+
+## Evidence
+
+- Test framework detected: playwright
+- File pattern: *.test.ts
+
+---
+id: PORTFOLIO-DANILO-FINAL-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: PORTFOLIO-DANILO-FINAL-test-mocking
+trigger: "when mocking dependencies in tests"
+confidence: 0.75
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Test Mocking
+
+## Action
+
+Use msw for mocking
+
+## Evidence
+
+- Mocking pattern detected: msw
+- Consistent across test files
+
+---
+id: PORTFOLIO-DANILO-FINAL-test-types
+trigger: "when planning tests for a feature"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Test Types
+
+## Action
+
+Write unit, e2e tests to match project standards
+
+## Evidence
+
+- Test types detected: unit, e2e
+- Coverage config: yes
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.75
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~5x per month
+- Files: src/app/*, src/components/home/featured-projects/*, src/components/home/hero/*
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-refactoring
+trigger: "when refactoring code"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Refactoring
+
+## Action
+
+Follow the refactoring workflow:
+1. Ensure tests pass before refactor
+2. Refactor code structure
+3. Verify tests still pass
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/**/*
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-feature-development-with-component-and-style-update
+trigger: "when doing feature development with component and style update"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Feature Development With Component And Style Update
+
+## Action
+
+Follow the feature-development-with-component-and-style-update workflow:
+1. Edit or create one or more component files in src/components/...
+2. Optionally update related files (e.g., hooks, utils, or lib/...)
+3. Update build info (public/build-info.json)
+4. Update configuration or lockfiles (package.json, pnpm-lock.yaml, tsconfig.json, jest.config.cjs)
+5. Optionally update documentation or context files
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: src/components/**/*.tsx, public/build-info.json, package.json
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-admin-section-hardening-or-feature-update
+trigger: "when doing admin section hardening or feature update"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Admin Section Hardening Or Feature Update
+
+## Action
+
+Follow the admin-section-hardening-or-feature-update workflow:
+1. Edit files in src/app/admin/(protected) and/or src/lib/admin/...
+2. Update related components (e.g., DeleteLandingPageButton, validation, authz)
+3. Update context documentation (.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/...)
+4. Optionally update audit docs (docs/AUDIT_PENTEST.md, docs/AUDIT_EXECUTION_PLAN.md)
+5. Optionally update package.json, pnpm-lock.yaml
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/app/admin/(protected)/**/*.tsx, src/lib/admin/**/*.ts, .context/DOCS-PORTFOLIO-PAGES/04-ADMIN/**/*.md
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-dependency-update-and-build-info-refresh
+trigger: "when doing dependency update and build info refresh"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Dependency Update And Build Info Refresh
+
+## Action
+
+Follow the dependency-update-and-build-info-refresh workflow:
+1. Update package.json and pnpm-lock.yaml
+2. Update public/build-info.json
+3. Optionally update next-env.d.ts or tsconfig.json
+4. Optionally update audit or report files (reports/..., docs/...)
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: package.json, pnpm-lock.yaml, public/build-info.json
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-database-table-addition-with-edge-function-update
+trigger: "when doing database table addition with edge function update"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Database Table Addition With Edge Function Update
+
+## Action
+
+Follow the database-table-addition-with-edge-function-update workflow:
+1. Create a new migration file in supabase/examples/edge-functions/supabase/migrations/
+2. Update or create the corresponding edge function in supabase/examples/edge-functions/supabase/functions/
+3. Optionally update types or documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: .agents/skills/supabase/examples/edge-functions/supabase/migrations/*.sql, .agents/skills/supabase/examples/edge-functions/supabase/functions/**/*.ts
+
+---
+id: PORTFOLIO-DANILO-FINAL-workflow-code-health-console-warn-to-logger-refactor
+trigger: "when doing code health console warn to logger refactor"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# PORTFOLIO DANILO FINAL Workflow Code Health Console Warn To Logger Refactor
+
+## Action
+
+Follow the code-health-console-warn-to-logger-refactor workflow:
+1. Create or update logger utility (src/lib/logger.ts)
+2. Refactor files to use logger instead of console.warn (e.g., src/lib/media-utils.ts, src/lib/admin/server-access.ts, src/config/ghostConfig.ts)
+3. Update or add related tests to spy on logger (test/unit/*.test.ts, test/components/**/*.test.tsx)
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/lib/logger.ts, src/lib/media-utils.ts, src/lib/admin/server-access.ts
+
+---
+id: portfolio-danilo-final-instinct-file-naming
+trigger: "When creating or renaming files"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct File Naming
+
+## Action
+
+Use PascalCase for file names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files: PascalCase
+
+---
+id: portfolio-danilo-final-instinct-function-naming
+trigger: "When defining functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Function Naming
+
+## Action
+
+Use camelCase for function names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions: camelCase
+
+---
+id: portfolio-danilo-final-instinct-class-naming
+trigger: "When defining classes"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Class Naming
+
+## Action
+
+Use PascalCase for class names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes: PascalCase
+
+---
+id: portfolio-danilo-final-instinct-constant-naming
+trigger: "When defining constants"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: portfolio-danilo-final-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Import Style
+
+## Action
+
+Use alias import style
+
+## Evidence
+
+- Pattern in codeStyle.importStyle: alias
+
+---
+id: portfolio-danilo-final-instinct-export-style
+trigger: "When exporting modules or functions"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle: named
+
+---
+id: portfolio-danilo-final-instinct-testing-file-pattern
+trigger: "When creating test files"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Testing File Pattern
+
+## Action
+
+Name test files with the pattern *.test.ts
+
+## Evidence
+
+- Pattern in testing.filePattern: *.test.ts
+
+---
+id: portfolio-danilo-final-instinct-testing-framework
+trigger: "When writing tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Testing Framework
+
+## Action
+
+Use Playwright as the testing framework
+
+## Evidence
+
+- Pattern in testing.framework: playwright
+
+---
+id: portfolio-danilo-final-instinct-testing-types
+trigger: "When planning tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Testing Types
+
+## Action
+
+Include both unit and e2e tests
+
+## Evidence
+
+- Pattern in testing.testTypes: unit, e2e
+
+---
+id: portfolio-danilo-final-instinct-testing-mocking
+trigger: "When mocking API or network calls in tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Testing Mocking
+
+## Action
+
+Use msw (Mock Service Worker) for mocking
+
+## Evidence
+
+- Pattern in testing.mockingStyle: msw
+
+---
+id: portfolio-danilo-final-instinct-testing-coverage
+trigger: "When configuring tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Testing Coverage
+
+## Action
+
+Enable and enforce test coverage reporting
+
+## Evidence
+
+- Pattern in testing.coverageConfig: true
+
+---
+id: portfolio-danilo-final-instinct-git-commit-prefix
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Git Commit Prefix
+
+## Action
+
+Prefix the commit with feat, fix, chore, or docs as appropriate
+
+## Evidence
+
+- Pattern in commits.prefixes: feat, fix, chore, docs
+- Examples: fix(a11y): add aria-labels..., feat(connect-supabase): store oauth tokens...
+
+---
+id: portfolio-danilo-final-instinct-git-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Git Commit Length
+
+## Action
+
+Keep commit messages concise, around 70-80 characters
+
+## Evidence
+
+- Pattern in commits.averageLength: 74
+
+---
+id: portfolio-danilo-final-instinct-feature-ui-workflow
+trigger: "When someone wants to add, improve, or refactor a UI component or feature"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Feature Ui Workflow
+
+## Action
+
+Edit/create component files in src/components, update build-info.json, update config/lockfiles, and optionally update docs/context
+
+## Evidence
+
+- Workflow: feature-development-with-component-and-style-update
+- Files: src/components/**/*.tsx, public/build-info.json, package.json, pnpm-lock.yaml, tsconfig.json, jest.config.cjs
+
+---
+id: portfolio-danilo-final-instinct-admin-feature-workflow
+trigger: "When someone wants to add, fix, or secure an admin panel feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Admin Feature Workflow
+
+## Action
+
+Edit admin files (src/app/admin/(protected), src/lib/admin), update related components, update context and audit docs, optionally update package.json/pnpm-lock.yaml
+
+## Evidence
+
+- Workflow: admin-section-hardening-or-feature-update
+- Files: src/app/admin/(protected)/**/*.tsx, src/lib/admin/**/*.ts, .context/DOCS-PORTFOLIO-PAGES/04-ADMIN/**/*.md, docs/AUDIT_PENTEST.md, docs/AUDIT_EXECUTION_PLAN.md, package.json, pnpm-lock.yaml
+
+---
+id: portfolio-danilo-final-instinct-dependency-update-workflow
+trigger: "When someone wants to update dependencies, refresh build metadata, or regenerate audit reports"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Dependency Update Workflow
+
+## Action
+
+Update package.json, pnpm-lock.yaml, public/build-info.json, and optionally next-env.d.ts, tsconfig.json, reports, docs
+
+## Evidence
+
+- Workflow: dependency-update-and-build-info-refresh
+- Files: package.json, pnpm-lock.yaml, public/build-info.json, next-env.d.ts, tsconfig.json, reports/**/*.json, docs/**/*.md
+
+---
+id: portfolio-danilo-final-instinct-database-table-workflow
+trigger: "When someone wants to persist new data in the database and update the corresponding serverless/edge logic"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Database Table Workflow
+
+## Action
+
+Create migration in supabase/examples/edge-functions/supabase/migrations, update/create edge function in supabase/examples/edge-functions/supabase/functions, optionally update types or docs
+
+## Evidence
+
+- Workflow: database-table-addition-with-edge-function-update
+- Files: .agents/skills/supabase/examples/edge-functions/supabase/migrations/*.sql, .agents/skills/supabase/examples/edge-functions/supabase/functions/**/*.ts
+
+---
+id: portfolio-danilo-final-instinct-logger-refactor-workflow
+trigger: "When someone wants to standardize logging practices and improve code health"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: danilonovaisv/PORTFOLIO-DANILO-FINAL
+---
+
+# Portfolio Danilo Final Instinct Logger Refactor Workflow
+
+## Action
+
+Create/update logger utility, refactor files to use logger instead of console.warn, update/add tests to spy on logger
+
+## Evidence
+
+- Workflow: code-health-console-warn-to-logger-refactor
+- Files: src/lib/logger.ts, src/lib/media-utils.ts, src/lib/admin/server-access.ts, src/config/ghostConfig.ts, test/unit/**/*.test.ts, test/components/**/*.test.tsx
+
