@@ -4,14 +4,13 @@ import { SOCIALS } from '@/config/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { Button } from '@/components/ui/button';
+import { Mail, MapPin } from 'lucide-react';
 import {
-  Mail,
-  MapPin,
-  LinkedinIcon,
-  InstagramIcon,
-  TwitterIcon,
-  FacebookIcon,
-} from 'lucide-react';
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from '@/components/shared/icons/SocialIcons';
 
 const ContactDetails: FC = () => {
   const prefersReducedMotion = useMotionGate();
@@ -39,22 +38,22 @@ const ContactDetails: FC = () => {
     {
       platform: 'LinkedIn',
       url: SOCIALS.linkedin,
-      icon: <LinkedinIcon className="w-5 h-5" />,
+      icon: <Linkedin className="w-5 h-5" />,
     },
     {
-      platform: 'InstagramIcon',
+      platform: 'Instagram',
       url: SOCIALS.instagram,
-      icon: <InstagramIcon className="w-5 h-5" />,
+      icon: <Instagram className="w-5 h-5" />,
     },
     {
-      platform: 'FacebookIcon',
+      platform: 'Facebook',
       url: SOCIALS.facebook,
-      icon: <FacebookIcon className="w-5 h-5" />,
+      icon: <Facebook className="w-5 h-5" />,
     },
     {
-      platform: 'TwitterIcon',
+      platform: 'Twitter',
       url: SOCIALS.twitter,
-      icon: <TwitterIcon className="w-5 h-5" />,
+      icon: <Twitter className="w-5 h-5" />,
     },
   ];
 

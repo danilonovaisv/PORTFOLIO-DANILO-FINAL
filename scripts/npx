@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# scripts/npx - Shim to ensure npx is found even in restricted environments
+set -euo pipefail
+
+# Ensure common paths are in PATH
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+# Try to find a working package executor
+if command -v pnpm > /dev/null 2>&1; then
+    # Favor pnpm as it seems more robust in this environment (npx has EPERM issues)
+    exec pnpm dlx "$@"
+elif command -v npx > /dev/null 2>&1; then
+    exec npx "$@"
+else
+    echo "❌ Error: neither pnpm nor npx found in PATH." >&2
+    echo "Current PATH: $PATH" >&2
+    exit 1
+fi

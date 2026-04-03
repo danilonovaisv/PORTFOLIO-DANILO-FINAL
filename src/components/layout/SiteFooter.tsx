@@ -2,7 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { InstagramIcon, LinkedinIcon, TwitterIcon } from 'lucide-react';
+import {
+  Instagram,
+  Linkedin,
+  Twitter,
+} from '@/components/shared/icons/SocialIcons';
 import { usePathname, useRouter } from 'next/navigation';
 import { NAVIGATION, SOCIALS } from '@/config/navigation';
 
@@ -44,19 +48,19 @@ export default function SiteFooter() {
 
   const socialLinks = [
     {
-      label: 'InstagramIcon',
+      label: 'Instagram',
       href: SOCIALS.instagram,
-      icon: <InstagramIcon className="w-5 h-5 lg:w-4 lg:h-4" />,
+      icon: <Instagram className="w-5 h-5 lg:w-4 lg:h-4" />,
     },
     {
       label: 'LinkedIn',
       href: SOCIALS.linkedin,
-      icon: <LinkedinIcon className="w-5 h-5 lg:w-4 lg:h-4" />,
+      icon: <Linkedin className="w-5 h-5 lg:w-4 lg:h-4" />,
     },
     {
-      label: 'TwitterIcon',
+      label: 'Twitter',
       href: SOCIALS.twitter,
-      icon: <TwitterIcon className="w-5 h-5 lg:w-4 lg:h-4" />,
+      icon: <Twitter className="w-5 h-5 lg:w-4 lg:h-4" />,
     },
   ];
 

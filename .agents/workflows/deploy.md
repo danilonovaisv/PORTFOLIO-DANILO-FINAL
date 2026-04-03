@@ -35,8 +35,8 @@ Before any deployment:
 
 ### Code Quality
 
-- [ ] No TypeScript errors (`npx tsc --noEmit`)
-- [ ] ESLint passing (`npx eslint .`)
+- [ ] No TypeScript errors (`pnpm exec tsc --noEmit`)
+- [ ] ESLint passing (`pnpm exec eslint .`)
 - [ ] All tests passing (`npm test`)
 
 ### Security

@@ -934,3 +934,32 @@ Corrigido falhas nos testes unitários:
 - ✅ Deploy final concluído em `https://portfolio-danilo-novais.web.app`.
 - ✅ `GET /portfolio` respondeu `200` após o redeploy corretivo.
 - ✅ Navegação limpa via browser em contexto novo: home sem erros de console do logo e `/portfolio` carregando sem `500`.
+
+---
+
+## [2026-04-03T01:05] Fix MCP "npx" Path Error
+
+**Context:** The MCP servers were failing with `Error: exec: "npx": executable file not found in $PATH` in restricted environments or IDE sub-shells where `/opt/homebrew/bin` and other node binary paths were not initialized.
+
+**Changes Applied:** ✅
+
+1. **Upgraded MCP Wrapper (`scripts/mcp-wrapper.cjs`)**
+   - Enhanced to explicitly inject common system paths (`/opt/homebrew/bin`, `/usr/local/bin`, etc.) and the project's `scripts/` directory into the environment's `PATH`.
+   - Implemented intelligent `npx` resolution: if the command starts with `npx`, it tries to use the local `scripts/npx` shim or falls back to `pnpm dlx`.
+
+2. **Optimized NPX Shim (`scripts/npx`)**
+   - Modified to favor `pnpm dlx` for modern package execution, which is more robust in this environment due to detected `EPERM` issues in the user's `~/.npm` cache.
+   - Ensures a clean `PATH` is available before execution.
+
+3. **Standardized Server Configurations (`mcp_servers.json`)**
+   - Updated all server definitions to use the `node scripts/mcp-wrapper.cjs npx` pattern instead of calling `npx` directly.
+   - This ensures consistent behavior and path resolution across all configured MCPs.
+
+**Verification:**
+
+- ✅ `node scripts/mcp-wrapper.cjs npx --version` returned `11.11.0` (successful pnpm dlx fallback).
+- ✅ Checked `mcp_servers.json` for JSON validity.
+- ✅ Verified `scripts/npx` and `scripts/npm` are executable.
+
+**Action Recommended for User:**
+Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix npm's local health permanently.
