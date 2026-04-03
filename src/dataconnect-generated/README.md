@@ -64,7 +64,7 @@ Below are examples of how to use the `gemini-test` connector's generated functio
 ## GetProjectsByUser
 You can execute the `GetProjectsByUser` query using the following action shortcut function, or by calling `executeQuery()` after calling the following `QueryRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
 ```typescript
-getProjectsByUser(vars: GetProjectsByUserVariables): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
+getProjectsByUser(vars: GetProjectsByUserVariables, options?: ExecuteQueryOptions): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
 
 interface GetProjectsByUserRef {
   ...
@@ -75,7 +75,7 @@ export const getProjectsByUserRef: GetProjectsByUserRef;
 ```
 You can also pass in a `DataConnect` instance to the action shortcut function or `QueryRef` function.
 ```typescript
-getProjectsByUser(dc: DataConnect, vars: GetProjectsByUserVariables): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
+getProjectsByUser(dc: DataConnect, vars: GetProjectsByUserVariables, options?: ExecuteQueryOptions): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
 
 interface GetProjectsByUserRef {
   ...
