@@ -1,5 +1,54 @@
 # Adjustment Log
 
+## [2026-04-03T05:00] Deep Clean + Security Remediation + Root Decontamination
+
+**Context:** Execução do Deep Clean Audit gerado em `/tmp/deep_clean_audit_report.md`. Limpeza de ~2.6 GB de caches locais, validação dos overrides de segurança e remoção de arquivos de auditoria/backup da raiz do projeto.
+
+**Changes Applied:**
+
+1. **Limpeza de Caches Locais (~2.6 GB removidos)** ✅
+   - `.next/` (426 MB) — removido para rebuild limpo
+   - `.npm_cache/` (153 MB) — removido
+   - `.npm_cache_local/` (1.4 GB) — removido
+   - `.pnpm-cache/` (656 MB) — removido
+   - `.jest_cache/` (12 MB) — removido
+   - `test-results/` (792 KB) — removido
+
+2. **pnpm Store Prune** ✅
+   - Removidos 84.503 arquivos e 2.003 packages orfãos do store global
+   - Comando: `pnpm store prune --force`
+
+3. **Validação de Overrides de Segurança** ✅
+   - `tar: "7.5.10"` — já correto em `package.json` overrides (CVE-2026-26960, CVE-2026-29786 mitigados)
+   - `fast-xml-parser: "5.3.4"` — já correto
+   - `node engines: ">=20"` — já correto
+
+4. **Root Decontamination** ✅
+   - `AUDIT_REPORT.md` → `docs/reports/`
+   - `AUDIT_REPORT_UX_MOTION.md` → `docs/reports/`
+   - `REPAIR_REPORT.md` → `docs/reports/`
+   - `lighthouse-report.json` → `docs/reports/`
+   - `lighthouse-failed-audits.json` → `docs/reports/`
+   - `site_assets_backup-*.json` (4 arquivos) → `.context/logs/backups/`
+   - `findings.md` → `.context/logs/`
+   - `progress.md` → `.context/logs/`
+
+5. **Geração do ORCHESTRATION_MASTER_PROMPT.md** ✅
+   - Análise assíncrona profunda de toda a estrutura agentic
+   - 10 inconsistências críticas documentadas (60 skills duplicadas, 3 agentes órfãos, etc.)
+   - Prompt de orquestração gerado em `docs/ORCHESTRATION_MASTER_PROMPT.md`
+
+**Verification:**
+
+- ✅ Root livre de arquivos de auditoria/backup
+- ✅ `docs/reports/` criado com 11 relatórios consolidados
+- ✅ `.context/logs/backups/` criado com backups JSON
+- ✅ Caches locais removidos (2.6 GB recuperados)
+- ✅ pnpm store pruned (84.503 arquivos removidos)
+- ✅ Security overrides validados (tar 7.5.10 ativo)
+
+---
+
 ## [2026-04-03T02:30] Typography Refactor — TT Norms Pro → Manrope Variable Font
 
 **Context:** Systemic typography refactor replacing TT Norms Pro with Manrope Variable Font (wght 200–800, self-hosted). Audit revealed that TT Norms Pro `.woff2` files never existed in `public/fonts/` — the site was silently serving browser fallback fonts (`ui-sans-serif`) with 3 HTTP 404s per pageview from broken `<link rel="preload">` tags. Manrope `.woff2` files (including the variable font) were already present in `public/fonts/`.
