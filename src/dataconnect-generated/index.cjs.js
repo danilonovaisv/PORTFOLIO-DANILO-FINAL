@@ -1,4 +1,4 @@
-const { queryRef, executeQuery, validateArgsWithOptions, mutationRef, executeMutation, validateArgs } = require('firebase/data-connect');
+const { queryRef, executeQuery, mutationRef, executeMutation, validateArgs } = require('firebase/data-connect');
 
 const connectorConfig = {
   connector: 'gemini-test',
@@ -16,10 +16,8 @@ createUserRef.operationName = 'CreateUser';
 exports.createUserRef = createUserRef;
 
 exports.createUser = function createUser(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createUserRef(dcInstance, inputVars));
-}
-;
+  return executeMutation(createUserRef(dcOrVars, vars));
+};
 
 const getProjectsByUserRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
@@ -29,12 +27,9 @@ const getProjectsByUserRef = (dcOrVars, vars) => {
 getProjectsByUserRef.operationName = 'GetProjectsByUser';
 exports.getProjectsByUserRef = getProjectsByUserRef;
 
-exports.getProjectsByUser = function getProjectsByUser(dcOrVars, varsOrOptions, options) {
-  
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateArgsWithOptions(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  return executeQuery(getProjectsByUserRef(dcInstance, inputVars), inputOpts && inputOpts.fetchPolicy);
-}
-;
+exports.getProjectsByUser = function getProjectsByUser(dcOrVars, vars) {
+  return executeQuery(getProjectsByUserRef(dcOrVars, vars));
+};
 
 const createProjectRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
@@ -45,10 +40,8 @@ createProjectRef.operationName = 'CreateProject';
 exports.createProjectRef = createProjectRef;
 
 exports.createProject = function createProject(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(createProjectRef(dcInstance, inputVars));
-}
-;
+  return executeMutation(createProjectRef(dcOrVars, vars));
+};
 
 const deleteProjectRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
@@ -59,7 +52,5 @@ deleteProjectRef.operationName = 'DeleteProject';
 exports.deleteProjectRef = deleteProjectRef;
 
 exports.deleteProject = function deleteProject(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars } = validateArgs(connectorConfig, dcOrVars, vars, true);
-  return executeMutation(deleteProjectRef(dcInstance, inputVars));
-}
-;
+  return executeMutation(deleteProjectRef(dcOrVars, vars));
+};
