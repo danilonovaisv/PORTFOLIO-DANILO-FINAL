@@ -39,6 +39,8 @@ jobs:
       # ── 2. Setup pnpm (versão fixa) ──────────────────────────────────────────
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       # ── 3. Setup Node.js + cache pnpm ───────────────────────────────────────
       # cache-dependency-path: aponta para o lockfile na raiz do monorepo.
