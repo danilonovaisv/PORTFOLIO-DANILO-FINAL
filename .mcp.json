@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "claude-flow": {
-      "command": "npx",
+      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
       "args": ["-y", "@claude-flow/cli@latest", "mcp", "start"],
       "env": {
         "npm_config_update_notifier": "false",

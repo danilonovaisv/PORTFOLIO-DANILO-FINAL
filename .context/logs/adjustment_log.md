@@ -1,5 +1,55 @@
 # Adjustment Log
 
+## [2026-04-03T06:24] Security Fix — `tar` Override via `pnpm.overrides` + Final Audit Clean
+
+**Context:** Seguindo o protocolo `/deep-clean-project` + `/codebase-cleanup-deps-audit`. A auditoria inicial revelou 8 vulnerabilidades (6 high, 2 low). O override de `tar` foi inicialmente aplicado apenas na seção `overrides` (npm-style), mas o pnpm ignora essa seção para forçar versões transitivas — o campo correto é `pnpm.overrides`. Após identificar o root cause, o fix foi aplicado no lugar correto.
+
+**Root Cause do audit persistente:**
+
+O `tar` estava em `package.json > overrides` (npm-style, ignorado pelo pnpm para resolution de transitivas). A chave correta para pnpm é `pnpm > overrides`. As vulnerabilidades CVE-2026-26960, CVE-2026-29786 e GHSA-9ppj-qmqm-q256 exigiam `tar >= 7.5.11`.
+
+**Changes Applied:**
+
+1. **`package.json` — `pnpm.overrides`** ✅
+   - Adicionado `"tar": ">=7.5.13"` em `pnpm.overrides` (campo correto para pnpm)
+   - Atualizado `overrides > tar`: `7.5.7` → `7.5.10` → `7.5.13`
+   - Engine constraint: `"node": "20"` → `"node": ">=20"` (elimina WARN com Node v25)
+
+2. **Versão `tar` instalada:** `7.5.13` (acima dos `>=7.5.11` exigidos) ✅
+
+3. **`pnpm update react-hook-form knip`** ✅
+   - `react-hook-form`: 7.72.0 → 7.72.1 (patch)
+   - `knip`: 6.2.0 → 6.3.0 (minor)
+
+4. **Limpeza de raiz** ✅
+   - Removidos: `firebase-debug.log`, `firepit-log.txt`, `agent-*` (3 arquivos), `build-index/`, `repo_audit/`, `temp/`
+   - Removidos: `site_assets_backup-1773055382298.json`, `-1773193614620.json`, `-1773371349448.json` (backups Mar/9 a Mar/13)
+   - Movidos: `AUDIT_REPORT.md`, `AUDIT_REPORT_UX_MOTION.md`, `REPAIR_REPORT.md` → `docs/reports/`
+   - Raiz: 70 arquivos → 53 arquivos, 41 dirs → 34 dirs
+
+5. **Caches locais removidos** ✅
+   - `.npm_cache/` (153 MB), `.npm_cache_local/` (1.4 GB), `.pnpm-cache/` (656 MB), `.jest_cache/` (12 MB)
+   - `.next/` (426 MB) — para rebuild limpo
+   - `test-results/` (792 KB)
+
+**Resultado Final do Audit:**
+
+```text
+Antes:  8 vulnerabilidades (6 high, 2 low)
+Depois: 2 vulnerabilidades (0 high, 2 low)
+```
+
+Vulnerabilidades residuais (2 low — `@tootallnate/once` < 3.0.1): **não acionáveis localmente**. São transitivas profundas de `@google/adk` e `@genkit-ai/google-genai` — aguardam fix upstream dos mantenedores.
+
+**Verification:**
+
+- ✅ `pnpm audit` — 2 low (zero highs)
+- ✅ `pnpm run build-check` — typecheck + lint passando (exit 0)
+- ✅ `tar@7.5.13` confirmado em `node_modules/.pnpm/`
+- ✅ Raiz sanitizada
+
+---
+
 ## [2026-04-03T05:00] Deep Clean + Security Remediation + Root Decontamination
 
 **Context:** Execução do Deep Clean Audit gerado em `/tmp/deep_clean_audit_report.md`. Limpeza de ~2.6 GB de caches locais, validação dos overrides de segurança e remoção de arquivos de auditoria/backup da raiz do projeto.
