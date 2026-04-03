@@ -1,0 +1,3 @@
+model = "MODEL_ID_ENCONTRADO"
+openai_base_url = "http://localhost:23333/api/openai/v1"
+approval_policy = "on-request"
