@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "antigravity-ide": "^4.3.3"
+  },
+  "_npx": {
+    "packages": [
+      "antigravity-ide"
+    ]
+  }
+}
