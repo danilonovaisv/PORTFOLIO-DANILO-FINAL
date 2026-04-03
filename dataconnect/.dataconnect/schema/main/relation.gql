@@ -46,7 +46,7 @@ extend type Image {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Image.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Image.id", purpose: ENTITY_ID)
 }
 extend type Project {
   """
@@ -242,7 +242,7 @@ extend type Project {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Project.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Project.id", purpose: ENTITY_ID)
 }
 extend type ProjectSkill {
   """
@@ -274,7 +274,7 @@ extend type ProjectSkill {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "ProjectSkill.projectId,skillId", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "ProjectSkill.projectId,skillId", purpose: ENTITY_ID)
 }
 extend type Skill {
   """
@@ -383,7 +383,7 @@ extend type Skill {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "Skill.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "Skill.id", purpose: ENTITY_ID)
 }
 extend type User {
   """
@@ -545,5 +545,5 @@ extend type User {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "User.id", purpose: GLOBAL_ID)
+  _id: ID! @fdc_generated(from: "User.id", purpose: ENTITY_ID)
 }
