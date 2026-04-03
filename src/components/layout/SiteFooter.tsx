@@ -2,7 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Instagram, Linkedin, Twitter } from '@/components/shared/icons/SocialIcons';
+import {
+  Instagram,
+  Linkedin,
+  Twitter,
+} from '@/components/shared/icons/SocialIcons';
 import { usePathname, useRouter } from 'next/navigation';
 import { NAVIGATION, SOCIALS } from '@/config/navigation';
 

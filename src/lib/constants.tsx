@@ -1,9 +1,10 @@
+import { Mail, Phone, MapPin } from 'lucide-react';
 import {
-  Mail,
-  Phone,
-  MapPin,
-} from 'lucide-react';
-import { Linkedin, Instagram, Twitter, Facebook } from '@/components/shared/icons/SocialIcons';
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from '@/components/shared/icons/SocialIcons';
 import { getGhostAssetUrl } from '@/lib/utils';
 
 // Se não tiveres um ficheiro de tipos, podes definir aqui ou importar

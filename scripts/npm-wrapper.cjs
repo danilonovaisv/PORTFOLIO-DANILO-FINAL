@@ -50,18 +50,27 @@ if (isListCommand) {
   });
 
   // Ensure common paths are in PATH
-  const commonPaths = ['/opt/homebrew/bin', '/usr/local/bin', '/usr/bin', '/bin'];
+  const commonPaths = [
+    '/opt/homebrew/bin',
+    '/usr/local/bin',
+    '/usr/bin',
+    '/bin',
+  ];
   const currentPath = process.env.PATH || '';
-  const additionalPaths = commonPaths.filter(p => !currentPath.includes(p)).join(path.delimiter);
+  const additionalPaths = commonPaths
+    .filter((p) => !currentPath.includes(p))
+    .join(path.delimiter);
   const updatedEnvironment = {
     ...process.env,
-    PATH: additionalPaths ? `${additionalPaths}${path.delimiter}${currentPath}` : currentPath
+    PATH: additionalPaths
+      ? `${additionalPaths}${path.delimiter}${currentPath}`
+      : currentPath,
   };
 
-  const npmProcess = spawn(npmPath, filteredArgs, { 
+  const npmProcess = spawn(npmPath, filteredArgs, {
     stdio: 'inherit',
     env: updatedEnvironment,
-    shell: true
+    shell: true,
   });
   npmProcess.on('exit', (code) => {
     process.exit(code ?? 0);

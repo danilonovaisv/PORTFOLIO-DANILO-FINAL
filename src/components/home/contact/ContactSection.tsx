@@ -4,12 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { viewportConfig } from '@/config/motion';
+import { Mail, Phone, Globe } from 'lucide-react';
 import {
-  Mail,
-  Phone,
-  Globe,
-} from 'lucide-react';
-import { Linkedin, Instagram, Twitter, Facebook } from '@/components/shared/icons/SocialIcons';
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from '@/components/shared/icons/SocialIcons';
 
 import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';

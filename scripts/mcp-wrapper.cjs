@@ -32,23 +32,50 @@ const cmdString = args.join(' ');
 console.log(`🚀  [MCP-Wrapper] Executing: ${cmdString}`);
 
 // Ensure common paths are in PATH for execution environment
+const projectRoot = process.cwd();
+const scriptsDir = path.resolve(projectRoot, 'scripts');
 const commonPaths = [
+  scriptsDir,
   '/opt/homebrew/bin',
   '/usr/local/bin',
   '/usr/bin',
   '/bin',
   '/usr/sbin',
-  '/sbin'
+  '/sbin',
 ];
 
 const currentPath = process.env.PATH || '';
-const additionalPaths = commonPaths.filter(p => !currentPath.includes(p)).join(path.delimiter);
+const additionalPaths = commonPaths
+  .filter((p) => !currentPath.includes(p))
+  .join(path.delimiter);
+  
 const updatedEnvironment = {
   ...process.env,
-  PATH: additionalPaths ? `${additionalPaths}${path.delimiter}${currentPath}` : currentPath
+  PATH: additionalPaths
+    ? `${additionalPaths}${path.delimiter}${currentPath}`
+    : currentPath,
 };
 
-const child = spawn(cmdString, {
+// Intelligently handle npx command
+let finalCmdString = cmdString;
+if (args[0] === 'npx') {
+  // Check if we should use scripts/npx shim or pnpm fallback
+  const npxShim = path.resolve(scriptsDir, 'npx');
+  if (fs.existsSync(npxShim)) {
+    finalCmdString = `${npxShim} ${args.slice(1).join(' ')}`;
+  } else {
+    // If npx not found in PATH, try pnpm dlx
+    try {
+      require('child_process').execSync('command -v npx', { env: updatedEnvironment });
+    } catch (e) {
+      finalCmdString = `pnpm dlx ${args.slice(1).join(' ')}`;
+    }
+  }
+}
+
+console.log(`🚀  [MCP-Wrapper] Final command: ${finalCmdString}`);
+
+const child = spawn(finalCmdString, {
   stdio: 'inherit',
   shell: true,
   env: updatedEnvironment, // Passa as variaveis carregadas + PATH atualizado

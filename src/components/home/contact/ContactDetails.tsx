@@ -4,11 +4,13 @@ import { SOCIALS } from '@/config/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { Button } from '@/components/ui/button';
+import { Mail, MapPin } from 'lucide-react';
 import {
-  Mail,
-  MapPin,
-} from 'lucide-react';
-import { Linkedin, Instagram, Twitter, Facebook } from '@/components/shared/icons/SocialIcons';
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from '@/components/shared/icons/SocialIcons';
 
 const ContactDetails: FC = () => {
   const prefersReducedMotion = useMotionGate();
