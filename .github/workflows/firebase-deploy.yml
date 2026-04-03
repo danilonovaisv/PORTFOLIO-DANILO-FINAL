@@ -54,6 +54,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
 
+      # ── 4.1 Firebase preflight guardrails ───────────────────────────────────
+      - name: Firebase preflight checks
+        run: pnpm run firebase:preflight
+
       # ── 5. Validate Supabase env vars ─────────────────────────────────────────
       - name: Validate Supabase env vars
         run: |

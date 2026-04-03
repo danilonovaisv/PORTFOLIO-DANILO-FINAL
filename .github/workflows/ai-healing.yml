@@ -13,7 +13,6 @@ on:
   workflow_run:
     workflows:
       - Firebase Deploy
-      - Deploy to Firebase Hosting on PR
     types:
       - completed
   workflow_dispatch:
