@@ -115,12 +115,23 @@ export const siteMetadata: Metadata = {
   },
 
   manifest: '/manifest.json',
+  referrer: 'origin-when-cross-origin',
+
+  verification: {
+    google: 'placeholder-google-verification-id',
+    yandex: 'placeholder-yandex-verification-id',
+    other: {
+      me: ['contato@portfoliodanilo.com'],
+    },
+  },
 
   alternates: {
     canonical: `https://${BRAND.domain}`,
   },
   other: {
     logo: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
   },
 };
 

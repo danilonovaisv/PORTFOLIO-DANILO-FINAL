@@ -51,24 +51,10 @@ export default function RootLayout({
     >
       <head>
         <meta charSet="utf-8" />
-        {/* Preload critical fonts to reduce FOIT and improve FCP */}
+        {/* Preload primary variable font — self-hosted, wght 200–800 */}
         <link
           rel="preload"
-          href="/fonts/TT%20Norms%20Pro%20Regular.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/TT%20Norms%20Pro%20Medium.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/TT%20Norms%20Pro%20Bold.woff2"
+          href="/fonts/Manrope-VariableFont_wght.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

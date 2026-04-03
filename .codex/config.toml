@@ -1,5 +1,4 @@
 #:schema https://developers.openai.com/codex/config-schema.json
-
 # ECC Tools generated Codex baseline
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
@@ -46,3 +45,6 @@ config_file = "agents/reviewer.toml"
 [agents.docs_researcher]
 description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
 config_file = "agents/docs-researcher.toml"
+
+# Seção 'projects' adicionada como um mapa vazio, pois estava faltando ou incorreta
+[projects]

@@ -47,7 +47,7 @@ Profissionais que buscam:
 
 ### 2.2 Typography
 
-**Family:** `TT Norms Pro` (Primary), `Geist Mono` (Code/Tech details).
+**Family:** `Manrope` (Primary), `Geist Mono` (Code/Tech details).
 
 #### Fluid Typography Tokens (clamp)
 
@@ -172,7 +172,7 @@ const variants = {
 
 ```css
 @font-face {
-  font-family: 'TT Norms Pro';
+  font-family: 'Manrope';
   src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2')
     format('woff2');
   font-weight: 100;
@@ -181,7 +181,7 @@ const variants = {
 }
 
 @font-face {
-  font-family: 'TT Norms Pro';
+  font-family: 'Manrope';
   src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2')
     format('woff2');
   font-weight: 300;
@@ -190,7 +190,7 @@ const variants = {
 }
 
 @font-face {
-  font-family: 'TT Norms Pro';
+  font-family: 'Manrope';
   src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2')
     format('woff2');
   font-weight: 400;
@@ -199,7 +199,7 @@ const variants = {
 }
 
 @font-face {
-  font-family: 'TT Norms Pro';
+  font-family: 'Manrope';
   src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2')
     format('woff2');
   font-weight: 500;
@@ -208,7 +208,7 @@ const variants = {
 }
 
 @font-face {
-  font-family: 'TT Norms Pro';
+  font-family: 'Manrope';
   src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2')
     format('woff2');
   font-weight: 700;
@@ -217,7 +217,7 @@ const variants = {
 }
 
 @font-face {
-  font-family: 'TT Norms Pro';
+  font-family: 'Manrope';
   src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2')
     format('woff2');
   font-weight: 900;
@@ -615,7 +615,7 @@ gsap
 | Elemento     | Especificação                                                      |
 | ------------ | ------------------------------------------------------------------ |
 | Cores        | `#040013` → `#0a001a`, `#fcffff` (texto), `bluePrimary` (H1)       |
-| Tipografia   | TT Norms Pro: H1 800 (32-48px), H3 400 (16-20px), line-height: 1.6 |
+| Tipografia   | Manrope: H1 800 (32-48px), H3 400 (16-20px), line-height: 1.6 |
 | Espaçamentos | Container 1440px, gap 60px, padding 2rem                           |
 | Bordas       | `border-radius: 24px`                                              |
 
@@ -2074,7 +2074,7 @@ Este documento consolida **TODO** o conteúdo da página /sobre. Nenhuma decisã
 - **Animações:** Framer Motion 11+, GSAP 3.13+ + ScrollTrigger
 - **Smooth Scroll:** Lenis
 - **Styling:** Tailwind CSS 3.4+
-- **Fonts:** Self-hosted (TT Norms Pro)
+- **Fonts:** Self-hosted (Manrope)
 - **Assets:** Supabase Storage
 - **Otimização de Imagens:** Next/Image com sharp
 

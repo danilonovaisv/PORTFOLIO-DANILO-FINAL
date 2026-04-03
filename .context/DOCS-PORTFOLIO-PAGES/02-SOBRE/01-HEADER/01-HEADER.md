@@ -39,7 +39,7 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
 - CTA’s:
   - Navegação primária para rotas e âncora `#contact`.
 - Fonts utilizadas:
-  - Herda tipografia global (`TT Norms Pro`).
+  - Herda tipografia global (`Manrope`).
 - Tokens aplicados:
   - Predominância de `bluePrimary`, `blueAccent`, fundo escuro translúcido.
 

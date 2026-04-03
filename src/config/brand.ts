@@ -58,7 +58,7 @@ export const BRAND = {
       ),
     },
     fonts: {
-      primary: 'TT Norms Pro',
+      primary: 'Manrope',
       mono: 'PPSupplyMono',
     },
   },

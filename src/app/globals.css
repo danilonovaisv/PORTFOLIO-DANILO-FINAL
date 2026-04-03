@@ -32,8 +32,9 @@
   --color-accent: #4fe6ff;
 
   /* Font families */
-  --font-family-sans: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: 'PPSupplyMono', monospace;
+  /* @deprecated — Outfit not used in production; scheduled for removal */
   --font-family-outfit: 'Outfit', sans-serif;
 
   /* Min-widths */
@@ -174,8 +175,8 @@ body {
 /* Utilitários de Tipografia baseados nos Tokens */
 .text-display {
   font-size: var(--font-display);
-  font-weight: 900;
-  /* Black */
+  font-weight: 800;
+  /* ExtraBold — Manrope max weight (no 900 Black available) */
   line-height: 1.1;
 }
 
@@ -192,8 +193,8 @@ body {
 
 .text-h2 {
   font-size: var(--font-h2);
-  font-weight: 700;
-  /* Bold */
+  font-weight: 600;
+  /* SemiBold — aligned with Ghost Design System spec §1.2 */
   line-height: 1.15;
 
   @supports (text-wrap: balance) {

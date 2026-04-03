@@ -38,7 +38,7 @@ O foco é **clareza editorial + impacto sensorial controlado**.
 ### Estilo & UI
 
 - **Tailwind CSS**
-- Tipografia: **TT Norms Pro**
+- Tipografia: **Manrope** (Variable Font, wght 200–800, self-hosted)
 - Tokens centralizados em `config/`
 
 ### Motion & Interação
