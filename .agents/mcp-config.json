@@ -1,19 +1,21 @@
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "node",
+      "args": ["scripts/mcp-wrapper.cjs", "npx", "-y", "@modelcontextprotocol/server-github"],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN_HERE>"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       }
     },
     "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp"]
+      "command": "node",
+      "args": ["scripts/mcp-wrapper.cjs", "npx", "-y", "chrome-devtools-mcp"]
     },
     "filesystem": {
-      "command": "npx",
+      "command": "node",
       "args": [
+        "scripts/mcp-wrapper.cjs",
+        "npx",
         "-y",
         "@modelcontextprotocol/server-filesystem",
         "/Users/danilonovais/PORTFOLIO-DANILO-FINAL"

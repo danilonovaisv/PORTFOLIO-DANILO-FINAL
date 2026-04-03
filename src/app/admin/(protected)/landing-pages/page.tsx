@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { Edit, ExternalLink, Plus } from 'lucide-react';
-<<<<<<< ours
 import { listLandingPagesAction } from '@/app/admin/(protected)/landing-pages/actions';
-=======
-import {
-  listLandingPagesAction,
-} from '@/app/admin/(protected)/landing-pages/actions';
->>>>>>> theirs
 import { DeleteLandingPageButton } from '@/components/admin/DeleteLandingPageButton';
 import {
   LEGACY_PROJECT_TEMPLATE,

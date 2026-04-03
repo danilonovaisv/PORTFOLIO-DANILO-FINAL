@@ -8,7 +8,14 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PAT
 # Try to find a working package executor
 if command -v pnpm > /dev/null 2>&1; then
     # Favor pnpm as it seems more robust in this environment (npx has EPERM issues)
-    exec pnpm dlx "$@"
+    # Filter out -y/--yes which pnpm dlx doesn't like
+    args=()
+    for arg in "$@"; do
+        if [[ "$arg" != "-y" && "$arg" != "--yes" ]]; then
+            args+=("$arg")
+        fi
+    done
+    exec pnpm dlx "${args[@]}"
 elif command -v npx > /dev/null 2>&1; then
     exec npx "$@"
 else
