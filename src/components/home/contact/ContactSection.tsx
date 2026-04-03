@@ -7,10 +7,10 @@ import { viewportConfig } from '@/config/motion';
 import {
   Mail,
   Phone,
-  InstagramIcon,
-  LinkedinIcon,
-  TwitterIcon,
-  FacebookIcon,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Facebook,
   Globe,
 } from 'lucide-react';
 
@@ -46,24 +46,24 @@ export default function ContactSection() {
 
   const socialLinks = [
     {
-      label: 'InstagramIcon',
+      label: 'Instagram',
       href: SOCIALS.instagram,
-      icon: <InstagramIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Instagram className="h-5 w-5" aria-hidden="true" />,
     },
     {
-      label: 'FacebookIcon',
+      label: 'Facebook',
       href: SOCIALS.facebook,
-      icon: <FacebookIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Facebook className="h-5 w-5" aria-hidden="true" />,
     },
     {
       label: 'LinkedIn',
       href: SOCIALS.linkedin,
-      icon: <LinkedinIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Linkedin className="h-5 w-5" aria-hidden="true" />,
     },
     {
-      label: 'TwitterIcon',
+      label: 'Twitter',
       href: SOCIALS.twitter,
-      icon: <TwitterIcon className="h-5 w-5" aria-hidden="true" />,
+      icon: <Twitter className="h-5 w-5" aria-hidden="true" />,
     },
     {
       label: 'Portfolio',
