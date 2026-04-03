@@ -7,12 +7,9 @@ import { viewportConfig } from '@/config/motion';
 import {
   Mail,
   Phone,
-  Instagram,
-  Linkedin,
-  Twitter,
-  Facebook,
   Globe,
 } from 'lucide-react';
+import { Linkedin, Instagram, Twitter, Facebook } from '@/components/shared/icons/SocialIcons';
 
 import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';

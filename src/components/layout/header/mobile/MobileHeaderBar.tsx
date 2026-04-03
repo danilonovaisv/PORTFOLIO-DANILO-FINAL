@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { motion, Variants } from 'framer-motion';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
@@ -64,14 +65,14 @@ export default function MobileHeaderBar({
         <div className="flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-16">
           <motion.div variants={itemVariants}>
             <Link href="/" onClick={onLogoClick}>
-              <img
+              <Image
                 src={logoUrl}
                 alt="Danilo Novais — Head de Criação & Diretor de Criação Sênior"
                 width={124}
                 height={39}
                 className="block h-auto w-[clamp(88px,24vw,124px)] object-contain"
-                loading="eager"
-                decoding="async"
+                priority
+                unoptimized
               />
             </Link>
           </motion.div>

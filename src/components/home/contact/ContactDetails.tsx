@@ -7,11 +7,8 @@ import { Button } from '@/components/ui/button';
 import {
   Mail,
   MapPin,
-  Linkedin,
-  Instagram,
-  Twitter,
-  Facebook,
 } from 'lucide-react';
+import { Linkedin, Instagram, Twitter, Facebook } from '@/components/shared/icons/SocialIcons';
 
 const ContactDetails: FC = () => {
   const prefersReducedMotion = useMotionGate();

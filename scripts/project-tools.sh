@@ -51,6 +51,7 @@ check_env() {
   info "Checando versões de Node e gerenciadores..."
   node -v || warn "Node não encontrado"
   npm -v || warn "npm não encontrado"
+  npx -v || warn "npx não encontrado"
   yarn -v || warn "yarn não encontrado"
   pnpm -v || warn "pnpm não encontrado"
 }
@@ -114,9 +115,9 @@ update_aggressive() {
   detect_package_manager
   info "Atualização agressiva com npm-check-updates..."
 
-  # npx funciona mesmo se não tiver ncu instalado globalmente
-  npx npm-check-updates || true
-  npx npm-check-updates -u
+  # pnpm dlx funciona como o npx
+  pnpm dlx npm-check-updates || true
+  pnpm dlx npm-check-updates -u
 
   info "Reinstalando dependências após atualizar package.json..."
 
@@ -161,7 +162,7 @@ deep_clean() {
 
 depcheck_run() {
   info "Rodando depcheck para encontrar dependências não usadas..."
-  npx depcheck || true
+  pnpm exec depcheck || true
 }
 
 set_default_branch_main() {
@@ -271,8 +272,8 @@ generate_report() {
   echo "-------------------------------------------" >> "$REPORT_FILE"
   echo "### Depcheck (dependências não usadas / faltando)" >> "$REPORT_FILE"
   echo "" >> "$REPORT_FILE"
-  echo "\$ npx depcheck" >> "$REPORT_FILE"
-  npx depcheck >> "$REPORT_FILE" 2>&1
+  echo "\$ pnpm exec depcheck" >> "$REPORT_FILE"
+  pnpm exec depcheck >> "$REPORT_FILE" 2>&1
   echo "" >> "$REPORT_FILE"
 
   echo "-------------------------------------------" >> "$REPORT_FILE"

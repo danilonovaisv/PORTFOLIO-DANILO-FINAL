@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const { spawn } = require('child_process');
+const path = require('path');
 
 const args = process.argv.slice(2);
 const isListCommand =
@@ -48,7 +49,20 @@ if (isListCommand) {
     return arg;
   });
 
-  const npmProcess = spawn(npmPath, filteredArgs, { stdio: 'inherit' });
+  // Ensure common paths are in PATH
+  const commonPaths = ['/opt/homebrew/bin', '/usr/local/bin', '/usr/bin', '/bin'];
+  const currentPath = process.env.PATH || '';
+  const additionalPaths = commonPaths.filter(p => !currentPath.includes(p)).join(path.delimiter);
+  const updatedEnvironment = {
+    ...process.env,
+    PATH: additionalPaths ? `${additionalPaths}${path.delimiter}${currentPath}` : currentPath
+  };
+
+  const npmProcess = spawn(npmPath, filteredArgs, { 
+    stdio: 'inherit',
+    env: updatedEnvironment,
+    shell: true
+  });
   npmProcess.on('exit', (code) => {
     process.exit(code ?? 0);
   });

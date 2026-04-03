@@ -1,4 +1,4 @@
-import { ConnectorConfig, DataConnect, QueryRef, QueryPromise, MutationRef, MutationPromise } from 'firebase/data-connect';
+import { ConnectorConfig, DataConnect, QueryRef, QueryPromise, ExecuteQueryOptions, MutationRef, MutationPromise } from 'firebase/data-connect';
 
 export const connectorConfig: ConnectorConfig;
 
@@ -99,8 +99,8 @@ interface GetProjectsByUserRef {
 }
 export const getProjectsByUserRef: GetProjectsByUserRef;
 
-export function getProjectsByUser(vars: GetProjectsByUserVariables): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
-export function getProjectsByUser(dc: DataConnect, vars: GetProjectsByUserVariables): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
+export function getProjectsByUser(vars: GetProjectsByUserVariables, options?: ExecuteQueryOptions): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
+export function getProjectsByUser(dc: DataConnect, vars: GetProjectsByUserVariables, options?: ExecuteQueryOptions): QueryPromise<GetProjectsByUserData, GetProjectsByUserVariables>;
 
 interface CreateProjectRef {
   /* Allow users to create refs without passing in DataConnect */

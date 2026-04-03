@@ -6,8 +6,8 @@
       "name": "context7",
       "description": "Context7 MCP Server for long-term memory and context management",
       "transport": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-context7"],
+      "command": "node",
+      "args": ["scripts/mcp-wrapper.cjs", "npx", "-y", "@modelcontextprotocol/server-context7"],
       "enabled": true,
       "env": {
         "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
@@ -17,8 +17,8 @@
       "name": "filesystem",
       "description": "Access to local filesystem operations",
       "transport": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp"],
+      "command": "node",
+      "args": ["scripts/mcp-wrapper.cjs", "npx", "-y", "@modelcontextprotocol/server-filesystem", "/tmp"],
       "enabled": true,
       "env": {}
     },
@@ -26,8 +26,8 @@
       "name": "github",
       "description": "GitHub API integration for repository management",
       "transport": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "node",
+      "args": ["scripts/mcp-wrapper.cjs", "npx", "-y", "@modelcontextprotocol/server-github"],
       "enabled": true,
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"

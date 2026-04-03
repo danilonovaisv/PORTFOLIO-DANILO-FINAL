@@ -31,10 +31,27 @@ if (args.length === 0) {
 const cmdString = args.join(' ');
 console.log(`🚀  [MCP-Wrapper] Executing: ${cmdString}`);
 
+// Ensure common paths are in PATH for execution environment
+const commonPaths = [
+  '/opt/homebrew/bin',
+  '/usr/local/bin',
+  '/usr/bin',
+  '/bin',
+  '/usr/sbin',
+  '/sbin'
+];
+
+const currentPath = process.env.PATH || '';
+const additionalPaths = commonPaths.filter(p => !currentPath.includes(p)).join(path.delimiter);
+const updatedEnvironment = {
+  ...process.env,
+  PATH: additionalPaths ? `${additionalPaths}${path.delimiter}${currentPath}` : currentPath
+};
+
 const child = spawn(cmdString, {
   stdio: 'inherit',
   shell: true,
-  env: process.env, // Passa as variaveis carregadas
+  env: updatedEnvironment, // Passa as variaveis carregadas + PATH atualizado
 });
 
 child.on('exit', (code) => process.exit(code));

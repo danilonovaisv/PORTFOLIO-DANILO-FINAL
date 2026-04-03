@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-npx playwright test "$@"
+pnpm exec playwright test "$@"
