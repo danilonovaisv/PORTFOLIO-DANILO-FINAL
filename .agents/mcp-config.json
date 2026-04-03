@@ -2,7 +2,12 @@
   "mcpServers": {
     "github": {
       "command": "node",
-      "args": ["scripts/mcp-wrapper.cjs", "npx", "-y", "@modelcontextprotocol/server-github"],
+      "args": [
+        "scripts/mcp-wrapper.cjs",
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       }

@@ -2,7 +2,9 @@ import os
 
 def create_file(path, content):
     """Cria o diretório se não existir e escreve o conteúdo no arquivo."""
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    dir_name = os.path.dirname(path)
+    if dir_name:
+        os.makedirs(dir_name, exist_ok=True)
     # Se o arquivo já existe, não o sobrescrevemos para evitar perda de dados do usuário
     if not os.path.exists(path):
         with open(path, 'w', encoding='utf-8') as f:
@@ -13,7 +15,9 @@ def create_file(path, content):
 
 def append_to_file(path, content):
     """Adiciona conteúdo ao arquivo ou cria se não existir."""
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    dir_name = os.path.dirname(path)
+    if dir_name:
+        os.makedirs(dir_name, exist_ok=True)
     with open(path, 'a', encoding='utf-8') as f:
         f.write('\n' + content.strip() + '\n')
     print(f"✅ Atualizado: {path}")

@@ -13,7 +13,7 @@ Recuperar o deploy no Firebase Hosting para o portfólio Next.js e elevar Lighth
 | 3. Performance fixes         | completed   | Preloads, skeleton, defer below-the-fold, image tuning e motion governance aplicados |
 | 4. A11y/UI fixes + docs sync | completed   | Contraste, semântica, labels, typo, `.context` e auditoria atualizados               |
 | 5. Validation                | in_progress | lint, typecheck e build ok; deploy Firebase em confirmação final                     |
-| 6. Fix MCP "npx" path error  | completed   | MCP wrapper and servers standardized; npx shim optimized for pnpm fallback            |
+| 6. Fix MCP "npx" path error  | completed   | MCP wrapper and servers standardized; npx shim optimized for pnpm fallback           |
 
 ## Decisions
 

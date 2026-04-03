@@ -612,12 +612,12 @@ gsap
 
 #### Identidade Visual
 
-| Elemento     | Especificação                                                      |
-| ------------ | ------------------------------------------------------------------ |
-| Cores        | `#040013` → `#0a001a`, `#fcffff` (texto), `bluePrimary` (H1)       |
+| Elemento     | Especificação                                                 |
+| ------------ | ------------------------------------------------------------- |
+| Cores        | `#040013` → `#0a001a`, `#fcffff` (texto), `bluePrimary` (H1)  |
 | Tipografia   | Manrope: H1 800 (32-48px), H3 400 (16-20px), line-height: 1.6 |
-| Espaçamentos | Container 1440px, gap 60px, padding 2rem                           |
-| Bordas       | `border-radius: 24px`                                              |
+| Espaçamentos | Container 1440px, gap 60px, padding 2rem                      |
+| Bordas       | `border-radius: 24px`                                         |
 
 #### Responsividade
 

@@ -61,8 +61,6 @@
 
 ---
 
-
-
 **Context:** The published Firebase site was returning browser `400` errors for some logos in the Featured Projects bento grid. The header logo and favicon assets were healthy, but project-specific logos loaded through `next/image` were failing when the source URL was already a Supabase `render/image/public` endpoint.
 
 **Root Cause:**

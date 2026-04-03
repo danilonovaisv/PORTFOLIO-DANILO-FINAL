@@ -48,7 +48,7 @@ const currentPath = process.env.PATH || '';
 const additionalPaths = commonPaths
   .filter((p) => !currentPath.includes(p))
   .join(path.delimiter);
-  
+
 const updatedEnvironment = {
   ...process.env,
   PATH: additionalPaths
@@ -66,7 +66,9 @@ if (args[0] === 'npx') {
   } else {
     // If npx not found in PATH, try pnpm dlx
     try {
-      require('child_process').execSync('command -v npx', { env: updatedEnvironment });
+      require('child_process').execSync('command -v npx', {
+        env: updatedEnvironment,
+      });
     } catch (e) {
       finalCmdString = `pnpm dlx ${args.slice(1).join(' ')}`;
     }

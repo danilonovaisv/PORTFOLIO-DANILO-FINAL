@@ -138,15 +138,14 @@ const createNextConfig = (phase) => ({
   reactStrictMode: true,
   staticPageGenerationTimeout: 180,
 
+  // adapterPath was promoted from experimental to top-level in Next.js 16
+  ...(phase === PHASE_PRODUCTION_BUILD
+    ? {
+        adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
+      }
+    : {}),
+
   experimental: {
-    ...(phase === PHASE_PRODUCTION_BUILD
-      ? {
-          adapterPath: path.join(
-            __dirname,
-            'scripts/firebase-next-adapter.cjs'
-          ),
-        }
-      : {}),
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
