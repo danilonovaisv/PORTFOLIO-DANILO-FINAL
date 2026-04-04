@@ -5,3 +5,6 @@
 ## 2025-01-20 - Missing pixelRatio usage in HeaderGlassCanvas React Three Fiber Canvas
 **Learning:** A similar issue to GhostScene was found in `HeaderGlassCanvas.tsx` using `@react-three/fiber`. The `<Canvas>` component was hardcoded to `dpr={[1, 2]}` instead of utilizing the `usePerformanceAdaptive` hook.
 **Action:** Ensure that all WebGL elements, whether raw Three.js or React Three Fiber, use the global performance strategy. For `@react-three/fiber`, pass `performanceConfig.pixelRatio` to the `dpr` prop of `<Canvas>`.
+## 2025-01-04 - [React.memo on Interactive List Items]
+**Learning:** Components rendered in lists (`map`) that depend on parent state for interaction (e.g., `isHovered` where the parent tracks `hoveredCategory`) are prime candidates for `React.memo`. Without it, a single hover interaction causes ALL sibling items in the list to re-render, not just the newly hovered and unhovered ones.
+**Action:** Always consider `React.memo` for list items that receive specific active/hover state from a parent, especially if the items contain complex DOM, motion animations, or media.
