@@ -1,34 +1,34 @@
 #:schema https://developers.openai.com/codex/config-schema.json
-# ECC Tools generated Codex baseline
+# Codex workspace profile for PORTFOLIO-DANILO-FINAL
+
+model = "gpt-5.4"
+model_provider = "openai"
+personality = "pragmatic"
+
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
+allow_login_shell = true
 web_search = "live"
 
-[mcp_servers.github]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-github"]
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_reasoning_summary = "auto"
+model_verbosity = "medium"
 
-[mcp_servers.context7]
-command = "npx"
-args = ["-y", "@upstash/context7-mcp@latest"]
+project_doc_max_bytes = 65536
+project_doc_fallback_filenames = ["AGENTS.md"]
 
-[mcp_servers.exa]
-url = "https://mcp.exa.ai/mcp"
+file_opener = "vscode"
+check_for_update_on_startup = true
 
-[mcp_servers.memory]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-memory"]
-
-[mcp_servers.playwright]
-command = "npx"
-args = ["-y", "@playwright/mcp@latest", "--extension"]
-
-[mcp_servers.sequential-thinking]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+# Persists the critical workflow constraints requested for this project.
+developer_instructions = "Sempre verificar o repositório https://github.com/danilonovaisv/DATABASE_AGENT_NEXT antes de decisões técnicas e consultar o vector store vs_69520b1fb834819197e445db9aab8d69 para contexto/intenção, cruzando ambas as fontes antes de implementar."
 
 [features]
 multi_agent = true
+unified_exec = true
+shell_snapshot = true
+enable_request_compression = true
 
 [agents]
 max_threads = 6
@@ -39,10 +39,61 @@ description = "Read-only codebase explorer for gathering evidence before changes
 config_file = "agents/explorer.toml"
 
 [agents.reviewer]
-description = "PR reviewer focused on correctness, security, and missing tests."
+description = "PR reviewer focused on correctness, security, and regression risks."
 config_file = "agents/reviewer.toml"
 
 [agents.docs_researcher]
 description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
 config_file = "agents/docs-researcher.toml"
 
+[mcp_servers.github]
+command = "pnpm"
+args = ["run", "mcp:github"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest", "--extension"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 120.0
+
+[mcp_servers.exa]
+url = "https://mcp.exa.ai/mcp"
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.sequential-thinking]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.firebase]
+command = "pnpm"
+args = ["run", "mcp:firebase"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 120.0
+
+[history]
+persistence = "save-all"
+
+[tui]
+notifications = false
+animations = true
+show_tooltips = true
+
+[projects."/workspace/PORTFOLIO-DANILO-FINAL"]
+trust_level = "trusted"
