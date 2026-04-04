@@ -1,4 +1,8 @@
-````markdown
+---
+name: PORTFOLIO-DANILO-FINAL
+description: Development patterns, coding conventions, and workflows for the PORTFOLIO-DANILO-FINAL repository.
+---
+
 # PORTFOLIO-DANILO-FINAL Development Patterns
 
 > Auto-generated skill from repository analysis
@@ -65,7 +69,7 @@ export const AccessibleButton = ({ label, ...props }) => (
   <button aria-label={label} {...props}>{label}</button>
 );
 ```
-````
+
 
 ---
 
@@ -194,6 +198,3 @@ export const processMedia = (file) => {
 | /new-table       | Add a new database table and update edge/serverless logic   |
 | /refactor-logger | Refactor code to use logger utility instead of console.warn |
 
-```
-
-```

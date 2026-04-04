@@ -1,12 +1,6 @@
+---
 name: audit-website
 description: Audit websites for SEO, performance, security, and architectural integrity using squirrelscan CLI and RULES-PORTFOLIO-STRUCTURE.md. Use to ensure code matches the project's immutable structural truth and Ghost Design standards.
-license: MIT
-compatibility: Requires squirrel CLI installed and accessible in PATH
-metadata:
-author: Danilo Novais / squirrelscan
-version: "2.1-architect-aligned"
-allowed-tools: Bash(squirrel:\*) Read Edit Grep Glob
-
 ---
 
 # Website & Architecture Audit Skill
