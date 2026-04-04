@@ -253,6 +253,7 @@ const ContactForm: React.FC = () => {
                 onChange={handleChange}
                 error={errors.message}
                 required
+                minLength={10}
                 rows={4}
                 placeholder="Conte-me sobre seu projeto..."
               />

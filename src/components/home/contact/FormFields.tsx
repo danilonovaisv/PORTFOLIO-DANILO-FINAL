@@ -88,7 +88,9 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       <textarea
         id={id}
         aria-invalid={isInvalid ? 'true' : 'false'}
-        aria-describedby={error ? `${id}-error` : undefined}
+        aria-describedby={
+          error ? `${id}-error` : props.minLength ? `${id}-hint` : undefined
+        }
         aria-required={props.required ? 'true' : 'false'}
         className={`w-full resize-none rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${
           error ? 'border-red-500' : ''
@@ -102,6 +104,14 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
           className="mt-2 text-xs text-red-600 font-bold uppercase"
         >
           {error}
+        </p>
+      )}
+      {!error && props.minLength && (
+        <p
+          id={`${id}-hint`}
+          className="mt-2 text-xs text-[#111111]/50 text-right"
+        >
+          {String(props.value || '').length} / {props.minLength} mínimo
         </p>
       )}
     </div>
