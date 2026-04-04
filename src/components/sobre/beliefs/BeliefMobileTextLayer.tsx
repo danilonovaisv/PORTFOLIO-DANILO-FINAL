@@ -81,11 +81,12 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const exitStart = endPoint - segmentSize * 0.35;
   const exitEnd = endPoint;
 
-  // Mobile: entra pela esquerda, estabiliza no centro e sai à direita.
-  const x = useTransform(
+  // Mobile: entra de baixo, estabiliza e sai por cima de forma sutil.
+  // Regra de Motion: translateY máx 18px.
+  const y = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['-40px', '0px', '0px', '40px'],
+    ['18px', '0px', '0px', '-18px'],
     { ease: ghostEase }
   );
 
@@ -110,7 +111,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 
   return (
     <Container
-      style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
+      style={prefersReducedMotion ? undefined : { y, opacity, filter: blur }}
       className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
       {/* Mobile: frase corrida com quebra natural, sem disputa com o ghost/header. */}

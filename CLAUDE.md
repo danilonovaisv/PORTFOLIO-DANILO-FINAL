@@ -12,7 +12,7 @@
 - Do what has been asked; nothing more, nothing less
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files unless explicitly requested
+- NEVER proactively create documentation files (\*.md) or README files unless explicitly requested
 - NEVER save working files, text/mds, or tests to the root folder
 - Never continuously check status after spawning a swarm — wait for results
 - ALWAYS read a file before editing it
@@ -23,6 +23,7 @@
 ## Project Architecture
 
 ### Tech Stack
+
 - **Framework:** Next.js 16.2.2 (App Router, standalone output, Turbopack)
 - **Language:** TypeScript 6.0.2 (strict mode)
 - **Runtime:** Node.js >=20, pnpm 10.33.0
@@ -34,6 +35,7 @@
 - **Components:** Radix UI, shadcn/ui
 
 ### Design System — Ghost System Constants
+
 - **Primary color:** Ghost Blue `#0048ff`
 - **Standard easing:** `[0.22, 1, 0.36, 1]`
 - **Grid system:** `.std-grid` (all layouts must comply)
@@ -41,6 +43,7 @@
 - **Performance target:** FPS > 50 on WebGL scenes
 
 ### File Organization
+
 - `/src` — Next.js app, components, lib, hooks, styles, types
 - `/test` — Unit tests (Jest) and E2E tests (Playwright)
 - `/docs` — Documentation, ADRs, audit reports, plans
@@ -51,6 +54,7 @@
 - NEVER save to root folder
 
 ### Architecture Principles
+
 - Follow Domain-Driven Design with bounded contexts
 - Keep files under 500 lines
 - Use typed interfaces for all public APIs
@@ -67,21 +71,24 @@ docs/blueprints_project/ → .agent/rules/ → .agent/workflows/ → .agents/ �
 ```
 
 ### Agent-Context Separation
-| Directory | Access | Purpose |
-|-----------|--------|---------|
-| `.agents/` | READ-ONLY | Skill library — 385 skills, 30+ personas, 80+ workflows, 15+ rule files |
-| `.agent/` | READ-ONLY | Lightweight rules and workflows (Gemini/Cursor) |
+
+| Directory   | Access     | Purpose                                                                 |
+| ----------- | ---------- | ----------------------------------------------------------------------- |
+| `.agents/`  | READ-ONLY  | Skill library — 385 skills, 30+ personas, 80+ workflows, 15+ rule files |
+| `.agent/`   | READ-ONLY  | Lightweight rules and workflows (Gemini/Cursor)                         |
 | `.context/` | READ-WRITE | Source of truth for current project state; sync after every code change |
 
 ### Orchestrated Agents (Ghost System)
-| Agent | Skill | Responsibility |
-|-------|-------|---------------|
-| `@ghost_architect` | `ghost-architect` | Next.js architecture, folder integrity, TypeScript types |
-| `@spectral_artist` | `spectral-artist` | Ghost Blue shaders, WebGL materials, visual aesthetics |
-| `@motion_choreographer` | `motion-choreographer` | Framer Motion, Lenis, scroll sync |
-| `@audit_sentinel` | `audit-sentinel` | Grid compliance `.std-grid`, Lighthouse, z-index |
+
+| Agent                   | Skill                  | Responsibility                                           |
+| ----------------------- | ---------------------- | -------------------------------------------------------- |
+| `@ghost_architect`      | `ghost-architect`      | Next.js architecture, folder integrity, TypeScript types |
+| `@spectral_artist`      | `spectral-artist`      | Ghost Blue shaders, WebGL materials, visual aesthetics   |
+| `@motion_choreographer` | `motion-choreographer` | Framer Motion, Lenis, scroll sync                        |
+| `@audit_sentinel`       | `audit-sentinel`       | Grid compliance `.std-grid`, Lighthouse, z-index         |
 
 ### Reference Documents (Single Source of Truth)
+
 - **Architecture:** `.context/ARCHITECTURE.md`
 - **Design System:** `.context/GHOST-DESIGN-SYSTEM.md`
 - **Sitemap:** `.context/SITEMAP.md`
@@ -135,6 +142,7 @@ pnpm run deploy
 ## Claude Flow V3 — Swarm Config
 
 ### Project Config
+
 - **Topology:** hierarchical-mesh
 - **Max Agents:** 15 (use 6-8 for tight coding swarms)
 - **Memory:** hybrid (HNSW + learning bridge + memory graph)
@@ -142,6 +150,7 @@ pnpm run deploy
 - **Consensus:** raft (for hive-mind leader state)
 
 ### Concurrency: 1 MESSAGE = ALL RELATED OPERATIONS
+
 - All operations MUST be concurrent/parallel in a single message
 - ALWAYS batch ALL todos in ONE TodoWrite call (5-10+ minimum)
 - ALWAYS spawn ALL agents in ONE message with full instructions via Task tool
@@ -149,6 +158,7 @@ pnpm run deploy
 - ALWAYS batch ALL Bash commands in ONE message
 
 ### Swarm Orchestration Rules
+
 - MUST initialize the swarm using CLI tools when starting complex tasks
 - MUST spawn concurrent agents using Claude Code's Task tool
 - Never use CLI tools alone for execution — Task tool agents do the actual work
@@ -162,11 +172,11 @@ npx @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 8 --
 
 ### 3-Tier Model Routing (ADR-026)
 
-| Tier | Handler | Latency | Cost | Use Cases |
-|------|---------|---------|------|-----------|
-| **1** | Agent Booster (WASM) | <1ms | $0 | Simple transforms (var→const, add types) — Skip LLM |
-| **2** | Haiku | ~500ms | $0.0002 | Simple tasks, low complexity (<30%) |
-| **3** | Sonnet/Opus | 2-5s | $0.003-0.015 | Complex reasoning, architecture, security (>30%) |
+| Tier  | Handler              | Latency | Cost         | Use Cases                                           |
+| ----- | -------------------- | ------- | ------------ | --------------------------------------------------- |
+| **1** | Agent Booster (WASM) | <1ms    | $0           | Simple transforms (var→const, add types) — Skip LLM |
+| **2** | Haiku                | ~500ms  | $0.0002      | Simple tasks, low complexity (<30%)                 |
+| **3** | Sonnet/Opus          | 2-5s    | $0.003-0.015 | Complex reasoning, architecture, security (>30%)    |
 
 - Always check for `[AGENT_BOOSTER_AVAILABLE]` or `[TASK_MODEL_RECOMMENDATION]` before spawning agents
 - Use Edit tool directly when `[AGENT_BOOSTER_AVAILABLE]`
@@ -196,19 +206,19 @@ npx @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 8 --
 
 This project supports 7 AI systems simultaneously. Each has its own config directory:
 
-| Directory | AI System | Key Feature |
-|-----------|-----------|------------|
-| `.claude/` + `CLAUDE.md` | Claude Code (claude-flow V3) | 15-agent swarm, HNSW memory, neural, hooks |
-| `.mcp.json` / `mcp_servers.json` | MCP servers | context7, github, postgres, brave-search, memory |
-| `.cursorrules` | Cursor IDE | Ghost System architect, @-triggered personas |
-| `AGENTS.md` | All agents | Master governance, Ghost System orchestration |
-| `GEMINI.md` | Gemini / Google AI | Antigravity identity, 13 shared modules |
-| `.agents/` | Shared skill library | 385 skills, 80+ workflows, rule files |
-| `.codex/` | OpenAI Codex | Multi-agent (6 threads), 3 agent types |
-| `.windsurf/` | Windsurf IDE | Agents + skills |
-| `.max/` | Max AI | Model routing, project context |
-| `.jules/` | Jules/Bolt | Bolt.md config |
-| `.qwen/` | Qwen (Alibaba) | Skills |
+| Directory                        | AI System                    | Key Feature                                      |
+| -------------------------------- | ---------------------------- | ------------------------------------------------ |
+| `.claude/` + `CLAUDE.md`         | Claude Code (claude-flow V3) | 15-agent swarm, HNSW memory, neural, hooks       |
+| `.mcp.json` / `mcp_servers.json` | MCP servers                  | context7, github, postgres, brave-search, memory |
+| `.cursorrules`                   | Cursor IDE                   | Ghost System architect, @-triggered personas     |
+| `AGENTS.md`                      | All agents                   | Master governance, Ghost System orchestration    |
+| `GEMINI.md`                      | Gemini / Google AI           | Antigravity identity, 13 shared modules          |
+| `.agents/`                       | Shared skill library         | 385 skills, 80+ workflows, rule files            |
+| `.codex/`                        | OpenAI Codex                 | Multi-agent (6 threads), 3 agent types           |
+| `.windsurf/`                     | Windsurf IDE                 | Agents + skills                                  |
+| `.max/`                          | Max AI                       | Model routing, project context                   |
+| `.jules/`                        | Jules/Bolt                   | Bolt.md config                                   |
+| `.qwen/`                         | Qwen (Alibaba)               | Skills                                           |
 
 ---
 
@@ -241,6 +251,7 @@ npx @claude-flow/cli@latest memory retrieve --key "ghost-blue" --namespace desig
 4. **QA / Vetting** — FPS >50, accessibility (ARIA + AAA contrast), mobile-first screenshot
 
 ### Definition of Done
+
 1. Code runs without TypeScript/Lint errors
 2. Bugs reported in `AUDIT_PENTEST.md`
 3. Corresponding `.context/` document updated with new state

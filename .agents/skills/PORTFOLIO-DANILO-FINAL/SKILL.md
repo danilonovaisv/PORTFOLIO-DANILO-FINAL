@@ -70,7 +70,6 @@ export const AccessibleButton = ({ label, ...props }) => (
 );
 ```
 
-
 ---
 
 ### Admin Section Hardening or Feature Update
@@ -197,4 +196,3 @@ export const processMedia = (file) => {
 | /update-deps     | Update dependencies and refresh build/audit info            |
 | /new-table       | Add a new database table and update edge/serverless logic   |
 | /refactor-logger | Refactor code to use logger utility instead of console.warn |
-

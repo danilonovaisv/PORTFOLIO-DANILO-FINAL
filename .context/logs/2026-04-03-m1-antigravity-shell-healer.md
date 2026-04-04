@@ -14,6 +14,7 @@
 ## Fase 1 — Agent A (M1 Shell Profiler)
 
 ### Objetivo
+
 Identificar gargalos exatos do startup do Zsh sem alterar permanentemente o `~/.zshrc` do usuário.
 
 ### Artifact: script de profiling (somente diagnóstico)
@@ -74,7 +75,9 @@ fi
 ```
 
 ### Interpretação esperada
+
 Marcar como ofensores principais qualquer bloco acima de **200ms**, tipicamente:
+
 - `eval "$(/opt/homebrew/bin/brew shellenv)"`
 - carga de `nvm.sh`
 - plugins/autocomplete do Oh My Zsh
@@ -84,6 +87,7 @@ Marcar como ofensores principais qualquer bloco acima de **200ms**, tipicamente:
 ## Fase 2 — Agent B (Lazy-Load Optimizer)
 
 ### Objetivo
+
 Inserir bypass para shells não-interativos e lazy-load para NVM, reduzindo timeout da IDE.
 
 ### Artifact: script de correção para o usuário executar no macOS
