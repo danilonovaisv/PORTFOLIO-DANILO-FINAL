@@ -4,17 +4,17 @@ name = "PORTFOLIO-DANILO-FINAL"
 
 [setup]
 script = '''
-# garante Node 20 (engine do projeto)
+# garante Node >=20 (engine do projeto)
 if command -v node >/dev/null 2>&1; then
   NODE_VERSION=$(node -v | sed 's/v//' | cut -d. -f1)
-  if [ "$NODE_VERSION" != "20" ]; then
-    echo "⚠️ Node version is $NODE_VERSION, expected 20"
+  if [ "$NODE_VERSION" -lt 20 ]; then
+    echo "⚠️ Node version is $NODE_VERSION, expected >=20"
   fi
 fi
 
 # garante pnpm via corepack
 corepack enable
-corepack prepare pnpm@latest --activate
+corepack prepare pnpm@10.33.0 --activate
 
 # instala dependências (respeita lockfile)
 pnpm install
@@ -28,7 +28,7 @@ command = "pnpm run dev"
 [[actions]]
 name = "Build (strict / prod-like)"
 icon = "run"
-command = "pnpm run build:strict"
+command = "pnpm run build-check && pnpm run build"
 
 [[actions]]
 name = "Lint"
@@ -48,7 +48,7 @@ command = "pnpm run analyze:bundle"
 [[actions]]
 name = "Audit assets"
 icon = "test"
-command = "pnpm run audit:assets"
+command = "pnpm run assets:audit"
 
 [[actions]]
 name = "Full test"

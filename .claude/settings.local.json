@@ -26,7 +26,11 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Read(//Users/danilonovais/.nvm/versions/node/**)",
+      "Read(//Users/danilonovais/.nvm/versions/node/v20.20.0/lib/node_modules/npm/bin/**)",
+      "Bash(git checkout:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f''''Total broken links: {len\\(d.get\\(\"\"brokenLinks\"\", d\\) if isinstance\\(d, dict\\) else d\\)}''''\\); print\\(json.dumps\\(list\\(d.items\\(\\)\\)[:5] if isinstance\\(d, dict\\) else d[:5], indent=2\\)\\)\")"
     ]
   },
   "enableAllProjectMcpServers": true,

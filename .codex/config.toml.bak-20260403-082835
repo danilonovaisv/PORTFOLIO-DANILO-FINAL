@@ -1,7 +1,7 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 # ECC Tools generated Codex baseline
-approval_policy = "never"
-sandbox_mode = "danger-full-access"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
 web_search = "live"
 
 [mcp_servers.github]

@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import React, { memo, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 
 export function GlassPlane({ accentColor }: { accentColor: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -136,6 +137,7 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
   accentColor: string;
 }) {
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+  const performanceConfig = usePerformanceAdaptive();
 
   if (is3DDisabled) {
     return (
@@ -145,7 +147,7 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
 
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={performanceConfig.pixelRatio}
       gl={{ antialias: false, alpha: true, premultipliedAlpha: true }}
       frameloop="demand"
       orthographic
