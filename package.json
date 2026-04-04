@@ -209,6 +209,5 @@
       "react": "$react",
       "react-dom": "$react-dom"
     }
-  },
-  "packageManager": "pnpm@10.33.0"
+  }
 }
