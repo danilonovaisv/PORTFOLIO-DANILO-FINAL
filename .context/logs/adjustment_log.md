@@ -1121,3 +1121,4 @@ Corrigido falhas nos testes unitários:
 
 **Action Recommended for User:**
 Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix npm's local health permanently.
+[2026-04-04] [Sobre] Correção na visibilidade, contraste (Drop Shadow em vez de mix-blend) e isolamento da layer (z-[100]) do texto em BeliefFixedHeader. Remoção da ancoragem ('fixed') do SiteFooter em desktop. Retificação do min-height de loading no AboutBeliefsNoSSR para prevenir CLS visual com o Footer.

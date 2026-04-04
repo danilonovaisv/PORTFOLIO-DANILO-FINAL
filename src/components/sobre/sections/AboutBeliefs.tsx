@@ -122,13 +122,13 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 3: Ghost 3D is positioned behind text elements to not obscure them. */}
+      {/* LAYER 3: Ghost 3D is positioned as top authoritative layer per doc. */}
       <div
-        className="absolute inset-0 z-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-[90] w-full h-full pointer-events-none"
         aria-hidden
       >
-        <div className="sticky top-0 z-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
-          <div className="w-full h-full md:absolute md:inset-0 relative translate-z-0">
+        <div className="sticky top-0 z-[90] w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
+          <div className="w-full h-full md:absolute md:inset-0 relative z-[90] translate-z-0">
             {!prefersReducedMotion ? (
               <GhostScene scrollProgress={scrollYProgress} />
             ) : null}

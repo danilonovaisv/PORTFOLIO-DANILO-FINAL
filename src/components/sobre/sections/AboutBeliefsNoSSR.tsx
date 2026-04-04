@@ -11,7 +11,7 @@ const AboutBeliefs = dynamic(
     ssr: false,
     loading: () => (
       <section
-        className="relative w-full min-h-[120vh] bg-background"
+        className="relative w-full min-h-[550vh] md:min-h-[800vh] bg-background"
         aria-label="O Que Me Move"
         aria-busy="true"
       >

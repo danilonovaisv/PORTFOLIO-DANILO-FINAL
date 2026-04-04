@@ -70,15 +70,15 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   // cada frase ocupa uma "tela" na timeline e a última tela fica reservada
   // ao manifesto final. Esse mapeamento mantém a ordem estável em qualquer
   // viewport e evita saltos entre frases.
-  const totalScreens = totalPhrases + 1;
+  const totalScreens = totalPhrases + 2;
   const segmentSize = 1 / totalScreens;
-  const timelineOffset = 0.08;
+  const timelineOffset = segmentSize * 0.1;
 
   const startPoint = index * segmentSize + timelineOffset;
   const endPoint = startPoint + segmentSize;
   const entryStart = startPoint;
-  const entryEnd = startPoint + segmentSize * 0.35;
-  const exitStart = endPoint - segmentSize * 0.35;
+  const entryEnd = startPoint + segmentSize * 0.02;
+  const exitStart = endPoint - segmentSize * 0.34;
   const exitEnd = endPoint;
 
   // Mobile: entra de baixo, estabiliza e sai por cima de forma sutil.

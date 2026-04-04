@@ -14,7 +14,7 @@ import { NAVIGATION, SOCIALS } from '@/config/navigation';
  * SiteFooter Component (Ghost Era Spec 4.7 & Workflow Footer)
  *
  * Protocol:
- * - Desktop (>=1024px): Fixed bar at bottom, 48-64px height, bg-[#0048ff].
+ * - Desktop (>=1024px): Static section at bottom, regular document flow.
  * - Mobile (<1024px): Static section, vertical stack (Copyright → Nav → Social), space-y-8, py-10.
  */
 export default function SiteFooter() {
@@ -66,7 +66,7 @@ export default function SiteFooter() {
 
   return (
     <footer
-      className="w-full bg-bluePrimary text-white lg:fixed lg:bottom-0 lg:left-0 lg:z-1000 relative z-1000 footer-safe-area"
+      className="w-full bg-bluePrimary text-white relative z-[1000] footer-safe-area"
       aria-label="Rodapé do site"
     >
       <div className="std-grid flex flex-col lg:flex-row items-center justify-between py-12 lg:py-6 lg:min-h-20 gap-10 lg:gap-8">

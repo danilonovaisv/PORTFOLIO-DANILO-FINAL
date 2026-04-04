@@ -27,6 +27,7 @@ const baseConfig = {
     '<rootDir>/.next/',
     '<rootDir>/portfoliodan/',
     '<rootDir>/ssr_function/',
+    '<rootDir>/.claude/',
   ],
   testMatch: ['**/test/**/*.test.{ts,tsx,js}'],
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
