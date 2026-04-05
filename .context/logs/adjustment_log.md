@@ -1,5 +1,27 @@
 # Adjustment Log
 
+## [2026-04-05T11:32] About Ghost Model Layout Alignment
+
+**Context:** Ajuste pontual no modelo 3D do Ghost para substituir a versão procedural local por uma composição baseada no GLB transformado, respeitando o layout validado para corpo, olhos, chapéu e faixa.
+
+**Changes Applied:**
+
+1. **`src/components/sobre/3d/GhostModel.tsx` — GLB layout fix** ✅
+   - Substituído o ghost procedural por carregamento tipado via `useGLTF`.
+   - O asset passou a apontar para `'/models/ghost-transformed.glb'`, compatível com `public/`.
+   - Estrutura `Merged` adicionada para expor as partes do modelo com baixo overhead.
+
+2. **Layout por parte do modelo** ✅
+   - `Body_Ghost_White_0` e `Eyes_Eyes_0` fixados em `position={[0, 1.6, 0]}`.
+   - `Rim_Rim_Red_0` fixado em `position={[0, 2.4, 0]}`.
+   - `Hat_Hat_Black_0` fixado em `position={[0, 3, 0]}`.
+   - Todas as partes passaram a usar `rotation={[-Math.PI / 2, 0, 0]}`.
+
+**Verification:**
+
+- ✅ `pnpm exec eslint src/components/sobre/3d/GhostModel.tsx`
+- ✅ `pnpm exec tsc -p tsconfig.json --noEmit --pretty false`
+
 ## [2026-04-05T03:44] Document & Knowledge Sync
 
 **Context:** Executed `/sync-docs-and-knowledge` workflow to reconcile "Ghost System" memory with current system status. No structural deviations found. 
