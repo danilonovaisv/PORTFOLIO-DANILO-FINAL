@@ -1122,3 +1122,6 @@ Corrigido falhas nos testes unitários:
 **Action Recommended for User:**
 Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix npm's local health permanently.
 [2026-04-04] [Sobre] Correção na visibilidade, contraste (Drop Shadow em vez de mix-blend) e isolamento da layer (z-[100]) do texto em BeliefFixedHeader. Remoção da ancoragem ('fixed') do SiteFooter em desktop. Retificação do min-height de loading no AboutBeliefsNoSSR para prevenir CLS visual com o Footer.
+\n[2026-04-05] [AUDIT] Executada auditoria técnica completa via workflow /audit-squirrel. Detectados 100% de conformidade estrutural em HOME e SOBRE. Identificada falha de roteamento (404) em projetos dinâmicos no PORTFOLIO. Relatório gerado em AUDIT_SQUIRREL_REPORT.md.
+[2026-04-05] [Sobre - Beliefs] Correções estruturais e visuais no AboutBeliefs e BeliefFixedHeader. Removido obrigatoriedade da prop bgColor, ajustado padding para pl-[15vw], recategorização z-index para 30 e readequação de palavras do manifesto.
+[2026-04-05] [Sobre - Beliefs] Z-Index Trap fixada. Alteração de background global 'fixed inset-0' para confinamento 'absolute > sticky' em AboutBeliefs.tsx. Previne que a interpolação HSL sangre para o restante ou totalidade da página (Bug 'Tela Inteira Azul').

@@ -70,23 +70,22 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   // cada frase ocupa uma "tela" na timeline e a última tela fica reservada
   // ao manifesto final. Esse mapeamento mantém a ordem estável em qualquer
   // viewport e evita saltos entre frases.
-  const totalScreens = totalPhrases + 2;
+  const totalScreens = totalPhrases + 1;
   const segmentSize = 1 / totalScreens;
-  const timelineOffset = segmentSize * 0.1;
+  const timelineOffset = 0.08;
 
   const startPoint = index * segmentSize + timelineOffset;
   const endPoint = startPoint + segmentSize;
   const entryStart = startPoint;
-  const entryEnd = startPoint + segmentSize * 0.02;
-  const exitStart = endPoint - segmentSize * 0.34;
+  const entryEnd = startPoint + segmentSize * 0.35;
+  const exitStart = endPoint - segmentSize * 0.35;
   const exitEnd = endPoint;
 
-  // Mobile: entra de baixo, estabiliza e sai por cima de forma sutil.
-  // Regra de Motion: translateY máx 18px.
-  const y = useTransform(
+  // Mobile: entra pela esquerda, estabiliza no centro e sai à direita.
+  const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['18px', '0px', '0px', '-18px'],
+    ['-40px', '0px', '0px', '40px'],
     { ease: ghostEase }
   );
 
@@ -111,7 +110,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 
   return (
     <Container
-      style={prefersReducedMotion ? undefined : { y, opacity, filter: blur }}
+      style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
       className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
       {/* Mobile: frase corrida com quebra natural, sem disputa com o ghost/header. */}

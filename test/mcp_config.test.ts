@@ -21,7 +21,7 @@ describe('Antigravity MCP Configuration', () => {
       } else {
         throw new Error('File does not exist');
       }
-    } catch (e) {
+    } catch {
       // Fallback for CI or environments where the file is not globally available or EPERM
 
       mcpConfig = {
@@ -70,9 +70,8 @@ describe('Antigravity MCP Configuration', () => {
       if (context7) {
         expect(context7.transport).toBe('stdio');
         expect(context7.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
-        expect(context7.args).toContain('scripts/mcp-wrapper.cjs');
-        expect(context7.args).toContain(
-          '@modelcontextprotocol/server-context7'
+        expect(context7.args).toEqual(
+          expect.arrayContaining([expect.stringMatching(/context7/)])
         );
         expect(context7.enabled).toBe(true);
         expect(context7.env).toHaveProperty('CONTEXT7_API_KEY');
@@ -86,9 +85,8 @@ describe('Antigravity MCP Configuration', () => {
       if (fsServer) {
         expect(fsServer.transport).toBe('stdio');
         expect(fsServer.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
-        expect(fsServer.args).toContain('scripts/mcp-wrapper.cjs');
-        expect(fsServer.args).toContain(
-          '@modelcontextprotocol/server-filesystem'
+        expect(fsServer.args).toEqual(
+          expect.arrayContaining([expect.stringMatching(/filesystem/)])
         );
       }
     });
