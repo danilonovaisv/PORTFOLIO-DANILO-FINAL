@@ -113,10 +113,14 @@ export const PortfolioModal = ({
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
+            aria-describedby={`${titleId}-desc`}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) onClose();
+            }}
             className="fixed inset-0 z-[1210] flex h-[100dvh] w-screen flex-col overflow-x-hidden overflow-y-auto font-display selection:bg-primary selection:text-black"
           >
             {/* Ambient Background Gradient inside modal */}
@@ -135,9 +139,14 @@ export const PortfolioModal = ({
 
             <main className="flex-1 relative z-10 w-full pt-16 md:pt-0 min-h-full">
               {titleId ? (
-                <h2 id={titleId} className="sr-only">
-                  {project.title}
-                </h2>
+                <>
+                  <h2 id={titleId} className="sr-only">
+                    {project.title}
+                  </h2>
+                  <div id={`${titleId}-desc`} className="sr-only">
+                    Detalhamento do projeto {project.title}. Categoria: {project.displayCategory}.
+                  </div>
+                </>
               ) : null}
               <ErrorBoundary
                 fallback={
