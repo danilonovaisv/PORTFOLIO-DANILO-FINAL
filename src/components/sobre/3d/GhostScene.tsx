@@ -49,15 +49,15 @@ function GhostSceneContent({
       <Environment preset="studio" />
 
       <Float
-        speed={isMobile ? 0.94 : 1.02}
-        rotationIntensity={0.04}
-        floatIntensity={0.1}
-        floatingRange={[-0.05, 0.05]}
+        speed={isMobile ? 0.9 : 0.98}
+        rotationIntensity={0.035}
+        floatIntensity={0.09}
+        floatingRange={[-0.045, 0.045]}
       >
         <Center>
           <GhostModel
             intensity={ghostIntensity}
-            scale={isMobile ? 0.31 : 0.45}
+            scale={isMobile ? 0.29 : 0.47}
           />
         </Center>
       </Float>
@@ -87,8 +87,8 @@ const GhostScene: React.FC<GhostSceneProps> = ({
     const handlePointerMove = (event: PointerEvent) => {
       const nx = event.clientX / window.innerWidth - 0.5;
       const ny = event.clientY / window.innerHeight - 0.5;
-      pointerX.set(nx * 10);
-      pointerY.set(ny * 8);
+      pointerX.set(nx * 7);
+      pointerY.set(ny * 6);
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
@@ -97,27 +97,27 @@ const GhostScene: React.FC<GhostSceneProps> = ({
 
   const x = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.16, 0.86, 1] : [0, 1],
-    isMobile ? ['-26vw', '-24vw', '-12vw', '0vw'] : ['0vw', '0vw']
+    isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
+    isMobile ? ['-32vw', '-29vw', '-16vw', '0vw'] : ['0vw', '0vw']
   );
   const y = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.16, 0.86, 1] : [0, 1],
-    isMobile ? ['-14vh', '-12vh', '-8vh', '0vh'] : ['0vh', '0vh']
+    isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
+    isMobile ? ['-19vh', '-17vh', '-11vh', '0vh'] : ['0vh', '0vh']
   );
   const scale = useTransform(
     scrollProgress,
-    isMobile ? [0.01, 0.12, 0.86, 1] : [0.01, 0.12, 0.82, 1],
-    isMobile ? [0.82, 0.88, 0.88, 0.98] : [0.95, 1, 1.02, 1.1]
+    isMobile ? [0.01, 0.12, 0.9, 1] : [0.01, 0.12, 0.82, 1],
+    isMobile ? [0.78, 0.84, 0.86, 0.98] : [0.95, 1, 1.01, 1.09]
   );
   const rotate = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.86, 1] : [0, 0.14, 1],
-    isMobile ? [-3, -1.5, 0] : [-0.8, 0, 0]
+    isMobile ? [0, 0.9, 1] : [0, 0.14, 1],
+    isMobile ? [-4, -2, 0] : [-0.6, 0, 0]
   );
   const opacity = useTransform(scrollProgress, [0.01, 0.08], [0, 1]);
-  const cursorRotateY = useTransform(cursorX, [-10, 10], [2.4, -2.4]);
-  const cursorRotateX = useTransform(cursorY, [-8, 8], [-1.8, 1.8]);
+  const cursorRotateY = useTransform(cursorX, [-7, 7], [1.8, -1.8]);
+  const cursorRotateX = useTransform(cursorY, [-6, 6], [-1.2, 1.2]);
 
   if (shouldReduceMotion) {
     return null;
@@ -126,7 +126,14 @@ const GhostScene: React.FC<GhostSceneProps> = ({
   return (
     <motion.div
       ref={containerRef}
-      style={{ x, y, scale, rotate, opacity }}
+      style={{
+        x,
+        y,
+        scale,
+        rotate,
+        opacity,
+        transformOrigin: isMobile ? '24% 18%' : '50% 50%',
+      }}
       className="pointer-events-none flex h-full w-full items-center justify-center"
       aria-hidden="true"
     >
@@ -136,14 +143,14 @@ const GhostScene: React.FC<GhostSceneProps> = ({
       >
         <div
           data-testid="ghost-figure"
-          className="relative h-[27vh] w-[39vw] min-w-[148px] max-w-[208px] md:h-[50vh] md:w-[26vw] md:min-w-[300px] md:max-w-[360px]"
+          className="relative h-[25vh] w-[36vw] min-w-[140px] max-w-[196px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
         >
         <Canvas
           dpr={[1, 1.5]}
           gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
           camera={{
-            position: [0, 0.12, isMobile ? 15.2 : 11.6],
-            fov: isMobile ? 19 : 15,
+            position: [0, 0.1, isMobile ? 15.6 : 11.2],
+            fov: isMobile ? 18 : 14.5,
           }}
           className="absolute inset-0"
         >

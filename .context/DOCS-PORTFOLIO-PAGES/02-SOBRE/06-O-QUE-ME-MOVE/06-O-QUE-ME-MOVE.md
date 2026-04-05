@@ -107,11 +107,13 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 - O enquadramento agora é estabilizado por cena dedicada com `Canvas`, `Center`, luzes controladas e escala responsiva para impedir que o modelo escape do layout útil da seção.
 - Desktop: o Ghost permanece centralizado durante a sequência, com entrada `scale 0.95 -> 1`, clímax final em `scale +10%`, câmera um pouco mais próxima e resposta de cursor reduzida para preservar o caráter editorial.
 - Mobile: o Ghost inicia deslocado para topo-esquerda (20% superior útil da seção), com escala base menor, enquadramento mais compacto e transição para o centro concentrada apenas na fase final do manifesto.
+- Segundo passe de direção de arte aplicado em `2026-04-05`: a abertura mobile foi empurrada ainda mais para topo-esquerda, a centralização final foi atrasada para os últimos frames da timeline e o desktop recebeu redução adicional de drift do cursor para evitar sensação de desalinhamento lateral.
 - Validação local realizada em `2026-04-05` com capturas desktop e mobile a partir de `/sobre`, confirmando:
   - manifesto fixo novamente visível;
   - Ghost novamente presente na composição;
   - timeline mobile com leitura mais clara;
   - refinamento adicional aplicado no mesmo dia para reduzir drift de cursor, reforçar o centro desktop e atrasar a centralização mobile para o clímax;
+  - segundo refinamento no mesmo ciclo: escala mobile mais contida, câmera desktop mais fechada e container desktop ampliado para recuperar a presença visual do modelo sem quebrar o respiro editorial;
   - necessidade futura de validação manual em browser real para comparação quadro a quadro com a arte de referência.
 
 ---
