@@ -12,22 +12,24 @@ initializeApp({
 ```
 
 Then, you can run the SDK as needed.
+
 ```ts
 import { ... } from '@dataconnect/generated';
 ```
 
-
-
-
 ## React
+
 ### Setup
 
 The user should make sure to install the `@tanstack/react-query` package, along with `@tanstack-query-firebase/react` and `firebase`.
 
 Then, they should initialize Firebase:
+
 ```ts
 import { initializeApp } from 'firebase/app';
-initializeApp(firebaseConfig); /* your config here. To generate this, you can use the `firebase_sdk_config` MCP tool */
+initializeApp(
+  firebaseConfig
+); /* your config here. To generate this, you can use the `firebase_sdk_config` MCP tool */
 ```
 
 Then, they should add a `QueryClientProvider` to their root of their application.
@@ -59,4 +61,3 @@ function App() {
 
 render(<App />, document.getElementById('root'));
 ```
-

@@ -190,7 +190,8 @@ extend type Query {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: ProjectSkill_Having
-  ): [ProjectSkill!]! @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE)
+  ): [ProjectSkill!]!
+    @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE)
   """
   ✨ List `Skill` objects in the table and return selected fields, optionally filtered by `where` conditions
   """
