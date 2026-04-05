@@ -122,4 +122,5 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   );
 };
 
+export { GhostScene };
 export default GhostScene;
