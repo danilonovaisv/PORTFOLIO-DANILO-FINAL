@@ -59,54 +59,54 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
         style={prefersReducedMotion ? undefined : { opacity }}
         className="sticky top-0 flex h-screen pointer-events-none drop-shadow-2xl"
       >
-      <div className="std-grid w-full h-full">
-        <div className="flex h-full items-start pt-[20vh] md:items-center md:pt-0 justify-end col-span-12">
-          <div className="flex flex-col items-end text-right w-full max-w-[85vw] sm:max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0">
-            {/* Primeira parte: "Acredito no..." */}
-            <div className="flex flex-col items-end text-right w-full">
-              {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
-              <h2 className="text-white text-[clamp(1.75rem,8vw,3rem)] md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black drop-shadow-lg">
-                <div className="overflow-visible">
-                  <MorphText progress={progress} range={[0.0, 0.1]}>
-                    Acredito no
-                  </MorphText>
-                </div>
-                <div className="overflow-visible">
-                  <MorphText progress={progress} range={[0.02, 0.12]}>
-                    design que
-                  </MorphText>
-                </div>
-                <div className="overflow-visible">
-                  <MorphText progress={progress} range={[0.04, 0.14]}>
-                    muda o dia
-                  </MorphText>
-                </div>
-                <div className="overflow-visible">
-                  <MorphText progress={progress} range={[0.06, 0.16]}>
-                    de alguém.
-                  </MorphText>
-                </div>
-              </h2>
+        <div className="std-grid w-full h-full">
+          <div className="flex h-full items-start pt-[20vh] md:items-center md:pt-0 justify-end col-span-12">
+            <div className="flex flex-col items-end text-right w-full max-w-[85vw] sm:max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0">
+              {/* Primeira parte: "Acredito no..." */}
+              <div className="flex flex-col items-end text-right w-full">
+                {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
+                <h2 className="text-white text-[clamp(1.75rem,8vw,3rem)] md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black drop-shadow-lg">
+                  <div className="overflow-visible">
+                    <MorphText progress={progress} range={[0.0, 0.1]}>
+                      Acredito no
+                    </MorphText>
+                  </div>
+                  <div className="overflow-visible">
+                    <MorphText progress={progress} range={[0.02, 0.12]}>
+                      design que
+                    </MorphText>
+                  </div>
+                  <div className="overflow-visible">
+                    <MorphText progress={progress} range={[0.04, 0.14]}>
+                      muda o dia
+                    </MorphText>
+                  </div>
+                  <div className="overflow-visible">
+                    <MorphText progress={progress} range={[0.06, 0.16]}>
+                      de alguém.
+                    </MorphText>
+                  </div>
+                </h2>
 
-              {/* Segunda parte: "Não pelo choque..." */}
-              {/* 🟣 [CONFIG VISUAL]: Define a cor e tamanho do subtítulo (sm a 4xl) */}
-              <div className="flex flex-col items-end gap-1 text-white text-[clamp(0.875rem,3.8vw,1.15rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold drop-shadow-xl">
-                <div className="overflow-visible">
-                  <MorphText progress={progress} range={[0.08, 0.18]}>
-                    Não pelo choque,
-                  </MorphText>
-                </div>
-                <div className="overflow-visible">
-                  <MorphText progress={progress} range={[0.1, 0.2]}>
-                    mas pela conexão.
-                  </MorphText>
+                {/* Segunda parte: "Não pelo choque..." */}
+                {/* 🟣 [CONFIG VISUAL]: Define a cor e tamanho do subtítulo (sm a 4xl) */}
+                <div className="flex flex-col items-end gap-1 text-white text-[clamp(0.875rem,3.8vw,1.15rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold drop-shadow-xl">
+                  <div className="overflow-visible">
+                    <MorphText progress={progress} range={[0.08, 0.18]}>
+                      Não pelo choque,
+                    </MorphText>
+                  </div>
+                  <div className="overflow-visible">
+                    <MorphText progress={progress} range={[0.1, 0.2]}>
+                      mas pela conexão.
+                    </MorphText>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Header>
+      </Header>
     </div>
   );
 };

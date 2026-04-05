@@ -1,38 +1,44 @@
 # Generated React README
+
 This README will guide you through the process of using the generated React SDK package for the connector `gemini-test`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
 
 **If you're looking for the `JavaScript README`, you can find it at [`dataconnect-generated/README.md`](../README.md)**
 
-***NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.*
+**\*NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.\*
 
 You can use this generated SDK by importing from the package `@dataconnect/generated/react` as shown below. Both CommonJS and ESM imports are supported.
 
 You can also follow the instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#react).
 
 # Table of Contents
+
 - [**Overview**](#generated-react-readme)
 - [**TanStack Query Firebase & TanStack React Query**](#tanstack-query-firebase-tanstack-react-query)
-  - [*Package Installation*](#installing-tanstack-query-firebase-and-tanstack-react-query-packages)
-  - [*Configuring TanStack Query*](#configuring-tanstack-query)
+  - [_Package Installation_](#installing-tanstack-query-firebase-and-tanstack-react-query-packages)
+  - [_Configuring TanStack Query_](#configuring-tanstack-query)
 - [**Accessing the connector**](#accessing-the-connector)
-  - [*Connecting to the local Emulator*](#connecting-to-the-local-emulator)
+  - [_Connecting to the local Emulator_](#connecting-to-the-local-emulator)
 - [**Queries**](#queries)
-  - [*GetProjectsByUser*](#getprojectsbyuser)
+  - [_GetProjectsByUser_](#getprojectsbyuser)
 - [**Mutations**](#mutations)
-  - [*CreateUser*](#createuser)
-  - [*CreateProject*](#createproject)
-  - [*DeleteProject*](#deleteproject)
+  - [_CreateUser_](#createuser)
+  - [_CreateProject_](#createproject)
+  - [_DeleteProject_](#deleteproject)
 
 # TanStack Query Firebase & TanStack React Query
+
 This SDK provides [React](https://react.dev/) hooks generated specific to your application, for the operations found in the connector `gemini-test`. These hooks are generated using [TanStack Query Firebase](https://react-query-firebase.invertase.dev/) by our partners at Invertase, a library built on top of [TanStack React Query v5](https://tanstack.com/query/v5/docs/framework/react/overview).
 
-***You do not need to be familiar with Tanstack Query or Tanstack Query Firebase to use this SDK.*** However, you may find it useful to learn more about them, as they will empower you as a user of this Generated React SDK.
+**_You do not need to be familiar with Tanstack Query or Tanstack Query Firebase to use this SDK._** However, you may find it useful to learn more about them, as they will empower you as a user of this Generated React SDK.
 
 ## Installing TanStack Query Firebase and TanStack React Query Packages
+
 In order to use the React generated SDK, you must install the `TanStack React Query` and `TanStack Query Firebase` packages.
+
 ```bash
 npm i --save @tanstack/react-query @tanstack-query-firebase/react
 ```
+
 ```bash
 npm i --save firebase@latest # Note: React has a peer dependency on ^11.3.0
 ```
@@ -40,13 +46,14 @@ npm i --save firebase@latest # Note: React has a peer dependency on ^11.3.0
 You can also follow the installation instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#tanstack-install), or the [TanStack Query Firebase documentation](https://react-query-firebase.invertase.dev/react) and [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/installation).
 
 ## Configuring TanStack Query
+
 In order to use the React generated SDK in your application, you must wrap your application's component tree in a `QueryClientProvider` component from TanStack React Query. None of your generated React SDK hooks will work without this provider.
 
 ```javascript
 import { QueryClientProvider } from '@tanstack/react-query';
 
 // Create a TanStack Query client instance
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -54,13 +61,14 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <MyApplication />
     </QueryClientProvider>
-  )
+  );
 }
 ```
 
 To learn more about `QueryClientProvider`, see the [TanStack React Query documentation](https://tanstack.com/query/latest/docs/framework/react/quick-start) and the [TanStack Query Firebase documentation](https://invertase.docs.page/tanstack-query-firebase/react#usage).
 
 # Accessing the connector
+
 A connector is a collection of Queries and Mutations. One SDK is generated for each connector - this SDK is generated for the connector `gemini-test`.
 
 You can find more information about connectors in the [Data Connect documentation](https://firebase.google.com/docs/data-connect#how-does).
@@ -73,13 +81,17 @@ const dataConnect = getDataConnect(connectorConfig);
 ```
 
 ## Connecting to the local Emulator
+
 By default, the connector will connect to the production service.
 
 To connect to the emulator, you can use the following code.
 You can also follow the emulator instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#emulator-react-angular).
 
 ```javascript
-import { connectDataConnectEmulator, getDataConnect } from 'firebase/data-connect';
+import {
+  connectDataConnectEmulator,
+  getDataConnect,
+} from 'firebase/data-connect';
 import { connectorConfig } from '@dataconnect/generated';
 
 const dataConnect = getDataConnect(connectorConfig);
@@ -101,6 +113,7 @@ Query hooks execute their Queries automatically when called, and periodically re
 To learn more about TanStack React Query's Queries, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/guides/queries).
 
 ## Using Query Hooks
+
 Here's a general overview of how to use the generated Query hooks in your code:
 
 - If the Query has no variables, the Query hook function does not require arguments.
@@ -109,22 +122,26 @@ Here's a general overview of how to use the generated Query hooks in your code:
 - If all of the Query's variables are optional, the Query hook function does not require any arguments.
 - Query hook functions can be called with or without passing in a `DataConnect` instance as an argument. If no `DataConnect` argument is passed in, then the generated SDK will call `getDataConnect(connectorConfig)` behind the scenes for you.
 - Query hooks functions can be called with or without passing in an `options` argument of type `useDataConnectQueryOptions`. To learn more about the `options` argument, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/guides/query-options).
-  - ***Special case:***  If the Query has all optional variables and you would like to provide an `options` argument to the Query hook function without providing any variables, you must pass `undefined` where you would normally pass the Query's variables, and then may provide the `options` argument.
+  - **_Special case:_** If the Query has all optional variables and you would like to provide an `options` argument to the Query hook function without providing any variables, you must pass `undefined` where you would normally pass the Query's variables, and then may provide the `options` argument.
 
 Below are examples of how to use the `gemini-test` connector's generated Query hook functions to execute each Query. You can also follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
 
 ## GetProjectsByUser
+
 You can execute the `GetProjectsByUser` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
 
 ```javascript
 useGetProjectsByUser(dc: DataConnect, vars: GetProjectsByUserVariables, options?: useDataConnectQueryOptions<GetProjectsByUserData>): UseDataConnectQueryResult<GetProjectsByUserData, GetProjectsByUserVariables>;
 ```
+
 You can also pass in a `DataConnect` instance to the Query hook function.
+
 ```javascript
 useGetProjectsByUser(vars: GetProjectsByUserVariables, options?: useDataConnectQueryOptions<GetProjectsByUserData>): UseDataConnectQueryResult<GetProjectsByUserData, GetProjectsByUserVariables>;
 ```
 
 ### Variables
+
 The `GetProjectsByUser` Query requires an argument of type `GetProjectsByUserVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
@@ -132,12 +149,15 @@ export interface GetProjectsByUserVariables {
   userId: UUIDString;
 }
 ```
+
 ### Return Type
+
 Recall that calling the `GetProjectsByUser` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
 
 To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
 
 To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetProjectsByUser` Query is of type `GetProjectsByUserData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
 ```javascript
 export interface GetProjectsByUserData {
   projects: ({
@@ -160,7 +180,7 @@ import { useGetProjectsByUser } from '@dataconnect/generated/react'
 export default function GetProjectsByUserComponent() {
   // The `useGetProjectsByUser` Query hook requires an argument of type `GetProjectsByUserVariables`:
   const getProjectsByUserVars: GetProjectsByUserVariables = {
-    userId: ..., 
+    userId: ...,
   };
 
   // You don't have to do anything to "execute" the Query.
@@ -210,6 +230,7 @@ Mutation hooks do not execute their Mutations automatically when called. Rather,
 To learn more about TanStack React Query's Mutations, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/guides/mutations).
 
 ## Using Mutation Hooks
+
 Here's a general overview of how to use the generated Mutation hooks in your code:
 
 - Mutation hook functions are not called with the arguments to the Mutation. Instead, arguments are passed to `UseMutationResult.mutate()`.
@@ -220,21 +241,26 @@ Here's a general overview of how to use the generated Mutation hooks in your cod
 - Mutation hook functions can be called with or without passing in a `DataConnect` instance as an argument. If no `DataConnect` argument is passed in, then the generated SDK will call `getDataConnect(connectorConfig)` behind the scenes for you.
 - Mutation hooks also accept an `options` argument of type `useDataConnectMutationOptions`. To learn more about the `options` argument, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/guides/mutations#mutation-side-effects).
   - `UseMutationResult.mutate()` also accepts an `options` argument of type `useDataConnectMutationOptions`.
-  - ***Special case:*** If the Mutation has no arguments (or all optional arguments and you wish to provide none), and you want to pass `options` to `UseMutationResult.mutate()`, you must pass `undefined` where you would normally pass the Mutation's arguments, and then may provide the options argument.
+  - **_Special case:_** If the Mutation has no arguments (or all optional arguments and you wish to provide none), and you want to pass `options` to `UseMutationResult.mutate()`, you must pass `undefined` where you would normally pass the Mutation's arguments, and then may provide the options argument.
 
 Below are examples of how to use the `gemini-test` connector's generated Mutation hook functions to execute each Mutation. You can also follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
 
 ## CreateUser
+
 You can execute the `CreateUser` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+
 ```javascript
 useCreateUser(options?: useDataConnectMutationOptions<CreateUserData, FirebaseError, CreateUserVariables>): UseDataConnectMutationResult<CreateUserData, CreateUserVariables>;
 ```
+
 You can also pass in a `DataConnect` instance to the Mutation hook function.
+
 ```javascript
 useCreateUser(dc: DataConnect, options?: useDataConnectMutationOptions<CreateUserData, FirebaseError, CreateUserVariables>): UseDataConnectMutationResult<CreateUserData, CreateUserVariables>;
 ```
 
 ### Variables
+
 The `CreateUser` Mutation requires an argument of type `CreateUserVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
@@ -244,7 +270,9 @@ export interface CreateUserVariables {
   password: string;
 }
 ```
+
 ### Return Type
+
 Recall that calling the `CreateUser` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
 
 To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
@@ -252,6 +280,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateUser` Mutation is of type `CreateUserData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
 ```javascript
 export interface CreateUserData {
   user_insert: User_Key;
@@ -291,9 +320,9 @@ export default function CreateUserComponent() {
   // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
   // The `useCreateUser` Mutation requires an argument of type `CreateUserVariables`:
   const createUserVars: CreateUserVariables = {
-    email: ..., 
-    name: ..., 
-    password: ..., 
+    email: ...,
+    name: ...,
+    password: ...,
   };
   mutation.mutate(createUserVars);
   // Variables can be defined inline as well.
@@ -323,16 +352,21 @@ export default function CreateUserComponent() {
 ```
 
 ## CreateProject
+
 You can execute the `CreateProject` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+
 ```javascript
 useCreateProject(options?: useDataConnectMutationOptions<CreateProjectData, FirebaseError, CreateProjectVariables>): UseDataConnectMutationResult<CreateProjectData, CreateProjectVariables>;
 ```
+
 You can also pass in a `DataConnect` instance to the Mutation hook function.
+
 ```javascript
 useCreateProject(dc: DataConnect, options?: useDataConnectMutationOptions<CreateProjectData, FirebaseError, CreateProjectVariables>): UseDataConnectMutationResult<CreateProjectData, CreateProjectVariables>;
 ```
 
 ### Variables
+
 The `CreateProject` Mutation requires an argument of type `CreateProjectVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
@@ -344,7 +378,9 @@ export interface CreateProjectVariables {
   role?: string | null;
 }
 ```
+
 ### Return Type
+
 Recall that calling the `CreateProject` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
 
 To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
@@ -352,6 +388,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateProject` Mutation is of type `CreateProjectData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
 ```javascript
 export interface CreateProjectData {
   project_insert: Project_Key;
@@ -391,8 +428,8 @@ export default function CreateProjectComponent() {
   // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
   // The `useCreateProject` Mutation requires an argument of type `CreateProjectVariables`:
   const createProjectVars: CreateProjectVariables = {
-    title: ..., 
-    description: ..., 
+    title: ...,
+    description: ...,
     client: ..., // optional
     link: ..., // optional
     role: ..., // optional
@@ -425,16 +462,21 @@ export default function CreateProjectComponent() {
 ```
 
 ## DeleteProject
+
 You can execute the `DeleteProject` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+
 ```javascript
 useDeleteProject(options?: useDataConnectMutationOptions<DeleteProjectData, FirebaseError, DeleteProjectVariables>): UseDataConnectMutationResult<DeleteProjectData, DeleteProjectVariables>;
 ```
+
 You can also pass in a `DataConnect` instance to the Mutation hook function.
+
 ```javascript
 useDeleteProject(dc: DataConnect, options?: useDataConnectMutationOptions<DeleteProjectData, FirebaseError, DeleteProjectVariables>): UseDataConnectMutationResult<DeleteProjectData, DeleteProjectVariables>;
 ```
 
 ### Variables
+
 The `DeleteProject` Mutation requires an argument of type `DeleteProjectVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
@@ -442,7 +484,9 @@ export interface DeleteProjectVariables {
   id: UUIDString;
 }
 ```
+
 ### Return Type
+
 Recall that calling the `DeleteProject` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
 
 To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
@@ -450,6 +494,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `DeleteProject` Mutation is of type `DeleteProjectData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
 ```javascript
 export interface DeleteProjectData {
   project_delete?: Project_Key | null;
@@ -489,7 +534,7 @@ export default function DeleteProjectComponent() {
   // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
   // The `useDeleteProject` Mutation requires an argument of type `DeleteProjectVariables`:
   const deleteProjectVars: DeleteProjectVariables = {
-    id: ..., 
+    id: ...,
   };
   mutation.mutate(deleteProjectVars);
   // Variables can be defined inline as well.
@@ -517,4 +562,3 @@ export default function DeleteProjectComponent() {
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
 ```
-
