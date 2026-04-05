@@ -7,7 +7,7 @@ import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 // =============================================================================
 // AboutWhatIDo - Ghost System v3.0
-// Horizontal scroll-driven animation with Ghost Design aesthetics
+// Subtle scroll-linked motion with Ghost Design aesthetics
 // =============================================================================
 
 const SERVICES = [
@@ -64,11 +64,11 @@ export function AboutWhatIDo() {
   const prefersReducedMotion = !!useMotionGate();
   const [marqueePaused, setMarqueePaused] = useState(false);
 
-  // Scroll-driven horizontal animation for desktop
-  // Maps vertical scroll progress (0→1) to horizontal translation
+  // Scroll-linked horizontal drift for desktop.
+  // Keep the row visible from the start and avoid long empty stretches.
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end start'],
   });
 
   // Spring for smoother motion (Ghost feel)
@@ -78,13 +78,13 @@ export function AboutWhatIDo() {
     restDelta: 0.001,
   });
 
-  // X translation: starts at +120vw (off-screen right), ends at -100% (off-screen left)
-  const x = useTransform(smoothProgress, [0, 1], ['120vw', '-120%']);
+  // Subtle drift only; content stays readable inside the viewport.
+  const x = useTransform(smoothProgress, [0, 1], ['8vw', '-8vw']);
 
   // Opacity for fade in/out at edges
   const trackOpacity = useTransform(
     smoothProgress,
-    [0, 0.05, 0.95, 1],
+    [0, 0.12, 0.88, 1],
     [0, 1, 1, 0]
   );
 
@@ -98,7 +98,7 @@ export function AboutWhatIDo() {
           DESKTOP LAYOUT (≥ 1024px)
           Sticky container with horizontal scroll-driven animation
           ============================================ */}
-      <div className="hidden lg:block lg:h-[300vh]">
+      <div className="hidden lg:block lg:h-[180vh]">
         <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
           {/* Header */}
           <div className="absolute top-0 z-20 flex w-full justify-center pt-20">
@@ -122,11 +122,12 @@ export function AboutWhatIDo() {
               x: prefersReducedMotion ? 0 : x,
               opacity: prefersReducedMotion ? 1 : trackOpacity,
             }}
-            className="flex gap-6 will-change-transform pt-32"
+            className="mt-[30vh] flex w-full max-w-[1520px] items-stretch justify-center gap-3 px-10 will-change-transform xl:gap-4"
           >
             {SERVICES.map((service, index) => (
               <motion.article
                 key={service.id}
+                data-what-i-do-card=""
                 initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={viewportConfig}
@@ -135,19 +136,23 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE as any,
                 }}
-                className="group flex min-h-[140px] min-w-[420px] items-center gap-5 rounded-2xl bg-bluePrimary p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-4 py-5 text-center shadow-[0_22px_48px_-20px_rgba(135,5,242,0.32)] transition-shadow duration-300 hover:shadow-[0_26px_56px_-22px_rgba(135,5,242,0.45)]"
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-5xl font-black text-purpleDetails transition-all duration-300 flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-purpleDetails/35 bg-[rgba(255,255,255,0.08)] font-display text-[2rem] font-black text-purpleDetails"
                   aria-hidden="true"
                 >
-                  {service.id}
+                  {service.id.padStart(2, '0')}
                 </span>
                 {/* Text */}
-                <p className="font-display text-xl font-bold leading-tight text-white">
-                  <strong className="text-blueAccent">{service.keyword}</strong>{' '}
-                  {service.description}
+                <p className="mt-5 font-display text-[clamp(1.05rem,1.55vw,1.35rem)] font-bold leading-[1.28] text-white">
+                  <strong className="block text-blueAccent">
+                    {service.keyword}
+                  </strong>
+                  <span className="mt-1.5 block text-white">
+                    {service.description}
+                  </span>
                 </p>
               </motion.article>
             ))}

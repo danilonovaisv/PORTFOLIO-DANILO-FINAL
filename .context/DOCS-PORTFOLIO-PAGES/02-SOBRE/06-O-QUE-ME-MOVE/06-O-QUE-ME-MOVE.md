@@ -103,7 +103,8 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 - O layer mobile passou a exibir apenas **uma frase ativa por vez**, com transição controlada por `AnimatePresence`, reduzindo sobreposição e melhorando leitura.
 - O manifesto final teve redução de escala tipográfica e ajuste de overlay sticky para diminuir clipping e recuperar o clímax da seção.
 - O wrapper principal de `AboutBeliefs` foi corrigido para preservar o comportamento sticky da experiência cinematográfica durante toda a altura da seção.
-- O Ghost visual da seção passou a usar uma implementação estável em camada DOM dentro de `src/components/sobre/3d/GhostScene.tsx`, preservando presença central, chapéu, olhos e movimento scroll-driven sem depender do runtime WebGL desta seção.
+- O Ghost visual da seção voltou a usar o **modelo GLB real** em `public/site.assets/3d/ghost.glb`, renderizado por R3F em `src/components/sobre/3d/GhostScene.tsx`.
+- O enquadramento agora é estabilizado por cena dedicada com `Canvas`, `Center`, luzes controladas e escala responsiva para impedir que o modelo escape do layout útil da seção.
 - Validação local realizada em `2026-04-05` com capturas desktop e mobile a partir de `/sobre`, confirmando:
   - manifesto fixo novamente visível;
   - Ghost novamente presente na composição;

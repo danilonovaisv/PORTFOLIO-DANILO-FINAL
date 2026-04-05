@@ -13,7 +13,7 @@ import { Merged, useGLTF } from '@react-three/drei';
 import type { GLTF } from 'three-stdlib';
 import type { MotionValue } from 'framer-motion';
 
-const GHOST_MODEL_PATH = '/models/ghost-transformed.glb';
+const GHOST_MODEL_PATH = '/site.assets/3d/ghost.glb';
 
 type GLTFResult = GLTF & {
   nodes: {
