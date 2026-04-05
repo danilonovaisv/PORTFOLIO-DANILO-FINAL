@@ -1,123 +1,189 @@
 'use client';
 
-// GhostScene.tsx
-import React, { Suspense, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows, Environment } from '@react-three/drei';
-import * as THREE from 'three';
-import GhostModel from '@/components/sobre/3d/GhostModel'; // Caminho relativo para GhostModel
+import { Center, Environment, Float } from '@react-three/drei';
 import {
   MotionValue,
   motion,
+  useMotionValue,
+  useSpring,
   useTransform,
-  cubicBezier,
-  useInView,
 } from 'framer-motion';
-// Import Error Boundary
-import { GhostErrorBoundary } from './GhostErrorBoundary';
-// Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import GhostModel from '@/components/sobre/3d/GhostModel';
 
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
+  ghostIntensity: MotionValue<number>;
 }
 
-const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
-  const isMobile = useIsMobile();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { margin: '200px' });
-  const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
-  const shouldReduceMotion = useMotionGate();
-
-  // Easing Ghost Padrão
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-
-  // Entrada mais rápida do Ghost 3D.
-  const opacity = useTransform(scrollProgress, [0.015, 0.09], [0, 1], {
-    ease: ghostEase,
-  });
-  const blur = useTransform(
-    scrollProgress,
-    [0.015, 0.09],
-    ['blur(12px)', 'blur(0px)'],
-    { ease: ghostEase }
-  );
-
-  if (is3DDisabled || shouldReduceMotion) {
-    return (
-      <motion.div
-        ref={containerRef}
-        style={{ opacity, filter: blur }}
-        className="w-full h-full pointer-events-none"
+function GhostSceneContent({
+  isMobile,
+  ghostIntensity,
+}: {
+  isMobile: boolean;
+  ghostIntensity: MotionValue<number>;
+}) {
+  return (
+    <>
+      <ambientLight intensity={1.4} />
+      <directionalLight
+        position={[4.5, 6, 6]}
+        intensity={2.4}
+        color="#ffffff"
       />
-    );
+      <directionalLight
+        position={[-5, 2, 4]}
+        intensity={0.55}
+        color="#4fe6ff"
+      />
+      <spotLight
+        position={[0, 8, 8]}
+        angle={0.34}
+        penumbra={0.9}
+        intensity={1.2}
+        color="#ffffff"
+      />
+      <Environment preset="studio" />
+
+      <Float
+        speed={isMobile ? 0.9 : 0.98}
+        rotationIntensity={0.035}
+        floatIntensity={0.09}
+        floatingRange={[-0.045, 0.045]}
+      >
+        <Center>
+          <GhostModel
+            intensity={ghostIntensity}
+            scale={isMobile ? 0.29 : 0.47}
+          />
+        </Center>
+      </Float>
+    </>
+  );
+}
+
+const GhostScene: React.FC<GhostSceneProps> = ({
+  scrollProgress,
+  ghostIntensity,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = useMotionGate();
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const cursorX = useSpring(pointerX, {
+    stiffness: 90,
+    damping: 18,
+    mass: 0.6,
+  });
+  const cursorY = useSpring(pointerY, {
+    stiffness: 90,
+    damping: 18,
+    mass: 0.6,
+  });
+
+  useEffect(() => {
+    if (isMobile) {
+      pointerX.set(0);
+      pointerY.set(0);
+      return;
+    }
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const nx = event.clientX / window.innerWidth - 0.5;
+      const ny = event.clientY / window.innerHeight - 0.5;
+      pointerX.set(nx * 7);
+      pointerY.set(ny * 6);
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, {
+      passive: true,
+    });
+    return () => window.removeEventListener('pointermove', handlePointerMove);
+  }, [isMobile, pointerX, pointerY]);
+
+  const x = useTransform(
+    scrollProgress,
+    isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
+    isMobile ? ['-32vw', '-29vw', '-16vw', '0vw'] : ['0vw', '0vw']
+  );
+  const y = useTransform(
+    scrollProgress,
+    isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
+    isMobile ? ['-19vh', '-17vh', '-11vh', '0vh'] : ['0vh', '0vh']
+  );
+  const scale = useTransform(
+    scrollProgress,
+    isMobile ? [0.01, 0.12, 0.9, 1] : [0.01, 0.12, 0.82, 1],
+    isMobile ? [0.78, 0.84, 0.86, 0.98] : [0.95, 1, 1.01, 1.09]
+  );
+  const rotate = useTransform(
+    scrollProgress,
+    isMobile ? [0, 0.9, 1] : [0, 0.14, 1],
+    isMobile ? [-4, -2, 0] : [-0.6, 0, 0]
+  );
+  const opacity = useTransform(scrollProgress, [0.01, 0.08], [0, 1]);
+  const cursorRotateY = useTransform(cursorX, [-7, 7], [1.8, -1.8]);
+  const cursorRotateX = useTransform(cursorY, [-6, 6], [-1.2, 1.2]);
+
+  if (shouldReduceMotion) {
+    return null;
   }
 
   return (
     <motion.div
       ref={containerRef}
-      style={{ opacity, filter: blur }}
-      className="w-full h-full pointer-events-none"
+      style={{
+        x,
+        y,
+        scale,
+        rotate,
+        opacity,
+        transformOrigin: isMobile ? '24% 18%' : '50% 50%',
+      }}
+      className="pointer-events-none flex h-full w-full items-center justify-center"
+      aria-hidden="true"
     >
-      <GhostErrorBoundary
-        fallback={<div className="hidden" aria-hidden="true" />}
+      <motion.div
+        style={
+          isMobile
+            ? undefined
+            : {
+                x: cursorX,
+                y: cursorY,
+                rotateX: cursorRotateX,
+                rotateY: cursorRotateY,
+              }
+        }
+        className="pointer-events-none"
       >
-        <Canvas
-          shadows={{ type: THREE.PCFSoftShadowMap }}
-          dpr={[1, 2]}
-          gl={{
-            antialias: true,
-            alpha: true,
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.1,
-          }}
-          // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6
-          camera={{ position: [0, 0, 6], fov: 35 }}
-          frameloop={isInView ? 'always' : 'demand'}
-          aria-hidden="true"
+        <div
+          data-testid="ghost-figure"
+          className="relative h-[25vh] w-[36vw] min-w-[140px] max-w-[196px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
         >
-          {/* Environment map é VITAL para dar profundidade e volume aos materiais PBS do GLTF */}
-          <Environment preset="city" />
-
-          <ambientLight intensity={1.5} />
-
-          {/* Strong Key Light (Front-Right) com sombras suaves */}
-          <spotLight
-            position={[5, 8, 5]}
-            angle={0.4}
-            penumbra={0.5}
-            intensity={3.5}
-            castShadow
-            shadow-bias={-0.0005}
-          />
-
-          {/* Fill Light (Left) - Soft */}
-          <pointLight position={[-5, 5, -5]} intensity={1.2} color="#e6e6ff" />
-
-          {/* Rim Light (Back) - Creates silhouette/separation */}
-          <pointLight
-            position={[0, 4, -8]}
-            intensity={4}
-            color="#ffffff"
-            distance={25}
-          />
-
-          <Suspense fallback={null}>
-            <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
-          </Suspense>
-
-          {/* 🟣 [CONFIG VISUAL]: Sombra de contato */}
-          <ContactShadows
-            position={[0, -2.5, 0]}
-            opacity={0.8}
-            scale={15}
-            blur={2}
-            far={5}
-            color="#000000"
-          />
-        </Canvas>
-      </GhostErrorBoundary>
+          <Canvas
+            dpr={[1, 1.5]}
+            gl={{
+              antialias: true,
+              alpha: true,
+              powerPreference: 'high-performance',
+            }}
+            camera={{
+              position: [0, 0.1, isMobile ? 15.6 : 11.2],
+              fov: isMobile ? 18 : 14.5,
+            }}
+            className="absolute inset-0"
+          >
+            <GhostSceneContent
+              isMobile={isMobile}
+              ghostIntensity={ghostIntensity}
+            />
+          </Canvas>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };

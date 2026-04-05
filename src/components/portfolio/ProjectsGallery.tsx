@@ -156,7 +156,7 @@ export const ProjectsGallery = ({
   }, [activeFilter, pushStateToUrl]);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
-    () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
+    () => ['lg', 'sm', 'sm', 'sm', 'sm', 'sm', 'lg', 'wide'],
     []
   );
 
@@ -253,7 +253,7 @@ export const ProjectsGallery = ({
                 type="button"
                 role="tab"
                 aria-controls="portfolio-filter-panel"
-                aria-selected={activeFilter === pillar.id ? 'true' : 'false'}
+                aria-selected={activeFilter === pillar.id ? true : undefined}
                 tabIndex={activeFilter === pillar.id ? 0 : -1}
                 onClick={() => handleFilterChange(pillar.id)}
                 onKeyDown={(event) =>
@@ -303,7 +303,7 @@ export const ProjectsGallery = ({
             <div
               ref={trackRef}
               className={cn(
-                'w-full grid grid-cols-8 lg:grid-cols-12 gap-[10px] lg:gap-3 p-0 will-change-transform',
+                'w-full grid grid-cols-8 lg:grid-cols-12 gap-[10px] lg:gap-3 p-0 items-stretch will-change-transform',
                 'max-sm:flex max-sm:flex-col max-sm:items-center max-sm:h-auto max-sm:will-change-auto max-sm:static',
                 getTrackClasses()
               )}
@@ -329,7 +329,7 @@ export const ProjectsGallery = ({
                     disabled={currentPage === 1}
                     aria-label="Página anterior"
                     aria-controls="portfolio-filter-panel"
-                    aria-disabled={currentPage === 1 ? 'true' : 'false'}
+                    aria-disabled={currentPage === 1 ? true : undefined}
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
@@ -351,7 +351,7 @@ export const ProjectsGallery = ({
                     disabled={currentPage === totalPages}
                     aria-label="Próxima página"
                     aria-controls="portfolio-filter-panel"
-                    aria-disabled={currentPage === totalPages ? 'true' : 'false'}
+                    aria-disabled={currentPage === totalPages ? true : undefined}
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">

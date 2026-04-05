@@ -1,13 +1,22 @@
-// GhostModel.tsx
+'use client';
+
 import * as THREE from 'three';
-import React, { useRef, useMemo } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Float } from '@react-three/drei';
-import { GLTF } from 'three-stdlib';
-import { MotionValue } from 'framer-motion';
-import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';
+import {
+  createContext,
+  type ComponentType,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+  forwardRef,
+  useContext,
+  useMemo,
+  useRef,
+} from 'react';
+import { Merged, useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import type { GLTF } from 'three-stdlib';
+import type { MotionValue } from 'framer-motion';
+
+const GHOST_MODEL_PATH = '/site.assets/3d/ghost.glb';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -24,278 +33,116 @@ type GLTFResult = GLTF & {
   };
 };
 
-const GHOST_MODEL_URL = getSupabaseStorageUrl(
-  'site-assets/about/beliefs/ghost.glb'
-);
+type GhostMeshProps = ComponentPropsWithoutRef<'mesh'>;
 
-interface GhostModelProps {
-  scrollProgress: MotionValue<number>;
-  isMobile: boolean;
-}
+type GhostInstances = {
+  BodyGhostWhite: ComponentType<GhostMeshProps>;
+  EyesEyes: ComponentType<GhostMeshProps>;
+  HatHatBlack: ComponentType<GhostMeshProps>;
+  RimRimRed: ComponentType<GhostMeshProps>;
+};
 
-const GhostModel: React.FC<GhostModelProps> = ({
-  scrollProgress,
-  isMobile,
-}) => {
-  const group = useRef<THREE.Group>(null);
-  const lastScrollRef = useRef(0);
-  const scrollImpulseRef = useRef(0);
-  const { viewport } = useThree();
+type GhostModelProps = ComponentPropsWithoutRef<'group'> & {
+  intensity?: number | MotionValue<number>;
+  scrollProgress?: MotionValue<number>;
+  isMobile?: boolean;
+};
 
-  const { asset } = useRealtimeAsset(SITE_ASSET_KEYS.about.beliefs.ghostModel);
-  const modelUrl = useMemo(() => {
-    const assetUrl = asset?.publicUrl;
-    if (!assetUrl) return GHOST_MODEL_URL;
+const GhostInstancesContext = createContext<GhostInstances | null>(null);
 
-    // Evita runtime 400 quando o CMS aponta para ghost-transformed.glb inexistente.
-    if (assetUrl.includes('ghost-transformed.glb')) return GHOST_MODEL_URL;
+function GhostInstancesProvider({ children }: { children: ReactNode }) {
+  const { nodes } = useGLTF(GHOST_MODEL_PATH) as unknown as GLTFResult;
 
-    return assetUrl;
-  }, [asset?.publicUrl]);
-
-  const { nodes, materials } = useGLTF(modelUrl) as unknown as GLTFResult;
-
-  // Configuração responsiva refinada para Mobile/Desktop - Posições Absolutas
-  const config = useMemo(
+  const meshes = useMemo(
     () => ({
-      // Desktop: Centralizado na página (0)
-      // Mobile: Posicionado no lado esquerdo para layout lado-a-lado com o texto na direita
-      // 🟣 [CONFIG VISUAL]: Posição Base X
-      baseX: isMobile ? -viewport.width / 3.5 : 0,
-
-      // Centralizado verticalmente no desktop, levemente deslocado no mobile se necessário
-      // 🟣 [CONFIG VISUAL]: Posição Base Y (Cima = Positivo em R3F)
-      baseY: isMobile ? viewport.height * 0.15 : 0,
-
-      // Intensidade flutuante
-      floatBase: isMobile ? 0.18 : 0.15,
-      floatAmplitude: 0.75,
-      tiltBase: 0.2,
-
-      // Escala ajustada para maior presença no desktop, e reduzida no mobile (menos opressivo)
-      // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost
-      baseScale: isMobile ? 0.32 : 0.585,
-      // Compensa pivot do GLB para centralização visual
-      modelOffsetY: isMobile ? -1.0 : -1.9,
-      // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final
-      scaleBoost: 0.15, // +15% no final
-      scrollResponse: isMobile ? 0.65 : 0.85,
-      scrollYResponse: isMobile ? 0.22 : 0.3,
-      scrollZResponse: isMobile ? 0.45 : 0.55,
-      scrollImpulseGain: isMobile ? 1.4 : 1.8,
-
-      // Saída (Exit)
-      // 🟣 [CONFIG VISUAL]: Posição de Saída Y - Define o quanto ele sobe ao sair da tela
-      exitY: 6, // Sobe para sair
+      BodyGhostWhite: nodes.Body_Ghost_White_0,
+      EyesEyes: nodes.Eyes_Eyes_0,
+      HatHatBlack: nodes.Hat_Hat_Black_0,
+      RimRimRed: nodes.Rim_Rim_Red_0,
     }),
-    [isMobile, viewport.width, viewport.height]
+    [nodes]
   );
 
-  useFrame((state) => {
-    if (!group.current) return;
+  return (
+    <Merged meshes={meshes}>
+      {(instances) => (
+        <GhostInstancesContext.Provider
+          value={instances as unknown as GhostInstances}
+        >
+          {children}
+        </GhostInstancesContext.Provider>
+      )}
+    </Merged>
+  );
+}
 
-    const scroll = THREE.MathUtils.clamp(scrollProgress.get(), 0, 1);
-    const t = scroll;
-    const enterProgress = THREE.MathUtils.clamp((scroll - 0.015) / 0.075, 0, 1);
-    const finalPhaseProgress = THREE.MathUtils.clamp(
-      (scroll - 0.85) / 0.12,
-      0,
-      1
-    );
-    const scrollDelta = scroll - lastScrollRef.current;
-    lastScrollRef.current = scroll;
-    const scrollKick = THREE.MathUtils.clamp(scrollDelta * 32, -0.65, 0.65);
-    scrollImpulseRef.current = THREE.MathUtils.lerp(
-      scrollImpulseRef.current,
-      Math.min(1, Math.abs(scrollDelta) * 140),
-      0.28
-    );
-    const scrollImpulse = scrollImpulseRef.current;
+const GhostLayout = forwardRef<THREE.Group, ComponentPropsWithoutRef<'group'>>(
+  function GhostLayout(props, ref) {
+    const instances = useContext(GhostInstancesContext);
 
-    // Sempre recomeça ao voltar no scroll: nenhuma fase fica "presa".
-    // === ESCALA DINÂMICA (final: +15%) ===
-    const baseScale = config.baseScale;
-    const scaleFactor = 1 + config.scaleBoost * finalPhaseProgress;
-    const targetScale = THREE.MathUtils.lerp(
-      0.1,
-      baseScale * scaleFactor,
-      enterProgress
-    );
-
-    // Lerp scale
-    group.current.scale.x = THREE.MathUtils.lerp(
-      group.current.scale.x,
-      targetScale,
-      0.07
-    );
-    group.current.scale.y = THREE.MathUtils.lerp(
-      group.current.scale.y,
-      targetScale,
-      0.07
-    );
-    group.current.scale.z = THREE.MathUtils.lerp(
-      group.current.scale.z,
-      targetScale,
-      0.07
-    );
-
-    // === FINAL PHASE & EXIT ===
-    const targetX = THREE.MathUtils.lerp(config.baseX, 0, finalPhaseProgress);
-    const baseTargetY = THREE.MathUtils.lerp(
-      config.baseY,
-      0, // Centered at the end
-      finalPhaseProgress
-    );
-
-    // Saída por cima no final do scroll
-    const exitProgress = THREE.MathUtils.clamp((scroll - 0.95) / 0.05, 0, 1);
-    const targetY = THREE.MathUtils.lerp(
-      baseTargetY,
-      config.exitY,
-      exitProgress
-    );
-
-    // X Position Logic with Wiggle
-    const wiggleX = isMobile
-      ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-        config.floatAmplitude *
-        0.5
-      : 0;
-    const scrollWaveX =
-      Math.sin(t * Math.PI * 2.2) *
-      config.scrollResponse *
-      (0.25 + scrollImpulse * 0.75);
-    group.current.position.x = THREE.MathUtils.lerp(
-      group.current.position.x,
-      targetX + wiggleX + scrollWaveX + scrollKick * 0.5,
-      0.06
-    );
-
-    // === POSIÇÃO Y/Z (profundidade e reação ao scroll) ===
-    const scrollWaveY =
-      Math.sin(t * Math.PI * 3.1) *
-      config.scrollYResponse *
-      (0.2 + scrollImpulse * 0.8);
-    const yTargetWithScroll =
-      targetY + scrollWaveY - Math.abs(scrollKick) * 0.08;
-    group.current.position.y = THREE.MathUtils.lerp(
-      group.current.position.y,
-      yTargetWithScroll,
-      0.1
-    );
-
-    const scrollWaveZ =
-      Math.cos(t * Math.PI * 2.2) *
-      config.scrollZResponse *
-      (0.2 + scrollImpulse * 0.9);
-    const targetZ =
-      Math.cos(t * Math.PI * 0.8) * 0.3 +
-      scrollWaveZ +
-      Math.abs(scrollKick) * 0.3;
-    group.current.position.z = THREE.MathUtils.lerp(
-      group.current.position.z,
-      targetZ,
-      0.06
-    );
-
-    // === TILT (mouse + scroll) ===
-    const mouseTiltX = state.mouse.y * config.tiltBase;
-    const mouseTiltZ = -state.mouse.x * config.tiltBase;
-
-    // Scroll também afeta tilt (mais intenso no final + saída)
-    const scrollTiltFactor =
-      0.45 +
-      t * (scroll > 0.95 ? 4 : 1.3 + finalPhaseProgress * 1.8) +
-      scrollImpulse * 1.6;
-    const scrollTiltX =
-      Math.sin(t * Math.PI * 3) * config.tiltBase * 0.42 * scrollTiltFactor;
-    const scrollTiltZ =
-      Math.cos(t * Math.PI * 3) * config.tiltBase * 0.42 * scrollTiltFactor;
-    const impulseTiltX = -scrollKick * config.scrollImpulseGain * 0.8;
-    const impulseTiltZ = scrollKick * config.scrollImpulseGain * 0.6;
-
-    const targetRotX = mouseTiltX + scrollTiltX + impulseTiltX;
-    const targetRotZ = mouseTiltZ + scrollTiltZ + impulseTiltZ;
-
-    group.current.rotation.x = THREE.MathUtils.lerp(
-      group.current.rotation.x,
-      targetRotX,
-      0.12
-    );
-    group.current.rotation.z = THREE.MathUtils.lerp(
-      group.current.rotation.z,
-      targetRotZ,
-      0.12
-    );
-
-    // === Saltitante no final (wobble + bounce) ===
-    if (finalPhaseProgress > 0.001) {
-      const bounce = Math.sin(state.clock.getElapsedTime() * 6) * 0.035;
-      const wobble = Math.sin(state.clock.getElapsedTime() * 4 + 1) * 0.025;
-
-      // Se estiver saindo, reduz o wobble para focar na subida
-      const exitDamp = (scroll > 0.95 ? 0.2 : 1) * finalPhaseProgress;
-
-      group.current.position.y += bounce * exitDamp;
-      group.current.rotation.x += wobble * exitDamp;
-      group.current.rotation.z += wobble * 0.5 * exitDamp;
+    if (!instances) {
+      return null;
     }
+
+    return (
+      <group ref={ref} {...props} dispose={null}>
+        <instances.BodyGhostWhite
+          name="Body_Ghost_White_0"
+          position={[0, 1.6, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <instances.EyesEyes
+          name="Eyes_Eyes_0"
+          position={[0, 1.6, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <instances.HatHatBlack
+          name="Hat_Hat_Black_0"
+          position={[0, 3, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <instances.RimRimRed
+          name="Rim_Rim_Red_0"
+          position={[0, 2.4, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+      </group>
+    );
+  }
+);
+
+const GhostModel = ({
+  intensity = 0,
+  scrollProgress: _scrollProgress,
+  isMobile: _isMobile,
+  ...props
+}: GhostModelProps) => {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (!groupRef.current) return;
+
+    const currentIntensity =
+      typeof intensity === 'number' ? intensity : intensity.get();
+
+    const t = state.clock.getElapsedTime();
+    const floatAmplitude = 0.08 + currentIntensity * 0.06;
+    const floatSpeed = 0.6 + currentIntensity * 0.55;
+    const sway = 0.035 + currentIntensity * 0.025;
+
+    groupRef.current.position.y = Math.sin(t * floatSpeed) * floatAmplitude;
+    groupRef.current.rotation.y = Math.sin(t * 0.35) * sway;
+    groupRef.current.rotation.z = Math.sin(t * 0.5) * sway * 0.42;
   });
 
   return (
-    <group ref={group} scale={0.1} dispose={null}>
-      <group position={[0, config.modelOffsetY, 0]}>
-        <Float
-          speed={2.2}
-          rotationIntensity={0.6}
-          floatIntensity={0.5}
-          floatingRange={[-config.floatBase, config.floatBase]}
-        >
-          <mesh
-            name="Body_Ghost_White_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Body_Ghost_White_0.geometry}
-            material={materials.Ghost_White}
-            position={[0, 1.5578, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-          <mesh
-            name="Eyes_Eyes_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Eyes_Eyes_0.geometry}
-            material={materials.Eyes}
-            position={[0, 1.5578, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-          <mesh
-            name="Hat_Hat_Black_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Hat_Hat_Black_0.geometry}
-            material={materials.Hat_Black}
-            position={[0, 2.9913, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-          <mesh
-            name="Rim_Rim_Red_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Rim_Rim_Red_0.geometry}
-            material={materials.Rim_Red}
-            position={[0, 2.3541, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-        </Float>
-      </group>
-    </group>
+    <GhostInstancesProvider>
+      <GhostLayout ref={groupRef} {...props} />
+    </GhostInstancesProvider>
   );
 };
 
-// Only preload in browser environment
-if (typeof window !== 'undefined') {
-  useGLTF.preload(GHOST_MODEL_URL);
-}
+useGLTF.preload(GHOST_MODEL_PATH);
 
+export { GHOST_MODEL_PATH, GhostInstancesProvider, GhostLayout };
 export default GhostModel;

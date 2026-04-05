@@ -2,6 +2,7 @@
 
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 type DynamicAssetImageProps = {
@@ -55,8 +56,12 @@ export function DynamicAssetImage({
   if (loading && !fallbackUrl) {
     return (
       <div
-        className={`animate-pulse bg-slate-800/50 ${className}`}
-        style={{ width, height }}
+        className={cn(
+          'animate-pulse bg-slate-800/50',
+          width && `w-[${width}px]`,
+          height && `h-[${height}px]`,
+          className
+        )}
       />
     );
   }
@@ -64,8 +69,12 @@ export function DynamicAssetImage({
   if (!finalUrl && !loading) {
     return (
       <div
-        className={`flex items-center justify-center bg-slate-900/50 text-slate-500 text-sm ${className}`}
-        style={{ width, height }}
+        className={cn(
+          'flex items-center justify-center bg-slate-900/50 text-slate-500 text-sm',
+          width && `w-[${width}px]`,
+          height && `h-[${height}px]`,
+          className
+        )}
       >
         Asset not found
       </div>
@@ -77,7 +86,14 @@ export function DynamicAssetImage({
   }
 
   return (
-    <div className={`relative ${className}`} style={{ width, height }}>
+    <div
+      className={cn(
+        'relative',
+        width && `w-[${width}px]`,
+        height && `h-[${height}px]`,
+        className
+      )}
+    >
       <Image
         src={finalUrl!}
         alt={alt}
@@ -85,7 +101,10 @@ export function DynamicAssetImage({
         width={width}
         height={height}
         priority={priority}
-        sizes={sizes || (!width && !height ? '100vw' : undefined)}
+        sizes={
+          sizes ||
+          (!width && !height ? '(max-width: 768px) 100vw, 50vw' : undefined)
+        }
         unoptimized={finalUrl?.toLowerCase().endsWith('.svg')}
         className={`object-${objectFit} transition-opacity duration-300 ${
           isTransitioning ? 'opacity-0' : 'opacity-100'

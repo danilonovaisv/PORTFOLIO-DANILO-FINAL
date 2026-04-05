@@ -1,7 +1,7 @@
 import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { createClient } from '@/lib/supabase/server';
-import type { TablesInsert } from '@/lib/supabase.types';
+import type { TablesInsert, Database } from '@/lib/supabase.types';
 import type { DbProject, DbTag } from '@/types/admin';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
@@ -28,7 +28,7 @@ export type DbProjectWithTags = DbProject & {
 
 export async function listProjects(
   filters: ProjectFilters = {},
-  supabaseClient?: SupabaseClient
+  supabaseClient?: SupabaseClient<Database>
 ) {
   const supabase = supabaseClient ?? (await createClient());
 
@@ -79,16 +79,17 @@ export async function listProjects(
       .order('year', { ascending: false });
   }
 
-  const { data, error } = await query.returns<DbProjectWithTags[]>();
-  if (error) throw error;
-  return data;
+  // Cast needed: let query re-assignment prevents TS from propagating the Database generic
+  const result = await (query as any).returns() as { data: DbProjectWithTags[] | null; error: { message: string } | null };
+  if (result.error) throw result.error;
+  return (result.data ?? []) as DbProjectWithTags[];
 }
 
 // Paginado opcional: retorna itens e contagem total para UX.
 export async function listProjectsPaged(
   filters: ProjectFilters = {},
   pagination: Pagination = {},
-  supabaseClient?: SupabaseClient
+  supabaseClient?: SupabaseClient<Database>
 ) {
   const supabase = supabaseClient ?? (await createClient());
 
@@ -146,10 +147,10 @@ export async function listProjectsPaged(
     query = query.range(from, to);
   }
 
-  const { data, error, count } = await query.returns<DbProjectWithTags[]>();
-  if (error) throw error;
+  const result = await (query as any).returns() as { data: DbProjectWithTags[] | null; error: { message: string } | null; count: number | null };
+  if (result.error) throw result.error;
 
-  return { data, count: count ?? data.length };
+  return { data: result.data as DbProjectWithTags[], count: result.count ?? (result.data?.length ?? 0) };
 }
 
 export async function getProject(id: string) {

@@ -75,7 +75,7 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
 
 interface BeliefSectionProps {
   text: string;
-  bgColor: string;
+  bgColor?: string;
   isFirst?: boolean;
   /** Index of this belief section for E2E test IDs */
   index?: number;
@@ -94,7 +94,6 @@ interface BeliefSectionProps {
 
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
   text,
-  bgColor,
   isFirst = false,
   index,
   scrollYProgressOverride,
@@ -136,8 +135,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
       data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
-      style={{ backgroundColor: bgColor }}
-      className="relative w-full h-screen flex items-center justify-start overflow-hidden pl-[6%] lg:pl-[8%]"
+      className="relative w-full h-screen flex items-center justify-start overflow-hidden pl-[15vw]"
     >
       {/* Desktop: Texto inline */}
       {!isMobileTextLayer && (

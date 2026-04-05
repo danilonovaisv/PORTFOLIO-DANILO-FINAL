@@ -19,9 +19,9 @@ export default async function TagsPage() {
     .order('kind', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
 
-  const tagList = tags ?? [];
+  const tagList: import('@/lib/supabase.types').Tables<'portfolio_tags'>[] = tags ?? [];
   type TagRow = NonNullable<(typeof tagList)[number]>;
-  const grouped = tagList.reduce<Record<string, TagRow[]>>((acc, tag) => {
+  const grouped = (tagList as TagRow[]).reduce<Record<string, TagRow[]>>((acc: Record<string, TagRow[]>, tag: TagRow) => {
     const group = acc[tag.kind] ?? [];
     group.push(tag);
     acc[tag.kind] = group;
@@ -41,7 +41,7 @@ export default async function TagsPage() {
 
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
-          {Object.entries(grouped).map(([kind, groupTags]) => (
+          {(Object.entries(grouped) as [string, TagRow[]][]).map(([kind, groupTags]) => (
             <div
               key={kind}
               className="rounded-xl border border-white/10 bg-slate-900/60 px-4 py-5"

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -33,7 +33,15 @@ interface CategoryStripeProps {
   prefersReducedMotion: boolean;
 }
 
-export function CategoryStripe({
+/**
+ * ⚡ BOLT OPTIMIZATION: Wrapped with React.memo to prevent unnecessary re-renders.
+ * PortfolioShowcase maps over categories and passes an `isHovered` boolean to each stripe.
+ * Whenever the hovered stripe changes, the parent's state updates, which normally causes
+ * all stripes to re-render. Memoizing prevents recalculating media URLs, motion properties,
+ * and DOM layout for stripes whose hover state hasn't changed.
+ * Expected impact: Significant reduction in render time during hover interactions on the homepage.
+ */
+export const CategoryStripe = React.memo(function CategoryStripe({
   category,
   index,
   isHovered,
@@ -180,4 +188,4 @@ export function CategoryStripe({
       </Link>
     </motion.div>
   );
-}
+});

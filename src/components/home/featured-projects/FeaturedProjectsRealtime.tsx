@@ -175,7 +175,9 @@ export default function FeaturedProjectsRealtime({
         }
 
         channel = supabase
-          .channel('projects_realtime_channel')
+          .channel(
+            `projects_realtime_channel_${Math.random().toString(36).substring(7)}`
+          )
           .on(
             'postgres_changes',
             { event: '*', schema: 'public', table: 'portfolio_projects' },
@@ -191,25 +193,26 @@ export default function FeaturedProjectsRealtime({
               console.warn('[FeaturedProjectsRealtime] Broadcast refresh');
             }
             void loadFeaturedProjects();
-          })
-          .subscribe((status, err) => {
-            if (status === 'SUBSCRIBED') {
-              if (isDev) {
-                console.warn('[FeaturedProjectsRealtime] Subscribed');
-              }
-              stopPolling();
-            }
-            if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-              if (isDev) {
-                console.warn(
-                  '[FeaturedProjectsRealtime] Subscription error:',
-                  status,
-                  err
-                );
-              }
-              startPolling();
-            }
           });
+
+        channel.subscribe((status, err) => {
+          if (status === 'SUBSCRIBED') {
+            if (isDev) {
+              console.warn('[FeaturedProjectsRealtime] Subscribed');
+            }
+            stopPolling();
+          }
+          if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+            if (isDev) {
+              console.warn(
+                '[FeaturedProjectsRealtime] Subscription error:',
+                status,
+                err
+              );
+            }
+            startPolling();
+          }
+        });
       } catch (error) {
         if (isDev) {
           console.warn('[FeaturedProjectsRealtime] Setup error:', error);

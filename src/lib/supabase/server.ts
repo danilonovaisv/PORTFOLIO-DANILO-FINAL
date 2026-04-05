@@ -15,6 +15,67 @@ import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 import type { Database } from '@/lib/supabase.types';
 
 export async function createClient({ admin = false } = {}) {
+  // 1. Playwright Test Mock (Environment Check)
+  // If we are running E2E tests, we return a mock client that bypasses real auth.
+  if (process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true') {
+    const mockQuery = {
+      eq: () => mockQuery,
+      neq: () => mockQuery,
+      gt: () => mockQuery,
+      gte: () => mockQuery,
+      lt: () => mockQuery,
+      lte: () => mockQuery,
+      like: () => mockQuery,
+      ilike: () => mockQuery,
+      is: () => mockQuery,
+      in: () => mockQuery,
+      contains: () => mockQuery,
+      containedBy: () => mockQuery,
+      range: () => mockQuery,
+      or: () => mockQuery,
+      match: () => mockQuery,
+      order: () => mockQuery,
+      limit: () => mockQuery,
+      select: () => mockQuery,
+      single: () => Promise.resolve({ data: {}, error: null }),
+      returns: () => Promise.resolve({ data: [], error: null }),
+    };
+
+    return {
+      from: () => mockQuery,
+      auth: {
+        getUser: () =>
+          Promise.resolve({
+            data: {
+              user: {
+                id: 'e2e-mock-user',
+                email: 'admin@test.com',
+                app_metadata: { role: 'admin' },
+                user_metadata: { role: 'admin' },
+              },
+            },
+            error: null,
+          }),
+        getSession: () =>
+          Promise.resolve({
+            data: {
+              session: {
+                user: {
+                  id: 'e2e-mock-user',
+                  email: 'admin@test.com',
+                  app_metadata: { role: 'admin' },
+                },
+              },
+            },
+            error: null,
+          }),
+      },
+      storage: {
+        from: () => ({ getPublicUrl: () => ({ data: { publicUrl: '' } }) }),
+      },
+    } as any;
+  }
+
   let cookieStore: Awaited<ReturnType<typeof cookies>> | undefined;
   try {
     cookieStore = await cookies();

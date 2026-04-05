@@ -43,13 +43,28 @@ jobs:
         id: get_logs
         run: |
           RUN_ID="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
+          echo "Analyzing Run ID: $RUN_ID"
+
           if [ -n "$RUN_ID" ]; then
-            gh run view "$RUN_ID" --log-failed > error_logs.txt 2>&1 || echo "No failed logs found" > error_logs.txt
+            # Attempt to get failed logs, redirect stderr to a file for diagnosis
+            gh run view "$RUN_ID" --log-failed > error_logs.txt 2>gh_error.txt || {
+              echo "Error running gh run view:" >> error_logs.txt
+              cat gh_error.txt >> error_logs.txt
+            }
           else
             echo "No workflow run ID available" > error_logs.txt
           fi
-          # Truncate to avoid exceeding prompt limits
-          head -c 8000 error_logs.txt > error_logs_truncated.txt
+
+          # If file is static or empty, add a marker
+          if [ ! -s error_logs.txt ]; then
+             echo "LOG_STATUS=empty" >> "$GITHUB_ENV"
+             echo "No failed logs were captured by the CLI." > error_logs.txt
+          else
+             echo "LOG_STATUS=captured" >> "$GITHUB_ENV"
+          fi
+
+          # Truncate to avoid exceeding prompt limits (about 12k chars)
+          head -c 12000 error_logs.txt > error_logs_truncated.txt
           mv error_logs_truncated.txt error_logs.txt
         env:
           GH_TOKEN: ${{ github.token }}
@@ -59,24 +74,26 @@ jobs:
         run: |
           {
             echo "prompt<<EOF_MARKER"
-            echo "Analyze these failed workflow logs from a Next.js 16 project deployed to Firebase Hosting."
-            echo "Tech stack: Next.js 16 (App Router), pnpm, Firebase Hosting with webframeworks, Supabase."
+            echo "Analyze these failed workflow logs from a Next.js 16 (App Router) portfolio project."
+            echo "Environment: Node 20, pnpm 10.33.0, Firebase Hosting (webframeworks), Supabase SSR."
+            echo "Infrastructure: GitHub Actions with Ubuntu-latest."
             echo
-            echo "--- ERROR LOGS ---"
+            echo "--- LOG EXCERPT ---"
             cat error_logs.txt
             echo
-            echo "--- END LOGS ---"
+            echo "--- END LOG EXCERPT ---"
             echo
-            echo "Provide:"
-            echo "1. Root cause (1-2 sentences)"
-            echo "2. Corrected code snippet if applicable"
-            echo "3. Any config changes needed in firebase.json, next.config.mjs, or GitHub Secrets"
+            echo "Please provide a solution based on Ghost Architecture standards (#0048ff theme, strict grid):"
+            echo "1. Root cause (Detailed technical explanation)"
+            echo "2. Fix Strategy (Step-by-step instructions)"
+            echo "3. Code Fix (Provide the exact code/config if clear)"
+            echo "4. Prevention (How to avoid this in the future)"
             echo "EOF_MARKER"
           } >> "$GITHUB_OUTPUT"
 
       - name: 🤖 Gemini AI Analysis
         id: gemini_analysis
-        if: ${{ env.GEMINI_API_KEY != '' }}
+        if: ${{ env.GEMINI_API_KEY != '' && env.LOG_STATUS == 'captured' }}
         continue-on-error: true
         uses: google-github-actions/run-gemini-cli@v0
         with:
@@ -86,12 +103,19 @@ jobs:
       - name: 🛠️ Create fix suggestion issue
         if: always()
         run: |
+          # Only proceed if we have a real response or if it's a first-time failure report.
+          # We avoid spamming "Gemini failed" comments to existing issues.
+
+          GEMINI_TEXT="${{ steps.gemini_analysis.outputs.gemini_response }}"
+
           if [ -z "$GEMINI_API_KEY" ]; then
             RESPONSE="⚠️ Gemini analysis skipped: GEMINI_API_KEY secret is not configured."
-          elif [ -z "$GEMINI_RESPONSE" ]; then
-            RESPONSE="⚠️ Gemini analysis returned empty or failed. Check error_logs.txt manually."
+          elif [ "$LOG_STATUS" = "empty" ]; then
+            RESPONSE="⚠️ Analysis skipped: No failed logs could be captured from the run ID."
+          elif [ -z "$GEMINI_TEXT" ]; then
+            RESPONSE="⚠️ Gemini analysis returned empty or failed. Please check the logs manually."
           else
-            RESPONSE="${GEMINI_RESPONSE}"
+            RESPONSE="${GEMINI_TEXT}"
           fi
 
           {
@@ -99,6 +123,7 @@ jobs:
             echo
             echo "**Trigger:** ${{ github.event.workflow_run.name || 'Manual dispatch' }}"
             echo "**Run ID:** ${{ github.event.inputs.run_id || github.event.workflow_run.id || 'N/A' }}"
+            echo "**Status:** ${{ env.LOG_STATUS }}"
             echo "**Timestamp:** $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
             echo
             echo "### Analysis"
@@ -106,11 +131,20 @@ jobs:
             echo "$RESPONSE"
           } > issue_body.md
 
-          # Check for duplicate open issues to avoid spam
+          # Logic:
+          # 1. If Gemini failed AND an issue exists -> DO NOT COMMENT (to avoid spamming 176+ messages).
+          # 2. If Gemini succeeded -> Comment or Create.
+          # 3. If it's a new issue -> Always create.
+
           EXISTING=$(gh issue list --state open --label "ai-healing" --limit 1 --json number -q '.[0].number' || echo "")
+
           if [ -n "$EXISTING" ]; then
-            gh issue comment "$EXISTING" --body-file issue_body.md
-            echo "📝 Added comment to existing issue #$EXISTING"
+            if [ -n "$GEMINI_TEXT" ]; then
+              gh issue comment "$EXISTING" --body-file issue_body.md
+              echo "📝 Added analysis to existing issue #$EXISTING"
+            else
+              echo "⏭️ Skipping comment on #$EXISTING because AI analysis failed/was empty."
+            fi
           else
             gh issue create \
               --title "🤖 Auto-fix Suggestion: Deploy Failure ($(date -u '+%Y-%m-%d'))" \
@@ -120,4 +154,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_RESPONSE: ${{ steps.gemini_analysis.outputs.gemini_response }}
+          LOG_STATUS: ${{ env.LOG_STATUS }}

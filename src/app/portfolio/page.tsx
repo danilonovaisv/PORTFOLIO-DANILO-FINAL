@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PortfolioClient from '@/app/portfolio/PortfolioClient';
 import { listProjects, listProjectsPaged } from '@/lib/supabase/queries/projects';
+import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
@@ -163,7 +164,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
           supabase
         );
         totalProjectsCount = count ?? 0;
-        projects = dbProjects.map((project, index) =>
+        projects = dbProjects.map((project: DbProjectWithTags, index: number) =>
           mapDbProjectToPortfolioProject(project, index)
         );
       } else {
@@ -175,7 +176,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
           },
           supabase
         );
-        projects = dbProjects.map((project, index) =>
+        projects = dbProjects.map((project: DbProjectWithTags, index: number) =>
           mapDbProjectToPortfolioProject(project, index)
         );
         projects = shufflePortfolioProjects(projects);

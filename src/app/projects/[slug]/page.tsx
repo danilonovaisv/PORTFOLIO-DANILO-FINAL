@@ -78,7 +78,7 @@ export async function generateMetadata({
     .from('landing_pages')
     .select('title, cover, content, slug')
     .eq('slug', slug)
-    .single<LandingPageRecord>();
+    .single() as { data: LandingPageRecord | null; error: unknown };
 
   if (!project) return { title: 'Projeto não encontrado' };
 
@@ -128,7 +128,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     .from('landing_pages')
     .select('*')
     .eq('slug', slug)
-    .single<LandingPageRecord>();
+    .single() as { data: LandingPageRecord | null; error: { message: string } | null };
 
   if (error || !project) {
     notFound();

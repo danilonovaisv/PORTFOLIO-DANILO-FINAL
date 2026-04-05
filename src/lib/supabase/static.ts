@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
+import type { Database } from '@/lib/supabase.types';
 
 /**
  * Creates a static Supabase client for SSG/ISR
@@ -34,7 +35,7 @@ export function createStaticClient() {
     );
   }
 
-  return createClient(supabaseUrl, supabaseKey, {
+  return createClient<Database>(supabaseUrl, supabaseKey, {
     auth: {
       persistSession: false,
     },
