@@ -27,12 +27,24 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
 }) => {
   // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
-  const staticProgress = useMotionValue(1);
+  const staticProgress = useMotionValue(0);
   const progress = scrollYProgress ?? staticProgress;
   const Container = MotionDiv ?? motion.div;
 
+  // Visibility gate: oculta o layer quando a seção está fora do viewport.
+  // scrollYProgress (offset 'start end'→'end end'): 0 = seção entrou pela base,
+  // 1 = fim da seção alinhado com a base da viewport.
+  const sectionOpacity = useTransform(
+    progress,
+    [0, 0.04, 0.95, 0.99],
+    [0, 1, 1, 0]
+  );
+
   return (
-    <div className="fixed inset-0 z-70 pointer-events-none md:hidden">
+    <motion.div
+      className="fixed inset-0 z-[70] pointer-events-none md:hidden"
+      style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
+    >
       {phrases.map((phrase, index) => (
         <MobilePhrase
           key={index}
@@ -44,7 +56,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
           prefersReducedMotion={prefersReducedMotion}
         />
       ))}
-    </div>
+    </motion.div>
   );
 };
 
