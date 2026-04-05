@@ -1,0 +1,136 @@
+# Backup lógico antes de ajustes (2026-04-05)
+
+## .mcp.json (antes)
+```json
+{
+  "mcpServers": {
+    "claude-flow": {
+      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
+      "args": ["-y", "@claude-flow/cli@latest", "mcp", "start"],
+      "env": {
+        "npm_config_update_notifier": "false",
+        "CLAUDE_FLOW_MODE": "v3",
+        "CLAUDE_FLOW_HOOKS_ENABLED": "true",
+        "CLAUDE_FLOW_TOPOLOGY": "hierarchical-mesh",
+        "CLAUDE_FLOW_MAX_AGENTS": "15",
+        "CLAUDE_FLOW_MEMORY_BACKEND": "hybrid"
+      }
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=umkmwbkwvulxtdodzmzf"
+    }
+  }
+}
+```
+
+## .codex/config.toml (antes)
+```toml
+#:schema https://developers.openai.com/codex/config-schema.json
+# Codex workspace profile for PORTFOLIO-DANILO-FINAL
+
+model = "gpt-5.4"
+model_provider = "openai"
+personality = "pragmatic"
+
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+allow_login_shell = true
+web_search = "live"
+
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_reasoning_summary = "auto"
+model_verbosity = "medium"
+
+project_doc_max_bytes = 65536
+project_doc_fallback_filenames = ["AGENTS.md"]
+
+file_opener = "vscode"
+check_for_update_on_startup = true
+
+# Persists the critical workflow constraints requested for this project.
+developer_instructions = "Sempre verificar o repositório https://github.com/danilonovaisv/DATABASE_AGENT_NEXT antes de decisões técnicas e consultar o vector store vs_69520b1fb834819197e445db9aab8d69 para contexto/intenção, cruzando ambas as fontes antes de implementar."
+
+[features]
+multi_agent = true
+unified_exec = true
+shell_snapshot = true
+enable_request_compression = true
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+[agents.explorer]
+description = "Read-only codebase explorer for gathering evidence before changes are proposed."
+config_file = "agents/explorer.toml"
+
+[agents.reviewer]
+description = "PR reviewer focused on correctness, security, and regression risks."
+config_file = "agents/reviewer.toml"
+
+[agents.docs_researcher]
+description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
+config_file = "agents/docs-researcher.toml"
+
+[mcp_servers.github]
+command = "pnpm"
+args = ["run", "mcp:github"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest", "--extension"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 120.0
+
+[mcp_servers.exa]
+url = "https://mcp.exa.ai/mcp"
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.sequential-thinking]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 90.0
+
+[mcp_servers.firebase]
+command = "pnpm"
+args = ["run", "mcp:firebase"]
+startup_timeout_sec = 20.0
+tool_timeout_sec = 120.0
+
+[history]
+persistence = "save-all"
+
+[tui]
+notifications = false
+animations = true
+show_tooltips = true
+
+[projects."/workspace/PORTFOLIO-DANILO-FINAL"]
+trust_level = "trusted"
+```
+
+## package.json scripts relevantes (antes)
+```json
+{
+  "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",
+  "postinstall": "if [ -d scripts ]; then pnpm run prebuild; else echo 'Skipping prebuild: scripts directory not found'; fi && pnpm exec playwright install chromium"
+}
+```

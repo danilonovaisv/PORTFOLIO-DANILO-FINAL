@@ -1,5 +1,5 @@
 'use client';
-import { useTransform, MotionValue } from 'framer-motion';
+import { useTransform, MotionValue, cubicBezier } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 /* ────────────────────────────────────────────────────────
@@ -16,10 +16,8 @@ const COLOR_SEQUENCE = [
   { h: 230, s: 85, l: 30 }, // Blue
 ];
 
-// Ghost Easing for background interpolation [0.4, 0, 0.2, 1]
-function ghostEase(t: number): number {
-  return 0.4 * t * t + 0.2 * t;
-}
+// Ghost Easing for background interpolation — spec: cubic-bezier(0.4, 0, 0.2, 1)
+const ghostEase = cubicBezier(0.4, 0, 0.2, 1);
 
 interface UseBeliefsAnimationProps {
   scrollYProgress: MotionValue;

@@ -1,5 +1,50 @@
 # Adjustment Log
 
+## [2026-04-05T11:32] About Ghost Model Layout Alignment
+
+**Context:** Ajuste pontual no modelo 3D do Ghost para substituir a versão procedural local por uma composição baseada no GLB transformado, respeitando o layout validado para corpo, olhos, chapéu e faixa.
+
+**Changes Applied:**
+
+1. **`src/components/sobre/3d/GhostModel.tsx` — GLB layout fix** ✅
+   - Substituído o ghost procedural por carregamento tipado via `useGLTF`.
+   - O asset passou a apontar para `'/models/ghost-transformed.glb'`, compatível com `public/`.
+   - Estrutura `Merged` adicionada para expor as partes do modelo com baixo overhead.
+
+2. **Layout por parte do modelo** ✅
+   - `Body_Ghost_White_0` e `Eyes_Eyes_0` fixados em `position={[0, 1.6, 0]}`.
+   - `Rim_Rim_Red_0` fixado em `position={[0, 2.4, 0]}`.
+   - `Hat_Hat_Black_0` fixado em `position={[0, 3, 0]}`.
+   - Todas as partes passaram a usar `rotation={[-Math.PI / 2, 0, 0]}`.
+
+**Verification:**
+
+- ✅ `pnpm exec eslint src/components/sobre/3d/GhostModel.tsx`
+- ✅ `pnpm exec tsc -p tsconfig.json --noEmit --pretty false`
+
+## [2026-04-05T03:44] Document & Knowledge Sync
+
+**Context:** Executed `/sync-docs-and-knowledge` workflow to reconcile "Ghost System" memory with current system status. No structural deviations found. 
+
+**Changes Applied:**
+
+1. **Knowledge Graph Reconciliation** ✅
+   - Verified `.context/knowledge-graph.md` aligns with current stores (`AntigravityStore`, `ContentStore`, `ExperienceStore`, `PortfolioModalStore`).
+   - Verified renderer components match current architecture (`GhostScene` is currently Vanilla, dead code `Ghost particles/Ghost.tsx` is properly marked as DEPRECATED).
+
+2. **Design Token Validation** ✅
+   - Audited `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` against `tailwind.config.ts` and `src/app/globals.css`.
+   - Confirmed primary colors (`--color-bluePrimary`, `--color-background`) and layout sizes (`cta-mobile`, `cta-tablet`) are perfectly matched. Layers defined properly under `--z-layer-*`.
+
+3. **Structural Layout Validation** ✅
+   - Ran `validate:structure` via Python script.
+   - All 18 checks passed with zero errors, confirming that the physical file layout corresponds to the structural rules defined in documentation.
+
+**Verification:**
+- System is fully in-sync. Documentation is healthy.
+
+---
+
 ## [2026-04-03T06:24] Security Fix — `tar` Override via `pnpm.overrides` + Final Audit Clean
 
 **Context:** Seguindo o protocolo `/deep-clean-project` + `/codebase-cleanup-deps-audit`. A auditoria inicial revelou 8 vulnerabilidades (6 high, 2 low). O override de `tar` foi inicialmente aplicado apenas na seção `overrides` (npm-style), mas o pnpm ignora essa seção para forçar versões transitivas — o campo correto é `pnpm.overrides`. Após identificar o root cause, o fix foi aplicado no lugar correto.
@@ -1122,3 +1167,7 @@ Corrigido falhas nos testes unitários:
 **Action Recommended for User:**
 Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix npm's local health permanently.
 [2026-04-04] [Sobre] Correção na visibilidade, contraste (Drop Shadow em vez de mix-blend) e isolamento da layer (z-[100]) do texto em BeliefFixedHeader. Remoção da ancoragem ('fixed') do SiteFooter em desktop. Retificação do min-height de loading no AboutBeliefsNoSSR para prevenir CLS visual com o Footer.
+\n[2026-04-05] [AUDIT] Executada auditoria técnica completa via workflow /audit-squirrel. Detectados 100% de conformidade estrutural em HOME e SOBRE. Identificada falha de roteamento (404) em projetos dinâmicos no PORTFOLIO. Relatório gerado em AUDIT_SQUIRREL_REPORT.md.
+[2026-04-05] [Sobre - Beliefs] Correções estruturais e visuais no AboutBeliefs e BeliefFixedHeader. Removido obrigatoriedade da prop bgColor, ajustado padding para pl-[15vw], recategorização z-index para 30 e readequação de palavras do manifesto.
+[2026-04-05] [Sobre - Beliefs] Z-Index Trap fixada. Alteração de background global 'fixed inset-0' para confinamento 'absolute > sticky' em AboutBeliefs.tsx. Previne que a interpolação HSL sangre para o restante ou totalidade da página (Bug 'Tela Inteira Azul').
+[2026-04-05 17:57] [GitHub Actions Optimization] Analyzed all workflows. Fixed AI-healing logic, standardized pnpm version to 10.33, added Next.js build caching to Firebase deployments, and disabled redundant GitHub Pages push trigger. Added dependency-review workflow for security.

@@ -114,14 +114,6 @@
         "updated_at": "2026-01-14 08:41:59.898698+00"
       },
       {
-        "id": "8cc432c1-bbc6-4452-93fe-165f4b3ba85a",
-        "key": "swift.key-vision.assets-do-projeto.cover-16x9.thumb.5b0e14348c108da3",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
-        "file_path": "swift/key-vision/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
-        "updated_at": "2026-03-08 10:19:40.212045+00"
-      },
-      {
         "id": "ad8aed84-334a-4396-b308-7a6859cc28cd",
         "key": "projects.key-visual.section-1",
         "bucket": "site-assets",
@@ -178,22 +170,6 @@
         "updated_at": "2026-02-28 09:06:01.869217+00"
       },
       {
-        "id": "9124ec6a-178e-4af4-9e90-d43de2a871a2",
-        "key": "swift.key-vision.assets-do-projeto.cover-1x1.thumb.5b0e14348c108da3",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/cover-1x1/thumb.5b0e14348c108da3.mp4",
-        "file_path": "swift/key-vision/assets-do-projeto/cover-1x1/thumb.5b0e14348c108da3.mp4",
-        "updated_at": "2026-03-08 10:19:42.119024+00"
-      },
-      {
-        "id": "8d1a674c-b05f-4b93-887e-5b2967d62e04",
-        "key": "swift.key-vision.assets-do-projeto.gallery.kvs-swift-week.db2ca2c6acdc4bda",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/kvs-swift-week.db2ca2c6acdc4bda.webp",
-        "file_path": "swift/key-vision/assets-do-projeto/gallery/kvs-swift-week.db2ca2c6acdc4bda.webp",
-        "updated_at": "2026-03-08 10:19:42.957056+00"
-      },
-      {
         "id": "b81ea55e-7ac2-4cb1-ac6e-0b93c2e8b40f",
         "key": "clients.clients.strip.6",
         "bucket": "site-assets",
@@ -224,22 +200,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Branding-Project.webp",
         "file_path": "home/showcase/Branding-Project.webp",
         "updated_at": "2026-01-14 20:07:57.062582+00"
-      },
-      {
-        "id": "c759d3c4-0d98-40e3-bb43-20d1ceaf048e",
-        "key": "swift.key-vision.assets-do-projeto.gallery.caixa-week.a28bcda1a214e17e",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/caixa-week.a28bcda1a214e17e.webp",
-        "file_path": "swift/key-vision/assets-do-projeto/gallery/caixa-week.a28bcda1a214e17e.webp",
-        "updated_at": "2026-03-08 10:19:44.215323+00"
-      },
-      {
-        "id": "cb46b77d-05d5-4a7a-9ede-8aa2f795b22e",
-        "key": "down-qu-mica.video-manifesto.assets-do-projeto.cover-16x9.thumb-glad-16-9.9420213a26a3af30",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad-16-9.9420213a26a3af30.webp",
-        "file_path": "down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad-16-9.9420213a26a3af30.webp",
-        "updated_at": "2026-02-28 09:39:44.861335+00"
       },
       {
         "id": "ab496801-eadc-4261-a908-c21adbf1fee4",
@@ -338,28 +298,12 @@
         "updated_at": "2026-01-14 20:07:57.204927+00"
       },
       {
-        "id": "6c05aef9-3b02-4d65-84d1-525c43b5ccec",
-        "key": "swift.key-vision.assets-do-projeto.gallery.mock-week3.f9dd02c40e2acdf3",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/mock-week3.f9dd02c40e2acdf3.webp",
-        "file_path": "swift/key-vision/assets-do-projeto/gallery/mock-week3.f9dd02c40e2acdf3.webp",
-        "updated_at": "2026-03-08 10:19:45.632754+00"
-      },
-      {
         "id": "bddbc797-1380-4f66-82db-f7c69fea86e3",
         "key": "landing-pages.key-vision.master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
         "file_path": "landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
         "updated_at": "2026-02-23 19:24:50.678123+00"
-      },
-      {
-        "id": "8d96630e-b8ee-41fd-a9ff-bc68a38d60d7",
-        "key": "swift.key-vision.assets-do-projeto.gallery.mock-week2.372fec5ccd7832ad",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
-        "file_path": "swift/key-vision/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
-        "updated_at": "2026-03-08 10:19:46.595279+00"
       },
       {
         "id": "e6304408-e674-4ebf-b5db-a15af4f698fa",
@@ -394,14 +338,6 @@
         "updated_at": "2026-01-21 22:55:03.225937+00"
       },
       {
-        "id": "7fd65ba9-30f7-422f-8c0e-10142a18d678",
-        "key": "projects.key_vision.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/thumb.webp",
-        "file_path": "projects/key_vision/thumb.webp",
-        "updated_at": "2026-01-14 18:59:37.937398+00"
-      },
-      {
         "id": "adcb8b4b-10b7-4a1f-b0b5-263ee6b71a47",
         "key": "landing-pages.key-vision.master-v3-block-text-image-5-media1",
         "bucket": "site-assets",
@@ -410,60 +346,12 @@
         "updated_at": "2026-02-23 19:24:51.756515+00"
       },
       {
-        "id": "b9138a46-110d-45a2-9a8b-24d106c53a28",
-        "key": "projects.key_vision.hero",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/hero.webp",
-        "file_path": "projects/key_vision/hero.webp",
-        "updated_at": "2026-01-14 18:59:38.373037+00"
-      },
-      {
-        "id": "5c76d5a4-8014-42a1-acf4-6767c6212c6a",
-        "key": "projects.key_vision.gallery.nescau-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/gallery/nescau-webp.webp",
-        "file_path": "projects/key_vision/gallery/nescau-webp.webp",
-        "updated_at": "2026-01-14 18:59:39.460374+00"
-      },
-      {
         "id": "ad5e909b-1594-4885-b285-8fd24c4e5271",
         "key": "global.CV.CURRICULUM-2026",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/CURRICULUM-2026.html",
         "file_path": "global/CV/CURRICULUM-2026.html",
         "updated_at": "2026-03-06 17:34:28.91625+00"
-      },
-      {
-        "id": "401e7de9-5ff2-4852-afb5-94d293d9bcd6",
-        "key": "swift.key-vision.assets-do-projeto.gallery.11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef.webp",
-        "file_path": "swift/key-vision/assets-do-projeto/gallery/11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef.webp",
-        "updated_at": "2026-03-08 10:19:47.403096+00"
-      },
-      {
-        "id": "85edc6e3-7d48-47d7-aebe-d0ae8f483d46",
-        "key": "projects.creative-direction.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/thumb.webp",
-        "file_path": "projects/creative-direction/thumb.webp",
-        "updated_at": "2026-01-15 10:03:53.82492+00"
-      },
-      {
-        "id": "e856a2aa-3848-48de-bb69-cc82bd2eca8c",
-        "key": "projects.creative-direction.hero",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/hero.webp",
-        "file_path": "projects/creative-direction/hero.webp",
-        "updated_at": "2026-01-15 10:03:54.277288+00"
-      },
-      {
-        "id": "bcc26e4d-969e-4530-a9d5-6fa900863096",
-        "key": "projects.creative-direction.gallery.converted-webp",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/gallery/converted-webp.webp",
-        "file_path": "projects/creative-direction/gallery/converted-webp.webp",
-        "updated_at": "2026-01-15 10:03:54.80633+00"
       },
       {
         "id": "9f1668e1-698e-47c1-b149-b3ca152f44b4",
@@ -490,36 +378,12 @@
         "updated_at": "2026-01-21 16:31:07.262276+00"
       },
       {
-        "id": "7d33f834-64ac-4b63-b5d0-611818e4230f",
-        "key": "projects.key-vision.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/thumb.webp",
-        "file_path": "projects/key-vision/thumb.webp",
-        "updated_at": "2026-01-14 19:56:34.680782+00"
-      },
-      {
         "id": "0b1242da-894b-4a0f-8842-9389499b5c35",
         "key": "projects.key-visual.section-6",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-6.webp",
         "file_path": "projects/key-visual/section-6.webp",
         "updated_at": "2026-01-21 23:01:50.294967+00"
-      },
-      {
-        "id": "38b721b1-ba72-4e50-bdfd-3c4a9abea37d",
-        "key": "projects.key-vision.hero",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/hero.webp",
-        "file_path": "projects/key-vision/hero.webp",
-        "updated_at": "2026-01-14 19:56:35.071207+00"
-      },
-      {
-        "id": "dd0ef861-c8bb-4275-bbb7-25b44d30beb3",
-        "key": "swift.key-vision.assets-do-projeto.gallery.mock-week.c9185127dde6d861",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/key-vision/assets-do-projeto/gallery/mock-week.c9185127dde6d861.webp",
-        "file_path": "swift/key-vision/assets-do-projeto/gallery/mock-week.c9185127dde6d861.webp",
-        "updated_at": "2026-03-08 10:19:49.944734+00"
       },
       {
         "id": "aa54f71c-4351-491c-9d65-b44ab159ed0a",
@@ -922,22 +786,6 @@
         "updated_at": "2026-01-28 06:46:01.058864+00"
       },
       {
-        "id": "86f2fc0c-233a-4350-a45a-f251b11181a3",
-        "key": "about.hero.about.hero.desktop",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop.mp4",
-        "file_path": "about/hero/about.hero.desktop.mp4",
-        "updated_at": "2026-03-09 04:32:46.191543+00"
-      },
-      {
-        "id": "4a2f0a1a-2237-4e55-a111-2db11d6e26ff",
-        "key": "about.hero.about.hero.mobile",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile.mp4",
-        "file_path": "about/hero/about.hero.mobile.mp4",
-        "updated_at": "2026-03-09 04:33:01.21076+00"
-      },
-      {
         "id": "c4663d56-c140-4b3f-9268-462490da7417",
         "key": "civic.key-visual.assets-do-projeto.cover-16x9.thumb-honda.c2d0c6ccb21001ea",
         "bucket": "portfolio-media",
@@ -962,14 +810,6 @@
         "updated_at": "2026-03-02 08:19:08.915122+00"
       },
       {
-        "id": "ca989bf5-68cd-4220-b948-c6f969aedb13",
-        "key": "landing-pages.dntro.master-v3-hero-7de2aa36-f635-426c-bf97-4408de702124",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-hero-7de2aa36-f635-426c-bf97-4408de702124.webp",
-        "file_path": "landing-pages/dntro/master-v3-hero-7de2aa36-f635-426c-bf97-4408de702124.webp",
-        "updated_at": "2026-03-09 05:05:25.830033+00"
-      },
-      {
         "id": "87867a3b-85dd-4225-9ec9-88deab96595b",
         "key": "eudora.eudora.assets-do-projeto.cover-1x1.thumb-1-1.5a12ad6b73a3c927",
         "bucket": "portfolio-media",
@@ -984,14 +824,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/eudora/eudora/assets-do-projeto/gallery/converted.f48657bf2f860eb0.webp",
         "file_path": "eudora/eudora/assets-do-projeto/gallery/converted.f48657bf2f860eb0.webp",
         "updated_at": "2026-03-07 03:59:31.165771+00"
-      },
-      {
-        "id": "766fde9c-6e80-49ad-9663-a1b248c95c4f",
-        "key": "landing-pages.dntro.master-v3-logo-8b676670-690d-4fa5-b937-e960763cee46",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-logo-8b676670-690d-4fa5-b937-e960763cee46.webp",
-        "file_path": "landing-pages/dntro/master-v3-logo-8b676670-690d-4fa5-b937-e960763cee46.webp",
-        "updated_at": "2026-03-09 05:05:26.437547+00"
       },
       {
         "id": "d6df20d7-c9bb-4e6d-8e94-aaf0e3e19d0b",
@@ -1010,60 +842,12 @@
         "updated_at": "2026-03-07 03:59:45.376006+00"
       },
       {
-        "id": "9d6f9f6c-69f3-4e13-98e5-47217f304778",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032051989-7-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032051989-7-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032051989-7-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.23804+00"
-      },
-      {
         "id": "849fa756-b6e6-4c0e-ba4c-89df2bc04192",
         "key": "eudora.eudora.assets-do-projeto.gallery.881a00f6-1a3c-414f-9b6e-4d6ffffec3dd.a3de015a60c2a92b",
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/eudora/eudora/assets-do-projeto/gallery/881a00f6-1a3c-414f-9b6e-4d6ffffec3dd.a3de015a60c2a92b.png",
         "file_path": "eudora/eudora/assets-do-projeto/gallery/881a00f6-1a3c-414f-9b6e-4d6ffffec3dd.a3de015a60c2a92b.png",
         "updated_at": "2026-03-07 03:59:53.470503+00"
-      },
-      {
-        "id": "f4bfb1e8-8f97-4858-9ed2-22b9581d0adc",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032336324-12-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032336324-12-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032336324-12-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.532101+00"
-      },
-      {
-        "id": "ea5d5bc5-e240-40c2-937e-47b32b0762a6",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773031661873-1-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773031661873-1-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773031661873-1-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.596982+00"
-      },
-      {
-        "id": "a7a38c35-dde6-4928-9452-ebf49bc286bb",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032057757-8-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032057757-8-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032057757-8-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.625492+00"
-      },
-      {
-        "id": "a94940d4-8bdb-4330-8f5e-047966357d4a",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032064170-9-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032064170-9-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032064170-9-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.658634+00"
-      },
-      {
-        "id": "1157f3df-6455-471d-8e69-588882b55383",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773031891765-5-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773031891765-5-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773031891765-5-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.833754+00"
       },
       {
         "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
@@ -1080,38 +864,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/FAVICON-DANILO-APPLE.png",
         "file_path": "global/logos/FAVICON-DANILO-APPLE.png",
         "updated_at": "2026-02-24 07:47:59.632313+00"
-      },
-      {
-        "id": "532fdf66-b56a-4e2c-9946-2f72c7104225",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032693158-13-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032693158-13-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032693158-13-m1.webp",
-        "updated_at": "2026-03-09 05:05:27.591009+00"
-      },
-      {
-        "id": "b085ba3b-eddb-472d-9395-b1f9b4be9be9",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032081607-11-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032081607-11-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032081607-11-m1.webp",
-        "updated_at": "2026-03-09 05:05:28.019052+00"
-      },
-      {
-        "id": "53455a63-50a5-441a-b652-256a5f8f7fbb",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032076282-10-m1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032076282-10-m1.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032076282-10-m1.webp",
-        "updated_at": "2026-03-09 05:05:28.985434+00"
-      },
-      {
-        "id": "9ad7e0c9-6a7a-48d0-bf2a-047366afbbc9",
-        "key": "landing-pages.dntro.master-v3-grid-block-1773032081607-11-m2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773032081607-11-m2.webp",
-        "file_path": "landing-pages/dntro/master-v3-grid-block-1773032081607-11-m2.webp",
-        "updated_at": "2026-03-09 05:05:29.064591+00"
       },
       {
         "id": "85c2b787-4607-4539-977b-58e458720544",

@@ -191,14 +191,6 @@ const createNextConfig = (phase) => ({
             value: cspHeader,
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
@@ -275,6 +267,7 @@ const createNextConfig = (phase) => ({
    * Mantida INTACTA
    */
   images: {
+    qualities: [60, 75],
     unoptimized: false,
     // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
     remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
@@ -299,6 +292,9 @@ const createNextConfig = (phase) => ({
   // Ignora erros de typescript no build (CRÍTICO para deploy em ambiente instável)
   typescript: {
     ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 });
 

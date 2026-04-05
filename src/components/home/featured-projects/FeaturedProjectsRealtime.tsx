@@ -174,25 +174,26 @@ export default function FeaturedProjectsRealtime({
           supabase.realtime.setAuth(session.access_token);
         }
 
-        channel = supabase
-          .channel('projects_realtime_channel')
-          .on(
-            'postgres_changes',
-            { event: '*', schema: 'public', table: 'portfolio_projects' },
-            (payload) => {
+          channel = supabase
+            .channel(`projects_realtime_channel_${Math.random().toString(36).substring(7)}`)
+            .on(
+              'postgres_changes',
+              { event: '*', schema: 'public', table: 'portfolio_projects' },
+              (payload) => {
+                if (isDev) {
+                  console.warn('[FeaturedProjectsRealtime] DB Change:', payload);
+                }
+                void loadFeaturedProjects();
+              }
+            )
+            .on('broadcast', { event: 'refresh_projects' }, () => {
               if (isDev) {
-                console.warn('[FeaturedProjectsRealtime] DB Change:', payload);
+                console.warn('[FeaturedProjectsRealtime] Broadcast refresh');
               }
               void loadFeaturedProjects();
-            }
-          )
-          .on('broadcast', { event: 'refresh_projects' }, () => {
-            if (isDev) {
-              console.warn('[FeaturedProjectsRealtime] Broadcast refresh');
-            }
-            void loadFeaturedProjects();
-          })
-          .subscribe((status, err) => {
+            });
+
+          channel.subscribe((status, err) => {
             if (status === 'SUBSCRIBED') {
               if (isDev) {
                 console.warn('[FeaturedProjectsRealtime] Subscribed');

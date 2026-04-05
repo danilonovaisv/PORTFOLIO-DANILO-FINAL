@@ -23,7 +23,6 @@ export const NAVIGATION = {
       { label: 'portfólio', href: '/portfolio' },
       { label: 'contato', href: '/#contact' },
       { label: 'privacidade', href: '/privacidade' },
-      { label: 'privacy policy', href: '/privacy-policy' },
     ],
   },
 };

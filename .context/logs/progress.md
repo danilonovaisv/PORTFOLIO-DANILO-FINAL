@@ -14,3 +14,9 @@
 - `ProjectCard` passou a priorizar stills editoriais e compressão menor para reduzir bytes no grid.
 - Footer, dialog e sheet receberam ajustes semânticos/a11y.
 - Build, lint, typecheck e preflight do Firebase validados com sucesso.
+
+## 2026-04-05
+
+- `src/components/sobre/3d/GhostModel.tsx` foi migrado de ghost procedural para GLB tipado com `useGLTF` + `Merged`.
+- O layout do modelo 3D passou a seguir offsets fixos por parte: corpo/olhos em `y=1.6`, faixa em `y=2.4` e chapéu em `y=3`, todos com rotação `[-Math.PI / 2, 0, 0]`.
+- O carregamento foi alinhado ao asset público `/models/ghost-transformed.glb` com `preload` ativo para evitar pop-in.

@@ -31,7 +31,7 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
 ## 4. Interatividade & Animações
 
 - Desktop:
-  - Track horizontal controlada por scroll vertical (`x` de `120vw` até `-120%`).
+  - Track horizontal com drift sutil controlado por scroll vertical, mantendo todos os 7 cards visíveis desde a entrada da seção.
 - Mobile:
   - Entrada lateral por card (`x: 80 -> 0`).
 - Marquee:
@@ -63,7 +63,7 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
 ## 8. Considerações Técnicas
 
 - Boa performance geral por uso de `transform`.
-- Seção longa (`300vh`) aumenta permanência e custo de scroll.
+- A seção desktop foi reduzida para `180vh` para eliminar “scroll morto” e preservar ritmo visual.
 
 ## 9. Componentes Interativos
 
@@ -85,12 +85,10 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
 
 ## 12. Análise de Inconformidades (Sessão vs Protótipo)
 
-- Inconformidade 1 (Média): duração da seção no desktop
-  - Protótipo descreve seção próxima de 100vh.
-  - Implementação usa `300vh` com sticky prolongado.
-- Inconformidade 2 (Baixa): elemento extra não previsto
+- Inconformidade 1 (Baixa): elemento extra não previsto
   - Marquee inferior não aparece como requisito explícito no protótipo.
-- Inconformidade 3 (Baixa): estilo de card mais pesado
-  - Sombras e “peso visual” são mais fortes que a diretriz de silêncio visual.
+- Inconformidade 2 (Baixa): estilo de card ainda pode ser refinado
+  - As sombras continuam mais presentes do que no silêncio visual máximo do Ghost.
 - Conformidade forte:
   - Sequência dos 7 itens e estrutura geral estão alinhadas.
+  - Cards desktop agora entram visíveis no primeiro viewport útil, alinhando a leitura com a referência visual.
