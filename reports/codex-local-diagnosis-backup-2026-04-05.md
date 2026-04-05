@@ -1,3 +1,31 @@
+# Backup lógico antes de ajustes (2026-04-05)
+
+## .mcp.json (antes)
+```json
+{
+  "mcpServers": {
+    "claude-flow": {
+      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
+      "args": ["-y", "@claude-flow/cli@latest", "mcp", "start"],
+      "env": {
+        "npm_config_update_notifier": "false",
+        "CLAUDE_FLOW_MODE": "v3",
+        "CLAUDE_FLOW_HOOKS_ENABLED": "true",
+        "CLAUDE_FLOW_TOPOLOGY": "hierarchical-mesh",
+        "CLAUDE_FLOW_MAX_AGENTS": "15",
+        "CLAUDE_FLOW_MEMORY_BACKEND": "hybrid"
+      }
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=umkmwbkwvulxtdodzmzf"
+    }
+  }
+}
+```
+
+## .codex/config.toml (antes)
+```toml
 #:schema https://developers.openai.com/codex/config-schema.json
 # Codex workspace profile for PORTFOLIO-DANILO-FINAL
 
@@ -95,4 +123,14 @@ notifications = false
 animations = true
 show_tooltips = true
 
-# NOTE: project trust is machine-specific and should be configured in ~/.codex/config.toml.
+[projects."/workspace/PORTFOLIO-DANILO-FINAL"]
+trust_level = "trusted"
+```
+
+## package.json scripts relevantes (antes)
+```json
+{
+  "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",
+  "postinstall": "if [ -d scripts ]; then pnpm run prebuild; else echo 'Skipping prebuild: scripts directory not found'; fi && pnpm exec playwright install chromium"
+}
+```
