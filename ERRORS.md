@@ -54,13 +54,15 @@
 - **File**: `test/mcp_config.test.ts`
 - **Agent**: Antigravity
 - **Root Cause**: The test expected the command field inside the locally loaded `mcp_config.json` to be exactly `'node'` or `'npx'`. However, `mcp_config` was capturing absolute paths like `'/Users/.../.nvm/versions/node/v20.20.0/bin/npx'` locally causing a mismatch. Additionally, `jest` ran inside a nested `.claude/worktrees/` directory duplicating the test execution, and EPERM errors occurred when trying to read the config without permission.
-- **Error Message**: 
+- **Error Message**:
+
   ```
   Expected: "node"
   Received: "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx"
 
   EPERM: operation not permitted, open '/Users/danilonovais/.gemini/antigravity/mcp_config.json'
   ```
+
 - **Fix Applied**: Modifiquei o arquivo de teste `test/mcp_config.test.ts` para testar nomes compatíveis usando `RegExp` validando sufixos `node|npx` cobrindo absolute e relative paths. Apliquei `try/catch` para forçar o fallback test mock quando a permissão EPERM fosse bloqueada. Atualizei o `jest.config.cjs` para adicionar `'<rootDir>/.claude/'` ao `modulePathIgnorePatterns`, impedindo a duplicidade do teste.
 - **Prevention**: Use RegEx baseada no sufixo `/node|npx$/` ao invés de equalidade exata de strings para command paths que podem escalar via variáveis de ambiente. Ignore subdiretórios de infraestrutura como worktrees no runner do Jest.
 - **Status**: Fixed

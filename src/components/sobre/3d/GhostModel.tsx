@@ -141,18 +141,10 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
     // === FINAL PHASE & EXIT ===
     const targetX = THREE.MathUtils.lerp(config.baseX, 0, finalPhaseProgress);
-    const baseTargetY = THREE.MathUtils.lerp(
+    const targetY = THREE.MathUtils.lerp(
       config.baseY,
       0, // Centered at the end
       finalPhaseProgress
-    );
-
-    // Saída por cima no final do scroll
-    const exitProgress = THREE.MathUtils.clamp((scroll - 0.95) / 0.05, 0, 1);
-    const targetY = THREE.MathUtils.lerp(
-      baseTargetY,
-      config.exitY,
-      exitProgress
     );
 
     // X Position Logic with Wiggle

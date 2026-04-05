@@ -13,8 +13,6 @@ import {
   cubicBezier,
   useInView,
 } from 'framer-motion';
-// Import Error Boundary
-import { GhostErrorBoundary } from './GhostErrorBoundary';
 // Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 import { useMotionGate } from '@/hooks/useMotionGate';
@@ -60,66 +58,63 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
       style={{ opacity, filter: blur }}
       className="w-full h-full pointer-events-none"
     >
-      <GhostErrorBoundary
-        fallback={<div className="hidden" aria-hidden="true" />}
+      <Canvas
+        shadows={{ type: THREE.PCFSoftShadowMap }}
+        dpr={[1, 2]}
+        gl={{
+          antialias: true,
+          alpha: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.1,
+        }}
+        // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6
+        camera={{ position: [0, 0, 6], fov: 35 }}
+        frameloop={isInView ? 'always' : 'demand'}
+        aria-hidden="true"
       >
-        <Canvas
-          shadows={{ type: THREE.PCFSoftShadowMap }}
-          dpr={[1, 2]}
-          gl={{
-            antialias: true,
-            alpha: true,
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.1,
-          }}
-          // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6
-          camera={{ position: [0, 0, 6], fov: 35 }}
-          frameloop={isInView ? 'always' : 'demand'}
-          aria-hidden="true"
-        >
-          {/* Environment map é VITAL para dar profundidade e volume aos materiais PBS do GLTF */}
-          <Environment preset="city" />
+        {/* Environment map é VITAL para dar profundidade e volume aos materiais PBS do GLTF */}
+        <Environment preset="city" />
 
-          <ambientLight intensity={1.5} />
+        <ambientLight intensity={1.5} />
 
-          {/* Strong Key Light (Front-Right) com sombras suaves */}
-          <spotLight
-            position={[5, 8, 5]}
-            angle={0.4}
-            penumbra={0.5}
-            intensity={3.5}
-            castShadow
-            shadow-bias={-0.0005}
-          />
+        {/* Strong Key Light (Front-Right) com sombras suaves */}
+        <spotLight
+          position={[5, 8, 5]}
+          angle={0.4}
+          penumbra={0.5}
+          intensity={3.5}
+          castShadow
+          shadow-bias={-0.0005}
+        />
 
-          {/* Fill Light (Left) - Soft */}
-          <pointLight position={[-5, 5, -5]} intensity={1.2} color="#e6e6ff" />
+        {/* Fill Light (Left) - Soft */}
+        <pointLight position={[-5, 5, -5]} intensity={1.2} color="#e6e6ff" />
 
-          {/* Rim Light (Back) - Creates silhouette/separation */}
-          <pointLight
-            position={[0, 4, -8]}
-            intensity={4}
-            color="#ffffff"
-            distance={25}
-          />
+        {/* Rim Light (Back) - Creates silhouette/separation */}
+        <pointLight
+          position={[0, 4, -8]}
+          intensity={4}
+          color="#ffffff"
+          distance={25}
+        />
 
-          <Suspense fallback={null}>
-            <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
-          </Suspense>
+        <Suspense fallback={null}>
+          <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
+        </Suspense>
 
-          {/* 🟣 [CONFIG VISUAL]: Sombra de contato */}
-          <ContactShadows
-            position={[0, -2.5, 0]}
-            opacity={0.8}
-            scale={15}
-            blur={2}
-            far={5}
-            color="#000000"
-          />
-        </Canvas>
-      </GhostErrorBoundary>
+        {/* 🟣 [CONFIG VISUAL]: Sombra de contato */}
+        <ContactShadows
+          position={[0, -2.5, 0]}
+          opacity={0.8}
+          scale={15}
+          blur={2}
+          far={5}
+          color="#000000"
+        />
+      </Canvas>
     </motion.div>
   );
 };
 
+export { GhostScene };
 export default GhostScene;

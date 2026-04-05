@@ -103,13 +103,18 @@ export default function GhostScene() {
     renderer.toneMappingExposure = 0.9;
     renderer.setClearColor(0x000000, 0);
 
-    // Estilos do Canvas
+    // Estilos e Acessibilidade do Canvas
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '0';
     renderer.domElement.style.left = '0';
     renderer.domElement.style.zIndex = '0';
     renderer.domElement.style.pointerEvents = 'none';
     renderer.domElement.style.background = 'transparent';
+    renderer.domElement.setAttribute(
+      'aria-label',
+      'Interactive 3D Ghost Portfolio Experience'
+    );
+    renderer.domElement.setAttribute('role', 'img');
 
     mountElement.appendChild(renderer.domElement);
 

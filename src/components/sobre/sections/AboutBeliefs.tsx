@@ -13,7 +13,8 @@ import {
   BeliefFinalSectionOverlay,
   BeliefFixedHeader,
 } from '@/components/sobre/beliefs';
-import { BRAND } from '@/config/brand';
+
+import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
 
 // [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
 // Isso garante que pega o componente correto, seja export default ou export nomeado.
@@ -31,21 +32,13 @@ const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
 
 const PHRASES = [
   'Um\nvídeo\nque\nrespira.',
-  'Uma\nmarca\nque se\nreconhece.',
+  'Uma\nmarca\nque\nse\nreconhece.',
   'Um\ndetalhe\nque\nfica.',
   'Crio\npara\ngerar\npresença.',
   'Mesmo\nquando\nnão\nestou\nali.',
   'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
-const COLORS = [
-  BRAND.colors.bluePrimary,
-  BRAND.colors.purpleDetails,
-  BRAND.colors.pinkDetails,
-  BRAND.colors.bluePrimary,
-  BRAND.colors.purpleDetails,
-  BRAND.colors.pinkDetails,
-];
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +47,16 @@ export function AboutBeliefs() {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
+  });
+
+  // [HOOK] Lógica centralizada de animação (HSL, Overlay, Intensidade)
+  const { 
+    backgroundColor, 
+    overlayOpacity, 
+    showFinalManifesto 
+  } = useBeliefsAnimation({
+    scrollYProgress,
+    totalPhrases: PHRASES.length
   });
 
   // Gate framer-motion features for reduced motion to avoid runtime errors
@@ -73,8 +76,24 @@ export function AboutBeliefs() {
       style={{
         minHeight: `var(--section-min-height, ${(PHRASES.length + 2) * 100}vh)`,
       }}
-      className="relative w-full isolate z-10 [--section-min-height:550vh] md:[--section-min-height:800vh]"
+      className="relative w-full isolate z-10 transition-colors duration-100 ease-linear [--section-min-height:550vh] md:[--section-min-height:800vh]"
     >
+      {/* LAYER 0: Background Layer (HSL Interpolation) */}
+      <div className="absolute inset-0 -z-10 w-full h-full pointer-events-none">
+        <motion.div 
+          className="sticky top-0 w-full h-screen pointer-events-none"
+          style={prefersReduced ? { backgroundColor: `hsl(230, 85%, 30%)` } : { backgroundColor }}
+        />
+      </div>
+
+      {/* LAYER 1: Overlay Transition Layer (Cross-fade) */}
+      <div className="absolute inset-0 z-[5] w-full h-full pointer-events-none">
+        <motion.div 
+          className="sticky top-0 w-full h-screen bg-black pointer-events-none"
+          style={prefersReduced ? undefined : { opacity: overlayOpacity }}
+        />
+      </div>
+
       <BeliefFixedHeader
         scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
         MotionHeader={MotionHeader}
@@ -88,7 +107,6 @@ export function AboutBeliefs() {
             key={index}
             index={index}
             text={phrase}
-            bgColor={COLORS[index] || COLORS[0]}
             isFirst={index === 0}
             MotionSection={MotionSection}
             MotionDiv={MotionDiv}
@@ -98,14 +116,14 @@ export function AboutBeliefs() {
 
         <BeliefFinalSection
           scrollProgress={prefersReduced ? undefined : scrollYProgress}
-          bgColor={BRAND.colors.bluePrimary}
+          bgColor="transparent"
           MotionDiv={MotionDiv}
           prefersReducedMotion={prefersReduced}
         />
       </MotionDiv>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
-      <div className="relative z-20">
+      <div className="relative z-[70]">
         <BeliefMobileTextLayer
           phrases={PHRASES}
           scrollYProgress={prefersReduced ? undefined : scrollYProgress}
@@ -115,14 +133,18 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 4: Final Text Overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-50">
+      <motion.div 
+        className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-50"
+        style={{ opacity: showFinalManifesto }}
+      >
         <BeliefFinalSectionOverlay
           MotionDiv={MotionDiv}
           prefersReducedMotion={prefersReduced}
         />
-      </div>
+      </motion.div>
 
       {/* LAYER 3: Ghost 3D is positioned as top authoritative layer per doc. */}
+      {/* Container sticky do Ghost com viewport isolada */}
       <div
         className="absolute inset-0 z-[90] w-full h-full pointer-events-none"
         aria-hidden

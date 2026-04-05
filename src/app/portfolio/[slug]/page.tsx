@@ -8,7 +8,7 @@ import { SiteClosure } from '@/components/layout/SiteClosure';
 import { siteMetadata } from '@/config/metadata';
 import type { Metadata } from 'next';
 import { createStaticClient } from '@/lib/supabase/static';
-import { listProjects } from '@/lib/supabase/queries/projects';
+
 import {
   mapDbProjectToPortfolioProject,
   mapStaticProjectToPortfolioProject,
@@ -141,43 +141,45 @@ function normalizeSlug(value: string): string {
 }
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
-  // Try database first
+  const normalizedSlug = slug.replace(/-/g, '_');
+  const normalizedRequested = normalizeSlug(slug);
+
+  // Try database first with direct query for better performance and reliability
   try {
     const supabase = createStaticClient();
-    const dbProjects = await listProjects({}, supabase);
-    const normalizedSlug = slug.replace(/-/g, '_');
-    const normalizedRequested = normalizeSlug(slug);
-    const dbProject = dbProjects.find(
-      (p) =>
-        p.slug === slug ||
-        p.slug === normalizedSlug ||
-        p.slug?.replace(/_/g, '-') === slug ||
-        normalizeSlug(p.slug || '') === normalizedRequested
-    );
+    
+    // Search by slug using common variations
+    const { data: dbProjects } = await supabase
+      .from('public_projects_view')
+      .select('*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))')
+      .or(`slug.eq.${slug},slug.eq.${normalizedSlug}`);
 
-    if (dbProject) {
-      // Find its index for layout mapping
-      const index = dbProjects.findIndex(
-        (p) =>
+    if (dbProjects && dbProjects.length > 0) {
+      // Find the best match among results
+      const dbProject = dbProjects.find(
+        (p: any) =>
           p.slug === slug ||
           p.slug === normalizedSlug ||
-          p.slug?.replace(/_/g, '-') === slug
+          p.slug?.replace(/_/g, '-') === slug ||
+          normalizeSlug(p.slug || '') === normalizedRequested
       );
-      return mapDbProjectToPortfolioProject(dbProject, index);
+
+      if (dbProject) {
+        // Need to find index for layout (though less critical for direct slug navigation)
+        return mapDbProjectToPortfolioProject(dbProject, 0);
+      }
     }
   } catch (error) {
     console.warn(`Error fetching project ${slug} from DB:`, error);
   }
 
-
-
   // Fallback to static content
   const staticProject = HOME_CONTENT.featuredProjects.find(
-    (p) => p.slug === slug
+    (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
   );
   if (staticProject) {
     const index = HOME_CONTENT.featuredProjects.findIndex(
-      (p) => p.slug === slug
+      (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
     );
     return mapStaticProjectToPortfolioProject(staticProject, index);
   }
