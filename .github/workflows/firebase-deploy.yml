@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      FIREBASE_PROJECT_ID: portfolio-danilo-novais
 
     steps:
       - name: Checkout repository
@@ -34,13 +34,8 @@ jobs:
 
       - name: Validate Firebase secrets
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
-            echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT"
-            exit 1
-          fi
-
-          if [ -z "${{ secrets.FIREBASE_PROJECT_ID }}" ]; then
-            echo "ERROR: Missing secret FIREBASE_PROJECT_ID"
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
+            echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS"
             exit 1
           fi
 
@@ -82,10 +77,10 @@ jobs:
 
       - name: Write service account credentials
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > "${{ runner.temp }}/firebase-service-account.json"
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}' > "${{ runner.temp }}/firebase-service-account.json"
 
       - name: Deploy to Firebase Hosting
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
         run: |
-          pnpm dlx firebase-tools deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}"
+          pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"
