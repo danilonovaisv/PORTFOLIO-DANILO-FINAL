@@ -23,21 +23,18 @@ export const BeliefFinalSectionOverlay: React.FC<
         transition: { duration: 0.8, ease: ghostEase },
       };
   return (
-    <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none">
+    <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 md:px-6 pointer-events-none">
       <Container
-        className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[95vw] md:max-w-[98vw]"
+        className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.84] w-full max-w-[100vw]"
         {...motionProps}
       >
-        {/* 🟣 [CONFIG VISUAL]: "ISSO É" - Tamanho reduzido em mobile para evitar overflow */}
-        <div className="text-[14vw] md:text-[14rem] tracking-tighter uppercase font-black mix-blend-overlay opacity-80">
+        <div className="text-[12vw] md:text-[10rem] tracking-[-0.08em] uppercase font-black text-white/80">
           ISSO É
         </div>
-        {/* 🟣 [CONFIG VISUAL]: "GHOST" - Destaque centralizado */}
-        <div className="text-[26vw] md:text-[25rem] font-black tracking-tighter uppercase relative z-10">
+        <div className="text-[21vw] md:text-[17rem] font-black tracking-[-0.08em] uppercase relative z-10">
           GHOST
         </div>
-        {/* 🟣 [CONFIG VISUAL]: "DESIGN" */}
-        <div className="text-[22vw] md:text-[19rem] tracking-tighter uppercase font-black mix-blend-overlay opacity-80">
+        <div className="text-[17vw] md:text-[13rem] tracking-[-0.08em] uppercase font-black text-white/80">
           DESIGN
         </div>
       </Container>

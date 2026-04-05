@@ -1,19 +1,11 @@
 'use client';
 
-// GhostScene.tsx
-import React, { Suspense, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { ContactShadows, Environment } from '@react-three/drei';
-import * as THREE from 'three';
-import GhostModel from '@/components/sobre/3d/GhostModel'; // Caminho relativo para GhostModel
+import React, { useRef } from 'react';
 import {
   MotionValue,
   motion,
   useTransform,
-  cubicBezier,
-  useInView,
 } from 'framer-motion';
-// Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -22,96 +14,58 @@ interface GhostSceneProps {
 }
 
 const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
-  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { margin: '200px' });
-  const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+  const isMobile = useIsMobile();
   const shouldReduceMotion = useMotionGate();
-
-  // Easing Ghost Padrão
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-
-  // Entrada mais rápida do Ghost 3D.
-  const opacity = useTransform(scrollProgress, [0.015, 0.09], [0, 1], {
-    ease: ghostEase,
-  });
-  const blur = useTransform(
+  const x = useTransform(
     scrollProgress,
-    [0.015, 0.09],
-    ['blur(12px)', 'blur(0px)'],
-    { ease: ghostEase }
+    [0, 0.82, 1],
+    [isMobile ? '-18vw' : '0vw', '0vw', '0vw']
+  );
+  const y = useTransform(
+    scrollProgress,
+    [0, 0.82, 1],
+    [isMobile ? '-6vh' : '2vh', '0vh', '-1vh']
+  );
+  const scale = useTransform(
+    scrollProgress,
+    [0.02, 0.14, 0.82, 1],
+    [0.48, isMobile ? 0.78 : 0.98, isMobile ? 0.82 : 1.04, 1.08]
+  );
+  const rotate = useTransform(
+    scrollProgress,
+    [0, 0.82, 1],
+    [isMobile ? -10 : -4, isMobile ? 4 : 3, 0]
   );
 
-  if (is3DDisabled || shouldReduceMotion) {
-    return (
-      <motion.div
-        ref={containerRef}
-        style={{ opacity, filter: blur }}
-        className="w-full h-full pointer-events-none"
-      />
-    );
+  if (shouldReduceMotion) {
+    return null;
   }
 
   return (
     <motion.div
       ref={containerRef}
-      style={{ opacity, filter: blur }}
-      className="w-full h-full pointer-events-none"
+      style={{ x, y, scale, rotate }}
+      className="pointer-events-none flex h-full w-full items-center justify-center"
+      aria-hidden="true"
     >
-      <Canvas
-        shadows={{ type: THREE.PCFSoftShadowMap }}
-        dpr={[1, 2]}
-        gl={{
-          antialias: true,
-          alpha: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.1,
-        }}
-        // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6
-        camera={{ position: [0, 0, 6], fov: 35 }}
-        frameloop={isInView ? 'always' : 'demand'}
-        aria-hidden="true"
+      <div
+        data-testid="ghost-figure"
+        className="relative h-[46vh] w-[28vh] md:h-[66vh] md:w-[40vh]"
       >
-        {/* Environment map é VITAL para dar profundidade e volume aos materiais PBS do GLTF */}
-        <Environment preset="city" />
+        <div className="absolute inset-x-[16%] top-[7%] h-[20%] rounded-full bg-white/96 shadow-[0_0_42px_rgba(255,255,255,0.24)]" />
+        <div className="absolute inset-x-[6%] top-[20%] h-[54%] rounded-[46%_46%_36%_36%/34%_34%_44%_44%] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,243,255,0.96)_60%,rgba(216,223,255,0.9)_100%)] shadow-[0_18px_70px_rgba(4,0,19,0.22)]" />
+        <div className="absolute left-[10%] top-[62%] h-[14%] w-[24%] rounded-full bg-white/96" />
+        <div className="absolute left-[38%] top-[68%] h-[15%] w-[24%] rounded-full bg-white/96" />
+        <div className="absolute right-[10%] top-[62%] h-[14%] w-[24%] rounded-full bg-white/96" />
 
-        <ambientLight intensity={1.5} />
+        <div className="absolute left-[39%] top-[31%] h-[4.6%] w-[4.6%] rounded-full bg-[#11131f]" />
+        <div className="absolute right-[39%] top-[31%] h-[4.6%] w-[4.6%] rounded-full bg-[#11131f]" />
 
-        {/* Strong Key Light (Front-Right) com sombras suaves */}
-        <spotLight
-          position={[5, 8, 5]}
-          angle={0.4}
-          penumbra={0.5}
-          intensity={3.5}
-          castShadow
-          shadow-bias={-0.0005}
-        />
-
-        {/* Fill Light (Left) - Soft */}
-        <pointLight position={[-5, 5, -5]} intensity={1.2} color="#e6e6ff" />
-
-        {/* Rim Light (Back) - Creates silhouette/separation */}
-        <pointLight
-          position={[0, 4, -8]}
-          intensity={4}
-          color="#ffffff"
-          distance={25}
-        />
-
-        <Suspense fallback={null}>
-          <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
-        </Suspense>
-
-        {/* 🟣 [CONFIG VISUAL]: Sombra de contato */}
-        <ContactShadows
-          position={[0, -2.5, 0]}
-          opacity={0.8}
-          scale={15}
-          blur={2}
-          far={5}
-          color="#000000"
-        />
-      </Canvas>
+        <div className="absolute left-[12%] top-[4%] h-[3.6%] w-[76%] rounded-full bg-[#141726]" />
+        <div className="absolute left-[24%] top-0 h-[12%] w-[52%] rounded-[22%_22%_8%_8%] bg-[#11131f]" />
+        <div className="absolute left-[22%] top-[4.4%] h-[2.2%] w-[56%] rounded-full bg-[#ff496c]" />
+      </div>
     </motion.div>
   );
 };

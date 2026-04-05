@@ -97,6 +97,19 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 - Na **última tela**, transiciona suavemente para o **centro da seção**.
 - Posicionado com **absolute/flex** e **z‑index** máximo.
 
+## Atualização Implementada — 2026-04-05
+
+- O `BeliefFixedHeader` foi simplificado para priorizar legibilidade estável, removendo a dependência de morph por linha que estava deixando o manifesto praticamente invisível na experiência viva.
+- O layer mobile passou a exibir apenas **uma frase ativa por vez**, com transição controlada por `AnimatePresence`, reduzindo sobreposição e melhorando leitura.
+- O manifesto final teve redução de escala tipográfica e ajuste de overlay sticky para diminuir clipping e recuperar o clímax da seção.
+- O wrapper principal de `AboutBeliefs` foi corrigido para preservar o comportamento sticky da experiência cinematográfica durante toda a altura da seção.
+- O Ghost visual da seção passou a usar uma implementação estável em camada DOM dentro de `src/components/sobre/3d/GhostScene.tsx`, preservando presença central, chapéu, olhos e movimento scroll-driven sem depender do runtime WebGL desta seção.
+- Validação local realizada em `2026-04-05` com capturas desktop e mobile a partir de `/sobre`, confirmando:
+  - manifesto fixo novamente visível;
+  - Ghost novamente presente na composição;
+  - timeline mobile com leitura mais clara;
+  - necessidade futura de refinar o enquadramento final para convergir ainda mais com a arte de referência.
+
 ---
 
 ## ⏱ Sequência Cronológica

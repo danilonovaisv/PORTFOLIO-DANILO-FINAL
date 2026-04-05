@@ -74,9 +74,9 @@ export function AboutBeliefs() {
       ref={containerRef}
       data-testid="about-beliefs-section"
       style={{
-        minHeight: `var(--section-min-height, ${(PHRASES.length + 2) * 100}vh)`,
+        height: `${(PHRASES.length + 2) * 100}vh`,
       }}
-      className="relative w-full isolate z-10 transition-colors duration-100 ease-linear [--section-min-height:550vh] md:[--section-min-height:800vh]"
+      className="relative w-full isolate z-10 overflow-x-clip transition-colors duration-100 ease-linear"
     >
       {/* LAYER 0: Background Layer (HSL Interpolation) */}
       <div className="absolute inset-0 -z-10 w-full h-full pointer-events-none">
@@ -134,13 +134,15 @@ export function AboutBeliefs() {
 
       {/* LAYER 4: Final Text Overlay */}
       <motion.div 
-        className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-50"
+        className="absolute inset-0 pointer-events-none z-50"
         style={{ opacity: showFinalManifesto }}
       >
-        <BeliefFinalSectionOverlay
-          MotionDiv={MotionDiv}
-          prefersReducedMotion={prefersReduced}
-        />
+        <div className="sticky top-0 h-screen w-full">
+          <BeliefFinalSectionOverlay
+            MotionDiv={MotionDiv}
+            prefersReducedMotion={prefersReduced}
+          />
+        </div>
       </motion.div>
 
       {/* LAYER 3: Ghost 3D is positioned as top authoritative layer per doc. */}

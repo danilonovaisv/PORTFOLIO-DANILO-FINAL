@@ -7,6 +7,8 @@ import {
   useMotionValue,
   useTransform,
   cubicBezier,
+  AnimatePresence,
+  useMotionValueEvent,
 } from 'framer-motion';
 
 // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
@@ -25,108 +27,85 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   MotionDiv,
   prefersReducedMotion,
 }) => {
-  // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
   const staticProgress = useMotionValue(0);
   const progress = scrollYProgress ?? staticProgress;
   const Container = MotionDiv ?? motion.div;
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+  const phraseZoneEnd = 0.82;
+  const segmentSize = phraseZoneEnd / totalPhrases;
 
-  // Visibility gate: oculta o layer quando a seção está fora do viewport.
-  // scrollYProgress (offset 'start end'→'end end'): 0 = seção entrou pela base,
-  // 1 = fim da seção alinhado com a base da viewport.
   const sectionOpacity = useTransform(
     progress,
-    [0, 0.04, 0.95, 0.99],
+    [0.02, 0.07, 0.84, 0.9],
     [0, 1, 1, 0]
   );
+
+  useMotionValueEvent(progress, 'change', (value) => {
+    if (value <= 0.02 || value >= phraseZoneEnd) {
+      setActiveIndex(-1);
+      return;
+    }
+
+    const nextIndex = Math.min(
+      totalPhrases - 1,
+      Math.floor(value / segmentSize)
+    );
+
+    setActiveIndex(nextIndex);
+  });
+
+  const activePhrase = activeIndex >= 0 ? phrases[activeIndex] : null;
 
   return (
     <motion.div
       className="fixed inset-0 z-[70] pointer-events-none md:hidden"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
-      {phrases.map((phrase, index) => (
-        <MobilePhrase
-          key={index}
-          text={phrase}
-          index={index}
-          totalPhrases={totalPhrases}
-          scrollYProgress={progress}
-          MotionDiv={Container}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-      ))}
+      <div className="absolute bottom-[18vh] left-0 right-0 px-6 text-center">
+        <AnimatePresence mode="wait">
+          {activePhrase ? (
+            <MobilePhrase
+              key={`${activeIndex}-${activePhrase}`}
+              text={activePhrase}
+              MotionDiv={Container}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+          ) : null}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };
 
 interface MobilePhraseProps {
   text: string;
-  index: number;
-  totalPhrases: number;
-  scrollYProgress: MotionValue<number>;
   MotionDiv?: React.ElementType;
   prefersReducedMotion?: boolean;
 }
 
 const MobilePhrase: React.FC<MobilePhraseProps> = ({
   text,
-  index,
-  totalPhrases,
-  scrollYProgress,
   MotionDiv,
   prefersReducedMotion,
 }) => {
   const Container = MotionDiv ?? motion.div;
-  // O container pai usa (PHRASES.length + 2) * 100vh de altura. Para mobile,
-  // cada frase ocupa uma "tela" na timeline e a última tela fica reservada
-  // ao manifesto final. Esse mapeamento mantém a ordem estável em qualquer
-  // viewport e evita saltos entre frases.
-  const totalScreens = totalPhrases + 1;
-  const segmentSize = 1 / totalScreens;
-  const timelineOffset = 0.08;
-
-  const startPoint = index * segmentSize + timelineOffset;
-  const endPoint = startPoint + segmentSize;
-  const entryStart = startPoint;
-  const entryEnd = startPoint + segmentSize * 0.35;
-  const exitStart = endPoint - segmentSize * 0.35;
-  const exitEnd = endPoint;
-
-  // Mobile: entra pela esquerda, estabiliza no centro e sai à direita.
-  const x = useTransform(
-    scrollYProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    ['-40px', '0px', '0px', '40px'],
-    { ease: ghostEase }
-  );
-
-  // Opacity: Fade in com entrada, fade out antes da próxima
-  const opacity = useTransform(
-    scrollYProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    [0, 1, 1, 0],
-    { ease: ghostEase }
-  );
-
-  // Blur suave para manter legibilidade e evitar pop brusco
-  const blur = useTransform(
-    scrollYProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)'],
-    { ease: ghostEase }
-  );
-
-  // Remover newlines para mobile — mostrar como frase corrida com quebras naturais
   const mobileText = text.replace(/\n/g, ' ');
+  const motionProps = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, x: -40, filter: 'blur(8px)' },
+        animate: { opacity: 1, x: 0, filter: 'blur(0px)' },
+        exit: { opacity: 0, x: 40, filter: 'blur(8px)' },
+        transition: { duration: 0.45, ease: ghostEase },
+      };
 
   return (
     <Container
-      style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
-      className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
+      className="mx-auto w-full max-w-[82vw] text-center pointer-events-none"
+      {...motionProps}
     >
-      {/* Mobile: frase corrida com quebra natural, sem disputa com o ghost/header. */}
-      <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,7vw,3rem)] leading-[1.3] tracking-tight block w-full mx-auto text-balance">
+      <span className="block w-full mx-auto text-balance text-blueAccent italic font-bold text-[clamp(2.15rem,8.2vw,3.6rem)] leading-[1.08] tracking-[-0.045em] [text-shadow:0_2px_10px_rgba(4,0,19,0.42)]">
         {mobileText}
       </span>
     </Container>

@@ -1,5 +1,28 @@
 # Adjustment Log
 
+## [2026-04-05T03:44] Document & Knowledge Sync
+
+**Context:** Executed `/sync-docs-and-knowledge` workflow to reconcile "Ghost System" memory with current system status. No structural deviations found. 
+
+**Changes Applied:**
+
+1. **Knowledge Graph Reconciliation** ✅
+   - Verified `.context/knowledge-graph.md` aligns with current stores (`AntigravityStore`, `ContentStore`, `ExperienceStore`, `PortfolioModalStore`).
+   - Verified renderer components match current architecture (`GhostScene` is currently Vanilla, dead code `Ghost particles/Ghost.tsx` is properly marked as DEPRECATED).
+
+2. **Design Token Validation** ✅
+   - Audited `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` against `tailwind.config.ts` and `src/app/globals.css`.
+   - Confirmed primary colors (`--color-bluePrimary`, `--color-background`) and layout sizes (`cta-mobile`, `cta-tablet`) are perfectly matched. Layers defined properly under `--z-layer-*`.
+
+3. **Structural Layout Validation** ✅
+   - Ran `validate:structure` via Python script.
+   - All 18 checks passed with zero errors, confirming that the physical file layout corresponds to the structural rules defined in documentation.
+
+**Verification:**
+- System is fully in-sync. Documentation is healthy.
+
+---
+
 ## [2026-04-03T06:24] Security Fix — `tar` Override via `pnpm.overrides` + Final Audit Clean
 
 **Context:** Seguindo o protocolo `/deep-clean-project` + `/codebase-cleanup-deps-audit`. A auditoria inicial revelou 8 vulnerabilidades (6 high, 2 low). O override de `tar` foi inicialmente aplicado apenas na seção `overrides` (npm-style), mas o pnpm ignora essa seção para forçar versões transitivas — o campo correto é `pnpm.overrides`. Após identificar o root cause, o fix foi aplicado no lugar correto.
