@@ -94,7 +94,6 @@ interface BeliefSectionProps {
 
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
   text,
-  bgColor,
   isFirst = false,
   index,
   scrollYProgressOverride,

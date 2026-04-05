@@ -6,10 +6,13 @@ import {
   type ComponentType,
   type ComponentPropsWithoutRef,
   type ReactNode,
+  forwardRef,
   useContext,
   useMemo,
+  useRef,
 } from 'react';
 import { Merged, useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import type { GLTF } from 'three-stdlib';
 import type { MotionValue } from 'framer-motion';
 
@@ -40,6 +43,7 @@ type GhostInstances = {
 };
 
 type GhostModelProps = ComponentPropsWithoutRef<'group'> & {
+  intensity?: number | MotionValue<number>;
   scrollProgress?: MotionValue<number>;
   isMobile?: boolean;
 };
@@ -76,7 +80,8 @@ function GhostInstancesProvider({
   );
 }
 
-function GhostLayout(props: ComponentPropsWithoutRef<'group'>) {
+const GhostLayout = forwardRef<THREE.Group, ComponentPropsWithoutRef<'group'>>(
+function GhostLayout(props, ref) {
   const instances = useContext(GhostInstancesContext);
 
   if (!instances) {
@@ -84,7 +89,7 @@ function GhostLayout(props: ComponentPropsWithoutRef<'group'>) {
   }
 
   return (
-    <group {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <instances.BodyGhostWhite
         name="Body_Ghost_White_0"
         position={[0, 1.6, 0]}
@@ -107,16 +112,35 @@ function GhostLayout(props: ComponentPropsWithoutRef<'group'>) {
       />
     </group>
   );
-}
+});
 
 const GhostModel = ({
+  intensity = 0,
   scrollProgress: _scrollProgress,
   isMobile: _isMobile,
   ...props
 }: GhostModelProps) => {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (!groupRef.current) return;
+
+    const currentIntensity =
+      typeof intensity === 'number' ? intensity : intensity.get();
+
+    const t = state.clock.getElapsedTime();
+    const floatAmplitude = 0.08 + currentIntensity * 0.06;
+    const floatSpeed = 0.6 + currentIntensity * 0.55;
+    const sway = 0.035 + currentIntensity * 0.025;
+
+    groupRef.current.position.y = Math.sin(t * floatSpeed) * floatAmplitude;
+    groupRef.current.rotation.y = Math.sin(t * 0.35) * sway;
+    groupRef.current.rotation.z = Math.sin(t * 0.5) * sway * 0.42;
+  });
+
   return (
     <GhostInstancesProvider>
-      <GhostLayout {...props} />
+      <GhostLayout ref={groupRef} {...props} />
     </GhostInstancesProvider>
   );
 };

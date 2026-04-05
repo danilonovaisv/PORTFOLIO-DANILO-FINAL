@@ -175,7 +175,7 @@ export default function FeaturedProjectsRealtime({
         }
 
           channel = supabase
-            .channel('projects_realtime_channel')
+            .channel(`projects_realtime_channel_${Math.random().toString(36).substring(7)}`)
             .on(
               'postgres_changes',
               { event: '*', schema: 'public', table: 'portfolio_projects' },

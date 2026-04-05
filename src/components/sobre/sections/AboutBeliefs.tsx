@@ -18,7 +18,10 @@ import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
 
 // [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
 // Isso garante que pega o componente correto, seja export default ou export nomeado.
-const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
+const GhostScene = dynamic<{
+  scrollProgress: MotionValue<number>;
+  ghostIntensity: MotionValue<number>;
+}>(
   () =>
     import('../3d/GhostScene').then((mod: any) => {
       // Retorna a exportação nomeada 'GhostScene' OU a 'default'
@@ -50,10 +53,11 @@ export function AboutBeliefs() {
   });
 
   // [HOOK] Lógica centralizada de animação (HSL, Overlay, Intensidade)
-  const { 
-    backgroundColor, 
-    overlayOpacity, 
-    showFinalManifesto 
+  const {
+    backgroundColor,
+    overlayOpacity,
+    ghostIntensity,
+    showFinalManifesto,
   } = useBeliefsAnimation({
     scrollYProgress,
     totalPhrases: PHRASES.length
@@ -154,7 +158,10 @@ export function AboutBeliefs() {
         <div className="sticky top-0 z-[90] w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
           <div className="w-full h-full md:absolute md:inset-0 relative z-[90] translate-z-0">
             {!prefersReducedMotion ? (
-              <GhostScene scrollProgress={scrollYProgress} />
+              <GhostScene
+                scrollProgress={scrollYProgress}
+                ghostIntensity={ghostIntensity}
+              />
             ) : null}
           </div>
         </div>
