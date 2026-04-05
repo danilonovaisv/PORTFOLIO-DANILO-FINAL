@@ -42,7 +42,6 @@ const PHRASES = [
   'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
-
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -60,7 +59,7 @@ export function AboutBeliefs() {
     showFinalManifesto,
   } = useBeliefsAnimation({
     scrollYProgress,
-    totalPhrases: PHRASES.length
+    totalPhrases: PHRASES.length,
   });
 
   // Gate framer-motion features for reduced motion to avoid runtime errors
@@ -84,15 +83,19 @@ export function AboutBeliefs() {
     >
       {/* LAYER 0: Background Layer (HSL Interpolation) */}
       <div className="absolute inset-0 -z-10 w-full h-full pointer-events-none">
-        <motion.div 
+        <motion.div
           className="sticky top-0 w-full h-screen pointer-events-none"
-          style={prefersReduced ? { backgroundColor: `hsl(230, 85%, 30%)` } : { backgroundColor }}
+          style={
+            prefersReduced
+              ? { backgroundColor: `hsl(230, 85%, 30%)` }
+              : { backgroundColor }
+          }
         />
       </div>
 
       {/* LAYER 1: Overlay Transition Layer (Cross-fade) */}
       <div className="absolute inset-0 z-[5] w-full h-full pointer-events-none">
-        <motion.div 
+        <motion.div
           className="sticky top-0 w-full h-screen bg-black pointer-events-none"
           style={prefersReduced ? undefined : { opacity: overlayOpacity }}
         />
@@ -137,7 +140,7 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 4: Final Text Overlay */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 pointer-events-none z-50"
         style={{ opacity: showFinalManifesto }}
       >

@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { HOME_CONTENT } from '@/config/content';
 import { createStaticClient } from '@/lib/supabase/static';
 import { listProjects } from '@/lib/supabase/queries/projects';
+import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { getCanonicalSiteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-static';
@@ -17,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const supabase = createStaticClient();
     const dbProjects = await listProjects({}, supabase);
 
-    projectUrls = dbProjects.map((project) => ({
+    projectUrls = dbProjects.map((project: DbProjectWithTags) => ({
       url: `${baseUrl}/portfolio/${project.slug.replace(/_/g, '-')}`,
       lastModified: new Date(project.updated_at || new Date()),
       changeFrequency: 'monthly' as const,

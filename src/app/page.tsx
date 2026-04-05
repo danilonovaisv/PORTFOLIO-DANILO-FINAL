@@ -19,6 +19,7 @@ const VideoManifesto = dynamic(() =>
 );
 import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
+import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
@@ -108,7 +109,7 @@ export default async function HomePage() {
   try {
     const supabase = createStaticClient();
     const dbProjects = await listProjects({ featuredOnHome: true }, supabase);
-    const mapped = dbProjects.map((project, index) =>
+    const mapped = dbProjects.map((project: DbProjectWithTags, index: number) =>
       mapDbProjectToPortfolioProject(project, index)
     );
     featuredProjects = shuffleHomeProjects(mapped);

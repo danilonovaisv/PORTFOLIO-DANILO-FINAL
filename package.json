@@ -71,6 +71,8 @@
     "analyze:deps": "depcheck",
     "analyze:bundle": "ANALYZE=true next build",
     "assets:sync": "tsx scripts/sync-site-assets.ts assets.json",
+    "assets:pull": "tsx scripts/pull-site-assets.ts",
+    "assets:sync:full": "tsx scripts/auto-sync-assets.ts",
     "assets:audit": "python3 scripts/audit_assets.py",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts",
     "update": "pnpm dlx npm-check-updates -u && pnpm install",

@@ -74,8 +74,16 @@ const GhostScene: React.FC<GhostSceneProps> = ({
   const shouldReduceMotion = useMotionGate();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const cursorX = useSpring(pointerX, { stiffness: 90, damping: 18, mass: 0.6 });
-  const cursorY = useSpring(pointerY, { stiffness: 90, damping: 18, mass: 0.6 });
+  const cursorX = useSpring(pointerX, {
+    stiffness: 90,
+    damping: 18,
+    mass: 0.6,
+  });
+  const cursorY = useSpring(pointerY, {
+    stiffness: 90,
+    damping: 18,
+    mass: 0.6,
+  });
 
   useEffect(() => {
     if (isMobile) {
@@ -91,7 +99,9 @@ const GhostScene: React.FC<GhostSceneProps> = ({
       pointerY.set(ny * 6);
     };
 
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointermove', handlePointerMove, {
+      passive: true,
+    });
     return () => window.removeEventListener('pointermove', handlePointerMove);
   }, [isMobile, pointerX, pointerY]);
 
@@ -138,27 +148,40 @@ const GhostScene: React.FC<GhostSceneProps> = ({
       aria-hidden="true"
     >
       <motion.div
-        style={isMobile ? undefined : { x: cursorX, y: cursorY, rotateX: cursorRotateX, rotateY: cursorRotateY }}
+        style={
+          isMobile
+            ? undefined
+            : {
+                x: cursorX,
+                y: cursorY,
+                rotateX: cursorRotateX,
+                rotateY: cursorRotateY,
+              }
+        }
         className="pointer-events-none"
       >
         <div
           data-testid="ghost-figure"
           className="relative h-[25vh] w-[36vw] min-w-[140px] max-w-[196px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
         >
-        <Canvas
-          dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-          camera={{
-            position: [0, 0.1, isMobile ? 15.6 : 11.2],
-            fov: isMobile ? 18 : 14.5,
-          }}
-          className="absolute inset-0"
-        >
-          <GhostSceneContent
-            isMobile={isMobile}
-            ghostIntensity={ghostIntensity}
-          />
-        </Canvas>
+          <Canvas
+            dpr={[1, 1.5]}
+            gl={{
+              antialias: true,
+              alpha: true,
+              powerPreference: 'high-performance',
+            }}
+            camera={{
+              position: [0, 0.1, isMobile ? 15.6 : 11.2],
+              fov: isMobile ? 18 : 14.5,
+            }}
+            className="absolute inset-0"
+          >
+            <GhostSceneContent
+              isMobile={isMobile}
+              ghostIntensity={ghostIntensity}
+            />
+          </Canvas>
         </div>
       </motion.div>
     </motion.div>

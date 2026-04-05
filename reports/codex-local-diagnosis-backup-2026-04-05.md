@@ -1,6 +1,7 @@
 # Backup lógico antes de ajustes (2026-04-05)
 
 ## .mcp.json (antes)
+
 ```json
 {
   "mcpServers": {
@@ -25,6 +26,7 @@
 ```
 
 ## .codex/config.toml (antes)
+
 ```toml
 #:schema https://developers.openai.com/codex/config-schema.json
 # Codex workspace profile for PORTFOLIO-DANILO-FINAL
@@ -128,6 +130,7 @@ trust_level = "trusted"
 ```
 
 ## package.json scripts relevantes (antes)
+
 ```json
 {
   "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",

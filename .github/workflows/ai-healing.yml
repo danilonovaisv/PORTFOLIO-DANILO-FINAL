@@ -44,7 +44,7 @@ jobs:
         run: |
           RUN_ID="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
           echo "Analyzing Run ID: $RUN_ID"
-          
+
           if [ -n "$RUN_ID" ]; then
             # Attempt to get failed logs, redirect stderr to a file for diagnosis
             gh run view "$RUN_ID" --log-failed > error_logs.txt 2>gh_error.txt || {
@@ -54,7 +54,7 @@ jobs:
           else
             echo "No workflow run ID available" > error_logs.txt
           fi
-          
+
           # If file is static or empty, add a marker
           if [ ! -s error_logs.txt ]; then
              echo "LOG_STATUS=empty" >> "$GITHUB_ENV"
@@ -105,9 +105,9 @@ jobs:
         run: |
           # Only proceed if we have a real response or if it's a first-time failure report.
           # We avoid spamming "Gemini failed" comments to existing issues.
-          
+
           GEMINI_TEXT="${{ steps.gemini_analysis.outputs.gemini_response }}"
-          
+
           if [ -z "$GEMINI_API_KEY" ]; then
             RESPONSE="⚠️ Gemini analysis skipped: GEMINI_API_KEY secret is not configured."
           elif [ "$LOG_STATUS" = "empty" ]; then
@@ -137,7 +137,7 @@ jobs:
           # 3. If it's a new issue -> Always create.
 
           EXISTING=$(gh issue list --state open --label "ai-healing" --limit 1 --json number -q '.[0].number' || echo "")
-          
+
           if [ -n "$EXISTING" ]; then
             if [ -n "$GEMINI_TEXT" ]; then
               gh issue comment "$EXISTING" --body-file issue_body.md

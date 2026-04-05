@@ -50,11 +50,7 @@ type GhostModelProps = ComponentPropsWithoutRef<'group'> & {
 
 const GhostInstancesContext = createContext<GhostInstances | null>(null);
 
-function GhostInstancesProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+function GhostInstancesProvider({ children }: { children: ReactNode }) {
   const { nodes } = useGLTF(GHOST_MODEL_PATH) as unknown as GLTFResult;
 
   const meshes = useMemo(
@@ -81,38 +77,39 @@ function GhostInstancesProvider({
 }
 
 const GhostLayout = forwardRef<THREE.Group, ComponentPropsWithoutRef<'group'>>(
-function GhostLayout(props, ref) {
-  const instances = useContext(GhostInstancesContext);
+  function GhostLayout(props, ref) {
+    const instances = useContext(GhostInstancesContext);
 
-  if (!instances) {
-    return null;
+    if (!instances) {
+      return null;
+    }
+
+    return (
+      <group ref={ref} {...props} dispose={null}>
+        <instances.BodyGhostWhite
+          name="Body_Ghost_White_0"
+          position={[0, 1.6, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <instances.EyesEyes
+          name="Eyes_Eyes_0"
+          position={[0, 1.6, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <instances.HatHatBlack
+          name="Hat_Hat_Black_0"
+          position={[0, 3, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <instances.RimRimRed
+          name="Rim_Rim_Red_0"
+          position={[0, 2.4, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+      </group>
+    );
   }
-
-  return (
-    <group ref={ref} {...props} dispose={null}>
-      <instances.BodyGhostWhite
-        name="Body_Ghost_White_0"
-        position={[0, 1.6, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-      <instances.EyesEyes
-        name="Eyes_Eyes_0"
-        position={[0, 1.6, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-      <instances.HatHatBlack
-        name="Hat_Hat_Black_0"
-        position={[0, 3, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-      <instances.RimRimRed
-        name="Rim_Rim_Red_0"
-        position={[0, 2.4, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-    </group>
-  );
-});
+);
 
 const GhostModel = ({
   intensity = 0,
