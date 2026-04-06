@@ -22,7 +22,11 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const Header = MotionHeader ?? motion.header;
   const staticProgress = useMotionValue(1);
   const progress = scrollProgress ?? staticProgress;
-  const opacity = useTransform(progress, [0.02, 0.08, 0.76, 0.88], [0, 1, 1, 0]);
+  const opacity = useTransform(
+    progress,
+    [0.02, 0.08, 0.76, 0.88],
+    [0, 1, 1, 0]
+  );
   const x = useTransform(progress, [0.02, 0.1], ['36px', '0px']);
   const Content = prefersReducedMotion ? 'div' : motion.div;
 
@@ -38,7 +42,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
               style={
                 prefersReducedMotion
                   ? undefined
-                  : (({ x } as unknown) as React.CSSProperties)
+                  : ({ x } as unknown as React.CSSProperties)
               }
               className="flex w-full max-w-[85vw] flex-col items-end pr-[5%] text-right sm:max-w-[280px] md:max-w-[500px] md:pr-0 lg:max-w-[850px]"
             >

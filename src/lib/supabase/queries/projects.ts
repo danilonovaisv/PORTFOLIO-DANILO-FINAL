@@ -80,7 +80,10 @@ export async function listProjects(
   }
 
   // Cast needed: let query re-assignment prevents TS from propagating the Database generic
-  const result = await (query as any).returns() as { data: DbProjectWithTags[] | null; error: { message: string } | null };
+  const result = (await (query as any).returns()) as {
+    data: DbProjectWithTags[] | null;
+    error: { message: string } | null;
+  };
   if (result.error) throw result.error;
   return (result.data ?? []) as DbProjectWithTags[];
 }
@@ -147,10 +150,17 @@ export async function listProjectsPaged(
     query = query.range(from, to);
   }
 
-  const result = await (query as any).returns() as { data: DbProjectWithTags[] | null; error: { message: string } | null; count: number | null };
+  const result = (await (query as any).returns()) as {
+    data: DbProjectWithTags[] | null;
+    error: { message: string } | null;
+    count: number | null;
+  };
   if (result.error) throw result.error;
 
-  return { data: result.data as DbProjectWithTags[], count: result.count ?? (result.data?.length ?? 0) };
+  return {
+    data: result.data as DbProjectWithTags[],
+    count: result.count ?? result.data?.length ?? 0,
+  };
 }
 
 export async function getProject(id: string) {

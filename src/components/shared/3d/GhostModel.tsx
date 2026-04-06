@@ -47,7 +47,8 @@ export function GhostModel({
       Math.sin(t * (0.95 + currentIntensity * 0.35)) * 0.025 * currentIntensity;
     const swayX = Math.sin(t * 0.42) * 0.02 * currentIntensity;
     const swayZ = Math.cos(t * 0.38) * 0.018 * currentIntensity;
-    const scalePulse = 1 + currentIntensity * 0.04 + Math.sin(t * 1.1) * 0.01 * currentIntensity;
+    const scalePulse =
+      1 + currentIntensity * 0.04 + Math.sin(t * 1.1) * 0.01 * currentIntensity;
 
     meshRef.current.position.y = floatLift + pulseLift;
     meshRef.current.position.x = swayX;

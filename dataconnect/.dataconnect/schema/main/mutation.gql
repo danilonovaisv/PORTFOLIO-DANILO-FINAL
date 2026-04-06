@@ -25,8 +25,7 @@ extend type Mutation {
     Data object to insert into the table.
     """
     data: ProjectSkill_Data!
-  ): ProjectSkill_KeyOutput!
-    @fdc_generated(from: "ProjectSkill", purpose: INSERT_SINGLE)
+  ): ProjectSkill_KeyOutput! @fdc_generated(from: "ProjectSkill", purpose: INSERT_SINGLE)
   """
   ✨ Insert a single `Skill` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -62,8 +61,7 @@ extend type Mutation {
     List of data objects to insert into the table.
     """
     data: [Project_Data!]!
-  ): [Project_KeyOutput!]!
-    @fdc_generated(from: "Project", purpose: INSERT_MULTIPLE)
+  ): [Project_KeyOutput!]! @fdc_generated(from: "Project", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `ProjectSkill` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -72,8 +70,7 @@ extend type Mutation {
     List of data objects to insert into the table.
     """
     data: [ProjectSkill_Data!]!
-  ): [ProjectSkill_KeyOutput!]!
-    @fdc_generated(from: "ProjectSkill", purpose: INSERT_MULTIPLE)
+  ): [ProjectSkill_KeyOutput!]! @fdc_generated(from: "ProjectSkill", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `Skill` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -118,8 +115,7 @@ extend type Mutation {
     Data object to insert or update if it already exists.
     """
     data: ProjectSkill_Data!
-  ): ProjectSkill_KeyOutput!
-    @fdc_generated(from: "ProjectSkill", purpose: UPSERT_SINGLE)
+  ): ProjectSkill_KeyOutput! @fdc_generated(from: "ProjectSkill", purpose: UPSERT_SINGLE)
   """
   ✨ Insert or update a single `Skill` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Skill`.
   """
@@ -155,8 +151,7 @@ extend type Mutation {
     List of data objects to insert or update if it already exists.
     """
     data: [Project_Data!]!
-  ): [Project_KeyOutput!]!
-    @fdc_generated(from: "Project", purpose: UPSERT_MULTIPLE)
+  ): [Project_KeyOutput!]! @fdc_generated(from: "Project", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `ProjectSkill` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProjectSkill`.
   """
@@ -165,8 +160,7 @@ extend type Mutation {
     List of data objects to insert or update if it already exists.
     """
     data: [ProjectSkill_Data!]!
-  ): [ProjectSkill_KeyOutput!]!
-    @fdc_generated(from: "ProjectSkill", purpose: UPSERT_MULTIPLE)
+  ): [ProjectSkill_KeyOutput!]! @fdc_generated(from: "ProjectSkill", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `Skill` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Skill`.
   """
@@ -251,8 +245,7 @@ extend type Mutation {
     Data object containing fields to be updated.
     """
     data: ProjectSkill_Data!
-  ): ProjectSkill_KeyOutput
-    @fdc_generated(from: "ProjectSkill", purpose: UPDATE_SINGLE)
+  ): ProjectSkill_KeyOutput @fdc_generated(from: "ProjectSkill", purpose: UPDATE_SINGLE)
   """
   ✨ Update a single `Skill` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Skill` or `null` if not found.
   """
@@ -447,8 +440,7 @@ extend type Mutation {
     Fetch the first row based on the filters and ordering.
     """
     first: ProjectSkill_FirstRow
-  ): ProjectSkill_KeyOutput
-    @fdc_generated(from: "ProjectSkill", purpose: DELETE_SINGLE)
+  ): ProjectSkill_KeyOutput @fdc_generated(from: "ProjectSkill", purpose: DELETE_SINGLE)
   """
   ✨ Delete a single `Skill` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """

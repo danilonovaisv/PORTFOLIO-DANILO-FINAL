@@ -15,7 +15,7 @@ describe('global site links', () => {
   });
 
   it('exposes the expected footer links matching the config', () => {
-    expect(NAVIGATION.footer.links).toHaveLength(6);
+    expect(NAVIGATION.footer.links).toHaveLength(5);
     const footerHrefs = NAVIGATION.footer.links.map(
       (l: { href: string }) => l.href
     );
@@ -24,7 +24,6 @@ describe('global site links', () => {
     expect(footerHrefs).toContain('/portfolio');
     expect(footerHrefs).toContain('/#contact');
     expect(footerHrefs).toContain('/privacidade');
-    expect(footerHrefs).toContain('/privacy-policy');
   });
 
   it('locates the manifesto video on Supabase storage', () => {

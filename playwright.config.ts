@@ -2,7 +2,8 @@ import { defineConfig } from '@playwright/test';
 
 // Define the test port we'll use consistently
 const TEST_PORT = 3005;
-const baseURL = process.env.PLAYWRIGHT_BASE_URL || `http://localhost:${TEST_PORT}`;
+const baseURL =
+  process.env.PLAYWRIGHT_BASE_URL || `http://localhost:${TEST_PORT}`;
 
 export default defineConfig({
   testDir: './test/e2e',
@@ -33,7 +34,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: process.env.PLAYWRIGHT_SERVER_COMMAND || `pnpm run dev --port ${TEST_PORT}`,
+    command:
+      process.env.PLAYWRIGHT_SERVER_COMMAND ||
+      `pnpm run dev --port ${TEST_PORT}`,
     port: TEST_PORT,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

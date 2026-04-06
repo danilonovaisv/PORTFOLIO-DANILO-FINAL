@@ -22,22 +22,26 @@ Corrigir integralmente a seção `/sobre` -> `O Que Me Move` para restaurar:
 ## Phases
 
 ### Phase 1 - Root cause
+
 - [ ] Confirmar causa do skip da intro
 - [ ] Confirmar causa da invisibilidade do Ghost
 - [ ] Confirmar causa do header apagado
 
 ### Phase 2 - Implementation
+
 - [ ] Unificar timeline da seção
 - [ ] Corrigir header fixo
 - [ ] Corrigir renderer do Ghost
 - [ ] Reconciliar z-index e camadas
 
 ### Phase 3 - Tests
+
 - [ ] Atualizar E2E da seção
 - [ ] Rodar E2E alvo
 - [ ] Fazer captura visual desktop/mobile
 
 ### Phase 4 - Wrap-up
+
 - [ ] Atualizar progress/findings
 - [ ] Consolidar resultado final
 

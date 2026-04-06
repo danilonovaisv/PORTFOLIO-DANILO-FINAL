@@ -107,9 +107,7 @@ export function AboutBeliefs() {
         prefersReducedMotion={prefersReduced}
       />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
-      <MotionDiv
-        className="relative z-10"
-      >
+      <MotionDiv className="relative z-10">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection

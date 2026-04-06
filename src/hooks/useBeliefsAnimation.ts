@@ -76,8 +76,7 @@ export function useBeliefsAnimation({
       totalPhrases - 1,
       Math.floor(activeProgress / segment)
     );
-    const sectionProgress =
-      (activeProgress - sectionIndex * segment) / segment;
+    const sectionProgress = (activeProgress - sectionIndex * segment) / segment;
 
     // Calculate which color transition we're in
     const colorIndex = Math.min(sectionIndex, COLOR_SEQUENCE.length - 2);
@@ -115,8 +114,7 @@ export function useBeliefsAnimation({
       totalPhrases - 1,
       Math.floor(activeProgress / segment)
     );
-    const sectionProgress =
-      (activeProgress - sectionIndex * segment) / segment;
+    const sectionProgress = (activeProgress - sectionIndex * segment) / segment;
 
     // Easing personalizado para sincronia perfeita com texto [0.4, 0, 0.2, 1]
     const easedProgress = ghostEase(sectionProgress);
