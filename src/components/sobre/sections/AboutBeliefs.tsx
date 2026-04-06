@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, MotionValue } from 'framer-motion';
+import { motion, useScroll, MotionValue, useTransform } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import dynamic from 'next/dynamic';
 
 // Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
 import {
   BeliefSection,
+  BeliefDesktopTextLayer,
   BeliefMobileTextLayer,
   BeliefFinalSection,
   BeliefFinalSectionOverlay,
@@ -15,6 +16,7 @@ import {
 } from '@/components/sobre/beliefs';
 
 import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
+import { BELIEF_INTRO_END } from '@/hooks/useBeliefsAnimation';
 
 // [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
 // Isso garante que pega o componente correto, seja export default ou export nomeado.
@@ -48,7 +50,7 @@ export function AboutBeliefs() {
   const prefersReduced = !!prefersReducedMotion;
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end end'],
+    offset: ['start start', 'end end'],
   });
 
   // [HOOK] Lógica centralizada de animação (HSL, Overlay, Intensidade)
@@ -71,6 +73,11 @@ export function AboutBeliefs() {
   const MotionHeader: React.ElementType = prefersReduced
     ? 'header'
     : motion.header;
+  const phraseLayerOpacity = useTransform(
+    scrollYProgress,
+    [0, BELIEF_INTRO_END - 0.01, BELIEF_INTRO_END + 0.03],
+    [0, 0, 1]
+  );
 
   return (
     <MotionSection
@@ -79,7 +86,7 @@ export function AboutBeliefs() {
       style={{
         height: `${(PHRASES.length + 2) * 100}vh`,
       }}
-      className="relative w-full isolate z-10 overflow-x-clip transition-colors duration-100 ease-linear"
+      className="relative w-full isolate z-10 overflow-x-clip"
     >
       {/* LAYER 0: Background Layer (HSL Interpolation) */}
       <div className="absolute inset-0 -z-10 w-full h-full pointer-events-none">
@@ -107,7 +114,10 @@ export function AboutBeliefs() {
         prefersReducedMotion={prefersReduced}
       />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
-      <MotionDiv className="relative z-10">
+      <MotionDiv
+        className="relative z-10"
+        style={prefersReduced ? undefined : { opacity: phraseLayerOpacity }}
+      >
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -116,8 +126,6 @@ export function AboutBeliefs() {
             text={phrase}
             isFirst={index === 0}
             MotionSection={MotionSection}
-            MotionDiv={MotionDiv}
-            prefersReducedMotion={prefersReduced}
           />
         ))}
 
@@ -128,6 +136,15 @@ export function AboutBeliefs() {
           prefersReducedMotion={prefersReduced}
         />
       </MotionDiv>
+
+      <div className="relative z-[20]">
+        <BeliefDesktopTextLayer
+          phrases={PHRASES}
+          scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
+        />
+      </div>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
       <div className="relative z-[70]">
@@ -153,7 +170,6 @@ export function AboutBeliefs() {
       </motion.div>
 
       {/* LAYER 3: Ghost 3D is positioned as top authoritative layer per doc. */}
-      {/* Container sticky do Ghost com viewport isolada */}
       <div
         className="absolute inset-0 z-[90] w-full h-full pointer-events-none"
         aria-hidden

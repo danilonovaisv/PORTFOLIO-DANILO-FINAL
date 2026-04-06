@@ -6,7 +6,6 @@ import {
   MotionValue,
   useMotionValue,
   useTransform,
-  cubicBezier,
 } from 'framer-motion';
 
 interface BeliefFixedHeaderProps {
@@ -14,30 +13,6 @@ interface BeliefFixedHeaderProps {
   MotionHeader?: React.ElementType;
   prefersReducedMotion?: boolean;
 }
-
-// Helper para encapsular a lógica de Morph (Blur + Opacity + Y)
-const MorphText: React.FC<{
-  children: React.ReactNode;
-  progress: MotionValue<number>;
-  range: [number, number];
-  className?: string;
-}> = ({ children, progress, range, className }) => {
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-  const blur = useTransform(progress, range, ['blur(12px)', 'blur(0px)'], {
-    ease: ghostEase,
-  });
-  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
-  const y = useTransform(progress, range, [18, 0], { ease: ghostEase });
-
-  return (
-    <motion.span
-      style={{ filter: blur, opacity, y }}
-      className={`block ${className || ''}`}
-    >
-      {children}
-    </motion.span>
-  );
-};
 
 export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   scrollProgress,
@@ -47,63 +22,42 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const Header = MotionHeader ?? motion.header;
   const staticProgress = useMotionValue(1);
   const progress = scrollProgress ?? staticProgress;
-  // Opacity for the header container itself
-  // Fade IN: 0 -> 0.1
-  // Visible: 0.1 -> 0.75
-  // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
-  const opacity = useTransform(progress, [0, 0.04, 0.75, 0.9], [0, 1, 1, 0]);
+  const opacity = useTransform(progress, [0.02, 0.08, 0.76, 0.88], [0, 1, 1, 0]);
+  const x = useTransform(progress, [0.02, 0.1], ['36px', '0px']);
+  const Content = prefersReducedMotion ? 'div' : motion.div;
 
   return (
-    <div className="absolute inset-0 z-[100] pointer-events-none w-full">
+    <div className="absolute inset-0 z-[40] pointer-events-none w-full">
       <Header
         style={prefersReducedMotion ? undefined : { opacity }}
         className="sticky top-0 flex h-screen pointer-events-none drop-shadow-2xl"
       >
         <div className="std-grid w-full h-full">
           <div className="flex h-full items-start pt-[20vh] md:items-center md:pt-0 justify-end col-span-12">
-            <div className="flex flex-col items-end text-right w-full max-w-[85vw] sm:max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0">
-              {/* Primeira parte: "Acredito no..." */}
-              <div className="flex flex-col items-end text-right w-full">
-                {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
-                <h2 className="text-white text-[clamp(1.75rem,8vw,3rem)] md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black drop-shadow-lg">
-                  <div className="overflow-visible">
-                    <MorphText progress={progress} range={[0.0, 0.1]}>
-                      Acredito no
-                    </MorphText>
-                  </div>
-                  <div className="overflow-visible">
-                    <MorphText progress={progress} range={[0.02, 0.12]}>
-                      design que
-                    </MorphText>
-                  </div>
-                  <div className="overflow-visible">
-                    <MorphText progress={progress} range={[0.04, 0.14]}>
-                      muda o dia
-                    </MorphText>
-                  </div>
-                  <div className="overflow-visible">
-                    <MorphText progress={progress} range={[0.06, 0.16]}>
-                      de alguém.
-                    </MorphText>
-                  </div>
-                </h2>
+            <Content
+              style={
+                prefersReducedMotion
+                  ? undefined
+                  : (({ x } as unknown) as React.CSSProperties)
+              }
+              className="flex w-full max-w-[85vw] flex-col items-end pr-[5%] text-right sm:max-w-[280px] md:max-w-[500px] md:pr-0 lg:max-w-[850px]"
+            >
+              <h2 className="text-white text-[clamp(1.75rem,8vw,3rem)] md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black drop-shadow-lg">
+                Acredito no
+                <br />
+                design que
+                <br />
+                muda o dia
+                <br />
+                de alguém.
+              </h2>
 
-                {/* Segunda parte: "Não pelo choque..." */}
-                {/* 🟣 [CONFIG VISUAL]: Define a cor e tamanho do subtítulo (sm a 4xl) */}
-                <div className="flex flex-col items-end gap-1 text-white text-[clamp(0.875rem,3.8vw,1.15rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold drop-shadow-xl">
-                  <div className="overflow-visible">
-                    <MorphText progress={progress} range={[0.08, 0.18]}>
-                      Não pelo choque,
-                    </MorphText>
-                  </div>
-                  <div className="overflow-visible">
-                    <MorphText progress={progress} range={[0.1, 0.2]}>
-                      mas pela conexão.
-                    </MorphText>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <p className="max-w-[24ch] text-white text-[clamp(0.875rem,3.8vw,1.15rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold drop-shadow-xl">
+                Não pelo choque,
+                <br />
+                mas pela conexão.
+              </p>
+            </Content>
           </div>
         </div>
       </Header>

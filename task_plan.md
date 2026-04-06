@@ -2,29 +2,46 @@
 
 ## Goal
 
-Recuperar o deploy no Firebase Hosting para o portfólio Next.js e elevar Lighthouse para `Perf > 95`, `A11y 100`, `Best Practices 100`, `SEO 100`, preservando o Ghost Design System.
+Corrigir integralmente a seção `/sobre` -> `O Que Me Move` para restaurar:
+
+- intro cronológica correta;
+- visibilidade do `BeliefFixedHeader`;
+- visibilidade real do `Ghost 3D`;
+- sincronização entre texto e background;
+- cobertura de teste para as regressões centrais.
+
+## Acceptance Criteria
+
+1. Ao entrar na seção, apenas a frase 1 aparece.
+2. O `BeliefFixedHeader` fica legível na intro.
+3. O Ghost 3D aparece visualmente em desktop e mobile.
+4. O background muda em sincronia com a frase ativa.
+5. O teste E2E cobre intro, header e Ghost.
+6. Documentação espelho e log de auditoria permanecem atualizados.
 
 ## Phases
 
-| Phase                        | Status      | Notes                                                                                |
-| ---------------------------- | ----------- | ------------------------------------------------------------------------------------ |
-| 1. Scan + evidence capture   | completed   | Logs, Firebase config, workflow, Lighthouse e docs de referência consolidados        |
-| 2. Firebase deploy fix       | completed   | Builder remoto alinhado com `legacy-peer-deps`; preflight local passou               |
-| 3. Performance fixes         | completed   | Preloads, skeleton, defer below-the-fold, image tuning e motion governance aplicados |
-| 4. A11y/UI fixes + docs sync | completed   | Contraste, semântica, labels, typo, `.context` e auditoria atualizados               |
-| 5. Validation                | in_progress | lint, typecheck e build ok; deploy Firebase em confirmação final                     |
-| 6. Fix MCP "npx" path error  | completed   | MCP wrapper and servers standardized; npx shim optimized for pnpm fallback           |
+### Phase 1 - Root cause
+- [ ] Confirmar causa do skip da intro
+- [ ] Confirmar causa da invisibilidade do Ghost
+- [ ] Confirmar causa do header apagado
 
-## Decisions
+### Phase 2 - Implementation
+- [ ] Unificar timeline da seção
+- [ ] Corrigir header fixo
+- [ ] Corrigir renderer do Ghost
+- [ ] Reconciliar z-index e camadas
 
-- Seguir `firebase.json` com `frameworksBackend` para App Router dinâmico; não forçar rewrite para `/index.html` porque o projeto usa SSR/route handlers.
-- Priorizar correção do `firebase-frameworks` no workflow antes de qualquer ajuste mais amplo de infra.
-- Aplicar mudanças mínimas e locais em componentes de hero/featured/footer/modal para evitar regressão visual.
+### Phase 3 - Tests
+- [ ] Atualizar E2E da seção
+- [ ] Rodar E2E alvo
+- [ ] Fazer captura visual desktop/mobile
 
-## Errors Encountered
+### Phase 4 - Wrap-up
+- [ ] Atualizar progress/findings
+- [ ] Consolidar resultado final
 
-| Error                                                | Attempt | Resolution                                                                                                         |
-| ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| Firebase deploy quebra no builder                    | 1       | Resolvido com `legacy-peer-deps=true` no `.npmrc` e env do workflow para o builder remoto do Firebase              |
-| `fetchPriority` em `<video>` quebra `tsc`            | 1       | Removido; preload de vídeo mantido por metadata/page preloads                                                      |
-| Lighthouse local em standalone gerou 404 artificiais | 1       | Auditoria válida mantida em servidor de produção local; standalone completo ficou apenas como verificação auxiliar |
+## Notes
+
+- Não repetir tentativas cegas no renderer 3D.
+- Se o renderer customizado continuar invisível, usar o renderer estável baseado em `primitive(scene)`.

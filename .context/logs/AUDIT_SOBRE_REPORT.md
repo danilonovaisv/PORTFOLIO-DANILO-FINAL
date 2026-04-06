@@ -1,7 +1,58 @@
-# 🕵️ Relatório de Auditoria: Página Sobre (v1.0)
+# 🕵️ Relatório de Auditoria: Página Sobre (v2.0)
 
-**Status Geral:** ✅ AROVADO COM OBSERVAÇÕES
-**Lead Auditor:** Ghost Commander (Antigravity)
+**Status Geral:** ❌ REPROVADO PARA A SEÇÃO "O QUE ME MOVE"
+**Lead Auditor:** Codex
+**Data:** 2026-04-05
+
+---
+
+## 🔎 Atualização Focada — Seção 06 / O Que Me Move
+
+### Escopo desta rodada
+
+- Rota auditada: `/sobre`
+- Sessão auditada: `06 - O Que Me Move`
+- Eixo: `UI/UX (legibilidade e consistência visual)`
+- Recorte funcional: Ghost 3D, header fixo de apoio e sistema de troca de cor do background
+
+### Evidência reproduzida localmente
+
+- Ambiente local iniciado com `pnpm dev --port 3005`
+- E2E direcionado executado com sucesso: `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
+- Reprodução visual manual feita com Playwright headless na rota `/sobre`
+- Estado observado ao posicionar a viewport no início da seção:
+  - o Ghost 3D monta no DOM (`[data-testid="ghost-figure"]` e `canvas` existentes), mas não pinta nenhum pixel visível na área recortada da cena;
+  - o `BeliefFixedHeader` monta, porém suas linhas internas ficam praticamente invisíveis (`opacity` ~ `0.008`);
+  - a seção entra já fora do estado inicial esperado, com frases intermediárias visíveis em vez da primeira frase da sequência;
+  - o background já chega em roxo/pink enquanto o fluxo textual não reinicia na frase 1.
+
+### Achados críticos desta rodada
+
+1. Ghost 3D invisível apesar de canvas montado
+   - Impacto: perda do elemento central da composição e quebra da hierarquia visual da seção.
+   - Evidência: `ghost-figure` e `canvas` presentes no DOM; recorte visual da área do Ghost retorna apenas a cor sólida do background.
+   - Suspeita técnica principal: regressão no renderer específico de `src/components/sobre/3d/GhostModel.tsx`, que diverge do renderer já consolidado em `src/components/shared/3d/GhostModel.tsx`.
+
+2. Header fixo semanticamente presente, mas visualmente apagado
+   - Impacto: a seção perde contexto narrativo e legibilidade editorial.
+   - Evidência: os spans internos de `BeliefFixedHeader` renderizam com opacidade residual (~`0.008`) no início da seção, embora o wrapper sticky esteja visível.
+
+3. Reset de timeline quebrado na entrada da seção
+   - Impacto: a experiência não começa na frase 1 e o scroll não respeita a cronologia definida na documentação.
+   - Evidência: ao alinhar a seção na viewport, as frases com opacidade relevante eram `belief-line-3` e `belief-line-4`, não a primeira frase.
+
+4. Troca de background desacoplada da entrada correta do texto
+   - Impacto: a mudança cromática deixa de reforçar a narrativa e passa a parecer arbitrária.
+   - Evidência: o fundo já entra em estados avançados da sequência cromática enquanto o fluxo textual não reinicia do frame inicial esperado.
+
+### Decisão
+
+- A seção `06 - O Que Me Move` permanece em estado **não conforme**.
+- A correção deve priorizar:
+  1. recuperar a visibilidade do Ghost;
+  2. restaurar a legibilidade do `BeliefFixedHeader`;
+  3. recalibrar a timeline para reiniciar na frase 1 ao entrar na seção;
+  4. reancorar a interpolação do background ao início real de cada frase.
 
 ---
 

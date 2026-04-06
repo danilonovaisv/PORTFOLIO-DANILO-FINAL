@@ -18,6 +18,16 @@ const COLOR_SEQUENCE = [
 
 // Ghost Easing for background interpolation — spec: cubic-bezier(0.4, 0, 0.2, 1)
 const ghostEase = cubicBezier(0.4, 0, 0.2, 1);
+export const BELIEF_INTRO_END = 0.12;
+export const BELIEF_PHRASE_ZONE_END = 0.82;
+export const BELIEF_FINAL_START = 0.86;
+
+export function getBeliefSegment(index: number, totalPhrases: number) {
+  const span = (BELIEF_PHRASE_ZONE_END - BELIEF_INTRO_END) / totalPhrases;
+  const start = BELIEF_INTRO_END + span * index;
+  const end = start + span;
+  return { start, end, span };
+}
 
 interface UseBeliefsAnimationProps {
   scrollYProgress: MotionValue;
@@ -47,27 +57,27 @@ export function useBeliefsAnimation({
   const prefersReducedMotion = useReducedMotion();
 
   // Timeline configuration
-  const PHRASE_ZONE_END = 0.82; // After this, manifesto takes over
-  const segment = PHRASE_ZONE_END / totalPhrases;
+  const segment = (BELIEF_PHRASE_ZONE_END - BELIEF_INTRO_END) / totalPhrases;
 
   // 1. Background Color Interpolation (Camada 0)
   // Map scroll progress to colors based on phrase index
   const backgroundColor = useTransform(scrollYProgress, (progress) => {
     if (
-      progress <= 0.001 ||
-      progress >= PHRASE_ZONE_END ||
+      progress <= BELIEF_INTRO_END ||
+      progress >= BELIEF_PHRASE_ZONE_END ||
       prefersReducedMotion
     ) {
       const c = COLOR_SEQUENCE[0];
       return `hsl(${c.h}, ${c.s}%, ${c.l}%)`;
     }
 
-    // Determine current section index
+    const activeProgress = progress - BELIEF_INTRO_END;
     const sectionIndex = Math.min(
       totalPhrases - 1,
-      Math.floor(progress / segment)
+      Math.floor(activeProgress / segment)
     );
-    const sectionProgress = (progress - sectionIndex * segment) / segment;
+    const sectionProgress =
+      (activeProgress - sectionIndex * segment) / segment;
 
     // Calculate which color transition we're in
     const colorIndex = Math.min(sectionIndex, COLOR_SEQUENCE.length - 2);
@@ -93,19 +103,20 @@ export function useBeliefsAnimation({
   // Opacity animada (0 → 1 → 0) com duração de 0.9s
   const overlayOpacity = useTransform(scrollYProgress, (progress) => {
     if (
-      progress <= 0.001 ||
-      progress >= PHRASE_ZONE_END ||
+      progress <= BELIEF_INTRO_END ||
+      progress >= BELIEF_PHRASE_ZONE_END ||
       prefersReducedMotion
     ) {
       return 0;
     }
 
-    // Determine current section index
+    const activeProgress = progress - BELIEF_INTRO_END;
     const sectionIndex = Math.min(
       totalPhrases - 1,
-      Math.floor(progress / segment)
+      Math.floor(activeProgress / segment)
     );
-    const sectionProgress = (progress - sectionIndex * segment) / segment;
+    const sectionProgress =
+      (activeProgress - sectionIndex * segment) / segment;
 
     // Easing personalizado para sincronia perfeita com texto [0.4, 0, 0.2, 1]
     const easedProgress = ghostEase(sectionProgress);
@@ -120,29 +131,34 @@ export function useBeliefsAnimation({
 
   // 3. Active Section Index (para renderização do texto)
   const currentSection = useTransform(scrollYProgress, (progress) => {
-    if (progress <= 0.001 || progress >= PHRASE_ZONE_END) {
+    if (progress <= BELIEF_INTRO_END || progress >= BELIEF_PHRASE_ZONE_END) {
       return -1;
     }
 
-    return Math.min(totalPhrases - 1, Math.floor(progress / segment));
+    return Math.min(
+      totalPhrases - 1,
+      Math.floor((progress - BELIEF_INTRO_END) / segment)
+    );
   });
 
   // 4. Ghost 3D Intensity
   // Aumenta gradualmente com cada frase, atinge pico na última frase
   const ghostIntensity = useTransform(scrollYProgress, (progress) => {
-    if (progress <= 0.001 || prefersReducedMotion) return 0;
-    if (progress >= PHRASE_ZONE_END) return 1;
+    if (progress <= 0.03 || prefersReducedMotion) return 0;
+    if (progress >= BELIEF_PHRASE_ZONE_END) return 1;
 
-    // Intensidade baseada no progresso normalizado
-    const normalized = Math.min(1, progress / PHRASE_ZONE_END);
+    const normalized = Math.min(
+      1,
+      Math.max(0, progress - 0.03) / (BELIEF_PHRASE_ZONE_END - 0.03)
+    );
     return Math.min(1, normalized * 1.1);
   });
 
   // 5. Final Manifesto Trigger
   // Ativa o manifesto final quando o scroll atinge 85%
   const showFinalManifesto = useTransform(scrollYProgress, (progress) => {
-    if (progress < 0.85) return 0;
-    return Math.min(1, (progress - 0.85) / 0.15);
+    if (progress < BELIEF_FINAL_START) return 0;
+    return Math.min(1, (progress - BELIEF_FINAL_START) / 0.14);
   });
 
   return {

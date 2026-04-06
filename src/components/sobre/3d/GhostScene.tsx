@@ -108,24 +108,23 @@ const GhostScene: React.FC<GhostSceneProps> = ({
   const x = useTransform(
     scrollProgress,
     isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
-    isMobile ? ['-32vw', '-29vw', '-16vw', '0vw'] : ['0vw', '0vw']
+    isMobile ? ['-6vw', '-5vw', '-2vw', '0vw'] : ['0vw', '0vw']
   );
   const y = useTransform(
     scrollProgress,
     isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
-    isMobile ? ['-19vh', '-17vh', '-11vh', '0vh'] : ['0vh', '0vh']
+    isMobile ? ['6vh', '7vh', '4vh', '0vh'] : ['0vh', '0vh']
   );
   const scale = useTransform(
     scrollProgress,
-    isMobile ? [0.01, 0.12, 0.9, 1] : [0.01, 0.12, 0.82, 1],
-    isMobile ? [0.78, 0.84, 0.86, 0.98] : [0.95, 1, 1.01, 1.09]
+    isMobile ? [0, 0.08, 0.9, 1] : [0, 0.08, 0.82, 1],
+    isMobile ? [1, 1.04, 0.98, 1.04] : [0.95, 1, 1.01, 1.09]
   );
   const rotate = useTransform(
     scrollProgress,
     isMobile ? [0, 0.9, 1] : [0, 0.14, 1],
     isMobile ? [-4, -2, 0] : [-0.6, 0, 0]
   );
-  const opacity = useTransform(scrollProgress, [0.01, 0.08], [0, 1]);
   const cursorRotateY = useTransform(cursorX, [-7, 7], [1.8, -1.8]);
   const cursorRotateX = useTransform(cursorY, [-6, 6], [-1.2, 1.2]);
 
@@ -141,8 +140,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({
         y,
         scale,
         rotate,
-        opacity,
-        transformOrigin: isMobile ? '24% 18%' : '50% 50%',
+        transformOrigin: isMobile ? '22% 20%' : '50% 50%',
       }}
       className="pointer-events-none flex h-full w-full items-center justify-center"
       aria-hidden="true"

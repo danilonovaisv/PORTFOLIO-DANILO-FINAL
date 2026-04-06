@@ -1,5 +1,21 @@
 # ANÁLISE GLOBAL DA HOME (PÁGINA /SOBRE)
 
+## Atualização de Auditoria — 2026-04-05
+
+- Escopo focal desta atualização:
+  - rota `/sobre`
+  - seção `06 O Que Me Move`
+  - eixo `UI/UX (legibilidade e consistência visual)`
+- Reprodução local concluída com `pnpm dev --port 3005` + Playwright headless.
+- Resultado objetivo:
+  - `Ghost 3D` continua **não conforme** na experiência viva: a camada monta no DOM, mas a área útil da cena aparece visualmente vazia;
+  - `BeliefFixedHeader` continua **não conforme** em legibilidade: o wrapper sticky existe, porém as linhas internas ficam praticamente invisíveis no frame inicial da seção;
+  - a sessão continua entrando em estado cronológico incorreto: ao alinhar a seção na viewport, frases intermediárias já estão ativas, o que confirma reset/timeline quebrados;
+  - a troca de background continua perceptivelmente desacoplada do início esperado do texto, porque o fundo já chega em estado avançado antes da seção reiniciar na frase 1.
+- Conclusão desta rodada:
+  - os itens críticos da seção 06 seguem abertos;
+  - a prioridade de correção permanece concentrada em `src/components/sobre/sections/AboutBeliefs.tsx`, `src/hooks/useBeliefsAnimation.ts`, `src/components/sobre/beliefs/BeliefFixedHeader.tsx` e no renderer do Ghost em `src/components/sobre/3d/GhostModel.tsx` / `src/components/sobre/3d/GhostScene.tsx`.
+
 ## Escopo
 
 - Página auditada: `/sobre`.
