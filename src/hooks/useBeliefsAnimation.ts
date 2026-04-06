@@ -96,7 +96,8 @@ export function useBeliefsAnimation({
       );
       const sectionProgress =
         (activeProgress - sectionIndex * segment) / segment;
-      const easedProgress = ghostEase(sectionProgress);
+      // Front-loaded: Math.pow(0.6, 0.7) ≈ 0.706 — satisfies spec "60% visibility → 70% interpolation"
+      const easedProgress = Math.pow(sectionProgress, 0.7);
       const startColor =
         sectionIndex === 0
           ? BASE_BACKGROUND
@@ -140,9 +141,10 @@ export function useBeliefsAnimation({
       );
       const sectionProgress =
         (activeProgress - sectionIndex * segment) / segment;
-      const easedProgress = ghostEase(sectionProgress);
-
-      return easedProgress < 0.5 ? easedProgress * 2 : 2 - easedProgress * 2;
+      // Cross-fade overlay: peak at 30% of segment (during text entry), zero by 60%
+      // This masks the BG color transition during the most dynamic part of the phrase swap
+      const triT = sectionProgress / 0.3;
+      return Math.max(0, Math.min(1, triT < 1 ? triT : 2 - triT));
     }
 
     if (progress < BELIEF_FINAL_START) {

@@ -40,7 +40,8 @@ export function GhostModel({
     // Time-based animation
     const t = state.clock.getElapsedTime();
 
-    const floatLift = Math.sin(t * 0.55) * 0.1;
+    // Float amplitude scales with intensity: subtle at start, pronounced at climax
+    const floatLift = Math.sin(t * 0.55) * (0.055 + currentIntensity * 0.065);
     const pulseLift =
       Math.sin(t * (0.95 + currentIntensity * 0.35)) * 0.025 * currentIntensity;
     const swayX = Math.sin(t * 0.42) * 0.02 * currentIntensity;
