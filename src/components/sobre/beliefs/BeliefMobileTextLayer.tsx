@@ -42,7 +42,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
 
   const sectionOpacity = useTransform(
     progress,
-    [0.04, BELIEF_INTRO_END, BELIEF_FINAL_START, 0.94],
+    [BELIEF_INTRO_END - 0.01, BELIEF_INTRO_END + 0.015, BELIEF_FINAL_START, 0.94],
     [0, 1, 1, 0]
   );
 

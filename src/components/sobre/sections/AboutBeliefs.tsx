@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, MotionValue, useTransform } from 'framer-motion';
+import { motion, useScroll, MotionValue } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import dynamic from 'next/dynamic';
 
@@ -16,7 +16,6 @@ import {
 } from '@/components/sobre/beliefs';
 
 import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
-import { BELIEF_INTRO_END } from '@/hooks/useBeliefsAnimation';
 
 // [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
 // Isso garante que pega o componente correto, seja export default ou export nomeado.
@@ -73,12 +72,6 @@ export function AboutBeliefs() {
   const MotionHeader: React.ElementType = prefersReduced
     ? 'header'
     : motion.header;
-  const phraseLayerOpacity = useTransform(
-    scrollYProgress,
-    [0, BELIEF_INTRO_END - 0.01, BELIEF_INTRO_END + 0.03],
-    [0, 0, 1]
-  );
-
   return (
     <MotionSection
       ref={containerRef}
@@ -116,7 +109,6 @@ export function AboutBeliefs() {
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
       <MotionDiv
         className="relative z-10"
-        style={prefersReduced ? undefined : { opacity: phraseLayerOpacity }}
       >
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (

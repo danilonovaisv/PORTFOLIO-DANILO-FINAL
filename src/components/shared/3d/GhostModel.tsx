@@ -40,19 +40,23 @@ export function GhostModel({
     // Time-based animation
     const t = state.clock.getElapsedTime();
 
-    // Base Floating (always happening)
-    meshRef.current.position.y = Math.sin(t * 0.5) * 0.1;
+    // Keep motion deterministic. Random jitter was causing cumulative drift and
+    // breaking the centered editorial layout of the Ghost section.
+    const floatLift = Math.sin(t * 0.55) * 0.1;
+    const pulseLift =
+      Math.sin(t * (0.95 + currentIntensity * 0.35)) * 0.025 * currentIntensity;
+    const swayX = Math.sin(t * 0.42) * 0.02 * currentIntensity;
+    const swayZ = Math.cos(t * 0.38) * 0.018 * currentIntensity;
+    const scalePulse = 1 + currentIntensity * 0.04 + Math.sin(t * 1.1) * 0.01 * currentIntensity;
 
-    // Intensity-based agitation (Speed up rotation and add jitter)
-    // Rotation: Base slow rotation + intensity-driven acceleration
-    meshRef.current.rotation.y += 0.002 + currentIntensity * 0.02;
-
-    // Jitter: Random micromovements based on intensity
-    if (currentIntensity > 0.5) {
-      const jitter = (Math.random() - 0.5) * 0.05 * currentIntensity;
-      meshRef.current.position.x += jitter;
-      meshRef.current.position.z += jitter;
-    }
+    meshRef.current.position.y = floatLift + pulseLift;
+    meshRef.current.position.x = swayX;
+    meshRef.current.position.z = swayZ;
+    meshRef.current.rotation.y =
+      Math.sin(t * (0.3 + currentIntensity * 0.22)) *
+      (0.08 + currentIntensity * 0.14);
+    meshRef.current.rotation.x = Math.sin(t * 0.45) * 0.03 * currentIntensity;
+    meshRef.current.scale.setScalar(scalePulse);
   });
 
   return (

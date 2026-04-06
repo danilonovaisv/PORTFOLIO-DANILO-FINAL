@@ -111,6 +111,9 @@ export default function FeaturedProjectCardFrame({
 
   const commonMediaClasses =
     'object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:-translate-y-px';
+  const cardMediaSizes =
+    project.layout.sizes ??
+    '(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw';
 
   return (
     <div
@@ -154,7 +157,8 @@ export default function FeaturedProjectCardFrame({
                     src={desktopThumbUrl}
                     alt={visualAltText}
                     fill
-                    sizes={project.layout.sizes ?? '100vw'}
+                    sizes={cardMediaSizes}
+                    quality={60}
                     className={cn('hidden md:block', commonMediaClasses)}
                     loading={priority ? 'eager' : 'lazy'}
                     priority={priority}
@@ -182,7 +186,8 @@ export default function FeaturedProjectCardFrame({
                     src={mobileThumbUrl}
                     alt={visualAltText}
                     fill
-                    sizes={project.layout.sizes ?? '100vw'}
+                    sizes={cardMediaSizes}
+                    quality={60}
                     className={cn('block md:hidden', commonMediaClasses)}
                     loading={priority ? 'eager' : 'lazy'}
                     priority={priority}
@@ -208,7 +213,8 @@ export default function FeaturedProjectCardFrame({
                 src={desktopThumbUrl}
                 alt={visualAltText}
                 fill
-                sizes={project.layout.sizes ?? '100vw'}
+                sizes={cardMediaSizes}
+                quality={60}
                 className={commonMediaClasses}
                 loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
@@ -232,6 +238,7 @@ export default function FeaturedProjectCardFrame({
               alt={logoAltText}
               fill
               sizes="(max-width: 768px) 52vw, 280px"
+              quality={70}
               unoptimized={shouldBypassNextOptimization}
               className="object-contain object-center brightness-0 invert opacity-100 drop-shadow-[0_24px_48px_rgba(4,0,19,0.42)]"
               loading={priority ? 'eager' : 'lazy'}

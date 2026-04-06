@@ -18,7 +18,7 @@ const COLOR_SEQUENCE = [
 
 // Ghost Easing for background interpolation — spec: cubic-bezier(0.4, 0, 0.2, 1)
 const ghostEase = cubicBezier(0.4, 0, 0.2, 1);
-export const BELIEF_INTRO_END = 0.12;
+export const BELIEF_INTRO_END = 0.1;
 export const BELIEF_PHRASE_ZONE_END = 0.82;
 export const BELIEF_FINAL_START = 0.86;
 

@@ -110,9 +110,14 @@ export const ProjectCard = React.memo(function ProjectCard({
     );
 
   const objectPosition = project.layout?.objectPosition ?? 'center';
-  const sizes =
-    project.layout?.sizes ??
-    '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+  const sizeAwareSizes: Record<ProjectCardSize, string> = {
+    sm: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 31vw',
+    md: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 31vw',
+    lg: '(max-width: 640px) 92vw, (max-width: 1024px) 92vw, 64vw',
+    wide: '(max-width: 640px) 92vw, (max-width: 1024px) 92vw, 96vw',
+    tall: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 31vw',
+  };
+  const sizes = project.layout?.sizes ?? sizeAwareSizes[size];
   const headingId = `project-card-${project.id}-title`;
   const cardAnchorId = `portfolio-card-${project.slug
     .toLowerCase()
@@ -199,7 +204,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 )}
                 style={{ objectPosition }}
                 sizes={sizes}
-                quality={60}
+                quality={55}
                 loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
                 onError={applyImageFallback}
@@ -231,7 +236,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 )}
                 style={{ objectPosition }}
                 sizes={sizes}
-                quality={60}
+                quality={55}
                 loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
                 onError={applyImageFallback}
@@ -264,7 +269,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             )}
             style={{ objectPosition }}
             sizes={sizes}
-            quality={60}
+            quality={55}
             loading={priority ? 'eager' : 'lazy'}
             priority={priority}
             onError={applyImageFallback}

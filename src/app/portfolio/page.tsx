@@ -44,19 +44,25 @@ export async function generateMetadata({
     branding: {
       label: 'Brand & Campaigns',
       description:
-        'Seleção de projetos de Brand & Campaigns com foco em presença, direção visual e consistência de marca.',
+        'Seleção de projetos de Brand & Campaigns com foco em presença, direção visual, consistência de marca e campanhas que transformam estratégia em percepção memorável.',
       keywords: ['Branding', 'Design Identidade', 'Direção de Arte', 'Campanhas Criativas', 'Visual Identity'],
+    },
+    creative: {
+      label: 'Creative Development',
+      description:
+        'Projetos de creative development que combinam design, motion e tecnologia para criar experiências visuais autorais, interativas e orientadas a performance.',
+      keywords: ['Creative Development', 'Experiências Digitais', 'Interatividade', 'Motion', 'Design Systems', 'Creative Technology'],
     },
     motion: {
       label: 'Videos & Motions',
       description:
-        'Projetos de motion design, vídeo e direção criativa com ritmo editorial, narrativa e impacto visual.',
+        'Projetos de motion design, vídeo e direção criativa com ritmo editorial, narrativa visual forte e direção pensada para retenção, presença e impacto.',
       keywords: ['Motion Design', 'Video Editing', 'Direção Criativa', 'Animação 2D', 'After Effects', 'Editorial Video'],
     },
     web: {
       label: 'Websites & Tech',
       description:
-        'Experiências web e digitais com foco em performance, interatividade e design que conecta pessoas e marcas.',
+        'Experiências web e produtos digitais com foco em performance, interatividade, direção visual e arquitetura front-end que conecta pessoas, marcas e tecnologia.',
       keywords: ['Web Design', 'Next.js', 'React', 'WebGL', 'Three.js', 'User Experience', 'Front-end Engineering'],
     },
   };

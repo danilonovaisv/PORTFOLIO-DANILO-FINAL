@@ -91,7 +91,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             alt={block.title}
             fallbackUrl={block.img}
             className="w-full h-full"
-            priority={block.id === 1}
+            sizes="(max-width: 1024px) 92vw, 0px"
           />
         </motion.div>
       </div>
@@ -160,7 +160,7 @@ export function OriginStickyGallery({
               alt={block.title}
               fallbackUrl={block.img}
               className="w-full h-full rounded-3xl overflow-hidden"
-              priority={index === 0}
+              sizes="(max-width: 1024px) 0px, 40vw"
             />
             {/* Mask overlay for reveal effect */}
             <div className="origin-mask absolute inset-0 bg-void z-10 origin-top" />

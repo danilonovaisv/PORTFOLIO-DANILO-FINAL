@@ -156,7 +156,7 @@ export default function FeaturedProjectsSection({
                 <FeaturedProjectCard
                   project={project}
                   onOpen={onProjectOpen}
-                  priority={index < 3}
+                  priority={index < 4}
                   backgroundVariant={getFeaturedProjectBackgroundVariant(
                     project.id
                   )}

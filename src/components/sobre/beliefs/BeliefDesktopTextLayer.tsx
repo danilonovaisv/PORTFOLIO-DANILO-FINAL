@@ -38,7 +38,12 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
 
   const sectionOpacity = useTransform(
     progress,
-    [BELIEF_INTRO_END - 0.02, BELIEF_INTRO_END, BELIEF_FINAL_START - 0.04, BELIEF_FINAL_START],
+    [
+      BELIEF_INTRO_END - 0.01,
+      BELIEF_INTRO_END + 0.015,
+      BELIEF_FINAL_START - 0.04,
+      BELIEF_FINAL_START,
+    ],
     [0, 1, 1, 0]
   );
 

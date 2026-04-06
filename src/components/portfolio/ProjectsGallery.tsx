@@ -316,7 +316,7 @@ export const ProjectsGallery = ({
                     index={index}
                     size={item.size}
                     onClick={onProjectSelect || onOpenProject}
-                    priority={index < 3}
+                    priority={index < 4}
                   />
                 ))}
               </AnimatePresence>

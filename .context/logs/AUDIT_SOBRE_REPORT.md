@@ -106,3 +106,29 @@
 
 > [!TIP]
 > A página Sobre está pronta para produção, mantendo a aura "Ghost" de sofisticação e tecnicidade.
+
+---
+
+## Addendum — 2026-04-05 / Batch de Performance
+
+- Ajuste aplicado na seção `Origem Criativa` para remover carregamento prioritário indevido em imagens que não estão acima da dobra.
+- `sizes` das imagens mobile e da galeria sticky desktop foram restringidos para reduzir payload e evitar fetch de imagem grande em viewport onde a mídia permanece oculta.
+- Verificação local concluída com `eslint`, `tsc --noEmit` e `pnpm build`.
+
+## Addendum — 2026-04-05 / Ghost + BG Timeline
+
+- Auditoria da seção `O Que Me Move` refeita contra o documento técnico oficial da sessão.
+- Desvio confirmado antes do patch:
+  - Ghost mobile abria abaixo demais do topo útil da seção.
+  - Ghost desktop tinha intensificação pouco legível e podia acumular drift randômico.
+  - O texto principal entrava com atraso perceptível em relação ao início da interpolação do background.
+- Correções aplicadas:
+  - remoção do jitter randômico no modelo 3D compartilhado;
+  - reposicionamento mobile do Ghost para topo-esquerda com progressão ao centro no clímax;
+  - reforço da escala final do Ghost;
+  - remoção do gate de opacidade adicional que atrasava o layer textual;
+  - encurtamento da intro para alinhar melhor frase 1 e background.
+- Verificação concluída com:
+  - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
+  - `pnpm exec tsc --noEmit --pretty false`
+  - `pnpm build`

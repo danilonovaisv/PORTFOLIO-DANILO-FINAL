@@ -57,7 +57,7 @@ function GhostSceneContent({
         <Center>
           <GhostModel
             intensity={ghostIntensity}
-            scale={isMobile ? 0.29 : 0.47}
+            scale={isMobile ? 0.265 : 0.47}
           />
         </Center>
       </Float>
@@ -108,22 +108,22 @@ const GhostScene: React.FC<GhostSceneProps> = ({
   const x = useTransform(
     scrollProgress,
     isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
-    isMobile ? ['-6vw', '-5vw', '-2vw', '0vw'] : ['0vw', '0vw']
+    isMobile ? ['-22vw', '-20vw', '-10vw', '0vw'] : ['0vw', '0vw']
   );
   const y = useTransform(
     scrollProgress,
     isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
-    isMobile ? ['6vh', '7vh', '4vh', '0vh'] : ['0vh', '0vh']
+    isMobile ? ['-18vh', '-16vh', '-8vh', '0vh'] : ['0vh', '0vh']
   );
   const scale = useTransform(
     scrollProgress,
     isMobile ? [0, 0.08, 0.9, 1] : [0, 0.08, 0.82, 1],
-    isMobile ? [1, 1.04, 0.98, 1.04] : [0.95, 1, 1.01, 1.09]
+    isMobile ? [0.9, 0.96, 0.93, 1.08] : [0.95, 1, 1.04, 1.12]
   );
   const rotate = useTransform(
     scrollProgress,
     isMobile ? [0, 0.9, 1] : [0, 0.14, 1],
-    isMobile ? [-4, -2, 0] : [-0.6, 0, 0]
+    isMobile ? [-5, -3, 0] : [-0.6, 0, 0]
   );
   const cursorRotateY = useTransform(cursorX, [-7, 7], [1.8, -1.8]);
   const cursorRotateX = useTransform(cursorY, [-6, 6], [-1.2, 1.2]);
@@ -140,7 +140,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({
         y,
         scale,
         rotate,
-        transformOrigin: isMobile ? '22% 20%' : '50% 50%',
+        transformOrigin: isMobile ? '18% 18%' : '50% 50%',
       }}
       className="pointer-events-none flex h-full w-full items-center justify-center"
       aria-hidden="true"
@@ -160,7 +160,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({
       >
         <div
           data-testid="ghost-figure"
-          className="relative h-[25vh] w-[36vw] min-w-[140px] max-w-[196px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
+          className="relative h-[24vh] w-[34vw] min-w-[136px] max-w-[188px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
         >
           <Canvas
             dpr={[1, 1.5]}
