@@ -14,6 +14,7 @@ interface SmoothScrollProps {
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const { flags } = useAntigravityStore();
   const pathname = usePathname();
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   // Admin screens should keep the browser's native scroll to avoid
   // smooth-scroll side effects (Playwright needs window.scrollY to change).
@@ -33,8 +34,23 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   }, [isAdminRoute]);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    syncPreference();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', syncPreference);
+      return () => mediaQuery.removeEventListener('change', syncPreference);
+    }
+
+    mediaQuery.addListener(syncPreference);
+    return () => mediaQuery.removeListener(syncPreference);
+  }, []);
+
+  useEffect(() => {
     // ♿ SE REDUCED MOTION → SEM LENIS
-    if (flags.reducedMotion || isAdminRoute) {
+    if (flags.reducedMotion || prefersReducedMotion || isAdminRoute) {
       setLenisInstance(null);
       return;
     }
@@ -67,7 +83,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       if (lenis) lenis.destroy();
       setLenisInstance(null);
     };
-  }, [flags.reducedMotion, isAdminRoute]);
+  }, [flags.reducedMotion, prefersReducedMotion, isAdminRoute]);
 
   return (
     <ScrollContext.Provider

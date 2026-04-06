@@ -18,6 +18,9 @@ test('O-QUE-ME-MOVE anima frases em sequência no scroll', async ({ page }) => {
 
   await scrollToElementTop('[data-testid="about-beliefs-section"]');
 
+  await expect(page.locator('[data-testid="belief-text-layer-desktop"]')).toHaveCount(1);
+  await expect(page.locator('[data-testid="belief-text-layer-mobile"]')).toHaveCount(0);
+
   const introHeader = page.locator('header.sticky h2');
   await expect
     .poll(async () => {

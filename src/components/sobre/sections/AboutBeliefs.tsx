@@ -13,6 +13,7 @@ import {
   BeliefFinalSection,
   BeliefFinalSectionOverlay,
   BeliefFixedHeader,
+  useIsMobile,
 } from '@/components/sobre/beliefs';
 
 import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
@@ -45,6 +46,7 @@ const PHRASES = [
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
   const prefersReduced = !!prefersReducedMotion;
   const { scrollYProgress } = useScroll({
@@ -125,21 +127,21 @@ export function AboutBeliefs() {
       </MotionDiv>
 
       <div className="relative z-40">
-        <BeliefDesktopTextLayer
-          phrases={PHRASES}
-          scrollYProgress={prefersReduced ? undefined : scrollYProgress}
-          MotionDiv={MotionDiv}
-          prefersReducedMotion={prefersReduced}
-        />
-      </div>
-
-      <div className="relative z-40">
-        <BeliefMobileTextLayer
-          phrases={PHRASES}
-          scrollYProgress={prefersReduced ? undefined : scrollYProgress}
-          MotionDiv={MotionDiv}
-          prefersReducedMotion={prefersReduced}
-        />
+        {isMobile ? (
+          <BeliefMobileTextLayer
+            phrases={PHRASES}
+            scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+            MotionDiv={MotionDiv}
+            prefersReducedMotion={prefersReduced}
+          />
+        ) : (
+          <BeliefDesktopTextLayer
+            phrases={PHRASES}
+            scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+            MotionDiv={MotionDiv}
+            prefersReducedMotion={prefersReduced}
+          />
+        )}
       </div>
 
       <motion.div

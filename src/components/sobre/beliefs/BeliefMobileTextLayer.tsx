@@ -69,6 +69,8 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
 
   return (
     <motion.div
+      aria-hidden="true"
+      data-testid="belief-text-layer-mobile"
       className="fixed inset-0 z-40 pointer-events-none md:hidden"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >

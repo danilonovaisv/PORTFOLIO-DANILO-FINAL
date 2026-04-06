@@ -64,6 +64,8 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
 
   return (
     <motion.div
+      aria-hidden="true"
+      data-testid="belief-text-layer-desktop"
       className="pointer-events-none fixed inset-0 z-40 hidden md:flex"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >

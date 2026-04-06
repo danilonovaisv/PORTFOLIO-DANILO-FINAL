@@ -26,6 +26,23 @@
   - comparação visual manual completa contra a arte de referência ainda pendente;
   - engine local fora do alvo (`node v25.9.0` vs `node 20`), sem bloqueio funcional nesta rodada.
 
+## Addendum — 2026-04-06 / P0 follow-up (loading + a11y + reduced motion)
+
+- Estado atualizado da sessão `06 - O Que Me Move`: os três bloqueadores P0 levantados na auditoria operacional desta rodada foram aplicados no código.
+- Ajustes aplicados:
+  - criação de [loading.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/app/sobre/loading.tsx) para a rota `/sobre`, com skeleton estável da página e placeholder dedicado do manifesto;
+  - criação de [AboutBeliefsSkeleton.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/AboutBeliefsSkeleton.tsx) e alinhamento do fallback em [AboutBeliefsNoSSR.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/AboutBeliefsNoSSR.tsx);
+  - eliminação da duplicidade efetiva de manifesto no DOM em [AboutBeliefs.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/AboutBeliefs.tsx), renderizando apenas a camada desktop ou mobile por viewport;
+  - integração de `prefers-reduced-motion` ao [SmoothScroll.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/layout/SmoothScroll.tsx), desligando Lenis quando o SO pede redução de movimento.
+- Evidência objetiva:
+  - `pnpm exec eslint ...loading/AboutBeliefs/SmoothScroll/about-beliefs.spec.ts` ✅
+  - `pnpm exec tsc --noEmit --pretty false` ✅
+  - `pnpm run build` ✅
+  - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅
+- Observação:
+  - o follow-up resolveu o bloco crítico de entrada da rota e de acessibilidade estrutural do manifesto;
+  - permanece recomendada a inclusão de axe e validação touch device real em ciclo seguinte.
+
 ---
 
 ## 🔎 Atualização Focada — Seção 06 / O Que Me Move
