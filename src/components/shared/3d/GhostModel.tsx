@@ -40,8 +40,6 @@ export function GhostModel({
     // Time-based animation
     const t = state.clock.getElapsedTime();
 
-    // Keep motion deterministic. Random jitter was causing cumulative drift and
-    // breaking the centered editorial layout of the Ghost section.
     const floatLift = Math.sin(t * 0.55) * 0.1;
     const pulseLift =
       Math.sin(t * (0.95 + currentIntensity * 0.35)) * 0.025 * currentIntensity;

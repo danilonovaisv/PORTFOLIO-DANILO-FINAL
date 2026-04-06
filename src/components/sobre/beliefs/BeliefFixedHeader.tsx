@@ -24,14 +24,14 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const progress = scrollProgress ?? staticProgress;
   const opacity = useTransform(
     progress,
-    [0.02, 0.08, 0.76, 0.88],
-    [0, 1, 1, 0]
+    [0, 0.04, 0.78, 0.9],
+    [1, 1, 1, 0]
   );
-  const x = useTransform(progress, [0.02, 0.1], ['36px', '0px']);
+  const x = useTransform(progress, [0, 0.08], ['32px', '0px']);
   const Content = prefersReducedMotion ? 'div' : motion.div;
 
   return (
-    <div className="absolute inset-0 z-[40] pointer-events-none w-full">
+    <div className="absolute inset-0 z-[30] pointer-events-none w-full">
       <Header
         style={prefersReducedMotion ? undefined : { opacity }}
         className="sticky top-0 flex h-screen pointer-events-none drop-shadow-2xl"

@@ -10,7 +10,6 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
-import { GhostErrorBoundary } from '@/components/3d/GhostErrorBoundary';
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import GhostModel from '@/components/sobre/3d/GhostModel';
@@ -18,39 +17,6 @@ import GhostModel from '@/components/sobre/3d/GhostModel';
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
   ghostIntensity: MotionValue<number>;
-}
-
-function GhostFallbackFigure() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 240 280"
-        className="h-[92%] w-[92%] drop-shadow-[0_24px_40px_rgba(4,0,19,0.34)]"
-      >
-        <ellipse cx="120" cy="252" rx="58" ry="16" fill="rgba(4,0,19,0.18)" />
-        <rect x="86" y="24" width="68" height="62" rx="8" fill="#151515" />
-        <rect x="86" y="72" width="68" height="14" rx="4" fill="#9a2219" />
-        <rect x="62" y="86" width="116" height="10" rx="5" fill="#111111" />
-        <path
-          d="M74 118c0-31 21-54 46-54h0c25 0 46 23 46 54v63c0 11-6 21-15 27l-9 6-10-12-12 15-13-16-11 13-10-6c-10-6-16-16-16-28v-62z"
-          fill="#f8fbff"
-        />
-        <circle cx="104" cy="145" r="13" fill="#222222" />
-        <circle cx="136" cy="145" r="13" fill="#222222" />
-        <circle cx="108" cy="140" r="4" fill="#ffffff" />
-        <circle cx="140" cy="140" r="4" fill="#ffffff" />
-        <path
-          d="M84 190c9 11 18 11 27 0 9 11 18 11 27 0 9 11 18 11 27 0"
-          fill="none"
-          stroke="#dfe8f6"
-          strokeWidth="12"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
-  );
 }
 
 function GhostSceneContent({
@@ -80,7 +46,7 @@ function GhostSceneContent({
         intensity={1.2}
         color="#ffffff"
       />
-      {!isMobile ? <Environment preset="studio" /> : null}
+      <Environment preset="studio" />
 
       <Float
         speed={isMobile ? 0.9 : 0.98}
@@ -129,8 +95,8 @@ const GhostScene: React.FC<GhostSceneProps> = ({
     const handlePointerMove = (event: PointerEvent) => {
       const nx = event.clientX / window.innerWidth - 0.5;
       const ny = event.clientY / window.innerHeight - 0.5;
-      pointerX.set(nx * 5);
-      pointerY.set(ny * 4.5);
+      pointerX.set(nx * 7);
+      pointerY.set(ny * 6);
     };
 
     window.addEventListener('pointermove', handlePointerMove, {
@@ -152,13 +118,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({
   const scale = useTransform(
     scrollProgress,
     isMobile ? [0, 0.08, 0.86, 1] : [0, 0.08, 0.82, 1],
-    isMobile ? [0.95, 1, 1.02, 1.1] : [0.95, 1, 1.04, 1.1]
-  );
-  const opacity = useTransform(scrollProgress, [0.02, 0.12], [0, 1]);
-  const filter = useTransform(
-    scrollProgress,
-    [0.02, 0.12],
-    ['blur(12px)', 'blur(0px)']
+    isMobile ? [0.85, 0.92, 0.9, 1.04] : [0.95, 1, 1.04, 1.12]
   );
   const rotate = useTransform(
     scrollProgress,
@@ -179,8 +139,6 @@ const GhostScene: React.FC<GhostSceneProps> = ({
         x,
         y,
         scale,
-        opacity,
-        filter,
         rotate,
         transformOrigin: isMobile ? '20% 20%' : '50% 50%',
       }}
@@ -202,29 +160,26 @@ const GhostScene: React.FC<GhostSceneProps> = ({
       >
         <div
           data-testid="ghost-figure"
-          className="relative h-[25vh] w-[38vw] min-w-[148px] max-w-[210px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
+          className="relative h-[24vh] w-[34vw] min-w-[136px] max-w-[188px] md:h-[52vh] md:w-[28vw] md:min-w-[316px] md:max-w-[388px]"
         >
-          <GhostFallbackFigure />
-          <GhostErrorBoundary fallback={<div className="absolute inset-0" />}>
-            <Canvas
-              dpr={isMobile ? [1, 1.25] : [1, 1.5]}
-              gl={{
-                antialias: !isMobile,
-                alpha: true,
-                powerPreference: 'high-performance',
-              }}
-              camera={{
-                position: [0, 0.1, isMobile ? 15.6 : 11.2],
-                fov: isMobile ? 18 : 14.5,
-              }}
-              className="absolute inset-0"
-            >
-              <GhostSceneContent
-                isMobile={isMobile}
-                ghostIntensity={ghostIntensity}
-              />
-            </Canvas>
-          </GhostErrorBoundary>
+          <Canvas
+            dpr={[1, 1.5]}
+            gl={{
+              antialias: true,
+              alpha: true,
+              powerPreference: 'high-performance',
+            }}
+            camera={{
+              position: [0, 0.1, isMobile ? 15.6 : 11.2],
+              fov: isMobile ? 18 : 14.5,
+            }}
+            className="absolute inset-0"
+          >
+            <GhostSceneContent
+              isMobile={isMobile}
+              ghostIntensity={ghostIntensity}
+            />
+          </Canvas>
         </div>
       </motion.div>
     </motion.div>

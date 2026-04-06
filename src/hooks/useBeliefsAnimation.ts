@@ -5,22 +5,45 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 /* ────────────────────────────────────────────────────────
 CONSTANTS & CONFIG
 ──────────────────────────────────────────────────────── */
-// Target HSL values from specs
-const COLOR_SEQUENCE = [
+type HslColor = { h: number; s: number; l: number };
+
+// Session opens on Ghost background, then runs the mandatory blue/purple/pink cycle.
+const BASE_BACKGROUND: HslColor = { h: 253, s: 100, l: 4 };
+const PHRASE_COLOR_SEQUENCE: HslColor[] = [
   { h: 230, s: 85, l: 30 }, // Blue
   { h: 270, s: 80, l: 40 }, // Purple
   { h: 330, s: 85, l: 50 }, // Pink
   { h: 230, s: 85, l: 30 }, // Blue
   { h: 270, s: 80, l: 40 }, // Purple
   { h: 330, s: 85, l: 50 }, // Pink
-  { h: 230, s: 85, l: 30 }, // Blue
 ];
+const FINAL_BACKGROUND: HslColor = { h: 230, s: 85, l: 30 };
 
 // Ghost Easing for background interpolation — spec: cubic-bezier(0.4, 0, 0.2, 1)
 const ghostEase = cubicBezier(0.4, 0, 0.2, 1);
 export const BELIEF_INTRO_END = 0.1;
 export const BELIEF_PHRASE_ZONE_END = 0.82;
 export const BELIEF_FINAL_START = 0.86;
+
+function interpolateHsl(
+  startColor: HslColor,
+  endColor: HslColor,
+  progress: number
+) {
+  let deltaH = endColor.h - startColor.h;
+  if (deltaH > 180) deltaH -= 360;
+  else if (deltaH < -180) deltaH += 360;
+
+  const h = (startColor.h + deltaH * progress + 360) % 360;
+  const s = startColor.s + (endColor.s - startColor.s) * progress;
+  const l = startColor.l + (endColor.l - startColor.l) * progress;
+
+  return { h, s, l };
+}
+
+function toHslString(color: HslColor) {
+  return `hsl(${color.h.toFixed(1)}, ${color.s.toFixed(1)}%, ${color.l.toFixed(1)}%)`;
+}
 
 export function getBeliefSegment(index: number, totalPhrases: number) {
   const span = (BELIEF_PHRASE_ZONE_END - BELIEF_INTRO_END) / totalPhrases;
@@ -53,81 +76,89 @@ export function useBeliefsAnimation({
   scrollYProgress,
   totalPhrases,
 }: UseBeliefsAnimationProps) {
-  // Check for reduced motion preference
   const prefersReducedMotion = useReducedMotion();
-
-  // Timeline configuration
   const segment = (BELIEF_PHRASE_ZONE_END - BELIEF_INTRO_END) / totalPhrases;
 
-  // 1. Background Color Interpolation (Camada 0)
-  // Map scroll progress to colors based on phrase index
   const backgroundColor = useTransform(scrollYProgress, (progress) => {
-    if (
-      progress <= BELIEF_INTRO_END ||
-      progress >= BELIEF_PHRASE_ZONE_END ||
-      prefersReducedMotion
-    ) {
-      const c = COLOR_SEQUENCE[0];
-      return `hsl(${c.h}, ${c.s}%, ${c.l}%)`;
+    if (prefersReducedMotion) {
+      return toHslString(BASE_BACKGROUND);
     }
 
-    const activeProgress = progress - BELIEF_INTRO_END;
-    const sectionIndex = Math.min(
-      totalPhrases - 1,
-      Math.floor(activeProgress / segment)
+    if (progress <= BELIEF_INTRO_END) {
+      return toHslString(BASE_BACKGROUND);
+    }
+
+    if (progress < BELIEF_PHRASE_ZONE_END) {
+      const activeProgress = progress - BELIEF_INTRO_END;
+      const sectionIndex = Math.min(
+        totalPhrases - 1,
+        Math.floor(activeProgress / segment)
+      );
+      const sectionProgress =
+        (activeProgress - sectionIndex * segment) / segment;
+      const easedProgress = ghostEase(sectionProgress);
+      const startColor =
+        sectionIndex === 0
+          ? BASE_BACKGROUND
+          : PHRASE_COLOR_SEQUENCE[sectionIndex - 1];
+      const endColor = PHRASE_COLOR_SEQUENCE[sectionIndex];
+
+      return toHslString(interpolateHsl(startColor, endColor, easedProgress));
+    }
+
+    if (progress < BELIEF_FINAL_START) {
+      return toHslString(
+        PHRASE_COLOR_SEQUENCE[PHRASE_COLOR_SEQUENCE.length - 1]
+      );
+    }
+
+    const finalProgress = Math.min(
+      1,
+      Math.max(0, (progress - BELIEF_FINAL_START) / (1 - BELIEF_FINAL_START))
     );
-    const sectionProgress = (activeProgress - sectionIndex * segment) / segment;
+    const easedFinalProgress = ghostEase(finalProgress);
 
-    // Calculate which color transition we're in
-    const colorIndex = Math.min(sectionIndex, COLOR_SEQUENCE.length - 2);
-    const startColor = COLOR_SEQUENCE[colorIndex];
-    const endColor = COLOR_SEQUENCE[colorIndex + 1];
-
-    // Apply Ghost Easing [0.4, 0, 0.2, 1]
-    const easedProgress = ghostEase(sectionProgress);
-
-    // Interpolate HSL with circular hue handling
-    let deltaH = endColor.h - startColor.h;
-    if (deltaH > 180) deltaH -= 360;
-    else if (deltaH < -180) deltaH += 360;
-
-    const h = (startColor.h + deltaH * easedProgress + 360) % 360;
-    const s = startColor.s + (endColor.s - startColor.s) * easedProgress;
-    const l = startColor.l + (endColor.l - startColor.l) * easedProgress;
-
-    return `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
+    return toHslString(
+      interpolateHsl(
+        PHRASE_COLOR_SEQUENCE[PHRASE_COLOR_SEQUENCE.length - 1],
+        FINAL_BACKGROUND,
+        easedFinalProgress
+      )
+    );
   });
 
-  // 2. Overlay Transition (Camada 1)
-  // Opacity animada (0 → 1 → 0) com duração de 0.9s
   const overlayOpacity = useTransform(scrollYProgress, (progress) => {
-    if (
-      progress <= BELIEF_INTRO_END ||
-      progress >= BELIEF_PHRASE_ZONE_END ||
-      prefersReducedMotion
-    ) {
+    if (prefersReducedMotion || progress <= BELIEF_INTRO_END) {
       return 0;
     }
 
-    const activeProgress = progress - BELIEF_INTRO_END;
-    const sectionIndex = Math.min(
-      totalPhrases - 1,
-      Math.floor(activeProgress / segment)
-    );
-    const sectionProgress = (activeProgress - sectionIndex * segment) / segment;
+    if (progress < BELIEF_PHRASE_ZONE_END) {
+      const activeProgress = progress - BELIEF_INTRO_END;
+      const sectionIndex = Math.min(
+        totalPhrases - 1,
+        Math.floor(activeProgress / segment)
+      );
+      const sectionProgress =
+        (activeProgress - sectionIndex * segment) / segment;
+      const easedProgress = ghostEase(sectionProgress);
 
-    // Easing personalizado para sincronia perfeita com texto [0.4, 0, 0.2, 1]
-    const easedProgress = ghostEase(sectionProgress);
-
-    // Overlay: 0 → 1 → 0
-    if (easedProgress < 0.5) {
-      return easedProgress * 2;
-    } else {
-      return 2 - easedProgress * 2;
+      return easedProgress < 0.5 ? easedProgress * 2 : 2 - easedProgress * 2;
     }
+
+    if (progress < BELIEF_FINAL_START) {
+      return 0;
+    }
+
+    const finalProgress = Math.min(
+      1,
+      Math.max(0, (progress - BELIEF_FINAL_START) / (1 - BELIEF_FINAL_START))
+    );
+    const easedFinalProgress = ghostEase(finalProgress);
+    return easedFinalProgress < 0.5
+      ? easedFinalProgress * 2
+      : 2 - easedFinalProgress * 2;
   });
 
-  // 3. Active Section Index (para renderização do texto)
   const currentSection = useTransform(scrollYProgress, (progress) => {
     if (progress <= BELIEF_INTRO_END || progress >= BELIEF_PHRASE_ZONE_END) {
       return -1;
@@ -139,23 +170,17 @@ export function useBeliefsAnimation({
     );
   });
 
-  // 4. Ghost 3D Intensity
-  // Aumenta gradualmente com cada frase, atinge pico na última frase
   const ghostIntensity = useTransform(scrollYProgress, (progress) => {
     if (progress <= 0.03 || prefersReducedMotion) return 0;
-    if (progress >= BELIEF_PHRASE_ZONE_END) return 1;
+    if (progress >= BELIEF_FINAL_START) return 1;
 
-    // Ajuste: Curva um pouco mais acentuada para percepção de intensidade por frase
     const normalized = Math.min(
       1,
-      Math.max(0, progress - 0.03) / (BELIEF_PHRASE_ZONE_END - 0.03)
+      Math.max(0, progress - 0.03) / (BELIEF_FINAL_START - 0.03)
     );
-    // Usando potência para início suave e crescimento mais visível conforme o scroll avança
     return Math.pow(normalized, 1.2);
   });
 
-  // 5. Final Manifesto Trigger
-  // Ativa o manifesto final quando o scroll atinge 85%
   const showFinalManifesto = useTransform(scrollYProgress, (progress) => {
     if (progress < BELIEF_FINAL_START) return 0;
     return Math.min(1, (progress - BELIEF_FINAL_START) / 0.14);

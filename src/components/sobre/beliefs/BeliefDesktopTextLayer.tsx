@@ -64,7 +64,7 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-0 z-[20] hidden md:flex"
+      className="pointer-events-none fixed inset-0 z-40 hidden md:flex"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
       <div className="flex h-full w-full items-center pl-[15vw]">
@@ -98,29 +98,29 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
   prefersReducedMotion,
 }) => {
   const Container = MotionDiv ?? motion.div;
-  const lines = text.split('\n');
+  const lines = text.split(' ');
   const motionProps = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, x: -40, filter: 'blur(8px)' },
+        initial: { opacity: 0, x: -56, filter: 'blur(8px)' },
         animate: { opacity: 1, x: 0, filter: 'blur(0px)' },
-        exit: { opacity: 0, x: 40, filter: 'blur(8px)' },
-        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+        exit: { opacity: 0, x: -56, filter: 'blur(10px)' },
+        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
       };
 
   return (
     <Container
-      className="pointer-events-none flex w-full max-w-[38vw] flex-col justify-center lg:max-w-[34vw]"
+      className="pointer-events-none flex w-full max-w-[40vw] flex-col justify-center lg:max-w-[34vw]"
       data-testid={lineTestId}
       {...motionProps}
     >
       {lines.map((line, index) => (
         <span
           key={`${line}-${index}`}
-          className="block max-w-fit whitespace-pre-line text-left font-bold italic tracking-[-0.04em] text-blueAccent"
+          className="block max-w-fit text-left font-bold tracking-[-0.045em] text-blueAccent"
           style={{
             fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
-            lineHeight: 0.9,
+            lineHeight: 0.92,
           }}
         >
           {line}

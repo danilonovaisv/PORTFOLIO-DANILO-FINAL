@@ -20,22 +20,21 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 | **1 – Overlay Transition Layer**   | Cross‑fade para evitar flicker     | Opacidade `0 → 1 → 0` (duração 0.9 s) <br> Timing function `[0.4,0,0.2,1]`                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **2 – BeliefFixedHeader (Sticky)** | Texto de apoio fixo                | **Desktop**: `sticky top-0 z-30`, centralizado verticalmente e alinhado à direita da seção, animação `x: [100,0]` + fade‑in <br> **Mobile**: `sticky top-[20vh] right-0 z-30`, mesma animação                                                                                                                                                                                                                                                                                                                                           |
 | **3 – Texto Rotativo**             | Frases principais                  | Fonte `h1` bold, cor `#4fe6ff` (blueAccent) <br> **Desktop**: posicionado à esquerda da seção (15% margem), cada palavra em uma linha separada; entra pela esquerda com leve fade‑in sincronizado à troca de background e sai acompanhando o scroll junto com o background <br> **Mobile**: centralizado horizontalmente a 20% do bottom da seção; frases entram pela esquerda com fade‑in, quebras de linha apenas quando necessário; se posiciona no centro com movimento contínuo e sai para a direita ao final da seção             |
-| **4 – Manifesto Final**            | Texto fixo "ISS0 É GHOST DESIGN."  | 3 linhas, `font-display`, cor branca, efeito _morphing_ com espaçamento reduzido                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **4 – Manifesto Final**            | Texto fixo "ISSO É GHOST DESIGN."  | 3 linhas, `font-display`, cor branca, efeito _morphing_ com espaçamento reduzido                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **5 – Ghost 3D**                   | Modelo GLB animado                 | `useGLTF` → `ghost.glb` <br> Z‑index máximo, flutuação constante, resposta a cursor (desktop) e scroll (mobile) <br> **Desktop**: totalmente centralizado na seção (centro horizontal e vertical) <br> **Mobile**: posicionado a 20% do topo da seção e alinhado à esquerda; na última tela, transiciona para o centro da seção <br> Entrada `scale: 0.95 → 1` + fade (1.2 s) <br> Em mobile, a escala base do Ghost fica **10% menor** para preservar respiro entre header, texto e canvas; última frase: `scale +10%` e centralização |
 
 ### Registro de Layer
 
-- Estado validado em `2026-03-15`.
-- A implementação da sessão em `src/components/sobre/sections/AboutBeliefs.tsx` trata o Ghost 3D como **camada autoritativa superior**.
-- Wrapper externo do Ghost: `absolute inset-0 z-[90] pointer-events-none`.
-- Wrapper sticky do Ghost: `sticky top-0 z-[90]`.
-- Container interno do canvas: `relative z-[90]`.
-- Todas as demais camadas da sessão devem permanecer abaixo desse teto:
-  - conteúdo scrollável: `z-10`
-  - texto mobile fixed: `z-20` no wrapper local e `z-70` no componente fixed
-  - manifesto final: `z-50`
-  - header sticky: `z-40`
-- Regra obrigatória: nenhuma nova camada da sessão pode ultrapassar `z-[90]` sem revisão explícita desta documentação.
+- Estado reconciliado com a implementação em `2026-04-06`.
+- A implementação da sessão em `src/components/sobre/sections/AboutBeliefs.tsx` trata o Ghost 3D como **camada autoritativa superior**, mas o teto real de stacking foi simplificado.
+- Mapa de camadas vigente:
+  - background sticky: `z-0`
+  - overlay transition sticky: `z-10`
+  - conteúdo scrollável/sentinelas: `z-20`
+  - header sticky (`BeliefFixedHeader`): `z-30`
+  - texto desktop/mobile e manifesto final: `z-40`
+  - Ghost 3D: `z-50`
+- Regra obrigatória: nenhuma nova camada da sessão pode ultrapassar `z-50` sem revisão explícita desta documentação.
 
 ---
 
@@ -115,6 +114,39 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
   - refinamento adicional aplicado no mesmo dia para reduzir drift de cursor, reforçar o centro desktop e atrasar a centralização mobile para o clímax;
   - segundo refinamento no mesmo ciclo: escala mobile mais contida, câmera desktop mais fechada e container desktop ampliado para recuperar a presença visual do modelo sem quebrar o respiro editorial;
   - necessidade futura de validação manual em browser real para comparação quadro a quadro com a arte de referência.
+
+## Atualização Implementada — 2026-04-06
+
+- A topologia da sessão foi restaurada em `src/components/sobre/sections/AboutBeliefs.tsx` com o retorno explícito das camadas documentadas:
+  - `Background Layer` (HSL via `useBeliefsAnimation`);
+  - `Overlay Transition Layer`;
+  - `BeliefDesktopTextLayer`;
+  - `BeliefMobileTextLayer`;
+  - `BeliefFinalSectionOverlay`;
+  - `Ghost 3D` como camada autoritativa superior.
+- O `useScroll` voltou a usar `offset: ['start start', 'end end']`, eliminando a regressão que fazia a sessão entrar em estado cronológico intermediário ao alinhar seu topo à viewport.
+- A sequência textual obrigatória foi normalizada novamente em `src/components/sobre/sections/AboutBeliefs.tsx`, preservando o comportamento mobile sem quebras forçadas e permitindo quebra por palavra no renderer desktop.
+- O `BeliefFixedHeader` foi realinhado à hierarquia de layering prevista (`z-[30]`), mantendo sticky sem competir com o manifesto final.
+- O renderer do Ghost da sessão foi reconduzido ao fluxo estável do projeto:
+  - `src/components/sobre/3d/GhostScene.tsx` voltou a usar o container com `data-testid="ghost-figure"`, entrada por `scale`, resposta a cursor no desktop e deslocamento mobile controlado por `scrollProgress`;
+  - `src/components/sobre/3d/GhostScene.tsx` passou a incluir `GhostErrorBoundary`, fallback SVG local e redução de custo em mobile (`Environment` desligado, `dpr` menor, `antialias` condicionado);
+  - `src/components/sobre/3d/GhostModel.tsx` voltou a encapsular o modelo compartilhado com `GhostModelProps`, preservando compatibilidade com `intensity`;
+  - `src/components/shared/3d/GhostModel.tsx` removeu o jitter randômico cumulativo e retomou o drift determinístico compatível com a centralização editorial da seção.
+- Verificação executada nesta rodada:
+  - `pnpm exec eslint src/components/sobre/sections/AboutBeliefs.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/beliefs/BeliefDesktopTextLayer.tsx src/components/sobre/beliefs/BeliefMobileTextLayer.tsx src/components/sobre/beliefs/BeliefFinalSectionOverlay.tsx src/components/sobre/3d/GhostScene.tsx src/hooks/useBeliefsAnimation.ts`
+  - `pnpm exec tsc --noEmit --pretty false`
+  - `pnpm run build`
+  - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
+- Evidência funcional objetiva desta rodada:
+  - o teste E2E voltou a comprovar `ghost-figure` visível com largura útil superior a `200px`;
+  - o `BeliefFixedHeader` voltou a atingir opacidade > `0.9` no início da seção;
+  - a frase 1 reaparece como primeiro estado ativo após o scroll de entrada.
+- Observação de fidelidade visual:
+  - a paridade quadro a quadro contra a arte de referência ainda depende de inspeção manual em browser real; a rodada atual validou integridade estrutural, motion principal e reset bidirecional, não comparação visual exaustiva.
+- Resíduo acompanhado, sem quebra funcional nesta rodada:
+  - warning do Motion sobre cálculo de scroll offset em container não estático;
+  - warning de depreciação `THREE.Clock` emitido pelo runtime do Three;
+  - aviso de engine local (`node v25.9.0`) divergente do alvo declarado do projeto (`node 20`), sem bloquear build nem E2E nesta rodada.
 
 ---
 

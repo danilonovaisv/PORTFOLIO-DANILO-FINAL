@@ -1,8 +1,30 @@
 # 🕵️ Relatório de Auditoria: Página Sobre (v2.0)
 
-**Status Geral:** ❌ REPROVADO PARA A SEÇÃO "O QUE ME MOVE"
+**Status Geral:** ⚠️ APROVAÇÃO TÉCNICA CONDICIONAL PARA A SEÇÃO "O QUE ME MOVE"
 **Lead Auditor:** Codex
-**Data:** 2026-04-05
+**Data:** 2026-04-06
+
+## Addendum — 2026-04-06 / About Beliefs recovery pass
+
+- Estado atualizado da sessão `06 - O Que Me Move`: **recuperação funcional validada**, com aprovação técnica condicional baseada em verificação local.
+- Correções aplicadas:
+  - restauração do `Background Layer` e `Overlay Transition Layer` em `src/components/sobre/sections/AboutBeliefs.tsx`;
+  - restauração do `BeliefDesktopTextLayer` e do `showFinalManifesto`;
+  - correção do reset da timeline com `offset: ['start start', 'end end']`;
+  - retorno do renderer estável do Ghost (`src/components/sobre/3d/GhostScene.tsx` + `src/components/sobre/3d/GhostModel.tsx`), com `GhostErrorBoundary`, fallback SVG local e custo reduzido em mobile;
+  - remoção do jitter randômico cumulativo em `src/components/shared/3d/GhostModel.tsx`;
+  - ajuste do `BeliefFixedHeader` para o layer documentado `z-[30]`.
+- Evidência objetiva:
+  - `pnpm exec eslint src/components/sobre/sections/AboutBeliefs.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/beliefs/BeliefDesktopTextLayer.tsx src/components/sobre/beliefs/BeliefMobileTextLayer.tsx src/components/sobre/beliefs/BeliefFinalSectionOverlay.tsx src/components/sobre/3d/GhostScene.tsx src/hooks/useBeliefsAnimation.ts` ✅
+  - `pnpm exec tsc --noEmit --pretty false` ✅
+  - `pnpm run build` ✅
+  - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅
+  - o teste E2E voltou a cobrir `ghost-figure` visível (> `200px`), header inicial com opacidade alta e entrada correta da frase 1.
+- Pendências residuais não bloqueantes:
+  - warning do Motion sobre scroll offset container;
+  - warning de depreciação `THREE.Clock`;
+  - comparação visual manual completa contra a arte de referência ainda pendente;
+  - engine local fora do alvo (`node v25.9.0` vs `node 20`), sem bloqueio funcional nesta rodada.
 
 ---
 

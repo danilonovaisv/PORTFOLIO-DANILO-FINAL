@@ -4,34 +4,52 @@ test.describe('Admin Login Page', () => {
   test('should display the login form and redirect on success', async ({
     page,
   }) => {
-    // 1. Inject mock flag and override location.assign before any page scripts run.
-    //    webkit/firefox do not intercept document navigation requests via page.route,
-    //    so we intercept at the JS level: replace location.assign with a client-side
-    //    history.pushState call to avoid the server-side auth middleware redirect.
+    // 1. Set mock flag so client-side code (Supabase, captcha) uses mocks.
     await page.addInitScript(() => {
       (window as any).__IS_PLAYWRIGHT_MOCK__ = true;
+    });
 
-      // The mock function is defined here but only *called* later (after DOM is ready),
-      // when the user clicks submit and redirectToAdmin() fires location.assign('/admin').
-      const mockAssign = function (url: string) {
-        window.history.pushState(null, '', url);
-        // Inject minimal dashboard content so the h1 assertion passes.
-        if (document.body) {
-          document.body.innerHTML = '<h1>Painel</h1>';
-        }
-      };
+    // Two-phase route interception strategy:
+    //
+    // Chromium: page.route intercepts the document navigation from window.location.assign('/admin')
+    //   → serve mock dashboard HTML directly.
+    //
+    // WebKit/Firefox: page.route does NOT intercept navigation requests from window.location.assign.
+    //   The real server receives the request, its auth middleware sees no session, and returns
+    //   302 → /admin/login. The *redirect follow* to /admin/login IS intercepted.
+    //   → serve mock dashboard HTML with an inline script that pushes history to /admin.
+    //
+    // mockLoginDone gates both handlers so only post-submit requests are intercepted.
+    let mockLoginDone = false;
 
-      try {
-        // Direct assignment works in Chromium and Firefox.
-        window.location.assign = mockAssign as typeof window.location.assign;
-      } catch (_e) {
-        // Fallback for WebKit which may restrict direct assignment.
-        try {
-          (Location.prototype as any).assign = mockAssign;
-        } catch (_e2) {
-          // Silently ignore — the test will still attempt to run.
-        }
+    // Phase A — Chromium: intercept /admin document navigation after login.
+    await page.route(/\/admin\/?(\?.*)?$/, async (route) => {
+      if (!mockLoginDone || route.request().resourceType() !== 'document') {
+        await route.continue();
+        return;
       }
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: '<html><body><h1>Painel</h1></body></html>',
+      });
+    });
+
+    // Phase B — WebKit/Firefox: intercept the server's redirect back to /admin/login.
+    // Serve mock dashboard HTML and update the URL to /admin via history.pushState.
+    await page.route('**/admin/login', async (route) => {
+      if (!mockLoginDone || route.request().resourceType() !== 'document') {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: `<html><body>
+          <script>window.history.pushState(null, '', '/admin');</script>
+          <h1>Painel</h1>
+        </body></html>`,
+      });
     });
 
     // 2. Navigate to the login page
@@ -52,19 +70,22 @@ test.describe('Admin Login Page', () => {
       'password123'
     );
 
-    // 5. Click Submit with force to bypass any transparent overlays (like Turnstile container)
+    // 5. Arm the post-login route handlers before clicking submit.
+    mockLoginDone = true;
+
+    // 6. Click Submit with force to bypass any transparent overlays (like Turnstile container)
     await page.click('button[type="submit"]', { force: true });
 
-    // 6. Verify redirection to dashboard
-    // location.assign mock pushes history to /admin without a server round-trip.
+    // 7. Verify redirection to /admin.
+    //    Chromium: fulfilled by Phase A. WebKit/Firefox: URL set by the inline pushState in Phase B.
     await expect(page).toHaveURL(/\/admin\/?$/i, { timeout: 20000 });
 
-    // 7. Verify dashboard content (injected by the location.assign mock)
+    // 8. Verify dashboard content
     await expect(page.locator('h1', { hasText: /Painel/i })).toBeVisible({
       timeout: 15000,
     });
 
-    // 8. Take a final success screenshot
+    // 9. Take a final success screenshot
     await page.screenshot({ path: 'test-results/admin-login-success.png' });
   });
 });
