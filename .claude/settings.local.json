@@ -47,11 +47,19 @@
       "Bash(git -C /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.claude/worktrees/optimistic-euler diff src/)",
       "Bash(git -C /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.claude/worktrees/optimistic-euler log --oneline -4)",
       "Bash(git -C /Users/danilonovais/PORTFOLIO-DANILO-FINAL/.claude/worktrees/optimistic-euler push -u origin claude/optimistic-euler)",
-      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")"
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(pnpm test:e2e --project=webkit --project=firefox -- test/e2e/admin.spec.ts)",
+      "Bash(npx playwright:*)",
+      "Bash(/Users/danilonovais/.volta/bin/pnpm test:e2e -- --project=webkit --project=firefox test/e2e/admin.spec.ts)",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/Cellar/pnpm/10.33.0/libexec/lib/node_modules/pnpm/bin/**)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["github", "supabase"],
+  "enabledMcpjsonServers": [
+    "github",
+    "supabase"
+  ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   }

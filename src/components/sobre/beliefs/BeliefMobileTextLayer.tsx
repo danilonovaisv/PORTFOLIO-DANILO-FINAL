@@ -72,7 +72,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
       className="fixed inset-0 z-[70] pointer-events-none md:hidden"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
-      <div className="absolute bottom-[18vh] left-0 right-0 px-6 text-center">
+      <div className="absolute bottom-[20vh] left-0 right-0 px-6 text-center">
         <AnimatePresence mode="wait">
           {activePhrase ? (
             <MobilePhrase

@@ -107,18 +107,18 @@ const GhostScene: React.FC<GhostSceneProps> = ({
 
   const x = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
-    isMobile ? ['-22vw', '-20vw', '-10vw', '0vw'] : ['0vw', '0vw']
+    isMobile ? [0, 0.14, 0.86, 1] : [0, 1],
+    isMobile ? ['-28vw', '-28vw', '-14vw', '0vw'] : ['0vw', '0vw']
   );
   const y = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.14, 0.9, 1] : [0, 1],
-    isMobile ? ['-18vh', '-16vh', '-8vh', '0vh'] : ['0vh', '0vh']
+    isMobile ? [0, 0.14, 0.86, 1] : [0, 1],
+    isMobile ? ['-30vh', '-30vh', '-15vh', '0vh'] : ['0vh', '0vh']
   );
   const scale = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.08, 0.9, 1] : [0, 0.08, 0.82, 1],
-    isMobile ? [0.9, 0.96, 0.93, 1.08] : [0.95, 1, 1.04, 1.12]
+    isMobile ? [0, 0.08, 0.86, 1] : [0, 0.08, 0.82, 1],
+    isMobile ? [0.85, 0.92, 0.9, 1.04] : [0.95, 1, 1.04, 1.12]
   );
   const rotate = useTransform(
     scrollProgress,
@@ -140,7 +140,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({
         y,
         scale,
         rotate,
-        transformOrigin: isMobile ? '18% 18%' : '50% 50%',
+        transformOrigin: isMobile ? '20% 20%' : '50% 50%',
       }}
       className="pointer-events-none flex h-full w-full items-center justify-center"
       aria-hidden="true"

@@ -145,11 +145,13 @@ export function useBeliefsAnimation({
     if (progress <= 0.03 || prefersReducedMotion) return 0;
     if (progress >= BELIEF_PHRASE_ZONE_END) return 1;
 
+    // Ajuste: Curva um pouco mais acentuada para percepção de intensidade por frase
     const normalized = Math.min(
       1,
       Math.max(0, progress - 0.03) / (BELIEF_PHRASE_ZONE_END - 0.03)
     );
-    return Math.min(1, normalized * 1.1);
+    // Usando potência para início suave e crescimento mais visível conforme o scroll avança
+    return Math.pow(normalized, 1.2);
   });
 
   // 5. Final Manifesto Trigger
