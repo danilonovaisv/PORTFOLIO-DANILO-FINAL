@@ -53,7 +53,26 @@ function createMockClient() {
     }
   };
 
-  const mockQuery = {
+  const mockData = {
+    data: [
+      {
+        id: 'mock-project-1',
+        title: 'Mock Project E2E',
+        slug: 'mock-project',
+        client_name: 'E2E Client',
+        project_type: 'Mock',
+        is_published: true,
+        featured_on_home: true,
+        featured_on_portfolio: true,
+        year: 2026,
+        tags: [],
+        featured_home_order: 1,
+      },
+    ],
+    error: null,
+  };
+
+  const mockQuery: any = {
     eq: () => mockQuery,
     neq: () => mockQuery,
     gt: () => mockQuery,
@@ -71,37 +90,15 @@ function createMockClient() {
     match: () => mockQuery,
     order: () => mockQuery,
     limit: () => mockQuery,
-    returns: () =>
-      Promise.resolve({
-        data: [
-          {
-            id: 'mock-project-1',
-            title: 'Mock Project E2E',
-            slug: 'mock-project',
-            client_name: 'E2E Client',
-            project_type: 'Mock',
-            is_published: true,
-            featured_on_home: true,
-            featured_on_portfolio: true,
-            year: 2026,
-            tags: [],
-          },
-        ],
-        error: null,
-      }),
+    returns: () => Promise.resolve(mockData),
     select: () => mockQuery,
     single: () =>
       Promise.resolve({
-        data: {
-          id: 'mock-project-1',
-          title: 'Mock Project E2E',
-          slug: 'mock-project',
-          client_name: 'E2E Client',
-          project_type: 'Mock',
-          is_published: true,
-        },
+        data: mockData.data[0],
         error: null,
       }),
+    // Make it awaitable / thenable
+    then: (onfulfilled: any) => Promise.resolve(mockData).then(onfulfilled),
   };
   return {
     from: () => mockQuery,
