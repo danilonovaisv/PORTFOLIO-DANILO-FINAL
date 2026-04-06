@@ -22,11 +22,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const Header = MotionHeader ?? motion.header;
   const staticProgress = useMotionValue(1);
   const progress = scrollProgress ?? staticProgress;
-  const opacity = useTransform(
-    progress,
-    [0, 0.04, 0.78, 0.9],
-    [1, 1, 1, 0]
-  );
+  const opacity = useTransform(progress, [0, 0.04, 0.78, 0.9], [1, 1, 1, 0]);
   const x = useTransform(progress, [0, 0.08], ['32px', '0px']);
   const Content = prefersReducedMotion ? 'div' : motion.div;
 
@@ -54,8 +50,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
 
               <p className="max-w-[24ch] text-white text-[clamp(0.875rem,3.8vw,1.15rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold drop-shadow-xl">
                 depois que
-                <br />
-                o brilho some.
+                <br />o brilho some.
               </p>
             </Content>
           </div>

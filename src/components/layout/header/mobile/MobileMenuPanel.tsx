@@ -112,6 +112,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
                 className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary"
               >
                 {s.icon}
+                <span className="sr-only">{s.label}</span>
               </a>
             ))}
           </div>

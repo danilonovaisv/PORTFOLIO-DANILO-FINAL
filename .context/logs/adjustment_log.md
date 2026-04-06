@@ -1174,6 +1174,7 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 [2026-04-05 17:57] [GitHub Actions Optimization] Analyzed all workflows. Fixed AI-healing logic, standardized pnpm version to 10.33, added Next.js build caching to Firebase deployments, and disabled redundant GitHub Pages push trigger. Added dependency-review workflow for security.
 [2026-04-05 18:48] [Auditoria Sobre] Concluída auditoria técnica total. Conformidade de Grid e Performance validada. Relatório gerado em .context/logs/AUDIT_SOBRE_REPORT.md
 [2026-04-06 02:20] [Sobre - Beliefs Refinement] Executado refinamento visual e de animação conforme blueprint:
+
 - **useBeliefsAnimation.ts**: Intensidade do Ghost ajustada para curva exponencial (pow 1.2) para melhor progressão por frase.
 - **GhostScene.tsx**: Ghost mobile reposicionado para 20% topo-esquerda (y: -30vh, x: -28vw) e escala reduzida em 10% (0.85). Sincronia de centralização ajustada para t=0.86 (clímax do manifesto). Transform origin fixado em 20% 20% para mobile.
 - **BeliefMobileTextLayer.tsx**: Texto mobile re-alinhado para 20% do bottom da seção (bottom-[20vh]).
