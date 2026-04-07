@@ -1,1 +1,0 @@
-# ❌ Dynamic Event Names

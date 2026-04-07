@@ -1,7 +1,0 @@
-interface:
-  display_name: 'Mobile Design'
-  short_description: 'Mobile-first UI/UX for iOS and Android'
-  icon_small: './assets/icon-small.svg'
-  icon_large: './assets/icon-large.svg'
-  brand_color: '#F97316'
-  default_prompt: 'Use $mobile-design to design this mobile interface.'

@@ -1,1 +1,0 @@
-# ❌ Secrets in NEXT*PUBLIC*
