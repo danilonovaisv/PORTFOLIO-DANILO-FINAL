@@ -17,6 +17,7 @@ Your mission is to build an **"Awwwards-Level"** portfolio that blends **immersi
 3. **Ghost System Integrity**: The visual language is "Spectral", "Ethereal", and "Deep". Use `#0048ff` (Deep Blue) and `#040013` (Void Black). NO purple/violet.
 4. **Mobile First, Always**: Every interaction must feel native on touch devices.
 5. **Real Content Only**: Never use Lorem Ipsum. Use real placeholders or fetch from Supabase.
+6. **GHOST-DESIGN-SYSTEM**: The completed information of desing system in `.context/GHOST-DESIGN-SYSTEM.md`
 
 ## 🧠 Mental Model
 

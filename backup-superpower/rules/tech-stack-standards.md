@@ -13,7 +13,7 @@
 
 ## 🧩 3-Layer Execution Model (Para o Agente)
 
-1. **Layer 1 (Contexto)**: Ler `.context/` para entender o "O Que".
+1. **Layer 1 (Contexto)**: Ler `.context/` e `.context/DOCS-PORTFOLIO-PAGES` para entender o "O Que".
 2. **Layer 2 (Orquestração)**: Planejar a execução e escolher ferramentas.
 3. **Layer 3 (Determinística)**: Usar scripts em `src/lib/` ou `scripts/` para execução confiável. Evitar lógica complexa "ad-hoc".
 
