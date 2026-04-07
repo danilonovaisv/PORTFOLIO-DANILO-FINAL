@@ -27,7 +27,9 @@ export function GhostModel({
   intensity = 0,
   ...props
 }: GhostModelProps) {
-  const gltf = useGLTF(src) as GhostGLTF;
+  // Fallback: if URL resolves to ghost-transformed.glb, use the correct URL
+  const resolvedSrc = src?.includes('ghost-transformed') ? GHOST_GLB_URL : src;
+  const gltf = useGLTF(resolvedSrc) as GhostGLTF;
   const meshRef = React.useRef<Group>(null);
 
   useFrame((state) => {
