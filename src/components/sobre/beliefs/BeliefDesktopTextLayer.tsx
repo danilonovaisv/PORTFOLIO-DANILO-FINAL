@@ -104,9 +104,9 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
   const motionProps = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, x: -56, filter: 'blur(8px)' },
+        initial: { opacity: 0.3, x: -100, filter: 'blur(6px)' },
         animate: { opacity: 1, x: 0, filter: 'blur(0px)' },
-        exit: { opacity: 0, x: -56, filter: 'blur(10px)' },
+        exit: { opacity: 0, x: -100, filter: 'blur(6px)' },
         transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
       };
 
