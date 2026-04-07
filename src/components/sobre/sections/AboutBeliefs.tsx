@@ -37,11 +37,11 @@ const GhostScene = dynamic<{
 
 const PHRASES = [
   'Um vídeo que respira.',
-  'Uma marca que não precisa se apresentar.',
+  'Uma marca que se reconhece.',
   'Um detalhe que fica.',
   'Crio para gerar presença.',
   'Mesmo quando não estou ali.',
-  'Mesmo depois que o projeto acaba.',
+  'Mesmo quando ninguém percebe o esforço.',
 ];
 
 export function AboutBeliefs() {
