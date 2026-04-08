@@ -68,20 +68,22 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
     <motion.div
       aria-hidden="true"
       data-testid="belief-text-layer-mobile"
-      className="fixed inset-0 z-40 pointer-events-none md:hidden"
+      className="absolute inset-0 z-40 pointer-events-none md:hidden"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
-      <div className="absolute bottom-[20vh] left-0 right-0 px-6 text-center">
-        <AnimatePresence mode="wait">
-          {activePhrase ? (
-            <MobilePhrase
-              key={`${activeIndex}-${activePhrase}`}
-              text={activePhrase}
-              MotionDiv={Container}
-              prefersReducedMotion={prefersReducedMotion}
-            />
-          ) : null}
-        </AnimatePresence>
+      <div className="sticky top-0 h-screen w-full">
+        <div className="absolute bottom-[20vh] left-0 right-0 px-6 text-center">
+          <AnimatePresence mode="wait">
+            {activePhrase ? (
+              <MobilePhrase
+                key={`${activeIndex}-${activePhrase}`}
+                text={activePhrase}
+                MotionDiv={Container}
+                prefersReducedMotion={prefersReducedMotion}
+              />
+            ) : null}
+          </AnimatePresence>
+        </div>
       </div>
     </motion.div>
   );
