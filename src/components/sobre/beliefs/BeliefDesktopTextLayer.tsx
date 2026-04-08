@@ -66,10 +66,10 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
     <motion.div
       aria-hidden="true"
       data-testid="belief-text-layer-desktop"
-      className="pointer-events-none fixed inset-0 z-40 hidden md:flex"
+      className="pointer-events-none absolute inset-0 z-40 hidden md:block"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
-      <div className="flex h-full w-full items-center pl-[15vw]">
+      <div className="sticky top-0 h-screen w-full flex items-center pl-[15vw]">
         <AnimatePresence mode="wait">
           {activePhrase ? (
             <DesktopPhrase
