@@ -127,6 +127,7 @@ export default function AboutMethod() {
                   visible: {
                     transition: {
                       staggerChildren: 0.1,
+                      delayChildren: 0.1,
                     },
                   },
                 }}

@@ -122,7 +122,8 @@ export default function PortfolioClient({
         Pular para os projetos
       </a>
 
-      <div>
+      {/* std-grid: Ghost Design System grid constraint on main content wrapper */}
+      <div className="std-grid">
         <PortfolioHeroNew />
 
         <ProjectsGallery
@@ -155,8 +156,7 @@ export default function PortfolioClient({
           ) : (
             <div
               aria-hidden="true"
-              className="bg-bluePrimary"
-              style={{ minHeight: '16rem' }}
+              className="bg-bluePrimary min-h-64"
             />
           )}
           <ContactSection />
