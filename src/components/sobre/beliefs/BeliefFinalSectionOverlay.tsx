@@ -40,13 +40,13 @@ export const BeliefFinalSectionOverlay: React.FC<
         className="flex w-full max-w-[100vw] flex-col items-center justify-center text-center font-display leading-[0.82] text-[#fcffff]"
         style={containerStyle}
       >
-        <div className="text-[12vw] md:text-[10rem] tracking-[-0.085em] uppercase font-black">
+        <div className="text-[clamp(3.5rem,12vw,10rem)] tracking-[-0.085em] uppercase font-black">
           ISSO É
         </div>
-        <div className="relative z-10 text-[21vw] md:text-[17rem] font-black tracking-[-0.085em] uppercase">
+        <div className="relative z-10 text-[clamp(6rem,19vw,17rem)] font-black tracking-[-0.085em] uppercase">
           GHOST
         </div>
-        <div className="text-[17vw] md:text-[13rem] tracking-[-0.085em] uppercase font-black">
+        <div className="text-[clamp(4.5rem,15vw,13rem)] tracking-[-0.085em] uppercase font-black">
           DESIGN.
         </div>
       </Container>

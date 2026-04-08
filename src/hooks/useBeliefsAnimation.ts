@@ -128,38 +128,7 @@ export function useBeliefsAnimation({
     );
   });
 
-  const overlayOpacity = useTransform(scrollYProgress, (progress) => {
-    if (prefersReducedMotion || progress <= BELIEF_INTRO_END) {
-      return 0;
-    }
 
-    if (progress < BELIEF_PHRASE_ZONE_END) {
-      const activeProgress = progress - BELIEF_INTRO_END;
-      const sectionIndex = Math.min(
-        totalPhrases - 1,
-        Math.floor(activeProgress / segment)
-      );
-      const sectionProgress =
-        (activeProgress - sectionIndex * segment) / segment;
-      // Cross-fade overlay: peak at 30% of segment (during text entry), zero by 60%
-      // This masks the BG color transition during the most dynamic part of the phrase swap
-      const triT = sectionProgress / 0.3;
-      return Math.max(0, Math.min(1, triT < 1 ? triT : 2 - triT));
-    }
-
-    if (progress < BELIEF_FINAL_START) {
-      return 0;
-    }
-
-    const finalProgress = Math.min(
-      1,
-      Math.max(0, (progress - BELIEF_FINAL_START) / (1 - BELIEF_FINAL_START))
-    );
-    const easedFinalProgress = ghostEase(finalProgress);
-    return easedFinalProgress < 0.5
-      ? easedFinalProgress * 2
-      : 2 - easedFinalProgress * 2;
-  });
 
   const currentSection = useTransform(scrollYProgress, (progress) => {
     if (progress <= BELIEF_INTRO_END || progress >= BELIEF_PHRASE_ZONE_END) {
@@ -190,7 +159,6 @@ export function useBeliefsAnimation({
 
   return {
     backgroundColor,
-    overlayOpacity,
     currentSection,
     ghostIntensity,
     showFinalManifesto,

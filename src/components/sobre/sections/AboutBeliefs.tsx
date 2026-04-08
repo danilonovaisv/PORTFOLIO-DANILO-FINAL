@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, MotionValue } from 'framer-motion';
+import { motion, useScroll, MotionValue, useTransform } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import dynamic from 'next/dynamic';
 
@@ -56,7 +56,6 @@ export function AboutBeliefs() {
 
   const {
     backgroundColor,
-    overlayOpacity,
     ghostIntensity,
     showFinalManifesto,
   } = useBeliefsAnimation({
@@ -82,7 +81,7 @@ export function AboutBeliefs() {
       style={{
         height: `var(--section-height, ${(PHRASES.length + 2) * 100}vh)`,
       }}
-      className="relative w-full isolate z-10 overflow-x-clip [--section-height:550vh] md:[--section-height:800vh]"
+      className="relative w-full isolate z-10 [--section-height:550vh] md:[--section-height:800vh]"
     >
       <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
         <motion.div
@@ -95,12 +94,7 @@ export function AboutBeliefs() {
         />
       </div>
 
-      <div className="absolute inset-0 z-10 w-full h-full pointer-events-none">
-        <motion.div
-          className="sticky top-0 w-full h-screen bg-black pointer-events-none"
-          style={prefersReduced ? { opacity: 0 } : { opacity: overlayOpacity }}
-        />
-      </div>
+
 
       <BeliefFixedHeader
         scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
@@ -162,13 +156,15 @@ export function AboutBeliefs() {
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen pointer-events-none flex items-center justify-center">
-          <div className="w-full h-full relative translate-z-0">
-            {!prefersReducedMotion ? (
-              <GhostScene
-                scrollProgress={scrollYProgress}
-                ghostIntensity={ghostIntensity}
-              />
-            ) : null}
+          <div className="w-full h-full relative">
+            <MotionDiv className="w-full h-full">
+              {!prefersReducedMotion ? (
+                <GhostScene
+                  scrollProgress={scrollYProgress}
+                  ghostIntensity={ghostIntensity}
+                />
+              ) : null}
+            </MotionDiv>
           </div>
         </div>
       </div>

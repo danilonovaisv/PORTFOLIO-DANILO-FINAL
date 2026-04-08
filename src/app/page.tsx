@@ -23,6 +23,7 @@ import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
+import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import JsonLd from '@/components/ui/JsonLd';
 import { SITE_ASSET_KEYS, SITE_ASSET_PRELOADS } from '@/config/site-assets';
 import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
@@ -113,8 +114,14 @@ export default async function HomePage() {
       mapDbProjectToPortfolioProject(project, index)
     );
     featuredProjects = shuffleHomeProjects(mapped);
+
+    if (featuredProjects.length === 0) {
+      console.warn('[Home] No projects returned, using fallback projects.');
+      featuredProjects = shuffleHomeProjects(buildFallbackProjects());
+    }
   } catch (error: any) {
     console.error('Error fetching projects:', error?.message || error);
+    featuredProjects = shuffleHomeProjects(buildFallbackProjects());
   }
 
   const siteUrl = toCanonicalUrl('/');

@@ -15,6 +15,9 @@ export function createStaticClient() {
       returns: () => Promise.resolve({ data: [], error: null }),
       select: () => mockQuery,
       single: () => Promise.resolve({ data: null, error: null }),
+      in: () => mockQuery,
+      range: () => mockQuery,
+      or: () => mockQuery,
     };
     return {
       from: () => mockQuery,
