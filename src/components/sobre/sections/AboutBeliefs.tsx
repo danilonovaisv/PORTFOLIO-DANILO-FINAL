@@ -144,6 +144,7 @@ export function AboutBeliefs() {
           <BeliefFinalSectionOverlay
             MotionDiv={MotionDiv}
             prefersReducedMotion={prefersReduced}
+            showProgress={prefersReduced ? undefined : showFinalManifesto}
           />
         </div>
       </motion.div>
