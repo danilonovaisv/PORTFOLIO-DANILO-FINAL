@@ -45,7 +45,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
 
   return (
     <Section
-      aria-label={text.replace(/\n/g, ' ')}
+      aria-hidden="true"
       data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
       className="relative h-screen w-full"
     />

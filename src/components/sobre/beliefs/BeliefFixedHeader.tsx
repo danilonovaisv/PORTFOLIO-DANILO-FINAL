@@ -25,7 +25,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const opacity = useTransform(
     progress,
     [0, 0.04, 0.78, 0.9],
-    [1, 1, 1, 0]
+    [0.3, 1, 1, 0]
   );
   const x = useTransform(progress, [0, 0.08], ['100px', '0px']);
   const Content = prefersReducedMotion ? 'div' : motion.div;
