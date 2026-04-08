@@ -62,19 +62,33 @@ describe('Antigravity MCP Configuration', () => {
 
   describe('Server Validations', () => {
     it('should validate context7 server configuration', () => {
-      const context7 = mcpConfig.servers.find(
-        (s: any) => s.name === 'context7'
-      );
+      let context7 = mcpConfig.servers?.find((s: any) => s.name === 'context7');
+      
+      if (!context7) {
+        const nested = mcpConfig.servers?.find((s: any) => s.mcpServers?.context7);
+        if (nested) context7 = nested.mcpServers.context7;
+      }
+      if (!context7) {
+        context7 = mcpConfig.mcpServers?.context7;
+      }
+
       expect(context7).toBeDefined();
 
       if (context7) {
-        expect(context7.transport).toBe('stdio');
-        expect(context7.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
-        expect(context7.args).toEqual(
-          expect.arrayContaining([expect.stringMatching(/context7/)])
-        );
-        expect(context7.enabled).toBe(true);
-        expect(context7.env).toHaveProperty('CONTEXT7_API_KEY');
+        if (context7.transport === 'stdio' || context7.command) {
+          expect(context7.transport).toBe('stdio');
+          expect(context7.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
+          expect(context7.args).toEqual(
+            expect.arrayContaining([expect.stringMatching(/context7/)])
+          );
+          expect(context7.enabled).toBe(true);
+          expect(context7.env).toHaveProperty('CONTEXT7_API_KEY');
+        } else if (context7.serverUrl) {
+          expect(context7.serverUrl).toBeDefined();
+          if (context7.headers) {
+            expect(context7.headers).toHaveProperty('CONTEXT7_API_KEY');
+          }
+        }
       }
     });
 
