@@ -56,7 +56,6 @@ export function AboutBeliefs() {
 
   const {
     backgroundColor,
-    overlayOpacity,
     ghostIntensity,
     showFinalManifesto,
   } = useBeliefsAnimation({
@@ -92,13 +91,6 @@ export function AboutBeliefs() {
               ? { backgroundColor: '#040013' }
               : { backgroundColor }
           }
-        />
-      </div>
-
-      <div className="absolute inset-0 z-10 w-full h-full pointer-events-none">
-        <motion.div
-          className="sticky top-0 w-full h-screen bg-background pointer-events-none"
-          style={prefersReduced ? undefined : { opacity: overlayOpacity }}
         />
       </div>
 
