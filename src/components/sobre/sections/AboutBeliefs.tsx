@@ -152,7 +152,7 @@ export function AboutBeliefs() {
         className="absolute inset-0 z-50 w-full h-full pointer-events-none"
         aria-hidden
       >
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center">
+        <div className="sticky top-0 w-full h-screen pointer-events-none flex items-center justify-center">
           <div className="w-full h-full relative translate-z-0">
             {!prefersReducedMotion ? (
               <GhostScene
