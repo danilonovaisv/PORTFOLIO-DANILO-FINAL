@@ -33,14 +33,22 @@ export function NavItems({ items }: { items: NavItem[] }) {
 
   const { spacing, fontSize } = DEVICE[device];
 
+  const lastVpHeight = useRef(0);
+
   useFrame(() => {
     if (!group.current) return;
     const v = viewport.getCurrentViewport(camera, [0, 0, 15]);
-    group.current.position.set(0, -v.height / 2 + 0.2, 15.1);
 
-    group.current.children.forEach((child, index) => {
-      child.position.x = (index - (items.length - 1) / 2) * spacing;
-    });
+    // PERF: only recompute layout when viewport changes (avoids 60fps DOM work)
+    const targetY = -v.height / 2 + 0.2;
+    if (Math.abs(targetY - lastVpHeight.current) > 0.001) {
+      lastVpHeight.current = targetY;
+      group.current.position.set(0, targetY, 15.1);
+
+      group.current.children.forEach((child, index) => {
+        child.position.x = (index - (items.length - 1) / 2) * spacing;
+      });
+    }
   });
 
   const handleNavigate = (href: string) => {

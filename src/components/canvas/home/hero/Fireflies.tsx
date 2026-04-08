@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GHOST_CONFIG, getConfigColorHex } from '@/config/ghostConfig';
@@ -11,6 +11,19 @@ interface FirefliesProps {
 
 export default function Fireflies({ count = 20 }: FirefliesProps) {
   const meshRef = useRef<THREE.Points>(null!);
+  const mountedRef = useRef(true);
+
+  // FIX: dispose geometry + material on unmount to free GPU memory.
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      if (meshRef.current) {
+        meshRef.current.geometry.dispose();
+        (meshRef.current.material as THREE.Material).dispose();
+      }
+    };
+  }, []);
 
   const particles = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -27,6 +40,9 @@ export default function Fireflies({ count = 20 }: FirefliesProps) {
   }, [count]);
 
   useFrame(({ clock }) => {
+    // FIX: guard against GPU upload after unmount
+    if (!meshRef.current || !mountedRef.current) return;
+
     const t = clock.getElapsedTime();
     const posAttr = meshRef.current.geometry.attributes.position;
     const array = posAttr.array as Float32Array;

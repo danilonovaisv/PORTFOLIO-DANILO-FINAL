@@ -6,7 +6,6 @@ import {
   MotionValue,
   useMotionValue,
   useTransform,
-  cubicBezier,
   AnimatePresence,
   useMotionValueEvent,
 } from 'framer-motion';
@@ -16,8 +15,6 @@ import {
   BELIEF_PHRASE_ZONE_END,
 } from '@/hooks/useBeliefsAnimation';
 
-// Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
-const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
 interface MobileTextLayerProps {
   phrases: string[];

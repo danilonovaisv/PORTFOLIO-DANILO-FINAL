@@ -846,6 +846,8 @@ export default function GhostScene() {
     // --- FUNÇÃO DE LIMPEZA (MEMORY LEAK FIX) ---
     return () => {
       cancelAnimationFrame(animationId);
+      // FIX: clear pending timeout to prevent post-unmount state writes
+      clearTimeout(touchTimeout);
       observer.disconnect();
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('touchstart', onTouchMove);
@@ -856,7 +858,7 @@ export default function GhostScene() {
         mountElement.removeChild(renderer.domElement);
       }
 
-      // Descartar Geometrias e Materiais
+      // Descartar Geometrias e Materiais via traverse
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh) {
           object.geometry.dispose();
@@ -867,6 +869,13 @@ export default function GhostScene() {
           }
         }
       });
+
+      // FIX: InstancedMesh is NOT visited by traverse instanceof THREE.Mesh check.
+      // Must dispose explicitly to free VRAM for geometry + material.
+      fireflyMesh.geometry.dispose();
+      (fireflyMesh.material as THREE.Material).dispose();
+      particleMesh.geometry.dispose();
+      (particleMesh.material as THREE.Material).dispose();
 
       // Descartar recursos específicos
       renderer.dispose();

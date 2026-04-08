@@ -99,6 +99,7 @@ test-results/
 !.github/workflows/codeql.yml
 !.github/codeql/
 !.github/codeql/codeql-config.yml
+.agent/skills/superpowers
 
 # Additional Caches
 .next-old/

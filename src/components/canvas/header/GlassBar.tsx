@@ -76,6 +76,14 @@ const ModeWrapper = memo(function ModeWrapper({
     }
   }, [nodes, geometryKey]);
 
+  // FIX: useFBO allocates a WebGLRenderTarget that R3F does NOT auto-dispose.
+  // Without this, every unmount (HMR, navigation) leaks a GPU render target.
+  useEffect(() => {
+    return () => {
+      buffer.dispose();
+    };
+  }, [buffer]);
+
   useFrame((state, delta) => {
     const { gl, viewport, pointer, camera } = state;
     const v = viewport.getCurrentViewport(camera, [0, 0, 15]);

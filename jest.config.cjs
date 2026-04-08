@@ -28,6 +28,7 @@ const baseConfig = {
     '<rootDir>/portfoliodan/',
     '<rootDir>/ssr_function/',
     '<rootDir>/.claude/',
+    '<rootDir>/backup-superpower/',
   ],
   testMatch: ['**/test/**/*.test.{ts,tsx,js}'],
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
