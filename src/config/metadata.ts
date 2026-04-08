@@ -118,8 +118,6 @@ export const siteMetadata: Metadata = {
   referrer: 'origin-when-cross-origin',
 
   verification: {
-    google: 'placeholder-google-verification-id',
-    yandex: 'placeholder-yandex-verification-id',
     other: {
       me: ['contato@portfoliodanilo.com'],
     },

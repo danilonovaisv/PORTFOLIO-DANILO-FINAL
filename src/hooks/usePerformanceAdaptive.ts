@@ -39,6 +39,8 @@ export function usePerformanceAdaptive(): PerformanceConfig {
     let lastTime = performance.now();
     let rafId: number;
     let isMounted = true;
+    let samplesCollected = 0;
+    const MAX_SAMPLES = 3; // Stop after 3 seconds of measurement
 
     const checkFPS = () => {
       frames++;
@@ -46,9 +48,18 @@ export function usePerformanceAdaptive(): PerformanceConfig {
 
       if (now >= lastTime + 1000) {
         const fps = Math.round((frames * 1000) / (now - lastTime));
+        samplesCollected++;
+
         if (fps < 30 && isMounted) {
           setQuality((prev) => (prev === 'low' ? 'low' : 'medium'));
         }
+
+        // Stop measuring after enough samples to avoid indefinite rAF loop
+        if (samplesCollected >= MAX_SAMPLES) {
+          cancelAnimationFrame(rafId);
+          return;
+        }
+
         frames = 0;
         lastTime = now;
       }
