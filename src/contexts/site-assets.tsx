@@ -8,10 +8,9 @@ import React, {
 } from 'react';
 import type { SiteAsset } from '@/lib/supabase/site-assets';
 import {
-  buildSupabaseStorageUrl,
-  normalizeStoragePath,
   validateExternalUrl,
 } from '@/lib/supabase/urls';
+
 
 type SiteAssetsContextValue = {
   getUrl: (_key: string) => string | undefined;
@@ -106,24 +105,20 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
     if (fallback.startsWith('http://') || fallback.startsWith('https://')) {
       return fallback;
     }
-    const normalizedFallback = normalizeStoragePath(fallback, 'site-assets');
-    return buildSupabaseStorageUrl(
-      'site-assets',
-      normalizedFallback ?? fallback
-    );
+    // For non-absolute fallbacks, use local public/ path to avoid DNS dependency
+    const localPath = fallback.startsWith('site-assets/')
+      ? fallback.slice('site-assets/'.length)
+      : fallback;
+    return `/site.assets/${localPath}`;
   }
 
   if (fallbackPaths[key]) {
-    const normalizedFallback = normalizeStoragePath(
-      fallbackPaths[key],
-      'site-assets'
-    );
-    return (
-      buildSupabaseStorageUrl(
-        'site-assets',
-        normalizedFallback ?? fallbackPaths[key]
-      ) ?? undefined
-    );
+    // Serve from local public/site.assets/ — no Supabase DNS required
+    const rawPath = fallbackPaths[key];
+    const localPath = rawPath.startsWith('site-assets/')
+      ? rawPath.slice('site-assets/'.length)
+      : rawPath;
+    return `/site.assets/${localPath}`;
   }
 
   return undefined;

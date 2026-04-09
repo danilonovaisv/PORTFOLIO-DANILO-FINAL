@@ -7,8 +7,9 @@ import type { GLTF } from 'three-stdlib';
 import { Group } from 'three';
 import { MotionValue } from 'framer-motion';
 
-const GHOST_GLB_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-v1.glb';
+// Primary: local public/ path (always available, no DNS dependency).
+// Supabase URL is available as prop override for production CDN scenarios.
+const GHOST_LOCAL_PATH = '/site.assets/3d/ghost-v1.glb';
 
 type GhostGLTF = GLTF & {
   nodes: Record<string, unknown>;
@@ -23,12 +24,13 @@ export type GhostModelProps = React.ComponentProps<'group'> & {
 };
 
 export function GhostModel({
-  src = GHOST_GLB_URL,
+  src = GHOST_LOCAL_PATH,
   intensity = 0,
   ...props
 }: GhostModelProps) {
-  // Fallback: if URL resolves to ghost-transformed.glb, use the correct URL
-  const resolvedSrc = src?.includes('ghost-transformed') ? GHOST_GLB_URL : src;
+  // Fallback: if URL resolves to ghost-transformed.glb or stale Supabase path, use local
+  const resolvedSrc =
+    src?.includes('ghost-transformed') || !src ? GHOST_LOCAL_PATH : src;
   const gltf = useGLTF(resolvedSrc) as GhostGLTF;
   const meshRef = React.useRef<Group>(null);
 
@@ -69,7 +71,7 @@ export function GhostModel({
 }
 
 // Preload para evitar “pop-in” quando a seção entrar
-// Apenas no cliente para evitar erros em testes Node/SSG
+
 if (typeof window !== 'undefined') {
-  useGLTF.preload(GHOST_GLB_URL);
+  useGLTF.preload(GHOST_LOCAL_PATH);
 }
