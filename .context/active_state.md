@@ -2,7 +2,7 @@
 
 **Phase**: POST-DEPLOY VERIFICATION
 **Current Focus**: Live Health Check & Performance Monitoring
-**Last Update**: 2026-03-15T20:38
+**Last Update**: 2026-04-09T16:07
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -19,7 +19,7 @@
 - [x] **Architecture Unified**: `src/lib/utils.ts` is the single utility source.
 - [x] **Identity Aligned**: Blue Ghost (#0048ff) confirmed.
 - [x] **Fullstack Config Audit**: Firebase Headers & Supabase RLS verified.
-- [x] **SquirrelScan Audit**: 77/100 Score, 0 errors, 215 warnings.
+- [x] **SquirrelScan Audit**: 98/100 Global, Security 100/100, Performance 96/100.
 - [x] **global-error.tsx**: Fixed with `<html>/<body>` wrapper (Next.js requirement).
 - [x] **privacy-policy redirect**: Implemented 308 redirect to `/privacidade`.
 - [x] **template.tsx reduced motion**: Added `useMotionGate()` check.
@@ -32,16 +32,12 @@
 
 - **Zero Config**: Do not add new env vars without validation.
 - **Zero Jank**: WebGL performance is the priority.
-- **Node Runtime**: Atualizar para Node 22 antes de 2026-04-30 (Node 20 será deprecado).
-
-## ⚠️ Ação Pendente: Atualizar Node Runtime
-
-Node.js 20 será **deprecado em 2026-04-30** e descomissionado em 2026-10-30.
-Atualizar `firebase.json` e `package.json` para `nodejs22` antes desta data.
+- **Node Runtime**: ✅ **Node 22 ativo** — `firebase.json`, `package.json` (raiz) e `functions/package.json` atualizados.
 
 ## Next Steps
 
 1. ✅ Verificar health das rotas críticas (Home, Portfolio, Sobre)
-2. Executar SquirrelScan pós-deploy para validar score
-3. Monitorar performance com Lighthouse CI
-4. Atualizar Node runtime para 22 (antes de 2026-04-30)
+2. ✅ SquirrelScan pós-deploy — Global 98, Security 100, Performance 96
+3. ✅ Node 22 migrado — `firebase.json`, `package.json`, `functions/package.json`
+4. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio)
+5. Monitorar performance com Lighthouse CI

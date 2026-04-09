@@ -93,7 +93,7 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
       'site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4',
     'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4':
       'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4',
-    'about.beliefs.ghost-transformed': 'site-assets/about/beliefs/ghost.glb',
+    'about.beliefs.ghost-transformed': 'site-assets/about/beliefs/ghost-v1.glb',
     'about.Closing.video.closing.desk':
       'site-assets/about/Closing/video.closing.desk.mp4',
     'about.Closing.video.closing.mobile':

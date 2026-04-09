@@ -63,9 +63,11 @@ describe('Antigravity MCP Configuration', () => {
   describe('Server Validations', () => {
     it('should validate context7 server configuration', () => {
       let context7 = mcpConfig.servers?.find((s: any) => s.name === 'context7');
-      
+
       if (!context7) {
-        const nested = mcpConfig.servers?.find((s: any) => s.mcpServers?.context7);
+        const nested = mcpConfig.servers?.find(
+          (s: any) => s.mcpServers?.context7
+        );
         if (nested) context7 = nested.mcpServers.context7;
       }
       if (!context7) {
@@ -77,7 +79,9 @@ describe('Antigravity MCP Configuration', () => {
       if (context7) {
         if (context7.transport === 'stdio' || context7.command) {
           expect(context7.transport).toBe('stdio');
-          expect(context7.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
+          expect(context7.command).toMatch(
+            /(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i
+          );
           expect(context7.args).toEqual(
             expect.arrayContaining([expect.stringMatching(/context7/)])
           );

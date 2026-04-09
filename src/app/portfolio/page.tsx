@@ -203,7 +203,14 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
       totalProjectsCount = filteredFallbackProjects.length;
     }
   } catch (error) {
-    console.error('[Portfolio] Error occurred:', error instanceof Error ? error.message : error);
+    const errMsg = error instanceof Error
+      ? (error.message || error.constructor.name)
+      : String(error);
+    // AggregateError (fetch network failure) nests the real cause inside .errors[]
+    const cause = (error as any)?.cause ?? (error as any)?.errors?.[0];
+    const causeMsg = cause instanceof Error ? cause.message : cause ? String(cause) : undefined;
+    console.error('[Portfolio] Error occurred:', errMsg, causeMsg ? `(cause: ${causeMsg})` : '');
+
     const fallbackProjects = buildFallbackProjects();
     projects = activeFilter.categories?.length
       ? fallbackProjects.filter((project) =>

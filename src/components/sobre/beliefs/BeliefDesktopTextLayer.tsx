@@ -119,11 +119,7 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
       {lines.map((line, index) => (
         <span
           key={`${line}-${index}`}
-          className="block max-w-fit text-left font-bold tracking-[-0.045em] text-blueAccent"
-          style={{
-            fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
-            lineHeight: 0.92,
-          }}
+          className="block max-w-fit text-left font-bold tracking-[-0.045em] text-blueAccent text-belief-desktop"
         >
           {line}
         </span>

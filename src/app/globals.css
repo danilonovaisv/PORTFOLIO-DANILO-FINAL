@@ -249,6 +249,17 @@ body {
   line-height: 1.4;
 }
 
+/* Beliefs Section Typography - Ghost System V3 */
+.text-belief-desktop {
+  font-size: clamp(2.8rem, 5.8vw, 6.3rem);
+  line-height: 0.92;
+}
+
+.text-belief-mobile {
+  font-size: clamp(2.15rem, 8.2vw, 3.6rem);
+  line-height: 1.08;
+}
+
 /* Card sizing helpers — same height on desktop, 5x4 on mobile */
 .card-shell {
   position: relative;

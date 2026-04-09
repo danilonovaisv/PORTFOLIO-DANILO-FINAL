@@ -18,8 +18,12 @@ test('O-QUE-ME-MOVE anima frases em sequência no scroll', async ({ page }) => {
 
   await scrollToElementTop('[data-testid="about-beliefs-section"]');
 
-  await expect(page.locator('[data-testid="belief-text-layer-desktop"]')).toHaveCount(1);
-  await expect(page.locator('[data-testid="belief-text-layer-mobile"]')).toHaveCount(0);
+  await expect(
+    page.locator('[data-testid="belief-text-layer-desktop"]')
+  ).toHaveCount(1);
+  await expect(
+    page.locator('[data-testid="belief-text-layer-mobile"]')
+  ).toHaveCount(0);
 
   const introHeader = page.locator('header.sticky h2');
   await expect
@@ -58,13 +62,13 @@ test('O-QUE-ME-MOVE anima frases em sequência no scroll', async ({ page }) => {
   await expect(page.locator('[data-testid="belief-line-1"]')).toHaveCount(0);
 
   await scrollToElementTop('[data-testid="about-beliefs-section"]', 1600);
-  
+
   // TDD: Confirmar que o fantasma não sumiu da tela por dupla-translação negativa
   const currentBox = await ghostFigure.boundingBox();
   expect(currentBox).not.toBeNull();
   if (currentBox) {
     // A posição em Y pode estar descendo, mas o X nãp pode estourar a tela pra esquerda (-28vw + -25vw faz sumir)
-    expect(currentBox.x + currentBox.width).toBeGreaterThan(-100); 
+    expect(currentBox.x + currentBox.width).toBeGreaterThan(-100);
   }
 
   const line1 = page.locator('[data-testid="belief-line-1"]');

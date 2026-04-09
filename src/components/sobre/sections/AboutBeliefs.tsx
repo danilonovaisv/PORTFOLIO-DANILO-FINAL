@@ -54,14 +54,11 @@ export function AboutBeliefs() {
     offset: ['start start', 'end end'],
   });
 
-  const {
-    backgroundColor,
-    ghostIntensity,
-    showFinalManifesto,
-  } = useBeliefsAnimation({
-    scrollYProgress,
-    totalPhrases: PHRASES.length,
-  });
+  const { backgroundColor, ghostIntensity, showFinalManifesto } =
+    useBeliefsAnimation({
+      scrollYProgress,
+      totalPhrases: PHRASES.length,
+    });
 
   // Gate framer-motion features for reduced motion to avoid runtime errors
   // and to honor user preference.
@@ -93,8 +90,6 @@ export function AboutBeliefs() {
           }
         />
       </div>
-
-
 
       <BeliefFixedHeader
         scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}

@@ -15,7 +15,6 @@ import {
   BELIEF_PHRASE_ZONE_END,
 } from '@/hooks/useBeliefsAnimation';
 
-
 interface MobileTextLayerProps {
   phrases: string[];
   scrollYProgress?: MotionValue<number>;
@@ -116,7 +115,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
       className="mx-auto w-full max-w-[82vw] text-center pointer-events-none"
       {...motionProps}
     >
-      <span className="block w-full mx-auto text-balance text-blueAccent font-bold text-[clamp(2.15rem,8.2vw,3.6rem)] leading-[1.08] tracking-[-0.045em] [text-shadow:0_2px_10px_rgba(4,0,19,0.42)]">
+      <span className="block w-full mx-auto text-balance text-blueAccent font-bold text-belief-mobile tracking-[-0.045em] [text-shadow:0_2px_10px_rgba(4,0,19,0.42)]">
         {mobileText}
       </span>
     </Container>

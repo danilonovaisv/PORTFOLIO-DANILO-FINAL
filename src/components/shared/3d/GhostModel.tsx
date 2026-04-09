@@ -8,7 +8,7 @@ import { Group } from 'three';
 import { MotionValue } from 'framer-motion';
 
 const GHOST_GLB_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb';
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-v1.glb';
 
 type GhostGLTF = GLTF & {
   nodes: Record<string, unknown>;

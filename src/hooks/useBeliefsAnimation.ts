@@ -128,8 +128,6 @@ export function useBeliefsAnimation({
     );
   });
 
-
-
   const currentSection = useTransform(scrollYProgress, (progress) => {
     if (progress <= BELIEF_INTRO_END || progress >= BELIEF_PHRASE_ZONE_END) {
       return -1;

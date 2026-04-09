@@ -7,7 +7,7 @@ import { createClientComponentClient } from '../src/lib/supabase/client';
 async function testMock() {
   console.log('Testing createClientComponentClient mock...');
   const supabase = createClientComponentClient();
-  
+
   console.log('Case 1: Direct await on select()');
   try {
     const { data, error } = await supabase.from('test').select('*');
@@ -24,7 +24,11 @@ async function testMock() {
 
   console.log('\nCase 2: Chained query then await');
   try {
-    const { data } = await supabase.from('test').select('*').eq('id', 1).order('id');
+    const { data } = await supabase
+      .from('test')
+      .select('*')
+      .eq('id', 1)
+      .order('id');
     if (data && data.length > 0) {
       console.log('✅ Chained test passed!');
     } else {

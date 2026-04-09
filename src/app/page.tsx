@@ -120,7 +120,19 @@ export default async function HomePage() {
       featuredProjects = shuffleHomeProjects(buildFallbackProjects());
     }
   } catch (error: any) {
-    console.error('Error fetching projects:', error?.message || error);
+    const cause = (error as any)?.cause ?? (error as any)?.errors?.[0];
+    const causeMsg =
+      cause instanceof Error
+        ? cause.message
+        : cause
+          ? String(cause)
+          : undefined;
+    console.error(
+      'Error fetching projects:',
+      error?.message || error?.constructor?.name || error,
+      causeMsg ? `(cause: ${causeMsg})` : ''
+    );
+
     featuredProjects = shuffleHomeProjects(buildFallbackProjects());
   }
 

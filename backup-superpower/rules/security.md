@@ -1,6 +1,7 @@
 ---
 Trigger: always_on
 ---
+
 # SECURITY.MD - Security Guardrails
 
 > **Objective**: Protect the system from common vulnerabilities and human errors.

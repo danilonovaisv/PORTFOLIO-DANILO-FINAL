@@ -545,7 +545,7 @@
         "id": "0b356d2a-103e-4a60-8493-c315bc06f5c8",
         "key": "ghost",
         "bucket": "site-assets",
-        "file_path": "3d/ghost.glb",
+        "file_path": "3d/ghost-v1.glb",
         "asset_type": "image",
         "page": "3d",
         "description": null,
@@ -554,7 +554,7 @@
         "created_at": "2026-04-05T21:55:20.336077+00:00",
         "updated_at": "2026-04-05T21:59:06.585343+00:00",
         "metadata": {},
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost.glb"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb"
       },
       {
         "id": "488cd149-565d-4964-b8e8-f5229f01229b",

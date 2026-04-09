@@ -4,7 +4,7 @@ import {
   type GhostModelProps,
 } from '@/components/shared/3d/GhostModel';
 
-const GHOST_MODEL_PATH = '/site.assets/3d/ghost.glb';
+const GHOST_MODEL_PATH = '/site.assets/3d/ghost-v1.glb';
 
 const GhostModel = (props: GhostModelProps) => {
   return <SharedGhostModel src={GHOST_MODEL_PATH} {...props} />;

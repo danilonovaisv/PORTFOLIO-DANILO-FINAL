@@ -7,10 +7,22 @@ export const ProceduralGhost: React.FC<ThreeElements['group']> = (props) => {
   const groupRef = useRef<THREE.Group>(null);
 
   const headGeo = useMemo(() => new THREE.SphereGeometry(0.6, 32, 32), []);
-  const bodyGeo = useMemo(() => new THREE.CylinderGeometry(0.6, 0.2, 1.2, 32), []);
-  const brimGeo = useMemo(() => new THREE.CylinderGeometry(0.8, 0.8, 0.05, 32), []);
-  const topGeo = useMemo(() => new THREE.CylinderGeometry(0.45, 0.45, 0.7, 32), []);
-  const ribbonGeo = useMemo(() => new THREE.CylinderGeometry(0.46, 0.46, 0.1, 32), []);
+  const bodyGeo = useMemo(
+    () => new THREE.CylinderGeometry(0.6, 0.2, 1.2, 32),
+    []
+  );
+  const brimGeo = useMemo(
+    () => new THREE.CylinderGeometry(0.8, 0.8, 0.05, 32),
+    []
+  );
+  const topGeo = useMemo(
+    () => new THREE.CylinderGeometry(0.45, 0.45, 0.7, 32),
+    []
+  );
+  const ribbonGeo = useMemo(
+    () => new THREE.CylinderGeometry(0.46, 0.46, 0.1, 32),
+    []
+  );
   const eyeGeo = useMemo(() => new THREE.SphereGeometry(0.08, 16, 16), []);
 
   useEffect(() => {

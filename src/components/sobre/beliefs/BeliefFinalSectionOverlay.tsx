@@ -26,11 +26,7 @@ export const BeliefFinalSectionOverlay: React.FC<
 
   const y = useTransform(progress, [0, 1], [48, 0]);
   const scale = useTransform(progress, [0, 1], [0.9, 1]);
-  const filter = useTransform(
-    progress,
-    [0, 0.7],
-    ['blur(14px)', 'blur(0px)']
-  );
+  const filter = useTransform(progress, [0, 0.7], ['blur(14px)', 'blur(0px)']);
 
   const containerStyle = prefersReducedMotion ? {} : { y, scale, filter };
 
