@@ -147,7 +147,8 @@ export default function LoginForm() {
 
   const redirectToAdmin = () => {
     setIsRedirecting(true);
-    router.push(ADMIN_NAVIGATION.dashboard);
+    router.refresh();
+    window.location.assign(ADMIN_NAVIGATION.dashboard);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

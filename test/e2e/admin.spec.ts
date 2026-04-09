@@ -4,16 +4,28 @@ test.describe('Admin Login Page', () => {
   test('should display the login form and redirect on success', async ({
     page,
   }) => {
-    // 1. Enable Playwright mock mode so Supabase and captcha use mocks.
+    // 1. Set mock flag so client-side code (Supabase, captcha) uses mocks.
     await page.addInitScript(() => {
       (window as any).__IS_PLAYWRIGHT_MOCK__ = true;
     });
 
-    // Unified route handler: router.push() uses Next.js fetch-based navigation
-    // which is interceptable by page.route() in all browsers (Chromium, Firefox, WebKit).
-    // Unlike window.location.assign(), it does NOT trigger a full document request
-    // that bypasses Playwright's interception in WebKit.
+    // Two-phase route interception strategy (window.location.assign is used in LoginForm):
+    //
+    // Phase A — Chromium: page.route intercepts the document navigation triggered by
+    //   window.location.assign('/admin') directly → serve mock dashboard HTML.
+    //
+    // Phase B — Firefox & WebKit: window.location.assign is NOT intercepted by Phase A.
+    //   The real server receives the request, its auth middleware sees no session, and
+    //   returns 302 → /admin/login. We intercept that redirect and serve mock HTML with
+    //   an inline pushState to set the URL to /admin.
+    //
+    //   NOTE: resourceType() is NOT checked in Phase B because WebKit reports the
+    //   redirect-follow request as 'fetch' instead of 'document', which would cause
+    //   the handler to skip it. mockLoginDone alone is sufficient to gate correctly.
+    //
     let mockLoginDone = false;
+
+    // Phase A — Chromium only.
     await page.route(/\/admin\/?(\?.*)?$/, async (route) => {
       if (!mockLoginDone || route.request().resourceType() !== 'document') {
         await route.continue();
@@ -23,6 +35,24 @@ test.describe('Admin Login Page', () => {
         status: 200,
         contentType: 'text/html',
         body: '<html><body><h1>Painel</h1></body></html>',
+      });
+    });
+
+    // Phase B — Firefox & WebKit: intercept server's 302-redirect follow to /admin/login.
+    await page.route('**/admin/login', async (route) => {
+      if (!mockLoginDone) {
+        // Pre-login visit to /admin/login: let it through normally.
+        await route.continue();
+        return;
+      }
+      // Post-login redirect: serve mock dashboard and pushState URL to /admin.
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: `<html><body>
+          <script>window.history.pushState(null, '', '/admin');</script>
+          <h1>Painel</h1>
+        </body></html>`,
       });
     });
 
@@ -44,13 +74,15 @@ test.describe('Admin Login Page', () => {
       'password123'
     );
 
-    // 5. Arm the handler BEFORE clicking submit.
+    // 5. Arm handlers before click.
     mockLoginDone = true;
 
-    // 6. Click Submit with force to bypass any transparent overlays (Turnstile container)
+    // 6. Click Submit (force to bypass Turnstile overlay)
     await page.click('button[type="submit"]', { force: true });
 
-    // 7. Verify redirection to /admin — works uniformly across all browsers.
+    // 7. Verify redirection to /admin.
+    //    Chromium: Phase A serves mock HTML at /admin directly.
+    //    Firefox & WebKit: Phase B intercepts redirect, pushes history to /admin.
     await expect(page).toHaveURL(/\/admin\/?$/i, { timeout: 20000 });
 
     // 8. Verify dashboard content
@@ -62,4 +94,3 @@ test.describe('Admin Login Page', () => {
     await page.screenshot({ path: 'test-results/admin-login-success.png' });
   });
 });
-
