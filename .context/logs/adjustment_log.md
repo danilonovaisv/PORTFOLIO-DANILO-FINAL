@@ -605,6 +605,13 @@ O padrão anterior com `@source not` era uma lista negra — qualquer novo diret
    - Found 2 instances of low contrast (opacity-30)
    - WCAG AA requires 4.5:1 contrast ratio for text
 
+[2026-04-10] [About/Beliefs] Refatoração completa para alinhamento com design editorial:
+- Substituído GhostModel GLB por ProceduralGhost para garantir presença da cartola e fita vermelha (fidelidade visual).
+- Adicionado suporte a 'intensity' no ProceduralGhost para sincronia com o clímax da seção.
+- Corrigido letter-spacing ('tracking-tight') no manifesto final "ISSO É GHOST DESIGN".
+- Verificada e validada a sequência de cores HSL (Blue -> Purple -> Pink) sincronizada com as frases.
+- Ajustada a escala e posicionamento mobile do Ghost para 20% do topo/esquerda.
+
 **Changes Applied:**
 
 - **Fixed Color Contrast #1** ✅

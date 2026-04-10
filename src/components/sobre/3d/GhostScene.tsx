@@ -13,7 +13,7 @@ import {
 import { GhostErrorBoundary } from '@/components/3d/GhostErrorBoundary';
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import GhostModel from '@/components/sobre/3d/GhostModel';
+import { ProceduralGhost } from './ProceduralGhost';
 
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
@@ -82,19 +82,13 @@ function GhostSceneContent({
       />
       {!isMobile ? <Environment preset="studio" /> : null}
 
-      <Float
-        speed={isMobile ? 0.9 : 0.98}
-        rotationIntensity={0.035}
-        floatIntensity={0.09}
-        floatingRange={[-0.045, 0.045]}
-      >
-        <Center>
-          <GhostModel
-            intensity={ghostIntensity}
-            scale={isMobile ? 0.265 : 0.47}
-          />
-        </Center>
-      </Float>
+      <Center top>
+        <ProceduralGhost
+          intensity={ghostIntensity}
+          scale={isMobile ? 1.4 : 1.8}
+          position={[0, 0, 0]}
+        />
+      </Center>
     </>
   );
 }

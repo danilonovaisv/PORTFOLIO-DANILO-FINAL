@@ -36,14 +36,14 @@ export const BeliefFinalSectionOverlay: React.FC<
         className="flex w-full max-w-[100vw] flex-col items-center justify-center text-center font-display leading-[0.82] text-[#fcffff]"
         style={containerStyle}
       >
-        <div className="text-[clamp(3.5rem,12vw,10rem)] tracking-[-0.085em] uppercase font-black">
+        <div className="text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight uppercase opacity-80">
           ISSO É
         </div>
         <div className="relative z-10 text-[clamp(6rem,19vw,17rem)] font-black tracking-[-0.085em] uppercase">
           GHOST
         </div>
-        <div className="text-[clamp(4.5rem,15vw,13rem)] tracking-[-0.085em] uppercase font-black">
-          DESIGN.
+        <div className="mt-[-1vw] text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight uppercase opacity-80">
+          DESIGN
         </div>
       </Container>
     </section>

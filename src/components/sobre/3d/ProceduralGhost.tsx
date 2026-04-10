@@ -1,10 +1,21 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Float } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
+import { MotionValue } from 'framer-motion';
 
-export const ProceduralGhost: React.FC<ThreeElements['group']> = (props) => {
+export interface ProceduralGhostProps extends ThreeElements['group'] {
+  intensity?: number | MotionValue<number>;
+}
+
+export const ProceduralGhost: React.FC<ProceduralGhostProps> = ({
+  intensity = 0,
+  ...props
+}) => {
   const groupRef = useRef<THREE.Group>(null);
+  const headMaterialRef = useRef<THREE.MeshStandardMaterial>(null);
+  const bodyMaterialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   const headGeo = useMemo(() => new THREE.SphereGeometry(0.6, 32, 32), []);
   const bodyGeo = useMemo(
@@ -25,6 +36,22 @@ export const ProceduralGhost: React.FC<ThreeElements['group']> = (props) => {
   );
   const eyeGeo = useMemo(() => new THREE.SphereGeometry(0.08, 16, 16), []);
 
+  useFrame((state) => {
+    if (!groupRef.current) return;
+
+    const currentIntensity =
+      typeof intensity === 'number' ? intensity : intensity.get();
+
+    // Pulse effects on materials
+    if (headMaterialRef.current) {
+      headMaterialRef.current.emissiveIntensity = 0.1 + currentIntensity * 1.2;
+      headMaterialRef.current.opacity = 0.85 + currentIntensity * 0.15;
+    }
+    if (bodyMaterialRef.current) {
+      bodyMaterialRef.current.opacity = 0.75 + currentIntensity * 0.2;
+    }
+  });
+
   useEffect(() => {
     return () => {
       headGeo.dispose();
@@ -37,62 +64,57 @@ export const ProceduralGhost: React.FC<ThreeElements['group']> = (props) => {
   }, [headGeo, bodyGeo, brimGeo, topGeo, ribbonGeo, eyeGeo]);
 
   return (
-    <Float
-      speed={2}
-      rotationIntensity={0.5}
-      floatIntensity={0.5}
-      floatingRange={[-0.1, 0.1]}
-    >
-      <group ref={groupRef} {...props}>
-        {/* Head */}
-        <mesh position={[0, 0, 0]} geometry={headGeo}>
-          <meshStandardMaterial
-            color="#ffffff"
-            roughness={0.2}
-            metalness={0.1}
-            emissive="#ffffff"
-            emissiveIntensity={0.1}
-            transparent
-            opacity={0.9}
-          />
-        </mesh>
+    <group ref={groupRef} {...props}>
+      {/* Head */}
+      <mesh position={[0, 0, 0]} geometry={headGeo}>
+        <meshStandardMaterial
+          ref={headMaterialRef}
+          color="#ffffff"
+          roughness={0.2}
+          metalness={0.1}
+          emissive="#ffffff"
+          emissiveIntensity={0.1}
+          transparent
+          opacity={0.9}
+        />
+      </mesh>
 
-        {/* Body (Tapered Cylinder) */}
-        <mesh position={[0, -0.8, 0]} geometry={bodyGeo}>
-          <meshStandardMaterial
-            color="#ffffff"
-            roughness={0.2}
-            metalness={0.1}
-            transparent
-            opacity={0.8}
-          />
-        </mesh>
+      {/* Body (Tapered Cylinder) */}
+      <mesh position={[0, -0.8, 0]} geometry={bodyGeo}>
+        <meshStandardMaterial
+          ref={bodyMaterialRef}
+          color="#ffffff"
+          roughness={0.2}
+          metalness={0.1}
+          transparent
+          opacity={0.8}
+        />
+      </mesh>
 
-        {/* Hat (Brim) */}
-        <mesh position={[0, 0.45, 0]} rotation={[0, 0, 0]} geometry={brimGeo}>
-          <meshStandardMaterial color="#050505" roughness={0.8} />
-        </mesh>
+      {/* Hat (Brim) */}
+      <mesh position={[0, 0.45, 0]} rotation={[0, 0, 0]} geometry={brimGeo}>
+        <meshStandardMaterial color="#050505" roughness={0.8} />
+      </mesh>
 
-        {/* Hat (Top) */}
-        <mesh position={[0, 0.8, 0]} geometry={topGeo}>
-          <meshStandardMaterial color="#050505" roughness={0.8} />
-        </mesh>
+      {/* Hat (Top) */}
+      <mesh position={[0, 0.8, 0]} geometry={topGeo}>
+        <meshStandardMaterial color="#050505" roughness={0.8} />
+      </mesh>
 
-        {/* Hat Ribbon (Red) */}
-        <mesh position={[0, 0.5, 0]} geometry={ribbonGeo}>
-          <meshStandardMaterial color="#ff0000" />
-        </mesh>
+      {/* Hat Ribbon (Red) */}
+      <mesh position={[0, 0.5, 0]} geometry={ribbonGeo}>
+        <meshStandardMaterial color="#ff0000" />
+      </mesh>
 
-        {/* Left Eye */}
-        <mesh position={[-0.2, 0.1, 0.5]} geometry={eyeGeo}>
-          <meshStandardMaterial color="black" />
-        </mesh>
+      {/* Left Eye */}
+      <mesh position={[-0.2, 0.1, 0.5]} geometry={eyeGeo}>
+        <meshStandardMaterial color="black" />
+      </mesh>
 
-        {/* Right Eye */}
-        <mesh position={[0.2, 0.1, 0.5]} geometry={eyeGeo}>
-          <meshStandardMaterial color="black" />
-        </mesh>
-      </group>
-    </Float>
+      {/* Right Eye */}
+      <mesh position={[0.2, 0.1, 0.5]} geometry={eyeGeo}>
+        <meshStandardMaterial color="black" />
+      </mesh>
+    </group>
   );
 };

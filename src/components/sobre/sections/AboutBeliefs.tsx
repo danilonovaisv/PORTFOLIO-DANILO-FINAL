@@ -91,6 +91,17 @@ export function AboutBeliefs() {
         />
       </div>
 
+      {/* SR-Only Manifesto for Accessibility */}
+      <div className="sr-only">
+        <h2>Manifesto: O Que Me Move</h2>
+        <ul>
+          {PHRASES.map((phrase, i) => (
+            <li key={i}>{phrase}</li>
+          ))}
+          <li>ISSO É GHOST DESIGN.</li>
+        </ul>
+      </div>
+
       <BeliefFixedHeader
         scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
         MotionHeader={MotionHeader}
