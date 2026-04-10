@@ -5,9 +5,9 @@ import type { ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MotionValue } from 'framer-motion';
 
-export interface ProceduralGhostProps extends ThreeElements['group'] {
+export type ProceduralGhostProps = ThreeElements['group'] & {
   intensity?: number | MotionValue<number>;
-}
+};
 
 export const ProceduralGhost: React.FC<ProceduralGhostProps> = ({
   intensity = 0,
