@@ -606,6 +606,7 @@ O padrão anterior com `@source not` era uma lista negra — qualquer novo diret
    - WCAG AA requires 4.5:1 contrast ratio for text
 
 [2026-04-10] [About/Beliefs] Refatoração completa para alinhamento com design editorial:
+
 - Substituído GhostModel GLB por ProceduralGhost para garantir presença da cartola e fita vermelha (fidelidade visual).
 - Adicionado suporte a 'intensity' no ProceduralGhost para sincronia com o clímax da seção.
 - Corrigido letter-spacing ('tracking-tight') no manifesto final "ISSO É GHOST DESIGN".

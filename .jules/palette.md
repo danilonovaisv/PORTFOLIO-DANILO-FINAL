@@ -1,0 +1,3 @@
+## 2025-04-10 - Footer Focus States and Screen Reader announcements for External Links
+**Learning:** Social links and navigation items in the SiteFooter lacked visible focus states for keyboard users and clear screen reader announcements for opening in new tabs. Adding explicit `focus-visible` ring utilities and appending '(Abre em uma nova aba)' to the `aria-label`s significantly improves accessibility.
+**Action:** When creating navigational or social links, ensure a visible focus state is applied using utility classes like `focus-visible:ring-2`, and append destination context (like 'Opens in new tab' or the localized equivalent) to the accessible label.
