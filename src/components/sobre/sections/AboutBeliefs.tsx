@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, MotionValue, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion, useScroll, MotionValue } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import dynamic from 'next/dynamic';
 
-// Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
+// Sub-components
 import {
   BeliefSection,
   BeliefDesktopTextLayer,
@@ -16,81 +16,60 @@ import {
   useIsMobile,
 } from '@/components/sobre/beliefs';
 
-import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
+import {
+  useBeliefsAnimation,
+  BELIEF_COLORS,
+} from '@/hooks/useBeliefsAnimation';
+import { BRAND } from '@/config/brand';
 
-// [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
-// Isso garante que pega o componente correto, seja export default ou export nomeado.
+// Dynamic 3D scene — client-only, no SSR
 const GhostScene = dynamic<{
   scrollProgress: MotionValue<number>;
   ghostIntensity: MotionValue<number>;
 }>(
   () =>
     import('../3d/GhostScene').then((mod: any) => {
-      // Retorna a exportação nomeada 'GhostScene' OU a 'default'
       return mod.GhostScene || mod.default;
     }),
   {
     ssr: false,
-    loading: () => <div className="w-full h-full bg-transparent" />, // Placeholder invisível
+    loading: () => <div className="w-full h-full bg-transparent" />,
   }
 );
 
 const PHRASES = [
-  'Um vídeo que respira.',
-  'Uma marca que se reconhece.',
-  'Um detalhe que fica.',
-  'Crio para gerar presença.',
-  'Mesmo quando não estou ali.',
-  'Mesmo quando ninguém percebe o esforço.',
+  'Um\nvídeo\nque\nrespira.',
+  'Uma\nmarca\nque se\nreconhece.',
+  'Um\ndetalhe\nque\nfica.',
+  'Crio\npara\ngerar\npresença.',
+  'Mesmo\nquando\nnão\nestou\nali.',
+  'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
 export function AboutBeliefs() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
   const prefersReduced = !!prefersReducedMotion;
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  const { backgroundColor, ghostIntensity, showFinalManifesto } =
+  const { ghostIntensity, showFinalManifesto, headerOpacity } =
     useBeliefsAnimation({
       scrollYProgress,
       totalPhrases: PHRASES.length,
     });
 
-  // Gate framer-motion features for reduced motion to avoid runtime errors
-  // and to honor user preference.
-  const MotionSection: React.ElementType = prefersReduced
-    ? 'section'
-    : motion.section;
-  const MotionDiv: React.ElementType = prefersReduced ? 'div' : motion.div;
-  const MotionHeader: React.ElementType = prefersReduced
-    ? 'header'
-    : motion.header;
-
   return (
-    <MotionSection
+    <section
       ref={containerRef}
       data-testid="about-beliefs-section"
       aria-label="O Que Me Move"
-      style={{
-        height: `var(--section-height, ${(PHRASES.length + 2) * 100}vh)`,
-      }}
-      className="relative w-full isolate z-10 [--section-height:550vh] md:[--section-height:800vh]"
+      className="relative w-full"
     >
-      <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
-        <motion.div
-          className="sticky top-0 w-full h-screen pointer-events-none"
-          style={
-            prefersReduced
-              ? { backgroundColor: '#040013' }
-              : { backgroundColor }
-          }
-        />
-      </div>
-
       {/* SR-Only Manifesto for Accessibility */}
       <div className="sr-only">
         <h2>Manifesto: O Que Me Move</h2>
@@ -102,78 +81,90 @@ export function AboutBeliefs() {
         </ul>
       </div>
 
-      <BeliefFixedHeader
-        scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
-        MotionHeader={MotionHeader}
-        prefersReducedMotion={prefersReduced}
-      />
+      {/* ═══════════════════════════════════════════════════
+          LAYER 1: Backgrounds coloridos
+          ═══════════════════════════════════════════════════ */}
+      <div className="relative pointer-events-none z-10 w-full">
+        <BeliefFixedHeader
+          scrollProgress={prefersReduced ? undefined : scrollYProgress}
+          headerOpacity={prefersReduced ? undefined : headerOpacity}
+          MotionHeader={prefersReduced ? 'header' : motion.header}
+          prefersReducedMotion={prefersReduced}
+        />
 
-      <MotionDiv className="relative z-20">
         {PHRASES.map((phrase, index) => (
           <BeliefSection
             key={index}
             index={index}
             text={phrase}
-            MotionSection={MotionSection}
+            bgColor={BELIEF_COLORS[index] || BELIEF_COLORS[0]}
+            isFirst={index === 0}
           />
         ))}
 
         <BeliefFinalSection
           scrollProgress={prefersReduced ? undefined : scrollYProgress}
-          bgColor="transparent"
-          MotionDiv={MotionDiv}
+          bgColor={BRAND.colors.bluePrimary}
+          MotionDiv={prefersReduced ? 'div' : motion.div}
           prefersReducedMotion={prefersReduced}
         />
-      </MotionDiv>
-
-      <div className="relative z-40">
-        {isMobile ? (
-          <BeliefMobileTextLayer
-            phrases={PHRASES}
-            scrollYProgress={prefersReduced ? undefined : scrollYProgress}
-            MotionDiv={MotionDiv}
-            prefersReducedMotion={prefersReduced}
-          />
-        ) : (
-          <BeliefDesktopTextLayer
-            phrases={PHRASES}
-            scrollYProgress={prefersReduced ? undefined : scrollYProgress}
-            MotionDiv={MotionDiv}
-            prefersReducedMotion={prefersReduced}
-          />
-        )}
       </div>
 
+      {/* ═══════════════════════════════════════════════════
+          LAYER 2: Texto Mobile Fixed no Footer
+          ═══════════════════════════════════════════════════ */}
+      <BeliefMobileTextLayer
+        phrases={PHRASES}
+        scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+        MotionDiv={prefersReduced ? 'div' : motion.div}
+        prefersReducedMotion={prefersReduced}
+      />
+
+      {/* ═══════════════════════════════════════════════════
+          LAYER 2B: Texto Desktop (hidden on mobile via md:block inside component)
+          ═══════════════════════════════════════════════════ */}
+      <BeliefDesktopTextLayer
+        phrases={PHRASES}
+        scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+        MotionDiv={prefersReduced ? 'div' : motion.div}
+        prefersReducedMotion={prefersReduced}
+      />
+
+      {/* ═══════════════════════════════════════════════════
+          LAYER 3: Final Manifesto Overlay
+          ═══════════════════════════════════════════════════ */}
       <motion.div
-        className="absolute inset-0 pointer-events-none z-40"
+        className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40"
         style={prefersReduced ? undefined : { opacity: showFinalManifesto }}
       >
-        <div className="sticky top-0 h-screen w-full">
-          <BeliefFinalSectionOverlay
-            MotionDiv={MotionDiv}
-            prefersReducedMotion={prefersReduced}
-            showProgress={prefersReduced ? undefined : showFinalManifesto}
-          />
-        </div>
+        <BeliefFinalSectionOverlay
+          MotionDiv={prefersReduced ? 'div' : motion.div}
+          prefersReducedMotion={prefersReduced}
+          showProgress={prefersReduced ? undefined : showFinalManifesto}
+        />
       </motion.div>
 
+      {/* ═══════════════════════════════════════════════════
+          LAYER 4: Canvas 3D (Sticky - Top Layer)
+          Ghost positioned: RIGHT on desktop, full on mobile
+          ═══════════════════════════════════════════════════ */}
       <div
-        className="absolute inset-0 z-50 w-full h-full pointer-events-none"
+        className="absolute inset-0 w-full h-full pointer-events-none z-50"
         aria-hidden
       >
-        <div className="sticky top-0 w-full h-screen pointer-events-none flex items-center justify-center">
+        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center md:justify-start">
           <div className="w-full h-full relative">
-            <MotionDiv className="w-full h-full">
+            <div className="absolute inset-0 md:left-auto md:right-0 md:w-1/2">
               {!prefersReducedMotion ? (
                 <GhostScene
                   scrollProgress={scrollYProgress}
                   ghostIntensity={ghostIntensity}
                 />
               ) : null}
-            </MotionDiv>
+            </div>
           </div>
         </div>
       </div>
-    </MotionSection>
+    </section>
   );
 }
