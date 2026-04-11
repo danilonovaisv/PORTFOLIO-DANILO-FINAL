@@ -57,7 +57,7 @@ export default function SiteFooter() {
             <Link
               key={link.label}
               href={link.href}
-              className="group relative text-[11px] sm:text-[12px] font-bold uppercase tracking-widest hover:opacity-80 transition-opacity duration-200 py-3 lg:py-2 flex items-center shrink-0"
+              className="group relative text-[11px] sm:text-[12px] font-bold uppercase tracking-widest hover:opacity-80 transition-all duration-200 py-3 lg:py-2 flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-bluePrimary rounded-sm"
             >
               {link.label}
               {/* Hover Underline (Desktop Only) */}
@@ -77,7 +77,7 @@ export default function SiteFooter() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-transform duration-200 opacity-100 lg:opacity-90 lg:hover:opacity-100 p-3 lg:p-0 flex items-center justify-center min-w-[48px] min-h-[48px] lg:min-w-0 lg:min-h-0 hover:-translate-y-0.5 will-change-transform"
+              className="transition-all duration-200 opacity-100 lg:opacity-90 lg:hover:opacity-100 p-3 lg:p-0 flex items-center justify-center min-w-[48px] min-h-[48px] lg:min-w-0 lg:min-h-0 hover:-translate-y-0.5 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-bluePrimary rounded-sm"
               aria-label={social.label}
             >
               {social.icon}

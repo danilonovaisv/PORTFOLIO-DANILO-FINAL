@@ -60,7 +60,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
               <li key={item.href} className="overflow-hidden leading-none">
                 <button
                   onClick={() => onNavigate(item.href)}
-                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
+                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white rounded-md ${
                     isActive
                       ? 'text-blueAccent font-medium underline underline-offset-4'
                       : 'text-white/80 hover:text-white font-light'
@@ -109,7 +109,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary"
+                className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-bluePrimary"
               >
                 {s.icon}
               </a>
