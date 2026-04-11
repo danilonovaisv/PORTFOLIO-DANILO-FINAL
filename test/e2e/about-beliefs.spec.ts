@@ -23,7 +23,7 @@ test('O-QUE-ME-MOVE anima frases em sequência no scroll', async ({ page }) => {
   ).toHaveCount(1);
   await expect(
     page.locator('[data-testid="belief-text-layer-mobile"]')
-  ).toHaveCount(0);
+  ).not.toBeVisible();
 
   const introHeader = page.locator('header.sticky h2');
   await expect
