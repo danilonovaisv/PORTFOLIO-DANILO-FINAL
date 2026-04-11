@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Center, Environment, Float } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import {
   MotionValue,
   motion,
@@ -13,7 +13,7 @@ import {
 import { GhostErrorBoundary } from '@/components/3d/GhostErrorBoundary';
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { ProceduralGhost } from './ProceduralGhost';
+import GhostModel from './GhostModel';
 
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
@@ -82,13 +82,20 @@ function GhostSceneContent({
       />
       {!isMobile ? <Environment preset="studio" /> : null}
 
-      <Center top>
-        <ProceduralGhost
+      <Suspense
+        fallback={
+          <mesh>
+            <boxGeometry args={[0.5, 0.5, 0.5]} />
+            <meshStandardMaterial color="#ffffff" transparent opacity={0.3} />
+          </mesh>
+        }
+      >
+        <GhostModel
           intensity={ghostIntensity}
           scale={isMobile ? 1.4 : 1.8}
           position={[0, 0, 0]}
         />
-      </Center>
+      </Suspense>
     </>
   );
 }
@@ -135,13 +142,13 @@ const GhostScene: React.FC<GhostSceneProps> = ({
 
   const x = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.14, 0.86, 1] : [0, 1],
-    isMobile ? ['-28vw', '-28vw', '-14vw', '0vw'] : ['0vw', '0vw']
+    isMobile ? [0, 0.12, 0.82, 1] : [0, 1],
+    isMobile ? ['-32vw', '-32vw', '-16vw', '0vw'] : ['0vw', '0vw']
   );
   const y = useTransform(
     scrollProgress,
-    isMobile ? [0, 0.14, 0.86, 1] : [0, 1],
-    isMobile ? ['-30vh', '-30vh', '-15vh', '0vh'] : ['0vh', '0vh']
+    isMobile ? [0, 0.12, 0.82, 1] : [0, 1],
+    isMobile ? ['-28vh', '-28vh', '-12vh', '0vh'] : ['0vh', '0vh']
   );
   const scale = useTransform(
     scrollProgress,
@@ -176,7 +183,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({
         opacity,
         filter,
         rotate,
-        transformOrigin: isMobile ? '20% 20%' : '50% 50%',
+        transformOrigin: '50% 50%',
       }}
       className="pointer-events-none flex h-full w-full items-center justify-center"
       aria-hidden="true"
