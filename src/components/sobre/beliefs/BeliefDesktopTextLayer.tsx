@@ -69,7 +69,8 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
       className="pointer-events-none absolute inset-0 z-40 hidden md:block"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
-      <div className="sticky top-0 h-screen w-full flex items-center pl-[15vw]">
+      {/* SPEC: Text at left, with grid padding — pl-8 lg:pl-16 */}
+      <div className="sticky top-0 h-screen w-full flex items-center pl-8 lg:pl-16">
         <AnimatePresence mode="wait">
           {activePhrase ? (
             <DesktopPhrase
@@ -100,29 +101,32 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
   prefersReducedMotion,
 }) => {
   const Container = MotionDiv ?? motion.div;
-  const lines = text.split(' ');
+  // SPEC: split by newline for multi-line desktop phrases
+  const lines = text.split('\n');
   const motionProps = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 40, filter: 'blur(6px)' },
+        // SPEC: Desktop vertical — entry from below, exit upward
+        initial: { opacity: 0, y: 20, filter: 'blur(10px)' },
         animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-        exit: { opacity: 0, y: -40, filter: 'blur(6px)' },
+        exit: { opacity: 0, y: -20, filter: 'blur(10px)' },
         transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
       };
 
   return (
     <Container
-      className="pointer-events-none flex w-full max-w-[40vw] flex-col justify-center lg:max-w-[34vw]"
+      className="pointer-events-none flex w-full max-w-[38vw] flex-col justify-center lg:max-w-[32vw]"
       data-testid={lineTestId}
       {...motionProps}
     >
       {lines.map((line, index) => (
-        <span
-          key={`${line}-${index}`}
-          className="block max-w-fit text-left font-bold tracking-[-0.045em] text-blueAccent text-belief-desktop"
-        >
-          {line}
-        </span>
+        <div key={`${line}-${index}`} className="overflow-visible mb-1 md:mb-2 w-full">
+          <span
+            className="block max-w-fit text-left italic font-semibold tracking-[-0.01em] text-blueAccent text-belief-desktop whitespace-pre-line select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]"
+          >
+            {line}
+          </span>
+        </div>
       ))}
     </Container>
   );
