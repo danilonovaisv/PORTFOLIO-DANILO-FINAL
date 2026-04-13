@@ -33,16 +33,21 @@ export const BeliefFinalSectionOverlay: React.FC<
   return (
     <section className="flex h-full w-full items-center justify-center px-4 md:px-6 pointer-events-none">
       <Container
-        className="flex w-full max-w-[100vw] flex-col items-center justify-center text-center font-display leading-[0.82] text-[#fcffff]"
+        className="flex w-full max-w-[98vw] flex-col items-center justify-center text-center font-display leading-[0.78] text-[#fcffff]"
         style={containerStyle}
       >
-        <div className="text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight uppercase opacity-80">
+        {/* Line 1: ISSO É — large but secondary */}
+        <div className="text-[16vw] md:text-[14rem] font-black tracking-[-0.085em] uppercase mix-blend-overlay opacity-80">
           ISSO É
         </div>
-        <div className="relative z-10 text-[clamp(6rem,19vw,17rem)] font-black tracking-[-0.085em] uppercase">
+
+        {/* Line 2: GHOST — dominant element, fills viewport */}
+        <div className="relative z-10 text-[30vw] md:text-[25rem] font-black tracking-[-0.085em] uppercase text-bluePrimary">
           GHOST
         </div>
-        <div className="mt-[-1vw] text-[clamp(1.5rem,4vw,3.5rem)] font-medium tracking-tight uppercase opacity-80">
+
+        {/* Line 3: DESIGN — large but secondary */}
+        <div className="mt-[-1vw] text-[24vw] md:text-[19rem] font-black tracking-[-0.085em] uppercase mix-blend-overlay opacity-80">
           DESIGN
         </div>
       </Container>

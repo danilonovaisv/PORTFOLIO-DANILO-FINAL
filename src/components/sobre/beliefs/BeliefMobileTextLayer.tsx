@@ -71,7 +71,8 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
       <div className="sticky top-0 h-screen w-full">
-        <div className="absolute bottom-[20vh] left-0 right-0 px-6 text-center">
+        {/* SPEC: text positioned at bottom of section, centered */}
+        <div className="absolute bottom-[12vh] left-0 right-0 px-6 text-center">
           <AnimatePresence mode="wait">
             {activePhrase ? (
               <MobilePhrase
@@ -101,12 +102,16 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 }) => {
   const Container = MotionDiv ?? motion.div;
   const mobileText = text.replace(/\n/g, ' ');
+
+  // SPEC: Mobile uses HORIZONTAL animation (x-axis)
+  // Entry: from RIGHT (x: +24 → 0), Exit: to LEFT (x: 0 → -24)
+  // NO vertical (y) movement on mobile
   const motionProps = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 20, filter: 'blur(6px)' },
-        animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-        exit: { opacity: 0, y: -20, filter: 'blur(6px)' },
+        initial: { opacity: 0, x: 24, filter: 'blur(10px)' },
+        animate: { opacity: 1, x: 0, filter: 'blur(0px)' },
+        exit: { opacity: 0, x: -24, filter: 'blur(10px)' },
         transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
       };
 
@@ -115,7 +120,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
       className="mx-auto w-full max-w-[82vw] text-center pointer-events-none"
       {...motionProps}
     >
-      <span className="block w-full mx-auto text-balance text-blueAccent font-bold text-belief-mobile tracking-[-0.045em] [text-shadow:0_2px_10px_rgba(4,0,19,0.42)]">
+      <span className="block w-full mx-auto text-balance text-blueAccent italic font-semibold text-belief-mobile tracking-[-0.01em] select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]">
         {mobileText}
       </span>
     </Container>

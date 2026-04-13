@@ -4,9 +4,9 @@ import React from 'react';
 
 interface BeliefSectionProps {
   text: string;
+  bgColor: string;
   isFirst?: boolean;
   index?: number;
-  MotionSection?: React.ElementType;
 }
 
 /**
@@ -36,18 +36,30 @@ const useIsMobile = () => {
   return isMobile;
 };
 
+/**
+ * BeliefSection — Full-screen section with its own background color.
+ * Each phrase gets a solid branded BG. CSS transition-colors handles smooth blending
+ * as the user scrolls between sections.
+ */
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
   text,
+  bgColor,
   index,
-  MotionSection,
 }) => {
-  const Section = MotionSection ?? 'section';
+  const isMobile = useIsMobile();
 
   return (
-    <Section
+    <section
       aria-hidden="true"
       data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
-      className="relative h-screen w-full"
+      style={{ backgroundColor: bgColor }}
+      className={`relative w-full h-screen flex overflow-hidden transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
+        ${
+          isMobile
+            ? 'items-end justify-start'
+            : 'items-center justify-start pl-8 lg:pl-16'
+        }
+      `}
     />
   );
 };

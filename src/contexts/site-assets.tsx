@@ -7,10 +7,7 @@ import React, {
   type ReactNode,
 } from 'react';
 import type { SiteAsset } from '@/lib/supabase/site-assets';
-import {
-  validateExternalUrl,
-} from '@/lib/supabase/urls';
-
+import { validateExternalUrl } from '@/lib/supabase/urls';
 
 type SiteAssetsContextValue = {
   getUrl: (_key: string) => string | undefined;

@@ -53,11 +53,15 @@
       "Bash(/Users/danilonovais/.volta/bin/pnpm test:e2e -- --project=webkit --project=firefox test/e2e/admin.spec.ts)",
       "Read(//usr/local/bin/**)",
       "Read(//opt/homebrew/Cellar/pnpm/10.33.0/libexec/lib/node_modules/pnpm/bin/**)",
-      "Bash(claude reload-plugins:*)"
+      "Bash(claude reload-plugins:*)",
+      "Bash(pnpm run:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["github", "supabase"],
+  "enabledMcpjsonServers": [
+    "github",
+    "supabase"
+  ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   }
