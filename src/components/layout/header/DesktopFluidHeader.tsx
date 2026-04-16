@@ -80,7 +80,7 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-55 w-full pointer-events-none transition-all duration-300 ease-in-out ${
         isLight ? 'header--light' : ''
       }`}
     >

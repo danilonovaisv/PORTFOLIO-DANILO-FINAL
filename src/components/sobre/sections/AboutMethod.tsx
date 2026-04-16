@@ -36,7 +36,7 @@ export default function AboutMethod() {
   const videoParallaxY = useTransform(
     effectiveProgress,
     [0, 1],
-    prefersReducedMotion ? ['0%', '0%'] : ['-10%', '10%']
+    prefersReducedMotion ? ['0%', '0%'] : ['-7%', '7%']
   );
 
   return (
@@ -98,11 +98,11 @@ export default function AboutMethod() {
                 className="mb-8 lg:mb-12 text-center lg:text-left"
               >
                 <h2 className="font-display leading-[1.08] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] font-bold">
-                  <div className="text-white leading-tight">
+                  <div className="text-text leading-tight">
                     <span className="text-bluePrimary">Criatividade</span> com{' '}
                     <span className="text-bluePrimary">método</span>.
                   </div>
-                  <div className="text-white leading-tight">
+                  <div className="text-text leading-tight">
                     Impacto sem ruído.
                   </div>
                 </h2>
@@ -114,7 +114,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: false, margin: '-20%' }}
-                className="text-white type-h3 mb-12 lg:mb-16 text-center lg:text-left max-w-full lg:max-w-[550px]"
+                className="text-text text-h3 mb-12 lg:mb-16 text-center lg:text-left max-w-full lg:max-w-[550px]"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -142,20 +142,20 @@ export default function AboutMethod() {
                     variants={motionTokens.riseSoft}
                     className="
                         group flex items-start gap-4 lg:gap-6
-                        bg-[rgba(26,26,46,0.85)] lg:bg-[rgba(26,26,46,0.70)]
+                        bg-neutral/85 lg:bg-neutral/70
                         backdrop-blur-[12px]
                         p-5 lg:p-6
                         mb-4
                         rounded-lg
                         border-l-4 border-bluePrimary
                         transition-all duration-300
-                        hover:bg-[rgba(26,26,46,0.85)]
+                        hover:bg-neutral/85
                       "
                   >
-                    <span className="text-bluePrimary font-bold text-[16px] lg:text-[20px] tabular-nums shrink-0">
+                    <span className="text-bluePrimary font-bold text-body lg:text-body-enhanced tabular-nums shrink-0">
                       {step.id}
                     </span>
-                    <p className="text-white group-hover:text-bluePrimary transition-colors font-medium text-left text-[14px] md:text-[16px] lg:text-[20px] leading-[1.4]">
+                    <p className="text-text group-hover:text-bluePrimary transition-colors font-medium text-left text-small md:text-body lg:text-body-enhanced leading-[1.4]">
                       {step.text}
                     </p>
                   </motion.li>

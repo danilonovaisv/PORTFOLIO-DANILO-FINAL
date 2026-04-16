@@ -91,7 +91,7 @@ export function AboutWhatIDo() {
   return (
     <section
       ref={containerRef}
-      className="relative z-10 w-full bg-background text-white"
+      className="relative z-10 w-full bg-background text-text"
       aria-labelledby="what-i-do-heading"
     >
       {/* ============================================
@@ -105,12 +105,12 @@ export function AboutWhatIDo() {
             <div className="max-w-[900px] text-center">
               <h2
                 id="what-i-do-heading"
-                className="font-display text-5xl font-black leading-[1.15] tracking-tight text-white md:text-6xl"
+                className="font-sans text-display text-5xl font-black leading-[1.15] tracking-tight text-text md:text-6xl"
               >
                 Do <span className="text-bluePrimary">insight</span> ao{' '}
                 <span className="text-bluePrimary">impacto</span>.
               </h2>
-              <p className="mt-3 font-display text-4xl font-black leading-[1.15] tracking-tight text-white/90 md:text-5xl">
+              <p className="mt-3 font-sans text-display text-4xl font-black leading-[1.15] tracking-tight text-text/90 md:text-5xl">
                 Mesmo quando você não percebe.
               </p>
             </div>
@@ -140,17 +140,17 @@ export function AboutWhatIDo() {
               >
                 {/* Number */}
                 <span
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-purpleDetails/35 bg-[rgba(255,255,255,0.08)] font-display text-[2rem] font-black text-purpleDetails"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-purpleDetails/35 bg-[rgba(255,255,255,0.08)] font-sans text-display text-[2rem] font-black text-purpleDetails"
                   aria-hidden="true"
                 >
                   {service.id.padStart(2, '0')}
                 </span>
                 {/* Text */}
-                <p className="mt-5 font-display text-[clamp(1.05rem,1.55vw,1.35rem)] font-bold leading-[1.28] text-white">
+                <p className="mt-5 font-sans text-display text-[clamp(1.05rem,1.55vw,1.35rem)] font-bold leading-[1.28] text-text">
                   <strong className="block text-blueAccent">
                     {service.keyword}
                   </strong>
-                  <span className="mt-1.5 block text-white">
+                  <span className="mt-1.5 block text-text">
                     {service.description}
                   </span>
                 </p>
@@ -174,12 +174,12 @@ export function AboutWhatIDo() {
           <header className="mb-10 text-center px-4">
             <h2
               id="what-i-do-heading-mobile"
-              className="font-display text-[2.25rem] font-black leading-[1.1] tracking-tight text-white text-balance"
+              className="font-sans text-display text-[2.25rem] font-black leading-[1.1] tracking-tight text-text text-balance"
             >
               Do <span className="text-bluePrimary">insight</span> ao{' '}
               <span className="text-bluePrimary">impacto</span>.
             </h2>
-            <p className="mt-2 font-display text-[1.5rem] font-black leading-[1.1] tracking-tight text-white/90 text-balance">
+            <p className="mt-2 font-sans text-display text-[1.5rem] font-black leading-[1.1] tracking-tight text-text/90 text-balance">
               Mesmo quando você não percebe.
             </p>
           </header>
@@ -205,13 +205,13 @@ export function AboutWhatIDo() {
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
+                  className="shrink-0 font-sans text-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
                   aria-hidden="true"
                 >
                   {service.id}
                 </span>
                 {/* Text */}
-                <p className="text-sm font-semibold leading-snug text-white">
+                <p className="text-sm font-semibold leading-snug text-text">
                   <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   {service.description}
                 </p>

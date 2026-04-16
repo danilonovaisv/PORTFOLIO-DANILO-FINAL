@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { Float } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -36,7 +35,7 @@ export const ProceduralGhost: React.FC<ProceduralGhostProps> = ({
   );
   const eyeGeo = useMemo(() => new THREE.SphereGeometry(0.08, 16, 16), []);
 
-  useFrame((state) => {
+  useFrame((_state) => {
     if (!groupRef.current) return;
 
     const currentIntensity =

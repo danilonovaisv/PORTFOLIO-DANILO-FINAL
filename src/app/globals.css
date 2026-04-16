@@ -22,8 +22,9 @@
   --color-textInverse: #0e0e0e;
   --color-textEmphasis: #2e85f2;
   --color-textHighlight: #4fe6ff;
-  --color-textSecondary: #fcffff;
+  --color-textSecondary: #a1a3a3;
   --color-neutral: #0b0d3a;
+  --color-redAccent: #E50914;
   --color-neutralLight: #f5f5f5;
   --color-contactForeground: #fcffff;
 
@@ -44,10 +45,10 @@
 
   /* Stacking Context / Layer Governance */
   --z-layer-base: 0;
-  --z-layer-content: 10;
-  --z-layer-3d: 20;
-  --z-layer-cta: 30;
-  --z-layer-header: 40;
+  --z-layer-content: 20;
+  --z-layer-3d: 30;
+  --z-layer-cta: 40;
+  --z-layer-header: 55;
   --z-layer-overlay: 50;
 }
 
@@ -241,6 +242,12 @@ body {
     font-weight: 500;
     line-height: 1.4;
   }
+}
+
+.text-small {
+  font-size: var(--font-small);
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .text-micro {

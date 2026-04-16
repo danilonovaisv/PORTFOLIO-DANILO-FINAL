@@ -74,7 +74,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="relative isolate antialiased bg-(--color-background) text-(--color-text) pb-0 lg:pb-[64px] overflow-x-hidden"
+        className="relative antialiased bg-(--color-background) text-(--color-text) pb-0 lg:pb-[64px] overflow-x-hidden"
         style={inlineStyle}
       >
         <a

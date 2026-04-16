@@ -42,7 +42,7 @@ const useIsMobile = () => {
  * as the user scrolls between sections.
  */
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
-  text,
+  text: _text,
   bgColor,
   index,
 }) => {

@@ -66,7 +66,7 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
     <motion.div
       aria-hidden="true"
       data-testid="belief-text-layer-desktop"
-      className="pointer-events-none absolute inset-0 z-40 hidden md:block"
+      className="pointer-events-none absolute inset-0 z-20 hidden md:block"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
       {/* SPEC: Text at left, with grid padding — pl-8 lg:pl-16 */}

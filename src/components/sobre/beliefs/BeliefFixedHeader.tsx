@@ -80,7 +80,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
           <div className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[750px] pr-4 md:pr-0">
 
             {/* Primeira parte: "Acredito no..." */}
-            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap">
+            <h2 className="text-text text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-sans text-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap">
               {prefersReducedMotion ? (
                 <>
                   <span className="block">Acredito no</span>
@@ -115,7 +115,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
             </h2>
 
             {/* Segunda parte: "Não pelo choque..." */}
-            <div className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-display leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+            <div className="flex flex-col items-end gap-1 text-text text-sm md:text-2xl lg:text-4xl font-sans text-display leading-[1.2] tracking-normal font-bold whitespace-nowrap">
               {prefersReducedMotion ? (
                 <>
                   <span className="block">Não pelo choque,</span>

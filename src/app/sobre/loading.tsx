@@ -2,7 +2,7 @@ import AboutBeliefsSkeleton from '@/components/sobre/sections/AboutBeliefsSkelet
 
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-background text-white">
+    <div className="min-h-screen bg-background text-text">
       <section
         className="relative min-h-[72vh] w-full overflow-hidden bg-background"
         aria-hidden="true"

@@ -13,7 +13,6 @@ import {
   BeliefFinalSection,
   BeliefFinalSectionOverlay,
   BeliefFixedHeader,
-  useIsMobile,
 } from '@/components/sobre/beliefs';
 
 import {
@@ -48,7 +47,6 @@ const PHRASES = [
 
 export function AboutBeliefs() {
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
   const prefersReduced = !!prefersReducedMotion;
 
@@ -134,7 +132,7 @@ export function AboutBeliefs() {
           LAYER 3: Final Manifesto Overlay
           ═══════════════════════════════════════════════════ */}
       <motion.div
-        className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40"
+        className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-50"
         style={prefersReduced ? undefined : { opacity: showFinalManifesto }}
       >
         <BeliefFinalSectionOverlay
@@ -149,7 +147,7 @@ export function AboutBeliefs() {
           Ghost positioned: RIGHT on desktop, full on mobile
           ═══════════════════════════════════════════════════ */}
       <div
-        className="absolute inset-0 w-full h-full pointer-events-none z-50"
+        className="absolute inset-0 w-full h-full pointer-events-none z-30"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex items-center justify-center md:justify-start">

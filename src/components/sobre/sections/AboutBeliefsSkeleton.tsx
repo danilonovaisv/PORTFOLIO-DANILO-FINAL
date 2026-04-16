@@ -11,7 +11,7 @@ export function AboutBeliefsSkeleton({
 }: AboutBeliefsSkeletonProps) {
   return (
     <section
-      className={`relative w-full overflow-hidden bg-background text-white ${className}`.trim()}
+      className={`relative w-full overflow-hidden bg-background text-text ${className}`.trim()}
       aria-label="Carregando O Que Me Move"
       aria-busy="true"
     >

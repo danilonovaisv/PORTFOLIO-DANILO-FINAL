@@ -67,7 +67,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
     <motion.div
       aria-hidden="true"
       data-testid="belief-text-layer-mobile"
-      className="absolute inset-0 z-40 pointer-events-none md:hidden"
+      className="absolute inset-0 z-20 pointer-events-none md:hidden"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
       <div className="sticky top-0 h-screen w-full">

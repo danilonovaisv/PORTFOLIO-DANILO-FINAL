@@ -81,7 +81,7 @@ export default function AboutPage() {
   });
 
   return (
-    <div className="min-h-screen bg-background text-white">
+    <div className="min-h-screen bg-background text-text">
       <JsonLd
         pageType="about"
         breadcrumbs={[

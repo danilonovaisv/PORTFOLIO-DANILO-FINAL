@@ -36,7 +36,7 @@ export default function Error({
 
     return (
         <div className="flex min-h-[60vh] w-full flex-col items-center justify-center text-center p-6">
-            <h2 className="mb-4 text-2xl font-display text-accentRed">
+            <h2 className="mb-4 text-2xl font-sans text-redAccent">
                 Erro na Galeria
             </h2>
             <p className="mb-8 text-textSecondary opacity-60 max-w-md">
@@ -44,7 +44,7 @@ export default function Error({
             </p>
             <button
                 onClick={() => reset()}
-                className="rounded-full bg-bluePrimary px-8 py-4 font-bold text-white transition-all hover:scale-105 active:scale-95"
+                className="rounded-full bg-bluePrimary px-8 py-4 font-bold text-text transition-all hover:opacity-90 active:opacity-80"
             >
                 Tentar Novamente
             </button>

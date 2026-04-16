@@ -102,7 +102,7 @@ export function AboutHero() {
                 >
                   <div
                     aria-hidden="true"
-                    className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-text-light text-right"
+                    className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
                   >
                     {ABOUT_CONTENT.hero.title.text}
                     {ABOUT_CONTENT.hero.title.highlight && (
@@ -141,7 +141,7 @@ export function AboutHero() {
                     delay: 0.4,
                   }}
                 >
-                  <p className="type-h3 text-white text-right font-medium max-w-[520px]">
+                  <p className="text-h3 text-text text-right font-medium max-w-[520px]">
                     {ABOUT_CONTENT.hero.description.join(' ')}
                   </p>
                 </motion.div>
@@ -204,7 +204,7 @@ export function AboutHero() {
               */}
               <div
                 aria-hidden="true"
-                className="font-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-white leading-[1.1] flex flex-col gap-0.5 text-balance"
+                className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
               >
                 <span>
                   Sou <span className="text-bluePrimary">Danilo Novais.</span>
@@ -224,7 +224,7 @@ export function AboutHero() {
 
             <motion.div
               variants={ghostFade}
-              className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-white/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
+              className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (
                 <span key={index} className="block">
