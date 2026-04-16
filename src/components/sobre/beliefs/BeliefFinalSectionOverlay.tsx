@@ -42,7 +42,7 @@ export const BeliefFinalSectionOverlay: React.FC<
         </div>
 
         {/* Line 2: GHOST — dominant element, fills viewport */}
-        <div className="relative z-10 text-[30vw] md:text-[25rem] font-black tracking-[-0.085em] uppercase text-bluePrimary">
+        <div className="relative z-10 text-[30vw] md:text-[25rem] font-black tracking-[-0.085em] uppercase text-bluePrimary drop-shadow-[0_0_80px_rgba(0,72,255,0.6)] mix-blend-screen">
           GHOST
         </div>
 

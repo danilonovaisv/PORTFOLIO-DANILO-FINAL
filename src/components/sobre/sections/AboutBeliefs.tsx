@@ -66,7 +66,7 @@ export function AboutBeliefs() {
       ref={containerRef}
       data-testid="about-beliefs-section"
       aria-label="O Que Me Move"
-      className="relative w-full"
+      className="relative w-full isolate"
     >
       {/* SR-Only Manifesto for Accessibility */}
       <div className="sr-only">

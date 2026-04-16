@@ -115,7 +115,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
             </h2>
 
             {/* Segunda parte: "Não pelo choque..." */}
-            <div className="flex flex-col items-end gap-1 text-text text-sm md:text-2xl lg:text-4xl font-sans text-display leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+            <div className="flex flex-col items-end gap-1 text-text text-sm md:text-2xl lg:text-4xl font-sans text-display leading-[1.2] tracking-normal font-bold whitespace-nowrap drop-shadow-[0_0_12px_rgba(4,0,19,1)] mix-blend-difference">
               {prefersReducedMotion ? (
                 <>
                   <span className="block">Não pelo choque,</span>

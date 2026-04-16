@@ -69,7 +69,7 @@ export function AboutHero() {
 
       {/* Desktop Overlay - Contrast Exception Control */}
       <div
-        className="hidden lg:block absolute inset-0 pointer-events-none z-1 mix-blend-multiply bg-linear-to-l from-background/92 via-background/64 to-background/24"
+        className="hidden lg:block absolute inset-0 pointer-events-none z-1 mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
         aria-hidden="true"
       />
 
@@ -168,7 +168,7 @@ export function AboutHero() {
             className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
             style={{ y: mediaY } as any}
           />
-          <div className="absolute inset-0 bg-linear-to-t from-background/88 via-background/54 to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-10" />
         </div>
         <div className="relative z-10 px-6 pt-10 pb-20 text-center">
           <motion.div
