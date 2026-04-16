@@ -1,69 +1,147 @@
-AUDITORIA Ghost Design System v3.1 — bb4429b\n11 desvios encontrados (3 Críticos · 5 Moderados · 3 Menores). Relatório completo em thread.
+# Auditoria Ghost Design System v3.1 — `bb4429b`
 
-:red_circle: CRÍTICOS (bloqueiam produção)[C-01] --color-textSecondary ERRADO
-Arquivo: src/app/globals.css → @theme
-SSOT: #a1a3a3 (cinza muted) | Código: #fcffff (igual ao texto primário!)
-Impacto: Hierarquia visual quebrada. Metadata, captions e estados inativos ficam com mesmo contraste que headings.[C-02] --color-redAccent AUSENTE
-Arquivo: src/app/globals.css → bloco @theme
-SSOT: --color-redAccent: #E50914
-Token nunca declarado → text-redAccent não gera CSS. Erros de sistema ficam sem cor semântica.[C-03] error.tsx usa classe inválida text-accentRed
-Arquivo: src/app/error.tsx
-Nome correto: text-redAccent (tokens Ghost sempre seguem o padrão nomeTipo)
-Resultado: h2 "Something went wrong!" renderiza sem cor de alerta.
+**13 desvios encontrados: 5 Críticos · 5 Moderados · 3 Menores**
 
-:large_orange_circle: MODERADOS (desvios de token — não bloqueiam, mas violam SSOT)[M-04] global-error.tsx — 5 magic numbers de cor
-text-[#94a3b8] → deveria ser text-textSecondary
-text-[#cbd5f5] → cor inexistente no Ghost System
-bg-[#040013] → deveria ser bg-(--color-background)
-hover:bg-[#4fe6ff] → deveria ser hover:bg-blueAccent
-focus-visible:ring-[#4fe6ff] → deveria ser focus-visible:ring-blueAccent[M-05] text-white em vez de token text-text
-Arquivos: not-found.tsx e sobre/page.tsx
-SSOT: --color-text: #fcffff → classe = text-text ou text-(--color-text)
-text-white = #ffffff ≠ #fcffff. Viola "No Magic Numbers".[M-06] .text-small — Classe tipográfica completamente ausente
-Arquivo: src/app/globals.css
-SSOT §1.2: .text-small → 0.875rem / font-weight: 400 / line-height: 1.4
-O scale pula de .text-body direto para .text-micro. Qualquer componente que use .text-small renderiza sem estilo.[M-07] Z-Index tokens com valores e semântica incorretos
-SSOT: Primary Content=z-20 | Canvas/R3F=z-30 | Header=z-55
-Código: --z-layer-content:10 | --z-layer-3d:20 | --z-layer-header:40
-Risco de z-fighting entre Header e Canvas 3D em scroll.
+> Escopo: `globals.css`, `error.tsx`, `global-error.tsx`, `not-found.tsx`,
+> `AboutBeliefs.tsx`, `AboutHero.tsx`, `AboutMethod.tsx`, `AboutClosing.tsx`,
+> demais arquivos em `src/components/sobre/`
+>
+> Referência: Ghost Design System v3.1 (`GHOST-DESIGN-SYSTEM.md`)
 
+---
 
-:large_orange_circle: [MODERADO-10] Z-Index tokens incorretos — risco real na /sobre
-AboutBeliefs.tsx usa z-40 e z-50 para camadas 3D.
-SSOT §1.3: Canvas/R3F FX = z-30 | Final Overlays = z-50
-Ponto crítico: o GhostScene está em z-50 (sobreposição de modais) e o BeliefFinalSection em z-40. A ANALISE-GLOBAL-DA-SOBRE.md já documenta que o manifesto final fica ABAIXO do Ghost no stacking atual.
-Causa raiz: Camadas definidas sem cruzar a tabela de Z-Index do SSOT.:large_yellow_circle: [MENOR-11] Motion violations menores
-Envio completo nos próximos itens. Aguarde.
+## 🔴 Críticos — bloqueiam qualidade visual em produção
 
+### [C-01] `globals.css` — `--color-textSecondary` com valor incorreto
 
-:page_facing_up: Análise /sobre iniciada. Desvios críticos encontrados em AboutHero, error.tsx, AboutMethod e AboutBeliefs. Detalhes abaixo.
+| | |
+|---|---|
+| **Arquivo** | `src/app/globals.css` → bloco `@theme` |
+| **SSOT** | `--color-textSecondary: #a1a3a3` (cinza muted) |
+| **Código** | `--color-textSecondary: #fcffff` (idêntico ao texto primário) |
+| **Impacto** | Hierarquia visual colapsada — metadata, captions e estados inativos ficam com o mesmo contraste que headings |
 
-CRÍTICO-01: AboutHero.tsx — 3 classes CSS inexistentestext-text-light — não existe em @theme. Nenhuma cor aplicada ao título.
-type-h3 — não é uma classe Ghost nem Tailwind. Substituir por .text-h3
-font-h1 — não é classe tipográfica, é font-family sem definição. Substituir por .text-h1
+### [C-02] `globals.css` — `--color-redAccent` ausente do `@theme`
 
+| | |
+|---|---|
+| **Arquivo** | `src/app/globals.css` → bloco `@theme` |
+| **SSOT** | `--color-redAccent: #E50914` |
+| **Código** | Token nunca declarado → `text-redAccent` não gera CSS |
+| **Impacto** | Cor semântica de erro não-funcional em toda a aplicação |
 
-CRÍTICO-02: error.tsx (sobre) — Motion proibido + classe inválida
-hover:scale-105 active:scale-95 viola SSOT §2.3: scale é FORBIDDEN em UI.
-text-accentRed → token correto é text-redAccent.
+### [C-03] `error.tsx` — token inválido + Motion violation
 
+| | |
+|---|---|
+| **Arquivos** | `src/app/error.tsx` e `src/app/sobre/error.tsx` |
+| **Problema 1** | `text-accentRed` — token inexistente; nome correto: `text-redAccent` |
+| **Problema 2** | `hover:scale-105 active:scale-95` — SSOT §2.3 proíbe `scale` em elementos UI |
+| **Impacto** | `h2 "Something went wrong!"` renderiza sem cor de alerta; botão viola sistema de motion |
 
-CRÍTICO-03: AboutMethod.tsx — 3 falhas simultaneas
-type-h3 inexistente (mesma falha do Hero).
-bg-[rgba(26,26,46,...)] magic number — usar bg-neutral/85.
-Parallax ['-10%','10%'] = 20% shift. SSOT §2.4 limita a 15%. Corrigir para ['-7%','7%'].
+### [C-04] `AboutHero.tsx` — três classes CSS inexistentes
 
+| | |
+|---|---|
+| **Arquivo** | `src/components/sobre/sections/AboutHero.tsx` |
+| **Classes inválidas** | `text-text-light` · `type-h3` · `font-h1` |
+| **Correções** | `text-textSecondary` · `text-h3` · `text-h1` |
+| **Impacto** | Nenhuma cor aplicada ao título; escala tipográfica ignorada |
 
-CRÍTICO-04: AboutBeliefs.tsx — Z-Index errado nas camadas
-Manifesto Final: z-40 (deveria ser z-20 - Primary Content).
-Canvas 3D: z-50 (deveria ser z-30 - Canvas/R3F FX).
-Resultado: manifesto fica ABAIXO do Ghost 3D. Ja documentado em ANALISE-GLOBAL-DA-SOBRE.md.
+### [C-05] `AboutBeliefs.tsx` — z-index invertido entre Ghost 3D e manifesto final
 
-MODERADOS — /sobre
-M1: text-white em 9 arquivos (page, loading, Hero, WhatIDo, Method, Closing, Skeleton). Token correto: text-text.
-M2: opacity-92 em AboutClosing — classe Tailwind invalida (steps de 5). Usar opacity-90.
-M3: font-display em 3 componentes — --font-family-display nao definido no @theme. Risco de colisao com --font-display (font-size). Usar font-sans text-display.
-M4: Magic numbers tipograficos text-[14px], text-[16px], text-[20px] em AboutMethod. Usar .text-small, .text-body, .text-h3.
+| | |
+|---|---|
+| **Arquivo** | `src/components/sobre/sections/AboutBeliefs.tsx` |
+| **Código** | Ghost 3D: `z-50` · Manifesto final overlay: `z-40` |
+| **SSOT §1.3** | Canvas/R3F FX = `z-30` · Final Overlays/Modals = `z-50` |
+| **Impacto** | "ISSO É GHOST DESIGN." fica invisível sob o modelo 3D — clímax da seção suprimido |
 
+---
 
+## 🟠 Moderados — violam SSOT, não bloqueiam renderização base
 
+### [M-01] `global-error.tsx` — 5 magic numbers de cor
+
+| Uso atual | Token correto |
+|---|---|
+| `text-[#94a3b8]` | `text-textSecondary` |
+| `text-[#cbd5f5]` | cor inexistente no Ghost System — remover ou mapear |
+| `bg-[#040013]` | `bg-(--color-background)` |
+| `hover:bg-[#4fe6ff]` | `hover:bg-blueAccent` |
+| `focus-visible:ring-[#4fe6ff]` | `focus-visible:ring-blueAccent` |
+
+### [M-02] `globals.css` — valores dos tokens de z-index incorretos
+
+| Token CSS | Valor no código | Valor SSOT |
+|---|---|---|
+| `--z-layer-content` | `10` | `20` |
+| `--z-layer-3d` | `20` | `30` |
+| `--z-layer-header` | `40` | `55` |
+
+Risco de z-fighting entre Header e Canvas 3D durante o scroll.
+
+### [M-03] `globals.css` — classe `.text-small` ausente da escala tipográfica
+
+| | |
+|---|---|
+| **SSOT §1.2** | `.text-small` → `0.875rem` / `font-weight: 400` / `line-height: 1.4` |
+| **Impacto** | Escala pula de `.text-body` direto para `.text-micro`; qualquer componente com `.text-small` renderiza sem estilo |
+
+### [M-04] 9 arquivos em `/sobre` — `text-white` em vez de `text-text`
+
+| | |
+|---|---|
+| **Arquivos afetados** | `page.tsx`, `loading.tsx`, `AboutHero`, `AboutWhatIDo`, `AboutMethod`, `AboutClosing`, `AboutSkeleton`, `not-found.tsx` |
+| **SSOT** | `--color-text: #fcffff` → classe = `text-text` |
+| **Problema** | `text-white` = `#ffffff` ≠ `#fcffff`; viola "No Magic Numbers" |
+
+### [M-05] `AboutMethod.tsx` — três violações simultâneas
+
+| | |
+|---|---|
+| **Problema 1** | `type-h3` — classe inexistente; usar `text-h3` |
+| **Problema 2** | `bg-[rgba(26,26,46,...)]` — magic number; usar `bg-neutral/85` |
+| **Problema 3** | Parallax `['-10%', '10%']` = shift de 20%; SSOT §2.4 limita a 15% — corrigir para `['-7%', '7%']` |
+
+---
+
+## 🟡 Menores — baixo risco, polimento
+
+### [m-01] `AboutClosing.tsx` — `opacity-92` inválido
+
+Tailwind só gera steps de 5 (`opacity-90` / `opacity-95`). Usar `opacity-90`.
+
+### [m-02] `font-display` — risco de colisão de namespace em 3 componentes
+
+`--font-family-display` não está definido no `@theme`. O token `--font-display` já é um valor de `font-size` na escala Ghost, não `font-family`. Usar `font-sans text-display` nos 3 componentes afetados.
+
+### [m-03] `AboutMethod.tsx` — magic numbers tipográficos
+
+| Uso atual | Token correto |
+|---|---|
+| `text-[14px]` | `text-small` |
+| `text-[16px]` | `text-body` |
+| `text-[20px]` | `text-h3` |
+
+---
+
+## Resumo executivo
+
+| ID | Arquivo(s) | Categoria | Prioridade |
+|---|---|---|---|
+| C-01 | `globals.css` | Token de cor errado | 🔴 P0 |
+| C-02 | `globals.css` | Token ausente | 🔴 P0 |
+| C-03 | `error.tsx` (root + sobre) | Token inválido + Motion violation | 🔴 P0 |
+| C-04 | `AboutHero.tsx` | Classes CSS inexistentes | 🔴 P1 |
+| C-05 | `AboutBeliefs.tsx` | Z-index invertido (Ghost cobre manifesto) | 🔴 P0 |
+| M-01 | `global-error.tsx` | Magic numbers de cor | 🟠 P2 |
+| M-02 | `globals.css` | Z-index tokens com tier errado | 🟠 P1 |
+| M-03 | `globals.css` | `.text-small` ausente | 🟠 P2 |
+| M-04 | 9 arquivos `/sobre` | `text-white` vs `text-text` | 🟠 P2 |
+| M-05 | `AboutMethod.tsx` | Classe inválida + magic bg + parallax excessivo | 🟠 P1 |
+| m-01 | `AboutClosing.tsx` | `opacity-92` inválido | 🟡 P3 |
+| m-02 | 3 componentes `/sobre` | `font-display` namespace collision | 🟡 P3 |
+| m-03 | `AboutMethod.tsx` | Magic numbers tipográficos | 🟡 P3 |
+
+**Próximo passo:** plano de correção com tasks atômicas por arquivo.
