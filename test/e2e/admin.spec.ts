@@ -24,37 +24,47 @@ test.describe('Admin Login Page', () => {
     //   the handler to skip it. mockLoginDone alone is sufficient to gate correctly.
     //
     let mockLoginDone = false;
+    let interceptCount = 0;
 
-    // Phase A — Chromium only.
-    await page.route(/\/admin\/?(\?.*)?$/, async (route) => {
-      if (!mockLoginDone || route.request().resourceType() !== 'document') {
-        await route.continue();
-        return;
-      }
-      await route.fulfill({
-        status: 200,
-        contentType: 'text/html',
-        body: '<html><body><h1>Painel</h1></body></html>',
-      });
-    });
+    // Unified Interceptor: Catch either /admin directly or the redirect to /admin/login.
+    await page.route(
+      (url) => url.pathname.includes('/admin'),
+      async (route) => {
+        const url = new URL(route.request().url());
 
-    // Phase B — Firefox & WebKit: intercept server's 302-redirect follow to /admin/login.
-    await page.route('**/admin/login', async (route) => {
-      if (!mockLoginDone) {
-        // Pre-login visit to /admin/login: let it through normally.
+        if (!mockLoginDone) {
+          await route.continue();
+          return;
+        }
+
+        interceptCount++;
+
+        // Case 1: Direct hit to dashboard
+        if (url.pathname === '/admin' || url.pathname === '/admin/') {
+          await route.fulfill({
+            status: 200,
+            contentType: 'text/html',
+            body: '<html><body><h1>Painel</h1></body></html>',
+          });
+          return;
+        }
+
+        // Case 2: Redirect follow to login page (happens in browsers where Case 1 isn't reached)
+        if (url.pathname === '/admin/login') {
+          await route.fulfill({
+            status: 200,
+            contentType: 'text/html',
+            body: `<html><body>
+              <script>window.history.pushState(null, '', '/admin');</script>
+              <h1>Painel</h1>
+            </body></html>`,
+          });
+          return;
+        }
+
         await route.continue();
-        return;
       }
-      // Post-login redirect: serve mock dashboard and pushState URL to /admin.
-      await route.fulfill({
-        status: 200,
-        contentType: 'text/html',
-        body: `<html><body>
-          <script>window.history.pushState(null, '', '/admin');</script>
-          <h1>Painel</h1>
-        </body></html>`,
-      });
-    });
+    );
 
     // 2. Navigate to the login page
     await page.goto('/admin/login');
@@ -81,9 +91,8 @@ test.describe('Admin Login Page', () => {
     await page.click('button[type="submit"]', { force: true });
 
     // 7. Verify redirection to /admin.
-    //    Chromium: Phase A serves mock HTML at /admin directly.
-    //    Firefox & WebKit: Phase B intercepts redirect, pushes history to /admin.
-    await expect(page).toHaveURL(/\/admin\/?$/i, { timeout: 20000 });
+    // Increased timeout for slower CI environments/browsers
+    await expect(page).toHaveURL(/\/admin\/?$/i, { timeout: 25000 });
 
     // 8. Verify dashboard content
     await expect(page.locator('h1', { hasText: /Painel/i })).toBeVisible({

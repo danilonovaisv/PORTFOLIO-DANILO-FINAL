@@ -7,7 +7,8 @@
  * npx tsx scripts/manage-service-account-keys.ts --account=dannovaisv@gmail.com
  */
 
-import { spawn } from 'child_process';
+import { spawn } from 'node:child_process';
+import process from 'node:process';
 import { Command } from 'commander';
 
 // Define interfaces for type safety
@@ -42,15 +43,15 @@ function executeGcloudCommand(args: string[]): Promise<string> {
 
     const cmd = spawn('gcloud', args);
 
-    cmd.stdout.on('data', (data) => {
+    cmd.stdout.on('data', (data: Buffer) => {
       stdout += data.toString();
     });
 
-    cmd.stderr.on('data', (data) => {
+    cmd.stderr.on('data', (data: Buffer) => {
       stderr += data.toString();
     });
 
-    cmd.on('close', (code) => {
+    cmd.on('close', (code: number | null) => {
       if (code === 0) {
         resolve(stdout);
       } else {

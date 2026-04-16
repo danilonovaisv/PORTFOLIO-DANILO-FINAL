@@ -1216,10 +1216,12 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 **Context:** The `/sobre` page was failing to render due to a runtime `TypeError` in React 19 / Next.js Turbopack.
 
 **Root Cause:**
+
 - `MotionValue` objects from Framer Motion were being passed to the `style` prop of standard HTML elements (via the `DynamicAssetVideo` component).
 - React 19 attempts to apply these objects to the `CSSStyleDeclaration` of the DOM element, triggering the error: `Failed to set an indexed property [0] on 'CSSStyleDeclaration': Indexed property setter is not supported.`
 
 **Changes:**
+
 1. **`AboutHero.tsx`** ✅
    - Wrapped `DynamicAssetVideo` in a `motion.div`.
    - Moved the `y` parallax animation from `DynamicAssetVideo`'s `style` prop to the new `motion.div` wrapper.
@@ -1228,6 +1230,55 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
    - Audited the `style` prop to ensure it strictly follows `React.CSSProperties`.
 
 **Verification:**
+
 - Parallax logic now correctly uses `motion` components, ensuring compatibility with React 19's stricter style handling.
 - Documentation updated in `ERRORS.md`.
+
+---
+
+### [2026-04-16 14:18] Fixed TypeScript Errors in Maintenance Scripts
+
+**Context:** IDE reported multiple "Cannot find name 'process'" and "implicit any" errors in `scripts/manage-service-account-keys.ts`.
+
+**Root Cause:**
+
+- The `scripts/` directory was explicitly excluded in `tsconfig.json`.
+- Missing explicit Node.js imports in the script itself.
+- Lack of type annotations for event emitter parameters.
+
+**Changes:**
+
+1. **`tsconfig.json`** ✅
+   - Removed `"scripts"` from the `exclude` list.
+   - Added `"scripts/**/*.ts"` to the `include` list.
+2. **`scripts/manage-service-account-keys.ts`** ✅
+   - Added `import process from 'node:process';`.
+   - Updated `child_process` import to use the `node:` prefix.
+   - Added explicit types: `(data: Buffer)` and `(code: number | null)`.
+
+**Verification:**
+
+- Script is now correctly recognized as part of the TypeScript project.
+- Implicit `any` errors are resolved.
+
+---
+
+### [2026-04-16 14:22] Fixed Admin E2E Login Compatibility (Firefox/WebKit)
+
+**Context:** The `Admin Login Page` test failed in Firefox during redirection, causing it to time out on the `/admin/login` page.
+
+**Root Cause:**
+- The interceptor used `resourceType() === 'document'` to gate mocking.
+- In Firefox and WebKit, redirected navigations or script-initiated navigations are often reported with inconsistent resource types (e.g., `'fetch'`, `'other'`), causing the interceptor to skip them.
+- This resulted in the `/admin` request hitting the real server, which (seeing no session) redirected to `/admin/login`.
+
+**Changes:**
+1. **`test/e2e/admin.spec.ts`** ✅
+   - Unified Phase A and Phase B interception logic.
+   - Removed the `resourceType` check.
+   - Used a more robust URL matching pattern.
+   - Increased `toHaveURL` timeout to 25s.
+
+**Verification:**
+- Unified logic ensures that even if the browser doesn't report it as a "document", the navigation is still intercepted and the mock dashboard is served.
 

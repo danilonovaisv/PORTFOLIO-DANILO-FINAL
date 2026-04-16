@@ -47,9 +47,9 @@ export function BeliefPhrases() {
           );
 
           (animate as any)(ghostIntensity, (index + 1) / PHRASES.length, {
-              duration: 0.6,
-              easing: [0.22, 1, 0.36, 1],
-            });
+            duration: 0.6,
+            easing: [0.22, 1, 0.36, 1],
+          });
 
           return () => {
             const exitX = isMobile ? 100 : -100;

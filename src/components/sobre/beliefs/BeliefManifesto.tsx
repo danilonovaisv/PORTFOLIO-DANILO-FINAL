@@ -14,7 +14,11 @@ export function BeliefManifesto({
   });
 
   const opacity = useTransform(scrollYProgress, [0.85, 0.95], [0, 1]);
-  const letterSpacing = useTransform(scrollYProgress, [0.85, 1], ['-0.05em', '0.05em']);
+  const letterSpacing = useTransform(
+    scrollYProgress,
+    [0.85, 1],
+    ['-0.05em', '0.05em']
+  );
 
   return (
     <motion.div

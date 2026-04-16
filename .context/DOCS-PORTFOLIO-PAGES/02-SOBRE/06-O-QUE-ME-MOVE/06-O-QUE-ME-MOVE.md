@@ -164,6 +164,13 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
   - `pnpm exec eslint src/components/sobre/sections/AboutBeliefs.tsx src/components/sobre/sections/AboutWhatIDo.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/beliefs/BeliefBackground.tsx src/components/sobre/beliefs/BeliefOverlay.tsx src/components/sobre/3d/GhostCanvas.tsx src/hooks/useBeliefScroll.ts` ✅
   - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅
 
+## Atualização Implementada — 2026-04-16 (refino visual)
+
+- `BeliefFinalSectionOverlay` passou a respeitar gate explícito de opacidade; o manifesto final deixa de contaminar a composição antes do clímax da seção.
+- `BeliefFixedHeader` foi reposicionado para centro-direita útil no desktop e topo-direita controlado no mobile, evitando clipping sob o header global.
+- `BeliefDesktopTextLayer` voltou a tratar a frase desktop como composição vertical por palavra, alinhando a leitura editorial ao documento de referência.
+- O wrapper `GhostCanvas` foi promovido novamente ao teto de camada previsto (`z-50`), mantendo o Ghost acima do background, mas sem concorrer com texto fora de hora.
+
 ---
 
 ## ⏱ Sequência Cronológica

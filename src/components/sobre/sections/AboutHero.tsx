@@ -157,10 +157,7 @@ export function AboutHero() {
       {/* Mobile Hero Video - Sincronização Realtime */}
       <div className="lg:hidden">
         <div className="relative aspect-square w-full overflow-hidden">
-          <motion.div
-            style={{ y: mediaY }}
-            className="w-full h-full"
-          >
+          <motion.div style={{ y: mediaY }} className="w-full h-full">
             <DynamicAssetVideo
               assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
               fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}

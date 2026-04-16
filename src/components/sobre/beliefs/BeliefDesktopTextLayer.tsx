@@ -66,11 +66,11 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
     <motion.div
       aria-hidden="true"
       data-testid="belief-text-layer-desktop"
-      className="pointer-events-none absolute inset-0 z-20 hidden md:block"
+      className="pointer-events-none absolute inset-0 z-40 hidden md:block"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
       {/* SPEC: Text at left, with grid padding — pl-8 lg:pl-16 */}
-      <div className="sticky top-0 h-screen w-full flex items-center pl-8 lg:pl-16">
+      <div className="sticky top-0 flex h-screen w-full items-center pl-8 lg:pl-16">
         <AnimatePresence mode="wait">
           {activePhrase ? (
             <DesktopPhrase
@@ -101,8 +101,7 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
   prefersReducedMotion,
 }) => {
   const Container = MotionDiv ?? motion.div;
-  // SPEC: split by newline for multi-line desktop phrases
-  const lines = text.split('\n');
+  const lines = text.split(' ');
   const motionProps = prefersReducedMotion
     ? {}
     : {
@@ -115,16 +114,16 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
 
   return (
     <Container
-      className="pointer-events-none flex w-full max-w-[38vw] flex-col justify-center lg:max-w-[32vw]"
+      className="pointer-events-none flex w-full max-w-[26vw] flex-col justify-center lg:max-w-[22vw]"
       data-testid={lineTestId}
       {...motionProps}
     >
       {lines.map((line, index) => (
         <div
           key={`${line}-${index}`}
-          className="overflow-visible mb-1 md:mb-2 w-full"
+          className="mb-1 w-full overflow-visible md:mb-2"
         >
-          <span className="block max-w-fit text-left italic font-semibold tracking-[-0.01em] text-blueAccent text-belief-desktop whitespace-pre-line select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]">
+          <span className="block max-w-fit text-left text-belief-desktop font-semibold italic tracking-[-0.02em] text-blueAccent select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.18)]">
             {line}
           </span>
         </div>

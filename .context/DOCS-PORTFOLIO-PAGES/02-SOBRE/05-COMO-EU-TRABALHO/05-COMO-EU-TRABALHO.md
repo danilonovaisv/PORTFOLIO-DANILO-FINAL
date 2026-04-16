@@ -87,3 +87,14 @@ Traduzir processo criativo em método prático, gerando confiança através de c
   - Protótipo recomenda `<ul>/<li>`; implementação utiliza `div`.
 - Conformidade parcial:
   - Estrutura textual e narrativa estão corretas.
+
+## 13. Estado Implementado — 2026-04-16
+
+- Ajuste editorial aplicado em `src/components/sobre/sections/AboutMethod.tsx`:
+  - o conteúdo deixou de entrar tarde demais na viewport e passou a abrir a seção com presença imediata;
+  - o bloco principal agora usa um único painel escuro translúcido com borda sutil, reforçando a exceção controlada “texto sobre vídeo” prevista no protótipo;
+  - a lista de etapas passou a operar como sequência técnica dentro do painel, com separação por linhas e marcador azul consistente, em vez de competir com o vídeo de fundo.
+- Resultado esperado após esta rodada:
+  - desktop com leitura estável no primeiro viewport útil da seção;
+  - mobile/tablet com contraste mais seguro e hierarquia mais clara;
+  - vídeo continua como base visual, mas não mais como superfície dominante vazia.

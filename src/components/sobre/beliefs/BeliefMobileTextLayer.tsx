@@ -67,7 +67,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
     <motion.div
       aria-hidden="true"
       data-testid="belief-text-layer-mobile"
-      className="absolute inset-0 z-20 pointer-events-none md:hidden"
+      className="absolute inset-0 z-40 pointer-events-none md:hidden"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
       <div className="sticky top-0 h-screen w-full">
@@ -120,7 +120,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
       className="mx-auto w-full max-w-[82vw] text-center pointer-events-none"
       {...motionProps}
     >
-      <span className="block w-full mx-auto text-balance text-blueAccent italic font-semibold text-belief-mobile tracking-[-0.01em] select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]">
+      <span className="block w-full mx-auto text-balance text-belief-mobile font-semibold italic tracking-[-0.02em] text-blueAccent select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.16)]">
         {mobileText}
       </span>
     </Container>

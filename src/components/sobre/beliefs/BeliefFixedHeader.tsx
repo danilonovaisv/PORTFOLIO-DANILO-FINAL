@@ -1,6 +1,11 @@
 'use client';
 
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
 import type { RefObject } from 'react';
 
 export function BeliefFixedHeader({
@@ -23,18 +28,22 @@ export function BeliefFixedHeader({
 
   return (
     <motion.header
-      className="sticky top-[20vh] md:top-0 z-30 text-right col-span-10 col-start-3 md:col-span-5 md:col-start-8 pt-8 pr-6"
-      style={prefersReducedMotion ? undefined : { y: exitY, opacity: exitOpacity }}
+      className="absolute right-0 top-[10vh] z-30 w-[min(22rem,72vw)] pr-6 text-right md:inset-y-0 md:flex md:w-[min(30rem,34vw)] md:items-center md:justify-end md:pr-[4vw]"
+      style={
+        prefersReducedMotion ? undefined : { y: exitY, opacity: exitOpacity }
+      }
       initial={prefersReducedMotion ? false : { opacity: 0.3, x: 18 }}
       animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
     >
-      <p className="font-display font-black text-white leading-tight">
-        Acredito no design que muda o dia de alguém.
-      </p>
-      <h2 className="font-h2 font-bold text-white mt-2">
-        Não pelo choque, mas pela conexão.
-      </h2>
+      <div className="rounded-[24px] border border-white/8 bg-[rgba(4,0,19,0.28)] px-5 py-4 backdrop-blur-md md:max-w-[24rem] md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-0">
+        <p className="font-display text-[0.95rem] font-black leading-tight text-white/90 md:text-[1.08rem]">
+          Acredito no design que muda o dia de alguém.
+        </p>
+        <h2 className="mt-2 font-h2 text-[clamp(1.15rem,2vw,2rem)] font-bold leading-[1.04] text-white">
+          Não pelo choque, mas pela conexão.
+        </h2>
+      </div>
     </motion.header>
   );
 }

@@ -42,7 +42,7 @@ export default function AboutMethod() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-background flex flex-col min-h-screen lg:min-h-[120vh]"
+      className="relative flex min-h-[100svh] w-full flex-col bg-background lg:min-h-[110vh]"
       aria-label="Como Eu Trabalho"
     >
       {/* Background Video Container */}
@@ -76,91 +76,90 @@ export default function AboutMethod() {
 
         {/* Global Dark Gradient Overlay */}
         <div
-          className="absolute inset-0 z-1 bg-linear-to-b from-background via-background/40 to-background md:bg-linear-to-r md:from-background md:via-background/60 md:to-transparent"
+          className="absolute inset-0 z-1 bg-linear-to-b from-background/95 via-background/58 to-background/92 md:bg-linear-to-r md:from-background/95 md:via-background/72 md:to-transparent"
           aria-hidden="true"
         />
       </div>
 
       <div className="std-grid relative z-10 w-full h-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-12 w-full h-full pt-[40vh] md:pt-[100px]">
+        <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:grid lg:grid-cols-12 lg:pt-24">
           {/* Content Area: Cols 2-7 (Span 6) */}
           <div className="w-full lg:col-start-2 lg:col-span-6 flex flex-col justify-center px-0 lg:pr-20 py-20 lg:py-32">
             <motion.div
               style={{ y: textY }}
-              className="w-full flex flex-col items-center lg:items-start"
+              className="flex w-full flex-col items-center lg:items-start"
             >
-              {/* Título */}
-              <motion.div
-                variants={motionTokens.fadeGhost}
-                initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                whileInView="visible"
-                viewport={{ once: false, margin: '-20%' }}
-                className="mb-8 lg:mb-12 text-center lg:text-left"
-              >
-                <h2 className="font-display leading-[1.08] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] font-bold">
-                  <div className="text-text leading-tight">
+              <div className="w-full max-w-[44rem] rounded-[28px] border border-white/10 bg-[rgba(4,0,19,0.76)] px-6 py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.85)] backdrop-blur-xl lg:px-8 lg:py-9">
+                <motion.p
+                  variants={motionTokens.fadeGhost}
+                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                  whileInView="visible"
+                  viewport={{ once: false, margin: '-20%' }}
+                  className="mb-4 text-center font-sans text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white/55 lg:text-left"
+                >
+                  Processo criativo
+                </motion.p>
+
+                {/* Título */}
+                <motion.div
+                  variants={motionTokens.fadeGhost}
+                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                  whileInView="visible"
+                  viewport={{ once: false, margin: '-20%' }}
+                  className="mb-6 text-center lg:mb-8 lg:text-left"
+                >
+                  <h2 className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text">
                     <span className="text-bluePrimary">Criatividade</span> com{' '}
                     <span className="text-bluePrimary">método</span>.
-                  </div>
-                  <div className="text-text leading-tight">
-                    Impacto sem ruído.
-                  </div>
-                </h2>
-              </motion.div>
+                    <br />
+                    <span className="text-text">Impacto sem ruído.</span>
+                  </h2>
+                </motion.div>
 
-              {/* Texto introdutório */}
-              <motion.div
-                variants={motionTokens.fadeGhost}
-                initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                whileInView="visible"
-                viewport={{ once: false, margin: '-20%' }}
-                className="text-text text-h3 mb-12 lg:mb-16 text-center lg:text-left max-w-full lg:max-w-[550px]"
-              >
-                {ABOUT_CONTENT.method.intro.map((line, i) => (
-                  <p key={i}>{line}</p>
-                ))}
-              </motion.div>
+                {/* Texto introdutório */}
+                <motion.div
+                  variants={motionTokens.fadeGhost}
+                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                  whileInView="visible"
+                  viewport={{ once: false, margin: '-20%' }}
+                  className="mb-8 max-w-[34rem] text-center text-h3 text-text lg:mb-10 lg:text-left"
+                >
+                  {ABOUT_CONTENT.method.intro.map((line, i) => (
+                    <p key={i}>{line}</p>
+                  ))}
+                </motion.div>
 
-              {/* Steps List */}
-              <motion.ul
-                variants={{
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.1,
-                      delayChildren: 0.1,
+                {/* Steps List */}
+                <motion.ul
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.1,
+                        delayChildren: 0.1,
+                      },
                     },
-                  },
-                }}
-                initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                whileInView="visible"
-                viewport={{ once: false, margin: '-10%' }}
-                className="flex flex-col w-full"
-              >
-                {ABOUT_CONTENT.method.steps.map((step) => (
-                  <motion.li
-                    key={step.id}
-                    variants={motionTokens.riseSoft}
-                    className="
-                        group flex items-start gap-4 lg:gap-6
-                        bg-neutral/85 lg:bg-neutral/70
-                        backdrop-blur-[12px]
-                        p-5 lg:p-6
-                        mb-4
-                        rounded-lg
-                        border-l-4 border-bluePrimary
-                        transition-all duration-300
-                        hover:bg-neutral/85
-                      "
-                  >
-                    <span className="text-bluePrimary font-bold text-body lg:text-body-enhanced tabular-nums shrink-0">
-                      {step.id}
-                    </span>
-                    <p className="text-text group-hover:text-bluePrimary transition-colors font-medium text-left text-small md:text-body lg:text-body-enhanced leading-[1.4]">
-                      {step.text}
-                    </p>
-                  </motion.li>
-                ))}
-              </motion.ul>
+                  }}
+                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                  whileInView="visible"
+                  viewport={{ once: false, margin: '-10%' }}
+                  className="flex w-full flex-col border-t border-white/10 pt-3"
+                >
+                  {ABOUT_CONTENT.method.steps.map((step) => (
+                    <motion.li
+                      key={step.id}
+                      variants={motionTokens.riseSoft}
+                      className="group grid grid-cols-[auto_1fr] items-start gap-4 border-b border-white/10 py-4 last:border-b-0 lg:gap-5"
+                    >
+                      <span className="mt-0.5 inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-bluePrimary/35 bg-bluePrimary/10 px-3 font-bold tabular-nums text-bluePrimary">
+                        {step.id}
+                      </span>
+                      <p className="border-l-2 border-bluePrimary/55 pl-4 text-left text-small font-medium leading-[1.45] text-text transition-colors group-hover:text-blueAccent md:text-body lg:text-body-enhanced">
+                        {step.text}
+                      </p>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </div>
             </motion.div>
           </div>
 

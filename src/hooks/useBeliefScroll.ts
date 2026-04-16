@@ -20,7 +20,11 @@ export function useBeliefScroll(containerRef: RefObject<HTMLElement | null>) {
   });
 
   const inputRange = useRef(COLORS.map((_, i) => i / (COLORS.length - 1)));
-  const backgroundColor = useTransform(scrollYProgress, inputRange.current, COLORS);
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    inputRange.current,
+    COLORS
+  );
 
   return { scrollYProgress, backgroundColor };
 }

@@ -6,8 +6,8 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 5
-- **Đã sửa**: 5
+- **Tổng lỗi**: 7
+- **Đã sửa**: 7
 
 ---
 
@@ -87,8 +87,6 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: Passing Framer Motion `MotionValue` objects to standard HTML elements' `style` prop. In React 19 / Turbopack environment, this triggers a `TypeError: Failed to set an indexed property [0] on 'CSSStyleDeclaration': Indexed property setter is not supported.` because standard CSSStyleDeclaration objects do not handle MotionValue objects as values.
 - **Error Message**: `TypeError: Failed to set an indexed property [0] on 'CSSStyleDeclaration': Indexed property setter is not supported.`
-- **Fix Applied**: Wrapped `DynamicAssetVideo` in a `motion.div` in `AboutHero.tsx` and moved the `y" parallax animation to the wrapper. This ensures that `MotionValues` are only handled by Framer Motion's `motion" components, which extract the raw values before applying them to the DOM.
+- **Fix Applied**: Wrapped `DynamicAssetVideo` in a `motion.div` in `AboutHero.tsx` and moved the `y" parallax animation to the wrapper. This ensures that `MotionValues`are only handled by Framer Motion's`motion" components, which extract the raw values before applying them to the DOM.
 - **Prevention**: Always use `motion` components when passing `MotionValue`s to `style` props. Avoid casting `MotionValue` to `any" inside `style={{ ... }}` blocks for non-motion components.
 - **Status**: Fixed
-
-
