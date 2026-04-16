@@ -13,12 +13,12 @@ import { BRAND } from '@/config/brand';
  * CSS `transition-colors` handles the smooth blending between sections.
  */
 export const BELIEF_COLORS = [
-  BRAND.colors.bluePrimary,   // #0048ff
+  BRAND.colors.bluePrimary, // #0048ff
   BRAND.colors.purpleDetails, // #8705f2
-  BRAND.colors.pinkDetails,   // #f501d3
-  BRAND.colors.bluePrimary,   // #0048ff
+  BRAND.colors.pinkDetails, // #f501d3
+  BRAND.colors.bluePrimary, // #0048ff
   BRAND.colors.purpleDetails, // #8705f2
-  BRAND.colors.pinkDetails,   // #f501d3
+  BRAND.colors.pinkDetails, // #f501d3
 ];
 
 export const BELIEF_INTRO_END = 0.1;

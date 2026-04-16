@@ -58,10 +58,7 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "github",
-    "supabase"
-  ],
+  "enabledMcpjsonServers": ["github", "supabase"],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   }

@@ -120,10 +120,11 @@ const DesktopPhrase: React.FC<DesktopPhraseProps> = ({
       {...motionProps}
     >
       {lines.map((line, index) => (
-        <div key={`${line}-${index}`} className="overflow-visible mb-1 md:mb-2 w-full">
-          <span
-            className="block max-w-fit text-left italic font-semibold tracking-[-0.01em] text-blueAccent text-belief-desktop whitespace-pre-line select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]"
-          >
+        <div
+          key={`${line}-${index}`}
+          className="overflow-visible mb-1 md:mb-2 w-full"
+        >
+          <span className="block max-w-fit text-left italic font-semibold tracking-[-0.01em] text-blueAccent text-belief-desktop whitespace-pre-line select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]">
             {line}
           </span>
         </div>

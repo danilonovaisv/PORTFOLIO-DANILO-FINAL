@@ -17,18 +17,22 @@ function normalizeServers(config: any): Array<any> {
 
   // Shape 2: mcpServers is an object
   if (config.mcpServers && typeof config.mcpServers === 'object') {
-    return Object.entries(config.mcpServers).map(([name, value]: [string, any]) => ({
-      name,
-      ...value,
-    }));
+    return Object.entries(config.mcpServers).map(
+      ([name, value]: [string, any]) => ({
+        name,
+        ...value,
+      })
+    );
   }
 
   // Shape 3: servers is an object
   if (config.servers && typeof config.servers === 'object') {
-    return Object.entries(config.servers).map(([name, value]: [string, any]) => ({
-      name,
-      ...value,
-    }));
+    return Object.entries(config.servers).map(
+      ([name, value]: [string, any]) => ({
+        name,
+        ...value,
+      })
+    );
   }
 
   return [];
@@ -104,12 +108,12 @@ describe('Antigravity MCP Configuration', () => {
     });
 
     it('should validate filesystem server configuration if present', () => {
-      const fsServer = servers.find(
-        (s: any) => s.name === 'filesystem'
-      );
+      const fsServer = servers.find((s: any) => s.name === 'filesystem');
       if (fsServer) {
         if (fsServer.command) {
-          expect(fsServer.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
+          expect(fsServer.command).toMatch(
+            /(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i
+          );
           expect(fsServer.args).toEqual(
             expect.arrayContaining([expect.stringMatching(/filesystem/)])
           );
@@ -119,7 +123,7 @@ describe('Antigravity MCP Configuration', () => {
 
     it('should ensure all enabled stdio servers use npx or node', () => {
       const enabledServers = servers.filter(
-        (s: any) => (s.enabled !== false) && s.command
+        (s: any) => s.enabled !== false && s.command
       );
 
       enabledServers.forEach((server: any) => {
