@@ -10,6 +10,7 @@ import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { applyImageFallback, cn, getAssetUrl, isVideo } from '@/lib/utils';
 import type { PortfolioProject } from '@/types/project';
+import React from 'react';
 
 type FeaturedProjectCardFrameProps = {
   project: PortfolioProject;
@@ -20,7 +21,10 @@ type FeaturedProjectCardFrameProps = {
   reducedMotion: boolean;
 };
 
-export default function FeaturedProjectCardFrame({
+/**
+ * ⚡ BOLT OPTIMIZATION: Wrapped with React.memo to prevent unnecessary re-renders.
+ */
+const FeaturedProjectCardFrame = React.memo(function FeaturedProjectCardFrame({
   project,
   backgroundVariant,
   desktopMediaSource,
@@ -263,4 +267,6 @@ export default function FeaturedProjectCardFrame({
       <div className="absolute inset-0 rounded-md ring-1 ring-inset ring-white/10" />
     </div>
   );
-}
+});
+
+export default FeaturedProjectCardFrame;

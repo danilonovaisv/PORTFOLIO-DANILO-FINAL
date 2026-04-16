@@ -8,3 +8,6 @@
 ## 2025-01-04 - [React.memo on Interactive List Items]
 **Learning:** Components rendered in lists (`map`) that depend on parent state for interaction (e.g., `isHovered` where the parent tracks `hoveredCategory`) are prime candidates for `React.memo`. Without it, a single hover interaction causes ALL sibling items in the list to re-render, not just the newly hovered and unhovered ones.
 **Action:** Always consider `React.memo` for list items that receive specific active/hover state from a parent, especially if the items contain complex DOM, motion animations, or media.
+## 2026-04-16 - [React.memo Optimization in Featured Projects]
+**Learning:** Found an opportunity to optimize rendering performance for frequently re-rendered or list components. `FeaturedProjectCard` and `FeaturedProjectCardFrame` rendering heavily uses nested media layers and computations. When a parent re-renders these list item components cause unnecessary DOM repainting. Wrapping these subcomponents with `React.memo` successfully mitigates this.
+**Action:** Always identify if elements displaying within loops (like cards in grids or lists) take static or lightly-changing props and wrap them in `React.memo` to prevent them from causing large React render pipeline bottlenecks.

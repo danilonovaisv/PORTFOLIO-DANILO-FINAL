@@ -21,7 +21,10 @@ interface FeaturedProjectCardProps {
   frameClassName?: string;
 }
 
-export default function FeaturedProjectCard({
+/**
+ * ⚡ BOLT OPTIMIZATION: Wrapped with React.memo to prevent unnecessary re-renders.
+ */
+const FeaturedProjectCard = React.memo(function FeaturedProjectCard({
   project,
   onOpen,
   priority = false,
@@ -208,4 +211,6 @@ export default function FeaturedProjectCard({
       <CardContent />
     </Link>
   );
-}
+});
+
+export default FeaturedProjectCard;
