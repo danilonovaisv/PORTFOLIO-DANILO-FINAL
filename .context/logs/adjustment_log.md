@@ -1208,3 +1208,26 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 - IDE diagnostics for `playwright.config.ts` are expected to clear.
 - Root configuration is now more robust for ESM/Node.js interop.
+
+---
+
+### [2026-04-16 13:10] Fixed CSSStyleDeclaration Runtime Error in AboutHero
+
+**Context:** The `/sobre` page was failing to render due to a runtime `TypeError` in React 19 / Next.js Turbopack.
+
+**Root Cause:**
+- `MotionValue` objects from Framer Motion were being passed to the `style` prop of standard HTML elements (via the `DynamicAssetVideo` component).
+- React 19 attempts to apply these objects to the `CSSStyleDeclaration` of the DOM element, triggering the error: `Failed to set an indexed property [0] on 'CSSStyleDeclaration': Indexed property setter is not supported.`
+
+**Changes:**
+1. **`AboutHero.tsx`** ✅
+   - Wrapped `DynamicAssetVideo` in a `motion.div`.
+   - Moved the `y` parallax animation from `DynamicAssetVideo`'s `style` prop to the new `motion.div` wrapper.
+   - Removed the invalid `any` cast for the `style` prop.
+2. **`DynamicAssetVideo.tsx`** ✅
+   - Audited the `style` prop to ensure it strictly follows `React.CSSProperties`.
+
+**Verification:**
+- Parallax logic now correctly uses `motion` components, ensuring compatibility with React 19's stricter style handling.
+- Documentation updated in `ERRORS.md`.
+

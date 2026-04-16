@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import type { RefObject } from 'react';
 import { useBeliefScroll } from '@/hooks/useBeliefScroll';
 

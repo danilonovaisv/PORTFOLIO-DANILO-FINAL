@@ -194,7 +194,7 @@ export function AboutWhatIDo() {
                     ? { opacity: 1, x: 0 }
                     : { opacity: 0, x: 18 }
                 }
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={viewportConfig}
                 transition={{
                   duration: 0.4,
@@ -225,10 +225,10 @@ export function AboutWhatIDo() {
           MARQUEE FOOTER (Ghost Design)
           Infinite horizontal scroll - keywords
           ============================================ */}
-      <div className="relative overflow-hidden border-t border-white/5 bg-background py-6">
+      <div className="relative hidden overflow-hidden border-t border-white/5 bg-background py-6 lg:block">
         {/* Dual marquee for seamless loop */}
         <div
-          className={`flex w-max animate-marquee gap-12 ${prefersReducedMotion || marqueePaused ? 'pause-animation' : ''}`}
+          className={`flex w-max gap-12 ${prefersReducedMotion ? '' : 'animate-marquee'} ${prefersReducedMotion || marqueePaused ? 'pause-animation' : ''}`}
           onMouseEnter={() => setMarqueePaused(true)}
           onMouseLeave={() => setMarqueePaused(false)}
           onFocus={() => setMarqueePaused(true)}

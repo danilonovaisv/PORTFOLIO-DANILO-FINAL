@@ -1,22 +1,23 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
-import { GhostModel } from '@/components/sobre/3d/GhostModel';
+import type { MotionValue } from 'framer-motion';
+import GhostScene from '@/components/sobre/3d/GhostScene';
 
-export function GhostCanvas() {
+interface GhostCanvasProps {
+  scrollProgress: MotionValue<number>;
+  ghostIntensity: MotionValue<number>;
+}
+
+export function GhostCanvas({
+  scrollProgress,
+  ghostIntensity,
+}: GhostCanvasProps) {
   return (
-    <Canvas
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 50,
-        pointerEvents: 'none',
-      }}
-      camera={{ position: [0, 0, 5], fov: 45 }}
-    >
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 5, 5]} intensity={1.2} />
-      <GhostModel />
-    </Canvas>
+    <div className="absolute inset-0 z-30 pointer-events-none">
+      <GhostScene
+        scrollProgress={scrollProgress}
+        ghostIntensity={ghostIntensity}
+      />
+    </div>
   );
 }

@@ -92,3 +92,13 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
 - Conformidade forte:
   - Sequência dos 7 itens e estrutura geral estão alinhadas.
   - Cards desktop agora entram visíveis no primeiro viewport útil, alinhando a leitura com a referência visual.
+
+## 13. Estado Implementado — 2026-04-16
+
+- Correção aplicada em `src/components/sobre/sections/AboutWhatIDo.tsx`:
+  - a animação mobile voltou a usar deslocamento horizontal coerente (`x: 18 -> 0`), eliminando a regressão em que o estado inicial usava `x` e o estado final animava `y`;
+  - o marquee inferior foi restringido ao desktop (`lg`) e deixa de animar quando `prefers-reduced-motion` estiver ativo.
+- Resultado esperado após esta rodada:
+  - mobile/tablet com leitura mais limpa e sem ruído contínuo abaixo da pilha de cards;
+  - desktop preserva a faixa complementar apenas quando ainda agrega ritmo visual à composição;
+  - reduced motion mantém a seção estática, sem deriva lateral nem marquee em loop.

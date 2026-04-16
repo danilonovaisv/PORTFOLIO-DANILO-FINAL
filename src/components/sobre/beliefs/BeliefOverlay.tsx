@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'motion/react';
+import { motion, useTransform, type MotionValue } from 'framer-motion';
 
 export function BeliefOverlay({
   scrollYProgress,

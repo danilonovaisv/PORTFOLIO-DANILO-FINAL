@@ -148,6 +148,22 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
   - warning de depreciação `THREE.Clock` emitido pelo runtime do Three;
   - aviso de engine local (`node v25.9.0`) divergente do alvo declarado do projeto (`node 20`), sem bloquear build nem E2E nesta rodada.
 
+## Atualização Implementada — 2026-04-16
+
+- `src/components/sobre/sections/AboutBeliefs.tsx` voltou a ser a composição autoritativa da sessão, com uma única timeline de scroll (`useScroll` + `useBeliefsAnimation`) alimentando:
+  - `BeliefFixedHeader`
+  - `BeliefDesktopTextLayer`
+  - `BeliefMobileTextLayer`
+  - `BeliefFinalSectionOverlay`
+  - `GhostCanvas` como wrapper editorial do `GhostScene`, e não mais como `Canvas` fixo full-screen
+- O wrapper `GhostCanvas` deixou de montar um `Canvas` em `position: fixed; inset: 0`; o 3D agora fica encapsulado na área sticky da própria seção, respeitando a hierarquia do manifesto e o enquadramento do texto.
+- A altura útil da sessão foi expandida para `900vh` para sincronizar novamente a progressão das frases com os checkpoints de scroll e com o E2E da página.
+- `prefers-reduced-motion` continua como gate obrigatório: quando ativo, as camadas textuais permanecem e o 3D deixa de ser renderizado.
+- Evidência objetiva desta rodada:
+  - `pnpm run typecheck` ✅
+  - `pnpm exec eslint src/components/sobre/sections/AboutBeliefs.tsx src/components/sobre/sections/AboutWhatIDo.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/beliefs/BeliefBackground.tsx src/components/sobre/beliefs/BeliefOverlay.tsx src/components/sobre/3d/GhostCanvas.tsx src/hooks/useBeliefScroll.ts` ✅
+  - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅
+
 ---
 
 ## ⏱ Sequência Cronológica
@@ -356,4 +372,3 @@ export const Ghost = () => {
   - `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb`
 - `useGLTF.preload(GLB_URL)` foi mantido no escopo do módulo para pré-carga do GLB antes da montagem do canvas.
 - O mount do Canvas ficou condicionado por `inView` da seção para reduzir custo fora da viewport.
-

@@ -1,0 +1,33 @@
+{
+  "name": "context7",
+  "version": "1.0.0",
+  "description": "Plugin local para consultar documentacao atualizada via Context7 MCP.",
+  "author": {
+    "name": "Danilo Novais"
+  },
+  "keywords": [
+    "context7",
+    "mcp",
+    "documentation",
+    "developer-tools"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Context7",
+    "shortDescription": "Busca documentacao atualizada por MCP.",
+    "longDescription": "Disponibiliza o servidor MCP Context7 no workspace para consultas de documentacao atualizada de bibliotecas, frameworks, SDKs e CLIs.",
+    "developerName": "Danilo Novais",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Busque a doc atual do Next.js para App Router",
+      "Consulte a API mais recente do Tailwind CSS",
+      "Verifique a sintaxe atual do Framer Motion"
+    ],
+    "brandColor": "#0048ff",
+    "screenshots": []
+  }
+}

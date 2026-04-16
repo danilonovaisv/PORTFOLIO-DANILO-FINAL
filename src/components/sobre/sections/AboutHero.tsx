@@ -157,17 +157,21 @@ export function AboutHero() {
       {/* Mobile Hero Video - Sincronização Realtime */}
       <div className="lg:hidden">
         <div className="relative aspect-square w-full overflow-hidden">
-          <DynamicAssetVideo
-            assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
-            fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}
-            playbackRate={0.4}
-            autoPlay={shouldPlayVideo}
-            muted
-            loop={shouldPlayVideo}
-            poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
-            style={{ y: mediaY } as any}
-          />
+          <motion.div
+            style={{ y: mediaY }}
+            className="w-full h-full"
+          >
+            <DynamicAssetVideo
+              assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
+              fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}
+              playbackRate={0.4}
+              autoPlay={shouldPlayVideo}
+              muted
+              loop={shouldPlayVideo}
+              poster={DEFAULT_VIDEO_POSTER}
+              className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-10" />
         </div>
         <div className="relative z-10 px-6 pt-10 pb-20 text-center">

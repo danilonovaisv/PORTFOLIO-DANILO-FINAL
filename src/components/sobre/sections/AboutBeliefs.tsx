@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { inView } from 'motion';
+import { useRef } from 'react';
+import { useScroll } from 'framer-motion';
 import { BeliefBackground } from '@/components/sobre/beliefs/BeliefBackground';
 import { BeliefOverlay } from '@/components/sobre/beliefs/BeliefOverlay';
+import { BeliefDesktopTextLayer } from '@/components/sobre/beliefs/BeliefDesktopTextLayer';
 import { BeliefFixedHeader } from '@/components/sobre/beliefs/BeliefFixedHeader';
-import { BeliefPhrases } from '@/components/sobre/beliefs/BeliefPhrases';
-import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
+import { BeliefFinalSectionOverlay } from '@/components/sobre/beliefs/BeliefFinalSectionOverlay';
+import { BeliefMobileTextLayer } from '@/components/sobre/beliefs/BeliefMobileTextLayer';
 import { GhostCanvas } from '@/components/sobre/3d/GhostCanvas';
-import { useBeliefScroll } from '@/hooks/useBeliefScroll';
+import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
 
 const PHRASES = [
   'Um vídeo que respira.',
@@ -21,23 +22,15 @@ const PHRASES = [
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useBeliefScroll(containerRef);
-  const [isCanvasActive, setIsCanvasActive] = useState(false);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const stop = inView(
-      containerRef.current,
-      () => {
-        setIsCanvasActive(true);
-        return () => setIsCanvasActive(false);
-      },
-      { margin: '-10% 0px -10% 0px' }
-    );
-
-    return () => stop();
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+  const { ghostIntensity, showFinalManifesto, prefersReducedMotion } =
+    useBeliefsAnimation({
+      scrollYProgress,
+      totalPhrases: PHRASES.length,
+    });
 
   return (
     <section
@@ -45,7 +38,7 @@ export function AboutBeliefs() {
       id="06-o-que-me-move"
       data-testid="about-beliefs-section"
       aria-label="O Que Me Move"
-      className="relative min-h-[700vh] overflow-hidden"
+      className="relative min-h-[900vh] overflow-hidden"
     >
       <div className="sr-only">
         <h2>Manifesto: O Que Me Move</h2>
@@ -61,12 +54,32 @@ export function AboutBeliefs() {
       <BeliefOverlay scrollYProgress={scrollYProgress} />
 
       <div className="sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
-        <BeliefFixedHeader containerRef={containerRef} />
-        <BeliefPhrases />
-        <BeliefManifesto containerRef={containerRef} />
+        <BeliefFixedHeader
+          containerRef={containerRef}
+          scrollYProgress={scrollYProgress}
+          prefersReducedMotion={prefersReducedMotion}
+        />
+        <BeliefDesktopTextLayer
+          phrases={PHRASES}
+          scrollYProgress={scrollYProgress}
+          prefersReducedMotion={prefersReducedMotion}
+        />
+        <BeliefMobileTextLayer
+          phrases={PHRASES}
+          scrollYProgress={scrollYProgress}
+          prefersReducedMotion={prefersReducedMotion}
+        />
+        <BeliefFinalSectionOverlay
+          prefersReducedMotion={prefersReducedMotion}
+          showProgress={showFinalManifesto}
+        />
+        {!prefersReducedMotion ? (
+          <GhostCanvas
+            scrollProgress={scrollYProgress}
+            ghostIntensity={ghostIntensity}
+          />
+        ) : null}
       </div>
-
-      {isCanvasActive ? <GhostCanvas /> : null}
     </section>
   );
 }

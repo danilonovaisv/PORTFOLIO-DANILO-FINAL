@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, type RefObject } from 'react';
-import { useScroll, useTransform } from 'motion/react';
+import { useScroll, useTransform } from 'framer-motion';
 
 const COLORS = [
   'hsl(230, 85%, 30%)',
