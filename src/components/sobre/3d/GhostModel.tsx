@@ -1,29 +1,80 @@
 'use client';
 
-import { useGLTF } from '@react-three/drei';
-import {
-  GhostModel as SharedGhostModel,
-  type GhostModelProps,
-} from '@/components/shared/3d/GhostModel';
+import { useRef } from 'react';
+import { Float, useGLTF } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useMotionValueEvent } from 'motion/react';
+import * as THREE from 'three';
+import { ghostIntensity } from '@/store/beliefStore';
+import type { MotionValue } from 'framer-motion';
 
-/**
- * About Beliefs — Ghost Model
- *
- * Uses the official Supabase-hosted GLB for this section.
- * Falls back to local path via SharedGhostModel if needed.
- */
-const GHOST_SUPABASE_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+const GLB_URL =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
 
-const GHOST_LOCAL_PATH = '/site.assets/3d/ghost-v1.glb';
+export interface GhostModelProps {
+  intensity?: MotionValue<number>;
+  scale?: number;
+  position?: [number, number, number];
+}
 
-const GhostModel = (props: GhostModelProps) => {
-  return <SharedGhostModel src={GHOST_LOCAL_PATH} {...props} />;
-};
+export function GhostModel({
+  intensity,
+  scale = 1,
+  position = [0, 0, 0],
+}: GhostModelProps = {}) {
+  const { scene } = useGLTF(GLB_URL);
+  const groupRef = useRef<THREE.Group>(null);
+  const { viewport, pointer } = useThree();
+  const intensityRef = useRef(0);
 
-// Preload both for fastest availability
-useGLTF.preload(GHOST_LOCAL_PATH);
+  const isMobile = viewport.width < 7.68;
 
-export { GHOST_SUPABASE_URL, GHOST_LOCAL_PATH };
-export type { GhostModelProps };
+  useMotionValueEvent(intensity ?? ghostIntensity, 'change', (value) => {
+    intensityRef.current = value;
+  });
+
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+
+    const t = state.clock.elapsedTime;
+    const intensity = intensityRef.current;
+    const floatY = Math.sin(t * 0.8) * 0.15;
+    const floatX = Math.cos(t * 0.4) * 0.08;
+
+    if (isMobile) {
+      groupRef.current.position.y = THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        floatY + intensity * 0.3,
+        delta * 2
+      );
+    } else {
+      groupRef.current.position.x = THREE.MathUtils.lerp(
+        groupRef.current.position.x,
+        pointer.x * 0.4 + floatX,
+        delta * 3
+      );
+      groupRef.current.position.y = THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        pointer.y * 0.2 + floatY,
+        delta * 3
+      );
+    }
+
+    const targetScale = 0.95 + intensity * 0.1;
+    groupRef.current.scale.setScalar(
+      THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, delta * 2)
+    );
+  });
+
+  return (
+    <Float speed={1.4} rotationIntensity={0.2} floatIntensity={0.4}>
+      <group ref={groupRef}>
+        <primitive object={scene} scale={scale} position={position} />
+      </group>
+    </Float>
+  );
+}
+
+useGLTF.preload(GLB_URL);
+
 export default GhostModel;

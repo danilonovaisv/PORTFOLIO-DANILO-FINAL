@@ -339,3 +339,21 @@ export const Ghost = () => {
 - Runtime guard (2026-02-22):
   - `BeliefSection` e `BeliefFinalSectionOverlay` passam a usar `cubicBezier(...GHOST_EASE)` para `useTransform/transition`, evitando erro de easing no client.
   - `AboutBeliefs` agora injeta wrappers e flags de `prefersReducedMotion` para garantir fallback estático quando motion é desativado.
+
+## Atualização Implementada — 2026-04-16 (Spec v3.1)
+
+- A seção `src/components/sobre/sections/AboutBeliefs.tsx` foi reorquestrada para um modelo de **camadas sincronizadas por um único `containerRef`** e `scrollYProgress`.
+- Foi introduzido o hook `src/hooks/useBeliefScroll.ts` com `useScroll + useTransform` para interpolação contínua do background em HSL (blue → purple → pink → blue → purple → pink → blue), removendo a dependência de troca discreta por trigger.
+- Novas camadas dedicadas:
+  - `BeliefBackground` (MotionValue de `backgroundColor` frame-a-frame);
+  - `BeliefOverlay` (pulse/cross-fade por zonas de scroll);
+  - `BeliefFixedHeader` (`sticky`, entrada `x: 100 → 0`, saída progressiva em `scrollYProgress > 0.85`, `ghost ease`);
+  - `BeliefPhrases` (ordem de 6 frases preservada, `inView` com `margin: '-30% 0px 0px 0px'`, bridge DOM ↔ R3F);
+  - `BeliefManifesto` (clímax final com `letter-spacing` de tight para wide);
+  - `GhostCanvas` + `GhostModel` (Canvas fixed `zIndex: 50`, `pointerEvents: none`, GLB oficial em constante única).
+- Foi adicionado `src/store/beliefStore.ts` com `ghostIntensity` como `motionValue` global para sincronização DOM ↔ R3F sem rerender de React.
+- O modelo 3D da seção passou a usar a URL validada do asset oficial:
+  - `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb`
+- `useGLTF.preload(GLB_URL)` foi mantido no escopo do módulo para pré-carga do GLB antes da montagem do canvas.
+- O mount do Canvas ficou condicionado por `inView` da seção para reduzir custo fora da viewport.
+
