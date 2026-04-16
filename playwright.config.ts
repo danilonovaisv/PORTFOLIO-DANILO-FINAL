@@ -1,4 +1,5 @@
 import { defineConfig } from '@playwright/test';
+import process from 'node:process';
 
 // Define the test port we'll use consistently
 const TEST_PORT = 3005;

@@ -6,8 +6,8 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 2
-- **Đã sửa**: 2
+- **Tổng lỗi**: 3
+- **Đã sửa**: 3
 
 ---
 
@@ -66,3 +66,16 @@
 - **Fix Applied**: Modifiquei o arquivo de teste `test/mcp_config.test.ts` para testar nomes compatíveis usando `RegExp` validando sufixos `node|npx` cobrindo absolute e relative paths. Apliquei `try/catch` para forçar o fallback test mock quando a permissão EPERM fosse bloqueada. Atualizei o `jest.config.cjs` para adicionar `'<rootDir>/.claude/'` ao `modulePathIgnorePatterns`, impedindo a duplicidade do teste.
 - **Prevention**: Use RegEx baseada no sufixo `/node|npx$/` ao invés de equalidade exata de strings para command paths que podem escalar via variáveis de ambiente. Ignore subdiretórios de infraestrutura como worktrees no runner do Jest.
 - **Status**: Fixed
+
+## [2026-04-16 12:40] - Playwright Config "process" not found in TypeScript
+
+- **Type**: TypeScript Config
+- **Severity**: Medium
+- **File**: `playwright.config.ts`, `tsconfig.json`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: `playwright.config.ts` was not included in the `tsconfig.json` compilation scope, causing the global Node `process` variable to be unrecognized by the IDE even with `@types/node` installed.
+- **Error Message**: `Cannot find name 'process'. Do you need to install type definitions for node?`
+- **Fix Applied**: Added `playwright.config.ts` to the `include` array in `tsconfig.json` and added explicit `import process from 'node:process';` in the config file.
+- **Prevention**: Ensure root configuration files using Node.js globals are included in `tsconfig.json` or use explicit imports from `node:*` modules.
+- **Status**: Fixed
+

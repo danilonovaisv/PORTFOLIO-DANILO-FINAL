@@ -1189,3 +1189,22 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - **BeliefDesktopTextLayer.tsx**: Animação de entrada/saída do texto desktop alterada para horizontal (x: -40/40) para alinhar com o mobile e o "editorial feel" do blueprint.
 - **Verification**: pnpm run build-check finalizado com sucesso (exit 0).
   [2026-04-09] [Beliefs Section] Migrated inline styles from BeliefDesktopTextLayer.tsx to globals.css as .text-belief-desktop to resolve lint warning and maintain design consistency.
+
+## [2026-04-16T12:45] Playwright TypeScript Configuration Fix
+
+**Context:** Resolving "Cannot find name 'process'" errors in `playwright.config.ts`. The file was outside the default `include` scope of `tsconfig.json`, and explicit imports for Node globals were missing in an ESM context.
+
+**Changes Applied:**
+
+1. **`tsconfig.json` — Include Scope Expansion** ✅
+   - Added `"playwright.config.ts"` specifically to the `include` array.
+   - This ensures the file is compiled using the project's TypeScript configuration, which already includes Node types.
+
+2. **`playwright.config.ts` — Explicit Node Imports** ✅
+   - Added `import process from 'node:process';` at the top of the file.
+   - Provides explicit type definitions for the `process` global in an ESM TypeScript environment, improving IDE support and consistency.
+
+**Verification:**
+
+- IDE diagnostics for `playwright.config.ts` are expected to clear.
+- Root configuration is now more robust for ESM/Node.js interop.
