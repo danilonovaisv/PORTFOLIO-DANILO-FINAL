@@ -142,4 +142,4 @@ tmp-npm-cache/
 build-error.log
 firebase-deploy.log
 *.patch
-.claude/worktrees/competent-tereshkova/
+.claude/worktrees/
