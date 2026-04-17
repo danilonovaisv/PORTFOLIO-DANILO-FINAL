@@ -89,7 +89,7 @@ export default function AboutMethod() {
               style={{ y: textY }}
               className="flex w-full flex-col items-center lg:items-start"
             >
-              <div className="w-full max-w-[44rem] rounded-[28px] border border-white/10 bg-[rgba(4,0,19,0.76)] px-6 py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.85)] backdrop-blur-xl lg:px-8 lg:py-9">
+              <div className="w-full max-w-[44rem] rounded-[28px] border border-white/10 bg-[rgba(4,0,19,0.9)] px-6 py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.88)] backdrop-blur-none lg:px-8 lg:py-9">
                 <motion.p
                   variants={motionTokens.fadeGhost}
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
