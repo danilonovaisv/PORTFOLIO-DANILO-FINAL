@@ -38,7 +38,7 @@ export function AboutBeliefs() {
       id="06-o-que-me-move"
       data-testid="about-beliefs-section"
       aria-label="O Que Me Move"
-      className="relative min-h-[900vh]"
+      className="relative min-h-[760vh] md:min-h-[820vh] lg:min-h-[900vh]"
     >
       <div className="sr-only">
         <h2>Manifesto: O Que Me Move</h2>

@@ -91,26 +91,27 @@ export function AboutWhatIDo() {
   return (
     <section
       ref={containerRef}
+      id="04-o-que-eu-faco"
       className="relative z-10 w-full bg-background text-text"
-      aria-labelledby="what-i-do-heading"
+      aria-label="O Que Eu Faço"
     >
       {/* ============================================
           DESKTOP LAYOUT (≥ 1024px)
           Sticky container with horizontal scroll-driven animation
           ============================================ */}
       <div className="hidden lg:block lg:h-[180vh]">
-        <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
+        <div className="sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
           {/* Header */}
           <div className="absolute top-0 z-20 flex w-full justify-center pt-20">
             <div className="max-w-[900px] text-center">
               <h2
                 id="what-i-do-heading"
-                className="font-sans text-display text-5xl font-black leading-[1.15] tracking-tight text-text md:text-6xl"
+                className="text-display font-black tracking-tight text-text"
               >
                 Do <span className="text-bluePrimary">insight</span> ao{' '}
                 <span className="text-bluePrimary">impacto</span>.
               </h2>
-              <p className="mt-3 font-sans text-display text-4xl font-black leading-[1.15] tracking-tight text-text/90 md:text-5xl">
+              <p className="mt-3 text-h1 font-black tracking-tight text-text/90">
                 Mesmo quando você não percebe.
               </p>
             </div>
@@ -118,6 +119,8 @@ export function AboutWhatIDo() {
 
           {/* Horizontal Track - Cards sliding right→left */}
           <motion.div
+            role="list"
+            aria-labelledby="what-i-do-heading"
             style={{
               x: prefersReducedMotion ? 0 : x,
               opacity: prefersReducedMotion ? 1 : trackOpacity,
@@ -127,16 +130,21 @@ export function AboutWhatIDo() {
             {SERVICES.map((service, index) => (
               <motion.article
                 key={service.id}
+                role="listitem"
                 data-what-i-do-card=""
-                initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+                initial={
+                  prefersReducedMotion
+                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                    : { opacity: 0, y: 14, filter: 'blur(8px)' }
+                }
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={viewportConfig}
                 transition={{
                   duration: 0.4,
                   delay: index * 0.06,
-                  ease: GHOST_EASE as any,
+                  ease: GHOST_EASE,
                 }}
-                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-4 py-5 text-center shadow-lg shadow-purpleDetails/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-purpleDetails/20"
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-4 py-5 text-center shadow-lg shadow-purpleDetails/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-purpleDetails/20 focus-within:shadow-xl focus-within:shadow-purpleDetails/25"
               >
                 {/* Number */}
                 <span
@@ -174,20 +182,23 @@ export function AboutWhatIDo() {
           <header className="mb-10 text-center px-4">
             <h2
               id="what-i-do-heading-mobile"
-              className="font-sans text-display text-[2.25rem] font-black leading-[1.1] tracking-tight text-text text-balance"
+              className="text-display font-black tracking-tight text-text text-balance"
             >
               Do <span className="text-bluePrimary">insight</span> ao{' '}
               <span className="text-bluePrimary">impacto</span>.
             </h2>
-            <p className="mt-2 font-sans text-display text-[1.5rem] font-black leading-[1.1] tracking-tight text-text/90 text-balance">
+            <p className="mt-2 text-h2 font-black tracking-tight text-text/90 text-balance">
               Mesmo quando você não percebe.
             </p>
           </header>
 
           {/* Mobile Cards - Horizontal entrance from right */}
-          <div className="flex flex-col gap-3">
+          <ul
+            className="flex list-none flex-col gap-3 p-0"
+            aria-labelledby="what-i-do-heading-mobile"
+          >
             {SERVICES.map((service, index) => (
-              <motion.article
+              <motion.li
                 key={service.id}
                 initial={
                   prefersReducedMotion
@@ -199,7 +210,7 @@ export function AboutWhatIDo() {
                 transition={{
                   duration: 0.4,
                   delay: index * 0.08,
-                  ease: GHOST_EASE as any,
+                  ease: GHOST_EASE,
                 }}
                 className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-bluePrimary px-5 py-4 shadow-md shadow-purpleDetails/10 transition-all duration-300"
               >
@@ -208,16 +219,16 @@ export function AboutWhatIDo() {
                   className="shrink-0 font-sans text-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
                   aria-hidden="true"
                 >
-                  {service.id}
+                  {service.id.padStart(2, '0')}
                 </span>
                 {/* Text */}
                 <p className="text-sm font-semibold leading-snug text-text">
                   <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   {service.description}
                 </p>
-              </motion.article>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
 
@@ -225,14 +236,15 @@ export function AboutWhatIDo() {
           MARQUEE FOOTER (Ghost Design)
           Infinite horizontal scroll - keywords
           ============================================ */}
-      <div className="relative hidden overflow-hidden border-t border-white/5 bg-background py-6 lg:block">
+      <div
+        className="relative hidden overflow-hidden border-t border-white/5 bg-background py-6 lg:block"
+        aria-hidden="true"
+      >
         {/* Dual marquee for seamless loop */}
         <div
-          className={`flex w-max gap-12 ${prefersReducedMotion ? '' : 'animate-marquee'} ${prefersReducedMotion || marqueePaused ? 'pause-animation' : ''}`}
+          className={`flex w-max gap-12 ${prefersReducedMotion ? '' : 'animate-marquee'} ${marqueePaused ? 'pause-animation' : ''}`}
           onMouseEnter={() => setMarqueePaused(true)}
           onMouseLeave={() => setMarqueePaused(false)}
-          onFocus={() => setMarqueePaused(true)}
-          onBlur={() => setMarqueePaused(false)}
         >
           {/* First set */}
           {MARQUEE_KEYWORDS.map((keyword, i) => (
