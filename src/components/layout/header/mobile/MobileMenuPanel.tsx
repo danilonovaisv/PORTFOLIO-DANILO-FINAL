@@ -60,6 +60,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
               <li key={item.href} className="overflow-hidden leading-none">
                 <button
                   onClick={() => onNavigate(item.href)}
+                  tabIndex={open ? 0 : -1}
                   className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
                     isActive
                       ? 'text-blueAccent font-medium underline underline-offset-4'
@@ -109,6 +110,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
+                tabIndex={open ? 0 : -1}
                 className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary"
               >
                 {s.icon}
