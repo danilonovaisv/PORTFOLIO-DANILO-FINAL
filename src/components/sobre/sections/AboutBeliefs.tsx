@@ -24,7 +24,7 @@ export function AboutBeliefs() {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end end'],
   });
   const { ghostIntensity, showFinalManifesto, prefersReducedMotion } =
     useBeliefsAnimation({

@@ -19,7 +19,7 @@ export function BeliefFixedHeader({
 }) {
   const scrollState = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end end'],
   });
   const progress = scrollYProgress ?? scrollState.scrollYProgress;
 
@@ -30,9 +30,9 @@ export function BeliefFixedHeader({
     <motion.header
       className="absolute right-0 top-[10vh] z-30 w-[min(22rem,72vw)] pr-6 text-right md:inset-y-0 md:flex md:w-[min(30rem,34vw)] md:items-center md:justify-end md:pr-[4vw]"
       style={
-        prefersReducedMotion ? undefined : { y: exitY, opacity: exitOpacity }
+        prefersReducedMotion ? undefined : { y: exitY, opacity: useTransform(progress, [0.05, 0.12, 0.85, 0.95], [0, 1, 1, 0]) }
       }
-      initial={prefersReducedMotion ? false : { opacity: 0.3, x: 18 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, x: 18 }}
       animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
     >

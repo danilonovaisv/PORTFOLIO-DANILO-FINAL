@@ -16,7 +16,7 @@ const COLORS = [
 export function useBeliefScroll(containerRef: RefObject<HTMLElement | null>) {
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end end'],
   });
 
   const inputRange = useRef(COLORS.map((_, i) => i / (COLORS.length - 1)));

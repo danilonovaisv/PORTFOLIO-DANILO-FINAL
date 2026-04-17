@@ -136,7 +136,7 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE as any,
                 }}
-                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-4 py-5 text-center shadow-[0_22px_48px_-20px_rgba(135,5,242,0.32)] transition-shadow duration-300 hover:shadow-[0_26px_56px_-22px_rgba(135,5,242,0.45)]"
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-4 py-5 text-center shadow-lg shadow-purpleDetails/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-purpleDetails/20"
               >
                 {/* Number */}
                 <span
@@ -201,7 +201,7 @@ export function AboutWhatIDo() {
                   delay: index * 0.08,
                   ease: GHOST_EASE as any,
                 }}
-                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-bluePrimary px-5 py-4 shadow-[0_16px_40px_-12px_rgba(135,5,242,0.35)] transition-all duration-300"
+                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-bluePrimary px-5 py-4 shadow-md shadow-purpleDetails/10 transition-all duration-300"
               >
                 {/* Number */}
                 <span

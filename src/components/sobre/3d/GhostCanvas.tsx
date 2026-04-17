@@ -13,7 +13,7 @@ export function GhostCanvas({
   ghostIntensity,
 }: GhostCanvasProps) {
   return (
-    <div className="absolute inset-0 z-50 pointer-events-none">
+    <div className="absolute inset-0 z-30 pointer-events-none">
       <GhostScene
         scrollProgress={scrollProgress}
         ghostIntensity={ghostIntensity}
