@@ -22,6 +22,14 @@
     "supabase": {
       "type": "http",
       "url": "https://mcp.supabase.com/mcp?project_ref=umkmwbkwvulxtdodzmzf"
+    },
+    "@21st-dev/magic": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=\"an_sk_1cb7638dac70f750527f580b25dcf004c4b35333a872c94937a6018396bcad51\""
+      ]
     }
   }
 }

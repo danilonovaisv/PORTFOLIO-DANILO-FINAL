@@ -133,6 +133,19 @@
       "url": "http://localhost:8000/mcp",
       "enabled": false,
       "env": {}
+    },
+    {
+      "name": "@21st-dev/magic",
+      "description": "Magic MCP Server from 21st.dev",
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=\"an_sk_1cb7638dac70f750527f580b25dcf004c4b35333a872c94937a6018396bcad51\""
+      ],
+      "enabled": true,
+      "env": {}
     }
   ]
 }
