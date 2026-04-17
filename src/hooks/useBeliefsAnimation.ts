@@ -21,7 +21,7 @@ export const BELIEF_COLORS = [
   BRAND.colors.pinkDetails, // #f501d3
 ];
 
-export const BELIEF_INTRO_END = 0.1;
+export const BELIEF_INTRO_END = 0.05;
 export const BELIEF_PHRASE_ZONE_END = 0.82;
 export const BELIEF_FINAL_START = 0.86;
 
