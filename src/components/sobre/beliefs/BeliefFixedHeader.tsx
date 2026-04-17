@@ -30,7 +30,16 @@ export function BeliefFixedHeader({
     <motion.header
       className="pointer-events-none sticky inset-y-0 right-0 z-30 flex w-full items-start justify-end px-6 pt-[12vh] text-right md:w-auto md:items-center md:px-0 md:pt-0 md:pr-[4vw]"
       style={
-        prefersReducedMotion ? undefined : { y: exitY, opacity: useTransform(progress, [0.05, 0.12, 0.85, 0.95], [0, 1, 1, 0]) }
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: exitY,
+              opacity: useTransform(
+                progress,
+                [0.05, 0.12, 0.85, 0.95],
+                [0, 1, 1, 0]
+              ),
+            }
       }
       initial={prefersReducedMotion ? false : { opacity: 0, x: 18 }}
       animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
