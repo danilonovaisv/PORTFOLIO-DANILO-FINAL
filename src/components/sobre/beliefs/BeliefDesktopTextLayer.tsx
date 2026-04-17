@@ -69,8 +69,7 @@ export const BeliefDesktopTextLayer: React.FC<BeliefDesktopTextLayerProps> = ({
       className="pointer-events-none absolute inset-0 z-40 hidden md:block"
       style={prefersReducedMotion ? undefined : { opacity: sectionOpacity }}
     >
-      {/* SPEC: Text at left, with grid padding — pl-8 lg:pl-16 */}
-      <div className="sticky top-0 flex h-screen w-full items-center pl-8 lg:pl-16">
+      <div className="flex h-full w-full items-center pl-8 lg:pl-16">
         <AnimatePresence mode="wait">
           {activePhrase ? (
             <DesktopPhrase

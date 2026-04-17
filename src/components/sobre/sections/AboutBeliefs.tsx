@@ -38,7 +38,7 @@ export function AboutBeliefs() {
       id="06-o-que-me-move"
       data-testid="about-beliefs-section"
       aria-label="O Que Me Move"
-      className="relative min-h-[900vh] overflow-hidden"
+      className="relative min-h-[900vh]"
     >
       <div className="sr-only">
         <h2>Manifesto: O Que Me Move</h2>
@@ -53,7 +53,7 @@ export function AboutBeliefs() {
       <BeliefBackground containerRef={containerRef} />
       <BeliefOverlay scrollYProgress={scrollYProgress} />
 
-      <div className="sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
+      <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
         <BeliefFixedHeader
           containerRef={containerRef}
           scrollYProgress={scrollYProgress}

@@ -98,3 +98,10 @@ Traduzir processo criativo em método prático, gerando confiança através de c
   - desktop com leitura estável no primeiro viewport útil da seção;
   - mobile/tablet com contraste mais seguro e hierarquia mais clara;
   - vídeo continua como base visual, mas não mais como superfície dominante vazia.
+
+## 14. Estado Implementado — 2026-04-16 (legibilidade)
+
+- Refinamento adicional aplicado em `src/components/sobre/sections/AboutMethod.tsx`:
+  - o painel principal deixou de usar `backdrop-blur`, passando a depender de opacidade alta (`rgba(4,0,19,0.9)`) para contraste;
+  - a leitura do heading e do texto de apoio ficou ancorada em superfície sólida, em linha com a regra global do projeto de evitar blur excessivo em conteúdo editorial;
+  - o reduced-motion permanece respeitado no vídeo (`autoPlay/loop` desligados quando motion está bloqueado).

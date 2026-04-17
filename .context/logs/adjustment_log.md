@@ -1268,11 +1268,13 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 **Context:** The `Admin Login Page` test failed in Firefox during redirection, causing it to time out on the `/admin/login` page.
 
 **Root Cause:**
+
 - The interceptor used `resourceType() === 'document'` to gate mocking.
 - In Firefox and WebKit, redirected navigations or script-initiated navigations are often reported with inconsistent resource types (e.g., `'fetch'`, `'other'`), causing the interceptor to skip them.
 - This resulted in the `/admin` request hitting the real server, which (seeing no session) redirected to `/admin/login`.
 
 **Changes:**
+
 1. **`test/e2e/admin.spec.ts`** ✅
    - Unified Phase A and Phase B interception logic.
    - Removed the `resourceType` check.
@@ -1280,5 +1282,5 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
    - Increased `toHaveURL` timeout to 25s.
 
 **Verification:**
-- Unified logic ensures that even if the browser doesn't report it as a "document", the navigation is still intercepted and the mock dashboard is served.
 
+- Unified logic ensures that even if the browser doesn't report it as a "document", the navigation is still intercepted and the mock dashboard is served.

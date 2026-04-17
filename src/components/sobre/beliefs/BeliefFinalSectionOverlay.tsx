@@ -29,7 +29,9 @@ export const BeliefFinalSectionOverlay: React.FC<
   const filter = useTransform(progress, [0, 0.7], ['blur(14px)', 'blur(0px)']);
   const opacity = useTransform(progress, [0, 0.15, 1], [0, 0, 1]);
 
-  const containerStyle = prefersReducedMotion ? { opacity: 1 } : { y, scale, filter, opacity };
+  const containerStyle = prefersReducedMotion
+    ? { opacity: 1 }
+    : { y, scale, filter, opacity };
 
   return (
     <section className="pointer-events-none absolute inset-0 z-50 flex h-full w-full items-center justify-center px-4 md:px-6">

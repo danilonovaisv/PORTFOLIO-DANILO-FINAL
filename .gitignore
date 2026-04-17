@@ -143,3 +143,6 @@ build-error.log
 firebase-deploy.log
 *.patch
 .claude/worktrees/
+
+.gemini/
+gha-creds-*.json
