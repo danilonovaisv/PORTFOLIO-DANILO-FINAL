@@ -569,6 +569,32 @@ html.admin-page body {
   animation-play-state: paused !important;
 }
 
+/* ========================================================================
+   Marquee (Ghost System V3) — used by AboutWhatIDo footer keywords.
+   Dual track must be duplicated in DOM so 50% translation creates
+   a seamless loop. Respects prefers-reduced-motion via media query.
+   ======================================================================== */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 /* Hide scrollbar for elements with the .no-scrollbar class */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
