@@ -10,7 +10,7 @@ async function testMock() {
 
   console.log('Case 1: Direct await on select()');
   try {
-    const { data, error } = await supabase.from('test').select('*');
+    const { data, error } = await supabase.from('portfolio_projects').select('*');
     console.log('Data count:', data?.length);
     console.log('First project title:', data?.[0]?.title);
     if (data && data.length > 0 && data[0].title === 'Mock Project E2E') {
@@ -25,9 +25,9 @@ async function testMock() {
   console.log('\nCase 2: Chained query then await');
   try {
     const { data } = await supabase
-      .from('test')
+      .from('portfolio_projects')
       .select('*')
-      .eq('id', 1)
+      .eq('slug', 'mock-project')
       .order('id');
     if (data && data.length > 0) {
       console.log('✅ Chained test passed!');
