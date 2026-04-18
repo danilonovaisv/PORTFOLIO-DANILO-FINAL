@@ -156,9 +156,10 @@ export function YouTubePlayer({
         <button
           onClick={handleUnmute}
           className="absolute bottom-6 right-6 z-10 flex items-center gap-2 px-4 py-2 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all shadow-lg border border-white/10 cta-button"
+          aria-label="Ativar som do vídeo"
         >
           <VolumeX className="w-5 h-5" />
-          <span className="text-sm font-medium tracking-wide">Activar Som</span>
+          <span className="text-sm font-medium tracking-wide">Ativar Som</span>
         </button>
       )}
     </div>
