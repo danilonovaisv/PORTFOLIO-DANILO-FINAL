@@ -146,6 +146,21 @@
       ],
       "enabled": true,
       "env": {}
+    },
+    {
+      "name": "dataplex",
+      "description": "Google GenAI Toolbox Dataplex server for metadata discovery",
+      "transport": "stdio",
+      "command": "./PATH/TO/toolbox",
+      "args": [
+        "--prebuilt",
+        "dataplex",
+        "--stdio"
+      ],
+      "enabled": true,
+      "env": {
+        "DATAPLEX_PROJECT": "portfolio-danilo-novais"
+      }
     }
   ]
 }

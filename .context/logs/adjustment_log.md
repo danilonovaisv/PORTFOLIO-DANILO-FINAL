@@ -1284,3 +1284,25 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 **Verification:**
 
 - Unified logic ensures that even if the browser doesn't report it as a "document", the navigation is still intercepted and the mock dashboard is served.
+
+---
+
+### [2026-04-17 00:00] Added Dataplex MCP Configuration
+
+**Context:** The workspace needed a Dataplex MCP entry to target the Google Cloud project `portfolio-danilo-novais`.
+
+**Changes:**
+
+1. **`mcp_servers.json`** ✅
+   - Added a new `dataplex` server entry in the root MCP registry.
+   - Preserved the repository's existing `servers: []` schema while mapping the requested command, args, and env values.
+2. **`.mcp.json`** ✅
+   - Mirrored the same `dataplex` configuration in the object-based MCP manifest already present in the workspace.
+
+**Verification:**
+
+- JSON structure remains valid after the insertion.
+- The new entry uses the requested values:
+  - `command: "./PATH/TO/toolbox"`
+  - `args: ["--prebuilt", "dataplex", "--stdio"]`
+  - `DATAPLEX_PROJECT=portfolio-danilo-novais`
