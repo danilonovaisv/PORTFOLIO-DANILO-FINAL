@@ -33,11 +33,7 @@
     },
     "dataplex": {
       "command": "./PATH/TO/toolbox",
-      "args": [
-        "--prebuilt",
-        "dataplex",
-        "--stdio"
-      ],
+      "args": ["--prebuilt", "dataplex", "--stdio"],
       "env": {
         "DATAPLEX_PROJECT": "portfolio-danilo-novais"
       }
