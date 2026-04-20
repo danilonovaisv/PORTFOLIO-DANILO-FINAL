@@ -6,6 +6,7 @@ import {
   type MotionValue,
 } from 'motion/react';
 import { useEffect, useState } from 'react';
+import { SplitText } from '@/lib/motion/split-text';
 
 interface BeliefScrollTextProps {
   phrases: string[];
@@ -14,8 +15,8 @@ interface BeliefScrollTextProps {
   prefersReducedMotion?: boolean;
 }
 
-const ENTER_START = 0.16;
-const EXIT_END = 0.94;
+const ENTER_START = 0.06;
+const EXIT_END = 0.72;
 
 /**
  * Scroll-driven phrase layer for Section 06.
@@ -63,11 +64,11 @@ export const BeliefScrollText = ({
     return (
       <div
         data-testid="belief-text-layer-desktop"
-        className="relative w-full px-6 md:px-16 flex items-center pointer-events-none"
+        className="relative hidden w-full items-center px-6 pointer-events-none md:flex md:px-16"
         aria-live="polite"
         aria-atomic="true"
       >
-        <div className="w-full max-w-[38vw] lg:max-w-[34vw]">
+        <div className="w-full max-w-[30vw] lg:max-w-[26vw]">
           <AnimatePresence mode="wait">
             {activePhrase ? (
               <motion.p
@@ -80,7 +81,11 @@ export const BeliefScrollText = ({
                 exit={prefersReducedMotion ? undefined : { opacity: 0, y: -20, filter: 'blur(10px)' }}
                 transition={prefersReducedMotion ? undefined : { duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >
-                {activePhrase}
+                <SplitText
+                  text={activePhrase}
+                  mode="words"
+                  className="block"
+                />
               </motion.p>
             ) : null}
           </AnimatePresence>
@@ -93,7 +98,7 @@ export const BeliefScrollText = ({
   return (
     <div
       data-testid="belief-text-layer-mobile"
-      className="relative w-full h-[80vh] flex items-end justify-center pb-[20vh] px-6 pointer-events-none"
+      className="relative flex h-[80vh] w-full items-end justify-center px-6 pb-[20vh] pointer-events-none md:hidden"
       aria-live="polite"
       aria-atomic="true"
     >
@@ -102,14 +107,18 @@ export const BeliefScrollText = ({
           <motion.p
             key={`mobile-${activeIndex}`}
             data-testid={`belief-line-${activeIndex}`}
-            initial={{ opacity: 0, x: -24, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, x: 24, filter: 'blur(6px)' }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            initial={prefersReducedMotion ? undefined : { opacity: 0, x: -24, filter: 'blur(6px)' }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0, filter: 'blur(0px)' }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0, x: 24, filter: 'blur(6px)' }}
+            transition={prefersReducedMotion ? undefined : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="font-h1 font-bold text-[#4fe6ff] text-center leading-tight"
             style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}
           >
-            {activePhrase}
+            <SplitText
+              text={activePhrase}
+              mode="words"
+              className="block"
+            />
           </motion.p>
         ) : null}
       </AnimatePresence>

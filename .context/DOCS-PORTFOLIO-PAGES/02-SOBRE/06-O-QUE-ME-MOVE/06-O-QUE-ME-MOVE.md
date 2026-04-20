@@ -17,6 +17,9 @@ Apresentar o manifesto do designer (O Que Me Move) com alta carga visual e narra
 ## 13. Estado Implementado — 2026-04-20 (Auditoria de Sincronização)
 
 - Estado real confirmado em `src/components/sobre/sections/AboutBeliefs.tsx` e componentes relacionados:
+  - Hotfix de build em `2026-04-20`: a seção deixou de depender dos módulos removidos `useBeliefsAnimation`, `BeliefDesktopTextLayer`, `BeliefMobileTextLayer` e `BeliefFinalSectionOverlay`; a composição viva agora referencia os módulos vigentes `useBeliefsScroll`, `BeliefScrollText` e `BeliefManifesto`, eliminando os erros `Module not found` no bundle da rota `/sobre`.
+  - Ajuste de blueprint em `2026-04-20`: o `useBeliefsScroll` voltou para a timeline `['start start', 'end end']`, o `BeliefFixedHeader` e o `BeliefManifesto` passaram a usar fragmentação via `SplitText`, a coluna desktop das frases foi estreitada para preservar o respiro editorial e o `GhostScene` recebeu parallax de cursor no desktop, centralização progressiva no mobile e redução de `dpr/antialias` em low-power.
+  - Robustez de asset em `2026-04-20`: o Ghost da seção 06 passou a usar o asset local `/site.assets/3d/ghost.glb` durante a renderização da rota, evitando falha de rede/Supabase `400` no fluxo local e nos testes E2E.
   - Timeline e Scroll: a sessão `AboutBeliefs.tsx` agora calcula `scrollYProgress` manualmente a partir do `getBoundingClientRect()` do wrapper narrativo, preservando a mesma lógica de `['start start', 'end end']` sem depender de `useScroll` nessa seção.
   - Timeline Única: `BeliefBackground` e `BeliefFixedHeader` consomem diretamente o `scrollYProgress` calculado em `AboutBeliefs.tsx`, sem caminhos paralelos de observação de scroll dentro da própria sessão.
   - Texto Desktop: `BeliefDesktopTextLayer` está efetivamente renderizado na composição principal, como camada irmã de `BeliefMobileTextLayer`, preservando a separação desktop/mobile prevista.

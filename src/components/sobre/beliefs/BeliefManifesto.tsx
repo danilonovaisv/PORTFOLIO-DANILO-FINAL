@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useTransform, type MotionValue } from 'motion/react';
+import { SplitText } from '@/lib/motion/split-text';
 
 interface BeliefManifestoProps {
   scrollProgress: MotionValue<number>;
@@ -19,27 +20,47 @@ export const BeliefManifesto = ({
   const opacity = useTransform(
     scrollProgress,
     [0.82, 0.90, 1.0],
-    prefersReducedMotion ? [1, 1, 1] : [0, 1, 1]
+    prefersReducedMotion ? [0, 1, 1] : [0, 1, 1]
   );
   const y = useTransform(
     scrollProgress,
     [0.82, 0.92],
     prefersReducedMotion ? [0, 0] : [18, 0]
   );
+  const letterSpacing = useTransform(
+    scrollProgress,
+    [0.82, 0.96],
+    prefersReducedMotion ? ['0.08em', '0.08em'] : ['0.18em', '0.08em']
+  );
 
   return (
     <motion.div
-      className="fixed inset-x-0 bottom-0 z-50 w-full flex items-center justify-center pb-[8vh] md:pb-[12vh] pointer-events-none"
-      style={{ opacity, y }}
+      className="fixed inset-x-0 bottom-0 z-50 w-full flex items-center justify-center px-6 pb-[8vh] md:pb-[12vh] pointer-events-none"
+      style={{ opacity, y, letterSpacing }}
       aria-live="polite"
     >
       <div className="text-center">
-        <p
-          className="font-display font-black text-white tracking-[0.15em] leading-[0.95]"
+        <motion.p
+          className="font-display font-black text-white leading-[0.95]"
           style={{ fontSize: 'clamp(1.75rem, 6vw, 4.5rem)' }}
         >
-          ISSO É <span className="text-[#4fe6ff]">GHOST DESIGN.</span>
-        </p>
+          <SplitText
+            text="ISSO É"
+            mode="chars"
+            className="block"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          />
+          <SplitText
+            text="GHOST DESIGN."
+            mode="chars"
+            className="mt-2 block text-[#4fe6ff]"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </motion.p>
       </div>
     </motion.div>
   );

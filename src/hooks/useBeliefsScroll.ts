@@ -5,14 +5,13 @@ import { useEffect, useState, type RefObject } from 'react';
 
 /**
  * Scroll provider central da Seção 06.
- * offset: ['start end', 'end end'] — começa quando topo da seção toca
- * o rodapé da viewport (entrada cedo); termina quando o rodapé da seção
- * toca o rodapé da viewport (fim suave). Corrigido em 2026-04-16.
+ * offset: ['start start', 'end end'] — timeline íntegra enquanto a
+ * seção ocupa a viewport, alinhada ao blueprint técnico da seção 06.
  */
 export const useBeliefsScroll = (containerRef: RefObject<HTMLElement | null>) => {
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end end'],
   });
 
   const prefersReducedMotion = useReducedMotion() ?? false;

@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useTransform, type MotionValue } from 'motion/react';
+import { SplitText } from '@/lib/motion/split-text';
 
 export function BeliefFixedHeader({
   scrollYProgress,
@@ -26,10 +27,22 @@ export function BeliefFixedHeader({
     >
       <div className="w-[min(20rem,68vw)] rounded-[24px] border border-white/10 bg-[rgba(4,0,19,0.58)] px-5 py-4 backdrop-blur-sm md:w-[min(30rem,34vw)] md:max-w-[24rem] md:bg-[rgba(4,0,19,0.22)] md:px-6 md:py-5 md:backdrop-blur-sm">
         <p className="font-display text-[0.95rem] font-black leading-tight text-white/90 md:text-[1.08rem]">
-          Acredito no design que muda o dia de alguém.
+          <SplitText
+            text="Acredito no design que muda o dia de alguém."
+            mode="words"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          />
         </p>
         <h2 className="mt-2 font-h2 text-[clamp(1.15rem,2vw,2rem)] font-bold leading-[1.04] text-white">
-          Não pelo choque, mas pela conexão.
+          <SplitText
+            text="Não pelo choque, mas pela conexão."
+            mode="words"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+          />
         </h2>
       </div>
     </motion.header>

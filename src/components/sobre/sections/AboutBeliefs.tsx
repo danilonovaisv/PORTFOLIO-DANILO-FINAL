@@ -1,15 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { useMotionValue } from 'framer-motion';
+import { useRef } from 'react';
 import { BeliefBackground } from '@/components/sobre/beliefs/BeliefBackground';
 import { BeliefOverlay } from '@/components/sobre/beliefs/BeliefOverlay';
-import { BeliefDesktopTextLayer } from '@/components/sobre/beliefs/BeliefDesktopTextLayer';
 import { BeliefFixedHeader } from '@/components/sobre/beliefs/BeliefFixedHeader';
-import { BeliefFinalSectionOverlay } from '@/components/sobre/beliefs/BeliefFinalSectionOverlay';
-import { BeliefMobileTextLayer } from '@/components/sobre/beliefs/BeliefMobileTextLayer';
-import { GhostCanvas } from '@/components/sobre/3d/GhostCanvas';
-import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
+import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
+import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
+import { GhostScene } from '@/components/sobre/3d/GhostScene';
+import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 
 const PHRASES = [
   'Um vídeo que respira.',
@@ -22,47 +20,8 @@ const PHRASES = [
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollYProgress = useMotionValue(0);
-
-  useEffect(() => {
-    const element = containerRef.current;
-    if (!element) return;
-
-    let rafId = 0;
-
-    const updateProgress = () => {
-      rafId = 0;
-      const rect = element.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const scrollRange = Math.max(rect.height - viewportHeight, 1);
-      const nextProgress = Math.min(
-        1,
-        Math.max(0, -rect.top / scrollRange)
-      );
-      scrollYProgress.set(nextProgress);
-    };
-
-    const scheduleUpdate = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(updateProgress);
-    };
-
-    scheduleUpdate();
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-    window.addEventListener('resize', scheduleUpdate);
-
-    return () => {
-      window.removeEventListener('scroll', scheduleUpdate);
-      window.removeEventListener('resize', scheduleUpdate);
-      if (rafId) window.cancelAnimationFrame(rafId);
-    };
-  }, [scrollYProgress]);
-
-  const { ghostIntensity, showFinalManifesto, prefersReducedMotion } =
-    useBeliefsAnimation({
-      scrollYProgress,
-      totalPhrases: PHRASES.length,
-    });
+  const { scrollYProgress, prefersReducedMotion, isMobile } =
+    useBeliefsScroll(containerRef);
 
   return (
     <section
@@ -86,31 +45,27 @@ export function AboutBeliefs() {
         </div>
 
         <BeliefBackground scrollYProgress={scrollYProgress} />
-        <BeliefOverlay scrollYProgress={scrollYProgress} />
+        <BeliefOverlay scrollProgress={scrollYProgress} />
 
         <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
           <BeliefFixedHeader
             scrollYProgress={scrollYProgress}
             prefersReducedMotion={prefersReducedMotion}
           />
-          <BeliefDesktopTextLayer
+          <BeliefScrollText
             phrases={PHRASES}
-            scrollYProgress={scrollYProgress}
+            scrollProgress={scrollYProgress}
+            isMobile={isMobile}
             prefersReducedMotion={prefersReducedMotion}
           />
-          <BeliefMobileTextLayer
-            phrases={PHRASES}
-            scrollYProgress={scrollYProgress}
+          <BeliefManifesto
+            scrollProgress={scrollYProgress}
             prefersReducedMotion={prefersReducedMotion}
-          />
-          <BeliefFinalSectionOverlay
-            prefersReducedMotion={prefersReducedMotion}
-            showProgress={showFinalManifesto}
           />
           {!prefersReducedMotion ? (
-            <GhostCanvas
+            <GhostScene
               scrollProgress={scrollYProgress}
-              ghostIntensity={ghostIntensity}
+              isMobile={isMobile}
             />
           ) : null}
         </div>

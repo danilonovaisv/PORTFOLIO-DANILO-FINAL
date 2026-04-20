@@ -1,10 +1,9 @@
 'use client';
 
 import { motion, useTransform, type MotionValue } from 'framer-motion';
-import {
-  BELIEF_INTRO_END,
-  BELIEF_PHRASE_ZONE_END,
-} from '@/hooks/useBeliefsAnimation';
+
+const BELIEF_INTRO_END = 0.06;
+const BELIEF_PHRASE_ZONE_END = 0.72;
 
 const COLORS = [
   'hsl(230, 85%, 30%)',
