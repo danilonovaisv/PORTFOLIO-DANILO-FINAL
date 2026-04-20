@@ -10,7 +10,9 @@ async function testMock() {
 
   console.log('Case 1: Direct await on select()');
   try {
-    const { data, error } = await supabase.from('portfolio_projects').select('*');
+    const { data, error } = await supabase
+      .from('portfolio_projects')
+      .select('*');
     console.log('Data count:', data?.length);
     console.log('First project title:', data?.[0]?.title);
     if (data && data.length > 0 && data[0].title === 'Mock Project E2E') {

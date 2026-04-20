@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { NavItem } from '@/components/layout/header/types';
 import styles from '@/components/layout/header/DesktopFluidHeader.module.css';
 
@@ -35,6 +35,81 @@ function isExternalHref(href: string) {
     href.startsWith('tel:')
   );
 }
+
+/**
+ * ⚡ BOLT OPTIMIZATION: Wrapped with React.memo to prevent unnecessary re-renders.
+ * SiteHeader recalculates activeHref frequently during scroll via useActiveSection.
+ * By memoizing the individual nav items, we prevent items whose active state
+ * hasn't changed from re-rendering (saving motion animation and DOM diffing).
+ */
+const DesktopNavItem = React.memo(function DesktopNavItem({
+  item,
+  isActive,
+  isLight,
+  reducedMotion,
+  onNavigate,
+}: {
+  item: NavItem;
+  isActive: boolean;
+  isLight?: boolean;
+  reducedMotion: boolean;
+  onNavigate: (_href: string) => void;
+}) {
+  const common =
+    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
+  const baseText = isLight ? 'text-white' : 'text-white/70';
+  const hoverText = isLight ? 'hover:text-bluePrimary' : 'hover:text-white';
+  const activeText = 'text-bluePrimary';
+  const textColor = isActive
+    ? `${activeText} font-semibold`
+    : `${baseText} ${hoverText} font-medium`;
+
+  const LinkComponent =
+    isExternalHref(item.href) || item.external ? motion.a : motion.button;
+  const linkProps =
+    isExternalHref(item.href) || item.external
+      ? {
+          href: item.href,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+        }
+      : {
+          type: 'button' as const,
+          onClick: () => onNavigate(item.href),
+        };
+
+  return (
+    <LinkComponent
+      {...linkProps}
+      className={`group ${common} ${textColor}`}
+      whileHover={!isActive ? 'hover' : undefined}
+      initial="initial"
+      animate={isActive ? 'active' : 'initial'}
+    >
+      <span className="tracking-tight">{item.label}</span>
+      <motion.span
+        className="absolute -bottom-1 left-0 h-[1px] w-full bg-current origin-center"
+        variants={{
+          initial: { scaleX: 0 },
+          hover: {
+            scaleX: 1,
+            transition: {
+              duration: reducedMotion ? 0 : 0.3,
+              ease: GHOST_EASE,
+            },
+          },
+          active: {
+            scaleX: 1,
+            transition: {
+              duration: reducedMotion ? 0 : 0.3,
+              ease: GHOST_EASE,
+            },
+          },
+        }}
+      />
+    </LinkComponent>
+  );
+});
 
 export default function DesktopFluidHeader({
   navItems,
@@ -130,64 +205,15 @@ export default function DesktopFluidHeader({
                 {nav.map((item) => {
                   const isActive = isNavItemActive(item.href, activeHref);
 
-                  const common =
-                    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
-                  const baseText = isLight ? 'text-white' : 'text-white/70';
-                  const hoverText = isLight
-                    ? 'hover:text-bluePrimary'
-                    : 'hover:text-white';
-                  const activeText = 'text-bluePrimary';
-                  const textColor = isActive
-                    ? `${activeText} font-semibold`
-                    : `${baseText} ${hoverText} font-medium`;
-
-                  const LinkComponent =
-                    isExternalHref(item.href) || item.external
-                      ? motion.a
-                      : motion.button;
-                  const linkProps =
-                    isExternalHref(item.href) || item.external
-                      ? {
-                          href: item.href,
-                          target: '_blank',
-                          rel: 'noopener noreferrer',
-                        }
-                      : {
-                          type: 'button' as const,
-                          onClick: () => onNavigate(item.href),
-                        };
-
                   return (
-                    <LinkComponent
+                    <DesktopNavItem
                       key={item.href}
-                      {...linkProps}
-                      className={`group ${common} ${textColor}`}
-                      whileHover={!isActive ? 'hover' : undefined}
-                      initial="initial"
-                      animate={isActive ? 'active' : 'initial'}
-                    >
-                      <span className="tracking-tight">{item.label}</span>
-                      <motion.span
-                        className="absolute -bottom-1 left-0 h-[1px] w-full bg-current origin-center"
-                        variants={{
-                          initial: { scaleX: 0 },
-                          hover: {
-                            scaleX: 1,
-                            transition: {
-                              duration: reducedMotion ? 0 : 0.3,
-                              ease: GHOST_EASE,
-                            },
-                          },
-                          active: {
-                            scaleX: 1,
-                            transition: {
-                              duration: reducedMotion ? 0 : 0.3,
-                              ease: GHOST_EASE,
-                            },
-                          },
-                        }}
-                      />
-                    </LinkComponent>
+                      item={item}
+                      isActive={isActive}
+                      isLight={isLight}
+                      reducedMotion={reducedMotion}
+                      onNavigate={onNavigate}
+                    />
                   );
                 })}
               </nav>
