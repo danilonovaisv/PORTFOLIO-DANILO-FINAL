@@ -1,8 +1,7 @@
 'use client';
 
-export * from '@/components/sobre/beliefs/BeliefSection';
-export * from '@/components/sobre/beliefs/BeliefDesktopTextLayer';
-export * from '@/components/sobre/beliefs/BeliefMobileTextLayer';
-export * from '@/components/sobre/beliefs/BeliefFinalSection';
+export * from '@/components/sobre/beliefs/BeliefBackground';
+export * from '@/components/sobre/beliefs/BeliefOverlay';
 export * from '@/components/sobre/beliefs/BeliefFixedHeader';
-export * from '@/components/sobre/beliefs/BeliefFinalSectionOverlay';
+export * from '@/components/sobre/beliefs/BeliefScrollText';
+export * from '@/components/sobre/beliefs/BeliefManifesto';

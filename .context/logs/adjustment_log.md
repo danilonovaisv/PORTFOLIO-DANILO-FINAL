@@ -1306,3 +1306,4 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
   - `command: "./PATH/TO/toolbox"`
   - `args: ["--prebuilt", "dataplex", "--stdio"]`
   - `DATAPLEX_PROJECT=portfolio-danilo-novais`
+[2026-04-20] [About Method & Beliefs] Auditoria e Remediação completa das seções 05 e 06 (SPEC-PORTFOLIO-FIX-05-06.json). Implementação do 'ghost-ease', remoção de violações de CSS transitions, padronização de HSL e z-index hierarchy, implementação de ErrorBoundary em WebGL GhostScene e sincronização de assets GLB de produção. Relatório gerado em docs/QA-REPORT-05-06-FIXES.md.

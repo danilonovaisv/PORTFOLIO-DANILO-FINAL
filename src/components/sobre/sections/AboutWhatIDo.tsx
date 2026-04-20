@@ -103,15 +103,15 @@ export function AboutWhatIDo() {
         <div className="sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
           {/* Header */}
           <div className="absolute top-0 z-20 flex w-full justify-center pt-20">
-            <div className="max-w-[900px] text-center">
+            <div className="max-w-[960px] text-center">
               <h2
                 id="what-i-do-heading"
-                className="text-display font-black tracking-tight text-text"
+                className="text-h1 font-black tracking-tight text-text"
               >
                 Do <span className="text-bluePrimary">insight</span> ao{' '}
                 <span className="text-bluePrimary">impacto</span>.
               </h2>
-              <p className="mt-3 text-h1 font-black tracking-tight text-text/90">
+              <p className="mt-3 text-h2 font-black tracking-tight text-text/90">
                 Mesmo quando você não percebe.
               </p>
             </div>
@@ -144,21 +144,21 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE,
                 }}
-                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-4 py-5 text-center shadow-lg shadow-purpleDetails/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-purpleDetails/20 focus-within:shadow-xl focus-within:shadow-purpleDetails/25"
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-5 py-5 text-center shadow-lg shadow-purpleDetails/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-purpleDetails/20 focus-within:shadow-xl focus-within:shadow-purpleDetails/25"
               >
                 {/* Number */}
                 <span
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-purpleDetails/35 bg-[rgba(255,255,255,0.08)] font-sans text-display text-[2rem] font-black text-purpleDetails"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-purpleDetails/35 bg-[rgba(255,255,255,0.08)] font-sans text-h3 font-black text-purpleDetails"
                   aria-hidden="true"
                 >
                   {service.id.padStart(2, '0')}
                 </span>
                 {/* Text */}
-                <p className="mt-5 font-sans text-display text-[clamp(1.05rem,1.55vw,1.35rem)] font-bold leading-[1.28] text-text">
+                <p className="mt-5 font-sans text-body-enhanced font-semibold leading-[1.4] text-text">
                   <strong className="block text-blueAccent">
                     {service.keyword}
                   </strong>
-                  <span className="mt-1.5 block text-text">
+                  <span className="mt-1 block text-small text-text">
                     {service.description}
                   </span>
                 </p>
@@ -182,12 +182,12 @@ export function AboutWhatIDo() {
           <header className="mb-10 text-center px-4">
             <h2
               id="what-i-do-heading-mobile"
-              className="text-display font-black tracking-tight text-text text-balance"
+              className="text-h2 font-black tracking-tight text-text text-balance"
             >
               Do <span className="text-bluePrimary">insight</span> ao{' '}
               <span className="text-bluePrimary">impacto</span>.
             </h2>
-            <p className="mt-2 text-h2 font-black tracking-tight text-text/90 text-balance">
+            <p className="mt-2 text-h3 font-black tracking-tight text-text/90 text-balance">
               Mesmo quando você não percebe.
             </p>
           </header>
