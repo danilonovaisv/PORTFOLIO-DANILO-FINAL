@@ -64,6 +64,8 @@ export const BeliefScrollText = ({
       <div
         data-testid="belief-text-layer-desktop"
         className="relative w-full px-6 md:px-16 flex items-center pointer-events-none"
+        aria-live="polite"
+        aria-atomic="true"
       >
         <div className="w-full max-w-[38vw] lg:max-w-[34vw]">
           <AnimatePresence mode="wait">
@@ -92,6 +94,8 @@ export const BeliefScrollText = ({
     <div
       data-testid="belief-text-layer-mobile"
       className="relative w-full h-[80vh] flex items-end justify-center pb-[20vh] px-6 pointer-events-none"
+      aria-live="polite"
+      aria-atomic="true"
     >
       <AnimatePresence mode="wait">
         {activePhrase ? (

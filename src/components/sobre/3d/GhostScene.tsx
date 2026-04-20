@@ -6,9 +6,11 @@ import { useRef, useEffect, Suspense } from 'react';
 import { motion } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import type { Group } from 'three';
+import { Vector3 } from 'three';
+import { GhostErrorBoundary } from '@/components/3d/GhostErrorBoundary';
 
 const GHOST_GLB_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-transformed.glb';
 
 // Preload fora do componente para evitar re-disparos
 useGLTF.preload(GHOST_GLB_URL);
@@ -28,6 +30,8 @@ const GhostModel = ({ scrollProgress, isMobile = false }: GhostModelProps) => {
     return () => unsub();
   }, [scrollProgress, invalidate]);
 
+  const scaleVectorRef = useRef(new Vector3());
+
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
@@ -36,8 +40,9 @@ const GhostModel = ({ scrollProgress, isMobile = false }: GhostModelProps) => {
       ? 0.9 + Math.min(p, 0.1) * 1.0
       : 0.95 + Math.min(p, 0.1) * 0.5;
 
+    scaleVectorRef.current.set(targetScale, targetScale, targetScale);
     groupRef.current.scale.lerp(
-      { x: targetScale, y: targetScale, z: targetScale } as never,
+      scaleVectorRef.current,
       Math.min(delta * 8, 0.15)
     );
 
@@ -83,20 +88,22 @@ export const GhostScene = ({
       className="fixed inset-0 z-30 pointer-events-none"
       aria-hidden="true"
     >
-      <Canvas
-        frameloop="demand"
-        dpr={[1, 2]}
-        camera={{ position: [0, 0, 6], fov: 35 }}
-        performance={{ min: 0.5, max: 1, debounce: 200 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        role="presentation"
-      >
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[4, 4, 4]} intensity={1.2} />
-        <Suspense fallback={null}>
-          <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
-        </Suspense>
-      </Canvas>
+      <GhostErrorBoundary fallback={null}>
+        <Canvas
+          frameloop="demand"
+          dpr={[1, 2]}
+          camera={{ position: [0, 0, 6], fov: 35 }}
+          performance={{ min: 0.5, max: 1, debounce: 200 }}
+          gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+          role="presentation"
+        >
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[4, 4, 4]} intensity={1.2} />
+          <Suspense fallback={null}>
+            <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
+          </Suspense>
+        </Canvas>
+      </GhostErrorBoundary>
     </motion.div>
   );
 };

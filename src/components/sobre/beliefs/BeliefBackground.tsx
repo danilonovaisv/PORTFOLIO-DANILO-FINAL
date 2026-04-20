@@ -15,16 +15,15 @@ interface BeliefBackgroundProps {
 export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
   const backgroundColor = useTransform(
     scrollProgress,
-    [0, 0.15, 0.30, 0.45, 0.60, 0.75, 0.88, 1.0],
+    [0, 0.166, 0.333, 0.5, 0.666, 0.833, 1],
     [
-      '#040013', // intro — Deep Void
-      '#0048ff', // bluePrimary
-      '#8705f2', // purpleDetails
-      '#f501d3', // pinkDetails
-      '#0048ff', // bluePrimary (loop 2)
-      '#8705f2', // purpleDetails
-      '#f501d3', // pinkDetails
-      '#040013', // fade-out para o manifesto
+      'hsl(230, 85%, 30%)',
+      'hsl(270, 80%, 40%)',
+      'hsl(330, 85%, 50%)',
+      'hsl(230, 85%, 30%)',
+      'hsl(270, 80%, 40%)',
+      'hsl(330, 85%, 50%)',
+      'hsl(230, 85%, 30%)'
     ]
   );
 

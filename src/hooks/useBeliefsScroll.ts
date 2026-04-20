@@ -12,7 +12,7 @@ import { useEffect, useState, type RefObject } from 'react';
 export const useBeliefsScroll = (containerRef: RefObject<HTMLElement | null>) => {
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end end'],
+    offset: ['start end', 'end start'],
   });
 
   const prefersReducedMotion = useReducedMotion() ?? false;

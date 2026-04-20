@@ -65,16 +65,6 @@ export const AboutBeliefs = () => {
       data-testid="about-beliefs-section"
       aria-label="O que me move — manifesto"
     >
-      <div className="sr-only">
-        <h2>Manifesto: O Que Me Move</h2>
-        <ul>
-          {PHRASES.map((phrase) => (
-            <li key={phrase}>{phrase}</li>
-          ))}
-          <li>ISSO É GHOST DESIGN.</li>
-        </ul>
-      </div>
-
       <BeliefBackground scrollProgress={scrollYProgress} />
       <BeliefOverlay scrollProgress={scrollYProgress} />
 
