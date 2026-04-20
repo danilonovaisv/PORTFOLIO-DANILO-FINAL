@@ -1,15 +1,11 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'motion/react';
+import { motion, useTransform } from 'motion/react';
 import { SplitText } from '@/lib/motion/split-text';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
-export function BeliefFixedHeader({
-  scrollYProgress,
-  prefersReducedMotion,
-}: {
-  scrollYProgress: MotionValue<number>;
-  prefersReducedMotion?: boolean;
-}) {
+export function BeliefFixedHeader() {
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
   const exitY = useTransform(scrollYProgress, [0.85, 1], [0, -18]);
   const opacity = useTransform(
     scrollYProgress,
@@ -31,7 +27,9 @@ export function BeliefFixedHeader({
             text="Acredito no design que muda o dia de alguém."
             mode="words"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            animate={
+              prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+            }
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           />
         </p>
@@ -40,7 +38,9 @@ export function BeliefFixedHeader({
             text="Não pelo choque, mas pela conexão."
             mode="words"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            animate={
+              prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+            }
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
           />
         </h2>

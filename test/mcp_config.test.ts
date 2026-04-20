@@ -127,7 +127,9 @@ describe('Antigravity MCP Configuration', () => {
       );
 
       enabledServers.forEach((server: any) => {
-        expect(server.command).toMatch(/(^|\/|\\)(node|npx|docker)(\.exe|\.cmd)?$/i);
+        expect(server.command).toMatch(
+          /(^|\/|\\)(node|npx|docker)(\.exe|\.cmd)?$/i
+        );
       });
     });
 

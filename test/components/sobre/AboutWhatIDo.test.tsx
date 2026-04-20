@@ -72,8 +72,12 @@ describe('AboutWhatIDo typography hierarchy', () => {
     expect(headings[1]).toHaveClass('text-h2');
     expect(headings[1]).not.toHaveClass('text-display');
 
-    const desktopSubtitle = screen.getAllByText(/Mesmo quando você não percebe\./i)[0];
-    const mobileSubtitle = screen.getAllByText(/Mesmo quando você não percebe\./i)[1];
+    const desktopSubtitle = screen.getAllByText(
+      /Mesmo quando você não percebe\./i
+    )[0];
+    const mobileSubtitle = screen.getAllByText(
+      /Mesmo quando você não percebe\./i
+    )[1];
 
     expect(desktopSubtitle).toHaveClass('text-h2');
     expect(desktopSubtitle).not.toHaveClass('text-h1');
@@ -84,7 +88,9 @@ describe('AboutWhatIDo typography hierarchy', () => {
   it('keeps desktop cards at body scale for better fit and readability', () => {
     const { container } = render(<AboutWhatIDo />);
 
-    const desktopCards = container.querySelectorAll('article[data-what-i-do-card]');
+    const desktopCards = container.querySelectorAll(
+      'article[data-what-i-do-card]'
+    );
     expect(desktopCards).toHaveLength(7);
 
     const number = desktopCards[0].querySelector('span[aria-hidden="true"]');

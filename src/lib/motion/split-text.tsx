@@ -38,7 +38,9 @@ export const SplitText: React.FC<SplitTextProps> = ({
         <motion.span
           key={`${item}-${index}`}
           className={
-            mode === 'words' || mode === 'lines' ? 'inline-block mr-[0.25em]' : ''
+            mode === 'words' || mode === 'lines'
+              ? 'inline-block mr-[0.25em]'
+              : ''
           }
           style={{ display: 'inline-block' }}
           {...props}

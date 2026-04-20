@@ -8,19 +8,16 @@ import type { MotionValue } from 'motion/react';
 import type { Group } from 'three';
 import { Vector3 } from 'three';
 import { GhostErrorBoundary } from '@/components/3d/GhostErrorBoundary';
+import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollContext';
 
-const GHOST_GLB_URL =
-  '/site.assets/3d/ghost.glb';
+const GHOST_GLB_URL = '/site.assets/3d/ghost.glb';
 
 // Preload fora do componente para evitar re-disparos
 useGLTF.preload(GHOST_GLB_URL);
 
-interface GhostModelProps {
-  scrollProgress: MotionValue<number>;
-  isMobile?: boolean;
-}
-
-const GhostModel = ({ scrollProgress, isMobile = false }: GhostModelProps) => {
+const GhostModel = () => {
+  const { scrollYProgress: scrollProgress, isMobile = true } =
+    useBeliefsScrollContext();
   const { scene } = useGLTF(GHOST_GLB_URL);
   const groupRef = useRef<Group>(null);
   const invalidate = useThree((s) => s.invalidate);
@@ -83,7 +80,8 @@ const GhostModel = ({ scrollProgress, isMobile = false }: GhostModelProps) => {
       positionVectorRef.current,
       Math.min(delta * 4, 0.08)
     );
-    groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.08;
+    groupRef.current.rotation.y =
+      Math.sin(state.clock.elapsedTime * 0.4) * 0.08;
     groupRef.current.position.y +=
       Math.sin(state.clock.elapsedTime * 0.6) * 0.0008;
   });
@@ -97,19 +95,9 @@ const GhostModel = ({ scrollProgress, isMobile = false }: GhostModelProps) => {
   );
 };
 
-interface GhostSceneProps {
-  scrollProgress: MotionValue<number>;
-  isMobile?: boolean;
-}
-
-/**
- * GhostScene — Canvas R3F isolado.
- * z-30 (NÃO z-50). O manifesto em z-50 precisa ficar acima.
- */
-export const GhostScene = ({
-  scrollProgress,
-  isMobile = false,
-}: GhostSceneProps) => {
+export const GhostScene = () => {
+  const { scrollYProgress: scrollProgress, isMobile = false } =
+    useBeliefsScrollContext();
   const [isLowPower, setIsLowPower] = useState(false);
 
   useEffect(() => {
@@ -139,7 +127,7 @@ export const GhostScene = ({
           <ambientLight intensity={0.6} />
           <directionalLight position={[4, 4, 4]} intensity={1.2} />
           <Suspense fallback={null}>
-            <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
+            <GhostModel />
           </Suspense>
         </Canvas>
       </GhostErrorBoundary>

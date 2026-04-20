@@ -1,39 +1,20 @@
 'use client';
 
-import {
-  AnimatePresence,
-  motion,
-  type MotionValue,
-} from 'motion/react';
+import { AnimatePresence, motion, type MotionValue } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { SplitText } from '@/lib/motion/split-text';
 
-interface BeliefScrollTextProps {
-  phrases: string[];
-  scrollProgress: MotionValue<number>;
-  isMobile?: boolean;
-  prefersReducedMotion?: boolean;
-}
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 const ENTER_START = 0.06;
 const EXIT_END = 0.72;
 
-/**
- * Scroll-driven phrase layer for Section 06.
- *
- * Desktop: AnimatePresence mode="wait" — one phrase at a time (compatible with
- * Playwright spec that checks toHaveCount(0) for inactive phrases).
- *
- * Mobile: AnimatePresence mode="wait" with horizontal slide + blur.
- *
- * Both modes use scroll-driven activeIndex via scrollProgress.on('change').
- */
-export const BeliefScrollText = ({
-  phrases,
-  scrollProgress,
-  isMobile = false,
-  prefersReducedMotion = false,
-}: BeliefScrollTextProps) => {
+export const BeliefScrollText = ({ phrases }: { phrases: string[] }) => {
+  const {
+    scrollYProgress: scrollProgress,
+    isMobile = false,
+    prefersReducedMotion = false,
+  } = useBeliefsScrollContext();
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   useEffect(() => {
@@ -76,16 +57,28 @@ export const BeliefScrollText = ({
                 data-testid={`belief-line-${activeIndex}`}
                 className="font-h1 font-bold text-[#4fe6ff] leading-[1.05]"
                 style={{ fontSize: 'clamp(2.8rem, 5.8vw, 6.3rem)' }}
-                initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20, filter: 'blur(10px)' }}
-                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={prefersReducedMotion ? undefined : { opacity: 0, y: -20, filter: 'blur(10px)' }}
-                transition={prefersReducedMotion ? undefined : { duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                initial={
+                  prefersReducedMotion
+                    ? undefined
+                    : { opacity: 0, y: 20, filter: 'blur(10px)' }
+                }
+                animate={
+                  prefersReducedMotion
+                    ? undefined
+                    : { opacity: 1, y: 0, filter: 'blur(0px)' }
+                }
+                exit={
+                  prefersReducedMotion
+                    ? undefined
+                    : { opacity: 0, y: -20, filter: 'blur(10px)' }
+                }
+                transition={
+                  prefersReducedMotion
+                    ? undefined
+                    : { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+                }
               >
-                <SplitText
-                  text={activePhrase}
-                  mode="words"
-                  className="block"
-                />
+                <SplitText text={activePhrase} mode="words" className="block" />
               </motion.p>
             ) : null}
           </AnimatePresence>
@@ -107,18 +100,30 @@ export const BeliefScrollText = ({
           <motion.p
             key={`mobile-${activeIndex}`}
             data-testid={`belief-line-${activeIndex}`}
-            initial={prefersReducedMotion ? undefined : { opacity: 0, x: -24, filter: 'blur(6px)' }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={prefersReducedMotion ? undefined : { opacity: 0, x: 24, filter: 'blur(6px)' }}
-            transition={prefersReducedMotion ? undefined : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            initial={
+              prefersReducedMotion
+                ? undefined
+                : { opacity: 0, x: -24, filter: 'blur(6px)' }
+            }
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : { opacity: 1, x: 0, filter: 'blur(0px)' }
+            }
+            exit={
+              prefersReducedMotion
+                ? undefined
+                : { opacity: 0, x: 24, filter: 'blur(6px)' }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+            }
             className="font-h1 font-bold text-[#4fe6ff] text-center leading-tight"
             style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}
           >
-            <SplitText
-              text={activePhrase}
-              mode="words"
-              className="block"
-            />
+            <SplitText text={activePhrase} mode="words" className="block" />
           </motion.p>
         ) : null}
       </AnimatePresence>

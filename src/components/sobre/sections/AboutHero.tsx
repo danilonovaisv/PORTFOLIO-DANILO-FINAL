@@ -60,76 +60,76 @@ export function AboutHero() {
         <div className="relative z-10 hidden lg:flex h-screen items-center overflow-hidden w-full">
           <div className="std-grid w-full">
             <div className="grid grid-cols-12 w-full gap-8">
-            {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
-            <div className="col-span-6" aria-hidden="true" />
+              {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
+              <div className="col-span-6" aria-hidden="true" />
 
-            {/* Columns 7-12: Content Block */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
-              className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
-            >
-              <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
-                {/* Intro & Manifesto - Unified for natural wrapping */}
-                <motion.div
-                  initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
-                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  viewport={viewportConfig}
-                  transition={{
-                    duration: MOTION_TOKENS.duration.slow,
-                    ease: GHOST_EASE,
-                    delay: 0,
-                  }}
-                  className="mb-12 flex flex-col items-end gap-1"
-                >
-                  <div
-                    aria-hidden="true"
-                    className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
+              {/* Columns 7-12: Content Block */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+                className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
+              >
+                <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
+                  {/* Intro & Manifesto - Unified for natural wrapping */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={viewportConfig}
+                    transition={{
+                      duration: MOTION_TOKENS.duration.slow,
+                      ease: GHOST_EASE,
+                      delay: 0,
+                    }}
+                    className="mb-12 flex flex-col items-end gap-1"
                   >
-                    {ABOUT_CONTENT.hero.title.text}
-                    {ABOUT_CONTENT.hero.title.highlight && (
-                      <span className="text-bluePrimary font-black ml-2">
-                        {ABOUT_CONTENT.hero.title.highlight}
-                      </span>
-                    )}
-                  </div>
+                    <div
+                      aria-hidden="true"
+                      className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
+                    >
+                      {ABOUT_CONTENT.hero.title.text}
+                      {ABOUT_CONTENT.hero.title.highlight && (
+                        <span className="text-bluePrimary font-black ml-2">
+                          {ABOUT_CONTENT.hero.title.highlight}
+                        </span>
+                      )}
+                    </div>
 
-                  <div className="flex flex-col items-end" aria-hidden="true">
-                    {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
-                      <p
-                        key={index}
-                        className="text-[clamp(44px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-bold text-right"
-                      >
-                        {item.text}
-                        {item.highlight && (
-                          <span className="text-bluePrimary font-black ml-2">
-                            {item.highlight}
-                          </span>
-                        )}
-                        {item.textEnd}
-                      </p>
-                    ))}
-                  </div>
-                </motion.div>
+                    <div className="flex flex-col items-end" aria-hidden="true">
+                      {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
+                        <p
+                          key={index}
+                          className="text-[clamp(44px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-bold text-right"
+                        >
+                          {item.text}
+                          {item.highlight && (
+                            <span className="text-bluePrimary font-black ml-2">
+                              {item.highlight}
+                            </span>
+                          )}
+                          {item.textEnd}
+                        </p>
+                      ))}
+                    </div>
+                  </motion.div>
 
-                {/* Description - Responsive line breaks */}
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={viewportConfig}
-                  transition={{
-                    duration: MOTION_TOKENS.duration.slow,
-                    ease: GHOST_EASE,
-                    delay: 0.4,
-                  }}
-                >
-                  <p className="text-h3 text-text text-right font-medium max-w-[520px]">
-                    {ABOUT_CONTENT.hero.description.join(' ')}
-                  </p>
-                </motion.div>
-              </div>
-            </motion.div>
+                  {/* Description - Responsive line breaks */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={viewportConfig}
+                    transition={{
+                      duration: MOTION_TOKENS.duration.slow,
+                      ease: GHOST_EASE,
+                      delay: 0.4,
+                    }}
+                  >
+                    <p className="text-h3 text-text text-right font-medium max-w-[520px]">
+                      {ABOUT_CONTENT.hero.description.join(' ')}
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>

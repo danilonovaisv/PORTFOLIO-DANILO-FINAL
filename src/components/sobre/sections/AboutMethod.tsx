@@ -72,7 +72,16 @@ export default function AboutMethod() {
                 <motion.p
                   variants={
                     prefersReducedMotion
-                      ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } } }
+                      ? {
+                          hidden: { opacity: 0 },
+                          visible: {
+                            opacity: 1,
+                            transition: {
+                              duration: 0.9,
+                              ease: [0.22, 1, 0.36, 1],
+                            },
+                          },
+                        }
                       : motionTokens.fadeGhost
                   }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
@@ -87,7 +96,16 @@ export default function AboutMethod() {
                 <motion.div
                   variants={
                     prefersReducedMotion
-                      ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } } }
+                      ? {
+                          hidden: { opacity: 0 },
+                          visible: {
+                            opacity: 1,
+                            transition: {
+                              duration: 0.9,
+                              ease: [0.22, 1, 0.36, 1],
+                            },
+                          },
+                        }
                       : motionTokens.fadeGhost
                   }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
@@ -107,7 +125,16 @@ export default function AboutMethod() {
                 <motion.div
                   variants={
                     prefersReducedMotion
-                      ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } } }
+                      ? {
+                          hidden: { opacity: 0 },
+                          visible: {
+                            opacity: 1,
+                            transition: {
+                              duration: 0.9,
+                              ease: [0.22, 1, 0.36, 1],
+                            },
+                          },
+                        }
                       : motionTokens.fadeGhost
                   }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
@@ -140,7 +167,16 @@ export default function AboutMethod() {
                       key={step.id}
                       variants={
                         prefersReducedMotion
-                          ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } } }
+                          ? {
+                              hidden: { opacity: 0 },
+                              visible: {
+                                opacity: 1,
+                                transition: {
+                                  duration: 0.9,
+                                  ease: [0.22, 1, 0.36, 1],
+                                },
+                              },
+                            }
                           : motionTokens.riseSoft
                       }
                       className="group grid grid-cols-[auto_1fr] items-start gap-4 border-b border-white/10 py-4 last:border-b-0 lg:gap-5"

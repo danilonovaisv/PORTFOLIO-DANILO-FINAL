@@ -1,25 +1,21 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'motion/react';
+import { motion, useTransform } from 'motion/react';
 import { SplitText } from '@/lib/motion/split-text';
-
-interface BeliefManifestoProps {
-  scrollProgress: MotionValue<number>;
-  prefersReducedMotion?: boolean;
-}
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 /**
  * Manifesto final "ISSO É GHOST DESIGN."
  * Renderizado em z-50 para ficar ACIMA do GhostCanvas (z-30).
  * Reveal entre scroll 0.85 e 1.0.
  */
-export const BeliefManifesto = ({
-  scrollProgress,
-  prefersReducedMotion = false,
-}: BeliefManifestoProps) => {
+export const BeliefManifesto = () => {
+  const { scrollYProgress: scrollProgress, prefersReducedMotion = false } =
+    useBeliefsScrollContext();
+
   const opacity = useTransform(
     scrollProgress,
-    [0.82, 0.90, 1.0],
+    [0.82, 0.9, 1.0],
     prefersReducedMotion ? [0, 1, 1] : [0, 1, 1]
   );
   const y = useTransform(
@@ -49,7 +45,9 @@ export const BeliefManifesto = ({
             mode="chars"
             className="block"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            animate={
+              prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+            }
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           />
           <SplitText
@@ -57,7 +55,9 @@ export const BeliefManifesto = ({
             mode="chars"
             className="mt-2 block text-[#4fe6ff]"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            animate={
+              prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+            }
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
           />
         </motion.p>

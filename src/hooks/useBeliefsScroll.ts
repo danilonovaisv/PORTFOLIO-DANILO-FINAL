@@ -8,7 +8,9 @@ import { useEffect, useState, type RefObject } from 'react';
  * offset: ['start start', 'end end'] — timeline íntegra enquanto a
  * seção ocupa a viewport, alinhada ao blueprint técnico da seção 06.
  */
-export const useBeliefsScroll = (containerRef: RefObject<HTMLElement | null>) => {
+export const useBeliefsScroll = (
+  containerRef: RefObject<HTMLElement | null>
+) => {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],

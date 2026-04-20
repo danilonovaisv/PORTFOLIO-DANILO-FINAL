@@ -7,7 +7,7 @@ import { BeliefFixedHeader } from '@/components/sobre/beliefs/BeliefFixedHeader'
 import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
 import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
 import { GhostScene } from '@/components/sobre/3d/GhostScene';
-import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
+import { BeliefsScrollProvider } from '@/components/sobre/beliefs/BeliefsScrollContext';
 
 const PHRASES = [
   'Um vídeo que respira.',
@@ -20,8 +20,6 @@ const PHRASES = [
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress, prefersReducedMotion, isMobile } =
-    useBeliefsScroll(containerRef);
 
   return (
     <section
@@ -34,42 +32,37 @@ export function AboutBeliefs() {
         ref={containerRef}
         className="relative min-h-[760vh] md:min-h-[820vh] lg:min-h-[900vh]"
       >
-        <div className="sr-only">
-          <h2>Manifesto: O Que Me Move</h2>
-          <ul>
-            {PHRASES.map((phrase) => (
-              <li key={phrase}>{phrase}</li>
-            ))}
-            <li>ISSO É GHOST DESIGN.</li>
-          </ul>
-        </div>
+        <BeliefsScrollProvider containerRef={containerRef}>
+          <div className="sr-only">
+            <h2>Manifesto: O Que Me Move</h2>
+            <ul>
+              {PHRASES.map((phrase) => (
+                <li key={phrase}>{phrase}</li>
+              ))}
+              <li>ISSO É GHOST DESIGN.</li>
+            </ul>
+          </div>
 
-        <BeliefBackground scrollYProgress={scrollYProgress} />
-        <BeliefOverlay scrollProgress={scrollYProgress} />
+          <BeliefBackground />
+          <BeliefOverlay />
 
-        <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
-          <BeliefFixedHeader
-            scrollYProgress={scrollYProgress}
-            prefersReducedMotion={prefersReducedMotion}
-          />
-          <BeliefScrollText
-            phrases={PHRASES}
-            scrollProgress={scrollYProgress}
-            isMobile={isMobile}
-            prefersReducedMotion={prefersReducedMotion}
-          />
-          <BeliefManifesto
-            scrollProgress={scrollYProgress}
-            prefersReducedMotion={prefersReducedMotion}
-          />
-          {!prefersReducedMotion ? (
-            <GhostScene
-              scrollProgress={scrollYProgress}
-              isMobile={isMobile}
-            />
-          ) : null}
-        </div>
+          <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
+            <BeliefFixedHeader />
+            <BeliefScrollText phrases={PHRASES} />
+            <BeliefManifesto />
+            <AboutBeliefsScene />
+          </div>
+        </BeliefsScrollProvider>
       </div>
     </section>
   );
+}
+
+/**
+ * Componente interno para lidar com a condicional do GhostScene
+ * dentro do provider, mantendo o AboutBeliefs limpo.
+ */
+function AboutBeliefsScene() {
+  // Nota: GhostScene e outros agora pegam o scroll via contexto internamente
+  return <GhostScene />;
 }

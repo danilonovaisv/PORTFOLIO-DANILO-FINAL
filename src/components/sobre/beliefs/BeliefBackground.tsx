@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useTransform } from 'motion/react';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 const BELIEF_INTRO_END = 0.06;
 const BELIEF_PHRASE_ZONE_END = 0.72;
@@ -14,11 +15,9 @@ const COLORS = [
   'hsl(330, 85%, 50%)',
 ];
 
-export function BeliefBackground({
-  scrollYProgress,
-}: {
-  scrollYProgress: MotionValue<number>;
-}) {
+export function BeliefBackground() {
+  const { scrollYProgress } = useBeliefsScrollContext();
+
   const inputRange = [
     0,
     ...COLORS.map(

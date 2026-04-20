@@ -1,13 +1,16 @@
 # Audit Report: Sections 05 and 06 (Sprint 001)
 
 ## 1. Resumo Executivo
+
 Este relatório detalha os achados da auditoria estática das seções 05 e 06, em conformidade com o `SPEC-PORTFOLIO-FIX-05-06.json` v1.0.1.
+
 - **CRITICAL**: 1 (URL incorreta do GLB)
 - **HIGH**: 5 (Viewport once: false, offset do useScroll incorreto, interpolação de cor Hex vs HSL, uso de div sr-only proibida, ausência de aria-live)
 - **MEDIUM**: 2 (Tempo de stagger incorreto, hierarquia de z-index menor que a exigida na seção 05)
 - **LOW**: 1 (Alocação de objeto inline no useFrame)
 
 ## 2. Problemas detalhados da seção 05 (COMO EU TRABALHO)
+
 - **Arquivo**: `src/components/sobre/sections/AboutMethod.tsx`
   - **Linha**: 97, 108, 124, 144
   - **Severidade**: HIGH
@@ -22,6 +25,7 @@ Este relatório detalha os achados da auditoria estática das seções 05 e 06, 
   - **Descrição**: O z-index stack atual é vídeo (`z-0`), overlay (`z-1`), conteúdo (`z-10`). A especificação Ghost Design determina vídeo (`z-0`), overlay (`z-10`) e conteúdo (`z-20`).
 
 ## 3. Problemas detalhados da seção 06 (O QUE ME MOVE)
+
 - **Arquivo**: `src/components/sobre/3d/GhostScene.tsx`
   - **Linha**: 10-11, 14, 22
   - **Severidade**: CRITICAL
@@ -48,6 +52,7 @@ Este relatório detalha os achados da auditoria estática das seções 05 e 06, 
   - **Descrição**: Alocação de objeto inline `{ x: targetScale, y: targetScale, z: targetScale }` e casting (`as never`) dentro do método `lerp` no `useFrame`. Pode provocar micro-gargalos de garbage collection acumulativo.
 
 ## 4. Violações do Ghost Design System encontradas
+
 1. **Transições RGB vs HSL**: O uso do formato hexadecimal (`#0048ff`) na animação com `useTransform` quebra o fluxo de interpolação circular em HSL exigido para as cores de brand.
 2. **Re-trigger de animações (once: false)**: O viewport uma vez revelado não deveria refazer a animação, o que afeta o engajamento natural (Sinalizado no AboutMethod).
 3. **Mapeamento Semântico e SR**: Ocultar conteúdo estático via `sr-only` contraria o fluxo dinâmico nativo estipulado por "Acessibilidade Dinâmica", onde apenas o texto em tela possui o estado da fala lido.
