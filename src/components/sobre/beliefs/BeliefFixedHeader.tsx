@@ -1,34 +1,17 @@
 'use client';
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from 'framer-motion';
-import type { RefObject } from 'react';
+import { motion, useTransform, type MotionValue } from 'framer-motion';
 
 export function BeliefFixedHeader({
-  containerRef,
   scrollYProgress,
   prefersReducedMotion,
 }: {
-  containerRef: RefObject<HTMLElement | null>;
-  scrollYProgress?: MotionValue<number>;
+  scrollYProgress: MotionValue<number>;
   prefersReducedMotion?: boolean;
 }) {
-  // Only run a local useScroll when the parent did not provide a progress
-  // value. Avoids computing scroll twice and keeps the header perfectly
-  // synced with AboutBeliefs' own timeline.
-  const fallbackScroll = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end end'],
-  });
-  const progress = scrollYProgress ?? fallbackScroll.scrollYProgress;
-
-  const exitY = useTransform(progress, [0.85, 1], [0, -18]);
+  const exitY = useTransform(scrollYProgress, [0.85, 1], [0, -18]);
   const opacity = useTransform(
-    progress,
+    scrollYProgress,
     [0.05, 0.12, 0.85, 0.95],
     [0, 1, 1, 0]
   );

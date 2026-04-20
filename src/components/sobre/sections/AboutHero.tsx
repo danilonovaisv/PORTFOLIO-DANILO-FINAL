@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
@@ -18,19 +17,6 @@ import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
 
 export function AboutHero() {
   const prefersReducedMotion = useMotionGate();
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, MOTION_TOKENS.spring.ghost);
-
-  const mediaY = useTransform(
-    smoothProgress,
-    [0, 1],
-    prefersReducedMotion ? [0, 0] : [18, -18]
-  );
 
   const shouldPlayVideo = !prefersReducedMotion;
 
@@ -47,36 +33,33 @@ export function AboutHero() {
     .join(' ');
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen bg-background overflow-hidden"
-      aria-label="Hero - Manifesto"
-    >
-      <h1 className="sr-only">{heroSrTitle}</h1>
+    <section className="bg-background" aria-label="Hero - Manifesto">
+      <div className="relative min-h-screen overflow-hidden">
+        <h1 className="sr-only">{heroSrTitle}</h1>
 
-      {/* Background Video - Desktop - Sincronização Realtime */}
-      <DynamicAssetVideo
-        assetKey={SITE_ASSET_KEYS.heroVideos.aboutDesktop}
-        fallbackUrl={ABOUT_CONTENT.hero.videos.desktop || undefined}
-        playbackRate={0.4}
-        autoPlay={shouldPlayVideo}
-        muted
-        loop={shouldPlayVideo}
-        poster={DEFAULT_VIDEO_POSTER}
-        className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.78]"
-        style={{ zIndex: 0 }}
-      />
+        {/* Background Video - Desktop - Sincronização Realtime */}
+        <DynamicAssetVideo
+          assetKey={SITE_ASSET_KEYS.heroVideos.aboutDesktop}
+          fallbackUrl={ABOUT_CONTENT.hero.videos.desktop || undefined}
+          playbackRate={0.4}
+          autoPlay={shouldPlayVideo}
+          muted
+          loop={shouldPlayVideo}
+          poster={DEFAULT_VIDEO_POSTER}
+          className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.78]"
+          style={{ zIndex: 0 }}
+        />
 
-      {/* Desktop Overlay - Contrast Exception Control */}
-      <div
-        className="hidden lg:block absolute inset-0 pointer-events-none z-1 mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
-        aria-hidden="true"
-      />
+        {/* Desktop Overlay - Contrast Exception Control */}
+        <div
+          className="hidden lg:block absolute inset-0 pointer-events-none z-1 mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
+          aria-hidden="true"
+        />
 
-      {/* Desktop Content - 12 Column Grid Concept */}
-      <div className="relative z-10 hidden lg:flex h-screen items-center overflow-hidden w-full">
-        <div className="std-grid w-full">
-          <div className="grid grid-cols-12 w-full gap-8">
+        {/* Desktop Content - 12 Column Grid Concept */}
+        <div className="relative z-10 hidden lg:flex h-screen items-center overflow-hidden w-full">
+          <div className="std-grid w-full">
+            <div className="grid grid-cols-12 w-full gap-8">
             {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
             <div className="col-span-6" aria-hidden="true" />
 
@@ -147,93 +130,94 @@ export function AboutHero() {
                 </motion.div>
               </div>
             </motion.div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Gradient Bottom Decay - Suaviza transição para próxima sessão */}
-      <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-20" />
+        {/* Gradient Bottom Decay - Suaviza transição para próxima sessão */}
+        <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-20" />
 
-      {/* Mobile Hero Video - Sincronização Realtime */}
-      <div className="lg:hidden">
-        <div className="relative aspect-square w-full overflow-hidden">
-          <motion.div style={{ y: mediaY }} className="w-full h-full">
-            <DynamicAssetVideo
-              assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
-              fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}
-              playbackRate={0.4}
-              autoPlay={shouldPlayVideo}
-              muted
-              loop={shouldPlayVideo}
-              poster={DEFAULT_VIDEO_POSTER}
-              className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-10" />
-        </div>
-        <div className="relative z-10 px-6 pt-10 pb-20 text-center">
-          <motion.div
-            initial={prefersReducedMotion ? 'visible' : 'hidden'}
-            animate="visible"
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.2,
-                  delayChildren: 0.3,
-                },
-              },
-            }}
-            className="space-y-6"
-          >
+        {/* Mobile Hero Video - Sincronização Realtime */}
+        <div className="lg:hidden">
+          <div className="relative aspect-square w-full overflow-hidden">
+            <div className="w-full h-full">
+              <DynamicAssetVideo
+                assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
+                fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}
+                playbackRate={0.4}
+                autoPlay={shouldPlayVideo}
+                muted
+                loop={shouldPlayVideo}
+                poster={DEFAULT_VIDEO_POSTER}
+                className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
+              />
+            </div>
+            <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-10" />
+          </div>
+          <div className="relative z-10 px-6 pt-10 pb-20 text-center">
             <motion.div
+              initial={prefersReducedMotion ? 'visible' : 'hidden'}
+              animate="visible"
               variants={{
-                hidden: { opacity: 0, filter: 'blur(10px)' },
                 visible: {
-                  opacity: 1,
-                  filter: 'blur(0px)',
                   transition: {
-                    duration: MOTION_TOKENS.duration.slow,
-                    ease: GHOST_EASE as any,
+                    staggerChildren: 0.2,
+                    delayChildren: 0.3,
                   },
                 },
               }}
-              className="space-y-4"
+              className="space-y-6"
             >
-              {/* TÍTULO MOBILE AJUSTADO
-                  1. text-[clamp(1.8rem...)]: Reduzi o mínimo para caber melhor em telas pequenas.
-                  2. text-balance: Garante que as linhas fiquem visualmente equilibradas.
-              */}
-              <div
-                aria-hidden="true"
-                className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, filter: 'blur(10px)' },
+                  visible: {
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: MOTION_TOKENS.duration.slow,
+                      ease: GHOST_EASE as any,
+                    },
+                  },
+                }}
+                className="space-y-4"
               >
-                <span>
-                  Sou <span className="text-bluePrimary">Danilo Novais.</span>
-                </span>
-                <span>
-                  Você <span className="text-bluePrimary">não vê tudo</span>{' '}
-                  <span className="whitespace-nowrap">o que eu faço.</span>
-                </span>
-                <span>
-                  Mas sente quando{' '}
-                  <span className="text-bluePrimary whitespace-nowrap">
-                    funciona.
+                {/* TÍTULO MOBILE AJUSTADO
+                    1. text-[clamp(1.8rem...)]: Reduzi o mínimo para caber melhor em telas pequenas.
+                    2. text-balance: Garante que as linhas fiquem visualmente equilibradas.
+                */}
+                <div
+                  aria-hidden="true"
+                  className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
+                >
+                  <span>
+                    Sou <span className="text-bluePrimary">Danilo Novais.</span>
                   </span>
-                </span>
-              </div>
-            </motion.div>
+                  <span>
+                    Você <span className="text-bluePrimary">não vê tudo</span>{' '}
+                    <span className="whitespace-nowrap">o que eu faço.</span>
+                  </span>
+                  <span>
+                    Mas sente quando{' '}
+                    <span className="text-bluePrimary whitespace-nowrap">
+                      funciona.
+                    </span>
+                  </span>
+                </div>
+              </motion.div>
 
-            <motion.div
-              variants={ghostFade}
-              className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
-            >
-              {ABOUT_CONTENT.hero.description.map((line, index) => (
-                <span key={index} className="block">
-                  {line}
-                </span>
-              ))}
+              <motion.div
+                variants={ghostFade}
+                className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
+              >
+                {ABOUT_CONTENT.hero.description.map((line, index) => (
+                  <span key={index} className="block">
+                    {line}
+                  </span>
+                ))}
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

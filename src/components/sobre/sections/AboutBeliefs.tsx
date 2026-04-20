@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { useScroll } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { useMotionValue } from 'framer-motion';
 import { BeliefBackground } from '@/components/sobre/beliefs/BeliefBackground';
 import { BeliefOverlay } from '@/components/sobre/beliefs/BeliefOverlay';
 import { BeliefDesktopTextLayer } from '@/components/sobre/beliefs/BeliefDesktopTextLayer';
@@ -21,11 +21,43 @@ const PHRASES = [
 ];
 
 export function AboutBeliefs() {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollYProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    let rafId = 0;
+
+    const updateProgress = () => {
+      rafId = 0;
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const scrollRange = Math.max(rect.height - viewportHeight, 1);
+      const nextProgress = Math.min(
+        1,
+        Math.max(0, -rect.top / scrollRange)
+      );
+      scrollYProgress.set(nextProgress);
+    };
+
+    const scheduleUpdate = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(updateProgress);
+    };
+
+    scheduleUpdate();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, [scrollYProgress]);
+
   const { ghostIntensity, showFinalManifesto, prefersReducedMotion } =
     useBeliefsAnimation({
       scrollYProgress,
@@ -34,51 +66,54 @@ export function AboutBeliefs() {
 
   return (
     <section
-      ref={containerRef}
       id="06-o-que-me-move"
       data-testid="about-beliefs-section"
       aria-label="O Que Me Move"
-      className="relative min-h-[760vh] md:min-h-[820vh] lg:min-h-[900vh]"
+      className="relative"
     >
-      <div className="sr-only">
-        <h2>Manifesto: O Que Me Move</h2>
-        <ul>
-          {PHRASES.map((phrase) => (
-            <li key={phrase}>{phrase}</li>
-          ))}
-          <li>ISSO É GHOST DESIGN.</li>
-        </ul>
-      </div>
+      <div
+        ref={containerRef}
+        className="relative min-h-[760vh] md:min-h-[820vh] lg:min-h-[900vh]"
+      >
+        <div className="sr-only">
+          <h2>Manifesto: O Que Me Move</h2>
+          <ul>
+            {PHRASES.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+            <li>ISSO É GHOST DESIGN.</li>
+          </ul>
+        </div>
 
-      <BeliefBackground containerRef={containerRef} />
-      <BeliefOverlay scrollYProgress={scrollYProgress} />
+        <BeliefBackground scrollYProgress={scrollYProgress} />
+        <BeliefOverlay scrollYProgress={scrollYProgress} />
 
-      <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
-        <BeliefFixedHeader
-          containerRef={containerRef}
-          scrollYProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-        <BeliefDesktopTextLayer
-          phrases={PHRASES}
-          scrollYProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-        <BeliefMobileTextLayer
-          phrases={PHRASES}
-          scrollYProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-        <BeliefFinalSectionOverlay
-          prefersReducedMotion={prefersReducedMotion}
-          showProgress={showFinalManifesto}
-        />
-        {!prefersReducedMotion ? (
-          <GhostCanvas
-            scrollProgress={scrollYProgress}
-            ghostIntensity={ghostIntensity}
+        <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
+          <BeliefFixedHeader
+            scrollYProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
           />
-        ) : null}
+          <BeliefDesktopTextLayer
+            phrases={PHRASES}
+            scrollYProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <BeliefMobileTextLayer
+            phrases={PHRASES}
+            scrollYProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <BeliefFinalSectionOverlay
+            prefersReducedMotion={prefersReducedMotion}
+            showProgress={showFinalManifesto}
+          />
+          {!prefersReducedMotion ? (
+            <GhostCanvas
+              scrollProgress={scrollYProgress}
+              ghostIntensity={ghostIntensity}
+            />
+          ) : null}
+        </div>
       </div>
     </section>
   );

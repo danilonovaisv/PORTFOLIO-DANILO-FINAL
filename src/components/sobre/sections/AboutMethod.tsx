@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -9,35 +9,13 @@ import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
-import { motionTokens, motionSprings } from '@/config/about-motion';
+import { motionTokens } from '@/config/about-motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 768px)');
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, motionSprings.ghost);
-  const effectiveProgress = prefersReducedMotion
-    ? scrollYProgress
-    : smoothProgress;
-
-  const textY = useTransform(
-    effectiveProgress,
-    [0, 1],
-    prefersReducedMotion ? [0, 0] : [16, -16]
-  );
-
-  const videoParallaxY = useTransform(
-    effectiveProgress,
-    [0, 1],
-    prefersReducedMotion ? ['0%', '0%'] : ['-7%', '7%']
-  );
 
   return (
     <section
@@ -48,7 +26,7 @@ export default function AboutMethod() {
       {/* Background Video Container */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
         <motion.div
-          style={{ y: isMobile ? 0 : videoParallaxY }}
+          style={{ y: 0 }}
           className="w-full h-full max-w-[1680px] lg:h-[120%]"
         >
           <video
@@ -86,7 +64,7 @@ export default function AboutMethod() {
           {/* Content Area: Cols 2-7 (Span 6) */}
           <div className="w-full lg:col-start-2 lg:col-span-6 flex flex-col justify-center px-0 lg:pr-20 py-20 lg:py-32">
             <motion.div
-              style={{ y: textY }}
+              style={{ y: 0 }}
               className="flex w-full flex-col items-center lg:items-start"
             >
               <div className="w-full max-w-[44rem] rounded-[28px] border border-white/10 bg-[rgba(4,0,19,0.9)] px-6 py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.88)] backdrop-blur-none lg:px-8 lg:py-9">

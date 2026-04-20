@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
@@ -64,30 +64,6 @@ export function AboutWhatIDo() {
   const prefersReducedMotion = !!useMotionGate();
   const [marqueePaused, setMarqueePaused] = useState(false);
 
-  // Scroll-linked horizontal drift for desktop.
-  // Keep the row visible from the start and avoid long empty stretches.
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Spring for smoother motion (Ghost feel)
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 20,
-    restDelta: 0.001,
-  });
-
-  // Subtle drift only; content stays readable inside the viewport.
-  const x = useTransform(smoothProgress, [0, 1], ['8vw', '-8vw']);
-
-  // Opacity for fade in/out at edges
-  const trackOpacity = useTransform(
-    smoothProgress,
-    [0, 0.12, 0.88, 1],
-    [0, 1, 1, 0]
-  );
-
   return (
     <section
       ref={containerRef}
@@ -122,8 +98,8 @@ export function AboutWhatIDo() {
             role="list"
             aria-labelledby="what-i-do-heading"
             style={{
-              x: prefersReducedMotion ? 0 : x,
-              opacity: prefersReducedMotion ? 1 : trackOpacity,
+              x: 0,
+              opacity: 1,
             }}
             className="mt-[30vh] flex w-full max-w-[1520px] items-stretch justify-center gap-3 px-10 will-change-transform xl:gap-4"
           >
