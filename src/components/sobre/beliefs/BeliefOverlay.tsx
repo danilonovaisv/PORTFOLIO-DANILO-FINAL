@@ -1,25 +1,28 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useTransform, type MotionValue } from 'motion/react';
 
-export function BeliefOverlay({
-  scrollYProgress,
-}: {
-  scrollYProgress: MotionValue<number>;
-}) {
-  // Reduced overlay flicker: fewer pulses (3 instead of 6) and lower peak
-  // amplitude (0.09 instead of 0.15) keep the color transitions smooth
-  // without triggering WCAG 2.3.3 sensitivity from repeated black flashes.
+interface BeliefOverlayProps {
+  scrollProgress: MotionValue<number>;
+}
+
+/**
+ * Overlay cross-fade sobre o BeliefBackground.
+ * Opacidade oscila 0 → 0.12 → 0 nas transições de cor do background,
+ * suavizando banding em telas OLED/gradiente HSL.
+ */
+export const BeliefOverlay = ({ scrollProgress }: BeliefOverlayProps) => {
   const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.16, 0.33, 0.5, 0.66, 0.83, 1],
-    [0, 0.09, 0, 0.09, 0, 0.09, 0]
+    scrollProgress,
+    [0, 0.15, 0.22, 0.30, 0.37, 0.45, 0.52, 0.60, 0.67, 0.75, 0.82, 0.88, 1.0],
+    [0, 0, 0.12, 0, 0.12, 0, 0.12, 0, 0.12, 0, 0.12, 0, 0]
   );
 
   return (
     <motion.div
-      className="absolute inset-0 z-10 bg-black pointer-events-none"
+      className="absolute inset-0 z-10 pointer-events-none bg-black"
       style={{ opacity }}
+      aria-hidden="true"
     />
   );
-}
+};

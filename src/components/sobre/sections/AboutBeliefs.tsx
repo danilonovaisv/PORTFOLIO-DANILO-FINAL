@@ -1,17 +1,30 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useRef } from 'react';
-import { useScroll } from 'framer-motion';
 import { BeliefBackground } from '@/components/sobre/beliefs/BeliefBackground';
 import { BeliefOverlay } from '@/components/sobre/beliefs/BeliefOverlay';
-import { BeliefDesktopTextLayer } from '@/components/sobre/beliefs/BeliefDesktopTextLayer';
 import { BeliefFixedHeader } from '@/components/sobre/beliefs/BeliefFixedHeader';
-import { BeliefFinalSectionOverlay } from '@/components/sobre/beliefs/BeliefFinalSectionOverlay';
-import { BeliefMobileTextLayer } from '@/components/sobre/beliefs/BeliefMobileTextLayer';
-import { GhostCanvas } from '@/components/sobre/3d/GhostCanvas';
-import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
+import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
+import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
+import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 
-const PHRASES = [
+const GhostScene = dynamic(
+  () =>
+    import('@/components/sobre/3d/GhostScene').then((mod) => mod.GhostScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        data-testid="ghost-figure"
+        className="fixed inset-0 z-30 pointer-events-none bg-transparent"
+        aria-hidden="true"
+      />
+    ),
+  }
+);
+
+const PHRASES: ReadonlyArray<string> = [
   'Um vídeo que respira.',
   'Uma marca que se reconhece.',
   'Um detalhe que fica.',
@@ -20,66 +33,58 @@ const PHRASES = [
   'Mesmo quando ninguém percebe o esforço.',
 ];
 
-export function AboutBeliefs() {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-  const { ghostIntensity, showFinalManifesto, prefersReducedMotion } =
-    useBeliefsAnimation({
-      scrollYProgress,
-      totalPhrases: PHRASES.length,
-    });
+/**
+ * Seção 06 — "O Que Me Move" (AboutBeliefs)
+ *
+ * Stack de camadas (Ghost Design System):
+ *   z-0  → BeliefBackground (HSL via useTransform)
+ *   z-10 → BeliefOverlay (cross-fade)
+ *   z-20 → conteúdo scrollável
+ *   z-30 → BeliefFixedHeader (sticky) + GhostScene (fixed)
+ *   z-40 → BeliefScrollText (frases rotatórias)
+ *   z-50 → BeliefManifesto (clímax — ACIMA do Ghost)
+ *
+ * Correções aplicadas (audits 2026-04-16 + 2026-02-22):
+ *   • offset ['start end', 'end end']
+ *   • Ghost em z-30, manifesto em z-50
+ *   • useTransform para cor do BG (não animate())
+ *   • AnimatePresence mode="wait" no mobile
+ *   • GLB path via Supabase URL — path canônico validado
+ *   • SSR guard via dynamic + ssr:false
+ */
+export const AboutBeliefs = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress, prefersReducedMotion, isMobile } =
+    useBeliefsScroll(containerRef);
 
   return (
     <section
       ref={containerRef}
       id="06-o-que-me-move"
+      className="relative w-full min-h-[400vh] overflow-hidden"
       data-testid="about-beliefs-section"
-      aria-label="O Que Me Move"
-      className="relative min-h-[760vh] md:min-h-[820vh] lg:min-h-[900vh]"
+      aria-label="O que me move — manifesto"
     >
-      <div className="sr-only">
-        <h2>Manifesto: O Que Me Move</h2>
-        <ul>
-          {PHRASES.map((phrase) => (
-            <li key={phrase}>{phrase}</li>
-          ))}
-          <li>ISSO É GHOST DESIGN.</li>
-        </ul>
+      <BeliefBackground scrollProgress={scrollYProgress} />
+      <BeliefOverlay scrollProgress={scrollYProgress} />
+
+      <BeliefFixedHeader />
+
+      <div className="relative z-40 w-full min-h-full flex flex-col justify-center pointer-events-none">
+        <BeliefScrollText
+          phrases={[...PHRASES]}
+          scrollProgress={scrollYProgress}
+          isMobile={isMobile}
+          prefersReducedMotion={prefersReducedMotion}
+        />
       </div>
 
-      <BeliefBackground containerRef={containerRef} />
-      <BeliefOverlay scrollYProgress={scrollYProgress} />
+      <GhostScene scrollProgress={scrollYProgress} isMobile={isMobile} />
 
-      <div className="relative sticky top-0 h-screen grid grid-cols-12 overflow-hidden">
-        <BeliefFixedHeader
-          containerRef={containerRef}
-          scrollYProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-        <BeliefDesktopTextLayer
-          phrases={PHRASES}
-          scrollYProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-        <BeliefMobileTextLayer
-          phrases={PHRASES}
-          scrollYProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
-        <BeliefFinalSectionOverlay
-          prefersReducedMotion={prefersReducedMotion}
-          showProgress={showFinalManifesto}
-        />
-        {!prefersReducedMotion ? (
-          <GhostCanvas
-            scrollProgress={scrollYProgress}
-            ghostIntensity={ghostIntensity}
-          />
-        ) : null}
-      </div>
+      <BeliefManifesto
+        scrollProgress={scrollYProgress}
+        prefersReducedMotion={prefersReducedMotion}
+      />
     </section>
   );
-}
+};

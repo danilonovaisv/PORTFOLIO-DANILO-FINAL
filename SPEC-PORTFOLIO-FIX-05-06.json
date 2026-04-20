@@ -1,0 +1,528 @@
+{
+  "meta": {
+    "project": "portfoliodanilo.com",
+    "repo": "https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL",
+    "version": "1.0.1",
+    "created": "2026-04-18",
+    "scope": "Correção das seções 05-COMO-EU-TRABALHO e 06-O-QUE-ME-MOVE na página /sobre",
+    "philosophy": "Ghost Design — you don't see the design, but it sees you.",
+    "design_system_ref": "GHOST-DESIGN-SYSTEM.md v3.1",
+    "stack": {
+      "framework": "Next.js 15 App Router",
+      "language": "TypeScript",
+      "styling": "Tailwind CSS v4",
+      "animation": "Framer Motion 12",
+      "3d": "React Three Fiber + @react-three/drei + three.js",
+      "hosting": "Firebase Hosting",
+      "assets": "Supabase Storage"
+    },
+    "hard_constraints": [
+      "Proibido CSS transition em propriedades animadas — usar apenas Framer Motion animate() API",
+      "Proibido scale, bounce, rotate em conteúdo/UI",
+      "translateY máximo 18px em animações de conteúdo",
+      "Ghost ease obrigatório: cubic-bezier(0.22, 1, 0.36, 1)",
+      "Cor primária de brand: #0048ff — #E50914 reservado apenas para erros",
+      "Imports de utilitários exclusivamente de @/lib/utils",
+      "Sem código morto em src/ — Git é o backup"
+    ]
+  },
+  "sprints": [
+    {
+      "id": "sprint-001",
+      "title": "Auditoria e Diagnóstico — Leitura sem alterações",
+      "description": "Auditar os componentes atuais das seções 05 e 06 sem modificar nada. Mapear todos os bugs, violações do Ghost Design e problemas de performance. Gerar relatório de diagnóstico estruturado.",
+      "deliverable": "Arquivo AUDIT-REPORT-05-06.md na raiz do projeto com todos os problemas classificados por severidade",
+      "agent_id": "auditor",
+      "agent_profile": "Especialista em análise estática de código React/TypeScript. Lê, mapeia e reporta. Não altera arquivos.",
+      "estimated_rounds": 1,
+      "risk": "zero — somente leitura",
+      "pre_requisito": null,
+      "features": [
+        {
+          "id": "feat-001-01",
+          "category": "audit",
+          "title": "Auditoria da seção 05-COMO-EU-TRABALHO",
+          "description": "Ler todos os arquivos componentes da seção 05 e mapear problemas",
+          "files_to_read": [
+            "src/components/sobre/AboutMethod.tsx",
+            "src/components/sobre/ProcessSteps.tsx",
+            "src/components/sobre/MethodologyCard.tsx"
+          ],
+          "steps": [
+            "Localizar o componente principal da seção 05 em src/components/sobre/ (procurar por AboutMethod, ProcessSteps ou MethodologyCard)",
+            "Ler o arquivo completo sem alterar",
+            "Verificar se usa motion.div com whileInView correto (viewport: { once: true })",
+            "Verificar se transitions usam ease [0.25, 0.46, 0.45, 0.94] ou Ghost ease [0.22, 1, 0.36, 1]",
+            "Verificar se existe CSS transition: proibido em propriedades animadas por Framer",
+            "Verificar responsividade: grid layout para breakpoints 640px, 768px, 1024px, 1280px",
+            "Verificar se vídeo de background tem autoPlay muted loop playsInline",
+            "Verificar z-index stack: vídeo (z-0), overlay (z-10), conteúdo (z-20)",
+            "Verificar se translateY excede 18px nas animações",
+            "Documentar cada problema encontrado com: arquivo, linha, descrição, severidade (CRITICAL/HIGH/MEDIUM/LOW)"
+          ],
+          "acceptance_criteria": [
+            "Relatório lista todos os componentes encontrados para a seção 05",
+            "Cada problema tem: arquivo, linha estimada, tipo de violação, severidade",
+            "Distingue entre bugs funcionais (quebra visual) e violações de design system",
+            "Nenhum arquivo foi modificado"
+          ],
+          "edge_cases": [
+            "Se componente principal tiver nome diferente dos listados: buscar por texto 'Como Eu Trabalho' ou 'method' no src/components/sobre/",
+            "Se houver múltiplos arquivos para a seção: auditar todos",
+            "Se não encontrar o componente: reportar no AUDIT-REPORT com localização desconhecida"
+          ]
+        },
+        {
+          "id": "feat-001-02",
+          "category": "audit",
+          "title": "Auditoria da seção 06-O-QUE-ME-MOVE",
+          "description": "Ler todos os arquivos componentes da seção 06 e mapear problemas com foco em WebGL, scroll-driven animation e sistema de cores",
+          "files_to_read": [
+            "src/components/sobre/AboutBeliefs.tsx",
+            "src/components/sobre/GhostModel.tsx",
+            "src/components/sobre/BeliefFixedHeader.tsx",
+            "src/components/3d/GhostModel.tsx"
+          ],
+          "steps": [
+            "Localizar o componente principal da seção 06 (buscar por AboutBeliefs, AboutBelief, ou 'O Que Me Move' em src/)",
+            "Localizar GhostModel.tsx (pode estar em src/components/sobre/ ou src/components/3d/)",
+            "Verificar useScroll hook: offset deve ser ['start end', 'end start'] para capturar entrada e saída completa da seção",
+            "Verificar se há jitter acumulativo no GhostModel — checar se há criação de objetos (new Vector3, new Euler) dentro do useFrame loop",
+            "Verificar URL do asset GLB: deve ser https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-transformed.glb",
+            "Verificar manifesto final: texto deve estar visível e não usar per-line morphing approach que causa invisibilidade",
+            "Verificar se AnimatePresence envolve as frases rotativas (ausência causa overlap no mobile)",
+            "Verificar se usa CSS transition: background-color — proibido, deve usar useTransform + useScroll com interpolação HSL",
+            "Verificar ordem das frases: 'Um vídeo que respira.' → 'Uma marca que se reconhece.' → 'Um detalhe que fica.' → 'Crio para gerar presença.' → 'Mesmo quando não estou ali.' → 'Mesmo quando ninguém percebe o esforço.'",
+            "Verificar z-index do canvas R3F: deve ser z-30 (entre overlays e conteúdo primário)",
+            "Documentar cada problema com arquivo, linha, severidade"
+          ],
+          "acceptance_criteria": [
+            "Relatório lista todos os componentes da seção 06 encontrados",
+            "Identifica se useScroll tem offset correto ou quebrado",
+            "Identifica se GhostModel cria objetos dentro de useFrame",
+            "Identifica a URL atual do GLB e se está correta",
+            "Identifica se manifesto está visível ou invisível",
+            "Identifica se AnimatePresence está presente ou ausente",
+            "Identifica se há CSS transition proibida no sistema de cores",
+            "Nenhum arquivo foi modificado"
+          ],
+          "edge_cases": [
+            "Se GLB não carrega (404): registrar URL atual encontrada no código",
+            "Se componente usa motion/react em vez de framer-motion: registrar como violação de import",
+            "Se GhostModel.tsx não existir: buscar por qualquer componente que faça useGLTF"
+          ]
+        },
+        {
+          "id": "feat-001-03",
+          "category": "audit",
+          "title": "Gerar AUDIT-REPORT-05-06.md",
+          "description": "Compilar todos os findings das features anteriores em um documento estruturado com classificação de severidade e plano de correção implícito",
+          "steps": [
+            "Criar arquivo AUDIT-REPORT-05-06.md na raiz do projeto",
+            "Seção 1: Resumo executivo (problemas críticos primeiro)",
+            "Seção 2: Problemas detalhados da seção 05 (arquivo, linha, severidade, descrição)",
+            "Seção 3: Problemas detalhados da seção 06 (arquivo, linha, severidade, descrição)",
+            "Seção 4: Violações do Ghost Design System encontradas",
+            "Classificar cada problema: CRITICAL (quebra visual/funcional), HIGH (violação de design system), MEDIUM (inconsistência), LOW (melhoria)"
+          ],
+          "acceptance_criteria": [
+            "Arquivo AUDIT-REPORT-05-06.md existe na raiz do projeto",
+            "Contém pelo menos as 4 seções definidas",
+            "Cada problema tem severidade classificada",
+            "Nenhum código foi alterado nos componentes auditados"
+          ],
+          "edge_cases": [
+            "Se não encontrar nenhum problema: registrar 'nenhum problema encontrado' com evidência (trecho de código que comprova)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sprint-002",
+      "title": "Correção da seção 05-COMO-EU-TRABALHO",
+      "description": "Corrigir todos os bugs identificados na seção 05. Foco em animações Framer Motion corretas, responsividade, z-index stack e vídeo de background. Contexto limpo — ler apenas AUDIT-REPORT-05-06.md e os arquivos da seção 05.",
+      "deliverable": "Seção 05 renderizando corretamente em desktop e mobile com animações Ghost Design conformes",
+      "agent_id": "coder-ui",
+      "agent_profile": "Especialista em React/TypeScript + Framer Motion + Tailwind CSS. Corrige componentes UI sem tocar em WebGL ou Three.js.",
+      "estimated_rounds": 2,
+      "risk": "médio — altera componentes de produção",
+      "pre_requisito": "sprint-001 completo — AUDIT-REPORT-05-06.md deve existir",
+      "features": [
+        {
+          "id": "feat-002-01",
+          "category": "animation_fix",
+          "title": "Corrigir animações Framer Motion da seção 05",
+          "description": "Garantir que todas as animações usam Ghost ease, translateY ≤18px, sem CSS transition proibida, e viewport correto",
+          "steps": [
+            "Ler o componente principal da seção 05",
+            "Substituir qualquer ease string genérica por Ghost ease: [0.22, 1, 0.36, 1]",
+            "Verificar e corrigir translateY para nunca exceder 18px",
+            "Remover qualquer CSS transition em propriedades animadas por Framer Motion",
+            "Garantir que motion.div com whileInView usa viewport={{ once: true, margin: '-100px' }}",
+            "Garantir stagger de 0.12s entre cards/itens da lista (delay: 0.4 + index * 0.12)",
+            "Adicionar prefers-reduced-motion: quando ativo, substituir por fade simples (opacity apenas)"
+          ],
+          "acceptance_criteria": [
+            "Título da seção faz GhostFadeUp: opacity 0→1, y 18px→0, duration 0.8s, ease [0.22, 1, 0.36, 1]",
+            "Cards da lista entram com stagger: delay mínimo 0.4s + 0.12s * index",
+            "Nenhuma propriedade animada por Framer Motion tem CSS transition declarada",
+            "Nenhum translateY excede 18px",
+            "viewport={{ once: true }} presente em todos os whileInView",
+            "Media query prefers-reduced-motion desativa parallax e reduz reveals a fade simples"
+          ],
+          "edge_cases": [
+            "Se componente usa style={{ transition: '...' }}: remover completamente e replicar efeito via Framer Motion",
+            "Se stagger já existe mas com valor diferente: atualizar para 0.12s mantendo o delay base de 0.4s",
+            "Se hover usa scale: remover e substituir por opacity (0.7→1) ou cor sutil"
+          ]
+        },
+        {
+          "id": "feat-002-02",
+          "category": "layout_fix",
+          "title": "Corrigir responsividade e grid da seção 05",
+          "description": "Garantir que o layout de vídeo + conteúdo está correto em todos os breakpoints definidos no protótipo",
+          "steps": [
+            "Ler o layout atual e comparar com especificação: grid 12 colunas, conteúdo em cols 2-7, vídeo/visual em cols 8-12",
+            "Corrigir breakpoints conforme tabela: 640-767px (título 30-32px, texto 15-16px, lista 100%), 768-1023px (título 36-40px, cards max-w-90%), 1024-1279px (grid 2 blocos), 1280px+ (grid otimizado)",
+            "Verificar z-index stack: vídeo (z-0/absolute inset-0), overlay gradient (z-10), conteúdo (z-20)",
+            "Garantir que vídeo tem: autoPlay muted loop playsInline className='absolute inset-0 w-full h-full object-cover'",
+            "Overlay gradient: from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.65)] to-[rgba(10,10,20,0.4)]",
+            "Verificar padding do container: px-6 mobile → px-12 tablet → px-16/px-24 desktop",
+            "Implementar tratamento para carregamento abortado ou muito demorado de vídeo"
+          ],
+          "acceptance_criteria": [
+            "Em viewport 640px: título 30-32px, layout em coluna única, lista 100% largura",
+            "Em viewport 1024px: grid 2 colunas ativo, conteúdo à esquerda, visual à direita",
+            "Vídeo renderiza com object-fit cover sem distorção",
+            "Overlay gradient presente e tornando texto legível sobre vídeo",
+            "Z-index stack correto: vídeo não sobrepõe texto",
+            "Container tem padding responsivo correto"
+          ],
+          "edge_cases": [
+            "Se vídeo não carrega no SSR: usar Suspense ou verificar se está em Client Component com 'use client'",
+            "Se layout quebra em viewport entre 768-1023px: aplicar ajuste md: específico",
+            "Se vídeo é decorativo: adicionar aria-hidden='true' e role='presentation'",
+            "E se o vídeo falhar ao carregar no mobile (Economia de dados/Bateria): garantir fallback robusto com poster estático ou background-color sem quebrar a estética."
+          ]
+        }
+      ],
+      "evaluator_instructions": "Para cada acceptance criteria: rodar npm run build sem erros TypeScript. Inspecionar visualmente no browser em viewports 375px, 768px e 1440px. Verificar DevTools que nenhuma CSS transition está em propriedades animadas por Framer Motion. Status: PASS ou FAIL com descrição."
+    },
+    {
+      "id": "sprint-003",
+      "title": "Correção da seção 06-O-QUE-ME-MOVE — Hook e Orquestrador",
+      "description": "Corrigir a fundação da seção 06: useScroll com offset correto, sistema de cores HSL via useTransform, AnimatePresence para frases rotativas. Sem tocar no WebGL ainda.",
+      "deliverable": "Componente AboutBeliefs com scroll hook correto, sistema de cores funcionando e frases rotativas sem overlap",
+      "agent_id": "coder-motion",
+      "agent_profile": "Especialista em Framer Motion scroll-driven animations. Foco em useScroll, useTransform, AnimatePresence. Não toca em React Three Fiber.",
+      "estimated_rounds": 2,
+      "risk": "médio-alto — seção complexa com múltiplas camadas",
+      "pre_requisito": "sprint-001 completo",
+      "features": [
+        {
+          "id": "feat-003-01",
+          "category": "scroll_hook_fix",
+          "title": "Corrigir useScroll offset da seção",
+          "description": "O useScroll precisa de offset correto para capturar a entrada e saída completa da seção, não apenas o centro",
+          "steps": [
+            "Localizar o hook useScroll no componente AboutBeliefs",
+            "Verificar o offset atual — se estiver como ['start start', 'end end'] ou qualquer variante incorreta",
+            "Corrigir para: const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })",
+            "Verificar que sectionRef está atribuído ao elemento <section> correto via ref={sectionRef}",
+            "Testar que scrollYProgress vai de 0 a 1 durante a passagem completa da seção pela viewport"
+          ],
+          "acceptance_criteria": [
+            "useScroll usa offset: ['start end', 'end start'] — a seção começa a animar quando o topo dela entra no bottom da viewport",
+            "scrollYProgress é 0 quando o topo da seção está no bottom da viewport",
+            "scrollYProgress é 1 quando o bottom da seção está no topo da viewport",
+            "sectionRef está conectado ao elemento pai correto da seção"
+          ],
+          "edge_cases": [
+            "Se seção não tem ref: adicionar const sectionRef = useRef(null) e atribuir ao elemento pai",
+            "Se scrollYProgress não muda durante scroll: verificar que o elemento pai tem height suficiente para scroll",
+            "Se múltiplos useScroll conflitam: usar apenas um por seção e derivar todos os valores dele"
+          ]
+        },
+        {
+          "id": "feat-003-02",
+          "category": "color_system_fix",
+          "title": "Corrigir sistema de troca de cor via useTransform + HSL",
+          "description": "Substituir qualquer CSS transition: background-color ou animate() RGB por useTransform com interpolação HSL. Esta é uma violação crítica do Ghost Design System.",
+          "steps": [
+            "Localizar onde a cor de fundo muda — pode ser em state com useState ou em animate() direta",
+            "Remover completamente CSS transition: background-color de qualquer elemento",
+            "Remover qualquer useAnimation() ou animate() chamada que mude backgroundColor em RGB",
+            "Implementar o sistema correto com useTransform e interpolação HSL:",
+            "  const backgroundColor = useTransform(scrollYProgress, [0, 0.166, 0.333, 0.5, 0.666, 0.833, 1], ['hsl(230, 85%, 30%)', 'hsl(270, 80%, 40%)', 'hsl(330, 85%, 50%)', 'hsl(230, 85%, 30%)', 'hsl(270, 80%, 40%)', 'hsl(330, 85%, 50%)', 'hsl(230, 85%, 30%)'])",
+            "Aplicar backgroundColor como style={{ backgroundColor }} no motion.div da camada de background (z-0)",
+            "Verificar que a camada de background é position absolute inset-0 z-0",
+            "Adicionar overlay cross-fade: motion.div separado com opacity controlada por useTransform para suavizar transições"
+          ],
+          "acceptance_criteria": [
+            "Nenhum CSS transition: background-color existe em nenhum elemento da seção 06",
+            "Nenhum animate({ backgroundColor: '#...' }) com valor RGB/Hex existe",
+            "useTransform está importado de framer-motion e usado corretamente",
+            "A cor do background muda suavemente conforme o scroll: azul → roxo → rosa → azul (cíclico)",
+            "A sequência HSL é: hsl(230,85%,30%) → hsl(270,80%,40%) → hsl(330,85%,50%) em loop",
+            "Cross-fade overlay está implementado para evitar flicker entre cores"
+          ],
+          "edge_cases": [
+            "Se o componente usa 'use client' mas ainda causa hydration mismatch: adicionar suppressHydrationWarning no motion.div de background",
+            "Se cores aparecem com salto abrupto: verificar que os inputRange do useTransform são uniformemente distribuídos",
+            "Se performance cai: garantir que motion.div de background tem will-change: background-color"
+          ]
+        },
+        {
+          "id": "feat-003-03",
+          "category": "phrases_fix",
+          "title": "Corrigir frases rotativas com AnimatePresence e Acessibilidade Dinâmica",
+          "description": "Implementar AnimatePresence para evitar overlap de frases no mobile, garantir ordem correta e anunciar mudanças de texto ao Screen Reader (via aria-live) sem agrupar em sr-only div",
+          "steps": [
+            "Verificar se AnimatePresence existe envolvendo as frases rotativas",
+            "Se não existir: importar AnimatePresence de framer-motion e envolver o componente de frase ativa",
+            "Implementar com mode='wait' para garantir que a frase anterior sai antes da próxima entrar",
+            "Verificar ordem das frases — DEVE ser exatamente: ['Um vídeo que respira.', 'Uma marca que se reconhece.', 'Um detalhe que fica.', 'Crio para gerar presença.', 'Mesmo quando não estou ali.', 'Mesmo quando ninguém percebe o esforço.']",
+            "Cada frase deve ter key única baseada no índice ou no texto",
+            "Animação de entrada: opacity 0→1, x -100→0, duration 0.8s, ease [0.22, 1, 0.36, 1]",
+            "Animação de saída desktop: opacity 0, x -100, duration 0.6s, ease [0.25, 0.46, 0.45, 0.94]",
+            "Animação de saída mobile: opacity 0, x 100, duration 0.6s (sai para a direita)",
+            "Cor do texto: #4fe6ff (blueAccent), font-h1, bold",
+            "Remover agrupamentos de texto em divs sr-only na AboutBeliefs ou similares",
+            "Adicionar aria-live=\"polite\" e aria-atomic=\"true\" ao container ou componente que renderiza a frase ativa para que seja lida em tempo real durante o scroll"
+          ],
+          "acceptance_criteria": [
+            "AnimatePresence com mode='wait' envolve as frases rotativas",
+            "Frases têm key única — sem frases com key duplicada",
+            "Nenhum overlap visual entre frases no mobile ou desktop",
+            "Ordem das 6 frases está correta conforme especificação",
+            "Cor do texto é #4fe6ff em todas as frases",
+            "Saída no mobile é para a direita (x: 100), no desktop para a esquerda (x: -100)",
+            "Usa aria-live=\"polite\" para leitura dinâmica do SR"
+          ],
+          "edge_cases": [
+            "Se frases são controladas por scroll e não por índice ativo: implementar lógica de índice derivado de scrollYProgress com Math.floor(scrollYProgress.get() * 6)",
+            "Se AnimatePresence causa flash branco: adicionar initial={false} no AnimatePresence",
+            "Se modo não está disponível na versão: verificar que framer-motion >= 6.0 está instalado",
+            "E se o leitor de tela tentar ler frases escondidas: usar aria-hidden='true' para as frases fora da viewport"
+          ]
+        }
+      ],
+      "evaluator_instructions": "Para cada acceptance criteria: verificar código fonte que os patterns estão implementados. Testar scroll lento na seção 06 observando: 1) cores mudam suavemente, 2) frases trocam sem overlap, 3) sem CSS transition declarado. Status: PASS ou FAIL com linha de código evidenciando."
+    },
+    {
+      "id": "sprint-004",
+      "title": "Correção da seção 06 — Camada WebGL (GhostModel)",
+      "description": "Corrigir o componente GhostModel: URL do GLB, jitter acumulativo no useFrame, z-index correto do canvas R3F, posicionamento desktop/mobile e SSR guard.",
+      "deliverable": "GhostModel renderizando sem jitter, com URL correta do GLB, z-index z-30, posicionamento correto em desktop e mobile",
+      "agent_id": "coder-3d",
+      "agent_profile": "Especialista em React Three Fiber, Three.js e WebGL. Otimiza useFrame, gerencia assets GLB, implementa SSR guards. Não toca em Framer Motion ou CSS.",
+      "estimated_rounds": 3,
+      "risk": "alto — componente WebGL com bugs de performance e asset",
+      "pre_requisito": "sprint-001 completo",
+      "features": [
+        {
+          "id": "feat-004-01",
+          "category": "asset_fix",
+          "title": "Corrigir URL do asset GLB",
+          "description": "Garantir que useGLTF aponta para a URL correta do ghost-transformed.glb no Supabase Storage",
+          "steps": [
+            "Localizar todas as chamadas useGLTF ou useLoader em GhostModel.tsx",
+            "Verificar a URL atual do GLB no código",
+            "Substituir por URL correta: https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-transformed.glb",
+            "Adicionar preload fora do componente: useGLTF.preload('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-transformed.glb')",
+            "Garantir que o componente está dentro de <Suspense fallback={null}> no componente pai"
+          ],
+          "acceptance_criteria": [
+            "URL do GLB no código é exatamente: https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-transformed.glb",
+            "useGLTF.preload é chamado com a mesma URL fora do componente",
+            "Componente GhostModel está envolto em Suspense no componente pai",
+            "Network request para o GLB retorna 200 (verificar no DevTools Network tab)"
+          ],
+          "edge_cases": [
+            "Se GLB retorna 403: verificar se bucket é público no Supabase dashboard",
+            "Se GLB retorna 404: confirmar nome exato do arquivo no bucket site-assets/3d/",
+            "Se useGLTF lança erro de CORS: verificar configuração de CORS no Supabase Storage"
+          ]
+        },
+        {
+          "id": "feat-004-02",
+          "category": "performance_fix",
+          "title": "Eliminar jitter acumulativo no useFrame",
+          "description": "O jitter é causado por criação de objetos (new Vector3, new Euler, new Quaternion) dentro do loop useFrame. Estes objetos devem ser declarados fora do loop com useRef.",
+          "steps": [
+            "Ler o useFrame callback em GhostModel.tsx completo",
+            "Identificar todas as instâncias de: new Vector3(), new Euler(), new Quaternion(), new Matrix4(), ou qualquer 'new' dentro do useFrame",
+            "Para cada objeto identificado: mover para useRef fora do useFrame",
+            "Exemplo de refactor: const positionRef = useRef(new Vector3()) e dentro do useFrame usar positionRef.current.set(x, y, z)",
+            "Verificar que .clone() não é chamado dentro do useFrame — preferir .copy() em objeto pré-alocado",
+            "Verificar que arrays não são criados dentro do useFrame",
+            "Garantir que lerpAngle ou qualquer operação matemática usa variáveis pré-alocadas"
+          ],
+          "acceptance_criteria": [
+            "Zero instâncias de 'new Vector3', 'new Euler', 'new Quaternion' dentro do callback useFrame",
+            "Todos os objetos Three.js usados no loop estão declarados via useRef antes do componente retornar JSX",
+            "Performance no Chrome DevTools Memory tab não mostra spikes de alocação durante scroll",
+            "Ghost model flutua suavemente sem jitter visível em 60fps"
+          ],
+          "edge_cases": [
+            "Se useFrame usa delta time (state.clock.getDelta()): manter o uso de delta, apenas mover objetos Three.js para useRef",
+            "Se o componente usa lerp diretamente em números primitivos: manter — apenas objetos Three.js são problemáticos",
+            "Se jitter persiste após fix: verificar se há múltiplos useFrame registrados no mesmo componente",
+            "E se o dispositivo sofrer queda drástica de FPS (< 30 FPS): manter a tentativa de renderização, pois a experiência visual imersiva é prioritária conforme decisão de negócio."
+          ]
+        },
+        {
+          "id": "feat-004-03",
+          "category": "ssr_and_zindex_fix",
+          "title": "SSR Guard e z-index do Canvas R3F com Fallback",
+          "description": "Garantir que o canvas R3F não causa erros de hidratação SSR, que possui um ErrorBoundary isolado e z-index correto conforme Ghost Design System",
+          "steps": [
+            "Verificar se o componente que renderiza <Canvas> tem 'use client' no topo do arquivo",
+            "Verificar se há dynamic import com ssr: false para o GhostModel ou seu container",
+            "Verificar z-index do <Canvas>: deve ser z-30 (entre overlays e conteúdo final)",
+            "Garantir que o canvas não bloqueia interação do usuário com texto: adicionar style={{ pointerEvents: 'none' }} no container do Canvas quando necessário",
+            "Verificar posicionamento desktop: Ghost deve estar centralizado na seção (position absolute, inset-0, flex items-center justify-center)",
+            "Verificar posicionamento mobile: Ghost a 20% do topo (top: '20%'), alinhado à esquerda",
+            "Verificar que o container do Canvas tem position absolute e não relative para não interferir no flow",
+            "Envolver o <Canvas> num React ErrorBoundary customizado que pegue exceções do WebGL e, ao invés de quebrar a página, remova a árvore 3D do DOM",
+            "O ErrorBoundary deve retornar 'null' em caso de falha (ocultando completamente a cena 3D, mantendo apenas as frases e fundo HSL)"
+          ],
+          "acceptance_criteria": [
+            "Arquivo que renderiza <Canvas> tem 'use client' como primeira linha",
+            "Nenhum erro de hidratação no console quando acessando /sobre",
+            "Container do Canvas tem className que inclui z-30",
+            "Ghost aparece centralizado em viewport desktop (≥1024px)",
+            "Ghost aparece a 20% do topo e alinhado à esquerda em viewport mobile (<768px)",
+            "Texto da seção permanece clicável/selecionável (canvas não bloqueia pointer events no texto)",
+            "O <Canvas> falhando não quebra a aplicação, apenas desaparece silenciosamente através do ErrorBoundary."
+          ],
+          "edge_cases": [
+            "Se Canvas causa Hydration Error mesmo com 'use client': usar dynamic import: const GhostCanvas = dynamic(() => import('./GhostCanvas'), { ssr: false })",
+            "Se Ghost está invisível mas sem erro: verificar que camera position e lighting estão corretos no Scene",
+            "Se Ghost aparece mas com z-index errado (atrás do texto): verificar que a div container do Canvas tem position absolute e z-30 explícito",
+            "Se haver crash de contexto WebGL: ErrorBoundary não deve renderizar nada no lugar"
+          ]
+        }
+      ],
+      "evaluator_instructions": "Para cada acceptance criteria: 1) Abrir /sobre no browser, scroll até seção 06, 2) Verificar que ghost aparece e flutua suavemente, 3) Abrir DevTools > Memory e gravar scroll pela seção — verificar ausência de alocações contínuas, 4) Verificar console: zero erros de hidratação ou WebGL. Status: PASS ou FAIL com screenshot ou log como evidência."
+    },
+    {
+      "id": "sprint-005",
+      "title": "Validação E2E e Smoke Test de Produção",
+      "description": "Executar build de produção, validar todas as correções em ambiente real (localhost:3000 com next build && next start), documentar status final de cada critério.",
+      "deliverable": "Arquivo VALIDATION-REPORT-05-06.md com status PASS/FAIL de cada critério, screenshots dos estados corrigidos, e build de produção funcionando",
+      "agent_id": "evaluator",
+      "agent_profile": "Agente avaliador. Não escreve código de feature. Roda comandos, testa, documenta resultados.",
+      "estimated_rounds": 1,
+      "risk": "baixo — somente validação",
+      "pre_requisito": "sprints 002, 003 e 004 completos",
+      "features": [
+        {
+          "id": "feat-005-01",
+          "category": "build_validation",
+          "title": "Build de produção sem erros TypeScript",
+          "description": "Garantir que o build de produção compila sem erros antes de validar visualmente",
+          "steps": [
+            "Rodar: npm run build",
+            "Verificar que build termina com status 0 (sem erros)",
+            "Se houver erros TypeScript: listar cada erro com arquivo e linha no relatório e marcar como FAIL",
+            "Se build suceder: rodar npm run start para servir em localhost:3000",
+            "Verificar que localhost:3000/sobre carrega sem erro 500"
+          ],
+          "acceptance_criteria": [
+            "npm run build termina sem erros TypeScript",
+            "npm run start serve a aplicação em localhost:3000",
+            "Rota /sobre retorna status 200"
+          ],
+          "edge_cases": [
+            "Se build falha com erro de módulo não encontrado: verificar imports e instalar dependência faltante",
+            "Se build falha com erro de tipo: corrigir o tipo antes de prosseguir",
+            "Se /sobre retorna 500: verificar logs do servidor para identificar erro"
+          ]
+        },
+        {
+          "id": "feat-005-02",
+          "category": "visual_validation_05",
+          "title": "Validação visual da seção 05-COMO-EU-TRABALHO",
+          "description": "Testar manualmente a seção 05 em desktop e mobile documentando cada critério",
+          "steps": [
+            "Abrir localhost:3000/sobre em viewport 1440px",
+            "Fazer scroll até a seção 05",
+            "Verificar: título faz GhostFadeUp (opacity 0→1, y sutil, ease suave)",
+            "Verificar: cards da lista entram com stagger sequencial",
+            "Verificar: hover nos cards tem resposta sutil (sem scale, sem bounce)",
+            "Verificar: vídeo de background roda em loop sem flicker",
+            "Verificar: overlay gradient torna texto legível",
+            "Redimensionar para 375px e repetir verificações",
+            "Documentar cada critério como PASS ou FAIL com descrição"
+          ],
+          "acceptance_criteria": [
+            "PASS: Título faz reveal suave sem bounce",
+            "PASS: Cards entram em sequência com delay visível entre eles",
+            "PASS: Hover é sutil (opacity/cor), sem scale ou glow exagerado",
+            "PASS: Vídeo roda sem flicker e overlay é legível",
+            "PASS: Layout em mobile (375px) está em coluna única",
+            "PASS: Nenhum elemento está com overflow ou cortado"
+          ],
+          "edge_cases": [
+            "Se vídeo não roda em mobile: documentar como FAIL com nota 'requer autoPlay com muted e playsInline'",
+            "Se animações não disparam: documentar como FAIL com nota 'verificar threshold do IntersectionObserver'"
+          ]
+        },
+        {
+          "id": "feat-005-03",
+          "category": "visual_validation_06",
+          "title": "Validação visual da seção 06-O-QUE-ME-MOVE",
+          "description": "Testar manualmente a seção 06 documentando todos os critérios de correção",
+          "steps": [
+            "Abrir localhost:3000/sobre em viewport 1440px",
+            "Fazer scroll lento até a seção 06",
+            "Verificar: background muda de cor suavemente (azul→roxo→rosa) conforme scroll",
+            "Verificar: Ghost 3D aparece centralizado na seção (desktop)",
+            "Verificar: frases rotativas aparecem em sequência sem overlap",
+            "Verificar: texto das frases está na cor #4fe6ff",
+            "Verificar: manifesto final 'ISSO É GHOST DESIGN.' está visível",
+            "Redimensionar para 375px",
+            "Verificar: Ghost está a 20% do topo, alinhado à esquerda",
+            "Verificar: frases não se sobrepõem no mobile",
+            "Verificar: BeliefFixedHeader visível no topo",
+            "Abrir DevTools Console — verificar zero erros",
+            "Abrir DevTools Memory — verificar ausência de memory leaks durante scroll"
+          ],
+          "acceptance_criteria": [
+            "PASS: Cores do background transitam suavemente (sem salto abrupto)",
+            "PASS: Ghost aparece e flutua sem jitter",
+            "PASS: Frases trocam sem overlap em mobile e desktop",
+            "PASS: Manifesto final está visível",
+            "PASS: Zero erros no console",
+            "PASS: Sem memory leaks visíveis no Memory profiler durante scroll"
+          ],
+          "edge_cases": [
+            "Se Ghost não aparece: documentar como FAIL com screenshot e nota do erro no console",
+            "Se cores não mudam: documentar como FAIL com nota 'useTransform não está respondendo ao scroll'",
+            "Se manifesto ainda invisível após correção: documentar como FAIL com código atual do manifesto"
+          ]
+        }
+      ]
+    }
+  ],
+  "api_spec": null,
+  "data_models": null,
+  "architecture_notes": {
+    "context_isolation": "Cada sprint roda em janela de contexto separada e limpa. O agente lê apenas os arquivos necessários para aquela sprint e o AUDIT-REPORT gerado na sprint-001.",
+    "ghost_design_non_negotiables": [
+      "NUNCA CSS transition em propriedades animadas por Framer Motion",
+      "NUNCA scale, bounce ou rotate em componentes de conteúdo/UI",
+      "SEMPRE Ghost ease [0.22, 1, 0.36, 1] em reveals e transições principais",
+      "SEMPRE useTransform + useScroll para animações scroll-driven (nunca animate() com RGB)",
+      "SEMPRE AnimatePresence mode='wait' para listas de elementos intercambiáveis"
+    ],
+    "file_structure_reference": {
+      "section_05": "src/components/sobre/ — procurar: AboutMethod.tsx, ProcessSteps.tsx, MethodologyCard.tsx",
+      "section_06": "src/components/sobre/ — procurar: AboutBeliefs.tsx, BeliefFixedHeader.tsx",
+      "ghost_model": "src/components/sobre/GhostModel.tsx OU src/components/3d/GhostModel.tsx",
+      "utils": "SEMPRE @/lib/utils — nunca @/utils/ (path deletado)"
+    }
+  },
+  "progress_file": "SPEC-PROGRESS-05-06.json"
+}

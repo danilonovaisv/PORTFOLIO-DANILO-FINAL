@@ -121,13 +121,13 @@ describe('Antigravity MCP Configuration', () => {
       }
     });
 
-    it('should ensure all enabled stdio servers use npx or node', () => {
+    it('should ensure all enabled stdio servers use npx, node, or docker', () => {
       const enabledServers = servers.filter(
         (s: any) => s.enabled !== false && s.command
       );
 
       enabledServers.forEach((server: any) => {
-        expect(server.command).toMatch(/(^|\/|\\)(node|npx)(\.exe|\.cmd)?$/i);
+        expect(server.command).toMatch(/(^|\/|\\)(node|npx|docker)(\.exe|\.cmd)?$/i);
       });
     });
 
