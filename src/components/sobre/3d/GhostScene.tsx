@@ -131,7 +131,8 @@ const GhostModel = ({
 
     const currentPosition = groupRef.current.position;
     currentPosition.x += (targetX - currentPosition.x) * lerpFactor;
-    currentPosition.y += (baseTargetY + floatY - currentPosition.y) * lerpFactor;
+    currentPosition.y +=
+      (baseTargetY + floatY - currentPosition.y) * lerpFactor;
 
     // ── Float determinístico (sem Math.random) ─────────────────────────────
     // Padrão senoidal puro — sem acumulação de estado = sem stutter

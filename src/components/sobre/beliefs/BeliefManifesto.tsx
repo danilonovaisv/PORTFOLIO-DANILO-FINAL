@@ -43,7 +43,7 @@ export const BeliefManifesto = ({
 
   const opacity = useTransform(
     scrollProgress,
-    [0.82, 0.90, 1.0],
+    [0.82, 0.9, 1.0],
     prefersReducedMotion ? [1, 1, 1] : [0, 1, 1]
   );
 
@@ -68,8 +68,7 @@ export const BeliefManifesto = ({
                      tracking-[0.12em] leading-[0.95]"
           style={{ fontSize: 'clamp(1.75rem, 6vw, 4.5rem)' }}
         >
-          ISSO É{' '}
-          <span className="text-[#4fe6ff]">GHOST DESIGN.</span>
+          ISSO É <span className="text-[#4fe6ff]">GHOST DESIGN.</span>
         </p>
       </div>
     </motion.div>

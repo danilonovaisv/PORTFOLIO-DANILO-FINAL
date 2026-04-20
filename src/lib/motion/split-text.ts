@@ -56,9 +56,7 @@ export const SplitText: React.FC<SplitTextProps> = ({
           key: `${item}-${index}`,
           style: { display: 'inline-block' },
           className:
-            mode === 'words' || mode === 'lines'
-              ? 'mr-[0.25em] last:mr-0'
-              : '',
+            mode === 'words' || mode === 'lines' ? 'mr-[0.25em] last:mr-0' : '',
           ...props,
         },
         item

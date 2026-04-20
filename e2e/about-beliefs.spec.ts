@@ -31,7 +31,9 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   });
 
   // ── Teste 01: Seção existe e tem min-h correto ──────────────────────────────
-  test('01 — seção existe com data-testid e altura mínima', async ({ page }) => {
+  test('01 — seção existe com data-testid e altura mínima', async ({
+    page,
+  }) => {
     const section = page.locator('[data-testid="beliefs-section"]');
     await expect(section).toBeVisible();
     const height = await section.evaluate(
