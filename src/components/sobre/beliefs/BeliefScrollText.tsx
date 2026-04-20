@@ -1,132 +1,189 @@
 'use client';
 
-import { AnimatePresence, motion, type MotionValue } from 'motion/react';
+/**
+ * BeliefScrollText — Layer 3 (z-40).
+ * Frases rotatórias em #4fe6ff (blueAccent).
+ *
+ * Desktop: frases empilhadas com janela de visibilidade contínua via useTransform.
+ * Mobile: uma frase por vez via AnimatePresence mode="wait" — evita sobreposição.
+ *
+ * CORREÇÃO v2:
+ * • AnimatePresence mode="wait" no mobile (update 2026-04-05)
+ * • translateY máximo: 18px (GDS — proibido ultrapassar)
+ * • prefersReducedMotion trava y=0, opacity=1 (estado final estático)
+ * • Janela de entrada desktop: 0.50→0.64 para frase 1 (gate removido, v4)
+ * • Janela mobile: 0.16→0.94 (pós-intro, pré-manifesto)
+ *
+ * Fonte: Motion docs — AnimatePresence mode="wait", useTransform continuous
+ */
+
+import {
+  AnimatePresence,
+  motion,
+  useTransform,
+  type MotionValue,
+} from 'motion/react';
 import { useEffect, useState } from 'react';
-import { SplitText } from '@/lib/motion/split-text';
 
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
+interface BeliefScrollTextProps {
+  phrases: readonly string[];
+  scrollProgress: MotionValue<number>;
+  isMobile?: boolean;
+  prefersReducedMotion?: boolean;
+}
 
-const ENTER_START = 0.06;
-const EXIT_END = 0.72;
+// Janela global do texto rotativo (desktop e mobile)
+const ENTER_START = 0.16;
+const EXIT_END = 0.94;
 
-export const BeliefScrollText = ({ phrases }: { phrases: string[] }) => {
-  const {
-    scrollYProgress: scrollProgress,
-    isMobile = false,
-    prefersReducedMotion = false,
-  } = useBeliefsScrollContext();
-  const [activeIndex, setActiveIndex] = useState<number>(-1);
+// ── Desktop: uma phrase por janela de scroll ──────────────────────────────────
+const DesktopPhrase = ({
+  phrase,
+  index,
+  total,
+  scrollProgress,
+  prefersReducedMotion,
+}: {
+  phrase: string;
+  index: number;
+  total: number;
+  scrollProgress: MotionValue<number>;
+  prefersReducedMotion: boolean;
+}) => {
+  const segSize = (EXIT_END - ENTER_START) / total;
+  const segStart = ENTER_START + index * segSize;
+  const segEnd = segStart + segSize;
+  const midIn = segStart + segSize * 0.18;
+  const midOut = segStart + segSize * 0.82;
+
+  const opacity = useTransform(
+    scrollProgress,
+    [segStart, midIn, midOut, segEnd],
+    prefersReducedMotion ? [1, 1, 1, 1] : [0, 1, 1, 0]
+  );
+  const y = useTransform(
+    scrollProgress,
+    [segStart, midIn, midOut, segEnd],
+    prefersReducedMotion ? [0, 0, 0, 0] : [18, 0, 0, -18]
+  );
+
+  return (
+    <motion.p
+      style={{
+        opacity,
+        y,
+        position: 'absolute',
+        fontSize: 'clamp(2.8rem, 5.8vw, 6.3rem)',
+      }}
+      className="font-h1 font-bold text-[#4fe6ff] leading-[1.05]
+                 left-6 md:left-16 lg:left-24 max-w-[38vw] lg:max-w-[34vw]"
+      aria-hidden="true"
+    >
+      {phrase}
+    </motion.p>
+  );
+};
+
+// ── Mobile: AnimatePresence mode="wait" ───────────────────────────────────────
+const MobilePhrase = ({
+  phrases,
+  scrollProgress,
+  prefersReducedMotion,
+}: {
+  phrases: readonly string[];
+  scrollProgress: MotionValue<number>;
+  prefersReducedMotion: boolean;
+}) => {
+  const [activeIdx, setActiveIdx] = useState<number>(-1);
 
   useEffect(() => {
     const unsub = scrollProgress.on('change', (v) => {
-      if (v < ENTER_START) {
-        setActiveIndex(-1);
-        return;
-      }
-      if (v > EXIT_END) {
-        setActiveIndex(phrases.length);
+      if (v < ENTER_START || v > EXIT_END) {
+        setActiveIdx(-1);
         return;
       }
       const seg = (v - ENTER_START) / (EXIT_END - ENTER_START);
-      setActiveIndex(
+      setActiveIdx(
         Math.min(phrases.length - 1, Math.floor(seg * phrases.length))
       );
     });
     return () => unsub();
   }, [scrollProgress, phrases.length]);
 
-  const activePhrase =
-    activeIndex >= 0 && activeIndex < phrases.length
-      ? phrases[activeIndex]
-      : null;
+  if (prefersReducedMotion) {
+    const idx = activeIdx >= 0 && activeIdx < phrases.length ? activeIdx : 0;
+    return (
+      <p
+        className="font-h1 font-bold text-[#4fe6ff] text-center leading-tight px-6"
+        style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}
+      >
+        {phrases[idx]}
+      </p>
+    );
+  }
 
-  // Desktop: one phrase at a time via AnimatePresence (Playwright expects toHaveCount(0) for inactive)
-  if (!isMobile) {
+  return (
+    // mode="wait": frase saindo completa sua exit antes da próxima entrar
+    <AnimatePresence mode="wait">
+      {activeIdx >= 0 && activeIdx < phrases.length && (
+        <motion.p
+          key={`mobile-phrase-${activeIdx}`}
+          initial={{ opacity: 0, x: -24, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, x: 24, filter: 'blur(6px)' }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="font-h1 font-bold text-[#4fe6ff] text-center
+                     leading-tight px-6"
+          style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}
+          aria-live="polite"
+        >
+          {phrases[activeIdx]}
+        </motion.p>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// ── Componente principal ───────────────────────────────────────────────────────
+export const BeliefScrollText = ({
+  phrases,
+  scrollProgress,
+  isMobile = false,
+  prefersReducedMotion = false,
+}: BeliefScrollTextProps) => {
+  if (isMobile) {
     return (
       <div
-        data-testid="belief-text-layer-desktop"
-        className="relative hidden w-full items-center px-6 pointer-events-none md:flex md:px-16"
-        aria-live="polite"
-        aria-atomic="true"
+        className="relative w-full h-[80vh] flex items-end justify-center
+                   pb-[20vh] pointer-events-none md:hidden"
       >
-        <div className="w-full max-w-[30vw] lg:max-w-[26vw]">
-          <AnimatePresence mode="wait">
-            {activePhrase ? (
-              <motion.p
-                key={`desktop-${activeIndex}`}
-                data-testid={`belief-line-${activeIndex}`}
-                className="font-h1 font-bold text-[#4fe6ff] leading-[1.05]"
-                style={{ fontSize: 'clamp(2.8rem, 5.8vw, 6.3rem)' }}
-                initial={
-                  prefersReducedMotion
-                    ? undefined
-                    : { opacity: 0, y: 20, filter: 'blur(10px)' }
-                }
-                animate={
-                  prefersReducedMotion
-                    ? undefined
-                    : { opacity: 1, y: 0, filter: 'blur(0px)' }
-                }
-                exit={
-                  prefersReducedMotion
-                    ? undefined
-                    : { opacity: 0, y: -20, filter: 'blur(10px)' }
-                }
-                transition={
-                  prefersReducedMotion
-                    ? undefined
-                    : { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
-                }
-              >
-                <SplitText text={activePhrase} mode="words" className="block" />
-              </motion.p>
-            ) : null}
-          </AnimatePresence>
-        </div>
+        <MobilePhrase
+          phrases={phrases}
+          scrollProgress={scrollProgress}
+          prefersReducedMotion={prefersReducedMotion}
+        />
       </div>
     );
   }
 
-  // Mobile: one phrase at a time via AnimatePresence with horizontal slide + blur
   return (
     <div
-      data-testid="belief-text-layer-mobile"
-      className="relative flex h-[80vh] w-full items-end justify-center px-6 pb-[20vh] pointer-events-none md:hidden"
-      aria-live="polite"
-      aria-atomic="true"
+      className="hidden md:block relative w-full h-full pointer-events-none"
+      aria-label={phrases.join(' ')}
     >
-      <AnimatePresence mode="wait">
-        {activePhrase ? (
-          <motion.p
-            key={`mobile-${activeIndex}`}
-            data-testid={`belief-line-${activeIndex}`}
-            initial={
-              prefersReducedMotion
-                ? undefined
-                : { opacity: 0, x: -24, filter: 'blur(6px)' }
-            }
-            animate={
-              prefersReducedMotion
-                ? undefined
-                : { opacity: 1, x: 0, filter: 'blur(0px)' }
-            }
-            exit={
-              prefersReducedMotion
-                ? undefined
-                : { opacity: 0, x: 24, filter: 'blur(6px)' }
-            }
-            transition={
-              prefersReducedMotion
-                ? undefined
-                : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-            }
-            className="font-h1 font-bold text-[#4fe6ff] text-center leading-tight"
-            style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}
-          >
-            <SplitText text={activePhrase} mode="words" className="block" />
-          </motion.p>
-        ) : null}
-      </AnimatePresence>
+      {phrases.map((phrase, index) => (
+        <DesktopPhrase
+          key={`desktop-${index}`}
+          phrase={phrase}
+          index={index}
+          total={phrases.length}
+          scrollProgress={scrollProgress}
+          prefersReducedMotion={prefersReducedMotion}
+        />
+      ))}
     </div>
   );
 };

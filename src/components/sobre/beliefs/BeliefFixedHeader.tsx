@@ -1,50 +1,95 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
-import { SplitText } from '@/lib/motion/split-text';
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
+/**
+ * BeliefFixedHeader — Layer 2 (z-30, sticky).
+ *
+ * CORREÇÃO v2 (2026-04-16):
+ * • initial opacity: 0 (era 0.3 — causava header visível antes do tempo)
+ * • useInView com margin '-10%' para gatilho preciso
+ * • Sequência obrigatória: Header → Ghost → Texto Rotativo
+ *
+ * Layout:
+ * • Desktop: sticky top-0, alinhado à direita, slide x: 60→0
+ * • Mobile: sticky top-[20vh], mesma animação
+ */
 
-export function BeliefFixedHeader() {
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
-  const exitY = useTransform(scrollYProgress, [0.85, 1], [0, -18]);
-  const opacity = useTransform(
-    scrollYProgress,
-    [0.05, 0.12, 0.85, 0.95],
-    [0, 1, 1, 0]
-  );
+import { motion, useInView } from 'motion/react';
+import { useRef } from 'react';
+import { SplitText } from '@/lib/motion/split-text';
+
+export const BeliefFixedHeader = () => {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, {
+    margin: '-10% 0px 0px 0px',
+    once: false,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0, x: 60 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1] as const, // ghost-ease
+        staggerChildren: 0.08,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: 60,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
+      },
+    },
+  } as const;
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  } as const;
 
   return (
     <motion.header
-      className="pointer-events-none sticky inset-y-0 right-0 z-30 flex w-full items-start justify-end px-6 pt-[12vh] text-right md:w-auto md:items-center md:px-0 md:pt-0 md:pr-[4vw]"
-      style={prefersReducedMotion ? undefined : { y: exitY, opacity }}
-      initial={prefersReducedMotion ? false : { opacity: 0, x: 18 }}
-      animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      ref={ref}
+      className="sticky top-0 z-30 flex flex-col items-end justify-center gap-2
+                 w-full px-6 md:px-12 py-8 pointer-events-none
+                 md:top-0 top-[20vh]"
+      initial="hidden"
+      animate={inView ? 'visible' : 'exit'}
+      variants={containerVariants}
+      aria-label="Acredito no design que muda o dia de alguém"
     >
-      <div className="w-[min(20rem,68vw)] rounded-[24px] border border-white/10 bg-[rgba(4,0,19,0.58)] px-5 py-4 backdrop-blur-sm md:w-[min(30rem,34vw)] md:max-w-[24rem] md:bg-[rgba(4,0,19,0.22)] md:px-6 md:py-5 md:backdrop-blur-sm">
-        <p className="font-display text-[0.95rem] font-black leading-tight text-white/90 md:text-[1.08rem]">
+      <div className="text-right max-w-xs md:max-w-sm">
+        <motion.p
+          className="font-display text-sm md:text-base text-white/70
+                     uppercase tracking-widest leading-relaxed"
+          variants={wordVariants}
+        >
           <SplitText
             text="Acredito no design que muda o dia de alguém."
             mode="words"
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-            animate={
-              prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-            }
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            variants={wordVariants}
           />
-        </p>
-        <h2 className="mt-2 font-h2 text-[clamp(1.15rem,2vw,2rem)] font-bold leading-[1.04] text-white">
+        </motion.p>
+
+        <motion.h2
+          className="font-h1 font-bold text-white text-lg md:text-xl
+                     mt-2 leading-tight"
+          variants={wordVariants}
+        >
           <SplitText
             text="Não pelo choque, mas pela conexão."
             mode="words"
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-            animate={
-              prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-            }
-            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+            variants={wordVariants}
           />
-        </h2>
+        </motion.h2>
       </div>
     </motion.header>
   );
-}
+};

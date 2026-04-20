@@ -1,43 +1,49 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
+/**
+ * BeliefBackground — Layer 0 (z-0).
+ * Interpolação contínua HSL via useTransform — vinculada ao scroll.
+ *
+ * CORREÇÃO CRÍTICA v2:
+ * NUNCA usar animate() para mudar backgroundColor aqui.
+ * animate() é disparo discreto — não lê o MotionValue do scroll em tempo real.
+ * useTransform mapeia o MotionValue diretamente: 0fps overhead quando parado.
+ *
+ * Ciclo obrigatório: Deep Void → bluePrimary → purpleDetails → pinkDetails → loop.
+ * Fonte: Motion docs — "Map scroll progress to CSS values with useTransform"
+ */
 
-const BELIEF_INTRO_END = 0.06;
-const BELIEF_PHRASE_ZONE_END = 0.72;
+import { motion, useTransform, type MotionValue } from 'motion/react';
 
-const COLORS = [
-  'hsl(230, 85%, 30%)',
-  'hsl(270, 80%, 40%)',
-  'hsl(330, 85%, 50%)',
-  'hsl(230, 85%, 30%)',
-  'hsl(270, 80%, 40%)',
-  'hsl(330, 85%, 50%)',
-];
+interface BeliefBackgroundProps {
+  scrollProgress: MotionValue<number>;
+}
 
-export function BeliefBackground() {
-  const { scrollYProgress } = useBeliefsScrollContext();
+// Pontos de parada do ciclo (8 valores = entrada + 6 frases + saída)
+const PROGRESS_POINTS = [0, 0.12, 0.28, 0.44, 0.58, 0.72, 0.86, 1.0] as const;
+const COLOR_STOPS = [
+  '#040013', // Deep Void — intro
+  '#0048ff', // bluePrimary — frase 1
+  '#8705f2', // purpleDetails — frase 2
+  '#f501d3', // pinkDetails — frase 3
+  '#0048ff', // bluePrimary — frase 4
+  '#8705f2', // purpleDetails — frase 5
+  '#f501d3', // pinkDetails — frase 6
+  '#040013', // Deep Void — clímax/saída
+] as const;
 
-  const inputRange = [
-    0,
-    ...COLORS.map(
-      (_, i) =>
-        BELIEF_INTRO_END +
-        (i / (COLORS.length - 1)) * (BELIEF_PHRASE_ZONE_END - BELIEF_INTRO_END)
-    ),
-    1,
-  ];
-  const outputColors = [COLORS[0], ...COLORS, COLORS[COLORS.length - 1]];
+export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
   const backgroundColor = useTransform(
-    scrollYProgress,
-    inputRange,
-    outputColors
+    scrollProgress,
+    [...PROGRESS_POINTS],
+    [...COLOR_STOPS]
   );
 
   return (
     <motion.div
-      className="absolute inset-0 pointer-events-none z-0"
+      className="absolute inset-0 z-0 pointer-events-none"
       style={{ backgroundColor }}
+      aria-hidden="true"
     />
   );
-}
+};

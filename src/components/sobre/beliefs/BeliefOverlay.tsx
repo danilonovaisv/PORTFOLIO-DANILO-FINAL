@@ -1,20 +1,23 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
-
 /**
- * Overlay cross-fade sobre o BeliefBackground.
- * Opacidade oscila 0 → 0.12 → 0 nas transições de cor do background,
- * suavizando banding em telas OLED/gradiente HSL.
+ * BeliefOverlay — Layer 1 (z-10).
+ * Cross-fade transitional para evitar banding OLED entre cores HSL.
+ * Opacidade pulsa levemente nas transições de cor sem dominar a cena.
  */
-export const BeliefOverlay = () => {
-  const { scrollYProgress: scrollProgress } = useBeliefsScrollContext();
 
+import { motion, useTransform, type MotionValue } from 'motion/react';
+
+interface BeliefOverlayProps {
+  scrollProgress: MotionValue<number>;
+}
+
+export const BeliefOverlay = ({ scrollProgress }: BeliefOverlayProps) => {
+  // Pulso suave de opacidade nas bordas de cada transição de cor
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.15, 0.22, 0.3, 0.37, 0.45, 0.52, 0.6, 0.67, 0.75, 0.82, 0.88, 1.0],
-    [0, 0, 0.12, 0, 0.12, 0, 0.12, 0, 0.12, 0, 0.12, 0, 0]
+    [0, 0.10, 0.20, 0.28, 0.36, 0.44, 0.52, 0.58, 0.66, 0.72, 0.80, 0.86, 1.0],
+    [0,    0, 0.10,    0, 0.10,    0, 0.10,    0, 0.10,    0, 0.10,    0,    0]
   );
 
   return (
