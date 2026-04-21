@@ -97,7 +97,18 @@
 
 ### 2.1 The "Ghost" Ease
 
-- **CSS/Framer:** `[0.22, 1, 0.36, 1]`
+The standard `GHOST_EASE` is the default for every UI/content reveal. Two
+sanctioned variants exist for atmospheric surfaces — use them only through
+their exported constants, never inline.
+
+| Constant | Curve | When to use |
+| :--- | :--- | :--- |
+| `GHOST_EASE` | `[0.22, 1, 0.36, 1]` | Default — buttons, sections, cards, hovers, reveals. |
+| `GHOST_EASE_SOFT` | `[0.25, 1, 0.5, 1]` | Atmospheric backgrounds, long-running belief/intro scenes, ghostly drift. Gentler brake than the standard ease. |
+| `GHOST_EASE_HEAVY` | `[0.43, 0.13, 0.23, 0.96]` | Large spatial moves (hero camera, big translateX/Y). Heavier anticipation, still non-bouncy. |
+
+- **Import:** `import { GHOST_EASE, GHOST_EASE_SOFT, GHOST_EASE_HEAVY } from '@/config/motion'`
+- **Never** inline a raw cubic-bezier tuple in components — it breaks the single source of truth and defeats drift regression greps.
 
 - **Duration:**
   - **Fast (UI):** `0.2s` (Buttons, Hover)
