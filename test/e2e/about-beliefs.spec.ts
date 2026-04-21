@@ -113,6 +113,50 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     }
   });
 
+  test('texto volta ao estado inicial ao sair da viewport', async ({
+    page,
+  }) => {
+    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    const section = page.locator('[data-testid="beliefs-section"]');
+    await section.scrollIntoViewIfNeeded();
+
+    const phrase = page
+      .locator('[data-testid="beliefs-section"] .scroll-section p')
+      .first();
+    await expect(phrase).toBeAttached();
+
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 1.2));
+    await page.waitForTimeout(300);
+
+    const opacity = await phrase.evaluate((el) => getComputedStyle(el).opacity);
+    expect(Number(opacity)).toBeLessThan(1);
+  });
+
+  test('background troca de cor quando nova scroll-section entra em view', async ({
+    page,
+  }) => {
+    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await page.evaluate(() => {
+      document
+        .querySelector('[data-testid="beliefs-section"]')
+        ?.scrollIntoView({ behavior: 'instant' });
+    });
+    await page.waitForTimeout(500);
+    const getColor = async () =>
+      page.evaluate(() => {
+        const bg = document.querySelector(
+          '[data-testid="beliefs-section"] .absolute.inset-0.z-0'
+        );
+        return bg ? getComputedStyle(bg).backgroundColor : '';
+      });
+
+    const start = await getColor();
+    await scrollToProgress(page, 0.35);
+    const next = await getColor();
+
+    expect(next).not.toBe(start);
+  });
+
   // ── Teste 05: prefers-reduced-motion desativa animações ────────────────────
   test('05 — reduced-motion: fallback estático sem transform', async ({
     page,
@@ -181,24 +225,14 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   });
 
   // ── Teste 08: Mobile viewport ──────────────────────────────────────────────
-  test('08 — mobile: AnimatePresence renderiza uma frase por vez', async ({
+  test('08 — mobile mantém frases sequenciais em scroll-section', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: 'networkidle' });
-    await page.evaluate(() =>
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' })
+    const sections = page.locator(
+      '[data-testid="beliefs-section"] .scroll-section'
     );
-    await scrollToProgress(page, 0.35);
-
-    // No mobile, apenas 1 frase deve estar visível (AnimatePresence mode=wait)
-    const visiblePhrases = await page
-      .locator('[aria-live="polite"], .md\\:hidden p')
-      .all();
-
-    // Pode haver 0 (entre frases) ou 1 (frase ativa) — nunca 2+
-    expect(visiblePhrases.length).toBeLessThanOrEqual(1);
+    await expect(sections).toHaveCount(6);
   });
 });

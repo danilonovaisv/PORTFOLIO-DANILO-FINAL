@@ -2,25 +2,16 @@
 
 /**
  * BeliefBackground — Layer 0 (z-0).
- * Interpolação contínua HSL via useTransform — vinculada ao scroll.
+ * Transição de cor de fundo ativada por scroll via inView e animate.
  *
- * CORREÇÃO CRÍTICA v2:
- * NUNCA usar animate() para mudar backgroundColor aqui.
- * animate() é disparo discreto — não lê o MotionValue do scroll em tempo real.
- * useTransform mapeia o MotionValue diretamente: 0fps overhead quando parado.
- *
- * Ciclo obrigatório: Deep Void → bluePrimary → purpleDetails → pinkDetails → loop.
- * Fonte: Motion docs — "Map scroll progress to CSS values with useTransform"
+ * CORREÇÃO v3:
+ * Removido scrollProgress para evitar erro de serialização do Next.js.
+ * Utiliza scroll-triggered animations conforme tutorial JS oficial da Motion.
  */
 
-import { motion, useTransform, type MotionValue } from 'motion/react';
+import { useEffect, useRef } from 'react';
+import { animate, inView } from 'motion';
 
-interface BeliefBackgroundProps {
-  scrollProgress: MotionValue<number>;
-}
-
-// Pontos de parada do ciclo (8 valores = entrada + 6 frases + saída)
-const PROGRESS_POINTS = [0, 0.12, 0.28, 0.44, 0.58, 0.72, 0.86, 1.0] as const;
 const COLOR_STOPS = [
   '#040013', // Deep Void — intro
   '#0048ff', // bluePrimary — frase 1
@@ -32,17 +23,38 @@ const COLOR_STOPS = [
   '#040013', // Deep Void — clímax/saída
 ] as const;
 
-export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
-  const backgroundColor = useTransform(
-    scrollProgress,
-    [...PROGRESS_POINTS],
-    [...COLOR_STOPS]
-  );
+export const BeliefBackground = () => {
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Detect elements with the class 'scroll-section' entering the viewport
+    const stop = inView('.scroll-section', (element) => {
+      const indexAttr = element.getAttribute('data-index');
+      if (!indexAttr) return;
+
+      const index = Number(indexAttr);
+      if (Number.isNaN(index)) return;
+
+      const targetColor =
+        COLOR_STOPS[index + 1] ?? COLOR_STOPS[COLOR_STOPS.length - 1];
+
+      if (bgRef.current) {
+        animate(
+          bgRef.current,
+          { backgroundColor: targetColor },
+          { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+        );
+      }
+    });
+
+    return () => stop();
+  }, []);
 
   return (
-    <motion.div
+    <div
+      ref={bgRef}
       className="absolute inset-0 z-0 pointer-events-none"
-      style={{ backgroundColor }}
+      style={{ backgroundColor: COLOR_STOPS[0] }}
       aria-hidden="true"
     />
   );

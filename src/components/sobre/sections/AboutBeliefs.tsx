@@ -68,8 +68,8 @@ export const AboutBeliefs = () => {
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
-      {/* ── z-0: Fundo com interpolação HSL contínua ── */}
-      <BeliefBackground scrollProgress={scrollYProgress} />
+      {/* ── z-0: Fundo com transição de cores via inView ── */}
+      <BeliefBackground />
 
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
       <BeliefOverlay scrollProgress={scrollYProgress} />
@@ -84,14 +84,10 @@ export const AboutBeliefs = () => {
         prefersReducedMotion={prefersReducedMotion}
       />
 
-      {/* ── z-40: Frases rotatórias ── */}
-      <div
-        className="relative z-40 w-full min-h-full flex flex-col
-                   justify-center pointer-events-none"
-      >
+      {/* ── z-40: Frases sequenciais com gatilho de viewport ── */}
+      <div className="relative z-40 w-full pointer-events-none">
         <BeliefScrollText
           phrases={PHRASES}
-          scrollProgress={scrollYProgress}
           isMobile={isMobile}
           prefersReducedMotion={prefersReducedMotion}
         />

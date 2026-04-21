@@ -79,8 +79,7 @@ Traduzir processo criativo em método prático, gerando confiança através de c
 ## 12. Análise de Inconformidades (Sessão vs Protótipo)
 
 - Inconformidade 1 (Alta): formato dos cards de processo no desktop
-  - Protótipo especifica cards com fundo escuro translúcido + borda esquerda azul.
-  - Implementação desktop usa linhas com `border-bottom` e fundo majoritariamente transparente.
+  - RESOLVIDO: O bloco agora flutua diretamente sobre o vídeo (sem painel escuro sólido) e a lista foi refatorada para usar divisórias horizontais em azul com números simples ("0X"), seguindo exatamente a referência visual.
 - Inconformidade 2 (Média): reduced-motion para vídeo
   - O texto respeita motion gate, mas o vídeo permanece com `autoPlay/loop` mesmo para usuários com `prefers-reduced-motion`.
 - Inconformidade 3 (Baixa): semântica da lista
@@ -105,3 +104,10 @@ Traduzir processo criativo em método prático, gerando confiança através de c
   - o painel principal deixou de usar `backdrop-blur`, passando a depender de opacidade alta (`rgba(4,0,19,0.9)`) para contraste;
   - a leitura do heading e do texto de apoio ficou ancorada em superfície sólida, em linha com a regra global do projeto de evitar blur excessivo em conteúdo editorial;
   - o reduced-motion permanece respeitado no vídeo (`autoPlay/loop` desligados quando motion está bloqueado).
+
+## 15. Estado Implementado — 2026-04-21 (Alinhamento de Design)
+
+- Refatoração visual aplicada em `src/components/sobre/sections/AboutMethod.tsx` para corresponder à referência visual (`05-COMO-EU-TRABALHO-DESKTOP.jpg`):
+  - **Vídeo Full-Bleed:** Removida a restrição de `max-w` do contêiner do vídeo, permitindo que ele ocupe todas as laterais da página.
+  - **Remoção do Painel Sólido:** O background escuro sólido (`rgba(4,0,19,0.9)`) e as bordas arredondadas do contêiner de texto foram removidos. O conteúdo agora repousa sobre a camada de gradiente escuro global, melhorando a imersão.
+  - **Lista em Formato de Tabela:** O visual das etapas foi atualizado com divisórias horizontais em azul (`border-bluePrimary/30`). Os marcadores de etapa deixaram de ser "badges" arredondados e agora utilizam texto simples em formato "0X" (ex: 01, 02), em harmonia com a estética técnica da referência.

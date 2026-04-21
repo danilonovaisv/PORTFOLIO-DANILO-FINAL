@@ -25,10 +25,7 @@ export default function AboutMethod() {
     >
       {/* Background Video Container */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
-        <motion.div
-          style={{ y: 0 }}
-          className="w-full h-full lg:h-[120%]"
-        >
+        <motion.div style={{ y: 0 }} className="w-full h-full lg:h-[120%]">
           <video
             key={isMobile ? 'mobile' : 'desktop'}
             src={
