@@ -25,6 +25,8 @@
 | **Text Secondary**   | `--color-textSecondary` | `#a1a3a3` | Metadata, captions, deactivated states.                                 |
 | **Details (Purple)** | `--color-purpleDetails` | `#8705f2` | **Exception:** Allowed on Hover states and specific "glitch" anomalies. |
 | **System Red**       | `--color-redAccent`     | `#E50914` | Errors, destructive actions, or high-alert system status.               |
+| **Abyss Start**      | `--color-abyss-start`   | `#0c1445` | Atmospheric gradient top (hero + project hero abyss drift).             |
+| **Abyss Mid**        | `--color-abyss-mid`     | `#08031f` | Atmospheric gradient midpoint. End stop resolves to `--color-background`. |
 
 ### 1.2 Typography
 
