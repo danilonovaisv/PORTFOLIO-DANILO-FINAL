@@ -16,6 +16,7 @@
 import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
 import { SplitText } from '@/lib/motion/split-text';
+import { GHOST_EASE, GHOST_EASE_SOFT } from '@/config/motion';
 
 export const BeliefFixedHeader = () => {
   const ref = useRef<HTMLElement>(null);
@@ -31,7 +32,7 @@ export const BeliefFixedHeader = () => {
       x: 0,
       transition: {
         duration: 0.8,
-        ease: [0.22, 1, 0.36, 1] as const, // ghost-ease
+        ease: GHOST_EASE,
         staggerChildren: 0.08,
       },
     },
@@ -40,7 +41,7 @@ export const BeliefFixedHeader = () => {
       x: 60,
       transition: {
         duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
+        ease: GHOST_EASE_SOFT,
       },
     },
   } as const;
