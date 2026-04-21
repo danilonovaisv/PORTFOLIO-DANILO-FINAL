@@ -8,8 +8,9 @@ import sys
 
 # Config
 ROOT_DIR = "src"
-# Regex to capture Supabase URLs
-PATTERN = r"https?://[a-zA-Z0-9.-]*supabase\.co/storage/v1/object/public/[^\s\"')]+"
+# Regex to capture Supabase URLs (including parentheses in filenames)
+PATTERN = r"https?://[a-zA-Z0-9.-]*supabase\.co/storage/v1/object/public/[^\s\"']+"
+
 
 def find_links():
     links = []
