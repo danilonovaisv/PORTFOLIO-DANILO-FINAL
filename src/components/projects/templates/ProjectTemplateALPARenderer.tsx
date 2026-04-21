@@ -246,7 +246,7 @@ function AssetLightbox({
 
   return (
     <div
-      className="fixed inset-0 z-[var(--z-layer-lightbox)] flex items-center justify-center bg-[#040013]/94 p-4"
+      className="fixed inset-0 z-[var(--z-layer-lightbox)] flex items-center justify-center bg-background/94 p-4"
       role="dialog"
       aria-modal="true"
       aria-label="Pré-visualização ampliada do asset"
@@ -404,7 +404,7 @@ function AssetInteractive({
           />
           <span className="absolute inset-0 bg-black/35" />
           <span className="absolute inset-0 flex items-center justify-center">
-            <span className="alpa-circle inline-flex h-14 w-14 items-center justify-center border border-white/40 bg-[#0000ff] text-white">
+            <span className="alpa-circle inline-flex h-14 w-14 items-center justify-center border border-white/40 bg-bluePrimary text-white">
               <Play className="h-5 w-5" />
             </span>
           </span>
@@ -711,7 +711,7 @@ export default function ProjectTemplateALPARenderer({
   };
 
   return (
-    <article className="template-alpa relative min-h-screen bg-[#040013] text-[#fcffff]">
+    <article className="template-alpa relative min-h-screen bg-background text-text">
       <style jsx global>{`
         /* Garantir que assets em ALPA tenham cantos retos */
         .template-alpa :where(img, video, figure) {
@@ -726,7 +726,7 @@ export default function ProjectTemplateALPARenderer({
       {prefersReducedMotion ? (
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 z-0 bg-linear-to-b from-[#0c1445] via-[#08031f] to-[#040013]"
+          className="pointer-events-none fixed inset-0 z-0 bg-linear-to-b from-abyssStart via-abyssMid to-background"
         />
       ) : (
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
