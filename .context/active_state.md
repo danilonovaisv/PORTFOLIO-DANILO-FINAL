@@ -1,8 +1,8 @@
-# Active State: PRODUCTION DEPLOYED ✅
+# Active State: DESIGN SYSTEM REMEDIATION PHASE 1 ✅
 
-**Phase**: POST-DEPLOY VERIFICATION
-**Current Focus**: Live Health Check & Performance Monitoring
-**Last Update**: 2026-04-09T16:07
+**Phase**: DS REMEDIATION (Phase 1 complete on `chore/ds-remediation-phase1`)
+**Current Focus**: Open PR — post-merge triggers Phase 2 (component size, ProjectForm/SettingsForm refactors, remaining easing drift)
+**Last Update**: 2026-04-21
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -28,6 +28,20 @@
 - [x] **Admin Security**: `requireAdminAccess` confirmed in all Server Actions.
 - [x] **Modal A11y**: Tab trap, ESC, focus return verified.
 
+## DS Remediation Phase 1 (2026-04-21)
+
+- [x] **Z-Layer Governance**: 18-token scale in globals.css `@theme`. DS §1.3 expanded to v3.2.
+  - Migrated 9 raw `z-[nnn]` literals → `z-[var(--z-layer-*)]` tokens
+  - Added Playwright regression guard `test/e2e/design-system/z-stack.spec.ts`
+- [x] **Motion Sanctioning**: Added `GHOST_EASE_AMBIENT` [0.17, 0.55, 0.55, 1]; documented in DS §2.1
+  - Eliminated 6 inline easing tuples in `sobre/beliefs/*` → sanctioned constants
+  - `GHOST_EASE_SOFT` fully documented in DS
+- [x] **Hex → Token Refactor**: Added abyss gradient tokens (`--color-abyss-start`, `--color-abyss-mid`)
+  - ALPARenderer, MasterProjectTemplate, ProjectTemplateMasterRenderer, ProjectsGallery, AdaptiveMediaLayout, MobileMenuPanel, BeliefScrollText migrated
+  - Runtime `mixHex()` WebGL inputs retained as hex (cannot accept CSS vars)
+- [x] **Grid Compliance**: Home + Sobre sections audited — all content sections use `.std-grid`/`Container`. Full-bleed hero/belief scenes intentionally exempt.
+- [x] **Gate Green**: lint 0 errors (3 pre-existing warnings), tsc --noEmit pass, jest 246/246 pass
+
 ## Active Constraints
 
 - **Zero Config**: Do not add new env vars without validation.
@@ -36,8 +50,11 @@
 
 ## Next Steps
 
-1. ✅ Verificar health das rotas críticas (Home, Portfolio, Sobre)
-2. ✅ SquirrelScan pós-deploy — Global 98, Security 100, Performance 96
-3. ✅ Node 22 migrado — `firebase.json`, `package.json`, `functions/package.json`
-4. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio)
-5. Monitorar performance com Lighthouse CI
+1. Open PR `chore/ds-remediation-phase1` → main, merge after review
+2. **Phase 2 backlog** (deferred from this pass):
+   - Easing tuple drift: ~20 raw `[0.22, 1, 0.36, 1]` in AboutMethod, ProjectRenderer, GhostAura, GhostText, Preloader, BlockRenderer
+   - Duplicate local `GHOST_EASE` consts in `useGhostUI.ts` + `about-motion.ts` — import from SSOT `@/config/motion`
+   - File-size violations: ALPA 904, GhostScene 904, ProjectForm 801, SettingsForm 662, GhostCursor 569, ProjectsTable 556, portfolio/[slug] 509, template-schema 993
+   - Hover-color tokens: `#1a5cff` (blue hover-lighten) + `#8705f2` hover usage (purple) not yet tokenized
+3. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio)
+4. Monitorar performance com Lighthouse CI
