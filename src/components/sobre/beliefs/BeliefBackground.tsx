@@ -12,6 +12,7 @@
 import { useEffect, useRef } from 'react';
 import { animate, inView } from 'motion';
 import type { MotionValue } from 'motion/react';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
 
 const COLOR_STOPS = [
   '#040013', // Deep Void — intro
@@ -47,7 +48,7 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: targetColor },
-          { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+          { duration: 0.9, ease: GHOST_EASE_AMBIENT }
         );
       }
     });
@@ -62,7 +63,7 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: '#0048ff' },
-          { duration: 0.5, ease: [0.17, 0.55, 0.55, 1] }
+          { duration: 0.5, ease: GHOST_EASE_AMBIENT }
         );
       }
     });
@@ -76,7 +77,7 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: '#0048ff' },
-          { duration: 0.35, ease: [0.17, 0.55, 0.55, 1] }
+          { duration: 0.35, ease: GHOST_EASE_AMBIENT }
         );
       }
     }, 120);
