@@ -22,7 +22,7 @@ export const BeliefBackground = () => {
     const stop = inView('.scroll-section', (element) => {
       const indexAttr = element.getAttribute('data-index');
       if (indexAttr === null) return;
-      
+
       const index = parseInt(indexAttr, 10);
       const targetColor = COLOR_STOPS[index + 1] || COLOR_STOPS[0];
 

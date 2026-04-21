@@ -1087,14 +1087,14 @@ Entregar uma experiência scroll-triggered cinematográfica com:
 
 ## Camadas
 
-| Camada | Componente | z-index |
-| --- | --- | --- |
-| 0 | Background | `z-0` |
-| 1 | Overlay | `z-10` |
-| 2 | Header | `z-30` |
-| 3 | Ghost | `z-30` |
-| 4 | Texto rotativo | `z-40` |
-| 5 | Manifesto | `z-50` |
+| Camada | Componente     | z-index |
+| ------ | -------------- | ------- |
+| 0      | Background     | `z-0`   |
+| 1      | Overlay        | `z-10`  |
+| 2      | Header         | `z-30`  |
+| 3      | Ghost          | `z-30`  |
+| 4      | Texto rotativo | `z-40`  |
+| 5      | Manifesto      | `z-50`  |
 
 ## Regras críticas
 
@@ -1126,7 +1126,6 @@ Resumo:
 3. Estabilizar estado azul no trecho final.
 
 ---
-
 
 # **SEÇÃO 07 — FECHAMENTO / CONFIRMAÇÃO**
 

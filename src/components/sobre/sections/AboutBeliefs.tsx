@@ -7,11 +7,12 @@
  *   z-0  → BeliefBackground  (HSL via useTransform — scroll-driven)
  *   z-10 → BeliefOverlay     (cross-fade anti-banding OLED)
  *   z-30 → BeliefFixedHeader (sticky, slide-in da direita)
- *   z-30 → GhostScene        (fixed, R3F frameloop="demand")
  *   z-40 → BeliefScrollText  (frases rotatórias, desktop+mobile)
- *   z-50 → BeliefManifesto   (clímax final — ACIMA do Ghost)
+ *   z-50 → BeliefManifesto   (clímax final — scroll out)
+ *   z-70 → GhostScene        (sticky, R3F frameloop="demand" - no topo absoluto)
  *
  * CORREÇÕES v2 aplicadas neste arquivo:
+ * • GhostScene refatorado para sticky z-[70]
  * • useBeliefsScroll (offset corrigido: ['start end', 'end end'])
  * • GhostScene via dynamic({ssr:false}) — previne erro de hydration
  * • PHRASES como readonly const fora do componente (sem re-criação por render)
@@ -39,7 +40,7 @@ const GhostScene = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="fixed inset-0 z-30 pointer-events-none"
+        className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
         aria-hidden="true"
       />
     ),

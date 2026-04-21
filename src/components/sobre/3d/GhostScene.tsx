@@ -26,12 +26,9 @@ import type { BufferGeometry, Group, Material, Object3D } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
 
-// ─── Configuração do asset ────────────────────────────────────────────────────
-// Path resolvido no PASSO 0 e validado contra Supabase Storage.
-// NUNCA usar ghost-transformed.glb (path inválido — userMemories 2026-04-16).
-const GHOST_GLB_URL = getAssetUrl('site-assets/3d/ghost-v1.glb', {
-  isVideo: true,
-});
+// Path validado contra Supabase Storage (Task 1).
+const GHOST_GLB_URL =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
 
 // Preload fora do render tree para não re-disparar em re-mounts
 useGLTF.preload(GHOST_GLB_URL);
@@ -101,9 +98,10 @@ const GhostModel = ({
 
     // ── Scale ──────────────────────────────────────────────────────────────
     // Mobile: base 90%, clímax +10%. Desktop: base 95%, clímax +5%.
+    // No clímax (p > 0.85), adicionamos +10% de boost como exigido na Task 5.
     const baseScale = isMobile ? 0.9 : 0.95;
-    const scaleBoost = isMobile ? (p > 0.85 ? 0.1 : 0) : p > 0.85 ? 0.05 : 0;
-    const targetScale = baseScale + scaleBoost + Math.min(p, 0.1) * 0.5;
+    const scaleBoost = p > 0.85 ? 0.1 : 0;
+    const targetScale = baseScale + scaleBoost;
 
     const currentScale = groupRef.current.scale;
     currentScale.x += (targetScale - currentScale.x) * lerpFactor;
@@ -125,9 +123,13 @@ const GhostModel = ({
           : 1.5
         : cursorRef.current.y;
 
+    // ── Intensificação Orientada a Scroll (Task 5) ─────────────────────────
+    const floatSpeed = 0.6 + p * 0.6; // Velocidade aumenta com o scroll
+    const floatAmplitude = 0.036 + p * 0.03; // Amplitude aumenta com o scroll
+
     const floatY = prefersReducedMotion
       ? 0
-      : Math.sin(state.clock.elapsedTime * 0.6) * 0.036;
+      : Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
 
     const currentPosition = groupRef.current.position;
     currentPosition.x += (targetX - currentPosition.x) * lerpFactor;
@@ -135,9 +137,10 @@ const GhostModel = ({
       (baseTargetY + floatY - currentPosition.y) * lerpFactor;
 
     // ── Float determinístico (sem Math.random) ─────────────────────────────
-    // Padrão senoidal puro — sem acumulação de estado = sem stutter
+    const rotSpeed = 0.4 + p * 0.4;
+    const rotAmplitude = 0.06 + p * 0.04;
     groupRef.current.rotation.y =
-      Math.sin(state.clock.elapsedTime * 0.4) * 0.06;
+      Math.sin(state.clock.elapsedTime * rotSpeed) * rotAmplitude;
   });
 
   return (
@@ -165,9 +168,12 @@ export const GhostScene = ({
   const resolvedPrefersReducedMotion = prefersReducedMotion ?? false;
   return (
     <motion.div
-      className="fixed inset-0 z-30 pointer-events-none"
+      className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
       aria-hidden="true"
       role="presentation"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
     >
       <GhostErrorBoundary>
         <Canvas

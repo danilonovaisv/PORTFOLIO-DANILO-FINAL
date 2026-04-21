@@ -33,14 +33,14 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 
 ## Arquitetura de camadas
 
-| Camada | Componente | z-index | Papel |
-| --- | --- | --- | --- |
-| 0 | Background | `z-0` | Troca de cor por seção visível |
-| 1 | Overlay | `z-10` | Suavização visual da transição |
-| 2 | Header fixo | `z-30` | Mensagem editorial de apoio |
-| 3 | Ghost 3D | `z-30` | Elemento central da narrativa |
-| 4 | Texto rotativo | `z-40` | Frases por scroll-section |
-| 5 | Manifesto final | `z-50` | Clímax acima do Ghost |
+| Camada | Componente      | z-index | Papel                          |
+| ------ | --------------- | ------- | ------------------------------ |
+| 0      | Background      | `z-0`   | Troca de cor por seção visível |
+| 1      | Overlay         | `z-10`  | Suavização visual da transição |
+| 2      | Header fixo     | `z-30`  | Mensagem editorial de apoio    |
+| 3      | Ghost 3D        | `z-30`  | Elemento central da narrativa  |
+| 4      | Texto rotativo  | `z-40`  | Frases por scroll-section      |
+| 5      | Manifesto final | `z-50`  | Clímax acima do Ghost          |
 
 ## Regras de animação (estado atual)
 
@@ -133,4 +133,3 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 - Conferência visual:
   - desktop 1440x900 nos progressos ~0.15, ~0.45, ~0.9;
   - mobile 390x844 nos progressos ~0.2 e ~0.9.
-
