@@ -11,6 +11,7 @@
 
 import { useEffect } from 'react';
 import { animate, inView } from 'motion';
+import { GHOST_EASE, GHOST_EASE_AMBIENT } from '@/config/motion';
 
 interface BeliefScrollTextProps {
   phrases: readonly string[];
@@ -31,7 +32,7 @@ export const BeliefScrollText = ({
       animate(
         element,
         { opacity: 1, y: [18, 0], filter: ['blur(6px)', 'blur(0px)'] },
-        { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+        { duration: 0.9, ease: GHOST_EASE_AMBIENT }
       );
 
       // Return a cleanup function that runs when the element leaves
@@ -39,7 +40,7 @@ export const BeliefScrollText = ({
         animate(
           element,
           { opacity: 0, y: -18, filter: ['blur(0px)', 'blur(6px)'] },
-          { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+          { duration: 0.5, ease: GHOST_EASE }
         );
       };
     });
@@ -60,7 +61,7 @@ export const BeliefScrollText = ({
           data-index={index}
         >
           <p
-            className={`font-h1 font-bold text-[#4fe6ff] leading-[1.05] ${
+            className={`font-h1 font-bold text-blueAccent leading-[1.05] ${
               isMobile
                 ? 'text-center px-6'
                 : 'left-6 md:left-16 lg:left-24 relative max-w-[38vw] lg:max-w-[34vw]'

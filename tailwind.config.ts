@@ -30,6 +30,8 @@ const config: Config = {
         textSecondary: 'var(--color-textSecondary)',
         neutral: 'var(--color-neutral)',
         neutralLight: 'var(--color-neutralLight)',
+        abyssStart: 'var(--color-abyss-start)',
+        abyssMid: 'var(--color-abyss-mid)',
       },
       // Restante da extensão de tema
       minWidth: {

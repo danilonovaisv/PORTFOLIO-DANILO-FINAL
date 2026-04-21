@@ -54,11 +54,16 @@
       "Read(//usr/local/bin/**)",
       "Read(//opt/homebrew/Cellar/pnpm/10.33.0/libexec/lib/node_modules/pnpm/bin/**)",
       "Bash(claude reload-plugins:*)",
-      "Bash(pnpm run:*)"
+      "Bash(pnpm run:*)",
+      "Bash(find /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\) -exec wc -l {} +)",
+      "Bash(pnpm typecheck *)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["github", "supabase"],
+  "enabledMcpjsonServers": [
+    "github",
+    "supabase"
+  ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   }

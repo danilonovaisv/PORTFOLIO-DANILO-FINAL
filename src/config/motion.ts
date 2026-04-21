@@ -11,6 +11,12 @@ type EasingTuple = [number, number, number, number];
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
 export const GHOST_EASE_SOFT: EasingTuple = [0.25, 1, 0.5, 1];
 export const GHOST_EASE_HEAVY: EasingTuple = [0.43, 0.13, 0.23, 0.96];
+/**
+ * Ambient curve — ignition-style fast start, long tail decay.
+ * Use ONLY for long-running atmospheric layers (belief backgrounds,
+ * gradient drifts, manifesto-style scroll fades). Never on UI controls.
+ */
+export const GHOST_EASE_AMBIENT: EasingTuple = [0.17, 0.55, 0.55, 1];
 
 export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
@@ -39,6 +45,8 @@ export const MOTION_TOKENS = {
     ghost: GHOST_EASE_SOFT,
     /** Heavier curve for large movements */
     heavy: GHOST_EASE_HEAVY,
+    /** Ambient ignition curve - long atmospheric layers only */
+    ambient: GHOST_EASE_AMBIENT,
     /** Linear for opacity-only transitions */
     linear: 'linear' as const,
   },

@@ -149,7 +149,7 @@ export default function MasterProjectTemplate({
     : '/portfolio';
 
   return (
-    <article className="bg-background text-[#fcffff]">
+    <article className="bg-background text-text">
       <header
         ref={heroRef}
         className="relative flex min-h-[88vh] items-end overflow-hidden pt-28"
@@ -184,7 +184,7 @@ export default function MasterProjectTemplate({
             )}
           </motion.div>
         ) : (
-          <div className="absolute inset-0 bg-linear-to-b from-[#0c1b58] via-[#07021f] to-background" />
+          <div className="absolute inset-0 bg-linear-to-b from-abyssStart via-abyssMid to-background" />
         )}
 
         <div className="absolute inset-0 bg-background/80" />
@@ -234,7 +234,7 @@ export default function MasterProjectTemplate({
             initial={revealInitial}
             animate={revealVisible}
             transition={{ duration: 0.72, ease: GHOST_EASE, delay: 0.16 }}
-            className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-[#4fe6ff]"
+            className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-blueAccent"
           >
             {project.project_client ? (
               <span>{project.project_client}</span>
@@ -298,7 +298,7 @@ export default function MasterProjectTemplate({
 
             {project.project_services && project.project_services.length > 0 ? (
               <div className="mt-10">
-                <p className="text-xs uppercase tracking-[0.16em] text-[#4fe6ff]">
+                <p className="text-xs uppercase tracking-[0.16em] text-blueAccent">
                   serviços
                 </p>
                 <p className="mt-3 text-lg font-medium text-white/90 md:text-2xl">
@@ -385,7 +385,7 @@ export default function MasterProjectTemplate({
                   {(item.title || item.description || item.eyebrow) && (
                     <figcaption className="p-5 md:p-6">
                       {item.eyebrow ? (
-                        <p className="text-xs uppercase tracking-[0.16em] text-[#4fe6ff]">
+                        <p className="text-xs uppercase tracking-[0.16em] text-blueAccent">
                           {item.eyebrow}
                         </p>
                       ) : null}
@@ -420,7 +420,7 @@ export default function MasterProjectTemplate({
           <div className="rounded-2xl border border-white/15 bg-white/2 px-6 py-10 md:px-10 md:py-12">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.16em] text-[#4fe6ff]">
+                <p className="text-xs uppercase tracking-[0.16em] text-blueAccent">
                   contato
                 </p>
                 <h2 className="text-3xl font-semibold leading-tight md:text-5xl">

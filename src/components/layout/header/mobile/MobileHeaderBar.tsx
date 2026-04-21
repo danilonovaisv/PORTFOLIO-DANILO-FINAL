@@ -51,7 +51,7 @@ export default function MobileHeaderBar({
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className={`fixed top-0 left-0 right-0 z-[1000] pointer-events-auto ${
+      className={`fixed top-0 left-0 right-0 z-[var(--z-layer-mobile-header)] pointer-events-auto ${
         isLight ? 'header--light' : ''
       }`}
     >
