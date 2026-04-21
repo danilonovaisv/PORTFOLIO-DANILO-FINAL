@@ -19,8 +19,8 @@ export const BeliefBackground = () => {
 
   useEffect(() => {
     // Detect elements with the class 'scroll-section' entering the viewport
-    const stop = inView('.scroll-section', (info) => {
-      const indexAttr = info.target.getAttribute('data-index');
+    const stop = inView('.scroll-section', (element) => {
+      const indexAttr = element.getAttribute('data-index');
       if (indexAttr === null) return;
       
       const index = parseInt(indexAttr, 10);
