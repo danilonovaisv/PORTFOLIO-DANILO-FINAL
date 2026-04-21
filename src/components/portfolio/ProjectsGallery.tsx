@@ -260,9 +260,9 @@ export const ProjectsGallery = ({
                   handleFilterKeyDown(event, index)
                 }
                 className={cn(
-                  'relative shrink-0 text-xs uppercase tracking-widest transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+                  'relative shrink-0 text-xs uppercase tracking-widest transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                   activeFilter === pillar.id
-                    ? 'text-[#4fe6ff]'
+                    ? 'text-blueAccent'
                     : 'text-white/60 hover:text-white'
                 )}
               >
@@ -270,7 +270,7 @@ export const ProjectsGallery = ({
                 {activeFilter === pillar.id && (
                   <motion.div
                     layoutId="activeFilter"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-[#4fe6ff]"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-blueAccent"
                     transition={{ duration: 0.28, ease: GHOST_EASE }}
                   />
                 )}
@@ -330,7 +330,7 @@ export const ProjectsGallery = ({
                     aria-label="Página anterior"
                     aria-controls="portfolio-filter-panel"
                     aria-disabled={currentPage === 1 ? true : undefined}
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -352,7 +352,7 @@ export const ProjectsGallery = ({
                     aria-label="Próxima página"
                     aria-controls="portfolio-filter-panel"
                     aria-disabled={currentPage === totalPages ? true : undefined}
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       Avançar

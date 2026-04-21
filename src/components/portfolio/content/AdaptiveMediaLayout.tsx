@@ -192,13 +192,13 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                         {/* Ghost Ambient Gradient */}
                         {!activeMedia ? null : !isVid && !activeYouTubeEmbed && (
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#040013] via-[#040013]/20 to-transparent opacity-90 pointer-events-none z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-90 pointer-events-none z-10" />
                         )}
 
                         {/* Motion & Video Label */}
                         {isMotion && (
                             <div className="absolute top-4 left-6 md:left-12 z-20 pointer-events-none">
-                                <span className="inline-flex items-center rounded-full bg-[#0b0d3a]/60 backdrop-blur-md border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                                <span className="inline-flex items-center rounded-full bg-neutral/60 backdrop-blur-md border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                                     Motion & Video
                                 </span>
                             </div>
@@ -222,7 +222,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                             onClick={() => setActiveMedia(media)}
                                             aria-label={`Visualizar miniatura ${idx + 1}`}
                                             className={`relative w-32 md:w-48 aspect-video flex-shrink-0 rounded-lg overflow-hidden border-2 cursor-pointer transition-colors outline-none
-                                                ${isActive ? 'border-[#4fe6ff] ring-4 ring-[#4fe6ff]/20 z-10' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
+                                                ${isActive ? 'border-blueAccent ring-4 ring-blueAccent/20 z-10' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
                                             `}
                                         >
                                             {youtubeThumb ? (
@@ -300,10 +300,10 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                             {project.detail?.externalUrl && (
                                 <div className="pt-16 mt-12 flex justify-start">
                                     <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer" aria-label="Ver projeto completo externamente">
-                                        <div className="h-16 px-8 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                        <div className="h-16 px-8 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="text-white text-lg font-medium tracking-wide lowercase">ver projeto completo</span>
                                         </div>
-                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:rotate-45 transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-[#1a5cff] hover:rotate-45 transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="material-icons-round text-white text-2xl">north_east</span>
                                         </div>
                                     </a>
