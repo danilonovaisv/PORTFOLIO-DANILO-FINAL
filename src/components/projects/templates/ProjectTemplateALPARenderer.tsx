@@ -246,7 +246,7 @@ function AssetLightbox({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-[#040013]/94 p-4"
+      className="fixed inset-0 z-[var(--z-layer-lightbox)] flex items-center justify-center bg-[#040013]/94 p-4"
       role="dialog"
       aria-modal="true"
       aria-label="Pré-visualização ampliada do asset"

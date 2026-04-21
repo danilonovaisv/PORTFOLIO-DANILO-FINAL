@@ -10,7 +10,7 @@
     "react-three-fiber"
   ],
   "engines": {
-    "node": ">=22"
+    "node": "22"
   },
   "pnpm": {
     "overrides": {
@@ -212,6 +212,5 @@
       "react": "$react",
       "react-dom": "$react-dom"
     }
-  },
-  "packageManager": "pnpm@10.33.0"
+  }
 }

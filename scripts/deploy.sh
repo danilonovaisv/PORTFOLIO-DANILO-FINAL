@@ -74,23 +74,24 @@ node -e "
 "
 echo "✅ Campo packageManager removido temporariamente dos package.json do deploy"
 
-# 3. Gerar package-lock.json fresco alinhado com as dependências atuais.
-#    --package-lock-only: não instala módulos, apenas gera/atualiza o lock file.
-#    Firebase Cloud Build usa este lock para `npm ci` dentro da Cloud Function.
-echo "📦 Gerando package-lock.json consistente para Cloud Build..."
-npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
-  npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
-  echo "⚠️  AVISO: Não foi possível gerar package-lock.json (deploy continua)"
-echo "✅ package-lock.json gerado"
+# 3. PULAR geração de package-lock.json (Bug no npm detectado)
+echo "📦 Pulando geração de package-lock.json devido a incompatibilidade do npm..."
 
-echo "📦 Gerando functions/package-lock.json consistente para Cloud Build..."
-(
-  cd functions
-  npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
-    npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
-    echo "⚠️  AVISO: Não foi possível gerar functions/package-lock.json (deploy continua)"
-)
-echo "✅ functions/package-lock.json gerado"
+# echo "📦 Gerando package-lock.json consistente para Cloud Build..."
+# npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
+#   npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
+#   echo "⚠️  AVISO: Não foi possível gerar package-lock.json (deploy continua)"
+# echo "✅ package-lock.json gerado"
+
+# echo "📦 Gerando functions/package-lock.json consistente para Cloud Build..."
+# (
+#   cd functions
+#   npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
+#     npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
+#     echo "⚠️  AVISO: Não foi possível gerar functions/package-lock.json (deploy continua)"
+# )
+# echo "✅ functions/package-lock.json gerado"
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 
