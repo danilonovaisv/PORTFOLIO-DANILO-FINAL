@@ -64,12 +64,12 @@ export const AboutBeliefs = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[400vh] overflow-hidden"
+      className="relative w-full overflow-hidden"
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
       {/* ── z-0: Fundo com transição de cores via inView ── */}
-      <BeliefBackground scrollProgress={scrollYProgress} />
+      <BeliefBackground />
 
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
       <BeliefOverlay scrollProgress={scrollYProgress} />
@@ -84,7 +84,6 @@ export const AboutBeliefs = () => {
         prefersReducedMotion={prefersReducedMotion}
       />
 
-      {/* ── z-40: Frases sequenciais com gatilho de viewport ── */}
       <div className="relative z-40 w-full pointer-events-none">
         <BeliefScrollText
           phrases={PHRASES}
