@@ -27,7 +27,7 @@ export default function AboutMethod() {
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
         <motion.div
           style={{ y: 0 }}
-          className="w-full h-full max-w-[1680px] lg:h-[120%]"
+          className="w-full h-full lg:h-[120%]"
         >
           <video
             key={isMobile ? 'mobile' : 'desktop'}
@@ -68,7 +68,7 @@ export default function AboutMethod() {
               style={{ y: 0 }}
               className="flex w-full flex-col items-center lg:items-start"
             >
-              <div className="w-full max-w-[44rem] rounded-[28px] border border-white/10 bg-[rgba(4,0,19,0.9)] px-6 py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.88)] backdrop-blur-none lg:px-8 lg:py-9">
+              <div className="w-full max-w-[44rem] px-6 py-7 lg:px-8 lg:py-9">
                 <motion.p
                   variants={
                     prefersReducedMotion
@@ -160,7 +160,7 @@ export default function AboutMethod() {
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}
-                  className="flex w-full flex-col border-t border-white/10 pt-3"
+                  className="flex w-full flex-col border-t border-bluePrimary/30 pt-0"
                 >
                   {ABOUT_CONTENT.method.steps.map((step) => (
                     <motion.li
@@ -179,12 +179,12 @@ export default function AboutMethod() {
                             }
                           : motionTokens.riseSoft
                       }
-                      className="group grid grid-cols-[auto_1fr] items-start gap-4 border-b border-white/10 py-4 last:border-b-0 lg:gap-5"
+                      className="group flex flex-row items-center gap-4 border-b border-bluePrimary/30 py-4 lg:gap-5 lg:py-5"
                     >
-                      <span className="mt-0.5 inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-bluePrimary/35 bg-bluePrimary/10 px-3 font-bold tabular-nums text-bluePrimary">
-                        {step.id}
+                      <span className="font-display text-xl md:text-2xl font-bold tabular-nums text-bluePrimary">
+                        {String(step.id).padStart(2, '0')}
                       </span>
-                      <p className="border-l-2 border-bluePrimary/55 pl-4 text-left text-small font-medium leading-[1.45] text-text transition-colors group-hover:text-blueAccent md:text-body lg:text-body-enhanced">
+                      <p className="text-left text-base font-medium leading-[1.45] text-text transition-colors group-hover:text-blueAccent md:text-lg lg:text-xl">
                         {step.text}
                       </p>
                     </motion.li>
