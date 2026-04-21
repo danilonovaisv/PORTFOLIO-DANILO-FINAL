@@ -126,11 +126,11 @@ export default function ProjectTemplateMasterRenderer({
     : '/portfolio';
 
   return (
-    <article className="relative min-h-screen bg-background text-[#fcffff]">
+    <article className="relative min-h-screen bg-background text-text">
       {prefersReducedMotion ? (
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 z-0 bg-linear-to-b from-[#0c1445] via-[#08031f] to-background"
+          className="pointer-events-none fixed inset-0 z-0 bg-linear-to-b from-abyssStart via-abyssMid to-background"
         />
       ) : (
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
@@ -218,7 +218,7 @@ export default function ProjectTemplateMasterRenderer({
                 )}
               </div>
             ) : (
-              <div className="absolute inset-0 bg-linear-to-b from-[#111b61] via-[#08031f] to-background" />
+              <div className="absolute inset-0 bg-linear-to-b from-abyssStart via-abyssMid to-background" />
             )}
 
             <div className="absolute inset-0 bg-background/78" />
