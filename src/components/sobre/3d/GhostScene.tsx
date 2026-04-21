@@ -27,8 +27,9 @@ import { getAssetUrl } from '@/lib/utils';
 import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
 
 // Path validado contra Supabase Storage (Task 1).
-const GHOST_GLB_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
+const GHOST_GLB_URL = getAssetUrl('site-assets/3d/ghost-v1.glb', {
+  isVideo: true,
+});
 
 // Preload fora do render tree para não re-disparar em re-mounts
 useGLTF.preload(GHOST_GLB_URL);
