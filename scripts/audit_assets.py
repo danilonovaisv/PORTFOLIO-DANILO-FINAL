@@ -3,13 +3,14 @@ import os
 import re
 import urllib.request
 import urllib.error
+import urllib.parse
 import json
 import sys
 
 # Config
 ROOT_DIR = "src"
-# Regex to capture Supabase URLs (including parentheses in filenames)
-PATTERN = r"https?://[a-zA-Z0-9.-]*supabase\.co/storage/v1/object/public/[^\s\"']+"
+# Regex to capture Supabase URLs (more flexible to capture everything until a quote or space)
+PATTERN = r"https?://[a-zA-Z0-9.-]*supabase\.co/storage/v1/object/public/[^\"'>]+"
 
 
 def find_links():
@@ -39,7 +40,15 @@ def check_status(links):
     checked_cache = {}
 
     for item in links:
-        url = item['url']
+        raw_url = item['url']
+        # URL encoding for literal spaces and special chars
+        url_parts = raw_url.split('/public/')
+        if len(url_parts) > 1:
+            base_url = url_parts[0] + '/public/'
+            path_to_quote = url_parts[1]
+            url = base_url + urllib.parse.quote(path_to_quote)
+        else:
+            url = raw_url
         
         # Cache results
         if url in checked_cache:
