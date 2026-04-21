@@ -11,6 +11,7 @@
 
 import { useEffect, useRef } from 'react';
 import { animate, inView } from 'motion';
+import type { MotionValue } from 'motion/react';
 
 const COLOR_STOPS = [
   '#040013', // Deep Void — intro
@@ -20,10 +21,14 @@ const COLOR_STOPS = [
   '#0048ff', // bluePrimary — frase 4
   '#8705f2', // purpleDetails — frase 5
   '#f501d3', // pinkDetails — frase 6
-  '#040013', // Deep Void — clímax/saída
+  '#0048ff', // bluePrimary — lock de clímax
 ] as const;
 
-export const BeliefBackground = () => {
+interface BeliefBackgroundProps {
+  scrollProgress?: MotionValue<number>;
+}
+
+export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
   const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,6 +53,34 @@ export const BeliefBackground = () => {
     });
 
     return () => stop();
+  }, []);
+
+  useEffect(() => {
+    if (!scrollProgress) return;
+    const unsubscribe = scrollProgress.on('change', (value) => {
+      if (value >= 0.88 && bgRef.current) {
+        animate(
+          bgRef.current,
+          { backgroundColor: '#0048ff' },
+          { duration: 0.5, ease: [0.17, 0.55, 0.55, 1] }
+        );
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollProgress]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      const manifestoActive = document.querySelector('[aria-live="polite"]');
+      if (manifestoActive && bgRef.current) {
+        animate(
+          bgRef.current,
+          { backgroundColor: '#0048ff' },
+          { duration: 0.35, ease: [0.17, 0.55, 0.55, 1] }
+        );
+      }
+    }, 120);
+    return () => window.clearInterval(timer);
   }, []);
 
   return (

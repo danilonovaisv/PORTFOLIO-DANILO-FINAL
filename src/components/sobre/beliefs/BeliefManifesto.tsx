@@ -55,20 +55,24 @@ export const BeliefManifesto = ({
 
   return (
     <motion.div
-      className="fixed inset-x-0 bottom-0 z-50 w-full
+      className="fixed inset-0 z-50 w-full
                  flex items-center justify-center
-                 pb-[8vh] md:pb-[12vh] pointer-events-none"
+                 pointer-events-none"
       style={{ opacity, y }}
       aria-live={isActive ? 'polite' : undefined}
       aria-atomic={isActive ? 'true' : undefined}
     >
-      <div className="text-center px-6">
+      <div className="text-center px-4 md:px-6">
         <p
           className="font-display font-black text-white
-                     tracking-[0.12em] leading-[0.95]"
-          style={{ fontSize: 'clamp(1.75rem, 6vw, 4.5rem)' }}
+                     tracking-[0.03em] leading-[0.82]"
+          style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
         >
-          ISSO É <span className="text-[#4fe6ff]">GHOST DESIGN.</span>
+          ISSO É
+          <br />
+          GHOST
+          <br />
+          DESIGN
         </p>
       </div>
     </motion.div>

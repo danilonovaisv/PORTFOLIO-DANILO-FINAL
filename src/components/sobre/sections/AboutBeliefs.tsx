@@ -69,7 +69,7 @@ export const AboutBeliefs = () => {
       aria-label="O que me move — manifesto Ghost Design"
     >
       {/* ── z-0: Fundo com transição de cores via inView ── */}
-      <BeliefBackground />
+      <BeliefBackground scrollProgress={scrollYProgress} />
 
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
       <BeliefOverlay scrollProgress={scrollYProgress} />

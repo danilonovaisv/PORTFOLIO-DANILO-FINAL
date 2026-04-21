@@ -235,4 +235,43 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     );
     await expect(sections).toHaveCount(6);
   });
+
+  test('climax desktop: manifesto dominante e branco', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await scrollToProgress(page, 0.92);
+
+    const manifesto = page.locator('[aria-live="polite"] p').first();
+    await expect(manifesto).toBeVisible();
+
+    const styles = await manifesto.evaluate((el) => {
+      const computed = getComputedStyle(el);
+      return {
+        color: computed.color,
+        fontSize: parseFloat(computed.fontSize),
+      };
+    });
+
+    expect(styles.color).toBe('rgb(255, 255, 255)');
+    expect(styles.fontSize).toBeGreaterThan(120);
+  });
+
+  test('climax mobile: fundo azul dominante', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await scrollToProgress(page, 0.92);
+
+    const colorEnd = await page.evaluate(() => {
+      const bg = document
+        .querySelector('[data-testid="beliefs-section"]')
+        ?.querySelector('.absolute.inset-0.z-0');
+      return bg ? window.getComputedStyle(bg).backgroundColor : '';
+    });
+
+    const rgb = colorEnd.match(/\d+/g)?.map(Number) ?? [];
+    expect(rgb.length).toBeGreaterThanOrEqual(3);
+    expect(rgb[2]).toBeGreaterThan(220); // blue channel dominante
+    expect(rgb[0]).toBeLessThan(80);
+    expect(rgb[1]).toBeLessThan(100);
+  });
 });
