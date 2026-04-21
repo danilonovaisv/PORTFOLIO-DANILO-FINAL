@@ -1,6 +1,6 @@
 # 🫥 Ghost Design System — Tokens + Global Rules
 
-**Version:** 3.1 (Post-Deploy Contingency) • **Date:** 2026-02-10
+**Version:** 3.2 (Z-Layer Expansion) • **Date:** 2026-04-21
 
 > This file is the **Single Source of Truth** for the Ghost System.
 > It consolidates design tokens, motion principles, and architectural rules driven by the "Ghost" philosophy:
@@ -64,17 +64,30 @@
 - **Container:** `px-6` (Mobile) -> `px-12` (Tablet) -> `px-16` ~ `px-24` (Desktop).
 - **Section Vertical:** `py-16` (Mobile) -> `py-24` (Desktop).
 
-**Z-Index Layers:**
+**Z-Index Layers (v3.2 — expanded to cover modal + mobile stack):**
 
-- `z-0`: **Background Base** (gradients/video base)
-- `z-10`: **Glass/Overlay Utility** (soft masks)
-- `z-20`: **Primary Content** (text/images)
-- `z-30`: **Canvas/R3F FX** (3D between base and final overlays)
-- `z-50`: **Final Overlays/Modals**
-- `z-55`: **Header Promotion** (Header above 3D Scene)
-- `z-[60]`: **Critical Mobile Text Layer**
-- `z-65`: **Topmost Overlays/Debug**
-- `z-cursor`: **Custom Cursor** (Topmost)
+| Token CSS var | Value | Usage |
+| :--- | :---: | :--- |
+| `--z-layer-base` | 0 | Background base (gradients, video base) |
+| `--z-layer-glass` | 10 | Glass/overlay utility (soft masks) |
+| `--z-layer-content` | 20 | Primary content (text, images) |
+| `--z-layer-3d` | 30 | Canvas / R3F FX |
+| `--z-layer-cta` | 40 | Floating CTAs |
+| `--z-layer-overlay` | 50 | Inline overlays |
+| `--z-layer-header` | 55 | Site header |
+| `--z-layer-mobile-text` | 60 | Critical mobile text layer |
+| `--z-layer-debug-low` | 65 | Dev-only inline debug |
+| `--z-layer-lightbox` | 70 | Image lightbox |
+| `--z-layer-mobile-header` | 80 | Fixed mobile bar |
+| `--z-layer-mobile-pre` | 85 | Pre-menu curtain layers |
+| `--z-layer-mobile-menu` | 90 | Fullscreen mobile menu |
+| `--z-layer-modal-scrim` | 95 | Modal backdrop |
+| `--z-layer-modal` | 100 | Modal surface |
+| `--z-layer-modal-close` | 105 | Modal close button |
+| `--z-layer-cursor` | 110 | Custom cursor (topmost) |
+| `--z-layer-debug-top` | 9999 | Dev debugger only |
+
+**Rule:** Never use raw `z-[nnn]`; always reference a token. Anything above 110 is development-only.
 
 ---
 
