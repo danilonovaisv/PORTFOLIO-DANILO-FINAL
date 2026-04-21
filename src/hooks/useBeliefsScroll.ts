@@ -41,14 +41,14 @@ export const useBeliefsScroll = (
 
   useEffect(() => {
     const mql = window.matchMedia('(max-width: 767px)');
-    const handler = (e: MediaQueryList | MediaQueryListEvent) =>
-      setIsMobile(e.matches);
+    const handler = (ev: MediaQueryList | MediaQueryListEvent) =>
+      setIsMobile(ev.matches);
     handler(mql);
-    mql.addEventListener('change', handler as (e: MediaQueryListEvent) => void);
+    mql.addEventListener('change', handler as (_ev: MediaQueryListEvent) => void);
     return () =>
       mql.removeEventListener(
         'change',
-        handler as (e: MediaQueryListEvent) => void
+        handler as (_ev: MediaQueryListEvent) => void
       );
   }, []);
 

@@ -24,7 +24,6 @@ test.describe('Admin Login Page', () => {
     //   the handler to skip it. mockLoginDone alone is sufficient to gate correctly.
     //
     let mockLoginDone = false;
-    let interceptCount = 0;
 
     // Unified Interceptor: Catch either /admin directly or the redirect to /admin/login.
     await page.route(
@@ -37,7 +36,7 @@ test.describe('Admin Login Page', () => {
           return;
         }
 
-        interceptCount++;
+
 
         // Case 1: Direct hit to dashboard
         if (url.pathname === '/admin' || url.pathname === '/admin/') {
