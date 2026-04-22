@@ -1,8 +1,23 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page, type TestInfo } from '@playwright/test';
 
 const BELIEFS_URL = '/sobre';
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
+const gotoBeliefs = async (page: Page) => {
+  const section = page.locator('[data-testid="beliefs-section"]');
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      await page.goto(BELIEFS_URL, { waitUntil: 'commit' });
+      await expect(section).toBeVisible({ timeout: 20_000 });
+      return;
+    } catch (error) {
+      if (attempt === 2) throw error;
+      await page.waitForTimeout(1_000);
+    }
+  }
+};
+
 const scrollToProgress = async (page: Page, progress: number) => {
   await page.evaluate((p) => {
     const section = document.querySelector('[data-testid="beliefs-section"]');
@@ -17,10 +32,27 @@ const scrollToProgress = async (page: Page, progress: number) => {
   await page.waitForTimeout(300);
 };
 
+const captureSectionCheckpoint = async (
+  page: Page,
+  label: string,
+  progress: number,
+  testInfo: TestInfo
+) => {
+  await scrollToProgress(page, progress);
+  const section = page.locator('[data-testid="beliefs-section"]');
+  await expect(section).toBeVisible();
+  const image = await section.screenshot({ animations: 'disabled' });
+  expect(image.byteLength).toBeGreaterThan(0);
+  await testInfo.attach(label, {
+    body: image,
+    contentType: 'image/png',
+  });
+};
+
 // ── Testes ─────────────────────────────────────────────────────────────────────
 test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
     // Rola até a seção antes de cada teste
     await page.evaluate(() => {
       document
@@ -42,29 +74,27 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     expect(height).toBeGreaterThanOrEqual(3.5); // min 400vh aproximado
   });
 
-  // ── Teste 02: Z-index — Ghost NÃO obstrui manifesto ────────────────────────
-  test('02 — manifesto visível e acima do Ghost no clímax (z-index)', async ({
+  // ── Teste 02: Z-index — Ghost permanece acima do manifesto ─────────────────
+  test('02 — Ghost permanece acima do manifesto no clímax (z-index)', async ({
     page,
   }) => {
     await scrollToProgress(page, 0.9);
 
-    // Manifesto deve estar presente no DOM
-    const manifesto = page.locator('[aria-live="polite"]').first();
+    const manifesto = page.locator('[data-testid="beliefs-manifesto"]').first();
+    const ghost = page.locator('[data-testid="beliefs-ghost-scene"]').first();
     await expect(manifesto).toBeAttached();
+    await expect(ghost).toBeAttached();
 
-    // Ghost canvas não deve ter z-index maior que o manifesto
     const ghostZ = await page.evaluate(() => {
-      const ghost = document.querySelector('.fixed.z-30');
-      return ghost ? window.getComputedStyle(ghost).zIndex : '0';
+      const node = document.querySelector('[data-testid="beliefs-ghost-scene"]');
+      return node ? window.getComputedStyle(node).zIndex : '0';
     });
     const manifestoZ = await page.evaluate(() => {
-      const el = document
-        .querySelector('[aria-live="polite"]')
-        ?.closest('.fixed');
-      return el ? window.getComputedStyle(el).zIndex : '999';
+      const node = document.querySelector('[data-testid="beliefs-manifesto"]');
+      return node ? window.getComputedStyle(node).zIndex : '0';
     });
 
-    expect(Number(ghostZ)).toBeLessThan(Number(manifestoZ));
+    expect(Number(ghostZ)).toBeGreaterThan(Number(manifestoZ));
   });
 
   // ── Teste 03: Background muda de cor com o scroll ──────────────────────────
@@ -116,7 +146,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   test('texto volta ao estado inicial ao sair da viewport', async ({
     page,
   }) => {
-    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
     const section = page.locator('[data-testid="beliefs-section"]');
     await section.scrollIntoViewIfNeeded();
 
@@ -135,7 +165,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   test('background troca de cor quando nova scroll-section entra em view', async ({
     page,
   }) => {
-    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
     await page.evaluate(() => {
       document
         .querySelector('[data-testid="beliefs-section"]')
@@ -162,7 +192,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.reload({ waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
 
     await page.evaluate(() => {
       document
@@ -195,7 +225,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
       if (msg.type() === 'error') consoleErrors.push(msg.text());
     });
 
-    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
 
     const hydrateErrors = consoleErrors.filter(
       (e) => e.includes('Hydration') || e.includes('hydrat')
@@ -204,9 +234,9 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   });
 
   // ── Teste 07: Desktop viewport ─────────────────────────────────────────────
-  test('07 — desktop: Ghost Canvas presente e fixo', async ({ page }) => {
+  test('07 — desktop: Ghost Canvas presente e wrapper sticky', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.reload({ waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
 
     await page.evaluate(() =>
       document
@@ -214,14 +244,14 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
         ?.scrollIntoView({ behavior: 'instant' })
     );
 
-    const canvas = page.locator('canvas').first();
+    const canvas = page.locator('[data-testid="beliefs-ghost-scene"] canvas').first();
     await expect(canvas).toBeAttached({ timeout: 8000 });
 
     const position = await page
-      .locator('.fixed.z-30')
+      .locator('[data-testid="beliefs-ghost-scene"]')
       .first()
       .evaluate((el) => window.getComputedStyle(el).position);
-    expect(position).toBe('fixed');
+    expect(position).toBe('sticky');
   });
 
   // ── Teste 08: Mobile viewport ──────────────────────────────────────────────
@@ -229,19 +259,48 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.reload({ waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
     const sections = page.locator(
       '[data-testid="beliefs-section"] .scroll-section'
     );
     await expect(sections).toHaveCount(6);
   });
 
-  test('climax desktop: manifesto dominante e branco', async ({ page }) => {
+  test('09 — checkpoints visuais da seção são capturados em desktop e mobile', async ({
+    page,
+  }, testInfo) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
+    await page.evaluate(() =>
+      document
+        .querySelector('[data-testid="beliefs-section"]')
+        ?.scrollIntoView({ behavior: 'instant' })
+    );
+    await page.waitForTimeout(500);
+
+    await captureSectionCheckpoint(page, 'beliefs-desktop-015', 0.15, testInfo);
+    await captureSectionCheckpoint(page, 'beliefs-desktop-045', 0.45, testInfo);
+    await captureSectionCheckpoint(page, 'beliefs-desktop-090', 0.9, testInfo);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoBeliefs(page);
+    await page.evaluate(() =>
+      document
+        .querySelector('[data-testid="beliefs-section"]')
+        ?.scrollIntoView({ behavior: 'instant' })
+    );
+    await page.waitForTimeout(500);
+
+    await captureSectionCheckpoint(page, 'beliefs-mobile-020', 0.2, testInfo);
+    await captureSectionCheckpoint(page, 'beliefs-mobile-090', 0.9, testInfo);
+  });
+
+  test('10 — climax desktop: manifesto dominante e branco', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await gotoBeliefs(page);
     await scrollToProgress(page, 0.92);
 
-    const manifesto = page.locator('[aria-live="polite"] p').first();
+    const manifesto = page.locator('[data-testid="beliefs-manifesto"] p').first();
     await expect(manifesto).toBeVisible();
 
     const styles = await manifesto.evaluate((el) => {
@@ -256,9 +315,9 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     expect(styles.fontSize).toBeGreaterThan(120);
   });
 
-  test('climax mobile: fundo azul dominante', async ({ page }) => {
+  test('11 — climax mobile: fundo azul dominante', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(BELIEFS_URL, { waitUntil: 'networkidle' });
+    await gotoBeliefs(page);
     await scrollToProgress(page, 0.92);
 
     const colorEnd = await page.evaluate(() => {

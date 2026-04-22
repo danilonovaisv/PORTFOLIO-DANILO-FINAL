@@ -11,6 +11,7 @@ type EasingTuple = [number, number, number, number];
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
 export const GHOST_EASE_SOFT: EasingTuple = [0.25, 1, 0.5, 1];
 export const GHOST_EASE_HEAVY: EasingTuple = [0.43, 0.13, 0.23, 0.96];
+export const GHOST_EASE_INOUT_SINE: EasingTuple = [0.445, 0.05, 0.55, 0.95];
 /**
  * Ambient curve — ignition-style fast start, long tail decay.
  * Use ONLY for long-running atmospheric layers (belief backgrounds,
@@ -45,6 +46,8 @@ export const MOTION_TOKENS = {
     ghost: GHOST_EASE_SOFT,
     /** Heavier curve for large movements */
     heavy: GHOST_EASE_HEAVY,
+    /** Drinksom-style short canvas fades */
+    inOutSine: GHOST_EASE_INOUT_SINE,
     /** Ambient ignition curve - long atmospheric layers only */
     ambient: GHOST_EASE_AMBIENT,
     /** Linear for opacity-only transitions */
@@ -85,6 +88,12 @@ export const MOTION_TOKENS = {
     } satisfies SpringOptions,
     /** Slightly more responsive spring */
     responsive: {
+      stiffness: 100,
+      damping: 25,
+      restDelta: 0.001,
+    } satisfies SpringOptions,
+    /** Scroll smoothing for scrubbed scene motion */
+    scrollScrub: {
       stiffness: 100,
       damping: 25,
       restDelta: 0.001,

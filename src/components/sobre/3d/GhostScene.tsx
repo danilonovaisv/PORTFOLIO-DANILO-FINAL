@@ -3,48 +3,72 @@
 /**
  * GhostScene — Canvas R3F da Seção 06 "O Que Me Move".
  *
- * CORREÇÕES v3:
- * • z-70 (NÃO z-50) — GhostScene z-70 > Manifesto z-50 (Ghost permanece ACIMA do Manifesto).
- * • Cursor Parallax consumido globalmente via beliefStore (CustomCursor).
- * • Neutralização da influência do cursor durante o clímax (p > 0.85).
- * • position: fixed + inset-0 — modelo permanece centralizado durante scroll.
- * • frameloop="demand" + invalidate via scrollProgress.on('change') — 0 frames
- *   desperdiçados quando a seção não está ativa.
- * • GLB path via getAssetUrl() — fonte única em @/lib/utils (KI-001, KI-005).
- * • Lerp determinístico no useFrame (sem Math.random, sem stutter acumulado).
- * • Cleanup: scene.traverse → dispose geometry + material ao desmontar.
- * • Mobile: posição topo-esquerda (x: -1.2, y: 1.5) → centro no clímax final.
- *
- * Fonte: R3F docs — frameloop demand, disposal, useFrame best practices.
+ * Ajuste 2026-04-22:
+ * • scroll-first motion inspirado na física do Drinksom
+ * • smoothProgress via useSpring(MOTION_TOKENS.spring.scrollScrub)
+ * • Ghost acima do manifesto no clímax (z-70 > z-50)
+ * • cursor mantido apenas como parallax secundário no desktop
+ * • ghostIntensity sincroniza a intensidade interna do modelo com o scroll
+ * • reduced motion desativa float procedural e influência do cursor
  */
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Center, useGLTF } from '@react-three/drei';
 import { Suspense, useEffect, useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion, useSpring, useTransform } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
-import { getAssetUrl } from '@/lib/utils';
-import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
-import { cursorX, cursorY } from '@/store/beliefStore';
-import { GHOST_EASE } from '@/config/motion';
 
-// Path validado contra Supabase Storage (Task 1).
+import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
+import {
+  GHOST_EASE_INOUT_SINE,
+  MOTION_TOKENS,
+} from '@/config/motion';
+import { getAssetUrl } from '@/lib/utils';
+import { ghostIntensity, cursorX, cursorY } from '@/store/beliefStore';
+
 const GHOST_GLB_URL = getAssetUrl('site-assets/3d/ghost-v1.glb', {
   isVideo: true,
 });
 
-// Preload fora do render tree para não re-disparar em re-mounts
 useGLTF.preload(GHOST_GLB_URL);
 
-// ─── Tipos ────────────────────────────────────────────────────────────────────
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
   isMobile: boolean;
   prefersReducedMotion: boolean;
 }
 
-// ─── GhostModel ───────────────────────────────────────────────────────────────
+const interpolateProgress = (
+  value: number,
+  input: readonly number[],
+  output: readonly number[]
+) => {
+  if (input.length !== output.length || input.length === 0) return 0;
+  if (value <= input[0]) return output[0];
+
+  for (let index = 1; index < input.length; index += 1) {
+    const start = input[index - 1];
+    const end = input[index];
+
+    if (value <= end) {
+      const progress = (value - start) / (end - start || 1);
+      const from = output[index - 1];
+      const to = output[index];
+      return from + (to - from) * progress;
+    }
+  }
+
+  return output[output.length - 1];
+};
+
+const getGhostPhase = (progress: number) => {
+  if (progress < 0.12) return 'intro' as const;
+  if (progress < 0.72) return 'narrative' as const;
+  if (progress < 0.85) return 'pre-climax' as const;
+  return 'climax' as const;
+};
+
 const GhostModel = ({
   scrollProgress,
   isMobile,
@@ -52,21 +76,22 @@ const GhostModel = ({
 }: GhostModelProps) => {
   const { scene } = useGLTF(GHOST_GLB_URL);
   const groupRef = useRef<Group>(null);
-  const invalidate = useThree((s) => s.invalidate);
+  const invalidate = useThree((state) => state.invalidate);
 
-  // Re-renderiza sob demanda ao mudar o scrollProgress ou o cursor global
   useEffect(() => {
     const unsubScroll = scrollProgress.on('change', () => invalidate());
+    const unsubIntensity = ghostIntensity.on('change', () => invalidate());
     const unsubX = cursorX.on('change', () => invalidate());
     const unsubY = cursorY.on('change', () => invalidate());
+
     return () => {
       unsubScroll();
+      unsubIntensity();
       unsubX();
       unsubY();
     };
-  }, [scrollProgress, invalidate]);
+  }, [invalidate, scrollProgress]);
 
-  // Cleanup de memória ao desmontar (previne WebGL memory leak)
   useEffect(() => {
     return () => {
       scene.traverse((obj: Object3D) => {
@@ -76,7 +101,7 @@ const GhostModel = ({
         };
         mesh.geometry?.dispose();
         if (Array.isArray(mesh.material)) {
-          mesh.material.forEach((m) => m.dispose());
+          mesh.material.forEach((material) => material.dispose());
         } else {
           mesh.material?.dispose();
         }
@@ -87,61 +112,121 @@ const GhostModel = ({
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    const p = scrollProgress.get();
-    const lerpFactor = Math.min(delta * 8, 0.15); // cap para 60fps estáveis
+    const progress = scrollProgress.get();
+    const intensity = ghostIntensity.get();
+    const phase = getGhostPhase(progress);
+    const lerpFactor = Math.min(delta * 8, 0.15);
 
-    // ── Scale ──────────────────────────────────────────────────────────────
-    // Mobile: base 90%, clímax +10%. Desktop: base 95%, clímax +5%.
-    // No clímax (p > 0.85), adicionamos +10% de boost como exigido na Task 5.
-    const baseScale = isMobile ? 0.9 : 0.95;
-    const scaleBoost = p > 0.85 ? 0.1 : 0;
-    const targetScale = baseScale + scaleBoost;
-
-    const currentScale = groupRef.current.scale;
-    currentScale.x += (targetScale - currentScale.x) * lerpFactor;
-    currentScale.y += (targetScale - currentScale.y) * lerpFactor;
-    currentScale.z += (targetScale - currentScale.z) * lerpFactor;
-
-    // ── Posição ────────────────────────────────────────────────────────────
-    const cX = cursorX.get();
-    const cY = cursorY.get();
-
-    // Suaviza a influência do cursor no clímax (p > 0.85) até neutralizar em 0 no final
-    const cursorMultiplier =
-      p > 0.85 ? Math.max(0, 1 - (p - 0.85) * (1 / 0.15)) : 1;
-
-    const targetX =
-      isMobile || prefersReducedMotion
-        ? p > 0.85
-          ? 0
-          : -1.2
-        : cX * cursorMultiplier;
-
-    const baseTargetY =
-      isMobile || prefersReducedMotion
-        ? p > 0.85
-          ? 0
-          : 1.5
-        : cY * cursorMultiplier;
-
-    // ── Intensificação Orientada a Scroll (Task 5) ─────────────────────────
-    const floatSpeed = 0.6 + p * 0.6; // Velocidade aumenta com o scroll
-    const floatAmplitude = 0.036 + p * 0.03; // Amplitude aumenta com o scroll
-
-    const floatY = prefersReducedMotion
+    const cursorWeight = prefersReducedMotion
       ? 0
-      : Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
+      : interpolateProgress(progress, [0, 0.7, 0.85, 1], [0.22, 0.22, 0.08, 0]);
+    const cursorOffsetX = Number.isFinite(cursorX.get())
+      ? cursorX.get() * 0.12 * cursorWeight
+      : 0;
+    const cursorOffsetY = Number.isFinite(cursorY.get())
+      ? cursorY.get() * 0.08 * cursorWeight
+      : 0;
 
-    const currentPosition = groupRef.current.position;
-    currentPosition.x += (targetX - currentPosition.x) * lerpFactor;
-    currentPosition.y +=
-      (baseTargetY + floatY - currentPosition.y) * lerpFactor;
+    const targetScale = prefersReducedMotion
+      ? isMobile
+        ? ({
+            intro: 0.88,
+            narrative: 0.92,
+            'pre-climax': 0.97,
+            climax: 1,
+          } as const)[phase]
+        : ({
+            intro: 0.96,
+            narrative: 0.99,
+            'pre-climax': 1.03,
+            climax: 1.06,
+          } as const)[phase]
+      : isMobile
+        ? interpolateProgress(progress, [0, 0.85, 1], [0.88, 0.96, 1])
+        : interpolateProgress(progress, [0, 0.08, 0.85, 1], [0.96, 1, 1.03, 1.06]);
 
-    // ── Float determinístico (sem Math.random) ─────────────────────────────
-    const rotSpeed = 0.4 + p * 0.4;
-    const rotAmplitude = 0.06 + p * 0.04;
-    groupRef.current.rotation.y =
-      Math.sin(state.clock.elapsedTime * rotSpeed) * rotAmplitude;
+    const scrollTargetX = prefersReducedMotion
+      ? isMobile
+        ? ({
+            intro: -1.2,
+            narrative: -1,
+            'pre-climax': -0.25,
+            climax: 0,
+          } as const)[phase]
+        : 0
+      : isMobile
+        ? interpolateProgress(progress, [0, 0.6, 0.85, 1], [-1.2, -1, -0.25, 0])
+        : 0;
+
+    const scrollTargetY = prefersReducedMotion
+      ? isMobile
+        ? ({
+            intro: 1.5,
+            narrative: 1.35,
+            'pre-climax': 0.35,
+            climax: 0,
+          } as const)[phase]
+        : ({
+            intro: 0.08,
+            narrative: 0.02,
+            'pre-climax': -0.04,
+            climax: 0,
+          } as const)[phase]
+      : isMobile
+        ? interpolateProgress(progress, [0, 0.6, 0.85, 1], [1.5, 1.35, 0.35, 0])
+        : interpolateProgress(progress, [0, 0.6, 0.85, 1], [0.1, 0.02, -0.06, 0]);
+
+    const floatAmplitude = prefersReducedMotion
+      ? 0
+      : interpolateProgress(intensity, [0, 1], [0.018, 0.04]);
+    const floatSpeed = prefersReducedMotion
+      ? 0
+      : interpolateProgress(intensity, [0, 1], [0.55, 0.9]);
+    const floatY =
+      prefersReducedMotion || floatAmplitude === 0
+        ? 0
+        : Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
+
+    const scrollRotationY = prefersReducedMotion
+      ? ({
+          intro: -0.08,
+          narrative: 0.04,
+          'pre-climax': 0.1,
+          climax: 0,
+        } as const)[phase]
+      : interpolateProgress(progress, [0, 0.35, 0.75, 1], [-0.14, 0.02, 0.14, 0]);
+    const scrollRotationX = prefersReducedMotion
+      ? ({
+          intro: 0.06,
+          narrative: 0.04,
+          'pre-climax': 0.02,
+          climax: 0,
+        } as const)[phase]
+      : interpolateProgress(progress, [0, 0.75, 1], [0.08, 0.03, 0]);
+
+    const proceduralYaw = prefersReducedMotion
+      ? 0
+      : Math.sin(state.clock.elapsedTime * (0.45 + intensity * 0.3)) *
+        (0.008 + intensity * 0.012);
+    const proceduralPitch = prefersReducedMotion
+      ? 0
+      : Math.cos(state.clock.elapsedTime * (0.32 + intensity * 0.2)) *
+        (0.004 + intensity * 0.006);
+
+    const targetX = scrollTargetX + (isMobile ? 0 : cursorOffsetX);
+    const targetY = scrollTargetY + (isMobile ? 0 : cursorOffsetY) + floatY;
+
+    groupRef.current.scale.x += (targetScale - groupRef.current.scale.x) * lerpFactor;
+    groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * lerpFactor;
+    groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * lerpFactor;
+
+    groupRef.current.position.x += (targetX - groupRef.current.position.x) * lerpFactor;
+    groupRef.current.position.y += (targetY - groupRef.current.position.y) * lerpFactor;
+    groupRef.current.rotation.y +=
+      (scrollRotationY + proceduralYaw - groupRef.current.rotation.y) * lerpFactor;
+    groupRef.current.rotation.x +=
+      (scrollRotationX + proceduralPitch - groupRef.current.rotation.x) * lerpFactor;
+    groupRef.current.rotation.z += (0 - groupRef.current.rotation.z) * lerpFactor;
   });
 
   return (
@@ -153,7 +238,6 @@ const GhostModel = ({
   );
 };
 
-// ─── GhostScene (Canvas wrapper) ──────────────────────────────────────────────
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
   isMobile?: boolean;
@@ -167,14 +251,45 @@ export const GhostScene = ({
 }: GhostSceneProps) => {
   const resolvedIsMobile = isMobile ?? false;
   const resolvedPrefersReducedMotion = prefersReducedMotion ?? false;
+  const smoothProgress = useSpring(
+    scrollProgress,
+    MOTION_TOKENS.spring.scrollScrub
+  );
+  const opacity = useTransform(
+    smoothProgress,
+    [0, 0.05, 0.95, 1],
+    [0, 1, 1, 0]
+  );
+  const scale = useTransform(
+    smoothProgress,
+    [0, 0.08, 0.85, 1],
+    [0.96, 1, 1.03, 1.02]
+  );
+  const intensity = useTransform(
+    smoothProgress,
+    [0, 0.15, 0.8, 1],
+    [0, 0.35, 0.75, 1]
+  );
+
+  useEffect(() => {
+    const unsubscribe = intensity.on('change', (value) => {
+      ghostIntensity.set(value);
+    });
+
+    return () => {
+      unsubscribe();
+      ghostIntensity.set(0);
+    };
+  }, [intensity]);
+
   return (
     <motion.div
+      data-testid="beliefs-ghost-scene"
       className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
       aria-hidden="true"
       role="presentation"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.2, ease: GHOST_EASE }}
+      style={{ opacity, scale }}
+      transition={{ duration: 0.2, ease: GHOST_EASE_INOUT_SINE }}
     >
       <GhostErrorBoundary>
         <Canvas
@@ -193,7 +308,7 @@ export const GhostScene = ({
           <pointLight position={[0, 2, 3]} color="#4fe6ff" intensity={0.4} />
           <Suspense fallback={null}>
             <GhostModel
-              scrollProgress={scrollProgress}
+              scrollProgress={smoothProgress}
               isMobile={resolvedIsMobile}
               prefersReducedMotion={resolvedPrefersReducedMotion}
             />

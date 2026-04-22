@@ -1,3 +1,4 @@
+import { inView } from 'motion';
 import { useEffect } from 'react';
 import { GHOST_EASE } from '@/config/motion';
 

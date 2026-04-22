@@ -38,9 +38,9 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 | 0      | Background      | `z-0`   | Troca de cor por seção visível |
 | 1      | Overlay         | `z-10`  | Suavização visual da transição |
 | 2      | Header fixo     | `z-30`  | Mensagem editorial de apoio    |
-| 3      | Ghost 3D        | `z-30`  | Elemento central da narrativa  |
+| 3      | Ghost 3D        | `z-70`  | Elemento central da narrativa  |
 | 4      | Texto rotativo  | `z-40`  | Frases por scroll-section      |
-| 5      | Manifesto final | `z-50`  | Clímax acima do Ghost          |
+| 5      | Manifesto final | `z-50`  | Clímax tipográfico sob o Ghost |
 
 ## Regras de animação (estado atual)
 
@@ -65,10 +65,17 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 
 ### Ghost 3D
 
-- `GhostScene` fixo com `Canvas frameloop="demand"`.
-- Desktop: parallax de cursor sutil.
+- `GhostScene` usa `Canvas frameloop="demand"` com wrapper sticky e motion scroll-first.
+- Desktop: `scrollProgress` suavizado por spring orienta pose, yaw, pitch e intensidade; o cursor atua apenas como parallax secundário.
 - Mobile: começa topo-esquerda e converge para centro no clímax.
-- Manifesto final permanece acima do Ghost por regra de camada.
+- O Ghost permanece visualmente acima do manifesto no clímax por regra de camada (`z-70` sobre `z-50`), sobrepondo a palavra `GHOST` como nas imagens finais.
+- A intensidade interna do Ghost é sincronizada pelo bridge `ghostIntensity`, alimentado pelo `scrollProgress` suavizado da seção.
+
+### Referência Drinksom — extração aplicável
+
+- A referência `drinksom.eu` não usa GSAP nem ScrollTrigger para essa linguagem de motion.
+- A referência não possui cursor customizado relevante; o cursor visual da seção 06 é uma assinatura local do portfolio, não uma adaptação direta da referência.
+- A física extraída vem de `scroll smoothing` + canvas R3F pinned/fixed overlay + micro drift scroll-linked.
 
 ## Sequência visual esperada
 
@@ -78,14 +85,14 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 2. Frase ativa à esquerda.
 3. Ghost central editorial.
 4. Troca de cor sincronizada com frase visível.
-5. Clímax: manifesto final domina leitura e Ghost permanece como elemento central.
+5. Clímax: manifesto final domina leitura tipográfica e o Ghost sobrepõe a palavra `GHOST`.
 
 ### Mobile
 
 1. Header no topo visual.
 2. Ghost em abertura topo-esquerda.
 3. Frases com leitura no terço inferior.
-4. Clímax final com manifesto dominante e Ghost centralizado.
+4. Clímax final com manifesto dominante e Ghost centralizado acima da tipografia.
 
 ## Frases oficiais
 
@@ -140,7 +147,22 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 - O texto deixou de entrar no eixo `y` como reveal atmosférico e passou a entrar lateralmente no eixo `x`, com blur mais curto e leitura mais editorial.
 - O easing principal de entrada foi mantido em `0.9s` com `[0.17, 0.55, 0.55, 1]`, preservando o perfil da referência Motion.
 
+## Ajuste do Ghost (2026-04-22)
+
+### Mudança implementada
+
+- O Ghost da seção 06 passou para uma coreografia `scroll-first`, com `scrollProgress` suavizado por spring (`stiffness 100`, `damping 25`, `restDelta 0.001`) antes de entrar na cena.
+- O wrapper do canvas agora responde ao scroll com fade curto e scale sutil, aproximando o comportamento do overlay R3F observado no Drinksom.
+- O cursor foi mantido apenas como influência secundária no desktop, com peso reduzido ao longo da narrativa e neutralização total no clímax.
+- Em `prefers-reduced-motion`, o Ghost preserva poses estáveis por fase sem float procedural nem influência do cursor.
+
 ### Resultado esperado
+
+- Ghost guiado prioritariamente pela progressão da narrativa, não pelo mouse;
+- clímax coerente com as imagens canônicas, com o modelo centralizado sobre a palavra `GHOST`;
+- compatibilidade preservada com a stack atual Motion + R3F + Tailwind.
+
+### Impacto geral
 
 - sensação mais próxima de bloco scroll-triggered editorial;
 - melhor acoplamento entre cor de fundo e frase ativa;

@@ -201,6 +201,12 @@ const { scrollYProgress } = useScroll({
 - `useReducedMotion()` nativo do Motion (não hook custom)
 - `isMobile` via `matchMedia('(max-width: 767px)')` com listener
 
+## 🧭 Referência Drinksom (leitura validada)
+
+- A referência `https://www.drinksom.eu` não fornece cursor customizado relevante para reaproveitamento.
+- A física aproveitável vem de scroll suavizado, micro drift editorial e canvas R3F pinned/fixed.
+- O plano implementado para a seção 06 mantém o cursor do portfolio apenas como assinatura local sutil e prioriza o Ghost como animação `scroll-first`.
+
 ---
 
 ## 📐 Layout (corrigido — 3 colunas visuais)

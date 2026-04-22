@@ -4,9 +4,10 @@
  * BeliefManifesto — Layer 4 (z-50).
  * Texto final "ISSO É GHOST DESIGN." — clímax da seção.
  *
- * CRÍTICO: z-50 aqui é INTENCIONAL e CORRETO.
- * O GhostCanvas está em z-30. No clímax (scroll > 0.82), o manifesto
- * precisa aparecer ACIMA do Ghost — daí o z-50 exclusivo desta camada.
+ * CRÍTICO: z-50 aqui é INTENCIONAL.
+ * O manifesto ocupa o plano tipográfico do clímax, enquanto o Ghost da seção
+ * permanece visualmente acima em z-70 para sobrepor a palavra "GHOST", como
+ * nas imagens canônicas da seção 06.
  *
  * • Reveal entre scrollProgress 0.82 → 0.90
  * • translateY: 18px → 0 (máximo do GDS)
@@ -55,6 +56,7 @@ export const BeliefManifesto = ({
 
   return (
     <motion.div
+      data-testid="beliefs-manifesto"
       className="fixed inset-0 z-50 w-full
                  flex items-center justify-center
                  pointer-events-none"
