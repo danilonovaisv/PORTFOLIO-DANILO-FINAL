@@ -29,6 +29,7 @@ import { BeliefOverlay } from '@/components/sobre/beliefs/BeliefOverlay';
 import { BeliefFixedHeader } from '@/components/sobre/beliefs/BeliefFixedHeader';
 import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
 import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
+import { CustomCursor } from '@/components/sobre/beliefs/CustomCursor';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 
 // SSR guard: R3F + hooks de scroll não devem executar no servidor.
@@ -69,16 +70,18 @@ export const AboutBeliefs = () => {
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
+      <CustomCursor isMobile={isMobile} prefersReducedMotion={prefersReducedMotion} />
+
       {/* ── z-0: Fundo com transição de cores via inView ── */}
       <BeliefBackground />
 
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
-      <BeliefOverlay scrollProgress={scrollYProgress} />
+      <BeliefOverlay />
 
       {/* ── z-30: Header sticky (direita, desktop) ── */}
       <BeliefFixedHeader />
 
-      {/* ── z-30: Ghost 3D (fixed, R3F, SSR-safe) ── */}
+      {/* ── z-70: Ghost 3D (fixed, R3F, SSR-safe) ── */}
       <GhostScene
         scrollProgress={scrollYProgress}
         isMobile={isMobile}

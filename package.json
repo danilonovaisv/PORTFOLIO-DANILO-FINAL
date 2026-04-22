@@ -183,7 +183,7 @@
     "firebase-tools": "^15.15.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
-    "knip": "^6.6.0",
+    "knip": "^6.6.1",
     "pg": "^8.20.0",
     "postcss": "^8.5.10",
     "prettier": "^3.8.3",

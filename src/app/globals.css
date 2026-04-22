@@ -97,6 +97,26 @@
   --font-micro: 0.75rem;
   /* 12px */
 
+  /* Stacking Context / Layer Governance (Ghost DS §1.3 v3.2) */
+  --z-layer-base: 0;
+  --z-layer-glass: 10;
+  --z-layer-content: 20;
+  --z-layer-3d: 30;
+  --z-layer-cta: 40;
+  --z-layer-overlay: 50;
+  --z-layer-header: 55;
+  --z-layer-mobile-text: 60;
+  --z-layer-debug-low: 65;
+  --z-layer-lightbox: 70;
+  --z-layer-mobile-header: 80;
+  --z-layer-mobile-pre: 85;
+  --z-layer-mobile-menu: 90;
+  --z-layer-modal-scrim: 95;
+  --z-layer-modal: 100;
+  --z-layer-modal-close: 105;
+  --z-layer-cursor: 110;
+  --z-layer-debug-top: 9999;
+
   /* Espaçamento Global */
   --container-padding: clamp(24px, 5vw, 96px);
 

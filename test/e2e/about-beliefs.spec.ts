@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 
-const BELIEFS_URL = 'http://localhost:3000/sobre';
+const BELIEFS_URL = '/sobre';
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 const scrollToProgress = async (page: Page, progress: number) => {

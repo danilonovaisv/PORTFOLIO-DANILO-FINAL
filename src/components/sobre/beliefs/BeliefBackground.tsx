@@ -11,16 +11,19 @@ const COLOR_STOPS = [
   '#0048ff', // bluePrimary — frase 4
   '#8705f2', // purpleDetails — frase 5
   '#f501d3', // pinkDetails — frase 6
-  '#040013', // Deep Void — clímax/saída
+  '#0048ff', // bluePrimary — clímax/saída
 ] as const;
 
 export const BeliefBackground = () => {
   const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Detect elements with the class 'scroll-section' entering the viewport
-    const stop = inView('.scroll-section', (element) => {
-      const indexAttr = element.getAttribute('data-index');
+    // Sincroniza com a entrada do parágrafo de texto (.scroll-section p)
+    const stop = inView('.scroll-section p', (element) => {
+      const section = element.closest('.scroll-section');
+      if (!section) return;
+
+      const indexAttr = section.getAttribute('data-index');
       if (indexAttr === null) return;
 
       const index = parseInt(indexAttr, 10);
@@ -31,6 +34,16 @@ export const BeliefBackground = () => {
           bgRef.current,
           { backgroundColor: targetColor },
           { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+        );
+      }
+
+      // Dispara animação anti-banding no overlay
+      const overlay = document.getElementById('belief-overlay');
+      if (overlay) {
+        animate(
+          overlay,
+          { opacity: [0, 0.1, 0] },
+          { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
         );
       }
     });

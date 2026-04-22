@@ -3,8 +3,10 @@
 /**
  * GhostScene — Canvas R3F da Seção 06 "O Que Me Move".
  *
- * CORREÇÕES v2 (2026-04-16):
- * • z-30 (NÃO z-50) — ManifestoFinal em z-50 deve ficar acima do Ghost no clímax.
+ * CORREÇÕES v3:
+ * • z-70 (NÃO z-50) — GhostScene z-70 > Manifesto z-50 (Ghost permanece ACIMA do Manifesto).
+ * • Cursor Parallax consumido globalmente via beliefStore (CustomCursor).
+ * • Neutralização da influência do cursor durante o clímax (p > 0.85).
  * • position: fixed + inset-0 — modelo permanece centralizado durante scroll.
  * • frameloop="demand" + invalidate via scrollProgress.on('change') — 0 frames
  *   desperdiçados quando a seção não está ativa.
@@ -12,7 +14,6 @@
  * • Lerp determinístico no useFrame (sem Math.random, sem stutter acumulado).
  * • Cleanup: scene.traverse → dispose geometry + material ao desmontar.
  * • Mobile: posição topo-esquerda (x: -1.2, y: 1.5) → centro no clímax final.
- * • Desktop: cursor parallax ±15px reduzido — caráter editorial preservado.
  *
  * Fonte: R3F docs — frameloop demand, disposal, useFrame best practices.
  */
@@ -25,6 +26,7 @@ import type { MotionValue } from 'motion/react';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
+import { cursorX, cursorY } from '@/store/beliefStore';
 
 // Path validado contra Supabase Storage (Task 1).
 const GHOST_GLB_URL = getAssetUrl('site-assets/3d/ghost-v1.glb', {
@@ -49,29 +51,19 @@ const GhostModel = ({
 }: GhostModelProps) => {
   const { scene } = useGLTF(GHOST_GLB_URL);
   const groupRef = useRef<Group>(null);
-  const cursorRef = useRef({ x: 0, y: 0 });
   const invalidate = useThree((s) => s.invalidate);
 
-  // Re-renderiza sob demanda ao mudar o scrollProgress
+  // Re-renderiza sob demanda ao mudar o scrollProgress ou o cursor global
   useEffect(() => {
-    const unsub = scrollProgress.on('change', () => invalidate());
-    return () => unsub();
-  }, [scrollProgress, invalidate]);
-
-  // Cursor parallax — desktop only
-  useEffect(() => {
-    if (isMobile || prefersReducedMotion) return;
-
-    const handler = (e: MouseEvent) => {
-      // Normalizado -1 → 1, amplitude máx ±0.4 (reduzido para editorial)
-      cursorRef.current.x = ((e.clientX / window.innerWidth) * 2 - 1) * 0.4;
-      cursorRef.current.y = -((e.clientY / window.innerHeight) * 2 - 1) * 0.4;
-      invalidate();
+    const unsubScroll = scrollProgress.on('change', () => invalidate());
+    const unsubX = cursorX.on('change', () => invalidate());
+    const unsubY = cursorY.on('change', () => invalidate());
+    return () => {
+      unsubScroll();
+      unsubX();
+      unsubY();
     };
-
-    window.addEventListener('mousemove', handler, { passive: true });
-    return () => window.removeEventListener('mousemove', handler);
-  }, [invalidate, isMobile, prefersReducedMotion]);
+  }, [scrollProgress, invalidate]);
 
   // Cleanup de memória ao desmontar (previne WebGL memory leak)
   useEffect(() => {
@@ -110,19 +102,25 @@ const GhostModel = ({
     currentScale.z += (targetScale - currentScale.z) * lerpFactor;
 
     // ── Posição ────────────────────────────────────────────────────────────
+    const cX = cursorX.get();
+    const cY = cursorY.get();
+
+    // Suaviza a influência do cursor no clímax (p > 0.85) até neutralizar em 0 no final
+    const cursorMultiplier = p > 0.85 ? Math.max(0, 1 - (p - 0.85) * (1 / 0.15)) : 1;
+
     const targetX =
       isMobile || prefersReducedMotion
         ? p > 0.85
           ? 0
           : -1.2
-        : cursorRef.current.x;
+        : cX * cursorMultiplier;
 
     const baseTargetY =
       isMobile || prefersReducedMotion
         ? p > 0.85
           ? 0
           : 1.5
-        : cursorRef.current.y;
+        : cY * cursorMultiplier;
 
     // ── Intensificação Orientada a Scroll (Task 5) ─────────────────────────
     const floatSpeed = 0.6 + p * 0.6; // Velocidade aumenta com o scroll
