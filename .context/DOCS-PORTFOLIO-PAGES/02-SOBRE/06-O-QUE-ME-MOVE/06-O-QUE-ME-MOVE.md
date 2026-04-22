@@ -47,14 +47,15 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 ### Texto rotativo
 
 - `BeliefScrollText` usa `inView('.scroll-section p')`.
-- Entrada: `opacity 0→1`, `y 18→0`, `blur 6→0`.
-- Saída no cleanup: `opacity 1→0`, `y 0→-18`, `blur 0→6`.
+- Entrada: `opacity 0→1`, `x -72→0` desktop / `x -36→0` mobile, `blur 4→0`.
+- Saída no cleanup: `opacity 1→0`, `x 0→-48` desktop / `x 0→-24` mobile, `blur 0→4`.
 - Estado inicial explícito no `<p>` para evitar flash antes do trigger.
 
 ### Background
 
 - `BeliefBackground` usa `inView('.scroll-section')`.
 - A cor alvo é mapeada por `data-index` da seção.
+- O trigger foi movido do `<p>` para o bloco `.scroll-section` para antecipar a respiração do fundo antes do pico de leitura da frase.
 - Sequência base:
   - `#040013` (intro)
   - `#0048ff`
@@ -125,6 +126,25 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 1. Escalar manifesto final para ocupar mais viewport no clímax.
 2. Ajustar direção de arte do manifesto final para branco integral no frame final.
 3. Travar estado azul no trecho final para maior paridade com referência.
+
+## Ajuste de motion (2026-04-22)
+
+### Referência aplicada
+
+- Demo oficial Motion `scroll-triggered`
+- tutorial `inView + animate` como base de timing e cleanup
+
+### Mudança implementada
+
+- O background passou a reagir à entrada da `.scroll-section`, não apenas ao `<p>`, o que antecipa a troca cromática e deixa a narrativa mais contínua.
+- O texto deixou de entrar no eixo `y` como reveal atmosférico e passou a entrar lateralmente no eixo `x`, com blur mais curto e leitura mais editorial.
+- O easing principal de entrada foi mantido em `0.9s` com `[0.17, 0.55, 0.55, 1]`, preservando o perfil da referência Motion.
+
+### Resultado esperado
+
+- sensação mais próxima de bloco scroll-triggered editorial;
+- melhor acoplamento entre cor de fundo e frase ativa;
+- desktop e mobile seguindo a mesma lógica cinética com amplitudes diferentes.
 
 ## Validação recomendada
 

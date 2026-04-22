@@ -18,11 +18,9 @@ export const BeliefBackground = () => {
   const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Sincroniza com a entrada do parágrafo de texto (.scroll-section p)
-    const stop = inView('.scroll-section p', (element) => {
-      const section = element.closest('.scroll-section');
-      if (!section) return;
-
+    // Observa o bloco narrativo inteiro para antecipar a respiração do fundo
+    // antes do texto atingir o pico de leitura.
+    const stop = inView('.scroll-section', (section) => {
       const indexAttr = section.getAttribute('data-index');
       if (indexAttr === null) return;
 

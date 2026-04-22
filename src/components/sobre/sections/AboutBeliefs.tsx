@@ -4,10 +4,10 @@
  * AboutBeliefs — Orquestrador da Seção 06 "O Que Me Move".
  *
  * Stack de camadas (Ghost Design System — imutável até revisão do MKM):
- *   z-0  → BeliefBackground  (HSL via useTransform — scroll-driven)
+ *   z-0  → BeliefBackground  (troca de cor por bloco via inView + animate)
  *   z-10 → BeliefOverlay     (cross-fade anti-banding OLED)
  *   z-30 → BeliefFixedHeader (sticky, slide-in da direita)
- *   z-40 → BeliefScrollText  (frases rotatórias, desktop+mobile)
+ *   z-40 → BeliefScrollText  (frases rotatórias, reveal lateral desktop+mobile)
  *   z-50 → BeliefManifesto   (clímax final — scroll out)
  *   z-70 → GhostScene        (sticky, R3F frameloop="demand" - no topo absoluto)
  *

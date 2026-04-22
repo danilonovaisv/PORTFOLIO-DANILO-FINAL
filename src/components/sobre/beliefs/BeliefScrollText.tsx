@@ -17,24 +17,35 @@ export const BeliefScrollText = ({
   useEffect(() => {
     if (prefersReducedMotion) return;
 
+    const enterDistance = isMobile ? 36 : 72;
+    const exitDistance = isMobile ? 24 : 48;
+
     const stop = inView('.scroll-section p', (element) => {
       animate(
         element,
-        { opacity: 1, y: [18, 0], filter: ['blur(6px)', 'blur(0px)'] },
+        {
+          opacity: 1,
+          x: [-enterDistance, 0],
+          filter: ['blur(4px)', 'blur(0px)'],
+        },
         { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
       );
 
       return () => {
         animate(
           element,
-          { opacity: 0, y: -18, filter: ['blur(0px)', 'blur(6px)'] },
+          {
+            opacity: 0,
+            x: -exitDistance,
+            filter: ['blur(0px)', 'blur(4px)'],
+          },
           { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
         );
       };
     });
 
     return () => stop();
-  }, [prefersReducedMotion]);
+  }, [isMobile, prefersReducedMotion]);
 
   return (
     <div className="relative w-full z-40" aria-label={phrases.join(' ')}>
@@ -59,6 +70,9 @@ export const BeliefScrollText = ({
                 ? 'clamp(2rem, 8vw, 3rem)'
                 : 'clamp(2.8rem, 5.8vw, 6.3rem)',
               opacity: prefersReducedMotion ? 1 : 0,
+              willChange: prefersReducedMotion
+                ? undefined
+                : 'transform, opacity, filter',
             }}
             aria-hidden="true"
           >
