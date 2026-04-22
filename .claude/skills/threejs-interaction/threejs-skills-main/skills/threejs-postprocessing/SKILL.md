@@ -8,10 +8,10 @@ description: Three.js post-processing - EffectComposer, bloom, DOF, screen effec
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 // Setup composer
 const composer = new EffectComposer(renderer);
@@ -25,7 +25,7 @@ const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
   1.5, // strength
   0.4, // radius
-  0.85, // threshold
+  0.85 // threshold
 );
 composer.addPass(bloomPass);
 
@@ -39,8 +39,8 @@ function animate() {
 ## EffectComposer Setup
 
 ```javascript
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 
 const composer = new EffectComposer(renderer);
 
@@ -72,13 +72,13 @@ function onResize() {
 ### Bloom (Glow)
 
 ```javascript
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
   1.5, // strength - intensity of glow
   0.4, // radius - spread of glow
-  0.85, // threshold - brightness threshold
+  0.85 // threshold - brightness threshold
 );
 
 composer.addPass(bloomPass);
@@ -94,8 +94,8 @@ bloomPass.radius = 0.8;
 Apply bloom only to specific objects.
 
 ```javascript
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 // Layer setup
 const BLOOM_LAYER = 1;
@@ -138,22 +138,22 @@ function render() {
 ### FXAA (Anti-Aliasing)
 
 ```javascript
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import { FXAAShader } from "three/addons/shaders/FXAAShader.js";
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
 
 const fxaaPass = new ShaderPass(FXAAShader);
-fxaaPass.material.uniforms["resolution"].value.set(
+fxaaPass.material.uniforms['resolution'].value.set(
   1 / window.innerWidth,
-  1 / window.innerHeight,
+  1 / window.innerHeight
 );
 
 composer.addPass(fxaaPass);
 
 // Update on resize
 function onResize() {
-  fxaaPass.material.uniforms["resolution"].value.set(
+  fxaaPass.material.uniforms['resolution'].value.set(
     1 / window.innerWidth,
-    1 / window.innerHeight,
+    1 / window.innerHeight
   );
 }
 ```
@@ -161,11 +161,11 @@ function onResize() {
 ### SMAA (Better Anti-Aliasing)
 
 ```javascript
-import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js";
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 
 const smaaPass = new SMAAPass(
   window.innerWidth * renderer.getPixelRatio(),
-  window.innerHeight * renderer.getPixelRatio(),
+  window.innerHeight * renderer.getPixelRatio()
 );
 
 composer.addPass(smaaPass);
@@ -174,13 +174,13 @@ composer.addPass(smaaPass);
 ### SSAO (Ambient Occlusion)
 
 ```javascript
-import { SSAOPass } from "three/addons/postprocessing/SSAOPass.js";
+import { SSAOPass } from 'three/addons/postprocessing/SSAOPass.js';
 
 const ssaoPass = new SSAOPass(
   scene,
   camera,
   window.innerWidth,
-  window.innerHeight,
+  window.innerHeight
 );
 ssaoPass.kernelRadius = 16;
 ssaoPass.minDistance = 0.005;
@@ -200,7 +200,7 @@ ssaoPass.output = SSAOPass.OUTPUT.Default;
 ### Depth of Field (DOF)
 
 ```javascript
-import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
 
 const bokehPass = new BokehPass(scene, camera, {
   focus: 10.0, // Focus distance
@@ -211,19 +211,19 @@ const bokehPass = new BokehPass(scene, camera, {
 composer.addPass(bokehPass);
 
 // Update focus dynamically
-bokehPass.uniforms["focus"].value = distanceToTarget;
+bokehPass.uniforms['focus'].value = distanceToTarget;
 ```
 
 ### Film Grain
 
 ```javascript
-import { FilmPass } from "three/addons/postprocessing/FilmPass.js";
+import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
 
 const filmPass = new FilmPass(
   0.35, // noise intensity
   0.5, // scanline intensity
   648, // scanline count
-  false, // grayscale
+  false // grayscale
 );
 
 composer.addPass(filmPass);
@@ -232,12 +232,12 @@ composer.addPass(filmPass);
 ### Vignette
 
 ```javascript
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import { VignetteShader } from "three/addons/shaders/VignetteShader.js";
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { VignetteShader } from 'three/addons/shaders/VignetteShader.js';
 
 const vignettePass = new ShaderPass(VignetteShader);
-vignettePass.uniforms["offset"].value = 1.0; // Vignette size
-vignettePass.uniforms["darkness"].value = 1.0; // Vignette intensity
+vignettePass.uniforms['offset'].value = 1.0; // Vignette size
+vignettePass.uniforms['darkness'].value = 1.0; // Vignette intensity
 
 composer.addPass(vignettePass);
 ```
@@ -245,12 +245,12 @@ composer.addPass(vignettePass);
 ### Color Correction
 
 ```javascript
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import { ColorCorrectionShader } from "three/addons/shaders/ColorCorrectionShader.js";
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { ColorCorrectionShader } from 'three/addons/shaders/ColorCorrectionShader.js';
 
 const colorPass = new ShaderPass(ColorCorrectionShader);
-colorPass.uniforms["powRGB"].value = new THREE.Vector3(1.2, 1.2, 1.2); // Power
-colorPass.uniforms["mulRGB"].value = new THREE.Vector3(1.0, 1.0, 1.0); // Multiply
+colorPass.uniforms['powRGB'].value = new THREE.Vector3(1.2, 1.2, 1.2); // Power
+colorPass.uniforms['mulRGB'].value = new THREE.Vector3(1.0, 1.0, 1.0); // Multiply
 
 composer.addPass(colorPass);
 ```
@@ -258,7 +258,7 @@ composer.addPass(colorPass);
 ### Gamma Correction
 
 ```javascript
-import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader.js";
+import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js';
 
 const gammaPass = new ShaderPass(GammaCorrectionShader);
 composer.addPass(gammaPass);
@@ -267,7 +267,7 @@ composer.addPass(gammaPass);
 ### Pixelation
 
 ```javascript
-import { RenderPixelatedPass } from "three/addons/postprocessing/RenderPixelatedPass.js";
+import { RenderPixelatedPass } from 'three/addons/postprocessing/RenderPixelatedPass.js';
 
 const pixelPass = new RenderPixelatedPass(6, scene, camera); // 6 = pixel size
 
@@ -277,7 +277,7 @@ composer.addPass(pixelPass);
 ### Glitch Effect
 
 ```javascript
-import { GlitchPass } from "three/addons/postprocessing/GlitchPass.js";
+import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
 
 const glitchPass = new GlitchPass();
 glitchPass.goWild = false; // Continuous glitching
@@ -288,7 +288,7 @@ composer.addPass(glitchPass);
 ### Halftone
 
 ```javascript
-import { HalftonePass } from "three/addons/postprocessing/HalftonePass.js";
+import { HalftonePass } from 'three/addons/postprocessing/HalftonePass.js';
 
 const halftonePass = new HalftonePass(window.innerWidth, window.innerHeight, {
   shape: 1, // 1 = dot, 2 = ellipse, 3 = line, 4 = square
@@ -308,12 +308,12 @@ composer.addPass(halftonePass);
 ### Outline
 
 ```javascript
-import { OutlinePass } from "three/addons/postprocessing/OutlinePass.js";
+import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 
 const outlinePass = new OutlinePass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
   scene,
-  camera,
+  camera
 );
 
 outlinePass.edgeStrength = 3;
@@ -334,7 +334,7 @@ composer.addPass(outlinePass);
 Create your own post-processing effects.
 
 ```javascript
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 const CustomShader = {
   uniforms: {
@@ -438,13 +438,13 @@ const ChromaticAberrationShader = {
 ## Combining Multiple Effects
 
 ```javascript
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import { FXAAShader } from "three/addons/shaders/FXAAShader.js";
-import { VignetteShader } from "three/addons/shaders/VignetteShader.js";
-import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader.js";
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
+import { VignetteShader } from 'three/addons/shaders/VignetteShader.js';
+import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js';
 
 const composer = new EffectComposer(renderer);
 
@@ -456,14 +456,14 @@ const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
   0.5,
   0.4,
-  0.85,
+  0.85
 );
 composer.addPass(bloomPass);
 
 // 3. Vignette
 const vignettePass = new ShaderPass(VignetteShader);
-vignettePass.uniforms["offset"].value = 0.95;
-vignettePass.uniforms["darkness"].value = 1.0;
+vignettePass.uniforms['offset'].value = 0.95;
+vignettePass.uniforms['darkness'].value = 1.0;
 composer.addPass(vignettePass);
 
 // 4. Gamma correction
@@ -471,9 +471,9 @@ composer.addPass(new ShaderPass(GammaCorrectionShader));
 
 // 5. Anti-aliasing (always last before output)
 const fxaaPass = new ShaderPass(FXAAShader);
-fxaaPass.uniforms["resolution"].value.set(
+fxaaPass.uniforms['resolution'].value.set(
   1 / window.innerWidth,
-  1 / window.innerHeight,
+  1 / window.innerHeight
 );
 composer.addPass(fxaaPass);
 ```
@@ -522,8 +522,8 @@ function animate() {
 ## WebGPU Post-Processing (Three.js r150+)
 
 ```javascript
-import { postProcessing } from "three/addons/nodes/Nodes.js";
-import { pass, bloom, dof } from "three/addons/nodes/Nodes.js";
+import { postProcessing } from 'three/addons/nodes/Nodes.js';
+import { pass, bloom, dof } from 'three/addons/nodes/Nodes.js';
 
 // Using node-based system
 const scenePass = pass(scene, camera);
@@ -555,7 +555,7 @@ const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2),
   strength,
   radius,
-  threshold,
+  threshold
 );
 
 // Only apply effects in high-performance scenarios
@@ -581,9 +581,9 @@ function onWindowResize() {
 
   // Update pass-specific resolutions
   if (fxaaPass) {
-    fxaaPass.material.uniforms["resolution"].value.set(
+    fxaaPass.material.uniforms['resolution'].value.set(
       1 / (width * pixelRatio),
-      1 / (height * pixelRatio),
+      1 / (height * pixelRatio)
     );
   }
 
@@ -592,7 +592,7 @@ function onWindowResize() {
   }
 }
 
-window.addEventListener("resize", onWindowResize);
+window.addEventListener('resize', onWindowResize);
 ```
 
 ## See Also

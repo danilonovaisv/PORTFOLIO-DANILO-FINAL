@@ -72,7 +72,12 @@ export default function SplineBackground({
   return (
     <div
       className={className}
-      style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
     >
       {/* Fallback layer — always rendered underneath */}
       <div
@@ -115,9 +120,7 @@ export default function SplineBackground({
 
       {/* Content sits on top of everything */}
       {children && (
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {children}
-        </div>
+        <div style={{ position: 'relative', zIndex: 1 }}>{children}</div>
       )}
     </div>
   );

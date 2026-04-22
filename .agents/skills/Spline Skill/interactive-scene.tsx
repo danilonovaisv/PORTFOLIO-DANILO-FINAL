@@ -37,7 +37,10 @@ export default function InteractiveScene() {
     if (!splineApp.current) return;
 
     const obj = splineApp.current.findObjectByName('Cube');
-    if (!obj) return console.warn('Object "Cube" not found — check the name in Spline editor');
+    if (!obj)
+      return console.warn(
+        'Object "Cube" not found — check the name in Spline editor'
+      );
 
     obj.position.x += 50; // move right
   }, []);
@@ -91,7 +94,6 @@ export default function InteractiveScene() {
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-
       {/* Spline scene */}
       <Spline
         scene={SCENE_URL}
@@ -109,21 +111,23 @@ export default function InteractiveScene() {
 
       {/* Control panel — sits on top of the scene */}
       {isLoaded && (
-        <div style={{
-          position: 'absolute',
-          bottom: 40,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-          display: 'flex',
-          gap: 12,
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          background: 'rgba(0,0,0,0.6)',
-          padding: '16px 24px',
-          borderRadius: 12,
-          backdropFilter: 'blur(8px)',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 40,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10,
+            display: 'flex',
+            gap: 12,
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.6)',
+            padding: '16px 24px',
+            borderRadius: 12,
+            backdropFilter: 'blur(8px)',
+          }}
+        >
           <button onClick={moveObject}>Move Right</button>
           <button onClick={rotateObject}>Rotate 90°</button>
           <button onClick={() => scaleObject(2)}>Scale Up</button>
@@ -136,36 +140,40 @@ export default function InteractiveScene() {
 
       {/* Event log */}
       {lastEvent && (
-        <div style={{
-          position: 'absolute',
-          top: 20,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-          color: 'white',
-          background: 'rgba(0,0,0,0.5)',
-          padding: '8px 16px',
-          borderRadius: 8,
-          fontSize: 14,
-          fontFamily: 'monospace',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10,
+            color: 'white',
+            background: 'rgba(0,0,0,0.5)',
+            padding: '8px 16px',
+            borderRadius: 8,
+            fontSize: 14,
+            fontFamily: 'monospace',
+          }}
+        >
           {lastEvent}
         </div>
       )}
 
       {/* Loading state */}
       {!isLoaded && (
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontSize: 18,
-          zIndex: 10,
-          background: '#0a0a0a',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontSize: 18,
+            zIndex: 10,
+            background: '#0a0a0a',
+          }}
+        >
           Loading scene...
         </div>
       )}

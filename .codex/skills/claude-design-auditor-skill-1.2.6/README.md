@@ -17,7 +17,7 @@ Drop in a Figma link, paste your CSS, upload a screenshot, or share a wireframe 
 - A separate **Ethics Score** (dark patterns and manipulative design across Cat 18)
 - A **🚫 Blocker tier** for legal/compliance violations (WCAG AA, GDPR, PECR) — separate from Critical issues
 - Issues ranked by severity (🚫 Blocker / 🔴 Critical / 🟡 Warning / 🟢 Tip)
-- **Plain-language explanations** of *why* each rule matters
+- **Plain-language explanations** of _why_ each rule matters
 - An **Issue Priority Matrix** — every issue plotted by effort vs. impact
 - Before/after code diffs when fixing issues in HTML/CSS/React/Vue
 - Direct fixes in your **Figma file** via Figma MCP
@@ -31,26 +31,26 @@ Drop in a Figma link, paste your CSS, upload a screenshot, or share a wireframe 
 
 ## The 18 Audit Categories
 
-| # | Category | What It Checks |
-|---|---|---|
-| 1 | **Typography** | Hierarchy, font count, size, line height, contrast |
-| 2 | **Color & Contrast** | WCAG ratios, semantic color use, palette consistency |
-| 3 | **Spacing & Layout** | 8-point grid, proximity, alignment, whitespace |
-| 4 | **Visual Hierarchy** | Primary action clarity, reading patterns, size/contrast mapping |
-| 5 | **Consistency** | Component reuse, icon families, corner radius, interaction states |
-| 6 | **Accessibility (A11y / WCAG)** | Touch targets, focus states, alt text, form labels, reading order |
-| 7 | **Forms & Inputs** | Labels, sizing, validation timing, error placement, submit states |
-| 8 | **Motion & Animation** | Purpose, duration, easing, reduced-motion support |
-| 9 | **Dark Mode** | Not just inverted, surface elevation, saturation, icon legibility |
-| 10 | **Responsive & Adaptive** | Breakpoints, overflow, touch targets, type scaling |
-| 11 | **Loading, Empty & Error States** | Skeletons, empty state anatomy, error levels, success confirmation |
-| 12 | **Content & Microcopy** | Button labels, error messages, tone consistency, terminology |
-| 13 | **Internationalization & RTL** | Text expansion, RTL mirroring, locale-aware formatting, font support |
-| 14 | **Elevation & Shadows** | Shadow scale, elevation hierarchy, dark mode depth |
-| 15 | **Iconography** | Icon families, optical sizing, touch targets, meaning consistency |
-| 16 | **Navigation Patterns** | Tabs, breadcrumbs, back buttons, mobile nav, active states |
-| 17 | **Design Tokens & Variables** | Semantic naming, hardcoded values, dark mode token swapping |
-| 18 | **Ethical Design & Dark Patterns** | Confirmshaming, false urgency, pre-checked consent, CTA hierarchy inversion, privacy zuckering, hidden costs, and 15 more manipulative patterns across 5 groups |
+| #   | Category                           | What It Checks                                                                                                                                                  |
+| --- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Typography**                     | Hierarchy, font count, size, line height, contrast                                                                                                              |
+| 2   | **Color & Contrast**               | WCAG ratios, semantic color use, palette consistency                                                                                                            |
+| 3   | **Spacing & Layout**               | 8-point grid, proximity, alignment, whitespace                                                                                                                  |
+| 4   | **Visual Hierarchy**               | Primary action clarity, reading patterns, size/contrast mapping                                                                                                 |
+| 5   | **Consistency**                    | Component reuse, icon families, corner radius, interaction states                                                                                               |
+| 6   | **Accessibility (A11y / WCAG)**    | Touch targets, focus states, alt text, form labels, reading order                                                                                               |
+| 7   | **Forms & Inputs**                 | Labels, sizing, validation timing, error placement, submit states                                                                                               |
+| 8   | **Motion & Animation**             | Purpose, duration, easing, reduced-motion support                                                                                                               |
+| 9   | **Dark Mode**                      | Not just inverted, surface elevation, saturation, icon legibility                                                                                               |
+| 10  | **Responsive & Adaptive**          | Breakpoints, overflow, touch targets, type scaling                                                                                                              |
+| 11  | **Loading, Empty & Error States**  | Skeletons, empty state anatomy, error levels, success confirmation                                                                                              |
+| 12  | **Content & Microcopy**            | Button labels, error messages, tone consistency, terminology                                                                                                    |
+| 13  | **Internationalization & RTL**     | Text expansion, RTL mirroring, locale-aware formatting, font support                                                                                            |
+| 14  | **Elevation & Shadows**            | Shadow scale, elevation hierarchy, dark mode depth                                                                                                              |
+| 15  | **Iconography**                    | Icon families, optical sizing, touch targets, meaning consistency                                                                                               |
+| 16  | **Navigation Patterns**            | Tabs, breadcrumbs, back buttons, mobile nav, active states                                                                                                      |
+| 17  | **Design Tokens & Variables**      | Semantic naming, hardcoded values, dark mode token swapping                                                                                                     |
+| 18  | **Ethical Design & Dark Patterns** | Confirmshaming, false urgency, pre-checked consent, CTA hierarchy inversion, privacy zuckering, hidden costs, and 15 more manipulative patterns across 5 groups |
 
 ---
 
@@ -78,6 +78,7 @@ Drop in a Figma link, paste your CSS, upload a screenshot, or share a wireframe 
 Once installed, just talk to Claude naturally:
 
 **English:**
+
 ```
 "Check my design" → choose scope (full / quick / custom), then audit
 "Is this accessible?" → accessibility-focused audit
@@ -89,6 +90,7 @@ Once installed, just talk to Claude naturally:
 ```
 
 **Korean:**
+
 ```
 "디자인 검토해줘" → 전체 감사
 "접근성 확인해줘" → 접근성 중심 감사
@@ -183,7 +185,7 @@ After any audit, "Export to Canva" generates a visual report card in Canva — s
 
 Wireframe-specific trigger phrases added to YAML description. Stale version stamps in report templates fixed (were showing v1.2.2).
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.2.5
 
@@ -195,12 +197,12 @@ Wireframe-specific trigger phrases added to YAML description. Stale version stam
 
 **Scoring calibration — Blocker tier**
 
-| Severity | Deduction | Basis |
-|---|---|---|
-| 🚫 Blocker | −12pts | Legal/compliance — WCAG AA, GDPR, PECR |
-| 🔴 Critical | −8pts | Usability failure |
-| 🟡 Warning | −4pts | Degrades experience |
-| 🟢 Tip | −1pt | Polish |
+| Severity    | Deduction | Basis                                  |
+| ----------- | --------- | -------------------------------------- |
+| 🚫 Blocker  | −12pts    | Legal/compliance — WCAG AA, GDPR, PECR |
+| 🔴 Critical | −8pts     | Usability failure                      |
+| 🟡 Warning  | −4pts     | Degrades experience                    |
+| 🟢 Tip      | −1pt      | Polish                                 |
 
 Blocker examples: contrast below 4.5:1 (SC 1.4.3), keyboard-inaccessible element (SC 2.1.1), missing alt (SC 1.1.1), pre-checked marketing consent (GDPR), skip link missing (SC 2.4.1).
 
@@ -208,7 +210,7 @@ Accessibility Score updated: Blockers use −12. Any Blocker appends "⚠️ Con
 
 **Trigger vocabulary expanded** — 15+ new phrases: "is this GDPR compliant", "check my onboarding", "review my checkout", "is this manipulative", "any dark patterns here", "is my form accessible", and more.
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.2.4
 
@@ -220,7 +222,7 @@ Ethics severity model: 🔴 Deceptive (−15pts) · 🟡 Questionable (−7pts) 
 
 New `ethics.md` reference file — 877 lines with full pattern taxonomy, detection signals, and Ethical Persuasion reference.
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.2.3
 
@@ -230,7 +232,7 @@ Code parity complete — all 17 categories now check from source code.
 - **Cat 16** — `<nav>` semantics, `aria-current`, skip link, tab vs nav misuse, keyboard handling, breadcrumb structure
 - **`spacing.md`, `navigation.md`, `animation.md`, `corner-radius.md`** — all with full code-specific audit sections
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.2.2
 
@@ -245,69 +247,79 @@ Code parity complete — all 17 categories now check from source code.
 - Standardised report template with fixed sections
 - Re-audit spec, Explain an issue depth, Developer Handoff Report template
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.2.1
+
 - Scoring formula always shown in every report
 - Color contrast via design tokens — `get_variable_defs` drives Cat 2
 - `animation.md` added — full Cat 8 reference
 - Figma fix loop partial failure recovery
 - Auto-layout ops and component instance caveat in `figma-mcp.md`
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.2.0
+
 - 5 interactive audit widgets: Type Scale Stack, Contrast Checker, 8pt Grid Visualizer, States Coverage Map, Issue Priority Matrix
 - Smart defaults — scope, stage, WCAG level inferred from request
 - Component-type detection and confidence scoring
 - Session progress tracker with sparkline
 - Full Korean coverage
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.1.5
+
 - Figma Variables integration, audit goal context, WCAG level selector
 - Separate Accessibility Score, Developer handoff mode
 - Fix all Critical loop, bilingual widget labels
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.1.4
+
 - Audit scope selector: Full / Quick / Custom
 - Partial audit mode, severity filter, Markdown export
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.1.3
+
 - Figma MCP fallback, per-category scores, before/after diffs, re-audit delta
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.1.2
+
 - Deterministic scoring formula, confidence level, strict output template
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.1.1
+
 - Korean language support
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.1.0
+
 - 17 categories: added Corner Radius, Elevation, Iconography, Navigation, Design Tokens
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### v1.0.0
+
 - Initial release: 13 audit categories, 7 reference files
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Contributing
 
 Found a design rule that should be in here? Open an issue or PR.
 
 Areas that could use expansion:
+
 - UX flow analysis & information architecture
 - Data visualization & charts
 - Native mobile (iOS/Android) specific patterns
@@ -321,4 +333,4 @@ MIT — use it, fork it, build on it.
 
 ---
 
-*Built with [Claude](https://claude.ai) · Skill format by [Anthropic](https://anthropic.com)*
+_Built with [Claude](https://claude.ai) · Skill format by [Anthropic](https://anthropic.com)_

@@ -10,14 +10,14 @@ Animation has a job. When it does its job it reduces cognitive load, orients the
 
 Every animation falls into one of these categories. If it doesn't, it's decoration — and decoration should be removed.
 
-| Purpose | What It Does | Example |
-|---|---|---|
-| **Orientation** | Shows *where* something came from or is going | Panel slides in from the right = it came from a sub-layer |
-| **Feedback** | Confirms an action was received | Button press → brief scale-down → spring back |
-| **State change** | Communicates a change of status | Toggle switches from off to on |
-| **Relationship** | Shows connection between two things | Shared element transitions (hero card → detail view) |
-| **Attention** | Draws the eye to something important | New notification badge pulses once |
-| **Progress** | Shows work is happening | Loading bar, skeleton shimmer |
+| Purpose          | What It Does                                  | Example                                                   |
+| ---------------- | --------------------------------------------- | --------------------------------------------------------- |
+| **Orientation**  | Shows _where_ something came from or is going | Panel slides in from the right = it came from a sub-layer |
+| **Feedback**     | Confirms an action was received               | Button press → brief scale-down → spring back             |
+| **State change** | Communicates a change of status               | Toggle switches from off to on                            |
+| **Relationship** | Shows connection between two things           | Shared element transitions (hero card → detail view)      |
+| **Attention**    | Draws the eye to something important          | New notification badge pulses once                        |
+| **Progress**     | Shows work is happening                       | Loading bar, skeleton shimmer                             |
 
 ❌ Pure decoration: "logo spins on load because it looks cool" — remove.
 
@@ -27,15 +27,16 @@ Every animation falls into one of these categories. If it doesn't, it's decorati
 
 UI animation should feel instant but not jarring. These are the standard duration bands:
 
-| Category | Duration | When to Use |
-|---|---|---|
-| **Micro** | 100–150ms | Hover states, color changes, button presses |
+| Category       | Duration  | When to Use                                    |
+| -------------- | --------- | ---------------------------------------------- |
+| **Micro**      | 100–150ms | Hover states, color changes, button presses    |
 | **Transition** | 150–250ms | Element enter/exit, expanding panels, tooltips |
-| **Page** | 250–400ms | Route transitions, modal open/close |
-| **Emphasis** | 400–600ms | Onboarding, celebration, error shake |
-| **Never** | 600ms+ | Nothing in UI. Feels broken. |
+| **Page**       | 250–400ms | Route transitions, modal open/close            |
+| **Emphasis**   | 400–600ms | Onboarding, celebration, error shake           |
+| **Never**      | 600ms+    | Nothing in UI. Feels broken.                   |
 
 **Common mistakes:**
+
 - Sidebar slides in at 600ms → user waits, feels sluggish
 - Toast notification exits at 1200ms → user waits for it to leave
 - Staggered list animation total > 500ms → last item feels forgotten
@@ -48,15 +49,16 @@ UI animation should feel instant but not jarring. These are the standard duratio
 
 Easing defines the velocity curve. Using the wrong easing makes motion feel physically wrong.
 
-| Easing | Curve | When to Use |
-|---|---|---|
-| `ease-out` | Fast start, slow end | **Entering elements.** Things entering the screen decelerate into place — like an object being placed. |
-| `ease-in` | Slow start, fast end | **Exiting elements.** Things leaving the screen accelerate away — like an object being picked up. |
-| `ease-in-out` | Slow start, slow end | **Elements that move but stay.** Drawers, panels sliding across the screen. |
-| `linear` | Constant speed | **Looping animations only** (spinners, progress). Linear motion for one-off transitions feels mechanical and unnatural. |
-| `spring` | Overshoot + settle | **High-energy feedback.** Button presses, pull-to-refresh, elastic effects. Use sparingly. |
+| Easing        | Curve                | When to Use                                                                                                             |
+| ------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `ease-out`    | Fast start, slow end | **Entering elements.** Things entering the screen decelerate into place — like an object being placed.                  |
+| `ease-in`     | Slow start, fast end | **Exiting elements.** Things leaving the screen accelerate away — like an object being picked up.                       |
+| `ease-in-out` | Slow start, slow end | **Elements that move but stay.** Drawers, panels sliding across the screen.                                             |
+| `linear`      | Constant speed       | **Looping animations only** (spinners, progress). Linear motion for one-off transitions feels mechanical and unnatural. |
+| `spring`      | Overshoot + settle   | **High-energy feedback.** Button presses, pull-to-refresh, elastic effects. Use sparingly.                              |
 
 **CSS values for reference:**
+
 ```css
 ease-out:     cubic-bezier(0, 0, 0.58, 1)
 ease-in:      cubic-bezier(0.42, 0, 1, 1)
@@ -73,6 +75,7 @@ spring:       Use spring() in Figma or CSS @spring in motion libraries
 Figma's Smart Animate transitions work by matching layer names across frames. For it to work correctly:
 
 ### Naming Rules
+
 ```
 ComponentName/Variant/State
 
@@ -82,6 +85,7 @@ Rectangle 12             →   Rectangle 12             ❌ Accidental match pos
 ```
 
 **Smart Animate checklist:**
+
 - [ ] Layer that should animate has the **exact same name** in both source and destination frame
 - [ ] Layer **types match** — text animates to text, frame to frame
 - [ ] Layers are **not inside renamed groups** between variants
@@ -90,7 +94,9 @@ Rectangle 12             →   Rectangle 12             ❌ Accidental match pos
 - [ ] Use `Smart Animate` for property-based transitions (size, position, color)
 
 ### What to Audit in Figma
+
 When reviewing a Figma prototype with animations:
+
 - Check variant layer names match exactly if Smart Animate is expected
 - Check that Delay is 0ms unless a stagger is intentional and < 50ms per item
 - Check that prototype connections use the right animation type for the context
@@ -103,6 +109,7 @@ When reviewing a Figma prototype with animations:
 The `prefers-reduced-motion` media query is not optional. Some users have vestibular disorders where moving UI can cause nausea, dizziness, or seizures.
 
 ### Required behaviour:
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   /* Remove or reduce all animations */
@@ -115,15 +122,18 @@ The `prefers-reduced-motion` media query is not optional. Some users have vestib
 ```
 
 ### In Figma:
+
 There is no built-in reduced motion support in Figma prototypes. Flag this as a 🟡 Warning on any Figma audit — note that developers must implement it in code. If the file has a `Motion: Reduced` page or variant, mark it ✅.
 
 ### What still works at reduced motion:
+
 - **Opacity changes**: Fading is generally acceptable (not physical movement)
 - **Color transitions**: Fine
 - **Scroll-based changes**: Use `scroll-behavior: auto` instead of `smooth`
 - **State changes with no movement**: Toggle from off→on with color change, no slide
 
 ### What must be removed at reduced motion:
+
 - Parallax effects
 - Scroll-triggered entrance animations
 - Auto-playing video or GIF backgrounds
@@ -134,14 +144,14 @@ There is no built-in reduced motion support in Figma prototypes. Flag this as a 
 
 ## Autoplay & Loop Rules
 
-| Type | Rule |
-|---|---|
-| Background video | Pause button required. No audio autoplay. |
-| Looping animation | Stop or pause after 3 loops. Never infinite without user control. |
-| Skeleton screens | OK to loop infinitely — they communicate "loading", stop when content arrives |
-| Loading spinners | OK to loop — clear purpose, user understands it will stop |
-| Celebration confetti | Max 3s, then stop. Never infinite. |
-| Marquee / ticker | Only if user can pause it (WCAG 2.2.2) |
+| Type                 | Rule                                                                          |
+| -------------------- | ----------------------------------------------------------------------------- |
+| Background video     | Pause button required. No audio autoplay.                                     |
+| Looping animation    | Stop or pause after 3 loops. Never infinite without user control.             |
+| Skeleton screens     | OK to loop infinitely — they communicate "loading", stop when content arrives |
+| Loading spinners     | OK to loop — clear purpose, user understands it will stop                     |
+| Celebration confetti | Max 3s, then stop. Never infinite.                                            |
+| Marquee / ticker     | Only if user can pause it (WCAG 2.2.2)                                        |
 
 **WCAG 2.2.2 (Pause, Stop, Hide):** Any moving, blinking, or scrolling content that (1) starts automatically, (2) lasts more than 5 seconds, and (3) is presented in parallel with other content — must have a mechanism to pause, stop, or hide it.
 
@@ -150,6 +160,7 @@ There is no built-in reduced motion support in Figma prototypes. Flag this as a 
 ## Stagger Animations
 
 Staggered list item animations (each item enters slightly after the last) can work well if:
+
 - Total stagger duration < 300ms
 - Per-item delay: 30–50ms
 - Only on first load, not every state change
@@ -167,30 +178,30 @@ Item 15: delay 560ms (total: 560ms + duration ≈ 🔴 too slow)
 
 ## Animation Anti-Patterns
 
-| Anti-pattern | Problem | Fix |
-|---|---|---|
-| Loading spinner on < 1s operations | Creates perceived slowness | Show spinner only after 300ms delay |
-| Entrance animation on every page load | Gets annoying after first visit | One-time or skip-if-visited |
-| Simultaneous animations on multiple elements | Overwhelming, hard to track | Sequence or stagger with clear hierarchy |
-| Hover animation with no click confirmation | User can't tell if action worked | Add a distinct pressed state |
-| Long exit animation on dismissed content | User waits for content they don't want | Exit animations should be shorter than entrances |
-| Scale > 105% on hover | Feels aggressive | Keep scale hover to 101–103% |
+| Anti-pattern                                 | Problem                                | Fix                                              |
+| -------------------------------------------- | -------------------------------------- | ------------------------------------------------ |
+| Loading spinner on < 1s operations           | Creates perceived slowness             | Show spinner only after 300ms delay              |
+| Entrance animation on every page load        | Gets annoying after first visit        | One-time or skip-if-visited                      |
+| Simultaneous animations on multiple elements | Overwhelming, hard to track            | Sequence or stagger with clear hierarchy         |
+| Hover animation with no click confirmation   | User can't tell if action worked       | Add a distinct pressed state                     |
+| Long exit animation on dismissed content     | User waits for content they don't want | Exit animations should be shorter than entrances |
+| Scale > 105% on hover                        | Feels aggressive                       | Keep scale hover to 101–103%                     |
 
 ---
 
 ## Severity Guide for Cat 8
 
-| Issue | Severity |
-|---|---|
-| No reduced motion support (code) | 🔴 Critical |
-| Animation > 600ms | 🔴 Critical |
-| Infinite autoplay loop with no pause | 🟡 Warning |
-| Wrong easing (ease-in on entrance) | 🟡 Warning |
-| Animation with no purpose (pure decoration) | 🟡 Warning |
-| Total stagger > 400ms | 🟡 Warning |
-| Animation > 300ms (shorter than 600ms) | 🟢 Tip |
-| Spring easing used too liberally | 🟢 Tip |
-| No Smart Animate naming convention | 🟢 Tip (Figma only) |
+| Issue                                       | Severity            |
+| ------------------------------------------- | ------------------- |
+| No reduced motion support (code)            | 🔴 Critical         |
+| Animation > 600ms                           | 🔴 Critical         |
+| Infinite autoplay loop with no pause        | 🟡 Warning          |
+| Wrong easing (ease-in on entrance)          | 🟡 Warning          |
+| Animation with no purpose (pure decoration) | 🟡 Warning          |
+| Total stagger > 400ms                       | 🟡 Warning          |
+| Animation > 300ms (shorter than 600ms)      | 🟢 Tip              |
+| Spring easing used too liberally            | 🟢 Tip              |
+| No Smart Animate naming convention          | 🟢 Tip (Figma only) |
 
 ---
 
@@ -199,6 +210,7 @@ Item 15: delay 560ms (total: 560ms + duration ≈ 🔴 too slow)
 When auditing CSS/React/Vue animation code, check these directly.
 
 ### prefers-reduced-motion
+
 ```
 This is the single most important code check for Cat 8. Run automatically.
 
@@ -227,6 +239,7 @@ Also acceptable (targeted, not global):
 ```
 
 ### Duration values
+
 ```
 Collect all transition-duration and animation-duration values in ms.
 
@@ -240,6 +253,7 @@ Loading/progress animations: any duration → ✅ (exempt from UI duration rule)
 ```
 
 ### Easing
+
 ```
 Collect all transition-timing-function and animation-timing-function values.
 
@@ -260,6 +274,7 @@ cubic-bezier values: check if they approximate ease-in or ease-out
 ```
 
 ### Infinite loops
+
 ```
 animation-iteration-count: infinite:
   → On a background/decorative element with no user control → 🟡 Warning
@@ -271,6 +286,7 @@ animation-play-state: paused on :hover / :focus → ✅ (infinite loop with paus
 ```
 
 ### transition: all
+
 ```
 transition: all [duration] → 🟡 Warning
   Reason: Animates every CSS property including layout properties (width, height, padding),
@@ -287,6 +303,7 @@ High-performance properties (GPU-composited, no layout cost):
 ```
 
 ### Framer Motion / React Spring specific
+
 ```
 If Framer Motion detected (import { motion } from 'framer-motion'):
   → Check for useReducedMotion() hook used to conditionally disable animations → ✅

@@ -15,6 +15,7 @@ These are the real-world issues that only surface after integration. Read this b
 **Why:** Spline's auto-generated vanilla JS exports inject `overflow: hidden` into `<body>` CSS by default. This is baked into their generated code.
 
 **Fix:**
+
 ```css
 /* Add this to your CSS — overrides Spline's injection */
 body {
@@ -35,11 +36,13 @@ Or in Play Settings (Spline editor → Export → Play Settings), **disable "Pag
 **Why:** The background color is set to white by default in Spline's export settings.
 
 **Fix:**
+
 1. In Spline editor → Export → Play Settings → toggle **Hide Background** ON
 2. Click **Generate Draft** or **Promote to Production** — the URL does NOT auto-update with new settings
 3. Copy the new URL
 
 For the web component you can also override inline:
+
 ```html
 <spline-viewer url="..." background="transparent"></spline-viewer>
 ```
@@ -53,6 +56,7 @@ For the web component you can also override inline:
 **Why:** The `prod.spline.design` CDN occasionally has latency or drops requests. There's no built-in retry or error handling.
 
 **Fix — add a timeout fallback:**
+
 ```js
 const TIMEOUT_MS = 8000;
 
@@ -79,6 +83,7 @@ spline.load(sceneUrl).then(() => {
 **Why:** Spline uses WebGL which runs on the GPU. Apple Silicon Macs have exceptional GPU performance. Most Windows laptops and Android devices do not have dedicated GPUs.
 
 **Fix — detect capability before loading:**
+
 ```js
 function shouldLoadSpline() {
   const isMobile = window.innerWidth < 768;
@@ -108,8 +113,10 @@ if (shouldLoadSpline()) {
 **Why:** The canvas has no reserved height before loading, so the browser doesn't know how much space to allocate. HTML renders → space collapses → scene loads → everything jumps. This tanks your CLS (Cumulative Layout Shift) Core Web Vitals score.
 
 **Fix — pre-allocate space:**
+
 ```css
-spline-viewer, canvas.spline-canvas {
+spline-viewer,
+canvas.spline-canvas {
   display: block;
   width: 100%;
   height: 100vh; /* or whatever your target height is */
@@ -128,13 +135,14 @@ For `position: fixed` backgrounds this is less of an issue, but for inline scene
 **Why:** Spline's runtime API uses **radians**, not degrees. 90 degrees = `Math.PI / 2`. 180 degrees = `Math.PI`.
 
 **Fix:**
+
 ```js
 // WRONG
 obj.rotation.y = 90;
 
 // CORRECT
 obj.rotation.y = Math.PI / 2; // 90 degrees
-obj.rotation.y = Math.PI;     // 180 degrees
+obj.rotation.y = Math.PI; // 180 degrees
 obj.rotation.y = Math.PI * 2; // 360 degrees (full rotation)
 
 // Helper function to use if you prefer degrees:
@@ -151,6 +159,7 @@ obj.rotation.y = toRad(90);
 **Why:** The Spline canvas sits on top and captures all pointer events.
 
 **Fix:** Add `pointer-events: none` to the Spline wrapper if it's decorative (no interaction needed):
+
 ```css
 .spline-wrapper {
   pointer-events: none; /* scene won't capture any clicks */
@@ -158,6 +167,7 @@ obj.rotation.y = toRad(90);
 ```
 
 If you need BOTH mouse interaction on the scene AND clickable content on top:
+
 ```css
 .spline-wrapper {
   pointer-events: all; /* scene gets mouse events */
@@ -183,6 +193,7 @@ Note: When both have `pointer-events: all`, the topmost element (by z-index) win
 **Option A — Upgrade to a Spline paid plan.** Then in Export → Play Settings → toggle "Hide Spline Logo" ON.
 
 **Option B — CSS overlay (free plan workaround):**
+
 ```css
 /* Hides the watermark via CSS — targets the shadow DOM */
 spline-viewer::part(logo) {
@@ -206,6 +217,7 @@ Note: CSS-based hiding may break with Spline updates. The paid plan is the relia
 **Why:** Browser security blocks cross-origin requests in some environments (especially localhost dev servers with certain configurations).
 
 **Fix — self-host the scene file:**
+
 1. In Spline → Export → Code Export → click the download icon next to the URL
 2. Download the `.splinecode` file
 3. Host it on your own server or CDN (same origin as your site)
@@ -220,13 +232,14 @@ Note: CSS-based hiding may break with Spline updates. The paid plan is the relia
 **Why:** Spline renders on the client only (it needs the browser's WebGL), but Next.js tries to render on the server too.
 
 **Fix:**
+
 ```jsx
 import dynamic from 'next/dynamic';
 
 // ssr: false tells Next.js not to render this on the server
 const Spline = dynamic(() => import('@splinetool/react-spline/next'), {
   ssr: false,
-  loading: () => <div style={{ background: '#0a0a0a', height: '100vh' }} />
+  loading: () => <div style={{ background: '#0a0a0a', height: '100vh' }} />,
 });
 ```
 
@@ -239,6 +252,7 @@ const Spline = dynamic(() => import('@splinetool/react-spline/next'), {
 **Why:** The `prod.spline.design` URL is a snapshot. It does **not** auto-update when you make changes.
 
 **Fix:** Every time you make changes in the Spline editor, you must:
+
 1. Go to Export → Code Export
 2. Click **"Promote to Production"** (or "Generate Draft" for a new draft URL)
 3. The existing prod URL will now serve the updated scene — no need to change the URL in your code
@@ -247,16 +261,16 @@ const Spline = dynamic(() => import('@splinetool/react-spline/next'), {
 
 ## Quick Diagnostic Table
 
-| Symptom | Most Likely Cause | Fix |
-|---|---|---|
-| Page won't scroll | `overflow: hidden` injected by Spline | Add `body { overflow: auto !important }` or disable Page Scroll in Play Settings |
-| White box behind scene | Background not hidden | Play Settings → Hide Background → regenerate URL |
-| Loads sometimes, blank others | CDN flakiness | Add timeout fallback; consider self-hosting |
-| Smooth on Mac, laggy elsewhere | GPU performance gap | Add hardware detection, skip on low-end |
-| Page jumps on load | No reserved space (CLS) | Set explicit height on canvas/viewer element |
-| Rotations look wrong | Degrees vs radians | Use `Math.PI / 180 * degrees` |
-| Buttons not clickable | Canvas capturing pointer events | Add `pointer-events: none` to Spline wrapper |
-| Watermark visible | Free plan | Upgrade or use CSS override |
-| CORS error | Cross-origin loading | Self-host the `.splinecode` file |
-| Hydration error (Next.js) | SSR conflict | Use `dynamic(() => import(...), { ssr: false })` |
-| Old scene still showing | Didn't promote to production | Click "Promote to Production" in Spline editor |
+| Symptom                        | Most Likely Cause                     | Fix                                                                              |
+| ------------------------------ | ------------------------------------- | -------------------------------------------------------------------------------- |
+| Page won't scroll              | `overflow: hidden` injected by Spline | Add `body { overflow: auto !important }` or disable Page Scroll in Play Settings |
+| White box behind scene         | Background not hidden                 | Play Settings → Hide Background → regenerate URL                                 |
+| Loads sometimes, blank others  | CDN flakiness                         | Add timeout fallback; consider self-hosting                                      |
+| Smooth on Mac, laggy elsewhere | GPU performance gap                   | Add hardware detection, skip on low-end                                          |
+| Page jumps on load             | No reserved space (CLS)               | Set explicit height on canvas/viewer element                                     |
+| Rotations look wrong           | Degrees vs radians                    | Use `Math.PI / 180 * degrees`                                                    |
+| Buttons not clickable          | Canvas capturing pointer events       | Add `pointer-events: none` to Spline wrapper                                     |
+| Watermark visible              | Free plan                             | Upgrade or use CSS override                                                      |
+| CORS error                     | Cross-origin loading                  | Self-host the `.splinecode` file                                                 |
+| Hydration error (Next.js)      | SSR conflict                          | Use `dynamic(() => import(...), { ssr: false })`                                 |
+| Old scene still showing        | Didn't promote to production          | Click "Promote to Production" in Spline editor                                   |
