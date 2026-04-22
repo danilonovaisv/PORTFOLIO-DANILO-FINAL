@@ -33,6 +33,7 @@
     "start": "node .next/standalone/server.js",
     "start:next": "next start --hostname 0.0.0.0 --port ${PORT:-3000}",
     "clean": "rimraf .next out .eslintcache .firebase dist deploy-public",
+    "clean-all": "pnpm run clean && rm -rf node_modules",
     "deep-clean": "python3 scripts/pnpm_deep_clean.py",
     "fix-pnpm": "chmod +x scripts/fix-pnpm.sh && ./scripts/fix-pnpm.sh",
     "audit-pnpm-global": "python3 scripts/audit_pnpm_global.py",

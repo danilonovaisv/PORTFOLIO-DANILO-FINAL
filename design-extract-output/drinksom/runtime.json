@@ -1,0 +1,687 @@
+{
+  "url": "https://www.drinksom.eu",
+  "timestamp": "2026-04-22T05:32:44.502Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "heroH1": null,
+  "libraries": {
+    "gsap": false,
+    "ScrollTrigger": false,
+    "Lenis": true,
+    "three": false,
+    "threeR3F": true,
+    "framerMotion": false,
+    "fullpage": false,
+    "splitType": false,
+    "barba": false,
+    "hasCanvas": 2,
+    "htmlClasses": "lenis lenis-stopped",
+    "htmlDataset": {}
+  },
+  "lenis": null,
+  "gsap": null,
+  "cssMotion": {
+    "elements": [
+      {
+        "selector": "main",
+        "tag": "main",
+        "classSample": "overflow-x-clip",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "section:first-of-type",
+        "tag": "section",
+        "classSample": "relative h-[160vh] sm:h-[200vh] lg:h-auto",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "section:first-of-type",
+        "tag": "section",
+        "classSample": "relative min-h-screen",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "section:first-of-type",
+        "tag": "section",
+        "classSample": "relative z-[40] h-[200vh] lg:h-[280vh] w-full",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "section:first-of-type",
+        "tag": "section",
+        "classSample": "relative w-full bg-white text-[var(--som-black)]",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "[class*=\"title\" i]",
+        "tag": "p",
+        "classSample": "left-title-line font-druk text-[32px] uppercase leading-[0.9] sm:text-[40px] lg:text-[42px]",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "[class*=\"title\" i]",
+        "tag": "p",
+        "classSample": "left-title-line font-druk-wide text-[32px] uppercase leading-[0.9] sm:text-[40px] lg:text-[42px]",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "canvas",
+        "tag": "canvas",
+        "classSample": "pointer-events-none fixed inset-0 z-[9999] h-full w-full",
+        "transition": "opacity 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95)",
+        "transitionDuration": "0.2s",
+        "transitionTimingFunction": "cubic-bezier(0.445, 0.05, 0.55, 0.95)",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      },
+      {
+        "selector": "canvas",
+        "tag": "canvas",
+        "classSample": "",
+        "transition": "all",
+        "transitionDuration": "0s",
+        "transitionTimingFunction": "ease",
+        "transitionDelay": "0s",
+        "animation": "none",
+        "animationDuration": "0s",
+        "animationTimingFunction": "ease",
+        "animationDelay": "0s",
+        "mixBlendMode": "normal",
+        "willChange": "auto",
+        "transform": "none",
+        "filter": "none"
+      }
+    ],
+    "keyframes": [
+      {
+        "name": "legalIndicatorReveal",
+        "body": "@keyframes legalIndicatorReveal { \n  0% { opacity: 0; filter: blur(2px); clip-path: inset(0px 100% 0px 0px); transform: scaleX(0); }\n  60% { opacity: 1; filter: blur(1px); }\n  100% { opacity: 1; filter: blur(); clip-path: inset(0px); transform: scaleX(1); }\n}"
+      },
+      {
+        "name": "navUnderlineSweep",
+        "body": "@keyframes navUnderlineSweep { \n  0% { opacity: 1; transform: translate(0px); }\n  44% { opacity: 1; transform: translate(104%); }\n  50% { opacity: 0; transform: translate(104%); }\n  51% { opacity: 0; transform: translate(-104%); }\n  57% { opacity: 1; transform: translate(-104%); }\n  100% { opacity: 1; transform: translate(0px); }\n}"
+      },
+      {
+        "name": "enter",
+        "body": "@keyframes enter { \n  0% { opacity: var(--tw-enter-opacity,1); transform: translate3d(var(--tw-enter-translate-x,0),var(--tw-enter-translate-y,0),0)scale3d(var(--tw-enter-scale,1),var(--tw-enter-scale,1),var(--tw-enter-scale,1))rotate(var(--tw-enter-rotate,0)); }\n}"
+      },
+      {
+        "name": "exit",
+        "body": "@keyframes exit { \n  100% { opacity: var(--tw-exit-opacity,1); transform: translate3d(var(--tw-exit-translate-x,0),var(--tw-exit-translate-y,0),0)scale3d(var(--tw-exit-scale,1),var(--tw-exit-scale,1),var(--tw-exit-scale,1))rotate(var(--tw-exit-rotate,0)); }\n}"
+      }
+    ]
+  },
+  "cursorInfo": {
+    "candidateCount": 12,
+    "candidates": [
+      {
+        "tag": "button",
+        "id": "",
+        "classes": "pointer-events-auto flex shrink-0 cursor-pointer items-center justify-center rounded-[100px] font-diatype-mono text-[16px] uppercase tracking-[-0.02em] leading-",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 12.90997314453125,
+          "h": 3.614990234375
+        }
+      },
+      {
+        "tag": "button",
+        "id": "",
+        "classes": "pointer-events-auto flex shrink-0 cursor-pointer items-center justify-center rounded-[100px] font-diatype-mono text-[16px] uppercase tracking-[-0.02em] leading-",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 15.8787841796875,
+          "h": 3.614990234375
+        }
+      },
+      {
+        "tag": "button",
+        "id": "",
+        "classes": "pointer-events-auto flex shrink-0 cursor-pointer items-center justify-center rounded-[100px] font-diatype-mono text-[16px] uppercase tracking-[-0.02em] leading-",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 13.6512451171875,
+          "h": 3.614990234375
+        }
+      },
+      {
+        "tag": "button",
+        "id": "",
+        "classes": "pointer-events-auto flex shrink-0 cursor-pointer items-center justify-center rounded-[100px] font-diatype-mono text-[16px] uppercase tracking-[-0.02em] leading-",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 12.90997314453125,
+          "h": 3.614990234375
+        }
+      },
+      {
+        "tag": "input",
+        "id": "join-drop-privacy",
+        "classes": "peer h-[1rem] w-[1rem] cursor-pointer appearance-none rounded-[0.125rem] border border-[var(--som-orange-light)] bg-white transition-colors duration-200 checked",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), fill 0.2s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.2s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.2s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.2s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 16,
+          "h": 16
+        }
+      },
+      {
+        "tag": "label",
+        "id": "",
+        "classes": "max-w-[19.9375rem] cursor-pointer font-diatype-mono text-[0.875rem] uppercase leading-[1.3] text-[#C7ACA3] lg:max-w-[33rem]",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "all",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 478.84375,
+          "h": 18.1875
+        }
+      },
+      {
+        "tag": "button",
+        "id": "",
+        "classes": "inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40 disabled:pointer-events-no",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 552,
+          "h": 58
+        }
+      },
+      {
+        "tag": "button",
+        "id": "",
+        "classes": "cursor-pointer transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/80 focus-visible:outline-offset-2",
+        "mixBlendMode": "normal",
+        "position": "static",
+        "zIndex": "auto",
+        "transform": "none",
+        "transition": "opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "pointerEvents": "auto",
+        "size": {
+          "w": 63.84375,
+          "h": 16.234375
+        }
+      }
+    ],
+    "blendCount": 0,
+    "blendSample": []
+  },
+  "cursorMotion": [
+    {
+      "target": [
+        200,
+        200
+      ],
+      "actual": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        600,
+        400
+      ],
+      "actual": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        1000,
+        200
+      ],
+      "actual": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        1200,
+        700
+      ],
+      "actual": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        400,
+        700
+      ],
+      "actual": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        220,
+        220
+      ],
+      "center": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        620,
+        420
+      ],
+      "center": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        1020,
+        220
+      ],
+      "center": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        1220,
+        720
+      ],
+      "center": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    },
+    {
+      "target": [
+        420,
+        720
+      ],
+      "center": [
+        698.9400329589844,
+        1991.14501953125
+      ],
+      "transform": "none"
+    }
+  ],
+  "scrollSamples": [
+    {
+      "pct": 0,
+      "scrollY": 0,
+      "docH": 11010,
+      "out": {
+        "canvas": {
+          "transform": "none",
+          "opacity": "0.04",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          }
+        },
+        "section:first-of-type": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1560.9375
+          }
+        },
+        "[class*=\"title\" i]": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 678.5275268554688,
+            "y": 2009.833740234375,
+            "w": 18.6312255859375,
+            "h": 3.023681640625
+          }
+        }
+      }
+    },
+    {
+      "pct": 0.1,
+      "scrollY": 1101,
+      "docH": 11010,
+      "out": {
+        "canvas": {
+          "transform": "none",
+          "opacity": "0.04",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          }
+        },
+        "section:first-of-type": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": -1101,
+            "w": 1440,
+            "h": 1560.9375
+          }
+        },
+        "[class*=\"title\" i]": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 217.6834259033203,
+            "y": 896.56884765625,
+            "w": 225.6624298095703,
+            "h": 36.623779296875
+          }
+        }
+      }
+    },
+    {
+      "pct": 0.25,
+      "scrollY": 2753,
+      "docH": 11010,
+      "out": {
+        "canvas": {
+          "transform": "none",
+          "opacity": "0.04",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          }
+        },
+        "section:first-of-type": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": -2753,
+            "w": 1440,
+            "h": 1560.9375
+          }
+        },
+        "[class*=\"title\" i]": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 201.59375,
+            "y": 466.203125,
+            "w": 322.90625,
+            "h": 37.796875
+          }
+        }
+      }
+    },
+    {
+      "pct": 0.5,
+      "scrollY": 5505,
+      "docH": 11010,
+      "out": {
+        "canvas": {
+          "transform": "none",
+          "opacity": "0.04",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          }
+        },
+        "section:first-of-type": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": -5505,
+            "w": 1440,
+            "h": 1560.9375
+          }
+        },
+        "[class*=\"title\" i]": {
+          "transform": "matrix(1, 0, 0, 1, 0, 0.2309)",
+          "opacity": "0.9835",
+          "filter": "blur(0.066px)",
+          "translateRect": {
+            "x": 201.59375,
+            "y": -1527.62841796875,
+            "w": 237.390625,
+            "h": 37.796875
+          }
+        }
+      }
+    },
+    {
+      "pct": 0.75,
+      "scrollY": 8258,
+      "docH": 11010,
+      "out": {
+        "canvas": {
+          "transform": "none",
+          "opacity": "0.04",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          }
+        },
+        "section:first-of-type": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": -8258,
+            "w": 1440,
+            "h": 1560.9375
+          }
+        },
+        "[class*=\"title\" i]": {
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "opacity": "1",
+          "filter": "blur(0px)",
+          "translateRect": {
+            "x": 201.59375,
+            "y": -4280.859375,
+            "w": 237.390625,
+            "h": 37.796875
+          }
+        }
+      }
+    },
+    {
+      "pct": 1,
+      "scrollY": 10110,
+      "docH": 11010,
+      "out": {
+        "canvas": {
+          "transform": "none",
+          "opacity": "0.04",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          }
+        },
+        "section:first-of-type": {
+          "transform": "none",
+          "opacity": "1",
+          "filter": "none",
+          "translateRect": {
+            "x": 0,
+            "y": -10110,
+            "w": 1440,
+            "h": 1560.9375
+          }
+        },
+        "[class*=\"title\" i]": {
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "opacity": "1",
+          "filter": "blur(0px)",
+          "translateRect": {
+            "x": 201.59375,
+            "y": -6132.859375,
+            "w": 237.390625,
+            "h": 37.796875
+          }
+        }
+      }
+    }
+  ],
+  "consoleMsgs": [
+    "[warning] [.WebGL-0x12c001e1c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[warning] [.WebGL-0x12c001e1c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[warning] [.WebGL-0x12c001e1c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[warning] [.WebGL-0x12c001e1c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ]
+}
