@@ -44,7 +44,10 @@ export const useBeliefsScroll = (
     const handler = (ev: MediaQueryList | MediaQueryListEvent) =>
       setIsMobile(ev.matches);
     handler(mql);
-    mql.addEventListener('change', handler as (_ev: MediaQueryListEvent) => void);
+    mql.addEventListener(
+      'change',
+      handler as (_ev: MediaQueryListEvent) => void
+    );
     return () =>
       mql.removeEventListener(
         'change',

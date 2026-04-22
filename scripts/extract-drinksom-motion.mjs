@@ -36,7 +36,9 @@ async function main() {
         !!document.querySelector('html.lenis, html[data-lenis]'),
       three: g.THREE ? g.THREE.REVISION || true : false,
       threeR3F: !!document.querySelector('canvas[data-engine*="three"]'),
-      framerMotion: !!document.querySelector('[data-framer-name],[style*="transform"]') && !!g.FramerMotion,
+      framerMotion:
+        !!document.querySelector('[data-framer-name],[style*="transform"]') &&
+        !!g.FramerMotion,
       fullpage: !!g.fullpage_api,
       splitType: !!g.SplitType,
       barba: !!g.barba,
@@ -71,7 +73,10 @@ async function main() {
               if (tg.nodeType) {
                 return `${tg.tagName?.toLowerCase()}${
                   tg.id ? '#' + tg.id : ''
-                }${tg.className ? '.' + String(tg.className).split(' ').join('.') : ''}`.slice(0, 120);
+                }${tg.className ? '.' + String(tg.className).split(' ').join('.') : ''}`.slice(
+                  0,
+                  120
+                );
               }
               return typeof tg;
             } catch {
@@ -115,7 +120,12 @@ async function main() {
     }
     return { timelineCount: timelines.length, timelines, scrollTriggers };
   });
-  console.log('[gsap]', gsapData ? `tl:${gsapData.timelineCount} st:${gsapData.scrollTriggers.length}` : 'not detected');
+  console.log(
+    '[gsap]',
+    gsapData
+      ? `tl:${gsapData.timelineCount} st:${gsapData.scrollTriggers.length}`
+      : 'not detected'
+  );
 
   // B4. Lenis config
   const lenis = await page.evaluate(() => {
@@ -197,7 +207,13 @@ async function main() {
     } catch {}
     return { elements: out, keyframes };
   });
-  console.log('[css]', cssMotion.elements.length, 'elements,', cssMotion.keyframes.length, 'keyframes');
+  console.log(
+    '[css]',
+    cssMotion.elements.length,
+    'elements,',
+    cssMotion.keyframes.length,
+    'keyframes'
+  );
 
   // B6. Cursor — probe DOM + computed styles + pointermove deltas
   const cursorInfo = await page.evaluate(async () => {
@@ -232,7 +248,13 @@ async function main() {
       blendSample: blendEls.slice(0, 6).map(pack),
     };
   });
-  console.log('[cursor]', 'candidates:', cursorInfo.candidateCount, 'blend:', cursorInfo.blendCount);
+  console.log(
+    '[cursor]',
+    'candidates:',
+    cursorInfo.candidateCount,
+    'blend:',
+    cursorInfo.blendCount
+  );
 
   // Cursor motion probe — simulate mouse moves
   let cursorMotion = null;
@@ -250,11 +272,19 @@ async function main() {
         [1200, 700],
         [400, 700],
       ]) {
-        document.dispatchEvent(new MouseEvent('mousemove', { clientX: x, clientY: y, bubbles: true }));
-        window.dispatchEvent(new MouseEvent('mousemove', { clientX: x, clientY: y, bubbles: true }));
+        document.dispatchEvent(
+          new MouseEvent('mousemove', { clientX: x, clientY: y, bubbles: true })
+        );
+        window.dispatchEvent(
+          new MouseEvent('mousemove', { clientX: x, clientY: y, bubbles: true })
+        );
         await new Promise((r) => setTimeout(r, 80));
         const r = node.getBoundingClientRect();
-        samples.push({ target: [x, y], actual: [r.x + r.width / 2, r.y + r.height / 2], transform: getComputedStyle(node).transform });
+        samples.push({
+          target: [x, y],
+          actual: [r.x + r.width / 2, r.y + r.height / 2],
+          transform: getComputedStyle(node).transform,
+        });
       }
       return samples;
     });
@@ -262,14 +292,25 @@ async function main() {
   // Playwright native mouse move as more reliable trigger
   try {
     const samples2 = [];
-    for (const [x, y] of [[220, 220], [620, 420], [1020, 220], [1220, 720], [420, 720]]) {
+    for (const [x, y] of [
+      [220, 220],
+      [620, 420],
+      [1020, 220],
+      [1220, 720],
+      [420, 720],
+    ]) {
       await page.mouse.move(x, y, { steps: 8 });
       await page.waitForTimeout(120);
       const snap = await page.evaluate(() => {
-        const n = document.querySelector('[class*="cursor" i],[id*="cursor" i]');
+        const n = document.querySelector(
+          '[class*="cursor" i],[id*="cursor" i]'
+        );
         if (!n) return null;
         const r = n.getBoundingClientRect();
-        return { center: [r.x + r.width / 2, r.y + r.height / 2], transform: getComputedStyle(n).transform };
+        return {
+          center: [r.x + r.width / 2, r.y + r.height / 2],
+          transform: getComputedStyle(n).transform,
+        };
       });
       if (snap) samples2.push({ target: [x, y], ...snap });
     }
@@ -291,7 +332,10 @@ async function main() {
   ];
   for (const pct of [0, 0.1, 0.25, 0.5, 0.75, 1]) {
     await page.evaluate((p) => {
-      window.scrollTo({ top: document.body.scrollHeight * p, behavior: 'instant' });
+      window.scrollTo({
+        top: document.body.scrollHeight * p,
+        behavior: 'instant',
+      });
     }, pct);
     await page.waitForTimeout(450);
     const snap = await page.evaluate((sels) => {
@@ -314,7 +358,10 @@ async function main() {
     }, targetSelectors);
     scrollSamples.push({ pct, ...snap });
     await page.screenshot({
-      path: join(OUT_DIR, `scroll-${String(Math.round(pct * 100)).padStart(3, '0')}.png`),
+      path: join(
+        OUT_DIR,
+        `scroll-${String(Math.round(pct * 100)).padStart(3, '0')}.png`
+      ),
       fullPage: false,
     });
   }
@@ -323,7 +370,10 @@ async function main() {
   // Back to top for hero canvas screenshot
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(400);
-  await page.screenshot({ path: join(OUT_DIR, 'hero-top.png'), fullPage: false });
+  await page.screenshot({
+    path: join(OUT_DIR, 'hero-top.png'),
+    fullPage: false,
+  });
 
   const runtime = {
     url: URL,
@@ -339,7 +389,10 @@ async function main() {
     scrollSamples,
     consoleMsgs: consoleMsgs.slice(0, 40),
   };
-  await writeFile(join(OUT_DIR, 'runtime.json'), JSON.stringify(runtime, null, 2));
+  await writeFile(
+    join(OUT_DIR, 'runtime.json'),
+    JSON.stringify(runtime, null, 2)
+  );
   console.log('[done] wrote', join(OUT_DIR, 'runtime.json'));
 
   await browser.close();
