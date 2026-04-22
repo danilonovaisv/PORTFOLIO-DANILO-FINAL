@@ -1,2 +1,2 @@
 const fs = require('fs');
-console.log("File exists");
+console.log('File exists');

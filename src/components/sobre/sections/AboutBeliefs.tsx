@@ -70,7 +70,10 @@ export const AboutBeliefs = () => {
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
-      <CustomCursor isMobile={isMobile} prefersReducedMotion={prefersReducedMotion} />
+      <CustomCursor
+        isMobile={isMobile}
+        prefersReducedMotion={prefersReducedMotion}
+      />
 
       {/* ── z-0: Fundo com transição de cores via inView ── */}
       <BeliefBackground />

@@ -15,8 +15,10 @@ interface CustomCursorProps {
   prefersReducedMotion: boolean;
 }
 
-export const CustomCursor = ({ isMobile, prefersReducedMotion }: CustomCursorProps) => {
-
+export const CustomCursor = ({
+  isMobile,
+  prefersReducedMotion,
+}: CustomCursorProps) => {
   // Coordenadas absolutas na tela para o dot
   const x = useMotionValue(0);
   const y = useMotionValue(0);

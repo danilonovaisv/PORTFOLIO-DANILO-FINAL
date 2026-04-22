@@ -106,7 +106,8 @@ const GhostModel = ({
     const cY = cursorY.get();
 
     // Suaviza a influência do cursor no clímax (p > 0.85) até neutralizar em 0 no final
-    const cursorMultiplier = p > 0.85 ? Math.max(0, 1 - (p - 0.85) * (1 / 0.15)) : 1;
+    const cursorMultiplier =
+      p > 0.85 ? Math.max(0, 1 - (p - 0.85) * (1 / 0.15)) : 1;
 
     const targetX =
       isMobile || prefersReducedMotion
