@@ -1,11 +1,8 @@
 // src/config/about-motion.ts
 // Ghost Design Motion Tokens - Fonte da verdade para animações da página Sobre
 
-/**
- * Ghost Easing - A curva de animação principal do sistema
- * Suave, etérea, sem bounce ou elastic
- */
-const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { GHOST_EASE } from '@/config/motion';
+
 
 /**
  * Tokens de Motion para a página Sobre

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { GHOST_EASE } from '@/config/motion';
 
 /**
  * GhostAura - Camadas visuais etéreas flutuantes
@@ -39,7 +40,7 @@ export default function GhostAura() {
         transition={{
           duration: 6,
           repeat: Infinity,
-          ease: [0.22, 1, 0.36, 1],
+          ease: GHOST_EASE,
         }}
       />
 
@@ -64,7 +65,7 @@ export default function GhostAura() {
         transition={{
           duration: 7,
           repeat: Infinity,
-          ease: [0.22, 1, 0.36, 1],
+          ease: GHOST_EASE,
         }}
       />
 
@@ -87,7 +88,7 @@ export default function GhostAura() {
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: [0.22, 1, 0.36, 1],
+          ease: GHOST_EASE,
         }}
       />
 
@@ -111,7 +112,7 @@ export default function GhostAura() {
         transition={{
           duration: 5,
           repeat: Infinity,
-          ease: [0.22, 1, 0.36, 1],
+          ease: GHOST_EASE,
           delay: 1,
         }}
       />
@@ -135,7 +136,7 @@ export default function GhostAura() {
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: [0.22, 1, 0.36, 1],
+          ease: GHOST_EASE,
           delay: 0.05,
         }}
       />

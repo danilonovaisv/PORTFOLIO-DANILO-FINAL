@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { animate, inView } from 'motion';
+import { GHOST_EASE } from '@/config/motion';
 
 interface BeliefScrollTextProps {
   phrases: readonly string[];
@@ -39,7 +40,7 @@ export const BeliefScrollText = ({
             x: -exitDistance,
             filter: ['blur(0px)', 'blur(4px)'],
           },
-          { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+          { duration: 0.5, ease: GHOST_EASE }
         );
       };
     });

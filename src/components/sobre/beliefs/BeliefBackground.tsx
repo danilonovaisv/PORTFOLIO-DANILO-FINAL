@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { animate, inView } from 'motion';
+import { GHOST_EASE } from '@/config/motion';
 
 const COLOR_STOPS = [
   '#040013', // Deep Void — intro
@@ -41,7 +42,7 @@ export const BeliefBackground = () => {
         animate(
           overlay,
           { opacity: [0, 0.1, 0] },
-          { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
+          { duration: 0.9, ease: GHOST_EASE }
         );
       }
     });

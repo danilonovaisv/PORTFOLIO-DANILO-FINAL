@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { motion, useInView, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { GHOST_EASE } from '@/config/motion';
 
 interface GhostTextProps extends HTMLMotionProps<'span'> {
   text: string;
@@ -21,7 +22,7 @@ const VARIANTS = {
       filter: 'blur(0px)',
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.5, ease: GHOST_EASE },
     },
   },
   fadeUp: {
@@ -29,14 +30,14 @@ const VARIANTS = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } as any,
+      transition: { duration: 0.6, ease: GHOST_EASE } as any,
     },
   },
   scramble: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } as any,
+      transition: { duration: 0.5, ease: GHOST_EASE } as any,
     },
   },
 };

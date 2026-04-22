@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { BRAND } from '@/config/brand';
+import { GHOST_EASE } from '@/config/motion';
 
 const hexToRgba = (hex: string, alpha = 1) => {
   const cleaned = hex.replace('#', '');
@@ -81,7 +82,7 @@ export function Preloader({
           exit={{ opacity: 0, filter: 'blur(20px)' }}
           transition={{
             duration: reduced ? 0.3 : 1,
-            ease: [0.22, 1, 0.36, 1],
+            ease: GHOST_EASE,
           }}
           role="status"
           aria-live="polite"

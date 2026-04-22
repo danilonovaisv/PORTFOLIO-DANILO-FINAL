@@ -14,6 +14,8 @@
   /* Cores da marca */
   --color-bluePrimary: #0048ff;
   --color-blueAccent: #4fe6ff;
+  --color-blueHover: #2e85f2;
+  --color-blueActive: #0037c2;
   --color-purpleDetails: #8705f2;
   --color-pinkDetails: #f501d3;
   --color-background: #040013;
@@ -27,6 +29,9 @@
   --color-redAccent: #e50914;
   --color-neutralLight: #f5f5f5;
   --color-contactForeground: #fcffff;
+
+  /* Motion tokens */
+  --ease-ghost: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Aliases para compatibilidade */
   --color-primary: #0048ff;
@@ -412,7 +417,7 @@ html.admin-page body {
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   /* shadow-lg */
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.3s var(--ease-ghost);
 }
 
 /* Group hover effect for cards */

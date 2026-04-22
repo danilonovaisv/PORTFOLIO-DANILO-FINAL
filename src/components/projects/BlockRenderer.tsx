@@ -10,6 +10,7 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
+import { GHOST_EASE } from '@/config/motion';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -18,7 +19,7 @@ const fadeInUp = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
+      ease: GHOST_EASE,
     },
   },
 };

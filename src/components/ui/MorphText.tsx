@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion, useTransform, cubicBezier, MotionValue } from 'framer-motion';
+import { GHOST_EASE } from '@/config/motion';
 
 interface MorphTextProps {
   children: React.ReactNode;
@@ -16,12 +17,15 @@ export const MorphText: React.FC<MorphTextProps> = ({
   range,
   className,
 }) => {
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
   const blur = useTransform(progress, range, ['blur(12px)', 'blur(0px)'], {
-    ease: ghostEase,
+    ease: cubicBezier(...GHOST_EASE),
   });
-  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
-  const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
+  const opacity = useTransform(progress, range, [0, 1], {
+    ease: cubicBezier(...GHOST_EASE),
+  });
+  const y = useTransform(progress, range, [40, 0], {
+    ease: cubicBezier(...GHOST_EASE),
+  });
 
   return (
     <motion.span

@@ -22,6 +22,7 @@ import MasterProjectTemplate from '@/components/projects/templates/MasterProject
 import ProjectTemplateMasterRenderer from '@/components/projects/templates/ProjectTemplateMasterRenderer';
 import ProjectTemplateALPARenderer from '@/components/projects/templates/ProjectTemplateALPARenderer';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
+import { GHOST_EASE } from '@/config/motion';
 
 interface ProjectRendererProps {
   project: {
@@ -49,7 +50,7 @@ function LegacyProjectRenderer({
           <motion.div
             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.1, ease: GHOST_EASE }}
             className="absolute inset-0 z-0"
           >
             <Image
@@ -67,7 +68,7 @@ function LegacyProjectRenderer({
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.2, ease: GHOST_EASE }}
             className="text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl"
           >
             {project.title}
@@ -85,7 +86,7 @@ function LegacyProjectRenderer({
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.72, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.72, delay: 0.5, ease: GHOST_EASE }}
           className="pointer-events-auto absolute inset-x-0 bottom-8 z-20"
         >
           <div className="std-grid flex justify-start">

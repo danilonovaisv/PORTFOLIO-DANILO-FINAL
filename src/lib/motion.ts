@@ -1,5 +1,5 @@
-import { inView } from 'motion';
 import { useEffect } from 'react';
+import { GHOST_EASE } from '@/config/motion';
 
 // Configurações padrão de animação
 export const textAnimation = {
@@ -7,7 +7,7 @@ export const textAnimation = {
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: (isMobile: boolean) => (isMobile ? 100 : -100) },
   duration: 0.8,
-  easing: [0.22, 1, 0.36, 1] as [number, number, number, number],
+  easing: GHOST_EASE,
   exitEasing: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
 };
 

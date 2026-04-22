@@ -11,6 +11,7 @@ import { ABOUT_CONTENT } from '@/config/content';
 
 import { motionTokens } from '@/config/about-motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { GHOST_EASE } from '@/config/motion';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,7 +76,7 @@ export default function AboutMethod() {
                             opacity: 1,
                             transition: {
                               duration: 0.9,
-                              ease: [0.22, 1, 0.36, 1],
+                              ease: GHOST_EASE,
                             },
                           },
                         }
@@ -99,7 +100,7 @@ export default function AboutMethod() {
                             opacity: 1,
                             transition: {
                               duration: 0.9,
-                              ease: [0.22, 1, 0.36, 1],
+                              ease: GHOST_EASE,
                             },
                           },
                         }
@@ -128,7 +129,7 @@ export default function AboutMethod() {
                             opacity: 1,
                             transition: {
                               duration: 0.9,
-                              ease: [0.22, 1, 0.36, 1],
+                              ease: GHOST_EASE,
                             },
                           },
                         }
@@ -170,7 +171,7 @@ export default function AboutMethod() {
                                 opacity: 1,
                                 transition: {
                                   duration: 0.9,
-                                  ease: [0.22, 1, 0.36, 1],
+                                  ease: GHOST_EASE,
                                 },
                               },
                             }

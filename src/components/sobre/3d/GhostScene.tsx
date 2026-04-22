@@ -27,6 +27,7 @@ import type { BufferGeometry, Group, Material, Object3D } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
 import { cursorX, cursorY } from '@/store/beliefStore';
+import { GHOST_EASE } from '@/config/motion';
 
 // Path validado contra Supabase Storage (Task 1).
 const GHOST_GLB_URL = getAssetUrl('site-assets/3d/ghost-v1.glb', {
@@ -173,7 +174,7 @@ export const GhostScene = ({
       role="presentation"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1.2, ease: GHOST_EASE }}
     >
       <GhostErrorBoundary>
         <Canvas

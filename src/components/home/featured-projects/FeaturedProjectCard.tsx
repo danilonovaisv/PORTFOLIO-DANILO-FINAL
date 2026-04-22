@@ -167,7 +167,7 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle bg-bluePrimary shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
+          <div className="btn-icon-circle bg-bluePrimary shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:duration-200 ease-ghost md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
             <ArrowUpRight className="h-6 w-6" />
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full w-full min-h-[48px] rounded-md text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+    'group block h-full w-full min-h-[48px] rounded-md text-left transition-transform duration-200 ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
   if (isModalMode) {
     return (
