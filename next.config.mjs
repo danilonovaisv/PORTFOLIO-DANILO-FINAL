@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import withBundleAnalyzer from '@next/bundle-analyzer';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -293,8 +292,4 @@ const createNextConfig = (phase) => ({
   },
 });
 
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-export default bundleAnalyzer((phase) => createNextConfig(phase));
+export default (phase) => createNextConfig(phase);
