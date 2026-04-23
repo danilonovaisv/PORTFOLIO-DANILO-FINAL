@@ -75,8 +75,8 @@ export const AboutBeliefs = () => {
         prefersReducedMotion={prefersReducedMotion}
       />
 
-      {/* ── z-0: Fundo com transição de cores via inView ── */}
-      <BeliefBackground />
+      {/* ── z-0: Fundo com transição de cores via inView + climax via scrollProgress ── */}
+      <BeliefBackground scrollProgress={scrollYProgress} />
 
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
       <BeliefOverlay />

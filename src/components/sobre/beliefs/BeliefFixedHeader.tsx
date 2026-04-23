@@ -58,9 +58,8 @@ export const BeliefFixedHeader = () => {
   return (
     <motion.header
       ref={ref}
-      className="sticky top-0 z-30 flex flex-col items-end justify-center gap-2
-                 w-full px-6 md:px-12 py-8 pointer-events-none
-                 md:top-0 top-[20vh]"
+      className="sticky top-[20vh] md:top-0 z-30 flex flex-col items-end justify-center gap-2
+                 w-full px-6 md:px-12 py-8 pointer-events-none"
       initial="hidden"
       animate={inView ? 'visible' : 'exit'}
       variants={containerVariants}

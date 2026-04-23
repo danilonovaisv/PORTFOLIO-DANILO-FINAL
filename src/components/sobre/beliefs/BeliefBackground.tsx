@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { animate, inView } from 'motion';
+import type { MotionValue } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 
 const COLOR_STOPS = [
@@ -12,16 +13,28 @@ const COLOR_STOPS = [
   '#0048ff', // bluePrimary — frase 4
   '#8705f2', // purpleDetails — frase 5
   '#f501d3', // pinkDetails — frase 6
-  '#0048ff', // bluePrimary — clímax/saída
+  '#040013', // Deep Void — clímax/saída (triggered by scrollProgress >= 0.82)
 ] as const;
 
-export const BeliefBackground = () => {
+// scrollProgress drives the final return to Deep Void — not reachable via inView
+// because there are only 6 scroll-sections (indices 0-5, covering COLOR_STOPS[1-6]).
+const CLIMAX_THRESHOLD = 0.82;
+
+interface BeliefBackgroundProps {
+  scrollProgress: MotionValue<number>;
+}
+
+export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
   const bgRef = useRef<HTMLDivElement>(null);
+  const climaxFiredRef = useRef(false);
 
   useEffect(() => {
-    // Observa o bloco narrativo inteiro para antecipar a respiração do fundo
-    // antes do texto atingir o pico de leitura.
-    const stop = inView('.scroll-section', (section) => {
+    let stopInView: (() => void) | null = null;
+
+    stopInView = inView('.scroll-section', (section) => {
+      // Guard: do not override climax Deep Void once fired
+      if (climaxFiredRef.current) return;
+
       const indexAttr = section.getAttribute('data-index');
       if (indexAttr === null) return;
 
@@ -36,7 +49,7 @@ export const BeliefBackground = () => {
         );
       }
 
-      // Dispara animação anti-banding no overlay
+      // Anti-banding overlay pulse
       const overlay = document.getElementById('belief-overlay');
       if (overlay) {
         animate(
@@ -47,8 +60,30 @@ export const BeliefBackground = () => {
       }
     });
 
-    return () => stop();
-  }, []);
+    // Final stop: Deep Void return — triggered once when manifesto enters.
+    // Stops the inView observer immediately so no concurrent inView animation
+    // can race against or override the climax transition.
+    const unsubProgress = scrollProgress.on('change', (value) => {
+      if (value >= CLIMAX_THRESHOLD && !climaxFiredRef.current && bgRef.current) {
+        climaxFiredRef.current = true;
+        stopInView?.();
+        stopInView = null;
+        animate(
+          bgRef.current,
+          { backgroundColor: COLOR_STOPS[7] },
+          { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+        );
+      }
+      if (value < CLIMAX_THRESHOLD) {
+        climaxFiredRef.current = false;
+      }
+    });
+
+    return () => {
+      stopInView?.();
+      unsubProgress();
+    };
+  }, [scrollProgress]);
 
   return (
     <div

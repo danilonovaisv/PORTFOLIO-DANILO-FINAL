@@ -178,10 +178,10 @@ const GhostModel = ({
 
     const floatAmplitude = prefersReducedMotion
       ? 0
-      : interpolateProgress(intensity, [0, 1], [0.018, 0.04]);
+      : interpolateProgress(intensity, [0, 1], [0.036, 0.066]);
     const floatSpeed = prefersReducedMotion
       ? 0
-      : interpolateProgress(intensity, [0, 1], [0.55, 0.9]);
+      : interpolateProgress(intensity, [0, 1], [0.6, 1.2]);
     const floatY =
       prefersReducedMotion || floatAmplitude === 0
         ? 0
@@ -206,12 +206,12 @@ const GhostModel = ({
 
     const proceduralYaw = prefersReducedMotion
       ? 0
-      : Math.sin(state.clock.elapsedTime * (0.45 + intensity * 0.3)) *
-        (0.008 + intensity * 0.012);
+      : Math.sin(state.clock.elapsedTime * (0.4 + intensity * 0.4)) *
+        (0.06 + intensity * 0.04);
     const proceduralPitch = prefersReducedMotion
       ? 0
       : Math.cos(state.clock.elapsedTime * (0.32 + intensity * 0.2)) *
-        (0.004 + intensity * 0.006);
+        (0.012 + intensity * 0.008);
 
     const targetX = scrollTargetX + (isMobile ? 0 : cursorOffsetX);
     const targetY = scrollTargetY + (isMobile ? 0 : cursorOffsetY) + floatY;
@@ -260,11 +260,6 @@ export const GhostScene = ({
     [0, 0.05, 0.95, 1],
     [0, 1, 1, 0]
   );
-  const scale = useTransform(
-    smoothProgress,
-    [0, 0.08, 0.85, 1],
-    [0.96, 1, 1.03, 1.02]
-  );
   const intensity = useTransform(
     smoothProgress,
     [0, 0.15, 0.8, 1],
@@ -288,7 +283,7 @@ export const GhostScene = ({
       className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
       aria-hidden="true"
       role="presentation"
-      style={{ opacity, scale }}
+      style={{ opacity }}
       transition={{ duration: 0.2, ease: GHOST_EASE_INOUT_SINE }}
     >
       <GhostErrorBoundary>
