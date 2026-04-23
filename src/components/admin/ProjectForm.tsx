@@ -385,25 +385,25 @@ export function ProjectForm({
       <div className="grid gap-4 md:grid-cols-2">
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Título"
+            label="System_Title"
             description="Nome público do projeto exibido no portfólio e na Home."
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('title')}
           />
         </label>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Slug"
+            label="System_Slug"
             description="Identificador único da URL. Use hífen no lugar de espaços."
             className="flex items-center gap-1"
           />
           <div className="flex flex-col gap-2">
             {availableTags.length > 0 && (
               <select
-                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-slate-200 font-mono focus:border-blue-500/50 outline-none transition-colors"
+                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white/80 font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
                 defaultValue=""
                 onChange={(event) => {
                   const selectedSlug = event.target.value;
@@ -421,53 +421,53 @@ export function ProjectForm({
               </select>
             )}
             <input
-              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
               {...form.register('slug')}
             />
           </div>
         </label>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Cliente"
+            label="System_Client"
             description="Nome da marca ou empresa vinculada ao trabalho."
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('client_name')}
           />
         </label>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Marca"
+            label="System_Brand"
             description="Opcional. Use quando a marca final for diferente do cliente direto."
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('brand_name')}
           />
         </label>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Ano"
+            label="System_Year"
             description="Ano principal de publicação do trabalho."
             className="flex items-center gap-1"
           />
           <input
             type="number"
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('year')}
           />
         </label>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Tipo de projeto"
+            label="System_Project_Type"
             description="Categoria principal para filtros e exibição no grid editorial."
             className="flex items-center gap-1"
           />
           <select
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('project_type')}
           >
             {PROJECT_TYPE_OPTIONS.map((option) => (
@@ -477,48 +477,48 @@ export function ProjectForm({
         </label>
         <label className="flex flex-col gap-2 md:col-span-2">
           <FieldTooltip
-            label="Short label"
+            label="System_Short_Label"
             description="Subtítulo curto para cards e contexto rápido."
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('short_label')}
           />
         </label>
         <label className="flex flex-col gap-2 md:col-span-2">
           <FieldTooltip
-            label="Descrição"
+            label="System_Description"
             description="Resumo editorial do case para modal e páginas internas."
             className="flex items-center gap-1"
           />
           <textarea
             rows={4}
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors resize-none"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors resize-none"
             {...form.register('description')}
           />
         </label>
 
-        <div className="p-6 bg-blue-600/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-blue-400/80">
-            Estrutura do Case & Navegação
+        <div className="p-6 bg-[#0048ff]/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
+          <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#0048ff]">
+            System_Case_Structure_Nav
           </h3>
 
           <div className="grid gap-4 md:grid-cols-2">
             <label className="flex flex-col gap-2">
               <FieldTooltip
-                label="Tipo de Destino"
-                description="Define como o projeto será aberto ao ser clicado: modal padrão, landing page dinâmica ou link externo."
-                className="flex items-center gap-1 font-medium text-slate-200"
+                label="System_Destination_Type"
+                description="Define how the project is accessed: standard modal, dynamic landing page, or external link."
+                className="flex items-center gap-1 font-mono text-[10px] text-white/60 uppercase tracking-widest"
               />
               <select
-                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-blue-500/50 outline-none transition-colors"
+                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
                 {...form.register('destination.type')}
               >
-                <option value="modal">Modal (Padrão)</option>
-                <option value="internal_landing">Landing Page Interna</option>
-                <option value="external_url">URL Externa</option>
-                <option value="page">Página Direta</option>
+                <option value="modal">System_Modal_Default</option>
+                <option value="internal_landing">System_Landing_Dynamic</option>
+                <option value="external_url">System_External_Node</option>
+                <option value="page">System_Direct_Route</option>
               </select>
             </label>
 
@@ -526,12 +526,12 @@ export function ProjectForm({
               form.watch('destination.type') === 'page') && (
               <label className="flex flex-col gap-2">
                 <FieldTooltip
-                  label="URL de Destino"
-                  description="Link completo para o destino externo ou rota interna."
-                  className="flex items-center gap-1 font-medium text-slate-200"
+                  label="System_Destination_URL"
+                  description="Full link to external destination or internal route."
+                  className="flex items-center gap-1 font-mono text-[10px] text-white/60 uppercase tracking-widest"
                 />
                 <input
-                  className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+                  className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
                   {...form.register('destination.url')}
                   placeholder="https://... ou /rota"
                 />
@@ -541,19 +541,18 @@ export function ProjectForm({
 
           <label className="flex flex-col gap-2">
             <FieldTooltip
-              label="Corpo do Case (Markdown)"
-              description="Texto longo e detalhado descrevendo o processo, desafios e resultados do projeto."
-              className="flex items-center gap-1 font-medium text-slate-200"
+              label="System_Case_Markdown"
+              description="Long-form narrative describing process, challenges, and results."
+              className="flex items-center gap-1 font-mono text-[10px] text-white/60 uppercase tracking-widest"
             />
             <textarea
               rows={12}
-              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors resize-y"
+              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors resize-y"
               {...form.register('case_body')}
               placeholder="Escreva a narrativa do projeto usando Markdown..."
             />
-            <p className="text-[10px] text-slate-500">
-              Dica: Use o Agent de Copy para gerar este conteúdo a partir das
-              informações do projeto.
+            <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight">
+              Kernel_Hint: Use Copy Agent to synthesize narrative from project metrics.
             </p>
           </label>
 
@@ -567,8 +566,8 @@ export function ProjectForm({
                 className="prose-sm md:prose-base"
               />
             ) : (
-              <p className="text-sm text-slate-500">
-                O preview aparece aqui assim que houver conteúdo em Markdown.
+              <p className="font-mono text-[10px] text-white/20 uppercase tracking-widest">
+                System_Preview_Standby: Awaiting markdown input stream...
               </p>
             )}
           </div>
@@ -576,45 +575,45 @@ export function ProjectForm({
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <label className="flex items-center gap-2 text-sm text-slate-300">
+        <label className="flex items-center gap-2 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
           <input type="checkbox" {...form.register('is_published')} />
-          Publicado
+          System_Publish_State
         </label>
       </div>
 
       <div className="rounded border border-purple-500/10 bg-purple-500/[0.02] p-6 space-y-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-purple-400/80">
-            Destaques HOME
+          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-purple-400">
+            System_Featured_Home_Core
           </p>
-          <p className="text-[11px] text-slate-500 font-mono">
-            Configuração exclusiva dos cards da seção Featured Projects da Home.
-            O background animado é sempre dinâmico e não fica salvo no post.
+          <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight leading-relaxed">
+            Exclusive configuration for Home Featured Projects.
+            Background synchronization is handled dynamically via kernel seed.
           </p>
         </div>
 
-        <label className="flex items-center gap-2 text-sm text-slate-200">
+        <label className="flex items-center gap-2 font-mono text-[10px] text-white/60 uppercase tracking-widest">
           <input type="checkbox" {...form.register('featured_on_home')} />
-          Exibir este trabalho como destaque na Home
+          System_Feature_Override: EXPOSE_ON_HOME
         </label>
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="flex flex-col gap-2">
             <FieldTooltip
-              label="Estilo do card destaque"
+              label="System_Featured_Style"
               description="Escolhe apenas o layout do card. O background animado é sorteado dinamicamente na Home."
               className="flex items-center gap-1"
             />
             <select
-              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-blue-500/50 outline-none transition-colors"
+              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
               {...form.register('home_featured.cardStyle')}
               disabled={!featuredOnHome}
             >
               {HOME_FEATURED_CARD_STYLE_OPTIONS.map((option) => (
                 <option key={option} value={option}>
                   {option === 'ANIMATED_BG_INVERTED_LOGO'
-                    ? 'Background animado + logos invertidos'
-                    : 'Background animado + thumb com overlay 5%'}
+                    ? 'System_Layout: ANIM_BG_INVERT_LOGO'
+                    : 'System_Layout: ANIM_BG_THUMB_OVERLAY'}
                 </option>
               ))}
             </select>
@@ -622,13 +621,13 @@ export function ProjectForm({
 
           <label className="flex flex-col gap-2">
             <FieldTooltip
-              label="Logo invertido"
+              label="System_Inverted_Logo"
               description="Obrigatório apenas para o modo de logo invertido. PNG, SVG ou WebP com fundo transparente."
               className="flex items-center gap-1"
             />
             <input
               type="file"
-              className="w-full text-[11px] text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30 disabled:opacity-60 transition-colors cursor-pointer"
+              className="w-full text-[10px] font-mono text-white/30 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[9px] file:font-bold file:uppercase file:tracking-widest file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30 disabled:opacity-60 transition-all cursor-pointer"
               accept="image/png,image/svg+xml,image/webp"
               disabled={!featuredOnHome}
               onChange={(event) =>
@@ -636,18 +635,17 @@ export function ProjectForm({
               }
             />
             {project?.home_featured?.logoPath ? (
-              <span className="text-[10px] text-slate-500 break-all font-mono">
+              <span className="text-[10px] text-white/40 break-all font-mono">
                 Atual: {project.home_featured.logoPath}
               </span>
             ) : null}
             {homeFeaturedCardStyle === 'ANIMATED_BG_INVERTED_LOGO' ? (
-              <p className="text-[9px] text-slate-600 uppercase tracking-tight">
-                O logo fica fixo no centro do card, sem depender do hover.
+              <p className="text-[9px] text-white/40 uppercase tracking-tight">
+                System_Render_Notice: Logo is anchored in center of viewport, independent of hover state.
               </p>
             ) : (
-              <p className="text-[9px] text-slate-600 uppercase tracking-tight">
-                No modo thumb overlay, o card usa a capa do projeto com overlay
-                de 5% sobre o background animado.
+              <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight">
+                System_Render_Notice: Thumb variant uses 5% luminance overlay on dynamic background.
               </p>
             )}
           </label>
@@ -655,20 +653,20 @@ export function ProjectForm({
       </div>
 
       <div className="p-6 bg-blue-600/[0.02] border border-white/5 rounded-md space-y-4">
-        <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-blue-400/80">
-          Página de Destino (Link Interno)
+        <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#0048ff]">
+          System_Destination_Node
         </h3>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Landing Page vinculada"
+            label="System_Landing_Link"
             description="Quando definida, o clique no card abre a página dinâmica /projects/[slug] em vez do modal padrão."
             className="flex items-center gap-1"
           />
           <select
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-blue-500/50 outline-none transition-colors"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
             {...form.register('landing_page_id')}
           >
-            <option value="">Nenhuma (Default)</option>
+            <option value="">System_Node_Null (Default)</option>
             {landingPagesWithTemplate.map((lp) => (
               <option key={lp.id} value={lp.id}>
                 {lp.title} (/{lp.slug}) ·{' '}
@@ -682,9 +680,8 @@ export function ProjectForm({
               </option>
             ))}
           </select>
-          <p className="text-[10px] text-slate-500 italic">
-            Quando vinculado, o clique no trabalho abrirá a Landing Page
-            customizada em vez de uma visualização padrão.
+          <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight italic">
+            System_Route_Note: When linked, project entry triggers landing page routing instead of modal kernel.
           </p>
         </label>
       </div>
@@ -692,37 +689,37 @@ export function ProjectForm({
       <div className="grid gap-4 md:grid-cols-2">
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Capa 16:9 (obrigatória)"
+            label="System_Cover_16x9"
             description="Variante horizontal usada em hero/full-highlight e containers amplos."
             className="flex items-center gap-1"
           />
           <input
             type="file"
-            className="w-full text-[11px] text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
           {project?.url_landscape && (
-            <span className="text-xs text-slate-400 break-all">
-              Atual: {project.url_landscape}
+            <span className="font-mono text-[9px] text-white/20 break-all uppercase">
+              Current_Blob: {project.url_landscape}
             </span>
           )}
         </label>
         <label className="flex flex-col gap-2">
           <FieldTooltip
-            label="Capa 1:1 (obrigatória)"
+            label="System_Cover_1x1"
             description="Variante quadrada para cards compactos e grid denso."
             className="flex items-center gap-1"
           />
           <input
             type="file"
-            className="w-full text-[11px] text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
           {project?.url_square && (
-            <span className="text-xs text-slate-400 break-all">
-              Atual: {project.url_square}
+            <span className="font-mono text-[9px] text-white/20 break-all uppercase">
+              Current_Blob: {project.url_square}
             </span>
           )}
         </label>
@@ -730,16 +727,16 @@ export function ProjectForm({
       <div className="mt-8 border-t border-white/5 pt-6">
         <label className="flex flex-col gap-4">
           <FieldTooltip
-            label="Galeria (gerenciador de peças)"
-            description="Peças completas do portfólio. As peças podem ser reordenadas arrastando."
-            className="flex items-center gap-1 font-semibold text-slate-200 text-lg"
+            label="System_Gallery_Orchestrator"
+            description="Core portfolio assets. Drag to reorder sequence."
+            className="flex items-center gap-1 font-mono font-bold text-white/60 text-xs uppercase tracking-widest"
           />
           <GalleryManager items={galleryItems} onChange={setGalleryItems} />
         </label>
       </div>
       <div>
         <FieldTooltip
-          label="Tags"
+          label="System_Tags"
           description="Usadas para highlights rápidos no card e categorização editorial."
           className="mb-2 flex items-center gap-1"
         />
@@ -747,8 +744,8 @@ export function ProjectForm({
           <input
             value={newTagLabel}
             onChange={(event) => setNewTagLabel(event.target.value)}
-            placeholder="Criar nova tag"
-            className="flex-1 min-w-0 rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
+            placeholder="SYSTEM_INIT_TAG_LABEL"
+            className="flex-1 min-w-0 rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
           />
           <button
             type="button"
@@ -756,15 +753,15 @@ export function ProjectForm({
             disabled={isCreatingTag || !newTagLabel.trim()}
             className="rounded-md border border-white/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors disabled:opacity-50"
           >
-            {isCreatingTag ? 'Criando...' : 'Criar tag'}
+            {isCreatingTag ? 'SYSTEM_INIT...' : 'SYSTEM_CREATE_TAG'}
           </button>
         </div>
         <div className="flex flex-wrap gap-3">
           {availableTags.map((tag) => (
             <label
               key={tag.id}
-              className="flex items-center gap-2 text-sm text-slate-200"
-            >
+            className="flex items-center gap-2 font-mono text-[10px] text-white/60 uppercase tracking-widest"
+          >
               <input
                 type="checkbox"
                 value={tag.id}
@@ -791,10 +788,10 @@ export function ProjectForm({
 
       <button
         type="submit"
-        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-blue-600 px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white shadow-lg transition-all hover:bg-blue-500 hover:scale-[1.02] active:scale-100 disabled:opacity-50"
+        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-[#0048ff] px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white shadow-2xl shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/90 hover:scale-[1.02] active:scale-100 disabled:opacity-50"
         disabled={isPending}
       >
-        {isPending ? 'Sincronizando...' : 'Salvar projeto'}
+        {isPending ? 'SYSTEM_SYNC_IN_PROGRESS...' : 'SYSTEM_PUSH_CHANGES'}
       </button>
     </form>
   );

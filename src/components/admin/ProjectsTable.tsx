@@ -75,13 +75,13 @@ export default function ProjectsTable({ projects }: Props) {
         <table className="min-w-full text-left">
           <thead>
             <tr className="border-b border-white/5 bg-white/[0.02]">
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">Project_Identity</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">Client</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">Date</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">Taxonomy</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">Media_Status</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">Visibility</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500 text-right">Actions</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Project_Identity</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Client</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Date</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Taxonomy</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Media_Status</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Visibility</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
@@ -99,7 +99,7 @@ export default function ProjectsTable({ projects }: Props) {
                       <span className="font-mono text-sm font-light text-white tracking-tight leading-none truncate max-w-[200px]">
                         {project.title}
                       </span>
-                      <span className="font-mono text-[9px] text-blue-500/50 uppercase tracking-widest">
+                      <span className="font-mono text-[9px] text-[#0048ff]/50 uppercase tracking-widest">
                         ID_{project.id.substring(0, 8).toUpperCase()}
                       </span>
                     </div>
@@ -107,13 +107,13 @@ export default function ProjectsTable({ projects }: Props) {
                 </td>
                 
                 <td className="px-6 py-5">
-                  <span className="font-mono text-xs text-slate-400">
+                  <span className="font-mono text-xs text-white/60">
                     {project.client_name || 'Personal'}
                   </span>
                 </td>
 
                 <td className="px-6 py-5">
-                  <span className="font-mono text-xs text-slate-500">
+                  <span className="font-mono text-xs text-white/40">
                     {project.year || '202X'}
                   </span>
                 </td>
@@ -123,13 +123,13 @@ export default function ProjectsTable({ projects }: Props) {
                     {project.tags?.slice(0, 3).map((t) => (
                       <span
                         key={t.tag.slug}
-                        className="rounded px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider bg-white/5 text-slate-500 border border-white/5"
+                        className="rounded px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider bg-white/5 text-white/40 border border-white/5"
                       >
                         {t.tag.label}
                       </span>
                     ))}
                     {project.tags?.length > 3 && (
-                      <span className="font-mono text-[9px] text-slate-600">+{project.tags.length - 3}</span>
+                      <span className="font-mono text-[9px] text-white/20">+{project.tags.length - 3}</span>
                     )}
                   </div>
                 </td>
@@ -138,7 +138,7 @@ export default function ProjectsTable({ projects }: Props) {
                   <div className="flex gap-3">
                     <div className={`h-1.5 w-1.5 rounded-full ${project.url_landscape ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-white/10'}`} title="16:9 Landscape" />
                     <div className={`h-1.5 w-1.5 rounded-full ${project.url_square ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-white/10'}`} title="1:1 Square" />
-                    <div className={`h-1.5 w-1.5 rounded-full ${project.landing_page_id ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]' : 'bg-white/10'}`} title="Landing Page" />
+                    <div className={`h-1.5 w-1.5 rounded-full ${project.landing_page_id ? 'bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.5)]' : 'bg-white/10'}`} title="Landing Page" />
                   </div>
                 </td>
 
@@ -156,10 +156,10 @@ export default function ProjectsTable({ projects }: Props) {
                         className={`rounded-full px-3 py-1 font-mono text-[9px] uppercase tracking-widest border transition-all ${
                           project.is_published
                             ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
-                            : 'bg-white/5 text-slate-500 border-white/5 hover:bg-white/10'
+                            : 'bg-white/5 text-white/40 border-white/5 hover:bg-white/10'
                         }`}
                       >
-                        {project.is_published ? 'Published' : 'Draft'}
+                        {project.is_published ? 'SYSTEM_LIVE' : 'SYSTEM_DRAFT'}
                       </button>
                     </form>
 
@@ -167,7 +167,7 @@ export default function ProjectsTable({ projects }: Props) {
                       <form action={toggleFeaturedOnHome}>
                          <input type="hidden" name="id" value={project.id} />
                          <input type="hidden" name="nextStatus" value={project.featured_on_home ? 'false' : 'true'} />
-                         <button type="submit" title="Home Featured" className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-blue-500 border-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-blue-500/50'}`} />
+                         <button type="submit" title="Home Featured" className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-[#0048ff] border-[#0048ff]/40 shadow-[0_0_8px_rgba(0,72,255,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-[#0048ff]/50'}`} />
                       </form>
                       <form action={toggleFeaturedOnPortfolio}>
                          <input type="hidden" name="id" value={project.id} />
@@ -182,9 +182,9 @@ export default function ProjectsTable({ projects }: Props) {
                   <div className="flex items-center justify-end gap-1">
                     <Link
                       href={ADMIN_NAVIGATION.trabalhos.detail(project.id)}
-                      className="inline-flex h-8 items-center justify-center rounded bg-white/5 px-4 font-mono text-[10px] uppercase tracking-widest text-slate-300 hover:bg-white/10 transition-colors border border-white/5"
+                      className="inline-flex h-8 items-center justify-center rounded bg-white/5 px-4 font-mono text-[10px] uppercase tracking-widest text-white/80 hover:bg-white/10 transition-colors border border-white/5"
                     >
-                      Edit
+                      SYSTEM_MODIFY
                     </Link>
                     <DeleteConfirmButton
                       projectId={project.id}
@@ -197,7 +197,7 @@ export default function ProjectsTable({ projects }: Props) {
             {!projects.length && (
               <tr>
                 <td
-                  className="px-6 py-20 text-center font-mono text-xs uppercase tracking-widest text-slate-600"
+                  className="px-6 py-20 text-center font-mono text-xs uppercase tracking-widest text-white/20"
                   colSpan={7}
                 >
                   Null_Projects_Returned
@@ -227,11 +227,11 @@ export default function ProjectsTable({ projects }: Props) {
                   {project.title}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[9px] text-blue-500/50 uppercase tracking-widest">
+                  <span className="font-mono text-[9px] text-[#0048ff]/50 uppercase tracking-widest">
                     ID_{project.id.substring(0, 8).toUpperCase()}
                   </span>
                   <span className="h-1 w-1 rounded-full bg-white/10" />
-                  <span className="font-mono text-[9px] text-slate-500 uppercase tracking-widest">
+                  <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest">
                     {project.year || '202X'}
                   </span>
                 </div>
@@ -240,7 +240,7 @@ export default function ProjectsTable({ projects }: Props) {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="font-mono text-[8px] uppercase tracking-[0.2em] text-slate-600 block">
+                <label className="font-mono text-[8px] uppercase tracking-[0.2em] text-white/20 block">
                   Publication
                 </label>
                 <form action={togglePublish}>
@@ -255,16 +255,16 @@ export default function ProjectsTable({ projects }: Props) {
                     className={`w-full rounded-lg py-2 font-mono text-[9px] uppercase tracking-widest border transition-all ${
                       project.is_published
                         ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                        : 'bg-white/5 text-slate-500 border-white/5'
+                        : 'bg-white/5 text-white/40 border-white/5'
                     }`}
                   >
-                    {project.is_published ? 'Published' : 'Draft'}
+                    {project.is_published ? 'SYSTEM_LIVE' : 'SYSTEM_DRAFT'}
                   </button>
                 </form>
               </div>
 
               <div className="space-y-2">
-                <label className="font-mono text-[8px] uppercase tracking-[0.2em] text-slate-600 block">
+                <label className="font-mono text-[8px] uppercase tracking-[0.2em] text-white/20 block">
                   Features
                 </label>
                 <div className="flex gap-2">
@@ -279,11 +279,11 @@ export default function ProjectsTable({ projects }: Props) {
                       type="submit"
                       className={`w-full rounded-lg py-2 font-mono text-[8px] uppercase tracking-[0.2em] border transition-all ${
                         project.featured_on_home
-                          ? 'bg-blue-500/10 text-blue-400 border-blue-500/20'
-                          : 'bg-white/5 text-slate-500 border-white/5'
+                          ? 'bg-[#0048ff]/10 text-[#0048ff] border-[#0048ff]/20'
+                          : 'bg-white/5 text-white/40 border-white/5'
                       }`}
                     >
-                      Home
+                      SYSTEM_HOME
                     </button>
                   </form>
                   <form action={toggleFeaturedOnPortfolio} className="flex-1">
@@ -298,10 +298,10 @@ export default function ProjectsTable({ projects }: Props) {
                       className={`w-full rounded-lg py-2 font-mono text-[8px] uppercase tracking-[0.2em] border transition-all ${
                         project.featured_on_portfolio
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                          : 'bg-white/5 text-slate-500 border-white/5'
+                          : 'bg-white/5 text-white/40 border-white/5'
                       }`}
                     >
-                      Port.
+                      SYSTEM_PORTFOLIO
                     </button>
                   </form>
                 </div>
@@ -309,15 +309,15 @@ export default function ProjectsTable({ projects }: Props) {
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-white/5">
-              <span className="font-mono text-[9px] text-slate-600 uppercase">
+              <span className="font-mono text-[9px] text-white/20 uppercase">
                 {project.client_name || 'Personal'}
               </span>
               <div className="flex gap-2">
                 <Link
                   href={ADMIN_NAVIGATION.trabalhos.detail(project.id)}
-                  className="inline-flex h-8 items-center justify-center rounded bg-white/5 px-4 font-mono text-[10px] uppercase tracking-widest text-slate-300 hover:bg-white/10 transition-colors border border-white/5"
+                  className="inline-flex h-8 items-center justify-center rounded bg-white/5 px-4 font-mono text-[10px] uppercase tracking-widest text-white/80 hover:bg-white/10 transition-colors border border-white/5"
                 >
-                  Edit
+                  SYSTEM_MODIFY
                 </Link>
                 <DeleteConfirmButton
                   projectId={project.id}
@@ -328,8 +328,8 @@ export default function ProjectsTable({ projects }: Props) {
           </div>
         ))}
         {!projects.length && (
-          <div className="p-6 text-center text-slate-400 text-sm">
-            Nenhum projeto encontrado.
+          <div className="p-6 text-center text-white/40 text-[10px] uppercase tracking-widest font-mono">
+            Null_Projects_Found
           </div>
         )}
       </div>
@@ -424,21 +424,21 @@ function DeleteConfirmButton({
             result.error
           );
           toast({
-            title: 'Erro ao apagar',
+            title: 'SYSTEM_ERROR: PURGE_FAILED',
             description: String(result.error),
             variant: 'destructive',
           });
         } else {
           toast({
-            title: 'Sucesso',
-            description: `Projeto "${projectTitle}" apagado.`,
+            title: 'SYSTEM_SUCCESS',
+            description: `Project "${projectTitle}" purged from registry.`,
           });
         }
       } catch (error) {
-        console.error(`[DeleteProject] Erro inesperado:`, error);
+        console.error(`[DeleteProject] Unexpected Error:`, error);
         toast({
-          title: 'Erro inesperado',
-          description: 'Não foi possível apagar o projeto.',
+          title: 'SYSTEM_ERROR: UNEXPECTED',
+          description: 'Could not purge project from registry.',
           variant: 'destructive',
         });
       } finally {
@@ -470,10 +470,10 @@ function DeleteConfirmButton({
         phase === 'confirming'
           ? 'bg-rose-500/10 text-rose-400 border-rose-500/30 animate-pulse'
           : phase === 'deleting'
-            ? 'bg-white/5 text-slate-500 border-white/5 cursor-wait'
+            ? 'bg-white/5 text-white/20 border-white/5 cursor-wait'
             : 'text-rose-400/50 border-transparent hover:text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/20'
       }`}
-      aria-label={`Apagar projeto: ${projectTitle}`}
+      aria-label={`Purge project: ${projectTitle}`}
     >
       {label}
     </button>

@@ -17,7 +17,7 @@ export function DeleteLandingPageButton({ id, title, compact = false }: Props) {
 
   const handleDelete = () => {
     const confirmed = window.confirm(
-      `Tem certeza que deseja excluir "${title}"?`
+      `SYSTEM_PURGE_CONFIRM: Permanently delete entry "${title}" from registry?`
     );
     if (!confirmed) return;
 
@@ -32,15 +32,15 @@ export function DeleteLandingPageButton({ id, title, compact = false }: Props) {
       onClick={handleDelete}
       type="button"
       disabled={isPending}
-      aria-label={`Excluir projeto: ${title}`}
-      title="Excluir"
+      aria-label={`SYSTEM_PURGE: ${title}`}
+      title="System_Purge"
       className={
         compact
-          ? 'text-slate-400 hover:text-red-400 flex items-center gap-1 text-xs disabled:opacity-50'
-          : 'p-2 text-slate-400 transition-colors hover:text-red-400 disabled:opacity-50'
+          ? 'text-white/40 hover:text-rose-500 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest transition-colors disabled:opacity-50'
+          : 'p-2 text-white/40 transition-colors hover:text-rose-500 disabled:opacity-50'
       }
     >
-      <Trash2 size={compact ? 16 : 18} /> {compact ? 'Excluir' : null}
+      <Trash2 size={compact ? 14 : 16} strokeWidth={1.5} /> {compact ? 'System_Purge_Entry' : null}
     </button>
   );
 }

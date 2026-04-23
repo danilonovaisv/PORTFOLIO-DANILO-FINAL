@@ -13,32 +13,31 @@ export function AdminErrorDisplay({
   isMissingEnv,
 }: AdminErrorDisplayProps) {
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6 text-center">
-      <div className="max-w-md w-full p-8 rounded-2xl border border-red-500/20 bg-slate-900 shadow-2xl">
-        <h2 className="text-xl font-bold text-red-400 mb-4">
-          Erro Crítico no Admin
+    <div className="min-h-screen bg-[#040013] text-white flex items-center justify-center p-6 text-center">
+      <div className="max-w-md w-full p-8 rounded border border-rose-500/20 bg-white/[0.02] shadow-2xl backdrop-blur-xl">
+        <h2 className="font-mono text-sm font-bold uppercase tracking-[0.3em] text-rose-500 mb-4">
+          System_Critical_Error
         </h2>
-        <p className="text-slate-300 text-sm mb-6">
-          Não foi possível carregar o painel administrativo devido a uma falha
-          na conexão com o servidor.
+        <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-6">
+          Registry_Link_Failure: The administrative kernel could not initialize due to a system-level connection fault.
         </p>
-        <div className="p-4 rounded bg-black/40 font-mono text-xs text-red-300 mb-6 overflow-x-auto text-left">
+        <div className="p-4 rounded bg-black/60 border border-rose-500/10 font-mono text-[10px] text-rose-400/80 mb-6 overflow-x-auto text-left leading-relaxed">
           {isMissingEnv
-            ? 'Configuração ausente: Verifique as variáveis de ambiente (NEXT_PUBLIC_SUPABASE_URL, etc.) no console do seu provedor de hospedagem (Firebase/Vercel).'
-            : message}
+            ? 'ERR_CONFIG_MISSING: Environment variables (SUPABASE_REFS) not detected in current runtime scope.'
+            : `ERR_EXCEPTION: ${message}`}
         </div>
         <button
           onClick={() => window.location.reload()}
-          className="w-full bg-slate-800 hover:bg-slate-700 py-2 rounded font-medium transition-colors"
+          className="w-full border border-white/10 bg-white/5 hover:bg-white/10 py-3 rounded font-mono text-[10px] uppercase tracking-[0.2em] transition-all active:scale-[0.98]"
         >
-          Tentar novamente
+          System_Reboot_Kernel
         </button>
-        <div className="mt-4">
+        <div className="mt-6 border-t border-white/5 pt-4">
           <Link
             href="/"
-            className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
+            className="font-mono text-[9px] uppercase tracking-widest text-white/20 hover:text-[#0048ff] transition-colors"
           >
-            Voltar ao site público
+            System_Exit_to_Public_Node
           </Link>
         </div>
       </div>

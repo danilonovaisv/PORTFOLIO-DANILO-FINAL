@@ -70,6 +70,9 @@ export function AssetGallery({
     setLocalQuery(currentQuery);
   }, [currentQuery]);
 
+  const PAGE_SIZE = 24;
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+
   return (
     <div
       className={`space-y-8 transition-opacity duration-300 ${isPending ? 'opacity-50' : 'opacity-100'}`}
@@ -81,11 +84,11 @@ export function AssetGallery({
             type="search"
             value={localQuery}
             onChange={(e) => setLocalQuery(e.target.value)}
-            placeholder="SEARCH_ASSETS_DATABASE..."
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-5 py-3 font-mono text-xs text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all"
+            placeholder="SYSTEM_DATABASE_SCAN..."
+            className="w-full rounded border border-white/10 bg-white/[0.03] px-5 py-3 font-mono text-xs text-white placeholder:text-white/20 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
           />
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 font-mono text-[9px] text-slate-600 uppercase tracking-widest pointer-events-none">
-            Query_Input
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 font-mono text-[9px] text-white/30 uppercase tracking-widest pointer-events-none">
+            System_Query_Node
           </div>
         </div>
 
@@ -99,7 +102,7 @@ export function AssetGallery({
                   page: '1',
                 })
               }
-              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-blue-500/50 focus:outline-none appearance-none cursor-pointer transition-all"
+              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none cursor-pointer transition-all"
             >
               <option value="all">ALL_PAGES</option>
               {pageOptions.map((page) => (
@@ -108,7 +111,7 @@ export function AssetGallery({
                 </option>
               ))}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
           </div>
@@ -122,7 +125,7 @@ export function AssetGallery({
                   page: '1',
                 })
               }
-              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-blue-500/50 focus:outline-none appearance-none cursor-pointer transition-all"
+              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none cursor-pointer transition-all"
             >
               <option value="all">ALL_TYPES</option>
               {typeOptions.map((type) => (
@@ -131,7 +134,7 @@ export function AssetGallery({
                 </option>
               ))}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
           </div>
@@ -139,7 +142,7 @@ export function AssetGallery({
           <label className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3 cursor-pointer group transition-colors hover:bg-white/[0.05]">
             <input
               type="checkbox"
-              className="h-3.5 w-3.5 rounded border-white/20 bg-black text-blue-600 focus:ring-offset-0 focus:ring-blue-500/50"
+              className="h-3.5 w-3.5 rounded border-white/20 bg-black text-[#0048ff] focus:ring-offset-0 focus:ring-[#0048ff]/50"
               checked={currentShowInactive}
               onChange={(e) =>
                 updateFilters({
@@ -148,8 +151,8 @@ export function AssetGallery({
                 })
               }
             />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500 group-hover:text-slate-300 transition-colors">
-              SHOW_INACTIVE
+            <span className="font-mono text-[10px] uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">
+              System_Show_Inactive
             </span>
           </label>
         </div>
@@ -158,13 +161,13 @@ export function AssetGallery({
       {/* Results Info */}
       <div className="flex items-center justify-between border-b border-white/5 pb-2 px-1">
         <div className="flex items-center gap-3">
-          <div className="h-1 w-1 rounded-full bg-blue-500/50" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">
-            Search_Results
+          <div className="h-1 w-1 rounded-full bg-[#0048ff]/50" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+            System_Search_Registry
           </span>
         </div>
-        <span className="font-mono text-[10px] text-slate-600 uppercase">
-          Status: <span className="text-blue-400">{totalFiltered.toString().padStart(2, '0')}</span>_Matches / <span className="text-slate-400">{totalValid.toString().padStart(2, '0')}</span>_Total
+        <span className="font-mono text-[10px] text-white/30 uppercase">
+          Status: <span className="text-[#0048ff]">{totalFiltered.toString().padStart(2, '0')}</span>_Matches / <span className="text-white/40">{totalValid.toString().padStart(2, '0')}</span>_Total
         </span>
       </div>
 
@@ -177,17 +180,17 @@ export function AssetGallery({
 
       {/* Empty State */}
       {!pageItems.length && (
-        <div className="rounded-2xl border border-dashed border-white/5 bg-white/[0.01] py-24 text-center">
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-600">
-            Null_Assets_Returned
+        <div className="rounded border border-dashed border-white/10 bg-white/[0.01] py-24 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">
+            System_Null_State_Active
           </p>
         </div>
       )}
 
       {/* Pagination */}
       <div className="flex items-center justify-between pt-8 border-t border-white/5">
-        <div className="font-mono text-[9px] uppercase tracking-widest text-slate-600">
-          Viewing_Range: {startIndex + 1}-{Math.min(startIndex + PAGE_SIZE, totalFiltered)}
+        <div className="font-mono text-[9px] uppercase tracking-widest text-white/30">
+          System_Registry_Range: {startIndex + 1}-{Math.min(startIndex + PAGE_SIZE, totalFiltered)}
         </div>
         
         <div className="flex items-center gap-8">
@@ -197,15 +200,15 @@ export function AssetGallery({
             disabled={currentPage <= 1 || isPending}
             className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white transition-opacity disabled:opacity-20"
           >
-            <span className="text-blue-500 group-hover:-translate-x-1 transition-transform">←</span> Prev_Set
+            <span className="text-[#0048ff] group-hover:-translate-x-1 transition-transform">←</span> System_Prev_Set
           </button>
           
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] text-blue-500">
+            <span className="font-mono text-[10px] text-[#0048ff]">
               {currentPage.toString().padStart(2, '0')}
             </span>
             <span className="h-4 w-[1px] bg-white/10" />
-            <span className="font-mono text-[10px] text-slate-600">
+            <span className="font-mono text-[10px] text-white/30">
               {totalPages.toString().padStart(2, '0')}
             </span>
           </div>
@@ -216,7 +219,7 @@ export function AssetGallery({
             disabled={currentPage >= totalPages || isPending}
             className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white transition-opacity disabled:opacity-20"
           >
-            Next_Set <span className="text-blue-500 group-hover:translate-x-1 transition-transform">→</span>
+            System_Next_Set <span className="text-[#0048ff] group-hover:translate-x-1 transition-transform">→</span>
           </button>
         </div>
       </div>

@@ -36,13 +36,13 @@ export default async function TagsPage() {
     <div className="max-w-6xl space-y-12 py-6">
       <header className="space-y-2">
         <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-blue-500/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
             System_Main_Frame
           </p>
         </div>
         <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
-          Tags<span className="text-blue-500">_</span>Management<span className="text-blue-500">.</span>
+          Tags<span className="text-[#0048ff]">_</span>Management<span className="text-[#0048ff]">.</span>
         </h1>
       </header>
 
@@ -57,12 +57,12 @@ export default async function TagsPage() {
                 >
                   <div className="flex items-center justify-between border-b border-white/5 pb-2">
                     <div className="flex items-center gap-3">
-                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500/50" />
+                      <div className="h-1.5 w-1.5 rounded-full bg-[#0048ff]/50" />
                       <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-white">
                         {KIND_LABELS[kind] || kind}
                       </h2>
                     </div>
-                    <span className="font-mono text-[9px] text-slate-600 uppercase">
+                    <span className="font-mono text-[9px] text-white/30 uppercase">
                       Count: {groupTags.length.toString().padStart(2, '0')}
                     </span>
                   </div>
@@ -74,21 +74,21 @@ export default async function TagsPage() {
                         className="group flex items-center justify-between rounded-lg border border-transparent bg-white/[0.01] px-4 py-3 transition-all hover:border-white/5 hover:bg-white/[0.03]"
                       >
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-mono text-sm text-white tracking-tight group-hover:text-blue-400 transition-colors">
+                          <span className="font-mono text-sm text-white tracking-tight group-hover:text-[#0048ff] transition-colors">
                             {tag.label}
                           </span>
-                          <span className="font-mono text-[9px] text-slate-600 uppercase tracking-widest">
+                          <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest">
                             SLUG: {tag.slug}
                           </span>
                         </div>
                         <div className="flex items-center gap-6">
                           <div className="flex flex-col items-end gap-0.5">
-                            <span className="font-mono text-[8px] text-slate-700 uppercase tracking-tighter">Priority</span>
-                            <span className="font-mono text-[10px] text-slate-400">
+                            <span className="font-mono text-[8px] text-white/20 uppercase tracking-tighter">Priority</span>
+                            <span className="font-mono text-[10px] text-white/50">
                               #{tag.sort_order?.toString().padStart(2, '0') ?? 'XX'}
                             </span>
                           </div>
-                          <div className="h-1 w-1 rounded-full bg-white/10 group-hover:bg-blue-500/50 transition-colors" />
+                          <div className="h-1 w-1 rounded-full bg-white/10 group-hover:bg-[#0048ff]/50 transition-colors" />
                         </div>
                       </div>
                     ))}
@@ -98,7 +98,7 @@ export default async function TagsPage() {
             )
           ) : (
             <div className="rounded-2xl border border-dashed border-white/5 bg-white/[0.01] py-20 text-center">
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-600">
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20">
                 Null_Tags_Returned
               </p>
             </div>
@@ -109,14 +109,14 @@ export default async function TagsPage() {
           <div className="sticky top-24">
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl">
               <div className="mb-8 space-y-1">
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-blue-500/60">Module_Input</p>
-                <h2 className="font-mono text-xl font-light text-white">New_Tag<span className="text-blue-500">.</span></h2>
+                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">Module_Input</p>
+                <h2 className="font-mono text-xl font-light text-white">New_Tag<span className="text-[#0048ff]">.</span></h2>
               </div>
               <TagForm />
             </div>
             
-            <div className="mt-6 rounded-xl border border-blue-500/10 bg-blue-500/5 p-5">
-              <p className="font-mono text-[9px] leading-relaxed text-blue-400/70 uppercase">
+            <div className="mt-6 rounded-xl border border-[#0048ff]/10 bg-[#0048ff]/5 p-5">
+              <p className="font-mono text-[9px] leading-relaxed text-[#0048ff]/60 uppercase">
                 Note: Tags are global parameters used for filtering and taxonomy. 
                 Ensure slug uniqueness for SEO consistency.
               </p>

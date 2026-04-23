@@ -9,7 +9,7 @@ export default function LoginPage() {
     <Suspense
       fallback={
         <div className="space-y-6">
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+          <p className="text-sm uppercase tracking-[0.25em] text-white/40">
             Admin
           </p>
           <h1 className="text-2xl font-semibold mt-2">Carregando...</h1>

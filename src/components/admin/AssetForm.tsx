@@ -72,23 +72,23 @@ export function AssetForm({ preset }: AssetFormProps) {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="grid gap-6 md:grid-cols-2">
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Key_Identifier</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Key_Identifier</span>
           <input
             name="asset-key"
             required
             value={key}
             onChange={(e) => setKey(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
             placeholder="SYSTEM_KEY"
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Page_Scope</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Page_Scope</span>
           <select
             name="asset-page"
             value={page}
             onChange={(e) => setPage(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-blue-500/50 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none transition-all"
           >
             <option value="global">GLOBAL</option>
             <option value="home">HOME</option>
@@ -98,12 +98,12 @@ export function AssetForm({ preset }: AssetFormProps) {
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Data_Type</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Data_Type</span>
           <select
             name="asset-type"
             value={assetType}
             onChange={(e) => setAssetType(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-blue-500/50 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none transition-all"
           >
             <option value="image">IMAGE</option>
             <option value="video">VIDEO</option>
@@ -112,36 +112,36 @@ export function AssetForm({ preset }: AssetFormProps) {
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Sub_Path (Optional)</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Sub_Path (Optional)</span>
           <input
             name="asset-subpath"
             value={subPath}
             onChange={(e) => setSubPath(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
             placeholder="PATH/TO/ASSET"
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Sort_Order</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Sort_Order</span>
           <input
             type="number"
             value={sortOrder ?? ''}
             onChange={(e) =>
               setSortOrder(e.target.value ? Number(e.target.value) : undefined)
             }
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
             placeholder="00"
           />
         </label>
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Technical_Description</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Technical_Description</span>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
-          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all resize-none"
+          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all resize-none"
           placeholder="ENTER_METADATA_DESCRIPTION..."
         />
       </label>
@@ -156,10 +156,10 @@ export function AssetForm({ preset }: AssetFormProps) {
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           />
           <div className="space-y-2">
-            <p className="font-mono text-xs text-slate-400 group-hover:text-blue-400 transition-colors">
+            <p className="font-mono text-xs text-white/40 group-hover:text-[#0048ff] transition-colors">
               {file ? `[ FILE_SELECTED: ${file.name} ]` : '[ CLICK_TO_SELECT_BINARY ]'}
             </p>
-            <p className="font-mono text-[9px] uppercase tracking-tighter text-slate-600">
+            <p className="font-mono text-[9px] uppercase tracking-tighter text-white/20">
               SUPPORTED: IMG, VID, FONT, DOC
             </p>
           </div>
@@ -175,9 +175,9 @@ export function AssetForm({ preset }: AssetFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full flex items-center justify-center rounded-lg bg-[#0048ff] px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-600 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center rounded-lg bg-[#0048ff] px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/80 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isPending ? 'Processing_Request...' : 'Save_Asset_Changes'}
+        {isPending ? 'Processing_Request...' : 'SYSTEM_PUSH_CHANGES'}
       </button>
     </form>
   );

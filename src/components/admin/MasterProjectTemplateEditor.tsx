@@ -83,28 +83,28 @@ export default function MasterProjectTemplateEditor({
   return (
     <div className="space-y-6">
       <header className="flex items-center justify-between">
-        <h2 className="text-xl font-bold tracking-tight text-white">
-          Base da Página (V1 Standard)
+        <h2 className="font-mono text-xl font-bold tracking-tight text-white uppercase">
+          System_V1_Core_Standard
         </h2>
       </header>
 
-      <section className="rounded-2xl border border-white/5 bg-slate-900/20 p-6">
+      <section className="rounded border border-white/5 bg-white/[0.02] p-6">
         <CommonProjectMetadataFields value={value} update={update} />
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Hero e Identidade
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0048ff]">
+          System_Identity_Node
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
           <MediaAssetField
-            label="Background da Hero"
+            label="System_Hero_Background"
             value={value.hero_cover_image}
             onChange={(next) => update({ hero_cover_image: next })}
             requireAlt
           />
           <MediaAssetField
-            label="Logo Central (Project Logo)"
+            label="System_Project_Logo"
             value={
               value.hero_logo_image || {
                 src: '',
@@ -128,8 +128,8 @@ export default function MasterProjectTemplateEditor({
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-            Galeria de Mídia (Grade)
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0048ff]">
+            System_Media_Grid_Core
           </h3>
           <button
             type="button"
@@ -141,10 +141,10 @@ export default function MasterProjectTemplateEditor({
                 ],
               })
             }
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-blue-500"
+            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-[#0048ff] px-4 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80"
           >
             <Plus size={14} />
-            Adicionar Item
+            Add_Media_Node
           </button>
         </div>
 
@@ -157,7 +157,7 @@ export default function MasterProjectTemplateEditor({
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="group relative overflow-hidden rounded-xl border border-white/5 bg-slate-900/20 transition-all hover:border-blue-500/20"
+                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-all hover:border-[#0048ff]/30"
               >
                 <div className="p-4">
                   <MediaAssetField
@@ -168,29 +168,29 @@ export default function MasterProjectTemplateEditor({
                   />
 
                   <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-3">
-                    <span className="text-[10px] font-bold text-slate-500">
-                      ORDER: {index + 1}
+                    <span className="font-mono text-[9px] font-bold text-white/40">
+                      ORDER_KEY: {(index + 1).toString().padStart(2, '0')}
                     </span>
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => moveItem(index, 'up')}
                         disabled={index === 0}
-                        className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                        className="font-mono text-[9px] font-bold uppercase tracking-widest rounded px-2 py-1 text-white/40 hover:bg-white/5 hover:text-white disabled:opacity-10"
                       >
-                        SUBIR
+                        Move_Up
                       </button>
                       <button
                         onClick={() => moveItem(index, 'down')}
                         disabled={index === value.gallery_grid.length - 1}
-                        className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                        className="font-mono text-[9px] font-bold uppercase tracking-widest rounded px-2 py-1 text-white/40 hover:bg-white/5 hover:text-white disabled:opacity-10"
                       >
-                        DESCER
+                        Move_Down
                       </button>
                       <button
                         onClick={() => removeGalleryItem(item.id)}
-                        className="rounded p-2 text-red-400 hover:bg-red-500/10"
+                        className="font-mono text-[9px] font-bold uppercase tracking-widest rounded px-2 py-1 text-red-400/60 hover:bg-red-500/10 hover:text-red-400"
                       >
-                        EXCLUIR
+                        Delete_Node
                       </button>
                     </div>
                   </div>

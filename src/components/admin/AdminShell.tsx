@@ -75,7 +75,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="admin-shell min-h-screen bg-[#040013] text-slate-50 selection:bg-blue-500/30">
+      <div className="admin-shell min-h-screen bg-[#040013] text-white selection:bg-[#0048ff]/30">
         <div className="flex">
           <aside className="hidden md:flex w-64 flex-col border-r border-white/5 bg-[#040013]/80 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto">
             <div className="px-8 py-10">
@@ -83,22 +83,21 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 href={ADMIN_NAVIGATION.dashboard}
                 className="group flex items-center gap-2"
               >
-                <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all group-hover:scale-125" />
+                <div className="h-2 w-2 rounded-full bg-[#0048ff] shadow-[0_0_10px_rgba(0,72,255,0.8)] transition-all group-hover:scale-125" />
                 <span className="font-mono text-lg font-light tracking-tighter text-white">
-                  GHOST<span className="text-blue-500">.</span>ADMIN
+                  GHOST<span className="text-[#0048ff]">.</span>ADMIN
                 </span>
               </Link>
               <div className="mt-4 flex items-center gap-2">
-                <div className="h-[1px] w-4 bg-slate-800" />
-                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">
+                <div className="h-[1px] w-4 bg-white/10" />
+                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
                   Control_Center v3.0
                 </p>
               </div>
             </div>
             
-            <nav className="flex-1 space-y-1 px-4 py-2">
               <div className="mb-4 px-4">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-slate-600">
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">
                   Main_Modules
                 </span>
               </div>
@@ -111,30 +110,30 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`group flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-medium transition-all duration-300 ${
+                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-300 ${
                       active 
-                        ? 'bg-blue-500/10 text-blue-400 shadow-[inset_0_0_20px_rgba(59,130,246,0.05)]' 
-                        : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                        ? 'bg-[#0048ff]/10 text-[#0048ff] shadow-[inset_0_0_20px_rgba(0,72,255,0.05)]' 
+                        : 'text-white/40 hover:bg-white/5 hover:text-white'
                     }`}
                   >
-                    <Icon size={16} className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-blue-500' : ''}`} />
+                    <Icon size={16} className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-[#0048ff]' : ''}`} />
                     <span className="tracking-wide">{item.label}</span>
                     {active && (
-                      <div className="ml-auto h-1 w-1 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                      <div className="ml-auto h-1 w-1 rounded-full bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.6)]" />
                     )}
                   </Link>
                 );
               })}
               
               <div className="mt-8 mb-4 px-4">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-slate-600">
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">
                   External_Links
                 </span>
               </div>
               <Link
                 href="/"
                 target="_blank"
-                className="flex items-center gap-3 rounded-xl px-4 py-3 text-xs text-slate-400 transition-all hover:bg-white/5 hover:text-slate-200"
+                className="flex items-center gap-3 rounded px-4 py-3 text-xs text-white/40 transition-all hover:bg-white/5 hover:text-white"
               >
                 <Home size={16} />
                 <span className="tracking-wide italic">Public_View</span>
@@ -144,15 +143,15 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
             <div className="mt-auto p-6 border-t border-white/5 bg-white/[0.02]">
               <div className="flex flex-col gap-4">
                 <div className="space-y-1">
-                  <p className="font-mono text-[9px] uppercase text-slate-600">Operator</p>
-                  <p className="truncate text-[11px] font-medium text-slate-400">
+                  <p className="font-mono text-[9px] uppercase text-white/30">Operator</p>
+                  <p className="truncate text-[11px] font-medium text-white/40">
                     {userEmail || 'danilo@ghost.sys'}
                   </p>
                 </div>
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className="group flex w-full items-center justify-center gap-2 rounded-lg border border-white/5 bg-white/5 py-2.5 text-[10px] font-mono uppercase tracking-widest text-slate-400 transition-all hover:border-rose-500/30 hover:bg-rose-500/10 hover:text-rose-400"
+                    className="group flex w-full items-center justify-center gap-2 rounded border border-white/5 bg-white/5 py-2.5 text-[10px] font-mono uppercase tracking-widest text-white/40 transition-all hover:border-rose-500/30 hover:bg-rose-500/10 hover:text-rose-400"
                   >
                     Terminate_Session
                   </button>
@@ -167,9 +166,9 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 href={ADMIN_NAVIGATION.dashboard}
                 className="flex items-center gap-2"
               >
-                <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                <div className="h-1.5 w-1.5 rounded-full bg-[#0048ff]" />
                 <span className="font-mono text-sm font-light tracking-tighter text-white">
-                  GHOST<span className="text-blue-500">.</span>ADMIN
+                  GHOST<span className="text-[#0048ff]">.</span>ADMIN
                 </span>
               </Link>
               
@@ -177,21 +176,21 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 <SheetTrigger asChild>
                   <button
                     type="button"
-                    className="group flex h-10 w-10 items-center justify-center rounded-lg border border-white/5 bg-white/5 transition-all active:scale-95"
+                    className="group flex h-10 w-10 items-center justify-center rounded border border-white/5 bg-white/5 transition-all active:scale-95"
                     aria-label="Abrir menu"
                   >
-                    <Menu size={18} className="text-slate-400 group-hover:text-white" />
+                    <Menu size={18} className="text-white/40 group-hover:text-white" />
                   </button>
                 </SheetTrigger>
                 <SheetContent
                   side="right"
-                  className="w-[280px] border-white/5 bg-[#040013] p-0 text-slate-50"
+                  className="w-[280px] border-white/5 bg-[#040013] p-0 text-white"
                 >
                   <SheetHeader className="border-b border-white/5 px-6 py-8 text-left">
-                    <SheetTitle className="font-mono text-xs uppercase tracking-[0.3em] text-slate-500">
+                    <SheetTitle className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">
                       System_Navigation
                     </SheetTitle>
-                    <p className="mt-2 font-mono text-[10px] text-blue-500/60 uppercase">
+                    <p className="mt-2 font-mono text-[10px] text-[#0048ff]/60 uppercase">
                       Operator_{userEmail?.split('@')[0].toUpperCase() || 'ROOT'}
                     </p>
                   </SheetHeader>
@@ -209,13 +208,13 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                             key={`mobile-${item.href}`}
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`flex items-center gap-4 rounded-xl px-4 py-4 text-sm transition-all ${
+                            className={`flex items-center gap-4 rounded px-4 py-4 text-sm transition-all ${
                               active
-                                ? 'bg-blue-500/10 text-white'
-                                : 'text-slate-400 hover:bg-white/5'
+                                ? 'bg-[#0048ff]/10 text-white'
+                                : 'text-white/40 hover:bg-white/5'
                             }`}
                           >
-                            <Icon size={18} className={active ? 'text-blue-500' : ''} />
+                            <Icon size={18} className={active ? 'text-[#0048ff]' : ''} />
                             <span className="tracking-wide">{item.label}</span>
                           </Link>
                         );
@@ -226,7 +225,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                       <Link
                         href="/"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 rounded-xl px-4 py-4 text-sm text-slate-400 transition-all hover:bg-white/5"
+                        className="flex items-center gap-4 rounded px-4 py-4 text-sm text-white/40 transition-all hover:bg-white/5"
                       >
                         <Home size={18} />
                         <span className="tracking-wide italic">Public_View</span>
@@ -236,7 +235,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                     <div className="mt-auto border-t border-white/5 p-6">
                       <form action={signOut}>
                         <button
-                          className="flex w-full items-center justify-center rounded-xl bg-white/5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-rose-400 transition-all active:scale-95"
+                          className="flex w-full items-center justify-center rounded bg-white/5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-rose-400 transition-all active:scale-95"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           Terminate_Session

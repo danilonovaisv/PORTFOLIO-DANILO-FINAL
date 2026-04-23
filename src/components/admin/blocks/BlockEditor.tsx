@@ -47,20 +47,20 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
 
     return (
       <div className="flex-1 space-y-4">
-        <label className="text-xs uppercase tracking-widest text-slate-500 font-medium flex items-center gap-2">
+        <label className="text-xs uppercase tracking-widest text-white/40 font-medium flex items-center gap-2">
           <Type size={14} /> {label}
         </label>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-900/50 p-3 rounded-xl border border-white/5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/[0.03] p-3 rounded-xl border border-white/5">
           <div className="space-y-1">
-            <span className="text-[10px] uppercase text-slate-500 block">
-              Tamanho
+            <span className="text-[10px] uppercase text-white/40 block">
+              System_Size
             </span>
             <select
               value={config.fontSize || ''}
               onChange={(e) => updateConfig({ fontSize: e.target.value })}
-              className="w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white"
-              title="Tamanho do Texto"
+              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
+              title="System_Size"
             >
               <option value="">Padrão</option>
               <option value="text-xs">Extra Small</option>
@@ -78,14 +78,14 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             </select>
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] uppercase text-slate-500 block">
-              Peso
+            <span className="text-[10px] uppercase text-white/40 block">
+              System_Weight
             </span>
             <select
               value={config.fontWeight || ''}
               onChange={(e) => updateConfig({ fontWeight: e.target.value })}
-              className="w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white"
-              title="Peso da Fonte"
+              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
+              title="System_Weight"
             >
               <option value="">Padrão</option>
               <option value="font-thin">Thin</option>
@@ -99,14 +99,14 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             </select>
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] uppercase text-slate-500 block">
-              Alinhamento
+            <span className="text-[10px] uppercase text-white/40 block">
+              System_Align
             </span>
             <select
               value={config.textAlign || ''}
               onChange={(e) => updateConfig({ textAlign: e.target.value })}
-              className="w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white"
-              title="Alinhamento do Texto"
+              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
+              title="System_Align"
             >
               <option value="">Padrão</option>
               <option value="left">Esquerda</option>
@@ -116,15 +116,15 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             </select>
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] uppercase text-slate-500 block">
-              Cor (Hex)
+            <span className="text-[10px] uppercase text-white/40 block">
+              System_Color_Hex
             </span>
             <input
               type="text"
               value={config.color || ''}
               onChange={(e) => updateConfig({ color: e.target.value })}
               placeholder="#FFFFFF"
-              className="w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white placeholder-slate-600"
+              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white placeholder-white/20"
             />
           </div>
         </div>
@@ -132,10 +132,10 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
         <textarea
           value={block.content[key] || ''}
           onChange={(e) => updateContent({ [key]: e.target.value })}
-          className="w-full h-full min-h-[200px] bg-slate-950/50 border border-white/10 rounded-xl p-4 outline-none focus:border-blue-500/50 transition-all resize-none font-sans"
+          className="w-full h-full min-h-[200px] bg-white/[0.02] border border-white/10 rounded-xl p-4 outline-none focus:border-[#0048ff]/50 transition-all resize-none font-sans"
           placeholder="# Título... \n\nParágrafo com conteúdo..."
         />
-        <p className="text-[11px] text-slate-500">
+        <p className="text-[11px] text-white/40">
           Este campo aceita Markdown seguro. Títulos, listas, links e ênfase são
           preservados no front.
         </p>
@@ -174,7 +174,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
     case 'text':
       return (
         <div className="p-4">
-          {renderTextInput('text', 'Conteúdo de Texto')}
+          {renderTextInput('text', 'System_Text_Content')}
         </div>
       );
 
@@ -186,7 +186,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             'image',
             'file',
             'previewUrl',
-            'Imagem Full'
+            'System_Media_Full'
           )}
         </div>
       );
@@ -200,7 +200,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             'video',
             'file',
             'previewUrl',
-            'Vídeo Full'
+            'System_Media_Full'
           )}
         </div>
       );
@@ -213,22 +213,22 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             'image',
             'file',
             'previewUrl',
-            'Imagem (Esquerda)'
+            'System_Media_Left'
           )}
-          {renderTextInput('text', 'Texto (Direita)')}
+          {renderTextInput('text', 'System_Text_Right')}
         </div>
       );
 
     case 'text-image':
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
-          {renderTextInput('text', 'Texto (Esquerda)')}
+          {renderTextInput('text', 'System_Text_Left')}
           {renderMediaInput(
             'media',
             'image',
             'file',
             'previewUrl',
-            'Imagem (Direita)'
+            'System_Media_Right'
           )}
         </div>
       );
@@ -241,14 +241,14 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             'image',
             'file',
             'previewUrl',
-            'Imagem 01'
+            'System_Media_01'
           )}
           {renderMediaInput(
             'media2',
             'image',
             'file2',
             'previewUrl2',
-            'Imagem 02'
+            'System_Media_02'
           )}
         </div>
       );
@@ -256,8 +256,8 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
     case 'image-video':
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
-          {renderMediaInput('media', 'image', 'file', 'previewUrl', 'Imagem')}
-          {renderMediaInput('media2', 'video', 'file2', 'previewUrl2', 'Vídeo')}
+          {renderMediaInput('media', 'image', 'file', 'previewUrl', 'System_Media_01')}
+          {renderMediaInput('media2', 'video', 'file2', 'previewUrl2', 'System_Media_02')}
         </div>
       );
 
@@ -269,9 +269,9 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             'video',
             'file',
             'previewUrl',
-            'Vídeo (Esquerda)'
+            'System_Media_Left'
           )}
-          {renderTextInput('text', 'Texto (Direita)')}
+          {renderTextInput('text', 'System_Text_Right')}
         </div>
       );
 

@@ -103,8 +103,8 @@ export function AssetGuide() {
   return (
     <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl space-y-6">
       <div className="space-y-1">
-        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-blue-500/60">Module_Documentation</p>
-        <h2 className="font-mono text-xl font-light text-white uppercase">Key_Guide<span className="text-blue-500">.</span></h2>
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">Module_Documentation</p>
+        <h2 className="font-mono text-xl font-light text-white uppercase">Key_Guide<span className="text-[#0048ff]">.</span></h2>
       </div>
       
       <p className="font-mono text-[10px] text-white/40 uppercase leading-relaxed">
@@ -118,10 +118,10 @@ export function AssetGuide() {
             className="group rounded-lg border border-white/5 bg-white/[0.01] p-4 transition-all hover:border-white/10 hover:bg-white/[0.03]"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="font-mono text-[9px] text-blue-500/50 uppercase tracking-widest">
+              <span className="font-mono text-[9px] text-[#0048ff]/50 uppercase tracking-widest">
                 PAGE: {item.page}
               </span>
-              <div className="h-1 w-1 rounded-full bg-white/10 group-hover:bg-blue-500/50 transition-colors" />
+              <div className="h-1 w-1 rounded-full bg-white/10 group-hover:bg-[#0048ff]/50 transition-colors" />
             </div>
             
             <div className="font-mono text-xs text-white uppercase tracking-tight mb-1">
@@ -133,7 +133,7 @@ export function AssetGuide() {
             </p>
             
             <div className="pt-2 border-t border-white/5">
-              <p className="font-mono text-[9px] text-blue-400/60 uppercase leading-relaxed italic">
+              <p className="font-mono text-[9px] text-[#0048ff]/60 uppercase leading-relaxed italic">
                 {item.change}
               </p>
             </div>

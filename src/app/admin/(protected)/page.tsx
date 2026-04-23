@@ -31,22 +31,22 @@ async function DashboardStats() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <StatCard
-        title="Total de Projetos"
+        title="SYSTEM_TOTAL_PROJECTS"
         value={projectsRes.count ?? 0}
         error={projectsRes.error?.message}
       />
       <StatCard
-        title="Tags Ativas"
+        title="SYSTEM_ACTIVE_TAGS"
         value={tagsRes.count ?? 0}
         error={tagsRes.error?.message}
       />
       <StatCard
-        title="Destaques (Home)"
+        title="SYSTEM_HOME_FEATURED"
         value={featuredHomeRes.count ?? 0}
         error={featuredHomeRes.error?.message}
       />
       <StatCard
-        title="Destaques (Portfólio)"
+        title="SYSTEM_PORTFOLIO_FEATURED"
         value={featuredPortfolioRes.count ?? 0}
         error={featuredPortfolioRes.error?.message}
       />
@@ -79,27 +79,27 @@ export default async function AdminDashboardPage() {
     <div className="max-w-6xl space-y-12 py-6">
       <header className="space-y-2">
         <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-blue-500/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
-            System_Main_Frame
+          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+            SYSTEM_MAIN_FRAME
           </p>
         </div>
         <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
-          Dashboard<span className="text-blue-500">.</span>
+          DASHBOARD<span className="text-[#0048ff]">.</span>
         </h1>
       </header>
 
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-slate-500">
-            Real_Time_Analytics
+          <h2 className="font-mono text-xs uppercase tracking-widest text-white/40">
+            SYSTEM_REAL_TIME_ANALYTICS
           </h2>
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0048ff]/40 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0048ff]"></span>
             </span>
-            <span className="font-mono text-[9px] text-slate-600 uppercase">Live_Signal</span>
+            <span className="font-mono text-[9px] text-white/40 uppercase">LIVE_SIGNAL</span>
           </div>
         </div>
         
@@ -108,38 +108,37 @@ export default async function AdminDashboardPage() {
         </Suspense>
       </div>
 
-      <section className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-10 transition-all hover:border-blue-500/10 backdrop-blur-xl">
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/5 blur-[100px] transition-all group-hover:bg-blue-500/10" />
+      <section className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-10 transition-all hover:border-[#0048ff]/10 backdrop-blur-xl">
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#0048ff]/5 blur-[100px] transition-all group-hover:bg-[#0048ff]/10" />
         
         <div className="relative z-10 space-y-6">
           <div className="space-y-2">
             <h2 className="font-mono text-3xl font-light text-white tracking-tight">
-              Welcome back, <span className="text-blue-500">Commander.</span>
+              WELCOME BACK, <span className="text-[#0048ff]">COMMANDER.</span>
             </h2>
-            <div className="h-[1px] w-20 bg-blue-500/30" />
+            <div className="h-[1px] w-20 bg-[#0048ff]/30" />
           </div>
           
-          <p className="max-w-2xl font-mono text-sm leading-relaxed text-slate-400">
-            O Ghost System v3 está operacional. Todos os módulos de WebGL e 
-            integrações com Supabase estão em sincronia. Prepare-se para 
-            arquitetar o próximo salto visual.
+          <p className="max-w-2xl font-mono text-sm leading-relaxed text-white/60">
+            SYSTEM_CORE_V3_OPERATIONAL. WEBGL_MODULES AND SUPABASE_INTEGRATIONS 
+            IN SYNCHRONIZED STATE. PREPARE FOR ARCHITECTURAL EVOLUTION.
           </p>
           
           <div className="pt-4 flex flex-wrap gap-4">
             <div className="inline-flex items-center gap-3 rounded-lg border border-white/5 bg-white/5 px-5 py-2.5 transition-colors hover:bg-white/10">
-              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
-                Last_Login
+              <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest">
+                SYSTEM_LAST_AUTH
               </span>
               <span className="text-[10px] font-mono text-white/80 uppercase">
-                {new Date().toLocaleDateString('pt-BR')}
+                {new Date().toLocaleDateString('en-US')}
               </span>
             </div>
             
             <div className="inline-flex items-center gap-3 rounded-lg border border-white/5 bg-white/5 px-5 py-2.5 transition-colors hover:bg-white/10">
-              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
-                Clearance
+              <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest">
+                SYSTEM_CLEARANCE
               </span>
-              <span className="text-[10px] font-mono text-blue-500 uppercase font-bold tracking-tighter">
+              <span className="text-[10px] font-mono text-[#0048ff] uppercase font-bold tracking-tighter">
                 LVL_00_ROOT
               </span>
             </div>

@@ -25,20 +25,20 @@ export function AssetRoleMenu({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-2 rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-[12px] text-white hover:border-blue-400 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+        className="flex items-center gap-2 rounded border border-white/10 bg-white/[0.03] px-3 py-1 text-[12px] text-white hover:border-[#0048ff] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0048ff] transition-all"
       >
-        <span>Papel do asset</span>
-        <span className="text-xs text-slate-400">
-          {isOpen ? 'Fechar' : 'Abrir'}
+        <span className="font-mono text-[10px] uppercase tracking-widest">System_Asset_Role</span>
+        <span className="text-[10px] text-white/30 font-mono">
+          {isOpen ? '[_CLOSE_]' : '[_OPEN_]'}
         </span>
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full mt-2 z-20 max-h-[320px] w-[500px] overflow-y-auto rounded-2xl border border-white/10 bg-slate-900/90 p-4 shadow-xl">
+        <div className="absolute left-0 top-full mt-2 z-20 max-h-[320px] w-[500px] overflow-y-auto rounded border border-white/10 bg-[#040013]/95 p-4 shadow-2xl backdrop-blur-md">
           <div className="space-y-4">
             {siteAssetRoleGroups.map((group) => (
               <div key={group.label}>
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-white/30 border-b border-white/5 pb-1 mb-2">
                   {group.label}
                 </div>
                 <div className="mt-2 grid gap-2 md:grid-cols-2">
@@ -49,17 +49,17 @@ export function AssetRoleMenu({
                         key={role.key}
                         type="button"
                         onClick={() => handleSelect(role)}
-                        className={`flex flex-col items-start gap-1 rounded-lg border px-3 py-2 text-left text-sm transition ${
+                        className={`flex flex-col items-start gap-1 rounded border px-3 py-2 text-left transition-all ${
                           isActive
-                            ? 'border-blue-400 bg-blue-500/40 text-white'
-                            : 'border-white/5 bg-slate-900/70 hover:border-blue-400 hover:bg-blue-500/10'
+                            ? 'border-[#0048ff] bg-[#0048ff]/10 text-white'
+                            : 'border-white/5 bg-white/[0.02] hover:border-[#0048ff]/50 hover:bg-[#0048ff]/5'
                         }`}
                       >
-                        <span className="font-semibold">{role.label}</span>
-                        <span className="text-[11px] text-slate-400">
+                        <span className="font-mono text-xs font-bold uppercase tracking-wide">{role.label}</span>
+                        <span className="font-mono text-[9px] text-white/40 uppercase tracking-tight">
                           {role.key}
                         </span>
-                        <span className="text-[11px] text-slate-500">
+                        <span className="font-mono text-[10px] text-white/20 leading-tight">
                           {role.description}
                         </span>
                       </button>

@@ -9,15 +9,15 @@ export function PresetButtons() {
   return (
     <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl space-y-6">
       <div className="space-y-1">
-        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-blue-500/60">Module_Presets</p>
-        <h2 className="font-mono text-xl font-light text-white uppercase">Quick_Sync<span className="text-blue-500">.</span></h2>
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">Module_Presets</p>
+        <h2 className="font-mono text-xl font-light text-white uppercase">Quick_Sync<span className="text-[#0048ff]">.</span></h2>
       </div>
       
       <div className="space-y-6">
         {siteAssetRoleGroups.map((group) => (
           <div key={group.label} className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="h-1 w-1 rounded-full bg-blue-500/50" />
+              <div className="h-1 w-1 rounded-full bg-[#0048ff]/50" />
               <p className="font-mono text-[9px] uppercase tracking-widest text-white/40">
                 {group.label}
               </p>
@@ -68,16 +68,16 @@ function PresetButton({ preset }: { preset: SiteAssetRole }) {
     <button
       type="button"
       onClick={fillForm}
-      className="group flex w-full flex-col items-start rounded-lg border border-white/5 bg-white/[0.01] px-4 py-3 text-left transition-all hover:border-blue-500/30 hover:bg-blue-500/5"
+      className="group flex w-full flex-col items-start rounded-lg border border-white/5 bg-white/[0.01] px-4 py-3 text-left transition-all hover:border-[#0048ff]/30 hover:bg-[#0048ff]/5"
     >
-      <div className="font-mono text-xs text-white group-hover:text-blue-400 transition-colors uppercase tracking-tight">
+      <div className="font-mono text-xs text-white group-hover:text-[#0048ff] transition-colors uppercase tracking-tight">
         {preset.label}
       </div>
       <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
         <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest">
           KEY: {preset.key}
         </span>
-        <span className="font-mono text-[9px] text-blue-500/50 uppercase tracking-widest">
+        <span className="font-mono text-[9px] text-[#0048ff]/50 uppercase tracking-widest">
           {preset.page} // {preset.asset_type}
         </span>
       </div>

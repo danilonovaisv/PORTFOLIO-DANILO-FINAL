@@ -293,27 +293,27 @@ export default function LoginForm() {
     <div className="space-y-6">
       <div className="flex justify-between items-end">
         <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-            Admin
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
+            System_Kernel
           </p>
-          <h1 className="text-2xl font-semibold mt-2">
-            {mode === 'login' ? 'Entrar no painel' : 'Criar nova conta'}
+          <h1 className="font-mono text-2xl font-light mt-2 tracking-tight">
+            {mode === 'login' ? 'System_Access_Portal' : 'System_Registry_Init'}
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-white/20 mt-1">
             {mode === 'login'
-              ? 'Use seu email e senha do Supabase Auth.'
-              : 'Registre-se (sujeito a validação de acesso).'}
+              ? 'Enter_Credentials_To_Establish_Session'
+              : 'Initialize_New_System_Operator_Account'}
           </p>
         </div>
         <button
-          className="text-sm text-blue-400 hover:text-blue-300 underline underline-offset-4"
+          className="font-mono text-[10px] uppercase tracking-widest text-[#0048ff] hover:text-[#0048ff] underline underline-offset-4"
           onClick={() => {
             setMode(mode === 'login' ? 'signup' : 'login');
             clearFeedback();
           }}
           type="button"
         >
-          {mode === 'login' ? 'Fazer Cadastro' : 'Já tenho conta'}
+          {mode === 'login' ? 'REGISTRY_UP' : 'BACK_TO_LOGIN'}
         </button>
       </div>
 
@@ -324,25 +324,25 @@ export default function LoginForm() {
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Email</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">Identity_Email</span>
           <input
             type="email"
             required
             autoComplete="email"
             autoCapitalize="none"
             spellCheck={false}
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Senha</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">Access_Key_Shield</span>
           <input
             type="password"
             required
             autoComplete="current-password"
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -374,63 +374,70 @@ export default function LoginForm() {
 
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-500 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-60"
+          className="w-full rounded bg-[#0048ff] py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/80 active:scale-[0.98] disabled:opacity-50"
           disabled={isBusy}
         >
-          {primaryButtonLabel}
+          {isRedirecting
+            ? 'REDIRECTING...'
+            : busyAction === 'login'
+              ? 'ESTABLISHING_SESSION...'
+              : busyAction === 'signup'
+                ? 'REGISTERING_IDENTITY...'
+                : mode === 'login'
+                  ? 'SYSTEM_LOGIN'
+                  : 'SYSTEM_REGISTER'}
         </button>
 
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <button
             type="button"
-            className="rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 transition hover:border-white/30 hover:bg-white/5 disabled:opacity-60"
+            className="rounded border border-white/10 bg-white/[0.02] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-all hover:border-[#0048ff]/30 hover:bg-[#0048ff]/5 hover:text-white disabled:opacity-50"
             onClick={() => handleOAuth('google')}
             disabled={isBusy}
           >
             {busyAction === 'google'
-              ? 'Abrindo Google...'
-              : 'Entrar com Google'}
+              ? 'Google_Redirect...'
+              : 'OAUTH_GOOGLE'}
           </button>
           <button
             type="button"
-            className="rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 transition hover:border-white/30 hover:bg-white/5 disabled:opacity-60"
+            className="rounded border border-white/10 bg-white/[0.02] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-all hover:border-[#0048ff]/30 hover:bg-[#0048ff]/5 hover:text-white disabled:opacity-50"
             onClick={() => handleOAuth('github')}
             disabled={isBusy}
           >
             {busyAction === 'github'
-              ? 'Abrindo GitHub...'
-              : 'Entrar com GitHub'}
+              ? 'GitHub_Redirect...'
+              : 'OAUTH_GITHUB'}
           </button>
         </div>
 
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <button
             type="button"
-            className="rounded-md border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:border-white/20 hover:text-white disabled:opacity-60"
+            className="rounded border border-white/5 bg-white/[0.01] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/40 transition-all hover:border-white/20 hover:text-white/60 disabled:opacity-50"
             onClick={handleMagicLink}
             disabled={isBusy}
           >
             {busyAction === 'magic-link'
-              ? 'Enviando magic link...'
-              : 'Receber magic link'}
+              ? 'SENDING_LINK...'
+              : 'OTP_MAGIC_LINK'}
           </button>
           <button
             type="button"
-            className="rounded-md border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:border-white/20 hover:text-white disabled:opacity-60"
+            className="rounded border border-white/5 bg-white/[0.01] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/40 transition-all hover:border-white/20 hover:text-white/60 disabled:opacity-50"
             onClick={handlePasswordRecovery}
             disabled={isBusy}
           >
             {busyAction === 'recovery'
-              ? 'Enviando recuperação...'
-              : 'Esqueci minha senha'}
+              ? 'RECOVERY_INIT...'
+              : 'KEY_RECOVERY'}
           </button>
         </div>
 
-        <p className="text-xs leading-5 text-slate-400">
-          Produção usa callbacks em HTTPS. Google e GitHub retornam para{' '}
-          <span className="font-mono text-slate-300">/auth/callback</span>. A
-          recuperação de senha retorna para{' '}
-          <span className="font-mono text-slate-300">
+        <p className="font-mono text-[9px] leading-5 text-white/20 uppercase tracking-tighter">
+          Production_Environment: SSL/HTTPS_REQUIRED. Callbacks_Handled_Via{' '}
+          <span className="text-[#0048ff]">/auth/callback</span>. System_Recovery_Node_Located_At{' '}
+          <span className="text-[#0048ff]">
             /admin/reset-password
           </span>
           .

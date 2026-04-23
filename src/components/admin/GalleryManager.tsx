@@ -33,7 +33,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
     if (!youtubeInput) return;
     const videoId = extractYoutubeId(youtubeInput);
     if (!videoId) {
-      alert('URL do YouTube inválida.');
+      alert('SYSTEM_ERR: INVALID_YOUTUBE_URL');
       return;
     }
     const id = `new-yt-${Math.random().toString(36).substr(2, 9)}`;
@@ -85,7 +85,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
   return (
     <div className="space-y-6">
       <div className="flex gap-4 items-center">
-        <label className="cursor-pointer inline-flex items-center justify-center rounded-md bg-blue-600/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-blue-400 shadow-sm transition hover:bg-blue-600/20 border border-blue-500/20">
+        <label className="cursor-pointer inline-flex items-center justify-center rounded bg-[#0048ff]/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[#0048ff] shadow-sm transition hover:bg-[#0048ff]/20 border border-[#0048ff]/20">
           <input
             type="file"
             accept="image/*,video/*"
@@ -93,19 +93,19 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
             className="hidden"
             onChange={handleAddFiles}
           />
-          Adicionar Peças
+          SYSTEM_ADD_PIECES
         </label>
-        <span className="text-sm text-slate-400">
-          {items.length} peças na galeria
+        <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+          {items.length} COMPONENT_ENTRIES_IN_GALLERY
         </span>
       </div>
       <div className="flex gap-2 items-center text-sm">
         <input
           type="text"
-          placeholder="URL do YouTube (opcional)"
+          placeholder="SYSTEM_YOUTUBE_URL (OPTIONAL)"
           value={youtubeInput}
           onChange={(e) => setYoutubeInput(e.target.value)}
-          className="flex-1 bg-[#040013] border border-white/10 rounded px-3 py-2 text-slate-200 font-mono text-xs focus:border-blue-500/50 outline-none transition-colors"
+          className="flex-1 bg-white/[0.02] border border-white/10 rounded px-3 py-2 text-white/80 font-mono text-[10px] focus:border-[#0048ff]/50 outline-none transition-colors"
         />
         <button
           type="button"
@@ -174,16 +174,16 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
               </div>
 
               <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-                <span className="text-xs text-slate-400 truncate">
+                <span className="font-mono text-[10px] text-white/40 truncate">
                   {item.type === 'youtube'
-                    ? 'YouTube Embed'
+                    ? 'YOUTUBE_EMBED_NODE'
                     : item.file
                       ? item.file.name
                       : item.path}
                 </span>
                 <input
                   type="text"
-                  placeholder="Caption (opcional)"
+                  placeholder="SYSTEM_CAPTION (OPTIONAL)"
                   value={item.caption || ''}
                   onChange={(e) => {
                     const newItems = [...items];
@@ -193,7 +193,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
                     };
                     onChange(newItems);
                   }}
-                  className="w-full bg-black/20 border border-white/5 rounded px-2 py-1.5 text-[11px] text-white font-mono focus:border-blue-500/30 outline-none"
+                  className="w-full bg-white/[0.03] border border-white/5 rounded px-2 py-1.5 text-[10px] text-white font-mono focus:border-[#0048ff]/30 outline-none"
                 />
               </div>
 
@@ -209,8 +209,10 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
           );
         })}
         {items.length === 0 && (
-          <div className="p-8 text-center text-sm text-slate-500 border border-dashed border-white/10 rounded-md">
-            Nenhuma peça adicionada
+          <div className="p-8 text-center border border-dashed border-white/10 rounded bg-white/[0.01]">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+              SYSTEM_NULL_GALLERY_STATE
+            </span>
           </div>
         )}
       </div>

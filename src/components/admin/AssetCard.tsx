@@ -28,7 +28,7 @@ export function AssetCard({ asset }: Props) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const currentRole = siteAssetRoleMap.get(asset.key);
-  const roleLabel = currentRole?.label ?? 'Sem papel definido';
+  const roleLabel = currentRole?.label ?? 'SYSTEM_ROLE_UNDEFINED';
 
   const handleUpload = (file?: File | null) => {
     if (!file) return;
@@ -49,7 +49,7 @@ export function AssetCard({ asset }: Props) {
         });
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Falha no upload');
+        setError(err instanceof Error ? err.message : 'SYSTEM_ERR: UPLOAD_FAILED');
       }
     });
   };
@@ -62,7 +62,7 @@ export function AssetCard({ asset }: Props) {
         router.refresh();
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : 'Falha na alteração do papel'
+          err instanceof Error ? err.message : 'SYSTEM_ERR: ROLE_MOD_FAILED'
         );
       }
     });
@@ -79,14 +79,14 @@ export function AssetCard({ asset }: Props) {
         router.refresh();
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : 'Falha ao atualizar status'
+          err instanceof Error ? err.message : 'SYSTEM_ERR: STATUS_UPDATE_FAILED'
         );
       }
     });
   };
 
   const handleDelete = () => {
-    if (!confirm('Excluir este asset e o arquivo associado?')) return;
+    if (!confirm('SYSTEM_PURGE: CONFIRM_DELETION_OF_ASSET_AND_BLOB?')) return;
     setError(null);
     startTransition(async () => {
       try {
@@ -97,7 +97,7 @@ export function AssetCard({ asset }: Props) {
         });
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Falha na exclusão');
+        setError(err instanceof Error ? err.message : 'SYSTEM_ERR: PURGE_FAILED');
       }
     });
   };
@@ -112,9 +112,9 @@ export function AssetCard({ asset }: Props) {
 
   if (isInvalidAsset) {
     return (
-      <div className="rounded-lg border border-red-500/50 bg-slate-900/60 p-4 flex gap-4">
-        <div className="w-24 h-24 rounded-md bg-red-900/30 flex items-center justify-center">
-          <span className="text-xs text-red-400">Inválido</span>
+      <div className="rounded border border-rose-500/50 bg-black/60 p-4 flex gap-4">
+        <div className="w-24 h-24 rounded bg-rose-900/30 flex items-center justify-center border border-rose-500/20">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-rose-400">Invalid</span>
         </div>
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -125,18 +125,18 @@ export function AssetCard({ asset }: Props) {
               {resolvedPage}
             </span>
           </div>
-          <div className="text-xs text-slate-500 mt-1">
+          <div className="font-mono text-[10px] text-white/30 mt-1 uppercase tracking-tighter">
             {asset.bucket}/{asset.file_path}
           </div>
-          <div className="text-xs text-red-500 mt-2">
-            Este asset tem formato inválido e deve ser corrigido ou removido
+          <div className="font-mono text-[9px] text-rose-500 mt-2 uppercase tracking-tight">
+            SYSTEM_ERROR: INVALID_FORMAT_RECOVERY_REQUIRED
           </div>
           <button
             type="button"
             onClick={handleDelete}
-            className="mt-2 inline-flex items-center rounded-md border border-red-500/60 px-2 py-1 text-[11px] text-red-200 hover:bg-red-500/10"
+            className="mt-2 inline-flex items-center rounded border border-rose-500/60 px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-rose-200 hover:bg-rose-500/10 transition-all"
           >
-            Excluir
+            System_Purge_Entry
           </button>
         </div>
       </div>
@@ -148,20 +148,20 @@ export function AssetCard({ asset }: Props) {
       {/* Header Info */}
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <div className="font-mono text-sm font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors">
+          <div className="font-mono text-sm font-medium tracking-tight text-white group-hover:text-[#0048ff] transition-colors">
             {asset.key}
           </div>
           <div className="flex flex-wrap gap-2">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-slate-500">
+            <span className="font-mono text-[9px] uppercase tracking-widest text-white/40">
               {resolvedPage}
             </span>
             <span className="h-3 w-[1px] bg-white/10" />
-            <span className="font-mono text-[9px] uppercase tracking-widest text-blue-500/80">
+            <span className="font-mono text-[9px] uppercase tracking-widest text-[#0048ff]/80">
               {asset.asset_type}
             </span>
           </div>
         </div>
-        <div className={`h-1.5 w-1.5 rounded-full ${asset.is_active ? 'bg-emerald-500/50 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-slate-700'}`} />
+        <div className={`h-1.5 w-1.5 rounded-full ${asset.is_active ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-white/10'}`} />
       </div>
 
       {/* Preview Area */}
@@ -175,8 +175,8 @@ export function AssetCard({ asset }: Props) {
             unoptimized={previewUrl.toLowerCase().endsWith('.svg')}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center font-mono text-[10px] uppercase tracking-widest text-slate-600">
-            [ {asset.asset_type}_PREVIEW_NA ]
+          <div className="flex h-full w-full items-center justify-center font-mono text-[9px] uppercase tracking-widest text-white/20">
+            [ {asset.asset_type}_PREVIEW_NULL ]
           </div>
         )}
         
@@ -189,7 +189,7 @@ export function AssetCard({ asset }: Props) {
               onChange={(e) => handleUpload(e.target.files?.[0] ?? null)}
               accept="image/*,video/*"
             />
-            {isPending ? 'UPLOADING...' : 'REPLACE_FILE'}
+            {isPending ? 'SYSTEM_UPLOADING...' : 'SYSTEM_UPDATE_BLOB'}
           </label>
         </div>
       </div>
@@ -197,21 +197,21 @@ export function AssetCard({ asset }: Props) {
       {/* Metadata & Actions */}
       <div className="space-y-4">
         {asset.description && (
-          <p className="font-mono text-[11px] leading-relaxed text-slate-400 line-clamp-2 italic">
+          <p className="font-mono text-[10px] leading-relaxed text-white/40 line-clamp-2 italic">
             " {asset.description} "
           </p>
         )}
 
         <div className="grid grid-cols-2 gap-2 border-y border-white/5 py-3">
           <div className="space-y-1">
-            <span className="block font-mono text-[8px] uppercase tracking-widest text-slate-600">Role_Assignment</span>
-            <div className="font-mono text-[10px] text-slate-300 truncate">
+            <span className="block font-mono text-[8px] uppercase tracking-widest text-white/30">System_Role</span>
+            <div className="font-mono text-[10px] text-white/80 truncate">
               {roleLabel}
             </div>
           </div>
           <div className="space-y-1 text-right">
-            <span className="block font-mono text-[8px] uppercase tracking-widest text-slate-600">Path_Storage</span>
-            <div className="font-mono text-[10px] text-slate-300 truncate">
+            <span className="block font-mono text-[8px] uppercase tracking-widest text-white/30">System_Path</span>
+            <div className="font-mono text-[10px] text-white/80 truncate">
               {asset.file_path.split('/').pop()}
             </div>
           </div>
@@ -228,13 +228,13 @@ export function AssetCard({ asset }: Props) {
             <button
               type="button"
               onClick={toggleActive}
-              className={`rounded border px-2 py-1 font-mono text-[9px] uppercase tracking-widest transition-colors ${
+              className={`rounded border px-2 py-1 font-mono text-[9px] uppercase tracking-widest transition-all ${
                 asset.is_active 
                   ? 'border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10' 
-                  : 'border-white/10 text-slate-400 hover:bg-white/5'
+                  : 'border-white/10 text-white/40 hover:bg-white/5'
               }`}
             >
-              {asset.is_active ? 'Deactivate' : 'Activate'}
+              {asset.is_active ? 'System_Deactivate' : 'System_Activate'}
             </button>
             <AssetRoleMenu currentKey={asset.key} onSelectRole={handleRoleChange} />
           </div>
@@ -242,9 +242,9 @@ export function AssetCard({ asset }: Props) {
           <button
             type="button"
             onClick={handleDelete}
-            className="rounded border border-red-500/20 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-red-400/70 transition-colors hover:bg-red-500/10 hover:text-red-400"
+            className="rounded border border-rose-500/20 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-rose-400/70 transition-all hover:bg-rose-500/10 hover:text-rose-400"
           >
-            Delete
+            System_Purge
           </button>
         </div>
       </div>

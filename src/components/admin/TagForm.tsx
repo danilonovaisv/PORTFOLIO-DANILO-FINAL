@@ -69,31 +69,31 @@ export function TagForm({ tag, onSaved }: Props) {
     <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
       <div className="grid gap-4 md:grid-cols-2">
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-            Label_Identity
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Label_Identity
           </span>
           <input
-            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none"
-            placeholder="e.g. Motion Design"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
+            placeholder="node.identity_ref"
             {...form.register('label')}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-            Slug_Endpoint
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Slug_Endpoint
           </span>
           <input
-            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none"
-            placeholder="motion-design"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
+            placeholder="node-identity-slug"
             {...form.register('slug')}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-            Kind_Classification
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Kind_Classification
           </span>
           <select
-            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none appearance-none"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none appearance-none"
             {...form.register('kind')}
           >
             <option value="category" className="bg-[#040013]">Category</option>
@@ -102,26 +102,26 @@ export function TagForm({ tag, onSaved }: Props) {
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-            Sort_Priority
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Sort_Priority
           </span>
           <input
             type="number"
-            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none"
-            placeholder="0"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
+            placeholder="00"
             {...form.register('sort_order')}
           />
         </label>
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-          Metadata_Description
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+          System_Meta_Description
         </span>
         <textarea
           rows={3}
-          className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none resize-none"
-          placeholder="Brief technical summary..."
+          className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none resize-none"
+          placeholder="Technical specification summary..."
           {...form.register('description')}
         />
       </label>
@@ -137,7 +137,7 @@ export function TagForm({ tag, onSaved }: Props) {
 
       <button
         type="submit"
-        className="group relative flex w-full items-center justify-center overflow-hidden rounded-lg bg-blue-500 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-blue-600 active:scale-[0.98] disabled:opacity-50"
+        className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-[#0048ff] py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#0048ff]/90 active:scale-[0.98] disabled:opacity-50"
         disabled={isPending}
       >
         <span className="relative z-10 flex items-center gap-2">
@@ -149,7 +149,7 @@ export function TagForm({ tag, onSaved }: Props) {
           ) : (
             <>
               PUSH_TAG_UPDATE
-              <div className="h-1 w-1 rounded-full bg-white/40 group-hover:bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all" />
+              <div className="h-1.5 w-1.5 rounded-full bg-white/40 group-hover:bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all" />
             </>
           )}
         </span>

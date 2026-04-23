@@ -110,28 +110,28 @@ export default function MasterProjectTemplateV2Editor({
   return (
     <div className="space-y-6">
       <header className="flex items-center justify-between">
-        <h2 className="text-xl font-bold tracking-tight text-white">
-          Base da Página (V2 Grid)
+        <h2 className="font-mono text-xl font-bold tracking-tight text-white uppercase">
+          System_V2_Core_Architecture
         </h2>
       </header>
 
-      <section className="rounded-2xl border border-white/5 bg-slate-900/20 p-6">
+      <section className="rounded border border-white/5 bg-white/[0.02] p-6">
         <CommonProjectMetadataFields value={value} update={update} />
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Hero e Identidade
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0048ff]">
+          System_Identity_Node
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
           <MediaAssetField
-            label="Background da Hero"
+            label="System_Hero_Background"
             value={value.hero_cover_image}
             onChange={(next) => update({ hero_cover_image: next })}
             requireAlt
           />
           <MediaAssetField
-            label="Logo Central (Project Logo)"
+            label="System_Project_Logo"
             value={
               value.hero_logo_image || {
                 src: '',
@@ -155,8 +155,8 @@ export default function MasterProjectTemplateV2Editor({
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-            Galeria de Mídia (Grid Dinâmico V2)
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0048ff]">
+            System_Media_Grid_Dynamic
           </h3>
           <button
             type="button"
@@ -168,10 +168,10 @@ export default function MasterProjectTemplateV2Editor({
                 ],
               })
             }
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-blue-500"
+            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-[#0048ff] px-4 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80"
           >
             <Plus size={14} />
-            Adicionar Item
+            Add_Media_Node
           </button>
         </div>
 
@@ -184,22 +184,22 @@ export default function MasterProjectTemplateV2Editor({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="group relative overflow-hidden rounded-xl border border-white/5 bg-slate-900/20 transition-all hover:border-blue-500/20"
+                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-all hover:border-[#0048ff]/30"
               >
-                <header className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-3">
+                <header className="flex items-center justify-between border-b border-white/5 bg-white/[0.03] px-6 py-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-bold text-blue-400">
-                      ITEM {(index + 1).toString().padStart(2, '0')}
+                    <span className="font-mono text-[10px] font-bold text-[#0048ff]">
+                      Node_{ (index + 1).toString().padStart(2, '0') }
                     </span>
                     <select
-                      className="bg-transparent text-[11px] font-bold uppercase tracking-widest text-slate-400 outline-none"
+                      className="bg-transparent font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 outline-none"
                       value={item.layout_type}
                       onChange={(e) =>
                         updateGalleryItem(item.id, {
                           layout_type: e.target.value as any,
                         })
                       }
-                      title="Tipo de layout do bloco"
+                      title="System_Layout_Protocol"
                     >
                       <option value="full-width">Full Width</option>
                       <option value="contain">Contain</option>
@@ -211,22 +211,22 @@ export default function MasterProjectTemplateV2Editor({
                     <button
                       onClick={() => moveItem(index, 'up')}
                       disabled={index === 0}
-                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                      className="font-mono text-[9px] font-bold uppercase tracking-widest rounded px-2 py-1 text-white/40 hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
-                      SUBIR
+                      Move_Up
                     </button>
                     <button
                       onClick={() => moveItem(index, 'down')}
                       disabled={index === value.gallery_grid.length - 1}
-                      className="rounded p-2 text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-10"
+                      className="font-mono text-[9px] font-bold uppercase tracking-widest rounded px-2 py-1 text-white/40 hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
-                      DESCER
+                      Move_Down
                     </button>
                     <button
                       onClick={() => removeGalleryItem(item.id)}
-                      className="rounded p-2 text-red-400 hover:bg-red-500/10"
+                      className="font-mono text-[9px] font-bold uppercase tracking-widest rounded px-2 py-1 text-red-400/60 hover:bg-red-500/10 hover:text-red-400"
                     >
-                      EXCLUIR
+                      Delete_Node
                     </button>
                   </div>
                 </header>
@@ -234,7 +234,7 @@ export default function MasterProjectTemplateV2Editor({
                 <div className="p-6">
                   <div className="grid gap-6 md:grid-cols-2">
                     <MediaAssetField
-                      label="Asset Principal"
+                      label="System_Asset_Main"
                       value={item}
                       onChange={(next) => updateGalleryItem(item.id, next)}
                       requireAlt
@@ -242,7 +242,7 @@ export default function MasterProjectTemplateV2Editor({
 
                     <div className="space-y-4">
                       <label className="space-y-1">
-                        <span className={labelClasses}>Título do Bloco</span>
+                        <span className={labelClasses}>System_Block_Title</span>
                         <input
                           className={inputClasses}
                           value={item.title || ''}
@@ -256,7 +256,7 @@ export default function MasterProjectTemplateV2Editor({
 
                       <label className="space-y-1">
                         <span className={labelClasses}>
-                          Features (Formato: Rótulo: Valor - 1 por linha)
+                          System_Features_Config (Protocol: Label: Value - 1/line)
                         </span>
                         <textarea
                           className={`${inputClasses} min-h-32 font-mono whitespace-pre`}

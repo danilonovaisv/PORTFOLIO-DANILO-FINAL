@@ -143,19 +143,19 @@ export default async function TrabalhosPage(props: Props) {
       <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <div className="h-[1px] w-8 bg-blue-500/40" />
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+            <div className="h-[1px] w-8 bg-[#0048ff]/40" />
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
               System_Database
             </p>
           </div>
           <h1 className="font-mono text-4xl font-light tracking-tight text-white">
-            Portfólio<span className="text-blue-500">.</span>
+            Portfólio<span className="text-[#0048ff]">.</span>
           </h1>
         </div>
 
         <Link
           href={ADMIN_NAVIGATION.trabalhos.new}
-          className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-blue-600 px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-blue-500 active:scale-95"
+          className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[#0048ff] px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 active:scale-95"
         >
           <div className="absolute inset-0 flex -translate-x-full transition-transform group-hover:translate-x-0">
              <div className="h-full w-full bg-white/20 blur-xl" />
@@ -166,7 +166,7 @@ export default async function TrabalhosPage(props: Props) {
 
       <div className="space-y-8">
         <div className="flex items-center gap-4">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-slate-500">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-white/30">
             Query_Filters
           </h2>
           <div className="h-[1px] flex-1 bg-white/5" />
@@ -219,25 +219,25 @@ function Filters({
     >
       <div className="grid gap-4 md:grid-cols-12">
         <div className="md:col-span-5">
-          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-white/30">
             Search_Query
           </label>
           <input
             name="search"
             placeholder="Title, Client..."
             defaultValue={current.search}
-            className="w-full rounded-lg border border-white/5 bg-black/40 px-4 py-2.5 font-mono text-xs text-white placeholder:text-slate-600 focus:border-blue-500/30 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-4 py-2.5 font-mono text-xs text-white placeholder:text-white/20 focus:border-[#0048ff]/30 focus:outline-none transition-all"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-white/30">
             Taxonomy
           </label>
           <select
             name="tag"
             defaultValue={current.tag || ''}
-            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">All_Tags</option>
             {tags.map((tag) => (
@@ -249,13 +249,13 @@ function Filters({
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-white/30">
             Timeline
           </label>
           <select
             name="year"
             defaultValue={current.year || ''}
-            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">All_Years</option>
             {years.map((year) => (
@@ -267,13 +267,13 @@ function Filters({
         </div>
 
         <div className="md:col-span-3">
-          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-white/30">
             Project_Type
           </label>
           <select
             name="type"
             defaultValue={current.type || ''}
-            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">All_Types</option>
             {types.map((type) => (
@@ -287,13 +287,13 @@ function Filters({
 
       <div className="grid gap-4 md:grid-cols-12 pt-2">
         <div className="md:col-span-3">
-          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-white/30">
             Publication_Status
           </label>
           <select
             name="status"
             defaultValue={current.status || ''}
-            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">Any_Status</option>
             <option value="published">Published</option>
@@ -302,13 +302,13 @@ function Filters({
         </div>
 
         <div className="md:col-span-4">
-          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-white/30">
             Engine_Template
           </label>
           <select
             name="template"
             defaultValue={current.template || ''}
-            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">All_Templates</option>
             <option value="master-project-v3-alpa">V3 ALPA</option>
@@ -328,7 +328,7 @@ function Filters({
           </button>
           <Link
             href={ADMIN_NAVIGATION.trabalhos.index}
-            className="flex items-center justify-center rounded-lg border border-white/5 bg-transparent px-6 py-2.5 font-mono text-[10px] uppercase tracking-widest text-slate-500 transition-all hover:text-slate-300"
+            className="flex items-center justify-center rounded-lg border border-white/5 bg-transparent px-6 py-2.5 font-mono text-[10px] uppercase tracking-widest text-white/30 transition-all hover:text-white/60"
           >
             Reset
           </Link>

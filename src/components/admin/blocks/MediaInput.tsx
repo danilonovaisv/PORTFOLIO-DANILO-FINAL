@@ -57,21 +57,21 @@ export function MediaInput({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label className="text-xs uppercase tracking-widest text-slate-500 font-medium">
+        <label className="text-xs uppercase tracking-widest text-white/40 font-medium">
           {label}
         </label>
-        <div className="flex bg-slate-800 p-1 rounded-lg">
+        <div className="flex bg-white/5 p-1 rounded-lg">
           <button
             onClick={() => setMode('upload')}
-            className={`px-2 py-1 text-xs rounded-md transition-all ${mode === 'upload' ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`px-2 py-1 text-xs rounded-md transition-all ${mode === 'upload' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'}`}
           >
-            Upload
+            SYSTEM_UPLOAD
           </button>
           <button
             onClick={() => setMode('url')}
-            className={`px-2 py-1 text-xs rounded-md transition-all ${mode === 'url' ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`px-2 py-1 text-xs rounded-md transition-all ${mode === 'url' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'}`}
           >
-            Link
+            SYSTEM_LINK
           </button>
         </div>
       </div>
@@ -120,17 +120,17 @@ export function MediaInput({
         <label className="flex flex-col items-center justify-center py-12 rounded-xl border-2 border-dashed border-white/10 hover:border-blue-500 hover:bg-blue-500/5 cursor-pointer transition-all group">
           {type === 'image' ? (
             <ImageIcon
-              className="text-slate-600 mb-2 group-hover:text-blue-400 transition-colors"
+              className="text-white/20 mb-2 group-hover:text-[#0048ff] transition-colors"
               size={32}
             />
           ) : (
             <Video
-              className="text-slate-600 mb-2 group-hover:text-blue-400 transition-colors"
+              className="text-white/20 mb-2 group-hover:text-[#0048ff] transition-colors"
               size={32}
             />
           )}
-          <span className="text-xs text-slate-500 font-medium uppercase tracking-widest group-hover:text-blue-300">
-            Escolher Arquivo
+          <span className="text-xs text-white/40 font-medium uppercase tracking-widest group-hover:text-[#0048ff]/80">
+            SYSTEM_CHOOSE_FILE
           </span>
           <input
             type="file"
@@ -143,8 +143,8 @@ export function MediaInput({
           />
         </label>
       ) : (
-        <div className="flex items-center gap-2 bg-slate-950 border border-white/10 rounded-xl px-4 py-3 focus-within:border-blue-500 transition-colors">
-          <LinkIcon className="text-slate-500" size={18} />
+        <div className="flex items-center gap-2 bg-[#040013] border border-white/10 rounded-xl px-4 py-3 focus-within:border-[#0048ff]/50 transition-colors">
+          <LinkIcon className="text-white/40" size={18} />
           <input
             type="text"
             placeholder={
@@ -152,7 +152,7 @@ export function MediaInput({
                 ? 'https://exemplo.com/imagem.jpg'
                 : 'Pinte aqui o link do YouTube ou .mp4'
             }
-            className="bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-600"
+            className="bg-transparent border-none outline-none w-full text-sm text-white placeholder-white/20"
             onChange={(e) => onUrlChange(e.target.value)}
             value={value || ''}
           />
