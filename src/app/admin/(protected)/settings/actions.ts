@@ -48,7 +48,7 @@ async function ensureTokenTableReady(
   const { error } = await supabase.from('admin_tokens').select('id').limit(1);
   if (error) {
     throw new Error(
-      'Tabela admin_tokens indisponivel. Execute as migrations pendentes do Supabase antes de usar o CRUD de tokens.'
+      'SYSTEM_ERR: TABLE_admin_tokens_UNAVAILABLE — RUN_PENDING_SUPABASE_MIGRATIONS.'
     );
   }
 }
@@ -71,7 +71,7 @@ async function ensureLastOwnerGuard(
   );
   if (remainingOwners.length === 0) {
     throw new Error(
-      'Nao e permitido remover ou rebaixar o ultimo owner do dashboard ADMIN.'
+      'SYSTEM_ERR: LAST_OWNER_DEMOTION_FORBIDDEN — AT_LEAST_ONE_OWNER_REQUIRED.'
     );
   }
 }
@@ -150,14 +150,14 @@ export async function createAdminToken(
     });
 
     revalidatePath('/admin/settings');
-    return { ok: true, message: 'Token criado com sucesso.' };
+    return { ok: true, message: 'SYSTEM_OK: TOKEN_CREATED' };
   } catch (err) {
     return {
       ok: false,
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao criar token.',
+          : 'SYSTEM_ERR: UNKNOWN_TOKEN_CREATE_FAILURE',
     };
   }
 }
@@ -183,7 +183,7 @@ export async function updateAdminToken(
     }
 
     if (!existing) {
-      return { ok: false, error: 'Token nao encontrado.' };
+      return { ok: false, error: 'SYSTEM_ERR: TOKEN_NOT_FOUND' };
     }
 
     const name = normalizeText(input.name);
@@ -193,7 +193,7 @@ export async function updateAdminToken(
     if (!name || !provider || !nextSecret) {
       return {
         ok: false,
-        error: 'Nome, provider e valor do token sao obrigatorios.',
+        error: 'SYSTEM_ERR: TOKEN_NAME_PROVIDER_VALUE_REQUIRED',
       };
     }
 
@@ -223,14 +223,14 @@ export async function updateAdminToken(
     });
 
     revalidatePath('/admin/settings');
-    return { ok: true, message: 'Token atualizado com sucesso.' };
+    return { ok: true, message: 'SYSTEM_OK: TOKEN_UPDATED' };
   } catch (err) {
     return {
       ok: false,
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao atualizar token.',
+          : 'SYSTEM_ERR: UNKNOWN_TOKEN_UPDATE_FAILURE',
     };
   }
 }
@@ -258,14 +258,14 @@ export async function deleteAdminToken(tokenId: string): Promise<ActionResult> {
     });
 
     revalidatePath('/admin/settings');
-    return { ok: true, message: 'Token excluido com sucesso.' };
+    return { ok: true, message: 'SYSTEM_OK: TOKEN_DELETED' };
   } catch (err) {
     return {
       ok: false,
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao excluir token.',
+          : 'SYSTEM_ERR: UNKNOWN_TOKEN_DELETE_FAILURE',
     };
   }
 }
@@ -288,14 +288,14 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
     }
 
     if (!data) {
-      return { ok: false, error: 'Token nao encontrado.' };
+      return { ok: false, error: 'SYSTEM_ERR: TOKEN_NOT_FOUND' };
     }
 
     if (data.provider !== 'openai') {
       return {
         ok: false,
         error:
-          'Teste automatico disponivel apenas para tokens com provider "openai".',
+          'SYSTEM_ERR: OPENAI_AUTO_TEST_PROVIDER_ONLY',
       };
     }
 
@@ -318,7 +318,7 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
       });
       return {
         ok: false,
-        error: `Falha ao validar token OpenAI (${response.status}).`,
+        error: `SYSTEM_ERR: OPENAI_TOKEN_VALIDATION_FAILURE (HTTP ${response.status})`,
       };
     }
 
@@ -330,14 +330,14 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
       metadata: { provider: data.provider },
     });
 
-    return { ok: true, message: 'Token validado com sucesso.' };
+    return { ok: true, message: 'SYSTEM_OK: TOKEN_VALIDATED' };
   } catch (err) {
     return {
       ok: false,
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao testar token.',
+          : 'SYSTEM_ERR: UNKNOWN_TOKEN_TEST_FAILURE',
     };
   }
 }
@@ -355,7 +355,7 @@ export async function createAdminUser(
     const role = normalizeAdminUserRole(input.role);
 
     if (!email || !fullName) {
-      return { ok: false, error: 'Nome e email sao obrigatorios.' };
+      return { ok: false, error: 'SYSTEM_ERR: ADMIN_USER_NAME_EMAIL_REQUIRED' };
     }
 
     const listed = await supabase.auth.admin.listUsers({
@@ -381,7 +381,7 @@ export async function createAdminUser(
       if (invited.error || !invited.data.user) {
         return {
           ok: false,
-          error: invited.error?.message ?? 'Falha ao convidar usuario.',
+          error: invited.error?.message ?? 'SYSTEM_ERR: USER_INVITE_FAILURE',
         };
       }
 
@@ -389,10 +389,7 @@ export async function createAdminUser(
     }
 
     if (!targetUserId) {
-      return {
-        ok: false,
-        error: 'Nao foi possivel resolver o usuario administrativo.',
-      };
+      return { ok: false, error: 'SYSTEM_ERR: CANNOT_RESOLVE_ADMIN_USER' };
     }
 
     const userUpdate = await supabase.auth.admin.updateUserById(targetUserId, {
@@ -428,8 +425,8 @@ export async function createAdminUser(
     return {
       ok: true,
       message: existing
-        ? 'Usuario existente promovido para ADMIN.'
-        : 'Convite administrativo enviado com sucesso.',
+        ? 'SYSTEM_OK: EXISTING_USER_PROMOTED_TO_ADMIN'
+        : 'SYSTEM_OK: ADMIN_INVITE_SENT',
     };
   } catch (err) {
     return {
@@ -437,7 +434,7 @@ export async function createAdminUser(
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao criar usuario ADMIN.',
+          : 'SYSTEM_ERR: UNKNOWN_ADMIN_USER_CREATE_FAILURE',
     };
   }
 }
@@ -456,14 +453,14 @@ export async function updateAdminUser(
     const fullName = normalizeText(input.fullName);
 
     if (!email || !fullName) {
-      return { ok: false, error: 'Nome e email sao obrigatorios.' };
+      return { ok: false, error: 'SYSTEM_ERR: ADMIN_USER_NAME_EMAIL_REQUIRED' };
     }
 
     const currentUser = await supabase.auth.admin.getUserById(userId);
     if (currentUser.error || !currentUser.data.user) {
       return {
         ok: false,
-        error: currentUser.error?.message ?? 'Usuario nao encontrado.',
+        error: currentUser.error?.message ?? 'SYSTEM_ERR: ADMIN_USER_NOT_FOUND',
       };
     }
 
@@ -510,14 +507,14 @@ export async function updateAdminUser(
     });
 
     revalidatePath('/admin/settings');
-    return { ok: true, message: 'Usuario ADMIN atualizado com sucesso.' };
+    return { ok: true, message: 'SYSTEM_OK: ADMIN_USER_UPDATED' };
   } catch (err) {
     return {
       ok: false,
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao atualizar usuario ADMIN.',
+          : 'SYSTEM_ERR: UNKNOWN_ADMIN_USER_UPDATE_FAILURE',
     };
   }
 }
@@ -532,7 +529,7 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
     if (currentUser.error || !currentUser.data.user) {
       return {
         ok: false,
-        error: currentUser.error?.message ?? 'Usuario nao encontrado.',
+        error: currentUser.error?.message ?? 'SYSTEM_ERR: ADMIN_USER_NOT_FOUND',
       };
     }
 
@@ -569,14 +566,14 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
     });
 
     revalidatePath('/admin/settings');
-    return { ok: true, message: 'Acesso ADMIN removido com sucesso.' };
+    return { ok: true, message: 'SYSTEM_OK: ADMIN_ACCESS_REVOKED' };
   } catch (err) {
     return {
       ok: false,
       error:
         err instanceof Error
           ? err.message
-          : 'Erro desconhecido ao excluir usuario ADMIN.',
+          : 'SYSTEM_ERR: UNKNOWN_ADMIN_USER_DELETE_FAILURE',
     };
   }
 }

@@ -46,7 +46,7 @@ export function MediaAssetField({
         <label className="space-y-1">
           <span className={labelClasses}>System_Type</span>
           <select
-            aria-label="Tipo de Asset"
+            aria-label="Asset Type"
             className={inputClasses}
             value={selectedMode}
             onChange={(event) =>

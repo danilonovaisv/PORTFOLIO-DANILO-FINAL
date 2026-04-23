@@ -89,7 +89,7 @@ export const OUTPUT_RATIO_PRESETS: Array<{
   { id: '1:1', label: 'Quadrado', description: 'Feeds e composições centrais' },
   {
     id: '16:9',
-    label: 'Horizontal',
+    label: 'Landscape',
     description: 'Hero, vídeo e outdoor digital',
   },
   {

@@ -276,6 +276,6 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
       );
 
     default:
-      return <div className="p-4 text-red-500">Tipo de bloco desconhecido</div>;
+      return <div className="p-4 text-red-500">SYSTEM_ERR: UNKNOWN_BLOCK_TYPE</div>;
   }
 }

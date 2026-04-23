@@ -91,7 +91,7 @@ export async function generateProjectCopy(
   if (!access) {
     return {
       success: false,
-      error: 'Sessão administrativa inválida. Faça login novamente.',
+      error: 'SYSTEM_ERR: ADMIN_SESSION_INVALID — REAUTHENTICATE',
     };
   }
   const { supabase, user } = access;

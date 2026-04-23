@@ -51,7 +51,7 @@ export function LandingPageSettings({
           Template_Architecture
         </label>
         <select
-          aria-label="Tipo de Template"
+          aria-label="Template Type"
           className="w-full border border-white/10 bg-black/40 px-4 py-3 font-mono text-xs uppercase tracking-tight text-white outline-none focus:border-blue-500/50"
           value={template}
           onChange={(event) =>

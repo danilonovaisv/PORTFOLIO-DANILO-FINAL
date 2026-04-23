@@ -129,7 +129,7 @@ export default function LoginForm() {
 
   const requireEmail = () => {
     if (email.trim()) return true;
-    setError('Informe seu email para continuar.');
+    setError('SYSTEM_ERR: EMAIL_REQUIRED — PROVIDE_EMAIL_TO_CONTINUE');
     return false;
   };
 
@@ -208,7 +208,7 @@ export default function LoginForm() {
         return;
       }
 
-      setError('Falha ao estabelecer sessão. Tente novamente.');
+      setError('SYSTEM_ERR: SESSION_ESTABLISH_FAILURE — RETRY');
     });
   };
 
@@ -280,7 +280,7 @@ export default function LoginForm() {
   };
 
   const primaryButtonLabel = isRedirecting
-    ? 'Redirecionando...'
+    ? 'SYSTEM_REDIRECTING...'
     : busyAction === 'login'
       ? 'Entrando...'
       : busyAction === 'signup'

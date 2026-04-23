@@ -65,7 +65,7 @@ export default async function TrabalhosPage(props: Props) {
     );
   } else {
     console.warn(
-      `[admin/trabalhos] Projetos encontrados: ${baseProjects?.length ?? 0}`
+      `[admin/trabalhos] Projects found: ${baseProjects?.length ?? 0}`
     );
   }
 

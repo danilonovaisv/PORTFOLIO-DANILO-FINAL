@@ -293,7 +293,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         router.push('/admin/landing-pages');
         router.refresh();
       } else {
-        throw new Error('Erro desconhecido ao salvar');
+        throw new Error('SYSTEM_ERR: UNKNOWN_SAVE_FAILURE');
       }
     } catch (error: any) {
       toast({

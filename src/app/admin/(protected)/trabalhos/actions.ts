@@ -293,7 +293,7 @@ export async function deleteProjectAction(id: string) {
   } catch (error: unknown) {
     console.error('Erro ao deletar projeto:', error);
     const message =
-      error instanceof Error ? error.message : 'Erro desconhecido';
+      error instanceof Error ? error.message : 'SYSTEM_ERR: UNKNOWN_FAILURE';
     return { ok: false, error: message };
   }
 }

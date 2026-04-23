@@ -38,7 +38,7 @@ export default async function MidiaPage(props: {
     onlyActive: false,
   });
   const validAssets = normalizedAssets.filter((asset) => {
-    // Filtrar assets com chaves inválidas
+    // Filter assets with invalid keys
     return !(
       asset.key.startsWith('updated_at:') || asset.key.startsWith('key:')
     );

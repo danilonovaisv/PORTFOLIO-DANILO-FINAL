@@ -420,7 +420,7 @@ function DeleteConfirmButton({
         const result = await deleteProjectAction(projectId);
         if (!result.ok) {
           console.error(
-            `[DeleteProject] Falha ao apagar "${projectTitle}":`,
+            `[DeleteProject] SYSTEM_ERR: Failed to delete "${projectTitle}":`,
             result.error
           );
           toast({

@@ -63,7 +63,7 @@ export function AssetForm({ preset }: AssetFormProps) {
           fileInputRef.current.value = '';
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Falha ao salvar');
+        setError(err instanceof Error ? err.message : 'SYSTEM_ERR: ASSET_SAVE_FAILURE');
       }
     });
   };

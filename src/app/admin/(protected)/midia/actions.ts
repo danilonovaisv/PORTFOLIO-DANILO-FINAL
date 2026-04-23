@@ -46,7 +46,7 @@ export async function upsertAsset(payload: AssetPayload) {
 
   if (!filePath) {
     throw new Error(
-      'Informe um arquivo para criar o asset ou mantenha um caminho existente.'
+      'SYSTEM_ERR: FILE_OR_EXISTING_PATH_REQUIRED — PROVIDE_ASSET_OR_KEEP_PATH'
     );
   }
 
@@ -92,7 +92,7 @@ export async function assignAssetRole(payload: AssignAssetRolePayload) {
     .single();
 
   if (fetchError || !existing) {
-    throw fetchError ?? new Error('Asset não encontrado.');
+    throw fetchError ?? new Error('SYSTEM_ERR: ASSET_NOT_FOUND');
   }
 
   const currentPath = normalizeStoragePath(existing.file_path, existing.bucket);
@@ -274,7 +274,7 @@ export async function healLandingPagesBucketAction() {
 
   if (fetchError) {
     throw new Error(
-      `Falha ao buscar assets corrompidos: ${fetchError.message}`
+      `SYSTEM_ERR: CORRUPT_ASSET_FETCH_FAILURE: ${fetchError.message}`
     );
   }
 
@@ -282,7 +282,7 @@ export async function healLandingPagesBucketAction() {
     return {
       success: true,
       fixedCount: 0,
-      message: 'Nenhum bucket landing-pages incorreto encontrado.',
+      message: 'SYSTEM_OK: NO_CORRUPT_LANDING_PAGE_BUCKETS_FOUND',
     };
   }
 

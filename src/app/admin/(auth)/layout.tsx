@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#040013] text-white flex items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-black/60 p-8 shadow-2xl">
         <div className="mb-6">
           <Link
             href="/"
-            className="text-sm text-slate-400 hover:text-white transition-colors"
+            className="font-mono text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors"
           >
-            ← Voltar ao site
+            ← System_Return_Portal
           </Link>
         </div>
         {children}

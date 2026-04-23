@@ -66,7 +66,7 @@ export default function CopyAgentPage() {
           </div>
         </div>
         <p className="max-w-2xl font-mono text-[11px] uppercase tracking-wider text-white/40">
-          Geração de narrativa de alta performance para cases de portfólio.
+          High-performance narrative generation for portfolio cases.
         </p>
       </div>
 
@@ -76,7 +76,7 @@ export default function CopyAgentPage() {
         <div className="space-y-8 lg:col-span-5">
           <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 backdrop-blur-sm">
             <h2 className="mb-6 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-500/70">
-              Parâmetros Narrativos
+              System_Narrative_Parameters
             </h2>
               <form
                 action={formAction}
@@ -86,8 +86,8 @@ export default function CopyAgentPage() {
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Tipo de Saída"
-                      description="Escolha entre Landing Page completa (V3 ALPA) ou um Post/Pop-up resumido (Modal)."
+                      label="System_Output_Type"
+                      description="Choose between Full Landing Page (V3 ALPA) or a concise Post/Pop-up (Modal)."
                       className="flex items-center gap-1"
                     />
                     <div className="grid grid-cols-1 gap-2">
@@ -125,15 +125,15 @@ export default function CopyAgentPage() {
                           onChange={() => setOutputType('modal')}
                         />
                         <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Post Simples (Modal)</span>
-                        <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">Resumo conciso</span>
+                        <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">Concise_Summary</span>
                       </label>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Nome do Projeto"
-                      description="Use o nome oficial para o texto final respeitar branding e consistência."
+                      label="System_Project_Name"
+                      description="Use the official name so the final copy respects branding and consistency."
                       className="flex items-center gap-1"
                     />
                     <input
@@ -154,8 +154,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Cliente"
-                      description="Nome da empresa/marca para contextualizar tom e posicionamento."
+                      label="System_Client"
+                      description="Company/brand name to contextualize tone and positioning."
                       className="flex items-center gap-1"
                     />
                     <input
@@ -176,8 +176,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Objetivo"
-                      description="Explique o problema estratégico que o projeto precisa resolver."
+                      label="System_Objective"
+                      description="Explain the strategic problem the project needs to solve."
                       className="flex items-center gap-1"
                     />
                     <textarea
@@ -199,8 +199,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Público-alvo"
-                      description="Quem deve se conectar com a narrativa do case."
+                      label="System_Target_Audience"
+                      description="Who must connect with the case narrative."
                       className="flex items-center gap-1"
                     />
                     <input
@@ -223,8 +223,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Conceito Visual"
-                      description="Direção criativa principal, linguagem, ritmo e universo estético."
+                      label="System_Visual_Concept"
+                      description="Primary creative direction, language, rhythm and aesthetic universe."
                       className="flex items-center gap-1"
                     />
                     <textarea
@@ -246,8 +246,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Desafios"
-                      description="Liste limitações, conflitos de escopo ou pontos críticos de execução."
+                      label="System_Challenges"
+                      description="List constraints, scope conflicts or critical execution points."
                       className="flex items-center gap-1"
                     />
                     <textarea
@@ -269,8 +269,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Entregáveis (opcional)"
-                      description="Lista curta do que foi produzido."
+                      label="System_Deliverables (optional)"
+                      description="Short list of what was produced."
                       className="flex items-center gap-1"
                     />
                     <input
@@ -289,8 +289,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Tom desejado (opcional)"
-                      description="Diretriz de voz para saída textual (editorial, técnico, emocional, etc.)."
+                      label="System_Tone_Of_Voice (optional)"
+                      description="Voice directive for text output (editorial, technical, emotional, etc.)."
                       className="flex items-center gap-1"
                     />
                     <input
@@ -309,8 +309,8 @@ export default function CopyAgentPage() {
 
                   <div className="space-y-2">
                     <FieldTooltip
-                      label="Link do YouTube (opcional)"
-                      description="Se o projeto possui um vídeo principal, o agent irá tentar ler as legendas para gerar contexto extra."
+                      label="System_YouTube_Link (optional)"
+                      description="If the project has a primary video, the agent will attempt to read subtitles for extra context."
                       className="flex items-center gap-1"
                     />
                     <input
@@ -331,8 +331,8 @@ export default function CopyAgentPage() {
 
                 <div className="space-y-2">
                   <FieldTooltip
-                    label="Imagens de Referência (opcional)"
-                    description={`Até ${MAX_REFERENCE_IMAGES} imagens para orientar direção visual e tom narrativo.`}
+                    label="System_Reference_Images (optional)"
+                    description={`Up to ${MAX_REFERENCE_IMAGES} images to guide visual direction and narrative tone.`}
                     className="flex items-center gap-1"
                   />
                   <input

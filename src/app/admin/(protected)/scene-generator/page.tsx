@@ -299,14 +299,14 @@ export default function SceneGeneratorPage() {
 
                 <div className="space-y-2">
                   <FieldTooltip
-                    label="Tipo de Peça"
+                    label="System_Piece_Type"
                     description="Contexto do mockup para guiar escala e ambiente da cena."
                     className="flex items-center gap-1"
                   />
                   <select
                     id="pieceType"
                     name="pieceType"
-                    title="Tipo de embalagem ou suporte para cena"
+                    title="Packaging or support type for the scene"
                     className="w-full rounded border border-white/10 bg-black/40 px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white outline-none transition-all focus:border-emerald-500/50"
                   >
                     {SCENE_CATEGORIES.map((category) => (
@@ -367,8 +367,8 @@ export default function SceneGeneratorPage() {
               )}
 
               {isCapabilitiesLoading && (
-                <p className="text-xs text-slate-500">
-                  Carregando disponibilidade real dos modelos...
+                <p className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+                  SYSTEM_LOADING_MODEL_AVAILABILITY...
                 </p>
               )}
             </div>

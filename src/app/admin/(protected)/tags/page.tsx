@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 import { TagForm } from '@/components/admin/TagForm';
 
 const KIND_LABELS: Record<string, string> = {
-  category: 'Categoria',
+  category: 'Category',
   discipline: 'Disciplina',
   industry: 'Indústria',
 };

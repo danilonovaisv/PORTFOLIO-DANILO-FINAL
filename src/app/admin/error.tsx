@@ -41,7 +41,7 @@ export default function Error({
         </h2>
       </div>
       <p className="mb-8 text-textSecondary max-w-lg">
-        Ocorreu um erro inesperado ao processar dados administrativos.
+        SYSTEM_ERR: UNEXPECTED_ADMINISTRATIVE_DATA_FAILURE.
         Recomendamos recarregar a página ou verificar a conexão com o Supabase.
       </p>
       <div className="flex gap-4">

@@ -85,7 +85,7 @@ export async function generateAdScenes(
   if (!access) {
     return {
       success: false,
-      error: 'Sessão administrativa inválida. Faça login novamente.',
+      error: 'SYSTEM_ERR: ADMIN_SESSION_INVALID — REAUTHENTICATE',
       supportCode: 'SCN-UNAUTHORIZED',
       requestPayload: prevState.requestPayload,
     };
@@ -124,7 +124,7 @@ export async function generateAdScenes(
   if (!parsedInput.success) {
     return {
       success: false,
-      error: parsedInput.error.issues[0]?.message ?? 'Entrada inválida.',
+      error: parsedInput.error.issues[0]?.message ?? 'SYSTEM_ERR: INVALID_INPUT',
       requestPayload: prevState.requestPayload,
     };
   }

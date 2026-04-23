@@ -75,13 +75,13 @@ const assetGuide = [
   })),
   {
     key: SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
-    description: 'Vídeo hero do portfólio (desktop)',
+    description: 'Portfolio hero video (desktop)',
     change: 'Atualize em par com a versão mobile.',
     page: 'portfolio',
   },
   {
     key: SITE_ASSET_KEYS.heroVideos.portfolioMobile,
-    description: 'Vídeo hero do portfólio (mobile)',
+    description: 'Portfolio hero video (mobile)',
     change: 'Sincronize duração e cor com a versão desktop.',
     page: 'portfolio',
   },
@@ -94,7 +94,7 @@ const assetGuide = [
   {
     key: 'about.curriculum_pdf',
     description: 'Currículo da seção About',
-    change: 'Envie PDF atualizado; mantenha nome consistente.',
+    change: 'Upload updated PDF; keep filename consistent.',
     page: 'about',
   },
 ];

@@ -142,12 +142,12 @@ export default async function LandingPagesListPage(props: Props) {
                         className="group transition-colors hover:bg-white/[0.02]"
                       >
                         <td className="px-6 py-5">
-                          <span className="font-mono text-sm text-white group-hover:text-blue-400 transition-colors">
+                          <span className="font-mono text-sm text-white group-hover:text-[#0048ff] transition-colors">
                             {page.title}
                           </span>
                         </td>
                         <td className="px-6 py-5">
-                          <code className="rounded bg-white/5 px-2 py-1 font-mono text-[10px] text-slate-400">
+                          <code className="rounded bg-white/5 px-2 py-1 font-mono text-[10px] text-white/50">
                             /{page.slug}
                           </code>
                         </td>
@@ -171,7 +171,7 @@ export default async function LandingPagesListPage(props: Props) {
                           </span>
                         </td>
                         <td className="px-6 py-5">
-                          <span className="font-mono text-[10px] text-slate-500">
+                          <span className="font-mono text-[10px] text-white/30">
                             {new Date(page.created_at).toLocaleDateString('pt-BR')}
                           </span>
                         </td>
@@ -215,7 +215,7 @@ export default async function LandingPagesListPage(props: Props) {
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
                         <h3 className="font-mono text-sm text-white">{page.title}</h3>
-                        <code className="block font-mono text-[10px] text-slate-500">/{page.slug}</code>
+                        <code className="block font-mono text-[10px] text-white/30">/{page.slug}</code>
                       </div>
                       <span
                         className={`inline-flex items-center rounded border px-2 py-0.5 font-mono text-[9px] uppercase tracking-tighter ${
@@ -231,7 +231,7 @@ export default async function LandingPagesListPage(props: Props) {
                     </div>
                     
                     <div className="flex items-center justify-between border-t border-white/5 pt-4">
-                      <span className="font-mono text-[9px] text-slate-600">
+                      <span className="font-mono text-[9px] text-white/20">
                         {new Date(page.created_at).toLocaleDateString('pt-BR')}
                       </span>
                       <div className="flex items-center gap-3">
@@ -239,13 +239,13 @@ export default async function LandingPagesListPage(props: Props) {
                           href={`/projects/${page.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-slate-500 hover:text-white transition-colors"
+                          className="text-white/30 hover:text-white transition-colors"
                         >
                           <ExternalLink size={16} />
                         </Link>
                         <Link
                           href={`/admin/landing-pages/${page.id}`}
-                          className="text-slate-500 hover:text-blue-400 transition-colors"
+                          className="text-white/30 hover:text-[#0048ff] transition-colors"
                         >
                           <Edit size={16} />
                         </Link>

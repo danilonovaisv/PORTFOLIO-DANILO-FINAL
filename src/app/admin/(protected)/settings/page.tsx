@@ -80,7 +80,7 @@ export default async function SettingsPage() {
           (token) => token.provider === 'openai' && token.status === 'active'
         ) || Boolean(extractLegacyTokenValue(legacySetting?.value));
     } catch (err) {
-      console.warn('[Settings] Falha ao carregar tokens/admin users', err);
+      console.warn('[Settings] SYSTEM_WARN: Failed to load tokens/admin_users', err);
     }
   }
 
