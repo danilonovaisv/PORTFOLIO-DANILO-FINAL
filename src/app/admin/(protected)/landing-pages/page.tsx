@@ -31,12 +31,41 @@ function getTemplateFromContent(content: unknown): ProjectTemplateId {
   return LEGACY_PROJECT_TEMPLATE;
 }
 
-export default async function LandingPagesListPage() {
+type Props = {
+  searchParams: Promise<{
+    search?: string;
+    template?: string;
+  }>;
+};
+
+export default async function LandingPagesListPage(props: Props) {
+  const searchParams = await props.searchParams;
   const data = (await listLandingPagesAction()) as LandingPageRecord[];
-  const pages = data.map((page) => ({
-    ...page,
-    template: getTemplateFromContent(page.content),
-  }));
+
+  const query = searchParams?.search?.toLowerCase() || '';
+  const templateFilter = searchParams?.template || '';
+
+  const pages = data
+    .map((page) => ({
+      ...page,
+      template: getTemplateFromContent(page.content),
+    }))
+    .filter((page) => {
+      // Filtro de Busca
+      if (query) {
+        const matches =
+          page.title.toLowerCase().includes(query) ||
+          page.slug.toLowerCase().includes(query);
+        if (!matches) return false;
+      }
+
+      // Filtro de Template
+      if (templateFilter) {
+        if (page.template !== templateFilter) return false;
+      }
+
+      return true;
+    });
 
   return (
     <div className="space-y-8">
@@ -55,6 +84,13 @@ export default async function LandingPagesListPage() {
           Novo Projeto
         </Link>
       </div>
+
+      <Filters
+        current={{
+          search: query,
+          template: templateFilter,
+        }}
+      />
 
       <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-900/40 backdrop-blur-sm">
         {pages.length > 0 ? (
@@ -221,5 +257,58 @@ export default async function LandingPagesListPage() {
         )}
       </div>
     </div>
+  );
+}
+
+function Filters({
+  current,
+}: {
+  current: {
+    search?: string;
+    template?: string;
+  };
+}) {
+  return (
+    <form
+      className="grid gap-3 md:grid-cols-4 rounded-xl border border-white/5 bg-slate-900/20 p-4"
+      method="get"
+    >
+      <div className="md:col-span-2">
+        <input
+          name="search"
+          placeholder="Buscar por título ou slug..."
+          defaultValue={current.search}
+          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
+        />
+      </div>
+
+      <select
+        name="template"
+        title="Filtrar por Template"
+        defaultValue={current.template || ''}
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+      >
+        <option value="">Todos os templates</option>
+        <option value="master-project-v3-alpa">V3 ALPA</option>
+        <option value="master-project-v2">V2 Master</option>
+        <option value="master-project-v1">V1 Master</option>
+        <option value="legacy-blocks">Legado</option>
+      </select>
+
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
+        >
+          Filtrar
+        </button>
+        <Link
+          href="/admin/landing-pages"
+          className="flex items-center justify-center rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/5 transition-colors"
+        >
+          Limpar
+        </Link>
+      </div>
+    </form>
   );
 }

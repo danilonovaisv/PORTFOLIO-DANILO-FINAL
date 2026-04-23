@@ -14,6 +14,7 @@ type Props = {
     type?: string;
     status?: 'published' | 'draft';
     search?: string;
+    template?: string;
   }>;
 };
 
@@ -32,6 +33,7 @@ export default async function TrabalhosPage(props: Props) {
   const typeFilter = resolvedSearchParams.type;
   const statusFilter = resolvedSearchParams.status;
   const search = resolvedSearchParams.search;
+  const templateFilter = resolvedSearchParams.template;
 
   let query = supabase
     .from('portfolio_projects')
@@ -105,11 +107,29 @@ export default async function TrabalhosPage(props: Props) {
     tags: tagsByProject.get(project.id) ?? [],
   })) as any[];
 
-  const filteredProjects = tagFilter
+  let filteredProjects = tagFilter
     ? projects.filter((project) =>
         project.tags.some((relation: any) => relation.tag.slug === tagFilter)
       )
     : projects;
+
+  // Filtro por Template
+  if (templateFilter) {
+    if (templateFilter === 'none') {
+      filteredProjects = filteredProjects.filter((p) => !p.landing_page_id);
+    } else {
+      filteredProjects = filteredProjects.filter((p) => {
+        const content = p.landing_pages?.content;
+        return (
+          content &&
+          typeof content === 'object' &&
+          !Array.isArray(content) &&
+          'template' in content &&
+          content.template === templateFilter
+        );
+      });
+    }
+  }
 
   const uniqueYears = Array.from(
     new Set(filteredProjects.map((p) => p.year).filter(Boolean))
@@ -145,6 +165,7 @@ export default async function TrabalhosPage(props: Props) {
           type: typeFilter,
           status: statusFilter,
           search,
+          template: templateFilter,
         }}
       />
 
@@ -168,21 +189,28 @@ function Filters({
     type?: string;
     status?: string;
     search?: string;
+    template?: string;
   };
 }) {
   return (
-    <form className="grid gap-3 md:grid-cols-5" method="get">
-      <input
-        name="search"
-        placeholder="Buscar por título ou cliente"
-        defaultValue={current.search}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm md:col-span-2"
-      />
+    <form
+      className="grid gap-3 md:grid-cols-6 rounded-xl border border-white/5 bg-slate-900/20 p-4"
+      method="get"
+    >
+      <div className="md:col-span-2">
+        <input
+          name="search"
+          placeholder="Buscar por título ou cliente..."
+          defaultValue={current.search}
+          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
+        />
+      </div>
+
       <select
         name="tag"
         title="Filtrar por Tag"
         defaultValue={current.tag || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Todas as tags</option>
         {tags.map((tag) => (
@@ -191,11 +219,12 @@ function Filters({
           </option>
         ))}
       </select>
+
       <select
         name="year"
         title="Filtrar por Ano"
         defaultValue={current.year || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Todos os anos</option>
         {years.map((year) => (
@@ -204,11 +233,12 @@ function Filters({
           </option>
         ))}
       </select>
+
       <select
         name="type"
         title="Filtrar por Tipo"
         defaultValue={current.type || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Todos os tipos</option>
         {types.map((type) => (
@@ -217,26 +247,44 @@ function Filters({
           </option>
         ))}
       </select>
+
       <select
         name="status"
         title="Filtrar por Status"
         defaultValue={current.status || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
-        <option value="">Todos</option>
+        <option value="">Status: Todos</option>
         <option value="published">Publicado</option>
         <option value="draft">Rascunho</option>
       </select>
-      <div className="flex gap-3 md:col-span-5">
+
+      <div className="md:col-span-2">
+        <select
+          name="template"
+          title="Filtrar por Template"
+          defaultValue={current.template || ''}
+          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+        >
+          <option value="">Template: Todos</option>
+          <option value="master-project-v3-alpa">V3 ALPA</option>
+          <option value="master-project-v2">V2 Master</option>
+          <option value="master-project-v1">V1 Master</option>
+          <option value="legacy-blocks">Legado</option>
+          <option value="none">Sem Landing Page</option>
+        </select>
+      </div>
+
+      <div className="flex gap-2 md:col-span-2">
         <button
           type="submit"
-          className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-600"
+          className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
         >
           Filtrar
         </button>
         <Link
           href={ADMIN_NAVIGATION.trabalhos.index}
-          className="rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+          className="flex items-center justify-center rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/5 transition-colors"
         >
           Limpar
         </Link>

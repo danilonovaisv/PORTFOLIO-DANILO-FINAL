@@ -80,7 +80,7 @@ export function AssetGallery({
           value={localQuery}
           onChange={(e) => setLocalQuery(e.target.value)}
           placeholder="Buscar por key, página ou caminho"
-          className="w-full md:w-72 rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-400 focus:outline-none"
+          className="w-full md:w-72 rounded-md border border-white/10 bg-slate-900/60 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
         />
         <select
           value={currentPageFilter}
@@ -90,7 +90,7 @@ export function AssetGallery({
               page: '1',
             })
           }
-          className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none"
+          className="rounded-md border border-white/10 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
         >
           <option value="all">Todas as páginas</option>
           {pageOptions.map((page) => (
@@ -107,7 +107,7 @@ export function AssetGallery({
               page: '1',
             })
           }
-          className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none"
+          className="rounded-md border border-white/10 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
         >
           <option value="all">Todos os tipos</option>
           {typeOptions.map((type) => (
