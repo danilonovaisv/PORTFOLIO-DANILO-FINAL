@@ -86,7 +86,9 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     await expect(ghost).toBeAttached();
 
     const ghostZ = await page.evaluate(() => {
-      const node = document.querySelector('[data-testid="beliefs-ghost-scene"]');
+      const node = document.querySelector(
+        '[data-testid="beliefs-ghost-scene"]'
+      );
       return node ? window.getComputedStyle(node).zIndex : '0';
     });
     const manifestoZ = await page.evaluate(() => {
@@ -103,7 +105,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     const colorStart = await page.evaluate(() => {
       const bg = document
         .querySelector('[data-testid="beliefs-section"]')
-        ?.querySelector('.absolute.inset-0.z-0');
+        ?.querySelector('[data-testid="beliefs-background"]');
       return bg ? window.getComputedStyle(bg).backgroundColor : '';
     });
 
@@ -113,7 +115,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     const colorMid = await page.evaluate(() => {
       const bg = document
         .querySelector('[data-testid="beliefs-section"]')
-        ?.querySelector('.absolute.inset-0.z-0');
+        ?.querySelector('[data-testid="beliefs-background"]');
       return bg ? window.getComputedStyle(bg).backgroundColor : '';
     });
 
@@ -175,7 +177,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     const getColor = async () =>
       page.evaluate(() => {
         const bg = document.querySelector(
-          '[data-testid="beliefs-section"] .absolute.inset-0.z-0'
+          '[data-testid="beliefs-section"] [data-testid="beliefs-background"]'
         );
         return bg ? getComputedStyle(bg).backgroundColor : '';
       });
@@ -234,7 +236,9 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   });
 
   // ── Teste 07: Desktop viewport ─────────────────────────────────────────────
-  test('07 — desktop: Ghost Canvas presente e wrapper sticky', async ({ page }) => {
+  test('07 — desktop: Ghost Canvas presente e wrapper sticky', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await gotoBeliefs(page);
 
@@ -244,7 +248,9 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
         ?.scrollIntoView({ behavior: 'instant' })
     );
 
-    const canvas = page.locator('[data-testid="beliefs-ghost-scene"] canvas').first();
+    const canvas = page
+      .locator('[data-testid="beliefs-ghost-scene"] canvas')
+      .first();
     await expect(canvas).toBeAttached({ timeout: 8000 });
 
     const position = await page
@@ -295,12 +301,16 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     await captureSectionCheckpoint(page, 'beliefs-mobile-090', 0.9, testInfo);
   });
 
-  test('10 — climax desktop: manifesto dominante e branco', async ({ page }) => {
+  test('10 — climax desktop: manifesto dominante e branco', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await gotoBeliefs(page);
     await scrollToProgress(page, 0.92);
 
-    const manifesto = page.locator('[data-testid="beliefs-manifesto"] p').first();
+    const manifesto = page
+      .locator('[data-testid="beliefs-manifesto"] p')
+      .first();
     await expect(manifesto).toBeVisible();
 
     const styles = await manifesto.evaluate((el) => {
@@ -323,7 +333,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
     const colorEnd = await page.evaluate(() => {
       const bg = document
         .querySelector('[data-testid="beliefs-section"]')
-        ?.querySelector('.absolute.inset-0.z-0');
+        ?.querySelector('[data-testid="beliefs-background"]');
       return bg ? window.getComputedStyle(bg).backgroundColor : '';
     });
 

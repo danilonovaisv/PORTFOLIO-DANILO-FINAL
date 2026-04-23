@@ -3,7 +3,9 @@
 /**
  * CustomCursor — Layer de Cursor Global.
  * Renderiza um dot (ponto fixo) e um ring (com inércia) no pointer.
- * Atualiza coordenadas globais (cursorX, cursorY) no beliefStore para uso do R3F.
+ * Atualiza coordenadas globais (cursorX, cursorY) no beliefStore para
+ * compatibilidade com outras leituras do sistema; a seção 06 não usa mais
+ * essas coordenadas para dirigir o Ghost 3D.
  */
 
 import { useEffect } from 'react';
@@ -49,10 +51,10 @@ export const CustomCursor = ({
   if (isMobile || prefersReducedMotion) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-[var(--z-layer-cursor)] overflow-hidden">
       {/* Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-[#0048ff] rounded-full"
+        className="fixed top-0 left-0 h-2 w-2 rounded-full bg-bluePrimary"
         style={{
           x,
           y,
@@ -63,7 +65,7 @@ export const CustomCursor = ({
       />
       {/* Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-[#0048ff]/40 rounded-full"
+        className="fixed top-0 left-0 h-8 w-8 rounded-full border border-bluePrimary/40"
         style={{
           x: ringX,
           y: ringY,

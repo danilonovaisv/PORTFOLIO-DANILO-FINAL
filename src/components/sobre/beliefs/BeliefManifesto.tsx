@@ -36,7 +36,7 @@ export const BeliefManifesto = ({
     }
 
     const unsubscribe = scrollProgress.on('change', (value) => {
-      setIsActive(value >= 0.82);
+      setIsActive(value >= 0.56);
     });
 
     return () => unsubscribe();
@@ -44,31 +44,31 @@ export const BeliefManifesto = ({
 
   const opacity = useTransform(
     scrollProgress,
-    [0.82, 0.9, 1.0],
+    [0.56, 0.68, 1.0],
     prefersReducedMotion ? [1, 1, 1] : [0, 1, 1]
   );
 
   const y = useTransform(
     scrollProgress,
-    [0.82, 0.92],
+    [0.56, 0.72],
     prefersReducedMotion ? [0, 0] : [18, 0]
   );
 
   return (
     <motion.div
       data-testid="beliefs-manifesto"
-      className="fixed inset-0 z-50 w-full
+      className="fixed inset-0 z-[var(--z-layer-overlay)] w-full
                  flex items-center justify-center
                  pointer-events-none"
       style={{ opacity, y }}
       aria-live={isActive ? 'polite' : undefined}
       aria-atomic={isActive ? 'true' : undefined}
     >
-      <div className="text-center px-4 md:px-6">
+      <div className="mx-auto w-full max-w-[1680px] px-4 text-center md:px-6 lg:px-16 xl:px-24">
         <p
           className="font-display font-black text-white
                      tracking-[0.03em] leading-[0.82]"
-          style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
+          style={{ fontSize: 'clamp(4rem, 17vw, 13rem)' }}
         >
           ISSO É
           <br />

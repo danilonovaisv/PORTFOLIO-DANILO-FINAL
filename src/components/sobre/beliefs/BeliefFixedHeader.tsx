@@ -9,8 +9,8 @@
  * • Sequência obrigatória: Header → Ghost → Texto Rotativo
  *
  * Layout:
- * • Desktop: sticky top-0, alinhado à direita, slide x: 60→0
- * • Mobile: sticky top-[20vh], mesma animação
+ * • Desktop: sticky top-0, alinhado à direita
+ * • Mobile: sticky top-[14vh], mesma coreografia
  */
 
 import { motion, useInView } from 'motion/react';
@@ -26,10 +26,11 @@ export const BeliefFixedHeader = () => {
   });
 
   const containerVariants = {
-    hidden: { opacity: 0, x: 60 },
+    hidden: { opacity: 0, y: 18, filter: 'blur(8px)' },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
+      filter: 'blur(0px)',
       transition: {
         duration: 0.8,
         ease: GHOST_EASE,
@@ -38,7 +39,8 @@ export const BeliefFixedHeader = () => {
     },
     exit: {
       opacity: 0,
-      x: 60,
+      y: -18,
+      filter: 'blur(8px)',
       transition: {
         duration: 0.5,
         ease: GHOST_EASE_SOFT,
@@ -51,44 +53,45 @@ export const BeliefFixedHeader = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: GHOST_EASE },
     },
   } as const;
 
   return (
     <motion.header
       ref={ref}
-      className="sticky top-[20vh] md:top-0 z-30 flex flex-col items-end justify-center gap-2
-                 w-full px-6 md:px-12 py-8 pointer-events-none"
+      className="sticky top-[14vh] md:top-0 z-[var(--z-layer-header)] w-full pointer-events-none py-8"
       initial="hidden"
       animate={inView ? 'visible' : 'exit'}
       variants={containerVariants}
       aria-label="Acredito no design que muda o dia de alguém"
     >
-      <div className="text-right max-w-xs md:max-w-sm">
-        <motion.p
-          className="font-display text-sm md:text-base text-white/70
-                     uppercase tracking-widest leading-relaxed"
-          variants={wordVariants}
-        >
-          <SplitText
-            text="Acredito no design que muda o dia de alguém."
-            mode="words"
+      <div className="mx-auto flex w-full max-w-[1680px] justify-end px-6 md:px-12 lg:px-16 xl:px-24">
+        <div className="max-w-xs text-right md:max-w-sm lg:max-w-md">
+          <motion.p
+            className="font-display text-sm md:text-base text-white/70
+                       uppercase tracking-widest leading-relaxed"
             variants={wordVariants}
-          />
-        </motion.p>
+          >
+            <SplitText
+              text="Acredito no design que muda o dia de alguém."
+              mode="words"
+              variants={wordVariants}
+            />
+          </motion.p>
 
-        <motion.h2
-          className="font-h1 font-bold text-white text-lg md:text-xl
-                     mt-2 leading-tight"
-          variants={wordVariants}
-        >
-          <SplitText
-            text="Não pelo choque, mas pela conexão."
-            mode="words"
+          <motion.h2
+            className="font-h1 font-bold text-white text-lg md:text-xl
+                       mt-2 leading-tight"
             variants={wordVariants}
-          />
-        </motion.h2>
+          >
+            <SplitText
+              text="Não pelo choque, mas pela conexão."
+              mode="words"
+              variants={wordVariants}
+            />
+          </motion.h2>
+        </div>
       </div>
     </motion.header>
   );

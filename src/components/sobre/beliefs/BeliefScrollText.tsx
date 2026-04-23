@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { animate, inView } from 'motion';
 import { GHOST_EASE } from '@/config/motion';
 
@@ -15,10 +15,18 @@ export const BeliefScrollText = ({
   isMobile = false,
   prefersReducedMotion = false,
 }: BeliefScrollTextProps) => {
-  useEffect(() => {
-    if (prefersReducedMotion) return;
+  const [activePhrase, setActivePhrase] = useState(phrases[0] ?? '');
 
-    const stop = inView('.scroll-section p', (element) => {
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setActivePhrase(phrases[0] ?? '');
+      return;
+    }
+
+    const stop = inView('[data-belief-phrase]', (element) => {
+      const nextPhrase = element.textContent?.trim();
+      if (nextPhrase) setActivePhrase(nextPhrase);
+
       animate(
         element,
         {
@@ -26,7 +34,7 @@ export const BeliefScrollText = ({
           y: [18, 0],
           filter: ['blur(6px)', 'blur(0px)'],
         },
-        { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+        { duration: 0.9, ease: GHOST_EASE }
       );
 
       return () => {
@@ -43,10 +51,16 @@ export const BeliefScrollText = ({
     });
 
     return () => stop();
-  }, [isMobile, prefersReducedMotion]);
+  }, [isMobile, phrases, prefersReducedMotion]);
 
   return (
-    <div className="relative w-full z-40" aria-label={phrases.join(' ')}>
+    <div
+      className="relative w-full z-[var(--z-layer-cta)]"
+      aria-label={phrases.join(' ')}
+    >
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {activePhrase}
+      </p>
       {phrases.map((phrase, index) => (
         <section
           key={index}
@@ -57,25 +71,28 @@ export const BeliefScrollText = ({
           }`}
           data-index={index}
         >
-          <p
-            className={`font-h1 font-bold italic text-[#4fe6ff] leading-[1.05] ${
-              isMobile
-                ? 'text-center px-6'
-                : 'left-6 md:left-16 lg:left-24 relative max-w-[38vw] lg:max-w-[34vw]'
-            }`}
-            style={{
-              fontSize: isMobile
-                ? 'clamp(2rem, 8vw, 3rem)'
-                : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-              opacity: prefersReducedMotion ? 1 : 0,
-              willChange: prefersReducedMotion
-                ? undefined
-                : 'transform, opacity, filter',
-            }}
-            aria-hidden="true"
-          >
-            {phrase}
-          </p>
+          <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16 xl:px-24">
+            <p
+              data-belief-phrase="true"
+              className={`font-h1 font-bold italic text-blueAccent leading-[1.05] ${
+                isMobile
+                  ? 'mx-auto max-w-[16ch] text-center'
+                  : 'max-w-[34rem] lg:max-w-[38rem] xl:max-w-[42rem]'
+              }`}
+              style={{
+                fontSize: isMobile
+                  ? 'clamp(2rem, 8vw, 3rem)'
+                  : 'clamp(2.8rem, 5.8vw, 6.3rem)',
+                opacity: prefersReducedMotion ? 1 : 0,
+                willChange: prefersReducedMotion
+                  ? undefined
+                  : 'transform, opacity, filter',
+              }}
+              aria-hidden="true"
+            >
+              {phrase}
+            </p>
+          </div>
         </section>
       ))}
     </div>

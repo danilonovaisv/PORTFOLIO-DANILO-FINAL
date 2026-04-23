@@ -1,17 +1,24 @@
 # 06 — O Que Me Move
 
+## Status
+
+- Fonte de verdade atualizada em `2026-04-23`
+- Estado da seção: implementado e validado localmente
+- Status final desta rodada: concluído com ressalvas de ambiente de QA
+
 ## Objetivo
 
-Transformar a seção manifesto em uma experiência scroll-triggered com narrativa clara:
+Manter a seção manifesto como um bloco scroll-driven editorial com:
 
-- abertura com header + frase + Ghost 3D;
-- progressão de frases com troca de cor de fundo;
-- clímax com manifesto final sobreposto;
-- comportamento consistente entre desktop e mobile.
+- abertura full-bleed com header sticky, frases rotativas e Ghost 3D;
+- progressão cromática sincronizada ao scroll;
+- clímax com manifesto tipográfico dominante;
+- comportamento consistente em desktop e mobile;
+- conformidade com as regras desta missão para motion DOM, grid e largura máxima.
 
-## Implementação vigente (fonte de verdade)
+## Implementação vigente
 
-### Arquivo orquestrador
+### Orquestração
 
 - `src/components/sobre/sections/AboutBeliefs.tsx`
 
@@ -22,77 +29,102 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 - `src/components/sobre/beliefs/BeliefFixedHeader.tsx`
 - `src/components/sobre/beliefs/BeliefScrollText.tsx`
 - `src/components/sobre/beliefs/BeliefManifesto.tsx`
+- `src/components/sobre/beliefs/CustomCursor.tsx`
 - `src/components/sobre/3d/GhostScene.tsx`
 - `src/hooks/useBeliefsScroll.ts`
 
-### Stack técnico
+### Stack
 
-- Motion (`motion`, `motion/react`) com `inView`, `animate`, `useTransform`, `useInView`
-- React Three Fiber + Drei para Ghost 3D
-- Next.js + TypeScript + Tailwind CSS
+- Next.js App Router + React 19 + TypeScript
+- Tailwind CSS 4 Oxide
+- Motion (`animate`, `inView`, `useTransform`, `useInView`, `useSpring`)
+- React Three Fiber + Drei
+- Playwright para evidência visual e checkpoints
 
 ## Arquitetura de camadas
 
-| Camada | Componente      | z-index | Papel                          |
-| ------ | --------------- | ------- | ------------------------------ |
-| 0      | Background      | `z-0`   | Troca de cor por seção visível |
-| 1      | Overlay         | `z-10`  | Suavização visual da transição |
-| 2      | Header fixo     | `z-30`  | Mensagem editorial de apoio    |
-| 3      | Ghost 3D        | `z-70`  | Elemento central da narrativa  |
-| 4      | Texto rotativo  | `z-40`  | Frases por scroll-section      |
-| 5      | Manifesto final | `z-50`  | Clímax tipográfico sob o Ghost |
+| Camada | Token / z-index      | Componente          | Papel                                     |
+| ------ | -------------------- | ------------------- | ----------------------------------------- |
+| 0      | `--z-layer-base`     | `BeliefBackground`  | Fundo full-bleed com progressão cromática |
+| 1      | `--z-layer-glass`    | `BeliefOverlay`     | Anti-banding com pulso leve no scroll     |
+| 2      | `--z-layer-header`   | `BeliefFixedHeader` | Header sticky editorial                   |
+| 3      | `--z-layer-cta`      | `BeliefScrollText`  | Frases rotativas                          |
+| 4      | `--z-layer-overlay`  | `BeliefManifesto`   | Clímax tipográfico                        |
+| 5      | `--z-layer-lightbox` | `GhostScene`        | Ghost 3D acima do manifesto               |
 
-## Regras de animação (estado atual)
+## Contrato visual ativo
 
-### Texto rotativo
+### Layout
 
-- `BeliefScrollText` usa `inView('.scroll-section p')`.
-- Entrada: `opacity 0→1`, `x -72→0` desktop / `x -36→0` mobile, `blur 4→0`.
-- Saída no cleanup: `opacity 1→0`, `x 0→-48` desktop / `x 0→-24` mobile, `blur 0→4`.
-- Estado inicial explícito no `<p>` para evitar flash antes do trigger.
+- Seção segue full-bleed, mas a composição interna é governada por `max-width: 1680px`.
+- Header, frases e manifesto usam containers internos com `px-6 md:px-12 lg:px-16 xl:px-24`.
+- Desktop mantém leitura em três planos: frase à esquerda, Ghost no centro editorial, header à direita.
+- Mobile mantém header no topo visual, frases no terço inferior e manifesto centralizado.
 
-### Background
+### Fundo
 
-- `BeliefBackground` usa `inView('.scroll-section')`.
-- A cor alvo é mapeada por `data-index` da seção.
-- O trigger foi movido do `<p>` para o bloco `.scroll-section` para antecipar a respiração do fundo antes do pico de leitura da frase.
-- Sequência base:
-  - `#040013` (intro)
-  - `#0048ff`
-  - `#8705f2`
-  - `#f501d3`
-  - repetição até saída
+- `BeliefBackground` reage à entrada de cada `.scroll-section` via `inView`.
+- Sequência cromática ativa:
+  1. `#040013`
+  2. `#0048ff`
+  3. `#8705f2`
+  4. `#f501d3`
+  5. `#0048ff`
+  6. `#8705f2`
+  7. `#f501d3`
+  8. `#0048ff`
+- O frame final canônico desta rodada é azul dominante.
+- A trava de clímax entra em `scrollProgress >= 0.82`.
+
+### Overlay
+
+- `BeliefOverlay` não é mais uma camada estática.
+- A opacidade pulsa por contrato de scroll com 13 paradas entre `0` e `1`.
+- O objetivo é absorver micro-banding sem roubar contraste do manifesto.
+
+### Header
+
+- `BeliefFixedHeader` agora usa apenas `opacity`, `blur` e `translateY`.
+- Entrada: `opacity 0→1`, `y 18→0`, `blur 8→0`.
+- Saída: `opacity 1→0`, `y 0→-18`, `blur 0→8`.
+- Mobile e desktop compartilham a mesma lógica de reveal.
+
+### Frases rotativas
+
+- As 6 frases oficiais foram mantidas.
+- O trigger usa `inView('[data-belief-phrase]')`.
+- Entrada: `opacity 0→1`, `y 18→0`, `blur 6→0`.
+- Saída: `opacity 1→0`, `y 0→-18`, `blur 0→6`.
+- O bloco principal perde opacidade no clímax para abrir espaço ao manifesto.
+- Há espelho semântico via `aria-live` para a frase ativa.
+
+### Manifesto final
+
+- Continua fixo e centralizado.
+- Reveal ativo a partir de `scrollProgress >= 0.56`.
+- `opacity` progride entre `0.56 → 0.68`.
+- `translateY` progride entre `0.56 → 0.72`.
+- Tipografia atual: `clamp(4rem, 17vw, 13rem)`.
+- O frame final aprovado é branco integral sobre fundo azul.
 
 ### Ghost 3D
 
-- `GhostScene` usa `Canvas frameloop="demand"` com wrapper sticky e motion scroll-first.
-- Desktop: `scrollProgress` suavizado por spring orienta pose, yaw, pitch e intensidade; o cursor atua apenas como parallax secundário.
-- Mobile: começa topo-esquerda e converge para centro no clímax.
-- O Ghost permanece visualmente acima do manifesto no clímax por regra de camada (`z-70` sobre `z-50`), sobrepondo a palavra `GHOST` como nas imagens finais.
-- A intensidade interna do Ghost é sincronizada pelo bridge `ghostIntensity`, alimentado pelo `scrollProgress` suavizado da seção.
+- `GhostScene` continua acima do manifesto por hierarquia de camada.
+- O wrapper DOM do canvas segue a regra da missão: apenas `opacity` + `translateY`.
+- A animação procedural de `scale`, `rotate` e parallax por cursor foi removida.
+- O modelo mantém pose estática base com deslocamento vertical scroll-linked e micro drift sutil.
+- `frameloop="demand"` foi preservado.
+- O cursor visual continua existindo como assinatura do portfolio, mas não governa mais a cena 3D desta seção.
 
-### Referência Drinksom — extração aplicável
+## Regras de motion em vigor
 
-- A referência `drinksom.eu` não usa GSAP nem ScrollTrigger para essa linguagem de motion.
-- A referência não possui cursor customizado relevante; o cursor visual da seção 06 é uma assinatura local do portfolio, não uma adaptação direta da referência.
-- A física extraída vem de `scroll smoothing` + canvas R3F pinned/fixed overlay + micro drift scroll-linked.
-
-## Sequência visual esperada
-
-### Desktop
-
-1. Fundo inicial + header à direita.
-2. Frase ativa à esquerda.
-3. Ghost central editorial.
-4. Troca de cor sincronizada com frase visível.
-5. Clímax: manifesto final domina leitura tipográfica e o Ghost sobrepõe a palavra `GHOST`.
-
-### Mobile
-
-1. Header no topo visual.
-2. Ghost em abertura topo-esquerda.
-3. Frases com leitura no terço inferior.
-4. Clímax final com manifesto dominante e Ghost centralizado acima da tipografia.
+- Easing principal unificado: `cubic-bezier(0.22, 1, 0.36, 1)`.
+- Motion DOM permitido nesta seção:
+  - `opacity`
+  - `blur`
+  - `translateY`
+- Não há mais reveals laterais em `x` nos componentes DOM da seção.
+- Não há mais `scale` ou `rotate` animados no comportamento scroll-driven desta rodada.
 
 ## Frases oficiais
 
@@ -103,75 +135,33 @@ Transformar a seção manifesto em uma experiência scroll-triggered com narrati
 5. Mesmo quando não estou ali
 6. Mesmo quando ninguém percebe o esforço
 
-## Auditoria técnica (2026-04-21)
+## Validação executada
 
-### Status geral
+### Checks técnicos
 
-- Estrutura scroll-triggered: **OK**
-- Ghost 3D (camadas + performance): **OK**
-- Header fixo: **OK**
-- Sequência mobile/desktop: **OK**
+- `pnpm exec prettier --write` nos arquivos alterados
+- `pnpm exec eslint` nos arquivos alterados
+- `pnpm exec tsc --noEmit --pretty false`
+  - bloqueado por erros preexistentes fora do escopo em páginas administrativas
 
-### Referências visuais auditadas
+### Evidência visual local
 
-- `06-O-QUE-ME-MOVE-DESKTOP-INICIAL.jpg`
-- `06-O-QUE-ME-MOVE-DESKTOP.jpg`
-- `06-O-QUE-ME-MOVE-DESKTOP-FINAL.jpg`
-- `06-O-QUE-ME-MOVE-MOBILE-INICIAL.png`
-- `06-O-QUE-ME-MOVE-MOBILE-FINAL.png`
+- screenshots gerados em:
+  - `artifacts/about-beliefs-audit/desktop-015.png`
+  - `artifacts/about-beliefs-audit/desktop-045.png`
+  - `artifacts/about-beliefs-audit/desktop-090.png`
+  - `artifacts/about-beliefs-audit/mobile-020.png`
+  - `artifacts/about-beliefs-audit/mobile-090.png`
+- métricas registradas em `artifacts/about-beliefs-audit/metrics.json`
 
-### Resultado de aderência visual
+### Resultado observado
 
-- Início desktop/mobile: **muito próximo**
-- Clímax final: **parcial**
-  - manifesto final ainda menor que a referência;
-  - destaque cyan em `GHOST DESIGN` difere do frame final branco integral;
-  - azul final precisa ficar mais estável no trecho de clímax.
+- fundo final azul confirmado em desktop e mobile
+- manifesto final branco confirmado
+- hierarquia de camada confirmada via métricas (`ghostZ: 70`, `manifestoZ: 50`)
+- sem erros de console nas capturas locais
 
-## Pendências objetivas de paridade (abertas)
+## Ressalvas
 
-1. Escalar manifesto final para ocupar mais viewport no clímax.
-2. Ajustar direção de arte do manifesto final para branco integral no frame final.
-3. Travar estado azul no trecho final para maior paridade com referência.
-
-## Ajuste de motion (2026-04-22)
-
-### Referência aplicada
-
-- Demo oficial Motion `scroll-triggered`
-- tutorial `inView + animate` como base de timing e cleanup
-
-### Mudança implementada
-
-- O background passou a reagir à entrada da `.scroll-section`, não apenas ao `<p>`, o que antecipa a troca cromática e deixa a narrativa mais contínua.
-- O texto deixou de entrar no eixo `y` como reveal atmosférico e passou a entrar lateralmente no eixo `x`, com blur mais curto e leitura mais editorial.
-- O easing principal de entrada foi mantido em `0.9s` com `[0.17, 0.55, 0.55, 1]`, preservando o perfil da referência Motion.
-
-## Ajuste do Ghost (2026-04-22)
-
-### Mudança implementada
-
-- O Ghost da seção 06 passou para uma coreografia `scroll-first`, com `scrollProgress` suavizado por spring (`stiffness 100`, `damping 25`, `restDelta 0.001`) antes de entrar na cena.
-- O wrapper do canvas agora responde ao scroll com fade curto e scale sutil, aproximando o comportamento do overlay R3F observado no Drinksom.
-- O cursor foi mantido apenas como influência secundária no desktop, com peso reduzido ao longo da narrativa e neutralização total no clímax.
-- Em `prefers-reduced-motion`, o Ghost preserva poses estáveis por fase sem float procedural nem influência do cursor.
-
-### Resultado esperado
-
-- Ghost guiado prioritariamente pela progressão da narrativa, não pelo mouse;
-- clímax coerente com as imagens canônicas, com o modelo centralizado sobre a palavra `GHOST`;
-- compatibilidade preservada com a stack atual Motion + R3F + Tailwind.
-
-### Impacto geral
-
-- sensação mais próxima de bloco scroll-triggered editorial;
-- melhor acoplamento entre cor de fundo e frase ativa;
-- desktop e mobile seguindo a mesma lógica cinética com amplitudes diferentes.
-
-## Validação recomendada
-
-- E2E da seção:
-  - `test/e2e/about-beliefs.spec.ts`
-- Conferência visual:
-  - desktop 1440x900 nos progressos ~0.15, ~0.45, ~0.9;
-  - mobile 390x844 nos progressos ~0.2 e ~0.9.
+- O Playwright configurado pelo projeto não fechou a execução isolada da spec por conflito de `webServer`/lock do dev server, então a prova final desta rodada foi consolidada por automação local direta + screenshots.
+- O Ghost termina acima do manifesto e preserva a leitura editorial da seção, mas não força um encaixe literal no centro da palavra `GHOST` em todos os frames finais.

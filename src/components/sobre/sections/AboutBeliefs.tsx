@@ -3,26 +3,25 @@
 /**
  * AboutBeliefs — Orquestrador da Seção 06 "O Que Me Move".
  *
- * Stack de camadas (Ghost Design System — imutável até revisão do MKM):
- *   z-0  → BeliefBackground  (troca de cor por bloco via inView + animate)
- *   z-10 → BeliefOverlay     (cross-fade anti-banding OLED)
- *   z-30 → BeliefFixedHeader (sticky, slide-in da direita)
- *   z-40 → BeliefScrollText  (frases rotatórias, reveal lateral desktop+mobile)
- *   z-50 → BeliefManifesto   (clímax final — scroll out)
- *   z-70 → GhostScene        (sticky, R3F frameloop="demand" - no topo absoluto)
+ * Stack de camadas (Ghost Design System — tokens globais + exceção local aprovada):
+ *   base     → BeliefBackground
+ *   glass    → BeliefOverlay
+ *   cta      → BeliefScrollText
+ *   overlay  → BeliefManifesto
+ *   lightbox → GhostScene (acima do manifesto por decisão editorial da seção)
  *
- * CORREÇÕES v2 aplicadas neste arquivo:
- * • GhostScene refatorado para sticky z-[70]
- * • useBeliefsScroll (offset corrigido: ['start end', 'end end'])
- * • GhostScene via dynamic({ssr:false}) — previne erro de hydration
- * • PHRASES como readonly const fora do componente (sem re-criação por render)
- * • aria-label na section para acessibilidade semântica
+ * Ajuste desta rodada:
+ * • composição interna alinhada ao max-width 1680px sem quebrar full-bleed
+ * • overlay agora responde ao scroll como camada governada
+ * • motion DOM padronizado em opacity + blur + translateY
+ * • comentários reconciliados com estado real da seção
  *
  * Referências: audit 2026-04-16, userMemories, Blueprint reconciliado.
  */
 
 import dynamic from 'next/dynamic';
 import { useRef } from 'react';
+import { motion, useTransform } from 'motion/react';
 
 import { BeliefBackground } from '@/components/sobre/beliefs/BeliefBackground';
 import { BeliefOverlay } from '@/components/sobre/beliefs/BeliefOverlay';
@@ -41,7 +40,7 @@ const GhostScene = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
+        className="sticky top-[14vh] md:top-0 h-[100dvh] w-full z-[var(--z-layer-lightbox)] pointer-events-none"
         aria-hidden="true"
       />
     ),
@@ -62,11 +61,16 @@ export const AboutBeliefs = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress, prefersReducedMotion, isMobile } =
     useBeliefsScroll(containerRef);
+  const textOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.62, 0.74, 0.84],
+    [1, 1, 0.18, 0]
+  );
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden"
+      className="relative isolate w-full overflow-hidden bg-background"
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
@@ -79,27 +83,30 @@ export const AboutBeliefs = () => {
       <BeliefBackground scrollProgress={scrollYProgress} />
 
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
-      <BeliefOverlay />
+      <BeliefOverlay scrollProgress={scrollYProgress} />
 
-      {/* ── z-30: Header sticky (direita, desktop) ── */}
+      {/* ── header editorial sticky ── */}
       <BeliefFixedHeader />
 
-      {/* ── z-70: Ghost 3D (fixed, R3F, SSR-safe) ── */}
+      {/* ── Ghost 3D acima do manifesto no clímax ── */}
       <GhostScene
         scrollProgress={scrollYProgress}
         isMobile={isMobile}
         prefersReducedMotion={prefersReducedMotion}
       />
 
-      <div className="relative z-40 w-full pointer-events-none">
+      <motion.div
+        className="relative z-[var(--z-layer-cta)] w-full pointer-events-none"
+        style={{ opacity: textOpacity }}
+      >
         <BeliefScrollText
           phrases={PHRASES}
           isMobile={isMobile}
           prefersReducedMotion={prefersReducedMotion}
         />
-      </div>
+      </motion.div>
 
-      {/* ── z-50: Manifesto final (acima do Ghost no clímax) ── */}
+      {/* ── manifesto final abaixo do Ghost por decisão editorial aprovada ── */}
       <BeliefManifesto
         scrollProgress={scrollYProgress}
         prefersReducedMotion={prefersReducedMotion}

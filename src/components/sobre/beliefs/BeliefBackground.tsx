@@ -13,11 +13,9 @@ const COLOR_STOPS = [
   '#0048ff', // bluePrimary — frase 4
   '#8705f2', // purpleDetails — frase 5
   '#f501d3', // pinkDetails — frase 6
-  '#040013', // Deep Void — clímax/saída (triggered by scrollProgress >= 0.82)
+  '#0048ff', // bluePrimary — clímax/final frame
 ] as const;
 
-// scrollProgress drives the final return to Deep Void — not reachable via inView
-// because there are only 6 scroll-sections (indices 0-5, covering COLOR_STOPS[1-6]).
 const CLIMAX_THRESHOLD = 0.82;
 
 interface BeliefBackgroundProps {
@@ -32,7 +30,7 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
     let stopInView: (() => void) | null = null;
 
     stopInView = inView('.scroll-section', (section) => {
-      // Guard: do not override climax Deep Void once fired
+      // Guard: do not override the explicit climax lock once fired
       if (climaxFiredRef.current) return;
 
       const indexAttr = section.getAttribute('data-index');
@@ -45,31 +43,22 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: targetColor },
-          { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
-        );
-      }
-
-      // Anti-banding overlay pulse
-      const overlay = document.getElementById('belief-overlay');
-      if (overlay) {
-        animate(
-          overlay,
-          { opacity: [0, 0.1, 0] },
           { duration: 0.9, ease: GHOST_EASE }
         );
       }
     });
 
-    // Deep Void return — triggered once per climax entry (climaxFiredRef guards re-fire).
-    // inView observer intentionally kept alive so mid-section BG transitions
-    // work correctly on bidirectional scroll re-entry.
     const unsubProgress = scrollProgress.on('change', (value) => {
-      if (value >= CLIMAX_THRESHOLD && !climaxFiredRef.current && bgRef.current) {
+      if (
+        value >= CLIMAX_THRESHOLD &&
+        !climaxFiredRef.current &&
+        bgRef.current
+      ) {
         climaxFiredRef.current = true;
         animate(
           bgRef.current,
           { backgroundColor: COLOR_STOPS[7] },
-          { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
+          { duration: 0.9, ease: GHOST_EASE }
         );
       }
       if (value < CLIMAX_THRESHOLD) {
@@ -86,7 +75,8 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
   return (
     <div
       ref={bgRef}
-      className="absolute inset-0 z-0 pointer-events-none bg-background"
+      className="absolute inset-0 z-[var(--z-layer-base)] pointer-events-none bg-background"
+      data-testid="beliefs-background"
       aria-hidden="true"
     />
   );
