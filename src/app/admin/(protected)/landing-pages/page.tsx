@@ -270,41 +270,49 @@ function Filters({
 }) {
   return (
     <form
-      className="grid gap-3 md:grid-cols-4 rounded-xl border border-white/5 bg-slate-900/20 p-4"
+      className="grid gap-4 md:grid-cols-4 rounded-xl border border-white/10 bg-slate-900/40 p-4 backdrop-blur-sm"
       method="get"
     >
-      <div className="md:col-span-2">
+      <div className="md:col-span-2 relative group">
+        <span className="absolute left-3 -top-2 px-2 bg-[#040013] text-[10px] font-mono uppercase tracking-widest text-blue-400 opacity-0 group-focus-within:opacity-100 transition-opacity">
+          Search_Query
+        </span>
         <input
           name="search"
-          placeholder="Buscar por título ou slug..."
+          placeholder="BUSCAR PROJETO..."
           defaultValue={current.search}
-          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
+          className="w-full rounded-lg bg-slate-900/60 border border-white/10 px-4 py-2.5 text-xs font-mono text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all"
         />
       </div>
 
-      <select
-        name="template"
-        title="Filtrar por Template"
-        defaultValue={current.template || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
-      >
-        <option value="">Todos os templates</option>
-        <option value="master-project-v3-alpa">V3 ALPA</option>
-        <option value="master-project-v2">V2 Master</option>
-        <option value="master-project-v1">V1 Master</option>
-        <option value="legacy-blocks">Legado</option>
-      </select>
+      <div className="relative group">
+        <span className="absolute left-3 -top-2 px-2 bg-[#040013] text-[10px] font-mono uppercase tracking-widest text-blue-400 opacity-0 group-focus-within:opacity-100 transition-opacity">
+          Template_ID
+        </span>
+        <select
+          name="template"
+          title="Filtrar por Template"
+          defaultValue={current.template || ''}
+          className="w-full rounded-lg bg-slate-900/60 border border-white/10 px-4 py-2.5 text-xs font-mono text-white focus:border-blue-500/50 focus:outline-none appearance-none transition-all"
+        >
+          <option value="">TODOS OS TEMPLATES</option>
+          <option value="master-project-v3-alpa">V3 ALPA</option>
+          <option value="master-project-v2">V2 MASTER</option>
+          <option value="master-project-v1">V1 MASTER</option>
+          <option value="legacy-blocks">LEGACY</option>
+        </select>
+      </div>
 
       <div className="flex gap-2">
         <button
           type="submit"
-          className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
+          className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-[10px] font-mono uppercase tracking-widest text-white shadow-lg shadow-blue-900/20 hover:bg-blue-500 hover:scale-[1.02] active:scale-95 transition-all"
         >
           Filtrar
         </button>
         <Link
           href="/admin/landing-pages"
-          className="flex items-center justify-center rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/5 transition-colors"
+          className="flex items-center justify-center rounded-lg border border-white/10 px-4 py-2 text-[10px] font-mono uppercase tracking-widest text-white hover:bg-white/5 transition-all"
         >
           Limpar
         </Link>

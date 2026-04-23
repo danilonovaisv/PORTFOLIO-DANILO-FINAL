@@ -1,162 +1,111 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "MCP Servers Configuration for Antigravity Agent",
-  "servers": [
-    {
-      "name": "context7",
-      "description": "Context7 MCP Server for long-term memory and context management",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
+  "description": "Unified MCP Servers Configuration for Ghost System",
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
       "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
         "-y",
         "@modelcontextprotocol/server-context7"
       ],
-      "enabled": true,
       "env": {
         "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
       }
     },
-    {
-      "name": "filesystem",
-      "description": "Access to local filesystem operations",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
+    "filesystem": {
+      "command": "npx",
       "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
         "-y",
         "@modelcontextprotocol/server-filesystem",
+        "/Users/danilonovais/PORTFOLIO-DANILO-FINAL",
         "/tmp"
-      ],
-      "enabled": true,
-      "env": {}
+      ]
     },
-    {
-      "name": "github",
-      "description": "GitHub API integration for repository management",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
+    "github": {
+      "command": "npx",
       "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
         "-y",
         "@modelcontextprotocol/server-github"
       ],
-      "enabled": true,
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       }
     },
-    {
-      "name": "postgres",
-      "description": "PostgreSQL database access",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=umkmwbkwvulxtdodzmzf"
+    },
+    "claude-flow": {
+      "command": "node",
       "args": [
         "scripts/mcp-wrapper.cjs",
         "npx",
         "-y",
-        "@modelcontextprotocol/server-postgres"
+        "@claude-flow/cli@latest",
+        "mcp",
+        "start"
       ],
-      "enabled": false,
       "env": {
-        "POSTGRES_CONNECTION_STRING": "${DATABASE_URL}"
+        "npm_config_update_notifier": "false",
+        "CLAUDE_FLOW_MODE": "v3",
+        "CLAUDE_FLOW_HOOKS_ENABLED": "true",
+        "CLAUDE_FLOW_TOPOLOGY": "hierarchical-mesh",
+        "CLAUDE_FLOW_MAX_AGENTS": "15",
+        "CLAUDE_FLOW_MEMORY_BACKEND": "hybrid"
       }
     },
-    {
-      "name": "brave-search",
-      "description": "Web search using Brave Search API",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
-      "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-brave-search"
-      ],
-      "enabled": false,
-      "env": {
-        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
-      }
-    },
-    {
-      "name": "memory",
-      "description": "Persistent memory storage for the agent",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
-      "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "enabled": false,
-      "env": {}
-    },
-    {
-      "name": "puppeteer",
-      "description": "Browser automation and web scraping",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
-      "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ],
-      "enabled": false,
-      "env": {}
-    },
-    {
-      "name": "slack",
-      "description": "Slack workspace integration",
-      "transport": "stdio",
-      "command": "/Users/danilonovais/.nvm/versions/node/v20.20.0/bin/npx",
-      "args": [
-        "scripts/mcp-wrapper.cjs",
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-slack"
-      ],
-      "enabled": false,
-      "env": {
-        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
-        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
-      }
-    },
-    {
-      "name": "custom-http",
-      "description": "Example HTTP/Streamable HTTP server",
-      "transport": "http",
-      "url": "http://localhost:8000/mcp",
-      "enabled": false,
-      "env": {}
-    },
-    {
-      "name": "@21st-dev/magic",
-      "description": "Magic MCP Server from 21st.dev",
-      "transport": "stdio",
+    "@21st-dev/magic": {
       "command": "npx",
       "args": [
         "-y",
         "@21st-dev/magic@latest",
         "API_KEY=\"an_sk_1cb7638dac70f750527f580b25dcf004c4b35333a872c94937a6018396bcad51\""
-      ],
-      "enabled": true,
-      "env": {}
+      ]
     },
-    {
-      "name": "dataplex",
-      "description": "Google GenAI Toolbox Dataplex server for metadata discovery",
-      "transport": "stdio",
+    "dataplex": {
       "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt", "dataplex", "--stdio"],
-      "enabled": true,
+      "args": [
+        "--prebuilt",
+        "dataplex",
+        "--stdio"
+      ],
       "env": {
         "DATAPLEX_PROJECT": "portfolio-danilo-novais"
       }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres"
+      ],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${DATABASE_URL}"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
     }
-  ]
+  }
 }

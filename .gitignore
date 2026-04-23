@@ -88,9 +88,6 @@ test-results/
 # AI/Agent Tooling
 .ai/
 .aiassistant/
-.agent/*
-!.agent/rules/
-!.agent/workflows/
 .github/*
 !.github/workflows/
 .github/workflows/*
@@ -99,7 +96,6 @@ test-results/
 !.github/workflows/codeql.yml
 !.github/codeql/
 !.github/codeql/codeql-config.yml
-.agent/skills/superpowers
 
 # Additional Caches
 .next-old/

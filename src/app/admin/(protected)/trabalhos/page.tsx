@@ -194,7 +194,7 @@ function Filters({
 }) {
   return (
     <form
-      className="grid gap-3 md:grid-cols-6 rounded-xl border border-white/5 bg-slate-900/20 p-4"
+      className="grid gap-3 md:grid-cols-6 rounded-xl border border-white/10 bg-slate-900/40 backdrop-blur-sm p-4"
       method="get"
     >
       <div className="md:col-span-2">
@@ -202,7 +202,7 @@ function Filters({
           name="search"
           placeholder="Buscar por título ou cliente..."
           defaultValue={current.search}
-          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
+          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
         />
       </div>
 
@@ -210,7 +210,7 @@ function Filters({
         name="tag"
         title="Filtrar por Tag"
         defaultValue={current.tag || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Todas as tags</option>
         {tags.map((tag) => (
@@ -224,7 +224,7 @@ function Filters({
         name="year"
         title="Filtrar por Ano"
         defaultValue={current.year || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Todos os anos</option>
         {years.map((year) => (
@@ -238,7 +238,7 @@ function Filters({
         name="type"
         title="Filtrar por Tipo"
         defaultValue={current.type || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Todos os tipos</option>
         {types.map((type) => (
@@ -252,7 +252,7 @@ function Filters({
         name="status"
         title="Filtrar por Status"
         defaultValue={current.status || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
       >
         <option value="">Status: Todos</option>
         <option value="published">Publicado</option>
@@ -264,7 +264,7 @@ function Filters({
           name="template"
           title="Filtrar por Template"
           defaultValue={current.template || ''}
-          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-white focus:border-blue-500/50 focus:outline-none transition-colors"
+          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
         >
           <option value="">Template: Todos</option>
           <option value="master-project-v3-alpa">V3 ALPA</option>
