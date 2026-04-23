@@ -107,17 +107,19 @@ export default async function HomePage() {
   }
 
   let featuredProjects: PortfolioProject[] = [];
+  const shuffleSeed = new Date().getTime();
+
   try {
     const supabase = createStaticClient();
     const dbProjects = await listProjects({ featuredOnHome: true }, supabase);
     const mapped = dbProjects.map((project: DbProjectWithTags, index: number) =>
       mapDbProjectToPortfolioProject(project, index)
     );
-    featuredProjects = shuffleHomeProjects(mapped);
+    featuredProjects = shuffleHomeProjects(mapped, shuffleSeed);
 
     if (featuredProjects.length === 0) {
       console.warn('[Home] No projects returned, using fallback projects.');
-      featuredProjects = shuffleHomeProjects(buildFallbackProjects());
+      featuredProjects = shuffleHomeProjects(buildFallbackProjects(), shuffleSeed);
     }
   } catch (error: any) {
     const cause = (error as any)?.cause ?? (error as any)?.errors?.[0];
@@ -133,7 +135,7 @@ export default async function HomePage() {
       causeMsg ? `(cause: ${causeMsg})` : ''
     );
 
-    featuredProjects = shuffleHomeProjects(buildFallbackProjects());
+    featuredProjects = shuffleHomeProjects(buildFallbackProjects(), shuffleSeed);
   }
 
   const siteUrl = toCanonicalUrl('/');
@@ -151,7 +153,10 @@ export default async function HomePage() {
         assetKeyMobile={SITE_ASSET_KEYS.heroVideos.homeManifestoMobile}
       />
       <PortfolioShowcase />
-      <FeaturedProjectsRealtime initialProjects={featuredProjects} />
+      <FeaturedProjectsRealtime 
+        initialProjects={featuredProjects} 
+        shuffleSeed={typeof shuffleSeed === 'number' ? shuffleSeed : undefined} 
+      />
       <SiteClosure />
     </>
   );

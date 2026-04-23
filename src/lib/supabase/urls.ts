@@ -4,20 +4,22 @@ const normalizeUrl = (value: string) => value.replace(/\/+$/, '');
  * Get the base Supabase URL from environment variables.
  */
 export function getSupabaseBaseUrl(): string | null {
+  // Para assets públicos que precisam de hidratação, DEVEMOS usar variáveis públicas.
+  // Variáveis sem prefixo NEXT_PUBLIC_ não estão disponíveis no cliente.
   const url =
     process.env.NEXT_PUBLIC_SUPABASE_URL ??
-    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ??
-    process.env.SUPABASE_URL;
+    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
 
-  if (!url) {
-    return null;
-  }
-
-  try {
+  if (url) {
     return normalizeUrl(url);
-  } catch {
-    return url;
   }
+
+  // Fallback para servidor apenas se não houver URL pública (CUIDADO: pode causar mismatch se usado em componentes)
+  if (typeof window === 'undefined' && process.env.SUPABASE_URL) {
+    return normalizeUrl(process.env.SUPABASE_URL);
+  }
+
+  return null;
 }
 
 export function normalizeStoragePath(

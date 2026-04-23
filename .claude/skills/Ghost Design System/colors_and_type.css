@@ -1,0 +1,211 @@
+/* ============================================================================
+   Ghost Design System — Colors & Typography
+   Source of truth: uploads/GHOST-DESIGN-SYSTEM 3.md + src/app/globals.css
+   Philosophy: Presence without noise. Motion as breath. Void pierced by light.
+   ============================================================================ */
+
+/* ---------- Fonts ---------- */
+@font-face {
+  font-family: 'Manrope';
+  src: url('./fonts/Manrope-VariableFont_wght.woff2') format('woff2-variations'),
+       url('./fonts/Manrope-VariableFont_wght.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PPSupplyMono';
+  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------- BASE TOKENS — Brand Palette ---------- */
+  --color-bluePrimary:   #0048ff;   /* Brand Primary — CTAs, key interactive */
+  --color-blueAccent:    #4fe6ff;   /* Ghost Accent — ethereal glows, secondary */
+  --color-purpleDetails: #8705f2;   /* Hover, glitch anomalies */
+  --color-pinkDetails:   #f501d3;   /* Extra detail, glitch effects */
+  --color-redAccent:     #e50914;   /* Errors, destructive, alerts */
+
+  /* Neutrals */
+  --color-background:      #040013; /* Void Black — THE background */
+  --color-neutral:         #0b0d3a; /* Deep Neutral — gradients, deep cards */
+  --color-backgroundLight: #f0f0f0; /* Light surface (contact section) */
+  --color-neutralLight:    #f5f5f5;
+
+  /* Text */
+  --color-text:          #fcffff;   /* High contrast, not harsh white */
+  --color-textInverse:   #0e0e0e;   /* Dark text on light backgrounds */
+  --color-textSecondary: #a1a3a3;   /* Metadata, captions, disabled */
+  --color-textEmphasis:  #2e85f2;
+  --color-textHighlight: #4fe6ff;
+
+  /* Aliases */
+  --fg1:    var(--color-text);
+  --fg2:    var(--color-textSecondary);
+  --bg1:    var(--color-background);
+  --bg2:    var(--color-neutral);
+  --primary: var(--color-bluePrimary);
+  --accent:  var(--color-blueAccent);
+
+  /* Surfaces (derived) */
+  --surface-glass:  rgba(255, 255, 255, 0.05);   /* bg-white/5 */
+  --surface-border: rgba(255, 255, 255, 0.10);   /* border-white/10 */
+  --surface-deep:   #0b0d3a;                     /* Deep Neutral card */
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --font-family-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-family-mono: 'PPSupplyMono', ui-monospace, 'Menlo', monospace;
+
+  /* Fluid scale (clamp — mobile → desktop) */
+  --font-display:        clamp(2.5rem, 5vw, 4.5rem);   /* 40 → 72 */
+  --font-h1:             clamp(2rem, 4vw, 3.5rem);     /* 32 → 56 */
+  --font-h2:             clamp(1.5rem, 3vw, 2.5rem);   /* 24 → 40 */
+  --font-h3:             clamp(1.25rem, 2vw, 1.75rem); /* 20 → 28 */
+  --font-body-enhanced:  clamp(1.125rem, 1.5vw, 1.25rem);
+  --font-body:           clamp(1rem, 1.2vw, 1.125rem);
+  --font-body-mobile:    clamp(1.25rem, 4.6vw, 1.375rem);
+  --font-small:          0.875rem;
+  --font-micro:          0.75rem;
+
+  /* ---------- RADII / SPACING / Z ---------- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+
+  --container-padding: clamp(24px, 5vw, 96px);
+
+  --z-layer-base:    0;
+  --z-layer-overlay: 10;
+  --z-layer-content: 20;
+  --z-layer-3d:      30;
+  --z-layer-cta:     40;
+  --z-layer-header:  55;
+  --z-layer-modal:   50;
+  --z-cursor:        9999;
+
+  /* ---------- MOTION ---------- */
+  --ghost-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:   0.2s;   /* buttons, hover */
+  --dur-normal: 0.8s;   /* reveals */
+  --dur-slow:   1.5s;   /* atmosphere */
+  --reveal-offset: 18px; /* hard max for content UI */
+
+  /* CTA sizes */
+  --cta-min-mobile:  181px;
+  --cta-min-tablet:  201px;
+  --cta-min-desktop: 241px;
+}
+
+/* ============================================================================
+   SEMANTIC CLASSES — drop-in selectors for pages
+   ============================================================================ */
+body, .ghost-body {
+  font-family: var(--font-family-sans);
+  background: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.text-display {
+  font-size: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.text-h1 { font-size: var(--font-h1); font-weight: 700; line-height: 1.1; }
+.text-h2 { font-size: var(--font-h2); font-weight: 600; line-height: 1.15; }
+.text-h3 { font-size: var(--font-h3); font-weight: 500; line-height: 1.2; }
+.text-body-enhanced { font-size: var(--font-body-enhanced); font-weight: 500; line-height: 1.5; }
+.text-body  { font-size: var(--font-body);  font-weight: 400; line-height: 1.5; }
+.text-small { font-size: var(--font-small); font-weight: 400; line-height: 1.4; }
+.text-micro {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-micro);
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Editorial tag (hero) */
+.text-tag {
+  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.7;
+}
+
+@media (max-width: 767px) {
+  .text-body { font-size: var(--font-body-mobile); font-weight: 500; line-height: 1.4; }
+}
+
+/* Semantic element defaults (for agents using generic HTML) */
+h1 { font-size: var(--font-h1); font-weight: 700; line-height: 1.1; text-wrap: balance; }
+h2 { font-size: var(--font-h2); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+h3 { font-size: var(--font-h3); font-weight: 500; line-height: 1.2; }
+p  { font-size: var(--font-body); line-height: 1.5; text-wrap: pretty; }
+code, kbd, samp, pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-micro);
+}
+
+/* ---------- Utility color classes (Tailwind-like) ---------- */
+.bg-background   { background: var(--color-background); }
+.bg-neutral      { background: var(--color-neutral); }
+.bg-glass        { background: var(--surface-glass); backdrop-filter: blur(12px); border: 1px solid var(--surface-border); }
+.bg-bluePrimary  { background: var(--color-bluePrimary); }
+.bg-blueAccent   { background: var(--color-blueAccent); }
+
+.text-primary      { color: var(--color-text); }
+.text-secondary    { color: var(--color-textSecondary); }
+.text-bluePrimary  { color: var(--color-bluePrimary); }
+.text-blueAccent   { color: var(--color-blueAccent); }
+.text-purpleDetails{ color: var(--color-purpleDetails); }
+
+.border-glass { border: 1px solid var(--surface-border); }
+
+/* ---------- Cards ---------- */
+.ghost-card {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+}
+.ghost-card--deep {
+  background: var(--color-neutral);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Layout grid ---------- */
+.std-grid {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .std-grid { padding-inline: 3rem; }
+}
+@media (min-width: 1024px) {
+  .std-grid { padding-inline: 4rem; max-width: 1680px; }
+}
+
+/* ---------- Reduced Motion (mandatory) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

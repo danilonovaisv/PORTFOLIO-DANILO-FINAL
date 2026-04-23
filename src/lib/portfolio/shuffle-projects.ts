@@ -26,10 +26,11 @@ function randomShuffleByPriority<T>(
   return [...randomShuffle(priority), ...randomShuffle(regular)];
 }
 
-export function shuffleHomeProjects(projects: PortfolioProject[]) {
+export function shuffleHomeProjects(projects: PortfolioProject[], seed?: number) {
   return stableShuffle(projects, {
     window: 'daily',
     scope: 'home',
+    customSeed: seed,
   });
 }
 

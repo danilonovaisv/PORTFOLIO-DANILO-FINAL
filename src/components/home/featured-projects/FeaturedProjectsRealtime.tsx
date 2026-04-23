@@ -22,12 +22,13 @@ type HomeProjectRow =
 
 type FeaturedProjectsRealtimeProps = {
   initialProjects: PortfolioProject[];
+  shuffleSeed?: number;
 };
 
 const POLLING_INTERVAL_MS = 45_000;
 
-function normalizeHomeFeaturedProjects(projects: PortfolioProject[]) {
-  return shuffleHomeProjects(projects);
+function normalizeHomeFeaturedProjects(projects: PortfolioProject[], seed?: number) {
+  return shuffleHomeProjects(projects, seed);
 }
 
 function getProjectsSignature(projects: PortfolioProject[]) {
@@ -51,6 +52,7 @@ function getProjectsSignature(projects: PortfolioProject[]) {
 
 export default function FeaturedProjectsRealtime({
   initialProjects,
+  shuffleSeed,
 }: FeaturedProjectsRealtimeProps) {
   const router = useRouter();
   const supabase = useMemo(() => createClientComponentClient(), []);
@@ -96,7 +98,7 @@ export default function FeaturedProjectsRealtime({
             index
           )
       );
-      const normalizedProjects = normalizeHomeFeaturedProjects(nextProjects);
+      const normalizedProjects = normalizeHomeFeaturedProjects(nextProjects, shuffleSeed);
 
       if (normalizedProjects.length === 0) {
         setProjects((current) =>

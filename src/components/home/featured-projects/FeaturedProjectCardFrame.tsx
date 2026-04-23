@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
+import { useIsMounted } from '@/hooks/useIsMounted';
+
 import FeaturedProjectAnimatedBackground from '@/components/home/featured-projects/FeaturedProjectAnimatedBackground';
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
@@ -29,6 +31,7 @@ export default function FeaturedProjectCardFrame({
   reducedMotion,
 }: FeaturedProjectCardFrameProps) {
   const visualRef = useRef<HTMLDivElement | null>(null);
+  const isMounted = useIsMounted();
   const [logoFailed, setLogoFailed] = useState(false);
   const homeFeatured = resolveHomeFeaturedConfig(
     project.homeFeatured,
@@ -137,7 +140,7 @@ export default function FeaturedProjectCardFrame({
             {baseMediaDiffers ? (
               <>
                 {/* Desktop Media */}
-                {desktopThumbIsVideo && desktopThumbUrl ? (
+                {isMounted && desktopThumbIsVideo && desktopThumbUrl ? (
                   <video
                     src={desktopThumbUrl}
                     aria-hidden="true"
@@ -152,7 +155,7 @@ export default function FeaturedProjectCardFrame({
                       commonMediaClasses
                     )}
                   />
-                ) : desktopThumbUrl ? (
+                ) : !desktopThumbIsVideo && desktopThumbUrl ? (
                   <Image
                     src={desktopThumbUrl}
                     alt={visualAltText}
@@ -166,7 +169,7 @@ export default function FeaturedProjectCardFrame({
                   />
                 ) : null}
                 {/* Mobile Media */}
-                {mobileThumbIsVideo && mobileThumbUrl ? (
+                {isMounted && mobileThumbIsVideo && mobileThumbUrl ? (
                   <video
                     src={mobileThumbUrl}
                     aria-hidden="true"
@@ -181,7 +184,7 @@ export default function FeaturedProjectCardFrame({
                       commonMediaClasses
                     )}
                   />
-                ) : mobileThumbUrl ? (
+                ) : !mobileThumbIsVideo && mobileThumbUrl ? (
                   <Image
                     src={mobileThumbUrl}
                     alt={visualAltText}
@@ -196,7 +199,7 @@ export default function FeaturedProjectCardFrame({
                 ) : null}
               </>
             ) : /* Same media for both */
-            desktopThumbIsVideo && desktopThumbUrl ? (
+            isMounted && desktopThumbIsVideo && desktopThumbUrl ? (
               <video
                 src={desktopThumbUrl}
                 aria-hidden="true"
@@ -208,7 +211,7 @@ export default function FeaturedProjectCardFrame({
                 poster={DEFAULT_VIDEO_POSTER}
                 className={cn('h-full w-full', commonMediaClasses)}
               />
-            ) : desktopThumbUrl ? (
+            ) : !desktopThumbIsVideo && desktopThumbUrl ? (
               <Image
                 src={desktopThumbUrl}
                 alt={visualAltText}

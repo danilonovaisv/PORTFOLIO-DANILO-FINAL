@@ -16,6 +16,8 @@ interface StableShuffleOptions {
   window?: TimeWindow;
   /** Scope string to differentiate pages using same data. Default: '' */
   scope?: string;
+  /** Custom seed (timestamp or date) to override current time. Useful for hydration safety. */
+  customSeed?: number | string | Date;
 }
 
 interface StableShufflePriorityOptions<T> extends StableShuffleOptions {
@@ -37,10 +39,10 @@ function djb2Hash(str: string): number {
 /**
  * Generate a time-based seed string for the given window.
  */
-function getTimeSeed(window: TimeWindow): string {
-  const now = new Date();
+function getTimeSeed(window: TimeWindow, options: StableShuffleOptions): string {
+  const now = options.customSeed ? new Date(options.customSeed) : new Date();
   const year = now.getUTCFullYear();
-  const month = now.getUTCMonth();
+  const month = now.getUTCMonth() + 1;
   const day = now.getUTCDate();
   const hour = now.getUTCHours();
 
@@ -84,7 +86,7 @@ export function stableShuffle<T>(
   if (items.length <= 1) return [...items];
 
   const { window = 'daily', scope = '' } = options;
-  const timeSeed = getTimeSeed(window);
+  const timeSeed = getTimeSeed(window, options);
   const seedString = `${scope}:${timeSeed}`;
   const seed = djb2Hash(seedString);
   const random = seededRandom(seed);
