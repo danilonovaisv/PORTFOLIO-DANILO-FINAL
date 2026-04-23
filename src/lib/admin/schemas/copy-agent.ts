@@ -42,67 +42,67 @@ function isValidYouTubeUrl(val: string): boolean {
 export const copyInputSchema = z.object({
   projectName: z
     .string()
-    .min(COPY_FIELD_LIMITS.projectName.min, 'Informe o nome do projeto.')
+    .min(COPY_FIELD_LIMITS.projectName.min, 'SYSTEM_ERR: PROJECT_NAME_REQUIRED')
     .max(
       COPY_FIELD_LIMITS.projectName.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.projectName.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.projectName.max})`
     ),
   clientName: z
     .string()
-    .min(COPY_FIELD_LIMITS.clientName.min, 'Informe o cliente.')
+    .min(COPY_FIELD_LIMITS.clientName.min, 'SYSTEM_ERR: CLIENT_NAME_REQUIRED')
     .max(
       COPY_FIELD_LIMITS.clientName.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.clientName.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.clientName.max})`
     ),
   objective: z
     .string()
     .min(
       COPY_FIELD_LIMITS.objective.min,
-      'Descreva o objetivo do projeto com mais contexto.'
+      'SYSTEM_ERR: OBJECTIVE_DESCRIPTION_INSUFFICIENT'
     )
     .max(
       COPY_FIELD_LIMITS.objective.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.objective.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.objective.max})`
     ),
   targetAudience: z
     .string()
-    .min(COPY_FIELD_LIMITS.targetAudience.min, 'Informe o público-alvo.')
+    .min(COPY_FIELD_LIMITS.targetAudience.min, 'SYSTEM_ERR: TARGET_AUDIENCE_REQUIRED')
     .max(
       COPY_FIELD_LIMITS.targetAudience.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.targetAudience.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.targetAudience.max})`
     ),
   visualConcept: z
     .string()
     .min(
       COPY_FIELD_LIMITS.visualConcept.min,
-      'Descreva o conceito visual principal.'
+      'SYSTEM_ERR: VISUAL_CONCEPT_REQUIRED'
     )
     .max(
       COPY_FIELD_LIMITS.visualConcept.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.visualConcept.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.visualConcept.max})`
     ),
   keyChallenges: z
     .string()
     .min(
       COPY_FIELD_LIMITS.keyChallenges.min,
-      'Liste os principais desafios criativos/técnicos.'
+      'SYSTEM_ERR: CHALLENGES_DESCRIPTION_REQUIRED'
     )
     .max(
       COPY_FIELD_LIMITS.keyChallenges.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.keyChallenges.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.keyChallenges.max})`
     ),
   deliverables: z
     .string()
     .max(
       COPY_FIELD_LIMITS.deliverables.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.deliverables.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.deliverables.max})`
     )
     .optional(),
   toneOfVoice: z
     .string()
     .max(
       COPY_FIELD_LIMITS.toneOfVoice.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.toneOfVoice.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.toneOfVoice.max})`
     )
     .optional(),
   outputType: z.enum(['landing', 'modal']),
@@ -110,11 +110,11 @@ export const copyInputSchema = z.object({
     .string()
     .max(
       COPY_FIELD_LIMITS.youtubeUrl.max,
-      `Use no máximo ${COPY_FIELD_LIMITS.youtubeUrl.max} caracteres.`
+      `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.youtubeUrl.max})`
     )
     .refine(
       (val) => !val || isValidYouTubeUrl(val),
-      'URL deve ser um link válido do YouTube (ex: https://youtube.com/watch?v=...)'
+      'SYSTEM_ERR: INVALID_YOUTUBE_URL (EXPECTED: https://youtube.com/watch?v=...)'
     )
     .optional()
     .or(z.literal('')),
@@ -132,22 +132,22 @@ export function validateCopyReferenceImages(
   referenceImages: ReferenceImageLike[]
 ): string | null {
   if (referenceImages.length > MAX_REFERENCE_IMAGES) {
-    return `Envie no máximo ${MAX_REFERENCE_IMAGES} imagens de referência.`;
+    return `SYSTEM_ERR: MAX_REFERENCES_EXCEEDED (${MAX_REFERENCE_IMAGES})`;
   }
 
   for (const image of referenceImages) {
     if (!ALLOWED_REFERENCE_IMAGE_TYPES.has(image.type)) {
-      return `Formato não suportado: ${image.name}. Use PNG, JPG, WEBP ou GIF.`;
+      return `SYSTEM_ERR: UNSUPPORTED_FORMAT (${image.name}) — USE: PNG, JPG, WEBP, GIF`;
     }
 
     if (image.size > MAX_REFERENCE_IMAGE_SIZE_BYTES) {
-      return `A imagem "${image.name}" excede 8MB. Reduza o arquivo e tente novamente.`;
+      return `SYSTEM_ERR: FILE_TOO_LARGE (${image.name}) — MAX: 8MB`;
     }
   }
 
   const totalSize = referenceImages.reduce((acc, image) => acc + image.size, 0);
   if (totalSize > MAX_TOTAL_REFERENCE_IMAGES_BYTES) {
-    return 'Tamanho total das imagens excede 32MB. Envie menos arquivos ou comprima.';
+    return 'SYSTEM_ERR: TOTAL_BATCH_SIZE_EXCEEDED — MAX: 32MB';
   }
 
   return null;

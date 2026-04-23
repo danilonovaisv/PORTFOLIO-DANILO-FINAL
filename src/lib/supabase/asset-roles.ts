@@ -18,32 +18,32 @@ export type SiteAssetRoleGroup = {
 const globalLogos: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.logos.headerLight,
-    label: 'Logo header (claro)',
-    description: 'Versão clara do logo do header',
+    label: 'Header Logo (Light)',
+    description: 'Light version of the header logo',
     page: 'global',
     asset_type: 'image',
     subPath: 'logos',
   },
   {
     key: SITE_ASSET_KEYS.logos.headerDark,
-    label: 'Logo header (escuro)',
-    description: 'Versão escura do logo do header',
+    label: 'Header Logo (Dark)',
+    description: 'Dark version of the header logo',
     page: 'global',
     asset_type: 'image',
     subPath: 'logos',
   },
   {
     key: SITE_ASSET_KEYS.logos.faviconLight,
-    label: 'Favicon claro',
-    description: 'Favicon claro utilizado na aba',
+    label: 'Favicon (Light)',
+    description: 'Light favicon used in browser tabs',
     page: 'global',
     asset_type: 'image',
     subPath: 'logos',
   },
   {
     key: SITE_ASSET_KEYS.logos.faviconDark,
-    label: 'Favicon escuro',
-    description: 'Favicon escuro utilizado na aba',
+    label: 'Favicon (Dark)',
+    description: 'Dark favicon used in browser tabs',
     page: 'global',
     asset_type: 'image',
     subPath: 'logos',
@@ -54,7 +54,7 @@ const globalFonts: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.fonts.display,
     label: '--font-display',
-    description: 'Fonte principal de destaque',
+    description: 'Main display font',
     page: 'global',
     asset_type: 'font',
     subPath: 'fonts',
@@ -62,7 +62,7 @@ const globalFonts: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.fonts.h1,
     label: '--font-h1',
-    description: 'Fonte dos títulos h1',
+    description: 'Font for h1 titles',
     page: 'global',
     asset_type: 'font',
     subPath: 'fonts',
@@ -70,7 +70,7 @@ const globalFonts: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.fonts.h2,
     label: '--font-h2',
-    description: 'Fonte dos títulos h2',
+    description: 'Font for h2 titles',
     page: 'global',
     asset_type: 'font',
     subPath: 'fonts',
@@ -78,7 +78,7 @@ const globalFonts: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.fonts.h3,
     label: '--font-h3',
-    description: 'Fonte dos títulos h3',
+    description: 'Font for h3 titles',
     page: 'global',
     asset_type: 'font',
     subPath: 'fonts',
@@ -86,7 +86,7 @@ const globalFonts: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.fonts.body,
     label: '--font-body',
-    description: 'Fonte do corpo de texto',
+    description: 'Main body font',
     page: 'global',
     asset_type: 'font',
     subPath: 'fonts',
@@ -94,7 +94,7 @@ const globalFonts: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.fonts.light,
     label: '--font-light',
-    description: 'Fonte auxiliar leve',
+    description: 'Auxiliary light font',
     page: 'global',
     asset_type: 'font',
     subPath: 'fonts',
@@ -104,8 +104,8 @@ const globalFonts: SiteAssetRole[] = [
 const clientStrips: SiteAssetRole[] = SITE_ASSET_KEYS.clients.strips.map(
   (key, index) => ({
     key,
-    label: `Logo cliente ${index + 1}`,
-    description: 'Logo para a faixa de clientes',
+    label: `Client Logo ${index + 1}`,
+    description: 'Logo for the client strip',
     page: 'clients',
     asset_type: 'image',
     subPath: 'clients',
@@ -116,16 +116,16 @@ const clientStrips: SiteAssetRole[] = SITE_ASSET_KEYS.clients.strips.map(
 const aboutHeroVideos: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.heroVideos.aboutDesktop,
-    label: 'Vídeo hero Sobre (desktop)',
-    description: 'Vídeo da hero da página Sobre (desktop)',
+    label: 'About Hero Video (Desktop)',
+    description: 'Main hero video for the About page (desktop)',
     page: 'about',
     asset_type: 'video',
     subPath: 'hero',
   },
   {
     key: SITE_ASSET_KEYS.heroVideos.aboutMobile,
-    label: 'Vídeo hero Sobre (mobile)',
-    description: 'Versão mobile da hero sobre',
+    label: 'About Hero Video (Mobile)',
+    description: 'Mobile version of the About hero video',
     page: 'about',
     asset_type: 'video',
     subPath: 'hero',
@@ -135,8 +135,8 @@ const aboutHeroVideos: SiteAssetRole[] = [
 const aboutOriginImages: SiteAssetRole[] =
   SITE_ASSET_KEYS.about.originImages.map((key, index) => ({
     key,
-    label: `Origem imagem ${index + 1}`,
-    description: 'Imagem da seção Origem',
+    label: `Origin Image ${index + 1}`,
+    description: 'Image for the Origin section',
     page: 'about',
     asset_type: 'image',
     subPath: 'origin',
@@ -145,8 +145,8 @@ const aboutOriginImages: SiteAssetRole[] =
 
 const aboutMethodVideo: SiteAssetRole = {
   key: SITE_ASSET_KEYS.heroVideos.method,
-  label: 'Vídeo método',
-  description: 'Vídeo da seção Método',
+  label: 'Method Video',
+  description: 'Video for the Method section',
   page: 'about',
   asset_type: 'video',
   subPath: 'method',
@@ -156,23 +156,23 @@ const aboutBeliefsAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.about.beliefs.ghostModel,
     label: 'Ghost Model (3D)',
-    description: 'Modelo 3D GLB exubido na seção Crenças',
+    description: '3D GLB model displayed in the Beliefs section',
     page: 'about',
     asset_type: 'file',
     subPath: 'beliefs',
   },
   {
     key: SITE_ASSET_KEYS.about.beliefs.skillsVideo,
-    label: 'Vídeo Skills (Desktop)',
-    description: 'Vídeo de background da seção Crenças (versão pesada)',
+    label: 'Skills Video (Desktop)',
+    description: 'Background video for the Beliefs section (high-res version)',
     page: 'about',
     asset_type: 'video',
     subPath: 'beliefs',
   },
   {
     key: SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
-    label: 'Vídeo Skills (Mobile)',
-    description: 'Vídeo de background da seção Crenças (versão leve)',
+    label: 'Skills Video (Mobile)',
+    description: 'Background video for the Beliefs section (optimized mobile version)',
     page: 'about',
     asset_type: 'video',
     subPath: 'beliefs',
@@ -181,8 +181,8 @@ const aboutBeliefsAssets: SiteAssetRole[] = [
 
 const aboutCurriculum: SiteAssetRole = {
   key: 'about.curriculum_pdf',
-  label: 'Currículo para download',
-  description: 'PDF usado na seção AboutClosing',
+  label: 'Resume (PDF)',
+  description: 'PDF used in the AboutClosing section',
   page: 'about',
   asset_type: 'file',
   subPath: 'curriculum',
@@ -191,16 +191,16 @@ const aboutCurriculum: SiteAssetRole = {
 const portfolioHeroVideos: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
-    label: 'Vídeo hero Portfólio (desktop)',
-    description: 'Hero do portfólio desktop',
+    label: 'Portfolio Hero Video (Desktop)',
+    description: 'Main hero video for the Portfolio page (desktop)',
     page: 'portfolio',
     asset_type: 'video',
     subPath: 'hero',
   },
   {
     key: SITE_ASSET_KEYS.heroVideos.portfolioMobile,
-    label: 'Vídeo hero Portfólio (mobile)',
-    description: 'Hero do portfólio mobile',
+    label: 'Portfolio Hero Video (Mobile)',
+    description: 'Mobile version of the Portfolio hero video',
     page: 'portfolio',
     asset_type: 'video',
     subPath: 'hero',
@@ -209,8 +209,8 @@ const portfolioHeroVideos: SiteAssetRole[] = [
 
 const homeHeroVideo: SiteAssetRole = {
   key: SITE_ASSET_KEYS.heroVideos.homeManifesto,
-  label: 'Vídeo manifesto (home)',
-  description: 'Vídeo principal da hero da Home',
+  label: 'Manifesto Video (Home)',
+  description: 'Main hero video for the Home page',
   page: 'home',
   asset_type: 'video',
 };
@@ -220,7 +220,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.campaign.cover,
     label: 'Campaign • Cover',
-    description: 'Capa do projeto Campaign',
+    description: 'Cover image for the Campaign project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'campaign',
@@ -228,7 +228,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.campaign.hero,
     label: 'Campaign • Hero',
-    description: 'Hero do projeto Campaign',
+    description: 'Hero image for the Campaign project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'campaign',
@@ -236,7 +236,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.campaign.thumb,
     label: 'Campaign • Thumb',
-    description: 'Thumbnail do projeto Campaign',
+    description: 'Thumbnail for the Campaign project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'campaign',
@@ -245,7 +245,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.keyVision.cover,
     label: 'Key Vision • Cover',
-    description: 'Capa do projeto Key Vision',
+    description: 'Cover image for the Key Vision project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'key-vision',
@@ -253,7 +253,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.keyVision.hero,
     label: 'Key Vision • Hero',
-    description: 'Hero do projeto Key Vision',
+    description: 'Hero image for the Key Vision project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'key-vision',
@@ -261,7 +261,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.keyVision.thumb,
     label: 'Key Vision • Thumb',
-    description: 'Thumbnail do projeto Key Vision',
+    description: 'Thumbnail for the Key Vision project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'key-vision',
@@ -270,7 +270,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.brandVideo.hero,
     label: 'Brand Video • Hero',
-    description: 'Hero do projeto Brand Video',
+    description: 'Hero image for the Brand Video project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'brand-video',
@@ -278,7 +278,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.brandVideo.thumb,
     label: 'Brand Video • Thumb',
-    description: 'Thumbnail do projeto Brand Video',
+    description: 'Thumbnail video for the Brand Video project',
     page: 'projects',
     asset_type: 'video',
     subPath: 'brand-video',
@@ -287,7 +287,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.advertisingVideo.hero,
     label: 'Advertising Video • Hero',
-    description: 'Hero do projeto Advertising Video',
+    description: 'Hero image for the Advertising Video project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'advertising-video',
@@ -295,7 +295,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.advertisingVideo.thumb,
     label: 'Advertising Video • Thumb',
-    description: 'Thumbnail do projeto Advertising Video',
+    description: 'Thumbnail for the Advertising Video project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'advertising-video',
@@ -304,7 +304,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.creativeDirection.hero,
     label: 'Creative Direction • Hero',
-    description: 'Hero do projeto Creative Direction',
+    description: 'Hero image for the Creative Direction project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'creative-direction',
@@ -312,7 +312,7 @@ const projectAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.projects.creativeDirection.thumb,
     label: 'Creative Direction • Thumb',
-    description: 'Thumbnail do projeto Creative Direction',
+    description: 'Thumbnail for the Creative Direction project',
     page: 'projects',
     asset_type: 'image',
     subPath: 'creative-direction',
@@ -324,15 +324,15 @@ export const siteAssetRoleGroups: SiteAssetRoleGroup[] = [
   { label: 'Global • Fonts', roles: globalFonts },
   { label: 'Home • Hero', roles: [homeHeroVideo] },
   { label: 'Clients • Logos', roles: clientStrips },
-  { label: 'Sobre • Hero vídeos', roles: aboutHeroVideos },
-  { label: 'Sobre • Origem', roles: aboutOriginImages },
+  { label: 'About • Hero Videos', roles: aboutHeroVideos },
+  { label: 'About • Origin', roles: aboutOriginImages },
   {
-    label: 'Sobre • Método & Curriculum',
+    label: 'About • Method & Resume',
     roles: [aboutMethodVideo, aboutCurriculum],
   },
-  { label: 'Sobre • Crenças', roles: aboutBeliefsAssets },
-  { label: 'Portfólio • Hero vídeos', roles: portfolioHeroVideos },
-  { label: 'Portfólio • Projetos', roles: projectAssets },
+  { label: 'About • Beliefs', roles: aboutBeliefsAssets },
+  { label: 'Portfolio • Hero Videos', roles: portfolioHeroVideos },
+  { label: 'Portfolio • Projects', roles: projectAssets },
 ];
 
 const allSiteAssetRoles = siteAssetRoleGroups.flatMap((group) => group.roles);

@@ -57,7 +57,7 @@ export function ProjectForm({
     useState<File | null>(null);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
     Array.isArray(project?.gallery)
-      ? project.gallery.map((g, i) => ({
+      ? project?.gallery.map((g, i) => ({
           id: `existing-${i}`,
           path: g.path,
           caption: g.caption,

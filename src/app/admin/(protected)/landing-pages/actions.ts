@@ -16,7 +16,7 @@ const landingPageMutationSchema = z.object({
     .max(180)
     .regex(
       /^[a-z0-9-]+$/,
-      'Slug deve conter apenas letras minúsculas, números e hífen.'
+      'SYSTEM_ERR: INVALID_SLUG_FORMAT — USE_LOWERCASE_NUMBERS_HYPHEN'
     ),
   cover: z.string().trim().max(600).optional(),
   content: z.custom<Json>((value) => value !== undefined),

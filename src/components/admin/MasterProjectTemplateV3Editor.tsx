@@ -112,7 +112,7 @@ export default function MasterProjectTemplateV3Editor({
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
           <MediaAssetField
-            label="Logo da Hero"
+            label="Hero_Logo_Asset"
             value={
               value.hero_logo_image || {
                 src: '',
@@ -126,7 +126,7 @@ export default function MasterProjectTemplateV3Editor({
           />
 
           <MediaAssetField
-            label="Capa SEO (opcional, não aparece na hero)"
+            label="SEO_Cover_Asset (Optional_No_Hero_Display)"
             value={
               value.hero_cover_image || {
                 src: '',
@@ -234,7 +234,7 @@ export default function MasterProjectTemplateV3Editor({
                       type="button"
                       onClick={() => moveBlock(index, 'up')}
                       disabled={index === 0}
-                      aria-label="Mover bloco para cima"
+                      aria-label="Shift_Node_Up"
                       className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-white/40 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
                       <ChevronUp size={16} />
@@ -243,7 +243,7 @@ export default function MasterProjectTemplateV3Editor({
                       type="button"
                       onClick={() => moveBlock(index, 'down')}
                       disabled={index === value.gallery_grid.length - 1}
-                      aria-label="Mover bloco para baixo"
+                      aria-label="Shift_Node_Down"
                       className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-white/40 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
                       <ChevronDown size={16} />
@@ -251,7 +251,7 @@ export default function MasterProjectTemplateV3Editor({
                     <button
                       type="button"
                       onClick={() => removeBlock(block.id)}
-                      aria-label="Excluir bloco"
+                      aria-label="Purge_Node_Block"
                       className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-red-400 transition-colors hover:bg-red-500/10"
                     >
                       <Trash2 size={14} />

@@ -25,20 +25,20 @@ export type CopyAgentState = {
 };
 
 function buildFallbackCopy(context: CopyInput): string {
-  return `## 1. Abertura do Projeto
-${context.projectName} nasce para responder a um desafio concreto de posicionamento para ${context.clientName}. A direção criativa foi estruturada para sustentar presença de marca com clareza e consistência.
+  return `## 1. Project Opening
+${context.projectName} was created to address a specific positioning challenge for ${context.clientName}. The creative direction was structured to sustain brand presence with clarity and consistency.
 
-## 2. Conceito e Direção Criativa
-O objetivo central foi ${context.objective}. A narrativa visual foi orientada para ${context.targetAudience}, priorizando decisão estratégica e leitura imediata em diferentes contextos de uso.
+## 2. Concept and Creative Direction
+The central objective was ${context.objective}. The visual narrative was oriented towards ${context.targetAudience}, prioritizing strategic decision-making and immediate reading across different usage contexts.
 
-## 3. Sistema Visual e Lógica de Design
-O sistema foi construído a partir de ${context.visualConcept}. As escolhas reforçam coerência entre forma e mensagem, mantendo flexibilidade para evolução sem perder assinatura.
+## 3. Visual System and Design Logic
+The system was built starting from ${context.visualConcept}. The choices reinforce coherence between form and message, maintaining flexibility for evolution without losing its signature.
 
-## 4. Aplicações e Experiência
-Na execução, os principais desafios foram ${context.keyChallenges}. Os entregáveis ${context.deliverables ? `(${context.deliverables})` : ''} foram pensados como um ecossistema integrado, não peças isoladas.
+## 4. Applications and Experience
+In execution, the main challenges were ${context.keyChallenges}. The deliverables ${context.deliverables ? `(${context.deliverables})` : ''} were conceived as an integrated ecosystem, not isolated pieces.
 
-## 5. Fechamento
-Resultado orientado por direção, não por excesso. Um projeto desenhado para permanecer relevante com consistência editorial e intenção clara.${context.toneOfVoice ? `\n\n_Tom aplicado: ${context.toneOfVoice}_` : ''}`;
+## 5. Closing
+Result driven by direction, not excess. A project designed to remain relevant with editorial consistency and clear intent.${context.toneOfVoice ? `\n\n_Applied Tone: ${context.toneOfVoice}_` : ''}`;
 }
 
 const SYSTEM_PROMPT = `You are a portfolio case copy agent specialized in Art Direction and Visual Design projects.
@@ -52,7 +52,7 @@ Generate winning, curated portfolio texts (modal posts and full landing pages) b
 ## Non-negotiable output rule
 You MUST always output exactly the fields defined by the selected template (MODAL or LANDING PAGE).
 Never omit fields. Never change field names. Never add extra sections outside the template.
-If information is missing, infer carefully from visuals and write responsibly without inventing fake data (dates, metrics, awards, client approvals). Use "(não informado)" when needed.
+If information is missing, infer carefully from visuals and write responsibly without inventing fake data (dates, metrics, awards, client approvals). Use "(not informed)" when needed.
 
 ## Writing style
 - Language: Portuguese (pt-BR).
@@ -140,7 +140,7 @@ export async function generateProjectCopy(
       status: 'error',
       errorCode: 'missing_openai_key',
       errorMessage:
-        'OPENAI_API_KEY ausente ou não configurada no banco de dados',
+        'OPENAI_API_KEY missing or not configured in database',
       metadata: { fallbackApplied: true },
     });
     return {
@@ -148,9 +148,9 @@ export async function generateProjectCopy(
       fallbackContent,
       aiGenerated: false,
       error:
-        'IA indisponível (chave ausente). Configure OPENAI_API_KEY em /admin/settings para usar geração automática.',
+        'AI_UNAVAILABLE: OPENAI_API_KEY missing. Configure in /admin/settings to enable automatic generation.',
       notice:
-        'Um rascunho base editável foi gerado localmente — sem uso de IA.',
+        'SYSTEM_FALLBACK: A base editable draft was generated locally — without AI.',
     };
   }
 
@@ -174,17 +174,17 @@ export async function generateProjectCopy(
     // YouTube URL is sent as textual context only.
     // The model cannot access URLs — it uses the URL as an identifier/reference,
     // not as an actual video transcript. For transcript support, the caller
-    // should paste the transcript text in the "Desafios" or "Conceito" fields.
+    // should paste the transcript text in the "Challenges" or "Concept" fields.
     let youtubeContext = '';
     if (context.youtubeUrl) {
-      youtubeContext = `\nURL DO VÍDEO YOUTUBE DE REFERÊNCIA (contexto textual — o modelo não acessa a URL, use como referência de projeto):\n${context.youtubeUrl}\n`;
+      youtubeContext = `\nREFERENCE YOUTUBE VIDEO URL (textual context only — the model does not access the URL directly, use as project reference):\n${context.youtubeUrl}\n`;
     }
 
     const outputFormat =
       context.outputType === 'landing'
         ? `
-### OUTPUT OBRIGATÓRIO (não mude os nomes)
-Gere os campos abaixo:
+### MANDATORY OUTPUT (keep field names in English)
+Generate the following fields:
 
 SLUG:
 TAGS:
@@ -192,26 +192,26 @@ SEO TITLE:
 SEO DESCRIPTION:
 SEO KEYWORDS:
 
-TÍTULO DO PROJETO:
-SUBTÍTULO:
-RESUMO:
-HEADLINE DA INTRODUÇÃO:
-PARÁGRAFOS DA INTRODUÇÃO:
+PROJECT TITLE:
+SUBTITLE:
+SUMMARY:
+INTRODUCTION HEADLINE:
+INTRODUCTION PARAGRAPHS:
 
-BLOCO 2 · TEXTO PURO (Markdown):
+BLOCK 2 · PURE TEXT (Markdown):
 
-BLOCO 4 · FAIXA DE CITAÇÃO:
-CITAÇÃO:
-TEXTO DE APOIO:
+BLOCK 4 · QUOTE BAND:
+QUOTE:
+SUPPORTING TEXT:
 
-BLOCOS 6 OU 7 · TEXTO + IMAGEM:
-TEXTO:
+BLOCKS 6 OR 7 · TEXT + IMAGE:
+TEXT:
 
-TEXTO DO CTA FINAL:
+FINAL CTA TEXT:
 `
         : `
-### OUTPUT OBRIGATÓRIO (não mude os nomes)
-Gere os campos abaixo:
+### MANDATORY OUTPUT (keep field names in English)
+Generate the following fields:
 
 SLUG:
 TAGS:
@@ -219,30 +219,30 @@ SEO TITLE:
 SEO DESCRIPTION:
 SEO KEYWORDS:
 
-TÍTULO:
+TITLE:
 SHORT LABEL:
-DESCRIÇÃO:
-CORPO DO CASE (Markdown):
-CAPTION DAS IMAGENS E VIDEOS QUE SERÃO POSTADOS:
+DESCRIPTION:
+CASE BODY (Markdown):
+IMAGE AND VIDEO CAPTIONS:
 `;
 
     const userContent: any[] = [
       {
         type: 'text',
         text: [
-          `TIPO DE SAÍDA: ${context.outputType === 'landing' ? 'LANDING PAGE' : 'MODAL'}`,
+          `OUTPUT_TYPE: ${context.outputType === 'landing' ? 'LANDING_PAGE' : 'MODAL'}`,
           '',
-          'INFORMAÇÕES BÁSICAS (JSON):',
+          'BASIC_PROJECT_DATA (JSON):',
           JSON.stringify(
             {
-              'Projeto (nome)': context.projectName,
-              'Cliente / Marca': context.clientName,
-              'Objetivo do projeto': context.objective,
-              'Público-alvo': context.targetAudience,
-              'Conceito Visual': context.visualConcept,
-              Desafios: context.keyChallenges,
-              Entregas: context.deliverables,
-              'Tom desejado': context.toneOfVoice,
+              'Project Name': context.projectName,
+              'Client / Brand': context.clientName,
+              'Project Objective': context.objective,
+              'Target Audience': context.targetAudience,
+              'Visual Concept': context.visualConcept,
+              'Challenges': context.keyChallenges,
+              'Deliverables': context.deliverables,
+              'Desired Tone': context.toneOfVoice,
             },
             null,
             2
@@ -252,8 +252,8 @@ CAPTION DAS IMAGENS E VIDEOS QUE SERÃO POSTADOS:
           '',
           outputFormat,
           '',
-          `IMAGENS ANEXADAS: ${referenceImages.length}.`,
-          'Gere o texto final em português (pt-BR).',
+          `ATTACHED_IMAGES: ${referenceImages.length}.`,
+          'Generate the final text in Portuguese (pt-BR).',
         ].join('\n'),
       },
       ...imageParts,
@@ -293,9 +293,9 @@ CAPTION DAS IMAGENS E VIDEOS QUE SERÃO POSTADOS:
       success: false,
       fallbackContent,
       aiGenerated: false,
-      error: 'A geração com IA falhou nesta tentativa.',
+      error: 'SYSTEM_ERR: AI_GENERATION_FAILED — TIMEOUT_OR_API_ERROR',
       notice:
-        'Um rascunho base editável foi gerado localmente — revise e complete antes de usar.',
+        'SYSTEM_FALLBACK: A base editable draft was generated locally — review and complete before use.',
     };
   }
 }

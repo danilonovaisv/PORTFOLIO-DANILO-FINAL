@@ -26,12 +26,10 @@ export function FieldTooltip({
       </span>
       <TooltipProvider delayDuration={120}>
         <Tooltip>
-          <TooltipTrigger
-            asChild
-            aria-label={`SYSTEM_HELP: ${label.toUpperCase()}`}
-          >
+          <TooltipTrigger asChild>
             <button
               type="button"
+              aria-label={`SYSTEM_HELP: ${label.toUpperCase()}`}
               className="inline-flex h-5 w-5 items-center justify-center rounded-full text-white/30 transition-colors hover:text-[#0048ff] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0048ff]/50"
             >
               <HelpCircle size={12} strokeWidth={1.5} aria-hidden="true" />

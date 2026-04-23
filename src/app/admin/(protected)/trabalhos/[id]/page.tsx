@@ -84,10 +84,10 @@ export default async function EditProjectPage(props: Props) {
     <div className="space-y-6">
       <div className="flex flex-col gap-1 border-b border-white/5 pb-8">
         <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500/80">
-          Root / Trabalhos / Edit
+          Root / Projects / Edit
         </p>
         <h1 className="text-4xl font-light tracking-tight text-white flex items-center gap-3">
-          Editar Projeto
+          Edit_Project
           <span className="text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-white/40 uppercase tracking-widest">
             v3.0
           </span>

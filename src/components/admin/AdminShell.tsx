@@ -39,17 +39,17 @@ const navItems = [
   },
   {
     href: ADMIN_NAVIGATION.trabalhos.index,
-    label: 'Trabalhos',
+    label: 'Works',
     icon: FolderOpen,
   },
   { href: ADMIN_NAVIGATION.tags, label: 'Tags', icon: Tag },
-  { href: ADMIN_NAVIGATION.midia, label: 'Mídia & Layout', icon: Images },
+  { href: ADMIN_NAVIGATION.midia, label: 'Media & Layout', icon: Images },
   {
     href: ADMIN_NAVIGATION['landing-pages'],
     label: 'Landing Pages',
     icon: LayoutDashboard,
   },
-  { href: ADMIN_NAVIGATION.config, label: 'Configurações', icon: Settings },
+  { href: ADMIN_NAVIGATION.config, label: 'Settings', icon: Settings },
   {
     href: ADMIN_NAVIGATION.copyAgent,
     label: 'Copy Agent',
@@ -177,7 +177,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   <button
                     type="button"
                     className="group flex h-10 w-10 items-center justify-center rounded border border-white/5 bg-white/5 transition-all active:scale-95"
-                    aria-label="Abrir menu"
+                    aria-label="Open menu"
                   >
                     <Menu size={18} className="text-white/40 group-hover:text-white" />
                   </button>
@@ -274,11 +274,11 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                         </span>
                       </div>
                       <p className="font-mono text-xs font-medium text-rose-400">
-                        Sinal de rádio degradado: Service Role Key não detectada.
+                        Degraded radio signal: Service Role Key not detected.
                       </p>
                       <p className="mt-2 text-[11px] leading-relaxed text-rose-400/60 max-w-2xl">
-                        Módulos de gestão avançada (Auth, Storage, Config) podem operar com latência ou falha crítica. 
-                        Verifique as credenciais do núcleo no ambiente de produção.
+                        Advanced management modules (Auth, Storage, Config) may operate with latency or critical failure. 
+                        Verify core credentials in the production environment.
                       </p>
                     </div>
                   </div>

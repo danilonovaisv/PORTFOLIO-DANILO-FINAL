@@ -37,7 +37,7 @@ async function uploadThroughAdminRoute({
   };
 
   if (!response.ok || !payload.path) {
-    throw new Error(payload.error || 'Falha no upload do arquivo.');
+    throw new Error(payload.error || 'SYSTEM_ERR: STORAGE_UPLOAD_FAILURE');
   }
 
   return payload.path;

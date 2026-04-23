@@ -14,11 +14,11 @@ export const PROJECT_TYPE_OPTIONS = [
 const slugSchema = z
   .string()
   .trim()
-  .min(3, 'Slug precisa ter ao menos 3 caracteres.')
-  .max(120, 'Slug deve ter no máximo 120 caracteres.')
+  .min(3, 'SYSTEM_ERR: SLUG_TOO_SHORT — MINIMUM_3_CHARACTERS')
+  .max(120, 'SYSTEM_ERR: SLUG_TOO_LONG — MAXIMUM_120_CHARACTERS')
   .regex(
     /^[a-z0-9-]+$/,
-    'Slug deve conter apenas letras minúsculas, números e hífen.'
+    'SYSTEM_ERR: INVALID_SLUG_FORMAT — USE_LOWERCASE_NUMBERS_HYPHEN'
   );
 
 const optionalYearField = z.preprocess((value) => {
@@ -28,7 +28,7 @@ const optionalYearField = z.preprocess((value) => {
 
   const parsed = typeof value === 'number' ? value : Number(value);
   return Number.isNaN(parsed) ? value : parsed;
-}, z.number().int('Ano precisa ser inteiro.').min(1900, 'Ano inválido.').max(2100, 'Ano inválido.').optional());
+}, z.number().int('SYSTEM_ERR: YEAR_MUST_BE_INTEGER').min(1900, 'SYSTEM_ERR: INVALID_YEAR_RANGE').max(2100, 'SYSTEM_ERR: INVALID_YEAR_RANGE').optional());
 
 const nullableOptionalYearField = z.preprocess((value) => {
   if (value === '' || value === null || value === undefined) {
@@ -37,20 +37,20 @@ const nullableOptionalYearField = z.preprocess((value) => {
 
   const parsed = typeof value === 'number' ? value : Number(value);
   return Number.isNaN(parsed) ? value : parsed;
-}, z.number().int('Ano precisa ser inteiro.').min(1900, 'Ano inválido.').max(2100, 'Ano inválido.').nullable().optional());
+}, z.number().int('SYSTEM_ERR: YEAR_MUST_BE_INTEGER').min(1900, 'SYSTEM_ERR: INVALID_YEAR_RANGE').max(2100, 'SYSTEM_ERR: INVALID_YEAR_RANGE').nullable().optional());
 
 const projectBaseFieldsSchema = z.object({
   title: z
     .string()
     .trim()
-    .min(3, 'Título precisa ter ao menos 3 caracteres.')
-    .max(140, 'Título deve ter no máximo 140 caracteres.'),
+    .min(3, 'SYSTEM_ERR: TITLE_TOO_SHORT — MINIMUM_3_CHARACTERS')
+    .max(140, 'SYSTEM_ERR: TITLE_TOO_LONG — MAXIMUM_140_CHARACTERS'),
   slug: slugSchema,
   client_name: z
     .string()
     .trim()
-    .min(2, 'Cliente precisa ter ao menos 2 caracteres.')
-    .max(120, 'Cliente deve ter no máximo 120 caracteres.'),
+    .min(2, 'SYSTEM_ERR: CLIENT_NAME_TOO_SHORT — MINIMUM_2_CHARACTERS')
+    .max(120, 'SYSTEM_ERR: CLIENT_NAME_TOO_LONG — MAXIMUM_120_CHARACTERS'),
   client_slug: slugSchema.optional(),
   brand_name: z.string().trim().max(120).optional(),
   year: optionalYearField,
@@ -69,9 +69,9 @@ const projectBaseFieldsSchema = z.object({
     .optional(),
   is_published: z.boolean().optional(),
   landing_page_id: z
-    .union([z.string().uuid('Landing page inválida.'), z.literal(''), z.null()])
+    .union([z.string().uuid('SYSTEM_ERR: INVALID_LANDING_PAGE_ID'), z.literal(''), z.null()])
     .optional(),
-  tags: z.array(z.string().uuid('Tag inválida.')).optional(),
+  tags: z.array(z.string().uuid('SYSTEM_ERR: INVALID_TAG_ID')).optional(),
   destination: z
     .object({
       type: z.enum(['modal', 'internal_landing', 'external_url', 'page']),
@@ -90,7 +90,7 @@ const enforceFeaturedPublishedRule = (
   if (value.featured_on_home && value.is_published === false) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: 'Um projeto em destaque na Home precisa estar publicado.',
+      message: 'SYSTEM_ERR: FEATURED_PROJECT_MUST_BE_PUBLISHED',
       path: ['featured_on_home'],
     });
   }
@@ -125,9 +125,9 @@ export const projectMutationSchema = z
       .optional(),
     landing_page_id: z.preprocess(
       (value) => (value === '' ? null : value),
-      z.string().uuid('Landing page inválida.').nullable().optional()
+      z.string().uuid('SYSTEM_ERR: INVALID_LANDING_PAGE_ID').nullable().optional()
     ),
-    tags: z.array(z.string().uuid('Tag inválida.')).optional(),
+    tags: z.array(z.string().uuid('SYSTEM_ERR: INVALID_TAG_ID')).optional(),
     thumbnail_path: z.string().trim().nullable().optional(),
     hero_image_path: z.string().trim().nullable().optional(),
     url_landscape: z.string().trim().nullable().optional(),

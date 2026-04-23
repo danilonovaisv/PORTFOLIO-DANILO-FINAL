@@ -131,6 +131,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
               <div className="flex flex-col gap-1">
                 <button
                   type="button"
+                  aria-label="Move item up"
                   onClick={() => moveItem(index, 'up')}
                   disabled={index === 0}
                   className="p-1 rounded bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-white/5"
@@ -139,6 +140,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
                 </button>
                 <button
                   type="button"
+                  aria-label="Move item down"
                   onClick={() => moveItem(index, 'down')}
                   disabled={index === items.length - 1}
                   className="p-1 rounded bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-white/5"

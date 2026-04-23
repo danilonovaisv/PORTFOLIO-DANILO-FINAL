@@ -13,16 +13,16 @@ interface BlockEditorV3Props {
 }
 
 const FONT_SIZE_OPTIONS = [
-  { value: '', label: 'Padrão' },
-  { value: 'text-base', label: 'Normal (base)' },
-  { value: 'text-lg', label: 'Grande (lg)' },
-  { value: 'text-xl', label: 'Extra grande (xl)' },
+  { value: '', label: 'SYSTEM_DEFAULT' },
+  { value: 'text-base', label: 'NORMAL_BASE' },
+  { value: 'text-lg', label: 'LARGE_LG' },
+  { value: 'text-xl', label: 'EXTRA_LARGE_XL' },
   { value: 'text-2xl', label: '2XL' },
   { value: 'text-3xl', label: '3XL' },
 ];
 
 const FONT_WEIGHT_OPTIONS = [
-  { value: '', label: 'Padrão' },
+  { value: '', label: 'SYSTEM_DEFAULT' },
   { value: 'font-light', label: 'Light' },
   { value: 'font-normal', label: 'Normal' },
   { value: 'font-medium', label: 'Medium' },
@@ -31,11 +31,11 @@ const FONT_WEIGHT_OPTIONS = [
 ];
 
 const ALIGN_OPTIONS = [
-  { value: '', label: 'Auto' },
-  { value: 'left', label: 'Esquerda' },
-  { value: 'center', label: 'Centro' },
-  { value: 'right', label: 'Direita' },
-  { value: 'justify', label: 'Justificado' },
+  { value: '', label: 'AUTO' },
+  { value: 'left', label: 'LEFT' },
+  { value: 'center', label: 'CENTER' },
+  { value: 'right', label: 'RIGHT' },
+  { value: 'justify', label: 'JUSTIFIED' },
 ] as const;
 
 function TextConfigPanel({
@@ -58,7 +58,7 @@ function TextConfigPanel({
       </summary>
       <div className="grid grid-cols-2 gap-3 px-3 pb-3 pt-1 sm:grid-cols-4">
         <label className="space-y-1">
-          <span className={labelClasses}>Tamanho</span>
+          <span className={labelClasses}>FONT_SIZE_TOKEN</span>
           <select
             className={inputClasses}
             value={value.fontSize || ''}
@@ -73,7 +73,7 @@ function TextConfigPanel({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Peso</span>
+          <span className={labelClasses}>FONT_WEIGHT_TOKEN</span>
           <select
             className={inputClasses}
             value={value.fontWeight || ''}
@@ -90,7 +90,7 @@ function TextConfigPanel({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Alinhamento</span>
+          <span className={labelClasses}>TEXT_ALIGN_TOKEN</span>
           <select
             className={inputClasses}
             value={value.textAlign || ''}
@@ -110,7 +110,7 @@ function TextConfigPanel({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Cor</span>
+          <span className={labelClasses}>COLOR_HEX_TOKEN</span>
           <div className="flex gap-1">
             <input
               type="color"
@@ -226,12 +226,12 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
   return (
     <div className="space-y-6 p-6">
-      {block.type === 'text' ? renderTextField('Texto') : null}
+      {block.type === 'text' ? renderTextField('TEXT_NODE') : null}
 
       {block.type === 'quote-band' ? (
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center space-y-6">
           <label className="block w-full space-y-1">
-            <span className={labelClasses}>Citação</span>
+            <span className={labelClasses}>QUOTE_NODE</span>
             <textarea
               className={`${inputClasses} min-h-20 text-center`}
               value={block.content.text || ''}
@@ -240,7 +240,7 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
           </label>
 
           <label className="block w-full space-y-1">
-            <span className={labelClasses}>Texto de apoio (opcional)</span>
+            <span className={labelClasses}>SUPPORT_TEXT (OPTIONAL)</span>
             <textarea
               className={`${inputClasses} min-h-20 text-center`}
               value={block.content.text2 || ''}
@@ -249,7 +249,7 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
           </label>
 
           <div className="mx-auto flex w-full max-w-xs flex-col items-center gap-2">
-            <span className={labelClasses}>Cor da faixa</span>
+            <span className={labelClasses}>BAND_COLOR_TOKEN</span>
             <div className="flex w-full gap-2">
               <input
                 type="color"
@@ -262,7 +262,7 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
                 className={inputClasses}
                 value={block.content.bandColor || '#0048ff'}
                 onChange={(e) => updateContent({ bandColor: e.target.value })}
-                title="Valor hexadecimal da cor da faixa"
+                title="HEX_VALUE_PROTOCOL"
                 placeholder="#000000"
               />
             </div>
@@ -271,13 +271,13 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
       ) : null}
 
       {block.type === 'image' &&
-        renderMediaField('Imagem Full', { kind: 'image' })}
+        renderMediaField('FULL_IMAGE_ASSET', { kind: 'image' })}
 
       {(block.type === 'video' || block.type === 'video-autoplay') &&
         renderMediaField(
           block.type === 'video-autoplay'
-            ? 'Vídeo Autoplay (Loop)'
-            : 'Vídeo Full',
+            ? 'AUTOPLAY_VIDEO_NODE'
+            : 'FULL_VIDEO_ASSET',
           { kind: 'video' }
         )}
 
@@ -286,18 +286,18 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         block.type === 'video-text') && (
         <div className="grid gap-4 md:grid-cols-2">
           {renderMediaField(
-            block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)',
+            block.type === 'video-text' ? 'MEDIA_ASSET_VIDEO' : 'MEDIA_ASSET_IMAGE',
             { kind: block.type === 'video-text' ? 'video' : 'image' }
           )}
-          {renderTextField('Texto')}
+          {renderTextField('TEXT_CONTENT')}
         </div>
       )}
 
       {(block.type === 'image-image' || block.type === 'image-video') && (
         <div className="grid gap-4 md:grid-cols-2">
-          {renderMediaField('Mídia 01', { kind: 'image' })}
+          {renderMediaField('PRIMARY_MEDIA_NODE', { kind: 'image' })}
           {renderMediaField(
-            block.type === 'image-video' ? 'Mídia 02 (Vídeo)' : 'Mídia 02',
+            block.type === 'image-video' ? 'SECONDARY_MEDIA_VIDEO' : 'SECONDARY_MEDIA_IMAGE',
             {
               secondary: true,
               kind: block.type === 'image-video' ? 'video' : 'image',

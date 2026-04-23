@@ -49,8 +49,8 @@ export default async function ProtectedLayout({
     }
 
     if (!user) {
-      // O middleware já redireciona para /admin/login se não houver usuário.
-      // Adicionamos um redirecionamento explícito aqui como safeguard.
+      // The middleware already redirects to /admin/login if there is no user.
+      // We add an explicit redirect here as a safeguard.
       redirect('/admin/login');
     }
 
@@ -84,7 +84,7 @@ export default async function ProtectedLayout({
 
     return (
       <AdminErrorDisplay
-        message={error instanceof Error ? error.message : 'Falha desconhecida'}
+        message={error instanceof Error ? error.message : 'Unknown core failure'}
         isMissingEnv={isMissingEnv}
       />
     );

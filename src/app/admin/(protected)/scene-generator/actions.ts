@@ -22,19 +22,19 @@ import { getOpenAIKey } from '@/lib/admin/settings';
 
 const SHOT_DIRECTIONS = [
   'Wide shot contextual',
-  'Medium shot em uso/interação',
-  'Close-up dramático do elemento principal',
-  'Detail shot cinematográfico com foco em textura e materialidade',
+  'Medium shot in use/interaction',
+  'Dramatic close-up of the main element',
+  'Cinematic detail shot focused on texture and materiality',
 ] as const;
 
 const MODEL_PROMPT_STYLES: Record<AIModel, string> = {
-  'dall-e-3': 'Crie uma cena publicitária fotorrealista e premium.',
+  'dall-e-3': 'Create a photorealistic and premium advertising scene.',
   'nano-banana':
-    'Crie uma cena publicitária altamente estilizada e artística. Foco em criatividade visual, cores vibrantes e composição única (estilo Nano Banana).',
-  flow: 'Crie uma cena publicitária com foco em fluxo criativo dinâmico. Use linhas orgânicas, iluminação suave e dinâmica para transmitir energia e leveza.',
+    'Create a highly stylized and artistic advertising scene. Focus on visual creativity, vibrant colors, and unique composition (Nano Banana style).',
+  flow: 'Create an advertising scene with a focus on dynamic creative flow. Use organic lines, soft and dynamic lighting to convey energy and lightness.',
   whisky:
-    'Crie uma cena publicitária com estética cinematográfica sofisticada. Use iluminação dramática, tons ricos, contraste elegante e textura de filme premium.',
-  sora: 'Geração de vídeo não suportada neste modo.',
+    'Create an advertising scene with a sophisticated cinematic aesthetic. Use dramatic lighting, rich tones, elegant contrast, and premium film texture.',
+  sora: 'Video generation not supported in this mode.',
 };
 
 async function resolveSceneModelCapabilities() {
@@ -50,9 +50,9 @@ async function resolveSceneModelCapabilities() {
   return normalizeAIModels(AI_MODELS).map((model) => {
     const enabledByEnv = envEnabledSet ? envEnabledSet.has(model.id) : true;
 
-    // Estado operacional atual: geração de imagens estável apenas via DALL-E 3.
-    // Modelos alternativos permanecem visíveis, porém indisponíveis, até
-    // integração backend dedicada por provedor.
+    // Current operational state: stable image generation only via DALL-E 3.
+    // Alternative models remain visible but unavailable until
+    // dedicated backend integration per provider is implemented.
     const available =
       model.id === 'dall-e-3' &&
       model.available &&
@@ -154,16 +154,15 @@ export async function generateAdScenes(
       action: 'scene.generate',
       resource: 'admin_scene_generator',
       status: 'error',
-      errorCode: 'missing_openai_key',
-      errorMessage:
-        'OPENAI_API_KEY ausente ou não configurada no banco de dados',
+      errorCode: 'MISSING_OPENAI_KEY',
+      errorMessage: 'OPENAI_API_KEY missing or not configured in the database',
       metadata: requestPayload,
     });
 
     return {
       success: false,
       error:
-        'Integração de IA indisponível no momento. Valide OPENAI_API_KEY em /admin/settings e tente novamente.',
+        'SYSTEM_ERR: AI_INTEGRATION_UNAVAILABLE — VALIDATE_OPENAI_KEY_IN_SETTINGS',
       supportCode: 'SCN-MISSING-OPENAI',
       requestPayload,
     };
@@ -175,7 +174,7 @@ export async function generateAdScenes(
   if (!selectedModel) {
     return {
       success: false,
-      error: `Modelo inválido (${model}). Atualize a página e tente novamente.`,
+      error: `SYSTEM_ERR: INVALID_MODEL — MODEL_${model}_NOT_FOUND`,
       supportCode: 'SCN-INVALID-MODEL',
       requestPayload,
     };
@@ -191,8 +190,8 @@ export async function generateAdScenes(
       success: false,
       error:
         availableModels.length > 0
-          ? `O modelo "${selectedModel.name}" está indisponível. Use: ${availableModels}.`
-          : 'Nenhum modelo de geração está disponível no momento.',
+          ? `SYSTEM_ERR: MODEL_UNAVAILABLE — MODEL_${selectedModel.name}_IS_OFFLINE. USE: ${availableModels}.`
+          : 'SYSTEM_ERR: NO_GENERATION_MODELS_AVAILABLE',
       supportCode: 'SCN-MODEL-UNAVAILABLE',
       requestPayload,
     };
@@ -206,52 +205,52 @@ export async function generateAdScenes(
               `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
           )
           .join('\n')
-      : 'Nenhuma referência anexada.';
+      : 'No references attached.';
 
   const promptStyle =
     MODEL_PROMPT_STYLES[model] || MODEL_PROMPT_STYLES['dall-e-3'];
 
-  const promptBase = `Você é um modelo de geração de imagens especializado em criar CENAS PUBLICITÁRIAS REALISTAS.
+  const promptBase = `You are an image generation model specialized in creating REALISTIC ADVERTISING SCENES.
 
-IMPORTANTE – CONCEITO CENTRAL
+IMPORTANT – CENTRAL CONCEPT
 --------------------------------
-Você NÃO deve transformar, editar ou continuar a imagem enviada.
+You must NOT transform, edit, or continue the uploaded image.
 
-Em vez disso, você deve:
+Instead, you must:
 
-1. Criar cenas COMPLETAMENTE NOVAS, independentes da imagem enviada.
-   - Cenas de cotidiano, lifestyle, ambientes reais (ex.: mesa de escritório, café, rua, metrô, loja, etc.).
-   - Essas cenas são geradas do zero: cenário, objetos, luz, pessoas (se fizer sentido) e composição são criados por você.
+1. Create COMPLETELY NEW scenes, independent of the uploaded image.
+   - Everyday scenes, lifestyle, real environments (e.g., office desk, cafe, street, subway, store, etc.).
+   - These scenes are generated from scratch: the environment, objects, lighting, people (if appropriate), and composition are created by you.
 
-2. Apenas PEGAR a imagem enviada como arquivo (a peça publicitária pronta) e APLICÁ-LA dentro dessas cenas:
-   - como se fosse um post aberto na tela de um celular ou computador;
-   - como um pôster na parede;
-   - como um outdoor na rua;
-   - como um cartão de visita sobre a mesa;
-   - como uma embalagem em uma prateleira;
-   - ou outro suporte publicitário adequado.
+2. Simply TAKE the uploaded image file (the finished advertising piece) and APPLY it within these scenes:
+   - as if it were a post open on a mobile phone or computer screen;
+   - as a poster on the wall;
+   - as a billboard on the street;
+   - as a business card on the table;
+   - as packaging on a shelf;
+   - or another appropriate advertising medium.
 
-3. A imagem enviada é chamada de **ARTE_ORIGINAL**.
-   - A ARTE_ORIGINAL é uma peça publicitária finalizada.
-   - Ela NÃO PODE SER ALTERADA de forma alguma:
-     - não mude textos,
-     - não mude logos,
-     - não mude cores,
-     - não mude layout,
-     - não redesenhe nada.
-   - Use a ARTE_ORIGINAL apenas como uma imagem pronta aplicada em um objeto da cena (tela de celular, monitor, papel, painel, embalagem, papelaria etc.).
+3. The uploaded image is called **ORIGINAL_ART**.
+   - The ORIGINAL_ART is a finished advertising piece.
+   - It MUST NOT BE ALTERED in any way:
+     - do not change text,
+     - do not change logos,
+     - do not change colors,
+     - do not change layout,
+     - do not redesign anything.
+   - Use ORIGINAL_ART only as a ready-made image applied to an object in the scene (phone screen, monitor, paper, panel, packaging, stationery, etc.).
 
-OBJETIVO
+OBJECTIVE
 ---------
-Criar cenas do cotidiano, totalmente independentes da ARTE_ORIGINAL, aplicando a arte dentro dessas cenas sem alterar o conteúdo da arte.
+Create everyday scenes, completely independent of ORIGINAL_ART, applying the art within these scenes without altering the content of the art.
 
-DADOS DESTA GERAÇÃO:
-- Tipo de Peça: ${pieceType}
-- Descrição da Cena: ${description}
-- Imagens de Referência: ${referenceSummary}
-- Estilo e Payload Adicionais:
-  Estilo de Modelo: ${promptStyle}
-  Configuração: ${JSON.stringify(requestPayload, null, 2)}
+GENERATION DATA:
+- Piece Type: ${pieceType}
+- Scene Description: ${description}
+- Reference Images: ${referenceSummary}
+- Additional Style and Payload:
+  Model Style: ${promptStyle}
+  Configuration: ${JSON.stringify(requestPayload, null, 2)}
 `;
 
   try {
@@ -265,14 +264,14 @@ DADOS DESTA GERAÇÃO:
     if (supportedModels.has(model)) {
       const results: OpenAI.Images.ImagesResponse[] = [];
 
-      // Gerar sequencialmente para evitar Rate Limits (429) do OpenAI para DALL-E 3
+      // Generate sequentially to avoid OpenAI Rate Limits (429) for DALL-E 3
       for (let index = 0; index < batchSize; index++) {
         const shot = SHOT_DIRECTIONS[index] ?? SHOT_DIRECTIONS[0];
         try {
           const res = await openai.images.generate({
             model: 'dall-e-3',
             prompt:
-              `${promptBase}\n\nVariação ${index + 1}: ${shot}.`.substring(
+              `${promptBase}\n\nVariation ${index + 1}: ${shot}.`.substring(
                 0,
                 4000
               ), // OpenAI max prompt length
@@ -282,10 +281,10 @@ DADOS DESTA GERAÇÃO:
           results.push(res);
         } catch (err: unknown) {
           console.warn(
-            `[Admin Scene Generator] Falha na variação ${index + 1}:`,
+            `[Admin Scene Generator] Failed at variation ${index + 1}:`,
             err
           );
-          // Se falhar na primeira imagem, aborta. Se falhar nas subsequentes, retorna as que deram certo.
+          // If it fails on the first image, abort. If it fails on subsequent images, return the successful ones.
           if (index === 0) throw err;
           break;
         }
@@ -296,7 +295,7 @@ DADOS DESTA GERAÇÃO:
         .filter((url): url is string => !!url);
 
       if (images.length === 0) {
-        throw new Error('Nenhuma imagem foi retornada pela API.');
+        throw new Error('SYSTEM_ERR: NO_IMAGES_RETURNED_BY_API');
       }
 
       await logAdminAudit(supabase, user, {
@@ -318,40 +317,40 @@ DADOS DESTA GERAÇÃO:
       resource: 'admin_scene_generator',
       status: 'error',
       errorCode: 'unsupported_model',
-      errorMessage: `Modelo ${model} não implementado`,
+      errorMessage: `Model ${model} not implemented`,
       metadata: requestPayload,
     });
 
     return {
       success: false,
-      error: `Modelo ${model} não implementado para geração de imagens.`,
+      error: `SYSTEM_ERR: MODEL_UNIMPLEMENTED — MODEL_${model}_NOT_READY`,
       supportCode: 'SCN-MODEL-UNSUPPORTED',
       requestPayload,
     };
   } catch (error: unknown) {
     let isTransient = true;
     let errorMessage =
-      'Falha temporária ao gerar imagens. Aguarde alguns segundos e tente novamente.';
+      'SYSTEM_ERR: TRANSIENT_GENERATION_FAILURE — WAIT_AND_RETRY';
     let supportCode = 'SCN-GENERATION-ERROR';
 
     if (error instanceof OpenAI.APIError) {
       if (error.status === 400) {
         isTransient = false;
         errorMessage =
-          'Solicitação rejeitada. Verifique se a descrição não viola as políticas de conteúdo.';
+          'SYSTEM_ERR: REQUEST_REJECTED — CONTENT_POLICY_VIOLATION';
         supportCode = 'SCN-POLICY-VIOLATION';
       } else if (error.status === 401 || error.status === 403) {
         isTransient = false;
         errorMessage =
-          'Erro de autenticação da IA. Verifique sua OPENAI_API_KEY nas configurações.';
+          'SYSTEM_ERR: AI_AUTH_ERROR — VALIDATE_OPENAI_KEY_IN_SETTINGS';
         supportCode = 'SCN-AUTH-ERROR';
       } else if (error.status === 429) {
         isTransient = true;
         errorMessage =
-          'Limite de uso excedido (Rate Limit) no provedor de IA. Tente novamente em alguns instantes.';
+          'SYSTEM_ERR: RATE_LIMIT_EXCEEDED — TRY_AGAIN_LATER';
         supportCode = 'SCN-RATE-LIMIT';
       } else {
-        errorMessage = `Erro do provedor de IA (${error.status}): ${error.message}`;
+        errorMessage = `SYSTEM_ERR: AI_PROVIDER_ERROR_${error.status} — ${error.message}`;
       }
     } else if (error instanceof Error) {
       if (
@@ -360,10 +359,10 @@ DADOS DESTA GERAÇÃO:
       ) {
         isTransient = true;
         errorMessage =
-          'Tempo limite de conexão excedido. O servidor da IA demorou muito para responder.';
+          'SYSTEM_ERR: CONNECTION_TIMEOUT — AI_SERVER_RESPONSE_DELAY';
         supportCode = 'SCN-TIMEOUT';
       } else {
-        errorMessage = error.message;
+        errorMessage = `SYSTEM_ERR: ${error.message.toUpperCase()}`;
       }
     }
 

@@ -110,7 +110,7 @@ export function MediaInput({
             <button
               onClick={onClear}
               className="bg-red-500 p-2 rounded-full hover:bg-red-600 transition-colors shadow-lg"
-              title="Remover mídia"
+              title="SYSTEM_PURGE_MEDIA"
             >
               <Trash2 size={16} />
             </button>
@@ -149,8 +149,8 @@ export function MediaInput({
             type="text"
             placeholder={
               type === 'image'
-                ? 'https://exemplo.com/imagem.jpg'
-                : 'Pinte aqui o link do YouTube ou .mp4'
+                ? 'https://example.com/image.jpg'
+                : 'Paste YouTube link or .mp4 URI here'
             }
             className="bg-transparent border-none outline-none w-full text-sm text-white placeholder-white/20"
             onChange={(e) => onUrlChange(e.target.value)}

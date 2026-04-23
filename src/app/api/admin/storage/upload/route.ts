@@ -46,12 +46,12 @@ export async function POST(request: Request) {
       typeof bucket !== 'string' ||
       !ALLOWED_BUCKETS.has(bucket as UploadBucket)
     ) {
-      return NextResponse.json({ error: 'Bucket inválido.' }, { status: 400 });
+      return NextResponse.json({ error: 'SYSTEM_ERR: INVALID_BUCKET_SPECIFIED' }, { status: 400 });
     }
 
     if (!(file instanceof File)) {
       return NextResponse.json(
-        { error: 'Arquivo obrigatório.' },
+        { error: 'SYSTEM_ERR: FILE_UPLOAD_REQUIRED' },
         { status: 400 }
       );
     }
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
           {
             error:
-              'Marca (brand) e Projeto (project) são obrigatórios para portfolio-media.',
+              'SYSTEM_ERR: BRAND_AND_PROJECT_REQUIRED_FOR_PORTFOLIO_MEDIA',
           },
           { status: 400 }
         );
@@ -88,12 +88,12 @@ export async function POST(request: Request) {
       upsert = false; // Hashes make it unique, upsert is unnecessary and prevents mutability bugs
     } else {
       if (typeof rawPath !== 'string') {
-        return NextResponse.json({ error: 'Path inválido.' }, { status: 400 });
+        return NextResponse.json({ error: 'SYSTEM_ERR: INVALID_PATH_SPECIFIED' }, { status: 400 });
       }
       path = normalizePath(rawPath);
       if (invalidPath(path)) {
         return NextResponse.json(
-          { error: 'Path inválido para upload.' },
+          { error: 'SYSTEM_ERR: INVALID_UPLOAD_PATH' },
           { status: 400 }
         );
       }
@@ -126,7 +126,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status });
     }
 
-    const message = error instanceof Error ? error.message : 'Falha no upload.';
+    const message = error instanceof Error ? error.message : 'SYSTEM_ERR: UPLOAD_FAILED';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

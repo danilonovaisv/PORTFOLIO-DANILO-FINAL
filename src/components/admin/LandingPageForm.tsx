@@ -255,8 +255,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
   const handleSave = async () => {
     if (!title || !slug) {
       toast({
-        title: 'Campos obrigatórios',
-        description: 'Slug e Título são necessários.',
+        title: 'SYSTEM_VALIDATION: REQUIRED_FIELDS_MISSING',
+        description: 'Slug and Title identifiers are mandatory for operation.',
         variant: 'destructive',
       });
       return;
@@ -289,7 +289,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
       });
 
       if (result.ok) {
-        toast({ title: 'Sucesso', description: 'Landing Page salva!' });
+        toast({ 
+          title: 'SYSTEM_SYNC: PERSISTENCE_SUCCESS', 
+          description: 'Landing Page node has been successfully committed to the database.' 
+        });
         router.push('/admin/landing-pages');
         router.refresh();
       } else {
@@ -297,7 +300,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
       }
     } catch (error: any) {
       toast({
-        title: 'Erro ao salvar',
+        title: 'SYSTEM_ERR: PERSISTENCE_FAILURE',
         description: error.message,
         variant: 'destructive',
       });

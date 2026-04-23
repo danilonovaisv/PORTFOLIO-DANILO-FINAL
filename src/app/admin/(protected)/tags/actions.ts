@@ -15,7 +15,7 @@ const tagMutationSchema = z.object({
     .max(120)
     .regex(
       /^[a-z0-9-]+$/,
-      'Slug deve conter apenas letras minúsculas, números e hífen.'
+      'SYSTEM_ERR: SLUG_INVALID_FORMAT (LOWERCASE_NUMBERS_HYPHEN_ONLY)'
     ),
   kind: z.enum(['category', 'discipline', 'industry']).default('category'),
   description: z.string().trim().max(400).optional(),
@@ -53,7 +53,7 @@ export async function upsertTagAction(input: TagMutationInput) {
 
     return { ok: true as const, data };
   } catch (error: unknown) {
-    return errorResponse('Erro ao salvar tag.', error);
+    return errorResponse('SYSTEM_ERR: TAG_UPSERT_FAILURE', error);
   }
 }
 
@@ -62,7 +62,7 @@ export async function deleteTagAction(tagId: string) {
     const id = z.string().uuid().parse(tagId);
     const { supabase, user } = await requireAdminAccess();
 
-    // Passo 1: Verificar projetos vinculados
+    // Verify linked projects existence
     const { count, error: countError } = await supabase
       .from('portfolio_project_tags')
       .select('tag_id', { count: 'exact' })
@@ -72,11 +72,11 @@ export async function deleteTagAction(tagId: string) {
 
     if (count && count > 0) {
       throw new Error(
-        'Não é possível deletar a tag: ela está vinculada a projetos.'
+        'SYSTEM_ERR: TAG_DELETE_FORBIDDEN (LINKED_PROJECTS_DETECTED)'
       );
     }
 
-    // Passo 2: Prosseguir com a exclusão se não houver projetos vinculados
+    // Proceed with deletion if no links detected
     const { error } = await supabase
       .from('portfolio_tags')
       .delete()
@@ -95,6 +95,6 @@ export async function deleteTagAction(tagId: string) {
 
     return { ok: true as const };
   } catch (error: unknown) {
-    return errorResponse('Erro ao deletar tag.', error);
+    return errorResponse('SYSTEM_ERR: TAG_DELETE_FAILURE', error);
   }
 }

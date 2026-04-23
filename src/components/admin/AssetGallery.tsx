@@ -95,6 +95,7 @@ export function AssetGallery({
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative">
             <select
+              aria-label="Filter by page"
               value={currentPageFilter}
               onChange={(e) =>
                 updateFilters({
@@ -118,6 +119,7 @@ export function AssetGallery({
 
           <div className="relative">
             <select
+              aria-label="Filter by type"
               value={currentTypeFilter}
               onChange={(e) =>
                 updateFilters({

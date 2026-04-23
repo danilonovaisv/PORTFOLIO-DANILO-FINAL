@@ -62,7 +62,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
               className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
               title="System_Size"
             >
-              <option value="">Padrão</option>
+              <option value="">Default</option>
               <option value="text-xs">Extra Small</option>
               <option value="text-sm">Small</option>
               <option value="text-base">Base</option>
@@ -87,7 +87,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
               className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
               title="System_Weight"
             >
-              <option value="">Padrão</option>
+              <option value="">Default</option>
               <option value="font-thin">Thin</option>
               <option value="font-light">Light</option>
               <option value="font-normal">Normal</option>
@@ -108,11 +108,11 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
               className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
               title="System_Align"
             >
-              <option value="">Padrão</option>
-              <option value="left">Esquerda</option>
-              <option value="center">Centralizado</option>
-              <option value="right">Direita</option>
-              <option value="justify">Justificado</option>
+              <option value="">Default</option>
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+              <option value="justify">Justify</option>
             </select>
           </div>
           <div className="space-y-1">
@@ -133,11 +133,11 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
           value={block.content[key] || ''}
           onChange={(e) => updateContent({ [key]: e.target.value })}
           className="w-full h-full min-h-[200px] bg-white/[0.02] border border-white/10 rounded-xl p-4 outline-none focus:border-[#0048ff]/50 transition-all resize-none font-sans"
-          placeholder="# Título... \n\nParágrafo com conteúdo..."
+          placeholder="# Title... \n\nParagraph with content..."
         />
         <p className="text-[11px] text-white/40">
-          Este campo aceita Markdown seguro. Títulos, listas, links e ênfase são
-          preservados no front.
+          This field supports secure Markdown. Titles, lists, links, and emphasis are
+          preserved on the frontend.
         </p>
       </div>
     );

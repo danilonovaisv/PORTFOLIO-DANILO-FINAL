@@ -37,40 +37,40 @@ export function mapSupabaseAuthError(error: ErrorLike): string {
   const message = rawMessage.toLowerCase();
 
   if (!message) {
-    return 'Não foi possível concluir a autenticação. Tente novamente.';
+    return 'SYSTEM_ERR: AUTH_SESSION_FAILED — RETRY_SESSION';
   }
 
   if (isCaptchaErrorMessage(rawMessage)) {
-    return 'A verificação de segurança falhou. Atualize o captcha e tente novamente.';
+    return 'SYSTEM_ERR: SECURITY_VERIFICATION_FAILED — REFRESH_CAPTCHA_AND_RETRY';
   }
 
   if (message.includes('invalid login credentials')) {
-    return 'Email ou senha inválidos.';
+    return 'SYSTEM_ERR: INVALID_CREDENTIALS — VERIFY_EMAIL_OR_ACCESS_KEY';
   }
 
   if (message.includes('email not confirmed')) {
-    return 'Seu email ainda não foi confirmado.';
+    return 'SYSTEM_ERR: IDENTITY_UNCONFIRMED — CHECK_INBOX_FOR_VERIFICATION';
   }
 
   if (message.includes('user already registered')) {
-    return 'Já existe uma conta com esse email.';
+    return 'SYSTEM_ERR: IDENTITY_CONFLICT — EMAIL_ALREADY_EXISTS';
   }
 
   if (message.includes('provider is not enabled')) {
-    return 'Esse provedor de login não está habilitado no projeto.';
+    return 'SYSTEM_ERR: OAUTH_PROVIDER_DISABLED — CONTACT_KERNEL_ADMIN';
   }
 
   if (message.includes('email rate limit exceeded')) {
-    return 'Muitas tentativas por email. Aguarde alguns minutos antes de tentar novamente.';
+    return 'SYSTEM_ERR: RATE_LIMIT_EXCEEDED — COOLDOWN_ACTIVE_WAIT_BEFORE_RETRY';
   }
 
   if (message.includes('smtp')) {
-    return 'O provedor de email recusou o envio. Revise a configuração de SMTP no Supabase.';
+    return 'SYSTEM_ERR: SMTP_HANDSHAKE_FAILURE — CHECK_SUPABASE_OUTBOUND_CONFIG';
   }
 
   if (message.includes('unexpected_failure') || message.includes('500')) {
-    return 'O serviço de autenticação respondeu com falha interna. Revise captcha, redirects e provedores.';
+    return 'SYSTEM_ERR: INTERNAL_CORE_FAILURE — REVIEW_LOGS_AND_REDIRECTS';
   }
 
-  return rawMessage;
+  return `SYSTEM_ERR: RAW_EXCEPTION — ${rawMessage.toUpperCase()}`;
 }

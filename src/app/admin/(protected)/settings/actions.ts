@@ -63,7 +63,7 @@ async function ensureLastOwnerGuard(
     .eq('role', 'owner');
 
   if (error) {
-    throw new Error(error.message);
+    throw new Error(`SYSTEM_ERR: DATABASE_ERROR — ${error.message}`);
   }
 
   const remainingOwners = (data ?? []).filter(
@@ -90,7 +90,7 @@ async function syncAdminRow(
   );
 
   if (error) {
-    throw new Error(error.message);
+    throw new Error(`SYSTEM_ERR: DATABASE_ERROR — ${error.message}`);
   }
 }
 
@@ -103,7 +103,7 @@ async function revokeAdminRow(
     .delete()
     .eq('user_id', userId);
   if (error) {
-    throw new Error(error.message);
+    throw new Error(`SYSTEM_ERR: DATABASE_ERROR — ${error.message}`);
   }
 }
 
@@ -139,7 +139,7 @@ export async function createAdminToken(
     });
 
     if (error) {
-      return { ok: false, error: error.message };
+      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
     }
 
     await logAdminAudit(supabase, user, {
@@ -179,7 +179,7 @@ export async function updateAdminToken(
       .maybeSingle();
 
     if (existingError) {
-      return { ok: false, error: existingError.message };
+      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${existingError.message}` };
     }
 
     if (!existing) {
@@ -211,7 +211,7 @@ export async function updateAdminToken(
       .eq('id', tokenId);
 
     if (error) {
-      return { ok: false, error: error.message };
+      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
     }
 
     await logAdminAudit(supabase, user, {
@@ -247,7 +247,7 @@ export async function deleteAdminToken(tokenId: string): Promise<ActionResult> {
       .delete()
       .eq('id', tokenId);
     if (error) {
-      return { ok: false, error: error.message };
+      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
     }
 
     await logAdminAudit(supabase, user, {
@@ -284,7 +284,7 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
       .maybeSingle();
 
     if (error) {
-      return { ok: false, error: error.message };
+      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
     }
 
     if (!data) {
@@ -363,7 +363,7 @@ export async function createAdminUser(
       perPage: 500,
     });
     if (listed.error) {
-      return { ok: false, error: listed.error.message };
+      return { ok: false, error: `SYSTEM_ERR: AUTH_QUERY_FAILURE — ${listed.error.message}` };
     }
 
     const existing = listed.data.users.find(
@@ -381,7 +381,7 @@ export async function createAdminUser(
       if (invited.error || !invited.data.user) {
         return {
           ok: false,
-          error: invited.error?.message ?? 'SYSTEM_ERR: USER_INVITE_FAILURE',
+          error: `SYSTEM_ERR: USER_INVITE_FAILURE — ${invited.error?.message ?? 'UNKNOWN_AUTH_ERROR'}`,
         };
       }
 
@@ -408,7 +408,7 @@ export async function createAdminUser(
     });
 
     if (userUpdate.error) {
-      return { ok: false, error: userUpdate.error.message };
+      return { ok: false, error: `SYSTEM_ERR: AUTH_UPDATE_FAILURE — ${userUpdate.error.message}` };
     }
 
     await syncAdminRow(supabase, targetUserId, role);
@@ -460,7 +460,7 @@ export async function updateAdminUser(
     if (currentUser.error || !currentUser.data.user) {
       return {
         ok: false,
-        error: currentUser.error?.message ?? 'SYSTEM_ERR: ADMIN_USER_NOT_FOUND',
+        error: `SYSTEM_ERR: ADMIN_USER_NOT_FOUND — ${currentUser.error?.message ?? 'USER_NOT_IN_AUTH'}`,
       };
     }
 
@@ -493,7 +493,7 @@ export async function updateAdminUser(
     });
 
     if (updateResult.error) {
-      return { ok: false, error: updateResult.error.message };
+      return { ok: false, error: `SYSTEM_ERR: AUTH_UPDATE_FAILURE — ${updateResult.error.message}` };
     }
 
     await syncAdminRow(supabase, userId, role);
@@ -529,7 +529,7 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
     if (currentUser.error || !currentUser.data.user) {
       return {
         ok: false,
-        error: currentUser.error?.message ?? 'SYSTEM_ERR: ADMIN_USER_NOT_FOUND',
+        error: `SYSTEM_ERR: ADMIN_USER_NOT_FOUND — ${currentUser.error?.message ?? 'USER_NOT_IN_AUTH'}`,
       };
     }
 
@@ -552,7 +552,7 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
     });
 
     if (revoke.error) {
-      return { ok: false, error: revoke.error.message };
+      return { ok: false, error: `SYSTEM_ERR: AUTH_REVOKE_FAILURE — ${revoke.error.message}` };
     }
 
     await revokeAdminRow(supabase, userId);

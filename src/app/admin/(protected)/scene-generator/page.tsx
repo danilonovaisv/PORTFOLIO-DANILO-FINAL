@@ -120,7 +120,7 @@ export default function SceneGeneratorPage() {
           </div>
         </div>
         <p className="max-w-2xl font-mono text-[11px] uppercase tracking-wider text-white/40">
-          Gerador fotorrealista de mockups com controle de batch, ratio e referências visuais.
+          Photorealistic mockup generator with batch control, ratio presets, and visual references.
         </p>
       </div>
 
@@ -129,7 +129,7 @@ export default function SceneGeneratorPage() {
         <div className="space-y-8 lg:col-span-4">
           <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 backdrop-blur-sm">
             <h2 className="mb-6 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500/70">
-              Configurações Técnicas
+              Technical Settings
             </h2>
               <form
                 action={formAction}
@@ -138,8 +138,8 @@ export default function SceneGeneratorPage() {
               >
                 <div className="space-y-2">
                   <FieldTooltip
-                    label="Modelo de IA"
-                    description="Selecione o modelo ativo para geração. Modelos indisponíveis ficam bloqueados."
+                    label="AI Model"
+                    description="Select the active model for generation. Unavailable models are disabled."
                     className="flex items-center gap-1"
                   />
                   <div className="grid grid-cols-1 gap-2">
@@ -186,8 +186,7 @@ export default function SceneGeneratorPage() {
                       <>
                         <input type="hidden" name="model" value="dall-e-3" />
                         <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-300">
-                          Não foi possível carregar os modelos. DALL-E 3 será
-                          usado como fallback.
+                          Failed to load models. DALL-E 3 will be used as fallback.
                         </p>
                       </>
                     )}
@@ -196,8 +195,8 @@ export default function SceneGeneratorPage() {
 
                 <div className="space-y-2">
                   <FieldTooltip
-                    label="Referências Visuais"
-                    description={`Arraste múltiplos arquivos (até ${MAX_REFERENCE_IMAGES}) para orientar iluminação, estilo e contexto.`}
+                    label="Visual References"
+                    description={`Drag multiple files (up to ${MAX_REFERENCE_IMAGES}) to guide lighting, style, and context.`}
                     className="flex items-center gap-1"
                   />
                   <div
@@ -208,14 +207,14 @@ export default function SceneGeneratorPage() {
                   >
                     <UploadCloud className="mx-auto mb-3 h-6 w-6 text-white/20 transition-colors group-hover:text-emerald-500/50" />
                     <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 group-hover:text-white/60">
-                      Upload Referências
+                      Upload References
                     </p>
                     <p className="mt-1 font-mono text-[9px] uppercase tracking-tight text-white/20">
                       PNG, JPG, WEBP · Máx 8MB
                     </p>
                     <input
                       ref={fileInputRef}
-                      title="Upload imagens de referência"
+                      title="Upload reference images"
                       id="referenceImages"
                       name="referenceImages"
                       type="file"
@@ -242,12 +241,12 @@ export default function SceneGeneratorPage() {
                 <div className="space-y-2">
                   <FieldTooltip
                     label="Batch Size"
-                    description="Quantidade de variações geradas por execução (1 a 4)."
+                    description="Number of variations generated per execution (1 to 4)."
                     className="flex items-center gap-1"
                   />
                   <input
                     type="range"
-                    title="Quantidade de variações (Batch size)"
+                    title="Number of variations (Batch size)"
                     min={1}
                     max={4}
                     name="batchSize"
@@ -265,7 +264,7 @@ export default function SceneGeneratorPage() {
                 <div className="space-y-2">
                   <FieldTooltip
                     label="Output Ratio"
-                    description="Preset de aspecto para o render final. O payload envia esse valor de forma estruturada."
+                    description="Aspect ratio preset for the final render. Payload sends this as structured data."
                     className="flex items-center gap-1"
                   />
                   <div className="grid grid-cols-2 gap-2">
@@ -300,7 +299,7 @@ export default function SceneGeneratorPage() {
                 <div className="space-y-2">
                   <FieldTooltip
                     label="System_Piece_Type"
-                    description="Contexto do mockup para guiar escala e ambiente da cena."
+                    description="Mockup context to guide scale and scene environment."
                     className="flex items-center gap-1"
                   />
                   <select
@@ -323,8 +322,8 @@ export default function SceneGeneratorPage() {
 
                 <div className="space-y-2">
                   <FieldTooltip
-                    label="Descrição da Cena"
-                    description="Descrição textual principal para composição, luz e narrativa visual."
+                    label="Scene Description"
+                    description="Main textual description for composition, lighting, and visual narrative."
                     className="flex items-center gap-1"
                   />
                   <textarea
@@ -333,7 +332,7 @@ export default function SceneGeneratorPage() {
                     required
                     rows={4}
                     className="w-full resize-none rounded border border-white/10 bg-black/40 px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white placeholder:text-white/10 outline-none transition-all focus:border-emerald-500/50"
-                    placeholder="DESCREVA A CENA... (EX: SMARTPHONE PREMIUM, MÁRMORE, LUZ NATURAL)"
+                    placeholder="DESCRIBE THE SCENE... (EX: PREMIUM SMARTPHONE, MARBLE, NATURAL LIGHT)"
                   />
                 </div>
 
@@ -346,10 +345,10 @@ export default function SceneGeneratorPage() {
                   {isPending ? (
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-3 w-3 animate-spin" />
-                      <span>PROCESSANDO_{batchSize}_STK</span>
+                      <span>PROCESSING_{batchSize}_STK</span>
                     </div>
                   ) : (
-                    <span>GERAR_VARIACOES_STK ({batchSize})</span>
+                    <span>GENERATE_VARIATIONS_STK ({batchSize})</span>
                   )}
                 </button>
               </form>
@@ -379,10 +378,10 @@ export default function SceneGeneratorPage() {
             <div className="mb-8 flex items-center justify-between border-b border-white/5 pb-6">
               <div>
                 <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-                  Visualização da Saída
+                  Output Preview
                 </h3>
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-white">
-                  Resultados da Geração
+                  Generation Results
                 </p>
               </div>
               <div className="flex items-center gap-4">
@@ -404,7 +403,7 @@ export default function SceneGeneratorPage() {
                   >
                     <Image
                       src={img}
-                      alt={`Cena ${idx + 1}`}
+                      alt={`Scene ${idx + 1}`}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       unoptimized
@@ -416,7 +415,7 @@ export default function SceneGeneratorPage() {
                       href={img}
                       download
                       target="_blank"
-                      aria-label={`Download variação ${idx + 1}`}
+                      aria-label={`Download variation ${idx + 1}`}
                       className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white text-black transition-all duration-300 hover:scale-110 active:scale-95"
                     >
                       <Download size={16} />
@@ -431,10 +430,10 @@ export default function SceneGeneratorPage() {
                 </div>
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                    Aguardando Comandos
+                    Waiting for Commands
                   </p>
                   <p className="mt-2 max-w-[240px] font-mono text-[11px] uppercase tracking-tight text-white/20">
-                    Configure os parâmetros técnicos ao lado para iniciar a geração de ativos.
+                    Configure technical parameters to start asset generation.
                   </p>
                 </div>
               </div>

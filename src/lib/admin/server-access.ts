@@ -21,11 +21,17 @@ type RequireAdminAccessOptions = {
 
 export function assertAdminAccess(user: User | null | undefined) {
   if (!user) {
-    throw new AdminAccessError('Unauthorized.', 'unauthorized');
+    throw new AdminAccessError(
+      'SYSTEM_ERR: UNAUTHORIZED — ADMIN_LOGIN_REQUIRED',
+      'unauthorized'
+    );
   }
 
   if (shouldEnforceAdminRole() && !isAdminUser(user)) {
-    throw new AdminAccessError('Forbidden.', 'forbidden');
+    throw new AdminAccessError(
+      'SYSTEM_ERR: FORBIDDEN — ADMIN_ROLE_REQUIRED',
+      'forbidden'
+    );
   }
 }
 
@@ -39,7 +45,10 @@ export async function requireAdminAccess(
   } = await requestScopedSupabase.auth.getUser();
 
   if (error) {
-    throw new AdminAccessError(error.message, 'unauthorized');
+    throw new AdminAccessError(
+      `SYSTEM_ERR: AUTH_SESSION_ERROR — ${error.message.toUpperCase()}`,
+      'unauthorized'
+    );
   }
 
   assertAdminAccess(user);
@@ -62,7 +71,7 @@ export async function requireAdminAccess(
 
   if (options.requireServiceRole && privilegeLevel !== 'service_role') {
     throw new AdminAccessError(
-      'Operação administrativa requer SUPABASE_SERVICE_ROLE_KEY configurada no servidor.',
+      'SYSTEM_ERR: SERVICE_ROLE_REQUIRED — CONFIGURE_SUPABASE_SERVICE_ROLE_KEY_ON_SERVER',
       'forbidden'
     );
   }

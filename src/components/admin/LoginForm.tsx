@@ -54,13 +54,13 @@ export default function LoginForm() {
 
     window.onTurnstileExpired = () => {
       setTurnstileToken(null);
-      setError('A verificação expirou. Gere um novo captcha para continuar.');
+      setError('SYSTEM_ERR: VERIFICATION_EXPIRED — GENERATE_NEW_CAPTCHA_TO_PROCEED');
     };
 
     window.onTurnstileError = () => {
       setTurnstileToken(null);
       setError(
-        'Não foi possível carregar a verificação de segurança. Atualize a página e tente novamente.'
+        'SYSTEM_ERR: SECURITY_LOAD_FAILURE — REFRESH_PAGE_AND_RETRY'
       );
     };
 
@@ -141,7 +141,7 @@ export default function LoginForm() {
       return true;
     }
     if (turnstileToken) return true;
-    setError('Por favor, complete a verificação de segurança.');
+    setError('SYSTEM_ERR: SECURITY_VERIFICATION_REQUIRED — COMPLETE_CAPTCHA');
     return false;
   };
 
@@ -181,7 +181,7 @@ export default function LoginForm() {
         }
 
         setSuccessMsg(
-          'Cadastro enviado. Se a conta estiver habilitada, confirme o email para concluir o acesso.'
+          'SYSTEM_AUTH: REGISTRATION_SUBMITTED — CONFIRM_IDENTITY_VIA_INBOX'
         );
         setMode('login');
         resetTurnstile();
@@ -233,7 +233,7 @@ export default function LoginForm() {
       }
 
       setSuccessMsg(
-        'Se o email existir e estiver autorizado, enviamos um magic link para entrar no painel.'
+        'SYSTEM_AUTH: OTP_DISPATCHED — CHECK_IDENTITY_INBOX_FOR_MAGIC_LINK'
       );
       resetTurnstile();
     });
@@ -257,7 +257,7 @@ export default function LoginForm() {
       }
 
       setSuccessMsg(
-        'Se o email existir, enviamos um link seguro para redefinir sua senha.'
+        'SYSTEM_AUTH: RECOVERY_DISPATCHED — CHECK_IDENTITY_INBOX_FOR_KEY_RESET'
       );
       resetTurnstile();
     });
@@ -282,12 +282,12 @@ export default function LoginForm() {
   const primaryButtonLabel = isRedirecting
     ? 'SYSTEM_REDIRECTING...'
     : busyAction === 'login'
-      ? 'Entrando...'
+      ? 'ESTABLISHING_SESSION...'
       : busyAction === 'signup'
-        ? 'Cadastrando...'
+        ? 'REGISTERING_IDENTITY...'
         : mode === 'login'
-          ? 'Entrar'
-          : 'Cadastrar';
+          ? 'SYSTEM_LOGIN'
+          : 'SYSTEM_REGISTER';
 
   return (
     <div className="space-y-6">

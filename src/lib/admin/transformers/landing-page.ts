@@ -1,7 +1,4 @@
 export const storageMarker = '/site-assets/';
-export const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
-export const YOUTUBE_URL_PATTERN =
-  /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 
 import type {
   MasterProjectTemplateData,

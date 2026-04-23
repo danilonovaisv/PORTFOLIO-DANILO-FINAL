@@ -324,6 +324,7 @@ export function SettingsForm({
               <div>
                 <label className={labelClasses}>Environment_Scope</label>
                 <select
+                  aria-label="Environment Scope"
                   className={inputClasses}
                   value={tokenDraft.environment}
                   onChange={(event) =>
@@ -346,6 +347,7 @@ export function SettingsForm({
             <div>
               <label className={labelClasses}>Operational_Status</label>
               <select
+                aria-label="Operational Status"
                 className={inputClasses}
                 value={tokenDraft.status}
                 onChange={(event) =>
@@ -526,6 +528,7 @@ export function SettingsForm({
               <div>
                 <label className={labelClasses}>Access_Tier</label>
                 <select
+                  aria-label="Access Tier"
                   className={inputClasses}
                   value={userDraft.role}
                   onChange={(event) =>
@@ -542,6 +545,7 @@ export function SettingsForm({
               <div>
                 <label className={labelClasses}>Deployment_Status</label>
                 <select
+                  aria-label="Deployment Status"
                   className={inputClasses}
                   value={userDraft.status}
                   onChange={(event) =>

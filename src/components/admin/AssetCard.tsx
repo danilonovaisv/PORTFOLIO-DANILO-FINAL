@@ -106,7 +106,7 @@ export function AssetCard({ asset }: Props) {
     asset.publicUrl || buildSupabaseStorageUrl(asset.bucket, asset.file_path);
   const resolvedPage = asset.page ?? asset.resolvedPage ?? 'global';
 
-  // Verificar se a chave ou caminho é inválido
+  // Verify if key or path is invalid
   const isInvalidAsset =
     asset.key.startsWith('updated_at:') || asset.key.startsWith('key:');
 

@@ -132,7 +132,7 @@ export function LandingPageSettings({
                   }}
                   className="absolute top-4 right-4 bg-red-600/80 p-2 text-white backdrop-blur-md opacity-0 transition-opacity group-hover:opacity-100"
                   title="Remove_Asset"
-                  aria-label="Remover Capa"
+                  aria-label="Remove_Cover_Asset"
                   type="button"
                 >
                   <Trash2 size={14} />

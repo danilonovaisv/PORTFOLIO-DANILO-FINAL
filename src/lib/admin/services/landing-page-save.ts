@@ -182,7 +182,9 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
     nextTemplate.hero_cover_image.kind !== 'video' &&
     !nextTemplate.hero_cover_image.alt?.trim()
   ) {
-    throw new Error('Hero cover precisa de alt text quando for imagem.');
+    throw new Error(
+      'SYSTEM_ERR: HERO_COVER_ALT_TEXT_REQUIRED — IMAGE_HERO_REQUIRES_ACCESSIBILITY_TEXT'
+    );
   }
 
   let heroCoverSrc = nextTemplate.hero_cover_image.src;

@@ -106,8 +106,8 @@ export default function CopyAgentPage() {
                           checked={outputType === 'landing'}
                           onChange={() => setOutputType('landing')}
                         />
-                        <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Landing Page Completa</span>
-                        <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">Estrutura V3 ALPA</span>
+                        <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Full Landing Page</span>
+                        <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">V3 ALPHA Structure</span>
                       </label>
                       <label
                         className={`cursor-pointer rounded border px-4 py-3 transition-all duration-300 ${
@@ -124,7 +124,7 @@ export default function CopyAgentPage() {
                           checked={outputType === 'modal'}
                           onChange={() => setOutputType('modal')}
                         />
-                        <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Post Simples (Modal)</span>
+                        <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Simple Post (Modal)</span>
                         <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">Concise_Summary</span>
                       </label>
                     </div>
@@ -188,7 +188,7 @@ export default function CopyAgentPage() {
                       minLength={COPY_FIELD_LIMITS.objective.min}
                       maxLength={COPY_FIELD_LIMITS.objective.max}
                       className={`${inputClass(Boolean(fieldErrors.objective))} resize-none`}
-                      placeholder="Ex: Reposicionar a marca para o segmento enterprise sem perder percepção de inovação."
+                      placeholder="Ex: Reposition the brand for the enterprise segment without losing innovation perception."
                     />
                     {fieldErrors.objective && (
                       <p className="text-xs text-red-300">
@@ -212,7 +212,7 @@ export default function CopyAgentPage() {
                       className={inputClass(
                         Boolean(fieldErrors.targetAudience)
                       )}
-                      placeholder="Ex: Diretores de marketing B2B e tomadores de decisão em tecnologia."
+                      placeholder="Ex: B2B marketing directors and technology decision makers."
                     />
                     {fieldErrors.targetAudience && (
                       <p className="text-xs text-red-300">
@@ -235,7 +235,7 @@ export default function CopyAgentPage() {
                       minLength={COPY_FIELD_LIMITS.visualConcept.min}
                       maxLength={COPY_FIELD_LIMITS.visualConcept.max}
                       className={`${inputClass(Boolean(fieldErrors.visualConcept))} resize-none`}
-                      placeholder="Ex: Sistema modular com contraste alto, tipografia condensada e presença silenciosa."
+                      placeholder="Ex: Modular system with high contrast, condensed typography and silent presence."
                     />
                     {fieldErrors.visualConcept && (
                       <p className="text-xs text-red-300">
@@ -258,7 +258,7 @@ export default function CopyAgentPage() {
                       minLength={COPY_FIELD_LIMITS.keyChallenges.min}
                       maxLength={COPY_FIELD_LIMITS.keyChallenges.max}
                       className={`${inputClass(Boolean(fieldErrors.keyChallenges))} resize-none`}
-                      placeholder="Ex: Harmonizar linguagem premium com prazos curtos e múltiplos touchpoints."
+                      placeholder="Ex: Harmonizing premium language with short deadlines and multiple touchpoints."
                     />
                     {fieldErrors.keyChallenges && (
                       <p className="text-xs text-red-300">
@@ -278,7 +278,7 @@ export default function CopyAgentPage() {
                       name="deliverables"
                       maxLength={COPY_FIELD_LIMITS.deliverables.max}
                       className={inputClass(Boolean(fieldErrors.deliverables))}
-                      placeholder="Ex: Brand system, key visual, guideline, assets digitais"
+                      placeholder="Ex: Brand system, key visual, guideline, digital assets"
                     />
                     {fieldErrors.deliverables && (
                       <p className="text-xs text-red-300">
@@ -298,7 +298,7 @@ export default function CopyAgentPage() {
                       name="toneOfVoice"
                       maxLength={COPY_FIELD_LIMITS.toneOfVoice.max}
                       className={inputClass(Boolean(fieldErrors.toneOfVoice))}
-                      placeholder="Ex: Editorial, sofisticado e conciso"
+                      placeholder="Ex: Editorial, sophisticated and concise"
                     />
                     {fieldErrors.toneOfVoice && (
                       <p className="text-xs text-red-300">
@@ -338,7 +338,7 @@ export default function CopyAgentPage() {
                   <input
                     id="referenceImages"
                     name="referenceImages"
-                    title="Upload imagens de referência"
+                    title="Upload Reference Images"
                     type="file"
                     accept="image/png,image/jpeg,image/webp,image/gif"
                     multiple
@@ -346,7 +346,7 @@ export default function CopyAgentPage() {
                     className="block w-full rounded border border-white/10 bg-black/40 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-white file:mr-3 file:rounded file:border-0 file:bg-indigo-500/20 file:px-3 file:py-1 file:font-mono file:text-[9px] file:uppercase file:tracking-widest file:text-indigo-300 hover:file:bg-indigo-500/30 outline-none transition-all"
                   />
                   <p className="font-mono text-[9px] uppercase tracking-tight text-white/20">
-                    Envie até {MAX_REFERENCE_IMAGES} imagens · Máx 8MB/cada
+                    Send up to {MAX_REFERENCE_IMAGES} images · Max 8MB/each
                   </p>
                   {selectedImages.length > 0 && (
                     <ul className="max-h-32 space-y-1 overflow-y-auto rounded border border-white/5 bg-black/40 p-3 font-mono text-[9px] uppercase tracking-tight text-white/40">
@@ -371,10 +371,10 @@ export default function CopyAgentPage() {
                   {isPending ? (
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-3 w-3 animate-spin" />
-                      <span>PROCESSANDO_COPY_STK</span>
+                      <span>PROCESSING_COPY_STREAM</span>
                     </div>
                   ) : (
-                    <span>GERAR_NARRATIVA_STK</span>
+                    <span>GENERATE_NARRATIVE_STREAM</span>
                   )}
                 </button>
               </form>
@@ -402,7 +402,7 @@ export default function CopyAgentPage() {
             <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-4">
               <div>
                 <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-                  Visualização da Saída
+                  Output Visualization
                 </h3>
                 <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-white">
                   Markdown Result
@@ -419,7 +419,7 @@ export default function CopyAgentPage() {
                   <button
                     onClick={handleCopy}
                     className="flex h-8 w-8 items-center justify-center rounded border border-white/10 bg-white/5 text-white transition-all hover:bg-white/10 active:scale-95"
-                    title="Copiar Markdown"
+                    title="Copy Markdown"
                   >
                     {copied ? <Check size={14} /> : <Copy size={14} />}
                   </button>
@@ -440,10 +440,10 @@ export default function CopyAgentPage() {
                   </div>
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                      Aguardando Processamento
+                      Awaiting Processing
                     </p>
                     <p className="mt-2 max-w-[200px] font-mono text-[11px] uppercase tracking-tight text-white/20">
-                      O resultado da narrativa aparecerá nesta zona técnica.
+                      The narrative result will appear in this technical zone.
                     </p>
                   </div>
                 </div>

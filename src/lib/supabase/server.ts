@@ -89,17 +89,17 @@ export async function createClient({ admin = false } = {}) {
     : getSupabasePublicKey();
 
   if (!supabaseUrl) {
-    throw new Error('NEXT_PUBLIC_SUPABASE_URL não está definida no ambiente.');
+    throw new Error('SYSTEM_ERR: ENV_MISSING — NEXT_PUBLIC_SUPABASE_URL_NOT_DEFINED');
   }
 
   if (!supabaseKey) {
     if (admin) {
       throw new Error(
-        'SUPABASE_SERVICE_ROLE_KEY não está definida no ambiente.'
+        'SYSTEM_ERR: ENV_MISSING — SUPABASE_SERVICE_ROLE_KEY_NOT_DEFINED'
       );
     }
     throw new Error(
-      'Defina NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY (ou NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY/NEXT_PUBLIC_SUPABASE_ANON_KEY).'
+      'SYSTEM_ERR: ENV_MISSING — SUPABASE_PUBLISHABLE_KEY_NOT_DEFINED (Check NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY or legacy keys)'
     );
   }
 

@@ -52,7 +52,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
     if (existing && existing.id !== input.id) {
       return errorResponse(
-        'Já existe um projeto com este slug/nome. Por favor, mude o slug do projeto.'
+        'SYSTEM_ERR: SLUG_ALREADY_EXISTS — CHOOSE_UNIQUE_IDENTIFIER'
       );
     }
 
@@ -101,8 +101,8 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
         const oldV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
         const newV4 = `v4/${client_slug}/${newSlug}`;
-        const oldNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
-        const newNew = `${client_slug}/${newSlug}/assets-do-projeto`;
+        const oldNew = `${oldProject.client_slug}/${oldProject.slug}/project-assets`;
+        const newNew = `${client_slug}/${newSlug}/project-assets`;
         const oldProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
         const newProjects = `${client_slug}/projects/${newSlug}`;
 
@@ -202,7 +202,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       // Log for admin visibility — not critical since DB paths are correct
       // and old files remain accessible. Cleanup functions will reconcile.
       console.error(
-        '[Trabalhos] Partial storage rename failure — files still at old path:',
+        '[WORKS_ENGINE] Partial storage rename failure — files still at old path:',
         storageMoveFailures
       );
     }
@@ -233,7 +233,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
       if (failed.length > 0) {
         console.error(
-          '[Trabalhos] Partial storage cleanup failure — orphaned files may remain:',
+          '[WORKS_ENGINE] Partial storage cleanup failure — orphaned files may remain:',
           failed
         );
       }
@@ -249,7 +249,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
     return { ok: true as const, data: updatedProject };
   } catch (error: unknown) {
-    return errorResponse('Erro ao salvar projeto.', error);
+    return errorResponse('SYSTEM_ERR: SAVE_FAILURE — PROJECT_PERSISTENCE_ERROR', error);
   }
 }
 
@@ -268,7 +268,7 @@ export async function deleteProjectAction(id: string) {
 
     if (oldProject) {
       const folderV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
-      const folderNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
+      const folderNew = `${oldProject.client_slug}/${oldProject.slug}/project-assets`;
       const folderProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
 
       const results = await Promise.allSettled([
@@ -280,7 +280,7 @@ export async function deleteProjectAction(id: string) {
       const failures = results.filter((r) => r.status === 'rejected');
       if (failures.length > 0) {
         console.error(
-          '[Trabalhos] Partial storage delete failure — orphaned files may remain:',
+          '[WORKS_ENGINE] Partial storage delete failure — orphaned files may remain:',
           failures
         );
       }
@@ -291,7 +291,7 @@ export async function deleteProjectAction(id: string) {
     revalidatePath('/');
     return { ok: true };
   } catch (error: unknown) {
-    console.error('Erro ao deletar projeto:', error);
+    console.error('SYSTEM_ERR: DELETE_FAILURE — PROJECT_REMOVAL_ERROR', error);
     const message =
       error instanceof Error ? error.message : 'SYSTEM_ERR: UNKNOWN_FAILURE';
     return { ok: false, error: message };

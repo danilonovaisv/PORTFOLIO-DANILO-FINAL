@@ -63,8 +63,8 @@ export function MediaAssetField({
               )
             }
           >
-            <option value="image">Imagem</option>
-            <option value="video">Vídeo</option>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
             {allowYouTube ? <option value="youtube">YouTube</option> : null}
           </select>
         </label>
@@ -134,7 +134,7 @@ export function MediaAssetField({
 
       {missingAlt && (
         <p className="text-xs text-red-300">
-          Alt text obrigatório para imagem.
+          Alt_Metadata_Required_For_Images.
         </p>
       )}
 
@@ -175,7 +175,7 @@ export function MediaAssetField({
           ) : (
             <Image
               src={preview}
-              alt={value.alt || 'Pré-visualização'}
+              alt={value.alt || 'System_Preview'}
               fill
               className="object-cover"
               unoptimized

@@ -5,8 +5,8 @@ export type ActionResponse<T = any> =
   | { ok: false; error: string; issues?: string[] };
 
 /**
- * Retorna uma resposta de erro padronizada sem expor detalhes sensíveis,
- * mas mantendo informações técnicas úteis para o Admin.
+ * Returns a standardized error response without exposing sensitive details,
+ * but maintaining technical information useful for the Admin interface.
  */
 export function errorResponse(
   message: string,
@@ -35,17 +35,17 @@ export function errorResponse(
     };
   }
 
-  const finalMessage = details ? `${message} Detalhes: ${details}` : message;
+  const finalMessage = details ? `${message} Details: ${details}` : message;
   const fullError = code ? `[${code}] ${finalMessage}` : finalMessage;
 
   return {
     ok: false,
-    error: hint ? `${fullError} (Dica: ${hint})` : fullError,
+    error: hint ? `${fullError} (Hint: ${hint})` : fullError,
   };
 }
 
 /**
- * Helper para formatar erros do Zod.
+ * Helper to format Zod errors.
  */
 export function formatZodError(error: z.ZodError): string {
   return error.issues
@@ -57,7 +57,7 @@ export function formatZodError(error: z.ZodError): string {
 }
 
 /**
- * Valida um payload contra um schema e retorna o dado tipado ou erro padronizado.
+ * Validates a payload against a schema and returns typed data or standardized error.
  */
 export function validatePayload<T>(
   schema: z.Schema<T>,
@@ -74,7 +74,7 @@ export function validatePayload<T>(
       success: false,
       response: {
         ok: false,
-        error: `Dados inválidos: ${formatZodError(result.error)}`,
+        error: `INVALID_PAYLOAD: ${formatZodError(result.error)}`,
       },
     };
   }

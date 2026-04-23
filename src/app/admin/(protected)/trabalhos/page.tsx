@@ -25,7 +25,7 @@ export default async function TrabalhosPage(props: Props) {
 
   const resolvedSearchParams = searchParams || {};
 
-  // filtros básicos
+  // Core filters
   const tagFilter = resolvedSearchParams.tag;
   const yearFilter = resolvedSearchParams.year
     ? Number(resolvedSearchParams.year)
@@ -60,12 +60,12 @@ export default async function TrabalhosPage(props: Props) {
 
   if (projectsError) {
     console.error(
-      '[admin/trabalhos] Falha Crítica ao listar projetos:',
+      '[SYSTEM_SQL] CRITICAL_FAILURE: PROJECTS_FETCH_FAILED',
       JSON.stringify(projectsError, null, 2)
     );
   } else {
     console.warn(
-      `[admin/trabalhos] Projects found: ${baseProjects?.length ?? 0}`
+      `[SYSTEM_SQL] Projects found: ${baseProjects?.length ?? 0}`
     );
   }
 
@@ -80,7 +80,7 @@ export default async function TrabalhosPage(props: Props) {
 
   if (projectTagsError) {
     console.error(
-      '[admin/trabalhos] Erro ao listar tags dos projetos:',
+      '[SYSTEM_SQL] ERROR: PROJECT_TAGS_FETCH_FAILED',
       projectTagsError.message,
       projectTagsError.details,
       projectTagsError.hint
@@ -113,7 +113,7 @@ export default async function TrabalhosPage(props: Props) {
       )
     : projects;
 
-  // Filtro por Template
+  // Template filtering logic
   if (templateFilter) {
     if (templateFilter === 'none') {
       filteredProjects = filteredProjects.filter((p) => !p.landing_page_id);
@@ -149,7 +149,7 @@ export default async function TrabalhosPage(props: Props) {
             </p>
           </div>
           <h1 className="font-mono text-4xl font-light tracking-tight text-white">
-            Portfólio<span className="text-[#0048ff]">.</span>
+            Portfolio<span className="text-[#0048ff]">.</span>
           </h1>
         </div>
 
@@ -224,7 +224,7 @@ function Filters({
           </label>
           <input
             name="search"
-            placeholder="Title, Client..."
+            placeholder="TITLE_OR_CLIENT"
             defaultValue={current.search}
             className="w-full rounded-lg border border-white/5 bg-black/40 px-4 py-2.5 font-mono text-xs text-white placeholder:text-white/20 focus:border-[#0048ff]/30 focus:outline-none transition-all"
           />
@@ -235,6 +235,7 @@ function Filters({
             Taxonomy
           </label>
           <select
+            aria-label="Taxonomy filter"
             name="tag"
             defaultValue={current.tag || ''}
             className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
@@ -253,6 +254,7 @@ function Filters({
             Timeline
           </label>
           <select
+            aria-label="Timeline filter"
             name="year"
             defaultValue={current.year || ''}
             className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
@@ -271,6 +273,7 @@ function Filters({
             Project_Type
           </label>
           <select
+            aria-label="Project type filter"
             name="type"
             defaultValue={current.type || ''}
             className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
@@ -291,13 +294,14 @@ function Filters({
             Publication_Status
           </label>
           <select
+            aria-label="Publication status filter"
             name="status"
             defaultValue={current.status || ''}
             className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">Any_Status</option>
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
+            <option value="published">PUBLISHED</option>
+            <option value="draft">DRAFT</option>
           </select>
         </div>
 
@@ -306,16 +310,17 @@ function Filters({
             Engine_Template
           </label>
           <select
+            aria-label="Engine template filter"
             name="template"
             defaultValue={current.template || ''}
             className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-[#0048ff]/30 focus:outline-none appearance-none transition-all"
           >
             <option value="">All_Templates</option>
-            <option value="master-project-v3-alpa">V3 ALPA</option>
-            <option value="master-project-v2">V2 Master</option>
-            <option value="master-project-v1">V1 Master</option>
-            <option value="legacy-blocks">Legacy</option>
-            <option value="none">No Landing Page</option>
+            <option value="master-project-v3-alpa">V3_ALPA_ATOMIC</option>
+            <option value="master-project-v2">V2_MASTER_GRID</option>
+            <option value="master-project-v1">V1_MASTER_CORE</option>
+            <option value="legacy-blocks">LEGACY_BLOCKS</option>
+            <option value="none">NO_LANDING_PAGE</option>
           </select>
         </div>
 

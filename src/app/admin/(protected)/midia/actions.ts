@@ -107,7 +107,7 @@ export async function assignAssetRole(payload: AssignAssetRolePayload) {
   let file_path = currentPath ?? existing.file_path;
 
   if (!file_path) {
-    throw new Error('Asset sem caminho de arquivo válido para atualização.');
+    throw new Error('SYSTEM_ERR: INVALID_FILE_PATH — ASSET_MISSING_VALID_PATH');
   }
 
   if (file_path && file_path !== targetPath) {
@@ -194,7 +194,7 @@ export async function updateAssetFilePath(payload: {
   );
 
   if (!normalizedPath) {
-    throw new Error('Caminho de arquivo inválido para atualização do asset.');
+    throw new Error('SYSTEM_ERR: INVALID_FILE_PATH — ASSET_PATH_UPDATE_REJECTED');
   }
 
   const { error } = await supabase
@@ -266,7 +266,7 @@ function refreshAssetRoutes() {
 export async function healLandingPagesBucketAction() {
   const { supabase, user } = await requireAdminAccess();
 
-  // 1. Busca todos os assets corrompidos
+  // 1. Fetch all corrupted assets
   const { data: corruptedAssets, error: fetchError } = await supabase
     .from('site_assets')
     .select('id, file_path')
@@ -288,9 +288,9 @@ export async function healLandingPagesBucketAction() {
 
   let fixedCount = 0;
 
-  // 2. Corrige um a um para reescrever file_path junto com o bucket
+  // 2. Fix each asset to rewrite file_path along with the bucket
   for (const asset of corruptedAssets) {
-    // Se o file_path não tiver landing-pages/, devemos adicionar para não quebrar no storage real
+    // Ensure landing-pages/ prefix exists for storage synchronization.
     let newPath = asset.file_path || '';
     if (newPath && !newPath.startsWith('landing-pages/')) {
       newPath = `landing-pages/${newPath}`;
@@ -321,6 +321,6 @@ export async function healLandingPagesBucketAction() {
   return {
     success: true,
     fixedCount,
-    message: `${fixedCount} assets corrigidos com sucesso.`,
+    message: `SYSTEM_OK: ${fixedCount}_ASSETS_RECONSTRUCTED_SUCCESSFULLY`,
   };
 }

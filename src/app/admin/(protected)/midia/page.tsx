@@ -88,7 +88,7 @@ export default async function MidiaPage(props: {
           </p>
         </div>
         <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
-          Mídia<span className="text-[#0048ff]">_</span>Vault<span className="text-[#0048ff]">.</span>
+          Media<span className="text-[#0048ff]">_</span>Vault<span className="text-[#0048ff]">.</span>
         </h1>
         <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
           <span>Status: Online</span>
