@@ -66,60 +66,93 @@ export function TagForm({ tag, onSaved }: Props) {
   };
 
   return (
-    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-      <div className="grid gap-3 md:grid-cols-2">
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-slate-300">Label</span>
+    <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <div className="grid gap-4 md:grid-cols-2">
+        <label className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+            Label_Identity
+          </span>
           <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none"
+            placeholder="e.g. Motion Design"
             {...form.register('label')}
           />
         </label>
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-slate-300">Slug</span>
+        <label className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+            Slug_Endpoint
+          </span>
           <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none"
+            placeholder="motion-design"
             {...form.register('slug')}
           />
         </label>
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-slate-300">Tipo</span>
+        <label className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+            Kind_Classification
+          </span>
           <select
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none appearance-none"
             {...form.register('kind')}
           >
-            <option value="category">Categoria</option>
-            <option value="discipline">Disciplina</option>
-            <option value="industry">Indústria</option>
+            <option value="category" className="bg-[#040013]">Category</option>
+            <option value="discipline" className="bg-[#040013]">Discipline</option>
+            <option value="industry" className="bg-[#040013]">Industry</option>
           </select>
         </label>
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-slate-300">Ordem</span>
+        <label className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+            Sort_Priority
+          </span>
           <input
             type="number"
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none"
+            placeholder="0"
             {...form.register('sort_order')}
           />
         </label>
       </div>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-sm text-slate-300">Descrição</span>
+      <label className="flex flex-col gap-2">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+          Metadata_Description
+        </span>
         <textarea
           rows={3}
-          className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+          className="rounded-lg bg-white/5 border border-white/10 px-4 py-3 font-mono text-xs text-white transition-all focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none resize-none"
+          placeholder="Brief technical summary..."
           {...form.register('description')}
         />
       </label>
 
-      {error && <div className="text-sm text-red-400">{error}</div>}
+      {error && (
+        <div className="flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-4 py-3">
+          <div className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
+          <span className="font-mono text-[10px] uppercase text-rose-400">
+            ERR: {error}
+          </span>
+        </div>
+      )}
 
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-50"
+        className="group relative flex w-full items-center justify-center overflow-hidden rounded-lg bg-blue-500 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-blue-600 active:scale-[0.98] disabled:opacity-50"
         disabled={isPending}
       >
-        {isPending ? 'Salvando...' : 'Salvar tag'}
+        <span className="relative z-10 flex items-center gap-2">
+          {isPending ? (
+            <>
+              <div className="h-2 w-2 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+              EXECUTING_UPSERT...
+            </>
+          ) : (
+            <>
+              PUSH_TAG_UPDATE
+              <div className="h-1 w-1 rounded-full bg-white/40 group-hover:bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all" />
+            </>
+          )}
+        </span>
       </button>
     </form>
   );

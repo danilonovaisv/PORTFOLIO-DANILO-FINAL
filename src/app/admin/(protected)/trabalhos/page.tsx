@@ -139,37 +139,57 @@ export default async function TrabalhosPage(props: Props) {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-            Trabalhos
-          </p>
-          <h1 className="text-3xl font-semibold">Portfólio</h1>
+    <div className="max-w-6xl space-y-12 py-6">
+      <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <div className="h-[1px] w-8 bg-blue-500/40" />
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+              System_Database
+            </p>
+          </div>
+          <h1 className="font-mono text-4xl font-light tracking-tight text-white">
+            Portfólio<span className="text-blue-500">.</span>
+          </h1>
         </div>
+
         <Link
           href={ADMIN_NAVIGATION.trabalhos.new}
-          className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-600"
+          className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-blue-600 px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-blue-500 active:scale-95"
         >
-          Novo trabalho
+          <div className="absolute inset-0 flex -translate-x-full transition-transform group-hover:translate-x-0">
+             <div className="h-full w-full bg-white/20 blur-xl" />
+          </div>
+          <span className="relative">Add_New_Project</span>
         </Link>
+      </header>
+
+      <div className="space-y-8">
+        <div className="flex items-center gap-4">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-slate-500">
+            Query_Filters
+          </h2>
+          <div className="h-[1px] flex-1 bg-white/5" />
+        </div>
+
+        <Filters
+          tags={tags ?? []}
+          years={uniqueYears as number[]}
+          types={uniqueTypes as string[]}
+          current={{
+            tag: tagFilter,
+            year: yearFilter,
+            type: typeFilter,
+            status: statusFilter,
+            search,
+            template: templateFilter,
+          }}
+        />
+
+        <div className="pt-4">
+           <ProjectsTable projects={filteredProjects} />
+        </div>
       </div>
-
-      <Filters
-        tags={tags ?? []}
-        years={uniqueYears as number[]}
-        types={uniqueTypes as string[]}
-        current={{
-          tag: tagFilter,
-          year: yearFilter,
-          type: typeFilter,
-          status: statusFilter,
-          search,
-          template: templateFilter,
-        }}
-      />
-
-      <ProjectsTable projects={filteredProjects} />
     </div>
   );
 }
@@ -194,100 +214,125 @@ function Filters({
 }) {
   return (
     <form
-      className="grid gap-3 md:grid-cols-6 rounded-xl border border-white/10 bg-slate-900/40 backdrop-blur-sm p-4"
+      className="grid gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-6"
       method="get"
     >
-      <div className="md:col-span-2">
-        <input
-          name="search"
-          placeholder="Buscar por título ou cliente..."
-          defaultValue={current.search}
-          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:outline-none transition-colors"
-        />
+      <div className="grid gap-4 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            Search_Query
+          </label>
+          <input
+            name="search"
+            placeholder="Title, Client..."
+            defaultValue={current.search}
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-4 py-2.5 font-mono text-xs text-white placeholder:text-slate-600 focus:border-blue-500/30 focus:outline-none transition-all"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            Taxonomy
+          </label>
+          <select
+            name="tag"
+            defaultValue={current.tag || ''}
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+          >
+            <option value="">All_Tags</option>
+            {tags.map((tag) => (
+              <option key={tag.id} value={tag.slug}>
+                {tag.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            Timeline
+          </label>
+          <select
+            name="year"
+            defaultValue={current.year || ''}
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+          >
+            <option value="">All_Years</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="md:col-span-3">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            Project_Type
+          </label>
+          <select
+            name="type"
+            defaultValue={current.type || ''}
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+          >
+            <option value="">All_Types</option>
+            {types.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <select
-        name="tag"
-        title="Filtrar por Tag"
-        defaultValue={current.tag || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
-      >
-        <option value="">Todas as tags</option>
-        {tags.map((tag) => (
-          <option key={tag.id} value={tag.slug}>
-            {tag.label}
-          </option>
-        ))}
-      </select>
+      <div className="grid gap-4 md:grid-cols-12 pt-2">
+        <div className="md:col-span-3">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            Publication_Status
+          </label>
+          <select
+            name="status"
+            defaultValue={current.status || ''}
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+          >
+            <option value="">Any_Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
 
-      <select
-        name="year"
-        title="Filtrar por Ano"
-        defaultValue={current.year || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
-      >
-        <option value="">Todos os anos</option>
-        {years.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
+        <div className="md:col-span-4">
+          <label className="mb-1.5 block font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            Engine_Template
+          </label>
+          <select
+            name="template"
+            defaultValue={current.template || ''}
+            className="w-full rounded-lg border border-white/5 bg-black/40 px-3 py-2.5 font-mono text-xs text-white focus:border-blue-500/30 focus:outline-none appearance-none transition-all"
+          >
+            <option value="">All_Templates</option>
+            <option value="master-project-v3-alpa">V3 ALPA</option>
+            <option value="master-project-v2">V2 Master</option>
+            <option value="master-project-v1">V1 Master</option>
+            <option value="legacy-blocks">Legacy</option>
+            <option value="none">No Landing Page</option>
+          </select>
+        </div>
 
-      <select
-        name="type"
-        title="Filtrar por Tipo"
-        defaultValue={current.type || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
-      >
-        <option value="">Todos os tipos</option>
-        {types.map((type) => (
-          <option key={type} value={type}>
-            {type}
-          </option>
-        ))}
-      </select>
-
-      <select
-        name="status"
-        title="Filtrar por Status"
-        defaultValue={current.status || ''}
-        className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
-      >
-        <option value="">Status: Todos</option>
-        <option value="published">Publicado</option>
-        <option value="draft">Rascunho</option>
-      </select>
-
-      <div className="md:col-span-2">
-        <select
-          name="template"
-          title="Filtrar por Template"
-          defaultValue={current.template || ''}
-          className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm font-mono text-white focus:border-blue-500/50 focus:outline-none transition-colors"
-        >
-          <option value="">Template: Todos</option>
-          <option value="master-project-v3-alpa">V3 ALPA</option>
-          <option value="master-project-v2">V2 Master</option>
-          <option value="master-project-v1">V1 Master</option>
-          <option value="legacy-blocks">Legado</option>
-          <option value="none">Sem Landing Page</option>
-        </select>
-      </div>
-
-      <div className="flex gap-2 md:col-span-2">
-        <button
-          type="submit"
-          className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
-        >
-          Filtrar
-        </button>
-        <Link
-          href={ADMIN_NAVIGATION.trabalhos.index}
-          className="flex items-center justify-center rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/5 transition-colors"
-        >
-          Limpar
-        </Link>
+        <div className="md:col-span-5 flex items-end gap-2">
+          <button
+            type="submit"
+            className="flex-1 rounded-lg bg-white/5 border border-white/5 py-2.5 font-mono text-[10px] uppercase tracking-widest text-white transition-all hover:bg-white/10 active:scale-[0.98]"
+          >
+            Execute_Query
+          </button>
+          <Link
+            href={ADMIN_NAVIGATION.trabalhos.index}
+            className="flex items-center justify-center rounded-lg border border-white/5 bg-transparent px-6 py-2.5 font-mono text-[10px] uppercase tracking-widest text-slate-500 transition-all hover:text-slate-300"
+          >
+            Reset
+          </Link>
+        </div>
       </div>
     </form>
   );

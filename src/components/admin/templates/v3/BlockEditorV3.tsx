@@ -53,8 +53,8 @@ function TextConfigPanel({
 
   return (
     <details className="rounded border border-white/5 bg-white/[0.02]">
-      <summary className="cursor-pointer px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 transition-colors hover:text-slate-300">
-        ⚙ Formatação: {label}
+      <summary className="cursor-pointer px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40 transition-colors hover:text-white/70">
+        System_Formatting_Node: {label}
       </summary>
       <div className="grid grid-cols-2 gap-3 px-3 pb-3 pt-1 sm:grid-cols-4">
         <label className="space-y-1">
@@ -114,10 +114,10 @@ function TextConfigPanel({
           <div className="flex gap-1">
             <input
               type="color"
-              className="h-9 w-10 border border-white/10 bg-transparent"
+              className="h-9 w-10 border border-white/5 bg-transparent"
               value={value.color || '#ffffff'}
               onChange={(e) => update({ color: e.target.value })}
-              title="Cor do texto"
+              title="System_Color_Picker"
             />
             <input
               className={inputClasses}
@@ -210,11 +210,10 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
           className={`${inputClasses} min-h-40 font-mono text-sm`}
           value={block.content[fieldKey] || ''}
           onChange={(e) => updateContent({ [fieldKey]: e.target.value })}
-          placeholder="Suporta **negrito**, *itálico*, # Títulos, - Listas e > Citações"
+          placeholder="System_Markdown_Supported: **bold**, *italic*, # H1, - List, > Quote"
         />
-        <span className="block text-[10px] text-slate-500">
-          Suporta Markdown: **negrito**, *itálico*, # Título, - Lista, {'>'}{' '}
-          Citação
+        <span className="block text-[10px] text-white/30">
+          Status: System_Markdown_Protocol_Enabled
         </span>
       </label>
       <TextConfigPanel
@@ -254,10 +253,10 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
             <div className="flex w-full gap-2">
               <input
                 type="color"
-                className="h-10 w-12 border border-white/10 bg-transparent"
+                className="h-10 w-12 border border-white/5 bg-transparent"
                 value={block.content.bandColor || '#0048ff'}
                 onChange={(e) => updateContent({ bandColor: e.target.value })}
-                title="Seletor de cor da faixa"
+                title="System_Band_Color_Picker"
               />
               <input
                 className={inputClasses}

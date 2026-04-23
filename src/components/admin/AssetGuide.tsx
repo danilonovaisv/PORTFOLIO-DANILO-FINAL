@@ -101,22 +101,42 @@ const assetGuide = [
 
 export function AssetGuide() {
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/40 p-4 space-y-3">
-      <h2 className="text-lg font-semibold text-white">Guia de keys</h2>
-      <p className="text-xs text-slate-400">
-        Use essas keys no Admin para garantir que a sessão pública leia o asset
-        correto. Ajuste o campo “Subpasta” para manter o storage organizado.
+    <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl space-y-6">
+      <div className="space-y-1">
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-blue-500/60">Module_Documentation</p>
+        <h2 className="font-mono text-xl font-light text-white uppercase">Key_Guide<span className="text-blue-500">.</span></h2>
+      </div>
+      
+      <p className="font-mono text-[10px] text-white/40 uppercase leading-relaxed">
+        Reference keys for system modules. Use strictly defined identifiers to ensure synchronization between the vault and public interfaces.
       </p>
-      <div className="grid gap-2 text-xs">
+
+      <div className="grid gap-2 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
         {assetGuide.map((item) => (
           <div
             key={item.key}
-            className="rounded-lg border border-white/10 bg-slate-900/80 p-3"
+            className="group rounded-lg border border-white/5 bg-white/[0.01] p-4 transition-all hover:border-white/10 hover:bg-white/[0.03]"
           >
-            <div className="text-[11px] text-slate-300">{item.page}</div>
-            <div className="text-sm font-semibold text-white">{item.key}</div>
-            <p className="text-[11px] text-slate-400">{item.description}</p>
-            <p className="text-[11px] text-blue-300 mt-1">{item.change}</p>
+            <div className="flex items-center justify-between mb-2">
+              <span className="font-mono text-[9px] text-blue-500/50 uppercase tracking-widest">
+                PAGE: {item.page}
+              </span>
+              <div className="h-1 w-1 rounded-full bg-white/10 group-hover:bg-blue-500/50 transition-colors" />
+            </div>
+            
+            <div className="font-mono text-xs text-white uppercase tracking-tight mb-1">
+              {item.key}
+            </div>
+            
+            <p className="font-mono text-[10px] text-white/30 uppercase leading-tight mb-3">
+              {item.description}
+            </p>
+            
+            <div className="pt-2 border-t border-white/5">
+              <p className="font-mono text-[9px] text-blue-400/60 uppercase leading-relaxed italic">
+                {item.change}
+              </p>
+            </div>
           </div>
         ))}
       </div>

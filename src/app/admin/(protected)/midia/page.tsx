@@ -79,45 +79,57 @@ export default async function MidiaPage(props: {
   const pageItems = filtered.slice(startIndex, startIndex + PAGE_SIZE);
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-            Mídia
-          </p>
-          <h1 className="text-3xl font-semibold">Assets do site</h1>
-          <p className="text-sm text-slate-400">
-            {activeCount} ativos de {normalizedAssets.length} registros válidos
+    <div className="max-w-7xl space-y-12 py-6">
+      <header className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="h-[1px] w-8 bg-blue-500/40" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+            System_Main_Frame
           </p>
         </div>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-        <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4">
-          <h2 className="text-lg font-semibold mb-3">
-            Adicionar/atualizar asset
-          </h2>
-          <AssetForm />
+        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
+          Mídia<span className="text-blue-500">_</span>Vault<span className="text-blue-500">.</span>
+        </h1>
+        <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
+          <span>Status: Online</span>
+          <span>Registry: {activeCount.toString().padStart(2, '0')}/{normalizedAssets.length.toString().padStart(2, '0')}</span>
         </div>
-        <div className="flex flex-col gap-4">
-          <PresetButtons />
-          <AssetGuide />
-        </div>
-      </div>
+      </header>
 
-      <AssetGallery
-        pageItems={pageItems}
-        pageOptions={pageOptions}
-        typeOptions={typeOptions}
-        totalFiltered={filtered.length}
-        totalValid={validAssets.length}
-        totalPages={totalPages}
-        currentPage={safePage}
-        currentQuery={currentQuery}
-        currentPageFilter={currentPageFilter}
-        currentTypeFilter={currentTypeFilter}
-        currentShowInactive={currentShowInactive}
-      />
+      <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
+        <div className="space-y-10">
+          <AssetGallery
+            pageItems={pageItems}
+            pageOptions={pageOptions}
+            typeOptions={typeOptions}
+            totalFiltered={filtered.length}
+            totalValid={validAssets.length}
+            totalPages={totalPages}
+            currentPage={safePage}
+            currentQuery={currentQuery}
+            currentPageFilter={currentPageFilter}
+            currentTypeFilter={currentTypeFilter}
+            currentShowInactive={currentShowInactive}
+          />
+        </div>
+
+        <aside className="space-y-8">
+          <div className="sticky top-24 space-y-8">
+            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl">
+              <div className="mb-8 space-y-1">
+                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-blue-500/60">Module_Upload</p>
+                <h2 className="font-mono text-xl font-light text-white uppercase">Sync_Asset<span className="text-blue-500">.</span></h2>
+              </div>
+              <AssetForm />
+            </div>
+
+            <div className="space-y-4">
+              <PresetButtons />
+              <AssetGuide />
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }

@@ -358,23 +358,25 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         open={!!sectionToRemove}
         onOpenChange={(open) => !open && setSectionToRemove(null)}
       >
-        <AlertDialogContent className="border-white/10 bg-slate-950 text-white">
+        <AlertDialogContent className="border-white/10 bg-[#040013] text-white font-mono">
           <AlertDialogHeader>
-            <AlertDialogTitle>Remover bloco?</AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-400">
-              Tem certeza que deseja remover este bloco? Esta ação não pode ser
-              desfeita.
+            <AlertDialogTitle className="text-sm uppercase tracking-widest font-bold">
+              Confirm_Deletion?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-white/40 text-[10px] uppercase leading-relaxed tracking-tighter">
+              Are you sure you want to remove this functional block? 
+              This action cannot be rolled back in the current session.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="border-white/10 bg-transparent text-white hover:bg-white/5">
-              Cancelar
+          <AlertDialogFooter className="mt-6 border-t border-white/5 pt-6">
+            <AlertDialogCancel className="border-white/10 bg-transparent text-white/60 hover:bg-white/5 font-mono text-[10px] uppercase tracking-widest">
+              Cancel_Abort
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmRemoveSection}
-              className="bg-red-600 text-white hover:bg-red-700"
+              className="bg-red-600/80 text-white hover:bg-red-700 font-mono text-[10px] uppercase tracking-widest"
             >
-              Remover
+              Confirm_Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

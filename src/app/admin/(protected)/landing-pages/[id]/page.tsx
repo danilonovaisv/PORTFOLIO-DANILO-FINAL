@@ -10,17 +10,31 @@ export default async function EditLandingPage({ params }: Props) {
   const data = await getLandingPageAction(id).catch(() => null);
 
   if (!data) {
-    return <div className="p-10 text-center">Página não encontrada.</div>;
+    return (
+      <div className="flex h-[50vh] items-center justify-center">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">
+          Error: Page_Not_Found
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-          Portfolio Projects
+    <div className="max-w-6xl space-y-12 py-6">
+      <header className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="h-[1px] w-8 bg-blue-500/40" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+            System_Main_Frame
+          </p>
+        </div>
+        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
+          Editar_Projeto<span className="text-blue-500">.</span>
+        </h1>
+        <p className="font-mono text-[10px] uppercase text-white/40 tracking-widest">
+          Node_ID: {id.substring(0, 8)}... | Action: Modify_Existing_Page
         </p>
-        <h1 className="text-3xl font-semibold">Editar Projeto de Portfólio</h1>
-      </div>
+      </header>
 
       <LandingPageForm initialData={data} />
     </div>

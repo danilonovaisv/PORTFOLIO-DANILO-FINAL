@@ -21,14 +21,14 @@ export function CommonSEOAndNavFields({
   update,
 }: CommonSEOAndNavFieldsProps) {
   return (
-    <section className="space-y-4 border border-white/10 bg-slate-900/35 p-5">
-      <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-        Navegação e SEO
+    <section className="space-y-4 border border-white/5 bg-white/[0.02] p-5">
+      <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500/80">
+        System_SEO_&_Navigation
       </h3>
 
       <div className="grid gap-4 md:grid-cols-2">
         <label className="space-y-1">
-          <span className={labelClasses}>Texto do botão voltar</span>
+          <span className={labelClasses}>Back_Navigation_Label</span>
           <input
             className={inputClasses}
             value={navigation?.back_label || ''}
@@ -41,7 +41,7 @@ export function CommonSEOAndNavFields({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Texto do próximo projeto</span>
+          <span className={labelClasses}>Next_Navigation_Label</span>
           <input
             className={inputClasses}
             value={navigation?.next_label || ''}
@@ -54,7 +54,7 @@ export function CommonSEOAndNavFields({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Slug do próximo projeto</span>
+          <span className={labelClasses}>Next_Project_Slug</span>
           <input
             className={inputClasses}
             value={navigation?.next_project_slug || ''}
@@ -70,7 +70,7 @@ export function CommonSEOAndNavFields({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Texto do CTA final</span>
+          <span className={labelClasses}>CTA_Final_Label</span>
           <input
             className={inputClasses}
             value={cta?.label || ''}
@@ -79,7 +79,7 @@ export function CommonSEOAndNavFields({
         </label>
 
         <label className="space-y-1">
-          <span className={labelClasses}>Link do CTA</span>
+          <span className={labelClasses}>CTA_Redirect_URI</span>
           <input
             className={inputClasses}
             value={cta?.href || ''}
@@ -88,7 +88,7 @@ export function CommonSEOAndNavFields({
         </label>
 
         <label className="space-y-1 md:col-span-2">
-          <span className={labelClasses}>Descrição SEO</span>
+          <span className={labelClasses}>SEO_Description</span>
           <textarea
             className={`${inputClasses} min-h-24`}
             value={seo?.description || ''}
@@ -99,7 +99,7 @@ export function CommonSEOAndNavFields({
         </label>
 
         <label className="space-y-1 md:col-span-2">
-          <span className={labelClasses}>SEO og:image</span>
+          <span className={labelClasses}>SEO_OG_Asset_URI</span>
           <input
             className={inputClasses}
             value={seo?.og_image || ''}

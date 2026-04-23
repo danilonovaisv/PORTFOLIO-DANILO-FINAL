@@ -390,7 +390,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('title')}
           />
         </label>
@@ -403,7 +403,7 @@ export function ProjectForm({
           <div className="flex flex-col gap-2">
             {availableTags.length > 0 && (
               <select
-                className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-slate-200"
+                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-slate-200 font-mono focus:border-blue-500/50 outline-none transition-colors"
                 defaultValue=""
                 onChange={(event) => {
                   const selectedSlug = event.target.value;
@@ -421,7 +421,7 @@ export function ProjectForm({
               </select>
             )}
             <input
-              className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
               {...form.register('slug')}
             />
           </div>
@@ -433,7 +433,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('client_name')}
           />
         </label>
@@ -444,7 +444,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('brand_name')}
           />
         </label>
@@ -456,7 +456,7 @@ export function ProjectForm({
           />
           <input
             type="number"
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('year')}
           />
         </label>
@@ -467,7 +467,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <select
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('project_type')}
           >
             {PROJECT_TYPE_OPTIONS.map((option) => (
@@ -482,7 +482,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('short_label')}
           />
         </label>
@@ -494,13 +494,13 @@ export function ProjectForm({
           />
           <textarea
             rows={4}
-            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors resize-none"
             {...form.register('description')}
           />
         </label>
 
-        <div className="p-6 bg-indigo-500/5 border border-white/5 rounded-xl space-y-4 md:col-span-2">
-          <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-400/80">
+        <div className="p-6 bg-blue-600/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-blue-400/80">
             Estrutura do Case & Navegação
           </h3>
 
@@ -512,7 +512,7 @@ export function ProjectForm({
                 className="flex items-center gap-1 font-medium text-slate-200"
               />
               <select
-                className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white"
+                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-blue-500/50 outline-none transition-colors"
                 {...form.register('destination.type')}
               >
                 <option value="modal">Modal (Padrão)</option>
@@ -531,7 +531,7 @@ export function ProjectForm({
                   className="flex items-center gap-1 font-medium text-slate-200"
                 />
                 <input
-                  className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
+                  className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
                   {...form.register('destination.url')}
                   placeholder="https://... ou /rota"
                 />
@@ -546,8 +546,8 @@ export function ProjectForm({
               className="flex items-center gap-1 font-medium text-slate-200"
             />
             <textarea
-              rows={8}
-              className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm font-mono"
+              rows={12}
+              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors resize-y"
               {...form.register('case_body')}
               placeholder="Escreva a narrativa do projeto usando Markdown..."
             />
@@ -557,8 +557,8 @@ export function ProjectForm({
             </p>
           </label>
 
-          <div className="rounded-xl border border-white/10 bg-slate-950/60 p-4">
-            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="rounded border border-white/5 bg-black/20 p-6">
+            <p className="mb-4 text-[9px] font-bold uppercase tracking-[0.3em] text-white/30">
               Preview Markdown
             </p>
             {caseBody.trim() ? (
@@ -582,12 +582,12 @@ export function ProjectForm({
         </label>
       </div>
 
-      <div className="rounded-xl border border-purple-500/20 bg-purple-500/[0.06] p-6 space-y-5">
+      <div className="rounded border border-purple-500/10 bg-purple-500/[0.02] p-6 space-y-6">
         <div className="space-y-1">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-purple-300">
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-purple-400/80">
             Destaques HOME
           </p>
-          <p className="text-sm text-slate-400">
+          <p className="text-[11px] text-slate-500 font-mono">
             Configuração exclusiva dos cards da seção Featured Projects da Home.
             O background animado é sempre dinâmico e não fica salvo no post.
           </p>
@@ -606,7 +606,7 @@ export function ProjectForm({
               className="flex items-center gap-1"
             />
             <select
-              className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-blue-500/50 outline-none transition-colors"
               {...form.register('home_featured.cardStyle')}
               disabled={!featuredOnHome}
             >
@@ -628,7 +628,7 @@ export function ProjectForm({
             />
             <input
               type="file"
-              className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-500 disabled:opacity-60"
+              className="w-full text-[11px] text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30 disabled:opacity-60 transition-colors cursor-pointer"
               accept="image/png,image/svg+xml,image/webp"
               disabled={!featuredOnHome}
               onChange={(event) =>
@@ -636,16 +636,16 @@ export function ProjectForm({
               }
             />
             {project?.home_featured?.logoPath ? (
-              <span className="text-xs text-slate-400 break-all">
+              <span className="text-[10px] text-slate-500 break-all font-mono">
                 Atual: {project.home_featured.logoPath}
               </span>
             ) : null}
             {homeFeaturedCardStyle === 'ANIMATED_BG_INVERTED_LOGO' ? (
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[9px] text-slate-600 uppercase tracking-tight">
                 O logo fica fixo no centro do card, sem depender do hover.
               </p>
             ) : (
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[9px] text-slate-600 uppercase tracking-tight">
                 No modo thumb overlay, o card usa a capa do projeto com overlay
                 de 5% sobre o background animado.
               </p>
@@ -654,8 +654,8 @@ export function ProjectForm({
         </div>
       </div>
 
-      <div className="p-6 bg-blue-600/5 border border-blue-600/10 rounded-xl space-y-4">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-blue-400">
+      <div className="p-6 bg-blue-600/[0.02] border border-white/5 rounded-md space-y-4">
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-blue-400/80">
           Página de Destino (Link Interno)
         </h3>
         <label className="flex flex-col gap-2">
@@ -665,7 +665,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <select
-            className="w-full rounded-md bg-slate-900 border border-white/10 px-3 py-2 text-sm text-white"
+            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-blue-500/50 outline-none transition-colors"
             {...form.register('landing_page_id')}
           >
             <option value="">Nenhuma (Default)</option>
@@ -698,7 +698,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+            className="w-full text-[11px] text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
@@ -716,7 +716,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+            className="w-full text-[11px] text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
@@ -748,13 +748,13 @@ export function ProjectForm({
             value={newTagLabel}
             onChange={(event) => setNewTagLabel(event.target.value)}
             placeholder="Criar nova tag"
-            className="flex-1 min-w-0 rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="flex-1 min-w-0 rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-blue-500/50 outline-none transition-colors"
           />
           <button
             type="button"
             onClick={handleCreateTag}
             disabled={isCreatingTag || !newTagLabel.trim()}
-            className="rounded-md border border-white/10 px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="rounded-md border border-white/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors disabled:opacity-50"
           >
             {isCreatingTag ? 'Criando...' : 'Criar tag'}
           </button>
@@ -791,10 +791,10 @@ export function ProjectForm({
 
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-50"
+        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-blue-600 px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white shadow-lg transition-all hover:bg-blue-500 hover:scale-[1.02] active:scale-100 disabled:opacity-50"
         disabled={isPending}
       >
-        {isPending ? 'Salvando...' : 'Salvar projeto'}
+        {isPending ? 'Sincronizando...' : 'Salvar projeto'}
       </button>
     </form>
   );

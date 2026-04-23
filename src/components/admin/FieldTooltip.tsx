@@ -21,7 +21,9 @@ export function FieldTooltip({
 }: FieldTooltipProps) {
   return (
     <div className={className}>
-      <span className="text-sm text-slate-300">{label}</span>
+      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+        {label}
+      </span>
       <TooltipProvider delayDuration={120}>
         <Tooltip>
           <TooltipTrigger

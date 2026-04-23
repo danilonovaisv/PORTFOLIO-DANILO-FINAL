@@ -68,193 +68,216 @@ export default async function LandingPagesListPage(props: Props) {
     });
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-            Gerenciamento
-          </p>
-          <h1 className="text-3xl font-semibold">Portfolio Projects</h1>
+    <div className="max-w-6xl space-y-12 py-6">
+      <header className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <div className="h-[1px] w-8 bg-blue-500/40" />
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+              System_Main_Frame
+            </p>
+          </div>
+          <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
+            Landing_Pages<span className="text-blue-500">.</span>
+          </h1>
         </div>
+        
         <Link
           href="/admin/landing-pages/new"
-          className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-700"
+          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-blue-600 px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] active:scale-95"
         >
-          <Plus size={18} />
-          Novo Projeto
+          <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-white/20 to-transparent transition-transform group-hover:translate-y-0" />
+          <Plus size={16} className="relative z-10" />
+          <span className="relative z-10">Deploy_New</span>
         </Link>
-      </div>
+      </header>
 
-      <Filters
-        current={{
-          search: query,
-          template: templateFilter,
-        }}
-      />
-
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-900/40 backdrop-blur-sm">
-        {pages.length > 0 ? (
-          <>
-            <div className="hidden md:block">
-              <table className="min-w-full text-left text-sm">
-                <thead>
-                  <tr className="border-b border-white/10 text-slate-400">
-                    <th className="px-6 py-4 font-medium uppercase tracking-wider">
-                      Título
-                    </th>
-                    <th className="px-6 py-4 font-medium uppercase tracking-wider">
-                      Slug
-                    </th>
-                    <th className="px-6 py-4 font-medium uppercase tracking-wider">
-                      Template
-                    </th>
-                    <th className="px-6 py-4 font-medium uppercase tracking-wider">
-                      Criação
-                    </th>
-                    <th className="px-6 py-4 text-right font-medium uppercase tracking-wider">
-                      Ações
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {pages.map((page) => (
-                    <tr
-                      key={page.id}
-                      className="transition-colors hover:bg-white/2"
-                    >
-                      <td className="px-6 py-4 font-medium text-white">
-                        {page.title}
-                      </td>
-                      <td className="px-6 py-4 font-mono text-xs text-slate-400">
-                        /{page.slug}
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
-                            page.template === MASTER_PROJECT_TEMPLATE ||
-                            page.template === MASTER_PROJECT_TEMPLATE_V2 ||
-                            page.template === MASTER_PROJECT_TEMPLATE_V3
-                              ? 'border border-blue-400/30 bg-blue-500/15 text-blue-200'
-                              : 'border border-white/10 bg-slate-700/50 text-slate-300'
-                          }`}
-                        >
-                          {page.template === MASTER_PROJECT_TEMPLATE_V3
-                            ? 'Template Mestre V3'
-                            : page.template === MASTER_PROJECT_TEMPLATE
-                              ? 'Template Mestre V1'
-                              : page.template === MASTER_PROJECT_TEMPLATE_V2
-                                ? 'Template Mestre V2'
-                                : 'Legacy'}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-slate-500">
-                        {new Date(page.created_at).toLocaleDateString('pt-BR')}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <Link
-                            href={`/projects/${page.slug}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 text-slate-400 transition-colors hover:text-white"
-                            title="Ver página pública"
-                            aria-label={`Ver página pública: ${page.title}`}
-                          >
-                            <ExternalLink size={18} />
-                          </Link>
-                          <Link
-                            href={`/admin/landing-pages/${page.id}`}
-                            className="p-2 text-slate-400 transition-colors hover:text-blue-400"
-                            title="Editar"
-                            aria-label={`Editar projeto: ${page.title}`}
-                          >
-                            <Edit size={18} />
-                          </Link>
-                          <DeleteLandingPageButton
-                            id={page.id}
-                            title={page.title}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile View */}
-            <div className="block md:hidden">
-              {pages.map((page) => (
-                <div
-                  key={page.id}
-                  className="border-b border-white/5 p-4 space-y-3"
-                >
-                  <div className="flex flex-col">
-                    <span className="font-medium text-white">{page.title}</span>
-                    <span className="font-mono text-xs text-slate-400">
-                      /{page.slug}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`inline-flex rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
-                        page.template === MASTER_PROJECT_TEMPLATE ||
-                        page.template === MASTER_PROJECT_TEMPLATE_V2 ||
-                        page.template === MASTER_PROJECT_TEMPLATE_V3
-                          ? 'border border-blue-400/30 bg-blue-500/15 text-blue-200'
-                          : 'border border-white/10 bg-slate-700/50 text-slate-300'
-                      }`}
-                    >
-                      {page.template === MASTER_PROJECT_TEMPLATE_V3
-                        ? 'Template Mestre V3'
-                        : page.template === MASTER_PROJECT_TEMPLATE
-                          ? 'Template Mestre V1'
-                          : page.template === MASTER_PROJECT_TEMPLATE_V2
-                            ? 'Template Mestre V2'
-                            : 'Legacy'}
-                    </span>
-                    <span className="text-xs text-slate-500">
-                      {new Date(page.created_at).toLocaleDateString('pt-BR')}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end gap-5 pt-3 mt-1 border-t border-white/5">
-                    <Link
-                      href={`/projects/${page.slug}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 hover:text-white flex items-center gap-1 text-xs"
-                      aria-label={`Ver página pública: ${page.title}`}
-                    >
-                      <ExternalLink size={16} /> Ver
-                    </Link>
-                    <Link
-                      href={`/admin/landing-pages/${page.id}`}
-                      className="text-slate-400 hover:text-blue-400 flex items-center gap-1 text-xs"
-                      aria-label={`Editar projeto: ${page.title}`}
-                    >
-                      <Edit size={16} /> Editar
-                    </Link>
-                    <DeleteLandingPageButton
-                      id={page.id}
-                      title={page.title}
-                      compact
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="p-12 text-center">
-            <p className="mb-4 text-slate-400">Nenhum projeto criado.</p>
-            <Link
-              href="/admin/landing-pages/new"
-              className="text-sm text-blue-400 hover:underline"
-            >
-              Criar meu primeiro projeto
-            </Link>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+            Landing_Page_Nexus
+          </h2>
+          <div className="h-[1px] flex-1 mx-4 bg-white/5" />
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[9px] text-slate-600 uppercase">Total_Nodes:</span>
+            <span className="font-mono text-[10px] text-blue-500">{pages.length.toString().padStart(2, '0')}</span>
           </div>
-        )}
+        </div>
+
+        <Filters
+          current={{
+            search: query,
+            template: templateFilter,
+          }}
+        />
+
+        <div className="overflow-hidden rounded-xl border border-white/5 bg-white/[0.01] backdrop-blur-xl">
+          {pages.length > 0 ? (
+            <>
+              <div className="hidden md:block">
+                <table className="min-w-full text-left">
+                  <thead>
+                    <tr className="border-b border-white/5 bg-white/[0.02]">
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                        Node_Identity
+                      </th>
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                        Endpoint_Slug
+                      </th>
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                        Architecture
+                      </th>
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                        Registry_Date
+                      </th>
+                      <th className="px-6 py-4 text-right font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                        Operations
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {pages.map((page) => (
+                      <tr
+                        key={page.id}
+                        className="group transition-colors hover:bg-white/[0.02]"
+                      >
+                        <td className="px-6 py-5">
+                          <span className="font-mono text-sm text-white group-hover:text-blue-400 transition-colors">
+                            {page.title}
+                          </span>
+                        </td>
+                        <td className="px-6 py-5">
+                          <code className="rounded bg-white/5 px-2 py-1 font-mono text-[10px] text-slate-400">
+                            /{page.slug}
+                          </code>
+                        </td>
+                        <td className="px-6 py-5">
+                          <span
+                            className={`inline-flex items-center rounded border px-2 py-0.5 font-mono text-[9px] uppercase tracking-tighter ${
+                              page.template === MASTER_PROJECT_TEMPLATE ||
+                              page.template === MASTER_PROJECT_TEMPLATE_V2 ||
+                              page.template === MASTER_PROJECT_TEMPLATE_V3
+                                ? 'border-blue-500/30 bg-blue-500/10 text-blue-400'
+                                : 'border-white/10 bg-white/5 text-slate-400'
+                            }`}
+                          >
+                            {page.template === MASTER_PROJECT_TEMPLATE_V3
+                              ? 'MASTER_V3'
+                              : page.template === MASTER_PROJECT_TEMPLATE
+                                ? 'MASTER_V1'
+                                : page.template === MASTER_PROJECT_TEMPLATE_V2
+                                  ? 'MASTER_V2'
+                                  : 'LEGACY_ENV'}
+                          </span>
+                        </td>
+                        <td className="px-6 py-5">
+                          <span className="font-mono text-[10px] text-slate-500">
+                            {new Date(page.created_at).toLocaleDateString('pt-BR')}
+                          </span>
+                        </td>
+                        <td className="px-6 py-5">
+                          <div className="flex items-center justify-end gap-1">
+                            <Link
+                              href={`/projects/${page.slug}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="rounded-lg p-2 text-slate-500 transition-all hover:bg-white/5 hover:text-white"
+                              title="Live Preview"
+                            >
+                              <ExternalLink size={14} />
+                            </Link>
+                            <Link
+                              href={`/admin/landing-pages/${page.id}`}
+                              className="rounded-lg p-2 text-slate-500 transition-all hover:bg-blue-500/10 hover:text-blue-400"
+                              title="Configure Node"
+                            >
+                              <Edit size={14} />
+                            </Link>
+                            <DeleteLandingPageButton
+                              id={page.id}
+                              title={page.title}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile View */}
+              <div className="grid grid-cols-1 divide-y divide-white/5 md:hidden">
+                {pages.map((page) => (
+                  <div
+                    key={page.id}
+                    className="p-6 space-y-4"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-1">
+                        <h3 className="font-mono text-sm text-white">{page.title}</h3>
+                        <code className="block font-mono text-[10px] text-slate-500">/{page.slug}</code>
+                      </div>
+                      <span
+                        className={`inline-flex items-center rounded border px-2 py-0.5 font-mono text-[9px] uppercase tracking-tighter ${
+                          page.template === MASTER_PROJECT_TEMPLATE ||
+                          page.template === MASTER_PROJECT_TEMPLATE_V2 ||
+                          page.template === MASTER_PROJECT_TEMPLATE_V3
+                            ? 'border-blue-500/30 bg-blue-500/10 text-blue-400'
+                            : 'border-white/10 bg-white/5 text-slate-400'
+                        }`}
+                      >
+                        {page.template === MASTER_PROJECT_TEMPLATE_V3 ? 'V3' : 'LEGACY'}
+                      </span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                      <span className="font-mono text-[9px] text-slate-600">
+                        {new Date(page.created_at).toLocaleDateString('pt-BR')}
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <Link
+                          href={`/projects/${page.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-500 hover:text-white transition-colors"
+                        >
+                          <ExternalLink size={16} />
+                        </Link>
+                        <Link
+                          href={`/admin/landing-pages/${page.id}`}
+                          className="text-slate-500 hover:text-blue-400 transition-colors"
+                        >
+                          <Edit size={16} />
+                        </Link>
+                        <DeleteLandingPageButton
+                          id={page.id}
+                          title={page.title}
+                          compact
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center p-20 text-center space-y-4">
+              <div className="rounded-full bg-white/5 p-4 text-slate-600">
+                <Plus size={32} />
+              </div>
+              <div className="space-y-1">
+                <p className="font-mono text-xs text-slate-400 uppercase tracking-widest">No_Nodes_Detected</p>
+                <p className="font-mono text-[10px] text-slate-600 uppercase">Initialize system by creating your first project.</p>
+              </div>
+              <Link
+                href="/admin/landing-pages/new"
+                className="font-mono text-[10px] text-blue-500 uppercase tracking-widest hover:text-blue-400"
+              >
+                [ EXECUTE_PROVISIONING ]
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -270,51 +293,53 @@ function Filters({
 }) {
   return (
     <form
-      className="grid gap-4 md:grid-cols-4 rounded-xl border border-white/10 bg-slate-900/40 p-4 backdrop-blur-sm"
+      className="grid grid-cols-1 gap-4 lg:grid-cols-12"
       method="get"
     >
-      <div className="md:col-span-2 relative group">
-        <span className="absolute left-3 -top-2 px-2 bg-[#040013] text-[10px] font-mono uppercase tracking-widest text-blue-400 opacity-0 group-focus-within:opacity-100 transition-opacity">
-          Search_Query
-        </span>
+      <div className="relative group lg:col-span-6">
+        <div className="absolute inset-y-0 left-4 flex items-center text-slate-500 group-focus-within:text-blue-400 transition-colors">
+          <span className="font-mono text-[10px]">QRY:</span>
+        </div>
         <input
           name="search"
-          placeholder="BUSCAR PROJETO..."
+          placeholder="SEARCH_PROJECT_INDEX..."
           defaultValue={current.search}
-          className="w-full rounded-lg bg-slate-900/60 border border-white/10 px-4 py-2.5 text-xs font-mono text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:outline-none transition-all"
+          className="w-full rounded-lg border border-white/5 bg-black/40 px-12 py-3 font-mono text-[10px] uppercase tracking-widest text-white placeholder:text-slate-700 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/10 transition-all"
         />
       </div>
 
-      <div className="relative group">
-        <span className="absolute left-3 -top-2 px-2 bg-[#040013] text-[10px] font-mono uppercase tracking-widest text-blue-400 opacity-0 group-focus-within:opacity-100 transition-opacity">
-          Template_ID
-        </span>
+      <div className="relative lg:col-span-3">
         <select
           name="template"
-          title="Filtrar por Template"
+          title="Architecture_Filter"
           defaultValue={current.template || ''}
-          className="w-full rounded-lg bg-slate-900/60 border border-white/10 px-4 py-2.5 text-xs font-mono text-white focus:border-blue-500/50 focus:outline-none appearance-none transition-all"
+          className="w-full appearance-none rounded-lg border border-white/5 bg-black/40 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-blue-500/50 focus:outline-none transition-all cursor-pointer"
         >
-          <option value="">TODOS OS TEMPLATES</option>
-          <option value="master-project-v3-alpa">V3 ALPA</option>
-          <option value="master-project-v2">V2 MASTER</option>
-          <option value="master-project-v1">V1 MASTER</option>
-          <option value="legacy-blocks">LEGACY</option>
+          <option value="">ALL_ARCHITECTURES</option>
+          <option value="master-project-v3-alpa">MASTER_V3_ALPA</option>
+          <option value="master-project-v2">MASTER_V2</option>
+          <option value="master-project-v1">MASTER_V1</option>
+          <option value="legacy-blocks">LEGACY_ENV</option>
         </select>
+        <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-600">
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 lg:col-span-3">
         <button
           type="submit"
-          className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-[10px] font-mono uppercase tracking-widest text-white shadow-lg shadow-blue-900/20 hover:bg-blue-500 hover:scale-[1.02] active:scale-95 transition-all"
+          className="flex-1 rounded-lg bg-white/5 border border-white/10 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white hover:bg-white/10 active:scale-95 transition-all"
         >
-          Filtrar
+          EXEC_FILTER
         </button>
         <Link
           href="/admin/landing-pages"
-          className="flex items-center justify-center rounded-lg border border-white/10 px-4 py-2 text-[10px] font-mono uppercase tracking-widest text-white hover:bg-white/5 transition-all"
+          className="flex items-center justify-center rounded-lg border border-white/5 bg-black/20 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-slate-500 hover:text-white transition-all"
         >
-          Limpar
+          RST
         </Link>
       </div>
     </form>

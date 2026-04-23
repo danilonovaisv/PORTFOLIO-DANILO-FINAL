@@ -1,8 +1,8 @@
 export const inputClasses =
-  'w-full rounded-sm border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500';
+  'w-full rounded-sm border border-white/5 bg-white/[0.02] px-3 py-2 font-mono text-[11px] text-white outline-none transition-all placeholder:text-white/20 focus-visible:border-blue-500/50 focus-visible:ring-1 focus-visible:ring-blue-500/20';
 
 export const labelClasses =
-  'mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400';
+  'mb-1.5 block font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/40';
 
 export const splitTokenList = (value: string): string[] =>
   value

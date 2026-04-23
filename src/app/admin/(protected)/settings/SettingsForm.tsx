@@ -75,9 +75,9 @@ const emptyUserDraft: UserDraft = {
 };
 
 const inputClasses =
-  'w-full rounded-md border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50';
+  'w-full rounded-lg border border-white/5 bg-black/40 px-4 py-3 font-mono text-sm text-white placeholder:text-white/20 focus:border-blue-500/30 focus:outline-none transition-colors';
 const labelClasses =
-  'mb-1 block text-xs uppercase tracking-[0.18em] text-slate-400';
+  'mb-2 block font-mono text-[10px] uppercase tracking-[0.2em] text-white/40';
 
 export function SettingsForm({
   hasOpenAIKeyEnv,
@@ -187,78 +187,78 @@ export function SettingsForm({
   };
 
   return (
-    <div className="space-y-10">
-      <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
-        <div className="mb-4">
-          <h2 className="text-lg font-medium text-white">
-            Estado atual das credenciais
+    <div className="space-y-12">
+      <div className="rounded-2xl border border-white/5 bg-white/[0.01] p-8">
+        <div className="mb-8">
+          <h2 className="font-mono text-sm uppercase tracking-widest text-white">
+            Current_Status_Payload
           </h2>
-          <p className="mt-1 text-sm text-slate-400">
-            O dashboard agora prioriza tokens salvos em `admin_tokens`, com
-            fallback legado para `site_settings.openai_api_key`.
+          <p className="mt-2 font-mono text-[10px] text-white/30 uppercase tracking-tight">
+            Prioritizing `admin_tokens` with legacy fallback to `site_settings`.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-lg border border-white/10 bg-slate-950/60 p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
-              OpenAI via ENV
+          <div className="rounded-xl border border-white/5 bg-black/20 p-5">
+            <p className="font-mono text-[9px] uppercase tracking-widest text-white/30 mb-2">
+              Source: Environment
             </p>
             <p
-              className={`mt-2 text-sm font-medium ${
-                hasOpenAIKeyEnv ? 'text-blue-400' : 'text-slate-300'
+              className={`font-mono text-xs uppercase tracking-tighter ${
+                hasOpenAIKeyEnv ? 'text-blue-400' : 'text-white/40'
               }`}
             >
-              {hasOpenAIKeyEnv ? 'Ativo no deploy' : 'Nao configurado'}
+              {hasOpenAIKeyEnv ? 'ACTIVE_ON_DEPLOY' : 'NOT_CONFIGURED'}
             </p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-slate-950/60 p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
-              OpenAI via banco
+          <div className="rounded-xl border border-white/5 bg-black/20 p-5">
+            <p className="font-mono text-[9px] uppercase tracking-widest text-white/30 mb-2">
+              Source: Database_Vault
             </p>
             <p
-              className={`mt-2 text-sm font-medium ${
-                hasOpenAIKeyDb ? 'text-emerald-400' : 'text-slate-300'
+              className={`font-mono text-xs uppercase tracking-tighter ${
+                hasOpenAIKeyDb ? 'text-emerald-400' : 'text-white/40'
               }`}
             >
               {hasOpenAIKeyDb
                 ? activeOpenAIToken
-                  ? `${activeOpenAIToken.maskedSecret} (${activeOpenAIToken.environment})`
-                  : 'Fallback legado ativo'
-                : 'Nao configurado'}
+                  ? `${activeOpenAIToken.maskedSecret} [${activeOpenAIToken.environment}]`
+                  : 'LEGACY_FALLBACK_ACTIVE'
+                : 'NOT_CONFIGURED'}
             </p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-slate-950/60 p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
-              Service Role
+          <div className="rounded-xl border border-white/5 bg-black/20 p-5">
+            <p className="font-mono text-[9px] uppercase tracking-widest text-white/30 mb-2">
+              Security: Service_Role
             </p>
             <p
-              className={`mt-2 text-sm font-medium ${
-                hasServiceRole ? 'text-emerald-400' : 'text-amber-400'
+              className={`font-mono text-xs uppercase tracking-tighter ${
+                hasServiceRole ? 'text-emerald-400' : 'text-rose-400'
               }`}
             >
               {hasServiceRole
-                ? 'Disponivel para CRUD seguro'
-                : 'Ausente: CRUD administrativo bloqueado'}
+                ? 'SECURE_CRUD_ENABLED'
+                : 'ADMIN_LOCKED: MISSING_KEY'}
             </p>
           </div>
         </div>
       </div>
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_1.4fr]">
-        <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium text-white">CRUD de Tokens</h3>
-            <p className="mt-1 text-sm text-slate-400">
-              Provider livre, segredo mascarado na listagem e teste automatico
-              para OpenAI.
+      <div className="grid gap-8 xl:grid-cols-[1fr_1.2fr]">
+        <section className="rounded-2xl border border-white/5 bg-white/[0.01] p-8">
+          <div className="mb-8">
+            <h3 className="font-mono text-sm uppercase tracking-widest text-white">
+              Token_Operator
+            </h3>
+            <p className="mt-2 font-mono text-[10px] text-white/30 uppercase tracking-tight">
+              Manage API providers and secure credentials.
             </p>
           </div>
 
-          <form onSubmit={handleTokenSubmit} className="space-y-4">
+          <form onSubmit={handleTokenSubmit} className="space-y-6">
             <div className="grid gap-4 md:grid-cols-2">
-              <label>
-                <span className={labelClasses}>Nome</span>
+              <div>
+                <label className={labelClasses}>Entry_Name</label>
                 <input
                   className={inputClasses}
                   value={tokenDraft.name}
@@ -268,10 +268,11 @@ export function SettingsForm({
                       name: event.target.value,
                     }))
                   }
+                  placeholder="e.g. GPT-4_Main"
                 />
-              </label>
-              <label>
-                <span className={labelClasses}>Provider</span>
+              </div>
+              <div>
+                <label className={labelClasses}>Provider_ID</label>
                 <input
                   className={inputClasses}
                   value={tokenDraft.provider}
@@ -283,30 +284,30 @@ export function SettingsForm({
                   }
                   placeholder="openai"
                 />
-              </label>
+              </div>
             </div>
 
-            <label>
-              <span className={labelClasses}>Descricao</span>
+            <div>
+              <label className={labelClasses}>Metadata_Description</label>
               <input
                 className={inputClasses}
-                value={tokenDraft.description}
+                value={tokenDraft.description || ''}
                 onChange={(event) =>
                   setTokenDraft((current) => ({
                     ...current,
                     description: event.target.value,
                   }))
                 }
-                placeholder="Uso no Copy Agent / Scene Generator Pro"
+                placeholder="Technical usage context"
               />
-            </label>
+            </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <label>
-                <span className={labelClasses}>
-                  Valor do token{' '}
-                  {editingTokenId ? '(preencha apenas para trocar)' : ''}
-                </span>
+              <div>
+                <label className={labelClasses}>
+                  Secret_Payload{' '}
+                  {editingTokenId ? '(UPDATE_ONLY)' : ''}
+                </label>
                 <input
                   type="password"
                   className={inputClasses}
@@ -319,9 +320,9 @@ export function SettingsForm({
                   }
                   placeholder="sk-..."
                 />
-              </label>
-              <label>
-                <span className={labelClasses}>Ambiente</span>
+              </div>
+              <div>
+                <label className={labelClasses}>Environment_Scope</label>
                 <select
                   className={inputClasses}
                   value={tokenDraft.environment}
@@ -335,15 +336,15 @@ export function SettingsForm({
                     }))
                   }
                 >
-                  <option value="development">development</option>
-                  <option value="staging">staging</option>
-                  <option value="production">production</option>
+                  <option value="development">DEVELOPMENT</option>
+                  <option value="staging">STAGING</option>
+                  <option value="production">PRODUCTION</option>
                 </select>
-              </label>
+              </div>
             </div>
 
-            <label>
-              <span className={labelClasses}>Status</span>
+            <div>
+              <label className={labelClasses}>Operational_Status</label>
               <select
                 className={inputClasses}
                 value={tokenDraft.status}
@@ -354,69 +355,80 @@ export function SettingsForm({
                   }))
                 }
               >
-                <option value="active">active</option>
-                <option value="inactive">inactive</option>
+                <option value="active">ACTIVE</option>
+                <option value="inactive">INACTIVE</option>
               </select>
-            </label>
+            </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4 pt-2">
               <button
                 type="submit"
                 disabled={!canPersist || isPending}
-                className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-600 disabled:opacity-50"
+                className="group relative overflow-hidden rounded-lg bg-blue-600 px-6 py-3 font-mono text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-blue-500 disabled:opacity-50"
               >
-                {editingTokenId ? 'Atualizar token' : 'Criar token'}
+                <span className="relative z-10">
+                  {editingTokenId ? 'COMMIT_UPDATE' : 'INITIALIZE_TOKEN'}
+                </span>
               </button>
-              {editingTokenId ? (
+              {editingTokenId && (
                 <button
                   type="button"
                   onClick={resetTokenForm}
                   disabled={isPending}
-                  className="rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 disabled:opacity-50"
+                  className="rounded-lg border border-white/10 px-6 py-3 font-mono text-[10px] uppercase tracking-widest text-white/60 transition-colors hover:bg-white/5"
                 >
-                  Cancelar edicao
+                  ABORT_SESSION
                 </button>
-              ) : null}
+              )}
             </div>
 
-            {tokenError ? (
-              <p className="text-sm text-rose-400">{tokenError}</p>
-            ) : null}
-            {tokenMessage ? (
-              <p className="text-sm text-emerald-400">{tokenMessage}</p>
-            ) : null}
+            {tokenError && (
+              <p className="font-mono text-[10px] uppercase text-rose-500 tracking-tight">
+                ERROR: {tokenError}
+              </p>
+            )}
+            {tokenMessage && (
+              <p className="font-mono text-[10px] uppercase text-emerald-500 tracking-tight">
+                SUCCESS: {tokenMessage}
+              </p>
+            )}
           </form>
-        </div>
+        </section>
 
-        <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
-          <h3 className="text-lg font-medium text-white">Tokens cadastrados</h3>
-          <div className="mt-4 space-y-3">
+        <section className="rounded-2xl border border-white/5 bg-white/[0.01] p-8">
+          <div className="mb-8">
+            <h3 className="font-mono text-sm uppercase tracking-widest text-white">
+              Vault_Registry
+            </h3>
+            <p className="mt-2 font-mono text-[10px] text-white/30 uppercase tracking-tight">
+              Active credentials in the administrative matrix.
+            </p>
+          </div>
+
+          <div className="space-y-4">
             {tokens.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-white/10 p-6 text-sm text-slate-500">
-                Nenhum token cadastrado.
+              <div className="rounded-xl border border-dashed border-white/5 p-8 text-center">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-white/20">
+                  NO_RECORDS_FOUND
+                </p>
               </div>
             ) : (
               tokens.map((token) => (
                 <div
                   key={token.id}
-                  className="rounded-lg border border-white/10 bg-slate-950/60 p-4"
+                  className="group rounded-xl border border-white/5 bg-black/20 p-5 transition-all hover:border-white/10"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <p className="text-sm font-semibold text-white">
+                    <div className="space-y-1.5">
+                      <p className="font-mono text-xs font-medium text-white uppercase">
                         {token.name}
                       </p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
-                        {token.provider} · {token.environment} · {token.status}
+                      <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">
+                        {token.provider} // {token.environment} // {token.status}
                       </p>
-                      <p className="text-sm text-slate-300">
+                      <p className="font-mono text-[10px] text-blue-500/60 tracking-widest">
                         {token.maskedSecret}
                       </p>
-                      {token.description ? (
-                        <p className="text-sm text-slate-400">
-                          {token.description}
-                        </p>
-                      ) : null}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       <button
@@ -432,18 +444,18 @@ export function SettingsForm({
                             environment: token.environment,
                           });
                         }}
-                        className="rounded-md border border-white/10 px-3 py-1.5 text-xs font-semibold text-slate-100 transition hover:bg-white/5"
+                        className="rounded-lg border border-white/5 bg-white/[0.02] px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-colors hover:bg-white/10"
                       >
-                        Editar
+                        EDIT
                       </button>
                       <button
                         type="button"
                         onClick={() =>
                           runTokenAction(() => testAdminToken(token.id))
                         }
-                        className="rounded-md border border-cyan-400/30 px-3 py-1.5 text-xs font-semibold text-cyan-300 transition hover:bg-cyan-500/10"
+                        className="rounded-lg border border-blue-500/20 bg-blue-500/5 px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-blue-400 transition-colors hover:bg-blue-500/10"
                       >
-                        Testar
+                        TEST
                       </button>
                       <button
                         type="button"
@@ -454,9 +466,9 @@ export function SettingsForm({
                             return;
                           runTokenAction(() => deleteAdminToken(token.id));
                         }}
-                        className="rounded-md border border-rose-400/30 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-500/10"
+                        className="rounded-lg border border-rose-500/20 bg-rose-500/5 px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-rose-400 transition-colors hover:bg-rose-500/10"
                       >
-                        Excluir
+                        DELETE
                       </button>
                     </div>
                   </div>
@@ -464,24 +476,23 @@ export function SettingsForm({
               ))
             )}
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_1.4fr]">
-        <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium text-white">
-              CRUD de Usuarios ADMIN
+      <div className="grid gap-8 xl:grid-cols-[1fr_1.2fr]">
+        <section className="rounded-2xl border border-white/5 bg-white/[0.01] p-8">
+          <div className="mb-8">
+            <h3 className="font-mono text-sm uppercase tracking-widest text-white">
+              Nexus_Authority
             </h3>
-            <p className="mt-1 text-sm text-slate-400">
-              Sincroniza `auth.users` com `public.admin_users`. Convites novos
-              usam o fluxo nativo do Supabase Auth.
+            <p className="mt-2 font-mono text-[10px] text-white/30 uppercase tracking-tight">
+              Administrative personnel synchronization.
             </p>
           </div>
 
-          <form onSubmit={handleUserSubmit} className="space-y-4">
-            <label>
-              <span className={labelClasses}>Nome</span>
+          <form onSubmit={handleUserSubmit} className="space-y-6">
+            <div>
+              <label className={labelClasses}>Full_Identity</label>
               <input
                 className={inputClasses}
                 value={userDraft.fullName}
@@ -491,11 +502,12 @@ export function SettingsForm({
                     fullName: event.target.value,
                   }))
                 }
+                placeholder="Name"
               />
-            </label>
+            </div>
 
-            <label>
-              <span className={labelClasses}>Email</span>
+            <div>
+              <label className={labelClasses}>Electronic_Contact</label>
               <input
                 type="email"
                 className={inputClasses}
@@ -506,12 +518,13 @@ export function SettingsForm({
                     email: event.target.value,
                   }))
                 }
+                placeholder="email@example.com"
               />
-            </label>
+            </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <label>
-                <span className={labelClasses}>Role</span>
+              <div>
+                <label className={labelClasses}>Access_Tier</label>
                 <select
                   className={inputClasses}
                   value={userDraft.role}
@@ -522,12 +535,12 @@ export function SettingsForm({
                     }))
                   }
                 >
-                  <option value="owner">owner</option>
-                  <option value="editor">editor</option>
+                  <option value="owner">OWNER_ADMIN</option>
+                  <option value="editor">EDITOR_ADMIN</option>
                 </select>
-              </label>
-              <label>
-                <span className={labelClasses}>Status</span>
+              </div>
+              <div>
+                <label className={labelClasses}>Deployment_Status</label>
                 <select
                   className={inputClasses}
                   value={userDraft.status}
@@ -538,74 +551,89 @@ export function SettingsForm({
                     }))
                   }
                 >
-                  <option value="active">active</option>
-                  <option value="disabled">disabled</option>
+                  <option value="active">ACTIVE</option>
+                  <option value="disabled">DISABLED</option>
                 </select>
-              </label>
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4 pt-2">
               <button
                 type="submit"
                 disabled={!canPersist || isPending}
-                className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-600 disabled:opacity-50"
+                className="group relative overflow-hidden rounded-lg bg-blue-600 px-6 py-3 font-mono text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-blue-500 disabled:opacity-50"
               >
-                {editingUserId ? 'Atualizar usuario' : 'Adicionar ADMIN'}
+                <span className="relative z-10">
+                  {editingUserId ? 'UPDATE_ADMIN' : 'PROVISION_ADMIN'}
+                </span>
               </button>
-              {editingUserId ? (
+              {editingUserId && (
                 <button
                   type="button"
                   onClick={resetUserForm}
                   disabled={isPending}
-                  className="rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 disabled:opacity-50"
+                  className="rounded-lg border border-white/10 px-6 py-3 font-mono text-[10px] uppercase tracking-widest text-white/60 transition-colors hover:bg-white/5"
                 >
-                  Cancelar edicao
+                  ABORT_SESSION
                 </button>
-              ) : null}
+              )}
             </div>
 
-            {userError ? (
-              <p className="text-sm text-rose-400">{userError}</p>
-            ) : null}
-            {userMessage ? (
-              <p className="text-sm text-emerald-400">{userMessage}</p>
-            ) : null}
+            {userError && (
+              <p className="font-mono text-[10px] uppercase text-rose-500 tracking-tight">
+                ERROR: {userError}
+              </p>
+            )}
+            {userMessage && (
+              <p className="font-mono text-[10px] uppercase text-emerald-500 tracking-tight">
+                SUCCESS: {userMessage}
+              </p>
+            )}
           </form>
-        </div>
+        </section>
 
-        <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
-          <h3 className="text-lg font-medium text-white">
-            Usuarios ADMIN cadastrados
-          </h3>
-          <div className="mt-4 space-y-3">
+        <section className="rounded-2xl border border-white/5 bg-white/[0.01] p-8">
+          <div className="mb-8">
+            <h3 className="font-mono text-sm uppercase tracking-widest text-white">
+              Admin_Grid
+            </h3>
+            <p className="mt-2 font-mono text-[10px] text-white/30 uppercase tracking-tight">
+              Verified administrative nodes in the system.
+            </p>
+          </div>
+
+          <div className="space-y-4">
             {adminUsers.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-white/10 p-6 text-sm text-slate-500">
-                Nenhum usuario ADMIN encontrado.
+              <div className="rounded-xl border border-dashed border-white/5 p-8 text-center">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-white/20">
+                  NO_ENTITIES_DETECTED
+                </p>
               </div>
             ) : (
               adminUsers.map((adminUser) => (
                 <div
                   key={adminUser.userId}
-                  className="rounded-lg border border-white/10 bg-slate-950/60 p-4"
+                  className="group rounded-xl border border-white/5 bg-black/20 p-5 transition-all hover:border-white/10"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <p className="text-sm font-semibold text-white">
+                    <div className="space-y-1.5">
+                      <p className="font-mono text-xs font-medium text-white uppercase">
                         {adminUser.fullName}
                       </p>
-                      <p className="text-sm text-slate-300">
+                      <p className="font-mono text-[10px] text-white/40">
                         {adminUser.email}
                       </p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
-                        {adminUser.role} · {adminUser.status}
+                      <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-blue-500/60">
+                        {adminUser.role} // {adminUser.status}
                       </p>
-                      <p className="text-xs text-slate-500">
-                        Ultimo login:{' '}
+                      <p className="font-mono text-[9px] uppercase text-white/20">
+                        LAST_AUTH:{' '}
                         {adminUser.lastSignInAt
                           ? new Date(adminUser.lastSignInAt).toLocaleString(
-                              'pt-BR'
+                              'en-US',
+                              { dateStyle: 'short', timeStyle: 'short' }
                             )
-                          : 'nunca'}
+                          : 'PENDING'}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -620,9 +648,9 @@ export function SettingsForm({
                             status: adminUser.status,
                           });
                         }}
-                        className="rounded-md border border-white/10 px-3 py-1.5 text-xs font-semibold text-slate-100 transition hover:bg-white/5"
+                        className="rounded-lg border border-white/5 bg-white/[0.02] px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-colors hover:bg-white/10"
                       >
-                        Editar
+                        EDIT
                       </button>
                       <button
                         type="button"
@@ -638,9 +666,9 @@ export function SettingsForm({
                             deleteAdminUser(adminUser.userId)
                           );
                         }}
-                        className="rounded-md border border-rose-400/30 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-500/10"
+                        className="rounded-lg border border-rose-500/20 bg-rose-500/5 px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-rose-400 transition-colors hover:bg-rose-500/10"
                       >
-                        Excluir
+                        REVOKE
                       </button>
                     </div>
                   </div>
@@ -648,15 +676,19 @@ export function SettingsForm({
               ))
             )}
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {!hasServiceRole ? (
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-200">
-          Configure a chave de servico do Supabase (Service Role) no servidor
-          para habilitar o CRUD seguro de tokens e usuarios ADMIN.
+      {!hasServiceRole && (
+        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-6">
+          <div className="flex items-start gap-4">
+            <div className="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500" />
+            <p className="font-mono text-[10px] uppercase leading-relaxed text-amber-200/60">
+              WARNING: SUPABASE_SERVICE_ROLE_NOT_DETECTED. SECURE_CRUD_OPERATIONS_ARE_CURRENTLY_LOCKED. PLEASE_VERIFY_ENV_VARS.
+            </p>
+          </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

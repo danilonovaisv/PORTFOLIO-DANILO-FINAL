@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import {
   ProjectTemplateId,
@@ -31,42 +31,55 @@ export function LandingPageHeader({
   sectionsCount,
 }: LandingPageHeaderProps) {
   return (
-    <div className="sticky top-4 z-50 flex items-center justify-between rounded-full border border-white/10 bg-black/50 p-4 shadow-2xl backdrop-blur-md">
+    <div className="sticky top-4 z-50 flex items-center justify-between border border-white/5 bg-black/40 p-4 backdrop-blur-xl">
       <Link
         href="/admin/landing-pages"
-        className="flex items-center gap-2 px-4 text-slate-400 transition-colors hover:text-white"
+        className="flex items-center gap-2 px-4 font-mono text-[10px] uppercase tracking-widest text-white/40 transition-colors hover:text-white"
       >
-        <ArrowLeft size={20} />
-        <span className="hidden sm:inline">Voltar</span>
+        <ArrowLeft size={14} className="text-blue-500" />
+        <span className="hidden sm:inline">Back_To_List</span>
       </Link>
-      <div className="flex items-center gap-4">
-        {slug ? (
-          <Link
-            href={`/projects/${slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full border border-white/15 px-5 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-slate-200 transition-colors hover:border-blue-400 hover:text-white md:inline-flex"
+
+      <div className="flex items-center gap-6">
+        <div className="hidden lg:flex flex-col items-end gap-0.5">
+          <span className="font-mono text-[9px] uppercase text-white/30 tracking-tighter">
+            Metadata_Status
+          </span>
+          <span className="font-mono text-[10px] text-blue-500/80 uppercase">
+            {template === MASTER_PROJECT_TEMPLATE
+              ? `${masterTemplateItemCount.toString().padStart(2, '0')}_ITEMS_IN_GRID`
+              : template === MASTER_PROJECT_TEMPLATE_V2
+                ? `${masterTemplateV2ItemCount.toString().padStart(2, '0')}_BLOCKS_IN_V2`
+                : template === MASTER_PROJECT_TEMPLATE_V3
+                  ? `${masterTemplateV3ItemCount.toString().padStart(2, '0')}_BLOCKS_IN_V3`
+                  : `${sectionsCount.toString().padStart(2, '0')}_LEGACY_BLOCKS`}
+          </span>
+        </div>
+
+        <div className="h-8 w-[1px] bg-white/5 hidden sm:block" />
+
+        <div className="flex items-center gap-3">
+          {slug && (
+            <Link
+              href={`/projects/${slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 border border-white/10 px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-white/60 transition-all hover:border-blue-500/40 hover:text-white"
+            >
+              <ExternalLink size={12} />
+              Preview
+            </Link>
+          )}
+
+          <button
+            onClick={onSave}
+            disabled={loading}
+            className="flex items-center gap-2 bg-blue-600 px-6 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-blue-500 disabled:opacity-50"
           >
-            Preview
-          </Link>
-        ) : null}
-        <span className="hidden text-sm text-slate-500 lg:inline">
-          {template === MASTER_PROJECT_TEMPLATE
-            ? `${masterTemplateItemCount} itens no gallery_grid`
-            : template === MASTER_PROJECT_TEMPLATE_V2
-              ? `${masterTemplateV2ItemCount} blocos no gallery_grid`
-              : template === MASTER_PROJECT_TEMPLATE_V3
-                ? `${masterTemplateV3ItemCount} blocos no gallery_grid`
-                : `${sectionsCount} blocos adicionados`}
-        </span>
-        <button
-          onClick={onSave}
-          disabled={loading}
-          className="flex items-center gap-2 rounded-full bg-blue-600 px-8 py-2.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500 disabled:opacity-50"
-        >
-          <Save size={18} />
-          {loading ? 'PUBLICANDO...' : 'SALVAR PÁGINA'}
-        </button>
+            <Save size={14} />
+            {loading ? 'Committing...' : 'Commit_Changes'}
+          </button>
+        </div>
       </div>
     </div>
   );

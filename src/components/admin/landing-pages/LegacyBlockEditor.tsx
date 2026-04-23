@@ -40,84 +40,69 @@ export function LegacyBlockEditor({
 }: LegacyBlockEditorProps) {
   return (
     <>
-      <div className="flex items-center justify-between">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-white">
-          Builder
+      <div className="flex items-center justify-between border-b border-white/5 pb-4">
+        <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+          Block_Constructor
         </h2>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-blue-500 hover:shadow-blue-500/25">
-              <Plus size={16} /> Adicionar Bloco
+            <button className="flex items-center gap-3 bg-blue-600 px-6 py-2.5 font-mono text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-blue-500">
+              <Plus size={14} /> Add_Module
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="w-56 border-slate-800 bg-slate-900 text-slate-200"
+            className="w-56 border-white/10 bg-[#040013] text-white font-mono"
           >
-            <DropdownMenuLabel className="text-xs uppercase tracking-widest text-slate-500">
-              Layouts Básicos
+            <DropdownMenuLabel className="text-[9px] uppercase tracking-widest text-white/40">
+              Core_Layouts
             </DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => onAddBlock('text')}>
-              <Type className="mr-2 h-4 w-4" /> Texto Puro
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('text')}>
+              <Type className="mr-2 h-3.5 w-3.5 text-blue-500" /> Text_Only
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('image')}>
-              <ImageIcon className="mr-2 h-4 w-4" /> Imagem Full
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('image')}>
+              <ImageIcon className="mr-2 h-3.5 w-3.5 text-blue-500" /> Full_Image
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('video')}>
-              <Video className="mr-2 h-4 w-4" /> Vídeo Full
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('video')}>
+              <Video className="mr-2 h-3.5 w-3.5 text-blue-500" /> Full_Video
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('video-autoplay')}>
-              <Video className="mr-2 h-4 w-4 text-blue-400" /> Vídeo Autoplay
-              (Loop)
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('video-autoplay')}>
+              <Video className="mr-2 h-3.5 w-3.5 text-blue-400" /> Autoplay_Video
             </DropdownMenuItem>
 
-            <DropdownMenuSeparator className="bg-slate-800" />
-            <DropdownMenuLabel className="text-xs uppercase tracking-widest text-slate-500">
-              Composições
+            <DropdownMenuSeparator className="bg-white/5" />
+            <DropdownMenuLabel className="text-[9px] uppercase tracking-widest text-white/40">
+              Compositions
             </DropdownMenuLabel>
 
-            <DropdownMenuItem onClick={() => onAddBlock('image-text')}>
-              <div className="mr-2 flex items-center">
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('image-text')}>
+              <div className="mr-2 flex items-center text-blue-500">
                 <ImageIcon className="h-3 w-3" />
                 <Type className="h-3 w-3" />
-              </div>{' '}
-              Imagem + Texto
+              </div>
+              Image_Plus_Text
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('text-image')}>
-              <div className="mr-2 flex items-center">
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('text-image')}>
+              <div className="mr-2 flex items-center text-blue-500">
                 <Type className="h-3 w-3" />
                 <ImageIcon className="h-3 w-3" />
-              </div>{' '}
-              Texto + Imagem
+              </div>
+              Text_Plus_Image
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('image-image')}>
-              <ColumnsIcon className="mr-2 h-4 w-4" /> Imagem Dupla (Grid)
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('image-video')}>
-              <div className="mr-2 flex items-center">
-                <ImageIcon className="h-3 w-3" />
-                <Video className="h-3 w-3" />
-              </div>{' '}
-              Imagem + Vídeo
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onAddBlock('video-text')}>
-              <div className="mr-2 flex items-center">
-                <Video className="h-3 w-3" />
-                <Type className="h-3 w-3" />
-              </div>{' '}
-              Vídeo + Texto
+            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('image-image')}>
+              <ColumnsIcon className="mr-2 h-3.5 w-3.5 text-blue-500" /> Split_Image_Grid
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
-      <div className="min-h-[500px] space-y-8">
+      <div className="min-h-[500px] space-y-12 py-8">
         {sections.length === 0 && (
-          <div className="flex h-64 flex-col items-center justify-center rounded-3xl border-2 border-dashed border-white/5 bg-slate-900/20 text-slate-500">
-            <Layout className="mb-4 opacity-20" size={64} />
-            <p className="text-sm">
-              Comece adicionando um bloco via menu acima.
+          <div className="flex h-64 flex-col items-center justify-center border border-dashed border-white/5 bg-white/[0.01]">
+            <Layout className="mb-4 text-white/10" size={48} />
+            <p className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+              Constructor_Empty // Use_Add_Module
             </p>
           </div>
         )}
@@ -125,57 +110,57 @@ export function LegacyBlockEditor({
         {sections.map((section, index) => (
           <motion.div
             key={section.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="group relative overflow-hidden rounded-3xl border border-white/5 bg-[#0a0a0a] shadow-xl transition-all hover:border-blue-500/30"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="group relative border border-white/5 bg-black/20 transition-all hover:border-blue-500/20"
           >
-            <div className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-4">
-              <div className="flex items-center gap-3">
-                <span className="rounded border border-blue-500/20 bg-blue-500/10 px-2 py-1 text-[10px] font-bold text-blue-400">
-                  {(index + 1).toString().padStart(2, '0')}
+            <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-3">
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-[10px] font-bold text-blue-500">
+                  NODE_{ (index + 1).toString().padStart(2, '0') }
                 </span>
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                  {section.type.replace('-', ' & ')}
+                <div className="h-3 w-[1px] bg-white/10" />
+                <span className="font-mono text-[9px] uppercase tracking-widest text-white/50">
+                  {section.type.replace('-', '_')}
                 </span>
               </div>
-              <div className="flex items-center gap-1 opacity-50 transition-opacity group-hover:opacity-100">
-                <button
-                  onClick={() => onMoveSection(index, 'up')}
-                  disabled={index === 0}
-                  className="rounded-lg p-2 hover:bg-white/10 disabled:opacity-20"
-                  title="Mover para cima"
-                  aria-label="Mover para cima"
-                  type="button"
-                >
-                  <ChevronUp size={14} />
-                </button>
-                <button
-                  onClick={() => onMoveSection(index, 'down')}
-                  disabled={index === sections.length - 1}
-                  className="rounded-lg p-2 hover:bg-white/10 disabled:opacity-20"
-                  title="Mover para baixo"
-                  aria-label="Mover para baixo"
-                  type="button"
-                >
-                  <ChevronDown size={14} />
-                </button>
-                <div className="mx-2 h-4 w-px bg-white/10" />
+              
+              <div className="flex items-center gap-2 opacity-30 transition-opacity group-hover:opacity-100">
+                <div className="flex items-center bg-black/40 border border-white/5 p-1">
+                  <button
+                    onClick={() => onMoveSection(index, 'up')}
+                    disabled={index === 0}
+                    className="p-1.5 text-white/40 hover:text-white disabled:opacity-10"
+                    title="Move_Up"
+                  >
+                    <ChevronUp size={12} />
+                  </button>
+                  <button
+                    onClick={() => onMoveSection(index, 'down')}
+                    disabled={index === sections.length - 1}
+                    className="p-1.5 text-white/40 hover:text-white disabled:opacity-10"
+                    title="Move_Down"
+                  >
+                    <ChevronDown size={12} />
+                  </button>
+                </div>
+
                 <button
                   onClick={() => onRemoveSection(section.id)}
-                  className="rounded-lg p-2 text-slate-500 hover:bg-red-500/20 hover:text-red-400"
-                  title="Remover bloco"
-                  aria-label="Remover bloco"
-                  type="button"
+                  className="bg-red-950/20 border border-red-900/20 p-2 text-red-900 hover:bg-red-600 hover:text-white transition-all"
+                  title="Remove_Block"
                 >
-                  <Trash2 size={14} />
+                  <Trash2 size={12} />
                 </button>
               </div>
             </div>
 
-            <BlockEditor
-              block={section}
-              onChange={(updates) => onUpdateBlock(section.id, updates)}
-            />
+            <div className="p-6">
+              <BlockEditor
+                block={section}
+                onChange={(updates) => onUpdateBlock(section.id, updates)}
+              />
+            </div>
           </motion.div>
         ))}
       </div>

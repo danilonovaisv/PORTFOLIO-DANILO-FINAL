@@ -144,66 +144,109 @@ export function AssetCard({ asset }: Props) {
   }
 
   return (
-    <div className="rounded-lg border border-white/10 bg-slate-900/60 p-4 flex gap-4">
-      <div className="w-24 h-24 rounded-md bg-slate-800 overflow-hidden relative">
+    <div className="group relative flex flex-col gap-4 rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-white/10 hover:bg-white/[0.04]">
+      {/* Header Info */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <div className="font-mono text-sm font-medium tracking-tight text-white group-hover:text-blue-400 transition-colors">
+            {asset.key}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <span className="font-mono text-[9px] uppercase tracking-widest text-slate-500">
+              {resolvedPage}
+            </span>
+            <span className="h-3 w-[1px] bg-white/10" />
+            <span className="font-mono text-[9px] uppercase tracking-widest text-blue-500/80">
+              {asset.asset_type}
+            </span>
+          </div>
+        </div>
+        <div className={`h-1.5 w-1.5 rounded-full ${asset.is_active ? 'bg-emerald-500/50 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-slate-700'}`} />
+      </div>
+
+      {/* Preview Area */}
+      <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/5 bg-white/[0.02]">
         {asset.asset_type === 'image' && previewUrl ? (
           <Image
             src={previewUrl}
             alt={asset.key}
             fill
-            sizes="96px"
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             unoptimized={previewUrl.toLowerCase().endsWith('.svg')}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">
-            {asset.asset_type}
+          <div className="flex h-full w-full items-center justify-center font-mono text-[10px] uppercase tracking-widest text-slate-600">
+            [ {asset.asset_type}_PREVIEW_NA ]
           </div>
         )}
+        
+        {/* Overlay Actions */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity group-hover:opacity-100 backdrop-blur-[2px]">
+          <label className="cursor-pointer rounded-full bg-white px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95">
+            <input
+              type="file"
+              className="hidden"
+              onChange={(e) => handleUpload(e.target.files?.[0] ?? null)}
+              accept="image/*,video/*"
+            />
+            {isPending ? 'UPLOADING...' : 'REPLACE_FILE'}
+          </label>
+        </div>
       </div>
-      <div className="flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="text-sm font-semibold text-white">{asset.key}</div>
-          <span className="rounded-full bg-white/10 px-2 py-0.5 text-[11px] text-slate-200">
-            {resolvedPage}
-          </span>
-          <span className="rounded-full bg-blue-500/15 px-2 py-0.5 text-[11px] text-blue-100">
-            {asset.asset_type}
-          </span>
+
+      {/* Metadata & Actions */}
+      <div className="space-y-4">
+        {asset.description && (
+          <p className="font-mono text-[11px] leading-relaxed text-slate-400 line-clamp-2 italic">
+            " {asset.description} "
+          </p>
+        )}
+
+        <div className="grid grid-cols-2 gap-2 border-y border-white/5 py-3">
+          <div className="space-y-1">
+            <span className="block font-mono text-[8px] uppercase tracking-widest text-slate-600">Role_Assignment</span>
+            <div className="font-mono text-[10px] text-slate-300 truncate">
+              {roleLabel}
+            </div>
+          </div>
+          <div className="space-y-1 text-right">
+            <span className="block font-mono text-[8px] uppercase tracking-widest text-slate-600">Path_Storage</span>
+            <div className="font-mono text-[10px] text-slate-300 truncate">
+              {asset.file_path.split('/').pop()}
+            </div>
+          </div>
         </div>
-        <div className="text-xs text-slate-400">{asset.description}</div>
-        <div className="text-xs text-slate-500 mt-1">
-          {asset.bucket}/{asset.file_path}
+
+        {error && (
+          <div className="font-mono text-[9px] uppercase text-red-400">
+            !! {error}
+          </div>
+        )}
+
+        <div className="flex items-center justify-between gap-2 pt-1">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleActive}
+              className={`rounded border px-2 py-1 font-mono text-[9px] uppercase tracking-widest transition-colors ${
+                asset.is_active 
+                  ? 'border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10' 
+                  : 'border-white/10 text-slate-400 hover:bg-white/5'
+              }`}
+            >
+              {asset.is_active ? 'Deactivate' : 'Activate'}
+            </button>
+            <AssetRoleMenu currentKey={asset.key} onSelectRole={handleRoleChange} />
+          </div>
+          
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="rounded border border-red-500/20 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-red-400/70 transition-colors hover:bg-red-500/10 hover:text-red-400"
+          >
+            Delete
+          </button>
         </div>
-        <div className="text-xs text-slate-400 mt-1">Papel: {roleLabel}</div>
-        {error && <div className="text-xs text-red-400 mt-2">{error}</div>}
-        <label className="mt-3 inline-flex items-center gap-2 text-xs text-blue-300 cursor-pointer">
-          <input
-            type="file"
-            className="hidden"
-            onChange={(e) => handleUpload(e.target.files?.[0] ?? null)}
-            accept="image/*,video/*"
-          />
-          {isPending ? 'Enviando...' : 'Substituir arquivo'}
-        </label>
-        <AssetRoleMenu currentKey={asset.key} onSelectRole={handleRoleChange} />
-        <div className="mt-2 text-xs text-slate-400">
-          Status: {asset.is_active ? 'Ativo' : 'Inativo'}
-        </div>
-        <button
-          type="button"
-          onClick={toggleActive}
-          className="mt-1 inline-flex items-center rounded-md border border-white/10 px-2 py-1 text-[11px] text-white hover:bg-white/10"
-        >
-          {asset.is_active ? 'Desativar' : 'Ativar'}
-        </button>
-        <button
-          type="button"
-          onClick={handleDelete}
-          className="ml-2 mt-1 inline-flex items-center rounded-md border border-red-500/60 px-2 py-1 text-[11px] text-red-200 hover:bg-red-500/10"
-        >
-          Excluir
-        </button>
       </div>
     </div>
   );

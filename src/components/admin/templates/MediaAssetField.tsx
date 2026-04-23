@@ -3,11 +3,8 @@
 import Image from 'next/image';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { extractYouTubeId } from '@/lib/utils';
+import { inputClasses, labelClasses } from './CommonTemplateStyles';
 
-const inputClasses =
-  'w-full rounded-sm border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500';
-const labelClasses =
-  'mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400';
 
 interface MediaAsset {
   src: string;
@@ -47,7 +44,7 @@ export function MediaAssetField({
       <p className={labelClasses}>{label}</p>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <label className="space-y-1">
-          <span className={labelClasses}>Tipo</span>
+          <span className={labelClasses}>System_Type</span>
           <select
             aria-label="Tipo de Asset"
             className={inputClasses}
@@ -76,16 +73,16 @@ export function MediaAssetField({
           <div className="space-y-1">
             <span className={labelClasses}>Upload</span>
             <div
-              className={`${inputClasses} flex min-h-10 items-center text-slate-500`}
+              className={`${inputClasses} flex min-h-10 items-center text-white/20`}
             >
-              YouTube usa apenas URL.
+              YouTube_Mode_Active: Source_URI_Required.
             </div>
           </div>
         ) : (
           <label className="space-y-1">
-            <span className={labelClasses}>Upload</span>
+            <span className={labelClasses}>Asset_Stream</span>
             <input
-              className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
+              className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:font-mono file:text-[9px] file:uppercase file:tracking-widest file:text-white hover:file:bg-blue-500 transition-all`}
               type="file"
               accept={isVideo ? 'video/*' : 'image/*'}
               onChange={(event) => {
@@ -104,7 +101,7 @@ export function MediaAssetField({
       </div>
 
       <label className="space-y-1">
-        <span className={labelClasses}>URL / Caminho</span>
+        <span className={labelClasses}>Source_URI</span>
         <input
           className={inputClasses}
           placeholder={
@@ -127,7 +124,7 @@ export function MediaAssetField({
       </label>
 
       <label className="space-y-1">
-        <span className={labelClasses}>Texto alternativo</span>
+        <span className={labelClasses}>ALT_Metadata</span>
         <input
           className={inputClasses}
           value={value.alt || ''}
@@ -143,7 +140,7 @@ export function MediaAssetField({
 
       {isVideo && (
         <label className="space-y-1">
-          <span className={labelClasses}>Poster (opcional)</span>
+          <span className={labelClasses}>POSTER_Asset</span>
           <input
             className={inputClasses}
             value={value.poster || ''}

@@ -7,15 +7,22 @@ import {
 
 export function PresetButtons() {
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-4">
-      <h2 className="text-lg font-semibold">Presets rápidos</h2>
-      <div className="space-y-4">
+    <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl space-y-6">
+      <div className="space-y-1">
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-blue-500/60">Module_Presets</p>
+        <h2 className="font-mono text-xl font-light text-white uppercase">Quick_Sync<span className="text-blue-500">.</span></h2>
+      </div>
+      
+      <div className="space-y-6">
         {siteAssetRoleGroups.map((group) => (
-          <div key={group.label} className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-              {group.label}
-            </p>
-            <div className="grid gap-2 md:grid-cols-2">
+          <div key={group.label} className="space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="h-1 w-1 rounded-full bg-blue-500/50" />
+              <p className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+                {group.label}
+              </p>
+            </div>
+            <div className="grid gap-2">
               {group.roles.map((role) => (
                 <PresetButton key={role.key} preset={role} />
               ))}
@@ -23,9 +30,10 @@ export function PresetButtons() {
           </div>
         ))}
       </div>
-      <p className="text-xs text-slate-400">
-        Clique para preencher o formulário ao lado com a key, página e tipo
-        recomendados.
+      
+      <p className="font-mono text-[10px] text-white/30 uppercase leading-relaxed">
+        Note: Presets automate configuration for key system modules. 
+        Select a node to hydrate the primary sync form.
       </p>
     </div>
   );
@@ -60,16 +68,19 @@ function PresetButton({ preset }: { preset: SiteAssetRole }) {
     <button
       type="button"
       onClick={fillForm}
-      className="flex w-full flex-col items-start rounded-md border border-white/10 bg-slate-900/80 px-3 py-2 text-left text-sm text-white transition hover:border-blue-400 hover:bg-blue-500/10"
+      className="group flex w-full flex-col items-start rounded-lg border border-white/5 bg-white/[0.01] px-4 py-3 text-left transition-all hover:border-blue-500/30 hover:bg-blue-500/5"
     >
-      <div className="font-semibold">{preset.label}</div>
-      <div className="text-[11px] text-slate-400">{preset.key}</div>
-      <div className="text-[11px] text-slate-500">
-        {preset.page} • {preset.asset_type}
+      <div className="font-mono text-xs text-white group-hover:text-blue-400 transition-colors uppercase tracking-tight">
+        {preset.label}
       </div>
-      {preset.description && (
-        <div className="text-[11px] text-slate-500">{preset.description}</div>
-      )}
+      <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+        <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest">
+          KEY: {preset.key}
+        </span>
+        <span className="font-mono text-[9px] text-blue-500/50 uppercase tracking-widest">
+          {preset.page} // {preset.asset_type}
+        </span>
+      </div>
     </button>
   );
 }

@@ -106,49 +106,66 @@ export default async function SettingsPage() {
   ] as const;
 
   return (
-    <div className="space-y-10 pb-20">
-      <div>
-        <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-          Settings
-        </p>
-        <h1 className="text-3xl font-semibold">Configurações do Sistema</h1>
-        <p className="mt-2 text-sm text-slate-300">
-          Tokens, acessos administrativos e status das integrações críticas do
-          dashboard ADMIN.
-        </p>
-      </div>
+    <div className="max-w-7xl space-y-12 py-6 pb-24">
+      <header className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="h-[1px] w-8 bg-blue-500/40" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
+            System_Main_Frame
+          </p>
+        </div>
+        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
+          Settings<span className="text-blue-500">_</span>Panel<span className="text-blue-500">.</span>
+        </h1>
+        <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
+          <span>Module: Configuration</span>
+          <span>Security: High_Priority</span>
+        </div>
+      </header>
 
-      <section>
-        <h2 className="mb-4 text-lg font-medium text-white">
-          Status de Integração
-        </h2>
+      <section className="space-y-6">
+        <div className="flex items-center gap-3 border-b border-white/5 pb-2">
+          <div className="h-1.5 w-1.5 rounded-full bg-blue-500/50" />
+          <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-white">
+            Integration_Matrix
+          </h2>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {credentialFields.map((field) => (
             <div
               key={field.name}
-              className="rounded-xl border border-white/5 bg-slate-900/40 p-4"
+              className="group rounded-xl border border-white/5 bg-white/[0.01] p-5 transition-all hover:border-white/10"
             >
-              <p className="mb-1 text-xs uppercase tracking-wider text-slate-400">
+              <p className="font-mono text-[9px] uppercase tracking-widest text-white/30 mb-2">
                 {field.name}
               </p>
-              <p
-                className={`text-sm font-medium ${
-                  field.status === 'Configurado'
-                    ? 'text-emerald-400'
-                    : 'text-rose-400'
-                }`}
-              >
-                {field.status}
-              </p>
+              <div className="flex items-center justify-between">
+                <p
+                  className={`font-mono text-xs uppercase tracking-tighter ${
+                    field.status === 'Configurado'
+                      ? 'text-emerald-400'
+                      : 'text-rose-400'
+                  }`}
+                >
+                  {field.status}
+                </p>
+                <div className={`h-1 w-1 rounded-full ${
+                  field.status === 'Configurado' ? 'bg-emerald-500/40' : 'bg-rose-500/40'
+                }`} />
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section>
-        <h2 className="mb-4 text-lg font-medium text-white">
-          Gestão Administrativa
-        </h2>
+      <section className="space-y-6">
+        <div className="flex items-center gap-3 border-b border-white/5 pb-2">
+          <div className="h-1.5 w-1.5 rounded-full bg-blue-500/50" />
+          <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-white">
+            Administrative_Nexus
+          </h2>
+        </div>
         <SettingsForm
           hasOpenAIKeyEnv={hasOpenAIKeyEnv}
           hasOpenAIKeyDb={hasOpenAIKeyDb}

@@ -32,10 +32,10 @@ export default function CopyAgentPage() {
     useState<CopyInput['outputType']>('landing');
   const fieldErrors = state.fieldErrors ?? {};
   const inputClass = (hasError: boolean) =>
-    `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${
+    `w-full rounded border px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white placeholder:text-white/10 outline-none transition-all duration-300 ${
       hasError
-        ? 'border-red-400/70 bg-red-500/5 focus:border-red-400 focus:ring-1 focus:ring-red-400'
-        : 'border-white/10 bg-slate-950 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
+        ? 'border-red-500/50 bg-red-500/[0.02] focus:border-red-500'
+        : 'border-white/10 bg-black/40 focus:border-indigo-500/50'
     }`;
 
   const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,30 +54,30 @@ export default function CopyAgentPage() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col gap-2">
+    <div className="space-y-8">
+      {/* Header Standard v3.0 */}
+      <div className="flex flex-col gap-1">
         <div className="flex items-center gap-3">
-          <div className="inline-flex rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-            <PenTool size={28} />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-white">
-              Copy <span className="text-indigo-400">Agent</span>
-            </h1>
-            <p className="text-slate-400 text-sm">
-              Gere textos de alta performance para seus projetos de portfólio
-            </p>
+          <h1 className="font-mono text-2xl font-bold uppercase tracking-tighter text-white">
+            Copy <span className="text-indigo-400">Agent</span>
+          </h1>
+          <div className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-indigo-400">
+            v3.0 AI
           </div>
         </div>
+        <p className="max-w-2xl font-mono text-[11px] uppercase tracking-wider text-white/40">
+          Geração de narrativa de alta performance para cases de portfólio.
+        </p>
       </div>
 
       {/* Main Content */}
-      <div className="bg-slate-900/50 border border-white/5 p-6 rounded-xl">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Input Column */}
-            <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+        {/* Input Column */}
+        <div className="space-y-8 lg:col-span-5">
+          <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 backdrop-blur-sm">
+            <h2 className="mb-6 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-500/70">
+              Parâmetros Narrativos
+            </h2>
               <form
                 action={formAction}
                 className="space-y-4"
@@ -90,12 +90,12 @@ export default function CopyAgentPage() {
                       description="Escolha entre Landing Page completa (V3 ALPA) ou um Post/Pop-up resumido (Modal)."
                       className="flex items-center gap-1"
                     />
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-2">
                       <label
-                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                        className={`cursor-pointer rounded border px-4 py-3 transition-all duration-300 ${
                           outputType === 'landing'
-                            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
-                            : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                            ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-400'
+                            : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
                         }`}
                       >
                         <input
@@ -106,13 +106,14 @@ export default function CopyAgentPage() {
                           checked={outputType === 'landing'}
                           onChange={() => setOutputType('landing')}
                         />
-                        Landing Page Completa
+                        <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Landing Page Completa</span>
+                        <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">Estrutura V3 ALPA</span>
                       </label>
                       <label
-                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                        className={`cursor-pointer rounded border px-4 py-3 transition-all duration-300 ${
                           outputType === 'modal'
-                            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
-                            : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                            ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-400'
+                            : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
                         }`}
                       >
                         <input
@@ -123,7 +124,8 @@ export default function CopyAgentPage() {
                           checked={outputType === 'modal'}
                           onChange={() => setOutputType('modal')}
                         />
-                        Post Simples (Modal)
+                        <span className="block font-mono text-[10px] font-bold uppercase tracking-tight">Post Simples (Modal)</span>
+                        <span className="font-mono text-[9px] uppercase tracking-tight opacity-50">Resumo conciso</span>
                       </label>
                     </div>
                   </div>
@@ -317,7 +319,7 @@ export default function CopyAgentPage() {
                       type="url"
                       maxLength={COPY_FIELD_LIMITS.youtubeUrl.max}
                       className={inputClass(Boolean(fieldErrors.youtubeUrl))}
-                      placeholder="Ex: https://youtube.com/watch?v=..."
+                      placeholder="HTTPS://YOUTUBE.COM/WATCH?V=..."
                     />
                     {fieldErrors.youtubeUrl && (
                       <p className="text-xs text-red-300">
@@ -341,23 +343,19 @@ export default function CopyAgentPage() {
                     accept="image/png,image/jpeg,image/webp,image/gif"
                     multiple
                     onChange={handleImagesChange}
-                    className="block w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-300 file:mr-3 file:rounded-md file:border-0 file:bg-indigo-500/20 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-indigo-300 hover:file:bg-indigo-500/30 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
-                    aria-describedby="referenceImages-help"
+                    className="block w-full rounded border border-white/10 bg-black/40 px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-white file:mr-3 file:rounded file:border-0 file:bg-indigo-500/20 file:px-3 file:py-1 file:font-mono file:text-[9px] file:uppercase file:tracking-widest file:text-indigo-300 hover:file:bg-indigo-500/30 outline-none transition-all"
                   />
-                  <p
-                    id="referenceImages-help"
-                    className="text-xs text-slate-500"
-                  >
-                    Envie até {MAX_REFERENCE_IMAGES} imagens (PNG, JPG, WEBP ou
-                    GIF, máximo de 8MB cada) para o agent considerar o visual na
-                    escrita.
+                  <p className="font-mono text-[9px] uppercase tracking-tight text-white/20">
+                    Envie até {MAX_REFERENCE_IMAGES} imagens · Máx 8MB/cada
                   </p>
                   {selectedImages.length > 0 && (
-                    <ul className="rounded-lg border border-white/5 bg-slate-950/50 p-3 text-xs text-slate-400 space-y-1 max-h-32 overflow-y-auto">
+                    <ul className="max-h-32 space-y-1 overflow-y-auto rounded border border-white/5 bg-black/40 p-3 font-mono text-[9px] uppercase tracking-tight text-white/40">
                       {selectedImages.map((file) => (
-                        <li key={`${file.name}-${file.lastModified}`}>
-                          {file.name} ({(file.size / (1024 * 1024)).toFixed(2)}{' '}
-                          MB)
+                        <li key={`${file.name}-${file.lastModified}`} className="flex justify-between">
+                          <span className="truncate mr-2">{file.name}</span>
+                          <span className="shrink-0 text-white/20">
+                            {(file.size / (1024 * 1024)).toFixed(2)} MB
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -367,72 +365,89 @@ export default function CopyAgentPage() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-indigo-500 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-white transition-all hover:bg-indigo-400 disabled:cursor-not-allowed disabled:opacity-50"
                 >
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
                   {isPending ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Gerando Copy...
-                    </>
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-3 w-3 animate-spin" />
+                      <span>PROCESSANDO_COPY_STK</span>
+                    </div>
                   ) : (
-                    'Gerar Copy do Projeto'
+                    <span>GERAR_NARRATIVA_STK</span>
                   )}
                 </button>
               </form>
 
               {state.error && (
-                <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                  {state.error}
+                <div className="rounded border border-red-500/20 bg-red-500/10 p-4 font-mono text-[10px] uppercase tracking-tight text-red-400">
+                  <p className="font-bold">ERROR_LOG:</p>
+                  <p className="mt-1">{state.error}</p>
                 </div>
               )}
 
               {state.notice && (
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
-                  <span className="font-semibold">Atenção: </span>
-                  {state.notice}
+                <div className="rounded border border-amber-500/20 bg-amber-500/10 p-4 font-mono text-[10px] uppercase tracking-tight text-amber-300">
+                  <p className="font-bold">NOTICE_LOG:</p>
+                  <p className="mt-1">{state.notice}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Output Column */}
+        <div className="min-h-[600px] lg:col-span-7">
+          <div className="h-full flex flex-col rounded-xl border border-white/5 bg-white/[0.01] backdrop-blur-sm">
+            <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-4">
+              <div>
+                <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                  Visualização da Saída
+                </h3>
+                <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-white">
+                  Markdown Result
+                </p>
+              </div>
+              
+              {displayContent && (
+                <div className="flex items-center gap-4">
+                  {state.aiGenerated === false && (
+                    <div className="border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-widest text-amber-400">
+                      Draft_Mode
+                    </div>
+                  )}
+                  <button
+                    onClick={handleCopy}
+                    className="flex h-8 w-8 items-center justify-center rounded border border-white/10 bg-white/5 text-white transition-all hover:bg-white/10 active:scale-95"
+                    title="Copiar Markdown"
+                  >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                  </button>
                 </div>
               )}
             </div>
 
-            {/* Output Column */}
-            <div className="bg-slate-950/50 rounded-xl border border-white/5 overflow-hidden flex flex-col min-h-[500px]">
-              <div className="border-b border-white/5 bg-slate-900/50 px-4 py-3 flex items-center justify-between">
-                <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Resultado
-                </span>
-                {displayContent && (
-                  <div className="flex items-center gap-3">
-                    {state.aiGenerated === false && (
-                      <span className="text-[10px] font-medium uppercase tracking-wider text-amber-400 border border-amber-400/30 rounded px-2 py-0.5">
-                        Rascunho base
-                      </span>
-                    )}
-                    <button
-                      onClick={handleCopy}
-                      className="text-slate-400 hover:text-white transition-colors"
-                      title="Copiar Markdown"
-                    >
-                      {copied ? <Check size={16} /> : <Copy size={16} />}
-                    </button>
+            <div className="flex-1 p-8 overflow-y-auto max-h-[800px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+              {displayContent ? (
+                <GhostMarkdown
+                  content={displayContent}
+                  proseClassName="prose-invert prose-sm max-w-none prose-headings:font-mono prose-headings:uppercase prose-headings:tracking-widest prose-headings:text-indigo-400 prose-p:font-mono prose-p:text-white/60 prose-strong:text-white"
+                />
+              ) : (
+                <div className="flex h-[400px] flex-col items-center justify-center space-y-4 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/5 bg-white/[0.02]">
+                    <Copy size={24} className="text-white/10" />
                   </div>
-                )}
-              </div>
-
-              <div className="flex-1 p-6 overflow-y-auto max-h-[700px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {displayContent ? (
-                  <GhostMarkdown
-                    content={displayContent}
-                    proseClassName="prose-sm prose-headings:text-indigo-300 prose-a:text-indigo-400"
-                  />
-                ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-3">
-                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                      <Copy size={20} />
-                    </div>
-                    <p className="text-sm">O resultado aparecerá aqui.</p>
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                      Aguardando Processamento
+                    </p>
+                    <p className="mt-2 max-w-[200px] font-mono text-[11px] uppercase tracking-tight text-white/20">
+                      O resultado da narrativa aparecerá nesta zona técnica.
+                    </p>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

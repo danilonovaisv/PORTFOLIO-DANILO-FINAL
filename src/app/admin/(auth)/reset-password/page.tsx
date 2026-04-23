@@ -142,7 +142,7 @@ export default function ResetPasswordPage() {
               required
               minLength={8}
               autoComplete="new-password"
-              className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+              className="rounded-md bg-black/60 border border-white/10 px-3 py-2 text-sm"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -155,7 +155,7 @@ export default function ResetPasswordPage() {
               required
               minLength={8}
               autoComplete="new-password"
-              className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+              className="rounded-md bg-black/60 border border-white/10 px-3 py-2 text-sm"
               value={passwordConfirm}
               onChange={(event) => setPasswordConfirm(event.target.value)}
             />

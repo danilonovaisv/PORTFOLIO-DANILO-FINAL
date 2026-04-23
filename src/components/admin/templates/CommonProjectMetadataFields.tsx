@@ -40,7 +40,7 @@ export function CommonProjectMetadataFields({
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <label className="space-y-1">
-        <span className={labelClasses}>Título do projeto</span>
+        <span className={labelClasses}>Project_Label</span>
         <input
           className={inputClasses}
           value={value.project_title}
@@ -49,7 +49,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1">
-        <span className={labelClasses}>Subtítulo</span>
+        <span className={labelClasses}>Project_Sublabel</span>
         <input
           className={inputClasses}
           value={value.project_subtitle || ''}
@@ -58,7 +58,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1">
-        <span className={labelClasses}>Slug do projeto</span>
+        <span className={labelClasses}>Project_Endpoint</span>
         <input
           className={inputClasses}
           value={value.project_slug}
@@ -67,7 +67,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1">
-        <span className={labelClasses}>Cliente</span>
+        <span className={labelClasses}>Project_Entity</span>
         <input
           className={inputClasses}
           value={value.project_client || ''}
@@ -76,7 +76,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1">
-        <span className={labelClasses}>Ano</span>
+        <span className={labelClasses}>Cycle_Year</span>
         <input
           className={inputClasses}
           type="number"
@@ -91,12 +91,12 @@ export function CommonProjectMetadataFields({
 
       <label className="space-y-1">
         <span className={labelClasses}>
-          {showThemeColor ? 'Cor do tema' : 'Cor de destaque'}
+          {showThemeColor ? 'System_Theme_HEX' : 'Highlight_HEX'}
         </span>
         <div className="flex gap-2">
           <input
             type="color"
-            className="h-10 w-12 border border-white/10 bg-transparent"
+            className="h-10 w-12 border border-white/5 bg-transparent cursor-pointer"
             value={
               (showThemeColor ? value.theme_color : value.highlight_color) ||
               '#0048ff'
@@ -127,7 +127,7 @@ export function CommonProjectMetadataFields({
 
       <label className="space-y-1 md:col-span-2">
         <span className={labelClasses}>
-          Tags (separadas por espaço ou vírgula)
+          Tag_Cluster_Sequence
         </span>
         <input
           className={inputClasses}
@@ -139,7 +139,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1 md:col-span-2">
-        <span className={labelClasses}>Resumo</span>
+        <span className={labelClasses}>Abstract_Summary</span>
         <textarea
           className={`${inputClasses} min-h-24`}
           value={value.project_summary || ''}
@@ -148,7 +148,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1 md:col-span-2">
-        <span className={labelClasses}>Headline da intro</span>
+        <span className={labelClasses}>Intro_Headline_Node</span>
         <input
           className={inputClasses}
           value={value.intro_headline || ''}
@@ -158,7 +158,7 @@ export function CommonProjectMetadataFields({
 
       <label className="space-y-1 md:col-span-2">
         <span className={labelClasses}>
-          Blocos da intro (separe por linha em branco)
+          Intro_Body_Blocks [Separator: Double_Newline]
         </span>
         <textarea
           className={`${inputClasses} min-h-28`}

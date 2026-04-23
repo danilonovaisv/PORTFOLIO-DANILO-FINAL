@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ImageIcon, Trash2 } from 'lucide-react';
+import { ImageIcon, Trash2, Settings2 } from 'lucide-react';
 import {
   ProjectTemplateId,
   LEGACY_PROJECT_TEMPLATE,
@@ -38,42 +38,43 @@ export function LandingPageSettings({
   onSyncSlugWithTemplates,
 }: LandingPageSettingsProps) {
   return (
-    <div className="sticky top-28 space-y-6 rounded-3xl border border-white/5 bg-slate-900/40 p-6">
-      <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
-        Configurações
-      </h2>
+    <div className="sticky top-28 space-y-8 border border-white/5 bg-black/20 p-8 backdrop-blur-sm">
+      <div className="flex items-center gap-3 border-b border-white/5 pb-4">
+        <Settings2 size={14} className="text-blue-500" />
+        <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+          System_Config
+        </h2>
+      </div>
 
-      <div className="space-y-2">
-        <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-          Tipo de Template
+      <div className="space-y-3">
+        <label className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+          Template_Architecture
         </label>
         <select
           aria-label="Tipo de Template"
-          className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm outline-none focus:border-blue-500"
+          className="w-full border border-white/10 bg-black/40 px-4 py-3 font-mono text-xs uppercase tracking-tight text-white outline-none focus:border-blue-500/50"
           value={template}
           onChange={(event) =>
             setTemplate(event.target.value as ProjectTemplateId)
           }
         >
-          <option value={MASTER_PROJECT_TEMPLATE_V3}>
-            Template Mestre V3 (ALPA)
-          </option>
-          <option value={MASTER_PROJECT_TEMPLATE_V2}>
-            Template Mestre V2 (MLPE)
-          </option>
-          <option value={MASTER_PROJECT_TEMPLATE}>Template Mestre V1</option>
-          <option value={LEGACY_PROJECT_TEMPLATE}>Legacy Blocks</option>
+          <option value={MASTER_PROJECT_TEMPLATE_V3}>V3_ALPA_ATOMIC</option>
+          <option value={MASTER_PROJECT_TEMPLATE_V2}>V2_MLPE_GRID</option>
+          <option value={MASTER_PROJECT_TEMPLATE}>V1_MASTER_CORE</option>
+          <option value={LEGACY_PROJECT_TEMPLATE}>V0_LEGACY_BLOCKS</option>
         </select>
-        <p className="text-[11px] leading-relaxed text-slate-500">
-          O V3 (ALPA) usa blocos atômicos/composições com hero limpa e zoom de
-          assets. O V2 mantém o MLPE, o V1 o template anterior e o Legacy mantém
-          o builder antigo por blocos.
+        <p className="font-mono text-[9px] leading-relaxed text-white/30 uppercase tracking-tighter">
+          {template === MASTER_PROJECT_TEMPLATE_V3 
+            ? "Atomic compositions with clean hero & asset zoom." 
+            : template === MASTER_PROJECT_TEMPLATE_V2 
+            ? "MLPE Standard with structured grid blocks." 
+            : "Legacy system support mode."}
         </p>
       </div>
 
-      <div className="space-y-2">
-        <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-          Título
+      <div className="space-y-3">
+        <label className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+          Project_Registry_Title
         </label>
         <input
           type="text"
@@ -83,17 +84,17 @@ export function LandingPageSettings({
             setTitle(nextTitle);
             onSyncWithTemplates(nextTitle);
           }}
-          className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-lg font-medium outline-none focus:border-blue-500"
-          placeholder="Nome do Projeto"
+          className="w-full border border-white/10 bg-black/40 px-4 py-3 font-mono text-sm uppercase tracking-tight text-white outline-none focus:border-blue-500/50"
+          placeholder="ENTER_PROJECT_NAME"
         />
       </div>
 
-      <div className="space-y-2">
-        <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-          Slug URL
+      <div className="space-y-3">
+        <label className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+          Endpoint_Slug
         </label>
-        <div className="flex items-center gap-1 rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-slate-500">
-          <span className="text-xs">/projects/</span>
+        <div className="flex items-center gap-2 border border-white/10 bg-black/40 px-4 py-3">
+          <span className="font-mono text-[10px] text-white/20">/P/</span>
           <input
             type="text"
             value={slug}
@@ -104,44 +105,43 @@ export function LandingPageSettings({
               setSlug(nextSlug);
               onSyncSlugWithTemplates(nextSlug);
             }}
-            className="w-full bg-transparent text-sm font-mono text-white outline-none"
-            placeholder="my-project"
+            className="w-full bg-transparent font-mono text-sm uppercase tracking-tight text-white outline-none"
+            placeholder="PROJECT-SLUG"
           />
         </div>
       </div>
 
       {template === LEGACY_PROJECT_TEMPLATE ? (
-        <div className="space-y-3 border-t border-white/5 pt-4">
-          <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-            Header Hero Image{' '}
-            <span className="text-[10px] text-blue-500">(Cover)</span>
+        <div className="space-y-4 border-t border-white/5 pt-6">
+          <label className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+            Hero_Buffer_Image
           </label>
-          <div className="group relative aspect-4/3 overflow-hidden rounded-xl border border-white/10 bg-slate-950">
+          <div className="group relative aspect-video overflow-hidden border border-white/10 bg-black/40">
             {coverPreview ? (
               <>
                 <Image
                   src={coverPreview}
                   alt="Cover"
                   fill
-                  className="object-cover"
+                  className="object-cover opacity-60 group-hover:opacity-100 transition-opacity"
                 />
                 <button
                   onClick={() => {
                     setCover(null);
                     setCoverPreview('');
                   }}
-                  className="absolute top-2 right-2 rounded-full bg-red-600 p-2 opacity-0 transition-opacity group-hover:opacity-100"
-                  title="Remover Capa"
+                  className="absolute top-4 right-4 bg-red-600/80 p-2 text-white backdrop-blur-md opacity-0 transition-opacity group-hover:opacity-100"
+                  title="Remove_Asset"
                   aria-label="Remover Capa"
                   type="button"
                 >
-                  <Trash2 size={16} />
+                  <Trash2 size={14} />
                 </button>
               </>
             ) : (
               <label className="absolute inset-0 flex cursor-pointer flex-col items-center justify-center transition-colors hover:bg-white/5">
-                <ImageIcon className="mb-2 text-slate-600" />
-                <span className="text-[10px] text-slate-500">Upload Capa</span>
+                <ImageIcon className="mb-2 text-white/20" size={24} />
+                <span className="font-mono text-[9px] uppercase tracking-widest text-white/40">Load_Cover_Asset</span>
                 <input
                   type="file"
                   className="hidden"

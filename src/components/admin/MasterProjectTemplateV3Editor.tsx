@@ -93,12 +93,12 @@ export default function MasterProjectTemplateV3Editor({
   return (
     <div className="space-y-6">
       <header className="flex items-center justify-between">
-        <h2 className="text-xl font-bold tracking-tight text-white">
-          Base da Página (V3 ALPA)
+        <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-white/90">
+          System_V3_Core_Architecture
         </h2>
       </header>
 
-      <section className="rounded-2xl border border-white/5 bg-slate-900/20 p-6">
+      <section className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
         <CommonProjectMetadataFields
           value={value}
           update={update}
@@ -107,8 +107,8 @@ export default function MasterProjectTemplateV3Editor({
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-          Hero e Assets Fixos
+        <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500/80">
+          Static_Hero_Assets
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
           <MediaAssetField
@@ -149,26 +149,26 @@ export default function MasterProjectTemplateV3Editor({
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-            Conteúdo Dinâmico (gallery_grid)
+          <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500/80">
+            System_Dynamic_Grid
           </h3>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:bg-blue-500"
+                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-all hover:bg-blue-500"
               >
                 <Plus size={14} />
-                Adicionar bloco
+                Add_Block_Node
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="w-72 border-white/10 bg-slate-950 text-slate-100"
+              className="w-72 border-white/10 bg-[#040013] text-white font-mono"
             >
-              <DropdownMenuLabel className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                Layouts Básicos
+              <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                Core_Layouts
               </DropdownMenuLabel>
               {BASIC_PRESETS.map((preset) => {
                 const Icon = preset.icon;
@@ -183,9 +183,9 @@ export default function MasterProjectTemplateV3Editor({
                 );
               })}
 
-              <DropdownMenuSeparator className="bg-white/10" />
-              <DropdownMenuLabel className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                Composições
+              <DropdownMenuSeparator className="bg-white/5" />
+              <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                System_Compositions
               </DropdownMenuLabel>
               {COMPOSITION_PRESETS.map((preset) => {
                 const Icon = preset.icon;
@@ -205,9 +205,8 @@ export default function MasterProjectTemplateV3Editor({
 
         <div className="space-y-6">
           {value.gallery_grid.length === 0 && (
-            <div className="rounded-xl border border-dashed border-white/10 py-12 text-center text-sm text-slate-500">
-              Nenhum bloco adicionado. Comece adicionando um novo bloco no menu
-              acima.
+            <div className="rounded-xl border border-dashed border-white/5 py-12 text-center font-mono text-[10px] uppercase tracking-widest text-white/20">
+              No_Active_Nodes_Detected. Initiate_Block_Creation_Sequence.
             </div>
           )}
 
@@ -219,14 +218,14 @@ export default function MasterProjectTemplateV3Editor({
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 12 }}
-                className="group relative overflow-hidden rounded-xl border border-white/5 bg-slate-900/20 transition-all hover:border-blue-500/20"
+                className="group relative overflow-hidden rounded-xl border border-white/5 bg-white/[0.02] transition-all hover:border-blue-500/20"
               >
-                <header className="flex items-center justify-between border-b border-white/5 bg-white/5 px-6 py-3">
+                <header className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-bold text-blue-400/60">
-                      {(index + 1).toString().padStart(2, '0')}
+                    <span className="font-mono text-[10px] font-bold text-blue-500/60">
+                      ID: {(index + 1).toString().padStart(2, '0')}
                     </span>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">
                       {block.type.replace('-', ' & ')}
                     </span>
                   </div>
@@ -236,7 +235,7 @@ export default function MasterProjectTemplateV3Editor({
                       onClick={() => moveBlock(index, 'up')}
                       disabled={index === 0}
                       aria-label="Mover bloco para cima"
-                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-slate-400 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-20"
+                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-white/40 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
                       <ChevronUp size={16} />
                     </button>
@@ -245,7 +244,7 @@ export default function MasterProjectTemplateV3Editor({
                       onClick={() => moveBlock(index, 'down')}
                       disabled={index === value.gallery_grid.length - 1}
                       aria-label="Mover bloco para baixo"
-                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-slate-400 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-20"
+                      className="inline-flex min-h-9 min-w-9 items-center justify-center rounded text-white/40 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-10"
                     >
                       <ChevronDown size={16} />
                     </button>
