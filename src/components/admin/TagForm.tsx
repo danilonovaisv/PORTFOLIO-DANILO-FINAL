@@ -59,7 +59,7 @@ export function TagForm({ tag, onSaved }: Props) {
         onSaved?.();
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : 'Ocorreu um erro desconhecido'
+          err instanceof Error ? err.message : 'SYSTEM_ERR: UNKNOWN_UPSERT_FAILURE'
         );
       }
     });

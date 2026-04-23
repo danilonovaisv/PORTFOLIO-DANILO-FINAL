@@ -110,9 +110,9 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
         <button
           type="button"
           onClick={handleAddYoutube}
-          className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-red-500/20 transition whitespace-nowrap"
+          className="px-4 py-2 bg-[#0048ff]/10 text-[#0048ff] border border-[#0048ff]/20 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-[#0048ff]/20 transition whitespace-nowrap"
         >
-          Add YouTube
+          SYSTEM_ADD_YOUTUBE
         </button>
       </div>
 
@@ -200,8 +200,8 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
               <button
                 type="button"
                 onClick={() => removeItem(item.id, index)}
-                className="p-2 text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded flex-shrink-0"
-                title="Remover peça"
+                className="p-2 text-rose-400 hover:text-rose-300 hover:bg-rose-400/10 rounded flex-shrink-0"
+                title="SYSTEM_REMOVE_PIECE"
               >
                 <Trash2 size={18} />
               </button>

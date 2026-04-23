@@ -144,7 +144,7 @@ export function ProjectForm({
     ) {
       return (err as { message: string }).message;
     }
-    return 'Ocorreu um erro desconhecido';
+    return 'SYSTEM_ERR: UNKNOWN_FAILURE';
   };
 
   const slugify = (value: string) =>
@@ -174,12 +174,12 @@ export function ProjectForm({
         const clientSlug = slugify(values.client_name);
 
         if (!landscapeVariant && !hasExistingLandscape) {
-          setError('Envie a variante 16:9 antes de salvar o projeto.');
+          setError('SYSTEM_ERR: ASSET_16x9_REQUIRED — UPLOAD_BEFORE_SAVE');
           return;
         }
 
         if (!squareVariant && !hasExistingSquare) {
-          setError('Envie a variante 1:1 antes de salvar o projeto.');
+          setError('SYSTEM_ERR: ASSET_1x1_REQUIRED — UPLOAD_BEFORE_SAVE');
           return;
         }
 
@@ -242,7 +242,7 @@ export function ProjectForm({
           !homeFeaturedLogoPath
         ) {
           setError(
-            'Envie o logo invertido para usar o layout "Background animado + logos invertidos".'
+            'SYSTEM_ERR: INVERTED_LOGO_REQUIRED — ACTIVATE_ANIMATED_BG_INVERT_LOGO_LAYOUT'
           );
           return;
         }
@@ -324,7 +324,7 @@ export function ProjectForm({
         });
 
         if (!result.ok) {
-          throw new Error(result.error ?? 'Erro desconhecido ao salvar.');
+          throw new Error(result.error ?? 'SYSTEM_ERR: UNKNOWN_SAVE_FAILURE');
         }
 
         router.push('/admin/trabalhos');
@@ -341,7 +341,7 @@ export function ProjectForm({
 
     const slug = slugify(label);
     if (!slug) {
-      setError('Informe uma tag válida para gerar o slug.');
+      setError('SYSTEM_ERR: INVALID_TAG_LABEL — SLUG_GENERATION_FAILED');
       return;
     }
 
@@ -364,7 +364,7 @@ export function ProjectForm({
 
       if (fetchError) throw fetchError;
       if (!data)
-        throw new Error('Tag criada, mas não foi possível carregá-la.');
+        throw new Error('SYSTEM_ERR: TAG_CREATED_BUT_LOAD_FAILED');
 
       setAvailableTags((prev) =>
         [...prev, data].sort((a, b) =>
@@ -386,7 +386,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Title"
-            description="Nome público do projeto exibido no portfólio e na Home."
+            description="Public name of the project displayed in the portfolio and home view."
             className="flex items-center gap-1"
           />
           <input
@@ -397,7 +397,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Slug"
-            description="Identificador único da URL. Use hífen no lugar de espaços."
+            description="Unique URL identifier. Use hyphens instead of spaces."
             className="flex items-center gap-1"
           />
           <div className="flex flex-col gap-2">
@@ -412,7 +412,7 @@ export function ProjectForm({
                   }
                 }}
               >
-                <option value="">Usar slug das tags existentes</option>
+                <option value="">SYSTEM_SELECT_TAG_SLUG</option>
                 {availableTags.map((tag) => (
                   <option key={tag.id} value={tag.slug}>
                     {tag.label} — {tag.slug}
@@ -429,7 +429,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Client"
-            description="Nome da marca ou empresa vinculada ao trabalho."
+            description="Brand or company name linked to the project."
             className="flex items-center gap-1"
           />
           <input
@@ -440,7 +440,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Brand"
-            description="Opcional. Use quando a marca final for diferente do cliente direto."
+            description="Optional. Use when the final brand differs from the direct client."
             className="flex items-center gap-1"
           />
           <input
@@ -451,7 +451,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Year"
-            description="Ano principal de publicação do trabalho."
+            description="Primary year of publication."
             className="flex items-center gap-1"
           />
           <input
@@ -463,7 +463,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Project_Type"
-            description="Categoria principal para filtros e exibição no grid editorial."
+            description="Primary category for filters and editorial grid display."
             className="flex items-center gap-1"
           />
           <select
@@ -478,7 +478,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2 md:col-span-2">
           <FieldTooltip
             label="System_Short_Label"
-            description="Subtítulo curto para cards e contexto rápido."
+            description="Short subtitle for cards and quick context."
             className="flex items-center gap-1"
           />
           <input
@@ -489,7 +489,7 @@ export function ProjectForm({
         <label className="flex flex-col gap-2 md:col-span-2">
           <FieldTooltip
             label="System_Description"
-            description="Resumo editorial do case para modal e páginas internas."
+            description="Editorial summary of the case for modal and internal pages."
             className="flex items-center gap-1"
           />
           <textarea
@@ -549,7 +549,7 @@ export function ProjectForm({
               rows={12}
               className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors resize-y"
               {...form.register('case_body')}
-              placeholder="Escreva a narrativa do projeto usando Markdown..."
+              placeholder="Write project narrative using Markdown..."
             />
             <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight">
               Kernel_Hint: Use Copy Agent to synthesize narrative from project metrics.
@@ -601,7 +601,7 @@ export function ProjectForm({
           <label className="flex flex-col gap-2">
             <FieldTooltip
               label="System_Featured_Style"
-              description="Escolhe apenas o layout do card. O background animado é sorteado dinamicamente na Home."
+              description="Selects only the card layout. Animated background is drawn dynamically on Home."
               className="flex items-center gap-1"
             />
             <select
@@ -622,7 +622,7 @@ export function ProjectForm({
           <label className="flex flex-col gap-2">
             <FieldTooltip
               label="System_Inverted_Logo"
-              description="Obrigatório apenas para o modo de logo invertido. PNG, SVG ou WebP com fundo transparente."
+              description="Required only for inverted logo mode. PNG, SVG, or WebP with transparent background."
               className="flex items-center gap-1"
             />
             <input
@@ -636,7 +636,7 @@ export function ProjectForm({
             />
             {project?.home_featured?.logoPath ? (
               <span className="text-[10px] text-white/40 break-all font-mono">
-                Atual: {project.home_featured.logoPath}
+                Current_Asset: {project.home_featured.logoPath}
               </span>
             ) : null}
             {homeFeaturedCardStyle === 'ANIMATED_BG_INVERTED_LOGO' ? (
@@ -652,14 +652,14 @@ export function ProjectForm({
         </div>
       </div>
 
-      <div className="p-6 bg-blue-600/[0.02] border border-white/5 rounded-md space-y-4">
+      <div className="p-6 bg-[#0048ff]/[0.02] border border-white/5 rounded-md space-y-4">
         <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#0048ff]">
           System_Destination_Node
         </h3>
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Landing_Link"
-            description="Quando definida, o clique no card abre a página dinâmica /projects/[slug] em vez do modal padrão."
+            description="When set, clicking the card opens the dynamic /projects/[slug] page instead of the default modal."
             className="flex items-center gap-1"
           />
           <select
@@ -690,12 +690,12 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Cover_16x9"
-            description="Variante horizontal usada em hero/full-highlight e containers amplos."
+            description="Landscape cover used for hero/full-highlight and wide containers."
             className="flex items-center gap-1"
           />
           <input
             type="file"
-            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#0048ff]/10 file:text-[#0048ff] hover:file:bg-[#0048ff]/20 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
@@ -708,12 +708,12 @@ export function ProjectForm({
         <label className="flex flex-col gap-2">
           <FieldTooltip
             label="System_Cover_1x1"
-            description="Variante quadrada para cards compactos e grid denso."
+            description="Square cover for compact cards and dense grids."
             className="flex items-center gap-1"
           />
           <input
             type="file"
-            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#0048ff]/10 file:text-[#0048ff] hover:file:bg-[#0048ff]/20 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
@@ -737,7 +737,7 @@ export function ProjectForm({
       <div>
         <FieldTooltip
           label="System_Tags"
-          description="Usadas para highlights rápidos no card e categorização editorial."
+          description="Used for quick highlights on cards and editorial categorization."
           className="mb-2 flex items-center gap-1"
         />
         <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">

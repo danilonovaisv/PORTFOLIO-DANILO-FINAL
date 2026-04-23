@@ -84,7 +84,7 @@ export default async function LandingPagesListPage(props: Props) {
         
         <Link
           href="/admin/landing-pages/new"
-          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-blue-600 px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] active:scale-95"
+          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#0048ff] px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 hover:shadow-[0_0_20px_rgba(0,72,255,0.3)] active:scale-95"
         >
           <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-white/20 to-transparent transition-transform group-hover:translate-y-0" />
           <Plus size={16} className="relative z-10" />
@@ -94,13 +94,13 @@ export default async function LandingPagesListPage(props: Props) {
 
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">
             Landing_Page_Nexus
           </h2>
           <div className="h-[1px] flex-1 mx-4 bg-white/5" />
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[9px] text-slate-600 uppercase">Total_Nodes:</span>
-            <span className="font-mono text-[10px] text-blue-500">{pages.length.toString().padStart(2, '0')}</span>
+            <span className="font-mono text-[9px] text-white/20 uppercase">Total_Nodes:</span>
+            <span className="font-mono text-[10px] text-[#0048ff]">{pages.length.toString().padStart(2, '0')}</span>
           </div>
         </div>
 
@@ -118,19 +118,19 @@ export default async function LandingPagesListPage(props: Props) {
                 <table className="min-w-full text-left">
                   <thead>
                     <tr className="border-b border-white/5 bg-white/[0.02]">
-                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-white/30">
                         Node_Identity
                       </th>
-                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-white/30">
                         Endpoint_Slug
                       </th>
-                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-white/30">
                         Architecture
                       </th>
-                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                      <th className="px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-white/30">
                         Registry_Date
                       </th>
-                      <th className="px-6 py-4 text-right font-mono text-[10px] uppercase tracking-widest text-slate-500">
+                      <th className="px-6 py-4 text-right font-mono text-[10px] uppercase tracking-widest text-white/30">
                         Operations
                       </th>
                     </tr>
@@ -157,8 +157,8 @@ export default async function LandingPagesListPage(props: Props) {
                               page.template === MASTER_PROJECT_TEMPLATE ||
                               page.template === MASTER_PROJECT_TEMPLATE_V2 ||
                               page.template === MASTER_PROJECT_TEMPLATE_V3
-                                ? 'border-blue-500/30 bg-blue-500/10 text-blue-400'
-                                : 'border-white/10 bg-white/5 text-slate-400'
+                                ? 'border-[#0048ff]/30 bg-[#0048ff]/10 text-[#0048ff]'
+                                : 'border-white/10 bg-white/5 text-white/40'
                             }`}
                           >
                             {page.template === MASTER_PROJECT_TEMPLATE_V3
@@ -181,14 +181,14 @@ export default async function LandingPagesListPage(props: Props) {
                               href={`/projects/${page.slug}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="rounded-lg p-2 text-slate-500 transition-all hover:bg-white/5 hover:text-white"
+                              className="rounded-lg p-2 text-white/30 transition-all hover:bg-white/5 hover:text-white"
                               title="Live Preview"
                             >
                               <ExternalLink size={14} />
                             </Link>
                             <Link
                               href={`/admin/landing-pages/${page.id}`}
-                              className="rounded-lg p-2 text-slate-500 transition-all hover:bg-blue-500/10 hover:text-blue-400"
+                              className="rounded-lg p-2 text-white/30 transition-all hover:bg-[#0048ff]/10 hover:text-[#0048ff]"
                               title="Configure Node"
                             >
                               <Edit size={14} />
@@ -222,8 +222,8 @@ export default async function LandingPagesListPage(props: Props) {
                           page.template === MASTER_PROJECT_TEMPLATE ||
                           page.template === MASTER_PROJECT_TEMPLATE_V2 ||
                           page.template === MASTER_PROJECT_TEMPLATE_V3
-                            ? 'border-blue-500/30 bg-blue-500/10 text-blue-400'
-                            : 'border-white/10 bg-white/5 text-slate-400'
+                            ? 'border-[#0048ff]/30 bg-[#0048ff]/10 text-[#0048ff]'
+                            : 'border-white/10 bg-white/5 text-white/40'
                         }`}
                       >
                         {page.template === MASTER_PROJECT_TEMPLATE_V3 ? 'V3' : 'LEGACY'}
@@ -262,16 +262,16 @@ export default async function LandingPagesListPage(props: Props) {
             </>
           ) : (
             <div className="flex flex-col items-center justify-center p-20 text-center space-y-4">
-              <div className="rounded-full bg-white/5 p-4 text-slate-600">
+              <div className="rounded-full bg-white/5 p-4 text-white/20">
                 <Plus size={32} />
               </div>
               <div className="space-y-1">
-                <p className="font-mono text-xs text-slate-400 uppercase tracking-widest">No_Nodes_Detected</p>
-                <p className="font-mono text-[10px] text-slate-600 uppercase">Initialize system by creating your first project.</p>
+                <p className="font-mono text-xs text-white/30 uppercase tracking-widest">No_Nodes_Detected</p>
+                <p className="font-mono text-[10px] text-white/20 uppercase">Initialize system by creating your first project.</p>
               </div>
               <Link
                 href="/admin/landing-pages/new"
-                className="font-mono text-[10px] text-blue-500 uppercase tracking-widest hover:text-blue-400"
+                className="font-mono text-[10px] text-[#0048ff] uppercase tracking-widest hover:text-[#0048ff]/70"
               >
                 [ EXECUTE_PROVISIONING ]
               </Link>
@@ -297,14 +297,14 @@ function Filters({
       method="get"
     >
       <div className="relative group lg:col-span-6">
-        <div className="absolute inset-y-0 left-4 flex items-center text-slate-500 group-focus-within:text-blue-400 transition-colors">
+        <div className="absolute inset-y-0 left-4 flex items-center text-white/30 group-focus-within:text-[#0048ff] transition-colors">
           <span className="font-mono text-[10px]">QRY:</span>
         </div>
         <input
           name="search"
           placeholder="SEARCH_PROJECT_INDEX..."
           defaultValue={current.search}
-          className="w-full rounded-lg border border-white/5 bg-black/40 px-12 py-3 font-mono text-[10px] uppercase tracking-widest text-white placeholder:text-slate-700 focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/10 transition-all"
+          className="w-full rounded-lg border border-white/5 bg-black/40 px-12 py-3 font-mono text-[10px] uppercase tracking-widest text-white placeholder:text-white/20 focus:border-[#0048ff]/50 focus:outline-none focus:ring-1 focus:ring-[#0048ff]/10 transition-all"
         />
       </div>
 
@@ -313,7 +313,7 @@ function Filters({
           name="template"
           title="Architecture_Filter"
           defaultValue={current.template || ''}
-          className="w-full appearance-none rounded-lg border border-white/5 bg-black/40 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-blue-500/50 focus:outline-none transition-all cursor-pointer"
+          className="w-full appearance-none rounded-lg border border-white/5 bg-black/40 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-[#0048ff]/50 focus:outline-none transition-all cursor-pointer"
         >
           <option value="">ALL_ARCHITECTURES</option>
           <option value="master-project-v3-alpa">MASTER_V3_ALPA</option>
@@ -321,7 +321,7 @@ function Filters({
           <option value="master-project-v1">MASTER_V1</option>
           <option value="legacy-blocks">LEGACY_ENV</option>
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-600">
+        <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/20">
           <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -337,7 +337,7 @@ function Filters({
         </button>
         <Link
           href="/admin/landing-pages"
-          className="flex items-center justify-center rounded-lg border border-white/5 bg-black/20 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-slate-500 hover:text-white transition-all"
+          className="flex items-center justify-center rounded-lg border border-white/5 bg-black/20 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-white/30 hover:text-white/60 transition-all"
         >
           RST
         </Link>

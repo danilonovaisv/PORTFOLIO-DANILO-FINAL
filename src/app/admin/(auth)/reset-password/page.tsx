@@ -69,12 +69,12 @@ export default function ResetPasswordPage() {
     setSuccessMsg(null);
 
     if (password.length < 8) {
-      setError('Use uma senha com pelo menos 8 caracteres.');
+      setError('SYSTEM_ERR: PASSWORD_MIN_LENGTH_8');
       return;
     }
 
     if (password !== passwordConfirm) {
-      setError('A confirmação da senha não confere.');
+      setError('SYSTEM_ERR: PASSWORD_CONFIRMATION_MISMATCH');
       return;
     }
 
@@ -91,9 +91,7 @@ export default function ResetPasswordPage() {
     }
 
     setState('success');
-    setSuccessMsg(
-      'Senha atualizada com sucesso. Redirecionando para o painel.'
-    );
+    setSuccessMsg('SYSTEM_OK: PASSWORD_UPDATE_CONFIRMED — REDIRECTING_TO_PANEL');
 
     window.setTimeout(() => {
       router.replace('/admin');
@@ -104,31 +102,36 @@ export default function ResetPasswordPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-          Recuperação
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
+          System_Recovery_Protocol
         </p>
-        <h1 className="mt-2 text-2xl font-semibold">Redefinir senha</h1>
-        <p className="mt-1 text-sm text-slate-400">
-          Abra o link enviado por email e defina uma nova senha para continuar.
+        <h1 className="mt-2 font-mono text-2xl font-light text-white">
+          SYSTEM_RESET_CREDENTIAL<span className="text-[#0048ff]">.</span>
+        </h1>
+        <p className="mt-1 font-mono text-[11px] text-white/40 uppercase tracking-wide leading-relaxed">
+          Open the link dispatched via email node and define a new access key to proceed.
         </p>
       </div>
 
       {state === 'checking' ? (
-        <p className="text-sm text-slate-300">
-          Validando o link de recuperação...
+        <p className="font-mono text-[11px] text-white/40 uppercase tracking-widest animate-pulse">
+          SYSTEM_VALIDATING_RECOVERY_TOKEN...
         </p>
       ) : null}
 
       {state === 'invalid' ? (
         <div className="space-y-4">
-          <p className="text-sm text-red-400" role="alert">
-            O link de recuperação expirou ou já foi usado.
-          </p>
+          <div className="flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-4 py-3">
+            <div className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
+            <p className="font-mono text-[10px] uppercase text-rose-400" role="alert">
+              SYSTEM_ERR: RECOVERY_LINK_EXPIRED_OR_CONSUMED
+            </p>
+          </div>
           <Link
             href="/admin/login"
-            className="inline-flex rounded-md border border-white/15 px-4 py-2 text-sm text-slate-200 transition hover:border-white/30 hover:bg-white/5"
+            className="inline-flex rounded-md border border-white/10 px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-white/60 transition hover:border-white/20 hover:bg-white/5"
           >
-            Voltar para o login
+            SYSTEM_RETURN_TO_ACCESS_PORTAL
           </Link>
         </div>
       ) : null}
@@ -136,49 +139,71 @@ export default function ResetPasswordPage() {
       {(state === 'ready' || state === 'saving' || state === 'success') && (
         <form className="space-y-4" onSubmit={handleSubmit}>
           <label className="flex flex-col gap-2">
-            <span className="text-sm text-slate-300">Nova senha</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+              System_New_Credential
+            </span>
             <input
               type="password"
               required
               minLength={8}
               autoComplete="new-password"
-              className="rounded-md bg-black/60 border border-white/10 px-3 py-2 text-sm"
+              className="rounded-md bg-white/[0.02] border border-white/10 px-3 py-2.5 font-mono text-sm text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </label>
 
           <label className="flex flex-col gap-2">
-            <span className="text-sm text-slate-300">Confirmar nova senha</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+              System_Confirm_Credential
+            </span>
             <input
               type="password"
               required
               minLength={8}
               autoComplete="new-password"
-              className="rounded-md bg-black/60 border border-white/10 px-3 py-2 text-sm"
+              className="rounded-md bg-white/[0.02] border border-white/10 px-3 py-2.5 font-mono text-sm text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
               value={passwordConfirm}
               onChange={(event) => setPasswordConfirm(event.target.value)}
             />
           </label>
 
           {error ? (
-            <p className="text-sm text-red-400" role="alert">
-              {error}
-            </p>
+            <div className="flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-4 py-3">
+              <div className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
+              <p className="font-mono text-[10px] uppercase text-rose-400" role="alert">
+                {error}
+              </p>
+            </div>
           ) : null}
 
           {successMsg ? (
-            <p className="text-sm text-emerald-400" role="status">
-              {successMsg}
-            </p>
+            <div className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <p className="font-mono text-[10px] uppercase text-emerald-400" role="status">
+                {successMsg}
+              </p>
+            </div>
           ) : null}
 
           <button
             type="submit"
-            className="w-full rounded-md bg-blue-500 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-60"
+            className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-[#0048ff] py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#0048ff]/90 active:scale-[0.98] disabled:opacity-50"
             disabled={state === 'saving' || state === 'success'}
           >
-            {state === 'saving' ? 'Salvando...' : 'Salvar nova senha'}
+            <span className="relative z-10 flex items-center gap-2">
+              {state === 'saving' ? (
+                <>
+                  <div className="h-2 w-2 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                  SYSTEM_EXECUTING_CREDENTIAL_UPDATE...
+                </>
+              ) : (
+                <>
+                  SYSTEM_COMMIT_NEW_CREDENTIAL
+                  <div className="h-1.5 w-1.5 rounded-full bg-white/40 group-hover:bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all" />
+                </>
+              )}
+            </span>
           </button>
         </form>
       )}

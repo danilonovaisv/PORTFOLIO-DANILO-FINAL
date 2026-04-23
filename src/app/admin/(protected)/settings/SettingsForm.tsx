@@ -124,7 +124,7 @@ export function SettingsForm({
       setTokenMessage(null);
       const result = await fn();
       if (!result.ok) {
-        setTokenError(result.error || 'Falha ao processar token.');
+        setTokenError(result.error || 'SYSTEM_ERR: TOKEN_PROCESS_FAILURE');
         return;
       }
       setTokenMessage(result.message || 'Operacao concluida.');
@@ -141,7 +141,7 @@ export function SettingsForm({
       setUserMessage(null);
       const result = await fn();
       if (!result.ok) {
-        setUserError(result.error || 'Falha ao processar usuario ADMIN.');
+        setUserError(result.error || 'SYSTEM_ERR: ADMIN_USER_PROCESS_FAILURE');
         return;
       }
       setUserMessage(result.message || 'Operacao concluida.');

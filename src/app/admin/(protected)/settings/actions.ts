@@ -123,7 +123,7 @@ export async function createAdminToken(
     if (!name || !provider || !secret) {
       return {
         ok: false,
-        error: 'Nome, provider e valor do token sao obrigatorios.',
+        error: 'SYSTEM_ERR: TOKEN_NAME_PROVIDER_VALUE_REQUIRED',
       };
     }
 
