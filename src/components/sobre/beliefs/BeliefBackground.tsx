@@ -60,14 +60,12 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
       }
     });
 
-    // Final stop: Deep Void return — triggered once when manifesto enters.
-    // Stops the inView observer immediately so no concurrent inView animation
-    // can race against or override the climax transition.
+    // Deep Void return — triggered once per climax entry (climaxFiredRef guards re-fire).
+    // inView observer intentionally kept alive so mid-section BG transitions
+    // work correctly on bidirectional scroll re-entry.
     const unsubProgress = scrollProgress.on('change', (value) => {
       if (value >= CLIMAX_THRESHOLD && !climaxFiredRef.current && bgRef.current) {
         climaxFiredRef.current = true;
-        stopInView?.();
-        stopInView = null;
         animate(
           bgRef.current,
           { backgroundColor: COLOR_STOPS[7] },

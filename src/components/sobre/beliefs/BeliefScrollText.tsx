@@ -18,15 +18,12 @@ export const BeliefScrollText = ({
   useEffect(() => {
     if (prefersReducedMotion) return;
 
-    const enterDistance = isMobile ? 12 : 18;
-    const exitDistance = isMobile ? 12 : 18;
-
     const stop = inView('.scroll-section p', (element) => {
       animate(
         element,
         {
           opacity: 1,
-          y: [-enterDistance, 0],
+          y: [18, 0],
           filter: ['blur(6px)', 'blur(0px)'],
         },
         { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] }
@@ -37,7 +34,7 @@ export const BeliefScrollText = ({
           element,
           {
             opacity: 0,
-            y: -exitDistance,
+            y: -18,
             filter: ['blur(0px)', 'blur(6px)'],
           },
           { duration: 0.5, ease: GHOST_EASE }

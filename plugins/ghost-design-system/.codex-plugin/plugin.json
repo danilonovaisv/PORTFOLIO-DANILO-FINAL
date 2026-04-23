@@ -1,0 +1,42 @@
+{
+  "name": "ghost-design-system",
+  "version": "1.0.0",
+  "description": "Danilo Novais portfolio brand system with design guidelines, typography, assets, hooks, and UI kits for Ghost interfaces.",
+  "author": {
+    "name": "Danilo Novais"
+  },
+  "homepage": "https://portfoliodanilo.com",
+  "repository": "https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL",
+  "keywords": [
+    "design-system",
+    "brand",
+    "portfolio",
+    "ghost",
+    "ui-kit",
+    "typography",
+    "css"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Ghost Design System",
+    "shortDescription": "Sistema de design da marca Ghost para interfaces editoriais e portfólio premium.",
+    "longDescription": "Reune guidelines visuais, tokens, assets, previews, hooks e UI kits do universo Ghost para prototipacao e implementacao.",
+    "developerName": "Danilo Novais",
+    "category": "Design",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://portfoliodanilo.com",
+    "defaultPrompt": [
+      "Aplique o Ghost Design em uma landing page em pt-BR",
+      "Crie um mockup usando os tokens e assets do Ghost",
+      "Use o ui kit do portfolio para montar uma nova secao"
+    ],
+    "brandColor": "#0048ff",
+    "composerIcon": "./assets/ghost-mark.svg",
+    "logo": "./assets/wordmark.svg",
+    "screenshots": []
+  }
+}
