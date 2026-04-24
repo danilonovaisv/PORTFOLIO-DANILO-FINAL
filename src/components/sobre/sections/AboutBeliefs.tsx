@@ -85,13 +85,22 @@ export const AboutBeliefs = () => {
       {/* ── z-10: Overlay cross-fade anti-banding ── */}
       <BeliefOverlay scrollProgress={scrollYProgress} />
 
-      {/* ── header editorial sticky ── */}
-      <BeliefFixedHeader />
+      {/* ── header editorial fixo durante toda a narrativa ── */}
+      <BeliefFixedHeader
+        scrollProgress={scrollYProgress}
+        prefersReducedMotion={prefersReducedMotion}
+      />
 
       {/* ── Ghost 3D acima do manifesto no clímax ── */}
       <GhostScene
         scrollProgress={scrollYProgress}
         isMobile={isMobile}
+        prefersReducedMotion={prefersReducedMotion}
+      />
+
+      {/* ── manifesto final abaixo do Ghost, preso ao clímax da seção ── */}
+      <BeliefManifesto
+        scrollProgress={scrollYProgress}
         prefersReducedMotion={prefersReducedMotion}
       />
 
@@ -105,12 +114,6 @@ export const AboutBeliefs = () => {
           prefersReducedMotion={prefersReducedMotion}
         />
       </motion.div>
-
-      {/* ── manifesto final abaixo do Ghost por decisão editorial aprovada ── */}
-      <BeliefManifesto
-        scrollProgress={scrollYProgress}
-        prefersReducedMotion={prefersReducedMotion}
-      />
     </section>
   );
 };

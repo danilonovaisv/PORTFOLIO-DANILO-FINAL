@@ -143,15 +143,15 @@ export const GhostScene = ({
   );
   const opacity = useTransform(
     smoothProgress,
-    [0, 0.06, 0.94, 1],
+    [0, 0.06, 0.98, 1],
     [0, 1, 1, 0]
   );
-  const y = useTransform(smoothProgress, [0, 0.08, 0.92, 1], [18, 0, 0, -18]);
+  const y = useTransform(smoothProgress, [0, 0.08, 0.98, 1], [18, 0, 0, -18]);
 
   return (
     <motion.div
       data-testid="beliefs-ghost-scene"
-      className="sticky top-[14vh] md:top-0 h-[100dvh] w-full z-[var(--z-layer-lightbox)] pointer-events-none"
+      className="fixed inset-0 h-full w-full z-[var(--z-layer-lightbox)] pointer-events-none"
       aria-hidden="true"
       role="presentation"
       style={{ opacity, y }}

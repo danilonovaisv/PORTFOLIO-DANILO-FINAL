@@ -236,7 +236,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
   });
 
   // ── Teste 07: Desktop viewport ─────────────────────────────────────────────
-  test('07 — desktop: Ghost Canvas presente e wrapper sticky', async ({
+  test('07 — desktop: Ghost Canvas presente e wrapper fixo', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -257,7 +257,7 @@ test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
       .locator('[data-testid="beliefs-ghost-scene"]')
       .first()
       .evaluate((el) => window.getComputedStyle(el).position);
-    expect(position).toBe('sticky');
+    expect(position).toBe('fixed');
   });
 
   // ── Teste 08: Mobile viewport ──────────────────────────────────────────────

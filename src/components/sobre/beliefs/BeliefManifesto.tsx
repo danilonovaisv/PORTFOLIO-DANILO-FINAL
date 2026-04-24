@@ -1,21 +1,6 @@
 'use client';
 
-/**
- * BeliefManifesto — Layer 4 (z-50).
- * Texto final "ISSO É GHOST DESIGN." — clímax da seção.
- *
- * CRÍTICO: z-50 aqui é INTENCIONAL.
- * O manifesto ocupa o plano tipográfico do clímax, enquanto o Ghost da seção
- * permanece visualmente acima em z-70 para sobrepor a palavra "GHOST", como
- * nas imagens canônicas da seção 06.
- *
- * • Reveal entre scrollProgress 0.82 → 0.90
- * • translateY: 18px → 0 (máximo do GDS)
- * • prefersReducedMotion: opacity estático 1, y estático 0
- * • position: fixed — flutua sobre o scroll no clímax final
- */
-
-import { motion, useTransform, type MotionValue } from 'motion/react';
+import { motion, type MotionValue } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 interface BeliefManifestoProps {
@@ -23,44 +8,62 @@ interface BeliefManifestoProps {
   prefersReducedMotion?: boolean;
 }
 
+const interpolate = (
+  value: number,
+  input: readonly number[],
+  output: readonly number[]
+) => {
+  if (input.length !== output.length || input.length === 0)
+    return output[0] ?? 0;
+  if (value <= input[0]) return output[0];
+
+  for (let index = 1; index < input.length; index += 1) {
+    const start = input[index - 1];
+    const end = input[index];
+
+    if (value <= end) {
+      const progress = (value - start) / (end - start || 1);
+      const from = output[index - 1];
+      const to = output[index];
+      return from + (to - from) * progress;
+    }
+  }
+
+  return output[output.length - 1];
+};
+
 export const BeliefManifesto = ({
   scrollProgress,
   prefersReducedMotion = false,
 }: BeliefManifestoProps) => {
   const [isActive, setIsActive] = useState(prefersReducedMotion);
+  const [opacity, setOpacity] = useState(prefersReducedMotion ? 1 : 0);
+  const [offsetY, setOffsetY] = useState(prefersReducedMotion ? 0 : 18);
 
   useEffect(() => {
     if (prefersReducedMotion) {
       setIsActive(true);
+      setOpacity(1);
+      setOffsetY(0);
       return;
     }
 
     const unsubscribe = scrollProgress.on('change', (value) => {
-      setIsActive(value >= 0.56);
+      setIsActive(value >= 0.56 && value <= 0.9);
+      setOpacity(interpolate(value, [0.56, 0.68, 0.88, 0.94], [0, 1, 1, 0]));
+      setOffsetY(interpolate(value, [0.56, 0.72, 0.88, 0.94], [18, 0, 0, -18]));
     });
 
     return () => unsubscribe();
   }, [prefersReducedMotion, scrollProgress]);
 
-  const opacity = useTransform(
-    scrollProgress,
-    [0.56, 0.68, 1.0],
-    prefersReducedMotion ? [1, 1, 1] : [0, 1, 1]
-  );
-
-  const y = useTransform(
-    scrollProgress,
-    [0.56, 0.72],
-    prefersReducedMotion ? [0, 0] : [18, 0]
-  );
-
   return (
     <motion.div
       data-testid="beliefs-manifesto"
-      className="fixed inset-0 z-[var(--z-layer-overlay)] w-full
+      className="fixed inset-0 z-[var(--z-layer-overlay)] h-full w-full
                  flex items-center justify-center
                  pointer-events-none"
-      style={{ opacity, y }}
+      style={{ opacity, y: offsetY }}
       aria-live={isActive ? 'polite' : undefined}
       aria-atomic={isActive ? 'true' : undefined}
     >
