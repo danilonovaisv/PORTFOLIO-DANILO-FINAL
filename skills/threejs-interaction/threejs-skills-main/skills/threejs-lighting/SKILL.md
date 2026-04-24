@@ -8,7 +8,7 @@ description: Three.js lighting - light types, shadows, environment lighting. Use
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
+import * as THREE from 'three';
 
 // Basic lighting setup
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -181,8 +181,8 @@ spotLight.shadow.focus = 1;
 Rectangular area light. Great for soft, realistic lighting.
 
 ```javascript
-import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
-import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 
 // Must initialize uniforms first
 RectAreaLightUniformsLib.init();
@@ -254,7 +254,7 @@ dirLight.shadow.normalBias = 0.02; // Bias along normal
 ### Contact Shadows (Fake, Fast)
 
 ```javascript
-import { ContactShadows } from "three/examples/jsm/objects/ContactShadows.js";
+import { ContactShadows } from 'three/examples/jsm/objects/ContactShadows.js';
 
 const contactShadows = new ContactShadows({
   resolution: 512,
@@ -269,7 +269,7 @@ scene.add(contactShadows);
 ## Light Helpers
 
 ```javascript
-import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 
 // DirectionalLight helper
 const dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
@@ -301,10 +301,10 @@ spotHelper.update();
 Image-Based Lighting using HDR environment maps.
 
 ```javascript
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load("environment.hdr", (texture) => {
+rgbeLoader.load('environment.hdr', (texture) => {
   texture.mapping = THREE.EquirectangularReflectionMapping;
 
   // Set as scene environment (affects all PBR materials)
@@ -320,7 +320,7 @@ rgbeLoader.load("environment.hdr", (texture) => {
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
-rgbeLoader.load("environment.hdr", (texture) => {
+rgbeLoader.load('environment.hdr', (texture) => {
   const envMap = pmremGenerator.fromEquirectangular(texture).texture;
   scene.environment = envMap;
   texture.dispose();
@@ -333,12 +333,12 @@ rgbeLoader.load("environment.hdr", (texture) => {
 ```javascript
 const cubeLoader = new THREE.CubeTextureLoader();
 const envMap = cubeLoader.load([
-  "px.jpg",
-  "nx.jpg",
-  "py.jpg",
-  "ny.jpg",
-  "pz.jpg",
-  "nz.jpg",
+  'px.jpg',
+  'nx.jpg',
+  'py.jpg',
+  'ny.jpg',
+  'pz.jpg',
+  'nz.jpg',
 ]);
 
 scene.environment = envMap;
@@ -350,7 +350,7 @@ scene.background = envMap;
 Capture lighting from a point in space for ambient lighting.
 
 ```javascript
-import { LightProbeGenerator } from "three/examples/jsm/lights/LightProbeGenerator.js";
+import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
 
 // Generate from cube texture
 const lightProbe = new THREE.LightProbe();
@@ -362,11 +362,11 @@ lightProbe.copy(LightProbeGenerator.fromCubeTexture(cubeTexture));
 const cubeCamera = new THREE.CubeCamera(
   0.1,
   100,
-  new THREE.WebGLCubeRenderTarget(256),
+  new THREE.WebGLCubeRenderTarget(256)
 );
 cubeCamera.update(renderer, scene);
 lightProbe.copy(
-  LightProbeGenerator.fromCubeRenderTarget(renderer, cubeCamera.renderTarget),
+  LightProbeGenerator.fromCubeRenderTarget(renderer, cubeCamera.renderTarget)
 );
 ```
 

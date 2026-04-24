@@ -8,11 +8,11 @@ description: Three.js textures - texture types, UV mapping, environment maps, te
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
+import * as THREE from 'three';
 
 // Load texture
 const loader = new THREE.TextureLoader();
-const texture = loader.load("texture.jpg");
+const texture = loader.load('texture.jpg');
 
 // Apply to material
 const material = new THREE.MeshStandardMaterial({
@@ -29,14 +29,14 @@ const loader = new THREE.TextureLoader();
 
 // Async with callbacks
 loader.load(
-  "texture.jpg",
-  (texture) => console.log("Loaded"),
-  (progress) => console.log("Progress"),
-  (error) => console.error("Error"),
+  'texture.jpg',
+  (texture) => console.log('Loaded'),
+  (progress) => console.log('Progress'),
+  (error) => console.error('Error')
 );
 
 // Synchronous style (loads async internally)
-const texture = loader.load("texture.jpg");
+const texture = loader.load('texture.jpg');
 material.map = texture;
 ```
 
@@ -51,9 +51,9 @@ function loadTexture(url) {
 
 // Usage
 const [colorMap, normalMap, roughnessMap] = await Promise.all([
-  loadTexture("color.jpg"),
-  loadTexture("normal.jpg"),
-  loadTexture("roughness.jpg"),
+  loadTexture('color.jpg'),
+  loadTexture('normal.jpg'),
+  loadTexture('roughness.jpg'),
 ]);
 ```
 
@@ -161,17 +161,17 @@ texture.needsUpdate = true;
 ### Canvas Texture
 
 ```javascript
-const canvas = document.createElement("canvas");
+const canvas = document.createElement('canvas');
 canvas.width = 256;
 canvas.height = 256;
-const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext('2d');
 
 // Draw on canvas
-ctx.fillStyle = "red";
+ctx.fillStyle = 'red';
 ctx.fillRect(0, 0, 256, 256);
-ctx.fillStyle = "white";
-ctx.font = "48px Arial";
-ctx.fillText("Hello", 50, 150);
+ctx.fillStyle = 'white';
+ctx.font = '48px Arial';
+ctx.fillText('Hello', 50, 150);
 
 const texture = new THREE.CanvasTexture(canvas);
 
@@ -182,8 +182,8 @@ texture.needsUpdate = true;
 ### Video Texture
 
 ```javascript
-const video = document.createElement("video");
-video.src = "video.mp4";
+const video = document.createElement('video');
+video.src = 'video.mp4';
 video.loop = true;
 video.muted = true;
 video.play();
@@ -197,13 +197,13 @@ texture.colorSpace = THREE.SRGBColorSpace;
 ### Compressed Textures
 
 ```javascript
-import { KTX2Loader } from "three/examples/jsm/loaders/KTX2Loader.js";
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js';
 
 const ktx2Loader = new KTX2Loader();
-ktx2Loader.setTranscoderPath("path/to/basis/");
+ktx2Loader.setTranscoderPath('path/to/basis/');
 ktx2Loader.detectSupport(renderer);
 
-ktx2Loader.load("texture.ktx2", (texture) => {
+ktx2Loader.load('texture.ktx2', (texture) => {
   material.map = texture;
 });
 ```
@@ -217,12 +217,12 @@ For environment maps and skyboxes.
 ```javascript
 const loader = new THREE.CubeTextureLoader();
 const cubeTexture = loader.load([
-  "px.jpg",
-  "nx.jpg", // +X, -X
-  "py.jpg",
-  "ny.jpg", // +Y, -Y
-  "pz.jpg",
-  "nz.jpg", // +Z, -Z
+  'px.jpg',
+  'nx.jpg', // +X, -X
+  'py.jpg',
+  'ny.jpg', // +Y, -Y
+  'pz.jpg',
+  'nz.jpg', // +Z, -Z
 ]);
 
 // As background
@@ -236,12 +236,12 @@ material.envMap = cubeTexture;
 ### Equirectangular to Cubemap
 
 ```javascript
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
-new RGBELoader().load("environment.hdr", (texture) => {
+new RGBELoader().load('environment.hdr', (texture) => {
   const envMap = pmremGenerator.fromEquirectangular(texture).texture;
   scene.environment = envMap;
   scene.background = envMap;
@@ -256,10 +256,10 @@ new RGBELoader().load("environment.hdr", (texture) => {
 ### RGBELoader
 
 ```javascript
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 const loader = new RGBELoader();
-loader.load("environment.hdr", (texture) => {
+loader.load('environment.hdr', (texture) => {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
   scene.background = texture;
@@ -269,10 +269,10 @@ loader.load("environment.hdr", (texture) => {
 ### EXRLoader
 
 ```javascript
-import { EXRLoader } from "three/examples/jsm/loaders/EXRLoader.js";
+import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader.js';
 
 const loader = new EXRLoader();
-loader.load("environment.exr", (texture) => {
+loader.load('environment.exr', (texture) => {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
 });
@@ -315,7 +315,7 @@ const renderTarget = new THREE.WebGLRenderTarget(512, 512);
 renderTarget.depthTexture = new THREE.DepthTexture(
   512,
   512,
-  THREE.UnsignedShortType,
+  THREE.UnsignedShortType
 );
 
 // Access depth
@@ -376,12 +376,12 @@ uvs.needsUpdate = true;
 
 ```javascript
 // Required for aoMap
-geometry.setAttribute("uv2", geometry.attributes.uv);
+geometry.setAttribute('uv2', geometry.attributes.uv);
 
 // Or create custom second UV
 const uv2 = new Float32Array(vertexCount * 2);
 // ... fill uv2 data
-geometry.setAttribute("uv2", new THREE.BufferAttribute(uv2, 2));
+geometry.setAttribute('uv2', new THREE.BufferAttribute(uv2, 2));
 ```
 
 ### UV Transform in Shader
@@ -420,7 +420,7 @@ Multiple images in one texture.
 
 ```javascript
 // Atlas with 4 sprites (2x2 grid)
-const atlas = loader.load("atlas.png");
+const atlas = loader.load('atlas.png');
 atlas.wrapS = THREE.ClampToEdgeWrapping;
 atlas.wrapT = THREE.ClampToEdgeWrapping;
 
@@ -475,7 +475,7 @@ const material = new THREE.MeshStandardMaterial({
 });
 
 // Don't forget UV2 for AO
-geometry.setAttribute("uv2", geometry.attributes.uv);
+geometry.setAttribute('uv2', geometry.attributes.uv);
 ```
 
 ### Normal Map Types
@@ -514,10 +514,10 @@ function generateNoiseTexture(size = 256) {
 
 ```javascript
 function generateGradientTexture(color1, color2, size = 256) {
-  const canvas = document.createElement("canvas");
+  const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = 1;
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
 
   const gradient = ctx.createLinearGradient(0, 0, size, 0);
   gradient.addColorStop(0, color1);
@@ -541,18 +541,18 @@ texture.dispose();
 // Material textures
 function disposeMaterial(material) {
   const maps = [
-    "map",
-    "normalMap",
-    "roughnessMap",
-    "metalnessMap",
-    "aoMap",
-    "emissiveMap",
-    "displacementMap",
-    "alphaMap",
-    "envMap",
-    "lightMap",
-    "bumpMap",
-    "specularMap",
+    'map',
+    'normalMap',
+    'roughnessMap',
+    'metalnessMap',
+    'aoMap',
+    'emissiveMap',
+    'displacementMap',
+    'alphaMap',
+    'envMap',
+    'lightMap',
+    'bumpMap',
+    'specularMap',
   ];
 
   maps.forEach((mapName) => {

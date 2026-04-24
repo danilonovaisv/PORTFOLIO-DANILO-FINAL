@@ -9,10 +9,14 @@ export function PresetButtons() {
   return (
     <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl space-y-6">
       <div className="space-y-1">
-        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">Module_Presets</p>
-        <h2 className="font-mono text-xl font-light text-white uppercase">Quick_Sync<span className="text-[#0048ff]">.</span></h2>
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+          Module_Presets
+        </p>
+        <h2 className="font-mono text-xl font-light text-white uppercase">
+          Quick_Sync<span className="text-[#0048ff]">.</span>
+        </h2>
       </div>
-      
+
       <div className="space-y-6">
         {siteAssetRoleGroups.map((group) => (
           <div key={group.label} className="space-y-3">
@@ -30,10 +34,10 @@ export function PresetButtons() {
           </div>
         ))}
       </div>
-      
+
       <p className="font-mono text-[10px] text-white/30 uppercase leading-relaxed">
-        Note: Presets automate configuration for key system modules. 
-        Select a node to hydrate the primary sync form.
+        Note: Presets automate configuration for key system modules. Select a
+        node to hydrate the primary sync form.
       </p>
     </div>
   );

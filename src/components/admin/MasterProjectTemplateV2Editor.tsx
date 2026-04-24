@@ -189,7 +189,7 @@ export default function MasterProjectTemplateV2Editor({
                 <header className="flex items-center justify-between border-b border-white/5 bg-white/[0.03] px-6 py-3">
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-[10px] font-bold text-[#0048ff]">
-                      Node_{ (index + 1).toString().padStart(2, '0') }
+                      Node_{(index + 1).toString().padStart(2, '0')}
                     </span>
                     <select
                       className="bg-transparent font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 outline-none"
@@ -256,7 +256,8 @@ export default function MasterProjectTemplateV2Editor({
 
                       <label className="space-y-1">
                         <span className={labelClasses}>
-                          System_Features_Config (Protocol: Label: Value - 1/line)
+                          System_Features_Config (Protocol: Label: Value -
+                          1/line)
                         </span>
                         <textarea
                           className={`${inputClasses} min-h-32 font-mono whitespace-pre`}

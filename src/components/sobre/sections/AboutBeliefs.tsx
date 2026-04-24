@@ -30,6 +30,7 @@ import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
 import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
 import { CustomCursor } from '@/components/sobre/beliefs/CustomCursor';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
+import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
 
 // SSR guard: R3F + hooks de scroll não devem executar no servidor.
 // O placeholder mantém o espaço (evita CLS) mas não bloqueia a main thread.
@@ -92,11 +93,13 @@ export const AboutBeliefs = () => {
       />
 
       {/* ── Ghost 3D acima do manifesto no clímax ── */}
-      <GhostScene
-        scrollProgress={scrollYProgress}
-        isMobile={isMobile}
-        prefersReducedMotion={prefersReducedMotion}
-      />
+      <GhostErrorBoundary>
+        <GhostScene
+          scrollProgress={scrollYProgress}
+          isMobile={isMobile}
+          prefersReducedMotion={prefersReducedMotion}
+        />
+      </GhostErrorBoundary>
 
       {/* ── manifesto final abaixo do Ghost, preso ao clímax da seção ── */}
       <BeliefManifesto

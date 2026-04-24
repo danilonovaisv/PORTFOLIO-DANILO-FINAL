@@ -2,9 +2,9 @@ import { defineConfig } from '@playwright/test';
 import process from 'node:process';
 
 // Define the test port we'll use consistently
-const TEST_PORT = 3005;
+const TEST_PORT = 3006;
 const baseURL =
-  process.env.PLAYWRIGHT_BASE_URL || `http://localhost:${TEST_PORT}`;
+  process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${TEST_PORT}`;
 
 export default defineConfig({
   testDir: './test/e2e',

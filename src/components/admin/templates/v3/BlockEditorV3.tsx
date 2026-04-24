@@ -286,7 +286,9 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         block.type === 'video-text') && (
         <div className="grid gap-4 md:grid-cols-2">
           {renderMediaField(
-            block.type === 'video-text' ? 'MEDIA_ASSET_VIDEO' : 'MEDIA_ASSET_IMAGE',
+            block.type === 'video-text'
+              ? 'MEDIA_ASSET_VIDEO'
+              : 'MEDIA_ASSET_IMAGE',
             { kind: block.type === 'video-text' ? 'video' : 'image' }
           )}
           {renderTextField('TEXT_CONTENT')}
@@ -297,7 +299,9 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         <div className="grid gap-4 md:grid-cols-2">
           {renderMediaField('PRIMARY_MEDIA_NODE', { kind: 'image' })}
           {renderMediaField(
-            block.type === 'image-video' ? 'SECONDARY_MEDIA_VIDEO' : 'SECONDARY_MEDIA_IMAGE',
+            block.type === 'image-video'
+              ? 'SECONDARY_MEDIA_VIDEO'
+              : 'SECONDARY_MEDIA_IMAGE',
             {
               secondary: true,
               kind: block.type === 'image-video' ? 'video' : 'image',

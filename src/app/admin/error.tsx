@@ -41,8 +41,8 @@ export default function Error({
         </h2>
       </div>
       <p className="mb-8 text-textSecondary max-w-lg">
-        SYSTEM_ERR: UNEXPECTED_ADMINISTRATIVE_DATA_FAILURE.
-        Recommended action: reload page or verify Supabase core connectivity.
+        SYSTEM_ERR: UNEXPECTED_ADMINISTRATIVE_DATA_FAILURE. Recommended action:
+        reload page or verify Supabase core connectivity.
       </p>
       <div className="flex gap-4">
         <button

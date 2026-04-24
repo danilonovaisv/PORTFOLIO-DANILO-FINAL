@@ -24,6 +24,7 @@ It **controls the flow between other skills**.
 This is a **routing and enforcement skill**, not a creative one.
 
 It decides:
+
 - which skill must run next
 - whether escalation is required
 - whether execution is permitted
@@ -43,6 +44,7 @@ This meta-skill coordinates the following:
 ## Entry Conditions
 
 Invoke this skill when:
+
 - a user proposes a new feature, system, or change
 - a design decision carries meaningful risk
 - correctness matters more than speed
@@ -74,6 +76,7 @@ After brainstorming completes, classify the design as:
 - **High risk**
 
 Use factors such as:
+
 - user impact
 - irreversibility
 - operational cost
@@ -103,11 +106,13 @@ Skipping escalation when required is prohibited.
 If `multi-agent-brainstorming` is run:
 
 Require:
+
 - completed Understanding Lock
 - current Design
 - Decision Log
 
 Do NOT allow:
+
 - new ideation
 - scope expansion
 - reopening problem definition
@@ -121,12 +126,14 @@ Only critique, revision, and decision resolution are allowed.
 Before allowing implementation:
 
 Confirm:
+
 - design is approved (single-agent or multi-agent)
 - Decision Log is complete
 - major assumptions are documented
 - known risks are acknowledged
 
 If any condition fails:
+
 - block execution
 - return to the appropriate skill
 
@@ -144,19 +151,23 @@ If any condition fails:
 ## Exit Conditions
 
 This meta-skill exits ONLY when:
+
 - the next step is explicitly identified, AND
 - all required prior steps are complete
 
 Possible exits:
+
 - “Proceed to implementation planning”
 - “Run multi-agent-brainstorming”
 - “Return to brainstorming for clarification”
 - "If a reviewed design reports a final disposition of APPROVED, REVISE, or REJECT, you MUST route the workflow accordingly and state the chosen next step explicitly."
+
 ---
 
 ## Design Philosophy
 
 This skill exists to:
+
 - slow down the right decisions
 - speed up the right execution
 - prevent costly mistakes

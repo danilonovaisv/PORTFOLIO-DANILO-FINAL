@@ -84,7 +84,9 @@ export default async function ProtectedLayout({
 
     return (
       <AdminErrorDisplay
-        message={error instanceof Error ? error.message : 'Unknown core failure'}
+        message={
+          error instanceof Error ? error.message : 'Unknown core failure'
+        }
         isMissingEnv={isMissingEnv}
       />
     );

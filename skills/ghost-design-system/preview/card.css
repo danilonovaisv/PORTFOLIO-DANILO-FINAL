@@ -1,7 +1,8 @@
 /* Preview card shell — shared by all cards in /preview */
 @import url('../colors_and_type.css');
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: var(--color-background);
@@ -18,8 +19,17 @@ html, body {
   color: var(--color-text);
 }
 
-.row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.col { display: flex; flex-direction: column; gap: 8px; }
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .mono {
   font-family: var(--font-family-mono);
   font-size: 11px;
@@ -27,4 +37,7 @@ html, body {
   text-transform: uppercase;
   color: var(--color-textSecondary);
 }
-.label { color: var(--color-textSecondary); font-size: 12px; }
+.label {
+  color: var(--color-textSecondary);
+  font-size: 12px;
+}

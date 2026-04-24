@@ -136,8 +136,8 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
           placeholder="# Title... \n\nParagraph with content..."
         />
         <p className="text-[11px] text-white/40">
-          This field supports secure Markdown. Titles, lists, links, and emphasis are
-          preserved on the frontend.
+          This field supports secure Markdown. Titles, lists, links, and
+          emphasis are preserved on the frontend.
         </p>
       </div>
     );
@@ -256,8 +256,20 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
     case 'image-video':
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
-          {renderMediaInput('media', 'image', 'file', 'previewUrl', 'System_Media_01')}
-          {renderMediaInput('media2', 'video', 'file2', 'previewUrl2', 'System_Media_02')}
+          {renderMediaInput(
+            'media',
+            'image',
+            'file',
+            'previewUrl',
+            'System_Media_01'
+          )}
+          {renderMediaInput(
+            'media2',
+            'video',
+            'file2',
+            'previewUrl2',
+            'System_Media_02'
+          )}
         </div>
       );
 
@@ -276,6 +288,8 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
       );
 
     default:
-      return <div className="p-4 text-red-500">SYSTEM_ERR: UNKNOWN_BLOCK_TYPE</div>;
+      return (
+        <div className="p-4 text-red-500">SYSTEM_ERR: UNKNOWN_BLOCK_TYPE</div>
+      );
   }
 }

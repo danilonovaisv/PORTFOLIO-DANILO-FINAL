@@ -305,8 +305,7 @@ export function SettingsForm({
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <label className={labelClasses}>
-                  Secret_Payload{' '}
-                  {editingTokenId ? '(UPDATE_ONLY)' : ''}
+                  Secret_Payload {editingTokenId ? '(UPDATE_ONLY)' : ''}
                 </label>
                 <input
                   type="password"
@@ -426,7 +425,8 @@ export function SettingsForm({
                         {token.name}
                       </p>
                       <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">
-                        {token.provider} // {token.environment} // {token.status}
+                        {token.provider} // {token.environment} //{' '}
+                        {token.status}
                       </p>
                       <p className="font-mono text-[10px] text-blue-500/60 tracking-widest">
                         {token.maskedSecret}
@@ -688,7 +688,9 @@ export function SettingsForm({
           <div className="flex items-start gap-4">
             <div className="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500" />
             <p className="font-mono text-[10px] uppercase leading-relaxed text-amber-200/60">
-              WARNING: SUPABASE_SERVICE_ROLE_NOT_DETECTED. SECURE_CRUD_OPERATIONS_ARE_CURRENTLY_LOCKED. PLEASE_VERIFY_ENV_VARS.
+              WARNING: SUPABASE_SERVICE_ROLE_NOT_DETECTED.
+              SECURE_CRUD_OPERATIONS_ARE_CURRENTLY_LOCKED.
+              PLEASE_VERIFY_ENV_VARS.
             </p>
           </div>
         </div>

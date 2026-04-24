@@ -3,7 +3,6 @@
 
 import { GHOST_EASE } from '@/config/motion';
 
-
 /**
  * Tokens de Motion para a página Sobre
  * REGRAS ABSOLUTAS:

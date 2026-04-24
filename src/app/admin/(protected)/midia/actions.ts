@@ -194,7 +194,9 @@ export async function updateAssetFilePath(payload: {
   );
 
   if (!normalizedPath) {
-    throw new Error('SYSTEM_ERR: INVALID_FILE_PATH — ASSET_PATH_UPDATE_REJECTED');
+    throw new Error(
+      'SYSTEM_ERR: INVALID_FILE_PATH — ASSET_PATH_UPDATE_REJECTED'
+    );
   }
 
   const { error } = await supabase

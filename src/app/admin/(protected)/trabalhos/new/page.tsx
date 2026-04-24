@@ -24,7 +24,9 @@ export default async function NewProjectPage() {
         <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
           System_Projects_Layer
         </p>
-        <h1 className="font-mono text-3xl font-light text-white mt-2">SYSTEM_NEW_PROJECT_RECORD<span className="text-[#0048ff]">.</span></h1>
+        <h1 className="font-mono text-3xl font-light text-white mt-2">
+          SYSTEM_NEW_PROJECT_RECORD<span className="text-[#0048ff]">.</span>
+        </h1>
       </div>
       <ProjectForm tags={tags ?? []} landingPages={landingPages ?? []} />
     </div>

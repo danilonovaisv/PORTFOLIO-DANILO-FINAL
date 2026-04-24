@@ -81,7 +81,7 @@ export default async function LandingPagesListPage(props: Props) {
             Landing_Pages<span className="text-blue-500">.</span>
           </h1>
         </div>
-        
+
         <Link
           href="/admin/landing-pages/new"
           className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#0048ff] px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 hover:shadow-[0_0_20px_rgba(0,72,255,0.3)] active:scale-95"
@@ -99,8 +99,12 @@ export default async function LandingPagesListPage(props: Props) {
           </h2>
           <div className="h-[1px] flex-1 mx-4 bg-white/5" />
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[9px] text-white/20 uppercase">Total_Nodes:</span>
-            <span className="font-mono text-[10px] text-[#0048ff]">{pages.length.toString().padStart(2, '0')}</span>
+            <span className="font-mono text-[9px] text-white/20 uppercase">
+              Total_Nodes:
+            </span>
+            <span className="font-mono text-[10px] text-[#0048ff]">
+              {pages.length.toString().padStart(2, '0')}
+            </span>
           </div>
         </div>
 
@@ -172,7 +176,9 @@ export default async function LandingPagesListPage(props: Props) {
                         </td>
                         <td className="px-6 py-5">
                           <span className="font-mono text-[10px] text-white/30">
-                            {new Date(page.created_at).toLocaleDateString('pt-BR')}
+                            {new Date(page.created_at).toLocaleDateString(
+                              'pt-BR'
+                            )}
                           </span>
                         </td>
                         <td className="px-6 py-5">
@@ -208,14 +214,15 @@ export default async function LandingPagesListPage(props: Props) {
               {/* Mobile View */}
               <div className="grid grid-cols-1 divide-y divide-white/5 md:hidden">
                 {pages.map((page) => (
-                  <div
-                    key={page.id}
-                    className="p-6 space-y-4"
-                  >
+                  <div key={page.id} className="p-6 space-y-4">
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
-                        <h3 className="font-mono text-sm text-white">{page.title}</h3>
-                        <code className="block font-mono text-[10px] text-white/30">/{page.slug}</code>
+                        <h3 className="font-mono text-sm text-white">
+                          {page.title}
+                        </h3>
+                        <code className="block font-mono text-[10px] text-white/30">
+                          /{page.slug}
+                        </code>
                       </div>
                       <span
                         className={`inline-flex items-center rounded border px-2 py-0.5 font-mono text-[9px] uppercase tracking-tighter ${
@@ -226,10 +233,12 @@ export default async function LandingPagesListPage(props: Props) {
                             : 'border-white/10 bg-white/5 text-white/40'
                         }`}
                       >
-                        {page.template === MASTER_PROJECT_TEMPLATE_V3 ? 'V3' : 'LEGACY'}
+                        {page.template === MASTER_PROJECT_TEMPLATE_V3
+                          ? 'V3'
+                          : 'LEGACY'}
                       </span>
                     </div>
-                    
+
                     <div className="flex items-center justify-between border-t border-white/5 pt-4">
                       <span className="font-mono text-[9px] text-white/20">
                         {new Date(page.created_at).toLocaleDateString('pt-BR')}
@@ -266,8 +275,12 @@ export default async function LandingPagesListPage(props: Props) {
                 <Plus size={32} />
               </div>
               <div className="space-y-1">
-                <p className="font-mono text-xs text-white/30 uppercase tracking-widest">No_Nodes_Detected</p>
-                <p className="font-mono text-[10px] text-white/20 uppercase">Initialize system by creating your first project.</p>
+                <p className="font-mono text-xs text-white/30 uppercase tracking-widest">
+                  No_Nodes_Detected
+                </p>
+                <p className="font-mono text-[10px] text-white/20 uppercase">
+                  Initialize system by creating your first project.
+                </p>
               </div>
               <Link
                 href="/admin/landing-pages/new"
@@ -292,10 +305,7 @@ function Filters({
   };
 }) {
   return (
-    <form
-      className="grid grid-cols-1 gap-4 lg:grid-cols-12"
-      method="get"
-    >
+    <form className="grid grid-cols-1 gap-4 lg:grid-cols-12" method="get">
       <div className="relative group lg:col-span-6">
         <div className="absolute inset-y-0 left-4 flex items-center text-white/30 group-focus-within:text-[#0048ff] transition-colors">
           <span className="font-mono text-[10px]">QRY:</span>
@@ -322,8 +332,20 @@ function Filters({
           <option value="legacy-blocks">LEGACY_ENV</option>
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/20">
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg
+            width="10"
+            height="6"
+            viewBox="0 0 10 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L5 5L9 1"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
       </div>

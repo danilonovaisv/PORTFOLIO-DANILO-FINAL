@@ -1,6 +1,6 @@
 ---
 name: spline-3d-integration
-description: "Use when adding interactive 3D scenes from Spline.design to web projects. Covers embedding methods (React, Next.js, vanilla JS), the @splinetool/ runtime API for programmatic control (events, variables, animations, camera), performance optimization, mobile fallbacks, and common integration problems like scroll hijacking, layout shift, GPU fallbacks, and watermark removal."
+description: 'Use when adding interactive 3D scenes from Spline.design to web projects. Covers embedding methods (React, Next.js, vanilla JS), the @splinetool/ runtime API for programmatic control (events, variables, animations, camera), performance optimization, mobile fallbacks, and common integration problems like scroll hijacking, layout shift, GPU fallbacks, and watermark removal.'
 ---
 
 # Spline 3D Integration Skill
@@ -11,20 +11,20 @@ Master guide for embedding interactive 3D scenes from [Spline.design](https://sp
 
 ## Quick Reference
 
-| Task | Guide |
-|---|---|
-| Vanilla HTML/JS embed | [guides/VANILLA_INTEGRATION.md](guides/VANILLA_INTEGRATION.md) |
-| React / Next.js / Vue embed | [guides/REACT_INTEGRATION.md](guides/REACT_INTEGRATION.md) |
-| Performance & mobile optimization | [guides/PERFORMANCE.md](guides/PERFORMANCE.md) |
-| Debugging & common problems | [guides/COMMON_PROBLEMS.md](guides/COMMON_PROBLEMS.md) |
+| Task                              | Guide                                                          |
+| --------------------------------- | -------------------------------------------------------------- |
+| Vanilla HTML/JS embed             | [guides/VANILLA_INTEGRATION.md](guides/VANILLA_INTEGRATION.md) |
+| React / Next.js / Vue embed       | [guides/REACT_INTEGRATION.md](guides/REACT_INTEGRATION.md)     |
+| Performance & mobile optimization | [guides/PERFORMANCE.md](guides/PERFORMANCE.md)                 |
+| Debugging & common problems       | [guides/COMMON_PROBLEMS.md](guides/COMMON_PROBLEMS.md)         |
 
 ## Working Examples
 
-| File | What it shows |
-|---|---|
-| [examples/vanilla-embed.html](examples/vanilla-embed.html) | Minimal vanilla JS embed with background + fallback |
+| File                                                                   | What it shows                                            |
+| ---------------------------------------------------------------------- | -------------------------------------------------------- |
+| [examples/vanilla-embed.html](examples/vanilla-embed.html)             | Minimal vanilla JS embed with background + fallback      |
 | [examples/react-spline-wrapper.tsx](examples/react-spline-wrapper.tsx) | Production-ready lazy-loaded React wrapper with fallback |
-| [examples/interactive-scene.tsx](examples/interactive-scene.tsx) | Full interactive example: events, object control, camera |
+| [examples/interactive-scene.tsx](examples/interactive-scene.tsx)       | Full interactive example: events, object control, camera |
 
 ---
 
@@ -38,13 +38,13 @@ Spline is a browser-based 3D design tool — think Figma, but for 3D. Designers 
 
 Before writing any code, check the existing project files to determine the framework.
 
-| Stack | Method |
-|---|---|
-| Vanilla HTML/JS | `<spline-viewer>` web component OR `@splinetool/runtime` |
-| React / Vite | `@splinetool/react-spline` |
-| Next.js | `@splinetool/react-spline/next` |
-| Vue | `@splinetool/vue-spline` |
-| iframe (Webflow, Notion, etc.) | Public URL iframe |
+| Stack                          | Method                                                   |
+| ------------------------------ | -------------------------------------------------------- |
+| Vanilla HTML/JS                | `<spline-viewer>` web component OR `@splinetool/runtime` |
+| React / Vite                   | `@splinetool/react-spline`                               |
+| Next.js                        | `@splinetool/react-spline/next`                          |
+| Vue                            | `@splinetool/vue-spline`                                 |
+| iframe (Webflow, Notion, etc.) | Public URL iframe                                        |
 
 ---
 
@@ -57,6 +57,7 @@ https://prod.spline.design/XXXXXXXXXXXXXXXX/scene.splinecode
 ```
 
 **Before copying the URL, tell the user to check Play Settings:**
+
 - ✅ Toggle **Hide Background** ON if the site has a dark or custom background
 - ✅ Toggle **Hide Spline Logo** ON if they have a paid plan
 - ✅ Set **Geometry Quality** to Performance for faster load

@@ -174,6 +174,7 @@ The component is a compound shape: a pill (text body) geometrically bonded to a 
 | Desktop    | `241px`        | `px-11 py-5`     | `72×72px`   | `20px`    |
 
 **Typography (pill label):**
+
 - Font: Manrope, `font-weight: 500`
 - Color: `#fcffff`
 - `letter-spacing: -0.01em`
@@ -191,6 +192,7 @@ The component is a compound shape: a pill (text body) geometrically bonded to a 
 | Reduced-motion | `#0048ff`          | `#8705f2` (color only) | none          | none        | `1.0`   |
 
 **Focus-visible ring:**
+
 - `outline: 2px solid #4fe6ff`
 - `outline-offset: 4px`
 - `outline-offset-color: #040013`
@@ -228,28 +230,29 @@ Use `whileHover="hovered"` on the parent `motion.div`. Child circle and icon dec
 
 **Color prop:**
 
-| Value    | Pill base  | Circle hover |
-| :------- | :--------- | :----------- |
-| `blue`   | `#0048ff`  | `#8705f2`    |
-| `cyan`   | `#4fe6ff`  | `#0048ff`    |
-| `purple` | `#8705f2`  | `#0048ff`    |
+| Value    | Pill base | Circle hover |
+| :------- | :-------- | :----------- |
+| `blue`   | `#0048ff` | `#8705f2`    |
+| `cyan`   | `#4fe6ff` | `#0048ff`    |
+| `purple` | `#8705f2` | `#0048ff`    |
 
 **Props interface:**
 
 ```ts
 interface AntigravityCTAProps {
-  label:        string                        // pill text
-  href:         string                        // link destination
-  color?:       'blue' | 'cyan' | 'purple'   // default: 'blue'
-  size?:        'sm' | 'md' | 'lg'           // default: 'md'
-  variant?:     'default' | 'compact'         // compact: landing pages
-  entryDelay?:  number                        // default: 0.4 (seconds)
-  className?:   string
-  onClick?:     () => void
+  label: string; // pill text
+  href: string; // link destination
+  color?: 'blue' | 'cyan' | 'purple'; // default: 'blue'
+  size?: 'sm' | 'md' | 'lg'; // default: 'md'
+  variant?: 'default' | 'compact'; // compact: landing pages
+  entryDelay?: number; // default: 0.4 (seconds)
+  className?: string;
+  onClick?: () => void;
 }
 ```
 
 **Critical rules:**
+
 - ⛔ Never build Tailwind color classes dynamically (`bg-[${color}]`). Use `style={{ backgroundColor }}` for runtime color values.
 - ✅ `flex-shrink-0` mandatory on circle — prevents collapse on small viewports.
 - ✅ `useReducedMotion()` must disable `translateX`, `rotate`. Color transition is allowed.

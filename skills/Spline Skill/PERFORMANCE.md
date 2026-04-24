@@ -16,6 +16,7 @@ Spline scenes are WebGL — they run on the GPU. A poorly optimized scene will t
 To check: in Spline editor → Export → Code Export → the file size is shown before generating the URL.
 
 **If the scene is too heavy, tell the user to:**
+
 1. In Export → Play Settings, set **Geometry Quality** to "Performance"
 2. Reduce subdivision levels (1 is usually enough, max 2)
 3. Delete objects that are hidden or never visible
@@ -42,12 +43,20 @@ Go through these before writing any embed code:
 ## Loading Strategy
 
 ### 1. Preload the scene file
+
 Add to `<head>` to start fetching before scripts execute:
+
 ```html
-<link rel="preload" href="https://prod.spline.design/REPLACE_ME/scene.splinecode" as="fetch" crossorigin>
+<link
+  rel="preload"
+  href="https://prod.spline.design/REPLACE_ME/scene.splinecode"
+  as="fetch"
+  crossorigin
+/>
 ```
 
 ### 2. Show a fallback while loading
+
 Never leave users staring at a blank space. Always render a background color or static image as a placeholder:
 
 ```css
@@ -59,13 +68,17 @@ Never leave users staring at a blank space. Always render a background color or 
 ```
 
 ### 3. Lazy load (React)
+
 Don't load Spline until it's needed:
+
 ```jsx
 const Spline = lazy(() => import('@splinetool/react-spline'));
 ```
 
 ### 4. Intersection Observer (load only when visible)
+
 For Spline scenes below the fold:
+
 ```js
 const observer = new IntersectionObserver((entries) => {
   if (entries[0].isIntersecting) {
@@ -81,6 +94,7 @@ observer.observe(document.getElementById('spline-section'));
 ## Mobile Strategy
 
 Spline scenes are GPU-intensive. On mobile they:
+
 - Drain battery quickly
 - Lag on any device without a dedicated GPU
 - Can cause the browser tab to crash on lower-end Android
@@ -88,14 +102,17 @@ Spline scenes are GPU-intensive. On mobile they:
 **Always implement one of these strategies:**
 
 ### Option A — Skip entirely on mobile (recommended for hero backgrounds)
+
 ```js
 if (window.innerWidth < 768) {
   // Don't load Spline — show static background instead
-  document.querySelector('.spline-wrapper').style.background = 'url(fallback.jpg) center/cover';
+  document.querySelector('.spline-wrapper').style.background =
+    'url(fallback.jpg) center/cover';
 }
 ```
 
 ### Option B — Hardware concurrency check
+
 ```js
 // navigator.hardwareConcurrency = number of CPU cores
 // Low core count = likely a low-end device
@@ -105,6 +122,7 @@ if (navigator.hardwareConcurrency <= 2 || window.innerWidth < 768) {
 ```
 
 ### Option C — Export as video for mobile
+
 For decorative/non-interactive scenes: record the animation in Spline as MP4, serve that on mobile instead. Users get the visual, no GPU cost.
 
 ```js
@@ -126,6 +144,7 @@ if (isMobile) {
 Spline scenes are almost always the **Largest Contentful Paint** element, which means they directly affect your Google score.
 
 ### Preventing Layout Shift (CLS)
+
 The canvas loads after HTML, causing the page to jump. Fix it by pre-allocating space:
 
 ```css
@@ -138,14 +157,14 @@ canvas#canvas3d {
 ```
 
 Or for the web component:
+
 ```html
-<spline-viewer
-  url="..."
-  style="width: 100%; height: 100vh; display: block;">
+<spline-viewer url="..." style="width: 100%; height: 100vh; display: block;">
 </spline-viewer>
 ```
 
 ### Lighthouse note
+
 Lighthouse often cannot calculate a performance score at all when a Spline scene is the dominant above-the-fold element. This is a known Lighthouse limitation, not necessarily a site problem. Use WebPageTest or Chrome DevTools instead for real profiling.
 
 ---

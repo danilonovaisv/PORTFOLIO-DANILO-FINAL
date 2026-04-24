@@ -80,7 +80,10 @@ export default async function SettingsPage() {
           (token) => token.provider === 'openai' && token.status === 'active'
         ) || Boolean(extractLegacyTokenValue(legacySetting?.value));
     } catch (err) {
-      console.warn('[Settings] SYSTEM_WARN: Failed to load tokens/admin_users', err);
+      console.warn(
+        '[Settings] SYSTEM_WARN: Failed to load tokens/admin_users',
+        err
+      );
     }
   }
 
@@ -115,7 +118,8 @@ export default async function SettingsPage() {
           </p>
         </div>
         <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
-          Settings<span className="text-[#0048ff]">_</span>Panel<span className="text-[#0048ff]">.</span>
+          Settings<span className="text-[#0048ff]">_</span>Panel
+          <span className="text-[#0048ff]">.</span>
         </h1>
         <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
           <span>Module: Configuration</span>
@@ -150,9 +154,13 @@ export default async function SettingsPage() {
                 >
                   {field.status}
                 </p>
-                <div className={`h-1 w-1 rounded-full ${
-                  field.status === 'Configurado' ? 'bg-emerald-500/40' : 'bg-rose-500/40'
-                }`} />
+                <div
+                  className={`h-1 w-1 rounded-full ${
+                    field.status === 'Configurado'
+                      ? 'bg-emerald-500/40'
+                      : 'bg-rose-500/40'
+                  }`}
+                />
               </div>
             </div>
           ))}

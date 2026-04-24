@@ -27,7 +27,10 @@ type FeaturedProjectsRealtimeProps = {
 
 const POLLING_INTERVAL_MS = 45_000;
 
-function normalizeHomeFeaturedProjects(projects: PortfolioProject[], seed?: number) {
+function normalizeHomeFeaturedProjects(
+  projects: PortfolioProject[],
+  seed?: number
+) {
   return shuffleHomeProjects(projects, seed);
 }
 
@@ -98,7 +101,10 @@ export default function FeaturedProjectsRealtime({
             index
           )
       );
-      const normalizedProjects = normalizeHomeFeaturedProjects(nextProjects, shuffleSeed);
+      const normalizedProjects = normalizeHomeFeaturedProjects(
+        nextProjects,
+        shuffleSeed
+      );
 
       if (normalizedProjects.length === 0) {
         setProjects((current) =>

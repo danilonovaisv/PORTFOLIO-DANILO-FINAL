@@ -99,10 +99,12 @@ export default async function AdminDashboardPage() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0048ff]/40 opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0048ff]"></span>
             </span>
-            <span className="font-mono text-[9px] text-white/40 uppercase">LIVE_SIGNAL</span>
+            <span className="font-mono text-[9px] text-white/40 uppercase">
+              LIVE_SIGNAL
+            </span>
           </div>
         </div>
-        
+
         <Suspense fallback={<DashboardSkeleton />}>
           <DashboardStats />
         </Suspense>
@@ -110,7 +112,7 @@ export default async function AdminDashboardPage() {
 
       <section className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-10 transition-all hover:border-[#0048ff]/10 backdrop-blur-xl">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#0048ff]/5 blur-[100px] transition-all group-hover:bg-[#0048ff]/10" />
-        
+
         <div className="relative z-10 space-y-6">
           <div className="space-y-2">
             <h2 className="font-mono text-3xl font-light text-white tracking-tight">
@@ -118,12 +120,12 @@ export default async function AdminDashboardPage() {
             </h2>
             <div className="h-[1px] w-20 bg-[#0048ff]/30" />
           </div>
-          
+
           <p className="max-w-2xl font-mono text-sm leading-relaxed text-white/60">
-            SYSTEM_CORE_V3_OPERATIONAL. WEBGL_MODULES AND SUPABASE_INTEGRATIONS 
+            SYSTEM_CORE_V3_OPERATIONAL. WEBGL_MODULES AND SUPABASE_INTEGRATIONS
             IN SYNCHRONIZED STATE. PREPARE FOR ARCHITECTURAL EVOLUTION.
           </p>
-          
+
           <div className="pt-4 flex flex-wrap gap-4">
             <div className="inline-flex items-center gap-3 rounded-lg border border-white/5 bg-white/5 px-5 py-2.5 transition-colors hover:bg-white/10">
               <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest">
@@ -133,7 +135,7 @@ export default async function AdminDashboardPage() {
                 {new Date().toLocaleDateString('en-US')}
               </span>
             </div>
-            
+
             <div className="inline-flex items-center gap-3 rounded-lg border border-white/5 bg-white/5 px-5 py-2.5 transition-colors hover:bg-white/10">
               <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest">
                 SYSTEM_CLEARANCE

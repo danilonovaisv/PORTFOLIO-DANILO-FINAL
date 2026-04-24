@@ -41,7 +41,7 @@ test.describe('Admin Login Page', () => {
           await route.fulfill({
             status: 200,
             contentType: 'text/html',
-            body: '<html><body><h1>Painel</h1></body></html>',
+            body: '<html><body><h1>DASHBOARD.</h1></body></html>',
           });
           return;
         }
@@ -53,7 +53,7 @@ test.describe('Admin Login Page', () => {
             contentType: 'text/html',
             body: `<html><body>
               <script>window.history.pushState(null, '', '/admin');</script>
-              <h1>Painel</h1>
+              <h1>DASHBOARD.</h1>
             </body></html>`,
           });
           return;
@@ -68,18 +68,12 @@ test.describe('Admin Login Page', () => {
 
     // 3. Verify login form is visible
     await expect(
-      page.locator('h1', { hasText: /Entrar no painel/i })
+      page.locator('h1', { hasText: /System_Access_Portal/i })
     ).toBeVisible({ timeout: 15000 });
 
     // 4. Fill credentials
-    await page.fill(
-      'input[type="email"], input[name="email"]',
-      'admin@test.com'
-    );
-    await page.fill(
-      'input[type="password"], input[name="password"]',
-      'password123'
-    );
+    await page.getByLabel(/Identity_Email/i).fill('admin@test.com');
+    await page.getByLabel(/Access_Key_Shield/i).fill('password123');
 
     // 5. Arm handlers before click.
     mockLoginDone = true;
@@ -92,7 +86,7 @@ test.describe('Admin Login Page', () => {
     await expect(page).toHaveURL(/\/admin\/?$/i, { timeout: 25000 });
 
     // 8. Verify dashboard content
-    await expect(page.locator('h1', { hasText: /Painel/i })).toBeVisible({
+    await expect(page.locator('h1', { hasText: /DASHBOARD\./i })).toBeVisible({
       timeout: 15000,
     });
 

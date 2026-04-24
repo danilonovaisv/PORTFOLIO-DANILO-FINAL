@@ -5,13 +5,22 @@
 ```typescript
 'use client';
 
-import { useMotionValue, useTransform, useSpring, MotionValue } from 'framer-motion';
+import {
+  useMotionValue,
+  useTransform,
+  useSpring,
+  MotionValue,
+} from 'framer-motion';
 import { useEffect } from 'react';
 
 /** Returns a smoothed scroll progress value between 0 and 1 */
 export function useScrollProgress(): MotionValue<number> {
   const raw = useMotionValue(0);
-  const smoothed = useSpring(raw, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothed = useSpring(raw, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     function update() {
@@ -32,7 +41,9 @@ export function useScrollY(): MotionValue<number> {
   const scrollY = useMotionValue(0);
 
   useEffect(() => {
-    function update() { scrollY.set(window.scrollY); }
+    function update() {
+      scrollY.set(window.scrollY);
+    }
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, [scrollY]);
@@ -141,46 +152,66 @@ export default function Providers({ children }: ProvidersProps) {
 import { Variants } from 'framer-motion';
 
 export const EASING = {
-  spring:   [0.16, 1, 0.3, 1],
-  smooth:   [0.4, 0, 0.2, 1],
-  reveal:   [0.25, 1, 0.5, 1],
+  spring: [0.16, 1, 0.3, 1],
+  smooth: [0.4, 0, 0.2, 1],
+  reveal: [0.25, 1, 0.5, 1],
 } as const;
 
 /** Fade in from opacity 0 */
 export const fadeIn: Variants = {
-  hidden:  { opacity: 0 },
+  hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.5, ease: EASING.smooth } },
 };
 
 /** Slide up with fade */
 export const slideUp: Variants = {
-  hidden:  { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASING.spring } },
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: EASING.spring },
+  },
 };
 
 /** Slide in from left */
 export const slideLeft: Variants = {
-  hidden:  { opacity: 0, x: -32 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASING.spring } },
+  hidden: { opacity: 0, x: -32 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: EASING.spring },
+  },
 };
 
 /** Scale in from slightly smaller */
 export const scaleIn: Variants = {
-  hidden:  { opacity: 0, scale: 0.92 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: EASING.spring } },
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.4, ease: EASING.spring },
+  },
 };
 
 /** Stagger container — wraps items that use slideUp/fadeIn */
 export const staggerContainer: Variants = {
-  hidden:  {},
+  hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
 };
 
 /** Page transition — use with AnimatePresence */
 export const pageTransition: Variants = {
-  initial:  { opacity: 0, y: 8 },
-  animate:  { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASING.smooth } },
-  exit:     { opacity: 0, y: -8, transition: { duration: 0.25, ease: EASING.smooth } },
+  initial: { opacity: 0, y: 8 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: EASING.smooth },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: 0.25, ease: EASING.smooth },
+  },
 };
 ```
 

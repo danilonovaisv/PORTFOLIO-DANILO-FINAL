@@ -113,7 +113,15 @@ export function AssetGallery({
               ))}
             </select>
             <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
 
@@ -137,7 +145,15 @@ export function AssetGallery({
               ))}
             </select>
             <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
 
@@ -169,7 +185,15 @@ export function AssetGallery({
           </span>
         </div>
         <span className="font-mono text-[10px] text-white/30 uppercase">
-          Status: <span className="text-[#0048ff]">{totalFiltered.toString().padStart(2, '0')}</span>_Matches / <span className="text-white/40">{totalValid.toString().padStart(2, '0')}</span>_Total
+          Status:{' '}
+          <span className="text-[#0048ff]">
+            {totalFiltered.toString().padStart(2, '0')}
+          </span>
+          _Matches /{' '}
+          <span className="text-white/40">
+            {totalValid.toString().padStart(2, '0')}
+          </span>
+          _Total
         </span>
       </div>
 
@@ -192,9 +216,10 @@ export function AssetGallery({
       {/* Pagination */}
       <div className="flex items-center justify-between pt-8 border-t border-white/5">
         <div className="font-mono text-[9px] uppercase tracking-widest text-white/30">
-          System_Registry_Range: {startIndex + 1}-{Math.min(startIndex + PAGE_SIZE, totalFiltered)}
+          System_Registry_Range: {startIndex + 1}-
+          {Math.min(startIndex + PAGE_SIZE, totalFiltered)}
         </div>
-        
+
         <div className="flex items-center gap-8">
           <button
             type="button"
@@ -202,9 +227,12 @@ export function AssetGallery({
             disabled={currentPage <= 1 || isPending}
             className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white transition-opacity disabled:opacity-20"
           >
-            <span className="text-[#0048ff] group-hover:-translate-x-1 transition-transform">←</span> System_Prev_Set
+            <span className="text-[#0048ff] group-hover:-translate-x-1 transition-transform">
+              ←
+            </span>{' '}
+            System_Prev_Set
           </button>
-          
+
           <div className="flex items-center gap-2">
             <span className="font-mono text-[10px] text-[#0048ff]">
               {currentPage.toString().padStart(2, '0')}
@@ -221,7 +249,10 @@ export function AssetGallery({
             disabled={currentPage >= totalPages || isPending}
             className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white transition-opacity disabled:opacity-20"
           >
-            System_Next_Set <span className="text-[#0048ff] group-hover:translate-x-1 transition-transform">→</span>
+            System_Next_Set{' '}
+            <span className="text-[#0048ff] group-hover:translate-x-1 transition-transform">
+              →
+            </span>
           </button>
         </div>
       </div>

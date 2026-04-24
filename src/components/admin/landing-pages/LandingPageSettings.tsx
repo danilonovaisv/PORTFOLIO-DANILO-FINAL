@@ -64,11 +64,11 @@ export function LandingPageSettings({
           <option value={LEGACY_PROJECT_TEMPLATE}>V0_LEGACY_BLOCKS</option>
         </select>
         <p className="font-mono text-[9px] leading-relaxed text-white/30 uppercase tracking-tighter">
-          {template === MASTER_PROJECT_TEMPLATE_V3 
-            ? "Atomic compositions with clean hero & asset zoom." 
-            : template === MASTER_PROJECT_TEMPLATE_V2 
-            ? "MLPE Standard with structured grid blocks." 
-            : "Legacy system support mode."}
+          {template === MASTER_PROJECT_TEMPLATE_V3
+            ? 'Atomic compositions with clean hero & asset zoom.'
+            : template === MASTER_PROJECT_TEMPLATE_V2
+              ? 'MLPE Standard with structured grid blocks.'
+              : 'Legacy system support mode.'}
         </p>
       </div>
 
@@ -141,7 +141,9 @@ export function LandingPageSettings({
             ) : (
               <label className="absolute inset-0 flex cursor-pointer flex-col items-center justify-center transition-colors hover:bg-white/5">
                 <ImageIcon className="mb-2 text-white/20" size={24} />
-                <span className="font-mono text-[9px] uppercase tracking-widest text-white/40">Load_Cover_Asset</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+                  Load_Cover_Asset
+                </span>
                 <input
                   type="file"
                   className="hidden"

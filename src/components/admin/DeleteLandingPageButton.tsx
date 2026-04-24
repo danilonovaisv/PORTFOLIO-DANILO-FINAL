@@ -40,7 +40,8 @@ export function DeleteLandingPageButton({ id, title, compact = false }: Props) {
           : 'p-2 text-white/40 transition-colors hover:text-rose-500 disabled:opacity-50'
       }
     >
-      <Trash2 size={compact ? 14 : 16} strokeWidth={1.5} /> {compact ? 'System_Purge_Entry' : null}
+      <Trash2 size={compact ? 14 : 16} strokeWidth={1.5} />{' '}
+      {compact ? 'System_Purge_Entry' : null}
     </button>
   );
 }

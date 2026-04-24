@@ -54,14 +54,14 @@ export default function LoginForm() {
 
     window.onTurnstileExpired = () => {
       setTurnstileToken(null);
-      setError('SYSTEM_ERR: VERIFICATION_EXPIRED — GENERATE_NEW_CAPTCHA_TO_PROCEED');
+      setError(
+        'SYSTEM_ERR: VERIFICATION_EXPIRED — GENERATE_NEW_CAPTCHA_TO_PROCEED'
+      );
     };
 
     window.onTurnstileError = () => {
       setTurnstileToken(null);
-      setError(
-        'SYSTEM_ERR: SECURITY_LOAD_FAILURE — REFRESH_PAGE_AND_RETRY'
-      );
+      setError('SYSTEM_ERR: SECURITY_LOAD_FAILURE — REFRESH_PAGE_AND_RETRY');
     };
 
     const authError = searchParams.get('error');
@@ -323,9 +323,13 @@ export default function LoginForm() {
       />
 
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">Identity_Email</span>
+        <label htmlFor="identity-email" className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+            Identity_Email
+          </span>
           <input
+            id="identity-email"
+            name="email"
             type="email"
             required
             autoComplete="email"
@@ -336,9 +340,13 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">Access_Key_Shield</span>
+        <label htmlFor="access-key" className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+            Access_Key_Shield
+          </span>
           <input
+            id="access-key"
+            name="password"
             type="password"
             required
             autoComplete="current-password"
@@ -377,15 +385,7 @@ export default function LoginForm() {
           className="w-full rounded bg-[#0048ff] py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/80 active:scale-[0.98] disabled:opacity-50"
           disabled={isBusy}
         >
-          {isRedirecting
-            ? 'REDIRECTING...'
-            : busyAction === 'login'
-              ? 'ESTABLISHING_SESSION...'
-              : busyAction === 'signup'
-                ? 'REGISTERING_IDENTITY...'
-                : mode === 'login'
-                  ? 'SYSTEM_LOGIN'
-                  : 'SYSTEM_REGISTER'}
+          {primaryButtonLabel}
         </button>
 
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -395,9 +395,7 @@ export default function LoginForm() {
             onClick={() => handleOAuth('google')}
             disabled={isBusy}
           >
-            {busyAction === 'google'
-              ? 'Google_Redirect...'
-              : 'OAUTH_GOOGLE'}
+            {busyAction === 'google' ? 'Google_Redirect...' : 'OAUTH_GOOGLE'}
           </button>
           <button
             type="button"
@@ -405,9 +403,7 @@ export default function LoginForm() {
             onClick={() => handleOAuth('github')}
             disabled={isBusy}
           >
-            {busyAction === 'github'
-              ? 'GitHub_Redirect...'
-              : 'OAUTH_GITHUB'}
+            {busyAction === 'github' ? 'GitHub_Redirect...' : 'OAUTH_GITHUB'}
           </button>
         </div>
 
@@ -418,9 +414,7 @@ export default function LoginForm() {
             onClick={handleMagicLink}
             disabled={isBusy}
           >
-            {busyAction === 'magic-link'
-              ? 'SENDING_LINK...'
-              : 'OTP_MAGIC_LINK'}
+            {busyAction === 'magic-link' ? 'SENDING_LINK...' : 'OTP_MAGIC_LINK'}
           </button>
           <button
             type="button"
@@ -428,19 +422,15 @@ export default function LoginForm() {
             onClick={handlePasswordRecovery}
             disabled={isBusy}
           >
-            {busyAction === 'recovery'
-              ? 'RECOVERY_INIT...'
-              : 'KEY_RECOVERY'}
+            {busyAction === 'recovery' ? 'RECOVERY_INIT...' : 'KEY_RECOVERY'}
           </button>
         </div>
 
         <p className="font-mono text-[9px] leading-5 text-white/20 uppercase tracking-tighter">
           Production_Environment: SSL/HTTPS_REQUIRED. Callbacks_Handled_Via{' '}
-          <span className="text-[#0048ff]">/auth/callback</span>. System_Recovery_Node_Located_At{' '}
-          <span className="text-[#0048ff]">
-            /admin/reset-password
-          </span>
-          .
+          <span className="text-[#0048ff]">/auth/callback</span>.
+          System_Recovery_Node_Located_At{' '}
+          <span className="text-[#0048ff]">/admin/reset-password</span>.
         </p>
       </form>
     </div>

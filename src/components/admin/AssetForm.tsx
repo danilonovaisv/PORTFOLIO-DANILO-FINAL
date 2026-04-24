@@ -63,7 +63,9 @@ export function AssetForm({ preset }: AssetFormProps) {
           fileInputRef.current.value = '';
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'SYSTEM_ERR: ASSET_SAVE_FAILURE');
+        setError(
+          err instanceof Error ? err.message : 'SYSTEM_ERR: ASSET_SAVE_FAILURE'
+        );
       }
     });
   };
@@ -72,7 +74,9 @@ export function AssetForm({ preset }: AssetFormProps) {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="grid gap-6 md:grid-cols-2">
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Key_Identifier</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">
+            Key_Identifier
+          </span>
           <input
             name="asset-key"
             required
@@ -83,7 +87,9 @@ export function AssetForm({ preset }: AssetFormProps) {
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Page_Scope</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">
+            Page_Scope
+          </span>
           <select
             name="asset-page"
             value={page}
@@ -98,7 +104,9 @@ export function AssetForm({ preset }: AssetFormProps) {
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Data_Type</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">
+            Data_Type
+          </span>
           <select
             name="asset-type"
             value={assetType}
@@ -112,7 +120,9 @@ export function AssetForm({ preset }: AssetFormProps) {
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Sub_Path (Optional)</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">
+            Sub_Path (Optional)
+          </span>
           <input
             name="asset-subpath"
             value={subPath}
@@ -122,7 +132,9 @@ export function AssetForm({ preset }: AssetFormProps) {
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Sort_Order</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">
+            Sort_Order
+          </span>
           <input
             type="number"
             value={sortOrder ?? ''}
@@ -136,7 +148,9 @@ export function AssetForm({ preset }: AssetFormProps) {
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">Technical_Description</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20">
+          Technical_Description
+        </span>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -157,7 +171,9 @@ export function AssetForm({ preset }: AssetFormProps) {
           />
           <div className="space-y-2">
             <p className="font-mono text-xs text-white/40 group-hover:text-[#0048ff] transition-colors">
-              {file ? `[ FILE_SELECTED: ${file.name} ]` : '[ CLICK_TO_SELECT_BINARY ]'}
+              {file
+                ? `[ FILE_SELECTED: ${file.name} ]`
+                : '[ CLICK_TO_SELECT_BINARY ]'}
             </p>
             <p className="font-mono text-[9px] uppercase tracking-tighter text-white/20">
               SUPPORTED: IMG, VID, FONT, DOC

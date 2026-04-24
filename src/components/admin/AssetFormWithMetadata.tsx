@@ -96,7 +96,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="grid gap-4 md:grid-cols-2">
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Asset_Key</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Asset_Key
+          </span>
           <input
             name="asset-key"
             required
@@ -107,37 +109,63 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Page_Scope</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Page_Scope
+          </span>
           <select
             name="asset-page"
             value={page}
             onChange={(e) => setPage(e.target.value)}
             className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none appearance-none transition-all"
           >
-            <option value="global" className="bg-[#040013]">GLOBAL_SCOPE</option>
-            <option value="home" className="bg-[#040013]">HOME_INDEX</option>
-            <option value="portfolio" className="bg-[#040013]">WORK_ARCHIVE</option>
-            <option value="about" className="bg-[#040013]">INFO_CORE</option>
-            <option value="clients" className="bg-[#040013]">PARTNER_LOGS</option>
+            <option value="global" className="bg-[#040013]">
+              GLOBAL_SCOPE
+            </option>
+            <option value="home" className="bg-[#040013]">
+              HOME_INDEX
+            </option>
+            <option value="portfolio" className="bg-[#040013]">
+              WORK_ARCHIVE
+            </option>
+            <option value="about" className="bg-[#040013]">
+              INFO_CORE
+            </option>
+            <option value="clients" className="bg-[#040013]">
+              PARTNER_LOGS
+            </option>
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Media_Type</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Media_Type
+          </span>
           <select
             name="asset-type"
             value={assetType}
             onChange={(e) => setAssetType(e.target.value)}
             className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none appearance-none transition-all"
           >
-            <option value="image" className="bg-[#040013]">RASTER_IMAGE</option>
-            <option value="video" className="bg-[#040013]">MOTION_STREAM</option>
-            <option value="file" className="bg-[#040013]">GENERIC_DATA</option>
-            <option value="font" className="bg-[#040013]">TYPEFACE_BIN</option>
-            <option value="model" className="bg-[#040013]">MESH_GEOMETRY</option>
+            <option value="image" className="bg-[#040013]">
+              RASTER_IMAGE
+            </option>
+            <option value="video" className="bg-[#040013]">
+              MOTION_STREAM
+            </option>
+            <option value="file" className="bg-[#040013]">
+              GENERIC_DATA
+            </option>
+            <option value="font" className="bg-[#040013]">
+              TYPEFACE_BIN
+            </option>
+            <option value="model" className="bg-[#040013]">
+              MESH_GEOMETRY
+            </option>
           </select>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Sub_Path</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Sub_Path
+          </span>
           <input
             name="asset-subpath"
             value={subPath}
@@ -147,7 +175,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Sort_Priority</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            System_Sort_Priority
+          </span>
           <input
             type="number"
             value={sortOrder ?? ''}
@@ -161,7 +191,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Meta_Description</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+          System_Meta_Description
+        </span>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -179,7 +211,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
 
         <div className="grid gap-6 md:grid-cols-3">
           <div className="space-y-3">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">System_Pos (X, Y, Z)</span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">
+              System_Pos (X, Y, Z)
+            </span>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -209,7 +243,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
           </div>
 
           <div className="space-y-3">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">System_Sca (X, Y, Z)</span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">
+              System_Sca (X, Y, Z)
+            </span>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -239,7 +275,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
           </div>
 
           <div className="space-y-3">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">System_Rot (X, Y, Z)</span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">
+              System_Rot (X, Y, Z)
+            </span>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -271,7 +309,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">System_Data_Buffer</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+          System_Data_Buffer
+        </span>
         <input
           ref={fileInputRef}
           type="file"

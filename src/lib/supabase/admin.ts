@@ -12,11 +12,15 @@ export function createAdminClient() {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl) {
-    throw new Error('SYSTEM_ERR: ENV_MISSING — NEXT_PUBLIC_SUPABASE_URL_NOT_DEFINED');
+    throw new Error(
+      'SYSTEM_ERR: ENV_MISSING — NEXT_PUBLIC_SUPABASE_URL_NOT_DEFINED'
+    );
   }
 
   if (!serviceRoleKey) {
-    throw new Error('SYSTEM_ERR: ENV_MISSING — SUPABASE_SERVICE_ROLE_KEY_NOT_DEFINED');
+    throw new Error(
+      'SYSTEM_ERR: ENV_MISSING — SUPABASE_SERVICE_ROLE_KEY_NOT_DEFINED'
+    );
   }
 
   return createClient<Database>(supabaseUrl, serviceRoleKey, {

@@ -289,9 +289,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
       });
 
       if (result.ok) {
-        toast({ 
-          title: 'SYSTEM_SYNC: PERSISTENCE_SUCCESS', 
-          description: 'Landing Page node has been successfully committed to the database.' 
+        toast({
+          title: 'SYSTEM_SYNC: PERSISTENCE_SUCCESS',
+          description:
+            'Landing Page node has been successfully committed to the database.',
         });
         router.push('/admin/landing-pages');
         router.refresh();
@@ -367,8 +368,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
               Confirm_Deletion?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-white/40 text-[10px] uppercase leading-relaxed tracking-tighter">
-              Are you sure you want to remove this functional block? 
-              This action cannot be rolled back in the current session.
+              Are you sure you want to remove this functional block? This action
+              cannot be rolled back in the current session.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-6 border-t border-white/5 pt-6">

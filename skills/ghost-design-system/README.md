@@ -1,8 +1,8 @@
 # 👻 Ghost Design System
 
 **Brand:** Ghost Design / Danilo Novais Portfolio ("Ghost Era")
-**Tagline:** *"Você não vê o design. Mas ele vê você."* ("You don't see design. But it sees you.")
-**Philosophy:** *Presence without noise. Motion as breath. Design as an invisible guide.*
+**Tagline:** _"Você não vê o design. Mas ele vê você."_ ("You don't see design. But it sees you.")
+**Philosophy:** _Presence without noise. Motion as breath. Design as an invisible guide._
 
 Ghost is a portfolio-grade design system for an **experimental-premium** creative portfolio — deep void backgrounds, spectral electric-blue light, editorial minimalism, and atmospheric WebGL. This folder is the extracted, browsable version of that system for use in prototypes, mockups, decks, and other production-adjacent work.
 
@@ -72,19 +72,19 @@ A single product: **portfoliodanilo.com** — a Portuguese-language (pt-BR) inst
 ### Language & tone
 
 - **Primary language: Portuguese (Brazilian).** UI labels and headings in pt-BR (`portfólio showcase`, `vamos trabalhar juntos`, `voltar ao portfólio`, `Contato`). Occasional English accents on CTAs and technical terms (`let's build something great`, `WebGL`, `R3F`). If producing English artifacts, keep the lowercased editorial voice.
-- **Voice:** editorial, quiet, matter-of-fact. First-person singular *when speaking as Danilo*; second-person ("você") when addressing the viewer. Never "we."
+- **Voice:** editorial, quiet, matter-of-fact. First-person singular _when speaking as Danilo_; second-person ("você") when addressing the viewer. Never "we."
 - **Tone words:** spectral, atmospheric, disciplined, editorial, restrained. Never cheerful, never salesy.
 
 ### Casing
 
 - **Lowercase dominates CTAs and small UI:** `vamos trabalhar juntos →`, `let's build something great`, `voltar ao portfólio`. Sentence case or lowercase for body.
 - **Section headlines often mix weights and styles for rhythm** — e.g. `portfólio showcase` renders `portfólio` in **italic light blue** and `showcase` in **bold white**. Two-tone headlines are a signature move.
-- **UPPERCASE** is used sparingly and *tightly tracked* (`letter-spacing: 0.2em`–`0.25em`) — footer nav, hero editorial tag, monospace micro-labels only.
+- **UPPERCASE** is used sparingly and _tightly tracked_ (`letter-spacing: 0.2em`–`0.25em`) — footer nav, hero editorial tag, monospace micro-labels only.
 - **Headlines may be tracked tight** (`tracking-tighter` / `-0.04em`) on display-weight text.
 
 ### Copy examples (lifted from the repo)
 
-- Hero tagline: *"Você não vê o design. Mas ele vê você."*
+- Hero tagline: _"Você não vê o design. Mas ele vê você."_
 - Hero CTA: `vamos trabalhar juntos →`
 - Generic build CTA: `let's build something great`
 - Back CTA (landing pages): `voltar ao portfólio`
@@ -104,19 +104,19 @@ A single product: **portfoliodanilo.com** — a Portuguese-language (pt-BR) inst
 
 ### Colors
 
-| Token | Hex | Role |
-|---|---|---|
-| `--color-bluePrimary` | `#0048ff` | Brand primary, CTAs, footer, "solid" state |
-| `--color-blueAccent` | `#4fe6ff` | Spectral glow, secondary highlight, borders |
+| Token                   | Hex       | Role                                              |
+| ----------------------- | --------- | ------------------------------------------------- |
+| `--color-bluePrimary`   | `#0048ff` | Brand primary, CTAs, footer, "solid" state        |
+| `--color-blueAccent`    | `#4fe6ff` | Spectral glow, secondary highlight, borders       |
 | `--color-purpleDetails` | `#8705f2` | **Hover state** for circle CTAs + Antigravity orb |
-| `--color-pinkDetails` | `#f501d3` | Detail flashes, glitch anomalies |
-| `--color-background` | `#040013` | Void Black — THE background (not `#000`) |
-| `--color-neutral` | `#0b0d3a` | Deep-card surface, gradient anchor |
-| `--color-text` | `#fcffff` | Primary text (softly off-white) |
-| `--color-textSecondary` | `#a1a3a3` | Metadata, captions, disabled |
-| `--color-redAccent` | `#e50914` | Errors only |
+| `--color-pinkDetails`   | `#f501d3` | Detail flashes, glitch anomalies                  |
+| `--color-background`    | `#040013` | Void Black — THE background (not `#000`)          |
+| `--color-neutral`       | `#0b0d3a` | Deep-card surface, gradient anchor                |
+| `--color-text`          | `#fcffff` | Primary text (softly off-white)                   |
+| `--color-textSecondary` | `#a1a3a3` | Metadata, captions, disabled                      |
+| `--color-redAccent`     | `#e50914` | Errors only                                       |
 
-**Philosophy:** deep void pierced by electric light. Keep surfaces mostly `#040013`; use Ghost Blue as the single punctuating color. Cyan (`#4fe6ff`) is reserved for atmospheric glow — never for flat fills. Purple is a **state**, not a color choice — it appears *only* on hover.
+**Philosophy:** deep void pierced by electric light. Keep surfaces mostly `#040013`; use Ghost Blue as the single punctuating color. Cyan (`#4fe6ff`) is reserved for atmospheric glow — never for flat fills. Purple is a **state**, not a color choice — it appears _only_ on hover.
 
 ### Type
 
@@ -136,7 +136,7 @@ A single product: **portfoliodanilo.com** — a Portuguese-language (pt-BR) inst
 ### Backgrounds
 
 - Always **flat void** (`#040013`) or deep radial gradient `radial-gradient(circle at 50% 50%, #0a0029 0%, #040013 70%)`.
-- **WebGL ghost entity** lives *above* the text (z-30), with text masked by a radial gradient that tracks the ghost's screen position — the "ghost reveals the copy" effect.
+- **WebGL ghost entity** lives _above_ the text (z-30), with text masked by a radial gradient that tracks the ghost's screen position — the "ghost reveals the copy" effect.
 - Mobile: no WebGL. Falls back to the radial gradient alone.
 - **No** stock imagery. **No** full-bleed photographic hero. **No** repeating pattern textures. **No** hand-drawn illustration. Atmospheric WebGL + flat color only.
 
@@ -178,7 +178,7 @@ A single product: **portfoliodanilo.com** — a Portuguese-language (pt-BR) inst
 ### Transparency & blur
 
 - **Glass surface:** `bg-white/5` + `backdrop-blur-md` + `border-white/10`. Used for the desktop header.
-- **No** fake CSS glassmorphism on hero cards — the brand rule is explicit: *"Sem glassmorphism fake em CSS."*
+- **No** fake CSS glassmorphism on hero cards — the brand rule is explicit: _"Sem glassmorphism fake em CSS."_
 - Masking: radial-gradient masks drive the ghost-reveals-text effect (see `HeroCopy.module.css`).
 
 ### Corner radii
@@ -226,7 +226,7 @@ A single product: **portfoliodanilo.com** — a Portuguese-language (pt-BR) inst
 
 ---
 
-## What this kit intentionally does *not* include
+## What this kit intentionally does _not_ include
 
 - The **GhostScene R3F / Three.js ghost entity** is not recreated. It's a 30 KB GLSL+R3F scene; the UI kit uses a CSS radial-gradient stand-in labelled **"Ghost Aura"**. Flagged for the user.
 - The **fluid-glass header WebGL refraction** is not recreated. Kit uses `backdrop-blur` + `rgba(255,255,255,0.05)` glass. Flagged.

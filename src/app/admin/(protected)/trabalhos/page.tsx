@@ -64,9 +64,7 @@ export default async function TrabalhosPage(props: Props) {
       JSON.stringify(projectsError, null, 2)
     );
   } else {
-    console.warn(
-      `[SYSTEM_SQL] Projects found: ${baseProjects?.length ?? 0}`
-    );
+    console.warn(`[SYSTEM_SQL] Projects found: ${baseProjects?.length ?? 0}`);
   }
 
   const projectIds = (baseProjects ?? []).map((project) => project.id);
@@ -158,7 +156,7 @@ export default async function TrabalhosPage(props: Props) {
           className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[#0048ff] px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 active:scale-95"
         >
           <div className="absolute inset-0 flex -translate-x-full transition-transform group-hover:translate-x-0">
-             <div className="h-full w-full bg-white/20 blur-xl" />
+            <div className="h-full w-full bg-white/20 blur-xl" />
           </div>
           <span className="relative">Add_New_Project</span>
         </Link>
@@ -187,7 +185,7 @@ export default async function TrabalhosPage(props: Props) {
         />
 
         <div className="pt-4">
-           <ProjectsTable projects={filteredProjects} />
+          <ProjectsTable projects={filteredProjects} />
         </div>
       </div>
     </div>

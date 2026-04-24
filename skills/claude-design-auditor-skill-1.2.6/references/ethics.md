@@ -9,12 +9,14 @@ This reference covers Category 18 of the Design Auditor skill.
 ## The Ethical Line
 
 **Persuasion is acceptable when:**
+
 - It accurately represents facts and outcomes
 - It highlights genuine value to the user
 - It makes desired actions easier without making undesired actions impossible
 - The user retains full understanding and control of what they're agreeing to
 
 **Persuasion becomes manipulation when it:**
+
 - Deceives users about facts, prices, consequences, or availability
 - Exploits cognitive biases (loss aversion, social pressure, anchoring) against the user's interests
 - Makes unwanted outcomes harder to reach than wanted ones through friction, not logic
@@ -29,26 +31,26 @@ When in doubt, apply this test: **"Would the user feel tricked if they understoo
 
 Not all patterns are equally detectable from design files or code. Declare confidence level per finding.
 
-| Pattern | Figma detectable? | Code detectable? | Confidence |
-|---|---|---|---|
-| Confirmshaming | ✅ Text content | ✅ String literals | 🟢 High |
-| CTA hierarchy inversion | ✅ Size, color, weight | ✅ Class/style comparison | 🟢 High |
-| Trick questions | ✅ Label text | ✅ Label + input text | 🟢 High |
-| Pre-checked consent | ❌ N/A | ✅ checked attribute | 🟢 High |
-| Countdown timers | ✅ Timer UI elements | ✅ JS timer / CSS | 🟢 High |
-| Guilt-based copy | ✅ Text content | ✅ String literals | 🟢 High |
-| Privacy zuckering | ✅ Toggle defaults | ✅ Default values | 🟢 High |
-| False scarcity (hardcoded) | ✅ Static text | ✅ Static strings | 🟡 Medium |
-| False social proof (hardcoded) | ✅ Static numbers | ✅ Static strings | 🟡 Medium |
-| Disguised ads | ✅ Visual similarity | ⚠️ Partial | 🟡 Medium |
-| Hidden costs | ⚠️ Multi-step flow only | ⚠️ Partial | 🟡 Medium |
-| Roach motel | ⚠️ Multi-screen flow | ⚠️ Route count | 🟡 Medium |
-| Bait and switch | ✅ CTA label vs outcome | ⚠️ Partial | 🟡 Medium |
-| Obstruction | ⚠️ Step count | ⚠️ Route complexity | 🟡 Medium |
-| Nagging | ⚠️ Multi-screen only | ⚠️ State logic | 🔴 Low |
-| Forced continuity | ❌ Requires backend | ❌ Requires backend | ❌ Not detectable |
-| Friend spam | ⚠️ Contact UI patterns | ✅ Pre-selected inputs | 🟡 Medium |
-| Visual misdirection | ✅ Layout analysis | ⚠️ Partial | 🟡 Medium |
+| Pattern                        | Figma detectable?       | Code detectable?          | Confidence        |
+| ------------------------------ | ----------------------- | ------------------------- | ----------------- |
+| Confirmshaming                 | ✅ Text content         | ✅ String literals        | 🟢 High           |
+| CTA hierarchy inversion        | ✅ Size, color, weight  | ✅ Class/style comparison | 🟢 High           |
+| Trick questions                | ✅ Label text           | ✅ Label + input text     | 🟢 High           |
+| Pre-checked consent            | ❌ N/A                  | ✅ checked attribute      | 🟢 High           |
+| Countdown timers               | ✅ Timer UI elements    | ✅ JS timer / CSS         | 🟢 High           |
+| Guilt-based copy               | ✅ Text content         | ✅ String literals        | 🟢 High           |
+| Privacy zuckering              | ✅ Toggle defaults      | ✅ Default values         | 🟢 High           |
+| False scarcity (hardcoded)     | ✅ Static text          | ✅ Static strings         | 🟡 Medium         |
+| False social proof (hardcoded) | ✅ Static numbers       | ✅ Static strings         | 🟡 Medium         |
+| Disguised ads                  | ✅ Visual similarity    | ⚠️ Partial                | 🟡 Medium         |
+| Hidden costs                   | ⚠️ Multi-step flow only | ⚠️ Partial                | 🟡 Medium         |
+| Roach motel                    | ⚠️ Multi-screen flow    | ⚠️ Route count            | 🟡 Medium         |
+| Bait and switch                | ✅ CTA label vs outcome | ⚠️ Partial                | 🟡 Medium         |
+| Obstruction                    | ⚠️ Step count           | ⚠️ Route complexity       | 🟡 Medium         |
+| Nagging                        | ⚠️ Multi-screen only    | ⚠️ State logic            | 🔴 Low            |
+| Forced continuity              | ❌ Requires backend     | ❌ Requires backend       | ❌ Not detectable |
+| Friend spam                    | ⚠️ Contact UI patterns  | ✅ Pre-selected inputs    | 🟡 Medium         |
+| Visual misdirection            | ✅ Layout analysis      | ⚠️ Partial                | 🟡 Medium         |
 
 **When confidence is 🟡 Medium:** Flag as potential issue. State the detection limitation. Ask the user to verify.
 **When confidence is 🔴 Low:** Do not flag unless the user specifically requests a flow-level ethics review.
@@ -60,15 +62,16 @@ Not all patterns are equally detectable from design files or code. Declare confi
 
 Ethics issues use a different severity framing from the rest of the audit. These are not design mistakes — they are intentional choices that range from potentially harmful to clearly deceptive.
 
-| Severity | Label | Meaning | Score deduction |
-|---|---|---|---|
-| 🔴 | **Deceptive** | Actively misleads or coerces users. Violates user trust and in many jurisdictions consumer law. Must fix. | −15 pts |
-| 🟡 | **Questionable** | Persuasive in a way that may exploit users depending on context. Warrants review and justification. | −7 pts |
-| 🟢 | **Noted** | Persuasive element present. Ethical in standard use but worth documenting for transparency. | 0 pts (informational) |
+| Severity | Label            | Meaning                                                                                                   | Score deduction       |
+| -------- | ---------------- | --------------------------------------------------------------------------------------------------------- | --------------------- |
+| 🔴       | **Deceptive**    | Actively misleads or coerces users. Violates user trust and in many jurisdictions consumer law. Must fix. | −15 pts               |
+| 🟡       | **Questionable** | Persuasive in a way that may exploit users depending on context. Warrants review and justification.       | −7 pts                |
+| 🟢       | **Noted**        | Persuasive element present. Ethical in standard use but worth documenting for transparency.               | 0 pts (informational) |
 
 Ethics score starts at 100. Floor is 0.
 
 **Scoring bands:**
+
 - **90–100** — Ethically sound
 - **70–89** — Minor concerns, review questionable patterns
 - **50–69** — Significant manipulation risk, recommend redesign before shipping
@@ -93,10 +96,12 @@ Display as: **Ethics Score: X/100** in the report, alongside the Accessibility S
 **Why it's harmful:** It weaponises self-image against the user's best interest. The user can't decline without implicitly accepting a negative label about themselves. It removes genuine free choice.
 
 **Figma detection:**
+
 - Read all cancel/decline/skip CTA text nodes
 - Flag if decline copy: uses first-person self-deprecation ("I don't want to..."), implies the user is foolish for declining, or phrases the refusal as a loss of identity
 
 **Code detection:**
+
 ```
 Search for button/link text containing patterns like:
   "No thanks, I prefer"
@@ -112,7 +117,7 @@ Also check: <a> and <button> elements near consent modals/popups
 
 **Fix:** Rewrite decline copy as a neutral, factual statement: "No thanks" / "Maybe later" / "Skip" / "Close". The user's choice to decline needs no editorial comment.
 
-**Context note:** First-person CTA copy for the *accept* option ("Yes, I want better design!") is a standard and acceptable persuasion technique. Only the *decline* option is subject to this check.
+**Context note:** First-person CTA copy for the _accept_ option ("Yes, I want better design!") is a standard and acceptable persuasion technique. Only the _decline_ option is subject to this check.
 
 ---
 
@@ -125,11 +130,13 @@ Also check: <a> and <button> elements near consent modals/popups
 **Why it's harmful:** Users follow visual hierarchy automatically. Inverting it exploits scanning behaviour to steer choices rather than inform them.
 
 **Figma detection:**
+
 - On any consent, subscription, or upsell screen: identify the pair of accept/decline actions
 - Flag if: accept button is significantly larger, uses brand colour or filled style, and decline is text-only, grey, or below a visual fold
 - Flag if: there are 2+ dismissal steps to reach the same outcome as 1 acceptance step
 
 **Code detection:**
+
 ```
 Find paired action buttons (e.g. inside modal, cookie banner, paywall):
   Accept/Primary: class="btn-primary" or bg-[brand] or font-bold
@@ -149,7 +156,7 @@ Also check:
 
 **Fix:** Actions of equal consequence to the user must receive equivalent visual weight. If two choices are both valid, style them at the same level (both secondary, or one primary/one outlined — not primary vs invisible text).
 
-**Context note:** It is acceptable for a *recommended* action to be styled as primary (e.g. "Save" vs "Discard changes" — save is logically primary). The manipulation is specifically when the company-beneficial option is elevated over the user-beneficial one without logical justification.
+**Context note:** It is acceptable for a _recommended_ action to be styled as primary (e.g. "Save" vs "Discard changes" — save is logically primary). The manipulation is specifically when the company-beneficial option is elevated over the user-beneficial one without logical justification.
 
 ---
 
@@ -162,10 +169,12 @@ Also check:
 **Why it's harmful:** Cognitive load means users often check or uncheck without reading carefully. Deliberately confusing wording exploits this to obtain consent that wasn't freely given.
 
 **Figma detection:**
+
 - Read all checkbox label text nodes associated with consent/marketing/data sharing
 - Flag any label containing: double negatives, "unless", "except", "if you do not", inverted opt-out framing
 
 **Code detection:**
+
 ```
 Search label text associated with <input type="checkbox"> for:
   - "do not" + "not" (double negative)
@@ -198,11 +207,13 @@ Correct pattern:
 **Why it's harmful:** Users rely on visual distinction to apply appropriate scepticism to commercial content. Removing that distinction deceives users into treating paid placement as editorial recommendation.
 
 **Figma detection:**
+
 - Look for "Ad", "Sponsored", "Promoted" labels on content cards
 - Flag if: the label is < 11px, uses low-contrast colour (< 3:1 against background), or is positioned in a non-prominent location (e.g. bottom-right corner, below the fold of the card)
 - Flag if: sponsored content cards are visually identical to organic content cards with no secondary signal beyond text
 
 **Code detection:**
+
 ```
 Search for elements with "ad", "sponsored", "promoted" labels:
   → Label font-size < 12px → 🔴
@@ -229,12 +240,14 @@ Search for elements with "ad", "sponsored", "promoted" labels:
 **Why it's harmful:** Users make decisions based on expected outcomes. Delivering a different outcome without warning bypasses informed consent.
 
 **Figma detection:**
+
 - On multi-step flows: check if CTA label accurately describes the destination
 - Flag: "See plans" → payment screen (not plans page)
 - Flag: "Learn more" → sign-up form (not information)
 - Flag: "Free trial" → credit card required screen without prior disclosure
 
 **Code detection:**
+
 ```
 Check <a href> and <button> destinations vs their text content:
   → "Free" in label but destination URL contains /payment, /checkout, /billing → 🟡
@@ -263,11 +276,13 @@ Also check for pre-selected plan tiers on pricing/signup pages:
 **Why it's harmful:** Sunk cost psychology means users are more likely to accept hidden fees at the final step than if disclosed upfront. This is deliberate exploitation of a cognitive bias.
 
 **Figma detection (multi-frame flows):**
+
 - On checkout/booking/subscription flows: look for price displays at each step
 - Flag if: a price shown early in the flow differs from the total on the confirmation/payment screen without an explicit explanation of additional charges
 - Flag if: "Taxes and fees" are listed as "+ fees" with no amount shown until the final screen
 
 **Code detection:**
+
 ```
 On checkout flows, look for:
   → Price displayed as number in early steps → different number in payment step
@@ -294,11 +309,13 @@ On checkout flows, look for:
 **Why it's harmful:** Visual hierarchy is a primary way users decide what to read. Deliberately inverting it for important information prevents informed consent.
 
 **Figma detection:**
+
 - On pricing/consent/checkout screens: identify all text that describes cost, commitment, or risk
 - Flag if: such text is: < 13px, below 3:1 contrast, placed below the primary CTA, or in a location users are unlikely to read before acting
 - Flag if: animation or visual weight strongly directs attention away from fee/commitment disclosure
 
 **Code detection:**
+
 ```
 On pricing/checkout/consent pages, find text containing:
   "per month", "per year", "billed annually", "renews at", "after trial",
@@ -315,7 +332,7 @@ Flag if that text has:
 
 **Fix:** Any text describing cost, commitment, or risk must meet the same visual standards as the CTA it accompanies. Minimum 13px, 4.5:1 contrast, positioned before or at the same level as the primary action button.
 
-**Context note:** Styling a primary CTA prominently is legitimate. The issue is specifically when important *constraining* information (costs, terms, risks) is visually suppressed.
+**Context note:** Styling a primary CTA prominently is legitimate. The issue is specifically when important _constraining_ information (costs, terms, risks) is visually suppressed.
 
 ---
 
@@ -332,12 +349,14 @@ Flag if that text has:
 **Why it's harmful:** Asymmetric friction exploits the path of least resistance. Users who intended to cancel often give up, paying for a service they don't want. This is deceptive by design.
 
 **Figma detection (multi-frame flows):**
+
 - Count the steps from intent to completion for: sign up, subscribe, add payment
 - Count the steps from intent to completion for: cancel, unsubscribe, close account, remove payment
 - Flag if: cancellation requires significantly more steps (2×+) than sign-up
 - Flag if: a "cancellation" flow leads to retention offers, plan downgrades, or pause options before the actual cancel option
 
 **Code detection:**
+
 ```
 Navigation structure check:
   → Sign-up route: /signup → /payment → done (2 steps)
@@ -368,12 +387,14 @@ Also check:
 **Why it's harmful:** Friction is a tool that works. Artificial friction on user-beneficial paths is a deliberate barrier to exercising rights.
 
 **Figma detection:**
+
 - On opt-out/deletion/unsubscribe flows: count form fields and steps required
 - Flag if: unsubscribe requires login when the user arrived from an email
 - Flag if: data deletion requires contacting support rather than a self-serve option
 - Flag if: GDPR data export/deletion is not present or requires > 3 steps
 
 **Code detection:**
+
 ```
 On privacy/account deletion/unsubscribe flows:
   → Login required to unsubscribe from email → 🔴
@@ -401,12 +422,14 @@ On privacy/account deletion/unsubscribe flows:
 **Why it's harmful:** Bundling unrelated consent with core functionality coerces agreement that wouldn't be freely given in isolation.
 
 **Figma detection:**
+
 - On onboarding/signup flows: identify any steps that collect data or permissions beyond what the core product requires
-- Flag if: social login is the *only* option with no email alternative
+- Flag if: social login is the _only_ option with no email alternative
 - Flag if: marketing consent is a required field (not optional) in a signup form
 - Flag if: permission requests (location, contacts, notifications) are presented before their functional context is clear
 
 **Code detection:**
+
 ```
 Signup/onboarding forms:
   → Marketing consent checkbox with required attribute → 🔴
@@ -437,10 +460,12 @@ Account connection flows:
 **Why it's harmful:** Repeat prompts after explicit dismissal disrespect the user's stated preference and erode trust.
 
 **Figma detection (multi-screen audits):**
+
 - Flag if: the same modal, banner, or prompt appears across multiple screens without a visible "don't show again" or session-persistent dismiss option
 - Flag if: a dismissed notification/banner has no permanent dismiss mechanism
 
 **Code detection:**
+
 ```
 Look for localStorage/sessionStorage/cookie patterns:
   → Prompt shown based on session count without a "permanently dismissed" flag → 🟡
@@ -449,7 +474,7 @@ Look for localStorage/sessionStorage/cookie patterns:
 
 Pattern to flag:
   if (sessionCount % 3 === 0) showPromoModal() // no dismissal check → 🟡
-  
+
 Correct pattern:
   if (!localStorage.getItem('promoDismissed')) showPromoModal()
 ```
@@ -477,12 +502,14 @@ Correct pattern:
 **Why it's harmful:** Defaults have an enormous effect on user behaviour. Defaulting to maximum data sharing obtains consent that most users would not give if the choice were equally easy in both directions.
 
 **Figma detection:**
+
 - On privacy settings / cookie consent screens: check the default state of all data-sharing toggles
 - Flag if: any non-essential data sharing toggle is ON by default
 - Flag if: privacy controls are in Settings → Privacy → Advanced → Manage rather than reachable in ≤ 2 steps
 - Flag if: "Accept all" and "Reject all" are not equivalent in visual weight
 
 **Code detection:**
+
 ```
 Check default state of consent inputs:
   → <input type="checkbox" checked> on any non-essential data sharing option → 🔴
@@ -513,10 +540,12 @@ Cookie consent libraries:
 **Why it's harmful:** Pre-checked consent exploits form completion inertia. Most users complete forms without reading every field. Pre-checking harvests consent that was never genuinely given. Illegal under GDPR/PECR.
 
 **Figma detection:**
+
 - On any form containing consent checkboxes: note which are checked by default in the design
 - Flag any checkbox for marketing, data sharing, or third-party sharing that appears checked in the default/empty state
 
 **Code detection:**
+
 ```
 Direct detection:
   → <input type="checkbox" name="marketing" checked> → 🔴
@@ -549,11 +578,13 @@ Correct pattern:
 **Why it's harmful:** Interface inconsistency in the specific context of consent exploits cognitive load to obtain broader consent than intended.
 
 **Figma detection:**
+
 - On privacy/settings screens: check for inconsistent control types (mix of toggles and checkboxes) without clear labelling of what each state means
 - Flag if: "on" and "off" toggle labels are absent — the user can't tell which direction is consent
 - Flag if: save/apply button is not present after changes (no clear way to confirm intent)
 
 **Code detection:**
+
 ```
 Consent UI patterns:
   → Mix of checkbox and toggle inputs within the same consent category group → 🟡
@@ -582,10 +613,12 @@ Consent UI patterns:
 **Why it's harmful:** Each incremental reveal exploits sunk cost psychology. By the time the final price appears, the user has invested time and expects the price they saw initially. This is a form of false advertising.
 
 **Figma detection (multi-frame flows):**
+
 - Track price display across booking/checkout flow frames
 - Flag if: price shown in step 1 differs from price shown in final confirmation without an explicit, prominent breakdown of what was added and why
 
 **Code detection:**
+
 ```
 Price element tracking across checkout steps:
   → Price component shows different value on /checkout vs /payment
@@ -619,11 +652,13 @@ Also flag:
 **Why it's harmful:** Artificial urgency exploits loss aversion to rush decisions users would otherwise take more time on. False urgency is deceptive about the nature of the offer.
 
 **Figma detection:**
+
 - Identify countdown timer UI elements (numerical countdown, progress bar depleting, ticking clock)
 - Flag: timer present on a pricing/offer screen → always flag as potential issue (confidence: medium — can't verify if timer is real from static design)
 - Note: ask the user whether the timer is backed by real data
 
 **Code detection:**
+
 ```
 Detect timer implementations:
   → setInterval() or setTimeout() used to count down from a fixed number → 🟡
@@ -634,7 +669,7 @@ Detect timer implementations:
 Real (acceptable) timers:
   → Timer value fetched from API endpoint → ✅ (may be real)
   → Timer initialized from a server-side expiry timestamp → ✅ (may be real)
-  
+
 Flag as 🟡 in all cases; upgrade to 🔴 if reset/artificial pattern is confirmed.
 ```
 
@@ -655,11 +690,13 @@ Flag as 🟡 in all cases; upgrade to 🔴 if reset/artificial pattern is confir
 **Why it's harmful:** Manufactured scarcity exploits loss aversion to accelerate decisions the user would otherwise make more carefully.
 
 **Figma detection:**
+
 - Identify scarcity indicators: "Only X left", "X remaining", "Limited availability", "Almost sold out"
 - Flag: hardcoded numbers in scarcity text → always flag (medium confidence — can't verify accuracy from static design)
 - Note: ask user whether numbers are dynamic or static
 
 **Code detection:**
+
 ```
 Search string literals for scarcity language:
   → "Only [number] left" as a hardcoded string → 🟡
@@ -691,11 +728,13 @@ Also flag:
 **Why it's harmful:** Social proof is a powerful trust and urgency signal. Fabricating it is straightforwardly deceptive — it creates false beliefs about product demand.
 
 **Figma detection:**
+
 - Identify social proof elements: "X people viewing", "X purchased today", "X happy customers"
 - Flag: large, specific, round-ish numbers in social proof text (e.g. "10,000 customers") → medium confidence — can't verify accuracy
 - Flag: viewer count / activity feed UI elements → always flag for verification
 
 **Code detection:**
+
 ```
 Search for social proof patterns with static values:
   → "people viewing" or "viewing this" with hardcoded number → 🔴
@@ -734,11 +773,13 @@ Also flag:
 **Why it's harmful:** Using negative emotional states (guilt, shame, anxiety) as conversion tools exploits psychological vulnerabilities, particularly harmful for users with anxiety or perfectionism.
 
 **Figma detection:**
+
 - Read notification, empty state, and retention copy text nodes
 - Flag if: copy implies failure, neglect, or inadequacy for not using the product
 - Flag if: copy uses self-referential shame framing ("you've been slipping", "you're falling behind")
 
 **Code detection:**
+
 ```
 Search string literals for guilt/shame patterns:
   → "You haven't [verbed] in X days" with implicit negative framing → 🟡
@@ -766,11 +807,13 @@ Search string literals for guilt/shame patterns:
 **Why it's harmful:** Disproportionate fear appeals cause anxiety that may lead to rushed decisions. When the fear is exaggerated or manufactured, it's manipulative.
 
 **Figma detection:**
+
 - Read warning/alert/empty state copy for fear-based framing
 - Flag if: risk language uses all-caps, red colour, or alarm icons for ordinary states
 - Flag if: consequences described are significantly more severe than what would actually occur
 
 **Code detection:**
+
 ```
 Search for disproportionate warning language:
   → "EXPOSED", "COMPROMISED", "AT RISK", "VULNERABLE" for non-critical states → 🟡
@@ -796,10 +839,12 @@ Search for disproportionate warning language:
 **Why it's harmful:** Deliberately engineering emotional states to drive engagement treats users as mechanisms to exploit rather than people to serve. It's particularly harmful for users with anxiety, addiction vulnerability, or compulsive behaviour patterns.
 
 **Figma detection:**
+
 - Identify: notification badges with counts hidden until interaction, "You almost..." / "Don't miss out" copy, regret-inducing copy on cart abandonment screens
 - Flag: patterns whose primary purpose is emotional state creation rather than information delivery
 
 **Code detection:**
+
 ```
 Patterns to flag:
   → Notification badge count hidden behind interaction (revealed on click/hover) → 🟡
@@ -823,20 +868,20 @@ Patterns to flag:
 
 These are persuasive design techniques that are legitimate, ethical, and should never be penalised by the ethics audit.
 
-| Technique | Why it's acceptable |
-|---|---|
-| **Prominent primary CTA** | Clear visual hierarchy helps users understand what to do. Acceptable when the primary action is logically primary. |
-| **Genuine social proof** | Real review counts, real testimonials, real customer numbers. Helps users make informed decisions. |
-| **Real scarcity** | Accurate "last few available" backed by real inventory. Genuinely useful information. |
-| **Real urgency** | Offers with genuine expiry dates, real events with real deadlines. |
-| **Progress indicators** | Progress bars, completion percentages, streaks — when framed positively. |
-| **Anchoring (transparent)** | Showing a higher price before a discounted price when both are real. |
-| **Loss framing (honest)** | "You'll lose your saved items if you don't sign in" — when true and stated once. |
-| **Reciprocity** | Free tier, free trial, free content offered genuinely before asking for commitment. |
-| **Scarcity countdown** | Countdown backed by a real server-side expiry that doesn't reset. |
-| **Completion motivation** | "You're 80% done — finish setting up your profile!" — positive framing, accurate. |
-| **Feature gating** | Showing premium features as locked — transparent about what requires upgrade. |
-| **Onboarding nudges** | Tooltips, highlights, empty state CTAs that guide users to value. Not repeated after dismissal. |
+| Technique                   | Why it's acceptable                                                                                                |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Prominent primary CTA**   | Clear visual hierarchy helps users understand what to do. Acceptable when the primary action is logically primary. |
+| **Genuine social proof**    | Real review counts, real testimonials, real customer numbers. Helps users make informed decisions.                 |
+| **Real scarcity**           | Accurate "last few available" backed by real inventory. Genuinely useful information.                              |
+| **Real urgency**            | Offers with genuine expiry dates, real events with real deadlines.                                                 |
+| **Progress indicators**     | Progress bars, completion percentages, streaks — when framed positively.                                           |
+| **Anchoring (transparent)** | Showing a higher price before a discounted price when both are real.                                               |
+| **Loss framing (honest)**   | "You'll lose your saved items if you don't sign in" — when true and stated once.                                   |
+| **Reciprocity**             | Free tier, free trial, free content offered genuinely before asking for commitment.                                |
+| **Scarcity countdown**      | Countdown backed by a real server-side expiry that doesn't reset.                                                  |
+| **Completion motivation**   | "You're 80% done — finish setting up your profile!" — positive framing, accurate.                                  |
+| **Feature gating**          | Showing premium features as locked — transparent about what requires upgrade.                                      |
+| **Onboarding nudges**       | Tooltips, highlights, empty state CTAs that guide users to value. Not repeated after dismissal.                    |
 
 **Rule of thumb:** If the persuasive element is honest, proportionate, and serves the user's ability to make an informed decision — it's ethical persuasion, not manipulation.
 
@@ -847,6 +892,7 @@ These are persuasive design techniques that are legitimate, ethical, and should 
 Use this during Cat 18 to ensure all patterns are checked:
 
 **Group A — Interface**
+
 - [ ] No confirmshaming on decline/cancel options
 - [ ] Accept and decline actions have equivalent visual weight (especially cookie consent)
 - [ ] All consent copy uses positive, non-double-negative language
@@ -855,23 +901,27 @@ Use this during Cat 18 to ensure all patterns are checked:
 - [ ] All fees shown from first price display
 
 **Group B — Flows**
+
 - [ ] Cancellation path ≤ 2× the steps of sign-up path
 - [ ] Unsubscribe works in one click from email
 - [ ] No required fields collecting non-essential data
 - [ ] Dismissed prompts stay dismissed
 
 **Group C — Consent**
+
 - [ ] All non-essential data collection defaults to OFF
 - [ ] No pre-checked marketing consent
 - [ ] Consent controls are consistent and clearly labelled
 - [ ] Total price always shown — no drip pricing
 
 **Group D — Urgency**
+
 - [ ] Countdown timers backed by real server-side data
 - [ ] Scarcity claims backed by real inventory
 - [ ] Social proof numbers backed by real data
 
 **Group E — Emotion**
+
 - [ ] No shame or guilt in decline/inactivity copy
 - [ ] Risk language proportionate to actual risk
 - [ ] No emotional manipulation patterns (FOMO engineering, hidden notification counts)

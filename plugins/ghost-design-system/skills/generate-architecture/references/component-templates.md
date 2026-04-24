@@ -574,7 +574,9 @@ export function cn(...inputs: ClassValue[]): string {
 /** Format date to human-readable string */
 export function formatDate(date: string | Date, locale = 'en-US'): string {
   return new Date(date).toLocaleDateString(locale, {
-    year: 'numeric', month: 'long', day: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 }
 
@@ -586,8 +588,10 @@ export function clamp(value: number, min: number, max: number): number {
 /** Map a value from one range to another */
 export function mapRange(
   value: number,
-  inMin: number, inMax: number,
-  outMin: number, outMax: number
+  inMin: number,
+  inMax: number,
+  outMin: number,
+  outMax: number
 ): number {
   return ((value - inMin) / (inMax - inMin)) * (outMax - outMin) + outMin;
 }
@@ -651,7 +655,7 @@ export interface ApiResponse<T> {
 
 /** Scroll progress state */
 export interface ScrollState {
-  progress: number;  // 0–1
+  progress: number; // 0–1
   direction: 'up' | 'down';
   y: number;
 }

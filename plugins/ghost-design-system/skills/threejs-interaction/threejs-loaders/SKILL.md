@@ -8,18 +8,18 @@ description: Three.js asset loading - GLTF, textures, images, models, async patt
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // Load GLTF model
 const loader = new GLTFLoader();
-loader.load("model.glb", (gltf) => {
+loader.load('model.glb', (gltf) => {
   scene.add(gltf.scene);
 });
 
 // Load texture
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load("texture.jpg");
+const texture = textureLoader.load('texture.jpg');
 ```
 
 ## LoadingManager
@@ -35,7 +35,7 @@ manager.onStart = (url, loaded, total) => {
 };
 
 manager.onLoad = () => {
-  console.log("All assets loaded!");
+  console.log('All assets loaded!');
   startGame();
 };
 
@@ -54,9 +54,9 @@ const textureLoader = new THREE.TextureLoader(manager);
 const gltfLoader = new GLTFLoader(manager);
 
 // Load assets
-textureLoader.load("texture1.jpg");
-textureLoader.load("texture2.jpg");
-gltfLoader.load("model.glb");
+textureLoader.load('texture1.jpg');
+textureLoader.load('texture2.jpg');
+gltfLoader.load('model.glb');
 // onLoad fires when ALL are complete
 ```
 
@@ -69,7 +69,7 @@ const loader = new THREE.TextureLoader();
 
 // Callback style
 loader.load(
-  "texture.jpg",
+  'texture.jpg',
   (texture) => {
     // onLoad
     material.map = texture;
@@ -78,19 +78,19 @@ loader.load(
   undefined, // onProgress - not supported for image loading
   (error) => {
     // onError
-    console.error("Error loading texture", error);
-  },
+    console.error('Error loading texture', error);
+  }
 );
 
 // Synchronous (returns texture, loads async)
-const texture = loader.load("texture.jpg");
+const texture = loader.load('texture.jpg');
 material.map = texture;
 ```
 
 ### Texture Configuration
 
 ```javascript
-const texture = loader.load("texture.jpg", (tex) => {
+const texture = loader.load('texture.jpg', (tex) => {
   // Color space (important for color accuracy)
   tex.colorSpace = THREE.SRGBColorSpace; // For color/albedo maps
   // tex.colorSpace = THREE.LinearSRGBColorSpace;  // For data maps (normal, roughness)
@@ -132,12 +132,12 @@ const loader = new THREE.CubeTextureLoader();
 
 // Load 6 faces
 const cubeTexture = loader.load([
-  "px.jpg",
-  "nx.jpg", // positive/negative X
-  "py.jpg",
-  "ny.jpg", // positive/negative Y
-  "pz.jpg",
-  "nz.jpg", // positive/negative Z
+  'px.jpg',
+  'nx.jpg', // positive/negative X
+  'py.jpg',
+  'ny.jpg', // positive/negative Y
+  'pz.jpg',
+  'nz.jpg', // positive/negative Z
 ]);
 
 // Use as background
@@ -151,12 +151,12 @@ material.envMap = cubeTexture;
 ### HDR/EXR Loading
 
 ```javascript
-import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
-import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
 // HDR
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load("environment.hdr", (texture) => {
+rgbeLoader.load('environment.hdr', (texture) => {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
   scene.background = texture;
@@ -164,7 +164,7 @@ rgbeLoader.load("environment.hdr", (texture) => {
 
 // EXR
 const exrLoader = new EXRLoader();
-exrLoader.load("environment.exr", (texture) => {
+exrLoader.load('environment.exr', (texture) => {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
 });
@@ -175,12 +175,12 @@ exrLoader.load("environment.exr", (texture) => {
 Generate prefiltered environment maps for PBR.
 
 ```javascript
-import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
-new RGBELoader().load("environment.hdr", (texture) => {
+new RGBELoader().load('environment.hdr', (texture) => {
   const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
   scene.environment = envMap;
@@ -196,11 +196,11 @@ new RGBELoader().load("environment.hdr", (texture) => {
 The most common 3D format for web.
 
 ```javascript
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const loader = new GLTFLoader();
 
-loader.load("model.glb", (gltf) => {
+loader.load('model.glb', (gltf) => {
   // The loaded scene
   const model = gltf.scene;
   scene.add(model);
@@ -228,19 +228,19 @@ loader.load("model.glb", (gltf) => {
 ### GLTF with Draco Compression
 
 ```javascript
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(
-  "https://www.gstatic.com/draco/versioned/decoders/1.5.6/",
+  'https://www.gstatic.com/draco/versioned/decoders/1.5.6/'
 );
 dracoLoader.preload();
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
-gltfLoader.load("compressed-model.glb", (gltf) => {
+gltfLoader.load('compressed-model.glb', (gltf) => {
   scene.add(gltf.scene);
 });
 ```
@@ -248,19 +248,19 @@ gltfLoader.load("compressed-model.glb", (gltf) => {
 ### GLTF with KTX2 Textures
 
 ```javascript
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
 
 const ktx2Loader = new KTX2Loader();
 ktx2Loader.setTranscoderPath(
-  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/",
+  'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/'
 );
 ktx2Loader.detectSupport(renderer);
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.setKTX2Loader(ktx2Loader);
 
-gltfLoader.load("model-with-ktx2.glb", (gltf) => {
+gltfLoader.load('model-with-ktx2.glb', (gltf) => {
   scene.add(gltf.scene);
 });
 ```
@@ -268,7 +268,7 @@ gltfLoader.load("model-with-ktx2.glb", (gltf) => {
 ### Process GLTF Content
 
 ```javascript
-loader.load("model.glb", (gltf) => {
+loader.load('model.glb', (gltf) => {
   const model = gltf.scene;
 
   // Enable shadows
@@ -280,7 +280,7 @@ loader.load("model.glb", (gltf) => {
   });
 
   // Find specific mesh
-  const head = model.getObjectByName("Head");
+  const head = model.getObjectByName('Head');
 
   // Adjust materials
   model.traverse((child) => {
@@ -307,16 +307,16 @@ loader.load("model.glb", (gltf) => {
 ### OBJ + MTL
 
 ```javascript
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 
 const mtlLoader = new MTLLoader();
-mtlLoader.load("model.mtl", (materials) => {
+mtlLoader.load('model.mtl', (materials) => {
   materials.preload();
 
   const objLoader = new OBJLoader();
   objLoader.setMaterials(materials);
-  objLoader.load("model.obj", (object) => {
+  objLoader.load('model.obj', (object) => {
     scene.add(object);
   });
 });
@@ -325,10 +325,10 @@ mtlLoader.load("model.mtl", (materials) => {
 ### FBX
 
 ```javascript
-import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 
 const loader = new FBXLoader();
-loader.load("model.fbx", (object) => {
+loader.load('model.fbx', (object) => {
   // FBX often has large scale
   object.scale.setScalar(0.01);
 
@@ -345,10 +345,10 @@ loader.load("model.fbx", (object) => {
 ### STL
 
 ```javascript
-import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
 const loader = new STLLoader();
-loader.load("model.stl", (geometry) => {
+loader.load('model.stl', (geometry) => {
   const material = new THREE.MeshStandardMaterial({ color: 0x888888 });
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
@@ -358,10 +358,10 @@ loader.load("model.stl", (geometry) => {
 ### PLY
 
 ```javascript
-import { PLYLoader } from "three/addons/loaders/PLYLoader.js";
+import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 
 const loader = new PLYLoader();
-loader.load("model.ply", (geometry) => {
+loader.load('model.ply', (geometry) => {
   geometry.computeVertexNormals();
   const material = new THREE.MeshStandardMaterial({ vertexColors: true });
   const mesh = new THREE.Mesh(geometry, material);
@@ -383,10 +383,10 @@ function loadModel(url) {
 // Usage
 async function init() {
   try {
-    const gltf = await loadModel("model.glb");
+    const gltf = await loadModel('model.glb');
     scene.add(gltf.scene);
   } catch (error) {
-    console.error("Failed to load model:", error);
+    console.error('Failed to load model:', error);
   }
 }
 ```
@@ -396,9 +396,9 @@ async function init() {
 ```javascript
 async function loadAssets() {
   const [modelGltf, envTexture, colorTexture] = await Promise.all([
-    loadGLTF("model.glb"),
-    loadRGBE("environment.hdr"),
-    loadTexture("color.jpg"),
+    loadGLTF('model.glb'),
+    loadRGBE('environment.hdr'),
+    loadTexture('color.jpg'),
   ]);
 
   scene.add(modelGltf.scene);
@@ -422,7 +422,7 @@ function loadRGBE(url) {
         resolve(texture);
       },
       undefined,
-      reject,
+      reject
     );
   });
 }
@@ -446,9 +446,9 @@ THREE.Cache.enabled = true;
 THREE.Cache.clear();
 
 // Manual cache management
-THREE.Cache.add("key", data);
-THREE.Cache.get("key");
-THREE.Cache.remove("key");
+THREE.Cache.add('key', data);
+THREE.Cache.get('key');
+THREE.Cache.remove('key');
 ```
 
 ### Custom Asset Manager
@@ -497,8 +497,8 @@ class AssetManager {
 
 // Usage
 const assets = new AssetManager();
-const texture = await assets.loadTexture("brick", "brick.jpg");
-const model = await assets.loadModel("tree", "tree.glb");
+const texture = await assets.loadTexture('brick', 'brick.jpg');
+const model = await assets.loadModel('tree', 'tree.glb');
 ```
 
 ## Loading from Different Sources
@@ -507,7 +507,7 @@ const model = await assets.loadModel("tree", "tree.glb");
 
 ```javascript
 const loader = new THREE.TextureLoader();
-const texture = loader.load("data:image/png;base64,iVBORw0KGgo...");
+const texture = loader.load('data:image/png;base64,iVBORw0KGgo...');
 ```
 
 ### Blob URL
@@ -525,12 +525,12 @@ async function loadFromBlob(blob) {
 
 ```javascript
 // From fetch
-const response = await fetch("model.glb");
+const response = await fetch('model.glb');
 const buffer = await response.arrayBuffer();
 
 // Parse with loader
 const loader = new GLTFLoader();
-loader.parse(buffer, "", (gltf) => {
+loader.parse(buffer, '', (gltf) => {
   scene.add(gltf.scene);
 });
 ```
@@ -539,11 +539,11 @@ loader.parse(buffer, "", (gltf) => {
 
 ```javascript
 // Set base path
-loader.setPath("assets/models/");
-loader.load("model.glb"); // Loads from assets/models/model.glb
+loader.setPath('assets/models/');
+loader.load('model.glb'); // Loads from assets/models/model.glb
 
 // Set resource path (for textures referenced in model)
-loader.setResourcePath("assets/textures/");
+loader.setResourcePath('assets/textures/');
 
 // Custom URL modifier
 manager.setURLModifier((url) => {
@@ -586,8 +586,8 @@ async function loadWithTimeout(url, timeout = 30000) {
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
-    if (error.name === "AbortError") {
-      throw new Error("Loading timed out");
+    if (error.name === 'AbortError') {
+      throw new Error('Loading timed out');
     }
     throw error;
   }
@@ -606,11 +606,11 @@ async function loadWithTimeout(url, timeout = 30000) {
 // Progressive loading with placeholder
 const placeholder = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ wireframe: true }),
+  new THREE.MeshBasicMaterial({ wireframe: true })
 );
 scene.add(placeholder);
 
-loadModel("model.glb").then((gltf) => {
+loadModel('model.glb').then((gltf) => {
   scene.remove(placeholder);
   scene.add(gltf.scene);
 });
