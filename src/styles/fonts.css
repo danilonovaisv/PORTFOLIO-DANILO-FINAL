@@ -11,11 +11,19 @@
   font-display: swap;
 }
 
-/* PPSupplyMono - Tag/Micro Font */
+/* PPSupplyMono - Tag/Micro Font
+   Fallback to Space Mono (Google Fonts) if primary source fails.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
 @font-face {
   font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')
-    format('woff2');
+  src:
+    url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')
+      format('woff2'),
+    local('Space Mono'),
+    local('Courier New'),
+    local('monospace');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;

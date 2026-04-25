@@ -18,10 +18,10 @@ export type ProjectCategory = {
 
 // --- 1. ASSETS GLOBAIS ---
 export const ASSETS = {
-  videoManifesto: getGhostAssetUrl('site-assets/home/home.manifesto_video.mp4'),
-  favicon: getGhostAssetUrl('logo_site/logo.svg'),
-  logoLight: getGhostAssetUrl('logo_site/faivcon-02.svg'),
-  logoDark: getGhostAssetUrl('logo_site/faivcon.svg'),
+  videoManifesto: getGhostAssetUrl('home/video.manifesto.desk.mp4'),
+  favicon: getGhostAssetUrl('global/logos/global.favicon_dark.svg'),
+  logoLight: getGhostAssetUrl('global/logos/global.logo_header_light.svg'),
+  logoDark: getGhostAssetUrl('global/logos/global.logo_header_dark.svg'),
 };
 
 // --- 2. CONTEÚDO DA HOME (TEXTOS) ---
