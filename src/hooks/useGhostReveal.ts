@@ -13,7 +13,8 @@ import * as THREE from 'three';
 export function useGhostReveal(
   ghostRef: React.RefObject<THREE.Group | null> | undefined,
   revealRef: React.RefObject<HTMLDivElement | null>,
-  enabled: boolean
+  enabled: boolean,
+  containerRef?: React.RefObject<HTMLElement | null>
 ) {
   useEffect(() => {
     if (!enabled || !ghostRef?.current || !revealRef.current) return;
@@ -35,9 +36,10 @@ export function useGhostReveal(
       // Atualiza a posição do overlay usando CSS transform
       overlay.style.transform = `translate(calc(${x}vw - 50%), calc(${invertedY}vh - 50%))`;
 
-      // Seta variáveis no documento/root para uso em classes CSS (ex: mask-image)
-      document.documentElement.style.setProperty('--ghost-x', `${x}vw`);
-      document.documentElement.style.setProperty('--ghost-y', `${invertedY}vh`);
+      // ⚡ BOLT OPTIMIZATION: Aplica ao container mais próximo em vez do root para evitar Recalculate Style global
+      const target = containerRef?.current || document.documentElement;
+      target.style.setProperty('--ghost-x', `${x}vw`);
+      target.style.setProperty('--ghost-y', `${invertedY}vh`);
 
       rafId = requestAnimationFrame(updateRevealPosition);
     };
@@ -48,5 +50,5 @@ export function useGhostReveal(
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [ghostRef, revealRef, enabled]);
+  }, [ghostRef, revealRef, enabled, containerRef]);
 }

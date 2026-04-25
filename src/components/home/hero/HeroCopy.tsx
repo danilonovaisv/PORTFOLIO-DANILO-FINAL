@@ -24,7 +24,8 @@ export default function HeroCopy({
   const [scope, animate] = useAnimate();
 
   // Sincroniza a posição do overlay 2D com o Ghost 3D
-  useGhostReveal(ghostRef, revealRef, isLoaded && !prefersReducedMotion);
+  // ⚡ BOLT OPTIMIZATION: Passing the scope ref to avoid global style recalculation per frame
+  useGhostReveal(ghostRef, revealRef, isLoaded && !prefersReducedMotion, scope as React.RefObject<HTMLDivElement>);
 
   useEffect(() => {
     if (!prefersReducedMotion && isLoaded && scope.current) {

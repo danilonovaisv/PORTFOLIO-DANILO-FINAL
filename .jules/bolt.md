@@ -1,0 +1,3 @@
+## 2026-04-25 - [Scoped CSS Variables to Prevent Global Layout Thrashing]
+**Learning:** Setting CSS variables on `document.documentElement` inside a `requestAnimationFrame` loop (like for mouse/scroll tracking effects in WebGL/Framer Motion overlays) forces the browser to trigger a global "Recalculate Style" layout thrashing on every frame, which severely spikes Main Thread usage (TBT).
+**Action:** Always scope rapidly changing CSS variables to the closest relative container element by passing a `ref` down to the hook handling the loop. Fallback to `document.documentElement` safely, but default to localization.
