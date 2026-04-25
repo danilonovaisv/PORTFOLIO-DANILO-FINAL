@@ -1,0 +1,3 @@
+[submodule "skills/superpower"]
+	path = skills/superpower
+	url = https://github.com/danilonovaisv/superpowers.git
