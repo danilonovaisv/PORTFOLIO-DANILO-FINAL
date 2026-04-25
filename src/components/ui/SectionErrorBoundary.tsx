@@ -30,8 +30,12 @@ export class SectionErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log interno para o Sentinel Prime
-    console.error(`[SectionErrorBoundary:${this.props.sectionName || 'Unknown'}]`, error, errorInfo);
-    
+    console.error(
+      `[SectionErrorBoundary:${this.props.sectionName || 'Unknown'}]`,
+      error,
+      errorInfo
+    );
+
     void this.reportError(error, errorInfo);
   }
 
@@ -63,7 +67,9 @@ export class SectionErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="relative group">
-          {this.props.fallback || <AboutBeliefsSkeleton className="opacity-50 grayscale" />}
+          {this.props.fallback || (
+            <AboutBeliefsSkeleton className="opacity-50 grayscale" />
+          )}
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm z-50">
             <p className="text-white/60 text-sm mb-4 font-mono">
               Falha na seção: {this.props.sectionName}

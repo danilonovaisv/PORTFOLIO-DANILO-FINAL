@@ -108,8 +108,8 @@ export default function AboutPage() {
         <AboutMethod />
       </Suspense>
       {/* Seção 05 — O Que Me Move (Beliefs) */}
-      <SectionErrorBoundary 
-        sectionName="AboutBeliefs" 
+      <SectionErrorBoundary
+        sectionName="AboutBeliefs"
         fallback={<AboutBeliefsSkeleton />}
       >
         <AboutBeliefsNoSSR />
