@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { animate, inView } from 'motion';
 import type { MotionValue } from 'motion/react';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
 
 const COLOR_STOPS = [
   '#040013', // Deep Void — intro
@@ -43,9 +43,22 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: targetColor },
-          { duration: 0.9, ease: GHOST_EASE }
+          { duration: 0.9, ease: GHOST_EASE_AMBIENT }
         );
       }
+
+      // Bidirectional reset: revert to previous color when section exits viewport
+      return () => {
+        if (climaxFiredRef.current) return;
+        const prevColor = COLOR_STOPS[index] || COLOR_STOPS[0];
+        if (bgRef.current) {
+          animate(
+            bgRef.current,
+            { backgroundColor: prevColor },
+            { duration: 0.6, ease: GHOST_EASE_AMBIENT }
+          );
+        }
+      };
     });
 
     const unsubProgress = scrollProgress.on('change', (value) => {
@@ -58,7 +71,7 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: COLOR_STOPS[7] },
-          { duration: 0.9, ease: GHOST_EASE }
+          { duration: 0.9, ease: GHOST_EASE_AMBIENT }
         );
       }
       if (value < CLIMAX_THRESHOLD) {

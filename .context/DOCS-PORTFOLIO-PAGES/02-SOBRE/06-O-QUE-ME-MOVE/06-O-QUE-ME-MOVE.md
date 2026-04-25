@@ -2,7 +2,7 @@
 
 ## Status
 
-- Fonte de verdade atualizada em `2026-04-23`
+- Fonte de verdade atualizada em `2026-04-25`
 - Estado da seção: implementado e validado localmente
 - Status final desta rodada: concluído com ressalvas de ambiente de QA
 
@@ -64,6 +64,8 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 ### Fundo
 
 - `BeliefBackground` reage à entrada de cada `.scroll-section` via `inView`.
+- Easing de cor: `GHOST_EASE_AMBIENT` `[0.17, 0.55, 0.55, 1]` — curva atmosférica para camadas de fundo.
+- Reset bidirecional ativo: cleanup `return () => ...` no callback do `inView` reverte cor ao sair da seção.
 - Sequência cromática ativa:
   1. `#040013`
   2. `#0048ff`
@@ -84,6 +86,7 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 
 ### Header
 
+- Posição: `top-[14vh] md:top-0` — offset mobile preserva air editorial acima do header.
 - `BeliefFixedHeader` agora usa apenas `opacity`, `blur` e `translateY`.
 - Entrada: `opacity 0→1`, `y 18→0`, `blur 8→0`.
 - Saída: `opacity 1→0`, `y 0→-18`, `blur 0→8`.
@@ -118,7 +121,8 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 
 ## Regras de motion em vigor
 
-- Easing principal unificado: `cubic-bezier(0.22, 1, 0.36, 1)`.
+- Easing principal UI (frases, header, manifesto, Ghost wrapper): `cubic-bezier(0.22, 1, 0.36, 1)` = `GHOST_EASE`.
+- Easing background: `cubic-bezier(0.17, 0.55, 0.55, 1)` = `GHOST_EASE_AMBIENT` — uso exclusivo para camadas atmosféricas.
 - Motion DOM permitido nesta seção:
   - `opacity`
   - `blur`

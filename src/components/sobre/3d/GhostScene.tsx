@@ -17,7 +17,6 @@ import { motion, useSpring, useTransform } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
 
-import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
 import { MOTION_TOKENS } from '@/config/motion';
 import { getAssetUrl } from '@/lib/utils';
 
@@ -156,33 +155,31 @@ export const GhostScene = ({
       role="presentation"
       style={{ opacity, y }}
     >
-      <GhostErrorBoundary>
-        <Canvas
-          frameloop="demand"
-          dpr={[1, resolvedIsMobile ? 1 : 2]}
-          camera={{
-            position: [0, 0, resolvedIsMobile ? 6.8 : 6],
-            fov: resolvedIsMobile ? 38 : 35,
-          }}
-          performance={{ min: 0.5, max: 1, debounce: 200 }}
-          gl={{
-            antialias: !resolvedIsMobile,
-            alpha: true,
-            powerPreference: 'high-performance',
-          }}
-        >
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[4, 4, 4]} intensity={1.2} />
-          <pointLight position={[0, 2, 3]} color="#4fe6ff" intensity={0.4} />
-          <Suspense fallback={null}>
-            <GhostModel
-              scrollProgress={smoothProgress}
-              isMobile={resolvedIsMobile}
-              prefersReducedMotion={resolvedPrefersReducedMotion}
-            />
-          </Suspense>
-        </Canvas>
-      </GhostErrorBoundary>
+      <Canvas
+        frameloop="demand"
+        dpr={[1, resolvedIsMobile ? 1 : 2]}
+        camera={{
+          position: [0, 0, resolvedIsMobile ? 6.8 : 6],
+          fov: resolvedIsMobile ? 38 : 35,
+        }}
+        performance={{ min: 0.5, max: 1, debounce: 200 }}
+        gl={{
+          antialias: !resolvedIsMobile,
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
+      >
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[4, 4, 4]} intensity={1.2} />
+        <pointLight position={[0, 2, 3]} color="#4fe6ff" intensity={0.4} />
+        <Suspense fallback={null}>
+          <GhostModel
+            scrollProgress={smoothProgress}
+            isMobile={resolvedIsMobile}
+            prefersReducedMotion={resolvedPrefersReducedMotion}
+          />
+        </Suspense>
+      </Canvas>
     </motion.div>
   );
 };
