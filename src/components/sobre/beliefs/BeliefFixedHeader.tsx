@@ -53,7 +53,7 @@ export const BeliefFixedHeader = ({
 
   return (
     <motion.header
-      className="fixed inset-x-0 top-0 z-[var(--z-layer-header)] w-full py-8 pointer-events-none"
+      className="fixed inset-x-0 top-[14vh] md:top-0 z-[var(--z-layer-header)] w-full py-8 pointer-events-none"
       style={{
         opacity: prefersReducedMotion ? 1 : isVisible ? opacity : 0,
         y: prefersReducedMotion ? 0 : isVisible ? y : -12,

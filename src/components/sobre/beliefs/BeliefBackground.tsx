@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { animate, inView } from 'motion';
 import type { MotionValue } from 'motion/react';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
 
 const COLOR_STOPS = [
   '#040013', // Deep Void — intro
@@ -25,6 +25,10 @@ interface BeliefBackgroundProps {
 export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
   const bgRef = useRef<HTMLDivElement>(null);
   const climaxFiredRef = useRef(false);
+  // Tracks which section index last set the background color.
+  // Cleanup only reverts if this section was the last setter — prevents downward-scroll
+  // exits from overwriting the color that the next (already-entered) section just set.
+  const lastColorIndexRef = useRef<number>(-1);
 
   useEffect(() => {
     let stopInView: (() => void) | null = null;
@@ -39,13 +43,31 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
       const index = parseInt(indexAttr, 10);
       const targetColor = COLOR_STOPS[index + 1] || COLOR_STOPS[0];
 
+      lastColorIndexRef.current = index;
+
       if (bgRef.current) {
         animate(
           bgRef.current,
           { backgroundColor: targetColor },
-          { duration: 0.9, ease: GHOST_EASE }
+          { duration: 0.9, ease: GHOST_EASE_AMBIENT }
         );
       }
+
+      // Bidirectional reset: revert to previous color only when scrolling UP.
+      // Guard: skip if a later section has already taken ownership of the background
+      // (lastColorIndexRef.current !== index means another section entered after this one).
+      return () => {
+        if (climaxFiredRef.current) return;
+        if (lastColorIndexRef.current !== index) return;
+        const prevColor = COLOR_STOPS[index] || COLOR_STOPS[0];
+        if (bgRef.current) {
+          animate(
+            bgRef.current,
+            { backgroundColor: prevColor },
+            { duration: 0.6, ease: GHOST_EASE_AMBIENT }
+          );
+        }
+      };
     });
 
     const unsubProgress = scrollProgress.on('change', (value) => {
@@ -58,7 +80,7 @@ export const BeliefBackground = ({ scrollProgress }: BeliefBackgroundProps) => {
         animate(
           bgRef.current,
           { backgroundColor: COLOR_STOPS[7] },
-          { duration: 0.9, ease: GHOST_EASE }
+          { duration: 0.9, ease: GHOST_EASE_AMBIENT }
         );
       }
       if (value < CLIMAX_THRESHOLD) {

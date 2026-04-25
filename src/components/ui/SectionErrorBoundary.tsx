@@ -29,12 +29,15 @@ export class SectionErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log interno para o Sentinel Prime (simulado via console por enquanto)
+    // Log interno para o Sentinel Prime
     console.error(`[SectionErrorBoundary:${this.props.sectionName || 'Unknown'}]`, error, errorInfo);
     
-    // Poderíamos disparar o reportError aqui também se quisermos granularidade
     void this.reportError(error, errorInfo);
   }
+
+  private handleRetry = () => {
+    this.setState({ hasError: false, error: undefined });
+  };
 
   private async reportError(error: Error, errorInfo: React.ErrorInfo) {
     try {
@@ -51,14 +54,29 @@ export class SectionErrorBoundary extends Component<Props, State> {
         }),
         keepalive: true,
       });
-    } catch (err) {
+    } catch {
       // Silently fail if reporting fails
     }
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback || <AboutBeliefsSkeleton className="opacity-50 grayscale" />;
+      return (
+        <div className="relative group">
+          {this.props.fallback || <AboutBeliefsSkeleton className="opacity-50 grayscale" />}
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+            <p className="text-white/60 text-sm mb-4 font-mono">
+              Falha na seção: {this.props.sectionName}
+            </p>
+            <button
+              onClick={this.handleRetry}
+              className="px-6 py-2 bg-bluePrimary text-white rounded-full text-sm font-bold hover:bg-blueAccent transition-colors"
+            >
+              Tentar Novamente
+            </button>
+          </div>
+        </div>
+      );
     }
 
     return this.props.children;
