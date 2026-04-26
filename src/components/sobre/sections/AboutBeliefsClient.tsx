@@ -36,27 +36,27 @@ export function AboutBeliefsClient() {
       <BeliefOverlay scrollProgress={scrollYProgress} />
 
       <div
-        className="scroll-section absolute top-0 h-[100vh] w-full"
+        className="scroll-section absolute top-0 h-[100vh] w-full pointer-events-none"
         data-index="0"
       />
       <div
-        className="scroll-section absolute top-[100vh] h-[100vh] w-full"
+        className="scroll-section absolute top-[100vh] h-[100vh] w-full pointer-events-none"
         data-index="1"
       />
       <div
-        className="scroll-section absolute top-[200vh] h-[100vh] w-full"
+        className="scroll-section absolute top-[200vh] h-[100vh] w-full pointer-events-none"
         data-index="2"
       />
       <div
-        className="scroll-section absolute top-[300vh] h-[100vh] w-full"
+        className="scroll-section absolute top-[300vh] h-[100vh] w-full pointer-events-none"
         data-index="3"
       />
       <div
-        className="scroll-section absolute top-[400vh] h-[100vh] w-full"
+        className="scroll-section absolute top-[400vh] h-[100vh] w-full pointer-events-none"
         data-index="4"
       />
       <div
-        className="scroll-section absolute top-[500vh] h-[100vh] w-full"
+        className="scroll-section absolute top-[500vh] h-[100vh] w-full pointer-events-none"
         data-index="5"
       />
 
@@ -65,7 +65,6 @@ export function AboutBeliefsClient() {
         prefersReducedMotion={prefersReducedMotion}
       />
       <BeliefScrollText
-        scrollProgress={scrollYProgress}
         isMobile={isMobile}
         prefersReducedMotion={prefersReducedMotion}
       />
