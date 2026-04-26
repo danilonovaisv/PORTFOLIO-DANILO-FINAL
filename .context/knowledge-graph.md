@@ -40,9 +40,10 @@ The central orchestration layer for the portfolio.
 - `HeroSection` **embeds** `GhostCanvas` and triggers `useGhostReveal`.
 - `PostProcessing` applies `AnalogDecay` to the entire scene.
 
-## Current Status (Post-Audit 2026-03-07)
+## Current Status (Post-Audit 2026-04-26)
 
-- **Last Sync:** 2026-03-07
+- **Last Sync:** 2026-04-26
+- **Architecture & Topography:** Next.js 16.2.4 (App Router) + React 19 + R3F v9 + Tailwind 4 + Supabase SSR & Firebase Admin.
 - **Last Audit:** WebGL Performance fixes, Asset Normalization, and Mobile Header alignment.
 - **Focus:** Stability of the Ghost Engine (Zero-Jank WebGL), Mobile UX, and reliable Supabase asset fetching.
 - **Storage Status:** Cleaned. Old builds and redundant assets quarantined.
