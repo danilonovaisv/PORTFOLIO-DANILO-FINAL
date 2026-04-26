@@ -3,14 +3,12 @@
 /**
  * CustomCursor — Layer de Cursor Global.
  * Renderiza um dot (ponto fixo) e um ring (com inércia) no pointer.
- * Atualiza coordenadas globais (cursorX, cursorY) no beliefStore para
- * compatibilidade com outras leituras do sistema; a seção 06 não usa mais
- * essas coordenadas para dirigir o Ghost 3D.
+ * Cursor editorial legado da página Sobre. A experiência v3 do manifesto
+ * mantém cursor e Ghost 3D isolados para não acoplar camadas DOM/WebGL.
  */
 
 import { useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
-import { cursorX, cursorY } from '@/store/beliefStore';
 
 interface CustomCursorProps {
   isMobile: boolean;
@@ -36,12 +34,6 @@ export const CustomCursor = ({
       // Atualiza Posição Visual
       x.set(e.clientX);
       y.set(e.clientY);
-
-      // Normalizado -1 → 1 para o GhostScene
-      const normX = (e.clientX / window.innerWidth) * 2 - 1;
-      const normY = -(e.clientY / window.innerHeight) * 2 + 1; // y invertido para 3D
-      cursorX.set(normX);
-      cursorY.set(normY);
     };
 
     window.addEventListener('pointermove', onMove, { passive: true });

@@ -1,12 +1,6 @@
 'use client';
 
-/**
- * GhostErrorBoundary — Fallback para falhas no GhostScene.
- * Acionado quando: WebGL não suportado, GLB 404, timeout de rede.
- * Renderiza SVG estático do fantasma — experiência não quebra.
- */
-
-import { Component, type ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -22,37 +16,26 @@ export class GhostErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(): State {
+  static getDerivedStateFromError() {
     return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('R3F Error:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
         <div
-          className="fixed inset-0 z-30 flex items-center justify-center
-                     pointer-events-none"
-          aria-hidden="true"
+          className="fixed inset-0 z-[70] bg-black/50 flex items-center justify-center text-white/70"
+          aria-label="3D experience unavailable"
         >
-          {/* SVG fallback do fantasma — sem dependência de WebGL */}
-          <svg
-            viewBox="0 0 120 160"
-            width="200"
-            height="267"
-            style={{ opacity: 0.6 }}
-          >
-            <path
-              d="M20 70 Q20 30 60 30 Q100 30 100 70 L100 130
-                 Q90 120 80 130 Q70 120 60 130
-                 Q50 120 40 130 Q30 120 20 130 Z"
-              fill="#e8eeff"
-            />
-            <circle cx="45" cy="72" r="7" fill="#0048ff" />
-            <circle cx="75" cy="72" r="7" fill="#0048ff" />
-          </svg>
+          Experiência 3D indisponível
         </div>
       );
     }
+
     return this.props.children;
   }
 }

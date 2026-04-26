@@ -12,9 +12,10 @@
 }
 
 /* PPSupplyMono - Tag/Micro Font
-   Fallback to Space Mono (Google Fonts) if primary source fails.
+   Fallback to locally available Space Mono/Courier if primary source fails.
+   Keep this file @import-free because globals.css imports it after Tailwind
+   directives, and nested @import rules are invalid in Next/Turbopack CSS.
 */
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
 @font-face {
   font-family: 'PPSupplyMono';

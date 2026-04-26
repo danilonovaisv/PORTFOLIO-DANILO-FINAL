@@ -1,59 +1,67 @@
 'use client';
 
-/**
- * useBeliefsScroll — Hook central da Seção 06 "O Que Me Move".
- *
- * CORREÇÕES v2 (2026-04-16):
- * • offset: ['start end', 'end end']
- *   Início: quando o TOPO da seção toca o RODAPÉ da viewport (entrada antecipada).
- *   Fim: quando o RODAPÉ da seção toca o RODAPÉ da viewport (saída suave).
- *   NUNCA usar ['start start', 'end end'] — atrasa o início, causa dessincronia
- *   entre cor do BG e texto.
- *
- * • useReducedMotion() da Motion (não hook customizado)
- *   Retorna boolean nativo do device. Trava animações em estado final.
- *
- * Fonte: Motion docs — useScroll offset + useReducedMotion
- */
-
 import { useScroll, useReducedMotion } from 'motion/react';
-import { useEffect, useState, type RefObject } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
+import { useBeliefStore } from '@/store/beliefStore';
 
-interface UseBeliefsScrollReturn {
-  scrollYProgress: ReturnType<typeof useScroll>['scrollYProgress'];
-  prefersReducedMotion: boolean;
-  isMobile: boolean;
-}
+export function useBeliefsScroll(
+  externalRef?: RefObject<HTMLDivElement | HTMLElement | null>
+) {
+  const localRef = useRef<HTMLDivElement>(null);
+  const containerRef = externalRef ?? localRef;
+  const setMobile = useBeliefStore((s) => s.setMobile);
+  const setReducedMotion = useBeliefStore((s) => s.setReducedMotion);
+  const prefersReducedMotion = useReducedMotion() ?? false;
 
-export const useBeliefsScroll = (
-  containerRef: RefObject<HTMLElement | null>
-): UseBeliefsScrollReturn => {
+  useEffect(() => {
+    setReducedMotion(prefersReducedMotion);
+
+    const mq = window.matchMedia('(max-width: 767px)');
+    setMobile(mq.matches);
+
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener('change', handler);
+
+    return () => mq.removeEventListener('change', handler);
+  }, [prefersReducedMotion, setMobile, setReducedMotion]);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
   });
 
-  // Motion's built-in hook — auto-rerender on setting change
-  const reducedMotion = useReducedMotion();
-  const prefersReducedMotion = reducedMotion ?? false;
-
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
   useEffect(() => {
-    const mql = window.matchMedia('(max-width: 767px)');
-    const handler = (ev: MediaQueryList | MediaQueryListEvent) =>
-      setIsMobile(ev.matches);
-    handler(mql);
-    mql.addEventListener(
-      'change',
-      handler as (_ev: MediaQueryListEvent) => void
-    );
-    return () =>
-      mql.removeEventListener(
-        'change',
-        handler as (_ev: MediaQueryListEvent) => void
-      );
-  }, []);
+    let frame = 0;
 
-  return { scrollYProgress, prefersReducedMotion, isMobile };
-};
+    const updateProgress = () => {
+      cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const rect = el.getBoundingClientRect();
+        const nextProgress =
+          rect.height > 0
+            ? Math.min(
+                1,
+                Math.max(0, (window.innerHeight - rect.top) / rect.height)
+              )
+            : 0;
+
+        scrollYProgress.set(nextProgress);
+      });
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, [containerRef, scrollYProgress]);
+
+  return { containerRef, scrollYProgress };
+}

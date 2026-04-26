@@ -5,8 +5,8 @@ import AboutBeliefsSkeleton from '@/components/sobre/sections/AboutBeliefsSkelet
 
 const AboutBeliefs = dynamic(
   () =>
-    import('@/components/sobre/sections/AboutBeliefs').then(
-      (mod) => mod.AboutBeliefs
+    import('@/components/sobre/sections/AboutBeliefsClient').then(
+      (mod) => mod.AboutBeliefsClient
     ),
   {
     ssr: false,

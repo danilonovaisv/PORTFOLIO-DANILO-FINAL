@@ -3,6 +3,7 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { type MotionValue } from 'motion/react';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
+import { useBeliefStore } from '@/store/beliefStore';
 
 interface BeliefsScrollContextValue {
   scrollYProgress: MotionValue<number>;
@@ -21,10 +22,16 @@ export function BeliefsScrollProvider({
   children: ReactNode;
   containerRef: React.RefObject<HTMLElement | null>;
 }) {
-  const scrollData = useBeliefsScroll(containerRef);
+  const { scrollYProgress } = useBeliefsScroll(containerRef);
+  const prefersReducedMotion = useBeliefStore(
+    (s) => s.prefersReducedMotion
+  );
+  const isMobile = useBeliefStore((s) => s.isMobile);
 
   return (
-    <BeliefsScrollContext.Provider value={scrollData}>
+    <BeliefsScrollContext.Provider
+      value={{ scrollYProgress, prefersReducedMotion, isMobile }}
+    >
       {children}
     </BeliefsScrollContext.Provider>
   );
