@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
-import { inView, animate } from 'motion/react';
+import { useBeliefStore } from '@/store/beliefStore';
 
 const PHRASES = [
   'Um vídeo que respira',
@@ -21,49 +20,11 @@ export function BeliefScrollText({
   isMobile,
   prefersReducedMotion,
 }: BeliefScrollTextProps) {
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    // Dispara animação de entrada e guarda o cleanup de saída
-    const controls = inView(
-      '.scroll-section',
-      (element) => {
-        const index = element.getAttribute('data-index');
-        const textEl = document.querySelector(
-          `.belief-phrase[data-index="${index}"]`
-        );
-
-        // bg alternado por exemplo, ou pode ler de um data-bg
-        const bgColor = Number(index) % 2 === 0 ? '#0048ff' : '#040013';
-
-        if (!textEl) return;
-
-        // Animação de entrada
-        animate(
-          textEl,
-          { opacity: 1, y: 0 },
-          { duration: 0.5, ease: 'easeOut' }
-        );
-
-        const bgEl = document.querySelector('[data-testid="beliefs-section"]');
-        if (bgEl) {
-          animate(bgEl, { backgroundColor: bgColor }, { duration: 0.6 });
-        }
-
-        // Retorna função cleanup para saída
-        return () => {
-          animate(
-            textEl,
-            { opacity: 0, y: -30 },
-            { duration: 0.4, ease: 'easeIn' }
-          );
-        };
-      },
-      { amount: 0.5 }
-    ); // Dispara no meio do scroll trigger
-
-    return () => controls(); // cleanup total
-  }, [prefersReducedMotion]);
+  const scrollProgress = useBeliefStore((s) => s.scrollProgress);
+  const activeIndex = Math.min(
+    PHRASES.length - 1,
+    Math.max(0, Math.floor(scrollProgress * PHRASES.length))
+  );
 
   return (
     <div
@@ -74,6 +35,7 @@ export function BeliefScrollText({
       }`}
       data-testid="beliefs-scroll-text"
       aria-label={PHRASES.join(' ')}
+      style={{ textAlign: isMobile ? 'center' : 'left' }}
     >
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {PHRASES.join(' ')}
@@ -91,17 +53,29 @@ export function BeliefScrollText({
           <span
             key={phrase}
             data-index={i}
-            className={`belief-phrase absolute italic font-h1 font-bold text-[#4fe6ff] pointer-events-auto`}
+            className="belief-phrase absolute italic font-h1 font-bold text-[#4fe6ff] pointer-events-auto"
             style={{
-              opacity: prefersReducedMotion ? 1 : 0,
-              transform: prefersReducedMotion ? 'none' : 'translateY(30px)',
               fontSize: isMobile
                 ? 'clamp(2rem, 8vw, 3rem)'
                 : 'clamp(2.8rem, 5.8vw, 6.3rem)',
               textAlign: isMobile ? 'center' : 'left',
             }}
           >
-            {phrase}
+            <span
+              className="block"
+              style={{
+                opacity: prefersReducedMotion ? 1 : 0,
+                transform: prefersReducedMotion ? 'none' : 'translateY(30px)',
+                filter: 'none',
+                ...(prefersReducedMotion || activeIndex === i
+                  ? { opacity: 1, transform: 'none' }
+                  : {}),
+                transition:
+                  'opacity 500ms ease-out, transform 500ms ease-out',
+              }}
+            >
+              {phrase}
+            </span>
           </span>
         ))}
       </div>

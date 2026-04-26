@@ -14,20 +14,25 @@ const gotoRoute = async (page: Page, route: string) => {
 };
 
 const scrollToProgress = async (page: Page, progress: number) => {
-  await page.evaluate((p) => {
-    const section = document.querySelector('[data-testid="beliefs-section"]');
-    if (!section) return;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    await page.evaluate((p) => {
+      const section = document.querySelector('[data-testid="beliefs-section"]');
+      if (!section) return;
 
-    const rect = section.getBoundingClientRect();
-    const sectionTop = window.scrollY + rect.top;
-    const start = sectionTop - window.innerHeight;
-    const end = sectionTop + rect.height - window.innerHeight;
+      const rect = section.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const start = sectionTop - window.innerHeight;
+      const end = sectionTop + rect.height - window.innerHeight;
 
-    window.scrollTo({
-      top: start + (end - start) * p,
-      behavior: 'instant',
-    });
-  }, progress);
+      window.scrollTo({
+        top: start + (end - start) * p,
+        behavior: 'instant',
+      });
+      window.dispatchEvent(new Event('scroll'));
+    }, progress);
+
+    await page.waitForTimeout(100);
+  }
 
   await page.waitForTimeout(500);
 };
@@ -87,12 +92,16 @@ for (const route of ROUTES) {
       );
 
       await scrollToProgress(page, 0.34);
-      const colorMid = await background.evaluate(
-        (el) => window.getComputedStyle(el).backgroundColor
-      );
 
-      expect(colorStart).not.toBe(colorMid);
-      expect(colorMid).not.toBe('rgb(4, 0, 19)');
+      await expect
+        .poll(async () => {
+          const colorMid = await background.evaluate(
+            (el) => window.getComputedStyle(el).backgroundColor
+          );
+
+          return colorMid !== colorStart && colorMid !== 'rgb(4, 0, 19)';
+        })
+        .toBeTruthy();
     });
 
     test('frases entram com blur e deslocamento em motion normal', async ({

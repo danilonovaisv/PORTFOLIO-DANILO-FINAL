@@ -10,6 +10,7 @@ export default defineConfig({
   testDir: './test/e2e',
   timeout: 120_000,
   fullyParallel: false,
+  workers: 3,
   expect: {
     timeout: 10_000,
   },
@@ -37,7 +38,7 @@ export default defineConfig({
   webServer: {
     command:
       process.env.PLAYWRIGHT_SERVER_COMMAND ||
-      `pnpm run dev --port ${TEST_PORT}`,
+      `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true pnpm run dev --port ${TEST_PORT}`,
     port: TEST_PORT,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

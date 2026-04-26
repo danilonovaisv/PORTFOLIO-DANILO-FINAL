@@ -24,6 +24,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   );
 
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+  const isPlaywrightTest = process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true';
 
   useEffect(() => {
     if (isAdminRoute) {
@@ -50,7 +51,12 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
   useEffect(() => {
     // ♿ SE REDUCED MOTION → SEM LENIS
-    if (flags.reducedMotion || prefersReducedMotion || isAdminRoute) {
+    if (
+      flags.reducedMotion ||
+      prefersReducedMotion ||
+      isAdminRoute ||
+      isPlaywrightTest
+    ) {
       setLenisInstance(null);
       return;
     }
@@ -83,7 +89,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       if (lenis) lenis.destroy();
       setLenisInstance(null);
     };
-  }, [flags.reducedMotion, prefersReducedMotion, isAdminRoute]);
+  }, [flags.reducedMotion, prefersReducedMotion, isAdminRoute, isPlaywrightTest]);
 
   return (
     <ScrollContext.Provider

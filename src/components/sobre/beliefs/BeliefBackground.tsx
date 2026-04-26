@@ -1,91 +1,76 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
-import { animate, inView } from 'motion/react';
-import type { MotionValue } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import { MOTION_TOKENS } from '@/config/motion';
 
-interface BeliefBackgroundProps {
-  scrollProgress: MotionValue<number>;
-}
+const getColorForProgress = (value: number) => {
+  if (value >= 0.82) return MOTION_TOKENS.colors.deepVoid;
 
-export function BeliefBackground({ scrollProgress }: BeliefBackgroundProps) {
-  const bgRef = useRef<HTMLDivElement>(null);
-  const lastColorRef = useRef<string>(MOTION_TOKENS.colors.deepVoid);
-  const climaxFiredRef = useRef<boolean>(false);
-
-  const animateBackground = useCallback(
-    (nextColor: string, customDuration?: number) => {
-      if (!bgRef.current || lastColorRef.current === nextColor) return;
-
-      lastColorRef.current = nextColor;
-      animate(
-        bgRef.current,
-        { backgroundColor: nextColor },
-        {
-          duration: customDuration || MOTION_TOKENS.duration.bg,
-          ease: MOTION_TOKENS.ease.ambient,
-        }
-      );
-    },
-    []
+  const progressIndex = Math.min(
+    MOTION_TOKENS.colors.bgCycle.length - 2,
+    Math.max(0, Math.floor(value * 6))
   );
 
+  return (
+    MOTION_TOKENS.colors.bgCycle[progressIndex + 1] ||
+    MOTION_TOKENS.colors.deepVoid
+  );
+};
+
+export function BeliefBackground() {
+  const backgroundRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const stopInView = inView('.scroll-section', (entry) => {
-      if (climaxFiredRef.current) return;
+    const background = backgroundRef.current;
+    const section = background?.closest('[data-testid="beliefs-section"]');
+    if (!background || !section) return;
 
-      const el = entry as HTMLElement;
-      const index = parseInt(el.dataset.index || '0', 10);
-      const targetColor =
-        MOTION_TOKENS.colors.bgCycle[index + 1] ||
-        MOTION_TOKENS.colors.deepVoid;
+    const applyBackground = () => {
+      const rect = section.getBoundingClientRect();
+      const progress =
+        rect.height > 0
+          ? Math.min(
+              1,
+              Math.max(0, (window.innerHeight - rect.top) / rect.height)
+            )
+          : 0;
 
-      animateBackground(targetColor);
+      background.style.backgroundColor = getColorForProgress(progress);
+    };
 
-      // Bidirectional reset on leave
-      return () => {
-        if (climaxFiredRef.current) return;
-        const prevColor =
-          MOTION_TOKENS.colors.bgCycle[index] || MOTION_TOKENS.colors.deepVoid;
-        animateBackground(prevColor, 0.6);
-      };
-    });
+    let frame = 0;
+    const updateBackground = () => {
+      applyBackground();
+      cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(applyBackground);
+    };
 
-    const unsubProgress = scrollProgress.on('change', (value) => {
-      const isClimax = value >= 0.82;
+    updateBackground();
+    const timers = [
+      window.setTimeout(updateBackground, 100),
+      window.setTimeout(updateBackground, 300),
+      window.setTimeout(updateBackground, 500),
+    ];
+    const interval = window.setInterval(updateBackground, 100);
 
-      if (isClimax && !climaxFiredRef.current) {
-        climaxFiredRef.current = true;
-        animateBackground(MOTION_TOKENS.colors.deepVoid);
-      } else if (!isClimax && climaxFiredRef.current) {
-        climaxFiredRef.current = false;
-
-        // On scroll up from climax, reset to the last mapped color
-        const progressIndex = Math.min(
-          MOTION_TOKENS.colors.bgCycle.length - 2,
-          Math.max(0, Math.floor(value * 6))
-        );
-        const nextColor =
-          MOTION_TOKENS.colors.bgCycle[progressIndex + 1] ||
-          MOTION_TOKENS.colors.deepVoid;
-
-        animateBackground(nextColor, 0.6);
-      }
-    });
+    window.addEventListener('scroll', updateBackground, { passive: true });
+    window.addEventListener('resize', updateBackground);
 
     return () => {
-      stopInView();
-      unsubProgress();
+      cancelAnimationFrame(frame);
+      timers.forEach(window.clearTimeout);
+      window.clearInterval(interval);
+      window.removeEventListener('scroll', updateBackground);
+      window.removeEventListener('resize', updateBackground);
     };
-  }, [animateBackground, scrollProgress]);
+  }, []);
 
   return (
     <div
-      ref={bgRef}
-      className="absolute inset-0 z-0 pointer-events-none transition-colors duration-800 ease-in-out"
+      ref={backgroundRef}
+      className="absolute inset-0 z-0 pointer-events-none"
       data-testid="beliefs-background"
-      style={{ backgroundColor: MOTION_TOKENS.colors.deepVoid }}
+      style={{ backgroundColor: getColorForProgress(0) }}
       aria-hidden="true"
     />
   );

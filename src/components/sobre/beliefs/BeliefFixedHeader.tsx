@@ -21,7 +21,7 @@ export function BeliefFixedHeader({
 
   return (
     <motion.header
-      className="fixed top-[14vh] md:top-0 right-0 z-30 max-w-sm text-right p-6 md:p-12 pointer-events-none"
+      className="fixed top-[19vh] md:top-0 right-0 z-30 max-w-sm text-right p-6 md:p-12 pointer-events-none"
       data-testid="beliefs-header"
       style={{
         opacity,

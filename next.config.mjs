@@ -136,6 +136,7 @@ const createNextConfig = (phase) => ({
   distDir: deployDistDir,
   reactStrictMode: true,
   staticPageGenerationTimeout: 180,
+  allowedDevOrigins: ['127.0.0.1'],
 
   // adapterPath was promoted from experimental to top-level in Next.js 16
   ...(phase === PHASE_PRODUCTION_BUILD
