@@ -1,60 +1,56 @@
 'use client';
 
-import { motion, useTransform, type MotionValue } from 'motion/react';
-import { MOTION_TOKENS } from '@/config/motion';
+import {
+  motion,
+  useTransform,
+  type MotionValue,
+  cubicBezier,
+} from 'motion/react';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
+import { useBeliefStore } from '@/store/beliefStore';
 
-const PHRASES = [
-  'Um vídeo que respira',
-  'Uma marca que se reconhece',
-  'Um detalhe que fica',
-  'Crio para gerar presença',
-  'Mesmo quando não estou ali',
-  'Mesmo quando ninguém percebe o esforço',
-] as const;
+interface Phrase {
+  title: string;
+  text: string;
+}
 
 interface BeliefScrollTextProps {
   scrollProgress: MotionValue<number>;
-  isMobile: boolean;
+  phrases: Phrase[];
   prefersReducedMotion: boolean;
 }
 
 export function BeliefScrollText({
   scrollProgress,
-  isMobile,
+  phrases,
   prefersReducedMotion,
 }: BeliefScrollTextProps) {
-  // Each phrase occupies an equal slice of the scroll progress (0 to 1)
-  const phraseStep = 1 / PHRASES.length;
+  const isMobile = useBeliefStore((s) => s.isMobile);
+  const phraseStep = 1 / (phrases.length + 1); // Leaving room for manifesto
 
   return (
     <div
       className={`absolute inset-0 z-40 flex flex-col pointer-events-none ${
         isMobile
-          ? 'items-center justify-start px-6'
-          : 'justify-start left-6 md:left-16 lg:left-24 max-w-[38vw] lg:max-w-[34vw]'
+          ? 'items-center justify-start px-6 text-center'
+          : 'justify-start left-6 md:left-16 lg:left-24 max-w-[45vw] lg:max-w-[40vw] text-left'
       }`}
       data-testid="beliefs-scroll-text"
-      aria-label={PHRASES.join(' ')}
-      style={{ textAlign: isMobile ? 'center' : 'left' }}
     >
-      <p className="sr-only" aria-live="polite" aria-atomic="true">
-        {PHRASES.join(' ')}
-      </p>
-
       <div
         className="sticky top-0 h-[100vh] w-full flex relative pointer-events-none"
         style={{
           alignItems: isMobile ? 'flex-end' : 'center',
-          paddingBottom: isMobile ? '20vh' : undefined,
+          paddingBottom: isMobile ? '25vh' : undefined,
         }}
       >
-        {PHRASES.map((phrase, i) => {
+        {phrases.map((phrase, i) => {
           const start = i * phraseStep;
           const end = (i + 1) * phraseStep;
 
           return (
             <PhraseItem
-              key={phrase}
+              key={i}
               phrase={phrase}
               isMobile={isMobile}
               scrollProgress={scrollProgress}
@@ -75,42 +71,69 @@ function PhraseItem({
   range,
   prefersReducedMotion,
 }: {
-  phrase: string;
+  phrase: Phrase;
   isMobile: boolean;
   scrollProgress: MotionValue<number>;
   range: [number, number];
   prefersReducedMotion: boolean;
 }) {
   const [start, end] = range;
-  const fadeIn = start + 0.02;
-  const fadeOut = end - 0.02;
+  const segmentSize = end - start;
+  const ghostEase = cubicBezier(...GHOST_EASE_AMBIENT);
 
-  // Derive opacity from MotionValue — no re-renders, pure GPU-driven
+  const entryStart = start + 0.05;
+  const entryEnd = start + segmentSize * 0.4;
+  const exitStart = end - segmentSize * 0.4;
+  const exitEnd = end - 0.05;
+
   const opacity = useTransform(
     scrollProgress,
-    [start, fadeIn, fadeOut, end],
-    [0, 1, 1, 0]
+    [entryStart, entryEnd, exitStart, exitEnd],
+    [0, 1, 1, 0],
+    { ease: ghostEase }
   );
 
-  const y = useTransform(
+  const movement = useTransform(
     scrollProgress,
-    [start, fadeIn],
-    prefersReducedMotion ? [0, 0] : [20, 0]
+    [entryStart, entryEnd, exitStart, exitEnd],
+    isMobile ? [30, 0, 0, -30] : [40, 0, 0, -40],
+    { ease: ghostEase }
+  );
+
+  const blurValue = useTransform(
+    scrollProgress,
+    [entryStart, entryEnd, exitStart, exitEnd],
+    [15, 0, 0, 15]
+  );
+  
+  const filter = useTransform(blurValue, (v) => 
+    prefersReducedMotion ? 'none' : `blur(${v}px)`
   );
 
   return (
-    <motion.span
-      className="belief-phrase absolute italic font-h1 font-bold text-[#4fe6ff] pointer-events-none"
+    <motion.div
+      className="absolute flex flex-col pointer-events-none"
       style={{
-        fontSize: isMobile
-          ? 'clamp(2rem, 8vw, 3rem)'
-          : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-        textAlign: isMobile ? 'center' : 'left',
         opacity,
-        y,
+        x: isMobile ? movement : 0,
+        y: isMobile ? 0 : movement,
+        filter,
+        willChange: 'transform, opacity, filter',
       }}
     >
-      {phrase}
-    </motion.span>
+      <span className="text-[#0048ff] font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 md:mb-4 opacity-70">
+        {phrase.title}
+      </span>
+      <span 
+        className="text-white font-display font-black leading-[0.95] tracking-tighter"
+        style={{
+          fontSize: isMobile
+            ? 'clamp(2.2rem, 9vw, 3.5rem)'
+            : 'clamp(3.5rem, 6vw, 8rem)',
+        }}
+      >
+        {phrase.text}
+      </span>
+    </motion.div>
   );
 }

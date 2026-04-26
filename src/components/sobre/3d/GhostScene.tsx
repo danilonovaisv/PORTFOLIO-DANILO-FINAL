@@ -111,15 +111,19 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
 
     const p = ghostIntensityRef.current;
     const isClimax = p > 0.85;
-    const targetX = isClimax ? 0 : isMobile ? -1.2 : 0;
-    const targetY = isClimax ? 0 : isMobile ? 1.5 : 0;
-    const lerpFactor = Math.min(delta * 8, 0.15);
+    
+    // Ghost-System v3.0: Responsive Positioning
+    // Mobile: Shift left (-1.4) to align with editorial text
+    // Desktop: Shift right (+1.8) to balance the layout
+    const targetX = isClimax ? 0 : isMobile ? -1.4 : 1.8;
+    const targetY = isClimax ? 0 : isMobile ? 1.4 : 0;
+    const lerpFactor = Math.min(delta * 6, 0.12);
 
-    // Parallax via Springs instead of raw mouse values
+    // Parallax via Springs
     const parallaxX =
-      !prefersReducedMotion && !isMobile ? smoothMouseX.get() * 0.4 : 0;
+      !prefersReducedMotion && !isMobile ? smoothMouseX.get() * 0.5 : 0;
     const parallaxY =
-      !prefersReducedMotion && !isMobile ? smoothMouseY.get() * 0.2 : 0;
+      !prefersReducedMotion && !isMobile ? smoothMouseY.get() * 0.25 : 0;
 
     meshRef.current.position.x +=
       (targetX + parallaxX - meshRef.current.position.x) * lerpFactor;
@@ -145,11 +149,11 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
 
     const targetScale = isClimax
       ? isMobile
-        ? 1
-        : 1.05
+        ? 1.2
+        : 1.35
       : isMobile
-        ? 0.9
-        : 0.95;
+        ? 0.95
+        : 1.05;
     meshRef.current.scale.x +=
       (targetScale - meshRef.current.scale.x) * lerpFactor;
     meshRef.current.scale.y = meshRef.current.scale.x;
@@ -192,6 +196,12 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
         dpr={[1, isMobile ? 1 : 1.5]}
         camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 35 }}
         frameloop="demand"
+        onCreated={({ gl }) => {
+          // Detect if major performance caveat or failure
+          if (gl.getContext().isContextLost()) {
+             console.warn('Ghost System: WebGL context lost or slow. Fallback triggered.');
+          }
+        }}
         gl={{
           antialias: true,
           alpha: true,
@@ -199,8 +209,8 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
           failIfMajorPerformanceCaveat: true,
         }}
       >
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 5, 5]} intensity={1.2} />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 10, 10]} intensity={1.5} />
         <Suspense fallback={null}>
           <GhostModel scrollProgress={scrollProgress} />
         </Suspense>

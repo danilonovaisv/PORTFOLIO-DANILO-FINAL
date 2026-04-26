@@ -1,6 +1,7 @@
 'use client';
 
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import Image from 'next/image';
 
 interface Props {
   children: ReactNode;
@@ -21,17 +22,43 @@ export class GhostErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('R3F Error:', error, errorInfo);
+    console.error('Ghost System 3D Critical Failure:', error, errorInfo);
+    // Here we could trigger a "Sentinel Prime" report
+    // reportarErroWeb({ origin: 'GhostScene', error: error.message });
   }
 
   render() {
     if (this.state.hasError) {
       return (
         <div
-          className="fixed inset-0 z-[70] bg-black/50 flex items-center justify-center text-white/70"
-          aria-label="3D experience unavailable"
+          className="fixed inset-0 z-[70] flex items-center justify-center overflow-hidden pointer-events-none"
+          aria-label="3D experience unavailable - showing static fallback"
         >
-          Experiência 3D indisponível
+          {/* Desktop Fallback */}
+          <div className="hidden md:block absolute right-0 top-0 w-full h-full opacity-60">
+             <Image 
+               src="/site.assets/3d/fallback-ghost.jpg"
+               alt="Ghost Architecture Visual"
+               fill
+               className="object-contain object-right"
+               priority
+             />
+          </div>
+          
+          {/* Mobile Fallback */}
+          <div className="block md:hidden absolute left-0 top-[10vh] w-full h-[80vh] opacity-50">
+             <Image 
+               src="/site.assets/3d/fallback-ghost-mobile.png"
+               alt="Ghost Architecture Visual"
+               fill
+               className="object-contain object-left"
+               priority
+             />
+          </div>
+
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-[0.2em] uppercase font-mono">
+            Static Fallback Mode // GHOST_SYSTEM_RESILIENCE
+          </div>
         </div>
       );
     }
