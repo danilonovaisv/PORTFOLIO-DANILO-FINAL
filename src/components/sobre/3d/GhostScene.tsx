@@ -111,12 +111,12 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
 
     const p = ghostIntensityRef.current;
     const isClimax = p > 0.85;
-    
+
     // Ghost-System v3.0: Responsive Positioning
-    // Mobile: Shift left (-1.4) to align with editorial text
+    // Mobile: Shift left (-1.2) and slightly up (1.2) to align with editorial text
     // Desktop: Shift right (+1.8) to balance the layout
-    const targetX = isClimax ? 0 : isMobile ? -1.4 : 1.8;
-    const targetY = isClimax ? 0 : isMobile ? 1.4 : 0;
+    const targetX = isClimax ? 0 : isMobile ? -1.2 : 1.8;
+    const targetY = isClimax ? 0 : isMobile ? 1.2 : 0;
     const lerpFactor = Math.min(delta * 6, 0.12);
 
     // Parallax via Springs
@@ -199,7 +199,9 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
         onCreated={({ gl }) => {
           // Detect if major performance caveat or failure
           if (gl.getContext().isContextLost()) {
-             console.warn('Ghost System: WebGL context lost or slow. Fallback triggered.');
+            console.warn(
+              'Ghost System: WebGL context lost or slow. Fallback triggered.'
+            );
           }
         }}
         gl={{

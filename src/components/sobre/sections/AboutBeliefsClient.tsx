@@ -13,29 +13,29 @@ import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
 
 const PHRASES = [
   {
-    title: 'PRECISÃO',
-    text: 'O design não é sobre o que se vê, mas sobre o que se sente através da funcionalidade absoluta.',
-    color: '#0048ff',
-  },
-  {
-    title: 'ESSÊNCIA',
+    title: 'Acredito no design que é invisível até que você precise dele.',
     text: 'Remover o ruído até que reste apenas a verdade estrutural do produto.',
-    color: '#040013',
+    color: '#f501d3', // Pink
   },
   {
-    title: 'MOVIMENTO',
-    text: 'A fluidez é a linguagem da vida. Interfaces estáticas são interfaces mortas.',
-    color: '#0a0026',
+    title: 'A fluidez é a linguagem da vida.',
+    text: 'Interfaces estáticas são interfaces mortas. O movimento comunica intenção.',
+    color: '#8705f2', // Purple
   },
   {
-    title: 'IMPACTO',
-    text: 'Criar experiências que permanecem na memória muito depois da tela se apagar.',
-    color: '#0048ff',
-  },
-  {
-    title: 'VISÃO',
+    title: 'Tecnologia como extensão humana.',
     text: 'Antecipar o futuro através de tecnologia de ponta e estética atemporal.',
-    color: '#040013',
+    color: '#0048ff', // Blue
+  },
+  {
+    title: 'Impacto que permanece.',
+    text: 'Criar experiências que permanecem na memória muito depois da tela se apagar.',
+    color: '#8705f2', // Purple (Back towards blue/pink)
+  },
+  {
+    title: 'VISÃO GHOST',
+    text: 'O design não é sobre o que se vê, mas sobre o que se sente através da funcionalidade absoluta.',
+    color: '#0048ff', // Final Blue
   },
 ];
 
@@ -59,7 +59,7 @@ export function AboutBeliefsClient() {
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
-      <BeliefBackground prefersReducedMotion={prefersReducedMotion} />
+      <BeliefBackground scrollProgress={scrollYProgress} />
 
       <div className="relative z-10 w-full">
         <BeliefFixedHeader
@@ -80,10 +80,10 @@ export function AboutBeliefsClient() {
         </div>
 
         <div className="relative">
-          {PHRASES.map((phrase, i) => (
-            <BeliefSection key={i} index={i} bgColor={phrase.color} />
+          {PHRASES.map((_, i) => (
+            <BeliefSection key={i} index={i} />
           ))}
-          <BeliefSection index={PHRASES.length} bgColor="#040013" />
+          <BeliefSection index={PHRASES.length} />
         </div>
 
         <BeliefManifesto

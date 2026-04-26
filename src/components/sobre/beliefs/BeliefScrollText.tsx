@@ -105,8 +105,8 @@ function PhraseItem({
     [entryStart, entryEnd, exitStart, exitEnd],
     [15, 0, 0, 15]
   );
-  
-  const filter = useTransform(blurValue, (v) => 
+
+  const filter = useTransform(blurValue, (v) =>
     prefersReducedMotion ? 'none' : `blur(${v}px)`
   );
 
@@ -124,7 +124,7 @@ function PhraseItem({
       <span className="text-[#0048ff] font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 md:mb-4 opacity-70">
         {phrase.title}
       </span>
-      <span 
+      <span
         className="text-white font-display font-black leading-[0.95] tracking-tighter"
         style={{
           fontSize: isMobile
