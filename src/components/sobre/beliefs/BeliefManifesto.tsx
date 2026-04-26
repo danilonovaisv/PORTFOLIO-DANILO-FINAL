@@ -8,6 +8,7 @@ import {
 } from 'motion/react';
 import { useState } from 'react';
 import { MOTION_TOKENS } from '@/config/motion';
+import { SplitText } from '@/components/ui/SplitText';
 
 interface BeliefManifestoProps {
   scrollProgress: MotionValue<number>;
@@ -42,9 +43,19 @@ export function BeliefManifesto({
         className="text-center font-display font-black text-white tracking-[0.03em] leading-[0.82]"
         style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
       >
-        <span className="block">ISSO É</span>
-        <span className="block">GHOST</span>
-        <span className="block">DESIGN</span>
+        {prefersReducedMotion ? (
+          <>
+            <span className="block">ISSO É</span>
+            <span className="block">GHOST</span>
+            <span className="block">DESIGN</span>
+          </>
+        ) : (
+          <>
+            <span className="block overflow-hidden"><SplitText text="ISSO É" trigger={isActive} stagger={0.05} /></span>
+            <span className="block overflow-hidden"><SplitText text="GHOST" trigger={isActive} stagger={0.05} /></span>
+            <span className="block overflow-hidden"><SplitText text="DESIGN" trigger={isActive} stagger={0.05} /></span>
+          </>
+        )}
       </div>
     </motion.div>
   );

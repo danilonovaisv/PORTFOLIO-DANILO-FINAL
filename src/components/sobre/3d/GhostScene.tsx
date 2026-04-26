@@ -3,7 +3,7 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useMemo, useRef } from 'react';
-import type { MotionValue } from 'motion/react';
+import { useMotionValue, useSpring, type MotionValue } from 'framer-motion';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
 
@@ -36,27 +36,40 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
   const invalidate = useThree((state) => state.invalidate);
   const isMobile = useBeliefStore((s) => s.isMobile);
   const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  
+  // Motion Values for Parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Spring Physics configured according to plan
+  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  const smoothScroll = useSpring(scrollProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
-    const unsubScroll = scrollProgress.on('change', () => invalidate());
+    const unsubScroll = smoothScroll.on('change', () => invalidate());
+    const unsubX = smoothMouseX.on('change', () => invalidate());
+    const unsubY = smoothMouseY.on('change', () => invalidate());
 
-    return () => unsubScroll();
-  }, [invalidate, scrollProgress]);
+    return () => {
+      unsubScroll();
+      unsubX();
+      unsubY();
+    };
+  }, [invalidate, smoothScroll, smoothMouseX, smoothMouseY]);
 
   useEffect(() => {
     if (isMobile || prefersReducedMotion) return;
 
     const handleMove = (e: PointerEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      invalidate();
+      mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
+      mouseY.set(-(e.clientY / window.innerHeight) * 2 + 1);
     };
 
     window.addEventListener('pointermove', handleMove, { passive: true });
 
     return () => window.removeEventListener('pointermove', handleMove);
-  }, [invalidate, isMobile, prefersReducedMotion]);
+  }, [isMobile, prefersReducedMotion, mouseX, mouseY]);
 
   useEffect(() => {
     return () => {
@@ -86,24 +99,30 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     const targetX = isClimax ? 0 : isMobile ? -1.2 : 0;
     const targetY = isClimax ? 0 : isMobile ? 1.5 : 0;
     const lerpFactor = Math.min(delta * 8, 0.15);
-    const parallaxX =
-      !prefersReducedMotion && !isMobile ? mouseRef.current.x * 0.4 : 0;
-    const parallaxY =
-      !prefersReducedMotion && !isMobile ? mouseRef.current.y * 0.2 : 0;
+    
+    // Parallax via Springs instead of raw mouse values
+    const parallaxX = !prefersReducedMotion && !isMobile ? smoothMouseX.get() * 0.4 : 0;
+    const parallaxY = !prefersReducedMotion && !isMobile ? smoothMouseY.get() * 0.2 : 0;
 
     meshRef.current.position.x +=
       (targetX + parallaxX - meshRef.current.position.x) * lerpFactor;
     meshRef.current.position.y +=
       (targetY + parallaxY - meshRef.current.position.y) * lerpFactor;
 
+    // Scroll rotation mapping
+    const s = smoothScroll.get();
+    const baseRotationY = s * Math.PI * 0.5; // Rotate 90deg over the full scroll range
+
     if (!prefersReducedMotion) {
       const floatSpeed = 0.6 + p * 0.6;
       const floatAmp = 0.036 + p * 0.03;
       meshRef.current.position.y +=
         Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmp;
-      meshRef.current.rotation.y =
+      meshRef.current.rotation.y = baseRotationY +
         Math.sin(state.clock.elapsedTime * 0.4 * (0.4 + p * 0.4)) *
         (0.06 + p * 0.04);
+    } else {
+      meshRef.current.rotation.y = baseRotationY;
     }
 
     const targetScale = isClimax
