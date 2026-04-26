@@ -36,7 +36,11 @@ export function BeliefScrollText({
 
       // Animação de entrada
       animate(textEl, { opacity: 1, y: 0 }, { duration: 0.5, ease: "easeOut" });
-      animate('.beliefs-bg', { backgroundColor: bgColor }, { duration: 0.6 });
+      
+      const bgEl = document.querySelector('[data-testid="beliefs-section"]');
+      if (bgEl) {
+        animate(bgEl, { backgroundColor: bgColor }, { duration: 0.6 });
+      }
 
       // Retorna função cleanup para saída
       return () => {
