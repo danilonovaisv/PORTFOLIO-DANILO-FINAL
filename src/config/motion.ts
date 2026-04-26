@@ -21,9 +21,41 @@ export const GHOST_EASE_AMBIENT: EasingTuple = [0.17, 0.55, 0.55, 1];
 
 export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
+  // BELIEFS V3 CONTRACT
+  // ─────────────────────────────────────────────────────────────────────────
+  colors: {
+    deepVoid: '#040013',
+    bluePrimary: '#0048ff',
+    purpleDetails: '#8705f2',
+    pinkDetails: '#f501d3',
+    cyanAccent: '#4fe6ff',
+    bgCycle: [
+      '#040013',
+      '#0048ff',
+      '#8705f2',
+      '#f501d3',
+      '#0048ff',
+      '#8705f2',
+      '#f501d3',
+      '#040013',
+    ],
+  },
+
+  ease: {
+    ambient: GHOST_EASE_AMBIENT,
+    ghost: GHOST_EASE,
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
   // DURATIONS
   // ─────────────────────────────────────────────────────────────────────────
   duration: {
+    bg: 0.9,
+    headerIn: 0.8,
+    headerOut: 0.5,
+    textIn: 0.9,
+    textOut: 0.5,
+    ghostIn: 1.2,
     /** Atmospheric, slow reveals - 1.5s */
     slow: 1.5,
     /** Standard transitions - 0.8s */
@@ -119,6 +151,13 @@ export const MOTION_TOKENS = {
     /** Hero/dramatic entrances - 40px (use sparingly) */
     dramatic: 18,
   },
+
+  distance: {
+    textY: 18,
+    headerX: 60,
+  },
+
+  z: { bg: 0, overlay: 10, header: 30, text: 40, manifesto: 50, ghost: 70 },
 } as const;
 
 // =============================================================================

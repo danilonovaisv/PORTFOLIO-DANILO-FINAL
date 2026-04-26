@@ -1,346 +1,200 @@
-import { test, expect, type Page, type TestInfo } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
-const BELIEFS_URL = '/sobre';
+const ROUTES = ['/o-que-me-move', '/sobre'] as const;
 
-// ── Helpers ────────────────────────────────────────────────────────────────────
-const gotoBeliefs = async (page: Page) => {
-  const section = page.locator('[data-testid="beliefs-section"]');
-
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    try {
-      await page.goto(BELIEFS_URL, { waitUntil: 'commit' });
-      await expect(section).toBeVisible({ timeout: 20_000 });
-      return;
-    } catch (error) {
-      if (attempt === 2) throw error;
-      await page.waitForTimeout(1_000);
-    }
-  }
+const gotoRoute = async (page: Page, route: string) => {
+  await page.goto(route, { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('[data-testid="beliefs-section"]')).toBeAttached();
+  await page.evaluate(() => {
+    document
+      .querySelector('[data-testid="beliefs-section"]')
+      ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
+  await page.waitForTimeout(500);
 };
 
 const scrollToProgress = async (page: Page, progress: number) => {
   await page.evaluate((p) => {
     const section = document.querySelector('[data-testid="beliefs-section"]');
     if (!section) return;
-    const sectionTop = window.scrollY + section.getBoundingClientRect().top;
-    const totalScrollable = section.scrollHeight - window.innerHeight;
+
+    const rect = section.getBoundingClientRect();
+    const sectionTop = window.scrollY + rect.top;
+    const start = sectionTop - window.innerHeight;
+    const end = sectionTop + rect.height - window.innerHeight;
+
     window.scrollTo({
-      top: sectionTop + totalScrollable * p,
+      top: start + (end - start) * p,
       behavior: 'instant',
     });
   }, progress);
-  await page.waitForTimeout(300);
+
+  await page.waitForTimeout(500);
 };
 
-const captureSectionCheckpoint = async (
-  page: Page,
-  label: string,
-  progress: number,
-  testInfo: TestInfo
-) => {
-  await scrollToProgress(page, progress);
-  const section = page.locator('[data-testid="beliefs-section"]');
-  await expect(section).toBeVisible();
-  const image = await section.screenshot({ animations: 'disabled' });
-  expect(image.byteLength).toBeGreaterThan(0);
-  await testInfo.attach(label, {
-    body: image,
-    contentType: 'image/png',
-  });
-};
-
-// ── Testes ─────────────────────────────────────────────────────────────────────
-test.describe('Seção 06 — O Que Me Move (AboutBeliefs)', () => {
-  test.beforeEach(async ({ page }) => {
-    await gotoBeliefs(page);
-    // Rola até a seção antes de cada teste
-    await page.evaluate(() => {
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' });
+for (const route of ROUTES) {
+  test.describe(`O Que Me Move v3 — ${route}`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await gotoRoute(page, route);
     });
-    await page.waitForTimeout(500);
-  });
 
-  // ── Teste 01: Seção existe e tem min-h correto ──────────────────────────────
-  test('01 — seção existe com data-testid e altura mínima', async ({
-    page,
-  }) => {
-    const section = page.locator('[data-testid="beliefs-section"]');
-    await expect(section).toBeVisible();
-    const height = await section.evaluate(
-      (el) => el.scrollHeight / window.innerHeight
-    );
-    expect(height).toBeGreaterThanOrEqual(3.5); // min 400vh aproximado
-  });
+    test('seção existe com altura cinematográfica de 600vh', async ({
+      page,
+    }) => {
+      const section = page.locator('[data-testid="beliefs-section"]');
+      await expect(section).toBeVisible();
 
-  // ── Teste 02: Z-index — Ghost permanece acima do manifesto ─────────────────
-  test('02 — Ghost permanece acima do manifesto no clímax (z-index)', async ({
-    page,
-  }) => {
-    await scrollToProgress(page, 0.9);
+      await expect
+        .poll(async () =>
+          section.evaluate((el) => el.scrollHeight / window.innerHeight)
+        )
+        .toBeGreaterThanOrEqual(5.8);
+    });
 
-    const manifesto = page.locator('[data-testid="beliefs-manifesto"]').first();
-    const ghost = page.locator('[data-testid="beliefs-ghost-scene"]').first();
-    await expect(manifesto).toBeAttached();
-    await expect(ghost).toBeAttached();
+    test('z-index mantém Ghost acima do manifesto no clímax', async ({
+      page,
+    }) => {
+      await scrollToProgress(page, 0.9);
 
-    const ghostZ = await page.evaluate(() => {
-      const node = document.querySelector(
-        '[data-testid="beliefs-ghost-scene"]'
+      const ghost = page.locator('[data-testid="beliefs-ghost-scene"]').first();
+      const manifesto = page.locator('[data-testid="beliefs-manifesto"]');
+
+      await expect(ghost).toBeAttached();
+      await expect(manifesto).toBeAttached();
+
+      const ghostZ = await ghost.evaluate((el) =>
+        Number(window.getComputedStyle(el).zIndex)
       );
-      return node ? window.getComputedStyle(node).zIndex : '0';
-    });
-    const manifestoZ = await page.evaluate(() => {
-      const node = document.querySelector('[data-testid="beliefs-manifesto"]');
-      return node ? window.getComputedStyle(node).zIndex : '0';
-    });
+      const manifestoZ = await manifesto.evaluate((el) =>
+        Number(window.getComputedStyle(el).zIndex)
+      );
 
-    expect(Number(ghostZ)).toBeGreaterThan(Number(manifestoZ));
-  });
-
-  // ── Teste 03: Background muda de cor com o scroll ──────────────────────────
-  test('03 — background interpolação de cor entre frases', async ({ page }) => {
-    // Cor no início (Deep Void)
-    const colorStart = await page.evaluate(() => {
-      const bg = document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.querySelector('[data-testid="beliefs-background"]');
-      return bg ? window.getComputedStyle(bg).backgroundColor : '';
+      expect(ghostZ).toBe(70);
+      expect(manifestoZ).toBe(50);
+      expect(ghostZ).toBeGreaterThan(manifestoZ);
     });
 
-    await scrollToProgress(page, 0.3);
+    test('background troca de cor quando as scroll-sections entram', async ({
+      page,
+    }) => {
+      const background = page.locator('[data-testid="beliefs-background"]');
 
-    // Cor no meio (alguma variação de azul/roxo/rosa)
-    const colorMid = await page.evaluate(() => {
-      const bg = document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.querySelector('[data-testid="beliefs-background"]');
-      return bg ? window.getComputedStyle(bg).backgroundColor : '';
+      await scrollToProgress(page, 0.02);
+      const colorStart = await background.evaluate(
+        (el) => window.getComputedStyle(el).backgroundColor
+      );
+
+      await scrollToProgress(page, 0.34);
+      const colorMid = await background.evaluate(
+        (el) => window.getComputedStyle(el).backgroundColor
+      );
+
+      expect(colorStart).not.toBe(colorMid);
+      expect(colorMid).not.toBe('rgb(4, 0, 19)');
     });
 
-    // As duas cores devem ser diferentes
-    expect(colorStart).not.toBe(colorMid);
-    // A cor do meio não pode ser preto puro (#040013 = rgb(4, 0, 19))
-    expect(colorMid).not.toBe('rgb(4, 0, 19)');
-  });
+    test('frases entram com blur e deslocamento em motion normal', async ({
+      page,
+    }) => {
+      await scrollToProgress(page, 0.28);
 
-  // ── Teste 04: Frases rotatórias aparecem ───────────────────────────────────
-  test('04 — frases rotatórias visíveis durante scroll', async ({ page }) => {
-    const PHRASES = [
-      'Um vídeo que respira',
-      'Uma marca que se reconhece',
-      'Um detalhe que fica',
-    ];
+      await expect
+        .poll(async () => {
+          const styles = await page
+            .locator('[data-testid="beliefs-scroll-text"] .belief-phrase span')
+            .evaluateAll((elements) => {
+              return elements.map((el) => {
+                const computed = window.getComputedStyle(el);
+                return {
+                  opacity: Number(computed.opacity),
+                  filter: computed.filter,
+                };
+              });
+            });
+          const visiblePhrase = styles.find((style) => style.opacity > 0.5);
 
-    for (const phrase of PHRASES) {
-      await scrollToProgress(page, 0.2 + PHRASES.indexOf(phrase) * 0.15);
-      // Pelo menos um texto matching deve estar no DOM (não necessariamente visível
-      // se for desktop com opacity, mas deve estar attached)
-      const count = await page
-        .locator('[data-testid="beliefs-section"]')
-        .locator(`text="${phrase}"`)
-        .count();
-      expect(count).toBeGreaterThanOrEqual(1);
-    }
-  });
-
-  test('texto volta ao estado inicial ao sair da viewport', async ({
-    page,
-  }) => {
-    await gotoBeliefs(page);
-    const section = page.locator('[data-testid="beliefs-section"]');
-    await section.scrollIntoViewIfNeeded();
-
-    const phrase = page
-      .locator('[data-testid="beliefs-section"] .scroll-section p')
-      .first();
-    await expect(phrase).toBeAttached();
-
-    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 1.2));
-    await page.waitForTimeout(300);
-
-    const opacity = await phrase.evaluate((el) => getComputedStyle(el).opacity);
-    expect(Number(opacity)).toBeLessThan(1);
-  });
-
-  test('background troca de cor quando nova scroll-section entra em view', async ({
-    page,
-  }) => {
-    await gotoBeliefs(page);
-    await page.evaluate(() => {
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' });
+          return visiblePhrase && !visiblePhrase.filter.includes('blur(6px)');
+        })
+        .toBeTruthy();
     });
-    await page.waitForTimeout(500);
-    const getColor = async () =>
-      page.evaluate(() => {
-        const bg = document.querySelector(
-          '[data-testid="beliefs-section"] [data-testid="beliefs-background"]'
+
+    test('reduced motion preserva cor/opacidade e remove blur/offset', async ({
+      page,
+    }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await gotoRoute(page, route);
+      await scrollToProgress(page, 0.35);
+
+      const hasReducedMotionViolation = await page.evaluate(() => {
+        const section = document.querySelector(
+          '[data-testid="beliefs-section"]'
         );
-        return bg ? getComputedStyle(bg).backgroundColor : '';
+        if (!section) return true;
+
+        const elements = section.querySelectorAll(
+          '[data-testid="beliefs-scroll-text"] .belief-phrase span'
+        );
+
+        for (const el of elements) {
+          const style = window.getComputedStyle(el);
+          if (style.filter !== 'none' && style.filter !== 'blur(0px)') {
+            return true;
+          }
+          if (
+            style.transform &&
+            style.transform !== 'none' &&
+            style.transform !== 'matrix(1, 0, 0, 1, 0, 0)'
+          ) {
+            return true;
+          }
+        }
+
+        return false;
       });
 
-    const start = await getColor();
-    await scrollToProgress(page, 0.35);
-    const next = await getColor();
-
-    expect(next).not.toBe(start);
-  });
-
-  // ── Teste 05: prefers-reduced-motion desativa animações ────────────────────
-  test('05 — reduced-motion: fallback estático sem transform', async ({
-    page,
-  }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await gotoBeliefs(page);
-
-    await page.evaluate(() => {
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' });
-    });
-    await page.waitForTimeout(500);
-
-    // Nenhum elemento de conteúdo da seção deve ter transform com translateY > 0
-    const hasTranslateY = await page.evaluate(() => {
-      const section = document.querySelector('[data-testid="beliefs-section"]');
-      if (!section) return false;
-      const els = section.querySelectorAll('p, h1, h2, header');
-      for (const el of els) {
-        const t = window.getComputedStyle(el).transform;
-        if (t && t !== 'none' && t !== 'matrix(1, 0, 0, 1, 0, 0)') {
-          return true;
-        }
-      }
-      return false;
+      expect(hasReducedMotionViolation).toBe(false);
     });
 
-    expect(hasTranslateY).toBe(false);
-  });
+    test('mobile posiciona header e texto conforme contrato', async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await gotoRoute(page, route);
+      await scrollToProgress(page, 0.2);
 
-  // ── Teste 06: GhostScene SSR-safe (sem hydration error) ────────────────────
-  test('06 — sem erros de hydration no console', async ({ page }) => {
-    const consoleErrors: string[] = [];
-    page.on('console', (msg) => {
-      if (msg.type() === 'error') consoleErrors.push(msg.text());
+      const headerTop = await page
+        .locator('[data-testid="beliefs-header"]')
+        .evaluate((el) => window.getComputedStyle(el).top);
+      const phraseTextAlign = await page
+        .locator('[data-testid="beliefs-scroll-text"]')
+        .evaluate((el) => window.getComputedStyle(el).textAlign);
+
+      expect(Number.parseFloat(headerTop)).toBeGreaterThanOrEqual(160);
+      expect(Number.parseFloat(headerTop)).toBeLessThanOrEqual(170);
+      expect(phraseTextAlign).toBe('center');
     });
 
-    await gotoBeliefs(page);
+    test('Canvas R3F existe sem hydration error no console', async ({
+      page,
+    }) => {
+      const consoleErrors: string[] = [];
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') consoleErrors.push(msg.text());
+      });
 
-    const hydrateErrors = consoleErrors.filter(
-      (e) => e.includes('Hydration') || e.includes('hydrat')
-    );
-    expect(hydrateErrors).toHaveLength(0);
-  });
+      await gotoRoute(page, route);
 
-  // ── Teste 07: Desktop viewport ─────────────────────────────────────────────
-  test('07 — desktop: Ghost Canvas presente e wrapper fixo', async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await gotoBeliefs(page);
+      await expect(page.locator('canvas').first()).toBeAttached({
+        timeout: 10000,
+      });
 
-    await page.evaluate(() =>
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' })
-    );
+      const hydrationErrors = consoleErrors.filter((error) =>
+        error.toLowerCase().includes('hydrat')
+      );
 
-    const canvas = page
-      .locator('[data-testid="beliefs-ghost-scene"] canvas')
-      .first();
-    await expect(canvas).toBeAttached({ timeout: 8000 });
-
-    const position = await page
-      .locator('[data-testid="beliefs-ghost-scene"]')
-      .first()
-      .evaluate((el) => window.getComputedStyle(el).position);
-    expect(position).toBe('fixed');
-  });
-
-  // ── Teste 08: Mobile viewport ──────────────────────────────────────────────
-  test('08 — mobile mantém frases sequenciais em scroll-section', async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await gotoBeliefs(page);
-    const sections = page.locator(
-      '[data-testid="beliefs-section"] .scroll-section'
-    );
-    await expect(sections).toHaveCount(6);
-  });
-
-  test('09 — checkpoints visuais da seção são capturados em desktop e mobile', async ({
-    page,
-  }, testInfo) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await gotoBeliefs(page);
-    await page.evaluate(() =>
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' })
-    );
-    await page.waitForTimeout(500);
-
-    await captureSectionCheckpoint(page, 'beliefs-desktop-015', 0.15, testInfo);
-    await captureSectionCheckpoint(page, 'beliefs-desktop-045', 0.45, testInfo);
-    await captureSectionCheckpoint(page, 'beliefs-desktop-090', 0.9, testInfo);
-
-    await page.setViewportSize({ width: 390, height: 844 });
-    await gotoBeliefs(page);
-    await page.evaluate(() =>
-      document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.scrollIntoView({ behavior: 'instant' })
-    );
-    await page.waitForTimeout(500);
-
-    await captureSectionCheckpoint(page, 'beliefs-mobile-020', 0.2, testInfo);
-    await captureSectionCheckpoint(page, 'beliefs-mobile-090', 0.9, testInfo);
-  });
-
-  test('10 — climax desktop: manifesto dominante e branco', async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await gotoBeliefs(page);
-    await scrollToProgress(page, 0.92);
-
-    const manifesto = page
-      .locator('[data-testid="beliefs-manifesto"] p')
-      .first();
-    await expect(manifesto).toBeVisible();
-
-    const styles = await manifesto.evaluate((el) => {
-      const computed = getComputedStyle(el);
-      return {
-        color: computed.color,
-        fontSize: parseFloat(computed.fontSize),
-      };
+      expect(hydrationErrors).toHaveLength(0);
     });
-
-    expect(styles.color).toBe('rgb(255, 255, 255)');
-    expect(styles.fontSize).toBeGreaterThan(120);
   });
-
-  test('11 — climax mobile: fundo azul dominante', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await gotoBeliefs(page);
-    await scrollToProgress(page, 0.92);
-
-    const colorEnd = await page.evaluate(() => {
-      const bg = document
-        .querySelector('[data-testid="beliefs-section"]')
-        ?.querySelector('[data-testid="beliefs-background"]');
-      return bg ? window.getComputedStyle(bg).backgroundColor : '';
-    });
-
-    const rgb = colorEnd.match(/\d+/g)?.map(Number) ?? [];
-    expect(rgb.length).toBeGreaterThanOrEqual(3);
-    expect(rgb[2]).toBeGreaterThan(220); // blue channel dominante
-    expect(rgb[0]).toBeLessThan(80);
-    expect(rgb[1]).toBeLessThan(100);
-  });
-});
+}

@@ -1,85 +1,68 @@
 'use client';
 
-/**
- * GhostScene — Canvas R3F da Seção 06 "O Que Me Move".
- *
- * Ajuste 2026-04-23:
- * • wrapper segue somente opacity + translateY
- * • modelo 3D abandona scale/rotate procedural e cursor parallax
- * • movimento fica essencialmente vertical e scroll-linked
- * • Ghost continua acima do manifesto via token local da seção
- */
-
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Center, useGLTF } from '@react-three/drei';
-import { Suspense, useEffect, useRef } from 'react';
-import { motion, useSpring, useTransform } from 'motion/react';
+import { useGLTF } from '@react-three/drei';
+import { useEffect, useMemo, useRef } from 'react';
 import type { MotionValue } from 'motion/react';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
+import { useBeliefStore } from '@/store/beliefStore';
 
-import { MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl } from '@/lib/utils';
+const LOCAL_GHOST_GLB_URL = '/site.assets/3d/ghost-v1.glb';
+const SUPABASE_GHOST_GLB_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL
+    ? `${(
+        process.env.NEXT_PUBLIC_SUPABASE_URL ||
+        process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ||
+        ''
+      ).replace(/\/$/, '')}/storage/v1/object/public/site-assets/3d/ghost-v1.glb`
+    : LOCAL_GHOST_GLB_URL;
 
-const GHOST_GLB_URL = getAssetUrl('site-assets/3d/ghost-v1.glb', {
-  isVideo: true,
-});
-
-useGLTF.preload(GHOST_GLB_URL);
+useGLTF.preload(SUPABASE_GHOST_GLB_URL);
 
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
-  isMobile: boolean;
-  prefersReducedMotion: boolean;
 }
 
-const interpolateProgress = (
-  value: number,
-  input: readonly number[],
-  output: readonly number[]
-) => {
-  if (input.length !== output.length || input.length === 0) return 0;
-  if (value <= input[0]) return output[0];
-
-  for (let index = 1; index < input.length; index += 1) {
-    const start = input[index - 1];
-    const end = input[index];
-
-    if (value <= end) {
-      const progress = (value - start) / (end - start || 1);
-      const from = output[index - 1];
-      const to = output[index];
-      return from + (to - from) * progress;
-    }
-  }
-
-  return output[output.length - 1];
-};
-
-const GhostModel = ({
-  scrollProgress,
-  isMobile,
-  prefersReducedMotion,
-}: GhostModelProps) => {
-  const { scene } = useGLTF(GHOST_GLB_URL);
-  const groupRef = useRef<Group>(null);
+function GhostModel({ scrollProgress }: GhostModelProps) {
+  const { scene } = useGLTF(SUPABASE_GHOST_GLB_URL);
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
+  const meshRef = useRef<Group>(null);
   const invalidate = useThree((state) => state.invalidate);
+  const isMobile = useBeliefStore((s) => s.isMobile);
+  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+  const mouseRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const unsubScroll = scrollProgress.on('change', () => invalidate());
 
-    return () => {
-      unsubScroll();
-    };
+    return () => unsubScroll();
   }, [invalidate, scrollProgress]);
 
   useEffect(() => {
+    if (isMobile || prefersReducedMotion) return;
+
+    const handleMove = (e: PointerEvent) => {
+      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      invalidate();
+    };
+
+    window.addEventListener('pointermove', handleMove, { passive: true });
+
+    return () => window.removeEventListener('pointermove', handleMove);
+  }, [invalidate, isMobile, prefersReducedMotion]);
+
+  useEffect(() => {
     return () => {
-      scene.traverse((obj: Object3D) => {
+      clonedScene.traverse((obj: Object3D) => {
         const mesh = obj as Object3D & {
           geometry?: BufferGeometry;
           material?: Material | Material[];
         };
+
         mesh.geometry?.dispose();
+
         if (Array.isArray(mesh.material)) {
           mesh.material.forEach((material) => material.dispose());
         } else {
@@ -87,99 +70,68 @@ const GhostModel = ({
         }
       });
     };
-  }, [scene]);
+  }, [clonedScene]);
 
   useFrame((state, delta) => {
-    if (!groupRef.current) return;
+    if (!meshRef.current) return;
 
-    const progress = scrollProgress.get();
-    const lerpFactor = Math.min(delta * 7, 0.12);
-    const drift = prefersReducedMotion
-      ? 0
-      : Math.sin(state.clock.elapsedTime * 0.65) * 0.02;
-    const targetY = isMobile
-      ? interpolateProgress(progress, [0, 0.75, 1], [0.34, 0.08, -0.06])
-      : interpolateProgress(
-          progress,
-          [0, 0.2, 0.82, 1],
-          [0.14, 0.02, -0.08, -0.16]
-        );
+    const { ghostIntensity } = useBeliefStore.getState();
+    const p = ghostIntensity;
+    const isClimax = p > 0.85;
+    const targetX = isClimax ? 0 : isMobile ? -1.2 : 0;
+    const targetY = isClimax ? 0 : isMobile ? 1.5 : 0;
+    const lerpFactor = Math.min(delta * 8, 0.15);
+    const parallaxX = !prefersReducedMotion && !isMobile ? mouseRef.current.x * 0.4 : 0;
+    const parallaxY = !prefersReducedMotion && !isMobile ? mouseRef.current.y * 0.2 : 0;
 
-    groupRef.current.position.y +=
-      (targetY + drift - groupRef.current.position.y) * lerpFactor;
+    meshRef.current.position.x +=
+      (targetX + parallaxX - meshRef.current.position.x) * lerpFactor;
+    meshRef.current.position.y +=
+      (targetY + parallaxY - meshRef.current.position.y) * lerpFactor;
+
+    if (!prefersReducedMotion) {
+      const floatSpeed = 0.6 + p * 0.6;
+      const floatAmp = 0.036 + p * 0.03;
+      meshRef.current.position.y +=
+        Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmp;
+      meshRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.4 * (0.4 + p * 0.4)) *
+        (0.06 + p * 0.04);
+    }
+
+    const targetScale = isClimax ? (isMobile ? 1 : 1.05) : isMobile ? 0.9 : 0.95;
+    meshRef.current.scale.x +=
+      (targetScale - meshRef.current.scale.x) * lerpFactor;
+    meshRef.current.scale.y = meshRef.current.scale.x;
+    meshRef.current.scale.z = meshRef.current.scale.x;
   });
 
-  return (
-    <Center>
-      <group
-        ref={groupRef}
-        position={[0, isMobile ? 0.34 : 0.14, 0]}
-        rotation={[0.03, isMobile ? -0.04 : -0.06, 0]}
-        scale={isMobile ? 0.78 : 0.68}
-      >
-        <primitive object={scene} dispose={null} />
-      </group>
-    </Center>
-  );
-};
+  return <primitive object={clonedScene} ref={meshRef} />;
+}
 
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
-  isMobile?: boolean;
-  prefersReducedMotion?: boolean;
 }
 
-export const GhostScene = ({
-  scrollProgress,
-  isMobile,
-  prefersReducedMotion,
-}: GhostSceneProps) => {
-  const resolvedIsMobile = isMobile ?? false;
-  const resolvedPrefersReducedMotion = prefersReducedMotion ?? false;
-  const smoothProgress = useSpring(
-    scrollProgress,
-    MOTION_TOKENS.spring.scrollScrub
-  );
-  const opacity = useTransform(
-    smoothProgress,
-    [0, 0.06, 0.98, 1],
-    [0, 1, 1, 0]
-  );
-  const y = useTransform(smoothProgress, [0, 0.08, 0.98, 1], [18, 0, 0, -18]);
+export function GhostScene({ scrollProgress }: GhostSceneProps) {
+  const isMobile = useBeliefStore((s) => s.isMobile);
 
   return (
-    <motion.div
+    <div
+      className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
       data-testid="beliefs-ghost-scene"
-      className="fixed inset-0 h-full w-full z-[var(--z-layer-lightbox)] pointer-events-none"
       aria-hidden="true"
-      role="presentation"
-      style={{ opacity, y }}
     >
       <Canvas
+        dpr={[1, isMobile ? 1 : 2]}
+        camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 35 }}
         frameloop="demand"
-        dpr={[1, resolvedIsMobile ? 1 : 2]}
-        camera={{
-          position: [0, 0, resolvedIsMobile ? 6.8 : 6],
-          fov: resolvedIsMobile ? 38 : 35,
-        }}
-        performance={{ min: 0.5, max: 1, debounce: 200 }}
-        gl={{
-          antialias: !resolvedIsMobile,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       >
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[4, 4, 4]} intensity={1.2} />
-        <pointLight position={[0, 2, 3]} color="#4fe6ff" intensity={0.4} />
-        <Suspense fallback={null}>
-          <GhostModel
-            scrollProgress={smoothProgress}
-            isMobile={resolvedIsMobile}
-            prefersReducedMotion={resolvedPrefersReducedMotion}
-          />
-        </Suspense>
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={1.2} />
+        <GhostModel scrollProgress={scrollProgress} />
       </Canvas>
-    </motion.div>
+    </div>
   );
-};
+}

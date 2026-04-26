@@ -1,100 +1,124 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { animate, inView } from 'motion';
-import { GHOST_EASE } from '@/config/motion';
+import { animate, useMotionValueEvent, type MotionValue } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { MOTION_TOKENS } from '@/config/motion';
+
+const PHRASES = [
+  'Um vídeo que respira',
+  'Uma marca que se reconhece',
+  'Um detalhe que fica',
+  'Crio para gerar presença',
+  'Mesmo quando não estou ali',
+  'Mesmo quando ninguém percebe o esforço',
+] as const;
 
 interface BeliefScrollTextProps {
-  phrases: readonly string[];
-  isMobile?: boolean;
-  prefersReducedMotion?: boolean;
+  scrollProgress: MotionValue<number>;
+  isMobile: boolean;
+  prefersReducedMotion: boolean;
 }
 
-export const BeliefScrollText = ({
-  phrases,
-  isMobile = false,
-  prefersReducedMotion = false,
-}: BeliefScrollTextProps) => {
-  const [activePhrase, setActivePhrase] = useState(phrases[0] ?? '');
+export function BeliefScrollText({
+  scrollProgress,
+  isMobile,
+  prefersReducedMotion,
+}: BeliefScrollTextProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const copyRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const [activePhrase, setActivePhrase] = useState<string>(PHRASES[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useMotionValueEvent(scrollProgress, 'change', (value) => {
+    const nextIndex = Math.min(
+      PHRASES.length - 1,
+      Math.max(0, Math.floor(value * PHRASES.length))
+    );
+    setActiveIndex(nextIndex);
+    setActivePhrase(PHRASES[nextIndex]);
+  });
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setActivePhrase(phrases[0] ?? '');
-      return;
-    }
+    copyRefs.current.forEach((copy, index) => {
+      if (!copy) return;
 
-    const stop = inView('[data-belief-phrase]', (element) => {
-      const nextPhrase = element.textContent?.trim();
-      if (nextPhrase) setActivePhrase(nextPhrase);
-
-      animate(
-        element,
-        {
-          opacity: 1,
-          y: [18, 0],
-          filter: ['blur(6px)', 'blur(0px)'],
-        },
-        { duration: 0.9, ease: GHOST_EASE }
-      );
-
-      return () => {
+      if (prefersReducedMotion) {
         animate(
-          element,
-          {
-            opacity: 0,
-            y: -18,
-            filter: ['blur(0px)', 'blur(6px)'],
-          },
-          { duration: 0.5, ease: GHOST_EASE }
+          copy,
+          { opacity: 1, y: 0, filter: 'blur(0px)' },
+          { duration: 0 }
         );
-      };
-    });
+        return;
+      }
 
-    return () => stop();
-  }, [isMobile, phrases, prefersReducedMotion]);
+      const isActive = index === activeIndex;
+      animate(
+        copy,
+        {
+          opacity: isActive ? 1 : 0,
+          y: isActive ? 0 : -MOTION_TOKENS.distance.textY,
+          filter: isActive ? 'blur(0px)' : 'blur(6px)',
+        },
+        {
+          duration: isActive
+            ? MOTION_TOKENS.duration.textIn
+            : MOTION_TOKENS.duration.textOut,
+          ease: MOTION_TOKENS.ease.ambient,
+        }
+      );
+    });
+  }, [activeIndex, prefersReducedMotion]);
 
   return (
     <div
-      className="relative w-full z-[var(--z-layer-cta)]"
-      aria-label={phrases.join(' ')}
+      ref={ref}
+      className={`absolute inset-0 z-40 flex flex-col pointer-events-none text-center md:text-left ${
+        isMobile
+          ? 'items-center justify-start px-6'
+          : 'justify-start left-6 md:left-16 lg:left-24 max-w-[38vw] lg:max-w-[34vw]'
+      }`}
+      data-testid="beliefs-scroll-text"
+      aria-label={PHRASES.join(' ')}
     >
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {activePhrase}
       </p>
-      {phrases.map((phrase, index) => (
+
+      {PHRASES.map((phrase, i) => (
         <section
-          key={index}
-          className={`scroll-section h-[80vh] flex w-full ${
-            isMobile
-              ? 'items-end justify-center pb-[20vh]'
-              : 'items-center justify-start'
-          }`}
-          data-index={index}
+          key={phrase}
+          data-index={i}
+          className={`belief-phrase ${
+            isMobile ? 'h-[40vh]' : 'h-[80vh]'
+          } flex items-center italic font-h1 font-bold text-[#4fe6ff]`}
+          style={{
+            fontSize: isMobile
+              ? 'clamp(2rem, 8vw, 3rem)'
+              : 'clamp(2.8rem, 5.8vw, 6.3rem)',
+            paddingBottom: isMobile ? '20vh' : undefined,
+            alignItems: isMobile ? 'flex-end' : 'center',
+          }}
         >
-          <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16 xl:px-24">
-            <p
-              data-belief-phrase="true"
-              className={`font-h1 font-bold italic text-blueAccent leading-[1.05] ${
-                isMobile
-                  ? 'mx-auto max-w-[16ch] text-center'
-                  : 'max-w-[34rem] lg:max-w-[38rem] xl:max-w-[42rem]'
-              }`}
-              style={{
-                fontSize: isMobile
-                  ? 'clamp(2rem, 8vw, 3rem)'
-                  : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-                opacity: prefersReducedMotion ? 1 : 0,
-                willChange: prefersReducedMotion
-                  ? undefined
-                  : 'transform, opacity, filter',
-              }}
-              aria-hidden="true"
-            >
-              {phrase}
-            </p>
-          </div>
+          <span
+            ref={(node) => {
+              copyRefs.current[i] = node;
+            }}
+            className="belief-copy"
+            style={{
+              opacity: prefersReducedMotion ? 1 : 0,
+              transform: prefersReducedMotion
+                ? 'none'
+                : `translateY(${MOTION_TOKENS.distance.textY}px)`,
+              filter: prefersReducedMotion ? 'none' : 'blur(6px)',
+              willChange: prefersReducedMotion
+                ? undefined
+                : 'transform, opacity, filter',
+            }}
+          >
+            {phrase}
+          </span>
         </section>
       ))}
     </div>
   );
-};
+}

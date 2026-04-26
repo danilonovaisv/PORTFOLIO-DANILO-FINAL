@@ -7,7 +7,7 @@ import {
   AboutMethod,
   AboutClosing,
 } from '@/components/sobre/sections';
-import AboutBeliefsNoSSR from '@/components/sobre/sections/AboutBeliefsNoSSR';
+import { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 import { SectionErrorBoundary } from '@/components/ui/SectionErrorBoundary';
@@ -112,7 +112,7 @@ export default function AboutPage() {
         sectionName="AboutBeliefs"
         fallback={<AboutBeliefsSkeleton />}
       >
-        <AboutBeliefsNoSSR />
+        <AboutBeliefs />
       </SectionErrorBoundary>
       {/* Seção 06 — Fechamento/Confirmação */}
       <Suspense fallback={<SectionSkeleton label="Fechamento" />}>
