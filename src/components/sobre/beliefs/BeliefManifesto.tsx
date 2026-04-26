@@ -51,9 +51,15 @@ export function BeliefManifesto({
           </>
         ) : (
           <>
-            <span className="block overflow-hidden"><SplitText text="ISSO É" trigger={isActive} stagger={0.05} /></span>
-            <span className="block overflow-hidden"><SplitText text="GHOST" trigger={isActive} stagger={0.05} /></span>
-            <span className="block overflow-hidden"><SplitText text="DESIGN" trigger={isActive} stagger={0.05} /></span>
+            <span className="block overflow-hidden">
+              <SplitText text="ISSO É" trigger={isActive} stagger={0.05} />
+            </span>
+            <span className="block overflow-hidden">
+              <SplitText text="GHOST" trigger={isActive} stagger={0.05} />
+            </span>
+            <span className="block overflow-hidden">
+              <SplitText text="DESIGN" trigger={isActive} stagger={0.05} />
+            </span>
           </>
         )}
       </div>

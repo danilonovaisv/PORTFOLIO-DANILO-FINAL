@@ -23,9 +23,9 @@ export const CustomCursor = ({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Inércia suave para o ring
-  const ringX = useSpring(x, { stiffness: 220, damping: 28, mass: 0.7 });
-  const ringY = useSpring(y, { stiffness: 220, damping: 28, mass: 0.7 });
+  // Inércia suave para o ring — Física "sticky" premium (Awwwards level)
+  const ringX = useSpring(x, { stiffness: 400, damping: 40, mass: 1 });
+  const ringY = useSpring(y, { stiffness: 400, damping: 40, mass: 1 });
 
   useEffect(() => {
     if (isMobile || prefersReducedMotion) return;

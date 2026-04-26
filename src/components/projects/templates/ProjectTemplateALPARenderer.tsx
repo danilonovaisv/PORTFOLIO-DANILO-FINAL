@@ -373,7 +373,7 @@ function AssetInteractive({
       {kind === 'image' ? (
         isFullDisplay ? (
           // Native img preserves the intrinsic media ratio for full-width editorial blocks.
-          // eslint-disable-next-line @next/next/no-img-element
+
           <img
             src={resolved}
             alt={alt || 'Asset do projeto'}

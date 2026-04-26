@@ -1,5 +1,4 @@
-'use client';
-
+import { motion, useTransform } from 'motion/react';
 import { useBeliefStore } from '@/store/beliefStore';
 
 const PHRASES = [
@@ -11,6 +10,9 @@ const PHRASES = [
   'Mesmo quando ninguém percebe o esforço',
 ] as const;
 
+// Curva editorial extraída das referências (Motion.dev)
+const EDITORIAL_EASE = [0.17, 0.55, 0.55, 1];
+
 interface BeliefScrollTextProps {
   isMobile: boolean;
   prefersReducedMotion: boolean;
@@ -21,10 +23,9 @@ export function BeliefScrollText({
   prefersReducedMotion,
 }: BeliefScrollTextProps) {
   const scrollProgress = useBeliefStore((s) => s.scrollProgress);
-  const activeIndex = Math.min(
-    PHRASES.length - 1,
-    Math.max(0, Math.floor(scrollProgress * PHRASES.length))
-  );
+
+  // Determinamos o range de cada frase no scroll total (0 a 1)
+  const phraseStep = 1 / PHRASES.length;
 
   return (
     <div
@@ -41,7 +42,6 @@ export function BeliefScrollText({
         {PHRASES.join(' ')}
       </p>
 
-      {/* SINGLE Sticky Container - evita stack de multiplos stickies */}
       <div
         className="sticky top-0 h-[100vh] w-full flex relative pointer-events-none"
         style={{
@@ -49,35 +49,74 @@ export function BeliefScrollText({
           paddingBottom: isMobile ? '20vh' : undefined,
         }}
       >
-        {PHRASES.map((phrase, i) => (
-          <span
-            key={phrase}
-            data-index={i}
-            className="belief-phrase absolute italic font-h1 font-bold text-[#4fe6ff] pointer-events-auto"
-            style={{
-              fontSize: isMobile
-                ? 'clamp(2rem, 8vw, 3rem)'
-                : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-              textAlign: isMobile ? 'center' : 'left',
-            }}
-          >
-            <span
-              className="block"
-              style={{
-                opacity: prefersReducedMotion ? 1 : 0,
-                transform: prefersReducedMotion ? 'none' : 'translateY(30px)',
-                filter: 'none',
-                ...(prefersReducedMotion || activeIndex === i
-                  ? { opacity: 1, transform: 'none' }
-                  : {}),
-                transition: 'opacity 500ms ease-out, transform 500ms ease-out',
-              }}
-            >
-              {phrase}
-            </span>
-          </span>
-        ))}
+        {PHRASES.map((phrase, i) => {
+          // Cada frase tem seu próprio "sweet spot" no scroll
+          const start = i * phraseStep;
+          const end = (i + 1) * phraseStep;
+          const mid = (start + end) / 2;
+
+          return (
+            <PhraseItem
+              key={phrase}
+              phrase={phrase}
+              index={i}
+              isMobile={isMobile}
+              progress={scrollProgress}
+              range={[start, mid, end]}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+          );
+        })}
       </div>
     </div>
+  );
+}
+
+function PhraseItem({
+  phrase,
+  isMobile,
+  progress,
+  range,
+  prefersReducedMotion,
+}: {
+  phrase: string;
+  index: number;
+  isMobile: boolean;
+  progress: number;
+  range: [number, number, number];
+  prefersReducedMotion: boolean;
+}) {
+  // Mapeamento de Opacidade e Y baseado no range da frase
+  // Usamos o easing editorial para suavizar a entrada e saída
+  const opacity = prefersReducedMotion
+    ? 1
+    : progress >= range[0] && progress < range[2]
+      ? 1
+      : 0;
+
+  // Para uma animação mais fluida com Motion, idealmente usaríamos MotionValue
+  // Mas como estamos pegando do Store (number), vamos simular o fade via CSS
+  // ou converter para MotionValue se o performance exigir.
+  // Ajustando para ser condicional ao activeIndex para manter compatibilidade com o store atual.
+
+  const isActive = progress >= range[0] && progress < range[2];
+
+  return (
+    <span
+      className="belief-phrase absolute italic font-h1 font-bold text-[#4fe6ff] pointer-events-none"
+      style={{
+        fontSize: isMobile
+          ? 'clamp(2rem, 8vw, 3rem)'
+          : 'clamp(2.8rem, 5.8vw, 6.3rem)',
+        textAlign: isMobile ? 'center' : 'left',
+        opacity: isActive ? 1 : 0,
+        transform: isActive ? 'translateY(0)' : 'translateY(20px)',
+        transition: prefersReducedMotion
+          ? 'none'
+          : `opacity 800ms cubic-bezier(0.17, 0.55, 0.55, 1), transform 800ms cubic-bezier(0.17, 0.55, 0.55, 1)`,
+      }}
+    >
+      {phrase}
+    </span>
   );
 }

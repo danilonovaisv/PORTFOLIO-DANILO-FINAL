@@ -1,6 +1,11 @@
 'use client';
 
-import { motion, type MotionValue, useTransform, useMotionValue } from 'framer-motion';
+import {
+  motion,
+  type MotionValue,
+  useTransform,
+  useMotionValue,
+} from 'motion/react';
 import { MOTION_TOKENS } from '@/config/motion';
 
 interface BeliefBackgroundProps {
@@ -20,8 +25,8 @@ export function BeliefBackground({ scrollProgress }: BeliefBackgroundProps) {
       MOTION_TOKENS.colors.bgCycle[3], // 0.33
       MOTION_TOKENS.colors.bgCycle[4], // 0.50
       MOTION_TOKENS.colors.bgCycle[5], // 0.66
-      MOTION_TOKENS.colors.deepVoid,   // 0.82
-      MOTION_TOKENS.colors.deepVoid,   // 1.00
+      MOTION_TOKENS.colors.deepVoid, // 0.82
+      MOTION_TOKENS.colors.deepVoid, // 1.00
     ]
   );
 

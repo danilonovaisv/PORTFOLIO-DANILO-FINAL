@@ -3,7 +3,7 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useMemo, useRef, Suspense } from 'react';
-import { useMotionValue, useSpring, type MotionValue } from 'framer-motion';
+import { useMotionValue, useSpring, type MotionValue } from 'motion/react';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
 
@@ -36,15 +36,19 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
   const invalidate = useThree((state) => state.invalidate);
   const isMobile = useBeliefStore((s) => s.isMobile);
   const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
-  
+
   // Motion Values for Parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
-  // Spring Physics configured according to plan
-  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-  const smoothScroll = useSpring(scrollProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  // Spring Physics configured for high-fidelity responsiveness
+  const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 30 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 30 });
+  const smoothScroll = useSpring(scrollProgress, {
+    stiffness: 200,
+    damping: 40,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     const unsubScroll = smoothScroll.on('change', () => invalidate());
@@ -99,10 +103,12 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     const targetX = isClimax ? 0 : isMobile ? -1.2 : 0;
     const targetY = isClimax ? 0 : isMobile ? 1.5 : 0;
     const lerpFactor = Math.min(delta * 8, 0.15);
-    
+
     // Parallax via Springs instead of raw mouse values
-    const parallaxX = !prefersReducedMotion && !isMobile ? smoothMouseX.get() * 0.4 : 0;
-    const parallaxY = !prefersReducedMotion && !isMobile ? smoothMouseY.get() * 0.2 : 0;
+    const parallaxX =
+      !prefersReducedMotion && !isMobile ? smoothMouseX.get() * 0.4 : 0;
+    const parallaxY =
+      !prefersReducedMotion && !isMobile ? smoothMouseY.get() * 0.2 : 0;
 
     meshRef.current.position.x +=
       (targetX + parallaxX - meshRef.current.position.x) * lerpFactor;
@@ -118,9 +124,10 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
       const floatAmp = 0.036 + p * 0.03;
       meshRef.current.position.y +=
         Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmp;
-      meshRef.current.rotation.y = baseRotationY +
+      meshRef.current.rotation.y =
+        baseRotationY +
         Math.sin(state.clock.elapsedTime * 0.4 * (0.4 + p * 0.4)) *
-        (0.06 + p * 0.04);
+          (0.06 + p * 0.04);
     } else {
       meshRef.current.rotation.y = baseRotationY;
     }

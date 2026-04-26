@@ -9,7 +9,12 @@ export interface SplitTextProps {
   trigger?: boolean;
 }
 
-export function SplitText({ text, className = '', stagger = 0.04, trigger = true }: SplitTextProps) {
+export function SplitText({
+  text,
+  className = '',
+  stagger = 0.04,
+  trigger = true,
+}: SplitTextProps) {
   // Fragmenta em palavras ou caracteres
   const words = text.split(' ');
 
@@ -52,8 +57,16 @@ export function SplitText({ text, className = '', stagger = 0.04, trigger = true
       animate={trigger ? 'visible' : 'hidden'}
     >
       {words.map((word, index) => (
-        <span key={index} className="inline-block overflow-hidden" style={{ paddingRight: '0.25em', display: 'inline-block' }}>
-          <motion.span variants={child} className="inline-block" style={{ transformOrigin: 'bottom left' }}>
+        <span
+          key={index}
+          className="inline-block overflow-hidden"
+          style={{ paddingRight: '0.25em', display: 'inline-block' }}
+        >
+          <motion.span
+            variants={child}
+            className="inline-block"
+            style={{ transformOrigin: 'bottom left' }}
+          >
             {word}
           </motion.span>
         </span>
