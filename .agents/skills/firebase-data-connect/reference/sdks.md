@@ -1,6 +1,7 @@
 # SDK Reference
 
 ## Contents
+
 - [SDK Generation](#sdk-generation)
 - [Web SDK](#web-sdk)
 - [Android SDK](#android-sdk)
@@ -17,16 +18,17 @@ Configure SDK generation in `connector.yaml`:
 connectorId: my-connector
 generate:
   javascriptSdk:
-    outputDir: "../web-app/src/lib/dataconnect"
-    package: "@movie-app/dataconnect"
+    outputDir: '../web-app/src/lib/dataconnect'
+    package: '@movie-app/dataconnect'
   kotlinSdk:
-    outputDir: "../android-app/app/src/main/kotlin/com/example/dataconnect"
-    package: "com.example.dataconnect"
+    outputDir: '../android-app/app/src/main/kotlin/com/example/dataconnect'
+    package: 'com.example.dataconnect'
   swiftSdk:
-    outputDir: "../ios-app/DataConnect"
+    outputDir: '../ios-app/DataConnect'
 ```
 
 Generate SDKs:
+
 ```bash
 npx -y firebase-tools@latest dataconnect:sdk:generate
 ```
@@ -45,7 +47,10 @@ npm install firebase
 
 ```typescript
 import { initializeApp } from 'firebase/app';
-import { getDataConnect, connectDataConnectEmulator } from 'firebase/data-connect';
+import {
+  getDataConnect,
+  connectDataConnectEmulator,
+} from 'firebase/data-connect';
 import { connectorConfig } from '@movie-app/dataconnect';
 
 const app = initializeApp(firebaseConfig);
@@ -66,7 +71,7 @@ import { listMovies, createMovie, getMovie } from '@movie-app/dataconnect';
 // Accessing Nested Fields
 const movie = await getMovie({ id: '...' });
 // Relations are just properties on the object
-const director = movie.data.movie.metadata.director; 
+const director = movie.data.movie.metadata.director;
 const firstActor = movie.data.movie.actors[0].name;
 
 // Query
@@ -77,9 +82,9 @@ console.log(result.data.movies);
 const movie = await getMovie({ id: 'uuid-here' });
 
 // Mutation
-const newMovie = await createMovie({ 
-  title: 'New Movie', 
-  genre: 'Action' 
+const newMovie = await createMovie({
+  title: 'New Movie',
+  genre: 'Action',
 });
 console.log(newMovie.data.movie_insert); // Returns key
 ```
@@ -95,7 +100,7 @@ const unsubscribe = subscribe(listMoviesRef(), {
   },
   onError: (error) => {
     console.error('Subscription error:', error);
-  }
+  },
 });
 
 // Later: unsubscribe();
@@ -241,8 +246,6 @@ connector.listMovies.publisher
 
 ---
 
-
-
 ## Admin SDK
 
 Server-side operations with elevated privileges (bypasses @auth):
@@ -254,7 +257,7 @@ import { initializeApp, cert } from 'firebase-admin/app';
 import { getDataConnect } from 'firebase-admin/data-connect';
 
 initializeApp({
-  credential: cert(serviceAccount)
+  credential: cert(serviceAccount),
 });
 
 const dc = getDataConnect();
@@ -262,7 +265,7 @@ const dc = getDataConnect();
 // Execute operations (bypasses @auth)
 const result = await dc.executeGraphql({
   query: `query { users { id email } }`,
-  operationName: 'ListAllUsers'
+  operationName: 'ListAllUsers',
 });
 
 // Or use generated Admin SDK
@@ -277,11 +280,12 @@ In `connector.yaml`:
 ```yaml
 generate:
   nodeAdminSdk:
-    outputDir: "./admin-sdk"
-    package: "@app/admin-dataconnect"
+    outputDir: './admin-sdk'
+    package: '@app/admin-dataconnect'
 ```
 
 Generate:
+
 ```bash
 npx -y firebase-tools@latest dataconnect:sdk:generate
 ```

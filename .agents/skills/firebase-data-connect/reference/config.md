@@ -1,6 +1,7 @@
 # Configuration Reference
 
 ## Contents
+
 - [Project Structure](#project-structure)
 - [dataconnect.yaml](#dataconnectyaml)
 - [connector.yaml](#connectoryaml)
@@ -32,29 +33,29 @@ project-root/
 Main Data Connect service configuration:
 
 ```yaml
-specVersion: "v1"
-serviceId: "my-service"
-location: "us-central1"
-schemaValidation: "STRICT" # or "COMPATIBLE"
+specVersion: 'v1'
+serviceId: 'my-service'
+location: 'us-central1'
+schemaValidation: 'STRICT' # or "COMPATIBLE"
 schema:
-  source: "./schema"
+  source: './schema'
   datasource:
     postgresql:
-      database: "fdcdb"
+      database: 'fdcdb'
       cloudSql:
-        instanceId: "my-instance"
-connectorDirs: ["./connector"]
+        instanceId: 'my-instance'
+connectorDirs: ['./connector']
 ```
 
-| Field | Description |
-|-------|-------------|
-| `specVersion` | Always `"v1"` |
-| `serviceId` | Unique identifier for the service |
-| `location` | GCP region (us-central1, us-east4, europe-west1, etc.) |
-| `schemaValidation` | Deployment mode: `"STRICT"` (must match exactly) or `"COMPATIBLE"` (backward compatible) |
-| `schema.source` | Path to schema directory |
-| `schema.datasource` | PostgreSQL connection config |
-| `connectorDirs` | List of connector directories |
+| Field               | Description                                                                              |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| `specVersion`       | Always `"v1"`                                                                            |
+| `serviceId`         | Unique identifier for the service                                                        |
+| `location`          | GCP region (us-central1, us-east4, europe-west1, etc.)                                   |
+| `schemaValidation`  | Deployment mode: `"STRICT"` (must match exactly) or `"COMPATIBLE"` (backward compatible) |
+| `schema.source`     | Path to schema directory                                                                 |
+| `schema.datasource` | PostgreSQL connection config                                                             |
+| `connectorDirs`     | List of connector directories                                                            |
 
 ### Cloud SQL Configuration
 
@@ -62,9 +63,9 @@ connectorDirs: ["./connector"]
 schema:
   datasource:
     postgresql:
-      database: "my-database"      # Database name
+      database: 'my-database' # Database name
       cloudSql:
-        instanceId: "my-instance"  # Cloud SQL instance ID
+        instanceId: 'my-instance' # Cloud SQL instance ID
 ```
 
 ---
@@ -74,26 +75,26 @@ schema:
 Connector configuration and SDK generation:
 
 ```yaml
-connectorId: "default"
+connectorId: 'default'
 generate:
   javascriptSdk:
-    outputDir: "../web/src/lib/dataconnect"
-    package: "@myapp/dataconnect"
+    outputDir: '../web/src/lib/dataconnect'
+    package: '@myapp/dataconnect'
   kotlinSdk:
-    outputDir: "../android/app/src/main/kotlin/com/myapp/dataconnect"
-    package: "com.myapp.dataconnect"
+    outputDir: '../android/app/src/main/kotlin/com/myapp/dataconnect'
+    package: 'com.myapp.dataconnect'
   swiftSdk:
-    outputDir: "../ios/MyApp/DataConnect"
+    outputDir: '../ios/MyApp/DataConnect'
 ```
 
 ### SDK Generation Options
 
-| SDK | Fields |
-|-----|--------|
-| `javascriptSdk` | `outputDir`, `package` |
-| `kotlinSdk` | `outputDir`, `package` |
-| `swiftSdk` | `outputDir` |
-| `nodeAdminSdk` | `outputDir`, `package` (for Admin SDK) |
+| SDK             | Fields                                 |
+| --------------- | -------------------------------------- |
+| `javascriptSdk` | `outputDir`, `package`                 |
+| `kotlinSdk`     | `outputDir`, `package`                 |
+| `swiftSdk`      | `outputDir`                            |
+| `nodeAdminSdk`  | `outputDir`, `package` (for Admin SDK) |
 
 ---
 
@@ -160,6 +161,7 @@ npx -y firebase-tools@latest emulators:start --only dataconnect
 ```
 
 Default ports:
+
 - Data Connect: `9399`
 - PostgreSQL: `9939` (local PostgreSQL instance)
 
@@ -232,6 +234,7 @@ npx -y firebase-tools@latest dataconnect:sql:migrate --force
 ### Breaking Changes
 
 Some schema changes require special handling:
+
 - Removing required fields
 - Changing field types
 - Removing tables
@@ -252,6 +255,7 @@ Use `--force` flag to acknowledge breaking changes during deploy.
 ## VS Code Extension
 
 Install "Firebase Data Connect" extension for:
+
 - Schema intellisense and validation
 - GraphQL operation testing
 - Emulator integration

@@ -89,7 +89,12 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       if (lenis) lenis.destroy();
       setLenisInstance(null);
     };
-  }, [flags.reducedMotion, prefersReducedMotion, isAdminRoute, isPlaywrightTest]);
+  }, [
+    flags.reducedMotion,
+    prefersReducedMotion,
+    isAdminRoute,
+    isPlaywrightTest,
+  ]);
 
   return (
     <ScrollContext.Provider

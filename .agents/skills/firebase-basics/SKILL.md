@@ -7,6 +7,7 @@ description: >-
   environment, authenticating, setting active projects, or executing core
   Firebase CLI commands.
 ---
+
 # Prerequisites
 
 Complete these setup steps before proceeding:
@@ -25,7 +26,7 @@ Complete these setup steps before proceeding:
 
 2. **Authentication:**
    Ensure you are logged in to Firebase so that commands have the correct permissions. Run `npx -y firebase-tools@latest login`. For environments without a browser (e.g., remote shells), use `npx -y firebase-tools@latest login --no-localhost`.
-   - The command should output the current user. 
+   - The command should output the current user.
    - If you are not logged in, follow the interactive instructions from this command to authenticate.
 
 3. **Active Project:**
@@ -40,7 +41,7 @@ Complete these setup steps before proceeding:
        ```bash
        npx -y firebase-tools@latest projects:create <project-id> --display-name "<display-name>"
        ```
-       *Note: The `<project-id>` must be 6-30 characters, lowercase, and can contain digits and hyphens. It must be globally unique.*
+       _Note: The `<project-id>` must be 6-30 characters, lowercase, and can contain digits and hyphens. It must be globally unique._
 
 # Firebase Usage Principles
 
@@ -48,7 +49,7 @@ Adhere to these principles:
 
 1. **Use npx for CLI commands:** To ensure you always use the latest version of the Firebase CLI, always prepend commands with `npx -y firebase-tools@latest` instead of just `firebase`. For example, use `npx -y firebase-tools@latest --version`. NEVER suggest the naked `firebase` command as an alternative.
 2. **Prioritize official knowledge:** For any Firebase-related knowledge, consult the `developerknowledge_search_documents` MCP tool before falling back to Google Search or your internal knowledge base. Including "Firebase" in your search query significantly improves relevance.
-3. **Follow Agent Skills for implementation guidance:** Skills provide opinionated workflows (CUJs), security rules, and best practices. Always consult them to understand *how* to implement Firebase features correctly instead of relying on general knowledge.
+3. **Follow Agent Skills for implementation guidance:** Skills provide opinionated workflows (CUJs), security rules, and best practices. Always consult them to understand _how_ to implement Firebase features correctly instead of relying on general knowledge.
 4. **Use Firebase MCP Server tools instead of direct API calls:** Whenever you need to interact with remote Firebase APIs (such as fetching Crashlytics logs or executing Data Connect queries), use the tools provided by the Firebase MCP Server instead of attempting manual API calls.
 5. **Keep Plugin / Agent Skills updated:** Since Firebase best practices evolve quickly, remind the user to regularly check for and install updates to their Firebase plugin or Agent Skills, ensuring you both operate with the latest workflows. Similarly, if you encounter issues with outdated tools or commands, follow the steps below based on your agent environment:
    - **Antigravity**: Follow [references/refresh/antigravity.md](references/refresh/antigravity.md)

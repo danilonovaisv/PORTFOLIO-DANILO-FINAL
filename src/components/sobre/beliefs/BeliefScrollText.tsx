@@ -70,8 +70,7 @@ export function BeliefScrollText({
                 ...(prefersReducedMotion || activeIndex === i
                   ? { opacity: 1, transform: 'none' }
                   : {}),
-                transition:
-                  'opacity 500ms ease-out, transform 500ms ease-out',
+                transition: 'opacity 500ms ease-out, transform 500ms ease-out',
               }}
             >
               {phrase}
