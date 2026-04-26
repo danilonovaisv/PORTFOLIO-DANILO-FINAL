@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { inView, animate } from 'motion/react';
-import { useBeliefStore } from '@/store/beliefStore';
 
 const PHRASES = [
   'Um vídeo que respira',
@@ -26,8 +25,8 @@ export function BeliefScrollText({
     if (prefersReducedMotion) return;
 
     // Dispara animação de entrada e guarda o cleanup de saída
-    const controls = inView('.scroll-section', ({ target }) => {
-      const index = target.getAttribute('data-index');
+    const controls = inView('.scroll-section', (element) => {
+      const index = element.getAttribute('data-index');
       const textEl = document.querySelector(`.belief-phrase[data-index="${index}"]`);
       
       // bg alternado por exemplo, ou pode ler de um data-bg
