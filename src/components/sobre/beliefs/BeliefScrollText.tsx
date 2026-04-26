@@ -1,5 +1,7 @@
-import { motion, useTransform } from 'motion/react';
-import { useBeliefStore } from '@/store/beliefStore';
+'use client';
+
+import { motion, useTransform, type MotionValue } from 'motion/react';
+import { MOTION_TOKENS } from '@/config/motion';
 
 const PHRASES = [
   'Um vídeo que respira',
@@ -10,21 +12,18 @@ const PHRASES = [
   'Mesmo quando ninguém percebe o esforço',
 ] as const;
 
-// Curva editorial extraída das referências (Motion.dev)
-const EDITORIAL_EASE = [0.17, 0.55, 0.55, 1];
-
 interface BeliefScrollTextProps {
+  scrollProgress: MotionValue<number>;
   isMobile: boolean;
   prefersReducedMotion: boolean;
 }
 
 export function BeliefScrollText({
+  scrollProgress,
   isMobile,
   prefersReducedMotion,
 }: BeliefScrollTextProps) {
-  const scrollProgress = useBeliefStore((s) => s.scrollProgress);
-
-  // Determinamos o range de cada frase no scroll total (0 a 1)
+  // Each phrase occupies an equal slice of the scroll progress (0 to 1)
   const phraseStep = 1 / PHRASES.length;
 
   return (
@@ -50,19 +49,16 @@ export function BeliefScrollText({
         }}
       >
         {PHRASES.map((phrase, i) => {
-          // Cada frase tem seu próprio "sweet spot" no scroll
           const start = i * phraseStep;
           const end = (i + 1) * phraseStep;
-          const mid = (start + end) / 2;
 
           return (
             <PhraseItem
               key={phrase}
               phrase={phrase}
-              index={i}
               isMobile={isMobile}
-              progress={scrollProgress}
-              range={[start, mid, end]}
+              scrollProgress={scrollProgress}
+              range={[start, end]}
               prefersReducedMotion={prefersReducedMotion}
             />
           );
@@ -75,48 +71,46 @@ export function BeliefScrollText({
 function PhraseItem({
   phrase,
   isMobile,
-  progress,
+  scrollProgress,
   range,
   prefersReducedMotion,
 }: {
   phrase: string;
-  index: number;
   isMobile: boolean;
-  progress: number;
-  range: [number, number, number];
+  scrollProgress: MotionValue<number>;
+  range: [number, number];
   prefersReducedMotion: boolean;
 }) {
-  // Mapeamento de Opacidade e Y baseado no range da frase
-  // Usamos o easing editorial para suavizar a entrada e saída
-  const opacity = prefersReducedMotion
-    ? 1
-    : progress >= range[0] && progress < range[2]
-      ? 1
-      : 0;
+  const [start, end] = range;
+  const fadeIn = start + 0.02;
+  const fadeOut = end - 0.02;
 
-  // Para uma animação mais fluida com Motion, idealmente usaríamos MotionValue
-  // Mas como estamos pegando do Store (number), vamos simular o fade via CSS
-  // ou converter para MotionValue se o performance exigir.
-  // Ajustando para ser condicional ao activeIndex para manter compatibilidade com o store atual.
+  // Derive opacity from MotionValue — no re-renders, pure GPU-driven
+  const opacity = useTransform(
+    scrollProgress,
+    [start, fadeIn, fadeOut, end],
+    [0, 1, 1, 0]
+  );
 
-  const isActive = progress >= range[0] && progress < range[2];
+  const y = useTransform(
+    scrollProgress,
+    [start, fadeIn],
+    prefersReducedMotion ? [0, 0] : [20, 0]
+  );
 
   return (
-    <span
+    <motion.span
       className="belief-phrase absolute italic font-h1 font-bold text-[#4fe6ff] pointer-events-none"
       style={{
         fontSize: isMobile
           ? 'clamp(2rem, 8vw, 3rem)'
           : 'clamp(2.8rem, 5.8vw, 6.3rem)',
         textAlign: isMobile ? 'center' : 'left',
-        opacity: isActive ? 1 : 0,
-        transform: isActive ? 'translateY(0)' : 'translateY(20px)',
-        transition: prefersReducedMotion
-          ? 'none'
-          : `opacity 800ms cubic-bezier(0.17, 0.55, 0.55, 1), transform 800ms cubic-bezier(0.17, 0.55, 0.55, 1)`,
+        opacity,
+        y,
       }}
     >
       {phrase}
-    </span>
+    </motion.span>
   );
 }

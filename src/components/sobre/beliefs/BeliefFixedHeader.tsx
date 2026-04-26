@@ -8,7 +8,7 @@ import {
 } from 'motion/react';
 import { useState } from 'react';
 import { MOTION_TOKENS } from '@/config/motion';
-import { SplitText } from '@/components/ui/SplitText';
+import { AccessibleSplitText } from '@/components/motion/AccessibleSplitText';
 
 interface BeliefFixedHeaderProps {
   scrollProgress: MotionValue<number>;
@@ -43,26 +43,22 @@ export function BeliefFixedHeader({
       aria-label="Acredito no design que muda o dia de alguém"
     >
       <div className="font-display text-sm md:text-base uppercase tracking-widest text-white/70 mb-2">
-        {prefersReducedMotion ? (
-          <p>Acredito no design que muda o dia de alguém.</p>
-        ) : (
-          <SplitText
-            text="Acredito no design que muda o dia de alguém."
-            trigger={isActive}
-            stagger={0.02}
-          />
-        )}
+        <AccessibleSplitText
+          text="Acredito no design que muda o dia de alguém."
+          tag="p"
+          trigger={isActive}
+          stagger={0.02}
+          prefersReducedMotion={prefersReducedMotion}
+        />
       </div>
       <div className="font-h1 font-bold text-lg md:text-xl text-white">
-        {prefersReducedMotion ? (
-          <p>Não pelo choque, mas pela conexão.</p>
-        ) : (
-          <SplitText
-            text="Não pelo choque, mas pela conexão."
-            trigger={isActive}
-            stagger={0.03}
-          />
-        )}
+        <AccessibleSplitText
+          text="Não pelo choque, mas pela conexão."
+          tag="p"
+          trigger={isActive}
+          stagger={0.03}
+          prefersReducedMotion={prefersReducedMotion}
+        />
       </div>
     </motion.header>
   );

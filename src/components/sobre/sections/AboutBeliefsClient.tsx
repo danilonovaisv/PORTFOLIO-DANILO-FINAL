@@ -32,7 +32,7 @@ export function AboutBeliefsClient() {
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
-      <BeliefBackground scrollProgress={scrollYProgress} />
+      <BeliefBackground scrollProgress={scrollYProgress} prefersReducedMotion={prefersReducedMotion} />
       <BeliefOverlay scrollProgress={scrollYProgress} />
 
       <div
@@ -65,6 +65,7 @@ export function AboutBeliefsClient() {
         prefersReducedMotion={prefersReducedMotion}
       />
       <BeliefScrollText
+        scrollProgress={scrollYProgress}
         isMobile={isMobile}
         prefersReducedMotion={prefersReducedMotion}
       />

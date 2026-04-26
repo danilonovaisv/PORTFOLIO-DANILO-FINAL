@@ -4,7 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useMemo, useRef, Suspense } from 'react';
 import { useMotionValue, useSpring, type MotionValue } from 'motion/react';
-import type { BufferGeometry, Group, Material, Object3D } from 'three';
+import type { BufferGeometry, Group, Material, Mesh, Object3D } from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
 
 const LOCAL_GHOST_GLB_URL = '/site.assets/3d/ghost-v1.glb';
@@ -36,6 +36,18 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
   const invalidate = useThree((state) => state.invalidate);
   const isMobile = useBeliefStore((s) => s.isMobile);
   const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+
+  // Ref-based subscription for ghostIntensity — avoids getState() per frame
+  const ghostIntensityRef = useRef(0);
+  useEffect(() => {
+    // Initialize
+    ghostIntensityRef.current = useBeliefStore.getState().ghostIntensity;
+    // Subscribe to changes only
+    const unsub = useBeliefStore.subscribe((state) => {
+      ghostIntensityRef.current = state.ghostIntensity;
+    });
+    return unsub;
+  }, []);
 
   // Motion Values for Parallax
   const mouseX = useMotionValue(0);
@@ -97,8 +109,7 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
   useFrame((state, delta) => {
     if (!meshRef.current) return;
 
-    const { ghostIntensity } = useBeliefStore.getState();
-    const p = ghostIntensity;
+    const p = ghostIntensityRef.current;
     const isClimax = p > 0.85;
     const targetX = isClimax ? 0 : isMobile ? -1.2 : 0;
     const targetY = isClimax ? 0 : isMobile ? 1.5 : 0;
@@ -143,6 +154,18 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
       (targetScale - meshRef.current.scale.x) * lerpFactor;
     meshRef.current.scale.y = meshRef.current.scale.x;
     meshRef.current.scale.z = meshRef.current.scale.x;
+
+    // Manifesto phase fade-out (FP-04): reduce Ghost opacity when manifesto takes over
+    if (p > 0.82) {
+      const manifestoFade = Math.max(0, 1 - (p - 0.82) / 0.18);
+      meshRef.current.traverse((child: Object3D) => {
+        const mesh = child as Mesh;
+        if (mesh.material && 'opacity' in mesh.material) {
+          mesh.material.opacity = manifestoFade;
+          mesh.material.transparent = true;
+        }
+      });
+    }
   });
 
   return <primitive object={clonedScene} ref={meshRef} />;
@@ -154,6 +177,10 @@ interface GhostSceneProps {
 
 export function GhostScene({ scrollProgress }: GhostSceneProps) {
   const isMobile = useBeliefStore((s) => s.isMobile);
+  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+
+  // Mobile + reduced motion: skip entire 3D scene for performance
+  if (isMobile && prefersReducedMotion) return null;
 
   return (
     <div
@@ -162,13 +189,14 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
       aria-hidden="true"
     >
       <Canvas
-        dpr={[1, isMobile ? 1 : 2]}
+        dpr={[1, isMobile ? 1 : 1.5]}
         camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 35 }}
         frameloop="demand"
         gl={{
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',
+          failIfMajorPerformanceCaveat: true,
         }}
       >
         <ambientLight intensity={0.4} />

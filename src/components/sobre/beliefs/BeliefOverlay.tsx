@@ -9,8 +9,8 @@ interface BeliefOverlayProps {
 export function BeliefOverlay({ scrollProgress }: BeliefOverlayProps) {
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.15, 0.85, 1],
-    [0, 0.08, 0.08, 0]
+    [0, 0.1, 0.2, 0.5, 0.82, 1],
+    [0, 0.06, 0.04, 0.02, 0.06, 0]
   );
 
   return (

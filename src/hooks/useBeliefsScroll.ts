@@ -27,41 +27,8 @@ export function useBeliefsScroll(
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end end'],
+    offset: ['start start', 'end end'],
   });
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateProgress = () => {
-      cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        const el = containerRef.current;
-        if (!el) return;
-
-        const rect = el.getBoundingClientRect();
-        const nextProgress =
-          rect.height > 0
-            ? Math.min(
-                1,
-                Math.max(0, (window.innerHeight - rect.top) / rect.height)
-              )
-            : 0;
-
-        scrollYProgress.set(nextProgress);
-      });
-    };
-
-    updateProgress();
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    window.addEventListener('resize', updateProgress);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', updateProgress);
-      window.removeEventListener('resize', updateProgress);
-    };
-  }, [containerRef, scrollYProgress]);
 
   return { containerRef, scrollYProgress };
 }

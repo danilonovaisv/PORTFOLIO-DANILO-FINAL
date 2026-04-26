@@ -8,7 +8,7 @@ import {
 } from 'motion/react';
 import { useState } from 'react';
 import { MOTION_TOKENS } from '@/config/motion';
-import { SplitText } from '@/components/ui/SplitText';
+import { AccessibleSplitText } from '@/components/motion/AccessibleSplitText';
 
 interface BeliefManifestoProps {
   scrollProgress: MotionValue<number>;
@@ -39,30 +39,38 @@ export function BeliefManifesto({
       aria-live={isActive ? 'polite' : 'off'}
       aria-atomic={isActive ? 'true' : undefined}
     >
-      <div
+      <blockquote
         className="text-center font-display font-black text-white tracking-[0.03em] leading-[0.82]"
         style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
       >
-        {prefersReducedMotion ? (
-          <>
-            <span className="block">ISSO É</span>
-            <span className="block">GHOST</span>
-            <span className="block">DESIGN</span>
-          </>
-        ) : (
-          <>
-            <span className="block overflow-hidden">
-              <SplitText text="ISSO É" trigger={isActive} stagger={0.05} />
-            </span>
-            <span className="block overflow-hidden">
-              <SplitText text="GHOST" trigger={isActive} stagger={0.05} />
-            </span>
-            <span className="block overflow-hidden">
-              <SplitText text="DESIGN" trigger={isActive} stagger={0.05} />
-            </span>
-          </>
-        )}
-      </div>
+        <span className="block overflow-hidden">
+          <AccessibleSplitText
+            text="ISSO É"
+            tag="span"
+            trigger={isActive}
+            stagger={0.05}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        </span>
+        <span className="block overflow-hidden">
+          <AccessibleSplitText
+            text="GHOST"
+            tag="span"
+            trigger={isActive}
+            stagger={0.05}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        </span>
+        <span className="block overflow-hidden">
+          <AccessibleSplitText
+            text="DESIGN"
+            tag="span"
+            trigger={isActive}
+            stagger={0.05}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        </span>
+      </blockquote>
     </motion.div>
   );
 }
