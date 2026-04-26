@@ -1,6 +1,7 @@
-# .pnpmrc — Config legada para retrocompatibilidade
-# As configurações foram migradas para .npmrc (padrão do pnpm)
-# ATENÇÃO: frozen-lockfile=false foi REMOVIDO (inseguro para CI)
-store-dir=~/.local/share/pnpm/store
-cache-dir=~/.cache/pnpm
+# .pnpmrc — Configurações pnpm (Ghost System)
+store-dir=.pnpm-store
+shamefully-hoist=false
+public-hoist-pattern[]=*three*
+public-hoist-pattern[]=*@react-three*
 link-workspace-packages=true
+legacy-peer-deps=true
