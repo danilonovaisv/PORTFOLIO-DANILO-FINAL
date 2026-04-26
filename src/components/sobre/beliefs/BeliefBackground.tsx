@@ -1,76 +1,35 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { motion, type MotionValue, useTransform, useMotionValue } from 'framer-motion';
 import { MOTION_TOKENS } from '@/config/motion';
 
-const getColorForProgress = (value: number) => {
-  if (value >= 0.82) return MOTION_TOKENS.colors.deepVoid;
+interface BeliefBackgroundProps {
+  scrollProgress?: MotionValue<number>;
+}
 
-  const progressIndex = Math.min(
-    MOTION_TOKENS.colors.bgCycle.length - 2,
-    Math.max(0, Math.floor(value * 6))
+export function BeliefBackground({ scrollProgress }: BeliefBackgroundProps) {
+  // We map the scroll progress from 0 to 1 across the colors used in the original logic.
+  // The original logic abruptly switched colors. We now provide smooth interpolation.
+  const fallbackProgress = useMotionValue(0);
+  const backgroundColor = useTransform(
+    scrollProgress || fallbackProgress,
+    [0, 0.16, 0.33, 0.5, 0.66, 0.82, 1],
+    [
+      MOTION_TOKENS.colors.bgCycle[1], // 0.00
+      MOTION_TOKENS.colors.bgCycle[2], // 0.16
+      MOTION_TOKENS.colors.bgCycle[3], // 0.33
+      MOTION_TOKENS.colors.bgCycle[4], // 0.50
+      MOTION_TOKENS.colors.bgCycle[5], // 0.66
+      MOTION_TOKENS.colors.deepVoid,   // 0.82
+      MOTION_TOKENS.colors.deepVoid,   // 1.00
+    ]
   );
 
   return (
-    MOTION_TOKENS.colors.bgCycle[progressIndex + 1] ||
-    MOTION_TOKENS.colors.deepVoid
-  );
-};
-
-export function BeliefBackground() {
-  const backgroundRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const background = backgroundRef.current;
-    const section = background?.closest('[data-testid="beliefs-section"]');
-    if (!background || !section) return;
-
-    const applyBackground = () => {
-      const rect = section.getBoundingClientRect();
-      const progress =
-        rect.height > 0
-          ? Math.min(
-              1,
-              Math.max(0, (window.innerHeight - rect.top) / rect.height)
-            )
-          : 0;
-
-      background.style.backgroundColor = getColorForProgress(progress);
-    };
-
-    let frame = 0;
-    const updateBackground = () => {
-      applyBackground();
-      cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(applyBackground);
-    };
-
-    updateBackground();
-    const timers = [
-      window.setTimeout(updateBackground, 100),
-      window.setTimeout(updateBackground, 300),
-      window.setTimeout(updateBackground, 500),
-    ];
-    const interval = window.setInterval(updateBackground, 100);
-
-    window.addEventListener('scroll', updateBackground, { passive: true });
-    window.addEventListener('resize', updateBackground);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      timers.forEach(window.clearTimeout);
-      window.clearInterval(interval);
-      window.removeEventListener('scroll', updateBackground);
-      window.removeEventListener('resize', updateBackground);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={backgroundRef}
+    <motion.div
       className="absolute inset-0 z-0 pointer-events-none"
       data-testid="beliefs-background"
-      style={{ backgroundColor: getColorForProgress(0) }}
+      style={{ backgroundColor }}
       aria-hidden="true"
     />
   );

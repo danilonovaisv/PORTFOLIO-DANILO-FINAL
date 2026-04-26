@@ -32,7 +32,7 @@ export function AboutBeliefsClient() {
       data-testid="beliefs-section"
       aria-label="O que me move — manifesto Ghost Design"
     >
-      <BeliefBackground />
+      <BeliefBackground scrollProgress={scrollYProgress} />
       <BeliefOverlay scrollProgress={scrollYProgress} />
 
       <div

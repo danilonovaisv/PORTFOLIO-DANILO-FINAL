@@ -28,8 +28,8 @@ export function SplitText({ text, className = '', stagger = 0.04, trigger = true
       rotate: 0,
       transition: {
         type: 'spring' as const,
-        damping: 15,
-        stiffness: 150,
+        damping: 20,
+        stiffness: 100,
       },
     },
     hidden: {
@@ -38,8 +38,8 @@ export function SplitText({ text, className = '', stagger = 0.04, trigger = true
       rotate: 5,
       transition: {
         type: 'spring' as const,
-        damping: 15,
-        stiffness: 150,
+        damping: 20,
+        stiffness: 100,
       },
     },
   };

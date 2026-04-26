@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, Suspense } from 'react';
 import { useMotionValue, useSpring, type MotionValue } from 'framer-motion';
 import type { BufferGeometry, Group, Material, Object3D } from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
@@ -166,7 +166,9 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
       >
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} />
-        <GhostModel scrollProgress={scrollProgress} />
+        <Suspense fallback={null}>
+          <GhostModel scrollProgress={scrollProgress} />
+        </Suspense>
       </Canvas>
     </div>
   );
