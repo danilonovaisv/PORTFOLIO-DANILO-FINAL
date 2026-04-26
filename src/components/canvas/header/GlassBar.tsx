@@ -11,7 +11,9 @@ import { useFBO, useGLTF, MeshTransmissionMaterial } from '@react-three/drei';
 import { easing } from 'maath';
 import { memo, ReactNode, useEffect, useRef, useState } from 'react';
 
-useGLTF.preload('/assets/3d/bar-v2.glb');
+if (typeof window !== 'undefined') {
+  useGLTF.preload('/assets/3d/bar-v2.glb');
+}
 
 type ModeProps = Record<string, unknown>;
 

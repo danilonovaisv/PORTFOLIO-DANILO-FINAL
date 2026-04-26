@@ -12,20 +12,11 @@ export function BeliefFixedHeader({
   scrollProgress,
   prefersReducedMotion,
 }: BeliefFixedHeaderProps) {
-  const opacity = useTransform(
-    scrollProgress,
-    [0, 0.1, 0.9, 1],
-    [0, 1, 1, 0]
-  );
+  const opacity = useTransform(scrollProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
   const x = useTransform(
     scrollProgress,
     [0, 0.1, 0.9, 1],
-    [
-      MOTION_TOKENS.distance.headerX,
-      0,
-      0,
-      MOTION_TOKENS.distance.headerX,
-    ]
+    [MOTION_TOKENS.distance.headerX, 0, 0, MOTION_TOKENS.distance.headerX]
   );
 
   return (

@@ -161,10 +161,15 @@ const createNextConfig = (phase) => ({
     },
   },
 
-  // Keep Turbopack enabled for plain `next build`, but generate the legacy
-  // export marker through the custom adapter so Firebase Hosting can consume
-  // the build output.
-  turbopack: {},
+  // Keep Turbopack explicit because Next.js 16 enables it by default and
+  // errors when a webpack config exists without a Turbopack config.
+  turbopack: {
+    rules: {
+      '*.{glsl,vs,fs,vert,frag}': {
+        type: 'raw',
+      },
+    },
+  },
 
   webpack: (config, { isServer }) => {
     config.module.rules.push({

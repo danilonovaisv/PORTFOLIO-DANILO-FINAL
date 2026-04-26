@@ -14,19 +14,22 @@ export function BeliefBackground({ scrollProgress }: BeliefBackgroundProps) {
   const lastColorRef = useRef<string>(MOTION_TOKENS.colors.deepVoid);
   const climaxFiredRef = useRef<boolean>(false);
 
-  const animateBackground = useCallback((nextColor: string, customDuration?: number) => {
-    if (!bgRef.current || lastColorRef.current === nextColor) return;
+  const animateBackground = useCallback(
+    (nextColor: string, customDuration?: number) => {
+      if (!bgRef.current || lastColorRef.current === nextColor) return;
 
-    lastColorRef.current = nextColor;
-    animate(
-      bgRef.current,
-      { backgroundColor: nextColor },
-      {
-        duration: customDuration || MOTION_TOKENS.duration.bg,
-        ease: MOTION_TOKENS.ease.ambient,
-      }
-    );
-  }, []);
+      lastColorRef.current = nextColor;
+      animate(
+        bgRef.current,
+        { backgroundColor: nextColor },
+        {
+          duration: customDuration || MOTION_TOKENS.duration.bg,
+          ease: MOTION_TOKENS.ease.ambient,
+        }
+      );
+    },
+    []
+  );
 
   useEffect(() => {
     const stopInView = inView('.scroll-section', (entry) => {
@@ -43,20 +46,21 @@ export function BeliefBackground({ scrollProgress }: BeliefBackgroundProps) {
       // Bidirectional reset on leave
       return () => {
         if (climaxFiredRef.current) return;
-        const prevColor = MOTION_TOKENS.colors.bgCycle[index] || MOTION_TOKENS.colors.deepVoid;
+        const prevColor =
+          MOTION_TOKENS.colors.bgCycle[index] || MOTION_TOKENS.colors.deepVoid;
         animateBackground(prevColor, 0.6);
       };
     });
 
     const unsubProgress = scrollProgress.on('change', (value) => {
       const isClimax = value >= 0.82;
-      
+
       if (isClimax && !climaxFiredRef.current) {
         climaxFiredRef.current = true;
         animateBackground(MOTION_TOKENS.colors.deepVoid);
       } else if (!isClimax && climaxFiredRef.current) {
         climaxFiredRef.current = false;
-        
+
         // On scroll up from climax, reset to the last mapped color
         const progressIndex = Math.min(
           MOTION_TOKENS.colors.bgCycle.length - 2,

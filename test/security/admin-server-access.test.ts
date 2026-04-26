@@ -11,7 +11,7 @@ describe('admin server access guard', () => {
 
   it('throws unauthorized when user is missing', () => {
     expect(() => assertAdminAccess(null)).toThrow(AdminAccessError);
-    expect(() => assertAdminAccess(null)).toThrow('Unauthorized');
+    expect(() => assertAdminAccess(null)).toThrow(/UNAUTHORIZED/i);
   });
 
   it('throws forbidden when user is not admin and enforcement is enabled', () => {
@@ -24,7 +24,7 @@ describe('admin server access guard', () => {
     } as any;
 
     expect(() => assertAdminAccess(user)).toThrow(AdminAccessError);
-    expect(() => assertAdminAccess(user)).toThrow('Forbidden');
+    expect(() => assertAdminAccess(user)).toThrow(/FORBIDDEN/i);
   });
 
   it('allows non-admin user when enforcement is disabled', () => {

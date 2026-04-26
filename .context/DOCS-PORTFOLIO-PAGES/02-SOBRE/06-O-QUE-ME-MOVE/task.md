@@ -286,3 +286,11 @@ No database, no deploy, no infrastructure changes.
 - [x] **TASK-03**: `GhostScene.tsx` verified; double error boundary removed (preserved at `AboutBeliefsClient.tsx` level).
 - [x] **TASK-04**: Fixed TypeScript regressions in `BeliefBackground` and `AboutBeliefsClient`.
 - [x] **Verification**: `npm run typecheck` and `npm run lint` passed with zero errors.
+
+## Post-Completion Debugging (2026-04-26)
+
+- **Issue**: `ReferenceError: Worker is not defined` during Next.js SSR/Static Generation.
+- **Fix**: Gated `useGLTF.preload` calls in `GhostScene.tsx`, `GhostModel.tsx`, and `GlassBar.tsx` with `typeof window !== 'undefined'`.
+- **Issue**: Build failure in restricted environment (`Operation not permitted (os error 1)` via Turbopack).
+- **Workaround**: Enabled Webpack build (`next build --webpack`) which successfully processes CSS modules without permission errors.
+- **Result**: Production build completed successfully.

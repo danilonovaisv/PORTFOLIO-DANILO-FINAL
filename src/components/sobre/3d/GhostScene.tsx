@@ -15,10 +15,15 @@ const SUPABASE_GHOST_GLB_URL =
         process.env.NEXT_PUBLIC_SUPABASE_URL ||
         process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ||
         ''
-      ).replace(/\/$/, '')}/storage/v1/object/public/site-assets/3d/ghost-v1.glb`
+      ).replace(
+        /\/$/,
+        ''
+      )}/storage/v1/object/public/site-assets/3d/ghost-v1.glb`
     : LOCAL_GHOST_GLB_URL;
 
-useGLTF.preload(SUPABASE_GHOST_GLB_URL);
+if (typeof window !== 'undefined') {
+  useGLTF.preload(SUPABASE_GHOST_GLB_URL);
+}
 
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
@@ -81,8 +86,10 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     const targetX = isClimax ? 0 : isMobile ? -1.2 : 0;
     const targetY = isClimax ? 0 : isMobile ? 1.5 : 0;
     const lerpFactor = Math.min(delta * 8, 0.15);
-    const parallaxX = !prefersReducedMotion && !isMobile ? mouseRef.current.x * 0.4 : 0;
-    const parallaxY = !prefersReducedMotion && !isMobile ? mouseRef.current.y * 0.2 : 0;
+    const parallaxX =
+      !prefersReducedMotion && !isMobile ? mouseRef.current.x * 0.4 : 0;
+    const parallaxY =
+      !prefersReducedMotion && !isMobile ? mouseRef.current.y * 0.2 : 0;
 
     meshRef.current.position.x +=
       (targetX + parallaxX - meshRef.current.position.x) * lerpFactor;
@@ -99,7 +106,13 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
         (0.06 + p * 0.04);
     }
 
-    const targetScale = isClimax ? (isMobile ? 1 : 1.05) : isMobile ? 0.9 : 0.95;
+    const targetScale = isClimax
+      ? isMobile
+        ? 1
+        : 1.05
+      : isMobile
+        ? 0.9
+        : 0.95;
     meshRef.current.scale.x +=
       (targetScale - meshRef.current.scale.x) * lerpFactor;
     meshRef.current.scale.y = meshRef.current.scale.x;
@@ -126,7 +139,11 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
         dpr={[1, isMobile ? 1 : 2]}
         camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 35 }}
         frameloop="demand"
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
       >
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} />

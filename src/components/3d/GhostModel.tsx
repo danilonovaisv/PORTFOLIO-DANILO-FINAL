@@ -12,7 +12,9 @@ const GhostModel = (props: GhostModelProps) => {
   return <SharedGhostModel src={GHOST_MODEL_PATH} {...props} />;
 };
 
-useGLTF.preload(GHOST_MODEL_PATH);
+if (typeof window !== 'undefined') {
+  useGLTF.preload(GHOST_MODEL_PATH);
+}
 
 export { GHOST_MODEL_PATH };
 export default GhostModel;

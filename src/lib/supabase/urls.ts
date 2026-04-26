@@ -15,7 +15,10 @@ export function getSupabaseBaseUrl(): string | null {
   }
 
   // Fallback para servidor apenas se não houver URL pública (CUIDADO: pode causar mismatch se usado em componentes)
-  if (typeof window === 'undefined' && process.env.SUPABASE_URL) {
+  if (
+    (typeof window === 'undefined' || process.env.NODE_ENV === 'test') &&
+    process.env.SUPABASE_URL
+  ) {
     return normalizeUrl(process.env.SUPABASE_URL);
   }
 

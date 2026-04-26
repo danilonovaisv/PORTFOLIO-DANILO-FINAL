@@ -1,4 +1,5 @@
 # Plano de Implementação Técnica: Scroll-Triggered Animations
+
 **Referência**: Motion.dev - Scroll-triggered animation  
 **Stack**: Next.js App Router + React + TypeScript + Tailwind CSS + Motion (Framer Motion)  
 **Data**: 2025-01-22  
@@ -11,6 +12,7 @@
 Este documento traduz a experiência visual da referência [Motion Scroll-triggered](https://examples.motion.dev/js/scroll-triggered) para um plano técnico executável na stack Next.js App Router. O foco exclusivo é na **física das animações**, **comportamento scroll-triggered** e **padrões de implementação**, ignorando deliberadamente cores, tipografia e layout visual da referência.
 
 ### Escopo Confirmado
+
 - ✅ Scroll-triggered animations com entrada/saída de viewport
 - ✅ Transições de opacity + translateX com easing customizado
 - ✅ Estados de animação reversível (enter/leave)
@@ -18,6 +20,7 @@ Este documento traduz a experiência visual da referência [Motion Scroll-trigge
 - ✅ Suporte a `prefers-reduced-motion` e fallbacks
 
 ### Fora de Escopo (Conforme Diretrizes)
+
 - ❌ Paleta de cores, tipografia, grid system da referência
 - ❌ Custom cursor, WebGL, parallax complexo (não presentes na referência)
 - ❌ Conteúdo textual específico
@@ -27,6 +30,7 @@ Este documento traduz a experiência visual da referência [Motion Scroll-trigge
 ## 🔍 Leitura Visual Estrutural: Fatos vs Inferências
 
 ### ✅ Observações Visuais Confirmadas (Browser Subagent)
+
 ```
 1. Estrutura: 4 seções full-viewport (100vh cada)
 2. Estado inicial dos elementos <pre>:
@@ -46,6 +50,7 @@ Este documento traduz a experiência visual da referência [Motion Scroll-trigge
 ```
 
 ### 🔶 Inferências Técnicas Plausíveis
+
 ```
 1. Performance: Uso de transform + opacity (composited layers)
 2. Acessibilidade: Respeito a prefers-reduced-motion necessário
@@ -55,6 +60,7 @@ Este documento traduz a experiência visual da referência [Motion Scroll-trigge
 ```
 
 ### ⚠️ Pontos para Validação Manual
+
 ```
 1. Threshold exato do Intersection Observer (padrão: 0.1?)
 2. Comportamento em mobile: touch scroll vs mouse wheel
@@ -68,15 +74,15 @@ Este documento traduz a experiência visual da referência [Motion Scroll-trigge
 
 ### Tabela de Parâmetros de Motion
 
-| Propriedade | Valor Referência | Adaptação Framer Motion | Notas |
-|------------|-----------------|------------------------|-------|
-| **Trigger** | `inView(selector, callback)` | `whileInView` prop ou `useInView` hook | React-first approach |
-| **Initial State** | `opacity: 0, x: -100` | `initial={{ opacity: 0, x: -100 }}` | Usar motion components |
-| **Animate To** | `opacity: 1, x: 0` | `whileInView={{ opacity: 1, x: 0 }}` | Viewport-triggered |
-| **Duration** | `0.9` seconds | `transition={{ duration: 0.9 }}` | Consistent timing |
-| **Easing** | `[0.17, 0.55, 0.55, 1]` | `ease: [0.17, 0.55, 0.55, 1]` | Cubic bezier string |
-| **Exit Behavior** | Cleanup function | `viewport={{ once: false }}` + conditional | Reversible by default |
-| **Viewport Margin** | Default (0%) | `viewport={{ margin: "-100px" }}` | Optional fine-tuning |
+| Propriedade         | Valor Referência             | Adaptação Framer Motion                    | Notas                  |
+| ------------------- | ---------------------------- | ------------------------------------------ | ---------------------- |
+| **Trigger**         | `inView(selector, callback)` | `whileInView` prop ou `useInView` hook     | React-first approach   |
+| **Initial State**   | `opacity: 0, x: -100`        | `initial={{ opacity: 0, x: -100 }}`        | Usar motion components |
+| **Animate To**      | `opacity: 1, x: 0`           | `whileInView={{ opacity: 1, x: 0 }}`       | Viewport-triggered     |
+| **Duration**        | `0.9` seconds                | `transition={{ duration: 0.9 }}`           | Consistent timing      |
+| **Easing**          | `[0.17, 0.55, 0.55, 1]`      | `ease: [0.17, 0.55, 0.55, 1]`              | Cubic bezier string    |
+| **Exit Behavior**   | Cleanup function             | `viewport={{ once: false }}` + conditional | Reversible by default  |
+| **Viewport Margin** | Default (0%)                 | `viewport={{ margin: "-100px" }}`          | Optional fine-tuning   |
 
 ### Diagrama de Estados da UI
 
@@ -86,13 +92,13 @@ stateDiagram-v2
     Hidden --> Visible: Element enters viewport
     Visible --> Hidden: Element leaves viewport
     Hidden --> [*]: Component unmount
-    
+
     note right of Hidden
       opacity: 0
       x: -100px
       will-change: transform, opacity
     end note
-    
+
     note right of Visible
       opacity: 1
       x: 0
@@ -101,16 +107,17 @@ stateDiagram-v2
 ```
 
 ### Comportamento Responsivo
+
 ```typescript
 // Mobile-first breakpoints para ajustes de animação
 const MOTION_BREAKPOINTS = {
-  mobile: { max: 767 },    // Reduzir distance: -50px → 0
+  mobile: { max: 767 }, // Reduzir distance: -50px → 0
   tablet: { min: 768, max: 1023 }, // Manter referência
-  desktop: { min: 1024 }   // Full effect: -100px → 0
-}
+  desktop: { min: 1024 }, // Full effect: -100px → 0
+};
 
 // Exemplo de adaptação por breakpoint
-const getXInitial = (isMobile: boolean) => isMobile ? -50 : -100
+const getXInitial = (isMobile: boolean) => (isMobile ? -50 : -100);
 ```
 
 ---
@@ -118,6 +125,7 @@ const getXInitial = (isMobile: boolean) => isMobile ? -50 : -100
 ## 🏗️ Arquitetura Recomendada: Next.js App Router
 
 ### Estrutura de Pastas Escalável
+
 ```
 src/
 ├── app/
@@ -174,16 +182,17 @@ src/
 ```
 
 ### Separação Server/Client Components
+
 ```typescript
 // ✅ Server Component: app/(marketing)/page.tsx
 export default async function MarketingPage() {
   // Dados estáticos ou fetch server-side
   const sections = await getScrollSections() // Supabase/DB
-  
+
   return (
     <main>
       {sections.map(section => (
-        <ScrollSection 
+        <ScrollSection
           key={section.id}
           content={section.content}
           // Props leves para client component
@@ -202,16 +211,16 @@ import { useRef } from 'react'
 export function ScrollText({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: false, margin: "-100px" })
-  
+
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, x: -100 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
-      transition={{ 
-        duration: 0.9, 
+      transition={{
+        duration: 0.9,
         ease: [0.17, 0.55, 0.55, 1],
-        delay 
+        delay
       }}
     >
       {children}
@@ -225,6 +234,7 @@ export function ScrollText({ children, delay = 0 }: { children: React.ReactNode,
 ## 🧩 Estratégia de Componentes: Reutilização e Composição
 
 ### Component Hierarchy
+
 ```
 ScrollPage (layout wrapper)
 ├── ScrollProvider (context for global motion config)
@@ -236,6 +246,7 @@ ScrollPage (layout wrapper)
 ```
 
 ### Padrão de Composição Recomendado
+
 ```typescript
 // components/ui/scroll-section/index.tsx
 import { MotionDiv } from '@/components/primitives/MotionDiv'
@@ -251,17 +262,17 @@ interface ScrollSectionProps {
 export function ScrollSection({ children, index, className }: ScrollSectionProps) {
   // Stagger children animation based on index
   const delay = index * motionConfig.staggerDelay
-  
+
   return (
     <MotionDiv
       section
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ 
-        once: false, 
+      viewport={{
+        once: false,
         margin: motionConfig.viewportMargin,
-        amount: motionConfig.viewportAmount 
+        amount: motionConfig.viewportAmount
       }}
     >
       <ScrollText delay={delay}>
@@ -273,46 +284,44 @@ export function ScrollSection({ children, index, className }: ScrollSectionProps
 ```
 
 ### Hook Customizado: useScrollTrigger
+
 ```typescript
 // hooks/useScrollTrigger.ts
-import { useInView } from 'motion/react'
-import { useRef, useEffect } from 'react'
+import { useInView } from 'motion/react';
+import { useRef, useEffect } from 'react';
 
 interface UseScrollTriggerOptions {
-  once?: boolean
-  margin?: string
-  onEnter?: () => void
-  onLeave?: () => void
+  once?: boolean;
+  margin?: string;
+  onEnter?: () => void;
+  onLeave?: () => void;
 }
 
 export function useScrollTrigger<T extends HTMLElement = HTMLElement>(
   options: UseScrollTriggerOptions = {}
 ) {
-  const { 
-    once = false, 
-    margin = "-100px",
-    onEnter,
-    onLeave 
-  } = options
-  
-  const ref = useRef<T>(null)
-  
+  const { once = false, margin = '-100px', onEnter, onLeave } = options;
+
+  const ref = useRef<T>(null);
+
   const isInView = useInView(ref, {
     once,
     margin,
     // Callbacks para side-effects
     onEnter: () => onEnter?.(),
     onLeave: () => onLeave?.(),
-  })
-  
+  });
+
   // Cleanup: logging para debug em dev
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      console.log(`[ScrollTrigger] Element ${isInView ? 'entered' : 'left'} viewport`)
+      console.log(
+        `[ScrollTrigger] Element ${isInView ? 'entered' : 'left'} viewport`
+      );
     }
-  }, [isInView])
-  
-  return { ref, isInView }
+  }, [isInView]);
+
+  return { ref, isInView };
 }
 ```
 
@@ -322,14 +331,15 @@ export function useScrollTrigger<T extends HTMLElement = HTMLElement>(
 
 ### Estratégia por Camada
 
-| Estado | Implementação | Quando Usar | Fallback |
-|--------|--------------|-------------|----------|
-| **Loading** | `loading.tsx` + Skeleton components | Durante fetch de dados ou lazy-load de assets pesados | Static placeholder com mesma estrutura |
-| **Empty** | Componente `EmptyState` com CTA | Quando lista de seções está vazia ou sem dados | Mensagem amigável + botão de refresh |
-| **Error** | `error.tsx` + retry logic | Falha no fetch, erro de renderização, JS desabilitado | Versão estática sem animações |
-| **Reduced Motion** | `prefers-reduced-motion` media query | Usuário com preferência por menos movimento | Animações instantâneas (duration: 0.01) |
+| Estado             | Implementação                        | Quando Usar                                           | Fallback                                |
+| ------------------ | ------------------------------------ | ----------------------------------------------------- | --------------------------------------- |
+| **Loading**        | `loading.tsx` + Skeleton components  | Durante fetch de dados ou lazy-load de assets pesados | Static placeholder com mesma estrutura  |
+| **Empty**          | Componente `EmptyState` com CTA      | Quando lista de seções está vazia ou sem dados        | Mensagem amigável + botão de refresh    |
+| **Error**          | `error.tsx` + retry logic            | Falha no fetch, erro de renderização, JS desabilitado | Versão estática sem animações           |
+| **Reduced Motion** | `prefers-reduced-motion` media query | Usuário com preferência por menos movimento           | Animações instantâneas (duration: 0.01) |
 
 ### Exemplo: Error Boundary com Fallback
+
 ```typescript
 // app/(marketing)/error.tsx
 'use client'
@@ -348,7 +358,7 @@ export default function ScrollError({
     // Log error para monitoring (Sentry, etc)
     console.error('Scroll animation error:', error)
   }, [error])
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="text-center space-y-4">
@@ -358,10 +368,10 @@ export default function ScrollError({
         <p className="text-muted-foreground">
           Exibindo versão estática para garantir acessibilidade
         </p>
-        
+
         {/* Fallback estático: mesmo conteúdo, sem motion */}
         <StaticScrollSection />
-        
+
         <button
           onClick={reset}
           className="px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition"
@@ -375,14 +385,15 @@ export default function ScrollError({
 ```
 
 ### Loading Skeleton Pattern
+
 ```typescript
 // components/ui/scroll-section/skeleton.tsx
 export function ScrollSectionSkeleton({ count = 4 }: { count?: number }) {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
-        <section 
-          key={i} 
+        <section
+          key={i}
           className="h-screen flex items-center justify-center"
           aria-busy="true"
           aria-label="Carregando seção"
@@ -400,6 +411,7 @@ export function ScrollSectionSkeleton({ count = 4 }: { count?: number }) {
 ## 🎨 Design Tokens: Motion, Spacing, Breakpoints
 
 ### Tokens Centralizados (lib/motion/constants.ts)
+
 ```typescript
 // lib/motion/constants.ts
 export const MOTION_TOKENS = {
@@ -407,62 +419,63 @@ export const MOTION_TOKENS = {
   duration: {
     fast: 0.3,
     normal: 0.6,
-    slow: 0.9,    // Referência: scroll-triggered
+    slow: 0.9, // Referência: scroll-triggered
     slower: 1.2,
   },
-  
+
   // Easing curves (cubic-bezier)
   ease: {
     standard: [0.4, 0.0, 0.2, 1],
-    enter: [0.17, 0.55, 0.55, 1],  // Referência: scroll-triggered
+    enter: [0.17, 0.55, 0.55, 1], // Referência: scroll-triggered
     exit: [0.16, 1, 0.3, 1],
     bounce: [0.68, -0.55, 0.265, 1.55],
   },
-  
+
   // Distance for slide animations
   distance: {
     xs: 20,
-    sm: 50,      // Mobile breakpoint
-    md: 100,     // Desktop referência
+    sm: 50, // Mobile breakpoint
+    md: 100, // Desktop referência
     lg: 150,
   },
-  
+
   // Viewport configuration
   viewport: {
-    margin: "-100px",  // Trigger antes de entrar totalmente
-    amount: "some",    // "some" = qualquer parte visível
+    margin: '-100px', // Trigger antes de entrar totalmente
+    amount: 'some', // "some" = qualquer parte visível
   },
-  
+
   // Stagger for multiple children
   stagger: {
     delay: 0.1,
-    direction: "normal" as const,
+    direction: 'normal' as const,
   },
-  
+
   // Reduced motion fallback
   reducedMotion: {
     duration: 0.01,
-    ease: "linear" as const,
+    ease: 'linear' as const,
   },
-} as const
+} as const;
 
 // Breakpoints para adaptação responsiva
 export const BREAKPOINTS = {
   mobile: 767,
   tablet: 1023,
   desktop: 1024,
-} as const
+} as const;
 
 // Type exports para TypeScript
-export type MotionDuration = keyof typeof MOTION_TOKENS.duration
-export type MotionEase = keyof typeof MOTION_TOKENS.ease
-export type MotionDistance = keyof typeof MOTION_TOKENS.distance
+export type MotionDuration = keyof typeof MOTION_TOKENS.duration;
+export type MotionEase = keyof typeof MOTION_TOKENS.ease;
+export type MotionDistance = keyof typeof MOTION_TOKENS.distance;
 ```
 
 ### Integração com Tailwind (tailwind.config.ts)
+
 ```typescript
 // tailwind.config.ts - extensão para motion tokens
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   theme: {
@@ -470,7 +483,7 @@ const config: Config = {
       // Motion duration utilities
       transitionDuration: {
         'motion-fast': '300ms',
-        'motion-normal': '600ms', 
+        'motion-normal': '600ms',
         'motion-slow': '900ms', // Referência
       },
       // Custom easings via CSS variables
@@ -486,8 +499,8 @@ const config: Config = {
     },
   },
   // ... resto da config
-}
-export default config
+};
+export default config;
 ```
 
 ---
@@ -495,6 +508,7 @@ export default config
 ## 🚀 Plano de Implementação: Passos Executáveis
 
 ### Fase 1: Setup e Configuração (Dia 1)
+
 ```bash
 # 1.1 Instalar dependências de motion
 npm install motion @types/react @types/react-dom
@@ -510,6 +524,7 @@ touch src/components/ui/providers/motion-provider.tsx
 ```
 
 ### Fase 2: Componentes Base (Dia 2)
+
 ```bash
 # 2.1 Criar primitive MotionDiv com defaults da marca
 touch src/components/primitives/MotionDiv.tsx
@@ -525,6 +540,7 @@ touch src/components/ui/scroll-section/index.tsx
 ```
 
 ### Fase 3: Integração App Router (Dia 3)
+
 ```bash
 # 3.1 Configurar layout.tsx com providers
 edit src/app/(marketing)/layout.tsx
@@ -540,6 +556,7 @@ touch src/app/(marketing)/error.tsx
 ```
 
 ### Fase 4: Otimização e Acessibilidade (Dia 4)
+
 ```bash
 # 4.1 Implementar suporte a prefers-reduced-motion
 touch src/hooks/usePrefersReducedMotion.ts
@@ -554,6 +571,7 @@ touch src/components/features/scroll-triggered/StaticScrollSection.tsx
 ```
 
 ### Fase 5: Validação e Documentação (Dia 5)
+
 ```bash
 # 5.1 Criar Storybook stories para componentes de motion
 # 5.2 Documentar API dos componentes em README.md
@@ -566,6 +584,7 @@ touch src/components/features/scroll-triggered/StaticScrollSection.tsx
 ## 💻 Snippets Iniciais: Código Pronto para Uso
 
 ### 1. MotionDiv Primitive (src/components/primitives/MotionDiv.tsx)
+
 ```typescript
 'use client'
 
@@ -580,31 +599,31 @@ interface MotionDivProps extends HTMLMotionProps<'div'> {
   disableMotion?: boolean
 }
 
-export function MotionDiv({ 
-  className, 
+export function MotionDiv({
+  className,
   section = false,
   disableMotion = false,
   initial,
   animate,
   transition,
-  ...props 
+  ...props
 }: MotionDivProps) {
   // Merge com tokens padrão para modo section
   const defaultSectionProps = section ? {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { margin: MOTION_TOKENS.viewport.margin },
-    transition: { 
+    transition: {
       duration: MOTION_TOKENS.duration.slow,
       ease: MOTION_TOKENS.ease.enter,
     },
   } : {}
-  
+
   // Fallback para reduced motion
-  const finalTransition = disableMotion 
+  const finalTransition = disableMotion
     ? { duration: MOTION_TOKENS.reducedMotion.duration }
     : { ...defaultSectionProps.transition, ...transition }
-  
+
   return (
     <motion.div
       className={cn('will-change-transform will-change-opacity', className)}
@@ -619,55 +638,59 @@ export function MotionDiv({
 ```
 
 ### 2. Hook useScrollTrigger (src/hooks/useScrollTrigger.ts)
-```typescript
-'use client'
 
-import { useInView, UseInViewOptions } from 'motion/react'
-import { useRef, useCallback } from 'react'
+```typescript
+'use client';
+
+import { useInView, UseInViewOptions } from 'motion/react';
+import { useRef, useCallback } from 'react';
 
 export interface UseScrollTriggerReturn<T extends HTMLElement = HTMLElement> {
-  ref: React.RefObject<T>
-  isInView: boolean
-  entry: IntersectionObserverEntry | null
+  ref: React.RefObject<T>;
+  isInView: boolean;
+  entry: IntersectionObserverEntry | null;
 }
 
 export function useScrollTrigger<T extends HTMLElement = HTMLElement>(
   options: UseInViewOptions = {}
 ): UseScrollTriggerReturn<T> {
-  const ref = useRef<T>(null)
-  
-  const { 
-    once = false,
-    margin = "-100px",
-    amount = "some",
-    ...rest 
-  } = options
-  
-  const { ref: motionRef, isInView, entry } = useInView<T>({
+  const ref = useRef<T>(null);
+
+  const { once = false, margin = '-100px', amount = 'some', ...rest } = options;
+
+  const {
+    ref: motionRef,
+    isInView,
+    entry,
+  } = useInView<T>({
     ref,
     once,
     margin,
     amount,
     ...rest,
-  })
-  
+  });
+
   // Merge refs para compatibilidade com outros hooks
-  const combinedRef = useCallback((node: T | null) => {
-    if (node) {
-      ref.current = node
-      motionRef(node)
-    }
-  }, [motionRef])
-  
+  const combinedRef = useCallback(
+    (node: T | null) => {
+      if (node) {
+        ref.current = node;
+        motionRef(node);
+      }
+    },
+    [motionRef]
+  );
+
   return {
     ref: { ...ref, current: ref.current } as React.RefObject<T>,
     isInView,
     entry,
-  }
+  };
 }
 ```
 
 ### 3. ScrollText Component (src/components/features/scroll-triggered/ScrollText.tsx)
+
 ```typescript
 'use client'
 
@@ -682,34 +705,34 @@ interface ScrollTextProps {
   className?: string
 }
 
-export function ScrollText({ 
-  children, 
+export function ScrollText({
+  children,
   delay = 0,
   distance = 'md',
-  className 
+  className
 }: ScrollTextProps) {
   const { isMobile, prefersReducedMotion } = useViewport()
-  
+
   // Adapta distance baseado no breakpoint
-  const xInitial = isMobile 
-    ? -MOTION_TOKENS.distance.sm 
+  const xInitial = isMobile
+    ? -MOTION_TOKENS.distance.sm
     : -MOTION_TOKENS.distance[distance]
-  
+
   // Fallback instantâneo para reduced motion
-  const duration = prefersReducedMotion 
-    ? MOTION_TOKENS.reducedMotion.duration 
+  const duration = prefersReducedMotion
+    ? MOTION_TOKENS.reducedMotion.duration
     : MOTION_TOKENS.duration.slow
-  
+
   return (
     <MotionDiv
       className={className}
       initial={{ opacity: 0, x: xInitial }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ 
+      viewport={{
         margin: MOTION_TOKENS.viewport.margin,
         once: false, // Reversível conforme referência
       }}
-      transition={{ 
+      transition={{
         duration,
         ease: MOTION_TOKENS.ease.enter,
         delay: prefersReducedMotion ? 0 : delay,
@@ -722,6 +745,7 @@ export function ScrollText({
 ```
 
 ### 4. Página Principal (src/app/(marketing)/page.tsx)
+
 ```typescript
 import { ScrollSection } from '@/components/ui/scroll-section'
 import { ScrollText } from '@/components/features/scroll-triggered/ScrollText'
@@ -738,7 +762,7 @@ export default function MarketingPage() {
   return (
     <main className="bg-background text-foreground">
       {SECTIONS.map((section, index) => (
-        <ScrollSection 
+        <ScrollSection
           key={section.id}
           index={index}
           className="flex items-center justify-center"
@@ -756,6 +780,7 @@ export default function MarketingPage() {
 ```
 
 ### 5. Configuração Firebase Hosting (firebase.json)
+
 ```json
 {
   "hosting": {
@@ -787,6 +812,7 @@ export default function MarketingPage() {
 ## ⚠️ Riscos e Validações Técnicas
 
 ### Riscos Identificados
+
 ```
 🔴 Alto Impacto:
 1. Performance em mobile: Múltiplos IntersectionObservers podem causar jank
@@ -811,8 +837,10 @@ export default function MarketingPage() {
 ```
 
 ### Checklist de Validação Manual
+
 ```markdown
 ## Antes do Deploy
+
 - [ ] Testar scroll em mobile (touch) vs desktop (wheel)
 - [ ] Validar prefers-reduced-motion em configurações do SO
 - [ ] Medir FPS durante scroll com DevTools Performance tab
@@ -820,12 +848,14 @@ export default function MarketingPage() {
 - [ ] Testar com JS desabilitado: fallback estático funciona?
 
 ## Pós-Deploy (Firebase Hosting)
+
 - [ ] Validar cache headers para assets estáticos
 - [ ] Testar rollback rápido em caso de bug crítico
 - [ ] Monitorar erros via Sentry/LogRocket com source maps
 - [ ] Coletar métricas reais de performance (Core Web Vitals)
 
 ## Validação de Acessibilidade
+
 - [ ] Navegação por teclado: foco visível em elementos interativos
 - [ ] Screen reader: aria-labels e roles apropriados
 - [ ] Contraste de cores: WCAG AA mínimo para texto
@@ -833,6 +863,7 @@ export default function MarketingPage() {
 ```
 
 ### Dependências Críticas
+
 ```typescript
 // package.json - versões recomendadas
 {
@@ -860,6 +891,7 @@ export default function MarketingPage() {
 ## 📚 Recursos e Otimizações
 
 ### Links Oficiais da Stack
+
 - [Motion for React Docs](https://motion.dev/docs/react) - API reference completa
 - [Next.js App Router](https://nextjs.org/docs/app) - Padrões de arquitetura
 - [Tailwind CSS + Motion](https://tailwindcss.com/docs/animation) - Integração de tokens
@@ -867,38 +899,40 @@ export default function MarketingPage() {
 - [Firebase Hosting](https://firebase.google.com/docs/hosting) - Deploy e CDN
 
 ### Otimizações de Performance
+
 ```typescript
 // 1. Lazy-load de seções abaixo da dobra
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react';
 
-const HeavySection = lazy(() => import('@/components/features/heavy-section'))
+const HeavySection = lazy(() => import('@/components/features/heavy-section'));
 
 // 2. Memoização de componentes de animação
 export const MemoizedScrollText = memo(ScrollText, (prev, next) => {
   // Só re-renderiza se conteúdo ou props de motion mudarem
-  return prev.children === next.children && prev.delay === next.delay
-})
+  return prev.children === next.children && prev.delay === next.delay;
+});
 
 // 3. Uso de will-change para promover layers
 // Já incluso no MotionDiv primitive:
 // className="will-change-transform will-change-opacity"
 
 // 4. Limitar re-renders com useTransition para updates não-urgentes
-import { useTransition } from 'react'
+import { useTransition } from 'react';
 
 function ScrollPage() {
-  const [isPending, startTransition] = useTransition()
-  
+  const [isPending, startTransition] = useTransition();
+
   const handleScrollUpdate = (progress: number) => {
     startTransition(() => {
       // Updates de UI não-críticos
-      setScrollProgress(progress)
-    })
-  }
+      setScrollProgress(progress);
+    });
+  };
 }
 ```
 
 ### ROI Estimado
+
 ```
 ✅ Benefícios:
 - Reutilização: Componentes de motion aplicáveis em 80% das landing pages
@@ -908,7 +942,7 @@ function ScrollPage() {
 
 ⏱️ Tempo de Implementação:
 - Setup inicial: 1 dia
-- Componentes base: 2 dias  
+- Componentes base: 2 dias
 - Integração + testes: 2 dias
 - Total MVP: 5 dias úteis (1 semana)
 
@@ -922,4 +956,4 @@ function ScrollPage() {
 
 > **Próximo Passo Recomendado**: Execute `npx create-next-app@latest` com flags `--typescript --tailwind --app --src-dir` e comece pela Fase 1 deste plano. Use os snippets acima como ponto de partida e valide cada componente no Storybook antes de integrar na página principal.
 
-*Documento gerado por @motion-engineer + @frontend-specialist | Próxima revisão: pós-validação visual da implementação*
+_Documento gerado por @motion-engineer + @frontend-specialist | Próxima revisão: pós-validação visual da implementação_

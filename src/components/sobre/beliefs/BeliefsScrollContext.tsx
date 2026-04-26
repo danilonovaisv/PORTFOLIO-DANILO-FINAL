@@ -23,9 +23,7 @@ export function BeliefsScrollProvider({
   containerRef: React.RefObject<HTMLElement | null>;
 }) {
   const { scrollYProgress } = useBeliefsScroll(containerRef);
-  const prefersReducedMotion = useBeliefStore(
-    (s) => s.prefersReducedMotion
-  );
+  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
   const isMobile = useBeliefStore((s) => s.isMobile);
 
   return (
