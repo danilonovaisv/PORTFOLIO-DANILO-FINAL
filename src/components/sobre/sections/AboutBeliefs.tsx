@@ -1,5 +1,5 @@
-import { AboutBeliefsClient } from '@/components/sobre/sections/AboutBeliefsClient';
+import { BeliefsSection } from '@/components/sobre/sections/beliefs/BeliefsSection';
 
 export function AboutBeliefs() {
-  return <AboutBeliefsClient />;
+  return <BeliefsSection />;
 }

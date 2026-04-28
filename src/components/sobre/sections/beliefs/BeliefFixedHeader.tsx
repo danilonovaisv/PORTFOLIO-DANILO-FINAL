@@ -32,7 +32,7 @@ export function BeliefFixedHeader({
   return (
     <motion.header
       style={{ opacity }}
-      className="sticky top-0 z-30 flex h-screen pointer-events-none"
+      className="sticky top-0 z-20 flex h-screen pointer-events-none"
       data-testid="beliefs-header"
     >
       <div className="std-grid w-full h-full">

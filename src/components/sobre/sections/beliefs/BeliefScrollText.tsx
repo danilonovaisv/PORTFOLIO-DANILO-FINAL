@@ -30,7 +30,7 @@ export function BeliefScrollText({
 
   return (
     <div
-      className={`absolute inset-0 z-40 flex flex-col pointer-events-none ${
+      className={`absolute inset-0 z-30 flex flex-col pointer-events-none ${
         isMobile
           ? 'items-center justify-start px-6 text-center'
           : 'justify-start left-6 md:left-16 lg:left-24 max-w-[45vw] lg:max-w-[40vw] text-left'
@@ -41,7 +41,7 @@ export function BeliefScrollText({
         className="sticky top-0 h-[100vh] w-full flex relative pointer-events-none"
         style={{
           alignItems: isMobile ? 'flex-end' : 'center',
-          paddingBottom: isMobile ? '25vh' : undefined,
+          bottom: isMobile ? '20vh' : undefined,
         }}
       >
         {phrases.map((phrase, i) => {
@@ -96,7 +96,7 @@ function PhraseItem({
   const movement = useTransform(
     scrollProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    isMobile ? [30, 0, 0, -30] : [40, 0, 0, -40],
+    isMobile ? ['40px', '0px', '0px', '100vw'] : ['40px', '0px', '0px', '-40px'],
     { ease: ghostEase }
   );
 
