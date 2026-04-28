@@ -15,8 +15,7 @@ export function getSupabaseBaseUrl(): string | null {
   }
 
   if (
-    (typeof window === 'undefined' ||
-      process.env.NODE_ENV === 'test') &&
+    (typeof window === 'undefined' || process.env.NODE_ENV === 'test') &&
     process.env.SUPABASE_URL
   ) {
     return normalizeUrl(process.env.SUPABASE_URL);

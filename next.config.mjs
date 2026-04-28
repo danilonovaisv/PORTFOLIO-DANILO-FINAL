@@ -162,8 +162,6 @@ const createNextConfig = (phase) => ({
     },
   },
 
-
-
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
