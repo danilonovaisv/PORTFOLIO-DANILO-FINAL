@@ -184,46 +184,6 @@ export const ghostFade: Variants = {
 };
 
 /**
- * Rise Soft - Subtle Y movement + fade + blur
- * Use for: Cards, list items, content blocks
- */
-export const riseSoft: Variants = {
-  hidden: {
-    opacity: 0,
-    y: MOTION_TOKENS.offset.standard,
-    filter: 'blur(6px)',
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: MOTION_TOKENS.duration.normal,
-      ease: GHOST_EASE,
-    },
-  },
-};
-
-/**
- * Image Float - For media elements (max opacity 0.85)
- * Use for: Background images, decorative media
- */
-export const imageFloat: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  visible: {
-    opacity: 0.85,
-    y: 0,
-    transition: {
-      duration: MOTION_TOKENS.duration.slow,
-      ease: GHOST_EASE,
-    },
-  },
-};
-
-/**
  * Stagger Container - Parent for staggered children
  * Use for: Lists, grids, card groups
  */
@@ -239,47 +199,6 @@ export const staggerContainer = (
     },
   },
 });
-
-/**
- * Modal variants - Coordinated backdrop + content animations
- */
-export const modalVariants = {
-  backdrop: {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: MOTION_TOKENS.duration.fast, ease: 'easeOut' },
-    },
-    exit: {
-      opacity: 0,
-      transition: { duration: MOTION_TOKENS.duration.instant },
-    },
-  } satisfies Variants,
-
-  content: {
-    hidden: {
-      opacity: 0,
-      y: MOTION_TOKENS.offset.large,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: MOTION_TOKENS.duration.modal,
-        ease: GHOST_EASE,
-        delay: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: MOTION_TOKENS.offset.standard,
-      transition: {
-        duration: MOTION_TOKENS.duration.fast,
-        ease: GHOST_EASE,
-      },
-    },
-  } satisfies Variants,
-};
 
 // =============================================================================
 // TRANSITION HELPERS
@@ -298,35 +217,10 @@ export const ghostTransition = (
 });
 
 /**
- * Create a spring transition with ghost physics
- */
-export const ghostSpringTransition = (
-  springType: keyof typeof MOTION_TOKENS.spring = 'ghost'
-): Transition => ({
-  type: 'spring',
-  ...MOTION_TOKENS.spring[springType],
-});
-
-/**
  * Viewport animation props (for whileInView)
  */
 export const viewportConfig = {
   once: true,
   margin: MOTION_TOKENS.reveal.margin,
   amount: MOTION_TOKENS.reveal.threshold,
-};
-
-// =============================================================================
-// REDUCED MOTION HELPER
-// =============================================================================
-
-/**
- * Returns empty animation props if user prefers reduced motion
- */
-export const getMotionProps = <T extends object>(
-  props: T,
-  prefersReducedMotion: boolean | null
-): T | Record<string, never> => {
-  if (prefersReducedMotion) return {};
-  return props;
 };

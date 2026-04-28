@@ -18,24 +18,6 @@ export interface SiteHeaderProps {
   reducedMotion?: boolean;
 }
 
-export interface DesktopFluidHeaderProps {
-  navItems: NavItem[];
-  logoUrl: string;
-  isLight?: boolean;
-  height?: number;
-  onNavigate: (_href: string) => void;
-  activeHref?: string;
-  glass?: {
-    ior?: number;
-    thickness?: number;
-    chromaticAberration?: number;
-    anisotropy?: number;
-    smoothness?: number;
-    maxTranslateX?: number;
-    followDamping?: number;
-  };
-}
-
 export interface MobileStaggeredMenuProps {
   navItems: NavItem[];
   logoUrl: string;

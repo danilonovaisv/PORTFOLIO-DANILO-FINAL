@@ -109,31 +109,3 @@ export interface PortfolioProject {
   destination?: ProjectDestination;
   caseBody?: string | null; // NOVO
 }
-
-/**
- * Estado de filtro do showcase
- */
-export interface PortfolioFilter {
-  category: ProjectCategory;
-  sortBy: 'recent' | 'featured' | 'alphabetical';
-}
-
-/**
- * Props para componentes de projeto
- */
-export interface ProjectCardProps {
-  project: PortfolioProject;
-  index: number;
-  className?: string;
-  onOpen?: (_project: PortfolioProject) => void;
-  isAnimating?: boolean;
-}
-
-/**
- * Props do Modal
- */
-export interface ProjectModalProps {
-  project: PortfolioProject | null;
-  isOpen: boolean;
-  onClose: () => void;
-}

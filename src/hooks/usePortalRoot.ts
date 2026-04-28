@@ -13,5 +13,3 @@ export function usePortalRoot(rootId: string = DEFAULT_PORTAL_ROOT_ID) {
 
   return portalRoot;
 }
-
-export default usePortalRoot;

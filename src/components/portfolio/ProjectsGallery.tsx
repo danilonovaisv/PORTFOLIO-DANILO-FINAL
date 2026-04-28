@@ -16,7 +16,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ProjectCard, type ProjectCardSize } from '@/components/portfolio/ProjectCard';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
-import { StandardGrid } from '@/components/layout/Container';
+import { Container } from '@/components/layout/Container';
 import { GHOST_EASE } from '@/config/motion';
 import {
   PORTFOLIO_PAGE_SIZE,
@@ -288,7 +288,7 @@ export const ProjectsGallery = ({
         className="w-full relative z-[1]"
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
-        <StandardGrid>
+        <Container>
           <div className="sr-only" aria-live="polite" role="status">
             {pageAnnouncement}
           </div>
@@ -365,7 +365,7 @@ export const ProjectsGallery = ({
               )}
             </div>
           )}
-        </StandardGrid>
+        </Container>
       </div>
     </section>
   );

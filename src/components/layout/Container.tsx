@@ -18,5 +18,3 @@ export function Container({
     </Component>
   );
 }
-
-export const StandardGrid = Container;

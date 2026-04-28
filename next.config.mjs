@@ -162,12 +162,11 @@ const createNextConfig = (phase) => ({
     },
   },
 
-  // Keep Turbopack explicit because Next.js 16 enables it by default and
-  // errors when a webpack config exists without a Turbopack config.
   turbopack: {
     rules: {
       '*.{glsl,vs,fs,vert,frag}': {
-        type: 'raw',
+        loaders: ['raw-loader'],
+        as: '*.js',
       },
     },
   },

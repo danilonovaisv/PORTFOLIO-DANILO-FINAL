@@ -6,12 +6,12 @@ import {
   AboutWhatIDo,
   AboutMethod,
   AboutClosing,
+  AboutBeliefs,
 } from '@/components/sobre/sections';
-import { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 import { SectionErrorBoundary } from '@/components/ui/SectionErrorBoundary';
-import AboutBeliefsSkeleton from '@/components/sobre/sections/AboutBeliefsSkeleton';
+import { AboutBeliefsSkeleton } from '@/components/sobre/sections/AboutBeliefsSkeleton';
 
 import { BRAND } from '@/config/brand';
 import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';

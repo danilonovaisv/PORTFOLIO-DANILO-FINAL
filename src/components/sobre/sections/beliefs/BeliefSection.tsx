@@ -3,11 +3,7 @@
 import React, { useRef } from 'react';
 import { motion } from 'motion/react';
 
-interface BeliefSectionProps {
-  index: number;
-}
-
-export function BeliefSection({ index }: BeliefSectionProps) {
+export function BeliefSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (

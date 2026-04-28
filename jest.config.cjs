@@ -3,7 +3,8 @@ const tsJestConfig = {
   tsconfig: {
     jsx: 'react-jsx',
     rootDir: '.',
-    ignoreDeprecations: '5.0',
+    ignoreDeprecations: '6.0',
+    moduleResolution: 'bundler',
   },
 };
 

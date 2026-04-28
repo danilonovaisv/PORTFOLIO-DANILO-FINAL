@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
+import { AboutBeliefs } from '@/components/sobre/sections';
 
 export const metadata: Metadata = {
   title: 'O Que Me Move | Beliefed Design',

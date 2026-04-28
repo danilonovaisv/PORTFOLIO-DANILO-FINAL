@@ -59,5 +59,3 @@ export function AboutBeliefsSkeleton({
     </section>
   );
 }
-
-export default AboutBeliefsSkeleton;
