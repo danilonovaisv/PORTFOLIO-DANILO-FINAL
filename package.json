@@ -95,7 +95,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.0",
+    "@react-three/fiber": "^9.6.1",
     "@supabase/ssr": "0.10.2",
     "@supabase/supabase-js": "^2.105.1",
     "class-variance-authority": "^0.7.1",
