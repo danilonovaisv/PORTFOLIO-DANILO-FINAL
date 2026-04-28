@@ -860,3 +860,16 @@ On completion:
 - **Framer Motion:** Curva padrão `cubic-bezier(0.22, 1, 0.36, 1)`.
 
 Consulte `docs/STRATEGY.md` para detalhes técnicos completos.
+
+---
+
+## 6. CI/CD & Automações
+
+### 6.1 Integração Contínua e Deploy Contínuo (GitHub Actions)
+
+A arquitetura de *continuous deployment* foi desenhada para ser resiliente a transições e experimentações.
+O processo automatiza os builds (Next.js) e o provisionamento com a nuvem (Firebase/GCP).
+
+**Resolução de Conflitos e Mitigações de Ambiente:**
+- **Node.js 24 Enforcement:** Devido à transição progressiva do GitHub para o runtime Node.js 24, as core actions em workflows rodando no ambiente Ubuntu podem gerar alertas de depreciação se limitadas ao Node.js 20. Para prevenir e mitigar esse aviso nas *core actions*, a flag de ambiente `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` deve ser aplicada no job principal.
+- **Firebase Web Frameworks:** Para projetos que empregam Next.js App Router (como o Next 14, 15, ou 16), o Firebase Hosting depende de uma flag experimental para empacotar o SSR adequadamente de forma automatizada. Em ambientes *headless* como o GitHub Actions, como o Firebase CLI não pode solicitar a ativação interativamente, o token `FIREBASE_CLI_EXPERIMENTS: webframeworks` é inserido obrigatoriamente durante a chamada de `firebase-tools deploy` para evitar que a stack falhe em compilar.
