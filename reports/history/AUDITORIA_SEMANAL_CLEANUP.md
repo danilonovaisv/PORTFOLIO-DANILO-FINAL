@@ -1,9 +1,11 @@
 # AUDITORIA_SEMANAL_CLEANUP.md
 
 ## 1. Resumo Executivo
+
 Esta auditoria focou na limpeza profunda (Clean-up & Dead Code Elimination) e identificou áreas críticas com código não utilizado, dependências infladas e desalinhamentos com a arquitetura documentada.
 
 **TOP 10 Problemas Críticos:**
+
 1. **Bundle Bloat:** Diversas dependências do `@radix-ui` listadas no `package.json` constam como não utilizadas e inflam a árvore de dependências.
 2. **Dependências Dev Não Utilizadas:** O pacote `eslint`, entre outros de configuração (`eslint-config-*`), apontam falhas de peering/verões ou não uso pelo knip.
 3. **Componentes Órfãos na UI:** Componentes legados ou substituídos como `ui/MorphText`, `ui/GhostText`, `ui/CompoundPillCTA`, e `ui/carousel` estão na pasta `src/components/ui/` mas parecem não ter referências de importação diretas válidas nas rotas principais.
@@ -17,17 +19,16 @@ Esta auditoria focou na limpeza profunda (Clean-up & Dead Code Elimination) e id
 
 ## 2. Matriz por Página com Status
 
-| Página / Rota | Status (Ativa/Obsoleta/Incompleta) | Arquivos Órfãos Encontrados | Dependências Inúteis |
-|---|---|---|---|
-| `/` (Home) | Ativa | `home/hero/HeroHeader.tsx`, `GhostAura.tsx`, `useHeroAnimation.ts` | (Nenhuma específica da página) |
-| `/sobre` | Ativa | `AboutBeliefsNoSSR.tsx`, fragmentos de `sobre/3d/` e `sobre/what-i-do/DesktopCard.tsx` | (Nenhuma específica) |
-| `/portfolio` | Ativa | `ContentContainer.tsx`, `MediaContainer.tsx`, `PortfolioModalRegression.test.tsx` | `embla-carousel-react`, `@radix-ui` parts |
-| `/projects/[slug]` | Ativa | `templates/LiquidEther.tsx` | - |
-| `/contato` | Ativa | `ContactDetails.tsx` (potencial) | - |
-| `/privacidade` | Ativa | - | - |
-| `src/components/ui` | Obsoleta (Parcial) | `carousel.tsx`, `calendar.tsx`, `slider.tsx`, `menubar.tsx`, `CTAButton.tsx`, `PrimaryButton.tsx`, `MorphText.tsx`, `GhostText.tsx` | Vários módulos `@radix-ui/*` |
-| `src/components/canvas` | Incompleta/Obsoleta | `FluidMaterial.ts`, `FluidGlass.tsx`, `AnalogShader.ts`, `Atmosphere.tsx`, `GhostBody.tsx` | `@react-three/postprocessing` (knip) |
-
+| Página / Rota           | Status (Ativa/Obsoleta/Incompleta) | Arquivos Órfãos Encontrados                                                                                                         | Dependências Inúteis                      |
+| ----------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `/` (Home)              | Ativa                              | `home/hero/HeroHeader.tsx`, `GhostAura.tsx`, `useHeroAnimation.ts`                                                                  | (Nenhuma específica da página)            |
+| `/sobre`                | Ativa                              | `AboutBeliefsNoSSR.tsx`, fragmentos de `sobre/3d/` e `sobre/what-i-do/DesktopCard.tsx`                                              | (Nenhuma específica)                      |
+| `/portfolio`            | Ativa                              | `ContentContainer.tsx`, `MediaContainer.tsx`, `PortfolioModalRegression.test.tsx`                                                   | `embla-carousel-react`, `@radix-ui` parts |
+| `/projects/[slug]`      | Ativa                              | `templates/LiquidEther.tsx`                                                                                                         | -                                         |
+| `/contato`              | Ativa                              | `ContactDetails.tsx` (potencial)                                                                                                    | -                                         |
+| `/privacidade`          | Ativa                              | -                                                                                                                                   | -                                         |
+| `src/components/ui`     | Obsoleta (Parcial)                 | `carousel.tsx`, `calendar.tsx`, `slider.tsx`, `menubar.tsx`, `CTAButton.tsx`, `PrimaryButton.tsx`, `MorphText.tsx`, `GhostText.tsx` | Vários módulos `@radix-ui/*`              |
+| `src/components/canvas` | Incompleta/Obsoleta                | `FluidMaterial.ts`, `FluidGlass.tsx`, `AnalogShader.ts`, `Atmosphere.tsx`, `GhostBody.tsx`                                          | `@react-three/postprocessing` (knip)      |
 
 ## 3. Backlog Priorizado
 

@@ -90,5 +90,3 @@ export const colorSequence: [number, number, number][] = [
   colorPalette.purpleDetails, // 6. Roxo
   colorPalette.bluePrimary, // 7. Azul (Final Climax)
 ];
-
-

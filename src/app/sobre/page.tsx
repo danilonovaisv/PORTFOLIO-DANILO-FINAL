@@ -6,8 +6,8 @@ import {
   AboutWhatIDo,
   AboutMethod,
   AboutClosing,
+  AboutBeliefs,
 } from '@/components/sobre/sections';
-import { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 import { SectionErrorBoundary } from '@/components/ui/SectionErrorBoundary';

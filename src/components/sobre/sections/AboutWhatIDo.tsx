@@ -249,5 +249,3 @@ export function AboutWhatIDo() {
     </section>
   );
 }
-
-

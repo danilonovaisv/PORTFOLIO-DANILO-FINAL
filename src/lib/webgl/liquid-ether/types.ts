@@ -41,7 +41,6 @@ export interface ShaderPassProps {
   [key: string]: any;
 }
 
-
 export interface AutoDriverOptions {
   enabled: boolean;
   speed: number;

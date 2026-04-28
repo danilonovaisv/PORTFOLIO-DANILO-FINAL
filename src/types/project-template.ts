@@ -167,7 +167,6 @@ export interface MasterProjectTemplateV3Data {
   seo?: MasterProjectTemplateSeo;
 }
 
-
 export type ParsedLandingPageContent =
   | {
       template: typeof LEGACY_PROJECT_TEMPLATE;

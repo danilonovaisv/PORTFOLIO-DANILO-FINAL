@@ -26,7 +26,6 @@ export function sanitizeTailwindValue(value: string): string {
 export const lerp = (start: number, end: number, t: number) =>
   start * (1 - t) + end * t;
 
-
 // --- ASSET UTILS ---
 
 export const ASSET_PLACEHOLDER =
@@ -122,7 +121,6 @@ export const getGhostAssetUrl = (path?: string | null): string => {
     return ASSET_PLACEHOLDER;
   }
 };
-
 
 // Função para verificar se um caminho de arquivo ou URL é um vídeo
 export const isVideo = (path?: string | null): boolean => {

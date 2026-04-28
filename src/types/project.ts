@@ -109,5 +109,3 @@ export interface PortfolioProject {
   destination?: ProjectDestination;
   caseBody?: string | null; // NOVO
 }
-
-

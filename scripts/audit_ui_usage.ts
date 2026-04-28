@@ -5,20 +5,22 @@ import { execSync } from 'child_process';
 const uiDir = 'src/components/ui';
 const srcDir = 'src';
 
-const files = fs.readdirSync(uiDir).filter(f => f.endsWith('.tsx') || f.endsWith('.ts'));
+const files = fs
+  .readdirSync(uiDir)
+  .filter((f) => f.endsWith('.tsx') || f.endsWith('.ts'));
 
 console.log('--- UI Component Usage Audit ---');
 
-files.forEach(file => {
+files.forEach((file) => {
   const componentName = file.replace(/\.(tsx|ts)$/, '');
   const baseName = path.basename(file);
-  
+
   // Search for imports of this component
   // Common patterns:
   // '@/components/ui/component-name'
   // '../ui/component-name'
   // './component-name'
-  
+
   try {
     const grepCommand = `grep -r "${componentName}" ${srcDir} --exclude-dir=ui`;
     const result = execSync(grepCommand, { encoding: 'utf8' });

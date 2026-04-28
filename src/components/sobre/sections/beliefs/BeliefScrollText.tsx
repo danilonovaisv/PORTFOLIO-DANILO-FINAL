@@ -96,7 +96,9 @@ function PhraseItem({
   const movement = useTransform(
     scrollProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    isMobile ? ['40px', '0px', '0px', '100vw'] : ['40px', '0px', '0px', '-40px'],
+    isMobile
+      ? ['40px', '0px', '0px', '100vw']
+      : ['40px', '0px', '0px', '-40px'],
     { ease: ghostEase }
   );
 

@@ -9,7 +9,7 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 // This isolates the framer-motion module boundary so the HMR graph does not
 // lose the factory reference when sibling modules change.
 const MotionWrapper = dynamic(
-  () => import('@/components/layout/MotionWrapper'),
+  () => import('@/components/motion/MotionWrapper'),
   {
     ssr: false,
     loading: () => null,

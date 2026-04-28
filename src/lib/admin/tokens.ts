@@ -3,7 +3,6 @@ import {
   isServiceRoleConfigured,
 } from '@/lib/supabase/admin';
 
-
 export const TOKEN_STATUSES = ['active', 'inactive'] as const;
 export const TOKEN_ENVIRONMENTS = [
   'development',

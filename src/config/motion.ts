@@ -183,8 +183,6 @@ export const ghostFade: Variants = {
   },
 };
 
-
-
 /**
  * Stagger Container - Parent for staggered children
  * Use for: Lists, grids, card groups
@@ -202,7 +200,6 @@ export const staggerContainer = (
   },
 });
 
-
 // =============================================================================
 // TRANSITION HELPERS
 // =============================================================================
@@ -219,7 +216,6 @@ export const ghostTransition = (
   ease: GHOST_EASE,
 });
 
-
 /**
  * Viewport animation props (for whileInView)
  */
@@ -228,4 +224,3 @@ export const viewportConfig = {
   margin: MOTION_TOKENS.reveal.margin,
   amount: MOTION_TOKENS.reveal.threshold,
 };
-

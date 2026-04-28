@@ -18,7 +18,6 @@ export interface SiteHeaderProps {
   reducedMotion?: boolean;
 }
 
-
 export interface MobileStaggeredMenuProps {
   navItems: NavItem[];
   logoUrl: string;

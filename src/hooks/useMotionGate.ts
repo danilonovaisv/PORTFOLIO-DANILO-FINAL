@@ -39,5 +39,3 @@ export function useMotionGate(): boolean {
 
   return prefersReduced || flags.reducedMotion;
 }
-
-

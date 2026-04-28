@@ -8,7 +8,8 @@ const normalizeUrl = (value: string) => value.replace(/\/+$/, '');
 export function getSupabaseBaseUrl(): string | null {
   // Para assets públicos que precisam de hidratação, DEVEMOS usar variáveis públicas.
   // Variáveis sem prefixo NEXT_PUBLIC_ não estão disponíveis no cliente.
-  const url = env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
+  const url =
+    env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
 
   if (url) {
     return normalizeUrl(url);

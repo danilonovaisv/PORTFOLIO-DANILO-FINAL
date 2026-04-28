@@ -162,6 +162,14 @@ const createNextConfig = (phase) => ({
     },
   },
 
+  turbopack: {
+    rules: {
+      '*.{glsl,vs,fs,vert,frag}': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+    },
+  },
 
   webpack: (config, { isServer }) => {
     config.module.rules.push({

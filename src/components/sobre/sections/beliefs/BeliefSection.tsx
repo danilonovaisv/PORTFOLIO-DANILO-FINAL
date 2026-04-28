@@ -3,7 +3,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'motion/react';
 
-
 export function BeliefSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
