@@ -1,26 +1,25 @@
-import { env } from '@/lib/env';
-
 const normalizeUrl = (value: string) => value.replace(/\/+$/, '');
 
 /**
  * Get the base Supabase URL from environment variables.
+ * Reads process.env directly (not the cached Zod `env` object) so that
+ * test suites can override values via `process.env` assignment in beforeEach.
  */
 export function getSupabaseBaseUrl(): string | null {
-  // Para assets públicos que precisam de hidratação, DEVEMOS usar variáveis públicas.
-  // Variáveis sem prefixo NEXT_PUBLIC_ não estão disponíveis no cliente.
   const url =
-    env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
 
   if (url) {
     return normalizeUrl(url);
   }
 
-  // Fallback para servidor apenas se không houver URL pública (CUIDADO: pode causar mismatch se usado em componentes)
   if (
-    (typeof window === 'undefined' || env.NODE_ENV === 'test') &&
-    env.SUPABASE_URL
+    (typeof window === 'undefined' ||
+      process.env.NODE_ENV === 'test') &&
+    process.env.SUPABASE_URL
   ) {
-    return normalizeUrl(env.SUPABASE_URL);
+    return normalizeUrl(process.env.SUPABASE_URL);
   }
 
   return null;
