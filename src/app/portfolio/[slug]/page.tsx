@@ -83,43 +83,44 @@ const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] =
       return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
     }
 
-    const blocks = parsed
-      .map((item) => {
-        if (!item || typeof item !== 'object') {
-          if (typeof item === 'string' && item.trim()) {
-            const isYoutube = extractYoutubeId(item);
-            return {
-              type: isYoutube ? 'video_youtube' : 'text',
-              value: item,
-              settings: { autoplay: !!isYoutube },
-            };
-          }
-          return null;
+    const blocks = parsed.reduce<PortfolioBodyBlock[]>((acc, item) => {
+      if (!item || typeof item !== 'object') {
+        if (typeof item === 'string' && item.trim()) {
+          const isYoutube = extractYoutubeId(item);
+          acc.push({
+            type: isYoutube ? 'video_youtube' : 'text',
+            value: item,
+            settings: { autoplay: !!isYoutube },
+          });
         }
+        return acc;
+      }
 
-        const block = item as {
-          type?: unknown;
-          value?: unknown;
-          settings?: { autoplay?: unknown };
-        };
+      const block = item as {
+        type?: unknown;
+        value?: unknown;
+        settings?: { autoplay?: unknown };
+      };
 
-        if (typeof block.value !== 'string' || !block.value.trim()) return null;
+      if (typeof block.value !== 'string' || !block.value.trim()) return acc;
 
-        const isYoutube = extractYoutubeId(block.value);
-        const type = block.type === 'video_youtube' || isYoutube ? 'video_youtube' : 'text';
+      const isYoutube = extractYoutubeId(block.value);
+      const type =
+        block.type === 'video_youtube' || isYoutube ? 'video_youtube' : 'text';
 
-        return {
-          type,
-          value: block.value,
-          settings: {
-            autoplay:
-              typeof block.settings?.autoplay === 'boolean'
-                ? block.settings.autoplay
-                : type === 'video_youtube',
-          },
-        };
-      })
-      .filter(Boolean) as PortfolioBodyBlock[];
+      acc.push({
+        type,
+        value: block.value,
+        settings: {
+          autoplay:
+            typeof block.settings?.autoplay === 'boolean'
+              ? block.settings.autoplay
+              : type === 'video_youtube',
+        },
+      });
+
+      return acc;
+    }, []);
 
     if (blocks.length > 0) return blocks;
 
@@ -269,22 +270,33 @@ export default async function ProjectPage({ params }: Props) {
   const description =
     project.detail?.description?.trim() || project.shortDescription?.trim();
   const narrativeParagraphs = description
-    ? description
-      .split(/\n{2,}/)
-      .map((paragraph) => paragraph.trim())
-      .filter(Boolean)
+    ? description.split(/\n{2,}/).reduce<string[]>((acc, paragraph) => {
+        const trimmed = paragraph.trim();
+        if (trimmed) acc.push(trimmed);
+        return acc;
+      }, [])
     : [];
   const portfolioBodyBlocks = parsePortfolioBodyBlocks(project.caseBody);
-  const highlights = (project.detail?.highlights ?? project.tags ?? [])
-    .map((item) => item.trim())
-    .filter(Boolean);
-  const galleryMedia = Array.from(
-    new Set(
-      (project.detail?.gallery ?? []).filter(
-        (item) => item && item.trim() && item !== project.image
-      )
-    )
-  );
+  const highlights = (project.detail?.highlights ?? project.tags ?? []).reduce<
+    string[]
+  >((acc, item) => {
+    const trimmed = item.trim();
+    if (trimmed) acc.push(trimmed);
+    return acc;
+  }, []);
+
+  const gallerySet = new Set<string>();
+  const gallerySource = project.detail?.gallery ?? [];
+  for (let i = 0; i < gallerySource.length; i++) {
+    const item = gallerySource[i];
+    if (item) {
+      const trimmed = item.trim();
+      if (trimmed && trimmed !== project.image) {
+        gallerySet.add(trimmed);
+      }
+    }
+  }
+  const galleryMedia = Array.from(gallerySet);
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
