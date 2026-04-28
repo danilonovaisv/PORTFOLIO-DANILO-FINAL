@@ -250,4 +250,4 @@ export function AboutWhatIDo() {
   );
 }
 
-export default AboutWhatIDo;
+

@@ -17,4 +17,3 @@ export function usePrefersReducedMotion() {
   return useMotionGate();
 }
 
-export default useReducedMotion;

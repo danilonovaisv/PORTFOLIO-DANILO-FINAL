@@ -60,4 +60,3 @@ export function AboutBeliefsSkeleton({
   );
 }
 
-export default AboutBeliefsSkeleton;

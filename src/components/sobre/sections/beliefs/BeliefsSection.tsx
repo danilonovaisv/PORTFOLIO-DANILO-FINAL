@@ -92,9 +92,9 @@ export function BeliefsSection() {
 
         <div className="relative">
           {PHRASES.map((_, i) => (
-            <BeliefSection key={i} index={i} />
+            <BeliefSection key={i} />
           ))}
-          <BeliefSection index={PHRASES.length} />
+          <BeliefSection />
         </div>
 
         <BeliefManifesto

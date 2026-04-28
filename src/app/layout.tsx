@@ -7,6 +7,8 @@ import { BRAND } from '@/config/brand';
 import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 
+import { env } from '@/lib/env';
+
 export async function generateMetadata(): Promise<Metadata> {
   return siteMetadata;
 }
@@ -14,7 +16,7 @@ export const viewport: Viewport = siteViewport;
 
 // Define a function to safely get environment variables
 function getSupabaseBaseUrl(): string {
-  return process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') ?? '';
+  return (env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL || '').replace(/\/$/, '');
 }
 
 export default function RootLayout({

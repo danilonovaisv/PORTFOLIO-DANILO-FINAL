@@ -19,4 +19,3 @@ export function Container({
   );
 }
 
-export const StandardGrid = Container;

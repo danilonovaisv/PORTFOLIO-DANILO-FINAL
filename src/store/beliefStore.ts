@@ -6,10 +6,10 @@ interface BeliefState {
   isMobile: boolean;
   prefersReducedMotion: boolean;
   bgColor: string;
-  setScrollProgress: (p: number) => void;
-  setMobile: (v: boolean) => void;
-  setReducedMotion: (v: boolean) => void;
-  setBgColor: (color: string) => void;
+  setScrollProgress: (_p: number) => void;
+  setMobile: (_v: boolean) => void;
+  setReducedMotion: (_v: boolean) => void;
+  setBgColor: (_color: string) => void;
 }
 
 export const useBeliefStore = create<BeliefState>((set) => ({

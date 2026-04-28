@@ -26,8 +26,6 @@ export function sanitizeTailwindValue(value: string): string {
 export const lerp = (start: number, end: number, t: number) =>
   start * (1 - t) + end * t;
 
-export const clamp = (val: number, min: number, max: number) =>
-  Math.min(Math.max(val, min), max);
 
 // --- ASSET UTILS ---
 
@@ -125,11 +123,6 @@ export const getGhostAssetUrl = (path?: string | null): string => {
   }
 };
 
-// Função para aplicar lazy loading em imagens
-export const applyLazyLoading = (img: HTMLImageElement) => {
-  img.loading = 'lazy';
-  img.decoding = 'async';
-};
 
 // Função para verificar se um caminho de arquivo ou URL é um vídeo
 export const isVideo = (path?: string | null): boolean => {

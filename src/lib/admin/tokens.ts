@@ -2,7 +2,7 @@ import {
   createAdminClient,
   isServiceRoleConfigured,
 } from '@/lib/supabase/admin';
-import type { Database } from '@/lib/supabase.types';
+
 
 export const TOKEN_STATUSES = ['active', 'inactive'] as const;
 export const TOKEN_ENVIRONMENTS = [
@@ -13,7 +13,6 @@ export const TOKEN_ENVIRONMENTS = [
 
 export type AdminTokenStatus = (typeof TOKEN_STATUSES)[number];
 export type AdminTokenEnvironment = (typeof TOKEN_ENVIRONMENTS)[number];
-export type AdminTokenRow = Database['public']['Tables']['admin_tokens']['Row'];
 
 export function normalizeTokenProvider(value: string): string {
   return value

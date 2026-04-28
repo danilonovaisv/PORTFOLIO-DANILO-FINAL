@@ -176,4 +176,4 @@ export function useBodyLockControls() {
   return { lock, unlock, toggle, isLocked: isLockedRef.current };
 }
 
-export default useBodyLock;
+

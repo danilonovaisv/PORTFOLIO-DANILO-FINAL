@@ -1,4 +1,4 @@
-import AboutBeliefsSkeleton from '@/components/sobre/sections/AboutBeliefsSkeleton';
+import { AboutBeliefsSkeleton } from '@/components/sobre/sections/AboutBeliefsSkeleton';
 
 export default function Loading() {
   return (

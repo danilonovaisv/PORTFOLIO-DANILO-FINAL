@@ -41,9 +41,6 @@ export interface ShaderPassProps {
   [key: string]: any;
 }
 
-export interface Uniforms {
-  [key: string]: THREE.IUniform;
-}
 
 export interface AutoDriverOptions {
   enabled: boolean;

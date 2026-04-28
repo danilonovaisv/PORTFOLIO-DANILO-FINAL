@@ -167,11 +167,6 @@ export interface MasterProjectTemplateV3Data {
   seo?: MasterProjectTemplateSeo;
 }
 
-export type LandingPageStructuredContent =
-  | LandingPageBlock[]
-  | MasterProjectTemplateData
-  | MasterProjectTemplateV2Data
-  | MasterProjectTemplateV3Data;
 
 export type ParsedLandingPageContent =
   | {

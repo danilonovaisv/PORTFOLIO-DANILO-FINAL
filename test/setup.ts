@@ -2,7 +2,7 @@
  * Setup de testes global
  * Configura mocks necessários para o ambiente de testes
  */
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/jest-globals';
 
 // Provide safe defaults for tests so Supabase helpers don't throw on missing env
 process.env.NEXT_PUBLIC_SUPABASE_URL ??= 'https://test-project.supabase.co';

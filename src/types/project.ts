@@ -110,13 +110,4 @@ export interface PortfolioProject {
   caseBody?: string | null; // NOVO
 }
 
-/**
- * Props para componentes de projeto
- */
-export interface ProjectCardProps {
-  project: PortfolioProject;
-  index: number;
-  className?: string;
-  onOpen?: (_project: PortfolioProject) => void;
-  isAnimating?: boolean;
-}
+
