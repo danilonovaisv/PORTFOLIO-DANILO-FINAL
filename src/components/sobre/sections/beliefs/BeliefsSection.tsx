@@ -1,15 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useInView } from 'motion/react';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { useBeliefStore } from '@/store/beliefStore';
-import { BeliefBackground } from '@/components/sobre/beliefs/BeliefBackground';
-import { BeliefFixedHeader } from '@/components/sobre/beliefs/BeliefFixedHeader';
-import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
-import { BeliefSection } from '@/components/sobre/beliefs/BeliefSection';
-import { BeliefManifesto } from '@/components/sobre/beliefs/BeliefManifesto';
-import { GhostScene } from '@/components/sobre/3d/GhostScene';
-import { GhostErrorBoundary } from '@/components/sobre/3d/GhostErrorBoundary';
+import { BeliefBackground } from '@/components/sobre/sections/beliefs/BeliefBackground';
+import { BeliefOverlay } from '@/components/sobre/sections/beliefs/BeliefOverlay';
+import { BeliefFixedHeader } from '@/components/sobre/sections/beliefs/BeliefFixedHeader';
+import { BeliefScrollText } from '@/components/sobre/sections/beliefs/BeliefScrollText';
+import { BeliefSection } from '@/components/sobre/sections/beliefs/BeliefSection';
+import { BeliefManifesto } from '@/components/sobre/sections/beliefs/BeliefManifesto';
+import { GhostCanvas } from '@/components/sobre/sections/beliefs/3d/GhostCanvas';
+import { GhostErrorBoundary } from '@/components/sobre/sections/beliefs/3d/GhostErrorBoundary';
 
 const PHRASES = [
   {
@@ -39,10 +41,17 @@ const PHRASES = [
   },
 ];
 
-export function AboutBeliefsClient() {
+export function BeliefsSection() {
   const { containerRef, scrollYProgress } = useBeliefsScroll();
   const setScrollProgress = useBeliefStore((s) => s.setScrollProgress);
   const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+  const isInView = useInView(containerRef);
+
+  useEffect(() => {
+    if (!isInView) {
+      setScrollProgress(0);
+    }
+  }, [isInView, setScrollProgress]);
 
   useEffect(() => {
     const unsub = scrollYProgress.on('change', (v) => {
@@ -62,6 +71,8 @@ export function AboutBeliefsClient() {
       <BeliefBackground scrollProgress={scrollYProgress} />
 
       <div className="relative z-10 w-full">
+        <BeliefOverlay scrollProgress={scrollYProgress} />
+
         <BeliefFixedHeader
           scrollProgress={scrollYProgress}
           prefersReducedMotion={prefersReducedMotion}
@@ -73,9 +84,9 @@ export function AboutBeliefsClient() {
           prefersReducedMotion={prefersReducedMotion}
         />
 
-        <div className="fixed inset-0 z-20 pointer-events-none">
+        <div className="fixed inset-0 z-50 pointer-events-none">
           <GhostErrorBoundary>
-            <GhostScene scrollProgress={scrollYProgress} />
+            <GhostCanvas scrollProgress={scrollYProgress} />
           </GhostErrorBoundary>
         </div>
 

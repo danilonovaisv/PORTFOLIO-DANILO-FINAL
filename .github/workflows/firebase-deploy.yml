@@ -70,6 +70,11 @@ jobs:
           pnpm exec next --version
 
       - name: Build application
+        env:
+          VALIDATE_ENV_WARN_ONLY: 1
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'http://localhost:54321' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock_key' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || 'mock_key' }}
         run: pnpm run build
 
       - name: Install Firebase CLI

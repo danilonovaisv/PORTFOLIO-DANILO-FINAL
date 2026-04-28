@@ -179,7 +179,7 @@ interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
 }
 
-export function GhostScene({ scrollProgress }: GhostSceneProps) {
+export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
   const isMobile = useBeliefStore((s) => s.isMobile);
   const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
 
@@ -188,7 +188,7 @@ export function GhostScene({ scrollProgress }: GhostSceneProps) {
 
   return (
     <div
-      className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
+      className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-50 pointer-events-none"
       data-testid="beliefs-ghost-scene"
       aria-hidden="true"
     >

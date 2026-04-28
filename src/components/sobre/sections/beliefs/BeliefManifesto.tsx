@@ -43,7 +43,7 @@ export function BeliefManifesto({
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 z-40 flex items-center justify-center pointer-events-none"
       data-testid="beliefs-manifesto"
       style={{
         opacity,
