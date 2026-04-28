@@ -1,9 +1,9 @@
 const tsJestConfig = {
   useESM: true,
   tsconfig: {
-    ignoreDeprecations: '6.0',
     jsx: 'react-jsx',
     rootDir: '.',
+    ignoreDeprecations: '5.0',
   },
 };
 

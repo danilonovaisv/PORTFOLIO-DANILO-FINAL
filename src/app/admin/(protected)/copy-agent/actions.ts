@@ -139,8 +139,7 @@ export async function generateProjectCopy(
       resource: 'admin_copy_agent',
       status: 'error',
       errorCode: 'missing_openai_key',
-      errorMessage:
-        'OPENAI_API_KEY missing or not configured in database',
+      errorMessage: 'OPENAI_API_KEY missing or not configured in database',
       metadata: { fallbackApplied: true },
     });
     return {
@@ -240,8 +239,8 @@ IMAGE AND VIDEO CAPTIONS:
               'Project Objective': context.objective,
               'Target Audience': context.targetAudience,
               'Visual Concept': context.visualConcept,
-              'Challenges': context.keyChallenges,
-              'Deliverables': context.deliverables,
+              Challenges: context.keyChallenges,
+              Deliverables: context.deliverables,
               'Desired Tone': context.toneOfVoice,
             },
             null,

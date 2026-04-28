@@ -9,7 +9,12 @@
       "mcp__Claude_in_Chrome__computer",
       "mcp__Claude_in_Chrome__javascript_tool",
       "mcp__Claude_in_Chrome__read_console_messages",
-      "mcp__Claude_in_Chrome__find"
+      "mcp__Claude_in_Chrome__find",
+      "Bash(pnpm exec *)",
+      "Bash(git checkout *)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh pr create --base main --head fix/06-o-que-me-move-belief-gaps --title 'fix\\(beliefs\\): correct 4 gaps in 06-O-QUE-ME-MOVE scroll section' --body ' *)",
+      "Bash(git add *)"
     ]
   },
   "enabledPlugins": {

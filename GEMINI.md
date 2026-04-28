@@ -17,10 +17,12 @@ Este é o documento de governança supremo deste workspace. Todas as operações
 ## 🏗️ 2. DIRETRIZES DE ARQUITETURA
 
 ### Separação de Inteligência e Estado
+
 1. **🧠 Inteligência (`.agent/` ou `agents/`)**: Contém as Skills e Rules que definem COMO trabalhar.
 2. **🗂️ Estado (`.context/`)**: Sua **FONTE DA VERDADE**. Contém o mapeamento absoluto do projeto. Toda alteração no código DEVE ser refletida aqui.
 
 ### Tech Stack & Performance
+
 - **Framework**: Next.js 14+ (App Router).
 - **Motor 3D**: R3F (React Three Fiber) + Three.js.
 - **Performance**: Mandato de 60FPS. Use InstancedMesh e evite alocações no `useFrame`.
@@ -30,12 +32,12 @@ Este é o documento de governança supremo deste workspace. Todas as operações
 
 Invoque ou assuma estas skills conforme a tarefa:
 
-| Agente                    | Skill Ativa            | Responsabilidade Principal                            |
-| :------------------------ | :--------------------- | :---------------------------------------------------- |
-| **@ghost_architect**      | `ghost-architect`      | Estrutura de Pastas, Arquitetura e Types.             |
-| **@spectral_artist**      | `spectral-artist`      | Shaders, WebGL e Materiais Ghost.                     |
-| **@motion_choreographer** | `motion-choreographer` | Framer Motion e Sincronização de Scroll.              |
-| **@audit_sentinel**       | `audit-sentinel`       | Compliance de Grid, Vitals e Segurança.               |
+| Agente                    | Skill Ativa            | Responsabilidade Principal                |
+| :------------------------ | :--------------------- | :---------------------------------------- |
+| **@ghost_architect**      | `ghost-architect`      | Estrutura de Pastas, Arquitetura e Types. |
+| **@spectral_artist**      | `spectral-artist`      | Shaders, WebGL e Materiais Ghost.         |
+| **@motion_choreographer** | `motion-choreographer` | Framer Motion e Sincronização de Scroll.  |
+| **@audit_sentinel**       | `audit-sentinel`       | Compliance de Grid, Vitals e Segurança.   |
 
 ## 📐 4. REGRAS DE EXECUÇÃO (Non-Negotiable)
 
@@ -53,4 +55,5 @@ Invoque ou assuma estas skills conforme a tarefa:
 4. **QA**: Validar performance, acessibilidade e gerar snapshot visual.
 
 ---
+
 _Soberania Ghost estabelecida. Pronto para execução._

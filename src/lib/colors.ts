@@ -82,13 +82,13 @@ export const colorPalette = {
 
 // Sequência de cores obrigatória (7 estágios, retorna ao início)
 export const colorSequence: [number, number, number][] = [
-  colorPalette.bluePrimary, // 1. Azul
+  colorPalette.pinkDetails, // 1. Rosa (Start as per mobile initial)
   colorPalette.purpleDetails, // 2. Roxo
-  colorPalette.pinkDetails, // 3. Rosa
-  colorPalette.bluePrimary, // 4. Azul
-  colorPalette.purpleDetails, // 5. Roxo
-  colorPalette.pinkDetails, // 6. Rosa
-  colorPalette.bluePrimary, // 7. Azul (retorna ao início)
+  colorPalette.bluePrimary, // 3. Azul
+  colorPalette.purpleDetails, // 4. Roxo
+  colorPalette.pinkDetails, // 5. Rosa
+  colorPalette.purpleDetails, // 6. Roxo
+  colorPalette.bluePrimary, // 7. Azul (Final Climax)
 ];
 
 // Converte HSL tupla para string CSS

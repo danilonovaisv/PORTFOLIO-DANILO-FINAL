@@ -58,17 +58,31 @@ export function LegacyBlockEditor({
             <DropdownMenuLabel className="text-[9px] uppercase tracking-widest text-white/40">
               Core_Layouts
             </DropdownMenuLabel>
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('text')}>
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('text')}
+            >
               <Type className="mr-2 h-3.5 w-3.5 text-blue-500" /> Text_Only
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('image')}>
-              <ImageIcon className="mr-2 h-3.5 w-3.5 text-blue-500" /> Full_Image
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('image')}
+            >
+              <ImageIcon className="mr-2 h-3.5 w-3.5 text-blue-500" />{' '}
+              Full_Image
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('video')}>
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('video')}
+            >
               <Video className="mr-2 h-3.5 w-3.5 text-blue-500" /> Full_Video
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('video-autoplay')}>
-              <Video className="mr-2 h-3.5 w-3.5 text-blue-400" /> Autoplay_Video
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('video-autoplay')}
+            >
+              <Video className="mr-2 h-3.5 w-3.5 text-blue-400" />{' '}
+              Autoplay_Video
             </DropdownMenuItem>
 
             <DropdownMenuSeparator className="bg-white/5" />
@@ -76,22 +90,32 @@ export function LegacyBlockEditor({
               Compositions
             </DropdownMenuLabel>
 
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('image-text')}>
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('image-text')}
+            >
               <div className="mr-2 flex items-center text-blue-500">
                 <ImageIcon className="h-3 w-3" />
                 <Type className="h-3 w-3" />
               </div>
               Image_Plus_Text
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('text-image')}>
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('text-image')}
+            >
               <div className="mr-2 flex items-center text-blue-500">
                 <Type className="h-3 w-3" />
                 <ImageIcon className="h-3 w-3" />
               </div>
               Text_Plus_Image
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-[10px] uppercase tracking-tight py-2.5" onClick={() => onAddBlock('image-image')}>
-              <ColumnsIcon className="mr-2 h-3.5 w-3.5 text-blue-500" /> Split_Image_Grid
+            <DropdownMenuItem
+              className="text-[10px] uppercase tracking-tight py-2.5"
+              onClick={() => onAddBlock('image-image')}
+            >
+              <ColumnsIcon className="mr-2 h-3.5 w-3.5 text-blue-500" />{' '}
+              Split_Image_Grid
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -117,14 +141,14 @@ export function LegacyBlockEditor({
             <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-3">
               <div className="flex items-center gap-4">
                 <span className="font-mono text-[10px] font-bold text-blue-500">
-                  NODE_{ (index + 1).toString().padStart(2, '0') }
+                  NODE_{(index + 1).toString().padStart(2, '0')}
                 </span>
                 <div className="h-3 w-[1px] bg-white/10" />
                 <span className="font-mono text-[9px] uppercase tracking-widest text-white/50">
                   {section.type.replace('-', '_')}
                 </span>
               </div>
-              
+
               <div className="flex items-center gap-2 opacity-30 transition-opacity group-hover:opacity-100">
                 <div className="flex items-center bg-black/40 border border-white/5 p-1">
                   <button

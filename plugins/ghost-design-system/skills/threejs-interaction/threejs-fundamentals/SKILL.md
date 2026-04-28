@@ -8,7 +8,7 @@ description: Three.js scene setup, cameras, renderer, Object3D hierarchy, coordi
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
+import * as THREE from 'three';
 
 // Create scene, camera, renderer
 const scene = new THREE.Scene();
@@ -16,7 +16,7 @@ const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
-  1000,
+  1000
 );
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
@@ -48,7 +48,7 @@ function animate() {
 animate();
 
 // Handle resize
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -81,7 +81,7 @@ const camera = new THREE.PerspectiveCamera(
   75, // Field of view (degrees)
   window.innerWidth / window.innerHeight, // Aspect ratio
   0.1, // Near clipping plane
-  1000, // Far clipping plane
+  1000 // Far clipping plane
 );
 
 camera.position.set(0, 5, 10);
@@ -101,7 +101,7 @@ const camera = new THREE.OrthographicCamera(
   frustumSize / 2,
   frustumSize / -2,
   0.1,
-  1000,
+  1000
 );
 ```
 
@@ -115,7 +115,7 @@ for (let i = 0; i < 4; i++) {
     Math.floor(i % 2) * 0.5,
     Math.floor(i / 2) * 0.5,
     0.5,
-    0.5,
+    0.5
   );
   cameras.push(subcamera);
 }
@@ -141,10 +141,10 @@ cubeCamera.update(renderer, scene);
 
 ```javascript
 const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector("#canvas"), // Optional existing canvas
+  canvas: document.querySelector('#canvas'), // Optional existing canvas
   antialias: true, // Smooth edges
   alpha: true, // Transparent background
-  powerPreference: "high-performance", // GPU hint
+  powerPreference: 'high-performance', // GPU hint
   preserveDrawingBuffer: true, // For screenshots
 });
 
@@ -349,7 +349,7 @@ q.invert();
 ### Euler
 
 ```javascript
-const euler = new THREE.Euler(x, y, z, "XYZ"); // Order matters!
+const euler = new THREE.Euler(x, y, z, 'XYZ'); // Order matters!
 euler.setFromQuaternion(q);
 euler.setFromRotationMatrix(m);
 
@@ -360,9 +360,9 @@ euler.setFromRotationMatrix(m);
 
 ```javascript
 const color = new THREE.Color(0xff0000);
-const color = new THREE.Color("red");
-const color = new THREE.Color("rgb(255, 0, 0)");
-const color = new THREE.Color("#ff0000");
+const color = new THREE.Color('red');
+const color = new THREE.Color('rgb(255, 0, 0)');
+const color = new THREE.Color('#ff0000');
 
 color.setHex(0x00ff00);
 color.setRGB(r, g, b); // 0-1 range
@@ -443,7 +443,7 @@ function onWindowResize() {
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
-window.addEventListener("resize", onWindowResize);
+window.addEventListener('resize', onWindowResize);
 ```
 
 ### Loading Manager
@@ -451,8 +451,8 @@ window.addEventListener("resize", onWindowResize);
 ```javascript
 const manager = new THREE.LoadingManager();
 
-manager.onStart = (url, loaded, total) => console.log("Started loading");
-manager.onLoad = () => console.log("All loaded");
+manager.onStart = (url, loaded, total) => console.log('Started loading');
+manager.onLoad = () => console.log('All loaded');
 manager.onProgress = (url, loaded, total) => console.log(`${loaded}/${total}`);
 manager.onError = (url) => console.error(`Error loading ${url}`);
 
@@ -470,7 +470,7 @@ const gltfLoader = new GLTFLoader(manager);
 
 ```javascript
 // Merge static geometries
-import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 const merged = mergeGeometries([geo1, geo2, geo3]);
 
 // LOD

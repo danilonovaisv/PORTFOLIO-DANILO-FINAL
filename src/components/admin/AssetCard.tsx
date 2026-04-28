@@ -49,7 +49,9 @@ export function AssetCard({ asset }: Props) {
         });
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'SYSTEM_ERR: UPLOAD_FAILED');
+        setError(
+          err instanceof Error ? err.message : 'SYSTEM_ERR: UPLOAD_FAILED'
+        );
       }
     });
   };
@@ -79,7 +81,9 @@ export function AssetCard({ asset }: Props) {
         router.refresh();
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : 'SYSTEM_ERR: STATUS_UPDATE_FAILED'
+          err instanceof Error
+            ? err.message
+            : 'SYSTEM_ERR: STATUS_UPDATE_FAILED'
         );
       }
     });
@@ -97,7 +101,9 @@ export function AssetCard({ asset }: Props) {
         });
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'SYSTEM_ERR: PURGE_FAILED');
+        setError(
+          err instanceof Error ? err.message : 'SYSTEM_ERR: PURGE_FAILED'
+        );
       }
     });
   };
@@ -114,7 +120,9 @@ export function AssetCard({ asset }: Props) {
     return (
       <div className="rounded border border-rose-500/50 bg-black/60 p-4 flex gap-4">
         <div className="w-24 h-24 rounded bg-rose-900/30 flex items-center justify-center border border-rose-500/20">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-rose-400">Invalid</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-rose-400">
+            Invalid
+          </span>
         </div>
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -161,7 +169,9 @@ export function AssetCard({ asset }: Props) {
             </span>
           </div>
         </div>
-        <div className={`h-1.5 w-1.5 rounded-full ${asset.is_active ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-white/10'}`} />
+        <div
+          className={`h-1.5 w-1.5 rounded-full ${asset.is_active ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-white/10'}`}
+        />
       </div>
 
       {/* Preview Area */}
@@ -179,7 +189,7 @@ export function AssetCard({ asset }: Props) {
             [ {asset.asset_type}_PREVIEW_NULL ]
           </div>
         )}
-        
+
         {/* Overlay Actions */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity group-hover:opacity-100 backdrop-blur-[2px]">
           <label className="cursor-pointer rounded-full bg-white px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95">
@@ -204,13 +214,17 @@ export function AssetCard({ asset }: Props) {
 
         <div className="grid grid-cols-2 gap-2 border-y border-white/5 py-3">
           <div className="space-y-1">
-            <span className="block font-mono text-[8px] uppercase tracking-widest text-white/30">System_Role</span>
+            <span className="block font-mono text-[8px] uppercase tracking-widest text-white/30">
+              System_Role
+            </span>
             <div className="font-mono text-[10px] text-white/80 truncate">
               {roleLabel}
             </div>
           </div>
           <div className="space-y-1 text-right">
-            <span className="block font-mono text-[8px] uppercase tracking-widest text-white/30">System_Path</span>
+            <span className="block font-mono text-[8px] uppercase tracking-widest text-white/30">
+              System_Path
+            </span>
             <div className="font-mono text-[10px] text-white/80 truncate">
               {asset.file_path.split('/').pop()}
             </div>
@@ -229,16 +243,19 @@ export function AssetCard({ asset }: Props) {
               type="button"
               onClick={toggleActive}
               className={`rounded border px-2 py-1 font-mono text-[9px] uppercase tracking-widest transition-all ${
-                asset.is_active 
-                  ? 'border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10' 
+                asset.is_active
+                  ? 'border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10'
                   : 'border-white/10 text-white/40 hover:bg-white/5'
               }`}
             >
               {asset.is_active ? 'System_Deactivate' : 'System_Activate'}
             </button>
-            <AssetRoleMenu currentKey={asset.key} onSelectRole={handleRoleChange} />
+            <AssetRoleMenu
+              currentKey={asset.key}
+              onSelectRole={handleRoleChange}
+            />
           </div>
-          
+
           <button
             type="button"
             onClick={handleDelete}

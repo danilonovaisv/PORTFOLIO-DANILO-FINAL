@@ -249,7 +249,10 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
     return { ok: true as const, data: updatedProject };
   } catch (error: unknown) {
-    return errorResponse('SYSTEM_ERR: SAVE_FAILURE — PROJECT_PERSISTENCE_ERROR', error);
+    return errorResponse(
+      'SYSTEM_ERR: SAVE_FAILURE — PROJECT_PERSISTENCE_ERROR',
+      error
+    );
   }
 }
 

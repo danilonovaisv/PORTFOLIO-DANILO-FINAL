@@ -5,7 +5,6 @@ import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { extractYouTubeId } from '@/lib/utils';
 import { inputClasses, labelClasses } from './CommonTemplateStyles';
 
-
 interface MediaAsset {
   src: string;
   alt?: string;

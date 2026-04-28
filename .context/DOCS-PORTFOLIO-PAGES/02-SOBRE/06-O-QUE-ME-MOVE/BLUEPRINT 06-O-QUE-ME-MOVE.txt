@@ -1,0 +1,17 @@
+
+**1. Arquitetura Z-Index Estrita**
+*   `z-0`: **Background Base** (Transição de cor via interpolação contínua HSL baseada no scroll).
+*   `z-10`: **Overlay de Transição** (Crossfade `opacity: 0 -> 1 -> 0` para evitar flicker durante a troca de textos).
+*   `z-20`: **BeliefFixedHeader** (Texto Fixo: "Acredito no design...". Fica `sticky` e sai apenas no clímax final).
+*   `z-30`: **Textos Rotativos** (Gatilhos do scroll. Entram e saem sincronizados com as cores).
+*   `z-40`: **Manifesto Final** ("ISSO É GHOST DESIGN").
+*   `z-50`: **Ghost 3D Canvas** (Alinhado ao container relativo, não à viewport absoluta).
+
+**2. Comportamento de Motion (Framer Motion)**
+*   **Gatilho:** *Scroll-Triggered* híbrido (`useScroll` + `useTransform` + `inView`).
+*   **Desktop:** Textos rotativos entram de cima para baixo (`y: -50 -> 0`) e saem para cima. O Ghost segue o cursor suavemente.
+*   **Mobile:** Textos rotativos entram centralizados (20% do rodapé) e **saem deslizando para a direita** (`x: 100%`). Ghost centralizado sem follow-mouse.
+*   **Curva de Easing (Ghost Ease):** `cubic-bezier(0.22, 1, 0.36, 1)`.
+*   **Reversibilidade & Reset:** O scroll deve ser 100% bidirecional. Ao sair da viewport (`amount: 0`), todos os estados (rotação 3D, cores, textos) devem voltar ao zero.
+
+---

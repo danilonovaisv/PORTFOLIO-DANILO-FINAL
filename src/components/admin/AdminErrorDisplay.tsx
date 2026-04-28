@@ -19,7 +19,8 @@ export function AdminErrorDisplay({
           System_Critical_Error
         </h2>
         <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-6">
-          Registry_Link_Failure: The administrative kernel could not initialize due to a system-level connection fault.
+          Registry_Link_Failure: The administrative kernel could not initialize
+          due to a system-level connection fault.
         </p>
         <div className="p-4 rounded bg-black/60 border border-rose-500/10 font-mono text-[10px] text-rose-400/80 mb-6 overflow-x-auto text-left leading-relaxed">
           {isMissingEnv

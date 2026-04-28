@@ -14,7 +14,8 @@ const assetGuide = [
   {
     key: SITE_ASSET_KEYS.logos.headerDark,
     description: 'Main header logo (dark)',
-    change: 'Maintain identical dimensions to the light version to prevent layout shifts.',
+    change:
+      'Maintain identical dimensions to the light version to prevent layout shifts.',
     page: 'global',
   },
   {
@@ -103,12 +104,17 @@ export function AssetGuide() {
   return (
     <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl space-y-6">
       <div className="space-y-1">
-        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">Module_Documentation</p>
-        <h2 className="font-mono text-xl font-light text-white uppercase">Key_Guide<span className="text-[#0048ff]">.</span></h2>
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+          Module_Documentation
+        </p>
+        <h2 className="font-mono text-xl font-light text-white uppercase">
+          Key_Guide<span className="text-[#0048ff]">.</span>
+        </h2>
       </div>
-      
+
       <p className="font-mono text-[10px] text-white/40 uppercase leading-relaxed">
-        Reference keys for system modules. Use strictly defined identifiers to ensure synchronization between the vault and public interfaces.
+        Reference keys for system modules. Use strictly defined identifiers to
+        ensure synchronization between the vault and public interfaces.
       </p>
 
       <div className="grid gap-2 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
@@ -123,15 +129,15 @@ export function AssetGuide() {
               </span>
               <div className="h-1 w-1 rounded-full bg-white/10 group-hover:bg-[#0048ff]/50 transition-colors" />
             </div>
-            
+
             <div className="font-mono text-xs text-white uppercase tracking-tight mb-1">
               {item.key}
             </div>
-            
+
             <p className="font-mono text-[10px] text-white/30 uppercase leading-tight mb-3">
               {item.description}
             </p>
-            
+
             <div className="pt-2 border-t border-white/5">
               <p className="font-mono text-[9px] text-[#0048ff]/60 uppercase leading-relaxed italic">
                 {item.change}

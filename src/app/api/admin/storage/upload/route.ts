@@ -46,7 +46,10 @@ export async function POST(request: Request) {
       typeof bucket !== 'string' ||
       !ALLOWED_BUCKETS.has(bucket as UploadBucket)
     ) {
-      return NextResponse.json({ error: 'SYSTEM_ERR: INVALID_BUCKET_SPECIFIED' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'SYSTEM_ERR: INVALID_BUCKET_SPECIFIED' },
+        { status: 400 }
+      );
     }
 
     if (!(file instanceof File)) {
@@ -69,8 +72,7 @@ export async function POST(request: Request) {
       if (!brand || !project) {
         return NextResponse.json(
           {
-            error:
-              'SYSTEM_ERR: BRAND_AND_PROJECT_REQUIRED_FOR_PORTFOLIO_MEDIA',
+            error: 'SYSTEM_ERR: BRAND_AND_PROJECT_REQUIRED_FOR_PORTFOLIO_MEDIA',
           },
           { status: 400 }
         );
@@ -88,7 +90,10 @@ export async function POST(request: Request) {
       upsert = false; // Hashes make it unique, upsert is unnecessary and prevents mutability bugs
     } else {
       if (typeof rawPath !== 'string') {
-        return NextResponse.json({ error: 'SYSTEM_ERR: INVALID_PATH_SPECIFIED' }, { status: 400 });
+        return NextResponse.json(
+          { error: 'SYSTEM_ERR: INVALID_PATH_SPECIFIED' },
+          { status: 400 }
+        );
       }
       path = normalizePath(rawPath);
       if (invalidPath(path)) {
@@ -126,7 +131,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status });
     }
 
-    const message = error instanceof Error ? error.message : 'SYSTEM_ERR: UPLOAD_FAILED';
+    const message =
+      error instanceof Error ? error.message : 'SYSTEM_ERR: UPLOAD_FAILED';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

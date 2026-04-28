@@ -126,9 +126,7 @@ export function CommonProjectMetadataFields({
       </label>
 
       <label className="space-y-1 md:col-span-2">
-        <span className={labelClasses}>
-          Tag_Cluster_Sequence
-        </span>
+        <span className={labelClasses}>Tag_Cluster_Sequence</span>
         <input
           className={inputClasses}
           value={value.project_tags.join(', ')}

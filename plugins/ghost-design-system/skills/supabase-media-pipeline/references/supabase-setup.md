@@ -86,7 +86,9 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh session — do not add logic between createServerClient and getUser
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   // Protect /admin routes
   if (
@@ -116,8 +118,8 @@ import { createClient } from './client';
 import type { StorageAsset } from '@/types';
 
 const BUCKETS = {
-  PUBLIC:  'public-assets',
-  MODELS:  '3d-models',
+  PUBLIC: 'public-assets',
+  MODELS: '3d-models',
   UPLOADS: 'user-uploads',
 } as const;
 
@@ -196,13 +198,16 @@ export async function listFiles(
   if (error || !data) return [];
 
   return data.map((file) => ({
-    id:        file.id ?? '',
-    name:      file.name,
+    id: file.id ?? '',
+    name: file.name,
     bucket,
-    path:      folder ? `${folder}/${file.name}` : file.name,
-    publicUrl: getPublicUrl(bucket, folder ? `${folder}/${file.name}` : file.name),
-    mimeType:  file.metadata?.mimetype ?? 'application/octet-stream',
-    size:      file.metadata?.size ?? 0,
+    path: folder ? `${folder}/${file.name}` : file.name,
+    publicUrl: getPublicUrl(
+      bucket,
+      folder ? `${folder}/${file.name}` : file.name
+    ),
+    mimeType: file.metadata?.mimetype ?? 'application/octet-stream',
+    size: file.metadata?.size ?? 0,
     createdAt: file.created_at ?? new Date().toISOString(),
   }));
 }
@@ -242,11 +247,11 @@ export function useSupabase(): SupabaseState {
     });
 
     // Subscribe to auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_, session) => {
-        setState({ user: session?.user ?? null, session, loading: false });
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_, session) => {
+      setState({ user: session?.user ?? null, session, loading: false });
+    });
 
     return () => subscription.unsubscribe();
   }, []);

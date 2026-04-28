@@ -8,8 +8,8 @@ description: >
   "configure firebase hosting rewrites", or any request related to deploying a Next.js
   project to Firebase Hosting.
 metadata:
-  version: "0.1.0"
-  author: "Danilo Novais"
+  version: '0.1.0'
+  author: 'Danilo Novais'
 ---
 
 # Firebase Hosting — Next.js Deployment
@@ -19,18 +19,20 @@ metadata:
 Firebase Hosting supports two approaches for Next.js — choose based on requirements:
 
 ### Option A: Static Export (Pure CDN, no SSR)
+
 Best for: Portfolios, marketing sites, content that doesn't need server-side rendering.
 
 ```javascript
 // next.config.ts
 const nextConfig = {
-  output: 'export',        // Generates static HTML
-  trailingSlash: true,     // Required for Firebase SPA routing
+  output: 'export', // Generates static HTML
+  trailingSlash: true, // Required for Firebase SPA routing
   images: { unoptimized: true }, // next/image needs this for static export
 };
 ```
 
 ### Option B: SSR with Firebase Cloud Functions (Recommended)
+
 Best for: Dynamic content, API routes, ISR (Incremental Static Regeneration).
 
 Uses the `@apphosting/adapter-nextjs` or manual Cloud Functions setup.
@@ -46,6 +48,7 @@ Uses the `@apphosting/adapter-nextjs` or manual Cloud Functions setup.
 ## File Checklist
 
 Every Firebase deployment needs:
+
 - [ ] `firebase.json` — hosting config, rewrites, headers
 - [ ] `.firebaserc` — project ID binding
 - [ ] `next.config.ts` — correct `output` setting
@@ -80,4 +83,5 @@ firebase hosting:channel:deploy preview-branch --expires 7d
 ## Reference Files
 
 Load for complete file implementations:
+
 - `references/firebase-config.md` — firebase.json, .firebaserc, full deployment configs for both static and SSR modes

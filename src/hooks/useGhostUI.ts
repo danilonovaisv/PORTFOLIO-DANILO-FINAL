@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE } from '@/config/motion';
 
-
 export function useGhostReveal(y = 18, duration = 0.8, delay = 0) {
   const reduce = useMotionGate();
 

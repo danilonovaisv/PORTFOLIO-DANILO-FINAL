@@ -39,7 +39,7 @@
 
   /* Font families */
   --font-family-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-family-mono: 'PPSupplyMono', monospace;
+  --font-family-mono: 'PPSupplyMono', 'Space Mono', monospace;
   /* @deprecated — Outfit not used in production; scheduled for removal */
   --font-family-outfit: 'Outfit', sans-serif;
 

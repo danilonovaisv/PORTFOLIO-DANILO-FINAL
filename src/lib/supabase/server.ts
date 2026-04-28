@@ -89,7 +89,9 @@ export async function createClient({ admin = false } = {}) {
     : getSupabasePublicKey();
 
   if (!supabaseUrl) {
-    throw new Error('SYSTEM_ERR: ENV_MISSING — NEXT_PUBLIC_SUPABASE_URL_NOT_DEFINED');
+    throw new Error(
+      'SYSTEM_ERR: ENV_MISSING — NEXT_PUBLIC_SUPABASE_URL_NOT_DEFINED'
+    );
   }
 
   if (!supabaseKey) {

@@ -24,10 +24,7 @@
     "longDescription": "Reune guidelines visuais, tokens, assets, previews, hooks e UI kits do universo Ghost para prototipacao e implementacao.",
     "developerName": "Danilo Novais",
     "category": "Design",
-    "capabilities": [
-      "Interactive",
-      "Write"
-    ],
+    "capabilities": ["Interactive", "Write"],
     "websiteURL": "https://portfoliodanilo.com",
     "defaultPrompt": [
       "Aplique o Ghost Design em uma landing page em pt-BR",

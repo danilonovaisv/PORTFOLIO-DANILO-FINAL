@@ -124,7 +124,8 @@ export async function generateAdScenes(
   if (!parsedInput.success) {
     return {
       success: false,
-      error: parsedInput.error.issues[0]?.message ?? 'SYSTEM_ERR: INVALID_INPUT',
+      error:
+        parsedInput.error.issues[0]?.message ?? 'SYSTEM_ERR: INVALID_INPUT',
       requestPayload: prevState.requestPayload,
     };
   }
@@ -346,8 +347,7 @@ GENERATION DATA:
         supportCode = 'SCN-AUTH-ERROR';
       } else if (error.status === 429) {
         isTransient = true;
-        errorMessage =
-          'SYSTEM_ERR: RATE_LIMIT_EXCEEDED — TRY_AGAIN_LATER';
+        errorMessage = 'SYSTEM_ERR: RATE_LIMIT_EXCEEDED — TRY_AGAIN_LATER';
         supportCode = 'SCN-RATE-LIMIT';
       } else {
         errorMessage = `SYSTEM_ERR: AI_PROVIDER_ERROR_${error.status} — ${error.message}`;

@@ -75,18 +75,35 @@ export default function ProjectsTable({ projects }: Props) {
         <table className="min-w-full text-left">
           <thead>
             <tr className="border-b border-white/5 bg-white/[0.02]">
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Project_Identity</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Client</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Date</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Taxonomy</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Media_Status</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Visibility</th>
-              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 text-right">Actions</th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+                Project_Identity
+              </th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+                Client
+              </th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+                Date
+              </th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+                Taxonomy
+              </th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+                Media_Status
+              </th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+                Visibility
+              </th>
+              <th className="px-6 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 text-right">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
             {projects.map((project) => (
-              <tr key={project.id} className="group transition-colors hover:bg-white/[0.02]">
+              <tr
+                key={project.id}
+                className="group transition-colors hover:bg-white/[0.02]"
+              >
                 <td className="px-6 py-5">
                   <div className="flex items-center gap-4">
                     {(project.url_landscape || project.thumbnail_path) && (
@@ -105,7 +122,7 @@ export default function ProjectsTable({ projects }: Props) {
                     </div>
                   </div>
                 </td>
-                
+
                 <td className="px-6 py-5">
                   <span className="font-mono text-xs text-white/60">
                     {project.client_name || 'Personal'}
@@ -129,16 +146,27 @@ export default function ProjectsTable({ projects }: Props) {
                       </span>
                     ))}
                     {project.tags?.length > 3 && (
-                      <span className="font-mono text-[9px] text-white/20">+{project.tags.length - 3}</span>
+                      <span className="font-mono text-[9px] text-white/20">
+                        +{project.tags.length - 3}
+                      </span>
                     )}
                   </div>
                 </td>
 
                 <td className="px-6 py-5">
                   <div className="flex gap-3">
-                    <div className={`h-1.5 w-1.5 rounded-full ${project.url_landscape ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-white/10'}`} title="16:9 Landscape" />
-                    <div className={`h-1.5 w-1.5 rounded-full ${project.url_square ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-white/10'}`} title="1:1 Square" />
-                    <div className={`h-1.5 w-1.5 rounded-full ${project.landing_page_id ? 'bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.5)]' : 'bg-white/10'}`} title="Landing Page" />
+                    <div
+                      className={`h-1.5 w-1.5 rounded-full ${project.url_landscape ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-white/10'}`}
+                      title="16:9 Landscape"
+                    />
+                    <div
+                      className={`h-1.5 w-1.5 rounded-full ${project.url_square ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-white/10'}`}
+                      title="1:1 Square"
+                    />
+                    <div
+                      className={`h-1.5 w-1.5 rounded-full ${project.landing_page_id ? 'bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.5)]' : 'bg-white/10'}`}
+                      title="Landing Page"
+                    />
                   </div>
                 </td>
 
@@ -165,14 +193,32 @@ export default function ProjectsTable({ projects }: Props) {
 
                     <div className="flex gap-2">
                       <form action={toggleFeaturedOnHome}>
-                         <input type="hidden" name="id" value={project.id} />
-                         <input type="hidden" name="nextStatus" value={project.featured_on_home ? 'false' : 'true'} />
-                         <button type="submit" title="Home Featured" className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-[#0048ff] border-[#0048ff]/40 shadow-[0_0_8px_rgba(0,72,255,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-[#0048ff]/50'}`} />
+                        <input type="hidden" name="id" value={project.id} />
+                        <input
+                          type="hidden"
+                          name="nextStatus"
+                          value={project.featured_on_home ? 'false' : 'true'}
+                        />
+                        <button
+                          type="submit"
+                          title="Home Featured"
+                          className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-[#0048ff] border-[#0048ff]/40 shadow-[0_0_8px_rgba(0,72,255,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-[#0048ff]/50'}`}
+                        />
                       </form>
                       <form action={toggleFeaturedOnPortfolio}>
-                         <input type="hidden" name="id" value={project.id} />
-                         <input type="hidden" name="nextStatus" value={project.featured_on_portfolio ? 'false' : 'true'} />
-                         <button type="submit" title="Portfolio Featured" className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_portfolio ? 'bg-emerald-500 border-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-emerald-500/50'}`} />
+                        <input type="hidden" name="id" value={project.id} />
+                        <input
+                          type="hidden"
+                          name="nextStatus"
+                          value={
+                            project.featured_on_portfolio ? 'false' : 'true'
+                          }
+                        />
+                        <button
+                          type="submit"
+                          title="Portfolio Featured"
+                          className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_portfolio ? 'bg-emerald-500 border-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-emerald-500/50'}`}
+                        />
                       </form>
                     </div>
                   </div>

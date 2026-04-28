@@ -7,9 +7,11 @@ import {
   AboutMethod,
   AboutClosing,
 } from '@/components/sobre/sections';
-import AboutBeliefsNoSSR from '@/components/sobre/sections/AboutBeliefsNoSSR';
+import { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
+import { SectionErrorBoundary } from '@/components/ui/SectionErrorBoundary';
+import AboutBeliefsSkeleton from '@/components/sobre/sections/AboutBeliefsSkeleton';
 
 import { BRAND } from '@/config/brand';
 import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';
@@ -106,7 +108,12 @@ export default function AboutPage() {
         <AboutMethod />
       </Suspense>
       {/* Seção 05 — O Que Me Move (Beliefs) */}
-      <AboutBeliefsNoSSR />
+      <SectionErrorBoundary
+        sectionName="AboutBeliefs"
+        fallback={<AboutBeliefsSkeleton />}
+      >
+        <AboutBeliefs />
+      </SectionErrorBoundary>
       {/* Seção 06 — Fechamento/Confirmação */}
       <Suspense fallback={<SectionSkeleton label="Fechamento" />}>
         <AboutClosing />

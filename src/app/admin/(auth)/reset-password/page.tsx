@@ -91,7 +91,9 @@ export default function ResetPasswordPage() {
     }
 
     setState('success');
-    setSuccessMsg('SYSTEM_OK: PASSWORD_UPDATE_CONFIRMED — REDIRECTING_TO_PANEL');
+    setSuccessMsg(
+      'SYSTEM_OK: PASSWORD_UPDATE_CONFIRMED — REDIRECTING_TO_PANEL'
+    );
 
     window.setTimeout(() => {
       router.replace('/admin');
@@ -109,7 +111,8 @@ export default function ResetPasswordPage() {
           SYSTEM_RESET_CREDENTIAL<span className="text-[#0048ff]">.</span>
         </h1>
         <p className="mt-1 font-mono text-[11px] text-white/40 uppercase tracking-wide leading-relaxed">
-          Open the link dispatched via email node and define a new access key to proceed.
+          Open the link dispatched via email node and define a new access key to
+          proceed.
         </p>
       </div>
 
@@ -123,7 +126,10 @@ export default function ResetPasswordPage() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-4 py-3">
             <div className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
-            <p className="font-mono text-[10px] uppercase text-rose-400" role="alert">
+            <p
+              className="font-mono text-[10px] uppercase text-rose-400"
+              role="alert"
+            >
               SYSTEM_ERR: RECOVERY_LINK_EXPIRED_OR_CONSUMED
             </p>
           </div>
@@ -171,7 +177,10 @@ export default function ResetPasswordPage() {
           {error ? (
             <div className="flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/5 px-4 py-3">
               <div className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
-              <p className="font-mono text-[10px] uppercase text-rose-400" role="alert">
+              <p
+                className="font-mono text-[10px] uppercase text-rose-400"
+                role="alert"
+              >
                 {error}
               </p>
             </div>
@@ -180,7 +189,10 @@ export default function ResetPasswordPage() {
           {successMsg ? (
             <div className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              <p className="font-mono text-[10px] uppercase text-emerald-400" role="status">
+              <p
+                className="font-mono text-[10px] uppercase text-emerald-400"
+                role="status"
+              >
                 {successMsg}
               </p>
             </div>

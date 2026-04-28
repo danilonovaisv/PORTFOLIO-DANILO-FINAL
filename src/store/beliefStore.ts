@@ -1,14 +1,25 @@
-import { motionValue, type MotionValue } from 'motion';
+import { create } from 'zustand';
 
-/**
- * Bridge DOM ↔ R3F para intensidade do Ghost.
- * Range esperado: 0 → 1
- */
-export const ghostIntensity: MotionValue<number> = motionValue(0);
+interface BeliefState {
+  scrollProgress: number;
+  ghostIntensity: number;
+  isMobile: boolean;
+  prefersReducedMotion: boolean;
+  bgColor: string;
+  setScrollProgress: (p: number) => void;
+  setMobile: (v: boolean) => void;
+  setReducedMotion: (v: boolean) => void;
+  setBgColor: (color: string) => void;
+}
 
-/**
- * Bridge DOM ↔ R3F para coordenadas normalizadas do Cursor.
- * Range esperado: -1 → 1
- */
-export const cursorX: MotionValue<number> = motionValue(0);
-export const cursorY: MotionValue<number> = motionValue(0);
+export const useBeliefStore = create<BeliefState>((set) => ({
+  scrollProgress: 0,
+  ghostIntensity: 0,
+  isMobile: false,
+  prefersReducedMotion: false,
+  bgColor: '#040013',
+  setScrollProgress: (p) => set({ scrollProgress: p, ghostIntensity: p }),
+  setMobile: (v) => set({ isMobile: v }),
+  setReducedMotion: (v) => set({ prefersReducedMotion: v }),
+  setBgColor: (color) => set({ bgColor: color }),
+}));

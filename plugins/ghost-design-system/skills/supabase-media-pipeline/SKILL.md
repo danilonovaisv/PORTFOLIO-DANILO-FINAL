@@ -8,8 +8,8 @@ description: >
   "configure Supabase RLS policies", or any request involving Supabase Storage, the Supabase
   JavaScript client, or media/asset management in a Next.js project.
 metadata:
-  version: "0.1.0"
-  author: "Danilo Novais"
+  version: '0.1.0'
+  author: 'Danilo Novais'
 ---
 
 # Supabase Media Pipeline
@@ -19,17 +19,20 @@ metadata:
 Next.js App Router requires TWO separate Supabase clients:
 
 ### Browser Client (`lib/supabase/client.ts`)
+
 - Used in Client Components (`'use client'`)
 - Created with `createBrowserClient` from `@supabase/ssr`
 - Singleton pattern to avoid multiple instances
 
 ### Server Client (`lib/supabase/server.ts`)
+
 - Used in Server Components, Route Handlers, Server Actions
 - Created with `createServerClient` from `@supabase/ssr`
 - Reads/writes cookies via Next.js `cookies()` function
 - Must be called inside a request context
 
 ### Middleware (`middleware.ts`)
+
 - Refreshes session tokens on every request
 - Redirects unauthenticated users from protected routes
 
@@ -37,18 +40,21 @@ Next.js App Router requires TWO separate Supabase clients:
 
 Organize buckets by access pattern:
 
-| Bucket | Access | Purpose |
-|--------|--------|---------|
-| `public-assets` | Public | Hero images, portfolio thumbnails, open-graph images |
-| `3d-models` | Public | .glb and .gltf files loaded by Three.js |
-| `user-uploads` | Authenticated | User profile photos, private files |
-| `admin-assets` | Service role | Internal assets, private documents |
+| Bucket          | Access        | Purpose                                              |
+| --------------- | ------------- | ---------------------------------------------------- |
+| `public-assets` | Public        | Hero images, portfolio thumbnails, open-graph images |
+| `3d-models`     | Public        | .glb and .gltf files loaded by Three.js              |
+| `user-uploads`  | Authenticated | User profile photos, private files                   |
+| `admin-assets`  | Service role  | Internal assets, private documents                   |
 
 ## URL Construction
 
 Always use `getPublicUrl()` for public buckets — never construct URLs manually:
+
 ```typescript
-const { data } = supabase.storage.from('public-assets').getPublicUrl('hero.jpg');
+const { data } = supabase.storage
+  .from('public-assets')
+  .getPublicUrl('hero.jpg');
 // Returns: https://xyz.supabase.co/storage/v1/object/public/public-assets/hero.jpg
 ```
 
@@ -63,4 +69,5 @@ const { data } = supabase.storage.from('public-assets').getPublicUrl('hero.jpg')
 ## Reference Files
 
 Load for complete implementations:
+
 - `references/supabase-setup.md` — client.ts, server.ts, middleware.ts, storage helpers, RLS policies

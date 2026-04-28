@@ -14,17 +14,23 @@ export function StatCard({ title, value, error, trend }: StatCardProps) {
         </p>
         <div className="h-1.5 w-1.5 rounded-full bg-[#0048ff]/30 group-hover:bg-[#0048ff] transition-colors shadow-[0_0_8px_rgba(0,72,255,0.3)] group-hover:shadow-[0_0_12px_rgba(0,72,255,0.6)]" />
       </div>
-      
+
       {error ? (
         <div className="mt-2">
-          <p className="font-mono text-[10px] uppercase text-rose-500/80">ERR_SIGNAL_LOST</p>
+          <p className="font-mono text-[10px] uppercase text-rose-500/80">
+            ERR_SIGNAL_LOST
+          </p>
           <div className="h-[1px] w-full bg-rose-500/10 my-2" />
-          <p className="font-mono text-[9px] text-white/30 uppercase">Data_Corrupted</p>
+          <p className="font-mono text-[9px] text-white/30 uppercase">
+            Data_Corrupted
+          </p>
         </div>
       ) : (
         <div className="flex items-baseline gap-2">
           <p className="font-mono text-4xl font-light tracking-tighter text-white">
-            {typeof value === 'number' ? value.toString().padStart(2, '0') : value}
+            {typeof value === 'number'
+              ? value.toString().padStart(2, '0')
+              : value}
           </p>
           {trend && (
             <span className="font-mono text-[10px] text-[#0048ff]/40 uppercase">

@@ -69,7 +69,11 @@ const projectBaseFieldsSchema = z.object({
     .optional(),
   is_published: z.boolean().optional(),
   landing_page_id: z
-    .union([z.string().uuid('SYSTEM_ERR: INVALID_LANDING_PAGE_ID'), z.literal(''), z.null()])
+    .union([
+      z.string().uuid('SYSTEM_ERR: INVALID_LANDING_PAGE_ID'),
+      z.literal(''),
+      z.null(),
+    ])
     .optional(),
   tags: z.array(z.string().uuid('SYSTEM_ERR: INVALID_TAG_ID')).optional(),
   destination: z
@@ -125,7 +129,11 @@ export const projectMutationSchema = z
       .optional(),
     landing_page_id: z.preprocess(
       (value) => (value === '' ? null : value),
-      z.string().uuid('SYSTEM_ERR: INVALID_LANDING_PAGE_ID').nullable().optional()
+      z
+        .string()
+        .uuid('SYSTEM_ERR: INVALID_LANDING_PAGE_ID')
+        .nullable()
+        .optional()
     ),
     tags: z.array(z.string().uuid('SYSTEM_ERR: INVALID_TAG_ID')).optional(),
     thumbnail_path: z.string().trim().nullable().optional(),

@@ -95,7 +95,8 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 </p>
               </div>
             </div>
-            
+
+            <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-6 scrollbar-hide">
               <div className="mb-4 px-4">
                 <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">
                   Main_Modules
@@ -111,12 +112,15 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                     key={item.href}
                     href={item.href}
                     className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-300 ${
-                      active 
-                        ? 'bg-[#0048ff]/10 text-[#0048ff] shadow-[inset_0_0_20px_rgba(0,72,255,0.05)]' 
+                      active
+                        ? 'bg-[#0048ff]/10 text-[#0048ff] shadow-[inset_0_0_20px_rgba(0,72,255,0.05)]'
                         : 'text-white/40 hover:bg-white/5 hover:text-white'
                     }`}
                   >
-                    <Icon size={16} className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-[#0048ff]' : ''}`} />
+                    <Icon
+                      size={16}
+                      className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-[#0048ff]' : ''}`}
+                    />
                     <span className="tracking-wide">{item.label}</span>
                     {active && (
                       <div className="ml-auto h-1 w-1 rounded-full bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.6)]" />
@@ -124,7 +128,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   </Link>
                 );
               })}
-              
+
               <div className="mt-8 mb-4 px-4">
                 <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">
                   External_Links
@@ -143,7 +147,9 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
             <div className="mt-auto p-6 border-t border-white/5 bg-white/[0.02]">
               <div className="flex flex-col gap-4">
                 <div className="space-y-1">
-                  <p className="font-mono text-[9px] uppercase text-white/30">Operator</p>
+                  <p className="font-mono text-[9px] uppercase text-white/30">
+                    Operator
+                  </p>
                   <p className="truncate text-[11px] font-medium text-white/40">
                     {userEmail || 'danilo@ghost.sys'}
                   </p>
@@ -171,7 +177,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   GHOST<span className="text-[#0048ff]">.</span>ADMIN
                 </span>
               </Link>
-              
+
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
                   <button
@@ -179,7 +185,10 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                     className="group flex h-10 w-10 items-center justify-center rounded border border-white/5 bg-white/5 transition-all active:scale-95"
                     aria-label="Open menu"
                   >
-                    <Menu size={18} className="text-white/40 group-hover:text-white" />
+                    <Menu
+                      size={18}
+                      className="text-white/40 group-hover:text-white"
+                    />
                   </button>
                 </SheetTrigger>
                 <SheetContent
@@ -191,10 +200,11 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                       System_Navigation
                     </SheetTitle>
                     <p className="mt-2 font-mono text-[10px] text-[#0048ff]/60 uppercase">
-                      Operator_{userEmail?.split('@')[0].toUpperCase() || 'ROOT'}
+                      Operator_
+                      {userEmail?.split('@')[0].toUpperCase() || 'ROOT'}
                     </p>
                   </SheetHeader>
-                  
+
                   <div className="flex h-[calc(100vh-140px)] flex-col">
                     <nav className="flex-1 space-y-1 p-4">
                       {navItems.map((item) => {
@@ -214,7 +224,10 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                                 : 'text-white/40 hover:bg-white/5'
                             }`}
                           >
-                            <Icon size={18} className={active ? 'text-[#0048ff]' : ''} />
+                            <Icon
+                              size={18}
+                              className={active ? 'text-[#0048ff]' : ''}
+                            />
                             <span className="tracking-wide">{item.label}</span>
                           </Link>
                         );
@@ -228,7 +241,9 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                         className="flex items-center gap-4 rounded px-4 py-4 text-sm text-white/40 transition-all hover:bg-white/5"
                       >
                         <Home size={18} />
-                        <span className="tracking-wide italic">Public_View</span>
+                        <span className="tracking-wide italic">
+                          Public_View
+                        </span>
                       </Link>
                     </nav>
 
@@ -277,8 +292,9 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                         Degraded radio signal: Service Role Key not detected.
                       </p>
                       <p className="mt-2 text-[11px] leading-relaxed text-rose-400/60 max-w-2xl">
-                        Advanced management modules (Auth, Storage, Config) may operate with latency or critical failure. 
-                        Verify core credentials in the production environment.
+                        Advanced management modules (Auth, Storage, Config) may
+                        operate with latency or critical failure. Verify core
+                        credentials in the production environment.
                       </p>
                     </div>
                   </div>

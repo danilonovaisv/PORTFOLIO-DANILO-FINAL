@@ -12,7 +12,7 @@ jest.mock('@/hooks/useMediaQuery');
 jest.mock('next/image', () => ({
     __esModule: true,
     default: ({ priority: _priority, unoptimized: _unoptimized, fill: _fill, loader: _loader, quality: _quality, placeholder: _placeholder, blurDataURL: _blurDataURL, ...props }: any) => {
-        // eslint-disable-next-line @next/next/no-img-element
+         
         return <img {...props} alt="Next Image Mock" />;
     },
 }));

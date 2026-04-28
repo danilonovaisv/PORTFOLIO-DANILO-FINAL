@@ -59,7 +59,9 @@ export function TagForm({ tag, onSaved }: Props) {
         onSaved?.();
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : 'SYSTEM_ERR: UNKNOWN_UPSERT_FAILURE'
+          err instanceof Error
+            ? err.message
+            : 'SYSTEM_ERR: UNKNOWN_UPSERT_FAILURE'
         );
       }
     });
@@ -96,9 +98,15 @@ export function TagForm({ tag, onSaved }: Props) {
             className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none appearance-none"
             {...form.register('kind')}
           >
-            <option value="category" className="bg-[#040013]">Category</option>
-            <option value="discipline" className="bg-[#040013]">Discipline</option>
-            <option value="industry" className="bg-[#040013]">Industry</option>
+            <option value="category" className="bg-[#040013]">
+              Category
+            </option>
+            <option value="discipline" className="bg-[#040013]">
+              Discipline
+            </option>
+            <option value="industry" className="bg-[#040013]">
+              Industry
+            </option>
           </select>
         </label>
         <label className="flex flex-col gap-2">

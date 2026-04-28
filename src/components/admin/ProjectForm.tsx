@@ -363,8 +363,7 @@ export function ProjectForm({
         .maybeSingle();
 
       if (fetchError) throw fetchError;
-      if (!data)
-        throw new Error('SYSTEM_ERR: TAG_CREATED_BUT_LOAD_FAILED');
+      if (!data) throw new Error('SYSTEM_ERR: TAG_CREATED_BUT_LOAD_FAILED');
 
       setAvailableTags((prev) =>
         [...prev, data].sort((a, b) =>
@@ -552,7 +551,8 @@ export function ProjectForm({
               placeholder="Write project narrative using Markdown..."
             />
             <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight">
-              Kernel_Hint: Use Copy Agent to synthesize narrative from project metrics.
+              Kernel_Hint: Use Copy Agent to synthesize narrative from project
+              metrics.
             </p>
           </label>
 
@@ -587,8 +587,8 @@ export function ProjectForm({
             System_Featured_Home_Core
           </p>
           <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight leading-relaxed">
-            Exclusive configuration for Home Featured Projects.
-            Background synchronization is handled dynamically via kernel seed.
+            Exclusive configuration for Home Featured Projects. Background
+            synchronization is handled dynamically via kernel seed.
           </p>
         </div>
 
@@ -641,11 +641,13 @@ export function ProjectForm({
             ) : null}
             {homeFeaturedCardStyle === 'ANIMATED_BG_INVERTED_LOGO' ? (
               <p className="text-[9px] text-white/40 uppercase tracking-tight">
-                System_Render_Notice: Logo is anchored in center of viewport, independent of hover state.
+                System_Render_Notice: Logo is anchored in center of viewport,
+                independent of hover state.
               </p>
             ) : (
               <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight">
-                System_Render_Notice: Thumb variant uses 5% luminance overlay on dynamic background.
+                System_Render_Notice: Thumb variant uses 5% luminance overlay on
+                dynamic background.
               </p>
             )}
           </label>
@@ -681,7 +683,8 @@ export function ProjectForm({
             ))}
           </select>
           <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight italic">
-            System_Route_Note: When linked, project entry triggers landing page routing instead of modal kernel.
+            System_Route_Note: When linked, project entry triggers landing page
+            routing instead of modal kernel.
           </p>
         </label>
       </div>
@@ -760,8 +763,8 @@ export function ProjectForm({
           {availableTags.map((tag) => (
             <label
               key={tag.id}
-            className="flex items-center gap-2 font-mono text-[10px] text-white/60 uppercase tracking-widest"
-          >
+              className="flex items-center gap-2 font-mono text-[10px] text-white/60 uppercase tracking-widest"
+            >
               <input
                 type="checkbox"
                 value={tag.id}

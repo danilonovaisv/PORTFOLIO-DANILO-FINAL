@@ -39,7 +39,10 @@ function djb2Hash(str: string): number {
 /**
  * Generate a time-based seed string for the given window.
  */
-function getTimeSeed(window: TimeWindow, options: StableShuffleOptions): string {
+function getTimeSeed(
+  window: TimeWindow,
+  options: StableShuffleOptions
+): string {
   const now = options.customSeed ? new Date(options.customSeed) : new Date();
   const year = now.getUTCFullYear();
   const month = now.getUTCMonth() + 1;

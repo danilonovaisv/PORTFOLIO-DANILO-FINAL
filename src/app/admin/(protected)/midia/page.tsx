@@ -88,11 +88,15 @@ export default async function MidiaPage(props: {
           </p>
         </div>
         <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
-          Media<span className="text-[#0048ff]">_</span>Vault<span className="text-[#0048ff]">.</span>
+          Media<span className="text-[#0048ff]">_</span>Vault
+          <span className="text-[#0048ff]">.</span>
         </h1>
         <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
           <span>Status: Online</span>
-          <span>Registry: {activeCount.toString().padStart(2, '0')}/{normalizedAssets.length.toString().padStart(2, '0')}</span>
+          <span>
+            Registry: {activeCount.toString().padStart(2, '0')}/
+            {normalizedAssets.length.toString().padStart(2, '0')}
+          </span>
         </div>
       </header>
 
@@ -117,8 +121,12 @@ export default async function MidiaPage(props: {
           <div className="sticky top-24 space-y-8">
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl">
               <div className="mb-8 space-y-1">
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">Module_Upload</p>
-                <h2 className="font-mono text-xl font-light text-white uppercase">Sync_Asset<span className="text-[#0048ff]">.</span></h2>
+                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+                  Module_Upload
+                </p>
+                <h2 className="font-mono text-xl font-light text-white uppercase">
+                  Sync_Asset<span className="text-[#0048ff]">.</span>
+                </h2>
               </div>
               <AssetForm />
             </div>

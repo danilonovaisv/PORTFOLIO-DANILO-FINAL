@@ -139,7 +139,10 @@ export async function createAdminToken(
     });
 
     if (error) {
-      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}`,
+      };
     }
 
     await logAdminAudit(supabase, user, {
@@ -179,7 +182,10 @@ export async function updateAdminToken(
       .maybeSingle();
 
     if (existingError) {
-      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${existingError.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: DATABASE_ERROR — ${existingError.message}`,
+      };
     }
 
     if (!existing) {
@@ -211,7 +217,10 @@ export async function updateAdminToken(
       .eq('id', tokenId);
 
     if (error) {
-      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}`,
+      };
     }
 
     await logAdminAudit(supabase, user, {
@@ -247,7 +256,10 @@ export async function deleteAdminToken(tokenId: string): Promise<ActionResult> {
       .delete()
       .eq('id', tokenId);
     if (error) {
-      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}`,
+      };
     }
 
     await logAdminAudit(supabase, user, {
@@ -284,7 +296,10 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
       .maybeSingle();
 
     if (error) {
-      return { ok: false, error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: DATABASE_ERROR — ${error.message}`,
+      };
     }
 
     if (!data) {
@@ -294,8 +309,7 @@ export async function testAdminToken(tokenId: string): Promise<ActionResult> {
     if (data.provider !== 'openai') {
       return {
         ok: false,
-        error:
-          'SYSTEM_ERR: OPENAI_AUTO_TEST_PROVIDER_ONLY',
+        error: 'SYSTEM_ERR: OPENAI_AUTO_TEST_PROVIDER_ONLY',
       };
     }
 
@@ -363,7 +377,10 @@ export async function createAdminUser(
       perPage: 500,
     });
     if (listed.error) {
-      return { ok: false, error: `SYSTEM_ERR: AUTH_QUERY_FAILURE — ${listed.error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: AUTH_QUERY_FAILURE — ${listed.error.message}`,
+      };
     }
 
     const existing = listed.data.users.find(
@@ -408,7 +425,10 @@ export async function createAdminUser(
     });
 
     if (userUpdate.error) {
-      return { ok: false, error: `SYSTEM_ERR: AUTH_UPDATE_FAILURE — ${userUpdate.error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: AUTH_UPDATE_FAILURE — ${userUpdate.error.message}`,
+      };
     }
 
     await syncAdminRow(supabase, targetUserId, role);
@@ -493,7 +513,10 @@ export async function updateAdminUser(
     });
 
     if (updateResult.error) {
-      return { ok: false, error: `SYSTEM_ERR: AUTH_UPDATE_FAILURE — ${updateResult.error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: AUTH_UPDATE_FAILURE — ${updateResult.error.message}`,
+      };
     }
 
     await syncAdminRow(supabase, userId, role);
@@ -552,7 +575,10 @@ export async function deleteAdminUser(userId: string): Promise<ActionResult> {
     });
 
     if (revoke.error) {
-      return { ok: false, error: `SYSTEM_ERR: AUTH_REVOKE_FAILURE — ${revoke.error.message}` };
+      return {
+        ok: false,
+        error: `SYSTEM_ERR: AUTH_REVOKE_FAILURE — ${revoke.error.message}`,
+      };
     }
 
     await revokeAdminRow(supabase, userId);

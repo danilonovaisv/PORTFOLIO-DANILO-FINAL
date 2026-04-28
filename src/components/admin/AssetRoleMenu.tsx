@@ -27,7 +27,9 @@ export function AssetRoleMenu({
         onClick={() => setIsOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded border border-white/10 bg-white/[0.03] px-3 py-1 text-[12px] text-white hover:border-[#0048ff] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0048ff] transition-all"
       >
-        <span className="font-mono text-[10px] uppercase tracking-widest">System_Asset_Role</span>
+        <span className="font-mono text-[10px] uppercase tracking-widest">
+          System_Asset_Role
+        </span>
         <span className="text-[10px] text-white/30 font-mono">
           {isOpen ? '[_CLOSE_]' : '[_OPEN_]'}
         </span>
@@ -55,7 +57,9 @@ export function AssetRoleMenu({
                             : 'border-white/5 bg-white/[0.02] hover:border-[#0048ff]/50 hover:bg-[#0048ff]/5'
                         }`}
                       >
-                        <span className="font-mono text-xs font-bold uppercase tracking-wide">{role.label}</span>
+                        <span className="font-mono text-xs font-bold uppercase tracking-wide">
+                          {role.label}
+                        </span>
                         <span className="font-mono text-[9px] text-white/40 uppercase tracking-tight">
                           {role.key}
                         </span>

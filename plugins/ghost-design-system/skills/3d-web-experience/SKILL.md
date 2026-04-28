@@ -1,6 +1,6 @@
 ---
 name: 3d-web-experience
-description: "Expert in building 3D experiences for the web - Three.js, React Three Fiber, Spline, WebGL, and interactive 3D scenes. Covers product configurators, 3D portfolios, immersive websites, and bringing depth to web experiences. Use when: 3D website, three.js, WebGL, react three fiber, 3D experience."
+description: 'Expert in building 3D experiences for the web - Three.js, React Three Fiber, Spline, WebGL, and interactive 3D scenes. Covers product configurators, 3D portfolios, immersive websites, and bringing depth to web experiences. Use when: 3D website, three.js, WebGL, react three fiber, 3D experience.'
 source: vibeship-spawner-skills (Apache 2.0)
 ---
 
@@ -45,6 +45,7 @@ Choosing the right 3D approach
 
 ### Decision Tree
 ```
+
 Need quick 3D element?
 └── Yes → Spline
 └── No → Continue
@@ -56,7 +57,8 @@ Using React?
 Need max performance/control?
 └── Yes → Three.js vanilla
 └── No → Spline or R3F
-```
+
+````
 
 ### Spline (Fastest Start)
 ```jsx
@@ -67,9 +69,10 @@ export default function Scene() {
     <Spline scene="https://prod.spline.design/xxx/scene.splinecode" />
   );
 }
-```
+````
 
 ### React Three Fiber
+
 ```jsx
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
@@ -89,7 +92,8 @@ export default function Scene() {
   );
 }
 ```
-```
+
+````
 
 ### 3D Model Pipeline
 
@@ -109,14 +113,16 @@ Getting models web-ready
 | USDZ | Apple AR | Medium |
 
 ### Optimization Pipeline
-```
+````
+
 1. Model in Blender/etc
 2. Reduce poly count (< 100K for web)
 3. Bake textures (combine materials)
 4. Export as GLB
 5. Compress with gltf-transform
 6. Test file size (< 5MB ideal)
-```
+
+````
 
 ### GLTF Compression
 ```bash
@@ -127,9 +133,10 @@ npm install -g @gltf-transform/cli
 gltf-transform optimize input.glb output.glb \
   --compress draco \
   --texture-compress webp
-```
+````
 
 ### Loading in R3F
+
 ```jsx
 import { useGLTF, useProgress, Html } from '@react-three/drei';
 import { Suspense } from 'react';
@@ -149,7 +156,8 @@ export default function Scene() {
   );
 }
 ```
-```
+
+````
 
 ### Scroll-Driven 3D
 
@@ -186,9 +194,10 @@ export default function Scene() {
     </Canvas>
   );
 }
-```
+````
 
 ### GSAP + Three.js
+
 ```javascript
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -204,11 +213,13 @@ gsap.to(camera.position, {
 ```
 
 ### Common Scroll Effects
+
 - Camera movement through scene
 - Model rotation on scroll
 - Reveal/hide elements
 - Color/material changes
 - Exploded view animations
+
 ```
 
 ## Anti-Patterns
@@ -252,3 +263,4 @@ Optimize model size.
 ## Related Skills
 
 Works well with: `scroll-experience`, `interactive-portfolio`, `frontend`, `landing-page-design`
+```

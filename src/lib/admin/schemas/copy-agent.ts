@@ -66,7 +66,10 @@ export const copyInputSchema = z.object({
     ),
   targetAudience: z
     .string()
-    .min(COPY_FIELD_LIMITS.targetAudience.min, 'SYSTEM_ERR: TARGET_AUDIENCE_REQUIRED')
+    .min(
+      COPY_FIELD_LIMITS.targetAudience.min,
+      'SYSTEM_ERR: TARGET_AUDIENCE_REQUIRED'
+    )
     .max(
       COPY_FIELD_LIMITS.targetAudience.max,
       `SYSTEM_ERR: MAX_LENGTH_EXCEEDED (${COPY_FIELD_LIMITS.targetAudience.max})`

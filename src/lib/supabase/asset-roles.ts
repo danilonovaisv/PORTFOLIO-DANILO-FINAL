@@ -172,7 +172,8 @@ const aboutBeliefsAssets: SiteAssetRole[] = [
   {
     key: SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
     label: 'Skills Video (Mobile)',
-    description: 'Background video for the Beliefs section (optimized mobile version)',
+    description:
+      'Background video for the Beliefs section (optimized mobile version)',
     page: 'about',
     asset_type: 'video',
     subPath: 'beliefs',

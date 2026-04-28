@@ -1,9 +1,14 @@
-import { queryRef, executeQuery, validateArgsWithOptions, mutationRef, executeMutation, validateArgs } from 'firebase/data-connect';
+import { queryRef, executeQuery, validateArgsWithOptions, mutationRef, executeMutation, validateArgs, makeMemoryCacheProvider } from 'firebase/data-connect';
 
 export const connectorConfig = {
   connector: 'gemini-test',
   service: 'portfolio-danilo-novais-service',
   location: 'southamerica-west1'
+};
+export const dataConnectSettings = {
+  cacheSettings: {
+    cacheProvider: makeMemoryCacheProvider()
+  }
 };
 export const createUserRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" aria-label="Ghost Design wordmark">
-  <rect width="320" height="72" fill="#040013"></rect>
-  <g fill="#fcffff" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-weight="800">
-    <text x="24" y="46" font-size="32" letter-spacing="-1">ghost</text>
-    <text x="124" y="46" font-size="32" letter-spacing="-1" fill="#0048ff" font-style="italic" font-weight="300">design</text>
-  </g>
-  <circle cx="280" cy="36" r="6" fill="#4fe6ff" opacity="0.9"></circle>
-  <circle cx="280" cy="36" r="18" fill="#0048ff" opacity="0.15"></circle>
-</svg>

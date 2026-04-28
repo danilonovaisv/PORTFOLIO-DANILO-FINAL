@@ -73,8 +73,9 @@ test.describe('Ghost System Verification', () => {
     await expect(aboutButton).toBeVisible();
     await aboutButton.click();
 
-    // Wait for navigation to complete (Next.js client-side routing)
-    await page.waitForURL(/\/sobre/, { timeout: 30000 });
+    // Assert the client-side route changed without depending on the full
+    // load lifecycle, which can be delayed by dev-only image retries.
+    await expect(page).toHaveURL(/\/sobre/, { timeout: 30000 });
     await expect(page.locator('h2', { hasText: /ORIGEM/i })).toBeVisible({
       timeout: 10000,
     });
