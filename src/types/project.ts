@@ -111,14 +111,6 @@ export interface PortfolioProject {
 }
 
 /**
- * Estado de filtro do showcase
- */
-export interface PortfolioFilter {
-  category: ProjectCategory;
-  sortBy: 'recent' | 'featured' | 'alphabetical';
-}
-
-/**
  * Props para componentes de projeto
  */
 export interface ProjectCardProps {
@@ -127,13 +119,4 @@ export interface ProjectCardProps {
   className?: string;
   onOpen?: (_project: PortfolioProject) => void;
   isAnimating?: boolean;
-}
-
-/**
- * Props do Modal
- */
-export interface ProjectModalProps {
-  project: PortfolioProject | null;
-  isOpen: boolean;
-  onClose: () => void;
 }
