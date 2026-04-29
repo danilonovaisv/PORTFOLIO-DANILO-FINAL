@@ -221,6 +221,7 @@ for (const route of ROUTES) {
         const originalGetContext = HTMLCanvasElement.prototype.getContext;
 
         HTMLCanvasElement.prototype.getContext = function getContext(
+          this: HTMLCanvasElement,
           type,
           ...args
         ) {
