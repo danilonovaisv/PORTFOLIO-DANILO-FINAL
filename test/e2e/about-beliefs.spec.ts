@@ -217,13 +217,31 @@ for (const route of ROUTES) {
         if (msg.type() === 'error') errors.push(msg.text());
       });
 
+      await page.addInitScript(() => {
+        const originalGetContext = HTMLCanvasElement.prototype.getContext;
+
+        HTMLCanvasElement.prototype.getContext = function getContext(
+          type,
+          ...args
+        ) {
+          if (
+            type === 'webgl' ||
+            type === 'webgl2' ||
+            type === 'experimental-webgl' ||
+            type === 'webgl2-compute'
+          ) {
+            return null;
+          }
+
+          return originalGetContext.call(this, type, ...args);
+        } as typeof HTMLCanvasElement.prototype.getContext;
+      });
+
       await gotoRoute(page, route);
 
-      await expect(
-        page.locator(
-          '[data-testid="beliefs-ghost-scene"], [data-testid="ghost-fallback"]'
-        )
-      ).toBeAttached({ timeout: 10000 });
+      await expect(page.locator('[data-testid="ghost-fallback"]')).toBeAttached(
+        { timeout: 10000 }
+      );
 
       expect(
         errors.filter((message) =>
