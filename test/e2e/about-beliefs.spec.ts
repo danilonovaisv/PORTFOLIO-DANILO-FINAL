@@ -112,19 +112,24 @@ for (const route of ROUTES) {
       await expect
         .poll(async () => {
           const styles = await page
-            .locator('[data-testid="beliefs-scroll-text"] .belief-phrase span')
+            .locator('[data-testid="belief-phrase"]')
             .evaluateAll((elements) => {
               return elements.map((el) => {
                 const computed = window.getComputedStyle(el);
                 return {
                   opacity: Number(computed.opacity),
                   filter: computed.filter,
+                  transform: computed.transform,
                 };
               });
             });
-          const visiblePhrase = styles.find((style) => style.opacity > 0.5);
 
-          return visiblePhrase && !visiblePhrase.filter.includes('blur(6px)');
+          return styles.some(
+            (style) =>
+              style.opacity > 0.5 &&
+              style.filter !== 'none' &&
+              style.transform !== 'none'
+          );
         })
         .toBeTruthy();
     });
@@ -137,14 +142,11 @@ for (const route of ROUTES) {
       await scrollToProgress(page, 0.35);
 
       const hasReducedMotionViolation = await page.evaluate(() => {
-        const section = document.querySelector(
-          '[data-testid="beliefs-section"]'
+        const elements = document.querySelectorAll(
+          '[data-testid="belief-phrase"]'
         );
-        if (!section) return true;
 
-        const elements = section.querySelectorAll(
-          '[data-testid="beliefs-scroll-text"] .belief-phrase span'
-        );
+        if (elements.length === 0) return true;
 
         for (const el of elements) {
           const style = window.getComputedStyle(el);
@@ -173,15 +175,15 @@ for (const route of ROUTES) {
       await gotoRoute(page, route);
       await scrollToProgress(page, 0.2);
 
-      const headerTop = await page
-        .locator('[data-testid="beliefs-header"]')
-        .evaluate((el) => window.getComputedStyle(el).top);
+      const headerContentTop = await page
+        .locator('[data-testid="beliefs-header-content"]')
+        .evaluate((el) => el.getBoundingClientRect().top);
       const phraseTextAlign = await page
         .locator('[data-testid="beliefs-scroll-text"]')
         .evaluate((el) => window.getComputedStyle(el).textAlign);
 
-      expect(Number.parseFloat(headerTop)).toBeGreaterThanOrEqual(160);
-      expect(Number.parseFloat(headerTop)).toBeLessThanOrEqual(170);
+      expect(headerContentTop).toBeGreaterThanOrEqual(100);
+      expect(headerContentTop).toBeLessThanOrEqual(160);
       expect(phraseTextAlign).toBe('center');
     });
 
@@ -204,6 +206,30 @@ for (const route of ROUTES) {
       );
 
       expect(hydrationErrors).toHaveLength(0);
+    });
+
+    test('WebGL indisponível cai em fallback sem unhandled rejection', async ({
+      page,
+    }) => {
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') errors.push(msg.text());
+      });
+
+      await gotoRoute(page, route);
+
+      await expect(
+        page.locator(
+          '[data-testid="beliefs-ghost-scene"], [data-testid="ghost-fallback"]'
+        )
+      ).toBeAttached({ timeout: 10000 });
+
+      expect(
+        errors.filter((message) =>
+          message.includes('Error creating WebGL context')
+        )
+      ).toHaveLength(0);
     });
   });
 }
