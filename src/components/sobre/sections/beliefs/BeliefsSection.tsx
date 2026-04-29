@@ -10,7 +10,7 @@ import { BeliefFixedHeader } from '@/components/sobre/sections/beliefs/BeliefFix
 import { BeliefScrollText } from '@/components/sobre/sections/beliefs/BeliefScrollText';
 import { BeliefSection } from '@/components/sobre/sections/beliefs/BeliefSection';
 import { BeliefManifesto } from '@/components/sobre/sections/beliefs/BeliefManifesto';
-import { GhostCanvas } from '@/components/sobre/sections/beliefs/3d/GhostCanvas';
+import { GhostCanvasClient } from '@/components/sobre/sections/beliefs/3d/GhostCanvasClient';
 import { GhostErrorBoundary } from '@/components/sobre/sections/beliefs/3d/GhostErrorBoundary';
 
 const PHRASES = [
@@ -86,7 +86,7 @@ export function BeliefsSection() {
 
         <div className="fixed inset-0 z-[70] pointer-events-none">
           <GhostErrorBoundary>
-            <GhostCanvas scrollProgress={scrollYProgress} />
+            <GhostCanvasClient scrollProgress={scrollYProgress} />
           </GhostErrorBoundary>
         </div>
 
