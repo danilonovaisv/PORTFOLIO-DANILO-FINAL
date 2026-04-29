@@ -2,10 +2,12 @@
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { useEffect, useMemo, useRef, Suspense } from 'react';
+import { useEffect, useMemo, useRef, Suspense, type ReactNode } from 'react';
 import { useMotionValue, useSpring, type MotionValue } from 'motion/react';
 import type { BufferGeometry, Group, Material, Mesh, Object3D } from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
+import { GhostFallback } from '@/components/sobre/sections/beliefs/3d/GhostFallback';
+import { useWebGLAvailable } from '@/components/sobre/sections/beliefs/3d/useWebGLAvailable';
 
 const LOCAL_GHOST_GLB_URL = '/site.assets/3d/ghost-v1.glb';
 const SUPABASE_GHOST_GLB_URL =
@@ -179,19 +181,50 @@ interface GhostSceneProps {
   scrollProgress: MotionValue<number>;
 }
 
-export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
-  const isMobile = useBeliefStore((s) => s.isMobile);
-  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
-
-  // Mobile + reduced motion: skip entire 3D scene for performance
-  if (isMobile && prefersReducedMotion) return null;
-
+function GhostSceneFrame({ children }: { children: ReactNode }) {
   return (
     <div
       className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
       data-testid="beliefs-ghost-scene"
       aria-hidden="true"
     >
+      {children}
+    </div>
+  );
+}
+
+export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
+  const isMobile = useBeliefStore((s) => s.isMobile);
+  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+  const webGLAvailable = useWebGLAvailable();
+
+  // Mobile + reduced motion: skip entire 3D scene for performance
+  if (isMobile && prefersReducedMotion) {
+    return (
+      <GhostSceneFrame>
+        <GhostFallback />
+      </GhostSceneFrame>
+    );
+  }
+
+  if (webGLAvailable === null) {
+    return (
+      <GhostSceneFrame>
+        <GhostFallback mode="loading" />
+      </GhostSceneFrame>
+    );
+  }
+
+  if (!webGLAvailable) {
+    return (
+      <GhostSceneFrame>
+        <GhostFallback />
+      </GhostSceneFrame>
+    );
+  }
+
+  return (
+    <GhostSceneFrame>
       <Canvas
         dpr={[1, isMobile ? 1 : 1.5]}
         camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 35 }}
@@ -217,6 +250,6 @@ export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
           <GhostModel scrollProgress={scrollProgress} />
         </Suspense>
       </Canvas>
-    </div>
+    </GhostSceneFrame>
   );
 }
