@@ -84,7 +84,7 @@ export function BeliefsSection() {
           prefersReducedMotion={prefersReducedMotion}
         />
 
-        <div className="fixed inset-0 z-50 pointer-events-none">
+        <div className="fixed inset-0 z-[70] pointer-events-none">
           <GhostErrorBoundary>
             <GhostCanvas scrollProgress={scrollYProgress} />
           </GhostErrorBoundary>
