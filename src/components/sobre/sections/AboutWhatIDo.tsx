@@ -169,12 +169,14 @@ export function AboutWhatIDo() {
           </header>
 
           {/* Mobile Cards - Horizontal entrance from right */}
-          <ul
-            className="flex list-none flex-col gap-3 p-0"
+          <div
+            role="list"
+            className="flex flex-col gap-3 p-0"
             aria-labelledby="what-i-do-heading-mobile"
           >
             {SERVICES.map((service, index) => (
-              <motion.li
+              <motion.div
+                role="listitem"
                 key={service.id}
                 initial={
                   prefersReducedMotion
@@ -202,9 +204,9 @@ export function AboutWhatIDo() {
                   <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   {service.description}
                 </p>
-              </motion.li>
+              </motion.div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
 

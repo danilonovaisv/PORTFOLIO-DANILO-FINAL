@@ -8,7 +8,6 @@
 @source "../config/**/*.{tsx,ts,js}";
 @source "../styles/**/*.css";
 
-@plugin 'tailwindcss-animate';
 
 @theme {
   /* Cores da marca */

@@ -17,9 +17,10 @@ export function Container<C extends React.ElementType = 'div'>({
   as,
   ...props
 }: ContainerProps<C>) {
-  const Component = (as ?? 'div') as React.ElementType;
+  const Component = (as || 'div') as React.ElementType;
+  
   return (
-    <Component className={cn('std-grid', className)} {...props}>
+    <Component className={cn('std-grid', className)} {...(props as any)}>
       {children}
     </Component>
   );
