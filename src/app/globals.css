@@ -1,4 +1,4 @@
-@import 'tailwindcss' source(none);
+@import 'tailwindcss';
 @source "../components/**/*.{tsx,ts,jsx,js,css,mdx}";
 @source "../app/**/*.{tsx,ts,jsx,js,css,mdx}";
 @source "../lib/**/*.{tsx,ts,jsx,js}";
@@ -7,7 +7,6 @@
 @source "../types/**/*.{tsx,ts}";
 @source "../config/**/*.{tsx,ts,js}";
 @source "../styles/**/*.css";
-
 
 @theme {
   /* Cores da marca */

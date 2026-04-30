@@ -13,6 +13,18 @@
 
 <!-- Errors sẽ được agent tự động ghi vào đây -->
 
+## [2026-04-29 21:11] - IDE Warnings and Syntax Errors
+
+- **Type**: Syntax / Linter
+- **Severity**: Low
+- **File**: `src/app/globals.css`, `src/components/portfolio/ProjectsGallery.tsx`, `src/components/sobre/sections/AboutWhatIDo.tsx`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: IDE validation errors reported for Tailwind imports, ARIA boolean expression bindings in JSX, and missing structural roles in `motion.div` lists.
+- **Error Message**: `semi-colon expected`, `Invalid ARIA attribute value: aria-selected="{expression}"`, `Required ARIA child role not present: listitem`
+- **Fix Applied**: Adjusted Tailwind import in `globals.css`, explicit boolean evaluations in ARIA properties, and refactored `div[role="list"]` to semantic `ul` and `li` tags in `AboutWhatIDo.tsx`.
+- **Prevention**: Pre-validate DOM structural roles with semantic HTML elements instead of explicitly assigning roles to `div`s. Ensure standard syntax compatibility in Tailwind setups.
+- **Status**: Fixed
+
 ## [2026-03-06 05:22] - Invalid ARIA attribute values in React TSX
 
 - **Type**: Syntax / Linter

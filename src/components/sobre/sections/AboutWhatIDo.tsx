@@ -94,8 +94,7 @@ export function AboutWhatIDo() {
           </div>
 
           {/* Horizontal Track - Cards sliding right→left */}
-          <motion.div
-            role="list"
+          <motion.ul
             aria-labelledby="what-i-do-heading"
             style={{
               x: 0,
@@ -104,9 +103,8 @@ export function AboutWhatIDo() {
             className="mt-[30vh] flex w-full max-w-[1520px] items-stretch justify-center gap-3 px-10 will-change-transform xl:gap-4"
           >
             {SERVICES.map((service, index) => (
-              <motion.article
+              <motion.li
                 key={service.id}
-                role="listitem"
                 data-what-i-do-card=""
                 initial={
                   prefersReducedMotion
@@ -138,9 +136,9 @@ export function AboutWhatIDo() {
                     {service.description}
                   </span>
                 </p>
-              </motion.article>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
 
           {/* Ghost Gradient Edges */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent" />
@@ -169,14 +167,12 @@ export function AboutWhatIDo() {
           </header>
 
           {/* Mobile Cards - Horizontal entrance from right */}
-          <div
-            role="list"
+          <ul
             className="flex flex-col gap-3 p-0"
             aria-labelledby="what-i-do-heading-mobile"
           >
             {SERVICES.map((service, index) => (
-              <motion.div
-                role="listitem"
+              <motion.li
                 key={service.id}
                 initial={
                   prefersReducedMotion
@@ -204,9 +200,9 @@ export function AboutWhatIDo() {
                   <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   {service.description}
                 </p>
-              </motion.div>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
 

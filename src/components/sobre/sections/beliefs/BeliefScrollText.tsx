@@ -83,8 +83,9 @@ function PhraseItem({
 
   const isInitialPhrase = start === 0;
   const entryStart = isInitialPhrase ? 0 : start + 0.05;
-  const entryEnd =
-    isInitialPhrase ? start + segmentSize * 0.3 : start + segmentSize * 0.4;
+  const entryEnd = isInitialPhrase
+    ? start + segmentSize * 0.3
+    : start + segmentSize * 0.4;
   const exitStart = end - segmentSize * 0.25;
   const exitEnd = end;
   const inputRange: [number, number, number, number] = [
@@ -107,25 +108,15 @@ function PhraseItem({
     ? [6, 0, 0, 15]
     : [15, 0, 0, 15];
 
-  const opacity = useTransform(
-    scrollProgress,
-    inputRange,
-    opacityRange,
-    { ease: ghostEase }
-  );
+  const opacity = useTransform(scrollProgress, inputRange, opacityRange, {
+    ease: ghostEase,
+  });
 
-  const movement = useTransform(
-    scrollProgress,
-    inputRange,
-    movementRange,
-    { ease: ghostEase }
-  );
+  const movement = useTransform(scrollProgress, inputRange, movementRange, {
+    ease: ghostEase,
+  });
 
-  const blurValue = useTransform(
-    scrollProgress,
-    inputRange,
-    blurRange
-  );
+  const blurValue = useTransform(scrollProgress, inputRange, blurRange);
 
   const filter = useTransform(blurValue, (v) =>
     prefersReducedMotion ? 'none' : `blur(${v}px)`

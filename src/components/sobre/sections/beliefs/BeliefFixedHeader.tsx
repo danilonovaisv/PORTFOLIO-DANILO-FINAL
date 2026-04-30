@@ -32,14 +32,17 @@ export function BeliefFixedHeader({
   return (
     <motion.header
       style={{ opacity }}
-      className="sticky top-0 z-20 flex h-screen pointer-events-none"
+      className="fixed inset-0 z-20 flex h-screen pointer-events-none"
       data-testid="beliefs-header"
     >
       <div className="std-grid w-full h-full">
         {/* Desktop: center visual + right alignment */}
         {/* Mobile: top-right with 14vh offset */}
         <div className="flex h-full items-start md:items-center justify-end pt-[14vh] md:pt-0">
-          <div className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[750px] pr-4 md:pr-0">
+          <div
+            className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[750px] pr-4 md:pr-0"
+            data-testid="beliefs-header-content"
+          >
             {/* Main Title: "Acredito no..." */}
             <h2 className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap">
               <div className="overflow-visible">
