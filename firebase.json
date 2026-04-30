@@ -1,21 +1,11 @@
 {
   "hosting": {
-    "source": ".",
+    "public": "deploy-public",
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      ".env",
-      ".env.local",
-      ".env.development",
-      "functions/**",
-      "test/**",
-      "docs/**",
-      "scripts/**"
+      "**/node_modules/**"
     ],
-    "frameworksBackend": {
-      "region": "us-central1"
-    },
     "headers": [
       {
         "source": "**",

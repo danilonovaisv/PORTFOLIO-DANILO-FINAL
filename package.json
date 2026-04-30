@@ -40,7 +40,7 @@
     "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",
     "validate-env": "node --env-file-if-exists=.env.local --env-file-if-exists=.env --import tsx src/lib/env.ts",
     "validate:structure": "python3 scripts/validate_structure.py",
-    "build": "next build --webpack",
+    "build": "NEXT_TURBOPACK=0 next build --webpack",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "firebase:preflight": "bash scripts/firebase-preflight.sh",
     "predeploy": "bash scripts/firebase-preflight.sh && python3 scripts/audit_assets.py",
