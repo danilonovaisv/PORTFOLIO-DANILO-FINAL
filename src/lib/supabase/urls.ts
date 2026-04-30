@@ -2,19 +2,18 @@ const normalizeUrl = (value: string) => value.replace(/\/+$/, '');
 
 /**
  * Get the base Supabase URL from environment variables.
+ * Reads process.env directly (not the cached Zod `env` object) so that
+ * test suites can override values via `process.env` assignment in beforeEach.
  */
 export function getSupabaseBaseUrl(): string | null {
-  // Para assets públicos que precisam de hidratação, DEVEMOS usar variáveis públicas.
-  // Variáveis sem prefixo NEXT_PUBLIC_ não estão disponíveis no cliente.
   const url =
-    process.env.NEXT_PUBLIC_SUPABASE_URL ??
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
     process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
 
   if (url) {
     return normalizeUrl(url);
   }
 
-  // Fallback para servidor apenas se não houver URL pública (CUIDADO: pode causar mismatch se usado em componentes)
   if (
     (typeof window === 'undefined' || process.env.NODE_ENV === 'test') &&
     process.env.SUPABASE_URL
@@ -73,7 +72,7 @@ export function normalizeStoragePath(
 export interface StorageUrlOptions {
   width?: number;
   quality?: number;
-  format?: 'origin';
+  format?: 'origin' | 'webp' | 'avif';
   resize?: 'cover' | 'contain' | 'fill';
 }
 
@@ -153,7 +152,7 @@ export function buildSupabaseStorageUrl(
     const params = new URLSearchParams();
     if (options.width) params.set('width', options.width.toString());
     if (options.quality) params.set('quality', options.quality.toString());
-    if (options.format === 'origin') params.set('format', 'origin');
+    if (options.format) params.set('format', options.format);
     if (options.resize) params.set('resize', options.resize);
 
     const queryString = params.toString();
@@ -191,8 +190,8 @@ export function injectSupabaseProxy(
       parsed.searchParams.set('width', options.width.toString());
     if (options.quality)
       parsed.searchParams.set('quality', options.quality.toString());
-    if (options.format === 'origin') {
-      parsed.searchParams.set('format', 'origin');
+    if (options.format) {
+      parsed.searchParams.set('format', options.format);
     } else {
       parsed.searchParams.delete('format');
     }

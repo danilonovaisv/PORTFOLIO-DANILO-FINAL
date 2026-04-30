@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { NavItem } from '@/components/layout/header/types';
-import styles from '@/components/layout/header/DesktopFluidHeader.module.css';
 
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
@@ -164,14 +163,16 @@ export default function DesktopFluidHeader({
           'flex justify-center w-full max-w-[1680px] mx-auto px-6 md:px-16'
         }
       >
-        <div ref={wrapRef} className="pointer-events-auto w-full relative">
+        <div ref={wrapRef} className="pointer-events-auto w-full">
           <div
-            className={`${styles.headerContainer} ${
-              isLight ? styles.headerLight : styles.headerDark
-            } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
+            className={`relative overflow-hidden h-16 w-[calc(100%+5rem)] -ml-10 rounded-full backdrop-blur-md border border-white/10 transition-all duration-300 ${
+              isLight
+                ? 'bg-[#040013]/60 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+                : 'bg-[#040013]/40 shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
+            }`}
           >
             {/* glass background - Dynamic R3F */}
-            <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">
+            <div className="absolute inset-0 rounded-full overflow-hidden opacity-60 pointer-events-none">
               {allowCanvas ? (
                 <HeaderGlassCanvas accentColor="#0048ff" />
               ) : (

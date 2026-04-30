@@ -97,3 +97,50 @@
 All code corrections applied and validated via build + lint + TypeScript.  
 Visual browser confirmation deferred to human — run `pnpm dev`, navigate to `/sobre`,
 scroll through 06-O-QUE-ME-MOVE section forward and backward.
+
+---
+
+# Walkthrough — Session 2: Production Audit (2026-04-30)
+
+## New Findings
+
+Deep audit against `implementation_plan.md` and `task.md` revealed 7 real issues.  
+**6/18 tasks were already implemented correctly** — audit was partially outdated.
+
+## Corrections Applied
+
+| #   | File                    | Change                                                                                    | Severity |
+| --- | ----------------------- | ----------------------------------------------------------------------------------------- | -------- |
+| 1   | `BeliefManifesto.tsx`   | Removed `scale` animation (prohibited by Ghost System) → replaced with `translateY(40→0)` | **P0**   |
+| 2   | `BeliefManifesto.tsx`   | Changed `<h2>` → `<blockquote>` + `<p aria-hidden>` (heading hierarchy fix)               | **P1**   |
+| 3   | `BeliefManifesto.tsx`   | Added `role="presentation"` + `aria-label` for screen readers                             | **P1**   |
+| 4   | `BeliefsSection.tsx`    | Changed `aria-label` → `aria-labelledby="beliefs-section-heading"`                        | **P1**   |
+| 5   | `BeliefFixedHeader.tsx` | Changed `<motion.header>` → `<motion.div role="presentation">`                            | **P1**   |
+| 6   | `BeliefFixedHeader.tsx` | Added `id="beliefs-section-heading"` + `aria-label` to `<h2>`                             | **P1**   |
+| 7   | `BeliefManifesto.tsx`   | Added `aria-hidden="true"` to decorative divs                                             | **P2**   |
+
+## Confirmed Already Correct (No Action)
+
+- ✅ SSR/Client boundary (`page.tsx` SSR → `BeliefsSection` client)
+- ✅ Reduced motion unified (`useMotionGate` → `useReducedMotion` → `usePrefersReducedMotion`)
+- ✅ Scroll via `useScroll({ target, offset })` from `motion/react`
+- ✅ Ghost Canvas: `frameloop="demand"`, DPR `[1,1.5]`, ref-based store, no `setState` in `useFrame`
+- ✅ Fallbacks: `GhostFallback` + `GhostErrorBoundary` + `useWebGLAvailable`
+- ✅ Resource cleanup in `useEffect` return
+
+## Validation
+
+- `tsc --noEmit --strict` → ✅ Zero errors
+- `eslint` (3 files) → ✅ Zero errors
+- `pnpm run build` → ✅ Exit code 0, `/sobre` prerendered as static
+
+## Checklist
+
+- [x] No `scale` in manifesto (Ghost System compliance)
+- [x] Single `<h2>` per section (heading hierarchy)
+- [x] `aria-labelledby` connected to heading `id`
+- [x] MorphText `<h2>` has `aria-label` for screen readers
+- [x] Manifesto `<blockquote>` with `aria-label`
+- [x] Decorative elements marked `aria-hidden`
+- [x] Build + lint + typecheck passing
+- [x] No CSS/Tailwind files modified

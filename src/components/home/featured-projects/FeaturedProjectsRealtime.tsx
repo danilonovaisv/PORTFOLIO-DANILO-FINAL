@@ -132,13 +132,14 @@ export default function FeaturedProjectsRealtime({
         current.length > 0 ? current : initialProjects
       );
     }
-  }, [initialProjects, isDev, supabase]);
+  }, [initialProjects, isDev, shuffleSeed, supabase]);
 
   useEffect(() => {
     void loadFeaturedProjects();
 
     let channel: RealtimeChannel | null = null;
     let pollingId: ReturnType<typeof setInterval> | null = null;
+    let cancelled = false;
 
     const startPolling = () => {
       if (pollingId || document.visibilityState !== 'visible') return;
@@ -178,11 +179,13 @@ export default function FeaturedProjectsRealtime({
         const {
           data: { session },
         } = await supabase.auth.getSession();
+        if (cancelled) return;
+
         if (session?.access_token) {
           supabase.realtime.setAuth(session.access_token);
         }
 
-        channel = supabase
+        const nextChannel = supabase
           .channel(
             `projects_realtime_channel_${Math.random().toString(36).substring(7)}`
           )
@@ -203,11 +206,16 @@ export default function FeaturedProjectsRealtime({
             void loadFeaturedProjects();
           });
 
+        if (cancelled) {
+          void supabase.removeChannel(nextChannel);
+          return;
+        }
+
+        channel = nextChannel;
         channel.subscribe((status, err) => {
+          if (cancelled) return;
+
           if (status === 'SUBSCRIBED') {
-            if (isDev) {
-              console.warn('[FeaturedProjectsRealtime] Subscribed');
-            }
             stopPolling();
           }
           if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
@@ -231,6 +239,7 @@ export default function FeaturedProjectsRealtime({
     void setup();
 
     return () => {
+      cancelled = true;
       stopPolling();
       window.removeEventListener('focus', handleWindowFocus);
       document.removeEventListener('visibilitychange', handleVisibilityChange);

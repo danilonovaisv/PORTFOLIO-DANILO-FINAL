@@ -25,11 +25,17 @@ export function BeliefBackground({
     return interpolateHSL(colorSequence[index], colorSequence[nextIndex], t);
   });
 
+  const opacity = useTransform(
+    scrollProgress,
+    [0, 0.05, 0.9, 0.98],
+    [0, 1, 1, 0]
+  );
+
   return (
     <motion.div
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="absolute inset-0 z-0 pointer-events-none"
       data-testid="beliefs-background"
-      style={{ backgroundColor }}
+      style={{ backgroundColor, opacity }}
       aria-hidden="true"
     />
   );

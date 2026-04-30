@@ -1,8 +1,9 @@
 'use client';
 
-import { useScroll, useReducedMotion } from 'motion/react';
+import { useScroll } from 'motion/react';
 import { useEffect, useRef, type RefObject } from 'react';
 import { useBeliefStore } from '@/store/beliefStore';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export function useBeliefsScroll(
   externalRef?: RefObject<HTMLDivElement | HTMLElement | null>
@@ -11,18 +12,23 @@ export function useBeliefsScroll(
   const containerRef = externalRef ?? localRef;
   const setMobile = useBeliefStore((s) => s.setMobile);
   const setReducedMotion = useBeliefStore((s) => s.setReducedMotion);
-  const prefersReducedMotion = useReducedMotion() ?? false;
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     setReducedMotion(prefersReducedMotion);
 
     const mq = window.matchMedia('(max-width: 767px)');
-    setMobile(mq.matches);
+    const syncMobile = () => setMobile(mq.matches);
+    const mediaHandler = (e: MediaQueryListEvent) => setMobile(e.matches);
 
-    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
-    mq.addEventListener('change', handler);
+    syncMobile();
+    mq.addEventListener('change', mediaHandler);
+    window.addEventListener('resize', syncMobile, { passive: true });
 
-    return () => mq.removeEventListener('change', handler);
+    return () => {
+      mq.removeEventListener('change', mediaHandler);
+      window.removeEventListener('resize', syncMobile);
+    };
   }, [prefersReducedMotion, setMobile, setReducedMotion]);
 
   const { scrollYProgress } = useScroll({

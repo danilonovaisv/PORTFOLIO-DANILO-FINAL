@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
+import { AboutBeliefs } from '@/components/sobre/sections';
 
 export const metadata: Metadata = {
   title: 'O Que Me Move | Beliefed Design',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden">
+    <main className="relative min-h-screen w-full overflow-x-clip">
       <Suspense
         fallback={
           <div className="h-screen flex items-center justify-center bg-[#040013] text-white/50">

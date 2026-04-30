@@ -1,7 +1,7 @@
 'use client';
 
 import { Component, type ReactNode } from 'react';
-import AboutBeliefsSkeleton from '@/components/sobre/sections/AboutBeliefsSkeleton';
+import { AboutBeliefsSkeleton } from '@/components/sobre/sections/AboutBeliefsSkeleton';
 
 interface Props {
   children: ReactNode;

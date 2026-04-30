@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
-import { sanitizeTailwindValue } from '@/lib/utils';
+import { cn, sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
@@ -142,10 +142,12 @@ export default function BlockRenderer({
     return (
       <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50">
         <Image
+          loader={supabaseLoader}
           src={url}
-          alt="Project media"
+          alt={block.content.text || "Mídia detalhada do projeto"}
           width={1600}
           height={900}
+          quality={60}
           sizes="(max-width: 768px) 100vw, 80vw"
           className="w-full h-auto object-contain"
         />

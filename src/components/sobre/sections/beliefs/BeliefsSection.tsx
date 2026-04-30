@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useInView } from 'motion/react';
+import { useInView, motion } from 'motion/react';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { useBeliefStore } from '@/store/beliefStore';
 import { BeliefBackground } from '@/components/sobre/sections/beliefs/BeliefBackground';
@@ -10,7 +10,7 @@ import { BeliefFixedHeader } from '@/components/sobre/sections/beliefs/BeliefFix
 import { BeliefScrollText } from '@/components/sobre/sections/beliefs/BeliefScrollText';
 import { BeliefSection } from '@/components/sobre/sections/beliefs/BeliefSection';
 import { BeliefManifesto } from '@/components/sobre/sections/beliefs/BeliefManifesto';
-import { GhostCanvas } from '@/components/sobre/sections/beliefs/3d/GhostCanvas';
+import { GhostCanvasClient } from '@/components/sobre/sections/beliefs/3d/GhostCanvasClient';
 import { GhostErrorBoundary } from '@/components/sobre/sections/beliefs/3d/GhostErrorBoundary';
 
 const PHRASES = [
@@ -64,43 +64,59 @@ export function BeliefsSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[600vh] bg-[#040013]"
+      className="relative w-full h-[600vh] bg-[#040013] overflow-clip"
       data-testid="beliefs-section"
-      aria-label="O que me move — manifesto Ghost Design"
+      aria-labelledby="beliefs-section-heading"
     >
-      <BeliefBackground scrollProgress={scrollYProgress} />
-
-      <div className="relative z-10 w-full">
-        <BeliefOverlay scrollProgress={scrollYProgress} />
-
-        <BeliefFixedHeader
+      <div
+        className="sticky top-0 w-full h-screen overflow-hidden"
+        style={{
+          visibility: isInView ? 'visible' : 'hidden',
+          pointerEvents: isInView ? 'auto' : 'none',
+        }}
+      >
+        <BeliefBackground
           scrollProgress={scrollYProgress}
           prefersReducedMotion={prefersReducedMotion}
         />
 
-        <BeliefScrollText
-          scrollProgress={scrollYProgress}
-          phrases={PHRASES}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+        <motion.div
+          className="relative z-10 w-full h-full"
+          initial={false}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <BeliefOverlay scrollProgress={scrollYProgress} />
 
-        <div className="fixed inset-0 z-50 pointer-events-none">
-          <GhostErrorBoundary>
-            <GhostCanvas scrollProgress={scrollYProgress} />
-          </GhostErrorBoundary>
-        </div>
+          <BeliefFixedHeader
+            scrollProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
 
-        <div className="relative">
-          {PHRASES.map((_, i) => (
-            <BeliefSection key={i} index={i} />
-          ))}
-          <BeliefSection index={PHRASES.length} />
-        </div>
+          <BeliefScrollText
+            scrollProgress={scrollYProgress}
+            phrases={PHRASES}
+            prefersReducedMotion={prefersReducedMotion}
+          />
 
-        <BeliefManifesto
-          scrollProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+          <div className="absolute inset-0 z-[70] pointer-events-none">
+            <GhostErrorBoundary>
+              <GhostCanvasClient scrollProgress={scrollYProgress} />
+            </GhostErrorBoundary>
+          </div>
+
+          <BeliefManifesto
+            scrollProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        </motion.div>
+      </div>
+
+      <div className="absolute top-0 left-0 w-full pointer-events-none">
+        {PHRASES.map((_, i) => (
+          <BeliefSection key={i} />
+        ))}
+        <BeliefSection />
       </div>
     </section>
   );

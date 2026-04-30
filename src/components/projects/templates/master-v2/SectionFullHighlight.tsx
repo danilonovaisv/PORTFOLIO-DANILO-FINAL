@@ -39,7 +39,7 @@ export default function SectionFullHighlight({
   const title = item.title || `Destaque ${index + 1}`;
 
   return (
-    <section ref={containerRef} className="std-grid py-8 md:py-14">
+    <section ref={containerRef} className="std-grid relative py-8 md:py-14">
       <motion.article
         initial={revealInitial}
         whileInView={revealVisible}

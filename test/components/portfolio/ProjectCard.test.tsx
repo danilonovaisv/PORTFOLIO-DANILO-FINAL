@@ -60,14 +60,6 @@ jest.mock('next/image', () => ({
     ),
 }));
 
-// Mock parallax hook
-jest.mock('@/hooks/useParallaxGallery', () => ({
-    useParallaxCard: jest.fn(() => ({
-        wrapperRef: { current: null },
-        cardRef: { current: null },
-    })),
-}));
-
 const mockProject: PortfolioProject = {
     id: '1',
     slug: 'test-project',

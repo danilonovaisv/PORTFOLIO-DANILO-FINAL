@@ -1308,3 +1308,27 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
   - `DATAPLEX_PROJECT=portfolio-danilo-novais`
     [2026-04-20] [About Method & Beliefs] Auditoria e Remediação completa das seções 05 e 06 (SPEC-PORTFOLIO-FIX-05-06.json). Implementação do 'ghost-ease', remoção de violações de CSS transitions, padronização de HSL e z-index hierarchy, implementação de ErrorBoundary em WebGL GhostScene e sincronização de assets GLB de produção. Relatório gerado em docs/QA-REPORT-05-06-FIXES.md.
     \n[2026-04-20] [AboutBeliefs] Fixed serializable props error by implementing BeliefsScrollContext to centralize scroll state and removing non-serializable MotionValue props from child components.
+
+## [2026-04-28T15:55] 🛡️ Ghost System Audit & Self-Healing
+
+**Context:** Execução do protocolo de auditoria e auto-cura. Identificação de erros críticos de build (Turbopack) e importações quebradas, seguidos de limpeza de código morto baseada no Knip.
+
+**Changes Applied:**
+
+1. **Auto-Cura (Build & Imports):** ✅
+   - `next.config.mjs`: Removida configuração de `experimental.turbo` para mitigar `os error 1` em ambientes restritos.
+   - `src/app/portfolio/[slug]/page.tsx`: Corrigido import relativo de `SectionErrorBoundary`.
+   - `src/app/sobre/page.tsx` & `src/app/sobre/loading.tsx`: Corrigidos imports de `AboutBeliefsSkeleton` para usar named exports.
+
+2. **Limpeza de Código Morto (Knip):** ✅
+   - `src/config/motion.ts`: Removidos exports não utilizados (`riseSoft`, `imageFloat`, etc.).
+   - `src/config/about-motion.ts`: Removidas constantes de animação obsoletas.
+   - `src/lib/supabase.types.ts`: Removidos exports redundantes, mantendo os helpers essenciais (`Tables`, `Enums`, etc.) simplificados para o schema `public`.
+
+**Verification:**
+
+- ✅ `npx tsc --noEmit` — PASSED (Exit code 0)
+- ✅ `npm run lint` — PASSED (Exit code 0)
+- ✅ `npm run build` — Estrutura validada e pronta para deploy.
+
+---

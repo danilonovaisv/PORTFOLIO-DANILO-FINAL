@@ -1,131 +1,337 @@
-# 06-O-QUE-ME-MOVE Task List
+# task.md — 06-O-QUE-ME-MOVE / Página Sobre
 
-## Sequência de execução
+## P0 — Planejamento, reduced motion, scroll e Ghost 3D
 
-- [x] **T1 — Congelar fonte de verdade do clímax**  
-       Arquivos: `implementation_plan.md`, `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE.md`, `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-AJUSTE.md`, `test/e2e/about-beliefs.spec.ts`  
-       Estimativa: 30 min  
-       Dependências: nenhuma  
-       Risco: manter conflito entre texto legado e frame final azul  
-       Concluir quando: ficar documentado qual referência manda no clímax e quais documentos precisam reconciliação
+### T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
 
-- [x] **T2 — Mapear contrato de motion permitido por camada**  
-       Arquivos: `src/components/sobre/beliefs/BeliefFixedHeader.tsx`, `src/components/sobre/beliefs/BeliefScrollText.tsx`, `src/components/sobre/beliefs/BeliefManifesto.tsx`, `src/components/sobre/3d/GhostScene.tsx`, `src/config/motion.ts`  
-       Estimativa: 45 min  
-       Dependências: T1  
-       Risco: regra da missão conflitar com blueprint legado do Ghost 3D  
-       Concluir quando: existir lista objetiva de quais animações ficam, quais saem e onde exceção formal seria necessária
+- Prioridade: P0 (CRÍTICO)
+- Owner lógico: frontend-specialist + animation-pipeline
+- Dependências: nenhuma
+- Tempo estimado: até 1h
+- Tarefa:
+  - Analisar por que o 3D (`GhostCanvasClient`) e o fundo animado (`BeliefBackground`) estão aparecendo "em todas as sessões" (seja quebrando o layout da página inteira ou estando 100% visíveis em todas as fases internas da seção).
+  - Garantir que a `BeliefsSection` possui `overflow: clip` ou equivalente para que elementos `sticky` e `absolute` não afetem globalmente outras seções do site.
+  - Implementar **clipping de renderização**: se a section `AboutBeliefs` sair de vista ou se a fase interna exigir que o Ghost desapareça (ex: fase Manifesto), ele _deve_ ficar `opacity: 0` e parar de renderizar os pixels no canvas.
+- Critérios de aceite:
+  - O 3D e o Background são visíveis estritamente quando a viewport está dentro dos limites verticais (`[start start, end end]`) da `BeliefsSection`.
+  - As outras seções do site (`AboutHero`, `AboutOrigin`, etc) não sofrem interferência (clipping vazado) do `GhostCanvas` e `BeliefBackground`.
+- Evidência esperada:
+  - Relatório da causa-raiz do vazamento adicionado ao `walkthrough.md`.
+  - Correção efetivada e testada.
 
-- [x] **T3 — Formalizar composição desktop/mobile com grid e largura máxima**  
-       Arquivos: `src/components/sobre/sections/AboutBeliefs.tsx`, `src/components/sobre/beliefs/BeliefFixedHeader.tsx`, `src/components/sobre/beliefs/BeliefScrollText.tsx`, `src/components/sobre/beliefs/BeliefManifesto.tsx`  
-       Estimativa: 45 min  
-       Dependências: T1  
-       Risco: matar sensação full-bleed ao aplicar `max-width: 1680px` errado  
-       Concluir quando: houver estratégia clara para container interno editorial sem limitar background/canvas
+### T01 — Confirmar fluxo real da seção em `/sobre`
 
-- [x] **Checkpoint R1 — Revisão de governança antes de codar**  
-       Objetivo: revisar T1-T3, confirmar fonte de verdade, motion policy e escopo aprovado  
-       Estimativa: 15 min  
-       Dependências: T1, T2, T3  
-       Risco: avançar com premissa errada e refazer depois  
-       Concluir quando: blueprint reconciliado estiver fechado para execução
+- Prioridade: P0
+- Owner lógico: frontend-specialist
+- Dependências: nenhuma
+- Tempo estimado: até 1h
+- Tarefa:
+  - Ler localmente `src/app/sobre/page.tsx`.
+  - Confirmar como `BeliefsSection` é importado/renderizado.
+  - Confirmar se `src/app/(sobre)/o-que-me-move/page.tsx` é protótipo, rota auxiliar ou conteúdo ativo.
+- Critérios de aceite:
+  - Rota `/sobre` documentada.
+  - Ponto exato de render da seção identificado.
+  - Sem suposições sobre rota auxiliar.
+- Evidência esperada:
+  - Nota em `walkthrough.md` com paths e fluxo real.
 
-- [x] **T4 — Corrigir engine cromática do background**  
-       Arquivos: `src/components/sobre/beliefs/BeliefBackground.tsx`, `src/hooks/useBeliefsScroll.ts`, `src/config/motion.ts`  
-       Estimativa: 50 min  
-       Dependências: R1  
-       Risco: quebrar reverse scroll ou manter fundo final incorreto  
-       Concluir quando: fundo responder ao scroll conforme referência aprovada, incluindo frame final correto
+### T02 — Auditar boundary server/client atual
 
-- [x] **T5 — Elevar overlay anti-banding para sistema governado**  
-       Arquivos: `src/components/sobre/beliefs/BeliefOverlay.tsx`, `src/components/sobre/beliefs/BeliefBackground.tsx`  
-       Estimativa: 40 min  
-       Dependências: T4  
-       Risco: overlay excessivo roubar contraste ou ficar imperceptível  
-       Concluir quando: overlay tiver ritmo previsível e compatível com transições de cor
+- Prioridade: P0
+- Owner lógico: frontend-specialist
+- Dependências: T01
+- Tempo estimado: até 1h
+- Tarefa:
+  - Confirmar quais arquivos têm `"use client"`.
+  - Identificar browser-only APIs.
+  - Identificar o menor boundary client possível.
+- Critérios de aceite:
+  - Server Component `/sobre` preservado.
+  - Client-only isolado em seção/motion/Canvas.
+- Evidência esperada:
+  - Lista de boundaries em `walkthrough.md`.
 
-- [x] **T6 — Ajustar header e frases ao contrato final de motion**  
-       Arquivos: `src/components/sobre/beliefs/BeliefFixedHeader.tsx`, `src/components/sobre/beliefs/BeliefScrollText.tsx`, `src/config/motion.ts`  
-       Estimativa: 50 min  
-       Dependências: R1, T3  
-       Risco: perder legibilidade ou pacing editorial  
-       Concluir quando: entrada/saída respeitarem easing único, motion permitido e layout desktop/mobile
+### T03 — Definir contrato único de reduced motion
 
-- [x] **T7 — Corrigir manifesto final para paridade visual**  
-       Arquivos: `src/components/sobre/beliefs/BeliefManifesto.tsx`, `src/components/sobre/sections/AboutBeliefs.tsx`  
-       Estimativa: 40 min  
-       Dependências: T3, T4  
-       Risco: manifesto ficar dominante demais e competir com Ghost  
-       Concluir quando: clímax bater com imagem final aprovada em desktop e mobile
+- Prioridade: P0
+- Owner lógico: accessibility + framer-motion
+- Dependências: T02
+- Tempo estimado: até 1h
+- Tarefa:
+  - Auditar `useReducedMotion.ts`.
+  - Auditar `usePrefersReducedMotion.ts`.
+  - Definir qual hook será fonte oficial.
+  - Criar wrapper compatível se necessário.
+- Critérios de aceite:
+  - Uma única semântica de reduced motion.
+  - Consumidores existentes não quebram.
+  - Sem acesso a `window` fora de client-safe effect.
+- Evidência esperada:
+  - Decisão registrada em `walkthrough.md`.
+  - Teste manual de `prefers-reduced-motion: reduce`.
 
-- [x] **T8 — Reconciliar Ghost 3D com regras da missão**  
-       Arquivos: `src/components/sobre/3d/GhostScene.tsx`, `src/store/beliefStore.ts`, `src/components/sobre/beliefs/CustomCursor.tsx`  
-       Estimativa: 60 min  
-       Dependências: T2, T7  
-       Risco: conflito entre identidade visual e restrição “sem scale/rotate”; risco de regressão perceptível/performance  
-       Concluir quando: Ghost mantiver hierarquia e estabilidade, com motion dentro da política aprovada
+### T04 — Alinhar scroll-triggered com Motion.dev
 
-- [x] **Checkpoint R2 — Revisão visual intermediária**  
-       Objetivo: inspecionar localmente desktop/mobile antes de finalizar QA  
-       Estimativa: 20 min  
-       Dependências: T4, T5, T6, T7, T8  
-       Risco: descobrir tarde desalinhamento evidente de composição  
-       Concluir quando: seção estiver pronta para teste formal
+- Prioridade: P0
+- Owner lógico: framer-motion + animation-pipeline
+- Dependências: T03
+- Tempo estimado: até 1h
+- Tarefa:
+  - Ajustar `useBeliefsScroll` ou `BeliefsSection` para usar `useScroll({ target, offset })`.
+  - Garantir que o progresso vem da seção, não do scroll global.
+  - Expor `scrollYProgress` para background e phases.
+- Critérios de aceite:
+  - Background e fases derivam do progresso real da seção.
+  - Reduced motion usa valores estáticos.
+- Evidência esperada:
+  - Vídeo/GIF ou descrição de teste de scroll.
+  - Registro dos offsets utilizados.
 
-- [x] **T9 — Atualizar cobertura de testes e evidências de QA**  
-       Arquivos: `test/e2e/about-beliefs.spec.ts`  
-       Estimativa: 50 min  
-       Dependências: R2  
-       Risco: teste cobrir CSS superficial e não proteger regressão visual real  
-       Concluir quando: casos desktop/mobile, clímax, z-index, background e sticky estiverem cobertos
+### T05 — Otimizar política do Ghost Canvas
 
-- [x] **T10 — Rodar verificação técnica da seção**  
-       Arquivos: sem mudança de código obrigatória; usa workspace atual  
-       Estimativa: 30 min  
-       Dependências: T9  
-       Risco: erro de lint/typecheck ou flake de E2E bloquear entrega  
-       Concluir quando: checks relevantes da seção passarem ou limitações ficarem registradas com evidência
+- Prioridade: P0
+- Owner lógico: 3d-webgl-scene + performance-audit
+- Dependências: T02, T03
+- Tempo estimado: até 1h
+- Tarefa:
+  - Auditar `GhostCanvas.tsx`.
+  - Confirmar DPR.
+  - Confirmar `frameloop`.
+  - Confirmar ausência de alocações em `useFrame`.
+  - Confirmar ausência de `setState` em `useFrame`.
+- Critérios de aceite:
+  - DPR controlado por breakpoint/reduced motion.
+  - `useFrame` seguro.
+  - Sem animação contínua em reduced motion.
+- Evidência esperada:
+  - Checklist 3D em `walkthrough.md`.
 
-- [x] **T11 — Atualizar documentação `.context`**  
-       Arquivos: `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE.md`, `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-AJUSTE.md`  
-       Estimativa: 45 min  
-       Dependências: T4, T5, T6, T7, T8  
-       Risco: código e documentação voltarem a divergir logo após a entrega  
-       Concluir quando: `.context` refletir exatamente o comportamento aprovado
+### T06 — Formalizar fallback WebGL/loading/error
 
-- [x] **T12 — Consolidar `walkthrough.md` com evidências finais**  
-       Arquivos: `walkthrough.md`  
-       Estimativa: 40 min  
-       Dependências: T10, T11  
-       Risco: entrega sem prova visual ou sem checklist final  
-       Concluir quando: resumo, arquivos alterados, screenshots, checklist, riscos remanescentes e status final estiverem registrados
+- Prioridade: P0
+- Owner lógico: frontend-developer + 3d-webgl-scene
+- Dependências: T05
+- Tempo estimado: até 1h
+- Tarefa:
+  - Validar uso real de `GhostFallback.tsx`.
+  - Validar uso real de `GhostErrorBoundary.tsx`.
+  - Validar `useWebGLAvailable.ts`.
+  - Garantir fallback sem layout shift.
+- Critérios de aceite:
+  - Loading visível e estável.
+  - Erro renderiza fallback.
+  - WebGL indisponível renderiza alternativa.
+- Evidência esperada:
+  - Capturas ou descrição de cenários testados.
 
-## Dependências entre tarefas
+---
 
-- T1 destrava T2 e T3.
-- R1 destrava implementação real.
-- T4 destrava T5 e ajuda T7.
-- T2 destrava T8.
-- T3 destrava T6 e T7.
-- R2 destrava T9.
-- T10 e T11 destravam T12.
+## P1 — Semântica, camadas, responsividade e SEO
 
-## Checkpoints de revisão
+### T07 — Auditar e corrigir heading hierarchy
 
-- **R1:** depois de congelar fonte de verdade, motion policy e composição.
-- **R2:** depois das correções principais, antes da bateria final de QA.
+- Prioridade: P1
+- Owner lógico: accessibility + seo-technical
+- Dependências: T01
+- Tempo estimado: até 1h
+- Tarefa:
+  - Confirmar um único `h1` em `/sobre`.
+  - Confirmar `BeliefFixedHeader` como `h2`.
+  - Adicionar/ajustar `section aria-labelledby`.
+- Critérios de aceite:
+  - Heading hierarchy válida.
+  - Section nomeada corretamente.
+- Evidência esperada:
+  - Resultado de inspeção DOM em `walkthrough.md`.
 
-## Critérios de conclusão por item
+### T08 — Criar ou ajustar AccessibleSplitText
 
-- Cada tarefa só fecha com:
-  - arquivos-alvo identificados e alterados dentro do escopo;
-  - comportamento esperado confirmado;
-  - risco específico revisitado;
-  - impacto em desktop e mobile considerado;
-  - necessidade documental marcada.
+- Prioridade: P1
+- Owner lógico: accessibility + framer-motion
+- Dependências: T03, T07
+- Tempo estimado: até 1h
+- Tarefa:
+  - Auditar `BeliefScrollText.tsx`.
+  - Se houver split visual, preservar leitura com `aria-label`.
+  - Spans visuais com `aria-hidden`.
+  - Fallback estático reduced motion.
+- Critérios de aceite:
+  - Screen reader lê o texto uma vez.
+  - Texto permanece semântico.
+  - Sem `scale`, `rotate`, `bounce`.
+- Evidência esperada:
+  - Nota de inspeção accessibility em `walkthrough.md`.
 
-## Observações operacionais
+### T09 — Orquestrar fases de protagonismo visual
 
-- Nenhuma tarefa de implementação começa sem aprovação humana explícita.
-- Nenhuma tarefa deve ultrapassar 1 hora.
-- Se surgir conflito entre blueprint escrito e referência visual, prevalece a fonte congelada em T1 e o desvio deve ser documentado no `walkthrough.md`.
+- Prioridade: P1
+- Owner lógico: animation-pipeline + frontend-specialist
+- Dependências: T04, T05
+- Tempo estimado: até 1h
+- Tarefa:
+  - Definir phase `entry`, `middle`, `manifesto`.
+  - Ajustar opacidade/blur/translateY de background, texto, Ghost e manifesto.
+  - Garantir apenas uma camada dominante por fase.
+- Critérios de aceite:
+  - Entrada: background sutil + header.
+  - Miolo: Ghost protagonista + texto estável.
+  - Final: manifesto protagonista + Ghost reduzido.
+- Evidência esperada:
+  - Matriz phase/layer registrada.
+
+### T10 — Ajustar BeliefBackground
+
+- Prioridade: P1
+- Owner lógico: framer-motion + frontend-developer
+- Dependências: T04, T09
+- Tempo estimado: até 1h
+- Tarefa:
+  - Receber progresso da seção.
+  - Usar `useTransform`.
+  - Reduzir competição visual.
+  - Aplicar fallback reduced motion.
+- Critérios de aceite:
+  - Background contínuo, sutil e legível.
+  - Sem motion proibido.
+- Evidência esperada:
+  - Antes/depois visual ou descrição de teste.
+
+### T11 — Ajustar BeliefManifesto
+
+- Prioridade: P1
+- Owner lógico: frontend-developer + accessibility
+- Dependências: T07, T09
+- Tempo estimado: até 1h
+- Tarefa:
+  - Garantir manifesto como `blockquote` ou `p`.
+  - Dar foco narrativo na fase final.
+  - Evitar heading artificial.
+- Critérios de aceite:
+  - Manifesto é protagonista no final.
+  - Sem competir com Ghost/background.
+- Evidência esperada:
+  - Screenshot/descrição da fase final.
+
+### T12 — Responsividade e gestos mobile
+
+- Prioridade: P1
+- Owner lógico: frontend-developer + performance-audit
+- Dependências: T05, T09
+- Tempo estimado: até 1h
+- Tarefa:
+  - Validar desktop, tablet e mobile.
+  - Reduzir DPR/amplitude em tablet.
+  - Congelar ou suavizar Ghost no mobile.
+  - Evitar captura de gesto pelo Canvas.
+- Critérios de aceite:
+  - 390x844 sem clipping/overlap/scroll horizontal.
+  - 768x1024 estável.
+  - 1440x900 preserva impacto visual.
+- Evidência esperada:
+  - Checklist por viewport.
+
+### T13 — Validar SEO técnico da página `/sobre`
+
+- Prioridade: P1
+- Owner lógico: seo-technical
+- Dependências: T07
+- Tempo estimado: até 1h
+- Tarefa:
+  - Confirmar metadata.
+  - Confirmar OG.
+  - Confirmar conteúdo editorial no HTML inicial quando possível.
+- Critérios de aceite:
+  - Metadata preservada/adequada.
+  - Um único `h1`.
+  - Conteúdo principal indexável.
+- Evidência esperada:
+  - Nota SEO em `walkthrough.md`.
+
+---
+
+## P2 — Ajuste fino e documentação final
+
+### T14 — Comparação manual com `anima.mov`
+
+- Prioridade: P2
+- Owner lógico: animation-pipeline + frontend-code-review
+- Dependências: T09, T10, T11, T12
+- Tempo estimado: até 1h
+- Tarefa:
+  - Comparar localmente a experiência com `anima.mov`.
+  - Ajustar timing apenas se respeitar Ghost System.
+- Critérios de aceite:
+  - Diferenças registradas.
+  - Sem introduzir motion proibido.
+- Evidência esperada:
+  - Notas de comparação em `walkthrough.md`.
+
+### T15 — Comparação manual com `drinksom.eu`
+
+- Prioridade: P2
+- Owner lógico: frontend-specialist + animation-pipeline
+- Dependências: T14
+- Tempo estimado: até 1h
+- Tarefa:
+  - Comparar ritmo, profundidade e hierarquia visual.
+  - Não copiar identidade visual externa.
+- Critérios de aceite:
+  - Diferenças finais documentadas.
+  - Ghost System preservado.
+- Evidência esperada:
+  - Registro em `walkthrough.md`.
+
+### T16 — Revisão final de código
+
+- Prioridade: P2
+- Owner lógico: frontend-code-review + skill-verification-before-completion
+- Dependências: T01-T13
+- Tempo estimado: até 1h
+- Tarefa:
+  - Revisar SSR/client boundaries.
+  - Revisar accessibility.
+  - Revisar performance R3F.
+  - Revisar Tailwind Oxide.
+- Critérios de aceite:
+  - Sem violações de arquitetura.
+  - Sem motion proibido.
+  - Sem regressão Tailwind.
+- Evidência esperada:
+  - Checklist final assinado em `walkthrough.md`.
+
+### T17 — Gerar walkthrough final
+
+- Prioridade: P2
+- Owner lógico: skill-verification-before-completion
+- Dependências: T16
+- Tempo estimado: até 1h
+- Tarefa:
+  - Criar/atualizar `walkthrough.md`.
+  - Registrar:
+    - arquivos alterados;
+    - decisões arquiteturais;
+    - validações executadas;
+    - evidências coletadas;
+    - riscos remanescentes;
+    - pendências com `anima.mov`;
+    - diferenças finais frente a `drinksom.eu`.
+- Critérios de aceite:
+  - Walkthrough completo.
+  - Pendências manuais explicitadas.
+- Evidência esperada:
+  - `walkthrough.md` final.
+
+### T18 — Verificar necessidade de atualizar `.context/DOCS-PORTFOLIO-PAGES`
+
+- Prioridade: P2
+- Owner lógico: docs-architecture / frontend-specialist
+- Dependências: T17
+- Tempo estimado: até 1h
+- Tarefa:
+  - Se houve alteração estrutural, atualizar documentação contextual.
+  - Se não houve, registrar que não foi necessário.
+- Critérios de aceite:
+  - Contexto do projeto não fica defasado.
+- Evidência esperada:
+  - Nota no `walkthrough.md` e, se aplicável, diff da documentação.

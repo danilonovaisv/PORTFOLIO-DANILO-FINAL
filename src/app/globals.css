@@ -1,4 +1,4 @@
-@import 'tailwindcss' source(none);
+@import 'tailwindcss';
 @source "../components/**/*.{tsx,ts,jsx,js,css,mdx}";
 @source "../app/**/*.{tsx,ts,jsx,js,css,mdx}";
 @source "../lib/**/*.{tsx,ts,jsx,js}";
@@ -7,8 +7,6 @@
 @source "../types/**/*.{tsx,ts}";
 @source "../config/**/*.{tsx,ts,js}";
 @source "../styles/**/*.css";
-
-@plugin 'tailwindcss-animate';
 
 @theme {
   /* Cores da marca */
@@ -178,11 +176,15 @@ body {
   /* Safer wrap */
   word-break: normal;
 
-  /* Prevent horizontal overflow on mobile & keep 100vw exact */
-  overflow-x: hidden;
+  /* Prevent horizontal overflow without creating a scroll container that breaks sticky sections. */
+  overflow-x: clip;
 
   /* Optimize text rendering */
   text-rendering: optimizeLegibility;
+}
+
+.video-manifesto {
+  position: relative;
 }
 
 /* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */

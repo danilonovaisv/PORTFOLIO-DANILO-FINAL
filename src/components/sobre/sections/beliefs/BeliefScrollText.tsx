@@ -30,18 +30,14 @@ export function BeliefScrollText({
 
   return (
     <div
-      className={`absolute inset-0 z-30 flex flex-col pointer-events-none ${
-        isMobile
-          ? 'items-center justify-start px-6 text-center'
-          : 'justify-start left-6 md:left-16 lg:left-24 max-w-[45vw] lg:max-w-[40vw] text-left'
-      }`}
+      className="absolute inset-0 z-30 flex flex-col pointer-events-none items-center justify-start px-6 text-center md:items-start md:left-16 md:max-w-[45vw] md:px-0 md:text-left lg:left-24 lg:max-w-[40vw]"
       data-testid="beliefs-scroll-text"
     >
       <div
-        className="sticky top-0 h-[100vh] w-full flex relative pointer-events-none"
+        className="absolute inset-0 w-full h-full flex pointer-events-none"
         style={{
           alignItems: isMobile ? 'flex-end' : 'center',
-          bottom: isMobile ? '20vh' : undefined,
+          paddingBottom: isMobile ? '20vh' : undefined,
         }}
       >
         {phrases.map((phrase, i) => {
@@ -81,30 +77,42 @@ function PhraseItem({
   const segmentSize = end - start;
   const ghostEase = cubicBezier(...GHOST_EASE_AMBIENT);
 
-  const entryStart = start + 0.05;
-  const entryEnd = start + segmentSize * 0.4;
-  const exitStart = end - segmentSize * 0.4;
-  const exitEnd = end - 0.05;
+  const isInitialPhrase = start === 0;
+  const entryStart = isInitialPhrase ? 0 : start + 0.05;
+  const entryEnd = isInitialPhrase
+    ? start + segmentSize * 0.3
+    : start + segmentSize * 0.4;
+  const exitStart = end - segmentSize * 0.25;
+  const exitEnd = end;
+  const inputRange: [number, number, number, number] = [
+    entryStart,
+    entryEnd,
+    exitStart,
+    exitEnd,
+  ];
+  const opacityRange: [number, number, number, number] = isInitialPhrase
+    ? [0.65, 1, 1, 0]
+    : [0, 1, 1, 0];
+  const movementRange: [string, string, string, string] = isInitialPhrase
+    ? isMobile
+      ? ['14px', '0px', '0px', '100vw']
+      : ['14px', '0px', '0px', '-40px']
+    : isMobile
+      ? ['40px', '0px', '0px', '100vw']
+      : ['40px', '0px', '0px', '-40px'];
+  const blurRange: [number, number, number, number] = isInitialPhrase
+    ? [6, 0, 0, 15]
+    : [15, 0, 0, 15];
 
-  const opacity = useTransform(
-    scrollProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    [0, 1, 1, 0],
-    { ease: ghostEase }
-  );
+  const opacity = useTransform(scrollProgress, inputRange, opacityRange, {
+    ease: ghostEase,
+  });
 
-  const movement = useTransform(
-    scrollProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    isMobile ? ['40px', '0px', '0px', '100vw'] : ['40px', '0px', '0px', '-40px'],
-    { ease: ghostEase }
-  );
+  const movement = useTransform(scrollProgress, inputRange, movementRange, {
+    ease: ghostEase,
+  });
 
-  const blurValue = useTransform(
-    scrollProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    [15, 0, 0, 15]
-  );
+  const blurValue = useTransform(scrollProgress, inputRange, blurRange);
 
   const filter = useTransform(blurValue, (v) =>
     prefersReducedMotion ? 'none' : `blur(${v}px)`
@@ -112,13 +120,21 @@ function PhraseItem({
 
   return (
     <motion.div
-      className="absolute flex flex-col pointer-events-none"
+      data-testid="belief-phrase"
+      className="belief-phrase absolute flex flex-col pointer-events-none"
+      transformTemplate={prefersReducedMotion ? () => 'none' : undefined}
       style={{
         opacity,
-        x: isMobile ? movement : 0,
-        y: isMobile ? 0 : movement,
+        ...(prefersReducedMotion
+          ? {}
+          : {
+              x: isMobile ? movement : 0,
+              y: isMobile ? 0 : movement,
+            }),
         filter,
-        willChange: 'transform, opacity, filter',
+        willChange: prefersReducedMotion
+          ? 'opacity'
+          : 'transform, opacity, filter',
       }}
     >
       <span className="text-[#0048ff] font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 md:mb-4 opacity-70">

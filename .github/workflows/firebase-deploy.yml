@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
 
     steps:
@@ -86,6 +88,9 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         env:
+          FIREBASE_PROJECT_ID: portfolio-danilo-novais
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
+          PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
         run: |
           pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"

@@ -1,22 +1,27 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  as?: React.ElementType;
-}
+type AsProp<C extends React.ElementType> = {
+  as?: C;
+};
 
-export function Container({
+type ContainerProps<C extends React.ElementType = 'div'> = AsProp<C> &
+  Omit<React.ComponentPropsWithoutRef<C>, keyof AsProp<C>> & {
+    children?: React.ReactNode;
+    className?: string;
+  };
+
+export function Container<C extends React.ElementType = 'div'>({
   children,
   className,
-  as: Component = 'div',
+  as,
   ...props
-}: ContainerProps) {
+}: ContainerProps<C>) {
+  const Component = (as || 'div') as React.ElementType;
+
   return (
-    <Component className={cn('std-grid', className)} {...props}>
+    <Component className={cn('std-grid', className)} {...(props as any)}>
       {children}
     </Component>
   );
 }
-
-export const StandardGrid = Container;

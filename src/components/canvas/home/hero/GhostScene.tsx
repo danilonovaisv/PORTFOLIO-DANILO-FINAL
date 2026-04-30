@@ -661,7 +661,7 @@ export default function GhostScene() {
 
     const forceInitialRender = () => {
       // Pré-render para compilar shaders
-      for (let i = 0; i < 3; i++) composer.render();
+      for (let i = 0; i < 3; i++) composer.render(0);
       isInitialized = true;
       preloaderManager.complete(renderer.domElement);
     };
@@ -835,7 +835,7 @@ export default function GhostScene() {
 
       // --- RENDER ---
       if (performanceConfig.enablePostProcessing) {
-        composer.render();
+        composer.render(deltaTime / 1000);
       } else {
         renderer.render(scene, camera);
       }

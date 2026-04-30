@@ -74,35 +74,4 @@ export const motionTokens = {
   },
 };
 
-/**
- * Delays padrão do sistema
- */
-export const motionDelays = {
-  none: 0,
-  short: 0.2,
-  base: 0.4,
-  long: 1.0,
-  stagger: 0.18,
-};
-
-/**
- * Durações padrão do sistema
- */
-export const motionDurations = {
-  fast: 0.6,
-  base: 0.9,
-  slow: 1.4,
-};
-
-/**
- * Configurações de Spring (Física)
- */
-export const motionSprings = {
-  ghost: {
-    stiffness: 50,
-    damping: 20,
-    restDelta: 0.001,
-  },
-};
-
 export { GHOST_EASE };

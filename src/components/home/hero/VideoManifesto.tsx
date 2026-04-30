@@ -8,6 +8,7 @@ import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { getAssetUrl } from '@/lib/utils';
 
 interface VideoManifestoProps {
   src: string;
@@ -170,11 +171,11 @@ export function VideoManifesto({
       : currentSrc;
   const videoSrc = variantSrc;
 
-  // ── Posters responsivos ────────────────────────────────────────────────────
-  // Prioridade: poster explícito via props > DEFAULT_VIDEO_POSTER
-  const activePoster = isMobile
+  const rawPoster = isMobile
     ? (posterMobile ?? posterDesk ?? DEFAULT_VIDEO_POSTER)
     : (posterDesk ?? DEFAULT_VIDEO_POSTER);
+
+  const activePoster = getAssetUrl(rawPoster, { width: 1920, quality: 60 });
 
   return (
     <motion.section

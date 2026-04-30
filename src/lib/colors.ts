@@ -90,8 +90,3 @@ export const colorSequence: [number, number, number][] = [
   colorPalette.purpleDetails, // 6. Roxo
   colorPalette.bluePrimary, // 7. Azul (Final Climax)
 ];
-
-// Converte HSL tupla para string CSS
-export const hslToString = (hsl: [number, number, number]): string => {
-  return `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
-};

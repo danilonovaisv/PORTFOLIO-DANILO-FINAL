@@ -14,6 +14,7 @@ import {
   applyImageFallback,
   getAssetUrl,
   isVideo,
+  supabaseLoader,
 } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
@@ -111,11 +112,11 @@ export const ProjectCard = React.memo(function ProjectCard({
 
   const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizeAwareSizes: Record<ProjectCardSize, string> = {
-    sm: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 31vw',
-    md: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 31vw',
-    lg: '(max-width: 640px) 92vw, (max-width: 1024px) 92vw, 64vw',
-    wide: '(max-width: 640px) 92vw, (max-width: 1024px) 92vw, 96vw',
-    tall: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 31vw',
+    sm: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 400px',
+    md: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 400px',
+    lg: '(max-width: 640px) 92vw, (max-width: 1024px) 92vw, 800px',
+    wide: '(max-width: 640px) 92vw, (max-width: 1024px) 92vw, 1200px',
+    tall: '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 400px',
   };
   const sizes = project.layout?.sizes ?? sizeAwareSizes[size];
   const headingId = `project-card-${project.id}-title`;
@@ -195,8 +196,9 @@ export const ProjectCard = React.memo(function ProjectCard({
               />
             ) : (
               <Image
+                loader={supabaseLoader}
                 src={desktopMedia}
-                alt={project.title}
+                alt={`Projeto ${project.title}`}
                 fill
                 className={cn(
                   'hidden md:block object-cover object-center transition-opacity duration-500',
@@ -204,7 +206,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 )}
                 style={{ objectPosition }}
                 sizes={sizes}
-                quality={55}
+                quality={60}
                 loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
                 onError={applyImageFallback}
@@ -227,8 +229,9 @@ export const ProjectCard = React.memo(function ProjectCard({
               />
             ) : (
               <Image
+                loader={supabaseLoader}
                 src={mobileMedia}
-                alt={project.title}
+                alt={`Projeto ${project.title}`}
                 fill
                 className={cn(
                   'block md:hidden object-cover object-center transition-opacity duration-500',
@@ -236,7 +239,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 )}
                 style={{ objectPosition }}
                 sizes={sizes}
-                quality={55}
+                quality={60}
                 loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
                 onError={applyImageFallback}
@@ -260,8 +263,9 @@ export const ProjectCard = React.memo(function ProjectCard({
           />
         ) : (
           <Image
+            loader={supabaseLoader}
             src={desktopMedia}
-            alt={project.title}
+            alt={`Projeto ${project.title}`}
             fill
             className={cn(
               'object-cover object-center transition-opacity duration-500',
@@ -269,7 +273,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             )}
             style={{ objectPosition }}
             sizes={sizes}
-            quality={55}
+            quality={60}
             loading={priority ? 'eager' : 'lazy'}
             priority={priority}
             onError={applyImageFallback}
@@ -294,17 +298,17 @@ export const ProjectCard = React.memo(function ProjectCard({
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-bluePrimary/85 p-6 text-center opacity-0 transition-all duration-250 ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#00154d]/90 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-300 ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
         <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-white/70 mb-2">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-2 font-medium">
             {project.displayCategory}
           </p>
-          <h3 id={headingId} className="text-2xl md:text-3xl font-bold leading-tight mb-3 text-balance">
+          <h3 id={headingId} className="text-2xl md:text-3xl font-black leading-[1.1] mb-3 text-balance tracking-tight">
             {project.title}
           </h3>
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-white/80">
-            {project.client ? <span>{project.client}</span> : null}
-            {project.client && project.year ? <span aria-hidden="true">•</span> : null}
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-white/70">
+            {project.client ? <span className="text-white/90">{project.client}</span> : null}
+            {project.client && project.year ? <span className="text-blueAccent/40" aria-hidden="true">•</span> : null}
             {project.year ? <span>{project.year}</span> : null}
           </div>
           {/* Metadata invisível para SEO/Acessibilidade: Ghost v3.1 */}

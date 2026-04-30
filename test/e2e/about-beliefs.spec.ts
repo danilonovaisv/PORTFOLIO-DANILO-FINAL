@@ -11,6 +11,12 @@ const gotoRoute = async (page: Page, route: string) => {
       ?.scrollIntoView({ behavior: 'instant', block: 'start' });
   });
   await page.waitForTimeout(500);
+  await page.evaluate(() => {
+    document
+      .querySelector('[data-testid="beliefs-section"]')
+      ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
+  await page.waitForTimeout(100);
 };
 
 const scrollToProgress = async (page: Page, progress: number) => {
@@ -112,19 +118,24 @@ for (const route of ROUTES) {
       await expect
         .poll(async () => {
           const styles = await page
-            .locator('[data-testid="beliefs-scroll-text"] .belief-phrase span')
+            .locator('[data-testid="belief-phrase"]')
             .evaluateAll((elements) => {
               return elements.map((el) => {
                 const computed = window.getComputedStyle(el);
                 return {
                   opacity: Number(computed.opacity),
                   filter: computed.filter,
+                  transform: computed.transform,
                 };
               });
             });
-          const visiblePhrase = styles.find((style) => style.opacity > 0.5);
 
-          return visiblePhrase && !visiblePhrase.filter.includes('blur(6px)');
+          return styles.some(
+            (style) =>
+              style.opacity > 0.5 &&
+              style.filter !== 'none' &&
+              style.transform !== 'none'
+          );
         })
         .toBeTruthy();
     });
@@ -136,34 +147,33 @@ for (const route of ROUTES) {
       await gotoRoute(page, route);
       await scrollToProgress(page, 0.35);
 
-      const hasReducedMotionViolation = await page.evaluate(() => {
-        const section = document.querySelector(
-          '[data-testid="beliefs-section"]'
-        );
-        if (!section) return true;
+      await expect
+        .poll(async () => {
+          return page.evaluate(() => {
+            const elements = document.querySelectorAll(
+              '[data-testid="belief-phrase"]'
+            );
 
-        const elements = section.querySelectorAll(
-          '[data-testid="beliefs-scroll-text"] .belief-phrase span'
-        );
+            if (elements.length === 0) return true;
 
-        for (const el of elements) {
-          const style = window.getComputedStyle(el);
-          if (style.filter !== 'none' && style.filter !== 'blur(0px)') {
-            return true;
-          }
-          if (
-            style.transform &&
-            style.transform !== 'none' &&
-            style.transform !== 'matrix(1, 0, 0, 1, 0, 0)'
-          ) {
-            return true;
-          }
-        }
+            for (const el of elements) {
+              const style = window.getComputedStyle(el);
+              if (style.filter !== 'none' && style.filter !== 'blur(0px)') {
+                return true;
+              }
+              if (
+                style.transform &&
+                style.transform !== 'none' &&
+                style.transform !== 'matrix(1, 0, 0, 1, 0, 0)'
+              ) {
+                return true;
+              }
+            }
 
-        return false;
-      });
-
-      expect(hasReducedMotionViolation).toBe(false);
+            return false;
+          });
+        })
+        .toBe(false);
     });
 
     test('mobile posiciona header e texto conforme contrato', async ({
@@ -172,16 +182,23 @@ for (const route of ROUTES) {
       await page.setViewportSize({ width: 390, height: 844 });
       await gotoRoute(page, route);
       await scrollToProgress(page, 0.2);
+      await page.evaluate(() => {
+        document
+          .querySelector('[data-testid="beliefs-section"]')
+          ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
+      await page.waitForTimeout(100);
+      await scrollToProgress(page, 0.2);
 
-      const headerTop = await page
-        .locator('[data-testid="beliefs-header"]')
-        .evaluate((el) => window.getComputedStyle(el).top);
+      const headerContentTop = await page
+        .locator('[data-testid="beliefs-header-content"]')
+        .evaluate((el) => el.getBoundingClientRect().top);
       const phraseTextAlign = await page
         .locator('[data-testid="beliefs-scroll-text"]')
         .evaluate((el) => window.getComputedStyle(el).textAlign);
 
-      expect(Number.parseFloat(headerTop)).toBeGreaterThanOrEqual(160);
-      expect(Number.parseFloat(headerTop)).toBeLessThanOrEqual(170);
+      expect(headerContentTop).toBeGreaterThanOrEqual(100);
+      expect(headerContentTop).toBeLessThanOrEqual(160);
       expect(phraseTextAlign).toBe('center');
     });
 
@@ -204,6 +221,51 @@ for (const route of ROUTES) {
       );
 
       expect(hydrationErrors).toHaveLength(0);
+    });
+
+    test('WebGL indisponível cai em fallback sem unhandled rejection', async ({
+      page,
+    }) => {
+      await page.addInitScript(() => {
+        const originalGetContext = HTMLCanvasElement.prototype.getContext;
+
+        HTMLCanvasElement.prototype.getContext = function getContext(
+          this: HTMLCanvasElement,
+          type,
+          ...args
+        ) {
+          if (
+            type === 'webgl' ||
+            type === 'webgl2' ||
+            type === 'experimental-webgl' ||
+            type === 'webgl2-compute'
+          ) {
+            return null;
+          }
+
+          return originalGetContext.call(this, type, ...args);
+        } as typeof HTMLCanvasElement.prototype.getContext;
+      });
+
+      await page.goto('about:blank');
+      await page.waitForTimeout(500);
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') errors.push(msg.text());
+      });
+
+      await gotoRoute(page, route);
+
+      await expect(page.locator('[data-testid="ghost-fallback"]')).toBeAttached(
+        { timeout: 10000 }
+      );
+
+      expect(
+        errors.filter((message) =>
+          message.includes('Error creating WebGL context')
+        )
+      ).toHaveLength(0);
     });
   });
 }

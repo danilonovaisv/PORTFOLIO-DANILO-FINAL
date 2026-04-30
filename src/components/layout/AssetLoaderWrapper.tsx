@@ -6,6 +6,9 @@ import { getClientSiteAssets } from '@/lib/supabase/site-assets-client';
 import type { NormalizedSiteAsset } from '@/lib/supabase/site-asset-utils';
 import ClientLayout from '@/components/layout/ClientLayout';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
+import { installThreeConsoleFilter } from '@/lib/three-console';
+
+installThreeConsoleFilter();
 
 interface AssetLoaderWrapperProps {
   children: React.ReactNode;

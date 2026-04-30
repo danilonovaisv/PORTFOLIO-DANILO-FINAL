@@ -10,7 +10,7 @@ import FeaturedProjectAnimatedBackground from '@/components/home/featured-projec
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { applyImageFallback, cn, getAssetUrl, isVideo } from '@/lib/utils';
+import { applyImageFallback, cn, getAssetUrl, isVideo, supabaseLoader } from '@/lib/utils';
 import type { PortfolioProject } from '@/types/project';
 
 type FeaturedProjectCardFrameProps = {
@@ -157,6 +157,7 @@ export default function FeaturedProjectCardFrame({
                   />
                 ) : !desktopThumbIsVideo && desktopThumbUrl ? (
                   <Image
+                    loader={supabaseLoader}
                     src={desktopThumbUrl}
                     alt={visualAltText}
                     fill
@@ -186,6 +187,7 @@ export default function FeaturedProjectCardFrame({
                   />
                 ) : !mobileThumbIsVideo && mobileThumbUrl ? (
                   <Image
+                    loader={supabaseLoader}
                     src={mobileThumbUrl}
                     alt={visualAltText}
                     fill
@@ -213,6 +215,7 @@ export default function FeaturedProjectCardFrame({
               />
             ) : !desktopThumbIsVideo && desktopThumbUrl ? (
               <Image
+                loader={supabaseLoader}
                 src={desktopThumbUrl}
                 alt={visualAltText}
                 fill
@@ -237,6 +240,7 @@ export default function FeaturedProjectCardFrame({
         <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center p-6 sm:p-8 md:p-12">
           <div className="relative h-full w-full max-h-[160px] max-w-[320px]">
             <Image
+              loader={supabaseLoader}
               src={logoSrc}
               alt={logoAltText}
               fill

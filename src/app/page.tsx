@@ -91,10 +91,11 @@ export const metadata: Metadata = {
 };
 
 import { preload } from 'react-dom';
+import { getAssetUrl } from '@/lib/utils';
 
 export default async function HomePage() {
   for (const poster of SITE_ASSET_PRELOADS.homeHero.posters) {
-    preload(poster, {
+    preload(getAssetUrl(poster, { width: 1920, quality: 60 }), {
       as: 'image',
       fetchPriority: 'high',
     });
