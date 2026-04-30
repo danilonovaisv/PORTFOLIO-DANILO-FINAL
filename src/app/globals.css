@@ -176,11 +176,15 @@ body {
   /* Safer wrap */
   word-break: normal;
 
-  /* Prevent horizontal overflow on mobile & keep 100vw exact */
-  overflow-x: hidden;
+  /* Prevent horizontal overflow without creating a scroll container that breaks sticky sections. */
+  overflow-x: clip;
 
   /* Optimize text rendering */
   text-rendering: optimizeLegibility;
+}
+
+.video-manifesto {
+  position: relative;
 }
 
 /* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */

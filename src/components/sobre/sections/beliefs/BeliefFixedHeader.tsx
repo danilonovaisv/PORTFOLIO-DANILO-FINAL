@@ -50,7 +50,7 @@ export function BeliefFixedHeader({
               aria-label="Acredito no design que muda o dia de alguém. Não pelo choque, mas pela conexão."
               className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap"
             >
-              <div className="overflow-visible">
+              <div aria-hidden="true" className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}
                   range={[0.1, 0.2]}
@@ -59,7 +59,7 @@ export function BeliefFixedHeader({
                   Acredito no
                 </MorphText>
               </div>
-              <div className="overflow-visible">
+              <div aria-hidden="true" className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}
                   range={[0.12, 0.22]}
@@ -68,7 +68,7 @@ export function BeliefFixedHeader({
                   <span className="text-[#0048ff]">design</span> que
                 </MorphText>
               </div>
-              <div className="overflow-visible">
+              <div aria-hidden="true" className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}
                   range={[0.14, 0.24]}
@@ -77,7 +77,7 @@ export function BeliefFixedHeader({
                   muda o dia
                 </MorphText>
               </div>
-              <div className="overflow-visible">
+              <div aria-hidden="true" className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}
                   range={[0.16, 0.26]}
@@ -89,7 +89,7 @@ export function BeliefFixedHeader({
             </h2>
 
             {/* Subtext: "Não pelo choque..." */}
-            <div className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+            <div aria-hidden="true" className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap">
               <div className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}

@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className="dark"
+      className="dark relative"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
@@ -80,7 +80,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="relative antialiased bg-(--color-background) text-(--color-text) pb-0 lg:pb-[64px] overflow-x-hidden"
+        className="relative antialiased bg-(--color-background) text-(--color-text) pb-0 lg:pb-[64px] overflow-x-clip"
         style={inlineStyle}
       >
         <a

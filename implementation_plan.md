@@ -616,3 +616,22 @@ Decisão inicial:
 - Verificação de screen reader para SplitText.
 - Confirmação de comportamento Lenis + Canvas em touch devices.
 - Confirmação de que `.context/DOCS-PORTFOLIO-PAGES` precisa ou não de atualização estrutural.
+
+---
+
+## 12. Adendo de Correção (BUGFIX P0): Vazamento do 3D e Background ("aparecendo em todas as sessões")
+
+**O Problema Relatado:**
+Foi reportado que o elemento 3D (`GhostCanvas`) e o Fundo Dinâmico (`BeliefBackground`) da `BeliefsSection` estão "aparecendo em todas as sessões" do site.
+
+**Análise do Escopo (Causa-Raiz Possíveis):**
+1. **Falta de Isolamento Global (`overflow: clip/hidden`)**: Se a estrutura `sticky` de 100vh dentro da `section` de 600vh não tiver seu contêiner pai apropriadamente clipado, a camada de 3D (`z-[70]`) pode vazar verticalmente, sobrepondo os componentes abaixo ou acima na rolagem da página.
+2. **Ausência de Transição e Fade-Out nas Fases**: O 3D e o Background não estavam respeitando a regra de "Apenas uma camada dominante por fase". O modelo ficava carregado em todo o scroll de 600vh e além, o que causava a impressão de ser uma camada persistente ("sempre presente nas seções/frases").
+
+**Plano de Execução para a Correção:**
+1. **Fixar Isolamento de Z-Index e Clipping no Root Component**:
+   - `BeliefsSection.tsx` DEVE ter classes como `overflow-clip` ou `contain-paint` diretamente em seu container root `<section>` para proibir matematicamente que qualquer filho (seja em absolute, fixed, ou sticky) ultrapasse a bounding box de 600vh no DOM.
+2. **Fade Estrito baseado no ScrollYProgress da Seção**:
+   - O `GhostCanvasClient` deverá montar/desmontar (ou setar seu estilo como `pointer-events-none opacity-0`) nos primeiros `0.1` de scroll (Fase de Entrada) e nos últimos `0.1` de scroll (Fase de Saída), para que não haja renderização desnecessária nem visualização fantasmal sobre as bordas das outras seções da página.
+   - O `BeliefBackground` precisa retornar à cor `--color-background` transparente ou estritamente escura antes de a seção acabar.
+3. Este adendo torna-se a prioridade principal (T00) e deve ser executado *antes* de iniciar as tarefas normais de UI.

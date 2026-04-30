@@ -11,6 +11,12 @@ const gotoRoute = async (page: Page, route: string) => {
       ?.scrollIntoView({ behavior: 'instant', block: 'start' });
   });
   await page.waitForTimeout(500);
+  await page.evaluate(() => {
+    document
+      .querySelector('[data-testid="beliefs-section"]')
+      ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
+  await page.waitForTimeout(100);
 };
 
 const scrollToProgress = async (page: Page, progress: number) => {
@@ -141,31 +147,33 @@ for (const route of ROUTES) {
       await gotoRoute(page, route);
       await scrollToProgress(page, 0.35);
 
-      const hasReducedMotionViolation = await page.evaluate(() => {
-        const elements = document.querySelectorAll(
-          '[data-testid="belief-phrase"]'
-        );
+      await expect
+        .poll(async () => {
+          return page.evaluate(() => {
+            const elements = document.querySelectorAll(
+              '[data-testid="belief-phrase"]'
+            );
 
-        if (elements.length === 0) return true;
+            if (elements.length === 0) return true;
 
-        for (const el of elements) {
-          const style = window.getComputedStyle(el);
-          if (style.filter !== 'none' && style.filter !== 'blur(0px)') {
-            return true;
-          }
-          if (
-            style.transform &&
-            style.transform !== 'none' &&
-            style.transform !== 'matrix(1, 0, 0, 1, 0, 0)'
-          ) {
-            return true;
-          }
-        }
+            for (const el of elements) {
+              const style = window.getComputedStyle(el);
+              if (style.filter !== 'none' && style.filter !== 'blur(0px)') {
+                return true;
+              }
+              if (
+                style.transform &&
+                style.transform !== 'none' &&
+                style.transform !== 'matrix(1, 0, 0, 1, 0, 0)'
+              ) {
+                return true;
+              }
+            }
 
-        return false;
-      });
-
-      expect(hasReducedMotionViolation).toBe(false);
+            return false;
+          });
+        })
+        .toBe(false);
     });
 
     test('mobile posiciona header e texto conforme contrato', async ({
@@ -173,6 +181,13 @@ for (const route of ROUTES) {
     }) => {
       await page.setViewportSize({ width: 390, height: 844 });
       await gotoRoute(page, route);
+      await scrollToProgress(page, 0.2);
+      await page.evaluate(() => {
+        document
+          .querySelector('[data-testid="beliefs-section"]')
+          ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
+      await page.waitForTimeout(100);
       await scrollToProgress(page, 0.2);
 
       const headerContentTop = await page
@@ -211,12 +226,6 @@ for (const route of ROUTES) {
     test('WebGL indisponível cai em fallback sem unhandled rejection', async ({
       page,
     }) => {
-      const errors: string[] = [];
-      page.on('pageerror', (error) => errors.push(error.message));
-      page.on('console', (msg) => {
-        if (msg.type() === 'error') errors.push(msg.text());
-      });
-
       await page.addInitScript(() => {
         const originalGetContext = HTMLCanvasElement.prototype.getContext;
 
@@ -236,6 +245,14 @@ for (const route of ROUTES) {
 
           return originalGetContext.call(this, type, ...args);
         } as typeof HTMLCanvasElement.prototype.getContext;
+      });
+
+      await page.goto('about:blank');
+      await page.waitForTimeout(500);
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') errors.push(msg.text());
       });
 
       await gotoRoute(page, route);

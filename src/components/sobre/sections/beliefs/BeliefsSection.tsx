@@ -64,12 +64,15 @@ export function BeliefsSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[600vh] bg-[#040013]"
+      className="relative w-full h-[600vh] bg-[#040013] overflow-clip"
       data-testid="beliefs-section"
       aria-labelledby="beliefs-section-heading"
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden">
-        <BeliefBackground scrollProgress={scrollYProgress} />
+        <BeliefBackground
+          scrollProgress={scrollYProgress}
+          prefersReducedMotion={prefersReducedMotion}
+        />
 
         <div className="relative z-10 w-full h-full">
           <BeliefOverlay scrollProgress={scrollYProgress} />

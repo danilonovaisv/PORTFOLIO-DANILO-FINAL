@@ -30,11 +30,7 @@ export function BeliefScrollText({
 
   return (
     <div
-      className={`absolute inset-0 z-30 flex flex-col pointer-events-none ${
-        isMobile
-          ? 'items-center justify-start px-6 text-center'
-          : 'justify-start left-6 md:left-16 lg:left-24 max-w-[45vw] lg:max-w-[40vw] text-left'
-      }`}
+      className="absolute inset-0 z-30 flex flex-col pointer-events-none items-center justify-start px-6 text-center md:items-start md:left-16 md:max-w-[45vw] md:px-0 md:text-left lg:left-24 lg:max-w-[40vw]"
       data-testid="beliefs-scroll-text"
     >
       <div
@@ -126,10 +122,15 @@ function PhraseItem({
     <motion.div
       data-testid="belief-phrase"
       className="belief-phrase absolute flex flex-col pointer-events-none"
+      transformTemplate={prefersReducedMotion ? () => 'none' : undefined}
       style={{
         opacity,
-        x: prefersReducedMotion ? 0 : isMobile ? movement : 0,
-        y: prefersReducedMotion ? 0 : isMobile ? 0 : movement,
+        ...(prefersReducedMotion
+          ? {}
+          : {
+              x: isMobile ? movement : 0,
+              y: isMobile ? 0 : movement,
+            }),
         filter,
         willChange: prefersReducedMotion
           ? 'opacity'

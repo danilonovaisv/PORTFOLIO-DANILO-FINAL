@@ -389,9 +389,13 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
 
     const start =
       typeof performance !== 'undefined' ? performance.now() : Date.now();
+    let previousRenderTime = start;
+
     const animate = () => {
       const now = performance.now();
       const t = (now - start) / 1000;
+      const deltaSeconds = Math.min((now - previousRenderTime) / 1000, 0.1);
+      previousRenderTime = now;
 
       const mat = materialRef.current!;
       const comp = composerRef.current!;
@@ -431,7 +435,7 @@ const GhostCursor: React.FC<GhostCursorProps> = ({
         filmPassRef.current.uniforms.iTime.value = t;
       }
 
-      comp.render();
+      comp.render(deltaSeconds);
 
       if (!pointerActiveRef.current && fadeOpacityRef.current <= 0.001) {
         runningRef.current = false;
