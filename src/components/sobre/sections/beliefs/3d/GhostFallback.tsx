@@ -16,10 +16,10 @@ export function GhostFallback({ mode = 'static' }: GhostFallbackProps) {
       <div className="hidden md:block absolute right-0 top-0 w-full h-full opacity-60">
         <Image
           src="/site.assets/3d/fallback-ghost.jpg"
-          alt=""
+          alt="Representação visual do Ghost Era - Silhueta etérea"
           fill
           className="object-contain object-right"
-          sizes="(min-width: 768px) 100vw, 0px"
+          sizes="(min-width: 768px) 50vw, 0px"
           priority={mode === 'static'}
         />
       </div>
@@ -27,10 +27,10 @@ export function GhostFallback({ mode = 'static' }: GhostFallbackProps) {
       <div className="block md:hidden absolute left-0 top-[10vh] w-full h-[80vh] opacity-50">
         <Image
           src="/site.assets/3d/fallback-ghost-mobile.png"
-          alt=""
+          alt="Representação visual mobile do Ghost Era"
           fill
           className="object-contain object-left"
-          sizes="(max-width: 767px) 100vw, 0px"
+          sizes="100vw"
           priority={mode === 'static'}
         />
       </div>

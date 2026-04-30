@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
+import { supabaseLoader } from '@/lib/utils';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
@@ -208,6 +209,7 @@ export default function ProjectTemplateMasterRenderer({
                   </video>
                 ) : (
                   <Image
+                    loader={supabaseLoader}
                     src={heroImage}
                     alt={project.hero_cover_image.alt || project.project_title}
                     fill
@@ -232,6 +234,7 @@ export default function ProjectTemplateMasterRenderer({
                   className="relative h-16 w-40 md:h-24 md:w-56"
                 >
                   <Image
+                    loader={supabaseLoader}
                     src={heroLogo}
                     alt={
                       project.hero_logo_image?.alt ||

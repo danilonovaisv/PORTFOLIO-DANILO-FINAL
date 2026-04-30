@@ -39,9 +39,16 @@ function normalizePath(path: string) {
     .replace(/^\/+/, '');
 }
 
+export interface AssetOptions {
+  width?: number;
+  quality?: number;
+  isVideo?: boolean;
+  format?: 'webp' | 'avif' | 'origin';
+}
+
 export function getAssetUrl(
   path?: string | null,
-  options?: { isVideo?: boolean }
+  options?: AssetOptions
 ): string {
   if (!path) return ASSET_PLACEHOLDER;
   const trimmed = path.trim();
@@ -69,14 +76,21 @@ export function getAssetUrl(
       ? 'site-assets'
       : 'portfolio-media';
   const filePath = explicitBucketMatch ? explicitBucketMatch[2] : normalized;
+
+  // Supabase Image Transformation parameters
+  const width = options?.width ?? 800;
+  const quality = options?.quality ?? 85;
+  const format = options?.format ?? 'webp';
+
   const resolved = buildSupabaseStorageUrl(
     bucket,
     filePath,
     options?.isVideo
       ? undefined
       : {
-          width: 800,
-          quality: 85,
+          width,
+          quality,
+          format,
         }
   );
 
@@ -92,8 +106,32 @@ export function getAssetUrl(
     '/object/public',
     '/render/image/public'
   );
-  return `${renderBase}/${normalized}?width=800&quality=85`;
+  return `${renderBase}/${normalized}?width=${width}&quality=${quality}&format=${format}`;
 }
+
+/**
+ * Next.js Image Loader for Supabase
+ * Bypasses Next.js proxy and uses Supabase Edge Resizing directly.
+ */
+export function supabaseLoader({ src, width, quality }: { src: string; width: number; quality?: number }) {
+  // If it's already a full URL or a data URL, return as is
+  if (src.startsWith('http') || src.startsWith('data:')) {
+    // If it's a Supabase URL, we can still try to append transform params if they aren't there
+    if (src.includes('supabase.co')) {
+      const url = new URL(src);
+      // Only transform if it's in the public storage
+      if (url.pathname.includes('/storage/v1/object/public/')) {
+        const newPathname = url.pathname.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/');
+        return `${url.origin}${newPathname}?width=${width}&quality=${quality || 75}&format=webp`;
+      }
+      return src;
+    }
+    return src;
+  }
+  
+  return getAssetUrl(src, { width, quality: quality || 75 });
+}
+
 
 export function applyImageFallback(
   event: React.SyntheticEvent<HTMLImageElement, Event>

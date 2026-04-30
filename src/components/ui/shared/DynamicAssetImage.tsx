@@ -2,7 +2,7 @@
 
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn, supabaseLoader } from '@/lib/utils';
 import Image from 'next/image';
 
 type DynamicAssetImageProps = {
@@ -95,12 +95,14 @@ export function DynamicAssetImage({
       )}
     >
       <Image
+        loader={supabaseLoader}
         src={finalUrl!}
         alt={alt}
         fill={!width && !height}
         width={width}
         height={height}
         priority={priority}
+        quality={60}
         sizes={
           sizes ||
           (!width && !height ? '(max-width: 768px) 100vw, 50vw' : undefined)

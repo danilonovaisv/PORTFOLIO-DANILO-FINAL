@@ -5,6 +5,7 @@
 A seção `06-O-QUE-ME-MOVE` já possuía uma arquitetura-base sólida, porém apresentava problemas críticos (como vazamento global de visibilidade do 3D), além de algumas pendências semânticas, de responsividade e de contratos de animação (reduced motion). As execuções seguiram o plano mestre (T00 a T18).
 
 Os principais desvios encontrados e resolvidos foram:
+
 - **T00:** Vazamento Global de Visibilidade (3D e Background). Resolvido via `overflow-clip` no root e controle estrito de `opacity` baseado no scroll (fading out the Canvas element and the background component).
 - **T01-T02:** Boundaries de client/server auditadas; `BeliefsSection` atua como client enquanto `/sobre` permanece server.
 - **T03-T04:** Contrato único de `reducedMotion` consolidado (`useMotionGate.ts` exposto via `useReducedMotion`).
@@ -29,6 +30,7 @@ Os principais desvios encontrados e resolvidos foram:
 ## Checklist de Execução
 
 ### P0 — Planejamento, reduced motion, scroll e Ghost 3D
+
 - [x] T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
 - [x] T01 — Confirmar fluxo real da seção em `/sobre`
 - [x] T02 — Auditar boundary server/client atual
@@ -38,6 +40,7 @@ Os principais desvios encontrados e resolvidos foram:
 - [x] T06 — Formalizar fallback WebGL/loading/error
 
 ### P1 — Semântica, camadas, responsividade e SEO
+
 - [x] T07 — Auditar e corrigir heading hierarchy
 - [x] T08 — Criar ou ajustar AccessibleSplitText (`aria-hidden` implementado sobre MorphText visual)
 - [x] T09 — Orquestrar fases de protagonismo visual
@@ -47,6 +50,7 @@ Os principais desvios encontrados e resolvidos foram:
 - [x] T13 — Validar SEO técnico da página `/sobre`
 
 ### P2 — Ajuste fino e documentação final
+
 - [x] T14 — Comparação manual com `anima.mov` (Comportamentos mantidos em compliance com Ghost System)
 - [x] T15 — Comparação manual com `drinksom.eu` (Referência visual respeitada)
 - [x] T16 — Revisão final de código

@@ -22,12 +22,6 @@ const envSchema = z.object({
     .optional()
     .default('https://danilonovais.com'),
 
-  // --- SERVER VARIABLES ---
-  // These are only available on the server
-  SUPABASE_URL: z.string().url().optional(),
-  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
-  OPENAI_API_KEY: z.string().optional(),
-
   // --- RUNTIME ---
   NODE_ENV: z
     .enum(['development', 'test', 'production'])
@@ -43,8 +37,6 @@ const processEnv = {
     process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL,
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   SUPABASE_URL: process.env.SUPABASE_URL,
-  SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   NODE_ENV: process.env.NODE_ENV,
 };
 

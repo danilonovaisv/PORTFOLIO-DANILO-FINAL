@@ -228,7 +228,6 @@ export const ProjectsGallery = ({
     <section
       id="portfolio-gallery"
       aria-labelledby="portfolio-gallery-heading"
-      aria-live="polite"
       className="relative z-20 w-full bg-background text-white pb-32"
     >
       {/* Filter Bar - Editorial Positioning */}
@@ -329,7 +328,6 @@ export const ProjectsGallery = ({
                     disabled={currentPage === 1}
                     aria-label="Página anterior"
                     aria-controls="portfolio-filter-panel"
-                    aria-disabled={currentPage === 1 ? 'true' : 'false'}
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
@@ -351,7 +349,6 @@ export const ProjectsGallery = ({
                     disabled={currentPage === totalPages}
                     aria-label="Próxima página"
                     aria-controls="portfolio-filter-panel"
-                    aria-disabled={currentPage === totalPages ? 'true' : 'false'}
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">

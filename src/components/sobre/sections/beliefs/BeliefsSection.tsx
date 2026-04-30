@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useInView } from 'motion/react';
+import { useInView, motion } from 'motion/react';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { useBeliefStore } from '@/store/beliefStore';
 import { BeliefBackground } from '@/components/sobre/sections/beliefs/BeliefBackground';
@@ -68,13 +68,24 @@ export function BeliefsSection() {
       data-testid="beliefs-section"
       aria-labelledby="beliefs-section-heading"
     >
-      <div className="sticky top-0 w-full h-screen overflow-hidden">
+      <div
+        className="sticky top-0 w-full h-screen overflow-hidden"
+        style={{
+          visibility: isInView ? 'visible' : 'hidden',
+          pointerEvents: isInView ? 'auto' : 'none',
+        }}
+      >
         <BeliefBackground
           scrollProgress={scrollYProgress}
           prefersReducedMotion={prefersReducedMotion}
         />
 
-        <div className="relative z-10 w-full h-full">
+        <motion.div
+          className="relative z-10 w-full h-full"
+          initial={false}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <BeliefOverlay scrollProgress={scrollYProgress} />
 
           <BeliefFixedHeader
@@ -98,7 +109,7 @@ export function BeliefsSection() {
             scrollProgress={scrollYProgress}
             prefersReducedMotion={prefersReducedMotion}
           />
-        </div>
+        </motion.div>
       </div>
 
       <div className="absolute top-0 left-0 w-full pointer-events-none">

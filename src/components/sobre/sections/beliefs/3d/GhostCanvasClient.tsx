@@ -28,7 +28,10 @@ export function GhostCanvasClient({ scrollProgress }: GhostCanvasClientProps) {
   );
 
   return (
-    <motion.div style={{ opacity }} className="w-full h-full pointer-events-none">
+    <motion.div
+      style={{ opacity }}
+      className="w-full h-full pointer-events-none"
+    >
       <DynamicGhostCanvas scrollProgress={scrollProgress} />
     </motion.div>
   );

@@ -118,11 +118,13 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE,
                 }}
-                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] bg-bluePrimary px-5 py-5 text-center shadow-lg shadow-purpleDetails/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-purpleDetails/20 focus-within:shadow-xl focus-within:shadow-purpleDetails/25"
+                // Alterado bg-bluePrimary para bg-[#0b0d3a] (neutral) para contraste WCAG
+                // Adicionada borda sutil com bluePrimary/20
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-[#0b0d3a] px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-all duration-300 hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
               >
                 {/* Number */}
                 <span
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-purpleDetails/35 bg-[rgba(255,255,255,0.08)] font-sans text-h3 font-black text-purpleDetails"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-bluePrimary/30 bg-bluePrimary/10 font-sans text-h3 font-black text-blueAccent"
                   aria-hidden="true"
                 >
                   {service.id.padStart(2, '0')}
@@ -132,7 +134,7 @@ export function AboutWhatIDo() {
                   <strong className="block text-blueAccent">
                     {service.keyword}
                   </strong>
-                  <span className="mt-1 block text-small text-text">
+                  <span className="mt-1 block text-small text-text/80">
                     {service.description}
                   </span>
                 </p>
@@ -186,11 +188,12 @@ export function AboutWhatIDo() {
                   delay: index * 0.08,
                   ease: GHOST_EASE,
                 }}
-                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-bluePrimary px-5 py-4 shadow-md shadow-purpleDetails/10 transition-all duration-300"
+                // Mobile: Seguindo o padrão de contraste alto do desktop
+                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-[#0b0d3a] px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-300"
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-sans text-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,255,255,0.10)] border border-purpleDetails/40"
+                  className="shrink-0 font-sans text-display text-2xl font-black text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"
                   aria-hidden="true"
                 >
                   {service.id.padStart(2, '0')}
@@ -198,7 +201,7 @@ export function AboutWhatIDo() {
                 {/* Text */}
                 <p className="text-sm font-semibold leading-snug text-text">
                   <strong className="text-blueAccent">{service.keyword}</strong>{' '}
-                  {service.description}
+                  <span className="text-text/80">{service.description}</span>
                 </p>
               </motion.li>
             ))}

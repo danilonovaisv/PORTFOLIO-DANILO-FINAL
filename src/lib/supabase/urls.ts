@@ -72,7 +72,7 @@ export function normalizeStoragePath(
 export interface StorageUrlOptions {
   width?: number;
   quality?: number;
-  format?: 'origin';
+  format?: 'origin' | 'webp' | 'avif';
   resize?: 'cover' | 'contain' | 'fill';
 }
 
@@ -152,7 +152,7 @@ export function buildSupabaseStorageUrl(
     const params = new URLSearchParams();
     if (options.width) params.set('width', options.width.toString());
     if (options.quality) params.set('quality', options.quality.toString());
-    if (options.format === 'origin') params.set('format', 'origin');
+    if (options.format) params.set('format', options.format);
     if (options.resize) params.set('resize', options.resize);
 
     const queryString = params.toString();
@@ -190,8 +190,8 @@ export function injectSupabaseProxy(
       parsed.searchParams.set('width', options.width.toString());
     if (options.quality)
       parsed.searchParams.set('quality', options.quality.toString());
-    if (options.format === 'origin') {
-      parsed.searchParams.set('format', 'origin');
+    if (options.format) {
+      parsed.searchParams.set('format', options.format);
     } else {
       parsed.searchParams.delete('format');
     }

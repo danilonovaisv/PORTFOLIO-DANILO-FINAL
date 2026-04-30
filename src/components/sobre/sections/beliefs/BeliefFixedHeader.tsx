@@ -89,7 +89,10 @@ export function BeliefFixedHeader({
             </h2>
 
             {/* Subtext: "Não pelo choque..." */}
-            <div aria-hidden="true" className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+            <div
+              aria-hidden="true"
+              className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap"
+            >
               <div className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}
