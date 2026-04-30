@@ -9,7 +9,7 @@ interface GhostFallbackProps {
 export function GhostFallback({ mode = 'static' }: GhostFallbackProps) {
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center overflow-hidden pointer-events-none"
+      className="absolute inset-0 z-[70] flex items-center justify-center overflow-hidden pointer-events-none"
       data-testid="ghost-fallback"
       aria-hidden="true"
     >

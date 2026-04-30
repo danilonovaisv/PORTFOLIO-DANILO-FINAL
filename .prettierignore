@@ -23,3 +23,5 @@ functions/node_modules
 
 .agent
 .agent/
+reports/
+erros/

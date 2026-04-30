@@ -66,41 +66,43 @@ export function BeliefsSection() {
       ref={containerRef}
       className="relative w-full h-[600vh] bg-[#040013]"
       data-testid="beliefs-section"
-      aria-label="O que me move — manifesto Ghost Design"
+      aria-labelledby="beliefs-section-heading"
     >
-      <BeliefBackground scrollProgress={scrollYProgress} />
+      <div className="sticky top-0 w-full h-screen overflow-hidden">
+        <BeliefBackground scrollProgress={scrollYProgress} />
 
-      <div className="relative z-10 w-full">
-        <BeliefOverlay scrollProgress={scrollYProgress} />
+        <div className="relative z-10 w-full h-full">
+          <BeliefOverlay scrollProgress={scrollYProgress} />
 
-        <BeliefFixedHeader
-          scrollProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+          <BeliefFixedHeader
+            scrollProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
 
-        <BeliefScrollText
-          scrollProgress={scrollYProgress}
-          phrases={PHRASES}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+          <BeliefScrollText
+            scrollProgress={scrollYProgress}
+            phrases={PHRASES}
+            prefersReducedMotion={prefersReducedMotion}
+          />
 
-        <div className="fixed inset-0 z-[70] pointer-events-none">
-          <GhostErrorBoundary>
-            <GhostCanvasClient scrollProgress={scrollYProgress} />
-          </GhostErrorBoundary>
+          <div className="absolute inset-0 z-[70] pointer-events-none">
+            <GhostErrorBoundary>
+              <GhostCanvasClient scrollProgress={scrollYProgress} />
+            </GhostErrorBoundary>
+          </div>
+
+          <BeliefManifesto
+            scrollProgress={scrollYProgress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
         </div>
+      </div>
 
-        <div className="relative">
-          {PHRASES.map((_, i) => (
-            <BeliefSection key={i} />
-          ))}
-          <BeliefSection />
-        </div>
-
-        <BeliefManifesto
-          scrollProgress={scrollYProgress}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+      <div className="absolute top-0 left-0 w-full pointer-events-none">
+        {PHRASES.map((_, i) => (
+          <BeliefSection key={i} />
+        ))}
+        <BeliefSection />
       </div>
     </section>
   );

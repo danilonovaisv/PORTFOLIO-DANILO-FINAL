@@ -27,7 +27,7 @@ export function BeliefBackground({
 
   return (
     <motion.div
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="absolute inset-0 z-0 pointer-events-none"
       data-testid="beliefs-background"
       style={{ backgroundColor }}
       aria-hidden="true"

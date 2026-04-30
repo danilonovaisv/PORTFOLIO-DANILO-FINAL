@@ -38,10 +38,10 @@ export function BeliefScrollText({
       data-testid="beliefs-scroll-text"
     >
       <div
-        className="sticky top-0 h-[100vh] w-full flex relative pointer-events-none"
+        className="absolute inset-0 w-full h-full flex pointer-events-none"
         style={{
           alignItems: isMobile ? 'flex-end' : 'center',
-          bottom: isMobile ? '20vh' : undefined,
+          paddingBottom: isMobile ? '20vh' : undefined,
         }}
       >
         {phrases.map((phrase, i) => {

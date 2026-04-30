@@ -30,10 +30,11 @@ export function BeliefFixedHeader({
   const opacity = externalOpacity || defaultOpacity;
 
   return (
-    <motion.header
+    <motion.div
       style={{ opacity }}
-      className="fixed inset-0 z-20 flex h-screen pointer-events-none"
+      className="absolute inset-0 z-20 flex h-screen pointer-events-none"
       data-testid="beliefs-header"
+      role="presentation"
     >
       <div className="std-grid w-full h-full">
         {/* Desktop: center visual + right alignment */}
@@ -44,7 +45,11 @@ export function BeliefFixedHeader({
             data-testid="beliefs-header-content"
           >
             {/* Main Title: "Acredito no..." */}
-            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap">
+            <h2
+              id="beliefs-section-heading"
+              aria-label="Acredito no design que muda o dia de alguém. Não pelo choque, mas pela conexão."
+              className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap"
+            >
               <div className="overflow-visible">
                 <MorphText
                   progress={scrollProgress}
@@ -107,7 +112,7 @@ export function BeliefFixedHeader({
           </div>
         </div>
       </div>
-    </motion.header>
+    </motion.div>
   );
 }
 

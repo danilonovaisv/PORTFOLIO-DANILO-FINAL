@@ -31,7 +31,7 @@ export class GhostErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div
-          className="fixed inset-0 z-[70] flex items-center justify-center overflow-hidden pointer-events-none"
+          className="absolute inset-0 z-[70] flex items-center justify-center overflow-hidden pointer-events-none"
           aria-label="3D experience unavailable - showing static fallback"
         >
           {/* Desktop Fallback */}
