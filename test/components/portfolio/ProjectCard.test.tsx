@@ -47,7 +47,7 @@ jest.mock('framer-motion', () => {
 // Mock Next/Image
 jest.mock('next/image', () => ({
     __esModule: true,
-    default: ({ src, alt, className, fill: _fill, priority, sizes: _sizes, ...props }: any) => (
+    default: ({ src, alt, className, fill: _fill, priority, sizes: _sizes, loader: _loader, ...props }: any) => (
         <span
             role="img"
             aria-label={alt as string}

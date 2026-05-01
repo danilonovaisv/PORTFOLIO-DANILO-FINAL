@@ -144,7 +144,7 @@ export default function BlockRenderer({
         <Image
           loader={supabaseLoader}
           src={url}
-          alt={block.content.text || "Mídia detalhada do projeto"}
+          alt={block.content.text || 'Mídia detalhada do projeto'}
           width={1600}
           height={900}
           quality={60}

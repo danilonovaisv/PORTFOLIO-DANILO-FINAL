@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 /**
  * Ghost DS §1.3 v3.2 — Z-Index Layer Governance
  *
- * Regression guard: asserts that the `--z-layer-*` CSS custom properties
+ * Regression guard: asserts that the z-layer tokens CSS custom properties
  * defined in `src/app/globals.css` resolve to the expected numeric values.
  *
  * If a token is renamed, dropped, or reassigned, this test breaks intentionally.
@@ -31,9 +31,7 @@ const EXPECTED_LAYERS: Record<string, string> = {
 };
 
 test.describe('Ghost DS — z-layer tokens', () => {
-  test('every --z-layer-* token resolves to the spec value', async ({
-    page,
-  }) => {
+  test('every z-layer token resolves to the spec value', async ({ page }) => {
     await page.goto('/');
 
     const resolved = await page.evaluate((tokens) => {

@@ -20,14 +20,10 @@ fi
 export PATH="$PROJECT_ROOT/node_modules/.bin:$PATH"
 export NO_UPDATE_NOTIFIER=1
 
-# Por padrão, usa o config global do Firebase CLI (onde costuma existir login).
-# Para isolar o config por projeto, habilite FIREBASE_USE_LOCAL_CONFIG=1.
-if [ "${FIREBASE_USE_LOCAL_CONFIG:-0}" = "1" ]; then
-  export XDG_CONFIG_HOME="$PROJECT_ROOT/.agent_config"
-  mkdir -p "$XDG_CONFIG_HOME"
-fi
-
-# Bypass .env EPERM issue (agent environment)
+# Configurações de ambiente para o Firebase CLI em ambiente restrito
+export XDG_CONFIG_HOME="$PROJECT_ROOT/.agent_config"
+mkdir -p "$XDG_CONFIG_HOME"
+export FIREBASE_CLI_EXPERIMENTS=webframeworks
 export VALIDATE_ENV_WARN_ONLY=1
 
 echo "Node: $(node --version)"
@@ -77,20 +73,20 @@ echo "✅ Campo packageManager removido temporariamente dos package.json do depl
 # 3. PULAR geração de package-lock.json (Bug no npm detectado)
 echo "📦 Pulando geração de package-lock.json devido a incompatibilidade do npm..."
 
-# echo "📦 Gerando package-lock.json consistente para Cloud Build..."
-# npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
-#   npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
-#   echo "⚠️  AVISO: Não foi possível gerar package-lock.json (deploy continua)"
-# echo "✅ package-lock.json gerado"
+echo "📦 Gerando package-lock.json consistente para Cloud Build..."
+npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
+  npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
+  echo "⚠️  AVISO: Não foi possível gerar package-lock.json (deploy continua)"
+echo "✅ package-lock.json gerado"
 
-# echo "📦 Gerando functions/package-lock.json consistente para Cloud Build..."
-# (
-#   cd functions
-#   npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
-#     npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
-#     echo "⚠️  AVISO: Não foi possível gerar functions/package-lock.json (deploy continua)"
-# )
-# echo "✅ functions/package-lock.json gerado"
+echo "📦 Gerando functions/package-lock.json consistente para Cloud Build..."
+(
+  cd functions
+  npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
+    npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
+    echo "⚠️  AVISO: Não foi possível gerar functions/package-lock.json (deploy continua)"
+)
+echo "✅ functions/package-lock.json gerado"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -106,5 +102,10 @@ restore_on_exit() {
 }
 trap restore_on_exit EXIT
 
+# Limpar cache de build anterior do Firebase (ajuda com erros de Sharp)
+echo "🧹 Limpando cache do Firebase Hosting..."
+./node_modules/.bin/firebase hosting:channel:deploy --expires 1h temp-clean --project portfolio-danilo-novais || true
+
 # Deploy hosting + função SSR
-firebase deploy --only hosting,functions --project portfolio-danilo-novais
+echo "🚀 Iniciando Deploy..."
+./node_modules/.bin/firebase deploy --only hosting,functions --project portfolio-danilo-novais

@@ -1,0 +1,44 @@
+{
+  "name": "ghost-firebase-deploy",
+  "version": "0.1.0",
+  "description": "Deploy helper for the Ghost System portfolio on Firebase Hosting.",
+  "author": {
+    "name": "Danilo Novais",
+    "email": "danilo@portfoliodanilo.com",
+    "url": "https://github.com/danilonovaisv"
+  },
+  "homepage": "https://portfoliodanilo.com",
+  "repository": "https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL",
+  "license": "UNLICENSED",
+  "keywords": [
+    "firebase",
+    "hosting",
+    "deploy",
+    "ghost-system"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Ghost Firebase Deploy",
+    "shortDescription": "Build, preflight, preview, and deploy the portfolio to Firebase.",
+    "longDescription": "A project-local deployment assistant for the Ghost System portfolio. It runs the existing Firebase preflight checks, builds the Next.js app, deploys preview channels, and delegates production deploys to the repository's canonical deploy script.",
+    "developerName": "Danilo Novais",
+    "category": "Deployment",
+    "capabilities": [
+      "Deploy",
+      "Firebase Hosting",
+      "Preview Channels"
+    ],
+    "websiteURL": "https://portfoliodanilo.com",
+    "privacyPolicyURL": "https://portfoliodanilo.com/privacidade",
+    "termsOfServiceURL": "https://portfoliodanilo.com/termos",
+    "defaultPrompt": [
+      "Run a Firebase deploy preflight for my portfolio.",
+      "Create a Firebase Hosting preview channel.",
+      "Deploy my portfolio to Firebase production."
+    ],
+    "brandColor": "#0048ff",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/logo.svg",
+    "screenshots": []
+  }
+}

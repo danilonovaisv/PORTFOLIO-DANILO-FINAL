@@ -59,7 +59,7 @@ export const siteMetadata: Metadata = {
       'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     images: [
       {
-        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
@@ -72,9 +72,7 @@ export const siteMetadata: Metadata = {
     title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
       'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
-    images: [
-      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png',
-    ],
+    images: ['/og-image.png'],
     creator: '@_novais',
   },
 
@@ -94,7 +92,7 @@ export const siteMetadata: Metadata = {
     icon: [
       { url: BRAND.assets.logos.favicon, type: 'image/svg+xml' },
       {
-        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+        url: '/site.assets/global/logos/LogoLight.svg',
         type: 'image/svg+xml',
       },
     ],
@@ -102,14 +100,14 @@ export const siteMetadata: Metadata = {
     apple: [
       { url: BRAND.assets.logos.favicon, type: 'image/svg+xml' },
       {
-        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+        url: '/site.assets/global/logos/LogoLight.svg',
         type: 'image/svg+xml',
       },
     ],
     other: [
       {
         rel: 'logo',
-        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+        url: '/site.assets/global/logos/LogoLight.svg',
       },
     ],
   },
@@ -127,7 +125,7 @@ export const siteMetadata: Metadata = {
     canonical: `https://${BRAND.domain}`,
   },
   other: {
-    logo: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+    logo: '/site.assets/global/logos/LogoLight.svg',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
   },

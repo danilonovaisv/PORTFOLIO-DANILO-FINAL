@@ -1,0 +1,20 @@
+{
+  "name": "ghost-system-local",
+  "interface": {
+    "displayName": "Ghost System Local Plugins"
+  },
+  "plugins": [
+    {
+      "name": "ghost-firebase-deploy",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ghost-firebase-deploy"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Deployment"
+    }
+  ]
+}

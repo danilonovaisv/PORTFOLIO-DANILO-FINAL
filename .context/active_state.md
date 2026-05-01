@@ -8,10 +8,10 @@
 
 ## Deploy Summary
 
-- **Build**: ✅ Next.js 16.1.6 (Turbopack) — 0 erros, 34 rotas
+- **Build**: ✅ Next.js 16.2.4 (Webpack) — Stable production build completed
+- **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
 - **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
-- **Hosting**: ✅ 179 arquivos enviados para `portfolio-danilo-novais`
-- **Release**: ✅ Versão finalizada e liberada
+- **Hosting**: Ready for deployment to `portfolio-danilo-novais`
 
 ## Recent Achievements
 
@@ -31,8 +31,9 @@
 ## DS Remediation Phase 1 (2026-04-21)
 
 - [x] **Z-Layer Governance**: 18-token scale in globals.css `@theme`. DS §1.3 expanded to v3.2.
-  - Migrated 9 raw `z-[nnn]` literals → `z-[var(--z-layer-*)]` tokens
-  - Added Playwright regression guard `test/e2e/design-system/z-stack.spec.ts`
+  - Migrated 9 raw `z-[nnn]` literals → `z-[var(--z-layer-id)]` tokens (fixed wildcard collision in build)
+  - Resolved CSS Parsing Error: removed `z-layer-*` strings from `.context` and `test` files that were being mis-scanned by Tailwind v4.
+  - Added Playwright regression guard `test/e2e/design-system/z-stack.spec.ts` (sanitized)
 - [x] **Motion Sanctioning**: Added `GHOST_EASE_AMBIENT` [0.17, 0.55, 0.55, 1]; documented in DS §2.1
   - Eliminated 6 inline easing tuples in `sobre/beliefs/*` → sanctioned constants
   - `GHOST_EASE_SOFT` fully documented in DS
