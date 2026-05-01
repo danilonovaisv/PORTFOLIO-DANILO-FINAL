@@ -113,7 +113,15 @@ export function getAssetUrl(
  * Next.js Image Loader for Supabase
  * Bypasses Next.js proxy and uses Supabase Edge Resizing directly.
  */
-export function supabaseLoader({ src, width, quality }: { src: string; width: number; quality?: number }) {
+export function supabaseLoader({
+  src,
+  width,
+  quality,
+}: {
+  src: string;
+  width: number;
+  quality?: number;
+}) {
   // If it's already a full URL or a data URL, return as is
   if (src.startsWith('http') || src.startsWith('data:')) {
     // If it's a Supabase URL, we can still try to append transform params if they aren't there
@@ -121,17 +129,19 @@ export function supabaseLoader({ src, width, quality }: { src: string; width: nu
       const url = new URL(src);
       // Only transform if it's in the public storage
       if (url.pathname.includes('/storage/v1/object/public/')) {
-        const newPathname = url.pathname.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/');
+        const newPathname = url.pathname.replace(
+          '/storage/v1/object/public/',
+          '/storage/v1/render/image/public/'
+        );
         return `${url.origin}${newPathname}?width=${width}&quality=${quality || 75}&format=webp`;
       }
       return src;
     }
     return src;
   }
-  
+
   return getAssetUrl(src, { width, quality: quality || 75 });
 }
-
 
 export function applyImageFallback(
   event: React.SyntheticEvent<HTMLImageElement, Event>

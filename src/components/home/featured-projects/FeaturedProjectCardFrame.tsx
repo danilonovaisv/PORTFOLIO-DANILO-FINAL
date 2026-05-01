@@ -10,7 +10,13 @@ import FeaturedProjectAnimatedBackground from '@/components/home/featured-projec
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { applyImageFallback, cn, getAssetUrl, isVideo, supabaseLoader } from '@/lib/utils';
+import {
+  applyImageFallback,
+  cn,
+  getAssetUrl,
+  isVideo,
+  supabaseLoader,
+} from '@/lib/utils';
 import type { PortfolioProject } from '@/types/project';
 
 type FeaturedProjectCardFrameProps = {
