@@ -133,13 +133,33 @@ const createNextConfig = (phase) => ({
    * Mantém exatamente como você já tinha
    */
   output: 'standalone',
+  adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
   distDir: deployDistDir,
   reactStrictMode: true,
   staticPageGenerationTimeout: 180,
   allowedDevOrigins: ['127.0.0.1'],
 
+  turbopack: {
+    rules: {
+      '*.glsl': {
+        type: 'raw',
+      },
+      '*.vs': {
+        type: 'raw',
+      },
+      '*.fs': {
+        type: 'raw',
+      },
+      '*.vert': {
+        type: 'raw',
+      },
+      '*.frag': {
+        type: 'raw',
+      },
+    },
+  },
+
   experimental: {
-    adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',

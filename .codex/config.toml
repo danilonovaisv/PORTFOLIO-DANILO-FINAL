@@ -1,0 +1,3 @@
+[mcp_servers.blender]
+args = ["blender-mcp"]
+command = "uvx"

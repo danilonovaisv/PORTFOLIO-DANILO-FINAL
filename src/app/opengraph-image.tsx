@@ -20,8 +20,6 @@ export const contentType = 'image/png';
  * Falls back to an inline branded image if the network/DNS is unavailable
  * (e.g., CI without external access, local dev without Supabase reachable).
  */
-const OG_IMAGE_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png';
 
 export default async function Image() {
   // Try to use the local physical image first (migrated to public/)

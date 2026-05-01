@@ -34,7 +34,7 @@
 
 2. **Design Token Validation** ✅
    - Audited `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` against `tailwind.config.ts` and `src/app/globals.css`.
-   - Confirmed primary colors (`--color-bluePrimary`, `--color-background`) and layout sizes (`cta-mobile`, `cta-tablet`) are perfectly matched. Layers defined properly under `--z-layer-*`.
+   - Confirmed primary colors (`--color-bluePrimary`, `--color-background`) and layout sizes (`cta-mobile`, `cta-tablet`) are perfectly matched. Layers defined properly under `--z-layer` tokens.
 
 3. **Structural Layout Validation** ✅
    - Ran `validate:structure` via Python script.
