@@ -9,8 +9,14 @@ export const SUPABASE_STORAGE_URL = `${SUPABASE_PROJECT_URL.replace(
   ''
 )}/storage/v1/object/public`;
 
-const asset = (path: string) =>
-  `${SUPABASE_STORAGE_URL}/${path.replace(/^\/+/, '')}`;
+const asset = (path: string) => {
+  const cleanPath = path.replace(/^\/+/, '');
+  // Force local path for assets in site-assets bucket to ensure 100% build integrity
+  if (cleanPath.startsWith('site-assets/')) {
+    return `/site.assets/${cleanPath.slice('site-assets/'.length)}`;
+  }
+  return `${SUPABASE_STORAGE_URL}/${cleanPath}`;
+};
 
 export const BRAND = {
   name: 'Danilo Novais',

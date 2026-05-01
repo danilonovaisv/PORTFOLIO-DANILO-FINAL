@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { BRAND } from '@/config/brand';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 export const dynamic = 'force-static';
 
@@ -22,34 +24,32 @@ const OG_IMAGE_URL =
   'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/og-image.png';
 
 export default async function Image() {
-  // Try to use the real Supabase-hosted image first
+  // Try to use the local physical image first (migrated to public/)
   try {
-    const res = await fetch(OG_IMAGE_URL, { cache: 'force-cache' });
-    if (res.ok) {
-      const imageData = await res.arrayBuffer();
-      return new ImageResponse(
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img
-            src={`data:image/png;base64,${Buffer.from(imageData).toString('base64')}`}
-            alt="Danilo Novais | Head de Criação & Diretor de Criação Sênior"
-            width={1200}
-            height={630}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>,
-        { ...size }
-      );
-    }
+    const localPath = path.join(process.cwd(), 'public', 'og-image.png');
+    const imageData = await fs.readFile(localPath);
+    return new ImageResponse(
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <img
+          src={`data:image/png;base64,${Buffer.from(imageData).toString('base64')}`}
+          alt="Danilo Novais | Head de Criação & Diretor de Criação Sênior"
+          width={1200}
+          height={630}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </div>,
+      { ...size }
+    );
   } catch {
-    // Network/DNS unavailable — fall through to inline fallback
+    // If local file is missing, fall through to branded fallback
   }
 
   // Fallback: Ghost-branded inline OG image (same style as /portfolio, /sobre, /contato)

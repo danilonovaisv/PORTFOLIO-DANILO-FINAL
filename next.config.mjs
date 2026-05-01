@@ -138,14 +138,8 @@ const createNextConfig = (phase) => ({
   staticPageGenerationTimeout: 180,
   allowedDevOrigins: ['127.0.0.1'],
 
-  // adapterPath was promoted from experimental to top-level in Next.js 16
-  ...(phase === PHASE_PRODUCTION_BUILD
-    ? {
-        adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
-      }
-    : {}),
-
   experimental: {
+    adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
@@ -199,16 +193,6 @@ const createNextConfig = (phase) => ({
             key: 'Cache-Control',
             value:
               'public, max-age=0, s-maxage=900, stale-while-revalidate=3600',
-          },
-        ],
-      },
-      // Immutable cache for static assets (fingerprinted by Next.js)
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

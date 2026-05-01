@@ -1,23 +1,10 @@
-import { NextResponse } from 'next/server';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-/**
- * Proxy route to serve the curriculum HTML with the correct Content-Type (text/html).
- * This bypasses Supabase Storage's default text/plain serving for this file.
- */
 export async function GET() {
-  const CV_URL =
-    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/CV/CURRICULUM-2026.html';
-
   try {
-    const response = await fetch(CV_URL, {
-      cache: 'no-store', // Ensure we get the latest version if needed
-    });
-
-    if (!response.ok) {
-      return new NextResponse('Error fetching CV', { status: response.status });
-    }
-
-    const html = await response.text();
+    const filePath = path.join(process.cwd(), 'public', 'CURRICULUM-2026.html');
+    const html = await fs.readFile(filePath, 'utf-8');
 
     return new Response(html, {
       headers: {
@@ -27,7 +14,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error('Error in view-cv proxy:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.error('Error in view-cv route:', error);
+    return new Response('Internal Server Error', { status: 500 });
   }
 }
