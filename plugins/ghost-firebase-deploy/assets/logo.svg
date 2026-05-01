@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="Ghost Firebase Deploy">
+  <rect width="320" height="96" rx="16" fill="#05070d"/>
+  <rect x="16" y="16" width="64" height="64" rx="14" fill="#0048ff"/>
+  <path fill="#fff" d="M32 58V38l16-9 16 9v20l-16 9-16-9Zm6-4 10 6 10-6V42l-10-6-10 6v12Z"/>
+  <text x="96" y="45" fill="#fff" font-family="Arial, sans-serif" font-size="22" font-weight="700">Ghost Firebase</text>
+  <text x="96" y="68" fill="#9db8ff" font-family="Arial, sans-serif" font-size="16">Deploy</text>
+</svg>
