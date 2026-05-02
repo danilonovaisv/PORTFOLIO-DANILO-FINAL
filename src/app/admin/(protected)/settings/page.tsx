@@ -16,6 +16,8 @@ const getSupabasePublicKeyStatus = () => {
   return key ? 'Configurado' : 'Ausente';
 };
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default async function SettingsPage() {
   await requireAdminAccess();
 
@@ -110,22 +112,15 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-7xl space-y-12 py-6 pb-24">
-      <header className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-            System_Main_Frame
-          </p>
-        </div>
-        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
-          Settings<span className="text-[#0048ff]">_</span>Panel
-          <span className="text-[#0048ff]">.</span>
-        </h1>
-        <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
-          <span>Module: Configuration</span>
-          <span>Security: High_Priority</span>
-        </div>
-      </header>
+      <AdminPageHeader
+        title="Settings_Panel"
+        subtitle="Module: Configuration — Security: High_Priority"
+        badge={{ text: 'Core', variant: 'blue' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Settings', href: '/admin/settings' },
+        ]}
+      />
 
       <section className="space-y-6">
         <div className="flex items-center gap-3 border-b border-white/5 pb-2">

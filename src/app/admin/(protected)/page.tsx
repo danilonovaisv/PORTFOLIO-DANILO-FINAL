@@ -74,20 +74,17 @@ function DashboardSkeleton() {
   );
 }
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default async function AdminDashboardPage() {
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <header className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-            SYSTEM_MAIN_FRAME
-          </p>
-        </div>
-        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
-          DASHBOARD<span className="text-[#0048ff]">.</span>
-        </h1>
-      </header>
+      <AdminPageHeader
+        title="Dashboard"
+        subtitle="System Real-Time Analytics & Operational Control."
+        badge={{ text: 'Operational', variant: 'blue' }}
+        breadcrumbs={[{ label: 'System', href: '/admin' }]}
+      />
 
       <div className="space-y-6">
         <div className="flex items-center justify-between">

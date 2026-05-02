@@ -11,6 +11,8 @@ const KIND_LABELS: Record<string, string> = {
   industry: 'Indústria',
 };
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default async function TagsPage() {
   const supabase = await createClient();
   const { data: tags } = await supabase
@@ -34,18 +36,15 @@ export default async function TagsPage() {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <header className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-            System_Main_Frame
-          </p>
-        </div>
-        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
-          Tags<span className="text-[#0048ff]">_</span>Management
-          <span className="text-[#0048ff]">.</span>
-        </h1>
-      </header>
+      <AdminPageHeader
+        title="Tags_Management"
+        subtitle="Global parameters for filtering and taxonomy."
+        badge={{ text: 'Taxonomy', variant: 'blue' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Tags', href: '/admin/tags' },
+        ]}
+      />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_350px]">
         <div className="space-y-10">

@@ -4,6 +4,7 @@ export const fetchCache = 'force-no-store';
 
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { ProjectForm } from '@/components/admin/ProjectForm';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 export default async function NewProjectPage() {
   const { supabase } = await requireAdminAccess();
@@ -20,14 +21,14 @@ export default async function NewProjectPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
-          System_Projects_Layer
-        </p>
-        <h1 className="font-mono text-3xl font-light text-white mt-2">
-          SYSTEM_NEW_PROJECT_RECORD<span className="text-[#0048ff]">.</span>
-        </h1>
-      </div>
+      <AdminPageHeader
+        title="SYSTEM_NEW_PROJECT_RECORD"
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Portfolio', href: '/admin/trabalhos' },
+          { label: 'New_Project' },
+        ]}
+      />
       <ProjectForm tags={tags ?? []} landingPages={landingPages ?? []} />
     </div>
   );

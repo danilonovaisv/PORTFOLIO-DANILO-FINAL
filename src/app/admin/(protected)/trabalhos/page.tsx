@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import ProjectsTable from '@/components/admin/ProjectsTable';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 type Props = {
   searchParams: Promise<{
@@ -138,29 +139,25 @@ export default async function TrabalhosPage(props: Props) {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-              System_Database
-            </p>
-          </div>
-          <h1 className="font-mono text-4xl font-light tracking-tight text-white">
-            Portfolio<span className="text-[#0048ff]">.</span>
-          </h1>
-        </div>
-
-        <Link
-          href={ADMIN_NAVIGATION.trabalhos.new}
-          className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[#0048ff] px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 active:scale-95"
-        >
-          <div className="absolute inset-0 flex -translate-x-full transition-transform group-hover:translate-x-0">
-            <div className="h-full w-full bg-white/20 blur-xl" />
-          </div>
-          <span className="relative">Add_New_Project</span>
-        </Link>
-      </header>
+      <AdminPageHeader
+        title="Portfolio"
+        subtitle="System_Database_Management"
+        action={
+          <Link
+            href={ADMIN_NAVIGATION.trabalhos.new}
+            className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[#0048ff] px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 active:scale-95"
+          >
+            <div className="absolute inset-0 flex -translate-x-full transition-transform group-hover:translate-x-0">
+              <div className="h-full w-full bg-white/20 blur-xl" />
+            </div>
+            <span className="relative">Add_New_Project</span>
+          </Link>
+        }
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Portfolio' },
+        ]}
+      />
 
       <div className="space-y-8">
         <div className="flex items-center gap-4">

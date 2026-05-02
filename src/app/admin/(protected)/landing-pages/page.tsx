@@ -38,6 +38,8 @@ type Props = {
   }>;
 };
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default async function LandingPagesListPage(props: Props) {
   const searchParams = await props.searchParams;
   const data = (await listLandingPagesAction()) as LandingPageRecord[];
@@ -69,28 +71,25 @@ export default async function LandingPagesListPage(props: Props) {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <header className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <div className="h-[1px] w-8 bg-blue-500/40" />
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-blue-500/60">
-              System_Main_Frame
-            </p>
-          </div>
-          <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl">
-            Landing_Pages<span className="text-blue-500">.</span>
-          </h1>
-        </div>
-
-        <Link
-          href="/admin/landing-pages/new"
-          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#0048ff] px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 hover:shadow-[0_0_20px_rgba(0,72,255,0.3)] active:scale-95"
-        >
-          <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-white/20 to-transparent transition-transform group-hover:translate-y-0" />
-          <Plus size={16} className="relative z-10" />
-          <span className="relative z-10">Deploy_New</span>
-        </Link>
-      </header>
+      <AdminPageHeader
+        title="Landing_Pages"
+        subtitle="Manage landing page nodes and deployment templates."
+        badge={{ text: 'Index', color: 'indigo' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Landing Pages', href: '/admin/landing-pages' },
+        ]}
+        action={
+          <Link
+            href="/admin/landing-pages/new"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#0048ff] px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 hover:shadow-[0_0_20px_rgba(0,72,255,0.3)] active:scale-95"
+          >
+            <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-white/20 to-transparent transition-transform group-hover:translate-y-0" />
+            <Plus size={16} className="relative z-10" />
+            <span className="relative z-10">Deploy_New</span>
+          </Link>
+        }
+      />
 
       <div className="space-y-6">
         <div className="flex items-center justify-between">
