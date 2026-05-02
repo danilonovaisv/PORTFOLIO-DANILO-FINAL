@@ -127,7 +127,7 @@ export function normalizeAssetList(
 
     const delimiter = trimmed.includes('/') ? '/' : '.';
     const parts = trimmed.split(delimiter).filter(Boolean);
-    if (parts.length < 4) return value;
+    if (parts.length < 2) return value;
 
     const maxPrefix = Math.min(3, Math.floor(parts.length / 2));
     for (let len = 1; len <= maxPrefix; len++) {

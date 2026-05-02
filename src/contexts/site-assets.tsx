@@ -110,13 +110,21 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
   if (context?.getUrl(key)) return context.getUrl(key);
 
   const toLocalAssetPath = (path: string) => {
-    const cleanPath = path.replace(/^\/+/, '');
-    if (cleanPath.startsWith('site.assets/')) {
-      return `/${cleanPath}`;
+    let cleanPath = path.replace(/^\/+/, '');
+
+    // Remover prefixos redundantes repetidamente para evitar caminhos como /site.assets/site.assets/...
+    while (
+      cleanPath.startsWith('site.assets/') ||
+      cleanPath.startsWith('site-assets/')
+    ) {
+      if (cleanPath.startsWith('site.assets/')) {
+        cleanPath = cleanPath.slice('site.assets/'.length);
+      } else {
+        cleanPath = cleanPath.slice('site-assets/'.length);
+      }
+      cleanPath = cleanPath.replace(/^\/+/, '');
     }
-    if (cleanPath.startsWith('site-assets/')) {
-      return `/site.assets/${cleanPath.slice('site-assets/'.length)}`;
-    }
+
     return `/site.assets/${cleanPath}`;
   };
 
