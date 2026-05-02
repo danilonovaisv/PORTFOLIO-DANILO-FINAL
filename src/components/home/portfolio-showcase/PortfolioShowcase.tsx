@@ -6,29 +6,25 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from '@/components/home/portfolio-showcase/CategoryStripe';
-import { getAssetUrl } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
-// Category data with assets
+// Category data with assets — local public paths avoid broken Supabase dependencies
 const CATEGORIES = [
   {
     id: 'brand-campaigns',
     title: 'Brand & Campaigns',
     mobileTitle: ['Brand', '& Campaigns'],
     slug: 'branding',
-    thumbnail: getAssetUrl(SITE_ASSET_KEYS.portfolioShowcase.brandCampaigns),
+    thumbnail: '/site.assets/home/showcase/Branding-Project.webp',
     alignment: 'right' as const,
-    showLabel: true, // Show floating label on this stripe
+    showLabel: true,
   },
   {
     id: 'videos-motions',
     title: 'Videos & Motions',
     mobileTitle: ['Videos', '& Motions'],
     slug: 'motion',
-    thumbnail: getAssetUrl(SITE_ASSET_KEYS.portfolioShowcase.videosMotions, {
-      isVideo: true,
-    }),
+    thumbnail: '/site.assets/home/showcase/show.video.mp4',
     alignment: 'center' as const,
     showLabel: false,
   },
@@ -37,7 +33,7 @@ const CATEGORIES = [
     title: 'Websites & Tech',
     mobileTitle: ['Websites', '& Tech'],
     slug: 'web',
-    thumbnail: getAssetUrl(SITE_ASSET_KEYS.portfolioShowcase.websitesTech),
+    thumbnail: '/site.assets/home/showcase/Key-Visual.webp',
     alignment: 'left' as const,
     showLabel: false,
   },
@@ -93,6 +89,7 @@ export default function PortfolioShowcase() {
               isHovered={hoveredCategory === category.id}
               onHover={setHoveredCategory}
               prefersReducedMotion={prefersReducedMotion}
+              priority={index === 0}
             />
           ))}
 

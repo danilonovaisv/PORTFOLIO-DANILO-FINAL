@@ -78,15 +78,6 @@ export default function ContactSection() {
       className="bg-backgroundLight py-12 sm:py-16 md:py-24 lg:py-32 relative z-10"
     >
       <Container>
-        {/* Título mobile separado para manter ordem: título → formulário → canais */}
-        <div className="lg:hidden text-center mb-10">
-          <h2 className="text-5xl md:text-6xl font-bold text-bluePrimary uppercase tracking-tighter mb-3 leading-[0.95]">
-            {HOME_CONTENT.contact.title}
-          </h2>
-          <p className="text-textInverse text-lg font-medium max-w-md mx-auto">
-            {HOME_CONTENT.contact.subtitle}
-          </p>
-        </div>
         {/* 2 & 3. Info & Form Grid */}
         <div className="flex flex-col gap-12 lg:grid lg:grid-cols-12 lg:gap-24 items-start">
           {/* Left Side: Headline + Contact Info */}
@@ -99,9 +90,9 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-5 flex flex-col space-y-10 order-1 lg:order-0"
           >
-            {/* Header */}
-            <div className="hidden lg:block text-center lg:text-left mb-6 lg:mb-10">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-bluePrimary uppercase tracking-tighter mb-4 leading-[0.9]">
+            {/* Header - Unificado para SEO (Eliminado duplicidade mobile/desktop) */}
+            <div className="text-center lg:text-left mb-6 lg:mb-10">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-bluePrimary uppercase tracking-tighter mb-4 leading-[0.95] lg:leading-[0.9]">
                 {HOME_CONTENT.contact.title}
               </h2>
               <p className="text-textInverse text-lg md:text-xl font-medium max-w-md mx-auto lg:mx-0">

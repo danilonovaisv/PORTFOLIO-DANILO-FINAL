@@ -37,6 +37,7 @@ export async function generateMetadata({
     ? resolved?.category[0]
     : (resolved as { category?: string })?.category;
   const category = normalizePortfolioCategoryQuery(categoryRaw);
+  const categoryRawNormalized = categoryRaw?.trim().toLowerCase();
   const categoryMeta: Record<
     string,
     { label: string; description: string; keywords: string[] }
@@ -67,7 +68,7 @@ export async function generateMetadata({
     },
   };
 
-  const metaForCategory = category ? categoryMeta[category] : undefined;
+  const metaForCategory = categoryRawNormalized ? categoryMeta[categoryRawNormalized] : undefined;
   const rawTitle = metaForCategory
     ? `Portfólio | ${metaForCategory.label}`
     : 'Portfólio — Projetos de Branding, Motion e Web';
@@ -241,7 +242,9 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
               thumbnailUrl: `https://${BRAND.domain}/portfolio/opengraph-image`,
               uploadDate: '2025-01-01',
               contentUrl: BRAND.assets.video.manifesto,
-              embedUrl: `https://${BRAND.domain}/portfolio`,
+              embedUrl: categoryParam
+                ? `https://${BRAND.domain}/portfolio?category=${categoryParam}`
+                : `https://${BRAND.domain}/portfolio`,
             })
           ),
         }}

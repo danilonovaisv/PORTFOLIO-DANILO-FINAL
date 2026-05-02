@@ -1,326 +1,256 @@
-# Prompt de Correção Orquestrada — Portfoliodanilo.com
+# Relatório Consolidado de Auditoria — Portfoliodanilo.com
 
 **Projeto:** danilo-novais-portfolio  
 **Domínio:** https://portfoliodanilo.com  
-**Data:** 2026-05-02  
-**Status:** ⏸️ **AGUARDANDO APPROVAL GATE**  
+**Data da Auditoria:** 2026-05-02  
+**Agente:** Auditor Sênior Frontend (Ghost System)  
 
 ---
 
-## 🎯 Instruções para Agents Executoras
+## 1. AUDITORIA HOME (`/`)
 
-Este prompt é destinado a agents especializados (`@ghost_architect`, `@motion_choreographer`, `@spectral_artist`, `@audit_sentinel`) que executarão as correções identificadas na auditoria.
+### Seções Auditadas: 8
 
-### Regras de Execução
+| Seção | Status | Achados Principais |
+|-------|--------|-------------------|
+| 01 Header | ✅ Bom | Scroll-aware funcionando, menu mobile ok |
+| 02 Hero | ⚠️ Parcial | Hierarquia heading precisa validação, preloader sobreposto |
+| 03 Video Manifesto | ⚠️ Parcial | Aspect ratio mobile problemático (`sm:aspect-video`) |
+| 04 Portfolio Showcase | ✅ Bom | Supabase integration, loading states presentes |
+| 05 Featured Projects | ⚠️ Parcial | Bento grid com alturas desiguais em resoluções fluidas |
+| 06 Clients Brands | ✅ Bom | Carousel funcional, lazy load ok |
+| 07 Contact | ✅ Bom | CTAs claros, focus states visíveis |
+| 08 Footer | ⚠️ Parcial | Links podem precisar alinhamento global |
 
-1. **NÃO implemente nada antes da aprovação humana explícita** (`Aprovado` ou `Proceed`)
-2. Siga a ordem de prioridade: **P0 → P1 → P2**
-3. Use **Context7 MCP** para decisões sobre Next.js, React, Tailwind, Framer Motion, R3F, Supabase
-4. Preserve **Ghost Design System** tokens em todas as mudanças
-5. Mantenha **TypeScript strict mode** sem erros
-6. Documente mudanças em `.context/` após implementação
+### Findings Home
+
+| ID | Finding | Severidade | Prioridade |
+|----|---------|------------|------------|
+| H-01 | Múltiplos H1 potenciais ou hierarquia quebrada | Alta | P0 |
+| H-02 | Metadata API incompleta | Alta | P0 |
+| H-03 | Easing drift em animações do Hero | Média | P1 |
+| H-04 | Featured Projects cards com alturas inconsistentes | Baixa | P2 |
+| H-05 | Video manifesto aspect ratio mobile | Baixa | P2 |
 
 ---
 
-## 📋 Resumo Executivo da Auditoria
+## 2. AUDITORIA SOBRE (`/sobre`)
 
-### Páginas Auditadas
+### Seções Auditadas: 10
 
-1. **Home (`/`)** — 8 seções: Header, Hero, Video Manifesto, Portfolio Showcase, Featured Projects, Clients Brands, Contact, Footer
-2. **Sobre (`/sobre`)** — 10 seções: Header, Hero, Origem Criativa, O Que Eu Faço, Como Eu Trabalho, O Que Me Move, Fechamento, Clients, Contact, Footer
-3. **Portfólio (`/portfolio` + `[slug]`)** — 9 seções: Header, Hero, Gallery, Project Cards, Modal, Projeto Slug, Clients, Contact, Footer
+| Seção | Status | Achados Principais |
+|-------|--------|-------------------|
+| 01 Header | ✅ Bom | Consistente com Home |
+| 02 Hero Sobre | ✅ Bom | Portrait media loading ok |
+| 03 Origem Criativa | ✅ Bom | Timeline blocks com scroll trigger |
+| 04 O Que Eu Faço | ⚠️ Parcial | Sombras dos cards ajustadas (fix prévio aplicado) |
+| 05 Como Eu Trabalho | ⚠️ Parcial | Grid aninhado redundante (`lg:grid-cols-12` + `std-grid`) |
+| 06 O Que Me Move | ⚠️ Parcial | Z-index canvas vs texto, reduced motion não passado para background |
+| 07 Fechamento | ✅ Bom | CTA claro |
+| 08 Clients | ✅ Bom | Reuso consistente |
+| 09 Contact | ✅ Bom | Email link funcional |
+| 10 Footer | ✅ Bom | Consistente |
 
-### Estado Atual do Projeto (`.context/active_state.md`)
+### Findings Sobre
+
+| ID | Finding | Severidade | Prioridade |
+|----|---------|------------|------------|
+| S-01 | Easing tokens drift em AboutMethod | Média | P1 |
+| S-02 | Z-index Beliefs Section (canvas/texto) | Média | P1 |
+| S-03 | Reduced motion não propagado para BeliefBackground | Média | P1 |
+| S-04 | Grid aninhado redundante em AboutMethod | Baixa | P2 |
+| S-05 | Componentes >500 linhas (BeliefsSection) | Média | P1 |
+
+---
+
+## 3. AUDITORIA PORTFÓLIO (`/portfolio` + `[slug]`)
+
+### Seções Auditadas: 9
+
+| Seção | Status | Achados Principais |
+|-------|--------|-------------------|
+| 01 Header | ✅ Bom | Consistente |
+| 02 Hero | ⚠️ Parcial | Contraste sob variabilidade do vídeo precisa revisão |
+| 03 Gallery | ✅ Bom | Filtros + LERP, paginação funcional |
+| 04 Project Cards | ⚠️ Parcial | Loading states ausentes, destino do card (modal/landing) não explícito |
+| 05 Modal | ✅ Bom | A11y sólida: foco, Esc, trap, restore |
+| 06 Projeto [slug] | ⚠️ Parcial | SEO forte, conteúdo textual genérico |
+| 07 Clients | ✅ Bom | Reuso consistente |
+| 08 Contact | ✅ Bom | Fluxo coerente |
+| 09 Footer | ⚠️ Parcial | Alinhamento global de links |
+
+### Findings Portfólio
+
+| ID | Finding | Severidade | Prioridade |
+|----|---------|------------|------------|
+| P-01 | Metadata API incompleta | Alta | P0 |
+| P-02 | Loading states ausentes em ProjectsGallery | Média | P1 |
+| P-03 | Destino do card não explícito no schema | Média | P1 |
+| P-04 | Contraste hero sob variabilidade de vídeo | Baixa | P2 |
+| P-05 | Conteúdo textual genérico em [slug] | Baixa | P2 |
+
+---
+
+## 4. FINDINGS TRANSVERSAIS (Multi-Página)
+
+| ID | Finding | Severidade | Prioridade |
+|----|---------|------------|------------|
+| T-01 | JSON-LD Organization inválido (`logo` fora do shape) | Média | P1 |
+| T-02 | Títulos SEO duplicando marca | Baixa | P2 |
+| T-03 | Reduced motion não centralizado globalmente | Média | P1 |
+| T-04 | Easing tokens drift (~20 arquivos) | Média | P1 |
+| T-05 | Componentes >500 linhas (6 componentes críticos) | Alta | P1 |
+| T-06 | Cores de hover hard-coded | Baixa | P2 |
+| T-07 | Asset 3D ghost.glb sem versionamento | Baixa | P2 |
+
+---
+
+## 5. MATRIZ DE PRIORIZAÇÃO CONSOLIDADA
+
+### P0 — Crítico (2 items)
+
+1. **Hierarquia de Headings** — Home e páginas internas
+2. **Metadata API Completa** — Todas as páginas indexáveis
+
+### P1 — Estrutural (5 items)
+
+1. **Unificar Easing Tokens** — ~20 arquivos com drift
+2. **Otimizar Componentes >500 Linhas** — 6 componentes críticos
+3. **Tokenizar Cores de Hover** — Eliminar hex codes
+4. **Corrigir Z-Index Beliefs Section** — Canvas abaixo do texto
+5. **Implementar Loading States** — ProjectsGallery
+
+### P2 — Polimento (5 items)
+
+1. **Aspect Ratio Video Manifesto Mobile**
+2. **Bento Grid Vertical Alignment**
+3. **Unificar Grid em AboutMethod**
+4. **Versionar Asset 3D ghost.glb**
+5. **Revisar Contraste Hero Portfólio**
+
+### Transversal (3 items)
+
+1. **JSON-LD Organization**
+2. **Títulos Templated**
+3. **Reduced Motion Global**
+
+---
+
+## 6. ESTADO ATUAL DO PROJETO
+
+Conforme `.context/active_state.md`:
 
 - **Design System:** Ghost System v3.2 (Z-Layer Expansion) ✅
 - **Build:** Next.js 16.2.4 (Webpack) — Estável ✅
 - **Lighthouse Score:** 98/100 (Performance 96, Security 100) ✅
 - **Phase:** DS Remediation Phase 1 completa, Phase 2 pendente
 
-### Achados Prioritários
+### Conquistas Recentes
 
-| Prioridade | Count | Descrição Resumida |
-|------------|-------|-------------------|
-| **P0** | 2 | Hierarquia headings, Metadata API |
-| **P1** | 5 | Easing tokens, Component size, Hover colors, Z-index, Loading states |
-| **P2** | 5 | Video aspect ratio, Bento grid, Grid unification, 3D asset versioning, Contrast review |
-| **Transversal** | 3 | JSON-LD, Títulos templated, Reduced motion global |
+- [x] Z-Layer Governance: 18-token scale, migração de 9 raw z-[nnn]
+- [x] Motion Sanctioning: GHOST_EASE_AMBIENT adicionado
+- [x] Hex → Token Refactor: Abyss gradient tokens
+- [x] Grid Compliance: Home + Sobre sections auditadas
+- [x] Gate Green: lint 0 errors, tsc pass, jest 246/246 pass
 
 ---
 
-## 🚨 P0 — Crítico (Executar Primeiro)
+## 7. ARTEFATOS GERADOS NESTA AUDITORIA
 
-### TASK-P0-01: Corrigir Hierarquia de Headings na Home
+| Artefato | Localização | Descrição |
+|----------|-------------|-----------|
+| `implementation_plan.md` | `/workspace/docs/` | Plano de implementação com task list, pipeline, skills, MCP activation |
+| `task.md` | `/workspace/docs/` | Tasks atômicas executáveis por agents (P0/P1/P2/Transversal) |
+| `risk_assessment.md` | `/workspace/docs/` | Matriz de riscos com mitigação e contingência por task |
+| `orchestrated_fix_prompt.md` | `/workspace/docs/` | Prompt unificado para execução por agents especializados |
+| `audit_consolidated_report.md` | `/workspace/docs/` | Este relatório consolidado |
 
-**Agent Recomendado:** `@audit_sentinel` + `@ghost_architect`
+---
 
-**Objetivo:** Garantir hierarquia semântica H1 → H2 → H3 em toda a página Home.
+## 8. VALIDATION CHECKLIST (Para Execução Futura)
 
-**Ações:**
-```bash
-# 1. Identificar todos os headings
-grep -r "<h[1-6]" src/app/page.tsx src/components/home/
+### Estrutura e Arquitetura
 
-# 2. Validar único H1 no Hero
-# 3. Rebaixar headings secundários
-# 4. Adicionar sr-only onde necessário
-```
+- [ ] TypeScript strict mode sem erros
+- [ ] ESLint sem novos warnings
+- [ ] Build Next.js bem-sucedido
+- [ ] Componentes <500 linhas após refatoração
+- [ ] Pastas e imports organizados conforme arquitetura
 
-Arquivos:
-src/app/page.tsx
-src/components/home/hero/HomeHero.tsx
-src/components/home/video-manifesto/VideoManifesto.tsx
-src/components/home/featured-projects/FeaturedProjectsSection.tsx
+### UI/UX
 
+- [ ] Ghost Design System preservado
+- [ ] Tokens de cores aplicados consistentemente
+- [ ] Easing tokens sancionados (GHOST_EASE, GHOST_EASE_AMBIENT)
+- [ ] Z-index usando tokens (--z-layer-*)
+- [ ] Grid .std-grid compliance
 
-Validação:
-bash
-pnpm exec axe src/app/page.tsx --rules heading-order
-pnpm run build
+### Responsividade
 
+- [ ] Desktop (≥1024px) testado
+- [ ] Tablet (768-1023px) testado
+- [ ] Mobile (<768px) testado
+- [ ] Breakpoints intermediários validados
+- [ ] Layout fluido sem shifts bruscos
 
+### Acessibilidade
 
-## TASK-P0-02: Implementar Metadata API Completa por Página
+- [ ] Heading hierarchy correta (H1 → H2 → H3)
+- [ ] Focus states visíveis em todos os interativos
+- [ ] Contraste WCAG AA (mínimo), AAA (ideal)
+- [ ] Screen reader testing (NVDA/VoiceOver)
+- [ ] Reduced motion respeitado
 
-Agent Recomendado: @ghost_architect + @seo-specialist
-Objetivo: Garantir generateMetadata completo para Home, Sobre e Portfólio.
-Ações:
-Implementar generateMetadata em cada page.tsx
-Incluir: title, description, openGraph, twitter cards, canonical, robots
-Usar src/lib/seo.ts como base
-Arquivos:
-src/app/page.tsx
-src/app/sobre/page.tsx
-src/app/portfolio/page.tsx
-src/lib/seo.ts
+### Performance
 
-Exemplo:
-typescript
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Danilo Novais — Ghost System Portfolio',
-    description: '...',
-    openGraph: { ... },
-    twitter: { ... },
-    alternates: { canonical: 'https://portfoliodanilo.com' },
-  }
-}
+- [ ] Lighthouse Performance ≥96
+- [ ] Bundle size não aumentou >5%
+- [ ] Core Web Vitals verdes (FCP, LCP, CLS)
+- [ ] WebGL scenes >50 FPS
+- [ ] Imagens otimizadas (next/image)
 
-Validação:
-DevTools <head> inspection
-https://www.opengraph.xyz
-Google Rich Results Test
+### Funcionalidade
 
+- [ ] Loading states implementados
+- [ ] Empty states com mensagem clara
+- [ ] Error states com fallback/retry
+- [ ] Integrações Supabase/Firebase funcionando
+- [ ] Forms validando corretamente
 
-⚠️ P1 — Estrutural (Executar Segundo)
-## TASK-P1-01: Unificar Easing Tokens
-Agent Recomendado: @motion_choreographer
-Objetivo: Eliminar easing inline, usar apenas GHOST_EASE e GHOST_EASE_AMBIENT.
+### SEO Técnico
 
-Ações:
-bash
-```
-# 1. Encontrar todos os easings inline
-grep -rn "\[0\.[0-9].*\]" src/components/ --include="*.tsx"
+- [ ] Metadata API completa por página
+- [ ] JSON-LD válido (Organization)
+- [ ] Títulos únicos ≤60 caracteres
+- [ ] Canonical URLs configuradas
+- [ ] Robots directives apropriados
 
-# 2. Substituir por imports de @/config/motion
-import { GHOST_EASE, GHOST_EASE_AMBIENT } from '@/config/motion'
+---
 
-# 3. Documentar exceções
-```
+## 9. PRÓXIMOS PASSOS
 
-Arquivos Alvo (~20):
-src/components/sobre/sections/AboutMethod.tsx
-src/components/home/hero/useHeroAnimation.ts
-src/components/shared/3d/GhostAura.tsx
-src/components/shared/3d/GhostText.tsx
-src/components/ui/Preloader.tsx
+### Imediatos (Pré-Execução)
 
-Validação:
-Comparação visual side-by-side
-Validação reduced motion
-Teste mobile 60fps
+1. **Revisar artefatos gerados** — implementation_plan.md, task.md, risk_assessment.md
+2. **Aprovar prompt orquestrado** — Responder com `Aprovado` ou `Proceed`
+3. **Preparar ambiente** — Branch isolada, staging, Context7 MCP
 
+### Após Aprovação
 
-## TASK-P1-02: Otimizar Componentes >500 Linhas
+1. **Executar P0** — Headings + Metadata (1-2 dias)
+2. **Executar P1** — Estrutural (3-5 dias)
+3. **Executar P2** — Polimento (2-3 dias)
+4. **Validação geral** — Checklist completa
+5. **Deploy production** — Monitoramento 24h
 
-Agent Recomendado: @ghost_architect
-⚠️ RISCO CRÍTICO (Score 9/9) — Requer plano de contingência completo.
-Componentes Alvo:
-ALPARenderer.tsx (904 linhas)
-GhostScene.tsx (904 linhas)
-ProjectForm.tsx (801 linhas)
-SettingsForm.tsx (662 linhas)
-GhostCursor.tsx (569 linhas)
-template-schema.ts (993 linhas)
+---
 
-Estratégia:
-Um componente por PR
-Extrair subcomponentes lógicos
-Separar lógica em custom hooks
-Cobertura de testes ≥80%
-Code review obrigatório
+**Status da Auditoria:** ✅ Completa  
+**Status da Correção:** ⏸️ Aguardando Approval Gate  
+**Próxima Ação:** Aprovação humana para iniciar execução
 
-Validação:
-bash
-pnpm run typecheck
-pnpm run lint
-pnpm test
-pnpm test:e2e
+---
 
-
-## TASK-P1-03: Tokenizar Cores de Hover
-Agent Recomendado: @spectral_artist
-
-Objetivo: Eliminar hex codes hard-coded de hover states.
-
-Tokens a Criar:
-typescript
-// tailwind.config.ts
-theme.extend.colors: {
-  blueHover: '#1a5cff',
-  purpleHover: '#8705f2',
-}
-
-Validação:
-axe DevTools contraste
-Consistência desktop/mobile
-Focus states visíveis
-
-
-## TASK-P1-04: Corrigir Z-Index no Beliefs Section
-Agent Recomendado: @audit_sentinel
-
-Objetivo: Aplicar z-layer tokens corretos na seção "O Que Me Move".
-
-Mapeamento:
-GhostCanvas → --z-layer-3d (z-30)
-BeliefManifesto → --z-layer-overlay (z-50)
-BeliefBackground → --z-layer-content (z-20)
-
-Arquivos:
-src/components/sobre/sections/beliefs/BeliefsSection.tsx
-src/components/sobre/sections/beliefs/BeliefBackground.tsx
-src/components/sobre/sections/beliefs/BeliefManifesto.tsx
-
-Validação:
-Canvas abaixo do texto (inspeção)
-Scroll funcionando
-Reduced motion respeitado
-
-## TASK-P1-05: Implementar Loading States
-Agent Recomendado: @ghost_architect
-
-Objetivo: Skeletons para projetos Supabase.
-
-Componentes a Criar:
-src/components/ui/Skeleton.tsx
-src/components/portfolio/ProjectCardSkeleton.tsx
-
-Implementar em:
-src/components/portfolio/ProjectsGallery.tsx
-src/components/portfolio/ProjectCard.tsx
-
-Estados:
-Loading: skeleton
-Empty: mensagem clara
-Error: fallback com retry
-✨ P2 — Polimento (Executar Terceiro)
-
-
-## TASK-P2-01 à P2-05
-Seguir especificações completas em docs/task.md.
-Resumo:
-P2-01: Aspect ratio video manifesto mobile
-P2-02: Bento grid vertical alignment
-P2-03: Unificar grid em AboutMethod
-P2-04: Versionar ghost.glb
-P2-05: Contraste hero portfolio
-🔁 Tasks Transversais
-
-## TASK-T01: JSON-LD Organization
-Agente: @seo-specialist
-Ação: Corrigir Organization.logo como URL absoluta string.
-Arquivo: src/components/ui/JsonLd.tsx
-##TASK-T02: Títulos Templated
-Agente: @seo-specialist
-Ação: Padrão {shortTitle} | {brand}, ≤60 caracteres.
-Arquivos: src/lib/seo.ts, src/app/*/page.tsx
-## TASK-T03: Reduced Motion Global
-Agente: @motion_choreographer
-Ação: Centralizar hook useReducedMotion e aplicar globalmente.
-Arquivo SSOT: src/hooks/useReducedMotion.ts
-🧪 Validação Geral Pós-Execução
-Checklist Obrigatório
-markdown
-- [ ] TypeScript: pnpm run typecheck (0 errors)
-- [ ] Lint: pnpm run lint (0 new warnings)
-- [ ] Build: pnpm run build (success)
-- [ ] Tests: pnpm test (all pass)
-- [ ] E2E: pnpm test:e2e (critical paths)
-- [ ] Lighthouse: Performance ≥96, A11y 100, SEO 100
-- [ ] .context atualizada
-- [ ] Ghost Design System preservadoMétricas de Sucesso
-
-Métrica
-Meta
-Ferramenta
-Lighthouse Performance
-≥96
-Lighthouse CI
-Lighthouse Accessibility
-100
-Lighthouse CI
-Lighthouse SEO
-100
-Lighthouse CI
-TypeScript Errors
-0
-tsc --noEmit
-ESLint Warnings
-0 novos
-eslint
-Bundle Size
-Não aumentar >5%
-bundle analyzer
-Core Web Vitals
-Todos verdes
-Search Console
-🛡️ Governança e Approval Gate
-Antes de Executar
-Aprovação humana recebida (Aprovado ou Proceed)
-Context7 MCP disponível para consultas
-Branch isolada criada (fix/audit-remediation-phase1)
-Staging environment pronto
-Durante Execução
-Commits atômicos por task
-Mensagens de commit convencionais
-Screenshots antes/depois (mudanças visuais)
-Testes atualizados conforme necessário
-Após Execução
-Validação completa passed
-.context atualizada
-PR aberto com descrição completa
-Code review aprovado
-Merge para main
-Deploy em production
-Monitoramento pós-deploy (24h)
-📞 Contato e Escalation
-Em caso de dúvidas ou blockers:
-Consultar documentação canônica: .context/DOCS-PORTFOLIO-PAGES/
-Verificar Ghost Design System: .context/GHOST-DESIGN-SYSTEM.md
-Checar active state: .context/active_state.md
-Revisar risk assessment: docs/risk_assessment.md
-⏸️ APPROVAL GATE
-ESTE PROMPT NÃO DEVE SER EXECUTADO SEM APROVAÇÃO HUMANA EXPLÍCITA.
-Para autorizar execução, responder com:
-Aprovado
-ou
-Proceed
-Para solicitar ajustes, responder com:
-Lista de mudanças necessárias
-Prioridades revisadas
-Restrições adicionais
-Gerado em: 2026-05-02
-Versão: 1.0
-Próxima Revisão: Após aprovação e primeira rodada de correções
+**Gerado em:** 2026-05-02  
+**Versão:** 1.0  
+**Auditor:** Agente Auditor Sênior Frontend (Ghost System)

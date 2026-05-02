@@ -8,7 +8,6 @@ import { SiteClosure } from '@/components/layout/SiteClosure';
 import { siteMetadata } from '@/config/metadata';
 import type { Metadata } from 'next';
 import { createStaticClient } from '@/lib/supabase/static';
-
 import {
   mapDbProjectToPortfolioProject,
   mapStaticProjectToPortfolioProject,
@@ -17,7 +16,11 @@ import type { PortfolioProject } from '@/types/project';
 import { isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { generateVideoSchema } from '@/lib/schema';
-
+import {
+  extractYoutubeId,
+  parsePortfolioBodyBlocks,
+  normalizeSlug,
+} from '@/lib/portfolio/slug-utils';
 import {
   normalizeMetaDescription,
   normalizeTemplatedTitle,
@@ -28,118 +31,6 @@ import ReactMarkdown from 'react-markdown';
 
 export const dynamic = 'force-dynamic';
 
-
-type PortfolioBodyBlock = {
-  type: 'text' | 'video_youtube';
-  value: string;
-  settings: {
-    autoplay: boolean;
-  };
-};
-
-const extractYoutubeId = (rawValue: string): string | null => {
-  const value = rawValue.trim();
-  if (!value) return null;
-  if (/^[a-zA-Z0-9_-]{11}$/.test(value)) return value;
-
-  const safeUrl = value.startsWith('http') ? value : `https://${value}`;
-
-  try {
-    const parsed = new URL(safeUrl);
-    const host = parsed.hostname.replace(/^www\./, '');
-
-    if (host === 'youtu.be') {
-      const id = parsed.pathname.replace('/', '');
-      return id.length === 11 ? id : null;
-    }
-
-    if (host === 'youtube.com' || host === 'm.youtube.com') {
-      const byQuery = parsed.searchParams.get('v');
-      if (byQuery?.length === 11) return byQuery;
-
-      const parts = parsed.pathname.split('/').filter(Boolean);
-      const embedIndex = parts.findIndex((part) =>
-        ['embed', 'shorts', 'v'].includes(part)
-      );
-      if (embedIndex >= 0) {
-        const id = parts[embedIndex + 1];
-        return id?.length === 11 ? id : null;
-      }
-    }
-  } catch {
-    return null;
-  }
-
-  return null;
-};
-
-const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] => {
-  if (!value?.trim()) return [];
-
-  try {
-    const parsed = JSON.parse(value);
-    if (!Array.isArray(parsed)) {
-      const isYoutube = extractYoutubeId(value);
-      return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
-    }
-
-    const blocks = parsed.reduce<PortfolioBodyBlock[]>((acc, item) => {
-      if (!item || typeof item !== 'object') {
-        if (typeof item === 'string' && item.trim()) {
-          const isYoutube = extractYoutubeId(item);
-          acc.push({
-            type: isYoutube ? 'video_youtube' : 'text',
-            value: item,
-            settings: { autoplay: !!isYoutube },
-          });
-        }
-        return acc;
-      }
-
-      const block = item as {
-        type?: unknown;
-        value?: unknown;
-        settings?: { autoplay?: unknown };
-      };
-
-      if (typeof block.value !== 'string' || !block.value.trim()) return acc;
-
-      const isYoutube = extractYoutubeId(block.value);
-      const type =
-        block.type === 'video_youtube' || isYoutube ? 'video_youtube' : 'text';
-
-      acc.push({
-        type,
-        value: block.value,
-        settings: {
-          autoplay:
-            typeof block.settings?.autoplay === 'boolean'
-              ? block.settings.autoplay
-              : type === 'video_youtube',
-        },
-      });
-
-      return acc;
-    }, []);
-
-    if (blocks.length > 0) return blocks;
-
-    const isYoutube = extractYoutubeId(value);
-    return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
-  } catch {
-    const isYoutube = extractYoutubeId(value);
-    return [{ type: isYoutube ? 'video_youtube' : 'text', value, settings: { autoplay: false } }];
-  }
-};
-
-function normalizeSlug(value: string): string {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/[_\s]+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/-+/g, '-');
-}
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   const normalizedSlug = slug.replace(/-/g, '_');
@@ -218,7 +109,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: BRAND.name,
+      // TASK-035: 'website' é o tipo correto para case studies (não artigos de blog)
+      siteName: 'Danilo Novais — Head de Criação & Diretor de Criação Sênior',
       images: [
         {
           url: project.image || '/opengraph-image',
@@ -228,7 +120,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
       locale: 'pt_BR',
-      type: 'article',
+      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
@@ -411,9 +303,17 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-32 max-w-5xl mx-auto">
+      <section
+        className="px-6 md:px-12 pb-32 max-w-5xl mx-auto"
+        aria-labelledby="project-description-heading"
+      >
         <div className="prose prose-invert prose-lg md:prose-xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">Sobre o projeto</h2>
+          <h2
+            id="project-description-heading"
+            className="text-2xl md:text-3xl font-bold mb-6"
+          >
+            Sobre o projeto
+          </h2>
           {portfolioBodyBlocks.length > 0 ? (
             portfolioBodyBlocks.map((block, index) => {
               if (block.type === 'video_youtube') {

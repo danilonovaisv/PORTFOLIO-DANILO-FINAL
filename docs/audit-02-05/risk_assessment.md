@@ -1,160 +1,508 @@
-# Task Breakdown — Auditoria Multipágina Portfólio Danilo
+# Risk Assessment — Auditoria Multipágina Portfólio Danilo
 
 **Projeto:** `danilo-novais-portfolio`  
+**Domínio:** `https://portfoliodanilo.com`  
 **Data:** 2026-05-02  
-**Status:** Aprovado para execução  
+**Versão:** 1.0  
 
 ---
 
-## Task List (Pré-Findings)
+## Executive Summary
 
-Conforme exigido pelo protocolo PREVC, esta task list foi criada **antes** de qualquer finding diagnóstico.
+Esta avaliação de riscos identifica, classifica e propõe mitigação para potenciais problemas durante a execução das correções identificadas na auditoria das páginas **Home**, **Sobre** e **Portfólio**.
 
-**"A task list is an artifact that the agent uses to approach complex tasks and monitor progress on various action items."**
-
----
-
-## Phase 0: Context & Planning
-
-| ID | Task | Descrição | Owner | Status |
-|----|------|-----------|-------|--------|
-| TASK-001 | Ativar `/plan` | Consultar AGENTS.md, .antigravity/rules.md, blueprints | ghost_architect | ✅ Done |
-| TASK-002 | Analisar estrutura de rotas | Mapear `/`, `/sobre`, `/portfolio` + componentes | audit_sentinel | ✅ Done |
-| TASK-003 | Identificar skills | Listar especialistas e workflows necessários | orchestrator | ✅ Done |
-| TASK-004 | Modelar pipeline | Intake → MCP Context → Orchestration → Execution → Verification | orchestrator | ✅ Done |
-| TASK-005 | Ativar Context7 MCP | Definir onde será usado e limitações | all_agents | ✅ Done |
+**Riscos Totais Identificados:** 18  
+**Críticos (Vermelho):** 3  
+**Altos (Laranja):** 6  
+**Médios (Amarelo):** 7  
+**Baixos (Verde):** 2  
 
 ---
 
-## Phase 1: Auditoria Home (`/`)
+## Risk Matrix
 
-| ID | Task | Seção | Foco | Prioridade |
-|----|------|-------|------|------------|
-| TASK-010 | Auditar Header | 01-HEADER | Semântica, navegação, ARIA | P1 |
-| TASK-011 | Auditar Hero | 02-HERO-HOME | Heading H1, WebGL, reduced motion | P0 |
-| TASK-012 | Auditar Video Manifesto | 03-VIDEO-MANIFESTO | Aspect ratio, captions, autoplay | P2 |
-| TASK-013 | Auditar Portfolio Showcase | 04-PORTFOLIO-SHOWCASE | Grid, cards, links | P1 |
-| TASK-014 | Auditar Featured Projects | 05-FEATURED-PROJECTS | Bento grid, alt text, contraste | P2 |
-| TASK-015 | Auditar Clients Brands | 06-CLIENTS-BRANDS | Logos, lazy loading | P2 |
-| TASK-016 | Auditar Contact | 07-CONTACT | Formulário, validação, error states | P1 |
-| TASK-017 | Auditar Footer | 08-FOOTER | Links, copyright, sitemap | P2 |
-
----
-
-## Phase 2: Auditoria Sobre (`/sobre`)
-
-| ID | Task | Seção | Foco | Prioridade |
-|----|------|-------|------|------------|
-| TASK-020 | Auditar Header | 01-HEADER | Consistência com Home | P1 |
-| TASK-021 | Auditar Hero | 02-HERO-SOBRE | H1 único, manifesto copy | P0 |
-| TASK-022 | Auditar Origem Criativa | 03-ORIGEM-CRIATIVA | Typography, spacing | P2 |
-| TASK-023 | Auditar O Que Eu Faço | 04-O-QUE-EU-FACO | Cards, shadows, tokens | P1 |
-| TASK-024 | Auditar Como Eu Trabalho | 05-COMO-EU-TRABALHO | Grid, icons, motion | P2 |
-| TASK-025 | Auditar O Que Me Move | 06-O-QUE-ME-MOVE | Z-index, scroll trigger, Canvas | P1 |
-| TASK-026 | Auditar Fechamento | 07-FECHAMENTO-CONFIRMACAO | CTA, hierarquia | P2 |
-| TASK-027 | Auditar Clients/Contact/Footer | 08-10 | Consistência global | P2 |
+| ID | Risco | Categoria | Severidade | Probabilidade | Impacto | Score |
+|----|-------|-----------|------------|---------------|---------|-------|
+| R-01 | Quebra de heading hierarchy em produção | SEO/A11y | Crítico | Média | Alto | 9 |
+| R-02 | Metadata incorreta afetando indexação | SEO | Crítico | Média | Alto | 9 |
+| R-03 | JSON-LD inválido bloqueando rich results | SEO | Crítico | Baixa | Alto | 7 |
+| R-04 | Motion drift causando inconsistência visual | UX/UI | Alto | Alta | Médio | 8 |
+| R-05 | Componentes grandes dificultando manutenção | Arquitetura | Alto | Alta | Médio | 8 |
+| R-06 | Z-index conflicts quebrando sobreposições | UI/UX | Alto | Média | Alto | 8 |
+| R-07 | Loading states ausentes degradando UX | UX | Alto | Alta | Médio | 7 |
+| R-08 | Reduced motion não respeitado | A11y | Alto | Baixa | Alto | 6 |
+| R-09 | Aspect ratio mobile quebrando layout | Responsividade | Médio | Alta | Médio | 6 |
+| R-10 | Bento grid desalinhado em breakpoints | UI/UX | Médio | Média | Médio | 5 |
+| R-11 | Grid aninhado redundante impactando perf | Performance | Médio | Baixa | Médio | 4 |
+| R-12 | Assets 3D sem versionamento causando cache stale | Performance | Médio | Alta | Baixo | 6 |
+| R-13 | Contraste variável no hero do Portfolio | A11y | Médio | Média | Médio | 5 |
+| R-14 | Cores hard-coded dificultando theme updates | Design System | Médio | Alta | Baixo | 6 |
+| R-15 | TypeScript errors pós-refatoração | Qualidade | Alto | Baixa | Alto | 6 |
+| R-16 | ESLint warnings novos introduzidos | Qualidade | Médio | Alta | Baixo | 5 |
+| R-17 | Build Next.js falhando após mudanças | Infra | Crítico | Baixa | Alto | 7 |
+| R-18 | E2E tests falhando em mobile viewport | QA | Médio | Alta | Médio | 6 |
 
 ---
 
-## Phase 3: Auditoria Portfólio (`/portfolio`)
+## Detailed Risk Analysis
 
-| ID | Task | Seção | Foco | Prioridade |
-|----|------|-------|------|------------|
-| TASK-030 | Auditar Header | 01-HEADER | Consistência | P1 |
-| TASK-031 | Auditar Hero | 02-HERO | H1, filtros, overlay | P0 |
-| TASK-032 | Auditar Gallery | 03-GALLERY | Pagination, LERP, performance | P1 |
-| TASK-033 | Auditar Project Cards | 04-PROJECT-CARDS | Roteamento, destino (modal/landing) | P1 |
-| TASK-034 | Auditar Modal | 05-MODAL | A11y, foco, trap, escape | P1 |
-| TASK-035 | Auditar Projeto Slug | 06-PROJETO-SLUG | SEO, conteúdo, H1/H2 | P0 |
-| TASK-036 | Auditar Clients/Contact/Footer | 07-09 | Consistência | P2 |
+### R-01: Quebra de Heading Hierarchy
 
----
+**Descrição:** Alterações incorretas na hierarquia H1-H6 podem violar WCAG e prejudicar SEO.
 
-## Phase 4: Auditoria Transversal
+**Causa Raiz:** 
+- Múltiplos H1 acidentais
+- Ordem saltada (H2 → H4)
+- Headings em componentes reutilizáveis sem contexto
 
-| ID | Task | Eixo | Escopo | Prioridade |
-|----|------|------|------|------------|
-| TASK-040 | Auditar JSON-LD | SEO | Organization logo shape | P0 |
-| TASK-041 | Auditar Metadata | SEO | Títulos únicos, templates | P0 |
-| TASK-042 | Auditar Reduced Motion | A11y/Motion | Hook centralizado, respeitado | P1 |
-| TASK-043 | Auditar Easing Tokens | Motion | Drift em ~20 arquivos | P1 |
-| TASK-044 | Auditar Component Size | Arquitetura | Componentes >500 linhas | P1 |
-| TASK-045 | Auditar Cores Hard-coded | Design System | Hover states, tokens | P1 |
-| TASK-046 | Auditar Loading States | UX | Supabase, R3F, async flows | P1 |
-| TASK-047 | Auditar 3D Assets | Performance | Versionamento, compressão | P2 |
+**Impacto:**
+- Penalização SEO
+- Leitura incorreta por screen readers
+- Violação WCAG 2.1 AA
+
+**Mitigação:**
+- Audit com axe-core antes de commit
+- Validação manual por página
+- Teste com NVDA/JAWS
+
+**Owner:** `audit_sentinel` + `a11y_advocate`
 
 ---
 
-## Phase 5: Geração de Artefatos
+### R-02: Metadata Incorreta
 
-| ID | Task | Artefato | Status |
-|----|------|----------|--------|
-| TASK-050 | Gerar implementation_plan.md | Plano de execução | ✅ Done |
-| TASK-051 | Gerar task.md | Este documento | ✅ Done |
-| TASK-052 | Gerar risk_assessment.md | Matriz de riscos | ⏳ Pending |
-| TASK-053 | Gerar orchestrated_fix_prompt.md | Prompt para agents | ⏳ Pending |
-| TASK-054 | Gerar audit_consolidated_report.md | Relatório consolidado | ⏳ Pending |
+**Descrição:** Títulos duplicados, descriptions faltantes ou OG tags quebradas.
 
----
+**Causa Raiz:**
+- Template global sobrescrevendo específico
+- `generateMetadata` não implementado por rota
+- Variáveis de ambiente faltando
 
-## Phase 6: Validation Checklist
+**Impacto:**
+- CTR reduzido no Google
+- Social sharing quebrado
+- Brand inconsistency
 
-| ID | Checkpoint | Critério | Tool |
-|----|------------|----------|------|
-| TASK-060 | Heading hierarchy | 1x H1 por página, ordem lógica | axe-core |
-| TASK-061 | Metadata completeness | Title, description, OG tags | Next.js devtools |
-| TASK-062 | JSON-LD validity | Schema.org valid | Rich Results Test |
-| TASK-063 | Focus states | Visível, coerente | Manual + Playwright |
-| TASK-064 | Contrast ratios | ≥4.5:1 (AA) | Stark, WAVE |
-| TASK-065 | Reduced motion | Respeita preferência | DevTools emulation |
-| TASK-066 | Loading states | Skeletons em async flows | Manual UX |
-| TASK-067 | Error states | Boundaries, messages | Error simulation |
-| TASK-068 | Mobile layout | Parity desktop/mobile | Device lab |
-| TASK-069 | Performance | Lighthouse ≥96 | Lighthouse CI |
-| TASK-070 | Bundle size | <500KB initial | webpack-bundle-analyzer |
-| TASK-071 | Token compliance | 100% cores via tokens | Grep audit |
-| TASK-072 | TypeScript strict | Zero errors | tsc --noEmit |
-| TASK-073 | ESLint | Zero new warnings | eslint |
-| TASK-074 | Build pass | Next.js build成功 | pnpm run build |
-| TASK-075 | E2E tests | All pass | Playwright |
+**Mitigação:**
+- Implementar `generateMetadata` por `page.tsx`
+- Validar com Next.js devtools
+- Testar social preview tools
+
+**Owner:** `seo_specialist`
 
 ---
 
-## Execution Order
+### R-03: JSON-LD Inválido
 
-1. **Phase 0** → Context loading (complete)
-2. **Phase 1-3** → Auditorias por página (complete)
-3. **Phase 4** → Auditoria transversal (complete)
-4. **Phase 5** → Geração de artefatos (in progress)
-5. **Approval Gate** → ⏸️ Aguardando aprovação humana
-6. **Phase 6+** → Execução das correções (blocked)
+**Descrição:** Schema.org Organization com `logo` fora do shape esperado.
 
----
+**Causa Raiz:**
+- URL relativa em vez de absoluta
+- Tipo incorreto (`ImageObject` vs string)
+- Contexto faltando
 
-## Skills Required
+**Impacto:**
+- Rich results bloqueados
+- Knowledge Graph não atualizado
 
-| Skill / Agente | Tasks |
-|----------------|-------|
-| `ghost_architect` | TASK-001, TASK-002, TASK-044, TASK-045 |
-| `spectral_artist` | TASK-047, TASK-012, TASK-025 |
-| `motion_choreographer` | TASK-042, TASK-043, TASK-025 |
-| `audit_sentinel` | TASK-010-017, TASK-020-027, TASK-030-036 |
-| `seo_specialist` | TASK-040, TASK-041, TASK-035 |
-| `performance_engineer` | TASK-046, TASK-047, TASK-032 |
-| `a11y_advocate` | TASK-060-065, TASK-034 |
+**Mitigação:**
+- Usar URL absoluta para logo
+- Validar com Rich Results Test
+- Schema validator pré-deploy
+
+**Owner:** `seo_specialist`
 
 ---
 
-## MCP Activation
+### R-04: Motion Drift
 
-| MCP | Uso | Tasks Dependentes |
-|-----|-----|-------------------|
-| Context7 (Next.js) | `generateMetadata`, App Router | TASK-041, TASK-035 |
-| Context7 (Framer Motion) | `MotionConfig`, `reducedMotion` | TASK-042, TASK-043 |
-| Context7 (R3F) | `Canvas`, `frameloop`, disposal | TASK-025, TASK-047 |
-| Context7 (Supabase) | SSR auth, client | TASK-046 |
-| Context7 (Tailwind) | Tokens Oxide | TASK-045 |
+**Descrição:** ~20 arquivos usando easing hard-coded em vez de token `GHOST_EASE`.
+
+**Causa Raiz:**
+- Copypaste de código legado
+- Falta de lint rule para tokens
+- Onboarding de devs sem contexto
+
+**Impacto:**
+- Inconsistência visual
+- Manutenção difícil
+- Brand dilution
+
+**Mitigação:**
+- Grep audit pré-commit
+- ESLint custom rule para tokens
+- Documentação atualizada
+
+**Owner:** `motion_choreographer`
 
 ---
 
-**Próximo passo:** Gerar `risk_assessment.md` e aguardar approval gate.
+### R-05: Componentes >500 Linhas
+
+**Descrição:** 6 componentes críticos excedem limite arquitetural.
+
+**Causa Raiz:**
+- Acumulo de features sem refator
+- Medo de quebrar funcionalidade
+- Falta de tempo para extrair sub-components
+
+**Impacto:**
+- Dificuldade de teste
+- Merge conflicts frequentes
+- Onboarding lento
+
+**Mitigação:**
+- Extrair sub-components por responsabilidade
+- Adicionar unit tests progressivamente
+- ESLint rule `max-lines-per-component`
+
+**Owner:** `ghost_architect`
+
+---
+
+### R-06: Z-Index Conflicts
+
+**Descrição:** Sobreposições quebradas (ex: Beliefs Section canvas acima do manifesto).
+
+**Causa Raiz:**
+- Valores hard-coded em vez de tokens `--z-layer-*`
+- Falta de documentação de layers
+- Mobile vs desktop mismatch
+
+**Impacto:**
+- Conteúdo escondido
+- Interactions quebradas
+- Layout shifts
+
+**Mitigação:**
+- Usar apenas tokens de z-index
+- Validar em todos os breakpoints
+- Device lab testing
+
+**Owner:** `audit_sentinel`
+
+---
+
+### R-07: Loading States Ausentes
+
+**Descrição:** Fluxos assíncronos (Supabase, R3F) sem skeletons ou indicators.
+
+**Causa Raiz:**
+- Foco em features vs polish
+- Complexidade de estados múltiplos
+- Assunção de conexão rápida
+
+**Impacto:**
+- UX percebida pobre
+- Abandono em conexões lentas
+- Accessibility issues
+
+**Mitigação:**
+- Mapear todos os async flows
+- Implementar skeletons consistentes
+- Error boundaries com retry
+
+**Owner:** `performance_engineer`
+
+---
+
+### R-08: Reduced Motion Não Respeitado
+
+**Descrição:** Animações ignorando preferência `prefers-reduced-motion`.
+
+**Causa Raiz:**
+- Hook não centralizado
+- Components não checam preferência
+- Framer Motion config global faltando
+
+**Impacto:**
+- Violação WCAG
+- Desconforto para usuários sensíveis
+- Possível ação legal (ADA)
+
+**Mitigação:**
+- Centralizar hook `useReducedMotion`
+- `MotionConfig` com `reducedMotion`
+- E2E test com emulation
+
+**Owner:** `motion_choreographer` + `a11y_advocate`
+
+---
+
+### R-09: Aspect Ratio Mobile
+
+**Descrição:** Vídeos/imagens esticados ou cortados em mobile.
+
+**Causa Raiz:**
+- CSS fixo em vez de responsivo
+- Container sem `aspect-ratio`
+- Media queries faltando
+
+**Impacto:**
+- Visual quebrado
+- Conteúdo importante cortado
+- Perda de credibilidade
+
+**Mitigação:**
+- Usar `aspect-video`, `aspect-square`
+- Testar em device lab
+- Visual regression tests
+
+**Owner:** `audit_sentinel`
+
+---
+
+### R-10: Bento Grid Desalinhado
+
+**Descrição:** Cards com alturas desiguais quebrando ritmo visual.
+
+**Causa Raiz:**
+- Conteúdo variável sem normalização
+- Grid CSS mal configurado
+- Falta de `line-clamp`
+
+**Mitigação:**
+- Normalizar alturas com CSS Grid
+- `line-clamp` em textos longos
+- Align items consistent
+
+**Owner:** `spectral_artist`
+
+---
+
+### R-11: Grid Aninhado Redundante
+
+**Descrição:** Containers grid dentro de grids sem necessidade.
+
+**Causa Raiz:**
+- Copy-paste de padrões
+- Falta de revisão arquitetural
+- Over-engineering
+
+**Impacto:**
+- Performance levemente degradada
+- Complexidade desnecessária
+- Manutenção difícil
+
+**Mitigação:**
+- Refatorar para grid único
+- Documentar padrão ideal
+- Code review focado
+
+**Owner:** `ghost_architect`
+
+---
+
+### R-12: Assets 3D Sem Versionamento
+
+**Descrição:** GLBs/GLTFs sem hash query, causando cache stale.
+
+**Causa Raiz:**
+- Deploy estático sem invalidation
+- CDN cache longo demais
+- Falta de build step para hashing
+
+**Impacto:**
+- Usuários veem versão antiga
+- Debug difícil
+- Rollback complexo
+
+**Mitigação:**
+- Adicionar hash query (`model.glb?v=1.2.3`)
+- CI/CD com versionamento automático
+- Cache headers revisados
+
+**Owner:** `performance_engineer`
+
+---
+
+### R-13: Contraste Variável no Hero
+
+**Descrição:** Overlay do hero do Portfolio com contraste inconsistente devido ao vídeo.
+
+**Causa Raiz:**
+- Vídeo com luminância variável
+- Overlay fixo não compensa
+- Falta de blur/darken dinâmico
+
+**Impacto:**
+- Texto ilegível em frames claros
+- Violação WCAG potencial
+- UX inconsistente
+
+**Mitigação:**
+- Blur + darken overlay
+- Testar com frames extremos
+- Contrast checker automation
+
+**Owner:** `spectral_artist` + `a11y_advocate`
+
+---
+
+### R-14: Cores Hard-Coded
+
+**Descrição:** Hex values diretos em hover states em vez de tokens CSS.
+
+**Causa Raiz:**
+- Desenvolvimento rápido sem tokens
+- Tailwind config incompleta
+- Falta de code review para tokens
+
+**Impacto:**
+- Theme updates difíceis
+- Dark mode impossível
+- Inconsistência visual
+
+**Mitigação:**
+- Auditar com grep `#[0-9a-fA-F]`
+- Substituir por `var(--color-*)`
+- Tailwind tokens config
+
+**Owner:** `ghost_architect`
+
+---
+
+### R-15: TypeScript Errors Pós-Refatoração
+
+**Descrição:** Types quebrados após extração de componentes.
+
+**Causa Raiz:**
+- Props não tipadas corretamente
+- Generics mal definidos
+- `any` usado como escape
+
+**Impacto:**
+- Build falha
+- Runtime errors possíveis
+- DX degradado
+
+**Mitigação:**
+- `tsc --noEmit` pré-commit
+- Strict mode sempre ativo
+- Type-first development
+
+**Owner:** `ghost_architect`
+
+---
+
+### R-16: ESLint Warnings Novos
+
+**Descrição:** Warnings introduzidos por mudanças.
+
+**Causa Raiz:**
+- Rules novas ignoradas
+- Ignore comments excessivos
+- Config desatualizada
+
+**Mitigação:**
+- ESLint no CI pipeline
+- Zero warnings policy
+- Auto-fix pré-commit
+
+**Owner:** `ghost_architect`
+
+---
+
+### R-17: Build Next.js Falhando
+
+**Descrição:** `pnpm run build` falhando após mudanças.
+
+**Causa Raiz:**
+- Server/client component confusion
+- Import circular
+- Environment variables missing
+
+**Impacto:**
+- Deploy bloqueado
+- Downtime potencial
+- Rollback necessário
+
+**Mitigação:**
+- Build local antes de push
+- CI com build step
+- Rollback plan pronto
+
+**Owner:** `orchestrator`
+
+---
+
+### R-18: E2E Tests Falhando em Mobile
+
+**Descrição:** Playwright tests passando em desktop, falhando em mobile viewport.
+
+**Causa Raiz:**
+- Selectors frágeis
+- Timing assumptions erradas
+- Layout differences não consideradas
+
+**Impacto:**
+- Bugs em produção mobile
+- False confidence
+- Retrabalho
+
+**Mitigação:**
+- Testar ambos viewports
+- Polling robusto
+- Data-testid attributes
+
+**Owner:** `audit_sentinel`
+
+---
+
+## Mitigation Timeline
+
+| Fase | Riscos Mitigados | Ações |
+|------|------------------|-------|
+| Phase 1 | R-01, R-02, R-03 | Headings audit, metadata fix, JSON-LD validation |
+| Phase 2 | R-04, R-05, R-06, R-07, R-08, R-14 | Motion tokens, refactoring, z-index, loading states, reduced motion |
+| Phase 3 | R-09, R-10, R-11, R-12, R-13 | Mobile responsiveness, grid cleanup, asset versioning, contrast |
+| Phase 4 | R-15, R-16, R-17, R-18 | Type checking, linting, build validation, E2E hardening |
+
+---
+
+## Contingency Plans
+
+### Se P0 falhar:
+1. **Immediate rollback** para último commit estável
+2. **Hotfix branch** para correção isolada
+3. **Deploy emergencial** apenas do fix
+4. **Post-mortem** obrigatório
+
+### Se build falhar:
+1. Reverter última mudança
+2. Corrigir em branch isolada
+3. Validar localmente antes de retry
+
+### Se E2E falhar:
+1. Isolar teste falhando
+2. Debug com video recording
+3. Fix ou ajuste de teste
+4. Re-run suite completa
+
+---
+
+## Risk Acceptance
+
+| Stakeholder | Papel | Aceite |
+|-------------|-------|--------|
+| Danilo Novais | Product Owner | ⏳ Pending |
+| ghost_architect | Tech Lead | ✅ Approved |
+| audit_sentinel | QA Lead | ✅ Approved |
+
+---
+
+## Monitoring Post-Deployment
+
+| Metric | Threshold | Alert |
+|--------|-----------|-------|
+| Lighthouse Performance | ≥96 | <90 |
+| Accessibility Score | 100 | <95 |
+| SEO Score | 100 | <90 |
+| Error Rate (Sentry) | <0.1% | >1% |
+| Build Time | <5min | >10min |
+| E2E Pass Rate | 100% | <95% |
+
+---
+
+**Próxima Revisão:** Após cada fase de execução  
+**Última Atualização:** 2026-05-02

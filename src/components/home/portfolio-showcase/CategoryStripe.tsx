@@ -31,6 +31,7 @@ interface CategoryStripeProps {
   isHovered: boolean;
   onHover: (_id: string | null) => void;
   prefersReducedMotion: boolean;
+  priority?: boolean;
 }
 
 /**
@@ -47,6 +48,7 @@ export const CategoryStripe = React.memo(function CategoryStripe({
   isHovered,
   onHover,
   prefersReducedMotion,
+  priority = false,
 }: CategoryStripeProps) {
   const title = Array.isArray(category.title)
     ? category.title
@@ -124,8 +126,8 @@ export const CategoryStripe = React.memo(function CategoryStripe({
                     fill
                     className="object-cover object-center"
                     sizes="288px"
-                    loading="lazy"
-                    priority={false}
+                    loading={priority ? 'eager' : 'lazy'}
+                    priority={priority}
                     onError={applyImageFallback}
                   />
                 )}

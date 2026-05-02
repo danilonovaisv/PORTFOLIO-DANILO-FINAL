@@ -2,6 +2,9 @@
 
 import React from 'react';
 
+// TASK-045: Substituídos hex hardcoded (#111111, #f8fafc) por tokens do design system
+// text-textInverse / bg-backgroundLight (light section context)
+
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
@@ -23,7 +26,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     <div>
       <label
         htmlFor={id}
-        className="flex items-center text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
+        className="flex items-center text-[13px] font-bold text-textInverse/80 mb-2 uppercase tracking-wider"
       >
         {label}
         {props.required && (
@@ -37,7 +40,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         aria-invalid={isInvalid ? 'true' : 'false'}
         aria-describedby={error ? `${id}-error` : undefined}
         aria-required={props.required ? 'true' : 'false'}
-        className={`w-full min-h-[48px] rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 ${
+        className={`w-full min-h-[48px] rounded-lg border border-textInverse/20 bg-backgroundLight px-4 py-4 text-textInverse placeholder:text-textInverse/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 ${
           error ? 'border-red-500' : ''
         } ${className}`}
         {...props}
@@ -76,7 +79,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
     <div>
       <label
         htmlFor={id}
-        className="flex items-center text-[13px] font-bold text-[#111111]/80 mb-2 uppercase tracking-wider"
+        className="flex items-center text-[13px] font-bold text-textInverse/80 mb-2 uppercase tracking-wider"
       >
         {label}
         {props.required && (
@@ -90,7 +93,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
         aria-invalid={isInvalid ? 'true' : 'false'}
         aria-describedby={error ? `${id}-error` : undefined}
         aria-required={props.required ? 'true' : 'false'}
-        className={`w-full resize-none rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${
+        className={`w-full resize-none rounded-lg border border-textInverse/20 bg-backgroundLight px-4 py-4 text-textInverse placeholder:text-textInverse/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${
           error ? 'border-red-500' : ''
         } ${className}`}
         {...props}

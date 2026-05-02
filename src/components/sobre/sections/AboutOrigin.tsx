@@ -65,11 +65,15 @@ function AboutOrigin() {
     <section
       className="relative w-full transition-colors duration-1000"
       ref={containerRef}
-      aria-label="Origem Criativa"
+      aria-labelledby="about-origin-heading"
     >
       <div className="std-grid py-16 md:py-24">
         <div className="mb-12 md:mb-24 text-center select-none">
-          <h2 className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.1em] md:tracking-[0.2em] uppercase">
+          {/* H2 único semântico (audit: TASK-022) */}
+          <h2
+            id="about-origin-heading"
+            className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.1em] md:tracking-[0.2em] uppercase"
+          >
             ORIGEM
           </h2>
         </div>

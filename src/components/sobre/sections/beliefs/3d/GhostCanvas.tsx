@@ -246,7 +246,7 @@ export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1.5} />
-        <Suspense fallback={null}>
+        <Suspense fallback={<GhostFallback mode="loading" />}>
           <GhostModel scrollProgress={scrollProgress} />
         </Suspense>
       </Canvas>

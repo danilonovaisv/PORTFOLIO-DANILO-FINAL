@@ -22,7 +22,7 @@ export default function AboutMethod() {
     <section
       ref={containerRef}
       className="relative flex min-h-[100svh] w-full flex-col bg-background lg:min-h-[110vh]"
-      aria-label="Como Eu Trabalho"
+      aria-labelledby="about-method-heading"
     >
       {/* Background Video Container */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
@@ -111,7 +111,11 @@ export default function AboutMethod() {
                   viewport={{ once: true, margin: '-100px' }}
                   className="mb-6 text-center lg:mb-8 lg:text-left"
                 >
-                  <h2 className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text">
+                  {/* Título — H2 único semântico (audit: TASK-024) */}
+                  <h2
+                    id="about-method-heading"
+                    className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text"
+                  >
                     <span className="text-bluePrimary">Criatividade</span> com{' '}
                     <span className="text-bluePrimary">método</span>.
                     <br />

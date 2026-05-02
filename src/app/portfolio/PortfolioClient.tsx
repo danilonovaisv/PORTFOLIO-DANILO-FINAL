@@ -122,10 +122,10 @@ export default function PortfolioClient({
         Pular para os projetos
       </a>
 
+      <PortfolioHeroNew />
+
       {/* std-grid: Ghost Design System grid constraint on main content wrapper */}
       <div className="std-grid">
-        <PortfolioHeroNew />
-
         <ProjectsGallery
           projects={projects}
           onProjectSelect={handleOpenProject}

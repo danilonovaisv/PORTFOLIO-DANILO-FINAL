@@ -77,7 +77,7 @@ export function AboutWhatIDo() {
           ============================================ */}
       <div className="hidden lg:block lg:h-[180vh]">
         <div className="sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
-          {/* Header */}
+          {/* Header — único H2 semântico (desktop sticky) */}
           <div className="absolute top-0 z-20 flex w-full justify-center pt-20">
             <div className="max-w-[960px] text-center">
               <h2
@@ -154,15 +154,15 @@ export function AboutWhatIDo() {
           ============================================ */}
       <div className="block py-16 lg:hidden">
         <div className="std-grid">
-          {/* Header */}
-          <header className="mb-10 text-center px-4">
-            <h2
-              id="what-i-do-heading-mobile"
+          {/* Header — referencia o mesmo H2 do desktop via aria-labelledby */}
+          <header className="mb-10 text-center px-4" aria-labelledby="what-i-do-heading">
+            <p
               className="text-h2 font-black tracking-tight text-text text-balance"
+              aria-hidden="true"
             >
               Do <span className="text-bluePrimary">insight</span> ao{' '}
               <span className="text-bluePrimary">impacto</span>.
-            </h2>
+            </p>
             <p className="mt-2 text-h3 font-black tracking-tight text-text/90 text-balance">
               Mesmo quando você não percebe.
             </p>
@@ -171,7 +171,7 @@ export function AboutWhatIDo() {
           {/* Mobile Cards - Horizontal entrance from right */}
           <ul
             className="flex flex-col gap-3 p-0"
-            aria-labelledby="what-i-do-heading-mobile"
+            aria-labelledby="what-i-do-heading"
           >
             {SERVICES.map((service, index) => (
               <motion.li
