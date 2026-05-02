@@ -210,3 +210,17 @@ _O design respira. O Ghost sente. A cor absorve significado._
 | Error boundary       | `src/components/sobre/3d/GhostErrorBoundary.tsx`        |
 | Bridge DOM↔R3F       | `src/store/beliefStore.ts` (ghostIntensity)             |
 | Tokens de motion     | `src/config/motion.ts` (GHOST_EASE, GHOST_EASE_AMBIENT) |
+
+
+## 2026-05-02 — Ajuste scrollytelling Motion
+
+- Scroll tracker da seção migrado para a API `scroll()` do Motion, mantendo `offset: ["start start", "end end"]` no container da seção.
+- Frases da rotação fixadas com ordem imutável de 6 itens:
+  1. Um vídeo que respira
+  2. Uma marca que se reconhece
+  3. Um detalhe que fica
+  4. Crio para gerar presença
+  5. Mesmo quando não estou ali
+  6. Mesmo quando ninguém percebe o esforço
+- Background mapeado por keyframes exatos de progresso `[0, 0.15, 0.30, 0.45, 0.60, 0.75, 0.90, 1]` com cores `#040013 → #0048ff → #8705f2 → #f501d3 → #0048ff → #8705f2 → #f501d3 → #040013`.
+- A camada de texto mantém animação restrita a `transform` e `opacity`; com `prefers-reduced-motion`, remove deslocamento e mantém apenas cross-fade.

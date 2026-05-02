@@ -12,12 +12,14 @@ import { BeliefSection } from '@/components/sobre/sections/beliefs/BeliefSection
 import { BeliefManifesto } from '@/components/sobre/sections/beliefs/BeliefManifesto';
 import { GhostCanvasClient } from '@/components/sobre/sections/beliefs/3d/GhostCanvasClient';
 import { GhostErrorBoundary } from '@/components/sobre/sections/beliefs/3d/GhostErrorBoundary';
-import { ABOUT_CONTENT } from '@/config/content';
-
-const PHRASES = ABOUT_CONTENT.beliefs.map((belief) => ({
-  title: 'O que me move',
-  text: belief.text,
-}));
+const PHRASES = [
+  'Um vídeo que respira',
+  'Uma marca que se reconhece',
+  'Um detalhe que fica',
+  'Crio para gerar presença',
+  'Mesmo quando não estou ali',
+  'Mesmo quando ninguém percebe o esforço',
+].map((text) => ({ title: 'O que me move', text }));
 
 export function BeliefsSection() {
   const { containerRef, scrollYProgress } = useBeliefsScroll();
