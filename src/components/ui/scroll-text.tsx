@@ -1,127 +1,151 @@
-// @ts-nocheck
-
 'use client';
 
 import { cn } from '@/lib/utils';
-import { type HTMLMotionProps, motion } from 'motion/react';
-import type React from 'react';
-import type { JSX } from 'react';
+import {
+  type HTMLMotionProps,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from 'motion/react';
+import type { JSX, ReactNode, ComponentType } from 'react';
+import {
+  ghostEase,
+  ghostDurations,
+  ghostStagger,
+  ghostBlur,
+  ghostTranslate,
+} from '@/lib/motion/tokens';
 
-type Direction = 'up' | 'down' | 'left' | 'right';
+export type GhostScrollTextDirection = 'up' | 'down' | 'left' | 'right';
+export type GhostScrollTextMode = 'word' | 'letter' | 'line';
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+export interface GhostScrollTextProps {
+  text: string;
+  as?: keyof JSX.IntrinsicElements;
+  className?: string;
+  direction?: GhostScrollTextDirection;
+  mode?: GhostScrollTextMode;
+  duration?: number;
+  stagger?: number;
+  viewport?: { amount?: number; margin?: string; once?: boolean };
+  uppercase?: boolean;
+  ariaLabel?: string;
+}
 
-const generateVariants = (direction: Direction): { hidden: any; visible: any } => {
-  const axis = direction === 'left' || direction === 'right' ? 'X' : 'Y';
-  const value = direction === 'right' || direction === 'down' ? 100 : -100;
+const buildVariants = (
+  direction: GhostScrollTextDirection,
+  duration: number,
+  reduced: boolean,
+): Variants => {
+  if (reduced) {
+    return {
+      hidden: { opacity: 0 },
+      visible: { opacity: 1, transition: { duration: 0.01 } },
+    };
+  }
+  const axis = direction === 'left' || direction === 'right' ? 'x' : 'y';
+  const max = axis === 'y' ? ghostTranslate.yMax : ghostTranslate.xMax;
+  const sign = direction === 'right' || direction === 'down' ? 1 : -1;
+  const offset = sign * max;
 
   return {
     hidden: {
-      filter: 'blur(10px)',
       opacity: 0,
-      [`translate${axis}`]: value,
+      filter: ghostBlur.enter,
+      [axis]: offset,
     },
     visible: {
-      filter: 'blur(0px)',
       opacity: 1,
-      [`translate${axis}`]: 0,
-      transition: {
-        duration: 0.4,
-        ease: 'easeOut',
-      },
+      filter: ghostBlur.rest,
+      [axis]: 0,
+      transition: { duration, ease: [...ghostEase] },
     },
-  };
+  } as Variants;
 };
 
-const defaultViewport = { amount: 0.3, margin: '0px 0px 0px 0px' };
-
-const TextAnimation = ({
-  as = 'h1',
+const GhostScrollText = ({
   text,
-  classname = '',
-  viewport = defaultViewport,
-  variants,
-  direction = 'down',
-  letterAnime = false,
-  lineAnime = false,
-}: {
-  text: string;
-  classname?: string;
-  as?: keyof JSX.IntrinsicElements;
-  viewport?: {
-    amount?: number;
-    margin?: string;
-    once?: boolean;
-  };
-  variants?: {
-    hidden?: any;
-    visible?: any;
-  };
-  direction?: Direction;
-  letterAnime?: boolean;
-  lineAnime?: boolean;
-}) => {
-  const baseVariants = variants || generateVariants(direction);
-  const modifiedVariants = {
-    hidden: baseVariants.hidden,
+  as = 'span',
+  className,
+  direction = 'up',
+  mode = 'word',
+  duration = ghostDurations.reveal,
+  stagger,
+  viewport = { amount: 0.3, once: true },
+  uppercase = false,
+  ariaLabel,
+}: GhostScrollTextProps) => {
+  const reduced = useReducedMotion() ?? false;
+  const itemVariants = buildVariants(direction, duration, reduced);
+  const effectiveStagger =
+    stagger ??
+    (mode === 'letter'
+      ? ghostStagger.letter
+      : mode === 'line'
+        ? ghostStagger.line
+        : ghostStagger.word);
+
+  const containerVariants: Variants = {
+    hidden: {},
     visible: {
-      ...baseVariants.visible,
+      transition: { staggerChildren: reduced ? 0 : effectiveStagger },
     },
   };
 
-  const MotionComponent = motion[as as keyof typeof motion] as React.ComponentType<
-    HTMLMotionProps<any>
+  const MotionTag = motion[as as keyof typeof motion] as ComponentType<
+    HTMLMotionProps<'span'>
   >;
 
+  const renderLine = (): ReactNode => (
+    <motion.span className="inline-block" variants={itemVariants}>
+      {text}
+    </motion.span>
+  );
+
+  const renderWords = (): ReactNode =>
+    text.split(' ').map((word, i) => (
+      <motion.span
+        key={`${word}-${i}`}
+        className="inline-block"
+        variants={mode === 'letter' ? undefined : itemVariants}
+      >
+        {mode === 'letter' ? (
+          <>
+            {word.split('').map((letter, li) => (
+              <motion.span
+                key={li}
+                className="inline-block"
+                variants={itemVariants}
+              >
+                {letter}
+              </motion.span>
+            ))}
+            &nbsp;
+          </>
+        ) : (
+          <>{word}&nbsp;</>
+        )}
+      </motion.span>
+    ));
+
   return (
-    <MotionComponent
-      whileInView='visible'
-      initial='hidden'
+    <MotionTag
+      initial="hidden"
+      whileInView="visible"
       variants={containerVariants}
       viewport={viewport}
-      className={cn(`inline-block dark:text-white text-black uppercase`, classname)}
-    >
-      {lineAnime ? (
-        <motion.span className={`inline-block`} variants={modifiedVariants}>
-          {text}
-        </motion.span>
-      ) : (
-        <>
-          {text.split(' ').map((word: string, index: number) => (
-            <motion.span
-              key={`${word}-${index}`}
-              className={`inline-block`}
-              variants={letterAnime === false ? modifiedVariants : {}}
-            >
-              {letterAnime ? (
-                <>
-                  {word.split('').map((letter: string, letterIndex: number) => (
-                    <motion.span
-                      key={letterIndex}
-                      className={`inline-block`}
-                      variants={modifiedVariants}
-                    >
-                      {letter}
-                    </motion.span>
-                  ))}
-                  &nbsp;
-                </>
-              ) : (
-                <>{word}&nbsp;</>
-              )}
-            </motion.span>
-          ))}
-        </>
+      aria-label={ariaLabel ?? text}
+      className={cn(
+        'inline-block text-text',
+        uppercase && 'uppercase tracking-tight',
+        className,
       )}
-    </MotionComponent>
+    >
+      <span aria-hidden="true">
+        {mode === 'line' ? renderLine() : renderWords()}
+      </span>
+    </MotionTag>
   );
 };
 
-export default TextAnimation;
+export default GhostScrollText;

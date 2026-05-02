@@ -4,7 +4,6 @@ export const fetchCache = 'force-no-store';
 import { createClient } from '@/lib/supabase/server';
 import { StatCard } from '@/components/admin/StatCard';
 import { Suspense } from 'react';
-import { AdminHeader } from '@/components/admin/AdminHeader';
 
 async function DashboardStats() {
   const supabase = await createClient();
@@ -75,12 +74,16 @@ function DashboardSkeleton() {
   );
 }
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default async function AdminDashboardPage() {
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminHeader 
-        title="DASHBOARD"
-        subtitle="Operational command center for portfolio systems and WebGL modules."
+      <AdminPageHeader
+        title="Dashboard"
+        subtitle="System Real-Time Analytics & Operational Control."
+        badge={{ text: 'Operational', variant: 'blue' }}
+        breadcrumbs={[{ label: 'System', href: '/admin' }]}
       />
 
       <div className="space-y-6">

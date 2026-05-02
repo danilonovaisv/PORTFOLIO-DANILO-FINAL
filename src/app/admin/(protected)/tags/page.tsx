@@ -4,13 +4,14 @@ export const fetchCache = 'force-no-store';
 
 import { createClient } from '@/lib/supabase/server';
 import { TagForm } from '@/components/admin/TagForm';
-import { AdminHeader } from '@/components/admin/AdminHeader';
 
 const KIND_LABELS: Record<string, string> = {
   category: 'Category',
   discipline: 'Disciplina',
   industry: 'Indústria',
 };
+
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 export default async function TagsPage() {
   const supabase = await createClient();
@@ -35,9 +36,14 @@ export default async function TagsPage() {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminHeader 
+      <AdminPageHeader
         title="Tags_Management"
-        version="v3.2.0"
+        subtitle="Global parameters for filtering and taxonomy."
+        badge={{ text: 'Taxonomy', variant: 'blue' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Tags', href: '/admin/tags' },
+        ]}
       />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_350px]">

@@ -10,12 +10,13 @@ import { extractLegacyTokenValue, maskTokenSecret } from '@/lib/admin/tokens';
 import { listAdminUsers } from '@/lib/admin/admin-users';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { SettingsForm } from './SettingsForm';
-import { AdminHeader } from '@/components/admin/AdminHeader';
 
 const getSupabasePublicKeyStatus = () => {
   const key = getSupabasePublicKey();
   return key ? 'Configurado' : 'Ausente';
 };
+
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 export default async function SettingsPage() {
   await requireAdminAccess();
@@ -111,9 +112,14 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-7xl space-y-12 py-6 pb-24">
-      <AdminHeader 
+      <AdminPageHeader
         title="Settings_Panel"
-        version="v3.1.2-stable"
+        subtitle="Module: Configuration — Security: High_Priority"
+        badge={{ text: 'Core', variant: 'blue' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Settings', href: '/admin/settings' },
+        ]}
       />
 
       <section className="space-y-6">

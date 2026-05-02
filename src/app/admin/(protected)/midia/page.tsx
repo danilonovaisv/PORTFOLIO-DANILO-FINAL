@@ -8,7 +8,8 @@ import { AssetGuide } from '@/components/admin/AssetGuide';
 import { PresetButtons } from '@/app/admin/(protected)/midia/preset-buttons';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import { AssetGallery } from '@/components/admin/AssetGallery';
-import { AdminHeader } from '@/components/admin/AdminHeader';
+
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 export default async function MidiaPage(props: {
   searchParams?: Promise<{
@@ -81,10 +82,14 @@ export default async function MidiaPage(props: {
 
   return (
     <div className="max-w-7xl space-y-12 py-6">
-      <AdminHeader 
-        title="MEDIA_VAULT"
-        subtitle={`Centralized asset registry with ${activeCount} active items out of ${normalizedAssets.length} total entries.`}
-        category="System_Asset_Manager"
+      <AdminPageHeader
+        title="Media_Vault"
+        subtitle={`Registry: ${activeCount.toString().padStart(2, '0')}/${normalizedAssets.length.toString().padStart(2, '0')} — Status: Online`}
+        badge={{ text: 'Vault', color: 'indigo' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Media', href: '/admin/midia' },
+        ]}
       />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_380px]">

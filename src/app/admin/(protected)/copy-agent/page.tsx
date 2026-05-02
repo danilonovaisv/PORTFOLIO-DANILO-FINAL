@@ -5,12 +5,12 @@ import { generateProjectCopy } from '@/app/admin/(protected)/copy-agent/actions'
 import { Loader2, Copy, Check } from 'lucide-react';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
-import { AdminHeader } from '@/components/admin/AdminHeader';
 import {
   COPY_FIELD_LIMITS,
   MAX_REFERENCE_IMAGES,
   type CopyInput,
 } from '@/lib/admin/schemas/copy-agent';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 const initialState = {
   success: false,
@@ -56,10 +56,14 @@ export default function CopyAgentPage() {
 
   return (
     <div className="space-y-8">
-      <AdminHeader 
-        title="COPY_AGENT"
-        subtitle="High-performance narrative generation for portfolio cases. Powered by AI v3.0."
-        category="System_AI_Module"
+      <AdminPageHeader
+        title="Copy Agent"
+        subtitle="High-performance narrative generation for portfolio cases."
+        badge={{ text: 'v3.0 AI', color: 'indigo' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Copy_Agent' },
+        ]}
       />
 
       {/* Main Content */}
