@@ -374,12 +374,13 @@ function AssetInteractive({
         isFullDisplay ? (
           // Native img preserves the intrinsic media ratio for full-width editorial blocks.
 
-          <img
+          <Image
             src={resolved}
             alt={alt || 'Asset do projeto'}
+            width={1920}
+            height={1080}
             className="block h-auto w-full bg-black/30 object-contain"
             loading="lazy"
-            decoding="async"
           />
         ) : (
           <div className="relative aspect-[16/10] w-full bg-black/30">

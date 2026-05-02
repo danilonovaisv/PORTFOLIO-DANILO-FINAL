@@ -11,21 +11,21 @@ jest.mock('framer-motion', () => {
         {
           children,
           className,
-          whileHover,
-          whileTap,
-          whileInView,
-          initial,
-          animate,
-          exit,
-          transition,
-          variants,
-          viewport,
-          layout,
-          layoutId,
-          style,
-          onAnimationStart,
-          onAnimationComplete,
-          onUpdate,
+          _whileHover,
+          _whileTap,
+          _whileInView,
+          _initial,
+          _animate,
+          _exit,
+          _transition,
+          _variants,
+          _viewport,
+          _layout,
+          _layoutId,
+          _style,
+          _onAnimationStart,
+          _onAnimationComplete,
+          _onUpdate,
           ...props
         }: any,
         ref: any
@@ -86,7 +86,7 @@ describe('AboutWhatIDo typography hierarchy', () => {
     const listItems = container.querySelectorAll('li');
     expect(listItems).toHaveLength(14);
 
-    const desktopCards = container.querySelectorAll(
+    const _desktopCards = container.querySelectorAll(
       '.hidden.lg\\:block article'
     );
     // If cards are motion.li, they might not be articles.

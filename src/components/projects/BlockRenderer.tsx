@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
-import { cn, sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
+import { sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
