@@ -16,7 +16,7 @@ const getSupabasePublicKeyStatus = () => {
   return key ? 'Configurado' : 'Ausente';
 };
 
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export default async function SettingsPage() {
   await requireAdminAccess();
@@ -112,10 +112,10 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-7xl space-y-12 py-6 pb-24">
-      <AdminPageHeader
+      <AdminHeader
         title="Settings_Panel"
-        subtitle="Module: Configuration — Security: High_Priority"
-        badge={{ text: 'Core', variant: 'blue' }}
+        subtitle="Configure system-wide integrations, security protocols, and administrative access."
+        category="System_Control"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
           { label: 'Settings', href: '/admin/settings' },

@@ -2,6 +2,13 @@ packages:
   - functions
   - src/app
   - .
+allowBuilds:
+  '@firebase/util': false
+  esbuild: false
+  protobufjs: false
+  re2: false
+  sharp: false
+  unrs-resolver: false
 
 ignoredBuiltDependencies:
   - '@firebase/util'

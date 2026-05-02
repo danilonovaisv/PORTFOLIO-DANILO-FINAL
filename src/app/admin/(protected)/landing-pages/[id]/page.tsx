@@ -1,6 +1,6 @@
 import LandingPageForm from '@/components/admin/LandingPageForm';
 import { getLandingPageAction } from '@/app/admin/(protected)/landing-pages/actions';
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -22,13 +22,14 @@ export default async function EditLandingPage({ params }: Props) {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminPageHeader
-        title="Editar_Projeto"
-        subtitle={`Node_ID: ${id.substring(0, 8)}... | Action: Modify_Existing_Page`}
+      <AdminHeader
+        title="Edit_Landing_Page"
+        subtitle={`Node_ID: ${id.substring(0, 8)}... | Modify existing landing page node settings.`}
+        category="Content_Architecture"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
-          { label: 'Landing_Pages', href: '/admin/landing-pages' },
-          { label: 'Edit_Page' },
+          { label: 'Landing Pages', href: '/admin/landing-pages' },
+          { label: 'Edit Page' },
         ]}
       />
 

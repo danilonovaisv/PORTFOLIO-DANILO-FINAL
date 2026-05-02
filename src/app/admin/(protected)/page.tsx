@@ -74,15 +74,15 @@ function DashboardSkeleton() {
   );
 }
 
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export default async function AdminDashboardPage() {
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminPageHeader
+      <AdminHeader
         title="Dashboard"
         subtitle="System Real-Time Analytics & Operational Control."
-        badge={{ text: 'Operational', variant: 'blue' }}
+        category="System_Main_Frame"
         breadcrumbs={[{ label: 'System', href: '/admin' }]}
       />
 

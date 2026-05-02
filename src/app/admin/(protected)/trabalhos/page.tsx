@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import ProjectsTable from '@/components/admin/ProjectsTable';
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 type Props = {
   searchParams: Promise<{
@@ -139,10 +139,15 @@ export default async function TrabalhosPage(props: Props) {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminPageHeader
+      <AdminHeader
         title="Portfolio"
-        subtitle="System_Database_Management"
-        action={
+        subtitle="Manage the collective work database, case studies, and cinematic narratives."
+        category="Work_Catalog"
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Portfolio', href: '/admin/trabalhos' },
+        ]}
+        actions={
           <Link
             href={ADMIN_NAVIGATION.trabalhos.new}
             className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[#0048ff] px-8 py-3 text-[11px] font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 active:scale-95"
@@ -153,10 +158,6 @@ export default async function TrabalhosPage(props: Props) {
             <span className="relative">Add_New_Project</span>
           </Link>
         }
-        breadcrumbs={[
-          { label: 'System', href: '/admin' },
-          { label: 'Portfolio' },
-        ]}
       />
 
       <div className="space-y-8">

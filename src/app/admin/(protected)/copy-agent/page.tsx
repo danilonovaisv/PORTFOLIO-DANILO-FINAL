@@ -10,7 +10,7 @@ import {
   MAX_REFERENCE_IMAGES,
   type CopyInput,
 } from '@/lib/admin/schemas/copy-agent';
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 const initialState = {
   success: false,
@@ -56,13 +56,13 @@ export default function CopyAgentPage() {
 
   return (
     <div className="space-y-8">
-      <AdminPageHeader
-        title="Copy Agent"
-        subtitle="High-performance narrative generation for portfolio cases."
-        badge={{ text: 'v3.0 AI', color: 'indigo' }}
+      <AdminHeader
+        title="Copy_Agent"
+        subtitle="AI-powered creative writing and narrative optimization."
+        category="Intelligence_Unit"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
-          { label: 'Copy_Agent' },
+          { label: 'Copy Agent', href: '/admin/copy-agent' },
         ]}
       />
 

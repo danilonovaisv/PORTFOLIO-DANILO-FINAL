@@ -9,7 +9,7 @@ import { PresetButtons } from '@/app/admin/(protected)/midia/preset-buttons';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import { AssetGallery } from '@/components/admin/AssetGallery';
 
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export default async function MidiaPage(props: {
   searchParams?: Promise<{
@@ -82,10 +82,10 @@ export default async function MidiaPage(props: {
 
   return (
     <div className="max-w-7xl space-y-12 py-6">
-      <AdminPageHeader
+      <AdminHeader
         title="Media_Vault"
-        subtitle={`Registry: ${activeCount.toString().padStart(2, '0')}/${normalizedAssets.length.toString().padStart(2, '0')} — Status: Online`}
-        badge={{ text: 'Vault', color: 'indigo' }}
+        subtitle={`Registry: ${activeCount.toString().padStart(2, '0')}/${normalizedAssets.length.toString().padStart(2, '0')} — Active assets deployed across the Ghost System.`}
+        category="Asset_Infrastructure"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
           { label: 'Media', href: '/admin/midia' },

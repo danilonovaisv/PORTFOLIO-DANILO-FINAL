@@ -11,7 +11,7 @@ const KIND_LABELS: Record<string, string> = {
   industry: 'Indústria',
 };
 
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export default async function TagsPage() {
   const supabase = await createClient();
@@ -36,10 +36,10 @@ export default async function TagsPage() {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminPageHeader
+      <AdminHeader
         title="Tags_Management"
-        subtitle="Global parameters for filtering and taxonomy."
-        badge={{ text: 'Taxonomy', variant: 'blue' }}
+        subtitle="Manage global taxonomies, project categories, and filtering logic."
+        category="Metadata_Nexus"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
           { label: 'Tags', href: '/admin/tags' },

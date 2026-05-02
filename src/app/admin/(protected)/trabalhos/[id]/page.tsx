@@ -5,7 +5,7 @@ export const fetchCache = 'force-no-store';
 import { notFound } from 'next/navigation';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { ProjectForm } from '@/components/admin/ProjectForm';
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 import type { DbProject } from '@/types/admin';
 
 type Props = {
@@ -82,14 +82,15 @@ export default async function EditProjectPage(props: Props) {
       .filter(Boolean) ?? [];
 
   return (
-    <div className="space-y-6">
-      <AdminPageHeader
+    <div className="max-w-6xl space-y-12 py-6">
+      <AdminHeader
         title="Edit_Project"
-        badge={{ text: 'v3.0', color: 'indigo' }}
+        subtitle={`System_ID: ${id}`}
+        category="Work_Catalog"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
           { label: 'Portfolio', href: '/admin/trabalhos' },
-          { label: 'Edit_Project' },
+          { label: 'Edit Project' },
         ]}
       />
       <ProjectForm
