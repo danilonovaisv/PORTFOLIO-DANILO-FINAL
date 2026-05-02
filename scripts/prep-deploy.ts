@@ -50,7 +50,7 @@ async function run() {
     }
     console.log(`Sincronizando assets a partir de "${resolved}"...`);
     await runCommand('pnpm', [
-      'dlx',
+      'exec',
       'tsx',
       'scripts/sync-site-assets.ts',
       resolved,
