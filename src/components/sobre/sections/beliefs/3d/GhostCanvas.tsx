@@ -1,18 +1,25 @@
 'use client';
 
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useMemo, useRef, Suspense, type ReactNode } from 'react';
 import { useMotionValue, useSpring, type MotionValue } from 'motion/react';
-import type { BufferGeometry, Group, Material, Mesh, Object3D } from 'three';
+import type {
+  BufferGeometry,
+  Group,
+  Material,
+  Mesh,
+  Object3D,
+  WebGLRenderer,
+} from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
 import { GhostFallback } from '@/components/sobre/sections/beliefs/3d/GhostFallback';
 import { useWebGLAvailable } from '@/components/sobre/sections/beliefs/3d/useWebGLAvailable';
 
 const LOCAL_GHOST_GLB_URL = '/site.assets/3d/ghost-v1.glb';
 const SUPABASE_GHOST_GLB_URL =
-  process.env.NEXT_PUBLIC_SUPABASE_URL ||
-  process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL
+  (process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL)
     ? `${(
         process.env.NEXT_PUBLIC_SUPABASE_URL ||
         process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ||
@@ -35,9 +42,11 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
   const { scene } = useGLTF(SUPABASE_GHOST_GLB_URL);
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
   const meshRef = useRef<Group>(null);
-  const invalidate = useThree((state) => state.invalidate);
-  const isMobile = useBeliefStore((s) => s.isMobile);
-  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+  const invalidate = useThree((state: RootState) => state.invalidate);
+  const isMobile = useBeliefStore((s: { isMobile: boolean }) => s.isMobile);
+  const prefersReducedMotion = useBeliefStore(
+    (s: { prefersReducedMotion: boolean }) => s.prefersReducedMotion
+  );
 
   // Ref-based subscription for ghostIntensity — avoids getState() per frame
   const ghostIntensityRef = useRef(0);
@@ -45,7 +54,7 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     // Initialize
     ghostIntensityRef.current = useBeliefStore.getState().ghostIntensity;
     // Subscribe to changes only
-    const unsub = useBeliefStore.subscribe((state) => {
+    const unsub = useBeliefStore.subscribe((state: { ghostIntensity: number }) => {
       ghostIntensityRef.current = state.ghostIntensity;
     });
     return unsub;
@@ -100,7 +109,7 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
         mesh.geometry?.dispose();
 
         if (Array.isArray(mesh.material)) {
-          mesh.material.forEach((material) => material.dispose());
+          mesh.material.forEach((material: Material) => material.dispose());
         } else {
           mesh.material?.dispose();
         }
@@ -108,7 +117,7 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     };
   }, [clonedScene]);
 
-  useFrame((state, delta) => {
+  useFrame((state: RootState, delta: number) => {
     if (!meshRef.current) return;
 
     const p = ghostIntensityRef.current;
@@ -167,8 +176,10 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
       meshRef.current.traverse((child: Object3D) => {
         const mesh = child as Mesh;
         if (mesh.material && 'opacity' in mesh.material) {
-          mesh.material.opacity = manifestoFade;
-          mesh.material.transparent = true;
+          (mesh.material as Material & { opacity: number; transparent: boolean }).opacity =
+            manifestoFade;
+          (mesh.material as Material & { opacity: number; transparent: boolean }).transparent =
+            true;
         }
       });
     }
@@ -194,8 +205,10 @@ function GhostSceneFrame({ children }: { children: ReactNode }) {
 }
 
 export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
-  const isMobile = useBeliefStore((s) => s.isMobile);
-  const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+  const isMobile = useBeliefStore((s: { isMobile: boolean }) => s.isMobile);
+  const prefersReducedMotion = useBeliefStore(
+    (s: { prefersReducedMotion: boolean }) => s.prefersReducedMotion
+  );
   const webGLAvailable = useWebGLAvailable();
 
   // Mobile + reduced motion: skip entire 3D scene for performance
@@ -229,7 +242,7 @@ export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
         dpr={[1, isMobile ? 1 : 1.5]}
         camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 35 }}
         frameloop="demand"
-        onCreated={({ gl }) => {
+        onCreated={({ gl }: { gl: WebGLRenderer }) => {
           // Detect if major performance caveat or failure
           if (gl.getContext().isContextLost()) {
             console.warn(
@@ -246,7 +259,7 @@ export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1.5} />
-        <Suspense fallback={<GhostFallback mode="loading" />}>
+        <Suspense fallback={null}>
           <GhostModel scrollProgress={scrollProgress} />
         </Suspense>
       </Canvas>
