@@ -98,7 +98,7 @@ export function AboutClosing() {
         </div>
 
         {/* Bloco 2: Frase 1 e Vídeo */}
-        <div className="mt-16 md:mt-20 flex flex-col items-center">
+        <div className="mt-16 flex w-full flex-col items-center md:mt-20">
           <p className="text-[clamp(20px,2vw,24px)] leading-normal text-text opacity-90 max-w-[700px] mx-auto text-center">
             Já liderei marcas, agências, eventos e{' '}
             <span className="text-bluePrimary">criei experiências</span> para
@@ -107,8 +107,9 @@ export function AboutClosing() {
 
           {/* Vídeo em Loop - Ghost Orchestration Logic */}
           <div
-            className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-full max-w-[1680px] items-center justify-center overflow-hidden rounded-lg bg-black/30 md:mt-11 md:aspect-video md:min-h-[360px]"
+            className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-screen items-center justify-center overflow-hidden bg-black/30 md:mt-11 md:aspect-video md:min-h-[360px]"
             style={{
+              marginLeft: 'calc((min(100vw, 1680px) - 100vw) / 2)',
               backgroundImage: activePoster
                 ? `url(${activePoster})`
                 : undefined,
@@ -122,7 +123,7 @@ export function AboutClosing() {
             {activeVideo && (
               <video
                 ref={videoRef}
-                className="relative z-10 block h-full max-h-[80svh] w-full object-contain"
+                className="relative z-10 block h-full w-full object-cover"
                 src={activeVideo}
                 autoPlay={!prefersReducedMotion}
                 loop

@@ -12,7 +12,6 @@ import { PORTFOLIO_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
-
 const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
     <defs>
@@ -45,7 +44,7 @@ export default function PortfolioHeroNew() {
     <section
       id="portfolio-hero"
       aria-labelledby="portfolio-hero-heading"
-      className="relative h-screen w-full overflow-hidden bg-background z-10"
+      className="relative left-1/2 z-10 h-screen w-screen -translate-x-1/2 overflow-hidden bg-background"
     >
       {/* Video Background - Responsivo Desktop/Mobile com Sincronização Realtime */}
       <div className="absolute inset-0 z-0">
@@ -55,7 +54,7 @@ export default function PortfolioHeroNew() {
             assetKey={videoAssetKey}
             fallbackUrl={fallbackVideo}
             poster={HERO_POSTER}
-            className="h-full w-full object-cover"
+            className="h-full w-screen object-cover"
             preload="auto"
             disableRealtime={process.env.NODE_ENV === 'production'}
           />
@@ -84,7 +83,7 @@ export default function PortfolioHeroNew() {
       </div>
 
       {/* Hero Content - Title Centered */}
-      <div className="absolute bottom-0 left-0 w-full z-30 pb-10 md:pb-16 px-4 md:px-12">
+      <div className="absolute bottom-0 left-0 z-30 w-full px-4 pb-10 md:px-12 md:pb-16">
         <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-center">
           {/* Title - "portfólio showcase" - Centered */}
           <h1
@@ -92,7 +91,9 @@ export default function PortfolioHeroNew() {
             className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
           >
             <div className="flex items-center">
-              <span className="text-bluePrimary italic font-light mr-3 md:mr-6">portfólio</span>
+              <span className="text-bluePrimary italic font-light mr-3 md:mr-6">
+                portfólio
+              </span>
               <span className="text-white font-bold">showcase</span>
             </div>
 

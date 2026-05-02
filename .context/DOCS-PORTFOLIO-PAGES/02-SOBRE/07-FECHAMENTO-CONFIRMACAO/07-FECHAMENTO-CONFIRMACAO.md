@@ -65,7 +65,8 @@ Concluir a narrativa com credibilidade e convite direto para ação (contato e m
 - Sessão sólida e estável.
 - Dependência visual de vídeo para “respiro” entre parágrafos e CTAs.
 - O vídeo final usa uma única tag `<video>` ativa por breakpoint.
-- O framing usa `object-contain`, com proporção `9/16` no mobile e `16/9` no desktop, para mostrar o vídeo completo sem crop.
+- O bloco de vídeo é full-bleed em desktop e mobile: `w-screen`, compensação do `.std-grid` por `marginLeft: calc((min(100vw, 1680px) - 100vw) / 2)` e bordas alinhadas ao viewport.
+- O framing usa `object-cover`, com proporção `9/16` no mobile e `16/9` no desktop, para preencher a faixa até as bordas da página.
 - O componente reinicia `load()`/`play()` quando `activeVideo` muda e reseta erro ao trocar fonte.
 - Posters locais `.webp` ausentes não são mais preloaded pela rota `/sobre`; o fechamento usa `DEFAULT_VIDEO_POSTER`.
 - Fallbacks já normalizados como `/site.assets/...` são aceitos por `useSiteAssetUrl` sem gerar prefixo duplicado.
@@ -108,5 +109,6 @@ Concluir a narrativa com credibilidade e convite direto para ação (contato e m
   - logo do header carregou e clicou para `/`;
   - vídeo desktop de fechamento: `about/closing/video.closing.desk.mp4` com `206`;
   - vídeo mobile de fechamento: `about/closing/video.closing.mobile.mp4` com `206`;
+  - vídeo full-bleed confirmado: `left: 0`, largura igual ao viewport e `fullBleedX: true` em desktop `1440px` e mobile `390px`;
   - `video.error === null`, `muted === true`, `playsInline === true`, `preload === "metadata"`;
   - sem `badResponses` para assets tocados.
