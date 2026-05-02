@@ -42,34 +42,35 @@ export function AboutClosing() {
     SITE_ASSET_KEYS.about.closingMobile,
     BRAND.assets.video.aboutClosingMobile
   );
-  const posterDesk = useSiteAssetUrl(
-    SITE_ASSET_KEYS.heroVideos.homeManifestoPosterDesk,
-    BRAND.assets.video.manifestoPosterDesk
-  );
-  const posterMobile = useSiteAssetUrl(
-    SITE_ASSET_KEYS.heroVideos.homeManifestoPosterMobile,
-    BRAND.assets.video.manifestoPosterMobile
-  );
+  const posterDesk = DEFAULT_VIDEO_POSTER;
+  const posterMobile = DEFAULT_VIDEO_POSTER;
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasVideoError, setHasVideoError] = useState(false);
+
+  const selectedVideo = isMobile
+    ? closingVideoMobile || closingVideoDesk
+    : closingVideoDesk;
+
+  const activeVideo = hasVideoError ? undefined : selectedVideo;
+
+  const activePoster = isMobile
+    ? posterMobile || posterDesk || DEFAULT_VIDEO_POSTER
+    : posterDesk || DEFAULT_VIDEO_POSTER;
+
+  useEffect(() => {
+    setHasVideoError(false);
+  }, [selectedVideo]);
 
   // Resume play if source changes and not reduced motion
   useEffect(() => {
-    if (videoRef.current && !prefersReducedMotion) {
+    if (videoRef.current && activeVideo && !prefersReducedMotion) {
       videoRef.current.load();
       videoRef.current.play().catch(() => {
         // Safe to ignore autoplay errors (usually permissions)
       });
     }
-  }, [isMobile, prefersReducedMotion]);
-
-  const activeVideo = isMobile
-    ? closingVideoMobile || closingVideoDesk
-    : closingVideoDesk;
-
-  const activePoster = isMobile
-    ? posterMobile || posterDesk || DEFAULT_VIDEO_POSTER
-    : posterDesk || DEFAULT_VIDEO_POSTER;
+  }, [activeVideo, prefersReducedMotion]);
 
   return (
     <section
@@ -105,13 +106,23 @@ export function AboutClosing() {
           </p>
 
           {/* Vídeo em Loop - Ghost Orchestration Logic */}
-          <div className="mt-12 md:mt-11 w-full max-w-[1680px] mx-auto overflow-hidden rounded-lg bg-black/30 relative">
+          <div
+            className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-full max-w-[1680px] items-center justify-center overflow-hidden rounded-lg bg-black/30 md:mt-11 md:aspect-video md:min-h-[360px]"
+            style={{
+              backgroundImage: activePoster
+                ? `url(${activePoster})`
+                : undefined,
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
+            }}
+          >
             <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
 
             {activeVideo && (
               <video
                 ref={videoRef}
-                className="w-full h-full object-cover"
+                className="relative z-10 block h-full max-h-[80svh] w-full object-contain"
                 src={activeVideo}
                 autoPlay={!prefersReducedMotion}
                 loop
@@ -120,6 +131,7 @@ export function AboutClosing() {
                 preload="metadata"
                 aria-label="Demonstração visual de experiências"
                 poster={activePoster}
+                onError={() => setHasVideoError(true)}
               >
                 <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
               </video>

@@ -48,19 +48,17 @@ export const BRAND = {
     logos: {
       favicon: asset('site-assets/global/logos/global.favicon_dark.svg'),
       faviconLight: asset('site-assets/global/logos/global.favicon_light.svg'),
-      logoLight: asset('site-assets/global/logos/global.logo_header_light.svg'),
-      logoDark: asset('site-assets/global/logos/global.logo_header_dark.svg'),
+      logoLight: asset('site-assets/global/logos/LogoLight.svg'),
+      logoDark: asset('site-assets/global/logos/LogoDark.svg'),
     },
     video: {
       manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
       manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-      manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
-      manifestoPosterMobile: asset(
-        'site-assets/home/video.manifesto.mobile.webp'
-      ),
-      aboutClosing: asset('site-assets/about/Closing/video.closing.desk.mp4'),
+      manifestoPosterDesk: asset('site-assets/global/404.webp'),
+      manifestoPosterMobile: asset('site-assets/global/404.webp'),
+      aboutClosing: asset('site-assets/about/closing/video.closing.desk.mp4'),
       aboutClosingMobile: asset(
-        'site-assets/about/Closing/video.closing.mobile.mp4'
+        'site-assets/about/closing/video.closing.mobile.mp4'
       ),
     },
     fonts: {
@@ -71,13 +69,11 @@ export const BRAND = {
   video: {
     manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
     manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-    manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
-    manifestoPosterMobile: asset(
-      'site-assets/home/video.manifesto.mobile.webp'
-    ),
-    aboutClosing: asset('site-assets/about/Closing/video.closing.desk.mp4'),
+    manifestoPosterDesk: asset('site-assets/global/404.webp'),
+    manifestoPosterMobile: asset('site-assets/global/404.webp'),
+    aboutClosing: asset('site-assets/about/closing/video.closing.desk.mp4'),
     aboutClosingMobile: asset(
-      'site-assets/about/Closing/video.closing.mobile.mp4'
+      'site-assets/about/closing/video.closing.mobile.mp4'
     ),
   },
 

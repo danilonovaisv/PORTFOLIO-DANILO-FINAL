@@ -11,8 +11,8 @@ export type SiteAssetDefinition = {
 
 export const SITE_ASSET_KEYS = {
   logos: {
-    headerLight: 'global.logos.global.logo_header_light',
-    headerDark: 'global.logos.global.logo_header_dark',
+    headerLight: 'global.logo_header_light',
+    headerDark: 'global.logo_header_dark',
     faviconLight: 'global.logos.global.favicon_light',
     faviconDark: 'global.logos.global.favicon_dark',
   },
@@ -45,12 +45,12 @@ export const SITE_ASSET_KEYS = {
     methodDesktop: 'about.method.about.method.desktop_video',
     methodMobile: 'about.method.about.method.mobile_video',
     beliefs: {
-      ghostModel: 'about.beliefs.ghost',
+      ghostModel: '3d.ghost-v1',
       skillsVideo: 'about.beliefs.VIDEO-SKILLS-FINAL_compressed.mp4',
       skillsVideoMobile: 'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4',
     },
-    closingDesktop: 'about.Closing.video.closing.desk',
-    closingMobile: 'about.Closing.video.closing.mobile',
+    closingDesktop: 'video.closing.desk',
+    closingMobile: 'video.closing.mobile',
   },
   projects: {
     campaign: {

@@ -42,6 +42,7 @@ export class GhostErrorBoundary extends Component<Props, State> {
               fill
               className="object-contain object-right"
               priority
+              unoptimized
             />
           </div>
 
@@ -53,6 +54,7 @@ export class GhostErrorBoundary extends Component<Props, State> {
               fill
               className="object-contain object-left"
               priority
+              unoptimized
             />
           </div>
 

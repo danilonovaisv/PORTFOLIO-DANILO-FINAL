@@ -66,21 +66,9 @@ export const metadata: Metadata = {
   },
 };
 
-import { preload } from 'react-dom';
-
 export default function AboutPage() {
   const siteUrl = toCanonicalUrl('/');
   const selfUrl = toCanonicalUrl('/sobre');
-
-  // Preload video posters for LCP optimization
-  preload(BRAND.assets.video.manifestoPosterDesk, {
-    as: 'image',
-    fetchPriority: 'high',
-  });
-  preload(BRAND.assets.video.manifestoPosterMobile, {
-    as: 'image',
-    fetchPriority: 'high',
-  });
 
   return (
     <div className="relative min-h-screen bg-background text-text">

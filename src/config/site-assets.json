@@ -920,7 +920,7 @@
         "id": "81c06e64-c2e2-4f88-8230-72d46d009ec4",
         "key": "about.beliefs.ghost_model",
         "bucket": "site-assets",
-        "file_path": "about/beliefs/ghost-transformed.glb",
+        "file_path": "3d/ghost-v1.glb",
         "asset_type": "model",
         "page": "about",
         "description": null,
@@ -929,7 +929,7 @@
         "created_at": "2026-02-06T04:05:52.114974+00:00",
         "updated_at": "2026-02-06T04:05:52.114974+00:00",
         "metadata": {},
-        "file_url": "/site.assets/about/beliefs/ghost-transformed.glb"
+        "file_url": "/site.assets/3d/ghost-v1.glb"
       },
       {
         "id": "c2dd7d3f-3a1a-47d4-8ff0-9c556413148f",
@@ -1070,7 +1070,7 @@
         "id": "a7646c65-786a-4a99-8ca8-848c09cc5154",
         "key": "global.logo_header_dark",
         "bucket": "site-assets",
-        "file_path": "global/logos/global.logo_header_dark.svg",
+        "file_path": "global/logos/LogoDark.svg",
         "asset_type": "image",
         "page": "global",
         "description": "Versão escura do logo do header",
@@ -1079,13 +1079,13 @@
         "created_at": "2026-01-14T08:12:18.123261+00:00",
         "updated_at": "2026-01-19T05:37:59.074933+00:00",
         "metadata": {},
-        "file_url": "/site.assets/global/logos/global.logo_header_dark.svg"
+        "file_url": "/site.assets/global/logos/LogoDark.svg"
       },
       {
         "id": "48e53987-6f06-4e45-adb7-9dcaa498ae89",
         "key": "global.logo_header_light",
         "bucket": "site-assets",
-        "file_path": "global/logos/global.logo_header_light.svg",
+        "file_path": "global/logos/LogoLight.svg",
         "asset_type": "image",
         "page": "global",
         "description": "Versão clara do logo do header",
@@ -1094,7 +1094,7 @@
         "created_at": "2026-01-14T07:30:04.590915+00:00",
         "updated_at": "2026-01-19T05:37:59.074933+00:00",
         "metadata": {},
-        "file_url": "/site.assets/global/logos/global.logo_header_light.svg"
+        "file_url": "/site.assets/global/logos/LogoLight.svg"
       },
       {
         "id": "b4764bd8-7d8e-4850-836b-aadb46f15b55",

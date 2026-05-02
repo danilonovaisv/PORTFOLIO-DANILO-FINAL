@@ -6,7 +6,7 @@ import {
   type MotionValue,
   cubicBezier,
 } from 'motion/react';
-import { GHOST_EASE_AMBIENT } from '@/config/motion';
+import { GHOST_EASE } from '@/config/motion';
 import { useBeliefStore } from '@/store/beliefStore';
 
 interface Phrase {
@@ -75,7 +75,7 @@ function PhraseItem({
 }) {
   const [start, end] = range;
   const segmentSize = end - start;
-  const ghostEase = cubicBezier(...GHOST_EASE_AMBIENT);
+  const ghostEase = cubicBezier(...GHOST_EASE);
 
   const isInitialPhrase = start === 0;
   const entryStart = isInitialPhrase ? 0 : start + 0.05;
@@ -90,19 +90,11 @@ function PhraseItem({
     exitStart,
     exitEnd,
   ];
-  const opacityRange: [number, number, number, number] = isInitialPhrase
-    ? [0.65, 1, 1, 0]
-    : [0, 1, 1, 0];
-  const movementRange: [string, string, string, string] = isInitialPhrase
-    ? isMobile
-      ? ['14px', '0px', '0px', '100vw']
-      : ['14px', '0px', '0px', '-40px']
-    : isMobile
-      ? ['40px', '0px', '0px', '100vw']
-      : ['40px', '0px', '0px', '-40px'];
-  const blurRange: [number, number, number, number] = isInitialPhrase
-    ? [6, 0, 0, 15]
-    : [15, 0, 0, 15];
+  const opacityRange: [number, number, number, number] = [0, 1, 1, 0];
+  const movementRange: [string, string, string, string] = isMobile
+    ? ['24px', '0px', '0px', '-24px']
+    : ['20px', '0px', '0px', '-20px'];
+  const blurRange: [number, number, number, number] = [10, 0, 0, 10];
 
   const opacity = useTransform(scrollProgress, inputRange, opacityRange, {
     ease: ghostEase,
@@ -137,15 +129,15 @@ function PhraseItem({
           : 'transform, opacity, filter',
       }}
     >
-      <span className="text-[#0048ff] font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 md:mb-4 opacity-70">
+      <span className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-blueAccent/70 md:mb-4 md:text-xs">
         {phrase.title}
       </span>
       <span
-        className="text-white font-display font-black leading-[0.95] tracking-tighter"
+        className="font-display font-semibold italic leading-[1.15] text-blueAccent drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]"
         style={{
           fontSize: isMobile
-            ? 'clamp(2.2rem, 9vw, 3.5rem)'
-            : 'clamp(3.5rem, 6vw, 8rem)',
+            ? 'clamp(1.375rem, 6vw, 1.625rem)'
+            : 'clamp(2rem, 2.4vw, 2.375rem)',
         }}
       >
         {phrase.text}

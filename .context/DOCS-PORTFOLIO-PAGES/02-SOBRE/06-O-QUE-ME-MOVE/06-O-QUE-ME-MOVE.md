@@ -2,9 +2,9 @@
 
 ## Status
 
-- Fonte de verdade atualizada em `2026-04-25`
+- Fonte de verdade atualizada em `2026-05-02`
 - Estado da seção: implementado e validado localmente
-- Status final desta rodada: concluído com ressalvas de ambiente de QA
+- Status final desta rodada: reconciliado com o fluxo ativo de `/sobre`
 
 ## Objetivo
 
@@ -20,17 +20,22 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 
 ### Orquestração
 
+- `src/app/sobre/page.tsx`
 - `src/components/sobre/sections/AboutBeliefs.tsx`
 
 ### Componentes ativos
 
-- `src/components/sobre/beliefs/BeliefBackground.tsx`
-- `src/components/sobre/beliefs/BeliefOverlay.tsx`
-- `src/components/sobre/beliefs/BeliefFixedHeader.tsx`
-- `src/components/sobre/beliefs/BeliefScrollText.tsx`
-- `src/components/sobre/beliefs/BeliefManifesto.tsx`
-- `src/components/sobre/beliefs/CustomCursor.tsx`
-- `src/components/sobre/3d/GhostScene.tsx`
+- `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
+- `src/components/sobre/sections/beliefs/BeliefBackground.tsx`
+- `src/components/sobre/sections/beliefs/BeliefOverlay.tsx`
+- `src/components/sobre/sections/beliefs/BeliefFixedHeader.tsx`
+- `src/components/sobre/sections/beliefs/BeliefScrollText.tsx`
+- `src/components/sobre/sections/beliefs/BeliefManifesto.tsx`
+- `src/components/sobre/sections/beliefs/BeliefSection.tsx`
+- `src/components/sobre/sections/beliefs/3d/GhostCanvas.tsx`
+- `src/components/sobre/sections/beliefs/3d/GhostCanvasClient.tsx`
+- `src/components/sobre/sections/beliefs/3d/GhostFallback.tsx`
+- `src/components/sobre/sections/beliefs/3d/GhostErrorBoundary.tsx`
 - `src/hooks/useBeliefsScroll.ts`
 
 ### Stack
@@ -94,10 +99,10 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 
 ### Frases rotativas
 
-- As 6 frases oficiais foram mantidas.
-- O trigger usa `inView('[data-belief-phrase]')`.
-- Entrada: `opacity 0→1`, `y 18→0`, `blur 6→0`.
-- Saída: `opacity 1→0`, `y 0→-18`, `blur 0→6`.
+- As frases agora vêm de `ABOUT_CONTENT.beliefs` em `src/config/content.ts`.
+- O bloco ativo não mantém mais as cinco frases hardcoded divergentes.
+- Desktop: entrada/saída por `translateY` (`20px → 0 → -20px`), `opacity` e `blur`.
+- Mobile: entrada/saída lateral curta por `translateX` (`24px → 0 → -24px`), conforme template AboutBeliefs desta rodada.
 - O bloco principal perde opacidade no clímax para abrir espaço ao manifesto.
 - Há espelho semântico via `aria-live` para a frase ativa.
 
@@ -112,12 +117,15 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 
 ### Ghost 3D
 
-- `GhostScene` continua acima do manifesto por hierarquia de camada.
+- `GhostCanvas` continua acima do manifesto por hierarquia de camada.
 - O wrapper DOM do canvas segue a regra da missão: apenas `opacity` + `translateY`.
 - A animação procedural de `scale`, `rotate` e parallax por cursor foi removida.
 - O modelo mantém pose estática base com deslocamento vertical scroll-linked e micro drift sutil.
 - `frameloop="demand"` foi preservado.
 - O cursor visual continua existindo como assinatura do portfolio, mas não governa mais a cena 3D desta seção.
+- Fonte GLB validada nesta rodada: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb`.
+- O asset `about/beliefs/ghost-transformed.glb` permanece divergente do template e não deve ser reativado sem novo `200` verificável.
+- Fallbacks estáticos usam `unoptimized` para evitar falhas do otimizador de imagem em modos de runtime sem pipeline completo de assets.
 
 ## Regras de motion em vigor
 
@@ -127,26 +135,28 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
   - `opacity`
   - `blur`
   - `translateY`
-- Não há mais reveals laterais em `x` nos componentes DOM da seção.
+- Exceção desta rodada: `BeliefScrollText` mobile usa `translateX` curto por aderência ao template AboutBeliefs.
 - Não há mais `scale` ou `rotate` animados no comportamento scroll-driven desta rodada.
 
 ## Frases oficiais
 
-1. Um vídeo que respira
-2. Uma marca que se reconhece
-3. Um detalhe que fica
-4. Crio para gerar presença
-5. Mesmo quando não estou ali
-6. Mesmo quando ninguém percebe o esforço
+As frases oficiais são derivadas de `ABOUT_CONTENT.beliefs`:
+
+1. Um vídeo que respira.
+2. Uma marca que se reconhece.
+3. Um detalhe que fica.
+4. Crio para gerar presença.
+5. Mesmo quando não estou ali.
+6. Mesmo quando ninguém percebe o esforço.
 
 ## Validação executada
 
 ### Checks técnicos
 
 - `pnpm exec prettier --write` nos arquivos alterados
-- `pnpm exec eslint` nos arquivos alterados
-- `pnpm exec tsc --noEmit --pretty false`
-  - bloqueado por erros preexistentes fora do escopo em páginas administrativas
+- `pnpm run typecheck` — passou
+- `pnpm run lint` — passou com 20 warnings preexistentes fora do escopo
+- `pnpm run build` — passou, `/sobre` prerenderizado como rota estática
 
 ### Evidência visual local
 
@@ -164,6 +174,7 @@ Manter a seção manifesto como um bloco scroll-driven editorial com:
 - manifesto final branco confirmado
 - hierarquia de camada confirmada via métricas (`ghostZ: 70`, `manifestoZ: 50`)
 - sem erros de console nas capturas locais
+- validação 2026-05-02 em browser local confirmou `ghost-v1.glb` com `200` e fallbacks estáticos com `200`
 
 ## Ressalvas
 

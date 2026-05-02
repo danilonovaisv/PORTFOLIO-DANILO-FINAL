@@ -21,6 +21,7 @@ export function GhostFallback({ mode = 'static' }: GhostFallbackProps) {
           className="object-contain object-right"
           sizes="(min-width: 768px) 50vw, 0px"
           priority={mode === 'static'}
+          unoptimized
         />
       </div>
 
@@ -32,6 +33,7 @@ export function GhostFallback({ mode = 'static' }: GhostFallbackProps) {
           className="object-contain object-left"
           sizes="100vw"
           priority={mode === 'static'}
+          unoptimized
         />
       </div>
     </div>

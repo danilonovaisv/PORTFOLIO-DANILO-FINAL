@@ -70,12 +70,17 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
 
   // Fallbacks para vídeos conhecidos quando o asset não vem do Supabase (ex.: falha de fetch)
   const fallbackPaths: Record<string, string> = {
+    'global.logo_header_light': 'site-assets/global/logos/LogoLight.svg',
+    'global.logo_header_dark': 'site-assets/global/logos/LogoDark.svg',
+    'global.logos.global.logo_header_light':
+      'site-assets/global/logos/LogoLight.svg',
+    'global.logos.global.logo_header_dark':
+      'site-assets/global/logos/LogoDark.svg',
     'home.manifesto_video': 'site-assets/home/video.manifesto.desk.mp4',
     'home.manifesto_video_mobile':
       'site-assets/home/video.manifesto.mobile.mp4',
-    'home.manifesto_poster_desk': 'site-assets/home/video.manifesto.desk.mp4',
-    'home.manifesto_poster_mobile':
-      'site-assets/home/video.manifesto.mobile.webp',
+    'home.manifesto_poster_desk': 'site-assets/global/404.webp',
+    'home.manifesto_poster_mobile': 'site-assets/global/404.webp',
     'about.hero.desktop_video.mp4':
       'site-assets/about/about.hero.desktop_video.mp4',
     'about.hero.mobile_video.mp4':
@@ -89,33 +94,42 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
       'site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4',
     'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4':
       'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4',
-    'about.beliefs.ghost-transformed': 'site-assets/about/beliefs/ghost-v1.glb',
+    '3d.ghost-v1': 'site-assets/3d/ghost-v1.glb',
+    'about.beliefs.ghost': 'site-assets/3d/ghost-v1.glb',
+    'about.beliefs.ghost_model': 'site-assets/3d/ghost-v1.glb',
+    'about.beliefs.ghost-transformed': 'site-assets/3d/ghost-v1.glb',
+    'video.closing.desk': 'site-assets/about/closing/video.closing.desk.mp4',
+    'video.closing.mobile':
+      'site-assets/about/closing/video.closing.mobile.mp4',
     'about.Closing.video.closing.desk':
-      'site-assets/about/Closing/video.closing.desk.mp4',
+      'site-assets/about/closing/video.closing.desk.mp4',
     'about.Closing.video.closing.mobile':
-      'site-assets/about/Closing/video.closing.mobile.mp4',
+      'site-assets/about/closing/video.closing.mobile.mp4',
   };
 
   if (context?.getUrl(key)) return context.getUrl(key);
+
+  const toLocalAssetPath = (path: string) => {
+    const cleanPath = path.replace(/^\/+/, '');
+    if (cleanPath.startsWith('site.assets/')) {
+      return `/${cleanPath}`;
+    }
+    if (cleanPath.startsWith('site-assets/')) {
+      return `/site.assets/${cleanPath.slice('site-assets/'.length)}`;
+    }
+    return `/site.assets/${cleanPath}`;
+  };
 
   if (fallback) {
     if (fallback.startsWith('http://') || fallback.startsWith('https://')) {
       return fallback;
     }
-    // For non-absolute fallbacks, use local public/ path to avoid DNS dependency
-    const localPath = fallback.startsWith('site-assets/')
-      ? fallback.slice('site-assets/'.length)
-      : fallback;
-    return `/site.assets/${localPath}`;
+    return toLocalAssetPath(fallback);
   }
 
   if (fallbackPaths[key]) {
     // Serve from local public/site.assets/ — no Supabase DNS required
-    const rawPath = fallbackPaths[key];
-    const localPath = rawPath.startsWith('site-assets/')
-      ? rawPath.slice('site-assets/'.length)
-      : rawPath;
-    return `/site.assets/${localPath}`;
+    return toLocalAssetPath(fallbackPaths[key]);
   }
 
   return undefined;
