@@ -10,6 +10,7 @@ import { extractLegacyTokenValue, maskTokenSecret } from '@/lib/admin/tokens';
 import { listAdminUsers } from '@/lib/admin/admin-users';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { SettingsForm } from './SettingsForm';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 const getSupabasePublicKeyStatus = () => {
   const key = getSupabasePublicKey();
@@ -110,22 +111,10 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-7xl space-y-12 py-6 pb-24">
-      <header className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-            System_Main_Frame
-          </p>
-        </div>
-        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
-          Settings<span className="text-[#0048ff]">_</span>Panel
-          <span className="text-[#0048ff]">.</span>
-        </h1>
-        <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
-          <span>Module: Configuration</span>
-          <span>Security: High_Priority</span>
-        </div>
-      </header>
+      <AdminHeader 
+        title="Settings_Panel"
+        version="v3.1.2-stable"
+      />
 
       <section className="space-y-6">
         <div className="flex items-center gap-3 border-b border-white/5 pb-2">
