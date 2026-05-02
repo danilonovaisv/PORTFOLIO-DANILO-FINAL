@@ -7,6 +7,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DEFAULT_SUPABASE_HOST = 'umkmwbkwvulxtdodzmzf.supabase.co';
 const deployDistDir = '.next';
+const firebaseAdapterPath = path.join(
+  __dirname,
+  'scripts/firebase-next-adapter.cjs'
+);
 
 const buildSupabaseHosts = () => {
   const mainUrl =
@@ -133,7 +137,9 @@ const createNextConfig = (phase) => ({
    * Mantém exatamente como você já tinha
    */
   output: 'standalone',
-  adapterPath: path.join(__dirname, 'scripts/firebase-next-adapter.cjs'),
+  ...(phase === PHASE_PRODUCTION_BUILD
+    ? { adapterPath: firebaseAdapterPath }
+    : {}),
   distDir: deployDistDir,
   reactStrictMode: true,
   staticPageGenerationTimeout: 180,

@@ -10,7 +10,7 @@
     "react-three-fiber"
   ],
   "engines": {
-    "node": ">=22"
+    "node": "22"
   },
   "pnpm": {
     "overrides": {
@@ -87,8 +87,6 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
-    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-dialog": "^1.1.15",
