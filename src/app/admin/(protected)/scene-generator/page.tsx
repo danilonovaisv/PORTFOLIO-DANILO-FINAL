@@ -44,7 +44,7 @@ const ratioPreviewClass: Record<OutputRatio, string> = {
   '4:5': 'aspect-[4/5]',
 };
 
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export default function SceneGeneratorPage() {
   const [state, formAction, isPending] = useActionState(
@@ -110,11 +110,11 @@ export default function SceneGeneratorPage() {
     state.requestPayload?.outputRatio ?? outputRatio ?? ('16:9' as OutputRatio);
 
   return (
-    <div className="space-y-8">
-      <AdminPageHeader
-        title="Scene Generator"
+    <div className="max-w-6xl space-y-12 py-6">
+      <AdminHeader
+        title="Scene_Generator"
         subtitle="Photorealistic mockup generator with batch control, ratio presets, and visual references."
-        badge={{ text: 'v3.0 PRO', color: 'emerald' }}
+        category="Creative_Engine"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
           { label: 'Scene Generator', href: '/admin/scene-generator' },

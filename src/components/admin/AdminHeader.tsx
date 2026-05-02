@@ -1,6 +1,12 @@
 'use client';
 
 import { ReactNode } from 'react';
+import Link from 'next/link';
+
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
 
 interface AdminHeaderProps {
   title: string;
@@ -9,6 +15,7 @@ interface AdminHeaderProps {
   version?: string;
   status?: 'synced' | 'pending' | 'error' | 'none';
   actions?: ReactNode;
+  breadcrumbs?: Breadcrumb[];
 }
 
 export function AdminHeader({
@@ -18,15 +25,36 @@ export function AdminHeader({
   version = 'v3.0.0',
   status = 'synced',
   actions,
+  breadcrumbs,
 }: AdminHeaderProps) {
   return (
     <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div className="space-y-4">
         <div className="flex items-center gap-3">
           <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-            {category}
-          </span>
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+            {breadcrumbs ? (
+              breadcrumbs.map((crumb, idx) => (
+                <span key={crumb.label} className="flex items-center gap-2">
+                  {crumb.href ? (
+                    <Link
+                      href={crumb.href}
+                      className="hover:text-[#0048ff] transition-colors"
+                    >
+                      {crumb.label}
+                    </Link>
+                  ) : (
+                    <span>{crumb.label}</span>
+                  )}
+                  {idx < breadcrumbs.length - 1 && (
+                    <span className="text-white/10">/</span>
+                  )}
+                </span>
+              ))
+            ) : (
+              <span>{category}</span>
+            )}
+          </div>
         </div>
         <h1 className="font-mono text-4xl md:text-5xl font-light tracking-tight text-white uppercase">
           {title.split('_').map((word, i) => (

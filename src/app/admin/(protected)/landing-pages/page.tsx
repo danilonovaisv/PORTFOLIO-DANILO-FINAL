@@ -38,7 +38,7 @@ type Props = {
   }>;
 };
 
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export default async function LandingPagesListPage(props: Props) {
   const searchParams = await props.searchParams;
@@ -71,15 +71,15 @@ export default async function LandingPagesListPage(props: Props) {
 
   return (
     <div className="max-w-6xl space-y-12 py-6">
-      <AdminPageHeader
+      <AdminHeader
         title="Landing_Pages"
         subtitle="Manage landing page nodes and deployment templates."
-        badge={{ text: 'Index', color: 'indigo' }}
+        category="Content_Architecture"
         breadcrumbs={[
           { label: 'System', href: '/admin' },
           { label: 'Landing Pages', href: '/admin/landing-pages' },
         ]}
-        action={
+        actions={
           <Link
             href="/admin/landing-pages/new"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#0048ff] px-6 py-3 text-xs font-mono uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80 hover:shadow-[0_0_20px_rgba(0,72,255,0.3)] active:scale-95"
