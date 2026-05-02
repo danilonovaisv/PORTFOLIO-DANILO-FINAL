@@ -1,6 +1,6 @@
 'use client';
 
-import { useScroll } from 'motion/react';
+import { motionValue, scroll, type MotionValue } from 'motion';
 import { useEffect, useRef, type RefObject } from 'react';
 import { useBeliefStore } from '@/store/beliefStore';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -31,10 +31,24 @@ export function useBeliefsScroll(
     };
   }, [prefersReducedMotion, setMobile, setReducedMotion]);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+  const scrollYProgressRef = useRef<MotionValue<number> | null>(null);
+  if (!scrollYProgressRef.current) {
+    scrollYProgressRef.current = motionValue(0);
+  }
 
-  return { containerRef, scrollYProgress };
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const stop = scroll((progress: number) => {
+      scrollYProgressRef.current?.set(progress);
+    }, {
+      target: node,
+      offset: ['start start', 'end end'],
+    });
+
+    return () => stop();
+  }, [containerRef]);
+
+  return { containerRef, scrollYProgress: scrollYProgressRef.current };
 }
