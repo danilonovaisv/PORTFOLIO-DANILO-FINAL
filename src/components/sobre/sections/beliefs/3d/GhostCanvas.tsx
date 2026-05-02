@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, Suspense, type ReactNode } from 'react';
 import { useMotionValue, useSpring, type MotionValue } from 'motion/react';
 import type {
@@ -259,7 +259,7 @@ export function GhostCanvas({ scrollProgress }: GhostSceneProps) {
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1.5} />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Html center><GhostFallback mode="loading" /></Html>}>
           <GhostModel scrollProgress={scrollProgress} />
         </Suspense>
       </Canvas>
