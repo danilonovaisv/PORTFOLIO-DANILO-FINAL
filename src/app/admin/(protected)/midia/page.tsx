@@ -9,6 +9,8 @@ import { PresetButtons } from '@/app/admin/(protected)/midia/preset-buttons';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import { AssetGallery } from '@/components/admin/AssetGallery';
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default async function MidiaPage(props: {
   searchParams?: Promise<{
     query?: string;
@@ -80,25 +82,15 @@ export default async function MidiaPage(props: {
 
   return (
     <div className="max-w-7xl space-y-12 py-6">
-      <header className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
-            System_Main_Frame
-          </p>
-        </div>
-        <h1 className="font-mono text-4xl font-light tracking-tight text-white sm:text-5xl uppercase">
-          Media<span className="text-[#0048ff]">_</span>Vault
-          <span className="text-[#0048ff]">.</span>
-        </h1>
-        <div className="flex items-center gap-6 font-mono text-[10px] text-white/40 uppercase tracking-widest">
-          <span>Status: Online</span>
-          <span>
-            Registry: {activeCount.toString().padStart(2, '0')}/
-            {normalizedAssets.length.toString().padStart(2, '0')}
-          </span>
-        </div>
-      </header>
+      <AdminPageHeader
+        title="Media_Vault"
+        subtitle={`Registry: ${activeCount.toString().padStart(2, '0')}/${normalizedAssets.length.toString().padStart(2, '0')} — Status: Online`}
+        badge={{ text: 'Vault', color: 'indigo' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Media', href: '/admin/midia' },
+        ]}
+      />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
         <div className="space-y-10">

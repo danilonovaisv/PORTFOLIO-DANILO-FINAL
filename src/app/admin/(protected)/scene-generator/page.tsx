@@ -44,6 +44,8 @@ const ratioPreviewClass: Record<OutputRatio, string> = {
   '4:5': 'aspect-[4/5]',
 };
 
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+
 export default function SceneGeneratorPage() {
   const [state, formAction, isPending] = useActionState(
     generateAdScenes,
@@ -109,21 +111,15 @@ export default function SceneGeneratorPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header Standard v3.0 */}
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-3">
-          <h1 className="font-mono text-2xl font-bold uppercase tracking-tighter text-white">
-            Scene <span className="text-emerald-500">Generator</span>
-          </h1>
-          <div className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-emerald-400">
-            v3.0 PRO
-          </div>
-        </div>
-        <p className="max-w-2xl font-mono text-[11px] uppercase tracking-wider text-white/40">
-          Photorealistic mockup generator with batch control, ratio presets, and
-          visual references.
-        </p>
-      </div>
+      <AdminPageHeader
+        title="Scene Generator"
+        subtitle="Photorealistic mockup generator with batch control, ratio presets, and visual references."
+        badge={{ text: 'v3.0 PRO', color: 'emerald' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Scene Generator', href: '/admin/scene-generator' },
+        ]}
+      />
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Settings Column */}

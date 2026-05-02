@@ -10,6 +10,7 @@ import {
   MAX_REFERENCE_IMAGES,
   type CopyInput,
 } from '@/lib/admin/schemas/copy-agent';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 const initialState = {
   success: false,
@@ -55,20 +56,15 @@ export default function CopyAgentPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header Standard v3.0 */}
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-3">
-          <h1 className="font-mono text-2xl font-bold uppercase tracking-tighter text-white">
-            Copy <span className="text-indigo-400">Agent</span>
-          </h1>
-          <div className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-indigo-400">
-            v3.0 AI
-          </div>
-        </div>
-        <p className="max-w-2xl font-mono text-[11px] uppercase tracking-wider text-white/40">
-          High-performance narrative generation for portfolio cases.
-        </p>
-      </div>
+      <AdminPageHeader
+        title="Copy Agent"
+        subtitle="High-performance narrative generation for portfolio cases."
+        badge={{ text: 'v3.0 AI', color: 'indigo' }}
+        breadcrumbs={[
+          { label: 'System', href: '/admin' },
+          { label: 'Copy_Agent' },
+        ]}
+      />
 
       {/* Main Content */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
