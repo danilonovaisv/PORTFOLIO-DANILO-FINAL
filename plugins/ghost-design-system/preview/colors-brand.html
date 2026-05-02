@@ -1,76 +1,59 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="card.css" />
-  </head>
-  <body>
-    <div class="card">
-      <div class="row" style="gap: 14px; flex-wrap: wrap">
-        <div class="col" style="align-items: flex-start">
-          <div
-            style="
-              width: 88px;
-              height: 88px;
-              border-radius: 16px;
-              background: #0048ff;
-              box-shadow: 0 15px 45px rgba(0, 72, 255, 0.35);
-            "
-          ></div>
-          <div class="mono">bluePrimary</div>
-          <div class="mono" style="color: #fff">#0048FF</div>
-        </div>
-        <div class="col" style="align-items: flex-start">
-          <div
-            style="
-              width: 88px;
-              height: 88px;
-              border-radius: 16px;
-              background: #4fe6ff;
-              box-shadow: 0 0 40px rgba(79, 230, 255, 0.45);
-            "
-          ></div>
-          <div class="mono">blueAccent</div>
-          <div class="mono" style="color: #fff">#4FE6FF</div>
-        </div>
-        <div class="col" style="align-items: flex-start">
-          <div
-            style="
-              width: 88px;
-              height: 88px;
-              border-radius: 16px;
-              background: #8705f2;
-              box-shadow: 0 0 40px rgba(135, 5, 242, 0.55);
-            "
-          ></div>
-          <div class="mono">purpleDetails</div>
-          <div class="mono" style="color: #fff">#8705F2</div>
-        </div>
-        <div class="col" style="align-items: flex-start">
-          <div
-            style="
-              width: 88px;
-              height: 88px;
-              border-radius: 16px;
-              background: #f501d3;
-            "
-          ></div>
-          <div class="mono">pinkDetails</div>
-          <div class="mono" style="color: #fff">#F501D3</div>
-        </div>
-        <div class="col" style="align-items: flex-start">
-          <div
-            style="
-              width: 88px;
-              height: 88px;
-              border-radius: 16px;
-              background: #e50914;
-            "
-          ></div>
-          <div class="mono">redAccent</div>
-          <div class="mono" style="color: #fff">#E50914</div>
-        </div>
-      </div>
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .swatch { border-radius: 8px; overflow: hidden; }
+  .color { height: 72px; }
+  .label { padding: 8px 10px; }
+  .name { color: #fcffff; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .hex  { color: #a1a3a3; font-family: var(--font-mono); font-size: 10px; margin-top: 2px; }
+  .role { color: #a1a3a3; font-size: 9px; margin-top: 3px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="swatch" style="border:1px solid rgba(255,255,255,0.08)">
+    <div class="color" style="background:#040013; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15)"></div>
+    <div class="label"><div class="name">Void Black</div><div class="hex">#040013</div><div class="role">Background</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#0048ff"></div>
+    <div class="label"><div class="name">Brand Blue</div><div class="hex">#0048ff</div><div class="role">Primary / CTAs</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#4fe6ff"></div>
+    <div class="label"><div class="name">Ghost Cyan</div><div class="hex">#4fe6ff</div><div class="role">Accent / Glow</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#8705f2"></div>
+    <div class="label"><div class="name">Purple Details</div><div class="hex">#8705f2</div><div class="role">Hover State</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#f501d3"></div>
+    <div class="label"><div class="name">Pink Details</div><div class="hex">#f501d3</div><div class="role">Anomaly / Glitch</div></div>
+  </div>
+  <div class="swatch" style="border:1px solid rgba(255,255,255,0.08)">
+    <div class="color" style="background:#0b0d3a"></div>
+    <div class="label"><div class="name">Deep Neutral</div><div class="hex">#0b0d3a</div><div class="role">Cards / Surfaces</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#fcffff"></div>
+    <div class="label"><div class="name">Text Primary</div><div class="hex">#fcffff</div><div class="role" style="color:#555">Main Copy</div></div>
+  </div>
+  <div class="swatch" style="border:1px solid rgba(255,255,255,0.08)">
+    <div class="color" style="background:#a1a3a3"></div>
+    <div class="label"><div class="name">Text Secondary</div><div class="hex">#a1a3a3</div><div class="role">Metadata</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#2e85f2"></div>
+    <div class="label"><div class="name">Blue Hover</div><div class="hex">#2e85f2</div><div class="role">Emphasis Text</div></div>
+  </div>
+  <div class="swatch">
+    <div class="color" style="background:#e50914"></div>
+    <div class="label"><div class="name">System Red</div><div class="hex">#e50914</div><div class="role">Errors / Alert</div></div>
+  </div>
+</div>
+</body>
 </html>

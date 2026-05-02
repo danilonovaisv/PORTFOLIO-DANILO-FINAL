@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 24px; }
+  .section-label { font-family: var(--font-mono); font-size: 9px; color: #4fe6ff; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; margin-top: 18px; }
+  .section-label:first-child { margin-top: 0; }
+  .row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 16px 0; }
+
+  /* AntigravityCTA */
+  .antigrav { display: inline-flex; align-items: center; cursor: pointer; text-decoration: none; }
+  .antigrav-pill {
+    display: flex; align-items: center; justify-content: center;
+    height: 52px; padding: 0 32px;
+    background: #0048ff;
+    border-radius: 9999px;
+    color: #fcffff; font-weight: 500; font-size: 15px;
+    white-space: nowrap; letter-spacing: 0.04em;
+  }
+  .antigrav-circle {
+    display: flex; align-items: center; justify-content: center;
+    width: 52px; height: 52px; border-radius: 9999px;
+    background: #0048ff; color: #fcffff;
+    margin-left: 4px; flex-shrink: 0;
+    font-size: 18px;
+  }
+  .antigrav-circle.hover { background: #8705f2; box-shadow: 0 0 28px rgba(135,5,242,0.5); }
+  .antigrav.compact .antigrav-pill { height: 40px; padding: 0 20px; font-size: 13px; }
+  .antigrav.compact .antigrav-circle { width: 40px; height: 40px; }
+
+  /* Ghost button (transparent) */
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px; border: 1px solid rgba(79,230,255,0.4);
+    border-radius: 9999px; color: #fcffff; font-size: 13px; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.05em;
+    background: transparent;
+  }
+
+  /* Solid button */
+  .btn-solid {
+    display: inline-flex; align-items: center;
+    padding: 10px 24px; background: #0048ff;
+    border-radius: 6px; color: #fcffff; font-size: 13px; font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Small circle */
+  .btn-icon-circle { width: 48px; height: 48px; }
+
+  /* Hover state example */
+  .state-row { display: flex; align-items: center; gap: 12px; }
+  .state-label { font-size: 10px; color: #a1a3a3; width: 50px; font-family: var(--font-mono); }
+
+  /* Compound pill back CTA */
+  .back-cta { display: inline-flex; align-items: center; gap: 8px; }
+  .back-pill {
+    display: flex; align-items: center; gap: 6px;
+    height: 40px; padding: 0 16px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 9999px; color: #fcffff; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+  <div class="section-label">AntigravityCTA — Primary (Idle vs Hover)</div>
+  <div class="row">
+    <div class="state-row">
+      <div class="state-label">Idle</div>
+      <div class="antigrav">
+        <div class="antigrav-pill">vamos trabalhar juntos</div>
+        <div class="antigrav-circle">↗</div>
+      </div>
+    </div>
+    <div class="state-row">
+      <div class="state-label">Hover</div>
+      <div class="antigrav">
+        <div class="antigrav-pill">vamos trabalhar juntos</div>
+        <div class="antigrav-circle hover">↗</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="section-label">AntigravityCTA — Compact Size</div>
+  <div class="row">
+    <div class="antigrav compact">
+      <div class="antigrav-pill">fale comigo</div>
+      <div class="antigrav-circle">↗</div>
+    </div>
+    <div class="antigrav compact">
+      <div class="antigrav-pill">baixar curriculum</div>
+      <div class="antigrav-circle hover">↗</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="section-label">Button Variants</div>
+  <div class="row">
+    <div class="btn-solid">Solid Blue</div>
+    <div class="btn-ghost">Ghost Outline</div>
+    <div class="btn-icon-circle btn-icon-circle" style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:9999px;background:#0048ff;color:#fcffff;font-size:18px;">↗</div>
+    <div class="btn-icon-circle btn-icon-circle" style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:9999px;background:#8705f2;color:#fcffff;font-size:18px;box-shadow:0 0 28px rgba(135,5,242,0.5);">↗</div>
+  </div>
+
+  <hr class="divider">
+  <div class="section-label">CompoundPillCTA — Back Variant</div>
+  <div class="row">
+    <div class="back-pill">← voltar ao portfólio</div>
+  </div>
+</body>
+</html>

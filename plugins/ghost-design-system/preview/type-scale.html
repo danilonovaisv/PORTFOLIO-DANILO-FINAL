@@ -1,67 +1,48 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="card.css" />
-  </head>
-  <body>
-    <div class="card">
-      <div class="col" style="gap: 6px">
-        <div
-          style="
-            font-family: Manrope;
-            font-weight: 800;
-            font-size: 48px;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-          "
-        >
-          display · 72/40
-        </div>
-        <div
-          style="
-            font-family: Manrope;
-            font-weight: 700;
-            font-size: 40px;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-          "
-        >
-          h1 · 56/32
-        </div>
-        <div
-          style="
-            font-family: Manrope;
-            font-weight: 600;
-            font-size: 28px;
-            line-height: 1.15;
-          "
-        >
-          h2 · 40/24
-        </div>
-        <div
-          style="
-            font-family: Manrope;
-            font-weight: 500;
-            font-size: 22px;
-            line-height: 1.2;
-          "
-        >
-          h3 · 28/20
-        </div>
-        <div
-          style="
-            font-family: Manrope;
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 1.5;
-            color: #e4e4e4;
-          "
-        >
-          body · 18/16 — regular reading text, pretty-wrapped.
-        </div>
-        <div class="mono">text-micro · ppsupplymono · 12px · metadata</div>
-      </div>
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 20px 24px; }
+  .row { display: flex; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .row:last-child { border-bottom: none; }
+  .meta { width: 140px; flex-shrink: 0; }
+  .class-name { font-family: var(--font-mono); font-size: 10px; color: #4fe6ff; }
+  .size-info  { font-size: 9px; color: #a1a3a3; margin-top: 2px; }
+  .specimen { color: #fcffff; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-display</div><div class="size-info">72px · wt800 · lh1.1</div></div>
+    <div class="specimen text-display">Danilo</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-h1</div><div class="size-info">56px · wt700 · lh1.1</div></div>
+    <div class="specimen text-h1">Ghost Design</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-h2</div><div class="size-info">40px · wt600 · lh1.15</div></div>
+    <div class="specimen text-h2">Portfólio Showcase</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-h3</div><div class="size-info">28px · wt500 · lh1.2</div></div>
+    <div class="specimen text-h3">Direção Criativa</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-body-enhanced</div><div class="size-info">20px · wt500 · lh1.5</div></div>
+    <div class="specimen text-body-enhanced">Crio designs que observam e guiam experiências.</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-body</div><div class="size-info">18px · wt400 · lh1.5</div></div>
+    <div class="specimen text-body" style="color:#a1a3a3">Antes da estética, existe intenção. Antes do layout, existe lógica.</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-small</div><div class="size-info">14px · wt400 · lh1.4</div></div>
+    <div class="specimen text-small" style="color:#a1a3a3">Branding · Campanha · Arte Final · UX/UI</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="class-name">.text-micro</div><div class="size-info">12px · mono · lh1.4</div></div>
+    <div class="specimen text-micro" style="color:#4fe6ff">[BRAND AWARENESS] · 2024 · FFF Legal</div>
+  </div>
+</body>
 </html>

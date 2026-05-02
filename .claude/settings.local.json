@@ -15,7 +15,13 @@
       "Bash(git commit -m ' *)",
       "Bash(gh pr create --base main --head fix/06-o-que-me-move-belief-gaps --title 'fix\\(beliefs\\): correct 4 gaps in 06-O-QUE-ME-MOVE scroll section' --body ' *)",
       "Bash(git add *)",
-      "Bash(claude mcp *)"
+      "Bash(claude mcp *)",
+      "WebFetch(domain:api.anthropic.com)",
+      "WebFetch(domain:claude.ai)",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "mcp__Claude_in_Chrome__get_page_text",
+      "mcp__ui-layouts-mcp__search_components",
+      "mcp__ui-layouts-mcp__get_source_code"
     ]
   },
   "enabledPlugins": {

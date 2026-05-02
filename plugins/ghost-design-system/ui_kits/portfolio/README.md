@@ -1,31 +1,24 @@
-# Portfolio UI Kit — Ghost System
+# Portfolio Danilo — UI Kit
 
-The interactive click-thru + componentized source for **portfoliodanilo.com**, expressed against the Ghost Design System tokens.
+High-fidelity click-thru prototype of `portfoliodanilo.com`.
+
+## Screens
+- **Home** — Hero manifesto, portfolio showcase categories, featured projects bento grid, client brands, contact section
+- **Portfolio** — Category filter, asymmetric bento grid
+- **Sobre** — Origin story, what I do, method, beliefs, closing
+- **Contato** — Contact form with fields
 
 ## Files
-
-| File | Surface |
+| File | Purpose |
 |---|---|
-| `index.html` | Mounts the kit as a single-page mock of the live portfolio. Open this to see everything wired together. |
-| `styles.css` | Kit-local styles (layout, hero aura, accordion stripes, bento grid, contact inversion). Loads `../../colors_and_type.css` first. |
-| `Header.jsx` | Fluid-glass desktop header + staggered mobile drawer |
-| `Hero.jsx` | Editorial hero with CSS "Ghost Aura" stand-in (WebGL not recreated) |
-| `AntigravityCTA.jsx` | Fixed bottom-right primary CTA — pill + trailing circle that separates on hover |
-| `IconCircleCTA.jsx` | 48px circle with `ArrowUpRight` — blue → purple on hover |
-| `PortfolioShowcase.jsx` | Accordion stripes: Brand / Video / Web |
-| `FeaturedProjects.jsx` | Bento grid of 5 project cards |
-| `ContactSection.jsx` | Light inversion section — `#f0f0f0` background with dark text |
-| `SiteFooter.jsx` | Solid Ghost Blue (`#0048ff`) footer |
+| `index.html` | Main interactive prototype (all screens) |
+| `Shared.jsx` | Tokens, AntigravityCTA, badges, icons |
+| `Header.jsx` | Fluid glass pill nav + mobile bar |
+| `Hero.jsx` | Hero manifesto section |
+| `ProjectsGrid.jsx` | Featured projects bento grid |
+| `PortfolioShowcase.jsx` | Category showcase stripes |
+| `AboutPage.jsx` | Full Sobre page sections |
+| `Footer.jsx` | Blue footer |
 
-## Ghost rules honoured
-
-- **Motion:** all reveals use `cubic-bezier(0.22, 1, 0.36, 1)`, translateY capped at 18px, no scale/rotate on content.
-- **Hover:** circle CTAs swap `bluePrimary → purpleDetails` + 28px purple glow. Antigravity CTA: main pill static, trailing circle separates 8px and shifts to purple.
-- **Copy:** pt-BR, lowercase editorial voice. No emoji. Real Lucide-style SVGs inline.
-- **Backgrounds:** flat Void Black or radial gradient. No photographic hero. Ghost Aura is a CSS radial-gradient stand-in as flagged in the top-level README.
-
-## Flags
-
-- WebGL ghost entity → CSS radial-gradient aura. Labelled *"Ghost Aura"* wherever it appears.
-- Fluid-glass header refraction → `backdrop-filter: blur()` + hairline border. Visually similar, not physically accurate.
-- Custom SocialIcons (Instagram / LinkedIn / X / Facebook) → inline SVG brand marks.
+## Design Width
+1440px desktop prototype. Mobile at 390px.

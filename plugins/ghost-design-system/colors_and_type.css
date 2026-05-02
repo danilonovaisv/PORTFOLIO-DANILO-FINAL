@@ -1,294 +1,307 @@
-/* ============================================================================
-   Ghost Design System — Colors & Typography
-   Source of truth: uploads/GHOST-DESIGN-SYSTEM 3.md + src/app/globals.css
-   Philosophy: Presence without noise. Motion as breath. Void pierced by light.
-   ============================================================================ */
+/* ============================================================
+   GHOST DESIGN SYSTEM — colors_and_type.css
+   Single source of truth for CSS custom properties.
+   Version 3.2 · portfoliodanilo.com
+   ============================================================ */
 
-/* ---------- Fonts ---------- */
+/* ── FONTS ────────────────────────────────────────────────── */
 @font-face {
   font-family: 'Manrope';
-  src:
-    url('./fonts/Manrope-VariableFont_wght.woff2') format('woff2-variations'),
-    url('./fonts/Manrope-VariableFont_wght.woff2') format('woff2');
-  font-weight: 200 800;
+  src: url('fonts/Manrope-Regular.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
-
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')
-    format('woff2');
+  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2'),
+       local('Space Mono'),
+       local('Courier New');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  /* ---------- BASE TOKENS — Brand Palette ---------- */
-  --color-bluePrimary: #0048ff; /* Brand Primary — CTAs, key interactive */
-  --color-blueAccent: #4fe6ff; /* Ghost Accent — ethereal glows, secondary */
-  --color-purpleDetails: #8705f2; /* Hover, glitch anomalies */
-  --color-pinkDetails: #f501d3; /* Extra detail, glitch effects */
-  --color-redAccent: #e50914; /* Errors, destructive, alerts */
+  /* ── BASE COLOR PALETTE ──────────────────────────────────── */
+  --color-background:      #040013;   /* Void Black — infinite bg */
+  --color-bluePrimary:     #0048ff;   /* Brand Blue — CTAs, links, active */
+  --color-blueAccent:      #4fe6ff;   /* Ghost Cyan — glows, spectral */
+  --color-blueHover:       #2e85f2;   /* Blue hover intermediate */
+  --color-blueActive:      #0037c2;   /* Blue pressed/active */
+  --color-purpleDetails:   #8705f2;   /* Purple — hover transform, glitch */
+  --color-pinkDetails:     #f501d3;   /* Pink — rare accent, anomaly */
+  --color-neutral:         #0b0d3a;   /* Deep Neutral — card surfaces */
+  --color-redAccent:       #e50914;   /* System Red — errors, destructive */
 
-  /* Neutrals */
-  --color-background: #040013; /* Void Black — THE background */
-  --color-neutral: #0b0d3a; /* Deep Neutral — gradients, deep cards */
-  --color-backgroundLight: #f0f0f0; /* Light surface (contact section) */
-  --color-neutralLight: #f5f5f5;
+  /* ── GRADIENT STOPS ─────────────────────────────────────── */
+  --color-abyss-start:     #0c1445;   /* Atmospheric gradient top */
+  --color-abyss-mid:       #08031f;   /* Atmospheric gradient mid */
+  /* abyss-end = var(--color-background) */
 
-  /* Text */
-  --color-text: #fcffff; /* High contrast, not harsh white */
-  --color-textInverse: #0e0e0e; /* Dark text on light backgrounds */
-  --color-textSecondary: #a1a3a3; /* Metadata, captions, disabled */
-  --color-textEmphasis: #2e85f2;
-  --color-textHighlight: #4fe6ff;
+  /* ── TEXT ────────────────────────────────────────────────── */
+  --color-text:            #fcffff;   /* Primary text — near-white */
+  --color-textSecondary:   #a1a3a3;   /* Secondary text — metadata */
+  --color-textEmphasis:    #2e85f2;   /* Emphasized words */
+  --color-textHighlight:   #4fe6ff;   /* Short highlights */
+  --color-textInverse:     #0e0e0e;   /* Text on light backgrounds */
 
-  /* Aliases */
-  --fg1: var(--color-text);
-  --fg2: var(--color-textSecondary);
-  --bg1: var(--color-background);
-  --bg2: var(--color-neutral);
-  --primary: var(--color-bluePrimary);
-  --accent: var(--color-blueAccent);
+  /* ── SEMANTIC ALIASES ────────────────────────────────────── */
+  --color-primary:         var(--color-bluePrimary);
+  --color-accent:          var(--color-blueAccent);
+  --color-surface:         var(--color-neutral);
+  --color-border:          rgba(255,255,255,0.10);
+  --color-border-focus:    var(--color-blueAccent);
 
-  /* Surfaces (derived) */
-  --surface-glass: rgba(255, 255, 255, 0.05); /* bg-white/5 */
-  --surface-border: rgba(255, 255, 255, 0.1); /* border-white/10 */
-  --surface-deep: #0b0d3a; /* Deep Neutral card */
+  /* ── FONT FAMILIES ───────────────────────────────────────── */
+  --font-sans:  'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:  'PPSupplyMono', 'Space Mono', monospace;
 
-  /* ---------- TYPOGRAPHY ---------- */
-  --font-family-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-family-mono: 'PPSupplyMono', ui-monospace, 'Menlo', monospace;
+  /* ── FLUID TYPE SCALE ────────────────────────────────────── */
+  --font-display:        clamp(2.5rem,  5vw,    4.5rem);   /* 40→72px  wt:800 lh:1.1  */
+  --font-h1:             clamp(2rem,    4vw,    3.5rem);   /* 32→56px  wt:700 lh:1.1  */
+  --font-h2:             clamp(1.5rem,  3vw,    2.5rem);   /* 24→40px  wt:600 lh:1.15 */
+  --font-h3:             clamp(1.25rem, 2vw,    1.75rem);  /* 20→28px  wt:500 lh:1.2  */
+  --font-body-enhanced:  clamp(1.125rem,1.5vw,  1.25rem);  /* 18→20px  wt:500 lh:1.5  */
+  --font-body:           clamp(1rem,    1.2vw,  1.125rem); /* 16→18px  wt:400 lh:1.5  */
+  --font-body-mobile:    clamp(1.25rem, 4.6vw,  1.375rem); /* 20→22px  mobile override */
+  --font-small:          0.875rem;                         /* 14px     wt:400 lh:1.4  */
+  --font-micro:          0.75rem;                          /* 12px     mono  lh:1.4  */
 
-  /* Fluid scale (clamp — mobile → desktop) */
-  --font-display: clamp(2.5rem, 5vw, 4.5rem); /* 40 → 72 */
-  --font-h1: clamp(2rem, 4vw, 3.5rem); /* 32 → 56 */
-  --font-h2: clamp(1.5rem, 3vw, 2.5rem); /* 24 → 40 */
-  --font-h3: clamp(1.25rem, 2vw, 1.75rem); /* 20 → 28 */
-  --font-body-enhanced: clamp(1.125rem, 1.5vw, 1.25rem);
-  --font-body: clamp(1rem, 1.2vw, 1.125rem);
-  --font-body-mobile: clamp(1.25rem, 4.6vw, 1.375rem);
-  --font-small: 0.875rem;
-  --font-micro: 0.75rem;
+  /* Belief section large type */
+  --font-belief-desktop: clamp(2.8rem,  5.8vw,  6.3rem);
+  --font-belief-mobile:  clamp(2.15rem, 8.2vw,  3.6rem);
 
-  /* ---------- RADII / SPACING / Z ---------- */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.625rem;
-  --radius-xl: 0.875rem;
-  --radius-2xl: 1.25rem;
-  --radius-full: 9999px;
+  /* Hero ultra-large */
+  --font-hero:           clamp(4.5rem,  9.5vw,  10rem);
 
-  --container-padding: clamp(24px, 5vw, 96px);
+  /* ── SPACING ─────────────────────────────────────────────── */
+  --space-1:    0.25rem;   /*  4px */
+  --space-2:    0.5rem;    /*  8px */
+  --space-3:    0.75rem;   /* 12px */
+  --space-4:    1rem;      /* 16px */
+  --space-6:    1.5rem;    /* 24px */
+  --space-8:    2rem;      /* 32px */
+  --space-12:   3rem;      /* 48px */
+  --space-16:   4rem;      /* 64px */
+  --space-24:   6rem;      /* 96px */
+  --space-32:   8rem;      /* 128px */
 
-  --z-layer-base: 0;
-  --z-layer-overlay: 10;
-  --z-layer-content: 20;
-  --z-layer-3d: 30;
-  --z-layer-cta: 40;
-  --z-layer-header: 55;
-  --z-layer-modal: 50;
-  --z-cursor: 9999;
+  /* Section rhythm */
+  --section-py-desktop:  6rem;    /* py-24 */
+  --section-py-mobile:   4rem;    /* py-16 */
+  --container-px-mobile: 1.5rem;  /* px-6 */
+  --container-px-tablet: 3rem;    /* px-12 */
+  --container-px-desktop:4rem;    /* px-16 */
+  --container-max:       1680px;
 
-  /* ---------- MOTION ---------- */
-  --ghost-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-fast: 0.2s; /* buttons, hover */
-  --dur-normal: 0.8s; /* reveals */
-  --dur-slow: 1.5s; /* atmosphere */
-  --reveal-offset: 18px; /* hard max for content UI */
+  /* Grid gutters */
+  --gutter-mobile:  16px;
+  --gutter-tablet:  24px;
+  --gutter-desktop: 32px;
 
-  /* CTA sizes */
-  --cta-min-mobile: 181px;
-  --cta-min-tablet: 201px;
+  /* ── BORDER RADIUS ───────────────────────────────────────── */
+  --radius-sm:   0.25rem;    /*  4px — tags */
+  --radius-md:   0.625rem;   /* 10px — cards */
+  --radius-lg:   1rem;       /* 16px — modals */
+  --radius-full: 9999px;     /* pills, circles */
+
+  /* ── CTA SIZES ───────────────────────────────────────────── */
+  --cta-min-mobile:  181px;
+  --cta-min-tablet:  201px;
   --cta-min-desktop: 241px;
+  --cta-circle:       48px;
+
+  /* ── MOTION TOKENS ───────────────────────────────────────── */
+  --ease-ghost:         cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ghost-soft:    cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-ghost-heavy:   cubic-bezier(0.43, 0.13, 0.23, 0.96);
+  --ease-ghost-ambient: cubic-bezier(0.17, 0.55, 0.55, 1);
+
+  --duration-fast:      0.2s;
+  --duration-normal:    0.8s;
+  --duration-slow:      1.5s;
+  --duration-modal:     0.5s;
+
+  --stagger-tight:   0.05s;
+  --stagger-normal:  0.10s;
+  --stagger-relaxed: 0.18s;
+  --stagger-dramatic:0.25s;
+
+  --motion-y-max: 18px;  /* Max Y offset for content reveals */
+
+  /* ── Z-INDEX LAYERS ──────────────────────────────────────── */
+  --z-base:          0;
+  --z-glass:         10;
+  --z-content:       20;
+  --z-3d:            30;
+  --z-cta:           40;
+  --z-overlay:       50;
+  --z-header:        55;
+  --z-mobile-text:   60;
+  --z-lightbox:      70;
+  --z-mobile-header: 80;
+  --z-mobile-pre:    85;
+  --z-mobile-menu:   90;
+  --z-modal-scrim:   95;
+  --z-modal:         100;
+  --z-modal-close:   105;
+  --z-cursor:        110;
 }
 
-/* ============================================================================
-   SEMANTIC CLASSES — drop-in selectors for pages
-   ============================================================================ */
-body,
-.ghost-body {
-  font-family: var(--font-family-sans);
-  background: var(--color-background);
-  color: var(--color-text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
+/* ── SEMANTIC TYPE CLASSES ───────────────────────────────── */
 .text-display {
+  font-family: var(--font-sans);
   font-size: var(--font-display);
   font-weight: 800;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 .text-h1 {
+  font-family: var(--font-sans);
   font-size: var(--font-h1);
   font-weight: 700;
   line-height: 1.1;
+  text-wrap: balance;
 }
 .text-h2 {
+  font-family: var(--font-sans);
   font-size: var(--font-h2);
   font-weight: 600;
   line-height: 1.15;
+  text-wrap: balance;
 }
 .text-h3 {
+  font-family: var(--font-sans);
   font-size: var(--font-h3);
   font-weight: 500;
   line-height: 1.2;
 }
 .text-body-enhanced {
+  font-family: var(--font-sans);
   font-size: var(--font-body-enhanced);
   font-weight: 500;
   line-height: 1.5;
+  text-wrap: pretty;
 }
 .text-body {
+  font-family: var(--font-sans);
   font-size: var(--font-body);
   font-weight: 400;
   line-height: 1.5;
+  text-wrap: pretty;
 }
 .text-small {
+  font-family: var(--font-sans);
   font-size: var(--font-small);
   font-weight: 400;
   line-height: 1.4;
 }
 .text-micro {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   font-size: var(--font-micro);
   line-height: 1.4;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
-/* Editorial tag (hero) */
-.text-tag {
-  font-size: clamp(0.9rem, 1.3vw, 1rem);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #fff;
-  opacity: 0.7;
-}
-
-@media (max-width: 767px) {
-  .text-body {
-    font-size: var(--font-body-mobile);
-    font-weight: 500;
-    line-height: 1.4;
-  }
-}
-
-/* Semantic element defaults (for agents using generic HTML) */
-h1 {
-  font-size: var(--font-h1);
-  font-weight: 700;
-  line-height: 1.1;
-  text-wrap: balance;
-}
-h2 {
-  font-size: var(--font-h2);
-  font-weight: 600;
-  line-height: 1.15;
-  text-wrap: balance;
-}
-h3 {
-  font-size: var(--font-h3);
-  font-weight: 500;
-  line-height: 1.2;
-}
-p {
-  font-size: var(--font-body);
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-code,
-kbd,
-samp,
-pre {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-micro);
-}
-
-/* ---------- Utility color classes (Tailwind-like) ---------- */
-.bg-background {
-  background: var(--color-background);
-}
-.bg-neutral {
-  background: var(--color-neutral);
-}
-.bg-glass {
-  background: var(--surface-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--surface-border);
-}
-.bg-bluePrimary {
-  background: var(--color-bluePrimary);
-}
-.bg-blueAccent {
-  background: var(--color-blueAccent);
-}
-
-.text-primary {
+/* ── GHOST UTILITY CLASSES ───────────────────────────────── */
+.ghost-bg {
+  background-color: var(--color-background);
   color: var(--color-text);
-}
-.text-secondary {
-  color: var(--color-textSecondary);
-}
-.text-bluePrimary {
-  color: var(--color-bluePrimary);
-}
-.text-blueAccent {
-  color: var(--color-blueAccent);
-}
-.text-purpleDetails {
-  color: var(--color-purpleDetails);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-.border-glass {
-  border: 1px solid var(--surface-border);
+.ghost-glow {
+  text-shadow:
+    0 0 20px rgba(79, 230, 255, 0.3),
+    0 0 40px rgba(0, 72, 255, 0.2);
 }
 
-/* ---------- Cards ---------- */
-.ghost-card {
-  background: var(--surface-glass);
-  border: 1px solid var(--surface-border);
+.ghost-surface {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: var(--radius-lg);
 }
-.ghost-card--deep {
+
+.ghost-card {
   background: var(--color-neutral);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--radius-md);
 }
 
-/* ---------- Layout grid ---------- */
-.std-grid {
-  width: 100%;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
+.btn-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cta-circle);
+  height: var(--cta-circle);
+  border-radius: var(--radius-full);
+  background-color: var(--color-bluePrimary);
+  color: var(--color-text);
+  transition: all var(--duration-fast) var(--ease-ghost);
 }
-@media (min-width: 768px) {
-  .std-grid {
-    padding-inline: 3rem;
-  }
-}
-@media (min-width: 1024px) {
-  .std-grid {
-    padding-inline: 4rem;
-    max-width: 1680px;
-  }
+.btn-icon-circle:hover {
+  background-color: var(--color-purpleDetails);
+  box-shadow: 0 0 0 1px rgba(135,5,242,0.18), 0 0 26px rgba(135,5,242,0.45);
 }
 
-/* ---------- Reduced Motion (mandatory) ---------- */
+/* GhostFadeUp reveal keyframes */
+@keyframes ghostFadeUp {
+  from { opacity: 0; transform: translateY(var(--motion-y-max)); filter: blur(10px); }
+  to   { opacity: 1; transform: translateY(0);                  filter: blur(0); }
+}
+.ghost-reveal {
+  animation: ghostFadeUp var(--duration-normal) var(--ease-ghost) both;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .ghost-reveal, .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
   }
+}
+
+/* Mobile body override */
+@media (max-width: 767px) {
+  .text-body { font-size: var(--font-body-mobile); font-weight: 500; }
 }
