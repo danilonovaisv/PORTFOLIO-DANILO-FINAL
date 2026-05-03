@@ -88,6 +88,11 @@ test-results/
 # AI/Agent Tooling
 .ai/
 .aiassistant/
+# AI/Agent System (.agent)
+.agent/broken_links_report.json
+.agent/skills-archive/
+.agent/.shared/
+.agent/data/
 .github/*
 !.github/workflows/
 .github/workflows/*
