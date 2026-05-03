@@ -40,12 +40,15 @@ export function useBeliefsScroll(
     const node = containerRef.current;
     if (!node) return;
 
-    const stop = scroll((progress: number) => {
-      scrollYProgressRef.current?.set(progress);
-    }, {
-      target: node,
-      offset: ['start start', 'end end'],
-    });
+    const stop = scroll(
+      (progress: number) => {
+        scrollYProgressRef.current?.set(progress);
+      },
+      {
+        target: node,
+        offset: ['start start', 'end end'],
+      }
+    );
 
     return () => stop();
   }, [containerRef]);

@@ -1,70 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
-<style>
-  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 20px 24px; }
-  .section-label { font-family: var(--font-mono); font-size: 9px; color: #4fe6ff; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; }
-  .ease-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
-  .ease-card { background: var(--color-neutral); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; }
-  .ease-name { font-family: var(--font-mono); font-size: 9px; color: #4fe6ff; margin-bottom: 6px; text-transform: uppercase; }
-  .ease-curve { font-family: var(--font-mono); font-size: 8px; color: #a1a3a3; margin-bottom: 8px; }
-  .ease-demo { height: 3px; background: #0048ff; border-radius: 2px; transform-origin: left; }
-  .ease-use { font-size: 8px; color: rgba(252,255,255,0.4); margin-top: 6px; }
-  .dur-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .dur-card { background: var(--color-neutral); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; text-align: center; }
-  .dur-val { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: #fcffff; }
-  .dur-unit { font-size: 10px; color: #a1a3a3; }
-  .dur-name { font-size: 9px; color: #4fe6ff; margin-top: 4px; text-transform: uppercase; font-family: var(--font-mono); }
-  .stagger-row { display: flex; gap: 8px; margin-top: 12px; }
-  .stag { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .stag-dot { width: 10px; height: 10px; border-radius: 50%; background: #0048ff; }
-  .stag-val { font-family: var(--font-mono); font-size: 8px; color: #a1a3a3; }
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 14px 0; }
-</style>
-</head>
-<body>
-  <div class="section-label">Easing Curves</div>
-  <div class="ease-grid">
-    <div class="ease-card">
-      <div class="ease-name">Ghost</div>
-      <div class="ease-curve">[0.22, 1, 0.36, 1]</div>
-      <div class="ease-demo" style="animation: none; width: 100%"></div>
-      <div class="ease-use">Default — all UI, buttons, reveals</div>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #040013;
+        font-family: var(--font-sans);
+        padding: 20px 24px;
+      }
+      .section-label {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #4fe6ff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .ease-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .ease-card {
+        background: var(--color-neutral);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 12px;
+      }
+      .ease-name {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #4fe6ff;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+      }
+      .ease-curve {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: #a1a3a3;
+        margin-bottom: 8px;
+      }
+      .ease-demo {
+        height: 3px;
+        background: #0048ff;
+        border-radius: 2px;
+        transform-origin: left;
+      }
+      .ease-use {
+        font-size: 8px;
+        color: rgba(252, 255, 255, 0.4);
+        margin-top: 6px;
+      }
+      .dur-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .dur-card {
+        background: var(--color-neutral);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 12px;
+        text-align: center;
+      }
+      .dur-val {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 700;
+        color: #fcffff;
+      }
+      .dur-unit {
+        font-size: 10px;
+        color: #a1a3a3;
+      }
+      .dur-name {
+        font-size: 9px;
+        color: #4fe6ff;
+        margin-top: 4px;
+        text-transform: uppercase;
+        font-family: var(--font-mono);
+      }
+      .stagger-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .stag {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .stag-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #0048ff;
+      }
+      .stag-val {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: #a1a3a3;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 14px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section-label">Easing Curves</div>
+    <div class="ease-grid">
+      <div class="ease-card">
+        <div class="ease-name">Ghost</div>
+        <div class="ease-curve">[0.22, 1, 0.36, 1]</div>
+        <div class="ease-demo" style="animation: none; width: 100%"></div>
+        <div class="ease-use">Default — all UI, buttons, reveals</div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Soft</div>
+        <div class="ease-curve">[0.25, 1, 0.5, 1]</div>
+        <div class="ease-demo" style="width: 100%"></div>
+        <div class="ease-use">Atmospheric backgrounds, intros</div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Heavy</div>
+        <div class="ease-curve">[0.43, 0.13, 0.23, 0.96]</div>
+        <div class="ease-demo" style="width: 100%"></div>
+        <div class="ease-use">Large spatial moves, hero cam</div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Ambient</div>
+        <div class="ease-curve">[0.17, 0.55, 0.55, 1]</div>
+        <div class="ease-demo" style="width: 100%"></div>
+        <div class="ease-use">Belief BGs, gradient drifts only</div>
+      </div>
     </div>
-    <div class="ease-card">
-      <div class="ease-name">Soft</div>
-      <div class="ease-curve">[0.25, 1, 0.5, 1]</div>
-      <div class="ease-demo" style="width: 100%"></div>
-      <div class="ease-use">Atmospheric backgrounds, intros</div>
+    <hr class="divider" />
+    <div class="section-label">Durations</div>
+    <div class="dur-grid">
+      <div class="dur-card">
+        <div class="dur-val">0.2</div>
+        <div class="dur-unit">seconds</div>
+        <div class="dur-name">Fast / UI</div>
+      </div>
+      <div class="dur-card">
+        <div class="dur-val">0.8</div>
+        <div class="dur-unit">seconds</div>
+        <div class="dur-name">Normal / Reveal</div>
+      </div>
+      <div class="dur-card">
+        <div class="dur-val">1.5</div>
+        <div class="dur-unit">seconds</div>
+        <div class="dur-name">Slow / Atmos</div>
+      </div>
+      <div class="dur-card">
+        <div class="dur-val">0.5</div>
+        <div class="dur-unit">seconds</div>
+        <div class="dur-name">Modal</div>
+      </div>
     </div>
-    <div class="ease-card">
-      <div class="ease-name">Heavy</div>
-      <div class="ease-curve">[0.43, 0.13, 0.23, 0.96]</div>
-      <div class="ease-demo" style="width: 100%"></div>
-      <div class="ease-use">Large spatial moves, hero cam</div>
+    <hr class="divider" />
+    <div class="section-label">
+      Stagger Delays · GhostFadeUp: y 18px→0 + opacity + blur
     </div>
-    <div class="ease-card">
-      <div class="ease-name">Ambient</div>
-      <div class="ease-curve">[0.17, 0.55, 0.55, 1]</div>
-      <div class="ease-demo" style="width: 100%"></div>
-      <div class="ease-use">Belief BGs, gradient drifts only</div>
+    <div class="stagger-row">
+      <div class="stag">
+        <div class="stag-dot" style="opacity: 0.4"></div>
+        <div class="stag-val">0.05s tight</div>
+      </div>
+      <div class="stag">
+        <div class="stag-dot" style="opacity: 0.55; background: #4fe6ff"></div>
+        <div class="stag-val">0.10s normal</div>
+      </div>
+      <div class="stag">
+        <div class="stag-dot" style="opacity: 0.75; background: #8705f2"></div>
+        <div class="stag-val">0.18s relaxed</div>
+      </div>
+      <div class="stag">
+        <div class="stag-dot" style="background: #f501d3"></div>
+        <div class="stag-val">0.25s dramatic</div>
+      </div>
     </div>
-  </div>
-  <hr class="divider">
-  <div class="section-label">Durations</div>
-  <div class="dur-grid">
-    <div class="dur-card"><div class="dur-val">0.2</div><div class="dur-unit">seconds</div><div class="dur-name">Fast / UI</div></div>
-    <div class="dur-card"><div class="dur-val">0.8</div><div class="dur-unit">seconds</div><div class="dur-name">Normal / Reveal</div></div>
-    <div class="dur-card"><div class="dur-val">1.5</div><div class="dur-unit">seconds</div><div class="dur-name">Slow / Atmos</div></div>
-    <div class="dur-card"><div class="dur-val">0.5</div><div class="dur-unit">seconds</div><div class="dur-name">Modal</div></div>
-  </div>
-  <hr class="divider">
-  <div class="section-label">Stagger Delays · GhostFadeUp: y 18px→0 + opacity + blur</div>
-  <div class="stagger-row">
-    <div class="stag"><div class="stag-dot" style="opacity:0.4"></div><div class="stag-val">0.05s tight</div></div>
-    <div class="stag"><div class="stag-dot" style="opacity:0.55; background:#4fe6ff"></div><div class="stag-val">0.10s normal</div></div>
-    <div class="stag"><div class="stag-dot" style="opacity:0.75; background:#8705f2"></div><div class="stag-val">0.18s relaxed</div></div>
-    <div class="stag"><div class="stag-dot" style="background:#f501d3"></div><div class="stag-val">0.25s dramatic</div></div>
-  </div>
-</body>
+  </body>
 </html>

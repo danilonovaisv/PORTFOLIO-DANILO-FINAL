@@ -3,6 +3,7 @@
 A task list is an artifact that the agent uses to approach complex tasks and monitor progress on various action items...
 
 ## Tasks
+
 1. Confirmar escopo e governança (AGENTS.md, docs de página, regras locais).
 2. Mapear rotas Home (`/`), Sobre (`/sobre`) e Portfólio (`/portfolio`) no App Router.
 3. Inventariar seções/componentes por rota e breakpoints.

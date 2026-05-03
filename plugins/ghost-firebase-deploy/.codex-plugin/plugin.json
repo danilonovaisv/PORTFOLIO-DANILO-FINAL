@@ -10,12 +10,7 @@
   "homepage": "https://portfoliodanilo.com",
   "repository": "https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL",
   "license": "UNLICENSED",
-  "keywords": [
-    "firebase",
-    "hosting",
-    "deploy",
-    "ghost-system"
-  ],
+  "keywords": ["firebase", "hosting", "deploy", "ghost-system"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Ghost Firebase Deploy",
@@ -23,11 +18,7 @@
     "longDescription": "A project-local deployment assistant for the Ghost System portfolio. It runs the existing Firebase preflight checks, builds the Next.js app, deploys preview channels, and delegates production deploys to the repository's canonical deploy script.",
     "developerName": "Danilo Novais",
     "category": "Deployment",
-    "capabilities": [
-      "Deploy",
-      "Firebase Hosting",
-      "Preview Channels"
-    ],
+    "capabilities": ["Deploy", "Firebase Hosting", "Preview Channels"],
     "websiteURL": "https://portfoliodanilo.com",
     "privacyPolicyURL": "https://portfoliodanilo.com/privacidade",
     "termsOfServiceURL": "https://portfoliodanilo.com/termos",

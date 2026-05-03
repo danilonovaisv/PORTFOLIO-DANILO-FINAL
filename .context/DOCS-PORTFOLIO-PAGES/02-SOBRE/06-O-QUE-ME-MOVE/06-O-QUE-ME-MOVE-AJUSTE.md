@@ -211,7 +211,6 @@ _O design respira. O Ghost sente. A cor absorve significado._
 | Bridge DOM↔R3F       | `src/store/beliefStore.ts` (ghostIntensity)             |
 | Tokens de motion     | `src/config/motion.ts` (GHOST_EASE, GHOST_EASE_AMBIENT) |
 
-
 ## 2026-05-02 — Ajuste scrollytelling Motion
 
 - Scroll tracker da seção migrado para a API `scroll()` do Motion, mantendo `offset: ["start start", "end end"]` no container da seção.

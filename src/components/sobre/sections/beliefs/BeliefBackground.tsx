@@ -32,7 +32,11 @@ export function BeliefBackground({
     }
   );
 
-  const opacity = useTransform(scrollProgress, [0, 0.03, 0.97, 1], [1, 1, 1, 1]);
+  const opacity = useTransform(
+    scrollProgress,
+    [0, 0.03, 0.97, 1],
+    [1, 1, 1, 1]
+  );
 
   return (
     <motion.div

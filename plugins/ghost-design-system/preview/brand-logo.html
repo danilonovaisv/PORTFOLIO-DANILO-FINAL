@@ -1,78 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
-<style>
-  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 24px; }
-  .section-label { font-family: var(--font-mono); font-size: 9px; color: #4fe6ff; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; margin-top: 16px; }
-  .section-label:first-child { margin-top: 0; }
-  .logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .logo-box {
-    border-radius: 8px; padding: 20px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-    border: 1px solid rgba(255,255,255,0.08); min-height: 80px;
-  }
-  .logo-box img { max-height: 32px; max-width: 160px; object-fit: contain; }
-  .logo-label { font-family: var(--font-mono); font-size: 8px; color: #a1a3a3; letter-spacing: 0.1em; text-transform: uppercase; }
-  .do-not { border: 1px solid rgba(229,9,20,0.3); position: relative; }
-  .do-not::before { content: '✕ DON\'T'; position: absolute; top: 6px; left: 8px; font-family: var(--font-mono); font-size: 7px; color: #e50914; letter-spacing: 0.1em; }
-  .do { border-color: rgba(0,72,255,0.3); }
-  .do::before { content: '✓ DO'; position: absolute; top: 6px; left: 8px; font-family: var(--font-mono); font-size: 7px; color: #4fe6ff; letter-spacing: 0.1em; }
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 14px 0; }
-  .favicon-row { display: flex; gap: 16px; align-items: center; }
-  .fav-box { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .fav-bg { border-radius: 6px; padding: 10px; display: flex; align-items: center; justify-content: center; }
-  .fav-label { font-family: var(--font-mono); font-size: 8px; color: #a1a3a3; text-transform: uppercase; letter-spacing: 0.1em; }
-</style>
-</head>
-<body>
-  <div class="section-label">Logo — Usage Rules</div>
-  <div class="logo-grid">
-    <div class="logo-box do" style="background: #040013">
-      <img src="../assets/LogoLight.svg" alt="Logo on dark background" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'">
-      <div class="logo-label">Fundo escuro — LogoLight</div>
-    </div>
-    <div class="logo-box do" style="background: #0b0d3a">
-      <img src="../assets/LogoLight.svg" alt="Logo on deep neutral background" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'">
-      <div class="logo-label">Fundo neutral — LogoLight</div>
-    </div>
-    <div class="logo-box do" style="background: #f0f0f0">
-      <img src="../assets/LogoDark.svg" alt="Logo on light background" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:18px;color:#040013;letter-spacing:-0.04em\'>danilo</span>'">
-      <div class="logo-label" style="color:#555">Fundo claro — LogoDark</div>
-    </div>
-  </div>
-
-  <hr class="divider">
-  <div class="section-label">Casos especiais</div>
-  <div class="logo-grid">
-    <div class="logo-box do" style="background: #0048ff">
-      <img src="../assets/LogoLight.svg" alt="Logo on brand blue background" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'">
-      <div class="logo-label">Brand Blue — LogoLight</div>
-    </div>
-    <div class="logo-box do" style="background: #8705f2">
-      <img src="../assets/LogoLight.svg" alt="Logo on purple background" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'">
-      <div class="logo-label">Purple — LogoLight</div>
-    </div>
-    <div class="logo-box do-not" style="background: #040013">
-      <img src="../assets/LogoDark.svg" alt="Wrong: LogoDark on dark background" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:18px;color:#0048ff;letter-spacing:-0.04em\'>danilo</span>'">
-      <div class="logo-label" style="margin-top: 8px;">LogoDark em fundo escuro ✗</div>
-    </div>
-  </div>
-
-  <hr class="divider">
-  <div class="section-label">Favicons</div>
-  <div class="favicon-row">
-    <div class="fav-box">
-      <div class="fav-bg" style="background:#040013; border:1px solid rgba(255,255,255,0.1)">
-        <img src="../assets/favicon_dark.svg" style="width:32px;height:32px" alt="favicon dark" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:20px;color:#0048ff\'>D</span>'">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #040013;
+        font-family: var(--font-sans);
+        padding: 24px;
+      }
+      .section-label {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #4fe6ff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        margin-top: 16px;
+      }
+      .section-label:first-child {
+        margin-top: 0;
+      }
+      .logo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .logo-box {
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        min-height: 80px;
+      }
+      .logo-box img {
+        max-height: 32px;
+        max-width: 160px;
+        object-fit: contain;
+      }
+      .logo-label {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: #a1a3a3;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .do-not {
+        border: 1px solid rgba(229, 9, 20, 0.3);
+        position: relative;
+      }
+      .do-not::before {
+        content: "✕ DON'T";
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        font-family: var(--font-mono);
+        font-size: 7px;
+        color: #e50914;
+        letter-spacing: 0.1em;
+      }
+      .do {
+        border-color: rgba(0, 72, 255, 0.3);
+      }
+      .do::before {
+        content: '✓ DO';
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        font-family: var(--font-mono);
+        font-size: 7px;
+        color: #4fe6ff;
+        letter-spacing: 0.1em;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 14px 0;
+      }
+      .favicon-row {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .fav-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .fav-bg {
+        border-radius: 6px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .fav-label {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: #a1a3a3;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section-label">Logo — Usage Rules</div>
+    <div class="logo-grid">
+      <div class="logo-box do" style="background: #040013">
+        <img
+          src="../assets/LogoLight.svg"
+          alt="Logo on dark background"
+          onerror="
+            this.outerHTML =
+              '<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'
+          "
+        />
+        <div class="logo-label">Fundo escuro — LogoLight</div>
       </div>
-      <div class="fav-label">favicon_dark.svg</div>
-    </div>
-    <div class="fav-box">
-      <div class="fav-bg" style="background:#f0f0f0; border:1px solid rgba(0,0,0,0.08)">
-        <img src="../assets/favicon_light.svg" style="width:32px;height:32px" alt="favicon light" onerror="this.outerHTML='<span style=\'font-weight:900;font-size:20px;color:#040013\'>D</span>'">
+      <div class="logo-box do" style="background: #0b0d3a">
+        <img
+          src="../assets/LogoLight.svg"
+          alt="Logo on deep neutral background"
+          onerror="
+            this.outerHTML =
+              '<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'
+          "
+        />
+        <div class="logo-label">Fundo neutral — LogoLight</div>
       </div>
-      <div class="fav-label">favicon_light.svg</div>
+      <div class="logo-box do" style="background: #f0f0f0">
+        <img
+          src="../assets/LogoDark.svg"
+          alt="Logo on light background"
+          onerror="
+            this.outerHTML =
+              '<span style=\'font-weight:800;font-size:18px;color:#040013;letter-spacing:-0.04em\'>danilo</span>'
+          "
+        />
+        <div class="logo-label" style="color: #555">Fundo claro — LogoDark</div>
+      </div>
     </div>
-  </div>
-</body>
+
+    <hr class="divider" />
+    <div class="section-label">Casos especiais</div>
+    <div class="logo-grid">
+      <div class="logo-box do" style="background: #0048ff">
+        <img
+          src="../assets/LogoLight.svg"
+          alt="Logo on brand blue background"
+          onerror="
+            this.outerHTML =
+              '<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'
+          "
+        />
+        <div class="logo-label">Brand Blue — LogoLight</div>
+      </div>
+      <div class="logo-box do" style="background: #8705f2">
+        <img
+          src="../assets/LogoLight.svg"
+          alt="Logo on purple background"
+          onerror="
+            this.outerHTML =
+              '<span style=\'font-weight:800;font-size:18px;color:#fcffff;letter-spacing:-0.04em\'>danilo</span>'
+          "
+        />
+        <div class="logo-label">Purple — LogoLight</div>
+      </div>
+      <div class="logo-box do-not" style="background: #040013">
+        <img
+          src="../assets/LogoDark.svg"
+          alt="Wrong: LogoDark on dark background"
+          onerror="
+            this.outerHTML =
+              '<span style=\'font-weight:800;font-size:18px;color:#0048ff;letter-spacing:-0.04em\'>danilo</span>'
+          "
+        />
+        <div class="logo-label" style="margin-top: 8px">
+          LogoDark em fundo escuro ✗
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="section-label">Favicons</div>
+    <div class="favicon-row">
+      <div class="fav-box">
+        <div
+          class="fav-bg"
+          style="
+            background: #040013;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          "
+        >
+          <img
+            src="../assets/favicon_dark.svg"
+            style="width: 32px; height: 32px"
+            alt="favicon dark"
+            onerror="
+              this.outerHTML =
+                '<span style=\'font-weight:900;font-size:20px;color:#0048ff\'>D</span>'
+            "
+          />
+        </div>
+        <div class="fav-label">favicon_dark.svg</div>
+      </div>
+      <div class="fav-box">
+        <div
+          class="fav-bg"
+          style="background: #f0f0f0; border: 1px solid rgba(0, 0, 0, 0.08)"
+        >
+          <img
+            src="../assets/favicon_light.svg"
+            style="width: 32px; height: 32px"
+            alt="favicon light"
+            onerror="
+              this.outerHTML =
+                '<span style=\'font-weight:900;font-size:20px;color:#040013\'>D</span>'
+            "
+          />
+        </div>
+        <div class="fav-label">favicon_light.svg</div>
+      </div>
+    </div>
+  </body>
 </html>

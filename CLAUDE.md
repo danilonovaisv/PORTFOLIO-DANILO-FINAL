@@ -2,10 +2,12 @@
 
 > **Projeto:** Portfolio institucional de Danilo Novais  
 > **Codinome:** Ghost Era / Ghost System  
-> **URL:** https://portfoliodanilo.com  
-> 
+> **URL:** https://portfoliodanilo.com
+
 ---
+
 ## Stack Tecnológica
+
 - **Framework:** Next.js 15 (App Router) + React 19.
 - **Linguagem:** TypeScript (Strict Mode).
 - **Estilização:** Tailwind CSS 4 (Configuração CSS-first).
@@ -14,12 +16,14 @@
 - **Backend/Auth:** Supabase SSR.
 
 ## Comandos Frequentes
+
 - **Dev:** `npm run dev`
 - **Build:** `npm run build`
 - **Lint:** `npm run lint`
 - **Type-Check:** `npm run type-check`
 
 ## Arquitetura & Convenções
+
 - **Diretórios:** - `src/components/ui`: Componentes atômicos e Ghost primitives.
   - `src/components/canvas`: Cenas R3F e Shaders.
   - `src/hooks`: Lógica de animação e integração Supabase.
@@ -28,12 +32,14 @@
 - **Z-Index:** Seguir a estratificação de camadas (Camada 0: BG, Camada 4: Manifesto).
 
 ## Regras de Qualidade
+
 - **Acessibilidade:** Prioridade AA/AAA. `aria-label` obrigatório em Canvas.
 - **Performance:** `ssr: false` para Canvas; limitar DPR em mobile; evitar repaints em scroll.
 - **Resiliência:** Fallbacks de mídia (imagem para erro de vídeo) e skeletons para fetch de dados.
 - **Silent Design:** Proibido o uso de animações decorativas agressivas. Movimento deve ser "respiração".
 
-----
+---
+
 ## Behavioral Rules (Always Enforced)
 
 - Do what has been asked; nothing more, nothing less

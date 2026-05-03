@@ -240,7 +240,7 @@ export default function FeaturedProjectCardFrame({
 
       <div className={`absolute inset-0 ${topWashClass}`} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(135,5,242,0.12),transparent_72%)] opacity-0 transition-opacity duration-150 md:group-hover:duration-200 ease-ghost md:group-hover:opacity-100" />
-      <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay bg-[url('/site.assets/global/noise.svg')]" />
 
       {showLogo ? (
         <div className="absolute inset-0 z-[var(--z-layer-content)] flex items-center justify-center p-6 sm:p-8 md:p-12">

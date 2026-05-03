@@ -35,7 +35,7 @@ export interface GhostScrollTextProps {
 const buildVariants = (
   direction: GhostScrollTextDirection,
   duration: number,
-  reduced: boolean,
+  reduced: boolean
 ): Variants => {
   if (reduced) {
     return {
@@ -138,7 +138,7 @@ const GhostScrollText = ({
       className={cn(
         'inline-block text-text',
         uppercase && 'uppercase tracking-tight',
-        className,
+        className
       )}
     >
       <span aria-hidden="true">

@@ -45,8 +45,8 @@ export function AdminPageHeader({
                 breadcrumbs.map((crumb, idx) => (
                   <span key={crumb.label} className="flex items-center gap-2">
                     {crumb.href ? (
-                      <Link 
-                        href={crumb.href} 
+                      <Link
+                        href={crumb.href}
                         className="hover:text-[#0048ff] transition-colors"
                       >
                         {crumb.label}
@@ -64,7 +64,7 @@ export function AdminPageHeader({
               )}
             </div>
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="font-mono text-3xl font-light tracking-tight text-white sm:text-4xl md:text-5xl">
               {title.split(' ').map((word, i) => (
@@ -78,7 +78,7 @@ export function AdminPageHeader({
                 </span>
               ))}
             </h1>
-            
+
             {badge && (
               <div
                 className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest ${
@@ -89,7 +89,7 @@ export function AdminPageHeader({
               </div>
             )}
           </div>
-          
+
           {subtitle && (
             <p className="max-w-2xl font-mono text-[11px] uppercase tracking-wider text-white/40">
               {subtitle}
@@ -98,9 +98,7 @@ export function AdminPageHeader({
         </div>
 
         {action && (
-          <div className="flex shrink-0 items-center gap-3">
-            {action}
-          </div>
+          <div className="flex shrink-0 items-center gap-3">{action}</div>
         )}
       </div>
     </header>

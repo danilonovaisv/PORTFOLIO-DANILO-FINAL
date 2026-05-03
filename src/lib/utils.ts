@@ -140,6 +140,11 @@ export function supabaseLoader({
     return src;
   }
 
+  // Ghost System: Skip Supabase loader for local site.assets
+  if (src.startsWith('/site.assets/') || src.startsWith('site.assets/')) {
+    return src.startsWith('/') ? src : `/${src}`;
+  }
+
   return getAssetUrl(src, { width, quality: quality || 75 });
 }
 

@@ -1,93 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
-<style>
-  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 22px 24px; }
-  .section-label { font-family: var(--font-mono); font-size: 9px; color: #4fe6ff; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; margin-top: 16px; }
-  .section-label:first-child { margin-top: 0; }
-  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 14px 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #040013;
+        font-family: var(--font-sans);
+        padding: 22px 24px;
+      }
+      .section-label {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #4fe6ff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        margin-top: 16px;
+      }
+      .section-label:first-child {
+        margin-top: 0;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 14px 0;
+      }
 
-  /* Editorial tag */
-  .editorial-tag {
-    font-family: var(--font-mono); font-size: 10px; color: #4fe6ff;
-    letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8;
-  }
+      /* Editorial tag */
+      .editorial-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: #4fe6ff;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
 
-  /* Category pill */
-  .cat-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 12px; border-radius: 9999px;
-    background: rgba(0,72,255,0.15); border: 1px solid rgba(0,72,255,0.3);
-    font-size: 11px; font-weight: 600; color: #4fe6ff; letter-spacing: 0.05em;
-  }
-  .cat-dot { width: 5px; height: 5px; border-radius: 50%; background: #4fe6ff; }
+      /* Category pill */
+      .cat-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        background: rgba(0, 72, 255, 0.15);
+        border: 1px solid rgba(0, 72, 255, 0.3);
+        font-size: 11px;
+        font-weight: 600;
+        color: #4fe6ff;
+        letter-spacing: 0.05em;
+      }
+      .cat-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4fe6ff;
+      }
 
-  /* Tag badge */
-  .tag-badge {
-    display: inline-block; padding: 3px 10px;
-    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 4px; font-family: var(--font-mono); font-size: 9px;
-    color: rgba(252,255,255,0.65); letter-spacing: 0.1em; text-transform: uppercase;
-  }
+      /* Tag badge */
+      .tag-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: rgba(252, 255, 255, 0.65);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
 
-  /* Status/year badge */
-  .year-badge {
-    display: inline-block; padding: 2px 8px;
-    background: rgba(135,5,242,0.2); border: 1px solid rgba(135,5,242,0.35);
-    border-radius: 4px; font-family: var(--font-mono); font-size: 9px;
-    color: #8705f2; letter-spacing: 0.08em;
-  }
+      /* Status/year badge */
+      .year-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: rgba(135, 5, 242, 0.2);
+        border: 1px solid rgba(135, 5, 242, 0.35);
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #8705f2;
+        letter-spacing: 0.08em;
+      }
 
-  /* NEW badge */
-  .new-badge {
-    display: inline-block; padding: 2px 8px;
-    background: #0048ff; border-radius: 4px;
-    font-family: var(--font-mono); font-size: 8px; font-weight: 700;
-    color: #fcffff; letter-spacing: 0.15em; text-transform: uppercase;
-  }
+      /* NEW badge */
+      .new-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: #0048ff;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 8px;
+        font-weight: 700;
+        color: #fcffff;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
 
-  /* Active nav indicator */
-  .nav-active {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
-    font-weight: 600; color: #0048ff; position: relative; display: inline-block; padding-bottom: 3px;
-  }
-  .nav-active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: #0048ff; }
-</style>
-</head>
-<body>
-  <div class="section-label">Editorial Tags</div>
-  <div class="row">
-    <span class="editorial-tag">[BRAND AWARENESS]</span>
-    <span class="editorial-tag">[what we love working on]</span>
-  </div>
+      /* Active nav indicator */
+      .nav-active {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        color: #0048ff;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 3px;
+      }
+      .nav-active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: #0048ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section-label">Editorial Tags</div>
+    <div class="row">
+      <span class="editorial-tag">[BRAND AWARENESS]</span>
+      <span class="editorial-tag">[what we love working on]</span>
+    </div>
 
-  <hr class="divider">
-  <div class="section-label">Category Chips</div>
-  <div class="row">
-    <span class="cat-pill"><span class="cat-dot"></span>Brand &amp; Campaigns</span>
-    <span class="cat-pill"><span class="cat-dot"></span>Videos &amp; Motions</span>
-    <span class="cat-pill"><span class="cat-dot"></span>Web &amp; Tech</span>
-  </div>
+    <hr class="divider" />
+    <div class="section-label">Category Chips</div>
+    <div class="row">
+      <span class="cat-pill"
+        ><span class="cat-dot"></span>Brand &amp; Campaigns</span
+      >
+      <span class="cat-pill"
+        ><span class="cat-dot"></span>Videos &amp; Motions</span
+      >
+      <span class="cat-pill"><span class="cat-dot"></span>Web &amp; Tech</span>
+    </div>
 
-  <hr class="divider">
-  <div class="section-label">Skill Tags</div>
-  <div class="row">
-    <span class="tag-badge">Branding</span>
-    <span class="tag-badge">Motion Design</span>
-    <span class="tag-badge">UX/UI</span>
-    <span class="tag-badge">Campaign</span>
-    <span class="tag-badge">Art Direction</span>
-    <span class="tag-badge">Strategy</span>
-    <span class="tag-badge">Animation</span>
-    <span class="new-badge">NEW</span>
-    <span class="year-badge">2024</span>
-  </div>
+    <hr class="divider" />
+    <div class="section-label">Skill Tags</div>
+    <div class="row">
+      <span class="tag-badge">Branding</span>
+      <span class="tag-badge">Motion Design</span>
+      <span class="tag-badge">UX/UI</span>
+      <span class="tag-badge">Campaign</span>
+      <span class="tag-badge">Art Direction</span>
+      <span class="tag-badge">Strategy</span>
+      <span class="tag-badge">Animation</span>
+      <span class="new-badge">NEW</span>
+      <span class="year-badge">2024</span>
+    </div>
 
-  <hr class="divider">
-  <div class="section-label">Nav Active State</div>
-  <div class="row">
-    <span class="nav-active">portfólio</span>
-  </div>
-</body>
+    <hr class="divider" />
+    <div class="section-label">Nav Active State</div>
+    <div class="row">
+      <span class="nav-active">portfólio</span>
+    </div>
+  </body>
 </html>

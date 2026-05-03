@@ -87,19 +87,21 @@ export function AdminHeader({
           <span className="font-mono text-[10px] text-white/40">{version}</span>
         </div>
         <div className="h-10 w-[1px] bg-white/5" />
-        
+
         {status !== 'none' && (
           <div className="flex flex-col items-end">
             <span className="font-mono text-[9px] uppercase tracking-widest text-white/20">
               Status
             </span>
             <div className="flex items-center gap-2">
-              <span 
+              <span
                 className={`h-1.5 w-1.5 rounded-full ${
-                  status === 'synced' ? 'bg-emerald-500 animate-pulse' :
-                  status === 'pending' ? 'bg-amber-500 animate-pulse' :
-                  'bg-rose-500'
-                }`} 
+                  status === 'synced'
+                    ? 'bg-emerald-500 animate-pulse'
+                    : status === 'pending'
+                      ? 'bg-amber-500 animate-pulse'
+                      : 'bg-rose-500'
+                }`}
               />
               <span className="font-mono text-[10px] text-white/40 uppercase">
                 {status}
@@ -111,9 +113,7 @@ export function AdminHeader({
         {actions && (
           <>
             <div className="h-10 w-[1px] bg-white/5" />
-            <div className="flex items-center gap-3">
-              {actions}
-            </div>
+            <div className="flex items-center gap-3">{actions}</div>
           </>
         )}
       </div>

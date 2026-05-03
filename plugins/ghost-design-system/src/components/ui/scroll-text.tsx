@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * GhostScrollText — Marquee de velocidade para o Ghost Design System
@@ -26,9 +26,9 @@ import {
   useSpring,
   useTransform,
   useVelocity,
-} from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+} from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ScrollTextProps {
   children: string;
@@ -102,15 +102,15 @@ export function ScrollText({
   });
 
   // Wrap do translateX para loop perfeito
-  const x = useTransform(baseX, (v) => `${wrap(-100 / repetitions, 0, v / repetitions)}%`);
+  const x = useTransform(
+    baseX,
+    (v) => `${wrap(-100 / repetitions, 0, v / repetitions)}%`
+  );
 
   if (shouldReduce) {
     return (
       <div
-        className={cn(
-          "overflow-hidden whitespace-nowrap py-3",
-          className
-        )}
+        className={cn('overflow-hidden whitespace-nowrap py-3', className)}
         aria-label={`Marquee: ${children}`}
       >
         <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#a1a3a3] px-4">
@@ -123,13 +123,10 @@ export function ScrollText({
   return (
     <div
       ref={containerRef}
-      className={cn("overflow-hidden whitespace-nowrap", className)}
+      className={cn('overflow-hidden whitespace-nowrap', className)}
       aria-hidden="true"
     >
-      <motion.div
-        className="flex"
-        style={{ x }}
-      >
+      <motion.div className="flex" style={{ x }}>
         {Array.from({ length: repetitions }).map((_, i) => (
           <span
             key={i}

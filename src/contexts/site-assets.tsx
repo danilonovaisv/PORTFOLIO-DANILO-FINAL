@@ -110,9 +110,14 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
   if (context?.getUrl(key)) return context.getUrl(key);
 
   const toLocalAssetPath = (path: string) => {
+    if (!path) return '';
+
+    // Se já começar com a URL de produção ou local do site.assets, retornar como está
+    if (path.startsWith('/site.assets/')) return path;
+
     let cleanPath = path.replace(/^\/+/, '');
 
-    // Remover prefixos redundantes repetidamente para evitar caminhos como /site.assets/site.assets/...
+    // Remover prefixos redundantes repetidamente
     while (
       cleanPath.startsWith('site.assets/') ||
       cleanPath.startsWith('site-assets/')
