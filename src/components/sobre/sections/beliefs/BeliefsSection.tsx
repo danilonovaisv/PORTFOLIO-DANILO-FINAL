@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, type RefObject } from 'react';
 import { useInView, motion } from 'motion/react';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { useBeliefStore } from '@/store/beliefStore';
@@ -56,7 +56,7 @@ export function BeliefsSection() {
         }}
       >
         <BeliefBackground
-          scrollProgress={scrollYProgress}
+          targetRef={containerRef as RefObject<HTMLElement | null>}
           prefersReducedMotion={prefersReducedMotion}
         />
 
@@ -74,7 +74,6 @@ export function BeliefsSection() {
           />
 
           <BeliefScrollText
-            scrollProgress={scrollYProgress}
             phrases={PHRASES}
             prefersReducedMotion={prefersReducedMotion}
           />
@@ -94,7 +93,7 @@ export function BeliefsSection() {
 
       <div className="absolute top-0 left-0 w-full pointer-events-none">
         {PHRASES.map((_, i) => (
-          <BeliefSection key={i} />
+          <BeliefSection key={i} index={i} />
         ))}
         <BeliefSection />
       </div>

@@ -1,10 +1,24 @@
 'use client';
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
-import { useEffect, useMemo, useRef, Suspense, type ReactNode } from 'react';
-import { useMotionValue, useSpring, type MotionValue } from 'motion/react';
-import type { BufferGeometry, Group, Material, Mesh, Object3D } from 'three';
+import { Float, useGLTF } from '@react-three/drei';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  Suspense,
+  type ReactNode,
+} from 'react';
+import { useSpring, type MotionValue } from 'motion/react';
+import {
+  MathUtils,
+  type BufferGeometry,
+  type Group,
+  type Material,
+  type Mesh,
+  type Object3D,
+} from 'three';
 import { useBeliefStore } from '@/store/beliefStore';
 import { GhostFallback } from '@/components/sobre/sections/beliefs/3d/GhostFallback';
 import { useWebGLAvailable } from '@/components/sobre/sections/beliefs/3d/useWebGLAvailable';
@@ -38,6 +52,7 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
   const invalidate = useThree((state) => state.invalidate);
   const isMobile = useBeliefStore((s) => s.isMobile);
   const prefersReducedMotion = useBeliefStore((s) => s.prefersReducedMotion);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Ref-based subscription for ghostIntensity — avoids getState() per frame
   const ghostIntensityRef = useRef(0);
@@ -51,13 +66,6 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     return unsub;
   }, []);
 
-  // Motion Values for Parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Spring Physics configured for high-fidelity responsiveness
-  const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 30 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 30 });
   const smoothScroll = useSpring(scrollProgress, {
     stiffness: 200,
     damping: 40,
@@ -66,28 +74,35 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
 
   useEffect(() => {
     const unsubScroll = smoothScroll.on('change', () => invalidate());
-    const unsubX = smoothMouseX.on('change', () => invalidate());
-    const unsubY = smoothMouseY.on('change', () => invalidate());
+    const handleScroll = () => invalidate();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       unsubScroll();
-      unsubX();
-      unsubY();
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [invalidate, smoothScroll, smoothMouseX, smoothMouseY]);
+  }, [invalidate, smoothScroll]);
 
   useEffect(() => {
-    if (isMobile || prefersReducedMotion) return;
+    const query = window.matchMedia('(hover: none), (pointer: coarse)');
+    const syncTouchMode = () => setIsTouchDevice(query.matches);
 
-    const handleMove = (e: PointerEvent) => {
-      mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
-      mouseY.set(-(e.clientY / window.innerHeight) * 2 + 1);
-    };
+    syncTouchMode();
+    query.addEventListener('change', syncTouchMode);
 
-    window.addEventListener('pointermove', handleMove, { passive: true });
+    return () => query.removeEventListener('change', syncTouchMode);
+  }, []);
 
-    return () => window.removeEventListener('pointermove', handleMove);
-  }, [isMobile, prefersReducedMotion, mouseX, mouseY]);
+  useEffect(() => {
+    if (isMobile || isTouchDevice || prefersReducedMotion) return;
+
+    const handleMouseMove = () => invalidate();
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [invalidate, isMobile, isTouchDevice, prefersReducedMotion]);
 
   useEffect(() => {
     return () => {
@@ -108,45 +123,48 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
     };
   }, [clonedScene]);
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!meshRef.current) return;
 
     const p = ghostIntensityRef.current;
     const isClimax = p > 0.85;
+    const s = smoothScroll.get();
 
     // Ghost-System v3.0: Responsive Positioning
-    // Mobile: Shift left (-1.2) and slightly up (1.2) to align with editorial text
-    // Desktop: Shift right (+1.8) to balance the layout
-    const targetX = isClimax ? 0 : isMobile ? -1.2 : 1.8;
-    const targetY = isClimax ? 0 : isMobile ? 1.2 : 0;
-    const lerpFactor = Math.min(delta * 6, 0.12);
-
-    // Parallax via Springs
-    const parallaxX =
-      !prefersReducedMotion && !isMobile ? smoothMouseX.get() * 0.5 : 0;
-    const parallaxY =
-      !prefersReducedMotion && !isMobile ? smoothMouseY.get() * 0.25 : 0;
-
-    meshRef.current.position.x +=
-      (targetX + parallaxX - meshRef.current.position.x) * lerpFactor;
-    meshRef.current.position.y +=
-      (targetY + parallaxY - meshRef.current.position.y) * lerpFactor;
-
-    // Scroll rotation mapping
-    const s = smoothScroll.get();
+    // Mobile: Centered horizontally (0) and shifted up (0.8) to sit below the top header
+    // Desktop: Shift left (-0.8) to balance between the left animated text and right fixed text
+    const targetX = isClimax ? 0 : isMobile ? 0 : -0.8;
+    const targetY =
+      (isClimax ? 0 : isMobile ? 0.8 : 0) +
+      (isMobile || isTouchDevice ? s * 0.8 : 0);
+    const pointerTrackingEnabled =
+      !prefersReducedMotion && !isMobile && !isTouchDevice;
     const baseRotationY = s * Math.PI * 0.5; // Rotate 90deg over the full scroll range
 
-    if (!prefersReducedMotion) {
-      const floatSpeed = 0.6 + p * 0.6;
-      const floatAmp = 0.036 + p * 0.03;
-      meshRef.current.position.y +=
-        Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmp;
-      meshRef.current.rotation.y =
-        baseRotationY +
-        Math.sin(state.clock.elapsedTime * 0.4 * (0.4 + p * 0.4)) *
-          (0.06 + p * 0.04);
-    } else {
+    if (prefersReducedMotion) {
+      meshRef.current.position.x = targetX;
+      meshRef.current.position.y = targetY;
       meshRef.current.rotation.y = baseRotationY;
+    } else {
+      const pointerTargetX = pointerTrackingEnabled
+        ? targetX + state.pointer.x * 2
+        : targetX;
+
+      meshRef.current.position.x = MathUtils.lerp(
+        meshRef.current.position.x,
+        pointerTargetX,
+        pointerTrackingEnabled ? 0.05 : 0.08
+      );
+      meshRef.current.position.y = MathUtils.lerp(
+        meshRef.current.position.y,
+        targetY,
+        0.08
+      );
+      meshRef.current.rotation.y = MathUtils.lerp(
+        meshRef.current.rotation.y,
+        baseRotationY,
+        0.08
+      );
     }
 
     const targetScale = isClimax
@@ -156,25 +174,48 @@ function GhostModel({ scrollProgress }: GhostModelProps) {
       : isMobile
         ? 0.95
         : 1.05;
-    meshRef.current.scale.x +=
-      (targetScale - meshRef.current.scale.x) * lerpFactor;
+
+    if (prefersReducedMotion) {
+      meshRef.current.scale.setScalar(targetScale);
+    } else {
+      meshRef.current.scale.x = MathUtils.lerp(
+        meshRef.current.scale.x,
+        targetScale,
+        0.08
+      );
+    }
+
     meshRef.current.scale.y = meshRef.current.scale.x;
     meshRef.current.scale.z = meshRef.current.scale.x;
 
     // Manifesto phase fade-out (FP-04): reduce Ghost opacity when manifesto takes over
-    if (p > 0.82) {
-      const manifestoFade = Math.max(0, 1 - (p - 0.82) / 0.18);
-      meshRef.current.traverse((child: Object3D) => {
-        const mesh = child as Mesh;
-        if (mesh.material && 'opacity' in mesh.material) {
-          mesh.material.opacity = manifestoFade;
-          mesh.material.transparent = true;
-        }
+    const manifestoFade = p > 0.82 ? Math.max(0, 1 - (p - 0.82) / 0.18) : 1;
+
+    meshRef.current.traverse((child: Object3D) => {
+      const mesh = child as Mesh;
+      if (!mesh.material) return;
+
+      const materials = Array.isArray(mesh.material)
+        ? mesh.material
+        : [mesh.material];
+
+      materials.forEach((material) => {
+        material.opacity = manifestoFade;
+        material.transparent = manifestoFade < 1;
       });
-    }
+    });
   });
 
-  return <primitive object={clonedScene} ref={meshRef} />;
+  return (
+    <Float
+      speed={2}
+      floatIntensity={prefersReducedMotion ? 0 : 1.5}
+      rotationIntensity={prefersReducedMotion ? 0 : 0.5}
+      autoInvalidate={!prefersReducedMotion}
+    >
+      <primitive object={clonedScene} ref={meshRef} />
+    </Float>
+  );
 }
 
 interface GhostSceneProps {

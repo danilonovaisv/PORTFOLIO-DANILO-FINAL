@@ -3,8 +3,9 @@ import {
   useTransform,
   type MotionValue,
   cubicBezier,
+  type Variants,
 } from 'motion/react';
-import React from 'react';
+import type { ReactNode } from 'react';
 
 interface BeliefFixedHeaderProps {
   scrollProgress: MotionValue<number>;
@@ -28,6 +29,27 @@ export function BeliefFixedHeader({
   );
 
   const opacity = externalOpacity || defaultOpacity;
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.03,
+      },
+    },
+  };
+  const lineVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: prefersReducedMotion ? 0 : '100%',
+    },
+    visible: {
+      opacity: 1,
+      y: prefersReducedMotion ? 0 : '0%',
+      transition: prefersReducedMotion
+        ? { duration: 0.25, ease: 'easeOut' }
+        : { type: 'spring', stiffness: 200, damping: 20, mass: 1 },
+    },
+  };
 
   return (
     <motion.div
@@ -45,73 +67,35 @@ export function BeliefFixedHeader({
             data-testid="beliefs-header-content"
           >
             {/* Main Title: "Acredito no..." */}
-            <h2
+            <motion.h2
               id="beliefs-section-heading"
               aria-label="Acredito no design que muda o dia de alguém. Não pelo choque, mas pela conexão."
               className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.5 }}
             >
-              <div aria-hidden="true" className="overflow-visible">
-                <MorphText
-                  progress={scrollProgress}
-                  range={[0.1, 0.2]}
-                  prefersReducedMotion={prefersReducedMotion}
-                >
-                  Acredito no
-                </MorphText>
-              </div>
-              <div aria-hidden="true" className="overflow-visible">
-                <MorphText
-                  progress={scrollProgress}
-                  range={[0.12, 0.22]}
-                  prefersReducedMotion={prefersReducedMotion}
-                >
-                  <span className="text-[#0048ff]">design</span> que
-                </MorphText>
-              </div>
-              <div aria-hidden="true" className="overflow-visible">
-                <MorphText
-                  progress={scrollProgress}
-                  range={[0.14, 0.24]}
-                  prefersReducedMotion={prefersReducedMotion}
-                >
-                  muda o dia
-                </MorphText>
-              </div>
-              <div aria-hidden="true" className="overflow-visible">
-                <MorphText
-                  progress={scrollProgress}
-                  range={[0.16, 0.26]}
-                  prefersReducedMotion={prefersReducedMotion}
-                >
-                  de alguém.
-                </MorphText>
-              </div>
-            </h2>
+              <RevealLine variants={lineVariants}>Acredito no</RevealLine>
+              <RevealLine variants={lineVariants}>
+                <span className="text-[#0048ff]">design</span> que
+              </RevealLine>
+              <RevealLine variants={lineVariants}>muda o dia</RevealLine>
+              <RevealLine variants={lineVariants}>de alguém.</RevealLine>
+            </motion.h2>
 
             {/* Subtext: "Não pelo choque..." */}
-            <div
+            <motion.div
               aria-hidden="true"
               className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.5 }}
             >
-              <div className="overflow-visible">
-                <MorphText
-                  progress={scrollProgress}
-                  range={[0.22, 0.32]}
-                  prefersReducedMotion={prefersReducedMotion}
-                >
-                  Não pelo choque,
-                </MorphText>
-              </div>
-              <div className="overflow-visible">
-                <MorphText
-                  progress={scrollProgress}
-                  range={[0.24, 0.34]}
-                  prefersReducedMotion={prefersReducedMotion}
-                >
-                  mas pela conexão.
-                </MorphText>
-              </div>
-            </div>
+              <RevealLine variants={lineVariants}>Não pelo choque,</RevealLine>
+              <RevealLine variants={lineVariants}>mas pela conexão.</RevealLine>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -119,35 +103,22 @@ export function BeliefFixedHeader({
   );
 }
 
-// Helper MorphText for synchronized blur/fade/y transitions
-const MorphText: React.FC<{
-  children: React.ReactNode;
-  progress: MotionValue<number>;
-  range: [number, number];
-  className?: string;
-  prefersReducedMotion?: boolean;
-}> = ({ children, progress, range, className, prefersReducedMotion }) => {
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-
-  const blurValue = useTransform(progress, range, [12, 0], {
-    ease: ghostEase,
-  });
-  const filter = useTransform(blurValue, (v) =>
-    prefersReducedMotion ? 'none' : `blur(${v}px)`
-  );
-  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
-  const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
-
+function RevealLine({
+  children,
+  variants,
+}: {
+  children: ReactNode;
+  variants: Variants;
+}) {
   return (
-    <motion.span
-      style={{
-        filter,
-        opacity,
-        y: prefersReducedMotion ? 0 : y,
-      }}
-      className={`block ${className || ''}`}
-    >
-      {children}
-    </motion.span>
+    <span aria-hidden="true" className="block overflow-hidden">
+      <motion.span
+        className="block"
+        variants={variants}
+        style={{ willChange: 'transform, opacity' }}
+      >
+        {children}
+      </motion.span>
+    </span>
   );
-};
+}

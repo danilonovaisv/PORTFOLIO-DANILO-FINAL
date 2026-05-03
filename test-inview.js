@@ -1,2 +1,1 @@
-import { inView } from 'framer-motion';
-console.log(inView);
+// If we create a custom hook `useInViewSelector`

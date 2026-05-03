@@ -5,6 +5,7 @@ import {
   useTransform,
   type MotionValue,
   cubicBezier,
+  type Variants,
 } from 'motion/react';
 import { GHOST_EASE_AMBIENT } from '@/config/motion';
 
@@ -29,18 +30,27 @@ export function BeliefManifesto({
     }
   );
 
-  // Subtle vertical entrance (replaces prohibited scale)
-  const y = useTransform(scrollProgress, [0.85, 0.95], [40, 0], {
-    ease: ghostEase,
-  });
-
-  const blurValue = useTransform(scrollProgress, [0.85, 0.92], [20, 0], {
-    ease: ghostEase,
-  });
-
-  const filter = useTransform(blurValue, (v) =>
-    prefersReducedMotion ? 'none' : `blur(${v}px)`
-  );
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.03,
+      },
+    },
+  };
+  const lineVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: prefersReducedMotion ? 0 : '100%',
+    },
+    visible: {
+      opacity: 1,
+      y: prefersReducedMotion ? 0 : '0%',
+      transition: prefersReducedMotion
+        ? { duration: 0.25, ease: 'easeOut' }
+        : { type: 'spring', stiffness: 200, damping: 20, mass: 1 },
+    },
+  };
 
   return (
     <motion.div
@@ -49,25 +59,50 @@ export function BeliefManifesto({
       role="presentation"
       style={{
         opacity,
-        y: prefersReducedMotion ? 0 : y,
-        filter,
+        willChange: 'opacity',
       }}
     >
       <blockquote
         className="relative text-center select-none"
         aria-label="Manifesto Ghost Design — Isso é Ghost Design"
       >
-        <p
+        <motion.p
           className="font-display font-black text-white leading-[0.75] tracking-[-0.05em] uppercase mix-blend-difference"
           style={{ fontSize: 'clamp(4rem, 22vw, 18rem)' }}
           aria-hidden="true"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.5 }}
         >
-          <span className="block opacity-40">ISSO É</span>
-          <span className="block text-[#0048ff] mix-blend-overlay drop-shadow-[0_0_30px_rgba(0,72,255,0.4)]">
-            GHOST
+          <span className="block overflow-hidden">
+            <motion.span
+              className="block opacity-40"
+              variants={lineVariants}
+              style={{ willChange: 'transform, opacity' }}
+            >
+              ISSO É
+            </motion.span>
           </span>
-          <span className="block">DESIGN</span>
-        </p>
+          <span className="block overflow-hidden">
+            <motion.span
+              className="block text-[#0048ff] mix-blend-overlay drop-shadow-[0_0_30px_rgba(0,72,255,0.4)]"
+              variants={lineVariants}
+              style={{ willChange: 'transform, opacity' }}
+            >
+              GHOST
+            </motion.span>
+          </span>
+          <span className="block overflow-hidden">
+            <motion.span
+              className="block"
+              variants={lineVariants}
+              style={{ willChange: 'transform, opacity' }}
+            >
+              DESIGN
+            </motion.span>
+          </span>
+        </motion.p>
 
         {/* Decorative elements to add "Ghost" vibe */}
         <div

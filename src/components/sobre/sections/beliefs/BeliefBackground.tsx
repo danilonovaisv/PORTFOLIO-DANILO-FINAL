@@ -1,39 +1,49 @@
 'use client';
 
-import { motion, useTransform, MotionValue } from 'motion/react';
+import type { RefObject } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { colorPalette } from '@/lib/colors';
 
 interface BeliefBackgroundProps {
-  scrollProgress: MotionValue<number>;
+  targetRef: RefObject<HTMLElement | null>;
   prefersReducedMotion?: boolean;
 }
 
+const toHsl = ([h, s, l]: [number, number, number]) =>
+  `hsl(${h}, ${s}%, ${l}%)`;
+
 export function BeliefBackground({
-  scrollProgress,
+  targetRef,
   prefersReducedMotion,
 }: BeliefBackgroundProps) {
-  const colorStops = [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1];
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'end end'],
+  });
+
   const colorValues = [
-    '#040013',
-    '#0048ff',
-    '#8705f2',
-    '#f501d3',
-    '#0048ff',
-    '#8705f2',
-    '#f501d3',
-    '#040013',
+    '#040013', // Abertura
+    toHsl(colorPalette.bluePrimary), // Frase 1
+    toHsl(colorPalette.purpleDetails), // Frase 2
+    toHsl(colorPalette.pinkDetails), // Frase 3
+    toHsl(colorPalette.bluePrimary), // Frase 4
+    toHsl(colorPalette.purpleDetails), // Frase 5
+    toHsl(colorPalette.pinkDetails), // Frase 6
+    '#040013', // Saída
   ];
 
+  const step = 1 / (colorValues.length - 1);
+  const points = colorValues.map((_, i) => i * step);
+
   const backgroundColor = useTransform(
-    scrollProgress,
-    colorStops,
+    scrollYProgress,
+    points,
     colorValues,
-    {
-      clamp: true,
-    }
+    { clamp: true }
   );
 
   const opacity = useTransform(
-    scrollProgress,
+    scrollYProgress,
     [0, 0.03, 0.97, 1],
     [1, 1, 1, 1]
   );
@@ -45,6 +55,7 @@ export function BeliefBackground({
       style={{
         backgroundColor,
         opacity: prefersReducedMotion ? 0.94 : opacity,
+        willChange: 'background-color, opacity',
       }}
       aria-hidden="true"
     />

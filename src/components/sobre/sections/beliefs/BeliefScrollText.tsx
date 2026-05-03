@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  motion,
-  useTransform,
-  type MotionValue,
-  cubicBezier,
-} from 'motion/react';
-import { GHOST_EASE } from '@/config/motion';
+import { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 import { useBeliefStore } from '@/store/beliefStore';
 
 interface Phrase {
@@ -15,118 +10,90 @@ interface Phrase {
 }
 
 interface BeliefScrollTextProps {
-  scrollProgress: MotionValue<number>;
   phrases: Phrase[];
   prefersReducedMotion: boolean;
 }
 
 export function BeliefScrollText({
-  scrollProgress,
   phrases,
   prefersReducedMotion,
 }: BeliefScrollTextProps) {
   const isMobile = useBeliefStore((s) => s.isMobile);
-  const phraseStep = 1 / (phrases.length + 1); // Leaving room for manifesto
 
   return (
     <div
-      className="absolute inset-0 z-30 flex flex-col pointer-events-none items-center justify-start px-6 text-center md:items-start md:left-16 md:max-w-[45vw] md:px-0 md:text-left lg:left-24 lg:max-w-[40vw]"
+      className="absolute inset-0 z-30 pointer-events-none"
       data-testid="beliefs-scroll-text"
     >
-      <div
-        className="absolute inset-0 w-full h-full flex pointer-events-none"
-        style={{
-          alignItems: isMobile ? 'flex-end' : 'center',
-          paddingBottom: isMobile ? '20vh' : undefined,
-        }}
-      >
-        {phrases.map((phrase, i) => {
-          const start = i * phraseStep;
-          const end = (i + 1) * phraseStep;
-
-          return (
-            <PhraseItem
-              key={i}
-              phrase={phrase}
-              isMobile={isMobile}
-              scrollProgress={scrollProgress}
-              range={[start, end]}
-              prefersReducedMotion={prefersReducedMotion}
-            />
-          );
-        })}
+      <div className="std-grid w-full h-full relative">
+        {phrases.map((phrase, i) => (
+          <PhraseItem
+            key={i}
+            index={i}
+            phrase={phrase}
+            isMobile={isMobile}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
+function useTriggerInView(index: number, amount = 0.5) {
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const trigger = document.querySelector<HTMLElement>(
+      `[data-belief-phrase-trigger="${index}"]`
+    );
+    if (!trigger) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: amount }
+    );
+
+    observer.observe(trigger);
+    return () => observer.disconnect();
+  }, [index, amount]);
+
+  return isInView;
+}
+
 function PhraseItem({
+  index,
   phrase,
   isMobile,
-  scrollProgress,
-  range,
   prefersReducedMotion,
 }: {
+  index: number;
   phrase: Phrase;
   isMobile: boolean;
-  scrollProgress: MotionValue<number>;
-  range: [number, number];
   prefersReducedMotion: boolean;
 }) {
-  const [start, end] = range;
-  const segmentSize = end - start;
-  const ghostEase = cubicBezier(...GHOST_EASE);
-
-  const isInitialPhrase = start === 0;
-  const entryStart = isInitialPhrase ? 0 : start + 0.05;
-  const entryEnd = isInitialPhrase
-    ? start + segmentSize * 0.3
-    : start + segmentSize * 0.4;
-  const exitStart = end - segmentSize * 0.25;
-  const exitEnd = end;
-  const inputRange: [number, number, number, number] = [
-    entryStart,
-    entryEnd,
-    exitStart,
-    exitEnd,
-  ];
-  const opacityRange: [number, number, number, number] = [0, 1, 1, 0];
-  const movementRange: [string, string, string, string] = isMobile
-    ? ['24px', '0px', '0px', '-24px']
-    : ['20px', '0px', '0px', '-20px'];
-  const blurRange: [number, number, number, number] = [10, 0, 0, 10];
-
-  const opacity = useTransform(scrollProgress, inputRange, opacityRange, {
-    ease: ghostEase,
-  });
-
-  const movement = useTransform(scrollProgress, inputRange, movementRange, {
-    ease: ghostEase,
-  });
-
-  const blurValue = useTransform(scrollProgress, inputRange, blurRange);
-
-  const filter = useTransform(blurValue, (v) =>
-    prefersReducedMotion ? 'none' : `blur(${v}px)`
-  );
+  const isInView = useTriggerInView(index, 0.5);
 
   return (
     <motion.div
       data-testid="belief-phrase"
-      className="belief-phrase absolute flex flex-col pointer-events-none"
-      transformTemplate={prefersReducedMotion ? () => 'none' : undefined}
-      style={{
-        opacity,
-        ...(prefersReducedMotion
-          ? {}
-          : {
-              x: isMobile ? movement : 0,
-              y: isMobile ? 0 : movement,
-            }),
-        filter,
-        willChange: prefersReducedMotion
-          ? 'opacity'
-          : 'transform, opacity, filter',
+      data-animation-contract="viewport-x-opacity"
+      className="belief-phrase absolute flex flex-col pointer-events-none w-full md:w-auto text-center md:text-left left-0 md:left-0 lg:left-8 px-6 md:px-0 bottom-[15vh] md:bottom-auto md:top-1/2 md:-translate-y-1/2 max-w-[100vw] md:max-w-[45vw] lg:max-w-[40vw]"
+      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -100, y: isMobile ? 0 : '-50%' }}
+      animate={
+        isInView
+          ? prefersReducedMotion
+            ? { opacity: 1 }
+            : { opacity: 1, x: 0, y: isMobile ? 0 : '-50%' }
+          : prefersReducedMotion
+          ? { opacity: 0 }
+          : { opacity: 0, x: -100, y: isMobile ? 0 : '-50%' }
+      }
+      transition={{
+        duration: 0.9,
+        ease: [0.17, 0.55, 0.55, 1],
       }}
     >
       <span className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-blueAccent/70 md:mb-4 md:text-xs">

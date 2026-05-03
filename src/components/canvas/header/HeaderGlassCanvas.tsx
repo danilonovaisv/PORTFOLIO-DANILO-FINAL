@@ -4,6 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import React, { memo, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
+import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
 export function GlassPlane({ accentColor }: { accentColor: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -138,8 +139,9 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
 }) {
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
   const performanceConfig = usePerformanceAdaptive();
+  const supportsWebGL = useWebGLSupport();
 
-  if (is3DDisabled) {
+  if (is3DDisabled || !supportsWebGL) {
     return (
       <div className="h-full w-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
     );
