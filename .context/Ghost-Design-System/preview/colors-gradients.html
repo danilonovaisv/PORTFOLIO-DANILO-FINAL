@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #040013; font-family: var(--font-sans); padding: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+  .grad { height: 80px; }
+  .info { padding: 10px 12px; }
+  .name { color: #fcffff; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .desc { color: #a1a3a3; font-size: 9px; font-family: var(--font-mono); margin-top: 3px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="card">
+    <div class="grad" style="background: linear-gradient(180deg, #0c1445 0%, #08031f 50%, #040013 100%)"></div>
+    <div class="info"><div class="name">Abyss Drift</div><div class="desc">#0c1445 → #08031f → #040013</div></div>
+  </div>
+  <div class="card">
+    <div class="grad" style="background: radial-gradient(circle at 50% 0%, rgba(0,72,255,0.4) 0%, #040013 65%)"></div>
+    <div class="info"><div class="name">Blue Halo</div><div class="desc">radial · bluePrimary@40% → bg</div></div>
+  </div>
+  <div class="card">
+    <div class="grad" style="background: radial-gradient(circle at 50% 50%, rgba(79,230,255,0.25) 0%, #040013 60%)"></div>
+    <div class="info"><div class="name">Cyan Glow</div><div class="desc">radial · blueAccent@25% → bg</div></div>
+  </div>
+  <div class="card">
+    <div class="grad" style="background: radial-gradient(circle at 50% 50%, rgba(135,5,242,0.3) 0%, #040013 55%)"></div>
+    <div class="info"><div class="name">Purple Aura</div><div class="desc">radial · purpleDetails@30% → bg</div></div>
+  </div>
+  <div class="card">
+    <div class="grad" style="background: linear-gradient(135deg, #0048ff 0%, #8705f2 50%, #f501d3 100%)"></div>
+    <div class="info"><div class="name">Spectral Shift</div><div class="desc">Blue → Purple → Pink · beliefs bg cycle</div></div>
+  </div>
+  <div class="card">
+    <div class="grad" style="background: radial-gradient(circle at 75% 55%, rgba(0,72,255,0.12) 0%, transparent 50%), radial-gradient(circle at 25% 45%, rgba(79,230,255,0.08) 0%, transparent 45%), #040013"></div>
+    <div class="info"><div class="name">Portfolio Hero</div><div class="desc">dual radial · portfolio page bg</div></div>
+  </div>
+</div>
+</body>
+</html>
