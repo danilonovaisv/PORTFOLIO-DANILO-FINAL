@@ -1,8 +1,8 @@
-# Active State: DESIGN SYSTEM REMEDIATION PHASE 1 ✅
+# Active State: DESIGN SYSTEM REMEDIATION & BELIEFS HARDENING ✅
 
-**Phase**: DS REMEDIATION (Phase 1 complete on `chore/ds-remediation-phase1`)
-**Current Focus**: Open PR — post-merge triggers Phase 2 (component size, ProjectForm/SettingsForm refactors, remaining easing drift)
-**Last Update**: 2026-04-21
+**Phase**: DS REMEDIATION & E2E ALIGNMENT
+**Current Focus**: Finalizing Beliefs Section E2E contracts and 3D scene stability.
+**Last Update**: 2026-05-03
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -12,6 +12,13 @@
 - **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
 - **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
 - **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+
+## Beliefs Section Hardening (2026-05-03)
+
+- [x] **Animation Contracts**: Added `data-animation-contract="viewport-x-opacity"` to `BeliefScrollText`.
+- [x] **DOM Stability**: Consolidated `beliefs-ghost-scene` test ID into static wrapper in `BeliefsSection`.
+- [x] **Z-Index Governance**: Aligned layer hierarchy (Ghost: 70, Manifesto: 50).
+- [x] **SSR Integrity**: Ensured test IDs are present on first render.
 
 ## Recent Achievements
 

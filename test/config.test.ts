@@ -28,7 +28,9 @@ describe('global site links', () => {
 
   it('locates the manifesto video on storage or locally', () => {
     const url = BRAND.video.manifesto;
-    expect(url).toMatch(/(\/site\.assets\/|supabase\.co\/storage\/v1\/object\/public\/)/);
+    expect(url).toMatch(
+      /(\/site\.assets\/|supabase\.co\/storage\/v1\/object\/public\/)/
+    );
     expect(url.endsWith('.mp4')).toBe(true);
   });
 

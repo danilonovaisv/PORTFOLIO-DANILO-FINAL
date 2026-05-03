@@ -15,8 +15,8 @@ async function run() {
     .order('updated_at', { ascending: false })
     .limit(1);
 
-  console.log("Error:", JSON.stringify(error, null, 2));
-  console.log("Data:", JSON.stringify(data, null, 2));
+  console.log('Error:', JSON.stringify(error, null, 2));
+  console.log('Data:', JSON.stringify(data, null, 2));
 }
 
 run();

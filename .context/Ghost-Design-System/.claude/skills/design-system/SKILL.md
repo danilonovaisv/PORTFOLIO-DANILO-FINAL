@@ -16,7 +16,7 @@ triggers:
   - página
   - ui
   - ghost system
-version: "3.1"
+version: '3.1'
 author: Danilo Novais
 ---
 
@@ -31,16 +31,16 @@ author: Danilo Novais
 
 ### 1.1 Paleta de Cores
 
-| Token | Hex | OKLCH | Uso |
-|---|---|---|---|
-| `--color-void` | `#040013` | `oklch(3% 0.04 275)` | Background principal |
-| `--color-ghost-blue` | `#0048ff` | `oklch(45% 0.28 265)` | Ações primárias, CTAs |
-| `--color-ghost-accent` | `#4fe6ff` | `oklch(85% 0.12 210)` | Highlights, brilhos espectrais |
-| `--color-purple-detail` | `#8705f2` | `oklch(42% 0.29 305)` | Hover states, efeitos glitch |
-| `--color-text-primary` | `#fcffff` | `oklch(99% 0.005 200)` | Corpo de texto, alto contraste |
-| `--color-text-secondary` | `#a1a3a3` | `oklch(66% 0.005 200)` | Metadados, legendas |
-| `--color-surface` | `#0d0d1a` | `oklch(8% 0.025 275)` | Cards, painéis elevados |
-| `--color-border` | `#1a1a2e` | `oklch(12% 0.03 275)` | Bordas sutis |
+| Token                    | Hex       | OKLCH                  | Uso                            |
+| ------------------------ | --------- | ---------------------- | ------------------------------ |
+| `--color-void`           | `#040013` | `oklch(3% 0.04 275)`   | Background principal           |
+| `--color-ghost-blue`     | `#0048ff` | `oklch(45% 0.28 265)`  | Ações primárias, CTAs          |
+| `--color-ghost-accent`   | `#4fe6ff` | `oklch(85% 0.12 210)`  | Highlights, brilhos espectrais |
+| `--color-purple-detail`  | `#8705f2` | `oklch(42% 0.29 305)`  | Hover states, efeitos glitch   |
+| `--color-text-primary`   | `#fcffff` | `oklch(99% 0.005 200)` | Corpo de texto, alto contraste |
+| `--color-text-secondary` | `#a1a3a3` | `oklch(66% 0.005 200)` | Metadados, legendas            |
+| `--color-surface`        | `#0d0d1a` | `oklch(8% 0.025 275)`  | Cards, painéis elevados        |
+| `--color-border`         | `#1a1a2e` | `oklch(12% 0.03 275)`  | Bordas sutis                   |
 
 **Regra:** Nunca use gradientes agressivos. Gradientes devem ser sutis
 (`opacity` baixo) ou baseados em `radial-gradient` com Ghost Blue/Accent
@@ -65,22 +65,23 @@ como source de luz pontual.
 
 **Escala tipográfica (rem):**
 
-| Step | Token | rem | Uso |
-|---|---|---|---|
-| 2xs | `--text-2xs` | 0.625 | Legal, timestamps |
-| xs | `--text-xs` | 0.75 | Captions, badges |
-| sm | `--text-sm` | 0.875 | Body small, metadados |
-| base | `--text-base` | 1.0 | Body principal |
-| lg | `--text-lg` | 1.125 | Subtítulos |
-| xl | `--text-xl` | 1.25 | H4 |
-| 2xl | `--text-2xl` | 1.5 | H3 |
-| 3xl | `--text-3xl` | 1.875 | H2 |
-| 4xl | `--text-4xl` | 2.25 | H1 |
-| 5xl | `--text-5xl` | 3.0 | Display |
-| 6xl | `--text-6xl` | 3.75 | Hero |
-| 7xl | `--text-7xl` | 4.5 | Editorial fullscreen |
+| Step | Token         | rem   | Uso                   |
+| ---- | ------------- | ----- | --------------------- |
+| 2xs  | `--text-2xs`  | 0.625 | Legal, timestamps     |
+| xs   | `--text-xs`   | 0.75  | Captions, badges      |
+| sm   | `--text-sm`   | 0.875 | Body small, metadados |
+| base | `--text-base` | 1.0   | Body principal        |
+| lg   | `--text-lg`   | 1.125 | Subtítulos            |
+| xl   | `--text-xl`   | 1.25  | H4                    |
+| 2xl  | `--text-2xl`  | 1.5   | H3                    |
+| 3xl  | `--text-3xl`  | 1.875 | H2                    |
+| 4xl  | `--text-4xl`  | 2.25  | H1                    |
+| 5xl  | `--text-5xl`  | 3.0   | Display               |
+| 6xl  | `--text-6xl`  | 3.75  | Hero                  |
+| 7xl  | `--text-7xl`  | 4.5   | Editorial fullscreen  |
 
 **Regras tipográficas:**
+
 - Títulos: uppercase + `letter-spacing: 0.02em`
 - Subtítulos: itálico para contraste editorial
 - Nunca misturar mais de 2 famílias na mesma view
@@ -89,26 +90,26 @@ como source de luz pontual.
 
 Escala baseada em **4px**. Use classes Tailwind (`gap-4 = 16px`).
 
-| Token | px | Uso |
-|---|---|---|
-| `space-1` | 4 | Micro-espaço interno |
-| `space-2` | 8 | Padding de badges, separadores |
-| `space-3` | 12 | Gap de ícone + label |
-| `space-4` | 16 | Padding padrão de componente |
-| `space-6` | 24 | Padding de card |
-| `space-8` | 32 | Espaço entre seções pequenas |
-| `space-12` | 48 | Espaço entre blocos |
-| `space-16` | 64 | Seção vertical padding |
-| `space-24` | 96 | Seção hero |
+| Token      | px  | Uso                              |
+| ---------- | --- | -------------------------------- |
+| `space-1`  | 4   | Micro-espaço interno             |
+| `space-2`  | 8   | Padding de badges, separadores   |
+| `space-3`  | 12  | Gap de ícone + label             |
+| `space-4`  | 16  | Padding padrão de componente     |
+| `space-6`  | 24  | Padding de card                  |
+| `space-8`  | 32  | Espaço entre seções pequenas     |
+| `space-12` | 48  | Espaço entre blocos              |
+| `space-16` | 64  | Seção vertical padding           |
+| `space-24` | 96  | Seção hero                       |
 | `space-32` | 128 | Separação de capítulos de página |
 
 ### 1.4 Border Radius
 
 ```css
---radius-sm:   4px;   /* inputs, badges */
---radius-md:   8px;   /* cards pequenos */
---radius-lg:   12px;  /* cards principais */
---radius-xl:   16px;  /* modais, drawers */
+--radius-sm: 4px; /* inputs, badges */
+--radius-md: 8px; /* cards pequenos */
+--radius-lg: 12px; /* cards principais */
+--radius-xl: 16px; /* modais, drawers */
 --radius-full: 9999px; /* pills, avatares, CTAs circulares */
 ```
 
@@ -120,9 +121,7 @@ Escala baseada em **4px**. Use classes Tailwind (`gap-4 = 16px`).
 
 ```tsx
 // Tailwind — uso padrão
-<div className="std-grid">
-  {/* 12 colunas desktop / 4 mobile */}
-</div>
+<div className="std-grid">{/* 12 colunas desktop / 4 mobile */}</div>
 ```
 
 ```css
@@ -144,12 +143,12 @@ Escala baseada em **4px**. Use classes Tailwind (`gap-4 = 16px`).
 
 **Breakpoints:**
 
-| Nome | Min-width | Grid cols |
-|---|---|---|
-| mobile | 0 | 4 |
-| tablet | 768px | 8 |
-| desktop | 1024px | 12 |
-| wide | 1440px | 12 + `max-width: 1440px` |
+| Nome    | Min-width | Grid cols                |
+| ------- | --------- | ------------------------ |
+| mobile  | 0         | 4                        |
+| tablet  | 768px     | 8                        |
+| desktop | 1024px    | 12                       |
+| wide    | 1440px    | 12 + `max-width: 1440px` |
 
 ### 2.2 Princípios de Layout
 
@@ -169,22 +168,22 @@ export const GHOST_EASE = [0.22, 1, 0.36, 1] as const;
 
 // Variantes por uso
 export const easings = {
-  enter:    [0.22, 1, 0.36, 1],   // elementos entrando — suave e overshooting leve
-  exit:     [0.55, 0, 1, 0.45],   // elementos saindo — sharp
-  inOut:    [0.76, 0, 0.24, 1],   // transições de estado
-  spring:   { type: "spring", stiffness: 300, damping: 30 }, // físico
+  enter: [0.22, 1, 0.36, 1], // elementos entrando — suave e overshooting leve
+  exit: [0.55, 0, 1, 0.45], // elementos saindo — sharp
+  inOut: [0.76, 0, 0.24, 1], // transições de estado
+  spring: { type: 'spring', stiffness: 300, damping: 30 }, // físico
 } as const;
 ```
 
 ### 3.2 Durações
 
-| Token | ms | Uso |
-|---|---|---|
-| `duration-instant` | 80 | Feedback imediato (ripple, pressed) |
-| `duration-fast` | 150 | Hover states, tooltips |
-| `duration-normal` | 300 | Transições de componente |
-| `duration-slow` | 500 | Entradas de página, modais |
-| `duration-cinematic` | 800–1200 | Hero animations, splash |
+| Token                | ms       | Uso                                 |
+| -------------------- | -------- | ----------------------------------- |
+| `duration-instant`   | 80       | Feedback imediato (ripple, pressed) |
+| `duration-fast`      | 150      | Hover states, tooltips              |
+| `duration-normal`    | 300      | Transições de componente            |
+| `duration-slow`      | 500      | Entradas de página, modais          |
+| `duration-cinematic` | 800–1200 | Hero animations, splash             |
 
 ### 3.3 Primitivos Framer Motion
 
@@ -209,10 +208,10 @@ export const staggerContainer = {
 
 // Hover state para cards interativos
 export const cardHover = {
-  rest: { scale: 1, boxShadow: "0 0 0px #0048ff00" },
+  rest: { scale: 1, boxShadow: '0 0 0px #0048ff00' },
   hover: {
     scale: 1.02,
-    boxShadow: "0 0 32px #0048ff40",
+    boxShadow: '0 0 32px #0048ff40',
     transition: { duration: 0.3, ease: GHOST_EASE },
   },
 };
@@ -226,7 +225,7 @@ export const cardHover = {
 - Sempre implementar `prefers-reduced-motion`:
 
 ```tsx
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from 'framer-motion';
 
 const shouldReduce = useReducedMotion();
 const transition = shouldReduce
@@ -238,14 +237,14 @@ const transition = shouldReduce
 
 ## 4. Hierarquia Z-Index
 
-| Camada | z-index | Elementos |
-|---|---|---|
-| 0 — Background | `z-0` | WebGL canvas, BG gradients |
-| 1 — Content | `z-10` | Conteúdo de página padrão |
-| 2 — Overlay | `z-20` | Hover overlays, tooltips |
-| 3 — Navigation | `z-30` | Header, navbar |
-| 4 — Manifesto | `z-40` | Modais, drawers, manifesto layer |
-| 5 — Critical | `z-50` | Toasts, alerts, cursor customizado |
+| Camada         | z-index | Elementos                          |
+| -------------- | ------- | ---------------------------------- |
+| 0 — Background | `z-0`   | WebGL canvas, BG gradients         |
+| 1 — Content    | `z-10`  | Conteúdo de página padrão          |
+| 2 — Overlay    | `z-20`  | Hover overlays, tooltips           |
+| 3 — Navigation | `z-30`  | Header, navbar                     |
+| 4 — Manifesto  | `z-40`  | Modais, drawers, manifesto layer   |
+| 5 — Critical   | `z-50`  | Toasts, alerts, cursor customizado |
 
 ---
 
@@ -254,8 +253,8 @@ const transition = shouldReduce
 ### 5.1 Primary CTA — Ghost Button
 
 ```tsx
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
 interface GhostButtonProps {
   label: string;
@@ -292,15 +291,18 @@ export function GhostButton({ label, href, onClick }: GhostButtonProps) {
 ### 5.2 Ghost Card
 
 ```tsx
-export function GhostCard({ children, className }: React.PropsWithChildren<{ className?: string }>) {
+export function GhostCard({
+  children,
+  className,
+}: React.PropsWithChildren<{ className?: string }>) {
   return (
     <motion.div
       initial="rest"
       whileHover="hover"
       variants={cardHover}
       className={cn(
-        "bg-[#0d0d1a] border border-[#1a1a2e] rounded-lg p-6",
-        "transition-colors duration-300 hover:border-[#0048ff40]",
+        'bg-[#0d0d1a] border border-[#1a1a2e] rounded-lg p-6',
+        'transition-colors duration-300 hover:border-[#0048ff40]',
         className
       )}
     >
@@ -327,6 +329,7 @@ export function SectionLabel({ children }: React.PropsWithChildren) {
 ## 6. Acessibilidade (A11y)
 
 ### Metas
+
 - **WCAG:** AA obrigatório, AAA onde possível.
 - Contraste mínimo texto/fundo: **4.5:1** (AA) — verificar com `oklch` antes de aplicar.
 - Elementos interativos: mínimo **44×44px** de área de toque.
@@ -370,14 +373,16 @@ const shouldReduce = useReducedMotion();
 
 ```tsx
 // ssr: false obrigatório para Canvas
-const HeroScene = dynamic(() => import("@/components/canvas/HeroScene"), {
+const HeroScene = dynamic(() => import('@/components/canvas/HeroScene'), {
   ssr: false,
   loading: () => <HeroSceneSkeleton />, // sempre fornecer skeleton
 });
 
 // Limitar DPR em mobile
-const dpr = useMediaQuery("(max-width: 768px)") ? 1 : Math.min(2, window.devicePixelRatio);
-<Canvas dpr={dpr} />
+const dpr = useMediaQuery('(max-width: 768px)')
+  ? 1
+  : Math.min(2, window.devicePixelRatio);
+<Canvas dpr={dpr} />;
 
 // FPS target: > 50
 // Usar useFrame delta para animações frame-independentes

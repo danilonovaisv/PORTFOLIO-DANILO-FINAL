@@ -1,416 +1,591 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ghost TextAnimation — Demo (Print)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ghost TextAnimation — Demo (Print)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --void:         #040013;
-      --surface:      #0d0d1a;
-      --border:       #1a1a2e;
-      --ghost-blue:   #0048ff;
-      --ghost-accent: #4fe6ff;
-      --text-primary: #fcffff;
-      --text-muted:   #a1a3a3;
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-mono:    'JetBrains Mono', monospace;
-    }
+      :root {
+        --void: #040013;
+        --surface: #0d0d1a;
+        --border: #1a1a2e;
+        --ghost-blue: #0048ff;
+        --ghost-accent: #4fe6ff;
+        --text-primary: #fcffff;
+        --text-muted: #a1a3a3;
+        --font-display: 'Space Grotesk', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
 
-    /* ── Screen base ── */
-    body {
-      background: var(--void);
-      color: var(--text-primary);
-      font-family: var(--font-display);
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
+      /* ── Screen base ── */
+      body {
+        background: var(--void);
+        color: var(--text-primary);
+        font-family: var(--font-display);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
 
-    /* ── Page shell ── */
-    .slide {
-      width: 297mm;
-      height: 210mm;
-      overflow: hidden;
-      background: var(--void);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 16mm 20mm;
-      position: relative;
-      break-after: page;
-      break-inside: avoid;
-    }
+      /* ── Page shell ── */
+      .slide {
+        width: 297mm;
+        height: 210mm;
+        overflow: hidden;
+        background: var(--void);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 16mm 20mm;
+        position: relative;
+        break-after: page;
+        break-inside: avoid;
+      }
 
-    /* ── Decorative top bar ── */
-    .slide::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--ghost-blue);
-    }
+      /* ── Decorative top bar ── */
+      .slide::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--ghost-blue);
+      }
 
-    /* ── Slide number + title ── */
-    .slide-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10mm;
-    }
-    .slide-tag {
-      font-family: var(--font-mono);
-      font-size: 8pt;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ghost-blue);
-      white-space: nowrap;
-    }
-    .slide-line { flex: 1; height: 1px; background: var(--border); }
+      /* ── Slide number + title ── */
+      .slide-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10mm;
+      }
+      .slide-tag {
+        font-family: var(--font-mono);
+        font-size: 8pt;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ghost-blue);
+        white-space: nowrap;
+      }
+      .slide-line {
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
 
-    /* ── Typography ── */
-    .display {
-      font-size: 72pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1.0;
-      color: var(--text-primary);
-    }
-    .display-blue {
-      font-size: 80pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      line-height: 1.0;
-      color: var(--ghost-blue);
-    }
-    .subtitle {
-      font-size: 11pt;
-      color: var(--text-muted);
-      margin-top: 6mm;
-      line-height: 1.6;
-      max-width: 160mm;
-    }
-    .italic { font-style: italic; }
+      /* ── Typography ── */
+      .display {
+        font-size: 72pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        color: var(--text-primary);
+      }
+      .display-blue {
+        font-size: 80pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        line-height: 1;
+        color: var(--ghost-blue);
+      }
+      .subtitle {
+        font-size: 11pt;
+        color: var(--text-muted);
+        margin-top: 6mm;
+        line-height: 1.6;
+        max-width: 160mm;
+      }
+      .italic {
+        font-style: italic;
+      }
 
-    /* ── Code block ── */
-    .code-block {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4mm 6mm;
-      font-family: var(--font-mono);
-      font-size: 8pt;
-      line-height: 1.8;
-      color: var(--text-muted);
-      margin-top: 6mm;
-      display: inline-block;
-    }
-    .kw  { color: var(--ghost-blue); }
-    .str { color: var(--ghost-accent); }
+      /* ── Code block ── */
+      .code-block {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 4mm 6mm;
+        font-family: var(--font-mono);
+        font-size: 8pt;
+        line-height: 1.8;
+        color: var(--text-muted);
+        margin-top: 6mm;
+        display: inline-block;
+      }
+      .kw {
+        color: var(--ghost-blue);
+      }
+      .str {
+        color: var(--ghost-accent);
+      }
 
-    /* ── Direction grid ── */
-    .dir-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6mm;
-      margin-top: 4mm;
-    }
-    .dir-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 5mm 6mm;
-      break-inside: avoid;
-    }
-    .dir-label {
-      font-family: var(--font-mono);
-      font-size: 7pt;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ghost-blue);
-      margin-bottom: 3mm;
-    }
-    .dir-text {
-      font-size: 22pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--text-primary);
-    }
+      /* ── Direction grid ── */
+      .dir-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6mm;
+        margin-top: 4mm;
+      }
+      .dir-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 5mm 6mm;
+        break-inside: avoid;
+      }
+      .dir-label {
+        font-family: var(--font-mono);
+        font-size: 7pt;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ghost-blue);
+        margin-bottom: 3mm;
+      }
+      .dir-text {
+        font-size: 22pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--text-primary);
+      }
 
-    /* ── Line demo ── */
-    .line-stack { display: flex; flex-direction: column; gap: 2mm; }
-    .line-xl {
-      font-size: 56pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1.0;
-    }
+      /* ── Line demo ── */
+      .line-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 2mm;
+      }
+      .line-xl {
+        font-size: 56pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        line-height: 1;
+      }
 
-    /* ── Props table ── */
-    .props-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-mono);
-      font-size: 7.5pt;
-      margin-top: 6mm;
-    }
-    .props-table th {
-      text-align: left;
-      padding: 3mm 4mm;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .props-table td {
-      padding: 2.5mm 4mm;
-      border: 1px solid var(--border);
-      line-height: 1.4;
-    }
-    .props-table td:nth-child(1) { color: var(--ghost-accent); }
-    .props-table td:nth-child(2) { color: var(--ghost-blue); }
-    .props-table td:nth-child(3) { color: var(--text-muted); }
-    .props-table td:nth-child(4) { color: var(--text-muted); }
+      /* ── Props table ── */
+      .props-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--font-mono);
+        font-size: 7.5pt;
+        margin-top: 6mm;
+      }
+      .props-table th {
+        text-align: left;
+        padding: 3mm 4mm;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .props-table td {
+        padding: 2.5mm 4mm;
+        border: 1px solid var(--border);
+        line-height: 1.4;
+      }
+      .props-table td:nth-child(1) {
+        color: var(--ghost-accent);
+      }
+      .props-table td:nth-child(2) {
+        color: var(--ghost-blue);
+      }
+      .props-table td:nth-child(3) {
+        color: var(--text-muted);
+      }
+      .props-table td:nth-child(4) {
+        color: var(--text-muted);
+      }
 
-    /* ── Footer strip ── */
-    .slide-footer {
-      position: absolute;
-      bottom: 6mm;
-      left: 20mm;
-      right: 20mm;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .slide-footer span {
-      font-family: var(--font-mono);
-      font-size: 6pt;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #2a2a40;
-    }
+      /* ── Footer strip ── */
+      .slide-footer {
+        position: absolute;
+        bottom: 6mm;
+        left: 20mm;
+        right: 20mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .slide-footer span {
+        font-family: var(--font-mono);
+        font-size: 6pt;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #2a2a40;
+      }
 
-    /* ── Print overrides ── */
-    @page { size: A4 landscape; margin: 0; }
+      /* ── Print overrides ── */
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
 
-    @media print {
-      body { background: var(--void) !important; }
-      .slide { page-break-after: always; break-after: page; }
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ══════════════════════════════════════
+      @media print {
+        body {
+          background: var(--void) !important;
+        }
+        .slide {
+          page-break-after: always;
+          break-after: page;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════
        Slide 1 — Capa
   ══════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Ghost Design System v3.1 · Component</span>
-      <div class="slide-line"></div>
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-tag">Ghost Design System v3.1 · Component</span>
+        <div class="slide-line"></div>
+      </div>
+
+      <div class="display" style="font-size: 96pt; line-height: 0.95">
+        Text<br />
+        <span style="color: var(--text-muted); font-style: italic"
+          >Animation</span
+        >
+      </div>
+      <p class="subtitle">
+        Animação de entrada por viewport com blur + translate.<br />
+        Suporte a word, letter e line mode. Framer Motion · Ghost System.
+      </p>
+
+      <div class="slide-footer">
+        <span>Ghost Design System · TextAnimation</span>
+        <span>portfoliodanilo.com</span>
+      </div>
     </div>
 
-    <div class="display" style="font-size:96pt; line-height:0.95;">
-      Text<br />
-      <span style="color:var(--text-muted); font-style:italic;">Animation</span>
-    </div>
-    <p class="subtitle">
-      Animação de entrada por viewport com blur + translate.<br />
-      Suporte a word, letter e line mode. Framer Motion · Ghost System.
-    </p>
-
-    <div class="slide-footer">
-      <span>Ghost Design System · TextAnimation</span>
-      <span>portfoliodanilo.com</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        Slide 2 — Por Palavra
   ══════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">01 · Por Palavra</span>
-      <div class="slide-line"></div>
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-tag">01 · Por Palavra</span>
+        <div class="slide-line"></div>
+      </div>
+
+      <div class="display">Ghost System<br />Design</div>
+      <p class="subtitle">
+        Cada palavra entra com blur + translate independente.<br />
+        <code
+          style="
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            color: var(--ghost-accent);
+          "
+          >staggerChildren: 0.1</code
+        >
+        — delay escalonado entre palavras.
+      </p>
+
+      <div class="code-block">
+        <div><span class="kw">&lt;TextAnimation</span></div>
+        <div>&nbsp;&nbsp;as=<span class="str">"h1"</span></div>
+        <div>
+          &nbsp;&nbsp;text=<span class="str">"Ghost System Design"</span>
+        </div>
+        <div>&nbsp;&nbsp;direction=<span class="str">"up"</span></div>
+        <div>&nbsp;&nbsp;stagger=<span class="str">{0.1}</span></div>
+        <div>&nbsp;&nbsp;duration=<span class="str">{0.4}</span></div>
+        <div><span class="kw">/&gt;</span></div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ghost Design System · TextAnimation</span>
+        <span>01 / 05</span>
+      </div>
     </div>
 
-    <div class="display">
-      Ghost System<br />Design
-    </div>
-    <p class="subtitle">
-      Cada palavra entra com blur + translate independente.<br />
-      <code style="font-family:var(--font-mono); font-size:0.85em; color:var(--ghost-accent);">staggerChildren: 0.1</code> — delay escalonado entre palavras.
-    </p>
-
-    <div class="code-block">
-      <div><span class="kw">&lt;TextAnimation</span></div>
-      <div>&nbsp;&nbsp;as=<span class="str">"h1"</span></div>
-      <div>&nbsp;&nbsp;text=<span class="str">"Ghost System Design"</span></div>
-      <div>&nbsp;&nbsp;direction=<span class="str">"up"</span></div>
-      <div>&nbsp;&nbsp;stagger=<span class="str">{0.1}</span></div>
-      <div>&nbsp;&nbsp;duration=<span class="str">{0.4}</span></div>
-      <div><span class="kw">/&gt;</span></div>
-    </div>
-
-    <div class="slide-footer">
-      <span>Ghost Design System · TextAnimation</span>
-      <span>01 / 05</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        Slide 3 — letterAnime
   ══════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">02 · letterAnime</span>
-      <div class="slide-line"></div>
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-tag">02 · letterAnime</span>
+        <div class="slide-line"></div>
+      </div>
+
+      <div class="display-blue">Ghost Era</div>
+      <p class="subtitle">
+        <code
+          style="
+            font-family: var(--font-mono);
+            color: var(--ghost-accent);
+            font-size: 0.85em;
+          "
+          >letterAnime={"{true}"}</code
+        >
+        — cada letra anima individualmente.<br />
+        Stagger menor recomendado:
+        <code
+          style="
+            font-family: var(--font-mono);
+            color: var(--ghost-accent);
+            font-size: 0.85em;
+          "
+          >0.04–0.06s</code
+        >
+        por letra.
+      </p>
+
+      <div class="code-block">
+        <div><span class="kw">&lt;TextAnimation</span></div>
+        <div>&nbsp;&nbsp;text=<span class="str">"Ghost Era"</span></div>
+        <div>&nbsp;&nbsp;letterAnime=<span class="str">{true}</span></div>
+        <div>&nbsp;&nbsp;direction=<span class="str">"up"</span></div>
+        <div>
+          &nbsp;&nbsp;stagger=<span class="str">{0.05}</span>&nbsp;<span
+            style="color: #2a2a40"
+            >// por letra</span
+          >
+        </div>
+        <div><span class="kw">/&gt;</span></div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ghost Design System · TextAnimation</span>
+        <span>02 / 05</span>
+      </div>
     </div>
 
-    <div class="display-blue">
-      Ghost Era
-    </div>
-    <p class="subtitle">
-      <code style="font-family:var(--font-mono); color:var(--ghost-accent); font-size:0.85em;">letterAnime={"{true}"}</code> — cada letra anima individualmente.<br />
-      Stagger menor recomendado: <code style="font-family:var(--font-mono); color:var(--ghost-accent); font-size:0.85em;">0.04–0.06s</code> por letra.
-    </p>
-
-    <div class="code-block">
-      <div><span class="kw">&lt;TextAnimation</span></div>
-      <div>&nbsp;&nbsp;text=<span class="str">"Ghost Era"</span></div>
-      <div>&nbsp;&nbsp;letterAnime=<span class="str">{true}</span></div>
-      <div>&nbsp;&nbsp;direction=<span class="str">"up"</span></div>
-      <div>&nbsp;&nbsp;stagger=<span class="str">{0.05}</span>&nbsp;<span style="color:#2a2a40;">// por letra</span></div>
-      <div><span class="kw">/&gt;</span></div>
-    </div>
-
-    <div class="slide-footer">
-      <span>Ghost Design System · TextAnimation</span>
-      <span>02 / 05</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        Slide 4 — lineAnime
   ══════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">03 · lineAnime</span>
-      <div class="slide-line"></div>
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-tag">03 · lineAnime</span>
+        <div class="slide-line"></div>
+      </div>
+
+      <div class="line-stack">
+        <div class="line-xl" style="color: var(--text-primary)">Invisible</div>
+        <div
+          class="line-xl italic"
+          style="color: var(--text-muted); font-size: 46pt"
+        >
+          until
+        </div>
+        <div class="line-xl" style="color: var(--ghost-accent)">needed.</div>
+      </div>
+
+      <div class="code-block" style="margin-top: 5mm">
+        <div>
+          <span class="kw">&lt;TextAnimation</span>&nbsp;text=<span class="str"
+            >"Invisible"</span
+          >&nbsp;lineAnime=<span class="str">{true}</span>&nbsp;direction=<span
+            class="str"
+            >"left"</span
+          >&nbsp;<span class="kw">/&gt;</span>
+        </div>
+        <div>
+          <span class="kw">&lt;TextAnimation</span>&nbsp;text=<span class="str"
+            >"until"</span
+          >&nbsp;&nbsp;&nbsp;&nbsp;lineAnime=<span class="str">{true}</span
+          >&nbsp;direction=<span class="str">"left"</span>&nbsp;<span class="kw"
+            >/&gt;</span
+          >
+        </div>
+        <div>
+          <span class="kw">&lt;TextAnimation</span>&nbsp;text=<span class="str"
+            >"needed."</span
+          >&nbsp;&nbsp;lineAnime=<span class="str">{true}</span
+          >&nbsp;direction=<span class="str">"left"</span>&nbsp;<span class="kw"
+            >/&gt;</span
+          >
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ghost Design System · TextAnimation</span>
+        <span>03 / 05</span>
+      </div>
     </div>
 
-    <div class="line-stack">
-      <div class="line-xl" style="color:var(--text-primary);">Invisible</div>
-      <div class="line-xl italic" style="color:var(--text-muted); font-size:46pt;">until</div>
-      <div class="line-xl" style="color:var(--ghost-accent);">needed.</div>
-    </div>
-
-    <div class="code-block" style="margin-top:5mm;">
-      <div><span class="kw">&lt;TextAnimation</span>&nbsp;text=<span class="str">"Invisible"</span>&nbsp;lineAnime=<span class="str">{true}</span>&nbsp;direction=<span class="str">"left"</span>&nbsp;<span class="kw">/&gt;</span></div>
-      <div><span class="kw">&lt;TextAnimation</span>&nbsp;text=<span class="str">"until"</span>&nbsp;&nbsp;&nbsp;&nbsp;lineAnime=<span class="str">{true}</span>&nbsp;direction=<span class="str">"left"</span>&nbsp;<span class="kw">/&gt;</span></div>
-      <div><span class="kw">&lt;TextAnimation</span>&nbsp;text=<span class="str">"needed."</span>&nbsp;&nbsp;lineAnime=<span class="str">{true}</span>&nbsp;direction=<span class="str">"left"</span>&nbsp;<span class="kw">/&gt;</span></div>
-    </div>
-
-    <div class="slide-footer">
-      <span>Ghost Design System · TextAnimation</span>
-      <span>03 / 05</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        Slide 5 — Todas as Direções
   ══════════════════════════════════════ -->
-  <div class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">04 · Todas as Direções</span>
-      <div class="slide-line"></div>
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-tag">04 · Todas as Direções</span>
+        <div class="slide-line"></div>
+      </div>
+
+      <div class="dir-grid">
+        <div class="dir-card">
+          <div class="dir-label">direction="up" ↑</div>
+          <div class="dir-text">Ghost Blue</div>
+        </div>
+        <div class="dir-card">
+          <div class="dir-label">direction="down" ↓</div>
+          <div class="dir-text">Ghost Blue</div>
+        </div>
+        <div class="dir-card">
+          <div class="dir-label">direction="left" ←</div>
+          <div class="dir-text">Ghost Blue</div>
+        </div>
+        <div class="dir-card">
+          <div class="dir-label">direction="right" →</div>
+          <div class="dir-text">Ghost Blue</div>
+        </div>
+      </div>
+
+      <p class="subtitle" style="margin-top: 5mm">
+        O eixo é calculado automaticamente:
+        <code
+          style="
+            font-family: var(--font-mono);
+            color: var(--ghost-accent);
+            font-size: 0.85em;
+          "
+          >left/right → translateX</code
+        >
+        ·
+        <code
+          style="
+            font-family: var(--font-mono);
+            color: var(--ghost-accent);
+            font-size: 0.85em;
+          "
+          >up/down → translateY</code
+        >
+      </p>
+
+      <div class="slide-footer">
+        <span>Ghost Design System · TextAnimation</span>
+        <span>04 / 05</span>
+      </div>
     </div>
 
-    <div class="dir-grid">
-      <div class="dir-card">
-        <div class="dir-label">direction="up" ↑</div>
-        <div class="dir-text">Ghost Blue</div>
-      </div>
-      <div class="dir-card">
-        <div class="dir-label">direction="down" ↓</div>
-        <div class="dir-text">Ghost Blue</div>
-      </div>
-      <div class="dir-card">
-        <div class="dir-label">direction="left" ←</div>
-        <div class="dir-text">Ghost Blue</div>
-      </div>
-      <div class="dir-card">
-        <div class="dir-label">direction="right" →</div>
-        <div class="dir-text">Ghost Blue</div>
-      </div>
-    </div>
-
-    <p class="subtitle" style="margin-top:5mm;">
-      O eixo é calculado automaticamente: <code style="font-family:var(--font-mono); color:var(--ghost-accent); font-size:0.85em;">left/right → translateX</code> · <code style="font-family:var(--font-mono); color:var(--ghost-accent); font-size:0.85em;">up/down → translateY</code>
-    </p>
-
-    <div class="slide-footer">
-      <span>Ghost Design System · TextAnimation</span>
-      <span>04 / 05</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        Slide 6 — Props Reference
   ══════════════════════════════════════ -->
-  <div class="slide" style="justify-content:flex-start; padding-top:14mm;">
-    <div class="slide-header">
-      <span class="slide-tag">Props Reference</span>
-      <div class="slide-line"></div>
+    <div class="slide" style="justify-content: flex-start; padding-top: 14mm">
+      <div class="slide-header">
+        <span class="slide-tag">Props Reference</span>
+        <div class="slide-line"></div>
+      </div>
+
+      <table class="props-table">
+        <thead>
+          <tr>
+            <th>Prop</th>
+            <th>Tipo</th>
+            <th>Padrão</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>text</td>
+            <td>string</td>
+            <td>—</td>
+            <td>
+              Texto a animar — dividido por espaço (palavras) ou letra a letra.
+            </td>
+          </tr>
+          <tr>
+            <td>as</td>
+            <td>keyof JSX</td>
+            <td>h1</td>
+            <td>Tag HTML renderizada: h1, h2, p, span…</td>
+          </tr>
+          <tr>
+            <td>direction</td>
+            <td>Direction</td>
+            <td>up</td>
+            <td>Eixo e sentido de entrada: up · down · left · right</td>
+          </tr>
+          <tr>
+            <td>letterAnime</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>Se true, cada letra anima individualmente com stagger.</td>
+          </tr>
+          <tr>
+            <td>lineAnime</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>Se true, o texto inteiro entra como uma única unidade.</td>
+          </tr>
+          <tr>
+            <td>stagger</td>
+            <td>number</td>
+            <td>0.1</td>
+            <td>Delay entre cada filho (palavra ou letra) em segundos.</td>
+          </tr>
+          <tr>
+            <td>duration</td>
+            <td>number</td>
+            <td>0.4</td>
+            <td>Duração de cada transição individual em segundos.</td>
+          </tr>
+          <tr>
+            <td>blurAmount</td>
+            <td>number</td>
+            <td>10</td>
+            <td>Intensidade do blur inicial em px. Zero desativa o blur.</td>
+          </tr>
+          <tr>
+            <td>viewport</td>
+            <td>object</td>
+            <td>{"{amount:0.3}"}</td>
+            <td>Configuração do IntersectionObserver do Framer Motion.</td>
+          </tr>
+          <tr>
+            <td>once</td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Se true, anima apenas na primeira entrada no viewport.</td>
+          </tr>
+          <tr>
+            <td>className</td>
+            <td>string</td>
+            <td>—</td>
+            <td>Classes CSS extras no elemento raiz.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="slide-footer">
+        <span>Ghost Design System · TextAnimation</span>
+        <span>05 / 05 · portfoliodanilo.com</span>
+      </div>
     </div>
 
-    <table class="props-table">
-      <thead>
-        <tr>
-          <th>Prop</th>
-          <th>Tipo</th>
-          <th>Padrão</th>
-          <th>Descrição</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>text</td><td>string</td><td>—</td><td>Texto a animar — dividido por espaço (palavras) ou letra a letra.</td></tr>
-        <tr><td>as</td><td>keyof JSX</td><td>h1</td><td>Tag HTML renderizada: h1, h2, p, span…</td></tr>
-        <tr><td>direction</td><td>Direction</td><td>up</td><td>Eixo e sentido de entrada: up · down · left · right</td></tr>
-        <tr><td>letterAnime</td><td>boolean</td><td>false</td><td>Se true, cada letra anima individualmente com stagger.</td></tr>
-        <tr><td>lineAnime</td><td>boolean</td><td>false</td><td>Se true, o texto inteiro entra como uma única unidade.</td></tr>
-        <tr><td>stagger</td><td>number</td><td>0.1</td><td>Delay entre cada filho (palavra ou letra) em segundos.</td></tr>
-        <tr><td>duration</td><td>number</td><td>0.4</td><td>Duração de cada transição individual em segundos.</td></tr>
-        <tr><td>blurAmount</td><td>number</td><td>10</td><td>Intensidade do blur inicial em px. Zero desativa o blur.</td></tr>
-        <tr><td>viewport</td><td>object</td><td>{"{amount:0.3}"}</td><td>Configuração do IntersectionObserver do Framer Motion.</td></tr>
-        <tr><td>once</td><td>boolean</td><td>true</td><td>Se true, anima apenas na primeira entrada no viewport.</td></tr>
-        <tr><td>className</td><td>string</td><td>—</td><td>Classes CSS extras no elemento raiz.</td></tr>
-      </tbody>
-    </table>
-
-    <div class="slide-footer">
-      <span>Ghost Design System · TextAnimation</span>
-      <span>05 / 05 · portfoliodanilo.com</span>
-    </div>
-  </div>
-
-  <script>
-    // Auto-print após fontes e layout carregarem
-    document.fonts.ready.then(function() {
-      setTimeout(function() { window.print(); }, 500);
-    });
-  </script>
-</body>
+    <script>
+      // Auto-print após fontes e layout carregarem
+      document.fonts.ready.then(function () {
+        setTimeout(function () {
+          window.print();
+        }, 500);
+      });
+    </script>
+  </body>
 </html>

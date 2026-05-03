@@ -5,6 +5,7 @@ import {
   cubicBezier,
   type Variants,
 } from 'motion/react';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
 import type { ReactNode } from 'react';
 
 interface BeliefFixedHeaderProps {
@@ -18,7 +19,7 @@ export function BeliefFixedHeader({
   prefersReducedMotion,
   opacity: externalOpacity,
 }: BeliefFixedHeaderProps) {
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+  const ghostEase = cubicBezier(...GHOST_EASE_AMBIENT);
 
   // Default opacity if not provided externally
   const defaultOpacity = useTransform(
@@ -70,24 +71,20 @@ export function BeliefFixedHeader({
             <motion.h2
               id="beliefs-section-heading"
               aria-label="Acredito no design que muda o dia de alguém. Não pelo choque, mas pela conexão."
-              className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tighter mb-4 md:mb-8 uppercase font-black mix-blend-difference whitespace-nowrap"
+              className="text-white text-xs md:text-sm font-mono tracking-widest mb-2 md:mb-4 uppercase mix-blend-difference whitespace-nowrap opacity-70"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.5 }}
             >
-              <RevealLine variants={lineVariants}>Acredito no</RevealLine>
-              <RevealLine variants={lineVariants}>
-                <span className="text-[#0048ff]">design</span> que
-              </RevealLine>
-              <RevealLine variants={lineVariants}>muda o dia</RevealLine>
-              <RevealLine variants={lineVariants}>de alguém.</RevealLine>
+              <RevealLine variants={lineVariants}>Acredito no <span className="text-[#0048ff] font-bold">design</span> que</RevealLine>
+              <RevealLine variants={lineVariants}>muda o dia de alguém.</RevealLine>
             </motion.h2>
 
             {/* Subtext: "Não pelo choque..." */}
             <motion.div
               aria-hidden="true"
-              className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap"
+              className="flex flex-col items-end gap-1 text-white/50 text-[10px] md:text-xs font-mono tracking-wider uppercase whitespace-nowrap"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"

@@ -1,630 +1,858 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ghost TextAnimation — Demo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ghost TextAnimation — Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/framer-motion@11.3.31/dist/framer-motion.js" crossorigin="anonymous"></script>
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/framer-motion@11.3.31/dist/framer-motion.js"
+      crossorigin="anonymous"
+    ></script>
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --void:         #040013;
-      --surface:      #0d0d1a;
-      --border:       #1a1a2e;
-      --ghost-blue:   #0048ff;
-      --ghost-accent: #4fe6ff;
-      --purple:       #8705f2;
-      --text-primary: #fcffff;
-      --text-muted:   #a1a3a3;
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-mono:    'JetBrains Mono', monospace;
-    }
+      :root {
+        --void: #040013;
+        --surface: #0d0d1a;
+        --border: #1a1a2e;
+        --ghost-blue: #0048ff;
+        --ghost-accent: #4fe6ff;
+        --purple: #8705f2;
+        --text-primary: #fcffff;
+        --text-muted: #a1a3a3;
+        --font-display: 'Space Grotesk', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
 
-    html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+      }
 
-    body {
-      background: var(--void);
-      color: var(--text-primary);
-      font-family: var(--font-display);
-      overflow-x: hidden;
-    }
+      body {
+        background: var(--void);
+        color: var(--text-primary);
+        font-family: var(--font-display);
+        overflow-x: hidden;
+      }
 
-    /* ── Layout ── */
-    .page { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+      /* ── Layout ── */
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
 
-    /* ── Seções de demo ── */
-    .demo-section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border);
-    }
+      /* ── Seções de demo ── */
+      .demo-section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 0;
+        border-bottom: 1px solid var(--border);
+      }
 
-    .section-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 48px;
-    }
-    .section-tag {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ghost-blue);
-      white-space: nowrap;
-    }
-    .section-line { flex: 1; height: 1px; background: var(--border); }
+      .section-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 48px;
+      }
+      .section-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ghost-blue);
+        white-space: nowrap;
+      }
+      .section-line {
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
 
-    /* ── Código de referência ── */
-    .code-block {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px 20px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      line-height: 1.7;
-      color: var(--text-muted);
-      margin-top: 32px;
-      overflow-x: auto;
-    }
-    .code-block .kw  { color: var(--ghost-blue); }
-    .code-block .str { color: var(--ghost-accent); }
-    .code-block .cm  { color: #3a3a5a; }
+      /* ── Código de referência ── */
+      .code-block {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px 20px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+        margin-top: 32px;
+        overflow-x: auto;
+      }
+      .code-block .kw {
+        color: var(--ghost-blue);
+      }
+      .code-block .str {
+        color: var(--ghost-accent);
+      }
+      .code-block .cm {
+        color: #3a3a5a;
+      }
 
-    /* ── Props table ── */
-    .props-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      margin-top: 32px;
-    }
-    .props-table th {
-      text-align: left;
-      padding: 8px 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .props-table td {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      line-height: 1.5;
-    }
-    .props-table td:first-child { color: var(--ghost-accent); }
-    .props-table td:nth-child(2) { color: var(--ghost-blue); }
-    .props-table td:nth-child(3) { color: var(--text-muted); }
-    .props-table tr:hover td { background: var(--surface); }
+      /* ── Props table ── */
+      .props-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        margin-top: 32px;
+      }
+      .props-table th {
+        text-align: left;
+        padding: 8px 12px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .props-table td {
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        line-height: 1.5;
+      }
+      .props-table td:first-child {
+        color: var(--ghost-accent);
+      }
+      .props-table td:nth-child(2) {
+        color: var(--ghost-blue);
+      }
+      .props-table td:nth-child(3) {
+        color: var(--text-muted);
+      }
+      .props-table tr:hover td {
+        background: var(--surface);
+      }
 
-    /* ── Scroll hint ── */
-    .scroll-hint {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.625rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 48px;
-    }
-    .scroll-hint-arrow { animation: bounce 1.6s ease-in-out infinite; }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(5px); }
-    }
+      /* ── Scroll hint ── */
+      .scroll-hint {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 0.625rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 48px;
+      }
+      .scroll-hint-arrow {
+        animation: bounce 1.6s ease-in-out infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(5px);
+        }
+      }
 
-    /* ── Pill badge de direção ── */
-    .dir-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .dir-badge {
-      font-family: var(--font-mono);
-      font-size: 0.625rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s;
-      background: transparent;
-    }
-    .dir-badge.active,
-    .dir-badge:hover {
-      background: var(--ghost-blue);
-      border-color: var(--ghost-blue);
-      color: var(--text-primary);
-    }
+      /* ── Pill badge de direção ── */
+      .dir-badges {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+      .dir-badge {
+        font-family: var(--font-mono);
+        font-size: 0.625rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: all 0.2s;
+        background: transparent;
+      }
+      .dir-badge.active,
+      .dir-badge:hover {
+        background: var(--ghost-blue);
+        border-color: var(--ghost-blue);
+        color: var(--text-primary);
+      }
 
-    /* ── Footer ── */
-    .footer {
-      padding: 48px 0;
-      text-align: center;
-    }
-    .footer p {
-      font-family: var(--font-mono);
-      font-size: 0.625rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-  </style>
-</head>
-<body>
-<div id="root"></div>
+      /* ── Footer ── */
+      .footer {
+        padding: 48px 0;
+        text-align: center;
+      }
+      .footer p {
+        font-family: var(--font-mono);
+        font-size: 0.625rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
 
-<script type="text/babel" src="tweaks-panel.jsx"></script>
+    <script type="text/babel" src="tweaks-panel.jsx"></script>
 
-<script type="text/babel">
-const { useState, useCallback } = React;
-const { motion, useReducedMotion } = window.Motion;
+    <script type="text/babel">
+      const { useState, useCallback } = React;
+      const { motion, useReducedMotion } = window.Motion;
 
-/* ─── Tweaks defaults ─────────────────────────────────── */
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "direction": "up",
-  "mode": "word",
-  "stagger": 0.1,
-  "duration": 0.4,
-  "blurAmount": 10
-}/*EDITMODE-END*/;
+      /* ─── Tweaks defaults ─────────────────────────────────── */
+      const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/ {
+        direction: 'up',
+        mode: 'word',
+        stagger: 0.1,
+        duration: 0.4,
+        blurAmount: 10,
+      }; /*EDITMODE-END*/
 
-/* ─── Core: generateVariants ──────────────────────────── */
-function generateVariants(direction, duration, blurAmount) {
-  const axis  = (direction === 'left' || direction === 'right') ? 'x' : 'y';
-  const value = (direction === 'right' || direction === 'down') ? 100 : -100;
+      /* ─── Core: generateVariants ──────────────────────────── */
+      function generateVariants(direction, duration, blurAmount) {
+        const axis = direction === 'left' || direction === 'right' ? 'x' : 'y';
+        const value =
+          direction === 'right' || direction === 'down' ? 100 : -100;
 
-  return {
-    hidden: {
-      filter: `blur(${blurAmount}px)`,
-      opacity: 0,
-      [axis]: value,
-    },
-    visible: {
-      filter: 'blur(0px)',
-      opacity: 1,
-      [axis]: 0,
-      transition: { duration, ease: 'easeOut' },
-    },
-  };
-}
+        return {
+          hidden: {
+            filter: `blur(${blurAmount}px)`,
+            opacity: 0,
+            [axis]: value,
+          },
+          visible: {
+            filter: 'blur(0px)',
+            opacity: 1,
+            [axis]: 0,
+            transition: { duration, ease: 'easeOut' },
+          },
+        };
+      }
 
-/* ─── TextAnimation component ────────────────────────── */
-function TextAnimation({
-  as = 'h1',
-  text,
-  className = '',
-  direction = 'up',
-  letterAnime = false,
-  lineAnime = false,
-  stagger = 0.1,
-  duration = 0.4,
-  blurAmount = 10,
-  once = true,
-}) {
-  const shouldReduce = useReducedMotion();
+      /* ─── TextAnimation component ────────────────────────── */
+      function TextAnimation({
+        as = 'h1',
+        text,
+        className = '',
+        direction = 'up',
+        letterAnime = false,
+        lineAnime = false,
+        stagger = 0.1,
+        duration = 0.4,
+        blurAmount = 10,
+        once = true,
+      }) {
+        const shouldReduce = useReducedMotion();
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: shouldReduce ? 0 : stagger },
-    },
-  };
+        const containerVariants = {
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: shouldReduce ? 0 : stagger },
+          },
+        };
 
-  const itemVariants = shouldReduce
-    ? { hidden: {}, visible: {} }
-    : generateVariants(direction, duration, blurAmount);
+        const itemVariants = shouldReduce
+          ? { hidden: {}, visible: {} }
+          : generateVariants(direction, duration, blurAmount);
 
-  const Tag = motion[as] || motion.h1;
+        const Tag = motion[as] || motion.h1;
 
-  return (
-    <Tag
-      initial="hidden"
-      whileInView="visible"
-      variants={containerVariants}
-      viewport={{ amount: 0.3, once }}
-      className={className}
-      style={{ display: 'inline-block' }}
-    >
-      {lineAnime ? (
-        /* ── Modo linha inteira ── */
-        <motion.span style={{ display: 'inline-block' }} variants={itemVariants}>
-          {text}
-        </motion.span>
-      ) : (
-        /* ── Modo palavra / letra ── */
-        text.split(' ').map((word, wi) => (
-          <motion.span
-            key={`${word}-${wi}`}
+        return (
+          <Tag
+            initial="hidden"
+            whileInView="visible"
+            variants={containerVariants}
+            viewport={{ amount: 0.3, once }}
+            className={className}
             style={{ display: 'inline-block' }}
-            variants={letterAnime ? {} : itemVariants}
           >
-            {letterAnime ? (
-              <>
-                {word.split('').map((letter, li) => (
-                  <motion.span
-                    key={li}
-                    style={{ display: 'inline-block' }}
-                    variants={itemVariants}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-                {'\u00a0'}
-              </>
+            {lineAnime ? (
+              /* ── Modo linha inteira ── */
+              <motion.span
+                style={{ display: 'inline-block' }}
+                variants={itemVariants}
+              >
+                {text}
+              </motion.span>
             ) : (
-              <>{word}{'\u00a0'}</>
+              /* ── Modo palavra / letra ── */
+              text.split(' ').map((word, wi) => (
+                <motion.span
+                  key={`${word}-${wi}`}
+                  style={{ display: 'inline-block' }}
+                  variants={letterAnime ? {} : itemVariants}
+                >
+                  {letterAnime ? (
+                    <>
+                      {word.split('').map((letter, li) => (
+                        <motion.span
+                          key={li}
+                          style={{ display: 'inline-block' }}
+                          variants={itemVariants}
+                        >
+                          {letter}
+                        </motion.span>
+                      ))}
+                      {'\u00a0'}
+                    </>
+                  ) : (
+                    <>
+                      {word}
+                      {'\u00a0'}
+                    </>
+                  )}
+                </motion.span>
+              ))
             )}
-          </motion.span>
-        ))
-      )}
-    </Tag>
-  );
-}
+          </Tag>
+        );
+      }
 
-/* ─── Helpers visuais ────────────────────────────────── */
-function CodeLine({ children }) {
-  return <div>{children}</div>;
-}
+      /* ─── Helpers visuais ────────────────────────────────── */
+      function CodeLine({ children }) {
+        return <div>{children}</div>;
+      }
 
-function Kw({ children }) {
-  return <span className="kw">{children}</span>;
-}
-function Str({ children }) {
-  return <span className="str">{children}</span>;
-}
+      function Kw({ children }) {
+        return <span className="kw">{children}</span>;
+      }
+      function Str({ children }) {
+        return <span className="str">{children}</span>;
+      }
 
-/* ─── App ─────────────────────────────────────────────── */
-function App() {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-  const [replayKey, setReplayKey] = useState(0);
+      /* ─── App ─────────────────────────────────────────────── */
+      function App() {
+        const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+        const [replayKey, setReplayKey] = useState(0);
 
-  const dir    = tweaks.direction;
-  const mode   = tweaks.mode;
-  const stag   = tweaks.stagger;
-  const dur    = tweaks.duration;
-  const blur   = tweaks.blurAmount;
+        const dir = tweaks.direction;
+        const mode = tweaks.mode;
+        const stag = tweaks.stagger;
+        const dur = tweaks.duration;
+        const blur = tweaks.blurAmount;
 
-  const isLetter = mode === 'letter';
-  const isLine   = mode === 'line';
+        const isLetter = mode === 'letter';
+        const isLine = mode === 'line';
 
-  const replay = useCallback(() => setReplayKey(k => k + 1), []);
+        const replay = useCallback(() => setReplayKey((k) => k + 1), []);
 
-  return (
-    <>
-      {/* ════════════════════════════════════════════
+        return (
+          <>
+            {/* ════════════════════════════════════════════
           Seção 01 — Modo por Palavra (padrão)
       ═══════════════════════════════════════════ */}
-      <div className="page">
-        <section className="demo-section" data-screen-label="01 Por Palavra">
-          <div className="section-meta">
-            <span className="section-tag">01 · Por Palavra</span>
-            <div className="section-line"></div>
-          </div>
+            <div className="page">
+              <section
+                className="demo-section"
+                data-screen-label="01 Por Palavra"
+              >
+                <div className="section-meta">
+                  <span className="section-tag">01 · Por Palavra</span>
+                  <div className="section-line"></div>
+                </div>
 
-          <div key={`word-${replayKey}-${dir}`}>
-            <TextAnimation
-              as="h1"
-              text="Ghost System Design"
-              direction={dir}
-              stagger={stag}
-              duration={dur}
-              blurAmount={blur}
-              once={false}
-              className=""
-              style={{
-                fontSize: 'clamp(3rem, 8vw, 7rem)',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.02em',
-                lineHeight: 1.05,
-                color: 'var(--text-primary)',
-                display: 'block',
-                width: '100%',
-              }}
-            />
-            <TextAnimation
-              as="p"
-              text="Cada palavra entra com blur e translate independente."
-              direction={dir}
-              stagger={stag * 0.7}
-              duration={dur}
-              blurAmount={blur * 0.6}
-              once={false}
-              style={{
-                display: 'block',
-                marginTop: 24,
-                fontSize: '1rem',
-                color: 'var(--text-muted)',
-                fontWeight: 400,
-                textTransform: 'none',
-                letterSpacing: 0,
-              }}
-            />
-          </div>
+                <div key={`word-${replayKey}-${dir}`}>
+                  <TextAnimation
+                    as="h1"
+                    text="Ghost System Design"
+                    direction={dir}
+                    stagger={stag}
+                    duration={dur}
+                    blurAmount={blur}
+                    once={false}
+                    className=""
+                    style={{
+                      fontSize: 'clamp(3rem, 8vw, 7rem)',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.02em',
+                      lineHeight: 1.05,
+                      color: 'var(--text-primary)',
+                      display: 'block',
+                      width: '100%',
+                    }}
+                  />
+                  <TextAnimation
+                    as="p"
+                    text="Cada palavra entra com blur e translate independente."
+                    direction={dir}
+                    stagger={stag * 0.7}
+                    duration={dur}
+                    blurAmount={blur * 0.6}
+                    once={false}
+                    style={{
+                      display: 'block',
+                      marginTop: 24,
+                      fontSize: '1rem',
+                      color: 'var(--text-muted)',
+                      fontWeight: 400,
+                      textTransform: 'none',
+                      letterSpacing: 0,
+                    }}
+                  />
+                </div>
 
-          <div className="code-block">
-            <CodeLine><Kw>{'<TextAnimation'}</Kw></CodeLine>
-            <CodeLine>{'  as='}<Str>{'"h1"'}</Str></CodeLine>
-            <CodeLine>{'  text='}<Str>{'"Ghost System Design"'}</Str></CodeLine>
-            <CodeLine>{'  direction='}<Str>{`"${dir}"`}</Str></CodeLine>
-            <CodeLine>{'  stagger={'}<span style={{color:'var(--ghost-accent)'}}>{stag}</span>{'}'}</CodeLine>
-            <CodeLine>{'  duration={'}<span style={{color:'var(--ghost-accent)'}}>{dur}</span>{'}'}</CodeLine>
-            <CodeLine><Kw>{'/>'}</Kw></CodeLine>
-          </div>
+                <div className="code-block">
+                  <CodeLine>
+                    <Kw>{'<TextAnimation'}</Kw>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  as='}
+                    <Str>{'"h1"'}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  text='}
+                    <Str>{'"Ghost System Design"'}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  direction='}
+                    <Str>{`"${dir}"`}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  stagger={'}
+                    <span style={{ color: 'var(--ghost-accent)' }}>{stag}</span>
+                    {'}'}
+                  </CodeLine>
+                  <CodeLine>
+                    {'  duration={'}
+                    <span style={{ color: 'var(--ghost-accent)' }}>{dur}</span>
+                    {'}'}
+                  </CodeLine>
+                  <CodeLine>
+                    <Kw>{'/>'}</Kw>
+                  </CodeLine>
+                </div>
 
-          <div className="scroll-hint">
-            <span className="scroll-hint-arrow">↓</span>
-            <span>Role para ver as próximas variantes</span>
-          </div>
-        </section>
-      </div>
+                <div className="scroll-hint">
+                  <span className="scroll-hint-arrow">↓</span>
+                  <span>Role para ver as próximas variantes</span>
+                </div>
+              </section>
+            </div>
 
-      {/* ════════════════════════════════════════════
+            {/* ════════════════════════════════════════════
           Seção 02 — Modo por Letra (letterAnime)
       ═══════════════════════════════════════════ */}
-      <div className="page">
-        <section className="demo-section" data-screen-label="02 Por Letra">
-          <div className="section-meta">
-            <span className="section-tag">02 · letterAnime</span>
-            <div className="section-line"></div>
-          </div>
+            <div className="page">
+              <section
+                className="demo-section"
+                data-screen-label="02 Por Letra"
+              >
+                <div className="section-meta">
+                  <span className="section-tag">02 · letterAnime</span>
+                  <div className="section-line"></div>
+                </div>
 
-          <div key={`letter-${replayKey}-${dir}`}>
-            <TextAnimation
-              as="h2"
-              text="Ghost Era"
-              direction={dir}
-              letterAnime={true}
-              stagger={stag * 0.5}
-              duration={dur}
-              blurAmount={blur}
-              once={false}
-              style={{
-                display: 'block',
-                fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: 'var(--ghost-blue)',
-                textShadow: '0 0 40px #0048ff50',
-              }}
-            />
-          </div>
+                <div key={`letter-${replayKey}-${dir}`}>
+                  <TextAnimation
+                    as="h2"
+                    text="Ghost Era"
+                    direction={dir}
+                    letterAnime={true}
+                    stagger={stag * 0.5}
+                    duration={dur}
+                    blurAmount={blur}
+                    once={false}
+                    style={{
+                      display: 'block',
+                      fontSize: 'clamp(3.5rem, 9vw, 8rem)',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      color: 'var(--ghost-blue)',
+                      textShadow: '0 0 40px #0048ff50',
+                    }}
+                  />
+                </div>
 
-          <div className="code-block">
-            <CodeLine><Kw>{'<TextAnimation'}</Kw></CodeLine>
-            <CodeLine>{'  text='}<Str>{'"Ghost Era"'}</Str></CodeLine>
-            <CodeLine>{'  letterAnime='}<Str>{'{true}'}</Str>{' '}<span style={{color:'#3a3a5a'}}>{'// cada letra anima individualmente'}</span></CodeLine>
-            <CodeLine>{'  direction='}<Str>{`"${dir}"`}</Str></CodeLine>
-            <CodeLine>{'  stagger={'}<span style={{color:'var(--ghost-accent)'}}>{(stag * 0.5).toFixed(2)}</span>{'}'}</CodeLine>
-            <CodeLine><Kw>{'/>'}</Kw></CodeLine>
-          </div>
-        </section>
-      </div>
+                <div className="code-block">
+                  <CodeLine>
+                    <Kw>{'<TextAnimation'}</Kw>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  text='}
+                    <Str>{'"Ghost Era"'}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  letterAnime='}
+                    <Str>{'{true}'}</Str>{' '}
+                    <span style={{ color: '#3a3a5a' }}>
+                      {'// cada letra anima individualmente'}
+                    </span>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  direction='}
+                    <Str>{`"${dir}"`}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  stagger={'}
+                    <span style={{ color: 'var(--ghost-accent)' }}>
+                      {(stag * 0.5).toFixed(2)}
+                    </span>
+                    {'}'}
+                  </CodeLine>
+                  <CodeLine>
+                    <Kw>{'/>'}</Kw>
+                  </CodeLine>
+                </div>
+              </section>
+            </div>
 
-      {/* ════════════════════════════════════════════
+            {/* ════════════════════════════════════════════
           Seção 03 — Modo linha inteira (lineAnime)
       ═══════════════════════════════════════════ */}
-      <div className="page">
-        <section className="demo-section" data-screen-label="03 Por Linha">
-          <div className="section-meta">
-            <span className="section-tag">03 · lineAnime</span>
-            <div className="section-line"></div>
-          </div>
+            <div className="page">
+              <section
+                className="demo-section"
+                data-screen-label="03 Por Linha"
+              >
+                <div className="section-meta">
+                  <span className="section-tag">03 · lineAnime</span>
+                  <div className="section-line"></div>
+                </div>
 
-          <div key={`line-${replayKey}-${dir}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              { text: 'Invisible', color: 'var(--text-primary)', size: 'clamp(2.5rem, 6vw, 5.5rem)', delay: 0 },
-              { text: 'until',     color: 'var(--text-muted)',   size: 'clamp(2rem, 5vw, 4.5rem)',   delay: 0.12 },
-              { text: 'needed.',  color: 'var(--ghost-accent)', size: 'clamp(2.5rem, 6vw, 5.5rem)', delay: 0.24 },
-            ].map(({ text, color, size, delay }) => (
-              <TextAnimation
-                key={text}
-                as="h2"
-                text={text}
-                direction={dir}
-                lineAnime={true}
-                duration={dur}
-                blurAmount={blur}
-                once={false}
-                style={{
-                  display: 'block',
-                  fontSize: size,
-                  fontWeight: 700,
-                  fontStyle: text === 'until' ? 'italic' : 'normal',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.02em',
-                  color,
-                  transitionDelay: `${delay}s`,
-                }}
-              />
-            ))}
-          </div>
+                <div
+                  key={`line-${replayKey}-${dir}`}
+                  style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+                >
+                  {[
+                    {
+                      text: 'Invisible',
+                      color: 'var(--text-primary)',
+                      size: 'clamp(2.5rem, 6vw, 5.5rem)',
+                      delay: 0,
+                    },
+                    {
+                      text: 'until',
+                      color: 'var(--text-muted)',
+                      size: 'clamp(2rem, 5vw, 4.5rem)',
+                      delay: 0.12,
+                    },
+                    {
+                      text: 'needed.',
+                      color: 'var(--ghost-accent)',
+                      size: 'clamp(2.5rem, 6vw, 5.5rem)',
+                      delay: 0.24,
+                    },
+                  ].map(({ text, color, size, delay }) => (
+                    <TextAnimation
+                      key={text}
+                      as="h2"
+                      text={text}
+                      direction={dir}
+                      lineAnime={true}
+                      duration={dur}
+                      blurAmount={blur}
+                      once={false}
+                      style={{
+                        display: 'block',
+                        fontSize: size,
+                        fontWeight: 700,
+                        fontStyle: text === 'until' ? 'italic' : 'normal',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.02em',
+                        color,
+                        transitionDelay: `${delay}s`,
+                      }}
+                    />
+                  ))}
+                </div>
 
-          <div className="code-block">
-            <CodeLine><Kw>{'<TextAnimation'}</Kw></CodeLine>
-            <CodeLine>{'  text='}<Str>{'"Invisible until needed."'}</Str></CodeLine>
-            <CodeLine>{'  lineAnime='}<Str>{'{true}'}</Str>{' '}<span style={{color:'#3a3a5a'}}>{'// linha inteira como unidade'}</span></CodeLine>
-            <CodeLine>{'  direction='}<Str>{`"${dir}"`}</Str></CodeLine>
-            <CodeLine><Kw>{'/>'}</Kw></CodeLine>
-          </div>
-        </section>
-      </div>
+                <div className="code-block">
+                  <CodeLine>
+                    <Kw>{'<TextAnimation'}</Kw>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  text='}
+                    <Str>{'"Invisible until needed."'}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  lineAnime='}
+                    <Str>{'{true}'}</Str>{' '}
+                    <span style={{ color: '#3a3a5a' }}>
+                      {'// linha inteira como unidade'}
+                    </span>
+                  </CodeLine>
+                  <CodeLine>
+                    {'  direction='}
+                    <Str>{`"${dir}"`}</Str>
+                  </CodeLine>
+                  <CodeLine>
+                    <Kw>{'/>'}</Kw>
+                  </CodeLine>
+                </div>
+              </section>
+            </div>
 
-      {/* ════════════════════════════════════════════
+            {/* ════════════════════════════════════════════
           Seção 04 — Direções lado a lado
       ═══════════════════════════════════════════ */}
-      <div className="page">
-        <section className="demo-section" data-screen-label="04 Todas as Direções">
-          <div className="section-meta">
-            <span className="section-tag">04 · Todas as Direções</span>
-            <div className="section-line"></div>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 32,
-          }}>
-            {(['up','down','left','right']).map((d) => (
-              <div key={`${d}-${replayKey}`} style={{
-                background: 'var(--surface)',
-                border: '1px solid var(--border)',
-                borderRadius: 12,
-                padding: '32px 28px',
-                overflow: 'hidden',
-              }}>
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.625rem',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: 'var(--ghost-blue)',
-                  marginBottom: 20,
-                }}>
-                  direction="{d}"
+            <div className="page">
+              <section
+                className="demo-section"
+                data-screen-label="04 Todas as Direções"
+              >
+                <div className="section-meta">
+                  <span className="section-tag">04 · Todas as Direções</span>
+                  <div className="section-line"></div>
                 </div>
-                <TextAnimation
-                  as="h3"
-                  text="Ghost Blue"
-                  direction={d}
-                  stagger={0.1}
-                  duration={0.5}
-                  blurAmount={8}
-                  once={false}
-                  style={{
-                    display: 'block',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.03em',
-                    color: 'var(--text-primary)',
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
 
-      {/* ════════════════════════════════════════════
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: 32,
+                  }}
+                >
+                  {['up', 'down', 'left', 'right'].map((d) => (
+                    <div
+                      key={`${d}-${replayKey}`}
+                      style={{
+                        background: 'var(--surface)',
+                        border: '1px solid var(--border)',
+                        borderRadius: 12,
+                        padding: '32px 28px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.625rem',
+                          letterSpacing: '0.12em',
+                          textTransform: 'uppercase',
+                          color: 'var(--ghost-blue)',
+                          marginBottom: 20,
+                        }}
+                      >
+                        direction="{d}"
+                      </div>
+                      <TextAnimation
+                        as="h3"
+                        text="Ghost Blue"
+                        direction={d}
+                        stagger={0.1}
+                        duration={0.5}
+                        blurAmount={8}
+                        once={false}
+                        style={{
+                          display: 'block',
+                          fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.03em',
+                          color: 'var(--text-primary)',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            {/* ════════════════════════════════════════════
           Seção 05 — Props Reference
       ═══════════════════════════════════════════ */}
-      <div className="page">
-        <section className="demo-section" data-screen-label="05 Props Reference" style={{ minHeight: 'auto', paddingBottom: 80 }}>
-          <div className="section-meta">
-            <span className="section-tag">Props</span>
-            <div className="section-line"></div>
-          </div>
+            <div className="page">
+              <section
+                className="demo-section"
+                data-screen-label="05 Props Reference"
+                style={{ minHeight: 'auto', paddingBottom: 80 }}
+              >
+                <div className="section-meta">
+                  <span className="section-tag">Props</span>
+                  <div className="section-line"></div>
+                </div>
 
-          <table className="props-table">
-            <thead>
-              <tr>
-                <th>Prop</th>
-                <th>Tipo</th>
-                <th>Padrão</th>
-                <th>Descrição</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['text',        'string',   '—',       'Texto a animar. Será dividido por espaços (palavras) ou letras.'],
-                ['as',          'keyof JSX','h1',      'Tag HTML renderizada (h1, h2, p, span…)'],
-                ['direction',   'Direction','up',      'Eixo e sentido da entrada: up | down | left | right'],
-                ['letterAnime', 'boolean',  'false',   'Se true, cada letra anima individualmente (stagger por letra).'],
-                ['lineAnime',   'boolean',  'false',   'Se true, o texto inteiro entra como uma única unidade.'],
-                ['stagger',     'number',   '0.1',     'Delay entre cada filho (palavra ou letra) em segundos.'],
-                ['duration',    'number',   '0.4',     'Duração de cada transição individual em segundos.'],
-                ['blurAmount',  'number',   '10',      'Intensidade do blur inicial em px. Zero = sem blur.'],
-                ['viewport',    'object',   '{amount:0.3}', 'Configuração do IntersectionObserver do Framer Motion.'],
-                ['once',        'boolean',  'true',    'Se true, anima apenas na primeira entrada no viewport.'],
-                ['className',   'string',   '—',       'Classes CSS extras no elemento raiz.'],
-              ].map(([prop, type, def, desc]) => (
-                <tr key={prop}>
-                  <td>{prop}</td>
-                  <td>{type}</td>
-                  <td>{def}</td>
-                  <td style={{ color: 'var(--text-muted)' }}>{desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+                <table className="props-table">
+                  <thead>
+                    <tr>
+                      <th>Prop</th>
+                      <th>Tipo</th>
+                      <th>Padrão</th>
+                      <th>Descrição</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      [
+                        'text',
+                        'string',
+                        '—',
+                        'Texto a animar. Será dividido por espaços (palavras) ou letras.',
+                      ],
+                      [
+                        'as',
+                        'keyof JSX',
+                        'h1',
+                        'Tag HTML renderizada (h1, h2, p, span…)',
+                      ],
+                      [
+                        'direction',
+                        'Direction',
+                        'up',
+                        'Eixo e sentido da entrada: up | down | left | right',
+                      ],
+                      [
+                        'letterAnime',
+                        'boolean',
+                        'false',
+                        'Se true, cada letra anima individualmente (stagger por letra).',
+                      ],
+                      [
+                        'lineAnime',
+                        'boolean',
+                        'false',
+                        'Se true, o texto inteiro entra como uma única unidade.',
+                      ],
+                      [
+                        'stagger',
+                        'number',
+                        '0.1',
+                        'Delay entre cada filho (palavra ou letra) em segundos.',
+                      ],
+                      [
+                        'duration',
+                        'number',
+                        '0.4',
+                        'Duração de cada transição individual em segundos.',
+                      ],
+                      [
+                        'blurAmount',
+                        'number',
+                        '10',
+                        'Intensidade do blur inicial em px. Zero = sem blur.',
+                      ],
+                      [
+                        'viewport',
+                        'object',
+                        '{amount:0.3}',
+                        'Configuração do IntersectionObserver do Framer Motion.',
+                      ],
+                      [
+                        'once',
+                        'boolean',
+                        'true',
+                        'Se true, anima apenas na primeira entrada no viewport.',
+                      ],
+                      [
+                        'className',
+                        'string',
+                        '—',
+                        'Classes CSS extras no elemento raiz.',
+                      ],
+                    ].map(([prop, type, def, desc]) => (
+                      <tr key={prop}>
+                        <td>{prop}</td>
+                        <td>{type}</td>
+                        <td>{def}</td>
+                        <td style={{ color: 'var(--text-muted)' }}>{desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
 
-        <footer className="footer">
-          <p>Ghost Design System v3.1 · TextAnimation Component · Danilo Novais</p>
-        </footer>
-      </div>
+              <footer className="footer">
+                <p>
+                  Ghost Design System v3.1 · TextAnimation Component · Danilo
+                  Novais
+                </p>
+              </footer>
+            </div>
 
-      {/* ── Tweaks Panel ── */}
-      <TweaksPanel>
-        <TweakSection label="Direção" />
-        <TweakRadio
-          label="direction"
-          value={tweaks.direction}
-          options={['up','down','left','right']}
-          onChange={(v) => { setTweak('direction', v); }}
-        />
+            {/* ── Tweaks Panel ── */}
+            <TweaksPanel>
+              <TweakSection label="Direção" />
+              <TweakRadio
+                label="direction"
+                value={tweaks.direction}
+                options={['up', 'down', 'left', 'right']}
+                onChange={(v) => {
+                  setTweak('direction', v);
+                }}
+              />
 
-        <TweakSection label="Modo de animação" />
-        <TweakRadio
-          label="mode"
-          value={tweaks.mode}
-          options={['word','letter','line']}
-          onChange={(v) => setTweak('mode', v)}
-        />
+              <TweakSection label="Modo de animação" />
+              <TweakRadio
+                label="mode"
+                value={tweaks.mode}
+                options={['word', 'letter', 'line']}
+                onChange={(v) => setTweak('mode', v)}
+              />
 
-        <TweakSection label="Timing" />
-        <TweakSlider
-          label="stagger (s)"
-          value={tweaks.stagger}
-          min={0.01} max={0.4} step={0.01}
-          onChange={(v) => setTweak('stagger', v)}
-        />
-        <TweakSlider
-          label="duration (s)"
-          value={tweaks.duration}
-          min={0.1} max={1.2} step={0.05}
-          onChange={(v) => setTweak('duration', v)}
-        />
+              <TweakSection label="Timing" />
+              <TweakSlider
+                label="stagger (s)"
+                value={tweaks.stagger}
+                min={0.01}
+                max={0.4}
+                step={0.01}
+                onChange={(v) => setTweak('stagger', v)}
+              />
+              <TweakSlider
+                label="duration (s)"
+                value={tweaks.duration}
+                min={0.1}
+                max={1.2}
+                step={0.05}
+                onChange={(v) => setTweak('duration', v)}
+              />
 
-        <TweakSection label="Efeito" />
-        <TweakSlider
-          label="blur (px)"
-          value={tweaks.blurAmount}
-          min={0} max={40} step={1}
-          onChange={(v) => setTweak('blurAmount', v)}
-        />
+              <TweakSection label="Efeito" />
+              <TweakSlider
+                label="blur (px)"
+                value={tweaks.blurAmount}
+                min={0}
+                max={40}
+                step={1}
+                onChange={(v) => setTweak('blurAmount', v)}
+              />
 
-        <TweakSection label="Ações" />
-        <TweakButton label="↺  Reanimar tudo" onClick={replay} />
-      </TweaksPanel>
-    </>
-  );
-}
+              <TweakSection label="Ações" />
+              <TweakButton label="↺  Reanimar tudo" onClick={replay} />
+            </TweaksPanel>
+          </>
+        );
+      }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
-</body>
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
 </html>

@@ -11,9 +11,14 @@
 - [ ] Identify Phase 2 remediation tasks (easing drift, component refactors).
 
 ## 2. Technical Stack & Governance
-- **Tools**: Squirrel CLI, `ui-ux-pro-max` search script, `scroll-experience` workflow.
+- **Tools**: Squirrel CLI, `ui-ux-pro-max` search script, `scroll-experience` workflow, `mcp:context7`.
 - **Rules**: `GEMINI.md`, `AGENTS.md`, `00-global-identity.md`.
-- **Primary Tokens**: Blue Ghost (#0048ff), Abyss (#040013), Standard Easing `[0.22, 1, 0.36, 1]`.
+- **Primary Tokens (from .context/Ghost-Design-System)**:
+  - **Colors**: Blue Ghost (#0048ff), Abyss (#040013), Accent Pink (#f501d3), Violet (#8705f2).
+  - **Easing**: 
+    - `GHOST_EASE`: `[0.22, 1, 0.36, 1]`
+    - `GHOST_EASE_AMBIENT`: `[0.17, 0.55, 0.55, 1]`
+    - `GHOST_EASE_IO`: `[0.7, 0, 0.3, 1]`
 
 ## 3. Execution Steps
 
@@ -25,12 +30,14 @@
 - [ ] Search `product` domain for "premium portfolio".
 - [ ] Search `style` domain for "glassmorphism", "ghost blue", "minimalism".
 - [ ] Search `ux` domain for "animation", "z-index", "smooth scroll".
-- [ ] Cross-reference findings with `.context/GHOST-DESIGN-SYSTEM.md`.
+- [ ] Cross-reference findings with `.context/Ghost-Design-System/colors_and_type.css`.
+- [ ] Verify token usage in `src/components/sobre/sections/beliefs/ScrollManifesto.tsx`.
 
 ### Phase 3: Scroll Storytelling Audit
 - [ ] Analyze `BeliefScrollText.tsx` and `ScrollManifesto.tsx`.
+- [ ] Refactor `BeliefScrollText.tsx` to use `useScroll` + `useTransform` synchronization (eliminating `IntersectionObserver` lag).
+- [ ] Verify `lenis` integration and parallax layering speeds against `scroll-experience` patterns.
 - [ ] Check for "Scroll Hijacking" vs "Scroll Enhancement" patterns.
-- [ ] Verify `lenis` integration and parallax layering speeds.
 
 ### Phase 4: Final Report & Backlog
 - [ ] Consolidate results into `docs/reports/AUDIT-UI-UX-SCROLL-REPORT.md`.

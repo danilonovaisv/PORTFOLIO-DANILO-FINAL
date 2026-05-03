@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useTransform, type MotionValue } from 'motion/react';
 import { useBeliefStore } from '@/store/beliefStore';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
 
 interface Phrase {
   title: string;
@@ -11,11 +11,18 @@ interface Phrase {
 
 interface BeliefScrollTextProps {
   phrases: Phrase[];
+  scrollProgress: MotionValue<number>;
   prefersReducedMotion: boolean;
 }
 
+/**
+ * BeliefScrollText — Ghost Era v3.x
+ * Refactored to eliminate IntersectionObserver lag.
+ * Uses a pure motion pipeline synchronized with the main scroll timeline.
+ */
 export function BeliefScrollText({
   phrases,
+  scrollProgress,
   prefersReducedMotion,
 }: BeliefScrollTextProps) {
   const isMobile = useBeliefStore((s) => s.isMobile);
@@ -32,6 +39,7 @@ export function BeliefScrollText({
             index={i}
             phrase={phrase}
             isMobile={isMobile}
+            scrollProgress={scrollProgress}
             prefersReducedMotion={prefersReducedMotion}
           />
         ))}
@@ -40,60 +48,67 @@ export function BeliefScrollText({
   );
 }
 
-function useTriggerInView(index: number, amount = 0.5) {
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const trigger = document.querySelector<HTMLElement>(
-      `[data-belief-phrase-trigger="${index}"]`
-    );
-    if (!trigger) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: amount }
-    );
-
-    observer.observe(trigger);
-    return () => observer.disconnect();
-  }, [index, amount]);
-
-  return isInView;
-}
-
 function PhraseItem({
   index,
   phrase,
   isMobile,
+  scrollProgress,
   prefersReducedMotion,
 }: {
   index: number;
   phrase: Phrase;
   isMobile: boolean;
+  scrollProgress: MotionValue<number>;
   prefersReducedMotion: boolean;
 }) {
-  const isInView = useTriggerInView(index, 0.5);
+  // Range calculation: 6 phrases mapped over 0.0 to 0.8 of total scroll
+  // This leaves 0.8-1.0 for the Manifesto climax.
+  const segment = 0.8 / 6;
+  const start = index * segment;
+  const middle = (index + 0.5) * segment;
+  const end = (index + 1) * segment;
+
+  // Use standard Ghost Easing for the mapping
+  const opacity = useTransform(
+    scrollProgress,
+    [start, middle - segment * 0.2, middle + segment * 0.2, end],
+    [0, 1, 1, 0],
+    { ease: (v) => v } // Linear mapping, easing is handled by the scroll itself + Ghost ease constants if needed
+  );
+
+  const yMobileValues = prefersReducedMotion ? ['0px', '0px', '0px', '0px'] : ['18px', '0px', '0px', '-18px'];
+  const yDesktopValues = prefersReducedMotion ? ['-50%', '-50%', '-50%', '-50%'] : ['calc(-50% + 18px)', 'calc(-50% + 0px)', 'calc(-50% + 0px)', 'calc(-50% - 18px)'];
+
+  const yMobile = useTransform(
+    scrollProgress,
+    [start, middle - segment * 0.2, middle + segment * 0.2, end],
+    yMobileValues
+  );
+
+  const yDesktop = useTransform(
+    scrollProgress,
+    [start, middle - segment * 0.2, middle + segment * 0.2, end],
+    yDesktopValues
+  );
+
+  const filterValues = prefersReducedMotion ? ['blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)'] : ['blur(6px)', 'blur(0px)', 'blur(0px)', 'blur(6px)'];
+
+  const filter = useTransform(
+    scrollProgress,
+    [start, middle - segment * 0.2, middle + segment * 0.2, end],
+    filterValues
+  );
 
   return (
     <motion.div
       data-testid="belief-phrase"
       data-animation-contract="viewport-x-opacity"
       className="belief-phrase absolute flex flex-col pointer-events-none w-full md:w-auto text-center md:text-left left-0 md:left-0 lg:left-8 px-6 md:px-0 bottom-[15vh] md:bottom-auto md:top-1/2 md:-translate-y-1/2 max-w-[100vw] md:max-w-[45vw] lg:max-w-[40vw]"
-      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -100, y: isMobile ? 0 : '-50%' }}
-      animate={
-        isInView
-          ? prefersReducedMotion
-            ? { opacity: 1 }
-            : { opacity: 1, x: 0, y: isMobile ? 0 : '-50%' }
-          : prefersReducedMotion
-          ? { opacity: 0 }
-          : { opacity: 0, x: -100, y: isMobile ? 0 : '-50%' }
-      }
-      transition={{
-        duration: 0.9,
-        ease: [0.17, 0.55, 0.55, 1],
+      style={{
+        opacity,
+        y: isMobile ? yMobile : yDesktop,
+        filter,
+        willChange: 'transform, opacity, filter',
       }}
     >
       <span className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-blueAccent/70 md:mb-4 md:text-xs">

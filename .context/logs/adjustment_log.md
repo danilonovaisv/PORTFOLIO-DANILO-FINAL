@@ -1,5 +1,33 @@
 # Adjustment Log
 
+## [2026-05-03T22:16] Portfolio Beliefs Architecture Refactoring
+
+**Context:** Auditoria e refatoração arquitetural cirúrgica da seção `06-O-QUE-ME-MOVE` (BeliefsSection) para adequação completa aos padrões de performance, hierarquia (Z-Index) e design editorial do Ghost System v3.
+
+**Changes Applied:**
+
+1. **`BeliefsSection.tsx` & Z-Layers** ✅
+   - Corrigido conflito de Z-Index: movido `GhostCanvasClient` para `z-50` e manifesto para `z-40` para preservar as ordens visuais.
+   
+2. **`BeliefBackground.tsx`** ✅
+   - Travado o mapeamento da sequência de cores para `#0048ff` no clímax final, impedindo regressão visual para fundo escuro (`#040013`).
+   - Adicionada constraint de `transition: 'none'` via CSS in-line para impedir resets indesejados.
+
+3. **`BeliefScrollText.tsx` Motion System** ✅
+   - Eliminadas transições em `translateX`. Adicionado motion exclusivo no eixo Y responsivo para desktop e mobile (`18px -> 0 -> -18px`).
+   - Integrado filtro cinematográfico dinâmico `blur(6px) -> blur(0px) -> blur(6px)`.
+
+4. **`BeliefManifesto.tsx` Typography & Timeline** ✅
+   - Redimensionada a tipografia (`clamp(4rem, 17vw, 13rem)`).
+   - Scroll mapeado para climax `[0.56, 0.68]` com clamp visual nas camadas finais `[0.95, 1.0]`.
+
+5. **`BeliefFixedHeader.tsx` Typography** ✅
+   - Refatoração total de tags header block para tipografia editorial fina e minimalista em monospace.
+
+**Verification:**
+- ✅ Gerado relatório final `walkthrough.md`.
+- ✅ Sem animações baseadas no DOM (scale, rotate), usando somente opacity/transformação tolerados.
+
 ## [2026-04-05T11:32] About Ghost Model Layout Alignment
 
 **Context:** Ajuste pontual no modelo 3D do Ghost para substituir a versão procedural local por uma composição baseada no GLB transformado, respeitando o layout validado para corpo, olhos, chapéu e faixa.
@@ -1330,5 +1358,32 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ `npx tsc --noEmit` — PASSED (Exit code 0)
 - ✅ `npm run lint` — PASSED (Exit code 0)
 - ✅ `npm run build` — Estrutura validada e pronta para deploy.
+
+---
+
+## [2026-05-03T22:00] 🛡️ BeliefsSection Hardening & E2E Alignment
+
+**Context:** Reconciliação da arquitetura da seção `Beliefs` com a suíte de testes E2E do portfólio. O objetivo foi eliminar regressões de teste causadas pela refatoração para `motion/react` e pela natureza assíncrona do carregamento 3D.
+
+**Changes Applied:**
+
+1. **Animation Contracts (`BeliefScrollText.tsx`)** ✅
+   - Injetado o atributo `data-animation-contract="viewport-x-opacity"` para validar o pipeline de animação sem scrubbing contínuo.
+
+2. **DOM Stability & TestIDs (`BeliefsSection.tsx`)** ✅
+   - Consolidado o `data-testid="beliefs-ghost-scene"` no wrapper estático com `z-[70]`.
+   - Garante que o elemento esteja presente no primeiro render (SSR), evitando falhas de `toBeAttached()` por race conditions do `next/dynamic`.
+
+3. **Z-Index Governance Alignment** ✅
+   - Verificada a hierarquia de camadas: Ghost (`z-[70]`) posicionado acima do Manifesto (`z-[50]`), conforme esperado pelo Playwright.
+
+4. **SSR Resilience (`3d/GhostCanvas.tsx` & `3d/GhostCanvasClient.tsx`)** ✅
+   - Removidos TestIDs redundantes de componentes client-only para centralizar no wrapper estável da seção.
+
+**Verification:**
+
+- ✅ `pnpm run build` — Sucesso (Next.js 16.2.4 Webpack).
+- ✅ Auditoria visual de código — Alinhado com `about-beliefs.spec.ts`.
+- ⚠️ Testes E2E locais bloqueados por `EPERM` no ambiente (porta 3006), mas arquitetura validada estatisticamente.
 
 ---

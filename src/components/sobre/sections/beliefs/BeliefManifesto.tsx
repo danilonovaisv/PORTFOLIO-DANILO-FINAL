@@ -23,8 +23,8 @@ export function BeliefManifesto({
   // Climax fade — Ghost System: only opacity, blur, translateY
   const opacity = useTransform(
     scrollProgress,
-    [0.85, 0.95, 0.98, 1],
-    [0, 1, 1, 0],
+    [0.56, 0.68, 0.95, 1],
+    [0, 1, 1, 1],
     {
       ease: ghostEase,
     }
@@ -54,7 +54,7 @@ export function BeliefManifesto({
 
   return (
     <motion.div
-      className="absolute inset-0 z-[50] flex items-center justify-center pointer-events-none"
+      className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none"
       data-testid="beliefs-manifesto"
       role="presentation"
       style={{
@@ -68,7 +68,7 @@ export function BeliefManifesto({
       >
         <motion.p
           className="font-display font-black text-white leading-[0.75] tracking-[-0.05em] uppercase mix-blend-difference"
-          style={{ fontSize: 'clamp(4rem, 22vw, 18rem)' }}
+          style={{ fontSize: 'clamp(4rem, 17vw, 13rem)' }}
           aria-hidden="true"
           variants={containerVariants}
           initial="hidden"

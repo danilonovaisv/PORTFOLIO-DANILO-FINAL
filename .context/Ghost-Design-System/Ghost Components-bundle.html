@@ -1,576 +1,1020 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ghost Interactive Components</title>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="colors_and_type.css">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #040013;
-    color: #fcffff;
-    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  .section-tag {
-    font-family: 'PPSupplyMono', 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #4fe6ff;
-    margin-bottom: 12px;
-  }
-  .section-title {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-  .section-desc {
-    font-size: 0.9rem;
-    color: #a1a3a3;
-    line-height: 1.6;
-    max-width: 480px;
-  }
-  canvas { display: block; }
-</style>
-</head>
-<body>
-<div id="root"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ghost Interactive Components</title>
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="colors_and_type.css" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #040013;
+        color: #fcffff;
+        font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      .section-tag {
+        font-family: 'PPSupplyMono', 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #4fe6ff;
+        margin-bottom: 12px;
+      }
+      .section-title {
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+      .section-desc {
+        font-size: 0.9rem;
+        color: #a1a3a3;
+        line-height: 1.6;
+        max-width: 480px;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
 
-<script type="text/babel">
-const { useState, useRef, useEffect, useCallback } = React;
+    <script type="text/babel">
+      const { useState, useRef, useEffect, useCallback } = React;
 
-/* ═══════════════════════════════════════════════════════════
+      /* ═══════════════════════════════════════════════════════════
    GHOST EASE
 ═══════════════════════════════════════════════════════════ */
-const GHOST_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+      const GHOST_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-/* ═══════════════════════════════════════════════════════════
+      /* ═══════════════════════════════════════════════════════════
    1. ANTIGRAVITY CTA
 ═══════════════════════════════════════════════════════════ */
-function ArrowUpRight({ size = 24, strokeWidth = 2.5 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-      <line x1="7" y1="17" x2="17" y2="7" />
-      <polyline points="7 7 17 7 17 17" />
-    </svg>
-  );
-}
+      function ArrowUpRight({ size = 24, strokeWidth = 2.5 }) {
+        return (
+          <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg>
+        );
+      }
 
-function AntigravityCTA({ text = "vamos trabalhar juntos", href = "#", color = "#0048ff", size = "default", className = "" }) {
-  const [hovered, setHovered] = useState(false);
-  const isCompact = size === "compact";
+      function AntigravityCTA({
+        text = 'vamos trabalhar juntos',
+        href = '#',
+        color = '#0048ff',
+        size = 'default',
+        className = '',
+      }) {
+        const [hovered, setHovered] = useState(false);
+        const isCompact = size === 'compact';
 
-  const transition = `all 0.24s ${GHOST_EASE}`;
+        const transition = `all 0.24s ${GHOST_EASE}`;
 
-  return (
-    <a
-      href={href}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: hovered ? (isCompact ? "14px" : "8px") : (isCompact ? "8px" : "2px"),
-        textDecoration: "none",
-        position: "relative",
-        cursor: "pointer",
-        transform: hovered ? "translateY(-1px)" : "translateY(0)",
-        transition,
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Purple glow backdrop */}
-      <div style={{
-        position: "absolute", inset: 0, borderRadius: "9999px",
-        background: "#8705f2",
-        filter: "blur(28px)",
-        opacity: hovered ? 0.22 : 0,
-        transition,
-        pointerEvents: "none",
-      }} />
+        return (
+          <a
+            href={href}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: hovered
+                ? isCompact
+                  ? '14px'
+                  : '8px'
+                : isCompact
+                  ? '8px'
+                  : '2px',
+              textDecoration: 'none',
+              position: 'relative',
+              cursor: 'pointer',
+              transform: hovered ? 'translateY(-1px)' : 'translateY(0)',
+              transition,
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            {/* Purple glow backdrop */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '9999px',
+                background: '#8705f2',
+                filter: 'blur(28px)',
+                opacity: hovered ? 0.22 : 0,
+                transition,
+                pointerEvents: 'none',
+              }}
+            />
 
-      {/* Pill label */}
-      <div style={{
-        position: "relative", zIndex: 10,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        borderRadius: "9999px",
-        backgroundColor: color,
-        color: "#fff",
-        fontWeight: 500,
-        letterSpacing: "0.04em",
-        whiteSpace: "nowrap",
-        ...(isCompact
-          ? { height: 40, padding: "0 16px 0 12px", fontSize: 14 }
-          : { height: 56, width: 300, padding: "0 28px", fontSize: 16 }
-        ),
-        transition,
-      }}>
-        {text} →
-      </div>
+            {/* Pill label */}
+            <div
+              style={{
+                position: 'relative',
+                zIndex: 10,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '9999px',
+                backgroundColor: color,
+                color: '#fff',
+                fontWeight: 500,
+                letterSpacing: '0.04em',
+                whiteSpace: 'nowrap',
+                ...(isCompact
+                  ? { height: 40, padding: '0 16px 0 12px', fontSize: 14 }
+                  : {
+                      height: 56,
+                      width: 300,
+                      padding: '0 28px',
+                      fontSize: 16,
+                    }),
+                transition,
+              }}
+            >
+              {text} →
+            </div>
 
-      {/* Arrow circle */}
-      <div style={{
-        position: "relative", zIndex: 20,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        borderRadius: "9999px",
-        backgroundColor: hovered ? "#8705f2" : color,
-        color: "#fff",
-        flexShrink: 0,
-        ...(isCompact
-          ? { width: 40, height: 40 }
-          : { width: 56, height: 56 }
-        ),
-        transform: hovered ? `translate(${isCompact ? 3 : 5}px, 0)` : "translate(0,0)",
-        boxShadow: hovered ? "0 0 0 1px rgba(135,5,242,0.2), 0 0 28px rgba(135,5,242,0.5)" : "none",
-        willChange: "transform, background-color",
-        transition,
-      }}>
-        <div style={{
-          transform: hovered ? "translate(2px, -2px)" : "translate(0,0)",
-          transition,
-        }}>
-          <ArrowUpRight size={isCompact ? 18 : 22} />
-        </div>
-      </div>
-    </a>
-  );
-}
+            {/* Arrow circle */}
+            <div
+              style={{
+                position: 'relative',
+                zIndex: 20,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '9999px',
+                backgroundColor: hovered ? '#8705f2' : color,
+                color: '#fff',
+                flexShrink: 0,
+                ...(isCompact
+                  ? { width: 40, height: 40 }
+                  : { width: 56, height: 56 }),
+                transform: hovered
+                  ? `translate(${isCompact ? 3 : 5}px, 0)`
+                  : 'translate(0,0)',
+                boxShadow: hovered
+                  ? '0 0 0 1px rgba(135,5,242,0.2), 0 0 28px rgba(135,5,242,0.5)'
+                  : 'none',
+                willChange: 'transform, background-color',
+                transition,
+              }}
+            >
+              <div
+                style={{
+                  transform: hovered
+                    ? 'translate(2px, -2px)'
+                    : 'translate(0,0)',
+                  transition,
+                }}
+              >
+                <ArrowUpRight size={isCompact ? 18 : 22} />
+              </div>
+            </div>
+          </a>
+        );
+      }
 
-/* ═══════════════════════════════════════════════════════════
+      /* ═══════════════════════════════════════════════════════════
    2. FEATURED PROJECT CARD (Ghost Card BG)
 ═══════════════════════════════════════════════════════════ */
-function GhostCard({ title, category, year, color = "#0048ff", thumb }) {
-  const [hovered, setHovered] = useState(false);
-  const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });
-  const cardRef = useRef(null);
+      function GhostCard({ title, category, year, color = '#0048ff', thumb }) {
+        const [hovered, setHovered] = useState(false);
+        const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });
+        const cardRef = useRef(null);
 
-  const handleMouseMove = useCallback((e) => {
-    const rect = cardRef.current.getBoundingClientRect();
-    setMouse({
-      x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
-    });
-  }, []);
+        const handleMouseMove = useCallback((e) => {
+          const rect = cardRef.current.getBoundingClientRect();
+          setMouse({
+            x: (e.clientX - rect.left) / rect.width,
+            y: (e.clientY - rect.top) / rect.height,
+          });
+        }, []);
 
-  const rotX = hovered ? (mouse.y - 0.5) * -6 : 0;
-  const rotY = hovered ? (mouse.x - 0.5) * 6 : 0;
-  const glowX = mouse.x * 100;
-  const glowY = mouse.y * 100;
-  const transition = `all 0.35s ${GHOST_EASE}`;
+        const rotX = hovered ? (mouse.y - 0.5) * -6 : 0;
+        const rotY = hovered ? (mouse.x - 0.5) * 6 : 0;
+        const glowX = mouse.x * 100;
+        const glowY = mouse.y * 100;
+        const transition = `all 0.35s ${GHOST_EASE}`;
 
-  return (
-    <div
-      ref={cardRef}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => { setHovered(false); setMouse({ x: 0.5, y: 0.5 }); }}
-      onMouseMove={handleMouseMove}
-      style={{
-        position: "relative",
-        width: "100%",
-        aspectRatio: "4/5",
-        borderRadius: 16,
-        overflow: "hidden",
-        cursor: "pointer",
-        transform: hovered
-          ? `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`
-          : "perspective(800px) rotateX(0) rotateY(0) scale(1)",
-        transition,
-        willChange: "transform",
-        border: "1px solid rgba(255,255,255,0.08)",
-      }}
-    >
-      {/* BG gradient */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: `linear-gradient(135deg, #0b0d3a 0%, #040013 100%)`,
-        zIndex: 0,
-      }} />
-
-      {/* Mouse glow */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1,
-        background: `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(135,5,242,${hovered ? 0.18 : 0.06}) 0%, transparent 60%)`,
-        transition: hovered ? "none" : transition,
-        pointerEvents: "none",
-      }} />
-
-      {/* Thumbnail / logo area */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 2,
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}>
-        {thumb ? (
-          <div style={{
-            width: "100%", height: "100%",
-            background: `url(${thumb}) center/cover`,
-            opacity: 0.5,
-          }} />
-        ) : (
-          <div style={{
-            width: 72, height: 72, borderRadius: "50%",
-            border: "1px solid rgba(255,255,255,0.12)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            background: "rgba(255,255,255,0.04)",
-            opacity: hovered ? 0.6 : 0.3,
-            transition,
-          }}>
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect x="6" y="6" width="8" height="8" rx="1" fill="#4fe6ff" opacity="0.6"/>
-              <rect x="18" y="6" width="8" height="8" rx="1" fill="#0048ff" opacity="0.8"/>
-              <rect x="6" y="18" width="8" height="8" rx="1" fill="#8705f2" opacity="0.7"/>
-              <rect x="18" y="18" width="8" height="8" rx="1" fill="#4fe6ff" opacity="0.5"/>
-            </svg>
-          </div>
-        )}
-      </div>
-
-      {/* Bottom overlay */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10,
-        padding: "48px 20px 20px",
-        background: "linear-gradient(to top, rgba(4,0,19,0.95) 0%, transparent 100%)",
-      }}>
-        <div style={{
-          display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 8,
-        }}>
-          <div>
-            <div style={{
-              fontFamily: "'PPSupplyMono','Space Mono',monospace",
-              fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase",
-              color: "#a1a3a3", marginBottom: 6,
-            }}>
-              {category} · {year}
-            </div>
-            <div style={{
-              fontSize: 18, fontWeight: 600, lineHeight: 1.2,
-              color: hovered ? "#4fe6ff" : "#fcffff",
+        return (
+          <div
+            ref={cardRef}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => {
+              setHovered(false);
+              setMouse({ x: 0.5, y: 0.5 });
+            }}
+            onMouseMove={handleMouseMove}
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '4/5',
+              borderRadius: 16,
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transform: hovered
+                ? `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`
+                : 'perspective(800px) rotateX(0) rotateY(0) scale(1)',
               transition,
-            }}>
-              {title}
+              willChange: 'transform',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
+          >
+            {/* BG gradient */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: `linear-gradient(135deg, #0b0d3a 0%, #040013 100%)`,
+                zIndex: 0,
+              }}
+            />
+
+            {/* Mouse glow */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 1,
+                background: `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(135,5,242,${hovered ? 0.18 : 0.06}) 0%, transparent 60%)`,
+                transition: hovered ? 'none' : transition,
+                pointerEvents: 'none',
+              }}
+            />
+
+            {/* Thumbnail / logo area */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {thumb ? (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    background: `url(${thumb}) center/cover`,
+                    opacity: 0.5,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 72,
+                    height: 72,
+                    borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(255,255,255,0.04)',
+                    opacity: hovered ? 0.6 : 0.3,
+                    transition,
+                  }}
+                >
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect
+                      x="6"
+                      y="6"
+                      width="8"
+                      height="8"
+                      rx="1"
+                      fill="#4fe6ff"
+                      opacity="0.6"
+                    />
+                    <rect
+                      x="18"
+                      y="6"
+                      width="8"
+                      height="8"
+                      rx="1"
+                      fill="#0048ff"
+                      opacity="0.8"
+                    />
+                    <rect
+                      x="6"
+                      y="18"
+                      width="8"
+                      height="8"
+                      rx="1"
+                      fill="#8705f2"
+                      opacity="0.7"
+                    />
+                    <rect
+                      x="18"
+                      y="18"
+                      width="8"
+                      height="8"
+                      rx="1"
+                      fill="#4fe6ff"
+                      opacity="0.5"
+                    />
+                  </svg>
+                </div>
+              )}
             </div>
+
+            {/* Bottom overlay */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                zIndex: 10,
+                padding: '48px 20px 20px',
+                background:
+                  'linear-gradient(to top, rgba(4,0,19,0.95) 0%, transparent 100%)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-between',
+                  gap: 8,
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "'PPSupplyMono','Space Mono',monospace",
+                      fontSize: 9,
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      color: '#a1a3a3',
+                      marginBottom: 6,
+                    }}
+                  >
+                    {category} · {year}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 600,
+                      lineHeight: 1.2,
+                      color: hovered ? '#4fe6ff' : '#fcffff',
+                      transition,
+                    }}
+                  >
+                    {title}
+                  </div>
+                </div>
+
+                {/* Small CTA circle */}
+                <div
+                  style={{
+                    flexShrink: 0,
+                    width: 44,
+                    height: 44,
+                    borderRadius: '50%',
+                    background: hovered ? '#8705f2' : color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    transform: hovered ? 'translateX(4px)' : 'translateX(0)',
+                    boxShadow: hovered
+                      ? '0 0 28px rgba(135,5,242,0.55)'
+                      : 'none',
+                    transition,
+                    willChange: 'transform, background-color',
+                  }}
+                >
+                  <ArrowUpRight size={18} />
+                </div>
+              </div>
+            </div>
+
+            {/* Edge glow on hover */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 3,
+                borderRadius: 16,
+                boxShadow: hovered
+                  ? 'inset 0 0 0 1px rgba(135,5,242,0.35), 0 0 40px rgba(135,5,242,0.18)'
+                  : 'inset 0 0 0 1px rgba(255,255,255,0.06)',
+                transition,
+                pointerEvents: 'none',
+              }}
+            />
           </div>
+        );
+      }
 
-          {/* Small CTA circle */}
-          <div style={{
-            flexShrink: 0,
-            width: 44, height: 44, borderRadius: "50%",
-            background: hovered ? "#8705f2" : color,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            color: "#fff",
-            transform: hovered ? "translateX(4px)" : "translateX(0)",
-            boxShadow: hovered ? "0 0 28px rgba(135,5,242,0.55)" : "none",
-            transition,
-            willChange: "transform, background-color",
-          }}>
-            <ArrowUpRight size={18} />
-          </div>
-        </div>
-      </div>
-
-      {/* Edge glow on hover */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 3,
-        borderRadius: 16,
-        boxShadow: hovered ? "inset 0 0 0 1px rgba(135,5,242,0.35), 0 0 40px rgba(135,5,242,0.18)" : "inset 0 0 0 1px rgba(255,255,255,0.06)",
-        transition,
-        pointerEvents: "none",
-      }} />
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
+      /* ═══════════════════════════════════════════════════════════
    3. GRAINIENT BACKGROUND (Canvas WebGL-style via 2D)
 ═══════════════════════════════════════════════════════════ */
-function GrainientBG({ color1 = "#0048ff", color2 = "#996fd6", color3 = "#8705f2",
-  timeSpeed = 0.25, warpStrength = 1, warpFrequency = 5,
-  grainAmount = 0.1, contrast = 1.5, children }) {
+      function GrainientBG({
+        color1 = '#0048ff',
+        color2 = '#996fd6',
+        color3 = '#8705f2',
+        timeSpeed = 0.25,
+        warpStrength = 1,
+        warpFrequency = 5,
+        grainAmount = 0.1,
+        contrast = 1.5,
+        children,
+      }) {
+        const canvasRef = useRef(null);
+        const animRef = useRef(null);
+        const tRef = useRef(0);
 
-  const canvasRef = useRef(null);
-  const animRef = useRef(null);
-  const tRef = useRef(0);
+        // Parse hex to rgb
+        const hexToRgb = (hex) => {
+          const r = parseInt(hex.slice(1, 3), 16) / 255;
+          const g = parseInt(hex.slice(3, 5), 16) / 255;
+          const b = parseInt(hex.slice(5, 7), 16) / 255;
+          return [r, g, b];
+        };
 
-  // Parse hex to rgb
-  const hexToRgb = (hex) => {
-    const r = parseInt(hex.slice(1,3), 16) / 255;
-    const g = parseInt(hex.slice(3,5), 16) / 255;
-    const b = parseInt(hex.slice(5,7), 16) / 255;
-    return [r, g, b];
-  };
+        useEffect(() => {
+          const canvas = canvasRef.current;
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const c1 = hexToRgb(color1);
+          const c2 = hexToRgb(color2);
+          const c3 = hexToRgb(color3);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const c1 = hexToRgb(color1);
-    const c2 = hexToRgb(color2);
-    const c3 = hexToRgb(color3);
+          const W = 400,
+            H = 300;
+          canvas.width = W;
+          canvas.height = H;
 
-    const W = 400, H = 300;
-    canvas.width = W;
-    canvas.height = H;
+          // Simple noise via sin/cos warp
+          const noise = (x, y, t) => {
+            const wx =
+              Math.sin(x * warpFrequency * 0.3 + t * 1.1) * warpStrength;
+            const wy =
+              Math.cos(y * warpFrequency * 0.3 + t * 0.8) * warpStrength;
+            const v =
+              (Math.sin((x + wx) * 2.1 + t) +
+                Math.cos((y + wy) * 1.7 - t * 0.7)) *
+                0.5 +
+              0.5;
+            return v;
+          };
 
-    // Simple noise via sin/cos warp
-    const noise = (x, y, t) => {
-      const wx = Math.sin(x * warpFrequency * 0.3 + t * 1.1) * warpStrength;
-      const wy = Math.cos(y * warpFrequency * 0.3 + t * 0.8) * warpStrength;
-      const v = (Math.sin((x + wx) * 2.1 + t) + Math.cos((y + wy) * 1.7 - t * 0.7)) * 0.5 + 0.5;
-      return v;
-    };
+          const imageData = ctx.createImageData(W, H);
+          const data = imageData.data;
 
-    const imageData = ctx.createImageData(W, H);
-    const data = imageData.data;
+          const draw = () => {
+            tRef.current += timeSpeed * 0.016;
+            const t = tRef.current;
 
-    const draw = () => {
-      tRef.current += timeSpeed * 0.016;
-      const t = tRef.current;
+            for (let y = 0; y < H; y++) {
+              for (let x = 0; x < W; x++) {
+                const nx = x / W;
+                const ny = y / H;
 
-      for (let y = 0; y < H; y++) {
-        for (let x = 0; x < W; x++) {
-          const nx = x / W;
-          const ny = y / H;
+                // Two noise layers blended
+                const v1 = noise(nx, ny, t);
+                const v2 = noise(nx * 1.5 + 0.3, ny * 1.5 - 0.2, t * 0.7);
+                const blend = (v1 + v2 * 0.6) / 1.6;
 
-          // Two noise layers blended
-          const v1 = noise(nx, ny, t);
-          const v2 = noise(nx * 1.5 + 0.3, ny * 1.5 - 0.2, t * 0.7);
-          const blend = (v1 + v2 * 0.6) / 1.6;
+                // Three-color gradient
+                let r, g, b;
+                if (blend < 0.5) {
+                  const f = blend * 2;
+                  r = c1[0] + (c2[0] - c1[0]) * f;
+                  g = c1[1] + (c2[1] - c1[1]) * f;
+                  b = c1[2] + (c2[2] - c1[2]) * f;
+                } else {
+                  const f = (blend - 0.5) * 2;
+                  r = c2[0] + (c3[0] - c2[0]) * f;
+                  g = c2[1] + (c3[1] - c2[1]) * f;
+                  b = c2[2] + (c3[2] - c2[2]) * f;
+                }
 
-          // Three-color gradient
-          let r, g, b;
-          if (blend < 0.5) {
-            const f = blend * 2;
-            r = c1[0] + (c2[0] - c1[0]) * f;
-            g = c1[1] + (c2[1] - c1[1]) * f;
-            b = c1[2] + (c2[2] - c1[2]) * f;
-          } else {
-            const f = (blend - 0.5) * 2;
-            r = c2[0] + (c3[0] - c2[0]) * f;
-            g = c2[1] + (c3[1] - c2[1]) * f;
-            b = c2[2] + (c3[2] - c2[2]) * f;
-          }
+                // Contrast
+                r = Math.pow(
+                  Math.max(0, Math.min(1, (r - 0.5) * contrast + 0.5)),
+                  1
+                );
+                g = Math.pow(
+                  Math.max(0, Math.min(1, (g - 0.5) * contrast + 0.5)),
+                  1
+                );
+                b = Math.pow(
+                  Math.max(0, Math.min(1, (b - 0.5) * contrast + 0.5)),
+                  1
+                );
 
-          // Contrast
-          r = Math.pow(Math.max(0, Math.min(1, (r - 0.5) * contrast + 0.5)), 1);
-          g = Math.pow(Math.max(0, Math.min(1, (g - 0.5) * contrast + 0.5)), 1);
-          b = Math.pow(Math.max(0, Math.min(1, (b - 0.5) * contrast + 0.5)), 1);
+                // Grain
+                const grain = (Math.random() - 0.5) * grainAmount;
+                r = Math.max(0, Math.min(1, r + grain));
+                g = Math.max(0, Math.min(1, g + grain));
+                b = Math.max(0, Math.min(1, b + grain));
 
-          // Grain
-          const grain = (Math.random() - 0.5) * grainAmount;
-          r = Math.max(0, Math.min(1, r + grain));
-          g = Math.max(0, Math.min(1, g + grain));
-          b = Math.max(0, Math.min(1, b + grain));
+                const i = (y * W + x) * 4;
+                data[i] = r * 255;
+                data[i + 1] = g * 255;
+                data[i + 2] = b * 255;
+                data[i + 3] = 255;
+              }
+            }
+            ctx.putImageData(imageData, 0, 0);
+            animRef.current = requestAnimationFrame(draw);
+          };
 
-          const i = (y * W + x) * 4;
-          data[i]   = r * 255;
-          data[i+1] = g * 255;
-          data[i+2] = b * 255;
-          data[i+3] = 255;
-        }
+          animRef.current = requestAnimationFrame(draw);
+          return () => cancelAnimationFrame(animRef.current);
+        }, [
+          color1,
+          color2,
+          color3,
+          timeSpeed,
+          warpStrength,
+          warpFrequency,
+          grainAmount,
+          contrast,
+        ]);
+
+        return (
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '100%',
+              overflow: 'hidden',
+              borderRadius: 16,
+            }}
+          >
+            <canvas
+              ref={canvasRef}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                imageRendering: 'auto',
+              }}
+            />
+            {/* Soft dark overlay to not compete with content */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background:
+                  'radial-gradient(ellipse at 50% 50%, rgba(4,0,19,0.25) 0%, rgba(4,0,19,0.55) 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div style={{ position: 'relative', zIndex: 10, height: '100%' }}>
+              {children}
+            </div>
+          </div>
+        );
       }
-      ctx.putImageData(imageData, 0, 0);
-      animRef.current = requestAnimationFrame(draw);
-    };
 
-    animRef.current = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(animRef.current);
-  }, [color1, color2, color3, timeSpeed, warpStrength, warpFrequency, grainAmount, contrast]);
-
-  return (
-    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: 16 }}>
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "absolute", inset: 0,
-          width: "100%", height: "100%",
-          imageRendering: "auto",
-        }}
-      />
-      {/* Soft dark overlay to not compete with content */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "radial-gradient(ellipse at 50% 50%, rgba(4,0,19,0.25) 0%, rgba(4,0,19,0.55) 100%)",
-        pointerEvents: "none",
-      }} />
-      <div style={{ position: "relative", zIndex: 10, height: "100%" }}>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
+      /* ═══════════════════════════════════════════════════════════
    DEMO SHOWCASE
 ═══════════════════════════════════════════════════════════ */
-function App() {
-  return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: "48px 24px 80px" }}>
+      function App() {
+        return (
+          <div
+            style={{
+              maxWidth: 960,
+              margin: '0 auto',
+              padding: '48px 24px 80px',
+            }}
+          >
+            {/* ── Header ── */}
+            <div style={{ marginBottom: 64 }}>
+              <div className="section-tag">
+                Ghost Design System · Componentes Interativos
+              </div>
+              <h1
+                style={{
+                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  fontWeight: 800,
+                  lineHeight: 1.05,
+                  letterSpacing: '-0.04em',
+                  marginBottom: 12,
+                }}
+              >
+                Antigravidade.
+                <br />
+                <span style={{ color: '#4fe6ff' }}>Presença sem ruído.</span>
+              </h1>
+              <p className="section-desc">
+                Três componentes base do Ghost System — CTA, cards de projeto e
+                background de landing page. Passe o mouse para ver as
+                interações.
+              </p>
+            </div>
 
-      {/* ── Header ── */}
-      <div style={{ marginBottom: 64 }}>
-        <div className="section-tag">Ghost Design System · Componentes Interativos</div>
-        <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.04em", marginBottom: 12 }}>
-          Antigravidade.<br/>
-          <span style={{ color: "#4fe6ff" }}>Presença sem ruído.</span>
-        </h1>
-        <p className="section-desc">
-          Três componentes base do Ghost System — CTA, cards de projeto e background de landing page. Passe o mouse para ver as interações.
-        </p>
-      </div>
-
-      {/* ══════════════════════════════════════════
+            {/* ══════════════════════════════════════════
           SECTION 1: ANTIGRAVITY CTA
       ══════════════════════════════════════════ */}
-      <section style={{ marginBottom: 72 }}>
-        <div className="section-tag">Componente 01</div>
-        <h2 className="section-title">Antigravity CTA</h2>
-        <p className="section-desc" style={{ marginBottom: 40 }}>
-          Estado default (pílula) e compact (circular). Hover ativa o purple glow + separação da seta.
-        </p>
+            <section style={{ marginBottom: 72 }}>
+              <div className="section-tag">Componente 01</div>
+              <h2 className="section-title">Antigravity CTA</h2>
+              <p className="section-desc" style={{ marginBottom: 40 }}>
+                Estado default (pílula) e compact (circular). Hover ativa o
+                purple glow + separação da seta.
+              </p>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 32, alignItems: "center" }}>
-          {/* Default */}
-          <div>
-            <div style={{ fontSize: 11, color: "#a1a3a3", marginBottom: 12, fontFamily: "monospace", letterSpacing: "0.1em", textTransform: "uppercase" }}>Default · Brand Blue</div>
-            <AntigravityCTA text="vamos trabalhar juntos" color="#0048ff" />
-          </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 32,
+                  alignItems: 'center',
+                }}
+              >
+                {/* Default */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: '#a1a3a3',
+                      marginBottom: 12,
+                      fontFamily: 'monospace',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Default · Brand Blue
+                  </div>
+                  <AntigravityCTA
+                    text="vamos trabalhar juntos"
+                    color="#0048ff"
+                  />
+                </div>
 
-          {/* Default purple */}
-          <div>
-            <div style={{ fontSize: 11, color: "#a1a3a3", marginBottom: 12, fontFamily: "monospace", letterSpacing: "0.1em", textTransform: "uppercase" }}>Default · Purple</div>
-            <AntigravityCTA text="ver portfólio" color="#8705f2" />
-          </div>
+                {/* Default purple */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: '#a1a3a3',
+                      marginBottom: 12,
+                      fontFamily: 'monospace',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Default · Purple
+                  </div>
+                  <AntigravityCTA text="ver portfólio" color="#8705f2" />
+                </div>
 
-          {/* Compact */}
-          <div>
-            <div style={{ fontSize: 11, color: "#a1a3a3", marginBottom: 12, fontFamily: "monospace", letterSpacing: "0.1em", textTransform: "uppercase" }}>Compact</div>
-            <AntigravityCTA text="voltar" color="#0048ff" size="compact" />
-          </div>
-        </div>
-      </section>
+                {/* Compact */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: '#a1a3a3',
+                      marginBottom: 12,
+                      fontFamily: 'monospace',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Compact
+                  </div>
+                  <AntigravityCTA
+                    text="voltar"
+                    color="#0048ff"
+                    size="compact"
+                  />
+                </div>
+              </div>
+            </section>
 
-      {/* ══════════════════════════════════════════
+            {/* ══════════════════════════════════════════
           SECTION 2: GHOST CARDS
       ══════════════════════════════════════════ */}
-      <section style={{ marginBottom: 72 }}>
-        <div className="section-tag">Componente 02</div>
-        <h2 className="section-title">Featured Project Cards</h2>
-        <p className="section-desc" style={{ marginBottom: 40 }}>
-          Mouse tracking com leve perspectiva 3D, glow de cursor e transição de cor no CTA circle.
-        </p>
+            <section style={{ marginBottom: 72 }}>
+              <div className="section-tag">Componente 02</div>
+              <h2 className="section-title">Featured Project Cards</h2>
+              <p className="section-desc" style={{ marginBottom: 40 }}>
+                Mouse tracking com leve perspectiva 3D, glow de cursor e
+                transição de cor no CTA circle.
+              </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 20, maxWidth: 720 }}>
-          <GhostCard title="Magic — devolvendo a magia ao rádio" category="Branding" year={2023} color="#0048ff" />
-          <GhostCard title="Uma marca ousada e consistente" category="Identidade" year={2022} color="#8705f2" />
-          <GhostCard title="Key visual campanha sazonal" category="Campanha" year={2021} color="#0048ff" />
-        </div>
-      </section>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                  gap: 20,
+                  maxWidth: 720,
+                }}
+              >
+                <GhostCard
+                  title="Magic — devolvendo a magia ao rádio"
+                  category="Branding"
+                  year={2023}
+                  color="#0048ff"
+                />
+                <GhostCard
+                  title="Uma marca ousada e consistente"
+                  category="Identidade"
+                  year={2022}
+                  color="#8705f2"
+                />
+                <GhostCard
+                  title="Key visual campanha sazonal"
+                  category="Campanha"
+                  year={2021}
+                  color="#0048ff"
+                />
+              </div>
+            </section>
 
-      {/* ══════════════════════════════════════════
+            {/* ══════════════════════════════════════════
           SECTION 3: GRAINIENT BACKGROUND
       ══════════════════════════════════════════ */}
-      <section style={{ marginBottom: 72 }}>
-        <div className="section-tag">Componente 03</div>
-        <h2 className="section-title">Grainient Landing Background</h2>
-        <p className="section-desc" style={{ marginBottom: 40 }}>
-          Gradiente orgânico animado com grain/ruído. Fluido, premium, sem competir com o conteúdo.
-        </p>
-
-        <div style={{ height: 400, borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)" }}>
-          <GrainientBG
-            color1="#0048ff"
-            color2="#996fd6"
-            color3="#8705f2"
-            timeSpeed={0.25}
-            warpStrength={1}
-            warpFrequency={5}
-            grainAmount={0.1}
-            contrast={1.5}
-          >
-            <div style={{
-              height: "100%",
-              display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center",
-              padding: 32, textAlign: "center", gap: 24,
-            }}>
-              <div style={{
-                fontFamily: "monospace", fontSize: 10,
-                letterSpacing: "0.3em", textTransform: "uppercase",
-                color: "rgba(255,255,255,0.6)"
-              }}>[ LANDING PAGE HERO ]</div>
-              <h2 style={{
-                fontSize: "clamp(2rem, 6vw, 3.5rem)",
-                fontWeight: 800, lineHeight: 1.0,
-                letterSpacing: "-0.04em",
-                color: "#fff",
-                textShadow: "0 0 60px rgba(79,230,255,0.3)",
-              }}>
-                Você não vê<br/>o design.
-              </h2>
-              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 16, maxWidth: 320 }}>
-                Mas ele vê você.
+            <section style={{ marginBottom: 72 }}>
+              <div className="section-tag">Componente 03</div>
+              <h2 className="section-title">Grainient Landing Background</h2>
+              <p className="section-desc" style={{ marginBottom: 40 }}>
+                Gradiente orgânico animado com grain/ruído. Fluido, premium, sem
+                competir com o conteúdo.
               </p>
-              <AntigravityCTA text="step inside" color="#fff" />
-            </div>
-          </GrainientBG>
-        </div>
 
-        {/* Variant preview */}
-        <div style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-          <div style={{ height: 120, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <GrainientBG color1="#0048ff" color2="#4fe6ff" color3="#0b0d3a" timeSpeed={0.15} warpStrength={0.6} grainAmount={0.06} contrast={1.3}>
-              <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 12, fontFamily: "monospace", color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em" }}>VARIANTE CYAN</span>
+              <div
+                style={{
+                  height: 400,
+                  borderRadius: 16,
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <GrainientBG
+                  color1="#0048ff"
+                  color2="#996fd6"
+                  color3="#8705f2"
+                  timeSpeed={0.25}
+                  warpStrength={1}
+                  warpFrequency={5}
+                  grainAmount={0.1}
+                  contrast={1.5}
+                >
+                  <div
+                    style={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: 32,
+                      textAlign: 'center',
+                      gap: 24,
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        letterSpacing: '0.3em',
+                        textTransform: 'uppercase',
+                        color: 'rgba(255,255,255,0.6)',
+                      }}
+                    >
+                      [ LANDING PAGE HERO ]
+                    </div>
+                    <h2
+                      style={{
+                        fontSize: 'clamp(2rem, 6vw, 3.5rem)',
+                        fontWeight: 800,
+                        lineHeight: 1.0,
+                        letterSpacing: '-0.04em',
+                        color: '#fff',
+                        textShadow: '0 0 60px rgba(79,230,255,0.3)',
+                      }}
+                    >
+                      Você não vê
+                      <br />o design.
+                    </h2>
+                    <p
+                      style={{
+                        color: 'rgba(255,255,255,0.65)',
+                        fontSize: 16,
+                        maxWidth: 320,
+                      }}
+                    >
+                      Mas ele vê você.
+                    </p>
+                    <AntigravityCTA text="step inside" color="#fff" />
+                  </div>
+                </GrainientBG>
               </div>
-            </GrainientBG>
-          </div>
-          <div style={{ height: 120, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <GrainientBG color1="#8705f2" color2="#f501d3" color3="#0048ff" timeSpeed={0.35} warpStrength={1.4} grainAmount={0.12} contrast={1.6}>
-              <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 12, fontFamily: "monospace", color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em" }}>VARIANTE PINK</span>
+
+              {/* Variant preview */}
+              <div
+                style={{
+                  marginTop: 20,
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 16,
+                }}
+              >
+                <div
+                  style={{
+                    height: 120,
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <GrainientBG
+                    color1="#0048ff"
+                    color2="#4fe6ff"
+                    color3="#0b0d3a"
+                    timeSpeed={0.15}
+                    warpStrength={0.6}
+                    grainAmount={0.06}
+                    contrast={1.3}
+                  >
+                    <div
+                      style={{
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: 'rgba(255,255,255,0.5)',
+                          letterSpacing: '0.2em',
+                        }}
+                      >
+                        VARIANTE CYAN
+                      </span>
+                    </div>
+                  </GrainientBG>
+                </div>
+                <div
+                  style={{
+                    height: 120,
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <GrainientBG
+                    color1="#8705f2"
+                    color2="#f501d3"
+                    color3="#0048ff"
+                    timeSpeed={0.35}
+                    warpStrength={1.4}
+                    grainAmount={0.12}
+                    contrast={1.6}
+                  >
+                    <div
+                      style={{
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: 'rgba(255,255,255,0.5)',
+                          letterSpacing: '0.2em',
+                        }}
+                      >
+                        VARIANTE PINK
+                      </span>
+                    </div>
+                  </GrainientBG>
+                </div>
               </div>
-            </GrainientBG>
+            </section>
+
+            {/* ── Token reference ── */}
+            <section>
+              <div className="section-tag">Referência</div>
+              <h2 className="section-title" style={{ marginBottom: 20 }}>
+                Motion Tokens
+              </h2>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                  gap: 12,
+                }}
+              >
+                {[
+                  {
+                    name: 'GHOST_EASE',
+                    value: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                    desc: 'UI / Hover / Cards',
+                  },
+                  {
+                    name: 'Duration Fast',
+                    value: '0.2s',
+                    desc: 'Botões, micro-interactions',
+                  },
+                  {
+                    name: 'Duration Normal',
+                    value: '0.8s',
+                    desc: 'Reveals, sections',
+                  },
+                  {
+                    name: 'Duration Slow',
+                    value: '1.5s+',
+                    desc: 'Backgrounds, glows',
+                  },
+                  {
+                    name: 'Y Offset Max',
+                    value: '18px',
+                    desc: 'translateY máximo (content)',
+                  },
+                  { name: 'Stagger', value: '0.1s', desc: 'Listas e grids' },
+                ].map((t) => (
+                  <div
+                    key={t.name}
+                    style={{
+                      background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid rgba(255,255,255,0.07)',
+                      borderRadius: 10,
+                      padding: '14px 16px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: 'monospace',
+                        fontSize: 9,
+                        color: '#4fe6ff',
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase',
+                        marginBottom: 6,
+                      }}
+                    >
+                      {t.name}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                        color: '#fcffff',
+                        marginBottom: 4,
+                      }}
+                    >
+                      {t.value}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#a1a3a3' }}>
+                      {t.desc}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
-        </div>
-      </section>
+        );
+      }
 
-      {/* ── Token reference ── */}
-      <section>
-        <div className="section-tag">Referência</div>
-        <h2 className="section-title" style={{ marginBottom: 20 }}>Motion Tokens</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
-          {[
-            { name: "GHOST_EASE", value: "cubic-bezier(0.22, 1, 0.36, 1)", desc: "UI / Hover / Cards" },
-            { name: "Duration Fast", value: "0.2s", desc: "Botões, micro-interactions" },
-            { name: "Duration Normal", value: "0.8s", desc: "Reveals, sections" },
-            { name: "Duration Slow", value: "1.5s+", desc: "Backgrounds, glows" },
-            { name: "Y Offset Max", value: "18px", desc: "translateY máximo (content)" },
-            { name: "Stagger", value: "0.1s", desc: "Listas e grids" },
-          ].map(t => (
-            <div key={t.name} style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              borderRadius: 10, padding: "14px 16px",
-            }}>
-              <div style={{ fontFamily: "monospace", fontSize: 9, color: "#4fe6ff", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 6 }}>{t.name}</div>
-              <div style={{ fontFamily: "monospace", fontSize: 12, color: "#fcffff", marginBottom: 4 }}>{t.value}</div>
-              <div style={{ fontSize: 11, color: "#a1a3a3" }}>{t.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-</script>
-</body>
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
 </html>

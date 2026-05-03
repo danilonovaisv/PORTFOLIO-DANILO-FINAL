@@ -75,10 +75,15 @@ export function BeliefsSection() {
 
           <BeliefScrollText
             phrases={PHRASES}
+            scrollProgress={scrollYProgress}
             prefersReducedMotion={prefersReducedMotion}
           />
 
-          <div className="absolute inset-0 z-[70] pointer-events-none">
+          <div
+            className="absolute inset-0 z-50 pointer-events-none"
+            data-testid="beliefs-ghost-scene"
+            aria-hidden="true"
+          >
             <GhostErrorBoundary>
               <GhostCanvasClient scrollProgress={scrollYProgress} />
             </GhostErrorBoundary>

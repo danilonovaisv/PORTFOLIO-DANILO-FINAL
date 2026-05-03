@@ -24,23 +24,20 @@ export function BeliefBackground({
   const colorValues = [
     '#040013', // Abertura
     toHsl(colorPalette.bluePrimary), // Frase 1
-    toHsl(colorPalette.purpleDetails), // Frase 2
-    toHsl(colorPalette.pinkDetails), // Frase 3
+    toHsl(colorPalette.blueDeep), // Frase 2
+    toHsl(colorPalette.blueCyan), // Frase 3
     toHsl(colorPalette.bluePrimary), // Frase 4
-    toHsl(colorPalette.purpleDetails), // Frase 5
-    toHsl(colorPalette.pinkDetails), // Frase 6
-    '#040013', // Saída
+    toHsl(colorPalette.blueDeep), // Frase 5
+    toHsl(colorPalette.bluePrimary), // Frase 6 - trava final
+    toHsl(colorPalette.bluePrimary), // Saída - trava final
   ];
 
   const step = 1 / (colorValues.length - 1);
   const points = colorValues.map((_, i) => i * step);
 
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    points,
-    colorValues,
-    { clamp: true }
-  );
+  const backgroundColor = useTransform(scrollYProgress, points, colorValues, {
+    clamp: true,
+  });
 
   const opacity = useTransform(
     scrollYProgress,
@@ -55,6 +52,7 @@ export function BeliefBackground({
       style={{
         backgroundColor,
         opacity: prefersReducedMotion ? 0.94 : opacity,
+        transition: 'none',
         willChange: 'background-color, opacity',
       }}
       aria-hidden="true"

@@ -226,7 +226,6 @@ function GhostSceneFrame({ children }: { children: ReactNode }) {
   return (
     <div
       className="sticky md:top-0 top-[20vh] h-[100dvh] w-full z-[70] pointer-events-none"
-      data-testid="beliefs-ghost-scene"
       aria-hidden="true"
     >
       {children}

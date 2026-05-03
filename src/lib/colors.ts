@@ -8,7 +8,6 @@
  */
 const ghostEasing = (t: number): number => {
   // cubic-bezier(0.4, 0, 0.2, 1)
-  // Aproximação rápida usando polinômio ajustado
   const p1x = 0.4,
     p1y = 0.0,
     p2x = 0.2,
@@ -45,10 +44,8 @@ export const interpolateHSL = (
   endHSL: [number, number, number],
   t: number
 ): string => {
-  // Aplica Ghost Easing ao progresso linear
   const easedT = ghostEasing(Math.max(0, Math.min(1, t)));
 
-  // Copia para não mutar os originais
   let h1 = startHSL[0];
   const s1 = startHSL[1];
   const l1 = startHSL[2];
@@ -56,7 +53,6 @@ export const interpolateHSL = (
   const s2 = endHSL[1];
   const l2 = endHSL[2];
 
-  // Interpolação de matiz com tratamento de circularidade
   const deltaH = h2 - h1;
   if (Math.abs(deltaH) > 180) {
     if (deltaH > 0) {
@@ -73,20 +69,21 @@ export const interpolateHSL = (
   return `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
 };
 
-// Paleta de cores conforme especificação Ghost Design System
+// Paleta de cores conforme especificação Ghost Design System v3
+// REMOVED: Purple and Pink details (Violation of Ghost Era rules)
 export const colorPalette = {
-  bluePrimary: [230, 85, 30] as [number, number, number], // #0048ff
-  purpleDetails: [270, 80, 40] as [number, number, number], // #8705f2
-  pinkDetails: [330, 85, 50] as [number, number, number], // #f501d3
+  bluePrimary: [223, 100, 50] as [number, number, number], // #0048ff
+  blueDeep: [223, 100, 20] as [number, number, number], // Deeper abyss blue
+  blueCyan: [189, 100, 65] as [number, number, number], // #4fe6ff (Accent)
 };
 
-// Sequência de cores obrigatória (7 estágios, retorna ao início)
+// Sequência de cores obrigatória (7 estágios, mantendo a identidade Ghost Blue)
 export const colorSequence: [number, number, number][] = [
-  colorPalette.pinkDetails, // 1. Rosa (Start as per mobile initial)
-  colorPalette.purpleDetails, // 2. Roxo
-  colorPalette.bluePrimary, // 3. Azul
-  colorPalette.purpleDetails, // 4. Roxo
-  colorPalette.pinkDetails, // 5. Rosa
-  colorPalette.purpleDetails, // 6. Roxo
-  colorPalette.bluePrimary, // 7. Azul (Final Climax)
+  colorPalette.blueDeep,
+  colorPalette.bluePrimary,
+  colorPalette.blueCyan,
+  colorPalette.bluePrimary,
+  colorPalette.blueDeep,
+  colorPalette.bluePrimary,
+  colorPalette.blueDeep,
 ];

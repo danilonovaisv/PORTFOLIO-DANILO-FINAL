@@ -7,16 +7,16 @@
 
 ## Stack Técnica
 
-| Camada | Tecnologia |
-|---|---|
-| Framework | Next.js 15 (App Router) + React 19 |
-| Linguagem | TypeScript (strict mode) |
-| Estilo | Tailwind CSS 4 (CSS-first config) |
-| Animação | Framer Motion 12 + GSAP 3 + Lenis 1 |
-| 3D/WebGL | React Three Fiber 9 + Three.js 0.183 + GLSL custom |
-| Estado | Zustand 5 + React Context |
-| Backend | Supabase SSR + Firebase |
-| Runtime | Node.js >=20, **pnpm** (nunca npm/yarn) |
+| Camada    | Tecnologia                                         |
+| --------- | -------------------------------------------------- |
+| Framework | Next.js 15 (App Router) + React 19                 |
+| Linguagem | TypeScript (strict mode)                           |
+| Estilo    | Tailwind CSS 4 (CSS-first config)                  |
+| Animação  | Framer Motion 12 + GSAP 3 + Lenis 1                |
+| 3D/WebGL  | React Three Fiber 9 + Three.js 0.183 + GLSL custom |
+| Estado    | Zustand 5 + React Context                          |
+| Backend   | Supabase SSR + Firebase                            |
+| Runtime   | Node.js >=20, **pnpm** (nunca npm/yarn)            |
 
 ## Comandos
 
@@ -79,10 +79,10 @@ pnpm deploy       # deploy
 
 ## Referências (Single Source of Truth)
 
-| Documento | Conteúdo |
-|---|---|
-| `.context/ARCHITECTURE.md` | Arquitetura do sistema |
-| `.context/GHOST-DESIGN-SYSTEM.md` | Tokens, z-index, grid |
-| `.context/SITEMAP.md` | Mapa de páginas |
-| `.context/active_state.md` | Estado ativo da sprint |
-| `AGENTS.md` | Governança multi-agente |
+| Documento                         | Conteúdo                |
+| --------------------------------- | ----------------------- |
+| `.context/ARCHITECTURE.md`        | Arquitetura do sistema  |
+| `.context/GHOST-DESIGN-SYSTEM.md` | Tokens, z-index, grid   |
+| `.context/SITEMAP.md`             | Mapa de páginas         |
+| `.context/active_state.md`        | Estado ativo da sprint  |
+| `AGENTS.md`                       | Governança multi-agente |
