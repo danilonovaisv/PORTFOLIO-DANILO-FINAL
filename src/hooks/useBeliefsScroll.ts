@@ -1,57 +1,30 @@
-'use client';
+"use client";
 
-import { motionValue, scroll, type MotionValue } from 'motion';
-import { useEffect, useRef, type RefObject } from 'react';
-import { useBeliefStore } from '@/store/beliefStore';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { RefObject, useEffect, useState } from "react";
+import { useReducedMotion, useScroll } from "motion/react";
 
-export function useBeliefsScroll(
-  externalRef?: RefObject<HTMLDivElement | HTMLElement | null>
-) {
-  const localRef = useRef<HTMLDivElement>(null);
-  const containerRef = externalRef ?? localRef;
-  const setMobile = useBeliefStore((s) => s.setMobile);
-  const setReducedMotion = useBeliefStore((s) => s.setReducedMotion);
-  const prefersReducedMotion = useReducedMotion();
+export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
+  const shouldReduceMotion = Boolean(useReducedMotion());
+  const [isMobile, setIsMobile] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end end"],
+  });
 
   useEffect(() => {
-    setReducedMotion(prefersReducedMotion);
+    const media = window.matchMedia("(max-width: 767px)");
 
-    const mq = window.matchMedia('(max-width: 767px)');
-    const syncMobile = () => setMobile(mq.matches);
-    const mediaHandler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    const update = () => setIsMobile(media.matches);
+    update();
 
-    syncMobile();
-    mq.addEventListener('change', mediaHandler);
-    window.addEventListener('resize', syncMobile, { passive: true });
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
-    return () => {
-      mq.removeEventListener('change', mediaHandler);
-      window.removeEventListener('resize', syncMobile);
-    };
-  }, [prefersReducedMotion, setMobile, setReducedMotion]);
-
-  const scrollYProgressRef = useRef<MotionValue<number> | null>(null);
-  if (!scrollYProgressRef.current) {
-    scrollYProgressRef.current = motionValue(0);
-  }
-
-  useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-
-    const stop = scroll(
-      (progress: number) => {
-        scrollYProgressRef.current?.set(progress);
-      },
-      {
-        target: node,
-        offset: ['start start', 'end end'],
-      }
-    );
-
-    return () => stop();
-  }, [containerRef]);
-
-  return { containerRef, scrollYProgress: scrollYProgressRef.current };
+  return {
+    scrollYProgress,
+    isMobile,
+    shouldReduceMotion,
+  };
 }

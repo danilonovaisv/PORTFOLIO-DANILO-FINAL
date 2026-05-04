@@ -1,53 +1,24 @@
-'use client';
-
-import { useEffect } from 'react';
+"use client";
 
 export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string };
+  error: Error;
   reset: () => void;
 }) {
-  useEffect(() => {
-    const reportError = async () => {
-      try {
-        await fetch('/api/report-error', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            origem: 'Ghost System Portfolio',
-            erro_detectado: error.message,
-            componente_afetado: 'src/app/sobre',
-            stack: error.stack,
-            digest: error.digest,
-            status: 'ERROR_BOUNDARY_TRIGGERED',
-          }),
-          keepalive: true,
-        });
-      } catch (err) {
-        console.warn('Sentinel Prime: Fallback report failed', err);
-      }
-    };
-
-    void reportError();
-  }, [error]);
-
   return (
-    <div className="flex min-h-[60vh] w-full flex-col items-center justify-center text-center p-6 bg-background">
-      <h2 className="mb-4 text-2xl font-sans text-redAccent">
-        Erro na Página Sobre
-      </h2>
-      <p className="mb-8 text-textSecondary opacity-60 max-w-md">
-        Houve uma falha ao renderizar a experiência "Sobre". O erro foi
-        reportado automaticamente.
-      </p>
-      <button
-        onClick={() => reset()}
-        className="rounded-full bg-bluePrimary px-8 py-4 font-bold text-text transition-all hover:opacity-90 active:opacity-80"
-      >
-        Recarregar Seção
-      </button>
-    </div>
+    <main className="flex min-h-dvh items-center justify-center bg-[#040013] px-6 text-white">
+      <div className="max-w-md space-y-4 text-center">
+        <h1 className="text-2xl font-bold">Não foi possível carregar a página.</h1>
+        <p className="text-white/60">{error.message}</p>
+        <button
+          onClick={reset}
+          className="rounded-full border border-white/20 px-5 py-2 text-sm transition hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    </main>
   );
 }
