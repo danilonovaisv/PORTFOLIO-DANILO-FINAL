@@ -1388,3 +1388,30 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 ---
 [2026-05-04] [Pipeline] Stabilized 3D scene (useWebGLAvailable) and completed production build successfully. Blocked at firebase deploy due to EPERM on configstore.
+
+---
+
+## [2026-05-04T01:30] 🛡️ 3D Asset Loading Fix (Supabase 400 Bypass)
+
+**Context:** Resolução de erro 400 (Bad Request) ao carregar modelos 3D (.glb) do Supabase Storage. O problema era causado pela aplicação indevida do proxy de transformação de imagem do Supabase em arquivos binários 3D.
+
+**Changes Applied:**
+
+1. **Asset Detection & Detection Logic (`src/lib/utils.ts`)** ✅
+   - Implementada a função `is3DModel` para detectar extensões `.glb` e `.gltf`.
+   - Integrada a detecção no `getAssetUrl` para ignorar parâmetros de transformação (`width`, `quality`, `format`) quando um modelo 3D é detectado.
+
+2. **Next.js Image Loader Optimization (`src/lib/supabase/image-loader.ts`)** ✅
+   - Adicionadas extensões `.glb` e `.gltf` à lista `NON_TRANSFORM_EXTENSIONS`.
+   - Garante que o loader global do Next.js ignore esses arquivos, evitando o roteamento para o endpoint `/render/image/public/`.
+
+3. **URL Utility Hardening (`src/lib/supabase/urls.ts`)** ✅
+   - Atualizada a regex `isNonTransformable` em `buildSupabaseStorageUrl` e `injectSupabaseProxy` para incluir formatos 3D.
+   - Forçada a utilização do endpoint direto de objetos (`/storage/v1/object/public/`) para ativos 3D.
+
+**Verification:**
+
+- ✅ `node scratch/verify-asset-logic.js` — PASSED. Confirmada a geração de URLs diretas (object storage) para .glb e URLs transformadas (render) para imagens (.jpg).
+- ✅ Auditoria visual — O componente `GhostModel.tsx` agora carrega o asset corretamente sem erros de rede.
+
+---

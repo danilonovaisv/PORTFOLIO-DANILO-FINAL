@@ -34,6 +34,7 @@
 - [x] **Privacidade link dedup**: Unified "contato" links to `/contato`.
 - [x] **Admin Security**: `requireAdminAccess` confirmed in all Server Actions.
 - [x] **Modal A11y**: Tab trap, ESC, focus return verified.
+- [x] **3D Asset Loading Fix**: Resolved 400 error by bypassing Supabase Image Transformation for `.glb`/`.gltf` files.
 
 ## DS Remediation Phase 1 (2026-04-21)
 

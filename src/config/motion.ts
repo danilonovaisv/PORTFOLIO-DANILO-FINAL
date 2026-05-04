@@ -70,6 +70,12 @@ export const MOTION_TOKENS = {
     micro: 0.16,
     /** Modal/overlay animations - 0.5s */
     modal: 0.5,
+    /** Specialized stagger for word reveals */
+    WORD_STAGGER: 0.05,
+    /** Standard Ghost reveal duration */
+    GHOST_REVEAL: 0.9,
+    /** Standard Ghost exit duration */
+    GHOST_EXIT: 0.5,
   },
 
   // ─────────────────────────────────────────────────────────────────────────

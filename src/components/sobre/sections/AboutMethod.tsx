@@ -94,20 +94,7 @@ export default function AboutMethod() {
 
                 {/* Texto introdutório */}
                 <motion.div
-                  variants={
-                    prefersReducedMotion
-                      ? {
-                          hidden: { opacity: 0 },
-                          visible: {
-                            opacity: 1,
-                            transition: {
-                              duration: 0.9,
-                              ease: GHOST_EASE,
-                            },
-                          },
-                        }
-                      : ghostFade
-                  }
+                  variants={prefersReducedMotion ? ghostRevealSimple : ghostFade}
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}

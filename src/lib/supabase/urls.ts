@@ -138,17 +138,19 @@ export function buildSupabaseStorageUrl(
     return finalFilePath.startsWith('http') ? finalFilePath : null;
   }
 
-  // Verifica se é um arquivo de vídeo (vídeos não suportam proxy de renderização de imagem)
-  const isVideo = /\.(mp4|webm|mov|m4v|ogg)$/i.test(normalizedPath);
+  // Verifica se é um arquivo de vídeo ou 3D (não suportam proxy de renderização de imagem)
+  const isNonTransformable = /\.(mp4|webm|mov|m4v|ogg|glb|gltf)$/i.test(
+    normalizedPath
+  );
 
   // Decide entre endpoint de renderização configurado ou objeto direto
   const endpoint =
-    !isVideo && options
+    !isNonTransformable && options
       ? '/storage/v1/render/image/public/'
       : '/storage/v1/object/public/';
   let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${normalizedPath}`;
 
-  if (!isVideo && options) {
+  if (!isNonTransformable && options) {
     const params = new URLSearchParams();
     if (options.width) params.set('width', options.width.toString());
     if (options.quality) params.set('quality', options.quality.toString());
@@ -174,8 +176,9 @@ export function injectSupabaseProxy(
 ): string {
   if (!url || !url.includes('/storage/v1/')) return url;
 
-  const isVideo = /\.(mp4|webm|mov|m4v|ogg)(#.*|\?.*)?$/i.test(url);
-  if (isVideo) return url;
+  const isNonTransformable =
+    /\.(mp4|webm|mov|m4v|ogg|glb|gltf)(#.*|\?.*)?$/i.test(url);
+  if (isNonTransformable) return url;
 
   try {
     const parsed = new URL(url);

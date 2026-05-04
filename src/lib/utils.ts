@@ -81,11 +81,12 @@ export function getAssetUrl(
   const width = options?.width ?? 800;
   const quality = options?.quality ?? 85;
   const format = options?.format ?? 'webp';
+  const isModel = is3DModel(normalized);
 
   const resolved = buildSupabaseStorageUrl(
     bucket,
     filePath,
-    options?.isVideo
+    options?.isVideo || isModel
       ? undefined
       : {
           width,
@@ -98,7 +99,7 @@ export function getAssetUrl(
     return resolved;
   }
 
-  if (options?.isVideo) {
+  if (options?.isVideo || isModel) {
     return `${SUPABASE_STORAGE_URL}/${normalized}`;
   }
 
@@ -182,22 +183,39 @@ export const isVideo = (path?: string | null): boolean => {
   const raw = path.trim().toLowerCase();
   if (!raw) return false;
 
-  // Remove query params and hashes for extension check
   const cleanPath = raw.split('?')[0].split('#')[0];
 
-  // If it contains a protocol, use URL parser
   if (cleanPath.includes('://')) {
     try {
       const parsed = new URL(cleanPath);
       return videoExtensions.some((ext) => parsed.pathname.endsWith(ext));
     } catch {
-      // Fallback if URL parsing fails
       return videoExtensions.some((ext) => cleanPath.endsWith(ext));
     }
   }
 
-  // Local paths or filenames
   return videoExtensions.some((ext) => cleanPath.endsWith(ext));
+};
+
+// Função para verificar se um caminho de arquivo ou URL é um modelo 3D
+export const is3DModel = (path?: string | null): boolean => {
+  if (!path) return false;
+  const modelExtensions = ['.glb', '.gltf'];
+  const raw = path.trim().toLowerCase();
+  if (!raw) return false;
+
+  const cleanPath = raw.split('?')[0].split('#')[0];
+
+  if (cleanPath.includes('://')) {
+    try {
+      const parsed = new URL(cleanPath);
+      return modelExtensions.some((ext) => parsed.pathname.endsWith(ext));
+    } catch {
+      return modelExtensions.some((ext) => cleanPath.endsWith(ext));
+    }
+  }
+
+  return modelExtensions.some((ext) => cleanPath.endsWith(ext));
 };
 
 export function extractYouTubeId(value?: string | null): string | null {

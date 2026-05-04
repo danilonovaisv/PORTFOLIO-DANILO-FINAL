@@ -13,6 +13,8 @@ const NON_TRANSFORM_EXTENSIONS = [
   '.mov',
   '.m4v',
   '.gif',
+  '.glb',
+  '.gltf',
 ];
 
 export default function supabaseLoader({

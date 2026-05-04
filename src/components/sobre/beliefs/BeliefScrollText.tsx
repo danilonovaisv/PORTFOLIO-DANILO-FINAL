@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/ui/container";
+import { Container } from "@/components/layout/Container";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { splitTexts } from "@/config/beliefs";

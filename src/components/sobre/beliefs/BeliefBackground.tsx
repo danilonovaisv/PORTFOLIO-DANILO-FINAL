@@ -11,15 +11,13 @@ export function BeliefBackground() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
 
   const points = stops.map((_, i) => i / (stops.length - 1));
-  const backgroundColor = useTransform(scrollYProgress, points, stops);
+  const backgroundColor = useTransform(scrollYProgress, points, stops as any) as any;
 
   return (
     <motion.div
       aria-hidden="true"
       style={{
-        ...(shouldReduceMotion
-          ? { backgroundColor: MOTION_TOKENS.colors.deepVoid }
-          : { backgroundColor }),
+        backgroundColor: shouldReduceMotion ? MOTION_TOKENS.colors.deepVoid : backgroundColor,
         zIndex: Z_INDEX.beliefs.background
       }}
       className="absolute inset-0"

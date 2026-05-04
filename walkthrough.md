@@ -70,4 +70,20 @@ Como última etapa, foi conduzida uma profunda auditoria na performance atual (u
 
 - `.agents/rules/project-context.md`
 - `specs/audit-report.md`
-- `.agents/workflows/fix-performance-and-ui.md`
+
+## 🛡️ Fix: Carregamento de Ativos 3D (Supabase 400 Bypass)
+
+Recentemente, identificamos um erro 400 (Bad Request) ao carregar modelos 3D (`.glb`) devido ao uso incorreto do proxy de transformação de imagem do Supabase. Este problema foi resolvido globalmente.
+
+### Mudanças principais:
+
+- **Detecção de Ativos:** Criada utilidade `is3DModel` em `src/lib/utils.ts` para identificar arquivos `.glb` e `.gltf`.
+- **Global Image Loader:** Atualizado `src/lib/supabase/image-loader.ts` para incluir extensões 3D na lista de não-transformáveis.
+- **URL Utilities:** Refatorada a lógica em `src/lib/supabase/urls.ts` para forçar o endpoint `/storage/v1/object/public/` para modelos 3D, ignorando parâmetros de redimensionamento que causavam o erro.
+
+### Verificação:
+
+- [x] Script de teste `scratch/verify-asset-logic.js` validando URLs de saída.
+- [x] Teste em tempo de execução no `GhostModel.tsx` confirmando o carregamento do asset.
+
+---

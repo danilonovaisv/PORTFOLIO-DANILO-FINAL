@@ -43,7 +43,7 @@ export function BeliefFixedHeader() {
               as="p"
               text={splitTexts.title1}
               mode="words"
-              stagger={MOTION_TOKENS.DURATION.WORD_STAGGER}
+              stagger={MOTION_TOKENS.duration.WORD_STAGGER}
               active={true}
             />
             <br />
@@ -51,7 +51,7 @@ export function BeliefFixedHeader() {
               as="p"
               text={splitTexts.title2}
               mode="words"
-              stagger={MOTION_TOKENS.DURATION.WORD_STAGGER}
+              stagger={MOTION_TOKENS.duration.WORD_STAGGER}
               active={true}
             />
           </div>

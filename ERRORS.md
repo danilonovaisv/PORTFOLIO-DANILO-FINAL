@@ -115,3 +115,19 @@
 - **Prevention**: Check for internet connectivity *before* running scripts that delete `node_modules`. Implement a connectivity check in `cleanup-project.sh`.
 - **Status**: Investigating / Stuck
 
+## [2026-05-04 01:15] - Supabase 400 Error on 3D Model Loading
+
+- **Type**: Integration / Asset Loading
+- **Severity**: High (Blocks 3D experiences)
+- **File**: `src/lib/supabase/image-loader.ts`, `src/lib/supabase/urls.ts`, `src/lib/utils.ts`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: The global image loader and URL utilities were incorrectly identifying 3D models (`.glb`, `.gltf`) as transformable images, attempting to route them through the Supabase Image Transformation service (`/render/image/public/`) which returned 400 for non-image binary files.
+- **Error Message**: 
+  ```
+  fetch for "https://.../storage/v1/render/image/public/site-assets/3d/ghost-v1.glb?width=800&quality=85&format=webp" responded with 400
+  ```
+- **Fix Applied**: Updated `NON_TRANSFORM_EXTENSIONS` in `image-loader.ts`, added regex checks in `urls.ts`, and integrated `is3DModel` detection in `utils.ts` to bypass transformations and force the direct object storage endpoint (`/object/public/`) for 3D assets.
+- **Prevention**: Maintain a centralized list of non-transformable file extensions and ensure all asset resolution utilities share this logic. Added 3D models to the non-transformable list alongside videos and SVGs.
+- **Status**: Fixed
+
+---

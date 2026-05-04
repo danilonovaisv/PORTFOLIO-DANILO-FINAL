@@ -28,7 +28,7 @@ export function BeliefManifesto() {
             as="div"
             text={line}
             mode="words"
-            stagger={MOTION_TOKENS.DURATION.WORD_STAGGER}
+            stagger={MOTION_TOKENS.stagger.normal}
             className="block"
           />
         ))}
