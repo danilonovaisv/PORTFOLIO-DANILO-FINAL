@@ -5,6 +5,7 @@ import { useBeliefsScrollContext } from "./BeliefsScrollContext";
 import { SplitTextMotion } from "./SplitTextMotion";
 import { Z_INDEX } from "@/config/z-indices";
 import { MOTION_TOKENS } from "@/config/motion";
+import { BELIEF_MANIFESTO_LINES } from "@/config/beliefTokens";
 
 export function BeliefManifesto() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -15,6 +16,7 @@ export function BeliefManifesto() {
   return (
     <motion.div
       aria-live="polite"
+      data-testid="beliefs-manifesto"
       className="pointer-events-none fixed inset-0 flex items-center justify-center px-4 text-center"
       style={{ 
         ...(shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity, y }),
@@ -22,7 +24,7 @@ export function BeliefManifesto() {
       }}
     >
       <div className="font-display text-[clamp(3.5rem,16vw,12rem)] font-black uppercase leading-[0.82] tracking-[0.03em] text-white">
-        {["ISSO É", "GHOST", "DESIGN"].map((line) => (
+        {BELIEF_MANIFESTO_LINES.map((line) => (
           <SplitTextMotion
             key={line}
             as="div"

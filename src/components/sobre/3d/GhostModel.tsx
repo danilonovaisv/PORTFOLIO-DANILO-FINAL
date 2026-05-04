@@ -99,4 +99,6 @@ export function GhostModel() {
   );
 }
 
-useGLTF.preload(MODEL_PATH);
+if (typeof window !== "undefined") {
+  useGLTF.preload(MODEL_PATH);
+}

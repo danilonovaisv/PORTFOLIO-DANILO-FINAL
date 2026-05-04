@@ -1,29 +1,20 @@
 "use client";
 
-import { RefObject, useEffect, useState, useRef } from "react";
-import { useReducedMotion, useScroll } from "motion/react";
+import { RefObject, useRef } from "react";
+import { useScroll } from "motion/react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export function useBeliefsScroll(containerRef?: RefObject<HTMLElement | null>) {
   const fallbackRef = useRef<HTMLElement | null>(null);
   const targetRef = containerRef || fallbackRef;
 
-  const shouldReduceMotion = Boolean(useReducedMotion());
-  const [isMobile, setIsMobile] = useState(false);
+  const shouldReduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end end"],
   });
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-
-    const update = () => setIsMobile(media.matches);
-    update();
-
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
 
   return {
     scrollYProgress,

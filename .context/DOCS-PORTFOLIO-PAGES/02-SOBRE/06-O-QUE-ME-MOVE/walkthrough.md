@@ -1,4 +1,55 @@
-# Walkthrough: O Que Me Move (Refatoração de Motion e Arquitetura)
+# Walkthrough: O Que Me Move (Motion DOM + Ghost 3D)
+
+## 2026-05-04 — Validação pós-APROVADO
+
+### Resumo
+
+A seção `06-O-QUE-ME-MOVE` foi alinhada ao prompt mestre do Agent Manager e às fontes de verdade `requirements.md`, `system-context.md`, ADR-006, `task_list.md` e `motion_implementation_plan.md`.
+
+### Arquivos alterados
+
+- `src/config/beliefTokens.ts`
+- `src/config/beliefs.ts`
+- `src/types/beliefs.ts`
+- `src/hooks/useMediaQuery.ts`
+- `src/hooks/useBeliefsScroll.ts`
+- `src/components/sobre/sections/AboutBeliefs.tsx`
+- `src/components/sobre/beliefs/BeliefBackground.tsx`
+- `src/components/sobre/beliefs/BeliefOverlay.tsx`
+- `src/components/sobre/beliefs/BeliefFixedHeader.tsx`
+- `src/components/sobre/beliefs/BeliefScrollText.tsx`
+- `src/components/sobre/beliefs/BeliefManifesto.tsx`
+- `src/components/sobre/beliefs/SplitTextMotion.tsx`
+- `src/components/sobre/3d/GhostScene.tsx`
+- `src/components/sobre/3d/GhostModel.tsx`
+- `src/components/sobre/3d/GhostSceneFallback.tsx`
+
+### Correções aplicadas
+
+- `BeliefBackground` passou a usar Motion `animate() + inView()` com `GHOST_EASE_AMBIENT` e reset bidirecional.
+- Tokens e conteúdo canônico foram centralizados em `src/config/beliefTokens.ts`.
+- `BeliefScrollText` renderiza as seis frases obrigatórias com `.belief-scroll-section`, `data-index` e contrato E2E `viewport-x-opacity`.
+- `BeliefManifesto` expõe `ISSO É / GHOST / DESIGN` com `z-50`.
+- `GhostScene` permanece em `z-70`, usa `frameloop="demand"` e detecta ausência de WebGL antes de montar `<Canvas>`.
+- `GhostModel` mantém asset por `getAssetUrl()` de `@/lib/utils` e protege `useGLTF.preload()` no client.
+- `prefers-reduced-motion` usa media query local para evitar mismatch de hidratação.
+- `SplitTextMotion` usa `motion.create()` para remover warning de depreciação.
+
+### Evidência
+
+- `pnpm exec eslint src/config/beliefTokens.ts src/hooks/useMediaQuery.ts src/hooks/useBeliefsScroll.ts src/components/sobre/sections/AboutBeliefs.tsx src/components/sobre/beliefs/BeliefBackground.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/beliefs/BeliefScrollText.tsx src/components/sobre/beliefs/BeliefManifesto.tsx src/components/sobre/3d/GhostScene.tsx src/components/sobre/3d/GhostModel.tsx src/components/sobre/3d/GhostSceneFallback.tsx` ✅
+- `pnpm run typecheck` ✅
+- `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅ `12 passed`
+- `pnpm run lint` ✅ `0 errors / 45 warnings preexistentes`
+- `pnpm run build` ✅
+
+### Riscos remanescentes
+
+- Ambiente local executou com Node `v25.9.0`, enquanto `package.json` declara Node `22`.
+- Validação visual manual com screenshots desktop/mobile ainda deve ser feita antes de release.
+- Warnings de lint preexistentes permanecem fora do escopo desta rodada.
+
+---
 
 ## 1. Resumo da Execução
 

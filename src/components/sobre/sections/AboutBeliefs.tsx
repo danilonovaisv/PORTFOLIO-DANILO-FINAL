@@ -11,6 +11,7 @@ import { BeliefManifesto } from "../beliefs/BeliefManifesto";
 import { GhostErrorBoundary } from "../3d/GhostErrorBoundary";
 import { GhostSceneFallback } from "../3d/GhostSceneFallback";
 import { useBeliefsScroll } from "@/hooks/useBeliefsScroll";
+import { BELIEF_LAYOUT } from "@/config/beliefTokens";
 
 const GhostScene = dynamic(() => import("../3d/GhostScene").then((m) => m.GhostScene), {
   ssr: false,
@@ -25,8 +26,10 @@ export function AboutBeliefs() {
       <section
         ref={containerRef}
         id="o-que-me-move"
+        data-testid="beliefs-section"
         aria-labelledby="o-que-me-move-title"
-        className="relative min-h-[620vh] overflow-clip bg-[#040013] text-white"
+        className="relative overflow-clip bg-[#040013] text-white"
+        style={{ minHeight: BELIEF_LAYOUT.sectionMinHeight }}
       >
         <h2 id="o-que-me-move-title" className="sr-only">
           O que me move

@@ -9,12 +9,10 @@ export function BeliefOverlay() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.1, 0]);
 
-  if (shouldReduceMotion) return null;
-
   return (
     <motion.div
       aria-hidden="true"
-      style={{ opacity, zIndex: Z_INDEX.beliefs.overlay }}
+      style={{ opacity: shouldReduceMotion ? 0 : opacity, zIndex: Z_INDEX.beliefs.overlay }}
       className="pointer-events-none absolute inset-0 bg-black"
     />
   );

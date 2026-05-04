@@ -1,8 +1,8 @@
-# Active State: DESIGN SYSTEM REMEDIATION & BELIEFS HARDENING ✅
+# Active State: BELIEFS SECTION HARDENING ✅
 
-**Phase**: DS REMEDIATION & E2E ALIGNMENT
-**Current Focus**: Finalizing Beliefs Section E2E contracts and 3D scene stability.
-**Last Update**: 2026-05-03
+**Phase**: O QUE ME MOVE — MOTION DOM + GHOST 3D
+**Current Focus**: Beliefs section contracts validated; prepare full lint/build and release handoff.
+**Last Update**: 2026-05-04
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -19,6 +19,15 @@
 - [x] **DOM Stability**: Consolidated `beliefs-ghost-scene` test ID into static wrapper in `BeliefsSection`.
 - [x] **Z-Index Governance**: Aligned layer hierarchy (Ghost: 70, Manifesto: 50).
 - [x] **SSR Integrity**: Ensured test IDs are present on first render.
+
+## Beliefs Section Agent Manager Pass (2026-05-04)
+
+- [x] **Background Contract**: `BeliefBackground` uses Motion `animate() + inView()` with `GHOST_EASE_AMBIENT`.
+- [x] **Tokens SSOT**: `src/config/beliefTokens.ts` centralizes palette, header lines, phrases and manifesto lines.
+- [x] **Reduced Motion**: Local media query prevents first-render hydration drift while preserving simple fades.
+- [x] **WebGL Fallback**: `GhostScene` checks WebGL support before mounting `<Canvas>`.
+- [x] **E2E Evidence**: `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` passed `12/12`.
+- [x] **Release Gates**: `pnpm run typecheck`, `pnpm run lint`, and `pnpm run build` passed locally.
 
 ## Recent Achievements
 

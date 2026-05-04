@@ -27,7 +27,7 @@ export function SplitTextMotion<T extends ElementType = "span">({
   className,
   ...props
 }: SplitTextMotionProps<T>) {
-  const Component = motion(as ?? "span") as any;
+  const Component = motion.create(as ?? "span") as any;
   const units = mode === "chars" ? Array.from(text) : text.split(" ");
 
   return (

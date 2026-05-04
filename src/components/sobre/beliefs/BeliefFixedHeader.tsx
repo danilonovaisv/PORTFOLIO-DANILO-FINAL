@@ -2,10 +2,10 @@
 
 import { motion, useTransform } from "motion/react";
 import { useBeliefsScrollContext } from "./BeliefsScrollContext";
-import { splitTexts } from "@/config/beliefs";
 import { SplitTextMotion } from "./SplitTextMotion";
 import { Z_INDEX } from "@/config/z-indices";
 import { MOTION_TOKENS } from "@/config/motion";
+import { BELIEF_HEADER_LINES } from "@/config/beliefTokens";
 
 export function BeliefFixedHeader() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -24,7 +24,7 @@ export function BeliefFixedHeader() {
 
   return (
     <div 
-      className="pointer-events-none absolute inset-0 flex flex-col md:justify-center md:items-end justify-start pt-[20vh] md:pt-0"
+      className="pointer-events-none absolute inset-0 flex flex-col justify-start pt-[14vh] md:items-end md:justify-center md:pt-0"
       style={{ zIndex: Z_INDEX.beliefs.header }}
     >
       <div className="std-grid w-full h-full relative">
@@ -41,7 +41,7 @@ export function BeliefFixedHeader() {
           <div className="max-w-sm text-center md:text-right text-white/70 font-medium text-lg md:text-xl">
             <SplitTextMotion
               as="p"
-              text={splitTexts.title1}
+              text={BELIEF_HEADER_LINES[0]}
               mode="words"
               stagger={MOTION_TOKENS.duration.WORD_STAGGER}
               active={true}
@@ -49,7 +49,7 @@ export function BeliefFixedHeader() {
             <br />
             <SplitTextMotion
               as="p"
-              text={splitTexts.title2}
+              text={BELIEF_HEADER_LINES[1]}
               mode="words"
               stagger={MOTION_TOKENS.duration.WORD_STAGGER}
               active={true}

@@ -2,6 +2,7 @@
 
 import { motion, useTransform } from "motion/react";
 import { useBeliefsScrollContext } from "../beliefs/BeliefsScrollContext";
+import { Z_INDEX } from "@/config/z-indices";
 
 export function GhostSceneFallback() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -9,7 +10,11 @@ export function GhostSceneFallback() {
   const opacity = useTransform(scrollYProgress, [0.1, 0.2, 0.85, 0.95], [0, 1, 1, 0]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center">
+    <div
+      data-testid="ghost-fallback"
+      className="pointer-events-none fixed inset-0 flex items-center justify-center"
+      style={{ zIndex: Z_INDEX.beliefs.ghost }}
+    >
       <motion.div
         aria-hidden="true"
         style={shouldReduceMotion ? { opacity: 1 } : { opacity }}
