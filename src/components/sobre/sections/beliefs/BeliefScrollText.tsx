@@ -76,8 +76,17 @@ function PhraseItem({
     { ease: (v) => v } // Linear mapping, easing is handled by the scroll itself + Ghost ease constants if needed
   );
 
-  const yMobileValues = prefersReducedMotion ? ['0px', '0px', '0px', '0px'] : ['18px', '0px', '0px', '-18px'];
-  const yDesktopValues = prefersReducedMotion ? ['-50%', '-50%', '-50%', '-50%'] : ['calc(-50% + 18px)', 'calc(-50% + 0px)', 'calc(-50% + 0px)', 'calc(-50% - 18px)'];
+  const yMobileValues = prefersReducedMotion
+    ? ['0px', '0px', '0px', '0px']
+    : ['18px', '0px', '0px', '-18px'];
+  const yDesktopValues = prefersReducedMotion
+    ? ['-50%', '-50%', '-50%', '-50%']
+    : [
+        'calc(-50% + 18px)',
+        'calc(-50% + 0px)',
+        'calc(-50% + 0px)',
+        'calc(-50% - 18px)',
+      ];
 
   const yMobile = useTransform(
     scrollProgress,
@@ -91,7 +100,9 @@ function PhraseItem({
     yDesktopValues
   );
 
-  const filterValues = prefersReducedMotion ? ['blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)'] : ['blur(6px)', 'blur(0px)', 'blur(0px)', 'blur(6px)'];
+  const filterValues = prefersReducedMotion
+    ? ['blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)']
+    : ['blur(6px)', 'blur(0px)', 'blur(0px)', 'blur(6px)'];
 
   const filter = useTransform(
     scrollProgress,

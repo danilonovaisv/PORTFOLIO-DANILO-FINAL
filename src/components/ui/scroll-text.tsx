@@ -8,13 +8,7 @@ import {
   type Variants,
 } from 'motion/react';
 import type { JSX, ReactNode, ComponentType } from 'react';
-import {
-  ghostEase,
-  ghostDurations,
-  ghostStagger,
-  ghostBlur,
-  ghostTranslate,
-} from '@/lib/motion/tokens';
+import { MOTION_TOKENS, GHOST_EASE } from '@/config/motion';
 
 export type GhostScrollTextDirection = 'up' | 'down' | 'left' | 'right';
 export type GhostScrollTextMode = 'word' | 'letter' | 'line';
@@ -44,21 +38,21 @@ const buildVariants = (
     };
   }
   const axis = direction === 'left' || direction === 'right' ? 'x' : 'y';
-  const max = axis === 'y' ? ghostTranslate.yMax : ghostTranslate.xMax;
+  const max = MOTION_TOKENS.offset.standard;
   const sign = direction === 'right' || direction === 'down' ? 1 : -1;
   const offset = sign * max;
 
   return {
     hidden: {
       opacity: 0,
-      filter: ghostBlur.enter,
+      filter: MOTION_TOKENS.blur.hidden,
       [axis]: offset,
     },
     visible: {
       opacity: 1,
-      filter: ghostBlur.rest,
+      filter: MOTION_TOKENS.blur.visible,
       [axis]: 0,
-      transition: { duration, ease: [...ghostEase] },
+      transition: { duration, ease: GHOST_EASE },
     },
   } as Variants;
 };
@@ -69,7 +63,7 @@ const GhostScrollText = ({
   className,
   direction = 'up',
   mode = 'word',
-  duration = ghostDurations.reveal,
+  duration = MOTION_TOKENS.duration.normal,
   stagger,
   viewport = { amount: 0.3, once: true },
   uppercase = false,
@@ -80,10 +74,10 @@ const GhostScrollText = ({
   const effectiveStagger =
     stagger ??
     (mode === 'letter'
-      ? ghostStagger.letter
+      ? MOTION_TOKENS.stagger.tight
       : mode === 'line'
-        ? ghostStagger.line
-        : ghostStagger.word);
+        ? MOTION_TOKENS.stagger.relaxed
+        : MOTION_TOKENS.stagger.normal);
 
   const containerVariants: Variants = {
     hidden: {},

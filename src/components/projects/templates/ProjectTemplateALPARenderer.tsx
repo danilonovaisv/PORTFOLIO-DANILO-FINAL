@@ -6,13 +6,10 @@ import Image from 'next/image';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import {
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
-  type MouseEvent as ReactMouseEvent,
 } from 'react';
-import { Play, X } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -21,89 +18,26 @@ import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
-import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
-import { DEFAULT_CAPTIONS } from '@/lib/video';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
+
+// Extracted Components
+import { AssetLightbox } from './AssetLightbox';
+import { AssetInteractive } from './AssetInteractive';
+import { BlockTextMd } from './BlockTextMd';
+
+// Extracted Utils & Types
+import { normalizeHexColor, mixHex } from '@/lib/colors';
+import { getAssetKind, getYouTubeId } from '@/lib/projects/asset-utils';
+import type { ZoomAsset, IntroBodyBlock } from './types';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
-const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
-const YOUTUBE_HOST_WHITELIST = ['youtube.com', 'm.youtube.com'];
-const YOUTUBE_PATTERN =
-  /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
-
-const normalizeHexColor = (value?: string, fallback = '#0048ff'): string => {
-  if (!value) return fallback;
-  const cleaned = value.trim();
-
-  if (/^#[0-9a-fA-F]{3}$/.test(cleaned)) {
-    const shortHex = cleaned.slice(1);
-    return `#${shortHex
-      .split('')
-      .map((char) => char + char)
-      .join('')}`.toLowerCase();
-  }
-
-  if (/^#[0-9a-fA-F]{6}$/.test(cleaned)) {
-    return cleaned.toLowerCase();
-  }
-
-  return fallback;
-};
-
-const hexToRgb = (hex: string) => {
-  const normalized = normalizeHexColor(hex, '#0048ff').slice(1);
-  const value = Number.parseInt(normalized, 16);
-  return {
-    r: (value >> 16) & 255,
-    g: (value >> 8) & 255,
-    b: value & 255,
-  };
-};
-
-const rgbToHex = (r: number, g: number, b: number): string => {
-  const toHex = (value: number) =>
-    Math.max(0, Math.min(255, Math.round(value)))
-      .toString(16)
-      .padStart(2, '0');
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-};
-
-const mixHex = (fromHex: string, toHex: string, amount: number): string => {
-  const from = hexToRgb(fromHex);
-  const to = hexToRgb(toHex);
-  return rgbToHex(
-    from.r + (to.r - from.r) * amount,
-    from.g + (to.g - from.g) * amount,
-    from.b + (to.b - from.b) * amount
-  );
-};
 
 const buildEtherPalette = (baseHex: string): string[] => [
   baseHex,
   mixHex(baseHex, '#ffffff', 0.3),
   mixHex(baseHex, '#12002c', 0.22),
 ];
-
-type AssetKind = 'image' | 'video' | 'youtube';
-
-type ZoomAsset = {
-  src: string;
-  kind: AssetKind;
-  alt: string;
-  poster?: string;
-  youtubeId?: string;
-};
-
-type ProjectTemplateALPARendererProps = {
-  project: MasterProjectTemplateV3Data;
-};
-
-type IntroBodyBlock = {
-  type: 'text' | 'video_youtube';
-  value: string;
-  settings: { autoplay: boolean };
-};
 
 const toIntroBodyBlocks = (
   introBody?: MasterProjectTemplateV3Data['intro_body']
@@ -139,342 +73,11 @@ const toIntroBodyBlocks = (
     .filter(Boolean) as IntroBodyBlock[];
 };
 
-const getYouTubeId = (url: string): string | null => {
-  const candidate = url.trim();
-  if (!candidate) return null;
-  if (/^[a-zA-Z0-9_-]{11}$/.test(candidate)) return candidate;
-
-  const withProtocol = candidate.startsWith('http')
-    ? candidate
-    : `https://${candidate}`;
-
-  try {
-    const parsed = new URL(withProtocol);
-    const host = parsed.hostname.replace(/^www\./, '');
-
-    if (host === 'youtu.be') {
-      const id = parsed.pathname.replace('/', '');
-      return id.length === 11 ? id : null;
-    }
-
-    if (YOUTUBE_HOST_WHITELIST.includes(host)) {
-      const videoParam = parsed.searchParams.get('v');
-      if (videoParam && videoParam.length === 11) return videoParam;
-
-      const pathParts = parsed.pathname.split('/').filter(Boolean);
-      const embedIndex = pathParts.findIndex(
-        (part) => part === 'embed' || part === 'shorts' || part === 'v'
-      );
-      if (embedIndex >= 0) {
-        const id = pathParts[embedIndex + 1];
-        return id && id.length === 11 ? id : null;
-      }
-    }
-  } catch {
-    return null;
-  }
-
-  return null;
-};
-
-const getAssetKind = (
-  src?: string,
-  mediaType?: LandingPageBlock['content']['mediaType']
-): AssetKind => {
-  const value = src ?? '';
-  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
-
-  if (mediaType === 'youtube') return 'youtube';
-  if (mediaType === 'video') return 'video';
-
-  if (!value) return 'image';
-  if (VIDEO_PATTERN.test(value)) return 'video';
-  return 'image';
-};
-
-function AssetLightbox({
-  asset,
-  onClose,
-}: {
-  asset: ZoomAsset | null;
-  onClose: () => void;
-}) {
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-  const panelRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!asset) return;
-
-    closeButtonRef.current?.focus();
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        onClose();
-        return;
-      }
-
-      if (event.key !== 'Tab' || !panelRef.current) return;
-      const focusables = panelRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusables.length === 0) return;
-
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      const activeElement = document.activeElement as HTMLElement;
-
-      if (event.shiftKey && activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [asset, onClose]);
-
-  if (!asset) return null;
-
-  return (
-    <div
-      className="fixed inset-0 z-[var(--z-layer-lightbox)] flex items-center justify-center bg-background/94 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Pré-visualização ampliada do asset"
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
-    >
-      <div
-        ref={panelRef}
-        className="relative flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden border border-white/15 bg-black"
-      >
-        <button
-          ref={closeButtonRef}
-          type="button"
-          onClick={onClose}
-          className="absolute right-2 top-2 z-10 inline-flex min-h-12 min-w-12 items-center justify-center border border-white/20 bg-black/80 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-          aria-label="Fechar visualização"
-        >
-          <X className="h-5 w-5" />
-        </button>
-
-        {asset.kind === 'image' ? (
-          <div className="relative h-[82vh] w-full">
-            <Image
-              src={asset.src}
-              alt={asset.alt}
-              fill
-              sizes="100vw"
-              className="object-contain"
-            />
-          </div>
-        ) : asset.kind === 'youtube' && asset.youtubeId ? (
-          <div className="aspect-video w-full bg-black">
-            <iframe
-              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
-              title={asset.alt || 'Vídeo do YouTube'}
-              className="h-full w-full border-none"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        ) : (
-          <video
-            className="h-[82vh] w-full object-contain"
-            src={asset.src}
-            poster={asset.poster}
-            autoPlay
-            muted={false}
-            loop={false}
-            controls
-            playsInline
-            onLoadedMetadata={(event) => {
-              event.currentTarget.muted = false;
-              void event.currentTarget.play().catch(() => undefined);
-            }}
-          >
-            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-          </video>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function AssetInteractive({
-  src,
-  alt,
-  kind,
-  poster,
-  className,
-  videoAutoplay,
-  displayMode = 'inline',
-  prefersReducedMotion,
-  onOpen,
-}: {
-  src?: string;
-  alt?: string;
-  kind: AssetKind;
-  poster?: string;
-  className?: string;
-  videoAutoplay?: boolean;
-  displayMode?: 'inline' | 'full';
-  prefersReducedMotion: boolean;
-  onOpen: (
-    _asset: ZoomAsset,
-    _event: ReactMouseEvent<HTMLButtonElement>
-  ) => void;
-}) {
-  if (!src) return null;
-
-  const resolved = resolveSiteAssetUrl(src);
-  if (!resolved) {
-    return (
-      <div
-        className={`flex min-h-[220px] items-center justify-center border border-white/15 bg-black/35 px-4 text-center text-sm text-white/72 ${className || ''}`}
-      >
-        Mídia indisponível
-      </div>
-    );
-  }
-
-  const resolvedPoster = resolveSiteAssetUrl(poster);
-  const youtubeId = kind === 'youtube' ? getYouTubeId(src) : null;
-  const isFullDisplay = displayMode === 'full';
-
-  return (
-    <button
-      type="button"
-      onClick={(event) =>
-        onOpen(
-          {
-            src: resolved,
-            kind,
-            alt: alt || 'Asset do projeto',
-            poster: resolvedPoster,
-            youtubeId: youtubeId ?? undefined,
-          },
-          event
-        )
-      }
-      className={`group relative block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${className || ''}`}
-      aria-label="Abrir asset ampliado"
-    >
-      {kind === 'image' ? (
-        isFullDisplay ? (
-          // Native img preserves the intrinsic media ratio for full-width editorial blocks.
-
-          <img
-            src={resolved}
-            alt={alt || 'Asset do projeto'}
-            className="block h-auto w-full bg-black/30 object-contain"
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <div className="relative aspect-[16/10] w-full bg-black/30">
-            <Image
-              src={resolved}
-              alt={alt || 'Asset do projeto'}
-              fill
-              sizes="(max-width: 768px) 100vw, 80vw"
-              className="object-cover"
-            />
-          </div>
-        )
-      ) : kind === 'youtube' && youtubeId ? (
-        <div className="relative aspect-video w-full bg-black/50">
-          <Image
-            src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
-            alt={alt || 'Vídeo do YouTube'}
-            fill
-            sizes="(max-width: 768px) 100vw, 70vw"
-            className="object-cover"
-            unoptimized
-          />
-          <span className="absolute inset-0 bg-black/35" />
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span className="alpa-circle inline-flex h-14 w-14 items-center justify-center border border-white/40 bg-bluePrimary text-white">
-              <Play className="h-5 w-5" />
-            </span>
-          </span>
-        </div>
-      ) : (
-        <video
-          className={
-            isFullDisplay
-              ? 'block max-h-[82vh] w-full bg-black object-contain'
-              : 'aspect-video w-full bg-black object-cover'
-          }
-          src={resolved}
-          poster={resolvedPoster}
-          autoPlay={videoAutoplay && !prefersReducedMotion}
-          muted
-          loop={videoAutoplay && !prefersReducedMotion}
-          controls={false}
-          playsInline
-          preload="metadata"
-        >
-          <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-        </video>
-      )}
-
-      <span className="pointer-events-none absolute inset-0 border border-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-    </button>
-  );
-}
-
-function BlockTextMd({
-  text,
-  textConfig,
-  alignClass,
-}: {
-  text?: string;
-  textConfig?: import('@/types/landing-page').TextConfig;
-  alignClass?: string;
-}) {
-  if (!text?.trim()) return null;
-
-  const mergedConfig = textConfig
-    ? {
-        ...textConfig,
-        textAlign:
-          textConfig.textAlign ??
-          ((alignClass?.includes('right')
-            ? 'right'
-            : alignClass?.includes('center')
-              ? 'center'
-              : undefined) as import('@/types/landing-page').TextConfig['textAlign']),
-      }
-    : alignClass?.includes('right')
-      ? { textAlign: 'right' as const }
-      : alignClass?.includes('center')
-        ? { textAlign: 'center' as const }
-        : undefined;
-
-  return (
-    <GhostMarkdown
-      content={text}
-      textConfig={mergedConfig}
-      className="w-full"
-      proseClassName="prose-headings:text-white"
-    />
-  );
-}
-
 export default function ProjectTemplateALPARenderer({
   project,
-}: ProjectTemplateALPARendererProps) {
+}: {
+  project: MasterProjectTemplateV3Data;
+}) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const backHref = useLandingBackLink();
   const [zoomAsset, setZoomAsset] = useState<ZoomAsset | null>(null);
@@ -515,7 +118,7 @@ export default function ProjectTemplateALPARenderer({
     : '';
 
   const openAsset = useCallback(
-    (asset: ZoomAsset, event: ReactMouseEvent<HTMLButtonElement>) => {
+    (asset: ZoomAsset, event: React.MouseEvent<HTMLButtonElement>) => {
       lastFocusedTriggerRef.current = event.currentTarget;
       setZoomAsset(asset);
     },
@@ -683,9 +286,7 @@ export default function ProjectTemplateALPARenderer({
           <motion.section
             key={block.id}
             className="alpa-quote-band w-full px-4 py-20 md:px-8 md:py-32 flex items-center justify-center !ml-0 !mr-0"
-            {...({
-              style: { backgroundColor: mixHex(bandColor, '#050013', 0.18) },
-            } as any)}
+            style={{ backgroundColor: mixHex(bandColor, '#050013', 0.18) }}
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.35 }}
@@ -781,9 +382,7 @@ export default function ProjectTemplateALPARenderer({
 
                 <div
                   className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
-                  {...({
-                    style: { color: mixHex(accentColor, '#ffffff', 0.4) },
-                  } as any)}
+                  style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
                 >
                   {project.project_client ? (
                     <span>{project.project_client}</span>

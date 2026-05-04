@@ -1,47 +1,12 @@
 ---
-description: Sợ bị hack? Quét lỗ hổng và bảo mật ngay theo chuẩn Security Senior.
+description: Verificação de segurança estrutural, RLS (Row Level Security) no Supabase, e validação de chaves de ambiente.
 ---
 
-# /security - Professional Armor & Security Audit
+# Auditoria de Segurança e Compliance
 
-$ARGUMENTS
-
----
-
-## 🟢 PHASE 1: Attack Surface Mapping
-**Agent**: `penetration-tester` & `explorer-agent`
-**Mission**: Find where the system is "thin."
-- **Action**: Identify all public endpoints, input fields, and storage locations.
-- **DNA Link**: Check `rules/malware-protection.md` for external link risks.
-
-## 🟡 PHASE 2: Vulnerability Research & Tooling
-**Agent**: `security-auditor`
-**Mission**: Run the deep scans.
-- **Action**: Run SAST/DAST tools (e.g., `npm audit`, `snyk`, `owasp-zap`).
-- **Research**: Check for common library vulnerabilities (CVEs).
-
-## 🔵 PHASE 3: Surgical Hardening
-**Agent**: `backend-specialist` & `devops-engineer`
-**Mission**: Patch the leaks.
-- **Action**: Implement Rate Limiting, Input Sanitization, and CSP headers.
-- **Protocol**: Apply "Least Privilege" to all IAM and system roles.
-
-## 🔴 PHASE 4: Verification & Compliance Report
-**Agent**: `quality-inspector`
-**Mission**: Confirm the "Fortress" is secure.
-- **Verification**: Re-run the exploit script to ensure it's blocked.
-- **Artifact**: Create a "Security Risk Table" in the `walkthrough.md`.
-
----
-
-## Security Mandates:
-- **No Hardcoding**: Reject any plan that hardcodes a secret.
-- **Sanitize Everything**: All user input is untrusted by default.
-- **Zero Trust**: Authentication must be verified at every layer.
-
----
-
-## Examples:
-- `/security audit all endpoints`
-- `/security scan for data leaks in logs`
-- `/security harden auth flow`
+1. Escaneie todos os Server e Client Components da árvore do Next.js para rastrear injeção indevida de variáveis de ambiente.
+2. Certifique-se de que somente chaves explicitamente públicas utilizem o prefixo `NEXT_PUBLIC_` para evitar exposição de segredos.
+3. Analise as políticas Row Level Security (RLS) aplicadas aos buckets do Supabase Storage. Garanta que rotas de administração retenham restrição de token.
+4. Execute uma checagem de vulnerabilidades em todas as dependências locais:
+   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/npm audit`
+5. Ao encontrar dependências obsoletas com risco severo ou brechas no Supabase, documente a falha e acione `/log-error`.

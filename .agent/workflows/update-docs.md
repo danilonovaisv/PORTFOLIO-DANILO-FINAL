@@ -1,48 +1,49 @@
 ---
-description: Tự động cập nhật tài liệu khi có tính năng mới hoặc thay đổi hệ thống.
+description: Atualize automaticamente a documentação quando houver novos recursos ou mudanças no sistema.
 ---
 
-# /update-docs - Automatic Documentation Sync
+# /update-docs - Sincronização Automática de Documentação
 
 $ARGUMENTS
 
 ---
 
-## 🟢 PHASE 1: Change Detection
-**Agent**: `explorer-agent`
-**Mission**: Find the "Delta."
-- **Action**: Scan `.agent/skills/`, `.agent/agents/`, and `.agent/workflows/`.
-- **Action**: Compare counts and labels against existing documentation.
+## 🟢 FASE 1: Detecção de Mudanças
+**Agente**: `explorer-agent`
+**contexto**: `explorer-contexto`
+**Missão**: Encontrar o "Delta".
+- **Ação**: Vasculhar `.agent/skills/`, `.agent/agents/`,  `.context/`, `.context/DOCS-PORTFOLIO-PAGES/` e `.agent/workflows/`.
+- **Ação**: Comparar contagens e rótulos com a documentação existente.
 
-## 🟡 PHASE 2: Data Synthesis
-**Agent**: `documentation-writer`
-**Mission**: Build the "Source of Truth."
-- **Action**: Calculate new statistics (Total Skills, Total Agents).
-- **Action**: Generate short descriptions for any new components found.
-- **DNA Link**: Follow `rules/docs-update.md` checklist.
+## 🟡 FASE 2: Síntese de Dados
+**Agente**: `documentation-writer`
+**Missão**: Construir a "Fonte da Verdade".
+- **Ação**: Calcular novas estatísticas (Total de Skills, Total de Agents).
+- **Ação**: Gerar descrições curtas para quaisquer novos componentes encontrados.
+- **Vínculo de DNA**: Seguir o checklist em `rules/docs-update.md`.
 
-## 🔵 PHASE 3: Surgical Update
-**Agent**: `documentation-writer`
-**Mission**: Propagate the changes.
-- **Action**: Update `README.md`, `README.vi.md`, and all `*_GUIDE.vi.md` files.
-- **Action**: Run the `node .agent/scripts/update-docs.js` if available.
+## 🔵 FASE 3: Atualização Cirúrgica
+**Agente**: `documentation-writer`
+**Missão**: Propagar as mudanças.
+- **Ação**: Atualizar `README.md`, `README.vi.md` e todos os arquivos `*_GUIDE.vi.md`.
+- **Ação**: Executar `node .agent/scripts/update-docs.js` se disponível.
 
-## 🔴 PHASE 4: Integrity Audit
-**Agent**: `quality-inspector`
-**Mission**: Final Proofread.
-- **Verification**: Ensure all links are clickable and stats are 100% accurate.
-- **Reporting**: Report total items updated to the User.
-
----
-
-## Sync Rules:
-- **Bilingual**: Always update both English and Vietnamese files.
-- **Consistent Stats**: README counts must match the actual file counts in `.agent/`.
-- **Clean Diff**: Only modify the relevant sections to keep history readable.
+## 🔴 FASE 4: Auditoria de Integridade
+**Agente**: `quality-inspector`
+**Missão**: Revisão final.
+- **Verificação**: Garantir que todos os links sejam clicáveis e que as estatísticas estejam 100% corretas.
+- **Relatório**: Reportar o total de itens atualizados ao Usuário.
 
 ---
 
-## Examples:
+## Regras de Sincronização:
+- **Bilíngue**: Sempre atualizar arquivos em Inglês e Vietnamita.
+- **Estatísticas Consistentes**: As contagens do README devem corresponder ao número real de arquivos em `.agent/`.
+- **Diff Limpo**: Modificar apenas as seções relevantes para manter o histórico legível.
+
+---
+
+## Exemplos:
 - `/update-docs`
-- `/update-docs after adding 3 new skills`
-- `/update-docs sync agent descriptions`
+- `/update-docs após adicionar 3 novas skills`
+- `/update-docs sincronizar descrições de agents`

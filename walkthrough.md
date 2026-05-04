@@ -67,6 +67,7 @@ Todas as dependências do Ghost System foram atendidas, o vazamento visual em ou
 Como última etapa, foi conduzida uma profunda auditoria na performance atual (utilizando o Browser e Lighthouse) para geração dos artifacts (SDD - Spec-Driven Development), mapeando todos os gargalos visuais e de WebGL detectados tanto no `/` quanto na área `/admin`.
 
 **Entregáveis Adicionados:**
+
 - `.agents/rules/project-context.md`
 - `specs/audit-report.md`
 - `.agents/workflows/fix-performance-and-ui.md`

@@ -27,7 +27,7 @@ no new dependencies, no deploy.
 | `src/components/sobre/beliefs/BeliefScrollText.tsx`                                               | ✅                             |
 | `src/components/sobre/beliefs/BeliefManifesto.tsx`                                                | ✅                             |
 | `src/components/sobre/3d/GhostScene.tsx`                                                          | ✅                             |
-| `src/components/sobre/3dGhostErrorBoundary.tsx`                                                  | ✅                             |
+| `src/components/sobre/3dGhostErrorBoundary.tsx`                                                   | ✅                             |
 | `src/components/ui/SectionErrorBoundary.tsx`                                                      | ✅                             |
 | `src/hooks/useBeliefsScroll.ts`                                                                   | ✅                             |
 | `src/config/motion.ts`                                                                            | ✅                             |

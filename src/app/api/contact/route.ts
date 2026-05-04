@@ -121,9 +121,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const secretKey =
-    process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA'; // Fallback to testing key
   try {
+    const secretKey =
+      process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+    
     const turnstileVerify = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -132,11 +133,14 @@ export async function POST(request: NextRequest) {
         body: `secret=${encodeURIComponent(secretKey)}&response=${encodeURIComponent(turnstileToken)}`,
       }
     );
+
     const turnstileData = await turnstileVerify.json();
+    
     if (!turnstileData.success) {
+      console.error('[api/contact] Turnstile verification failed:', turnstileData);
       if (isJson) {
         return NextResponse.json(
-          { ok: false, message: 'Validação de segurança (CAPTCHA) falhou.' },
+          { ok: false, message: 'SYSTEM_ERR: CAPTCHA_VALIDATION_FAILED' },
           { status: 400 }
         );
       }
@@ -146,7 +150,18 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (err) {
-    console.error('[contact-form] CAPTCHA verification error:', err);
+    console.error('[api/contact] Unexpected CAPTCHA error:', err);
+    // Em caso de erro de rede (como agora), falhamos com segurança
+    if (isJson) {
+      return NextResponse.json(
+        { ok: false, message: 'SYSTEM_ERR: EXTERNAL_SERVICE_UNAVAILABLE' },
+        { status: 503 }
+      );
+    }
+    return NextResponse.redirect(
+      new URL('/#contact?error=service_down', request.url),
+      303
+    );
   }
 
   // Honeypot: aceita silenciosamente para não sinalizar ao bot.

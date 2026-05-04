@@ -7,10 +7,7 @@ const checkWebGLAvailable = () => {
 
   try {
     const attributes: WebGLContextAttributes = {
-      antialias: true,
       alpha: true,
-      powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
     };
 
     const context =

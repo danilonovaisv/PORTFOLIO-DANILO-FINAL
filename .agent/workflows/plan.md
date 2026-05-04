@@ -1,58 +1,11 @@
 ---
-description: Chưa biết bắt đầu từ đâu? Lập kế hoạch theo chuẩn Senior Personnel.
+description: Protocolo analítico do Antigravity para geração do mapa de dependências e documentação SDD (Implementation Plan).
 ---
 
-# /plan - Strategic Planning System
+# Spec-Driven Planning (BMAD/SDD)
 
-$ARGUMENTS
-
----
-
-## 🟢 PHASE 1: Discovery & Terrain Analysis (Gatekeeper)
-**Agent**: `explorer-agent`
-**Mission**: Understand the current state before proposing changes.
-- **Action**: Perform a recursive scan of the workspace.
-- **Action**: Identify all relevant DNA (`GEMINI.md`) and Rules (`rules/`).
-- **Critical Gate**: If the request is ambiguous, trigger the **Socratic Gate** and ask 3-5 clarifying questions.
-
-## 🟡 PHASE 2: Strategic Implementation Plan
-**Agent**: `project-planner`
-**Mission**: Create the blueprint for success.
-- **Output**: `PLAN-{task-slug}.md` in the project root or relevant docs folder.
-- **Requirement**: Use GitHub-style alerts (IMPORTANT/WARNING) for risks.
-- **Protocol**: 
-  1. Define Clear Goals.
-  2. Map Dependency Chains.
-  3. Establish Phase-by-Phase Breakdown.
-  4. Create a specific Verification Plan (Automated + Manual).
-
-## 🔵 PHASE 3: Surgical Task Distribution
-**Agent**: `orchestrator`
-**Mission**: Map the plan to specialized specialists.
-- **Action**: Update `task.md` with unique IDs for every step.
-- **Action**: Assign the "Heavy Lifters" (Backend, Frontend, etc.).
-
-## 🔴 PHASE 4: Plan Validation & Sign-off
-**Agent**: `quality-inspector`
-**Mission**: Ensure the plan is "Operational-Ready."
-- **Verification**: Check if the plan matches `DNA_REF` compliance.
-- **Reporting**: Report the exact file path of the created Plan to the User.
-
----
-
-## Output Format
-```markdown
-[OK] Plan Created: {path_to_plan.md}
-
-### Next Steps:
-1. Review the Plan.
-2. Manually adjust if needed.
-3. Run `/create` or `/orchestrate` to begin the surgical execution.
-```
-
----
-
-## Key Principles:
-- **No Code**: This workflow is strictly for strategy.
-- **Naming Protocol**: `PLAN-kebab-case-slug.md`.
-- **User-Centric**: Respect the user's OS and workspace constraints.
+1. Receba e interprete o briefing principal, realizando cruzamento técnico com as restrições da arquitetura base (Next.js, Three.js, Tailwind, Supabase).
+2. Divida os requisitos em componentes lógicos coesos e desacoplados, distribuindo-os entre `@src/components`, `@src/app/api`, ou rotas frontend.
+3. Se o escopo envolver cenas WebGL, planeje a gestão do estado e as texturas via `useLoader` e `@react-three/drei`.
+4. Produza o arquivo final do plano (Artifact: `Implementation Plan`) categorizando Passo a Passo e dependências de terminal necessárias.
+5. Suspenda a execução para revisão arquitetural do usuário. Após aprovação humana da spec, dispare a rotina de desenvolvimento com `/tdd-feature`.

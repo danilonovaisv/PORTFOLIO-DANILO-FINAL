@@ -86,16 +86,21 @@ export const MOTION_TOKENS = {
     linear: 'linear' as const,
   },
 
+  blur: {
+    visible: 'blur(0px)',
+    hidden: 'blur(10px)',
+  },
+
   // ─────────────────────────────────────────────────────────────────────────
   // STAGGER DELAYS
   // ─────────────────────────────────────────────────────────────────────────
   stagger: {
-    /** Rapid fire - 0.05s */
-    tight: 0.05,
+    /** Rapid fire - 0.04s */
+    tight: 0.04,
     /** Standard stagger - 0.1s */
     normal: 0.1,
-    /** Ghost-like slow reveal - 0.18s */
-    relaxed: 0.18,
+    /** Ghost-like slow reveal - 0.15s */
+    relaxed: 0.15,
     /** Very slow, dramatic - 0.25s */
     dramatic: 0.25,
   },

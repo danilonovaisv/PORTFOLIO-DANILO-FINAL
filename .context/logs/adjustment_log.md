@@ -8,7 +8,6 @@
 
 1. **`BeliefsSection.tsx` & Z-Layers** ✅
    - Corrigido conflito de Z-Index: movido `GhostCanvasClient` para `z-50` e manifesto para `z-40` para preservar as ordens visuais.
-   
 2. **`BeliefBackground.tsx`** ✅
    - Travado o mapeamento da sequência de cores para `#0048ff` no clímax final, impedindo regressão visual para fundo escuro (`#040013`).
    - Adicionada constraint de `transition: 'none'` via CSS in-line para impedir resets indesejados.
@@ -25,6 +24,7 @@
    - Refatoração total de tags header block para tipografia editorial fina e minimalista em monospace.
 
 **Verification:**
+
 - ✅ Gerado relatório final `walkthrough.md`.
 - ✅ Sem animações baseadas no DOM (scale, rotate), usando somente opacity/transformação tolerados.
 
@@ -1387,3 +1387,4 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ⚠️ Testes E2E locais bloqueados por `EPERM` no ambiente (porta 3006), mas arquitetura validada estatisticamente.
 
 ---
+[2026-05-04] [Pipeline] Stabilized 3D scene (useWebGLAvailable) and completed production build successfully. Blocked at firebase deploy due to EPERM on configstore.

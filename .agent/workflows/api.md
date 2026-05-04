@@ -1,29 +1,12 @@
 ---
-description: Master API Design & Documentation following OpenAPI 3.1 standards.
+description: Implementação e auditoria de design de endpoints (Route Handlers e Server Actions) conectados ao Supabase Storage e Database.
 ---
 
-## 🛠️ Quy trình Thiết kế và Tài liệu hóa API
+# Integração de API e Backend Supabase
 
-Quy trình này giúp bạn xây dựng hệ thống API chuyên nghiệp, bảo mật và dễ tích hợp.
-
-### 1. Phân tích & Đặc tả (Design)
-- Sử dụng công cụ `api-patterns` và `api-documenter`.
-- Khởi tạo file `swagger.yaml` hoặc `openapi.json` theo chuẩn 3.1.
-- Định nghĩa các luồng: Authentication (JWT/OAuth2), Error Handling (Standard codes).
-
-### 2. Triển khai Logic (Implementation)
-- Worker: `backend-specialist`.
-- Áp dụng `api-standards` từ kho DNA.
-- Thực hiện Dependency Injection và Separation of Concerns.
-
-### 3. Kiểm định & Bảo mật (Security Check)
-- Auditor: `security-auditor`.
-- Kiểm tra các lỗi phổ biến: SQL Injection, Broken Object Level Authorization (BOLA).
-- Validate Input/Output theo schema.
-
-### 4. Công bố (Documentation)
-- Tự động sinh tài liệu chuyên nghiệp.
-- Cập nhật phiên bản API trong `CHANGELOG.md`.
-
-// turbo
-`npx rapid-api-gen --init`
+1. Audite o diretório `@src/app/api/` e os módulos utilitários em `@src/lib/supabase/`.
+2. Garanta que todas as operações com o banco ou manipulação de mídia no Supabase Storage utilizem os clients SSR seguros configurados com `@supabase/ssr`.
+3. Verifique o tratamento de erros em blocos `try/catch` dentro das Server Actions, evitando que logs sensíveis de banco vazem para o cliente no App Router.
+4. Conecte-se ao Supabase MCP para analisar schemas e resolver conflitos de inferência nas requisições do frontend.
+5. Invoque o validador de TypeScript focado na tipagem de retorno da API:
+   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsc --project tsconfig.json --noEmit`
