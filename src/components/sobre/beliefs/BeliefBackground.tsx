@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { animate, inView } from "motion";
-import { GHOST_EASE_AMBIENT, MOTION_TOKENS } from "@/config/motion";
-import { useBeliefsScrollContext } from "./BeliefsScrollContext";
-import { Z_INDEX } from "@/config/z-indices";
-import { BELIEF_BACKGROUND_STOPS } from "@/config/beliefTokens";
+import { useEffect, useRef } from 'react';
+import { animate, inView } from 'motion';
+import { GHOST_EASE_AMBIENT, MOTION_TOKENS } from '@/config/motion';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
+import { Z_INDEX } from '@/config/z-indices';
+import { BELIEF_BACKGROUND_STOPS } from '@/config/beliefTokens';
 
 const stops = BELIEF_BACKGROUND_STOPS;
 
@@ -16,14 +16,15 @@ export function BeliefBackground() {
   useEffect(() => {
     const element = backgroundRef.current;
     if (!element || shouldReduceMotion) {
-      if (element) element.style.backgroundColor = MOTION_TOKENS.colors.deepVoid;
+      if (element)
+        element.style.backgroundColor = MOTION_TOKENS.colors.deepVoid;
       return;
     }
 
     element.style.backgroundColor = stops[0];
 
     return inView(
-      ".belief-scroll-section",
+      '.belief-scroll-section',
       (section) => {
         const index = Number((section as HTMLElement).dataset.index ?? 0);
         const nextColor = stops[index + 1] ?? stops[stops.length - 1];
@@ -55,7 +56,7 @@ export function BeliefBackground() {
       style={{
         backgroundColor: MOTION_TOKENS.colors.deepVoid,
         zIndex: Z_INDEX.beliefs.background,
-        willChange: "background-color",
+        willChange: 'background-color',
       }}
       className="absolute inset-0"
     />

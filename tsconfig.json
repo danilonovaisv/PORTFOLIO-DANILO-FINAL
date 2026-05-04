@@ -6,7 +6,7 @@
     "useDefineForClassFields": false,
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
     "typeRoots": ["./node_modules/@types"],
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,

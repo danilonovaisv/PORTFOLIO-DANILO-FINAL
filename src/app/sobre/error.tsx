@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 export default function Error({
   error,
@@ -10,7 +10,9 @@ export default function Error({
   return (
     <main className="flex min-h-dvh items-center justify-center bg-[#040013] px-6 text-white">
       <div className="max-w-md space-y-4 text-center">
-        <h1 className="text-2xl font-bold">Não foi possível carregar a página.</h1>
+        <h1 className="text-2xl font-bold">
+          Não foi possível carregar a página.
+        </h1>
         <p className="text-white/60">{error.message}</p>
         <button
           onClick={reset}

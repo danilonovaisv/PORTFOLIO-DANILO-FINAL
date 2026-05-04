@@ -13,7 +13,10 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 import { GhostSceneParams, FLUORESCENT_COLORS } from '../types';
 import { analogDecayShader } from '../shaders/analog-decay';
-import { atmosphereVertexShader, atmosphereFragmentShader } from '../shaders/atmosphere';
+import {
+  atmosphereVertexShader,
+  atmosphereFragmentShader,
+} from '../shaders/atmosphere';
 import { createEyes } from '../utils';
 
 export function useGhostScene(
@@ -74,7 +77,10 @@ export function useGhostScene(
     renderer.domElement.style.zIndex = '0';
     renderer.domElement.style.pointerEvents = 'none';
     renderer.domElement.style.background = 'transparent';
-    renderer.domElement.setAttribute('aria-label', 'Interactive 3D Ghost Portfolio Experience');
+    renderer.domElement.setAttribute(
+      'aria-label',
+      'Interactive 3D Ghost Portfolio Experience'
+    );
     renderer.domElement.setAttribute('role', 'img');
 
     mountElement.appendChild(renderer.domElement);
@@ -107,7 +113,7 @@ export function useGhostScene(
         uAnalogScanlines: { value: params.analogScanlines },
         uAnalogVignette: { value: params.analogVignette },
         uAnalogJitter: { value: params.analogJitter },
-      }
+      },
     });
     composer.addPass(analogDecayPass);
     analogDecayPassRef.current = analogDecayPass;
@@ -141,19 +147,26 @@ export function useGhostScene(
     atmosphere.renderOrder = -100;
     sceneRef.current.add(atmosphere);
 
-    const ambientLight = new THREE.AmbientLight(params.ambientLightColor, params.ambientLightIntensity);
+    const ambientLight = new THREE.AmbientLight(
+      params.ambientLightColor,
+      params.ambientLightIntensity
+    );
     sceneRef.current.add(ambientLight);
 
     // Ghost
     sceneRef.current.add(ghostGroupRef.current);
 
     const ghostGeometry = new THREE.SphereGeometry(2, 40, 40);
-    const positions = ghostGeometry.getAttribute('position').array as Float32Array;
+    const positions = ghostGeometry.getAttribute('position')
+      .array as Float32Array;
     for (let i = 0; i < positions.length; i += 3) {
       if (positions[i + 1] < -0.2) {
         const x = positions[i];
         const z = positions[i + 2];
-        const noise = Math.sin(x * 5) * 0.35 + Math.cos(z * 4) * 0.25 + Math.sin((x + z) * 3) * 0.15;
+        const noise =
+          Math.sin(x * 5) * 0.35 +
+          Math.cos(z * 4) * 0.25 +
+          Math.sin((x + z) * 3) * 0.15;
         positions[i + 1] = -2.0 + noise;
       }
     }
@@ -175,11 +188,17 @@ export function useGhostScene(
     const ghostBody = new THREE.Mesh(ghostGeometry, ghostMaterial);
     ghostGroupRef.current.add(ghostBody);
 
-    const rimLight1 = new THREE.DirectionalLight(params.rimLightColor1, params.rimLightIntensity);
+    const rimLight1 = new THREE.DirectionalLight(
+      params.rimLightColor1,
+      params.rimLightIntensity
+    );
     rimLight1.position.set(-8, 6, -4);
     sceneRef.current.add(rimLight1);
 
-    const rimLight2 = new THREE.DirectionalLight(params.rimLightColor2, params.rimLightIntensity * 0.7);
+    const rimLight2 = new THREE.DirectionalLight(
+      params.rimLightColor2,
+      params.rimLightIntensity * 0.7
+    );
     rimLight2.position.set(8, -4, -6);
     sceneRef.current.add(rimLight2);
 
@@ -195,12 +214,21 @@ export function useGhostScene(
 
     // Resize Handler
     onResizeRef.current = () => {
-      if (!cameraRef.current || !rendererRef.current || !composerRef.current || !bloomPassRef.current) return;
+      if (
+        !cameraRef.current ||
+        !rendererRef.current ||
+        !composerRef.current ||
+        !bloomPassRef.current
+      )
+        return;
       cameraRef.current.aspect = window.innerWidth / window.innerHeight;
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(window.innerWidth, window.innerHeight);
       composerRef.current.setSize(window.innerWidth, window.innerHeight);
-      bloomPassRef.current.resolution.set(window.innerWidth, window.innerHeight);
+      bloomPassRef.current.resolution.set(
+        window.innerWidth,
+        window.innerHeight
+      );
     };
     window.addEventListener('resize', onResizeRef.current);
 
@@ -249,6 +277,6 @@ export function useGhostScene(
     eyesRef,
     sharedFireflyLightRef,
     init,
-    cleanup
+    cleanup,
   };
 }

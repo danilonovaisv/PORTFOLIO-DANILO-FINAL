@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { Component, ReactNode } from "react";
+import React, { Component, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -21,7 +21,7 @@ export class GhostErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("Ghost 3D Error:", error, errorInfo);
+    console.error('Ghost 3D Error:', error, errorInfo);
   }
 
   public render() {

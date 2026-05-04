@@ -9,7 +9,13 @@ import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
-import { GHOST_EASE, ghostReveal, ghostRevealSimple, ghostRise, ghostFade } from '@/config/motion';
+import {
+  GHOST_EASE,
+  ghostReveal,
+  ghostRevealSimple,
+  ghostRise,
+  ghostFade,
+} from '@/config/motion';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
 export default function AboutMethod() {
@@ -67,7 +73,9 @@ export default function AboutMethod() {
             >
               <div className="w-full max-w-[44rem] px-6 py-7 lg:px-8 lg:py-9">
                 <motion.p
-                  variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
+                  variants={
+                    prefersReducedMotion ? ghostRevealSimple : ghostReveal
+                  }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}
@@ -78,7 +86,9 @@ export default function AboutMethod() {
 
                 {/* Título */}
                 <motion.div
-                  variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
+                  variants={
+                    prefersReducedMotion ? ghostRevealSimple : ghostReveal
+                  }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}
@@ -94,7 +104,9 @@ export default function AboutMethod() {
 
                 {/* Texto introdutório */}
                 <motion.div
-                  variants={prefersReducedMotion ? ghostRevealSimple : ghostFade}
+                  variants={
+                    prefersReducedMotion ? ghostRevealSimple : ghostFade
+                  }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}
@@ -123,7 +135,9 @@ export default function AboutMethod() {
                   {ABOUT_CONTENT.method.steps.map((step) => (
                     <motion.li
                       key={step.id}
-                      variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
+                      variants={
+                        prefersReducedMotion ? ghostRevealSimple : ghostReveal
+                      }
                       className="group flex flex-row items-center gap-4 border-b border-bluePrimary/30 py-4 lg:gap-5 lg:py-5"
                     >
                       <span className="font-display text-xl md:text-2xl font-bold tabular-nums text-bluePrimary">

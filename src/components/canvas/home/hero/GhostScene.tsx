@@ -20,14 +20,14 @@ export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
   const [isInitialized, setIsInitialized] = useState(false);
-  
+
   // 1. Initialize Parameters
   const params = useGhostParams(performanceConfig);
-  
+
   // 2. Setup Hooks
   const preloader = usePreloader();
   const input = useGhostInput();
-  
+
   const sceneManager = useGhostScene(
     mountRef,
     params,
@@ -36,7 +36,7 @@ export default function GhostScene() {
   );
 
   const particleSystem = useParticleSystem(params);
-  
+
   // 3. Animation Logic
   const hasInitializedRef = useRef(false);
 
@@ -57,7 +57,7 @@ export default function GhostScene() {
     input,
     performanceConfig
   );
-  
+
   const updateRef = useRef(animator.update);
   useEffect(() => {
     updateRef.current = animator.update;
@@ -101,11 +101,11 @@ export default function GhostScene() {
     let animationId: number;
     const animate = (timestamp: number) => {
       animationId = requestAnimationFrame(animate);
-      
+
       // Only update if isInView
       // We check for renderer internally in animator.update
       if (!isInView) return;
-      
+
       updateRef.current(timestamp);
     };
 
@@ -121,16 +121,15 @@ export default function GhostScene() {
     };
   }, []); // Only on mount
 
-
   return (
     <>
-      <Preloader 
-        preloaderRef={preloader.preloaderRef} 
-        progressBarRef={preloader.progressBarRef} 
+      <Preloader
+        preloaderRef={preloader.preloaderRef}
+        progressBarRef={preloader.progressBarRef}
       />
-      <div 
-        ref={mountRef} 
-        className="absolute inset-0 z-0 h-full w-full" 
+      <div
+        ref={mountRef}
+        className="absolute inset-0 z-0 h-full w-full"
         data-testid="ghost-hero-scene"
       />
     </>

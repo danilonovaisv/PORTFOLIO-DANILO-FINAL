@@ -32,18 +32,21 @@ function isVideo(path) {
 
 function buildSupabaseStorageUrl(bucket, filePath, options) {
   const normalizedPath = filePath.toLowerCase();
-  const isNonTransformable = /\.(mp4|webm|mov|m4v|ogg|glb|gltf)$/i.test(normalizedPath);
-  
-  const endpoint = !isNonTransformable && options
-    ? '/storage/v1/render/image/public/'
-    : '/storage/v1/object/public/';
-    
+  const isNonTransformable = /\.(mp4|webm|mov|m4v|ogg|glb|gltf)$/i.test(
+    normalizedPath
+  );
+
+  const endpoint =
+    !isNonTransformable && options
+      ? '/storage/v1/render/image/public/'
+      : '/storage/v1/object/public/';
+
   let url = `https://project.supabase.co${endpoint}${bucket}/${filePath}`;
-  
+
   if (!isNonTransformable && options) {
     url += `?width=${options.width}&quality=${options.quality}&format=${options.format}`;
   }
-  
+
   return url;
 }
 
@@ -60,13 +63,13 @@ let allPassed = true;
 tests.forEach(({ path, expectedEndpoint }) => {
   const isModel = is3DModel(path);
   const isVid = isVideo(path);
-  
+
   const url = buildSupabaseStorageUrl('site-assets', path, {
     width: 800,
     quality: 85,
-    format: 'webp'
+    format: 'webp',
   });
-  
+
   const passed = url.includes(expectedEndpoint);
   console.log(`${passed ? '✅' : '❌'} Path: ${path}`);
   console.log(`   Generated URL: ${url}`);

@@ -89,7 +89,10 @@ export const analogDecayShader = {
     tDiffuse: { value: null },
     uTime: { value: 0.0 },
     uResolution: {
-      value: typeof window !== 'undefined' ? new THREE.Vector2(window.innerWidth, window.innerHeight) : new THREE.Vector2(1, 1),
+      value:
+        typeof window !== 'undefined'
+          ? new THREE.Vector2(window.innerWidth, window.innerHeight)
+          : new THREE.Vector2(1, 1),
     },
     uAnalogGrain: { value: 0.4 },
     uAnalogBleeding: { value: 1.0 },

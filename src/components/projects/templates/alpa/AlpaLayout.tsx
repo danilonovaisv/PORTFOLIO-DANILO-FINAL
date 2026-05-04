@@ -68,7 +68,10 @@ interface AlpaLayoutProps {
   // We pass these down so AlpaContent can use them consistently
   revealInitial: any;
   revealVisible: any;
-  openAsset: (asset: ZoomAsset, event: React.MouseEvent<HTMLButtonElement>) => void;
+  openAsset: (
+    asset: ZoomAsset,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => void;
   zoomAsset: ZoomAsset | null;
   closeAsset: () => void;
 }

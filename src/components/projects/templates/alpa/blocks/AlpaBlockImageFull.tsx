@@ -12,7 +12,10 @@ interface AlpaBlockImageFullProps {
   caption?: string;
   revealInitial: any;
   revealVisible: any;
-  openAsset: (asset: ZoomAsset, event: React.MouseEvent<HTMLButtonElement>) => void;
+  openAsset: (
+    asset: ZoomAsset,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => void;
 }
 
 export function AlpaBlockImageFull({

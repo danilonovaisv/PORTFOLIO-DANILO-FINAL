@@ -6,7 +6,7 @@ import {
   motion,
   useReducedMotion,
   type Variants,
-} from 'motion/react';
+} from 'framer-motion';
 import type { JSX, ReactNode, ComponentType } from 'react';
 import { MOTION_TOKENS, GHOST_EASE } from '@/config/motion';
 

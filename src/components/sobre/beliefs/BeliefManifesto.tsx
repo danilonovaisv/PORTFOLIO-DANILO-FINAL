@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { motion, useTransform } from "motion/react";
-import { useBeliefsScrollContext } from "./BeliefsScrollContext";
-import { SplitTextMotion } from "./SplitTextMotion";
-import { Z_INDEX } from "@/config/z-indices";
-import { MOTION_TOKENS } from "@/config/motion";
-import { BELIEF_MANIFESTO_LINES } from "@/config/beliefTokens";
+import { motion, useTransform } from 'framer-motion';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
+import { SplitTextMotion } from './SplitTextMotion';
+import { Z_INDEX } from '@/config/z-indices';
+import { MOTION_TOKENS } from '@/config/motion';
+import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
 
 export function BeliefManifesto() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -18,9 +18,9 @@ export function BeliefManifesto() {
       aria-live="polite"
       data-testid="beliefs-manifesto"
       className="pointer-events-none fixed inset-0 flex items-center justify-center px-4 text-center"
-      style={{ 
+      style={{
         ...(shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity, y }),
-        zIndex: Z_INDEX.beliefs.manifesto
+        zIndex: Z_INDEX.beliefs.manifesto,
       }}
     >
       <div className="font-display text-[clamp(3.5rem,16vw,12rem)] font-black uppercase leading-[0.82] tracking-[0.03em] text-white">

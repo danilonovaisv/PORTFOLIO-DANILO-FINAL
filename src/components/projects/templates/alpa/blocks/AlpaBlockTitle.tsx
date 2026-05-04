@@ -23,9 +23,7 @@ export function AlpaBlockTitle({
       transition={{ duration: 0.7, ease: GHOST_EASE }}
       className="mb-8 md:mb-12 px-6"
     >
-      <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-        {text}
-      </h2>
+      <h2 className="text-4xl md:text-6xl font-bold tracking-tight">{text}</h2>
     </motion.div>
   );
 }

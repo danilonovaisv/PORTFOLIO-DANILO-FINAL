@@ -1387,6 +1387,7 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ⚠️ Testes E2E locais bloqueados por `EPERM` no ambiente (porta 3006), mas arquitetura validada estatisticamente.
 
 ---
+
 [2026-05-04] [Pipeline] Stabilized 3D scene (useWebGLAvailable) and completed production build successfully. Blocked at firebase deploy due to EPERM on configstore.
 
 ---

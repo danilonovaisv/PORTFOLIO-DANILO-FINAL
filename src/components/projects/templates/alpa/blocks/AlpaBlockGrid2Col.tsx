@@ -10,7 +10,10 @@ interface AlpaBlockGrid2ColProps {
   columns: any[];
   revealInitial: any;
   revealVisible: any;
-  openAsset: (asset: ZoomAsset, event: React.MouseEvent<HTMLButtonElement>) => void;
+  openAsset: (
+    asset: ZoomAsset,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => void;
 }
 
 export function AlpaBlockGrid2Col({

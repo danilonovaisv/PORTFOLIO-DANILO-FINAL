@@ -17,7 +17,7 @@ let foundFiles = 0;
 
 Object.entries(assets).forEach(([key, asset]) => {
   const localPath = path.join(process.cwd(), 'public', asset.file_path);
-  
+
   if (fs.existsSync(localPath)) {
     foundFiles++;
   } else {

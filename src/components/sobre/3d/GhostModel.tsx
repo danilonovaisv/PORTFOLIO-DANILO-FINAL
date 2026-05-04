@@ -1,18 +1,19 @@
-"use client";
+'use client';
 
-import { useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
-import { Group, MathUtils } from "three";
-import { getAssetUrl } from "@/lib/utils";
-import { useBeliefsScrollContext } from "../beliefs/BeliefsScrollContext";
-import { usePointerParallax } from "@/hooks/usePointerParallax";
+import { useGLTF } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import { Group, MathUtils } from 'three';
+import { getAssetUrl } from '@/lib/utils';
+import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
+import { usePointerParallax } from '@/hooks/usePointerParallax';
 
-const MODEL_PATH = getAssetUrl("site-assets/3d/ghost-v1.glb");
+const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
 
 export function GhostModel() {
   const group = useRef<Group>(null);
-  const { scrollYProgress, isMobile, shouldReduceMotion } = useBeliefsScrollContext();
+  const { scrollYProgress, isMobile, shouldReduceMotion } =
+    useBeliefsScrollContext();
   const { x: pointerX, y: pointerY } = usePointerParallax();
   const { invalidate } = useThree();
   const { scene } = useGLTF(MODEL_PATH);
@@ -20,11 +21,11 @@ export function GhostModel() {
   // Trigger re-render explicitly when scroll progress updates,
   // since Canvas uses frameloop="demand".
   useEffect(() => {
-    return scrollYProgress.on("change", () => invalidate());
+    return scrollYProgress.on('change', () => invalidate());
   }, [scrollYProgress, invalidate]);
 
   useEffect(() => {
-    return pointerX.on("change", () => invalidate());
+    return pointerX.on('change', () => invalidate());
   }, [pointerX, invalidate]);
 
   useFrame((state) => {
@@ -76,18 +77,23 @@ export function GhostModel() {
     if (isMobile) {
       group.current.position.y = MathUtils.lerp(
         group.current.position.y,
-        targetY + (shouldReduceMotion ? 0 : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03)),
+        targetY +
+          (shouldReduceMotion
+            ? 0
+            : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03)),
         0.1
       );
     } else {
-       const hoverY = shouldReduceMotion ? 0 : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03);
-       group.current.position.y = MathUtils.lerp(
-         group.current.position.y,
-         targetY + hoverY,
-         0.1
-       );
+      const hoverY = shouldReduceMotion
+        ? 0
+        : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03);
+      group.current.position.y = MathUtils.lerp(
+        group.current.position.y,
+        targetY + hoverY,
+        0.1
+      );
     }
-    
+
     // Invalidate if things are still moving
     invalidate();
   });
@@ -99,6 +105,6 @@ export function GhostModel() {
   );
 }
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   useGLTF.preload(MODEL_PATH);
 }

@@ -4,7 +4,7 @@ import { FLUORESCENT_COLORS } from './types';
 export function createEyes(ghostGroup: THREE.Group, eyeGlowColor: string) {
   const eyeGroup = new THREE.Group();
   ghostGroup.add(eyeGroup);
-  
+
   const socketGeometry = new THREE.SphereGeometry(0.45, 16, 16);
   const socketMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
 

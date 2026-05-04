@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import { motion, Variants } from "motion/react";
-import { ComponentPropsWithoutRef, ElementType } from "react";
-import { MOTION_TOKENS } from "@/config/motion";
+import { motion, Variants } from 'framer-motion';
+import { ComponentPropsWithoutRef, ElementType } from 'react';
+import { MOTION_TOKENS } from '@/config/motion';
 
 type SplitTextMotionProps<T extends ElementType> = {
   as?: T;
   text: string;
   active?: boolean;
-  mode?: "words" | "chars";
+  mode?: 'words' | 'chars';
   stagger?: number;
   className?: string;
-} & Omit<ComponentPropsWithoutRef<T>, "as" | "children">;
+} & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children'>;
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0 },
 };
 
-export function SplitTextMotion<T extends ElementType = "span">({
+export function SplitTextMotion<T extends ElementType = 'span'>({
   as,
   text,
   active = true,
-  mode = "words",
+  mode = 'words',
   stagger = MOTION_TOKENS.stagger.normal,
   className,
   ...props
 }: SplitTextMotionProps<T>) {
-  const Component = motion.create(as ?? "span") as any;
-  const units = mode === "chars" ? Array.from(text) : text.split(" ");
+  const Component = motion.create(as ?? 'span') as any;
+  const units = mode === 'chars' ? Array.from(text) : text.split(' ');
 
   return (
     <Component
       className={className}
       initial="hidden"
-      animate={active ? "visible" : "hidden"}
+      animate={active ? 'visible' : 'hidden'}
       variants={{
         hidden: {},
         visible: {
@@ -55,8 +55,8 @@ export function SplitTextMotion<T extends ElementType = "span">({
           }}
           className="inline-block will-change-transform"
         >
-          {unit === " " ? "\u00A0" : unit}
-          {mode === "words" && index < units.length - 1 ? "\u00A0" : null}
+          {unit === ' ' ? '\u00A0' : unit}
+          {mode === 'words' && index < units.length - 1 ? '\u00A0' : null}
         </motion.span>
       ))}
     </Component>

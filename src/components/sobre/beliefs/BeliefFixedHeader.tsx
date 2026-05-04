@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { motion, useTransform } from "motion/react";
-import { useBeliefsScrollContext } from "./BeliefsScrollContext";
-import { SplitTextMotion } from "./SplitTextMotion";
-import { Z_INDEX } from "@/config/z-indices";
-import { MOTION_TOKENS } from "@/config/motion";
-import { BELIEF_HEADER_LINES } from "@/config/beliefTokens";
+import { motion, useTransform } from 'framer-motion';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
+import { SplitTextMotion } from './SplitTextMotion';
+import { Z_INDEX } from '@/config/z-indices';
+import { MOTION_TOKENS } from '@/config/motion';
+import { BELIEF_HEADER_LINES } from '@/config/beliefTokens';
 
 export function BeliefFixedHeader() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -13,17 +13,17 @@ export function BeliefFixedHeader() {
   const titleOpacity = useTransform(
     scrollYProgress,
     [0.1, 0.2, 0.8, 0.9],
-    [0, 1, 1, 0],
+    [0, 1, 1, 0]
   );
 
   const titleX = useTransform(
     scrollYProgress,
     [0.1, 0.2, 0.8, 0.9],
-    [60, 0, 0, -60],
+    [60, 0, 0, -60]
   );
 
   return (
-    <div 
+    <div
       className="pointer-events-none absolute inset-0 flex flex-col justify-start pt-[14vh] md:items-end md:justify-center md:pt-0"
       style={{ zIndex: Z_INDEX.beliefs.header }}
     >

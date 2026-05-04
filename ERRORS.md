@@ -112,7 +112,7 @@
 - **Root Cause**: Attempted to run `pnpm install` as part of a `deep-clean` workflow, but the environment (or local machine) is currently offline or unable to resolve `registry.npmjs.org`. Since `node_modules` was deleted by the cleanup script, the project is now in a broken state without dependencies.
 - **Error Message**: `GET https://registry.npmjs.org/... error (ENOTFOUND)`.
 - **Fix Applied**: N/A (Waiting for network restoration). Proposed an offline install attempt which also failed.
-- **Prevention**: Check for internet connectivity *before* running scripts that delete `node_modules`. Implement a connectivity check in `cleanup-project.sh`.
+- **Prevention**: Check for internet connectivity _before_ running scripts that delete `node_modules`. Implement a connectivity check in `cleanup-project.sh`.
 - **Status**: Investigating / Stuck
 
 ## [2026-05-04 01:15] - Supabase 400 Error on 3D Model Loading
@@ -122,7 +122,7 @@
 - **File**: `src/lib/supabase/image-loader.ts`, `src/lib/supabase/urls.ts`, `src/lib/utils.ts`
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The global image loader and URL utilities were incorrectly identifying 3D models (`.glb`, `.gltf`) as transformable images, attempting to route them through the Supabase Image Transformation service (`/render/image/public/`) which returned 400 for non-image binary files.
-- **Error Message**: 
+- **Error Message**:
   ```
   fetch for "https://.../storage/v1/render/image/public/site-assets/3d/ghost-v1.glb?width=800&quality=85&format=webp" responded with 400
   ```

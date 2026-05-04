@@ -1,13 +1,17 @@
-"use client";
+'use client';
 
-import { motion, useTransform } from "motion/react";
-import { useBeliefsScrollContext } from "../beliefs/BeliefsScrollContext";
-import { Z_INDEX } from "@/config/z-indices";
+import { motion, useTransform } from 'framer-motion';
+import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
+import { Z_INDEX } from '@/config/z-indices';
 
 export function GhostSceneFallback() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
 
-  const opacity = useTransform(scrollYProgress, [0.1, 0.2, 0.85, 0.95], [0, 1, 1, 0]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.1, 0.2, 0.85, 0.95],
+    [0, 1, 1, 0]
+  );
 
   return (
     <div

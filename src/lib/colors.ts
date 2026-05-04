@@ -3,7 +3,10 @@
  * Handles hex normalization, RGB conversion, and color mixing.
  */
 
-export const normalizeHexColor = (value?: string, fallback = '#0048ff'): string => {
+export const normalizeHexColor = (
+  value?: string,
+  fallback = '#0048ff'
+): string => {
   if (!value) return fallback;
   const cleaned = value.trim();
 
@@ -43,7 +46,11 @@ export const rgbToHex = (r: number, g: number, b: number): string => {
 /**
  * Mixes two hex colors based on an amount (0 to 1).
  */
-export const mixHex = (fromHex: string, toHex: string, amount: number): string => {
+export const mixHex = (
+  fromHex: string,
+  toHex: string,
+  amount: number
+): string => {
   const from = hexToRgb(fromHex);
   const to = hexToRgb(toHex);
   return rgbToHex(
@@ -58,6 +65,6 @@ export const mixHex = (fromHex: string, toHex: string, amount: number): string =
  */
 export const colorPalette = {
   bluePrimary: [223, 100, 50] as [number, number, number], // #0048ff
-  blueDeep: [223, 100, 10] as [number, number, number],    // Very dark blue
-  blueCyan: [195, 100, 50] as [number, number, number],    // Cyan-ish blue
+  blueDeep: [223, 100, 10] as [number, number, number], // Very dark blue
+  blueCyan: [195, 100, 50] as [number, number, number], // Cyan-ish blue
 } as const;

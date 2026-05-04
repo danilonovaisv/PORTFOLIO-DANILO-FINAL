@@ -17,15 +17,21 @@ export function useGhostInput() {
     }, 3000);
   }, []);
 
-  const onMouseMove = useCallback((e: MouseEvent) => {
-    updateMousePos(e.clientX, e.clientY);
-  }, [updateMousePos]);
+  const onMouseMove = useCallback(
+    (e: MouseEvent) => {
+      updateMousePos(e.clientX, e.clientY);
+    },
+    [updateMousePos]
+  );
 
-  const onTouchMove = useCallback((e: TouchEvent) => {
-    if (e.touches.length > 0) {
-      updateMousePos(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [updateMousePos]);
+  const onTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        updateMousePos(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    },
+    [updateMousePos]
+  );
 
   useEffect(() => {
     window.addEventListener('mousemove', onMouseMove);
@@ -42,6 +48,6 @@ export function useGhostInput() {
 
   return {
     mouse: mouseRef.current,
-    hasReceivedMouseInput: hasReceivedMouseInputRef
+    hasReceivedMouseInput: hasReceivedMouseInputRef,
   };
 }

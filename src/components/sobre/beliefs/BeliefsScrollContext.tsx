@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { createContext, useContext, ReactNode, RefObject } from "react";
-import { MotionValue } from "motion/react";
+import { createContext, useContext, ReactNode, RefObject } from 'react';
+import { MotionValue } from 'framer-motion';
 
 type BeliefsScrollContextValue = {
   containerRef: RefObject<HTMLElement | null>;
@@ -10,13 +10,15 @@ type BeliefsScrollContextValue = {
   shouldReduceMotion: boolean;
 };
 
-const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(null);
+const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(
+  null
+);
 
-export function BeliefsScrollProvider({ 
-  children, 
-  value 
-}: { 
-  children: ReactNode; 
+export function BeliefsScrollProvider({
+  children,
+  value,
+}: {
+  children: ReactNode;
   value: BeliefsScrollContextValue;
 }) {
   return (
@@ -29,7 +31,9 @@ export function BeliefsScrollProvider({
 export function useBeliefsScrollContext() {
   const context = useContext(BeliefsScrollContext);
   if (!context) {
-    throw new Error("useBeliefsScrollContext must be used within a BeliefsScrollProvider");
+    throw new Error(
+      'useBeliefsScrollContext must be used within a BeliefsScrollProvider'
+    );
   }
   return context;
 }

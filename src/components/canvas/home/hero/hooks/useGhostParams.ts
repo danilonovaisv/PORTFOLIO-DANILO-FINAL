@@ -4,10 +4,10 @@ import { GhostSceneParams } from '../types';
 export function useGhostParams(performanceConfig: any): GhostSceneParams {
   return useMemo(() => {
     const MAX_PARTICLES = 500;
-    
+
     return {
       bodyColor: 0x040013, // Ghost System Void Black
-      glowColor: 'blue',   // Ghost System Blue (0x0080ff)
+      glowColor: 'blue', // Ghost System Blue (0x0080ff)
       eyeGlowColor: 'violet',
       ghostOpacity: 0.92,
       ghostScale: 2.4,
@@ -38,7 +38,7 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       fireflySpeed: 0.09,
       analogIntensity: 0.45, // Further refinement for editorial feel
       analogGrain: 0.3,
-      analogBleeding: 0.4, 
+      analogBleeding: 0.4,
       analogVSync: 0.8,
       analogScanlines: 0.25,
       analogVignette: 1.6,

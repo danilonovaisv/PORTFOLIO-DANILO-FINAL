@@ -7,7 +7,10 @@ interface PreloaderProps {
   progressBarRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export const Preloader: React.FC<PreloaderProps> = ({ preloaderRef, progressBarRef }) => {
+export const Preloader: React.FC<PreloaderProps> = ({
+  preloaderRef,
+  progressBarRef,
+}) => {
   return (
     <div
       ref={preloaderRef}

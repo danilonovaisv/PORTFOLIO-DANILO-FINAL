@@ -28,7 +28,10 @@ export function AlpaBlockTextFull({
       className="max-w-3xl mx-auto mb-16 md:mb-24 px-6"
     >
       {title && (
-        <h3 className="text-2xl md:text-3xl font-bold mb-6" style={{ color: accentColor }}>
+        <h3
+          className="text-2xl md:text-3xl font-bold mb-6"
+          style={{ color: accentColor }}
+        >
           {title}
         </h3>
       )}

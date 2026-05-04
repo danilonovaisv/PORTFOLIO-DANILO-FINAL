@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
   try {
     const secretKey =
       process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
-    
+
     const turnstileVerify = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -135,9 +135,12 @@ export async function POST(request: NextRequest) {
     );
 
     const turnstileData = await turnstileVerify.json();
-    
+
     if (!turnstileData.success) {
-      console.error('[api/contact] Turnstile verification failed:', turnstileData);
+      console.error(
+        '[api/contact] Turnstile verification failed:',
+        turnstileData
+      );
       if (isJson) {
         return NextResponse.json(
           { ok: false, message: 'SYSTEM_ERR: CAPTCHA_VALIDATION_FAILED' },
