@@ -74,6 +74,23 @@
 
 ---
 
+## [2026-05-04T05:56] Firebase Hosting Deploy — npm Peer Guard Restored
+
+**Context:** `npx -y firebase-tools@latest deploy --only hosting` falhou no empacotamento SSR do Firebase Frameworks com `ERESOLVE`: `@dataconnect/admin-generated@0.0.1` exige peer `firebase-admin@^13.4.0`, enquanto o pacote gerado do framework ainda resolvia `firebase-admin@11.11.1`.
+
+**Fix Applied:**
+
+1. Restaurado `legacy-peer-deps=true` em `.npmrc`, guardrail já documentado para o builder npm do Firebase.
+2. Retry executado com Node `22.22.2`, `FIREBASE_CLI_EXPERIMENTS=webframeworks`, `VALIDATE_ENV_WARN_ONLY=1` e `NPM_CONFIG_LEGACY_PEER_DEPS=true`.
+
+**Verification:**
+
+- ✅ `bash scripts/firebase-preflight.sh` — PASSED, incluindo validação explícita de `legacy-peer-deps=true`.
+- ✅ `npx -y firebase-tools@latest deploy --only hosting` — Deploy completo para `portfolio-danilo-novais`.
+- ✅ `curl -I -L --max-time 20 https://portfolio-danilo-novais.web.app` — `HTTP/2 200`.
+
+---
+
 ## [2026-04-03T06:24] Security Fix — `tar` Override via `pnpm.overrides` + Final Audit Clean
 
 **Context:** Seguindo o protocolo `/deep-clean-project` + `/codebase-cleanup-deps-audit`. A auditoria inicial revelou 8 vulnerabilidades (6 high, 2 low). O override de `tar` foi inicialmente aplicado apenas na seção `overrides` (npm-style), mas o pnpm ignora essa seção para forçar versões transitivas — o campo correto é `pnpm.overrides`. Após identificar o root cause, o fix foi aplicado no lugar correto.
