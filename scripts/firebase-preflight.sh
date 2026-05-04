@@ -38,14 +38,13 @@ if [ -f "functions/package.json" ]; then
   
   # Validate pnpm install
   echo -e "\n📥 Validando instalação de dependências..."
-  cd functions
-  if pnpm install --dry-run > /dev/null 2>&1; then
+  # Use --dir to avoid being confused by the current directory
+  if pnpm --dir functions install --dry-run > /dev/null 2>&1; then
     echo -e "${GREEN}✅ OK: pnpm install validado com sucesso${NC}"
   else
     echo -e "${YELLOW}⚠️  AVISO: pnpm install falhou (provavelmente EPERM). Continuando se node_modules existir.${NC}"
     # ERRORS=$((ERRORS + 1)) # Bypass error for EPERM environments
   fi
-  cd ..
 else
   echo -e "${YELLOW}⚠️  AVISO: functions/package.json não encontrado${NC}"
 fi
@@ -93,11 +92,14 @@ fi
 # Check 6: Verify Node version
 echo -e "\n🟢 Checking Node.js version..."
 NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
-if [ "$NODE_VERSION" -eq 20 ]; then
-  echo -e "${GREEN}✅ OK: Node.js v${NODE_VERSION} (required: 20)${NC}"
+# Project requires 22
+if [ "$NODE_VERSION" -ge 20 ]; then
+  echo -e "${GREEN}✅ OK: Node.js v${NODE_VERSION} (required: >=20)${NC}"
 else
-  echo -e "${YELLOW}⚠️  AVISO: Node.js v${NODE_VERSION} (recomendado: 20)${NC}"
+  echo -e "${RED}❌ ERRO: Node.js v${NODE_VERSION} (required: >=20)${NC}"
+  ERRORS=$((ERRORS + 1))
 fi
+
 
 # Summary
 echo -e "\n===================================="

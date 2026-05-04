@@ -44,7 +44,8 @@
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "firebase:preflight": "bash scripts/firebase-preflight.sh",
     "predeploy": "bash scripts/firebase-preflight.sh && python3 scripts/audit_assets.py",
-    "deploy": "pnpm run predeploy && bash scripts/deploy.sh",
+    "deploy": "bash scripts/deploy.sh",
+
     "deploy:hosting": "pnpm run build && firebase deploy --only hosting",
     "test-and-deploy": "tsx scripts/run-full-test-and-deploy.ts",
     "admin:deploy": "pnpm run admin:prepare:mutate && pnpm run admin:prepare:verify && pnpm run build",
