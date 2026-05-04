@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, useTransform } from "motion/react";
-import { Container } from "@/components/ui/container";
 import { useBeliefsScrollContext } from "./BeliefsScrollContext";
 import { splitTexts } from "@/config/beliefs";
 import { SplitTextMotion } from "./SplitTextMotion";
+import { Z_INDEX } from "@/config/z-indices";
+import { MOTION_TOKENS } from "@/config/motion";
 
 export function BeliefFixedHeader() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -22,15 +23,19 @@ export function BeliefFixedHeader() {
   );
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-30 flex flex-col md:justify-center md:items-end justify-start pt-[20vh] md:pt-0">
-      <Container>
+    <div 
+      className="pointer-events-none absolute inset-0 flex flex-col md:justify-center md:items-end justify-start pt-[20vh] md:pt-0"
+      style={{ zIndex: Z_INDEX.beliefs.header }}
+    >
+      <div className="std-grid w-full h-full relative">
         <motion.div
           aria-hidden="true"
-          style={
-            shouldReduceMotion
+          style={{
+            ...(shouldReduceMotion
               ? { opacity: titleOpacity }
-              : { opacity: titleOpacity, x: titleX }
-          }
+              : { opacity: titleOpacity, x: titleX }),
+            zIndex: Z_INDEX.beliefs.header,
+          }}
           className="flex w-full flex-col md:items-end items-center"
         >
           <div className="max-w-sm text-center md:text-right text-white/70 font-medium text-lg md:text-xl">
@@ -38,7 +43,7 @@ export function BeliefFixedHeader() {
               as="p"
               text={splitTexts.title1}
               mode="words"
-              stagger={0.08}
+              stagger={MOTION_TOKENS.DURATION.WORD_STAGGER}
               active={true}
             />
             <br />
@@ -46,12 +51,12 @@ export function BeliefFixedHeader() {
               as="p"
               text={splitTexts.title2}
               mode="words"
-              stagger={0.08}
+              stagger={MOTION_TOKENS.DURATION.WORD_STAGGER}
               active={true}
             />
           </div>
         </motion.div>
-      </Container>
+      </div>
     </div>
   );
 }

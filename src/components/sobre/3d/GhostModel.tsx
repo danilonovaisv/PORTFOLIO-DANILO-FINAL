@@ -58,8 +58,8 @@ export function GhostModel() {
       targetX = -1.2;
       targetY = 1.5;
     } else {
-      targetX = pointerX.get() * 0.4;
-      targetY = pointerY.get() * 0.4;
+      targetX = shouldReduceMotion ? 0 : pointerX.get() * 0.4;
+      targetY = shouldReduceMotion ? 0 : pointerY.get() * 0.4;
     }
 
     if (p > 0.85) {

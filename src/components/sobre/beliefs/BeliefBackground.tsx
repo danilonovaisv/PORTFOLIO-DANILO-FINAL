@@ -1,63 +1,28 @@
 "use client";
 
-import { animate, inView } from "motion";
-import { useEffect, useRef } from "react";
-import { beliefColors, beliefMotion } from "@/config/beliefTokens";
+import { motion, useTransform } from "motion/react";
+import { MOTION_TOKENS } from "@/config/motion";
 import { useBeliefsScrollContext } from "./BeliefsScrollContext";
+import { Z_INDEX } from "@/config/z-indices";
 
-const stops = [
-  beliefColors.deepVoid,
-  beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
-  beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
-  beliefColors.deepVoid,
-] as const;
+const stops = MOTION_TOKENS.colors.bgCycle;
 
 export function BeliefBackground() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { shouldReduceMotion } = useBeliefsScrollContext();
+  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
 
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const stop = inView(
-      ".belief-scroll-section",
-      (element) => {
-        const index = Number.parseInt(
-          element.getAttribute("data-index") ?? "0",
-          10,
-        );
-
-        const color = stops[Math.min(index + 1, stops.length - 1)];
-
-        if (shouldReduceMotion) {
-          ref.current!.style.backgroundColor = color;
-          return;
-        }
-
-        animate(
-          ref.current!,
-          { backgroundColor: color },
-          {
-            duration: beliefMotion.revealDuration,
-            ease: beliefMotion.ambientEase,
-          },
-        );
-      },
-      { amount: 0.55 },
-    );
-
-    return () => stop();
-  }, [shouldReduceMotion]);
+  const points = stops.map((_, i) => i / (stops.length - 1));
+  const backgroundColor = useTransform(scrollYProgress, points, stops);
 
   return (
-    <div
-      ref={ref}
+    <motion.div
       aria-hidden="true"
-      className="absolute inset-0 z-0 bg-[#040013]"
+      style={{
+        ...(shouldReduceMotion
+          ? { backgroundColor: MOTION_TOKENS.colors.deepVoid }
+          : { backgroundColor }),
+        zIndex: Z_INDEX.beliefs.background
+      }}
+      className="absolute inset-0"
     />
   );
 }

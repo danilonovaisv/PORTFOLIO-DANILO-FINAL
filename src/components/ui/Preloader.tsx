@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { BRAND } from '@/config/brand';
 import { GHOST_EASE } from '@/config/motion';
+import { Z_INDEX } from '@/config/z-indices';
 
 const hexToRgba = (hex: string, alpha = 1) => {
   const cleaned = hex.replace('#', '');
@@ -75,9 +76,10 @@ export function Preloader({
       {show && (
         <motion.div
           className={
-            'fixed inset-0 z-50 grid place-items-center bg-linear-to-b from-background to-neutral ' +
+            'fixed inset-0 grid place-items-center bg-linear-to-b from-background to-neutral ' +
             (className ?? '')
           }
+          style={{ zIndex: Z_INDEX.preloader }}
           initial={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(20px)' }}
           transition={{
@@ -117,7 +119,7 @@ export function Preloader({
             <motion.p
               className="text-[14px] font-mono font-medium uppercase tracking-[0.35em] text-textSecondary mb-8"
               animate={reduced ? {} : { opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: GHOST_EASE }}
             >
               {label.toUpperCase()}
             </motion.p>

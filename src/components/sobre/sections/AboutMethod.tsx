@@ -9,9 +9,8 @@ import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
-import { motionTokens } from '@/config/about-motion';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, ghostReveal, ghostRevealSimple, ghostRise, ghostFade } from '@/config/motion';
+import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -68,20 +67,7 @@ export default function AboutMethod() {
             >
               <div className="w-full max-w-[44rem] px-6 py-7 lg:px-8 lg:py-9">
                 <motion.p
-                  variants={
-                    prefersReducedMotion
-                      ? {
-                          hidden: { opacity: 0 },
-                          visible: {
-                            opacity: 1,
-                            transition: {
-                              duration: 0.9,
-                              ease: GHOST_EASE,
-                            },
-                          },
-                        }
-                      : motionTokens.fadeGhost
-                  }
+                  variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}
@@ -92,20 +78,7 @@ export default function AboutMethod() {
 
                 {/* Título */}
                 <motion.div
-                  variants={
-                    prefersReducedMotion
-                      ? {
-                          hidden: { opacity: 0 },
-                          visible: {
-                            opacity: 1,
-                            transition: {
-                              duration: 0.9,
-                              ease: GHOST_EASE,
-                            },
-                          },
-                        }
-                      : motionTokens.fadeGhost
-                  }
+                  variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-100px' }}
@@ -133,7 +106,7 @@ export default function AboutMethod() {
                             },
                           },
                         }
-                      : motionTokens.fadeGhost
+                      : ghostFade
                   }
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
@@ -163,20 +136,7 @@ export default function AboutMethod() {
                   {ABOUT_CONTENT.method.steps.map((step) => (
                     <motion.li
                       key={step.id}
-                      variants={
-                        prefersReducedMotion
-                          ? {
-                              hidden: { opacity: 0 },
-                              visible: {
-                                opacity: 1,
-                                transition: {
-                                  duration: 0.9,
-                                  ease: GHOST_EASE,
-                                },
-                              },
-                            }
-                          : motionTokens.riseSoft
-                      }
+                      variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
                       className="group flex flex-row items-center gap-4 border-b border-bluePrimary/30 py-4 lg:gap-5 lg:py-5"
                     >
                       <span className="font-display text-xl md:text-2xl font-bold tabular-nums text-bluePrimary">

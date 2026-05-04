@@ -2,6 +2,7 @@
 
 import { motion, useTransform } from "motion/react";
 import { useBeliefsScrollContext } from "./BeliefsScrollContext";
+import { Z_INDEX } from "@/config/z-indices";
 
 export function BeliefOverlay() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -13,8 +14,8 @@ export function BeliefOverlay() {
   return (
     <motion.div
       aria-hidden="true"
-      style={{ opacity }}
-      className="pointer-events-none absolute inset-0 z-10 bg-black"
+      style={{ opacity, zIndex: Z_INDEX.beliefs.overlay }}
+      className="pointer-events-none absolute inset-0 bg-black"
     />
   );
 }

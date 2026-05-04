@@ -5,10 +5,12 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { splitTexts } from "@/config/beliefs";
 import { useBeliefsScrollContext } from "./BeliefsScrollContext";
+import { MOTION_TOKENS } from "@/config/motion";
+import { Z_INDEX } from "@/config/z-indices";
 
 function BeliefScrollTextItem({ phrase, index }: { phrase: string; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { margin: "-40% 0px -40% 0px", amount: 0.1 });
+  const isInView = useInView(ref, { margin: MOTION_TOKENS.reveal.beliefsMargin, amount: 0.1 });
   const { shouldReduceMotion } = useBeliefsScrollContext();
 
   const variants = {
@@ -21,13 +23,13 @@ function BeliefScrollTextItem({ phrase, index }: { phrase: string; index: number
       opacity: 1, 
       y: 0, 
       filter: "blur(0px)",
-      transition: { duration: 0.9, ease: [0.17, 0.55, 0.55, 1] } 
+      transition: { duration: MOTION_TOKENS.duration.bg, ease: MOTION_TOKENS.ease.ghost } 
     },
     exit: {
       opacity: 0,
       y: -18,
       filter: shouldReduceMotion ? "none" : "blur(6px)",
-      transition: { duration: 0.5 }
+      transition: { duration: MOTION_TOKENS.duration.textOut }
     }
   };
 
@@ -39,7 +41,7 @@ function BeliefScrollTextItem({ phrase, index }: { phrase: string; index: number
       data-index={index}
       className="belief-scroll-section relative flex h-[80vh] w-full snap-center items-center justify-center md:justify-start"
     >
-      <Container className="z-40">
+      <Container style={{ zIndex: Z_INDEX.beliefs.scrollText }}>
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "exit"}
@@ -57,12 +59,15 @@ function BeliefScrollTextItem({ phrase, index }: { phrase: string; index: number
 
 export function BeliefScrollText() {
   return (
-    <div className="relative z-40 w-full" style={{ scrollSnapType: "y proximity" }}>
+    <div 
+      className="relative w-full" 
+      style={{ scrollSnapType: "y proximity", zIndex: Z_INDEX.beliefs.scrollText }}
+    >
       <section className="flex h-[80vh] w-full snap-start items-center justify-center pointer-events-none">
         <Container><div className="opacity-0">Spacer inicial</div></Container>
       </section>
 
-      {splitTexts.phrases.map((phrase, index) => (
+      {splitTexts.phrases.map((phrase: string, index: number) => (
         <BeliefScrollTextItem key={index} index={index} phrase={phrase} />
       ))}
 

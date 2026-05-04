@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "motion/react";
 import { ComponentPropsWithoutRef, ElementType } from "react";
-import { beliefMotion } from "@/config/beliefTokens";
+import { MOTION_TOKENS } from "@/config/motion";
 
 type SplitTextMotionProps<T extends ElementType> = {
   as?: T;
@@ -23,7 +23,7 @@ export function SplitTextMotion<T extends ElementType = "span">({
   text,
   active = true,
   mode = "words",
-  stagger = beliefMotion.wordStagger,
+  stagger = MOTION_TOKENS.stagger.normal,
   className,
   ...props
 }: SplitTextMotionProps<T>) {
@@ -51,7 +51,7 @@ export function SplitTextMotion<T extends ElementType = "span">({
           variants={itemVariants}
           transition={{
             duration: 0.42,
-            ease: beliefMotion.softEase,
+            ease: MOTION_TOKENS.ease.soft,
           }}
           className="inline-block will-change-transform"
         >

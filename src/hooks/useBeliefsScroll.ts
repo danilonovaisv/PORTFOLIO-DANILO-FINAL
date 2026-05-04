@@ -1,14 +1,17 @@
 "use client";
 
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useState, useRef } from "react";
 import { useReducedMotion, useScroll } from "motion/react";
 
-export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
+export function useBeliefsScroll(containerRef?: RefObject<HTMLElement | null>) {
+  const fallbackRef = useRef<HTMLElement | null>(null);
+  const targetRef = containerRef || fallbackRef;
+
   const shouldReduceMotion = Boolean(useReducedMotion());
   const [isMobile, setIsMobile] = useState(false);
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: targetRef,
     offset: ["start end", "end end"],
   });
 

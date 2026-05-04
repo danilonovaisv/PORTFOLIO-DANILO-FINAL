@@ -3,6 +3,8 @@
 import { motion, useTransform } from "motion/react";
 import { useBeliefsScrollContext } from "./BeliefsScrollContext";
 import { SplitTextMotion } from "./SplitTextMotion";
+import { Z_INDEX } from "@/config/z-indices";
+import { MOTION_TOKENS } from "@/config/motion";
 
 export function BeliefManifesto() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
@@ -13,8 +15,11 @@ export function BeliefManifesto() {
   return (
     <motion.div
       aria-live="polite"
-      className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-4 text-center"
-      style={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity, y }}
+      className="pointer-events-none fixed inset-0 flex items-center justify-center px-4 text-center"
+      style={{ 
+        ...(shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity, y }),
+        zIndex: Z_INDEX.beliefs.manifesto
+      }}
     >
       <div className="font-display text-[clamp(3.5rem,16vw,12rem)] font-black uppercase leading-[0.82] tracking-[0.03em] text-white">
         {["ISSO É", "GHOST", "DESIGN"].map((line) => (
@@ -23,7 +28,7 @@ export function BeliefManifesto() {
             as="div"
             text={line}
             mode="words"
-            stagger={0.06}
+            stagger={MOTION_TOKENS.DURATION.WORD_STAGGER}
             className="block"
           />
         ))}

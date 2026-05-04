@@ -1,5 +1,7 @@
 import type { Variants, Transition, SpringOptions } from 'framer-motion';
 
+import { COLORS } from '@/config/colors';
+
 // =============================================================================
 // MOTION TOKENS - Ghost Era Design System
 // SINGLE SOURCE OF TRUTH for all animations
@@ -24,26 +26,28 @@ export const MOTION_TOKENS = {
   // BELIEFS V3 CONTRACT
   // ─────────────────────────────────────────────────────────────────────────
   colors: {
-    deepVoid: '#040013',
-    bluePrimary: '#0048ff',
-    purpleDetails: '#8705f2',
-    pinkDetails: '#f501d3',
-    cyanAccent: '#4fe6ff',
+    deepVoid: COLORS.background,
+    bluePrimary: COLORS.bluePrimary,
+    purpleDetails: COLORS.purpleDetails,
+    pinkDetails: COLORS.pinkDetails,
+    cyanAccent: COLORS.blueAccent,
+    white: COLORS.text,
     bgCycle: [
-      '#040013',
-      '#0048ff',
-      '#8705f2',
-      '#f501d3',
-      '#0048ff',
-      '#8705f2',
-      '#f501d3',
-      '#040013',
+      COLORS.background,
+      COLORS.bluePrimary,
+      COLORS.purpleDetails,
+      COLORS.pinkDetails,
+      COLORS.bluePrimary,
+      COLORS.purpleDetails,
+      COLORS.pinkDetails,
+      COLORS.background,
     ],
   },
 
   ease: {
     ambient: GHOST_EASE_AMBIENT,
     ghost: GHOST_EASE,
+    soft: [0.16, 1, 0.3, 1] as EasingTuple,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -62,33 +66,10 @@ export const MOTION_TOKENS = {
     normal: 0.8,
     /** Quick interactions - 0.2s */
     fast: 0.2,
-    /** Micro-interactions - 0.2s */
-    instant: 0.2,
+    /** Micro-interactions - 0.16s */
+    micro: 0.16,
     /** Modal/overlay animations - 0.5s */
     modal: 0.5,
-  },
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // EASING CURVES
-  // ─────────────────────────────────────────────────────────────────────────
-  easing: {
-    /** Base smooth curve - use for most animations */
-    base: GHOST_EASE,
-    /** Extra soft for atmospheric/ghostly effects */
-    ghost: GHOST_EASE_SOFT,
-    /** Heavier curve for large movements */
-    heavy: GHOST_EASE_HEAVY,
-    /** Drinksom-style short canvas fades */
-    inOutSine: GHOST_EASE_INOUT_SINE,
-    /** Ambient ignition curve - long atmospheric layers only */
-    ambient: GHOST_EASE_AMBIENT,
-    /** Linear for opacity-only transitions */
-    linear: 'linear' as const,
-  },
-
-  blur: {
-    visible: 'blur(0px)',
-    hidden: 'blur(10px)',
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -97,8 +78,8 @@ export const MOTION_TOKENS = {
   stagger: {
     /** Rapid fire - 0.04s */
     tight: 0.04,
-    /** Standard stagger - 0.1s */
-    normal: 0.1,
+    /** Standard stagger - 0.08s (Ghost System) */
+    normal: 0.08,
     /** Ghost-like slow reveal - 0.15s */
     relaxed: 0.15,
     /** Very slow, dramatic - 0.25s */
@@ -111,6 +92,12 @@ export const MOTION_TOKENS = {
   reveal: {
     threshold: 0.1,
     margin: '-50px',
+    beliefsMargin: '-40% 0px -40% 0px',
+  },
+
+  blur: {
+    hidden: 'blur(10px)',
+    visible: 'blur(0px)',
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -157,32 +144,112 @@ export const MOTION_TOKENS = {
     dramatic: 18,
   },
 
-  distance: {
-    textY: 18,
-    headerX: 60,
+  layout: {
+    sectionMinHeight: '620vh',
+    phraseSectionHeight: '80vh',
+    desktopPhraseMaxWidth: '38vw',
+    desktopPhraseLeft: 'clamp(1.5rem, 6vw, 6rem)',
+    mobilePhraseBottom: '20vh',
   },
 
-  z: { bg: 0, overlay: 10, header: 30, text: 40, manifesto: 50, ghost: 70 },
+  z: {
+    bg: 0,
+    overlay: 10,
+    header: 30,
+    text: 40,
+    manifesto: 50,
+    ghost: 70,
+  },
 } as const;
 
 // =============================================================================
-// REUSABLE VARIANTS
+// REUSABLE VARIANTS - Ghost Era Design System
+// Rules: No Scale, No Bounce, No Rotate. Opacity + Blur + Y-Translate (max 18px)
 // =============================================================================
 
 /**
- * Ghost Fade - Standard fade with blur
- * Use for: Text, titles, sections
+ * Ghost Reveal - Standard entry with heavy blur
+ */
+export const ghostReveal: Variants = {
+  hidden: { opacity: 0, filter: 'blur(10px)' },
+  visible: {
+    opacity: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 0.9, ease: GHOST_EASE },
+  },
+};
+
+/**
+ * Ghost Reveal Simple - Standard entry without blur (performance mode)
+ */
+export const ghostRevealSimple: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.9, ease: GHOST_EASE },
+  },
+};
+
+/**
+ * Ghost Rise - Subtle entry with upward movement (max 18px)
+ */
+export const ghostRise: Variants = {
+  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.9, ease: GHOST_EASE },
+  },
+};
+
+/**
+ * Ghost Slide - Subtle side entry for images/decorative elements
+ */
+export const ghostSlide: Variants = {
+  hidden: { opacity: 0, x: 12 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 1.2, ease: GHOST_EASE },
+  },
+};
+
+/**
+ * Ghost Fade - Pure opacity transition
  */
 export const ghostFade: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.8, ease: GHOST_EASE },
+  },
+};
+
+/**
+ * Ghost Time Based - Specialized for scroll-timed narrative reveals (e.g., Beliefs)
+ */
+export const ghostTimeBased: Variants = {
   hidden: {
     opacity: 0,
-    filter: 'blur(10px)',
+    filter: 'blur(8px)',
+    y: 18,
   },
   visible: {
     opacity: 1,
     filter: 'blur(0px)',
+    y: 0,
     transition: {
-      duration: MOTION_TOKENS.duration.normal,
+      duration: MOTION_TOKENS.duration.textIn,
+      ease: GHOST_EASE,
+    },
+  },
+  exit: {
+    opacity: 0,
+    filter: 'blur(8px)',
+    y: -18,
+    transition: {
+      duration: MOTION_TOKENS.duration.textOut,
       ease: GHOST_EASE,
     },
   },

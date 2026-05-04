@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
@@ -22,7 +22,7 @@ import MasterProjectTemplate from '@/components/projects/templates/MasterProject
 import ProjectTemplateMasterRenderer from '@/components/projects/templates/ProjectTemplateMasterRenderer';
 import ProjectTemplateALPARenderer from '@/components/projects/templates/ProjectTemplateALPARenderer';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface ProjectRendererProps {
   project: {
@@ -50,7 +50,7 @@ function LegacyProjectRenderer({
           <motion.div
             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1.1, ease: GHOST_EASE }}
+            transition={{ duration: 0.8, ease: GHOST_EASE }}
             className="absolute inset-0 z-0"
           >
             <Image

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const ErrorReportSchema = z.object({
-  message: z.string().max(1000),
+  message: z.string().max(1000).optional().default('Unknown error').catch('Unknown error'),
   stack: z.string().optional(),
   component: z.string().max(255).optional(),
   url: z.string().url().optional().or(z.string().max(255).optional()),

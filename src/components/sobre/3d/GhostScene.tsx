@@ -23,7 +23,7 @@ export function GhostScene() {
   return (
     <motion.div
       aria-hidden="true"
-      style={shouldReduceMotion ? { opacity: 1 } : { opacity, scale }}
+      style={{ opacity, scale: shouldReduceMotion ? 1 : scale }}
       className="pointer-events-none fixed inset-0 z-[70]"
     >
       <Canvas

@@ -102,3 +102,16 @@
 - **Fix Applied**: Wrapped `DynamicAssetVideo` in a `motion.div` in `AboutHero.tsx` and moved the `y" parallax animation to the wrapper. This ensures that `MotionValues`are only handled by Framer Motion's`motion" components, which extract the raw values before applying them to the DOM.
 - **Prevention**: Always use `motion` components when passing `MotionValue`s to `style` props. Avoid casting `MotionValue` to `any" inside `style={{ ... }}` blocks for non-motion components.
 - **Status**: Fixed
+
+## [2026-05-04 00:30] - Network Error / ENOTFOUND during `pnpm install`
+
+- **Type**: Integration Error / Agent Error
+- **Severity**: Critical (Blocks build and deployment)
+- **File**: `node_modules`, `pnpm-lock.yaml`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: Attempted to run `pnpm install` as part of a `deep-clean` workflow, but the environment (or local machine) is currently offline or unable to resolve `registry.npmjs.org`. Since `node_modules` was deleted by the cleanup script, the project is now in a broken state without dependencies.
+- **Error Message**: `GET https://registry.npmjs.org/... error (ENOTFOUND)`.
+- **Fix Applied**: N/A (Waiting for network restoration). Proposed an offline install attempt which also failed.
+- **Prevention**: Check for internet connectivity *before* running scripts that delete `node_modules`. Implement a connectivity check in `cleanup-project.sh`.
+- **Status**: Investigating / Stuck
+

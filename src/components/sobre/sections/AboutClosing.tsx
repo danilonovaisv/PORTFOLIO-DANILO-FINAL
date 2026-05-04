@@ -10,7 +10,7 @@ import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { BRAND } from '@/config/brand';
 
-import { motionTokens } from '@/config/about-motion';
+import { ghostReveal, ghostRevealSimple } from '@/config/motion';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
@@ -78,7 +78,7 @@ export function AboutClosing() {
       aria-label="Fechamento do Manifesto"
     >
       <motion.div
-        variants={motionTokens.fadeGhost}
+        variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
         viewport={{ once: false, margin: '-80px' }}
