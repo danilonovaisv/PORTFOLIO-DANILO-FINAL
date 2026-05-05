@@ -59,8 +59,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: BRAND.colors.background,
-    backgroundImage:
-      'radial-gradient(circle at 90% 90%, #0048ff 0%, #040013 50%)',
+    backgroundImage: `radial-gradient(circle at 90% 90%, #0048ff 0%, ${BRAND.colors.background} 50%)`,
   },
   logoContainer: {
     display: 'flex',

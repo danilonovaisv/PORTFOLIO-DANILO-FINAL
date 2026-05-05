@@ -362,7 +362,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         open={!!sectionToRemove}
         onOpenChange={(open) => !open && setSectionToRemove(null)}
       >
-        <AlertDialogContent className="border-white/10 bg-[#040013] text-white font-mono">
+        <AlertDialogContent className="border-white/10 bg-background text-white font-mono">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-sm uppercase tracking-widest font-bold">
               Confirm_Deletion?

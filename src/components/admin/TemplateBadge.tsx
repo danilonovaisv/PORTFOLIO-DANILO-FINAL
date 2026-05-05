@@ -42,7 +42,7 @@ export function TemplateBadge({
     <span
       className={`inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[9px] uppercase tracking-widest border transition-all ${
         isModern
-          ? 'bg-[#0048ff]/10 text-[#0048ff] border-[#0048ff]/20'
+          ? 'bg-bluePrimary/10 text-bluePrimary border-bluePrimary/20'
           : 'bg-white/5 text-white/40 border-white/5'
       } ${isV3 ? 'font-bold' : ''} ${className}`}
     >

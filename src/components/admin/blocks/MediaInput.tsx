@@ -117,19 +117,19 @@ export function MediaInput({
           </div>
         </div>
       ) : mode === 'upload' ? (
-        <label className="flex flex-col items-center justify-center py-12 rounded-xl border-2 border-dashed border-white/10 hover:border-blue-500 hover:bg-blue-500/5 cursor-pointer transition-all group">
+        <label className="flex flex-col items-center justify-center py-12 rounded-xl border-2 border-dashed border-white/10 hover:border-bluePrimary hover:bg-bluePrimary/5 cursor-pointer transition-all group">
           {type === 'image' ? (
             <ImageIcon
-              className="text-white/20 mb-2 group-hover:text-[#0048ff] transition-colors"
+              className="text-white/20 mb-2 group-hover:text-bluePrimary transition-colors"
               size={32}
             />
           ) : (
             <Video
-              className="text-white/20 mb-2 group-hover:text-[#0048ff] transition-colors"
+              className="text-white/20 mb-2 group-hover:text-bluePrimary transition-colors"
               size={32}
             />
           )}
-          <span className="text-xs text-white/40 font-medium uppercase tracking-widest group-hover:text-[#0048ff]/80">
+          <span className="text-xs text-white/40 font-medium uppercase tracking-widest group-hover:text-bluePrimary/80">
             SYSTEM_CHOOSE_FILE
           </span>
           <input
@@ -143,7 +143,7 @@ export function MediaInput({
           />
         </label>
       ) : (
-        <div className="flex items-center gap-2 bg-[#040013] border border-white/10 rounded-xl px-4 py-3 focus-within:border-[#0048ff]/50 transition-colors">
+        <div className="flex items-center gap-2 bg-background border border-white/10 rounded-xl px-4 py-3 focus-within:border-bluePrimary/50 transition-colors">
           <LinkIcon className="text-white/40" size={18} />
           <input
             type="text"

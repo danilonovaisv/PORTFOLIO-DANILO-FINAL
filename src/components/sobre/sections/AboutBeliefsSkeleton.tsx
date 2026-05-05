@@ -15,7 +15,7 @@ export function AboutBeliefsSkeleton({
       aria-label="Carregando O Que Me Move"
       aria-busy="true"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(79,230,255,0.1),transparent_42%),linear-gradient(180deg,#040013_0%,#0b0d3a_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(79,230,255,0.1),transparent_42%),linear-gradient(180deg,var(--color-background)_0%,var(--color-neutral)_100%)]" />
 
       <div className="relative min-h-[550vh] md:min-h-[800vh]">
         <div className="sticky top-0 h-screen w-full">

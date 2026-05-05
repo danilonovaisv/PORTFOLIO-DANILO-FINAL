@@ -7,7 +7,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center bg-[#040013] px-6 text-white">
+    <main className="relative flex min-h-screen w-full items-center justify-center bg-background px-6 text-white">
       <div className="max-w-xl text-center">
         <p className="mb-3 font-display text-sm uppercase tracking-widest text-white/60">
           O Que Me Move
@@ -21,7 +21,7 @@ export default function Error({
         <button
           type="button"
           onClick={reset}
-          className="mt-8 bg-[#0048ff] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
+          className="mt-8 bg-bluePrimary px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
         >
           Tentar novamente
         </button>

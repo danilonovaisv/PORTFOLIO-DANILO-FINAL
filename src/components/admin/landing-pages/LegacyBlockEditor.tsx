@@ -47,13 +47,13 @@ export function LegacyBlockEditor({
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-3 bg-blue-600 px-6 py-2.5 font-mono text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-blue-500">
+            <button className="flex items-center gap-3 bg-bluePrimary px-6 py-2.5 font-mono text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-bluePrimary/90">
               <Plus size={14} /> Add_Module
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="w-56 border-white/10 bg-[#040013] text-white font-mono"
+            className="w-56 border-white/10 bg-background text-white font-mono"
           >
             <DropdownMenuLabel className="text-[9px] uppercase tracking-widest text-white/40">
               Core_Layouts
@@ -62,26 +62,26 @@ export function LegacyBlockEditor({
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('text')}
             >
-              <Type className="mr-2 h-3.5 w-3.5 text-blue-500" /> Text_Only
+              <Type className="mr-2 h-3.5 w-3.5 text-bluePrimary" /> Text_Only
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('image')}
             >
-              <ImageIcon className="mr-2 h-3.5 w-3.5 text-blue-500" />{' '}
+              <ImageIcon className="mr-2 h-3.5 w-3.5 text-bluePrimary" />{' '}
               Full_Image
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('video')}
             >
-              <Video className="mr-2 h-3.5 w-3.5 text-blue-500" /> Full_Video
+              <Video className="mr-2 h-3.5 w-3.5 text-bluePrimary" /> Full_Video
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('video-autoplay')}
             >
-              <Video className="mr-2 h-3.5 w-3.5 text-blue-400" />{' '}
+              <Video className="mr-2 h-3.5 w-3.5 text-bluePrimary/80" />{' '}
               Autoplay_Video
             </DropdownMenuItem>
 
@@ -94,7 +94,7 @@ export function LegacyBlockEditor({
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('image-text')}
             >
-              <div className="mr-2 flex items-center text-blue-500">
+              <div className="mr-2 flex items-center text-bluePrimary">
                 <ImageIcon className="h-3 w-3" />
                 <Type className="h-3 w-3" />
               </div>
@@ -104,7 +104,7 @@ export function LegacyBlockEditor({
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('text-image')}
             >
-              <div className="mr-2 flex items-center text-blue-500">
+              <div className="mr-2 flex items-center text-bluePrimary">
                 <Type className="h-3 w-3" />
                 <ImageIcon className="h-3 w-3" />
               </div>
@@ -114,7 +114,7 @@ export function LegacyBlockEditor({
               className="text-[10px] uppercase tracking-tight py-2.5"
               onClick={() => onAddBlock('image-image')}
             >
-              <ColumnsIcon className="mr-2 h-3.5 w-3.5 text-blue-500" />{' '}
+              <ColumnsIcon className="mr-2 h-3.5 w-3.5 text-bluePrimary" />{' '}
               Split_Image_Grid
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -136,11 +136,11 @@ export function LegacyBlockEditor({
             key={section.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="group relative border border-white/5 bg-black/20 transition-all hover:border-blue-500/20"
+            className="group relative border border-white/5 bg-black/20 transition-all hover:border-bluePrimary/20"
           >
             <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-3">
               <div className="flex items-center gap-4">
-                <span className="font-mono text-[10px] font-bold text-blue-500">
+                <span className="font-mono text-[10px] font-bold text-bluePrimary">
                   NODE_{(index + 1).toString().padStart(2, '0')}
                 </span>
                 <div className="h-3 w-[1px] bg-white/10" />

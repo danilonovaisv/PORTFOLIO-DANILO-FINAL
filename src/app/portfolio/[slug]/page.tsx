@@ -209,11 +209,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     keywords: [
       ...(project.tags || []),
-      project.client,
+      project.client || BRAND.name,
       project.displayCategory,
       'Danilo Novais',
       'Head de Criação',
-    ],
+    ].filter(Boolean) as string[],
     openGraph: {
       title,
       description,
@@ -311,9 +311,9 @@ export default async function ProjectPage({ params }: Props) {
           title: project.title,
           description: description || '',
           image: project.image,
-          client: project.client,
+          client: project.client || BRAND.name,
           category: project.displayCategory,
-          year: project.year,
+          year: project.year || 2024,
           url: toCanonicalUrl(`/portfolio/${slug}`),
         }}
       />

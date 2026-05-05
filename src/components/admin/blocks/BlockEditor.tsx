@@ -59,7 +59,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             <select
               value={config.fontSize || ''}
               onChange={(e) => updateConfig({ fontSize: e.target.value })}
-              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
+              className="w-full bg-background text-[11px] rounded p-1 outline-none border border-white/10 text-white"
               title="System_Size"
             >
               <option value="">Default</option>
@@ -84,7 +84,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             <select
               value={config.fontWeight || ''}
               onChange={(e) => updateConfig({ fontWeight: e.target.value })}
-              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
+              className="w-full bg-background text-[11px] rounded p-1 outline-none border border-white/10 text-white"
               title="System_Weight"
             >
               <option value="">Default</option>
@@ -105,7 +105,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             <select
               value={config.textAlign || ''}
               onChange={(e) => updateConfig({ textAlign: e.target.value })}
-              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white"
+              className="w-full bg-background text-[11px] rounded p-1 outline-none border border-white/10 text-white"
               title="System_Align"
             >
               <option value="">Default</option>
@@ -124,7 +124,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
               value={config.color || ''}
               onChange={(e) => updateConfig({ color: e.target.value })}
               placeholder="#FFFFFF"
-              className="w-full bg-[#040013] text-[11px] rounded p-1 outline-none border border-white/10 text-white placeholder-white/20"
+              className="w-full bg-background text-[11px] rounded p-1 outline-none border border-white/10 text-white placeholder-white/20"
             />
           </div>
         </div>
@@ -132,7 +132,7 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
         <textarea
           value={block.content[key] || ''}
           onChange={(e) => updateContent({ [key]: e.target.value })}
-          className="w-full h-full min-h-[200px] bg-white/[0.02] border border-white/10 rounded-xl p-4 outline-none focus:border-[#0048ff]/50 transition-all resize-none font-sans"
+          className="w-full h-full min-h-[200px] bg-white/[0.02] border border-white/10 rounded-xl p-4 outline-none focus:border-bluePrimary/50 transition-all resize-none font-sans"
           placeholder="# Title... \n\nParagraph with content..."
         />
         <p className="text-[11px] text-white/40">

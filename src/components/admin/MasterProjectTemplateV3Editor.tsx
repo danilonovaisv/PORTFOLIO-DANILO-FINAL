@@ -157,7 +157,7 @@ export default function MasterProjectTemplateV3Editor({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-blue-600 px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-all hover:bg-blue-500"
+                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-bluePrimary px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-all hover:bg-bluePrimary/90"
               >
                 <Plus size={14} />
                 Add_Block_Node
@@ -165,7 +165,7 @@ export default function MasterProjectTemplateV3Editor({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="w-72 border-white/10 bg-[#040013] text-white font-mono"
+              className="w-72 border-white/10 bg-background text-white font-mono"
             >
               <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
                 Core_Layouts

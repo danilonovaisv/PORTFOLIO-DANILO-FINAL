@@ -93,7 +93,7 @@ export default function MasterProjectTemplateEditor({
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0048ff]">
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-bluePrimary">
           System_Identity_Node
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
@@ -128,7 +128,7 @@ export default function MasterProjectTemplateEditor({
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0048ff]">
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-bluePrimary">
             System_Media_Grid_Core
           </h3>
           <button
@@ -141,7 +141,7 @@ export default function MasterProjectTemplateEditor({
                 ],
               })
             }
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-[#0048ff] px-4 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-[#0048ff]/80"
+            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-bluePrimary px-4 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-bluePrimary/80"
           >
             <Plus size={14} />
             Add_Media_Node
@@ -157,7 +157,7 @@ export default function MasterProjectTemplateEditor({
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-all hover:border-[#0048ff]/30"
+                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-all hover:border-bluePrimary/30"
               >
                 <div className="p-4">
                   <MediaAssetField

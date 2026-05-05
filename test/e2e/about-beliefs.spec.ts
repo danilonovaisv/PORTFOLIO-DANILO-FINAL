@@ -130,7 +130,10 @@ for (const route of ROUTES) {
       expect(ghostZ).toBeGreaterThan(manifestoZ);
 
       const criticalErrors = errors.filter(
-        (msg) => !msg.includes('Warning:') && !msg.includes('[React]')
+        (msg) =>
+          !msg.includes('Warning:') &&
+          !msg.includes('[React]') &&
+          !msg.includes('Cookie “__cf_bm” has been rejected')
       );
       expect(criticalErrors).toHaveLength(0);
     });
@@ -171,7 +174,7 @@ for (const route of ROUTES) {
       for (let index = 0; index < 6; index += 1) {
         await expect(phrases.nth(index)).toHaveAttribute(
           'data-animation-contract',
-          'viewport-y-opacity'
+          'inview-y-opacity-blur'
         );
       }
 

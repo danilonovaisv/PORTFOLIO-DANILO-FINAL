@@ -116,7 +116,7 @@ export default function ProjectsTable({ projects }: Props) {
                       <span className="font-mono text-sm font-light text-white tracking-tight leading-none truncate max-w-[200px]">
                         {project.title}
                       </span>
-                      <span className="font-mono text-[9px] text-[#0048ff]/50 uppercase tracking-widest">
+                      <span className="font-mono text-[9px] text-bluePrimary/50 uppercase tracking-widest">
                         ID_{project.id.substring(0, 8).toUpperCase()}
                       </span>
                     </div>
@@ -164,7 +164,7 @@ export default function ProjectsTable({ projects }: Props) {
                       title="1:1 Square"
                     />
                     <div
-                      className={`h-1.5 w-1.5 rounded-full ${project.landing_page_id ? 'bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.5)]' : 'bg-white/10'}`}
+                      className={`h-1.5 w-1.5 rounded-full ${project.landing_page_id ? 'bg-bluePrimary shadow-[0_0_8px_var(--color-bluePrimary)/0.5]' : 'bg-white/10'}`}
                       title="Landing Page"
                     />
                   </div>
@@ -202,7 +202,7 @@ export default function ProjectsTable({ projects }: Props) {
                         <button
                           type="submit"
                           title="Home Featured"
-                          className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-[#0048ff] border-[#0048ff]/40 shadow-[0_0_8px_rgba(0,72,255,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-[#0048ff]/50'}`}
+                          className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-bluePrimary border-bluePrimary/40 shadow-[0_0_8px_var(--color-bluePrimary)/0.5] scale-125' : 'bg-transparent border-white/10 hover:border-bluePrimary/50'}`}
                         />
                       </form>
                       <form action={toggleFeaturedOnPortfolio}>
@@ -273,7 +273,7 @@ export default function ProjectsTable({ projects }: Props) {
                   {project.title}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[9px] text-[#0048ff]/50 uppercase tracking-widest">
+                  <span className="font-mono text-[9px] text-bluePrimary/50 uppercase tracking-widest">
                     ID_{project.id.substring(0, 8).toUpperCase()}
                   </span>
                   <span className="h-1 w-1 rounded-full bg-white/10" />
@@ -325,7 +325,7 @@ export default function ProjectsTable({ projects }: Props) {
                       type="submit"
                       className={`w-full rounded-lg py-2 font-mono text-[8px] uppercase tracking-[0.2em] border transition-all ${
                         project.featured_on_home
-                          ? 'bg-[#0048ff]/10 text-[#0048ff] border-[#0048ff]/20'
+                          ? 'bg-bluePrimary/10 text-bluePrimary border-bluePrimary/20'
                           : 'bg-white/5 text-white/40 border-white/5'
                       }`}
                     >

@@ -7,12 +7,12 @@ interface StatCardProps {
 
 export function StatCard({ title, value, error, trend }: StatCardProps) {
   return (
-    <div className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] p-6 backdrop-blur-xl transition-all hover:border-[#0048ff]/30">
+    <div className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] p-6 backdrop-blur-xl transition-all hover:border-bluePrimary/30">
       <div className="flex items-center justify-between mb-4">
         <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
           {title.toUpperCase().replace(/ /g, '_')}
         </p>
-        <div className="h-1.5 w-1.5 rounded-full bg-[#0048ff]/30 group-hover:bg-[#0048ff] transition-colors shadow-[0_0_8px_rgba(0,72,255,0.3)] group-hover:shadow-[0_0_12px_rgba(0,72,255,0.6)]" />
+        <div className="h-1.5 w-1.5 rounded-full bg-bluePrimary/30 group-hover:bg-bluePrimary transition-colors shadow-[0_0_8px_var(--color-bluePrimary)/0.3] group-hover:shadow-[0_0_12px_var(--color-bluePrimary)/0.6]" />
       </div>
 
       {error ? (
@@ -33,7 +33,7 @@ export function StatCard({ title, value, error, trend }: StatCardProps) {
               : value}
           </p>
           {trend && (
-            <span className="font-mono text-[10px] text-[#0048ff]/40 uppercase">
+            <span className="font-mono text-[10px] text-bluePrimary/40 uppercase">
               {trend}
             </span>
           )}
@@ -43,7 +43,7 @@ export function StatCard({ title, value, error, trend }: StatCardProps) {
       {/* Technical metadata footer */}
       <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-4">
         <div className="flex items-center gap-2">
-          <div className="h-1 w-1 rounded-full bg-[#0048ff]/20" />
+          <div className="h-1 w-1 rounded-full bg-bluePrimary/20" />
           <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">
             Status: Active
           </span>

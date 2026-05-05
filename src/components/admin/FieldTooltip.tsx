@@ -30,7 +30,7 @@ export function FieldTooltip({
             <button
               type="button"
               aria-label={`SYSTEM_HELP: ${label.toUpperCase()}`}
-              className="inline-flex h-5 w-5 items-center justify-center rounded-full text-white/30 transition-colors hover:text-[#0048ff] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0048ff]/50"
+              className="inline-flex h-5 w-5 items-center justify-center rounded-full text-white/30 transition-colors hover:text-bluePrimary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-bluePrimary/50"
             >
               <HelpCircle size={12} strokeWidth={1.5} aria-hidden="true" />
             </button>

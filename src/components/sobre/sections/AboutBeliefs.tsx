@@ -31,7 +31,7 @@ export function AboutBeliefs() {
         id="o-que-me-move"
         data-testid="beliefs-section"
         aria-labelledby="o-que-me-move-title"
-        className="relative overflow-clip bg-[#040013] text-white"
+        className="relative overflow-clip bg-background text-white"
         style={{ minHeight: BELIEF_LAYOUT.sectionMinHeight }}
       >
         <h2 id="o-que-me-move-title" className="sr-only">

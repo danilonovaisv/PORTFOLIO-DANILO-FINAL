@@ -167,8 +167,8 @@ export default function DesktopFluidHeader({
           <div
             className={`relative overflow-hidden h-16 w-[calc(100%+5rem)] -ml-10 rounded-full backdrop-blur-md border border-white/10 transition-all duration-standard ${
               isLight
-                ? 'bg-[#040013]/60 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-                : 'bg-[#040013]/40 shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
+                ? 'bg-background/60 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+                : 'bg-background/40 shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
             }`}
           >
             {/* glass background - Dynamic R3F */}

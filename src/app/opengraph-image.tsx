@@ -61,8 +61,7 @@ export default async function Image() {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: BRAND.colors.background,
-        backgroundImage:
-          'radial-gradient(circle at 50% 40%, #0048ff 0%, #040013 55%)',
+        backgroundImage: `radial-gradient(circle at 50% 40%, #0048ff 0%, ${BRAND.colors.background} 55%)`,
       }}
     >
       <svg

@@ -85,7 +85,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
   return (
     <div className="space-y-6">
       <div className="flex gap-4 items-center">
-        <label className="cursor-pointer inline-flex items-center justify-center rounded bg-[#0048ff]/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[#0048ff] shadow-sm transition hover:bg-[#0048ff]/20 border border-[#0048ff]/20">
+        <label className="cursor-pointer inline-flex items-center justify-center rounded bg-bluePrimary/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-bluePrimary shadow-sm transition hover:bg-bluePrimary/20 border border-bluePrimary/20">
           <input
             type="file"
             accept="image/*,video/*"
@@ -105,12 +105,12 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
           placeholder="SYSTEM_YOUTUBE_URL (OPTIONAL)"
           value={youtubeInput}
           onChange={(e) => setYoutubeInput(e.target.value)}
-          className="flex-1 bg-white/[0.02] border border-white/10 rounded px-3 py-2 text-white/80 font-mono text-[10px] focus:border-[#0048ff]/50 outline-none transition-colors"
+          className="flex-1 bg-white/[0.02] border border-white/10 rounded px-3 py-2 text-white/80 font-mono text-[10px] focus:border-bluePrimary/50 outline-none transition-colors"
         />
         <button
           type="button"
           onClick={handleAddYoutube}
-          className="px-4 py-2 bg-[#0048ff]/10 text-[#0048ff] border border-[#0048ff]/20 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-[#0048ff]/20 transition whitespace-nowrap"
+          className="px-4 py-2 bg-bluePrimary/10 text-bluePrimary border border-bluePrimary/20 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-bluePrimary/20 transition whitespace-nowrap"
         >
           SYSTEM_ADD_YOUTUBE
         </button>
@@ -126,7 +126,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
           return (
             <div
               key={item.id}
-              className="flex items-center gap-4 bg-[#040013] border border-white/5 rounded p-3 transition-colors hover:border-white/10 group"
+              className="flex items-center gap-4 bg-background border border-white/5 rounded p-3 transition-colors hover:border-white/10 group"
             >
               <div className="flex flex-col gap-1">
                 <button
@@ -195,7 +195,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
                     };
                     onChange(newItems);
                   }}
-                  className="w-full bg-white/[0.03] border border-white/5 rounded px-2 py-1.5 text-[10px] text-white font-mono focus:border-[#0048ff]/30 outline-none"
+                  className="w-full bg-white/[0.03] border border-white/5 rounded px-2 py-1.5 text-[10px] text-white font-mono focus:border-bluePrimary/30 outline-none"
                 />
               </div>
 

@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto');
 @import url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/404.webp');
+:root {
+  --color-background: #040013;
+  --color-primary: #0048ff;
+  --color-accent: #4fe6ff;
+}
+
 html,
 body {
-  background: #040013;
+  background: var(--color-background);
   font-family: 'Roboto';
 }
 
@@ -15,7 +21,7 @@ body {
   height: 100%;
   max-height: 600px;
   min-height: 450px;
-  background: #040013;
+  background: var(--color-background);
   border-radius: 20px;
   position: absolute;
   left: 50%;
@@ -40,7 +46,7 @@ body {
   content: '';
   width: 12px;
   height: 4px;
-  background: #0048ff;
+  background: var(--color-primary);
   position: absolute;
   border-radius: 5px;
   bottom: 65px;
@@ -60,7 +66,7 @@ body {
   width: 18px;
   border: 4px solid;
   border-radius: 50%;
-  border-color: #0048ff;
+  border-color: var(--color-primary);
   opacity: 0.2;
   -webkit-animation: shine 4s ease-in-out 1.3s infinite;
   animation: shine 4s ease-in-out 1.3s infinite;
@@ -75,7 +81,7 @@ body {
   content: '';
   width: 12px;
   height: 4px;
-  background: #0048ff;
+  background: var(--color-primary);
   position: absolute;
   border-radius: 5px;
   top: 5px;
@@ -97,7 +103,7 @@ body {
   content: '';
   width: 15px;
   height: 4px;
-  background: #0048ff;
+  background: var(--color-primary);
   position: absolute;
   border-radius: 5px;
   top: 10px;
@@ -117,7 +123,7 @@ body {
   width: 12px;
   border: 3px solid;
   border-radius: 50%;
-  border-color: #0048ff;
+  border-color: var(--color-primary);
   opacity: 0.2;
   -webkit-animation: shine 1.7s ease-in-out 7s infinite;
   animation: shine 1.7s ease-in-out 7s infinite;
@@ -132,7 +138,7 @@ body {
   content: '';
   width: 15px;
   height: 4px;
-  background: #0048ff;
+  background: var(--color-primary);
   position: absolute;
   border-radius: 5px;
   bottom: 65px;
@@ -145,7 +151,7 @@ body {
   transform: rotate(180deg);
 }
 .box .box__ghost .box__ghost-container {
-  background: #040013;
+  background: var(--color-background);
   width: 100px;
   height: 100px;
   border-radius: 100px 100px 0 0;
@@ -164,7 +170,7 @@ body {
 .box .box__ghost .box__ghost-eyes .box__eye-left {
   width: 12px;
   height: 12px;
-  background: #0048ff;
+  background: var(--color-primary);
   border-radius: 50%;
   margin: 0 10px;
   position: absolute;
@@ -173,7 +179,7 @@ body {
 .box .box__ghost .box__ghost-eyes .box__eye-right {
   width: 12px;
   height: 12px;
-  background: #0048ff;
+  background: var(--color-primary);
   border-radius: 50%;
   margin: 0 10px;
   position: absolute;
@@ -192,12 +198,12 @@ body {
   top: -10px;
   height: 20px;
   border-radius: 100%;
-  background-color: #040013;
+  background-color: var(--color-background);
 }
 .box .box__ghost .box__ghost-bottom div:nth-child(2n) {
   top: -12px;
   margin: 0 0px;
-  border-top: 15px solid #0048ff;
+  border-top: 15px solid var(--color-primary);
   background: transparent;
 }
 .box .box__ghost .box__ghost-shadow {
@@ -226,14 +232,14 @@ body {
   letter-spacing: 0.5px;
 }
 .box .box__description .box__description-container .box__description-text {
-  color: #4fe6ff;
+  color: var(--color-accent);
   line-height: 20px;
   margin-top: 20px;
 }
 .box .box__description .box__button {
   display: block;
   position: relative;
-  background: #0048ff;
+  background: var(--color-primary);
   border: 1px solid transparent;
   border-radius: 50px;
   height: 50px;
@@ -254,16 +260,16 @@ body {
   position: absolute;
   width: 20px;
   height: 100px;
-  background: #0048ff;
+  background: var(--color-primary);
   bottom: -25px;
   left: 0;
-  border: 2px solid #0048ff;
+  border: 2px solid var(--color-primary);
   transform: translateX(-50px) rotate(45deg);
   transition: transform 0.5s ease;
 }
 .box .box__description .box__button:hover {
   background: transparent;
-  border-color: #0048ff;
+  border-color: var(--color-primary);
 }
 .box .box__description .box__button:hover:before {
   transform: translateX(250px) rotate(45deg);

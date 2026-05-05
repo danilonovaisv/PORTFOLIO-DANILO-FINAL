@@ -13,7 +13,7 @@ export default function AboutPage() {
     <main className="relative min-h-screen w-full overflow-x-clip">
       <Suspense
         fallback={
-          <div className="h-screen flex items-center justify-center bg-[#040013] text-white/50">
+          <div className="h-screen flex items-center justify-center bg-background text-white/50">
             Carregando narrativa...
           </div>
         }
