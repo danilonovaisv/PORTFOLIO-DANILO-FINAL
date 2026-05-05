@@ -25,7 +25,13 @@
       "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")",
       "Bash(npx playwright *)",
       "Bash(pnpm playwright *)",
-      "Bash(pnpm list *)"
+      "Bash(pnpm list *)",
+      "Read(//Users/danilonovais/.claude/plugins/cache/my-plugins/**)",
+      "Read(//Users/danilonovais/.claude/plugins/**)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(k\\) for k in d['plugins']]\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(claude plugin *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k:v for k,v in d.items\\(\\) if k in ['env','mcpServers','permissions']}, indent=2\\)\\)\")"
     ]
   },
   "enabledPlugins": {
