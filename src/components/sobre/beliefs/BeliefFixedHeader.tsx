@@ -14,7 +14,8 @@ export function BeliefFixedHeader() {
 
   return (
     <m.header
-      aria-hidden="true"
+      role="doc-subtitle"
+      aria-label={`${BELIEF_HEADER_LINES[0]} ${BELIEF_HEADER_LINES[1]}`}
       className="pointer-events-none fixed inset-x-0 top-[14vh] w-full py-8 md:top-0"
       style={{
         opacity,
@@ -23,7 +24,7 @@ export function BeliefFixedHeader() {
       }}
     >
       <div className="mx-auto flex max-w-[1680px] items-center justify-center px-6 md:justify-end md:px-12 lg:px-16">
-        <div className="max-w-sm text-center text-white/70 md:text-right">
+        <div aria-hidden="true" className="max-w-sm text-center text-white/70 md:text-right">
           <SplitGhostText
             as="p"
             text={BELIEF_HEADER_LINES[0]}

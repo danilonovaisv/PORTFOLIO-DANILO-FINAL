@@ -6,7 +6,6 @@ import { useEffect, useRef } from 'react';
 import { Group, MathUtils } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
-import { usePointerParallax } from '@/hooks/usePointerParallax';
 
 const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
 
@@ -14,19 +13,16 @@ export function GhostModel() {
   const group = useRef<Group>(null);
   const { scrollYProgress, isMobile, shouldReduceMotion } =
     useBeliefsScrollContext();
-  const { x: pointerX, y: pointerY } = usePointerParallax();
   const { invalidate } = useThree();
   const { scene } = useGLTF(MODEL_PATH);
 
-  // Trigger re-render explicitly when scroll progress updates,
-  // since Canvas uses frameloop="demand".
+  useEffect(() => {
+    invalidate();
+  }, [scene, invalidate]);
+
   useEffect(() => {
     return scrollYProgress.on('change', () => invalidate());
   }, [scrollYProgress, invalidate]);
-
-  useEffect(() => {
-    return pointerX.on('change', () => invalidate());
-  }, [pointerX, invalidate]);
 
   useFrame((state) => {
     if (!group.current) return;
@@ -34,7 +30,6 @@ export function GhostModel() {
     const t = state.clock.elapsedTime;
     const p = scrollYProgress.get();
 
-    // Hover effect
     if (!shouldReduceMotion) {
       const floatSpeed = 0.6 + p * 0.6;
       const floatAmplitude = 0.036 + p * 0.03;
@@ -51,16 +46,12 @@ export function GhostModel() {
       );
     }
 
-    // Positions logic based on viewport and scroll climax
     let targetX = 0;
     let targetY = 0;
 
     if (isMobile) {
       targetX = -1.2;
       targetY = 1.5;
-    } else {
-      targetX = shouldReduceMotion ? 0 : pointerX.get() * 0.4;
-      targetY = shouldReduceMotion ? 0 : pointerY.get() * 0.4;
     }
 
     if (p > 0.85) {
@@ -75,15 +66,6 @@ export function GhostModel() {
     );
 
     if (isMobile) {
-      group.current.position.y = MathUtils.lerp(
-        group.current.position.y,
-        targetY +
-          (shouldReduceMotion
-            ? 0
-            : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03)),
-        0.1
-      );
-    } else {
       const hoverY = shouldReduceMotion
         ? 0
         : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03);
@@ -93,9 +75,6 @@ export function GhostModel() {
         0.1
       );
     }
-
-    // Invalidate if things are still moving
-    invalidate();
   });
 
   return (

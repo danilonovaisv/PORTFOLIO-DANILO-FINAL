@@ -1,8 +1,7 @@
 'use client';
 
 import { Container } from '@/components/layout/Container';
-import { m, useInView, useMotionValueEvent, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { MOTION_TOKENS } from '@/config/motion';
 import { Z_INDEX } from '@/config/z-indices';
@@ -11,25 +10,13 @@ import { BELIEF_LAYOUT, BELIEF_PHRASE_ITEMS, BELIEF_PHRASES } from '@/config/bel
 function BeliefScrollTextItem({
   phrase,
   index,
+  isActive,
 }: {
   phrase: string;
   index: number;
+  isActive: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, {
-    margin: MOTION_TOKENS.reveal.beliefsMargin,
-    amount: 0.1,
-  });
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
-  const [isActiveByProgress, setIsActiveByProgress] = useState(false);
-
-  const isActive = isInView || isActiveByProgress;
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const start = 0.06 + index * 0.075;
-    const end = start + 0.28;
-    setIsActiveByProgress(latest >= start && latest <= end);
-  });
+  const { shouldReduceMotion } = useBeliefsScrollContext();
 
   const variants = {
     hidden: {
@@ -56,7 +43,6 @@ function BeliefScrollTextItem({
 
   return (
     <section
-      ref={ref}
       data-index={index}
       className="belief-scroll-section relative flex w-full snap-center items-end justify-center pb-[20vh] md:items-center md:justify-start md:pb-0"
       style={{ height: BELIEF_LAYOUT.phraseSectionHeight }}
@@ -64,6 +50,7 @@ function BeliefScrollTextItem({
       <Container style={{ zIndex: Z_INDEX.beliefs.scrollText }}>
         <m.div
           data-testid="belief-phrase"
+          data-active={isActive}
           data-animation-contract="viewport-y-opacity"
           initial="hidden"
           animate={isActive ? 'visible' : 'exit'}
@@ -113,6 +100,7 @@ export function BeliefScrollText() {
           key={phrase.id}
           index={index}
           phrase={phrase.text}
+          isActive={index === activePhraseIndex}
         />
       ))}
 
