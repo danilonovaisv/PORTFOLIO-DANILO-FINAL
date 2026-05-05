@@ -4,6 +4,7 @@ export const fetchCache = 'force-no-store';
 
 import { createClient } from '@/lib/supabase/server';
 import { TagForm } from '@/components/admin/TagForm';
+import type { Tables } from '@/lib/supabase.types';
 
 const KIND_LABELS: Record<string, string> = {
   category: 'Category',
@@ -21,8 +22,7 @@ export default async function TagsPage() {
     .order('kind', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
 
-  const tagList: import('@/lib/supabase.types').Tables<'portfolio_tags'>[] =
-    tags ?? [];
+  const tagList: Tables<'portfolio_tags'>[] = tags ?? [];
   type TagRow = NonNullable<(typeof tagList)[number]>;
   const grouped = (tagList as TagRow[]).reduce<Record<string, TagRow[]>>(
     (acc: Record<string, TagRow[]>, tag: TagRow) => {

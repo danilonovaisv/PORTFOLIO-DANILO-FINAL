@@ -11,9 +11,6 @@ import { COLORS } from '@/config/colors';
 type EasingTuple = [number, number, number, number];
 
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
-export const GHOST_EASE_SOFT: EasingTuple = [0.25, 1, 0.5, 1];
-export const GHOST_EASE_HEAVY: EasingTuple = [0.43, 0.13, 0.23, 0.96];
-export const GHOST_EASE_INOUT_SINE: EasingTuple = [0.445, 0.05, 0.55, 0.95];
 export const GHOST_EASE_SOFT_UI: EasingTuple = [0.16, 1, 0.3, 1];
 /**
  * Ambient curve — ignition-style fast start, long tail decay.
@@ -238,18 +235,6 @@ export const ghostRise: Variants = {
 };
 
 /**
- * Ghost Slide - Subtle side entry for images/decorative elements
- */
-export const ghostSlide: Variants = {
-  hidden: { opacity: 0, x: 12 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: MOTION_TOKENS.duration.ghostIn, ease: GHOST_EASE },
-  },
-};
-
-/**
  * Ghost Fade - Pure opacity transition
  */
 export const ghostFade: Variants = {
@@ -257,35 +242,6 @@ export const ghostFade: Variants = {
   visible: {
     opacity: 1,
     transition: { duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE },
-  },
-};
-
-/**
- * Ghost Time Based - Specialized for scroll-timed narrative reveals (e.g., Beliefs)
- */
-export const ghostTimeBased: Variants = {
-  hidden: {
-    opacity: 0,
-    filter: 'blur(8px)',
-    y: 18,
-  },
-  visible: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    y: 0,
-    transition: {
-      duration: MOTION_TOKENS.duration.textIn,
-      ease: GHOST_EASE,
-    },
-  },
-  exit: {
-    opacity: 0,
-    filter: 'blur(8px)',
-    y: -18,
-    transition: {
-      duration: MOTION_TOKENS.duration.textOut,
-      ease: GHOST_EASE,
-    },
   },
 };
 

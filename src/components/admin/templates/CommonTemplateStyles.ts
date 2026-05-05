@@ -10,12 +10,6 @@ export const splitTokenList = (value: string): string[] =>
     .map((item) => item.trim())
     .filter(Boolean);
 
-export const splitLines = (value: string): string[] =>
-  value
-    .split('\n')
-    .map((item) => item.trim())
-    .filter(Boolean);
-
 export const splitBlocks = (value: string): string[] =>
   value
     .split(/\n\s*\n/)

@@ -374,7 +374,7 @@ const normalizeLandingBlock = (
 
   // We no longer return null here. It caused "desaparecimento do bloco de texto"
   // if the user forgot or didn't want to add an image yet.
-  // The frontend handles missing media gracefully with `<AssetInteractive>`.
+  // The active ALPA renderer handles missing media gracefully.
 
   const normalized: LandingPageBlock = {
     id: asString(record.id) ?? `block-${index + 1}`,
@@ -586,47 +586,6 @@ export function createDefaultMasterProjectTemplateV3(
       og_image: fallback.cover ?? '',
     },
   };
-}
-
-export function isMasterProjectTemplateData(
-  value: unknown
-): value is MasterProjectTemplateData {
-  const record = asRecord(value);
-  if (!record) return false;
-
-  return (
-    asString(record.template) === MASTER_PROJECT_TEMPLATE &&
-    asString(record.project_title) !== undefined &&
-    asRecord(record.hero_cover_image) !== null &&
-    Array.isArray(record.gallery_grid)
-  );
-}
-
-export function isMasterProjectTemplateV2Data(
-  value: unknown
-): value is MasterProjectTemplateV2Data {
-  const record = asRecord(value);
-  if (!record) return false;
-
-  return (
-    asString(record.template) === MASTER_PROJECT_TEMPLATE_V2 &&
-    asString(record.project_title) !== undefined &&
-    asRecord(record.hero_cover_image) !== null &&
-    Array.isArray(record.gallery_grid)
-  );
-}
-
-export function isMasterProjectTemplateV3Data(
-  value: unknown
-): value is MasterProjectTemplateV3Data {
-  const record = asRecord(value);
-  if (!record) return false;
-
-  return (
-    asString(record.template) === MASTER_PROJECT_TEMPLATE_V3 &&
-    asString(record.project_title) !== undefined &&
-    Array.isArray(record.gallery_grid)
-  );
 }
 
 function normalizeMasterTemplate(

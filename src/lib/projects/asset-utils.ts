@@ -1,10 +1,4 @@
-import { type AssetKind } from '@/components/projects/templates/types';
-import type { LandingPageBlock } from '@/types/landing-page';
-
-export const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
 export const YOUTUBE_HOST_WHITELIST = ['youtube.com', 'm.youtube.com'];
-export const YOUTUBE_PATTERN =
-  /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 
 export const getYouTubeId = (url: string): string | null => {
   const candidate = url.trim();
@@ -42,19 +36,4 @@ export const getYouTubeId = (url: string): string | null => {
   }
 
   return null;
-};
-
-export const getAssetKind = (
-  src?: string,
-  mediaType?: LandingPageBlock['content']['mediaType']
-): AssetKind => {
-  const value = src ?? '';
-  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
-
-  if (mediaType === 'youtube') return 'youtube';
-  if (mediaType === 'video') return 'video';
-
-  if (!value) return 'image';
-  if (VIDEO_PATTERN.test(value)) return 'video';
-  return 'image';
 };

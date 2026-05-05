@@ -12,11 +12,18 @@
   "ignore": [
     "src/components/ui/**",
     "src/dataconnect-generated/**",
+    "functions/next_build/**",
     "**/*.d.ts",
     ".agent/**",
     ".cache/**",
     "artifacts/**"
   ],
   "ignoreExportsUsedInFile": true,
-  "ignoreDependencies": ["postcss", "autoprefixer", "sharp"]
+  "ignoreDependencies": [
+    "postcss",
+    "autoprefixer",
+    "sharp",
+    "@radix-ui/react-label"
+  ],
+  "ignoreBinaries": ["python3"]
 }

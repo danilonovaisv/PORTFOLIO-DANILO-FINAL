@@ -119,7 +119,7 @@ DESIGN
 - Wrapper DOM animado apenas com `opacity` e `translateY`
 - `frameloop="demand"` preservado
 - Pose base estática com deslocamento vertical scroll-linked
-- Sem parallax por cursor na narrativa principal
+- Sem dependência do hook legado `usePointerParallax`; qualquer tracking de cursor deve permanecer encapsulado no Ghost 3D ativo.
 - Sem `scale` e `rotate` animados nesta rodada
 - Mantém presença acima do manifesto, mas sem obrigação de encaixe literal sobre a palavra `GHOST` em todos os frames
 

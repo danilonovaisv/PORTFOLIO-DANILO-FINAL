@@ -4,7 +4,7 @@
 
 - Fonte de verdade atualizada em `2026-05-04`
 - Estado da seção: experiência híbrida Motion DOM + R3F validada por E2E
-- Integração ativa: `/sobre` e `/o-que-me-move` consomem `AboutBeliefs` pelo barrel `src/components/sobre/sections/index.ts`
+- Integração ativa: `/sobre` consome `AboutBeliefs` pelo barrel `src/components/sobre/sections/index.ts`; a rota solta `/o-que-me-move` foi removida no cleanup de 2026-05-05.
 
 ## Objetivo
 
@@ -47,7 +47,7 @@ Apresentar uma narrativa cinematográfica sticky de 600vh com manifesto, frases 
 - `<Canvas>` permanece com `frameloop="demand"`.
 - `scrollYProgress`, scroll global e `mousemove` desktop disparam `invalidate()` para acordar o renderizador sob demanda.
 - O modelo usa `useGLTF(getAssetUrl("site-assets/3d/ghost-v1.glb"))`.
-- Desktop usa cursor parallax suave via `usePointerParallax`.
+- Desktop usa tracking de pointer local no Ghost 3D; o hook legado `usePointerParallax` foi removido por não estar mais referenciado.
 - Mobile/touch desliga tracking de pointer e acompanha o progresso de scroll.
 - WebGL indisponível renderiza `GhostSceneFallback` antes de montar `<Canvas>`.
 

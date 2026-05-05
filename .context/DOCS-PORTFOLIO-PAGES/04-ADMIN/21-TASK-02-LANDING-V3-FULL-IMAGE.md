@@ -26,7 +26,7 @@ Garantir que blocos de imagem full no Template V3 exibam o asset completo, respe
 
 ## Implementação aplicada
 
-- Foi introduzido o modo de renderização `displayMode = full` no `AssetInteractive`.
+- Foi introduzido o modo de renderização `displayMode = full` no renderer ALPA v3 ativo; o componente legado `AssetInteractive` foi removido no cleanup de 2026-05-05.
 - Em modo full:
   - imagens usam `<img>` com `w-full h-auto object-contain`
   - vídeos standalone usam `object-contain` e limite de altura seguro

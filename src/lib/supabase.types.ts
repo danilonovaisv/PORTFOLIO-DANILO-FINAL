@@ -662,10 +662,6 @@ export type Database = {
   };
 };
 
-export type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>;
-
-export type DefaultSchema = Database['public'];
-
 export type Tables<
   T extends keyof (Database['public']['Tables'] & Database['public']['Views']),
 > = (Database['public']['Tables'] & Database['public']['Views'])[T] extends {
@@ -679,6 +675,3 @@ export type TablesInsert<T extends keyof Database['public']['Tables']> =
 
 export type TablesUpdate<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T] extends { Update: infer U } ? U : never;
-
-export type Enums<T extends keyof Database['public']['Enums']> =
-  Database['public']['Enums'][T];

@@ -106,11 +106,10 @@ their exported constants, never inline.
 | Constant             | Curve                      | When to use                                                                                                       |
 | :------------------- | :------------------------- | :---------------------------------------------------------------------------------------------------------------- |
 | `GHOST_EASE`         | `[0.22, 1, 0.36, 1]`       | Default — buttons, sections, cards, hovers, reveals.                                                              |
-| `GHOST_EASE_SOFT`    | `[0.25, 1, 0.5, 1]`        | Atmospheric backgrounds, long-running belief/intro scenes, ghostly drift. Gentler brake than the standard ease.   |
-| `GHOST_EASE_HEAVY`   | `[0.43, 0.13, 0.23, 0.96]` | Large spatial moves (hero camera, big translateX/Y). Heavier anticipation, still non-bouncy.                      |
 | `GHOST_EASE_AMBIENT` | `[0.17, 0.55, 0.55, 1]`    | Long atmospheric layers only — belief backgrounds, gradient drifts, manifesto scroll fades. Never on UI controls. |
+| `GHOST_EASE_SOFT_UI` | `[0.16, 1, 0.3, 1]`        | UI-only soft transitions currently used by preloader and compact interface motion.                                 |
 
-- **Import:** `import { GHOST_EASE, GHOST_EASE_SOFT, GHOST_EASE_HEAVY, GHOST_EASE_AMBIENT } from '@/config/motion'`
+- **Import:** `import { GHOST_EASE, GHOST_EASE_AMBIENT, GHOST_EASE_SOFT_UI } from '@/config/motion'`
 - **Never** inline a raw cubic-bezier tuple in components — it breaks the single source of truth and defeats drift regression greps.
 
 - **Duration:**

@@ -53,7 +53,7 @@
   - Added Playwright regression guard `test/e2e/design-system/z-stack.spec.ts` (sanitized)
 - [x] **Motion Sanctioning**: Added `GHOST_EASE_AMBIENT` [0.17, 0.55, 0.55, 1]; documented in DS §2.1
   - Eliminated 6 inline easing tuples in `sobre/beliefs/*` → sanctioned constants
-  - `GHOST_EASE_SOFT` fully documented in DS
+  - `GHOST_EASE_SOFT_UI` documented in DS; unused legacy easing exports removed
 - [x] **Hex → Token Refactor**: Added abyss gradient tokens (`--color-abyss-start`, `--color-abyss-mid`)
   - ALPARenderer, MasterProjectTemplate, ProjectTemplateMasterRenderer, ProjectsGallery, AdaptiveMediaLayout, MobileMenuPanel, BeliefScrollText migrated
   - Runtime `mixHex()` WebGL inputs retained as hex (cannot accept CSS vars)

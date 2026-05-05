@@ -1,7 +1,6 @@
 import { ExperienceFlags } from '@/store/antigravity.store';
 
 export * from '@/store/antigravity.store';
-export * from '@/lib/antigravity/prompts';
 
 export const runExperienceOrchestrator = ({
   viewport,

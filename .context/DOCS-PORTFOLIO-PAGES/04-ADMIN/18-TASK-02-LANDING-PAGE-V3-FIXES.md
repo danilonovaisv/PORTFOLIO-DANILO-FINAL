@@ -9,7 +9,7 @@ Resolver problemas identificados no template V3 da Landing Page (ALPA Template),
 ### 1. Desaparecimento de Blocos de Texto
 
 **Problema:** Blocos que não tinham a mídia primária preenchida (ex: `image-text` criado, texto digitado, mas nenhuma imagem selecionada) eram removidos completamente no carregamento (`normalizeLandingBlock`), descartando todo o progresso do texto do usuário.
-**Solução:** Alterado o `src/lib/projects/template-schema.ts` na etapa de normalização. As chamadas restritivas (`blockNeedsPrimaryMedia(type) && !media return null;`) que ignoravam graciosidade do front-end foram removidas. Agora, blocos incompletos são mantidos, delegando ao front-end (`<AssetInteractive />`) a responsabilidade de exibir a mensagem amigável de "Mídia indisponível", porém renderizando e resguardando perfeitamente o título/texto associados.
+**Solução:** Alterado o `src/lib/projects/template-schema.ts` na etapa de normalização. As chamadas restritivas (`blockNeedsPrimaryMedia(type) && !media return null;`) que ignoravam graciosidade do front-end foram removidas. Agora, blocos incompletos são mantidos para que o renderer ALPA v3 ativo exiba a mensagem amigável de "Mídia indisponível", preservando título/texto associados.
 
 ### 2. Desaparecimento de Mídia YouTube
 

@@ -3,14 +3,3 @@ export type BeliefPhrase = {
   text: string;
   backgroundStopIndex: number;
 };
-
-export type BeliefBackgroundStop = readonly [
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];

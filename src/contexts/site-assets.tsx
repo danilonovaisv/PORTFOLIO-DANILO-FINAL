@@ -11,8 +11,6 @@ import { validateExternalUrl } from '@/lib/supabase/urls';
 
 type SiteAssetsContextValue = {
   getUrl: (_key: string) => string | undefined;
-  getAssetsByPrefix: (_prefix: string) => SiteAsset[];
-  getAssetWithValidation: (_key: string) => SiteAsset | undefined;
 };
 
 const SiteAssetsContext = createContext<SiteAssetsContextValue | null>(null);
@@ -42,19 +40,8 @@ export function SiteAssetsProvider({
   }, [assets]);
 
   const value = useMemo<SiteAssetsContextValue>(() => {
-    const entries = Object.values(assetsMap);
     return {
       getUrl: (key: string) => assetsMap[key]?.publicUrl,
-      getAssetsByPrefix: (prefix: string) =>
-        entries.filter((asset) => asset.key.startsWith(prefix)),
-      getAssetWithValidation: (key: string) => {
-        const asset = assetsMap[key];
-        if (asset?.href) {
-          const validatedHref = validateExternalUrl(asset.href);
-          return validatedHref ? { ...asset, href: validatedHref } : asset;
-        }
-        return asset;
-      },
     };
   }, [assetsMap]);
 
@@ -146,14 +133,4 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
   }
 
   return undefined;
-}
-
-export function useSiteAssetsByPrefix(prefix: string) {
-  const context = useContext(SiteAssetsContext);
-  return context?.getAssetsByPrefix(prefix) ?? [];
-}
-
-export function useValidatedAsset(key: string) {
-  const context = useContext(SiteAssetsContext);
-  return context?.getAssetWithValidation(key);
 }

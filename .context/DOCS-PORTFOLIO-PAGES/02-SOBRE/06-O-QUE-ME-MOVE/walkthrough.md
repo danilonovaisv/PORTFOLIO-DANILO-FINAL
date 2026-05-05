@@ -9,7 +9,6 @@ A seção `06-O-QUE-ME-MOVE` foi alinhada ao prompt mestre do Agent Manager e à
 ### Arquivos alterados
 
 - `src/config/beliefTokens.ts`
-- `src/config/beliefs.ts`
 - `src/types/beliefs.ts`
 - `src/hooks/useMediaQuery.ts`
 - `src/hooks/useBeliefsScroll.ts`
@@ -19,7 +18,6 @@ A seção `06-O-QUE-ME-MOVE` foi alinhada ao prompt mestre do Agent Manager e à
 - `src/components/sobre/beliefs/BeliefFixedHeader.tsx`
 - `src/components/sobre/beliefs/BeliefScrollText.tsx`
 - `src/components/sobre/beliefs/BeliefManifesto.tsx`
-- `src/components/sobre/beliefs/SplitTextMotion.tsx`
 - `src/components/sobre/3d/GhostScene.tsx`
 - `src/components/sobre/3d/GhostModel.tsx`
 - `src/components/sobre/3d/GhostSceneFallback.tsx`
@@ -33,7 +31,7 @@ A seção `06-O-QUE-ME-MOVE` foi alinhada ao prompt mestre do Agent Manager e à
 - `GhostScene` permanece em `z-70`, usa `frameloop="demand"` e detecta ausência de WebGL antes de montar `<Canvas>`.
 - `GhostModel` mantém asset por `getAssetUrl()` de `@/lib/utils` e protege `useGLTF.preload()` no client.
 - `prefers-reduced-motion` usa media query local para evitar mismatch de hidratação.
-- `SplitTextMotion` usa `motion.create()` para remover warning de depreciação.
+- O helper legado `SplitTextMotion` foi removido no cleanup de 2026-05-05 por não estar mais referenciado na seção ativa.
 
 ### Evidência
 
