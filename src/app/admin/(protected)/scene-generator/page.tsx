@@ -144,7 +144,7 @@ export default function SceneGeneratorPage() {
                     modelOptions.map((model) => (
                       <label
                         key={model.id}
-                        className={`relative flex cursor-pointer items-center gap-3 rounded border p-3 transition-all duration-300 ${
+                        className={`relative flex cursor-pointer items-center gap-3 rounded border p-3 transition-all duration-standard ${
                           model.available
                             ? 'border-white/5 bg-white/[0.01] hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]'
                             : 'cursor-not-allowed border-white/5 opacity-30'
@@ -201,7 +201,7 @@ export default function SceneGeneratorPage() {
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onClick={() => fileInputRef.current?.click()}
-                  className="group cursor-pointer rounded border border-dashed border-white/10 bg-white/[0.01] p-6 text-center transition-all duration-300 hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
+                  className="group cursor-pointer rounded border border-dashed border-white/10 bg-white/[0.01] p-6 text-center transition-all duration-standard hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
                 >
                   <UploadCloud className="mx-auto mb-3 h-6 w-6 text-white/20 transition-colors group-hover:text-emerald-500/50" />
                   <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 group-hover:text-white/60">
@@ -270,7 +270,7 @@ export default function SceneGeneratorPage() {
                   {OUTPUT_RATIO_PRESETS.map((ratio) => (
                     <label
                       key={ratio.id}
-                      className={`cursor-pointer rounded border px-3 py-2 text-left transition-all duration-300 ${
+                      className={`cursor-pointer rounded border px-3 py-2 text-left transition-all duration-standard ${
                         outputRatio === ratio.id
                           ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400'
                           : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
@@ -344,7 +344,7 @@ export default function SceneGeneratorPage() {
                 disabled={isPending}
                 className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-emerald-500 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-black transition-all hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-slow group-hover:translate-x-full" />
                 {isPending ? (
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-3 w-3 animate-spin" />
@@ -401,13 +401,13 @@ export default function SceneGeneratorPage() {
                 {state.images.map((img, idx) => (
                   <div
                     key={idx}
-                    className={`${idx === 0 ? 'md:col-span-2' : ''} ${ratioPreviewClass[previewAspect]} group relative overflow-hidden rounded border border-white/10 bg-black/40 transition-all duration-500 hover:border-emerald-500/30`}
+                    className={`${idx === 0 ? 'md:col-span-2' : ''} ${ratioPreviewClass[previewAspect]} group relative overflow-hidden rounded border border-white/10 bg-black/40 transition-all duration-modal hover:border-emerald-500/30`}
                   >
                     <Image
                       src={img}
                       alt={`Scene ${idx + 1}`}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover transition-transform duration-normal group-hover:scale-105"
                       unoptimized
                     />
                     <div className="absolute left-4 top-4 border border-white/10 bg-black/80 px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-white backdrop-blur-md">
@@ -418,7 +418,7 @@ export default function SceneGeneratorPage() {
                       download
                       target="_blank"
                       aria-label={`Download variation ${idx + 1}`}
-                      className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white text-black transition-all duration-300 hover:scale-110 active:scale-95"
+                      className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white text-black transition-all duration-standard hover:scale-110 active:scale-95"
                     >
                       <Download size={16} />
                     </a>

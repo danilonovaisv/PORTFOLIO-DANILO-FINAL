@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef, RefObject } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Mail } from 'lucide-react';
 import { Instagram, Linkedin } from '@/components/shared/icons/SocialIcons';
 import { SOCIALS } from '@/config/navigation';
@@ -78,13 +78,13 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
           ref={socialsRef}
           className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4"
         >
-          <motion.h3
+          <m.h3
             className="sm-social-title text-sm font-medium uppercase tracking-wider"
             initial={false}
             animate={{ color: accentColor }}
           >
             Connect
-          </motion.h3>
+          </m.h3>
           <div className="flex gap-4">
             {[
               {

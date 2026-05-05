@@ -1,7 +1,7 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import type {
   MasterProjectAsset,
   MasterProjectGalleryItem,
@@ -151,7 +151,7 @@ export default function MasterProjectTemplateEditor({
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence>
             {value.gallery_grid.map((item, index) => (
-              <motion.div
+              <m.div
                 key={item.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -195,7 +195,7 @@ export default function MasterProjectTemplateEditor({
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
         </div>

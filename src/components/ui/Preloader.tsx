@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 import { BRAND } from '@/config/brand';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS, GHOST_EASE_SOFT_UI } from '@/config/motion';
 import { Z_INDEX } from '@/config/z-indices';
 
 const hexToRgba = (hex: string, alpha = 1) => {
@@ -56,7 +56,10 @@ export function Preloader({
     // Modo A: controlado por 'ready'
     if (typeof ready === 'boolean') {
       if (!ready) return;
-      const t = setTimeout(() => setShow(false), reduced ? 200 : 800);
+      const t = setTimeout(
+        () => setShow(false),
+        reduced ? 200 : (MOTION_TOKENS.duration.normal as number) * 1000
+      );
       return () => clearTimeout(t);
     }
     // Modo B: compatibilidade com onComplete
@@ -74,7 +77,7 @@ export function Preloader({
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
+        <m.div
           className={
             'fixed inset-0 grid place-items-center bg-linear-to-b from-background to-neutral ' +
             (className ?? '')
@@ -83,7 +86,7 @@ export function Preloader({
           initial={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(20px)' }}
           transition={{
-            duration: reduced ? 0.3 : 1,
+            duration: reduced ? 0.3 : (MOTION_TOKENS.duration.textIn as number),
             ease: GHOST_EASE,
           }}
           role="status"
@@ -91,7 +94,7 @@ export function Preloader({
         >
           <div className="text-center text-text select-none">
             {/* Ghost Flutuante */}
-            <motion.div
+            <m.div
               className="mx-auto mb-10 h-24 w-24"
               animate={
                 reduced
@@ -107,26 +110,30 @@ export function Preloader({
                     }
               }
               transition={{
-                duration: 2.2,
+                duration: MOTION_TOKENS.duration.slow,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
             >
               <Ghost />
-            </motion.div>
+            </m.div>
 
             {/* Texto Pulsante */}
-            <motion.p
+            <m.p
               className="text-[14px] font-mono font-medium uppercase tracking-[0.35em] text-textSecondary mb-8"
               animate={reduced ? {} : { opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 1.2, repeat: Infinity, ease: GHOST_EASE }}
+              transition={{
+                duration: MOTION_TOKENS.duration.ghostIn as number,
+                repeat: Infinity,
+                ease: GHOST_EASE,
+              }}
             >
               {label.toUpperCase()}
-            </motion.p>
+            </m.p>
 
             {/* Barra de Progresso Gradient */}
             <div className="mx-auto w-40 h-px bg-text/20 rounded-full overflow-hidden">
-              <motion.div
+              <m.div
                 className="h-full"
                 style={{
                   background: `linear-gradient(90deg, ${BRAND.colors.bluePrimary} 0%, ${BRAND.colors.blueAccent} 100%)`,
@@ -136,12 +143,12 @@ export function Preloader({
                 animate={{ width: '100%' }}
                 transition={{
                   duration: durationMs / 1000,
-                  ease: 'easeInOut',
+                  ease: GHOST_EASE_SOFT_UI as any,
                 }}
               />
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

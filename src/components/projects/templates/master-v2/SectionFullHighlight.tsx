@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
@@ -40,7 +40,7 @@ export default function SectionFullHighlight({
 
   return (
     <section ref={containerRef} className="std-grid relative py-8 md:py-14">
-      <motion.article
+      <m.article
         initial={revealInitial}
         whileInView={revealVisible}
         viewport={{ once: true, amount: 0.2 }}
@@ -51,7 +51,7 @@ export default function SectionFullHighlight({
         }}
         className="overflow-hidden rounded-3xl border border-white/10 bg-black/30"
       >
-        <motion.div style={prefersReducedMotion ? undefined : { y: parallaxY }}>
+        <m.div style={prefersReducedMotion ? undefined : { y: parallaxY }}>
           <BlockMedia
             item={item}
             title={title}
@@ -59,7 +59,7 @@ export default function SectionFullHighlight({
             aspectClassName="aspect-[16/10] md:aspect-[21/9]"
             sizes="100vw"
           />
-        </motion.div>
+        </m.div>
 
         <div className="space-y-4 px-5 py-6 md:px-8 md:py-8">
           {item.eyebrow ? (
@@ -81,7 +81,7 @@ export default function SectionFullHighlight({
             </p>
           ) : null}
         </div>
-      </motion.article>
+      </m.article>
     </section>
   );
 }

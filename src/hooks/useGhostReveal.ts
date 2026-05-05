@@ -14,7 +14,7 @@ export function useGhostReveal(
   ghostRef: React.RefObject<THREE.Group | null> | undefined,
   revealRef: React.RefObject<HTMLDivElement | null>,
   enabled: boolean
-) {
+): void {
   useEffect(() => {
     if (!enabled || !ghostRef?.current || !revealRef.current) return;
 

@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { HOME_CONTENT } from '@/config/content';
-import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 
 /**
  * ClientsBrandsSection - Exibe logotipos das marcas/clientes
@@ -29,12 +29,12 @@ export default function ClientsBrandsSection() {
       {/* Container usando std-grid padrão do projeto */}
       <div className="std-grid">
         {/* Título da seção */}
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}
           transition={{
-            duration: 0.6,
+            duration: MOTION_TOKENS.duration.normal,
             ease: GHOST_EASE as [number, number, number, number],
           }}
           className="mb-10 md:mb-16 lg:mb-20"
@@ -45,10 +45,10 @@ export default function ClientsBrandsSection() {
           >
             {HOME_CONTENT.clients.title}
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Grid de Logos com acessibilidade */}
-        <motion.ul
+        <m.ul
           role="list"
           aria-label="Logotipos das marcas parceiras"
           initial="hidden"
@@ -69,7 +69,7 @@ export default function ClientsBrandsSection() {
             const assetKey = SITE_ASSET_KEYS.clients.strips[index];
 
             return (
-              <motion.li
+              <m.li
                 key={logo.id}
                 role="listitem"
                 variants={{
@@ -79,13 +79,13 @@ export default function ClientsBrandsSection() {
                     y: 0,
                     filter: 'blur(0px)',
                     transition: {
-                      duration: 0.8,
+                      duration: MOTION_TOKENS.duration.normal,
                       ease: GHOST_EASE,
                     },
                   },
                 }}
               >
-                <div className="group relative w-32 h-16 sm:w-40 sm:h-20 md:w-48 md:h-24 flex items-center justify-center transition-transform duration-500 will-change-transform group-hover:-translate-y-0.5 p-2">
+                <div className="group relative w-32 h-16 sm:w-40 sm:h-20 md:w-48 md:h-24 flex items-center justify-center transition-transform duration-modal will-change-transform group-hover:-translate-y-0.5 p-2">
                   <DynamicAssetImage
                     assetKey={assetKey}
                     alt={logo.alt}
@@ -93,13 +93,13 @@ export default function ClientsBrandsSection() {
                     priority={false}
                     objectFit="contain"
                     sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
-                    className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100"
+                    className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-modal group-hover:opacity-100"
                   />
                 </div>
-              </motion.li>
+              </m.li>
             );
           })}
-        </motion.ul>
+        </m.ul>
       </div>
     </section>
   );

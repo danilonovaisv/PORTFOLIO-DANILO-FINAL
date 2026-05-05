@@ -389,7 +389,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('title')}
           />
         </label>
@@ -402,7 +402,7 @@ export function ProjectForm({
           <div className="flex flex-col gap-2">
             {availableTags.length > 0 && (
               <select
-                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white/80 font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+                className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm text-white/80 font-mono focus:border-bluePrimary/50 outline-none transition-colors"
                 defaultValue=""
                 onChange={(event) => {
                   const selectedSlug = event.target.value;
@@ -420,7 +420,7 @@ export function ProjectForm({
               </select>
             )}
             <input
-              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+              className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
               {...form.register('slug')}
             />
           </div>
@@ -432,7 +432,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('client_name')}
           />
         </label>
@@ -443,7 +443,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('brand_name')}
           />
         </label>
@@ -455,7 +455,7 @@ export function ProjectForm({
           />
           <input
             type="number"
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('year')}
           />
         </label>
@@ -466,7 +466,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <select
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('project_type')}
           >
             {PROJECT_TYPE_OPTIONS.map((option) => (
@@ -481,7 +481,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('short_label')}
           />
         </label>
@@ -493,13 +493,13 @@ export function ProjectForm({
           />
           <textarea
             rows={4}
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors resize-none"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors resize-none"
             {...form.register('description')}
           />
         </label>
 
-        <div className="p-6 bg-[#0048ff]/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
-          <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#0048ff]">
+        <div className="p-6 bg-bluePrimary/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
+          <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-bluePrimary">
             System_Case_Structure_Nav
           </h3>
 
@@ -511,7 +511,7 @@ export function ProjectForm({
                 className="flex items-center gap-1 font-mono text-[10px] text-white/60 uppercase tracking-widest"
               />
               <select
-                className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+                className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-bluePrimary/50 outline-none transition-colors"
                 {...form.register('destination.type')}
               >
                 <option value="modal">System_Modal_Default</option>
@@ -530,7 +530,7 @@ export function ProjectForm({
                   className="flex items-center gap-1 font-mono text-[10px] text-white/60 uppercase tracking-widest"
                 />
                 <input
-                  className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+                  className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
                   {...form.register('destination.url')}
                   placeholder="https://... ou /rota"
                 />
@@ -546,7 +546,7 @@ export function ProjectForm({
             />
             <textarea
               rows={12}
-              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors resize-y"
+              className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors resize-y"
               {...form.register('case_body')}
               placeholder="Write project narrative using Markdown..."
             />
@@ -605,7 +605,7 @@ export function ProjectForm({
               className="flex items-center gap-1"
             />
             <select
-              className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+              className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-bluePrimary/50 outline-none transition-colors"
               {...form.register('home_featured.cardStyle')}
               disabled={!featuredOnHome}
             >
@@ -654,8 +654,8 @@ export function ProjectForm({
         </div>
       </div>
 
-      <div className="p-6 bg-[#0048ff]/[0.02] border border-white/5 rounded-md space-y-4">
-        <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#0048ff]">
+      <div className="p-6 bg-bluePrimary/[0.02] border border-white/5 rounded-md space-y-4">
+        <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-bluePrimary">
           System_Destination_Node
         </h3>
         <label className="flex flex-col gap-2">
@@ -665,7 +665,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <select
-            className="w-full rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="w-full rounded-md bg-background border border-white/10 px-3 py-2 text-sm text-white font-mono focus:border-bluePrimary/50 outline-none transition-colors"
             {...form.register('landing_page_id')}
           >
             <option value="">System_Node_Null (Default)</option>
@@ -698,7 +698,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#0048ff]/10 file:text-[#0048ff] hover:file:bg-[#0048ff]/20 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-bluePrimary/10 file:text-bluePrimary hover:file:bg-bluePrimary/20 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
@@ -716,7 +716,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#0048ff]/10 file:text-[#0048ff] hover:file:bg-[#0048ff]/20 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-bluePrimary/10 file:text-bluePrimary hover:file:bg-bluePrimary/20 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
@@ -748,7 +748,7 @@ export function ProjectForm({
             value={newTagLabel}
             onChange={(event) => setNewTagLabel(event.target.value)}
             placeholder="SYSTEM_INIT_TAG_LABEL"
-            className="flex-1 min-w-0 rounded-md bg-[#040013] border border-white/10 px-3 py-2 text-sm font-mono focus:border-[#0048ff]/50 outline-none transition-colors"
+            className="flex-1 min-w-0 rounded-md bg-background border border-white/10 px-3 py-2 text-sm font-mono focus:border-bluePrimary/50 outline-none transition-colors"
           />
           <button
             type="button"
@@ -791,7 +791,7 @@ export function ProjectForm({
 
       <button
         type="submit"
-        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-[#0048ff] px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white shadow-2xl shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/90 hover:scale-[1.02] active:scale-100 disabled:opacity-50"
+        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-bluePrimary px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white shadow-2xl shadow-bluePrimary/20 transition-all hover:bg-bluePrimary/90 hover:scale-[1.02] active:scale-100 disabled:opacity-50"
         disabled={isPending}
       >
         {isPending ? 'SYSTEM_SYNC_IN_PROGRESS...' : 'SYSTEM_PUSH_CHANGES'}

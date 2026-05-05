@@ -2,27 +2,17 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
-import { cn, sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
+import { sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, ghostRise } from '@/config/motion';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: GHOST_EASE,
-    },
-  },
-};
+// fadeInUp is deprecated in favor of ghostRise for system consistency
 
 interface BlockRendererProps {
   block: LandingPageBlock;
@@ -248,14 +238,14 @@ export default function BlockRenderer({
   };
 
   return (
-    <motion.section
+    <m.section
       className="w-full"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-10%' }}
-      variants={fadeInUp}
+      variants={ghostRise}
     >
       {renderContent()}
-    </motion.section>
+    </m.section>
   );
 }

@@ -1,62 +1,49 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { SplitTextMotion } from './SplitTextMotion';
+import { SplitGhostText } from './SplitGhostText';
 import { Z_INDEX } from '@/config/z-indices';
-import { MOTION_TOKENS } from '@/config/motion';
 import { BELIEF_HEADER_LINES } from '@/config/beliefTokens';
 
 export function BeliefFixedHeader() {
   const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
 
-  const titleOpacity = useTransform(
-    scrollYProgress,
-    [0.1, 0.2, 0.8, 0.9],
-    [0, 1, 1, 0]
-  );
-
-  const titleX = useTransform(
-    scrollYProgress,
-    [0.1, 0.2, 0.8, 0.9],
-    [60, 0, 0, -60]
-  );
+  const opacity = useTransform(scrollYProgress, [0.1, 0.2, 0.8, 0.9], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0.1, 0.2], [18, 0]);
 
   return (
-    <div
-      className="pointer-events-none absolute inset-0 flex flex-col justify-start pt-[14vh] md:items-end md:justify-center md:pt-0"
-      style={{ zIndex: Z_INDEX.beliefs.header }}
+    <m.header
+      role="doc-subtitle"
+      aria-label={`${BELIEF_HEADER_LINES[0]} ${BELIEF_HEADER_LINES[1]}`}
+      className="pointer-events-none fixed inset-x-0 top-[14vh] w-full py-8 md:top-0"
+      style={{
+        opacity,
+        y: shouldReduceMotion ? 0 : y,
+        zIndex: Z_INDEX.beliefs.header,
+      }}
     >
-      <div className="std-grid w-full h-full relative">
-        <motion.div
-          aria-hidden="true"
-          style={{
-            ...(shouldReduceMotion
-              ? { opacity: titleOpacity }
-              : { opacity: titleOpacity, x: titleX }),
-            zIndex: Z_INDEX.beliefs.header,
-          }}
-          className="flex w-full flex-col md:items-end items-center"
-        >
-          <div className="max-w-sm text-center md:text-right text-white/70 font-medium text-lg md:text-xl">
-            <SplitTextMotion
-              as="p"
-              text={BELIEF_HEADER_LINES[0]}
-              mode="words"
-              stagger={MOTION_TOKENS.duration.WORD_STAGGER}
-              active={true}
-            />
-            <br />
-            <SplitTextMotion
-              as="p"
-              text={BELIEF_HEADER_LINES[1]}
-              mode="words"
-              stagger={MOTION_TOKENS.duration.WORD_STAGGER}
-              active={true}
-            />
-          </div>
-        </motion.div>
+      <div className="mx-auto flex max-w-[1680px] items-center justify-center px-6 md:justify-end md:px-12 lg:px-16">
+        <div aria-hidden="true" className="max-w-sm text-center text-white/70 md:text-right">
+          <SplitGhostText
+            as="p"
+            text={BELIEF_HEADER_LINES[0]}
+            splitType="words"
+            className="text-lg font-medium leading-snug md:text-xl"
+            stagger={0.05}
+            animate={shouldReduceMotion ? true : undefined}
+          />
+          <SplitGhostText
+            as="p"
+            text={BELIEF_HEADER_LINES[1]}
+            splitType="words"
+            className="mt-1 text-lg font-medium leading-snug md:text-xl"
+            stagger={0.05}
+            delay={shouldReduceMotion ? 0 : 0.2}
+            animate={shouldReduceMotion ? true : undefined}
+          />
+        </div>
       </div>
-    </div>
+    </m.header>
   );
 }

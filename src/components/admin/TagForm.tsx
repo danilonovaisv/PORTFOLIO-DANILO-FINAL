@@ -75,7 +75,7 @@ export function TagForm({ tag, onSaved }: Props) {
             System_Label_Identity
           </span>
           <input
-            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-bluePrimary/50 focus:bg-bluePrimary/5 focus:outline-none"
             placeholder="node.identity_ref"
             {...form.register('label')}
           />
@@ -85,7 +85,7 @@ export function TagForm({ tag, onSaved }: Props) {
             System_Slug_Endpoint
           </span>
           <input
-            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-bluePrimary/50 focus:bg-bluePrimary/5 focus:outline-none"
             placeholder="node-identity-slug"
             {...form.register('slug')}
           />
@@ -95,16 +95,16 @@ export function TagForm({ tag, onSaved }: Props) {
             System_Kind_Classification
           </span>
           <select
-            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none appearance-none"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-bluePrimary/50 focus:bg-bluePrimary/5 focus:outline-none appearance-none"
             {...form.register('kind')}
           >
-            <option value="category" className="bg-[#040013]">
+            <option value="category" className="bg-background">
               Category
             </option>
-            <option value="discipline" className="bg-[#040013]">
+            <option value="discipline" className="bg-background">
               Discipline
             </option>
-            <option value="industry" className="bg-[#040013]">
+            <option value="industry" className="bg-background">
               Industry
             </option>
           </select>
@@ -115,7 +115,7 @@ export function TagForm({ tag, onSaved }: Props) {
           </span>
           <input
             type="number"
-            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none"
+            className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-bluePrimary/50 focus:bg-bluePrimary/5 focus:outline-none"
             placeholder="00"
             {...form.register('sort_order')}
           />
@@ -128,7 +128,7 @@ export function TagForm({ tag, onSaved }: Props) {
         </span>
         <textarea
           rows={3}
-          className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-[#0048ff]/50 focus:bg-[#0048ff]/5 focus:outline-none resize-none"
+          className="rounded border border-white/10 bg-white/[0.02] px-4 py-3 font-mono text-xs text-white transition-all focus:border-bluePrimary/50 focus:bg-bluePrimary/5 focus:outline-none resize-none"
           placeholder="Technical specification summary..."
           {...form.register('description')}
         />
@@ -145,7 +145,7 @@ export function TagForm({ tag, onSaved }: Props) {
 
       <button
         type="submit"
-        className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-[#0048ff] py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#0048ff]/90 active:scale-[0.98] disabled:opacity-50"
+        className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-bluePrimary py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-bluePrimary/90 active:scale-[0.98] disabled:opacity-50"
         disabled={isPending}
       >
         <span className="relative z-10 flex items-center gap-2">

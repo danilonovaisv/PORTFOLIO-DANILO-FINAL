@@ -306,7 +306,7 @@ export default function LoginForm() {
           </p>
         </div>
         <button
-          className="font-mono text-[10px] uppercase tracking-widest text-[#0048ff] hover:text-[#0048ff] underline underline-offset-4"
+          className="font-mono text-[10px] uppercase tracking-widest text-bluePrimary hover:text-bluePrimary underline underline-offset-4"
           onClick={() => {
             setMode(mode === 'login' ? 'signup' : 'login');
             clearFeedback();
@@ -335,7 +335,7 @@ export default function LoginForm() {
             autoComplete="email"
             autoCapitalize="none"
             spellCheck={false}
-            className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
+            className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -350,7 +350,7 @@ export default function LoginForm() {
             type="password"
             required
             autoComplete="current-password"
-            className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
+            className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -382,7 +382,7 @@ export default function LoginForm() {
 
         <button
           type="submit"
-          className="w-full rounded bg-[#0048ff] py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/80 active:scale-[0.98] disabled:opacity-50"
+          className="w-full rounded bg-bluePrimary py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-bluePrimary/20 transition-all hover:bg-bluePrimary/80 active:scale-[0.98] disabled:opacity-50"
           disabled={isBusy}
         >
           {primaryButtonLabel}
@@ -391,7 +391,7 @@ export default function LoginForm() {
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <button
             type="button"
-            className="rounded border border-white/10 bg-white/[0.02] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-all hover:border-[#0048ff]/30 hover:bg-[#0048ff]/5 hover:text-white disabled:opacity-50"
+            className="rounded border border-white/10 bg-white/[0.02] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-all hover:border-bluePrimary/30 hover:bg-bluePrimary/5 hover:text-white disabled:opacity-50"
             onClick={() => handleOAuth('google')}
             disabled={isBusy}
           >
@@ -399,7 +399,7 @@ export default function LoginForm() {
           </button>
           <button
             type="button"
-            className="rounded border border-white/10 bg-white/[0.02] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-all hover:border-[#0048ff]/30 hover:bg-[#0048ff]/5 hover:text-white disabled:opacity-50"
+            className="rounded border border-white/10 bg-white/[0.02] px-3 py-3 font-mono text-[9px] uppercase tracking-widest text-white/60 transition-all hover:border-bluePrimary/30 hover:bg-bluePrimary/5 hover:text-white disabled:opacity-50"
             onClick={() => handleOAuth('github')}
             disabled={isBusy}
           >
@@ -428,9 +428,9 @@ export default function LoginForm() {
 
         <p className="font-mono text-[9px] leading-5 text-white/20 uppercase tracking-tighter">
           Production_Environment: SSL/HTTPS_REQUIRED. Callbacks_Handled_Via{' '}
-          <span className="text-[#0048ff]">/auth/callback</span>.
+          <span className="text-bluePrimary">/auth/callback</span>.
           System_Recovery_Node_Located_At{' '}
-          <span className="text-[#0048ff]">/admin/reset-password</span>.
+          <span className="text-bluePrimary">/admin/reset-password</span>.
         </p>
       </form>
     </div>

@@ -36,6 +36,18 @@ jest.mock('framer-motion', () => {
                 </button>
             ),
         },
+        m: {
+            div: ({ children, className, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...props }: any) => (
+                <div className={className as string} {...props}>
+                    {children as React.ReactNode}
+                </div>
+            ),
+            button: ({ children, className, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...props }: any) => (
+                <button className={className as string} {...props}>
+                    {children as React.ReactNode}
+                </button>
+            ),
+        },
         useScroll: jest.fn(() => ({
             scrollYProgress: mockMotionValue,
         })),

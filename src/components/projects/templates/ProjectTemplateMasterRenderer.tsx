@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 // dynamic import removed as it was unused
 import Image from 'next/image';
@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { supabaseLoader } from '@/lib/utils';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
@@ -116,10 +116,14 @@ export default function ProjectTemplateMasterRenderer({
 
   const revealInitial = prefersReducedMotion
     ? { opacity: 0 }
-    : { opacity: 0, y: 18, filter: 'blur(8px)' };
+    : {
+        opacity: 0,
+        y: MOTION_TOKENS.offset.standard,
+        filter: MOTION_TOKENS.blur.hidden,
+      };
   const revealVisible = prefersReducedMotion
     ? { opacity: 1 }
-    : { opacity: 1, y: 0, filter: 'blur(0px)' };
+    : { opacity: 1, y: 0, filter: MOTION_TOKENS.blur.visible };
 
   const nextLabel = project.navigation?.next_label ?? 'próximo projeto';
   const nextHref = project.navigation?.next_project_slug
@@ -227,10 +231,13 @@ export default function ProjectTemplateMasterRenderer({
 
             <div className="std-grid relative z-10 w-full space-y-6 pb-16 md:pb-20">
               {heroLogo ? (
-                <motion.div
+                <m.div
                   initial={revealInitial}
                   animate={revealVisible}
-                  transition={{ duration: 0.7, ease: GHOST_EASE }}
+                  transition={{
+                    duration: MOTION_TOKENS.duration.normal,
+                    ease: GHOST_EASE,
+                  }}
                   className="relative h-16 w-40 md:h-24 md:w-56"
                 >
                   <Image
@@ -244,40 +251,44 @@ export default function ProjectTemplateMasterRenderer({
                     className="object-contain object-left"
                     sizes="224px"
                   />
-                </motion.div>
+                </m.div>
               ) : null}
 
-              <motion.h1
+              <m.h1
                 initial={revealInitial}
                 animate={revealVisible}
-                transition={{ duration: 0.84, ease: GHOST_EASE, delay: 0.04 }}
+                transition={{
+                  duration: MOTION_TOKENS.duration.normal,
+                  ease: GHOST_EASE,
+                  delay: MOTION_TOKENS.stagger.tight,
+                }}
                 className="max-w-5xl text-4xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl"
               >
                 {project.project_title}
-              </motion.h1>
+              </m.h1>
 
               {project.project_subtitle ? (
-                <motion.p
+                <m.p
                   initial={revealInitial}
                   animate={revealVisible}
                   transition={{
-                    duration: 0.74,
+                    duration: MOTION_TOKENS.duration.normal,
                     ease: GHOST_EASE,
-                    delay: 0.08,
+                    delay: MOTION_TOKENS.stagger.normal,
                   }}
                   className="max-w-3xl text-lg leading-relaxed text-white/84 md:text-2xl"
                 >
                   {project.project_subtitle}
-                </motion.p>
+                </m.p>
               ) : null}
 
-              <motion.div
+              <m.div
                 initial={revealInitial}
                 animate={revealVisible}
                 transition={{
-                  duration: 0.74,
+                  duration: MOTION_TOKENS.duration.normal,
                   ease: GHOST_EASE,
-                  delay: 0.12,
+                  delay: MOTION_TOKENS.delay.short,
                 }}
                 className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
                 style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
@@ -293,15 +304,16 @@ export default function ProjectTemplateMasterRenderer({
                     {tag}
                   </span>
                 ))}
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={revealInitial}
                 animate={revealVisible}
                 transition={{
-                  duration: 0.72,
+                  duration: MOTION_TOKENS.duration.normal,
                   ease: GHOST_EASE,
-                  delay: 0.16,
+                  delay:
+                    MOTION_TOKENS.delay.short + MOTION_TOKENS.stagger.normal,
                 }}
                 className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.15em] text-white/88 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-3"
               >
@@ -320,17 +332,20 @@ export default function ProjectTemplateMasterRenderer({
                   {nextLabel}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-              </motion.div>
+              </m.div>
             </div>
           </section>
 
-          <motion.section
+          <m.section
             id="project-intro"
             className="std-grid py-20 md:py-28"
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.76, ease: GHOST_EASE }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              ease: GHOST_EASE,
+            }}
           >
             <div className="mx-auto max-w-4xl space-y-5 text-center">
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -344,7 +359,7 @@ export default function ProjectTemplateMasterRenderer({
                 </div>
               ) : null}
             </div>
-          </motion.section>
+          </m.section>
 
           <section
             aria-labelledby="dynamic-content-heading"
@@ -420,13 +435,16 @@ export default function ProjectTemplateMasterRenderer({
             })}
           </section>
 
-          <motion.section
+          <m.section
             id="project-contact-master"
             className="std-grid pb-24 md:pb-28"
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: GHOST_EASE }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              ease: GHOST_EASE,
+            }}
           >
             <div className="rounded-3xl border border-white/16 bg-black/28 px-6 py-10 md:px-10 md:py-12">
               <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
@@ -456,7 +474,7 @@ export default function ProjectTemplateMasterRenderer({
                 />
               </div>
             </div>
-          </motion.section>
+          </m.section>
         </div>
       </div>
     </article>

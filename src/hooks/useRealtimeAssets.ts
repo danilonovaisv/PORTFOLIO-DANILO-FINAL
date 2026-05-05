@@ -116,10 +116,16 @@ const POLLING_CONFIG = {
   maxBackoff: 600000, // 10 minutes max
 };
 
+export interface RealtimeAssetResult {
+  asset: (DbAsset & { publicUrl: string }) | null;
+  loading: boolean;
+  error: Error | null;
+}
+
 export function useRealtimeAsset(
   assetKey: string,
   options?: { enabled?: boolean }
-) {
+): RealtimeAssetResult {
   const enabled = options?.enabled ?? true;
   const storeAsset = useContentStore((state) => state.assets[assetKey]);
   const upsertAsset = useContentStore((state) => state.upsertAsset);

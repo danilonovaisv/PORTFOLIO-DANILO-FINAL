@@ -6,6 +6,7 @@ import type { CSSProperties } from 'react';
 import { BRAND } from '@/config/brand';
 import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
 import SmoothScroll from '@/components/layout/SmoothScroll';
+import MotionConfigProvider from '@/components/motion/MotionConfigProvider';
 
 import { env } from '@/lib/env';
 
@@ -91,7 +92,9 @@ export default function RootLayout({
         </a>
         <SmoothScroll>
           <div className="relative flex min-h-screen w-full flex-col flex-1">
-            <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
+            <MotionConfigProvider>
+              <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
+            </MotionConfigProvider>
           </div>
         </SmoothScroll>
         <div id="modal-root" data-portal-root />

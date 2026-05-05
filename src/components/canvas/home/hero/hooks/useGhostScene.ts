@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import * as THREE from 'three';
 // @ts-ignore
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
@@ -23,7 +23,7 @@ export function useGhostScene(
   mountRef: React.RefObject<HTMLDivElement | null>,
   params: GhostSceneParams,
   performanceConfig: any,
-  updateProgress: (step: number) => void
+  updateProgress: (_step: number) => void
 ) {
   const sceneRef = useRef<THREE.Scene>(new THREE.Scene());
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);

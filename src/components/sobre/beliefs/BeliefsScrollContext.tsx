@@ -8,11 +8,12 @@ type BeliefsScrollContextValue = {
   scrollYProgress: MotionValue<number>;
   isMobile: boolean;
   shouldReduceMotion: boolean;
+  prefersReducedMotion: boolean;
+  activePhraseIndex: number;
+  isClimax: boolean;
 };
 
-const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(
-  null
-);
+const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(null);
 
 export function BeliefsScrollProvider({
   children,
@@ -31,9 +32,7 @@ export function BeliefsScrollProvider({
 export function useBeliefsScrollContext() {
   const context = useContext(BeliefsScrollContext);
   if (!context) {
-    throw new Error(
-      'useBeliefsScrollContext must be used within a BeliefsScrollProvider'
-    );
+    throw new Error('useBeliefsScrollContext must be used within a BeliefsScrollProvider');
   }
   return context;
 }

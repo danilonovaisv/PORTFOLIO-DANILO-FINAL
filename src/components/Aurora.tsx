@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
+import { COLORS } from '@/config/colors';
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -121,7 +122,11 @@ interface AuroraProps {
 
 export default function Aurora(props: AuroraProps) {
   const {
-    colorStops = ['#b301f4', '#0048ff', '#8705f2'],
+    colorStops = [
+      COLORS.purpleDetails,
+      COLORS.bluePrimary,
+      COLORS.purpleDetails,
+    ],
     amplitude = 1.0,
     blend = 0.5,
     className = '',

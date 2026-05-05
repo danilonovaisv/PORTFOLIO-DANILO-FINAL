@@ -39,15 +39,15 @@ export function AdminPageHeader({
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-3">
-            <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+            <div className="h-[1px] w-8 bg-bluePrimary/40" />
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bluePrimary/60">
               {breadcrumbs ? (
                 breadcrumbs.map((crumb, idx) => (
                   <span key={crumb.label} className="flex items-center gap-2">
                     {crumb.href ? (
                       <Link
                         href={crumb.href}
-                        className="hover:text-[#0048ff] transition-colors"
+                        className="hover:text-bluePrimary transition-colors"
                       >
                         {crumb.label}
                       </Link>
@@ -71,9 +71,9 @@ export function AdminPageHeader({
                 <span key={i}>
                   {word}
                   {i === title.split(' ').length - 1 ? (
-                    <span className="text-[#0048ff]">.</span>
+                    <span className="text-bluePrimary">.</span>
                   ) : (
-                    <span className="text-[#0048ff]/40">_</span>
+                    <span className="text-bluePrimary/40">_</span>
                   )}
                 </span>
               ))}

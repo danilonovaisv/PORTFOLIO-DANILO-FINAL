@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, Variants } from 'framer-motion';
+import { m, Variants } from 'framer-motion';
 import { ComponentPropsWithoutRef, ElementType } from 'react';
 import { MOTION_TOKENS } from '@/config/motion';
 
@@ -14,7 +14,7 @@ type SplitTextMotionProps<T extends ElementType> = {
 } & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children'>;
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: MOTION_TOKENS.offset.subtle },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -27,7 +27,7 @@ export function SplitTextMotion<T extends ElementType = 'span'>({
   className,
   ...props
 }: SplitTextMotionProps<T>) {
-  const Component = motion.create(as ?? 'span') as any;
+  const Component = m.create(as ?? 'span') as any;
   const units = mode === 'chars' ? Array.from(text) : text.split(' ');
 
   return (
@@ -46,18 +46,18 @@ export function SplitTextMotion<T extends ElementType = 'span'>({
       {...props}
     >
       {units.map((unit: string, index: number) => (
-        <motion.span
+        <m.span
           key={`${unit}-${index}`}
           variants={itemVariants}
           transition={{
-            duration: 0.42,
+            duration: MOTION_TOKENS.duration.modal,
             ease: MOTION_TOKENS.ease.soft,
           }}
           className="inline-block will-change-transform"
         >
           {unit === ' ' ? '\u00A0' : unit}
           {mode === 'words' && index < units.length - 1 ? '\u00A0' : null}
-        </motion.span>
+        </m.span>
       ))}
     </Component>
   );

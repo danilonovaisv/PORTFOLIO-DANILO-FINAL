@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, type MouseEvent } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { BRAND } from '@/config/brand';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { cn } from '@/lib/utils';
 
@@ -36,14 +36,14 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   size = 'default',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const Component = motion[as as keyof typeof motion] as any;
+  const Component = m[as as keyof typeof m] as any;
   const reduceMotion = useMotionGate();
   const mainColor = color || BRAND.colors.bluePrimary;
   const isCompact = size === 'compact';
   const transition = reduceMotion
     ? { duration: 0 }
     : {
-        duration: 0.24,
+        duration: MOTION_TOKENS.duration.fast,
         ease: GHOST_EASE,
       };
 
@@ -68,7 +68,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       tabIndex={0}
       aria-label={`${text} - Clique para acessar`}
     >
-      <motion.div
+      <m.div
         className="pointer-events-none absolute inset-0 rounded-full blur-2xl"
         style={{ backgroundColor: 'var(--color-purpleDetails)' }}
         initial={false}
@@ -76,7 +76,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         transition={transition}
       />
 
-      <motion.div
+      <m.div
         className={cn(
           'relative z-10 inline-flex items-center rounded-full',
           isCompact ? 'gap-2' : 'gap-0.5 sm:gap-1'
@@ -95,21 +95,24 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       >
         <div
           className={cn(
-            'relative z-10 flex items-center justify-center rounded-full text-white shadow-lg select-none transition-colors duration-200 active:translate-y-px will-change-transform',
+            'relative z-10 flex items-center justify-center rounded-full text-white shadow-lg select-none active:translate-y-px will-change-transform',
             isCompact
               ? 'h-10 pl-4 pr-3 text-sm sm:h-11 sm:pl-5 sm:pr-4'
               : 'h-12 w-[220px] pl-5 pr-4 text-sm sm:h-14 sm:w-[280px] sm:pl-8 sm:pr-6 sm:text-base lg:h-[68px] lg:w-[340px] lg:pl-10 lg:pr-8 lg:text-lg'
           )}
-          style={{ backgroundColor: mainColor }}
+          style={{
+            backgroundColor: mainColor,
+            transition: `background-color ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+          }}
         >
           <span className="whitespace-nowrap font-sans font-medium leading-none tracking-wide text-white sm:tracking-wider">
             {text}
           </span>
         </div>
 
-        <motion.div
+        <m.div
           className={cn(
-            'relative z-20 flex items-center justify-center rounded-full text-white shadow-lg transition-colors duration-200 active:translate-y-px will-change-transform',
+            'relative z-20 flex items-center justify-center rounded-full text-white shadow-lg active:translate-y-px will-change-transform',
             isCompact
               ? 'h-10 w-10 sm:h-11 sm:w-11'
               : 'h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px]'
@@ -134,8 +137,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </Component>
   );
 };

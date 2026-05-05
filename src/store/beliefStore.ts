@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { COLORS } from '@/config/colors';
 
 interface BeliefState {
   scrollProgress: number;
@@ -17,7 +18,7 @@ export const useBeliefStore = create<BeliefState>((set) => ({
   ghostIntensity: 0,
   isMobile: false,
   prefersReducedMotion: false,
-  bgColor: '#040013',
+  bgColor: COLORS.background,
   setScrollProgress: (p) => set({ scrollProgress: p, ghostIntensity: p }),
   setMobile: (v) => set({ isMobile: v }),
   setReducedMotion: (v) => set({ prefersReducedMotion: v }),

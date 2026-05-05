@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
@@ -64,7 +64,7 @@ export function AboutHero() {
               <div className="col-span-6" aria-hidden="true" />
 
               {/* Columns 7-12: Content Block */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.3 }}
@@ -72,14 +72,14 @@ export function AboutHero() {
               >
                 <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
                   {/* Intro & Manifesto - Unified for natural wrapping */}
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
                     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     viewport={viewportConfig}
                     transition={{
                       duration: MOTION_TOKENS.duration.slow,
                       ease: GHOST_EASE,
-                      delay: 0,
+                      delay: MOTION_TOKENS.delay.none,
                     }}
                     className="mb-12 flex flex-col items-end gap-1"
                   >
@@ -111,25 +111,25 @@ export function AboutHero() {
                         </p>
                       ))}
                     </div>
-                  </motion.div>
+                  </m.div>
 
                   {/* Description - Responsive line breaks */}
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={viewportConfig}
                     transition={{
                       duration: MOTION_TOKENS.duration.slow,
                       ease: GHOST_EASE,
-                      delay: 0.4,
+                      delay: MOTION_TOKENS.delay.medium,
                     }}
                   >
                     <p className="text-h3 text-text text-right font-medium max-w-[520px]">
                       {ABOUT_CONTENT.hero.description.join(' ')}
                     </p>
-                  </motion.div>
+                  </m.div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -155,20 +155,20 @@ export function AboutHero() {
             <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-10" />
           </div>
           <div className="relative z-10 px-6 pt-10 pb-20 text-center">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? 'visible' : 'hidden'}
               animate="visible"
               variants={{
                 visible: {
                   transition: {
-                    staggerChildren: 0.2,
-                    delayChildren: 0.3,
+                    staggerChildren: MOTION_TOKENS.stagger.normal,
+                    delayChildren: MOTION_TOKENS.delay.medium,
                   },
                 },
               }}
               className="space-y-6"
             >
-              <motion.div
+              <m.div
                 variants={{
                   hidden: { opacity: 0, filter: 'blur(10px)' },
                   visible: {
@@ -204,9 +204,9 @@ export function AboutHero() {
                     </span>
                   </span>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 variants={ghostFade}
                 className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
               >
@@ -215,8 +215,8 @@ export function AboutHero() {
                     {line}
                   </span>
                 ))}
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
       </div>

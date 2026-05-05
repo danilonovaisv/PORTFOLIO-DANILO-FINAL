@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 import { Z_INDEX } from '@/config/z-indices';
 
@@ -16,14 +16,27 @@ export function GhostSceneFallback() {
   return (
     <div
       data-testid="ghost-fallback"
+      data-ghost-scene
       className="pointer-events-none fixed inset-0 flex items-center justify-center"
       style={{ zIndex: Z_INDEX.beliefs.ghost }}
     >
-      <motion.div
-        aria-hidden="true"
+      <m.svg
+        role="img"
+        aria-label="Silhueta do Ghost"
+        viewBox="0 0 200 240"
+        className="h-[44vh] w-auto md:h-[58vh]"
         style={shouldReduceMotion ? { opacity: 1 } : { opacity }}
-        className="h-48 w-48 rounded-full bg-gradient-to-tr from-blue-600/30 to-purple-600/30 blur-3xl md:h-96 md:w-96"
-      />
+        fill="none"
+      >
+        <path
+          d="M100 12c-39 0-70 31-70 70v118c0 8 9 12 15 7l18-14c4-3 9-3 13 0l18 14c4 3 10 3 14 0l18-14c4-3 9-3 13 0l18 14c6 5 15 1 15-7V82c0-39-31-70-72-70Z"
+          fill="#ffffff"
+        />
+        <ellipse cx="78" cy="100" rx="9" ry="13" fill="#040013" />
+        <ellipse cx="122" cy="100" rx="9" ry="13" fill="#040013" />
+        <path d="M40 70h120l-6-22a18 18 0 0 0-17-13H63a18 18 0 0 0-17 13L40 70Z" fill="#040013" />
+        <rect x="40" y="68" width="120" height="6" fill="#e10b1a" />
+      </m.svg>
     </div>
   );
 }

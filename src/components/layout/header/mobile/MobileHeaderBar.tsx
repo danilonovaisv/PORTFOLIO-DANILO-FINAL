@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { motion, Variants } from 'framer-motion';
+import { m, Variants } from 'framer-motion';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface MobileHeaderBarProps {
@@ -47,7 +47,7 @@ export default function MobileHeaderBar({
   };
 
   return (
-    <motion.header
+    <m.header
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -56,14 +56,14 @@ export default function MobileHeaderBar({
       }`}
     >
       <div
-        className={`w-full h-[60px] pointer-events-auto transition-colors duration-300 ${
+        className={`w-full h-[60px] pointer-events-auto transition-colors duration-standard ${
           isLight
             ? 'bg-background/40 border-b border-white/10 shadow-xl'
             : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
         }`}
       >
         <div className="flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-16">
-          <motion.div variants={itemVariants}>
+          <m.div variants={itemVariants}>
             <Link href="/" onClick={onLogoClick}>
               <Image
                 src={logoUrl}
@@ -75,11 +75,11 @@ export default function MobileHeaderBar({
                 unoptimized
               />
             </Link>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={itemVariants}>{children}</motion.div>
+          <m.div variants={itemVariants}>{children}</m.div>
         </div>
       </div>
-    </motion.header>
+    </m.header>
   );
 }

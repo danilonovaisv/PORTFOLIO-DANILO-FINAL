@@ -8,7 +8,7 @@ import React, {
   useState,
   type RefObject,
 } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
@@ -267,7 +267,7 @@ export const ProjectsGallery = ({
               >
                 {pillar.label}
                 {activeFilter === pillar.id && (
-                  <motion.div
+                  <m.div
                     layoutId="activeFilter"
                     className="absolute -bottom-1 left-0 right-0 h-px bg-blueAccent"
                     transition={{ duration: 0.28, ease: GHOST_EASE }}
@@ -328,7 +328,7 @@ export const ProjectsGallery = ({
                     disabled={currentPage === 1}
                     aria-label="Página anterior"
                     aria-controls="portfolio-filter-panel"
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-standard disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -349,7 +349,7 @@ export const ProjectsGallery = ({
                     disabled={currentPage === totalPages}
                     aria-label="Próxima página"
                     aria-controls="portfolio-filter-panel"
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-standard disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       Avançar

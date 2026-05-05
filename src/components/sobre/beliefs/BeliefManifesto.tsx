@@ -1,40 +1,55 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { SplitTextMotion } from './SplitTextMotion';
 import { Z_INDEX } from '@/config/z-indices';
-import { MOTION_TOKENS } from '@/config/motion';
 import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
+import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
+import { SplitGhostText } from './SplitGhostText';
 
 export function BeliefManifesto() {
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+  const { scrollYProgress, shouldReduceMotion, isClimax } = useBeliefsScrollContext();
 
-  const opacity = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
-  const y = useTransform(scrollYProgress, [0.82, 0.92], [18, 0]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.52, BELIEF_SCROLL_THRESHOLDS.climaxStart, BELIEF_SCROLL_THRESHOLDS.climaxEnd, 1.0],
+    [0, 0.6, 1, 1]
+  );
+  const y = useTransform(
+    scrollYProgress,
+    [BELIEF_SCROLL_THRESHOLDS.climaxStart, BELIEF_SCROLL_THRESHOLDS.climaxEnd],
+    [18, 0]
+  );
+
+  const animateReveal = shouldReduceMotion ? true : isClimax;
 
   return (
-    <motion.div
-      aria-live="polite"
+    <m.div
       data-testid="beliefs-manifesto"
+      data-belief-manifesto
+      aria-label="ISSO É GHOST DESIGN"
       className="pointer-events-none fixed inset-0 flex items-center justify-center px-4 text-center"
       style={{
-        ...(shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity, y }),
+        opacity: shouldReduceMotion ? 1 : opacity,
+        y: shouldReduceMotion ? 0 : y,
         zIndex: Z_INDEX.beliefs.manifesto,
       }}
     >
-      <div className="font-display text-[clamp(3.5rem,16vw,12rem)] font-black uppercase leading-[0.82] tracking-[0.03em] text-white">
+      <div className="mx-auto w-full max-w-[1680px]">
         {BELIEF_MANIFESTO_LINES.map((line) => (
-          <SplitTextMotion
+          <SplitGhostText
             key={line}
             as="div"
             text={line}
-            mode="words"
-            stagger={MOTION_TOKENS.stagger.normal}
-            className="block"
+            splitType="words"
+            textAlign="center"
+            stagger={0.08}
+            duration={0.8}
+            animate={animateReveal}
+            className="block font-extrabold uppercase text-white leading-[0.88] tracking-[0.03em] text-[clamp(4rem,17vw,13rem)]"
           />
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

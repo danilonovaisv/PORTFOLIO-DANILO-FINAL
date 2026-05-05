@@ -4,6 +4,7 @@ import { RefObject, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
+import { MOTION_TOKENS } from '@/config/motion';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -59,8 +60,16 @@ export function useOriginAnimations({
           gsap.set(maskOverlays, { top: 0, height: '100%' });
           gsap.set(maskOverlays[0], { height: '0%' });
 
-          gsap.set(titles, { opacity: 0.45, y: 6, filter: 'blur(2px)' });
-          gsap.set(copies, { opacity: 0.4, y: 6, filter: 'blur(2px)' });
+          gsap.set(titles, {
+            opacity: 0.45,
+            y: MOTION_TOKENS.offset.subtle,
+            filter: 'blur(2px)',
+          });
+          gsap.set(copies, {
+            opacity: 0.4,
+            y: MOTION_TOKENS.offset.subtle,
+            filter: 'blur(2px)',
+          });
           gsap.set(titles[0], { opacity: 1, y: 0, filter: 'blur(0px)' });
           gsap.set(copies[0], { opacity: 0.82, y: 0, filter: 'blur(0px)' });
         };
@@ -88,7 +97,9 @@ export function useOriginAnimations({
         triggers.push(endTrigger);
 
         function revealImage(activeIndex: number, direction: 'up' | 'down') {
-          const duration = prefersReducedMotion ? 0.2 : 0.72;
+          const duration = prefersReducedMotion
+            ? MOTION_TOKENS.duration.fast
+            : MOTION_TOKENS.duration.normal;
           const ease = prefersReducedMotion ? 'none' : GSAP_GHOST_EASE;
 
           images.forEach((img, i) => {
@@ -123,8 +134,14 @@ export function useOriginAnimations({
               opacity: isActive ? 1 : 0.45,
               y: 0,
               filter: 'blur(0px)',
-              duration: prefersReducedMotion ? 0.2 : 0.42,
-              delay: prefersReducedMotion ? 0 : isActive ? 0.14 : 0,
+              duration: prefersReducedMotion
+                ? MOTION_TOKENS.duration.fast
+                : MOTION_TOKENS.duration.modal,
+              delay: prefersReducedMotion
+                ? 0
+                : isActive
+                  ? MOTION_TOKENS.delay.short
+                  : 0,
               ease: prefersReducedMotion ? 'none' : GSAP_GHOST_EASE,
             });
           });
@@ -135,8 +152,14 @@ export function useOriginAnimations({
               opacity: isActive ? 0.82 : 0.4,
               y: 0,
               filter: 'blur(0px)',
-              duration: prefersReducedMotion ? 0.2 : 0.44,
-              delay: prefersReducedMotion ? 0 : isActive ? 0.18 : 0,
+              duration: prefersReducedMotion
+                ? MOTION_TOKENS.duration.fast
+                : MOTION_TOKENS.duration.modal,
+              delay: prefersReducedMotion
+                ? 0
+                : isActive
+                  ? MOTION_TOKENS.delay.normal
+                  : 0,
               ease: prefersReducedMotion ? 'none' : GSAP_GHOST_EASE,
             });
           });
@@ -149,7 +172,7 @@ export function useOriginAnimations({
               clipPath: 'inset(100% 0% 0% 0%)',
               opacity: 0.85,
               filter: 'blur(4px)',
-              duration: 0.8,
+              duration: MOTION_TOKENS.duration.normal,
               ease: GSAP_GHOST_EASE,
             });
           }
@@ -157,10 +180,13 @@ export function useOriginAnimations({
 
         gsap.from(archRightEl, {
           opacity: 0,
-          y: 16,
-          duration: prefersReducedMotion ? 0.22 : 0.9,
-          delay: prefersReducedMotion ? 0 : 0.12,
+          y: MOTION_TOKENS.offset.standard,
+          duration: prefersReducedMotion
+            ? MOTION_TOKENS.duration.fast
+            : MOTION_TOKENS.duration.GHOST_REVEAL,
+          delay: prefersReducedMotion ? 0 : MOTION_TOKENS.delay.short,
           ease: prefersReducedMotion ? 'none' : GSAP_GHOST_EASE,
+
           scrollTrigger: {
             trigger: archEl,
             start: 'top 85%',
@@ -171,8 +197,9 @@ export function useOriginAnimations({
 
         if (!prefersReducedMotion) {
           const parallaxTween = gsap.to(archRightEl, {
-            y: -16,
+            y: -MOTION_TOKENS.offset.standard,
             ease: 'none',
+
             scrollTrigger: {
               trigger: archEl,
               start: 'top bottom',

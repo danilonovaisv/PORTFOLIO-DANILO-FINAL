@@ -53,6 +53,25 @@ jest.mock('framer-motion', () => {
       ),
       div: MockComponent,
     },
+    m: {
+      section: ({
+        children,
+        className,
+        style,
+        id,
+        'aria-label': ariaLabel,
+      }: any) => (
+        <section
+          className={className}
+          style={style}
+          id={id}
+          aria-label={ariaLabel}
+        >
+          {children}
+        </section>
+      ),
+      div: MockComponent,
+    },
   };
 });
 

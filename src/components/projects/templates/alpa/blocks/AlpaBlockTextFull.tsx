@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { GHOST_EASE } from '@/config/motion';
+import { m } from 'framer-motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface AlpaBlockTextFullProps {
   title?: string;
@@ -20,11 +20,11 @@ export function AlpaBlockTextFull({
   revealVisible,
 }: AlpaBlockTextFullProps) {
   return (
-    <motion.div
+    <m.div
       initial={revealInitial}
       whileInView={revealVisible}
       viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: 0.7, ease: GHOST_EASE }}
+      transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="max-w-3xl mx-auto mb-16 md:mb-24 px-6"
     >
       {title && (
@@ -40,6 +40,6 @@ export function AlpaBlockTextFull({
           <p key={i}>{para}</p>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

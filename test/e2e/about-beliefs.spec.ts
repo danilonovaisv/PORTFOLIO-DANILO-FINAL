@@ -95,6 +95,46 @@ for (const route of ROUTES) {
       expect(ghostZ).toBeGreaterThan(manifestoZ);
     });
 
+    test('clímax final tem fundo azul e manifesto branco', async ({ page }) => {
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') errors.push(msg.text());
+      });
+
+      await prepareRoute(page, route);
+      await scrollToProgress(page, 0.92);
+
+      const background = page.locator('[data-belief-background]');
+      await expect
+        .poll(async () =>
+          background.evaluate((el) => window.getComputedStyle(el).backgroundColor)
+        )
+        .toBe('rgb(0, 72, 255)');
+
+      const manifestoText = page.locator('[data-belief-manifesto] span').first();
+      const color = await manifestoText.evaluate(
+        (el) => window.getComputedStyle(el).color
+      );
+      expect(color).toBe('rgb(255, 255, 255)');
+
+      const ghost = page.locator('[data-ghost-scene]').first();
+      const manifesto = page.locator('[data-belief-manifesto]');
+
+      const ghostZ = await ghost.evaluate((el) =>
+        Number(window.getComputedStyle(el).zIndex)
+      );
+      const manifestoZ = await manifesto.evaluate((el) =>
+        Number(window.getComputedStyle(el).zIndex)
+      );
+      expect(ghostZ).toBeGreaterThan(manifestoZ);
+
+      const criticalErrors = errors.filter(
+        (msg) => !msg.includes('Warning:') && !msg.includes('[React]')
+      );
+      expect(criticalErrors).toHaveLength(0);
+    });
+
     test('background usa progresso da seção e muda a cor HSL renderizada', async ({
       page,
     }) => {
@@ -119,7 +159,7 @@ for (const route of ROUTES) {
         .toBe(true);
     });
 
-    test('frases usam contrato viewport x/opacity sem scrub contínuo', async ({
+    test('frases usam contrato viewport y/opacity sem scrub contínuo', async ({
       page,
     }) => {
       await prepareRoute(page, route);
@@ -131,7 +171,7 @@ for (const route of ROUTES) {
       for (let index = 0; index < 6; index += 1) {
         await expect(phrases.nth(index)).toHaveAttribute(
           'data-animation-contract',
-          'viewport-x-opacity'
+          'viewport-y-opacity'
         );
       }
 
@@ -221,6 +261,28 @@ for (const route of ROUTES) {
           message.includes('Error creating WebGL context')
         )
       ).toHaveLength(0);
+    });
+
+    test('captura desktop no clímax azul', async ({ page }) => {
+      await prepareRoute(page, route);
+      await scrollToProgress(page, 0.92);
+      await page.waitForTimeout(600);
+      await page.screenshot({
+        path: `test/screenshots/beliefs-climax-desktop-${route.replace('/', '')}.png`,
+        fullPage: false,
+      });
+    });
+
+    test('captura mobile no clímax azul', async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await gotoRoute(page, route);
+      await scrollToProgress(page, 0.92);
+      await page.waitForTimeout(600);
+      await page.screenshot({
+        path: `test/screenshots/beliefs-climax-mobile-${route.replace('/', '')}.png`,
+        fullPage: false,
+      });
     });
   });
 }

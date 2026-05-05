@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { useAnimate, stagger } from 'framer-motion';
+import { m, useAnimate, stagger } from 'framer-motion';
 import type { Group } from 'three';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
@@ -69,13 +69,13 @@ export default function HeroCopy({
       <div className="flex flex-col items-center">
         {/* Editorial Tag */}
         {HOME_CONTENT.hero.tag && (
-          <span
+          <m.span
             className="hero-line mb-4 md:mb-6 block text-white text-[clamp(0.9rem,1.3vw,2rem)] tracking-[0.25em] uppercase font-semibold opacity-70"
             style={initialStyles}
             aria-hidden="true"
           >
             {HOME_CONTENT.hero.tag}
-          </span>
+          </m.span>
         )}
 
         {/* Headline - Desktop & Tablet (Visual Only) -> md:block */}
@@ -85,9 +85,9 @@ export default function HeroCopy({
         >
           {HOME_CONTENT.hero.titleDesktop.map((line, i) => (
             <React.Fragment key={`desktop-${i}`}>
-              <span className="hero-line inline-block" style={initialStyles}>
+              <m.span className="hero-line inline-block" style={initialStyles}>
                 {line}
-              </span>
+              </m.span>
               {i < HOME_CONTENT.hero.titleDesktop.length - 1 && <br />}
             </React.Fragment>
           ))}
@@ -100,21 +100,21 @@ export default function HeroCopy({
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
             <React.Fragment key={`mobile-${i}`}>
-              <span className="hero-line inline-block" style={initialStyles}>
+              <m.span className="hero-line inline-block" style={initialStyles}>
                 {line}
-              </span>
+              </m.span>
               {i < HOME_CONTENT.hero.titleMobile.length - 1 && <br />}
             </React.Fragment>
           ))}
         </div>
 
         {/* Subheading */}
-        <p
+        <m.p
           className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} text-[clamp(1.25rem,4.6vw,2rem)] md:text-[clamp(1.125rem,3vw,2.5rem)] font-medium leading-[1.4] md:leading-[1.2] opacity-60 tracking-[0.02em] md:tracking-[0.03em] max-w-[90vw] md:max-w-none mx-auto`}
           style={initialStyles}
         >
           {HOME_CONTENT.hero.subtitle}
-        </p>
+        </m.p>
       </div>
     </Container>
   );
@@ -155,7 +155,7 @@ export default function HeroCopy({
       {/* Brilho Global (Aura do Ghost) */}
       <div
         ref={revealRef}
-        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none mix-blend-screen z-10 transition-opacity duration-1000 ease-out"
+        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none mix-blend-screen z-10 transition-opacity duration-ghostIn ease-out"
         style={{
           backgroundColor: 'rgba(0, 72, 255, 0.2)',
           filter: 'blur(120px)',

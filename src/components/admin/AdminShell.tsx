@@ -75,17 +75,17 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="admin-shell min-h-screen bg-[#040013] text-white selection:bg-[#0048ff]/30">
+      <div className="admin-shell min-h-screen bg-background text-white selection:bg-bluePrimary/30">
         <div className="flex">
-          <aside className="hidden md:flex w-64 flex-col border-r border-white/5 bg-[#040013]/80 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto">
+          <aside className="hidden md:flex w-64 flex-col border-r border-white/5 bg-background/80 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto">
             <div className="px-8 py-10">
               <Link
                 href={ADMIN_NAVIGATION.dashboard}
                 className="group flex items-center gap-2"
               >
-                <div className="h-2 w-2 rounded-full bg-[#0048ff] shadow-[0_0_10px_rgba(0,72,255,0.8)] transition-all group-hover:scale-125" />
+                <div className="h-2 w-2 rounded-full bg-bluePrimary shadow-[0_0_10px_var(--color-bluePrimary)] transition-all group-hover:scale-125" />
                 <span className="font-mono text-lg font-light tracking-tighter text-white">
-                  GHOST<span className="text-[#0048ff]">.</span>ADMIN
+                  GHOST<span className="text-bluePrimary">.</span>ADMIN
                 </span>
               </Link>
               <div className="mt-4 flex items-center gap-2">
@@ -111,19 +111,19 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-300 ${
+                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-standard ${
                       active
-                        ? 'bg-[#0048ff]/10 text-[#0048ff] shadow-[inset_0_0_20px_rgba(0,72,255,0.05)]'
+                        ? 'bg-bluePrimary/10 text-bluePrimary shadow-[inset_0_0_20px_var(--color-bluePrimary)/0.05]'
                         : 'text-white/40 hover:bg-white/5 hover:text-white'
                     }`}
                   >
                     <Icon
                       size={16}
-                      className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-[#0048ff]' : ''}`}
+                      className={`transition-transform duration-standard group-hover:scale-110 ${active ? 'text-bluePrimary' : ''}`}
                     />
                     <span className="tracking-wide">{item.label}</span>
                     {active && (
-                      <div className="ml-auto h-1 w-1 rounded-full bg-[#0048ff] shadow-[0_0_8px_rgba(0,72,255,0.6)]" />
+                      <div className="ml-auto h-1 w-1 rounded-full bg-bluePrimary shadow-[0_0_8px_var(--color-bluePrimary)/0.6]" />
                     )}
                   </Link>
                 );
@@ -167,14 +167,14 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
           </aside>
 
           <main className="flex-1">
-            <header className="sticky top-0 z-20 flex items-center justify-between border-b border-white/5 bg-[#040013]/80 px-6 py-4 backdrop-blur-xl md:hidden">
+            <header className="sticky top-0 z-20 flex items-center justify-between border-b border-white/5 bg-background/80 px-6 py-4 backdrop-blur-xl md:hidden">
               <Link
                 href={ADMIN_NAVIGATION.dashboard}
                 className="flex items-center gap-2"
               >
-                <div className="h-1.5 w-1.5 rounded-full bg-[#0048ff]" />
+                <div className="h-1.5 w-1.5 rounded-full bg-bluePrimary" />
                 <span className="font-mono text-sm font-light tracking-tighter text-white">
-                  GHOST<span className="text-[#0048ff]">.</span>ADMIN
+                  GHOST<span className="text-bluePrimary">.</span>ADMIN
                 </span>
               </Link>
 
@@ -193,13 +193,13 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 </SheetTrigger>
                 <SheetContent
                   side="right"
-                  className="w-[280px] border-white/5 bg-[#040013] p-0 text-white"
+                  className="w-[280px] border-white/5 bg-background p-0 text-white"
                 >
                   <SheetHeader className="border-b border-white/5 px-6 py-8 text-left">
                     <SheetTitle className="font-mono text-xs uppercase tracking-[0.3em] text-white/40">
                       System_Navigation
                     </SheetTitle>
-                    <p className="mt-2 font-mono text-[10px] text-[#0048ff]/60 uppercase">
+                    <p className="mt-2 font-mono text-[10px] text-bluePrimary/60 uppercase">
                       Operator_
                       {userEmail?.split('@')[0].toUpperCase() || 'ROOT'}
                     </p>
@@ -220,13 +220,13 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                             onClick={() => setMobileMenuOpen(false)}
                             className={`flex items-center gap-4 rounded px-4 py-4 text-sm transition-all ${
                               active
-                                ? 'bg-[#0048ff]/10 text-white'
+                                ? 'bg-bluePrimary/10 text-white'
                                 : 'text-white/40 hover:bg-white/5'
                             }`}
                           >
                             <Icon
                               size={18}
-                              className={active ? 'text-[#0048ff]' : ''}
+                              className={active ? 'text-bluePrimary' : ''}
                             />
                             <span className="tracking-wide">{item.label}</span>
                           </Link>

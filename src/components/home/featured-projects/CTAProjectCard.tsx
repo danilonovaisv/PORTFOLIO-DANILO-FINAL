@@ -29,7 +29,7 @@ export default function CTAProjectCard({ className }: CTAProjectCardProps) {
     >
       <div className="absolute inset-0 opacity-45 bg-[radial-gradient(circle_at_50%_50%,rgba(79,230,255,0.08),transparent_68%)]" />
 
-      <h3 className="relative z-[var(--z-layer-content)] text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-normal tracking-tight leading-[1.05] text-white transition-colors duration-300 ease-ghost group-hover:text-bluePrimary">
+      <h3 className="relative z-[var(--z-layer-content)] text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-normal tracking-tight leading-[1.05] text-white transition-colors duration-standard ease-ghost group-hover:text-bluePrimary">
         Like what <br aria-hidden="true" />
         you see?
       </h3>

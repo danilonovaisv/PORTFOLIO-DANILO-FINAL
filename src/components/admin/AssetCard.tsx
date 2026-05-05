@@ -156,7 +156,7 @@ export function AssetCard({ asset }: Props) {
       {/* Header Info */}
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <div className="font-mono text-sm font-medium tracking-tight text-white group-hover:text-[#0048ff] transition-colors">
+          <div className="font-mono text-sm font-medium tracking-tight text-white group-hover:text-bluePrimary transition-colors">
             {asset.key}
           </div>
           <div className="flex flex-wrap gap-2">
@@ -164,7 +164,7 @@ export function AssetCard({ asset }: Props) {
               {resolvedPage}
             </span>
             <span className="h-3 w-[1px] bg-white/10" />
-            <span className="font-mono text-[9px] uppercase tracking-widest text-[#0048ff]/80">
+            <span className="font-mono text-[9px] uppercase tracking-widest text-bluePrimary/80">
               {asset.asset_type}
             </span>
           </div>
@@ -181,7 +181,7 @@ export function AssetCard({ asset }: Props) {
             src={previewUrl}
             alt={asset.key}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-modal group-hover:scale-105"
             unoptimized={previewUrl.toLowerCase().endsWith('.svg')}
           />
         ) : (

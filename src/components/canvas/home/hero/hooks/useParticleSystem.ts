@@ -133,7 +133,7 @@ export function useParticleSystem(params: GhostSceneParams) {
   );
 
   const update = useCallback(
-    (time: number, deltaTime: number) => {
+    (time: number, _deltaTime: number) => {
       if (!particleMeshRef.current || !fireflyMeshRef.current) return;
 
       // Update Dust

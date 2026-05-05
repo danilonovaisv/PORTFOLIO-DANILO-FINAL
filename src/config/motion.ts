@@ -14,6 +14,7 @@ export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
 export const GHOST_EASE_SOFT: EasingTuple = [0.25, 1, 0.5, 1];
 export const GHOST_EASE_HEAVY: EasingTuple = [0.43, 0.13, 0.23, 0.96];
 export const GHOST_EASE_INOUT_SINE: EasingTuple = [0.445, 0.05, 0.55, 0.95];
+export const GHOST_EASE_SOFT_UI: EasingTuple = [0.16, 1, 0.3, 1];
 /**
  * Ambient curve — ignition-style fast start, long tail decay.
  * Use ONLY for long-running atmospheric layers (belief backgrounds,
@@ -47,7 +48,7 @@ export const MOTION_TOKENS = {
   ease: {
     ambient: GHOST_EASE_AMBIENT,
     ghost: GHOST_EASE,
-    soft: [0.16, 1, 0.3, 1] as EasingTuple,
+    soft: GHOST_EASE_SOFT_UI,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -66,6 +67,8 @@ export const MOTION_TOKENS = {
     normal: 0.8,
     /** Quick interactions - 0.2s */
     fast: 0.2,
+    /** UI standard transitions - 0.3s */
+    standard: 0.3,
     /** Micro-interactions - 0.16s */
     micro: 0.16,
     /** Modal/overlay animations - 0.5s */
@@ -90,6 +93,22 @@ export const MOTION_TOKENS = {
     relaxed: 0.15,
     /** Very slow, dramatic - 0.25s */
     dramatic: 0.25,
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // DELAYS
+  // ─────────────────────────────────────────────────────────────────────────
+  delay: {
+    /** Immediate - 0s */
+    none: 0,
+    /** Brief pause - 0.1s */
+    short: 0.1,
+    /** Standard pause - 0.2s */
+    normal: 0.2,
+    /** Noticeable pause - 0.4s */
+    medium: 0.4,
+    /** Dramatic pause - 0.8s */
+    long: 0.8,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -177,11 +196,14 @@ export const MOTION_TOKENS = {
  * Ghost Reveal - Standard entry with heavy blur
  */
 export const ghostReveal: Variants = {
-  hidden: { opacity: 0, filter: 'blur(10px)' },
+  hidden: { opacity: 0, filter: MOTION_TOKENS.blur.hidden },
   visible: {
     opacity: 1,
-    filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: GHOST_EASE },
+    filter: MOTION_TOKENS.blur.visible,
+    transition: {
+      duration: MOTION_TOKENS.duration.GHOST_REVEAL,
+      ease: GHOST_EASE,
+    },
   },
 };
 
@@ -192,7 +214,10 @@ export const ghostRevealSimple: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.9, ease: GHOST_EASE },
+    transition: {
+      duration: MOTION_TOKENS.duration.GHOST_REVEAL,
+      ease: GHOST_EASE,
+    },
   },
 };
 
@@ -200,12 +225,15 @@ export const ghostRevealSimple: Variants = {
  * Ghost Rise - Subtle entry with upward movement (max 18px)
  */
 export const ghostRise: Variants = {
-  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: MOTION_TOKENS.offset.standard, filter: 'blur(6px)' },
   visible: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: GHOST_EASE },
+    transition: {
+      duration: MOTION_TOKENS.duration.GHOST_REVEAL,
+      ease: GHOST_EASE,
+    },
   },
 };
 
@@ -217,7 +245,7 @@ export const ghostSlide: Variants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 1.2, ease: GHOST_EASE },
+    transition: { duration: MOTION_TOKENS.duration.ghostIn, ease: GHOST_EASE },
   },
 };
 
@@ -228,7 +256,7 @@ export const ghostFade: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: GHOST_EASE },
+    transition: { duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE },
   },
 };
 

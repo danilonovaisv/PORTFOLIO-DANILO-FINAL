@@ -1,10 +1,15 @@
-import { useScroll, useSpring, useTransform } from 'framer-motion';
+import {
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 export function useGhostParallaxY(
   target: React.RefObject<HTMLElement | null>,
   amplitude = 12
-) {
+): MotionValue<number> {
   const reduce = useMotionGate();
   const { scrollYProgress } = useScroll({
     target,

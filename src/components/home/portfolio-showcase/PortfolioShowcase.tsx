@@ -1,13 +1,13 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from '@/components/home/portfolio-showcase/CategoryStripe';
 import { getAssetUrl } from '@/lib/utils';
-import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
 // Category data with assets
@@ -61,13 +61,16 @@ export default function PortfolioShowcase() {
     >
       <Container>
         {/* Headline - "portfólio" italic, "showcase" normal */}
-        <motion.header
+        <m.header
           initial={
             prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }
           }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.7, ease: GHOST_EASE }}
+          transition={{
+            duration: MOTION_TOKENS.duration.normal,
+            ease: GHOST_EASE,
+          }}
           className="text-center mb-16 lg:mb-20"
         >
           <h2
@@ -81,7 +84,7 @@ export default function PortfolioShowcase() {
               showcase
             </span>
           </h2>
-        </motion.header>
+        </m.header>
 
         {/* Category Stripes */}
         <div className="relative flex flex-col">
@@ -101,13 +104,17 @@ export default function PortfolioShowcase() {
         </div>
 
         {/* CTA Button - Compound Fusion Style */}
-        <motion.div
+        <m.div
           initial={
             prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }
           }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.6, ease: GHOST_EASE, delay: 0.4 }}
+          transition={{
+            duration: MOTION_TOKENS.duration.GHOST_EXIT,
+            ease: GHOST_EASE,
+            delay: 0.4,
+          }}
           className="flex justify-center mt-12 lg:mt-16"
         >
           <AntigravityCTA
@@ -115,7 +122,7 @@ export default function PortfolioShowcase() {
             text="let's build something great"
             className="relative"
           />
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );
