@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Image from 'next/image';
 import type { ZoomAsset } from '../../types';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface AlpaBlockImageFullProps {
   src: string;
@@ -27,11 +27,11 @@ export function AlpaBlockImageFull({
   openAsset,
 }: AlpaBlockImageFullProps) {
   return (
-    <motion.div
+    <m.div
       initial={revealInitial}
       whileInView={revealVisible}
       viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: 0.8, ease: GHOST_EASE }}
+      transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="w-full mb-12 md:mb-20 px-4 md:px-0"
     >
       <button
@@ -52,7 +52,7 @@ export function AlpaBlockImageFull({
           alt={alt || ''}
           width={1920}
           height={1080}
-          className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-auto transition-transform duration-normal group-hover:scale-105"
         />
         {caption && (
           <div className="absolute bottom-4 left-4 right-4 text-left">
@@ -62,6 +62,6 @@ export function AlpaBlockImageFull({
           </div>
         )}
       </button>
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
 import { PortfolioProject } from '@/types/project';
@@ -97,7 +97,7 @@ export const PortfolioModal = ({
     <AnimatePresence>
       {isOpen && project ? (
         <>
-          <motion.div
+          <m.div
             key="backdrop"
             className="fixed inset-0 z-[var(--z-layer-modal-scrim)] pointer-events-none bg-background/95 backdrop-blur-sm"
             variants={backdropVariants}
@@ -107,7 +107,7 @@ export const PortfolioModal = ({
             aria-hidden="true"
           />
 
-          <motion.div
+          <m.div
             key="modal"
             ref={modalRef}
             role="dialog"
@@ -131,7 +131,7 @@ export const PortfolioModal = ({
                 ref={closeRef}
                 onClick={onClose}
                 aria-label="Fechar modal"
-                className="group flex h-[48px] w-[48px] items-center justify-center rounded-full border border-white/10 bg-black/40 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-[68px] md:w-[68px]"
+                className="group flex h-[48px] w-[48px] items-center justify-center rounded-full border border-white/10 bg-black/40 shadow-lg backdrop-blur-md transition-all duration-standard hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-[68px] md:w-[68px]"
               >
                 <X className="text-white/70 group-hover:text-white transition-colors" size={28} strokeWidth={1.5} />
               </button>
@@ -164,7 +164,7 @@ export const PortfolioModal = ({
                 )}
               </ErrorBoundary>
             </main>
-          </motion.div>
+          </m.div>
         </>
       ) : null}
     </AnimatePresence>,

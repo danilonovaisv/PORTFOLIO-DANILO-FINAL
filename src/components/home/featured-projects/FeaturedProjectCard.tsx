@@ -151,14 +151,14 @@ export default function FeaturedProjectCard({
             <span aria-hidden className="opacity-50">
               •
             </span>
-            <span className="font-light text-[#6B7280]">
+            <span className="font-light text-textSecondary">
               {project.client} • {project.year}
             </span>
           </div>
           {/* Title */}
           <h3
             id={headingId}
-            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-150 md:group-hover:duration-200 md:group-hover:text-bluePrimary"
+            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-micro md:group-hover:duration-fast md:group-hover:text-bluePrimary"
           >
             {project.title}
           </h3>
@@ -167,7 +167,7 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle bg-bluePrimary shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-150 md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:duration-200 ease-ghost md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
+          <div className="btn-icon-circle bg-bluePrimary shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-micro md:group-hover:translate-x-5 md:group-hover:bg-purpleDetails md:group-hover:duration-fast ease-ghost md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
             <ArrowUpRight className="h-6 w-6" />
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full w-full min-h-[48px] rounded-md text-left transition-transform duration-200 ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+    'group block h-full w-full min-h-[48px] rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
   if (isModalMode) {
     return (

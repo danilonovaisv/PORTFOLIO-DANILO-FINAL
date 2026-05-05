@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
@@ -31,7 +31,7 @@ export default function SectionGrid({
   const textFirst = item.media_align === 'right';
 
   return (
-    <motion.section
+    <m.section
       initial={revealInitial}
       whileInView={revealVisible}
       viewport={{ once: true, amount: 0.2 }}
@@ -87,6 +87,6 @@ export default function SectionGrid({
           </div>
         ) : null}
       </article>
-    </motion.section>
+    </m.section>
   );
 }

@@ -63,7 +63,7 @@ function AboutOrigin() {
 
   return (
     <section
-      className="relative w-full transition-colors duration-1000"
+      className="relative w-full transition-colors duration-bg"
       ref={containerRef}
       aria-label="Origem Criativa"
     >

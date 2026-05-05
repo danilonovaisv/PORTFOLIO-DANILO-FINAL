@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { m, useScroll, useTransform } from 'framer-motion';
+import { GHOST_EASE, viewportConfig, MOTION_TOKENS } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
@@ -178,7 +178,7 @@ export function VideoManifesto({
   const activePoster = getAssetUrl(rawPoster, { width: 1920, quality: 60 });
 
   return (
-    <motion.section
+    <m.section
       ref={sectionRef}
       aria-labelledby="video-manifesto-heading"
       className="video-manifesto w-full overflow-hidden rounded-[2px]"
@@ -186,15 +186,15 @@ export function VideoManifesto({
       whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={
         shouldReduceMotion
-          ? { duration: 0.2 }
-          : { duration: 1.2, ease: GHOST_EASE }
+          ? { duration: MOTION_TOKENS.duration.fast }
+          : { duration: MOTION_TOKENS.duration.ghostIn, ease: GHOST_EASE }
       }
       viewport={viewportConfig}
     >
       <h2 id="video-manifesto-heading" className="sr-only">
         Video manifesto
       </h2>
-      <motion.div
+      <m.div
         ref={wrapperRef}
         // Change aspect ratio handling to allow natural height on mobile without cutting
         className="video-wrapper relative w-full bg-black/5"
@@ -277,7 +277,7 @@ export function VideoManifesto({
             </svg>
           )}
         </button>
-      </motion.div>
-    </motion.section>
+      </m.div>
+    </m.section>
   );
 }

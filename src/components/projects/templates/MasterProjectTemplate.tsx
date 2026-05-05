@@ -1,12 +1,12 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useRef } from 'react';
 import { ArrowRight, ArrowDown } from 'lucide-react';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
@@ -155,7 +155,7 @@ export default function MasterProjectTemplate({
         className="relative flex min-h-[88vh] items-end overflow-hidden pt-28"
       >
         {heroImage ? (
-          <motion.div
+          <m.div
             className="absolute inset-0"
             style={prefersReducedMotion ? undefined : { y: parallaxY }}
           >
@@ -182,7 +182,7 @@ export default function MasterProjectTemplate({
                 className="object-cover"
               />
             )}
-          </motion.div>
+          </m.div>
         ) : (
           <div className="absolute inset-0 bg-linear-to-b from-abyssStart via-abyssMid to-background" />
         )}
@@ -191,10 +191,10 @@ export default function MasterProjectTemplate({
 
         <div className="std-grid relative z-10 flex w-full flex-col gap-7 pb-16 md:pb-20">
           {heroLogo ? (
-            <motion.div
+            <m.div
               initial={revealInitial}
               animate={revealVisible}
-              transition={{ duration: 0.72, ease: GHOST_EASE }}
+              transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
               className="relative h-20 w-44 md:h-28 md:w-64"
             >
               <Image
@@ -207,33 +207,33 @@ export default function MasterProjectTemplate({
                 sizes="256px"
                 className="object-contain object-left"
               />
-            </motion.div>
+            </m.div>
           ) : null}
 
-          <motion.h1
+          <m.h1
             initial={revealInitial}
             animate={revealVisible}
-            transition={{ duration: 0.88, ease: GHOST_EASE, delay: 0.06 }}
+            transition={{ duration: MOTION_TOKENS.duration.GHOST_REVEAL, ease: GHOST_EASE, delay: 0.06 }}
             className="max-w-5xl text-4xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl"
           >
             {project.project_title}
-          </motion.h1>
+          </m.h1>
 
           {project.project_subtitle ? (
-            <motion.p
+            <m.p
               initial={revealInitial}
               animate={revealVisible}
-              transition={{ duration: 0.72, ease: GHOST_EASE, delay: 0.12 }}
+              transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE, delay: 0.12 }}
               className="max-w-3xl text-lg leading-relaxed text-white/85 md:text-xl"
             >
               {project.project_subtitle}
-            </motion.p>
+            </m.p>
           ) : null}
 
-          <motion.div
+          <m.div
             initial={revealInitial}
             animate={revealVisible}
-            transition={{ duration: 0.72, ease: GHOST_EASE, delay: 0.16 }}
+            transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE, delay: 0.16 }}
             className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-blueAccent"
           >
             {project.project_client ? (
@@ -245,7 +245,7 @@ export default function MasterProjectTemplate({
                 {tag}
               </span>
             ))}
-          </motion.div>
+          </m.div>
 
           <div className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.14em] text-white/80 sm:flex sm:items-center sm:justify-between sm:gap-4">
             <HeroBackCTA href={backHref} label={LANDING_PAGE_BACK.label} />
@@ -271,13 +271,13 @@ export default function MasterProjectTemplate({
       </header>
 
       <div role="region" aria-label="Conteúdo do projeto">
-        <motion.section
+        <m.section
           id="project-intro"
           className="std-grid py-20 md:py-28"
           initial={revealInitial}
           whileInView={revealVisible}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.76, ease: GHOST_EASE }}
+          transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
         >
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -307,7 +307,7 @@ export default function MasterProjectTemplate({
               </div>
             ) : null}
           </div>
-        </motion.section>
+        </m.section>
 
         <section
           aria-labelledby="project-gallery-heading"
@@ -324,13 +324,13 @@ export default function MasterProjectTemplate({
 
               if (item.layout === 'quote-band') {
                 return (
-                  <motion.blockquote
+                  <m.blockquote
                     key={item.id}
                     initial={revealInitial}
                     whileInView={revealVisible}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{
-                      duration: 0.74,
+                      duration: MOTION_TOKENS.duration.normal,
                       ease: GHOST_EASE,
                       delay: prefersReducedMotion ? 0 : index * 0.03,
                     }}
@@ -345,7 +345,7 @@ export default function MasterProjectTemplate({
                         {item.description}
                       </p>
                     ) : null}
-                  </motion.blockquote>
+                  </m.blockquote>
                 );
               }
 
@@ -355,7 +355,7 @@ export default function MasterProjectTemplate({
                 item.layout === 'grid';
 
               return (
-                <motion.figure
+                <m.figure
                   key={item.id}
                   initial={revealInitial}
                   whileInView={revealVisible}
@@ -403,19 +403,19 @@ export default function MasterProjectTemplate({
                       ) : null}
                     </figcaption>
                   )}
-                </motion.figure>
+                </m.figure>
               );
             })}
           </div>
         </section>
 
-        <motion.section
+        <m.section
           id="project-contact-legacy"
           className="std-grid pb-28"
           initial={revealInitial}
           whileInView={revealVisible}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: GHOST_EASE }}
+          transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
         >
           <div className="rounded-2xl border border-white/15 bg-white/2 px-6 py-10 md:px-10 md:py-12">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -445,7 +445,7 @@ export default function MasterProjectTemplate({
               />
             </div>
           </div>
-        </motion.section>
+        </m.section>
       </div>
     </article>
   );

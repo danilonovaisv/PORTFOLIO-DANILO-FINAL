@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { GHOST_EASE } from '@/config/motion';
+import { m } from 'framer-motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface MotionWrapperProps {
   children: React.ReactNode;
@@ -19,17 +19,17 @@ export default function MotionWrapper({
   pathname,
 }: MotionWrapperProps) {
   return (
-    <motion.div
+    <m.div
       key={pathname}
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: MOTION_TOKENS.offset.standard }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.95,
+        duration: MOTION_TOKENS.duration.textIn,
         ease: GHOST_EASE,
       }}
       className="w-full flex-col flex grow"
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

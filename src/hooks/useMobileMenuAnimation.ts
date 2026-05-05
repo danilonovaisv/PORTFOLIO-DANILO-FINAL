@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { MOTION_TOKENS } from '@/config/motion';
 
 export function useMobileMenuAnimation(
   isOpen: boolean,
@@ -83,13 +84,13 @@ export function useMobileMenuAnimation(
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
       spinTweenRef.current = gsap
         .timeline({ defaults: { ease: 'expo.out' } })
-        .to(h, { rotate: 45, duration: 0.6 }, 0)
-        .to(v, { rotate: -45, duration: 0.6 }, 0);
+        .to(h, { rotate: 45, duration: MOTION_TOKENS.duration.modal }, 0)
+        .to(v, { rotate: -45, duration: MOTION_TOKENS.duration.modal }, 0);
     } else {
       spinTweenRef.current = gsap
         .timeline({ defaults: { ease: 'expo.inOut' } })
-        .to(h, { rotate: 0, duration: 0.45 }, 0)
-        .to(v, { rotate: 90, duration: 0.45 }, 0)
+        .to(h, { rotate: 0, duration: MOTION_TOKENS.duration.modal }, 0)
+        .to(v, { rotate: 90, duration: MOTION_TOKENS.duration.modal }, 0)
         .to(icon, { rotate: 0, duration: 0.001 }, 0);
     }
   }, []);
@@ -124,7 +125,7 @@ export function useMobileMenuAnimation(
 
     textCycleAnimRef.current = gsap.to(inner, {
       yPercent: -finalShift,
-      duration: 0.6,
+      duration: MOTION_TOKENS.duration.modal,
       ease: 'expo.out',
     });
   }, []);
@@ -158,7 +159,7 @@ export function useMobileMenuAnimation(
         opacity: 0.9,
         xPercent: 0,
         filter: 'blur(0px)',
-        duration: 0.8,
+        duration: MOTION_TOKENS.duration.normal,
         ease: 'expo.out', // Ghost Era Signature behavior
         stagger: 0.08,
       });
@@ -171,7 +172,7 @@ export function useMobileMenuAnimation(
         opacity: 1,
         xPercent: 0,
         filter: 'blur(0px)',
-        duration: 0.8,
+        duration: MOTION_TOKENS.duration.normal,
         ease: 'expo.out',
         pointerEvents: 'auto',
       },
@@ -186,7 +187,7 @@ export function useMobileMenuAnimation(
           x: 0,
           opacity: 1,
           filter: 'blur(0px)',
-          duration: 1.0,
+          duration: MOTION_TOKENS.duration.ghostIn,
           ease: 'expo.out',
           stagger: 0.06,
         },
@@ -200,7 +201,7 @@ export function useMobileMenuAnimation(
       if (socialTitle) {
         tl.to(
           socialTitle,
-          { opacity: 1, filter: 'blur(0px)', duration: 0.6 },
+          { opacity: 1, filter: 'blur(0px)', duration: MOTION_TOKENS.duration.modal },
           socialsStart
         );
       }
@@ -210,7 +211,7 @@ export function useMobileMenuAnimation(
           {
             x: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: MOTION_TOKENS.duration.normal,
             ease: 'expo.out',
             stagger: 0.06,
           },
@@ -253,7 +254,7 @@ export function useMobileMenuAnimation(
       opacity: 0,
       xPercent: 100, // Sweep back to right
       filter: 'blur(10px)',
-      duration: 0.5,
+      duration: MOTION_TOKENS.duration.modal,
       ease: 'expo.in', // Aggressive close
       pointerEvents: 'none',
       overwrite: 'auto',

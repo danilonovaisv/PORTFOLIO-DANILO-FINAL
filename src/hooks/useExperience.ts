@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { runExperienceOrchestrator } from '@/lib/antigravity/antigravity';
 import { useAntigravityStore } from '@/store/antigravity.store';
 
-export function useExperience(enabled = true) {
+export function useExperience(enabled = true): void {
   /*
    * 🧠 UNIFIED BRAIN: ANTIGRAVITY ORCHESTRATOR
    * Coordinates: Flags (Logic), Viewport (Sensors) and Hydration

@@ -1,10 +1,18 @@
 'use client';
 
 import { RefObject, useRef } from 'react';
-import { useScroll } from 'framer-motion';
+import { useScroll, MotionValue } from 'framer-motion';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-export function useBeliefsScroll(containerRef?: RefObject<HTMLElement | null>) {
+interface UseBeliefsScrollReturn {
+  scrollYProgress: MotionValue<number>;
+  isMobile: boolean;
+  shouldReduceMotion: boolean;
+}
+
+export function useBeliefsScroll(
+  containerRef?: RefObject<HTMLElement | null>
+): UseBeliefsScrollReturn {
   const fallbackRef = useRef<HTMLElement | null>(null);
   const targetRef = containerRef || fallbackRef;
 

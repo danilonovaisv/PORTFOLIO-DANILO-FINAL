@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
@@ -55,14 +55,14 @@ export const ProjectCard = React.memo(function ProjectCard({
       initial: { opacity: 0 },
       whileInView: { opacity: 1 },
       viewport: { once: false, amount: 0.2 },
-      transition: { duration: 0.2 },
+      transition: { duration: MOTION_TOKENS.duration.fast },
     }
     : {
-      initial: { opacity: 0, y: 12, filter: 'blur(8px)' },
-      whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
+      initial: { opacity: 0, y: MOTION_TOKENS.offset.standard, filter: MOTION_TOKENS.blur.hidden },
+      whileInView: { opacity: 1, y: 0, filter: MOTION_TOKENS.blur.visible },
       viewport: { once: false, margin: '-10% 0px -10% 0px' },
       transition: {
-        duration: 0.6,
+        duration: MOTION_TOKENS.duration.normal,
         delay: Math.min(0.18, index * 0.03),
         ease: GHOST_EASE as any,
       },
@@ -151,11 +151,11 @@ export const ProjectCard = React.memo(function ProjectCard({
     tall: 'col-span-4 lg:col-span-4 aspect-[3/5] w-full',
   };
 
-  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-all duration-250 ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
+  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-all duration-standard ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
   const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-square max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
 
   return (
-    <motion.button
+    <m.button
       layout="position"
       type="button"
       id={cardAnchorId}
@@ -189,7 +189,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 preload="metadata"
                 poster={DEFAULT_VIDEO_POSTER}
                 className={cn(
-                  'hidden h-full w-full object-cover object-center transition-opacity duration-500 md:block',
+                  'hidden h-full w-full object-cover object-center transition-opacity duration-modal md:block',
                   hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
                 )}
                 style={{ objectPosition }}
@@ -201,7 +201,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 alt={`Projeto ${project.title}`}
                 fill
                 className={cn(
-                  'hidden md:block object-cover object-center transition-opacity duration-500',
+                  'hidden md:block object-cover object-center transition-opacity duration-modal',
                   hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
                 )}
                 style={{ objectPosition }}
@@ -222,7 +222,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 preload="metadata"
                 poster={DEFAULT_VIDEO_POSTER}
                 className={cn(
-                  'block h-full w-full object-cover object-center transition-opacity duration-500 md:hidden',
+                  'block h-full w-full object-cover object-center transition-opacity duration-modal md:hidden',
                   hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
                 )}
                 style={{ objectPosition }}
@@ -234,7 +234,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 alt={`Projeto ${project.title}`}
                 fill
                 className={cn(
-                  'block md:hidden object-cover object-center transition-opacity duration-500',
+                  'block md:hidden object-cover object-center transition-opacity duration-modal',
                   hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
                 )}
                 style={{ objectPosition }}
@@ -256,7 +256,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             preload="metadata"
             poster={DEFAULT_VIDEO_POSTER}
             className={cn(
-              'h-full w-full object-cover object-center transition-opacity duration-500',
+              'h-full w-full object-cover object-center transition-opacity duration-modal',
               hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
             )}
             style={{ objectPosition }}
@@ -268,7 +268,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             alt={`Projeto ${project.title}`}
             fill
             className={cn(
-              'object-cover object-center transition-opacity duration-500',
+              'object-cover object-center transition-opacity duration-modal',
               hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
             )}
             style={{ objectPosition }}
@@ -290,7 +290,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             playsInline
             preload="none"
             className={cn(
-              'absolute inset-0 h-full w-full object-cover transition-opacity duration-500',
+              'absolute inset-0 h-full w-full object-cover transition-opacity duration-modal',
               isHovered ? 'opacity-100' : 'opacity-0'
             )}
             style={{ objectPosition }}
@@ -298,7 +298,7 @@ export const ProjectCard = React.memo(function ProjectCard({
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#00154d]/90 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-300 ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#00154d]/90 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-standard ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
         <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
           <p className="text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-2 font-medium">
             {project.displayCategory}
@@ -319,6 +319,6 @@ export const ProjectCard = React.memo(function ProjectCard({
           )}
         </div>
       </div>
-    </motion.button>
+    </m.button>
   );
 });

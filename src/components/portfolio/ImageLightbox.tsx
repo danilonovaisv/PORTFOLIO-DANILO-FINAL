@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { createPortal } from 'react-dom';
@@ -97,7 +97,7 @@ export function ImageLightbox({
   return createPortal(
     <AnimatePresence>
       {isOpen && src ? (
-        <motion.div
+        <m.div
           role="dialog"
           aria-modal="true"
           aria-label="Visualização ampliada"
@@ -108,7 +108,7 @@ export function ImageLightbox({
           transition={backdropTransition}
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             className="relative flex max-h-[90vh] max-w-6xl flex-col items-center justify-center p-2"
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -187,8 +187,8 @@ export function ImageLightbox({
                 />
               )}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       ) : null}
     </AnimatePresence>,
     portalRoot

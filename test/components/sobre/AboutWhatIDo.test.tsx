@@ -47,6 +47,17 @@ jest.mock('framer-motion', () => {
       nav: mockComponent('nav'),
       section: mockComponent('section'),
     },
+    m: {
+      div: mockComponent('div'),
+      article: mockComponent('article'),
+      li: mockComponent('li'),
+      ul: mockComponent('ul'),
+      span: mockComponent('span'),
+      p: mockComponent('p'),
+      h2: mockComponent('h2'),
+      nav: mockComponent('nav'),
+      section: mockComponent('section'),
+    },
     useScroll: jest.fn(() => ({
       scrollYProgress: { get: () => 0, onChange: () => {} },
     })),

@@ -3,13 +3,15 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { cn } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
+import { COLORS } from '@/config/colors';
+import { MOTION_TOKENS } from '@/config/motion';
 
 import { useGhostParallaxY } from '@/hooks/useGhostParallaxY';
 
@@ -61,15 +63,15 @@ export const CategoryStripe = React.memo(function CategoryStripe({
   const isVideo = category.thumbnail.endsWith('.mp4');
 
   return (
-    <motion.div
+    <m.div
       ref={stripeRef}
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
       transition={{
-        duration: 0.8,
+        duration: MOTION_TOKENS.duration.normal,
         ease: GHOST_EASE,
-        delay: index * 0.12,
+        delay: index * MOTION_TOKENS.stagger.normal,
       }}
     >
       <Link
@@ -81,14 +83,14 @@ export const CategoryStripe = React.memo(function CategoryStripe({
         {/* Desktop Stripe */}
         <div
           className={cn(
-            'hidden lg:flex items-center py-8 border-t border-blueAccent/40 transition-all duration-300',
+            'hidden lg:flex items-center py-8 border-t border-blueAccent/40 transition-all duration-standard',
             category.alignment === 'right' && 'justify-end',
             category.alignment === 'center' && 'justify-center',
             category.alignment === 'left' && 'justify-start',
             isHovered ? 'gap-10' : 'gap-6'
           )}
         >
-          <motion.div
+          <m.div
             className="relative overflow-hidden rounded-lg shrink-0 h-[162px]"
             initial={false}
             animate={{
@@ -96,12 +98,12 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               opacity: isHovered ? 1 : 0,
             }}
             transition={{
-              duration: 0.7,
+              duration: MOTION_TOKENS.duration.normal,
               ease: GHOST_EASE,
             }}
           >
             <div className="relative w-[288px] h-full rounded-lg bg-[#0a0f1c] overflow-hidden">
-              <motion.div
+              <m.div
                 style={{ y: prefersReducedMotion ? 0 : parallaxY }}
                 className="absolute inset-0 h-full w-full"
               >
@@ -129,9 +131,9 @@ export const CategoryStripe = React.memo(function CategoryStripe({
                     onError={applyImageFallback}
                   />
                 )}
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
 
           <div className="flex items-center gap-4">
             <div className="flex flex-col">
@@ -139,7 +141,7 @@ export const CategoryStripe = React.memo(function CategoryStripe({
                 <span
                   key={i}
                   className={cn(
-                    'text-3xl lg:text-4xl xl:text-5xl font-normal tracking-tight transition-colors duration-300',
+                    'text-3xl lg:text-4xl xl:text-5xl font-normal tracking-tight transition-colors duration-standard',
                     isHovered ? 'text-bluePrimary' : 'text-white'
                   )}
                 >
@@ -148,25 +150,27 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               ))}
             </div>
 
-            <motion.div
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300"
+            <m.div
+              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-standard"
               initial={false}
               animate={{
                 y: isHovered ? -1 : 0,
-                backgroundColor: isHovered ? '#8705f2' : '#0048ff',
+                backgroundColor: isHovered
+                  ? COLORS.purpleDetails
+                  : COLORS.bluePrimary,
               }}
               transition={{
-                duration: 0.5,
+                duration: MOTION_TOKENS.duration.modal,
                 ease: GHOST_EASE,
               }}
             >
               <ArrowUpRight className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
         {/* Mobile Card - Simplified per UI refinement spec (no thumbnails) */}
-        <div className="lg:hidden flex flex-col gap-6 py-8 border-t border-blueAccent/40 active:bg-white/5 transition-colors duration-200 rounded-lg -mx-2 px-4">
+        <div className="lg:hidden flex flex-col gap-6 py-8 border-t border-blueAccent/40 active:bg-white/5 transition-colors duration-fast rounded-lg -mx-2 px-4">
           {/* Title + Arrow Row */}
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-col flex-1">
@@ -180,12 +184,12 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               ))}
             </div>
             {/* Touch target: 48px minimum for accessibility */}
-            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-bluePrimary active:bg-purpleDetails transition-all duration-200">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-bluePrimary active:bg-purpleDetails transition-all duration-fast">
               <ArrowUpRight className="w-5 h-5 text-white" />
             </div>
           </div>
         </div>
       </Link>
-    </motion.div>
+    </m.div>
   );
 });

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
@@ -27,6 +27,12 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 }) => {
     const [activeMedia, setActiveMedia] = useState(heroMedia);
     const [lightboxSource, setLightboxSource] = useState<string | null>(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // Reset loading state when media changes
+    useEffect(() => {
+        setIsLoaded(false);
+    }, [activeMedia]);
 
     // Combine hero media + gallery
     const galleryMedia = useMemo(() => {
@@ -128,7 +134,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
     return (
         <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
                 key="cinematic-layout"
                 initial="hidden"
                 animate="visible"
@@ -138,7 +144,20 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
             >
                 <section className="relative w-full group overflow-hidden bg-transparent">
                     {/* HERO MEDIA */}
-                    <div className="relative w-full aspect-video max-h-[70vh] bg-black/50 overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full aspect-video max-h-[70vh] bg-black/40 overflow-hidden flex items-center justify-center">
+                        {/* Ghost Media Placeholder */}
+                        <AnimatePresence>
+                            {!isLoaded && activeMedia && (
+                                <m.div 
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 z-10 flex items-center justify-center bg-background"
+                                >
+                                    <div className="w-10 h-10 border-2 border-bluePrimary/20 border-t-bluePrimary rounded-full animate-spin" />
+                                </m.div>
+                            )}
+                        </AnimatePresence>
                         {!activeMedia ? (
                             <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
                                 <div className="max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
@@ -154,23 +173,24 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 allowFullScreen
                             />
                         ) : isVid ? (
-                            <video
-                                key={activeMedia}
-                                src={activeMedia}
-                                autoPlay
-                                muted={false}
-                                playsInline
-                                controls
-                                preload="metadata"
-                                poster={DEFAULT_VIDEO_POSTER}
-                                className="absolute inset-0 w-full h-full object-contain z-0"
-                                onLoadedMetadata={(event) => {
-                                    event.currentTarget.muted = false;
-                                    void event.currentTarget.play().catch(() => undefined);
-                                }}
-                            >
-                                <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-                            </video>
+                                <video
+                                    key={activeMedia}
+                                    src={activeMedia}
+                                    autoPlay
+                                    muted={false}
+                                    playsInline
+                                    controls
+                                    preload="metadata"
+                                    poster={DEFAULT_VIDEO_POSTER}
+                                    className={`absolute inset-0 w-full h-full object-contain z-0 transition-opacity duration-normal ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                                    onLoadedData={() => setIsLoaded(true)}
+                                    onLoadedMetadata={(event) => {
+                                        event.currentTarget.muted = false;
+                                        void event.currentTarget.play().catch(() => undefined);
+                                    }}
+                                >
+                                    <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
+                                </video>
                         ) : (
                             <div
                                 className="absolute inset-0 flex w-full h-full items-center justify-center z-0 cursor-pointer px-4 py-4 md:px-8 md:py-8"
@@ -181,10 +201,11 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     alt={project.title}
                                     width={1920}
                                     height={1080}
-                                    className="max-h-full h-auto w-auto max-w-full object-contain opacity-90 transition-transform duration-700 group-hover:scale-[1.02]"
+                                    className={`max-h-full h-auto w-auto max-w-full object-contain transition-all duration-normal group-hover:scale-[1.02] ${isLoaded ? 'opacity-90' : 'opacity-0'}`}
                                     sizes="100vw"
                                     priority
                                     unoptimized
+                                    onLoadingComplete={() => setIsLoaded(true)}
                                     onError={applyImageFallback}
                                 />
                             </div>
@@ -300,10 +321,10 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                             {project.detail?.externalUrl && (
                                 <div className="pt-16 mt-12 flex justify-start">
                                     <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer" aria-label="Ver projeto completo externamente">
-                                        <div className="h-16 px-8 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                        <div className="h-16 px-8 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-blueHover hover:scale-[1.02] transition-all duration-standard ease-ghost shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="text-white text-lg font-medium tracking-wide lowercase">ver projeto completo</span>
                                         </div>
-                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-[#1a5cff] hover:rotate-45 transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-blueHover hover:rotate-45 transition-all duration-standard ease-ghost shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="material-icons-round text-white text-2xl">north_east</span>
                                         </div>
                                     </a>
@@ -323,7 +344,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     onPrev={() => stepLightbox('prev')}
                     onNext={() => stepLightbox('next')}
                 />
-            </motion.div>
+            </m.div>
         </AnimatePresence>
     );
 };

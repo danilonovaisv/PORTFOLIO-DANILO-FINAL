@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 import { useParticleSystem } from './hooks/useParticleSystem';
 import { usePreloader } from './hooks/usePreloader';
@@ -19,7 +19,6 @@ import './GhostScene.css';
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
-  const [isInitialized, setIsInitialized] = useState(false);
 
   // 1. Initialize Parameters
   const params = useGhostParams(performanceConfig);
@@ -64,58 +63,82 @@ export default function GhostScene() {
   }, [animator.update]);
 
   // 4. Lifecycle Management
+  const cleanupRefs = useRef<{
+    animationId?: number;
+    observer?: IntersectionObserver;
+  }>({});
+
   useEffect(() => {
     if (!mountRef.current || hasInitializedRef.current) return;
     hasInitializedRef.current = true;
 
-    // Initialize Scene and Particles
-    sceneManager.init();
-    particleSystem.init(sceneManager.scene);
+    // Initialize Scene and Particles using requestIdleCallback for TBT reduction
+    const initialize = () => {
+      if (!mountRef.current) return;
 
-    // Visibility Observer (Performance Optimization)
-    let isInView = true;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          isInView = entry.isIntersecting;
-        });
-      },
-      { rootMargin: '200px' }
-    );
-    observer.observe(mountRef.current);
+      // Phase 1: Basic Scene Setup
+      sceneManager.init();
 
-    // Pre-render warmup
-    const forceInitialRender = () => {
+      // Phase 3: Particle System (Staggered if needed, but here just after)
+      particleSystem.init(sceneManager.scene);
+
+      // Visibility Observer (Performance Optimization)
+      let isInView = true;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            isInView = entry.isIntersecting;
+          });
+        },
+        { rootMargin: '200px' }
+      );
+      observer.observe(mountRef.current);
+
+      // Pre-render warmup
       if (sceneManager.composerRef.current) {
-        for (let i = 0; i < 3; i++) sceneManager.composerRef.current.render(0);
+        const warmupFrames = performanceConfig.quality === 'low' ? 0 : 1;
+        for (let i = 0; i < warmupFrames; i++) {
+          sceneManager.composerRef.current.render(0);
+        }
       }
-      setIsInitialized(true);
+
       if (sceneManager.rendererRef.current) {
         preloader.complete(sceneManager.rendererRef.current.domElement);
       }
+
+      // Start Main Animation Loop only after init
+      let animationId = 0;
+      const animate = (timestamp: number) => {
+        animationId = requestAnimationFrame(animate);
+        if (!isInView) return;
+        updateRef.current(timestamp);
+      };
+
+      animate(0);
+
+      // Store cleanup refs
+      cleanupRefs.current = { animationId, observer };
     };
 
-    const warmupTimeout = setTimeout(forceInitialRender, 100);
+    let idleHandle: number | null = null;
+    let warmupHandle: ReturnType<typeof setTimeout> | null = null;
 
-    // Main Animation Loop
-    let animationId: number;
-    const animate = (timestamp: number) => {
-      animationId = requestAnimationFrame(animate);
-
-      // Only update if isInView
-      // We check for renderer internally in animator.update
-      if (!isInView) return;
-
-      updateRef.current(timestamp);
-    };
-
-    animate(0);
+    if ('requestIdleCallback' in window) {
+      idleHandle = (window as any).requestIdleCallback(() => initialize(), {
+        timeout: 1000,
+      });
+    } else {
+      warmupHandle = setTimeout(initialize, 200);
+    }
 
     // Cleanup
     return () => {
-      cancelAnimationFrame(animationId);
-      clearTimeout(warmupTimeout);
-      observer.disconnect();
+      if (cleanupRefs.current.animationId)
+        cancelAnimationFrame(cleanupRefs.current.animationId);
+      if (cleanupRefs.current.observer)
+        cleanupRefs.current.observer.disconnect();
+      if (idleHandle !== null) (window as any).cancelIdleCallback(idleHandle);
+      if (warmupHandle !== null) clearTimeout(warmupHandle);
       sceneManager.cleanup();
       hasInitializedRef.current = false;
     };

@@ -223,7 +223,7 @@ async function main() {
     const batch = updates.slice(i, i + batchSize);
     const { error: updateError } = await supabase
       .from('site_assets')
-      .upsert(batch, { onConflict: 'id' });
+      .upsert(batch as any, { onConflict: 'id' });
 
     if (updateError) {
       console.error(

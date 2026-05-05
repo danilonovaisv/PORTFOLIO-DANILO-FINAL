@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import {
   MOTION_TOKENS,
@@ -127,7 +127,7 @@ export default function FeaturedProjectsSection({
     >
       <Container>
         <h2 className="sr-only">Projetos em Destaque</h2>
-        <motion.div
+        <m.div
           initial={reducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, amount: 0.18, margin: '-64px 0px' }}
@@ -144,7 +144,7 @@ export default function FeaturedProjectsSection({
               'min-h-[220px] md:min-h-[320px] lg:min-h-[360px]';
 
             return (
-              <motion.div
+              <m.div
                 key={project.id}
                 layout="position"
                 variants={cardVariants}
@@ -162,20 +162,20 @@ export default function FeaturedProjectsSection({
                   )}
                   frameClassName={frameClass}
                 />
-              </motion.div>
+              </m.div>
             );
           })}
 
           {/* CTA Card - Sempre 4 colunas no desktop, alinhado com o Card 3 para completar a row */}
-          <motion.div
+          <m.div
             layout="position"
             variants={cardVariants}
             transition={ghostTransition(0, duration.normal)}
             className="w-full col-span-4 md:col-span-3 lg:col-span-4 h-full flex flex-col"
           >
             <CTAProjectCard className={CTA_FRAME_CLASS} />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </Container>
     </section>
   );

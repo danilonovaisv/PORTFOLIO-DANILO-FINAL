@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE } from '@/config/motion';
 import { stableShuffle } from '@/lib/utils/stable-shuffle';
@@ -65,7 +65,7 @@ export default function RotatingHighlights({
   const visibleHighlights = getWindow(ordered, offset, windowSize);
 
   return (
-    <motion.ul
+    <m.ul
       key={`${offset}-${visibleHighlights.join('|')}`}
       className={className}
       initial={reduceMotion ? false : { opacity: 0, y: 12, filter: 'blur(6px)' }}
@@ -78,6 +78,6 @@ export default function RotatingHighlights({
           {item}
         </li>
       ))}
-    </motion.ul>
+    </m.ul>
   );
 }

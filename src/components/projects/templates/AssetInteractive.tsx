@@ -18,7 +18,10 @@ interface AssetInteractiveProps {
   videoAutoplay?: boolean;
   displayMode?: 'inline' | 'full';
   prefersReducedMotion: boolean;
-  onOpen: (asset: ZoomAsset, event: ReactMouseEvent<HTMLButtonElement>) => void;
+  onOpen: (
+    _asset: ZoomAsset,
+    _event: ReactMouseEvent<HTMLButtonElement>
+  ) => void;
 }
 
 export function AssetInteractive({
@@ -69,13 +72,17 @@ export function AssetInteractive({
     >
       {kind === 'image' ? (
         isFullDisplay ? (
-          <img
-            src={resolved}
-            alt={alt || 'Asset do projeto'}
-            className="block h-auto w-full bg-black/30 object-contain"
-            loading="lazy"
-            decoding="async"
-          />
+          <div className="relative w-full overflow-hidden bg-black/30">
+            <Image
+              src={resolved}
+              alt={alt || 'Asset do projeto'}
+              width={1920}
+              height={1080}
+              className="h-auto w-full object-contain"
+              sizes="100vw"
+              priority={true}
+            />
+          </div>
         ) : (
           <div className="relative aspect-[16/10] w-full bg-black/30">
             <Image
@@ -124,7 +131,7 @@ export function AssetInteractive({
         </video>
       )}
 
-      <span className="pointer-events-none absolute inset-0 border border-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <span className="pointer-events-none absolute inset-0 border border-white/10 opacity-0 transition-opacity duration-standard group-hover:opacity-100" />
     </button>
   );
 }

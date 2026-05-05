@@ -1,7 +1,7 @@
 'use client';
 
 import { Container } from '@/components/layout/Container';
-import { motion, useInView, useMotionValueEvent } from 'framer-motion';
+import { m, useInView, useMotionValueEvent } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { MOTION_TOKENS } from '@/config/motion';
@@ -66,7 +66,7 @@ function BeliefScrollTextItem({
       style={{ height: BELIEF_LAYOUT.phraseSectionHeight }}
     >
       <Container style={{ zIndex: Z_INDEX.beliefs.scrollText }}>
-        <motion.div
+        <m.div
           data-testid="belief-phrase"
           data-animation-contract="viewport-x-opacity"
           initial="hidden"
@@ -74,10 +74,10 @@ function BeliefScrollTextItem({
           variants={variants}
           className="mx-auto max-w-[calc(100vw-2rem)] px-6 text-center will-change-transform md:ml-0 md:max-w-[38vw] md:text-left lg:max-w-[34vw]"
         >
-          <h2 className="text-[clamp(2rem,8vw,3rem)] md:text-[clamp(2.8rem,5.8vw,6.3rem)] font-h1 font-bold italic text-[#4fe6ff]">
+          <h2 className="text-[clamp(2rem,8vw,3rem)] md:text-[clamp(2.8rem,5.8vw,6.3rem)] font-h1 font-bold italic text-blueAccent">
             {phrase}
           </h2>
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

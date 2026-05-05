@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 
@@ -25,7 +25,7 @@ export default function SectionQuote({
     : { opacity: 1, y: 0, filter: 'blur(0px)' };
 
   return (
-    <motion.section
+    <m.section
       initial={revealInitial}
       whileInView={revealVisible}
       viewport={{ once: true, amount: 0.4 }}
@@ -52,6 +52,6 @@ export default function SectionQuote({
           </p>
         ) : null}
       </blockquote>
-    </motion.section>
+    </m.section>
   );
 }

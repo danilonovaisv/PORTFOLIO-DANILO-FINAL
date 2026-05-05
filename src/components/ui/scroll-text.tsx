@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import {
   type HTMLMotionProps,
-  motion,
+  m,
   useReducedMotion,
   type Variants,
 } from 'framer-motion';
@@ -86,19 +86,19 @@ const GhostScrollText = ({
     },
   };
 
-  const MotionTag = motion[as as keyof typeof motion] as ComponentType<
+  const MotionTag = m[as as keyof typeof m] as ComponentType<
     HTMLMotionProps<'span'>
   >;
 
   const renderLine = (): ReactNode => (
-    <motion.span className="inline-block" variants={itemVariants}>
+    <m.span className="inline-block" variants={itemVariants}>
       {text}
-    </motion.span>
+    </m.span>
   );
 
   const renderWords = (): ReactNode =>
     text.split(' ').map((word, i) => (
-      <motion.span
+      <m.span
         key={`${word}-${i}`}
         className="inline-block"
         variants={mode === 'letter' ? undefined : itemVariants}
@@ -106,20 +106,20 @@ const GhostScrollText = ({
         {mode === 'letter' ? (
           <>
             {word.split('').map((letter, li) => (
-              <motion.span
+              <m.span
                 key={li}
                 className="inline-block"
                 variants={itemVariants}
               >
                 {letter}
-              </motion.span>
+              </m.span>
             ))}
             &nbsp;
           </>
         ) : (
           <>{word}&nbsp;</>
         )}
-      </motion.span>
+      </m.span>
     ));
 
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 import { Z_INDEX } from '@/config/z-indices';
@@ -14,7 +14,7 @@ export function BeliefManifesto() {
   const y = useTransform(scrollYProgress, [0.82, 0.92], [18, 0]);
 
   return (
-    <motion.div
+    <m.div
       aria-live="polite"
       data-testid="beliefs-manifesto"
       className="pointer-events-none fixed inset-0 flex items-center justify-center px-4 text-center"
@@ -35,6 +35,6 @@ export function BeliefManifesto() {
           />
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

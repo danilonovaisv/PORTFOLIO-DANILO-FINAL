@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -212,7 +212,7 @@ export default function MasterProjectTemplateV3Editor({
 
           <AnimatePresence>
             {value.gallery_grid.map((block, index) => (
-              <motion.div
+              <m.div
                 key={block.id}
                 layout
                 initial={{ opacity: 0, y: 16 }}
@@ -263,7 +263,7 @@ export default function MasterProjectTemplateV3Editor({
                   block={block}
                   onChange={(updates) => updateBlock(block.id, updates)}
                 />
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
         </div>

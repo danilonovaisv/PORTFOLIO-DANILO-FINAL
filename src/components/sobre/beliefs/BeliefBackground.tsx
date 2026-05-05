@@ -40,7 +40,10 @@ export function BeliefBackground() {
           animate(
             element,
             { backgroundColor: previousColor },
-            { duration: 0.6, ease: GHOST_EASE_AMBIENT }
+            {
+              duration: MOTION_TOKENS.duration.GHOST_EXIT,
+              ease: GHOST_EASE_AMBIENT,
+            }
           );
         };
       },

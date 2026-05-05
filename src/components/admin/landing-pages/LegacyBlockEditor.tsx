@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import {
   Trash2,
   ChevronUp,
@@ -132,7 +132,7 @@ export function LegacyBlockEditor({
         )}
 
         {sections.map((section, index) => (
-          <motion.div
+          <m.div
             key={section.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -185,7 +185,7 @@ export function LegacyBlockEditor({
                 onChange={(updates) => onUpdateBlock(section.id, updates)}
               />
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </>

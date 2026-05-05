@@ -1,12 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
@@ -68,10 +68,6 @@ interface AlpaLayoutProps {
   // We pass these down so AlpaContent can use them consistently
   revealInitial: any;
   revealVisible: any;
-  openAsset: (
-    asset: ZoomAsset,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => void;
   zoomAsset: ZoomAsset | null;
   closeAsset: () => void;
 }
@@ -81,7 +77,6 @@ export function AlpaLayout({
   children,
   revealInitial,
   revealVisible,
-  openAsset,
   zoomAsset,
   closeAsset,
 }: AlpaLayoutProps) {
@@ -155,11 +150,11 @@ export function AlpaLayout({
         <div role="region" aria-label="Conteúdo do projeto">
           <section className="relative flex min-h-[82vh] flex-col items-center justify-center overflow-hidden py-24 text-center">
             <div className="std-grid relative z-10 mx-auto w-full">
-              <motion.div
+              <m.div
                 className="mx-auto flex max-w-5xl flex-col items-center gap-6"
                 initial={revealInitial}
                 animate={revealVisible}
-                transition={{ duration: 0.7, ease: GHOST_EASE }}
+                transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
               >
                 {heroLogo ? (
                   <div className="relative h-20 w-40 md:h-28 md:w-64">
@@ -202,7 +197,7 @@ export function AlpaLayout({
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
 
             <div className="pointer-events-auto absolute bottom-6 left-0 right-0 z-20 sm:bottom-8">
@@ -212,12 +207,12 @@ export function AlpaLayout({
             </div>
           </section>
 
-          <motion.section
+          <m.section
             className="std-grid py-14 md:py-20"
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.64, ease: GHOST_EASE }}
+            transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
           >
             <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 text-center">
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -259,17 +254,17 @@ export function AlpaLayout({
                 );
               })}
             </div>
-          </motion.section>
+          </m.section>
 
           {children}
 
-          <motion.section
+          <m.section
             id="project-contact-alpa"
             className="std-grid pb-24 pt-10 text-center md:pb-28"
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.62, ease: GHOST_EASE }}
+            transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
           >
             <div className="mx-auto flex max-w-3xl flex-col items-center gap-5">
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -289,7 +284,7 @@ export function AlpaLayout({
                 size="compact"
               />
             </div>
-          </motion.section>
+          </m.section>
         </div>
       </div>
 

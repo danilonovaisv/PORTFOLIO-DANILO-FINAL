@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
  * Useful for avoiding hydration mismatches with browser-only APIs or
  * complex elements like <video> with boolean attributes.
  */
-export function useIsMounted() {
+export function useIsMounted(): boolean {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {

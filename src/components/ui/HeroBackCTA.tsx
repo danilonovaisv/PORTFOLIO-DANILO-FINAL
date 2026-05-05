@@ -36,7 +36,7 @@ export const HeroBackCTA = ({
             ? 'h-10 w-10 sm:h-11 sm:w-11'
             : 'h-12 w-12 sm:h-[60px] sm:w-[60px]',
           !reduceMotion &&
-            'transition-transform duration-200 ease-out group-hover:-translate-y-px'
+            'transition-transform duration-fast ease-out group-hover:-translate-y-px'
         )}
       >
         <ArrowLeft

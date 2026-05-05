@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 
 // =============================================================================
 // AboutWhatIDo - Ghost System v3.0
@@ -94,7 +94,7 @@ export function AboutWhatIDo() {
           </div>
 
           {/* Horizontal Track - Cards sliding right→left */}
-          <motion.ul
+          <m.ul
             aria-labelledby="what-i-do-heading"
             style={{
               x: 0,
@@ -103,7 +103,7 @@ export function AboutWhatIDo() {
             className="mt-[30vh] flex w-full max-w-[1520px] items-stretch justify-center gap-3 px-10 will-change-transform xl:gap-4"
           >
             {SERVICES.map((service, index) => (
-              <motion.li
+              <m.li
                 key={service.id}
                 data-what-i-do-card=""
                 initial={
@@ -114,13 +114,13 @@ export function AboutWhatIDo() {
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={viewportConfig}
                 transition={{
-                  duration: 0.4,
+                  duration: MOTION_TOKENS.duration.modal,
                   delay: index * 0.06,
                   ease: GHOST_EASE,
                 }}
                 // Alterado bg-bluePrimary para bg-[#0b0d3a] (neutral) para contraste WCAG
                 // Adicionada borda sutil com bluePrimary/20
-                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-[#0b0d3a] px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-all duration-300 hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-neutral px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-all duration-standard hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
               >
                 {/* Number */}
                 <span
@@ -138,9 +138,9 @@ export function AboutWhatIDo() {
                     {service.description}
                   </span>
                 </p>
-              </motion.li>
+              </m.li>
             ))}
-          </motion.ul>
+          </m.ul>
 
           {/* Ghost Gradient Edges */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent" />
@@ -174,7 +174,7 @@ export function AboutWhatIDo() {
             aria-labelledby="what-i-do-heading-mobile"
           >
             {SERVICES.map((service, index) => (
-              <motion.li
+              <m.li
                 key={service.id}
                 initial={
                   prefersReducedMotion
@@ -184,12 +184,12 @@ export function AboutWhatIDo() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={viewportConfig}
                 transition={{
-                  duration: 0.4,
+                  duration: MOTION_TOKENS.duration.modal,
                   delay: index * 0.08,
                   ease: GHOST_EASE,
                 }}
                 // Mobile: Seguindo o padrão de contraste alto do desktop
-                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-[#0b0d3a] px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-300"
+                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-standard"
               >
                 {/* Number */}
                 <span
@@ -203,7 +203,7 @@ export function AboutWhatIDo() {
                   <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   <span className="text-text/80">{service.description}</span>
                 </p>
-              </motion.li>
+              </m.li>
             ))}
           </ul>
         </div>

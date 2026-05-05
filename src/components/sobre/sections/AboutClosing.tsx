@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
@@ -77,7 +77,7 @@ export function AboutClosing() {
       className="std-grid bg-background py-20 md:py-32"
       aria-label="Fechamento do Manifesto"
     >
-      <motion.div
+      <m.div
         variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
@@ -160,7 +160,7 @@ export function AboutClosing() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

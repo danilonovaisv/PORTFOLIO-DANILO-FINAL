@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 import { Z_INDEX } from '@/config/z-indices';
@@ -28,7 +28,7 @@ export function BeliefFixedHeader() {
       style={{ zIndex: Z_INDEX.beliefs.header }}
     >
       <div className="std-grid w-full h-full relative">
-        <motion.div
+        <m.div
           aria-hidden="true"
           style={{
             ...(shouldReduceMotion
@@ -55,7 +55,7 @@ export function BeliefFixedHeader() {
               active={true}
             />
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

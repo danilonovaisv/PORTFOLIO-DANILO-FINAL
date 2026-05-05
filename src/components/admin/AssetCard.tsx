@@ -181,7 +181,7 @@ export function AssetCard({ asset }: Props) {
             src={previewUrl}
             alt={asset.key}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-modal group-hover:scale-105"
             unoptimized={previewUrl.toLowerCase().endsWith('.svg')}
           />
         ) : (

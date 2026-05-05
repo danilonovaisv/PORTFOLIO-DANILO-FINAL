@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { viewportConfig } from '@/config/motion';
+import { viewportConfig, MOTION_TOKENS, GHOST_EASE } from '@/config/motion';
 import { Mail, Phone, Globe } from 'lucide-react';
 import {
   Linkedin,
@@ -90,13 +90,17 @@ export default function ContactSection() {
         {/* 2 & 3. Info & Form Grid */}
         <div className="flex flex-col gap-12 lg:grid lg:grid-cols-12 lg:gap-24 items-start">
           {/* Left Side: Headline + Contact Info */}
-          <motion.div
+          <m.div
             initial={
               reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }
             }
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              delay: 0.1,
+              ease: GHOST_EASE,
+            }}
             className="lg:col-span-5 flex flex-col space-y-10 order-1 lg:order-0"
           >
             {/* Header */}
@@ -125,10 +129,20 @@ export default function ContactSection() {
                   className="flex items-center gap-3 sm:gap-4 group w-fit py-2 active:opacity-80 transition-opacity"
                 >
                   {/* Touch target: 48px minimum */}
-                  <span className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary transition-all duration-200 will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:translate-y-px">
+                  <span
+                    className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:translate-y-px"
+                    style={{
+                      transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+                    }}
+                  >
                     {link.icon}
                   </span>
-                  <span className="text-base sm:text-lg md:text-xl font-semibold text-textInverse transition-all duration-200 group-hover:text-bluePrimary group-hover:underline group-hover:underline-offset-4">
+                  <span
+                    className="text-base sm:text-lg md:text-xl font-semibold text-textInverse group-hover:text-bluePrimary group-hover:underline group-hover:underline-offset-4"
+                    style={{
+                      transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+                    }}
+                  >
                     {link.label}
                   </span>
                 </a>
@@ -151,7 +165,7 @@ export default function ContactSection() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Mobile Socials - Touch-optimized with 48px targets */}
           <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-textInverse/20 w-full order-2">
@@ -162,7 +176,7 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-all duration-200 will-change-transform active:translate-y-px active:bg-bluePrimary active:border-bluePrimary active:text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-all duration-fast will-change-transform active:translate-y-px active:bg-bluePrimary active:border-bluePrimary active:text-white"
               >
                 {social.icon}
                 <span className="sr-only">{social.label}</span>

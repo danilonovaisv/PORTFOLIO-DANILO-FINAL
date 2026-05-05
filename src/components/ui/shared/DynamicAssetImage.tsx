@@ -108,7 +108,7 @@ export function DynamicAssetImage({
           (!width && !height ? '(max-width: 768px) 100vw, 50vw' : undefined)
         }
         unoptimized={finalUrl?.toLowerCase().endsWith('.svg')}
-        className={`object-${objectFit} transition-opacity duration-300 ${
+        className={`object-${objectFit} transition-opacity duration-standard ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       />

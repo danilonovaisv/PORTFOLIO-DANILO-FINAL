@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { GHOST_EASE } from '@/config/motion';
+import { m } from 'framer-motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface AlpaBlockVideoFullProps {
   src: string;
@@ -18,11 +18,11 @@ export function AlpaBlockVideoFull({
   revealVisible,
 }: AlpaBlockVideoFullProps) {
   return (
-    <motion.div
+    <m.div
       initial={revealInitial}
       whileInView={revealVisible}
       viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: 0.8, ease: GHOST_EASE }}
+      transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="w-full mb-12 md:mb-20 px-4 md:px-0"
     >
       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral/20">
@@ -36,6 +36,6 @@ export function AlpaBlockVideoFull({
           className="absolute inset-0 w-full h-full object-cover"
         />
       </div>
-    </motion.div>
+    </m.div>
   );
 }

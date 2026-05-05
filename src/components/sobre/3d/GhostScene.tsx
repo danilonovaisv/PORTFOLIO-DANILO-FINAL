@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
@@ -43,7 +43,7 @@ export function GhostScene() {
   }
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-ghost-scene"
       aria-hidden="true"
       style={{
@@ -70,6 +70,6 @@ export function GhostScene() {
         <directionalLight position={[5, 5, 5]} intensity={2} />
         <GhostModel />
       </Canvas>
-    </motion.div>
+    </m.div>
   );
 }

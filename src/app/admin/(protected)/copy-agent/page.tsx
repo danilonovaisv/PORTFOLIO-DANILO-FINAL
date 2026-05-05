@@ -33,7 +33,7 @@ export default function CopyAgentPage() {
     useState<CopyInput['outputType']>('landing');
   const fieldErrors = state.fieldErrors ?? {};
   const inputClass = (hasError: boolean) =>
-    `w-full rounded border px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white placeholder:text-white/10 outline-none transition-all duration-300 ${
+    `w-full rounded border px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white placeholder:text-white/10 outline-none transition-all duration-standard ${
       hasError
         ? 'border-red-500/50 bg-red-500/[0.02] focus:border-red-500'
         : 'border-white/10 bg-black/40 focus:border-indigo-500/50'
@@ -88,7 +88,7 @@ export default function CopyAgentPage() {
                   />
                   <div className="grid grid-cols-1 gap-2">
                     <label
-                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-300 ${
+                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-standard ${
                         outputType === 'landing'
                           ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-400'
                           : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
@@ -110,7 +110,7 @@ export default function CopyAgentPage() {
                       </span>
                     </label>
                     <label
-                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-300 ${
+                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-standard ${
                         outputType === 'modal'
                           ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-400'
                           : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
@@ -372,7 +372,7 @@ export default function CopyAgentPage() {
                 disabled={isPending}
                 className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-indigo-500 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-white transition-all hover:bg-indigo-400 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-slow group-hover:translate-x-full" />
                 {isPending ? (
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-3 w-3 animate-spin" />

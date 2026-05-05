@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { NavItem } from '@/components/layout/header/types';
 
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useAntigravityStore } from '@/store/antigravity.store';
@@ -55,7 +55,7 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
   onNavigate: (_href: string) => void;
 }) {
   const common =
-    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
+    'transition-all duration-standard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
   const baseText = isLight ? 'text-white' : 'text-white/70';
   const hoverText = isLight ? 'hover:text-bluePrimary' : 'hover:text-white';
   const activeText = 'text-bluePrimary';
@@ -64,7 +64,7 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
     : `${baseText} ${hoverText} font-medium`;
 
   const LinkComponent =
-    isExternalHref(item.href) || item.external ? motion.a : motion.button;
+    isExternalHref(item.href) || item.external ? m.a : m.button;
   const linkProps =
     isExternalHref(item.href) || item.external
       ? {
@@ -86,7 +86,7 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
       animate={isActive ? 'active' : 'initial'}
     >
       <span className="tracking-tight">{item.label}</span>
-      <motion.span
+      <m.span
         className="absolute -bottom-1 left-0 h-[1px] w-full bg-current origin-center"
         variants={{
           initial: { scaleX: 0 },
@@ -154,7 +154,7 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-55 w-full pointer-events-none transition-all duration-300 ease-in-out ${
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-55 w-full pointer-events-none transition-all duration-standard ease-in-out ${
         isLight ? 'header--light' : ''
       }`}
     >
@@ -165,7 +165,7 @@ export default function DesktopFluidHeader({
       >
         <div ref={wrapRef} className="pointer-events-auto w-full">
           <div
-            className={`relative overflow-hidden h-16 w-[calc(100%+5rem)] -ml-10 rounded-full backdrop-blur-md border border-white/10 transition-all duration-300 ${
+            className={`relative overflow-hidden h-16 w-[calc(100%+5rem)] -ml-10 rounded-full backdrop-blur-md border border-white/10 transition-all duration-standard ${
               isLight
                 ? 'bg-[#040013]/60 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
                 : 'bg-[#040013]/40 shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
@@ -192,7 +192,7 @@ export default function DesktopFluidHeader({
                   alt="Danilo"
                   width={150}
                   height={47}
-                  className="block h-auto w-[150px] object-contain transition-colors duration-300"
+                  className="block h-auto w-[150px] object-contain transition-colors duration-standard"
                   priority
                   unoptimized
                 />

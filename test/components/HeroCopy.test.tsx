@@ -29,8 +29,8 @@ const filterMotionProps = (props: Record<string, unknown>) => {
 };
 
 // Mock Framer Motion to render children immediately
-jest.mock('framer-motion', () => ({
-  motion: {
+jest.mock('framer-motion', () => {
+  const motionMock = {
     div: ({ children, className, ...props }: any) => (
       <div className={className} {...filterMotionProps(props)}>
         {children}
@@ -51,22 +51,32 @@ jest.mock('framer-motion', () => ({
         {children}
       </h2>
     ),
+    p: ({ children, className, ...props }: any) => (
+      <p className={className} {...filterMotionProps(props)}>
+        {children}
+      </p>
+    ),
     svg: ({ children, className, ...props }: any) => (
       <svg className={className} {...filterMotionProps(props)}>
         {children}
       </svg>
     ),
-  },
-  useMotionValue: jest.fn(),
-  useTransform: jest.fn(),
-  animate: jest.fn(() => ({ stop: jest.fn() })),
-  useReducedMotion: jest.fn(() => false),
-  useAnimate: jest.fn(() => [
-    { current: null },
-    jest.fn(() => Promise.resolve()),
-  ]),
-  stagger: jest.fn((delay: number) => delay),
-}));
+  };
+
+  return {
+    motion: motionMock,
+    m: motionMock,
+    useMotionValue: jest.fn(),
+    useTransform: jest.fn(),
+    animate: jest.fn(() => ({ stop: jest.fn() })),
+    useReducedMotion: jest.fn(() => false),
+    useAnimate: jest.fn(() => [
+      { current: null },
+      jest.fn(() => Promise.resolve()),
+    ]),
+    stagger: jest.fn((delay: number) => delay),
+  };
+});
 
 describe('HeroCopy Component Responsiveness', () => {
   it('should render both Desktop and Mobile text blocks with correct visibility classes', () => {

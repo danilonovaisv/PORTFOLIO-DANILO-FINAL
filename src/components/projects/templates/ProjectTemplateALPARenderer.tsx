@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
-import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { normalizeHexColor } from '@/lib/colors';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
@@ -48,7 +47,6 @@ export default function ProjectTemplateALPARenderer({
       project={project}
       zoomAsset={zoomAsset}
       closeAsset={closeAsset}
-      openAsset={openAsset}
       revealInitial={revealInitial}
       revealVisible={revealVisible}
     >

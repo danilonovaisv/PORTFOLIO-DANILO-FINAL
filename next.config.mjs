@@ -169,6 +169,10 @@ const createNextConfig = (phase) => ({
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
+      'three',
+      'gsap',
+      'clsx',
+      'tailwind-merge',
       '@radix-ui/react-dialog',
       '@radix-ui/react-tabs',
     ],

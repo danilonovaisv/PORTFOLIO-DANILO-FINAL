@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, Variants } from 'framer-motion';
+import { m, Variants } from 'framer-motion';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HOME_CONTENT } from '@/config/content';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
@@ -27,7 +27,7 @@ export default function HeroCTA() {
   // if (!isLoaded) return null;
 
   return (
-    <motion.div
+    <m.div
       initial={shouldReduceMotion ? { opacity: 1, y: 0 } : 'initial'}
       animate={shouldReduceMotion ? { opacity: 1, y: 0 } : 'animate'}
       variants={itemAnimation}
@@ -38,6 +38,7 @@ export default function HeroCTA() {
         text={HOME_CONTENT.hero.cta}
         className="relative"
       />
-    </motion.div>
+    </m.div>
+
   );
 }

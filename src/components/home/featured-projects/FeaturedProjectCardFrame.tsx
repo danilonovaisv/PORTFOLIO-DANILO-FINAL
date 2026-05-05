@@ -119,7 +119,7 @@ export default function FeaturedProjectCardFrame({
   }, []);
 
   const commonMediaClasses =
-    'object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-150 md:group-hover:duration-200 ease-ghost md:group-hover:-translate-y-px';
+    'object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-micro md:group-hover:duration-fast ease-ghost md:group-hover:-translate-y-px';
   const cardMediaSizes =
     project.layout.sizes ??
     '(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw';
@@ -127,7 +127,7 @@ export default function FeaturedProjectCardFrame({
   return (
     <div
       className={cn(
-        'card-shell relative isolate overflow-hidden w-full h-full rounded-md border border-white/10 bg-white/[0.03] transition-[transform,box-shadow,border-color] duration-150 md:group-hover:duration-200 ease-ghost',
+        'card-shell relative isolate overflow-hidden w-full h-full rounded-md border border-white/10 bg-white/[0.03] transition-[transform,box-shadow,border-color] duration-micro md:group-hover:duration-fast ease-ghost',
         reducedMotion
           ? ''
           : 'md:group-hover:-translate-y-px md:group-hover:border-white/20 md:group-hover:shadow-[0_28px_84px_-28px_rgba(135,5,242,0.55)]'
@@ -137,7 +137,7 @@ export default function FeaturedProjectCardFrame({
     >
       <div
         ref={visualRef}
-        className="absolute -inset-[4%] will-change-transform transition-[translate,transform] duration-150 md:group-hover:duration-200 ease-ghost"
+        className="absolute -inset-[4%] will-change-transform transition-[translate,transform] duration-micro md:group-hover:duration-fast ease-ghost"
       >
         <FeaturedProjectAnimatedBackground variant={backgroundVariant} />
 
@@ -239,7 +239,7 @@ export default function FeaturedProjectCardFrame({
       </div>
 
       <div className={`absolute inset-0 ${topWashClass}`} />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(135,5,242,0.12),transparent_72%)] opacity-0 transition-opacity duration-150 md:group-hover:duration-200 ease-ghost md:group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(135,5,242,0.12),transparent_72%)] opacity-0 transition-opacity duration-micro md:group-hover:duration-fast ease-ghost md:group-hover:opacity-100" />
       <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay bg-[url('/site.assets/global/noise.svg')]" />
 
       {showLogo ? (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -10,11 +10,10 @@ import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
 import {
-  GHOST_EASE,
   ghostReveal,
   ghostRevealSimple,
-  ghostRise,
   ghostFade,
+  MOTION_TOKENS,
 } from '@/config/motion';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
@@ -31,7 +30,7 @@ export default function AboutMethod() {
     >
       {/* Background Video Container */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
-        <motion.div style={{ y: 0 }} className="w-full h-full lg:h-[120%]">
+        <m.div style={{ y: 0 }} className="w-full h-full lg:h-[120%]">
           <video
             key={isMobile ? 'mobile' : 'desktop'}
             src={
@@ -54,7 +53,7 @@ export default function AboutMethod() {
           >
             <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
           </video>
-        </motion.div>
+        </m.div>
 
         {/* Global Dark Gradient Overlay */}
         <div
@@ -67,12 +66,12 @@ export default function AboutMethod() {
         <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:grid lg:grid-cols-12 lg:pt-24">
           {/* Content Area: Cols 2-7 (Span 6) */}
           <div className="w-full lg:col-start-2 lg:col-span-6 flex flex-col justify-center px-0 lg:pr-20 py-20 lg:py-32">
-            <motion.div
+            <m.div
               style={{ y: 0 }}
               className="flex w-full flex-col items-center lg:items-start"
             >
               <div className="w-full max-w-[44rem] px-6 py-7 lg:px-8 lg:py-9">
-                <motion.p
+                <m.p
                   variants={
                     prefersReducedMotion ? ghostRevealSimple : ghostReveal
                   }
@@ -82,10 +81,10 @@ export default function AboutMethod() {
                   className="mb-4 text-center font-sans text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white/55 lg:text-left"
                 >
                   Processo criativo
-                </motion.p>
+                </m.p>
 
                 {/* Título */}
-                <motion.div
+                <m.div
                   variants={
                     prefersReducedMotion ? ghostRevealSimple : ghostReveal
                   }
@@ -100,10 +99,10 @@ export default function AboutMethod() {
                     <br />
                     <span className="text-text">Impacto sem ruído.</span>
                   </h2>
-                </motion.div>
+                </m.div>
 
                 {/* Texto introdutório */}
-                <motion.div
+                <m.div
                   variants={
                     prefersReducedMotion ? ghostRevealSimple : ghostFade
                   }
@@ -115,15 +114,15 @@ export default function AboutMethod() {
                   {ABOUT_CONTENT.method.intro.map((line, i) => (
                     <p key={i}>{line}</p>
                   ))}
-                </motion.div>
+                </m.div>
 
                 {/* Steps List */}
-                <motion.ul
+                <m.ul
                   variants={{
                     visible: {
                       transition: {
-                        staggerChildren: 0.12,
-                        delayChildren: 0.4,
+                        staggerChildren: MOTION_TOKENS.stagger.relaxed,
+                        delayChildren: MOTION_TOKENS.delay.medium,
                       },
                     },
                   }}
@@ -133,7 +132,7 @@ export default function AboutMethod() {
                   className="flex w-full flex-col border-t border-bluePrimary/30 pt-0"
                 >
                   {ABOUT_CONTENT.method.steps.map((step) => (
-                    <motion.li
+                    <m.li
                       key={step.id}
                       variants={
                         prefersReducedMotion ? ghostRevealSimple : ghostReveal
@@ -146,11 +145,11 @@ export default function AboutMethod() {
                       <p className="text-left text-base font-medium leading-[1.45] text-text transition-colors group-hover:text-blueAccent md:text-lg lg:text-xl">
                         {step.text}
                       </p>
-                    </motion.li>
+                    </m.li>
                   ))}
-                </motion.ul>
+                </m.ul>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Ghost Visual Area Spacer (Reserved for columns 8-12) */}

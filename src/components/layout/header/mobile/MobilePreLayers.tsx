@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface MobilePreLayersProps {
   accentColor: string;
@@ -23,7 +23,7 @@ const MobilePreLayers = forwardRef<HTMLDivElement, MobilePreLayersProps>(
         aria-hidden="true"
       >
         {preLayerColors.map((color, i) => (
-          <motion.div
+          <m.div
             key={i}
             className="sm-prelayer absolute top-0 right-0 h-full w-full"
             initial={false}

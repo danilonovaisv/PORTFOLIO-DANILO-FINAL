@@ -20,7 +20,7 @@ export const useLERPScroll = (
   trackRef: TrackRef,
   galleryRef: GalleryRef,
   enabled = true
-) => {
+): { galleryRef: GalleryRef; scrollState: ScrollState } => {
   const [scrollState, setScrollState] = useState<ScrollState>('pre');
   const startY = useRef(0);
   const endY = useRef(0);

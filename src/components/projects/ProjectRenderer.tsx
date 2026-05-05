@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
@@ -47,10 +47,17 @@ function LegacyProjectRenderer({
     <div className="bg-background text-white selection:bg-blue-600 selection:text-white">
       <section className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden">
         {coverUrl && (
-          <motion.div
-            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.8, ease: GHOST_EASE }}
+          <m.div
+            initial={{
+              opacity: 0,
+              y: MOTION_TOKENS.offset.standard,
+              filter: MOTION_TOKENS.blur.hidden,
+            }}
+            animate={{ opacity: 1, y: 0, filter: MOTION_TOKENS.blur.visible }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              ease: GHOST_EASE,
+            }}
             className="absolute inset-0 z-0"
           >
             <Image
@@ -61,38 +68,49 @@ function LegacyProjectRenderer({
               priority
             />
             <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/50 to-background" />
-          </motion.div>
+          </m.div>
         )}
 
         <div className="std-grid relative z-10 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+          <m.h1
+            initial={{ opacity: 0, y: MOTION_TOKENS.offset.standard }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: GHOST_EASE }}
+            transition={{
+              duration: MOTION_TOKENS.duration.GHOST_REVEAL,
+              delay: MOTION_TOKENS.delay.normal,
+              ease: GHOST_EASE,
+            }}
             className="text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl"
           >
             {project.title}
-          </motion.h1>
-          <motion.div
+          </m.h1>
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              delay: MOTION_TOKENS.delay.long,
+            }}
             className="mt-12 flex justify-center"
           >
             <div className="h-24 w-px bg-linear-to-b from-blue-600 to-transparent" />
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
+        <m.div
+          initial={{ opacity: 0, y: MOTION_TOKENS.offset.subtle }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.72, delay: 0.5, ease: GHOST_EASE }}
+          transition={{
+            duration: MOTION_TOKENS.duration.normal,
+            delay: MOTION_TOKENS.delay.medium,
+            ease: GHOST_EASE,
+          }}
           className="pointer-events-auto absolute inset-x-0 bottom-8 z-20"
         >
           <div className="std-grid flex justify-start">
             <HeroBackCTA href={backHref} label={LANDING_PAGE_BACK.label} />
           </div>
-        </motion.div>
+        </m.div>
       </section>
 
       <div className="space-y-32 pb-32 md:space-y-64">

@@ -1,10 +1,10 @@
 'use client';
 
 import { RefObject } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
-import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 interface OriginInfoBlockProps {
@@ -33,45 +33,53 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
       <div className="space-y-6 lg:hidden">
         {/* Text Content - Mobile */}
         <div className="text-center px-4">
-          <motion.h2
+          <m.h2
             initial={
               prefersReducedMotion
                 ? { opacity: 0 }
-                : { opacity: 0, y: 16, filter: 'blur(8px)' }
+                : {
+                    opacity: 0,
+                    y: MOTION_TOKENS.offset.standard,
+                    filter: 'blur(8px)',
+                  }
             }
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={viewportConfig}
             transition={{
-              duration: 0.6,
-              delay: 0.24,
+              duration: MOTION_TOKENS.duration.GHOST_EXIT,
+              delay: 0.2,
               ease: GHOST_EASE as any,
             }}
             className="text-h2 font-bold text-bluePrimary mb-4"
           >
             {block.title}
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             initial={
               prefersReducedMotion
                 ? { opacity: 0 }
-                : { opacity: 0, y: 16, filter: 'blur(8px)' }
+                : {
+                    opacity: 0,
+                    y: MOTION_TOKENS.offset.standard,
+                    filter: 'blur(8px)',
+                  }
             }
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={viewportConfig}
             transition={{
-              duration: 0.6,
-              delay: 0.32,
+              duration: MOTION_TOKENS.duration.GHOST_EXIT,
+              delay: 0.3,
               ease: GHOST_EASE as any,
             }}
             className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
           >
             {block.paragraph}
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Image - Mobile (400px dimensions per spec) */}
-        <motion.div
+        <m.div
           initial={
             prefersReducedMotion
               ? { opacity: 0.85 }
@@ -80,8 +88,8 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
           viewport={viewportConfig}
           transition={{
-            duration: 0.72,
-            delay: 0.08,
+            duration: MOTION_TOKENS.duration.normal,
+            delay: MOTION_TOKENS.stagger.normal,
             ease: GHOST_EASE as any,
           }}
           className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
@@ -93,11 +101,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             className="w-full h-full"
             sizes="(max-width: 1024px) 92vw, 0px"
           />
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Desktop: Text Content Only (controlled by native scroll) */}
-      <div className="hidden lg:block lg:max-w-md relative z-10 transition-opacity duration-500">
+      <div className="hidden lg:block lg:max-w-md relative z-10 transition-opacity duration-modal">
         <h2
           data-origin-title
           className="text-h2 font-bold text-bluePrimary mb-6 tracking-wide translate-y-0 opacity-100"

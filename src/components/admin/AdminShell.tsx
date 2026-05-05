@@ -111,7 +111,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-300 ${
+                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-standard ${
                       active
                         ? 'bg-[#0048ff]/10 text-[#0048ff] shadow-[inset_0_0_20px_rgba(0,72,255,0.05)]'
                         : 'text-white/40 hover:bg-white/5 hover:text-white'
@@ -119,7 +119,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   >
                     <Icon
                       size={16}
-                      className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-[#0048ff]' : ''}`}
+                      className={`transition-transform duration-standard group-hover:scale-110 ${active ? 'text-[#0048ff]' : ''}`}
                     />
                     <span className="tracking-wide">{item.label}</span>
                     {active && (

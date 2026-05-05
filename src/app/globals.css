@@ -30,6 +30,18 @@
 
   /* Motion tokens */
   --ease-ghost: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.2s;
+  --duration-standard: 0.3s;
+  --duration-normal: 0.8s;
+  --duration-modal: 0.5s;
+  --duration-micro: 0.16s;
+  --duration-slow: 1.5s;
+  --duration-bg: 0.9s;
+  --duration-headerIn: 0.8s;
+  --duration-headerOut: 0.5s;
+  --duration-textIn: 0.9s;
+  --duration-textOut: 0.5s;
+  --duration-ghostIn: 1.2s;
 
   /* Aliases para compatibilidade */
   --color-primary: #0048ff;
@@ -685,10 +697,10 @@ html.admin-page body {
     backdrop-filter,
     -webkit-text-decoration-color,
     -webkit-backdrop-filter;
-  transition-duration: 0.2s;
+  transition-duration: var(--duration-fast);
   /* Equivalente a duration-200 */
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  /* Equivalente a ease-out */
+  transition-timing-function: var(--ease-ghost);
+  /* Equivalente a Ghost Ease */
   transition-delay: 0s;
 
   /* Garante que o elemento pode ser transformado */
@@ -719,5 +731,5 @@ html.admin-page body {
 }
 
 .animate-button {
-  animation: button-animation 0.5s cubic-bezier(0, 0, 0.2, 1) forwards;
+  animation: button-animation var(--duration-modal) var(--ease-ghost) forwards;
 }
