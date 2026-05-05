@@ -11,22 +11,22 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import { PORTFOLIO_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
+import { COLORS } from '@/config/colors';
 
 const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
     <defs>
       <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#040013"/>
-        <stop offset="50%" stop-color="#0b0d3a"/>
-        <stop offset="100%" stop-color="#040013"/>
+        <stop offset="0%" stop-color="${COLORS.background}"/>
+        <stop offset="50%" stop-color="${COLORS.neutral}"/>
+        <stop offset="100%" stop-color="${COLORS.background}"/>
       </linearGradient>
     </defs>
     <rect width="1600" height="900" fill="url(#g)"/>
-    <text x="50%" y="50%" fill="#0048ff" font-size="48" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" opacity="0.6">portfolio showcase</text>
+    <text x="50%" y="50%" fill="${COLORS.bluePrimary}" font-size="48" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" opacity="0.6">portfolio showcase</text>
   </svg>`
 )}`;
-
-import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
 
 export default function PortfolioHeroNew() {
   const isMobile = useMediaQuery('(max-width: 768px)');

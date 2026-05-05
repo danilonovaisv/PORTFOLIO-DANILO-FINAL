@@ -13,7 +13,7 @@ export function AdminErrorDisplay({
   isMissingEnv,
 }: AdminErrorDisplayProps) {
   return (
-    <div className="min-h-screen bg-[#040013] text-white flex items-center justify-center p-6 text-center">
+    <div className="min-h-screen bg-background text-white flex items-center justify-center p-6 text-center">
       <div className="max-w-md w-full p-8 rounded border border-rose-500/20 bg-white/[0.02] shadow-2xl backdrop-blur-xl">
         <h2 className="font-mono text-sm font-bold uppercase tracking-[0.3em] text-rose-500 mb-4">
           System_Critical_Error
@@ -36,7 +36,7 @@ export function AdminErrorDisplay({
         <div className="mt-6 border-t border-white/5 pt-4">
           <Link
             href="/"
-            className="font-mono text-[9px] uppercase tracking-widest text-white/20 hover:text-[#0048ff] transition-colors"
+            className="font-mono text-[9px] uppercase tracking-widest text-white/20 hover:text-bluePrimary transition-colors"
           >
             System_Exit_to_Public_Node
           </Link>

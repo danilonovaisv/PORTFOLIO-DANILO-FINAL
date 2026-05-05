@@ -31,15 +31,15 @@ export function AdminHeader({
     <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="h-[1px] w-8 bg-[#0048ff]/40" />
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-[#0048ff]/60">
+          <div className="h-[1px] w-8 bg-bluePrimary/40" />
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bluePrimary/60">
             {breadcrumbs ? (
               breadcrumbs.map((crumb, idx) => (
                 <span key={crumb.label} className="flex items-center gap-2">
                   {crumb.href ? (
                     <Link
                       href={crumb.href}
-                      className="hover:text-[#0048ff] transition-colors"
+                      className="hover:text-bluePrimary transition-colors"
                     >
                       {crumb.label}
                     </Link>
@@ -61,11 +61,11 @@ export function AdminHeader({
             <span key={i}>
               {word}
               {i < title.split('_').length - 1 && (
-                <span className="text-[#0048ff]">_</span>
+                <span className="text-bluePrimary">_</span>
               )}
             </span>
           ))}
-          <span className="text-[#0048ff]">.</span>
+          <span className="text-bluePrimary">.</span>
         </h1>
         {subtitle ? (
           <p className="max-w-md text-sm text-white/40 leading-relaxed font-light">

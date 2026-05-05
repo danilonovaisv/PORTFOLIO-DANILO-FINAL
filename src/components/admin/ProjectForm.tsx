@@ -498,7 +498,7 @@ export function ProjectForm({
           />
         </label>
 
-        <div className="p-6 bg-[#0048ff]/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
+        <div className="p-6 bg-bluePrimary/[0.02] border border-white/5 rounded-md space-y-6 md:col-span-2">
           <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-bluePrimary">
             System_Case_Structure_Nav
           </h3>
@@ -654,7 +654,7 @@ export function ProjectForm({
         </div>
       </div>
 
-      <div className="p-6 bg-[#0048ff]/[0.02] border border-white/5 rounded-md space-y-4">
+      <div className="p-6 bg-bluePrimary/[0.02] border border-white/5 rounded-md space-y-4">
         <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-bluePrimary">
           System_Destination_Node
         </h3>
@@ -698,7 +698,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#0048ff]/10 file:text-[#0048ff] hover:file:bg-[#0048ff]/20 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-bluePrimary/10 file:text-bluePrimary hover:file:bg-bluePrimary/20 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
@@ -716,7 +716,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#0048ff]/10 file:text-[#0048ff] hover:file:bg-[#0048ff]/20 transition-colors cursor-pointer"
+            className="w-full text-[11px] text-white/40 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-bluePrimary/10 file:text-bluePrimary hover:file:bg-bluePrimary/20 transition-colors cursor-pointer"
             accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
