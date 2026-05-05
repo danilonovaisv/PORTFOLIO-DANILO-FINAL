@@ -21,7 +21,11 @@
       "mcp__Claude_in_Chrome__browser_batch",
       "mcp__Claude_in_Chrome__get_page_text",
       "mcp__ui-layouts-mcp__search_components",
-      "mcp__ui-layouts-mcp__get_source_code"
+      "mcp__ui-layouts-mcp__get_source_code",
+      "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")",
+      "Bash(npx playwright *)",
+      "Bash(pnpm playwright *)",
+      "Bash(pnpm list *)"
     ]
   },
   "enabledPlugins": {

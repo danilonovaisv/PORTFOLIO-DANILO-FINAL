@@ -1,12 +1,12 @@
 'use client';
 
 import { Container } from '@/components/layout/Container';
-import { m, useInView, useMotionValueEvent } from 'framer-motion';
+import { m, useInView, useMotionValueEvent, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { MOTION_TOKENS } from '@/config/motion';
 import { Z_INDEX } from '@/config/z-indices';
-import { BELIEF_LAYOUT, BELIEF_PHRASE_ITEMS } from '@/config/beliefTokens';
+import { BELIEF_LAYOUT, BELIEF_PHRASE_ITEMS, BELIEF_PHRASES } from '@/config/beliefTokens';
 
 function BeliefScrollTextItem({
   phrase,
@@ -20,11 +20,9 @@ function BeliefScrollTextItem({
     margin: MOTION_TOKENS.reveal.beliefsMargin,
     amount: 0.1,
   });
-  const { isMobile, scrollYProgress, shouldReduceMotion } =
-    useBeliefsScrollContext();
+  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
   const [isActiveByProgress, setIsActiveByProgress] = useState(false);
-  const entryX = isMobile ? 24 : -72;
-  const exitX = isMobile ? -24 : 48;
+
   const isActive = isInView || isActiveByProgress;
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
@@ -36,12 +34,12 @@ function BeliefScrollTextItem({
   const variants = {
     hidden: {
       opacity: 0,
-      x: shouldReduceMotion ? 0 : entryX,
+      y: shouldReduceMotion ? 0 : 18,
       filter: shouldReduceMotion ? 'none' : 'blur(6px)',
     },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
       filter: 'blur(0px)',
       transition: {
         duration: MOTION_TOKENS.duration.bg,
@@ -50,14 +48,12 @@ function BeliefScrollTextItem({
     },
     exit: {
       opacity: 0,
-      x: shouldReduceMotion ? 0 : exitX,
+      y: shouldReduceMotion ? 0 : -18,
       filter: shouldReduceMotion ? 'none' : 'blur(6px)',
       transition: { duration: MOTION_TOKENS.duration.textOut },
     },
   };
 
-  // We use exit variant conceptually when it goes out of view
-  // But simply using animate={isInView ? "visible" : "hidden"} achieves the toggle
   return (
     <section
       ref={ref}
@@ -68,7 +64,7 @@ function BeliefScrollTextItem({
       <Container style={{ zIndex: Z_INDEX.beliefs.scrollText }}>
         <m.div
           data-testid="belief-phrase"
-          data-animation-contract="viewport-x-opacity"
+          data-animation-contract="viewport-y-opacity"
           initial="hidden"
           animate={isActive ? 'visible' : 'exit'}
           variants={variants}
@@ -84,15 +80,28 @@ function BeliefScrollTextItem({
 }
 
 export function BeliefScrollText() {
+  const { activePhraseIndex, scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+
+  const phrasesOpacity = useTransform(scrollYProgress, [0.48, 0.56], [1, 0]);
+
   return (
-    <div
+    <m.div
       data-testid="beliefs-scroll-text"
       className="relative w-full"
       style={{
         scrollSnapType: 'y proximity',
         zIndex: Z_INDEX.beliefs.scrollText,
+        opacity: shouldReduceMotion ? 1 : phrasesOpacity,
       }}
     >
+      <span
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {BELIEF_PHRASES[activePhraseIndex]}
+      </span>
+
       <section className="flex h-[80vh] w-full snap-start items-center justify-center pointer-events-none">
         <Container>
           <div className="opacity-0">Spacer inicial</div>
@@ -112,6 +121,6 @@ export function BeliefScrollText() {
           <div className="opacity-0">Spacer final</div>
         </Container>
       </section>
-    </div>
+    </m.div>
   );
 }

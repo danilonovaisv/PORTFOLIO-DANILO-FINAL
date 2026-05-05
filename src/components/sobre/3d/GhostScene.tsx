@@ -18,8 +18,7 @@ function detectWebGLSupport() {
 }
 
 export function GhostScene() {
-  const { scrollYProgress, isMobile, shouldReduceMotion } =
-    useBeliefsScrollContext();
+  const { scrollYProgress, isMobile, shouldReduceMotion } = useBeliefsScrollContext();
   const [canRenderWebGL, setCanRenderWebGL] = useState<boolean | null>(null);
 
   const opacity = useTransform(
@@ -27,11 +26,10 @@ export function GhostScene() {
     [0.1, 0.2, 0.85, 0.95],
     [0, 1, 1, 0]
   );
-
-  const scale = useTransform(
+  const y = useTransform(
     scrollYProgress,
-    [0.1, 0.2, 0.85, 0.95],
-    [0.95, 1, 1.1, 1]
+    [0.1, 0.2],
+    [18, 0]
   );
 
   useEffect(() => {
@@ -45,10 +43,11 @@ export function GhostScene() {
   return (
     <m.div
       data-testid="beliefs-ghost-scene"
+      data-ghost-scene
       aria-hidden="true"
       style={{
         opacity,
-        scale: shouldReduceMotion ? 1 : scale,
+        y: shouldReduceMotion ? 0 : y,
         zIndex: Z_INDEX.beliefs.ghost,
       }}
       className="pointer-events-none fixed inset-0"

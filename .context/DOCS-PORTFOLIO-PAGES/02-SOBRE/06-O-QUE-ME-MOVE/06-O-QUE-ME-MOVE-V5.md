@@ -1,4 +1,4 @@
-# 06-O-QUE-ME-MOVE — Blueprint de Implementação Atualizado
+ # 06-O-QUE-ME-MOVE — Blueprint de Implementação Atualizado
 
 **Página:** `/sobre`  
 **Seção:** `06-O-QUE-ME-MOVE`  

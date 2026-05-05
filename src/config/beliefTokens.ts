@@ -10,7 +10,7 @@ export const BELIEF_BACKGROUND_STOPS = [
   COLORS.bluePrimary,
   COLORS.purpleDetails,
   COLORS.pinkDetails,
-  COLORS.background,
+  COLORS.bluePrimary,
 ] as const;
 
 export const BELIEF_HEADER_LINES = [

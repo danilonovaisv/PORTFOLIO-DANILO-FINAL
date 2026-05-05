@@ -1,63 +1,40 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { animate, inView } from 'motion';
-import { GHOST_EASE_AMBIENT, MOTION_TOKENS } from '@/config/motion';
+import { m, useTransform } from 'framer-motion';
+import { MOTION_TOKENS } from '@/config/motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { Z_INDEX } from '@/config/z-indices';
-import { BELIEF_BACKGROUND_STOPS } from '@/config/beliefTokens';
 
-const stops = BELIEF_BACKGROUND_STOPS;
+// Continuous color progression keyed to scroll progress — no inView race conditions
+const COLOR_PROGRESS = [0, 0.10, 0.24, 0.38, 0.52, 0.66, 0.80, 0.82, 1.0];
+const COLOR_VALUES = [
+  '#040013', // void
+  '#0048ff', // blue
+  '#8705f2', // purple
+  '#f501d3', // pink
+  '#0048ff', // blue
+  '#8705f2', // purple
+  '#f501d3', // pink
+  '#0048ff', // blue climax
+  '#0048ff', // locked blue
+];
 
 export function BeliefBackground() {
-  const { shouldReduceMotion } = useBeliefsScrollContext();
-  const backgroundRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
 
-  useEffect(() => {
-    const element = backgroundRef.current;
-    if (!element || shouldReduceMotion) {
-      if (element)
-        element.style.backgroundColor = MOTION_TOKENS.colors.deepVoid;
-      return;
-    }
-
-    element.style.backgroundColor = stops[0];
-
-    return inView(
-      '.belief-scroll-section',
-      (section) => {
-        const index = Number((section as HTMLElement).dataset.index ?? 0);
-        const nextColor = stops[index + 1] ?? stops[stops.length - 1];
-        const previousColor = stops[index] ?? stops[0];
-
-        animate(
-          element,
-          { backgroundColor: nextColor },
-          { duration: MOTION_TOKENS.duration.bg, ease: GHOST_EASE_AMBIENT }
-        );
-
-        return () => {
-          animate(
-            element,
-            { backgroundColor: previousColor },
-            {
-              duration: MOTION_TOKENS.duration.GHOST_EXIT,
-              ease: GHOST_EASE_AMBIENT,
-            }
-          );
-        };
-      },
-      { amount: 0.55 }
-    );
-  }, [shouldReduceMotion]);
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    COLOR_PROGRESS,
+    COLOR_VALUES
+  );
 
   return (
-    <div
-      ref={backgroundRef}
+    <m.div
       data-testid="beliefs-background"
+      data-belief-background
       aria-hidden="true"
       style={{
-        backgroundColor: MOTION_TOKENS.colors.deepVoid,
+        backgroundColor: shouldReduceMotion ? MOTION_TOKENS.colors.deepVoid : backgroundColor,
         zIndex: Z_INDEX.beliefs.background,
         willChange: 'background-color',
       }}
