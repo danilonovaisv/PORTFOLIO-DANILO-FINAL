@@ -1,12 +1,15 @@
 'use client';
 
 import { Container } from '@/components/layout/Container';
-import { m, useInView, useMotionValueEvent, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { m, useTransform, animate, inView } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { MOTION_TOKENS } from '@/config/motion';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
 import { Z_INDEX } from '@/config/z-indices';
 import { BELIEF_LAYOUT, BELIEF_PHRASE_ITEMS, BELIEF_PHRASES } from '@/config/beliefTokens';
+
+const REVEAL_DURATION = 0.8;
+const EXIT_DURATION = 0.55;
 
 function BeliefScrollTextItem({
   phrase,
@@ -15,65 +18,67 @@ function BeliefScrollTextItem({
   phrase: string;
   index: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, {
-    margin: MOTION_TOKENS.reveal.beliefsMargin,
-    amount: 0.1,
-  });
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
-  const [isActiveByProgress, setIsActiveByProgress] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const phraseRef = useRef<HTMLDivElement | null>(null);
+  const { shouldReduceMotion } = useBeliefsScrollContext();
 
-  const isActive = isInView || isActiveByProgress;
+  useEffect(() => {
+    const el = phraseRef.current;
+    const section = sectionRef.current;
+    if (!el || !section) return;
 
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const start = 0.06 + index * 0.075;
-    const end = start + 0.28;
-    setIsActiveByProgress(latest >= start && latest <= end);
-  });
+    if (shouldReduceMotion) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.filter = 'none';
+      return;
+    }
 
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 18,
-      filter: shouldReduceMotion ? 'none' : 'blur(6px)',
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        duration: MOTION_TOKENS.duration.bg,
-        ease: MOTION_TOKENS.ease.ghost,
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.filter = 'blur(6px)';
+
+    const stop = inView(
+      section,
+      () => {
+        animate(
+          el,
+          { opacity: 1, transform: 'translateY(0px)', filter: 'blur(0px)' },
+          { duration: REVEAL_DURATION, ease: GHOST_EASE_AMBIENT }
+        );
+
+        return () => {
+          animate(
+            el,
+            { opacity: 0, transform: 'translateY(-18px)', filter: 'blur(6px)' },
+            { duration: EXIT_DURATION, ease: GHOST_EASE_AMBIENT }
+          );
+        };
       },
-    },
-    exit: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : -18,
-      filter: shouldReduceMotion ? 'none' : 'blur(6px)',
-      transition: { duration: MOTION_TOKENS.duration.textOut },
-    },
-  };
+      { amount: 0.35, margin: '-15% 0px -15% 0px' }
+    );
+
+    return () => stop();
+  }, [shouldReduceMotion]);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       data-index={index}
       className="belief-scroll-section relative flex w-full snap-center items-end justify-center pb-[20vh] md:items-center md:justify-start md:pb-0"
       style={{ height: BELIEF_LAYOUT.phraseSectionHeight }}
     >
       <Container style={{ zIndex: Z_INDEX.beliefs.scrollText }}>
-        <m.div
+        <div
+          ref={phraseRef}
           data-testid="belief-phrase"
-          data-animation-contract="viewport-y-opacity"
-          initial="hidden"
-          animate={isActive ? 'visible' : 'exit'}
-          variants={variants}
-          className="mx-auto max-w-[calc(100vw-2rem)] px-6 text-center will-change-transform md:ml-0 md:max-w-[38vw] md:text-left lg:max-w-[34vw]"
+          data-animation-contract="inview-y-opacity-blur"
+          className="mx-auto max-w-[calc(100vw-2rem)] px-6 text-center will-change-[transform,opacity,filter] md:ml-0 md:max-w-[38vw] md:text-left lg:max-w-[34vw]"
         >
           <h2 className="text-[clamp(2rem,8vw,3rem)] md:text-[clamp(2.8rem,5.8vw,6.3rem)] font-h1 font-bold italic text-blueAccent">
             {phrase}
           </h2>
-        </m.div>
+        </div>
       </Container>
     </section>
   );
@@ -94,11 +99,7 @@ export function BeliefScrollText() {
         opacity: shouldReduceMotion ? 1 : phrasesOpacity,
       }}
     >
-      <span
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      <span aria-live="polite" aria-atomic="true" className="sr-only">
         {BELIEF_PHRASES[activePhraseIndex]}
       </span>
 

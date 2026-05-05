@@ -5,9 +5,10 @@ import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { Z_INDEX } from '@/config/z-indices';
 import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
 import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
+import { SplitGhostText } from './SplitGhostText';
 
 export function BeliefManifesto() {
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+  const { scrollYProgress, shouldReduceMotion, isClimax } = useBeliefsScrollContext();
 
   const opacity = useTransform(
     scrollYProgress,
@@ -19,6 +20,8 @@ export function BeliefManifesto() {
     [BELIEF_SCROLL_THRESHOLDS.climaxStart, BELIEF_SCROLL_THRESHOLDS.climaxEnd],
     [18, 0]
   );
+
+  const animateReveal = shouldReduceMotion ? true : isClimax;
 
   return (
     <m.div
@@ -33,25 +36,18 @@ export function BeliefManifesto() {
       }}
     >
       <div className="mx-auto w-full max-w-[1680px]">
-        {BELIEF_MANIFESTO_LINES.map((line, i) => (
-          <m.div
+        {BELIEF_MANIFESTO_LINES.map((line) => (
+          <SplitGhostText
             key={line}
-            className="block overflow-hidden"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: i * 0.12,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <span
-              className="block font-extrabold uppercase text-white leading-[0.88] tracking-[0.03em]"
-              style={{ fontSize: 'clamp(4rem, 17vw, 13rem)' }}
-            >
-              {line}
-            </span>
-          </m.div>
+            as="div"
+            text={line}
+            splitType="words"
+            textAlign="center"
+            stagger={0.08}
+            duration={0.8}
+            animate={animateReveal}
+            className="block font-extrabold uppercase text-white leading-[0.88] tracking-[0.03em] text-[clamp(4rem,17vw,13rem)]"
+          />
         ))}
       </div>
     </m.div>
