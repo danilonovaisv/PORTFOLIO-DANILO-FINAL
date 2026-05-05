@@ -85,7 +85,7 @@ export function AssetGallery({
             value={localQuery}
             onChange={(e) => setLocalQuery(e.target.value)}
             placeholder="SYSTEM_DATABASE_SCAN..."
-            className="w-full rounded border border-white/10 bg-white/[0.03] px-5 py-3 font-mono text-xs text-white placeholder:text-white/20 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
+            className="w-full rounded border border-white/10 bg-white/[0.03] px-5 py-3 font-mono text-xs text-white placeholder:text-white/20 focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 font-mono text-[9px] text-white/30 uppercase tracking-widest pointer-events-none">
             System_Query_Node
@@ -103,7 +103,7 @@ export function AssetGallery({
                   page: '1',
                 })
               }
-              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none cursor-pointer transition-all"
+              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-bluePrimary/50 focus:outline-none appearance-none cursor-pointer transition-all"
             >
               <option value="all">ALL_PAGES</option>
               {pageOptions.map((page) => (
@@ -135,7 +135,7 @@ export function AssetGallery({
                   page: '1',
                 })
               }
-              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none cursor-pointer transition-all"
+              className="rounded-lg border border-white/10 bg-white/[0.03] pl-4 pr-10 py-3 font-mono text-[10px] uppercase tracking-widest text-white focus:border-bluePrimary/50 focus:outline-none appearance-none cursor-pointer transition-all"
             >
               <option value="all">ALL_TYPES</option>
               {typeOptions.map((type) => (
@@ -160,7 +160,7 @@ export function AssetGallery({
           <label className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3 cursor-pointer group transition-colors hover:bg-white/[0.05]">
             <input
               type="checkbox"
-              className="h-3.5 w-3.5 rounded border-white/20 bg-black text-[#0048ff] focus:ring-offset-0 focus:ring-[#0048ff]/50"
+              className="h-3.5 w-3.5 rounded border-white/20 bg-black text-bluePrimary focus:ring-offset-0 focus:ring-bluePrimary/50"
               checked={currentShowInactive}
               onChange={(e) =>
                 updateFilters({
@@ -179,14 +179,14 @@ export function AssetGallery({
       {/* Results Info */}
       <div className="flex items-center justify-between border-b border-white/5 pb-2 px-1">
         <div className="flex items-center gap-3">
-          <div className="h-1 w-1 rounded-full bg-[#0048ff]/50" />
+          <div className="h-1 w-1 rounded-full bg-bluePrimary/50" />
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
             System_Search_Registry
           </span>
         </div>
         <span className="font-mono text-[10px] text-white/30 uppercase">
           Status:{' '}
-          <span className="text-[#0048ff]">
+          <span className="text-bluePrimary">
             {totalFiltered.toString().padStart(2, '0')}
           </span>
           _Matches /{' '}
@@ -227,14 +227,14 @@ export function AssetGallery({
             disabled={currentPage <= 1 || isPending}
             className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white transition-opacity disabled:opacity-20"
           >
-            <span className="text-[#0048ff] group-hover:-translate-x-1 transition-transform">
+            <span className="text-bluePrimary group-hover:-translate-x-1 transition-transform">
               ←
             </span>{' '}
             System_Prev_Set
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] text-[#0048ff]">
+            <span className="font-mono text-[10px] text-bluePrimary">
               {currentPage.toString().padStart(2, '0')}
             </span>
             <span className="h-4 w-[1px] bg-white/10" />
@@ -250,7 +250,7 @@ export function AssetGallery({
             className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white transition-opacity disabled:opacity-20"
           >
             System_Next_Set{' '}
-            <span className="text-[#0048ff] group-hover:translate-x-1 transition-transform">
+            <span className="text-bluePrimary group-hover:translate-x-1 transition-transform">
               →
             </span>
           </button>

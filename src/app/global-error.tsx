@@ -12,7 +12,7 @@ export default function GlobalError({
 }) {
   return (
     <html lang="pt-BR" className="dark">
-      <body className="relative antialiased bg-[#040013] text-white">
+      <body className="relative antialiased bg-background text-white">
         <main className="flex min-h-screen flex-col items-center justify-center">
           <div className="max-w-xl text-center space-y-4 px-4">
             <p className="font-mono text-sm text-textSecondary">

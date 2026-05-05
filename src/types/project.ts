@@ -77,19 +77,26 @@ export interface ProjectDetail {
 }
 
 /**
- * Interface principal do projeto
+ * Informações básicas compartilhadas entre Portfólio e Templates
  */
-export interface PortfolioProject {
-  id: string;
+export interface BaseProjectData {
   slug: string;
   title: string;
   subtitle?: string;
-  shortDescription?: string;
-  client: string;
+  client?: string;
+  year?: number;
+  tags?: string[];
+  summary?: string;
+}
+
+/**
+ * Interface principal do projeto
+ */
+export interface PortfolioProject extends Omit<BaseProjectData, 'summary'> {
+  id: string;
+  shortDescription?: string; // Mantido por compatibilidade com DB legada
   category: ProjectCategory;
   displayCategory: string;
-  tags?: string[];
-  year: number;
   image: string;
   imageLandscape?: string;
   imageSquare?: string;
@@ -107,5 +114,6 @@ export interface PortfolioProject {
   landingPageSlug?: string | null;
   link?: string;
   destination?: ProjectDestination;
-  caseBody?: string | null; // NOVO
+  caseBody?: string | null;
 }
+

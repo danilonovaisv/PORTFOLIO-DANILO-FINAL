@@ -14,7 +14,7 @@ export const Preloader: React.FC<PreloaderProps> = ({
   return (
     <div
       ref={preloaderRef}
-      className="preloader-overlay absolute inset-0 z-50 flex items-center justify-center bg-[#070b15] transition-opacity"
+      className="preloader-overlay absolute inset-0 z-50 flex items-center justify-center bg-background transition-opacity"
       style={{
         transitionDuration: 'var(--duration-normal)',
         transitionTimingFunction: 'var(--ease-ghost)',
@@ -24,7 +24,7 @@ export const Preloader: React.FC<PreloaderProps> = ({
         <div className="h-0.5 w-full overflow-hidden bg-white/5">
           <div
             ref={progressBarRef}
-            className="h-full bg-[#0048ff] transition-all"
+            className="h-full bg-bluePrimary transition-all"
             style={{
               transitionDuration: 'var(--duration-fast)',
               transitionTimingFunction: 'var(--ease-ghost)',

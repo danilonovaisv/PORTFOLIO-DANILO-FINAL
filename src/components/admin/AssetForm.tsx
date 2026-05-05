@@ -82,7 +82,7 @@ export function AssetForm({ preset }: AssetFormProps) {
             required
             value={key}
             onChange={(e) => setKey(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
             placeholder="SYSTEM_KEY"
           />
         </label>
@@ -94,7 +94,7 @@ export function AssetForm({ preset }: AssetFormProps) {
             name="asset-page"
             value={page}
             onChange={(e) => setPage(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-bluePrimary/50 focus:outline-none appearance-none transition-all"
           >
             <option value="global">GLOBAL</option>
             <option value="home">HOME</option>
@@ -111,7 +111,7 @@ export function AssetForm({ preset }: AssetFormProps) {
             name="asset-type"
             value={assetType}
             onChange={(e) => setAssetType(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-[#0048ff]/50 focus:outline-none appearance-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-bluePrimary/50 focus:outline-none appearance-none transition-all"
           >
             <option value="image">IMAGE</option>
             <option value="video">VIDEO</option>
@@ -127,7 +127,7 @@ export function AssetForm({ preset }: AssetFormProps) {
             name="asset-subpath"
             value={subPath}
             onChange={(e) => setSubPath(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
             placeholder="PATH/TO/ASSET"
           />
         </label>
@@ -141,7 +141,7 @@ export function AssetForm({ preset }: AssetFormProps) {
             onChange={(e) =>
               setSortOrder(e.target.value ? Number(e.target.value) : undefined)
             }
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all"
+            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
             placeholder="00"
           />
         </label>
@@ -155,7 +155,7 @@ export function AssetForm({ preset }: AssetFormProps) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
-          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-[#0048ff]/50 focus:ring-1 focus:ring-[#0048ff]/20 focus:outline-none transition-all resize-none"
+          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white placeholder:text-white/10 focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all resize-none"
           placeholder="ENTER_METADATA_DESCRIPTION..."
         />
       </label>
@@ -170,7 +170,7 @@ export function AssetForm({ preset }: AssetFormProps) {
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           />
           <div className="space-y-2">
-            <p className="font-mono text-xs text-white/40 group-hover:text-[#0048ff] transition-colors">
+            <p className="font-mono text-xs text-white/40 group-hover:text-bluePrimary transition-colors">
               {file
                 ? `[ FILE_SELECTED: ${file.name} ]`
                 : '[ CLICK_TO_SELECT_BINARY ]'}
@@ -191,7 +191,7 @@ export function AssetForm({ preset }: AssetFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full flex items-center justify-center rounded-lg bg-[#0048ff] px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-[#0048ff]/20 transition-all hover:bg-[#0048ff]/80 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center rounded-lg bg-bluePrimary px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-bluePrimary/20 transition-all hover:bg-bluePrimary/80 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isPending ? 'Processing_Request...' : 'SYSTEM_PUSH_CHANGES'}
       </button>

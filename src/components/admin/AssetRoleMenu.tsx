@@ -25,7 +25,7 @@ export function AssetRoleMenu({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-2 rounded border border-white/10 bg-white/[0.03] px-3 py-1 text-[12px] text-white hover:border-[#0048ff] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0048ff] transition-all"
+        className="flex items-center gap-2 rounded border border-white/10 bg-white/[0.03] px-3 py-1 text-[12px] text-white hover:border-bluePrimary hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary transition-all"
       >
         <span className="font-mono text-[10px] uppercase tracking-widest">
           System_Asset_Role
@@ -36,7 +36,7 @@ export function AssetRoleMenu({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full mt-2 z-20 max-h-[320px] w-[500px] overflow-y-auto rounded border border-white/10 bg-[#040013]/95 p-4 shadow-2xl backdrop-blur-md">
+        <div className="absolute left-0 top-full mt-2 z-20 max-h-[320px] w-[500px] overflow-y-auto rounded border border-white/10 bg-background/95 p-4 shadow-2xl backdrop-blur-md">
           <div className="space-y-4">
             {siteAssetRoleGroups.map((group) => (
               <div key={group.label}>
@@ -53,8 +53,8 @@ export function AssetRoleMenu({
                         onClick={() => handleSelect(role)}
                         className={`flex flex-col items-start gap-1 rounded border px-3 py-2 text-left transition-all ${
                           isActive
-                            ? 'border-[#0048ff] bg-[#0048ff]/10 text-white'
-                            : 'border-white/5 bg-white/[0.02] hover:border-[#0048ff]/50 hover:bg-[#0048ff]/5'
+                            ? 'border-bluePrimary bg-bluePrimary/10 text-white'
+                            : 'border-white/5 bg-white/[0.02] hover:border-bluePrimary/50 hover:bg-bluePrimary/5'
                         }`}
                       >
                         <span className="font-mono text-xs font-bold uppercase tracking-wide">

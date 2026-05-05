@@ -1,5 +1,6 @@
 import { HOME_CONTENT } from '@/config/content';
 import type { PortfolioProject, ProjectCategory } from '@/types/project';
+import { COLORS } from '@/config/colors';
 
 const FALLBACK_CATEGORY_MAP: Record<string, ProjectCategory> = {
     'branding & campanha': 'branding',
@@ -68,7 +69,7 @@ export function buildFallbackProjects(): PortfolioProject[] {
             },
             accentColor:
                 category === 'branding'
-                    ? '#0057ff'
+                    ? COLORS.bluePrimary
                     : undefined,
             featuredOnHome: true,
             homeFeatured: {
