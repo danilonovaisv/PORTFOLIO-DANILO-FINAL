@@ -196,8 +196,7 @@ export function VideoManifesto({
       </h2>
       <m.div
         ref={wrapperRef}
-        // Change aspect ratio handling to allow natural height on mobile without cutting
-        className="video-wrapper relative w-full bg-black/5"
+        className="video-wrapper relative aspect-[9/16] w-full overflow-hidden bg-black/5 sm:aspect-video"
         style={
           !isMobile && !shouldReduceMotion
             ? {
@@ -209,7 +208,7 @@ export function VideoManifesto({
       >
         <video
           ref={videoRef}
-          className="w-full h-auto sm:aspect-video sm:object-cover block"
+          className="block h-full w-full object-cover object-center"
           src={videoSrc}
           poster={activePoster}
           autoPlay={!shouldReduceMotion}

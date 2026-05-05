@@ -237,6 +237,13 @@ duration: 0.7s
 - O padding lateral da camada de branding foi recalibrado para evitar recorte em logos horizontais longos dentro dos cards animados.
 - Validação em build (`next start`) confirmou o logo central do card com caixa aproximada de `420x172px`, sem clipping no estado final renderizado.
 
+## 4.8 Atualização de Estado — 2026-05-05
+
+- `FeaturedProjectsSection.tsx` passou a declarar `items-stretch`, `self-stretch` e `min-h-0` nos itens do bento grid e no skeleton editorial.
+- `FeaturedProjectCard.tsx` mantém o wrapper clicável como `block`, mas o shell interno agora opera com `h-full min-h-0 flex flex-col`, preservando a leitura editorial e permitindo expansão vertical previsível.
+- `CTAProjectCard.tsx` agora adere ao mesmo contrato de altura (`h-full min-h-0 flex-1`) para alinhar visualmente com o projeto pareado na terceira linha.
+- Validação em Playwright confirmou delta de altura `0px` entre cards pareados em tablet, desktop e wide.
+
 ## 4.6 Backgrounds Cards
 
 - 1.  Gradiente: `https://reactbits.dev/tools/background-studio?bg=grainient`

@@ -59,18 +59,18 @@ function FeaturedProjectsSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-6"
+      className="grid grid-cols-4 items-stretch gap-4 md:grid-cols-8 md:gap-6 lg:grid-cols-12"
     >
       {FEATURED_GRID_LAYOUT.map((layout, index) => (
         <div
           key={`featured-skeleton-${index}`}
-          className={`col-span-4 ${layout.gridClass}`}
+          className={`col-span-4 min-h-0 self-stretch ${layout.gridClass}`}
         >
-          <Skeleton className={`w-full rounded-md ${layout.frameClass}`} />
+          <Skeleton className={`h-full w-full rounded-md ${layout.frameClass}`} />
         </div>
       ))}
-      <div className="col-span-4 md:col-span-3 lg:col-span-4">
-        <Skeleton className={`w-full rounded-md ${CTA_FRAME_CLASS}`} />
+      <div className="col-span-4 min-h-0 self-stretch md:col-span-3 lg:col-span-4">
+        <Skeleton className={`h-full w-full rounded-md ${CTA_FRAME_CLASS}`} />
       </div>
     </div>
   );
@@ -133,7 +133,7 @@ export default function FeaturedProjectsSection({
           viewport={{ once: true, amount: 0.18, margin: '-64px 0px' }}
           variants={staggerContainer(0.12)}
           // Layout fixo Bento Grid - 12 colunas com gaps consistentes
-          className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-6"
+          className="grid grid-cols-4 items-stretch gap-4 md:grid-cols-8 md:gap-6 lg:grid-cols-12"
         >
           {featuredProjects.slice(0, 4).map((project, index) => {
             if (!project) return null;
@@ -151,7 +151,7 @@ export default function FeaturedProjectsSection({
                 transition={ghostTransition(0, duration.normal)}
                 // Mobile: full-width (col-span-4) | Desktop: Bento Grid fixo
                 // Added h-full and flex flex-col to ensure child card stretches
-                className={`w-full col-span-4 ${gridCols} h-full flex flex-col`}
+                className={`col-span-4 flex h-full min-h-0 w-full self-stretch ${gridCols}`}
               >
                 <FeaturedProjectCard
                   project={project}
@@ -171,7 +171,7 @@ export default function FeaturedProjectsSection({
             layout="position"
             variants={cardVariants}
             transition={ghostTransition(0, duration.normal)}
-            className="w-full col-span-4 md:col-span-3 lg:col-span-4 h-full flex flex-col"
+            className="col-span-4 flex h-full min-h-0 w-full self-stretch md:col-span-3 lg:col-span-4"
           >
             <CTAProjectCard className={CTA_FRAME_CLASS} />
           </m.div>

@@ -23,7 +23,7 @@ export default function CTAProjectCard({ className }: CTAProjectCardProps) {
   return (
     <div
       className={cn(
-        'group relative flex h-full flex-col items-center justify-center gap-10 overflow-hidden rounded-md bg-background p-6 md:p-8 lg:p-10 text-center isolate',
+        'group relative isolate flex h-full min-h-0 flex-1 flex-col items-center justify-center gap-10 overflow-hidden rounded-md bg-background p-6 text-center md:p-8 lg:p-10',
         className
       )}
     >

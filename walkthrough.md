@@ -1,3 +1,65 @@
+# Walkthrough — Featured Projects, AboutMethod e Manifesto Mobile
+
+## Resumo executivo
+
+Rodada executada em 2026-05-05 para corrigir três discrepâncias P1/P2 sem alterar stack, tokens, fonte de dados, motion system ou deploy target.
+
+- Featured Projects: cards pareados agora esticam pela mesma linha do bento grid.
+- AboutMethod: `.std-grid` permanece como único container estrutural; a grid interna de 12 colunas foi removida.
+- Manifesto mobile: frame estabilizado em `9/16` no mobile e `16/9` a partir de `sm`, com vídeo preenchendo por `object-cover`.
+
+## Sequência de agents acionados
+
+Os papéis foram executados inline nesta sessão, sem spawn de subagents externos.
+
+- Agent A — Architecture and Truth Alignment: revalidou `AGENTS.md`, `.context/DOCS-PORTFOLIO-PAGES`, `.context/knowledge-graph.md` e arquivos reais.
+- Agent B — Layout and Grid Correction Specialist: aplicou equal-height estrutural no bento e removeu redundância de grid/container no AboutMethod.
+- Agent C — Motion and Responsive Media Specialist: estabilizou o wrapper do manifesto sem introduzir motion proibido.
+- Agent D — QA and Verification: executou lint, typecheck, build e Playwright nos viewports planejados.
+
+## Arquivos alterados
+
+- `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
+- `src/components/home/featured-projects/FeaturedProjectCard.tsx`
+- `src/components/home/featured-projects/CTAProjectCard.tsx`
+- `src/components/home/hero/VideoManifesto.tsx`
+- `src/components/sobre/sections/AboutMethod.tsx`
+- `.context/DOCS-PORTFOLIO-PAGES/01-HOME/03-VIDEO-MANIFESTO/03-VIDEO-MANIFESTO.md`
+- `.context/DOCS-PORTFOLIO-PAGES/01-HOME/05-FEATURED-PROJECTS/05-FEATURED-PROJECTS.md`
+- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/05-COMO-EU-TRABALHO/05-COMO-EU-TRABALHO.md`
+
+## Decisões arquiteturais
+
+- O repo atual prevalece sobre o briefing antigo de stack: Next.js 16, React 19, Tailwind 4.
+- Equal-height foi resolvido por contrato de stretch/flex (`items-stretch`, `self-stretch`, `h-full`, `min-h-0`, `flex-1`) em vez de alturas cosméticas novas.
+- AboutMethod preserva a posição equivalente às colunas 2-7 com flex e margem percentual, sem `lg:grid-cols-12`.
+- Manifesto prioriza reserva de espaço estável por breakpoint: portrait no mobile, landscape em tablet/desktop.
+
+## Resultados da validação
+
+- `pnpm exec eslint` nos arquivos alterados: aprovado.
+- `pnpm run lint`: aprovado com 25 warnings pré-existentes fora do escopo.
+- `pnpm run typecheck`: aprovado.
+- `pnpm run build`: aprovado.
+- Playwright:
+  - Featured row height deltas: `0px` em mobile, tablet, desktop e wide.
+  - Home `overflow-x`: `0` em 390, 768, 1440 e 1680.
+  - Sobre `overflow-x`: `0` em 390, 768, 1440 e 1680.
+  - AboutMethod: `.std-grid` presente e nested grid ausente.
+  - Manifesto: `390x693` mobile, `768x432` tablet, `1440x810` desktop, `1680x945` wide.
+
+## Riscos residuais
+
+- O ambiente local roda Node `v25.9.0`, enquanto o projeto declara Node `22`; os checks passaram, mas deploy deve continuar usando Node 22.
+- `pnpm start` standalone não serviu CSS estático corretamente no check local; a validação visual confiável foi feita com `pnpm start:next`.
+- Screenshots de evidência foram salvos em `output/playwright/`.
+
+## Status final
+
+**Aprovado com ressalvas** por causa do mismatch de Node local e do comportamento do servidor standalone na validação local. Código, build e métricas visuais passaram.
+
+---
+
 # Walkthrough — 06-O-QUE-ME-MOVE
 
 ## Resumo da auditoria e implementação final (T00-T18)

@@ -125,10 +125,10 @@ export default function FeaturedProjectCard({
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
   const CardContent = () => (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex h-full min-h-0 w-full flex-col">
       <div
         ref={frameRef}
-        className={`relative w-full flex-1 ${frameClassName ?? ''}`}
+        className={`relative min-h-0 w-full flex-1 ${frameClassName ?? ''}`}
       >
         <FeaturedProjectCardFrame
           project={project}
@@ -176,7 +176,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full w-full min-h-[48px] rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+    'group block h-full min-h-0 w-full rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
   if (isModalMode) {
     return (

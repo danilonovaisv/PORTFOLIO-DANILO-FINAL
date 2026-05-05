@@ -7,7 +7,6 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
-// import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
 import {
   ghostReveal,
@@ -62,15 +61,14 @@ export default function AboutMethod() {
         />
       </div>
 
-      <div className="std-grid relative z-20 w-full h-full">
-        <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:grid lg:grid-cols-12 lg:pt-24">
-          {/* Content Area: Cols 2-7 (Span 6) */}
-          <div className="w-full lg:col-start-2 lg:col-span-6 flex flex-col justify-center px-0 lg:pr-20 py-20 lg:py-32">
+      <div className="std-grid relative z-20 h-full w-full">
+        <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:min-h-[110vh] lg:flex-row lg:pt-24">
+          <div className="flex w-full flex-col justify-center py-20 lg:ml-[8.333333%] lg:w-1/2 lg:py-32 lg:pr-20">
             <m.div
               style={{ y: 0 }}
               className="flex w-full flex-col items-center lg:items-start"
             >
-              <div className="w-full max-w-[44rem] px-6 py-7 lg:px-8 lg:py-9">
+              <div className="w-full max-w-[44rem] py-7 lg:py-9">
                 <m.p
                   variants={
                     prefersReducedMotion ? ghostRevealSimple : ghostReveal
@@ -152,8 +150,7 @@ export default function AboutMethod() {
             </m.div>
           </div>
 
-          {/* Ghost Visual Area Spacer (Reserved for columns 8-12) */}
-          <div className="hidden lg:block lg:col-span-5" />
+          <div className="hidden flex-1 lg:block" aria-hidden="true" />
         </div>
       </div>
     </section>

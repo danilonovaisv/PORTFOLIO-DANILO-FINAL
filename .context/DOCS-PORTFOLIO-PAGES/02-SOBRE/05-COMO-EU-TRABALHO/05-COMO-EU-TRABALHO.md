@@ -111,3 +111,10 @@ Traduzir processo criativo em método prático, gerando confiança através de c
   - **Vídeo Full-Bleed:** Removida a restrição de `max-w` do contêiner do vídeo, permitindo que ele ocupe todas as laterais da página.
   - **Remoção do Painel Sólido:** O background escuro sólido (`rgba(4,0,19,0.9)`) e as bordas arredondadas do contêiner de texto foram removidos. O conteúdo agora repousa sobre a camada de gradiente escuro global, melhorando a imersão.
   - **Lista em Formato de Tabela:** O visual das etapas foi atualizado com divisórias horizontais em azul (`border-bluePrimary/30`). Os marcadores de etapa deixaram de ser "badges" arredondados e agora utilizam texto simples em formato "0X" (ex: 01, 02), em harmonia com a estética técnica da referência.
+
+## 16. Estado Implementado — 2026-05-05 (Grid e Container)
+
+- `AboutMethod.tsx` preserva `.std-grid` como único contrato de container da seção.
+- A malha interna `lg:grid lg:grid-cols-12` foi removida para evitar duplicação estrutural de grid/container; o conteúdo desktop agora usa `lg:flex-row`, `lg:ml-[8.333333%]` e `lg:w-1/2`, preservando a leitura equivalente às colunas 2-7.
+- O padding horizontal interno do bloco de texto foi removido, deixando o espaçamento lateral sob controle do `.std-grid`.
+- Validação Playwright confirmou `hasNestedGrid = false` e `overflow-x = 0` em mobile, tablet, desktop e wide.

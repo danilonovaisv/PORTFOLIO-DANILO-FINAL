@@ -176,3 +176,9 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 
 - A seção recebeu `aria-labelledby` com `h2.sr-only`, reforçando a hierarquia semântica sem alterar a composição editorial.
 - O comportamento de autoplay/loop continua condicionado ao gate de motion, mantendo a política de baixo ruído para usuários com redução de movimento.
+
+## 13. Atualização de estado — 2026-05-05
+
+- O wrapper do manifesto estabiliza o frame responsivo: `aspect-[9/16]` no mobile e `aspect-video` a partir de `sm`.
+- O vídeo ocupa o frame com `h-full w-full object-cover object-center`, mantendo reserva de espaço previsível e evitando variação por altura intrínseca do arquivo.
+- Validação Playwright confirmou `overflow-x = 0` na Home e proporções renderizadas: `390x693` no mobile, `768x432` no tablet, `1440x810` no desktop e `1680x945` no wide.
