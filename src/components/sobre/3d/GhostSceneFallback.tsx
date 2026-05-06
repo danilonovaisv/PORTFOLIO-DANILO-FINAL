@@ -1,11 +1,17 @@
 'use client';
 
-import { m, useTransform } from 'framer-motion';
-import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
+import { useContext } from 'react';
+import { m, useTransform, useMotionValue } from 'motion/react';
+import { BeliefsScrollContext } from '../beliefs/BeliefsScrollProvider';
 import { Z_INDEX } from '@/config/z-indices';
 
 export function GhostSceneFallback() {
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+  // Safe: works both inside and outside BeliefsScrollProvider
+  // (needed when used as Suspense/ErrorBoundary fallback prop)
+  const context = useContext(BeliefsScrollContext);
+  const fallbackProgress = useMotionValue(0);
+  const scrollYProgress = context?.scrollYProgress ?? fallbackProgress;
+  const prefersReducedMotion = context?.prefersReducedMotion ?? false;
 
   const opacity = useTransform(
     scrollYProgress,
@@ -25,7 +31,7 @@ export function GhostSceneFallback() {
         aria-label="Silhueta do Ghost"
         viewBox="0 0 200 240"
         className="h-[44vh] w-auto md:h-[58vh]"
-        style={shouldReduceMotion ? { opacity: 1 } : { opacity }}
+        style={prefersReducedMotion ? { opacity: 1 } : { opacity }}
         fill="none"
       >
         <path

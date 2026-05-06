@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { useMotionValueEvent } from 'motion/react';
 import { BELIEF_PHRASES } from './belief.constants';
@@ -36,7 +36,7 @@ export function BeliefScrollText() {
 
         <div className="relative h-[4em] md:h-[2em] w-full max-w-4xl">
           <AnimatePresence mode="wait">
-            <motion.h3
+            <m.h3
               key={activeIndex}
               aria-hidden="true"
               data-testid="belief-phrase"
@@ -63,7 +63,7 @@ export function BeliefScrollText() {
               transition={{ duration: 0.6, ease: GHOST_EASE }}
             >
               {activePhrase}
-            </motion.h3>
+            </m.h3>
           </AnimatePresence>
         </div>
       </div>

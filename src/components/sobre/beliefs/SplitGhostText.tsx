@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Transition } from 'motion/react';
+import { m, type Transition } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 
 type SplitGhostTextProps = {
@@ -22,7 +22,7 @@ export function SplitGhostText({
   duration = 0.8,
   textAlign = 'left',
 }: SplitGhostTextProps) {
-  const Tag = motion[as as keyof typeof motion] as React.ElementType;
+  const Tag = m[as as keyof typeof m] as React.ElementType;
   const segments = splitType === 'lines' ? text.split('\n') : text.split(' ');
 
   const transition: Transition = {
@@ -33,7 +33,7 @@ export function SplitGhostText({
   return (
     <Tag className={className} style={{ textAlign }} aria-label={text}>
       {segments.map((segment, index) => (
-        <motion.span
+        <m.span
           key={`${segment}-${index}`}
           aria-hidden="true"
           className="inline-block will-change-transform"
@@ -44,7 +44,7 @@ export function SplitGhostText({
         >
           {segment}
           {splitType === 'words' ? '\u00A0' : null}
-        </motion.span>
+        </m.span>
       ))}
     </Tag>
   );

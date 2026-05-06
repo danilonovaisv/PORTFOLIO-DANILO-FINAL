@@ -1,13 +1,13 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 
 export function BeliefOverlay() {
   const { prefersReducedMotion } = useBeliefsScrollContext();
 
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-[var(--z-layer-glass)] bg-black/10 mix-blend-overlay"
       initial={{ opacity: prefersReducedMotion ? 0.3 : 0 }}

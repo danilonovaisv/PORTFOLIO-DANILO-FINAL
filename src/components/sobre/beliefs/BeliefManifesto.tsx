@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
+import { m, useTransform } from 'motion/react';
 import { BELIEF_MANIFESTO_LINES } from './belief.constants';
 import { SplitGhostText } from './SplitGhostText';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
@@ -12,7 +12,7 @@ export function BeliefManifesto() {
   const y = useTransform(scrollYProgress, [0.56, 0.72], [18, 0]);
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-manifesto"
       data-belief-manifesto
       className="pointer-events-none fixed inset-0 z-[var(--z-layer-overlay)] flex items-center justify-center px-6"
@@ -31,6 +31,6 @@ export function BeliefManifesto() {
           />
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

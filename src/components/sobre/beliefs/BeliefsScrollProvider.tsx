@@ -13,7 +13,7 @@ export type BeliefsScrollContextValue = {
   thresholds: typeof BELIEF_SCROLL_THRESHOLDS;
 };
 
-const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(
+export const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(
   null
 );
 

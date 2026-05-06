@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { motion, useTransform } from 'motion/react';
+import { m, useTransform } from 'motion/react';
 import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
@@ -13,7 +13,7 @@ export function GhostScene() {
   const y = useTransform(scrollYProgress, [0.12, 0.72], [18, 0]);
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
       className="pointer-events-none fixed inset-0 z-[var(--z-layer-lightbox)]"
@@ -32,6 +32,6 @@ export function GhostScene() {
           reducedMotion={prefersReducedMotion}
         />
       </Canvas>
-    </motion.div>
+    </m.div>
   );
 }
