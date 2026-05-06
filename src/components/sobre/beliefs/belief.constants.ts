@@ -5,7 +5,7 @@ export const BELIEF_PHRASES = [
   'Crio para gerar presença',
   'Mesmo quando não estou ali',
   'Mesmo quando ninguém percebe o esforço',
-] as const
+] as const;
 
 export const BELIEF_COLOR_STOPS = [
   '#040013',
@@ -16,15 +16,15 @@ export const BELIEF_COLOR_STOPS = [
   '#8705f2',
   '#f501d3',
   '#0048ff',
-] as const
+] as const;
 
-export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const
+export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const;
 
 export const BELIEF_SCROLL_THRESHOLDS = {
   climaxStart: 0.56,
   climaxEnd: 0.72,
   finalLock: 0.82,
-} as const
+} as const;
 
 export const beliefLayers = {
   background: 'var(--z-layer-base)',
@@ -33,4 +33,4 @@ export const beliefLayers = {
   phrases: 'var(--z-layer-cta)',
   manifesto: 'var(--z-layer-overlay)',
   ghost: 'var(--z-layer-lightbox)',
-} as const
+} as const;

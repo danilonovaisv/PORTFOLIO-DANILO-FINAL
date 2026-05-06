@@ -106,11 +106,7 @@ const GhostScrollText = ({
         {mode === 'letter' ? (
           <>
             {word.split('').map((letter, li) => (
-              <m.span
-                key={li}
-                className="inline-block"
-                variants={itemVariants}
-              >
+              <m.span key={li} className="inline-block" variants={itemVariants}>
                 {letter}
               </m.span>
             ))}

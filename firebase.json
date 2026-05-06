@@ -4,7 +4,7 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "frameworksBackend": {
       "region": "us-central1",
-      "memory": "1GiB"
+      "memory": "2GiB"
     },
     "headers": [
       {

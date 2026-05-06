@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { motion, useTransform } from 'motion/react'
-import { BELIEF_MANIFESTO_LINES } from './belief.constants'
-import { SplitGhostText } from './SplitGhostText'
-import { useBeliefsScrollContext } from './BeliefsScrollProvider'
+import { motion, useTransform } from 'motion/react';
+import { BELIEF_MANIFESTO_LINES } from './belief.constants';
+import { SplitGhostText } from './SplitGhostText';
+import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 
 export function BeliefManifesto() {
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
 
-  const opacity = useTransform(scrollYProgress, [0.52, 0.68], [0, 1])
-  const y = useTransform(scrollYProgress, [0.56, 0.72], [18, 0])
+  const opacity = useTransform(scrollYProgress, [0.52, 0.68], [0, 1]);
+  const y = useTransform(scrollYProgress, [0.56, 0.72], [18, 0]);
 
   return (
     <motion.div
@@ -32,5 +32,5 @@ export function BeliefManifesto() {
         ))}
       </div>
     </motion.div>
-  )
+  );
 }

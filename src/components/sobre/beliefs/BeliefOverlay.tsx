@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { motion } from 'motion/react'
-import { useBeliefsScrollContext } from './BeliefsScrollProvider'
+import { motion } from 'motion/react';
+import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 
 export function BeliefOverlay() {
-  const { prefersReducedMotion } = useBeliefsScrollContext()
+  const { prefersReducedMotion } = useBeliefsScrollContext();
 
   return (
     <motion.div
@@ -18,8 +18,9 @@ export function BeliefOverlay() {
           : { duration: 8, ease: 'linear', repeat: Infinity }
       }
       style={{
-        backgroundImage: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%)',
+        backgroundImage:
+          'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%)',
       }}
     />
-  )
+  );
 }

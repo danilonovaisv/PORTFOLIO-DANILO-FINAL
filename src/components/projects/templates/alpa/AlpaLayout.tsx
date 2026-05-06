@@ -154,7 +154,10 @@ export function AlpaLayout({
                 className="mx-auto flex max-w-5xl flex-col items-center gap-6"
                 initial={revealInitial}
                 animate={revealVisible}
-                transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
+                transition={{
+                  duration: MOTION_TOKENS.duration.normal,
+                  ease: GHOST_EASE,
+                }}
               >
                 {heroLogo ? (
                   <div className="relative h-20 w-40 md:h-28 md:w-64">
@@ -212,7 +215,10 @@ export function AlpaLayout({
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              ease: GHOST_EASE,
+            }}
           >
             <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 text-center">
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -264,7 +270,10 @@ export function AlpaLayout({
             initial={revealInitial}
             whileInView={revealVisible}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              ease: GHOST_EASE,
+            }}
           >
             <div className="mx-auto flex max-w-3xl flex-col items-center gap-5">
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">

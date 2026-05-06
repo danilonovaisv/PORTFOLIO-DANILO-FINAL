@@ -116,4 +116,3 @@ export interface PortfolioProject extends Omit<BaseProjectData, 'summary'> {
   destination?: ProjectDestination;
   caseBody?: string | null;
 }
-

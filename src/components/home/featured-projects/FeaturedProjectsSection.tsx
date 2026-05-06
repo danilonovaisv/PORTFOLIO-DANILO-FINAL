@@ -66,7 +66,9 @@ function FeaturedProjectsSkeleton() {
           key={`featured-skeleton-${index}`}
           className={`col-span-4 min-h-0 self-stretch ${layout.gridClass}`}
         >
-          <Skeleton className={`h-full w-full rounded-md ${layout.frameClass}`} />
+          <Skeleton
+            className={`h-full w-full rounded-md ${layout.frameClass}`}
+          />
         </div>
       ))}
       <div className="col-span-4 min-h-0 self-stretch md:col-span-3 lg:col-span-4">

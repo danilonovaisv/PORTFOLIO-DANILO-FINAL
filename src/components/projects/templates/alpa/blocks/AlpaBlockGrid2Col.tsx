@@ -30,7 +30,11 @@ export function AlpaBlockGrid2Col({
           initial={revealInitial}
           whileInView={revealVisible}
           viewport={{ once: true, margin: '-10%' }}
-          transition={{ duration: MOTION_TOKENS.duration.normal, delay: cIdx * 0.1, ease: GHOST_EASE }}
+          transition={{
+            duration: MOTION_TOKENS.duration.normal,
+            delay: cIdx * 0.1,
+            ease: GHOST_EASE,
+          }}
           className="relative aspect-square md:aspect-auto md:h-[60vh] overflow-hidden rounded-xl bg-neutral/20"
         >
           {col.type === 'image' ? (

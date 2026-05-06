@@ -108,11 +108,15 @@ for (const route of ROUTES) {
       const background = page.locator('[data-belief-background]');
       await expect
         .poll(async () =>
-          background.evaluate((el) => window.getComputedStyle(el).backgroundColor)
+          background.evaluate(
+            (el) => window.getComputedStyle(el).backgroundColor
+          )
         )
         .toBe('rgb(0, 72, 255)');
 
-      const manifestoText = page.locator('[data-belief-manifesto] span').first();
+      const manifestoText = page
+        .locator('[data-belief-manifesto] span')
+        .first();
       const color = await manifestoText.evaluate(
         (el) => window.getComputedStyle(el).color
       );

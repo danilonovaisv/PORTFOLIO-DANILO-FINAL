@@ -194,7 +194,10 @@ export default function MasterProjectTemplate({
             <m.div
               initial={revealInitial}
               animate={revealVisible}
-              transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
+              transition={{
+                duration: MOTION_TOKENS.duration.normal,
+                ease: GHOST_EASE,
+              }}
               className="relative h-20 w-44 md:h-28 md:w-64"
             >
               <Image
@@ -213,7 +216,11 @@ export default function MasterProjectTemplate({
           <m.h1
             initial={revealInitial}
             animate={revealVisible}
-            transition={{ duration: MOTION_TOKENS.duration.GHOST_REVEAL, ease: GHOST_EASE, delay: 0.06 }}
+            transition={{
+              duration: MOTION_TOKENS.duration.GHOST_REVEAL,
+              ease: GHOST_EASE,
+              delay: 0.06,
+            }}
             className="max-w-5xl text-4xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl"
           >
             {project.project_title}
@@ -223,7 +230,11 @@ export default function MasterProjectTemplate({
             <m.p
               initial={revealInitial}
               animate={revealVisible}
-              transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE, delay: 0.12 }}
+              transition={{
+                duration: MOTION_TOKENS.duration.normal,
+                ease: GHOST_EASE,
+                delay: 0.12,
+              }}
               className="max-w-3xl text-lg leading-relaxed text-white/85 md:text-xl"
             >
               {project.project_subtitle}
@@ -233,7 +244,11 @@ export default function MasterProjectTemplate({
           <m.div
             initial={revealInitial}
             animate={revealVisible}
-            transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE, delay: 0.16 }}
+            transition={{
+              duration: MOTION_TOKENS.duration.normal,
+              ease: GHOST_EASE,
+              delay: 0.16,
+            }}
             className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-blueAccent"
           >
             {project.project_client ? (
@@ -277,7 +292,10 @@ export default function MasterProjectTemplate({
           initial={revealInitial}
           whileInView={revealVisible}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
+          transition={{
+            duration: MOTION_TOKENS.duration.normal,
+            ease: GHOST_EASE,
+          }}
         >
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -415,7 +433,10 @@ export default function MasterProjectTemplate({
           initial={revealInitial}
           whileInView={revealVisible}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
+          transition={{
+            duration: MOTION_TOKENS.duration.normal,
+            ease: GHOST_EASE,
+          }}
         >
           <div className="rounded-2xl border border-white/15 bg-white/2 px-6 py-10 md:px-10 md:py-12">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

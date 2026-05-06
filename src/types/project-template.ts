@@ -100,7 +100,10 @@ export interface TemplateV3IntroBlock {
   };
 }
 
-export interface MasterProjectTemplateData extends Omit<BaseProjectData, 'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'> {
+export interface MasterProjectTemplateData extends Omit<
+  BaseProjectData,
+  'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'
+> {
   schema_version: '1.0';
   template: typeof MASTER_PROJECT_TEMPLATE;
   project_slug: string;
@@ -122,7 +125,10 @@ export interface MasterProjectTemplateData extends Omit<BaseProjectData, 'slug' 
   seo?: MasterProjectTemplateSeo;
 }
 
-export interface MasterProjectTemplateV2Data extends Omit<BaseProjectData, 'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'> {
+export interface MasterProjectTemplateV2Data extends Omit<
+  BaseProjectData,
+  'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'
+> {
   schema_version: '2.0';
   template: typeof MASTER_PROJECT_TEMPLATE_V2;
   project_slug: string;
@@ -145,7 +151,10 @@ export interface MasterProjectTemplateV2Data extends Omit<BaseProjectData, 'slug
   seo?: MasterProjectTemplateSeo;
 }
 
-export interface MasterProjectTemplateV3Data extends Omit<BaseProjectData, 'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'> {
+export interface MasterProjectTemplateV3Data extends Omit<
+  BaseProjectData,
+  'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'
+> {
   schema_version: '3.0';
   template: typeof MASTER_PROJECT_TEMPLATE_V3;
   project_slug: string;

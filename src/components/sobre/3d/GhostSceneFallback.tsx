@@ -32,9 +32,24 @@ export function GhostSceneFallback() {
           d="M100 12c-39 0-70 31-70 70v118c0 8 9 12 15 7l18-14c4-3 9-3 13 0l18 14c4 3 10 3 14 0l18-14c4-3 9-3 13 0l18 14c6 5 15 1 15-7V82c0-39-31-70-72-70Z"
           fill="#ffffff"
         />
-        <ellipse cx="78" cy="100" rx="9" ry="13" fill="var(--color-background)" />
-        <ellipse cx="122" cy="100" rx="9" ry="13" fill="var(--color-background)" />
-        <path d="M40 70h120l-6-22a18 18 0 0 0-17-13H63a18 18 0 0 0-17 13L40 70Z" fill="var(--color-background)" />
+        <ellipse
+          cx="78"
+          cy="100"
+          rx="9"
+          ry="13"
+          fill="var(--color-background)"
+        />
+        <ellipse
+          cx="122"
+          cy="100"
+          rx="9"
+          ry="13"
+          fill="var(--color-background)"
+        />
+        <path
+          d="M40 70h120l-6-22a18 18 0 0 0-17-13H63a18 18 0 0 0-17 13L40 70Z"
+          fill="var(--color-background)"
+        />
         <rect x="40" y="68" width="120" height="6" fill="#e10b1a" />
       </m.svg>
     </div>

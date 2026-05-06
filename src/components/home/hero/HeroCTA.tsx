@@ -39,6 +39,5 @@ export default function HeroCTA() {
         className="relative"
       />
     </m.div>
-
   );
 }

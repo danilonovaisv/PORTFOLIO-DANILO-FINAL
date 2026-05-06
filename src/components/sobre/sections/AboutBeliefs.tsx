@@ -1,25 +1,28 @@
-'use client'
+'use client';
 
-import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
-import { BeliefsScrollProvider, useBeliefsScrollContext } from '../beliefs/BeliefsScrollProvider'
-import { BeliefBackground } from '../beliefs/BeliefBackground'
-import { BeliefOverlay } from '../beliefs/BeliefOverlay'
-import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader'
-import { BeliefScrollText } from '../beliefs/BeliefScrollText'
-import { BeliefManifesto } from '../beliefs/BeliefManifesto'
-import { GhostErrorBoundary } from '../3d/GhostErrorBoundary'
-import { GhostSceneFallback } from '../3d/GhostSceneFallback'
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+import {
+  BeliefsScrollProvider,
+  useBeliefsScrollContext,
+} from '../beliefs/BeliefsScrollProvider';
+import { BeliefBackground } from '../beliefs/BeliefBackground';
+import { BeliefOverlay } from '../beliefs/BeliefOverlay';
+import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
+import { BeliefScrollText } from '../beliefs/BeliefScrollText';
+import { BeliefManifesto } from '../beliefs/BeliefManifesto';
+import { GhostErrorBoundary } from '../3d/GhostErrorBoundary';
+import { GhostSceneFallback } from '../3d/GhostSceneFallback';
 
 const GhostScene = dynamic(
   () => import('../3d/GhostScene').then((m) => m.GhostScene),
   {
     ssr: false,
   }
-)
+);
 
 function AboutBeliefsContent() {
-  const { sectionRef } = useBeliefsScrollContext()
+  const { sectionRef } = useBeliefsScrollContext();
 
   return (
     <section
@@ -51,7 +54,7 @@ function AboutBeliefsContent() {
 
       <BeliefScrollText />
     </section>
-  )
+  );
 }
 
 export function AboutBeliefs() {
@@ -59,5 +62,5 @@ export function AboutBeliefs() {
     <BeliefsScrollProvider>
       <AboutBeliefsContent />
     </BeliefsScrollProvider>
-  )
+  );
 }

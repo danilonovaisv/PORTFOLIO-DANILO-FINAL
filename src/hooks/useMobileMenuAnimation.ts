@@ -201,7 +201,11 @@ export function useMobileMenuAnimation(
       if (socialTitle) {
         tl.to(
           socialTitle,
-          { opacity: 1, filter: 'blur(0px)', duration: MOTION_TOKENS.duration.modal },
+          {
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: MOTION_TOKENS.duration.modal,
+          },
           socialsStart
         );
       }

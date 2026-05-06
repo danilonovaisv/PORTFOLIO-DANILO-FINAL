@@ -1,4 +1,4 @@
- # 06-O-QUE-ME-MOVE — Blueprint de Implementação Atualizado
+# 06-O-QUE-ME-MOVE — Blueprint de Implementação Atualizado
 
 **Página:** `/sobre`  
 **Seção:** `06-O-QUE-ME-MOVE`  
@@ -59,15 +59,15 @@ A implementação recomendada mantém **Next.js App Router** com páginas/layout
 
 ## 3. mapa_de_animacoes
 
-| Animação | Gatilho | Alvo | Técnica recomendada | Easing | Duração | Responsividade | Fallback reduced motion |
-|---|---|---|---|---|---:|---|---|
-| Background cromático progressivo | `scrollProgress` da seção e/ou `inView('.scroll-section')` | `BeliefBackground` | `animate()` do Motion para `backgroundColor`, com cleanup bidirecional | `GHOST_EASE_AMBIENT = [0.17, 0.55, 0.55, 1]` | `0.9s` entrada, `0.6s` reset | Desktop e mobile usam mesma sequência; mobile deve evitar flashes por scroll rápido | Remover transição cromática animada e aplicar cor por estado com cross-fade mínimo |
-| Overlay anti-banding | mudança de `scrollProgress` | `BeliefOverlay` | Opacidade sutil interpolada por MotionValue | `GHOST_EASE_AMBIENT` | contínuo por scroll | Intensidade menor em mobile para não sujar contraste | Overlay estático `opacity` baixa |
-| Header fixo `BeliefFixedHeader` | entrada da seção / primeira ativação | texto fixo editorial | reveal por palavras/linhas com SplitText adaptado, usando `opacity`, `blur`, `translateY` | `GHOST_EASE = [0.22, 1, 0.36, 1]` | `0.8s` por grupo; stagger `40–70ms` | `top-[14vh] md:top-0`; alinhamento à direita no desktop | Mostrar texto sem stagger, apenas `opacity: 1`, `filter: none`, `y: 0` |
-| Frases rotativas | `scrollProgress` em 6 janelas narrativas | `BeliefScrollText` | troca de frase com entrada `opacity 0→1`, `y 18→0`, `blur 6→0`; saída `opacity 1→0`, `y 0→-18`, `blur 0→6` | `GHOST_EASE` | `0.55–0.8s` | Desktop: bloco à esquerda centralizado verticalmente; Mobile: bloco centralizado e ancorado em `pb-[20vh]` | Cross-fade sem deslocamento e sem blur |
-| Manifesto final | `scrollProgress` entre `0.56→0.72` | `BeliefManifesto` | reveal por linhas/palavras, manifesto fixo, branco integral | `GHOST_EASE` para texto; `GHOST_EASE_AMBIENT` para fade global | `0.8–1.2s` | `font-size: clamp(4rem, 17vw, 13rem)`; preservar legibilidade em mobile | Manifesto visível estático no clímax |
-| Ghost 3D scroll-linked | `scrollProgress` da seção | `GhostScene` wrapper + modelo | DOM wrapper apenas `opacity` e `translateY`; dentro do Canvas usar `useFrame` com lerp leve e `invalidate()` | lerp interno cap `0.10–0.15`; DOM com `GHOST_EASE` | contínuo por scroll | `dpr={[1, 2]}` desktop; reduzir detalhe/efeitos em mobile | Trocar Canvas por fallback SVG/PNG estático |
-| Clímax azul | `scrollProgress >= 0.82` | background + manifesto + Ghost | lock final do fundo em `#0048ff`; manifesto domina leitura; Ghost acima em `--z-layer-lightbox` | sem novo easing; estado travado | imediato após cruzar threshold, com transição curta se necessário | Deve bater em desktop e mobile | Estado final estático azul + manifesto + Ghost fallback |
+| Animação                         | Gatilho                                                    | Alvo                           | Técnica recomendada                                                                                          | Easing                                                         |                                                           Duração | Responsividade                                                                                             | Fallback reduced motion                                                            |
+| -------------------------------- | ---------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- | ----------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Background cromático progressivo | `scrollProgress` da seção e/ou `inView('.scroll-section')` | `BeliefBackground`             | `animate()` do Motion para `backgroundColor`, com cleanup bidirecional                                       | `GHOST_EASE_AMBIENT = [0.17, 0.55, 0.55, 1]`                   |                                      `0.9s` entrada, `0.6s` reset | Desktop e mobile usam mesma sequência; mobile deve evitar flashes por scroll rápido                        | Remover transição cromática animada e aplicar cor por estado com cross-fade mínimo |
+| Overlay anti-banding             | mudança de `scrollProgress`                                | `BeliefOverlay`                | Opacidade sutil interpolada por MotionValue                                                                  | `GHOST_EASE_AMBIENT`                                           |                                               contínuo por scroll | Intensidade menor em mobile para não sujar contraste                                                       | Overlay estático `opacity` baixa                                                   |
+| Header fixo `BeliefFixedHeader`  | entrada da seção / primeira ativação                       | texto fixo editorial           | reveal por palavras/linhas com SplitText adaptado, usando `opacity`, `blur`, `translateY`                    | `GHOST_EASE = [0.22, 1, 0.36, 1]`                              |                               `0.8s` por grupo; stagger `40–70ms` | `top-[14vh] md:top-0`; alinhamento à direita no desktop                                                    | Mostrar texto sem stagger, apenas `opacity: 1`, `filter: none`, `y: 0`             |
+| Frases rotativas                 | `scrollProgress` em 6 janelas narrativas                   | `BeliefScrollText`             | troca de frase com entrada `opacity 0→1`, `y 18→0`, `blur 6→0`; saída `opacity 1→0`, `y 0→-18`, `blur 0→6`   | `GHOST_EASE`                                                   |                                                       `0.55–0.8s` | Desktop: bloco à esquerda centralizado verticalmente; Mobile: bloco centralizado e ancorado em `pb-[20vh]` | Cross-fade sem deslocamento e sem blur                                             |
+| Manifesto final                  | `scrollProgress` entre `0.56→0.72`                         | `BeliefManifesto`              | reveal por linhas/palavras, manifesto fixo, branco integral                                                  | `GHOST_EASE` para texto; `GHOST_EASE_AMBIENT` para fade global |                                                        `0.8–1.2s` | `font-size: clamp(4rem, 17vw, 13rem)`; preservar legibilidade em mobile                                    | Manifesto visível estático no clímax                                               |
+| Ghost 3D scroll-linked           | `scrollProgress` da seção                                  | `GhostScene` wrapper + modelo  | DOM wrapper apenas `opacity` e `translateY`; dentro do Canvas usar `useFrame` com lerp leve e `invalidate()` | lerp interno cap `0.10–0.15`; DOM com `GHOST_EASE`             |                                               contínuo por scroll | `dpr={[1, 2]}` desktop; reduzir detalhe/efeitos em mobile                                                  | Trocar Canvas por fallback SVG/PNG estático                                        |
+| Clímax azul                      | `scrollProgress >= 0.82`                                   | background + manifesto + Ghost | lock final do fundo em `#0048ff`; manifesto domina leitura; Ghost acima em `--z-layer-lightbox`              | sem novo easing; estado travado                                | imediato após cruzar threshold, com transição curta se necessário | Deve bater em desktop e mobile                                                                             | Estado final estático azul + manifesto + Ghost fallback                            |
 
 ### Sequência cromática recomendada
 
@@ -81,7 +81,7 @@ export const BELIEF_COLOR_STOPS = [
   '#8705f2',
   '#f501d3',
   '#0048ff',
-] as const
+] as const;
 ```
 
 ### Frases oficiais preservadas
@@ -94,7 +94,7 @@ export const BELIEF_PHRASES = [
   'Crio para gerar presença',
   'Mesmo quando não estou ali',
   'Mesmo quando ninguém percebe o esforço',
-] as const
+] as const;
 ```
 
 ### Manifesto final
@@ -248,12 +248,12 @@ Tipos sugeridos:
 
 ```ts
 export type BeliefScrollContextValue = {
-  sectionRef: React.RefObject<HTMLElement | null>
-  scrollYProgress: MotionValue<number>
-  activePhraseIndex: number
-  isClimax: boolean
-  prefersReducedMotion: boolean
-}
+  sectionRef: React.RefObject<HTMLElement | null>;
+  scrollYProgress: MotionValue<number>;
+  activePhraseIndex: number;
+  isClimax: boolean;
+  prefersReducedMotion: boolean;
+};
 ```
 
 ### `BeliefBackground`
@@ -406,7 +406,7 @@ export const beliefColors = {
   ghostCyan: '#4fe6ff',
   textPrimary: '#fcffff',
   white: '#ffffff',
-} as const
+} as const;
 ```
 
 ### Tipografia
@@ -417,7 +417,7 @@ export const beliefTypography = {
   phraseDesktop: 'clamp(3rem, 7vw, 8rem)',
   phraseMobile: 'clamp(2.5rem, 14vw, 5.5rem)',
   header: 'clamp(1rem, 1.4vw, 1.5rem)',
-} as const
+} as const;
 ```
 
 ### Espaçamento e grid
@@ -432,7 +432,7 @@ export const beliefLayout = {
   tabletGutter: '24px',
   desktopGutter: '32px',
   sectionHeight: '720vh',
-} as const
+} as const;
 ```
 
 ### Z-index
@@ -445,7 +445,7 @@ export const beliefLayers = {
   phrases: 'var(--z-layer-cta)',
   manifesto: 'var(--z-layer-overlay)',
   ghost: 'var(--z-layer-lightbox)',
-} as const
+} as const;
 ```
 
 ### Motion tokens
@@ -463,7 +463,7 @@ export const beliefMotion = {
   climaxStart: 0.56,
   climaxEnd: 0.72,
   finalLock: 0.82,
-} as const
+} as const;
 ```
 
 ### Radius e shadow
@@ -475,7 +475,7 @@ export const beliefSurface = {
   radius: '1.5rem',
   border: '1px solid rgba(255,255,255,0.10)',
   shadow: '0 24px 80px rgba(0,0,0,0.35)',
-} as const
+} as const;
 ```
 
 ---
@@ -575,7 +575,7 @@ export const BELIEF_PHRASES = [
   'Crio para gerar presença',
   'Mesmo quando não estou ali',
   'Mesmo quando ninguém percebe o esforço',
-] as const
+] as const;
 
 export const BELIEF_COLOR_STOPS = [
   '#040013',
@@ -586,36 +586,43 @@ export const BELIEF_COLOR_STOPS = [
   '#8705f2',
   '#f501d3',
   '#0048ff',
-] as const
+] as const;
 
-export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const
+export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const;
 
 export const BELIEF_SCROLL_THRESHOLDS = {
   climaxStart: 0.56,
   climaxEnd: 0.72,
   finalLock: 0.82,
-} as const
+} as const;
 ```
 
 ### `useBeliefsScroll.ts`
 
 ```ts
-'use client'
+'use client';
 
-import { useMemo, useRef } from 'react'
-import { useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { BELIEF_PHRASES, BELIEF_SCROLL_THRESHOLDS } from '@/components/sobre/beliefs/belief.constants'
+import { useMemo, useRef } from 'react';
+import { useReducedMotion, useScroll, useTransform } from 'motion/react';
+import {
+  BELIEF_PHRASES,
+  BELIEF_SCROLL_THRESHOLDS,
+} from '@/components/sobre/beliefs/belief.constants';
 
 export function useBeliefsScroll() {
-  const sectionRef = useRef<HTMLElement | null>(null)
-  const prefersReducedMotion = Boolean(useReducedMotion())
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const prefersReducedMotion = Boolean(useReducedMotion());
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end end'],
-  })
+  });
 
-  const phraseProgress = useTransform(scrollYProgress, [0.08, 0.76], [0, BELIEF_PHRASES.length - 1])
+  const phraseProgress = useTransform(
+    scrollYProgress,
+    [0.08, 0.76],
+    [0, BELIEF_PHRASES.length - 1]
+  );
 
   const value = useMemo(
     () => ({
@@ -625,82 +632,86 @@ export function useBeliefsScroll() {
       prefersReducedMotion,
       thresholds: BELIEF_SCROLL_THRESHOLDS,
     }),
-    [phraseProgress, prefersReducedMotion, scrollYProgress],
-  )
+    [phraseProgress, prefersReducedMotion, scrollYProgress]
+  );
 
-  return value
+  return value;
 }
 ```
 
 ### `BeliefBackground.tsx`
 
 ```tsx
-'use client'
+'use client';
 
-import { useEffect, useRef } from 'react'
-import { animate, inView, type AnimationPlaybackControls } from 'motion'
-import { useMotionValueEvent } from 'motion/react'
-import { GHOST_EASE_AMBIENT } from '@/config/motion'
-import { BELIEF_COLOR_STOPS, BELIEF_SCROLL_THRESHOLDS } from './belief.constants'
-import { useBeliefsScrollContext } from './BeliefsScrollProvider'
+import { useEffect, useRef } from 'react';
+import { animate, inView, type AnimationPlaybackControls } from 'motion';
+import { useMotionValueEvent } from 'motion/react';
+import { GHOST_EASE_AMBIENT } from '@/config/motion';
+import {
+  BELIEF_COLOR_STOPS,
+  BELIEF_SCROLL_THRESHOLDS,
+} from './belief.constants';
+import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 
 export function BeliefBackground() {
-  const bgRef = useRef<HTMLDivElement | null>(null)
-  const activeAnimationRef = useRef<AnimationPlaybackControls | null>(null)
-  const climaxLockedRef = useRef(false)
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
+  const bgRef = useRef<HTMLDivElement | null>(null);
+  const activeAnimationRef = useRef<AnimationPlaybackControls | null>(null);
+  const climaxLockedRef = useRef(false);
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
 
   useMotionValueEvent(scrollYProgress, 'change', (progress) => {
-    if (!bgRef.current) return
+    if (!bgRef.current) return;
 
     if (progress >= BELIEF_SCROLL_THRESHOLDS.finalLock) {
-      climaxLockedRef.current = true
-      activeAnimationRef.current?.stop()
+      climaxLockedRef.current = true;
+      activeAnimationRef.current?.stop();
       activeAnimationRef.current = animate(
         bgRef.current,
         { backgroundColor: '#0048ff' },
-        { duration: prefersReducedMotion ? 0 : 0.45, ease: GHOST_EASE_AMBIENT },
-      )
-      return
+        { duration: prefersReducedMotion ? 0 : 0.45, ease: GHOST_EASE_AMBIENT }
+      );
+      return;
     }
 
-    climaxLockedRef.current = false
-  })
+    climaxLockedRef.current = false;
+  });
 
   useEffect(() => {
-    if (!bgRef.current) return
+    if (!bgRef.current) return;
 
     const stop = inView('.scroll-section', (section) => {
-      const index = Number((section as HTMLElement).dataset.index ?? 0)
-      const targetColor = BELIEF_COLOR_STOPS[index] ?? BELIEF_COLOR_STOPS[0]
+      const index = Number((section as HTMLElement).dataset.index ?? 0);
+      const targetColor = BELIEF_COLOR_STOPS[index] ?? BELIEF_COLOR_STOPS[0];
 
       if (!climaxLockedRef.current) {
-        activeAnimationRef.current?.stop()
+        activeAnimationRef.current?.stop();
         activeAnimationRef.current = animate(
           bgRef.current,
           { backgroundColor: targetColor },
-          { duration: prefersReducedMotion ? 0 : 0.9, ease: GHOST_EASE_AMBIENT },
-        )
+          { duration: prefersReducedMotion ? 0 : 0.9, ease: GHOST_EASE_AMBIENT }
+        );
       }
 
       return () => {
-        if (!bgRef.current || climaxLockedRef.current) return
+        if (!bgRef.current || climaxLockedRef.current) return;
 
-        const previousColor = BELIEF_COLOR_STOPS[Math.max(index - 1, 0)] ?? BELIEF_COLOR_STOPS[0]
-        activeAnimationRef.current?.stop()
+        const previousColor =
+          BELIEF_COLOR_STOPS[Math.max(index - 1, 0)] ?? BELIEF_COLOR_STOPS[0];
+        activeAnimationRef.current?.stop();
         activeAnimationRef.current = animate(
           bgRef.current,
           { backgroundColor: previousColor },
-          { duration: prefersReducedMotion ? 0 : 0.6, ease: GHOST_EASE_AMBIENT },
-        )
-      }
-    })
+          { duration: prefersReducedMotion ? 0 : 0.6, ease: GHOST_EASE_AMBIENT }
+        );
+      };
+    });
 
     return () => {
-      activeAnimationRef.current?.stop()
-      stop()
-    }
-  }, [prefersReducedMotion])
+      activeAnimationRef.current?.stop();
+      stop();
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <div
@@ -708,27 +719,27 @@ export function BeliefBackground() {
       aria-hidden="true"
       className="fixed inset-0 z-[var(--z-layer-base)] bg-[#040013]"
     />
-  )
+  );
 }
 ```
 
 ### `SplitGhostText.tsx`
 
 ```tsx
-'use client'
+'use client';
 
-import { motion, type Transition } from 'motion/react'
-import { GHOST_EASE } from '@/config/motion'
+import { motion, type Transition } from 'motion/react';
+import { GHOST_EASE } from '@/config/motion';
 
 type SplitGhostTextProps = {
-  text: string
-  as?: 'h2' | 'h3' | 'p' | 'span'
-  splitType?: 'words' | 'lines'
-  className?: string
-  delay?: number
-  duration?: number
-  textAlign?: 'left' | 'center' | 'right'
-}
+  text: string;
+  as?: 'h2' | 'h3' | 'p' | 'span';
+  splitType?: 'words' | 'lines';
+  className?: string;
+  delay?: number;
+  duration?: number;
+  textAlign?: 'left' | 'center' | 'right';
+};
 
 export function SplitGhostText({
   text,
@@ -739,13 +750,13 @@ export function SplitGhostText({
   duration = 0.8,
   textAlign = 'left',
 }: SplitGhostTextProps) {
-  const Tag = motion[as]
-  const segments = splitType === 'lines' ? text.split('\n') : text.split(' ')
+  const Tag = motion[as];
+  const segments = splitType === 'lines' ? text.split('\n') : text.split(' ');
 
   const transition: Transition = {
     duration,
     ease: GHOST_EASE,
-  }
+  };
 
   return (
     <Tag className={className} style={{ textAlign }} aria-label={text}>
@@ -764,17 +775,17 @@ export function SplitGhostText({
         </motion.span>
       ))}
     </Tag>
-  )
+  );
 }
 ```
 
 ### `BeliefFixedHeader.tsx`
 
 ```tsx
-'use client'
+'use client';
 
-import { motion } from 'motion/react'
-import { SplitGhostText } from './SplitGhostText'
+import { motion } from 'motion/react';
+import { SplitGhostText } from './SplitGhostText';
 
 export function BeliefFixedHeader() {
   return (
@@ -789,25 +800,25 @@ export function BeliefFixedHeader() {
         />
       </div>
     </motion.header>
-  )
+  );
 }
 ```
 
 ### `BeliefManifesto.tsx`
 
 ```tsx
-'use client'
+'use client';
 
-import { motion, useTransform } from 'motion/react'
-import { BELIEF_MANIFESTO_LINES } from './belief.constants'
-import { SplitGhostText } from './SplitGhostText'
-import { useBeliefsScrollContext } from './BeliefsScrollProvider'
+import { motion, useTransform } from 'motion/react';
+import { BELIEF_MANIFESTO_LINES } from './belief.constants';
+import { SplitGhostText } from './SplitGhostText';
+import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 
 export function BeliefManifesto() {
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
 
-  const opacity = useTransform(scrollYProgress, [0.52, 0.68], [0, 1])
-  const y = useTransform(scrollYProgress, [0.56, 0.72], [18, 0])
+  const opacity = useTransform(scrollYProgress, [0.52, 0.68], [0, 1]);
+  const y = useTransform(scrollYProgress, [0.56, 0.72], [18, 0]);
 
   return (
     <motion.div
@@ -828,26 +839,26 @@ export function BeliefManifesto() {
         ))}
       </div>
     </motion.div>
-  )
+  );
 }
 ```
 
 ### `GhostScene.tsx`
 
 ```tsx
-'use client'
+'use client';
 
-import { Canvas } from '@react-three/fiber'
-import { motion, useTransform } from 'motion/react'
-import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider'
-import { GhostModel } from './GhostModel'
-import { GhostFallback } from './GhostFallback'
+import { Canvas } from '@react-three/fiber';
+import { motion, useTransform } from 'motion/react';
+import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider';
+import { GhostModel } from './GhostModel';
+import { GhostFallback } from './GhostFallback';
 
 export function GhostScene() {
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
 
-  const opacity = useTransform(scrollYProgress, [0.12, 0.24, 0.9], [0, 1, 1])
-  const y = useTransform(scrollYProgress, [0.12, 0.72], [18, 0])
+  const opacity = useTransform(scrollYProgress, [0.12, 0.24, 0.9], [0, 1, 1]);
+  const y = useTransform(scrollYProgress, [0.12, 0.72], [18, 0]);
 
   return (
     <motion.div
@@ -862,10 +873,13 @@ export function GhostScene() {
       >
         <ambientLight intensity={0.8} />
         <directionalLight position={[2, 4, 4]} intensity={1.4} />
-        <GhostModel scrollProgress={scrollYProgress} reducedMotion={prefersReducedMotion} />
+        <GhostModel
+          scrollProgress={scrollYProgress}
+          reducedMotion={prefersReducedMotion}
+        />
       </Canvas>
     </motion.div>
-  )
+  );
 }
 ```
 
@@ -880,6 +894,7 @@ Core objective:
 Build a scroll-driven editorial sequence where the background color, rotating text, fixed header, final manifesto and 3D Ghost behave as one cohesive system. The final climax must show a dominant blue background `#0048ff`, a white manifesto reading `ISSO É / GHOST / DESIGN`, and the Ghost 3D layer above the manifesto.
 
 Stack:
+
 - Next.js App Router
 - React 19
 - TypeScript
@@ -889,6 +904,7 @@ Stack:
 - Playwright
 
 Architecture rules:
+
 - Keep pages and layouts as Server Components by default.
 - Use Client Components only for scroll, refs, browser APIs, Motion, state, events and Canvas WebGL.
 - Use Motion for DOM reveals, scroll-driven opacity/translateY/blur and `inView + animate` background transitions.
@@ -896,6 +912,7 @@ Architecture rules:
 - Do not use GSAP unless an existing SplitText implementation already requires it; prefer a Motion-based `SplitGhostText` to reduce dependency risk.
 
 Non-negotiable visual contracts:
+
 - Internal max-width: `1680px`.
 - Responsive grid: 4 columns mobile, 8 tablet, 12 desktop.
 - Final climax color: `#0048ff`.
@@ -908,6 +925,7 @@ Non-negotiable visual contracts:
 - Respect `prefers-reduced-motion`.
 
 Implementation tasks:
+
 1. Add or update `belief.constants.ts` with the 6 official phrases, 8 color stops, manifesto lines and scroll thresholds.
 2. Update `useBeliefsScroll.ts` to expose `sectionRef`, `scrollYProgress`, `activePhraseIndex`, `isClimax` and `prefersReducedMotion`.
 3. Update `BeliefBackground.tsx`:
@@ -945,13 +963,15 @@ Implementation tasks:
    - Ghost fallback if WebGL/GLB fails;
    - reduced-motion fallback with static Ghost and simple fades.
 10. Update Playwright tests:
-   - assert final background is `rgb(0, 72, 255)`;
-   - assert manifesto text is white;
-   - assert Ghost z-index is above manifesto;
-   - assert no console errors;
-   - capture desktop and mobile checkpoints.
+
+- assert final background is `rgb(0, 72, 255)`;
+- assert manifesto text is white;
+- assert Ghost z-index is above manifesto;
+- assert no console errors;
+- capture desktop and mobile checkpoints.
 
 Acceptance criteria:
+
 - Final section matches the provided desktop/mobile captures in hierarchy and color.
 - Background changes forward and resets backward.
 - Final climax is blue, not Deep Void.
@@ -1010,23 +1030,31 @@ Acceptance criteria:
 ### Validações Playwright sugeridas
 
 ```ts
-test('about beliefs climax is blue with white manifesto and ghost above', async ({ page }) => {
-  await page.goto('/sobre')
-  await page.locator('[data-section="about-beliefs"]').scrollIntoViewIfNeeded()
+test('about beliefs climax is blue with white manifesto and ghost above', async ({
+  page,
+}) => {
+  await page.goto('/sobre');
+  await page.locator('[data-section="about-beliefs"]').scrollIntoViewIfNeeded();
 
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.9))
+  await page.evaluate(() =>
+    window.scrollTo(0, document.body.scrollHeight * 0.9)
+  );
 
-  const background = page.locator('[data-belief-background]')
-  await expect(background).toHaveCSS('background-color', 'rgb(0, 72, 255)')
+  const background = page.locator('[data-belief-background]');
+  await expect(background).toHaveCSS('background-color', 'rgb(0, 72, 255)');
 
-  const manifesto = page.locator('[data-belief-manifesto]')
-  await expect(manifesto).toHaveCSS('color', 'rgb(255, 255, 255)')
+  const manifesto = page.locator('[data-belief-manifesto]');
+  await expect(manifesto).toHaveCSS('color', 'rgb(255, 255, 255)');
 
-  const ghostZ = await page.locator('[data-ghost-scene]').evaluate((el) => Number(getComputedStyle(el).zIndex))
-  const manifestoZ = await manifesto.evaluate((el) => Number(getComputedStyle(el).zIndex))
+  const ghostZ = await page
+    .locator('[data-ghost-scene]')
+    .evaluate((el) => Number(getComputedStyle(el).zIndex));
+  const manifestoZ = await manifesto.evaluate((el) =>
+    Number(getComputedStyle(el).zIndex)
+  );
 
-  expect(ghostZ).toBeGreaterThan(manifestoZ)
-})
+  expect(ghostZ).toBeGreaterThan(manifestoZ);
+});
 ```
 
 ### Checklist final

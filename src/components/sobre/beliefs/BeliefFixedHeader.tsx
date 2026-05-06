@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { motion } from 'motion/react'
-import { SplitGhostText } from './SplitGhostText'
+import { motion } from 'motion/react';
+import { SplitGhostText } from './SplitGhostText';
 
 export function BeliefFixedHeader() {
   return (
@@ -16,5 +16,5 @@ export function BeliefFixedHeader() {
         />
       </div>
     </motion.header>
-  )
+  );
 }
