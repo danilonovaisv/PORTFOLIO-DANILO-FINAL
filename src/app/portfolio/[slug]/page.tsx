@@ -148,7 +148,7 @@ async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   // Try database first with direct query for better performance and reliability
   try {
     const supabase = createStaticClient();
-    
+
     // Search by slug using common variations
     const { data: dbProjects } = await supabase
       .from('public_projects_view')

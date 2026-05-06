@@ -1,52 +1,31 @@
-'use client';
+'use client'
 
-import { RefObject, useRef, useState } from 'react';
-import { useScroll, MotionValue, useMotionValueEvent } from 'framer-motion';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { BELIEF_PHRASES } from '@/config/beliefTokens';
-import { BELIEF_SCROLL_THRESHOLDS, BELIEF_PHRASE_RANGE } from '@/components/sobre/beliefs/belief.constants';
+import { useMemo, useRef } from 'react'
+import { useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { BELIEF_PHRASES, BELIEF_SCROLL_THRESHOLDS } from '@/components/sobre/beliefs/belief.constants'
 
-interface UseBeliefsScrollReturn {
-  scrollYProgress: MotionValue<number>;
-  isMobile: boolean;
-  shouldReduceMotion: boolean;
-  prefersReducedMotion: boolean;
-  activePhraseIndex: number;
-  isClimax: boolean;
-}
-
-export function useBeliefsScroll(
-  containerRef?: RefObject<HTMLElement | null>
-): UseBeliefsScrollReturn {
-  const fallbackRef = useRef<HTMLElement | null>(null);
-  const targetRef = containerRef || fallbackRef;
-
-  const shouldReduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
-  const isMobile = useMediaQuery('(max-width: 767px)');
+export function useBeliefsScroll() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const prefersReducedMotion = Boolean(useReducedMotion())
 
   const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ['start end', 'end end'],
-  });
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  })
 
-  const [activePhraseIndex, setActivePhraseIndex] = useState(0);
-  const [isClimax, setIsClimax] = useState(false);
+  // phraseProgress mapped across the scroll duration before climax
+  const phraseProgress = useTransform(scrollYProgress, [0.08, 0.76], [0, BELIEF_PHRASES.length - 1])
 
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const phraseCount = BELIEF_PHRASES.length;
-    const { start, end } = BELIEF_PHRASE_RANGE;
-    const normalized = Math.max(0, Math.min(1, (latest - start) / (end - start)));
-    const idx = Math.min(Math.floor(normalized * phraseCount), phraseCount - 1);
-    setActivePhraseIndex(idx);
-    setIsClimax(latest >= BELIEF_SCROLL_THRESHOLDS.finalLock);
-  });
+  const value = useMemo(
+    () => ({
+      sectionRef,
+      scrollYProgress,
+      phraseProgress,
+      prefersReducedMotion,
+      thresholds: BELIEF_SCROLL_THRESHOLDS,
+    }),
+    [phraseProgress, prefersReducedMotion, scrollYProgress],
+  )
 
-  return {
-    scrollYProgress,
-    isMobile,
-    shouldReduceMotion,
-    prefersReducedMotion: shouldReduceMotion,
-    activePhraseIndex,
-    isClimax,
-  };
+  return value
 }

@@ -1,96 +1,77 @@
-'use client';
+'use client'
 
-import { useEffect, useRef } from 'react';
-import { animate, inView, type AnimationPlaybackControls } from 'framer-motion';
-import { useMotionValueEvent } from 'framer-motion';
-import { GHOST_EASE_AMBIENT, MOTION_TOKENS } from '@/config/motion';
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { Z_INDEX } from '@/config/z-indices';
-import { BELIEF_BACKGROUND_STOPS } from '@/config/beliefTokens';
-import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
-
-const CLIMAX_BLUE = BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 1];
+import { useEffect, useRef } from 'react'
+import { animate, inView, type AnimationPlaybackControls } from 'motion'
+import { useMotionValueEvent } from 'motion/react'
+import { GHOST_EASE_AMBIENT } from '@/config/motion'
+import { BELIEF_COLOR_STOPS, BELIEF_SCROLL_THRESHOLDS } from './belief.constants'
+import { useBeliefsScrollContext } from './BeliefsScrollProvider'
 
 export function BeliefBackground() {
-  const bgRef = useRef<HTMLDivElement | null>(null);
-  const activeAnimRef = useRef<AnimationPlaybackControls | null>(null);
-  const climaxLockedRef = useRef(false);
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+  const bgRef = useRef<HTMLDivElement | null>(null)
+  const activeAnimationRef = useRef<AnimationPlaybackControls | null>(null)
+  const climaxLockedRef = useRef(false)
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
 
   useMotionValueEvent(scrollYProgress, 'change', (progress) => {
-    const el = bgRef.current;
-    if (!el) return;
+    if (!bgRef.current) return
 
     if (progress >= BELIEF_SCROLL_THRESHOLDS.finalLock) {
-      if (climaxLockedRef.current) return;
-      climaxLockedRef.current = true;
-      activeAnimRef.current?.stop();
-      activeAnimRef.current = animate(
-        el,
-        { backgroundColor: CLIMAX_BLUE } as Parameters<typeof animate>[1],
-        { duration: shouldReduceMotion ? 0 : 0.45, ease: GHOST_EASE_AMBIENT }
-      );
-      return;
+      climaxLockedRef.current = true
+      activeAnimationRef.current?.stop()
+      activeAnimationRef.current = animate(
+        bgRef.current,
+        { backgroundColor: '#0048ff' },
+        { duration: prefersReducedMotion ? 0 : 0.45, ease: GHOST_EASE_AMBIENT },
+      )
+      return
     }
 
-    if (climaxLockedRef.current && progress < BELIEF_SCROLL_THRESHOLDS.finalLock - 0.04) {
-      climaxLockedRef.current = false;
-    }
-  });
+    climaxLockedRef.current = false
+  })
 
   useEffect(() => {
-    const el = bgRef.current;
-    if (!el) return;
+    if (!bgRef.current) return
 
-    el.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
-
-    const animateBg = (color: string, duration: number) => {
-      activeAnimRef.current?.stop();
-      activeAnimRef.current = animate(
-        el,
-        { backgroundColor: color } as Parameters<typeof animate>[1],
-        { duration, ease: GHOST_EASE_AMBIENT }
-      );
-    };
-
-    const stopInView = inView('.belief-scroll-section', (entry) => {
-      const node =
-        (entry as unknown as { target?: Element }).target ??
-        (entry as unknown as Element);
-      const idx = Number((node as HTMLElement).dataset?.index ?? 0);
-      const nextColor =
-        BELIEF_BACKGROUND_STOPS[Math.min(idx + 1, BELIEF_BACKGROUND_STOPS.length - 1)] ??
-        BELIEF_BACKGROUND_STOPS[0];
+    const stop = inView('.scroll-section', (section) => {
+      const index = Number((section as HTMLElement).dataset.index ?? 0)
+      const targetColor = BELIEF_COLOR_STOPS[index] ?? BELIEF_COLOR_STOPS[0]
 
       if (!climaxLockedRef.current) {
-        animateBg(nextColor, shouldReduceMotion ? 0 : 0.9);
+        activeAnimationRef.current?.stop()
+        activeAnimationRef.current = animate(
+          bgRef.current,
+          { backgroundColor: targetColor },
+          { duration: prefersReducedMotion ? 0 : 0.9, ease: GHOST_EASE_AMBIENT },
+        )
       }
 
       return () => {
-        if (climaxLockedRef.current) return;
-        const prev =
-          BELIEF_BACKGROUND_STOPS[Math.max(idx, 0)] ?? BELIEF_BACKGROUND_STOPS[0];
-        animateBg(prev, shouldReduceMotion ? 0 : 0.6);
-      };
-    });
+        if (!bgRef.current || climaxLockedRef.current) return
+
+        const previousColor = BELIEF_COLOR_STOPS[Math.max(index - 1, 0)] ?? BELIEF_COLOR_STOPS[0]
+        activeAnimationRef.current?.stop()
+        activeAnimationRef.current = animate(
+          bgRef.current,
+          { backgroundColor: previousColor },
+          { duration: prefersReducedMotion ? 0 : 0.6, ease: GHOST_EASE_AMBIENT },
+        )
+      }
+    })
 
     return () => {
-      activeAnimRef.current?.stop();
-      stopInView();
-    };
-  }, [shouldReduceMotion]);
+      activeAnimationRef.current?.stop()
+      stop()
+    }
+  }, [prefersReducedMotion])
 
   return (
     <div
       ref={bgRef}
+      aria-hidden="true"
       data-testid="beliefs-background"
       data-belief-background
-      aria-hidden="true"
-      style={{
-        zIndex: Z_INDEX.beliefs.background,
-        backgroundColor: MOTION_TOKENS.colors.deepVoid,
-      }}
-      className="absolute inset-0"
+      className="fixed inset-0 z-[var(--z-layer-base)] bg-[#040013]"
     />
-  );
+  )
 }

@@ -63,9 +63,44 @@ export function GhostModel({
     meshRef.current.scale.setScalar(scalePulse);
   });
 
+  // Optimizing shaders and materials for mobile (60FPS mandate)
+  const optimizedScene = React.useMemo(() => {
+    const sceneCopy = gltf.scene.clone();
+    
+    sceneCopy.traverse((child: any) => {
+      if (child.isMesh) {
+        // Frustum culling optimization
+        child.frustumCulled = true;
+        
+        // Material optimization (downgrade to MeshBasicMaterial for performance)
+        if (child.material) {
+          // Store original material if needed later
+          child.userData.originalMaterial = child.material;
+          
+          // Use basic material with Ghost Blue color (#0048ff)
+          // If it's a PBR material, converting it to Basic avoids lighting calculations on GPU
+          // We can't directly copy Standard to Basic easily without losing properties, 
+          // so we create a new BasicMaterial using the color.
+          import('three').then(({ MeshBasicMaterial, Color }) => {
+            const color = child.material.color || new Color('#0048ff');
+            child.material = new MeshBasicMaterial({
+              color: color,
+              transparent: child.material.transparent,
+              opacity: child.material.opacity,
+              wireframe: child.material.wireframe,
+              depthWrite: !child.material.transparent, // Disable depthWrite for transparent objects
+            });
+          });
+        }
+      }
+    });
+    
+    return sceneCopy;
+  }, [gltf.scene]);
+
   return (
     <group ref={meshRef} {...props} dispose={null}>
-      <primitive object={gltf.scene} />
+      <primitive object={optimizedScene} />
     </group>
   );
 }

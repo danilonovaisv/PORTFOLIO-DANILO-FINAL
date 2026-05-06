@@ -1,55 +1,36 @@
-'use client';
+'use client'
 
-import { m, useTransform } from 'framer-motion';
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { Z_INDEX } from '@/config/z-indices';
-import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
-import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
-import { SplitGhostText } from './SplitGhostText';
+import { motion, useTransform } from 'motion/react'
+import { BELIEF_MANIFESTO_LINES } from './belief.constants'
+import { SplitGhostText } from './SplitGhostText'
+import { useBeliefsScrollContext } from './BeliefsScrollProvider'
 
 export function BeliefManifesto() {
-  const { scrollYProgress, shouldReduceMotion, isClimax } = useBeliefsScrollContext();
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [0.52, BELIEF_SCROLL_THRESHOLDS.climaxStart, BELIEF_SCROLL_THRESHOLDS.climaxEnd, 1.0],
-    [0, 0.6, 1, 1]
-  );
-  const y = useTransform(
-    scrollYProgress,
-    [BELIEF_SCROLL_THRESHOLDS.climaxStart, BELIEF_SCROLL_THRESHOLDS.climaxEnd],
-    [18, 0]
-  );
-
-  const animateReveal = shouldReduceMotion ? true : isClimax;
+  const opacity = useTransform(scrollYProgress, [0.52, 0.68], [0, 1])
+  const y = useTransform(scrollYProgress, [0.56, 0.72], [18, 0])
 
   return (
-    <m.div
+    <motion.div
       data-testid="beliefs-manifesto"
       data-belief-manifesto
+      className="pointer-events-none fixed inset-0 z-[var(--z-layer-overlay)] flex items-center justify-center px-6"
+      style={{ opacity, y: prefersReducedMotion ? 0 : y }}
       aria-label="ISSO É GHOST DESIGN"
-      className="pointer-events-none fixed inset-0 flex items-center justify-center px-4 text-center"
-      style={{
-        opacity: shouldReduceMotion ? 1 : opacity,
-        y: shouldReduceMotion ? 0 : y,
-        zIndex: Z_INDEX.beliefs.manifesto,
-      }}
     >
-      <div className="mx-auto w-full max-w-[1680px]">
+      <div className="mx-auto w-full max-w-[1680px] text-center">
         {BELIEF_MANIFESTO_LINES.map((line) => (
           <SplitGhostText
             key={line}
-            as="div"
+            as="h2"
             text={line}
             splitType="words"
             textAlign="center"
-            stagger={0.08}
-            duration={0.8}
-            animate={animateReveal}
-            className="block font-extrabold uppercase text-white leading-[0.88] tracking-[0.03em] text-[clamp(4rem,17vw,13rem)]"
+            className="block font-extrabold uppercase leading-[0.88] text-white"
           />
         ))}
       </div>
-    </m.div>
-  );
+    </motion.div>
+  )
 }

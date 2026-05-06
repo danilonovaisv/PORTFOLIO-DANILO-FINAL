@@ -10,7 +10,7 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
-import { GHOST_EASE, ghostRise } from '@/config/motion';
+import { ghostRise } from '@/config/motion';
 
 // fadeInUp is deprecated in favor of ghostRise for system consistency
 

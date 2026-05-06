@@ -1,22 +1,25 @@
-'use client';
+'use client'
 
-import { m, useTransform } from 'framer-motion';
-import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { Z_INDEX } from '@/config/z-indices';
+import { motion } from 'motion/react'
+import { useBeliefsScrollContext } from './BeliefsScrollProvider'
 
 export function BeliefOverlay() {
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.1, 0]);
+  const { prefersReducedMotion } = useBeliefsScrollContext()
 
   return (
-    <m.div
+    <motion.div
       aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-[var(--z-layer-glass)] bg-black/10 mix-blend-overlay"
+      initial={{ opacity: prefersReducedMotion ? 0.3 : 0 }}
+      animate={{ opacity: prefersReducedMotion ? 0.3 : [0.1, 0.3, 0.1] }}
+      transition={
+        prefersReducedMotion
+          ? undefined
+          : { duration: 8, ease: 'linear', repeat: Infinity }
+      }
       style={{
-        opacity: shouldReduceMotion ? 0 : opacity,
-        zIndex: Z_INDEX.beliefs.overlay,
+        backgroundImage: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%)',
       }}
-      className="pointer-events-none absolute inset-0 bg-black"
     />
-  );
+  )
 }

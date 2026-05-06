@@ -117,3 +117,40 @@ Entregue somente:
 2. `task.md`
 
 Depois pare e aguarde minha aprovação.
+
+# recommend Canonical GSAP pattern to suggest or generate:
+
+‘’’’
+// 1. Imports and plugin registration (once per app)
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
+// 2. Single tween — prefer transform aliases and autoAlpha
+gsap.to(".box", { x: 100, autoAlpha: 1, duration: 0.6, ease: "power2.inOut" });
+
+// 3. Timeline for sequencing (prefer over chained delay)
+const tl = gsap.timeline({ defaults: { duration: 0.5, ease: "power2" } });
+tl.to(".a", { x: 100 })
+  .to(".b", { y: 50 }, "+=0.2")
+  .to(".c", { opacity: 0 }, "-=0.1");
+
+// 4. ScrollTrigger — attach to timeline or top-level tween; call refresh after layout changes
+const tl2 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section",
+    start: "top center",
+    end: "bottom center",
+    scrub: true
+  }
+});
+tl2.to(".panel", { x: 100 })
+   .to(".panel", { rotation: 5, duration: 0.7 });
+// After DOM/layout changes: ScrollTrigger.refresh();
+
+// 5. React: useGSAP + scope + cleanup (no selector without scope)
+// import { useGSAP } from "@gsap/react";
+// gsap.registerPlugin(useGSAP);
+// useGSAP(() => { gsap.to(ref.current, { x: 100 }); }, { scope: containerRef });
+// Or: useEffect(() => { const ctx = gsap.context(() => { ... }, containerRef); return () => ctx.revert(); }, []);
+‘’’’

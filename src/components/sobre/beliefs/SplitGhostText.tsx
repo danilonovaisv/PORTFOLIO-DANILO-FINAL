@@ -1,72 +1,51 @@
-'use client';
+'use client'
 
-import { m, Variants } from 'framer-motion';
-import { GHOST_EASE } from '@/config/motion';
+import { motion, type Transition } from 'motion/react'
+import { GHOST_EASE } from '@/config/motion'
 
 type SplitGhostTextProps = {
-  text: string;
-  as?: 'h2' | 'h3' | 'p' | 'span' | 'div';
-  splitType?: 'words' | 'lines';
-  className?: string;
-  delay?: number;
-  duration?: number;
-  stagger?: number;
-  textAlign?: 'left' | 'center' | 'right';
-  animate?: boolean;
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-};
+  text: string
+  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span'
+  splitType?: 'words' | 'lines'
+  className?: string
+  delay?: number
+  duration?: number
+  textAlign?: 'left' | 'center' | 'right'
+}
 
 export function SplitGhostText({
   text,
   as = 'p',
   splitType = 'words',
   className,
-  delay = 0,
+  delay = 0.055,
   duration = 0.8,
-  stagger = 0.055,
   textAlign = 'left',
-  animate: animateProp,
 }: SplitGhostTextProps) {
-  const Tag = m[as as keyof typeof m] as typeof m.p;
-  const segments = splitType === 'lines' ? text.split('\n') : text.split(' ');
-  const controlled = animateProp !== undefined;
+  const Tag = motion[as as keyof typeof motion] as React.ElementType
+  const segments = splitType === 'lines' ? text.split('\n') : text.split(' ')
 
-  const containerVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: stagger, delayChildren: delay },
-    },
-  };
-
-  const animateState = controlled ? (animateProp ? 'visible' : 'hidden') : undefined;
+  const transition: Transition = {
+    duration,
+    ease: GHOST_EASE,
+  }
 
   return (
-    <Tag
-      className={className}
-      style={{ textAlign }}
-      aria-label={text}
-      initial="hidden"
-      animate={animateState}
-      whileInView={controlled ? undefined : 'visible'}
-      viewport={controlled ? undefined : { once: false, amount: 0.35 }}
-      variants={containerVariants}
-    >
+    <Tag className={className} style={{ textAlign }} aria-label={text}>
       {segments.map((segment, index) => (
-        <m.span
+        <motion.span
           key={`${segment}-${index}`}
           aria-hidden="true"
           className="inline-block will-change-transform"
-          variants={itemVariants}
-          transition={{ duration, ease: GHOST_EASE }}
+          initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: false, amount: 0.35, margin: '-100px' }}
+          transition={{ ...transition, delay: index * delay }}
         >
           {segment}
-          {splitType === 'words' && index < segments.length - 1 ? ' ' : null}
-        </m.span>
+          {splitType === 'words' ? '\u00A0' : null}
+        </motion.span>
       ))}
     </Tag>
-  );
+  )
 }

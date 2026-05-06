@@ -1,4 +1,4 @@
-
+/* eslint-disable @next/next/no-img-element */
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';

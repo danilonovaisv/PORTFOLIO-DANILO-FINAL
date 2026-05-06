@@ -1,74 +1,34 @@
-'use client';
+'use client'
 
-import { Canvas } from '@react-three/fiber';
-import { m, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { GhostModel } from './GhostModel';
-import { GhostSceneFallback } from './GhostSceneFallback';
-import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
-import { Z_INDEX } from '@/config/z-indices';
-
-function detectWebGLSupport() {
-  const canvas = document.createElement('canvas');
-  return Boolean(
-    canvas.getContext('webgl2') ||
-    canvas.getContext('webgl') ||
-    canvas.getContext('experimental-webgl')
-  );
-}
+import { Canvas } from '@react-three/fiber'
+import { motion, useTransform } from 'motion/react'
+import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider'
+import { GhostModel } from './GhostModel'
+import { GhostSceneFallback } from './GhostSceneFallback'
 
 export function GhostScene() {
-  const { scrollYProgress, isMobile, shouldReduceMotion } = useBeliefsScrollContext();
-  const [canRenderWebGL, setCanRenderWebGL] = useState<boolean | null>(null);
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext()
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [0.1, 0.2, 0.85, 0.95],
-    [0, 1, 1, 0]
-  );
-  const y = useTransform(
-    scrollYProgress,
-    [0.1, 0.2],
-    [18, 0]
-  );
-
-  useEffect(() => {
-    setCanRenderWebGL(detectWebGLSupport());
-  }, []);
-
-  if (!canRenderWebGL) {
-    return <GhostSceneFallback />;
-  }
+  const opacity = useTransform(scrollYProgress, [0.12, 0.24, 0.9], [0, 1, 1])
+  const y = useTransform(scrollYProgress, [0.12, 0.72], [18, 0])
 
   return (
-    <m.div
+    <motion.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      aria-hidden="true"
-      style={{
-        opacity,
-        y: shouldReduceMotion ? 0 : y,
-        zIndex: Z_INDEX.beliefs.ghost,
-      }}
-      className="pointer-events-none fixed inset-0"
+      className="pointer-events-none fixed inset-0 z-[var(--z-layer-lightbox)]"
+      style={{ opacity, y: prefersReducedMotion ? 0 : y }}
     >
       <Canvas
         frameloop="demand"
-        dpr={[1, isMobile ? 1 : 2]}
-        camera={{
-          position: [0, 0, isMobile ? 7 : 6],
-          fov: 35,
-        }}
-        gl={{
-          antialias: true,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
+        dpr={[1, 2]}
+        camera={{ position: [0, 0, 6], fov: 35 }}
+        fallback={<GhostSceneFallback />}
       >
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[5, 5, 5]} intensity={2} />
-        <GhostModel />
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[2, 4, 4]} intensity={1.4} />
+        <GhostModel scrollProgress={scrollYProgress} reducedMotion={prefersReducedMotion} />
       </Canvas>
-    </m.div>
-  );
+    </motion.div>
+  )
 }
