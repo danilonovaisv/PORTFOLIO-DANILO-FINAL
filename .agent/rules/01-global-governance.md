@@ -10,6 +10,7 @@ priority: high
 ### 1. The Rule of Context (`.context/`)
 
 - **Read First**: You possess NO long-term memory. You MUST read `.context/` files before planning.
+- **Documentation Bible**:Whenever you are going to make an adjustment, first understand the page and session, all the blueprint and detailing of each session, with images for layout comparison, in the path `.context//DOCS-PORTFOLIO-PAGES/‘
 - **Write Always**: If you learn something new, update `.context/knowledge-graph.md` or `.context/logs/adjustment_log.md`.
 - **Self-Healing**: If code changes, docs MUST update. No stale documentation allowed.
 

@@ -8,8 +8,17 @@ priority: high
 ## 🏗️ The Stack
 
 - **Framework**: Next.js 14+ (App Router - currently 16.1.6). NÃO utilizar diretório pages/.
-- **Motor 3D**: React Three Fiber (R3F) v8+ com Three.js r160+. Componentes DEVEM ser "use client".
-- **Backend**: Supabase (PostgreSQL 15+). Utilizar @supabase/ssr.
+- **Animação & 3D:** Framer Motion, React Three Fiber (R3F), @react-three/drei, Three.js.
+- **Backend & Infraestrutura:** Supabase Storage (assets) e Firebase Hosting.
+
+## Padrões de Código e Segurança
+- Utilize Server Components por defeito. Client Components (`"use client"`) apenas para interatividade, hooks de estado e canvas 3D.
+- Nunca exponha chaves de API. Variáveis do Supabase e Firebase devem usar `.env.local`.
+- O design segue o princípio "Ghost": interfaces imersivas, motion como linguagem e WebGL como atmosfera. Otimize modelos 3D e texturas para não bloquear a thread principal.
+
+## Execução no Terminal
+- O ambiente de desenvolvimento utiliza um caminho específico para o binário do Node.js. Para evitar erros de "command not found" nas execuções autónomas no terminal, garanta que os scripts utilizam o caminho absoluto: `/Users/danilonovais/.local/bin/node`.
+- Aplique o formato de marcação `DO.MO` inalterado sempre que referenciar a identidade visual associada, garantindo a sua consistência matemática na expansão de wordmarks..
 - **Hosting**: Firebase Hosting (via webframeworks experiment).
 - **Styling**: Tailwind CSS v4.
 - **State**: Zustand (Global), React Context (Compound Components).
