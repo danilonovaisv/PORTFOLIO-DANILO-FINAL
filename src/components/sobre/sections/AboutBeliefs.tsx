@@ -1,11 +1,8 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import {
-  BeliefsScrollProvider,
-  useBeliefsScrollContext,
-} from '../beliefs/BeliefsScrollProvider';
+import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollProvider';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
 import { BeliefOverlay } from '../beliefs/BeliefOverlay';
 import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
@@ -21,26 +18,30 @@ const GhostScene = dynamic(
   }
 );
 
+import { MOTION_TOKENS } from '@/config/motion';
+
 function AboutBeliefsContent() {
-  const { sectionRef } = useBeliefsScrollContext();
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <section
       ref={sectionRef}
-      id="o-que-me-move"
+      id="beliefs"
       data-testid="beliefs-section"
-      aria-labelledby="o-que-me-move-title"
-      className="relative overflow-clip scroll-section bg-[#040013] text-white"
-      style={{ height: '720vh' }}
+      aria-label="Manifesto e Crenças"
+      className="beliefs-section relative overflow-clip bg-[#040013] text-white"
+      style={{ height: MOTION_TOKENS.layout.sectionMinHeight }}
     >
-      <h2 id="o-que-me-move-title" className="sr-only">
-        O que me move
-      </h2>
+      <h2 className="sr-only">Manifesto de Design Ghost</h2>
 
       <BeliefBackground />
       <BeliefOverlay />
 
-      <div className="sticky top-0 h-dvh">
+      <div
+        ref={containerRef}
+        className="beliefs-container sticky top-0 h-dvh overflow-hidden"
+      >
         <BeliefFixedHeader />
 
         <GhostErrorBoundary fallback={<GhostSceneFallback />}>
@@ -50,9 +51,8 @@ function AboutBeliefsContent() {
         </GhostErrorBoundary>
 
         <BeliefManifesto />
+        <BeliefScrollText />
       </div>
-
-      <BeliefScrollText />
     </section>
   );
 }

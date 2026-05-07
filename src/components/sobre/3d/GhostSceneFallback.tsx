@@ -1,23 +1,63 @@
 'use client';
 
-import { useContext } from 'react';
-import { m, useTransform, useMotionValue } from 'motion/react';
-import { BeliefsScrollContext } from '../beliefs/BeliefsScrollProvider';
+import { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollProvider';
 import { Z_INDEX } from '@/config/z-indices';
 
 export function GhostSceneFallback() {
-  // Safe: works both inside and outside BeliefsScrollProvider
-  // (needed when used as Suspense/ErrorBoundary fallback prop)
-  const context = useContext(BeliefsScrollContext);
-  const fallbackProgress = useMotionValue(0);
-  const scrollYProgress = context?.scrollYProgress ?? fallbackProgress;
-  const prefersReducedMotion = context?.prefersReducedMotion ?? false;
+  const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
+  const svgRef = useRef<SVGSVGElement>(null);
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [0.1, 0.2, 0.85, 0.95],
-    [0, 1, 1, 0]
-  );
+  useLayoutEffect(() => {
+    if (prefersReducedMotion || !sectionRef.current || !svgRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+        },
+      });
+
+      // Map progress to opacity: [0.1, 0.2, 0.85, 0.95] -> [0, 1, 1, 0]
+      tl.set(svgRef.current, { opacity: 0 });
+
+      tl.to(
+        svgRef.current,
+        {
+          opacity: 1,
+          duration: 0.1,
+          ease: 'none',
+        },
+        0.1
+      );
+
+      tl.to(
+        svgRef.current,
+        {
+          opacity: 1,
+          duration: 0.65,
+          ease: 'none',
+        },
+        0.2
+      );
+
+      tl.to(
+        svgRef.current,
+        {
+          opacity: 0,
+          duration: 0.1,
+          ease: 'none',
+        },
+        0.85
+      );
+    });
+
+    return () => ctx.revert();
+  }, [sectionRef, prefersReducedMotion]);
 
   return (
     <div
@@ -26,12 +66,13 @@ export function GhostSceneFallback() {
       className="pointer-events-none fixed inset-0 flex items-center justify-center"
       style={{ zIndex: Z_INDEX.beliefs.ghost }}
     >
-      <m.svg
+      <svg
+        ref={svgRef}
         role="img"
         aria-label="Silhueta do Ghost"
         viewBox="0 0 200 240"
         className="h-[44vh] w-auto md:h-[58vh]"
-        style={prefersReducedMotion ? { opacity: 1 } : { opacity }}
+        style={{ opacity: prefersReducedMotion ? 1 : 0 }}
         fill="none"
       >
         <path
@@ -57,7 +98,7 @@ export function GhostSceneFallback() {
           fill="var(--color-background)"
         />
         <rect x="40" y="68" width="120" height="6" fill="#e10b1a" />
-      </m.svg>
+      </svg>
     </div>
   );
 }

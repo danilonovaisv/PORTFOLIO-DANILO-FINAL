@@ -1,7 +1,7 @@
 'use client';
 
-import { m, type Transition } from 'motion/react';
-import { GHOST_EASE } from '@/config/motion';
+import { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 type SplitGhostTextProps = {
   text: string;
@@ -15,36 +15,84 @@ type SplitGhostTextProps = {
 
 export function SplitGhostText({
   text,
-  as = 'p',
+  as: Tag = 'p',
   splitType = 'words',
   className,
-  delay = 0.055,
+  delay = 0.05,
   duration = 0.8,
   textAlign = 'left',
-}: SplitGhostTextProps) {
-  const Tag = m[as as keyof typeof m] as React.ElementType;
+  scrub = false,
+}: SplitGhostTextProps & { scrub?: boolean | number }) {
+  const containerRef = useRef<HTMLElement>(null);
   const segments = splitType === 'lines' ? text.split('\n') : text.split(' ');
 
-  const transition: Transition = {
-    duration,
-    ease: GHOST_EASE,
-  };
+  useLayoutEffect(() => {
+    if (!containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const items = containerRef.current?.querySelectorAll('.split-segment');
+      if (!items) return;
+
+      const animationProps = {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: duration,
+        stagger: delay,
+        ease: 'power2.out',
+      };
+
+      if (scrub) {
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: 20, scale: 0.98, filter: 'blur(10px)' },
+          {
+            ...animationProps,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 85%',
+              end: 'top 45%',
+              scrub: scrub === true ? 1 : scrub,
+            },
+          }
+        );
+      } else {
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: 15, scale: 0.95, filter: 'blur(8px)' },
+          {
+            ...animationProps,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 95%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, [text, delay, duration]);
 
   return (
-    <Tag className={className} style={{ textAlign }} aria-label={text}>
+    <Tag
+      ref={containerRef as any}
+      className={className}
+      style={{ textAlign }}
+      aria-label={text}
+    >
       {segments.map((segment, index) => (
-        <m.span
+        <span
           key={`${segment}-${index}`}
           aria-hidden="true"
-          className="inline-block will-change-transform"
-          initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: false, amount: 0.35, margin: '-100px' }}
-          transition={{ ...transition, delay: index * delay }}
+          className="split-segment inline-block will-change-[transform,opacity,filter]"
+          style={{ opacity: 0 }}
         >
           {segment}
           {splitType === 'words' ? '\u00A0' : null}
-        </m.span>
+        </span>
       ))}
     </Tag>
   );

@@ -1,21 +1,18 @@
 'use client';
 
 import { createContext, useContext, ReactNode } from 'react';
-import { MotionValue } from 'motion/react';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
 
 export type BeliefsScrollContextValue = {
   sectionRef: React.RefObject<HTMLElement | null>;
-  scrollYProgress: MotionValue<number>;
-  phraseProgress: MotionValue<number>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   prefersReducedMotion: boolean;
   thresholds: typeof BELIEF_SCROLL_THRESHOLDS;
 };
 
-export const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(
-  null
-);
+export const BeliefsScrollContext =
+  createContext<BeliefsScrollContextValue | null>(null);
 
 export function BeliefsScrollProvider({ children }: { children: ReactNode }) {
   const value = useBeliefsScroll();

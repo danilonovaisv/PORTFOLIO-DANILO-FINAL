@@ -8,14 +8,14 @@ export const BELIEF_PHRASES = [
 ] as const;
 
 export const BELIEF_COLOR_STOPS = [
-  '#040013',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
-  '#0048ff',
+  '#040013', // Deep Void
+  '#001a4d', // Dark Ghost Blue
+  '#0048ff', // Ghost Blue
+  '#4fe6ff', // Ghost Cyan (Accent)
+  '#0048ff', // Ghost Blue
+  '#001a4d', // Dark Ghost Blue
+  '#4fe6ff', // Ghost Cyan
+  '#040013', // Deep Void
 ] as const;
 
 export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const;

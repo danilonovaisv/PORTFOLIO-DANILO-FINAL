@@ -1,70 +1,109 @@
 'use client';
 
-import { m, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
-import { useMotionValueEvent } from 'motion/react';
+import { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { BELIEF_PHRASES } from './belief.constants';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
-import { GHOST_EASE } from '@/config/motion';
 
 export function BeliefScrollText() {
-  const { phraseProgress, prefersReducedMotion } = useBeliefsScrollContext();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { sectionRef } = useBeliefsScrollContext();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const wordsRefs = useRef<(HTMLSpanElement | null)[][]>([]);
 
-  useMotionValueEvent(phraseProgress, 'change', (latest) => {
-    const rounded = Math.round(latest);
-    if (
-      rounded !== activeIndex &&
-      rounded >= 0 &&
-      rounded < BELIEF_PHRASES.length
-    ) {
-      setActiveIndex(rounded);
-    }
-  });
+  useLayoutEffect(() => {
+    if (!sectionRef.current || !containerRef.current) return;
 
-  const activePhrase = BELIEF_PHRASES[activeIndex];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.2, // Smoother scrub for editorial feel
+        },
+      });
+
+      const start = 0.08;
+      const end = 0.76;
+      const step = (end - start) / BELIEF_PHRASES.length;
+
+      BELIEF_PHRASES.forEach((_, i) => {
+        const words = wordsRefs.current[i];
+        if (!words || words.length === 0) return;
+
+        const phraseStart = start + i * step;
+        const phraseEnd = phraseStart + step;
+        const revealDuration = step * 0.4;
+        const exitDuration = step * 0.4;
+
+        // Entry animation with stagger for words
+        tl.fromTo(
+          words,
+          { opacity: 0, y: 30, scale: 0.96, filter: 'blur(12px)' },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: 'blur(0px)',
+            stagger: 0.05,
+            duration: revealDuration,
+            ease: 'power2.out',
+          },
+          phraseStart
+        );
+
+        // Exit animation
+        tl.to(
+          words,
+          {
+            opacity: 0,
+            y: -30,
+            scale: 0.98,
+            filter: 'blur(12px)',
+            stagger: 0.03,
+            duration: exitDuration,
+            ease: 'power2.in',
+          },
+          phraseEnd - exitDuration
+        );
+      });
+    });
+
+    return () => ctx.revert();
+  }, [sectionRef]);
 
   return (
     <div
+      ref={containerRef}
       data-testid="beliefs-scroll-text"
       className="pointer-events-none fixed inset-0 z-[var(--z-layer-cta)] flex flex-col justify-end pb-[20vh] md:justify-center md:pb-0"
     >
       <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16 text-center md:text-left">
-        <div aria-live="polite" className="sr-only">
-          {activePhrase}
-        </div>
-
         <div className="relative h-[4em] md:h-[2em] w-full max-w-4xl">
-          <AnimatePresence mode="wait">
-            <m.h3
-              key={activeIndex}
+          {BELIEF_PHRASES.map((phrase, i) => (
+            <h3
+              key={i}
               aria-hidden="true"
-              data-testid="belief-phrase"
-              data-animation-contract="inview-y-opacity-blur"
               className="absolute inset-x-0 bottom-0 md:top-1/2 md:-translate-y-1/2 font-medium leading-[1.1] text-white/90"
               style={{
-                fontSize: 'clamp(2.5rem, 14vw, 5.5rem)', // phraseMobile
+                fontSize: 'clamp(2.5rem, 14vw, 5.5rem)',
               }}
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 0 }
-                  : { opacity: 0, y: 18, filter: 'blur(6px)' }
-              }
-              animate={
-                prefersReducedMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, y: 0, filter: 'blur(0px)' }
-              }
-              exit={
-                prefersReducedMotion
-                  ? { opacity: 0 }
-                  : { opacity: 0, y: -18, filter: 'blur(6px)' }
-              }
-              transition={{ duration: 0.6, ease: GHOST_EASE }}
             >
-              {activePhrase}
-            </m.h3>
-          </AnimatePresence>
+              {phrase.split(' ').map((word, wordIndex) => (
+                <span
+                  key={wordIndex}
+                  ref={(el) => {
+                    if (!wordsRefs.current[i]) wordsRefs.current[i] = [];
+                    wordsRefs.current[i][wordIndex] = el;
+                  }}
+                  className="inline-block will-change-[transform,opacity,filter]"
+                  style={{ opacity: 0 }}
+                >
+                  {word}&nbsp;
+                </span>
+              ))}
+            </h3>
+          ))}
         </div>
       </div>
     </div>

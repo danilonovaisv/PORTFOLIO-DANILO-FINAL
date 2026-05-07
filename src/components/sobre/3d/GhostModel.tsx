@@ -1,22 +1,20 @@
 'use client';
 
 import { useGLTF } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { Group, MathUtils, Mesh, MeshBasicMaterial } from 'three';
 import { getAssetUrl } from '@/lib/utils';
-import type { MotionValue } from 'motion/react';
 
 const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
 
 type GhostModelProps = {
-  scrollProgress: MotionValue<number>;
+  progressRef: React.RefObject<number>;
   reducedMotion: boolean;
 };
 
-export function GhostModel({ scrollProgress, reducedMotion }: GhostModelProps) {
+export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
   const group = useRef<Group>(null);
-  const { invalidate } = useThree();
   const { scene } = useGLTF(MODEL_PATH);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -28,7 +26,7 @@ export function GhostModel({ scrollProgress, reducedMotion }: GhostModelProps) {
     return () => media.removeEventListener('change', listener);
   }, []);
 
-  // Optimize material for mobile (from previous performance task)
+  // Optimize material for mobile
   const optimizedScene = useMemo(() => {
     const s = scene.clone();
     s.traverse((node) => {
@@ -42,19 +40,11 @@ export function GhostModel({ scrollProgress, reducedMotion }: GhostModelProps) {
     return s;
   }, [scene, isMobile]);
 
-  useEffect(() => {
-    invalidate();
-  }, [optimizedScene, invalidate]);
-
-  useEffect(() => {
-    return scrollProgress.on('change', () => invalidate());
-  }, [scrollProgress, invalidate]);
-
   useFrame((state) => {
     if (!group.current) return;
 
+    const p = progressRef.current ?? 0;
     const t = state.clock.elapsedTime;
-    const p = scrollProgress.get();
 
     if (!reducedMotion) {
       const floatSpeed = 0.6 + p * 0.6;
@@ -77,7 +67,7 @@ export function GhostModel({ scrollProgress, reducedMotion }: GhostModelProps) {
 
     if (isMobile) {
       targetX = 0;
-      targetY = 0; // adjust later if we need to put it on top-left, blueprint said "mobile inicia Ghost top-left"
+      targetY = 0;
       if (p < 0.5) {
         targetX = -1.2;
         targetY = 1.5;

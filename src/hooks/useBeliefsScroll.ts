@@ -1,37 +1,28 @@
 'use client';
 
 import { useMemo, useRef } from 'react';
-import { useReducedMotion, useScroll, useTransform } from 'motion/react';
-import {
-  BELIEF_PHRASES,
-  BELIEF_SCROLL_THRESHOLDS,
-} from '@/components/sobre/beliefs/belief.constants';
+import { useReducedMotion } from 'motion/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { BELIEF_SCROLL_THRESHOLDS } from '@/components/sobre/beliefs/belief.constants';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function useBeliefsScroll() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = Boolean(useReducedMotion());
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  });
-
-  // phraseProgress mapped across the scroll duration before climax
-  const phraseProgress = useTransform(
-    scrollYProgress,
-    [0.08, 0.76],
-    [0, BELIEF_PHRASES.length - 1]
-  );
 
   const value = useMemo(
     () => ({
       sectionRef,
-      scrollYProgress,
-      phraseProgress,
+      containerRef,
       prefersReducedMotion,
       thresholds: BELIEF_SCROLL_THRESHOLDS,
     }),
-    [phraseProgress, prefersReducedMotion, scrollYProgress]
+    [prefersReducedMotion]
   );
 
   return value;
