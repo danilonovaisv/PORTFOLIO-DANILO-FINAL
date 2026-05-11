@@ -2,7 +2,8 @@
 
 import { Suspense, useRef, useState, useLayoutEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useScroll, useReducedMotion, useMotionValueEvent } from 'motion/react';
+import { useScroll, useMotionValueEvent } from 'motion/react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
 import { BeliefOverlay } from '../beliefs/BeliefOverlay';
@@ -42,8 +43,9 @@ function AboutBeliefsContent() {
     setIsClimax(latest >= BELIEF_SCROLL_THRESHOLDS.climaxStart && latest <= BELIEF_SCROLL_THRESHOLDS.finalLock);
 
     // activePhraseIndex calculation
-    const start = 0.08;
-    const end = 0.76;
+    const start = BELIEF_SCROLL_THRESHOLDS.phrasesStart;
+    const end = BELIEF_SCROLL_THRESHOLDS.phrasesEnd;
+    
     if (latest < start) {
       if (activePhraseIndex !== -1) setActivePhraseIndex(-1);
     } else if (latest > end) {
@@ -81,11 +83,11 @@ function AboutBeliefsContent() {
         ref={sectionRef}
         id="beliefs"
         data-testid="beliefs-section"
-        aria-label="Manifesto e Crenças"
+        aria-labelledby="beliefs-header"
         className="beliefs-section relative overflow-clip bg-background text-text"
         style={{ height: MOTION_TOKENS.layout.sectionMinHeight }}
       >
-        <h2 className="sr-only">Manifesto de Design Ghost</h2>
+
 
         <BeliefBackground />
         <BeliefOverlay />

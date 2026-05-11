@@ -1,123 +1,122 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { BELIEF_PHRASES, beliefLayers } from './belief.constants';
+import { motion, useTransform } from 'motion/react';
+import { BELIEF_PHRASES, BELIEF_SCROLL_THRESHOLDS, beliefLayers } from './belief.constants';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { MOTION_TOKENS } from '@/config/motion';
 
-export function BeliefScrollText() {
-  const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const wordsRefs = useRef<(HTMLSpanElement | null)[][]>([]);
+function ScrollWord({ 
+  word, 
+  phraseIndex, 
+  wordIndex, 
+  totalWords 
+}: { 
+  word: string, 
+  phraseIndex: number, 
+  wordIndex: number, 
+  totalWords: number 
+}) {
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
 
-  useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !containerRef.current)
-      return;
+  const start = BELIEF_SCROLL_THRESHOLDS.phrasesStart;
+  const end = BELIEF_SCROLL_THRESHOLDS.phrasesEnd;
+  const step = (end - start) / BELIEF_PHRASES.length;
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.5, // Ghost editorial smoothness
-        },
-      });
+  const phraseStart = start + phraseIndex * step;
+  const phraseEnd = phraseStart + step;
+  const revealDuration = step * 0.4;
+  const exitDuration = step * 0.4;
 
-      const start = 0.08;
-      const end = 0.76;
-      const step = (end - start) / BELIEF_PHRASES.length;
+  const staggerFactor = step * 0.15;
+  const wordStartDelay = (staggerFactor * wordIndex) / Math.max(1, totalWords - 1);
+  const wordOutDelay = (staggerFactor * wordIndex) / Math.max(1, totalWords - 1);
 
-      BELIEF_PHRASES.forEach((_, i) => {
-        const words = wordsRefs.current[i];
-        if (!words || words.length === 0) return;
+  const inStart = phraseStart + wordStartDelay;
+  const inEnd = inStart + revealDuration;
 
-        const phraseStart = start + i * step;
-        const phraseEnd = phraseStart + step;
-        const revealDuration = step * 0.4;
-        const exitDuration = step * 0.4;
+  const outStart = phraseEnd - exitDuration + wordOutDelay;
+  const outEnd = outStart + exitDuration;
 
-        // Entry animation with stagger for words
-        tl.fromTo(
-          words,
-          {
-            opacity: 0,
-            y: MOTION_TOKENS.offset.standard,
-            filter: 'blur(12px)',
-          },
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            stagger: 0.05,
-            duration: revealDuration,
-            ease: GSAP_GHOST_EASE,
-          },
-          phraseStart
-        );
-
-        // Exit animation
-        tl.to(
-          words,
-          {
-            opacity: 0,
-            y: -MOTION_TOKENS.offset.standard,
-            filter: 'blur(12px)',
-            stagger: 0.03,
-            duration: exitDuration,
-            ease: GSAP_GHOST_EASE,
-          },
-          phraseEnd - exitDuration
-        );
-      });
-    });
-
-    return () => ctx.revert();
-  }, [sectionRef, prefersReducedMotion]);
-
-
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, inStart, inEnd, outStart, outEnd, 1],
+    [0, 0, 1, 1, 0, 0]
+  );
+  
+  const y = useTransform(
+    scrollYProgress,
+    [0, inStart, inEnd, outStart, outEnd, 1],
+    [
+      MOTION_TOKENS.offset.standard, 
+      MOTION_TOKENS.offset.standard, 
+      0, 
+      0, 
+      -MOTION_TOKENS.offset.standard, 
+      -MOTION_TOKENS.offset.standard
+    ]
+  );
+  
+  const filter = useTransform(
+    scrollYProgress,
+    [0, inStart, inEnd, outStart, outEnd, 1],
+    ['blur(12px)', 'blur(12px)', 'blur(0px)', 'blur(0px)', 'blur(12px)', 'blur(12px)']
+  );
 
   return (
+    <motion.span
+      className="inline-block will-change-[transform,opacity,filter]"
+      style={prefersReducedMotion ? { opacity: 0.9 } : { opacity, y, filter }}
+    >
+      {word}&nbsp;
+    </motion.span>
+  );
+}
+
+export function BeliefScrollText() {
+  return (
     <div
-      ref={containerRef}
       data-testid="beliefs-scroll-text"
       className="pointer-events-none absolute inset-0 flex flex-col justify-end pb-[15vh] md:justify-center md:pb-0"
       style={{ zIndex: beliefLayers.phrases }}
     >
+      {/* Screen reader only version of all phrases */}
+      <div className="sr-only">
+        {BELIEF_PHRASES.map((phrase, i) => (
+          <p key={`sr-${i}`}>{phrase}</p>
+        ))}
+      </div>
+
       <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16">
         <div className="flex flex-row items-center gap-4 md:block">
           {/* Mobile spacer for Ghost (Ghost is on the left) */}
           <div className="w-[35%] shrink-0 md:hidden" aria-hidden="true" />
 
           <div className="relative h-[6em] md:h-[2.5em] flex-1">
-            {BELIEF_PHRASES.map((phrase, i) => (
-              <h3
-                key={i}
-                aria-hidden="true"
-                data-testid="belief-phrase"
-                data-animation-contract="inview-y-opacity-blur"
-                className="absolute inset-x-0 bottom-0 md:top-1/2 md:-translate-y-1/2 font-medium leading-[1.1] text-white/90"
-                style={{
-                  fontSize: 'clamp(2.5rem, 10vw, 5.5rem)',
-                }}
-              >
-                {phrase.split(' ').map((word, wordIndex) => (
-                  <span
-                    key={wordIndex}
-                    ref={(el) => {
-                      if (!wordsRefs.current[i]) wordsRefs.current[i] = [];
-                      wordsRefs.current[i][wordIndex] = el;
-                    }}
-                    className="inline-block will-change-[transform,opacity,filter]"
-                    style={{ opacity: prefersReducedMotion ? 0.9 : 0 }}
-                  >
-                    {word}&nbsp;
-                  </span>
-                ))}
-              </h3>
-            ))}
+            {BELIEF_PHRASES.map((phrase, i) => {
+              const words = phrase.split(' ');
+              return (
+                <h3
+                  key={i}
+                  aria-hidden="true"
+                  data-testid="belief-phrase"
+                  data-animation-contract="inview-y-opacity-blur"
+                  className="absolute inset-x-0 bottom-0 md:top-1/2 md:-translate-y-1/2 font-medium leading-[1.1] text-white/90"
+                  style={{
+                    fontSize: 'clamp(2.5rem, 10vw, 5.5rem)',
+                  }}
+                >
+                  {words.map((word, wordIndex) => (
+                    <ScrollWord
+                      key={wordIndex}
+                      word={word}
+                      phraseIndex={i}
+                      wordIndex={wordIndex}
+                      totalWords={words.length}
+                    />
+                  ))}
+                </h3>
+              );
+            })}
           </div>
         </div>
       </div>

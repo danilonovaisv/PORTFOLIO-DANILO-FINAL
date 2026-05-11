@@ -8,7 +8,7 @@ import { useMemo, useRef } from 'react';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
@@ -107,7 +107,7 @@ function GalleryMedia({
 export default function MasterProjectTemplate({
   project,
 }: MasterProjectTemplateProps) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
   const backHref = useLandingBackLink();
   const heroRef = useRef<HTMLElement | null>(null);
 

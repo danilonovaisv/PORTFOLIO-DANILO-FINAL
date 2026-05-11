@@ -67,41 +67,36 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     return s;
   }, [scene, stencil]);
 
-  useFrame((state) => {
+  // Reusable scratch values — declared outside loop to avoid GC pressure
+  const targetRef = useRef({ x: 0, y: 0 });
+
+  useFrame((_state, _delta) => {
     if (!group.current) return;
 
     const p = progressRef.current ?? 0;
-    const t = state.clock.elapsedTime;
+    const t = _state.clock.elapsedTime;
 
-    // Position logic (smoother interpolation)
-    let targetX = 0;
-    let targetY = 0;
+    // Position logic (smoother interpolation) — writes to scratch, no allocations
+    targetRef.current.x = 0;
+    targetRef.current.y = 0;
 
     if (isMobile) {
       // Transition from upper-left (p=0.15) to center (p=0.65)
       if (p < 0.15) {
-        targetX = -1.2;
-        targetY = 1.5;
+        targetRef.current.x = -1.2;
+        targetRef.current.y = 1.5;
       } else if (p < 0.65) {
         const factor = MathUtils.smoothstep(p, 0.15, 0.65);
-        targetX = MathUtils.lerp(-1.2, 0, factor);
-        targetY = MathUtils.lerp(1.5, 0, factor);
-      } else {
-        targetX = 0;
-        targetY = 0;
+        targetRef.current.x = MathUtils.lerp(-1.2, 0, factor);
+        targetRef.current.y = MathUtils.lerp(1.5, 0, factor);
       }
-    }
-
-    if (p > 0.85) {
-      targetX = 0;
-      targetY = 0;
     }
 
     // Apply smooth transitions
     group.current.position.x = MathUtils.lerp(
       group.current.position.x,
-      targetX,
-      0.1
+      targetRef.current.x,
+      0.1,
     );
 
     // Combine position and floating logic
@@ -111,38 +106,23 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
 
     group.current.position.y = MathUtils.lerp(
       group.current.position.y,
-      targetY + floatY,
-      0.1
+      targetRef.current.y + floatY,
+      0.1,
     );
 
     if (!reducedMotion) {
       group.current.rotation.y = MathUtils.lerp(
         group.current.rotation.y,
         Math.sin(t * (0.4 + p * 0.4)) * (0.06 + p * 0.04),
-        0.1
+        0.1,
       );
     }
-
-    // Invalidate to trigger re-render (frameloop="demand")
-    state.invalidate();
+    // NOTE: No state.invalidate() here — the Invalidator component handles
+    // demand-based invalidation based on scrollYProgress delta.
   });
 
-  // Load the model only when ghost scene is visible
-  useEffect(() => {
-    const el = document.querySelector('[data-ghost-scene]');
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          useGLTF.preload(MODEL_PATH);
-        }
-      },
-      { threshold: 0 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  // Preload is handled statically at module level (after component definition)
+  // so it fires once and doesn't create observer/hook-inside-callback issues.
 
   return (
     <group ref={group} dispose={null} scale={isMobile ? 1.8 : 2.8}>
@@ -150,4 +130,5 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     </group>
   );
 }
-
+// Preload GLB as soon as the module is loaded — avoids async observer anti-pattern
+useGLTF.preload(MODEL_PATH);

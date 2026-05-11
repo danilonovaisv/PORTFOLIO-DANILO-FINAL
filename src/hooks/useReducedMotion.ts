@@ -1,6 +1,6 @@
 /**
  * Canonical motion preference hooks.
- * Both `useReducedMotion` and `usePrefersReducedMotion` are aliases for `useMotionGate`.
+ * `useReducedMotion` is an alias for `useMotionGate`.
  * Use either — they are interchangeable.
  *
  * @canonical useMotionGate → src/hooks/useMotionGate.ts
@@ -12,7 +12,3 @@ export function useReducedMotion() {
   return useMotionGate();
 }
 
-/** Alias for `useReducedMotion`. @see useReducedMotion */
-export function usePrefersReducedMotion() {
-  return useMotionGate();
-}

@@ -65,11 +65,11 @@ export function AboutClosing() {
   return (
     <section
       className="std-grid bg-background py-20 md:py-32"
-      aria-label="Fechamento do Manifesto"
+      aria-labelledby="about-closing-title"
     >
       <m.div
         variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
-        initial={prefersReducedMotion ? 'visible' : 'hidden'}
+        initial={prefersReducedMotion ? 'hidden' : 'hidden'}
         whileInView="visible"
         viewport={viewportConfig}
         className="w-full flex flex-col items-center text-center"
@@ -77,7 +77,10 @@ export function AboutClosing() {
         {/* Bloco 1: Título Principal e Linhas */}
         <div className="w-full">
           <div className="mb-10 h-px w-full bg-blueAccent/30" />
-          <h2 className="font-sans text-display text-[clamp(40px,5vw,48px)] font-bold leading-tight text-text max-w-[800px] mx-auto text-center">
+          <h2
+            id="about-closing-title"
+            className="font-sans text-display text-[clamp(40px,5vw,48px)] font-bold leading-tight text-text max-w-[800px] mx-auto text-center"
+          >
             Hoje sou{' '}
             <span className="text-bluePrimary">Diretor de Criação</span>,
             <br />

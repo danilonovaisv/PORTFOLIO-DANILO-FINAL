@@ -10,7 +10,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { supabaseLoader } from '@/lib/utils';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
@@ -90,7 +90,7 @@ const mixHex = (fromHex: string, toHex: string, amount: number): string => {
 export default function ProjectTemplateMasterRenderer({
   project,
 }: ProjectTemplateMasterRendererProps) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
   const backHref = useLandingBackLink();
 
   const heroImage = resolveSiteAssetUrl(project.hero_cover_image.src);

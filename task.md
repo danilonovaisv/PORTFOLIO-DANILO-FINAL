@@ -2,7 +2,7 @@
 
 ## P0 — Planejamento, reduced motion, scroll e Ghost 3D
 
-### T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
+### [x] T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
 
 - Prioridade: P0 (CRÍTICO)
 - Owner lógico: frontend-specialist + animation-pipeline
@@ -19,7 +19,7 @@
   - Relatório da causa-raiz do vazamento adicionado ao `walkthrough.md`.
   - Correção efetivada e testada.
 
-### T01 — Confirmar fluxo real da seção em `/sobre`
+### [x] T01 — Confirmar fluxo real da seção em `/sobre`
 
 - Prioridade: P0
 - Owner lógico: frontend-specialist
@@ -36,7 +36,7 @@
 - Evidência esperada:
   - Nota em `walkthrough.md` com paths e fluxo real.
 
-### T02 — Auditar boundary server/client atual
+### [x] T02 — Auditar boundary server/client atual
 
 - Prioridade: P0
 - Owner lógico: frontend-specialist
@@ -52,7 +52,7 @@
 - Evidência esperada:
   - Lista de boundaries em `walkthrough.md`.
 
-### T03 — Definir contrato único de reduced motion
+### [x] T03 — Definir contrato único de reduced motion
 
 - Prioridade: P0
 - Owner lógico: accessibility + framer-motion
@@ -71,7 +71,7 @@
   - Decisão registrada em `walkthrough.md`.
   - Teste manual de `prefers-reduced-motion: reduce`.
 
-### T04 — Alinhar scroll-triggered com Motion.dev
+### [x] T04 — Alinhar scroll-triggered com Motion.dev
 
 - Prioridade: P0
 - Owner lógico: framer-motion + animation-pipeline
@@ -88,7 +88,7 @@
   - Vídeo/GIF ou descrição de teste de scroll.
   - Registro dos offsets utilizados.
 
-### T05 — Otimizar política do Ghost Canvas
+### [x] T05 — Otimizar política do Ghost Canvas
 
 - Prioridade: P0
 - Owner lógico: 3d-webgl-scene + performance-audit
@@ -107,7 +107,7 @@
 - Evidência esperada:
   - Checklist 3D em `walkthrough.md`.
 
-### T06 — Formalizar fallback WebGL/loading/error
+### [x] T06 — Formalizar fallback WebGL/loading/error
 
 - Prioridade: P0
 - Owner lógico: frontend-developer + 3d-webgl-scene

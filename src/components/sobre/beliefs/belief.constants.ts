@@ -21,9 +21,13 @@ export const BELIEF_COLOR_STOPS = [
 export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const;
 
 export const BELIEF_SCROLL_THRESHOLDS = {
-  climaxStart: 0.56,
-  climaxEnd: 0.72,
-  finalLock: 0.82,
+  entryStart: 0.05,
+  entryEnd: 0.15,
+  phrasesStart: 0.15,
+  phrasesEnd: 0.75,
+  climaxStart: 0.78,
+  climaxEnd: 0.94,
+  finalLock: 0.98,
 } as const;
 
 export const SPLIT_TEXT_CONFIG = {

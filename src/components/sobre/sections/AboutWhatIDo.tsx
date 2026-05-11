@@ -69,7 +69,7 @@ export function AboutWhatIDo() {
       ref={containerRef}
       id="04-o-que-eu-faco"
       className="relative z-[var(--z-layer-content)] w-full bg-background text-text"
-      aria-label="O Que Eu Faço"
+      aria-labelledby="what-i-do-heading"
     >
       {/* ============================================
           DESKTOP LAYOUT (≥ 1024px)

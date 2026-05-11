@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
@@ -88,7 +88,7 @@ export default function FeaturedProjectAnimatedBackground({
   variant,
   className,
 }: FeaturedProjectAnimatedBackgroundProps) {
-  const reducedMotion = usePrefersReducedMotion();
+  const reducedMotion = useReducedMotion();
   const supportsWebGL = useWebGLSupport();
   const supportsFinePointer = useMediaQuery(
     '(hover: hover) and (pointer: fine)'

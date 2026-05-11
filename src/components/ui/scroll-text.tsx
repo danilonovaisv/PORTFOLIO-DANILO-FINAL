@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils';
 import {
   type HTMLMotionProps,
   m,
-  useReducedMotion,
   type Variants,
 } from 'framer-motion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import type { JSX, ReactNode, ComponentType } from 'react';
 import { MOTION_TOKENS, GHOST_EASE } from '@/config/motion';
 

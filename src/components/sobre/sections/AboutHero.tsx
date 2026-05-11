@@ -33,9 +33,9 @@ export function AboutHero() {
     .join(' ');
 
   return (
-    <section className="bg-background" aria-label="Hero - Manifesto">
+    <section className="bg-background" aria-labelledby="about-hero-title">
       <div className="relative min-h-screen overflow-hidden">
-        <h1 className="sr-only">{heroSrTitle}</h1>
+        <h1 id="about-hero-title" className="sr-only">{heroSrTitle}</h1>
 
         {/* Background Video - Desktop - Sincronização Realtime */}
         <DynamicAssetVideo

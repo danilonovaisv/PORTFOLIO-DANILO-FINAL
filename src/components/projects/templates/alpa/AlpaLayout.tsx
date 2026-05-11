@@ -7,7 +7,7 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { useMemo } from 'react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
@@ -80,7 +80,7 @@ export function AlpaLayout({
   zoomAsset,
   closeAsset,
 }: AlpaLayoutProps) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
   const backHref = useLandingBackLink();
 
   const introBlocks = useMemo(() => {

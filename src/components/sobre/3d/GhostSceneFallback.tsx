@@ -1,62 +1,17 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { motion, useTransform } from 'motion/react';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 
 export function GhostSceneFallback() {
-  const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
-  const svgRef = useRef<SVGSVGElement>(null);
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
 
-  useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !svgRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      });
-
-      // Map progress to opacity: [0.1, 0.2, 0.85, 0.95] -> [0, 1, 1, 0]
-      tl.set(svgRef.current, { opacity: 0 });
-
-      tl.to(
-        svgRef.current,
-        {
-          opacity: 1,
-          duration: 0.1,
-          ease: 'none',
-        },
-        0.1
-      );
-
-      tl.to(
-        svgRef.current,
-        {
-          opacity: 1,
-          duration: 0.65,
-          ease: 'none',
-        },
-        0.2
-      );
-
-      tl.to(
-        svgRef.current,
-        {
-          opacity: 0,
-          duration: 0.1,
-          ease: 'none',
-        },
-        0.85
-      );
-    });
-
-    return () => ctx.revert();
-  }, [sectionRef, prefersReducedMotion]);
+  // Map progress to opacity: [0.1, 0.2, 0.85, 0.95] → [0, 1, 1, 0]
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.85, 0.95, 1],
+    [0, 0, 1, 1, 0, 0],
+  );
 
   return (
     <div
@@ -64,13 +19,12 @@ export function GhostSceneFallback() {
       data-ghost-scene
       className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)] flex items-center justify-center"
     >
-      <svg
-        ref={svgRef}
+      <motion.svg
         role="img"
         aria-label="Silhueta do Ghost"
         viewBox="0 0 200 240"
         className="h-[44vh] w-auto md:h-[58vh]"
-        style={{ opacity: prefersReducedMotion ? 1 : 0 }}
+        style={{ opacity: prefersReducedMotion ? 1 : opacity }}
         fill="none"
       >
         <path
@@ -102,7 +56,7 @@ export function GhostSceneFallback() {
           height="6"
           fill="var(--color-redAccent)"
         />
-      </svg>
+      </motion.svg>
     </div>
   );
 }

@@ -3,10 +3,13 @@
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Mask } from '@react-three/drei';
 import { useCallback, useLayoutEffect, useRef } from 'react';
+import { motion, useTransform } from 'motion/react';
 import { MathUtils, Mesh } from 'three';
-import gsap from 'gsap';
 import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollContext';
-import { beliefLayers } from '../beliefs/belief.constants';
+import {
+  beliefLayers,
+  BELIEF_SCROLL_THRESHOLDS,
+} from '../beliefs/belief.constants';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
 
@@ -23,9 +26,11 @@ function Invalidator({
 
   const checkAndInvalidate = useCallback(() => {
     const p = progressRef.current ?? 0;
-    if (p === lastProgress.current) return;
-    lastProgress.current = p;
-    invalidate();
+    // Only invalidate when scroll progress actually changes
+    if (Math.abs(p - lastProgress.current) > 0.0005) {
+      lastProgress.current = p;
+      invalidate();
+    }
     if (isVisibleRef.current) {
       rafIdRef.current = requestAnimationFrame(checkAndInvalidate);
     }
@@ -35,8 +40,12 @@ function Invalidator({
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
+        // Resume RAF polling when section comes back into view
+        if (entry.isIntersecting && rafIdRef.current == null) {
+          rafIdRef.current = requestAnimationFrame(checkAndInvalidate);
+        }
       },
-      { threshold: 0.1 },
+      { threshold: 0.05 },
     );
 
     const el = document.querySelector('[data-ghost-scene]');
@@ -46,7 +55,10 @@ function Invalidator({
 
     return () => {
       observer.disconnect();
-      if (rafIdRef.current != null) cancelAnimationFrame(rafIdRef.current);
+      if (rafIdRef.current != null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
     };
   }, [checkAndInvalidate]);
 
@@ -65,9 +77,9 @@ function GhostMask({
   useFrame(() => {
     if (!maskRef.current) return;
     const target = maskScaleRef.current ?? 0;
-    // Smooth lerp to prevent popping
+    // Smooth lerp to prevent popping — no new object allocations
     currentScale.current = MathUtils.lerp(currentScale.current, target, 0.12);
-    const s = Math.max(0.001, currentScale.current); // Avoid zero-scale
+    const s = Math.max(0.001, currentScale.current);
     maskRef.current.scale.set(s, s, 1);
   });
 
@@ -79,75 +91,73 @@ function GhostMask({
 }
 
 export function GhostScene() {
-  const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
   const progressRef = useRef(0);
   const maskScaleRef = useRef(0);
 
+  // Subscribe to scroll progress without triggering re-renders
   useLayoutEffect(() => {
-    if (!sectionRef.current || !containerRef.current) return;
+    return scrollYProgress.on('change', (p) => {
+      progressRef.current = p;
+      // Map progress to mask scale using global thresholds
+      const { phrasesStart, phrasesEnd } = BELIEF_SCROLL_THRESHOLDS;
+      const duration = phrasesEnd - phrasesStart;
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-          onUpdate: (self) => {
-            progressRef.current = self.progress;
-            // Map progress to mask scale: [0.15, 0.65] → [0, 4.5]
-            const p = self.progress;
-            if (p < 0.15) {
-              maskScaleRef.current = 0;
-            } else if (p < 0.65) {
-              maskScaleRef.current = ((p - 0.15) / 0.5) * 4.5;
-            } else {
-              maskScaleRef.current = 4.5;
-            }
-          },
-        },
-      });
-
-      // Container opacity: [0.12, 0.24, 0.9] → [0, 1, 1]
-      tl.fromTo(
-        containerRef.current,
-        { opacity: 0, y: 18 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.12,
-          ease: 'none',
-        },
-        0.12
-      );
-
-      // Hold visibility
-      tl.to(
-        containerRef.current,
-        {
-          opacity: 1,
-          duration: 0.66,
-          ease: 'none',
-        },
-        0.24
-      );
+      if (p < phrasesStart) {
+        maskScaleRef.current = 0;
+      } else if (p < phrasesEnd) {
+        maskScaleRef.current = ((p - phrasesStart) / duration) * 4.5;
+      } else {
+        maskScaleRef.current = 4.5;
+      }
     });
+  }, [scrollYProgress]);
 
-    return () => ctx.revert();
-  }, [sectionRef]);
+  // Dynamic opacity based on global thresholds
+  const opacity = useTransform(
+    scrollYProgress,
+    [
+      0,
+      BELIEF_SCROLL_THRESHOLDS.entryStart,
+      BELIEF_SCROLL_THRESHOLDS.entryEnd,
+      BELIEF_SCROLL_THRESHOLDS.climaxStart,
+      BELIEF_SCROLL_THRESHOLDS.climaxEnd,
+      1,
+    ],
+    [0, 0, 1, 1, 0, 0],
+  );
+
+  // Y shift: subtle lift in and out synchronized with opacity
+  const y = useTransform(
+    scrollYProgress,
+    [
+      0,
+      BELIEF_SCROLL_THRESHOLDS.entryStart,
+      BELIEF_SCROLL_THRESHOLDS.entryEnd,
+      BELIEF_SCROLL_THRESHOLDS.climaxStart,
+      BELIEF_SCROLL_THRESHOLDS.climaxEnd,
+      1,
+    ],
+    [18, 18, 0, 0, -18, -18],
+  );
+
+  // DPR: cap at 1 for reduced motion to save GPU
+  const dprRange: [number, number] = prefersReducedMotion ? [1, 1] : [1, 2];
 
   return (
-    <div
-      ref={containerRef}
+    <motion.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
       className="pointer-events-none absolute inset-0"
-      style={{ zIndex: beliefLayers.ghost, opacity: 0 }}
+      style={{
+        zIndex: beliefLayers.ghost,
+        opacity: prefersReducedMotion ? 0 : opacity,
+        y: prefersReducedMotion ? 0 : y,
+      }}
     >
       <Canvas
         frameloop="demand"
-        dpr={[1, 2]}
+        dpr={dprRange}
         camera={{ position: [0, 0, 6], fov: 35 }}
         fallback={<GhostSceneFallback />}
       >
@@ -159,7 +169,7 @@ export function GhostScene() {
         />
         <pointLight position={[-5, -5, -2]} intensity={0.7} color="#4fe6ff" />
 
-        {/* Invalidator ensures canvas re-renders on scroll */}
+        {/* Invalidator ensures canvas re-renders only on scroll delta */}
         <Invalidator progressRef={progressRef} />
 
         {/* Stencil mask — circular reveal portal */}
@@ -171,6 +181,6 @@ export function GhostScene() {
           reducedMotion={prefersReducedMotion}
         />
       </Canvas>
-    </div>
+    </motion.div>
   );
 }

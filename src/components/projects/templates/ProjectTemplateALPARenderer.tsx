@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { normalizeHexColor } from '@/lib/colors';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import type { ZoomAsset } from './types';
@@ -15,7 +15,7 @@ export default function ProjectTemplateALPARenderer({
 }: {
   project: MasterProjectTemplateV3Data;
 }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
   const [zoomAsset, setZoomAsset] = useState<ZoomAsset | null>(null);
   const lastFocusedTriggerRef = useRef<HTMLElement | null>(null);
 
