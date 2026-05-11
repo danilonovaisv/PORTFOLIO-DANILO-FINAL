@@ -10,7 +10,7 @@ import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { BRAND } from '@/config/brand';
 
-import { ghostReveal, ghostRevealSimple } from '@/config/motion';
+import { ghostReveal, ghostRevealSimple, viewportConfig } from '@/config/motion';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
@@ -81,7 +81,7 @@ export function AboutClosing() {
         variants={prefersReducedMotion ? ghostRevealSimple : ghostReveal}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
-        viewport={{ once: false, margin: '-80px' }}
+        viewport={viewportConfig}
         className="w-full flex flex-col items-center text-center"
       >
         {/* Bloco 1: Título Principal e Linhas */}
@@ -107,7 +107,7 @@ export function AboutClosing() {
 
           {/* Vídeo em Loop - Ghost Orchestration Logic */}
           <div
-            className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-screen items-center justify-center overflow-hidden bg-black/30 md:mt-11 md:aspect-video md:min-h-[360px]"
+            className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-screen items-center justify-center overflow-hidden bg-background/30 md:mt-11 md:aspect-video md:min-h-[360px]"
             style={{
               marginLeft: 'calc((min(100vw, 1680px) - 100vw) / 2)',
               backgroundImage: activePoster
@@ -118,12 +118,12 @@ export function AboutClosing() {
               backgroundSize: 'contain',
             }}
           >
-            <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-background/30 via-background/15 to-transparent pointer-events-none" />
 
             {activeVideo && (
               <video
                 ref={videoRef}
-                className="relative z-10 block h-full w-full object-cover"
+                className="relative z-[var(--z-layer-content)] block h-full w-full object-cover"
                 src={activeVideo}
                 autoPlay={!prefersReducedMotion}
                 loop

@@ -46,18 +46,17 @@ export function AboutHero() {
           muted
           loop={shouldPlayVideo}
           poster={DEFAULT_VIDEO_POSTER}
-          className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.78]"
-          style={{ zIndex: 0 }}
+          className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.78] z-[var(--z-layer-base)]"
         />
 
         {/* Desktop Overlay - Contrast Exception Control */}
         <div
-          className="hidden lg:block absolute inset-0 pointer-events-none z-1 mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
+          className="hidden lg:block absolute inset-0 pointer-events-none z-[var(--z-layer-glass)] mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
           aria-hidden="true"
         />
 
         {/* Desktop Content - 12 Column Grid Concept */}
-        <div className="relative z-10 hidden lg:flex h-screen items-center overflow-hidden w-full">
+        <div className="relative z-[var(--z-layer-content)] hidden lg:flex h-screen items-center overflow-hidden w-full">
           <div className="std-grid w-full">
             <div className="grid grid-cols-12 w-full gap-8">
               {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
@@ -67,7 +66,7 @@ export function AboutHero() {
               <m.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={viewportConfig}
                 className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
               >
                 <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
@@ -135,7 +134,7 @@ export function AboutHero() {
         </div>
 
         {/* Gradient Bottom Decay - Suaviza transição para próxima sessão */}
-        <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-20" />
+        <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-[var(--z-layer-content)]" />
 
         {/* Mobile Hero Video - Sincronização Realtime */}
         <div className="lg:hidden">
@@ -152,9 +151,9 @@ export function AboutHero() {
                 className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
               />
             </div>
-            <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-10" />
+            <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)]" />
           </div>
-          <div className="relative z-10 px-6 pt-10 pb-20 text-center">
+          <div className="std-grid relative z-[var(--z-layer-content)] pt-10 pb-20 text-center">
             <m.div
               initial={prefersReducedMotion ? 'visible' : 'hidden'}
               animate="visible"
@@ -176,7 +175,7 @@ export function AboutHero() {
                     filter: 'blur(0px)',
                     transition: {
                       duration: MOTION_TOKENS.duration.slow,
-                      ease: GHOST_EASE as any,
+                      ease: GHOST_EASE,
                     },
                   },
                 }}

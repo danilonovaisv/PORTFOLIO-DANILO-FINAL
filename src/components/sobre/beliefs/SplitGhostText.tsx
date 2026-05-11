@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 type SplitGhostTextProps = {
   text: string;
@@ -14,20 +15,18 @@ type SplitGhostTextProps = {
   scrub?: boolean | number;
   from?: gsap.TweenVars;
   to?: gsap.TweenVars;
-  ease?: string;
+  ease?: gsap.TweenVars['ease'];
 };
 
 const DEFAULT_FROM: gsap.TweenVars = {
   opacity: 0,
   y: 15,
-  scale: 0.95,
   filter: 'blur(8px)',
 };
 
 const DEFAULT_FROM_SCRUB: gsap.TweenVars = {
   opacity: 0,
-  y: 20,
-  scale: 0.98,
+  y: 18,
   filter: 'blur(10px)',
 };
 
@@ -68,14 +67,12 @@ export function SplitGhostText({
       if (!items) return;
 
       const resolvedFrom = from ?? (scrub ? DEFAULT_FROM_SCRUB : DEFAULT_FROM);
-      const resolvedEase = ease ?? 'power2.out';
+      const resolvedEase = ease ?? GSAP_GHOST_EASE;
 
       const animationTo: gsap.TweenVars = {
         opacity: 1,
         y: 0,
         x: 0,
-        scale: 1,
-        rotateX: 0,
         filter: 'blur(0px)',
         duration,
         stagger: delay,
@@ -112,11 +109,7 @@ export function SplitGhostText({
     <Tag
       ref={containerRef as React.RefObject<never>}
       className={className}
-      style={{
-        textAlign,
-        // 3D perspective for rotateX transforms
-        ...(isChars ? { perspective: '600px' } : {}),
-      }}
+      style={{ textAlign }}
       aria-label={text}
     >
       {segments.map((segment, index) => (
@@ -124,11 +117,7 @@ export function SplitGhostText({
           key={`${segment}-${index}`}
           aria-hidden="true"
           className="split-segment inline-block will-change-[transform,opacity,filter]"
-          style={{
-            opacity: 0,
-            // Enable 3D transforms for char-level splits
-            ...(isChars ? { transformStyle: 'preserve-3d' as const } : {}),
-          }}
+          style={{ opacity: 0 }}
         >
           {segment}
           {splitType === 'words' ? '\u00A0' : null}

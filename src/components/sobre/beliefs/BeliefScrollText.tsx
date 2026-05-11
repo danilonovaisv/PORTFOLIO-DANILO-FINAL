@@ -4,14 +4,17 @@ import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { BELIEF_PHRASES } from './belief.constants';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
+import { MOTION_TOKENS } from '@/config/motion';
 
 export function BeliefScrollText() {
-  const { sectionRef } = useBeliefsScrollContext();
+  const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
   const containerRef = useRef<HTMLDivElement>(null);
   const wordsRefs = useRef<(HTMLSpanElement | null)[][]>([]);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || !containerRef.current) return;
+    if (prefersReducedMotion || !sectionRef.current || !containerRef.current)
+      return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -39,15 +42,18 @@ export function BeliefScrollText() {
         // Entry animation with stagger for words
         tl.fromTo(
           words,
-          { opacity: 0, y: 30, scale: 0.96, filter: 'blur(12px)' },
+          {
+            opacity: 0,
+            y: MOTION_TOKENS.offset.standard,
+            filter: 'blur(12px)',
+          },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
             filter: 'blur(0px)',
             stagger: 0.05,
             duration: revealDuration,
-            ease: 'power3.out', // Ghost atmospheric curve
+            ease: GSAP_GHOST_EASE,
           },
           phraseStart
         );
@@ -57,12 +63,11 @@ export function BeliefScrollText() {
           words,
           {
             opacity: 0,
-            y: -30,
-            scale: 0.98,
+            y: -MOTION_TOKENS.offset.standard,
             filter: 'blur(12px)',
             stagger: 0.03,
             duration: exitDuration,
-            ease: 'power3.in', // Ghost atmospheric curve
+            ease: GSAP_GHOST_EASE,
           },
           phraseEnd - exitDuration
         );
@@ -70,7 +75,9 @@ export function BeliefScrollText() {
     });
 
     return () => ctx.revert();
-  }, [sectionRef]);
+  }, [sectionRef, prefersReducedMotion]);
+
+  if (prefersReducedMotion) return null;
 
   return (
     <div

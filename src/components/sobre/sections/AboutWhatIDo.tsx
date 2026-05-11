@@ -68,7 +68,7 @@ export function AboutWhatIDo() {
     <section
       ref={containerRef}
       id="04-o-que-eu-faco"
-      className="relative z-10 w-full bg-background text-text"
+      className="relative z-[var(--z-layer-content)] w-full bg-background text-text"
       aria-label="O Que Eu Faço"
     >
       {/* ============================================
@@ -76,9 +76,9 @@ export function AboutWhatIDo() {
           Sticky container with horizontal scroll-driven animation
           ============================================ */}
       <div className="hidden lg:block lg:h-[180vh]">
-        <div className="sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
+        <div className="std-grid sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
           {/* Header */}
-          <div className="absolute top-0 z-20 flex w-full justify-center pt-20">
+          <div className="absolute top-0 z-[var(--z-layer-content)] flex w-full justify-center pt-20">
             <div className="max-w-[960px] text-center">
               <h2
                 id="what-i-do-heading"
@@ -118,8 +118,6 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE,
                 }}
-                // Alterado bg-bluePrimary para bg-[#0b0d3a] (neutral) para contraste WCAG
-                // Adicionada borda sutil com bluePrimary/20
                 className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-neutral px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-all duration-standard hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
               >
                 {/* Number */}
@@ -188,7 +186,6 @@ export function AboutWhatIDo() {
                   delay: index * 0.08,
                   ease: GHOST_EASE,
                 }}
-                // Mobile: Seguindo o padrão de contraste alto do desktop
                 className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-standard"
               >
                 {/* Number */}

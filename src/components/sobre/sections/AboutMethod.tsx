@@ -28,7 +28,7 @@ export default function AboutMethod() {
       aria-label="Como Eu Trabalho"
     >
       {/* Background Video Container */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
+      <div className="absolute inset-0 w-full h-full z-[var(--z-layer-base)] overflow-hidden flex justify-center">
         <m.div style={{ y: 0 }} className="w-full h-full lg:h-[120%]">
           <video
             key={isMobile ? 'mobile' : 'desktop'}
@@ -56,12 +56,12 @@ export default function AboutMethod() {
 
         {/* Global Dark Gradient Overlay */}
         <div
-          className="absolute inset-0 z-10 bg-linear-to-b from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.65)] to-[rgba(10,10,20,0.4)] md:bg-linear-to-r md:from-[rgba(10,10,20,0.85)] md:via-[rgba(10,10,20,0.65)] md:to-[rgba(10,10,20,0.4)]"
+          className="absolute inset-0 z-[var(--z-layer-glass)] bg-linear-to-b from-background/85 via-background/65 to-background/40 md:bg-linear-to-r md:from-background/85 md:via-background/65 md:to-background/40"
           aria-hidden="true"
         />
       </div>
 
-      <div className="std-grid relative z-20 h-full w-full">
+      <div className="std-grid relative z-[var(--z-layer-content)] h-full w-full">
         <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:min-h-[110vh] lg:flex-row lg:pt-24">
           <div className="flex w-full flex-col justify-center py-20 lg:ml-[8.333333%] lg:w-1/2 lg:py-32 lg:pr-20">
             <m.div
