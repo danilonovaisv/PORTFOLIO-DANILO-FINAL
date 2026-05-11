@@ -2,7 +2,7 @@
 
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Mask } from '@react-three/drei';
-import { useLayoutEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 import { MathUtils, Mesh } from 'three';
 import gsap from 'gsap';
 import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider';
@@ -18,19 +18,19 @@ function Invalidator({
   const { invalidate } = useThree();
   const lastProgress = useRef(0);
 
-  const checkAndInvalidate = () => {
+  const checkAndInvalidate = useCallback(() => {
     const p = progressRef.current ?? 0;
     if (Math.abs(p - lastProgress.current) > 0.001) {
       lastProgress.current = p;
       invalidate();
     }
     requestAnimationFrame(checkAndInvalidate);
-  };
+  }, [invalidate, progressRef]);
 
   useLayoutEffect(() => {
     const id = requestAnimationFrame(checkAndInvalidate);
     return () => cancelAnimationFrame(id);
-  }, []);
+  }, [checkAndInvalidate]);
 
   return null;
 }
@@ -78,7 +78,7 @@ export function GhostScene() {
           scrub: true,
           onUpdate: (self) => {
             progressRef.current = self.progress;
-            // Map progress to mask scale: [0.15, 0.65] → [0.3, 4.5]
+            // Map progress to mask scale: [0.15, 0.65] → [0, 4.5]
             const p = self.progress;
             if (p < 0.15) {
               maskScaleRef.current = 0;
@@ -124,7 +124,7 @@ export function GhostScene() {
       ref={containerRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-lightbox)]"
+      className="pointer-events-none fixed inset-0 z-[var(--z-layer-3d)]"
       style={{ opacity: 0 }}
     >
       <Canvas
@@ -145,7 +145,6 @@ export function GhostScene() {
         {/* Ghost model — only visible through the mask */}
         <GhostModel
           progressRef={progressRef}
-          maskScaleRef={maskScaleRef}
           reducedMotion={prefersReducedMotion}
         />
       </Canvas>

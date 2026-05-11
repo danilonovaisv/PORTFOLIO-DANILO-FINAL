@@ -110,7 +110,7 @@ export function SplitGhostText({
 
   return (
     <Tag
-      ref={containerRef as React.Ref<HTMLElement>}
+      ref={containerRef as React.RefObject<never>}
       className={className}
       style={{
         textAlign,
