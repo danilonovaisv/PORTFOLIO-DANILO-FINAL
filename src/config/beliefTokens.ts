@@ -67,7 +67,7 @@ export const beliefMotion = {
 export const beliefLayout = {
   sectionMinHeight: '620vh',
   phraseSectionHeight: '80vh',
-  desktopPhraseMaxWidth: '38vw',
-  desktopPhraseLeft: 'clamp(1.5rem, 6vw, 6rem)',
-  mobilePhraseBottom: '20vh',
+  desktopPhraseMaxWidth: '32vw',
+  desktopPhraseLeft: 'clamp(1.5rem, 4.4vw, 4.75rem)',
+  mobilePhraseBottom: '16vh',
 } as const;

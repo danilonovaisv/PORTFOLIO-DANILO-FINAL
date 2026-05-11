@@ -103,31 +103,31 @@ export function GhostModel({
     const progress = scrollYProgress.get();
     const climax = progress > 0.85;
     const floatSpeed = 0.6 + progress * 0.6;
-    const floatAmplitude = shouldReduceMotion ? 0 : 0.036 + progress * 0.03;
+    const floatAmplitude = shouldReduceMotion ? 0 : 0.018 + progress * 0.015;
     const floatY = shouldReduceMotion
       ? 0
       : Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
     const rotationY = shouldReduceMotion
       ? 0
       : Math.sin(state.clock.elapsedTime * (0.4 + progress * 0.4)) *
-        (0.06 + progress * 0.04);
+        (0.028 + progress * 0.025);
 
     const targetX = isMobile
       ? climax
         ? 0
-        : -1.2
+        : -0.88
       : shouldReduceMotion
-        ? 0
-        : pointerX.get() * 0.4;
+        ? 0.02
+        : 0.02 + pointerX.get() * 0.12;
     const targetY = isMobile
       ? climax
-        ? 0
-        : 1.5
+        ? 0.02
+        : 0.54
       : shouldReduceMotion
-        ? 0
-        : pointerY.get() * 0.4;
-    const baseScale = isMobile ? 0.82 : 1.8;
-    const targetScale = baseScale * (climax ? 1.1 : 1);
+        ? 0.12
+        : 0.12 + pointerY.get() * 0.08;
+    const baseScale = isMobile ? 0.3 : 0.58;
+    const targetScale = baseScale * (climax ? 1.08 : 1);
     const lerpAlpha = 0.15;
 
     groupRef.current.position.x = MathUtils.lerp(
@@ -144,6 +144,11 @@ export function GhostModel({
       groupRef.current.rotation.y,
       rotationY,
       lerpAlpha
+    );
+    groupRef.current.rotation.x = MathUtils.lerp(
+      groupRef.current.rotation.x,
+      isMobile ? -0.06 : -0.03,
+      0.08
     );
     groupRef.current.scale.x = MathUtils.lerp(
       groupRef.current.scale.x,

@@ -43,7 +43,7 @@ export const useAntigravityStore = create<AntigravityState>((set) => ({
     enableManifestoScroll: true,
     enableHoverInteractions: true,
     reducedMotion: false,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: false,
   },
 
   viewport: { width: 0, height: 0 },

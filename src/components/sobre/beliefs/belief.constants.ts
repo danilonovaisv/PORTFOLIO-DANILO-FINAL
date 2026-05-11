@@ -11,19 +11,19 @@ export {
 
 export const GHOST_MATERIAL_CONFIG = {
   body: {
-    color: '#1a1a2e',
-    emissive: '#0048ff',
-    emissiveIntensity: 0.22,
-    roughness: 0.15,
-    metalness: 0.7,
+    color: '#f5f7ff',
+    emissive: '#b2d7ff',
+    emissiveIntensity: 0.035,
+    roughness: 0.45,
+    metalness: 0.08,
   },
   rim: {
-    color: '#0048ff',
-    emissive: '#4fe6ff',
-    emissiveIntensity: 0.5,
+    color: '#fefefe',
+    emissive: '#d4f1ff',
+    emissiveIntensity: 0.06,
   },
   hat: {
-    color: '#040013',
-    roughness: 0.1,
+    color: '#111018',
+    roughness: 0.25,
   },
 } as const;

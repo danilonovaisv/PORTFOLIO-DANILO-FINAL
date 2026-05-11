@@ -18,7 +18,7 @@ export const runExperienceOrchestrator = ({
     enableManifestoScroll: true,
     enableHoverInteractions: true,
     reducedMotion: prefersReducedMotion,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: false,
   };
 
   // 1. Mobile constraint

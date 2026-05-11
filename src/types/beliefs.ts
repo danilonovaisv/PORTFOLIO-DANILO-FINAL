@@ -12,4 +12,6 @@ export type BeliefsScrollContextValue = {
   scrollYProgress: MotionValue<number>;
   isMobile: boolean;
   shouldReduceMotion: boolean;
+  activeIndex: number;
+  isClimax: boolean;
 };

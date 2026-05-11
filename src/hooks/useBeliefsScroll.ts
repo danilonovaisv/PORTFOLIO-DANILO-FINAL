@@ -1,14 +1,17 @@
 'use client';
 
 import type { RefObject } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMotionValue, useReducedMotion } from 'framer-motion';
+import { BELIEF_PHRASES } from '@/config/beliefTokens';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
   const shouldReduceMotion = Boolean(useReducedMotion());
   const isMobile = useMediaQuery('(max-width: 767px)');
   const scrollYProgress = useMotionValue(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isClimax, setIsClimax] = useState(false);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -22,7 +25,15 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
       const range = Math.max(1, end - start);
       const progress = (window.scrollY - start) / range;
 
-      scrollYProgress.set(Math.min(1, Math.max(0, progress)));
+      const nextProgress = Math.min(1, Math.max(0, progress));
+      const narrativeIndex = Math.min(
+        BELIEF_PHRASES.length - 1,
+        Math.max(0, Math.round(nextProgress * (BELIEF_PHRASES.length - 1)))
+      );
+
+      scrollYProgress.set(nextProgress);
+      setActiveIndex(narrativeIndex);
+      setIsClimax(nextProgress >= 0.82);
     };
 
     updateProgress();
@@ -39,5 +50,7 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
     scrollYProgress,
     isMobile,
     shouldReduceMotion,
+    activeIndex,
+    isClimax,
   };
 }

@@ -61,11 +61,12 @@ export function GhostScene() {
       <Canvas
         frameloop="demand"
         dpr={[1, isMobile ? 1 : 2]}
-        camera={{ position: isMobile ? [0, 0, 7] : [0, 0, 6], fov: 35 }}
+        camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}
       >
-        <ambientLight intensity={0.5} color="#ffffff" />
-        <directionalLight position={[2, 3, 5]} intensity={2.4} color="#4fe6ff" />
-        <pointLight position={[-3, 2, 4]} intensity={1.6} color="#0048ff" />
+        <ambientLight intensity={0.9} color="#ffffff" />
+        <directionalLight position={[2.4, 3.2, 5]} intensity={1.35} color="#ffffff" />
+        <pointLight position={[-3, 1.8, 4]} intensity={0.55} color="#bfe8ff" />
+        <pointLight position={[2.2, -1.5, 3.8]} intensity={0.3} color="#ffd8f8" />
         <MotionInvalidator
           scrollYProgress={scrollYProgress}
           pointerX={pointer.x}

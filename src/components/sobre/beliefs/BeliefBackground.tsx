@@ -1,75 +1,87 @@
 'use client';
 
-import { animate, inView } from 'motion';
 import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   BELIEF_BACKGROUND_STOPS,
-  beliefMotion,
+  beliefZIndex,
 } from '@/config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function BeliefBackground() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+  const { containerRef, isMobile, shouldReduceMotion } =
+    useBeliefsScrollContext();
 
   useEffect(() => {
-    if (!ref.current) return;
+    const background = ref.current;
+    const container = containerRef.current;
+    if (!background || !container) return;
 
-    ref.current.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
+    background.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
 
-    const stop = inView(
-      '.belief-scroll-section',
-      (element) => {
-        const index = Number.parseInt(
-          element.getAttribute('data-index') ?? '0',
-          10
-        );
+    const transitionTo = (color: string) => {
+      if (shouldReduceMotion) {
+        gsap.set(background, { backgroundColor: color });
+        return;
+      }
+
+      gsap.to(background, {
+        backgroundColor: color,
+        duration: 0.9,
+        ease: GSAP_GHOST_EASE,
+        overwrite: 'auto',
+      });
+    };
+
+    const ctx = gsap.context(() => {
+      const sections = Array.from(
+        container.querySelectorAll<HTMLElement>('.belief-scroll-section')
+      );
+
+      sections.forEach((section) => {
+        const index = Number.parseInt(section.dataset.index ?? '0', 10);
         const color =
           BELIEF_BACKGROUND_STOPS[
             Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
           ];
 
-        if (shouldReduceMotion) {
-          ref.current!.style.backgroundColor = color;
-          return;
-        }
+        ScrollTrigger.create({
+          trigger: section,
+          start: isMobile ? 'top 78%' : 'top 64%',
+          onEnter: () => transitionTo(color),
+          onEnterBack: () => transitionTo(color),
+        });
+      });
 
-        animate(
-          ref.current!,
-          { backgroundColor: color },
-          {
-            duration: beliefMotion.revealDuration,
-            ease: beliefMotion.ambientEase,
-          }
-        );
-      },
-      { amount: 0.55 }
-    );
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top bottom',
+        onLeaveBack: () => transitionTo(BELIEF_BACKGROUND_STOPS[0]),
+      });
 
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      if (!ref.current || latest < 0.94) return;
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'bottom 88%',
+        onEnter: () =>
+          transitionTo(
+            BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 1]
+          ),
+        onLeaveBack: () =>
+          transitionTo(
+            BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 2]
+          ),
+      });
+    }, container);
 
-      const color = BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 1];
-      if (shouldReduceMotion) {
-        ref.current.style.backgroundColor = color;
-        return;
-      }
-
-      animate(
-        ref.current,
-        { backgroundColor: color },
-        {
-          duration: beliefMotion.revealDuration,
-          ease: beliefMotion.ambientEase,
-        }
-      );
-    });
-
-    return () => {
-      stop();
-      unsubscribe();
-    };
-  }, [scrollYProgress, shouldReduceMotion]);
+    return () => ctx.revert();
+  }, [containerRef, isMobile, shouldReduceMotion]);
 
   return (
     <div
@@ -78,7 +90,7 @@ export function BeliefBackground() {
       data-testid="beliefs-background"
       data-belief-background
       className="absolute inset-0 bg-[#040013]"
-      style={{ zIndex: 0 }}
+      style={{ zIndex: beliefZIndex.background }}
     />
   );
 }

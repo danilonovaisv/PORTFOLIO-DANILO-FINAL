@@ -29,12 +29,16 @@ export function AboutBeliefs() {
         scrollYProgress: scroll.scrollYProgress,
         isMobile: scroll.isMobile,
         shouldReduceMotion: scroll.shouldReduceMotion,
+        activeIndex: scroll.activeIndex,
+        isClimax: scroll.isClimax,
       }}
     >
       <section
         ref={containerRef}
         id="o-que-me-move"
         data-testid="beliefs-section"
+        data-belief-active-index={scroll.activeIndex}
+        data-belief-climax={scroll.isClimax ? 'true' : 'false'}
         aria-labelledby="o-que-me-move-title"
         className="relative overflow-clip bg-[#040013] text-white"
         style={{ minHeight: beliefLayout.sectionMinHeight }}

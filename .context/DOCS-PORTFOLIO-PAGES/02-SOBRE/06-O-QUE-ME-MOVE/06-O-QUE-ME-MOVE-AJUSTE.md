@@ -1,12 +1,12 @@
-# 06-O-QUE-ME-MOVE Implementation Plan
+# 06-O-QUE-ME-MOVE Ajuste Atual
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Realinhar a seção `06-O-QUE-ME-MOVE` da página `/sobre` ao contrato cinematográfico novo: full-bleed, narrativa scroll-driven, Motion no DOM, R3F apenas no Ghost, manifesto final central e Ghost acima de tudo.
+**Goal:** Realinhar a seção `06-O-QUE-ME-MOVE` da página `/sobre` às referências Desk/Mobile aprovadas, com `GSAP + ScrollTrigger` como motor oficial do DOM e `R3F` restrito ao `GhostScene`.
 
-**Architecture:** `AboutBeliefs` continua como client boundary que só orquestra scroll, camadas e Suspense. Toda animação de background, overlay, header, frases e manifesto fica no DOM; `GhostScene` fica isolado em R3F com `frameloop="demand"`, fallback imediato e comportamento distinto para desktop/mobile.
+**Architecture:** `AboutBeliefs` continua como client boundary que só orquestra scroll, camadas e Suspense. `BeliefBackground`, `BeliefOverlay`, `BeliefFixedHeader`, `BeliefScrollText` e `BeliefManifesto` passam a ser dirigidos por `GSAP + ScrollTrigger`; `GhostScene` fica isolado em `R3F` com `frameloop="demand"`, fallback imediato e coreografia distinta para desktop/mobile.
 
-**Tech Stack:** Next.js 16 App Router em `src/app`, React 19, TypeScript, Tailwind 4, Motion, React Three Fiber, Drei, Playwright.
+**Tech Stack:** Next.js 16 App Router em `src/app`, React 19, TypeScript, Tailwind 4, GSAP ScrollTrigger, Framer Motion apenas como utilitário residual, React Three Fiber, Drei, Playwright.
 
 ---
 
