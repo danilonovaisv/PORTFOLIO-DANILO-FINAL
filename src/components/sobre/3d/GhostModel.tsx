@@ -125,7 +125,7 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
   // so it fires once and doesn't create observer/hook-inside-callback issues.
 
   return (
-    <group ref={group} dispose={null} scale={isMobile ? 1.8 : 2.8}>
+    <group ref={group} dispose={null} scale={isMobile ? 0.8 : 1.8}>
       <primitive object={optimizedScene} />
     </group>
   );
