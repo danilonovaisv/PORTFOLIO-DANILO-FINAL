@@ -75,13 +75,26 @@ async function readAssetList(filePath: string): Promise<string[]> {
       try {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
-          return parsed.map((p) => String(p).trim()).filter(Boolean);
+          if (parsed.length > 0 && parsed[0]?.export_json && Array.isArray(parsed[0].export_json)) {
+            return parsed[0].export_json.map((item: any) => item.file_url || item.file_path).filter(Boolean);
+          }
+          return parsed.map((p) => {
+            if (typeof p === 'object' && p !== null) {
+              return p.file_url || p.file_path || String(p);
+            }
+            return String(p).trim();
+          }).filter(Boolean);
         }
         // If parsed is an object with a `paths` or `assets` array, accept that too
         if (parsed && typeof parsed === 'object') {
-          const arr = parsed.paths ?? parsed.assets ?? parsed.list ?? null;
+          const arr = parsed.paths ?? parsed.assets ?? parsed.list ?? parsed.export_json ?? null;
           if (Array.isArray(arr)) {
-            return arr.map((p) => String(p).trim()).filter(Boolean);
+            return arr.map((p) => {
+              if (typeof p === 'object' && p !== null) {
+                return p.file_url || p.file_path || String(p);
+              }
+              return String(p).trim();
+            }).filter(Boolean);
           }
         }
         // Fall back to newline parsing if JSON shape is unexpected

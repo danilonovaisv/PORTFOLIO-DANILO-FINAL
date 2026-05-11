@@ -13,10 +13,7 @@ interface GhostModelProps {
   reducedMotion: boolean;
 }
 
-export function GhostModel({
-  progressRef,
-  reducedMotion,
-}: GhostModelProps) {
+export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
   const group = useRef<Group>(null);
   const { scene } = useGLTF(MODEL_PATH);
   const [isMobile, setIsMobile] = useState(false);
