@@ -6,6 +6,7 @@ import { useCallback, useLayoutEffect, useRef } from 'react';
 import { MathUtils, Mesh } from 'three';
 import gsap from 'gsap';
 import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider';
+import { beliefLayers } from '../beliefs/belief.constants';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
 
@@ -124,8 +125,8 @@ export function GhostScene() {
       ref={containerRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-3d)]"
-      style={{ opacity: 0 }}
+      className="pointer-events-none fixed inset-0"
+      style={{ zIndex: beliefLayers.ghost, opacity: 0 }}
     >
       <Canvas
         frameloop="demand"
@@ -133,9 +134,13 @@ export function GhostScene() {
         camera={{ position: [0, 0, 6], fov: 35 }}
         fallback={<GhostSceneFallback />}
       >
-        <ambientLight intensity={0.4} color="#b3cde0" />
-        <directionalLight position={[5, 5, 5]} intensity={1.2} color="#0048ff" />
-        <pointLight position={[-5, -5, -2]} intensity={0.5} color="#4fe6ff" />
+        <ambientLight intensity={0.25} color="#001a4d" />
+        <directionalLight
+          position={[5, 5, 5]}
+          intensity={1.6}
+          color="#0048ff"
+        />
+        <pointLight position={[-5, -5, -2]} intensity={0.7} color="#4fe6ff" />
 
         {/* Invalidator ensures canvas re-renders on scroll */}
         <Invalidator progressRef={progressRef} />

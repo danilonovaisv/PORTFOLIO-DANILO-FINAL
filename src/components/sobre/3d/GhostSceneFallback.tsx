@@ -95,7 +95,13 @@ export function GhostSceneFallback() {
           d="M40 70h120l-6-22a18 18 0 0 0-17-13H63a18 18 0 0 0-17 13L40 70Z"
           fill="var(--color-background)"
         />
-        <rect x="40" y="68" width="120" height="6" fill="var(--color-redAccent)" />
+        <rect
+          x="40"
+          y="68"
+          width="120"
+          height="6"
+          fill="var(--color-redAccent)"
+        />
       </svg>
     </div>
   );

@@ -10,7 +10,11 @@ import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { BRAND } from '@/config/brand';
 
-import { ghostReveal, ghostRevealSimple, viewportConfig } from '@/config/motion';
+import {
+  ghostReveal,
+  ghostRevealSimple,
+  viewportConfig,
+} from '@/config/motion';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 

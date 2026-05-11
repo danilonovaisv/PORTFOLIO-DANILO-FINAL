@@ -95,9 +95,9 @@ export function BeliefManifesto() {
       data-belief-manifesto
       className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
       aria-label="ISSO É GHOST DESIGN"
-      style={{ 
+      style={{
         opacity: prefersReducedMotion ? 1 : 0,
-        zIndex: beliefLayers.manifesto
+        zIndex: beliefLayers.manifesto,
       }}
     >
       <div className="mx-auto w-full max-w-[1680px] text-center">

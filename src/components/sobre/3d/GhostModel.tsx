@@ -40,9 +40,9 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
         if (node.material && node.material instanceof MeshStandardMaterial) {
           const mat = node.material.clone();
           Object.assign(mat, stencil);
-          
+
           const name = node.name.toLowerCase();
-          
+
           if (name.includes('hat') || name.includes('tophat')) {
             mat.color.set(GHOST_MATERIAL_CONFIG.hat.color);
             mat.roughness = GHOST_MATERIAL_CONFIG.hat.roughness;
@@ -54,11 +54,12 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
             // Default body
             mat.color.set(GHOST_MATERIAL_CONFIG.body.color);
             mat.emissive.set(GHOST_MATERIAL_CONFIG.body.emissive);
-            mat.emissiveIntensity = GHOST_MATERIAL_CONFIG.body.emissiveIntensity;
+            mat.emissiveIntensity =
+              GHOST_MATERIAL_CONFIG.body.emissiveIntensity;
             mat.roughness = GHOST_MATERIAL_CONFIG.body.roughness;
             mat.metalness = GHOST_MATERIAL_CONFIG.body.metalness;
           }
-          
+
           node.material = mat;
         }
       }
@@ -72,33 +73,22 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     const p = progressRef.current ?? 0;
     const t = state.clock.elapsedTime;
 
-    // Floating animation (Ghost ethereal motion)
-    if (!reducedMotion) {
-      const floatSpeed = 0.6 + p * 0.6;
-      const floatAmplitude = 0.036 + p * 0.03;
-      group.current.position.y = MathUtils.lerp(
-        group.current.position.y,
-        Math.sin(t * floatSpeed) * floatAmplitude,
-        0.1
-      );
-
-      group.current.rotation.y = MathUtils.lerp(
-        group.current.rotation.y,
-        Math.sin(t * (0.4 + p * 0.4)) * (0.06 + p * 0.04),
-        0.1
-      );
-    }
-
-    // Position logic
+    // Position logic (smoother interpolation)
     let targetX = 0;
     let targetY = 0;
 
     if (isMobile) {
-      targetX = 0;
-      targetY = 0;
-      if (p < 0.5) {
+      // Transition from upper-left (p=0.15) to center (p=0.65)
+      if (p < 0.15) {
         targetX = -1.2;
         targetY = 1.5;
+      } else if (p < 0.65) {
+        const factor = MathUtils.smoothstep(p, 0.15, 0.65);
+        targetX = MathUtils.lerp(-1.2, 0, factor);
+        targetY = MathUtils.lerp(1.5, 0, factor);
+      } else {
+        targetX = 0;
+        targetY = 0;
       }
     }
 
@@ -107,19 +97,28 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
       targetY = 0;
     }
 
+    // Apply smooth transitions
     group.current.position.x = MathUtils.lerp(
       group.current.position.x,
       targetX,
       0.1
     );
 
-    if (isMobile) {
-      const hoverY = reducedMotion
-        ? 0
-        : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03);
-      group.current.position.y = MathUtils.lerp(
-        group.current.position.y,
-        targetY + hoverY,
+    // Combine position and floating logic
+    const floatY = reducedMotion
+      ? 0
+      : Math.sin(t * (0.6 + p * 0.6)) * (0.036 + p * 0.03);
+
+    group.current.position.y = MathUtils.lerp(
+      group.current.position.y,
+      targetY + floatY,
+      0.1
+    );
+
+    if (!reducedMotion) {
+      group.current.rotation.y = MathUtils.lerp(
+        group.current.rotation.y,
+        Math.sin(t * (0.4 + p * 0.4)) * (0.06 + p * 0.04),
         0.1
       );
     }
@@ -129,7 +128,7 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
   });
 
   return (
-    <group ref={group} dispose={null}>
+    <group ref={group} dispose={null} scale={isMobile ? 1.8 : 2.8}>
       <primitive object={optimizedScene} />
     </group>
   );

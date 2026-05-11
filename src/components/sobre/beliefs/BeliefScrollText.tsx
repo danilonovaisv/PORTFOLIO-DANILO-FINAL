@@ -77,7 +77,7 @@ export function BeliefScrollText() {
     return () => ctx.revert();
   }, [sectionRef, prefersReducedMotion]);
 
-  if (prefersReducedMotion) return null;
+
 
   return (
     <div
@@ -90,12 +90,14 @@ export function BeliefScrollText() {
         <div className="flex flex-row items-center gap-4 md:block">
           {/* Mobile spacer for Ghost (Ghost is on the left) */}
           <div className="w-[35%] shrink-0 md:hidden" aria-hidden="true" />
-          
+
           <div className="relative h-[6em] md:h-[2.5em] flex-1">
             {BELIEF_PHRASES.map((phrase, i) => (
               <h3
                 key={i}
                 aria-hidden="true"
+                data-testid="belief-phrase"
+                data-animation-contract="inview-y-opacity-blur"
                 className="absolute inset-x-0 bottom-0 md:top-1/2 md:-translate-y-1/2 font-medium leading-[1.1] text-white/90"
                 style={{
                   fontSize: 'clamp(2.5rem, 10vw, 5.5rem)',
@@ -109,7 +111,7 @@ export function BeliefScrollText() {
                       wordsRefs.current[i][wordIndex] = el;
                     }}
                     className="inline-block will-change-[transform,opacity,filter]"
-                    style={{ opacity: 0 }}
+                    style={{ opacity: prefersReducedMotion ? 0.9 : 0 }}
                   >
                     {word}&nbsp;
                   </span>
