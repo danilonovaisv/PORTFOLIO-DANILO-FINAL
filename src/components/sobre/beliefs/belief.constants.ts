@@ -9,8 +9,8 @@ export const BELIEF_PHRASES = [
 
 export const BELIEF_COLOR_STOPS = [
   '#040013', // Deep Void
-  '#001a4d', // Dark Ghost Blue
-  '#0048ff', // Ghost Blue
+  '#0048ff',
+  '#8705f2',
   '#4fe6ff', // Ghost Cyan (Accent)
   '#0048ff', // Ghost Blue
   '#001a4d', // Dark Ghost Blue
@@ -51,7 +51,7 @@ export const GHOST_MATERIAL_CONFIG = {
   body: {
     color: '#1a1a2e',
     emissive: '#0048ff',
-    emissiveIntensity: 0.15,
+    emissiveIntensity: 0.22,
     roughness: 0.15,
     metalness: 0.7,
   },

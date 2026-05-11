@@ -1,12 +1,29 @@
 'use client';
 
-import { motion } from 'motion/react';
-import { SPLIT_TEXT_CONFIG } from './belief.constants';
+import { m, useTransform } from 'framer-motion';
+import {
+  SPLIT_TEXT_CONFIG,
+  BELIEF_SCROLL_THRESHOLDS,
+} from './belief.constants';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefFixedHeader() {
+  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
   const { header } = SPLIT_TEXT_CONFIG;
   const text = 'O que me move';
   const chars = text.split('');
+
+  // Fade out as phrases start
+  const opacity = useTransform(
+    scrollYProgress,
+    [
+      0,
+      BELIEF_SCROLL_THRESHOLDS.entryStart,
+      BELIEF_SCROLL_THRESHOLDS.entryEnd,
+      BELIEF_SCROLL_THRESHOLDS.phrasesStart,
+    ],
+    [0, 1, 1, 0]
+  );
 
   const containerVariants = {
     hidden: {},
@@ -37,10 +54,13 @@ export function BeliefFixedHeader() {
   return (
     <header className="pointer-events-none absolute inset-x-0 top-[14vh] z-[var(--z-layer-header)] w-full py-8 md:top-0">
       <div className="mx-auto flex max-w-[1680px] justify-end px-6 md:px-12 lg:px-16">
-        <motion.h2
+        <m.h2
           id="beliefs-header"
           className="max-w-xs text-right font-medium uppercase tracking-[0.18em] text-white/80"
-          style={{ textAlign: 'right' }}
+          style={{
+            textAlign: 'right',
+            opacity: prefersReducedMotion ? 0.9 : opacity,
+          }}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -48,16 +68,16 @@ export function BeliefFixedHeader() {
           aria-label={text}
         >
           {chars.map((char, index) => (
-            <motion.span
+            <m.span
               key={`${index}`}
               aria-hidden="true"
               className="inline-block will-change-[transform,opacity,filter]"
               variants={charVariants}
             >
               {char === ' ' ? '\u00A0' : char}
-            </motion.span>
+            </m.span>
           ))}
-        </motion.h2>
+        </m.h2>
       </div>
     </header>
   );

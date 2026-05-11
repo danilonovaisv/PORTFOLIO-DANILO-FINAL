@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, ReactNode, RefObject } from 'react';
-import { MotionValue } from 'motion/react';
+import { MotionValue } from 'framer-motion';
 import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
 
 export type BeliefsScrollContextValue = {

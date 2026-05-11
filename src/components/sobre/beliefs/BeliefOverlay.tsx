@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
 
@@ -21,7 +21,7 @@ export function BeliefOverlay() {
   );
 
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-[var(--z-layer-glass)] bg-background/10 mix-blend-overlay"
       style={{

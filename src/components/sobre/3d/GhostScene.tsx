@@ -3,7 +3,7 @@
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { Mask } from '@react-three/drei';
 import { useCallback, useLayoutEffect, useRef } from 'react';
-import { motion, useTransform } from 'motion/react';
+import { m, useTransform } from 'framer-motion';
 import { MathUtils, Mesh } from 'three';
 import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollContext';
 import {
@@ -45,7 +45,7 @@ function Invalidator({
           rafIdRef.current = requestAnimationFrame(checkAndInvalidate);
         }
       },
-      { threshold: 0.05 },
+      { threshold: 0.05 }
     );
 
     const el = document.querySelector('[data-ghost-scene]');
@@ -124,7 +124,7 @@ export function GhostScene() {
       BELIEF_SCROLL_THRESHOLDS.climaxEnd,
       1,
     ],
-    [0, 0, 1, 1, 0, 0],
+    [0, 0, 1, 1, 0, 0]
   );
 
   // Y shift: subtle lift in and out synchronized with opacity
@@ -138,14 +138,14 @@ export function GhostScene() {
       BELIEF_SCROLL_THRESHOLDS.climaxEnd,
       1,
     ],
-    [18, 18, 0, 0, -18, -18],
+    [18, 18, 0, 0, -18, -18]
   );
 
   // DPR: cap at 1 for reduced motion to save GPU
   const dprRange: [number, number] = prefersReducedMotion ? [1, 1] : [1, 2];
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
       className="pointer-events-none absolute inset-0"
@@ -161,13 +161,13 @@ export function GhostScene() {
         camera={{ position: [0, 0, 6], fov: 35 }}
         fallback={<GhostSceneFallback />}
       >
-        <ambientLight intensity={0.25} color="#001a4d" />
+        <ambientLight intensity={0.4} color="#001a4d" />
         <directionalLight
           position={[5, 5, 5]}
-          intensity={1.6}
+          intensity={1.8}
           color="#0048ff"
         />
-        <pointLight position={[-5, -5, -2]} intensity={0.7} color="#4fe6ff" />
+        <pointLight position={[-5, -5, -2]} intensity={0.9} color="#4fe6ff" />
 
         {/* Invalidator ensures canvas re-renders only on scroll delta */}
         <Invalidator progressRef={progressRef} />
@@ -181,6 +181,6 @@ export function GhostScene() {
           reducedMotion={prefersReducedMotion}
         />
       </Canvas>
-    </motion.div>
+    </m.div>
   );
 }

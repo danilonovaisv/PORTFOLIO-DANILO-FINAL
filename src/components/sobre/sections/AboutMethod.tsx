@@ -64,9 +64,7 @@ export default function AboutMethod() {
       <div className="std-grid relative z-[var(--z-layer-content)] h-full w-full">
         <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:min-h-[110vh] lg:flex-row lg:pt-24">
           <div className="flex w-full flex-col justify-center py-20 lg:ml-[8.333333%] lg:w-1/2 lg:py-32 lg:pr-20">
-            <m.div
-              className="flex w-full flex-col items-center lg:items-start"
-            >
+            <m.div className="flex w-full flex-col items-center lg:items-start">
               <div className="w-full max-w-[44rem] py-7 lg:py-9">
                 <m.p
                   variants={
@@ -90,7 +88,10 @@ export default function AboutMethod() {
                   viewport={{ once: true, margin: '-100px' }}
                   className="mb-6 text-center lg:mb-8 lg:text-left"
                 >
-                  <h2 id="method-heading" className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text">
+                  <h2
+                    id="method-heading"
+                    className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text"
+                  >
                     <span className="text-bluePrimary">Criatividade</span> com{' '}
                     <span className="text-bluePrimary">método</span>.
                     <br />

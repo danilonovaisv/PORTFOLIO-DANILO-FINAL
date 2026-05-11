@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
+import { m, useTransform } from 'framer-motion';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 
 export function GhostSceneFallback() {
@@ -10,7 +10,7 @@ export function GhostSceneFallback() {
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.1, 0.2, 0.85, 0.95, 1],
-    [0, 0, 1, 1, 0, 0],
+    [0, 0, 1, 1, 0, 0]
   );
 
   return (
@@ -19,7 +19,7 @@ export function GhostSceneFallback() {
       data-ghost-scene
       className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)] flex items-center justify-center"
     >
-      <motion.svg
+      <m.svg
         role="img"
         aria-label="Silhueta do Ghost"
         viewBox="0 0 200 240"
@@ -56,7 +56,7 @@ export function GhostSceneFallback() {
           height="6"
           fill="var(--color-redAccent)"
         />
-      </motion.svg>
+      </m.svg>
     </div>
   );
 }

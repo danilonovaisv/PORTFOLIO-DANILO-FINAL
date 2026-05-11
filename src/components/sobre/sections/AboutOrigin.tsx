@@ -69,7 +69,10 @@ function AboutOrigin() {
     >
       <div className="std-grid py-16 md:py-24">
         <div className="mb-12 md:mb-24 text-center select-none">
-          <h2 id="origin-heading" className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.1em] md:tracking-[0.2em] uppercase">
+          <h2
+            id="origin-heading"
+            className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.1em] md:tracking-[0.2em] uppercase"
+          >
             ORIGEM
           </h2>
         </div>

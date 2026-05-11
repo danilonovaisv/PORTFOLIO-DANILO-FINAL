@@ -58,9 +58,10 @@ export default function HeroCopy({
   }, [prefersReducedMotion, isLoaded, animate, scope]);
 
   // Initial states for SSR and static render
-  const initialStyles = !isMounted || prefersReducedMotion
-    ? {}
-    : { opacity: 0, y: MOTION_TOKENS.offset.standard };
+  const initialStyles =
+    !isMounted || prefersReducedMotion
+      ? {}
+      : { opacity: 0, y: MOTION_TOKENS.offset.standard };
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (

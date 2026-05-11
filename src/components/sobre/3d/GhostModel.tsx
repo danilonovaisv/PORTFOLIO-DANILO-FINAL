@@ -96,7 +96,7 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     group.current.position.x = MathUtils.lerp(
       group.current.position.x,
       targetRef.current.x,
-      0.1,
+      0.1
     );
 
     // Combine position and floating logic
@@ -107,14 +107,14 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     group.current.position.y = MathUtils.lerp(
       group.current.position.y,
       targetRef.current.y + floatY,
-      0.1,
+      0.1
     );
 
     if (!reducedMotion) {
       group.current.rotation.y = MathUtils.lerp(
         group.current.rotation.y,
         Math.sin(t * (0.4 + p * 0.4)) * (0.06 + p * 0.04),
-        0.1,
+        0.1
       );
     }
     // NOTE: No state.invalidate() here — the Invalidator component handles

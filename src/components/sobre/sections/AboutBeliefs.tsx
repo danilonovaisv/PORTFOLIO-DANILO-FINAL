@@ -2,7 +2,7 @@
 
 import { Suspense, useRef, useState, useLayoutEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useScroll, useMotionValueEvent } from 'motion/react';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
@@ -12,7 +12,10 @@ import { BeliefScrollText } from '../beliefs/BeliefScrollText';
 import { BeliefManifesto } from '../beliefs/BeliefManifesto';
 import { GhostErrorBoundary } from '../3d/GhostErrorBoundary';
 import { GhostSceneFallback } from '../3d/GhostSceneFallback';
-import { BELIEF_PHRASES, BELIEF_SCROLL_THRESHOLDS } from '../beliefs/belief.constants';
+import {
+  BELIEF_PHRASES,
+  BELIEF_SCROLL_THRESHOLDS,
+} from '../beliefs/belief.constants';
 import { MOTION_TOKENS } from '@/config/motion';
 
 const GhostScene = dynamic(
@@ -25,7 +28,7 @@ const GhostScene = dynamic(
 function AboutBeliefsContent() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // States derived from scroll for immediate reactive updates if needed
   const [activePhraseIndex, setActivePhraseIndex] = useState(-1);
   const [isClimax, setIsClimax] = useState(false);
@@ -40,16 +43,20 @@ function AboutBeliefsContent() {
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     // Climax detection
-    setIsClimax(latest >= BELIEF_SCROLL_THRESHOLDS.climaxStart && latest <= BELIEF_SCROLL_THRESHOLDS.finalLock);
+    setIsClimax(
+      latest >= BELIEF_SCROLL_THRESHOLDS.climaxStart &&
+        latest <= BELIEF_SCROLL_THRESHOLDS.finalLock
+    );
 
     // activePhraseIndex calculation
     const start = BELIEF_SCROLL_THRESHOLDS.phrasesStart;
     const end = BELIEF_SCROLL_THRESHOLDS.phrasesEnd;
-    
+
     if (latest < start) {
       if (activePhraseIndex !== -1) setActivePhraseIndex(-1);
     } else if (latest > end) {
-      if (activePhraseIndex !== BELIEF_PHRASES.length - 1) setActivePhraseIndex(BELIEF_PHRASES.length - 1);
+      if (activePhraseIndex !== BELIEF_PHRASES.length - 1)
+        setActivePhraseIndex(BELIEF_PHRASES.length - 1);
     } else {
       const step = (end - start) / BELIEF_PHRASES.length;
       const index = Math.floor((latest - start) / step);
@@ -87,8 +94,6 @@ function AboutBeliefsContent() {
         className="beliefs-section relative overflow-clip bg-background text-text"
         style={{ height: MOTION_TOKENS.layout.sectionMinHeight }}
       >
-
-
         <BeliefBackground />
         <BeliefOverlay />
 

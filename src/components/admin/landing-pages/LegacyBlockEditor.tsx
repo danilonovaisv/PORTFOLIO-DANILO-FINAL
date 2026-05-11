@@ -25,7 +25,7 @@ import {
 
 /**
  * LegacyBlockEditor
- * @deprecated Este componente pertence à arquitetura de blocos v1. 
+ * @deprecated Este componente pertence à arquitetura de blocos v1.
  * Use o novo 'BlockEditor' para novas implementações. Mantido para retrocompatibilidade
  * com páginas de pouso legadas.
  */

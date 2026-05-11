@@ -1433,4 +1433,5 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ Auditoria visual — O componente `GhostModel.tsx` agora carrega o asset corretamente sem erros de rede.
 
 ---
+
 [2026-05-11 15:11] [Beliefs System] Consolidated scroll context into BeliefsScrollContext.tsx, removed redundant provider, updated components, and resolved tsconfig baseUrl deprecation (ignoreDeprecations: 6.0). Typecheck verified.

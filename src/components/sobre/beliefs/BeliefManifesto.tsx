@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'motion/react';
+import { m, useTransform } from 'framer-motion';
 import {
   BELIEF_MANIFESTO_LINES,
   BELIEF_SCROLL_THRESHOLDS,
@@ -9,7 +9,7 @@ import {
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { MOTION_TOKENS } from '@/config/motion';
 
-function ManifestoLine({ line, index }: { line: string, index: number }) {
+function ManifestoLine({ line, index }: { line: string; index: number }) {
   const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
   const words = line.split(' ');
 
@@ -28,18 +28,33 @@ function ManifestoLine({ line, index }: { line: string, index: number }) {
         const wordStart = lineStart + stagger;
         const wordEnd = lineEnd + stagger;
 
-        const opacity = useTransform(scrollYProgress, [0, wordStart, wordEnd], [0, 0, 1]);
-        const x = useTransform(scrollYProgress, [0, wordStart, wordEnd], [-18, -18, 0]);
-        const filter = useTransform(scrollYProgress, [0, wordStart, wordEnd], ['blur(8px)', 'blur(8px)', 'blur(0px)']);
+        const opacity = useTransform(
+          scrollYProgress,
+          [0, wordStart, wordEnd],
+          [0, 0, 1]
+        );
+        const x = useTransform(
+          scrollYProgress,
+          [0, wordStart, wordEnd],
+          [-18, -18, 0]
+        );
+        const filter = useTransform(
+          scrollYProgress,
+          [0, wordStart, wordEnd],
+          ['blur(8px)', 'blur(8px)', 'blur(0px)']
+        );
 
         return (
-          <motion.span
+          <m.span
             key={wordIndex}
             className="inline-block will-change-[transform,opacity,filter]"
-            style={prefersReducedMotion ? { opacity: 1 } : { opacity, x, filter }}
+            style={
+              prefersReducedMotion ? { opacity: 1 } : { opacity, x, filter }
+            }
+            aria-hidden="true"
           >
             {word}&nbsp;
-          </motion.span>
+          </m.span>
         );
       })}
     </div>
@@ -59,7 +74,7 @@ export function BeliefManifesto() {
     ],
     [0, 0, 1]
   );
-  
+
   const containerY = useTransform(
     scrollYProgress,
     [
@@ -69,7 +84,7 @@ export function BeliefManifesto() {
     ],
     [MOTION_TOKENS.offset.standard, MOTION_TOKENS.offset.standard, 0]
   );
-  
+
   const containerBlur = useTransform(
     scrollYProgress,
     [
@@ -81,7 +96,7 @@ export function BeliefManifesto() {
   );
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-manifesto"
       data-belief-manifesto
       className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
@@ -93,11 +108,14 @@ export function BeliefManifesto() {
         zIndex: beliefLayers.manifesto,
       }}
     >
-      <blockquote className="mx-auto w-full max-w-[1680px] text-center">
+      <blockquote
+        className="mx-auto w-full max-w-[1680px] text-center"
+        aria-hidden="true"
+      >
         {BELIEF_MANIFESTO_LINES.map((line, index) => (
           <ManifestoLine key={line} line={line} index={index} />
         ))}
       </blockquote>
-    </motion.div>
+    </m.div>
   );
 }
