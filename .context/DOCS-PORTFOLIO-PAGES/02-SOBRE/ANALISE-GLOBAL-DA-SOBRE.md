@@ -25,7 +25,7 @@ Relatório completo em `AUDIT_PENTEST_SOBRE.md` (17 violações: 4 críticas, 7 
 - **C2** z-index do `GhostSceneFallback` realinhado ao token `--z-layer-3d` (30) em vez de `Z_INDEX.beliefs.ghost` (70). O SVG fallback não sobrepõe mais o manifesto. Removida a dependência de `@/config/z-indices` desse componente.
 - **C3** 12 raw GSAP eases (`power*.in/inOut/out`) substituídas por `GSAP_GHOST_EASE` em `BeliefBackground`, `BeliefOverlay`, `BeliefManifesto`, `BeliefScrollText` e `belief.constants.ts`. `ease: 'none'` foi preservado quando linear é intencional (scrub puro).
 - **C4** `scale` removido de `BeliefManifesto`, `BeliefScrollText` e `SplitGhostText`; `y` capado em `MOTION_TOKENS.offset.standard` (18px) em vez de 30. `rotateX` removido do `SplitGhostText` (rotate é proibido). DS §2.3 obedecido.
-- **H1** Todas as 20+ classes raw `z-N` substituídas por tokens `z-[var(--z-layer-*)]`. Inclui Hero, Origin, WhatIDo, Method, Closing, Beliefs e Skeleton.
+- **H1** Todas as 20+ classes raw `z-N` substituídas por tokens `z-[var(--z-layer-id)]`. Inclui Hero, Origin, WhatIDo, Method, Closing, Beliefs e Skeleton.
 - **H2** `rgba(10,10,20,*)` do AboutMethod e `bg-black/30` do AboutClosing trocados por `bg-background/*`. `bg-[#040013]` do AboutBeliefs e BeliefBackground trocados por `bg-background`. SVG fallback usa `var(--color-text)` e `var(--color-redAccent)`. Vignettes radiais usam `color-mix(in oklab, var(--color-background) * %, transparent)`.
 - **H3** 4× `as any` no `GHOST_EASE` removidos (`OriginComponents` e `AboutHero`). `EasingTuple` é compatível com o tipo `Easing` do framer-motion sem cast.
 - **H4** `viewport: { once: false }` substituído por `viewportConfig` (`once: true`) no Hero e Closing. Animação não replica em cada scroll.
@@ -35,7 +35,7 @@ Relatório completo em `AUDIT_PENTEST_SOBRE.md` (17 violações: 4 críticas, 7 
 
 ### Pendências para próximo PR
 
-- **M1** unificar `Z_INDEX` (`src/config/z-indices.ts`) com `--z-layer-*`. Avaliar deprecar o mapa TS.
+- **M1** unificar `Z_INDEX` (`src/config/z-indices.ts`) com `--z-layer-id`. Avaliar deprecar o mapa TS.
 - **M2/M4** `Invalidator` no `GhostScene` segue rodando RAF mesmo fora do viewport. Adicionar `IntersectionObserver`.
 - **M3** `useGLTF.preload` à top-level do módulo. Mover para `useEffect` condicional.
 - **M5/H7** `AboutMethod` declara `<m.div style={{ y: 0 }}>` sem motion value real. Decidir: remover ou conectar a `useScroll/useTransform` com gate `useMotionGate`.

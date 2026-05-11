@@ -3,8 +3,9 @@
 import { useGLTF, useMask } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { Group, MathUtils, Mesh } from 'three';
+import { Group, MathUtils, Mesh, MeshStandardMaterial } from 'three';
 import { getAssetUrl } from '@/lib/utils';
+import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 
 const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
 
@@ -36,19 +37,29 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
       if (node instanceof Mesh) {
         node.frustumCulled = true;
         // Apply stencil read so model only shows through the mask
-        if (node.material) {
-          node.material = node.material.clone();
-          Object.assign(node.material, stencil);
-          // Ghost tint
-          if ('color' in node.material) {
-            node.material.color.setHex(0xffffff);
+        if (node.material && node.material instanceof MeshStandardMaterial) {
+          const mat = node.material.clone();
+          Object.assign(mat, stencil);
+          
+          const name = node.name.toLowerCase();
+          
+          if (name.includes('hat') || name.includes('tophat')) {
+            mat.color.set(GHOST_MATERIAL_CONFIG.hat.color);
+            mat.roughness = GHOST_MATERIAL_CONFIG.hat.roughness;
+          } else if (name.includes('rim') || name.includes('ring')) {
+            mat.color.set(GHOST_MATERIAL_CONFIG.rim.color);
+            mat.emissive.set(GHOST_MATERIAL_CONFIG.rim.emissive);
+            mat.emissiveIntensity = GHOST_MATERIAL_CONFIG.rim.emissiveIntensity;
+          } else {
+            // Default body
+            mat.color.set(GHOST_MATERIAL_CONFIG.body.color);
+            mat.emissive.set(GHOST_MATERIAL_CONFIG.body.emissive);
+            mat.emissiveIntensity = GHOST_MATERIAL_CONFIG.body.emissiveIntensity;
+            mat.roughness = GHOST_MATERIAL_CONFIG.body.roughness;
+            mat.metalness = GHOST_MATERIAL_CONFIG.body.metalness;
           }
-          if ('roughness' in node.material) {
-            node.material.roughness = 0.15;
-          }
-          if ('metalness' in node.material) {
-            node.material.metalness = 0.7;
-          }
+          
+          node.material = mat;
         }
       }
     });

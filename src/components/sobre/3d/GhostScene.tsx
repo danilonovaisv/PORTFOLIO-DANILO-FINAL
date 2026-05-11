@@ -133,8 +133,9 @@ export function GhostScene() {
         camera={{ position: [0, 0, 6], fov: 35 }}
         fallback={<GhostSceneFallback />}
       >
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[2, 4, 4]} intensity={1.4} />
+        <ambientLight intensity={0.4} color="#b3cde0" />
+        <directionalLight position={[5, 5, 5]} intensity={1.2} color="#0048ff" />
+        <pointLight position={[-5, -5, -2]} intensity={0.5} color="#4fe6ff" />
 
         {/* Invalidator ensures canvas re-renders on scroll */}
         <Invalidator progressRef={progressRef} />

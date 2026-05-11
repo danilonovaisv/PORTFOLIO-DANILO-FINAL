@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { BELIEF_PHRASES } from './belief.constants';
+import { BELIEF_PHRASES, beliefLayers } from './belief.constants';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { MOTION_TOKENS } from '@/config/motion';
@@ -83,34 +83,40 @@ export function BeliefScrollText() {
     <div
       ref={containerRef}
       data-testid="beliefs-scroll-text"
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-cta)] flex flex-col justify-end pb-[20vh] md:justify-center md:pb-0"
+      className="pointer-events-none fixed inset-0 flex flex-col justify-end pb-[15vh] md:justify-center md:pb-0"
+      style={{ zIndex: beliefLayers.phrases }}
     >
-      <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16 text-center md:text-left">
-        <div className="relative h-[4em] md:h-[2em] w-full max-w-4xl">
-          {BELIEF_PHRASES.map((phrase, i) => (
-            <h3
-              key={i}
-              aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 md:top-1/2 md:-translate-y-1/2 font-medium leading-[1.1] text-white/90"
-              style={{
-                fontSize: 'clamp(2.5rem, 14vw, 5.5rem)',
-              }}
-            >
-              {phrase.split(' ').map((word, wordIndex) => (
-                <span
-                  key={wordIndex}
-                  ref={(el) => {
-                    if (!wordsRefs.current[i]) wordsRefs.current[i] = [];
-                    wordsRefs.current[i][wordIndex] = el;
-                  }}
-                  className="inline-block will-change-[transform,opacity,filter]"
-                  style={{ opacity: 0 }}
-                >
-                  {word}&nbsp;
-                </span>
-              ))}
-            </h3>
-          ))}
+      <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16">
+        <div className="flex flex-row items-center gap-4 md:block">
+          {/* Mobile spacer for Ghost (Ghost is on the left) */}
+          <div className="w-[35%] shrink-0 md:hidden" aria-hidden="true" />
+          
+          <div className="relative h-[6em] md:h-[2.5em] flex-1">
+            {BELIEF_PHRASES.map((phrase, i) => (
+              <h3
+                key={i}
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 md:top-1/2 md:-translate-y-1/2 font-medium leading-[1.1] text-white/90"
+                style={{
+                  fontSize: 'clamp(2.5rem, 10vw, 5.5rem)',
+                }}
+              >
+                {phrase.split(' ').map((word, wordIndex) => (
+                  <span
+                    key={wordIndex}
+                    ref={(el) => {
+                      if (!wordsRefs.current[i]) wordsRefs.current[i] = [];
+                      wordsRefs.current[i][wordIndex] = el;
+                    }}
+                    className="inline-block will-change-[transform,opacity,filter]"
+                    style={{ opacity: 0 }}
+                  >
+                    {word}&nbsp;
+                  </span>
+                ))}
+              </h3>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
 
 **Goal:** Eliminate high-severity drift from `.context/GHOST-DESIGN-SYSTEM.md` v3.1: reconcile z-index hierarchy, kill rogue easings, migrate top-offender hardcoded hex to tokens, verify grid compliance on home/sobre, document `GHOST_EASE_SOFT`.
 
-**Architecture:** Design tokens live in `src/app/globals.css` (`@theme`) and surface through `tailwind.config.ts`. CSS custom props (`--z-layer-*`, `--ghost-ease`) become the single source of truth; components reference tokens (Tailwind classes or CSS vars), never literals. Motion tuples are centralized in `src/config/motion.ts`.
+**Architecture:** Design tokens live in `src/app/globals.css` (`@theme`) and surface through `tailwind.config.ts`. CSS custom props (`--z-layer-id`, `--ghost-ease`) become the single source of truth; components reference tokens (Tailwind classes or CSS vars), never literals. Motion tuples are centralized in `src/config/motion.ts`.
 
 **Tech Stack:** Next.js 16.2.2 (App Router, Turbopack) · React 19 · TypeScript 6 · Tailwind CSS 4 (`@theme`) · Framer Motion 12 · GSAP 3 · React Three Fiber 9 · Jest · Playwright · pnpm 10.
 
@@ -817,7 +817,7 @@ EOF
 
 **Placeholder scan:** No TBD/TODO/"handle edge cases"/"similar to". Every code step has concrete code or exact commands.
 
-**Type consistency:** `GHOST_EASE`, `GHOST_EASE_SOFT`, `GHOST_EASE_AMBIENT` used consistently. `EasingTuple` type referenced in Task 2.2 matches existing export in `src/config/motion.ts:11`. CSS var names `--z-layer-*` match between Task 1.1 (definition) and Tasks 1.3–1.6 (consumers).
+**Type consistency:** `GHOST_EASE`, `GHOST_EASE_SOFT`, `GHOST_EASE_AMBIENT` used consistently. `EasingTuple` type referenced in Task 2.2 matches existing export in `src/config/motion.ts:11`. CSS var names `--z-layer-id` match between Task 1.1 (definition) and Tasks 1.3–1.6 (consumers).
 
 **Gap added:** Phase 1b (remaining 4 hex files) flagged in coverage review. Recommend creating that plan after Phase 1 PR merges rather than bloating this one.
 

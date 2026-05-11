@@ -6,6 +6,7 @@ import {
   BELIEF_MANIFESTO_LINES,
   BELIEF_SCROLL_THRESHOLDS,
   SPLIT_TEXT_CONFIG,
+  beliefLayers,
 } from './belief.constants';
 import { SplitGhostText } from './SplitGhostText';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
@@ -92,9 +93,12 @@ export function BeliefManifesto() {
       ref={containerRef}
       data-testid="beliefs-manifesto"
       data-belief-manifesto
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-overlay)] flex items-center justify-center px-6"
+      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
       aria-label="ISSO É GHOST DESIGN"
-      style={{ opacity: prefersReducedMotion ? 1 : 0 }}
+      style={{ 
+        opacity: prefersReducedMotion ? 1 : 0,
+        zIndex: beliefLayers.manifesto
+      }}
     >
       <div className="mx-auto w-full max-w-[1680px] text-center">
         {BELIEF_MANIFESTO_LINES.map((line) => (

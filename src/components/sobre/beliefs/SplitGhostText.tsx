@@ -57,7 +57,6 @@ export function SplitGhostText({
 }: SplitGhostTextProps) {
   const containerRef = useRef<HTMLElement>(null);
   const segments = splitText(text, splitType);
-  const isChars = splitType === 'chars';
 
   useLayoutEffect(() => {
     if (!containerRef.current) return;
