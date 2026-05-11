@@ -3,7 +3,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollProvider';
-import { Z_INDEX } from '@/config/z-indices';
 
 export function GhostSceneFallback() {
   const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
@@ -63,8 +62,7 @@ export function GhostSceneFallback() {
     <div
       data-testid="ghost-fallback"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0 flex items-center justify-center"
-      style={{ zIndex: Z_INDEX.beliefs.ghost }}
+      className="pointer-events-none fixed inset-0 z-[var(--z-layer-3d)] flex items-center justify-center"
     >
       <svg
         ref={svgRef}
@@ -77,7 +75,7 @@ export function GhostSceneFallback() {
       >
         <path
           d="M100 12c-39 0-70 31-70 70v118c0 8 9 12 15 7l18-14c4-3 9-3 13 0l18 14c4 3 10 3 14 0l18-14c4-3 9-3 13 0l18 14c6 5 15 1 15-7V82c0-39-31-70-72-70Z"
-          fill="#ffffff"
+          fill="var(--color-text)"
         />
         <ellipse
           cx="78"
@@ -97,7 +95,7 @@ export function GhostSceneFallback() {
           d="M40 70h120l-6-22a18 18 0 0 0-17-13H63a18 18 0 0 0-17 13L40 70Z"
           fill="var(--color-background)"
         />
-        <rect x="40" y="68" width="120" height="6" fill="#e10b1a" />
+        <rect x="40" y="68" width="120" height="6" fill="var(--color-redAccent)" />
       </svg>
     </div>
   );

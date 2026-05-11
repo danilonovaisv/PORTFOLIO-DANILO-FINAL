@@ -30,7 +30,7 @@ function AboutBeliefsContent() {
       id="beliefs"
       data-testid="beliefs-section"
       aria-label="Manifesto e Crenças"
-      className="beliefs-section relative overflow-clip bg-[#040013] text-white"
+      className="beliefs-section relative overflow-clip bg-background text-text"
       style={{ height: MOTION_TOKENS.layout.sectionMinHeight }}
     >
       <h2 className="sr-only">Manifesto de Design Ghost</h2>

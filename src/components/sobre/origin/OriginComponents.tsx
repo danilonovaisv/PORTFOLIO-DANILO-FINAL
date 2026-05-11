@@ -48,7 +48,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             transition={{
               duration: MOTION_TOKENS.duration.GHOST_EXIT,
               delay: 0.2,
-              ease: GHOST_EASE as any,
+              ease: GHOST_EASE,
             }}
             className="text-h2 font-bold text-bluePrimary mb-4"
           >
@@ -70,7 +70,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             transition={{
               duration: MOTION_TOKENS.duration.GHOST_EXIT,
               delay: 0.3,
-              ease: GHOST_EASE as any,
+              ease: GHOST_EASE,
             }}
             className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
           >
@@ -90,7 +90,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           transition={{
             duration: MOTION_TOKENS.duration.normal,
             delay: MOTION_TOKENS.stagger.normal,
-            ease: GHOST_EASE as any,
+            ease: GHOST_EASE,
           }}
           className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
         >
@@ -105,7 +105,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
       </div>
 
       {/* Desktop: Text Content Only (controlled by native scroll) */}
-      <div className="hidden lg:block lg:max-w-md relative z-10 transition-opacity duration-modal">
+      <div className="hidden lg:block lg:max-w-md relative z-[var(--z-layer-content)] transition-opacity duration-modal">
         <h2
           data-origin-title
           className="text-h2 font-bold text-bluePrimary mb-6 tracking-wide translate-y-0 opacity-100"
@@ -171,7 +171,7 @@ export function OriginStickyGallery({
               sizes="(max-width: 1024px) 0px, 40vw"
             />
             {/* Mask overlay for reveal effect */}
-            <div className="origin-mask absolute inset-0 bg-void z-10 origin-top" />
+            <div className="origin-mask absolute inset-0 bg-background z-[var(--z-layer-glass)] origin-top" />
           </div>
         ))}
       </div>

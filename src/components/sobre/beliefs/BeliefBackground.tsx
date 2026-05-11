@@ -4,15 +4,16 @@ import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { BELIEF_COLOR_STOPS } from './belief.constants';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 export function BeliefBackground() {
   const bgRef = useRef<HTMLDivElement | null>(null);
   const grainRef = useRef<HTMLDivElement | null>(null);
   const vignetteRef = useRef<HTMLDivElement | null>(null);
-  const { sectionRef } = useBeliefsScrollContext();
+  const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
 
   useLayoutEffect(() => {
-    if (!bgRef.current || !sectionRef.current) return;
+    if (prefersReducedMotion || !bgRef.current || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -29,7 +30,7 @@ export function BeliefBackground() {
         tl.to(bgRef.current, {
           backgroundColor: color,
           duration: 1,
-          ease: 'power2.inOut', // Ghost atmospheric curve
+          ease: GSAP_GHOST_EASE,
         });
       });
 
@@ -71,26 +72,26 @@ export function BeliefBackground() {
           .fromTo(
             vignetteRef.current,
             { opacity: 0.3 },
-            { opacity: 0.7, duration: 0.6, ease: 'power1.in' },
+            { opacity: 0.7, duration: 0.6, ease: GSAP_GHOST_EASE },
             0.1
           )
           .to(
             vignetteRef.current,
-            { opacity: 0.4, duration: 0.4, ease: 'power1.out' },
+            { opacity: 0.4, duration: 0.4, ease: GSAP_GHOST_EASE },
             0.7
           );
       }
     });
 
     return () => ctx.revert();
-  }, [sectionRef]);
+  }, [sectionRef, prefersReducedMotion]);
 
   return (
     <div
       ref={bgRef}
       aria-hidden="true"
       data-testid="beliefs-background"
-      className="fixed inset-0 z-[var(--z-layer-base)] bg-[#040013]"
+      className="fixed inset-0 z-[var(--z-layer-base)] bg-background"
     >
       {/* Radial Vignette — intensifies during scroll */}
       <div
@@ -98,7 +99,7 @@ export function BeliefBackground() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 0%, transparent 30%, rgba(0,0,0,0.6) 100%)',
+            'radial-gradient(ellipse at center, transparent 0%, transparent 30%, color-mix(in oklab, var(--color-background) 60%, transparent) 100%)',
           opacity: 0.3,
         }}
       />

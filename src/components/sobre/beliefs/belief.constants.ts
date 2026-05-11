@@ -33,15 +33,13 @@ export const SPLIT_TEXT_CONFIG = {
     duration: 0.7,
     from: { opacity: 0, y: 12, filter: 'blur(6px)' },
     to: { opacity: 1, y: 0, filter: 'blur(0px)' },
-    ease: 'power2.out',
   },
   manifesto: {
     splitType: 'chars' as const,
     delay: 0.025,
     duration: 0.6,
-    from: { opacity: 0, y: 20, scale: 0.96, filter: 'blur(10px)' },
-    to: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' },
-    ease: 'power3.out',
+    from: { opacity: 0, y: 18, filter: 'blur(10px)' },
+    to: { opacity: 1, y: 0, filter: 'blur(0px)' },
   },
 } as const;
 

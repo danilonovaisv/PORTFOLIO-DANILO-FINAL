@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 export function BeliefOverlay() {
   const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();
@@ -34,7 +35,7 @@ export function BeliefOverlay() {
       // Climax intensity — matches manifesto reveal
       tl.to(
         overlayRef.current,
-        { opacity: 0.35, duration: 0.2, ease: 'power1.in' },
+        { opacity: 0.35, duration: 0.2, ease: GSAP_GHOST_EASE },
         BELIEF_SCROLL_THRESHOLDS.climaxStart
       );
 
@@ -48,7 +49,7 @@ export function BeliefOverlay() {
       // Fade at final lock
       tl.to(
         overlayRef.current,
-        { opacity: 0.1, duration: 0.18, ease: 'power1.out' },
+        { opacity: 0.1, duration: 0.18, ease: GSAP_GHOST_EASE },
         BELIEF_SCROLL_THRESHOLDS.finalLock
       );
     });
@@ -60,11 +61,11 @@ export function BeliefOverlay() {
     <div
       ref={overlayRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-glass)] bg-black/10 mix-blend-overlay"
+      className="pointer-events-none fixed inset-0 z-[var(--z-layer-glass)] bg-background/10 mix-blend-overlay"
       style={{
         opacity: prefersReducedMotion ? 0.2 : 0.05,
         backgroundImage:
-          'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%)',
+          'radial-gradient(circle at center, transparent 0%, color-mix(in oklab, var(--color-background) 40%, transparent) 100%)',
       }}
     />
   );
