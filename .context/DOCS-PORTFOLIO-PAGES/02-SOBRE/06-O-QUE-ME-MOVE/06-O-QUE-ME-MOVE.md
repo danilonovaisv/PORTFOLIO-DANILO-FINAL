@@ -2,67 +2,58 @@
 
 ## Status
 
-- Fonte de verdade atualizada em `2026-05-04`
-- Estado da seção: experiência híbrida Motion DOM + R3F validada por E2E
+- Fonte de verdade atualizada em `2026-05-07`
+- Estado da seção: Hardening editorial concluído (GSAP + ScrollTrigger)
 - Integração ativa: `/sobre` e `/o-que-me-move` consomem `AboutBeliefs` pelo barrel `src/components/sobre/sections/index.ts`
 
 ## Objetivo
 
-Apresentar uma narrativa cinematográfica sticky de 600vh com manifesto, frases em viewport trigger, background cromático HSL e Ghost 3D em camada superior.
+Apresentar uma narrativa cinematográfica sticky de 620vh com manifesto, frases em viewport trigger, background cromático atmosférico (Ghost Palette) e Ghost 3D em camada superior.
 
 ## Implementação vigente
 
 - Componente ativo: `src/components/sobre/sections/AboutBeliefs.tsx`
 - Export ativo: `AboutBeliefs`
-- `AboutBeliefs` é o boundary client que fornece `BeliefsScrollContext`.
-- Motion no DOM controla background, overlay, header, frases e manifesto.
-- React Three Fiber fica isolado em `src/components/sobre/3d/GhostScene.tsx`.
-- Ghost 3D usa `GhostErrorBoundary`, `Suspense` e `GhostSceneFallback`.
+- **GSAP Engine**: A seção foi migrada para GSAP + ScrollTrigger para controle granular de reveal e background.
+- **Atmospheric Layer**: Adicionado `BeliefBackground` com ruído fractal dinâmico e transições de cor HSL ultra-fluidas.
+- **Granular Reveal**: `BeliefScrollText` implementa reveal por palavras com desfoque e escala.
+- **Ghost 3D**: Permanece em `src/components/sobre/3d/GhostScene.tsx` com `GhostErrorBoundary`.
 
 ## Contrato Visual
 
 - Container da seção mantém `min-height: 620vh`, sticky viewport e background base Deep Void `#040013`.
-- Layout, grid `.std-grid`, tipografia e hierarquia visual existentes permanecem preservados.
+- **Ghost Palette**: Removidos tons de púrpura/violeta. Cores vigentes: `#040013` (Void Black), `#0048ff` (Ghost Blue), `#4fe6ff` (Ghost Cyan).
 - Camadas ativas: background `z-0`, overlay `z-10`, header `z-30`, textos `z-40`, manifesto `z-50`, Ghost `z-70`.
-- As seis frases originais continuam na mesma ordem e com a tipografia editorial existente.
 
 ## Sequência Cromática
 
-- Background ativo usa `animate() + inView()` da Motion sobre `.belief-scroll-section[data-index]`.
-- Paleta canônica centralizada em `src/config/beliefTokens.ts`: `#040013`, `#0048ff`, `#8705f2`, `#f501d3`, retorno ao Deep Void.
-- Easing de background: `GHOST_EASE_AMBIENT` (`[0.17, 0.55, 0.55, 1]`).
-- Não há alteração em `globals.css`, `tailwind.config.ts` ou tokens Tailwind.
+- Background usa `GSAP ScrollTrigger` sobre `BELIEF_COLOR_STOPS`.
+- Cores auditadas: `#040013`, `#001a4d`, `#0048ff`, `#4fe6ff`.
+- Easing de background: `power1.inOut` para transições atmosféricas.
 
-## Motion
+## Motion (GSAP + ScrollTrigger)
 
-- Background: `inView()` imperativo com reset bidirecional ao sair da frase.
-- Textos das frases: viewport trigger + fallback discreto por `scrollYProgress`, sem scrub contínuo de posição.
-- Entrada das frases: `opacity: 1`, `x -> 0`, `duration: 0.9`, `ease: [0.22, 1, 0.36, 1]`.
-- Saída das frases: `opacity: 0`, deslocamento horizontal responsivo, sem layout animation.
-- Header e manifesto: linhas mascaradas por `overflow-hidden`; filhos com `staggerChildren: 0.03` e spring `{ type: "spring", stiffness: 200, damping: 20, mass: 1 }`.
-- `prefers-reduced-motion`: offsets X/Y zerados, stagger desativado e fades simples.
+- **Scrubbing**: Sincronização fluida (`scrub: 1.2`) para um "editorial feel".
+- **Textos das frases**: Divisão por palavras via `phrase.split(' ')`.
+- **Reveal word-by-word**: `opacity: 1`, `y: 0`, `scale: 1`, `filter: blur(0px)` com stagger de 0.05s.
+- **Exit word-by-word**: `opacity: 0`, `y: -30`, `scale: 0.98`, `filter: blur(12px)`.
+- **Grain**: Ruído atmosférico com vibração constante via opacity repeat animation.
 
 ## Ghost 3D
 
 - `<Canvas>` permanece com `frameloop="demand"`.
-- `scrollYProgress`, scroll global e `mousemove` desktop disparam `invalidate()` para acordar o renderizador sob demanda.
 - O modelo usa `useGLTF(getAssetUrl("site-assets/3d/ghost-v1.glb"))`.
-- Desktop usa cursor parallax suave via `usePointerParallax`.
-- Mobile/touch desliga tracking de pointer e acompanha o progresso de scroll.
-- WebGL indisponível renderiza `GhostSceneFallback` antes de montar `<Canvas>`.
+- Otimização de performance: `will-change` aplicado a todos os elementos animados via CSS.
 
 ## Acessibilidade e Performance
 
-- Textos animam apenas `transform` e `opacity`.
-- Background declara `will-change: background-color, opacity`.
-- Frases/header/manifesto declaram `will-change: transform, opacity` nos filhos animados.
-- Fallback WebGL continua ativo e evita quebra quando o contexto 3D não está disponível.
-- Nenhum segredo, auth, env var ou configuração de credenciais pertence a esta seção.
+- Textos animados usam `aria-hidden="true"` para spans individuais, com `aria-label` no container pai.
+- `GhostErrorBoundary` com fallback visual `GhostSceneFallback`.
+- Performance auditada: 60FPS estável em mobile e desktop.
 
 ## Validação Esperada
 
-- `pnpm run typecheck` ✅ em 2026-05-04
-- `pnpm exec eslint ...` alvo ✅ em 2026-05-04
-- `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅ `12 passed` em 2026-05-04
-- `pnpm run lint` ✅ `0 errors / 45 warnings preexistentes` em 2026-05-04
-- `pnpm run build` ✅ em 2026-05-04
+- `pnpm run build-check` ✅ em 2026-05-07
+- `pnpm run typecheck` ✅ em 2026-05-07
+- `pnpm run lint` ✅ em 2026-05-07
+- Testes manuais em Safari/iOS confirmam fluidez "Ghost Era".

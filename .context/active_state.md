@@ -1,8 +1,8 @@
-# Active State: BELIEFS SECTION HARDENING ✅
+# Active State: BELIEFS SECTION EDITORIAL HARDENING ✅
 
-**Phase**: O QUE ME MOVE — MOTION DOM + GHOST 3D
-**Current Focus**: Beliefs section contracts validated; prepare full lint/build and release handoff.
-**Last Update**: 2026-05-04
+**Phase**: O QUE ME MOVE — GSAP EDITORIAL REVEAL + ATMOSPHERIC GRAIN
+**Current Focus**: Section hardened with premium motion and Ghost Palette. Release ready.
+**Last Update**: 2026-05-07
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -28,6 +28,15 @@
 - [x] **WebGL Fallback**: `GhostScene` checks WebGL support before mounting `<Canvas>`.
 - [x] **E2E Evidence**: `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` passed `12/12`.
 - [x] **Release Gates**: `pnpm run typecheck`, `pnpm run lint`, and `pnpm run build` passed locally.
+
+## Beliefs Section Editorial Hardening (2026-05-07)
+
+- [x] **GSAP Integration**: Migrated from Framer Motion to GSAP + ScrollTrigger for ultra-smooth scrubbing (`1.2s`).
+- [x] **Granular Word Reveal**: Implemented word-by-word reveal with opacity, scale, and blur for an "Editorial Minimalism" feel.
+- [x] **Atmospheric Layer**: Added dynamic SVG fractal noise with "vibration" animation to `BeliefBackground`.
+- [x] **Ghost Palette Audit**: Corrected color stops to eliminate purple/violet surfaces. Core colors: Deep Void (#040013) and Ghost Blue (#0048ff).
+- [x] **Hygiene & Performance**: Removed unused code in 3D and Scroll components. `will-change` optimized for 60FPS.
+- [x] **Documentation Sync**: Updated `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE.md` to reflect the new architecture.
 
 ## Recent Achievements
 

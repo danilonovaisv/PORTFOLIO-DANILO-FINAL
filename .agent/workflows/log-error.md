@@ -1,11 +1,12 @@
 ---
-description: Intercepta quebras no fluxo, extrai stack traces e alimenta o Error Journal global para prevenir reincidência de bugs no Agent Manager.
+description: Intercepta quebras no fluxo, extrai stack traces e alimenta o Error Journal global para prevenir reincidência de bugs.
 ---
 
-# Registro e Triagem de Erros (Error Journal)
+# Log de Erros e Aprendizado Contínuo
 
-1. Capture o Stack Trace proveniente do terminal ou falha de renderização de componentes React/Three.js.
-2. Isole a causa raiz (Ex: violação de RLS no Supabase, erro de hidratacão SSR vs CSR no Next.js, memory leak na tag `<Canvas>`).
-3. Formate a análise do problema e atualize os arquivos em `@.specify/memory/error_journal.md` ou equivalente.
-4. Identifique o padrão quebrado e reescreva-o como uma nova regra proativa que será absorvida pelos agentes no próximo prompt.
-5. Inicie a autocorreção sugerida no log ou sugira a reversão dos últimos commits locais usando o Terminal do Antigravity.
+1. Capture o erro atual, extraindo o stack trace completo e o contexto do componente/função afetado.
+2. Analise se o erro é recorrente consultando o histórico em `@ERRORS.md`.
+3. Registre a nova ocorrência seguindo o formato padrão do Ghost System em `ERRORS.md`:
+   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsx scripts/log-error-entry.ts`
+4. Se o erro for uma falha de agente (alucinação ou erro de lógica), atualize as regras em `@.agent/rules/error-logging.md` para prevenir repetição.
+5. Proponha uma solução técnica imediata e valide a correção com `/tdd-feature`.

@@ -4,12 +4,11 @@ description: Automatiza a sincronização, varredura de duplicatas e limpeza de 
 
 # Sincronização e Governança de Assets (Supabase)
 
-1. Analise as configurações de assets globais lendo `@src/config/site-assets.ts` e a pasta `@scripts/` para entender as ferramentas disponíveis.
-2. Acione o script de sincronização primária para garantir que os assets locais e remotos estão espelhados corretamente:
+1. Mapeie os assets necessários lendo `@src/config/site-assets.ts` e compare com o estado atual do bucket no Supabase Storage.
+2. Acione o script de sincronização para espelhar assets locais e remotos:
    `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsx scripts/sync-site-assets.ts`
-3. Verifique as anomalias, como assets duplicados ou links corrompidos no banco de dados:
+3. Identifique e resolva duplicatas ou links órfãos no banco de dados PostgreSQL via MCP:
    `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsx scripts/fix-duplicate-assets.ts`
-   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsx scripts/check-storage-links.ts`
-4. Execute a auditoria final para varrer mídias não utilizadas no projeto que estão consumindo espaço no bucket (Egress/Storage limit):
+4. Varra mídias não referenciadas que estão consumindo cota de armazenamento:
    `// turbo /Users/danilonovais/.local/bin/node scripts/check-unused-assets.cjs`
-5. Se houver falhas críticas de deleção ou permissão RLS, pare a execução e informe o usuário detalhadamente, sugerindo correção via MCP Supabase.
+5. Documente anomalias críticas e atualize `@.context/knowledge-graph.md` com o novo mapa de dependências de mídia.

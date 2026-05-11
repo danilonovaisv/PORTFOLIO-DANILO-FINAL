@@ -4,13 +4,12 @@ description: Resolve problemas de cache corrompido, dependências dessincronizad
 
 # Deep Clean e Manutenção de Repositório
 
-1. Revise as configurações de pacote em `@package.json` para verificar versões antes de destruir o cache.
-2. Acione o script nativo de sanitização para varrer lixos de builds anteriores, `.next`, e módulos temporários:
+1. Revise as configurações de pacote em `@package.json` para verificar versões críticas antes de iniciar a limpeza.
+2. Acione o script de sanitização para remover diretórios `.next`, `node_modules` e caches corrompidos:
    `// turbo bash scripts/cleanup-project.sh`
-3. Execute os reparos específicos de gerenciadores de pacote e dependências cíclicas:
-   `// turbo bash scripts/fix-deps.sh`
+3. Execute reparos específicos no gerenciador de pacotes e resolva conflitos de `pnpm-lock.yaml`:
    `// turbo bash scripts/fix-pnpm.sh`
-4. Inicie o script Python (se aplicável ao ambiente local) para higienização profunda adicional, garantindo um ambiente virgem para o próximo build:
-   `// turbo python3 scripts/pnpm_deep_clean.py`
-5. Reinstale todas as dependências de forma limpa e reconstrua as tipagens:
-   `// turbo pnpm install && /Users/danilonovais/.local/bin/node node_modules/.bin/next build`
+4. Reinstale todas as dependências utilizando o PNPM em modo "frozen-lockfile" para garantir determinismo:
+   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/pnpm install --frozen-lockfile`
+5. Realize um build de fumaça para validar que o ambiente foi restaurado com sucesso:
+   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/next build`

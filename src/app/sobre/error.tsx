@@ -8,7 +8,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-background px-6 text-white">
+    <div className="flex min-h-dvh items-center justify-center bg-background px-6 text-white">
       <div className="max-w-md space-y-4 text-center">
         <h1 className="text-2xl font-bold">
           Não foi possível carregar a página.
@@ -21,6 +21,6 @@ export default function Error({
           Tentar novamente
         </button>
       </div>
-    </main>
+    </div>
   );
 }

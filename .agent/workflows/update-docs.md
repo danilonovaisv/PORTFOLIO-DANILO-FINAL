@@ -1,49 +1,12 @@
 ---
-description: Atualize automaticamente a documentação quando houver novos recursos ou mudanças no sistema.
+description: Sincronização automática da documentação do projeto com o estado atual do código.
 ---
 
-# /update-docs - Sincronização Automática de Documentação
+# Atualização de Documentação e Contexto
 
-$ARGUMENTS
-
----
-
-## 🟢 FASE 1: Detecção de Mudanças
-**Agente**: `explorer-agent`
-**contexto**: `explorer-contexto`
-**Missão**: Encontrar o "Delta".
-- **Ação**: Vasculhar `.agent/skills/`, `.agent/agents/`,  `.context/`, `.context/DOCS-PORTFOLIO-PAGES/` e `.agent/workflows/`.
-- **Ação**: Comparar contagens e rótulos com a documentação existente.
-
-## 🟡 FASE 2: Síntese de Dados
-**Agente**: `documentation-writer`
-**Missão**: Construir a "Fonte da Verdade".
-- **Ação**: Calcular novas estatísticas (Total de Skills, Total de Agents).
-- **Ação**: Gerar descrições curtas para quaisquer novos componentes encontrados.
-- **Vínculo de DNA**: Seguir o checklist em `rules/docs-update.md`.
-
-## 🔵 FASE 3: Atualização Cirúrgica
-**Agente**: `documentation-writer`
-**Missão**: Propagar as mudanças.
-- **Ação**: Atualizar `README.md`, `README.vi.md` e todos os arquivos `*_GUIDE.vi.md`.
-- **Ação**: Executar `node .agent/scripts/update-docs.js` se disponível.
-
-## 🔴 FASE 4: Auditoria de Integridade
-**Agente**: `quality-inspector`
-**Missão**: Revisão final.
-- **Verificação**: Garantir que todos os links sejam clicáveis e que as estatísticas estejam 100% corretas.
-- **Relatório**: Reportar o total de itens atualizados ao Usuário.
-
----
-
-## Regras de Sincronização:
-- **Bilíngue**: Sempre atualizar arquivos em Inglês e Vietnamita.
-- **Estatísticas Consistentes**: As contagens do README devem corresponder ao número real de arquivos em `.agent/`.
-- **Diff Limpo**: Modificar apenas as seções relevantes para manter o histórico legível.
-
----
-
-## Exemplos:
-- `/update-docs`
-- `/update-docs após adicionar 3 novas skills`
-- `/update-docs sincronizar descrições de agents`
+1. Analise as mudanças recentes no código em `@src/` e identifique novos componentes, hooks ou rotas.
+2. Sincronize o arquivo `@.context/active_state.md` com o progresso atual das tarefas.
+3. Atualize o grafo de conhecimento e as especificações técnicas em `@.context/ARCHITECTURE.md` ou nos Blueprints de página.
+4. Execute o script de geração de documentação automatizada:
+   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsx scripts/update-docs.ts`
+5. Valide se as referências cruzadas entre os arquivos markdown estão corretas e sem links quebrados.
