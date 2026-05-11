@@ -254,6 +254,9 @@ export function useGhostScene(
         } else if (Array.isArray(object.material)) {
           object.material.forEach((mat) => mat.dispose());
         }
+        if (object instanceof THREE.InstancedMesh) {
+          object.dispose();
+        }
       }
     });
 

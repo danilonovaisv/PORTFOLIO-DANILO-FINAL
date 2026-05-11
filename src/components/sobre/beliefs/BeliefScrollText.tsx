@@ -19,7 +19,7 @@ export function BeliefScrollText() {
           trigger: sectionRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 1.2, // Smoother scrub for editorial feel
+          scrub: 1.5, // Ghost editorial smoothness
         },
       });
 
@@ -47,7 +47,7 @@ export function BeliefScrollText() {
             filter: 'blur(0px)',
             stagger: 0.05,
             duration: revealDuration,
-            ease: 'power2.out',
+            ease: 'power3.out', // Ghost atmospheric curve
           },
           phraseStart
         );
@@ -62,7 +62,7 @@ export function BeliefScrollText() {
             filter: 'blur(12px)',
             stagger: 0.03,
             duration: exitDuration,
-            ease: 'power2.in',
+            ease: 'power3.in', // Ghost atmospheric curve
           },
           phraseEnd - exitDuration
         );

@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import {
   BELIEF_MANIFESTO_LINES,
   BELIEF_SCROLL_THRESHOLDS,
+  SPLIT_TEXT_CONFIG,
 } from './belief.constants';
 import { SplitGhostText } from './SplitGhostText';
 import { useBeliefsScrollContext } from './BeliefsScrollProvider';
@@ -12,6 +13,7 @@ import { useBeliefsScrollContext } from './BeliefsScrollProvider';
 export function BeliefManifesto() {
   const { sectionRef } = useBeliefsScrollContext();
   const containerRef = useRef<HTMLDivElement>(null);
+  const { manifesto } = SPLIT_TEXT_CONFIG;
 
   useLayoutEffect(() => {
     if (!sectionRef.current || !containerRef.current) return;
@@ -26,7 +28,7 @@ export function BeliefManifesto() {
         },
       });
 
-      // Manifesto appears after phrases
+      // Manifesto container appears after phrases
       // Start: thresholds.climaxStart (0.56)
       // Peak: thresholds.climaxEnd (0.72)
       tl.fromTo(
@@ -37,16 +39,37 @@ export function BeliefManifesto() {
           y: 0,
           filter: 'blur(0px)',
           ease: 'power3.out',
-          duration: 0.2, // Relative to timeline scrub
+          duration: 0.2,
         },
         BELIEF_SCROLL_THRESHOLDS.climaxStart
       );
 
-      // Final lock
+      // Stagger each manifesto line with editorial rhythm
+      const lines = containerRef.current?.querySelectorAll(
+        '[data-manifesto-line]'
+      );
+      if (lines && lines.length > 0) {
+        lines.forEach((line, i) => {
+          tl.fromTo(
+            line,
+            { opacity: 0, x: -18, filter: 'blur(8px)' },
+            {
+              opacity: 1,
+              x: 0,
+              filter: 'blur(0px)',
+              duration: 0.06,
+              ease: manifesto.ease,
+            },
+            BELIEF_SCROLL_THRESHOLDS.climaxStart + 0.04 + i * 0.03
+          );
+        });
+      }
+
+      // Final lock — subtle scale pulse
       tl.to(
         containerRef.current,
         {
-          scale: 1.05,
+          scale: 1.03,
           duration: 0.1,
           ease: 'power2.inOut',
         },
@@ -55,7 +78,7 @@ export function BeliefManifesto() {
     });
 
     return () => ctx.revert();
-  }, [sectionRef]);
+  }, [sectionRef, manifesto.ease]);
 
   return (
     <div
@@ -64,18 +87,24 @@ export function BeliefManifesto() {
       data-belief-manifesto
       className="pointer-events-none fixed inset-0 z-[var(--z-layer-overlay)] flex items-center justify-center px-6"
       aria-label="ISSO É GHOST DESIGN"
-      style={{ opacity: 0 }} // Initial state for GSAP
+      style={{ opacity: 0 }}
     >
       <div className="mx-auto w-full max-w-[1680px] text-center">
         {BELIEF_MANIFESTO_LINES.map((line) => (
-          <SplitGhostText
-            key={line}
-            as="h2"
-            text={line}
-            splitType="words"
-            textAlign="center"
-            className="block font-extrabold uppercase leading-[0.88] text-white"
-          />
+          <div key={line} data-manifesto-line style={{ opacity: 0 }}>
+            <SplitGhostText
+              as="h2"
+              text={line}
+              splitType={manifesto.splitType}
+              delay={manifesto.delay}
+              duration={manifesto.duration}
+              from={manifesto.from}
+              to={manifesto.to}
+              ease={manifesto.ease}
+              textAlign="center"
+              className="block font-extrabold uppercase leading-[0.88] text-white"
+            />
+          </div>
         ))}
       </div>
     </div>

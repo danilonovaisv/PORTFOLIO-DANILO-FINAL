@@ -82,6 +82,20 @@ export const MOTION_TOKENS = {
   },
 
   // ─────────────────────────────────────────────────────────────────────────
+  // SPLIT TEXT — Kinetic Typography Tokens
+  // ─────────────────────────────────────────────────────────────────────────
+  splitText: {
+    /** Char-level stagger for header reveals */
+    headerStagger: 0.04,
+    /** Word-level stagger for manifesto reveals */
+    manifestoStagger: 0.06,
+    /** Header total animation duration */
+    headerDuration: 1.2,
+    /** Manifesto word animation duration */
+    manifestoDuration: 0.8,
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
   // STAGGER DELAYS
   // ─────────────────────────────────────────────────────────────────────────
   stagger: {

@@ -6,11 +6,11 @@ Esta sessão orquestra uma experiência imersiva onde o manifesto pessoal é rev
 
 ## **2\. Dependências Necessárias**
 
-* framer-motion (Motion.dev)  
-* @react-three/fiber  
-* @react-three/drei  
-* gsap  
-* react-bits (Custom Component: SplitText)
+- framer-motion (Motion.dev)
+- @react-three/fiber
+- @react-three/drei
+- gsap
+- react-bits (Custom Component: SplitText)
 
 ## **3\. Implementação do Background e Scroll Logic**
 
@@ -63,19 +63,19 @@ Implementação utilizando \`SplitText\` para revelação de caracteres.
 import SplitText from './react-bits/SplitText';
 
 const BeliefFixedHeader \= ({ progress }) \=\> {  
-  return (  
-    \<div className="sticky top-0 h-screen flex items-center justify-center pointer-events-none"\>  
-      \<SplitText  
-        text="BELIEF SYSTEM"  
-        className="text-8xl font-black uppercase tracking-tighter"  
-        delay={50}  
-        animationFrom={{ opacity: 0, y: 100, rotateX: 90 }}  
-        animationTo={{ opacity: 1, y: 0, rotateX: 0 }}  
-        easing="power4.out"  
-        threshold={0.1}  
-      /\>  
-    \</div\>  
-  );  
+ return (  
+ \<div className="sticky top-0 h-screen flex items-center justify-center pointer-events-none"\>  
+ \<SplitText  
+ text="BELIEF SYSTEM"  
+ className="text-8xl font-black uppercase tracking-tighter"  
+ delay={50}  
+ animationFrom={{ opacity: 0, y: 100, rotateX: 90 }}  
+ animationTo={{ opacity: 1, y: 0, rotateX: 0 }}  
+ easing="power4.out"  
+ threshold={0.1}  
+ /\>  
+ \</div\>  
+ );  
 };
 
 ## **5\. Cena 3D Ghost (Referência drinksom.eu)**
@@ -88,40 +88,40 @@ import { Canvas } from '@react-three/fiber';
 import { Mask, useMask, Float, MeshDistortMaterial } from '@react-three/drei';
 
 const GhostEffect \= () \=\> {  
-  const stencil \= useMask(1); // Ativa o filtro do portal ID 1
+ const stencil \= useMask(1); // Ativa o filtro do portal ID 1
 
-  return (  
-    \<Float speed\={2} rotationIntensity\={0.5} floatIntensity\={1}\>  
-      \<mesh\>  
-        \<sphereGeometry args\={} /\>  
-        \<MeshDistortMaterial  
-          {...stencil}  
-          speed\={3}  
-          distort\={0.4}  
-          color\="\#444"  
-          roughness\={0.1}  
-          metalness\={1}  
-        /\>  
-      \</mesh\>  
-    \</Float\>  
-  );  
+return (  
+ \<Float speed\={2} rotationIntensity\={0.5} floatIntensity\={1}\>  
+ \<mesh\>  
+ \<sphereGeometry args\={} /\>  
+ \<MeshDistortMaterial  
+ {...stencil}  
+ speed\={3}  
+ distort\={0.4}  
+ color\="\#444"  
+ roughness\={0.1}  
+ metalness\={1}  
+ /\>  
+ \</mesh\>  
+ \</Float\>  
+ );  
 };
 
 const GhostCanvas \= ({ progress }) \=\> {  
-  const maskScale \= useTransform(progress, \[0.3, 0.6\], );
+ const maskScale \= useTransform(progress, \[0.3, 0.6\], );
 
-  return (  
-    \<div className\="fixed inset-0 z-10 pointer-events-none"\>  
-      \<Canvas camera\={{ position:  }}\>  
-        \<Mask id\={1} position\={}\>  
-          \<motion.circleGeometry args\={} scale\={maskScale} /\>  
-        \</Mask\>  
-        \<GhostEffect /\>  
-        \<ambientLight intensity\={0.5} /\>  
-        \<pointLight position\={} /\>  
-      \</Canvas\>  
-    \</div\>  
-  );  
+return (  
+ \<div className\="fixed inset-0 z-10 pointer-events-none"\>  
+ \<Canvas camera\={{ position:  }}\>  
+ \<Mask id\={1} position\={}\>  
+ \<motion.circleGeometry args\={} scale\={maskScale} /\>  
+ \</Mask\>  
+ \<GhostEffect /\>  
+ \<ambientLight intensity\={0.5} /\>  
+ \<pointLight position\={} /\>  
+ \</Canvas\>  
+ \</div\>  
+ );  
 };
 
 ## **6\. Manifesto Final**
@@ -131,19 +131,19 @@ Animação por palavras para ritmo de leitura.
 JavaScript
 
 const ManifestoFinal \= ({ progress }) \=\> {  
-  return (  
-    \<div className\="h-screen flex items-end p-20"\>  
-      \<SplitText  
-        text\="A inovação não é um destino, é a força que move cada pixel em direção ao futuro."  
-        className\="text-4xl max-w-2xl leading-tight"  
-        splitType\="words"  
-        delay\={80}  
-        animationFrom\={{ opacity: 0, x: \-50 }}  
-        animationTo\={{ opacity: 1, x: 0 }}  
-        threshold\={0.5}  
-      /\>  
-    \</div\>  
-  );  
+ return (  
+ \<div className\="h-screen flex items-end p-20"\>  
+ \<SplitText  
+ text\="A inovação não é um destino, é a força que move cada pixel em direção ao futuro."  
+ className\="text-4xl max-w-2xl leading-tight"  
+ splitType\="words"  
+ delay\={80}  
+ animationFrom\={{ opacity: 0, x: \-50 }}  
+ animationTo\={{ opacity: 1, x: 0 }}  
+ threshold\={0.5}  
+ /\>  
+ \</div\>  
+ );  
 };
 
 ## **7\. Estilos Globais Sugeridos (CSS)**
