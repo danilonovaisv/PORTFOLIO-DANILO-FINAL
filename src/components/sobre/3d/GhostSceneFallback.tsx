@@ -1,62 +1,15 @@
 'use client';
 
-import { m, useTransform } from 'framer-motion';
-import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
-
 export function GhostSceneFallback() {
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
-
-  // Map progress to opacity: [0.1, 0.2, 0.85, 0.95] → [0, 1, 1, 0]
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.2, 0.85, 0.95, 1],
-    [0, 0, 1, 1, 0, 0]
-  );
-
   return (
     <div
+      aria-hidden="true"
       data-testid="ghost-fallback"
       data-ghost-scene
-      className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)] flex items-center justify-center"
+      className="pointer-events-none fixed inset-0 flex items-center justify-center"
+      style={{ zIndex: 70 }}
     >
-      <m.svg
-        role="img"
-        aria-label="Silhueta do Ghost"
-        viewBox="0 0 200 240"
-        className="h-[44vh] w-auto md:h-[58vh]"
-        style={{ opacity: prefersReducedMotion ? 1 : opacity }}
-        fill="none"
-      >
-        <path
-          d="M100 12c-39 0-70 31-70 70v118c0 8 9 12 15 7l18-14c4-3 9-3 13 0l18 14c4 3 10 3 14 0l18-14c4-3 9-3 13 0l18 14c6 5 15 1 15-7V82c0-39-31-70-72-70Z"
-          fill="var(--color-text)"
-        />
-        <ellipse
-          cx="78"
-          cy="100"
-          rx="9"
-          ry="13"
-          fill="var(--color-background)"
-        />
-        <ellipse
-          cx="122"
-          cy="100"
-          rx="9"
-          ry="13"
-          fill="var(--color-background)"
-        />
-        <path
-          d="M40 70h120l-6-22a18 18 0 0 0-17-13H63a18 18 0 0 0-17 13L40 70Z"
-          fill="var(--color-background)"
-        />
-        <rect
-          x="40"
-          y="68"
-          width="120"
-          height="6"
-          fill="var(--color-redAccent)"
-        />
-      </m.svg>
+      <div className="h-40 w-40 rounded-full bg-white/10 blur-2xl" />
     </div>
   );
 }

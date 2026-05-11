@@ -6,6 +6,13 @@
       "env": {
         "FIRECRAWL_API_KEY": "YOUR-API-KEY"
       }
+    },
+    "motion": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"
+      ]
     }
   }
 }

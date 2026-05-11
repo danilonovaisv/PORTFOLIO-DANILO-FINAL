@@ -12,10 +12,9 @@ export function usePointerParallax() {
   const springY = useSpring(y, springConfig);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      // Normalize to -1 to 1
-      const normalizedX = (e.clientX / window.innerWidth) * 2 - 1;
-      const normalizedY = -(e.clientY / window.innerHeight) * 2 + 1; // Invert Y for WebGL coords
+    const handleMouseMove = (event: MouseEvent) => {
+      const normalizedX = (event.clientX / window.innerWidth) * 2 - 1;
+      const normalizedY = -(event.clientY / window.innerHeight) * 2 + 1;
 
       x.set(normalizedX);
       y.set(normalizedY);

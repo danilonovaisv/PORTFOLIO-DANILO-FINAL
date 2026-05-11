@@ -1,11 +1,9 @@
 'use client';
 
-// Ghost System v3.0 - Beliefs Section
-
-import { Suspense, useRef, useState, useLayoutEffect } from 'react';
+import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { beliefLayout } from '@/config/beliefTokens';
+import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
 import { BeliefOverlay } from '../beliefs/BeliefOverlay';
@@ -14,88 +12,41 @@ import { BeliefScrollText } from '../beliefs/BeliefScrollText';
 import { BeliefManifesto } from '../beliefs/BeliefManifesto';
 import { GhostErrorBoundary } from '../3d/GhostErrorBoundary';
 import { GhostSceneFallback } from '../3d/GhostSceneFallback';
-import { BELIEF_PHRASES, BELIEF_SCROLL_THRESHOLDS } from '../beliefs/belief.constants';
-import { MOTION_TOKENS } from '@/config/motion';
 
 const GhostScene = dynamic(
-  () => import('../3d/GhostScene').then((m) => m.GhostScene),
-  {
-    ssr: false,
-  }
+  () => import('../3d/GhostScene').then((mod) => mod.GhostScene),
+  { ssr: false }
 );
 
-function AboutBeliefsContent() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // States derived from scroll for immediate reactive updates if needed
-  const [activePhraseIndex, setActivePhraseIndex] = useState(-1);
-  const [isClimax, setIsClimax] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const prefersReducedMotion = Boolean(useReducedMotion());
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    // Climax detection
-    setIsClimax(latest >= BELIEF_SCROLL_THRESHOLDS.climaxStart && latest <= BELIEF_SCROLL_THRESHOLDS.finalLock);
-
-    // activePhraseIndex calculation
-    const start = BELIEF_SCROLL_THRESHOLDS.phrasesStart;
-    const end = BELIEF_SCROLL_THRESHOLDS.phrasesEnd;
-    
-    if (latest < start) {
-      if (activePhraseIndex !== -1) setActivePhraseIndex(-1);
-    } else if (latest > end) {
-      if (activePhraseIndex !== BELIEF_PHRASES.length - 1) setActivePhraseIndex(BELIEF_PHRASES.length - 1);
-    } else {
-      const step = (end - start) / BELIEF_PHRASES.length;
-      const index = Math.floor((latest - start) / step);
-      if (activePhraseIndex !== index) setActivePhraseIndex(index);
-    }
-  });
-
-  // Handle mobile detection
-  useLayoutEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const contextValue = {
-    sectionRef,
-    containerRef,
-    scrollYProgress,
-    isMobile,
-    shouldReduceMotion: prefersReducedMotion,
-    prefersReducedMotion,
-    activePhraseIndex,
-    isClimax,
-    thresholds: BELIEF_SCROLL_THRESHOLDS,
-  };
+export function AboutBeliefs() {
+  const containerRef = useRef<HTMLElement>(null);
+  const scroll = useBeliefsScroll(containerRef);
 
   return (
-    <BeliefsScrollProvider value={contextValue}>
+    <BeliefsScrollProvider
+      value={{
+        containerRef,
+        scrollYProgress: scroll.scrollYProgress,
+        isMobile: scroll.isMobile,
+        shouldReduceMotion: scroll.shouldReduceMotion,
+      }}
+    >
       <section
-        ref={sectionRef}
-        id="beliefs"
+        ref={containerRef}
+        id="o-que-me-move"
         data-testid="beliefs-section"
-        aria-labelledby="beliefs-header"
-        className="beliefs-section relative overflow-clip bg-background text-text"
-        style={{ height: MOTION_TOKENS.layout.sectionMinHeight }}
+        aria-labelledby="o-que-me-move-title"
+        className="relative overflow-clip bg-[#040013] text-white"
+        style={{ minHeight: beliefLayout.sectionMinHeight }}
       >
+        <h2 id="o-que-me-move-title" className="sr-only">
+          O que me move
+        </h2>
+
         <BeliefBackground />
         <BeliefOverlay />
 
-        <div
-          ref={containerRef}
-          className="beliefs-container relative sticky top-0 isolate h-dvh overflow-hidden"
-        >
+        <div className="sticky top-0 h-dvh">
           <BeliefFixedHeader />
 
           <GhostErrorBoundary fallback={<GhostSceneFallback />}>
@@ -105,13 +56,10 @@ function AboutBeliefsContent() {
           </GhostErrorBoundary>
 
           <BeliefManifesto />
-          <BeliefScrollText />
         </div>
+
+        <BeliefScrollText />
       </section>
     </BeliefsScrollProvider>
   );
-}
-
-export function AboutBeliefs() {
-  return <AboutBeliefsContent />;
 }

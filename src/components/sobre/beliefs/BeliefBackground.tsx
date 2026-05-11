@@ -1,66 +1,84 @@
 'use client';
 
-import { m, useTransform } from 'framer-motion';
-import { BELIEF_COLOR_STOPS, BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
+import { animate, inView } from 'motion';
+import { useEffect, useRef } from 'react';
+import {
+  BELIEF_BACKGROUND_STOPS,
+  beliefMotion,
+} from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {
-  const { scrollYProgress, prefersReducedMotion } = useBeliefsScrollContext();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
 
-  // Fade in background, hold during phrases, slight fade/transition for manifesto
-  const opacity = useTransform(
-    scrollYProgress,
-    [
-      0, 
-      BELIEF_SCROLL_THRESHOLDS.entryStart, 
-      BELIEF_SCROLL_THRESHOLDS.entryEnd, 
-      BELIEF_SCROLL_THRESHOLDS.climaxEnd, 
-      BELIEF_SCROLL_THRESHOLDS.finalLock
-    ],
-    [0, 0, 0.9, 0.9, 0.35] // Smoother max opacity for better Ghost visibility
-  );
+  useEffect(() => {
+    if (!ref.current) return;
 
-  // Distribute colors across the timeline
-  const colorOffsets = BELIEF_COLOR_STOPS.map(
-    (_, i) => i / Math.max(1, BELIEF_COLOR_STOPS.length - 1)
-  );
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    colorOffsets,
-    [...BELIEF_COLOR_STOPS]
-  );
+    ref.current.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
 
-  // Animate grain intensity: very subtle (Ghost System editorial style)
-  const grainOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.02, 0.04, 0.03]);
+    const stop = inView(
+      '.belief-scroll-section',
+      (element) => {
+        const index = Number.parseInt(
+          element.getAttribute('data-index') ?? '0',
+          10
+        );
+        const color =
+          BELIEF_BACKGROUND_STOPS[
+            Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+          ];
 
-  // Vignette intensifies with scroll progress
-  const vignetteOpacity = useTransform(scrollYProgress, [0.1, 0.7, 1], [0.2, 0.5, 0.3]);
+        if (shouldReduceMotion) {
+          ref.current!.style.backgroundColor = color;
+          return;
+        }
+
+        animate(
+          ref.current!,
+          { backgroundColor: color },
+          {
+            duration: beliefMotion.revealDuration,
+            ease: beliefMotion.ambientEase,
+          }
+        );
+      },
+      { amount: 0.55 }
+    );
+
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      if (!ref.current || latest < 0.94) return;
+
+      const color = BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 1];
+      if (shouldReduceMotion) {
+        ref.current.style.backgroundColor = color;
+        return;
+      }
+
+      animate(
+        ref.current,
+        { backgroundColor: color },
+        {
+          duration: beliefMotion.revealDuration,
+          ease: beliefMotion.ambientEase,
+        }
+      );
+    });
+
+    return () => {
+      stop();
+      unsubscribe();
+    };
+  }, [scrollYProgress, shouldReduceMotion]);
 
   return (
-    <m.div
+    <div
+      ref={ref}
       aria-hidden="true"
       data-testid="beliefs-background"
-      className="absolute inset-0 z-[var(--z-layer-base)] bg-background"
-      style={prefersReducedMotion ? {} : { opacity, backgroundColor }}
-    >
-      {/* Radial Vignette — intensifies during scroll */}
-      <m.div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 0%, transparent 40%, color-mix(in oklab, var(--color-background) 50%, transparent) 100%)',
-          opacity: prefersReducedMotion ? 0.2 : vignetteOpacity,
-        }}
-      />
-
-      {/* Ethereal Grain Overlay — variable intensity */}
-      <m.div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{
-          opacity: prefersReducedMotion ? 0.02 : grainOpacity,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-    </m.div>
+      data-belief-background
+      className="absolute inset-0 bg-[#040013]"
+      style={{ zIndex: 0 }}
+    />
   );
 }

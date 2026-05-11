@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 
-const ROUTES = ['/o-que-me-move', '/sobre'] as const;
+const ROUTES = ['/sobre'] as const;
 
 const gotoRoute = async (page: Page, route: string) => {
   await page.goto(route, { waitUntil: 'domcontentloaded' });
@@ -56,7 +56,6 @@ for (const route of ROUTES) {
 
       const section = page.locator('[data-testid="beliefs-section"]');
       await expect(section).toBeVisible();
-      await expect(page.locator('[data-scroll-manifesto]')).toHaveCount(0);
       await expect(
         page.locator('[data-testid="beliefs-scroll-text"]')
       ).toBeAttached();
@@ -95,7 +94,9 @@ for (const route of ROUTES) {
       expect(ghostZ).toBeGreaterThan(manifestoZ);
     });
 
-    test('clímax final tem fundo azul e manifesto branco', async ({ page }) => {
+    test('clímax final fecha em deep void com manifesto branco', async ({
+      page,
+    }) => {
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       page.on('console', (msg) => {
@@ -103,7 +104,7 @@ for (const route of ROUTES) {
       });
 
       await prepareRoute(page, route);
-      await scrollToProgress(page, 0.92);
+      await scrollToProgress(page, 0.99);
 
       const background = page.locator('[data-belief-background]');
       await expect
@@ -112,7 +113,7 @@ for (const route of ROUTES) {
             (el) => window.getComputedStyle(el).backgroundColor
           )
         )
-        .toBe('rgb(0, 72, 255)');
+        .toBe('rgb(4, 0, 19)');
 
       const manifestoText = page
         .locator('[data-belief-manifesto] span')
@@ -142,7 +143,7 @@ for (const route of ROUTES) {
       expect(criticalErrors).toHaveLength(0);
     });
 
-    test('background usa progresso da seção e muda a cor HSL renderizada', async ({
+    test('background usa seções narrativas para trocar cor renderizada', async ({
       page,
     }) => {
       await prepareRoute(page, route);
@@ -166,7 +167,7 @@ for (const route of ROUTES) {
         .toBe(true);
     });
 
-    test('frases usam contrato viewport y/opacity sem scrub contínuo', async ({
+    test('frases usam contrato viewport sem scrub contínuo', async ({
       page,
     }) => {
       await prepareRoute(page, route);
@@ -178,7 +179,7 @@ for (const route of ROUTES) {
       for (let index = 0; index < 6; index += 1) {
         await expect(phrases.nth(index)).toHaveAttribute(
           'data-animation-contract',
-          'inview-y-opacity-blur'
+          'viewport-x-opacity'
         );
       }
 
@@ -270,9 +271,9 @@ for (const route of ROUTES) {
       ).toHaveLength(0);
     });
 
-    test('captura desktop no clímax azul', async ({ page }) => {
+    test('captura desktop no final deep void', async ({ page }) => {
       await prepareRoute(page, route);
-      await scrollToProgress(page, 0.92);
+      await scrollToProgress(page, 0.99);
       await page.waitForTimeout(600);
       await page.screenshot({
         path: `test/screenshots/beliefs-climax-desktop-${route.replace('/', '')}.png`,
@@ -280,11 +281,11 @@ for (const route of ROUTES) {
       });
     });
 
-    test('captura mobile no clímax azul', async ({ page }) => {
+    test('captura mobile no final deep void', async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.emulateMedia({ reducedMotion: 'no-preference' });
       await gotoRoute(page, route);
-      await scrollToProgress(page, 0.92);
+      await scrollToProgress(page, 0.99);
       await page.waitForTimeout(600);
       await page.screenshot({
         path: `test/screenshots/beliefs-climax-mobile-${route.replace('/', '')}.png`,
