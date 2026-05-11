@@ -2,6 +2,7 @@
 
 import { SplitGhostText } from './SplitGhostText';
 import { SPLIT_TEXT_CONFIG } from './belief.constants';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 export function BeliefFixedHeader() {
   const { header } = SPLIT_TEXT_CONFIG;
@@ -17,7 +18,7 @@ export function BeliefFixedHeader() {
           duration={header.duration}
           from={header.from}
           to={header.to}
-          ease={header.ease}
+          ease={GSAP_GHOST_EASE}
           className="max-w-xs text-right font-medium uppercase tracking-[0.18em] text-white/80"
           textAlign="right"
         />
