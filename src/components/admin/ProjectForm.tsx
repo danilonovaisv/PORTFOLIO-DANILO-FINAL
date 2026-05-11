@@ -791,7 +791,7 @@ export function ProjectForm({
 
       <button
         type="submit"
-        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-bluePrimary px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white shadow-2xl shadow-bluePrimary/20 transition-all hover:bg-bluePrimary/90 hover:scale-[1.02] active:scale-100 disabled:opacity-50"
+        className="w-full md:w-auto inline-flex items-center justify-center rounded bg-bluePrimary px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white shadow-2xl shadow-bluePrimary/20 transition-all duration-fast hover:bg-bluePrimary/90 disabled:opacity-50"
         disabled={isPending}
       >
         {isPending ? 'SYSTEM_SYNC_IN_PROGRESS...' : 'SYSTEM_PUSH_CHANGES'}

@@ -192,7 +192,7 @@ export function AssetCard({ asset }: Props) {
 
         {/* Overlay Actions */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity group-hover:opacity-100 backdrop-blur-[2px]">
-          <label className="cursor-pointer rounded-full bg-white px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95">
+          <label className="cursor-pointer rounded-full bg-white px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-black transition-colors">
             <input
               type="file"
               className="hidden"

@@ -191,7 +191,7 @@ export function AssetForm({ preset }: AssetFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full flex items-center justify-center rounded-lg bg-bluePrimary px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-bluePrimary/20 transition-all hover:bg-bluePrimary/80 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center rounded-lg bg-bluePrimary px-6 py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-bluePrimary/20 transition-all duration-fast hover:bg-bluePrimary/80 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isPending ? 'Processing_Request...' : 'SYSTEM_PUSH_CHANGES'}
       </button>

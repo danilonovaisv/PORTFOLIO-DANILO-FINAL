@@ -175,12 +175,12 @@ export const MOTION_TOKENS = {
   offset: {
     /** Minimal shift - 8px */
     subtle: 8,
-    /** Standard entrance - 18px (max for Ghost) */
-    standard: 18,
-    /** Larger movements for special cases - 30px */
+    /** Standard entrance - 12px (Ghost subtle baseline) */
+    standard: 12,
+    /** Larger movements for special cases - 18px */
     large: 18,
-    /** Hero/dramatic entrances - 40px (use sparingly) */
-    dramatic: 18,
+    /** Hero/dramatic entrances - 24px (Max allowed for Ghost) */
+    dramatic: 24,
   },
 
   layout: {

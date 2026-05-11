@@ -9,7 +9,7 @@ import {
   beliefLayers,
 } from './belief.constants';
 import { SplitGhostText } from './SplitGhostText';
-import { useBeliefsScrollContext } from './BeliefsScrollProvider';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { MOTION_TOKENS } from '@/config/motion';
 

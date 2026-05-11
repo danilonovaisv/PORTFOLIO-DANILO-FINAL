@@ -145,7 +145,7 @@ export function TagForm({ tag, onSaved }: Props) {
 
       <button
         type="submit"
-        className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-bluePrimary py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-bluePrimary/90 active:scale-[0.98] disabled:opacity-50"
+        className="group relative flex w-full items-center justify-center overflow-hidden rounded bg-bluePrimary py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-bluePrimary/90 disabled:opacity-50"
         disabled={isPending}
       >
         <span className="relative z-10 flex items-center gap-2">

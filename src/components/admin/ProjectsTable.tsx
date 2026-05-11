@@ -202,7 +202,7 @@ export default function ProjectsTable({ projects }: Props) {
                         <button
                           type="submit"
                           title="Home Featured"
-                          className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_home ? 'bg-bluePrimary border-bluePrimary/40 shadow-[0_0_8px_var(--color-bluePrimary)/0.5] scale-125' : 'bg-transparent border-white/10 hover:border-bluePrimary/50'}`}
+                          className={`h-2 w-2 rounded-full border transition-colors duration-fast ${project.featured_on_home ? 'bg-bluePrimary border-bluePrimary/40 shadow-[0_0_8px_var(--color-bluePrimary)/0.5]' : 'bg-transparent border-white/10 hover:border-bluePrimary/50'}`}
                         />
                       </form>
                       <form action={toggleFeaturedOnPortfolio}>
@@ -217,7 +217,7 @@ export default function ProjectsTable({ projects }: Props) {
                         <button
                           type="submit"
                           title="Portfolio Featured"
-                          className={`h-2 w-2 rounded-full border transition-all ${project.featured_on_portfolio ? 'bg-emerald-500 border-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.5)] scale-125' : 'bg-transparent border-white/10 hover:border-emerald-500/50'}`}
+                          className={`h-2 w-2 rounded-full border transition-colors duration-fast ${project.featured_on_portfolio ? 'bg-emerald-500 border-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-transparent border-white/10 hover:border-emerald-500/50'}`}
                         />
                       </form>
                     </div>

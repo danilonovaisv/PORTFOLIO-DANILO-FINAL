@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { useBeliefsScrollContext } from './BeliefsScrollProvider';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 

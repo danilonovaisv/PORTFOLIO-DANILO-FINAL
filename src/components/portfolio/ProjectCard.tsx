@@ -151,7 +151,7 @@ export const ProjectCard = React.memo(function ProjectCard({
     tall: 'col-span-4 lg:col-span-4 aspect-[3/5] w-full',
   };
 
-  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-all duration-standard ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
+  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-all duration-fast ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
   const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-square max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
 
   return (
@@ -298,7 +298,7 @@ export const ProjectCard = React.memo(function ProjectCard({
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/90 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-standard ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/90 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-fast ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
         <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
           <p className="text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-2 font-medium">
             {project.displayCategory}

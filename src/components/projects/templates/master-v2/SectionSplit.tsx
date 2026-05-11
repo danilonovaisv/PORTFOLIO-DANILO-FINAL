@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
 
@@ -34,7 +34,7 @@ export default function SectionSplit({
       whileInView={revealVisible}
       viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.74,
+        duration: MOTION_TOKENS.duration.normal,
         ease: GHOST_EASE,
         delay: prefersReducedMotion ? 0 : index * 0.02,
       }}

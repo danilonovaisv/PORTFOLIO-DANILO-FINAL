@@ -379,7 +379,7 @@ export default function MasterProjectTemplate({
                   whileInView={revealVisible}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{
-                    duration: 0.74,
+                    duration: MOTION_TOKENS.duration.normal,
                     ease: GHOST_EASE,
                     delay: prefersReducedMotion ? 0 : index * 0.03,
                   }}

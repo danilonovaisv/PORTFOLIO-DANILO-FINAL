@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollProvider';
+import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 
 export function GhostSceneFallback() {
   const { sectionRef, prefersReducedMotion } = useBeliefsScrollContext();

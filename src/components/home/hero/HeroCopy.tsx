@@ -19,13 +19,18 @@ export default function HeroCopy({
 }) {
   const revealRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [isMounted, setIsMounted] = React.useState(false);
   const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Sincroniza a posição do overlay 2D com o Ghost 3D
   useGhostReveal(ghostRef, revealRef, isLoaded && !prefersReducedMotion);
 
   useEffect(() => {
-    if (!prefersReducedMotion && isLoaded && scope.current) {
+    if (isMounted && !prefersReducedMotion && isLoaded && scope.current) {
       animate(
         '.hero-line',
         {
@@ -35,7 +40,7 @@ export default function HeroCopy({
         },
         {
           delay: stagger(MOTION_TOKENS.stagger.normal as number),
-          duration: 1.2,
+          duration: MOTION_TOKENS.duration.ghostIn,
           ease: GHOST_EASE as [number, number, number, number],
         }
       );
@@ -44,7 +49,7 @@ export default function HeroCopy({
         '.hero-subtitle',
         { y: [MOTION_TOKENS.offset.standard, 0], opacity: [0, 1] },
         {
-          delay: 0.4,
+          delay: MOTION_TOKENS.delay.medium,
           duration: MOTION_TOKENS.duration.normal as number,
           ease: GHOST_EASE as [number, number, number, number],
         }
@@ -53,9 +58,9 @@ export default function HeroCopy({
   }, [prefersReducedMotion, isLoaded, animate, scope]);
 
   // Initial states for SSR and static render
-  const initialStyles = prefersReducedMotion
+  const initialStyles = !isMounted || prefersReducedMotion
     ? {}
-    : { opacity: 0, translateY: MOTION_TOKENS.offset.standard };
+    : { opacity: 0, y: MOTION_TOKENS.offset.standard };
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (

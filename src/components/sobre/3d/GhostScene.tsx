@@ -5,7 +5,7 @@ import { Mask } from '@react-three/drei';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 import { MathUtils, Mesh } from 'three';
 import gsap from 'gsap';
-import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollProvider';
+import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollContext';
 import { beliefLayers } from '../beliefs/belief.constants';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';

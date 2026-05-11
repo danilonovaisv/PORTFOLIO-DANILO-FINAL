@@ -1,16 +1,19 @@
 'use client';
 
 import { createContext, useContext, ReactNode, RefObject } from 'react';
-import { MotionValue } from 'framer-motion';
+import { MotionValue } from 'motion/react';
+import { BELIEF_SCROLL_THRESHOLDS } from './belief.constants';
 
-type BeliefsScrollContextValue = {
-  containerRef: RefObject<HTMLElement | null>;
+export type BeliefsScrollContextValue = {
+  sectionRef: RefObject<HTMLElement | null>;
+  containerRef: RefObject<HTMLDivElement | null>;
   scrollYProgress: MotionValue<number>;
   isMobile: boolean;
   shouldReduceMotion: boolean;
   prefersReducedMotion: boolean;
   activePhraseIndex: number;
   isClimax: boolean;
+  thresholds: typeof BELIEF_SCROLL_THRESHOLDS;
 };
 
 const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(

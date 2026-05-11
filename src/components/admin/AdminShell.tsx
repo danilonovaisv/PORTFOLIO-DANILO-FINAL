@@ -111,7 +111,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-standard ${
+                    className={`group flex items-center gap-3 rounded px-4 py-3 text-xs font-medium transition-all duration-fast ${
                       active
                         ? 'bg-bluePrimary/10 text-bluePrimary shadow-[inset_0_0_20px_var(--color-bluePrimary)/0.05]'
                         : 'text-white/40 hover:bg-white/5 hover:text-white'
@@ -119,7 +119,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                   >
                     <Icon
                       size={16}
-                      className={`transition-transform duration-standard group-hover:scale-110 ${active ? 'text-bluePrimary' : ''}`}
+                      className={`transition-colors duration-fast ${active ? 'text-bluePrimary' : ''}`}
                     />
                     <span className="tracking-wide">{item.label}</span>
                     {active && (
@@ -182,7 +182,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                 <SheetTrigger asChild>
                   <button
                     type="button"
-                    className="group flex h-10 w-10 items-center justify-center rounded border border-white/5 bg-white/5 transition-all active:scale-95"
+                    className="group flex h-10 w-10 items-center justify-center rounded border border-white/5 bg-white/5 transition-colors duration-fast"
                     aria-label="Open menu"
                   >
                     <Menu
@@ -250,7 +250,7 @@ export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
                     <div className="mt-auto border-t border-white/5 p-6">
                       <form action={signOut}>
                         <button
-                          className="flex w-full items-center justify-center rounded bg-white/5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-rose-400 transition-all active:scale-95"
+                          className="flex w-full items-center justify-center rounded bg-white/5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-rose-400 transition-colors duration-fast"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           Terminate_Session

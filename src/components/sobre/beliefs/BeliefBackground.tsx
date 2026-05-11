@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { BELIEF_COLOR_STOPS } from './belief.constants';
-import { useBeliefsScrollContext } from './BeliefsScrollProvider';
+import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 export function BeliefBackground() {

@@ -55,7 +55,7 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
   onNavigate: (_href: string) => void;
 }) {
   const common =
-    'transition-all duration-standard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
+    'transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em] relative flex items-center';
   const baseText = isLight ? 'text-white' : 'text-white/70';
   const hoverText = isLight ? 'hover:text-bluePrimary' : 'hover:text-white';
   const activeText = 'text-bluePrimary';
@@ -87,20 +87,22 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
     >
       <span className="tracking-tight">{item.label}</span>
       <m.span
-        className="absolute -bottom-1 left-0 h-[1px] w-full bg-current origin-center"
+        className="absolute -bottom-1 left-1/2 h-[1px] bg-current"
         variants={{
-          initial: { scaleX: 0 },
+          initial: { width: 0, x: '-50%' },
           hover: {
-            scaleX: 1,
+            width: '100%',
+            x: '-50%',
             transition: {
-              duration: reducedMotion ? 0 : 0.3,
+              duration: reducedMotion ? 0 : 0.2,
               ease: GHOST_EASE,
             },
           },
           active: {
-            scaleX: 1,
+            width: '100%',
+            x: '-50%',
             transition: {
-              duration: reducedMotion ? 0 : 0.3,
+              duration: reducedMotion ? 0 : 0.2,
               ease: GHOST_EASE,
             },
           },

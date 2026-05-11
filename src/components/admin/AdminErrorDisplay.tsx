@@ -29,7 +29,7 @@ export function AdminErrorDisplay({
         </div>
         <button
           onClick={() => window.location.reload()}
-          className="w-full border border-white/10 bg-white/5 hover:bg-white/10 py-3 rounded font-mono text-[10px] uppercase tracking-[0.2em] transition-all active:scale-[0.98]"
+          className="w-full border border-white/10 bg-white/5 hover:bg-white/10 py-3 rounded font-mono text-[10px] uppercase tracking-[0.2em] transition-all"
         >
           System_Reboot_Kernel
         </button>

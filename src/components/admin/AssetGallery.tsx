@@ -75,7 +75,7 @@ export function AssetGallery({
 
   return (
     <div
-      className={`space-y-8 transition-opacity duration-standard ${isPending ? 'opacity-50' : 'opacity-100'}`}
+      className={`space-y-8 transition-opacity duration-fast ${isPending ? 'opacity-50' : 'opacity-100'}`}
     >
       {/* Control Bar */}
       <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-6 backdrop-blur-xl">

@@ -144,7 +144,7 @@ export default function SceneGeneratorPage() {
                     modelOptions.map((model) => (
                       <label
                         key={model.id}
-                        className={`relative flex cursor-pointer items-center gap-3 rounded border p-3 transition-all duration-standard ${
+                        className={`relative flex cursor-pointer items-center gap-3 rounded border p-3 transition-all duration-fast ${
                           model.available
                             ? 'border-white/5 bg-white/[0.01] hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]'
                             : 'cursor-not-allowed border-white/5 opacity-30'
@@ -201,7 +201,7 @@ export default function SceneGeneratorPage() {
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onClick={() => fileInputRef.current?.click()}
-                  className="group cursor-pointer rounded border border-dashed border-white/10 bg-white/[0.01] p-6 text-center transition-all duration-standard hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
+                  className="group cursor-pointer rounded border border-dashed border-white/10 bg-white/[0.01] p-6 text-center transition-all duration-fast hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
                 >
                   <UploadCloud className="mx-auto mb-3 h-6 w-6 text-white/20 transition-colors group-hover:text-emerald-500/50" />
                   <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 group-hover:text-white/60">
@@ -270,7 +270,7 @@ export default function SceneGeneratorPage() {
                   {OUTPUT_RATIO_PRESETS.map((ratio) => (
                     <label
                       key={ratio.id}
-                      className={`cursor-pointer rounded border px-3 py-2 text-left transition-all duration-standard ${
+                      className={`cursor-pointer rounded border px-3 py-2 text-left transition-all duration-fast ${
                         outputRatio === ratio.id
                           ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400'
                           : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
@@ -407,7 +407,7 @@ export default function SceneGeneratorPage() {
                       src={img}
                       alt={`Scene ${idx + 1}`}
                       fill
-                      className="object-cover transition-transform duration-normal group-hover:scale-105"
+                      className="object-cover"
                       unoptimized
                     />
                     <div className="absolute left-4 top-4 border border-white/10 bg-black/80 px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-white backdrop-blur-md">
@@ -418,7 +418,7 @@ export default function SceneGeneratorPage() {
                       download
                       target="_blank"
                       aria-label={`Download variation ${idx + 1}`}
-                      className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white text-black transition-all duration-standard hover:scale-110 active:scale-95"
+                      className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white text-black transition-all duration-fast hover:bg-white/90"
                     >
                       <Download size={16} />
                     </a>

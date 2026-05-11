@@ -154,10 +154,11 @@ export default function MasterProjectTemplateEditor({
               <m.div
                 key={item.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-all hover:border-bluePrimary/30"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-colors hover:border-bluePrimary/30"
               >
                 <div className="p-4">
                   <MediaAssetField

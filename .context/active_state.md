@@ -1,8 +1,8 @@
-# Active State: BELIEFS SECTION EDITORIAL HARDENING ✅
+# Active State: BELIEFS SYSTEM CONSOLIDATION ✅
 
-**Phase**: O QUE ME MOVE — GSAP EDITORIAL REVEAL + ATMOSPHERIC GRAIN
-**Current Focus**: Section hardened with premium motion and Ghost Palette. Release ready.
-**Last Update**: 2026-05-07
+**Phase**: O QUE ME MOVE — CONSOLIDATED SCROLL ARCHITECTURE
+**Current Focus**: Refactored Beliefs system for unified context management and build stability.
+**Last Update**: 2026-05-11 15:11
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -74,6 +74,21 @@
 - **Zero Config**: Do not add new env vars without validation.
 - **Zero Jank**: WebGL performance is the priority.
 - **Node Runtime**: ✅ **Node 22 ativo** — `firebase.json`, `package.json` (raiz) e `functions/package.json` atualizados.
+
+## Editorial Hardening Phase (2026-05-11)
+
+- [x] **Motion SSOT**: Atualizada escala de offsets para [8, 12, 18, 24] em `motion.ts`.
+- [x] **Hero Hydration**: Implementado guard de `isMounted` em `HeroCopy.tsx` para evitar drift no SSR.
+- [x] **Animation Integrity**: Corrigida propriedade `translateY` para `y` no Hero.
+- [x] **Admin Hygiene**: Sanitizada interface do `LegacyBlockEditor.tsx` e adicionada documentação de depreciação.
+
+## Beliefs System Consolidation (2026-05-11)
+
+- [x] **Context Unification**: Consolidated `BeliefsScrollProvider` and `BeliefsScrollContext` into a single high-performance source of truth.
+- [x] **State Orchestration**: Refactored `AboutBeliefs.tsx` to manage scroll progress, climax detection, and device-specific flags natively via Framer Motion.
+- [x] **Build Integrity**: Resolved `baseUrl` deprecation in `tsconfig.json` by updating `ignoreDeprecations` to `6.0`.
+- [x] **TSC Verification**: `pnpm run typecheck` passed successfully with zero errors.
+- [x] **Architectural Hygiene**: Removed redundant provider file and updated all consumers (`BeliefManifesto`, `BeliefScrollText`, `GhostScene`, etc.) to the unified context.
 
 ## Next Steps
 

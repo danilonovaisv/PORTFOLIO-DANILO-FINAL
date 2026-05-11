@@ -181,10 +181,11 @@ export default function MasterProjectTemplateV2Editor({
               <m.div
                 key={item.id}
                 layout
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-all hover:border-bluePrimary/30"
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className="group relative overflow-hidden rounded border border-white/5 bg-white/[0.02] transition-colors hover:border-bluePrimary/30"
               >
                 <header className="flex items-center justify-between border-b border-white/5 bg-white/[0.03] px-6 py-3">
                   <div className="flex items-center gap-3">

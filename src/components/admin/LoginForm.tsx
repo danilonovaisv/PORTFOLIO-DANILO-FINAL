@@ -382,7 +382,7 @@ export default function LoginForm() {
 
         <button
           type="submit"
-          className="w-full rounded bg-bluePrimary py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-bluePrimary/20 transition-all hover:bg-bluePrimary/80 active:scale-[0.98] disabled:opacity-50"
+          className="w-full rounded bg-bluePrimary py-4 font-mono text-xs uppercase tracking-[0.2em] text-white shadow-lg shadow-bluePrimary/20 transition-all duration-fast hover:bg-bluePrimary/80 disabled:opacity-50"
           disabled={isBusy}
         >
           {primaryButtonLabel}

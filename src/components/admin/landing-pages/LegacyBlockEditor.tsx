@@ -23,12 +23,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+/**
+ * LegacyBlockEditor
+ * @deprecated Este componente pertence à arquitetura de blocos v1. 
+ * Use o novo 'BlockEditor' para novas implementações. Mantido para retrocompatibilidade
+ * com páginas de pouso legadas.
+ */
 interface LegacyBlockEditorProps {
   sections: LandingPageBlock[];
-  onAddBlock: (_type: BlockType) => void;
-  onRemoveSection: (_id: string) => void;
-  onMoveSection: (_index: number, _direction: 'up' | 'down') => void;
-  onUpdateBlock: (_id: string, _updates: Partial<LandingPageBlock>) => void;
+  onAddBlock: (type: BlockType) => void;
+  onRemoveSection: (id: string) => void;
+  onMoveSection: (index: number, direction: 'up' | 'down') => void;
+  onUpdateBlock: (id: string, updates: Partial<LandingPageBlock>) => void;
 }
 
 export function LegacyBlockEditor({

@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import type {
   MasterProjectV2FeatureItem,
   MasterProjectV2GalleryItem,
@@ -64,7 +64,7 @@ export default function SectionFeatures3({
       whileInView={revealVisible}
       viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.74,
+        duration: MOTION_TOKENS.duration.normal,
         ease: GHOST_EASE,
         delay: prefersReducedMotion ? 0 : index * 0.02,
       }}

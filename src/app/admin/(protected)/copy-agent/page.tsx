@@ -33,7 +33,7 @@ export default function CopyAgentPage() {
     useState<CopyInput['outputType']>('landing');
   const fieldErrors = state.fieldErrors ?? {};
   const inputClass = (hasError: boolean) =>
-    `w-full rounded border px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white placeholder:text-white/10 outline-none transition-all duration-standard ${
+    `w-full rounded border px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-white placeholder:text-white/10 outline-none transition-all duration-fast ${
       hasError
         ? 'border-red-500/50 bg-red-500/[0.02] focus:border-red-500'
         : 'border-white/10 bg-black/40 focus:border-indigo-500/50'
@@ -88,7 +88,7 @@ export default function CopyAgentPage() {
                   />
                   <div className="grid grid-cols-1 gap-2">
                     <label
-                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-standard ${
+                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-fast ${
                         outputType === 'landing'
                           ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-400'
                           : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
@@ -110,7 +110,7 @@ export default function CopyAgentPage() {
                       </span>
                     </label>
                     <label
-                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-standard ${
+                      className={`cursor-pointer rounded border px-4 py-3 transition-all duration-fast ${
                         outputType === 'modal'
                           ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-400'
                           : 'border-white/5 bg-white/[0.01] text-white/40 hover:border-white/10 hover:bg-white/5'
@@ -422,7 +422,7 @@ export default function CopyAgentPage() {
                   )}
                   <button
                     onClick={handleCopy}
-                    className="flex h-8 w-8 items-center justify-center rounded border border-white/10 bg-white/5 text-white transition-all hover:bg-white/10 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded border border-white/10 bg-white/5 text-white transition-all duration-fast hover:bg-white/10"
                     title="Copy Markdown"
                   >
                     {copied ? <Check size={14} /> : <Copy size={14} />}

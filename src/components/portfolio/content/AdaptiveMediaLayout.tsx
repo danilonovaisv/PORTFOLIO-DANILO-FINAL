@@ -201,7 +201,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     alt={project.title}
                                     width={1920}
                                     height={1080}
-                                    className={`max-h-full h-auto w-auto max-w-full object-contain transition-all duration-normal group-hover:scale-[1.02] ${isLoaded ? 'opacity-90' : 'opacity-0'}`}
+                                    className={`max-h-full h-auto w-auto max-w-full object-contain transition-all duration-normal ${isLoaded ? 'opacity-90' : 'opacity-0'}`}
                                     sizes="100vw"
                                     priority
                                     unoptimized
@@ -321,10 +321,10 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                             {project.detail?.externalUrl && (
                                 <div className="pt-16 mt-12 flex justify-start">
                                     <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer" aria-label="Ver projeto completo externamente">
-                                        <div className="h-16 px-8 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-blueHover hover:scale-[1.02] transition-all duration-standard ease-ghost shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                        <div className="h-16 px-8 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-blueHover transition-all duration-fast ease-ghost shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="text-white text-lg font-medium tracking-wide lowercase">ver projeto completo</span>
                                         </div>
-                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-blueHover hover:rotate-45 transition-all duration-standard ease-ghost shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-bluePrimary rounded-full hover:bg-blueHover transition-all duration-fast ease-ghost shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
                                             <span className="material-icons-round text-white text-2xl">north_east</span>
                                         </div>
                                     </a>
