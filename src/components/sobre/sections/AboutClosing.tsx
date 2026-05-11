@@ -18,24 +18,10 @@ import {
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
-/** SSR-safe breakpoint hook — returns true when viewport is ≤ 767px (mobile) */
-function useIsMobile(): boolean {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(max-width: 767px)');
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    setIsMobile(mql.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, []);
-
-  return isMobile;
-}
-
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 export function AboutClosing() {
   const prefersReducedMotion = useMotionGate();
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // Closing Assets
   const closingVideoDesk = useSiteAssetUrl(

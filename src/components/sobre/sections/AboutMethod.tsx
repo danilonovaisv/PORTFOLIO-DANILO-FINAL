@@ -29,7 +29,7 @@ export default function AboutMethod() {
     >
       {/* Background Video Container */}
       <div className="absolute inset-0 w-full h-full z-[var(--z-layer-base)] overflow-hidden flex justify-center">
-        <m.div style={{ y: 0 }} className="w-full h-full lg:h-[120%]">
+        <m.div className="w-full h-full lg:h-[120%]">
           <video
             key={isMobile ? 'mobile' : 'desktop'}
             src={
@@ -65,7 +65,6 @@ export default function AboutMethod() {
         <div className="flex h-full w-full flex-col pt-24 md:pt-28 lg:min-h-[110vh] lg:flex-row lg:pt-24">
           <div className="flex w-full flex-col justify-center py-20 lg:ml-[8.333333%] lg:w-1/2 lg:py-32 lg:pr-20">
             <m.div
-              style={{ y: 0 }}
               className="flex w-full flex-col items-center lg:items-start"
             >
               <div className="w-full max-w-[44rem] py-7 lg:py-9">

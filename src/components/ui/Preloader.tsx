@@ -4,7 +4,6 @@ import { m, AnimatePresence } from 'framer-motion';
 
 import { BRAND } from '@/config/brand';
 import { GHOST_EASE, MOTION_TOKENS, GHOST_EASE_SOFT_UI } from '@/config/motion';
-import { Z_INDEX } from '@/config/z-indices';
 
 const hexToRgba = (hex: string, alpha = 1) => {
   const cleaned = hex.replace('#', '');
@@ -82,7 +81,7 @@ export function Preloader({
             'fixed inset-0 grid place-items-center bg-linear-to-b from-background to-neutral ' +
             (className ?? '')
           }
-          style={{ zIndex: Z_INDEX.preloader }}
+          style={{ zIndex: 'var(--z-layer-preloader)' }}
           initial={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(20px)' }}
           transition={{

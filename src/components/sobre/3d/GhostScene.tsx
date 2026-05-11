@@ -18,19 +18,36 @@ function Invalidator({
 }) {
   const { invalidate } = useThree();
   const lastProgress = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
+  const isVisibleRef = useRef(true);
 
   const checkAndInvalidate = useCallback(() => {
     const p = progressRef.current ?? 0;
-    if (Math.abs(p - lastProgress.current) > 0.001) {
-      lastProgress.current = p;
-      invalidate();
+    if (p === lastProgress.current) return;
+    lastProgress.current = p;
+    invalidate();
+    if (isVisibleRef.current) {
+      rafIdRef.current = requestAnimationFrame(checkAndInvalidate);
     }
-    requestAnimationFrame(checkAndInvalidate);
   }, [invalidate, progressRef]);
 
   useLayoutEffect(() => {
-    const id = requestAnimationFrame(checkAndInvalidate);
-    return () => cancelAnimationFrame(id);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.1 },
+    );
+
+    const el = document.querySelector('[data-ghost-scene]');
+    if (el) observer.observe(el);
+
+    rafIdRef.current = requestAnimationFrame(checkAndInvalidate);
+
+    return () => {
+      observer.disconnect();
+      if (rafIdRef.current != null) cancelAnimationFrame(rafIdRef.current);
+    };
   }, [checkAndInvalidate]);
 
   return null;

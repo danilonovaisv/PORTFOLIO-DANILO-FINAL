@@ -77,6 +77,7 @@
   --z-layer-modal-close: 105; /* modal close button */
   --z-layer-cursor: 110; /* custom cursor */
   --z-layer-debug-top: 9999; /* dev debugger only */
+  --z-layer-preloader: 1000; /* preloader screen */
 
   /* Gradient Stops (Ghost DS — abyss atmospheric gradients) */
   --color-abyss-start: #0c1445; /* night-blue top */
@@ -131,6 +132,7 @@
   --z-layer-modal-close: 105;
   --z-layer-cursor: 110;
   --z-layer-debug-top: 9999;
+  --z-layer-preloader: 1000; /* preloader screen */
 
   /* Espaçamento Global */
   --container-padding: clamp(24px, 5vw, 96px);

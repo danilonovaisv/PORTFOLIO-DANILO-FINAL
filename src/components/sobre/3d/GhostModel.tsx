@@ -2,7 +2,7 @@
 
 import { useGLTF, useMask } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
 import { Group, MathUtils, Mesh, MeshStandardMaterial } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
@@ -127,6 +127,23 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     state.invalidate();
   });
 
+  // Load the model only when ghost scene is visible
+  useEffect(() => {
+    const el = document.querySelector('[data-ghost-scene]');
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          useGLTF.preload(MODEL_PATH);
+        }
+      },
+      { threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <group ref={group} dispose={null} scale={isMobile ? 1.8 : 2.8}>
       <primitive object={optimizedScene} />
@@ -134,6 +151,4 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
   );
 }
 
-if (typeof window !== 'undefined') {
-  useGLTF.preload(MODEL_PATH);
-}
+
