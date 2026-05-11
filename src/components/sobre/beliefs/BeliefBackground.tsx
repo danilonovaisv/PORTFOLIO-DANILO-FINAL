@@ -91,7 +91,7 @@ export function BeliefBackground() {
       ref={bgRef}
       aria-hidden="true"
       data-testid="beliefs-background"
-      className="fixed inset-0 z-[var(--z-layer-base)] bg-background"
+      className="absolute inset-0 z-[var(--z-layer-base)] bg-background"
     >
       {/* Radial Vignette — intensifies during scroll */}
       <div

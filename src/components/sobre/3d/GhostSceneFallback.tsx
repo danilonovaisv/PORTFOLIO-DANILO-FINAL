@@ -62,7 +62,7 @@ export function GhostSceneFallback() {
     <div
       data-testid="ghost-fallback"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-3d)] flex items-center justify-center"
+      className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)] flex items-center justify-center"
     >
       <svg
         ref={svgRef}

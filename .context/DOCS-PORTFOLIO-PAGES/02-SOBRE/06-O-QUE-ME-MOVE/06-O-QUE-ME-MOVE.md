@@ -18,12 +18,14 @@ Apresentar uma narrativa cinematográfica sticky de 620vh com manifesto, frases 
 - **Atmospheric Layer**: Adicionado `BeliefBackground` com ruído fractal dinâmico e transições de cor HSL ultra-fluidas.
 - **Granular Reveal**: `BeliefScrollText` implementa reveal por palavras com desfoque e escala.
 - **Ghost 3D**: Permanece em `src/components/sobre/3d/GhostScene.tsx` com `GhostErrorBoundary`.
+- **Escopo de Camadas**: Todas as camadas visuais da seção agora ficam confinadas ao `beliefs-container` sticky local (`relative + isolate`), evitando vazamento sobre as demais seções da página `/sobre`.
 
 ## Contrato Visual
 
 - Container da seção mantém `min-height: 620vh`, sticky viewport e background base Deep Void `#040013`.
 - **Ghost Palette**: Removidos tons de púrpura/violeta. Cores vigentes: `#040013` (Void Black), `#0048ff` (Ghost Blue), `#4fe6ff` (Ghost Cyan).
 - Camadas ativas: background `z-0`, overlay `z-10`, header `z-30`, textos `z-40`, manifesto `z-50`, Ghost `z-70`.
+- `BeliefBackground`, `BeliefOverlay`, `BeliefFixedHeader`, `BeliefScrollText`, `BeliefManifesto` e `GhostScene` usam `absolute inset-0` dentro do palco sticky da seção, e não mais `fixed` no viewport global.
 
 ## Sequência Cromática
 

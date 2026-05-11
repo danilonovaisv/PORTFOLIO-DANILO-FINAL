@@ -83,7 +83,7 @@ export function BeliefScrollText() {
     <div
       ref={containerRef}
       data-testid="beliefs-scroll-text"
-      className="pointer-events-none fixed inset-0 flex flex-col justify-end pb-[15vh] md:justify-center md:pb-0"
+      className="pointer-events-none absolute inset-0 flex flex-col justify-end pb-[15vh] md:justify-center md:pb-0"
       style={{ zIndex: beliefLayers.phrases }}
     >
       <div className="mx-auto w-full max-w-[1680px] px-6 md:px-12 lg:px-16">

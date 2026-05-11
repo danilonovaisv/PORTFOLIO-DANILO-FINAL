@@ -2,7 +2,7 @@
 
 import { useGLTF, useMask } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { Group, MathUtils, Mesh, MeshStandardMaterial } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
@@ -150,5 +150,4 @@ export function GhostModel({ progressRef, reducedMotion }: GhostModelProps) {
     </group>
   );
 }
-
 

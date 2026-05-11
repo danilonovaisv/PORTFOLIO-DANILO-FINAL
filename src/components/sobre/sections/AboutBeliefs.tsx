@@ -92,7 +92,7 @@ function AboutBeliefsContent() {
 
         <div
           ref={containerRef}
-          className="beliefs-container sticky top-0 h-dvh overflow-hidden"
+          className="beliefs-container relative sticky top-0 isolate h-dvh overflow-hidden"
         >
           <BeliefFixedHeader />
 

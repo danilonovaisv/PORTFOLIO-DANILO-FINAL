@@ -61,7 +61,7 @@ export function BeliefOverlay() {
     <div
       ref={overlayRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[var(--z-layer-glass)] bg-background/10 mix-blend-overlay"
+      className="pointer-events-none absolute inset-0 z-[var(--z-layer-glass)] bg-background/10 mix-blend-overlay"
       style={{
         opacity: prefersReducedMotion ? 0.2 : 0.05,
         backgroundImage:

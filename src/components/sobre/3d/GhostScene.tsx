@@ -142,7 +142,7 @@ export function GhostScene() {
       ref={containerRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0"
+      className="pointer-events-none absolute inset-0"
       style={{ zIndex: beliefLayers.ghost, opacity: 0 }}
     >
       <Canvas

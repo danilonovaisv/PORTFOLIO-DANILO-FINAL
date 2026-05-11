@@ -93,7 +93,7 @@ export function BeliefManifesto() {
       ref={containerRef}
       data-testid="beliefs-manifesto"
       data-belief-manifesto
-      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
+      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
       aria-label="ISSO É GHOST DESIGN"
       style={{
         opacity: prefersReducedMotion ? 1 : 0,
