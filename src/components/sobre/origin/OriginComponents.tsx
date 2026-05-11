@@ -8,7 +8,7 @@ import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 interface OriginInfoBlockProps {
-  block: OriginBlock & { img?: string };
+  block: OriginBlock & { img?: string; priority?: boolean };
 }
 
 /**
@@ -98,6 +98,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             assetKey={block.assetKey}
             alt={block.title}
             fallbackUrl={block.img}
+            priority={block.priority}
             className="w-full h-full"
             sizes="(max-width: 1024px) 92vw, 0px"
           />
@@ -125,7 +126,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 }
 
 interface OriginStickyGalleryProps {
-  blocks: (OriginBlock & { img?: string })[];
+  blocks: (OriginBlock & { img?: string; priority?: boolean })[];
   archRightRef: RefObject<HTMLDivElement | null>;
 }
 
@@ -167,6 +168,7 @@ export function OriginStickyGallery({
               assetKey={block.assetKey}
               alt={block.title}
               fallbackUrl={block.img}
+              priority={block.priority}
               className="w-full h-full rounded-3xl overflow-hidden"
               sizes="(max-width: 1024px) 0px, 40vw"
             />

@@ -47,10 +47,10 @@ function AboutOrigin() {
     ) ?? resolveFallbackHost(ORIGIN_CONTENT[3].fallback);
 
   const contentBlocks = [
-    { ...ORIGIN_CONTENT[0], img: originImage1 },
-    { ...ORIGIN_CONTENT[1], img: originImage2 },
-    { ...ORIGIN_CONTENT[2], img: originImage3 },
-    { ...ORIGIN_CONTENT[3], img: originImage4 },
+    { ...ORIGIN_CONTENT[0], img: originImage1, priority: true },
+    { ...ORIGIN_CONTENT[1], img: originImage2, priority: true },
+    { ...ORIGIN_CONTENT[2], img: originImage3, priority: true },
+    { ...ORIGIN_CONTENT[3], img: originImage4, priority: false },
   ];
 
   useOriginAnimations({
