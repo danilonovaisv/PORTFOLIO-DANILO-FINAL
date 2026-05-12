@@ -222,7 +222,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
   }
 
   return (
-    <>
+    <main id="main-content" className="flex-1 w-full flex flex-col">
       <JsonLd
         pageType="portfolio"
         breadcrumbs={[
@@ -252,6 +252,6 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
         initialPage={initialPage}
         totalProjectsCount={totalProjectsCount}
       />
-    </>
+    </main>
   );
 }

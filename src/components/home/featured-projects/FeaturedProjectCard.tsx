@@ -125,7 +125,7 @@ export default function FeaturedProjectCard({
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
   const CardContent = () => (
-    <div className="flex h-full min-h-0 w-full flex-col">
+    <div className="flex h-full min-h-full w-full flex-col">
       <div
         ref={frameRef}
         className={`relative min-h-0 w-full flex-1 ${frameClassName ?? ''}`}
@@ -141,7 +141,7 @@ export default function FeaturedProjectCard({
       </div>
 
       {/* Metadata - Mobile: text left, arrow right | Desktop: left-aligned */}
-      <div className="mt-6 flex shrink-0 flex-row items-start justify-between gap-4 px-1 text-left md:gap-6">
+      <div className="mt-auto flex shrink-0 flex-row items-start justify-between gap-4 px-1 text-left md:gap-6 pt-6">
         <div className="flex-1">
           {/* Category / Client / Year */}
           <div className="flex items-center justify-start gap-2 text-white/60 text-xs md:text-sm leading-tight mb-2">

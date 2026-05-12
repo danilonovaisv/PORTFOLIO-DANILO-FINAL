@@ -71,7 +71,7 @@ export default function AboutPage() {
   const selfUrl = toCanonicalUrl('/sobre');
 
   return (
-    <div className="relative min-h-screen bg-background text-text">
+    <main id="main-content" className="relative min-h-screen bg-background text-text">
       <JsonLd
         pageType="about"
         breadcrumbs={[
@@ -109,6 +109,6 @@ export default function AboutPage() {
       <Suspense fallback={<SectionSkeleton label="Footer" />}>
         <SiteClosure />
       </Suspense>
-    </div>
+    </main>
   );
 }

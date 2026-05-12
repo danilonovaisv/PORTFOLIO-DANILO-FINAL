@@ -1456,3 +1456,32 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 [2026-05-11 15:11] [Beliefs System] Consolidated scroll context into BeliefsScrollContext.tsx, removed redundant provider, updated components, and resolved tsconfig baseUrl deprecation (ignoreDeprecations: 6.0). Typecheck verified.
 [2026-05-12] [Supabase] Integrated Supabase SSR helpers and test page. Added NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.
+
+---
+
+## [2026-05-12T23:10] Weekly Audit Execution - Accessibility & Grid Consistency
+
+**Context:** Execução da auditoria semanal focada em acessibilidade (Semantic HTML), unificação de estilos (Tailwind) e consistência visual da Bento Grid (Featured Projects).
+
+**Changes Applied:**
+
+1. **Acessibilidade & Estrutura Semântica** ✅
+   - Adicionado `<main id="main-content">` em `src/app/page.tsx`, `src/app/sobre/page.tsx` e `src/app/portfolio/page.tsx`.
+   - Melhora o suporte a tecnologias assistivas e permite "Skip to Content" funcional.
+
+2. **Unificação de Estilos (Tailwind Migration)** ✅
+   - Verificada a migração de CSS Modules para Tailwind CSS.
+   - Confirmada a ausência de arquivos `.module.css` residuais no diretório `src/`.
+   - `PortfolioHeroNew.tsx` agora utiliza exclusivamente utilitários Tailwind v4.
+
+3. **Consistência da Bento Grid (Featured Projects)** ✅
+   - **`FeaturedProjectCard.tsx`**: Aplicado `flex h-full min-h-full` para garantir que o conteúdo do card preencha toda a altura do container pai.
+   - **`FeaturedProjectsSection.tsx`**: Adicionado `flex h-full self-stretch` nos wrappers da grid para garantir linhas de altura igual (equal height rows), eliminando o desnível visual entre cards de colunas diferentes.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` — Passou sem erros (apenas warnings de variáveis não utilizadas).
+- ✅ Auditoria Visual (Browser Subagent) — Confirmado alinhamento dos cards e integridade responsiva em Mobile/Desktop.
+- ✅ Estrutura de pastas preservada e conforme as regras do Ghost System.
+
+**Status:** Concluído.

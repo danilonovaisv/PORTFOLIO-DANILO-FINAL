@@ -40,21 +40,20 @@ export default function ClientLayout({
 
   if (isAdmin) {
     return (
-      <main
-        id="main-content"
+      <div
         className="admin-surface relative min-h-screen bg-slate-950 text-slate-50"
       >
         {children}
-      </main>
+      </div>
     );
   }
 
   return (
     <>
       <Header />
-      <main id="main-content" className="relative grow">
+      <div className="relative grow">
         {children}
-      </main>
+      </div>
       {process.env.NODE_ENV === 'development' && <AntigravityDebugger />}
     </>
   );

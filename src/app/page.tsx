@@ -148,7 +148,7 @@ export default async function HomePage() {
   const siteUrl = toCanonicalUrl('/');
 
   return (
-    <>
+    <main id="main-content" className="flex-1 w-full flex flex-col">
       <JsonLd pageType="home" breadcrumbs={[{ name: 'Home', url: siteUrl }]} />
       <HomeHero />
       <VideoManifesto
@@ -162,9 +162,11 @@ export default async function HomePage() {
       <PortfolioShowcase />
       <FeaturedProjectsRealtime
         initialProjects={featuredProjects}
-        shuffleSeed={typeof shuffleSeed === 'number' ? shuffleSeed : undefined}
+        shuffleSeed={
+          typeof shuffleSeed === 'number' ? shuffleSeed : undefined
+        }
       />
       <SiteClosure />
-    </>
+    </main>
   );
 }
