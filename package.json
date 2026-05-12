@@ -76,7 +76,7 @@
     "assets:sync:full": "tsx scripts/auto-sync-assets.ts",
     "assets:audit": "python3 scripts/audit_assets.py",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts",
-    "update": "pnpm dlx npm-check-updates -u && pnpm install",
+    "update": "pnpm outdated && pnpm dlx npm-check-updates -u && pnpm install",
     "tools:all": "./scripts/project-tools.sh check-env && ./scripts/project-tools.sh install && ./scripts/project-tools.sh deep-clean && ./scripts/project-tools.sh update-aggressive && ./scripts/project-tools.sh full && ./scripts/project-tools.sh lint && ./scripts/project-tools.sh test && ./scripts/project-tools.sh build-check && ./scripts/project-tools.sh report",
     "clean:mac": "python3 scripts/clean_attributes.py",
     "prebuildmac": "pnpm clean:mac",

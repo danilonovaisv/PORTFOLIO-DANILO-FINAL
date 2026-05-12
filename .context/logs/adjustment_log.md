@@ -1455,3 +1455,4 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 ---
 
 [2026-05-11 15:11] [Beliefs System] Consolidated scroll context into BeliefsScrollContext.tsx, removed redundant provider, updated components, and resolved tsconfig baseUrl deprecation (ignoreDeprecations: 6.0). Typecheck verified.
+[2026-05-12] [Supabase] Integrated Supabase SSR helpers and test page. Added NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.
