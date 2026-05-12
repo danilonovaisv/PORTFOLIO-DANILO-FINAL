@@ -21,11 +21,7 @@ export function SplitTextMotion<T extends ElementType = 'span'>({
   const units = mode === 'chars' ? Array.from(text) : text.split(' ');
 
   return (
-    <Component
-      className={className}
-      aria-label={text}
-      data-split-text
-    >
+    <Component className={className} aria-label={text} data-split-text>
       {units.map((unit, index) => (
         <span
           key={`${unit}-${index}`}

@@ -4,13 +4,7 @@ import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import type { MotionValue } from 'framer-motion';
-import {
-  Group,
-  MathUtils,
-  Mesh,
-  MeshStandardMaterial,
-  Object3D,
-} from 'three';
+import { Group, MathUtils, Mesh, MeshStandardMaterial, Object3D } from 'three';
 import { getAssetUrl } from '@/lib/utils';
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 

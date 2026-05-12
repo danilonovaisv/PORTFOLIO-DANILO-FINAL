@@ -16,13 +16,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-function BeliefPhraseSection({
-  text,
-  index,
-}: {
-  text: string;
-  index: number;
-}) {
+function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
   const ref = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const { isMobile, shouldReduceMotion } = useBeliefsScrollContext();

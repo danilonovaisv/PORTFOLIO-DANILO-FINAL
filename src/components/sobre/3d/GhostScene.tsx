@@ -3,10 +3,7 @@
 import { Canvas, useThree } from '@react-three/fiber';
 import { useEffect } from 'react';
 import { m, useMotionValueEvent } from 'framer-motion';
-import {
-  beliefMotion,
-  beliefZIndex,
-} from '@/config/beliefTokens';
+import { beliefMotion, beliefZIndex } from '@/config/beliefTokens';
 import { usePointerParallax } from '@/hooks/usePointerParallax';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrollContext';
@@ -18,7 +15,9 @@ function MotionInvalidator({
   pointerX,
   pointerY,
 }: {
-  scrollYProgress: ReturnType<typeof useBeliefsScrollContext>['scrollYProgress'];
+  scrollYProgress: ReturnType<
+    typeof useBeliefsScrollContext
+  >['scrollYProgress'];
   pointerX: ReturnType<typeof usePointerParallax>['x'];
   pointerY: ReturnType<typeof usePointerParallax>['y'];
 }) {
@@ -64,9 +63,17 @@ export function GhostScene() {
         camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}
       >
         <ambientLight intensity={0.9} color="#ffffff" />
-        <directionalLight position={[2.4, 3.2, 5]} intensity={1.35} color="#ffffff" />
+        <directionalLight
+          position={[2.4, 3.2, 5]}
+          intensity={1.35}
+          color="#ffffff"
+        />
         <pointLight position={[-3, 1.8, 4]} intensity={0.55} color="#bfe8ff" />
-        <pointLight position={[2.2, -1.5, 3.8]} intensity={0.3} color="#ffd8f8" />
+        <pointLight
+          position={[2.2, -1.5, 3.8]}
+          intensity={0.3}
+          color="#ffd8f8"
+        />
         <MotionInvalidator
           scrollYProgress={scrollYProgress}
           pointerX={pointer.x}

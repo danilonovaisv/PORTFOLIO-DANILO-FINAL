@@ -3,10 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  BELIEF_MANIFESTO_LINES,
-  beliefZIndex,
-} from '@/config/beliefTokens';
+import { BELIEF_MANIFESTO_LINES, beliefZIndex } from '@/config/beliefTokens';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';

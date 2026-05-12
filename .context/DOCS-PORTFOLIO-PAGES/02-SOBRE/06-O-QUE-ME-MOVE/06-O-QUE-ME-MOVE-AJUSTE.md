@@ -52,7 +52,7 @@
    - sem cursor parallax
    - sem scale no Ghost
    - split por chars
-   Isso contradiz requisito recebido hoje.
+     Isso contradiz requisito recebido hoje.
 
 ### Decisões travadas neste plano
 
@@ -101,6 +101,7 @@
 ## Task 1: Consolidar SSOT de tokens e contrato
 
 **Files:**
+
 - Modify: `src/config/beliefTokens.ts`
 - Modify: `src/types/beliefs.ts`
 - Optional cleanup: `src/components/sobre/beliefs/belief.constants.ts`
@@ -225,6 +226,7 @@ git commit -m "refactor: unify beliefs tokens and types"
 ## Task 2: Recriar contrato central de scroll e orquestração
 
 **Files:**
+
 - Create: `src/hooks/useBeliefsScroll.ts`
 - Modify: `src/components/sobre/beliefs/BeliefsScrollContext.tsx`
 - Modify: `src/components/sobre/sections/AboutBeliefs.tsx`
@@ -364,6 +366,7 @@ git commit -m "refactor: centralize beliefs scroll contract"
 ## Task 3: Reimplementar camadas DOM com contrato novo
 
 **Files:**
+
 - Create: `src/components/sobre/beliefs/SplitTextMotion.tsx`
 - Modify: `src/components/sobre/beliefs/BeliefBackground.tsx`
 - Modify: `src/components/sobre/beliefs/BeliefOverlay.tsx`
@@ -462,8 +465,14 @@ export function BeliefBackground() {
     const stop = inView(
       '.belief-scroll-section',
       (element) => {
-        const index = Number.parseInt(element.getAttribute('data-index') ?? '0', 10);
-        const color = BELIEF_BACKGROUND_STOPS[Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)];
+        const index = Number.parseInt(
+          element.getAttribute('data-index') ?? '0',
+          10
+        );
+        const color =
+          BELIEF_BACKGROUND_STOPS[
+            Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+          ];
 
         if (shouldReduceMotion) {
           ref.current!.style.backgroundColor = color;
@@ -473,7 +482,10 @@ export function BeliefBackground() {
         animate(
           ref.current!,
           { backgroundColor: color },
-          { duration: beliefMotion.revealDuration, ease: beliefMotion.ambientEase }
+          {
+            duration: beliefMotion.revealDuration,
+            ease: beliefMotion.ambientEase,
+          }
         );
       },
       { amount: 0.55 }
@@ -482,7 +494,13 @@ export function BeliefBackground() {
     return () => stop();
   }, [shouldReduceMotion]);
 
-  return <div ref={ref} aria-hidden="true" className="absolute inset-0 z-0 bg-[#040013]" />;
+  return (
+    <div
+      ref={ref}
+      aria-hidden="true"
+      className="absolute inset-0 z-0 bg-[#040013]"
+    />
+  );
 }
 ```
 
@@ -547,23 +565,25 @@ Estrutura alvo:
 Contrato mínimo:
 
 ```tsx
-{BELIEF_PHRASES.map((phrase, index) => (
-  <section
-    key={phrase}
-    className="belief-scroll-section relative h-[80vh]"
-    data-index={index}
-  >
-    <motion.h3
-      data-testid="belief-phrase"
-      data-animation-contract="viewport-x-opacity"
-      className="pointer-events-none sticky top-0 flex h-dvh items-center px-6 md:px-12 lg:px-16"
+{
+  BELIEF_PHRASES.map((phrase, index) => (
+    <section
+      key={phrase}
+      className="belief-scroll-section relative h-[80vh]"
+      data-index={index}
     >
-      <span className="max-w-[38vw] text-[#4fe6ff] italic md:text-left">
-        {phrase}
-      </span>
-    </motion.h3>
-  </section>
-))}
+      <motion.h3
+        data-testid="belief-phrase"
+        data-animation-contract="viewport-x-opacity"
+        className="pointer-events-none sticky top-0 flex h-dvh items-center px-6 md:px-12 lg:px-16"
+      >
+        <span className="max-w-[38vw] text-[#4fe6ff] italic md:text-left">
+          {phrase}
+        </span>
+      </motion.h3>
+    </section>
+  ));
+}
 ```
 
 Desktop:
@@ -637,6 +657,7 @@ git commit -m "feat: rebuild beliefs dom layers"
 ## Task 4: Reescrever Ghost 3D para contrato desktop/mobile
 
 **Files:**
+
 - Modify: `src/components/sobre/3d/GhostScene.tsx`
 - Modify: `src/components/sobre/3d/GhostModel.tsx`
 - Modify: `src/components/sobre/3d/GhostSceneFallback.tsx`
@@ -710,12 +731,8 @@ const pointerX = isMobile || shouldReduceMotion ? 0 : springX.get() * 0.4;
 const pointerY = isMobile || shouldReduceMotion ? 0 : springY.get() * 0.4;
 
 const climax = p > 0.85;
-const targetX = isMobile
-  ? climax ? 0 : -1.2
-  : pointerX;
-const targetY = isMobile
-  ? climax ? 0 : 1.5
-  : pointerY + floatY;
+const targetX = isMobile ? (climax ? 0 : -1.2) : pointerX;
+const targetY = isMobile ? (climax ? 0 : 1.5) : pointerY + floatY;
 const targetScale = climax ? 1.1 : 1;
 ```
 
@@ -775,6 +792,7 @@ git commit -m "feat: rebuild ghost scene narrative behavior"
 ## Task 5: Ajustar estados de rota e limpeza final
 
 **Files:**
+
 - Verify/modify: `src/app/sobre/page.tsx`
 - Verify/modify: `src/app/sobre/loading.tsx`
 - Verify/modify: `src/app/sobre/error.tsx`
@@ -825,6 +843,7 @@ git commit -m "chore: align about route states with beliefs rebuild"
 ## Task 6: QA visual, acessibilidade e performance
 
 **Files:**
+
 - Test: `test/e2e/about-beliefs.spec.ts` or nearest current Playwright spec
 - Verify: `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/walkthrough.md`
 - Verify: `.context/active_state.md`

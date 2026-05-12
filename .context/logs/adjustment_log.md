@@ -1,5 +1,25 @@
 # Adjustment Log
 
+## [2026-05-11T23:30] Asset Sync & Governance Pipeline
+
+**Context:** Execução do workflow `@/asset-sync` para garantir paridade entre as definições locais e o armazenamento remoto no Supabase.
+
+**Changes Applied:**
+
+1. **Sincronização (`sync-site-assets.ts`)** ✅
+   - Sincronizados 282 ativos no bucket `site-assets`.
+2. **Governança de Duplicatas (`fix-duplicate-assets.ts`)** ✅
+   - Analisados 332 registros.
+   - Atualizados 48 registros inconsistentes para manter a integridade referencial.
+3. **Auditoria de Desperdício (`check-unused-assets.cjs`)** ✅
+   - Varredura do diretório `public/` identificou 24 arquivos potencialmente órfãos (Fontes Manrope, ativos 404 e modelos GLB legados).
+   - _Nota:_ Nenhuma exclusão foi realizada automaticamente; os arquivos foram apenas listados para revisão manual.
+
+**Verification:**
+
+- ✅ Scripts executados com sucesso via `npx tsx` e `node`.
+- ✅ Mapa de conhecimento (`knowledge-graph.md`) atualizado.
+
 ## [2026-05-03T22:16] Portfolio Beliefs Architecture Refactoring
 
 **Context:** Auditoria e refatoração arquitetural cirúrgica da seção `06-O-QUE-ME-MOVE` (BeliefsSection) para adequação completa aos padrões de performance, hierarquia (Z-Index) e design editorial do Ghost System v3.

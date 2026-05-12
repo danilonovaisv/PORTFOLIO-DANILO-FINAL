@@ -3,10 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  BELIEF_BACKGROUND_STOPS,
-  beliefZIndex,
-} from '@/config/beliefTokens';
+import { BELIEF_BACKGROUND_STOPS, beliefZIndex } from '@/config/beliefTokens';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
