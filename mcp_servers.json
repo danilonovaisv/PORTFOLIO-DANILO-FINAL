@@ -86,11 +86,14 @@
       "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
     },
     "motion": {
-      "command": "npx",
+      "command": "/opt/homebrew/bin/npx",
       "args": [
         "-y",
         "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"
-      ]
+      ],
+      "env": {
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+      }
     }
   }
 }
