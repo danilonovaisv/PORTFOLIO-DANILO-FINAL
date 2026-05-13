@@ -172,7 +172,6 @@ export const viewportConfig = {
   amount: 0.15,
 } as const;
 
-
 // =============================================================================
 // REUSABLE VARIANTS - Ghost Era Design System
 // Rules: No Scale, No Bounce, No Rotate. Opacity + Blur + Y-Translate (max 18px)
@@ -197,10 +196,10 @@ export const ghostReveal: Variants = {
  * Ghost Rise - Entry with subtle vertical movement
  */
 export const ghostRise: Variants = {
-  hidden: { 
-    opacity: 0, 
-    y: MOTION_TOKENS.offset.standard, 
-    filter: MOTION_TOKENS.blur.hidden 
+  hidden: {
+    opacity: 0,
+    y: MOTION_TOKENS.offset.standard,
+    filter: MOTION_TOKENS.blur.hidden,
   },
   visible: {
     opacity: 1,
@@ -270,4 +269,3 @@ export const ghostTransition = (
   duration,
   ease: GHOST_EASE,
 });
-

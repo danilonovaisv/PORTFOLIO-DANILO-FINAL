@@ -27,9 +27,13 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
     if (!section || !heading) return;
 
     const ctx = gsap.context(() => {
+      const yOffset = isMobile ? 0 : 24;
+      const xOffset = isMobile ? 24 : 0;
+
       gsap.set(heading, {
         autoAlpha: 0,
-        y: shouldReduceMotion ? 0 : 18,
+        y: shouldReduceMotion ? 0 : yOffset,
+        x: shouldReduceMotion ? 0 : xOffset,
         filter: shouldReduceMotion ? 'blur(0px)' : 'blur(6px)',
       });
 
@@ -40,8 +44,9 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
           gsap.to(heading, {
             autoAlpha: 1,
             y: 0,
+            x: 0,
             filter: 'blur(0px)',
-            duration: shouldReduceMotion ? 0.2 : 0.9,
+            duration: shouldReduceMotion ? 0.2 : 1.2,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
             overwrite: 'auto',
           });
@@ -50,8 +55,9 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
           gsap.to(heading, {
             autoAlpha: 1,
             y: 0,
+            x: 0,
             filter: 'blur(0px)',
-            duration: shouldReduceMotion ? 0.2 : 0.6,
+            duration: shouldReduceMotion ? 0.2 : 0.9,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
             overwrite: 'auto',
           });
@@ -59,9 +65,10 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
         onLeave: () => {
           gsap.to(heading, {
             autoAlpha: 0,
-            y: shouldReduceMotion ? 0 : -18,
+            y: shouldReduceMotion ? 0 : -yOffset,
+            x: shouldReduceMotion ? 0 : -xOffset,
             filter: shouldReduceMotion ? 'blur(0px)' : 'blur(6px)',
-            duration: shouldReduceMotion ? 0.2 : 0.5,
+            duration: shouldReduceMotion ? 0.2 : 0.6,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
             overwrite: 'auto',
           });
@@ -69,9 +76,10 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
         onLeaveBack: () => {
           gsap.to(heading, {
             autoAlpha: 0,
-            y: shouldReduceMotion ? 0 : 18,
+            y: shouldReduceMotion ? 0 : yOffset,
+            x: shouldReduceMotion ? 0 : xOffset,
             filter: shouldReduceMotion ? 'blur(0px)' : 'blur(6px)',
-            duration: shouldReduceMotion ? 0.2 : 0.5,
+            duration: shouldReduceMotion ? 0.2 : 0.6,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
             overwrite: 'auto',
           });
@@ -91,11 +99,15 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
     >
       <div
         className={[
-          'pointer-events-none sticky top-0 flex h-dvh px-6 md:px-12 lg:px-16',
+          'pointer-events-none sticky top-0 flex h-dvh',
           isMobile
-            ? 'items-end justify-center pb-[16vh] text-center'
+            ? 'items-end justify-center text-center px-6'
             : 'items-center justify-start text-left',
         ].join(' ')}
+        style={{
+          paddingLeft: isMobile ? undefined : beliefLayout.desktopPhraseLeft,
+          paddingBottom: isMobile ? beliefLayout.mobilePhraseBottom : undefined,
+        }}
       >
         <h3
           ref={headingRef}
@@ -108,8 +120,8 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
             color: beliefColors.blueAccent,
             maxWidth: isMobile ? '100%' : beliefLayout.desktopPhraseMaxWidth,
             fontSize: isMobile
-              ? 'clamp(2.05rem, 8vw, 3.15rem)'
-              : 'clamp(2.35rem, 5vw, 5.25rem)',
+              ? 'clamp(2.0rem, 8vw, 3.0rem)'
+              : 'clamp(2.8rem, 5.8vw, 6.3rem)',
             textShadow: '0 2px 24px rgba(0, 0, 0, 0.28)',
           }}
         >

@@ -148,8 +148,6 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
   return undefined;
 }
 
-
-
 export function useValidatedAsset(key: string) {
   const context = useContext(SiteAssetsContext);
   return context?.getAssetWithValidation(key);

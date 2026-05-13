@@ -63,19 +63,33 @@ Fluxo obrigatório, alinhado ao tutorial oficial da Motion (`js-scroll-triggered
 Contrato de implementação (referência):
 
 ```ts
-inView('.belief-scroll-section', (element) => {
-  const dataIndex = Number.parseInt(element.getAttribute('data-index') ?? '0', 10);
-  const stopColor = BELIEF_BACKGROUND_STOPS[Math.min(dataIndex + 1, BELIEF_BACKGROUND_STOPS.length - 1)];
+inView(
+  '.belief-scroll-section',
+  (element) => {
+    const dataIndex = Number.parseInt(
+      element.getAttribute('data-index') ?? '0',
+      10
+    );
+    const stopColor =
+      BELIEF_BACKGROUND_STOPS[
+        Math.min(dataIndex + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+      ];
 
-  animate(backgroundLayer, { backgroundColor: stopColor }, {
-    duration: 0.9,
-    easing: [0.17, 0.55, 0.55, 1],
-  });
+    animate(
+      backgroundLayer,
+      { backgroundColor: stopColor },
+      {
+        duration: 0.9,
+        easing: [0.17, 0.55, 0.55, 1],
+      }
+    );
 
-  return () => {
-    // opcional: saída/reversão quando o elemento deixar o viewport
-  };
-}, { amount: 0.55 });
+    return () => {
+      // opcional: saída/reversão quando o elemento deixar o viewport
+    };
+  },
+  { amount: 0.55 }
+);
 ```
 
 Paleta:
@@ -132,23 +146,32 @@ Fluxo obrigatório para textos, seguindo o mesmo padrão da Motion (`inView` com
 
 ```ts
 inView('.belief-scroll-section [data-phrase]', (element) => {
-  animate(element, {
-    opacity: 1,
-    y: [18, 0], // desktop; em mobile trocar para x: [24, 0]
-    filter: ['blur(6px)', 'blur(0px)'],
-  }, {
-    duration: 0.9,
-    easing: [0.17, 0.55, 0.55, 1],
-  });
+  animate(
+    element,
+    {
+      opacity: 1,
+      y: [18, 0], // desktop; em mobile trocar para x: [24, 0]
+      filter: ['blur(6px)', 'blur(0px)'],
+    },
+    {
+      duration: 0.9,
+      easing: [0.17, 0.55, 0.55, 1],
+    }
+  );
 
-  return () => animate(element, {
-    opacity: 0,
-    y: -18, // desktop; em mobile trocar para x: -24
-    filter: 'blur(6px)',
-  }, {
-    duration: 0.5,
-    easing: [0.17, 0.55, 0.55, 1],
-  });
+  return () =>
+    animate(
+      element,
+      {
+        opacity: 0,
+        y: -18, // desktop; em mobile trocar para x: -24
+        filter: 'blur(6px)',
+      },
+      {
+        duration: 0.5,
+        easing: [0.17, 0.55, 0.55, 1],
+      }
+    );
 });
 ```
 

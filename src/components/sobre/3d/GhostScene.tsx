@@ -1,12 +1,19 @@
+'use client';
+
 import { Canvas, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { beliefMotion, beliefZIndex } from '../../../config/beliefTokens';
 import { usePointerParallax } from '../../../hooks/usePointerParallax';
 import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 function SceneInvalidator() {
   const { invalidate } = useThree();
@@ -17,7 +24,7 @@ function SceneInvalidator() {
     window.addEventListener('scroll', handleUpdate, { passive: true });
     window.addEventListener('mousemove', handleUpdate, { passive: true });
 
-    // Initial render
+    // Force initial render
     invalidate();
 
     return () => {
@@ -30,27 +37,44 @@ function SceneInvalidator() {
 }
 
 export function GhostScene() {
-  const { scrollYProgress, isMobile, shouldReduceMotion } =
-    useBeliefsScrollContext();
+  const {
+    scrollYProgress,
+    isMobile,
+    shouldReduceMotion,
+    containerRef: sectionRef,
+  } = useBeliefsScrollContext();
   const supportsWebGL = useWebGLSupport();
   const pointer = usePointerParallax();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const wrapper = wrapperRef.current;
+    const section = sectionRef.current;
+    if (!wrapper || !section) return;
 
-    gsap.fromTo(
-      containerRef.current,
-      { opacity: 0, scale: 0.95 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: beliefMotion.ghostIntroDuration,
-        ease: 'power2.out',
-        delay: 0.2,
-      }
-    );
-  }, []);
+    const ctx = gsap.context(() => {
+      // Ensure starting state is invisible via GSAP to match the 'invisible' class
+      gsap.set(wrapper, { autoAlpha: 0, scale: 0.95 });
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          gsap.to(wrapper, {
+            autoAlpha: 1,
+            scale: 1,
+            duration: shouldReduceMotion ? 0.3 : beliefMotion.ghostIntroDuration,
+            ease: 'power2.out',
+            delay: shouldReduceMotion ? 0 : 0.15,
+            overwrite: 'auto',
+          });
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, [sectionRef, shouldReduceMotion]);
 
   if (!supportsWebGL) {
     return <GhostSceneFallback />;
@@ -58,10 +82,10 @@ export function GhostScene() {
 
   return (
     <div
-      ref={containerRef}
+      ref={wrapperRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0 opacity-0"
+      className="pointer-events-none fixed inset-0 invisible"
       style={{ zIndex: beliefZIndex.ghost }}
     >
       <Canvas

@@ -7,17 +7,19 @@ export const beliefColors = {
   blueDeep: '#001a5e',
   blueBright: '#0033cc',
   blueAccent: '#4fe6ff',
+  purpleDetails: '#8705f2',
+  pinkDetails: '#f501d3',
   white: '#ffffff',
 } as const;
 
 export const BELIEF_BACKGROUND_STOPS = [
   beliefColors.deepVoid,
   beliefColors.bluePrimary,
-  beliefColors.blueDeep,
-  beliefColors.blueBright,
+  beliefColors.purpleDetails,
+  beliefColors.pinkDetails,
   beliefColors.bluePrimary,
-  beliefColors.blueDeep,
-  beliefColors.blueBright,
+  beliefColors.purpleDetails,
+  beliefColors.pinkDetails,
   beliefColors.deepVoid,
 ] as const;
 
@@ -71,4 +73,3 @@ export const beliefLayout = {
   desktopPhraseLeft: MOTION_TOKENS.layout.desktopPhraseLeft,
   mobilePhraseBottom: MOTION_TOKENS.layout.mobilePhraseBottom,
 } as const;
-

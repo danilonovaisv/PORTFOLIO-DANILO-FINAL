@@ -99,8 +99,8 @@ export function GhostModel({
       progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 1.15) : 1;
 
     // Animation constants for wow factor
-    const floatFreq = isClimax ? 1.8 : 1.2;
-    const floatAmp = isClimax ? 0.12 : 0.18;
+    const floatFreq = isClimax ? 1.5 : 1.0;
+    const floatAmp = isClimax ? 0.15 : 0.22;
     const floating = Math.sin(state.clock.elapsedTime * floatFreq) * floatAmp;
 
     const rotSpeed = 0.6;
@@ -115,22 +115,22 @@ export function GhostModel({
     const targetX = isMobile
       ? isClimax
         ? 0
-        : -0.85
+        : -1.2 // Top left position
       : shouldReduceMotion
         ? 0.05
-        : 0.05 + pointerX.get() * 0.42;
+        : 0.05 + pointerX.get() * 0.5;
 
     const targetY = isMobile
       ? isClimax
-        ? 0.05
-        : 0.48
+        ? -0.05 // Slightly lower to match text 'GHOST'
+        : 1.2 // Top left position
       : shouldReduceMotion
         ? 0.15
-        : 0.15 + pointerY.get() * 0.35;
+        : 0.15 + pointerY.get() * 0.45;
 
-    const baseScale = isMobile ? 0.75 : 1.15;
+    const baseScale = isMobile ? 0.8 : 1.25;
     const targetScale = baseScale * scaleBoost;
-    const lerpAlpha = 0.12;
+    const lerpAlpha = 0.08; // Softer lerp for more fluid motion
 
     groupRef.current.position.x = MathUtils.lerp(
       groupRef.current.position.x,

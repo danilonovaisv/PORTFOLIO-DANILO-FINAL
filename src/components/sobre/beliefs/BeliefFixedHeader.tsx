@@ -24,16 +24,17 @@ export function BeliefFixedHeader() {
 
     const words = root.querySelectorAll<HTMLElement>('[data-split-item]');
 
-    const ctx = gsap.context(() => {
-      gsap.set(root, { autoAlpha: 0, x: shouldReduceMotion ? 0 : 60 });
-      gsap.set(words, {
-        autoAlpha: 0,
-        y: shouldReduceMotion ? 0 : 12,
-      });
+    // Ensure initial hidden state
+    gsap.set(root, { autoAlpha: 0, x: shouldReduceMotion ? 0 : 60 });
+    gsap.set(words, {
+      autoAlpha: 0,
+      y: shouldReduceMotion ? 0 : 12,
+    });
 
+    const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: container,
-        start: isMobile ? 'top 82%' : 'top 76%',
+        start: isMobile ? 'top 88%' : 'top 80%',
         onEnter: () => {
           gsap.to(root, {
             autoAlpha: 1,
@@ -48,6 +49,7 @@ export function BeliefFixedHeader() {
             duration: shouldReduceMotion ? 0.2 : 0.48,
             stagger: shouldReduceMotion ? 0 : 0.05,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
+            delay: 0.15,
             overwrite: 'auto',
           });
         },

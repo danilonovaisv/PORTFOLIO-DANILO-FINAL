@@ -29,8 +29,6 @@ export function getFeaturedProjectBackgroundVariant(
   ];
 }
 
-
-
 export function getNextFeaturedProjectBackgroundVariant(
   current: FeaturedProjectBackgroundVariant
 ): FeaturedProjectBackgroundVariant {

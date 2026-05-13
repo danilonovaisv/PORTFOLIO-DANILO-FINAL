@@ -21,7 +21,8 @@ export function BeliefBackground() {
     const container = containerRef.current;
     if (!background || !container) return;
 
-    background.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
+    // Set initial color
+    gsap.set(background, { backgroundColor: BELIEF_BACKGROUND_STOPS[0] });
 
     const transitionTo = (color: string) => {
       if (shouldReduceMotion) {
@@ -31,13 +32,14 @@ export function BeliefBackground() {
 
       gsap.to(background, {
         backgroundColor: color,
-        duration: 0.9,
+        duration: 1.5,
         ease: GSAP_GHOST_EASE,
         overwrite: 'auto',
       });
     };
 
     const ctx = gsap.context(() => {
+      // Animate background on each phrase section entering viewport
       const sections = Array.from(
         container.querySelectorAll<HTMLElement>('.belief-scroll-section')
       );
@@ -57,12 +59,14 @@ export function BeliefBackground() {
         });
       });
 
+      // Reset to void when scrolling back above the section
       ScrollTrigger.create({
         trigger: container,
         start: 'top bottom',
         onLeaveBack: () => transitionTo(BELIEF_BACKGROUND_STOPS[0]),
       });
 
+      // Climax: transition to final stop at bottom of section
       ScrollTrigger.create({
         trigger: container,
         start: 'bottom 88%',

@@ -126,4 +126,3 @@
 3. 🔍 **Knip Audit**: Rodar `pnpm run knip` para identificar exports mortos remanescentes em `animated-backgrounds.ts` e `PortfolioModal.tsx`.
 4. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio).
 5. 📊 **Monitoramento**: Lighthouse CI após próximo deploy.
-

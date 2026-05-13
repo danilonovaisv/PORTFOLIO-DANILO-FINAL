@@ -588,8 +588,6 @@ export function createDefaultMasterProjectTemplateV3(
   };
 }
 
-
-
 function normalizeMasterTemplate(
   value: unknown,
   fallback: TemplateFallback = {}
