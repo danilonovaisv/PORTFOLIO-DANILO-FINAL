@@ -15,7 +15,8 @@ export function GhostScene() {
   const supportsWebGL = useWebGLSupport();
   const pointer = usePointerParallax();
 
-  const isOnline = typeof window !== 'undefined' ? window.navigator.onLine : true;
+  const isOnline =
+    typeof window !== 'undefined' ? window.navigator.onLine : true;
 
   if (!supportsWebGL || !isOnline) {
     return <GhostSceneFallback />;

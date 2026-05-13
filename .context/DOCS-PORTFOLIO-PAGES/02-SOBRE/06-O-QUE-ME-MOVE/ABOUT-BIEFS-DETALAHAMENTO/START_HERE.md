@@ -9,7 +9,9 @@ Se você está vendo este arquivo pela primeira vez, você está no lugar certo.
 ## ⚡ Início Rápido (5 minutos)
 
 ### 1️⃣ Entenda o Contexto
+
 A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio que apresenta o manifesto pessoal do Danilo através de:
+
 - Frases rotativas animadas
 - Ghost 3D interativo
 - Manifesto final "ISSO É GHOST DESIGN"
@@ -17,11 +19,13 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 ### 2️⃣ Principais Mudanças
 
 **Mobile:**
+
 - ✅ Texto entra da **DIREITA** e sai pela **ESQUERDA** (horizontal)
 - ✅ Texto fica no **RODAPÉ**, centralizado
 - ✅ Ghost à **ESQUERDA**
 
 **Desktop:**
+
 - ✅ Texto entra de **BAIXO** e sai para **CIMA** (vertical)
 - ✅ Texto à **ESQUERDA**, inline
 - ✅ Ghost à **DIREITA**
@@ -37,12 +41,14 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 ### 👨‍💻 Sou Desenvolvedor - Vou Implementar
 
 **Leia nesta ordem:**
+
 1. **README.md** (5 min) - Visão geral
 2. **QUICK_REFERENCE.md** (3 min) - Valores e constantes
 3. **EXEMPLOS_CODIGO.md** (consulta) - Copiar snippets
 4. **GUIA_VISUAL.md** (consulta) - Referência visual
 
 **Mantenha aberto durante desenvolvimento:**
+
 - QUICK_REFERENCE.md (cheat sheet)
 - EXEMPLOS_CODIGO.md (snippets)
 
@@ -51,12 +57,14 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 ### 🎨 Sou Designer/UX - Quero Entender o Layout
 
 **Leia nesta ordem:**
+
 1. **README.md** (5 min) - Visão geral
 2. **GUIA_VISUAL.md** (10 min) - Diagramas e layouts
 3. **AJUSTES_IMPLEMENTADOS.md** (5 min) - Mudanças principais
 4. **SPEC_AboutBeliefs_v2.md** (consulta) - Detalhes técnicos
 
 **Foco em:**
+
 - Diagramas ASCII (GUIA_VISUAL.md)
 - Paleta de cores (QUICK_REFERENCE.md)
 - Breakpoints (QUICK_REFERENCE.md)
@@ -66,12 +74,14 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 ### 👔 Sou PM/Tech Lead - Preciso de Visão Geral
 
 **Leia nesta ordem:**
+
 1. **README.md** (5 min) - Visão geral completa
 2. **AJUSTES_IMPLEMENTADOS.md** (5 min) - Resumo executivo
 3. **RESUMO_FINAL.md** (3 min) - Status e estatísticas
 4. **SPEC_AboutBeliefs_v2.md** (consulta) - Requisitos completos
 
 **Foco em:**
+
 - Objetivos da sessão
 - Checklist de implementação
 - Métricas de sucesso
@@ -81,12 +91,14 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 ### 🆕 Sou Novo no Projeto - Por Onde Começar?
 
 **Leia nesta ordem:**
+
 1. **README.md** (5 min) - Comece aqui!
 2. **AJUSTES_IMPLEMENTADOS.md** (5 min) - Entenda as mudanças
 3. **GUIA_VISUAL.md** (10 min) - Visualize os layouts
 4. **INDEX.md** (consulta) - Navegação completa
 
 **Depois:**
+
 - Use INDEX.md para navegar
 - Consulte QUICK_REFERENCE.md quando precisar
 
@@ -94,23 +106,24 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 
 ## 📚 Todos os Documentos Disponíveis
 
-| Documento | Descrição | Tempo | Quando Usar |
-|-----------|-----------|-------|-------------|
-| **START_HERE.md** | Este arquivo | 2 min | Primeira vez |
-| **README.md** | Porta de entrada | 5 min | Visão geral |
-| **INDEX.md** | Navegação completa | 3 min | Encontrar algo |
-| **SPEC_AboutBeliefs_v2.md** | Especificação técnica | 15 min | Detalhes completos |
-| **AJUSTES_IMPLEMENTADOS.md** | Resumo executivo | 5 min | Mudanças principais |
-| **GUIA_VISUAL.md** | Diagramas visuais | 10 min | Referência visual |
-| **EXEMPLOS_CODIGO.md** | Snippets prontos | 15 min | Implementação |
-| **QUICK_REFERENCE.md** | Cheat sheet | 3 min | Consulta rápida |
-| **RESUMO_FINAL.md** | Status final | 3 min | Conclusão |
+| Documento                    | Descrição             | Tempo  | Quando Usar         |
+| ---------------------------- | --------------------- | ------ | ------------------- |
+| **START_HERE.md**            | Este arquivo          | 2 min  | Primeira vez        |
+| **README.md**                | Porta de entrada      | 5 min  | Visão geral         |
+| **INDEX.md**                 | Navegação completa    | 3 min  | Encontrar algo      |
+| **SPEC_AboutBeliefs_v2.md**  | Especificação técnica | 15 min | Detalhes completos  |
+| **AJUSTES_IMPLEMENTADOS.md** | Resumo executivo      | 5 min  | Mudanças principais |
+| **GUIA_VISUAL.md**           | Diagramas visuais     | 10 min | Referência visual   |
+| **EXEMPLOS_CODIGO.md**       | Snippets prontos      | 15 min | Implementação       |
+| **QUICK_REFERENCE.md**       | Cheat sheet           | 3 min  | Consulta rápida     |
+| **RESUMO_FINAL.md**          | Status final          | 3 min  | Conclusão           |
 
 ---
 
 ## 🎯 O Que Você Vai Encontrar
 
 ### ✅ Especificações Completas
+
 - Objetivos da sessão
 - Estrutura de conteúdo
 - Identidade visual
@@ -119,6 +132,7 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 - Acessibilidade
 
 ### ✅ Guias Visuais
+
 - 15 diagramas ASCII
 - Layouts mobile e desktop
 - Fluxo de animações
@@ -126,6 +140,7 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 - Alinhamentos
 
 ### ✅ Código Pronto
+
 - 30+ snippets
 - Exemplos completos
 - Hooks customizados
@@ -133,6 +148,7 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 - Constantes
 
 ### ✅ Referências Rápidas
+
 - 15 tabelas comparativas
 - Valores exatos
 - Breakpoints
@@ -147,17 +163,18 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 
 **IMPORTANTE:** As animações são DIFERENTES!
 
-| Aspecto | Mobile | Desktop |
-|---------|--------|---------|
-| Direção | Horizontal (x) | Vertical (y) |
-| Entrada | Direita (+24) | Baixo (+20) |
-| Saída | Esquerda (-24) | Cima (-20) |
-| Posição Texto | Rodapé | Esquerda |
-| Posição Ghost | Esquerda | Direita |
+| Aspecto       | Mobile         | Desktop      |
+| ------------- | -------------- | ------------ |
+| Direção       | Horizontal (x) | Vertical (y) |
+| Entrada       | Direita (+24)  | Baixo (+20)  |
+| Saída         | Esquerda (-24) | Cima (-20)   |
+| Posição Texto | Rodapé         | Esquerda     |
+| Posição Ghost | Esquerda       | Direita      |
 
 ### ⚠️ Alinhamento Ghost
 
 **REGRA OBRIGATÓRIA:**
+
 - Ghost sempre alinhado **verticalmente ao centro do texto**
 - NÃO ao centro da viewport
 - Acompanha quebras de linha
@@ -165,6 +182,7 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 ### ⚠️ Asset 3D
 
 **URL do GLB (Supabase):**
+
 ```
 https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
 ```
@@ -185,17 +203,20 @@ https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ab
 ## ✅ Checklist Rápido
 
 ### Antes de Implementar:
+
 - [ ] Li README.md
 - [ ] Entendi diferenças mobile/desktop
 - [ ] Consultei GUIA_VISUAL.md
 - [ ] Tenho QUICK_REFERENCE.md aberto
 
 ### Durante Implementação:
+
 - [ ] Usando EXEMPLOS_CODIGO.md
 - [ ] Validando com GUIA_VISUAL.md
 - [ ] Consultando QUICK_REFERENCE.md
 
 ### Antes de Commitar:
+
 - [ ] Testado mobile e desktop
 - [ ] Ghost alinhado com texto
 - [ ] Animações corretas
@@ -206,18 +227,23 @@ https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ab
 ## 🆘 Precisa de Ajuda?
 
 ### Não sabe por onde começar?
+
 👉 Leia **README.md** primeiro
 
 ### Procurando algo específico?
+
 👉 Use **INDEX.md** para navegar
 
 ### Precisa de código?
+
 👉 Vá direto para **EXEMPLOS_CODIGO.md**
 
 ### Quer referência visual?
+
 👉 Consulte **GUIA_VISUAL.md**
 
 ### Precisa de valores exatos?
+
 👉 Use **QUICK_REFERENCE.md**
 
 ---
@@ -250,6 +276,7 @@ background:     #040013  // Fundo
 ## 🚀 Pronto para Começar?
 
 ### Desenvolvedores:
+
 ```
 1. README.md → Visão geral
 2. EXEMPLOS_CODIGO.md → Copiar código
@@ -257,6 +284,7 @@ background:     #040013  // Fundo
 ```
 
 ### Designers:
+
 ```
 1. README.md → Visão geral
 2. GUIA_VISUAL.md → Ver layouts
@@ -264,6 +292,7 @@ background:     #040013  // Fundo
 ```
 
 ### Gerentes:
+
 ```
 1. README.md → Visão geral
 2. AJUSTES_IMPLEMENTADOS.md → Resumo
@@ -275,11 +304,13 @@ background:     #040013  // Fundo
 ## 📂 Localização
 
 **Documentação:**
+
 ```
 /docs/SOBRE/AboutBeliefs/
 ```
 
 **Implementação:**
+
 ```
 /src/components/sobre/
 ├── sections/AboutBeliefs.tsx

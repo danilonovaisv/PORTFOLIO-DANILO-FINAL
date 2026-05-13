@@ -65,24 +65,6 @@ export function AboutBeliefs() {
           <BeliefDesktopTextLayer />
           <BeliefManifesto />
         </div>
-
-        {/* Trigger sections for scroll-triggered animations */}
-        <div className="relative">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div
-              key={i}
-              data-index={i}
-              className="belief-scroll-section h-[80vh] w-full pointer-events-none"
-              aria-hidden="true"
-            />
-          ))}
-          {/* Extra space for the final manifesto climax */}
-          <div 
-            data-index={6}
-            className="belief-scroll-section h-[120vh] w-full pointer-events-none"
-            aria-hidden="true"
-          />
-        </div>
       </section>
     </BeliefsScrollProvider>
   );

@@ -1,4 +1,5 @@
 # Fluxo de Trabalho de Deploy
+
 Quando o utilizador digitar `/deploy-firebase` no chat:
 
 1. Execute a build de produção invocando `/Users/danilonovais/.local/bin/node ./node_modules/.bin/next build`.
