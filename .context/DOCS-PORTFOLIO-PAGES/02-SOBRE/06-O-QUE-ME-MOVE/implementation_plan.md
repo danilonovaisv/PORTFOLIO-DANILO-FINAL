@@ -135,9 +135,9 @@ Mudanças mínimas e localizadas no código:
 
 ### Frente C · Verificação técnica auxiliar
 
-- **C1 · GLB URL:** confirmar `src/components/sobre/3d/GhostModel.tsx` aponta para `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`. Se diferente (ex.: helper `getAssetUrl`), garantir resolução final idêntica.
+- **C1 · GLB URL — RESOLVIDO 2026-05-13:** auditoria do Frente C confirmou que `GhostModel.tsx` usa `getAssetUrl('site-assets/3d/ghost-v1.glb')` resolvendo para `public/site.assets/3d/ghost-v1.glb` (204KB, presente). A URL Supabase `ghost-transformed.glb` citada em `ABOUT-BIEFS-DETALAHAMENTO/SPEC_AboutBeliefs.md` (2025) foi **descartada**. Decisão do usuário (2026-05-13): manter `ghost-v1.glb` local como SSOT. Justificativa: zero dependência externa, carregamento mais rápido, alinhamento com a v4 ratificado.
 - **C2 · `useGLTF.preload`:** confirmar preload ativo para evitar pop-in.
-- **C3 · Atmospheric SVG noise:** localizar a camada (se existir) e documentar; senão, sincronizar `active_state.md`.
+- **C3 · Atmospheric SVG noise — RESOLVIDO 2026-05-13:** auditoria do Frente C confirmou ausência total da camada (grep `feTurbulence|feDisplacementMap|fractal|noise|grain` em `src/components/sobre/` retornou zero matches). `BeliefBackground.tsx` é um `<div>` simples com `gsap.to` em `backgroundColor`. A entrada do `active_state.md` foi removida no mesmo commit que esta atualização.
 - **C4 · `data-testid` estáveis:** confirmar que `beliefs-section`, `beliefs-background`, `beliefs-scroll-text`, `belief-phrase`, `beliefs-manifesto`, `beliefs-ghost-scene` continuam presentes (suíte E2E depende).
 
 **Critério de aceitação:** `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` passa 12/12 sem alteração de specs.
