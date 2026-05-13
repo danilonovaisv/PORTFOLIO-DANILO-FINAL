@@ -52,7 +52,7 @@ Não há subtítulo textual explícito; o "subtexto" é construído pela sequên
 - **Asset 3D (GLB) oficial da sessão (obrigatório):**
   - URL do Supabase Storage público:
     ```
-    https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
+    https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
     ```
 
 #### **Comportamento do Ghost:**
@@ -338,7 +338,7 @@ const COLORS = [
 - **Supabase Storage** para servir o GLB
 - **URL pública do GLB usado nesta sessão:**
   ```
-  https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
+  https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
   ```
 - **Drei** (`<Float />`, `<Environment />`) para suavizar a cena
 
@@ -414,7 +414,7 @@ import type { GroupProps } from '@react-three/fiber';
 import type { GLTF } from 'three-stdlib';
 
 const GHOST_GLB_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+  'https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
 
 type GhostGLTF = GLTF & {
   nodes: Record<string, unknown>;

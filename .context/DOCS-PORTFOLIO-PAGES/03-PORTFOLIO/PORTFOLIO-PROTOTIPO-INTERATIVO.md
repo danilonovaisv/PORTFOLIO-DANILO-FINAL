@@ -103,8 +103,8 @@ Ordem final (canônica):
 
 # \*\*🎥 HERO SECTION — VÍDEO LOOPING
 
-**video hero desktop:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
-**video hero mobile:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
+**video hero desktop:** https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+**video hero mobile:** https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
 
 ### Estrutura HTML/JSX
 
@@ -143,8 +143,8 @@ Ordem final (canônica):
 - `playsInline`: reproduz inline em mobile
 - `object-fit: cover`: cobre toda a área
 
-**video hero desktop:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
-**video hero mobile:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
+**video hero desktop:** https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+**video hero mobile:** https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
 
 **Overlay:**
 

@@ -1,36 +1,18 @@
 'use client';
 
-import { useGLTF } from '@react-three/drei';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
-import type { MotionValue } from 'framer-motion';
-import { Group, MathUtils, Mesh, MeshStandardMaterial, Object3D } from 'three';
-import { getAssetUrl } from '@/lib/utils';
-import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
+import { useGLTF, MeshDistortMaterial } from '@react-three/drei';
+import { MathUtils } from 'three';
+import type { Group, Mesh } from 'three';
+import type { MotionValue } from 'motion/react';
 
-const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
-
-type GhostModelProps = {
+interface GhostModelProps {
   isMobile: boolean;
   shouldReduceMotion: boolean;
   scrollYProgress: MotionValue<number>;
   pointerX: MotionValue<number>;
   pointerY: MotionValue<number>;
-};
-
-function disposeScene(root: Object3D) {
-  root.traverse((node) => {
-    if (node instanceof Mesh) {
-      node.geometry?.dispose();
-
-      const material = node.material;
-      if (Array.isArray(material)) {
-        material.forEach((item) => item.dispose());
-      } else {
-        material?.dispose();
-      }
-    }
-  });
 }
 
 export function GhostModel({
@@ -41,129 +23,103 @@ export function GhostModel({
   pointerY,
 }: GhostModelProps) {
   const groupRef = useRef<Group>(null);
-  const { scene } = useGLTF(MODEL_PATH);
-
-  const ghostScene = useMemo(() => {
-    const clone = scene.clone(true);
-
-    clone.traverse((node) => {
-      if (!(node instanceof Mesh)) return;
-
-      node.castShadow = false;
-      node.receiveShadow = false;
-      node.frustumCulled = true;
-
-      const baseMaterial = Array.isArray(node.material)
-        ? node.material[0]
-        : node.material;
-
-      if (!(baseMaterial instanceof MeshStandardMaterial)) return;
-
-      const material = baseMaterial.clone();
-      const name = node.name.toLowerCase();
-
-      if (name.includes('hat') || name.includes('tophat')) {
-        material.color.set(GHOST_MATERIAL_CONFIG.hat.color);
-        material.roughness = GHOST_MATERIAL_CONFIG.hat.roughness;
-      } else if (name.includes('rim') || name.includes('ring')) {
-        material.color.set(GHOST_MATERIAL_CONFIG.rim.color);
-        material.emissive.set(GHOST_MATERIAL_CONFIG.rim.emissive);
-        material.emissiveIntensity =
-          GHOST_MATERIAL_CONFIG.rim.emissiveIntensity;
-      } else {
-        material.color.set(GHOST_MATERIAL_CONFIG.body.color);
-        material.emissive.set(GHOST_MATERIAL_CONFIG.body.emissive);
-        material.emissiveIntensity =
-          GHOST_MATERIAL_CONFIG.body.emissiveIntensity;
-        material.roughness = GHOST_MATERIAL_CONFIG.body.roughness;
-        material.metalness = GHOST_MATERIAL_CONFIG.body.metalness;
-      }
-
-      node.material = material;
-    });
-
-    return clone;
-  }, [scene]);
-
-  useEffect(() => {
-    return () => {
-      disposeScene(ghostScene);
-    };
-  }, [ghostScene]);
+  const meshRef = useRef<Mesh>(null);
+  
+  // O modelo e materiais são carregados via useGLTF. 
+  // O GhostScene pai deve estar envolto em Suspense.
+  // URL do GLB oficial no Supabase baseada na env var para maior resiliência
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dpejskjpghoozbpfxkpf.supabase.co';
+  const GHOST_GLB_URL = `${supabaseUrl}/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`;
+  const { nodes, materials } = useGLTF(GHOST_GLB_URL) as any;
 
   useFrame((state) => {
-    if (!groupRef.current) return;
+    if (!groupRef.current || !meshRef.current) return;
 
     const progress = scrollYProgress.get();
-    const climax = progress > 0.85;
-    const floatSpeed = 0.6 + progress * 0.6;
-    const floatAmplitude = shouldReduceMotion ? 0 : 0.018 + progress * 0.015;
-    const floatY = shouldReduceMotion
-      ? 0
-      : Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
-    const rotationY = shouldReduceMotion
-      ? 0
-      : Math.sin(state.clock.elapsedTime * (0.4 + progress * 0.4)) *
-        (0.028 + progress * 0.025);
+    const isClimax = progress > 0.85;
+    
+    // 1. Definição de alvos (Target Positions) conforme Guia Visual
+    // Mobile: Ghost à ESQUERDA, alinhado com o texto no rodapé
+    // Desktop: Ghost à DIREITA, alinhado com o texto lateral
+    // Climax: Centro absoluto
+    const targetX = isClimax ? 0 : (isMobile ? -1.8 : 2.4);
+    const targetY = isClimax ? 0 : (isMobile ? -1.2 : 0);
+    
+    // Base scale based on device
+    const baseScale = isMobile ? 0.8 : 1.2;
+    // Boost scale by 10% between 80% and 100% progress
+    const scaleBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 1.1) : 1;
+    // Climax size adjustment
+    const climaxScale = isClimax ? (isMobile ? 1.4 : 1.8) : 1;
+    
+    const targetScale = baseScale * scaleBoost * climaxScale;
+    
+    // 2. Animações de Atmosfera (Floating & Parallax)
+    const floatingFreq = isClimax ? 1.8 : 1.2;
+    const floatingAmp = isClimax ? 0.15 : 0.2;
+    const floating = Math.sin(state.clock.getElapsedTime() * floatingFreq) * floatingAmp;
+    
+    const parallaxFactor = shouldReduceMotion ? 0 : 0.45;
 
-    const targetX = isMobile
-      ? climax
-        ? 0
-        : -0.88
-      : shouldReduceMotion
-        ? 0.02
-        : 0.02 + pointerX.get() * 0.12;
-    const targetY = isMobile
-      ? climax
-        ? 0.02
-        : 0.54
-      : shouldReduceMotion
-        ? 0.12
-        : 0.12 + pointerY.get() * 0.08;
-    const baseScale = isMobile ? 0.3 : 0.58;
-    const targetScale = baseScale * (climax ? 1.08 : 1);
-    const lerpAlpha = 0.15;
-
+    // 3. Interpolação Suave (Lerp)
     groupRef.current.position.x = MathUtils.lerp(
       groupRef.current.position.x,
-      targetX,
-      lerpAlpha
+      targetX + pointerX.get() * parallaxFactor,
+      0.06
     );
+    
     groupRef.current.position.y = MathUtils.lerp(
       groupRef.current.position.y,
-      targetY + floatY,
-      lerpAlpha
+      targetY + floating + pointerY.get() * parallaxFactor,
+      0.06
     );
+
+    groupRef.current.scale.setScalar(
+      MathUtils.lerp(groupRef.current.scale.x, targetScale, 0.08)
+    );
+
+    // 4. Rotação e Respiração baseada em Scroll
+    // Rotação em Y mais rápida no final
+    const baseRotSpeed = 0.6;
+    const rotSpeedBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 2.5) : 1;
+    const targetRotY = (shouldReduceMotion ? 0 : pointerX.get() * 0.3) + 
+                       Math.sin(state.clock.getElapsedTime() * baseRotSpeed * rotSpeedBoost) * 0.15;
+    
     groupRef.current.rotation.y = MathUtils.lerp(
       groupRef.current.rotation.y,
-      rotationY,
-      lerpAlpha
+      targetRotY,
+      0.05
     );
-    groupRef.current.rotation.x = MathUtils.lerp(
-      groupRef.current.rotation.x,
-      isMobile ? -0.06 : -0.03,
-      0.08
-    );
-    groupRef.current.scale.x = MathUtils.lerp(
-      groupRef.current.scale.x,
-      targetScale,
-      lerpAlpha
-    );
-    groupRef.current.scale.y = MathUtils.lerp(
-      groupRef.current.scale.y,
-      targetScale,
-      lerpAlpha
-    );
-    groupRef.current.scale.z = MathUtils.lerp(
-      groupRef.current.scale.z,
-      targetScale,
-      lerpAlpha
-    );
+
+    // 5. Wobble dinâmico (Distort)
+    if (meshRef.current.material) {
+      const distortBase = 0.4;
+      const distortBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 1.8) : 1;
+      (meshRef.current.material as any).distort = shouldReduceMotion ? 0 : distortBase * distortBoost;
+    }
   });
 
-  return <primitive ref={groupRef} object={ghostScene} />;
+  return (
+    <group ref={groupRef} dispose={null}>
+      <mesh
+        ref={meshRef}
+        geometry={nodes.Ghost.geometry}
+        material={materials.GhostMaterial}
+      >
+        <MeshDistortMaterial
+          {...materials.GhostMaterial}
+          distort={shouldReduceMotion ? 0 : 0.4}
+          speed={2.5}
+          color="#ffffff"
+          emissive="#0048ff"
+          emissiveIntensity={0.6}
+          transparent
+          opacity={0.9}
+        />
+      </mesh>
+    </group>
+  );
 }
 
-if (typeof window !== 'undefined') {
-  useGLTF.preload(MODEL_PATH);
-}
+const supabaseUrlPreload = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dpejskjpghoozbpfxkpf.supabase.co';
+useGLTF.preload(`${supabaseUrlPreload}/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`);

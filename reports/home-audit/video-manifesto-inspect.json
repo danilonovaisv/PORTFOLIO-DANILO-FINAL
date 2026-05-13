@@ -1,7 +1,7 @@
 {
   "hasVideo": true,
-  "videoSrc": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video.mp4",
-  "videoPoster": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video-poster.jpg",
+  "videoSrc": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video.mp4",
+  "videoPoster": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video-poster.jpg",
   "videoReadyState": 4,
   "overlayOpacity": "1",
   "overlayBg": "lab(0.600596 3.31097 -7.77393 / 0.8)"

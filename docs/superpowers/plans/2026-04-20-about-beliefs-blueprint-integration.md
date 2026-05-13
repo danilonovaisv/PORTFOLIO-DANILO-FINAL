@@ -813,7 +813,7 @@ export const GhostScene = ({
 - [ ] **Step 2: Smoke test do GLB**
 
 ```bash
-curl -I "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb" 2>&1 | head -10
+curl -I "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb" 2>&1 | head -10
 ```
 
 Expected: `HTTP/2 200` + `content-type: model/gltf-binary`.

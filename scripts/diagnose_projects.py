@@ -9,7 +9,7 @@ import urllib.error
 # BUT CAUTION: I will obscure them if I were saving this to the repo permanently. 
 # Since this is a temporary diagnostic script, I'll use the values I just saw.
 
-SUPABASE_URL = "https://umkmwbkwvulxtdodzmzf.supabase.co"
+SUPABASE_URL = "https://dpejskjpghoozbpfxkpf.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta213Ymt3dnVseHRkb2R6bXpmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODM0MTgzNywiZXhwIjoyMDgzOTE3ODM3fQ.pJ5jSvUcN-zZDOMzvsvkWsk983kr3LLa-zJ9CVBC65I" # Using Service Role Key to bypass RLS for diagnosis
 
 def fetch_data(table, select="*"):
