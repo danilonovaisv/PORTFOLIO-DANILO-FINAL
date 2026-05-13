@@ -1,4 +1,5 @@
 import type { BeliefPhrase } from '../types/beliefs';
+import { MOTION_TOKENS } from './motion';
 
 export const beliefColors = {
   deepVoid: '#040013',
@@ -45,29 +46,29 @@ export const BELIEF_PHRASE_ITEMS = BELIEF_PHRASES.map(
 );
 
 export const beliefZIndex = {
-  background: 0,
-  overlay: 10,
-  fixedHeader: 30,
-  scrollText: 40,
-  manifesto: 50,
-  ghost: 70,
+  background: MOTION_TOKENS.z.bg,
+  overlay: MOTION_TOKENS.z.overlay,
+  fixedHeader: MOTION_TOKENS.z.header,
+  scrollText: MOTION_TOKENS.z.text,
+  manifesto: MOTION_TOKENS.z.manifesto,
+  ghost: MOTION_TOKENS.z.ghost,
 } as const;
 
 export const beliefMotion = {
-  ambientEase: [0.17, 0.55, 0.55, 1],
-  ghostEase: [0.22, 1, 0.36, 1],
-  softEase: [0.16, 1, 0.3, 1],
-  microDuration: 0.16,
-  revealDuration: 0.9,
-  exitDuration: 0.5,
-  ghostIntroDuration: 1.2,
-  wordStagger: 0.08,
+  ghostEase: MOTION_TOKENS.ease.ghost,
+  softEase: MOTION_TOKENS.ease.soft,
+  microDuration: MOTION_TOKENS.duration.micro,
+  revealDuration: MOTION_TOKENS.duration.GHOST_REVEAL,
+  exitDuration: MOTION_TOKENS.duration.GHOST_EXIT,
+  ghostIntroDuration: MOTION_TOKENS.duration.ghostIn,
+  wordStagger: MOTION_TOKENS.duration.WORD_STAGGER,
 } as const;
 
 export const beliefLayout = {
-  sectionMinHeight: '620vh',
-  phraseSectionHeight: '80vh',
-  desktopPhraseMaxWidth: '32vw',
-  desktopPhraseLeft: 'clamp(1.5rem, 4.4vw, 4.75rem)',
-  mobilePhraseBottom: '16vh',
+  sectionMinHeight: MOTION_TOKENS.layout.sectionMinHeight,
+  phraseSectionHeight: MOTION_TOKENS.layout.phraseSectionHeight,
+  desktopPhraseMaxWidth: MOTION_TOKENS.layout.desktopPhraseMaxWidth,
+  desktopPhraseLeft: MOTION_TOKENS.layout.desktopPhraseLeft,
+  mobilePhraseBottom: MOTION_TOKENS.layout.mobilePhraseBottom,
 } as const;
+

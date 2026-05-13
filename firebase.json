@@ -90,10 +90,6 @@
     "firestore": {
       "port": 8080
     },
-    "dataconnect": {
-      "dataDir": "dataconnect/.dataconnect/pgliteData"
-    }
-  },
   "storage": {
     "rules": "storage.rules"
   },
@@ -101,8 +97,5 @@
     "database": "(default)",
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
-  },
-  "dataconnect": {
-    "source": "dataconnect"
   }
 }

@@ -104,13 +104,28 @@
 - [x] **TSC Verification**: `pnpm run typecheck` passed successfully with zero errors.
 - [x] **Architectural Hygiene**: Removed redundant provider file and updated all consumers (`BeliefManifesto`, `BeliefScrollText`, `GhostScene`, etc.) to the unified context.
 
+## Weekly Cleanup & Optimization (2026-05-13) ✅
+
+- [x] **Dependency Pruning**: Removed `@dataconnect/admin-generated`, `@dataconnect/generated`, `@radix-ui/react-label`, `pg`, and `@types/pg` from `package.json`.
+- [x] **Orphan Component Cleanup**: Deleted legacy components `AdminPageHeader.tsx`, `TemplateBadge.tsx`, `AssetInteractive.tsx`, and `BlockTextMd.tsx`.
+- [x] **Legacy Logic Removal**:
+  - Deleted `src/store/beliefStore.ts`, `src/config/beliefs.ts`, and `src/lib/server-env.ts`.
+  - Removed orphan route `src/app/(sobre)/o-que-me-move`.
+  - Deleted generated folders `src/dataconnect-generated` and `functions/next_build/src/dataconnect-generated`.
+  - Cleaned `src/lib/database.types.ts`.
+- [x] **Code Refactoring & Dead Code**:
+  - Pruned `src/config/motion.ts` (removed unused easing curves `GHOST_EASE_HEAVY`, `GHOST_EASE_INOUT_SINE`, `GHOST_EASE_AMBIENT`).
+  - Removed `getRandomFeaturedProjectBackgroundVariant` from `animated-backgrounds.ts`.
+  - Removed `useSiteAssetsByPrefix` from `src/contexts/site-assets.tsx`.
+  - Cleaned non-deterministic shuffle functions in `src/lib/portfolio/shuffle-projects.ts`.
+  - Removed obsolete type guards in `src/lib/projects/template-schema.ts`.
+
 ## Next Steps
 
-1. Open PR `chore/ds-remediation-phase1` → main, merge after review
-2. **Phase 2 backlog** (deferred from this pass):
-   - Easing tuple drift: ~20 raw `[0.22, 1, 0.36, 1]` in AboutMethod, ProjectRenderer, GhostAura, GhostText, Preloader, BlockRenderer
-   - Duplicate local `GHOST_EASE` consts in `useGhostUI.ts` + `about-motion.ts` — import from SSOT `@/config/motion`
-   - File-size violations: ALPA 904, GhostScene 904, ProjectForm 801, SettingsForm 662, GhostCursor 569, ProjectsTable 556, portfolio/[slug] 509, template-schema 993
-   - Hover-color tokens: `#1a5cff` (blue hover-lighten) + `#8705f2` hover usage (purple) not yet tokenized
-3. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio)
-4. Monitorar performance com Lighthouse CI
+1. 🌐 **Dependency Restoration**: Run `pnpm install` once network connectivity is restored to update the lockfile and reconstruct `node_modules`.
+2. 🏗️ **Build Validation**: Execute `pnpm run build` to verify system integrity after the massive structural pruning.
+3. 🎨 **Motion Consolidation**: Refactor `src/config/beliefTokens.ts` to import easing curves directly from `@/config/motion` to eliminate duplication.
+4. 🤖 **Baseline Synchronization**: Finalize the update of `.agent` rules and `tsconfig.json` paths if any discrepancies are found during build.
+5. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio)
+6. Monitorar performance com Lighthouse CI
+

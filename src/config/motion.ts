@@ -11,16 +11,8 @@ import { COLORS } from '@/config/colors';
 type EasingTuple = [number, number, number, number];
 
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
-export const GHOST_EASE_SOFT: EasingTuple = [0.25, 1, 0.5, 1];
-export const GHOST_EASE_HEAVY: EasingTuple = [0.43, 0.13, 0.23, 0.96];
-export const GHOST_EASE_INOUT_SINE: EasingTuple = [0.445, 0.05, 0.55, 0.95];
+
 export const GHOST_EASE_SOFT_UI: EasingTuple = [0.16, 1, 0.3, 1];
-/**
- * Ambient curve — ignition-style fast start, long tail decay.
- * Use ONLY for long-running atmospheric layers (belief backgrounds,
- * gradient drifts, manifesto-style scroll fades). Never on UI controls.
- */
-export const GHOST_EASE_AMBIENT: EasingTuple = [0.17, 0.55, 0.55, 1];
 
 export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
@@ -46,7 +38,6 @@ export const MOTION_TOKENS = {
   },
 
   ease: {
-    ambient: GHOST_EASE_AMBIENT,
     ghost: GHOST_EASE,
     soft: GHOST_EASE_SOFT_UI,
   },
@@ -222,88 +213,6 @@ export const ghostReveal: Variants = {
 };
 
 /**
- * Ghost Reveal Simple - Standard entry without blur (performance mode)
- */
-export const ghostRevealSimple: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: MOTION_TOKENS.duration.GHOST_REVEAL,
-      ease: GHOST_EASE,
-    },
-  },
-};
-
-/**
- * Ghost Rise - Subtle entry with upward movement (max 18px)
- */
-export const ghostRise: Variants = {
-  hidden: { opacity: 0, y: MOTION_TOKENS.offset.standard, filter: 'blur(6px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: MOTION_TOKENS.duration.GHOST_REVEAL,
-      ease: GHOST_EASE,
-    },
-  },
-};
-
-/**
- * Ghost Slide - Subtle side entry for images/decorative elements
- */
-export const ghostSlide: Variants = {
-  hidden: { opacity: 0, x: 12 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: MOTION_TOKENS.duration.ghostIn, ease: GHOST_EASE },
-  },
-};
-
-/**
- * Ghost Fade - Pure opacity transition
- */
-export const ghostFade: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE },
-  },
-};
-
-/**
- * Ghost Time Based - Specialized for scroll-timed narrative reveals (e.g., Beliefs)
- */
-export const ghostTimeBased: Variants = {
-  hidden: {
-    opacity: 0,
-    filter: 'blur(8px)',
-    y: 18,
-  },
-  visible: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    y: 0,
-    transition: {
-      duration: MOTION_TOKENS.duration.textIn,
-      ease: GHOST_EASE,
-    },
-  },
-  exit: {
-    opacity: 0,
-    filter: 'blur(8px)',
-    y: -18,
-    transition: {
-      duration: MOTION_TOKENS.duration.textOut,
-      ease: GHOST_EASE,
-    },
-  },
-};
-
-/**
  * Stagger Container - Parent for staggered children
  * Use for: Lists, grids, card groups
  */
@@ -320,27 +229,4 @@ export const staggerContainer = (
   },
 });
 
-// =============================================================================
-// TRANSITION HELPERS
-// =============================================================================
 
-/**
- * Create a ghost-style transition
- */
-export const ghostTransition = (
-  delay: number = 0,
-  dur: number = MOTION_TOKENS.duration.normal as number
-): Transition => ({
-  duration: dur,
-  delay,
-  ease: GHOST_EASE,
-});
-
-/**
- * Viewport animation props (for whileInView)
- */
-export const viewportConfig = {
-  once: true,
-  margin: MOTION_TOKENS.reveal.margin,
-  amount: MOTION_TOKENS.reveal.threshold,
-};
