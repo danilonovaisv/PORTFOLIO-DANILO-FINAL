@@ -8,8 +8,7 @@ import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
 import { BeliefOverlay } from '../beliefs/BeliefOverlay';
 import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
-import { BeliefMobileTextLayer } from '../beliefs/BeliefMobileTextLayer';
-import { BeliefDesktopTextLayer } from '../beliefs/BeliefDesktopTextLayer';
+import { BeliefScrollText } from '../beliefs/BeliefScrollText';
 import { BeliefManifesto } from '../beliefs/BeliefManifesto';
 import { GhostErrorBoundary } from '../3d/GhostErrorBoundary';
 import { GhostSceneFallback } from '../3d/GhostSceneFallback';
@@ -40,7 +39,6 @@ export function AboutBeliefs() {
         data-testid="beliefs-section"
         data-belief-active-index={scroll.activeIndex}
         data-belief-climax={scroll.isClimax ? 'true' : 'false'}
-        data-ghost-parallax="true"
         aria-labelledby="o-que-me-move-title"
         className="relative overflow-clip bg-[#040013] text-white"
         style={{ minHeight: beliefLayout.sectionMinHeight }}
@@ -52,7 +50,7 @@ export function AboutBeliefs() {
         <BeliefBackground />
         <BeliefOverlay />
 
-        <div className="sticky top-0 grid h-dvh grid-cols-12 overflow-hidden std-grid">
+        <div className="sticky top-0 h-dvh">
           <BeliefFixedHeader />
 
           <GhostErrorBoundary fallback={<GhostSceneFallback />}>
@@ -61,28 +59,10 @@ export function AboutBeliefs() {
             </Suspense>
           </GhostErrorBoundary>
 
-          <BeliefMobileTextLayer />
-          <BeliefDesktopTextLayer />
           <BeliefManifesto />
         </div>
 
-        {/* Trigger sections for scroll-triggered animations */}
-        <div className="relative">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div
-              key={i}
-              data-index={i}
-              className="belief-scroll-section h-[80vh] w-full pointer-events-none"
-              aria-hidden="true"
-            />
-          ))}
-          {/* Extra space for the final manifesto climax */}
-          <div 
-            data-index={6}
-            className="belief-scroll-section h-[120vh] w-full pointer-events-none"
-            aria-hidden="true"
-          />
-        </div>
+        <BeliefScrollText />
       </section>
     </BeliefsScrollProvider>
   );

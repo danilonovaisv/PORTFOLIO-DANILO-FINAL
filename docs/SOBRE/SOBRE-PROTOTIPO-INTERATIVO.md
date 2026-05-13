@@ -163,17 +163,17 @@ const variants = {
 
 #### Logos
 
-- **Favicon:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
-- **Favicon Light:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
-- **Logo Light:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-- **Logo Dark:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
+- **Favicon:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
+- **Favicon Light:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
+- **Logo Light:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
+- **Logo Dark:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
 #### Fontes
 
 ```css
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2')
     format('woff2');
   font-weight: 100;
   font-style: normal;
@@ -182,7 +182,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2')
     format('woff2');
   font-weight: 300;
   font-style: normal;
@@ -191,7 +191,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2')
     format('woff2');
   font-weight: 400;
   font-style: normal;
@@ -200,7 +200,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2')
     format('woff2');
   font-weight: 500;
   font-style: normal;
@@ -209,7 +209,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2')
     format('woff2');
   font-weight: 700;
   font-style: normal;
@@ -218,7 +218,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2')
     format('woff2');
   font-weight: 900;
   font-style: normal;
@@ -237,12 +237,12 @@ const variants = {
 
 #### Vídeos
 
-- **Manifesto Video:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- **Manifesto Video:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 #### Client Logos
 
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
-- Base URL: `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/client-logos/`
+- Base URL: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/`
 
 ---
 
@@ -298,7 +298,7 @@ const variants = {
 **Layout:**
 
 - Altura: `100vh`
-- Vídeo: `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
   - `object-fit: cover`
   - Loop contínuo, sem controles
 - Overlay: gradiente `background` (#040013) com opacidade variável
@@ -341,7 +341,7 @@ const variants = {
 
 **Layout:**
 
-- Vídeo: `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
   - Altura: 45–55vh
   - `object-fit: cover`, foco no rosto
   - Logo abaixo do header fixo
@@ -518,7 +518,7 @@ eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.
 ```
 
-- **Imagem:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp`
 - Texto: alinhado à direita, -10% vertical
 
 **2. DO TRAÇO À INTENÇÃO** (H1, `bluePrimary`)
@@ -534,7 +534,7 @@ Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.
 ```
 
-- **Imagem:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp`
 - Texto: alinhado à esquerda, -10% vertical
 
 **3. A DESCOBERTA DO INVISÍVEL** (H1, `bluePrimary`)
@@ -551,7 +551,7 @@ mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.
 ```
 
-- **Imagem:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp`
 - Texto: alinhado à direita, -10% vertical
 
 **4. EXPANSÃO COM PROPÓSITO** (H1, `bluePrimary`)
@@ -567,7 +567,7 @@ Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.
 ```
 
-- **Imagem:** `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp`
 - Texto: alinhado à esquerda, -10% vertical
 
 #### Animação GSAP
@@ -851,7 +851,7 @@ gsap.from('.service-card', {
 **Layout:**
 
 - Altura: ~120vh
-- Vídeo: `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4`
   - `object-fit: cover`, 100% largura/altura
   - Loop contínuo, sem controles
 - Overlay: gradiente linear
@@ -935,7 +935,7 @@ gsap.from('.service-card', {
 
 **Layout:**
 
-- Vídeo: `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4`
   - `object-position: right center`
   - Gradiente vertical no fim
   - Sem overlay pesado
@@ -1289,7 +1289,7 @@ export const RotatingText = ({ phrases }: { phrases: string[] }) => (
 // components/Ghost.tsx
 export const Ghost = () => {
   const { scene } = useGLTF(
-    'https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb'
+    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb'
   );
   return <primitive object={scene} />;
 };

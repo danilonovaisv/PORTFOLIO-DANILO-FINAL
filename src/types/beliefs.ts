@@ -1,4 +1,4 @@
-import type { MotionValue } from 'motion/react';
+import type { MotionValue } from 'framer-motion';
 import type React from 'react';
 
 export type BeliefPhrase = {

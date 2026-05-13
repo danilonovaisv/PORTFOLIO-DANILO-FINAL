@@ -600,7 +600,7 @@ const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
 // URL do modelo 3D
 const GHOST_GLB_URL =
-  'https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
 ```
 
 ---

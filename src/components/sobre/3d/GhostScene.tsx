@@ -1,7 +1,8 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
-import { m } from 'framer-motion';
+import { Canvas, useThree } from '@react-three/fiber';
+import { useEffect } from 'react';
+import { m, useMotionValueEvent } from 'framer-motion';
 import { beliefMotion, beliefZIndex } from '@/config/beliefTokens';
 import { usePointerParallax } from '@/hooks/usePointerParallax';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
@@ -9,15 +10,37 @@ import { useBeliefsScrollContext } from '@/components/sobre/beliefs/BeliefsScrol
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
 
+function MotionInvalidator({
+  scrollYProgress,
+  pointerX,
+  pointerY,
+}: {
+  scrollYProgress: ReturnType<
+    typeof useBeliefsScrollContext
+  >['scrollYProgress'];
+  pointerX: ReturnType<typeof usePointerParallax>['x'];
+  pointerY: ReturnType<typeof usePointerParallax>['y'];
+}) {
+  const { invalidate } = useThree();
+
+  useMotionValueEvent(scrollYProgress, 'change', () => invalidate());
+  useMotionValueEvent(pointerX, 'change', () => invalidate());
+  useMotionValueEvent(pointerY, 'change', () => invalidate());
+
+  useEffect(() => {
+    invalidate();
+  }, [invalidate]);
+
+  return null;
+}
+
 export function GhostScene() {
   const { scrollYProgress, isMobile, shouldReduceMotion } =
     useBeliefsScrollContext();
   const supportsWebGL = useWebGLSupport();
   const pointer = usePointerParallax();
 
-  const isOnline = typeof window !== 'undefined' ? window.navigator.onLine : true;
-
-  if (!supportsWebGL || !isOnline) {
+  if (!supportsWebGL) {
     return <GhostSceneFallback />;
   }
 
@@ -25,7 +48,7 @@ export function GhostScene() {
     <m.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none col-span-full row-start-1 col-start-1 relative h-full w-full"
+      className="pointer-events-none fixed inset-0"
       style={{ zIndex: beliefZIndex.ghost }}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -35,7 +58,7 @@ export function GhostScene() {
       }}
     >
       <Canvas
-        frameloop="always"
+        frameloop="demand"
         dpr={[1, isMobile ? 1 : 2]}
         camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}
       >
@@ -50,6 +73,11 @@ export function GhostScene() {
           position={[2.2, -1.5, 3.8]}
           intensity={0.3}
           color="#ffd8f8"
+        />
+        <MotionInvalidator
+          scrollYProgress={scrollYProgress}
+          pointerX={pointer.x}
+          pointerY={pointer.y}
         />
         <GhostModel
           isMobile={isMobile}

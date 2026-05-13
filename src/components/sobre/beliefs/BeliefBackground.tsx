@@ -1,51 +1,84 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { animate, inView } from 'motion';
-import { BELIEF_BACKGROUND_STOPS, beliefMotion, beliefZIndex } from '@/config/beliefTokens';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BELIEF_BACKGROUND_STOPS, beliefZIndex } from '@/config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function BeliefBackground() {
   const ref = useRef<HTMLDivElement>(null);
-  const { shouldReduceMotion } = useBeliefsScrollContext();
+  const { containerRef, isMobile, shouldReduceMotion } =
+    useBeliefsScrollContext();
 
   useEffect(() => {
     const background = ref.current;
-    if (!background) return;
+    const container = containerRef.current;
+    if (!background || !container) return;
 
-    if (shouldReduceMotion) {
-      background.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
-      return;
-    }
-
-    // Inicializa com a primeira cor
     background.style.backgroundColor = BELIEF_BACKGROUND_STOPS[0];
 
-    // Configuração do trigger via inView (Motion DOM)
-    // Conforme especificação v4 e tutorial motion.dev
-    const stop = inView(
-      '.belief-scroll-section',
-      (element) => {
-        const index = Number.parseInt(element.getAttribute('data-index') ?? '0', 10);
-        
-        // Mapeia o índice para a cor correspondente
-        // BELIEF_BACKGROUND_STOPS tem 8 cores: Void -> Phrase1-6 -> Climax
-        const targetColor = BELIEF_BACKGROUND_STOPS[index + 1] || BELIEF_BACKGROUND_STOPS[0];
+    const transitionTo = (color: string) => {
+      if (shouldReduceMotion) {
+        gsap.set(background, { backgroundColor: color });
+        return;
+      }
 
-        animate(
-          background,
-          { backgroundColor: targetColor },
-          {
-            duration: index === 6 ? 0.4 : beliefMotion.revealDuration, // Transição mais rápida para o climax
-            ease: beliefMotion.ambientEase as any,
-          }
-        );
-      },
-      { amount: 0.4 } // Ativa quando 40% da seção de scroll estiver visível
-    );
+      gsap.to(background, {
+        backgroundColor: color,
+        duration: 0.9,
+        ease: GSAP_GHOST_EASE,
+        overwrite: 'auto',
+      });
+    };
 
-    return () => stop();
-  }, [shouldReduceMotion]);
+    const ctx = gsap.context(() => {
+      const sections = Array.from(
+        container.querySelectorAll<HTMLElement>('.belief-scroll-section')
+      );
+
+      sections.forEach((section) => {
+        const index = Number.parseInt(section.dataset.index ?? '0', 10);
+        const color =
+          BELIEF_BACKGROUND_STOPS[
+            Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+          ];
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: isMobile ? 'top 78%' : 'top 64%',
+          onEnter: () => transitionTo(color),
+          onEnterBack: () => transitionTo(color),
+        });
+      });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top bottom',
+        onLeaveBack: () => transitionTo(BELIEF_BACKGROUND_STOPS[0]),
+      });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'bottom 88%',
+        onEnter: () =>
+          transitionTo(
+            BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 1]
+          ),
+        onLeaveBack: () =>
+          transitionTo(
+            BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 2]
+          ),
+      });
+    }, container);
+
+    return () => ctx.revert();
+  }, [containerRef, isMobile, shouldReduceMotion]);
 
   return (
     <div

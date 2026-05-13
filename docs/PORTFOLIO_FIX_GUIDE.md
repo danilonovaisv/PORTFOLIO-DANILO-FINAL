@@ -35,7 +35,7 @@ Você precisa configurá-las manualmente no console do Firebase.
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL
-Valor: https://dpejskjpghoozbpfxkpf.supabase.co
+Valor: https://umkmwbkwvulxtdodzmzf.supabase.co
 ```
 
 ```env
@@ -159,7 +159,7 @@ export default async function PortfolioPage() {
 Se o site funcionar com fallback forçado, o problema é definitivamente a conexão com Supabase.
 
 3. **Verificar permissões CORS do Supabase:**
-   - Acesse: https://app.supabase.com/project/dpejskjpghoozbpfxkpf/settings/api
+   - Acesse: https://app.supabase.com/project/umkmwbkwvulxtdodzmzf/settings/api
    - Verifique se o domínio do Firebase está permitido
 
 ---

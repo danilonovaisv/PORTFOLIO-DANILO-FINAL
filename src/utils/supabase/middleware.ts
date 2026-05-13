@@ -12,13 +12,13 @@ export const createClient = (request: NextRequest) => {
     },
   });
 
-  createServerClient(supabaseUrl!, supabaseKey!, {
+  const supabase = createServerClient(supabaseUrl!, supabaseKey!, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value }) =>
+        cookiesToSet.forEach(({ name, value, options }) =>
           request.cookies.set(name, value)
         );
         supabaseResponse = NextResponse.next({

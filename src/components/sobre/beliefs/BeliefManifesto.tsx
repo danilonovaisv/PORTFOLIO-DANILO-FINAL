@@ -1,68 +1,108 @@
 'use client';
 
-import { useMemo } from 'react';
-import { m, useTransform, useSpring } from 'motion/react';
-import { beliefZIndex } from '@/config/beliefTokens';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BELIEF_MANIFESTO_LINES, beliefZIndex } from '@/config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
+import { SplitTextMotion } from './SplitTextMotion';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function BeliefManifesto() {
-  const { scrollYProgress, isClimax, shouldReduceMotion } = useBeliefsScrollContext();
+  const { containerRef, isClimax, shouldReduceMotion } =
+    useBeliefsScrollContext();
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
 
-  // Reveal Progress: 0.82 -> 1.0 mapeado para 0 -> 1
-  const rawRevealProgress = useTransform(scrollYProgress, [0.82, 0.92], [0, 1]);
-  
-  // Aplicamos um spring para suavizar o reveal editorial
-  const revealProgress = useSpring(rawRevealProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  useEffect(() => {
+    const root = ref.current;
+    const container = containerRef.current;
+    if (!root || !container) return;
 
-  // Interpolações baseadas no revealProgress
-  const opacity = revealProgress;
-  const y = useTransform(revealProgress, [0, 1], [shouldReduceMotion ? 0 : 20, 0]);
-  const scale = useTransform(revealProgress, [0, 1], [0.98, 1]);
+    const words = root.querySelectorAll<HTMLElement>('[data-split-item]');
 
-  // Itens do manifesto para facilitar o mapeamento
-  const manifestoLines = useMemo(() => [
-    { text: 'ISSO É', className: 'text-[16vw] lg:text-[14rem] mix-blend-overlay opacity-80' },
-    { text: 'GHOST', className: 'text-[30vw] lg:text-[25rem] text-[#0048ff] z-10' },
-    { text: 'DESIGN', className: 'text-[24vw] lg:text-[19rem] mix-blend-overlay opacity-80' }
-  ], []);
+    const ctx = gsap.context(() => {
+      gsap.set(root, { autoAlpha: 0, y: shouldReduceMotion ? 0 : 18 });
+      gsap.set(words, {
+        autoAlpha: 0,
+        y: shouldReduceMotion ? 0 : 12,
+      });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const revealProgress = gsap.utils.clamp(
+            0,
+            1,
+            (progress - 0.82) / 0.1
+          );
+
+          gsap.set(root, {
+            autoAlpha: revealProgress,
+            y: shouldReduceMotion ? 0 : 18 - 18 * revealProgress,
+          });
+          gsap.set(words, {
+            autoAlpha: revealProgress,
+            y: shouldReduceMotion ? 0 : 12 - 12 * revealProgress,
+          });
+          setActive(progress >= 0.82);
+        },
+      });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'bottom 36%',
+        onEnter: () => {
+          gsap.to(words, {
+            autoAlpha: 1,
+            y: 0,
+            duration: shouldReduceMotion ? 0.2 : 0.42,
+            stagger: shouldReduceMotion ? 0 : 0.06,
+            ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
+            overwrite: 'auto',
+          });
+        },
+        onLeaveBack: () => {
+          if (shouldReduceMotion) return;
+          gsap.set(words, { autoAlpha: 0, y: 12 });
+        },
+      });
+    }, container);
+
+    return () => ctx.revert();
+  }, [containerRef, shouldReduceMotion]);
 
   return (
-    <m.div
+    <div
+      ref={ref}
       data-testid="beliefs-manifesto"
       data-belief-manifesto
-      className="col-span-full row-start-1 col-start-1 pointer-events-none flex flex-col items-center justify-center px-4 h-full"
-      style={{ 
-        zIndex: beliefZIndex.manifesto,
-        opacity,
-        y,
-        scale,
-      }}
-      aria-live={isClimax ? 'polite' : 'off'}
+      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
+      style={{ zIndex: beliefZIndex.manifesto }}
+      aria-live={active || isClimax ? 'polite' : 'off'}
     >
-      <div className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full">
-        {manifestoLines.map((line, idx) => (
-          <m.div 
-            key={line.text} 
-            className={`${line.className} tracking-tighter uppercase font-black will-change-transform`}
-            initial={false}
-            animate={{
-              y: isClimax ? 0 : 12,
-              opacity: isClimax ? 1 : 0,
-            }}
-            transition={{
-              duration: shouldReduceMotion ? 0.2 : 0.6,
-              delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.1,
-              ease: [0.22, 1, 0.36, 1]
-            }}
-          >
-            {line.text}
-          </m.div>
+      <div
+        className="text-center font-display font-black uppercase leading-[0.82] tracking-[0.03em] text-white"
+        style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
+      >
+        {BELIEF_MANIFESTO_LINES.map((line) => (
+          <SplitTextMotion
+            key={line}
+            as="div"
+            text={line}
+            mode="words"
+            className="block"
+            itemClassName="inline-block will-change-transform"
+          />
         ))}
       </div>
-    </m.div>
+    </div>
   );
 }

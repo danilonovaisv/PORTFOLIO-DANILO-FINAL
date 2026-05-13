@@ -224,7 +224,7 @@ export const RotatingText = ({ phrases }: { phrases: string[] }) => (
 // components/Ghost.tsx
 export const Ghost = () => {
   const { scene } = useGLTF(
-    'https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb'
+    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb'
   );
   return <primitive object={scene} />;
 };
