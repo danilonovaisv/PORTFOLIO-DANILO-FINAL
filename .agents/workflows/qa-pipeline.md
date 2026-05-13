@@ -3,7 +3,6 @@ description: Fluxo de Trabalho de QA (Quality Assurance)
 ---
 
 # Fluxo de Trabalho de QA (Quality Assurance)
-
 Quando o utilizador digitar `/qa-pipeline` no chat:
 
 1. Invoque as skills `frontend-specialist` e `spectral-artist`.

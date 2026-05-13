@@ -1,5 +1,3 @@
 # Question Format (MANDATORY)
 
 ```markdown
-
-```

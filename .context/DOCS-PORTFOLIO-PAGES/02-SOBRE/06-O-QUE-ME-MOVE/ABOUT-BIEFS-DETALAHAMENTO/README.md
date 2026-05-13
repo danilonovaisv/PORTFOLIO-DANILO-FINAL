@@ -7,18 +7,15 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ## 📚 Índice de Documentos
 
 ### 1. **SPEC_AboutBeliefs_v2.md** - Especificação Completa
-
 **Descrição:** Documento principal com todas as especificações técnicas, objetivos, estrutura de conteúdo, identidade visual, animações, responsividade e acessibilidade.
 
 **Quando usar:**
-
 - Referência completa do projeto
 - Entender todos os requisitos e objetivos
 - Planejamento de implementação
 - Documentação para novos desenvolvedores
 
 **Seções principais:**
-
 - Objetivo da Página/Sessão
 - Estrutura de Conteúdo
 - Identidade Visual
@@ -34,18 +31,15 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ---
 
 ### 2. **AJUSTES_IMPLEMENTADOS.md** - Resumo Executivo
-
 **Descrição:** Resumo dos principais ajustes e mudanças, com foco nas diferenças entre mobile e desktop.
 
 **Quando usar:**
-
 - Visão rápida das mudanças principais
 - Entender diferenças mobile vs desktop
 - Checklist de ajustes necessários
 - Referência rápida durante desenvolvimento
 
 **Destaques:**
-
 - ✅ BeliefFixedHeader - Posicionamento Responsivo
 - ✅ Frases Rotativas - Animações Diferentes por Dispositivo
 - ✅ Ghost 3D - Alinhamento Vertical
@@ -57,18 +51,15 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ---
 
 ### 3. **GUIA_VISUAL.md** - Diagramas e Layouts
-
 **Descrição:** Guia visual com diagramas ASCII mostrando layouts, animações e comportamentos.
 
 **Quando usar:**
-
 - Entender visualmente a estrutura
 - Visualizar animações e transições
 - Compreender posicionamento de elementos
 - Referência rápida de comportamentos
 
 **Diagramas incluídos:**
-
 - 📱 Layout Mobile
 - 💻 Layout Desktop
 - 🎬 Animação das Frases (Mobile e Desktop)
@@ -83,18 +74,15 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ---
 
 ### 4. **EXEMPLOS_CODIGO.md** - Snippets Prontos
-
 **Descrição:** Exemplos de código prontos para copiar e colar, com implementações completas.
 
 **Quando usar:**
-
 - Implementar funcionalidades específicas
 - Copiar snippets de código
 - Referência de sintaxe e padrões
 - Acelerar desenvolvimento
 
 **Snippets incluídos:**
-
 - 📱 Animação Mobile - Frases Rotativas (Horizontal)
 - 💻 Animação Desktop - Frases Rotativas (Vertical)
 - 🎯 BeliefFixedHeader - Posicionamento Responsivo
@@ -112,13 +100,11 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ## 🎯 Início Rápido
 
 ### Para entender o projeto:
-
 1. Leia **AJUSTES_IMPLEMENTADOS.md** para visão geral
 2. Consulte **GUIA_VISUAL.md** para entender layouts
 3. Veja **SPEC_AboutBeliefs_v2.md** para detalhes completos
 
 ### Para implementar:
-
 1. Consulte **EXEMPLOS_CODIGO.md** para snippets
 2. Use **GUIA_VISUAL.md** para referência visual
 3. Valide com **SPEC_AboutBeliefs_v2.md** (checklist final)
@@ -130,14 +116,12 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ### 🔄 Animações Mobile vs Desktop
 
 #### Desktop (mantém):
-
 - Frases entram de **baixo para cima** (`y: 20 → 0`)
 - Frases saem de **baixo para cima** (`y: 0 → -20`)
 - Texto posicionado à **esquerda**
 - Ghost posicionado à **direita**
 
 #### Mobile (NOVO):
-
 - Frases entram da **direita para esquerda** (`x: +24 → 0`)
 - Frases saem da **esquerda para direita** (`x: 0 → -24`)
 - Texto posicionado no **rodapé, centralizado**
@@ -149,7 +133,6 @@ Documentação técnica e especificações da sessão "About Beliefs" (O Que Me 
 ### 🎯 Alinhamento Ghost ↔ Texto
 
 **Regra obrigatória (Desktop e Mobile):**
-
 - Ghost sempre alinhado **verticalmente ao centro do bloco de texto**
 - Não ao centro da viewport
 - Se texto quebrar linhas, Ghost acompanha
@@ -197,13 +180,11 @@ background:     #040013  // Fundo escuro principal
 ## 🔗 Asset 3D
 
 **URL do GLB (Supabase Storage):**
-
 ```
 https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
 ```
 
 **Implementação:**
-
 - ✅ Já configurado em `src/components/sobre/3d/GhostModel.tsx`
 - ✅ Preload ativo
 - ✅ Tipagem correta
@@ -213,7 +194,6 @@ https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ab
 ## 📂 Estrutura de Arquivos
 
 ### Documentação:
-
 ```
 docs/SOBRE/AboutBeliefs/
 ├── README.md                    # Este arquivo (índice)
@@ -224,7 +204,6 @@ docs/SOBRE/AboutBeliefs/
 ```
 
 ### Implementação atual:
-
 ```
 src/components/sobre/
 ├── sections/
@@ -244,20 +223,17 @@ src/components/sobre/
 ## ✅ Checklist de Implementação
 
 ### Prioridade Alta:
-
 - [ ] Ajustar animação mobile das frases (horizontal)
 - [ ] Posicionar texto rotativo no rodapé (mobile)
 - [ ] Garantir alinhamento vertical Ghost ↔ Texto
 - [ ] Testar composição "ghost esquerda + texto direita" (mobile)
 
 ### Prioridade Média:
-
 - [ ] Ajustar BeliefFixedHeader para top-right (mobile)
 - [ ] Sincronizar transições de background com frases
 - [ ] Otimizar tamanho do Ghost por breakpoint
 
 ### Prioridade Baixa:
-
 - [ ] Adicionar fallback para WebGL não suportado
 - [ ] Melhorar acessibilidade (aria-labels)
 - [ ] Adicionar loading state para GLB
@@ -274,7 +250,6 @@ src/components/sobre/
 6. "Mesmo quando ninguém percebe o esforço."
 
 **Manifesto final:**
-
 ```
 ISSO É
 GHOST
@@ -299,7 +274,6 @@ DESIGN.
 ## 📊 Performance
 
 ### Otimizações implementadas:
-
 - ✅ GLB Preload (`useGLTF.preload()`)
 - ✅ Suspense Boundary
 - ✅ Error Boundary (ThreeErrorBoundary)
@@ -308,7 +282,6 @@ DESIGN.
 - ✅ Easing consistente (cubic-bezier)
 
 ### Otimizações pendentes:
-
 - ⚠️ Fallback WebGL
 - ⚠️ Loading State
 - ⚠️ Lazy loading condicional
@@ -340,7 +313,6 @@ Small:    < 360px
 ## 🔧 Hooks Customizados
 
 ### `useIsMobile()`
-
 Detecta se está em mobile (< 768px)
 
 ```typescript
@@ -348,7 +320,6 @@ const isMobile = useIsMobile();
 ```
 
 ### `useScroll()`
-
 Framer Motion - tracking de scroll
 
 ```typescript
@@ -374,7 +345,6 @@ const { scrollYProgress } = useScroll({
 ## 📞 Suporte
 
 Para dúvidas sobre implementação:
-
 1. Consulte os documentos nesta pasta
 2. Verifique exemplos de código
 3. Revise componentes existentes em `src/components/sobre/`
@@ -384,7 +354,6 @@ Para dúvidas sobre implementação:
 ## 📝 Notas de Versão
 
 **v2.0** - 2025
-
 - ✅ Especificação completa revisada
 - ✅ Ajustes mobile vs desktop documentados
 - ✅ Guia visual com diagramas ASCII
@@ -393,7 +362,6 @@ Para dúvidas sobre implementação:
 - ✅ Documentação de performance
 
 **v1.0** - 2024
-
 - Implementação inicial
 
 ---
@@ -403,7 +371,6 @@ Para dúvidas sobre implementação:
 Baseado em **Ghost Design** - conceito autoral do estúdio.
 
 **Princípios:**
-
 - Conexão > Choque
 - Presença sutil
 - Detalhes que ficam

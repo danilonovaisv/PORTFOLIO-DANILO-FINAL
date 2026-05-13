@@ -3,15 +3,12 @@
 ## **1. Objetivo da Página/Sessão**
 
 ### **Qual a principal função desta página/sessão?**
-
 Gerar vínculo emocional através de um manifesto pessoal, mostrando a visão de design do Danilo de forma íntima, sensível e memorável, conectando o visitante com o "porquê" por trás do trabalho.
 
 ### **Qual ação o usuário deve realizar aqui?**
-
 Sentir identificação com o manifesto, reforçar confiança no estilo/abordagem do estúdio e seguir naturalmente o fluxo da página até as seções de prova social (clientes) e contato, mais propenso a entrar em contato ou continuar explorando.
 
 ### **Como essa seção contribui para os objetivos do site?**
-
 Consolida a identidade do "Ghost Design" como conceito autoral, diferencia o estúdio pelo posicionamento emocional e prepara o usuário para enxergar o resto do site (cases, serviços, contato) sob essa lente de conexão, não apenas estética.
 
 ---
@@ -21,7 +18,6 @@ Consolida a identidade do "Ghost Design" como conceito autoral, diferencia o est
 ### **Título principal (headline) — BeliefFixedHeader (sticky)**
 
 **Texto:**
-
 ```
 Acredito no design que muda o dia de alguém.
 Não pelo choque, mas pela conexão.
@@ -52,7 +48,6 @@ Não há subtítulo textual explícito; o "subtexto" é construído pela sequên
 ### **Elementos visuais (imagens, ícones, vídeos)**
 
 #### **Fantasma 3D (Ghost)**
-
 - Renderizado com React Three Fiber + Drei
 - **Asset 3D (GLB) oficial da sessão (obrigatório):**
   - URL do Supabase Storage público:
@@ -63,7 +58,6 @@ Não há subtítulo textual explícito; o "subtexto" é construído pela sequên
 #### **Comportamento do Ghost:**
 
 **O Ghost nunca para completamente:**
-
 - Flutuação leve e constante, com leves movimentos para os lados e para cima/baixo
 - Ganha velocidade e inclinação suave conforme o cursor se move (desktop) e conforme o usuário rola a página (desktop/mobile)
 - Responde de forma fluida e etérea, como se "sentisse" o toque/scroll
@@ -71,7 +65,6 @@ Não há subtítulo textual explícito; o "subtexto" é construído pela sequên
 - Quando a **última frase** entra, ele cresce ~10% de escala e fica visivelmente mais animado (mais wobble/tilt e resposta mais intensa ao scroll)
 
 **Regra de alinhamento (obrigatória) — Desktop e Mobile:**
-
 - O Ghost 3D deve ficar **sempre alinhado verticalmente ao centro do bloco de texto à sua esquerda**
 - Existe um "container de conteúdo" onde **texto (à esquerda)** e **Ghost (à direita)** coexistem
 - O Ghost acompanha o **centro do texto** (não o centro da viewport)
@@ -84,7 +77,6 @@ Não há subtítulo textual explícito; o "subtexto" é construído pela sequên
 No final, o manifesto "ISSO É / GHOST / DESIGN." sela o conceito com entrada suave usando **Morphing Text**:
 
 **Texto em três linhas fixas:**
-
 ```
 ISSO É
 GHOST
@@ -118,7 +110,6 @@ DESIGN.
 6. "Mesmo quando ninguém percebe o esforço."
 
 **Manifesto final:**
-
 ```
 ISSO É
 GHOST
@@ -214,14 +205,12 @@ const COLORS = [
 ### **Animações de entrada/scroll (Framer Motion ou GSAP)**
 
 #### **BeliefFixedHeader:**
-
 - Fade-in + blur suave
 - Ex.: `opacity 0→1`, `blur 10→0` em ~1.2s
 
 ---
 
 #### **Frases rotativas — Desktop (mantém):**
-
 - **Entra de baixo:** `y: 20 → 0` + `opacity` + blur
 - **Sai para cima:** `y: 0 → -20` + blur
 - **Ciclo:** ~4.2s por frase
@@ -233,7 +222,6 @@ const COLORS = [
 - O texto animado fica **sempre no rodapé da sessão**, **centralizado na página**
 
 **Entrada:** entra pela direita
-
 - `x: +24 → 0`
 - `opacity: 0 → 1`
 - `blur: 10px → 0`
@@ -241,20 +229,17 @@ const COLORS = [
 **Permanência:** estável, centralizado no rodapé
 
 **Saída:** sai pela esquerda
-
 - `x: 0 → -24`
 - `opacity: 1 → 0`
 - `blur: 0 → 10px`
 
 **Importante:**
-
 - No mobile, **não usar `y`** (sem subir/descer), apenas deslocamento horizontal
 - **Quebra de linha só quando necessário** (evitar linhas forçadas; centralizado)
 
 ---
 
 #### **Reveal final (Ghost + manifesto):**
-
 - Container `opacity 0→1`, `y 40→0` (via `whileInView` ou scroll)
 
 ---
@@ -287,7 +272,6 @@ const COLORS = [
 ## **5. Responsividade**
 
 ### **Mobile**
-
 - BeliefFixedHeader: sticky top-right, text-right
 - Bloco principal: texto à direita + ghost à esquerda, ghost sempre centrado verticalmente ao texto
 - Ghost: 200–240px
@@ -301,7 +285,6 @@ const COLORS = [
 ---
 
 ### **Tablet**
-
 - Transição gradual
 - Ghost: 220–260px
 - Tipografia intermediária
@@ -309,7 +292,6 @@ const COLORS = [
 ---
 
 ### **Desktop**
-
 - Header sticky "centro + direita"
 - Relação texto+ghost preservada (ghost centrado verticalmente ao texto)
 - Reveal final em 2 colunas
@@ -318,7 +300,6 @@ const COLORS = [
 ---
 
 ### **Ajustes extremos**
-
 - **1440px+:** mais respiro vertical e limite superior do manifesto
 - **<360px:** reduzir margens e fontes para evitar quebras excessivas
 
@@ -337,20 +318,17 @@ const COLORS = [
 ## **7. Integrações ou Recursos Especiais**
 
 ### **Componentes dinâmicos**
-
 - Rotação de frases via estado/timer
 - Cena 3D isolada em `<GhostModel />`
 
 ---
 
 ### **Dados de API**
-
 - Não obrigatório
 
 ---
 
 ### **Formulários**
-
 - Nenhum
 
 ---
@@ -369,13 +347,11 @@ const COLORS = [
 ## **8. Considerações Técnicas**
 
 ### **Client component**
-
 - `'use client'` por R3F + Framer Motion
 
 ---
 
 ### **Reutilização**
-
 - `shared/3d/GhostModel.tsx` + hooks de rotação/scroll sync
 
 ---
@@ -466,7 +442,11 @@ useGLTF.preload(GHOST_GLB_URL);
 ### **Como usar (exemplo)**
 
 ```tsx
-<GhostModel position={[0, 0, 0]} scale={1} rotation={[0, 0, 0]} />
+<GhostModel
+  position={[0, 0, 0]}
+  scale={1}
+  rotation={[0, 0, 0]}
+/>
 ```
 
 ---
@@ -481,7 +461,7 @@ import { GhostModel } from '@/shared/3d/GhostModel';
 
 <Suspense fallback={<mesh /* placeholder simples */ />}>
   <GhostModel />
-</Suspense>;
+</Suspense>
 ```
 
 ---
@@ -498,20 +478,20 @@ Como você quer o Ghost sempre alinhado ao centro do bloco de texto, recomendo q
 // De: src/config/brand.ts
 export const BRAND = {
   colors: {
-    bluePrimary: '#0048ff', // CTAs, links, interativos
-    blueAccent: '#4fe6ff', // Destaques secundários, brilhos
-    purpleDetails: '#8705f2', // Pequenos detalhes
-    pinkDetails: '#f501d3', // Ênfases pontuais
-    background: '#040013', // Fundo escuro principal
-    backgroundLight: '#f0f0f0', // Seções claras
-    text: '#fcffff', // Texto principal (dark mode)
-    textInverse: '#0e0e0e', // Texto em fundos claros
-    textEmphasis: '#2E85F2', // Palavras destacadas
-    textHighlight: '#4fe6ff', // Destaques curtos
-    textSecondary: '#a1a3a3', // Infos secundárias
-    neutral: '#0b0d3a', // Gradientes sutis
-    neutralLight: '#F5F5F5', // Fundos secundários
-    contactForeground: '#fcffff', // Texto e ícones da seção Contato
+    bluePrimary: '#0048ff',      // CTAs, links, interativos
+    blueAccent: '#4fe6ff',       // Destaques secundários, brilhos
+    purpleDetails: '#8705f2',    // Pequenos detalhes
+    pinkDetails: '#f501d3',      // Ênfases pontuais
+    background: '#040013',       // Fundo escuro principal
+    backgroundLight: '#f0f0f0',  // Seções claras
+    text: '#fcffff',             // Texto principal (dark mode)
+    textInverse: '#0e0e0e',      // Texto em fundos claros
+    textEmphasis: '#2E85F2',     // Palavras destacadas
+    textHighlight: '#4fe6ff',    // Destaques curtos
+    textSecondary: '#a1a3a3',    // Infos secundárias
+    neutral: '#0b0d3a',          // Gradientes sutis
+    neutralLight: '#F5F5F5',     // Fundos secundários
+    contactForeground: '#fcffff',// Texto e ícones da seção Contato
   },
 };
 ```

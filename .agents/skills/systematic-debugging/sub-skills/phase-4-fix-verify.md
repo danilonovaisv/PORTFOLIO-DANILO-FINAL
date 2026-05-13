@@ -4,7 +4,6 @@ Fix and verify it's truly fixed.
 
 ```markdown
 ## Fix Verification
-
 - [ ] Bug no longer reproduces
 - [ ] Related functionality still works
 - [ ] No new issues introduced
@@ -15,20 +14,17 @@ Fix and verify it's truly fixed.
 
 ```markdown
 ## Before Starting
-
 - [ ] Can reproduce consistently
 - [ ] Have minimal reproduction case
 - [ ] Understand expected behavior
 
 ## During Investigation
-
 - [ ] Check recent changes (git log)
 - [ ] Check logs for errors
 - [ ] Add logging if needed
 - [ ] Use debugger/breakpoints
 
 ## After Fix
-
 - [ ] Root cause documented
 - [ ] Fix verified
 - [ ] Regression test added

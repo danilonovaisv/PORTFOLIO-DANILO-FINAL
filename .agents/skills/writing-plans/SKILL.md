@@ -21,7 +21,6 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ## Bite-Sized Task Granularity
 
 **Each step is one action (2-5 minutes):**
-
 - "Write the failing test" - step
 - "Run it to make sure it fails" - step
 - "Implement the minimal code to make the test pass" - step
@@ -49,7 +48,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ## Task Structure
 
 ```markdown
+
 ## 🧠 Knowledge Modules (Fractal Skills)
 
 ### 1. [Task N: Component Name](./sub-skills/task-n-component-name.md)
-```

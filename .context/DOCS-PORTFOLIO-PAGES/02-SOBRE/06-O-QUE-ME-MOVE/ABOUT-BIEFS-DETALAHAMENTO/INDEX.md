@@ -7,13 +7,11 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ## 📖 Documentos Disponíveis
 
 ### 1️⃣ **README.md** - Porta de Entrada
-
 **📄 Tipo:** Índice Principal
 **⏱️ Tempo de leitura:** 5-7 minutos
 **🎯 Quando usar:** Primeira vez consultando a documentação
 
 **Conteúdo:**
-
 - Visão geral do projeto
 - Índice de todos os documentos
 - Início rápido
@@ -22,7 +20,6 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 - Checklist de implementação
 
 **👉 Comece por aqui se:**
-
 - É sua primeira vez no projeto
 - Precisa de uma visão geral completa
 - Quer entender a estrutura da documentação
@@ -30,13 +27,11 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ---
 
 ### 2️⃣ **SPEC_AboutBeliefs_v2.md** - Especificação Técnica Completa
-
 **📄 Tipo:** Documentação Técnica
 **⏱️ Tempo de leitura:** 15-20 minutos
 **🎯 Quando usar:** Planejamento e referência completa
 
 **Conteúdo:**
-
 - Objetivos da página/sessão
 - Estrutura de conteúdo detalhada
 - Identidade visual completa
@@ -50,7 +45,6 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 - Checklist de implementação
 
 **👉 Use este documento quando:**
-
 - Estiver planejando a implementação
 - Precisar de detalhes técnicos completos
 - Tiver dúvidas sobre requisitos
@@ -59,13 +53,11 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ---
 
 ### 3️⃣ **AJUSTES_IMPLEMENTADOS.md** - Resumo Executivo
-
 **📄 Tipo:** Resumo de Mudanças
 **⏱️ Tempo de leitura:** 5-8 minutos
 **🎯 Quando usar:** Visão rápida das mudanças principais
 
 **Conteúdo:**
-
 - Principais mudanças (mobile vs desktop)
 - BeliefFixedHeader - posicionamento responsivo
 - Frases rotativas - animações diferentes
@@ -78,7 +70,6 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 - Próximos passos
 
 **👉 Use este documento quando:**
-
 - Precisar de uma visão rápida
 - Quiser entender as diferenças mobile/desktop
 - Estiver revisando o que precisa ser ajustado
@@ -87,13 +78,11 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ---
 
 ### 4️⃣ **GUIA_VISUAL.md** - Diagramas e Layouts
-
 **📄 Tipo:** Referência Visual
 **⏱️ Tempo de leitura:** 10-12 minutos
 **🎯 Quando usar:** Entender visualmente a estrutura
 
 **Conteúdo:**
-
 - Layout Mobile (diagrama ASCII)
 - Layout Desktop (diagrama ASCII)
 - Animação das Frases (Mobile e Desktop)
@@ -106,7 +95,6 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 - Performance Checklist
 
 **👉 Use este documento quando:**
-
 - Precisar visualizar layouts
 - Quiser entender animações visualmente
 - Estiver implementando posicionamento
@@ -116,13 +104,11 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ---
 
 ### 5️⃣ **EXEMPLOS_CODIGO.md** - Snippets Prontos
-
 **📄 Tipo:** Código de Referência
 **⏱️ Tempo de leitura:** 15-20 minutos (ou consulta pontual)
 **🎯 Quando usar:** Durante implementação
 
 **Conteúdo:**
-
 - Animação Mobile - Frases Rotativas (Horizontal)
 - Animação Desktop - Frases Rotativas (Vertical)
 - BeliefFixedHeader - Posicionamento Responsivo
@@ -136,7 +122,6 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 - Exemplo Completo - Integração
 
 **👉 Use este documento quando:**
-
 - Estiver implementando funcionalidades
 - Precisar copiar snippets de código
 - Quiser ver exemplos práticos
@@ -146,13 +131,11 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ---
 
 ### 6️⃣ **QUICK_REFERENCE.md** - Referência Rápida
-
 **📄 Tipo:** Cheat Sheet
 **⏱️ Tempo de leitura:** 3-5 minutos (consulta rápida)
 **🎯 Quando usar:** Durante desenvolvimento (consulta rápida)
 
 **Conteúdo:**
-
 - Tabela: Diferenças Mobile vs Desktop
 - Tabela: Cores e Backgrounds
 - Tabela: Breakpoints
@@ -173,7 +156,6 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 - Checklist Rápido
 
 **👉 Use este documento quando:**
-
 - Precisar de informação rápida
 - Estiver debugando
 - Quiser consultar valores exatos
@@ -234,23 +216,23 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 
 ## 📊 Matriz de Decisão: Qual Documento Usar?
 
-| Preciso de...             | Documento                | Seção                  |
-| ------------------------- | ------------------------ | ---------------------- |
-| Visão geral do projeto    | README.md                | Todo                   |
-| Entender objetivos        | SPEC_AboutBeliefs_v2.md  | Seção 1                |
-| Ver layouts visuais       | GUIA_VISUAL.md           | Layouts Mobile/Desktop |
-| Copiar código             | EXEMPLOS_CODIGO.md       | Qualquer snippet       |
-| Valores de animação       | QUICK_REFERENCE.md       | Tabela Animações       |
-| Diferenças mobile/desktop | AJUSTES_IMPLEMENTADOS.md | Seção 2                |
-| Classes Tailwind          | QUICK_REFERENCE.md       | Cheat Sheet            |
-| Cores do projeto          | QUICK_REFERENCE.md       | Tabela Cores           |
-| Breakpoints               | QUICK_REFERENCE.md       | Tabela Breakpoints     |
-| Estrutura de arquivos     | README.md                | Estrutura de Arquivos  |
-| Debugging                 | QUICK_REFERENCE.md       | Debugging Tips         |
-| Performance               | QUICK_REFERENCE.md       | Performance Checklist  |
-| Acessibilidade            | SPEC_AboutBeliefs_v2.md  | Seção 6                |
-| Props de componentes      | QUICK_REFERENCE.md       | Props Principais       |
-| Timeline de scroll        | GUIA_VISUAL.md           | Fluxo de Scroll        |
+| Preciso de... | Documento | Seção |
+|---------------|-----------|-------|
+| Visão geral do projeto | README.md | Todo |
+| Entender objetivos | SPEC_AboutBeliefs_v2.md | Seção 1 |
+| Ver layouts visuais | GUIA_VISUAL.md | Layouts Mobile/Desktop |
+| Copiar código | EXEMPLOS_CODIGO.md | Qualquer snippet |
+| Valores de animação | QUICK_REFERENCE.md | Tabela Animações |
+| Diferenças mobile/desktop | AJUSTES_IMPLEMENTADOS.md | Seção 2 |
+| Classes Tailwind | QUICK_REFERENCE.md | Cheat Sheet |
+| Cores do projeto | QUICK_REFERENCE.md | Tabela Cores |
+| Breakpoints | QUICK_REFERENCE.md | Tabela Breakpoints |
+| Estrutura de arquivos | README.md | Estrutura de Arquivos |
+| Debugging | QUICK_REFERENCE.md | Debugging Tips |
+| Performance | QUICK_REFERENCE.md | Performance Checklist |
+| Acessibilidade | SPEC_AboutBeliefs_v2.md | Seção 6 |
+| Props de componentes | QUICK_REFERENCE.md | Props Principais |
+| Timeline de scroll | GUIA_VISUAL.md | Fluxo de Scroll |
 
 ---
 
@@ -259,48 +241,49 @@ Navegação rápida para toda a documentação da sessão "About Beliefs".
 ### 👨‍💻 Desenvolvedor Frontend
 
 **Prioridade Alta:**
-
 1. EXEMPLOS_CODIGO.md
 2. QUICK_REFERENCE.md
 3. GUIA_VISUAL.md
 
-**Prioridade Média:** 4. AJUSTES_IMPLEMENTADOS.md 5. SPEC_AboutBeliefs_v2.md
+**Prioridade Média:**
+4. AJUSTES_IMPLEMENTADOS.md
+5. SPEC_AboutBeliefs_v2.md
 
 ---
 
 ### 🎨 Designer/UX
 
 **Prioridade Alta:**
-
 1. GUIA_VISUAL.md
 2. AJUSTES_IMPLEMENTADOS.md
 3. SPEC_AboutBeliefs_v2.md (Seções 2, 3, 4, 5)
 
-**Prioridade Média:** 4. QUICK_REFERENCE.md (Cores, Breakpoints)
+**Prioridade Média:**
+4. QUICK_REFERENCE.md (Cores, Breakpoints)
 
 ---
 
 ### 👔 Product Manager/Tech Lead
 
 **Prioridade Alta:**
-
 1. README.md
 2. AJUSTES_IMPLEMENTADOS.md
 3. SPEC_AboutBeliefs_v2.md (Seção 1)
 
-**Prioridade Média:** 4. QUICK_REFERENCE.md (Checklist, Métricas)
+**Prioridade Média:**
+4. QUICK_REFERENCE.md (Checklist, Métricas)
 
 ---
 
 ### 🆕 Novo no Projeto
 
 **Prioridade Alta:**
-
 1. README.md
 2. AJUSTES_IMPLEMENTADOS.md
 3. GUIA_VISUAL.md
 
-**Prioridade Média:** 4. SPEC_AboutBeliefs_v2.md
+**Prioridade Média:**
+4. SPEC_AboutBeliefs_v2.md
 
 ---
 
@@ -324,33 +307,28 @@ docs/SOBRE/AboutBeliefs/
 ### Procurando por...
 
 **Animações:**
-
 - Mobile: AJUSTES_IMPLEMENTADOS.md → Seção 2
 - Desktop: AJUSTES_IMPLEMENTADOS.md → Seção 2
 - Valores exatos: QUICK_REFERENCE.md → Tabela Animações
 - Código: EXEMPLOS_CODIGO.md → Animação Mobile/Desktop
 
 **Ghost 3D:**
-
 - Comportamento: GUIA_VISUAL.md → Comportamento do Ghost
 - Alinhamento: AJUSTES_IMPLEMENTADOS.md → Seção 3
 - Código: EXEMPLOS_CODIGO.md → GhostModel
 - URL do GLB: QUICK_REFERENCE.md → Constantes
 
 **Cores:**
-
 - Paleta: QUICK_REFERENCE.md → Tabela Cores
 - Backgrounds: QUICK_REFERENCE.md → Cores e Backgrounds
 - Código: EXEMPLOS_CODIGO.md → Transições de Background
 
 **Layout:**
-
 - Mobile: GUIA_VISUAL.md → Layout Mobile
 - Desktop: GUIA_VISUAL.md → Layout Desktop
 - Grid: GUIA_VISUAL.md → Grid System
 
 **Responsividade:**
-
 - Breakpoints: QUICK_REFERENCE.md → Tabela Breakpoints
 - Diferenças: AJUSTES_IMPLEMENTADOS.md → Seção 5
 - Código: EXEMPLOS_CODIGO.md → Layout Mobile
@@ -360,7 +338,6 @@ docs/SOBRE/AboutBeliefs/
 ## ✅ Checklist de Leitura
 
 ### Antes de Começar a Implementar:
-
 - [ ] Li README.md
 - [ ] Li AJUSTES_IMPLEMENTADOS.md
 - [ ] Consultei GUIA_VISUAL.md
@@ -368,14 +345,12 @@ docs/SOBRE/AboutBeliefs/
 - [ ] Sei onde encontrar snippets de código
 
 ### Durante Implementação:
-
 - [ ] Tenho QUICK_REFERENCE.md aberto
 - [ ] Consultei EXEMPLOS_CODIGO.md
 - [ ] Validei com GUIA_VISUAL.md
 - [ ] Segui especificações de SPEC_AboutBeliefs_v2.md
 
 ### Antes de Commitar:
-
 - [ ] Revisei checklist em QUICK_REFERENCE.md
 - [ ] Validei requisitos em SPEC_AboutBeliefs_v2.md
 - [ ] Testei em mobile e desktop
@@ -402,15 +377,15 @@ docs/SOBRE/AboutBeliefs/
 
 ## 📊 Estatísticas da Documentação
 
-| Documento                | Páginas | Seções | Tabelas | Diagramas | Snippets |
-| ------------------------ | ------- | ------ | ------- | --------- | -------- |
-| README.md                | ~10     | 15     | 0       | 2         | 5        |
-| SPEC_AboutBeliefs_v2.md  | ~15     | 11     | 0       | 0         | 3        |
-| AJUSTES_IMPLEMENTADOS.md | ~7      | 9      | 0       | 1         | 2        |
-| GUIA_VISUAL.md           | ~16     | 10     | 0       | 12        | 0        |
-| EXEMPLOS_CODIGO.md       | ~21     | 12     | 0       | 0         | 15       |
-| QUICK_REFERENCE.md       | ~10     | 15     | 15      | 0         | 5        |
-| **TOTAL**                | **~79** | **72** | **15**  | **15**    | **30**   |
+| Documento | Páginas | Seções | Tabelas | Diagramas | Snippets |
+|-----------|---------|--------|---------|-----------|----------|
+| README.md | ~10 | 15 | 0 | 2 | 5 |
+| SPEC_AboutBeliefs_v2.md | ~15 | 11 | 0 | 0 | 3 |
+| AJUSTES_IMPLEMENTADOS.md | ~7 | 9 | 0 | 1 | 2 |
+| GUIA_VISUAL.md | ~16 | 10 | 0 | 12 | 0 |
+| EXEMPLOS_CODIGO.md | ~21 | 12 | 0 | 0 | 15 |
+| QUICK_REFERENCE.md | ~10 | 15 | 15 | 0 | 5 |
+| **TOTAL** | **~79** | **72** | **15** | **15** | **30** |
 
 ---
 

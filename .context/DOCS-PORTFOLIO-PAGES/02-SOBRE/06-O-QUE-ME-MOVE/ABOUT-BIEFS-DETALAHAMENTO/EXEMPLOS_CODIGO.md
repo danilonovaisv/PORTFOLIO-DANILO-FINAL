@@ -587,12 +587,12 @@ const PHRASES = [
 
 // Cores de background
 const COLORS = [
-  BRAND.colors.bluePrimary, // #0048ff
-  BRAND.colors.purpleDetails, // #8705f2
-  BRAND.colors.pinkDetails, // #f501d3
-  BRAND.colors.bluePrimary, // #0048ff
-  BRAND.colors.purpleDetails, // #8705f2
-  BRAND.colors.pinkDetails, // #f501d3
+  BRAND.colors.bluePrimary,    // #0048ff
+  BRAND.colors.purpleDetails,  // #8705f2
+  BRAND.colors.pinkDetails,    // #f501d3
+  BRAND.colors.bluePrimary,    // #0048ff
+  BRAND.colors.purpleDetails,  // #8705f2
+  BRAND.colors.pinkDetails,    // #f501d3
 ];
 
 // Easing padrão (Ghost easing)
@@ -609,28 +609,25 @@ const GHOST_GLB_URL =
 
 ```typescript
 // Container padrão
-className = 'std-grid max-w-none w-full';
+className="std-grid max-w-none w-full"
 
 // Padding responsivo
-className = 'px-6 md:px-12 lg:px-16 xl:px-24';
+className="px-6 md:px-12 lg:px-16 xl:px-24"
 
 // Texto rotativo mobile
-className =
-  'text-blueAccent italic font-semibold text-[clamp(2rem,7vw,3rem)] leading-[1.15] tracking-[-0.01em] text-center select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]';
+className="text-blueAccent italic font-semibold text-[clamp(2rem,7vw,3rem)] leading-[1.15] tracking-[-0.01em] text-center select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.25)]"
 
 // Texto rotativo desktop
-className =
-  'text-blueAccent italic font-semibold text-[clamp(2.75rem,4.5vw,2.5rem)] leading-[1.2] text-left whitespace-pre-line select-none tracking-[-0.01em] max-w-fit';
+className="text-blueAccent italic font-semibold text-[clamp(2.75rem,4.5vw,2.5rem)] leading-[1.2] text-left whitespace-pre-line select-none tracking-[-0.01em] max-w-fit"
 
 // Header sticky
-className = 'sticky top-0 z-30 flex h-screen pointer-events-none';
+className="sticky top-0 z-30 flex h-screen pointer-events-none"
 
 // Manifesto final
-className =
-  'text-white font-display leading-[0.78] tracking-tighter uppercase font-black';
+className="text-white font-display leading-[0.78] tracking-tighter uppercase font-black"
 
 // Background transition
-className = 'transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]';
+className="transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
 ```
 
 ---

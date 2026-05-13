@@ -33,15 +33,15 @@ Firecrawl is a **Web Data API for AI** that turns websites into LLM-ready markdo
 
 ## API Endpoints Overview
 
-| Endpoint        | Purpose              | Use Case                      |
-| --------------- | -------------------- | ----------------------------- |
-| `/scrape`       | Single page          | Extract article, product page |
-| `/crawl`        | Full site            | Index docs, archive sites     |
-| `/map`          | URL discovery        | Find all pages, plan strategy |
-| `/search`       | Web search + scrape  | Research with live data       |
-| `/extract`      | Structured data      | Product prices, contacts      |
-| `/agent`        | Autonomous gathering | No URLs needed, AI navigates  |
-| `/batch-scrape` | Multiple URLs        | Bulk processing               |
+| Endpoint | Purpose | Use Case |
+|----------|---------|----------|
+| `/scrape` | Single page | Extract article, product page |
+| `/crawl` | Full site | Index docs, archive sites |
+| `/map` | URL discovery | Find all pages, plan strategy |
+| `/search` | Web search + scrape | Research with live data |
+| `/extract` | Structured data | Product prices, contacts |
+| `/agent` | Autonomous gathering | No URLs needed, AI navigates |
+| `/batch-scrape` | Multiple URLs | Bulk processing |
 
 ---
 
@@ -75,7 +75,7 @@ const app = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY });
 
 const result = await app.scrapeUrl('https://example.com/article', {
   formats: ['markdown', 'html'],
-  onlyMainContent: true,
+  onlyMainContent: true
 });
 
 console.log(result.markdown);
@@ -83,17 +83,17 @@ console.log(result.markdown);
 
 ### Output Formats
 
-| Format           | Description                          |
-| ---------------- | ------------------------------------ |
-| `markdown`       | LLM-optimized content                |
-| `html`           | Full HTML                            |
-| `rawHtml`        | Unprocessed HTML                     |
-| `screenshot`     | Page capture (with viewport options) |
-| `links`          | All URLs on page                     |
-| `json`           | Structured data extraction           |
-| `summary`        | AI-generated summary                 |
-| `branding`       | Design system data                   |
-| `changeTracking` | Content change detection             |
+| Format | Description |
+|--------|-------------|
+| `markdown` | LLM-optimized content |
+| `html` | Full HTML |
+| `rawHtml` | Unprocessed HTML |
+| `screenshot` | Page capture (with viewport options) |
+| `links` | All URLs on page |
+| `json` | Structured data extraction |
+| `summary` | AI-generated summary |
+| `branding` | Design system data |
+| `changeTracking` | Content change detection |
 
 ### Advanced Options
 
@@ -382,10 +382,10 @@ result = app.agent(
 
 ### Agent Models
 
-| Model                    | Best For                         | Cost     |
-| ------------------------ | -------------------------------- | -------- |
-| `spark-1-mini` (default) | Simple extractions, high volume  | Standard |
-| `spark-1-pro`            | Complex analysis, ambiguous data | 60% more |
+| Model | Best For | Cost |
+|-------|----------|------|
+| `spark-1-mini` (default) | Simple extractions, high volume | Standard |
+| `spark-1-pro` | Complex analysis, ambiguous data | 60% more |
 
 ```python
 result = app.agent(
@@ -448,7 +448,7 @@ job = app.start_batch_scrape(
 ```typescript
 const job = await app.startBatchScrape(urls, {
   formats: ['markdown'],
-  webhook: 'https://your-domain.com/webhook',
+  webhook: 'https://your-domain.com/webhook'
 });
 
 // Poll for status
@@ -500,7 +500,6 @@ doc = app.scrape(
 ```
 
 **Change States**:
-
 - `new` - Page not seen before
 - `same` - No changes since last scrape
 - `changed` - Content modified
@@ -536,19 +535,19 @@ export default {
     const response = await fetch('https://api.firecrawl.dev/v2/scrape', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${env.FIRECRAWL_API_KEY}`,
+        'Authorization': `Bearer ${env.FIRECRAWL_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         url,
         formats: ['markdown'],
-        onlyMainContent: true,
-      }),
+        onlyMainContent: true
+      })
     });
 
     const result = await response.json();
     return Response.json(result);
-  },
+  }
 };
 ```
 
@@ -561,7 +560,6 @@ export default {
 Stealth mode now costs **5 credits per request** when actively used. Default behavior uses "auto" mode which only charges stealth credits if basic fails.
 
 **Recommended pattern**:
-
 ```python
 # Use auto mode (default) - only charges 5 credits if stealth is needed
 doc = app.scrape(url, formats=["markdown"])
@@ -577,15 +575,14 @@ Credits and tokens merged into single system. Extract endpoint uses credits (15 
 
 ### Pricing Tiers
 
-| Tier     | Credits/Month | Notes            |
-| -------- | ------------- | ---------------- |
-| Free     | 500           | Good for testing |
-| Hobby    | 3,000         | $19/month        |
-| Standard | 100,000       | $99/month        |
-| Growth   | 500,000       | $399/month       |
+| Tier | Credits/Month | Notes |
+|------|---------------|-------|
+| Free | 500 | Good for testing |
+| Hobby | 3,000 | $19/month |
+| Standard | 100,000 | $99/month |
+| Growth | 500,000 | $399/month |
 
 **Credit Costs**:
-
 - Scrape: 1 credit (basic), 5 credits (stealth)
 - Crawl: 1 credit per page
 - Search: 2 credits per 10 results
@@ -597,13 +594,13 @@ Credits and tokens merged into single system. Extract endpoint uses credits (15 
 
 ## Common Issues & Solutions
 
-| Issue               | Cause         | Solution                                |
-| ------------------- | ------------- | --------------------------------------- |
-| Empty content       | JS not loaded | Add `wait_for: 5000` or use `actions`   |
-| Rate limit exceeded | Over quota    | Check dashboard, upgrade plan           |
-| Timeout error       | Slow page     | Increase `timeout`, use `stealth: true` |
-| Bot detection       | Anti-scraping | Use `stealth: true`, add `location`     |
-| Invalid API key     | Wrong format  | Must start with `fc-`                   |
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Empty content | JS not loaded | Add `wait_for: 5000` or use `actions` |
+| Rate limit exceeded | Over quota | Check dashboard, upgrade plan |
+| Timeout error | Slow page | Increase `timeout`, use `stealth: true` |
+| Bot detection | Anti-scraping | Use `stealth: true`, add `location` |
+| Invalid API key | Wrong format | Must start with `fc-` |
 
 ---
 
@@ -632,7 +629,6 @@ except Exception as e:
 ```
 
 **Stealth Mode Options**:
-
 - `auto` (default): Charges 5 credits only if stealth succeeds after basic fails
 - `basic`: Standard proxies, 1 credit cost
 - `stealth`: 5 credits per request when actively used
@@ -647,14 +643,12 @@ except Exception as e:
 **Prevention**: Use new method names
 
 **JavaScript/TypeScript**:
-
 - `scrapeUrl()` → `scrape()`
 - `crawlUrl()` → `crawl()` or `startCrawl()`
 - `asyncCrawlUrl()` → `startCrawl()`
 - `checkCrawlStatus()` → `getCrawlStatus()`
 
 **Python**:
-
 - `scrape_url()` → `scrape()`
 - `crawl_url()` → `crawl()` or `start_crawl()`
 
@@ -709,7 +703,6 @@ doc = app.scrape(
 ```
 
 **Screenshot format also changed**:
-
 ```python
 # NEW: Screenshot as object
 formats=[{
@@ -730,7 +723,6 @@ formats=[{
 **Prevention**: Use new parameter names
 
 **Parameter Changes**:
-
 - `allowBackwardCrawling` → Use `crawlEntireDomain` instead
 - `maxDepth` → Use `maxDiscoveryDepth` instead
 - `ignoreSitemap` (bool) → `sitemap` ("only", "skip", "include")
@@ -765,7 +757,6 @@ app.crawl(
 **Prevention**: Be aware of new defaults
 
 **Default Changes**:
-
 - `maxAge` now defaults to **2 days** (cached by default)
 - `blockAds`, `skipTlsVerification`, `removeBase64Images` enabled by default
 
@@ -830,10 +821,10 @@ const result = await app.scrape('https://nonexistent-domain-xyz.com');
 
 // DO check success field
 if (!result.success) {
-  if (result.code === 'SCRAPE_DNS_RESOLUTION_ERROR') {
-    console.error('DNS resolution failed');
-  }
-  throw new Error(result.error);
+    if (result.code === 'SCRAPE_DNS_RESOLUTION_ERROR') {
+        console.error('DNS resolution failed');
+    }
+    throw new Error(result.error);
 }
 ```
 
@@ -912,7 +903,6 @@ doc = app.scrape(url, formats=["markdown"], min_age=3600000)  # 1 hour minimum
 ```
 
 **Performance Impact**:
-
 - Cached response: Milliseconds
 - Fresh scrape: Seconds
 - Speed difference: **Up to 500%**
@@ -921,11 +911,11 @@ doc = app.scrape(url, formats=["markdown"], min_age=3600000)  # 1 hour minimum
 
 ## Package Versions
 
-| Package                | Version | Last Checked |
-| ---------------------- | ------- | ------------ |
-| firecrawl-py           | 4.13.0+ | 2026-01-20   |
-| @mendable/firecrawl-js | 4.11.1+ | 2026-01-20   |
-| API Version            | v2      | Current      |
+| Package | Version | Last Checked |
+|---------|---------|--------------|
+| firecrawl-py | 4.13.0+ | 2026-01-20 |
+| @mendable/firecrawl-js | 4.11.1+ | 2026-01-20 |
+| API Version | v2 | Current |
 
 ---
 

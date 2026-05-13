@@ -21,10 +21,7 @@ export function usePreloader() {
 
       setTimeout(() => {
         if (preloaderRef.current) {
-          preloaderRef.current.classList.add(
-            'opacity-0',
-            'pointer-events-none'
-          );
+          preloaderRef.current.classList.add('opacity-0', 'pointer-events-none');
         }
         canvas.classList.remove('opacity-0');
         canvas.classList.add('opacity-100');

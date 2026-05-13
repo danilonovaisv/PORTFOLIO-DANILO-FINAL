@@ -5,7 +5,4 @@
 3. Why: [Still deeper]
 4. Why: [Getting closer]
 5. Why: [Root cause]
-
-```
-
 ```

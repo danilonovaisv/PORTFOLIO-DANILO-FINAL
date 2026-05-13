@@ -162,7 +162,9 @@ export default async function HomePage() {
       <PortfolioShowcase />
       <FeaturedProjectsRealtime
         initialProjects={featuredProjects}
-        shuffleSeed={typeof shuffleSeed === 'number' ? shuffleSeed : undefined}
+        shuffleSeed={
+          typeof shuffleSeed === 'number' ? shuffleSeed : undefined
+        }
       />
       <SiteClosure />
     </main>

@@ -6,6 +6,7 @@
     "useDefineForClassFields": false,
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "typeRoots": ["./node_modules/@types"],
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -16,6 +17,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "types": ["node", "react", "react-dom", "three"],
     "allowImportingTsExtensions": true,
     "declaration": true,
     "noEmit": true,
