@@ -74,7 +74,7 @@ export function GhostScene() {
     });
 
     return () => ctx.revert();
-  }, [sectionRef, shouldReduceMotion]);
+  }, [sectionRef, shouldReduceMotion, supportsWebGL]);
 
   if (!supportsWebGL) {
     return <GhostSceneFallback />;
