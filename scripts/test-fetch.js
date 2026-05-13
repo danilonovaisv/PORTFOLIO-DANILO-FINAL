@@ -1,4 +1,4 @@
-const url = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
+const url = 'https://dpejskjpghoozbpfxkpf.supabase.co';
 console.log(`Fetching ${url}...`);
 fetch(url)
   .then((res) => {

@@ -157,7 +157,7 @@ Referência rápida para consulta durante desenvolvimento.
 const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
 // URL do GLB
-const GHOST_GLB_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+const GHOST_GLB_URL = 'https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
 
 // Frases
 const PHRASES = [
@@ -335,7 +335,7 @@ interface GhostSceneProps {
 
 | Recurso | Link |
 |---------|------|
-| Supabase Storage | https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ |
+| Supabase Storage | https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/ |
 | GLB Asset | .../about/beliefs/ghost-transformed.glb |
 | Framer Motion Docs | https://www.framer.com/motion/ |
 | R3F Docs | https://docs.pmnd.rs/react-three-fiber/ |

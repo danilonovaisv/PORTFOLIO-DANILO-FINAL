@@ -5,7 +5,7 @@
         "id": "0d2c734e-de01-45e1-9a2f-c896cd23524c",
         "key": "landing-pages.key-vision.master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
         "file_path": "landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
         "updated_at": "2026-02-23 19:24:49.935811+00"
       },
@@ -13,7 +13,7 @@
         "id": "d1d0e281-8856-42e3-a02c-1b16ae23f51e",
         "key": "landing-pages.hellmmas.",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/.emptyFolderPlaceholder",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/.emptyFolderPlaceholder",
         "file_path": "landing-pages/hellmmas/.emptyFolderPlaceholder",
         "updated_at": "2026-02-22 08:32:14.162786+00"
       },
@@ -21,7 +21,7 @@
         "id": "f0774555-65f9-4222-91c3-8d5f215a5313",
         "key": "home.showcase.webdesigner-2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/webdesigner-2.gif",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/showcase/webdesigner-2.gif",
         "file_path": "home/showcase/webdesigner-2.gif",
         "updated_at": "2026-01-14 20:07:58.064148+00"
       },
@@ -29,7 +29,7 @@
         "id": "1d64ed44-95d9-4e49-9db7-6eaacc97fb70",
         "key": "projects.key-visual.section-4",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-4.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-4.webp",
         "file_path": "projects/key-visual/section-4.webp",
         "updated_at": "2026-01-21 23:01:50.008822+00"
       },
@@ -37,7 +37,7 @@
         "id": "ee6bc800-282b-4482-963a-71b269abc648",
         "key": "landing-pages.key-vision.",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/.emptyFolderPlaceholder",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/.emptyFolderPlaceholder",
         "file_path": "landing-pages/key-vision/.emptyFolderPlaceholder",
         "updated_at": "2026-02-22 08:32:24.819935+00"
       },
@@ -45,7 +45,7 @@
         "id": "5962a95d-3085-4a9f-8a3e-71e276a1a4f1",
         "key": "global.fonts.global.font_display",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_display.woff2",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_display.woff2",
         "file_path": "global/fonts/global.font_display.woff2",
         "updated_at": "2026-01-14 08:23:23.957244+00"
       },
@@ -53,7 +53,7 @@
         "id": "ccd459d3-34a6-43db-adad-0c2bded0e709",
         "key": "global.fonts.global.font_body",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_body.woff2",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_body.woff2",
         "file_path": "global/fonts/global.font_body.woff2",
         "updated_at": "2026-01-14 08:24:11.496732+00"
       },
@@ -61,7 +61,7 @@
         "id": "ef71e39d-cda5-4694-8f8a-16ca6e1be921",
         "key": "projects.campaign.section-11",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-11.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-11.webp",
         "file_path": "projects/campaign/section-11.webp",
         "updated_at": "2026-01-21 22:55:03.183917+00"
       },
@@ -69,7 +69,7 @@
         "id": "ce895646-4530-4f62-98c4-c9f28b112960",
         "key": "projects.campaign.section-12",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-12.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-12.webp",
         "file_path": "projects/campaign/section-12.webp",
         "updated_at": "2026-01-21 22:55:03.482171+00"
       },
@@ -77,7 +77,7 @@
         "id": "b74ae71d-9a13-4029-a545-fcc0e22e689c",
         "key": "global.fonts.global.font_h1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h1.woff2",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h1.woff2",
         "file_path": "global/fonts/global.font_h1.woff2",
         "updated_at": "2026-01-14 08:24:40.797329+00"
       },
@@ -85,7 +85,7 @@
         "id": "c88641d7-e611-4616-96c6-b4511c9f2d51",
         "key": "global.fonts.global.font_h3",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h3.woff2",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h3.woff2",
         "file_path": "global/fonts/global.font_h3.woff2",
         "updated_at": "2026-01-14 08:26:17.715388+00"
       },
@@ -93,7 +93,7 @@
         "id": "c647a67a-6c46-4c8b-bbae-0b1dcd23edd2",
         "key": "clients.clients.strip.5",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.5.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.5.svg",
         "file_path": "clients/clients.strip.5.svg",
         "updated_at": "2026-01-14 08:41:59.793853+00"
       },
@@ -101,7 +101,7 @@
         "id": "913afa1e-8432-410f-8a01-83307f3c00f2",
         "key": "clients.clients.strip.7",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.7.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.7.svg",
         "file_path": "clients/clients.strip.7.svg",
         "updated_at": "2026-01-14 08:41:59.819593+00"
       },
@@ -109,7 +109,7 @@
         "id": "79e83fa7-a7df-4757-ba7b-81fc55571d9a",
         "key": "clients.clients.strip.4",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.4.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.4.svg",
         "file_path": "clients/clients.strip.4.svg",
         "updated_at": "2026-01-14 08:41:59.870909+00"
       },
@@ -117,7 +117,7 @@
         "id": "97b91f15-29ad-4f07-9c60-605404efdb7e",
         "key": "clients.clients.strip.3",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.3.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.3.svg",
         "file_path": "clients/clients.strip.3.svg",
         "updated_at": "2026-01-14 08:41:59.898698+00"
       },
@@ -125,7 +125,7 @@
         "id": "c65940d7-3778-407c-8555-97517ce9ed95",
         "key": "v4.danilo.",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/v4/danilo/.emptyFolderPlaceholder",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/v4/danilo/.emptyFolderPlaceholder",
         "file_path": "v4/danilo/.emptyFolderPlaceholder",
         "updated_at": "2026-02-27 05:14:24.20093+00"
       },
@@ -133,7 +133,7 @@
         "id": "ad8aed84-334a-4396-b308-7a6859cc28cd",
         "key": "projects.key-visual.section-1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-1.webp",
         "file_path": "projects/key-visual/section-1.webp",
         "updated_at": "2026-01-21 23:01:50.002928+00"
       },
@@ -141,7 +141,7 @@
         "id": "a22d359c-7453-467c-9eb6-a04f7abef7b2",
         "key": "global.fonts.global.font_light",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2",
         "file_path": "global/fonts/global.font_light.woff2",
         "updated_at": "2026-01-14 08:26:49.214286+00"
       },
@@ -149,7 +149,7 @@
         "id": "90970c00-636a-4064-81c8-d8dcd348cd30",
         "key": "clients.clients.strip.10",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.10.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.10.svg",
         "file_path": "clients/clients.strip.10.svg",
         "updated_at": "2026-01-15 10:33:24.281953+00"
       },
@@ -157,7 +157,7 @@
         "id": "adad3914-b0da-4acf-9364-b79a0710e3f5",
         "key": "about.origin.about.origin_image.4",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp",
         "file_path": "about/origin/about.origin_image.4.webp",
         "updated_at": "2026-01-14 09:49:55.705998+00"
       },
@@ -165,7 +165,7 @@
         "id": "c6c469ae-9e9a-4550-8e10-c9b679ce6d43",
         "key": "about.origin.about.origin_image.2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp",
         "file_path": "about/origin/about.origin_image.2.webp",
         "updated_at": "2026-01-14 09:49:56.233308+00"
       },
@@ -173,7 +173,7 @@
         "id": "b81ea55e-7ac2-4cb1-ac6e-0b93c2e8b40f",
         "key": "clients.clients.strip.6",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.6.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.6.svg",
         "file_path": "clients/clients.strip.6.svg",
         "updated_at": "2026-01-25 04:48:33.793459+00"
       },
@@ -181,7 +181,7 @@
         "id": "6298bb00-6038-4ed7-85bd-346720c7c5cd",
         "key": "clients.clients.strip.8",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.8.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.8.svg",
         "file_path": "clients/clients.strip.8.svg",
         "updated_at": "2026-01-14 08:41:59.794285+00"
       },
@@ -189,7 +189,7 @@
         "id": "02aa764f-d0e2-45f9-bb3b-049339c99e2f",
         "key": "home.showcase.Branding-Project",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Branding-Project.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Branding-Project.webp",
         "file_path": "home/showcase/Branding-Project.webp",
         "updated_at": "2026-01-14 20:07:57.062582+00"
       },
@@ -197,7 +197,7 @@
         "id": "33640ebe-1261-4cac-9ea0-abc09fcea4e3",
         "key": "landing-pages.hellmmas.master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87.webp",
         "file_path": "landing-pages/hellmmas/master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87.webp",
         "updated_at": "2026-02-22 10:50:23.39162+00"
       },
@@ -205,7 +205,7 @@
         "id": "81ba93a1-5915-4445-8fd5-9270a208c24f",
         "key": "clients.clients.strip.11",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.11.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.11.svg",
         "file_path": "clients/clients.strip.11.svg",
         "updated_at": "2026-01-15 10:33:24.147687+00"
       },
@@ -213,7 +213,7 @@
         "id": "56b72517-5596-44a2-b1ee-be303325dc09",
         "key": "global.404",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/404.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/404.webp",
         "file_path": "global/404.webp",
         "updated_at": "2026-01-16 05:00:07.2149+00"
       },
@@ -221,7 +221,7 @@
         "id": "dfeaed1e-6bf9-46e8-af0b-9f10310fd4bd",
         "key": "global.logos.global.logo_header_dark",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_dark.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_dark.svg",
         "file_path": "global/logos/global.logo_header_dark.svg",
         "updated_at": "2026-01-14 08:12:55.850124+00"
       },
@@ -229,7 +229,7 @@
         "id": "b7139f1e-5ed0-4b5d-a934-660abfa34bba",
         "key": "clients.clients.strip.12",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.12.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.12.svg",
         "file_path": "clients/clients.strip.12.svg",
         "updated_at": "2026-01-14 08:42:00.568527+00"
       },
@@ -237,7 +237,7 @@
         "id": "9b72d642-9a25-4d9a-a6f4-674a70e62e81",
         "key": "about.origin.about.origin_image.3",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp",
         "file_path": "about/origin/about.origin_image.3.webp",
         "updated_at": "2026-01-14 09:49:56.179216+00"
       },
@@ -245,7 +245,7 @@
         "id": "b3e6801c-9d59-4308-b606-f16c6ec09223",
         "key": "global.fonts.global.font_h2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h2.woff2",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h2.woff2",
         "file_path": "global/fonts/global.font_h2.woff2",
         "updated_at": "2026-01-14 09:51:32.652371+00"
       },
@@ -253,7 +253,7 @@
         "id": "6e3fc1fd-55cf-46e3-99e7-01659e0da58b",
         "key": "projects.campaign.cover",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/cover.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/cover.webp",
         "file_path": "projects/campaign/cover.webp",
         "updated_at": "2026-01-21 22:55:02.44733+00"
       },
@@ -261,7 +261,7 @@
         "id": "851586f5-b059-4851-a749-f6d44a77d8bf",
         "key": "global.logos.global.logo_header_light",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg",
         "file_path": "global/logos/global.logo_header_light.svg",
         "updated_at": "2026-01-14 08:15:27.589356+00"
       },
@@ -269,7 +269,7 @@
         "id": "00c2c459-2bc4-483a-8c6f-61a5ea2d5c99",
         "key": "global.logos.global.favicon_light",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_light.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_light.svg",
         "file_path": "global/logos/global.favicon_light.svg",
         "updated_at": "2026-01-14 08:16:53.615004+00"
       },
@@ -277,7 +277,7 @@
         "id": "2586a581-8c4c-426d-ab69-6b3b27d3949e",
         "key": "global.logos.global.favicon_dark",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_dark.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_dark.svg",
         "file_path": "global/logos/global.favicon_dark.svg",
         "updated_at": "2026-01-14 08:17:47.612619+00"
       },
@@ -285,7 +285,7 @@
         "id": "a86499a0-f68f-41f0-a8d1-942c57a70e78",
         "key": "home.showcase.Key-Visual",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Key-Visual.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Key-Visual.webp",
         "file_path": "home/showcase/Key-Visual.webp",
         "updated_at": "2026-01-14 20:07:57.204927+00"
       },
@@ -293,7 +293,7 @@
         "id": "bddbc797-1380-4f66-82db-f7c69fea86e3",
         "key": "landing-pages.key-vision.master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
         "file_path": "landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
         "updated_at": "2026-02-23 19:24:50.678123+00"
       },
@@ -301,7 +301,7 @@
         "id": "d6ebb665-6e0c-47ed-a06f-b245798ac875",
         "key": "landing-pages.key-vision.master-v3-block-image-10-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-10-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-10-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-10-media1.webp",
         "updated_at": "2026-02-23 19:24:51.546142+00"
       },
@@ -309,7 +309,7 @@
         "id": "01015ac5-bf06-4983-ba2f-031ee815be08",
         "key": "projects.key-visual.gallery.converted-10-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/gallery/converted-10-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/gallery/converted-10-webp.webp",
         "file_path": "projects/key-visual/gallery/converted-10-webp.webp",
         "updated_at": "2026-01-16 23:49:53.065414+00"
       },
@@ -317,7 +317,7 @@
         "id": "1efa824b-4034-48ac-8eaa-6ca367703d2d",
         "key": "projects.key-visual.hero",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/hero.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/hero.png",
         "file_path": "projects/key-visual/hero.png",
         "updated_at": "2026-01-22 21:55:38.915809+00"
       },
@@ -325,7 +325,7 @@
         "id": "6c396a65-5bea-46a3-b4bf-ac27f237db34",
         "key": "projects.campaign.section-5",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-5.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-5.webp",
         "file_path": "projects/campaign/section-5.webp",
         "updated_at": "2026-01-21 22:55:03.225937+00"
       },
@@ -333,7 +333,7 @@
         "id": "7fd65ba9-30f7-422f-8c0e-10142a18d678",
         "key": "projects.key_vision.thumb",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/thumb.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/thumb.webp",
         "file_path": "projects/key_vision/thumb.webp",
         "updated_at": "2026-01-14 18:59:37.937398+00"
       },
@@ -341,7 +341,7 @@
         "id": "adcb8b4b-10b7-4a1f-b0b5-263ee6b71a47",
         "key": "landing-pages.key-vision.master-v3-block-text-image-5-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
         "updated_at": "2026-02-23 19:24:51.756515+00"
       },
@@ -349,7 +349,7 @@
         "id": "b9138a46-110d-45a2-9a8b-24d106c53a28",
         "key": "projects.key_vision.hero",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/hero.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/hero.webp",
         "file_path": "projects/key_vision/hero.webp",
         "updated_at": "2026-01-14 18:59:38.373037+00"
       },
@@ -357,7 +357,7 @@
         "id": "5c76d5a4-8014-42a1-acf4-6767c6212c6a",
         "key": "projects.key_vision.gallery.nescau-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/gallery/nescau-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/gallery/nescau-webp.webp",
         "file_path": "projects/key_vision/gallery/nescau-webp.webp",
         "updated_at": "2026-01-14 18:59:39.460374+00"
       },
@@ -365,7 +365,7 @@
         "id": "85edc6e3-7d48-47d7-aebe-d0ae8f483d46",
         "key": "projects.creative-direction.thumb",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/thumb.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/thumb.webp",
         "file_path": "projects/creative-direction/thumb.webp",
         "updated_at": "2026-01-15 10:03:53.82492+00"
       },
@@ -373,7 +373,7 @@
         "id": "e856a2aa-3848-48de-bb69-cc82bd2eca8c",
         "key": "projects.creative-direction.hero",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/hero.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/hero.webp",
         "file_path": "projects/creative-direction/hero.webp",
         "updated_at": "2026-01-15 10:03:54.277288+00"
       },
@@ -381,7 +381,7 @@
         "id": "bcc26e4d-969e-4530-a9d5-6fa900863096",
         "key": "projects.creative-direction.gallery.converted-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/gallery/converted-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/gallery/converted-webp.webp",
         "file_path": "projects/creative-direction/gallery/converted-webp.webp",
         "updated_at": "2026-01-15 10:03:54.80633+00"
       },
@@ -389,7 +389,7 @@
         "id": "9f1668e1-698e-47c1-b149-b3ca152f44b4",
         "key": "projects.campaign.section-7",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-7.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-7.webp",
         "file_path": "projects/campaign/section-7.webp",
         "updated_at": "2026-01-21 22:55:02.865367+00"
       },
@@ -397,7 +397,7 @@
         "id": "4735494a-9733-4a7a-adc8-ca3bccc988e6",
         "key": "clients.clients.strip.2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.2.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.2.svg",
         "file_path": "clients/clients.strip.2.svg",
         "updated_at": "2026-01-21 16:31:07.24039+00"
       },
@@ -405,7 +405,7 @@
         "id": "7048e9f4-dbc1-4bc4-854f-d387ca261561",
         "key": "clients.clients.strip.1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.1.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.1.svg",
         "file_path": "clients/clients.strip.1.svg",
         "updated_at": "2026-01-21 16:31:07.262276+00"
       },
@@ -413,7 +413,7 @@
         "id": "7d33f834-64ac-4b63-b5d0-611818e4230f",
         "key": "projects.key-vision.thumb",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/thumb.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/thumb.webp",
         "file_path": "projects/key-vision/thumb.webp",
         "updated_at": "2026-01-14 19:56:34.680782+00"
       },
@@ -421,7 +421,7 @@
         "id": "0b1242da-894b-4a0f-8842-9389499b5c35",
         "key": "projects.key-visual.section-6",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-6.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-6.webp",
         "file_path": "projects/key-visual/section-6.webp",
         "updated_at": "2026-01-21 23:01:50.294967+00"
       },
@@ -429,7 +429,7 @@
         "id": "38b721b1-ba72-4e50-bdfd-3c4a9abea37d",
         "key": "projects.key-vision.hero",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/hero.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/hero.webp",
         "file_path": "projects/key-vision/hero.webp",
         "updated_at": "2026-01-14 19:56:35.071207+00"
       },
@@ -437,7 +437,7 @@
         "id": "eba2e40c-0105-44c1-aae8-42d48883e6a0",
         "key": "home.showcase.show.video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/show.video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/showcase/show.video.mp4",
         "file_path": "home/showcase/show.video.mp4",
         "updated_at": "2026-01-14 20:05:56.778327+00"
       },
@@ -445,7 +445,7 @@
         "id": "28117ea8-6fb5-4ab1-bd05-801d545f7863",
         "key": "projects.key-vision.gallery.converted-5-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/gallery/converted-5-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/gallery/converted-5-webp.webp",
         "file_path": "projects/key-vision/gallery/converted-5-webp.webp",
         "updated_at": "2026-01-14 19:56:35.475491+00"
       },
@@ -453,7 +453,7 @@
         "id": "ab293fce-2b3e-49a6-b2dd-43ebc0be22f1",
         "key": "landing-pages.hellmmas.master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7.png",
         "file_path": "landing-pages/hellmmas/master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7.png",
         "updated_at": "2026-02-22 10:50:25.251761+00"
       },
@@ -461,7 +461,7 @@
         "id": "a044494b-ccf0-48e6-a965-07dbebc12bc2",
         "key": "projects.key-visual.cover",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/cover.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/cover.webp",
         "file_path": "projects/key-visual/cover.webp",
         "updated_at": "2026-01-21 23:01:48.942503+00"
       },
@@ -469,7 +469,7 @@
         "id": "b84701e4-aa3d-47ab-9c8c-f4c07dcd503b",
         "key": "projects.campaign.section-10",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-10.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-10.webp",
         "file_path": "projects/campaign/section-10.webp",
         "updated_at": "2026-01-21 22:55:03.223414+00"
       },
@@ -477,7 +477,7 @@
         "id": "1b47a354-0022-4047-8855-1dffde0afe6d",
         "key": "projects.campaign.section-8",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-8.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-8.webp",
         "file_path": "projects/campaign/section-8.webp",
         "updated_at": "2026-01-21 22:55:03.463473+00"
       },
@@ -485,7 +485,7 @@
         "id": "f5193e93-2799-4a53-83eb-c1ce693dfbe4",
         "key": "projects.campaign.section-9",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-9.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-9.webp",
         "file_path": "projects/campaign/section-9.webp",
         "updated_at": "2026-01-21 22:55:03.066374+00"
       },
@@ -493,7 +493,7 @@
         "id": "3d53647e-e6af-4143-8ad0-ba9f29d065cf",
         "key": "projects.campaign.section-6",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-6.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-6.webp",
         "file_path": "projects/campaign/section-6.webp",
         "updated_at": "2026-01-21 22:55:03.078112+00"
       },
@@ -501,7 +501,7 @@
         "id": "27166433-9843-4db4-be56-4f6446f59fb8",
         "key": "projects.campaign.section-3",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-3.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-3.webp",
         "file_path": "projects/campaign/section-3.webp",
         "updated_at": "2026-01-21 22:55:02.874054+00"
       },
@@ -509,7 +509,7 @@
         "id": "36f2680c-3732-43ed-93e3-4eb4ea28eb95",
         "key": "projects.key-visual.section-9",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-9.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-9.webp",
         "file_path": "projects/key-visual/section-9.webp",
         "updated_at": "2026-01-21 23:01:50.211384+00"
       },
@@ -517,7 +517,7 @@
         "id": "9aa417b4-630c-45f2-ab0e-fc0d10d88e76",
         "key": "landing-pages.key-vision.master-v3-block-image-image-6-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
         "updated_at": "2026-02-23 19:24:51.921857+00"
       },
@@ -525,7 +525,7 @@
         "id": "e8550421-e338-4d4d-8cee-1b64597084db",
         "key": "projects.key-visual.section-11",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-11.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-11.webp",
         "file_path": "projects/key-visual/section-11.webp",
         "updated_at": "2026-01-21 22:59:19.991001+00"
       },
@@ -533,7 +533,7 @@
         "id": "888edcce-413a-4bfb-ba21-3062012da3de",
         "key": "landing-pages.hellmmas.master-v3-block-image-1-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-1-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-1-media1.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-1-media1.webp",
         "updated_at": "2026-02-23 04:51:54.365455+00"
       },
@@ -541,7 +541,7 @@
         "id": "f7b492e0-fe27-4bd9-8e85-c3a6924cf59e",
         "key": "projects.key-visual.section-10",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-10.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-10.webp",
         "file_path": "projects/key-visual/section-10.webp",
         "updated_at": "2026-01-21 23:01:50.141601+00"
       },
@@ -549,7 +549,7 @@
         "id": "fc8a822f-203c-49b5-822a-c1876c63a891",
         "key": "projects.key-visual.section-7",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-7.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-7.webp",
         "file_path": "projects/key-visual/section-7.webp",
         "updated_at": "2026-01-21 23:01:50.186152+00"
       },
@@ -557,7 +557,7 @@
         "id": "4303961a-16ba-4ade-85e2-b48b45579943",
         "key": "projects.key-visual.thumb",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.png",
         "file_path": "projects/key-visual/thumb.png",
         "updated_at": "2026-01-22 21:55:38.026792+00"
       },
@@ -565,7 +565,7 @@
         "id": "69400209-5e62-4ee2-9da4-305195188081",
         "key": "projects.key-visual.section-8",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-8.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-8.webp",
         "file_path": "projects/key-visual/section-8.webp",
         "updated_at": "2026-01-21 23:01:49.979027+00"
       },
@@ -573,7 +573,7 @@
         "id": "7fff13f5-fdae-434d-8073-d623f9d84da8",
         "key": "landing-pages.key-vision.master-v3-block-image-3-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-3-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-3-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-3-media1.webp",
         "updated_at": "2026-02-23 19:24:51.93226+00"
       },
@@ -581,7 +581,7 @@
         "id": "47911ff3-3c1f-4257-880e-9a4f2b28f0b5",
         "key": "landing-pages.key-vision.master-v3-block-image-image-8-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
         "updated_at": "2026-02-23 19:24:52.065271+00"
       },
@@ -589,7 +589,7 @@
         "id": "c2b3ed10-2318-420f-b2a1-7b15241c4cbb",
         "key": "landing-pages.brand-video.master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307.png",
         "file_path": "landing-pages/brand-video/master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307.png",
         "updated_at": "2026-02-23 00:00:48.05427+00"
       },
@@ -597,7 +597,7 @@
         "id": "baa864c0-1a6d-4cd6-86c3-34c50c70e1b0",
         "key": "projects.key-visual.section-12",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-12.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-12.webp",
         "file_path": "projects/key-visual/section-12.webp",
         "updated_at": "2026-01-21 22:59:20.060372+00"
       },
@@ -605,7 +605,7 @@
         "id": "233b3ec9-ee66-4340-8d12-6e1968e7471d",
         "key": "landing-pages.brand-video.master-v3-block-image-image-5-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
         "file_path": "landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
         "updated_at": "2026-02-23 00:00:48.918394+00"
       },
@@ -613,7 +613,7 @@
         "id": "2636df6a-b8d9-4f97-9d0b-d789c0641753",
         "key": "projects.key-visual.section-3",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-3.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-3.webp",
         "file_path": "projects/key-visual/section-3.webp",
         "updated_at": "2026-01-21 23:01:49.408415+00"
       },
@@ -621,7 +621,7 @@
         "id": "ce927d67-a0ef-4470-a5c2-9d1c08644d32",
         "key": "projects.key-visual.section-5",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-5.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-5.webp",
         "file_path": "projects/key-visual/section-5.webp",
         "updated_at": "2026-01-21 23:01:49.941436+00"
       },
@@ -629,7 +629,7 @@
         "id": "917f0113-2a89-4549-a8e8-9f14ffd70c03",
         "key": "projects.key-visual.thumb",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.mp4",
         "file_path": "projects/key-visual/thumb.mp4",
         "updated_at": "2026-01-22 23:32:30.144373+00"
       },
@@ -637,7 +637,7 @@
         "id": "f240c020-8497-4f7b-beb0-f81021bad490",
         "key": "landing-pages.brand-video.master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56.png",
         "file_path": "landing-pages/brand-video/master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56.png",
         "updated_at": "2026-02-23 00:00:47.198812+00"
       },
@@ -645,7 +645,7 @@
         "id": "86c521eb-c5d0-4dea-9020-6fef7a099123",
         "key": "landing-pages.brand-video.master-v3-block-image-image-3-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
         "file_path": "landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
         "updated_at": "2026-02-23 00:00:49.255829+00"
       },
@@ -653,7 +653,7 @@
         "id": "41b1a5a0-dd9f-4d6a-b7be-6df5f04eacac",
         "key": "landing-pages.brand-video.master-v3-block-image-4-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-4-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-4-media1.webp",
         "file_path": "landing-pages/brand-video/master-v3-block-image-4-media1.webp",
         "updated_at": "2026-02-23 00:00:49.375245+00"
       },
@@ -661,7 +661,7 @@
         "id": "9b8b8318-95cb-4a07-8b3e-2173afc0acea",
         "key": "landing-pages.brand-video.master-v3-block-image-image-5-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
         "file_path": "landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
         "updated_at": "2026-02-23 00:00:49.896805+00"
       },
@@ -669,7 +669,7 @@
         "id": "cb5a43e3-95ce-4878-9714-e59fd4544042",
         "key": "landing-pages.brand-video.master-v3-block-image-image-3-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
         "file_path": "landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
         "updated_at": "2026-02-23 00:00:50.017036+00"
       },
@@ -677,7 +677,7 @@
         "id": "026f8dea-3408-47c7-bc71-4026f4d19bea",
         "key": "landing-pages.key-vision.master-v3-block-image-image-11-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
         "updated_at": "2026-02-23 19:24:52.332087+00"
       },
@@ -685,7 +685,7 @@
         "id": "a257cfef-9011-4917-846d-88b8c763f30f",
         "key": "landing-pages.key-vision.master-v3-block-image-7-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-7-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-7-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-7-media1.webp",
         "updated_at": "2026-02-23 19:24:52.360948+00"
       },
@@ -693,7 +693,7 @@
         "id": "445c37a5-8d71-432a-b96c-bb4499a46c46",
         "key": "landing-pages.key-vision.master-v3-block-image-image-9-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
         "updated_at": "2026-02-23 19:24:52.383124+00"
       },
@@ -701,7 +701,7 @@
         "id": "d8e52542-b564-421a-bc58-e6b8f0edbcec",
         "key": "landing-pages.hellmmas.master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4.png",
         "file_path": "landing-pages/hellmmas/master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4.png",
         "updated_at": "2026-02-23 01:29:16.641993+00"
       },
@@ -709,7 +709,7 @@
         "id": "df5517b1-93aa-4d6d-90db-9d17259fba7d",
         "key": "landing-pages.hellmmas.master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662.png",
         "file_path": "landing-pages/hellmmas/master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662.png",
         "updated_at": "2026-02-23 01:29:17.622997+00"
       },
@@ -717,7 +717,7 @@
         "id": "d9415176-9126-4541-9864-12a2c1d4d400",
         "key": "landing-pages.key-vision.master-v3-block-image-image-6-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
         "updated_at": "2026-02-23 19:24:53.011233+00"
       },
@@ -725,7 +725,7 @@
         "id": "21f433fe-1616-4539-a522-6cc3e74cdd1e",
         "key": "projects.rebranding.thumb",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/thumb.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/thumb.mp4",
         "file_path": "projects/rebranding/thumb.mp4",
         "updated_at": "2026-01-23 19:10:11.851633+00"
       },
@@ -733,7 +733,7 @@
         "id": "423a411d-a7ec-4982-862a-62bd059eed7a",
         "key": "projects.rebranding.hero",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/hero.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/hero.png",
         "file_path": "projects/rebranding/hero.png",
         "updated_at": "2026-01-23 19:10:12.398339+00"
       },
@@ -741,7 +741,7 @@
         "id": "dcd967ed-ab88-49b2-9a0b-ea6983a74711",
         "key": "projects.rebranding.gallery.converted-2-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-2-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-2-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-2-webp.webp",
         "updated_at": "2026-01-23 19:10:14.241812+00"
       },
@@ -749,7 +749,7 @@
         "id": "910f7fbf-7c91-4aad-8ace-8b4bea271979",
         "key": "projects.rebranding.gallery.converted-3-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-3-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-3-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-3-webp.webp",
         "updated_at": "2026-01-23 19:10:16.174274+00"
       },
@@ -757,7 +757,7 @@
         "id": "3a859c82-5afd-4d56-9f24-d6c3160f4d86",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
         "updated_at": "2026-02-23 04:51:53.8374+00"
       },
@@ -765,7 +765,7 @@
         "id": "95312a79-6fb1-454a-b408-6eb8588c2643",
         "key": "projects.rebranding.gallery.converted-7-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-7-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-7-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-7-webp.webp",
         "updated_at": "2026-01-23 19:10:17.21724+00"
       },
@@ -773,7 +773,7 @@
         "id": "2d1a1a1a-87de-4f78-9496-ac979dd20f18",
         "key": "projects.rebranding.gallery.converted-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-webp.webp",
         "updated_at": "2026-01-23 19:10:18.052139+00"
       },
@@ -781,7 +781,7 @@
         "id": "96721904-a6f9-4ad0-8ba1-8f9f6ffe2122",
         "key": "projects.rebranding.gallery.converted-4-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-4-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-4-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-4-webp.webp",
         "updated_at": "2026-01-23 19:10:19.023044+00"
       },
@@ -789,7 +789,7 @@
         "id": "5890307e-2690-467f-b4eb-3a77b382b5df",
         "key": "projects.rebranding.gallery.converted-8-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-8-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-8-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-8-webp.webp",
         "updated_at": "2026-01-23 19:10:19.611757+00"
       },
@@ -797,7 +797,7 @@
         "id": "d8875c4d-becb-49c2-b6ef-c0e571599044",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
         "updated_at": "2026-02-23 04:51:54.917249+00"
       },
@@ -805,7 +805,7 @@
         "id": "6d309797-fc89-4132-8d61-d0e7c394024c",
         "key": "projects.rebranding.gallery.converted-6-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-6-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-6-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-6-webp.webp",
         "updated_at": "2026-01-23 19:10:20.119719+00"
       },
@@ -813,7 +813,7 @@
         "id": "fb034c7f-35eb-40b4-8574-ad1b5ecff7c1",
         "key": "projects.rebranding.gallery.converted-5-webp",
         "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-5-webp.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-media/projects/rebranding/gallery/converted-5-webp.webp",
         "file_path": "projects/rebranding/gallery/converted-5-webp.webp",
         "updated_at": "2026-01-23 19:10:21.258878+00"
       },
@@ -821,7 +821,7 @@
         "id": "f4dbe198-952e-47d1-9efc-80fd039f617b",
         "key": "assets-prop.HEADER-FOLHA-TIMBRADA",
         "bucket": "portfolio-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/HEADER-FOLHA-TIMBRADA.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/HEADER-FOLHA-TIMBRADA.png",
         "file_path": "assets-prop/HEADER-FOLHA-TIMBRADA.png",
         "updated_at": "2026-02-20 16:26:29.017094+00"
       },
@@ -829,7 +829,7 @@
         "id": "af19ecf6-a78e-4a94-9874-e6ce3dbac86b",
         "key": "assets-prop.FOOTER-FOLHA-TIMBRADA",
         "bucket": "portfolio-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/FOOTER-FOLHA-TIMBRADA.jpg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/FOOTER-FOLHA-TIMBRADA.jpg",
         "file_path": "assets-prop/FOOTER-FOLHA-TIMBRADA.jpg",
         "updated_at": "2026-02-20 16:26:29.039781+00"
       },
@@ -837,7 +837,7 @@
         "id": "e0ca15e6-f8de-4e5f-9447-775f1f301f16",
         "key": "landing-pages.key-vision.master-v3-block-image-image-8-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
         "updated_at": "2026-02-23 19:24:53.046057+00"
       },
@@ -845,7 +845,7 @@
         "id": "0bce0960-cd21-4e82-b003-da1b81272a64",
         "key": "about.beliefs.VIDEO-SKILLS-MOBILE-FINAL",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
         "file_path": "about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
         "updated_at": "2026-01-24 07:46:47.47816+00"
       },
@@ -853,7 +853,7 @@
         "id": "adc9d3da-eae7-49c1-b946-93b4965ec781",
         "key": "landing-pages.key-vision.master-v3-block-image-image-11-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
         "updated_at": "2026-02-23 19:24:53.204717+00"
       },
@@ -861,7 +861,7 @@
         "id": "763576cb-b964-4546-b032-a0bffb4336ce",
         "key": "about.beliefs.VIDEO-SKILLS-FINAL_compressed",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4",
         "file_path": "about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4",
         "updated_at": "2026-01-24 09:29:49.298263+00"
       },
@@ -869,7 +869,7 @@
         "id": "2907d9a8-1332-4ade-8363-669a77af3927",
         "key": "landing-pages.hellmmas.master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945.svg",
         "file_path": "landing-pages/hellmmas/master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945.svg",
         "updated_at": "2026-02-23 04:51:51.465278+00"
       },
@@ -877,7 +877,7 @@
         "id": "a4e8188a-5af5-4596-8e3b-ef7fac8f548d",
         "key": "landing-pages.hellmmas.master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55.svg",
         "file_path": "landing-pages/hellmmas/master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55.svg",
         "updated_at": "2026-02-23 04:51:52.777634+00"
       },
@@ -885,7 +885,7 @@
         "id": "e6f0c87d-2a66-423b-94b3-d941a2924986",
         "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
         "updated_at": "2026-02-23 04:51:53.604993+00"
       },
@@ -893,7 +893,7 @@
         "id": "9203f7cc-1510-43c9-8136-05f62ebff6ff",
         "key": "landing-pages.key-vision.master-v3-block-image-image-9-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
         "updated_at": "2026-02-23 19:24:53.510465+00"
       },
@@ -901,7 +901,7 @@
         "id": "d60ec189-a970-4a54-8d3d-6b09bd291680",
         "key": "landing-pages.hellmmas.master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402.png",
         "file_path": "landing-pages/hellmmas/master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402.png",
         "updated_at": "2026-02-23 19:32:08.783923+00"
       },
@@ -909,7 +909,7 @@
         "id": "82ee345b-1abe-4827-97ef-6f8c226a226d",
         "key": "clients.clients.strip.9",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.9.svg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.9.svg",
         "file_path": "clients/clients.strip.9.svg",
         "updated_at": "2026-01-25 04:48:34.259739+00"
       },
@@ -917,7 +917,7 @@
         "id": "f630f333-4bee-4baa-8083-670a21b3b0a7",
         "key": "landing-pages.hellmmas.master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d.png",
         "file_path": "landing-pages/hellmmas/master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d.png",
         "updated_at": "2026-02-23 19:32:10.268801+00"
       },
@@ -925,7 +925,7 @@
         "id": "39f798aa-2e6b-4d5b-96a8-bd55e8f601a7",
         "key": "about.origin.about.origin_image.1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp",
         "file_path": "about/origin/about.origin_image.1.webp",
         "updated_at": "2026-01-28 06:46:01.058864+00"
       },
@@ -933,7 +933,7 @@
         "id": "272d2324-3c58-4741-b896-ac8813b18bda",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media1.jpeg",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media1.jpeg",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media1.jpeg",
         "updated_at": "2026-02-23 04:51:54.80151+00"
       },
@@ -941,7 +941,7 @@
         "id": "ad85e9ef-764a-4105-bf90-0bae38b0d055",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
         "updated_at": "2026-02-23 04:51:55.020026+00"
       },
@@ -949,7 +949,7 @@
         "id": "1ba9b89e-cf12-4768-997e-b318fb6f10cf",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media2.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media2.webp",
         "updated_at": "2026-02-23 04:51:55.629256+00"
       },
@@ -957,7 +957,7 @@
         "id": "ff29213e-2092-404e-a2c5-beebd4aefb45",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-9-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-9-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-9-media2.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-9-media2.webp",
         "updated_at": "2026-02-23 04:51:56.134648+00"
       },
@@ -965,7 +965,7 @@
         "id": "3d6d5e0f-eb72-4607-a238-bf1f8ae97253",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
         "updated_at": "2026-02-23 04:51:56.960042+00"
       },
@@ -973,7 +973,7 @@
         "id": "c2629336-acdf-4fd3-b70a-26462b65ad27",
         "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
         "updated_at": "2026-02-23 04:52:03.975112+00"
       },
@@ -981,7 +981,7 @@
         "id": "e8a98b71-ca7a-4ad1-9d5b-8b0ed7dbbebe",
         "key": "landing-pages.hellmmas.master-v3-block-image-9-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-9-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-9-media1.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-9-media1.webp",
         "updated_at": "2026-02-23 04:51:54.428685+00"
       },
@@ -989,7 +989,7 @@
         "id": "5a55c68f-f56a-4c5e-87c9-69eafede1c45",
         "key": "landing-pages.hellmmas.master-v3-block-image-image-9-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-9-media1.webp",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-9-media1.webp",
         "file_path": "landing-pages/hellmmas/master-v3-block-image-image-9-media1.webp",
         "updated_at": "2026-02-23 04:51:54.659094+00"
       },
@@ -997,7 +997,7 @@
         "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
         "key": "about.beliefs.ghost",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb",
         "file_path": "about/beliefs/ghost.glb",
         "updated_at": "2026-02-20 05:28:27.214163+00"
       },
@@ -1005,7 +1005,7 @@
         "id": "3f1270d3-f9a8-4a49-9334-8f4741b88601",
         "key": "home.VIDEO-MANIFESTO-MOBILE",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/VIDEO-MANIFESTO-MOBILE.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/VIDEO-MANIFESTO-MOBILE.mp4",
         "file_path": "home/VIDEO-MANIFESTO-MOBILE.mp4",
         "updated_at": "2026-02-25 08:18:51.680274+00"
       },
@@ -1013,7 +1013,7 @@
         "id": "2d583cfb-d136-4ae6-ab38-64239986ff7d",
         "key": "global.logos.FAVICON-DANILO-APPLE",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/FAVICON-DANILO-APPLE.png",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/global/logos/FAVICON-DANILO-APPLE.png",
         "file_path": "global/logos/FAVICON-DANILO-APPLE.png",
         "updated_at": "2026-02-24 07:47:59.632313+00"
       },
@@ -1021,7 +1021,7 @@
         "id": "e1ed0956-a7c7-4d89-823b-ceb955a1da52",
         "key": "landing-pages.brand-video.",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/.emptyFolderPlaceholder",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/.emptyFolderPlaceholder",
         "file_path": "landing-pages/brand-video/.emptyFolderPlaceholder",
         "updated_at": "2026-02-22 08:31:59.184991+00"
       },
@@ -1029,7 +1029,7 @@
         "id": "bcacec33-c31a-4828-a952-bed5e2ae2920",
         "key": "home.home.manifesto_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video.mp4",
         "file_path": "home/home.manifesto_video.mp4",
         "updated_at": "2026-02-26 12:38:23.249618+00"
       },
@@ -1037,7 +1037,7 @@
         "id": "32d7baa2-7280-406d-86bd-1ca59fbc58a1",
         "key": "about.hero.about.hero.mobile_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile_video.mp4",
         "file_path": "about/hero/about.hero.mobile_video.mp4",
         "updated_at": "2026-02-26 13:15:55.891138+00"
       },
@@ -1045,7 +1045,7 @@
         "id": "cc0f1155-28bb-465b-abba-a9cc4fa2005e",
         "key": "about.method.about.method.mobile_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.mobile_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.mobile_video.mp4",
         "file_path": "about/method/about.method.mobile_video.mp4",
         "updated_at": "2026-02-26 13:16:22.943549+00"
       },
@@ -1053,7 +1053,7 @@
         "id": "52721039-bbf7-4784-832e-bcf099863833",
         "key": "portfolio.hero.portfolio.hero_desktop_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_desktop_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_desktop_video.mp4",
         "file_path": "portfolio/hero/portfolio.hero_desktop_video.mp4",
         "updated_at": "2026-02-26 13:17:06.63633+00"
       },
@@ -1061,7 +1061,7 @@
         "id": "450af742-0b91-4e4a-b694-cc9a9010b353",
         "key": "portfolio.hero.portfolio.hero_mobile_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4",
         "file_path": "portfolio/hero/portfolio.hero_mobile_video.mp4",
         "updated_at": "2026-02-26 13:17:13.889125+00"
       },
@@ -1069,7 +1069,7 @@
         "id": "66822369-b8e8-4c5d-a65e-b03592f859ca",
         "key": "about.hero.about.hero.desktop_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop_video.mp4",
         "file_path": "about/hero/about.hero.desktop_video.mp4",
         "updated_at": "2026-02-26 13:15:56.10581+00"
       },
@@ -1077,7 +1077,7 @@
         "id": "0df74dc4-c48a-42d3-abdb-6018c06e00db",
         "key": "about.method.about.method.desktop_video",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4",
+        "file_url": "https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4",
         "file_path": "about/method/about.method.desktop_video.mp4",
         "updated_at": "2026-02-26 13:16:23.253072+00"
       }

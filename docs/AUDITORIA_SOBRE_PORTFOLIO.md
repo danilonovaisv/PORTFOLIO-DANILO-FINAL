@@ -3,7 +3,7 @@ Objetivo: Integrar uma experiência 3D interativa no componente AboutBeliefs.tsx
 
 Contexto Técnico (Baseado nos arquivos fornecidos):
 
-Modelo: Utilizar o GLB hospedado em: https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb.
+Modelo: Utilizar o GLB hospedado em: https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb.
 
 Lógica de Animação: Implementar a lógica contida em GhostModel.tsx, que utiliza useFrame para calcular a posição Y via lerp baseada no scroll, movimento senoidal nos eixos X/Z para o efeito de "flutuação" e rotação reativa ao mouse (tilt).
 

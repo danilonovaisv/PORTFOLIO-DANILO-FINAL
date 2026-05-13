@@ -5,7 +5,7 @@ import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DEFAULT_SUPABASE_HOST = 'umkmwbkwvulxtdodzmzf.supabase.co';
+const DEFAULT_SUPABASE_HOST = 'dpejskjpghoozbpfxkpf.supabase.co';
 const deployDistDir = '.next';
 const firebaseAdapterPath = path.join(
   __dirname,

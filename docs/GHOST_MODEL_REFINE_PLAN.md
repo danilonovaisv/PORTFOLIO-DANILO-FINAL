@@ -21,7 +21,7 @@
 ### Phase 2: Implementation (After Approval)
 
 1. **Model Loading Update**:
-   - Atualizar a URL do GLB para `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb/ghost-transformed.glb`.
+   - Atualizar a URL do GLB para `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb/ghost-transformed.glb`.
    - Atualizar o Preload correspondente.
 2. **Coordinate & Rotation Refinement**:
    - Ajustar as posições dos meshes baseadas no código fornecido:
