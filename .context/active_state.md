@@ -36,7 +36,7 @@
 
 ## Beliefs Section Agent Manager Pass (2026-05-04)
 
-- [x] **Background Contract**: `BeliefBackground` uses Motion `animate() + inView()` with `GHOST_EASE_AMBIENT`.
+- [x] **Background Contract** (superseded 2026-05-13): originally documented as Motion `animate() + inView()` with `GHOST_EASE_AMBIENT`; migrated to GSAP `ScrollTrigger` with `GSAP_GHOST_EASE` and `duration: 1.5s` in the May 13 hardening pass.
 - [x] **Tokens SSOT**: `src/config/beliefTokens.ts` centralizes palette, header lines, phrases and manifesto lines.
 - [x] **Reduced Motion**: Local media query prevents first-render hydration drift while preserving simple fades.
 - [x] **WebGL Fallback**: `GhostScene` checks WebGL support before mounting `<Canvas>`.
@@ -47,7 +47,6 @@
 
 - [x] **GSAP Integration**: Migrated from Framer Motion to GSAP + ScrollTrigger for ultra-smooth scrubbing (`1.2s`).
 - [x] **Granular Word Reveal**: Implemented word-by-word reveal with opacity, scale, and blur for an "Editorial Minimalism" feel.
-- [x] **Atmospheric Layer**: Added dynamic SVG fractal noise with "vibration" animation to `BeliefBackground`.
 - [x] **Ghost Palette Audit**: Corrected color stops to eliminate purple/violet surfaces. Core colors: Deep Void (#040013) and Ghost Blue (#0048ff).
 - [x] **Hygiene & Performance**: Removed unused code in 3D and Scroll components. `will-change` optimized for 60FPS.
 - [x] **Documentation Sync**: Updated `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE.md` to reflect the new architecture.
