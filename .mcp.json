@@ -1,18 +1,23 @@
 {
   "mcpServers": {
     "firecrawl-mcp": {
-      "command": "npx",
+      "command": "/opt/homebrew/bin/npx",
       "args": ["-y", "firecrawl-mcp"],
       "env": {
-        "FIRECRAWL_API_KEY": "YOUR-API-KEY"
+        "FIRECRAWL_API_KEY": "YOUR-API-KEY",
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
       }
     },
     "motion": {
-      "command": "npx",
+      "command": "/opt/homebrew/bin/npx",
       "args": [
         "-y",
         "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"
-      ]
+      ],
+      "env": {
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+        "npm_config_cache": "/tmp/npm-mcp-cache"
+      }
     }
   }
 }
