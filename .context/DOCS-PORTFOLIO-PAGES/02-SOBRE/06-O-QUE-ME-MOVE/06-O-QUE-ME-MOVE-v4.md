@@ -2,16 +2,16 @@
 
 ## Composição da seção
 
-A seção deve ser full-bleed, independente de `.std-grid`, com altura narrativa maior que a viewport e camadas absolutas/sticky/fixed sincronizadas pelo mesmo `scrollYProgress`.
+A seção é full-bleed, independente de `.std-grid`, com altura narrativa muito maior que a viewport (`MOTION_TOKENS.layout.sectionMinHeight`) e camadas absolutas, sticky e fixed sincronizadas pelo mesmo getter de progresso (`scrollYProgress.get()`).
 
 A hierarquia visual correta é:
 
-1. Fundo cromático vivo, ocupando 100% da seção.
-2. Overlay preto quase imperceptível para suavizar transições entre cores vibrantes.
-3. Header fixo/sticky à direita, com texto editorial curto.
-4. Frases rotativas grandes em ciano, posicionadas à esquerda no desktop.
-5. Manifesto final centralizado em três linhas: `ISSO É / GHOST / DESIGN`.
-6. Ghost 3D acima de tudo, inclusive sobre a palavra `GHOST`.
+1. Fundo cromático vivo, ocupando 100% da seção (`BeliefBackground`).
+2. Overlay preto quase imperceptível para suavizar transições entre cores vibrantes (`BeliefOverlay`).
+3. Header fixo (posicionado em `absolute inset-y-0 right-0`) com texto editorial curto (`BeliefFixedHeader`).
+4. Frases rotativas grandes em ciano, posicionadas à esquerda no desktop (`BeliefScrollText`).
+5. Manifesto final centralizado em três linhas: `ISSO É / GHOST / DESIGN` (`BeliefManifesto`).
+6. Ghost 3D acima de tudo, inclusive sobre a palavra `GHOST` (`GhostScene`).
 
 ## Desktop
 
@@ -22,84 +22,106 @@ Layout em três zonas:
 esquerda / center-y           centro viewport           direita / sticky
 ```
 
-A frase não deve aparecer no rodapé no desktop. Ela deve ficar verticalmente centralizada à esquerda, com largura controlada para não colidir com o Ghost. O header deve parecer uma âncora editorial estável, com entrada discreta pela direita.
+A frase fica verticalmente centralizada à esquerda, com largura controlada para não colidir com o Ghost. O header parece âncora editorial estável, com entrada discreta pela direita (`x: 60 → 0`).
 
 ## Mobile
 
 A composição muda para reduzir competição visual:
 
 ```txt
-[BeliefFixedHeader sticky top 20vh]
+[BeliefFixedHeader em pt-[13vh], topo direito]
 [Ghost 3D top-left, depois centro no clímax]
 [frase rotativa centralizada próxima ao rodapé]
 [manifesto final centralizado]
 ```
 
-No mobile, o Ghost não deve reagir ao cursor e deve reduzir DPR/escala para preservar performance.
+No mobile, o Ghost não reage ao cursor (sem `pointerParallax`), o DPR é limitado a `1` (`dpr={[1, 1]}`) e a escala é reduzida via `camera.position.z = 7.4`.
 
 ---
 
 # mapa_de_animacoes
 
+## Stack oficial
+
+**GSAP + ScrollTrigger** é a stack canônica desta seção desde a migração de 2026-05-13. Todas as camadas (Background, Overlay, Header, Scroll Text, Manifesto, Ghost wrapper) usam:
+
+- `gsap` core para tweens declarativos (`gsap.to`, `gsap.set`).
+- `ScrollTrigger` para gatilhos baseados em viewport (`onEnter`, `onEnterBack`, `onLeave`, `onLeaveBack`, `onUpdate`).
+- `gsap.context(() => { ... }, container)` para escopo de cleanup determinístico.
+- `CustomEase` registrado uma vez em `src/lib/motion/gsapGhostEase.ts`, exportando `GSAP_GHOST_EASE` (curve `[0.22, 1, 0.36, 1]`).
+
+> Nota histórica: a versão anterior deste documento prescrevia Motion DOM (`animate() + inView()`). Após auditoria de performance e necessidade de scrubbing contínuo no manifesto, toda a seção foi migrada para GSAP. Qualquer referência a `motion://docs/*` ou `inView()` é apenas histórica.
+
 ## 1. Background scroll-triggered
 
 **Componente:** `BeliefBackground`
-**Stack:** Motion DOM com `animate()` + `inView()`
-**Gatilho:** entrada de cada `.scroll-section[data-index]` no viewport
-**Propriedades animadas:** `backgroundColor` via Motion
-**Duração:** `0.9s`
-**Easing:** `[0.17, 0.55, 0.55, 1]`
-**Regra crítica:** não usar `transition: background-color` nem fade entre divs.
+**Stack:** GSAP + ScrollTrigger
+**Gatilho:** entrada de cada `.belief-scroll-section[data-index]` no viewport
+**Propriedade animada:** `backgroundColor` via `gsap.to`
+**Duração:** `1.5s` (atmospheric layer, alinhado com decisão registrada em `active_state.md`)
+**Easing:** `GSAP_GHOST_EASE` (CustomEase `[0.22, 1, 0.36, 1]`)
+**Regra crítica:** zero `transition: background-color` CSS; zero fade entre divs sobrepostos.
 
-Fluxo obrigatório, alinhado ao tutorial oficial da Motion (`js-scroll-triggered`):
+Fluxo real implementado:
 
-1. Cada bloco de frase precisa ter `.belief-scroll-section` e `data-index`.
-2. O observer é criado com `inView('.belief-scroll-section', callback, { amount })`.
-3. No `callback`, calcular `stopIndex = dataIndex + 1`.
-4. Rodar `animate(backgroundElement, { backgroundColor: stopColor }, { duration: 0.9, easing: [0.17, 0.55, 0.55, 1] })`.
-5. O callback deve retornar função de cleanup para saída do viewport quando houver animação reversa desejada.
-6. Em `prefers-reduced-motion`, aplicar `backgroundColor` direto sem transição longa.
+1. Cada bloco de frase carrega `.belief-scroll-section` e `data-index` (renderizado em `BeliefScrollText`).
+2. No `useEffect`, cria-se um `gsap.context` escopo do container; para cada seção, um `ScrollTrigger.create` dispara `onEnter` e `onEnterBack` com o `stopIndex = dataIndex + 1`.
+3. Cada transição chama `gsap.to(background, { backgroundColor, duration: 1.5, ease: GSAP_GHOST_EASE, overwrite: 'auto' })`.
+4. Um `ScrollTrigger` extra em `top bottom` reseta para `BELIEF_BACKGROUND_STOPS[0]` quando o scroll volta acima da seção (`onLeaveBack`).
+5. Um `ScrollTrigger` adicional em `bottom 88%` aplica o último stop (`#040013`) no clímax inferior; ao subir, retorna ao penúltimo stop.
+6. Em `prefers-reduced-motion`, `gsap.set` aplica a cor instantaneamente sem tween.
+7. Cleanup determinístico via `ctx.revert()` no `useEffect` return.
 
-Contrato de implementação (referência):
+Contrato de implementação (espelha o código real em `src/components/sobre/beliefs/BeliefBackground.tsx`):
 
 ```ts
-inView(
-  '.belief-scroll-section',
-  (element) => {
-    const dataIndex = Number.parseInt(
-      element.getAttribute('data-index') ?? '0',
-      10
-    );
-    const stopColor =
+const ctx = gsap.context(() => {
+  const sections = Array.from(
+    container.querySelectorAll<HTMLElement>('.belief-scroll-section')
+  );
+
+  sections.forEach((section) => {
+    const index = Number.parseInt(section.dataset.index ?? '0', 10);
+    const color =
       BELIEF_BACKGROUND_STOPS[
-        Math.min(dataIndex + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+        Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
       ];
 
-    animate(
-      backgroundLayer,
-      { backgroundColor: stopColor },
-      {
-        duration: 0.9,
-        easing: [0.17, 0.55, 0.55, 1],
-      }
-    );
+    ScrollTrigger.create({
+      trigger: section,
+      start: isMobile ? 'top 78%' : 'top 64%',
+      onEnter: () => transitionTo(color),
+      onEnterBack: () => transitionTo(color),
+    });
+  });
 
-    return () => {
-      // opcional: saída/reversão quando o elemento deixar o viewport
-    };
-  },
-  { amount: 0.55 }
-);
+  ScrollTrigger.create({
+    trigger: container,
+    start: 'top bottom',
+    onLeaveBack: () => transitionTo(BELIEF_BACKGROUND_STOPS[0]),
+  });
+
+  ScrollTrigger.create({
+    trigger: container,
+    start: 'bottom 88%',
+    onEnter: () =>
+      transitionTo(BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 1]),
+    onLeaveBack: () =>
+      transitionTo(BELIEF_BACKGROUND_STOPS[BELIEF_BACKGROUND_STOPS.length - 2]),
+  });
+}, container);
+
+return () => ctx.revert();
 ```
 
-Paleta:
+Paleta (mantida em `src/config/beliefTokens.ts` como `BELIEF_BACKGROUND_STOPS`):
 
 ```ts
 const BELIEF_BACKGROUND_STOPS = [
-  '#040013',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
+  '#040013', // deepVoid
+  '#0048ff', // bluePrimary
+  '#8705f2', // purpleDetails
+  '#f501d3', // pinkDetails
   '#0048ff',
   '#8705f2',
   '#f501d3',
@@ -110,112 +132,198 @@ const BELIEF_BACKGROUND_STOPS = [
 ## 2. Overlay anti-banding
 
 **Componente:** `BeliefOverlay`
-**Stack:** Motion `useTransform`
-**Gatilho:** `scrollYProgress`
+**Stack:** GSAP + ScrollTrigger com `scrub`
+**Gatilho:** progresso contínuo da seção (`top bottom → bottom top`)
 **Propriedade:** `opacity`
-**Amplitude:** `0 → 0.1 → 0`
-**Objetivo:** absorver banding e micro-glitches visuais em telas OLED.
+**Amplitude:** keyframes `[0.1, 0]` (entra suave, dissolve no final)
+**Objetivo:** absorver banding e micro-glitches em telas OLED nas transições de cor vibrantes.
 
-## 3. BeliefFixedHeader com Split Text
-
-**Componente:** `BeliefFixedHeader`
-**Stack:** Motion + implementação local inspirada em Split Text
-**Gatilho:** entrada da seção / viewport
-**Entrada container:** `opacity 0→1`, `x 60→0`, `duration: 0.8s`
-**Entrada palavras:** `opacity 0→1`, `y 12→0`, `stagger: 0.08s`
-**Saída:** `opacity 1→0`, `x 0→60`, `duration: 0.5s`
-
-A animação estilo Split Text deve operar por palavras ou linhas, não por letras individuais no header, para preservar legibilidade e evitar excesso de spans.
-
-## 4. BeliefScrollText
-
-**Componente:** `BeliefScrollText`
-**Stack:** Motion `animate()` + `inView()`
-**Gatilho:** cada frase entra no viewport
-**Entrada desktop:** `opacity 0→1`, `y 18→0`, `filter blur(6px)→blur(0px)`
-**Saída desktop:** `opacity 1→0`, `y 0→-18`, `filter blur(0px)→blur(6px)`
-**Entrada mobile:** `opacity 0→1`, `x 24→0`, `filter blur(6px)→blur(0px)`
-**Saída mobile:** `opacity 1→0`, `x 0→-24`, `filter blur(0px)→blur(6px)`
-**Duração entrada:** `0.9s`
-**Duração saída:** `0.5s`
-**Easing:** `[0.17, 0.55, 0.55, 1]`
-
-Observação de performance: `filter: blur()` pode custar mais que `transform/opacity`. Usar apenas nas frases principais, com fallback sem blur em mobile fraco ou `prefers-reduced-motion`.
-
-Fluxo obrigatório para textos, seguindo o mesmo padrão da Motion (`inView` com cleanup de saída):
+Contrato real:
 
 ```ts
-inView('.belief-scroll-section [data-phrase]', (element) => {
-  animate(
-    element,
-    {
-      opacity: 1,
-      y: [18, 0], // desktop; em mobile trocar para x: [24, 0]
-      filter: ['blur(6px)', 'blur(0px)'],
-    },
-    {
-      duration: 0.9,
-      easing: [0.17, 0.55, 0.55, 1],
-    }
-  );
-
-  return () =>
-    animate(
-      element,
-      {
-        opacity: 0,
-        y: -18, // desktop; em mobile trocar para x: -24
-        filter: 'blur(6px)',
-      },
-      {
-        duration: 0.5,
-        easing: [0.17, 0.55, 0.55, 1],
-      }
-    );
+gsap.to(overlay, {
+  keyframes: [{ opacity: 0.1 }, { opacity: 0 }],
+  ease: 'none',
+  scrollTrigger: {
+    trigger: container,
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: 0.85,
+  },
 });
 ```
 
-Fallback `prefers-reduced-motion`:
+Em `prefers-reduced-motion`, o overlay recebe `opacity: 0.05` fixo via `gsap.set`, sem ScrollTrigger.
 
-- Remover blur.
-- Reduzir deslocamento para `x/y: 8px → 0`.
-- Usar fade curto (`opacity 0→1`, `duration: 0.2–0.3s`).
-- Evitar stagger agressivo.
+## 3. BeliefFixedHeader
 
-## 4.1 Nomenclatura Motion (regra de consistência)
+**Componente:** `BeliefFixedHeader`
+**Stack:** GSAP + ScrollTrigger + `SplitTextMotion` (utilitário declarativo)
+**Tipografia (alinhada ao mockup `06-O-QUE-ME-MOVE-DESKTOP-INICIAL.jpg`):**
 
-Para este documento, usar os termos abaixo sem mistura:
+- Linha 1 (`BELIEF_HEADER_LINES[0]`): `font-display font-black uppercase leading-[0.88] tracking-[-0.04em]`, ALL CAPS via texto-fonte, tamanho `clamp(1.5rem, 6vw, 2.35rem)` mobile / `clamp(2rem, 2.8vw, 3.5rem)` desktop.
+- Linha 2 (`BELIEF_HEADER_LINES[1]`): `font-medium leading-[1.22] tracking-[0.04em] text-white/82`, menor, regular, `clamp(0.82rem, 2.7vw, 0.98rem)` mobile / `clamp(0.95rem, 1.15vw, 1.16rem)` desktop, `mt-3 md:mt-5`.
 
-- `scroll-triggered`: animação iniciada/parada por visibilidade, com `inView()` + `animate()`.
-- `scroll-linked`: valor contínuo ligado ao progresso de scroll, com `useScroll()` ou `scroll()`.
-- `whileInView`: permitido em casos declarativos de componente `motion`, mas não é a abordagem principal desta seção.
+**Posicionamento:**
 
-Fonte de decisão para esse padrão:
+- Container: `absolute inset-y-0 right-0 flex w-full items-start justify-end px-6 pt-[13vh] md:items-center md:px-10 md:pt-0 lg:px-16`.
+- Conteúdo: `max-w-[13rem] text-right md:max-w-[20rem] lg:max-w-[24rem]`.
+- Mobile usa `pt-[13vh]` (não `top-[14vh]` da v3) para alinhar ao mockup `MOBILE-INICIAL.png`.
 
-- Motion tutorial: `https://motion.dev/tutorials/js-scroll-triggered`
-- Motion docs MCP: `motion://docs/js/inview`, `motion://docs/js/scroll`, `motion://docs/react/scroll-animations`
+**Entrada (gatilho `top 80%` desktop / `top 88%` mobile):**
+
+- Container: `gsap.to(root, { autoAlpha: 1, x: 0, duration: 0.8, ease: GSAP_GHOST_EASE })` partindo de `{ autoAlpha: 0, x: 60 }`.
+- Palavras (`[data-split-item]` dentro do `SplitTextMotion`): `gsap.to(words, { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.05, delay: 0.15 })` partindo de `{ autoAlpha: 0, y: 12 }`.
+
+**Saída reversa (`onLeaveBack`):** container retorna para `x: 60`, palavras voltam para `y: 0` mas `autoAlpha: 0`, duração `0.4s` / `0.28s`.
+
+**Reduced motion:** durações comprimidas (`0.25s` root, `0.2s` words); `stagger: 0` e `ease: 'none'`.
+
+A animação opera por palavras (não por chars), preservando legibilidade e evitando excesso de spans.
+
+## 4. BeliefScrollText
+
+**Componente:** `BeliefScrollText` (wrapper) + `BeliefPhraseSection` interno (por frase)
+**Stack:** GSAP + ScrollTrigger
+**Tipografia (alinhada ao mockup):**
+
+- `font-medium italic leading-[0.9] tracking-[-0.045em]`.
+- Cor `beliefColors.blueAccent` (`#4fe6ff`).
+- Tamanho: `clamp(2.8rem, 5.8vw, 6.3rem)` desktop / `clamp(2.0rem, 8vw, 3.0rem)` mobile.
+- `textShadow: '0 2px 24px rgba(0, 0, 0, 0.28)'` (preservado para contraste sobre fundos magenta).
+- `maxWidth`: `38vw` desktop / `100%` mobile.
+
+> A v3 prescrevia `font-bold`; o mockup mostra italic com peso medium. O código já reflete `font-medium italic`.
+
+**Layout de seção:**
+
+- Cada `BeliefPhraseSection` é um `section.belief-scroll-section[data-index]` com `height: phraseSectionHeight` (do token).
+- Conteúdo interno em `sticky top-0 flex h-dvh` com alinhamento `items-center justify-start text-left` no desktop e `items-end justify-center text-center px-6` no mobile.
+- Desktop usa `paddingLeft: beliefLayout.desktopPhraseLeft`; mobile usa `paddingBottom: beliefLayout.mobilePhraseBottom`.
+
+**Animação (por seção):**
+
+- Estado inicial via `gsap.set(heading, { autoAlpha: 0, y/x: offset, filter: 'blur(6px)' })`.
+- Desktop: anima `y: 24 → 0`. Mobile: anima `x: 24 → 0` (sem `y`).
+- Entrada (`onEnter`, gatilho `top 66%` desktop / `top 82%` mobile): `duration: 1.2s`, `filter: blur(6px) → blur(0px)`, `ease: GSAP_GHOST_EASE`.
+- Retorno (`onEnterBack`): `duration: 0.9s`.
+- Saída (`onLeave`): `autoAlpha: 0`, `y/x: -offset`, `filter: blur(0px) → blur(6px)`, `duration: 0.6s`.
+- Saída reversa (`onLeaveBack`): `autoAlpha: 0`, `y/x: +offset`, blur restaurado, `duration: 0.6s`.
+- Cleanup via `ctx.revert()` em cada `useEffect`.
+
+**Reduced motion:** `duration: 0.2s`, `ease: 'none'`, sem blur, sem offset; apenas fade.
+
+**Performance:** `filter: blur()` é caro; mantido apenas nas frases principais e desativado em reduced motion.
+
+## 4.1 Animation Library Policy
+
+Esta seção usa exclusivamente a stack GSAP. Termos consolidados:
+
+- `scroll-triggered`: animação iniciada/parada por visibilidade. Implementada via `ScrollTrigger.create({ trigger, start, onEnter, onEnterBack, onLeave, onLeaveBack })`.
+- `scroll-linked / scrubbed`: valor contínuo ligado ao progresso de scroll. Implementada via `scrollTrigger: { scrub: 0.85 }` no objeto da tween, ou via `ScrollTrigger.create({ onUpdate(self) { ... self.progress ... } })`.
+- `entrance variants`: composição de `gsap.set` (estado inicial) + `gsap.to` (estado final) dentro de `gsap.context`.
+
+Proibido nesta seção:
+
+- `motion`, `motion/react`, `animate()`, `inView()`, `useScroll()` do Motion.
+- CSS `transition: background-color` ou fade DOM cross-fade entre divs.
+- `top/left` animados (apenas `transform` e `opacity` via `autoAlpha`).
+
+Fonte de decisão: ADR Beliefs GSAP Migration (`active_state.md` entrada de 2026-05-13).
 
 ## 5. Manifesto final com Split Text
 
 **Componente:** `BeliefManifesto`
-**Stack:** Motion + Split Text por linha/palavra
-**Gatilho:** `scrollYProgress >= 0.82`
-**Entrada global:** `opacity 0→1`, `y 18→0` entre `0.82` e `0.92`
-**Split:** cada linha entra com stagger curto, `0.04s–0.07s`, preservando bloco central
-**Z-index:** `z-50`, abaixo do Ghost
-**A11y:** `aria-live="polite"` somente quando ativo.
+**Stack:** GSAP + ScrollTrigger com `onUpdate` + `SplitTextMotion` (utilitário declarativo)
+**Reveal global:** controlado por progresso real do container via `ScrollTrigger.create({ trigger: container, start: 'top top', end: 'bottom bottom', onUpdate })`.
+
+Lógica de reveal:
+
+```ts
+onUpdate: (self) => {
+  const progress = self.progress;
+  const revealProgress = gsap.utils.clamp(0, 1, (progress - 0.82) / 0.1);
+
+  gsap.set(root, {
+    autoAlpha: revealProgress,
+    y: shouldReduceMotion ? 0 : 18 - 18 * revealProgress,
+  });
+  gsap.set(words, {
+    autoAlpha: revealProgress,
+    y: shouldReduceMotion ? 0 : 12 - 12 * revealProgress,
+  });
+  setActive(progress >= 0.82);
+};
+```
+
+Um segundo `ScrollTrigger` (`start: 'bottom 36%'`) faz um polishing tween com stagger curto (`0.06s`) quando o manifesto entra no clímax, e reseta as palavras em `onLeaveBack`.
+
+**Tipografia:**
+
+- `font-display font-black uppercase text-white`.
+- `leading-[0.82] tracking-[0.03em] text-center`.
+- `fontSize: 'clamp(3.5rem, 16vw, 12rem)'`.
+
+**Posicionamento:** `fixed inset-0 flex items-center justify-center px-6`, `zIndex: beliefZIndex.manifesto` (`50`), abaixo do Ghost (`70`).
+
+**Words via `[data-split-item]`:** as palavras são produzidas pelo `SplitTextMotion` (que apenas renderiza spans declarativos com `data-split-item`). A animação é orquestrada externamente pelo GSAP via seletor `root.querySelectorAll<HTMLElement>('[data-split-item]')`.
+
+**A11y:** `aria-live="polite"` somente quando `active || isClimax`.
 
 ## 6. Ghost 3D
 
-**Componente:** `GhostScene`
-**Stack:** React Three Fiber + drei + three.js
-**Gatilhos:** entrada da seção, scroll progress, cursor desktop
-**Canvas:** `frameloop="demand"`
-**Asset:** `site-assets/3d/ghost-v1.glb` via Supabase Storage
-**Entrada:** `opacity 0→1`, `scale 0.95→1`, `duration: 1.2s`, easing `[0.22, 1, 0.36, 1]`
-**Desktop:** cursor parallax suave ±0.4 world units
-**Mobile:** posição top-left até clímax
-**Clímax:** quando `p > 0.85`, centralizar `x/y` e aumentar escala +10%.
+**Componente:** `GhostScene` (wrapper) + `GhostModel` (Canvas children) + `GhostSceneFallback` + `GhostErrorBoundary` (no wrapper de `AboutBeliefs`, NÃO duplicado dentro de `GhostScene`)
+**Stack:** React Three Fiber + drei + three.js + GSAP (apenas para a entrada do wrapper DOM)
+**Carregamento:** `useGLTF(MODEL_PATH)` com `MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb')`. A URL final resolvida é `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb`.
+
+**Wrapper DOM:**
+
+- `pointer-events-none fixed inset-0 invisible`, `zIndex: beliefZIndex.ghost` (`70`).
+- `data-testid="beliefs-ghost-scene"`, `data-ghost-scene`.
+- Mount via `dynamic(() => import('../3d/GhostScene'), { ssr: false })` no `AboutBeliefs`.
+
+**Guarda WebGL:** `useWebGLSupport()` em `GhostScene` retorna `<GhostSceneFallback />` se WebGL indisponível, evitando montar `<Canvas>`.
+
+**Canvas:**
+
+- `frameloop="demand"` (renderiza apenas quando solicitado).
+- `dpr={[1, isMobile ? 1 : 2]}`.
+- `camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}`.
+- Filhos: `<ambientLight>`, `<directionalLight>`, dois `<pointLight>`, `<SceneInvalidator>` e `<GhostModel>`.
+
+**SceneInvalidator:** componente local que escuta `window.scroll` e `mousemove` e dispara `invalidate()` em cada evento, garantindo render sob demanda sem `useFrame` contínuo bombeando frames.
+
+**Entrada do wrapper (GSAP, dispara uma vez via `once: true`):**
+
+```ts
+gsap.set(wrapper, { autoAlpha: 0, scale: 0.95 });
+
+ScrollTrigger.create({
+  trigger: section,
+  start: 'top 85%',
+  once: true,
+  onEnter: () => {
+    gsap.to(wrapper, {
+      autoAlpha: 1,
+      scale: 1,
+      duration: shouldReduceMotion ? 0.3 : beliefMotion.ghostIntroDuration, // 1.2s
+      ease: 'power2.out',
+      delay: shouldReduceMotion ? 0 : 0.15,
+      overwrite: 'auto',
+    });
+  },
+});
+```
+
+**Floating, parallax e clímax** (resolvidos dentro de `GhostModel` via `useFrame`, lendo `scrollYProgress.get()` e `pointerX/Y.get()`):
+
+- Desktop: cursor parallax mapeado para `±0.4` world units.
+- Mobile: sem parallax; baseline top-left até clímax.
+- Clímax: `progress > 0.85` move o Ghost para o centro e aumenta scale em até `+15%` via `MathUtils.mapLinear(progress, 0.8, 1, 1, 1.15)`.
+
+**Dispose:** `disposeScene(ghostScene)` no unmount, percorrendo `Mesh` e chamando `geometry.dispose()` e `material.dispose()` (incluindo arrays de material).
+
+**Error boundary:** `GhostErrorBoundary` no `AboutBeliefs` envolve o `<Suspense fallback={<GhostSceneFallback />}><GhostScene /></Suspense>`. Não há boundary duplicado dentro de `GhostScene`.
 
 ---
 
@@ -223,24 +331,22 @@ Fonte de decisão para esse padrão:
 
 ## Server Components
 
-Usar Server Component para a página `/sobre`, composição estática da rota e metadados.
+A rota `/sobre` permanece como Server Component, com `loading.tsx`, `error.tsx` e `not-found.tsx` co-localizados.
 
 ```txt
 app/
   sobre/
-    page.tsx
-    loading.tsx
-    error.tsx
-    not-found.tsx
+    page.tsx        // server
+    loading.tsx     // server
+    error.tsx       // client (reset)
+    not-found.tsx   // server
 ```
 
-`page.tsx` deve importar a seção `AboutBeliefs` de forma normal se ela já estiver otimizada internamente, ou via `dynamic()` apenas para o bloco WebGL se o bundle inicial estiver pesado.
+`page.tsx` importa a seção via composição direta. `GhostScene` é montado com `dynamic(..., { ssr: false })` para evitar bundle WebGL no first paint.
 
 ## Client Components
 
-Todos os componentes que usam Motion hooks, `inView`, `animate`, `useScroll`, `useReducedMotion`, `Canvas`, `useFrame`, `useGLTF`, cursor ou `matchMedia` devem começar com `"use client"`.
-
-Componentes client obrigatórios:
+Componentes client obrigatórios (todos com `'use client'`):
 
 ```txt
 src/components/sobre/sections/AboutBeliefs.tsx
@@ -250,18 +356,40 @@ src/components/sobre/beliefs/BeliefOverlay.tsx
 src/components/sobre/beliefs/BeliefFixedHeader.tsx
 src/components/sobre/beliefs/BeliefScrollText.tsx
 src/components/sobre/beliefs/BeliefManifesto.tsx
+src/components/sobre/beliefs/SplitTextMotion.tsx
 src/components/sobre/3d/GhostScene.tsx
+src/components/sobre/3d/GhostModel.tsx
+src/components/sobre/3d/GhostSceneFallback.tsx
 src/components/sobre/3d/GhostErrorBoundary.tsx
 ```
 
+## Contrato do contexto (`BeliefsScrollContextValue`)
+
+```ts
+type BeliefsScrollContextValue = {
+  containerRef: React.RefObject<HTMLElement | null>;
+  scrollYProgress: { get: () => number };
+  isMobile: boolean;
+  shouldReduceMotion: boolean;
+  activeIndex: number;
+  isClimax: boolean;
+};
+```
+
+**Motivo do ref-getter:** `scrollYProgress` é exposto como `{ get: () => number }` em vez de um `MotionValue<number>`. O progresso é lido sob demanda dentro de `useFrame` (Ghost 3D) e nos handlers de scroll do hook, sem disparar re-renders no React. Mudar para um valor reativo ressuscitaria re-renders cinquenta vezes por segundo durante o scroll, impedindo `frameloop="demand"` e prejudicando o FPS.
+
+`activeIndex` e `isClimax` são `useState` atualizados condicionalmente (`prev !== next`) apenas em transições reais, mantendo o React quieto durante o scroll contínuo.
+
 ## Suspense
 
-Usar `Suspense` em volta do `GhostScene`, porque o GLB é asset carregado sob demanda. O fallback deve ser visualmente compatível, não um spinner genérico.
+`Suspense` envolve apenas o `GhostScene`, com `GhostSceneFallback` como `fallback`. O Suspense fica dentro de `GhostErrorBoundary`, dentro do bloco `sticky top-0 h-dvh`.
 
 ```tsx
-<Suspense fallback={<GhostSceneFallback />}>
-  <GhostScene />
-</Suspense>
+<GhostErrorBoundary fallback={<GhostSceneFallback />}>
+  <Suspense fallback={<GhostSceneFallback />}>
+    <GhostScene />
+  </Suspense>
+</GhostErrorBoundary>
 ```
 
 ---
@@ -289,6 +417,7 @@ src/
         BeliefScrollText.tsx
         BeliefManifesto.tsx
         SplitTextMotion.tsx
+        belief.constants.ts
       3d/
         GhostScene.tsx
         GhostModel.tsx
@@ -303,13 +432,13 @@ src/
     useBeliefsScroll.ts
     useMediaQuery.ts
     usePointerParallax.ts
+    useWebGLSupport.ts
 
   lib/
+    motion/
+      gsapGhostEase.ts
     supabase/
-      storage.ts
-
-  store/
-    beliefStore.ts
+      urls.ts
 
   types/
     beliefs.ts
@@ -321,66 +450,66 @@ src/
 
 ## `AboutBeliefs.tsx`
 
-Responsável apenas por orquestrar a seção. Não deve conter lógica pesada de animação.
+Orquestrador puro. Cria `containerRef`, invoca `useBeliefsScroll`, abre o `BeliefsScrollProvider`, compõe as seis camadas, define `min-height` via `beliefLayout.sectionMinHeight`, e expõe `data-belief-active-index` e `data-belief-climax` no `<section>` para testes E2E.
 
-Responsabilidades:
-
-- Criar `containerRef`.
-- Fornecer `scrollYProgress` via context.
-- Renderizar camadas em ordem.
-- Definir altura narrativa.
-- Incluir `Suspense` e `GhostErrorBoundary`.
+Importações via `dynamic` apenas para `GhostScene` (`{ ssr: false }`).
 
 ## `BeliefsScrollContext.tsx`
 
-Contrato único de scroll:
+Apenas createContext + Provider + hook `useBeliefsScrollContext`. Sem lógica de animação.
 
-```ts
-type BeliefsScrollContextValue = {
-  containerRef: React.RefObject<HTMLElement | null>;
-  scrollYProgress: MotionValue<number>;
-  isMobile: boolean;
-  shouldReduceMotion: boolean;
-};
-```
+## `useBeliefsScroll.ts`
+
+Hook único de estado:
+
+- `useMediaQuery('(max-width: 767px)')` para `isMobile`.
+- `matchMedia('(prefers-reduced-motion: reduce)')` com listener para `shouldReduceMotion`.
+- `progressRef` (`useRef(0)`) atualizado em cada `scroll` / `resize` via `getBoundingClientRect`.
+- `scrollYProgress` retornado como `useMemo({ get: () => progressRef.current })`, estável entre renders.
+- `activeIndex` e `isClimax` em `useState`, atualizados apenas em transições reais (`prev !== next`).
+- Cleanup: `removeEventListener` para `scroll`, `resize` e media query change.
 
 ## `BeliefBackground.tsx`
 
-Lê as `.scroll-section[data-index]` e muda a cor do background via `animate()`. Deve limpar observers automaticamente pelo retorno de `inView`.
+Lê `.belief-scroll-section[data-index]` via `container.querySelectorAll`, cria `ScrollTrigger` por seção dentro de `gsap.context`. Cleanup via `ctx.revert()`.
+
+## `BeliefOverlay.tsx`
+
+`gsap.to(overlay, { keyframes, scrollTrigger: { scrub: 0.85 } })`. Em `prefers-reduced-motion`, `gsap.set(overlay, { opacity: 0.05 })` direto sem ScrollTrigger.
+
+## `BeliefFixedHeader.tsx`
+
+`SplitTextMotion` para as duas linhas (modo `words`). Animação via `gsap.to(root, ...)` e `gsap.to(words, ...)` dentro de `ScrollTrigger.create({ onEnter, onLeaveBack })`.
 
 ## `BeliefScrollText.tsx`
 
-Renderiza as seis frases com `data-index`, cada uma com altura `h-[80vh]`, e anima entrada/saída.
+Wrapper renderiza `BELIEF_PHRASE_ITEMS.map(...)`. Cada `BeliefPhraseSection` cria seu próprio `gsap.context` com `ScrollTrigger` por seção.
+
+## `BeliefManifesto.tsx`
+
+`ScrollTrigger.create({ onUpdate })` para scrubbed reveal entre `progress 0.82 → 0.92`. `ScrollTrigger.create({ start: 'bottom 36%' })` adicional para tween polish nas palavras.
 
 ## `SplitTextMotion.tsx`
 
-Componente utilitário para `BeliefFixedHeader` e `BeliefManifesto`.
+Componente utilitário **declarativo, sem animação interna**. Apenas renderiza:
 
-Contrato:
-
-```ts
-type SplitTextMotionProps = {
-  text: string;
-  as?: 'p' | 'span' | 'h2' | 'div';
-  mode?: 'words' | 'chars' | 'lines';
-  active?: boolean;
-  className?: string;
-  stagger?: number;
-  delay?: number;
-};
+```tsx
+<Component data-split-text aria-label={text}>
+  {units.map((unit, i) => (
+    <span data-split-item aria-hidden="true">{unit}</span>
+  ))}
+</Component>
 ```
+
+A animação dos `[data-split-item]` é orquestrada externamente por GSAP no componente consumidor (`BeliefFixedHeader`, `BeliefManifesto`), via `root.querySelectorAll('[data-split-item]')`. Esta separação evita acoplamento de animação com markup e permite que o utilitário seja reutilizado sem trazer GSAP runtime para outros consumidores.
 
 ## `GhostScene.tsx`
 
-Deve isolar Canvas/WebGL. Nunca misturar lógica de DOM textual dentro da cena 3D.
+Isola Canvas/WebGL. Verifica `useWebGLSupport()` antes de montar Canvas. Anima entrada do wrapper DOM (não da cena) via GSAP. `SceneInvalidator` interno aciona `invalidate()` em scroll/mouse para `frameloop="demand"`.
 
-Responsabilidades:
+## `GhostModel.tsx`
 
-- Carregar GLB via Supabase Storage public URL.
-- Usar `frameloop="demand"`.
-- Invalidar render apenas quando scroll/cursor muda.
-- Fazer dispose de geometries/materials no unmount.
-- Ter fallback se WebGL falhar.
+Carrega GLB via `useGLTF`. Clona scene, aplica materiais customizados via `GHOST_MATERIAL_CONFIG`. `useFrame` lê `scrollYProgress.get()` e `pointerX/Y.get()` para floating, parallax e clímax. Dispose completo no unmount via `disposeScene`.
 
 ---
 
@@ -390,7 +519,7 @@ Responsabilidades:
 
 ### Rota `/sobre/loading.tsx`
 
-Usar skeleton escuro editorial:
+Skeleton escuro editorial:
 
 ```tsx
 export default function Loading() {
@@ -409,10 +538,10 @@ export default function Loading() {
 
 ### Ghost loading
 
-Fallback estático:
+Fallback estático em `GhostSceneFallback.tsx`:
 
 ```tsx
-function GhostSceneFallback() {
+export function GhostSceneFallback() {
   return (
     <div
       aria-hidden="true"
@@ -424,183 +553,77 @@ function GhostSceneFallback() {
 }
 ```
 
-## Empty
-
-Aplicável se frases ou manifesto vierem de CMS/Supabase no futuro.
-
-Estado recomendado:
-
-```tsx
-if (!phrases.length) {
-  return (
-    <section className="min-h-[60vh] bg-[#040013] text-white">
-      <p className="mx-auto max-w-xl px-6 py-24 text-white/60">
-        Manifesto temporariamente indisponível.
-      </p>
-    </section>
-  );
-}
-```
-
 ## Error
 
-### `app/sobre/error.tsx`
-
-Client Component com reset:
-
-```tsx
-'use client';
-
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
-  return (
-    <main className="flex min-h-dvh items-center justify-center bg-[#040013] px-6 text-white">
-      <div className="max-w-md space-y-4 text-center">
-        <h1 className="text-2xl font-bold">
-          Não foi possível carregar a página.
-        </h1>
-        <p className="text-white/60">{error.message}</p>
-        <button
-          onClick={reset}
-          className="rounded-full border border-white/20 px-5 py-2 text-sm transition hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-        >
-          Tentar novamente
-        </button>
-      </div>
-    </main>
-  );
-}
-```
+`app/sobre/error.tsx` como Client Component com `reset()`. Conteúdo dark, botão acessível, sem stacks expostos ao usuário.
 
 ## Not Found
 
-`not-found.tsx` deve manter a identidade dark e oferecer retorno para home/sobre.
+`not-found.tsx` mantém identidade dark e oferece retorno para `/` e `/sobre`.
 
 ---
 
 # design_tokens
 
-```ts
-// src/config/beliefTokens.ts
-export const beliefColors = {
-  deepVoid: '#040013',
-  bluePrimary: '#0048ff',
-  purpleDetails: '#8705f2',
-  pinkDetails: '#f501d3',
-  blueAccent: '#4fe6ff',
-  white: '#ffffff',
-} as const;
+Os tokens vivem em `src/config/beliefTokens.ts` e são consolidados via `MOTION_TOKENS` (em `src/config/motion.ts`) para SSOT. Não duplicar valores aqui; o arquivo é a fonte canônica.
 
-export const beliefZIndex = {
-  background: 0,
-  overlay: 10,
-  fixedHeader: 30,
-  scrollText: 40,
-  manifesto: 50,
-  ghost: 70,
-} as const;
+Exports relevantes:
 
-export const beliefMotion = {
-  ambientEase: [0.17, 0.55, 0.55, 1],
-  ghostEase: [0.22, 1, 0.36, 1],
-  softEase: [0.16, 1, 0.3, 1],
-  microDuration: 0.16,
-  revealDuration: 0.9,
-  exitDuration: 0.5,
-  ghostIntroDuration: 1.2,
-  wordStagger: 0.08,
-} as const;
+- `beliefColors`: `deepVoid`, `bluePrimary`, `blueDeep`, `blueBright`, `blueAccent`, `purpleDetails`, `pinkDetails`, `white`.
+- `BELIEF_BACKGROUND_STOPS`: array readonly de 8 cores (paleta de transição).
+- `BELIEF_HEADER_LINES`: duas linhas do header fixo.
+- `BELIEF_PHRASES`: seis frases rotativas.
+- `BELIEF_MANIFESTO_LINES`: `['ISSO É', 'GHOST', 'DESIGN']`.
+- `BELIEF_PHRASE_ITEMS`: array tipado de `BeliefPhrase` com `id`, `text`, `backgroundStopIndex`.
+- `beliefZIndex`: derivado de `MOTION_TOKENS.z` (`bg`, `overlay`, `header`, `text`, `manifesto`, `ghost`).
+- `beliefMotion`: derivado de `MOTION_TOKENS.ease` e `MOTION_TOKENS.duration` (`ghostEase`, `softEase`, `microDuration`, `revealDuration`, `exitDuration`, `ghostIntroDuration`, `wordStagger`).
+- `beliefLayout`: derivado de `MOTION_TOKENS.layout` (`sectionMinHeight`, `phraseSectionHeight`, `desktopPhraseMaxWidth`, `desktopPhraseLeft`, `mobilePhraseBottom`).
 
-export const beliefLayout = {
-  sectionMinHeight: '620vh',
-  phraseSectionHeight: '80vh',
-  desktopPhraseMaxWidth: '38vw',
-  desktopPhraseLeft: 'clamp(1.5rem, 6vw, 6rem)',
-  mobilePhraseBottom: '20vh',
-} as const;
-```
-
-Tailwind v4 pode mapear esses valores em CSS variables globais ou utilities locais. Evitar hardcode disperso em vários componentes.
+Easing GSAP usa `GSAP_GHOST_EASE` em `src/lib/motion/gsapGhostEase.ts`, que registra `CustomEase` com `GHOST_EASE = [0.22, 1, 0.36, 1]` em `src/config/motion.ts`. Em SSR retorna `'power4.out'` como fallback.
 
 ---
 
 # plano_de_implementacao
 
-## Fase 1 — Consolidar contrato da seção
+## Fase 1 — Consolidar contrato da seção ✅
 
-Atualizar o documento `06-O-QUE-ME-MOVE-AJUSTE.md` para v4 com estas decisões:
+Concluída em 2026-05-13. `06-O-QUE-ME-MOVE-v4.md` agora reflete o código real:
 
-- Motion DOM é obrigatório para background, textos, overlay e manifesto.
-- R3F é permitido apenas para `GhostScene`.
-- Split Text será componente local `SplitTextMotion`, inspirado no comportamento ReactBits, para evitar dependência visual opaca.
-- Ghost continua em `z-[70]`.
-- Background muda por `animate()` + `inView()`, não por CSS transition.
+- GSAP+ScrollTrigger é a stack oficial; Motion DOM foi removido.
+- R3F permanece exclusivo para `GhostScene`.
+- `SplitTextMotion` é utilitário declarativo, sem animação interna.
+- Ghost permanece em `z-[70]` (via `MOTION_TOKENS.z.ghost`).
+- Background muda por `gsap.to({ backgroundColor })`, nunca por CSS transition.
 
-## Fase 2 — Criar tokens e tipos
+## Fase 2 — Tokens e tipos ✅
 
-Criar:
+Concluída. `src/config/beliefTokens.ts` consolidado; `src/types/beliefs.ts` define `BeliefPhrase` e `BeliefsScrollContextValue` com `scrollYProgress: { get: () => number }`.
 
-```txt
-src/config/beliefTokens.ts
-src/types/beliefs.ts
-```
+## Fase 3 — Provider de scroll ✅
 
-Tipos mínimos:
+Concluída. `useBeliefsScroll.ts` usa ref-based progress getter, `useMediaQuery` e `matchMedia(prefers-reduced-motion)`. `BeliefsScrollContext` distribui o valor.
 
-```ts
-export type BeliefPhrase = {
-  id: string;
-  text: string;
-  backgroundStopIndex: number;
-};
-```
+## Fase 4 — Camadas DOM ✅
 
-## Fase 3 — Implementar provider de scroll
+Concluída em ordem: `BeliefBackground`, `BeliefOverlay`, `BeliefFixedHeader`, `BeliefScrollText`, `BeliefManifesto`. Nenhuma camada anima `top/left/width/height`; apenas `transform` (via `x/y/scale`) e `opacity` (via `autoAlpha`).
 
-Criar `useBeliefsScroll.ts` com:
+## Fase 5 — Ghost 3D ✅
 
-- `useScroll({ target, offset: ['start end', 'end end'] })`
-- `useReducedMotion()`
-- `useMediaQuery('(max-width: 767px)')`
+Concluída. `GhostErrorBoundary`, `GhostSceneFallback`, `GhostScene` (com `SceneInvalidator`), `GhostModel` (com `disposeScene`). Carregamento via `dynamic({ ssr: false })`.
 
-## Fase 4 — Implementar camadas DOM
+## Fase 6 — QA visual e performance (ciclo contínuo)
 
-Ordem:
+Checklist permanente:
 
-1. `BeliefBackground`
-2. `BeliefOverlay`
-3. `BeliefFixedHeader`
-4. `BeliefScrollText`
-5. `BeliefManifesto`
-
-Validar que nenhum componente usa `top/left` animados. Posição pode ser fixa via CSS, mas a animação deve ocorrer por `x`, `y`, `scale`, `opacity`.
-
-## Fase 5 — Implementar Ghost 3D
-
-- `GhostErrorBoundary`
-- `GhostSceneFallback`
-- `GhostScene`
-- `GhostModel`
-
-Usar `dynamic()` ou `Suspense` para não bloquear a rota.
-
-## Fase 6 — QA visual e performance
-
-Checklist:
-
-- FPS acima de 50 em desktop.
-- DPR reduzido em mobile.
-- Sem layout shift ao entrar na seção.
-- `prefers-reduced-motion` remove floating, parallax, stagger agressivo e blur.
-- Ghost sobrepõe o manifesto no clímax.
+- FPS acima de 50 em desktop (medido com Chrome Performance + scroll de ponta a ponta).
+- DPR `1` em mobile.
+- Sem layout shift na entrada (CLS estável).
+- `prefers-reduced-motion` remove floating, parallax, stagger e blur; durações comprimidas para `≤ 0.3s`.
+- Ghost sobrepõe o manifesto no clímax (`progress > 0.85`).
 - Background retorna para `#040013` no final.
-- Foco do teclado não fica preso em seção sticky.
-- Canvas tem fallback acessível.
+- Foco do teclado não fica preso em camada sticky/fixed.
+- Canvas marcado como decorativo (`aria-hidden` via wrapper indireto, fallback acessível disponível).
+- Suíte `test/e2e/about-beliefs.spec.ts` passa 12/12.
 
 ---
 
@@ -608,36 +631,66 @@ Checklist:
 
 ## `src/hooks/useBeliefsScroll.ts`
 
+Ref-getter pattern: progresso lido sob demanda sem re-renders.
+
 ```tsx
 'use client';
 
-import { RefObject, useEffect, useState } from 'react';
-import { useReducedMotion, useScroll } from 'motion/react';
+import type { RefObject } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { BELIEF_PHRASES } from '@/config/beliefTokens';
+import { useMediaQuery } from './useMediaQuery';
 
 export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
-  const shouldReduceMotion = Boolean(useReducedMotion());
-  const [isMobile, setIsMobile] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end end'],
-  });
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const progressRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isClimax, setIsClimax] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia('(max-width: 767px)');
-
-    const update = () => setIsMobile(media.matches);
-    update();
-
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setShouldReduceMotion(mediaQuery.matches);
+    const handler = (e: MediaQueryListEvent) => setShouldReduceMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  return {
-    scrollYProgress,
-    isMobile,
-    shouldReduceMotion,
-  };
+  const scrollYProgress = useMemo(
+    () => ({ get: () => progressRef.current }),
+    []
+  );
+
+  useEffect(() => {
+    const update = () => {
+      const section = containerRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const start = sectionTop - window.innerHeight;
+      const end = sectionTop + rect.height - window.innerHeight;
+      const range = Math.max(1, end - start);
+      const next = Math.min(1, Math.max(0, (window.scrollY - start) / range));
+
+      progressRef.current = next;
+      const idx = Math.min(
+        BELIEF_PHRASES.length - 1,
+        Math.max(0, Math.round(next * (BELIEF_PHRASES.length - 1)))
+      );
+      setActiveIndex((prev) => (prev !== idx ? idx : prev));
+      setIsClimax((prev) => (prev !== next >= 0.82 ? next >= 0.82 : prev));
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [containerRef]);
+
+  return { scrollYProgress, isMobile, shouldReduceMotion, activeIndex, isClimax };
 }
 ```
 
@@ -647,6 +700,9 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
 'use client';
 
 import { Suspense, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import { beliefLayout } from '@/config/beliefTokens';
+import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
 import { BeliefOverlay } from '../beliefs/BeliefOverlay';
@@ -655,11 +711,14 @@ import { BeliefScrollText } from '../beliefs/BeliefScrollText';
 import { BeliefManifesto } from '../beliefs/BeliefManifesto';
 import { GhostErrorBoundary } from '../3d/GhostErrorBoundary';
 import { GhostSceneFallback } from '../3d/GhostSceneFallback';
-import { GhostScene } from '../3d/GhostScene';
-import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
+
+const GhostScene = dynamic(
+  () => import('../3d/GhostScene').then((m) => m.GhostScene),
+  { ssr: false }
+);
 
 export function AboutBeliefs() {
-  const containerRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const scroll = useBeliefsScroll(containerRef);
 
   return (
@@ -667,28 +726,23 @@ export function AboutBeliefs() {
       <section
         ref={containerRef}
         id="o-que-me-move"
+        data-testid="beliefs-section"
         aria-labelledby="o-que-me-move-title"
-        className="relative min-h-[620vh] overflow-clip bg-[#040013] text-white"
+        className="relative overflow-clip bg-[#040013] text-white"
+        style={{ minHeight: beliefLayout.sectionMinHeight }}
       >
-        <h2 id="o-que-me-move-title" className="sr-only">
-          O que me move
-        </h2>
-
+        <h2 id="o-que-me-move-title" className="sr-only">O que me move</h2>
         <BeliefBackground />
         <BeliefOverlay />
-
         <div className="sticky top-0 h-dvh">
           <BeliefFixedHeader />
-
           <GhostErrorBoundary fallback={<GhostSceneFallback />}>
             <Suspense fallback={<GhostSceneFallback />}>
               <GhostScene />
             </Suspense>
           </GhostErrorBoundary>
-
           <BeliefManifesto />
         </div>
-
         <BeliefScrollText />
       </section>
     </BeliefsScrollProvider>
@@ -698,67 +752,71 @@ export function AboutBeliefs() {
 
 ## `src/components/sobre/beliefs/BeliefBackground.tsx`
 
+`gsap.context(() => { ScrollTrigger.create(...) })` com cleanup via `ctx.revert()`.
+
 ```tsx
 'use client';
 
-import { animate, inView } from 'motion';
 import { useEffect, useRef } from 'react';
-import { beliefColors, beliefMotion } from '@/config/beliefTokens';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BELIEF_BACKGROUND_STOPS, beliefZIndex } from '@/config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
-const stops = [
-  beliefColors.deepVoid,
-  beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
-  beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
-  beliefColors.deepVoid,
-] as const;
+if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
 export function BeliefBackground() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { shouldReduceMotion } = useBeliefsScrollContext();
+  const ref = useRef<HTMLDivElement>(null);
+  const { containerRef, isMobile, shouldReduceMotion } = useBeliefsScrollContext();
 
   useEffect(() => {
-    if (!ref.current) return;
+    const bg = ref.current;
+    const container = containerRef.current;
+    if (!bg || !container) return;
 
-    const stop = inView(
-      '.belief-scroll-section',
-      (element) => {
-        const index = Number.parseInt(
-          element.getAttribute('data-index') ?? '0',
-          10
-        );
+    gsap.set(bg, { backgroundColor: BELIEF_BACKGROUND_STOPS[0] });
 
-        const color = stops[Math.min(index + 1, stops.length - 1)];
+    const transitionTo = (color: string) => {
+      if (shouldReduceMotion) {
+        gsap.set(bg, { backgroundColor: color });
+        return;
+      }
+      gsap.to(bg, {
+        backgroundColor: color,
+        duration: 1.5,
+        ease: GSAP_GHOST_EASE,
+        overwrite: 'auto',
+      });
+    };
 
-        if (shouldReduceMotion) {
-          ref.current!.style.backgroundColor = color;
-          return;
-        }
+    const ctx = gsap.context(() => {
+      const sections = Array.from(
+        container.querySelectorAll<HTMLElement>('.belief-scroll-section')
+      );
+      sections.forEach((section) => {
+        const index = Number.parseInt(section.dataset.index ?? '0', 10);
+        const color = BELIEF_BACKGROUND_STOPS[
+          Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+        ];
+        ScrollTrigger.create({
+          trigger: section,
+          start: isMobile ? 'top 78%' : 'top 64%',
+          onEnter: () => transitionTo(color),
+          onEnterBack: () => transitionTo(color),
+        });
+      });
+    }, container);
 
-        animate(
-          ref.current!,
-          { backgroundColor: color },
-          {
-            duration: beliefMotion.revealDuration,
-            ease: beliefMotion.ambientEase,
-          }
-        );
-      },
-      { amount: 0.55 }
-    );
-
-    return () => stop();
-  }, [shouldReduceMotion]);
+    return () => ctx.revert();
+  }, [containerRef, isMobile, shouldReduceMotion]);
 
   return (
     <div
       ref={ref}
       aria-hidden="true"
-      className="absolute inset-0 z-0 bg-[#040013]"
+      className="absolute inset-0 bg-[#040013]"
+      style={{ zIndex: beliefZIndex.background }}
     />
   );
 }
@@ -766,107 +824,116 @@ export function BeliefBackground() {
 
 ## `src/components/sobre/beliefs/SplitTextMotion.tsx`
 
+Utilitário declarativo, **sem animação interna**. A orquestração ocorre fora via GSAP, lendo `[data-split-item]`.
+
 ```tsx
 'use client';
 
-import { motion, Variants } from 'motion/react';
-import { ComponentPropsWithoutRef, ElementType } from 'react';
-import { beliefMotion } from '@/config/beliefTokens';
+import type { ElementType } from 'react';
 
-type SplitTextMotionProps<T extends ElementType> = {
-  as?: T;
+type SplitTextMotionProps<T extends ElementType = 'span'> = {
   text: string;
-  active?: boolean;
+  as?: T;
   mode?: 'words' | 'chars';
-  stagger?: number;
   className?: string;
-} & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children'>;
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0 },
+  itemClassName?: string;
 };
 
 export function SplitTextMotion<T extends ElementType = 'span'>({
-  as,
   text,
-  active = true,
+  as,
   mode = 'words',
-  stagger = beliefMotion.wordStagger,
   className,
-  ...props
+  itemClassName,
 }: SplitTextMotionProps<T>) {
-  const Component = motion(as ?? 'span');
+  const Component = (as ?? 'span') as ElementType;
   const units = mode === 'chars' ? Array.from(text) : text.split(' ');
 
   return (
-    <Component
-      className={className}
-      initial="hidden"
-      animate={active ? 'visible' : 'hidden'}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: stagger,
-          },
-        },
-      }}
-      {...props}
-    >
+    <Component className={className} aria-label={text} data-split-text>
       {units.map((unit, index) => (
-        <motion.span
+        <span
           key={`${unit}-${index}`}
-          variants={itemVariants}
-          transition={{
-            duration: 0.42,
-            ease: beliefMotion.softEase,
-          }}
-          className="inline-block will-change-transform"
+          aria-hidden="true"
+          data-split-item
+          className={itemClassName ?? 'inline-block will-change-transform'}
         >
-          {unit === ' ' ? '\u00A0' : unit}
-          {mode === 'words' && index < units.length - 1 ? '\u00A0' : null}
-        </motion.span>
+          {unit === ' ' ? ' ' : unit}
+          {mode === 'words' && index < units.length - 1 ? ' ' : null}
+        </span>
       ))}
     </Component>
   );
 }
 ```
 
+**Importante:** o componente apenas renderiza markup com `data-split-item`. Quem anima são os consumidores (`BeliefFixedHeader`, `BeliefManifesto`), via `root.querySelectorAll('[data-split-item]')` dentro de um `gsap.context`.
+
 ## `src/components/sobre/beliefs/BeliefManifesto.tsx`
+
+`ScrollTrigger` com `onUpdate` para reveal scrubbed entre `0.82 → 0.92`.
 
 ```tsx
 'use client';
 
-import { motion, useTransform } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BELIEF_MANIFESTO_LINES, beliefZIndex } from '@/config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 
-export function BeliefManifesto() {
-  const { scrollYProgress, shouldReduceMotion } = useBeliefsScrollContext();
+if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
-  const opacity = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
-  const y = useTransform(scrollYProgress, [0.82, 0.92], [18, 0]);
+export function BeliefManifesto() {
+  const { containerRef, isClimax, shouldReduceMotion } = useBeliefsScrollContext();
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const root = ref.current;
+    const container = containerRef.current;
+    if (!root || !container) return;
+
+    const words = root.querySelectorAll<HTMLElement>('[data-split-item]');
+
+    const ctx = gsap.context(() => {
+      gsap.set(root, { autoAlpha: 0, y: shouldReduceMotion ? 0 : 18 });
+      gsap.set(words, { autoAlpha: 0, y: shouldReduceMotion ? 0 : 12 });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const reveal = gsap.utils.clamp(0, 1, (self.progress - 0.82) / 0.1);
+          gsap.set(root, { autoAlpha: reveal, y: shouldReduceMotion ? 0 : 18 - 18 * reveal });
+          gsap.set(words, { autoAlpha: reveal, y: shouldReduceMotion ? 0 : 12 - 12 * reveal });
+          setActive(self.progress >= 0.82);
+        },
+      });
+    }, container);
+
+    return () => ctx.revert();
+  }, [containerRef, shouldReduceMotion]);
 
   return (
-    <motion.div
-      aria-live="polite"
-      className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-4 text-center"
-      style={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity, y }}
+    <div
+      ref={ref}
+      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
+      style={{ zIndex: beliefZIndex.manifesto }}
+      aria-live={active || isClimax ? 'polite' : 'off'}
     >
-      <div className="font-display text-[clamp(3.5rem,16vw,12rem)] font-black uppercase leading-[0.82] tracking-[0.03em] text-white">
-        {['ISSO É', 'GHOST', 'DESIGN'].map((line) => (
-          <SplitTextMotion
-            key={line}
-            as="div"
-            text={line}
-            mode="words"
-            stagger={0.06}
-            className="block"
-          />
+      <div
+        className="text-center font-display font-black uppercase leading-[0.82] tracking-[0.03em] text-white"
+        style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
+      >
+        {BELIEF_MANIFESTO_LINES.map((line) => (
+          <SplitTextMotion key={line} as="div" text={line} className="block" />
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
 ```
@@ -877,178 +944,132 @@ export function BeliefManifesto() {
 
 ## Riscos técnicos
 
-1. **Acesso às referências externas:** não foi possível validar visualmente `drinksom.eu` nem a página live `portfoliodanilo.com/sobre` nesta resposta. A implementação deve ser conferida manualmente contra a referência aberta no navegador.
+1. **`filter: blur()` em scroll contínuo:** custa GPU. Mitigação: blur só nas frases principais, removido em `prefers-reduced-motion`, com `will-change: transform` nos targets.
 
-2. **Vídeo local indisponível:** o arquivo `anima.mov` citado está em um caminho local do usuário, não anexado aqui. O timing fino do background precisa ser validado diretamente no vídeo.
+2. **WebGL em mobile:** mitigação aplicada: `useWebGLSupport()` curto-circuita o Canvas, `dpr={[1, 1]}`, sem cursor parallax, `frameloop="demand"`, `SceneInvalidator`, dispose completo no unmount.
 
-3. **`filter: blur()` pode custar performance:** manter blur pequeno, usar somente nos textos principais e remover em `prefers-reduced-motion`.
+3. **Z-index e stacking context:** qualquer `transform`, `opacity` ou `isolation` em parents pode criar stacking contexts inesperados. Validar com DevTools 3D View. Todos os tokens de z vivem em `MOTION_TOKENS.z`.
 
-4. **WebGL em mobile:** reduzir DPR, evitar post-processing, limitar draw calls, usar `frameloop="demand"` e fallback estático.
+4. **Supabase Storage:** URL pública resolvida via `getAssetUrl()` (lê `NEXT_PUBLIC_SUPABASE_URL`). Nenhum service role key no client; `.glb` bypassa Image Transformation (lib `urls.ts`).
 
-5. **Z-index e stacking context:** qualquer `transform`, `opacity` ou `isolation` em parents pode criar stacking contexts inesperados. Validar no DevTools/3D View.
+5. **Re-renders durante scroll:** mitigados pelo ref-getter `scrollYProgress: { get: () => number }` e atualizações condicionais (`prev !== next`) em `activeIndex` e `isClimax`. Trocar para `MotionValue` ressuscitaria re-renders por frame.
 
-6. **Supabase Storage:** usar apenas URL pública ou signed URL gerada em camada segura. Não hardcodar service role key, tokens ou secrets no client.
+6. **Cleanup determinístico:** todo `useEffect` que cria `ScrollTrigger` envolve a criação em `gsap.context(() => { ... }, container)` e retorna `() => ctx.revert()`. Isso garante que tweens, triggers e estados intermediários sejam revertidos no unmount ou em mudanças de dependência (`isMobile`, `shouldReduceMotion`).
+
+7. **Referências externas e timing:** `drinksom.eu` e `portfoliodanilo.com/sobre` devem ser conferidos manualmente em DevTools contra os screenshots `06-O-QUE-ME-MOVE-DESKTOP-INICIAL.jpg`, `DESKTOP-FINAL.jpg`, `MOBILE-INICIAL.png`, `MOBILE-FINAL.png`.
 
 ---
 
 # prompt_final_para_agent
 
 ````md
-# TASK: Ajustar e implementar a seção `06-O-QUE-ME-MOVE` da página `/sobre`
+# TASK: Manter e evoluir a seção `06-O-QUE-ME-MOVE` da página `/sobre`
 
-Você é um engenheiro frontend sênior especializado em Next.js App Router, React + TypeScript, Tailwind CSS, Motion for React, React Three Fiber, drei, three.js, Firebase Hosting e Supabase Storage.
+Você é um engenheiro frontend sênior especializado em Next.js App Router, React + TypeScript, Tailwind CSS, GSAP + ScrollTrigger, React Three Fiber, drei, three.js, Firebase Hosting e Supabase Storage.
 
-Implemente a seção manifesto `O Que Me Move` do portfolio `portfoliodanilo.com/sobre` como uma experiência scroll-driven cinematográfica, com background cromático animado, textos com Split Text, manifesto final e Ghost 3D em WebGL.
+A seção manifesto `O Que Me Move` do portfolio `portfoliodanilo.com/sobre` é uma experiência scroll-driven cinematográfica, com background cromático animado, textos com Split Text, manifesto final scrubbed e Ghost 3D em WebGL.
 
 ## Stack obrigatória
 
 - Next.js App Router usando `app/`
-- React + TypeScript
-- Tailwind CSS
-- Motion for React / Motion JS
-- React Three Fiber + @react-three/drei + three.js somente para o Ghost 3D
+- React 19 + TypeScript (strict)
+- Tailwind CSS v4
+- GSAP + ScrollTrigger (CustomEase registrado em `src/lib/motion/gsapGhostEase.ts`)
+- React Three Fiber + @react-three/drei + three.js (apenas para o Ghost 3D)
 - Firebase Hosting para deploy
-- Supabase Storage para assets públicos de mídia/GLB
-- Não usar GSAP nesta seção
+- Supabase Storage para assets públicos (GLB resolvido via `getAssetUrl`)
 - Não expor secrets, service role keys ou credenciais no client
 
-## Arquitetura de arquivos obrigatória
+## Arquitetura de arquivos
 
-Criar ou ajustar:
-
+```
 app/
-sobre/
-page.tsx
-loading.tsx
-error.tsx
-not-found.tsx
-
+  sobre/
+    page.tsx
+    loading.tsx
+    error.tsx
+    not-found.tsx
 src/
-components/
-sobre/
-sections/
-AboutBeliefs.tsx
-beliefs/
-BeliefsScrollContext.tsx
-BeliefBackground.tsx
-BeliefOverlay.tsx
-BeliefFixedHeader.tsx
-BeliefScrollText.tsx
-BeliefManifesto.tsx
-SplitTextMotion.tsx
-3d/
-GhostScene.tsx
-GhostModel.tsx
-GhostSceneFallback.tsx
-GhostErrorBoundary.tsx
-hooks/
-useBeliefsScroll.ts
-useMediaQuery.ts
-usePointerParallax.ts
-config/
-beliefTokens.ts
-motion.ts
-lib/
-supabase/
-storage.ts
-store/
-beliefStore.ts
-types/
-beliefs.ts
+  components/sobre/sections/AboutBeliefs.tsx
+  components/sobre/beliefs/{BeliefsScrollContext,BeliefBackground,BeliefOverlay,BeliefFixedHeader,BeliefScrollText,BeliefManifesto,SplitTextMotion}.tsx
+  components/sobre/3d/{GhostScene,GhostModel,GhostSceneFallback,GhostErrorBoundary}.tsx
+  hooks/{useBeliefsScroll,useMediaQuery,usePointerParallax,useWebGLSupport}.ts
+  config/{beliefTokens,motion}.ts
+  lib/motion/gsapGhostEase.ts
+  types/beliefs.ts
+```
 
-## Camadas visuais e z-index
+## Camadas e z-index
 
-A ordem é imutável:
+Ordem imutável (valores via `MOTION_TOKENS.z`):
 
-1. `BeliefBackground` — `z-0`
-2. `BeliefOverlay` — `z-10`
-3. `BeliefFixedHeader` — `z-30`
-4. `BeliefScrollText` — `z-40`
-5. `BeliefManifesto` — `z-50`
-6. `GhostScene` — `z-[70]`
+1. `BeliefBackground` — `bg`
+2. `BeliefOverlay` — `overlay`
+3. `BeliefFixedHeader` — `header`
+4. `BeliefScrollText` — `text`
+5. `BeliefManifesto` — `manifesto` (50)
+6. `GhostScene` — `ghost` (70)
 
-O Ghost 3D deve permanecer acima do manifesto no clímax, sobrepondo parcialmente a palavra `GHOST`.
+Ghost sempre acima do manifesto no clímax.
 
 ## Contrato de scroll
 
-Criar hook central `useBeliefsScroll.ts`:
+`useBeliefsScroll(containerRef)` retorna:
 
-- Usar `useScroll({ target: containerRef, offset: ['start end', 'end end'] })`
-- Usar `useReducedMotion()` do Motion
-- Detectar mobile com `matchMedia('(max-width: 767px)')`
-- Compartilhar `scrollYProgress`, `isMobile` e `shouldReduceMotion` via `BeliefsScrollContext`
+```ts
+{
+  scrollYProgress: { get: () => number },
+  isMobile: boolean,
+  shouldReduceMotion: boolean,
+  activeIndex: number,
+  isClimax: boolean,
+}
+```
+
+Distribuído via `BeliefsScrollProvider` para todos os consumidores. Não é `MotionValue`; é um getter síncrono para evitar re-renders durante scroll.
 
 ## Background animado
 
-Implementar `BeliefBackground` com Motion `animate()` + `inView()`.
+`BeliefBackground` lê `.belief-scroll-section[data-index]` e dispara `gsap.to(bg, { backgroundColor, duration: 1.5, ease: GSAP_GHOST_EASE })` em cada `onEnter`/`onEnterBack`. ScrollTriggers extras tratam reset (`top bottom → onLeaveBack`) e clímax final (`bottom 88% → onEnter`).
 
-Paleta obrigatória:
+Paleta obrigatória (em `BELIEF_BACKGROUND_STOPS`):
 
 ```ts
-[
-  '#040013',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
-  '#040013',
-];
+['#040013', '#0048ff', '#8705f2', '#f501d3', '#0048ff', '#8705f2', '#f501d3', '#040013']
 ```
-````
 
-Regras:
-
-- Cada frase de `BeliefScrollText` deve ter `.belief-scroll-section` e `data-index`.
-- Ao entrar no viewport, calcular `stopIndex = dataIndex + 1`.
-- Animar o `backgroundColor` do container com:
-  - `duration: 0.9`
-  - `ease: [0.17, 0.55, 0.55, 1]`
-
-- Não usar `transition: background-color`.
-- Não usar fade simples entre divs.
-- Em `prefers-reduced-motion`, aplicar a cor diretamente sem animação longa.
+- `duration: 1.5` (não `0.9`).
+- `ease: GSAP_GHOST_EASE` (CustomEase `[0.22, 1, 0.36, 1]`).
+- `prefers-reduced-motion`: `gsap.set(bg, { backgroundColor })` direto.
+- Cleanup: `gsap.context().revert()` no return do `useEffect`.
 
 ## Overlay anti-banding
 
-Implementar `BeliefOverlay`:
-
-- `absolute inset-0 z-10 pointer-events-none bg-black`
-- Opacidade derivada de `scrollYProgress`
-- Pulsar suavemente entre `0`, `0.1`, `0`
-- Objetivo: reduzir banding visual em transições de cores vibrantes
+`BeliefOverlay`: `gsap.to(overlay, { keyframes: [{ opacity: 0.1 }, { opacity: 0 }], scrollTrigger: { trigger: container, start: 'top bottom', end: 'bottom top', scrub: 0.85 } })`. Em reduced motion, `opacity: 0.05` fixo via `gsap.set`.
 
 ## BeliefFixedHeader
 
-Texto fixo:
+Texto fixo de `BELIEF_HEADER_LINES`:
 
-Linha 1:
-`Acredito no design que muda o dia de alguém.`
+- Linha 1: `Acredito no design que muda o dia de alguém.`
+- Linha 2: `Não pelo choque, mas pela conexão.`
 
-Linha 2:
-`Não pelo choque, mas pela conexão.`
+Tipografia (alinhada ao mockup):
 
-Desktop:
+- Linha 1: `font-display font-black uppercase leading-[0.88] tracking-[-0.04em]`, ALL CAPS via fonte, tamanho mobile `clamp(1.5rem, 6vw, 2.35rem)`, desktop `clamp(2rem, 2.8vw, 3.5rem)`.
+- Linha 2: `font-medium leading-[1.22] tracking-[0.04em] text-white/82`, menor, `clamp(0.82rem, 2.7vw, 0.98rem)` mobile, `clamp(0.95rem, 1.15vw, 1.16rem)` desktop, `mt-3 md:mt-5`.
 
-- Sticky no topo, alinhado à direita
-- `max-w-sm`
-- `text-right`
-- `z-30`
-- Entrada: `opacity: 0 → 1`, `x: 60 → 0`, `duration: 0.8`, ease `[0.22, 1, 0.36, 1]`
-- Split Text por palavras:
-  - `opacity: 0 → 1`
-  - `y: 12 → 0`
-  - `stagger: 0.08`
+Posicionamento: `absolute inset-y-0 right-0 ... pt-[13vh] md:items-center md:pt-0`. Mobile usa `pt-[13vh]`, NÃO `top-[14vh]`.
 
-Mobile:
+Animação:
 
-- `sticky top-[20vh]`
-- Mesma animação, sem competir com a frase principal
+- Container: `gsap.to(root, { autoAlpha: 1, x: 0, duration: 0.8 })` partindo de `{ autoAlpha: 0, x: 60 }`.
+- Words (`[data-split-item]`): `gsap.to(words, { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.05, delay: 0.15 })` partindo de `{ autoAlpha: 0, y: 12 }`.
+- Reverso em `onLeaveBack` com durações comprimidas.
 
 ## BeliefScrollText
 
-Frases obrigatórias:
+Frases obrigatórias (em `BELIEF_PHRASES`):
 
 1. `Um vídeo que respira`
 2. `Uma marca que se reconhece`
@@ -1057,182 +1078,123 @@ Frases obrigatórias:
 5. `Mesmo quando não estou ali`
 6. `Mesmo quando ninguém percebe o esforço`
 
-Desktop:
+Cada `BeliefPhraseSection` é uma `.belief-scroll-section[data-index]` com `h-[80vh]`.
 
-- Cada frase em uma section `h-[80vh]`
-- Alinhar à esquerda e verticalmente ao centro
-- `font-h1`, `font-bold`, italic
-- Cor `#4fe6ff`
-- Tamanho `clamp(2.8rem, 5.8vw, 6.3rem)`
-- Max width `max-w-[38vw] lg:max-w-[34vw]`
-- Entrada com Motion:
-  - `opacity: 0 → 1`
-  - `y: 18 → 0`
-  - `filter: blur(6px) → blur(0px)`
-  - `duration: 0.9`
-  - `ease: [0.17, 0.55, 0.55, 1]`
+Tipografia:
 
-- Saída:
-  - `opacity: 1 → 0`
-  - `y: 0 → -18`
-  - `filter: blur(0px) → blur(6px)`
-  - `duration: 0.5`
+- `font-medium italic leading-[0.9] tracking-[-0.045em]`, cor `#4fe6ff` (`beliefColors.blueAccent`).
+- Tamanho: `clamp(2.8rem, 5.8vw, 6.3rem)` desktop, `clamp(2.0rem, 8vw, 3.0rem)` mobile.
+- `textShadow: '0 2px 24px rgba(0,0,0,0.28)'`.
 
-Mobile:
+Animação (GSAP + ScrollTrigger):
 
-- Centralizar horizontalmente
-- Ancorar próximo a `20vh` do rodapé
-- `text-center px-6`
-- Tamanho `clamp(2rem, 8vw, 3rem)`
+- Inicial: `gsap.set(heading, { autoAlpha: 0, y/x: offset, filter: 'blur(6px)' })`.
+- Desktop usa `y: 24 → 0`; mobile usa `x: 24 → 0`.
+- Entrada (`onEnter`, gatilho `top 66%` / `top 82%`): `duration: 1.2s`, `filter: blur(6px) → blur(0px)`, `ease: GSAP_GHOST_EASE`.
+- `onEnterBack`: `duration: 0.9s`.
+- `onLeave` e `onLeaveBack`: `duration: 0.6s`, blur restaurado, offset invertido conforme direção.
+- `prefers-reduced-motion`: `duration: 0.2s`, `ease: 'none'`, sem blur, sem offset.
 
 ## BeliefManifesto
 
-Texto:
+`fixed inset-0 flex items-center justify-center px-6`, `font-display font-black uppercase`, `leading-[0.82] tracking-[0.03em]`, `fontSize: 'clamp(3.5rem, 16vw, 12rem)'`.
 
-ISSO É
-GHOST
-DESIGN
+Reveal via `ScrollTrigger.create({ trigger: container, start: 'top top', end: 'bottom bottom', onUpdate(self) })`:
 
-Regras:
+```ts
+const reveal = gsap.utils.clamp(0, 1, (self.progress - 0.82) / 0.1);
+gsap.set(root, { autoAlpha: reveal, y: 18 - 18 * reveal });
+gsap.set(words, { autoAlpha: reveal, y: 12 - 12 * reveal });
+```
 
-- `fixed inset-0 z-50`
-- Centralizado
-- `font-display font-black text-white uppercase`
-- `tracking-[0.03em] leading-[0.82]`
-- Tamanho `clamp(3.5rem, 16vw, 12rem)`
-- Reveal controlado por `scrollYProgress`
-  - opacity `0 → 1` entre `0.82` e `0.9`
-  - y `18 → 0` entre `0.82` e `0.92`
+Segundo `ScrollTrigger` em `bottom 36%` aplica polish tween com stagger `0.06s`.
 
-- Usar `SplitTextMotion` para animar palavras/linhas com stagger curto
-- `aria-live="polite"` apenas quando ativo
+Words renderizadas via `SplitTextMotion` (que apenas emite `[data-split-item]`); animadas externamente pelo GSAP.
+
+`aria-live="polite"` apenas quando `active || isClimax`.
 
 ## SplitTextMotion
 
-Criar componente reutilizável inspirado no padrão Split Text:
-
-Props:
+Componente utilitário **declarativo**:
 
 ```ts
-type SplitTextMotionProps = {
+type SplitTextMotionProps<T> = {
   text: string;
-  as?: 'p' | 'span' | 'h2' | 'div';
+  as?: T;
   mode?: 'words' | 'chars';
-  active?: boolean;
   className?: string;
-  stagger?: number;
-  delay?: number;
+  itemClassName?: string;
 };
 ```
 
-Regras:
-
-- Usar Motion declarativo
-- Cada palavra/letra deve ser `inline-block`
-- Animar somente `opacity` e `transform`
-- Não quebrar acessibilidade do texto
-- Evitar split por char em textos longos
+Renderiza `<Component data-split-text aria-label={text}>` com filhos `<span data-split-item aria-hidden="true">`. Não anima sozinho; a animação é orquestrada externamente.
 
 ## GhostScene 3D
 
-Implementar com React Three Fiber.
+Wrapper DOM: `pointer-events-none fixed inset-0 invisible`, `zIndex: beliefZIndex.ghost`.
 
-Regras:
+`useWebGLSupport()` curto-circuita para `<GhostSceneFallback />` se WebGL indisponível.
 
-- Container `fixed` ou `sticky` com `z-[70]`
-- `pointer-events-none`
-- Canvas com `frameloop="demand"`
-- `dpr={[1, isMobile ? 1 : 2]}`
-- Camera:
-  - desktop `position: [0, 0, 6]`
-  - mobile `position: [0, 0, 7]`
-  - `fov: 35`
+Canvas: `frameloop="demand"`, `dpr={[1, isMobile ? 1 : 2]}`, `camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}`.
 
-- GLB via Supabase Storage:
-  - `site-assets/3d/ghost-v1.glb`
-  - resolver URL via helper `getAssetUrl(path)`
+GLB via `getAssetUrl('site-assets/3d/ghost-v1.glb')` (`useGLTF`). Materiais customizados via `GHOST_MATERIAL_CONFIG` em `belief.constants.ts`. Dispose completo via `disposeScene` no unmount.
 
-- Não hardcodar secrets
+`SceneInvalidator` interno escuta `scroll` e `mousemove` e dispara `invalidate()` para `frameloop="demand"`.
 
-Animação:
+Entrada do wrapper via GSAP:
 
-- Entrada do container:
-  - `opacity: 0 → 1`
-  - `scale: 0.95 → 1`
-  - `duration: 1.2`
-  - ease `[0.22, 1, 0.36, 1]`
+```ts
+gsap.set(wrapper, { autoAlpha: 0, scale: 0.95 });
+ScrollTrigger.create({
+  trigger: section,
+  start: 'top 85%',
+  once: true,
+  onEnter: () => gsap.to(wrapper, {
+    autoAlpha: 1, scale: 1,
+    duration: 1.2, ease: 'power2.out', delay: 0.15, overwrite: 'auto',
+  }),
+});
+```
 
-- Floating determinístico:
-  - `floatSpeed = 0.6 + p * 0.6`
-  - `floatAmplitude = 0.036 + p * 0.03`
-  - `floatY = Math.sin(t * floatSpeed) * floatAmplitude`
-  - `rotationY = Math.sin(t * (0.4 + p * 0.4)) * (0.06 + p * 0.04)`
+Floating, cursor parallax (desktop) e clímax (`progress > 0.85`) ficam dentro de `GhostModel.useFrame`, lendo `scrollYProgress.get()` e `pointerX/Y.get()`.
 
-- Desktop:
-  - cursor parallax normalizado `-1 → 1`
-  - mapear para `±0.4` world units
-
-- Mobile:
-  - baseline top-left: `x: -1.2`, `y: 1.5`
-  - sem cursor parallax
-
-- Clímax:
-  - quando `p > 0.85`, mover `x → 0`, `y → 0`
-  - aumentar scale em +10%
-  - Ghost deve sobrepor visualmente a palavra `GHOST`
-
-Performance:
-
-- Chamar `invalidate()` quando `scrollYProgress` ou cursor mudar
-- Limitar lerp por frame com cap `0.15`
-- Fazer dispose de geometry/material no unmount
-- Envolver Canvas em `GhostErrorBoundary`
-- Criar `GhostSceneFallback`
+`GhostErrorBoundary` envolve `<Suspense><GhostScene /></Suspense>` no `AboutBeliefs`. Não há boundary duplicado dentro de `GhostScene`.
 
 ## Estados de UI
 
-Implementar:
-
-- `app/sobre/loading.tsx` com skeleton dark editorial
-- `app/sobre/error.tsx` como Client Component com botão `reset()`
-- `app/sobre/not-found.tsx`
-- `GhostSceneFallback` para WebGL indisponível
-- Empty state se a lista de frases for carregada de fonte externa e vier vazia
+- `app/sobre/loading.tsx` com skeleton dark editorial.
+- `app/sobre/error.tsx` Client Component com `reset()`.
+- `app/sobre/not-found.tsx` dark com retorno para home.
+- `GhostSceneFallback` 2D acessível.
 
 ## Acessibilidade e performance
 
-Obrigatório:
-
-- Respeitar `prefers-reduced-motion`
-- Em reduced motion:
-  - remover floating contínuo
-  - remover cursor parallax
-  - reduzir stagger
-  - trocar animações longas por fade simples
-
-- Não animar `width`, `height`, `top`, `left`, `margin`, `padding`
-- Usar principalmente `transform` e `opacity`
-- Evitar flashes acima de 3 vezes por segundo
-- Não prender foco em área sticky
-- Canvas deve ser decorativo com fallback 2D
-- Garantir contraste do texto ciano sobre fundos vibrantes com sombra sutil se necessário
+- `prefers-reduced-motion`: remove blur, parallax, stagger, comprime durações para `≤ 0.3s`.
+- Apenas `transform` (`x`, `y`, `scale`) e `opacity` (`autoAlpha`) são animados; nunca `width`, `height`, `top`, `left`, `margin`, `padding`.
+- Sem flashes acima de 3Hz.
+- Foco do teclado não fica preso em camada sticky/fixed.
+- Canvas decorativo com fallback 2D.
+- Contraste do texto ciano sobre fundos vibrantes garantido com `textShadow`.
 
 ## Critérios de aceitação
 
-- A seção começa em `#040013`
-- As seis frases entram em scroll e sincronizam com a troca de cor
-- O background usa Motion `animate()` + `inView()`, não CSS transition
-- `BeliefFixedHeader` usa Split Text por palavras
-- `BeliefManifesto` usa Split Text no clímax
-- Ghost 3D aparece acima de todas as camadas em `z-[70]`
-- Ghost centraliza e escala +10% após `scrollYProgress > 0.85`
-- No desktop, Ghost reage suavemente ao cursor
-- No mobile, Ghost começa top-left e centraliza apenas no clímax
-- A rota `/sobre` possui loading, error e not-found
-- WebGL tem fallback e error boundary
-- A implementação não expõe secrets de Supabase
-- A seção mantém performance estável em mobile e desktop
+- Seção começa em `#040013`.
+- Seis frases entram em scroll sincronizadas com a troca de cor.
+- Background usa `gsap.to({ backgroundColor })` com `duration: 1.5` e `GSAP_GHOST_EASE`, nunca CSS transition ou `motion/animate`.
+- Overlay usa `gsap.to` com `scrollTrigger: { scrub: 0.85 }`.
+- `BeliefFixedHeader` linha 1 em font-display black uppercase (mockup INICIAL), linha 2 menor regular.
+- `BeliefScrollText` em `font-medium italic` (não bold).
+- `BeliefManifesto` faz reveal scrubbed entre `progress 0.82 → 0.92` via `ScrollTrigger.onUpdate`.
+- Words do header e do manifesto são renderizadas por `SplitTextMotion` e animadas externamente por GSAP via `[data-split-item]`.
+- Ghost 3D aparece acima de todas as camadas em `z-[70]`.
+- Ghost centraliza e escala até `+15%` após `scrollYProgress > 0.85`.
+- Desktop: cursor parallax suave. Mobile: sem parallax, baseline top-left.
+- Rota `/sobre` possui `loading`, `error`, `not-found`.
+- WebGL tem `useWebGLSupport()` guard, fallback e error boundary no nível do wrapper.
+- Nenhum `Motion DOM` (`animate`, `inView`, `useScroll`) em qualquer arquivo da seção.
+- Cleanup determinístico: todo `useEffect` de animação retorna `() => ctx.revert()`.
+- `pnpm run typecheck`, `pnpm run lint`, `pnpm run build` passam sem novos erros.
+- `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` passa 12/12.
+- FPS médio no scroll mantém-se acima de 50 desktop, 40 mobile.
 
-```
-
-```
+````
