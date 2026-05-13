@@ -496,7 +496,9 @@ Componente utilitário **declarativo, sem animação interna**. Apenas renderiza
 ```tsx
 <Component data-split-text aria-label={text}>
   {units.map((unit, i) => (
-    <span data-split-item aria-hidden="true">{unit}</span>
+    <span data-split-item aria-hidden="true">
+      {unit}
+    </span>
   ))}
 </Component>
 ```
@@ -651,7 +653,8 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setShouldReduceMotion(mediaQuery.matches);
-    const handler = (e: MediaQueryListEvent) => setShouldReduceMotion(e.matches);
+    const handler = (e: MediaQueryListEvent) =>
+      setShouldReduceMotion(e.matches);
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
@@ -690,7 +693,13 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
     };
   }, [containerRef]);
 
-  return { scrollYProgress, isMobile, shouldReduceMotion, activeIndex, isClimax };
+  return {
+    scrollYProgress,
+    isMobile,
+    shouldReduceMotion,
+    activeIndex,
+    isClimax,
+  };
 }
 ```
 
@@ -731,7 +740,9 @@ export function AboutBeliefs() {
         className="relative overflow-clip bg-[#040013] text-white"
         style={{ minHeight: beliefLayout.sectionMinHeight }}
       >
-        <h2 id="o-que-me-move-title" className="sr-only">O que me move</h2>
+        <h2 id="o-que-me-move-title" className="sr-only">
+          O que me move
+        </h2>
         <BeliefBackground />
         <BeliefOverlay />
         <div className="sticky top-0 h-dvh">
@@ -768,7 +779,8 @@ if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
 export function BeliefBackground() {
   const ref = useRef<HTMLDivElement>(null);
-  const { containerRef, isMobile, shouldReduceMotion } = useBeliefsScrollContext();
+  const { containerRef, isMobile, shouldReduceMotion } =
+    useBeliefsScrollContext();
 
   useEffect(() => {
     const bg = ref.current;
@@ -796,9 +808,10 @@ export function BeliefBackground() {
       );
       sections.forEach((section) => {
         const index = Number.parseInt(section.dataset.index ?? '0', 10);
-        const color = BELIEF_BACKGROUND_STOPS[
-          Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
-        ];
+        const color =
+          BELIEF_BACKGROUND_STOPS[
+            Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+          ];
         ScrollTrigger.create({
           trigger: section,
           start: isMobile ? 'top 78%' : 'top 64%',
@@ -887,7 +900,8 @@ import { SplitTextMotion } from './SplitTextMotion';
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
 export function BeliefManifesto() {
-  const { containerRef, isClimax, shouldReduceMotion } = useBeliefsScrollContext();
+  const { containerRef, isClimax, shouldReduceMotion } =
+    useBeliefsScrollContext();
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -908,8 +922,14 @@ export function BeliefManifesto() {
         end: 'bottom bottom',
         onUpdate: (self) => {
           const reveal = gsap.utils.clamp(0, 1, (self.progress - 0.82) / 0.1);
-          gsap.set(root, { autoAlpha: reveal, y: shouldReduceMotion ? 0 : 18 - 18 * reveal });
-          gsap.set(words, { autoAlpha: reveal, y: shouldReduceMotion ? 0 : 12 - 12 * reveal });
+          gsap.set(root, {
+            autoAlpha: reveal,
+            y: shouldReduceMotion ? 0 : 18 - 18 * reveal,
+          });
+          gsap.set(words, {
+            autoAlpha: reveal,
+            y: shouldReduceMotion ? 0 : 12 - 12 * reveal,
+          });
           setActive(self.progress >= 0.82);
         },
       });
@@ -1035,7 +1055,16 @@ Distribuído via `BeliefsScrollProvider` para todos os consumidores. Não é `Mo
 Paleta obrigatória (em `BELIEF_BACKGROUND_STOPS`):
 
 ```ts
-['#040013', '#0048ff', '#8705f2', '#f501d3', '#0048ff', '#8705f2', '#f501d3', '#040013']
+[
+  '#040013',
+  '#0048ff',
+  '#8705f2',
+  '#f501d3',
+  '#0048ff',
+  '#8705f2',
+  '#f501d3',
+  '#040013',
+];
 ```
 
 - `duration: 1.5` (não `0.9`).
@@ -1149,10 +1178,15 @@ ScrollTrigger.create({
   trigger: section,
   start: 'top 85%',
   once: true,
-  onEnter: () => gsap.to(wrapper, {
-    autoAlpha: 1, scale: 1,
-    duration: 1.2, ease: 'power2.out', delay: 0.15, overwrite: 'auto',
-  }),
+  onEnter: () =>
+    gsap.to(wrapper, {
+      autoAlpha: 1,
+      scale: 1,
+      duration: 1.2,
+      ease: 'power2.out',
+      delay: 0.15,
+      overwrite: 'auto',
+    }),
 });
 ```
 
@@ -1196,5 +1230,4 @@ Floating, cursor parallax (desktop) e clímax (`progress > 0.85`) ficam dentro d
 - `pnpm run typecheck`, `pnpm run lint`, `pnpm run build` passam sem novos erros.
 - `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` passa 12/12.
 - FPS médio no scroll mantém-se acima de 50 desktop, 40 mobile.
-
 ````

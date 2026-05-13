@@ -47,7 +47,10 @@ export function BeliefOverlay() {
       ref={ref}
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 bg-black"
-      style={{ zIndex: beliefZIndex.overlay, opacity: shouldReduceMotion ? 0.05 : 0 }}
+      style={{
+        zIndex: beliefZIndex.overlay,
+        opacity: shouldReduceMotion ? 0.05 : 0,
+      }}
     />
   );
 }

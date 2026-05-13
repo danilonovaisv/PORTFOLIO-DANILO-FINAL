@@ -16,20 +16,20 @@
 
 Seção implementada e estável (deploy 2026-05-13). Inventário:
 
-| Camada       | Arquivo                                                                     | Status                                       |
-| ------------ | --------------------------------------------------------------------------- | -------------------------------------------- |
-| Rota         | `src/app/sobre/{page,loading,error,not-found}.tsx`                          | ✅ Completa                                  |
-| Orquestrador | `src/components/sobre/sections/AboutBeliefs.tsx`                            | ✅ Provider + camadas                        |
-| Context      | `src/components/sobre/beliefs/BeliefsScrollContext.tsx`                     | ✅ Ativo                                     |
-| Hook         | `src/hooks/useBeliefsScroll.ts`                                             | ✅ Ref-based getter (anti-rerender)          |
-| Tokens       | `src/config/beliefTokens.ts`                                                | ✅ SSOT consolidada                          |
-| Background   | `src/components/sobre/beliefs/BeliefBackground.tsx`                         | ✅ GSAP ScrollTrigger (não Motion DOM)       |
-| Overlay      | `src/components/sobre/beliefs/BeliefOverlay.tsx`                            | ⚠️ `zIndex: 10` hardcoded                    |
-| Header       | `src/components/sobre/beliefs/BeliefFixedHeader.tsx`                        | ⚠️ Tipografia diverge da prosa v4            |
-| Scroll Text  | `src/components/sobre/beliefs/BeliefScrollText.tsx`                         | ⚠️ Peso `bold` vs mockup `medium`            |
-| Manifesto    | `src/components/sobre/beliefs/BeliefManifesto.tsx`                          | ✅ GSAP + SplitTextMotion                    |
-| Split        | `src/components/sobre/beliefs/SplitTextMotion.tsx`                          | ✅ Util reutilizável                         |
-| Ghost Scene  | `src/components/sobre/3d/{GhostScene,GhostModel,Fallback,ErrorBoundary}.tsx` | ✅ Stack completa                            |
+| Camada       | Arquivo                                                                      | Status                                 |
+| ------------ | ---------------------------------------------------------------------------- | -------------------------------------- |
+| Rota         | `src/app/sobre/{page,loading,error,not-found}.tsx`                           | ✅ Completa                            |
+| Orquestrador | `src/components/sobre/sections/AboutBeliefs.tsx`                             | ✅ Provider + camadas                  |
+| Context      | `src/components/sobre/beliefs/BeliefsScrollContext.tsx`                      | ✅ Ativo                               |
+| Hook         | `src/hooks/useBeliefsScroll.ts`                                              | ✅ Ref-based getter (anti-rerender)    |
+| Tokens       | `src/config/beliefTokens.ts`                                                 | ✅ SSOT consolidada                    |
+| Background   | `src/components/sobre/beliefs/BeliefBackground.tsx`                          | ✅ GSAP ScrollTrigger (não Motion DOM) |
+| Overlay      | `src/components/sobre/beliefs/BeliefOverlay.tsx`                             | ⚠️ `zIndex: 10` hardcoded              |
+| Header       | `src/components/sobre/beliefs/BeliefFixedHeader.tsx`                         | ⚠️ Tipografia diverge da prosa v4      |
+| Scroll Text  | `src/components/sobre/beliefs/BeliefScrollText.tsx`                          | ⚠️ Peso `bold` vs mockup `medium`      |
+| Manifesto    | `src/components/sobre/beliefs/BeliefManifesto.tsx`                           | ✅ GSAP + SplitTextMotion              |
+| Split        | `src/components/sobre/beliefs/SplitTextMotion.tsx`                           | ✅ Util reutilizável                   |
+| Ghost Scene  | `src/components/sobre/3d/{GhostScene,GhostModel,Fallback,ErrorBoundary}.tsx` | ✅ Stack completa                      |
 
 ## 2. Conflitos Identificados e Resolução Arbitrada
 
@@ -144,13 +144,13 @@ Mudanças mínimas e localizadas no código:
 
 ## 4. Delegação por Subagente
 
-| Subagente / Skill         | Frente     | Responsabilidade direta                                                                                                  |
-| ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **@ghost_architect**      | A          | Reescrever `06-O-QUE-ME-MOVE-v4.md` para refletir GSAP, ref-based context, durações reais, tipografia mockup-aligned     |
-| **@spectral_artist**      | B1, B2, B3 | Ajustar `font-medium` em `BeliefScrollText`, calibrar `textShadow`, validar pixel-parity contra os 4 PNGs                |
-| **@motion_choreographer** | C2         | Verificar `useGLTF.preload`, conferir `frameloop="demand"`, validar cleanup `gsap.context().revert()` em todos os hooks  |
-| **@audit_sentinel**       | B4, C4     | Substituir `zIndex` hardcoded por token; rodar `pnpm test:e2e about-beliefs`, `pnpm run build-check`; gerar evidência    |
-| **(orchestrator)**        | C1, C3     | Confirmar URL Supabase do GLB; localizar/documentar camada SVG noise; sincronizar `active_state.md` ao fim               |
+| Subagente / Skill         | Frente     | Responsabilidade direta                                                                                                 |
+| ------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **@ghost_architect**      | A          | Reescrever `06-O-QUE-ME-MOVE-v4.md` para refletir GSAP, ref-based context, durações reais, tipografia mockup-aligned    |
+| **@spectral_artist**      | B1, B2, B3 | Ajustar `font-medium` em `BeliefScrollText`, calibrar `textShadow`, validar pixel-parity contra os 4 PNGs               |
+| **@motion_choreographer** | C2         | Verificar `useGLTF.preload`, conferir `frameloop="demand"`, validar cleanup `gsap.context().revert()` em todos os hooks |
+| **@audit_sentinel**       | B4, C4     | Substituir `zIndex` hardcoded por token; rodar `pnpm test:e2e about-beliefs`, `pnpm run build-check`; gerar evidência   |
+| **(orchestrator)**        | C1, C3     | Confirmar URL Supabase do GLB; localizar/documentar camada SVG noise; sincronizar `active_state.md` ao fim              |
 
 ### Checklist obrigatório de acessibilidade
 
