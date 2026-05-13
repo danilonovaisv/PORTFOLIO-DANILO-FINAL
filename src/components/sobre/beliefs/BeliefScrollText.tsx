@@ -114,7 +114,7 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
           data-testid="belief-phrase"
           data-animation-contract="viewport-x-opacity"
           aria-label={text}
-          className="font-bold italic leading-[0.9] tracking-[-0.045em] opacity-0"
+          className="font-medium italic leading-[0.9] tracking-[-0.045em] opacity-0"
           style={{
             zIndex: beliefZIndex.scrollText,
             color: beliefColors.blueAccent,
@@ -122,7 +122,7 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
             fontSize: isMobile
               ? 'clamp(2.0rem, 8vw, 3.0rem)'
               : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-            textShadow: '0 2px 24px rgba(0, 0, 0, 0.28)',
+            textShadow: '0 1px 12px rgba(0, 0, 0, 0.18)',
           }}
         >
           {text}
