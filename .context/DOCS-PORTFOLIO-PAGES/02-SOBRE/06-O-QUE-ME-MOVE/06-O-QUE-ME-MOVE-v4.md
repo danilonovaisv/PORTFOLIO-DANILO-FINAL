@@ -51,6 +51,33 @@ No mobile, o Ghost não deve reagir ao cursor e deve reduzir DPR/escala para pre
 **Easing:** `[0.17, 0.55, 0.55, 1]`
 **Regra crítica:** não usar `transition: background-color` nem fade entre divs.
 
+Fluxo obrigatório, alinhado ao tutorial oficial da Motion (`js-scroll-triggered`):
+
+1. Cada bloco de frase precisa ter `.belief-scroll-section` e `data-index`.
+2. O observer é criado com `inView('.belief-scroll-section', callback, { amount })`.
+3. No `callback`, calcular `stopIndex = dataIndex + 1`.
+4. Rodar `animate(backgroundElement, { backgroundColor: stopColor }, { duration: 0.9, easing: [0.17, 0.55, 0.55, 1] })`.
+5. O callback deve retornar função de cleanup para saída do viewport quando houver animação reversa desejada.
+6. Em `prefers-reduced-motion`, aplicar `backgroundColor` direto sem transição longa.
+
+Contrato de implementação (referência):
+
+```ts
+inView('.belief-scroll-section', (element) => {
+  const dataIndex = Number.parseInt(element.getAttribute('data-index') ?? '0', 10);
+  const stopColor = BELIEF_BACKGROUND_STOPS[Math.min(dataIndex + 1, BELIEF_BACKGROUND_STOPS.length - 1)];
+
+  animate(backgroundLayer, { backgroundColor: stopColor }, {
+    duration: 0.9,
+    easing: [0.17, 0.55, 0.55, 1],
+  });
+
+  return () => {
+    // opcional: saída/reversão quando o elemento deixar o viewport
+  };
+}, { amount: 0.55 });
+```
+
 Paleta:
 
 ```ts
@@ -91,13 +118,59 @@ A animação estilo Split Text deve operar por palavras ou linhas, não por letr
 **Componente:** `BeliefScrollText`
 **Stack:** Motion `animate()` + `inView()`
 **Gatilho:** cada frase entra no viewport
-**Entrada:** `opacity 0→1`, `y 18→0`, `filter blur(6px)→blur(0px)`
-**Saída:** `opacity 1→0`, `y 0→-18`, `filter blur(0px)→blur(6px)`
+**Entrada desktop:** `opacity 0→1`, `y 18→0`, `filter blur(6px)→blur(0px)`
+**Saída desktop:** `opacity 1→0`, `y 0→-18`, `filter blur(0px)→blur(6px)`
+**Entrada mobile:** `opacity 0→1`, `x 24→0`, `filter blur(6px)→blur(0px)`
+**Saída mobile:** `opacity 1→0`, `x 0→-24`, `filter blur(0px)→blur(6px)`
 **Duração entrada:** `0.9s`
 **Duração saída:** `0.5s`
 **Easing:** `[0.17, 0.55, 0.55, 1]`
 
 Observação de performance: `filter: blur()` pode custar mais que `transform/opacity`. Usar apenas nas frases principais, com fallback sem blur em mobile fraco ou `prefers-reduced-motion`.
+
+Fluxo obrigatório para textos, seguindo o mesmo padrão da Motion (`inView` com cleanup de saída):
+
+```ts
+inView('.belief-scroll-section [data-phrase]', (element) => {
+  animate(element, {
+    opacity: 1,
+    y: [18, 0], // desktop; em mobile trocar para x: [24, 0]
+    filter: ['blur(6px)', 'blur(0px)'],
+  }, {
+    duration: 0.9,
+    easing: [0.17, 0.55, 0.55, 1],
+  });
+
+  return () => animate(element, {
+    opacity: 0,
+    y: -18, // desktop; em mobile trocar para x: -24
+    filter: 'blur(6px)',
+  }, {
+    duration: 0.5,
+    easing: [0.17, 0.55, 0.55, 1],
+  });
+});
+```
+
+Fallback `prefers-reduced-motion`:
+
+- Remover blur.
+- Reduzir deslocamento para `x/y: 8px → 0`.
+- Usar fade curto (`opacity 0→1`, `duration: 0.2–0.3s`).
+- Evitar stagger agressivo.
+
+## 4.1 Nomenclatura Motion (regra de consistência)
+
+Para este documento, usar os termos abaixo sem mistura:
+
+- `scroll-triggered`: animação iniciada/parada por visibilidade, com `inView()` + `animate()`.
+- `scroll-linked`: valor contínuo ligado ao progresso de scroll, com `useScroll()` ou `scroll()`.
+- `whileInView`: permitido em casos declarativos de componente `motion`, mas não é a abordagem principal desta seção.
+
+Fonte de decisão para esse padrão:
+
+- Motion tutorial: `https://motion.dev/tutorials/js-scroll-triggered`
+- Motion docs MCP: `motion://docs/js/inview`, `motion://docs/js/scroll`, `motion://docs/react/scroll-animations`
 
 ## 5. Manifesto final com Split Text
 
