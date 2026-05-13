@@ -9,7 +9,6 @@ import { useGhostInput } from './hooks/useGhostInput';
 import { useGhostAnimate } from './hooks/useGhostAnimate';
 import { useGhostParams } from './hooks/useGhostParams';
 import { Preloader } from './components/Preloader';
-import './GhostScene.css';
 
 /**
  * GhostScene Component

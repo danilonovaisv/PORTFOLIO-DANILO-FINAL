@@ -14,7 +14,7 @@ export const Preloader: React.FC<PreloaderProps> = ({
   return (
     <div
       ref={preloaderRef}
-      className="preloader-overlay absolute inset-0 z-50 flex items-center justify-center bg-background transition-opacity"
+      className="absolute inset-0 z-50 flex items-center justify-center bg-background transition-opacity"
       style={{
         transitionDuration: 'var(--duration-normal)',
         transitionTimingFunction: 'var(--ease-ghost)',

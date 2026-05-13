@@ -125,7 +125,7 @@ export default function FeaturedProjectCard({
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
   const CardContent = () => (
-    <div className="flex h-full min-h-full w-full flex-col">
+    <div className="flex h-full min-h-full w-full flex-1 flex-col">
       <div
         ref={frameRef}
         className={`relative min-h-0 w-full flex-1 ${frameClassName ?? ''}`}

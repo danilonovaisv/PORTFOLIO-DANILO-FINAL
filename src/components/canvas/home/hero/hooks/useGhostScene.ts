@@ -70,7 +70,12 @@ export function useGhostScene(
     renderer.setClearColor(0x000000, 0);
 
     // Canvas Styling
-    renderer.domElement.classList.add('ghost-hero-canvas');
+    renderer.domElement.classList.add(
+      'opacity-0',
+      'transition-opacity',
+      'duration-1000',
+      'ease-in-out'
+    );
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '0';
     renderer.domElement.style.left = '0';

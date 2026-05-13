@@ -77,8 +77,8 @@ export default function PortfolioHeroNew() {
         className="absolute inset-0 z-10 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute inset-0 portfolio-hero-glow-primary opacity-45" />
-        <div className="absolute inset-0 portfolio-hero-glow-accent opacity-25" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_55%,oklch(from_var(--color-primary)_l_c_h_/_0.12),transparent_50%)] blur-[40px] opacity-45" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,oklch(from_var(--color-accent)_l_c_h_/_0.08),transparent_45%)] blur-[40px] opacity-25" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-background via-background/80 to-transparent" />
       </div>
 
