@@ -11,12 +11,14 @@ Este documento resume os principais ajustes e especificações da sessão "About
 ### 1. **BeliefFixedHeader - Posicionamento Responsivo**
 
 #### Desktop:
+
 - Sticky com aparência "centro + direita"
 - Visualmente centralizado, mas ancorado à direita do grid
 - `justify-self-end` + `text-right`
 - `position: sticky` + `top-24`
 
 #### Mobile:
+
 - Sticky no **topo-direita** da sessão
 - `text-right` mantido
 - Não disputa espaço com o bloco principal
@@ -26,6 +28,7 @@ Este documento resume os principais ajustes e especificações da sessão "About
 ### 2. **Frases Rotativas - Animações Diferentes por Dispositivo**
 
 #### Desktop (mantém comportamento atual):
+
 ```typescript
 // Entrada: de baixo para cima
 y: 20 → 0
@@ -41,6 +44,7 @@ blur: 0 → 10px
 ```
 
 #### Mobile (NOVO comportamento):
+
 ```typescript
 // Posição: SEMPRE NO RODAPÉ DA SESSÃO, CENTRALIZADO
 
@@ -65,11 +69,13 @@ blur: 0 → 10px
 ### 3. **Ghost 3D - Alinhamento Vertical**
 
 #### Regra Obrigatória (Desktop e Mobile):
+
 - O Ghost deve estar **sempre alinhado verticalmente ao centro do bloco de texto**
 - Não ao centro da viewport, mas ao centro do texto à sua esquerda/direita
 - Se o texto quebrar linhas, o Ghost acompanha o centro do bloco textual
 
 #### Mobile - Composição Específica:
+
 ```
 ┌─────────────────────────────┐
 │  Header (sticky top-right)  │
@@ -92,11 +98,13 @@ blur: 0 → 10px
 ### 4. **Asset 3D - URL do Supabase**
 
 **URL Oficial do GLB:**
+
 ```
 https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
 ```
 
 **Implementação atual:**
+
 - ✅ Já está implementado em `src/components/sobre/3d/GhostModel.tsx`
 - ✅ Preload configurado
 - ✅ Tipagem correta
@@ -107,16 +115,17 @@ https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ab
 
 ```typescript
 const COLORS = [
-  '#0048ff',  // bluePrimary
-  '#8705f2',  // purpleDetails
-  '#f501d3',  // pinkDetails
-  '#0048ff',  // bluePrimary
-  '#8705f2',  // purpleDetails
-  '#f501d3',  // pinkDetails
+  '#0048ff', // bluePrimary
+  '#8705f2', // purpleDetails
+  '#f501d3', // pinkDetails
+  '#0048ff', // bluePrimary
+  '#8705f2', // purpleDetails
+  '#f501d3', // pinkDetails
 ];
 ```
 
 **Uso:**
+
 - Backgrounds das seções rotativas
 - Transições suaves sincronizadas com troca de frases
 - Fade suave entre cores
@@ -126,6 +135,7 @@ const COLORS = [
 ## 📱 Responsividade - Breakpoints
 
 ### Mobile (<768px)
+
 - Header: sticky top-right
 - Bloco principal: row (ghost esquerda + texto direita)
 - Ghost: 200–240px
@@ -133,17 +143,20 @@ const COLORS = [
 - Interações: scroll-based
 
 ### Tablet (768px - 1024px)
+
 - Transição gradual
 - Ghost: 220–260px
 - Tipografia intermediária
 
 ### Desktop (>1024px)
+
 - Header: sticky "centro + direita"
 - Ghost: 320–380px
 - Texto: animação vertical (y)
 - Interações: hover + scroll
 
 ### Extremos
+
 - **>1440px:** mais respiro vertical
 - **<360px:** reduzir margens e fontes
 
@@ -170,17 +183,20 @@ src/components/sobre/
 ## ✅ Checklist de Ajustes Necessários
 
 ### Prioridade Alta:
+
 - [ ] Ajustar animação mobile das frases (horizontal em vez de vertical)
 - [ ] Posicionar texto rotativo no rodapé (mobile)
 - [ ] Garantir alinhamento vertical Ghost ↔ Texto
 - [ ] Testar composição "ghost esquerda + texto direita" no mobile
 
 ### Prioridade Média:
+
 - [ ] Ajustar BeliefFixedHeader para top-right no mobile
 - [ ] Sincronizar transições de background com frases
 - [ ] Otimizar tamanho do Ghost por breakpoint
 
 ### Prioridade Baixa:
+
 - [ ] Adicionar fallback para WebGL não suportado
 - [ ] Melhorar acessibilidade (aria-labels)
 - [ ] Adicionar loading state para GLB
@@ -190,21 +206,25 @@ src/components/sobre/
 ## 🎬 Comportamento do Ghost
 
 ### Animação Base (sempre ativa):
+
 - Flutuação leve e constante
 - Movimentos sutis para os lados e cima/baixo
 - Nunca para completamente
 
 ### Resposta ao Scroll:
+
 - Ganha velocidade conforme scroll
 - Inclinação suave (tilt)
 - Após 80% do scroll: escala +10% e mais wobble
 
 ### Resposta ao Mouse (desktop):
+
 - Follow cursor com LERP
 - Rotação suave seguindo movimento
 - Wobble/tilt no hover
 
 ### Mobile:
+
 - Resposta orientada a scroll/touch
 - Sem hover effects
 - Mantém flutuação base
@@ -214,11 +234,13 @@ src/components/sobre/
 ## 📐 Layout - Momentos da Sessão
 
 ### 1. Título Fixo (BeliefFixedHeader)
+
 - Sticky, sempre visível
 - Desktop: centro + direita
 - Mobile: top-right
 
 ### 2. Frases Rotativas + Ghost
+
 - 6 frases em sequência
 - Background muda de cor a cada frase
 - Ghost responde ao scroll
@@ -226,6 +248,7 @@ src/components/sobre/
 - Mobile: ghost esquerda, texto direita (rodapé)
 
 ### 3. Reveal Final
+
 - Manifesto "ISSO É / GHOST / DESIGN."
 - Ghost em destaque (escala maior)
 - Morphing text com blur + opacity

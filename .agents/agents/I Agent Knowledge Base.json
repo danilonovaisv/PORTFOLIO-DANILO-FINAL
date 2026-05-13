@@ -14,7 +14,15 @@
       "category": "Animation Library",
       "description": "A high-performance, framework-agnostic JavaScript library for professional-grade web animations. Enables complex sequences via Timelines, staggers, and physics-based effects across CSS, SVG, Canvas, and Three.js. Includes a specialized useGSAP hook for React.",
       "url": "https://gsap.com/",
-      "keywords": ["javascript", "timeline", "webgl", "canvas", "svg", "performance", "framework-agnostic"],
+      "keywords": [
+        "javascript",
+        "timeline",
+        "webgl",
+        "canvas",
+        "svg",
+        "performance",
+        "framework-agnostic"
+      ],
       "ai_agent_context": "Use for complex, timeline-based animations across DOM, SVG, and Canvas. Ideal when React-specific libraries are insufficient or when framework independence is required.",
       "performance_considerations": "GPU-accelerated by default. Avoid animating layout properties (width, top, left) to prevent thrashing.",
       "accessibility_rules": "Respect prefers-reduced-motion. Provide pause/stop controls for sequences >5s."
@@ -36,7 +44,14 @@
       "category": "Animation / UI Library",
       "description": "A modern, MIT-licensed animation library for React and Vue known for declarative syntax and gesture-based interactions. Features built-in layout animations, hardware-accelerated spring physics, and a modular architecture for small bundle sizes.",
       "url": "https://motion.dev/",
-      "keywords": ["react", "vue", "spring-physics", "gestures", "layout", "declarative"],
+      "keywords": [
+        "react",
+        "vue",
+        "spring-physics",
+        "gestures",
+        "layout",
+        "declarative"
+      ],
       "ai_agent_context": "Preferred choice for React/Vue component-level animations, micro-interactions, and layout transitions. Excellent for gesture-driven UI.",
       "performance_considerations": "Use `layoutId` for shared element transitions. Animate only `transform` and `opacity`.",
       "accessibility_rules": "Use `MotionConfig` to globally respect `prefers-reduced-motion`."
@@ -47,7 +62,14 @@
       "category": "AI Tools / UI Generation",
       "description": "Vercel's generative AI tool that creates high-fidelity React/Tailwind CSS components (Shadcn/UI) from text prompts or images. Acts as an AI pair programmer for rapid prototyping.",
       "url": "https://v0.dev/",
-      "keywords": ["ai", "react", "tailwind", "shadcn", "prototyping", "screenshot-to-code"],
+      "keywords": [
+        "ai",
+        "react",
+        "tailwind",
+        "shadcn",
+        "prototyping",
+        "screenshot-to-code"
+      ],
       "ai_agent_context": "Use for rapid UI scaffolding, component iteration, or converting Figma screenshots into production-ready React code.",
       "performance_considerations": "Generated code may include redundant Tailwind classes. Run through linter/tree-shaker before commit.",
       "accessibility_rules": "Verify ARIA labels and semantic HTML in generated output. AI defaults may lack explicit focus management."
@@ -58,7 +80,14 @@
       "category": "Debugging / Performance",
       "description": "A productivity tool within Edge DevTools to visualize web pages in a 3D scene. Helps debug DOM complexity, z-index stacking contexts, and compositing layers processed by the GPU.",
       "url": "https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/3d-view/",
-      "keywords": ["devtools", "z-index", "compositing", "debugging", "3d-view", "performance"],
+      "keywords": [
+        "devtools",
+        "z-index",
+        "compositing",
+        "debugging",
+        "3d-view",
+        "performance"
+      ],
       "ai_agent_context": "Use to diagnose z-index conflicts, modal stacking issues, or identify unnecessary compositing layers causing repaint bottlenecks.",
       "performance_considerations": "Reduces `will-change` overuse by visualizing actual GPU-composited layers.",
       "accessibility_rules": "N/A (Developer tool only)."
@@ -69,7 +98,14 @@
       "category": "Debugging / Animation",
       "description": "Built-in browser tools for inspecting, modifying, and slowing down CSS animations and transitions in real-time. Provides a timeline scrubber and Bezier Curve Editor.",
       "url": "https://developer.chrome.com/docs/devtools/css/animations/",
-      "keywords": ["devtools", "css", "keyframes", "bezier", "debugging", "timing"],
+      "keywords": [
+        "devtools",
+        "css",
+        "keyframes",
+        "bezier",
+        "debugging",
+        "timing"
+      ],
       "ai_agent_context": "Use to fine-tune `cubic-bezier` curves, debug `@keyframes` timing, and slow down complex CSS transitions for visual QA.",
       "performance_considerations": "Identifies forced synchronous layouts caused by inline animation JS.",
       "accessibility_rules": "Helps verify animation duration aligns with WCAG 2.2 (pause/stop >5s)."
@@ -80,7 +116,14 @@
       "category": "Productivity / Debugging",
       "description": "An IDE extension for VS Code and Cursor that provides visual animation editing tools. Features include CSS spring generation using the linear() function and performance auditing for Motion/CSS animations.",
       "url": "https://motion.dev/studio",
-      "keywords": ["vscode", "cursor", "spring", "css", "ide-extension", "linear-function"],
+      "keywords": [
+        "vscode",
+        "cursor",
+        "spring",
+        "css",
+        "ide-extension",
+        "linear-function"
+      ],
       "ai_agent_context": "Use inside Cursor/VSCode to visually tweak spring physics, generate optimized `linear()` easing, and audit animation bundle impact.",
       "performance_considerations": "Optimizes `linear()` curves to reduce main-thread calculation overhead.",
       "accessibility_rules": "Includes built-in motion preference toggles for testing."
@@ -91,7 +134,14 @@
       "category": "AI Tools / Productivity",
       "description": "An AI agent that generates production-grade design systems from a single prompt. Creates reusable components, unit tests, and documentation, utilizing Ripple CI for automated validation.",
       "url": "https://bit.cloud/",
-      "keywords": ["ai", "design-systems", "ci-cd", "components", "automation", "bit"],
+      "keywords": [
+        "ai",
+        "design-systems",
+        "ci-cd",
+        "components",
+        "automation",
+        "bit"
+      ],
       "ai_agent_context": "Use to scaffold enterprise-grade component libraries with auto-generated tests, docs, and versioning.",
       "performance_considerations": "Components are tree-shakable and published as optimized npm packages.",
       "accessibility_rules": "Enforces a11y checks via Ripple CI pipeline before publish."
@@ -102,7 +152,13 @@
       "category": "Accessibility / Documentation",
       "description": "Guidance on web accessibility standards focusing on animation rules (Pause, Stop, Hide). Recommends respecting prefers-reduced-motion to prevent motion sickness and ensure compliance.",
       "url": "https://webaim.org/standards/wcag/checklist",
-      "keywords": ["wcag", "a11y", "prefers-reduced-motion", "compliance", "standards"],
+      "keywords": [
+        "wcag",
+        "a11y",
+        "prefers-reduced-motion",
+        "compliance",
+        "standards"
+      ],
       "ai_agent_context": "Use as a validation checklist for all AI-generated UI/animation code. Enforces legal and ethical accessibility compliance.",
       "performance_considerations": "N/A",
       "accessibility_rules": "Mandatory: `prefers-reduced-motion` media query, no flashing >3Hz, pause/stop for auto-play >5s."
@@ -113,7 +169,14 @@
       "category": "Animation / 3D",
       "description": "An open-source JavaScript library used to create and render interactive 3D graphics in the browser using WebGL. Abstracts low-level complexity for 3D objects, lighting, and particle systems.",
       "url": "https://threejs.org/",
-      "keywords": ["webgl", "3d", "javascript", "rendering", "particles", "shaders"],
+      "keywords": [
+        "webgl",
+        "3d",
+        "javascript",
+        "rendering",
+        "particles",
+        "shaders"
+      ],
       "ai_agent_context": "Use for immersive 3D experiences, product configurators, or WebGL shaders. Pair with GSAP for timeline control.",
       "performance_considerations": "Optimize geometry, use instanced meshes, and limit draw calls. Avoid heavy post-processing on mobile.",
       "accessibility_rules": "Provide 2D fallbacks. Ensure keyboard/navigation parity for 3D scenes."
@@ -124,7 +187,12 @@
       "category": "Productivity / Analysis",
       "description": "A technology profiler extension that identifies the software stack used on a website. Detects programming languages, CMS, frameworks, and JavaScript libraries.",
       "url": "https://www.wappalyzer.com/",
-      "keywords": ["browser-extension", "tech-stack", "competitive-analysis", "profiler"],
+      "keywords": [
+        "browser-extension",
+        "tech-stack",
+        "competitive-analysis",
+        "profiler"
+      ],
       "ai_agent_context": "Use for competitive tech-stack analysis, client discovery, or identifying animation libraries used by industry leaders.",
       "performance_considerations": "N/A",
       "accessibility_rules": "N/A"

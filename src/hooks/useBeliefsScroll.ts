@@ -14,14 +14,18 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setShouldReduceMotion(mediaQuery.matches);
 
-    const handler = (event: MediaQueryListEvent) => setShouldReduceMotion(event.matches);
+    const handler = (event: MediaQueryListEvent) =>
+      setShouldReduceMotion(event.matches);
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  const scrollYProgress = useMemo(() => ({
-    get: () => progressRef.current
-  }), []);
+  const scrollYProgress = useMemo(
+    () => ({
+      get: () => progressRef.current,
+    }),
+    []
+  );
 
   useEffect(() => {
     const updateProgress = () => {
@@ -42,9 +46,11 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
       );
 
       progressRef.current = nextProgress;
-      
-      setActiveIndex(prev => prev !== narrativeIndex ? narrativeIndex : prev);
-      setIsClimax(prev => {
+
+      setActiveIndex((prev) =>
+        prev !== narrativeIndex ? narrativeIndex : prev
+      );
+      setIsClimax((prev) => {
         const nextClimax = nextProgress >= 0.82;
         return prev !== nextClimax ? nextClimax : prev;
       });

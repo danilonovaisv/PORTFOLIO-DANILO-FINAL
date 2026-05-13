@@ -40,9 +40,7 @@ export default function ClientLayout({
 
   if (isAdmin) {
     return (
-      <div
-        className="admin-surface relative min-h-screen bg-slate-950 text-slate-50"
-      >
+      <div className="admin-surface relative min-h-screen bg-slate-950 text-slate-50">
         {children}
       </div>
     );
@@ -51,9 +49,7 @@ export default function ClientLayout({
   return (
     <>
       <Header />
-      <div className="relative grow">
-        {children}
-      </div>
+      <div className="relative grow">{children}</div>
       {process.env.NODE_ENV === 'development' && <AntigravityDebugger />}
     </>
   );

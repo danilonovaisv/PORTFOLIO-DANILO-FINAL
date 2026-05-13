@@ -17,8 +17,11 @@ export function usePointerParallax() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  return useMemo(() => ({
-    x: { get: () => xRef.current },
-    y: { get: () => yRef.current }
-  }), []);
+  return useMemo(
+    () => ({
+      x: { get: () => xRef.current },
+      y: { get: () => yRef.current },
+    }),
+    []
+  );
 }

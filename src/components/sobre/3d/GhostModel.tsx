@@ -93,30 +93,41 @@ export function GhostModel({
 
     const progress = scrollYProgress.get();
     const isClimax = progress > 0.85;
-    
+
     // Smooth scale boost as progress approaches climax
-    const scaleBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 1.15) : 1;
-    
+    const scaleBoost =
+      progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 1.15) : 1;
+
     // Animation constants for wow factor
     const floatFreq = isClimax ? 1.8 : 1.2;
     const floatAmp = isClimax ? 0.12 : 0.18;
     const floating = Math.sin(state.clock.elapsedTime * floatFreq) * floatAmp;
-    
+
     const rotSpeed = 0.6;
-    const rotBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 2) : 1;
-    const rotationY = shouldReduceMotion 
-      ? 0 
-      : Math.sin(state.clock.elapsedTime * rotSpeed * rotBoost) * (0.05 + progress * 0.05);
+    const rotBoost =
+      progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 2) : 1;
+    const rotationY = shouldReduceMotion
+      ? 0
+      : Math.sin(state.clock.elapsedTime * rotSpeed * rotBoost) *
+        (0.05 + progress * 0.05);
 
     // Dynamic positioning
     const targetX = isMobile
-      ? isClimax ? 0 : -0.85
-      : shouldReduceMotion ? 0.05 : 0.05 + pointerX.get() * 0.42;
-      
+      ? isClimax
+        ? 0
+        : -0.85
+      : shouldReduceMotion
+        ? 0.05
+        : 0.05 + pointerX.get() * 0.42;
+
     const targetY = isMobile
-      ? isClimax ? 0.05 : 0.48
-      : shouldReduceMotion ? 0.15 : 0.15 + pointerY.get() * 0.35;
-      
+      ? isClimax
+        ? 0.05
+        : 0.48
+      : shouldReduceMotion
+        ? 0.15
+        : 0.15 + pointerY.get() * 0.35;
+
     const baseScale = isMobile ? 0.75 : 1.15;
     const targetScale = baseScale * scaleBoost;
     const lerpAlpha = 0.12;

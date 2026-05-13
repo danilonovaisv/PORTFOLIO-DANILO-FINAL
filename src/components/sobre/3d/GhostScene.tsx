@@ -13,10 +13,10 @@ function SceneInvalidator() {
 
   useEffect(() => {
     const handleUpdate = () => invalidate();
-    
+
     window.addEventListener('scroll', handleUpdate, { passive: true });
     window.addEventListener('mousemove', handleUpdate, { passive: true });
-    
+
     // Initial render
     invalidate();
 
@@ -38,15 +38,16 @@ export function GhostScene() {
 
   useEffect(() => {
     if (!containerRef.current) return;
-    
-    gsap.fromTo(containerRef.current, 
+
+    gsap.fromTo(
+      containerRef.current,
       { opacity: 0, scale: 0.95 },
-      { 
-        opacity: 1, 
-        scale: 1, 
+      {
+        opacity: 1,
+        scale: 1,
         duration: beliefMotion.ghostIntroDuration,
         ease: 'power2.out',
-        delay: 0.2
+        delay: 0.2,
       }
     );
   }, []);

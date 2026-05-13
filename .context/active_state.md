@@ -17,13 +17,13 @@
 
 - [x] **Zero Framer Motion**: Removed `framer-motion` dependencies from `AboutBeliefs`, `GhostScene`, `GhostModel`, `useBeliefsScroll`, and `usePointerParallax`.
 - [x] **GSAP Orchestration**: Consolidated all scroll-driven animations (`BeliefBackground`, `BeliefScrollText`, `BeliefManifesto`, `BeliefOverlay`) into modular GSAP ScrollTrigger implementations.
-- [x] **Performance Optimization**: 
-    - Migrated `scrollYProgress` to a simple ref-based getter interface to avoid unnecessary React re-renders.
-    - Implemented `SceneInvalidator` for efficient `frameloop="demand"` rendering in R3F.
-    - Optimized `useBeliefsScroll` to update state only when active index or climax status actually changes.
-- [x] **Ghost Scene Stabilized**: 
-    - Re-implemented entrance animations using `gsap.fromTo` for consistent "WOW" effect.
-    - Pointer parallax now uses raw normalized coordinates, with smoothing handled internally by the 3D model's lerp logic.
+- [x] **Performance Optimization**:
+  - Migrated `scrollYProgress` to a simple ref-based getter interface to avoid unnecessary React re-renders.
+  - Implemented `SceneInvalidator` for efficient `frameloop="demand"` rendering in R3F.
+  - Optimized `useBeliefsScroll` to update state only when active index or climax status actually changes.
+- [x] **Ghost Scene Stabilized**:
+  - Re-implemented entrance animations using `gsap.fromTo` for consistent "WOW" effect.
+  - Pointer parallax now uses raw normalized coordinates, with smoothing handled internally by the 3D model's lerp logic.
 - [x] **Script Fixes**: Corrected relative import paths in `scripts/test-urls.ts` for build stability.
 - [x] **TSC Verification**: Passed `pnpm run typecheck` after fixing script imports and updating belief types.
 

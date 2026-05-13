@@ -43,7 +43,10 @@ export default function PrivacyPage() {
   const selfUrl = toCanonicalUrl('/privacidade');
 
   return (
-    <main id="main-content" className="min-h-screen bg-background text-foreground">
+    <main
+      id="main-content"
+      className="min-h-screen bg-background text-foreground"
+    >
       <JsonLd
         pageType="legal"
         breadcrumbs={[
