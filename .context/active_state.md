@@ -1,8 +1,8 @@
-# Active State: BELIEFS SYSTEM CONSOLIDATION ✅
+# Active State: ABOUT BELIEFS GSAP FINALIZATION ✅
 
-**Phase**: O QUE ME MOVE — CONSOLIDATED SCROLL ARCHITECTURE
-**Current Focus**: Refactored Beliefs system for unified context management and build stability.
-**Last Update**: 2026-05-11 15:11
+**Phase**: O QUE ME MOVE — GSAP FULL MIGRATION
+**Current Focus**: Finalized GSAP ScrollTrigger migration, removed Framer Motion DOM remnants, and fixed relative script imports.
+**Last Update**: 2026-05-13 04:40
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -12,6 +12,20 @@
 - **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
 - **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
 - **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+
+## GSAP Final Migration (2026-05-13)
+
+- [x] **Zero Framer Motion**: Removed `framer-motion` dependencies from `AboutBeliefs`, `GhostScene`, `GhostModel`, `useBeliefsScroll`, and `usePointerParallax`.
+- [x] **GSAP Orchestration**: Consolidated all scroll-driven animations (`BeliefBackground`, `BeliefScrollText`, `BeliefManifesto`, `BeliefOverlay`) into modular GSAP ScrollTrigger implementations.
+- [x] **Performance Optimization**: 
+    - Migrated `scrollYProgress` to a simple ref-based getter interface to avoid unnecessary React re-renders.
+    - Implemented `SceneInvalidator` for efficient `frameloop="demand"` rendering in R3F.
+    - Optimized `useBeliefsScroll` to update state only when active index or climax status actually changes.
+- [x] **Ghost Scene Stabilized**: 
+    - Re-implemented entrance animations using `gsap.fromTo` for consistent "WOW" effect.
+    - Pointer parallax now uses raw normalized coordinates, with smoothing handled internally by the 3D model's lerp logic.
+- [x] **Script Fixes**: Corrected relative import paths in `scripts/test-urls.ts` for build stability.
+- [x] **TSC Verification**: Passed `pnpm run typecheck` after fixing script imports and updating belief types.
 
 ## Beliefs Section Hardening (2026-05-03)
 

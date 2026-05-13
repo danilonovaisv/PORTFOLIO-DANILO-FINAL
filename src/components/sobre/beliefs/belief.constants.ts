@@ -7,7 +7,7 @@ export {
   beliefLayout,
   beliefMotion,
   beliefZIndex,
-} from '@/config/beliefTokens';
+} from '../../../config/beliefTokens';
 
 export const GHOST_MATERIAL_CONFIG = {
   body: {

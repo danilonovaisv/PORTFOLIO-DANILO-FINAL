@@ -1,17 +1,27 @@
-'use client';
-
 import type { RefObject } from 'react';
-import { useEffect, useState } from 'react';
-import { useMotionValue, useReducedMotion } from 'framer-motion';
-import { BELIEF_PHRASES } from '@/config/beliefTokens';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useEffect, useState, useRef, useMemo } from 'react';
+import { BELIEF_PHRASES } from '../config/beliefTokens';
+import { useMediaQuery } from './useMediaQuery';
 
 export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
   const isMobile = useMediaQuery('(max-width: 767px)');
-  const scrollYProgress = useMotionValue(0);
+  const progressRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isClimax, setIsClimax] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setShouldReduceMotion(mediaQuery.matches);
+
+    const handler = (event: MediaQueryListEvent) => setShouldReduceMotion(event.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  const scrollYProgress = useMemo(() => ({
+    get: () => progressRef.current
+  }), []);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -31,9 +41,13 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
         Math.max(0, Math.round(nextProgress * (BELIEF_PHRASES.length - 1)))
       );
 
-      scrollYProgress.set(nextProgress);
-      setActiveIndex(narrativeIndex);
-      setIsClimax(nextProgress >= 0.82);
+      progressRef.current = nextProgress;
+      
+      setActiveIndex(prev => prev !== narrativeIndex ? narrativeIndex : prev);
+      setIsClimax(prev => {
+        const nextClimax = nextProgress >= 0.82;
+        return prev !== nextClimax ? nextClimax : prev;
+      });
     };
 
     updateProgress();
@@ -44,7 +58,7 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
       window.removeEventListener('scroll', updateProgress);
       window.removeEventListener('resize', updateProgress);
     };
-  }, [containerRef, scrollYProgress]);
+  }, [containerRef]);
 
   return {
     scrollYProgress,

@@ -1,11 +1,8 @@
-'use client';
-
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
-import type { MotionValue } from 'framer-motion';
 import { Group, MathUtils, Mesh, MeshStandardMaterial, Object3D } from 'three';
-import { getAssetUrl } from '@/lib/utils';
+import { getAssetUrl } from '../../../lib/utils';
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 
 const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
@@ -13,9 +10,9 @@ const MODEL_PATH = getAssetUrl('site-assets/3d/ghost-v1.glb');
 type GhostModelProps = {
   isMobile: boolean;
   shouldReduceMotion: boolean;
-  scrollYProgress: MotionValue<number>;
-  pointerX: MotionValue<number>;
-  pointerY: MotionValue<number>;
+  scrollYProgress: { get: () => number };
+  pointerX: { get: () => number };
+  pointerY: { get: () => number };
 };
 
 function disposeScene(root: Object3D) {
@@ -46,7 +43,7 @@ export function GhostModel({
   const ghostScene = useMemo(() => {
     const clone = scene.clone(true);
 
-    clone.traverse((node) => {
+    clone.traverse((node: Object3D) => {
       if (!(node instanceof Mesh)) return;
 
       node.castShadow = false;
@@ -95,34 +92,34 @@ export function GhostModel({
     if (!groupRef.current) return;
 
     const progress = scrollYProgress.get();
-    const climax = progress > 0.85;
-    const floatSpeed = 0.6 + progress * 0.6;
-    const floatAmplitude = shouldReduceMotion ? 0 : 0.018 + progress * 0.015;
-    const floatY = shouldReduceMotion
-      ? 0
-      : Math.sin(state.clock.elapsedTime * floatSpeed) * floatAmplitude;
-    const rotationY = shouldReduceMotion
-      ? 0
-      : Math.sin(state.clock.elapsedTime * (0.4 + progress * 0.4)) *
-        (0.028 + progress * 0.025);
+    const isClimax = progress > 0.85;
+    
+    // Smooth scale boost as progress approaches climax
+    const scaleBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 1.15) : 1;
+    
+    // Animation constants for wow factor
+    const floatFreq = isClimax ? 1.8 : 1.2;
+    const floatAmp = isClimax ? 0.12 : 0.18;
+    const floating = Math.sin(state.clock.elapsedTime * floatFreq) * floatAmp;
+    
+    const rotSpeed = 0.6;
+    const rotBoost = progress > 0.8 ? MathUtils.mapLinear(progress, 0.8, 1, 1, 2) : 1;
+    const rotationY = shouldReduceMotion 
+      ? 0 
+      : Math.sin(state.clock.elapsedTime * rotSpeed * rotBoost) * (0.05 + progress * 0.05);
 
+    // Dynamic positioning
     const targetX = isMobile
-      ? climax
-        ? 0
-        : -0.88
-      : shouldReduceMotion
-        ? 0.02
-        : 0.02 + pointerX.get() * 0.12;
+      ? isClimax ? 0 : -0.85
+      : shouldReduceMotion ? 0.05 : 0.05 + pointerX.get() * 0.42;
+      
     const targetY = isMobile
-      ? climax
-        ? 0.02
-        : 0.54
-      : shouldReduceMotion
-        ? 0.12
-        : 0.12 + pointerY.get() * 0.08;
-    const baseScale = isMobile ? 0.3 : 0.58;
-    const targetScale = baseScale * (climax ? 1.08 : 1);
-    const lerpAlpha = 0.15;
+      ? isClimax ? 0.05 : 0.48
+      : shouldReduceMotion ? 0.15 : 0.15 + pointerY.get() * 0.35;
+      
+    const baseScale = isMobile ? 0.75 : 1.15;
+    const targetScale = baseScale * scaleBoost;
+    const lerpAlpha = 0.12;
 
     groupRef.current.position.x = MathUtils.lerp(
       groupRef.current.position.x,
@@ -131,7 +128,7 @@ export function GhostModel({
     );
     groupRef.current.position.y = MathUtils.lerp(
       groupRef.current.position.y,
-      targetY + floatY,
+      targetY + floating,
       lerpAlpha
     );
     groupRef.current.rotation.y = MathUtils.lerp(
@@ -141,23 +138,11 @@ export function GhostModel({
     );
     groupRef.current.rotation.x = MathUtils.lerp(
       groupRef.current.rotation.x,
-      isMobile ? -0.06 : -0.03,
+      isMobile ? -0.05 : -0.02,
       0.08
     );
-    groupRef.current.scale.x = MathUtils.lerp(
-      groupRef.current.scale.x,
-      targetScale,
-      lerpAlpha
-    );
-    groupRef.current.scale.y = MathUtils.lerp(
-      groupRef.current.scale.y,
-      targetScale,
-      lerpAlpha
-    );
-    groupRef.current.scale.z = MathUtils.lerp(
-      groupRef.current.scale.z,
-      targetScale,
-      lerpAlpha
+    groupRef.current.scale.setScalar(
+      MathUtils.lerp(groupRef.current.scale.x, targetScale, lerpAlpha)
     );
   });
 

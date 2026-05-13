@@ -1,10 +1,10 @@
-import type { BeliefPhrase } from '@/types/beliefs';
+import type { BeliefPhrase } from '../types/beliefs';
 
 export const beliefColors = {
   deepVoid: '#040013',
   bluePrimary: '#0048ff',
-  purpleDetails: '#8705f2',
-  pinkDetails: '#f501d3',
+  blueDeep: '#001a5e',
+  blueBright: '#0033cc',
   blueAccent: '#4fe6ff',
   white: '#ffffff',
 } as const;
@@ -12,11 +12,11 @@ export const beliefColors = {
 export const BELIEF_BACKGROUND_STOPS = [
   beliefColors.deepVoid,
   beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
+  beliefColors.blueDeep,
+  beliefColors.blueBright,
   beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
+  beliefColors.blueDeep,
+  beliefColors.blueBright,
   beliefColors.deepVoid,
 ] as const;
 
