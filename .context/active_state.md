@@ -106,26 +106,24 @@
 
 ## Weekly Cleanup & Optimization (2026-05-13) ✅
 
-- [x] **Dependency Pruning**: Removed `@dataconnect/admin-generated`, `@dataconnect/generated`, `@radix-ui/react-label`, `pg`, and `@types/pg` from `package.json`.
-- [x] **Orphan Component Cleanup**: Deleted legacy components `AdminPageHeader.tsx`, `TemplateBadge.tsx`, `AssetInteractive.tsx`, and `BlockTextMd.tsx`.
+- [x] **TypeCheck Limpo**: `pnpm run typecheck` passou com **exit code 0** — zero erros TypeScript.
+- [x] **Dependency Pruning**: Removidas `@dataconnect/*`, `@radix-ui/react-label`, `pg` e `@types/pg` (já ausentes do `package.json`).
+- [x] **Orphan Component Cleanup**: Deletados `AdminPageHeader.tsx`, `TemplateBadge.tsx`, `AssetInteractive.tsx`, e `BlockTextMd.tsx`.
 - [x] **Legacy Logic Removal**:
-  - Deleted `src/store/beliefStore.ts`, `src/config/beliefs.ts`, and `src/lib/server-env.ts`.
-  - Removed orphan route `src/app/(sobre)/o-que-me-move`.
-  - Deleted generated folders `src/dataconnect-generated` and `functions/next_build/src/dataconnect-generated`.
-  - Cleaned `src/lib/database.types.ts`.
-- [x] **Code Refactoring & Dead Code**:
-  - Pruned `src/config/motion.ts` (removed unused easing curves `GHOST_EASE_HEAVY`, `GHOST_EASE_INOUT_SINE`, `GHOST_EASE_AMBIENT`).
-  - Removed `getRandomFeaturedProjectBackgroundVariant` from `animated-backgrounds.ts`.
-  - Removed `useSiteAssetsByPrefix` from `src/contexts/site-assets.tsx`.
-  - Cleaned non-deterministic shuffle functions in `src/lib/portfolio/shuffle-projects.ts`.
-  - Removed obsolete type guards in `src/lib/projects/template-schema.ts`.
+  - Deletados `src/store/beliefStore.ts`, `src/config/beliefs.ts`, e `src/lib/server-env.ts`.
+  - Removida rota órfã `src/app/(sobre)/o-que-me-move`.
+  - Deletadas pastas geradas `src/dataconnect-generated` e `functions/next_build/src/dataconnect-generated`.
+- [x] **Motion.ts Restaurado**:
+  - Adicionados exports ausentes: `viewportConfig`, `ghostFade`, `ghostRevealSimple`.
+  - `ghostTransition` convertido de objeto constante para função com suporte a `delay` e `duration`.
+- [x] **shuffle-projects.ts Criado**: Módulo `@/lib/portfolio/shuffle-projects` restaurado com `shuffleHomeProjects`, `shufflePortfolioProjects` e aliases de compatibilidade.
+- [x] **label.tsx Migrado**: Removida dependência `@radix-ui/react-label`; componente agora usa `<label>` nativo com mesma API.
 
 ## Next Steps
 
-1. 🌐 **Dependency Restoration**: Run `pnpm install` once network connectivity is restored to update the lockfile and reconstruct `node_modules`.
-2. 🏗️ **Build Validation**: Execute `pnpm run build` to verify system integrity after the massive structural pruning.
-3. 🎨 **Motion Consolidation**: Refactor `src/config/beliefTokens.ts` to import easing curves directly from `@/config/motion` to eliminate duplication.
-4. 🤖 **Baseline Synchronization**: Finalize the update of `.agent` rules and `tsconfig.json` paths if any discrepancies are found during build.
-5. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio)
-6. Monitorar performance com Lighthouse CI
+1. 🏗️ **Build Validation**: Execute `pnpm run build` para confirmar integridade total do bundle após as limpezas.
+2. 🎨 **Motion Consolidation (Ciclo 3)**: Refatorar `src/config/beliefTokens.ts` para importar easing curves diretamente de `@/config/motion`.
+3. 🔍 **Knip Audit**: Rodar `pnpm run knip` para identificar exports mortos remanescentes em `animated-backgrounds.ts` e `PortfolioModal.tsx`.
+4. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio).
+5. 📊 **Monitoramento**: Lighthouse CI após próximo deploy.
 

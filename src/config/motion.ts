@@ -1,6 +1,4 @@
-import type { Variants, Transition, SpringOptions } from 'framer-motion';
-
-import { COLORS } from '@/config/colors';
+import type { Variants, SpringOptions } from 'framer-motion';
 
 // =============================================================================
 // MOTION TOKENS - Ghost Era Design System
@@ -11,32 +9,12 @@ import { COLORS } from '@/config/colors';
 type EasingTuple = [number, number, number, number];
 
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
-
 export const GHOST_EASE_SOFT_UI: EasingTuple = [0.16, 1, 0.3, 1];
 
 export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
-  // BELIEFS V3 CONTRACT
+  // EASE
   // ─────────────────────────────────────────────────────────────────────────
-  colors: {
-    deepVoid: COLORS.background,
-    bluePrimary: COLORS.bluePrimary,
-    purpleDetails: COLORS.purpleDetails,
-    pinkDetails: COLORS.pinkDetails,
-    cyanAccent: COLORS.blueAccent,
-    white: COLORS.text,
-    bgCycle: [
-      COLORS.background,
-      COLORS.bluePrimary,
-      COLORS.purpleDetails,
-      COLORS.pinkDetails,
-      COLORS.bluePrimary,
-      COLORS.purpleDetails,
-      COLORS.pinkDetails,
-      COLORS.background,
-    ],
-  },
-
   ease: {
     ghost: GHOST_EASE,
     soft: GHOST_EASE_SOFT_UI,
@@ -116,15 +94,6 @@ export const MOTION_TOKENS = {
     long: 0.8,
   },
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // VIEWPORT REVEAL SETTINGS
-  // ─────────────────────────────────────────────────────────────────────────
-  reveal: {
-    threshold: 0.1,
-    margin: '-50px',
-    beliefsMargin: '-40% 0px -40% 0px',
-  },
-
   blur: {
     hidden: 'blur(10px)',
     visible: 'blur(0px)',
@@ -174,6 +143,9 @@ export const MOTION_TOKENS = {
     dramatic: 24,
   },
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // LAYOUT & Z-INDEX (Required by beliefTokens)
+  // ─────────────────────────────────────────────────────────────────────────
   layout: {
     sectionMinHeight: '620vh',
     phraseSectionHeight: '80vh',
@@ -192,6 +164,15 @@ export const MOTION_TOKENS = {
   },
 } as const;
 
+/**
+ * Shared viewport configuration for motion components
+ */
+export const viewportConfig = {
+  once: true,
+  amount: 0.15,
+} as const;
+
+
 // =============================================================================
 // REUSABLE VARIANTS - Ghost Era Design System
 // Rules: No Scale, No Bounce, No Rotate. Opacity + Blur + Y-Translate (max 18px)
@@ -204,6 +185,26 @@ export const ghostReveal: Variants = {
   hidden: { opacity: 0, filter: MOTION_TOKENS.blur.hidden },
   visible: {
     opacity: 1,
+    filter: MOTION_TOKENS.blur.visible,
+    transition: {
+      duration: MOTION_TOKENS.duration.GHOST_REVEAL,
+      ease: GHOST_EASE,
+    },
+  },
+};
+
+/**
+ * Ghost Rise - Entry with subtle vertical movement
+ */
+export const ghostRise: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: MOTION_TOKENS.offset.standard, 
+    filter: MOTION_TOKENS.blur.hidden 
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
     filter: MOTION_TOKENS.blur.visible,
     transition: {
       duration: MOTION_TOKENS.duration.GHOST_REVEAL,
@@ -229,4 +230,44 @@ export const staggerContainer = (
   },
 });
 
+/**
+ * Simple fade transition
+ */
+export const ghostFade: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: MOTION_TOKENS.duration.normal,
+      ease: GHOST_EASE,
+    },
+  },
+};
+
+/**
+ * Simplified reveal (no blur, subtle Y)
+ */
+export const ghostRevealSimple: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: MOTION_TOKENS.duration.normal,
+      ease: GHOST_EASE,
+    },
+  },
+};
+
+/**
+ * Standard transition generator
+ */
+export const ghostTransition = (
+  delay: number = 0,
+  duration: number = MOTION_TOKENS.duration.normal
+) => ({
+  delay,
+  duration,
+  ease: GHOST_EASE,
+});
 
