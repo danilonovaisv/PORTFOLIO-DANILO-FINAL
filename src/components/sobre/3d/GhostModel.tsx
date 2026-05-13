@@ -115,20 +115,20 @@ export function GhostModel({
     const targetX = isMobile
       ? isClimax
         ? 0
-        : -1.2 // Top left position
+        : -1.0 // Mobile: top-left (ajustado de -1.2)
       : shouldReduceMotion
-        ? 0.05
-        : 0.05 + pointerX.get() * 0.5;
+        ? 1.2
+        : 1.2 + pointerX.get() * 0.4;
 
     const targetY = isMobile
       ? isClimax
-        ? -0.05 // Slightly lower to match text 'GHOST'
-        : 1.2 // Top left position
+        ? -0.2 // Mobile Climax: ajustado de -0.05
+        : 1.0 // Mobile: top-left (ajustado de 1.2)
       : shouldReduceMotion
-        ? 0.15
-        : 0.15 + pointerY.get() * 0.45;
+        ? 0.0
+        : 0.0 + pointerY.get() * 0.3;
 
-    const baseScale = isMobile ? 0.8 : 1.25;
+    const baseScale = isMobile ? 1.0 : 1.6;
     const targetScale = baseScale * scaleBoost;
     const lerpAlpha = 0.08; // Softer lerp for more fluid motion
 
