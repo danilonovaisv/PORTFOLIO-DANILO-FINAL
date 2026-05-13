@@ -9,7 +9,7 @@ import { setupThreeEnvironment, animateGhost } from '@/lib/three';
 // Carrega o modelo GLB do Supabase
 const GhostModel = ({ progress, isMobile }: { progress: number, isMobile: boolean }) => {
   const { scene, nodes, materials } = useGLTF(
-    'https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
+    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
   );
   
   const modelRef = useRef<THREE.Group>(null);

@@ -34,7 +34,7 @@ Implementar os ajustes visuais e de comportamento na sessão "About Beliefs" con
 ### 4. Asset 3D
 
 - **Ação:** Garantir uso da URL do Supabase:
-  `https://dpejskjpghoozbpfxkpf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`
+  `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`
 
 ### 5. Header Fixo
 

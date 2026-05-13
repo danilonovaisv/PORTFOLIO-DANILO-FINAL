@@ -28,7 +28,7 @@ export function GhostModel({
   // O modelo e materiais são carregados via useGLTF. 
   // O GhostScene pai deve estar envolto em Suspense.
   // URL do GLB oficial no Supabase baseada na env var para maior resiliência
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dpejskjpghoozbpfxkpf.supabase.co';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://umkmwbkwvulxtdodzmzf.supabase.co';
   const GHOST_GLB_URL = `${supabaseUrl}/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`;
   const { nodes, materials } = useGLTF(GHOST_GLB_URL) as any;
 
@@ -121,5 +121,5 @@ export function GhostModel({
   );
 }
 
-const supabaseUrlPreload = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dpejskjpghoozbpfxkpf.supabase.co';
+const supabaseUrlPreload = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://umkmwbkwvulxtdodzmzf.supabase.co';
 useGLTF.preload(`${supabaseUrlPreload}/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb`);
