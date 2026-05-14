@@ -60,11 +60,3 @@ export const mixHex = (
   );
 };
 
-/**
- * Standard color palette for Ghost System in HSL format.
- */
-export const colorPalette = {
-  bluePrimary: [223, 100, 50] as [number, number, number], // #0048ff
-  blueDeep: [223, 100, 10] as [number, number, number], // Very dark blue
-  blueCyan: [195, 100, 50] as [number, number, number], // Cyan-ish blue
-} as const;

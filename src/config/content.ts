@@ -144,37 +144,6 @@ export const HOME_CONTENT = {
   },
 };
 
-export const TAG_CATALOG = [
-  {
-    category: {
-      label: 'Videos & Motions',
-      slug: 'videos-motions',
-      type: 'category',
-    },
-    tags: [
-      { label: 'Vídeo', slug: 'video', type: 'tag' },
-      { label: 'Vídeo Institucional', slug: 'brand-video', type: 'tag' },
-      { label: 'Vídeo para Redes Sociais', slug: 'social-video', type: 'tag' },
-      { label: 'Filme Publicitário', slug: 'advertising-video', type: 'tag' },
-      { label: 'Edição de Vídeo', slug: 'video-editing', type: 'tag' },
-      { label: 'Motion Design', slug: 'motion-design', type: 'tag' },
-      { label: 'Animação', slug: 'animation', type: 'tag' },
-      { label: 'Animação 2D', slug: '2d-animation', type: 'tag' },
-      { label: 'Tipografia Cinética', slug: 'kinetic-typography', type: 'tag' },
-      {
-        label: 'Transições Animadas',
-        slug: 'animated-transitions',
-        type: 'tag',
-      },
-      { label: 'Microinterações', slug: 'micro-interactions', type: 'tag' },
-      { label: 'Narrativa Visual', slug: 'visual-storytelling', type: 'tag' },
-      { label: 'Roteiro', slug: 'script', type: 'tag' },
-      { label: 'Conceito de Vídeo', slug: 'video-concept', type: 'tag' },
-      { label: 'Design de Som', slug: 'sound-design', type: 'tag' },
-    ],
-  },
-];
-
 // CORREÇÃO APLICADA: Espaço adicionado entre 'export' e 'const'
 export const ABOUT_CONTENT = {
   hero: {

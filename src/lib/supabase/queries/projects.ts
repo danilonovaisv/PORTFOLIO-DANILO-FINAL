@@ -163,20 +163,6 @@ export async function listProjectsPaged(
   };
 }
 
-export async function getProject(id: string) {
-  const supabase = await createClient();
-  // [REF] Zero Deploy: Use public_projects_view
-  const { data, error } = await supabase
-    .from('public_projects_view')
-    .select(
-      '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))'
-    )
-    .eq('id', id)
-    .single();
-
-  if (error) throw error;
-  return data as DbProject;
-}
 
 export async function upsertProject(
   payload: TablesInsert<'portfolio_projects'> & {

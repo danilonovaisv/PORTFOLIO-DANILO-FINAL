@@ -26,7 +26,7 @@ import type { PortfolioProject } from '@/types/project';
 import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import JsonLd from '@/components/ui/JsonLd';
 import { SITE_ASSET_KEYS, SITE_ASSET_PRELOADS } from '@/config/site-assets';
-import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
+import { shuffleProjects } from '@/lib/portfolio/shuffle-projects';
 
 import {
   normalizeMetaDescription,
@@ -116,11 +116,11 @@ export default async function HomePage() {
     const mapped = dbProjects.map((project: DbProjectWithTags, index: number) =>
       mapDbProjectToPortfolioProject(project, index)
     );
-    featuredProjects = shuffleHomeProjects(mapped, shuffleSeed);
+    featuredProjects = shuffleProjects(mapped, shuffleSeed);
 
     if (featuredProjects.length === 0) {
       console.warn('[Home] No projects returned, using fallback projects.');
-      featuredProjects = shuffleHomeProjects(
+      featuredProjects = shuffleProjects(
         buildFallbackProjects(),
         shuffleSeed
       );
@@ -139,7 +139,7 @@ export default async function HomePage() {
       causeMsg ? `(cause: ${causeMsg})` : ''
     );
 
-    featuredProjects = shuffleHomeProjects(
+    featuredProjects = shuffleProjects(
       buildFallbackProjects(),
       shuffleSeed
     );
