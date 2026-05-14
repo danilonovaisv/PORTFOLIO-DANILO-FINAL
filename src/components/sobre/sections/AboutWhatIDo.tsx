@@ -63,7 +63,7 @@ export function AboutWhatIDo() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end end'],
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ['10%', '-40%']);
@@ -102,7 +102,7 @@ export function AboutWhatIDo() {
           {/* Horizontal Track - Cards sliding right→left */}
           <m.ul
             aria-labelledby="what-i-do-heading"
-            style={{ x }}
+            style={prefersReducedMotion ? {} : { x }}
             className="flex w-max items-stretch justify-center gap-6 px-10 will-change-transform"
           >
             {SERVICES.map((service, index) => (

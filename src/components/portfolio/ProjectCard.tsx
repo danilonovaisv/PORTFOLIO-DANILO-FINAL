@@ -54,7 +54,7 @@ export const ProjectCard = React.memo(function ProjectCard({
     ? {
       initial: { opacity: 0 },
       whileInView: { opacity: 1 },
-      viewport: { once: false, amount: 0.2 },
+      viewport: { once: true, amount: 0.2 },
       transition: { duration: MOTION_TOKENS.duration.fast },
     }
     : {

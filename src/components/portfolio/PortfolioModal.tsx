@@ -38,8 +38,7 @@ export const PortfolioModal = ({
   useEffect(() => {
     if (isOpen) {
       previousFocusRef.current = document.activeElement as HTMLElement;
-      // Permitir uma renderização curta para o foco
-      setTimeout(() => closeRef.current?.focus(), 50);
+      requestAnimationFrame(() => requestAnimationFrame(() => closeRef.current?.focus()));
     } else {
       if (previousFocusRef.current) {
         previousFocusRef.current.focus();
