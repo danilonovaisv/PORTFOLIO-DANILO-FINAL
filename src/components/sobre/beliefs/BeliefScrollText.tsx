@@ -21,9 +21,7 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
     initial: prefersReducedMotion
       ? { opacity: 0 }
       : { opacity: 0, x: isMobile ? -100 : -100 },
-    animate: prefersReducedMotion
-      ? { opacity: 1 }
-      : { opacity: 1, x: 0 },
+    animate: prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 },
     exit: prefersReducedMotion
       ? { opacity: 0 }
       : { opacity: 0, x: isMobile ? 100 : 100 },

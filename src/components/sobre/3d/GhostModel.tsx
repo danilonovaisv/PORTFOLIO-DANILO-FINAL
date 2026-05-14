@@ -12,7 +12,8 @@ import { GLTF } from 'three-stdlib';
 import { getAssetUrl } from '../../../lib/utils';
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 
-const MODEL_PATH = 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
+const MODEL_PATH =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
 
 type GLTFResult = GLTF & {
   nodes: {
