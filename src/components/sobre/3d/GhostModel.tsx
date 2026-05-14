@@ -246,6 +246,3 @@ export function GhostModel({
   );
 }
 
-if (typeof window !== 'undefined') {
-  useGLTF.preload(MODEL_PATH);
-}

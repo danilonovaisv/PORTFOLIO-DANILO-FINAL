@@ -7,7 +7,6 @@ import {
   BELIEF_PHRASE_ITEMS,
   beliefColors,
   beliefLayout,
-  beliefZIndex,
 } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
@@ -104,9 +103,8 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
           data-testid="belief-phrase"
           data-animation-contract="viewport-x-opacity"
           aria-label={text}
-          className="font-medium italic leading-[0.9] tracking-[-0.045em] will-change-transform"
+          className="font-medium italic leading-[0.9] tracking-[-0.045em] will-change-transform z-[var(--z-layer-cta)]"
           style={{
-            zIndex: beliefZIndex.scrollText,
             color: beliefColors.blueAccent,
             maxWidth: isMobile ? '100%' : beliefLayout.desktopPhraseMaxWidth,
             fontSize: isMobile
@@ -127,8 +125,7 @@ export function BeliefScrollText() {
   return (
     <div
       data-testid="beliefs-scroll-text"
-      className="relative"
-      style={{ zIndex: beliefZIndex.scrollText }}
+      className="relative z-[var(--z-layer-cta)]"
     >
       {BELIEF_PHRASE_ITEMS.map((phrase, index) => (
         <BeliefPhraseSection key={phrase.id} text={phrase.text} index={index} />

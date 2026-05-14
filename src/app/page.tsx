@@ -90,6 +90,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 import { preload } from 'react-dom';
 import { getAssetUrl } from '@/lib/utils';
 

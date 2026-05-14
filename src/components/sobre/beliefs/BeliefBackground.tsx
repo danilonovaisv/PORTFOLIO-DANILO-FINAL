@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BELIEF_BACKGROUND_STOPS, beliefZIndex } from '@/config/beliefTokens';
+import { BELIEF_BACKGROUND_STOPS } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 if (typeof window !== 'undefined') {
@@ -100,8 +100,7 @@ export function BeliefBackground() {
       aria-hidden="true"
       data-testid="beliefs-background"
       data-belief-background
-      className="absolute inset-0 bg-[#040013]"
-      style={{ zIndex: beliefZIndex.background }}
+      className="absolute inset-0 bg-[#040013] z-[var(--z-layer-base)]"
     />
   );
 }

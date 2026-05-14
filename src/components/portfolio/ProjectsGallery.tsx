@@ -216,7 +216,7 @@ export const ProjectsGallery = ({
 
     switch (scrollState) {
       case 'fixed':
-        return 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-16';
+        return 'fixed left-0 right-0 top-[var(--header-height)] z-10 max-w-[1680px] mx-auto px-6 md:px-16';
       case 'post':
         return 'absolute bottom-0 left-0 right-0 z-10 max-w-[1680px] mx-auto px-6 md:px-16';
       default: // 'pre'

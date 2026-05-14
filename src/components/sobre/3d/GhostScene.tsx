@@ -4,7 +4,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { beliefMotion, beliefZIndex } from '../../../config/beliefTokens';
+import { beliefMotion } from '../../../config/beliefTokens';
 import { usePointerParallax } from '../../../hooks/usePointerParallax';
 import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
@@ -17,22 +17,36 @@ if (typeof window !== 'undefined') {
 }
 
 function SceneInvalidator() {
-  const { invalidate } = useThree();
+  const { invalidate, gl } = useThree();
 
   useEffect(() => {
-    const handleUpdate = () => invalidate();
+    const canvas = gl.domElement;
+    if (!canvas) return;
+
+    let isVisible = false;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0.01 }
+    );
+    observer.observe(canvas);
+
+    const handleUpdate = () => {
+      if (!isVisible) return;
+      invalidate();
+    };
 
     window.addEventListener('scroll', handleUpdate, { passive: true });
     window.addEventListener('mousemove', handleUpdate, { passive: true });
 
-    // Force initial render
     invalidate();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('scroll', handleUpdate);
       window.removeEventListener('mousemove', handleUpdate);
     };
-  }, [invalidate]);
+  }, [invalidate, gl]);
 
   return null;
 }
@@ -112,10 +126,10 @@ export function GhostScene() {
       ref={wrapperRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none absolute inset-0"
-      style={{ zIndex: beliefZIndex.ghost }}
+      className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)]"
     >
       <Canvas
+        aria-hidden="true"
         frameloop="demand"
         dpr={[1, isMobile ? 1 : 2]}
         camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}

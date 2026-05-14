@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BELIEF_MANIFESTO_LINES, beliefZIndex } from '@/config/beliefTokens';
+import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
@@ -101,9 +101,9 @@ export function BeliefManifesto() {
       ref={ref}
       data-testid="beliefs-manifesto"
       data-belief-manifesto
-      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
-      style={{ zIndex: beliefZIndex.manifesto }}
-      aria-live={active || isClimax ? 'polite' : 'off'}
+      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 z-[var(--z-layer-overlay)]"
+      aria-live="polite"
+      aria-hidden={!active && !isClimax}
     >
       <div
         className="text-center font-display font-black uppercase leading-[0.82] tracking-[0.03em] text-white"

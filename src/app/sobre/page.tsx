@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import {
