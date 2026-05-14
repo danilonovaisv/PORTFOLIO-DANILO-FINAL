@@ -25,7 +25,7 @@ async function main() {
       console.error('Error:', error);
     } else {
       console.log('Success! Found', data?.length || 0, 'projects:');
-      data?.forEach(p => console.log(`- ${p.title} (${p.id})`));
+      data?.forEach((p) => console.log(`- ${p.title} (${p.id})`));
     }
   } catch (err) {
     console.error('Caught error:', err);

@@ -163,7 +163,6 @@ export async function listProjectsPaged(
   };
 }
 
-
 export async function upsertProject(
   payload: TablesInsert<'portfolio_projects'> & {
     id?: string;

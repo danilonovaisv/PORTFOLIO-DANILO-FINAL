@@ -8,8 +8,8 @@ description: Three.js interaction - raycasting, controls, mouse/touch input, obj
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -27,11 +27,11 @@ function onClick(event) {
   const intersects = raycaster.intersectObjects(scene.children);
 
   if (intersects.length > 0) {
-    console.log("Clicked:", intersects[0].object);
+    console.log('Clicked:', intersects[0].object);
   }
 }
 
-window.addEventListener("click", onClick);
+window.addEventListener('click', onClick);
 ```
 
 ## Raycaster
@@ -103,7 +103,7 @@ function onTouchStart(event) {
   }
 }
 
-renderer.domElement.addEventListener("touchstart", onTouchStart);
+renderer.domElement.addEventListener('touchstart', onTouchStart);
 ```
 
 ### Raycaster Options
@@ -150,7 +150,7 @@ function onMouseMove(event) {
 ### OrbitControls
 
 ```javascript
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -190,7 +190,7 @@ function animate() {
 ### FlyControls
 
 ```javascript
-import { FlyControls } from "three/addons/controls/FlyControls.js";
+import { FlyControls } from 'three/addons/controls/FlyControls.js';
 
 const controls = new FlyControls(camera, renderer.domElement);
 controls.movementSpeed = 10;
@@ -207,7 +207,7 @@ function animate() {
 ### FirstPersonControls
 
 ```javascript
-import { FirstPersonControls } from "three/addons/controls/FirstPersonControls.js";
+import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
 
 const controls = new FirstPersonControls(camera, renderer.domElement);
 controls.movementSpeed = 10;
@@ -225,21 +225,21 @@ function animate() {
 ### PointerLockControls
 
 ```javascript
-import { PointerLockControls } from "three/addons/controls/PointerLockControls.js";
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
 const controls = new PointerLockControls(camera, document.body);
 
 // Lock pointer on click
-document.addEventListener("click", () => {
+document.addEventListener('click', () => {
   controls.lock();
 });
 
-controls.addEventListener("lock", () => {
-  console.log("Pointer locked");
+controls.addEventListener('lock', () => {
+  console.log('Pointer locked');
 });
 
-controls.addEventListener("unlock", () => {
-  console.log("Pointer unlocked");
+controls.addEventListener('unlock', () => {
+  console.log('Pointer unlocked');
 });
 
 // Movement
@@ -248,12 +248,12 @@ const direction = new THREE.Vector3();
 const moveForward = false;
 const moveBackward = false;
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener('keydown', (event) => {
   switch (event.code) {
-    case "KeyW":
+    case 'KeyW':
       moveForward = true;
       break;
-    case "KeyS":
+    case 'KeyS':
       moveBackward = true;
       break;
   }
@@ -275,7 +275,7 @@ function animate() {
 ### TrackballControls
 
 ```javascript
-import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 
 const controls = new TrackballControls(camera, renderer.domElement);
 controls.rotateSpeed = 2.0;
@@ -291,7 +291,7 @@ function animate() {
 ### MapControls
 
 ```javascript
-import { MapControls } from "three/addons/controls/MapControls.js";
+import { MapControls } from 'three/addons/controls/MapControls.js';
 
 const controls = new MapControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -305,7 +305,7 @@ controls.maxPolarAngle = Math.PI / 2;
 Gizmo for moving/rotating/scaling objects.
 
 ```javascript
-import { TransformControls } from "three/addons/controls/TransformControls.js";
+import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
 const transformControls = new TransformControls(camera, renderer.domElement);
 scene.add(transformControls);
@@ -314,37 +314,37 @@ scene.add(transformControls);
 transformControls.attach(selectedMesh);
 
 // Switch modes
-transformControls.setMode("translate"); // 'translate', 'rotate', 'scale'
+transformControls.setMode('translate'); // 'translate', 'rotate', 'scale'
 
 // Change space
-transformControls.setSpace("local"); // 'local', 'world'
+transformControls.setSpace('local'); // 'local', 'world'
 
 // Size
 transformControls.setSize(1);
 
 // Events
-transformControls.addEventListener("dragging-changed", (event) => {
+transformControls.addEventListener('dragging-changed', (event) => {
   // Disable orbit controls while dragging
   orbitControls.enabled = !event.value;
 });
 
-transformControls.addEventListener("change", () => {
+transformControls.addEventListener('change', () => {
   renderer.render(scene, camera);
 });
 
 // Keyboard shortcuts
-window.addEventListener("keydown", (event) => {
+window.addEventListener('keydown', (event) => {
   switch (event.key) {
-    case "g":
-      transformControls.setMode("translate");
+    case 'g':
+      transformControls.setMode('translate');
       break;
-    case "r":
-      transformControls.setMode("rotate");
+    case 'r':
+      transformControls.setMode('rotate');
       break;
-    case "s":
-      transformControls.setMode("scale");
+    case 's':
+      transformControls.setMode('scale');
       break;
-    case "Escape":
+    case 'Escape':
       transformControls.detach();
       break;
   }
@@ -356,26 +356,26 @@ window.addEventListener("keydown", (event) => {
 Drag objects directly.
 
 ```javascript
-import { DragControls } from "three/addons/controls/DragControls.js";
+import { DragControls } from 'three/addons/controls/DragControls.js';
 
 const draggableObjects = [mesh1, mesh2, mesh3];
 const dragControls = new DragControls(
   draggableObjects,
   camera,
-  renderer.domElement,
+  renderer.domElement
 );
 
-dragControls.addEventListener("dragstart", (event) => {
+dragControls.addEventListener('dragstart', (event) => {
   orbitControls.enabled = false;
   event.object.material.emissive.set(0xaaaaaa);
 });
 
-dragControls.addEventListener("drag", (event) => {
+dragControls.addEventListener('drag', (event) => {
   // Constrain to ground plane
   event.object.position.y = 0;
 });
 
-dragControls.addEventListener("dragend", (event) => {
+dragControls.addEventListener('dragend', (event) => {
   orbitControls.enabled = true;
   event.object.material.emissive.set(0x000000);
 });
@@ -415,39 +415,39 @@ function onMouseDown(event) {
 ### Box Selection
 
 ```javascript
-import { SelectionBox } from "three/addons/interactive/SelectionBox.js";
-import { SelectionHelper } from "three/addons/interactive/SelectionHelper.js";
+import { SelectionBox } from 'three/addons/interactive/SelectionBox.js';
+import { SelectionHelper } from 'three/addons/interactive/SelectionHelper.js';
 
 const selectionBox = new SelectionBox(camera, scene);
-const selectionHelper = new SelectionHelper(renderer, "selectBox"); // CSS class
+const selectionHelper = new SelectionHelper(renderer, 'selectBox'); // CSS class
 
-document.addEventListener("pointerdown", (event) => {
+document.addEventListener('pointerdown', (event) => {
   selectionBox.startPoint.set(
     (event.clientX / window.innerWidth) * 2 - 1,
     -(event.clientY / window.innerHeight) * 2 + 1,
-    0.5,
+    0.5
   );
 });
 
-document.addEventListener("pointermove", (event) => {
+document.addEventListener('pointermove', (event) => {
   if (selectionHelper.isDown) {
     selectionBox.endPoint.set(
       (event.clientX / window.innerWidth) * 2 - 1,
       -(event.clientY / window.innerHeight) * 2 + 1,
-      0.5,
+      0.5
     );
   }
 });
 
-document.addEventListener("pointerup", (event) => {
+document.addEventListener('pointerup', (event) => {
   selectionBox.endPoint.set(
     (event.clientX / window.innerWidth) * 2 - 1,
     -(event.clientY / window.innerHeight) * 2 + 1,
-    0.5,
+    0.5
   );
 
   const selected = selectionBox.select();
-  console.log("Selected objects:", selected);
+  console.log('Selected objects:', selected);
 });
 ```
 
@@ -468,7 +468,7 @@ function onMouseMove(event) {
   // Reset previous hover
   if (hoveredObject) {
     hoveredObject.material.color.set(hoveredObject.userData.originalColor);
-    document.body.style.cursor = "default";
+    document.body.style.cursor = 'default';
   }
 
   // Apply new hover
@@ -479,13 +479,13 @@ function onMouseMove(event) {
         hoveredObject.material.color.getHex();
     }
     hoveredObject.material.color.set(0xff6600);
-    document.body.style.cursor = "pointer";
+    document.body.style.cursor = 'pointer';
   } else {
     hoveredObject = null;
   }
 }
 
-window.addEventListener("mousemove", onMouseMove);
+window.addEventListener('mousemove', onMouseMove);
 ```
 
 ## Keyboard Input
@@ -493,23 +493,23 @@ window.addEventListener("mousemove", onMouseMove);
 ```javascript
 const keys = {};
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener('keydown', (event) => {
   keys[event.code] = true;
 });
 
-document.addEventListener("keyup", (event) => {
+document.addEventListener('keyup', (event) => {
   keys[event.code] = false;
 });
 
 function update() {
   const speed = 0.1;
 
-  if (keys["KeyW"]) player.position.z -= speed;
-  if (keys["KeyS"]) player.position.z += speed;
-  if (keys["KeyA"]) player.position.x -= speed;
-  if (keys["KeyD"]) player.position.x += speed;
-  if (keys["Space"]) player.position.y += speed;
-  if (keys["ShiftLeft"]) player.position.y -= speed;
+  if (keys['KeyW']) player.position.z -= speed;
+  if (keys['KeyS']) player.position.z += speed;
+  if (keys['KeyA']) player.position.x -= speed;
+  if (keys['KeyD']) player.position.x += speed;
+  if (keys['Space']) player.position.y += speed;
+  if (keys['ShiftLeft']) player.position.y -= speed;
 }
 ```
 
@@ -530,8 +530,8 @@ function worldToScreen(position, camera) {
 
 // Position HTML element over 3D object
 const screenPos = worldToScreen(mesh.position, camera);
-element.style.left = screenPos.x + "px";
-element.style.top = screenPos.y + "px";
+element.style.left = screenPos.x + 'px';
+element.style.top = screenPos.y + 'px';
 ```
 
 ### Screen to World
@@ -541,7 +541,7 @@ function screenToWorld(screenX, screenY, camera, targetZ = 0) {
   const vector = new THREE.Vector3(
     (screenX / window.innerWidth) * 2 - 1,
     -(screenY / window.innerHeight) * 2 + 1,
-    0.5,
+    0.5
   );
 
   vector.unproject(camera);
@@ -589,9 +589,9 @@ class InteractionManager {
   bindEvents() {
     const canvas = this.renderer.domElement;
 
-    canvas.addEventListener("click", (e) => this.onClick(e));
-    canvas.addEventListener("mousemove", (e) => this.onMouseMove(e));
-    canvas.addEventListener("touchstart", (e) => this.onTouchStart(e));
+    canvas.addEventListener('click', (e) => this.onClick(e));
+    canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
+    canvas.addEventListener('touchstart', (e) => this.onTouchStart(e));
   }
 
   updateMouse(event) {
@@ -630,7 +630,7 @@ class InteractionManager {
 // Usage
 const interaction = new InteractionManager(camera, renderer, scene);
 interaction.addClickable(mesh, (intersect) => {
-  console.log("Clicked at:", intersect.point);
+  console.log('Clicked at:', intersect.point);
 });
 ```
 
@@ -647,7 +647,7 @@ interaction.addClickable(mesh, (intersect) => {
 const complexMesh = loadedModel;
 const collisionMesh = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ visible: false }),
+  new THREE.MeshBasicMaterial({ visible: false })
 );
 collisionMesh.userData.target = complexMesh;
 clickables.push(collisionMesh);

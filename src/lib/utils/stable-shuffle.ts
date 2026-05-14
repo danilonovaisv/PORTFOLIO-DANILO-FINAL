@@ -20,7 +20,6 @@ interface StableShuffleOptions {
   customSeed?: number | string | Date;
 }
 
-
 /**
  * Generate a numeric seed from a string using DJB2 hash.
  * Consistent across server/client for the same input.
@@ -99,4 +98,3 @@ export function stableShuffle<T>(
 
   return shuffled;
 }
-

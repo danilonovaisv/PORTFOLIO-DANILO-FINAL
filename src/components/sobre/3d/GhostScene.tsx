@@ -79,7 +79,9 @@ export function GhostScene() {
           gsap.to(wrapper, {
             autoAlpha: 1,
             scale: 1,
-            duration: shouldReduceMotion ? 0.3 : beliefMotion.ghostIntroDuration,
+            duration: shouldReduceMotion
+              ? 0.3
+              : beliefMotion.ghostIntroDuration,
             ease: 'power2.out',
             delay: shouldReduceMotion ? 0 : 0.15,
             overwrite: 'auto',
