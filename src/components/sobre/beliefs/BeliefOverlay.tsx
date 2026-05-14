@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 if (typeof window !== 'undefined') {
@@ -46,7 +47,10 @@ export function BeliefOverlay() {
       ref={ref}
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 bg-black"
-      style={{ zIndex: 10, opacity: shouldReduceMotion ? 0.05 : 0 }}
+      style={{
+        zIndex: beliefZIndex.overlay,
+        opacity: shouldReduceMotion ? 0.05 : 0,
+      }}
     />
   );
 }

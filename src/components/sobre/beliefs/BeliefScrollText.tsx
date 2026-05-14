@@ -1,98 +1,37 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { m, useReducedMotion } from 'motion/react';
 import {
   BELIEF_PHRASE_ITEMS,
   beliefColors,
   beliefLayout,
   beliefZIndex,
 } from '@/config/beliefTokens';
-import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// Matches the Motion for JS source reference: [0.17, 0.55, 0.55, 1]
+const GHOST_EASE = [0.17, 0.55, 0.55, 1] as [number, number, number, number];
 
 function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
-  const ref = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const { isMobile, shouldReduceMotion } = useBeliefsScrollContext();
+  const { isMobile, activeIndex } = useBeliefsScrollContext();
+  const prefersReducedMotion = useReducedMotion();
 
-  useEffect(() => {
-    const section = ref.current;
-    const heading = headingRef.current;
-    if (!section || !heading) return;
+  // Variants for flow: Left-to-Right entry, Left-to-Right exit (Mobile specified: enter left, exit right)
+  const variants = {
+    initial: prefersReducedMotion
+      ? { opacity: 0 }
+      : { opacity: 0, x: isMobile ? -100 : -100 },
+    animate: prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 },
+    exit: prefersReducedMotion
+      ? { opacity: 0 }
+      : { opacity: 0, x: isMobile ? 100 : 100 },
+  };
 
-    const ctx = gsap.context(() => {
-      const yOffset = isMobile ? 0 : 24;
-      const xOffset = isMobile ? 24 : 0;
-
-      gsap.set(heading, {
-        autoAlpha: 0,
-        y: shouldReduceMotion ? 0 : yOffset,
-        x: shouldReduceMotion ? 0 : xOffset,
-        filter: shouldReduceMotion ? 'blur(0px)' : 'blur(6px)',
-      });
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: isMobile ? 'top 82%' : 'top 66%',
-        onEnter: () => {
-          gsap.to(heading, {
-            autoAlpha: 1,
-            y: 0,
-            x: 0,
-            filter: 'blur(0px)',
-            duration: shouldReduceMotion ? 0.2 : 1.2,
-            ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
-            overwrite: 'auto',
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(heading, {
-            autoAlpha: 1,
-            y: 0,
-            x: 0,
-            filter: 'blur(0px)',
-            duration: shouldReduceMotion ? 0.2 : 0.9,
-            ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
-            overwrite: 'auto',
-          });
-        },
-        onLeave: () => {
-          gsap.to(heading, {
-            autoAlpha: 0,
-            y: shouldReduceMotion ? 0 : -yOffset,
-            x: shouldReduceMotion ? 0 : -xOffset,
-            filter: shouldReduceMotion ? 'blur(0px)' : 'blur(6px)',
-            duration: shouldReduceMotion ? 0.2 : 0.6,
-            ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
-            overwrite: 'auto',
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(heading, {
-            autoAlpha: 0,
-            y: shouldReduceMotion ? 0 : yOffset,
-            x: shouldReduceMotion ? 0 : xOffset,
-            filter: shouldReduceMotion ? 'blur(0px)' : 'blur(6px)',
-            duration: shouldReduceMotion ? 0.2 : 0.6,
-            ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
-            overwrite: 'auto',
-          });
-        },
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, [isMobile, shouldReduceMotion]);
+  const isActive = index === activeIndex;
+  const isPast = index < activeIndex;
 
   return (
     <section
-      ref={ref}
       className="belief-scroll-section relative"
       data-index={index}
       style={{ height: beliefLayout.phraseSectionHeight }}
@@ -109,12 +48,20 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
           paddingBottom: isMobile ? beliefLayout.mobilePhraseBottom : undefined,
         }}
       >
-        <h3
-          ref={headingRef}
+        <m.h3
           data-testid="belief-phrase"
           data-animation-contract="viewport-x-opacity"
           aria-label={text}
-          className="font-bold italic leading-[0.9] tracking-[-0.045em] opacity-0"
+          initial="initial"
+          animate={isActive ? 'animate' : isPast ? 'exit' : 'initial'}
+          variants={variants}
+          // once: false — scroll storytelling page (replay on re-enter is intentional)
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{
+            duration: 0.9,
+            ease: GHOST_EASE,
+          }}
+          className="font-medium italic leading-[0.9] tracking-[-0.045em]"
           style={{
             zIndex: beliefZIndex.scrollText,
             color: beliefColors.blueAccent,
@@ -122,11 +69,13 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
             fontSize: isMobile
               ? 'clamp(2.0rem, 8vw, 3.0rem)'
               : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-            textShadow: '0 2px 24px rgba(0, 0, 0, 0.28)',
+            textShadow: '0 1px 12px rgba(0, 0, 0, 0.18)',
+            whiteSpace: 'pre-line', // respects \n in phrase strings
+            willChange: 'transform, opacity',
           }}
         >
           {text}
-        </h3>
+        </m.h3>
       </div>
     </section>
   );

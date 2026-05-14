@@ -36,7 +36,7 @@ export function BeliefManifesto() {
         trigger: container,
         start: 'top top',
         end: 'bottom bottom',
-        onUpdate: (self) => {
+        onUpdate: (self: globalThis.ScrollTrigger) => {
           const progress = self.progress;
           const revealProgress = gsap.utils.clamp(
             0,

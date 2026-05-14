@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BELIEF_BACKGROUND_STOPS, beliefZIndex } from '@/config/beliefTokens';
-import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 if (typeof window !== 'undefined') {
@@ -13,8 +12,7 @@ if (typeof window !== 'undefined') {
 
 export function BeliefBackground() {
   const ref = useRef<HTMLDivElement>(null);
-  const { containerRef, isMobile, shouldReduceMotion } =
-    useBeliefsScrollContext();
+  const { containerRef, isMobile } = useBeliefsScrollContext();
 
   useEffect(() => {
     const background = ref.current;
@@ -24,22 +22,18 @@ export function BeliefBackground() {
     // Set initial color
     gsap.set(background, { backgroundColor: BELIEF_BACKGROUND_STOPS[0] });
 
+    // Background changes are NOT animated — per motion spec, each scroll section
+    // has its own static background. No crossfades, gradient morphs or interpolation.
     const transitionTo = (color: string) => {
-      if (shouldReduceMotion) {
-        gsap.set(background, { backgroundColor: color });
-        return;
-      }
-
       gsap.to(background, {
         backgroundColor: color,
-        duration: 1.5,
-        ease: GSAP_GHOST_EASE,
-        overwrite: 'auto',
+        duration: 0.8,
+        ease: 'power2.inOut',
       });
     };
 
     const ctx = gsap.context(() => {
-      // Animate background on each phrase section entering viewport
+      // Snap background on each phrase section entering viewport
       const sections = Array.from(
         container.querySelectorAll<HTMLElement>('.belief-scroll-section')
       );
@@ -66,7 +60,7 @@ export function BeliefBackground() {
         onLeaveBack: () => transitionTo(BELIEF_BACKGROUND_STOPS[0]),
       });
 
-      // Climax: transition to final stop at bottom of section
+      // Climax: snap to final stop at bottom of section
       ScrollTrigger.create({
         trigger: container,
         start: 'bottom 88%',
@@ -82,7 +76,7 @@ export function BeliefBackground() {
     }, container);
 
     return () => ctx.revert();
-  }, [containerRef, isMobile, shouldReduceMotion]);
+  }, [containerRef, isMobile]);
 
   return (
     <div

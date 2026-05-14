@@ -1,343 +1,186 @@
-# Implementation Plan — 06-O-QUE-ME-MOVE Audit & Correction
+# Implementation Plan — 06-O-QUE-ME-MOVE
 
-**Generated:** 2026-04-24  
-**Protocol:** PREVC — Planning Phase  
-**Status:** AWAITING HUMAN APPROVAL — no code touched
-
----
-
-## 1. Objective
-
-Correct the 4 gaps identified in the `06-O-QUE-ME-MOVE` section against the frozen blueprint
-`06-O-QUE-ME-MOVE-AJUSTE.md` (2026-04-23). All changes are surgical — no architecture changes,
-no new dependencies, no deploy.
+> **Branch:** `claude/analyze-feature-spec-EjCDs`
+> **Data:** 2026-05-13
+> **Origem:** `/plan-feature [06-O-QUE-ME-MOVE]`
+> **Substitui:** plano de 2026-04-24 (obsoleto após migração GSAP de 2026-05-13)
+> **Escopo aprovado pelo usuário:**
+>
+> 1. Sincronizar doc v4 ↔ código (resolver doc-drift)
+> 2. Alinhar tipografia ao mockup INICIAL/FINAL
+> 3. Incorporar análise da pasta `ABOUT-BIEFS-DETALAHAMENTO/`
 
 ---
 
-## 2. Context Analyzed
+## 1. Estado Atual da Implementação
 
-| Source                                                                                            | Read?                          |
-| ------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-AJUSTE.md`              | ✅                             |
-| `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE.md`                     | ✅                             |
-| `src/components/sobre/sections/AboutBeliefs.tsx`                                                  | ✅                             |
-| `src/components/sobre/beliefs/BeliefBackground.tsx`                                               | ✅                             |
-| `src/components/sobre/beliefs/BeliefOverlay.tsx`                                                  | ✅                             |
-| `src/components/sobre/beliefs/BeliefFixedHeader.tsx`                                              | ✅                             |
-| `src/components/sobre/beliefs/BeliefScrollText.tsx`                                               | ✅                             |
-| `src/components/sobre/beliefs/BeliefManifesto.tsx`                                                | ✅                             |
-| `src/components/sobre/3d/GhostScene.tsx`                                                          | ✅                             |
-| `src/components/sobre/3dGhostErrorBoundary.tsx`                                                   | ✅                             |
-| `src/components/ui/SectionErrorBoundary.tsx`                                                      | ✅                             |
-| `src/hooks/useBeliefsScroll.ts`                                                                   | ✅                             |
-| `src/config/motion.ts`                                                                            | ✅                             |
-| `artifacts/about-beliefs-audit/metrics.json`                                                      | ✅                             |
-| `docs/SOBRE/AboutBeliefs-template/EXEMPLE-ABOUT-BELIFS/components/scroll/ScrollInViewExample.tsx` | ✅                             |
-| Reference: motion.dev/tutorials/js-scroll-triggered (pattern)                                     | ✅ via ScrollInViewExample.tsx |
+Seção implementada e estável (deploy 2026-05-13). Inventário:
 
----
+| Camada       | Arquivo                                                                      | Status                                 |
+| ------------ | ---------------------------------------------------------------------------- | -------------------------------------- |
+| Rota         | `src/app/sobre/{page,loading,error,not-found}.tsx`                           | ✅ Completa                            |
+| Orquestrador | `src/components/sobre/sections/AboutBeliefs.tsx`                             | ✅ Provider + camadas                  |
+| Context      | `src/components/sobre/beliefs/BeliefsScrollContext.tsx`                      | ✅ Ativo                               |
+| Hook         | `src/hooks/useBeliefsScroll.ts`                                              | ✅ Ref-based getter (anti-rerender)    |
+| Tokens       | `src/config/beliefTokens.ts`                                                 | ✅ SSOT consolidada                    |
+| Background   | `src/components/sobre/beliefs/BeliefBackground.tsx`                          | ✅ GSAP ScrollTrigger (não Motion DOM) |
+| Overlay      | `src/components/sobre/beliefs/BeliefOverlay.tsx`                             | ⚠️ `zIndex: 10` hardcoded              |
+| Header       | `src/components/sobre/beliefs/BeliefFixedHeader.tsx`                         | ⚠️ Tipografia diverge da prosa v4      |
+| Scroll Text  | `src/components/sobre/beliefs/BeliefScrollText.tsx`                          | ⚠️ Peso `bold` vs mockup `medium`      |
+| Manifesto    | `src/components/sobre/beliefs/BeliefManifesto.tsx`                           | ✅ GSAP + SplitTextMotion              |
+| Split        | `src/components/sobre/beliefs/SplitTextMotion.tsx`                           | ✅ Util reutilizável                   |
+| Ghost Scene  | `src/components/sobre/3d/{GhostScene,GhostModel,Fallback,ErrorBoundary}.tsx` | ✅ Stack completa                      |
 
-## 3. Current State — What is Working ✅
+## 2. Conflitos Identificados e Resolução Arbitrada
 
-All confirmed by `artifacts/about-beliefs-audit/metrics.json` and code review:
+### CF-1 · Stack de animação (Motion DOM × GSAP)
 
-| Criterion                                           | Status                                 |
-| --------------------------------------------------- | -------------------------------------- |
-| Background final color `#0048ff`                    | ✅ `rgb(0, 72, 255)` confirmed         |
-| Manifesto white integral                            | ✅ `rgb(255, 255, 255)` confirmed      |
-| Ghost z-index above manifesto (70 > 50)             | ✅ confirmed                           |
-| No console errors                                   | ✅ confirmed                           |
-| Manifesto font size `clamp(4rem,17vw,13rem)`        | ✅ 208px at desktop = 13rem            |
-| Manifesto opacity reveal at 0.56                    | ✅ interpolation correct               |
-| 6 phrases official content                          | ✅                                     |
-| Scroll offset `['start end', 'end end']`            | ✅                                     |
-| Phrases bidirectional reset (cleanup fn)            | ✅ BeliefScrollText has return cleanup |
-| `frameloop="demand"` preserved                      | ✅                                     |
-| No `scale`/`rotate` in DOM motion                   | ✅                                     |
-| `max-width: 1680px` applied                         | ✅ all containers                      |
-| Tailwind Oxide `source(none)` — not touched         | ✅ not in scope                        |
-| Color sequence 8 stops                              | ✅                                     |
-| Climax lock at `scrollProgress >= 0.82`             | ✅                                     |
-| Mobile phrases `items-end justify-center pb-[20vh]` | ✅                                     |
-| Desktop phrases `items-center justify-start`        | ✅                                     |
-| Manifesto `translateY` reset range                  | ✅                                     |
+- **Doc v4** prescreve Motion DOM `animate() + inView()`, "não usar GSAP nesta seção".
+- **Código** usa GSAP+ScrollTrigger em todas as camadas, migração concluída 2026-05-13.
+- **Resolução:** manter GSAP. Atualizar v4 para refletir GSAP como stack oficial. Reverter custaria re-escrita de cinco componentes estáveis sem ganho visível ao usuário.
 
----
+### CF-2 · `scrollYProgress` (MotionValue × ref-getter)
 
-## 4. Gaps Found — Divergences vs Blueprint
+- **Doc v4** documenta `MotionValue<number>` via `useScroll()`.
+- **Código** usa `{ get: () => progressRef.current }` para evitar re-renders.
+- **Resolução:** manter ref-getter. Documentar contrato no v4 e atualizar tipo do `BeliefsScrollContextValue.scrollYProgress` para `{ get: () => number }`.
 
-### GAP-01 — `BeliefBackground.tsx`: Missing bidirectional reset (**P0**)
+### CF-3 · Composição mobile (row × layered)
 
-**Blueprint requirement:**
+- **`ABOUT-BIEFS-DETALAHAMENTO/SPEC_AboutBeliefs.md`** (2025) pede mobile com `ghost-esquerda + texto-direita` em row, Ghost alinhado verticalmente ao centro do bloco de texto.
+- **Doc v4** posiciona Ghost `top-left até clímax`, layered.
+- **Código** usa Ghost `fixed inset-0`, texto rotativo `flex items-end justify-center` no rodapé.
+- **Mockup `06-O-QUE-ME-MOVE-MOBILE-INICIAL.png`** confirma layered (Ghost à esquerda do meio, header sticky no topo direita, frase rotativa no rodapé).
+- **Resolução:** descartar regra "row" do detalhamento (superada). Adotar layered conforme código e v4. Validar mobile baseline do Ghost (top-left) conforme v4 §6.
 
-> "Reset é bidirecional — `inView` com cleanup function (`return () => ...`) re-anima ao reentrar"  
-> Reference: motion.dev scroll-triggered pattern (`ScrollInViewExample.tsx` line 61–76)
+### CF-4 · Tipografia do `BeliefFixedHeader`
 
-**Current code:**
+- **Doc v4** descreve linha 1 e linha 2 como texto editorial medium.
+- **Mockup DESKTOP/MOBILE-INICIAL** mostra linha 1 em ALL CAPS, font-display, font-black, leading-tight; linha 2 menor, regular.
+- **Código atual** já está alinhado ao mockup (font-display black uppercase, linha 2 menor) — divergência é apenas com a prosa da v4.
+- **Resolução:** atualizar v4 para refletir tipografia do mockup; manter código.
 
-```typescript
-stopInView = inView('.scroll-section', (section) => {
-  if (climaxFiredRef.current) return;    // ← returns undefined, not a cleanup fn
-  // ...animate background color
-  animate(bgRef.current, { backgroundColor: targetColor }, { ... });
-  // ← NO return () => { ... } cleanup
-});
-```
+### CF-5 · Tipografia do `BeliefScrollText`
 
-**Impact:** When scrolling back up through phrases, background does NOT revert to the
-previous color. The climax lock resets at `< 0.82` but individual phrase colors accumulate.
-User scrolling up experiences stale background color.
+- **`SPEC_AboutBeliefs.md`** pede `font-weight: 500`, 32–38px desktop / 22–26px mobile.
+- **Doc v4** pede bold italic, `clamp(2.8rem, 5.8vw, 6.3rem)` (~45–100px).
+- **Mockup DESKTOP-INICIAL** mostra italic, peso aparente medium (não bold), ~80px.
+- **Resolução:** reduzir `font-bold` → `font-medium` no `BeliefScrollText` (alinhar com mockup e detalhamento). Manter clamp atual (v4) que preserva presença visual.
 
-**Fix:** Add cleanup return that reverts to the previous color stop:
+### CF-6 · `BeliefOverlay` z-index hardcoded
 
-```typescript
-return () => {
-  if (climaxFiredRef.current) return;
-  const prevColor = COLOR_STOPS[index] || COLOR_STOPS[0];
-  if (bgRef.current) {
-    animate(
-      bgRef.current,
-      { backgroundColor: prevColor },
-      { duration: 0.6, ease: GHOST_EASE_AMBIENT }
-    );
-  }
-};
-```
+- **Código:** `style={{ zIndex: 10 }}`.
+- **Tokens:** `beliefZIndex.overlay` disponível.
+- **Resolução:** substituir literal pelo token.
 
----
+### CF-7 · Duração do background
 
-### GAP-02 — `BeliefBackground.tsx`: Wrong easing for BG transitions (**P0**)
+- **Doc v4:** `duration: 0.9`.
+- **Código:** `duration: 1.5` (mais atmosférico, alinhado com a decisão "Atmospheric Layer" do active_state.md).
+- **Resolução:** manter 1.5, atualizar v4.
 
-**Blueprint requirement (from Limitações/Fluida section):**
+### CF-8 · Atmospheric SVG noise
 
-> "ease ambient `[0.17, 0.55, 0.55, 1]` para BG"
+- **`active_state.md`** menciona "Atmospheric SVG fractal noise" adicionado.
+- **Doc v4** não menciona.
+- **`BeliefBackground.tsx` atual** não contém SVG noise visível — a camada pode ter sido removida em refactor posterior.
+- **Resolução:** investigação na Frente C; se ausente, atualizar `active_state.md`; se presente, documentar em v4.
 
-**`motion.ts` documentation:**
+## 3. Frentes de Trabalho
 
-```typescript
-/**
- * Ambient curve — ignition-style fast start, long tail decay.
- * Use ONLY for long-running atmospheric layers (belief backgrounds,
- * gradient drifts, manifesto-style scroll fades). Never on UI controls.
- */
-export const GHOST_EASE_AMBIENT: EasingTuple = [0.17, 0.55, 0.55, 1];
-```
+### Frente A · Sincronizar doc v4 (doc-drift)
 
-**Current code:**
+**Arquivo único:** `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-v4.md`
 
-```typescript
-import { GHOST_EASE } from '@/config/motion';
-// ...
-animate(
-  bgRef.current,
-  { backgroundColor: targetColor },
-  { duration: 0.9, ease: GHOST_EASE }
-);
-```
+Mudanças necessárias:
 
-`GHOST_EASE = [0.22, 1, 0.36, 1]` — this is the UI easing, not the atmospheric/BG easing.
+- §`mapa_de_animacoes` Stack: Motion DOM → **GSAP + ScrollTrigger**.
+- §1 Background: snippet `inView()` → `ScrollTrigger.create()` com `onEnter`/`onEnterBack`/`onLeaveBack`. `duration: 1.5`. Anti-banding via overlay com `scrub`.
+- §3 BeliefFixedHeader: tipografia ajustada à mockup (font-display black uppercase + linha 2 menor regular). Animação via `gsap.to` com `autoAlpha`/`x`/`stagger`.
+- §4 BeliefScrollText: `font-medium italic` (não bold). Manter clamps. Animação `ScrollTrigger` com `onEnter/onLeave/onLeaveBack`.
+- §4.1 Renomear "Motion" → "Animation library policy: GSAP+ScrollTrigger".
+- §5 Manifesto: GSAP `ScrollTrigger` com `onUpdate` no range `0.82→0.92`, words via `[data-split-item]`.
+- §6 Ghost 3D: documentar `frameloop="demand"`, `SceneInvalidator`, dispose no unmount, `useWebGLSupport` fallback.
+- §`arquitetura_recomendada`: `BeliefsScrollContextValue.scrollYProgress` ajustado para `{ get: () => number }`.
+- §`design_tokens`: ratificar valores já presentes em `beliefTokens.ts`.
+- §`riscos_e_validacoes`: remover risco "GSAP proibido"; adicionar nota sobre `gsap.context().revert()` para cleanup determinístico.
+- Se Atmospheric SVG noise existir no código (verificação Frente C), adicionar nova subseção §1.1.
 
-**Impact:** Background transitions feel slightly snappier than intended. The ambient curve
-provides the "ignition-style fast start, long tail decay" that makes BG color changes feel
-atmospheric rather than interactive.
+**Critério de aceitação:** ler v4 + abrir um arquivo do código deve produzir descrições casadas em stack, durações, easing e estrutura.
 
-**Fix:** Import and use `GHOST_EASE_AMBIENT` for BG color animations:
+### Frente B · Alinhar tipografia ao mockup
 
-```typescript
-import { GHOST_EASE_AMBIENT } from '@/config/motion';
-// ...
-animate(
-  bgRef.current,
-  { backgroundColor: targetColor },
-  { duration: 0.9, ease: GHOST_EASE_AMBIENT }
-);
-```
+Mudanças mínimas e localizadas no código:
 
----
+- **B1 · `BeliefFixedHeader.tsx`**
+  - Já em font-display black uppercase para linha 1 ✅
+  - Validar linha 2: `text-[clamp(0.82rem,2.7vw,0.98rem)] font-medium` deve cair em duas linhas alinhada à direita, conforme mockup
+  - Validar `pt-[13vh]` mobile contra `MOBILE-INICIAL.png` (header no topo direita logo abaixo da safe-area)
 
-### GAP-03 — `BeliefFixedHeader.tsx`: Missing mobile top offset (**P1**)
+- **B2 · `BeliefScrollText.tsx`**
+  - Trocar `font-bold` → `font-medium` (peso 500)
+  - Manter `italic`, `leading-[0.9]`, `tracking-[-0.045em]`, `color: blueAccent` ✅
+  - Manter clamps atuais ✅
+  - Calibrar `textShadow`: hoje `0 2px 24px rgba(0,0,0,0.28)` — em fundos magenta/pink pode aumentar mancha; reduzir para `0 1px 12px rgba(0,0,0,0.18)` se contraste AA mantido sem ele
 
-**Blueprint requirement:**
+- **B3 · `BeliefManifesto.tsx`**
+  - Já cumpre `font-display font-black uppercase leading-[0.82] tracking-[0.03em]` ✅
+  - `clamp(3.5rem, 16vw, 12rem)` ✅
+  - Validar mockup `DESKTOP-FINAL.jpg`: Ghost sobrepõe a palavra `GHOST` exige `z-index ghost(70) > z-index manifesto(50)` ✅
 
-> "Sticky em `top-[14vh] md:top-0`"
+- **B4 · `BeliefOverlay.tsx`**
+  - Substituir literal `zIndex: 10` por `beliefZIndex.overlay`
 
-**Current code:**
+**Critério de aceitação:** screenshot E2E lado-a-lado entre `/sobre` e os PNGs (`DESKTOP-INICIAL.jpg`, `DESKTOP-FINAL.jpg`, `MOBILE-INICIAL.png`, `MOBILE-FINAL.png`) com diff visual ≤ 5%.
 
-```typescript
-<motion.header
-  className="fixed inset-x-0 top-0 z-[var(--z-layer-header)] w-full py-8 pointer-events-none"
-```
+### Frente C · Verificação técnica auxiliar
 
-The header is `top-0` on all viewports. On mobile, this places the header at the browser
-status bar edge, where it can compete with system UI and create visual clutter at the very
-top of the screen.
+- **C1 · GLB URL — RESOLVIDO 2026-05-13:** auditoria do Frente C confirmou que `GhostModel.tsx` usa `getAssetUrl('site-assets/3d/ghost-v1.glb')` resolvendo para `public/site.assets/3d/ghost-v1.glb` (204KB, presente). A URL Supabase `ghost-transformed.glb` citada em `ABOUT-BIEFS-DETALAHAMENTO/SPEC_AboutBeliefs.md` (2025) foi **descartada**. Decisão do usuário (2026-05-13): manter `ghost-v1.glb` local como SSOT. Justificativa: zero dependência externa, carregamento mais rápido, alinhamento com a v4 ratificado.
+- **C2 · `useGLTF.preload`:** confirmar preload ativo para evitar pop-in.
+- **C3 · Atmospheric SVG noise — RESOLVIDO 2026-05-13:** auditoria do Frente C confirmou ausência total da camada (grep `feTurbulence|feDisplacementMap|fractal|noise|grain` em `src/components/sobre/` retornou zero matches). `BeliefBackground.tsx` é um `<div>` simples com `gsap.to` em `backgroundColor`. A entrada do `active_state.md` foi removida no mesmo commit que esta atualização.
+- **C4 · `data-testid` estáveis:** confirmar que `beliefs-section`, `beliefs-background`, `beliefs-scroll-text`, `belief-phrase`, `beliefs-manifesto`, `beliefs-ghost-scene` continuam presentes (suíte E2E depende).
 
-**Impact:** Mobile header starts at top:0 instead of 14vh, potentially overlapping with
-browser chrome on iOS/Android. Less editorial air at the top.
+**Critério de aceitação:** `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` passa 12/12 sem alteração de specs.
 
-**Fix:**
+## 4. Delegação por Subagente
 
-```tsx
-className =
-  'fixed inset-x-0 top-[14vh] md:top-0 z-[var(--z-layer-header)] w-full py-8 pointer-events-none';
-```
+| Subagente / Skill         | Frente     | Responsabilidade direta                                                                                                 |
+| ------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **@ghost_architect**      | A          | Reescrever `06-O-QUE-ME-MOVE-v4.md` para refletir GSAP, ref-based context, durações reais, tipografia mockup-aligned    |
+| **@spectral_artist**      | B1, B2, B3 | Ajustar `font-medium` em `BeliefScrollText`, calibrar `textShadow`, validar pixel-parity contra os 4 PNGs               |
+| **@motion_choreographer** | C2         | Verificar `useGLTF.preload`, conferir `frameloop="demand"`, validar cleanup `gsap.context().revert()` em todos os hooks |
+| **@audit_sentinel**       | B4, C4     | Substituir `zIndex` hardcoded por token; rodar `pnpm test:e2e about-beliefs`, `pnpm run build-check`; gerar evidência   |
+| **(orchestrator)**        | C1, C3     | Confirmar URL Supabase do GLB; localizar/documentar camada SVG noise; sincronizar `active_state.md` ao fim              |
 
----
+### Checklist obrigatório de acessibilidade
 
-### GAP-04 — `AboutBeliefs.tsx` + `GhostScene.tsx`: Double `GhostErrorBoundary` (**P1**)
+Ausente nas specs originais — adicionado pela restrição do `/plan-feature`:
 
-**Current code in `AboutBeliefs.tsx`:**
+- [ ] `aria-labelledby="o-que-me-move-title"` na `<section>` (já presente)
+- [ ] `aria-hidden="true"` no `<Canvas>` Ghost (regra DS §4)
+- [ ] `aria-live="polite"` no manifesto apenas quando ativo (já presente, gate via `active || isClimax`)
+- [ ] Foco do teclado nunca preso em camada sticky/fixed
+- [ ] `prefers-reduced-motion`: floating, parallax, blur removidos; durações ≤ 0.3s (já implementado)
+- [ ] Contraste AA do `blueAccent` (#4fe6ff) sobre `pinkDetails` (#f501d3) precisa medição — usar `textShadow` se < 4.5:1
+- [ ] `tabIndex` não definido em elementos sem ação interativa
+- [ ] Skip-link `/sobre` aponta para `<main id="main-content">` (validar em `page.tsx`)
 
-```tsx
-<GhostErrorBoundary>
-  <GhostScene scrollProgress={scrollYProgress} ... />
-</GhostErrorBoundary>
-```
+## 5. Critérios de Sucesso Globais
 
-**Current code in `GhostScene.tsx`:**
+1. Doc `06-O-QUE-ME-MOVE-v4.md` descreve o código real sem mentiras de stack ou durações.
+2. Quatro mockups (DESKTOP/MOBILE × INICIAL/FINAL) renderizados pelo browser em diff visual ≤ 5%.
+3. Zero novos erros em `pnpm run typecheck`, `pnpm run lint`, `pnpm run build`.
+4. Suíte E2E `about-beliefs.spec.ts` passa 12/12.
+5. `active_state.md` reflete a nova versão da seção e remove qualquer débito de doc-drift.
+6. FPS médio no scroll permanece > 50 desktop, > 40 mobile.
 
-```tsx
-<motion.div ...>
-  <GhostErrorBoundary>     {/* ← SECOND boundary */}
-    <Canvas ...>
-      <GhostModel ... />
-    </Canvas>
-  </GhostErrorBoundary>
-</motion.div>
-```
+## 6. Riscos e Suposições
 
-`GhostScene` is already wrapped in an error boundary from the parent `AboutBeliefs`.
-The inner boundary at Canvas-level is redundant. When an error occurs, the outer boundary
-catches it and renders the SVG fallback. The inner one would only fire if `GhostScene`'s
-own render fails below the `motion.div` — but this is exactly what the outer boundary covers.
-
-**Impact:** Wasted React tree depth, potential error swallowing (inner catches before outer
-can log/report). No visible functional issue in happy path.
-
-**Fix:** Remove the `GhostErrorBoundary` wrapper inside `GhostScene.tsx`, keeping only the
-outer one in `AboutBeliefs.tsx`.
+- **R1:** Mockup INICIAL/FINAL representa estados "clímax" da animação, não estado de descanso. A frase rotativa do mockup pode ser estado congelado no momento de entrada. Confirmar antes de mudar pesos tipográficos.
+- **R2:** `font-medium` pode perder presença em backgrounds vibrantes (pink/magenta). Validar com screenshot real antes do merge.
+- **R3:** Substituir `zIndex: 10` por token só é seguro se `MOTION_TOKENS.z.overlay === 10`. Validar antes.
+- **R4:** O detalhamento cita "Morphing Text" para o manifesto; o código usa `SplitTextMotion` por palavras com GSAP stagger. Decisão: tratar "morphing" como descrição visual genérica, não exigir plugin. Caso o cliente esperasse efeito morph real, este plano não cobre.
 
 ---
 
-### GAP-05 — `SectionErrorBoundary.tsx` modified but not integrated (**P2, out-of-scope**)
-
-`SectionErrorBoundary.tsx` was modified (git status: `M`) adding retry button and async
-error reporting. This component is not currently used in the beliefs section render tree
-(only `GhostErrorBoundary` is). Integrating it is a larger change outside this mission scope.
-
-**Decision:** **No action in this mission.** Noted for future Sunday refactor backlog.
-
----
-
-## 5. Architecture Proposed
-
-No structural changes. All fixes are local to 3 files:
-
-| File                                                 | Change                               |
-| ---------------------------------------------------- | ------------------------------------ |
-| `src/components/sobre/beliefs/BeliefBackground.tsx`  | Add bidirectional reset + fix easing |
-| `src/components/sobre/beliefs/BeliefFixedHeader.tsx` | Add `top-[14vh]` mobile offset       |
-| `src/components/sobre/3d/GhostScene.tsx`             | Remove inner `GhostErrorBoundary`    |
-
----
-
-## 6. Files Affected
-
-| File                                                 | Type of Change | Risk     |
-| ---------------------------------------------------- | -------------- | -------- |
-| `src/components/sobre/beliefs/BeliefBackground.tsx`  | Logic + import | Low      |
-| `src/components/sobre/beliefs/BeliefFixedHeader.tsx` | CSS class      | Very Low |
-| `src/components/sobre/3d/GhostScene.tsx`             | Remove wrapper | Low      |
-
-No new files. No new dependencies. No config changes.
-
----
-
-## 7. Technical Constraints
-
-- Stack: Next.js 16, React 19, TypeScript, Tailwind CSS 4 Oxide, Motion (not framer-motion)
-- `GHOST_EASE_AMBIENT` is already exported from `src/config/motion.ts` — no new tokens
-- Tailwind Oxide: `@import "tailwindcss" source(none)` pattern not touched (no new classes
-  that require `@source` — `top-[14vh]` is arbitrary value, resolves at build time)
-- `inView` from `motion` (not `framer-motion`) — API confirmed compatible
-- No deploy. No pnpm install. No destructive operations.
-
----
-
-## 8. Risks
-
-| Risk                                                        | Likelihood | Mitigation                                                             |
-| ----------------------------------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| Bidirectional reset causes visual flicker on fast scroll-up | Low        | Use `duration: 0.6` (shorter than 0.9 forward)                         |
-| Ambient easing changes perception of BG speed               | Very Low   | `GHOST_EASE_AMBIENT` is already validated for BG use by motion.ts docs |
-| `top-[14vh]` breaks header on tablet (768–1024px)           | Low        | `md:top-0` kicks in at 768px breakpoint                                |
-| Removing inner GhostErrorBoundary exposes error to outer    | Intended   | Outer boundary already handles fallback                                |
-
----
-
-## 9. Trade-offs
-
-| Decision                                         | Rationale                                                                          |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| Use `GHOST_EASE_AMBIENT` for BG (not GHOST_EASE) | Blueprint specifies this explicitly; token docs confirm atmospheric use            |
-| Keep outer GhostErrorBoundary, remove inner      | Error boundary should be at the integration point, not duplicated inside component |
-| `top-[14vh]` only mobile                         | `md:top-0` aligns with blueprint exact spec                                        |
-| GAP-05 (SectionErrorBoundary) deferred           | Out of scope, requires architecture decision                                       |
-
----
-
-## 10. Validation Strategy
-
-After implementation:
-
-1. **Start dev server**: `pnpm dev`
-2. **Desktop check**: navigate to `/sobre`, scroll full section
-   - Confirm background color changes on forward scroll
-   - Confirm background reverts on backward scroll
-   - Confirm header visible and not overlapping content
-3. **Mobile check** (DevTools 375px): same scroll validation
-   - Confirm header at `14vh` from top, not browser edge
-4. **Console check**: zero errors
-5. **Screenshot evidence**: desktop + mobile at 15%, 45%, 90% scroll
-
----
-
-## 11. Criteria of Acceptance
-
-- [ ] Background reverts color when scrolling back up (bidirectional)
-- [ ] Background color transition uses ambient easing (atmospheric feel)
-- [ ] Header on mobile starts at 14vh from top
-- [ ] No double GhostErrorBoundary in component tree
-- [ ] Zero console errors
-- [ ] Desktop manifesto final: white text on blue bg
-- [ ] Ghost z-index above manifesto (no regression)
-- [ ] TypeScript: no new type errors in changed files
-- [ ] No visual regressions in desktop layout
-
----
-
-## 12. Rollback / Contingency
-
-All changes are local file edits. Rollback = `git checkout src/components/sobre/beliefs/BeliefBackground.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/3d/GhostScene.tsx`
-
-No database, no deploy, no external service involved.
-
----
-
-## 13. `.context/DOCS-PORTFOLIO-PAGES` Update Needed?
-
-After implementation: update `06-O-QUE-ME-MOVE.md` to reflect:
-
-- Background easing corrected to `GHOST_EASE_AMBIENT`
-- Header mobile offset confirmed as `top-[14vh]`
-- Bidirectional reset confirmed active
-
----
-
-## APPROVAL GATE
-
-**Do NOT proceed to Execution without explicit human confirmation:**
-
-- "Aprovado" or "Proceed"
-
-No code has been touched. This document is analysis only.
+**Status:** Plano pronto para validação humana. Após aprovação, frentes A, B e C podem ser executadas em paralelo pelos subagentes listados.

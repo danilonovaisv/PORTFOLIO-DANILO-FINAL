@@ -24,8 +24,12 @@ export function BeliefFixedHeader() {
 
     const words = root.querySelectorAll<HTMLElement>('[data-split-item]');
 
-    // Ensure initial hidden state
-    gsap.set(root, { autoAlpha: 0, x: shouldReduceMotion ? 0 : 60 });
+    // Ensure initial hidden state — spec: fade-in + blur 10px → 0
+    gsap.set(root, {
+      autoAlpha: 0,
+      x: shouldReduceMotion ? 0 : 60,
+      filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)',
+    });
     gsap.set(words, {
       autoAlpha: 0,
       y: shouldReduceMotion ? 0 : 12,
@@ -39,7 +43,8 @@ export function BeliefFixedHeader() {
           gsap.to(root, {
             autoAlpha: 1,
             x: 0,
-            duration: shouldReduceMotion ? 0.25 : 0.8,
+            filter: 'blur(0px)',
+            duration: shouldReduceMotion ? 0.25 : 0.9,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
             overwrite: 'auto',
           });
@@ -57,6 +62,7 @@ export function BeliefFixedHeader() {
           gsap.to(root, {
             autoAlpha: shouldReduceMotion ? 1 : 0,
             x: shouldReduceMotion ? 0 : 60,
+            filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)',
             duration: shouldReduceMotion ? 0.2 : 0.4,
             ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
             overwrite: 'auto',

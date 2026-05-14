@@ -8,6 +8,7 @@ import { beliefMotion, beliefZIndex } from '../../../config/beliefTokens';
 import { usePointerParallax } from '../../../hooks/usePointerParallax';
 import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
+import { Suspense } from 'react';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
 
@@ -64,7 +65,9 @@ export function GhostScene() {
           gsap.to(wrapper, {
             autoAlpha: 1,
             scale: 1,
-            duration: shouldReduceMotion ? 0.3 : beliefMotion.ghostIntroDuration,
+            duration: shouldReduceMotion
+              ? 0.3
+              : beliefMotion.ghostIntroDuration,
             ease: 'power2.out',
             delay: shouldReduceMotion ? 0 : 0.15,
             overwrite: 'auto',
@@ -85,7 +88,7 @@ export function GhostScene() {
       ref={wrapperRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0 invisible"
+      className="pointer-events-none fixed inset-0"
       style={{ zIndex: beliefZIndex.ghost }}
     >
       <Canvas
@@ -106,13 +109,15 @@ export function GhostScene() {
           color="#ffd8f8"
         />
         <SceneInvalidator />
-        <GhostModel
-          isMobile={isMobile}
-          shouldReduceMotion={shouldReduceMotion}
-          scrollYProgress={scrollYProgress}
-          pointerX={pointer.x}
-          pointerY={pointer.y}
-        />
+        <Suspense fallback={null}>
+          <GhostModel
+            isMobile={isMobile}
+            shouldReduceMotion={shouldReduceMotion}
+            scrollYProgress={scrollYProgress}
+            pointerX={pointer.x}
+            pointerY={pointer.y}
+          />
+        </Suspense>
       </Canvas>
     </div>
   );

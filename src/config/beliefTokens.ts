@@ -15,11 +15,11 @@ export const beliefColors = {
 export const BELIEF_BACKGROUND_STOPS = [
   beliefColors.deepVoid,
   beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
+  beliefColors.blueDeep,
+  beliefColors.blueBright,
   beliefColors.bluePrimary,
-  beliefColors.purpleDetails,
-  beliefColors.pinkDetails,
+  beliefColors.blueDeep,
+  beliefColors.blueBright,
   beliefColors.deepVoid,
 ] as const;
 
@@ -29,12 +29,12 @@ export const BELIEF_HEADER_LINES = [
 ] as const;
 
 export const BELIEF_PHRASES = [
-  'Um vídeo que respira',
-  'Uma marca que se reconhece',
-  'Um detalhe que fica',
-  'Crio para gerar presença',
-  'Mesmo quando não estou ali',
-  'Mesmo quando ninguém percebe o esforço',
+  'Um\nvídeo\nque\nrespira.',
+  'Uma\nmarca\nque se\nreconhece.',
+  'Um\ndetalhe\nque\nfica.',
+  'Crio\npara\ngerar\npresença.',
+  'Mesmo\nquando\nnão\nestou\nali.',
+  'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ] as const;
 
 export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const;

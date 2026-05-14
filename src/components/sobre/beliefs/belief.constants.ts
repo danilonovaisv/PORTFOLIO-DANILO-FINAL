@@ -13,7 +13,7 @@ export const GHOST_MATERIAL_CONFIG = {
   body: {
     color: '#f5f7ff',
     emissive: '#b2d7ff',
-    emissiveIntensity: 0.035,
+    emissiveIntensity: 0.12,
     roughness: 0.45,
     metalness: 0.08,
   },
