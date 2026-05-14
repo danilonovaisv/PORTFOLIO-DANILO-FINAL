@@ -39,7 +39,8 @@
       "Bash(main)",
       "Bash(grep -rn \"'main'\\\\|\\\\\"main\\\\\"\\\\|`main`\\\\|<main\\\\b\" /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/ --include=\"*.tsx\")",
       "Bash(git commit *)",
-      "Bash(gh pr *)"
+      "Bash(gh pr *)",
+      "Bash(/Users/danilonovais/PORTFOLIO-DANILO-FINAL/node_modules/.bin/tsc --noEmit)"
     ]
   },
   "enableAllProjectMcpServers": true,
