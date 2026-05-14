@@ -1,4 +1,4 @@
-import supabaseLoader from '@/lib/supabase/image-loader';
+import { supabaseLoader } from '@/lib/utils';
 
 describe('supabaseLoader', () => {
   const originalEnv = process.env;

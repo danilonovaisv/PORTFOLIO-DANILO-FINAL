@@ -1,87 +1,56 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion, useTransform } from 'framer-motion';
 import {
   BELIEF_PHRASE_ITEMS,
   beliefColors,
   beliefLayout,
+  beliefMotion,
 } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
+import { GHOST_EASE } from '@/config/motion';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
+interface BeliefPhraseSectionProps {
+  text: string;
+  index: number;
+  totalPhrases: number;
 }
 
-function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
-  const { isMobile, shouldReduceMotion } = useBeliefsScrollContext();
-  const sectionRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLHeadingElement>(null);
+function BeliefPhraseSection({ text, index, totalPhrases }: BeliefPhraseSectionProps) {
+  const { isMobile, shouldReduceMotion, scrollYProgress } = useBeliefsScrollContext();
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const textEl = textRef.current;
-    if (!section || !textEl) return;
+  // Define the scroll range for this phrase based on the climax point (0.82)
+  const CLIMAX_START = 0.82;
+  const sectionStep = CLIMAX_START / totalPhrases;
+  
+  const start = index * sectionStep;
+  const end = (index + 1) * sectionStep;
+  const middle = (start + end) / 2;
 
-    const ctx = gsap.context(() => {
-      // Initial state: Hidden and offset to the left
-      gsap.set(textEl, {
-        opacity: 0,
-        x: shouldReduceMotion ? 0 : -80,
-      });
+  // Animation values linked to scroll
+  // We add a small horizontal plateu in the middle [middle - 0.04, middle + 0.04] 
+  // to give the reader time to see the phrase clearly
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, middle - 0.04, middle + 0.04, end],
+    [0, 1, 1, 0]
+  );
 
-      ScrollTrigger.create({
-        trigger: section,
-        // Triggering when the section enters/leaves the central part of the viewport
-        start: 'top 70%',
-        end: 'bottom 30%',
-        onEnter: () => {
-          gsap.to(textEl, {
-            opacity: 1,
-            x: 0,
-            duration: shouldReduceMotion ? 0.4 : 1.2,
-            ease: GSAP_GHOST_EASE,
-            overwrite: 'auto',
-          });
-        },
-        onLeave: () => {
-          gsap.to(textEl, {
-            opacity: 0,
-            x: shouldReduceMotion ? 0 : 80, // Exit to the right
-            duration: 0.8,
-            ease: 'power3.in',
-            overwrite: 'auto',
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(textEl, {
-            opacity: 1,
-            x: 0,
-            duration: shouldReduceMotion ? 0.4 : 1.2,
-            ease: GSAP_GHOST_EASE,
-            overwrite: 'auto',
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(textEl, {
-            opacity: 0,
-            x: shouldReduceMotion ? 0 : -80, // Exit back to the left
-            duration: 0.8,
-            ease: 'power3.in',
-            overwrite: 'auto',
-          });
-        },
-      });
-    });
+  const y = useTransform(
+    scrollYProgress,
+    [start, middle, end],
+    [shouldReduceMotion ? 0 : 18, 0, shouldReduceMotion ? 0 : -18]
+  );
 
-    return () => ctx.revert();
-  }, [shouldReduceMotion]);
+  const blurValue = useTransform(
+    scrollYProgress,
+    [start, middle, end],
+    [8, 0, 8]
+  );
+  const filter = useTransform(blurValue, (v: number) => `blur(${v}px)`);
 
   return (
     <section
-      ref={sectionRef}
       className="belief-scroll-section relative"
       data-index={index}
       style={{ height: beliefLayout.phraseSectionHeight }}
@@ -98,13 +67,14 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
           paddingBottom: isMobile ? beliefLayout.mobilePhraseBottom : undefined,
         }}
       >
-        <h3
-          ref={textRef}
+        <motion.h3
           data-testid="belief-phrase"
-          data-animation-contract="viewport-x-opacity"
+          data-animation-contract="scroll-coupled"
           aria-label={text}
-          className="font-medium italic leading-[0.9] tracking-[-0.045em] will-change-transform z-[var(--z-layer-cta)]"
           style={{
+            opacity,
+            y,
+            filter,
             color: beliefColors.blueAccent,
             maxWidth: isMobile ? '100%' : beliefLayout.desktopPhraseMaxWidth,
             fontSize: isMobile
@@ -113,23 +83,32 @@ function BeliefPhraseSection({ text, index }: { text: string; index: number }) {
             textShadow: '0 1px 12px rgba(0, 0, 0, 0.18)',
             whiteSpace: 'pre-line', // respects \n in phrase strings
           }}
+          className="font-medium italic leading-[0.9] tracking-[-0.045em] will-change-[transform,opacity,filter] z-[var(--z-layer-cta)]"
         >
           {text}
-        </h3>
+        </motion.h3>
       </div>
     </section>
   );
 }
 
 export function BeliefScrollText() {
+  const totalPhrases = BELIEF_PHRASE_ITEMS.length;
+
   return (
     <div
       data-testid="beliefs-scroll-text"
       className="relative z-[var(--z-layer-cta)]"
     >
       {BELIEF_PHRASE_ITEMS.map((phrase, index) => (
-        <BeliefPhraseSection key={phrase.id} text={phrase.text} index={index} />
+        <BeliefPhraseSection 
+          key={phrase.id} 
+          text={phrase.text} 
+          index={index} 
+          totalPhrases={totalPhrases}
+        />
       ))}
     </div>
   );
 }
+

@@ -38,7 +38,7 @@ export default defineConfig({
   webServer: {
     command:
       process.env.PLAYWRIGHT_SERVER_COMMAND ||
-      `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true pnpm run dev --port ${TEST_PORT}`,
+      `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true npx pnpm run dev --port ${TEST_PORT}`,
     port: TEST_PORT,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

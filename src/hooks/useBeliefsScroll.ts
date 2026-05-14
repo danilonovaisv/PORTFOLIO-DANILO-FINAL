@@ -1,62 +1,33 @@
 import type { RefObject } from 'react';
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 import { BELIEF_PHRASES } from '../config/beliefTokens';
 import { useMediaQuery } from './useMediaQuery';
-
 import { useMotionGate } from './useMotionGate';
 
 export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
   const shouldReduceMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 767px)');
-  const progressRef = useRef(0);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end']
+  });
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isClimax, setIsClimax] = useState(false);
 
-  const scrollYProgress = useMemo(
-    () => ({
-      get: () => progressRef.current,
-    }),
-    []
-  );
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const nextProgress = Math.min(1, Math.max(0, latest));
+    
+    const narrativeIndex = Math.min(
+      BELIEF_PHRASES.length - 1,
+      Math.max(0, Math.round(nextProgress * (BELIEF_PHRASES.length - 1)))
+    );
 
-  useEffect(() => {
-    const updateProgress = () => {
-      const section = containerRef.current;
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-      const sectionTop = window.scrollY + rect.top;
-      const start = sectionTop - window.innerHeight;
-      const end = sectionTop + rect.height - window.innerHeight;
-      const range = Math.max(1, end - start);
-      const progress = (window.scrollY - start) / range;
-
-      const nextProgress = Math.min(1, Math.max(0, progress));
-      const narrativeIndex = Math.min(
-        BELIEF_PHRASES.length - 1,
-        Math.max(0, Math.round(nextProgress * (BELIEF_PHRASES.length - 1)))
-      );
-
-      progressRef.current = nextProgress;
-
-      setActiveIndex((prev) =>
-        prev !== narrativeIndex ? narrativeIndex : prev
-      );
-      setIsClimax((prev) => {
-        const nextClimax = nextProgress >= 0.82;
-        return prev !== nextClimax ? nextClimax : prev;
-      });
-    };
-
-    updateProgress();
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    window.addEventListener('resize', updateProgress);
-
-    return () => {
-      window.removeEventListener('scroll', updateProgress);
-      window.removeEventListener('resize', updateProgress);
-    };
-  }, [containerRef]);
+    setActiveIndex(narrativeIndex);
+    setIsClimax(nextProgress >= 0.82);
+  });
 
   return {
     scrollYProgress,

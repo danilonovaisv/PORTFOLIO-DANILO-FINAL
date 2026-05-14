@@ -1,20 +1,14 @@
 'use client';
 
 import { Canvas, useThree } from '@react-three/fiber';
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef, Suspense } from 'react';
+import { motion, useTransform } from 'framer-motion';
 import { beliefMotion } from '../../../config/beliefTokens';
 import { usePointerParallax } from '../../../hooks/usePointerParallax';
 import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
-import { Suspense } from 'react';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 function SceneInvalidator() {
   const { invalidate, gl } = useThree();
@@ -56,78 +50,43 @@ export function GhostScene() {
     scrollYProgress,
     isMobile,
     shouldReduceMotion,
-    containerRef: sectionRef,
   } = useBeliefsScrollContext();
   const supportsWebGL = useWebGLSupport();
   const pointer = usePointerParallax();
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const section = sectionRef.current;
-    if (!wrapper || !section) return;
+  // Strict visibility control: 
+  // 1. Fade in quickly after entry (0 -> 0.05)
+  // 2. Stay visible (0.05 -> 0.9)
+  // 3. Fade out before exit (0.9 -> 0.98)
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.05, 0.9, 0.98],
+    [0, 1, 1, 0]
+  );
 
-    const ctx = gsap.context(() => {
-      // Ensure starting state is invisible via GSAP
-      gsap.set(wrapper, { autoAlpha: 0, scale: 0.95 });
+  // Subtle blur for Ghost System aesthetic
+  const blur = useTransform(
+    scrollYProgress,
+    [0, 0.05, 0.9, 0.98],
+    ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
+  );
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        onEnter: () => {
-          gsap.to(wrapper, {
-            autoAlpha: 1,
-            scale: 1,
-            duration: shouldReduceMotion
-              ? 0.3
-              : beliefMotion.ghostIntroDuration,
-            ease: 'power2.out',
-            delay: shouldReduceMotion ? 0 : 0.15,
-            overwrite: 'auto',
-          });
-        },
-        onLeave: () => {
-          gsap.to(wrapper, {
-            autoAlpha: 0,
-            scale: 0.95,
-            duration: 0.5,
-            ease: 'power2.in',
-            overwrite: 'auto',
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(wrapper, {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: 'power2.out',
-            overwrite: 'auto',
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(wrapper, {
-            autoAlpha: 0,
-            scale: 0.95,
-            duration: 0.5,
-            ease: 'power2.in',
-            overwrite: 'auto',
-          });
-        },
-      });
-    });
-    return () => ctx.revert();
-  }, [sectionRef, shouldReduceMotion, supportsWebGL]);
+  // TranslateY for entrance/exit (allowed by spec)
+  const y = useTransform(
+    scrollYProgress,
+    [0, 0.05, 0.9, 0.98],
+    [20, 0, 0, -20]
+  );
 
   if (!supportsWebGL) {
     return <GhostSceneFallback />;
   }
 
   return (
-    <div
-      ref={wrapperRef}
+    <motion.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
+      style={{ opacity, filter: blur, y }}
       className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)]"
     >
       <Canvas
@@ -159,6 +118,6 @@ export function GhostScene() {
           />
         </Suspense>
       </Canvas>
-    </div>
+    </motion.div>
   );
 }
