@@ -18,7 +18,6 @@ const GhostCursor = dynamic(() => import('@/components/GhostCursor'), {
 });
 // Aurora was removed as per cleanup audit
 
-
 type FeaturedProjectAnimatedBackgroundProps = {
   variant: FeaturedProjectBackgroundVariant;
   className?: string;

@@ -171,7 +171,6 @@ export const viewportConfig = {
   margin: '0px 0px -10% 0px',
 } as const;
 
-
 // =============================================================================
 // REUSABLE VARIANTS - Ghost Era Design System
 // Rules: No Scale, No Bounce, No Rotate. Opacity + Blur + Y-Translate (max 18px)

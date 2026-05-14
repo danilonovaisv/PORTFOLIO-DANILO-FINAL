@@ -59,4 +59,3 @@ export const mixHex = (
     from.b + (to.b - from.b) * amount
   );
 };
-

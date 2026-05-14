@@ -38,13 +38,9 @@ export function BeliefManifesto() {
         end: 'bottom bottom',
         onUpdate: (self: globalThis.ScrollTrigger) => {
           const progress = self.progress;
-          
+
           // Reveal between 0.82 and 0.92
-          let revealProgress = gsap.utils.clamp(
-            0,
-            1,
-            (progress - 0.82) / 0.1
-          );
+          let revealProgress = gsap.utils.clamp(0, 1, (progress - 0.82) / 0.1);
 
           // Exit fade out between 0.96 and 1.0
           if (progress > 0.96) {
@@ -66,7 +62,7 @@ export function BeliefManifesto() {
         },
         onLeaveBack: () => {
           gsap.to(root, { autoAlpha: 0, duration: 0.3 });
-        }
+        },
       });
 
       ScrollTrigger.create({
@@ -74,7 +70,9 @@ export function BeliefManifesto() {
         start: 'bottom 36%',
         onEnter: () => {
           // If we already passed the climax, don't re-trigger if progress is too far
-          const progress = ScrollTrigger.create({ trigger: container }).progress;
+          const progress = ScrollTrigger.create({
+            trigger: container,
+          }).progress;
           if (progress > 0.96) return;
 
           gsap.to(words, {

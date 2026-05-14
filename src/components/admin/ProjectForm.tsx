@@ -586,10 +586,7 @@ export function ProjectForm({
           System_Publish_State
         </label>
         <label className="flex items-center gap-2 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
-          <input
-            type="checkbox"
-            {...form.register('featured_on_portfolio')}
-          />
+          <input type="checkbox" {...form.register('featured_on_portfolio')} />
           System_Feature_Override: PORTFOLIO_HIGHLIGHT
         </label>
         <label className="flex flex-col gap-1 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">

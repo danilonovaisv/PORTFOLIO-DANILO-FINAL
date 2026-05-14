@@ -120,10 +120,7 @@ export default async function HomePage() {
 
     if (featuredProjects.length === 0) {
       console.warn('[Home] No projects returned, using fallback projects.');
-      featuredProjects = shuffleProjects(
-        buildFallbackProjects(),
-        shuffleSeed
-      );
+      featuredProjects = shuffleProjects(buildFallbackProjects(), shuffleSeed);
     }
   } catch (error: any) {
     const cause = (error as any)?.cause ?? (error as any)?.errors?.[0];
@@ -139,10 +136,7 @@ export default async function HomePage() {
       causeMsg ? `(cause: ${causeMsg})` : ''
     );
 
-    featuredProjects = shuffleProjects(
-      buildFallbackProjects(),
-      shuffleSeed
-    );
+    featuredProjects = shuffleProjects(buildFallbackProjects(), shuffleSeed);
   }
 
   const siteUrl = toCanonicalUrl('/');

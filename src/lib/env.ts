@@ -45,7 +45,8 @@ const parsed = envSchema.safeParse(processEnv);
 if (!parsed.success) {
   const isServer = typeof window === 'undefined';
   const isProduction = process.env.NODE_ENV === 'production';
-  const shouldBypass = process.env.VALIDATE_ENV_WARN_ONLY === '1' && !isProduction;
+  const shouldBypass =
+    process.env.VALIDATE_ENV_WARN_ONLY === '1' && !isProduction;
 
   if (isServer) {
     console.error('❌ Environment validation failed!');
@@ -55,7 +56,9 @@ if (!parsed.success) {
       console.warn(
         '⚠️ WARNING: Proceeding with INVALID environment variables due to VALIDATE_ENV_WARN_ONLY=1.'
       );
-      console.warn('This may cause runtime errors in features relying on these variables.');
+      console.warn(
+        'This may cause runtime errors in features relying on these variables.'
+      );
     } else {
       console.error(
         '\nFATAL: Critical environment variables are missing or invalid.'
@@ -68,8 +71,10 @@ if (!parsed.success) {
           'For local development, you can temporarily bypass this with: VALIDATE_ENV_WARN_ONLY=1\n'
         );
       }
-      
-      throw new Error('Environment validation failed. Build/Process terminated.');
+
+      throw new Error(
+        'Environment validation failed. Build/Process terminated.'
+      );
     }
   }
 }
