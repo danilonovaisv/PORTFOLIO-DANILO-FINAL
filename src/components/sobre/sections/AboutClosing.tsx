@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import AntigravityCTA from '@/components/ui/AntigravityCTA';

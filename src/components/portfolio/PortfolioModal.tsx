@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
 import { PortfolioProject } from '@/types/project';

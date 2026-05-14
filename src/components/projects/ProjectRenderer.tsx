@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';

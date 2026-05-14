@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 
 import { Preloader } from '@/components/ui/Preloader';
 import GhostSceneWrapper from '@/components/canvas/home/hero/GhostSceneWrapper';

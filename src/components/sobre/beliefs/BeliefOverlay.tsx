@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransform, motion } from 'framer-motion';
+import { useTransform, m } from 'motion/react';
 import { beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
@@ -16,7 +16,7 @@ export function BeliefOverlay() {
   );
 
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 bg-black"
       style={{

@@ -8,7 +8,7 @@ import React, {
   useState,
   type RefObject,
 } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';

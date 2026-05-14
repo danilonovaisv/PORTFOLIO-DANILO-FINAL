@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE } from '@/config/motion';
 import { stableShuffle } from '@/lib/utils/stable-shuffle';

@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { NavItem } from '@/components/layout/header/types';
 
 import dynamic from 'next/dynamic';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useAntigravityStore } from '@/store/antigravity.store';

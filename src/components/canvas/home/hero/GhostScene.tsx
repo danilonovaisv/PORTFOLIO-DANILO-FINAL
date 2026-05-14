@@ -10,12 +10,16 @@ import { useGhostAnimate } from './hooks/useGhostAnimate';
 import { useGhostParams } from './hooks/useGhostParams';
 import { Preloader } from './components/Preloader';
 
+interface GhostSceneProps {
+  onReady?: () => void;
+}
+
 /**
  * GhostScene Component
  * Renders the main 3D interactive hero experience.
  * Modularized to comply with file size and architectural standards.
  */
-export default function GhostScene({ onReady }: { onReady?: () => void }) {
+export default function GhostScene({ onReady }: GhostSceneProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
 
@@ -114,6 +118,9 @@ export default function GhostScene({ onReady }: { onReady?: () => void }) {
       };
 
       animate(0);
+
+      // Call onReady callback if provided
+      if (onReady) onReady();
 
       // Store cleanup refs
       cleanupRefs.current = { animationId, observer };

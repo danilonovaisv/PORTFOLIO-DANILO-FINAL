@@ -1,4 +1,4 @@
-import type { Variants, SpringOptions } from 'framer-motion';
+import type { Variants, SpringOptions } from 'motion/react';
 
 // =============================================================================
 // MOTION TOKENS - Ghost Era Design System

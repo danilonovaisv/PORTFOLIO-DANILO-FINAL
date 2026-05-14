@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import {
   DropdownMenu,
   DropdownMenuContent,

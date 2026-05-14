@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { LandingPageBlock } from '@/types/landing-page';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';

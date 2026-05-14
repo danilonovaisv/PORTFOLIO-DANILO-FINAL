@@ -1,14 +1,12 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'motion/react';
 import {
   BELIEF_PHRASE_ITEMS,
   beliefColors,
   beliefLayout,
-  beliefMotion,
 } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
-import { GHOST_EASE } from '@/config/motion';
 
 interface BeliefPhraseSectionProps {
   text: string;
@@ -67,7 +65,7 @@ function BeliefPhraseSection({ text, index, totalPhrases }: BeliefPhraseSectionP
           paddingBottom: isMobile ? beliefLayout.mobilePhraseBottom : undefined,
         }}
       >
-        <motion.h3
+        <m.h3
           data-testid="belief-phrase"
           data-animation-contract="scroll-coupled"
           aria-label={text}
@@ -86,7 +84,7 @@ function BeliefPhraseSection({ text, index, totalPhrases }: BeliefPhraseSectionP
           className="font-medium italic leading-[0.9] tracking-[-0.045em] will-change-[transform,opacity,filter] z-[var(--z-layer-cta)]"
         >
           {text}
-        </motion.h3>
+        </m.h3>
       </div>
     </section>
   );

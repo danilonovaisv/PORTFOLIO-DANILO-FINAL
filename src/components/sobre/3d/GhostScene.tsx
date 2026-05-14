@@ -1,9 +1,9 @@
 'use client';
 
 import { Canvas, useThree } from '@react-three/fiber';
-import { useEffect, useRef, Suspense } from 'react';
-import { motion, useTransform } from 'framer-motion';
-import { beliefMotion } from '../../../config/beliefTokens';
+import { useEffect, Suspense } from 'react';
+import { m, useTransform } from 'motion/react';
+
 import { usePointerParallax } from '../../../hooks/usePointerParallax';
 import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
@@ -83,7 +83,7 @@ export function GhostScene() {
   }
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
       style={{ opacity, filter: blur, y }}
@@ -118,6 +118,6 @@ export function GhostScene() {
           />
         </Suspense>
       </Canvas>
-    </motion.div>
+    </m.div>
   );
 }

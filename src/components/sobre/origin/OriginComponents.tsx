@@ -1,7 +1,7 @@
 'use client';
 
 import { RefObject } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';

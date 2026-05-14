@@ -1,6 +1,6 @@
 'use client';
 
-import { m, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'motion/react';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import Image from 'next/image';
 import Link from 'next/link';

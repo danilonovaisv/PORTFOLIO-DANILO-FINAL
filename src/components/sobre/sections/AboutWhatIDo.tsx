@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { m, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform, useSpring } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 
@@ -64,6 +64,17 @@ export function AboutWhatIDo() {
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ['start start', 'end end'],
+  });
+
+  const { scrollYProgress: mobileScrollY } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const smoothMobileScrollY = useSpring(mobileScrollY, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ['10%', '-40%']);
@@ -167,37 +178,37 @@ export function AboutWhatIDo() {
             className="flex flex-col gap-3 p-0"
             aria-labelledby="what-i-do-heading-mobile"
           >
-            {SERVICES.map((service, index) => (
-              <m.li
-                key={service.id}
-                initial={
-                  prefersReducedMotion
-                    ? { opacity: 1, x: 0 }
-                    : { opacity: 0, x: 18 }
-                }
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={viewportConfig}
-                transition={{
-                  duration: MOTION_TOKENS.duration.modal,
-                  delay: index * 0.08,
-                  ease: GHOST_EASE,
-                }}
-                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-standard"
-              >
-                {/* Number */}
-                <span
-                  className="shrink-0 font-sans text-display text-2xl font-black text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"
-                  aria-hidden="true"
+            {SERVICES.map((service, index) => {
+              // Calculate specific scroll trigger points for each card
+              const start = 0.1 + (index * 0.05);
+              const end = start + 0.15;
+              
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const x = useTransform(smoothMobileScrollY, [start, end], [24, 0]);
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const opacity = useTransform(smoothMobileScrollY, [start, end], [0, 1]);
+
+              return (
+                <m.li
+                  key={service.id}
+                  style={prefersReducedMotion ? {} : { x, opacity }}
+                  className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-standard"
                 >
-                  {service.id.padStart(2, '0')}
-                </span>
-                {/* Text */}
-                <p className="text-sm font-semibold leading-snug text-text">
-                  <strong className="text-blueAccent">{service.keyword}</strong>{' '}
-                  <span className="text-text/80">{service.description}</span>
-                </p>
-              </m.li>
-            ))}
+                  {/* Number */}
+                  <span
+                    className="shrink-0 font-sans text-display text-2xl font-black text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"
+                    aria-hidden="true"
+                  >
+                    {service.id.padStart(2, '0')}
+                  </span>
+                  {/* Text */}
+                  <p className="text-sm font-semibold leading-snug text-text">
+                    <strong className="text-blueAccent">{service.keyword}</strong>{' '}
+                    <span className="text-text/80">{service.description}</span>
+                  </p>
+                </m.li>
+              );
+            })}
           </ul>
         </div>
       </div>

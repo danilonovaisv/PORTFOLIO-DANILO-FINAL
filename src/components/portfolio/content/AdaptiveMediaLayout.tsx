@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState, useEffect, useMemo } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';

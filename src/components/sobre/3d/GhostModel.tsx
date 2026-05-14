@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
-import { getAssetUrl } from '../../../lib/utils';
+
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 
 const MODEL_PATH =

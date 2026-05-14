@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'motion/react';
 import { BELIEF_BACKGROUND_STOPS } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
@@ -26,7 +26,7 @@ export function BeliefBackground() {
   );
 
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       data-testid="beliefs-background"
       data-belief-background

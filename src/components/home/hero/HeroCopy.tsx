@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { m, useAnimate, stagger } from 'framer-motion';
+import { m, useAnimate, stagger } from 'motion/react';
 import type { Group } from 'three';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 

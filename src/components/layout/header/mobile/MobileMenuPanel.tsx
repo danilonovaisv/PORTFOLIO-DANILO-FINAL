@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef, RefObject } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { Mail } from 'lucide-react';
 import { Instagram, Linkedin } from '@/components/shared/icons/SocialIcons';
 import { SOCIALS } from '@/config/navigation';

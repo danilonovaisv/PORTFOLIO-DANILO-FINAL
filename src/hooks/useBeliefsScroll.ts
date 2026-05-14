@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
-import { useState, useMemo } from 'react';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { useState } from 'react';
+import { useScroll, useMotionValueEvent } from 'motion/react';
 import { BELIEF_PHRASES } from '../config/beliefTokens';
 import { useMediaQuery } from './useMediaQuery';
 import { useMotionGate } from './useMotionGate';

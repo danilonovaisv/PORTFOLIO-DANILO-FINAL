@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 
 import { BRAND } from '@/config/brand';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';

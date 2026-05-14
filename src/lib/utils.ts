@@ -139,16 +139,28 @@ export function supabaseLoader({
     // If it's a Supabase URL, we can still try to append transform params if they aren't there
     if (src.includes('supabase.co')) {
       const url = new URL(src);
-      // Only transform if it's in the public storage
-      if (url.pathname.includes('/storage/v1/object/public/')) {
-        const newPathname = url.pathname.replace(
-          '/storage/v1/object/public/',
-          '/storage/v1/render/image/public/'
-        );
-        return `${url.origin}${newPathname}?width=${width}&quality=${quality || 75}&format=webp`;
+      const isObject = url.pathname.includes('/storage/v1/object/public/');
+      const isRender = url.pathname.includes('/storage/v1/render/image/public/');
+
+      if (isObject || isRender) {
+        if (isObject) {
+          url.pathname = url.pathname.replace(
+            '/storage/v1/object/public/',
+            '/storage/v1/render/image/public/'
+          );
+        }
+        url.searchParams.set('width', width.toString());
+        url.searchParams.set('quality', (quality || 75).toString());
+        url.searchParams.set('format', 'webp');
+        return url.toString();
       }
       return src;
     }
+    return src;
+  }
+
+  // Ghost System: Skip Supabase loader for local assets (root-relative)
+  if (src.startsWith('/') && !src.startsWith('/site.assets/')) {
     return src;
   }
 

@@ -1,7 +1,7 @@
 'use client';
 
 import type { ElementType } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 
 type SplitTextMotionProps<T extends ElementType = 'span'> = {
   text: string;
@@ -28,7 +28,7 @@ export function SplitTextMotion<T extends ElementType = 'span'>({
   return (
     <Component className={className} aria-label={text} data-split-text>
       {units.map((unit, index) => (
-        <motion.span
+        <m.span
           key={`${unit}-${index}`}
           aria-hidden="true"
           data-split-item
@@ -38,7 +38,7 @@ export function SplitTextMotion<T extends ElementType = 'span'>({
         >
           {unit === ' ' ? '\u00A0' : unit}
           {mode === 'words' && index < units.length - 1 ? '\u00A0' : null}
-        </motion.span>
+        </m.span>
       ))}
     </Component>
   );

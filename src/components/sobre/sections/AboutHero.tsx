@@ -1,6 +1,7 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { useRef } from 'react';
+import { m, useScroll, useTransform } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
@@ -16,6 +17,16 @@ import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
 
 export function AboutHero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.4], [0, -40]);
+  const blur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
+
   const prefersReducedMotion = useMotionGate();
 
   const shouldPlayVideo = !prefersReducedMotion;
@@ -33,7 +44,11 @@ export function AboutHero() {
     .join(' ');
 
   return (
-    <section className="bg-background" aria-labelledby="about-hero-title">
+    <section
+      ref={containerRef}
+      className="bg-background"
+      aria-labelledby="about-hero-title"
+    >
       <div className="relative min-h-screen overflow-hidden">
         <h1 id="about-hero-title" className="sr-only">
           {heroSrTitle}
@@ -66,24 +81,12 @@ export function AboutHero() {
 
               {/* Columns 7-12: Content Block */}
               <m.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
+                style={prefersReducedMotion ? {} : { opacity, y, filter: `blur(${blur}px)` }}
                 className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
               >
                 <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
                   {/* Intro & Manifesto - Unified for natural wrapping */}
-                  <m.div
-                    initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
-                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    viewport={viewportConfig}
-                    transition={{
-                      duration: MOTION_TOKENS.duration.slow,
-                      ease: GHOST_EASE,
-                      delay: MOTION_TOKENS.delay.none,
-                    }}
-                    className="mb-12 flex flex-col items-end gap-1"
-                  >
+                  <m.div className="mb-12 flex flex-col items-end gap-1">
                     <div
                       aria-hidden="true"
                       className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
@@ -115,16 +118,7 @@ export function AboutHero() {
                   </m.div>
 
                   {/* Description - Responsive line breaks */}
-                  <m.div
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={viewportConfig}
-                    transition={{
-                      duration: MOTION_TOKENS.duration.slow,
-                      ease: GHOST_EASE,
-                      delay: MOTION_TOKENS.delay.medium,
-                    }}
-                  >
+                  <m.div>
                     <p className="text-h3 text-text text-right font-medium max-w-[520px]">
                       {ABOUT_CONTENT.hero.description.join(' ')}
                     </p>

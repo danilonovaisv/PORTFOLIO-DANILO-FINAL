@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { cn } from '@/lib/utils';

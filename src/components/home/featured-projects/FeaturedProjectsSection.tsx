@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import {
   MOTION_TOKENS,

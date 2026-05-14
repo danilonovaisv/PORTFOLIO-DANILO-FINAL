@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'motion/react';
 import { BELIEF_HEADER_LINES } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
@@ -53,7 +53,7 @@ export function BeliefFixedHeader() {
   );
 
   return (
-    <motion.aside
+    <m.aside
       style={{ opacity, x, filter: blur }}
       initial="hidden"
       animate="visible"
@@ -61,7 +61,7 @@ export function BeliefFixedHeader() {
     >
       <div className="max-w-[13rem] text-right md:max-w-[20rem] lg:max-w-[24rem]">
         <SplitTextMotion
-          as={motion.p as any}
+          as={m.p as any}
           text={BELIEF_HEADER_LINES[0]}
           mode="words"
           className="font-display text-[clamp(1.5rem,6vw,2.35rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white md:text-[clamp(2rem,2.8vw,3.5rem)]"
@@ -70,7 +70,7 @@ export function BeliefFixedHeader() {
           custom={shouldReduceMotion}
         />
         <SplitTextMotion
-          as={motion.p as any}
+          as={m.p as any}
           text={BELIEF_HEADER_LINES[1]}
           mode="words"
           className="mt-3 text-[clamp(0.82rem,2.7vw,0.98rem)] font-medium leading-[1.22] tracking-[0.04em] text-white/82 md:mt-5 md:text-[clamp(0.95rem,1.15vw,1.16rem)]"
@@ -79,7 +79,7 @@ export function BeliefFixedHeader() {
           custom={shouldReduceMotion}
         />
       </div>
-    </motion.aside>
+    </m.aside>
   );
 }
 

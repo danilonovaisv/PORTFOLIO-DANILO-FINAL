@@ -1,6 +1,6 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { HOME_CONTENT } from '@/config/content';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';

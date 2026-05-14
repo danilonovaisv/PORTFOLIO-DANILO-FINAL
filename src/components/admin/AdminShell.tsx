@@ -1,6 +1,6 @@
 'use client';
 
-import { MotionConfig } from 'framer-motion';
+import { MotionConfig } from 'motion/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {

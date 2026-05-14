@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { motion, useTransform } from 'framer-motion';
+import { m, useTransform } from 'motion/react';
 import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
@@ -39,7 +39,7 @@ export function BeliefManifesto() {
   }), [shouldReduceMotion]);
 
   return (
-    <motion.div
+    <m.div
       data-testid="beliefs-manifesto"
       data-belief-manifesto
       style={{ opacity, y }}
@@ -47,7 +47,7 @@ export function BeliefManifesto() {
       aria-live="polite"
       aria-hidden={!isClimax}
     >
-      <motion.div
+      <m.div
         initial="hidden"
         animate={isClimax ? "visible" : "hidden"}
         transition={{ staggerChildren: shouldReduceMotion ? 0 : 0.06 }}
@@ -57,7 +57,7 @@ export function BeliefManifesto() {
         {BELIEF_MANIFESTO_LINES.map((line) => (
           <SplitTextMotion
             key={line}
-            as={motion.div as any}
+            as={m.div as any}
             text={line}
             mode="words"
             className="block"
@@ -65,7 +65,7 @@ export function BeliefManifesto() {
             variants={itemVariants}
           />
         ))}
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 
 interface MobilePreLayersProps {
   accentColor: string;

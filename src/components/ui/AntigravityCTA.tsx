@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, type MouseEvent } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { BRAND } from '@/config/brand';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
