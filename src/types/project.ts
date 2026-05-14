@@ -44,10 +44,18 @@ export interface HomeFeaturedConfig {
 
 export interface ProjectDestination {
   type: ProjectDestinationType;
+  /**
+   * Canonical destination URL persisted by the admin (`destination.url`).
+   * Always prefer this field when reading the destination target.
+   */
+  url?: string;
+  /**
+   * @deprecated Use `url`. Retained for backwards compatibility with rows
+   * persisted before the field was renamed; mappers normalise both aliases.
+   */
   href?: string;
   landingSlug?: string;
   openInNewTab?: boolean;
-  url?: string; // Padronização sugerida
 }
 
 /**

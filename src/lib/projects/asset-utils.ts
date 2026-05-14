@@ -43,18 +43,3 @@ export const getYouTubeId = (url: string): string | null => {
 
   return null;
 };
-
-export const getAssetKind = (
-  src?: string,
-  mediaType?: LandingPageBlock['content']['mediaType']
-): AssetKind => {
-  const value = src ?? '';
-  if (YOUTUBE_PATTERN.test(value)) return 'youtube';
-
-  if (mediaType === 'youtube') return 'youtube';
-  if (mediaType === 'video') return 'video';
-
-  if (!value) return 'image';
-  if (VIDEO_PATTERN.test(value)) return 'video';
-  return 'image';
-};
