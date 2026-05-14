@@ -10,9 +10,7 @@ import MotionConfigProvider from '@/components/motion/MotionConfigProvider';
 
 import { env } from '@/lib/env';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return siteMetadata;
-}
+export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
 
 // Define a function to safely get environment variables

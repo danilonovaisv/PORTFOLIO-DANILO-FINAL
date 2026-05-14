@@ -28,8 +28,6 @@ const SURFACE_BY_VARIANT: Record<FeaturedProjectBackgroundVariant, string> = {
     'bg-[linear-gradient(145deg,rgba(4,0,19,1)_0%,rgba(135,5,242,0.62)_45%,rgba(0,72,255,0.9)_100%)]',
   ghost:
     'bg-[radial-gradient(circle_at_50%_44%,rgba(135,5,242,0.24),transparent_34%),radial-gradient(circle_at_50%_55%,rgba(79,230,255,0.16),transparent_62%),linear-gradient(160deg,rgba(4,0,19,1)_0%,rgba(11,13,58,1)_100%)]',
-  aurora:
-    'bg-[linear-gradient(180deg,rgba(4,0,19,0.94)_0%,rgba(0,72,255,0.62)_48%,rgba(135,5,242,0.72)_100%)]',
 };
 
 function useAnimatedBackgroundVisibility(disabled: boolean) {
@@ -159,8 +157,6 @@ export default function FeaturedProjectAnimatedBackground({
             </div>
           ) : null}
 
-          {/* Aurora variant fallback to surface gradient since Aurora component was removed */}
-          {variant === 'aurora' ? null : null}
         </div>
       ) : null}
 

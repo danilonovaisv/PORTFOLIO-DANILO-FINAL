@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BELIEF_HEADER_LINES, beliefZIndex } from '@/config/beliefTokens';
+import { BELIEF_HEADER_LINES } from '@/config/beliefTokens';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
@@ -84,8 +84,7 @@ export function BeliefFixedHeader() {
   return (
     <aside
       ref={rootRef}
-      className="pointer-events-none absolute inset-y-0 right-0 flex w-full items-start justify-end px-6 pt-[13vh] md:items-center md:px-10 md:pt-0 lg:px-16"
-      style={{ zIndex: beliefZIndex.fixedHeader }}
+      className="pointer-events-none absolute inset-y-0 right-0 flex w-full items-start justify-end px-6 pt-[13vh] md:items-center md:px-10 md:pt-0 lg:px-16 z-[var(--z-layer-header)]"
     >
       <div className="max-w-[13rem] text-right md:max-w-[20rem] lg:max-w-[24rem]">
         <SplitTextMotion
