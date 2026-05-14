@@ -199,9 +199,16 @@ export default function FeaturedProjectCard({
     );
   }
 
+  // SSR fallback: project without dedicated landing page must reach the
+  // portfolio gallery, which renders the modal client-side per the
+  // "POP-UP DE PROJETO (SEM LANDING PAGE)" spec. Never link to the
+  // legacy `/portfolio/[slug]` page from a featured card without a landing.
+  const portfolioCardAnchor = `portfolio-card-${project.slug
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')}-0`;
   return (
     <Link
-      href={`/portfolio/${project.slug}`}
+      href={`/portfolio#${portfolioCardAnchor}`}
       className={commonClasses}
       aria-labelledby={headingId}
     >

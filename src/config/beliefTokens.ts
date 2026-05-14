@@ -58,7 +58,7 @@ export const beliefZIndex = {
 
 export const beliefMotion = {
   ghostEase: MOTION_TOKENS.ease.ghost,
-  softEase: MOTION_TOKENS.ease.soft,
+  softEase: MOTION_TOKENS.ease.ghost,
   microDuration: MOTION_TOKENS.duration.micro,
   revealDuration: MOTION_TOKENS.duration.GHOST_REVEAL,
   exitDuration: MOTION_TOKENS.duration.GHOST_EXIT,

@@ -33,6 +33,22 @@ export function BeliefBackground() {
     };
 
     const ctx = gsap.context(() => {
+      // Entry/Exit opacity management
+      gsap.set(background, { autoAlpha: 0 });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top 95%',
+        end: 'bottom 5%',
+        onToggle: (self) => {
+          gsap.to(background, {
+            autoAlpha: self.isActive ? 1 : 0,
+            duration: 0.8,
+            ease: 'power2.inOut',
+          });
+        },
+      });
+
       // Snap background on each phrase section entering viewport
       const sections = Array.from(
         container.querySelectorAll<HTMLElement>('.belief-scroll-section')

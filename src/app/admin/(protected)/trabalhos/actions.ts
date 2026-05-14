@@ -64,17 +64,19 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     let oldFolderProjects: string | null = null;
     let newFolderProjects: string | null = null;
     let previousProjectSnapshot: ProjectStorageSnapshot | null = null;
+    let previousLandingPageId: string | null = null;
 
     if (input.id) {
       const { data: oldProject } = await supabase
         .from('portfolio_projects')
         .select(
-          'slug, client_slug, url_landscape, url_square, gallery, home_featured'
+          'slug, client_slug, url_landscape, url_square, gallery, home_featured, landing_page_id'
         )
         .eq('id', input.id)
         .single();
 
       if (oldProject) {
+        previousLandingPageId = oldProject.landing_page_id ?? null;
         previousProjectSnapshot = {
           url_landscape: oldProject.url_landscape,
           url_square: oldProject.url_square,
@@ -245,6 +247,29 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     revalidatePath('/');
     if (updatedProject?.slug) {
       revalidatePath(`/portfolio/${updatedProject.slug}`);
+    }
+
+    // If the project's linked landing page changed, revalidate the public
+    // landing routes for both the previous and the next slug so cached pages
+    // pick up the new association.
+    const nextLandingPageId = projectData.landing_page_id ?? null;
+    if (previousLandingPageId !== nextLandingPageId) {
+      const landingIds = [previousLandingPageId, nextLandingPageId].filter(
+        (id): id is string => typeof id === 'string' && id.length > 0
+      );
+
+      if (landingIds.length > 0) {
+        const { data: landingPages } = await supabase
+          .from('landing_pages')
+          .select('slug')
+          .in('id', landingIds);
+
+        landingPages?.forEach((page) => {
+          if (page?.slug) {
+            revalidatePath(`/projects/${page.slug}`);
+          }
+        });
+      }
     }
 
     return { ok: true as const, data: updatedProject };

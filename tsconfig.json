@@ -6,7 +6,6 @@
     "useDefineForClassFields": false,
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "ignoreDeprecations": "6.0",
 
     "typeRoots": ["./node_modules/@types"],
     "forceConsistentCasingInFileNames": true,
@@ -17,6 +16,7 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./src/*"]
     },

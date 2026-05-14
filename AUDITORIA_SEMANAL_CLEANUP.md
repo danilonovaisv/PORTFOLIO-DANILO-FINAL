@@ -6,28 +6,28 @@ Esta auditoria avalia a saúde estrutural, dependências órfãs e componentes i
 
 **TOP 10 Problemas Críticos Encontrados:**
 
-1. Variáveis de ambiente falhando no build (`validate-env` quebrando processo de deploy, `NEXT_PUBLIC_SUPABASE_URL` em branco).
-2. Dependências desnecessárias presentes no `package.json` (`firebase-admin`, `@dataconnect/*`).
-3. Arquivos órfãos completos em `/src/components/admin` (ex: `AdminPageHeader.tsx`, `TemplateBadge.tsx`).
-4. Fragmentos do modelo mental de "Beliefs" que não estão sendo usados (`src/store/beliefStore.ts`, `src/config/beliefs.ts`).
-5. Configuração severa do servidor em `src/lib/server-env.ts` que não está sendo invocada em componentes críticos.
-6. Tipagens e funções exportadas soltas (ex: `getRandomFeaturedProjectBackgroundVariant`, variantes do framer-motion não usadas como `fadeInUp`).
-7. Componentes legados (`AssetInteractive.tsx`, `BlockTextMd.tsx`) dentro de `src/components/projects/templates/` sendo bypassados pela nova engine de templates V3_ALPA.
-8. Pasta `src/app/(sobre)/o-que-me-move` configurada como rota Next.js com `page.tsx` sem integração coesa com a rolagem unificada do scroll do portfolio descrita na documentação.
-9. Funções de utils desconectadas (`shuffleHomeProjectsLive`, `shufflePortfolioProjectsLive`) em `src/lib/portfolio/`.
-10. O pacote `depcheck` não listado e algumas dependências de Dev não resolvidas (`@typescript-eslint/eslint-plugin`, etc.).
+1. [RESOLVIDO] Variáveis de ambiente falhando no build (`validate-env` endurecido em `src/lib/env.ts`).
+2. [RESOLVIDO] Dependências desnecessárias removidas (`firebase-admin`, `@dataconnect/*`).
+3. [RESOLVIDO] Arquivos órfãos em `/src/components/admin` deletados.
+4. [RESOLVIDO] Modelo mental de "Beliefs" removido (`src/store/beliefStore.ts`, `src/config/beliefs.ts`).
+5. Configuração severa do servidor em `src/lib/server-env.ts` (Pendente revisão de uso).
+6. [RESOLVIDO] Tipagens e funções exportadas soltas limpas (`fadeInUp`, `shuffle` aliases).
+7. [RESOLVIDO] Componentes legados (`AssetInteractive.tsx`, `BlockTextMd.tsx`) deletados.
+8. [RESOLVIDO] Rota órfã `src/app/(sobre)/o-que-me-move` deletada.
+9. [RESOLVIDO] Funções de utils desconectadas em `src/lib/portfolio/` consolidadas.
+10. [EM PROGRESSO] O pacote `depcheck` sendo adicionado às devDependencies.
 
 ## 2. Matriz por Página com Status
 
 Abaixo a comparação cruzada entre o que a arquitetura e a regra estipulavam vs. o que de fato está rodando no Next.js (Baseado na leitura do `src/app` e `.context/DOCS-PORTFOLIO-PAGES`).
 
-| Página / Rota       | Status (Ativa/Obsoleta/Incompleta) | Arquivos Órfãos Encontrados                                                                                                                               | Dependências Inúteis                                |
-| ------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| `/` (Home)          | Ativa                              | `animated-backgrounds.ts` (parte das funções como `getRandomFeaturedProjectBackgroundVariant`), `Aurora.tsx` (não importado no knip, verificar uso exato) | N/A                                                 |
-| `/sobre`            | Ativa                              | `src/app/(sobre)/o-que-me-move` (rota solta, possivelmente substituída pela âncora unificada)                                                             | `src/store/beliefStore.ts`, `src/config/beliefs.ts` |
-| `/portfolio`        | Ativa                              | `PortfolioModal.tsx` variants exportados mas não usados (`fadeInUp`, `getMediaVariants`, etc.)                                                            | N/A                                                 |
-| `/portfolio/[slug]` | Ativa (Transição para ALPA v3)     | `AssetInteractive.tsx`, `BlockTextMd.tsx` (não apontam para a nova engine MasterProjectTemplateV3Renderer)                                                | N/A                                                 |
-| `/admin`            | Incompleta/Ativa                   | `AdminPageHeader.tsx`, `TemplateBadge.tsx`                                                                                                                | `@dataconnect/admin-generated`                      |
+| Página / Rota       | Status (Ativa/Obsoleta/Incompleta) | Status de Limpeza                                                                                          | Dependências Inúteis                                |
+| ------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `/` (Home)          | Ativa                              | [LIMPO] `Aurora.tsx` e variantes órfãs removidos.                                                          | N/A                                                 |
+| `/sobre`            | Ativa                              | [LIMPO] Rota `o-que-me-move` e logic de `beliefs` removidos.                                               | `src/store/beliefStore.ts`, `src/config/beliefs.ts` |
+| `/portfolio`        | Ativa                              | [LIMPO] Variantes `fadeInUp` e logic legada removidos.                                                     | N/A                                                 |
+| `/portfolio/[slug]` | Ativa (Transição para ALPA v3)     | [LIMPO] Componentes legados `AssetInteractive`, `BlockTextMd` removidos.                                   | N/A                                                 |
+| `/admin`            | Incompleta/Ativa                   | [LIMPO] Layouts modulares órfãos removidos. Dashboard agora usa componentes V3.                            | [REMOVIDO] `@dataconnect/*`                         |
 
 ## 3. Backlog Priorizado
 

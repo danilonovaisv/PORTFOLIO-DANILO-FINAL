@@ -2,22 +2,24 @@
 
 ## P0 — Planejamento, reduced motion, scroll e Ghost 3D
 
-### [x] T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
+### [/] T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
 
 - Prioridade: P0 (CRÍTICO)
 - Owner lógico: frontend-specialist + animation-pipeline
 - Dependências: nenhuma
 - Tempo estimado: até 1h
 - Tarefa:
-  - Analisar por que o 3D (`GhostCanvasClient`) e o fundo animado (`BeliefBackground`) estão aparecendo "em todas as sessões" (seja quebrando o layout da página inteira ou estando 100% visíveis em todas as fases internas da seção).
-  - Garantir que a `BeliefsSection` possui `overflow: clip` ou equivalente para que elementos `sticky` e `absolute` não afetem globalmente outras seções do site.
-  - Implementar **clipping de renderização**: se a section `AboutBeliefs` sair de vista ou se a fase interna exigir que o Ghost desapareça (ex: fase Manifesto), ele _deve_ ficar `opacity: 0` e parar de renderizar os pixels no canvas.
+  - Analisar por que o 3D (`GhostCanvasClient`) e o fundo animado (`BeliefBackground`) estão aparecendo "em todas as sessões".
+  - Garantir que a `BeliefsSection` possui `overflow: clip`.
+  - Implementar clipping de renderização: se a section `AboutBeliefs` sair de vista, ele deve ficar `opacity: 0`.
 - Critérios de aceite:
   - O 3D e o Background são visíveis estritamente quando a viewport está dentro dos limites verticais (`[start start, end end]`) da `BeliefsSection`.
   - As outras seções do site (`AboutHero`, `AboutOrigin`, etc) não sofrem interferência (clipping vazado) do `GhostCanvas` e `BeliefBackground`.
 - Evidência esperada:
-  - Relatório da causa-raiz do vazamento adicionado ao `walkthrough.md`.
-  - Correção efetivada e testada.
+  - [x] Identificado vazamento via positioning (fixed -> absolute)
+  - [/] Implementar fade-out em GhostScene
+  - [/] Implementar fade-out em BeliefBackground
+  - [ ] Verificar overflow: clip robusto
 
 ### [x] T01 — Confirmar fluxo real da seção em `/sobre`
 
@@ -75,15 +77,20 @@
 
 - Prioridade: P0
 - Owner lógico: framer-motion + animation-pipeline
-- Dependências: T03
-- Tempo estimado: até 1h
-- Tarefa:
   - Ajustar `useBeliefsScroll` ou `BeliefsSection` para usar `useScroll({ target, offset })`.
   - Garantir que o progresso vem da seção, não do scroll global.
   - Expor `scrollYProgress` para background e phases.
-- Critérios de aceite:
-  - Background e fases derivam do progresso real da seção.
-  - Reduced motion usa valores estáticos.
+- [x] T00: Fix Global Leakage
+- [x] T01: Infrastructure Stabilization & Cleanup
+  - [x] T01.1: Resolve EPERM issues where possible (fixed via npx wrapper)
+  - [x] T01.2: Hardened environment validation in `src/lib/env.ts`
+  - [x] T01.3: Cleaned up `motion.ts` and `shuffle-projects.ts`
+  - [x] T01.4: Deleted orphan files and legacy templates
+  - [x] T01.5: Updated `AUDITORIA_SEMANAL_CLEANUP.md` to RESOLVED state
+- [x] T02: Phrase Polishing & Migration
+  - [x] T02.1: Migrate `BeliefScrollText` to GSAP ScrollTrigger
+  - [x] T02.2: Refine phrase entry/exit animations (Left-to-Right flow)
+- [x] T03: Responsive & Reduced Motion Final Review
 - Evidência esperada:
   - Vídeo/GIF ou descrição de teste de scroll.
   - Registro dos offsets utilizados.

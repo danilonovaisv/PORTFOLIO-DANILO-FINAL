@@ -12,7 +12,7 @@ const GhostScene = dynamic(
   }
 );
 
-export default function GhostSceneWrapper() {
+export default function GhostSceneWrapper({ onReady }: { onReady?: () => void }) {
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
 
   if (is3DDisabled) {
@@ -21,5 +21,5 @@ export default function GhostSceneWrapper() {
     );
   }
 
-  return <GhostScene />;
+  return <GhostScene onReady={onReady} />;
 }

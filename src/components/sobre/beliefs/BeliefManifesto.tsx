@@ -38,28 +38,45 @@ export function BeliefManifesto() {
         end: 'bottom bottom',
         onUpdate: (self: globalThis.ScrollTrigger) => {
           const progress = self.progress;
-          const revealProgress = gsap.utils.clamp(
+          
+          // Reveal between 0.82 and 0.92
+          let revealProgress = gsap.utils.clamp(
             0,
             1,
             (progress - 0.82) / 0.1
           );
 
+          // Exit fade out between 0.96 and 1.0
+          if (progress > 0.96) {
+            revealProgress = gsap.utils.clamp(0, 1, (1 - progress) / 0.04);
+          }
+
           gsap.set(root, {
             autoAlpha: revealProgress,
-            y: shouldReduceMotion ? 0 : 18 - 18 * revealProgress,
+            y: shouldReduceMotion ? 0 : 18 * (1 - revealProgress),
           });
           gsap.set(words, {
             autoAlpha: revealProgress,
-            y: shouldReduceMotion ? 0 : 12 - 12 * revealProgress,
+            y: shouldReduceMotion ? 0 : 12 * (1 - revealProgress),
           });
-          setActive(progress >= 0.82);
+          setActive(progress >= 0.82 && progress < 0.98);
         },
+        onLeave: () => {
+          gsap.to(root, { autoAlpha: 0, duration: 0.3 });
+        },
+        onLeaveBack: () => {
+          gsap.to(root, { autoAlpha: 0, duration: 0.3 });
+        }
       });
 
       ScrollTrigger.create({
         trigger: container,
         start: 'bottom 36%',
         onEnter: () => {
+          // If we already passed the climax, don't re-trigger if progress is too far
+          const progress = ScrollTrigger.create({ trigger: container }).progress;
+          if (progress > 0.96) return;
+
           gsap.to(words, {
             autoAlpha: 1,
             y: 0,
@@ -71,7 +88,7 @@ export function BeliefManifesto() {
         },
         onLeaveBack: () => {
           if (shouldReduceMotion) return;
-          gsap.set(words, { autoAlpha: 0, y: 12 });
+          gsap.to(words, { autoAlpha: 0, y: 12, duration: 0.3 });
         },
       });
     }, container);
@@ -84,7 +101,7 @@ export function BeliefManifesto() {
       ref={ref}
       data-testid="beliefs-manifesto"
       data-belief-manifesto
-      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
+      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
       style={{ zIndex: beliefZIndex.manifesto }}
       aria-live={active || isClimax ? 'polite' : 'off'}
     >

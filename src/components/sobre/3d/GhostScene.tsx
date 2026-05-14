@@ -54,28 +54,52 @@ export function GhostScene() {
     if (!wrapper || !section) return;
 
     const ctx = gsap.context(() => {
-      // Ensure starting state is invisible via GSAP to match the 'invisible' class
+      // Ensure starting state is invisible via GSAP
       gsap.set(wrapper, { autoAlpha: 0, scale: 0.95 });
 
       ScrollTrigger.create({
         trigger: section,
-        start: 'top 85%',
-        once: true,
+        start: 'top bottom',
+        end: 'bottom top',
         onEnter: () => {
           gsap.to(wrapper, {
             autoAlpha: 1,
             scale: 1,
-            duration: shouldReduceMotion
-              ? 0.3
-              : beliefMotion.ghostIntroDuration,
+            duration: shouldReduceMotion ? 0.3 : beliefMotion.ghostIntroDuration,
             ease: 'power2.out',
             delay: shouldReduceMotion ? 0 : 0.15,
             overwrite: 'auto',
           });
         },
+        onLeave: () => {
+          gsap.to(wrapper, {
+            autoAlpha: 0,
+            scale: 0.95,
+            duration: 0.5,
+            ease: 'power2.in',
+            overwrite: 'auto',
+          });
+        },
+        onEnterBack: () => {
+          gsap.to(wrapper, {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(wrapper, {
+            autoAlpha: 0,
+            scale: 0.95,
+            duration: 0.5,
+            ease: 'power2.in',
+            overwrite: 'auto',
+          });
+        },
       });
     });
-
     return () => ctx.revert();
   }, [sectionRef, shouldReduceMotion, supportsWebGL]);
 
@@ -88,7 +112,7 @@ export function GhostScene() {
       ref={wrapperRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      className="pointer-events-none fixed inset-0"
+      className="pointer-events-none absolute inset-0"
       style={{ zIndex: beliefZIndex.ghost }}
     >
       <Canvas

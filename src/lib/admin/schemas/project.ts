@@ -58,6 +58,7 @@ const projectBaseFieldsSchema = z.object({
   short_label: z.string().trim().max(120).optional(),
   description: z.string().trim().max(4000).optional(),
   featured_on_home: z.boolean().optional(),
+  featured_on_portfolio: z.boolean().optional(),
   home_featured: z
     .object({
       enabled: z.boolean().optional(),

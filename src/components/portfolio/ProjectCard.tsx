@@ -60,7 +60,7 @@ export const ProjectCard = React.memo(function ProjectCard({
     : {
       initial: { opacity: 0, y: MOTION_TOKENS.offset.standard, filter: MOTION_TOKENS.blur.hidden },
       whileInView: { opacity: 1, y: 0, filter: MOTION_TOKENS.blur.visible },
-      viewport: { once: false, margin: '-10% 0px -10% 0px' },
+      viewport: { once: true, margin: '-10% 0px -10% 0px' },
       transition: {
         duration: MOTION_TOKENS.duration.normal,
         delay: Math.min(0.18, index * 0.03),
@@ -128,14 +128,22 @@ export const ProjectCard = React.memo(function ProjectCard({
     (project.landingPageSlug
       ? { type: 'internal_landing' as const, landingSlug: project.landingPageSlug }
       : project.link && project.category === 'Landing Page'
-        ? { type: 'external_url' as const, href: project.link }
+        ? { type: 'external_url' as const, href: project.link, url: project.link }
         : { type: 'modal' as const });
   const isModalDestination = destination.type === 'modal';
 
   const handleClick = () => {
-    if (destination.type === 'external_url' && destination.href) {
-      window.open(destination.href, '_blank', 'noopener,noreferrer');
-      return;
+    if (destination.type === 'external_url') {
+      // Admin payload uses `url`; legacy code paths set `href`. Both must work.
+      const target = (destination.url ?? destination.href ?? '').trim();
+      if (target) {
+        window.open(
+          target,
+          destination.openInNewTab === false ? '_self' : '_blank',
+          'noopener,noreferrer'
+        );
+        return;
+      }
     }
     onClick?.(project);
   };

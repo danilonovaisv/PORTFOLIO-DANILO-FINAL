@@ -4,7 +4,6 @@ import { useRef } from 'react';
 import { m } from 'framer-motion';
 
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
 
@@ -18,8 +17,9 @@ import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRefMobile = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useMotionGate();
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <section
@@ -28,31 +28,33 @@ export default function AboutMethod() {
       aria-labelledby="method-heading"
     >
       {/* Background Video Container */}
-      <div className="absolute inset-0 w-full h-full z-[var(--z-layer-base)] overflow-hidden flex justify-center">
-        <m.div className="w-full h-full lg:h-[120%]">
-          <video
-            key={isMobile ? 'mobile' : 'desktop'}
-            src={
-              (isMobile
-                ? ABOUT_CONTENT.method.videos.mobile
-                : ABOUT_CONTENT.method.videos.desktop) || undefined
-            }
-            autoPlay={!prefersReducedMotion}
-            loop={!prefersReducedMotion}
-            muted
-            playsInline
-            poster={DEFAULT_VIDEO_POSTER}
-            className={`w-full h-full ${
-              isMobile
-                ? 'object-cover object-center opacity-55'
-                : 'object-cover object-center opacity-55'
-            }`}
-            aria-hidden="true"
-            role="presentation"
-          >
-            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-          </video>
-        </m.div>
+      <div className="absolute inset-0 z-[var(--z-layer-base)] h-full w-full overflow-hidden">
+        <video
+          ref={videoRef}
+          src={ABOUT_CONTENT.method.videos.desktop ?? undefined}
+          autoPlay={!prefersReducedMotion}
+          loop={!prefersReducedMotion}
+          muted
+          playsInline
+          poster={DEFAULT_VIDEO_POSTER}
+          className="hidden h-full w-full object-cover object-center opacity-55 lg:block"
+          aria-hidden="true"
+        >
+          <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
+        </video>
+        <video
+          ref={videoRefMobile}
+          src={ABOUT_CONTENT.method.videos.mobile ?? undefined}
+          autoPlay={!prefersReducedMotion}
+          loop={!prefersReducedMotion}
+          muted
+          playsInline
+          poster={DEFAULT_VIDEO_POSTER}
+          className="block h-full w-full object-cover object-center opacity-55 lg:hidden"
+          aria-hidden="true"
+        >
+          <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
+        </video>
 
         {/* Global Dark Gradient Overlay */}
         <div

@@ -5719,8 +5719,9 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  re2@1.24.0:
-    resolution: {integrity: sha512-pBm6cMaOb0Yb0kg0Sfw/k4LwDMkPScb/NVd7GrEllDwfsPZstsZIo93A6Nn0wZuWJw3h57GdzkrOk81EofKY/g==}
+  re2@1.24.1:
+    resolution: {integrity: sha512-uRl9cLDKuobJQp+6lVz7E3AyVszubUJ0fqAMWout4ocUWTIFvdHgpqLwwMh/vuNGGGJGh2p2mJZJIQr9am9M/A==}
+    engines: {node: '>=22'}
 
   react-dom@19.2.6:
     resolution: {integrity: sha512-0prMI+hvBbPjsWnxDLxlCGyM8PN6UuWjEUCYmZhO67xIV9Xasa/r/vDnq+Xyq4Lo27g8QSbO5YzARu0D1Sps3g==}
@@ -13095,7 +13096,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  re2@1.24.0:
+  re2@1.24.1:
     dependencies:
       install-artifact-from-github: 1.6.0
       nan: 2.27.0
@@ -13721,7 +13722,7 @@ snapshots:
       router: 2.2.0
       update-notifier-cjs: 5.1.7
     optionalDependencies:
-      re2: 1.24.0
+      re2: 1.24.1
     transitivePeerDependencies:
       - encoding
       - supports-color

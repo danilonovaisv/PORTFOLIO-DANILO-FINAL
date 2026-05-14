@@ -9,7 +9,6 @@ import type { Variants, SpringOptions } from 'framer-motion';
 type EasingTuple = [number, number, number, number];
 
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
-export const GHOST_EASE_SOFT_UI: EasingTuple = [0.16, 1, 0.3, 1];
 
 export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
@@ -17,7 +16,6 @@ export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
   ease: {
     ghost: GHOST_EASE,
-    soft: GHOST_EASE_SOFT_UI,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -170,7 +168,9 @@ export const MOTION_TOKENS = {
 export const viewportConfig = {
   once: true,
   amount: 0.15,
+  margin: '0px 0px -10% 0px',
 } as const;
+
 
 // =============================================================================
 // REUSABLE VARIANTS - Ghost Era Design System

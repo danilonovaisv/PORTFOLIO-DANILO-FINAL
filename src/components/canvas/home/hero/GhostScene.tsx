@@ -15,7 +15,7 @@ import { Preloader } from './components/Preloader';
  * Renders the main 3D interactive hero experience.
  * Modularized to comply with file size and architectural standards.
  */
-export default function GhostScene() {
+export default function GhostScene({ onReady }: { onReady?: () => void }) {
   const mountRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
 

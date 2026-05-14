@@ -20,6 +20,7 @@ export function shuffleHomeProjects(projects: PortfolioProject[], seed?: number)
   return shuffled;
 }
 
+
 /**
  * Shuffles projects for the portfolio page.
  * Standardizes on the same logic as home shuffle.

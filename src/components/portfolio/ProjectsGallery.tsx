@@ -231,7 +231,7 @@ export const ProjectsGallery = ({
       className="relative z-20 w-full bg-background text-white pb-32"
     >
       {/* Filter Bar - Editorial Positioning */}
-      <div className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
+      <div className="sticky top-[var(--header-height)] z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
         <div className="mx-auto flex max-w-[1400px] items-center justify-center">
           <h2 id="portfolio-gallery-heading" className="sr-only">
             Portfolio Showcase

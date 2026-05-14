@@ -16,9 +16,8 @@ const Grainient = dynamic(() => import('@/components/Grainient'), {
 const GhostCursor = dynamic(() => import('@/components/GhostCursor'), {
   ssr: false,
 });
-const Aurora = dynamic(() => import('@/components/Aurora'), {
-  ssr: false,
-});
+// Aurora was removed as per cleanup audit
+
 
 type FeaturedProjectAnimatedBackgroundProps = {
   variant: FeaturedProjectBackgroundVariant;
@@ -161,16 +160,8 @@ export default function FeaturedProjectAnimatedBackground({
             </div>
           ) : null}
 
-          {variant === 'aurora' ? (
-            <Aurora
-              className="h-full w-full"
-              maxDevicePixelRatio={1.1}
-              colorStops={['#b301f4', '#0048ff', '#8705f2']}
-              amplitude={1.0}
-              blend={0.5}
-              speed={1}
-            />
-          ) : null}
+          {/* Aurora variant fallback to surface gradient since Aurora component was removed */}
+          {variant === 'aurora' ? null : null}
         </div>
       ) : null}
 

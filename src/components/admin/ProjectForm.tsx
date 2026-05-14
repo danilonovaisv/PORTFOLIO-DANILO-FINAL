@@ -89,6 +89,7 @@ export function ProjectForm({
       short_label: project?.short_label ?? '',
       description: project?.description ?? '',
       featured_on_home: project?.featured_on_home ?? false,
+      featured_on_portfolio: project?.featured_on_portfolio ?? false,
       home_featured: {
         cardStyle:
           project?.home_featured?.cardStyle ?? DEFAULT_HOME_FEATURED_CARD_STYLE,
@@ -306,6 +307,7 @@ export function ProjectForm({
           short_label: values.short_label || null,
           description: values.description || null,
           featured_on_home: values.featured_on_home ?? false,
+          featured_on_portfolio: values.featured_on_portfolio ?? false,
           home_featured: {
             enabled: values.featured_on_home ?? false,
             cardStyle: homeFeaturedCardStyle,
@@ -578,6 +580,13 @@ export function ProjectForm({
         <label className="flex items-center gap-2 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
           <input type="checkbox" {...form.register('is_published')} />
           System_Publish_State
+        </label>
+        <label className="flex items-center gap-2 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
+          <input
+            type="checkbox"
+            {...form.register('featured_on_portfolio')}
+          />
+          System_Feature_Override: PORTFOLIO_HIGHLIGHT
         </label>
       </div>
 

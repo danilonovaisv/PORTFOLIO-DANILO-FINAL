@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { m } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 
@@ -60,13 +60,19 @@ const MARQUEE_KEYWORDS = [
 ];
 
 export function AboutWhatIDo() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], ['10%', '-40%']);
   const prefersReducedMotion = !!useMotionGate();
   const [marqueePaused, setMarqueePaused] = useState(false);
 
   return (
     <section
-      ref={containerRef}
+      ref={targetRef}
       id="04-o-que-eu-faco"
       className="relative z-[var(--z-layer-content)] w-full bg-background text-text"
       aria-labelledby="what-i-do-heading"
@@ -76,7 +82,7 @@ export function AboutWhatIDo() {
           Sticky container with horizontal scroll-driven animation
           ============================================ */}
       <div className="hidden lg:block lg:h-[180vh]">
-        <div className="std-grid sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
+        <div className="sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
           {/* Header */}
           <div className="absolute top-0 z-[var(--z-layer-content)] flex w-full justify-center pt-20">
             <div className="max-w-[960px] text-center">
@@ -96,23 +102,13 @@ export function AboutWhatIDo() {
           {/* Horizontal Track - Cards sliding right→left */}
           <m.ul
             aria-labelledby="what-i-do-heading"
-            style={{
-              x: 0,
-              opacity: 1,
-            }}
-            className="mt-[30vh] flex w-full max-w-[1520px] items-stretch justify-center gap-3 px-10 will-change-transform xl:gap-4"
+            style={{ x }}
+            className="flex w-max items-stretch justify-center gap-6 px-10 will-change-transform"
           >
             {SERVICES.map((service, index) => (
               <m.li
                 key={service.id}
                 data-what-i-do-card=""
-                initial={
-                  prefersReducedMotion
-                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                    : { opacity: 0, y: 14, filter: 'blur(8px)' }
-                }
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={viewportConfig}
                 transition={{
                   duration: MOTION_TOKENS.duration.modal,
                   delay: index * 0.06,

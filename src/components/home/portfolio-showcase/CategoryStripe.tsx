@@ -90,6 +90,11 @@ export const CategoryStripe = React.memo(function CategoryStripe({
             isHovered ? 'gap-10' : 'gap-6'
           )}
         >
+          {category.showLabel && (
+            <p className="hidden lg:block absolute -top-8 left-0 text-bluePrimary font-mono text-xs tracking-[0.2em] uppercase mb-3 w-full text-left">
+              [what we love working on]
+            </p>
+          )}
           <m.div
             className="relative overflow-hidden rounded-lg shrink-0 h-[162px]"
             initial={false}
@@ -155,6 +160,7 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               initial={false}
               animate={{
                 y: isHovered ? -1 : 0,
+                rotate: isHovered ? 0 : -45,
                 backgroundColor: isHovered
                   ? COLORS.purpleDetails
                   : COLORS.bluePrimary,

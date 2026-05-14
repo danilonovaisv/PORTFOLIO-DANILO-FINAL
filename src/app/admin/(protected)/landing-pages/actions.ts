@@ -87,6 +87,8 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
 
     revalidatePath('/admin/landing-pages');
     revalidatePath('/portfolio');
+    revalidatePath('/');
+    revalidatePath(`/projects/${parsed.slug}`);
     return { ok: true as const, id: parsed.id };
   }
 
@@ -123,6 +125,8 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
 
   revalidatePath('/admin/landing-pages');
   revalidatePath('/portfolio');
+  revalidatePath('/');
+  revalidatePath(`/projects/${parsed.slug}`);
   return { ok: true as const, id: data.id };
 }
 
@@ -131,6 +135,14 @@ export async function deleteLandingPageAction(id: string) {
   const { supabase, user } = await requireAdminAccess({
     requireServiceRole: true,
   });
+
+  // Capture slug BEFORE delete so we can revalidate the public landing route.
+  const { data: existing } = await supabase
+    .from('landing_pages')
+    .select('slug')
+    .eq('id', parsedId)
+    .maybeSingle();
+
   const { error } = await supabase
     .from('landing_pages')
     .delete()
@@ -156,5 +168,9 @@ export async function deleteLandingPageAction(id: string) {
 
   revalidatePath('/admin/landing-pages');
   revalidatePath('/portfolio');
+  revalidatePath('/');
+  if (existing?.slug) {
+    revalidatePath(`/projects/${existing.slug}`);
+  }
   return { ok: true as const };
 }

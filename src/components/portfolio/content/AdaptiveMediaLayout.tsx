@@ -177,7 +177,8 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     key={activeMedia}
                                     src={activeMedia}
                                     autoPlay
-                                    muted={false}
+                                    muted
+                                    loop
                                     playsInline
                                     controls
                                     preload="metadata"
@@ -185,7 +186,9 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     className={`absolute inset-0 w-full h-full object-contain z-0 transition-opacity duration-normal ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
                                     onLoadedData={() => setIsLoaded(true)}
                                     onLoadedMetadata={(event) => {
-                                        event.currentTarget.muted = false;
+                                        // Spec: POP-UP DE PROJETO (SEM LANDING PAGE) §6.2
+                                        // Vídeo do modal deve autoplay com muted obrigatório.
+                                        event.currentTarget.muted = true;
                                         void event.currentTarget.play().catch(() => undefined);
                                     }}
                                 >

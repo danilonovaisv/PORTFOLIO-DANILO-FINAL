@@ -288,6 +288,55 @@ function inferProjectDestination({
   };
 }
 
+/**
+ * Normalize the destination payload persisted by the admin
+ * (`portfolio_projects.destination`) to a strict ProjectDestination,
+ * harmonising the historical `url` / `href` aliases used across the codebase.
+ */
+function normalizeStoredDestination(
+  raw: unknown
+): ProjectDestination | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const candidate = raw as {
+    type?: unknown;
+    url?: unknown;
+    href?: unknown;
+    landingSlug?: unknown;
+    openInNewTab?: unknown;
+  };
+
+  const type = candidate.type;
+  if (
+    type !== 'modal' &&
+    type !== 'internal_landing' &&
+    type !== 'external_url' &&
+    type !== 'page'
+  ) {
+    return null;
+  }
+
+  const url = typeof candidate.url === 'string' ? candidate.url.trim() : '';
+  const href = typeof candidate.href === 'string' ? candidate.href.trim() : '';
+  const resolvedUrl = url || href || undefined;
+  const landingSlug =
+    typeof candidate.landingSlug === 'string'
+      ? candidate.landingSlug.trim() || undefined
+      : undefined;
+  const openInNewTab =
+    typeof candidate.openInNewTab === 'boolean'
+      ? candidate.openInNewTab
+      : undefined;
+
+  const result: ProjectDestination = { type };
+  if (resolvedUrl) {
+    result.url = resolvedUrl;
+    result.href = resolvedUrl;
+  }
+  if (landingSlug) result.landingSlug = landingSlug;
+  if (openInNewTab !== undefined) result.openInNewTab = openInNewTab;
+  return result;
+}
+
 function resolveProjectMedia(path?: string | null): string | undefined {
   if (!path) return undefined;
 
@@ -400,9 +449,18 @@ export function mapDbProjectToPortfolioProject(
     highlights: tags.length ? tags.slice(0, 4) : undefined,
     gallery: galleryWithYoutube,
   };
-  const destination = inferProjectDestination({
-    landingSlug: normalizedLandingSlug ?? landingSlugSource,
-  });
+  // Prefer the admin-saved destination payload when present, falling back to
+  // landing-slug-based inference. Admin saves `destination.url`; downstream
+  // components (e.g. ProjectCard) historically read `destination.href`, so the
+  // normalizer fills both aliases.
+  const storedDestination = normalizeStoredDestination(
+    (project as DbProjectWithTags & { destination?: unknown }).destination
+  );
+  const destination =
+    storedDestination ??
+    inferProjectDestination({
+      landingSlug: normalizedLandingSlug ?? landingSlugSource,
+    });
 
   return {
     id: project.id,

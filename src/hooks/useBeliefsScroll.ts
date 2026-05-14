@@ -3,22 +3,14 @@ import { useEffect, useState, useRef, useMemo } from 'react';
 import { BELIEF_PHRASES } from '../config/beliefTokens';
 import { useMediaQuery } from './useMediaQuery';
 
+import { useMotionGate } from './useMotionGate';
+
 export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
-  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const shouldReduceMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 767px)');
   const progressRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isClimax, setIsClimax] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setShouldReduceMotion(mediaQuery.matches);
-
-    const handler = (event: MediaQueryListEvent) =>
-      setShouldReduceMotion(event.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
 
   const scrollYProgress = useMemo(
     () => ({

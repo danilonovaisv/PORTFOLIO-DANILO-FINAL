@@ -82,7 +82,7 @@ export default function HomeHero() {
         <div className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-[100svh] md:h-screen w-full">
             {shouldRenderWebGL ? (
-              <GhostSceneWrapper />
+              <GhostSceneWrapper onReady={() => {}} />
             ) : (
               <div
                 className="absolute inset-0 z-[var(--z-layer-base)] opacity-20 bg-[radial-gradient(circle_at_50%_50%,var(--color-neutral)_0%,var(--color-background)_70%)]"

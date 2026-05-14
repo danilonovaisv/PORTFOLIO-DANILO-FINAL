@@ -1,0 +1,13 @@
+npm warn Unknown project config "store-dir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "public-hoist-pattern". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm error code ENOTFOUND
+npm error syscall getaddrinfo
+npm error errno ENOTFOUND
+npm error network request to https://registry.npmjs.org/tsc failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org
+npm error network This is a problem related to network connectivity.
+npm error network In most cases you are behind a proxy or have bad network settings.
+npm error network
+npm error network If you are behind a proxy, please make sure that the 'proxy' config is set properly.  See: 'npm help config'
+npm error Log files were not written due to an error writing to the directory: /Users/danilonovais/.npm/_logs
+npm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal
