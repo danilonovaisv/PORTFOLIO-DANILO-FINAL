@@ -37,11 +37,15 @@
       "Read(//Users/danilonovais/PROJETOS/**)",
       "Read(//Users/danilonovais/**)",
       "Bash(main)",
-      "Bash(grep -rn \"'main'\\\\|\\\\\"main\\\\\"\\\\|`main`\\\\|<main\\\\b\" /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/ --include=\"*.tsx\")"
+      "Bash(grep -rn \"'main'\\\\|\\\\\"main\\\\\"\\\\|`main`\\\\|<main\\\\b\" /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/ --include=\"*.tsx\")",
+      "Bash(git commit *)",
+      "Bash(gh pr *)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["firecrawl-mcp"],
+  "enabledMcpjsonServers": [
+    "firecrawl-mcp"
+  ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   }
