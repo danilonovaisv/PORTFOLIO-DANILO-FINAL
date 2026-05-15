@@ -46,7 +46,7 @@ export function BeliefManifesto() {
       data-testid="beliefs-manifesto"
       data-belief-manifesto
       style={{ opacity, y, zIndex: beliefZIndex.manifesto }}
-      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
+      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
       aria-hidden={!isClimax}
     >
       <m.div

@@ -190,9 +190,9 @@ export function GhostModel({
       : Math.sin(state.clock.elapsedTime * rotSpeed * rotBoost) *
         (0.05 + progress * 0.05);
 
-    // Pointer parallax — ZEROED when reduced motion is active
-    const px = shouldReduceMotion ? 0 : pointerX.get();
-    const py = shouldReduceMotion ? 0 : pointerY.get();
+    // Pointer parallax — desktop only, ZEROED on mobile and reduced motion
+    const px = shouldReduceMotion || isMobile ? 0 : pointerX.get();
+    const py = shouldReduceMotion || isMobile ? 0 : pointerY.get();
 
     // Dynamic positioning
     // Desktop: Ghost stays RIGHT (1.0) and drifts toward center (0.3) at climax
