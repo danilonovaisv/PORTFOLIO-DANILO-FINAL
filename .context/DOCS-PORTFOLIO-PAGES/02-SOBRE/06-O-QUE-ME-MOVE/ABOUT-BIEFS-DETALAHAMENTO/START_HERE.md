@@ -20,7 +20,7 @@ A sessão "About Beliefs" (O Que Me Move) é uma seção emocional do portfólio
 
 **Mobile:**
 
-- ✅ Texto entra da **DIREITA** e sai pela **ESQUERDA** (horizontal)
+- ✅ Texto entra da **ESQUERDA** e sai pela **ESQUERDA** (horizontal, x: -48 → 0 → -48)
 - ✅ Texto fica no **RODAPÉ**, centralizado
 - ✅ Ghost à **ESQUERDA**
 
