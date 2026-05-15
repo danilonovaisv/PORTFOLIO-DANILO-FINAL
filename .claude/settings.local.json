@@ -42,7 +42,8 @@
       "Bash(gh pr *)",
       "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
       "Bash(git merge *)",
-      "Bash(xargs ls)"
+      "Bash(xargs ls)",
+      "Skill(schedule)"
     ]
   },
   "enableAllProjectMcpServers": true,
@@ -51,5 +52,8 @@
   ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
+  },
+  "remote": {
+    "defaultEnvironmentId": "env_016QDiovkVoWyHB4rWxYFN3m"
   }
 }
