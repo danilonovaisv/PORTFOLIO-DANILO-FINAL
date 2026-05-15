@@ -9,7 +9,6 @@ import {
   MOTION_TOKENS,
   GHOST_EASE,
   ghostFade,
-  viewportConfig,
 } from '@/config/motion';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';

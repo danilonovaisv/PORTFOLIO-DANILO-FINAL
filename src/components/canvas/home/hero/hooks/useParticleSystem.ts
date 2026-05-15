@@ -74,7 +74,7 @@ export function useParticleSystem(params: GhostSceneParams) {
           currentPos: new THREE.Vector3(),
           life: 0,
           decay: 0,
-          rotationSpeed: { x: 0, y: 0, z: 0 },
+          rotationSpeed: new THREE.Vector3(),
           randomScale: 0,
         };
       }
@@ -90,14 +90,8 @@ export function useParticleSystem(params: GhostSceneParams) {
       for (let i = 0; i < params.particleCount && spawned < count; i++) {
         const data = particleDataRef.current[i];
         if (!data || data.life <= 0) {
-          const pData = data || {
-            velocity: new THREE.Vector3(),
-            currentPos: new THREE.Vector3(),
-            life: 0,
-            decay: 0,
-            rotationSpeed: { x: 0, y: 0, z: 0 },
-            randomScale: 0,
-          };
+          const pData = data;
+          if (!pData) continue; // Should not happen if init was called
 
           pData.life = 1.0;
           pData.decay = Math.random() * 0.003 + params.particleDecayRate;
@@ -109,11 +103,11 @@ export function useParticleSystem(params: GhostSceneParams) {
           vectorRef.current.y += (Math.random() - 0.5) * 3.5 - 0.8;
 
           pData.currentPos.copy(vectorRef.current);
-          pData.rotationSpeed = {
-            x: (Math.random() - 0.5) * 0.015,
-            y: (Math.random() - 0.5) * 0.015,
-            z: (Math.random() - 0.5) * 0.015,
-          };
+          pData.rotationSpeed.set(
+            (Math.random() - 0.5) * 0.015,
+            (Math.random() - 0.5) * 0.015,
+            (Math.random() - 0.5) * 0.015
+          );
           pData.velocity.set(
             (Math.random() - 0.5) * 0.012,
             (Math.random() - 0.5) * 0.012 - 0.002,

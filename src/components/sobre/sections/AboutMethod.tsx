@@ -15,7 +15,7 @@ import {
 } from '@/config/motion';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
-export default function AboutMethod() {
+export function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoRefMobile = useRef<HTMLVideoElement>(null);

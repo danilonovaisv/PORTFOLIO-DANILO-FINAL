@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { m, useScroll, useTransform, useSpring } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 // =============================================================================
 // AboutWhatIDo - Ghost System v3.0
@@ -79,7 +79,6 @@ export function AboutWhatIDo() {
 
   const x = useTransform(scrollYProgress, [0, 1], ['10%', '-40%']);
   const prefersReducedMotion = !!useMotionGate();
-  const [marqueePaused, setMarqueePaused] = useState(false);
 
   return (
     <section
@@ -127,14 +126,12 @@ export function AboutWhatIDo() {
                 }}
                 className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-neutral px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-all duration-standard hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
               >
-                {/* Number */}
                 <span
                   className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-bluePrimary/30 bg-bluePrimary/10 font-sans text-h3 font-black text-blueAccent"
                   aria-hidden="true"
                 >
                   {service.id.padStart(2, '0')}
                 </span>
-                {/* Text */}
                 <p className="mt-5 font-sans text-body-enhanced font-semibold leading-[1.4] text-text">
                   <strong className="block text-blueAccent">
                     {service.keyword}
@@ -183,9 +180,7 @@ export function AboutWhatIDo() {
               const start = 0.1 + (index * 0.05);
               const end = start + 0.15;
               
-              // eslint-disable-next-line react-hooks/rules-of-hooks
               const x = useTransform(smoothMobileScrollY, [start, end], [24, 0]);
-              // eslint-disable-next-line react-hooks/rules-of-hooks
               const opacity = useTransform(smoothMobileScrollY, [start, end], [0, 1]);
 
               return (
@@ -194,14 +189,12 @@ export function AboutWhatIDo() {
                   style={prefersReducedMotion ? {} : { x, opacity }}
                   className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-standard"
                 >
-                  {/* Number */}
                   <span
                     className="shrink-0 font-sans text-display text-2xl font-black text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"
                     aria-hidden="true"
                   >
                     {service.id.padStart(2, '0')}
                   </span>
-                  {/* Text */}
                   <p className="text-sm font-semibold leading-snug text-text">
                     <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                     <span className="text-text/80">{service.description}</span>
@@ -223,9 +216,7 @@ export function AboutWhatIDo() {
       >
         {/* Dual marquee for seamless loop */}
         <div
-          className={`flex w-max gap-12 ${prefersReducedMotion ? '' : 'animate-marquee'} ${marqueePaused ? 'pause-animation' : ''}`}
-          onMouseEnter={() => setMarqueePaused(true)}
-          onMouseLeave={() => setMarqueePaused(false)}
+          className={`flex w-max gap-12 hover:[animation-play-state:paused] ${prefersReducedMotion ? '' : 'animate-marquee'}`}
         >
           {/* First set */}
           {MARQUEE_KEYWORDS.map((keyword, i) => (

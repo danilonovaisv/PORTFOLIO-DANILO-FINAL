@@ -12,7 +12,7 @@ import {
 import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
-function AboutOrigin() {
+export function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
@@ -97,4 +97,3 @@ function AboutOrigin() {
   );
 }
 
-export default AboutOrigin;

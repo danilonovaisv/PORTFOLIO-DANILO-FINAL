@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { m, useScroll, useTransform, useSpring } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { MOTION_TOKENS } from '@/config/motion';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
