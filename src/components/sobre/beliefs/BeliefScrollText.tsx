@@ -22,9 +22,9 @@ export function BeliefScrollText() {
 
         if (shouldReduceMotion) {
           const controls = animate(
-            element,
-            { opacity: 1, x: 0 },
-            { duration: 0.16, ease: 'ease-out' }
+            element as Element,
+            { opacity: 1, x: 0 } as any,
+            { duration: 0.16, ease: 'easeOut' }
           );
           return () => controls.stop();
         }
@@ -32,8 +32,8 @@ export function BeliefScrollText() {
         const enterX = isMobile ? -48 : -100;
 
         const enterControls = animate(
-          element,
-          { opacity: 1, x: [enterX, 0] },
+          element as Element,
+          { opacity: 1, x: [enterX, 0] } as any,
           {
             duration: beliefMotion.textRevealDuration,
             ease: beliefMotion.referenceEase as [number, number, number, number],
