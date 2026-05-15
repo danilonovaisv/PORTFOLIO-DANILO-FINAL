@@ -30,6 +30,7 @@ npm-debug.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
 
 # Vercel
 .vercel
@@ -144,6 +145,13 @@ build-error.log
 firebase-deploy.log
 *.patch
 .claude/worktrees/
+
+# Scratch / session artifacts (root-level)
+tsc_*.txt
+typecheck_*.txt
+audit-result.txt
+findings.md
+scratch/
 
 .gemini/
 gha-creds-*.json
