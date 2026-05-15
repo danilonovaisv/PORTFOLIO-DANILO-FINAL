@@ -79,7 +79,7 @@ export default function HomeHero() {
 
         {/* Camada: Ghost WebGL (z-layer-3d — acima do texto) */}
         {/* pointer-events gerenciado com cuidado se hover 3D ativo (pointer-events-none no wrapper e deixa canvas lidar) */}
-        <div className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden" aria-hidden="true" role="presentation">
           <div className="sticky top-0 h-[100svh] md:h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />
