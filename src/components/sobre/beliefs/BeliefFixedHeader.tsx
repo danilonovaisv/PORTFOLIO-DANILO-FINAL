@@ -1,7 +1,7 @@
 'use client';
 
 import { m, useTransform } from 'motion/react';
-import { BELIEF_HEADER_LINES, beliefZIndex } from '@/config/beliefTokens';
+import { BELIEF_HEADER_LINES, beliefMotion, beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 
@@ -16,7 +16,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: shouldReduceMotion ? 0.2 : 0.48,
+      duration: shouldReduceMotion ? 0.2 : beliefMotion.headerDuration,
       ease: GHOST_EASE,
     },
   }),

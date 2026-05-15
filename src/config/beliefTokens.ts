@@ -20,7 +20,7 @@ export const BELIEF_BACKGROUND_STOPS = [
   beliefColors.bluePrimary,
   beliefColors.purpleDetails,
   beliefColors.pinkDetails,
-  beliefColors.bluePrimary,
+  beliefColors.deepVoid,
 ] as const;
 
 export const BELIEF_HEADER_LINES = [
@@ -29,12 +29,12 @@ export const BELIEF_HEADER_LINES = [
 ] as const;
 
 export const BELIEF_PHRASES = [
-  'Um\nvídeo\nque\nrespira.',
-  'Uma\nmarca\nque se\nreconhece.',
-  'Um\ndetalhe\nque\nfica.',
-  'Crio\npara\ngerar\npresença.',
-  'Mesmo\nquando\nnão\nestou\nali.',
-  'Mesmo\nquando\nninguém\npercebe\no esforço.',
+  'Um vídeo que respira',
+  'Uma marca que se reconhece',
+  'Um detalhe que fica',
+  'Crio para gerar presença',
+  'Mesmo quando não estou ali',
+  'Mesmo quando ninguém percebe o esforço',
 ] as const;
 
 export const BELIEF_MANIFESTO_LINES = ['ISSO É', 'GHOST', 'DESIGN'] as const;
@@ -70,6 +70,10 @@ export const beliefMotion = {
   textExitDuration: 0.32,
   /** Duration for background color transition */
   backgroundDuration: 0.9,
+  /** Duration for fixed header entrance */
+  headerDuration: 0.8,
+  /** Duration for fixed header exit */
+  headerExitDuration: 0.5,
   ghostIntroDuration: MOTION_TOKENS.duration.ghostIn,
   wordStagger: MOTION_TOKENS.duration.WORD_STAGGER,
   manifestoStagger: MOTION_TOKENS.splitText.manifestoStagger,

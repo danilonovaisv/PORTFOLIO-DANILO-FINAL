@@ -106,8 +106,8 @@ export function GhostScene() {
             isMobile={isMobile}
             shouldReduceMotion={shouldReduceMotion}
             scrollYProgress={scrollYProgress}
-            pointerX={pointer.x}
-            pointerY={pointer.y}
+            pointerX={isMobile ? { get: () => 0 } : pointer.x}
+            pointerY={isMobile ? { get: () => 0 } : pointer.y}
           />
         </Suspense>
       </Canvas>

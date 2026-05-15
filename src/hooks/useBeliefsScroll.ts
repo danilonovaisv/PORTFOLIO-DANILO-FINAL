@@ -11,7 +11,7 @@ export function useBeliefsScroll(containerRef: RefObject<HTMLElement | null>) {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end end'],
   });
 
   const [activeIndex, setActiveIndex] = useState(0);

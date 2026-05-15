@@ -26,10 +26,12 @@ export function BeliefScrollText() {
           };
         }
 
-        // Entrance animation: strictly x-axis and opacity
+        // Entrance: from left — desktop -100, mobile -48
+        const enterX = isMobile ? -48 : -100;
+
         const enterControls = animate(
           element,
-          { opacity: 1, x: [24, 0] },
+          { opacity: 1, x: [enterX, 0] },
           {
             duration: beliefMotion.textRevealDuration,
             ease: beliefMotion.referenceEase as any,
@@ -39,10 +41,9 @@ export function BeliefScrollText() {
         return () => {
           enterControls.stop();
 
-          // Exit animation: strictly x-axis and opacity
           animate(
             element,
-            { opacity: 0, x: -24 },
+            { opacity: 0, x: enterX },
             {
               duration: beliefMotion.textExitDuration,
               ease: beliefMotion.referenceEase as any,
@@ -86,7 +87,6 @@ export function BeliefScrollText() {
                 fontSize: isMobile
                   ? 'clamp(2rem, 8vw, 3rem)'
                   : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-                whiteSpace: 'pre-line',
               }}
             >
               {phrase.text}
