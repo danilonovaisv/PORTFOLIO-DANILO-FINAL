@@ -35,7 +35,7 @@ async function auditFile(filePath: string) {
     let inLoop = false;
     let braceCount = 0;
 
-    lines.forEach((line, index) => {
+    lines.forEach((line: string, index: number) => {
       if (ANIMATION_LOOP_PATTERNS.some((p) => p.test(line))) {
         inLoop = true;
         braceCount =
@@ -48,7 +48,7 @@ async function auditFile(filePath: string) {
           (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
 
         // Simple heuristic: check for new allocations inside the loop block
-        ALLOCATION_PATTERNS.forEach((pattern) => {
+        ALLOCATION_PATTERNS.forEach((pattern: RegExp) => {
           if (pattern.test(line)) {
             // Exclude common safe patterns like uniform updates if they don't allocate
             if (!line.includes('.uniforms.') || line.includes('new THREE.')) {
@@ -96,7 +96,7 @@ async function main() {
 
   let totalIssues = 0;
 
-  reports.forEach((report) => {
+  reports.forEach((report: any) => {
     if (report.hasLoop || report.instancedMeshes > 0) {
       console.log(`FILE: ${report.file}`);
       console.log(
@@ -106,7 +106,7 @@ async function main() {
 
       if (report.allocationsInLoop.length > 0) {
         console.log(`- ⚠️ Potential Allocations in Loop:`);
-        report.allocationsInLoop.forEach((issue) => {
+        report.allocationsInLoop.forEach((issue: string) => {
           console.log(`    ${issue}`);
           totalIssues++;
         });
