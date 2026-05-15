@@ -41,7 +41,8 @@
       "Bash(git commit *)",
       "Bash(gh pr *)",
       "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
-      "Bash(git merge *)"
+      "Bash(git merge *)",
+      "Bash(xargs ls)"
     ]
   },
   "enableAllProjectMcpServers": true,
