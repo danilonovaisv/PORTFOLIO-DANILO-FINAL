@@ -284,7 +284,7 @@ export const ProjectsGallery = ({
         role="tabpanel"
         aria-labelledby={`portfolio-filter-${PORTFOLIO_FILTERS[activeFilterIndex]?.id ?? PORTFOLIO_FILTERS[0].id
           }`}
-        className="w-full relative z-[1]"
+        className="w-full relative z-[var(--z-layer-glass)]"
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
         <Container>
