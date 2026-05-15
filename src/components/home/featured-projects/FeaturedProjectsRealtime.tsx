@@ -181,9 +181,12 @@ export default function FeaturedProjectsRealtime({
         } = await supabase.auth.getSession();
         if (cancelled) return;
 
-        if (session?.access_token) {
-          supabase.realtime.setAuth(session.access_token);
+        if (!session?.access_token) {
+          // Anonymous visitors: polling already active, skip WebSocket
+          return;
         }
+
+        supabase.realtime.setAuth(session.access_token);
 
         const nextChannel = supabase
           .channel(
