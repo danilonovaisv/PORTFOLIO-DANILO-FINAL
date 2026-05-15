@@ -39,7 +39,7 @@ export function BeliefBackground() {
           { backgroundColor: color },
           {
             duration: beliefMotion.backgroundDuration,
-            ease: beliefMotion.referenceEase as any,
+            ease: beliefMotion.referenceEase as [number, number, number, number],
           }
         );
 

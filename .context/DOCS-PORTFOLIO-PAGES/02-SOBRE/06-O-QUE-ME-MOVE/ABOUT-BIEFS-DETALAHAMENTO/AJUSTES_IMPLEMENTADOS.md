@@ -48,20 +48,19 @@ blur: 0 → 10px
 ```typescript
 // Posição: SEMPRE NO RODAPÉ DA SESSÃO, CENTRALIZADO
 
-// Entrada: da DIREITA para o centro
-x: +24 → 0  // (não usar 100%, usar valor pequeno)
+// Entrada: da ESQUERDA para o centro
+x: -48 → 0
 opacity: 0 → 1
-blur: 10px → 0
 
 // Permanência: estável no rodapé
 
-// Saída: do centro para a ESQUERDA
-x: 0 → -24
+// Saída: de volta para a ESQUERDA
+x: 0 → -48
 opacity: 1 → 0
-blur: 0 → 10px
 
 // IMPORTANTE: NÃO usar `y` no mobile (sem movimento vertical)
 // Quebra de linha: só quando necessário (texto centralizado)
+// Referência: blueprint 06-O-QUE-ME-MOVE-blueprint-atualizado.md §10
 ```
 
 ---
