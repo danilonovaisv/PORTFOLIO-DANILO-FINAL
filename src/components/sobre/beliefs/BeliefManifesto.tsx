@@ -2,7 +2,11 @@
 
 import { useMemo } from 'react';
 import { m, useTransform } from 'motion/react';
-import { BELIEF_MANIFESTO_LINES, beliefMotion, beliefZIndex } from '@/config/beliefTokens';
+import {
+  BELIEF_MANIFESTO_LINES,
+  beliefMotion,
+  beliefZIndex,
+} from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 

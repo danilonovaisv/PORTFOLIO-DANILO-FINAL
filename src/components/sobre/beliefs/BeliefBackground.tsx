@@ -2,7 +2,11 @@
 
 import { animate, inView } from 'motion';
 import { useEffect, useRef } from 'react';
-import { BELIEF_BACKGROUND_STOPS, beliefMotion, beliefZIndex } from '@/config/beliefTokens';
+import {
+  BELIEF_BACKGROUND_STOPS,
+  beliefMotion,
+  beliefZIndex,
+} from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {
