@@ -12,11 +12,11 @@
 
 33 issues encontrados (3 P0, 15 P1, 15 P2). Arquitetura sólida. Principais riscos: `GhostSceneFallback` com `zIndex: 70` cobre o manifesto "ISSO É GHOST DESIGN" em falha de WebGL (P0); `AboutWhatIDo` horizontal scroll declarado mas não conectado a nenhum driver (P0); home page sem ISR `revalidate` (P1 performance).
 
-| Severidade | Qty | Bloqueador? |
-|---|---|---|
-| P0 Crítico | 3 | Sim |
-| P1 Importante | 15 | Recomendado |
-| P2 Refinamento | 15 | Backlog |
+| Severidade     | Qty | Bloqueador? |
+| -------------- | --- | ----------- |
+| P0 Crítico     | 3   | Sim         |
+| P1 Importante  | 15  | Recomendado |
+| P2 Refinamento | 15  | Backlog     |
 
 ### P0 — Ação Imediata
 

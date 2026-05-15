@@ -20,7 +20,9 @@ function SceneInvalidator() {
     let isVisible = false;
 
     const observer = new IntersectionObserver(
-      ([entry]) => { isVisible = entry.isIntersecting; },
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
       { threshold: 0.01 }
     );
     observer.observe(canvas);
@@ -46,15 +48,12 @@ function SceneInvalidator() {
 }
 
 export function GhostScene() {
-  const {
-    scrollYProgress,
-    isMobile,
-    shouldReduceMotion,
-  } = useBeliefsScrollContext();
+  const { scrollYProgress, isMobile, shouldReduceMotion } =
+    useBeliefsScrollContext();
   const supportsWebGL = useWebGLSupport();
   const pointer = usePointerParallax();
 
-  // Strict visibility control: 
+  // Strict visibility control:
   // 1. Fade in quickly after entry (0 -> 0.05)
   // 2. Stay visible (0.05 -> 0.9)
   // 3. Fade out before exit (0.9 -> 0.98)
@@ -62,13 +61,6 @@ export function GhostScene() {
     scrollYProgress,
     [0, 0.05, 0.9, 0.98],
     [0, 1, 1, 0]
-  );
-
-  // Subtle blur for Ghost System aesthetic
-  const blur = useTransform(
-    scrollYProgress,
-    [0, 0.05, 0.9, 0.98],
-    ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
   );
 
   // TranslateY for entrance/exit (allowed by spec)
@@ -86,13 +78,13 @@ export function GhostScene() {
     <m.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      style={{ opacity, filter: blur, y }}
+      style={{ opacity, y }}
       className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)]"
     >
       <Canvas
         aria-hidden="true"
         frameloop="demand"
-        dpr={[1, isMobile ? 1 : 2]}
+        dpr={isMobile ? [1, 1.2] : [1, 1.5]}
         camera={{ position: isMobile ? [0, 0, 7.4] : [0, 0, 6.9], fov: 35 }}
       >
         <ambientLight intensity={0.9} color="#ffffff" />

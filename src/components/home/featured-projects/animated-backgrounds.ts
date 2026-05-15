@@ -1,9 +1,6 @@
 import type { PortfolioProject } from '@/types/project';
 
-export const FEATURED_PROJECT_BACKGROUND_POOL = [
-  'grainient',
-  'ghost',
-] as const;
+export const FEATURED_PROJECT_BACKGROUND_POOL = ['grainient', 'ghost'] as const;
 
 export type FeaturedProjectBackgroundVariant =
   (typeof FEATURED_PROJECT_BACKGROUND_POOL)[number];

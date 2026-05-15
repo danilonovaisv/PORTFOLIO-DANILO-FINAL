@@ -5,11 +5,7 @@ import { m, useScroll, useTransform } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
-import {
-  MOTION_TOKENS,
-  GHOST_EASE,
-  ghostFade,
-} from '@/config/motion';
+import { MOTION_TOKENS, GHOST_EASE, ghostFade } from '@/config/motion';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
@@ -80,7 +76,11 @@ export function AboutHero() {
 
               {/* Columns 7-12: Content Block */}
               <m.div
-                style={prefersReducedMotion ? {} : { opacity, y, filter: `blur(${blur}px)` }}
+                style={
+                  prefersReducedMotion
+                    ? {}
+                    : { opacity, y, filter: `blur(${blur}px)` }
+                }
                 className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
               >
                 <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">

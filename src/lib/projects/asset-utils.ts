@@ -1,5 +1,3 @@
-
-
 export const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
 export const YOUTUBE_HOST_WHITELIST = ['youtube.com', 'm.youtube.com'];
 export const YOUTUBE_PATTERN =

@@ -5,33 +5,33 @@ Gerado em: 5/14/2026, 5:18:13 PM
 ---
 
 ## ⚠️ Erro ao analisar dependências
+
 - Command failed: pnpm dlx depcheck --json
-node:internal/modules/cjs/loader:1478
+  node:internal/modules/cjs/loader:1478
   throw err;
   ^
 
 Error: Cannot find module '/Users/danilonovais/Library/pnpm/global/v11/b5cc-19e1f3ef640/node_modules/pnpm/bin/pnpm.mjs'
-    at Module._resolveFilename (node:internal/modules/cjs/loader:1475:15)
-    at wrapResolveFilename (node:internal/modules/cjs/loader:1048:27)
-    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1072:10)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1093:12)
-    at Module._load (node:internal/modules/cjs/loader:1261:25)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
-    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
-    at node:internal/main/run_main_module:33:47 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
+at Module.\_resolveFilename (node:internal/modules/cjs/loader:1475:15)
+at wrapResolveFilename (node:internal/modules/cjs/loader:1048:27)
+at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1072:10)
+at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1093:12)
+at Module.\_load (node:internal/modules/cjs/loader:1261:25)
+at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+at node:internal/main/run_main_module:33:47 {
+code: 'MODULE_NOT_FOUND',
+requireStack: []
 }
 
 Node.js v26.0.0
 
-
-
 ## 🌿 Branches no repositório
-- * main
+
+- - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
-- + worktree-spectral-r3f
+- - worktree-spectral-r3f
 - remotes/origin/worktree-spectral-r3f
 - cursor/o-que-me-move-motion-doc
 - remotes/origin/docs/sobre-page-technical-analysis-4751686432196136347
@@ -57,8 +57,8 @@ Node.js v26.0.0
 - codex/deploymentvalidationconfigvalidate-teste-de-supabase-and
 - fix/supabase-next-admin-realtime-storage
 
-
 ## 🪓 Branches potencialmente obsoletas
+
 - remotes/origin/worktree-spectral-r3f
 - remotes/origin/docs/sobre-page-technical-analysis-4751686432196136347
 - remotes/origin/codex/weekly-cleanup

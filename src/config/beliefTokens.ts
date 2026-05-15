@@ -15,12 +15,12 @@ export const beliefColors = {
 export const BELIEF_BACKGROUND_STOPS = [
   beliefColors.deepVoid,
   beliefColors.bluePrimary,
-  beliefColors.blueDeep,
-  beliefColors.blueBright,
+  beliefColors.purpleDetails,
+  beliefColors.pinkDetails,
   beliefColors.bluePrimary,
-  beliefColors.blueDeep,
-  beliefColors.blueBright,
-  beliefColors.deepVoid,
+  beliefColors.purpleDetails,
+  beliefColors.pinkDetails,
+  beliefColors.bluePrimary,
 ] as const;
 
 export const BELIEF_HEADER_LINES = [
@@ -58,12 +58,21 @@ export const beliefZIndex = {
 
 export const beliefMotion = {
   ghostEase: MOTION_TOKENS.ease.ghost,
+  /** Motion scroll-triggered reference ease — for Beliefs phrases and background */
+  referenceEase: MOTION_TOKENS.ease.reference,
   softEase: MOTION_TOKENS.ease.ghost,
   microDuration: MOTION_TOKENS.duration.micro,
   revealDuration: MOTION_TOKENS.duration.GHOST_REVEAL,
   exitDuration: MOTION_TOKENS.duration.GHOST_EXIT,
+  /** Duration for main phrase entrance */
+  textRevealDuration: 0.9,
+  /** Duration for main phrase exit */
+  textExitDuration: 0.32,
+  /** Duration for background color transition */
+  backgroundDuration: 0.9,
   ghostIntroDuration: MOTION_TOKENS.duration.ghostIn,
   wordStagger: MOTION_TOKENS.duration.WORD_STAGGER,
+  manifestoStagger: MOTION_TOKENS.splitText.manifestoStagger,
 } as const;
 
 export const beliefLayout = {

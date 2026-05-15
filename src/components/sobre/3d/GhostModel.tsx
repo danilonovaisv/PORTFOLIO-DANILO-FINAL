@@ -174,11 +174,14 @@ export function GhostModel({
     const scaleBoost =
       progress > 0.8 ? THREE.MathUtils.mapLinear(progress, 0.8, 1, 1, 1.15) : 1;
 
-    // Animation constants for wow factor
+    // Floating animation — DISABLED when reduced motion is active
     const floatFreq = isClimax ? 1.5 : 1.0;
     const floatAmp = isClimax ? 0.15 : 0.22;
-    const floating = Math.sin(state.clock.elapsedTime * floatFreq) * floatAmp;
+    const floating = shouldReduceMotion
+      ? 0
+      : Math.sin(state.clock.elapsedTime * floatFreq) * floatAmp;
 
+    // Rotation — DISABLED when reduced motion is active
     const rotSpeed = 0.6;
     const rotBoost =
       progress > 0.8 ? THREE.MathUtils.mapLinear(progress, 0.8, 1, 1, 2) : 1;
@@ -187,32 +190,30 @@ export function GhostModel({
       : Math.sin(state.clock.elapsedTime * rotSpeed * rotBoost) *
         (0.05 + progress * 0.05);
 
+    // Pointer parallax — ZEROED when reduced motion is active
+    const px = shouldReduceMotion ? 0 : pointerX.get();
+    const py = shouldReduceMotion ? 0 : pointerY.get();
+
     // Dynamic positioning
-    // Desktop: Ghost stays right (1.2) and drifts toward center (0.6) at climax
-    // to create the "invade levemente" overlap effect with the Manifesto text.
-    // Desktop: ghost is center-stage (x≈0), matching reference DESKTOP-INICIAL.jpg.
-    // Climax: slight drift toward center as manifesto "invades".
+    // Desktop: Ghost stays RIGHT (1.0) and drifts toward center (0.3) at climax
+    // Mobile: Ghost stays LEFT (-0.8) and centers at climax
     const targetX = isMobile
       ? isClimax
         ? 0
-        : -0.15 // Mobile: closer to center
+        : -0.8 // Mobile: LEFT
       : isClimax
-        ? 0.0 + pointerX.get() * 0.15 // Desktop climax: stay center
-        : shouldReduceMotion
-          ? 0.0
-          : 0.0 + pointerX.get() * 0.3; // Desktop default: center-stage
+        ? 0.3 + px * 0.15 // Desktop climax: drifts toward center
+        : 1.0 + px * 0.3; // Desktop default: RIGHT
 
     const targetY = isMobile
       ? isClimax
-        ? -0.35 // Mobile Climax: lowered
-        : -0.15 // Mobile: lowered to stay in viewport
-      : shouldReduceMotion
-        ? 0.0
-        : 0.0 + pointerY.get() * 0.25;
+        ? -0.35
+        : -0.15
+      : 0.0 + py * 0.25;
 
     const baseScale = isMobile ? 0.48 : 0.72;
     const targetScale = baseScale * scaleBoost;
-    const lerpAlpha = 0.08; // Softer lerp for more fluid motion
+    const lerpAlpha = 0.08;
 
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x,
@@ -245,4 +246,3 @@ export function GhostModel({
     </Instances>
   );
 }
-

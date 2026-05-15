@@ -74,7 +74,7 @@ export function AboutWhatIDo() {
   const smoothMobileScrollY = useSpring(mobileScrollY, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ['10%', '-40%']);
@@ -177,11 +177,19 @@ export function AboutWhatIDo() {
           >
             {SERVICES.map((service, index) => {
               // Calculate specific scroll trigger points for each card
-              const start = 0.1 + (index * 0.05);
+              const start = 0.1 + index * 0.05;
               const end = start + 0.15;
-              
-              const x = useTransform(smoothMobileScrollY, [start, end], [24, 0]);
-              const opacity = useTransform(smoothMobileScrollY, [start, end], [0, 1]);
+
+              const x = useTransform(
+                smoothMobileScrollY,
+                [start, end],
+                [24, 0]
+              );
+              const opacity = useTransform(
+                smoothMobileScrollY,
+                [start, end],
+                [0, 1]
+              );
 
               return (
                 <m.li
@@ -196,7 +204,9 @@ export function AboutWhatIDo() {
                     {service.id.padStart(2, '0')}
                   </span>
                   <p className="text-sm font-semibold leading-snug text-text">
-                    <strong className="text-blueAccent">{service.keyword}</strong>{' '}
+                    <strong className="text-blueAccent">
+                      {service.keyword}
+                    </strong>{' '}
                     <span className="text-text/80">{service.description}</span>
                   </p>
                 </m.li>

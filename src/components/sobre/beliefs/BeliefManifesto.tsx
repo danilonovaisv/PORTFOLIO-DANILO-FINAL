@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { m, useTransform } from 'motion/react';
-import { BELIEF_MANIFESTO_LINES } from '@/config/beliefTokens';
+import { BELIEF_MANIFESTO_LINES, beliefMotion } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 
@@ -19,24 +19,23 @@ export function BeliefManifesto() {
     [0, 0, 1, 1, 0]
   );
 
-  const y = useTransform(
-    scrollYProgress,
-    [0.8, 0.82, 0.92],
-    [18, 18, 0]
-  );
+  const y = useTransform(scrollYProgress, [0.8, 0.82, 0.92], [18, 18, 0]);
 
   // Stagger words when climax is reached
-  const itemVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0.2 : 0.42,
-        ease: GHOST_EASE,
-      }
-    }
-  }), [shouldReduceMotion]);
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: shouldReduceMotion ? 0.2 : 0.42,
+          ease: GHOST_EASE,
+        },
+      },
+    }),
+    [shouldReduceMotion]
+  );
 
   return (
     <m.div
@@ -44,13 +43,16 @@ export function BeliefManifesto() {
       data-belief-manifesto
       style={{ opacity, y }}
       className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 z-[var(--z-layer-overlay)]"
-      aria-live="polite"
       aria-hidden={!isClimax}
     >
       <m.div
         initial="hidden"
-        animate={isClimax ? "visible" : "hidden"}
-        transition={{ staggerChildren: shouldReduceMotion ? 0 : 0.06 }}
+        animate={isClimax ? 'visible' : 'hidden'}
+        transition={{
+          staggerChildren: shouldReduceMotion
+            ? 0
+            : beliefMotion.manifestoStagger,
+        }}
         className="text-center font-display font-black uppercase leading-[0.82] tracking-[0.03em] text-white"
         style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
       >

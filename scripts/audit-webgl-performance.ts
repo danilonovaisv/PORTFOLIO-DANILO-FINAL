@@ -19,7 +19,7 @@ async function auditFile(filePath: string) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.split('\n');
   const fileName = path.relative(CANVAS_DIR, filePath);
-  
+
   const results = {
     file: fileName,
     allocationsInLoop: [] as string[],
@@ -27,7 +27,7 @@ async function auditFile(filePath: string) {
     hasLoop: false,
   };
 
-  results.hasLoop = ANIMATION_LOOP_PATTERNS.some(p => p.test(content));
+  results.hasLoop = ANIMATION_LOOP_PATTERNS.some((p) => p.test(content));
   const instancedMatches = content.match(INSTANCED_MESH_PATTERN);
   results.instancedMeshes = instancedMatches ? instancedMatches.length : 0;
 
@@ -36,21 +36,25 @@ async function auditFile(filePath: string) {
     let braceCount = 0;
 
     lines.forEach((line, index) => {
-      if (ANIMATION_LOOP_PATTERNS.some(p => p.test(line))) {
+      if (ANIMATION_LOOP_PATTERNS.some((p) => p.test(line))) {
         inLoop = true;
-        braceCount = (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+        braceCount =
+          (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
         return;
       }
 
       if (inLoop) {
-        braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
-        
+        braceCount +=
+          (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+
         // Simple heuristic: check for new allocations inside the loop block
-        ALLOCATION_PATTERNS.forEach(pattern => {
+        ALLOCATION_PATTERNS.forEach((pattern) => {
           if (pattern.test(line)) {
             // Exclude common safe patterns like uniform updates if they don't allocate
             if (!line.includes('.uniforms.') || line.includes('new THREE.')) {
-               results.allocationsInLoop.push(`Line ${index + 1}: ${line.trim()}`);
+              results.allocationsInLoop.push(
+                `Line ${index + 1}: ${line.trim()}`
+              );
             }
           }
         });
@@ -92,15 +96,17 @@ async function main() {
 
   let totalIssues = 0;
 
-  reports.forEach(report => {
+  reports.forEach((report) => {
     if (report.hasLoop || report.instancedMeshes > 0) {
       console.log(`FILE: ${report.file}`);
-      console.log(`- Animation Loop: ${report.hasLoop ? '✅ Detected' : '❌ Not detected'}`);
+      console.log(
+        `- Animation Loop: ${report.hasLoop ? '✅ Detected' : '❌ Not detected'}`
+      );
       console.log(`- InstancedMeshes: ${report.instancedMeshes}`);
-      
+
       if (report.allocationsInLoop.length > 0) {
         console.log(`- ⚠️ Potential Allocations in Loop:`);
-        report.allocationsInLoop.forEach(issue => {
+        report.allocationsInLoop.forEach((issue) => {
           console.log(`    ${issue}`);
           totalIssues++;
         });

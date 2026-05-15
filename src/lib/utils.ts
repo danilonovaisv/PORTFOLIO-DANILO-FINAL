@@ -140,7 +140,9 @@ export function supabaseLoader({
     if (src.includes('supabase.co')) {
       const url = new URL(src);
       const isObject = url.pathname.includes('/storage/v1/object/public/');
-      const isRender = url.pathname.includes('/storage/v1/render/image/public/');
+      const isRender = url.pathname.includes(
+        '/storage/v1/render/image/public/'
+      );
 
       if (isObject || isRender) {
         if (isObject) {

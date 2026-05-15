@@ -1,40 +1,62 @@
 'use client';
 
-import { m, useTransform } from 'motion/react';
-import { BELIEF_BACKGROUND_STOPS } from '@/config/beliefTokens';
+import { animate, inView } from 'motion';
+import { useEffect, useRef } from 'react';
+import {
+  BELIEF_BACKGROUND_STOPS,
+  beliefMotion,
+} from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {
-  const { scrollYProgress } = useBeliefsScrollContext();
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { shouldReduceMotion } = useBeliefsScrollContext();
 
-  // Create a mapping of progress to background colors
-  // We distribute the colors evenly across the scroll range
-  const colorRange = BELIEF_BACKGROUND_STOPS.map((_, i) => i / (BELIEF_BACKGROUND_STOPS.length - 1));
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    colorRange,
-    BELIEF_BACKGROUND_STOPS as unknown as string[]
-  );
+  useEffect(() => {
+    if (!ref.current) return;
 
-  // Strict visibility control:
-  // Fade in at the start (0 -> 0.05)
-  // Fade out at the end (0.95 -> 1.0)
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.05, 0.95, 1],
-    [0, 1, 1, 0]
-  );
+    const stop = inView(
+      '#o-que-me-move [data-belief-section]',
+      (element) => {
+        const index = Number.parseInt(
+          element.getAttribute('data-index') ?? '0',
+          10
+        );
+
+        const color =
+          BELIEF_BACKGROUND_STOPS[
+            Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
+          ];
+
+        if (shouldReduceMotion) {
+          ref.current!.style.backgroundColor = color;
+          return;
+        }
+
+        const controls = animate(
+          ref.current!,
+          { backgroundColor: color },
+          {
+            duration: beliefMotion.backgroundDuration,
+            ease: beliefMotion.referenceEase as any,
+          }
+        );
+
+        return () => controls.stop();
+      },
+      { amount: 0.55 }
+    );
+
+    return () => stop();
+  }, [shouldReduceMotion]);
 
   return (
-    <m.div
+    <div
+      ref={ref}
       aria-hidden="true"
       data-testid="beliefs-background"
       data-belief-background
-      style={{ 
-        backgroundColor,
-        opacity 
-      }}
-      className="absolute inset-0 z-[var(--z-layer-base)]"
+      className="absolute inset-0 z-[var(--z-layer-base)] bg-[#040013]"
     />
   );
 }

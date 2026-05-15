@@ -16,6 +16,8 @@ export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
   ease: {
     ghost: GHOST_EASE,
+    /** Motion scroll-triggered reference ease — used in Beliefs section */
+    reference: [0.17, 0.55, 0.55, 1] as EasingTuple,
   },
 
   // ─────────────────────────────────────────────────────────────────────────

@@ -1,97 +1,79 @@
 'use client';
 
-import { m, useTransform } from 'motion/react';
+import { animate, inView } from 'motion';
+import { useEffect } from 'react';
 import {
   BELIEF_PHRASE_ITEMS,
+  beliefMotion,
   beliefColors,
   beliefLayout,
 } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
-interface BeliefPhraseSectionProps {
-  text: string;
-  index: number;
-  totalPhrases: number;
-}
-
-function BeliefPhraseSection({ text, index, totalPhrases }: BeliefPhraseSectionProps) {
-  const { isMobile, shouldReduceMotion, scrollYProgress } = useBeliefsScrollContext();
-
-  // Define the scroll range for this phrase based on the climax point (0.82)
-  const CLIMAX_START = 0.82;
-  const sectionStep = CLIMAX_START / totalPhrases;
-  
-  const start = index * sectionStep;
-  const end = (index + 1) * sectionStep;
-  const middle = (start + end) / 2;
-
-  // Animation values linked to scroll
-  // We add a small horizontal plateu in the middle [middle - 0.04, middle + 0.04] 
-  // to give the reader time to see the phrase clearly
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, middle - 0.04, middle + 0.04, end],
-    [0, 1, 1, 0]
-  );
-
-  const y = useTransform(
-    scrollYProgress,
-    [start, middle, end],
-    [shouldReduceMotion ? 0 : 18, 0, shouldReduceMotion ? 0 : -18]
-  );
-
-  const blurValue = useTransform(
-    scrollYProgress,
-    [start, middle, end],
-    [8, 0, 8]
-  );
-  const filter = useTransform(blurValue, (v: number) => `blur(${v}px)`);
-
-  return (
-    <section
-      className="belief-scroll-section relative"
-      data-index={index}
-      style={{ height: beliefLayout.phraseSectionHeight }}
-    >
-      <div
-        className={[
-          'pointer-events-none sticky top-0 flex h-dvh',
-          isMobile
-            ? 'items-end justify-center text-center px-6'
-            : 'items-center justify-start text-left',
-        ].join(' ')}
-        style={{
-          paddingLeft: isMobile ? undefined : beliefLayout.desktopPhraseLeft,
-          paddingBottom: isMobile ? beliefLayout.mobilePhraseBottom : undefined,
-        }}
-      >
-        <m.h3
-          data-testid="belief-phrase"
-          data-animation-contract="scroll-coupled"
-          aria-label={text}
-          style={{
-            opacity,
-            y,
-            filter,
-            color: beliefColors.blueAccent,
-            maxWidth: isMobile ? '100%' : beliefLayout.desktopPhraseMaxWidth,
-            fontSize: isMobile
-              ? 'clamp(2.0rem, 8vw, 3.0rem)'
-              : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-            textShadow: '0 1px 12px rgba(0, 0, 0, 0.18)',
-            whiteSpace: 'pre-line', // respects \n in phrase strings
-          }}
-          className="font-medium italic leading-[0.9] tracking-[-0.045em] will-change-[transform,opacity,filter] z-[var(--z-layer-cta)]"
-        >
-          {text}
-        </m.h3>
-      </div>
-    </section>
-  );
-}
-
 export function BeliefScrollText() {
-  const totalPhrases = BELIEF_PHRASE_ITEMS.length;
+  const { shouldReduceMotion, isMobile } = useBeliefsScrollContext();
+
+  useEffect(() => {
+    const stop = inView(
+      '#o-que-me-move [data-belief-phrase]',
+      (el) => {
+        const element = el as HTMLElement;
+        if (shouldReduceMotion) {
+          element.style.opacity = '1';
+          return () => {
+            element.style.opacity = '0';
+          };
+        }
+
+        // Desktop: y entrance (from bottom). Mobile: x entrance (from right)
+        const enterControls = isMobile
+          ? animate(
+              element,
+              { opacity: 1, x: [24, 0] },
+              {
+                duration: beliefMotion.textRevealDuration,
+                ease: beliefMotion.referenceEase as any,
+              }
+            )
+          : animate(
+              element,
+              { opacity: 1, y: [20, 0] },
+              {
+                duration: beliefMotion.textRevealDuration,
+                ease: beliefMotion.referenceEase as any,
+              }
+            );
+
+        return () => {
+          enterControls.stop();
+
+          // Desktop: exit upward. Mobile: exit to left
+          if (isMobile) {
+            animate(
+              element,
+              { opacity: 0, x: -24 },
+              {
+                duration: beliefMotion.textExitDuration,
+                ease: beliefMotion.referenceEase as any,
+              }
+            );
+          } else {
+            animate(
+              element,
+              { opacity: 0, y: -20 },
+              {
+                duration: beliefMotion.textExitDuration,
+                ease: beliefMotion.referenceEase as any,
+              }
+            );
+          }
+        };
+      },
+      { amount: 0.55 }
+    );
+
+    return () => stop();
+  }, [isMobile, shouldReduceMotion]);
 
   return (
     <div
@@ -99,14 +81,37 @@ export function BeliefScrollText() {
       className="relative z-[var(--z-layer-cta)]"
     >
       {BELIEF_PHRASE_ITEMS.map((phrase, index) => (
-        <BeliefPhraseSection 
-          key={phrase.id} 
-          text={phrase.text} 
-          index={index} 
-          totalPhrases={totalPhrases}
-        />
+        <section
+          key={phrase.id}
+          data-belief-section
+          data-index={index}
+          className="relative flex items-center"
+          style={{ height: beliefLayout.phraseSectionHeight }}
+        >
+          <div
+            className={[
+              'pointer-events-none',
+              isMobile
+                ? 'fixed bottom-[20vh] left-1/2 w-[min(86vw,28rem)] -translate-x-1/2 text-center'
+                : 'ml-[clamp(1.5rem,6vw,6rem)] max-w-[38vw] text-left',
+            ].join(' ')}
+          >
+            <p
+              data-belief-phrase
+              className="select-none font-h1 font-bold italic leading-[1.05] tracking-[-0.03em] opacity-0 will-change-transform"
+              style={{
+                color: beliefColors.blueAccent,
+                fontSize: isMobile
+                  ? 'clamp(2rem, 8vw, 3rem)'
+                  : 'clamp(2.8rem, 5.8vw, 6.3rem)',
+                whiteSpace: 'pre-line',
+              }}
+            >
+              {phrase.text}
+            </p>
+          </div>
+        </section>
       ))}
     </div>
   );
 }
-

@@ -156,7 +156,6 @@ export default function FeaturedProjectAnimatedBackground({
               />
             </div>
           ) : null}
-
         </div>
       ) : null}
 

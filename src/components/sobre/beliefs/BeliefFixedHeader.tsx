@@ -41,20 +41,9 @@ export function BeliefFixedHeader() {
     [shouldReduceMotion ? 0 : 60, 0]
   );
 
-  const blur = useTransform(
-    scrollYProgress,
-    [0, 0.08, 0.92, 0.98],
-    [
-      shouldReduceMotion ? 'blur(0px)' : 'blur(10px)',
-      'blur(0px)',
-      'blur(0px)',
-      shouldReduceMotion ? 'blur(0px)' : 'blur(10px)',
-    ]
-  );
-
   return (
     <m.aside
-      style={{ opacity, x, filter: blur }}
+      style={{ opacity, x }}
       initial="hidden"
       animate="visible"
       className="pointer-events-none absolute inset-y-0 right-0 flex w-full items-start justify-end px-6 pt-[13vh] md:items-center md:px-10 md:pt-0 lg:px-16 z-[var(--z-layer-header)]"
@@ -82,4 +71,3 @@ export function BeliefFixedHeader() {
     </m.aside>
   );
 }
-
