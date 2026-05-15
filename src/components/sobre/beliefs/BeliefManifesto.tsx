@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { m, useTransform } from 'motion/react';
-import { BELIEF_MANIFESTO_LINES, beliefMotion } from '@/config/beliefTokens';
+import { BELIEF_MANIFESTO_LINES, beliefMotion, beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 import { SplitTextMotion } from './SplitTextMotion';
 
@@ -41,8 +41,8 @@ export function BeliefManifesto() {
     <m.div
       data-testid="beliefs-manifesto"
       data-belief-manifesto
-      style={{ opacity, y }}
-      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 z-[var(--z-layer-overlay)]"
+      style={{ opacity, y, zIndex: beliefZIndex.manifesto }}
+      className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
       aria-hidden={!isClimax}
     >
       <m.div

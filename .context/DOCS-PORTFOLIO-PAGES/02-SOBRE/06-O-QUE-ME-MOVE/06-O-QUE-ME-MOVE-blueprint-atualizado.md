@@ -224,12 +224,7 @@ Criar `BeliefsScrollContext.tsx`.
 ```tsx
 'use client';
 
-import {
-  createContext,
-  ReactNode,
-  RefObject,
-  useContext,
-} from 'react';
+import { createContext, ReactNode, RefObject, useContext } from 'react';
 import { MotionValue } from 'motion/react';
 
 type BeliefsScrollContextValue = {
@@ -239,8 +234,9 @@ type BeliefsScrollContextValue = {
   shouldReduceMotion: boolean;
 };
 
-const BeliefsScrollContext =
-  createContext<BeliefsScrollContextValue | null>(null);
+const BeliefsScrollContext = createContext<BeliefsScrollContextValue | null>(
+  null
+);
 
 export function BeliefsScrollProvider({
   value,
@@ -335,10 +331,7 @@ O background deve trocar de cor quando cada frase entra no viewport. A implement
 
 import { animate, inView } from 'motion';
 import { useEffect, useRef } from 'react';
-import {
-  beliefBackgroundStops,
-  beliefMotion,
-} from '@/config/beliefTokens';
+import { beliefBackgroundStops, beliefMotion } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {
@@ -801,18 +794,18 @@ sem flashes, sem loop visual intenso
 
 ## 16. Guia de ajustes da implementação atual
 
-| Prioridade | Área | Problema | Solução recomendada | Complexidade |
-|---|---|---|---|---|
-| Alta | `BeliefScrollText` | Frases principais provavelmente usam `y`, blur, stagger ou lógica diferente da referência. | Substituir por `inView()` + `animate()` com `opacity 0 -> 1`, `x -100 -> 0`, `duration 0.9`, `ease [0.17, 0.55, 0.55, 1]`. | Média |
-| Alta | `BeliefBackground` | Background pode estar com CSS transition, gradiente animado ou múltiplas camadas em fade. | Usar uma única camada em `z-0`, alterada por `animate()` ao entrar cada `[data-belief-section]`. | Média |
-| Alta | Mobile transform | Centralização por `-translate-x-1/2` pode conflitar com animação `x`. | Separar wrapper de posicionamento e filho animado. Animar somente o `p` interno. | Baixa |
-| Alta | Acessibilidade | Motion reduzido pode não remover deslocamento, parallax e floating. | Implementar `useReducedMotion()` e fallback específico por componente. | Média |
-| Alta | Ghost 3D | Canvas pode renderizar continuamente ou pesado demais no mobile. | Usar `frameloop="demand"`, DPR reduzido, parallax só no desktop e fallback 2D. | Média |
-| Média | `BeliefFixedHeader` | Split text pode estar excessivo ou por caracteres. | Usar split por palavras ou linhas, com stagger curto e container entrando pela direita. | Baixa |
-| Média | `BeliefManifesto` | Manifesto pode aparecer sem sincronismo ou com anúncio acessível incorreto. | Revelar entre `0.82` e `0.92`, controlar `aria-hidden` quando inativo e manter Ghost acima. | Média |
-| Média | Z-index | Ghost pode disputar camada com texto ou ficar atrás do manifesto. | Normalizar tokens de z-index: background 0, overlay 10, header 30, scroll text 40, manifesto 50, ghost 70. | Baixa |
-| Média | Cleanup | `inView()` sem cleanup pode acumular animações em scroll rápido. | Retornar cleanup que para controles e reseta para estado de saída. | Baixa |
-| Baixa | QA | Falta de validação visual em DevTools Animation Inspector e mobile real. | Testar scroll lento, scroll rápido, reduced motion, WebGL failure, Safari iOS e Android Chrome. | Baixa |
+| Prioridade | Área                | Problema                                                                                   | Solução recomendada                                                                                                        | Complexidade |
+| ---------- | ------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Alta       | `BeliefScrollText`  | Frases principais provavelmente usam `y`, blur, stagger ou lógica diferente da referência. | Substituir por `inView()` + `animate()` com `opacity 0 -> 1`, `x -100 -> 0`, `duration 0.9`, `ease [0.17, 0.55, 0.55, 1]`. | Média        |
+| Alta       | `BeliefBackground`  | Background pode estar com CSS transition, gradiente animado ou múltiplas camadas em fade.  | Usar uma única camada em `z-0`, alterada por `animate()` ao entrar cada `[data-belief-section]`.                           | Média        |
+| Alta       | Mobile transform    | Centralização por `-translate-x-1/2` pode conflitar com animação `x`.                      | Separar wrapper de posicionamento e filho animado. Animar somente o `p` interno.                                           | Baixa        |
+| Alta       | Acessibilidade      | Motion reduzido pode não remover deslocamento, parallax e floating.                        | Implementar `useReducedMotion()` e fallback específico por componente.                                                     | Média        |
+| Alta       | Ghost 3D            | Canvas pode renderizar continuamente ou pesado demais no mobile.                           | Usar `frameloop="demand"`, DPR reduzido, parallax só no desktop e fallback 2D.                                             | Média        |
+| Média      | `BeliefFixedHeader` | Split text pode estar excessivo ou por caracteres.                                         | Usar split por palavras ou linhas, com stagger curto e container entrando pela direita.                                    | Baixa        |
+| Média      | `BeliefManifesto`   | Manifesto pode aparecer sem sincronismo ou com anúncio acessível incorreto.                | Revelar entre `0.82` e `0.92`, controlar `aria-hidden` quando inativo e manter Ghost acima.                                | Média        |
+| Média      | Z-index             | Ghost pode disputar camada com texto ou ficar atrás do manifesto.                          | Normalizar tokens de z-index: background 0, overlay 10, header 30, scroll text 40, manifesto 50, ghost 70.                 | Baixa        |
+| Média      | Cleanup             | `inView()` sem cleanup pode acumular animações em scroll rápido.                           | Retornar cleanup que para controles e reseta para estado de saída.                                                         | Baixa        |
+| Baixa      | QA                  | Falta de validação visual em DevTools Animation Inspector e mobile real.                   | Testar scroll lento, scroll rápido, reduced motion, WebGL failure, Safari iOS e Android Chrome.                            | Baixa        |
 
 ## 17. Checklist de aceite
 
@@ -845,7 +838,7 @@ sem flashes, sem loop visual intenso
 
 ## 18. Prompt final para agente de código
 
-```md
+````md
 # TASK: Correct the `06 O QUE ME MOVE` motion implementation
 
 You are a senior frontend engineer specialized in Next.js App Router, React, TypeScript, Tailwind CSS, Motion, Motion DOM and React Three Fiber.
@@ -859,6 +852,7 @@ Do not redesign the section. Correct the motion system.
 ## Stack
 
 Use:
+
 - Next.js App Router
 - React + TypeScript
 - Tailwind CSS
@@ -886,10 +880,12 @@ src/components/sobre/3d/GhostModel.tsx
 src/components/sobre/3d/GhostSceneFallback.tsx
 src/components/sobre/3d/GhostErrorBoundary.tsx
 ```
+````
 
 ## Layer order
 
 Keep:
+
 1. `BeliefBackground`, z-0
 2. `BeliefOverlay`, z-10
 3. `BeliefFixedHeader`, z-30
@@ -919,6 +915,7 @@ inView('[data-belief-phrase]', (element) => {
 ```
 
 Required:
+
 - No split text on the main phrases.
 - No blur animation on the main phrases.
 - No `y` entrance for the main phrases.
@@ -927,6 +924,7 @@ Required:
 - Mobile may reduce distance to `x: -48 -> 0`, but must keep left-to-right entrance.
 
 Required phrases:
+
 1. `Um vídeo que respira`
 2. `Uma marca que se reconhece`
 3. `Um detalhe que fica`
@@ -935,14 +933,16 @@ Required phrases:
 6. `Mesmo quando ninguém percebe o esforço`
 
 Each phrase section must have:
+
 ```tsx
 data-belief-section
 data-index={index}
 ```
 
 Each animated phrase element must have:
+
 ```tsx
-data-belief-phrase
+data - belief - phrase;
 ```
 
 ## Background behavior
@@ -950,6 +950,7 @@ data-belief-phrase
 Use one background layer only.
 
 Palette:
+
 ```ts
 [
   '#040013',
@@ -960,16 +961,20 @@ Palette:
   '#8705f2',
   '#f501d3',
   '#040013',
-]
+];
 ```
 
 When `[data-belief-section]` enters viewport, read `data-index`, select `beliefBackgroundStops[index + 1]`, and animate the single background layer:
 
 ```ts
-animate(backgroundElement, { backgroundColor: color }, {
-  duration: 0.9,
-  ease: [0.17, 0.55, 0.55, 1],
-});
+animate(
+  backgroundElement,
+  { backgroundColor: color },
+  {
+    duration: 0.9,
+    ease: [0.17, 0.55, 0.55, 1],
+  }
+);
 ```
 
 Do not use `transition: background-color`.
@@ -983,6 +988,7 @@ In `prefers-reduced-motion`, set the background color directly.
 Use split-text only here and in the manifesto.
 
 Header:
+
 - Container `opacity 0 -> 1`, `x 60 -> 0`
 - Duration `0.8`
 - Ease `[0.22, 1, 0.36, 1]`
@@ -993,6 +999,7 @@ Header:
 ## Manifesto
 
 Text:
+
 ```txt
 ISSO É
 GHOST
@@ -1000,6 +1007,7 @@ DESIGN
 ```
 
 Reveal:
+
 - Between `scrollYProgress` `0.82` and `0.92`
 - Global `opacity 0 -> 1`, `y 18 -> 0`
 - Split by words or lines
@@ -1011,6 +1019,7 @@ Avoid `aria-live` on hidden looping content. Use `aria-hidden` while inactive or
 ## Ghost 3D
 
 Keep Ghost as an independent R3F layer:
+
 - `z-[70]`
 - `pointer-events-none`
 - `frameloop="demand"`
@@ -1025,10 +1034,12 @@ Keep Ghost as an independent R3F layer:
 ## Performance
 
 Animate mostly:
+
 - `transform`
 - `opacity`
 
 Do not animate:
+
 - `width`
 - `height`
 - `margin`
@@ -1048,6 +1059,7 @@ Use `will-change` only on elements that animate and avoid applying it globally.
 Respect `prefers-reduced-motion`.
 
 If reduced motion is active:
+
 - Main phrases use simple fade or static state
 - Background color changes instantly
 - Ghost floating is disabled
@@ -1061,6 +1073,7 @@ Canvas must have a 2D fallback.
 ## QA
 
 Validate:
+
 - Desktop Chrome, Safari and Firefox
 - iOS Safari
 - Android Chrome
@@ -1071,6 +1084,7 @@ Validate:
 - Resize from desktop to mobile
 - No hydration errors
 - No memory leaks after navigating away and back
+
 ```
 
 ## 19. Recomendações técnicas adicionais
@@ -1080,3 +1094,4 @@ Use Motion para esta sessão, não GSAP. A troca para GSAP só faria sentido se 
 Não tente tornar todas as camadas igualmente animadas. A sessão deve ter uma hierarquia cinética: frases com entrada limpa, background respondendo por capítulo, header com microcoreografia, manifesto com clímax e Ghost como presença contínua. Se todas as camadas competirem, a seção perde leitura e parece demo técnica.
 
 Antes de codar, anexe o `anima.mov` real ao projeto ou extraia 6 a 10 frames-chave. Isso permitiria validar posição do Ghost, escala no clímax e cadência visual do manifesto com mais precisão.
+```

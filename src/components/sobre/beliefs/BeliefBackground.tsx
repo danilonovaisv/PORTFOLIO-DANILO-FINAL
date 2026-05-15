@@ -2,10 +2,7 @@
 
 import { animate, inView } from 'motion';
 import { useEffect, useRef } from 'react';
-import {
-  BELIEF_BACKGROUND_STOPS,
-  beliefMotion,
-} from '@/config/beliefTokens';
+import { BELIEF_BACKGROUND_STOPS, beliefMotion, beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {
@@ -56,7 +53,8 @@ export function BeliefBackground() {
       aria-hidden="true"
       data-testid="beliefs-background"
       data-belief-background
-      className="absolute inset-0 z-[var(--z-layer-base)] bg-[#040013]"
+      className="absolute inset-0 bg-[#040013]"
+      style={{ zIndex: beliefZIndex.background }}
     />
   );
 }

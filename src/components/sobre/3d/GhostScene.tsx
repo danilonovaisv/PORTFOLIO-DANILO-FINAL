@@ -9,6 +9,7 @@ import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
+import { beliefZIndex } from '../../../config/beliefTokens';
 
 function SceneInvalidator() {
   const { invalidate, gl } = useThree();
@@ -78,8 +79,8 @@ export function GhostScene() {
     <m.div
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      style={{ opacity, y }}
-      className="pointer-events-none absolute inset-0 z-[var(--z-layer-3d)]"
+      style={{ opacity, y, zIndex: beliefZIndex.ghost }}
+      className="pointer-events-none absolute inset-0"
     >
       <Canvas
         aria-hidden="true"

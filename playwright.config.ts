@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 import process from 'node:process';
 
 // Define the test port we'll use consistently
-const TEST_PORT = 3006;
+const TEST_PORT = 5005;
 const baseURL =
   process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${TEST_PORT}`;
 

@@ -7,6 +7,7 @@ import {
   beliefMotion,
   beliefColors,
   beliefLayout,
+  beliefZIndex,
 } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
@@ -25,48 +26,28 @@ export function BeliefScrollText() {
           };
         }
 
-        // Desktop: y entrance (from bottom). Mobile: x entrance (from right)
-        const enterControls = isMobile
-          ? animate(
-              element,
-              { opacity: 1, x: [24, 0] },
-              {
-                duration: beliefMotion.textRevealDuration,
-                ease: beliefMotion.referenceEase as any,
-              }
-            )
-          : animate(
-              element,
-              { opacity: 1, y: [20, 0] },
-              {
-                duration: beliefMotion.textRevealDuration,
-                ease: beliefMotion.referenceEase as any,
-              }
-            );
+        // Entrance animation: strictly x-axis and opacity
+        const enterControls = animate(
+          element,
+          { opacity: 1, x: [24, 0] },
+          {
+            duration: beliefMotion.textRevealDuration,
+            ease: beliefMotion.referenceEase as any,
+          }
+        );
 
         return () => {
           enterControls.stop();
 
-          // Desktop: exit upward. Mobile: exit to left
-          if (isMobile) {
-            animate(
-              element,
-              { opacity: 0, x: -24 },
-              {
-                duration: beliefMotion.textExitDuration,
-                ease: beliefMotion.referenceEase as any,
-              }
-            );
-          } else {
-            animate(
-              element,
-              { opacity: 0, y: -20 },
-              {
-                duration: beliefMotion.textExitDuration,
-                ease: beliefMotion.referenceEase as any,
-              }
-            );
-          }
+          // Exit animation: strictly x-axis and opacity
+          animate(
+            element,
+            { opacity: 0, x: -24 },
+            {
+              duration: beliefMotion.textExitDuration,
+              ease: beliefMotion.referenceEase as any,
+            }
+          );
         };
       },
       { amount: 0.55 }
@@ -78,7 +59,8 @@ export function BeliefScrollText() {
   return (
     <div
       data-testid="beliefs-scroll-text"
-      className="relative z-[var(--z-layer-cta)]"
+      className="relative"
+      style={{ zIndex: beliefZIndex.scrollText }}
     >
       {BELIEF_PHRASE_ITEMS.map((phrase, index) => (
         <section

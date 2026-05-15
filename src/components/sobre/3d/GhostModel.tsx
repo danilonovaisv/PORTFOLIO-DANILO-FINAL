@@ -205,11 +205,7 @@ export function GhostModel({
         ? 0.3 + px * 0.15 // Desktop climax: drifts toward center
         : 1.0 + px * 0.3; // Desktop default: RIGHT
 
-    const targetY = isMobile
-      ? isClimax
-        ? -0.35
-        : -0.15
-      : 0.0 + py * 0.25;
+    const targetY = isMobile ? (isClimax ? -0.35 : -0.15) : 0.0 + py * 0.25;
 
     const baseScale = isMobile ? 0.48 : 0.72;
     const targetScale = baseScale * scaleBoost;
