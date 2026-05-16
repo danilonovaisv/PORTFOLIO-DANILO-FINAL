@@ -49,5 +49,8 @@
   ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
+  },
+  "remote": {
+    "defaultEnvironmentId": "env_016QDiovkVoWyHB4rWxYFN3m"
   }
 }

@@ -55,7 +55,7 @@ export function AlpaBlockGrid2Col({
                 src={col.src}
                 alt={col.alt || ''}
                 fill
-                className="object-cover transition-transform duration-normal group-hover:scale-105"
+                className="object-cover transition-opacity duration-normal group-hover:opacity-90"
               />
             </button>
           ) : col.type === 'video' ? (

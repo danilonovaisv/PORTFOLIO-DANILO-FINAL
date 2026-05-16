@@ -19,34 +19,35 @@ export function BeliefScrollText() {
       '#o-que-me-move [data-belief-phrase]',
       (el) => {
         const element = el as HTMLElement;
+
         if (shouldReduceMotion) {
-          element.style.opacity = '1';
-          return () => {
-            element.style.opacity = '0';
-          };
+          const controls = animate(
+            element as Element,
+            { opacity: 1, x: 0 } as any,
+            { duration: 0.16, ease: 'easeOut' }
+          );
+          return () => controls.stop();
         }
 
-        // Entrance: from left — desktop -100, mobile -48
         const enterX = isMobile ? -48 : -100;
 
         const enterControls = animate(
-          element,
-          { opacity: 1, x: [enterX, 0] },
+          element as Element,
+          { opacity: 1, x: [enterX, 0] } as any,
           {
             duration: beliefMotion.textRevealDuration,
-            ease: beliefMotion.referenceEase as any,
+            ease: beliefMotion.referenceEase as [number, number, number, number],
           }
         );
 
         return () => {
           enterControls.stop();
-
           animate(
             element,
             { opacity: 0, x: enterX },
             {
               duration: beliefMotion.textExitDuration,
-              ease: beliefMotion.referenceEase as any,
+              ease: beliefMotion.referenceEase as [number, number, number, number],
             }
           );
         };
@@ -71,23 +72,11 @@ export function BeliefScrollText() {
           className="relative flex items-center"
           style={{ height: beliefLayout.phraseSectionHeight }}
         >
-          <div
-            className={[
-              'pointer-events-none',
-              isMobile
-                ? 'fixed bottom-[20vh] left-1/2 w-[min(86vw,28rem)] -translate-x-1/2 text-center'
-                : 'ml-[clamp(1.5rem,6vw,6rem)] max-w-[38vw] text-left',
-            ].join(' ')}
-          >
+          <div className="pointer-events-none ml-[clamp(1.5rem,6vw,6rem)] max-w-[38vw] text-left max-md:fixed max-md:bottom-[20vh] max-md:left-1/2 max-md:ml-0 max-md:w-[min(86vw,28rem)] max-md:-translate-x-1/2 max-md:text-center">
             <p
               data-belief-phrase
-              className="select-none font-h1 font-bold italic leading-[1.05] tracking-[-0.03em] opacity-0 will-change-transform"
-              style={{
-                color: beliefColors.blueAccent,
-                fontSize: isMobile
-                  ? 'clamp(2rem, 8vw, 3rem)'
-                  : 'clamp(2.8rem, 5.8vw, 6.3rem)',
-              }}
+              className="select-none font-h1 text-[clamp(2.8rem,5.8vw,6.3rem)] font-bold italic leading-[1.05] tracking-[-0.03em] opacity-0 will-change-transform max-md:text-[clamp(2rem,8vw,3rem)]"
+              style={{ color: beliefColors.blueAccent }}
             >
               {phrase.text}
             </p>

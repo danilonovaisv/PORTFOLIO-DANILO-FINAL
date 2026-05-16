@@ -163,6 +163,7 @@ export function GhostModel({
   pointerY,
 }: GhostModelProps) {
   const groupRef = useRef<THREE.Group>(null);
+  const initialized = useRef(false);
 
   useFrame((state: any) => {
     if (!groupRef.current) return;
@@ -194,21 +195,30 @@ export function GhostModel({
     const px = shouldReduceMotion || isMobile ? 0 : pointerX.get();
     const py = shouldReduceMotion || isMobile ? 0 : pointerY.get();
 
-    // Dynamic positioning
-    // Desktop: Ghost stays RIGHT (1.0) and drifts toward center (0.3) at climax
-    // Mobile: Ghost stays LEFT (-0.8) and centers at climax
+    // Desktop: Ghost RIGHT (1.0), drifts to center (0.3) at climax
+    // Mobile: Ghost LEFT (-0.8), centers at climax
     const targetX = isMobile
       ? isClimax
         ? 0
-        : -0.8 // Mobile: LEFT
+        : -0.8
       : isClimax
-        ? 0.3 + px * 0.15 // Desktop climax: drifts toward center
-        : 1.0 + px * 0.3; // Desktop default: RIGHT
+        ? 0.3 + px * 0.15
+        : 1.0 + px * 0.3;
 
     const targetY = isMobile ? (isClimax ? -0.35 : -0.15) : 0.0 + py * 0.25;
 
     const baseScale = isMobile ? 0.48 : 0.72;
     const targetScale = baseScale * scaleBoost;
+
+    // Snap on first frame: frameloop="demand" fires frames only per scroll/mousemove event,
+    // so lerp from x=0 takes many events to converge — ghost appears centered until then.
+    if (!initialized.current) {
+      groupRef.current.position.x = targetX;
+      groupRef.current.position.y = targetY;
+      groupRef.current.scale.setScalar(targetScale);
+      initialized.current = true;
+    }
+
     const lerpAlpha = 0.08;
 
     groupRef.current.position.x = THREE.MathUtils.lerp(

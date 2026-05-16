@@ -159,21 +159,21 @@ export default function BlockRenderer({
 
       case 'image':
         return (
-          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
             {renderMedia(content.media, 'image')}
           </div>
         );
 
       case 'video':
         return (
-          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
             {renderMedia(content.media, 'video', false)}
           </div>
         );
 
       case 'video-autoplay':
         return (
-          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
             {renderMedia(content.media, 'video', true)}
           </div>
         );

@@ -168,7 +168,7 @@ const createNextConfig = (phase) => ({
   experimental: {
     optimizePackageImports: [
       'lucide-react',
-      'framer-motion',
+      'motion',
       'three',
       'gsap',
       'clsx',
