@@ -230,7 +230,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     </div>
 
                     {/* THUMBNAILS CAROUSEL */}
-                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 mt-6 md:mt-8 mb-12">
+                    <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 relative z-30 mt-6 md:mt-8 mb-12">
                         {galleryMedia.length > 0 && (
                             <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                                 {galleryMedia.map((media, idx) => {
@@ -281,7 +281,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     </div>
 
                     {/* DETAILS / TEXT CONTENT */}
-                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 pb-24">
+                    <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 relative z-30 pb-24">
                         <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-2 drop-shadow-2xl font-display">
                             {project.title}
                         </h1>

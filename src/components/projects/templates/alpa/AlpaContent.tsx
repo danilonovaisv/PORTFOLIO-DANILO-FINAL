@@ -27,7 +27,7 @@ export function AlpaContent({
   if (!blocks || blocks.length === 0) return null;
 
   return (
-    <div className="relative z-10 mx-auto max-w-7xl pb-24">
+    <div className="relative z-10 mx-auto max-w-[1680px] pb-24">
       {blocks.map((block, idx) => (
         <AlpaBlock
           key={block.id || idx}
