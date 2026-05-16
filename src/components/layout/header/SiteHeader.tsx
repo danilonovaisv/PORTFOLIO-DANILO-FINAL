@@ -170,11 +170,13 @@ export default function SiteHeader({
     <>
       {isDesktop ? (
         <DesktopFluidHeader
+          ref={headerRef}
           navItems={normalizedNavItems}
           logoUrl={logoDesktop}
           isLight={isOnLightSection}
           onNavigate={onNavigate}
           activeHref={activeHref}
+          accentColor={accentColor}
         />
       ) : (
         <MobileStaggeredMenu

@@ -25,6 +25,7 @@ export interface DesktopFluidHeaderProps {
   onNavigate: (_href: string) => void;
   activeHref?: string;
   isLight?: boolean;
+  accentColor?: string;
 }
 
 function isExternalHref(href: string) {
@@ -112,13 +113,15 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
   );
 });
 
-export default function DesktopFluidHeader({
-  navItems,
-  logoUrl,
-  onNavigate,
-  activeHref,
-  isLight,
-}: DesktopFluidHeaderProps) {
+const DesktopFluidHeader = React.forwardRef<HTMLElement, DesktopFluidHeaderProps>(
+  function DesktopFluidHeader({
+    navItems,
+    logoUrl,
+    onNavigate,
+    activeHref,
+    isLight,
+    accentColor = '#0048ff',
+  }, ref) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useMotionGate();
   const mountWebGL = useAntigravityStore((state) => state.flags.mountWebGL);
@@ -156,6 +159,7 @@ export default function DesktopFluidHeader({
 
   return (
     <header
+      ref={ref}
       className={`hidden lg:block fixed top-6 left-0 right-0 z-55 w-full pointer-events-none transition-all duration-standard ease-in-out ${
         isLight ? 'header--light' : ''
       }`}
@@ -176,7 +180,7 @@ export default function DesktopFluidHeader({
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-full overflow-hidden opacity-60 pointer-events-none">
               {allowCanvas ? (
-                <HeaderGlassCanvas accentColor="#0048ff" />
+                <HeaderGlassCanvas accentColor={accentColor} />
               ) : (
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,72,255,0.25),rgba(0,0,0,0.25)_65%)]" />
               )}
@@ -226,4 +230,6 @@ export default function DesktopFluidHeader({
       </div>
     </header>
   );
-}
+});
+
+export default DesktopFluidHeader;
