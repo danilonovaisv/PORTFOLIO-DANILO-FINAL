@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { getAssetUrl } from '@/lib/utils';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
@@ -109,7 +109,7 @@ export function AlpaLayout({
     : DEFAULT_ETHER_COLORS;
 
   const heroLogo = project.hero_logo_image?.src
-    ? resolveSiteAssetUrl(project.hero_logo_image.src)
+    ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
     : '';
 
   return (

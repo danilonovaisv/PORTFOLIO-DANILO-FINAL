@@ -3,6 +3,7 @@
 import React from 'react';
 import { m } from 'motion/react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { getAssetUrl } from '@/lib/utils';
 
 interface AlpaBlockVideoFullProps {
   src: string;
@@ -17,6 +18,9 @@ export function AlpaBlockVideoFull({
   revealInitial,
   revealVisible,
 }: AlpaBlockVideoFullProps) {
+  const resolvedSrc = getAssetUrl(src, { isVideo: true });
+  const resolvedPoster = poster ? getAssetUrl(poster) : undefined;
+
   return (
     <m.div
       initial={revealInitial}
@@ -27,8 +31,8 @@ export function AlpaBlockVideoFull({
     >
       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral/20">
         <video
-          src={src}
-          poster={poster}
+          src={resolvedSrc}
+          poster={resolvedPoster}
           autoPlay
           muted
           loop

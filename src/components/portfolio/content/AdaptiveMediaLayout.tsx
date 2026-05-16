@@ -175,7 +175,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         ) : isVid ? (
                                 <video
                                     key={activeMedia}
-                                    src={activeMedia}
+                                    src={getAssetUrl(activeMedia, { isVideo: true })}
                                     autoPlay
                                     muted
                                     loop
@@ -200,7 +200,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 onClick={() => openLightbox(activeMedia)}
                             >
                                 <Image
-                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80 })}
+                                    src={getAssetUrl(activeMedia, { width: 1920, quality: 80 })}
                                     alt={project.title}
                                     width={1920}
                                     height={1080}
@@ -258,14 +258,14 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                 </div>
                                             ) : isThumbVid ? (
                                                 <div className="relative w-full h-full">
-                                                    <video src={`${media}#t=0.001`} className="w-full h-full object-cover bg-black/5" muted playsInline preload="metadata" />
+                                                    <video src={`${getAssetUrl(media, { isVideo: true })}#t=0.001`} className="w-full h-full object-cover bg-black/5" muted playsInline preload="metadata" />
                                                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
                                                         <Play className="w-6 h-6 text-white fill-current opacity-80" />
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <Image
-                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70 })}
+                                                    src={getAssetUrl(media, { width: 400, quality: 70 })}
                                                     alt={`Thumbnail ${idx}`}
                                                     fill
                                                     className="object-cover"

@@ -5,6 +5,7 @@ import { m } from 'motion/react';
 import Image from 'next/image';
 import type { ZoomAsset } from '../../types';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { getAssetUrl } from '@/lib/utils';
 
 interface AlpaBlockImageFullProps {
   src: string;
@@ -26,6 +27,8 @@ export function AlpaBlockImageFull({
   revealVisible,
   openAsset,
 }: AlpaBlockImageFullProps) {
+  const resolvedSrc = getAssetUrl(src, { width: 1920, quality: 90 });
+
   return (
     <m.div
       initial={revealInitial}
@@ -38,7 +41,7 @@ export function AlpaBlockImageFull({
         onClick={(e) =>
           openAsset(
             {
-              src,
+              src: resolvedSrc,
               kind: 'image',
               alt: alt || '',
             },
@@ -48,7 +51,7 @@ export function AlpaBlockImageFull({
         className="group relative block w-full overflow-hidden rounded-xl bg-neutral/20"
       >
         <Image
-          src={src}
+          src={resolvedSrc}
           alt={alt || ''}
           width={1920}
           height={1080}
