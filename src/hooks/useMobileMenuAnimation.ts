@@ -94,7 +94,7 @@ export function useMobileMenuAnimation(
         .to(v, { rotate: 90, duration: MOTION_TOKENS.duration.modal }, 0)
         .to(icon, { rotate: 0, duration: 0.001 }, 0);
     }
-  }, []);
+  }, [motionDisabled]);
 
   const animateText = useCallback((opening: boolean) => {
     if (motionDisabled) {
@@ -129,7 +129,7 @@ export function useMobileMenuAnimation(
       duration: MOTION_TOKENS.duration.modal,
       ease: GSAP_GHOST_EASE,
     });
-  }, []);
+  }, [motionDisabled]);
 
   const buildOpenTimeline = useCallback(() => {
     if (motionDisabled) return null;
@@ -227,7 +227,7 @@ export function useMobileMenuAnimation(
 
     openTlRef.current = tl;
     return tl;
-  }, []);
+  }, [motionDisabled]);
 
   const playOpen = useCallback(() => {
     if (motionDisabled) return;
@@ -241,7 +241,7 @@ export function useMobileMenuAnimation(
     if (tl) {
       tl.play(0);
     }
-  }, [buildOpenTimeline]);
+  }, [buildOpenTimeline, motionDisabled]);
 
   const playClose = useCallback(() => {
     if (motionDisabled) return;
@@ -279,7 +279,7 @@ export function useMobileMenuAnimation(
         }
       },
     });
-  }, []);
+  }, [motionDisabled]);
 
   // Sync with external isOpen prop
   const syncState = useCallback(() => {
