@@ -1,55 +1,28 @@
 'use client';
 
-import { animate, inView } from 'motion';
 import { useEffect, useRef } from 'react';
-import {
-  BELIEF_BACKGROUND_STOPS,
-  beliefMotion,
-  beliefZIndex,
-} from '@/config/beliefTokens';
+import { BELIEF_BACKGROUND_STOPS, beliefColors, beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { shouldReduceMotion } = useBeliefsScrollContext();
+  const previousColorRef = useRef<string>(beliefColors.deepVoid);
+  const { activeIndex, containerRef, isClimax } = useBeliefsScrollContext();
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || !containerRef.current) return;
 
-    const stop = inView(
-      '#o-que-me-move [data-belief-section]',
-      (element) => {
-        const index = Number.parseInt(
-          element.getAttribute('data-index') ?? '0',
-          10
-        );
+    const nextColor = isClimax
+      ? beliefColors.deepVoid
+      : BELIEF_BACKGROUND_STOPS[
+          Math.min(activeIndex, BELIEF_BACKGROUND_STOPS.length - 2)
+        ];
 
-        const color =
-          BELIEF_BACKGROUND_STOPS[
-            Math.min(index + 1, BELIEF_BACKGROUND_STOPS.length - 1)
-          ];
-
-        if (shouldReduceMotion) {
-          ref.current!.style.backgroundColor = color;
-          return;
-        }
-
-        const controls = animate(
-          ref.current!,
-          { backgroundColor: color },
-          {
-            duration: beliefMotion.backgroundDuration,
-            ease: beliefMotion.referenceEase as [number, number, number, number],
-          }
-        );
-
-        return () => controls.stop();
-      },
-      { amount: 0.55 }
-    );
-
-    return () => stop();
-  }, [shouldReduceMotion]);
+    if (previousColorRef.current !== nextColor) {
+      previousColorRef.current = nextColor;
+      ref.current.style.backgroundColor = nextColor;
+    }
+  }, [activeIndex, containerRef, isClimax]);
 
   return (
     <div
@@ -57,8 +30,10 @@ export function BeliefBackground() {
       aria-hidden="true"
       data-testid="beliefs-background"
       data-belief-background
-      className="absolute inset-0 bg-[#040013]"
-      style={{ zIndex: beliefZIndex.background }}
+      className="absolute inset-0"
+      style={{
+        zIndex: beliefZIndex.background,
+      }}
     />
   );
 }

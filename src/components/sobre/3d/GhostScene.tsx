@@ -1,8 +1,9 @@
 'use client';
 
 import { Canvas, useThree } from '@react-three/fiber';
-import { useEffect, Suspense } from 'react';
-import { m, useTransform } from 'motion/react';
+import { useEffect, useRef, Suspense } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { usePointerParallax } from '../../../hooks/usePointerParallax';
 import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
@@ -10,6 +11,9 @@ import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
 import { beliefZIndex } from '../../../config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function SceneInvalidator() {
   const { invalidate, gl } = useThree();
@@ -49,37 +53,64 @@ function SceneInvalidator() {
 }
 
 export function GhostScene() {
-  const { scrollYProgress, isMobile, shouldReduceMotion } =
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const { containerRef, scrollYProgress, isMobile, shouldReduceMotion } =
     useBeliefsScrollContext();
   const supportsWebGL = useWebGLSupport();
   const pointer = usePointerParallax();
 
-  // Strict visibility control:
-  // 1. Fade in quickly after entry (0 -> 0.05)
-  // 2. Stay visible (0.05 -> 0.9)
-  // 3. Fade out before exit (0.9 -> 0.98)
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.05, 0.9, 0.98],
-    [0, 1, 1, 0]
-  );
+  useEffect(() => {
+    if (!wrapperRef.current || !containerRef.current) return;
 
-  // TranslateY for entrance/exit (allowed by spec)
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.05, 0.9, 0.98],
-    [20, 0, 0, -20]
-  );
+    const el = wrapperRef.current;
+
+    // Set initial hidden state — y max 18px per GDS constraint
+    gsap.set(el, { autoAlpha: 0, y: shouldReduceMotion ? 0 : 18 });
+
+    const ctx = gsap.context(() => {
+      // Entrance — triggered once at top 5%
+      ScrollTrigger.create({
+        trigger: containerRef.current!,
+        start: 'top 5%',
+        once: true,
+        onEnter: () => {
+          gsap.to(el, {
+            autoAlpha: 1,
+            y: 0,
+            duration: shouldReduceMotion ? 0.2 : 0.6,
+            ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
+          });
+        },
+      });
+
+      // Exit — scrub out at 90% → 98% of section
+      ScrollTrigger.create({
+        trigger: containerRef.current!,
+        start: '90% top',
+        end: '98% top',
+        scrub: true,
+        onUpdate: (self) => {
+          gsap.set(el, {
+            autoAlpha: 1 - self.progress,
+            y: shouldReduceMotion ? 0 : -18 * self.progress,
+          });
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, [containerRef, shouldReduceMotion]);
 
   if (!supportsWebGL) {
     return <GhostSceneFallback />;
   }
 
   return (
-    <m.div
+    <div
+      ref={wrapperRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
-      style={{ opacity, y, zIndex: beliefZIndex.ghost }}
+      style={{ zIndex: beliefZIndex.ghost }}
       className="pointer-events-none absolute inset-0"
     >
       <Canvas
@@ -111,6 +142,6 @@ export function GhostScene() {
           />
         </Suspense>
       </Canvas>
-    </m.div>
+    </div>
   );
 }

@@ -1,5 +1,32 @@
 # Walkthrough: O Que Me Move (Motion DOM + Ghost 3D)
 
+## 2026-05-16 — Finalização da orchestration no branch atual
+
+### Resumo
+
+Esta rodada não reexecutou a migração inteira. Ela fechou o delta real do branch: correção do bloqueio de `typecheck` causado por eases GSAP tipados como tuple, remoção do último resíduo de `motion/react` em `SplitTextMotion`, endurecimento de `GhostModel`, e reconciliação do contrato E2E com o markup atual da seção.
+
+### Ajustes concluídos
+
+- `SplitTextMotion.tsx` virou utilitário render-only com elementos HTML puros.
+- `BeliefBackground.tsx`, `BeliefFixedHeader.tsx`, `BeliefScrollText.tsx`, `BeliefManifesto.tsx` e `GhostScene.tsx` foram alinhados ao easing GSAP sancionado pelo projeto.
+- `BeliefScrollText.tsx` voltou a expor `data-testid="belief-phrase"` e `data-animation-contract="viewport-x-opacity"` sem perder `data-belief-phrase`.
+- `AboutBeliefs.tsx` ganhou um wrapper SSR-estável `data-testid="beliefs-ghost-scene"` com `z-index` explícito.
+- `GhostModel.tsx` recebeu `useGLTF.preload(MODEL_PATH)` com guarda de client e cleanup de dispose + `useGLTF.clear(MODEL_PATH)`.
+- `BeliefManifesto.tsx` passou a forçar cor branca no runtime validado.
+
+### Evidência desta rodada
+
+- `pnpm run typecheck` ✅
+- `pnpm run lint` ✅
+- `pnpm run build` ✅
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅ `9 passed`
+
+### Observações
+
+- O fluxo E2E do repositório ainda depende de um servidor em `5005`; para validar esta rodada sem interromper o `next dev` já aberto no host, a suíte foi executada contra o build standalone com `PORT=5005 pnpm start`.
+- O ambiente local estava com Node `v26.0.0`, enquanto o repositório continua declarando Node `22`; os comandos exibiram apenas warnings de engine, sem bloquear a validação.
+
 ## 2026-05-04 — Validação pós-APROVADO
 
 ### Resumo

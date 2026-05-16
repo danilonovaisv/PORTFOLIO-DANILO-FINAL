@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { MotionValue } from 'motion/react';
 
 export type BeliefPhrase = {
   id: string;
@@ -9,7 +8,7 @@ export type BeliefPhrase = {
 
 export type BeliefsScrollContextValue = {
   containerRef: React.RefObject<HTMLElement | null>;
-  scrollYProgress: MotionValue<number>;
+  scrollYProgress: { get: () => number };
   isMobile: boolean;
   shouldReduceMotion: boolean;
   activeIndex: number;

@@ -2,7 +2,7 @@
 
 import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { beliefLayout } from '@/config/beliefTokens';
+import { beliefLayout, beliefZIndex } from '@/config/beliefTokens';
 import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
 import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
 import { BeliefBackground } from '../beliefs/BeliefBackground';
@@ -53,11 +53,19 @@ export function AboutBeliefs() {
         <div className="sticky top-0 h-dvh">
           <BeliefFixedHeader />
 
-          <GhostErrorBoundary fallback={<GhostSceneFallback />}>
-            <Suspense fallback={<GhostSceneFallback />}>
-              <GhostScene />
-            </Suspense>
-          </GhostErrorBoundary>
+          <div
+            aria-hidden="true"
+            data-testid="beliefs-ghost-scene"
+            data-ghost-scene
+            className="pointer-events-none absolute inset-0"
+            style={{ zIndex: beliefZIndex.ghost }}
+          >
+            <GhostErrorBoundary fallback={<GhostSceneFallback />}>
+              <Suspense fallback={<GhostSceneFallback />}>
+                <GhostScene />
+              </Suspense>
+            </GhostErrorBoundary>
+          </div>
 
           <BeliefManifesto />
         </div>

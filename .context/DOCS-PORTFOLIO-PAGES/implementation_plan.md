@@ -52,24 +52,24 @@ src/types/beliefs.ts
 
 ## 3. Sources Consulted
 
-| Arquivo | Status |
-|---|---|
-| `CLAUDE.md` | Lido — governa stack, easing, grid, governança |
-| `AGENTS.md` | Lido — define os 4 agentes orquestrados |
-| `.context/GHOST-DESIGN-SYSTEM.md` | Lido — tokens, motion rules, z-index |
-| `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md` | Lido — estrutura imutável das páginas |
-| `.context/active_state.md` | Lido — declara migração GSAP completa (2026-05-13) |
-| `02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-blueprint-atualizado.md` | Lido — blueprint v4 com Motion DOM como referência original |
-| `02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-v4.md` | Lido — v4 atualizado prescrevendo GSAP como stack oficial |
-| `02-SOBRE/06-O-QUE-ME-MOVE/implementation_plan.md` | Lido — plano de 2026-05-13 com frentes A/B/C e conflitos resolvidos |
-| `docs/Blueprint Técnico- Seção "O Que Me Move" (06).md` | Lido — blueprint técnico original |
-| `docs/plans/implementation_plan_06-o-que-me-move-ajuste-v2.md` | Lido — diagnóstico de 2026-05-07 |
-| `02-SOBRE/walkthrough.md` | Lido — evidências de execução de 2026-05-02 |
-| Todos os componentes `beliefs/` e `3d/` | Lidos — código real auditado |
-| `src/config/beliefTokens.ts`, `src/config/motion.ts` | Lidos — tokens SSOT |
-| `src/hooks/useBeliefsScroll.ts`, `src/types/beliefs.ts` | Lidos — contratos de tipo |
-| `firebase.json`, `next.config.mjs` | Lidos — infraestrutura de deploy |
-| `test/e2e/about-beliefs.spec.ts` | Lido — suíte E2E (12 testes) |
+| Arquivo                                                              | Status                                                              |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `CLAUDE.md`                                                          | Lido — governa stack, easing, grid, governança                      |
+| `AGENTS.md`                                                          | Lido — define os 4 agentes orquestrados                             |
+| `.context/GHOST-DESIGN-SYSTEM.md`                                    | Lido — tokens, motion rules, z-index                                |
+| `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md`         | Lido — estrutura imutável das páginas                               |
+| `.context/active_state.md`                                           | Lido — declara migração GSAP completa (2026-05-13)                  |
+| `02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-blueprint-atualizado.md` | Lido — blueprint v4 com Motion DOM como referência original         |
+| `02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-v4.md`                   | Lido — v4 atualizado prescrevendo GSAP como stack oficial           |
+| `02-SOBRE/06-O-QUE-ME-MOVE/implementation_plan.md`                   | Lido — plano de 2026-05-13 com frentes A/B/C e conflitos resolvidos |
+| `docs/Blueprint Técnico- Seção "O Que Me Move" (06).md`              | Lido — blueprint técnico original                                   |
+| `docs/plans/implementation_plan_06-o-que-me-move-ajuste-v2.md`       | Lido — diagnóstico de 2026-05-07                                    |
+| `02-SOBRE/walkthrough.md`                                            | Lido — evidências de execução de 2026-05-02                         |
+| Todos os componentes `beliefs/` e `3d/`                              | Lidos — código real auditado                                        |
+| `src/config/beliefTokens.ts`, `src/config/motion.ts`                 | Lidos — tokens SSOT                                                 |
+| `src/hooks/useBeliefsScroll.ts`, `src/types/beliefs.ts`              | Lidos — contratos de tipo                                           |
+| `firebase.json`, `next.config.mjs`                                   | Lidos — infraestrutura de deploy                                    |
+| `test/e2e/about-beliefs.spec.ts`                                     | Lido — suíte E2E (12 testes)                                        |
 
 ---
 
@@ -114,13 +114,13 @@ O plugin é a fonte de verdade visual do Ghost System. O `Ghost ScrollText Demo.
 
 **O `active_state.md` declara migração GSAP completa em 2026-05-13. O código real usa `motion/react`.**
 
-| Componente | Import atual | Import esperado (v4) |
-|---|---|---|
-| `BeliefBackground.tsx` | `animate, inView` from `'motion'` | `gsap`, `ScrollTrigger` |
-| `BeliefScrollText.tsx` | `animate, inView` from `'motion'` | `gsap`, `ScrollTrigger` |
-| `BeliefManifesto.tsx` | `m, useTransform` from `'motion/react'` | `gsap`, `ScrollTrigger` com `onUpdate` |
-| `BeliefFixedHeader.tsx` | `m, useTransform` from `'motion/react'` | `gsap`, `ScrollTrigger` |
-| `BeliefOverlay.tsx` | `m, useTransform` from `'motion/react'` | `gsap`, `ScrollTrigger` com `scrub` |
+| Componente              | Import atual                            | Import esperado (v4)                   |
+| ----------------------- | --------------------------------------- | -------------------------------------- |
+| `BeliefBackground.tsx`  | `animate, inView` from `'motion'`       | `gsap`, `ScrollTrigger`                |
+| `BeliefScrollText.tsx`  | `animate, inView` from `'motion'`       | `gsap`, `ScrollTrigger`                |
+| `BeliefManifesto.tsx`   | `m, useTransform` from `'motion/react'` | `gsap`, `ScrollTrigger` com `onUpdate` |
+| `BeliefFixedHeader.tsx` | `m, useTransform` from `'motion/react'` | `gsap`, `ScrollTrigger`                |
+| `BeliefOverlay.tsx`     | `m, useTransform` from `'motion/react'` | `gsap`, `ScrollTrigger` com `scrub`    |
 
 Isso contradiz diretamente o blueprint v4 §4.1 que proíbe: `motion`, `motion/react`, `animate()`, `inView()`, `useScroll()`.
 
@@ -133,6 +133,7 @@ O tipo `beliefs.ts` declara `scrollYProgress: MotionValue<number>` (correto para
 ### 5.3 Violações de Motion Rules (Ghost Design System)
 
 O GDS proíbe `translateX` (`x`) em UI content e limita `translateY` a 18px. O código atual em `BeliefScrollText.tsx`:
+
 - Usa `x: [enterX, 0]` onde `enterX = -100` (desktop) ou `-48` (mobile) — anima com `x`, que é **explicitamente proibido** pelo GDS §2.3.
 - O blueprint específico da seção permite essa exceção: "Textos entram com `x: -100 → 0` desktop / `x: -48 → 0` mobile". Isso é uma **exceção local documentada no blueprint**, não uma violação.
 
@@ -164,23 +165,23 @@ O código atual usa `BELIEF_PHRASES` hardcoded em `beliefTokens.ts`. O walkthrou
 
 ### 5.10 Estrutura de Componentes — Status Real
 
-| Componente | Existe | Alinhado ao Blueprint |
-|---|---|---|
-| `AboutBeliefs.tsx` | Sim | Sim (orquestrador OK) |
-| `BeliefBackground.tsx` | Sim | Não (stack Motion, não GSAP) |
-| `BeliefOverlay.tsx` | Sim | Parcialmente (Motion; z-index ok) |
-| `BeliefFixedHeader.tsx` | Sim | Não (Motion, não GSAP; tipografia diverge) |
-| `BeliefScrollText.tsx` | Sim | Não (Motion, não GSAP; font-bold não font-medium) |
-| `BeliefManifesto.tsx` | Sim | Não (Motion, não GSAP; y=18 no limite) |
-| `SplitTextMotion.tsx` | Sim | Sim (utilitário agnóstico de stack) |
-| `GhostScene.tsx` | Sim | Não (Motion; y=20 excede 18px) |
-| `GhostModel.tsx` | Sim | Sim (GSAP-free; useFrame correto) |
-| `GhostSceneFallback.tsx` | Sim | Sim |
-| `GhostErrorBoundary.tsx` | Sim | Sim |
-| `belief.constants.ts` | Sim | Parcialmente (re-exports de beliefTokens) |
-| `beliefTokens.ts` | Sim | Sim (paleta correta, stops corretos) |
-| `useBeliefsScroll.ts` | Sim | Não (usa useScroll de motion/react; tipo MotionValue) |
-| `types/beliefs.ts` | Sim | Não (MotionValue vs ref-getter do blueprint v4) |
+| Componente               | Existe | Alinhado ao Blueprint                                 |
+| ------------------------ | ------ | ----------------------------------------------------- |
+| `AboutBeliefs.tsx`       | Sim    | Sim (orquestrador OK)                                 |
+| `BeliefBackground.tsx`   | Sim    | Não (stack Motion, não GSAP)                          |
+| `BeliefOverlay.tsx`      | Sim    | Parcialmente (Motion; z-index ok)                     |
+| `BeliefFixedHeader.tsx`  | Sim    | Não (Motion, não GSAP; tipografia diverge)            |
+| `BeliefScrollText.tsx`   | Sim    | Não (Motion, não GSAP; font-bold não font-medium)     |
+| `BeliefManifesto.tsx`    | Sim    | Não (Motion, não GSAP; y=18 no limite)                |
+| `SplitTextMotion.tsx`    | Sim    | Sim (utilitário agnóstico de stack)                   |
+| `GhostScene.tsx`         | Sim    | Não (Motion; y=20 excede 18px)                        |
+| `GhostModel.tsx`         | Sim    | Sim (GSAP-free; useFrame correto)                     |
+| `GhostSceneFallback.tsx` | Sim    | Sim                                                   |
+| `GhostErrorBoundary.tsx` | Sim    | Sim                                                   |
+| `belief.constants.ts`    | Sim    | Parcialmente (re-exports de beliefTokens)             |
+| `beliefTokens.ts`        | Sim    | Sim (paleta correta, stops corretos)                  |
+| `useBeliefsScroll.ts`    | Sim    | Não (usa useScroll de motion/react; tipo MotionValue) |
+| `types/beliefs.ts`       | Sim    | Não (MotionValue vs ref-getter do blueprint v4)       |
 
 ---
 
@@ -215,6 +216,7 @@ AboutBeliefs (use client, orchestrator)
 ### 7.1 Repository Architect
 
 **Ordem de correção crítica (dependências):**
+
 1. `src/types/beliefs.ts` — alterar tipo de `scrollYProgress` antes de qualquer outro arquivo
 2. `src/hooks/useBeliefsScroll.ts` — migrar para ref-based getter (remove dependência `motion/react`)
 3. `src/components/sobre/beliefs/BeliefsScrollContext.tsx` — atualizar tipo importado
@@ -236,16 +238,16 @@ AboutBeliefs (use client, orchestrator)
 
 **Tokens — Conformidade Atual:**
 
-| Token | Valor Esperado | Valor Atual | Status |
-|---|---|---|---|
-| Ghost Blue | `#0048ff` | `beliefColors.bluePrimary = '#0048ff'` | OK |
-| Background stops | `['#040013','#0048ff','#8705f2','#f501d3','#0048ff','#8705f2','#f501d3','#040013']` | Idem em `BELIEF_BACKGROUND_STOPS` | OK |
-| Easing global | `[0.22, 1, 0.36, 1]` | `GHOST_EASE` em `motion.ts` | OK |
-| Easing referência | `[0.17, 0.55, 0.55, 1]` | `GHOST_EASE_AMBIENT` / `beliefMotion.referenceEase` | OK |
-| z-index ghost | `70` | `MOTION_TOKENS.z.ghost` via `beliefZIndex.ghost` | OK |
-| z-index manifesto | `50` | `MOTION_TOKENS.z.manifesto` | OK |
-| z-index fixedHeader | `30` | `MOTION_TOKENS.z.header` | OK |
-| Grid `.std-grid` | N/A (seção é full-bleed por design) | Full-bleed confirmado | OK (exceção documentada) |
+| Token               | Valor Esperado                                                                      | Valor Atual                                         | Status                   |
+| ------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------ |
+| Ghost Blue          | `#0048ff`                                                                           | `beliefColors.bluePrimary = '#0048ff'`              | OK                       |
+| Background stops    | `['#040013','#0048ff','#8705f2','#f501d3','#0048ff','#8705f2','#f501d3','#040013']` | Idem em `BELIEF_BACKGROUND_STOPS`                   | OK                       |
+| Easing global       | `[0.22, 1, 0.36, 1]`                                                                | `GHOST_EASE` em `motion.ts`                         | OK                       |
+| Easing referência   | `[0.17, 0.55, 0.55, 1]`                                                             | `GHOST_EASE_AMBIENT` / `beliefMotion.referenceEase` | OK                       |
+| z-index ghost       | `70`                                                                                | `MOTION_TOKENS.z.ghost` via `beliefZIndex.ghost`    | OK                       |
+| z-index manifesto   | `50`                                                                                | `MOTION_TOKENS.z.manifesto`                         | OK                       |
+| z-index fixedHeader | `30`                                                                                | `MOTION_TOKENS.z.header`                            | OK                       |
+| Grid `.std-grid`    | N/A (seção é full-bleed por design)                                                 | Full-bleed confirmado                               | OK (exceção documentada) |
 
 **Violação identificada:** `GhostScene.tsx` aplica `y: 20` na entrada do wrapper (Motion). Limite GDS é 18px. Correção: reduzir para 18 na migração GSAP.
 
@@ -305,11 +307,13 @@ AboutBeliefs (use client, orchestrator)
 ### 7.5 Next.js and TypeScript Engineer
 
 **App Router — boundary:**
+
 - `AboutBeliefs.tsx`: `'use client'` OK.
 - `GhostScene`: `dynamic(() => import(...), { ssr: false })`. OK.
 - `page.tsx` de `/sobre`: Server Component. OK.
 
 **TypeScript:**
+
 - `BeliefsScrollContextValue.scrollYProgress: MotionValue<number>` — será `{ get: () => number }` pós-migração.
 - `useGLTF` cast: `as unknown as GLTFResult` — aceitável (drie pattern).
 - `animate(element as Element, { opacity: 1, x: 0 } as any)` em `BeliefScrollText` — `as any` é code smell mas aceitável por limitação do tipo do Motion DOM.
@@ -317,6 +321,7 @@ AboutBeliefs (use client, orchestrator)
 - `context` no GhostModel como `createContext<any>(null)`: aceitável (Drei Merged pattern).
 
 **Bundle — impacto da migração:**
+
 - Remover `motion/react` de 5 componentes reduz bundle desta seção. GSAP já é dependência existente (`src/config/motion.ts` e outros componentes). A migração é reducionista em termos de bundle nesta seção.
 
 **Build safety:** `ignoreBuildErrors: true` no `next.config.mjs`. Ainda assim, errors de tipo devem ser corrigidos.
@@ -326,17 +331,20 @@ AboutBeliefs (use client, orchestrator)
 ### 7.6 Firebase and Supabase Infrastructure Auditor
 
 **Firebase Hosting (`firebase.json`):**
+
 - Headers de cache para `.glb`: `Cache-Control: public, max-age=31536000, immutable`. Correto.
 - Headers gerais (HSTS, X-Frame-Options, X-Content-Type-Options): presentes.
 - O GLB do Ghost é servido do Supabase Storage (não do Firebase Hosting), portanto a config de cache do Firebase não se aplica ao GLB diretamente.
 
 **Supabase Storage:**
+
 - URL do GLB: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb`
 - Confirmado `200` no walkthrough de 2026-05-02.
 - Bucket é público (sem RLS para leitura). OK para asset estático.
 - Cache no Supabase Storage: responde com headers padrão. O `next.config.mjs` tem `remotePatterns` para o host do Supabase.
 
 **CSP (`next.config.mjs`):**
+
 - `'wasm-unsafe-eval'` presente para Three.js/WebGL. OK.
 - `connect-src` inclui o host Supabase. OK para GLB fetch.
 - `img-src` e `media-src` incluem Supabase. OK.
@@ -349,26 +357,28 @@ AboutBeliefs (use client, orchestrator)
 
 **A11y — status atual:**
 
-| Critério | Status | Evidência |
-|---|---|---|
-| `<section aria-labelledby="o-que-me-move-title">` | OK | `AboutBeliefs.tsx` linha 38 |
-| `<h2 className="sr-only">` como label | OK | `AboutBeliefs.tsx` linha 46 |
-| `aria-hidden="true"` no Canvas | OK | `GhostScene.tsx` linha 85 |
-| `aria-hidden` no BackgroundDiv | OK | `BeliefBackground.tsx` linha 56 |
-| `aria-hidden` no BeliefOverlay | Ausente | Deve ser adicionado |
-| `aria-hidden={!isClimax}` no Manifesto | OK | `BeliefManifesto.tsx` linha 50 |
-| `prefers-reduced-motion` guard | OK | `useMotionGate`, `shouldReduceMotion` |
-| Foco não preso em sticky/fixed | OK | `pointer-events-none` em todas as camadas decorativas |
-| Contraste `blueAccent` (#4fe6ff) sobre pink (#f501d3) | **Insuficiente (2.3:1)** | Mitigado por textShadow; revisar |
-| `tabIndex` em elementos não interativos | OK (ausente = correto) | Camadas são `pointer-events-none` |
-| `data-testid` para E2E | OK | Todos os testids presentes |
+| Critério                                              | Status                   | Evidência                                             |
+| ----------------------------------------------------- | ------------------------ | ----------------------------------------------------- |
+| `<section aria-labelledby="o-que-me-move-title">`     | OK                       | `AboutBeliefs.tsx` linha 38                           |
+| `<h2 className="sr-only">` como label                 | OK                       | `AboutBeliefs.tsx` linha 46                           |
+| `aria-hidden="true"` no Canvas                        | OK                       | `GhostScene.tsx` linha 85                             |
+| `aria-hidden` no BackgroundDiv                        | OK                       | `BeliefBackground.tsx` linha 56                       |
+| `aria-hidden` no BeliefOverlay                        | Ausente                  | Deve ser adicionado                                   |
+| `aria-hidden={!isClimax}` no Manifesto                | OK                       | `BeliefManifesto.tsx` linha 50                        |
+| `prefers-reduced-motion` guard                        | OK                       | `useMotionGate`, `shouldReduceMotion`                 |
+| Foco não preso em sticky/fixed                        | OK                       | `pointer-events-none` em todas as camadas decorativas |
+| Contraste `blueAccent` (#4fe6ff) sobre pink (#f501d3) | **Insuficiente (2.3:1)** | Mitigado por textShadow; revisar                      |
+| `tabIndex` em elementos não interativos               | OK (ausente = correto)   | Camadas são `pointer-events-none`                     |
+| `data-testid` para E2E                                | OK                       | Todos os testids presentes                            |
 
 **Suíte E2E:**
+
 - `test/e2e/about-beliefs.spec.ts`: 12 testes.
 - Última execução documentada: 12/12 passing (2026-05-13).
 - Risco: migração GSAP pode quebrar testes que dependem de Motion DOM. Os testes usam `data-testid` (agnósticos de stack) — risco baixo, mas requer re-execução após cada fase.
 
 **Lighthouse:**
+
 - SquirrelScan 96/100 Performance (documentado em `active_state.md`).
 - CPU throttling para mobile: testar especificamente a seção beliefs (6 frases + R3F).
 
@@ -378,32 +388,32 @@ AboutBeliefs (use client, orchestrator)
 
 ### Modificação obrigatória (migração GSAP):
 
-| Arquivo | Mudança | Complexidade |
-|---|---|---|
-| `src/types/beliefs.ts` | `MotionValue<number>` → `{ get: () => number }` | Baixa |
-| `src/hooks/useBeliefsScroll.ts` | Remover `useScroll` Motion; usar `useScrollProgress` GSAP ou ref manual | Média |
-| `src/components/sobre/beliefs/BeliefBackground.tsx` | Remover Motion DOM; implementar GSAP ScrollTrigger | Média |
-| `src/components/sobre/beliefs/BeliefOverlay.tsx` | Remover `motion/react`; GSAP scrub | Baixa |
-| `src/components/sobre/beliefs/BeliefFixedHeader.tsx` | Remover `motion/react`; GSAP com word stagger | Média |
-| `src/components/sobre/beliefs/BeliefScrollText.tsx` | Remover Motion DOM; GSAP onEnter/onLeave; `font-medium` | Alta |
-| `src/components/sobre/beliefs/BeliefManifesto.tsx` | Remover `motion/react`; GSAP onUpdate scrub | Alta |
-| `src/components/sobre/sections/AboutBeliefs.tsx` | Remover imports motion; compat com ref-getter | Baixa |
-| `src/components/sobre/3d/GhostScene.tsx` | Remover `motion/react`; entrada via GSAP; y max 18px | Média |
+| Arquivo                                              | Mudança                                                                 | Complexidade |
+| ---------------------------------------------------- | ----------------------------------------------------------------------- | ------------ |
+| `src/types/beliefs.ts`                               | `MotionValue<number>` → `{ get: () => number }`                         | Baixa        |
+| `src/hooks/useBeliefsScroll.ts`                      | Remover `useScroll` Motion; usar `useScrollProgress` GSAP ou ref manual | Média        |
+| `src/components/sobre/beliefs/BeliefBackground.tsx`  | Remover Motion DOM; implementar GSAP ScrollTrigger                      | Média        |
+| `src/components/sobre/beliefs/BeliefOverlay.tsx`     | Remover `motion/react`; GSAP scrub                                      | Baixa        |
+| `src/components/sobre/beliefs/BeliefFixedHeader.tsx` | Remover `motion/react`; GSAP com word stagger                           | Média        |
+| `src/components/sobre/beliefs/BeliefScrollText.tsx`  | Remover Motion DOM; GSAP onEnter/onLeave; `font-medium`                 | Alta         |
+| `src/components/sobre/beliefs/BeliefManifesto.tsx`   | Remover `motion/react`; GSAP onUpdate scrub                             | Alta         |
+| `src/components/sobre/sections/AboutBeliefs.tsx`     | Remover imports motion; compat com ref-getter                           | Baixa        |
+| `src/components/sobre/3d/GhostScene.tsx`             | Remover `motion/react`; entrada via GSAP; y max 18px                    | Média        |
 
 ### Modificação recomendada:
 
-| Arquivo | Mudança | Complexidade |
-|---|---|---|
-| `src/components/sobre/3d/GhostModel.tsx` | Adicionar `useGLTF.preload(MODEL_PATH)` + dispose no unmount | Baixa |
-| `src/components/sobre/beliefs/BeliefOverlay.tsx` | Adicionar `aria-hidden="true"` | Baixa |
-| `src/components/sobre/beliefs/BeliefsScrollContext.tsx` | Atualizar tipo importado de `beliefs.ts` | Baixa |
+| Arquivo                                                 | Mudança                                                      | Complexidade |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ------------ |
+| `src/components/sobre/3d/GhostModel.tsx`                | Adicionar `useGLTF.preload(MODEL_PATH)` + dispose no unmount | Baixa        |
+| `src/components/sobre/beliefs/BeliefOverlay.tsx`        | Adicionar `aria-hidden="true"`                               | Baixa        |
+| `src/components/sobre/beliefs/BeliefsScrollContext.tsx` | Atualizar tipo importado de `beliefs.ts`                     | Baixa        |
 
 ### Documentação:
 
-| Arquivo | Mudança |
-|---|---|
+| Arquivo                                                                          | Mudança                                                               |
+| -------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-v4.md` | Já alinhado a GSAP (v4 pós-2026-05-13) — apenas confirmar sem alterar |
-| `.context/active_state.md` | Atualizar para refletir o estado real pós-execução |
+| `.context/active_state.md`                                                       | Atualizar para refletir o estado real pós-execução                    |
 
 ---
 
@@ -428,37 +438,41 @@ BeliefsScrollContext.tsx
 
 **Riscos:**
 
-| ID | Risco | Probabilidade | Impacto | Mitigação |
-|---|---|---|---|---|
-| R1 | Migração GSAP quebra comportamento visual vs. Motion | Média | Alto | Gravar screencast antes/depois; E2E visual |
-| R2 | `useScroll` Motion → ref-based muda timing de `isClimax`/`activeIndex` | Baixa | Médio | Testar scroll rápido e lento |
-| R3 | GSAP `ScrollTrigger` não limpa corretamente → memory leak | Baixa | Médio | `ctx.revert()` em todos os `useEffect` returns |
-| R4 | `useGLTF.preload` pode impactar tempo de carregamento inicial | Baixa | Baixo | Preload em `layout.tsx` para carregar em paralelo |
-| R5 | `font-medium` em `BeliefScrollText` altera layout e quebra screenshot E2E | Baixa | Baixo | Atualizar screenshots de referência E2E |
-| R6 | Migração em partes deixa componentes mistos (Motion + GSAP) em produção transitória | Alta | Médio | Migrar todos os componentes em uma sessão, commit único |
-| R7 | `SplitTextMotion` usa `motion.span` internamente | Alta | Médio | Manter SplitTextMotion como está (render-only); GSAP anima via seletor `[data-split-item]` externamente |
+| ID  | Risco                                                                               | Probabilidade | Impacto | Mitigação                                                                                               |
+| --- | ----------------------------------------------------------------------------------- | ------------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| R1  | Migração GSAP quebra comportamento visual vs. Motion                                | Média         | Alto    | Gravar screencast antes/depois; E2E visual                                                              |
+| R2  | `useScroll` Motion → ref-based muda timing de `isClimax`/`activeIndex`              | Baixa         | Médio   | Testar scroll rápido e lento                                                                            |
+| R3  | GSAP `ScrollTrigger` não limpa corretamente → memory leak                           | Baixa         | Médio   | `ctx.revert()` em todos os `useEffect` returns                                                          |
+| R4  | `useGLTF.preload` pode impactar tempo de carregamento inicial                       | Baixa         | Baixo   | Preload em `layout.tsx` para carregar em paralelo                                                       |
+| R5  | `font-medium` em `BeliefScrollText` altera layout e quebra screenshot E2E           | Baixa         | Baixo   | Atualizar screenshots de referência E2E                                                                 |
+| R6  | Migração em partes deixa componentes mistos (Motion + GSAP) em produção transitória | Alta          | Médio   | Migrar todos os componentes em uma sessão, commit único                                                 |
+| R7  | `SplitTextMotion` usa `motion.span` internamente                                    | Alta          | Médio   | Manter SplitTextMotion como está (render-only); GSAP anima via seletor `[data-split-item]` externamente |
 
 ---
 
 ## 10. Proposed Phases
 
 ### Phase 0 — Baseline Audit (concluída neste documento)
+
 - Ler todos os arquivos afetados
 - Mapear divergências código vs. blueprint
 - Confirmar que `active_state.md` está desatualizado
 - Produzir este plano e `task.md`
 
 ### Phase 1 — Type and Hook Alignment
+
 **Escopo:** `types/beliefs.ts`, `hooks/useBeliefsScroll.ts`, `beliefs/BeliefsScrollContext.tsx`
 
 Objetivo: estabelecer o contrato de tipo correto (`{ get: () => number }`) antes de qualquer componente ser migrado. Sem essa base, TypeScript sinalizará erros em cascata durante as fases seguintes.
 
 Implementação de `useBeliefsScroll` sem `motion/react`:
+
 - Usar `window.addEventListener('scroll', ...)` ou `useRef` com `IntersectionObserver`
 - Calcular `scrollYProgress` manualmente via `getBoundingClientRect`
 - Manter `activeIndex` e `isClimax` via `useState` + scroll listener
 
 ### Phase 2 — Motion System Correction (Background + Overlay)
+
 **Escopo:** `BeliefBackground.tsx`, `BeliefOverlay.tsx`
 
 Objetivo: migrar as duas camadas passivas para GSAP. São as mais simples porque não têm split text.
@@ -467,6 +481,7 @@ Objetivo: migrar as duas camadas passivas para GSAP. São as mais simples porque
 - `BeliefOverlay`: `gsap.to(overlay, { keyframes, scrollTrigger: { scrub: 0.85 } })`. Adicionar `aria-hidden="true"`.
 
 ### Phase 3 — Motion System Correction (Header + ScrollText + Manifesto)
+
 **Escopo:** `BeliefFixedHeader.tsx`, `BeliefScrollText.tsx`, `BeliefManifesto.tsx`
 
 Objetivo: migrar os três componentes com texto animado. Maior complexidade por envolverem `SplitTextMotion`.
@@ -476,6 +491,7 @@ Objetivo: migrar os três componentes com texto animado. Maior complexidade por 
 - `BeliefManifesto`: GSAP `ScrollTrigger` com `onUpdate`. Range `progress 0.82→0.92`. Word stagger via `[data-split-item]`.
 
 ### Phase 4 — Ghost 3D Correction
+
 **Escopo:** `GhostScene.tsx`, `GhostModel.tsx`
 
 Objetivo: migrar entrada do wrapper para GSAP; corrigir `y` para máximo 18px; adicionar preload e dispose.
@@ -484,15 +500,18 @@ Objetivo: migrar entrada do wrapper para GSAP; corrigir `y` para máximo 18px; a
 - `GhostModel`: adicionar `useGLTF.preload(MODEL_PATH)` (colocar fora do componente, no módulo). Adicionar `useEffect` de cleanup com dispose de geometrias e materiais.
 
 ### Phase 5 — Accessibility and Reduced Motion
+
 **Escopo:** todos os componentes migrados
 
 Verificar:
+
 - `aria-hidden` em BeliefOverlay
 - `prefers-reduced-motion` guards em todos os tweens GSAP (via `gsap.set` + `{ duration: 0.2, ease: 'none' }`)
 - Contraste do texto cyan sobre pink — medir e documentar
 - Teste com VoiceOver/NVDA via Playwright
 
 ### Phase 6 — Documentation and Walkthrough
+
 **Escopo:** `.context/active_state.md`, `02-SOBRE/06-O-QUE-ME-MOVE/implementation_plan.md`, `walkthrough.md` novo
 
 Criar `walkthrough.md` conforme especificado no plano.
@@ -504,6 +523,7 @@ Criar `walkthrough.md` conforme especificado no plano.
 **Git:** cada fase é um commit atômico. Rollback via `git revert <hash>` por fase.
 
 **Ordem de rollback segura:**
+
 1. Fase 6 (docs) — sem impacto em runtime
 2. Fase 5 (a11y) — sem impacto em comportamento
 3. Fase 4 (Ghost) — independente das fases 2/3
@@ -518,6 +538,7 @@ Criar `walkthrough.md` conforme especificado no plano.
 ## 12. Validation Plan
 
 Após cada fase:
+
 ```bash
 pnpm run typecheck
 pnpm run lint
@@ -525,6 +546,7 @@ pnpm run build
 ```
 
 Após Phase 3 e Phase 4:
+
 ```bash
 pnpm test
 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium
@@ -532,6 +554,7 @@ pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium --gr
 ```
 
 Validação visual obrigatória após Phase 3:
+
 - Scroll desktop: frases entram da esquerda, background muda por capítulo, header fixo visível
 - Scroll mobile: frases centralizadas no rodapé, Ghost top-left
 - Climax: manifesto revela, Ghost centraliza, background volta ao void

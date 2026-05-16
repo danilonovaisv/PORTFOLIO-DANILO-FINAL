@@ -5,6 +5,7 @@ import React, {
   useRef,
   useContext,
   createContext,
+  useEffect,
   useLayoutEffect,
 } from 'react';
 import * as THREE from 'three';
@@ -14,6 +15,10 @@ import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 
 const MODEL_PATH =
   'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
+
+if (typeof window !== 'undefined') {
+  useGLTF.preload(MODEL_PATH);
+}
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -164,6 +169,23 @@ export function GhostModel({
 }: GhostModelProps) {
   const groupRef = useRef<THREE.Group>(null);
   const initialized = useRef(false);
+  const gltf = useGLTF(MODEL_PATH) as unknown as GLTFResult;
+
+  useEffect(() => {
+    return () => {
+      Object.values(gltf.nodes).forEach((node) => {
+        if (node instanceof THREE.Mesh) {
+          node.geometry?.dispose();
+        }
+      });
+
+      Object.values(gltf.materials).forEach((material) => {
+        material?.dispose();
+      });
+
+      useGLTF.clear(MODEL_PATH);
+    };
+  }, [gltf.materials, gltf.nodes]);
 
   useFrame((state: any) => {
     if (!groupRef.current) return;

@@ -28,36 +28,47 @@ As páginas `/`, `/sobre`, `/portfolio` e `/portfolio/[slug]` estão estruturalm
 ## 2️⃣ Diagnóstico por Seção
 
 ### Home — Sessão 01 (Header)
+
 **Status: Conforme.** `SiteHeader`, `DesktopFluidHeader` e `MobileStaggeredMenu` identificados. O header usa `max-w-[1680px]` explícito (`DesktopFluidHeader.tsx:165` e `MobileHeaderBar.tsx:65`), em conformidade com a SSOT. O scroll-awareness e glassmorphism desktop foram reportados como funcionais no `active_state.md`. Estrutura de código sem irregularidades evidentes.
 
 ### Home — Sessão 02 (Hero)
+
 **Status: Conforme com ressalva de acessibilidade.** `HomeHero.tsx` gerencia `useWebGLSupport`, `useMotionGate` e `useMediaQuery` corretamente. Fallback não-WebGL (`radial-gradient`) existe. O `div` pai (linha 82) tem `aria-hidden="true" role="presentation"`, cobrindo o `GhostSceneWrapper`. O `Preloader` com `AnimatePresence` é adequado. `HeroCTA` renderizado apenas após `isLoaded` — correto.
 
 ### Home — Sessão 03 (Video Manifesto)
+
 **Status: Conforme.** `VideoManifesto` recebe `src`, `srcMobile`, `posterDesk` e `posterMobile` via props do Server Component. O preload via `react-dom.preload` com `fetchPriority: 'high'` está implementado na `page.tsx`. `ResponsiveCaptionTrack` existe para gerenciar captions por device.
 
 ### Home — Sessão 04 (Portfolio Showcase)
+
 **Status: Conforme.** `PortfolioShowcase` e `CategoryStripe` auditados. Motion usa `y: 18` (no limite SSOT), `GHOST_EASE` e `viewportConfig`. O `rotate: isHovered ? 0 : -45` no ícone `ArrowUpRight` dentro de `CategoryStripe` (linha 163) é a mesma especificação documentada em `AntigravityCTA` §3.3 (ícone `.btn-icon-circle`) — exceção explícita na SSOT.
 
 ### Home — Sessão 05 (Featured Projects)
+
 **Status: Parcialmente conforme.** `FeaturedProjectsRealtime` e `FeaturedProjectsSection` existem com dados reais via Supabase + fallback. `FeaturedProjectAnimatedBackground.tsx:19` tem apenas um comentário (`// Aurora was removed as per cleanup audit`) — import problemático já removido. O `tsc_output_current.txt` cacheado registrava erro neste arquivo, mas o código atual não apresenta o import. O Realtime Channel tem fallback por polling (45s interval) gateado atrás de auth.
 
 ### Home — Sessão 06 (Clients/Brands)
+
 **Status: Componente identificado.** `ClientsBrandsSection.tsx` em `src/components/home/clients/`. Não auditado em detalhe nesta rodada — loop infinito de logos com baixo risco estrutural.
 
 ### Home — Sessão 07 (Contact)
+
 **Status: Conforme.** `ContactForm.tsx` usa `GHOST_EASE`, `useMotionGate` e lazy-loading do Turnstile via IntersectionObserver. Validação de campos presente. Nenhum segredo hardcoded.
 
 ### Home — Sessão 08 (Footer)
+
 **Status: Conforme.** `SiteFooter` em `src/components/layout/SiteFooter.tsx`.
 
 ### Sobre — Seções 02 a 07
+
 **Status: Conforme.** `AboutHero`, `AboutOrigin`, `AboutWhatIDo`, `AboutMethod`, `AboutClosing` e `AboutBeliefs` exportados via barrel em `src/components/sobre/sections`. Migração GSAP na seção Beliefs finalizada. `GhostScene` (sobre/3d) tem `aria-hidden="true"` no `<Canvas>` (linha 86) e DPR controlado. `BeliefsScrollContext` unificado.
 
 ### Portfolio — Sessões 02 a 06
+
 **Status: Conforme com ressalvas.** `ProjectsGallery` usa `.std-grid` e `max-w-[1680px]`. `ProjectCard` usa `useMotionGate`, scroll-driven opacity/y/blur conformes. `ProjectTemplateALPARenderer` existe como dispatcher para `MASTER_PROJECT_TEMPLATE_V3`. **Achado P1:** `AlpaContent.tsx` usa `max-w-7xl` (1280px). **Achado P0:** `AlpaBlockImageFull.tsx` e `AlpaBlockGrid2Col.tsx` usam `group-hover:scale-105` — violação Ghost Protocol.
 
 ### Admin — Sessões 01 a 10
+
 **Status: Estruturalmente conforme.** `AdminShell`, `LoginForm`, `ProjectsTable`, `MasterProjectTemplateV3Editor` identificados. `requireAdminAccess` confirmado. RLS Supabase verificado. `max-w-7xl` é aceitável no admin (não é página pública).
 
 ---
@@ -72,12 +83,14 @@ As páginas `/`, `/sobre`, `/portfolio` e `/portfolio/[slug]` estão estruturalm
 **Severidade:** 🔴 P0 Crítico
 **Área:** Motion / Ghost Protocol — Landing Pages Portfolio
 **Evidência:**
+
 - `src/components/projects/templates/alpa/blocks/AlpaBlockImageFull.tsx:55` → `group-hover:scale-105`
 - `src/components/projects/templates/alpa/blocks/AlpaBlockGrid2Col.tsx:58` → `group-hover:scale-105`
 
 **Impacto:** Violação direta do Ghost Protocol ("Forbidden: `scale`"). Degrada a identidade visual Ghost em case studies exibidos a clientes e parceiros. Inconsistência com o restante do portfólio.
 
 **Arquivos relacionados:**
+
 - `src/components/projects/templates/alpa/blocks/AlpaBlockImageFull.tsx`
 - `src/components/projects/templates/alpa/blocks/AlpaBlockGrid2Col.tsx`
 
@@ -96,6 +109,7 @@ As páginas `/`, `/sobre`, `/portfolio` e `/portfolio/[slug]` estão estruturalm
 **Área:** Grid / Max-Width — BlockRenderer e AlpaContent
 
 **Evidência:**
+
 - `src/components/projects/BlockRenderer.tsx:162,169,176` → `max-w-screen-2xl` (1536px)
 - `src/components/projects/templates/alpa/AlpaContent.tsx:30` → `max-w-7xl` (1280px)
 - `src/components/portfolio/content/AdaptiveMediaLayout.tsx:233,284` → `max-w-7xl`
@@ -115,12 +129,14 @@ As páginas `/`, `/sobre`, `/portfolio` e `/portfolio/[slug]` estão estruturalm
 **Área:** TypeScript — Erros residuais em tsc_output_current.txt (status incerto)
 
 **Evidência:** O arquivo `tsc_output_current.txt` (cacheado) registra:
+
 - `FeaturedProjectAnimatedBackground.tsx(19,37)`: `Cannot find module '@/components/Aurora'`
 - `src/config/beliefTokens.ts(61,32)`: `Property 'soft' does not exist on type`
 
 O ambiente remoto não possui `node_modules` instalados — impossível re-executar `tsc --noEmit`. Os commits `73d85e30` e `26c64f37` sugerem tratamento, mas o commit `6a6f0896` ("update") não tem descrição que confirme.
 
 **Arquivos relacionados:**
+
 - `src/components/home/featured-projects/FeaturedProjectAnimatedBackground.tsx`
 - `src/config/beliefTokens.ts`
 
@@ -135,6 +151,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Área:** Acessibilidade — `GhostSceneWrapper` não é autossuficiente para `aria-hidden`
 
 **Evidência:**
+
 - `src/components/canvas/home/hero/GhostSceneWrapper.tsx` não adiciona `aria-hidden` ou `role="presentation"`.
 - O `div` pai em `HomeHero.tsx:82` contém `aria-hidden="true" role="presentation"` — cobertura indireta correta no contexto atual.
 - Contraste: `GhostScene` (sobre/3d) tem `aria-hidden="true"` direto no `<Canvas>` (linha 86), padrão SSOT §4.4.
@@ -196,14 +213,17 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Objetivo:** Substituir `group-hover:scale-105` por transição de opacidade nos componentes de imagem ALPA.
 **Especialista:** `@spectral_artist` / `frontend-specialist`
 **Arquivos:**
+
 - `src/components/projects/templates/alpa/blocks/AlpaBlockImageFull.tsx`
 - `src/components/projects/templates/alpa/blocks/AlpaBlockGrid2Col.tsx`
 
 **Contexto obrigatório:**
+
 - `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` §2.3 (Allowed vs Forbidden Motion)
 - `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/`
 
 **Ações:**
+
 1. Em `AlpaBlockImageFull.tsx:55`, substituir `transition-transform duration-normal group-hover:scale-105` por `transition-opacity duration-normal group-hover:opacity-90`.
 2. Em `AlpaBlockGrid2Col.tsx:58`, aplicar a mesma substituição.
 3. Executar `pnpm run typecheck` e `pnpm run lint`. Ambos devem passar com exit code 0.
@@ -212,6 +232,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Regras:** Ghost Protocol: proibido `scale`. Easing obrigatório: `GHOST_EASE [0.22, 1, 0.36, 1]`. Não alterar estrutura de markup, textos ou lógica de negócio.
 
 **Critérios de Aceite:**
+
 - [ ] Nenhum `scale` em elementos de imagem de conteúdo.
 - [ ] Hover de imagem visualmente funcional (opacidade ou brilho).
 - [ ] TypeScript sem erros. Lint sem erros.
@@ -226,15 +247,18 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Objetivo:** Substituir `max-w-screen-2xl` e `max-w-7xl` por `max-w-[1680px]` nos componentes de renderização de case studies.
 **Especialista:** `@ghost_architect` / `frontend-specialist`
 **Arquivos:**
+
 - `src/components/projects/BlockRenderer.tsx` (linhas 162, 169, 176)
 - `src/components/projects/templates/alpa/AlpaContent.tsx` (linha 30)
 - `src/components/portfolio/content/AdaptiveMediaLayout.tsx` (linhas 233, 284)
 
 **Contexto obrigatório:**
+
 - `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` §1.3 (Spacing & Grid)
 - `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md`
 
 **Ações:**
+
 1. Em cada ocorrência, substituir `max-w-screen-2xl` por `max-w-[1680px]` e `max-w-7xl` por `max-w-[1680px]`.
 2. Manter `mx-auto` e padding existentes intactos.
 3. Verificar que o padding horizontal não conflita com `.std-grid` (não adicionar duplo padding).
@@ -243,6 +267,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Regras:** Não alterar lógica de renderização. Não alterar textos. Mobile-first preservado.
 
 **Critérios de Aceite:**
+
 - [ ] Zero `max-w-screen-2xl` ou `max-w-7xl` em componentes públicos fora do admin.
 - [ ] Viewport 1920px: conteúdo de case study alinhado com largura das demais seções.
 - [ ] TypeScript sem erros. Lint sem erros.
@@ -256,6 +281,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Objetivo:** Confirmar que os erros TypeScript do `tsc_output_current.txt` foram efetivamente resolvidos e atualizar o arquivo cacheado.
 **Especialista:** `@ghost_architect` / `coder`
 **Arquivos:**
+
 - `src/components/home/featured-projects/FeaturedProjectAnimatedBackground.tsx`
 - `src/config/beliefTokens.ts`
 - `tsc_output_current.txt` (referência, não alterar o conteúdo diretamente)
@@ -263,6 +289,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Contexto obrigatório:** `active_state.md`, commits `73d85e30` e `26c64f37`.
 
 **Ações:**
+
 1. Executar `pnpm install` para garantir `node_modules` presente.
 2. Executar `pnpm run typecheck`. Registrar saída completa.
 3. Se exit code 0: atualizar `tsc_output_current.txt` com resultado limpo e registrar em `active_state.md`.
@@ -271,6 +298,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Regras:** Não alterar código para silenciar erros com `// @ts-ignore`. Corrija a causa raiz ou documente como exceção explícita com justificativa.
 
 **Critérios de Aceite:**
+
 - [ ] `pnpm run typecheck` exit code 0.
 - [ ] `tsc_output_current.txt` atualizado.
 
@@ -283,12 +311,15 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Objetivo:** Tornar `GhostSceneWrapper` autossuficiente em acessibilidade para reusos seguros futuros.
 **Especialista:** `@audit_sentinel` / `frontend-specialist`
 **Arquivos:**
+
 - `src/components/canvas/home/hero/GhostSceneWrapper.tsx`
 
 **Contexto obrigatório:**
+
 - `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` §4.4 (WebGL a11y)
 
 **Ações:**
+
 1. No retorno de `GhostSceneWrapper`, encapsular o `<GhostScene>` em um `div` com `aria-hidden="true"` e `role="presentation"` e `className="absolute inset-0 w-full h-full"`.
 2. Verificar que `HomeHero.tsx` não duplica o atributo redundantemente (aceitável ter dois níveis com `aria-hidden` — não causa erro).
 3. Executar `pnpm run typecheck` e `pnpm run lint`.
@@ -296,6 +327,7 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 **Regras:** Não alterar lógica de detecção de WebGL. Não alterar estilos existentes.
 
 **Critérios de Aceite:**
+
 - [ ] `GhostSceneWrapper` tem `aria-hidden="true"` no elemento que envolve o canvas.
 - [ ] Nenhuma regressão visual ou funcional no Hero.
 - [ ] TypeScript sem erros. Lint sem erros.
@@ -306,26 +338,27 @@ O ambiente remoto não possui `node_modules` instalados — impossível re-execu
 
 ## 5️⃣ Validação Técnica Executada
 
-| Comando / Verificação | Resultado | Observação |
-|---|---|---|
-| `git status --short` | Branch limpa | Nenhum arquivo alterado além deste relatório |
-| `git log --oneline -10` | 10 commits lidos | Últimas mudanças: fix TS, merge worktree-spectral, cache headers |
-| Leitura SSOT `.context/DOCS-PORTFOLIO-PAGES/` | Concluída | GHOST-DESIGN-SYSTEM.md + RULES-PORTFOLIO-STRUCTURE.md |
-| Leitura `.context/active_state.md` | Concluída | Estado: GSAP Final Migration concluída |
-| Leitura `src/app/globals.css` | Concluída | Tokens CSS, `.std-grid`, z-layers, motion tokens |
-| Leitura `src/config/motion.ts` | Concluída | `GHOST_EASE`, variantes, `MOTION_TOKENS` |
-| Grep `scale\|rotate\|bounce` em componentes | Executado | 2 violações P0 em ALPA blocks; icon rotate em CTAs é exceção SSOT §3.3 |
-| Grep `aria-hidden` em canvas components | Executado | `GhostScene` (sobre) e `HeaderGlassCanvas` têm; `GhostSceneWrapper` (hero) depende do pai |
-| Grep `max-w-7xl\|max-w-screen-2xl` | Executado | 3 arquivos públicos com violação de max-width |
-| Grep `std-grid\|StandardGrid` | Executado | 39 usos — cobertura ampla |
-| Grep `useMotionGate\|useReducedMotion` | Executado | Presente em componentes críticos |
-| Grep `framer-motion` direto | Executado | **Zero** imports diretos — todos migrados para `motion/react` (56 arquivos) |
-| Grep `GHOST_EASE` em componentes | Executado | Uso consistente nos componentes auditados |
-| `pnpm run typecheck` | **FALHOU — node_modules ausentes** | `Cannot find type definition file for 'node'` — ambiente isolado |
-| Leitura `tsc_output_current.txt` (cacheado) | 4 erros TS de sessão anterior registrados | Provável obsolescência após commits recentes |
-| Verificação segredos em código-fonte | **Nenhum segredo hardcoded** | Webhook Slack consumido apenas de variável de ambiente |
+| Comando / Verificação                         | Resultado                                 | Observação                                                                                |
+| --------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `git status --short`                          | Branch limpa                              | Nenhum arquivo alterado além deste relatório                                              |
+| `git log --oneline -10`                       | 10 commits lidos                          | Últimas mudanças: fix TS, merge worktree-spectral, cache headers                          |
+| Leitura SSOT `.context/DOCS-PORTFOLIO-PAGES/` | Concluída                                 | GHOST-DESIGN-SYSTEM.md + RULES-PORTFOLIO-STRUCTURE.md                                     |
+| Leitura `.context/active_state.md`            | Concluída                                 | Estado: GSAP Final Migration concluída                                                    |
+| Leitura `src/app/globals.css`                 | Concluída                                 | Tokens CSS, `.std-grid`, z-layers, motion tokens                                          |
+| Leitura `src/config/motion.ts`                | Concluída                                 | `GHOST_EASE`, variantes, `MOTION_TOKENS`                                                  |
+| Grep `scale\|rotate\|bounce` em componentes   | Executado                                 | 2 violações P0 em ALPA blocks; icon rotate em CTAs é exceção SSOT §3.3                    |
+| Grep `aria-hidden` em canvas components       | Executado                                 | `GhostScene` (sobre) e `HeaderGlassCanvas` têm; `GhostSceneWrapper` (hero) depende do pai |
+| Grep `max-w-7xl\|max-w-screen-2xl`            | Executado                                 | 3 arquivos públicos com violação de max-width                                             |
+| Grep `std-grid\|StandardGrid`                 | Executado                                 | 39 usos — cobertura ampla                                                                 |
+| Grep `useMotionGate\|useReducedMotion`        | Executado                                 | Presente em componentes críticos                                                          |
+| Grep `framer-motion` direto                   | Executado                                 | **Zero** imports diretos — todos migrados para `motion/react` (56 arquivos)               |
+| Grep `GHOST_EASE` em componentes              | Executado                                 | Uso consistente nos componentes auditados                                                 |
+| `pnpm run typecheck`                          | **FALHOU — node_modules ausentes**        | `Cannot find type definition file for 'node'` — ambiente isolado                          |
+| Leitura `tsc_output_current.txt` (cacheado)   | 4 erros TS de sessão anterior registrados | Provável obsolescência após commits recentes                                              |
+| Verificação segredos em código-fonte          | **Nenhum segredo hardcoded**              | Webhook Slack consumido apenas de variável de ambiente                                    |
 
 **Limitações desta rodada:**
+
 - `node_modules` não instalados no container remoto: impossível executar `pnpm typecheck`, `pnpm lint`, `pnpm build` ou `pnpm test` com resultado real.
 - Validação visual (screenshots, browser testing) não disponível no ambiente remoto.
 - Lighthouse CI não executado — requer build funcional.
@@ -441,7 +474,10 @@ O payload foi construído conforme o template da rotina. O webhook foi consumido
   "blocks": [
     {
       "type": "header",
-      "text": {"type": "plain_text", "text": "Auditoria Semanal Concluída — portfoliodanilo.com"}
+      "text": {
+        "type": "plain_text",
+        "text": "Auditoria Semanal Concluída — portfoliodanilo.com"
+      }
     },
     {
       "type": "section",
@@ -468,6 +504,6 @@ O payload foi construído conforme o template da rotina. O webhook foi consumido
 
 ---
 
-*Relatório gerado por rotina autônoma — Claude Code Routines — 2026-05-16*
-*Nenhuma alteração de código-fonte foi executada nesta sessão.*
-*Próxima execução de correção requer aprovação humana explícita via PR ou canal Slack.*
+_Relatório gerado por rotina autônoma — Claude Code Routines — 2026-05-16_
+_Nenhuma alteração de código-fonte foi executada nesta sessão._
+_Próxima execução de correção requer aprovação humana explícita via PR ou canal Slack._

@@ -1,6 +1,7 @@
 'use client';
 
-import { animate, inView } from 'motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
 import {
   BELIEF_PHRASE_ITEMS,
@@ -9,54 +10,72 @@ import {
   beliefLayout,
   beliefZIndex,
 } from '@/config/beliefTokens';
+import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
+// NOTE: blueAccent (#4fe6ff) over pink (#f501d3) — contrast ratio ~2.3:1, below AA (4.5:1).
+// Mitigated by textShadow: '0 2px 24px rgba(0,0,0,0.28)'. Documented per T-011.
+
+gsap.registerPlugin(ScrollTrigger);
+
 export function BeliefScrollText() {
-  const { shouldReduceMotion, isMobile } = useBeliefsScrollContext();
+  const { containerRef, shouldReduceMotion, isMobile } =
+    useBeliefsScrollContext();
 
   useEffect(() => {
-    const stop = inView(
-      '#o-que-me-move [data-belief-phrase]',
-      (el) => {
-        const element = el as HTMLElement;
+    if (!containerRef.current) return;
 
-        if (shouldReduceMotion) {
-          const controls = animate(
-            element as Element,
-            { opacity: 1, x: 0 } as any,
-            { duration: 0.16, ease: 'easeOut' }
-          );
-          return () => controls.stop();
-        }
+    const enterX = isMobile ? -48 : -100;
 
-        const enterX = isMobile ? -48 : -100;
+    const ctx = gsap.context(() => {
+      const phrases = containerRef.current!.querySelectorAll(
+        '[data-belief-phrase]'
+      );
 
-        const enterControls = animate(
-          element as Element,
-          { opacity: 1, x: [enterX, 0] } as any,
-          {
-            duration: beliefMotion.textRevealDuration,
-            ease: beliefMotion.referenceEase as [number, number, number, number],
-          }
-        );
+      // Set all phrases to hidden initially
+      gsap.set(phrases, { opacity: 0, x: enterX });
 
-        return () => {
-          enterControls.stop();
-          animate(
-            element,
-            { opacity: 0, x: enterX },
-            {
-              duration: beliefMotion.textExitDuration,
-              ease: beliefMotion.referenceEase as [number, number, number, number],
-            }
-          );
-        };
-      },
-      { amount: 0.55 }
-    );
+      phrases.forEach((element) => {
+        ScrollTrigger.create({
+          trigger: element,
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onEnter: () => {
+            gsap.to(element, {
+              opacity: 1,
+              x: 0,
+              duration: shouldReduceMotion
+                ? 0.16
+                : beliefMotion.textRevealDuration,
+              ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
+            });
+          },
+          onLeave: () => {
+            gsap.to(element, {
+              opacity: 0,
+              x: shouldReduceMotion ? 0 : enterX,
+              duration: shouldReduceMotion
+                ? 0.16
+                : beliefMotion.textExitDuration,
+              ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(element, {
+              opacity: 0,
+              x: shouldReduceMotion ? 0 : enterX,
+              duration: shouldReduceMotion
+                ? 0.16
+                : beliefMotion.textExitDuration,
+              ease: shouldReduceMotion ? 'none' : GSAP_GHOST_EASE,
+            });
+          },
+        });
+      });
+    });
 
-    return () => stop();
-  }, [isMobile, shouldReduceMotion]);
+    return () => ctx.revert();
+  }, [containerRef, isMobile, shouldReduceMotion]);
 
   return (
     <div
@@ -75,7 +94,9 @@ export function BeliefScrollText() {
           <div className="pointer-events-none ml-[clamp(1.5rem,6vw,6rem)] max-w-[38vw] text-left max-md:fixed max-md:bottom-[20vh] max-md:left-1/2 max-md:ml-0 max-md:w-[min(86vw,28rem)] max-md:-translate-x-1/2 max-md:text-center">
             <p
               data-belief-phrase
-              className="select-none font-h1 text-[clamp(2.8rem,5.8vw,6.3rem)] font-bold italic leading-[1.05] tracking-[-0.03em] opacity-0 will-change-transform max-md:text-[clamp(2rem,8vw,3rem)]"
+              data-testid="belief-phrase"
+              data-animation-contract="viewport-x-opacity"
+              className="select-none font-h1 text-[clamp(2.8rem,5.8vw,6.3rem)] font-medium italic leading-[1.05] tracking-[-0.03em] opacity-0 will-change-transform max-md:text-[clamp(2rem,8vw,3rem)]"
               style={{ color: beliefColors.blueAccent }}
             >
               {phrase.text}

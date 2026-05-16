@@ -1,8 +1,8 @@
-# Active State: ABOUT BELIEFS GSAP FINALIZATION ✅
+# Active State: ABOUT BELIEFS ORCHESTRATION ✅
 
-**Phase**: O QUE ME MOVE — GSAP FULL MIGRATION
-**Current Focus**: Finalized GSAP ScrollTrigger migration, removed Framer Motion DOM remnants, and fixed relative script imports.
-**Last Update**: 2026-05-13 04:40
+**Phase**: O QUE ME MOVE — ORCHESTRATION FINALIZATION
+**Current Focus**: Finalized the remaining orchestration gap on the current branch, removed the last Motion DOM dependency in `beliefs`, aligned the Ghost wrapper/test contract, and revalidated the section end-to-end.
+**Last Update**: 2026-05-16 18:40
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -12,6 +12,21 @@
 - **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
 - **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
 - **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+
+## Orchestration Finalization (2026-05-16)
+
+- [x] **Type Contract Preserved**: `BeliefsScrollContextValue` remains on `scrollYProgress: { get: () => number }`.
+- [x] **Zero Motion in Section Scope**: `SplitTextMotion.tsx` no longer imports `motion/react`; `beliefs/*` + `GhostScene.tsx` are free of Motion DOM helpers.
+- [x] **Ghost DOM Stability**: `AboutBeliefs.tsx` now exposes a static `beliefs-ghost-scene` wrapper with `z-index: 70`, preserving SSR-visible test hooks.
+- [x] **Manifesto Visibility Fix**: manifesto spans now render white in the verified runtime path.
+- [x] **GhostModel Hardening**: `useGLTF.preload(MODEL_PATH)` is client-gated and dispose cleanup clears geometries/materials plus the Drei loader cache on unmount.
+- [x] **E2E Contract Reconciled**: phrase selectors now expose both `data-belief-phrase` and the legacy E2E hooks `data-testid="belief-phrase"` + `data-animation-contract="viewport-x-opacity"`.
+- [x] **Validation Evidence**:
+  - `pnpm run typecheck` ✅
+  - `pnpm run lint` ✅
+  - `pnpm run build` ✅
+  - `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅ `9 passed`
+- [x] **Environment Note**: verification was executed under Node `v26.0.0` / pnpm `11.1.2`; the repo still declares Node `22`, and the CLI emitted only engine warnings during validation.
 
 ## GSAP Final Migration (2026-05-13)
 

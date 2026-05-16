@@ -113,15 +113,20 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
   );
 });
 
-const DesktopFluidHeader = React.forwardRef<HTMLElement, DesktopFluidHeaderProps>(
-  function DesktopFluidHeader({
+const DesktopFluidHeader = React.forwardRef<
+  HTMLElement,
+  DesktopFluidHeaderProps
+>(function DesktopFluidHeader(
+  {
     navItems,
     logoUrl,
     onNavigate,
     activeHref,
     isLight,
     accentColor = '#0048ff',
-  }, ref) {
+  },
+  ref
+) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useMotionGate();
   const mountWebGL = useAntigravityStore((state) => state.flags.mountWebGL);
