@@ -52,7 +52,7 @@ export function AlpaBlockImageFull({
           alt={alt || ''}
           width={1920}
           height={1080}
-          className="w-full h-auto transition-transform duration-normal group-hover:scale-105"
+          className="w-full h-auto transition-opacity duration-normal group-hover:opacity-90"
         />
         {caption && (
           <div className="absolute bottom-4 left-4 right-4 text-left">
