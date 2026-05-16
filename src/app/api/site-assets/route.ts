@@ -4,7 +4,6 @@ import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import type { DbAsset } from '@/types/admin';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 30;
 
 export async function GET() {
   try {
