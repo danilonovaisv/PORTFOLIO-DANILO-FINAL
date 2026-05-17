@@ -8,9 +8,7 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { LandingPageBlock } from '@/types/landing-page';
-import {
-  parseLandingPageContent,
-} from '@/lib/projects/template-schema';
+import { parseLandingPageContent } from '@/lib/projects/template-schema';
 import { getAssetUrl } from '@/lib/utils';
 import {
   MASTER_PROJECT_TEMPLATE,

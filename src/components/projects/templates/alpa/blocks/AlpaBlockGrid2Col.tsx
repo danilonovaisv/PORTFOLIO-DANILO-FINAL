@@ -28,12 +28,17 @@ export function AlpaBlockGrid2Col({
       {columns?.map((col, cIdx) => {
         const isImage = col.type === 'image';
         const isVid = col.type === 'video';
-        
-        const resolvedSrc = isImage || isVid 
-          ? getAssetUrl(col.src, isVid ? { isVideo: true } : { width: 1200, quality: 85 })
-          : '';
-        
-        const resolvedPoster = isVid && col.poster ? getAssetUrl(col.poster) : undefined;
+
+        const resolvedSrc =
+          isImage || isVid
+            ? getAssetUrl(
+                col.src,
+                isVid ? { isVideo: true } : { width: 1200, quality: 85 }
+              )
+            : '';
+
+        const resolvedPoster =
+          isVid && col.poster ? getAssetUrl(col.poster) : undefined;
 
         return (
           <m.div

@@ -34,7 +34,10 @@ export function AlpaBlockMediaText({
   openAsset,
 }: AlpaBlockMediaTextProps) {
   const isVid = mediaType === 'video' || (media && isVideo(media));
-  const resolvedMedia = getAssetUrl(media, isVid ? { isVideo: true } : { width: 1200, quality: 85 });
+  const resolvedMedia = getAssetUrl(
+    media,
+    isVid ? { isVideo: true } : { width: 1200, quality: 85 }
+  );
   const resolvedPoster = isVid && poster ? getAssetUrl(poster) : undefined;
 
   const MediaComponent = (
@@ -85,7 +88,11 @@ export function AlpaBlockMediaText({
       initial={revealInitial}
       whileInView={revealVisible}
       viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: MOTION_TOKENS.duration.normal, delay: 0.1, ease: GHOST_EASE }}
+      transition={{
+        duration: MOTION_TOKENS.duration.normal,
+        delay: 0.1,
+        ease: GHOST_EASE,
+      }}
       className="flex flex-col justify-center"
     >
       <div className="text-base md:text-lg text-textSecondary leading-relaxed space-y-4">

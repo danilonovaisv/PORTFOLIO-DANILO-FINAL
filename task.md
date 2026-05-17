@@ -9,6 +9,7 @@
 ## FASE P0-G — GitHub & Higiene do Repositório
 
 ### Task P0-G1: Atualizar `.gitignore` com entradas faltantes
+
 - **Responsável:** Repo Architect
 - **Arquivo:** `.gitignore` (raiz)
 - **Pré-condição:** Aprovação humana recebida
@@ -21,6 +22,7 @@
 - **Validação:** `grep "npm_cache\|graphify-out\|output/" .gitignore` retorna entradas
 
 ### Task P0-G2: Remover `functions/.npm_cache/` do tracking git
+
 - **Responsável:** Repo Architect
 - **Pré-condição:** P0-G1 concluído
 - **Passos:**
@@ -30,6 +32,7 @@
 - **Validação:** `git ls-files functions/.npm_cache | wc -l` retorna 0
 
 ### Task P0-G3: Remover arquivos temporários da raiz do tracking
+
 - **Responsável:** Repo Architect
 - **Pré-condição:** P0-G1 concluído
 - **Passos:**
@@ -38,6 +41,7 @@
 - **Validação:** `git ls-files | grep -E "^[^/]+\.txt$"` retorna vazio
 
 ### Task P0-G4: Remover diretórios de output do tracking
+
 - **Responsável:** Repo Architect
 - **Pré-condição:** P0-G1 concluído
 - **Passos:**
@@ -47,6 +51,7 @@
 - **Validação:** `git ls-files output/ graphify-out/ scratch/` retorna vazio
 
 ### Task P0-G5: Decisão estratégica sobre `.agent/skills` (6.346 arquivos)
+
 - **Responsável:** Arquiteto + Danilo (decisão humana)
 - **Opções:**
   - A) Manter no repositório (sem ação)
@@ -56,6 +61,7 @@
 - **Validação:** Decisão documentada em `AGENTS.md`
 
 ### Task P0-G6: Commit de higiene
+
 - **Pré-condição:** P0-G1 a P0-G4 concluídos, decisão P0-G5 tomada
 - **Mensagem de commit sugerida:** `chore: remove tracked build artifacts and temp files from git history`
 - **Validação:** `git ls-files | wc -l` < 5.500 (ou < 4.000 se P0-G5 incluir remoção de skills)
@@ -65,6 +71,7 @@
 ## FASE P0-GS — Ghost System (Bloqueadores Arquiteturais)
 
 ### Task P0-GS1: Criar `src/components/motion/MotionLink.tsx`
+
 - **Responsável:** Motion Governance Specialist
 - **Arquivo destino:** `src/components/motion/MotionLink.tsx`
 - **Pré-condição:** Aprovação humana recebida
@@ -77,6 +84,7 @@
 - **Validação:** Componente renderiza sem erros, preserva prefetch (verificar Network tab)
 
 ### Task P0-GS2: Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx`
+
 - **Responsável:** Motion Governance Specialist
 - **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
 - **Linha alvo:** 67-78 (bloco `const LinkComponent = isExternalHref(...) ? m.a : m.button`)
@@ -91,6 +99,7 @@
   - Sem erros de console
 
 ### Task P0-GS3: Criar `src/lib/supabase/image-loader.ts`
+
 - **Responsável:** Supabase Storage Specialist
 - **Arquivo destino:** `src/lib/supabase/image-loader.ts`
 - **Pré-condição:** Aprovação humana recebida
@@ -107,6 +116,7 @@
 ## FASE P1-GS — Ghost System (Melhorias)
 
 ### Task P1-GS1: Corrigir `rotate` em `CategoryStripe.tsx`
+
 - **Responsável:** Motion Governance Specialist
 - **Arquivo:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
 - **Linha:** 163 — `rotate: isHovered ? 0 : -45`
@@ -119,6 +129,7 @@
 - **Validação:** Sem uso de `rotate` no bloco de animação do componente
 
 ### Task P1-GS2: Referenciar `image-loader` em `next.config.mjs`
+
 - **Responsável:** Next.js Architect
 - **Pré-condição:** P0-GS3 concluído e testado
 - **Passos:**
@@ -127,6 +138,7 @@
 - **Validação:** Build completo sem erros, imagens servidas com transform URL
 
 ### Task P1-GS3: Validar altura de cards em `FeaturedProjectsSection.tsx`
+
 - **Responsável:** QA Visual
 - **Arquivo:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
 - **Passos:**
@@ -135,6 +147,7 @@
 - **Validação:** Screenshots comparados com spec visual
 
 ### Task P1-GS4: Auditar estado ativo no Header
+
 - **Responsável:** QA Visual + Motion Specialist
 - **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
 - **Passos:**
@@ -147,18 +160,22 @@
 ## FASE P2 — Validação Final
 
 ### Task P2-V1: Build check completo
+
 - **Comando:** `pnpm run build-check`
 - **Critério:** Zero erros de TypeScript e lint
 
 ### Task P2-V2: Verificar contagem de arquivos rastreados
+
 - **Comando:** `git ls-files | wc -l`
 - **Critério:** < 5.500 (sem remover skills) ou < 4.000 (com remoção de skills)
 
 ### Task P2-V3: Gerar walkthrough.md final
+
 - **Conteúdo:** Alterações realizadas, arquivos modificados, pendências, plano de rollback
 - **Local:** `docs/walkthrough-audit-2026-05-17.md` (mover da raiz para docs/)
 
 ### Task P2-V4: Atualizar `.context/` com novo estado
+
 - **Arquivos a atualizar:** `.context/active_state.md`, `.context/knowledge-graph.md`
 
 ---

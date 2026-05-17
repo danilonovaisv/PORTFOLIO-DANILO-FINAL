@@ -37,7 +37,10 @@ export default function BlockMedia({
   aspectClassName = 'aspect-[16/10]',
   sizes = '(max-width: 1024px) 100vw, 80vw',
 }: BlockMediaProps) {
-  const src = getAssetUrl(item.src, isVideoAsset(item) ? { isVideo: true } : { width: 1600, quality: 85 });
+  const src = getAssetUrl(
+    item.src,
+    isVideoAsset(item) ? { isVideo: true } : { width: 1600, quality: 85 }
+  );
 
   if (!src) {
     return (

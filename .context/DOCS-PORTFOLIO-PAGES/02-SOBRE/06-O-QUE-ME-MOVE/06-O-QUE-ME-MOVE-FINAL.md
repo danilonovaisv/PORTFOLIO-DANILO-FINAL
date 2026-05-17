@@ -1,4 +1,3 @@
-
 # 📄 ABOUT BELIEFS — MASTER BLUEPRINT + PROMPTS (FINAL)
 
 ````md
@@ -22,6 +21,7 @@ A seção não é sobre animação.
 ## 1.2 Classificação das animações
 
 ### PRODUTIVAS
+
 - entrada de frases
 - transições de background
 - leitura guiada
@@ -29,6 +29,7 @@ A seção não é sobre animação.
 → objetivo: clareza
 
 ### EXPRESSIVAS
+
 - ghost 3D
 - manifesto final
 
@@ -88,6 +89,7 @@ purpleDetails #8705f2
 pinkDetails   #f501d3
 background    #040013
 text          #fcffff
+```
 ````
 
 ---
@@ -103,7 +105,7 @@ const BACKGROUND_SEQUENCE = [
   '#0048ff',
   '#8705f2',
   '#f501d3',
-  '#040013'
+  '#040013',
 ];
 ```
 
@@ -111,28 +113,28 @@ const BACKGROUND_SEQUENCE = [
 
 ## 3.3 Tipografia
 
-* display: manifesto
-* h1: header
-* body enhanced: frases
+- display: manifesto
+- h1: header
+- body enhanced: frases
 
 ---
 
 ## 3.4 Grid
 
-* desktop: 12 cols
-* mobile: 4 cols
+- desktop: 12 cols
+- mobile: 4 cols
 
 ---
 
 ## 3.5 Z-index
 
 ```ts
-background: 0
-overlay: 10
-header: 30
-text: 40
-manifesto: 50
-ghost: 70
+background: 0;
+overlay: 10;
+header: 30;
+text: 40;
+manifesto: 50;
+ghost: 70;
 ```
 
 ---
@@ -185,10 +187,10 @@ inView(element, () => {
 
 ## 5.3 PROIBIDO
 
-* ❌ y animation
-* ❌ blur animado
-* ❌ stagger nas frases
-* ❌ scrub contínuo
+- ❌ y animation
+- ❌ blur animado
+- ❌ stagger nas frases
+- ❌ scrub contínuo
 
 ---
 
@@ -196,14 +198,14 @@ inView(element, () => {
 
 ## Regra
 
-* único layer
-* troca por seção
-* controlado por index
+- único layer
+- troca por seção
+- controlado por index
 
 ```ts
 animate(bg, {
-  backgroundColor: nextColor
-})
+  backgroundColor: nextColor,
+});
 ```
 
 ---
@@ -220,9 +222,9 @@ animate(bg, {
 
 ### Base
 
-* float contínuo
-* drift X/Z
-* rotação leve
+- float contínuo
+- drift X/Z
+- rotação leve
 
 ### Scroll
 
@@ -237,9 +239,9 @@ z: cos(progress)
 
 ## 7.3 Regras críticas
 
-* alinhado ao centro do texto
-* não ao viewport
-* sem interação no mobile
+- alinhado ao centro do texto
+- não ao viewport
+- sem interação no mobile
 
 ---
 
@@ -269,17 +271,17 @@ range: 0.82 → 0.95
 
 ## Obrigatório
 
-* transform + opacity only
-* 60fps
-* sem layout thrashing
+- transform + opacity only
+- 60fps
+- sem layout thrashing
 
 ## Proibido
 
-* width
-* height
-* top/left
-* margin/padding
-* filter pesado
+- width
+- height
+- top/left
+- margin/padding
+- filter pesado
 
 ---
 
@@ -308,9 +310,9 @@ if (reducedMotion) {
 
 ## WCAG
 
-* pause se >5s
-* sem flash >3Hz
-* manter foco
+- pause se >5s
+- sem flash >3Hz
+- manter foco
 
 ---
 
@@ -318,17 +320,17 @@ if (reducedMotion) {
 
 ## Timing
 
-* micro: 100–200ms
-* macro: 300–500ms
-* texto: 0.9s (fixo)
+- micro: 100–200ms
+- macro: 300–500ms
+- texto: 0.9s (fixo)
 
 ---
 
 ## Easing
 
-* proibido linear
-* usar ease-out / cubic-bezier
-* ghost → spring feel
+- proibido linear
+- usar ease-out / cubic-bezier
+- ghost → spring feel
 
 ---
 
@@ -351,35 +353,35 @@ if (reducedMotion) {
 
 ## DevTools
 
-* Performance tab
-* FPS meter
-* detectar repaint
+- Performance tab
+- FPS meter
+- detectar repaint
 
 ---
 
 ## Testes obrigatórios
 
-* mobile low-end
-* CPU throttling
-* scroll rápido
-* scroll lento
+- mobile low-end
+- CPU throttling
+- scroll rápido
+- scroll lento
 
 ---
 
 ## Acessibilidade
 
-* teclado
-* screen reader
-* foco
+- teclado
+- screen reader
+- foco
 
 ---
 
 # 15. ANTI-PATTERNS
 
-* misturar inView + scrub
-* usar blur animado
-* dividir lógica mobile/desktop
-* usar split text nas frases
+- misturar inView + scrub
+- usar blur animado
+- dividir lógica mobile/desktop
+- usar split text nas frases
 
 ````
 
@@ -453,8 +455,8 @@ You are a senior frontend engineer.
 
 Você estava tentando sustentar duas arquiteturas ao mesmo tempo:
 
-* Motion reference (clean, cinematográfica)
-* Scroll progress (experimental)
+- Motion reference (clean, cinematográfica)
+- Scroll progress (experimental)
 
 Isso ia quebrar inevitavelmente.
 
@@ -470,7 +472,7 @@ Se quiser dar o próximo passo certo, eu faria:
 
 Se quiser, posso te entregar isso como:
 
-* prompt system completo
-* ou arquitetura de animação do site inteiro
+- prompt system completo
+- ou arquitetura de animação do site inteiro
 
 Esse é o nível que começa a diferenciar portfólio de produto.

@@ -173,14 +173,20 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               <m.span
                 className="absolute"
                 animate={{ opacity: isHovered ? 0 : 1 }}
-                transition={{ duration: MOTION_TOKENS.duration.modal, ease: GHOST_EASE }}
+                transition={{
+                  duration: MOTION_TOKENS.duration.modal,
+                  ease: GHOST_EASE,
+                }}
               >
                 <ArrowUpRight className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
               </m.span>
               <m.span
                 className="absolute"
                 animate={{ opacity: isHovered ? 1 : 0 }}
-                transition={{ duration: MOTION_TOKENS.duration.modal, ease: GHOST_EASE }}
+                transition={{
+                  duration: MOTION_TOKENS.duration.modal,
+                  ease: GHOST_EASE,
+                }}
               >
                 <ArrowUp className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
               </m.span>

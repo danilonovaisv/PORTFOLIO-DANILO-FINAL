@@ -1,6 +1,6 @@
 ---
 trigger: glob
-glob: "**/*.{tf,hcl,yaml,yml,json}"
+glob: '**/*.{tf,hcl,yaml,yml,json}'
 ---
 
 # ARCHITECTURE-REVIEW.MD - Enterprise System Integrity

@@ -16,18 +16,18 @@
 ## ✅ 2. Best Practices (Khuyên Dùng)
 
 1.  **Naming Convention**:
-    *   Variable/Function: `camelCase` (e.g., `userProfile`)
-    *   Class/Component: `PascalCase` (e.g., `UserProfile`)
-    *   Constant: `SCREAMING_SNAKE_CASE` (e.g., `MAX_RETRIES`)
-    *   File: `kebab-case` (e.g., `user-profile.ts`)
+    - Variable/Function: `camelCase` (e.g., `userProfile`)
+    - Class/Component: `PascalCase` (e.g., `UserProfile`)
+    - Constant: `SCREAMING_SNAKE_CASE` (e.g., `MAX_RETRIES`)
+    - File: `kebab-case` (e.g., `user-profile.ts`)
 
 2.  **Comments**:
-    *   Giải thích "TẠI SAO", không giải thích "CÁI GÌ".
-    *   Dùng JSDoc/DocString cho các hàm public.
+    - Giải thích "TẠI SAO", không giải thích "CÁI GÌ".
+    - Dùng JSDoc/DocString cho các hàm public.
 
 3.  **Error Handling**:
-    *   Luôn dùng `try/catch` cho async/await.
-    *   Không nuốt lỗi (silent fail). Hãy log hoặc throw.
+    - Luôn dùng `try/catch` cho async/await.
+    - Không nuốt lỗi (silent fail). Hãy log hoặc throw.
 
 ---
 

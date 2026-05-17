@@ -1,7 +1,7 @@
 {
-  "timestamp_utc": "2026-02-25T08:05:06+00:00",
+  "timestamp_utc": "2026-05-17T08:01:49+00:00",
   "applied_fixes": [
-    "Backed up firebase.json to reports/backups/firebase.20260225080506+0000.json",
+    "Backed up firebase.json to reports/backups/firebase.20260517080149+0000.json",
     "Generated reports/firebase.json.diff.patch",
     "Applied hosting header/cache/trailingSlash hardening to firebase.json"
   ]

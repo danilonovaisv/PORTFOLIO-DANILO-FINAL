@@ -1,19 +1,98 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css"></head><body>
-<div class="card">
-  <style>
-    .ghost-ease-demo{position:relative;height:48px;background:rgba(255,255,255,.04);border-radius:8px;overflow:hidden;}
-    .ghost-ease-demo::before{content:"";position:absolute;top:50%;left:0;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:radial-gradient(circle,#4fe6ff,#0048ff 60%,transparent);animation:slide 2s cubic-bezier(.22,1,.36,1) infinite;}
-    @keyframes slide{0%{left:8px;opacity:.3}30%{opacity:1}100%{left:calc(100% - 44px);opacity:1}}
-  </style>
-  <div class="col" style="gap:10px;">
-    <div class="ghost-ease-demo"></div>
-    <div class="mono">ghost ease · cubic-bezier(0.22, 1, 0.36, 1)</div>
-    <div class="mono" style="color:#fff;">fast start · soft brake · spectral</div>
-    <div class="row" style="gap:10px;margin-top:4px;">
-      <div style="padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-family:Manrope;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">0.2s ui</div>
-      <div style="padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-family:Manrope;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">0.8s reveal</div>
-      <div style="padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-family:Manrope;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">1.5s atmosphere</div>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="card.css" />
+  </head>
+  <body>
+    <div class="card">
+      <style>
+        .ghost-ease-demo {
+          position: relative;
+          height: 48px;
+          background: rgba(255, 255, 255, 0.04);
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        .ghost-ease-demo::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            #4fe6ff,
+            #0048ff 60%,
+            transparent
+          );
+          animation: slide 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+        }
+        @keyframes slide {
+          0% {
+            left: 8px;
+            opacity: 0.3;
+          }
+          30% {
+            opacity: 1;
+          }
+          100% {
+            left: calc(100% - 44px);
+            opacity: 1;
+          }
+        }
+      </style>
+      <div class="col" style="gap: 10px">
+        <div class="ghost-ease-demo"></div>
+        <div class="mono">ghost ease · cubic-bezier(0.22, 1, 0.36, 1)</div>
+        <div class="mono" style="color: #fff">
+          fast start · soft brake · spectral
+        </div>
+        <div class="row" style="gap: 10px; margin-top: 4px">
+          <div
+            style="
+              padding: 4px 10px;
+              border: 1px solid rgba(255, 255, 255, 0.18);
+              border-radius: 999px;
+              font-family: Manrope;
+              font-size: 11px;
+              letter-spacing: 0.14em;
+              text-transform: uppercase;
+            "
+          >
+            0.2s ui
+          </div>
+          <div
+            style="
+              padding: 4px 10px;
+              border: 1px solid rgba(255, 255, 255, 0.18);
+              border-radius: 999px;
+              font-family: Manrope;
+              font-size: 11px;
+              letter-spacing: 0.14em;
+              text-transform: uppercase;
+            "
+          >
+            0.8s reveal
+          </div>
+          <div
+            style="
+              padding: 4px 10px;
+              border: 1px solid rgba(255, 255, 255, 0.18);
+              border-radius: 999px;
+              font-family: Manrope;
+              font-size: 11px;
+              letter-spacing: 0.14em;
+              text-transform: uppercase;
+            "
+          >
+            1.5s atmosphere
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-</body></html>
+  </body>
+</html>

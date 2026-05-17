@@ -16,19 +16,22 @@ trigger: always_on
 Hệ thống điều chỉnh mức độ nghiêm ngặt và cách phối hợp dựa trên `scale`:
 
 ### 👤 [Flexible] - Chế độ Cá nhân (Solo-Ninja)
+
 - **Tư duy**: Tận dụng tối đa tốc độ. Một Agent xử lý đa nhiệm (Fullstack).
 - **Quy trình**: Bỏ qua các bước Checkpoint rườm rà. Ưu tiên ra kết quả nhanh.
 - **Liên kết**: Agent có toàn quyền truy cập toàn bộ `.shared` và `.skills` mà không cần xin phép Orchestrator.
 
 ### 👥 [Balanced] - Chế độ Team (Agile-Squad)
+
 - **Tư duy**: Phân vai rõ ràng, ưu tiên tính nhất quán và cộng tác.
 - **Quy trình**: Bắt buộc có `/plan` tối giản. Có Review chéo giữa Backend và Frontend.
 - **Liên kết**: Agent phải trỏ đúng `dna_ref` trong header của mình.
 
 ### 🏢 [Strict] - Chế độ Doanh nghiệp (Software-Factory)
+
 - **Tư duy**: Chuẩn hóa, an toàn và có thể mở rộng.
 - **Quy trình**: Tuân thủ tuyệt đối 5 bước PDCA. Bắt buộc có `security-auditor` và `test-engineer` tham gia mọi Task.
-- **Liên kết**: Chỉ được đọc/viết file trong Domain được chỉ định bởi Orchestrator. 
+- **Liên kết**: Chỉ được đọc/viết file trong Domain được chỉ định bởi Orchestrator.
 
 ---
 
@@ -58,10 +61,10 @@ Sử dụng workflow `/plan` -> `/create` -> `/orchestrate` -> `/status`.
 Trước khi thực hiện bất kỳ hành động nào (Coding, Design, Planning), Agent PHẢI tự rà soát:
 
 1.  **Identify**: Xác định đúng chuyên gia (Domain Expert) cho tác vụ.
-    *   *Frontend* -> `frontend-specialist`
-    *   *Backend* -> `backend-specialist`
-    *   *System* -> `orchestrator`
-    *   *Web/Vision* -> `browser-subagent` (Sử dụng `browser.js` để đọc web realtime)
+    - _Frontend_ -> `frontend-specialist`
+    - _Backend_ -> `backend-specialist`
+    - _System_ -> `orchestrator`
+    - _Web/Vision_ -> `browser-subagent` (Sử dụng `browser.js` để đọc web realtime)
 2.  **Read Profile**: Đọc file `.md` định danh của Agent đó trong `.agent/agents/`.
 3.  **Announce**: Khai báo danh tính đầu câu trả lời. Ví dụ: `🤖 Applying knowledge of @frontend-specialist...`
 4.  **Load Skills**: Tải các Skills được liệt kê trong `skills:` của Agent đó.
@@ -71,6 +74,7 @@ Trước khi thực hiện bất kỳ hành động nào (Coding, Design, Planni
 ## 🧠 3. SCIENTIFIC LINKAGE (Cơ chế liên kết)
 
 Mọi file trong hệ thống phải tuân thủ cấu trúc liên kết:
+
 1. **DNA (`.shared/`)**: Định nghĩa "Cái gì" (Chuẩn thiết kế, API, DB).
 2. **RULES (`rules/`)**: Thực thi "Như thế nào" (Rào chắn, kỷ luật, Safety Watchdog).
 3. **SKILLS (`skills/`)**: Cung cấp "Công cụ gì" (Tri thức chuyên sâu).
@@ -87,4 +91,4 @@ Mọi file trong hệ thống phải tuân thủ cấu trúc liên kết:
 
 ---
 
-*Văn bản này là nguồn dữ liệu tối cao, định hướng mọi hành vi của hệ thống.*
+_Văn bản này là nguồn dữ liệu tối cao, định hướng mọi hành vi của hệ thống._

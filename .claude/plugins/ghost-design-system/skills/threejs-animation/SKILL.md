@@ -8,7 +8,7 @@ description: Three.js animation - keyframe animation, skeletal animation, morph 
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
+import * as THREE from 'three';
 
 // Simple procedural animation
 const clock = new THREE.Clock();
@@ -44,23 +44,23 @@ const times = [0, 1, 2]; // Keyframe times (seconds)
 const values = [0, 1, 0]; // Values at each keyframe
 
 const track = new THREE.NumberKeyframeTrack(
-  ".position[y]", // Property path
+  '.position[y]', // Property path
   times,
-  values,
+  values
 );
 
-const clip = new THREE.AnimationClip("bounce", 2, [track]);
+const clip = new THREE.AnimationClip('bounce', 2, [track]);
 ```
 
 ### KeyframeTrack Types
 
 ```javascript
 // Number track (single value)
-new THREE.NumberKeyframeTrack(".opacity", times, [1, 0]);
-new THREE.NumberKeyframeTrack(".material.opacity", times, [1, 0]);
+new THREE.NumberKeyframeTrack('.opacity', times, [1, 0]);
+new THREE.NumberKeyframeTrack('.material.opacity', times, [1, 0]);
 
 // Vector track (position, scale)
-new THREE.VectorKeyframeTrack(".position", times, [
+new THREE.VectorKeyframeTrack('.position', times, [
   0,
   0,
   0, // t=0
@@ -76,13 +76,13 @@ new THREE.VectorKeyframeTrack(".position", times, [
 const q1 = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, 0));
 const q2 = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI, 0));
 new THREE.QuaternionKeyframeTrack(
-  ".quaternion",
+  '.quaternion',
   [0, 1],
-  [q1.x, q1.y, q1.z, q1.w, q2.x, q2.y, q2.z, q2.w],
+  [q1.x, q1.y, q1.z, q1.w, q2.x, q2.y, q2.z, q2.w]
 );
 
 // Color track
-new THREE.ColorKeyframeTrack(".material.color", times, [
+new THREE.ColorKeyframeTrack('.material.color', times, [
   1,
   0,
   0, // red
@@ -95,20 +95,20 @@ new THREE.ColorKeyframeTrack(".material.color", times, [
 ]);
 
 // Boolean track
-new THREE.BooleanKeyframeTrack(".visible", [0, 0.5, 1], [true, false, true]);
+new THREE.BooleanKeyframeTrack('.visible', [0, 0.5, 1], [true, false, true]);
 
 // String track (for morph targets)
 new THREE.StringKeyframeTrack(
-  ".morphTargetInfluences[smile]",
+  '.morphTargetInfluences[smile]',
   [0, 1],
-  ["0", "1"],
+  ['0', '1']
 );
 ```
 
 ### Interpolation Modes
 
 ```javascript
-const track = new THREE.VectorKeyframeTrack(".position", times, values);
+const track = new THREE.VectorKeyframeTrack('.position', times, values);
 
 // Interpolation
 track.setInterpolation(THREE.InterpolateLinear); // Default
@@ -140,12 +140,12 @@ function animate() {
 ### Mixer Events
 
 ```javascript
-mixer.addEventListener("finished", (e) => {
-  console.log("Animation finished:", e.action.getClip().name);
+mixer.addEventListener('finished', (e) => {
+  console.log('Animation finished:', e.action.getClip().name);
 });
 
-mixer.addEventListener("loop", (e) => {
-  console.log("Animation looped:", e.action.getClip().name);
+mixer.addEventListener('loop', (e) => {
+  console.log('Animation looped:', e.action.getClip().name);
 });
 ```
 
@@ -214,10 +214,10 @@ action2.play();
 Most common source of skeletal animations.
 
 ```javascript
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const loader = new GLTFLoader();
-loader.load("model.glb", (gltf) => {
+loader.load('model.glb', (gltf) => {
   const model = gltf.scene;
   scene.add(model);
 
@@ -227,8 +227,8 @@ loader.load("model.glb", (gltf) => {
   // Get all clips
   const clips = gltf.animations;
   console.log(
-    "Available animations:",
-    clips.map((c) => c.name),
+    'Available animations:',
+    clips.map((c) => c.name)
   );
 
   // Play first animation
@@ -238,7 +238,7 @@ loader.load("model.glb", (gltf) => {
   }
 
   // Play specific animation by name
-  const walkClip = THREE.AnimationClip.findByName(clips, "Walk");
+  const walkClip = THREE.AnimationClip.findByName(clips, 'Walk');
   if (walkClip) {
     mixer.clipAction(walkClip).play();
   }
@@ -263,7 +263,7 @@ function animate() {
 
 ```javascript
 // Access skeleton from skinned mesh
-const skinnedMesh = model.getObjectByProperty("type", "SkinnedMesh");
+const skinnedMesh = model.getObjectByProperty('type', 'SkinnedMesh');
 const skeleton = skinnedMesh.skeleton;
 
 // Access bones
@@ -272,7 +272,7 @@ skeleton.bones.forEach((bone) => {
 });
 
 // Find specific bone by name
-const headBone = skeleton.bones.find((b) => b.name === "Head");
+const headBone = skeleton.bones.find((b) => b.name === 'Head');
 if (headBone) headBone.rotation.y = Math.PI / 4; // Turn head
 
 // Skeleton helper
@@ -287,7 +287,7 @@ function animate() {
   const time = clock.getElapsedTime();
 
   // Animate bone
-  const headBone = skeleton.bones.find((b) => b.name === "Head");
+  const headBone = skeleton.bones.find((b) => b.name === 'Head');
   if (headBone) {
     headBone.rotation.y = Math.sin(time) * 0.3;
   }
@@ -302,7 +302,7 @@ function animate() {
 ```javascript
 // Attach object to bone
 const weapon = new THREE.Mesh(weaponGeometry, weaponMaterial);
-const handBone = skeleton.bones.find((b) => b.name === "RightHand");
+const handBone = skeleton.bones.find((b) => b.name === 'RightHand');
 if (handBone) handBone.add(weapon);
 
 // Offset attachment
@@ -317,7 +317,7 @@ Blend between different mesh shapes.
 ```javascript
 // Morph targets are stored in geometry
 const geometry = mesh.geometry;
-console.log("Morph attributes:", Object.keys(geometry.morphAttributes));
+console.log('Morph attributes:', Object.keys(geometry.morphAttributes));
 
 // Access morph target influences
 mesh.morphTargetInfluences; // Array of weights
@@ -327,7 +327,7 @@ mesh.morphTargetDictionary; // Name -> index mapping
 mesh.morphTargetInfluences[0] = 0.5;
 
 // Set by name
-const smileIndex = mesh.morphTargetDictionary["smile"];
+const smileIndex = mesh.morphTargetDictionary['smile'];
 mesh.morphTargetInfluences[smileIndex] = 1;
 ```
 
@@ -342,11 +342,11 @@ function animate() {
 
 // With keyframe animation
 const track = new THREE.NumberKeyframeTrack(
-  ".morphTargetInfluences[smile]",
+  '.morphTargetInfluences[smile]',
   [0, 0.5, 1],
-  [0, 1, 0],
+  [0, 1, 0]
 );
-const clip = new THREE.AnimationClip("smile", 1, [track]);
+const clip = new THREE.AnimationClip('smile', 1, [track]);
 mixer.clipAction(clip).play();
 ```
 
@@ -409,13 +409,13 @@ THREE.AnimationUtils.makeClipAdditive(additiveClip);
 ## Animation Utilities
 
 ```javascript
-import * as THREE from "three";
+import * as THREE from 'three';
 
 // Find clip by name
-const clip = THREE.AnimationClip.findByName(clips, "Walk");
+const clip = THREE.AnimationClip.findByName(clips, 'Walk');
 
 // Create subclip
-const subclip = THREE.AnimationUtils.subclip(clip, "subclip", 0, 30, 30);
+const subclip = THREE.AnimationUtils.subclip(clip, 'subclip', 0, 30, 30);
 
 // Convert to additive
 THREE.AnimationUtils.makeClipAdditive(clip);

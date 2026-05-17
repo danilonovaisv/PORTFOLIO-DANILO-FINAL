@@ -147,13 +147,13 @@ Conformidade Ghost System:
 
 ## 9. Componentes Interativos
 
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| `ShaderAnimation` | Renderiza o shader procedural em WebGL com Three.js | Mounted, Animating, Resizing, Unmounted | Resize de viewport e loop contínuo de renderização | Implementado |
-| `ShaderSection` | Orquestra a seção editorial da HOME com fundo shader e texto central | Hidden, Revealed | Reveal por viewport | Implementado |
-| Texto editorial | Frase central da seção com destaque semântico por cor | Initial, Visible | Entrada com `opacity` e `translateY` | Implementado |
-| Overlay radial | Camada de apoio visual para profundidade e legibilidade | Estático | Nenhuma | Implementado |
-| Border glow | Linha inferior decorativa com gradiente horizontal | Estático | Nenhuma | Implementado |
+| Componente        | Descrição                                                            | Estados                                 | Interações                                         | Status       |
+| ----------------- | -------------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------- | ------------ |
+| `ShaderAnimation` | Renderiza o shader procedural em WebGL com Three.js                  | Mounted, Animating, Resizing, Unmounted | Resize de viewport e loop contínuo de renderização | Implementado |
+| `ShaderSection`   | Orquestra a seção editorial da HOME com fundo shader e texto central | Hidden, Revealed                        | Reveal por viewport                                | Implementado |
+| Texto editorial   | Frase central da seção com destaque semântico por cor                | Initial, Visible                        | Entrada com `opacity` e `translateY`               | Implementado |
+| Overlay radial    | Camada de apoio visual para profundidade e legibilidade              | Estático                                | Nenhuma                                            | Implementado |
+| Border glow       | Linha inferior decorativa com gradiente horizontal                   | Estático                                | Nenhuma                                            | Implementado |
 
 ## 10. Estrutura de Páginas e Navegação
 

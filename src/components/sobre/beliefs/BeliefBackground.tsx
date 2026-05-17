@@ -1,7 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { BELIEF_BACKGROUND_STOPS, beliefColors, beliefZIndex } from '@/config/beliefTokens';
+import {
+  BELIEF_BACKGROUND_STOPS,
+  beliefColors,
+  beliefZIndex,
+} from '@/config/beliefTokens';
 import { useBeliefsScrollContext } from './BeliefsScrollContext';
 
 export function BeliefBackground() {

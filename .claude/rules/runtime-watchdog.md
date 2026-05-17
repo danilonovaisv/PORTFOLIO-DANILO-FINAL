@@ -10,12 +10,12 @@ trigger: always_on
 
 ## 🚫 1. LOOP & HANG PREVENTION (Chống Treo & Vòng Lặp)
 
-1.  **Tool Call Repetition**: 
+1.  **Tool Call Repetition**:
     - Cấm gọi cùng một Tool với cùng một tham số quá 3 lần liên tiếp nếu kết quả trả về không thay đổi.
     - Nếu Tool thất bại, PHẢI thay đổi chiến thuật (đổi tham số, đổi tool khác hoặc hỏi ý kiến người dùng) thay vì thử lại mù quáng.
 
 2.  **Recursive Depth Limit**:
-    - Giới hạn độ sâu khi đọc thư mục hoặc tìm kiếm file là **5 cấp**. 
+    - Giới hạn độ sâu khi đọc thư mục hoặc tìm kiếm file là **5 cấp**.
     - Nếu cần đào sâu hơn, PHẢI giải trình lý do trong Plan.
 
 3.  **Heavy Command Safety**:
@@ -39,6 +39,7 @@ trigger: always_on
 ## 🛠️ 3. ERROR RECOVERY PROTOCOL (Quy trình Phục hồi)
 
 Khi phát hiện dấu hiệu bị TREO hoặc VÒNG LẶP:
+
 1.  **STOP**: Dừng ngay hành động hiện tại.
 2.  **ANALYZE**: Kiểm tra log terminal gần nhất để tìm nguyên nhân (ví dụ: chờ input, deadlock, network lag).
 3.  **CLEANUP**: Xóa các file tạm, giết các tiến trình con liên quan (Zombie processes).

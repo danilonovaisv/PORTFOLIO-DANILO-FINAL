@@ -87,29 +87,28 @@ export function AlpaBlock({
       );
 
     case 'image-image':
-    case 'grid-2-col':
-      {
-        const columns = block.columns || [
-          {
-            type: content.mediaType || 'image',
-            src: content.media,
-            alt: content.alt,
-          },
-          {
-            type: content.mediaType2 || 'image',
-            src: content.media2,
-            alt: content.alt2,
-          },
-        ];
-        return (
-          <AlpaBlockGrid2Col
-            columns={columns}
-            revealInitial={revealInitial}
-            revealVisible={revealVisible}
-            openAsset={openAsset}
-          />
-        );
-      }
+    case 'grid-2-col': {
+      const columns = block.columns || [
+        {
+          type: content.mediaType || 'image',
+          src: content.media,
+          alt: content.alt,
+        },
+        {
+          type: content.mediaType2 || 'image',
+          src: content.media2,
+          alt: content.alt2,
+        },
+      ];
+      return (
+        <AlpaBlockGrid2Col
+          columns={columns}
+          revealInitial={revealInitial}
+          revealVisible={revealVisible}
+          openAsset={openAsset}
+        />
+      );
+    }
 
     case 'image-text':
     case 'video-text':

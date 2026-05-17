@@ -1,6 +1,6 @@
 ---
 trigger: glob
-glob: "**/*.{tf,yaml,yml,json,properties,dockerfile}"
+glob: '**/*.{tf,yaml,yml,json,properties,dockerfile}'
 ---
 
 # COMPLIANCE.MD - Enterprise Regulatory Standards
@@ -26,7 +26,7 @@ glob: "**/*.{tf,yaml,yml,json,properties,dockerfile}"
 
 ---
 
-## 🏥 3. HEALTH DATA (HIPAA) - *If Applicable*
+## 🏥 3. HEALTH DATA (HIPAA) - _If Applicable_
 
 1. **Encryption at Rest**: Database phải được mã hóa (TDE).
 2. **Encryption in Transit**: Bắt buộc TLS 1.3 cho mọi kết nối.

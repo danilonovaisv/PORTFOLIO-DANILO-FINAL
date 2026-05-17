@@ -13,22 +13,26 @@ trigger: always_on
 Mỗi khi thêm tính năng mới, Agent PHẢI kiểm tra và cập nhật các file sau:
 
 ### A. Khi thêm SKILL mới
+
 - [ ] `SKILLS.md` - Thêm skill vào danh sách chuẩn
 - [ ] `docs/SKILLS_GUIDE.vi.md` - Thêm vào nhóm phù hợp
 - [ ] `README.vi.md` - Cập nhật số lượng Skills
 - [ ] `README.md` - Cập nhật số lượng Skills (English)
 
 ### B. Khi thêm WORKFLOW mới
+
 - [ ] `docs/WORKFLOW_GUIDE.vi.md` - Thêm section hướng dẫn
 - [ ] `README.vi.md` - Cập nhật số lượng Workflows + thêm vào danh sách `/command`
 - [ ] `README.md` - Tương tự như README.vi.md
 
 ### C. Khi thêm RULE mới
+
 - [ ] `docs/RULES_GUIDE.vi.md` - Thêm vào bảng phân loại thích hợp (Auto/On-Demand).
 - [ ] **Lưu ý**: Phải tuân thủ "Hybrid Language Protocol" (Tên Anh - Mô tả Việt).
 - [ ] `README.vi.md` - Nếu là tính năng nổi bật → Thêm vào phần features
 
 ### D. Khi thêm AGENT mới
+
 - [ ] `docs/AGENTS_GUIDE.vi.md` - Mô tả vai trò và trách nhiệm
 - [ ] `README.vi.md` - Cập nhật số lượng Agents nếu thay đổi
 
@@ -47,19 +51,24 @@ Mỗi khi thêm tính năng mới, Agent PHẢI kiểm tra và cập nhật các
 ## 📊 3. FORMAT CHUẨN
 
 ### Trong README (Bảng thống kê):
+
 ```markdown
 | **XX** Bộ Kỹ năng (Skills) | **XX** Agent Chuyên gia | **XX** Quy trình (Workflows) |
 ```
 
 ### Trong SKILLS_GUIDE:
+
 ```markdown
 ### 🛡️ Nhóm Bảo Mật (Security)
-*   **`skill-name`**: Mô tả ngắn gọn về skill
+
+- **`skill-name`**: Mô tả ngắn gọn về skill
 ```
 
 ### Trong WORKFLOW_GUIDE:
+
 ```markdown
 ### `/workflow-name` - Tiêu đề ngắn gọn
+
 - **Khi nào dùng**: Mô tả use case
 - **Cách dùng**: `/workflow-name [params]`
 ```

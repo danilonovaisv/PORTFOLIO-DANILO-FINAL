@@ -95,7 +95,10 @@ export async function generateMetadata({
     getProjectSeoDescription(parsed, project.title)
   );
   const ogImageCandidate = getProjectOgImage(parsed, project.cover);
-  const ogResolved = getAssetUrl(ogImageCandidate, { width: 1200, quality: 80 });
+  const ogResolved = getAssetUrl(ogImageCandidate, {
+    width: 1200,
+    quality: 80,
+  });
   const ogImage = toAbsoluteUrl(siteUrl, ogResolved);
 
   return {
@@ -175,13 +178,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           title: project.title,
           description: projectDescription,
           image:
-              toAbsoluteUrl(
-                siteUrl,
-                getAssetUrl(getProjectOgImage(parsed, project.cover), {
-                  width: 1200,
-                  quality: 80,
-                })
-              ) ?? `${siteUrl.replace(/\/$/, '')}/opengraph-image`,
+            toAbsoluteUrl(
+              siteUrl,
+              getAssetUrl(getProjectOgImage(parsed, project.cover), {
+                width: 1200,
+                quality: 80,
+              })
+            ) ?? `${siteUrl.replace(/\/$/, '')}/opengraph-image`,
           client: projectClient,
           category: projectCategory,
           year: projectYear as number,

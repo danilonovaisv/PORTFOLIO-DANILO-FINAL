@@ -25,7 +25,6 @@ import { useLandingBackLink } from '@/components/projects/templates/useLandingBa
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 
-
 // LiquidEther removed as it was unused
 // const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
 
@@ -93,7 +92,10 @@ export default function ProjectTemplateMasterRenderer({
   const prefersReducedMotion = useReducedMotion();
   const backHref = useLandingBackLink();
 
-  const heroImage = getAssetUrl(project.hero_cover_image.src, { width: 1920, quality: 90 });
+  const heroImage = getAssetUrl(project.hero_cover_image.src, {
+    width: 1920,
+    quality: 90,
+  });
   const heroLogo = project.hero_logo_image?.src
     ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
     : '';

@@ -22,8 +22,8 @@ export function AboutMethod() {
   const prefersReducedMotion = useMotionGate();
   const isMobile = useIsMobile();
 
-  const activeVideo = isMobile 
-    ? ABOUT_CONTENT.method.videos.mobile 
+  const activeVideo = isMobile
+    ? ABOUT_CONTENT.method.videos.mobile
     : ABOUT_CONTENT.method.videos.desktop;
 
   return (

@@ -12,12 +12,12 @@ export function useIsMobile(): boolean {
   useEffect(() => {
     // Breakpoint padrão Ghost: 767px (mobile)
     const mql = window.matchMedia('(max-width: 767px)');
-    
+
     // Atualiza estado inicial
     setIsMobile(mql.matches);
 
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    
+
     mql.addEventListener('change', handler);
     return () => mql.removeEventListener('change', handler);
   }, []);

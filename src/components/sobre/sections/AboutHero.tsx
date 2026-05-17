@@ -120,7 +120,10 @@ export function AboutHero() {
                         )}
                       </div>
 
-                      <div className="flex flex-col items-end" aria-hidden="true">
+                      <div
+                        className="flex flex-col items-end"
+                        aria-hidden="true"
+                      >
                         {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
                           <p
                             key={index}

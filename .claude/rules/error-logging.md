@@ -57,10 +57,12 @@ Mỗi lỗi PHẢI tuân thủ cấu trúc sau trong `ERRORS.md`:
 - **File**: `path/to/file.extension:line_number`
 - **Agent**: [Tên Agent thực hiện]
 - **Root Cause**: Mô tả nguyên nhân gốc rễ (1-2 câu)
-- **Error Message**: 
-  ```
-  [Code lỗi hoặc stack trace]
-  ```
+- **Error Message**:
+```
+
+[Code lỗi hoặc stack trace]
+
+```
 - **Fix Applied**: Hành động cụ thể đã thực hiện
 - **Prevention**: Cách tránh lặp lại lỗi này trong tương lai
 - **Status**: [Fixed/Investigating/Deferred]
@@ -99,6 +101,7 @@ Mỗi lỗi PHẢI tuân thủ cấu trúc sau trong `ERRORS.md`:
 ## 🎓 6. HỌC TỪ LỖI
 
 Mỗi lỗi lặp lại 2 lần trở lên PHẢI được biến thành:
+
 - **Rule mới**: Để ngăn chặn tự động
 - **Test case**: Để phát hiện sớm
 - **Checklist item**: Trong pre-flight check

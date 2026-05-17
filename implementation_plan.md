@@ -19,20 +19,21 @@ Paralelamente, a auditoria do Ghost Design System identificou violações de mot
 
 ### 1. Incidente GitHub — Truncamento de Diretório
 
-| Causa | Diretório / Arquivo | Arquivos Comitados | Severidade |
-|---|---|---|---|
-| Cache npm binário | `functions/.npm_cache/` | **2.759** | CRÍTICA |
-| Skill library de agente | `.agent/skills/` | **6.346** | ALTA |
-| Relatórios e backups | `reports/` | 523 | MÉDIA |
-| Artefatos temporários na raiz | `*.txt`, `walkthrough.md`, `task.md`, `implementation_plan.md`, `WEEKLY_AUDIT_REPORT.md` | ~8 | MÉDIA |
-| Output de testes Playwright | `output/` | 12 | BAIXA |
-| Output gerado (graphify) | `graphify-out/` | 47 | BAIXA |
-| Diretórios de ferramentas AI | `.zencoder`, `.junie`, `.goose`, `.factory`, `.crush`, `.continue`, `.commandcode`, `.codebuddy`, `.augment`, `.qwen` | ~130 | BAIXA |
-| Cache Firebase | `.firebase-cache/` | 4 | BAIXA |
-| Arquivos de migração Supabase | `supabase-asset-migrate/` | 17 | BAIXA |
-| Scratch area | `scratch/` | 16 | BAIXA |
+| Causa                         | Diretório / Arquivo                                                                                                   | Arquivos Comitados | Severidade |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| Cache npm binário             | `functions/.npm_cache/`                                                                                               | **2.759**          | CRÍTICA    |
+| Skill library de agente       | `.agent/skills/`                                                                                                      | **6.346**          | ALTA       |
+| Relatórios e backups          | `reports/`                                                                                                            | 523                | MÉDIA      |
+| Artefatos temporários na raiz | `*.txt`, `walkthrough.md`, `task.md`, `implementation_plan.md`, `WEEKLY_AUDIT_REPORT.md`                              | ~8                 | MÉDIA      |
+| Output de testes Playwright   | `output/`                                                                                                             | 12                 | BAIXA      |
+| Output gerado (graphify)      | `graphify-out/`                                                                                                       | 47                 | BAIXA      |
+| Diretórios de ferramentas AI  | `.zencoder`, `.junie`, `.goose`, `.factory`, `.crush`, `.continue`, `.commandcode`, `.codebuddy`, `.augment`, `.qwen` | ~130               | BAIXA      |
+| Cache Firebase                | `.firebase-cache/`                                                                                                    | 4                  | BAIXA      |
+| Arquivos de migração Supabase | `supabase-asset-migrate/`                                                                                             | 17                 | BAIXA      |
+| Scratch area                  | `scratch/`                                                                                                            | 16                 | BAIXA      |
 
 **Diagnóstico do `.gitignore` atual:**
+
 - `functions/.npm_cache/` **não está listado** (apenas `.npm_cache_local/` está coberto).
 - `functions/.gitignore` não ignora `functions/.npm_cache/`.
 - Arquivos `.txt` na raiz e arquivos de trabalho (`walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`) não cobertos.
@@ -102,31 +103,31 @@ O grep retornou matches de nomes de variável (featured_on_home) onde "red" é s
 
 ### P0 — GitHub & Higiene (Deve ser feito antes do próximo commit/deploy)
 
-| ID | Ação | Risco de Execução | Reversível |
-|---|---|---|---|
-| P0-G1 | Adicionar `functions/.npm_cache/` ao `.gitignore` | ZERO | Sim |
-| P0-G2 | Remover `functions/.npm_cache/` do tracking git (`git rm -r --cached`) | BAIXO | Sim (re-add) |
-| P0-G3 | Adicionar arquivos temporários de raiz ao `.gitignore` (`*.txt`, `walkthrough.md`, etc.) | ZERO | Sim |
-| P0-G4 | Remover arquivos de trabalho da raiz do tracking | BAIXO | Sim |
-| P0-G5 | Adicionar diretórios de output ao `.gitignore` (`output/`, `graphify-out/`, `scratch/`) | ZERO | Sim |
-| P0-G6 | Decisão estratégica sobre `.agent/skills` (submodule vs keep vs gitignore) | MÉDIO | Depende |
+| ID    | Ação                                                                                     | Risco de Execução | Reversível   |
+| ----- | ---------------------------------------------------------------------------------------- | ----------------- | ------------ |
+| P0-G1 | Adicionar `functions/.npm_cache/` ao `.gitignore`                                        | ZERO              | Sim          |
+| P0-G2 | Remover `functions/.npm_cache/` do tracking git (`git rm -r --cached`)                   | BAIXO             | Sim (re-add) |
+| P0-G3 | Adicionar arquivos temporários de raiz ao `.gitignore` (`*.txt`, `walkthrough.md`, etc.) | ZERO              | Sim          |
+| P0-G4 | Remover arquivos de trabalho da raiz do tracking                                         | BAIXO             | Sim          |
+| P0-G5 | Adicionar diretórios de output ao `.gitignore` (`output/`, `graphify-out/`, `scratch/`)  | ZERO              | Sim          |
+| P0-G6 | Decisão estratégica sobre `.agent/skills` (submodule vs keep vs gitignore)               | MÉDIO             | Depende      |
 
 ### P0 — Ghost System (Bloqueadores arquiteturais)
 
-| ID | Ação | Complexidade | Regressão Esperada |
-|---|---|---|---|
-| P0-GS1 | Criar `src/components/motion/MotionLink.tsx` | BAIXA | Nenhuma (novo arquivo) |
-| P0-GS2 | Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx` | BAIXA | Testar navegação desktop |
-| P0-GS3 | Criar `src/lib/supabase/image-loader.ts` (Supabase Transform) | MÉDIA | Testar todas as imagens |
+| ID     | Ação                                                               | Complexidade | Regressão Esperada       |
+| ------ | ------------------------------------------------------------------ | ------------ | ------------------------ |
+| P0-GS1 | Criar `src/components/motion/MotionLink.tsx`                       | BAIXA        | Nenhuma (novo arquivo)   |
+| P0-GS2 | Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx` | BAIXA        | Testar navegação desktop |
+| P0-GS3 | Criar `src/lib/supabase/image-loader.ts` (Supabase Transform)      | MÉDIA        | Testar todas as imagens  |
 
 ### P1 — Ghost System (Melhorias não bloqueadoras)
 
-| ID | Ação | Complexidade | Regressão Esperada |
-|---|---|---|---|
-| P1-GS1 | Corrigir `rotate` em `CategoryStripe.tsx:163` (substituir por translateX ou ícone) | BAIXA | Testar affordance visual |
-| P1-GS2 | Decidir loader do `next.config.mjs` (referência ao image-loader após P0-GS3) | BAIXA | Após P0-GS3 |
-| P1-GS3 | Validar altura dos cards em `FeaturedProjectsSection.tsx` contra spec | BAIXA | Nenhuma |
-| P1-GS4 | Auditar estado ativo no Header (link corrente vs outros) | BAIXA | Nenhuma |
+| ID     | Ação                                                                               | Complexidade | Regressão Esperada       |
+| ------ | ---------------------------------------------------------------------------------- | ------------ | ------------------------ |
+| P1-GS1 | Corrigir `rotate` em `CategoryStripe.tsx:163` (substituir por translateX ou ícone) | BAIXA        | Testar affordance visual |
+| P1-GS2 | Decidir loader do `next.config.mjs` (referência ao image-loader após P0-GS3)       | BAIXA        | Após P0-GS3              |
+| P1-GS3 | Validar altura dos cards em `FeaturedProjectsSection.tsx` contra spec              | BAIXA        | Nenhuma                  |
+| P1-GS4 | Auditar estado ativo no Header (link corrente vs outros)                           | BAIXA        | Nenhuma                  |
 
 ---
 
@@ -188,4 +189,4 @@ O grep retornou matches de nomes de variável (featured_on_home) onde "red" é s
 
 ---
 
-*Aguardando aprovação explícita ("Aprovado" ou "Proceed") para iniciar Fase 4: Execution.*
+_Aguardando aprovação explícita ("Aprovado" ou "Proceed") para iniciar Fase 4: Execution._

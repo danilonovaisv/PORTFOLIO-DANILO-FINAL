@@ -10,11 +10,11 @@ Khi người dùng yêu cầu "update", "nâng cấp", hoặc "đẩy phiên b�
 
 1.  **`package.json`**: Trường `version`.
 2.  **`README.md`**:
-    *   Header: `### *Advanced Edition • vX.Y.Z Meta-Engine*`
-    *   Section: `## ✨ The Premium Edge (vX.Y.Z)`
+    - Header: `### *Advanced Edition • vX.Y.Z Meta-Engine*`
+    - Section: `## ✨ The Premium Edge (vX.Y.Z)`
 3.  **`README.vi.md`**:
-    *   Header: `### *Phiên bản Nâng cao • vX.Y.Z Meta-Engine*`
-    *   Section: `## ✨ Điểm khác biệt (Phiên bản vX.Y.Z)`
+    - Header: `### *Phiên bản Nâng cao • vX.Y.Z Meta-Engine*`
+    - Section: `## ✨ Điểm khác biệt (Phiên bản vX.Y.Z)`
 4.  **`docs/MASTER_OPERATIONS.md`**: Line `**Version**: X.Y.Z`
 5.  **`docs/MASTER_OPERATIONS.vi.md`**: Line `**Version**: X.Y.Z`
 

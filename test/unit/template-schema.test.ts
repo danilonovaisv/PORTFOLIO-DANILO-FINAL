@@ -28,17 +28,15 @@ describe('getAssetUrl', () => {
 
   it('normalizes site-assets paths to local folder per Ghost System rules', () => {
     expect(
-      getAssetUrl(
-        '/storage/v1/object/public/landing-pages/demo/video.mp4'
-      )
-    ).toBe(
-      '/site.assets/landing-pages/demo/video.mp4'
-    );
+      getAssetUrl('/storage/v1/object/public/landing-pages/demo/video.mp4')
+    ).toBe('/site.assets/landing-pages/demo/video.mp4');
   });
 
   it('supports explicit bucket-prefixed paths for portfolio-media', () => {
     expect(
-      getAssetUrl('portfolio-media/projects/launch/video.mp4', { isVideo: true })
+      getAssetUrl('portfolio-media/projects/launch/video.mp4', {
+        isVideo: true,
+      })
     ).toBe(
       'https://test.supabase.co/storage/v1/object/public/portfolio-media/projects/launch/video.mp4'
     );

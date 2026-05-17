@@ -392,8 +392,6 @@ const normalizeLandingBlock = (
   return normalized;
 };
 
-
-
 export function createDefaultMasterProjectTemplate(
   fallback: TemplateFallback = {}
 ): MasterProjectTemplateData {

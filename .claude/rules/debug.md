@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: "When the user asks to fix bugs, analyze errors, investigate issues, run tests, or troubleshoot code."
+description: 'When the user asks to fix bugs, analyze errors, investigate issues, run tests, or troubleshoot code.'
 ---
 
 # DEBUG.MD - Systematic QA & Fix Protocol

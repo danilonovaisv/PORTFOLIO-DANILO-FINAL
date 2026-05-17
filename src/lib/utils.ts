@@ -58,7 +58,10 @@ export function getAssetUrl(
   if (/^https?:\/\//.test(trimmed)) return trimmed;
 
   // Ghost System: Return local paths as-is
-  if (trimmed.startsWith('/') && (trimmed.startsWith('/site.assets/') || trimmed.startsWith('/assets/'))) {
+  if (
+    trimmed.startsWith('/') &&
+    (trimmed.startsWith('/site.assets/') || trimmed.startsWith('/assets/'))
+  ) {
     return trimmed;
   }
 

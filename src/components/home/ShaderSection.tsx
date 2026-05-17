@@ -7,7 +7,7 @@ import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 /**
  * ShaderAnimation Component
- * 
+ *
  * Uma seção imersiva com animação procedural via shaders.
  * Representa a filosofia Ghost: "Design que transforma intenção em percepção."
  */
@@ -147,34 +147,36 @@ export function ShaderAnimation() {
 
 export function ShaderSection() {
   return (
-    <m.section 
+    <m.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: MOTION_TOKENS.duration.slow, ease: GHOST_EASE }}
       viewport={{ once: true, margin: '-20%' }}
-      className="relative flex h-[650px] w-full flex-col items-center justify-center overflow-hidden" 
+      className="relative flex h-[650px] w-full flex-col items-center justify-center overflow-hidden"
       style={{ background: '#040013' }}
     >
       <div className="absolute inset-0 z-0">
         <ShaderAnimation />
       </div>
-      
+
       {/* Editorial Overlay */}
       <div className="absolute inset-0 z-[5] bg-radial-gradient from-transparent via-background/40 to-background opacity-60 pointer-events-none" />
 
       <div className="relative z-10 px-6 max-w-[1680px] w-full text-center">
-        <m.span 
+        <m.span
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: MOTION_TOKENS.duration.ghostIn, 
+          transition={{
+            duration: MOTION_TOKENS.duration.ghostIn,
             ease: GHOST_EASE,
-            delay: 0.3
+            delay: 0.3,
           }}
           className="block text-3xl md:text-5xl lg:text-7xl leading-tight font-semibold tracking-tighter text-white drop-shadow-[0_0_30px_rgba(0,72,255,0.4)]"
         >
-          Design que transforma<br />
-          <span className="text-blueAccent">intenção</span> em <span className="text-bluePrimary">percepção</span>.
+          Design que transforma
+          <br />
+          <span className="text-blueAccent">intenção</span> em{' '}
+          <span className="text-bluePrimary">percepção</span>.
         </m.span>
       </div>
 

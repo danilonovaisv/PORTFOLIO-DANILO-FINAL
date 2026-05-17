@@ -613,6 +613,7 @@ Leitura do arquivo atualizado — verificar consistência com o estado real do c
 
 1. Criar arquivo em `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/walkthrough.md`
 2. Estrutura mínima:
+
    ```md
    # Walkthrough — About Beliefs: Migração GSAP
 
