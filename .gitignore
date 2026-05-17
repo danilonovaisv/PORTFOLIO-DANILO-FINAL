@@ -160,6 +160,9 @@ build-error.log
 firebase-deploy.log
 *.patch
 .claude/worktrees/
+knip_report.txt
+walkthrough.md
+WEEKLY_AUDIT_REPORT.md
 
 # Scratch / session artifacts (root-level)
 tsc_*.txt
