@@ -28,73 +28,39 @@ export const ResponsiveVideo = forwardRef<HTMLVideoElement, ResponsiveVideoProps
   ) => {
     const internalRef = useRef<HTMLVideoElement | null>(null);
     useImperativeHandle(ref, () => internalRef.current as HTMLVideoElement);
-    
-    // Default to desktop poster for SSR to avoid hydration mismatch,
-    // we'll swap it to mobile poster (if necessary) post-hydration.
-    const [currentPoster, setCurrentPoster] = useState<string | undefined>(desktopPoster);
+
+    // SSR-safe: default to desktop. useEffect swaps after hydration.
+    const [activeSrc, setActiveSrc] = useState(desktopSrc);
+    const [activePoster, setActivePoster] = useState<string | undefined>(desktopPoster);
 
     useEffect(() => {
-      if (!desktopPoster && !mobilePoster) return;
+      const mq = window.matchMedia('(max-width: 767px)');
 
-      const mediaQuery = window.matchMedia('(max-width: 767px)');
-      
-      const handlePosterChange = (e: MediaQueryListEvent | MediaQueryList) => {
-        if (e.matches) {
-          setCurrentPoster(mobilePoster || desktopPoster);
-        } else {
-          setCurrentPoster(desktopPoster || mobilePoster);
-        }
+      const update = (e: MediaQueryList | MediaQueryListEvent) => {
+        const isMobile = e.matches;
+        setActiveSrc(isMobile ? mobileSrc : desktopSrc);
+        setActivePoster(isMobile ? (mobilePoster ?? desktopPoster) : desktopPoster);
       };
 
-      // Set initial post-hydration poster based on actual viewport
-      handlePosterChange(mediaQuery);
-
-      // Listen for changes
-      mediaQuery.addEventListener('change', handlePosterChange);
-      return () => mediaQuery.removeEventListener('change', handlePosterChange);
-    }, [desktopPoster, mobilePoster]);
-
-    useEffect(() => {
-      // Browsers often don't hot-swap <source> media query changes without `.load()`.
-      // We force a re-load when crossing the 767px breakpoint.
-      const mediaQuery = window.matchMedia('(max-width: 767px)');
-      
-      const handleSourceChange = () => {
-        if (internalRef.current) {
-          // Optional: store current time if we wanted seamless resume, 
-          // but for looping background videos, a reset is usually acceptable.
-          const isPaused = internalRef.current.paused;
-          
-          internalRef.current.load();
-          
-          if (!isPaused && autoPlay) {
-            internalRef.current.play().catch(() => {
-              // Ignore play interruptions
-            });
-          }
-        }
-      };
-
-      mediaQuery.addEventListener('change', handleSourceChange);
-      return () => mediaQuery.removeEventListener('change', handleSourceChange);
-    }, [autoPlay]);
+      update(mq);
+      mq.addEventListener('change', update);
+      return () => mq.removeEventListener('change', update);
+    }, [desktopSrc, mobileSrc, desktopPoster, mobilePoster]);
 
     return (
+      // key forces a clean video remount when src switches, avoiding stale buffer
       <video
+        key={activeSrc}
         ref={internalRef}
+        src={activeSrc}
+        poster={activePoster}
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}
         playsInline={playsInline}
         className={className}
-        poster={currentPoster}
         {...rest}
       >
-        {/* Mobile source first for mobile-first processing where applicable */}
-        <source src={mobileSrc} media="(max-width: 767px)" />
-        <source src={desktopSrc} media="(min-width: 768px)" />
-        {/* Fallback if media queries aren't evaluated correctly */}
-        <source src={desktopSrc} />
         {children}
       </video>
     );
