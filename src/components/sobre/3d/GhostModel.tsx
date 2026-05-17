@@ -14,7 +14,7 @@ import { GLTF } from 'three-stdlib';
 import { GHOST_MATERIAL_CONFIG } from '../beliefs/belief.constants';
 
 const MODEL_PATH =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb';
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb?v=1.0.1';
 
 if (typeof window !== 'undefined') {
   useGLTF.preload(MODEL_PATH);
