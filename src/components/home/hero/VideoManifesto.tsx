@@ -7,12 +7,14 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { getAssetUrl } from '@/lib/utils';
 
 interface VideoManifestoProps {
-  src: string;
+  src?: string;
   srcMobile?: string;
   posterDesk?: string;
   posterMobile?: string;
@@ -29,8 +31,8 @@ const isLikelyVideoUrl = (url?: string | null) => {
 };
 
 export function VideoManifesto({
-  src,
-  srcMobile,
+  src = RESPONSIVE_VIDEOS.homeManifesto.desktop,
+  srcMobile = RESPONSIVE_VIDEOS.homeManifesto.mobile,
   posterDesk,
   posterMobile,
   assetKey,
@@ -39,14 +41,8 @@ export function VideoManifesto({
   const { asset } = useRealtimeAsset(assetKey || '');
   const { asset: assetMobile } = useRealtimeAsset(assetKeyMobile || '');
   const [muted, setMuted] = useState(true);
-  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
   const shouldReduceMotion = useMotionGate();
-  const [mounted, setMounted] = useState(false);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -99,69 +95,21 @@ export function VideoManifesto({
     return () => observer.disconnect();
   }, []);
 
-  // Detectar qualidade de conexão
-  useEffect(() => {
-    // Definir interface mínima para conexão
-    interface NetworkInformation extends EventTarget {
-      readonly effectiveType: 'slow-2g' | '2g' | '3g' | '4g' | '5g';
-      readonly saveData: boolean;
-    }
-
-    const nav = navigator as Navigator & { connection?: NetworkInformation };
-
-    if (nav.connection) {
-      if (
-        nav.connection.effectiveType === '4g' ||
-        nav.connection.effectiveType === '5g'
-      ) {
-        setVideoQuality('hd');
-      } else {
-        setVideoQuality('sd');
-      }
-    }
-  }, []);
-
-  // Aplicar mute
-  useEffect(() => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = muted;
-  }, [muted]);
-
   // ── Resolução da fonte de vídeo (desktop) ──────────────────────────────────
   const baseSrcDesk =
-    mounted && isLikelyVideoUrl(asset?.publicUrl)
-      ? (asset?.publicUrl as string)
-      : src;
+    isLikelyVideoUrl(asset?.publicUrl) ? (asset?.publicUrl as string) : src;
 
   // ── Resolução da fonte de vídeo (mobile) ──────────────────────────────────
   const baseSrcMobile =
-    mounted && isLikelyVideoUrl(assetMobile?.publicUrl)
+    isLikelyVideoUrl(assetMobile?.publicUrl)
       ? (assetMobile?.publicUrl as string)
-      : (srcMobile ?? src);
+      : srcMobile;
 
-  // Escolhe a fonte correta para o dispositivo atual
-  const activeSrc = isMobile ? baseSrcMobile : baseSrcDesk;
-  const [currentSrc, setCurrentSrc] = useState(activeSrc);
+  const rawPosterDesk = posterDesk ?? DEFAULT_VIDEO_POSTER;
+  const rawPosterMobile = posterMobile ?? posterDesk ?? DEFAULT_VIDEO_POSTER;
 
-  useEffect(() => {
-    setCurrentSrc(activeSrc);
-  }, [activeSrc]);
-
-  // Usa SD somente se existir um variant explícito em metadata; evita 404 silencioso.
-  const sdVariant = (
-    asset?.metadata as { variants?: { sd?: string } } | undefined
-  )?.variants?.sd;
-  const variantSrc =
-    mounted && videoQuality === 'sd' && isLikelyVideoUrl(sdVariant)
-      ? (sdVariant as string)
-      : currentSrc;
-  const videoSrc = variantSrc;
-
-  const rawPoster = isMobile
-    ? (posterMobile ?? posterDesk ?? DEFAULT_VIDEO_POSTER)
-    : (posterDesk ?? DEFAULT_VIDEO_POSTER);
-
-  const activePoster = getAssetUrl(rawPoster, { width: 1920, quality: 60 });
+  const activePosterDesk = getAssetUrl(rawPosterDesk, { width: 1920, quality: 60 });
+  const activePosterMobile = getAssetUrl(rawPosterMobile, { width: 1080, quality: 60 });
 
   return (
     <m.section
@@ -192,26 +140,22 @@ export function VideoManifesto({
             : {}
         }
       >
-        <video
+        <ResponsiveVideo
           ref={videoRef}
           className="block h-full w-full object-cover object-center"
-          src={videoSrc}
-          poster={activePoster}
+          desktopSrc={baseSrcDesk}
+          mobileSrc={baseSrcMobile}
+          desktopPoster={activePosterDesk}
+          mobilePoster={activePosterMobile}
           autoPlay={!shouldReduceMotion}
           loop={!shouldReduceMotion}
           muted={muted}
           playsInline
-          // Let the browser handle preloading metadata
           preload="metadata"
-          onError={() => {
-            if (videoSrc !== src) {
-              setCurrentSrc(src);
-            }
-          }}
           aria-label="Vídeo showreel demonstrando projetos de design gráfico"
         >
           <ResponsiveCaptionTrack src="/captions/ambient.vtt" />
-        </video>
+        </ResponsiveVideo>
 
         {/* Overlay Ghost System */}
         <div

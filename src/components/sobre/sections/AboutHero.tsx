@@ -6,11 +6,11 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
 import { MOTION_TOKENS, GHOST_EASE, ghostFade } from '@/config/motion';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { useIsMobile } from '@/hooks/useIsMobile';
-
-import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
+import { getAssetUrl } from '@/lib/utils';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 
 export function AboutHero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,6 +27,9 @@ export function AboutHero() {
   const isMobile = useIsMobile();
 
   const shouldPlayVideo = !prefersReducedMotion;
+  
+  const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, { width: 1920, quality: 60 });
+  const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, { width: 1080, quality: 60 });
 
   const heroSrTitle = [
     ABOUT_CONTENT.hero.title.text,
@@ -51,42 +54,26 @@ export function AboutHero() {
           {heroSrTitle}
         </h1>
 
-        {/* Background Video - Sincronização Realtime (Renderização condicional por dispositivo) */}
-        {!isMobile ? (
-          <>
-            <DynamicAssetVideo
-              assetKey={SITE_ASSET_KEYS.heroVideos.aboutDesktop}
-              fallbackUrl={ABOUT_CONTENT.hero.videos.desktop || undefined}
-              playbackRate={0.4}
-              autoPlay={shouldPlayVideo}
-              muted
-              loop={shouldPlayVideo}
-              poster={DEFAULT_VIDEO_POSTER}
-              className="absolute inset-0 w-full h-full object-cover opacity-[0.78] z-[var(--z-layer-base)]"
-            />
-            {/* Desktop Overlay - Contrast Exception Control */}
-            <div
-              className="absolute inset-0 pointer-events-none z-[var(--z-layer-glass)] mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
-              aria-hidden="true"
-            />
-          </>
-        ) : (
-          <div className="relative aspect-square w-full overflow-hidden">
-            <div className="w-full h-full">
-              <DynamicAssetVideo
-                assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
-                fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}
-                playbackRate={0.4}
-                autoPlay={shouldPlayVideo}
-                muted
-                loop={shouldPlayVideo}
-                poster={DEFAULT_VIDEO_POSTER}
-                className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
-              />
-            </div>
-            <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)]" />
-          </div>
-        )}
+        {/* Background Video - Native responsive `<source>` implementation */}
+        <div className="relative aspect-square w-full overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
+          <ResponsiveVideo
+            desktopSrc={RESPONSIVE_VIDEOS.aboutHero.desktop}
+            mobileSrc={RESPONSIVE_VIDEOS.aboutHero.mobile}
+            desktopPoster={activePosterDesk}
+            mobilePoster={activePosterMobile}
+            autoPlay={shouldPlayVideo}
+            muted
+            loop={shouldPlayVideo}
+            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78] md:object-center md:z-[var(--z-layer-base)]"
+          />
+          {/* Mobile Overlay */}
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)] md:hidden" />
+          {/* Desktop Overlay */}
+          <div
+            className="hidden md:block absolute inset-0 pointer-events-none z-[var(--z-layer-glass)] mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
+            aria-hidden="true"
+          />
+        </div>
 
         {/* Desktop Content - 12 Column Grid Concept */}
         {!isMobile && (
