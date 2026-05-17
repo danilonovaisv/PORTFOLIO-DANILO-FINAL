@@ -32,8 +32,8 @@
       "Use o ui kit do portfolio para montar uma nova secao"
     ],
     "brandColor": "#0048ff",
-    "composerIcon": "./assets/ghost-mark.svg",
-    "logo": "./assets/wordmark.svg",
+    "composerIcon": "./assets/favicon_dark.svg",
+    "logo": "./assets/LogoDark.svg",
     "screenshots": []
   }
 }

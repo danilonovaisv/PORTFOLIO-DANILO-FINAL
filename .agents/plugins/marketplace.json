@@ -15,6 +15,18 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Deployment"
+    },
+    {
+      "name": "ghost-design-system",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ghost-design-system"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
     }
   ]
 }
