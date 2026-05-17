@@ -73,7 +73,7 @@ export function AboutBeliefs() {
           </div>
         </div>
 
-        <BeliefScrollText />
+        <BeliefScrollText sectionRef={containerRef} />
       </section>
     </BeliefsScrollProvider>
   );
