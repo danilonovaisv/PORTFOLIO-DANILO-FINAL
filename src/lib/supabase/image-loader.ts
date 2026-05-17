@@ -13,13 +13,17 @@ const supabaseImageLoader: ImageLoader = ({ src, width, quality }) => {
     try {
       const url = new URL(
         src,
-        typeof window !== 'undefined' ? window.location.origin : 'http://localhost'
+        typeof window !== 'undefined'
+          ? window.location.origin
+          : 'http://localhost'
       );
       url.searchParams.set('w', String(width));
       if (quality) {
         url.searchParams.set('q', String(quality));
       }
-      return src.startsWith('/') ? `${url.pathname}${url.search}` : url.toString();
+      return src.startsWith('/')
+        ? `${url.pathname}${url.search}`
+        : url.toString();
     } catch {
       return src;
     }

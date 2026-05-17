@@ -36,8 +36,14 @@ export function AboutClosing() {
   const posterDesk = DEFAULT_VIDEO_POSTER;
   const posterMobile = DEFAULT_VIDEO_POSTER;
 
-  const activePosterDesk = getAssetUrl(posterDesk, { width: 1920, quality: 60 });
-  const activePosterMobile = getAssetUrl(posterMobile, { width: 1080, quality: 60 });
+  const activePosterDesk = getAssetUrl(posterDesk, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(posterMobile, {
+    width: 1080,
+    quality: 60,
+  });
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasVideoError, setHasVideoError] = useState(false);
@@ -50,7 +56,12 @@ export function AboutClosing() {
         // Safe to ignore autoplay errors (usually permissions)
       });
     }
-  }, [prefersReducedMotion, hasVideoError, closingVideoDesk, closingVideoMobile]);
+  }, [
+    prefersReducedMotion,
+    hasVideoError,
+    closingVideoDesk,
+    closingVideoMobile,
+  ]);
 
   return (
     <section
@@ -102,8 +113,12 @@ export function AboutClosing() {
               <ResponsiveVideo
                 ref={videoRef}
                 className="relative z-[var(--z-layer-content)] block h-full w-full object-cover"
-                desktopSrc={closingVideoDesk || RESPONSIVE_VIDEOS.aboutClosing.desktop}
-                mobileSrc={closingVideoMobile || RESPONSIVE_VIDEOS.aboutClosing.mobile}
+                desktopSrc={
+                  closingVideoDesk || RESPONSIVE_VIDEOS.aboutClosing.desktop
+                }
+                mobileSrc={
+                  closingVideoMobile || RESPONSIVE_VIDEOS.aboutClosing.mobile
+                }
                 desktopPoster={activePosterDesk}
                 mobilePoster={activePosterMobile}
                 autoPlay={!prefersReducedMotion}

@@ -18,6 +18,7 @@
 ## Fase 0 — Leitura e Auditoria (Tarefas 1–5)
 
 ### T01 — Ler rules e docs
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -31,6 +32,7 @@
 ---
 
 ### T02 — Auditar blueprint atual
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -43,6 +45,7 @@
 ---
 
 ### T03 — Auditar componente atual
+
 **Estimativa:** 45min  
 **Status:** [ ]
 
@@ -57,6 +60,7 @@
 ---
 
 ### T04 — Mapear Ghost 3D atual
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -70,6 +74,7 @@
 ---
 
 ### T05 — Mapear motion atual
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -85,6 +90,7 @@
 ## Fase 1 — Design e Decisões (Tarefas 6–8)
 
 ### T06 — Definir constants de texto
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -94,7 +100,11 @@ Criar `src/components/sobre/beliefs/what-moves-me.constants.ts` com:
 export const WHAT_MOVES_ME_PHRASES = [
   { id: 1, text: 'Acredito que design\né uma linguagem.', emphasis: false },
   { id: 2, text: 'Que sistemas\ncriam cultura.', emphasis: false },
-  { id: 3, text: 'Que cada escolha visual\ncarrega intenção.', emphasis: false },
+  {
+    id: 3,
+    text: 'Que cada escolha visual\ncarrega intenção.',
+    emphasis: false,
+  },
   { id: 4, text: 'Que beleza\né estratégia.', emphasis: false },
   { id: 5, text: 'Que forma\nsegue propósito.', emphasis: false },
   {
@@ -105,12 +115,12 @@ export const WHAT_MOVES_ME_PHRASES = [
 ] as const;
 
 export const GHOST_SHADE_COLORS = {
-  voidBlack:     '#040013',
-  bluePrimary:   '#0048ff',
-  blueAccent:    '#4fe6ff',
+  voidBlack: '#040013',
+  bluePrimary: '#0048ff',
+  blueAccent: '#4fe6ff',
   purpleDetails: '#8705f2',
-  pinkDetails:   '#f501d3',
-  text:          '#fcffff',
+  pinkDetails: '#f501d3',
+  text: '#fcffff',
 } as const;
 
 export const GHOST_EASE = [0.22, 1, 0.36, 1] as const;
@@ -124,6 +134,7 @@ export const BAND = 1 / PHRASE_COUNT;
 ---
 
 ### T07 — Definir background fixo
+
 **Estimativa:** 45min  
 **Status:** [ ]
 
@@ -141,12 +152,14 @@ Criar `src/components/sobre/beliefs/WhatMovesMeBackground.tsx`:
 ---
 
 ### T08 — Decidir CSS versus R3F shader
+
 **Estimativa:** 15min  
 **Status:** [x]
 
 **Decisão tomada:** CSS puro.
 
 **Justificativa:**
+
 - Ghost 3D removido desta seção por spec
 - CSS radial-gradient reproduz o efeito visual sem WebGL
 - Zero bundle size adicional
@@ -160,6 +173,7 @@ Criar `src/components/sobre/beliefs/WhatMovesMeBackground.tsx`:
 ## Fase 2 — Implementação (Tarefas 9–12)
 
 ### T09 — Implementar frase centralizada
+
 **Estimativa:** 60min  
 **Status:** [ ]
 
@@ -191,6 +205,7 @@ Criar `src/components/sobre/beliefs/WhatMovesMeBackground.tsx`:
 ---
 
 ### T10 — Implementar scroll progress
+
 **Estimativa:** 60min  
 **Status:** [ ]
 
@@ -200,14 +215,26 @@ No `BeliefScrollText.tsx`:
 const BAND = 1 / 6;
 
 // Para cada frase i (0-indexed):
-const fadeInStart  = i * BAND;
-const fadeInEnd    = i * BAND + BAND * 0.22;
-const peakEnd      = (i + 1) * BAND - BAND * 0.22;
-const fadeOutEnd   = i < 5 ? (i + 1) * BAND : 1.1;
+const fadeInStart = i * BAND;
+const fadeInEnd = i * BAND + BAND * 0.22;
+const peakEnd = (i + 1) * BAND - BAND * 0.22;
+const fadeOutEnd = i < 5 ? (i + 1) * BAND : 1.1;
 
-const opacity = useTransform(scrollYProgress, [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd], [0, 1, 1, 0]);
-const y       = useTransform(scrollYProgress, [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd], [18, 0, 0, -12]);
-const filter  = useTransform(scrollYProgress, [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd], ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)']);
+const opacity = useTransform(
+  scrollYProgress,
+  [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd],
+  [0, 1, 1, 0]
+);
+const y = useTransform(
+  scrollYProgress,
+  [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd],
+  [18, 0, 0, -12]
+);
+const filter = useTransform(
+  scrollYProgress,
+  [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd],
+  ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)']
+);
 ```
 
 **Validar:** Scroll forward mostra frases em sequência. Scroll reverso restaura estado anterior.
@@ -217,6 +244,7 @@ const filter  = useTransform(scrollYProgress, [fadeInStart, fadeInEnd, peakEnd, 
 ---
 
 ### T11 — Implementar reduced motion
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -225,14 +253,17 @@ No `WhatMovesMePhrase.tsx`:
 ```tsx
 const prefersReducedMotion = useReducedMotion();
 
-<motion.div style={{
-  opacity,
-  y: prefersReducedMotion ? 0 : y,
-  filter: prefersReducedMotion ? 'none' : filter,
-}} />
+<motion.div
+  style={{
+    opacity,
+    y: prefersReducedMotion ? 0 : y,
+    filter: prefersReducedMotion ? 'none' : filter,
+  }}
+/>;
 ```
 
 **Validar:** Com `prefers-reduced-motion: reduce` ativo no OS:
+
 - Opacity ainda funciona (frase aparece/some)
 - Sem translateY
 - Sem blur
@@ -242,6 +273,7 @@ const prefersReducedMotion = useReducedMotion();
 ---
 
 ### T12 — Remover imports mortos
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -267,9 +299,14 @@ import { BeliefScrollText } from '@/components/sobre/beliefs/BeliefScrollText';
 const sectionRef = useRef<HTMLElement>(null);
 
 return (
-  <section ref={sectionRef} aria-labelledby="o-que-me-move-title"
-    style={{ minHeight: `${SECTION_HEIGHT_VH}vh` }}>
-    <h2 id="o-que-me-move-title" className="sr-only">O que me move</h2>
+  <section
+    ref={sectionRef}
+    aria-labelledby="o-que-me-move-title"
+    style={{ minHeight: `${SECTION_HEIGHT_VH}vh` }}
+  >
+    <h2 id="o-que-me-move-title" className="sr-only">
+      O que me move
+    </h2>
     <WhatMovesMeBackground />
     <BeliefScrollText sectionRef={sectionRef} />
   </section>
@@ -283,38 +320,41 @@ return (
 ## Fase 3 — Validação Visual (Tarefas 13–15)
 
 ### T13 — Validar mobile
+
 **Estimativa:** 45min  
 **Status:** [ ]
 
 Testar em browser com DevTools:
 
-| Viewport | Checklist |
-|----------|-----------|
-| 375px | [ ] Frases centralizadas [ ] Texto não corta [ ] Scroll funciona |
-| 430px | [ ] Frases centralizadas [ ] Texto não corta [ ] Scroll funciona |
-| 768px | [ ] Frases centralizadas [ ] Frase 6 tipografia maior |
+| Viewport | Checklist                                                        |
+| -------- | ---------------------------------------------------------------- |
+| 375px    | [ ] Frases centralizadas [ ] Texto não corta [ ] Scroll funciona |
+| 430px    | [ ] Frases centralizadas [ ] Texto não corta [ ] Scroll funciona |
+| 768px    | [ ] Frases centralizadas [ ] Frase 6 tipografia maior            |
 
 **Critério de conclusão:** Todas checkboxes marcadas.
 
 ---
 
 ### T14 — Validar desktop
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
 Testar em browser:
 
-| Viewport | Checklist |
-|----------|-----------|
-| 1024px | [ ] Font clamp correto [ ] Ghost 3D ausente [ ] Background visível |
-| 1440px | [ ] Todas frases visíveis em scroll [ ] CLS estável |
-| 1680px | [ ] Sem overflow horizontal |
+| Viewport | Checklist                                                          |
+| -------- | ------------------------------------------------------------------ |
+| 1024px   | [ ] Font clamp correto [ ] Ghost 3D ausente [ ] Background visível |
+| 1440px   | [ ] Todas frases visíveis em scroll [ ] CLS estável                |
+| 1680px   | [ ] Sem overflow horizontal                                        |
 
 **Critério de conclusão:** Todas checkboxes marcadas.
 
 ---
 
 ### T15 — Validar acessibilidade
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -334,6 +374,7 @@ Testar em browser:
 ## Fase 4 — Build e Qualidade (Tarefas 16–18)
 
 ### T16 — Rodar lint
+
 **Estimativa:** 15min  
 **Status:** [ ]
 
@@ -348,6 +389,7 @@ Corrigir todos os erros antes de continuar. Warnings são aceitáveis se pré-ex
 ---
 
 ### T17 — Rodar typecheck
+
 **Estimativa:** 15min  
 **Status:** [ ]
 
@@ -362,6 +404,7 @@ Zero erros novos introduzidos por este redesign. Erros pré-existentes documenta
 ---
 
 ### T18 — Rodar build
+
 **Estimativa:** 20min  
 **Status:** [ ]
 
@@ -378,6 +421,7 @@ Build completo sem erros. Bundle size não deve aumentar significativamente (zer
 ## Fase 5 — Documentação (Tarefas 19–20)
 
 ### T19 — Criar walkthrough
+
 **Estimativa:** 45min  
 **Status:** [ ]
 
@@ -395,6 +439,7 @@ Criar `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/walkthrough.md` c
 ---
 
 ### T20 — Atualizar ou propor atualização dos docs
+
 **Estimativa:** 30min  
 **Status:** [ ]
 
@@ -410,16 +455,16 @@ Atualizar (ou propor atualização de):
 
 ## Resumo de Arquivos
 
-| Arquivo | Ação | Tarefa |
-|---------|------|--------|
-| `what-moves-me.constants.ts` | CRIAR | T06 |
-| `WhatMovesMeBackground.tsx` | CRIAR | T07 |
-| `WhatMovesMePhrase.tsx` | CRIAR | T09 |
-| `BeliefScrollText.tsx` | REESCREVER | T09, T10, T11 |
-| `AboutBeliefs.tsx` | REESCREVER | T12 |
-| `beliefTokens.ts` | ADICIONAR re-exports | T06 |
-| `walkthrough.md` | CRIAR | T19 |
-| Docs v4, blueprint, SOBRE | ATUALIZAR | T20 |
+| Arquivo                      | Ação                 | Tarefa        |
+| ---------------------------- | -------------------- | ------------- |
+| `what-moves-me.constants.ts` | CRIAR                | T06           |
+| `WhatMovesMeBackground.tsx`  | CRIAR                | T07           |
+| `WhatMovesMePhrase.tsx`      | CRIAR                | T09           |
+| `BeliefScrollText.tsx`       | REESCREVER           | T09, T10, T11 |
+| `AboutBeliefs.tsx`           | REESCREVER           | T12           |
+| `beliefTokens.ts`            | ADICIONAR re-exports | T06           |
+| `walkthrough.md`             | CRIAR                | T19           |
+| Docs v4, blueprint, SOBRE    | ATUALIZAR            | T20           |
 
 **NÃO tocar:** `3d/*`, `BeliefBackground.tsx`, `BeliefFixedHeader.tsx`, `BeliefManifesto.tsx`, `BeliefOverlay.tsx`, `SplitTextMotion.tsx`, `BeliefsScrollContext.tsx`, `useBeliefsScroll.ts`
 

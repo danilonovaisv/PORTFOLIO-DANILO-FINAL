@@ -27,9 +27,15 @@ export function AboutHero() {
   const isMobile = useIsMobile();
 
   const shouldPlayVideo = !prefersReducedMotion;
-  
-  const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, { width: 1920, quality: 60 });
-  const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, { width: 1080, quality: 60 });
+
+  const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1080,
+    quality: 60,
+  });
 
   const heroSrTitle = [
     ABOUT_CONTENT.hero.title.text,

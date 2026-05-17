@@ -96,20 +96,26 @@ export function VideoManifesto({
   }, []);
 
   // ── Resolução da fonte de vídeo (desktop) ──────────────────────────────────
-  const baseSrcDesk =
-    isLikelyVideoUrl(asset?.publicUrl) ? (asset?.publicUrl as string) : src;
+  const baseSrcDesk = isLikelyVideoUrl(asset?.publicUrl)
+    ? (asset?.publicUrl as string)
+    : src;
 
   // ── Resolução da fonte de vídeo (mobile) ──────────────────────────────────
-  const baseSrcMobile =
-    isLikelyVideoUrl(assetMobile?.publicUrl)
-      ? (assetMobile?.publicUrl as string)
-      : srcMobile;
+  const baseSrcMobile = isLikelyVideoUrl(assetMobile?.publicUrl)
+    ? (assetMobile?.publicUrl as string)
+    : srcMobile;
 
   const rawPosterDesk = posterDesk ?? DEFAULT_VIDEO_POSTER;
   const rawPosterMobile = posterMobile ?? posterDesk ?? DEFAULT_VIDEO_POSTER;
 
-  const activePosterDesk = getAssetUrl(rawPosterDesk, { width: 1920, quality: 60 });
-  const activePosterMobile = getAssetUrl(rawPosterMobile, { width: 1080, quality: 60 });
+  const activePosterDesk = getAssetUrl(rawPosterDesk, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(rawPosterMobile, {
+    width: 1080,
+    quality: 60,
+  });
 
   return (
     <m.section

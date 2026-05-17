@@ -16,16 +16,17 @@ Redesign da seção `06-O-QUE-ME-MOVE` da página `/sobre`. Remove Ghost 3D e GS
 
 ## 2. Diagnóstico da Versão Atual
 
-| Componente | Status |
-|---|---|
-| `GhostScene.tsx` (R3F) | Ativo em `AboutBeliefs` via `dynamic({ssr:false})` |
-| `BeliefScrollText.tsx` | Frases LEFT-aligned, GSAP, BELIEF_PHRASE_ITEMS |
-| `BeliefBackground.tsx` | Troca cor por `activeIndex`, direto via `ref.current.style` |
-| `BeliefFixedHeader.tsx` | GSAP + SplitTextMotion, posição direita |
-| `BeliefManifesto.tsx` | GSAP scrub, `BELIEF_MANIFESTO_LINES` separado |
-| Stack de animação | GSAP + ScrollTrigger + R3F (Three.js) |
+| Componente              | Status                                                      |
+| ----------------------- | ----------------------------------------------------------- |
+| `GhostScene.tsx` (R3F)  | Ativo em `AboutBeliefs` via `dynamic({ssr:false})`          |
+| `BeliefScrollText.tsx`  | Frases LEFT-aligned, GSAP, BELIEF_PHRASE_ITEMS              |
+| `BeliefBackground.tsx`  | Troca cor por `activeIndex`, direto via `ref.current.style` |
+| `BeliefFixedHeader.tsx` | GSAP + SplitTextMotion, posição direita                     |
+| `BeliefManifesto.tsx`   | GSAP scrub, `BELIEF_MANIFESTO_LINES` separado               |
+| Stack de animação       | GSAP + ScrollTrigger + R3F (Three.js)                       |
 
 **Problemas a resolver:**
+
 - Ghost 3D é custo WebGL para elemento decorativo que a spec pede remover
 - Frases left-aligned vs. pedido de centralização
 - Copy atual ≠ `WHAT_MOVES_ME_PHRASES` especificado
@@ -69,15 +70,15 @@ Arquivos `3d/` preservados íntegros para outras seções.
 
 ## 5. Arquivos Afetados
 
-| Arquivo | Ação |
-|---|---|
-| `src/components/sobre/beliefs/what-moves-me.constants.ts` | CRIAR |
-| `src/components/sobre/beliefs/WhatMovesMeBackground.tsx` | CRIAR |
-| `src/components/sobre/beliefs/WhatMovesMePhrase.tsx` | CRIAR |
-| `src/components/sobre/sections/AboutBeliefs.tsx` | REESCREVER |
-| `src/components/sobre/beliefs/BeliefScrollText.tsx` | REESCREVER |
-| `src/config/beliefTokens.ts` | ADICIONAR re-exports |
-| `.context/.../06-O-QUE-ME-MOVE/walkthrough.md` | CRIAR (pós-implementação) |
+| Arquivo                                                   | Ação                      |
+| --------------------------------------------------------- | ------------------------- |
+| `src/components/sobre/beliefs/what-moves-me.constants.ts` | CRIAR                     |
+| `src/components/sobre/beliefs/WhatMovesMeBackground.tsx`  | CRIAR                     |
+| `src/components/sobre/beliefs/WhatMovesMePhrase.tsx`      | CRIAR                     |
+| `src/components/sobre/sections/AboutBeliefs.tsx`          | REESCREVER                |
+| `src/components/sobre/beliefs/BeliefScrollText.tsx`       | REESCREVER                |
+| `src/config/beliefTokens.ts`                              | ADICIONAR re-exports      |
+| `.context/.../06-O-QUE-ME-MOVE/walkthrough.md`            | CRIAR (pós-implementação) |
 
 Não tocar: `3d/*`, `BeliefBackground.tsx`, `BeliefFixedHeader.tsx`, `BeliefManifesto.tsx`, `BeliefOverlay.tsx`, `SplitTextMotion.tsx`, `BeliefsScrollContext.tsx`, `useBeliefsScroll.ts`.
 
@@ -126,12 +127,12 @@ radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, #040013cc 100%)
 
 ```ts
 export const GHOST_SHADE_COLORS = {
-  voidBlack:     '#040013',   // base + glow final
-  bluePrimary:   '#0048ff',   // glow dominante + cor de "GHOST" na frase 6
-  blueAccent:    '#4fe6ff',   // glow highlight
-  purpleDetails: '#8705f2',   // glow secundário
-  pinkDetails:   '#f501d3',   // reserva (não usado no background)
-  text:          '#fcffff',   // texto principal
+  voidBlack: '#040013', // base + glow final
+  bluePrimary: '#0048ff', // glow dominante + cor de "GHOST" na frase 6
+  blueAccent: '#4fe6ff', // glow highlight
+  purpleDetails: '#8705f2', // glow secundário
+  pinkDetails: '#f501d3', // reserva (não usado no background)
+  text: '#fcffff', // texto principal
 } as const;
 ```
 
@@ -181,11 +182,13 @@ filter:  useTransform(scrollY, [...], ['blur(8px)', 'blur(0px)', 'blur(0px)', 'b
 ```tsx
 const prefersReducedMotion = useReducedMotion(); // motion/react
 
-<motion.p style={{
-  opacity,                                        // preservado
-  y: prefersReducedMotion ? 0 : y,               // sem translateY
-  filter: prefersReducedMotion ? 'none' : filter, // sem blur
-}} />
+<motion.p
+  style={{
+    opacity, // preservado
+    y: prefersReducedMotion ? 0 : y, // sem translateY
+    filter: prefersReducedMotion ? 'none' : filter, // sem blur
+  }}
+/>;
 ```
 
 Background CSS sem `@keyframes` — já estático, nada a desativar.
@@ -217,13 +220,13 @@ Background CSS sem `@keyframes` — já estático, nada a desativar.
 
 ## 14. Riscos
 
-| Risco | Prob. | Mitigação |
-|---|---|---|
-| `useScroll` em múltiplos filhos (1 por frase) | Média | Passar `scrollYProgress` do pai via prop |
-| `filter: blur()` custoso em scroll mobile | Baixa | Desativado em reduced motion |
-| `position: fixed` bg quebrando z-index | Baixa | Sem `transform`/`opacity<1` no bg fixo |
-| `MotionValue<string>` para filter no TS | Baixa | Aceito pelo Framer Motion v11 |
-| Regressão em outras seções da Sobre | Baixa | Arquivos 3d/* e beliefs/* antigos intocados |
+| Risco                                         | Prob. | Mitigação                                   |
+| --------------------------------------------- | ----- | ------------------------------------------- |
+| `useScroll` em múltiplos filhos (1 por frase) | Média | Passar `scrollYProgress` do pai via prop    |
+| `filter: blur()` custoso em scroll mobile     | Baixa | Desativado em reduced motion                |
+| `position: fixed` bg quebrando z-index        | Baixa | Sem `transform`/`opacity<1` no bg fixo      |
+| `MotionValue<string>` para filter no TS       | Baixa | Aceito pelo Framer Motion v11               |
+| Regressão em outras seções da Sobre           | Baixa | Arquivos 3d/_ e beliefs/_ antigos intocados |
 
 ---
 
@@ -273,29 +276,30 @@ git rm src/components/sobre/beliefs/WhatMovesMePhrase.tsx
 
 ## 17. Validações
 
-| Contexto | Validação |
-|---|---|
-| Mobile 375px | Frases centralizadas, scroll funciona |
-| Mobile 430px | Idem |
-| Tablet 768px | Idem |
-| Desktop 1024px | Font clamp correto |
-| Desktop 1440px | Todas frases visíveis em scroll |
-| Desktop Wide 1680px | Sem overflow |
-| Scroll lento | Transição suave |
-| Scroll rápido | Sem glitch |
-| Scroll reverso | Estado correto |
-| Reduced motion ativo | Sem y/blur |
-| Navegação direta `/sobre` | Estado inicial correto |
-| Reload no meio da seção | Estado correto |
-| Contraste texto/bg | ≥ 7:1 |
-| Ausência de Ghost nesta seção | Confirmado |
-| Ausência de carregamento do GLB | Confirmado |
+| Contexto                        | Validação                             |
+| ------------------------------- | ------------------------------------- |
+| Mobile 375px                    | Frases centralizadas, scroll funciona |
+| Mobile 430px                    | Idem                                  |
+| Tablet 768px                    | Idem                                  |
+| Desktop 1024px                  | Font clamp correto                    |
+| Desktop 1440px                  | Todas frases visíveis em scroll       |
+| Desktop Wide 1680px             | Sem overflow                          |
+| Scroll lento                    | Transição suave                       |
+| Scroll rápido                   | Sem glitch                            |
+| Scroll reverso                  | Estado correto                        |
+| Reduced motion ativo            | Sem y/blur                            |
+| Navegação direta `/sobre`       | Estado inicial correto                |
+| Reload no meio da seção         | Estado correto                        |
+| Contraste texto/bg              | ≥ 7:1                                 |
+| Ausência de Ghost nesta seção   | Confirmado                            |
+| Ausência de carregamento do GLB | Confirmado                            |
 
 ---
 
 ## 18. Necessidade de Atualizar Docs
 
 Após aprovação e implementação:
+
 - [ ] `06-O-QUE-ME-MOVE-v4.md` → stack agora é Framer Motion + CSS shade
 - [ ] `06-O-QUE-ME-MOVE-blueprint-atualizado.md` → nova arquitetura
 - [ ] `SOBRE-PROTOTIPO-INTERATIVO.md` → seção 06 sem Ghost 3D

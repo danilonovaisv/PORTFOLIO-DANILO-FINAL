@@ -1,15 +1,25 @@
 'use client';
 
-import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 
-export type ResponsiveVideoProps = React.VideoHTMLAttributes<HTMLVideoElement> & {
-  desktopSrc: string;
-  mobileSrc: string;
-  desktopPoster?: string;
-  mobilePoster?: string;
-};
+export type ResponsiveVideoProps =
+  React.VideoHTMLAttributes<HTMLVideoElement> & {
+    desktopSrc: string;
+    mobileSrc: string;
+    desktopPoster?: string;
+    mobilePoster?: string;
+  };
 
-export const ResponsiveVideo = forwardRef<HTMLVideoElement, ResponsiveVideoProps>(
+export const ResponsiveVideo = forwardRef<
+  HTMLVideoElement,
+  ResponsiveVideoProps
+>(
   (
     {
       desktopSrc,
@@ -31,7 +41,9 @@ export const ResponsiveVideo = forwardRef<HTMLVideoElement, ResponsiveVideoProps
 
     // SSR-safe: default to desktop. useEffect swaps after hydration.
     const [activeSrc, setActiveSrc] = useState(desktopSrc);
-    const [activePoster, setActivePoster] = useState<string | undefined>(desktopPoster);
+    const [activePoster, setActivePoster] = useState<string | undefined>(
+      desktopPoster
+    );
 
     useEffect(() => {
       const mq = window.matchMedia('(max-width: 767px)');
@@ -39,7 +51,9 @@ export const ResponsiveVideo = forwardRef<HTMLVideoElement, ResponsiveVideoProps
       const update = (e: MediaQueryList | MediaQueryListEvent) => {
         const isMobile = e.matches;
         setActiveSrc(isMobile ? mobileSrc : desktopSrc);
-        setActivePoster(isMobile ? (mobilePoster ?? desktopPoster) : desktopPoster);
+        setActivePoster(
+          isMobile ? (mobilePoster ?? desktopPoster) : desktopPoster
+        );
       };
 
       update(mq);

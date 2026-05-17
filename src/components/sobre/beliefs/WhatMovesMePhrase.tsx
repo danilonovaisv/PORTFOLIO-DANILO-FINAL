@@ -12,7 +12,12 @@ interface WhatMovesMePhraseProps {
   filter: MotionValue<string>;
 }
 
-export function WhatMovesMePhrase({ phrase, opacity, y, filter }: WhatMovesMePhraseProps) {
+export function WhatMovesMePhrase({
+  phrase,
+  opacity,
+  y,
+  filter,
+}: WhatMovesMePhraseProps) {
   const prefersReducedMotion = useReducedMotion();
   const lines = phrase.text.split('\n');
 
@@ -53,7 +58,8 @@ export function WhatMovesMePhrase({ phrase, opacity, y, filter }: WhatMovesMePhr
             aria-hidden="true"
             style={{
               display: 'block',
-              color: phrase.emphasis && line === 'GHOST' ? '#0048ff' : '#fcffff',
+              color:
+                phrase.emphasis && line === 'GHOST' ? '#0048ff' : '#fcffff',
             }}
           >
             {line}

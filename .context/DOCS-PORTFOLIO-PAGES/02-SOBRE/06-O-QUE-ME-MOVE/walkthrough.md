@@ -36,19 +36,19 @@ sectionRef (AboutBeliefs)
 
 ## Arquivos Criados
 
-| Arquivo | Função |
-|---------|--------|
+| Arquivo                                                   | Função                                                                                       |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `src/components/sobre/beliefs/what-moves-me.constants.ts` | WHAT_MOVES_ME_PHRASES, GHOST_SHADE_COLORS, GHOST_EASE, PHRASE_COUNT, SECTION_HEIGHT_VH, BAND |
-| `src/components/sobre/beliefs/WhatMovesMeBackground.tsx` | Background CSS fixo: 3 radial-gradients + grade + vinheta |
-| `src/components/sobre/beliefs/WhatMovesMePhrase.tsx` | Frase individual com MotionValues + useReducedMotion |
+| `src/components/sobre/beliefs/WhatMovesMeBackground.tsx`  | Background CSS fixo: 3 radial-gradients + grade + vinheta                                    |
+| `src/components/sobre/beliefs/WhatMovesMePhrase.tsx`      | Frase individual com MotionValues + useReducedMotion                                         |
 
 ## Arquivos Modificados
 
-| Arquivo | Mudança |
-|---------|---------|
-| `src/components/sobre/sections/AboutBeliefs.tsx` | Reescrito: removidos GhostScene, GSAP, BeliefsScrollProvider, BeliefBackground, BeliefOverlay, BeliefFixedHeader, BeliefManifesto (-70 linhas) |
-| `src/components/sobre/beliefs/BeliefScrollText.tsx` | Reescrito: GSAP/left-aligned/context → Framer Motion/centrado/sectionRef prop |
-| `src/config/beliefTokens.ts` | Adicionados re-exports das constantes novas |
+| Arquivo                                             | Mudança                                                                                                                                        |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/sobre/sections/AboutBeliefs.tsx`    | Reescrito: removidos GhostScene, GSAP, BeliefsScrollProvider, BeliefBackground, BeliefOverlay, BeliefFixedHeader, BeliefManifesto (-70 linhas) |
+| `src/components/sobre/beliefs/BeliefScrollText.tsx` | Reescrito: GSAP/left-aligned/context → Framer Motion/centrado/sectionRef prop                                                                  |
+| `src/config/beliefTokens.ts`                        | Adicionados re-exports das constantes novas                                                                                                    |
 
 ## Arquivos Preservados (não tocados)
 
@@ -62,14 +62,15 @@ sectionRef (AboutBeliefs)
 
 Para frase `i` (0-indexed):
 
-| Ponto | Fórmula | Valor (i=0) |
-|-------|---------|-------------|
-| fadeInStart | `i * BAND` | 0.000 |
-| fadeInEnd | `i * BAND + BAND * 0.22` | 0.037 |
-| peakEnd | `(i+1) * BAND - BAND * 0.22` | 0.130 |
-| fadeOutEnd | `(i+1) * BAND` (ou 1.1 para última) | 0.167 |
+| Ponto       | Fórmula                             | Valor (i=0) |
+| ----------- | ----------------------------------- | ----------- |
+| fadeInStart | `i * BAND`                          | 0.000       |
+| fadeInEnd   | `i * BAND + BAND * 0.22`            | 0.037       |
+| peakEnd     | `(i+1) * BAND - BAND * 0.22`        | 0.130       |
+| fadeOutEnd  | `(i+1) * BAND` (ou 1.1 para última) | 0.167       |
 
 Valores animados:
+
 - `opacity`: `[0, 1, 1, 0]`
 - `y`: `[18, 0, 0, -12]` px
 - `filter`: `['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)']`
@@ -94,6 +95,7 @@ A frase 6 (emphasis) tem `fadeOutEnd = 1.1` — não desaparece ao chegar ao fim
 ## Background CSS
 
 Camadas (de frente para trás):
+
 1. Vinheta: `radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, #040013cc 100%)`
 2. Grade: `repeating-linear-gradient(90deg) + repeating-linear-gradient(0deg)` em Ghost Blue opacidade mínima
 3. Glow azul central: `radial-gradient(ellipse 80% 60% at 50% 50%, #0048ff22)`
@@ -167,14 +169,14 @@ git rm src/components/sobre/beliefs/WhatMovesMePhrase.tsx
 
 ## Decisões Técnicas
 
-| Decisão | Escolha | Motivo |
-|---------|---------|--------|
-| Background | CSS puro | Spec pede "shade fixo" — sem animação contínua, zero WebGL |
-| Animação | Framer Motion useScroll/useTransform | Substitui GSAP ScrollTrigger; já no bundle |
-| Frases | 1 useScroll no pai, MotionValues como props | Evita N listeners; `useTransform` é lazy |
-| `useTransform` no `.map()` | Seguro | Array de tamanho fixo 6 — hooks nunca variam |
-| Última frase | `fadeOutEnd = 1.1` | Não desaparece no fim — climax visual permanente |
-| Ghost 3D | Arquivos preservados | Pode ser reutilizado em outras seções |
+| Decisão                    | Escolha                                     | Motivo                                                     |
+| -------------------------- | ------------------------------------------- | ---------------------------------------------------------- |
+| Background                 | CSS puro                                    | Spec pede "shade fixo" — sem animação contínua, zero WebGL |
+| Animação                   | Framer Motion useScroll/useTransform        | Substitui GSAP ScrollTrigger; já no bundle                 |
+| Frases                     | 1 useScroll no pai, MotionValues como props | Evita N listeners; `useTransform` é lazy                   |
+| `useTransform` no `.map()` | Seguro                                      | Array de tamanho fixo 6 — hooks nunca variam               |
+| Última frase               | `fadeOutEnd = 1.1`                          | Não desaparece no fim — climax visual permanente           |
+| Ghost 3D                   | Arquivos preservados                        | Pode ser reutilizado em outras seções                      |
 
 ---
 

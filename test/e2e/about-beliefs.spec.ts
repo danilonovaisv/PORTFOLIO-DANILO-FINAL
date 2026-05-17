@@ -237,9 +237,7 @@ for (const route of ROUTES) {
       expect(headerRect.y).toBeLessThan(180);
       expect(1440 - (headerRect.x + headerRect.width)).toBeLessThan(140);
 
-      await expect
-        .poll(() => getVisiblePhraseRect(page))
-        .not.toBeNull();
+      await expect.poll(() => getVisiblePhraseRect(page)).not.toBeNull();
 
       const phraseStage = await getPhraseStageStyle(page);
       expect(phraseStage.width).not.toBe('0px');
@@ -260,15 +258,15 @@ for (const route of ROUTES) {
       expect(headerRect).not.toBeNull();
 
       if (!headerRect) {
-        throw new Error('mobile beliefs-fixed-header bounding box not available');
+        throw new Error(
+          'mobile beliefs-fixed-header bounding box not available'
+        );
       }
 
       expect(headerRect.y).toBeLessThan(110);
       expect(390 - (headerRect.x + headerRect.width)).toBeLessThan(36);
 
-      await expect
-        .poll(() => getVisiblePhraseRect(page))
-        .not.toBeNull();
+      await expect.poll(() => getVisiblePhraseRect(page)).not.toBeNull();
 
       const phraseStage = await getPhraseStageStyle(page);
       expect(phraseStage.width).not.toBe('0px');
