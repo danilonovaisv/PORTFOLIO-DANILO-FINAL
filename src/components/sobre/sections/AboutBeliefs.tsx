@@ -58,6 +58,7 @@ export function AboutBeliefs() {
               aria-hidden="true"
               data-testid="beliefs-ghost-scene"
               data-ghost-scene
+              data-belief-ghost-anchor={scroll.isMobile ? 'mobile-left' : 'desktop-right'}
               className="pointer-events-none absolute inset-0"
               style={{ zIndex: beliefZIndex.ghost }}
             >
