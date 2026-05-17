@@ -107,3 +107,14 @@ export const beliefLayout = {
   manifestoMaxWidth: 'min(90vw, 1520px)',
   manifestoFontSize: 'clamp(3.4rem, 15vw, 11.5rem)',
 } as const;
+
+// Re-exports for what-moves-me redesign
+export {
+  WHAT_MOVES_ME_PHRASES,
+  GHOST_SHADE_COLORS,
+  GHOST_EASE,
+  PHRASE_COUNT,
+  SECTION_HEIGHT_VH,
+  BAND,
+} from '../components/sobre/beliefs/what-moves-me.constants';
+export type { WhatMovesMePhrase } from '../components/sobre/beliefs/what-moves-me.constants';

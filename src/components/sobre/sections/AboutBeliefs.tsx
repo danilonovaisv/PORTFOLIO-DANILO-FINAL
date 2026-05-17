@@ -1,80 +1,26 @@
 'use client';
 
-import { Suspense, useRef } from 'react';
-import dynamic from 'next/dynamic';
-import { beliefLayout, beliefZIndex } from '@/config/beliefTokens';
-import { useBeliefsScroll } from '@/hooks/useBeliefsScroll';
-import { BeliefsScrollProvider } from '../beliefs/BeliefsScrollContext';
-import { BeliefBackground } from '../beliefs/BeliefBackground';
-import { BeliefOverlay } from '../beliefs/BeliefOverlay';
-import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
+import { useRef } from 'react';
+import { WhatMovesMeBackground } from '../beliefs/WhatMovesMeBackground';
 import { BeliefScrollText } from '../beliefs/BeliefScrollText';
-import { BeliefManifesto } from '../beliefs/BeliefManifesto';
-import { GhostErrorBoundary } from '../3d/GhostErrorBoundary';
-import { GhostSceneFallback } from '../3d/GhostSceneFallback';
-
-const GhostScene = dynamic(
-  () => import('../3d/GhostScene').then((mod) => mod.GhostScene),
-  { ssr: false }
-);
+import { SECTION_HEIGHT_VH } from '../beliefs/what-moves-me.constants';
 
 export function AboutBeliefs() {
-  const containerRef = useRef<HTMLElement>(null);
-  const scroll = useBeliefsScroll(containerRef);
+  const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <BeliefsScrollProvider
-      value={{
-        containerRef,
-        scrollYProgress: scroll.scrollYProgress,
-        isMobile: scroll.isMobile,
-        shouldReduceMotion: scroll.shouldReduceMotion,
-        activeIndex: scroll.activeIndex,
-        isClimax: scroll.isClimax,
-      }}
+    <section
+      ref={sectionRef}
+      id="o-que-me-move"
+      aria-labelledby="o-que-me-move-title"
+      className="relative text-white"
+      style={{ minHeight: `${SECTION_HEIGHT_VH}vh` }}
     >
-      <section
-        ref={containerRef}
-        id="o-que-me-move"
-        data-testid="beliefs-section"
-        data-belief-active-index={scroll.activeIndex}
-        data-belief-climax={scroll.isClimax ? 'true' : 'false'}
-        aria-labelledby="o-que-me-move-title"
-        className="relative overflow-clip bg-[#040013] text-white"
-        style={{ minHeight: beliefLayout.sectionMinHeight }}
-      >
-        <h2 id="o-que-me-move-title" className="sr-only">
-          O que me move
-        </h2>
-
-        <BeliefBackground />
-        <BeliefOverlay />
-
-        <div className="sticky top-0 h-dvh">
-          <div className="relative h-full">
-            <BeliefFixedHeader />
-
-            <div
-              aria-hidden="true"
-              data-testid="beliefs-ghost-scene"
-              data-ghost-scene
-              data-belief-ghost-anchor={scroll.isMobile ? 'mobile-left' : 'desktop-right'}
-              className="pointer-events-none absolute inset-0"
-              style={{ zIndex: beliefZIndex.ghost }}
-            >
-              <GhostErrorBoundary fallback={<GhostSceneFallback />}>
-                <Suspense fallback={<GhostSceneFallback />}>
-                  <GhostScene />
-                </Suspense>
-              </GhostErrorBoundary>
-            </div>
-
-            <BeliefManifesto />
-          </div>
-        </div>
-
-        <BeliefScrollText sectionRef={containerRef} />
-      </section>
-    </BeliefsScrollProvider>
+      <h2 id="o-que-me-move-title" className="sr-only">
+        O que me move
+      </h2>
+      <WhatMovesMeBackground />
+      <BeliefScrollText sectionRef={sectionRef} />
+    </section>
   );
 }
