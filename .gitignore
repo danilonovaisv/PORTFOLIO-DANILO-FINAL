@@ -139,6 +139,18 @@ node_modules
 tmp-npm-cache/
 .npm_cache_local/
 .pnpm-cache/
+functions/.npm_cache/
+
+# Python bytecode (compiled, never commit)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Generated visual exports
+graphify-out/
+
+# Session output artifacts
+output/
 
 # Orphan root-level artifacts from sessions
 build-error.log
