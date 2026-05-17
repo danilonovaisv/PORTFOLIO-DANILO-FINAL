@@ -274,8 +274,8 @@ const createNextConfig = (phase) => ({
    * Mantida INTACTA
    */
   images: {
-    qualities: [55, 60, 75],
-    unoptimized: false,
+    // Usa Supabase Image Transformation como provider de otimização nativo (CDN-direct, sem hop /_next/image)
+    loaderFile: './src/lib/supabase/image-loader.ts',
     // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
     remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
       {
