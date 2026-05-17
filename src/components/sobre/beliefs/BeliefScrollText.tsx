@@ -26,25 +26,28 @@ export function BeliefScrollText({ sectionRef }: BeliefScrollTextProps) {
         style={{ maxWidth: 'min(90vw, 56rem)' }}
       >
         {WHAT_MOVES_ME_PHRASES.map((phrase, i) => {
+          const isLast = i === WHAT_MOVES_ME_PHRASES.length - 1;
           const fadeInStart = i * BAND;
           const fadeInEnd = i * BAND + BAND * 0.22;
           const peakEnd = (i + 1) * BAND - BAND * 0.22;
-          const fadeOutEnd = i < WHAT_MOVES_ME_PHRASES.length - 1 ? (i + 1) * BAND : 1.1;
+          const fadeOutEnd = isLast ? 1 : (i + 1) * BAND;
 
           const opacity = useTransform(
             scrollYProgress,
             [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd],
-            [0, 1, 1, 0]
+            isLast ? [0, 1, 1, 1] : [0, 1, 1, 0]
           );
           const y = useTransform(
             scrollYProgress,
             [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd],
-            [18, 0, 0, -12]
+            isLast ? [18, 0, 0, 0] : [18, 0, 0, -12]
           );
           const filter = useTransform(
             scrollYProgress,
             [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd],
-            ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)']
+            isLast
+              ? ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(0px)']
+              : ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)']
           );
 
           return (
