@@ -91,9 +91,12 @@ test-results/
 .aiassistant/
 # AI/Agent System (.agent)
 .agent/broken_links_report.json
+.agent/skills/
 .agent/skills-archive/
 .agent/.shared/
 .agent/data/
+# Secondary agent skill library
+.agents/skills/
 .github/*
 !.github/workflows/
 .github/workflows/*
