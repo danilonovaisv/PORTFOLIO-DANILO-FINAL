@@ -5,6 +5,7 @@ import { m, useScroll, useTransform } from 'motion/react';
 import { GHOST_EASE, viewportConfig, MOTION_TOKENS } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
@@ -26,21 +27,6 @@ const isLikelyVideoUrl = (url?: string | null) => {
   if (url.startsWith('blob:') || url.startsWith('data:video/')) return true;
   return VIDEO_EXTENSIONS_REGEX.test(url);
 };
-
-/** SSR-safe breakpoint hook — returns true when viewport is ≤ 767px (mobile) */
-function useIsMobile(): boolean {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(max-width: 767px)');
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    setIsMobile(mql.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, []);
-
-  return isMobile;
-}
 
 export function VideoManifesto({
   src,

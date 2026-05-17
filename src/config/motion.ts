@@ -19,8 +19,11 @@ export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
   ease: {
     ghost: GHOST_EASE,
+    soft: GHOST_EASE_SOFT,
+    heavy: GHOST_EASE_HEAVY,
+    ambient: GHOST_EASE_AMBIENT,
     /** Motion scroll-triggered reference ease — used in Beliefs section */
-    reference: [0.17, 0.55, 0.55, 1] as EasingTuple,
+    reference: GHOST_EASE_AMBIENT,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -32,6 +35,7 @@ export const MOTION_TOKENS = {
     headerOut: 0.5,
     textIn: 0.9,
     textOut: 0.5,
+    textExitFast: 0.32,
     ghostIn: 1.2,
     /** Atmospheric, slow reveals - 1.5s */
     slow: 1.5,

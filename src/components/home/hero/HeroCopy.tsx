@@ -102,7 +102,7 @@ export default function HeroCopy({
         {/* Headline - Mobile Only (Visual Only) -> md:hidden */}
         <div
           aria-hidden="true"
-          className="md:hidden mb-12 font-display text-[clamp(3rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
+          className="md:hidden mb-12 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
             <React.Fragment key={`mobile-${i}`}>

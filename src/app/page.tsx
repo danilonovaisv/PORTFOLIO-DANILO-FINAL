@@ -17,6 +17,7 @@ const VideoManifesto = dynamic(() =>
     (mod) => mod.VideoManifesto
   )
 );
+import { ShaderSection } from '@/components/home/ShaderSection';
 import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
@@ -160,6 +161,7 @@ export default async function HomePage() {
         initialProjects={featuredProjects}
         shuffleSeed={typeof shuffleSeed === 'number' ? shuffleSeed : undefined}
       />
+      <ShaderSection />
       <SiteClosure />
     </main>
   );

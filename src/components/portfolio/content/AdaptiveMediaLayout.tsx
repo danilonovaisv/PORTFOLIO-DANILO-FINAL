@@ -11,7 +11,6 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 
-import { injectSupabaseProxy } from '@/lib/supabase/urls';
 import { getContentVariants } from '@/components/portfolio/modal/variants';
 
 interface AdaptiveMediaLayoutProps {
@@ -147,7 +146,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     <div className="relative w-full aspect-video max-h-[70vh] bg-black/40 overflow-hidden flex items-center justify-center">
                         {/* Ghost Media Placeholder */}
                         <AnimatePresence>
-                            {!isLoaded && activeMedia && (
+                            {!isLoaded && activeMedia && activeMedia !== ASSET_PLACEHOLDER && (
                                 <m.div 
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -158,10 +157,19 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 </m.div>
                             )}
                         </AnimatePresence>
-                        {!activeMedia ? (
+                        
+                        {!activeMedia || activeMedia === ASSET_PLACEHOLDER ? (
                             <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
-                                <div className="max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
-                                    Este post nao possui midia interna publicada. A thumb permanece apenas na listagem.
+                                <div className="max-w-md rounded-2xl border border-white/5 bg-white/[0.02] p-8 text-center backdrop-blur-sm">
+                                    <div className="w-12 h-12 bg-bluePrimary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <span className="material-icons-round text-bluePrimary/40">cloud_off</span>
+                                    </div>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">
+                                        System_Media_Unavailable
+                                    </p>
+                                    <p className="mt-2 text-sm text-white/30">
+                                        Este projeto não possui mídia interna publicada no momento.
+                                    </p>
                                 </div>
                             </div>
                         ) : activeYouTubeEmbed ? (
@@ -282,7 +290,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                     {/* DETAILS / TEXT CONTENT */}
                     <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 relative z-30 pb-24">
-                        <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-2 drop-shadow-2xl font-display">
+                        <h1 className="text-display font-bold tracking-tight text-white mb-2 drop-shadow-2xl font-display">
                             {project.title}
                         </h1>
                         {project.subtitle && (

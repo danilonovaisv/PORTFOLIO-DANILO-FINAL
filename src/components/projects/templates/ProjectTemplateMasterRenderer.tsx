@@ -22,7 +22,9 @@ import SectionGrid from '@/components/projects/templates/master-v2/SectionGrid';
 import SectionQuote from '@/components/projects/templates/master-v2/SectionQuote';
 import SectionSplit from '@/components/projects/templates/master-v2/SectionSplit';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
+
 
 // LiquidEther removed as it was unused
 // const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];

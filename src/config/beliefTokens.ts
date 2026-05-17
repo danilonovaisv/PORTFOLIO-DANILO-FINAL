@@ -60,20 +60,20 @@ export const beliefMotion = {
   ghostEase: MOTION_TOKENS.ease.ghost,
   /** Motion scroll-triggered reference ease — for Beliefs phrases and background */
   referenceEase: MOTION_TOKENS.ease.reference,
-  softEase: MOTION_TOKENS.ease.ghost,
+  softEase: MOTION_TOKENS.ease.soft,
   microDuration: MOTION_TOKENS.duration.micro,
   revealDuration: MOTION_TOKENS.duration.GHOST_REVEAL,
   exitDuration: MOTION_TOKENS.duration.GHOST_EXIT,
   /** Duration for main phrase entrance */
-  textRevealDuration: 0.9,
+  textRevealDuration: MOTION_TOKENS.duration.textIn,
   /** Duration for main phrase exit */
-  textExitDuration: 0.32,
+  textExitDuration: MOTION_TOKENS.duration.textExitFast,
   /** Duration for background color transition */
-  backgroundDuration: 0.9,
+  backgroundDuration: MOTION_TOKENS.duration.bg,
   /** Duration for fixed header entrance */
-  headerDuration: 0.8,
+  headerDuration: MOTION_TOKENS.duration.headerIn,
   /** Duration for fixed header exit */
-  headerExitDuration: 0.5,
+  headerExitDuration: MOTION_TOKENS.duration.headerOut,
   ghostIntroDuration: MOTION_TOKENS.duration.ghostIn,
   wordStagger: MOTION_TOKENS.duration.WORD_STAGGER,
   manifestoStagger: MOTION_TOKENS.splitText.manifestoStagger,
