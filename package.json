@@ -13,10 +13,6 @@
     "node": "22"
   },
   "pnpm": {
-    "overrides": {
-      "fast-xml-parser": ">=5.3.4",
-      "tar": ">=7.5.13"
-    },
     "ignoredBuiltDependencies": [
       "@firebase/util",
       "esbuild",
