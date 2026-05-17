@@ -29,7 +29,7 @@ export function AlpaBlockVideoFull({
       transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="w-full mb-12 md:mb-20 px-4 md:px-0"
     >
-      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral/20">
+      <div className="relative aspect-video w-full overflow-hidden rounded-none bg-neutral/20">
         <video
           src={resolvedSrc}
           poster={resolvedPoster}

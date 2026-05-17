@@ -10,7 +10,7 @@ import { useWebGLSupport } from '../../../hooks/useWebGLSupport';
 import { useBeliefsScrollContext } from '../beliefs/BeliefsScrollContext';
 import { GhostModel } from './GhostModel';
 import { GhostSceneFallback } from './GhostSceneFallback';
-import { beliefZIndex } from '../../../config/beliefTokens';
+import { beliefLayout, beliefZIndex } from '../../../config/beliefTokens';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -110,6 +110,7 @@ export function GhostScene() {
       ref={wrapperRef}
       data-testid="beliefs-ghost-scene"
       data-ghost-scene
+      data-belief-ghost-anchor={isMobile ? 'mobile-left' : 'desktop-right'}
       style={{ zIndex: beliefZIndex.ghost }}
       className="pointer-events-none absolute inset-0"
     >
@@ -139,6 +140,7 @@ export function GhostScene() {
             scrollYProgress={scrollYProgress}
             pointerX={isMobile ? { get: () => 0 } : pointer.x}
             pointerY={isMobile ? { get: () => 0 } : pointer.y}
+            layout={beliefLayout}
           />
         </Suspense>
       </Canvas>

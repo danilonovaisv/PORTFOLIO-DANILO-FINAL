@@ -47,6 +47,26 @@ const prepareRoute = async (
   await gotoRoute(page, route);
 };
 
+const getVisiblePhraseRect = async (page: Page) =>
+  page.locator('[data-testid="belief-phrase"]').evaluateAll((elements) => {
+    const visible = elements.find(
+      (el) => Number(window.getComputedStyle(el).opacity) > 0.5
+    );
+    if (!visible) return null;
+
+    const rect = visible.getBoundingClientRect();
+    return {
+      left: rect.left,
+      right: rect.right,
+      top: rect.top,
+      bottom: rect.bottom,
+      width: rect.width,
+      height: rect.height,
+      centerX: rect.left + rect.width / 2,
+      centerY: rect.top + rect.height / 2,
+    };
+  });
+
 for (const route of ROUTES) {
   test.describe(`O Que Me Move Motion Update — ${route}`, () => {
     test('reativa BeliefsSection original com altura cinematográfica', async ({
@@ -177,6 +197,95 @@ for (const route of ROUTES) {
           )
         )
         .toBe(true);
+    });
+
+    test('desktop fixa header à direita e frase no campo esquerdo da composição', async ({
+      page,
+    }) => {
+      await prepareRoute(page, route);
+      await scrollToProgress(page, 0.28);
+
+      const headerRect = await page
+        .locator('[data-testid="beliefs-fixed-header"]')
+        .boundingBox();
+      expect(headerRect).not.toBeNull();
+
+      if (!headerRect) {
+        throw new Error('beliefs-fixed-header bounding box not available');
+      }
+
+      expect(headerRect.y).toBeLessThan(180);
+      expect(1440 - (headerRect.x + headerRect.width)).toBeLessThan(140);
+
+      await expect
+        .poll(() => getVisiblePhraseRect(page))
+        .not.toBeNull();
+
+      const phraseRect = await getVisiblePhraseRect(page);
+      if (!phraseRect) {
+        throw new Error('visible desktop phrase not found');
+      }
+
+      expect(phraseRect.left).toBeLessThan(220);
+      expect(phraseRect.centerY).toBeGreaterThan(260);
+      expect(phraseRect.centerY).toBeLessThan(620);
+      expect(phraseRect.centerX).toBeLessThan(420);
+    });
+
+    test('mobile mantém header top-right e frase ativa no rodapé centralizado', async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await gotoRoute(page, route);
+      await scrollToProgress(page, 0.28);
+
+      const headerRect = await page
+        .locator('[data-testid="beliefs-fixed-header"]')
+        .boundingBox();
+      expect(headerRect).not.toBeNull();
+
+      if (!headerRect) {
+        throw new Error('mobile beliefs-fixed-header bounding box not available');
+      }
+
+      expect(headerRect.y).toBeLessThan(110);
+      expect(390 - (headerRect.x + headerRect.width)).toBeLessThan(36);
+
+      await expect
+        .poll(() => getVisiblePhraseRect(page))
+        .not.toBeNull();
+
+      const phraseRect = await getVisiblePhraseRect(page);
+      if (!phraseRect) {
+        throw new Error('visible mobile phrase not found');
+      }
+
+      expect(Math.abs(phraseRect.centerX - 195)).toBeLessThan(28);
+      expect(phraseRect.bottom).toBeGreaterThan(540);
+    });
+
+    test('manifesto final ocupa quase toda a largura útil e ghost preserva anchor declarada', async ({
+      page,
+    }) => {
+      await prepareRoute(page, route);
+      await scrollToProgress(page, 0.99);
+
+      const ghost = page.locator('[data-testid="beliefs-ghost-scene"]').first();
+      await expect(ghost).toHaveAttribute(
+        'data-belief-ghost-anchor',
+        'desktop-right'
+      );
+
+      const manifestoCopy = page.locator(
+        '[data-testid="beliefs-manifesto-copy"]'
+      );
+      const widthRatio = await manifestoCopy.evaluate((el) => {
+        const rect = el.getBoundingClientRect();
+        return rect.width / window.innerWidth;
+      });
+
+      expect(widthRatio).toBeGreaterThan(0.82);
     });
 
     test('reduced motion remove offsets e preserva fade simples', async ({

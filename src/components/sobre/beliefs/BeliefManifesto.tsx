@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 import {
   BELIEF_MANIFESTO_LINES,
+  beliefColors,
+  beliefLayout,
   beliefMotion,
   beliefZIndex,
 } from '@/config/beliefTokens';
@@ -80,23 +82,46 @@ export function BeliefManifesto() {
       data-testid="beliefs-manifesto"
       data-belief-manifesto
       style={{ zIndex: beliefZIndex.manifesto }}
-      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6"
+      className="pointer-events-none fixed inset-0 flex items-center justify-center px-6 md:px-12 lg:px-16 xl:px-24"
       aria-hidden={!isClimax}
     >
       <div
-        className="text-center font-display font-black uppercase leading-[0.82] tracking-[0.03em] text-white"
-        style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)', color: '#ffffff' }}
+        className="mx-auto w-full"
+        style={{ maxWidth: beliefLayout.stageMaxWidth }}
       >
-        {BELIEF_MANIFESTO_LINES.map((line) => (
-          <SplitTextMotion
-            key={line}
-            as="div"
-            text={line}
-            mode="words"
-            className="block text-white"
-            itemClassName="inline-block text-white will-change-transform"
-          />
-        ))}
+        <div className="grid grid-cols-12">
+          <div
+            data-testid="beliefs-manifesto-copy"
+            className="col-span-12 md:col-span-11"
+            style={{ maxWidth: beliefLayout.manifestoMaxWidth }}
+          >
+            <div
+              className="font-display font-black uppercase leading-[0.82] tracking-[0.02em] text-white"
+              style={{ fontSize: beliefLayout.manifestoFontSize }}
+            >
+              {BELIEF_MANIFESTO_LINES.map((line) => {
+                const isGhostLine = line === 'GHOST';
+                return (
+                  <div
+                    key={line}
+                    className="block text-left"
+                    style={{
+                      color: isGhostLine ? beliefColors.bluePrimary : '#ffffff',
+                    }}
+                  >
+                    <SplitTextMotion
+                      as="div"
+                      text={line}
+                      mode="words"
+                      className="block"
+                      itemClassName="inline-block will-change-transform"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

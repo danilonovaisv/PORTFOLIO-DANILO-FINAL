@@ -1,5 +1,28 @@
 # Walkthrough: O Que Me Move (Motion DOM + Ghost 3D)
 
+## 2026-05-17 — Recomposition do layout texto + ghost
+
+### Resumo
+
+Esta rodada não alterou copy nem a narrativa-base. O ajuste foi espacial: o header foi realinhado para o topo-direita do grid, a frase rotativa passou a ocupar o campo esquerdo no desktop e o rodapé no mobile, e o manifesto final ganhou largura útil próxima de 90% com `GHOST` destacado em azul.
+
+### Ajustes concluídos
+
+- `src/config/beliefTokens.ts` recebeu tokens de layout para stage, frase, manifesto e anchors do ghost.
+- `AboutBeliefs.tsx` manteve a seção sticky, mas reorganizou o palco interno para acomodar melhor header, ghost e manifesto.
+- `BeliefFixedHeader.tsx` foi reposicionado para um bloco editorial top-right consistente em desktop/mobile.
+- `BeliefScrollText.tsx` passou a usar composição fixa por breakpoint: esquerda/centro-vertical no desktop, rodapé centralizado no mobile.
+- `GhostScene.tsx` expõe `data-belief-ghost-anchor` e `GhostModel.tsx` usa os anchors/tamanhos do SSOT de layout.
+- `BeliefManifesto.tsx` agora expõe `data-testid="beliefs-manifesto-copy"` e destaca a linha `GHOST` em `bluePrimary`.
+- `test/e2e/about-beliefs.spec.ts` foi ampliado para verificar geometria real de header, frase e manifesto.
+
+### Evidência esperada desta rodada
+
+- `pnpm run typecheck`
+- `pnpm run lint`
+- `pnpm run build`
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
+
 ## 2026-05-16 — Finalização da orchestration no branch atual
 
 ### Resumo

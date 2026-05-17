@@ -51,7 +51,7 @@ export function AlpaBlockGrid2Col({
               delay: cIdx * 0.1,
               ease: GHOST_EASE,
             }}
-            className="relative aspect-square md:aspect-auto md:h-[60vh] overflow-hidden rounded-xl bg-neutral/20"
+            className="relative aspect-square md:aspect-auto md:h-[60vh] overflow-hidden rounded-none bg-neutral/20"
           >
             {isImage ? (
               <button

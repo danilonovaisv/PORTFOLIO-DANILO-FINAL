@@ -1,8 +1,8 @@
 # Active State: ABOUT BELIEFS ORCHESTRATION ✅
 
 **Phase**: O QUE ME MOVE — ORCHESTRATION FINALIZATION
-**Current Focus**: Finalized the remaining orchestration gap on the current branch, removed the last Motion DOM dependency in `beliefs`, aligned the Ghost wrapper/test contract, and revalidated the section end-to-end.
-**Last Update**: 2026-05-16 18:40
+**Current Focus**: Recomposei a geometria da sessão `O QUE ME MOVE` para o layout aprovado do snippet, preservando GSAP/R3F, contratos E2E e a hierarquia Ghost System.
+**Last Update**: 2026-05-17 12:20
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -12,6 +12,19 @@
 - **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
 - **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
 - **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+
+## Text Layout Recomposition (2026-05-17)
+
+- [x] **Stage Geometry Realigned**: `BeliefFixedHeader`, `BeliefScrollText` e `BeliefManifesto` agora seguem a composição aprovada para desktop/mobile.
+- [x] **Layout SSOT Extended**: `src/config/beliefTokens.ts` concentra anchors, larguras, escalas e `clamp()` da sessão.
+- [x] **Ghost Anchor Declared**: `GhostScene.tsx` expõe `data-belief-ghost-anchor` e `GhostModel.tsx` consome anchors/tamanhos derivados do token layer.
+- [x] **Manifesto Width Contract**: o bloco final passou a expor `data-testid="beliefs-manifesto-copy"` e mantém `GHOST` destacado em `bluePrimary`.
+- [x] **E2E Geometry Coverage**: `test/e2e/about-beliefs.spec.ts` agora valida alinhamento top-right do header, frase fixa por breakpoint e largura útil do manifesto final.
+- [ ] **Validation Evidence**:
+  - `pnpm run typecheck`
+  - `pnpm run lint`
+  - `pnpm run build`
+  - `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
 
 ## Orchestration Finalization (2026-05-16)
 

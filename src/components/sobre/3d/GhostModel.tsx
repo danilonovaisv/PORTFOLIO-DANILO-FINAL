@@ -158,6 +158,18 @@ type GhostModelProps = {
   scrollYProgress: { get: () => number };
   pointerX: { get: () => number };
   pointerY: { get: () => number };
+  layout: {
+    ghostDesktopCameraX: number;
+    ghostDesktopCameraY: number;
+    ghostDesktopClimaxX: number;
+    ghostDesktopClimaxY: number;
+    ghostMobileCameraX: number;
+    ghostMobileCameraY: number;
+    ghostMobileClimaxX: number;
+    ghostMobileClimaxY: number;
+    ghostDesktopScale: number;
+    ghostMobileScale: number;
+  };
 };
 
 export function GhostModel({
@@ -166,6 +178,7 @@ export function GhostModel({
   scrollYProgress,
   pointerX,
   pointerY,
+  layout,
 }: GhostModelProps) {
   const groupRef = useRef<THREE.Group>(null);
   const initialized = useRef(false);
@@ -217,19 +230,24 @@ export function GhostModel({
     const px = shouldReduceMotion || isMobile ? 0 : pointerX.get();
     const py = shouldReduceMotion || isMobile ? 0 : pointerY.get();
 
-    // Desktop: Ghost RIGHT (1.0), drifts to center (0.3) at climax
-    // Mobile: Ghost LEFT (-0.8), centers at climax
     const targetX = isMobile
       ? isClimax
-        ? 0
-        : -0.8
+        ? layout.ghostMobileClimaxX
+        : layout.ghostMobileCameraX
       : isClimax
-        ? 0.3 + px * 0.15
-        : 1.0 + px * 0.3;
+        ? layout.ghostDesktopClimaxX + px * 0.12
+        : layout.ghostDesktopCameraX + px * 0.2;
 
-    const targetY = isMobile ? (isClimax ? -0.35 : -0.15) : 0.0 + py * 0.25;
+    const targetY = isMobile
+      ? isClimax
+        ? layout.ghostMobileClimaxY
+        : layout.ghostMobileCameraY
+      : (isClimax ? layout.ghostDesktopClimaxY : layout.ghostDesktopCameraY) +
+        py * 0.22;
 
-    const baseScale = isMobile ? 0.48 : 0.72;
+    const baseScale = isMobile
+      ? layout.ghostMobileScale
+      : layout.ghostDesktopScale;
     const targetScale = baseScale * scaleBoost;
 
     // Snap on first frame: frameloop="demand" fires frames only per scroll/mousemove event,

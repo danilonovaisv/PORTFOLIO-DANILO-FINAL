@@ -29,6 +29,7 @@ Chúng ta tuân thủ tỷ lệ vàng trong kiểm thử:
 
 - **File Name**: `*.test.ts` hoặc `*.spec.ts`.
 - **Structure**:
+
   ```typescript
   describe('AuthService', () => {
     // Tên Module

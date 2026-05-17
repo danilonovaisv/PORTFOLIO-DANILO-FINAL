@@ -3,6 +3,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
+import type { CSSProperties } from 'react';
 import {
   BELIEF_PHRASE_ITEMS,
   beliefMotion,
@@ -91,12 +92,19 @@ export function BeliefScrollText() {
           className="relative flex items-center"
           style={{ height: beliefLayout.phraseSectionHeight }}
         >
-          <div className="pointer-events-none ml-[clamp(1.5rem,6vw,6rem)] max-w-[38vw] text-left max-md:fixed max-md:bottom-[20vh] max-md:left-1/2 max-md:ml-0 max-md:w-[min(86vw,28rem)] max-md:-translate-x-1/2 max-md:text-center">
+          <div
+            className="pointer-events-none fixed left-1/2 w-[min(88vw,24rem)] -translate-x-1/2 text-center max-md:bottom-[var(--belief-mobile-bottom)] md:left-[clamp(2rem,8vw,9rem)] md:top-1/2 md:w-[min(32rem,34vw)] md:-translate-x-0 md:-translate-y-1/2 md:text-left"
+            style={
+              {
+                '--belief-mobile-bottom': beliefLayout.mobilePhraseBottom,
+              } as CSSProperties
+            }
+          >
             <p
               data-belief-phrase
               data-testid="belief-phrase"
               data-animation-contract="viewport-x-opacity"
-              className="select-none font-h1 text-[clamp(2.8rem,5.8vw,6.3rem)] font-medium italic leading-[1.05] tracking-[-0.03em] opacity-0 will-change-transform max-md:text-[clamp(2rem,8vw,3rem)]"
+              className="select-none text-balance font-h1 text-[clamp(2rem,8vw,3rem)] font-medium italic leading-[0.98] tracking-[-0.035em] opacity-0 will-change-transform md:text-[clamp(3rem,5.6vw,6.15rem)]"
               style={{ color: beliefColors.blueAccent }}
             >
               {phrase.text}

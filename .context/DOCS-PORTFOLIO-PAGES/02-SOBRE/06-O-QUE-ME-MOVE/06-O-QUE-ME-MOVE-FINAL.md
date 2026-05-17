@@ -1,5 +1,22 @@
 # 📄 ABOUT BELIEFS — MASTER BLUEPRINT + PROMPTS (FINAL)
 
+## 2026-05-17 — Layout recomposition aligned to approved snippet
+
+- A seção mantém o scroll global, o stack `GSAP + R3F` e todos os contratos E2E existentes.
+- O palco sticky foi recomposto em três momentos visuais:
+  - header editorial fixado no topo-direita do grid;
+  - frase rotativa fixa em convivência lateral com o ghost;
+  - manifesto final com massa tipográfica expandida e `GHOST` destacado em `bluePrimary`.
+- Desktop:
+  - frase fixa no campo esquerdo, com largura controlada por `clamp`/`max-width`;
+  - ghost ancorado à direita e recentralizado levemente no clímax para invadir a massa tipográfica.
+- Mobile:
+  - header sticky no topo-direita;
+  - frase ativa fixa no rodapé e centralizada;
+  - ghost mantido no lado esquerdo do palco e aproximado do centro apenas no reveal final.
+- SSOT de layout:
+  - `src/config/beliefTokens.ts` passou a concentrar offsets, larguras, escalas e anchors da composição.
+
 ````md
 # ABOUT BELIEFS — MASTER BLUEPRINT (FINAL SYSTEM)
 

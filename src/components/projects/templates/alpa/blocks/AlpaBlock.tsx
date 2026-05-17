@@ -87,6 +87,7 @@ export function AlpaBlock({
       );
 
     case 'image-image':
+    case 'image-video':
     case 'grid-2-col': {
       const columns = block.columns || [
         {

@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 import {
   BELIEF_HEADER_LINES,
+  beliefLayout,
   beliefMotion,
   beliefZIndex,
 } from '@/config/beliefTokens';
@@ -70,24 +71,37 @@ export function BeliefFixedHeader() {
   return (
     <aside
       ref={ref}
+      data-testid="beliefs-fixed-header"
       style={{ zIndex: beliefZIndex.fixedHeader }}
-      className="pointer-events-none absolute inset-y-0 right-0 flex w-full items-start justify-end px-6 pt-[13vh] md:items-center md:px-10 md:pt-0 lg:px-16"
+      className="pointer-events-none absolute inset-x-0 top-0"
     >
-      <div className="max-w-[13rem] text-right md:max-w-[20rem] lg:max-w-[24rem]">
-        <SplitTextMotion
-          as="p"
-          text={BELIEF_HEADER_LINES[0]}
-          mode="words"
-          className="font-display text-[clamp(1.5rem,6vw,2.35rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white md:text-[clamp(2rem,2.8vw,3.5rem)]"
-          itemClassName="inline-block will-change-transform"
-        />
-        <SplitTextMotion
-          as="p"
-          text={BELIEF_HEADER_LINES[1]}
-          mode="words"
-          className="mt-3 text-[clamp(0.82rem,2.7vw,0.98rem)] font-medium leading-[1.22] tracking-[0.04em] text-white/82 md:mt-5 md:text-[clamp(0.95rem,1.15vw,1.16rem)]"
-          itemClassName="inline-block will-change-transform"
-        />
+      <div
+        className="mx-auto grid w-full grid-cols-12 px-6 md:px-12 lg:px-16 xl:px-24"
+        style={{ maxWidth: beliefLayout.stageMaxWidth }}
+      >
+        <div className="col-span-12 flex justify-end pt-6 md:pt-24">
+          <div
+            className="justify-self-end text-right"
+            style={{
+              maxWidth: `clamp(${beliefLayout.headerMaxWidthMobile}, 22vw, ${beliefLayout.headerMaxWidthDesktop})`,
+            }}
+          >
+            <SplitTextMotion
+              as="p"
+              text={BELIEF_HEADER_LINES[0]}
+              mode="words"
+              className="font-display text-[clamp(1.35rem,5vw,2.6rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white md:text-[clamp(2rem,2.8vw,3.25rem)]"
+              itemClassName="inline-block will-change-transform"
+            />
+            <SplitTextMotion
+              as="p"
+              text={BELIEF_HEADER_LINES[1]}
+              mode="words"
+              className="mt-3 text-[clamp(0.76rem,2.2vw,0.98rem)] font-medium leading-[1.22] tracking-[0.04em] text-white/82 md:mt-5 md:text-[clamp(0.95rem,1.1vw,1.12rem)]"
+              itemClassName="inline-block will-change-transform"
+            />
+          </div>
+        </div>
       </div>
     </aside>
   );

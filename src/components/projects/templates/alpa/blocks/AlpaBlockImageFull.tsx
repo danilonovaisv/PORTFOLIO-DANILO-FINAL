@@ -48,7 +48,7 @@ export function AlpaBlockImageFull({
             e
           )
         }
-        className="group relative block w-full overflow-hidden rounded-xl bg-neutral/20"
+        className="group relative block w-full overflow-hidden rounded-none bg-neutral/20"
       >
         <Image
           src={resolvedSrc}
@@ -59,7 +59,7 @@ export function AlpaBlockImageFull({
         />
         {caption && (
           <div className="absolute bottom-4 left-4 right-4 text-left">
-            <p className="text-sm text-white/60 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full inline-block">
+            <p className="text-sm text-white/60 bg-black/40 backdrop-blur-md px-3 py-1 rounded-none inline-block">
               {caption}
             </p>
           </div>

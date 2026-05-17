@@ -292,6 +292,9 @@ const createNextConfig = (phase) => ({
       },
     ]),
 
+    // Lista de qualidades de compressão aceitas e validadas pelo compilador do Next.js 16
+    qualities: [25, 50, 60, 70, 75, 80, 90, 100],
+
     dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais
   },

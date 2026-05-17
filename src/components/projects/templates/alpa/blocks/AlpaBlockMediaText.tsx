@@ -46,7 +46,7 @@ export function AlpaBlockMediaText({
       whileInView={revealVisible}
       viewport={{ once: true, margin: '-10%' }}
       transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
-      className="relative aspect-square md:aspect-auto md:h-[50vh] overflow-hidden rounded-xl bg-neutral/20"
+      className="relative aspect-square md:aspect-auto md:h-[50vh] overflow-hidden rounded-none bg-neutral/20"
     >
       {!isVid ? (
         <button
