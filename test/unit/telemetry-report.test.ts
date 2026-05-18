@@ -26,10 +26,18 @@ function normalizePayload(raw: Record<string, unknown>) {
   const timestamp = (raw.timestamp as string | undefined) || undefined;
 
   const knownKeys = new Set([
-    'message', 'erroMensagem', 'erro_detectado',
+    'message',
+    'erroMensagem',
+    'erro_detectado',
     'stack',
-    'component', 'componente', 'componente_afetado', 'origem', 'secao',
-    'url', 'userAgent', 'timestamp',
+    'component',
+    'componente',
+    'componente_afetado',
+    'origem',
+    'secao',
+    'url',
+    'userAgent',
+    'timestamp',
   ]);
 
   const extraMetadata: Record<string, unknown> = {};
@@ -37,7 +45,8 @@ function normalizePayload(raw: Record<string, unknown>) {
     if (!knownKeys.has(key)) extraMetadata[key] = value;
   }
 
-  const metadata = Object.keys(extraMetadata).length > 0 ? extraMetadata : undefined;
+  const metadata =
+    Object.keys(extraMetadata).length > 0 ? extraMetadata : undefined;
 
   return { message, stack, component, url, userAgent, timestamp, metadata };
 }
@@ -100,7 +109,9 @@ describe('normalizePayload — bilingual PT-BR → EN normalization', () => {
   });
 
   it('maps componente_afetado to component', () => {
-    const result = normalizePayload({ componente_afetado: 'src/app/portfolio' });
+    const result = normalizePayload({
+      componente_afetado: 'src/app/portfolio',
+    });
     expect(result.component).toBe('src/app/portfolio');
   });
 

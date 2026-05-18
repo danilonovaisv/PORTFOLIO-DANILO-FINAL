@@ -32,7 +32,7 @@ export interface MotionLinkProps extends CleanLinkProps, MotionOnlyProps {
   children?: React.ReactNode;
 }
 
-const MotionNextLink = m(Link);
+const MotionNextLink = m.create(Link);
 
 export const MotionLink = forwardRef<HTMLAnchorElement, MotionLinkProps>(
   function MotionLink({ children, ...props }, ref) {

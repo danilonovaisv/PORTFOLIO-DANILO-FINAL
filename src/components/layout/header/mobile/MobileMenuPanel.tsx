@@ -20,7 +20,18 @@ interface MobileMenuPanelProps {
 }
 
 const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
-  ({ navItems, accentColor, open, socialsRef, onNavigate, onClose, activeHref }, ref) => {
+  (
+    {
+      navItems,
+      accentColor,
+      open,
+      socialsRef,
+      onNavigate,
+      onClose,
+      activeHref,
+    },
+    ref
+  ) => {
     return (
       <nav
         ref={ref}
@@ -35,7 +46,9 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
           paddingRight: 'max(2rem, env(safe-area-inset-right, 2rem))',
         }}
         aria-hidden={open ? 'false' : 'true'}
-        onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
       >
         {/* Menu items — <Link> for SEO crawlability + prefetching */}
         <ul className="flex flex-col gap-4" role="list">
@@ -63,15 +76,34 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
         </ul>
 
         {/* Social links */}
-        <div ref={socialsRef} className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4">
-          <m.h3 className="sm-social-title text-sm font-medium uppercase tracking-wider" initial={false} animate={{ color: accentColor }}>
+        <div
+          ref={socialsRef}
+          className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4"
+        >
+          <m.h3
+            className="sm-social-title text-sm font-medium uppercase tracking-wider"
+            initial={false}
+            animate={{ color: accentColor }}
+          >
             Connect
           </m.h3>
           <div className="flex gap-4">
             {[
-              { label: 'LinkedIn', href: SOCIALS.linkedin, icon: <Linkedin className="w-5 h-5" /> },
-              { label: 'InstagramIcon', href: SOCIALS.instagram, icon: <Instagram className="w-5 h-5" /> },
-              { label: 'Email', href: SOCIALS.emailPrimary, icon: <Mail className="w-5 h-5" /> },
+              {
+                label: 'LinkedIn',
+                href: SOCIALS.linkedin,
+                icon: <Linkedin className="w-5 h-5" />,
+              },
+              {
+                label: 'InstagramIcon',
+                href: SOCIALS.instagram,
+                icon: <Instagram className="w-5 h-5" />,
+              },
+              {
+                label: 'Email',
+                href: SOCIALS.emailPrimary,
+                icon: <Mail className="w-5 h-5" />,
+              },
             ].map((s) => (
               <a
                 key={s.label}

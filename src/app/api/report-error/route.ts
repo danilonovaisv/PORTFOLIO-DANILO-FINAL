@@ -43,10 +43,18 @@ function normalizePayload(raw: Record<string, unknown>) {
 
   // Collect all extra/legacy keys into metadata for diagnostic fidelity
   const knownKeys = new Set([
-    'message', 'erroMensagem', 'erro_detectado',
+    'message',
+    'erroMensagem',
+    'erro_detectado',
     'stack',
-    'component', 'componente', 'componente_afetado', 'origem', 'secao',
-    'url', 'userAgent', 'timestamp',
+    'component',
+    'componente',
+    'componente_afetado',
+    'origem',
+    'secao',
+    'url',
+    'userAgent',
+    'timestamp',
   ]);
 
   const extraMetadata: Record<string, unknown> = {};
@@ -56,7 +64,8 @@ function normalizePayload(raw: Record<string, unknown>) {
     }
   }
 
-  const metadata = Object.keys(extraMetadata).length > 0 ? extraMetadata : undefined;
+  const metadata =
+    Object.keys(extraMetadata).length > 0 ? extraMetadata : undefined;
 
   return { message, stack, component, url, userAgent, timestamp, metadata };
 }
@@ -70,8 +79,7 @@ export async function POST(req: Request) {
 
     // Inject server-side userAgent if not provided by client
     if (!normalized.userAgent) {
-      normalized.userAgent =
-        req.headers.get('user-agent') ?? undefined;
+      normalized.userAgent = req.headers.get('user-agent') ?? undefined;
     }
 
     // 2. Validate normalized payload against canonical Zod schema

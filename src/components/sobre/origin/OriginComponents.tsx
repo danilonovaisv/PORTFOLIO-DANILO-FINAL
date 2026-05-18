@@ -97,7 +97,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           <DynamicAssetImage
             assetKey={block.assetKey}
             alt={block.title}
-            fallbackUrl={block.img}
+            fallbackUrl={block.img || `/site-assets/${block.fallback}`}
             priority={block.priority}
             width={400}
             height={400}
@@ -169,7 +169,7 @@ export function OriginStickyGallery({
             <DynamicAssetImage
               assetKey={block.assetKey}
               alt={block.title}
-              fallbackUrl={block.img}
+              fallbackUrl={block.img || `/site-assets/${block.fallback}`}
               priority={block.priority}
               width={512}
               height={500}

@@ -92,7 +92,17 @@ export function DynamicAssetImage({
         !width && !height && 'w-full h-full',
         className
       )}
-      style={width || height ? { width, height } : undefined}
+      style={
+        width || height
+          ? {
+              width: '100%',
+              height: '100%',
+              maxWidth: width,
+              maxHeight: height,
+              aspectRatio: width && height ? `${width} / ${height}` : undefined,
+            }
+          : undefined
+      }
     >
       <Image
         loader={supabaseLoader}
@@ -102,6 +112,7 @@ export function DynamicAssetImage({
         width={width}
         height={height}
         priority={priority}
+        loading={priority ? 'eager' : undefined}
         quality={60}
         sizes={
           sizes ||
