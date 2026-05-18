@@ -1,143 +1,104 @@
-# Ghost System — Implementation Plan
-**Data:** 2026-05-17 | **Projeto:** portfoliodanilo.com | **Status:** AGUARDANDO APROVAÇÃO HUMANA
+# implementation_plan.md
+
+## 1) Resumo executivo
+Plano de restauração de regressão da rota `/sobre` com foco em: (a) recuperar a intenção visual da seção **“O que me move”**, (b) reintroduzir com segurança o bloco 3D Ghost/WebGL no client boundary, (c) corrigir erro `next-image-missing-loader-width`, e (d) reconciliar paths `site.assets` vs `site-assets` entre código, assets locais e Supabase.
+
+## 2) Causa provável da regressão
+- Regressão funcional/visual introduzida em alterações recentes na família de componentes da seção Beliefs (`AboutBeliefs*`), com potencial remoção/substituição de composição 3D por estrutura textual.
+- Erro de `next/image` indica uso de `loader` custom sem contrato completo (`width` ausente no retorno URL).
+- Paths locais com prefixo `/site.assets/...` coexistem com nomenclatura de bucket `site-assets`, elevando risco de resolução inconsistente.
+
+## 3) Diferença entre estado esperado e estado atual
+**Esperado:** seção com camadas Ghost (atmosfera + profundidade + texto), presença 3D não bloqueante, fallback seguro, imagens ORIGEM estáveis.
+**Atual:** relato de perda do 3D Ghost, seção textualizada, warnings de `next/image` e suspeita de path inconsistente.
+
+## 4) Mapa da seção “O que me move”
+- Entrada da seção na rota: `src/app/sobre/page.tsx` (`AboutBeliefs` dentro de `SectionErrorBoundary`).
+- Pontos de inspeção: `src/components/sobre/sections` e subcomponentes Beliefs (background/overlay/manifesto/scroll/canvas/fallback).
+- Dependências: motion tokens, z-index tokens, hooks de viewport/motion gate.
+
+## 5) Mapa dos componentes 3D Ghost
+- Assets locais detectados: `public/models/ghost.glb`, `public/models/ghost-transformed.glb`, `public/site.assets/3d/ghost-v1.glb`, fallbacks jpg/png.
+- Alvos de inspeção: componentes com `Canvas`, R3F, Drei, loaders GLTF e qualquer `dynamic(..., { ssr:false })`.
+- Verificar acoplamento com desempenho (IntersectionObserver, invalidation RAF, lazy mount).
+
+## 6) Diagnóstico do erro `next-image-missing-loader-width`
+Hipótese primária: `Image` com `loader` custom retorna URL sem parâmetro de largura. Em Next 16, loader deve receber `{ src, width, quality }` e produzir URL width-aware.
+
+## 7) Diagnóstico do warning DEP0205
+Classificado como secundário (conforme incidente). Tratar apenas como backlog técnico; não bloqueia a restauração visual/funcional da seção.
+
+## 8) Auditoria Supabase Storage via MCP
+Escopo planejado:
+- Bucket `site-assets`
+- Objetos `about/origin/about.origin_image.{1..4}.webp`
+- URL pública `storage/v1/object/public/...`
+- URL transform `storage/v1/render/image/public/...`
+- ACL pública, MIME, cache-control, CORS e status HTTP.
+
+## 9) Auditoria paths `site.assets` vs `site-assets`
+- Validar se `/site.assets/...` é caminho **local em `/public`** (válido para Next static).
+- Validar se `site-assets/...` é **bucket Supabase** (válido para URL remota pública).
+- Eliminar ambiguidade na fonte de verdade de cada seção da `/sobre`.
+
+## 10) Auditoria de `next.config.*`
+- Confirmar `images.remotePatterns`/`images.domains` para host Supabase efetivo.
+- Confirmar compatibilidade Firebase Hosting + Next image optimizer.
+- Garantir CSP `img-src`/`media-src` com host Supabase e assets usados.
+
+## 11) Estratégia de restauração visual
+1. Identificar commit/alteração que removeu/degradou o Ghost 3D.
+2. Recuperar componente original (ou equivalente já existente) sem redesign.
+3. Reaplicar layering/z-index/tokens Ghost conforme documentação de Sobre.
+4. Garantir animações permitidas (opacity/blur/translateY) com easing obrigatório.
+
+## 12) Estratégia de correção das imagens
+- Se origem for local (`public/site.assets/...`): remover loader custom na seção ORIGEM e usar `src` local puro.
+- Se origem for Supabase: usar URL pública + `remotePatterns` ou loader Supabase correto com `width` e `quality`.
+- Proibir probing runtime de extensões.
+
+## 13) Estratégia de fallback WebGL
+- Boundary client-only para Canvas (`dynamic import` com `ssr:false` quando necessário).
+- Fallback estático leve (imagem/gradiente) mantendo composição e acessibilidade.
+- Não bloquear FCP: lazy mount + viewport gate.
+
+## 14) Arquivos candidatos afetados
+- `src/app/sobre/page.tsx`
+- `src/components/sobre/**` (especialmente seção Beliefs e seção Origin)
+- `src/lib/supabase/image-loader.mjs` e utilitários de URL
+- `src/config/site-assets.*` / `src/lib/supabase/site-assets*`
+- `next.config.mjs`
+- `.context/DOCS-PORTFOLIO-PAGES/**` (sincronização de estado, se alteração em `src/` ocorrer)
+
+## 15) Riscos
+- Reintrodução de WebGL impactar LCP/FCP em devices fracos.
+- Corrigir loader sem alinhar origem real dos assets pode mascarar 404.
+- Divergência entre docs e código real de produção.
+
+## 16) Rollback
+- Estratégia Git: rollback do conjunto de commits da seção Beliefs/Origin para último estado estável.
+- Toggle por feature flag local de renderização Ghost (se já existir no código) para desativação emergencial.
+
+## 17) Validações
+- `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm dev`
+- Abrir `/sobre` e validar: ausência de `next-image-missing-loader-width`, presença do Ghost 3D/fallback, imagens ORIGEM carregando, sem 404/403 críticos.
+
+## 18) Definition of Done
+Conforme gate do incidente: seção restaurada visualmente, Ghost 3D presente/seguro, erro de loader eliminado, paths reconciliados, auditoria Supabase concluída e evidências registradas em `walkthrough.md`.
 
 ---
 
-## Resumo Executivo
+## Observações de pesquisa e limitações
+- **Repositório local foi auditado** para estrutura, assets, configs e rota `/sobre`.
+- **Vector Store `vs_69520b1fb834819197e445db9aab8d69` não está disponível neste ambiente** via ferramenta exposta; será tratado como bloqueio parcial até conector ser disponibilizado.
+- **Consulta Context7/Supabase MCP**: planejada na fase de execução após aprovação humana.
 
-Auditoria estrutural completa identificou dois vetores críticos de problema: (1) versionamento indevido de 11.940 arquivos não-fonte no repositório, causando o aviso de truncamento do GitHub para 1.000 arquivos por diretório; (2) três violações das regras do Ghost Design System no código-fonte ativo.
+## Atualização pós-aprovação — ressalva humana (2026-05-18)
 
-O repositório tem **12.281 arquivos rastreados**, mas apenas **341 são código-fonte real** (`src/`). A razão de ruído para sinal é de **35:1** — o inverso do que deveria ser.
+A aprovação humana alterou o escopo visual da seção `06-O-QUE-ME-MOVE`: a seção **não deve mais usar animação com Ghost 3D**, porque a documentação final de `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-FINAL.md` substitui o plano antigo de GSAP + WebGL por uma composição editorial minimalista com CSS shade fixo e frases centralizadas.
 
----
+Decisão operacional:
+- Manter `src/components/sobre/sections/AboutBeliefs.tsx` no modelo documentado atual: sem `GhostScene`, sem `Canvas`, sem GSAP e sem WebGL nessa seção.
+- Preservar os componentes `src/components/sobre/3d/*` sem reintroduzi-los em `AboutBeliefs`, para uso futuro em outras áreas se necessário.
+- Focar a execução aprovada na correção real da regressão de imagens ORIGEM: keys de assets divergentes e `next/image` recebendo loader custom para caminho local `/site.assets/...`.
 
-## Diagnóstico P0 — Incidente GitHub (Truncamento de Diretório)
-
-### Distribuição dos arquivos rastreados
-
-| Diretório | Arquivos | Tipo | Deve estar no git? |
-|-----------|----------|------|-------------------|
-| `.agent/skills/` | 6.346 | Biblioteca de skills de IA | ⚠️ Decisão de arquitetura |
-| `functions/.npm_cache/` | 2.759 | Cache npm local | ❌ NÃO |
-| `reports/` | 523 | Relatórios de auditoria gerados | ⚠️ Seletivo |
-| `.claude/` | 338 | Config Claude (plugins: 237) | ⚠️ Seletivo |
-| `.agents/` | 284 | Biblioteca de skills secundária | ⚠️ Decisão de arquitetura |
-| `docs/` | 239 | Documentação | ✅ SIM |
-| `scripts/__pycache__` + `.pyc` | 40 | Bytecode Python compilado | ❌ NÃO |
-| `graphify-out/` | 47 | Exports visuais gerados | ❌ NÃO |
-| `scratch/` | 16 | Arquivos temporários de sessão | ❌ NÃO (já no .gitignore, pré-commit) |
-| `output/` | 12 | Output temporário | ❌ NÃO |
-| **`src/` (código real)** | **341** | Código-fonte da aplicação | ✅ SIM |
-
-### Causa raiz do truncamento
-
-O GitHub mostra o aviso quando um diretório tem mais de 1.000 arquivos. Os seguintes diretórios violam esse limite:
-- `.agent/` — 6.673 arquivos (6.346 só em `skills/`)
-- `functions/` — 2.767 arquivos (2.759 em `.npm_cache/`)
-- `reports/` — 523 arquivos
-
-### Lacunas no .gitignore
-
-O `.gitignore` atual **não cobre**:
-1. `functions/.npm_cache/` — cache npm dentro de functions (2.759 arquivos não devem estar no git)
-2. `graphify-out/` — exports visuais gerados automaticamente
-3. `**/__pycache__/` e `**/*.pyc` — bytecode Python compilado
-4. `output/` — diretório de output de sessão
-5. `.agent/skills/` — decisão pendente (ver trade-offs abaixo)
-
-**Nota:** `scratch/` já está no `.gitignore`, mas os arquivos foram commitados antes da regra ser adicionada. Precisam de `git rm --cached`.
-
-### Trade-offs sobre `.agent/skills/` e `.agents/`
-
-**Manter rastreado:** A biblioteca de skills é intencional, permite colaboração e controle de versão da inteligência do agente. Custo: repositório pesado, truncamento no GitHub.
-
-**Remover do git:** Repositório limpo, GitHub funcional. Custo: a biblioteca de skills precisa ser distribuída por outro mecanismo (submodule, release artifact, ou download on-demand). Recomendação: **mover para git submodule** ou **comprimir como release artifact**.
-
-A decisão sobre `.agent/skills/` e `.agents/` requer aprovação explícita do autor.
-
----
-
-## Diagnóstico P0 — Ghost Design System
-
-### Violação 1: `rotate` em `CategoryStripe.tsx` (BLOQUEANTE)
-
-**Arquivo:** `src/components/home/portfolio-showcase/CategoryStripe.tsx:163`
-**Violação:** `rotate: isHovered ? 0 : -45`
-
-A regra do Ghost System proíbe explicitamente `rotate` como motion property (apenas `opacity`, `blur` e `translateY` são permitidos; `translateX` é aceito se documentado). O ícone `ArrowUpRight` usa rotate para indicar direção durante hover.
-
-**Solução proposta:** Substituir `rotate` por duas variantes SVG/Lucide diferentes (uma diagonal, uma vertical) comutadas via `opacity: 0/1` com easing padrão `[0.22, 1, 0.36, 1]`. Ou usar `scale` + `translateY` controlado como affordance direcional documentado. Mantém a legibilidade da UX sem violar o sistema de motion.
-
-**Risco da solução:** Baixo. Mudança é visual e localizada em um único componente.
-
-### Violação 2: Cor `purpleDetails` no hover do ícone em `CategoryStripe.tsx` (CONDICIONAL)
-
-**Arquivo:** `src/components/home/portfolio-showcase/CategoryStripe.tsx:165`
-**Violação:** `backgroundColor: isHovered ? COLORS.purpleDetails : COLORS.bluePrimary`
-
-A regra permite roxo em estados de Hover e efeitos "Glitch". Este uso específico é em `animate.backgroundColor` durante hover — tecnicamente permitido pela exceção da regra. **Não é violação**, mas precisa de documentação explícita no código indicando que é uso intencional por exceção.
-
-### Violação 3: `src/lib/supabase/image-loader.ts` ausente (AUSÊNCIA)
-
-**Arquivo esperado:** `src/lib/supabase/image-loader.ts`
-**Impacto:** Imagens do Supabase Storage sendo servidas sem otimização via `next/image`. O `next.config.mjs` já tem `remotePatterns` configurado para o host Supabase, mas sem um loader customizado, não há controle sobre transformação de imagem (width, quality, format).
-
-**Solução proposta:** Criar `src/lib/supabase/image-loader.ts` com um loader que constrói URLs do Supabase Storage com parâmetros de transformação (`width`, `quality`, `format=webp`), e registrar em `next.config.mjs` via `loaderFile`.
-
-### Violação 4: Ausência de `MotionLink` (AUSÊNCIA)
-
-**Impacto:** Links internos usam `<Link>` nativo do Next.js sem wrap de animação. A navegação client-side não tem transição de saída, quebrando a experiência "Ethereal" do Ghost System para rotas internas.
-
-**Solução proposta:** Criar `src/components/motion/MotionLink.tsx` que envolve `<Link>` com `<m.span>` de `motion/react`, aplicando `opacity: [1, 0]` na saída e delegando ao `AnimatePresence` global. Substituir usos em Header e cards de projeto.
-
----
-
-## Diagnóstico P1 — Ghost Design System
-
-### P1.1: Verificação de `scale` em componentes R3F
-
-Os usos de `scale` em `GhostModel.tsx` são propriedades Three.js (`mesh.scale`, `groupRef.current.scale.setScalar()`), não CSS motion. **Não são violações** do Ghost System — a regra de motion se aplica a Framer Motion / CSS transitions, não ao loop R3F.
-
-O único `scale` potencialmente problemático é em CSS Tailwind: `group-hover:scale-125` em `AdminShell.tsx:86` e `group-hover:scale-105` em `AssetCard.tsx:184` — ambos em contexto de admin, que opera com regras de motion relaxadas.
-
-### P1.2: Uso de vermelho em componentes
-
-Todos os usos de vermelho identificados são em contextos de admin (delete, destructivo, alerta, erro). A regra do Ghost System permite vermelho para "erro, destrutivo ou alerta sistêmico". **Sem violações.**
-
-### P1.3: Estado ativo do Header Desktop
-
-`DesktopFluidHeader.tsx` implementa `isActive` via `isNavItemActive()`, aplica `text-bluePrimary font-semibold` e `animate="active"`. A implementação está correta. Nenhuma violação detectada.
-
----
-
-## Matriz de Prioridades
-
-| ID | Prioridade | Área | Ação | Impacto | Esforço |
-|----|-----------|------|------|---------|---------|
-| R1 | P0 | Repo | Adicionar `functions/.npm_cache/` ao `.gitignore` + `git rm --cached` | Remove 2.759 arquivos do histórico futuro | Baixo |
-| R2 | P0 | Repo | Adicionar `graphify-out/` ao `.gitignore` + `git rm --cached` | Remove 47 arquivos | Baixo |
-| R3 | P0 | Repo | Adicionar `**/__pycache__/` e `**/*.pyc` ao `.gitignore` + `git rm --cached` | Remove 40 bytecode files | Baixo |
-| R4 | P0 | Repo | `git rm --cached` de `scratch/` e `output/` (já no .gitignore) | Remove 28 arquivos | Baixo |
-| R5 | P0 | Repo | **Decisão arquitetural:** `.agent/skills/` e `.agents/` — manter, gitignore, ou submodule | Remove até 6.630 arquivos | Alto (requer aprovação) |
-| G1 | P0 | Ghost | Substituir `rotate` por alternativa em `CategoryStripe.tsx:163` | Restaura conformidade de motion | Baixo |
-| G2 | P0 | Ghost | Criar `src/lib/supabase/image-loader.ts` | Performance + conformidade | Médio |
-| G3 | P1 | Ghost | Criar `src/components/motion/MotionLink.tsx` | UX de navegação | Médio |
-| G4 | P1 | Ghost | Documentar uso de `purpleDetails` em CategoryStripe como exceção intencional | Conformidade documental | Baixo |
-
----
-
-## Exposição de Secrets
-
-Auditoria nos arquivos rastreados não identificou secrets expostos. O `.gitignore` cobre `.env`, `.env.local` e credenciais. O arquivo `firebase-config.json` contém apenas config pública (apiKey de browser, projectId) — aceitável para repositório público segundo documentação Firebase.
-
----
-
-## Próximos Passos (pendentes de aprovação)
-
-1. Aprovação humana explícita com `"Aprovado"` ou `"Proceed"` para iniciar execução.
-2. Decisão específica sobre `.agent/skills/`: gitignore, submodule, ou manter.
-3. Execução em ordem: R1 → R3 → R4 → R2 → G1 → G2 → G3 → G4 → R5 (se aprovado).
-
----
-
-*Gerado por Ghost Audit Pipeline | 2026-05-17 | Auditoria estrutural completa*
