@@ -53,13 +53,13 @@ export const siteMetadata: Metadata = {
     type: 'website',
     locale: 'pt_BR',
     url: 'https://portfoliodanilo.com',
-    siteName: 'Danilo Novais',
+    siteName: 'Danilo Novais — Head de Criação & Diretor de Criação Sênior',
     title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
       'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
@@ -72,7 +72,7 @@ export const siteMetadata: Metadata = {
     title: 'Danilo Novais | Head de Criação & Diretor de Criação Sênior',
     description:
       'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais — branding, campanhas, vídeo, motion e soluções digitais que conectam design, movimento e tecnologia para transformar ideias em experiências visuais marcantes.',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image'],
     creator: '@_novais',
   },
 

@@ -7,7 +7,7 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import { ABOUT_CONTENT } from '@/config/content';
 import { MOTION_TOKENS, GHOST_EASE, ghostFade } from '@/config/motion';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { useIsMobile } from '@/hooks/useIsMobile';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { getAssetUrl } from '@/lib/utils';
 import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
 import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
@@ -24,7 +24,7 @@ export function AboutHero() {
   const blur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
 
   const prefersReducedMotion = useMotionGate();
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   const shouldPlayVideo = !prefersReducedMotion;
 

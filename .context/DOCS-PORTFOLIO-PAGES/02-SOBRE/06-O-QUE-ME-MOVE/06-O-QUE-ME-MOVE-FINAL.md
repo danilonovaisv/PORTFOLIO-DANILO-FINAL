@@ -1,495 +1,313 @@
 # 📄 ABOUT BELIEFS — MASTER BLUEPRINT + PROMPTS (FINAL)
 
-## 2026-05-17 — Layout recomposition aligned to approved snippet
+# Implementation Plan — 06-O-QUE-ME-MOVE Redesign
 
-- A seção mantém o scroll global, o stack `GSAP + R3F` e todos os contratos E2E existentes.
-- O palco sticky foi recomposto em três momentos visuais:
-  - header editorial fixado no topo-direita do grid;
-  - frase rotativa fixa em convivência lateral com o ghost;
-  - manifesto final com massa tipográfica expandida e `GHOST` destacado em `bluePrimary`.
-- Desktop:
-  - frase fixa no campo esquerdo, com largura controlada por `clamp`/`max-width`;
-  - ghost ancorado à direita e recentralizado levemente no clímax para invadir a massa tipográfica.
-- Mobile:
-  - header sticky no topo-direita;
-  - frase ativa fixa no rodapé e centralizada;
-  - ghost mantido no lado esquerdo do palco e aproximado do centro apenas no reveal final.
-- SSOT de layout:
-  - `src/config/beliefTokens.ts` passou a concentrar offsets, larguras, escalas e anchors da composição.
-
-````md
-# ABOUT BELIEFS — MASTER BLUEPRINT (FINAL SYSTEM)
+> **Data:** 2026-05-17
+> **Substitui:** plano de 2026-05-13 (GSAP + Ghost 3D)
+> **Status:** AGUARDANDO APROVAÇÃO HUMANA — não alterar código
 
 ---
 
-# 1. DEFINIÇÃO ESTRATÉGICA
+## 1. Resumo Executivo
 
-## 1.1 Princípio central
+Redesign da seção `06-O-QUE-ME-MOVE` da página `/sobre`. Remove Ghost 3D e GSAP da seção. Substitui por background CSS shade fixo com cores do projeto e frases centralizadas com entrada controlada por Framer Motion (`useScroll` + `useTransform`).
 
-A seção não é sobre animação.
-É sobre **progressão emocional controlada por movimento**.
-
-### Regra:
-
-- Movimento só existe se **reduz esforço cognitivo** ou **aumenta vínculo emocional**
+**Resultado esperado:** seção editorial minimalista, scroll-driven, sem canvas WebGL, com 6 frases Ghost centralizadas que aparecem/somem conforme o usuário rola a página.
 
 ---
 
-## 1.2 Classificação das animações
+## 2. Diagnóstico da Versão Atual
 
-### PRODUTIVAS
+| Componente              | Status                                                      |
+| ----------------------- | ----------------------------------------------------------- |
+| `GhostScene.tsx` (R3F)  | Ativo em `AboutBeliefs` via `dynamic({ssr:false})`          |
+| `BeliefScrollText.tsx`  | Frases LEFT-aligned, GSAP, BELIEF_PHRASE_ITEMS              |
+| `BeliefBackground.tsx`  | Troca cor por `activeIndex`, direto via `ref.current.style` |
+| `BeliefFixedHeader.tsx` | GSAP + SplitTextMotion, posição direita                     |
+| `BeliefManifesto.tsx`   | GSAP scrub, `BELIEF_MANIFESTO_LINES` separado               |
+| Stack de animação       | GSAP + ScrollTrigger + R3F (Three.js)                       |
 
-- entrada de frases
-- transições de background
-- leitura guiada
+**Problemas a resolver:**
 
-→ objetivo: clareza
-
-### EXPRESSIVAS
-
-- ghost 3D
-- manifesto final
-
-→ objetivo: impacto emocional
-
----
-
-## 1.3 Paradigma escolhido
-
-⚠️ decisão final:
-
-- Textos → **inView (capítulos)**
-- Background → **sincronizado com texto**
-- Ghost → **scroll-driven contínuo**
-- Manifesto → **progress-driven (clímax)**
+- Ghost 3D é custo WebGL para elemento decorativo que a spec pede remover
+- Frases left-aligned vs. pedido de centralização
+- Copy atual ≠ `WHAT_MOVES_ME_PHRASES` especificado
+- `BeliefManifesto` separado vs. frase 6 integrada com `emphasis: true`
 
 ---
 
-# 2. STACK E ARQUITETURA
+## 3. Dependências Atuais da Seção
 
-## 2.1 Stack principal
-
-- Next.js App Router
-- React + TypeScript
-- Tailwind
-- Motion (motion/react + motion DOM)
-- React Three Fiber
-- Drei
-- Three.js
-
----
-
-## 2.2 Filosofia
-
-- UI → declarativa (Motion)
-- 3D → imperativa (R3F)
-- Scroll → híbrido (trigger + progress)
-
----
-
-## 2.3 Proibição explícita
-
-- ❌ GSAP (overkill para esse caso)
-- ❌ CSS keyframes complexos
-- ❌ Lottie/GIF para ghost
-
----
-
-# 3. DESIGN SYSTEM DA SESSÃO
-
-## 3.1 Cores
-
-```ts
-bluePrimary   #0048ff
-blueAccent    #4fe6ff
-purpleDetails #8705f2
-pinkDetails   #f501d3
-background    #040013
-text          #fcffff
 ```
-````
-
----
-
-## 3.2 Background System
-
-```ts
-const BACKGROUND_SEQUENCE = [
-  '#040013',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
-  '#0048ff',
-  '#8705f2',
-  '#f501d3',
-  '#040013',
-];
+gsap + gsap/ScrollTrigger     → BeliefScrollText, BeliefManifesto, GhostScene
+@react-three/fiber            → GhostScene, GhostModel
+three                         → GhostScene, GhostModel
+@react-three/drei             → GhostModel (useGLTF)
+motion/react                  → BeliefManifesto (parcial), SplitTextMotion
+next/dynamic                  → AboutBeliefs (GhostScene)
 ```
 
----
-
-## 3.3 Tipografia
-
-- display: manifesto
-- h1: header
-- body enhanced: frases
+Após redesign: somente `motion/react` (já instalado).
 
 ---
 
-## 3.4 Grid
+## 4. O Que Será Removido do Ghost 3D
 
-- desktop: 12 cols
-- mobile: 4 cols
+Nenhum arquivo deletado. Apenas removido do render de `AboutBeliefs.tsx`:
+
+- `import dynamic from 'next/dynamic'`
+- `import { GhostErrorBoundary }` + render
+- `import { GhostSceneFallback }` + render
+- `const GhostScene = dynamic(...)` + render com Suspense
+- `import { BeliefBackground }` + render
+- `import { BeliefOverlay }` + render
+- `import { BeliefFixedHeader }` + render
+- `import { BeliefManifesto }` + render
+- `import { BeliefsScrollProvider }` + wrapper
+- `import { useBeliefsScroll }` + hook call
+
+Arquivos `3d/` preservados íntegros para outras seções.
 
 ---
 
-## 3.5 Z-index
+## 5. Arquivos Afetados
 
-```ts
-background: 0;
-overlay: 10;
-header: 30;
-text: 40;
-manifesto: 50;
-ghost: 70;
+| Arquivo                                                   | Ação                      |
+| --------------------------------------------------------- | ------------------------- |
+| `src/components/sobre/beliefs/what-moves-me.constants.ts` | CRIAR                     |
+| `src/components/sobre/beliefs/WhatMovesMeBackground.tsx`  | CRIAR                     |
+| `src/components/sobre/beliefs/WhatMovesMePhrase.tsx`      | CRIAR                     |
+| `src/components/sobre/sections/AboutBeliefs.tsx`          | REESCREVER                |
+| `src/components/sobre/beliefs/BeliefScrollText.tsx`       | REESCREVER                |
+| `src/config/beliefTokens.ts`                              | ADICIONAR re-exports      |
+| `.context/.../06-O-QUE-ME-MOVE/walkthrough.md`            | CRIAR (pós-implementação) |
+
+Não tocar: `3d/*`, `BeliefBackground.tsx`, `BeliefFixedHeader.tsx`, `BeliefManifesto.tsx`, `BeliefOverlay.tsx`, `SplitTextMotion.tsx`, `BeliefsScrollContext.tsx`, `useBeliefsScroll.ts`.
+
+---
+
+## 6. Arquitetura Proposta
+
+```
+AboutBeliefs.tsx
+  ├── WhatMovesMeBackground   (CSS shade fixo, position:fixed, aria-hidden)
+  └── BeliefScrollText        (sticky top-0 h-dvh, 6 frases absolutas)
+        └── WhatMovesMePhrase (por frase: opacity/y/filter via MotionValue)
 ```
 
----
-
-# 4. ARQUITETURA DE COMPONENTES
-
-```txt
-AboutBeliefs
- ├── BeliefBackground
- ├── BeliefOverlay
- ├── BeliefFixedHeader
- ├── GhostScene
- ├── BeliefScrollText
- └── BeliefManifesto
-```
+`AboutBeliefs` cria `sectionRef` e passa para `BeliefScrollText`. Sem context, sem GSAP, sem Ghost. Seção tem `min-height: 620vh`.
 
 ---
 
-# 5. CORE MOTION SYSTEM
+## 7. Decisão Técnica — Background Fixo
 
-## 5.1 Text Animation (REGRA ABSOLUTA)
-
-```ts
-initial: { opacity: 0, x: -100 }
-enter:   { opacity: 1, x: 0 }
-exit:    { opacity: 0, x: -100 }
-
-duration: 0.9
-ease: [0.17, 0.55, 0.55, 1]
-```
-
-### Mobile
-
-```ts
-x: -48 → 0
-```
-
----
-
-## 5.2 Trigger
-
-```ts
-inView(element, () => {
-  animate(...)
-  return cleanup
-})
-```
-
----
-
-## 5.3 PROIBIDO
-
-- ❌ y animation
-- ❌ blur animado
-- ❌ stagger nas frases
-- ❌ scrub contínuo
-
----
-
-# 6. BACKGROUND SYSTEM
-
-## Regra
-
-- único layer
-- troca por seção
-- controlado por index
-
-```ts
-animate(bg, {
-  backgroundColor: nextColor,
-});
-```
-
----
-
-# 7. GHOST 3D SYSTEM
-
-## 7.1 Asset
-
-[https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb](https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb)
-
----
-
-## 7.2 Comportamento
-
-### Base
-
-- float contínuo
-- drift X/Z
-- rotação leve
-
-### Scroll
-
-```ts
-scale: 1 → 1.1
-rotation: progress * PI * 4
-x: sin(progress)
-z: cos(progress)
-```
-
----
-
-## 7.3 Regras críticas
-
-- alinhado ao centro do texto
-- não ao viewport
-- sem interação no mobile
-
----
-
-# 8. HEADER (Split Text)
-
-Permitido:
-
-```ts
-y: 12 → 0
-opacity: 0 → 1
-stagger: 0.08
-```
-
----
-
-# 9. MANIFESTO FINAL
-
-```ts
-opacity: 0 → 1
-y: 18 → 0
-range: 0.82 → 0.95
-```
-
----
-
-# 10. PERFORMANCE (S-TIER)
-
-## Obrigatório
-
-- transform + opacity only
-- 60fps
-- sem layout thrashing
-
-## Proibido
-
-- width
-- height
-- top/left
-- margin/padding
-- filter pesado
-
----
-
-## GPU
+**CSS puro. Sem canvas, sem WebGL, sem requestAnimationFrame.**
 
 ```css
-will-change: transform, opacity;
+/* Layer 1: glow azul central */
+radial-gradient(ellipse 80% 60% at 50% 50%, #0048ff22 0%, transparent 70%)
+/* Layer 2: glow roxo inferior-esquerdo */
+radial-gradient(ellipse 50% 40% at 20% 80%, #8705f218 0%, transparent 60%)
+/* Layer 3: glow ciano superior-direito */
+radial-gradient(ellipse 40% 30% at 80% 20%, #4fe6ff10 0%, transparent 50%)
+/* Base */
+#040013
+
+/* Grade CSS (div filho) */
+repeating-linear-gradient(90deg, transparent 79px, #0048ff0a 80px)
+repeating-linear-gradient(0deg, transparent 79px, #0048ff06 80px)
+
+/* Vinheta (div filho) */
+radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, #040013cc 100%)
 ```
 
-(usar com moderação)
+`position: fixed`, `aria-hidden="true"`, `z-index: 0`.
 
 ---
 
-# 11. ACESSIBILIDADE
-
-## prefers-reduced-motion
+## 8. Estratégia — Cores do Projeto
 
 ```ts
-if (reducedMotion) {
-  remove transforms
-  usar fade simples
-}
+export const GHOST_SHADE_COLORS = {
+  voidBlack: '#040013', // base + glow final
+  bluePrimary: '#0048ff', // glow dominante + cor de "GHOST" na frase 6
+  blueAccent: '#4fe6ff', // glow highlight
+  purpleDetails: '#8705f2', // glow secundário
+  pinkDetails: '#f501d3', // reserva (não usado no background)
+  text: '#fcffff', // texto principal
+} as const;
+```
+
+Vermelho ausente. `pinkDetails` não usado no background (evitar competição visual com texto branco).
+
+---
+
+## 9. Estratégia — Texto Centralizado
+
+```tsx
+<div className="sticky top-0 flex h-dvh items-center justify-center">
+  <div className="relative h-full w-full max-w-[min(90vw,56rem)]">
+    {/* 6 WhatMovesMePhrase: position absolute, inset-0, flex, center */}
+  </div>
+</div>
+```
+
+Cada frase é `position: absolute; inset: 0; display: flex; align-items: center; justify-content: center`. Multi-linha via `text.split('\n')` com `<span>` por linha.
+
+---
+
+## 10. Estratégia — Scroll-Driven Entry
+
+`useScroll({ target: sectionRef, offset: ['start start', 'end end'] })` no `BeliefScrollText`.
+
+Band por frase: `BAND = 1 / 6 ≈ 0.1667`. Para frase `i`:
+
+```
+fadeInStart  = i * BAND
+fadeInEnd    = i * BAND + BAND * 0.22
+peakEnd      = (i+1) * BAND - BAND * 0.22
+fadeOutEnd   = (i+1) * BAND           ← 1.1 para última (sem fade out)
+```
+
+```ts
+opacity: useTransform(scrollY, [fadeInStart, fadeInEnd, peakEnd, fadeOutEnd], [0, 1, 1, 0])
+y:       useTransform(scrollY, [...mesmos pontos...], [18, 0, 0, -12])
+filter:  useTransform(scrollY, [...], ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)'])
+```
+
+`GHOST_EASE = [0.22, 1, 0.36, 1]` — aplicado via `ease` no useTransform quando suportado.
+
+---
+
+## 11. Estratégia — Reduced Motion
+
+```tsx
+const prefersReducedMotion = useReducedMotion(); // motion/react
+
+<motion.p
+  style={{
+    opacity, // preservado
+    y: prefersReducedMotion ? 0 : y, // sem translateY
+    filter: prefersReducedMotion ? 'none' : filter, // sem blur
+  }}
+/>;
+```
+
+Background CSS sem `@keyframes` — já estático, nada a desativar.
+
+---
+
+## 12. Estratégia — Acessibilidade
+
+- `<section aria-labelledby="o-que-me-move-title">` + `<h2 className="sr-only">O que me move</h2>`
+- `WhatMovesMeBackground`: `aria-hidden="true"`
+- `WhatMovesMePhrase` raiz: `aria-label={phrase.text.replace(/\n/g, ' ')}` — screen reader lê texto completo
+- Spans filhos (`<span aria-hidden="true">`): evita duplicação
+- Stage container: `aria-live="polite"` — anuncia mudança de frase
+- Foco de teclado não preso em sticky/fixed
+- Contraste texto `#fcffff` / bg `#040013`: ratio ≥ 12:1 (supera AAA)
+
+---
+
+## 13. Estratégia — Performance
+
+- Background: CSS puro, zero JS, zero `requestAnimationFrame`
+- `useTransform`: lazy, calcula somente sob demanda
+- Frases: `position: absolute` evita layout thrashing
+- `will-change: transform` apenas nos `<motion.p>` ativos
+- Sem R3F canvas, sem WebGL context nesta seção
+- Bundle: zero imports novos de bibliotecas
+
+---
+
+## 14. Riscos
+
+| Risco                                         | Prob. | Mitigação                                   |
+| --------------------------------------------- | ----- | ------------------------------------------- |
+| `useScroll` em múltiplos filhos (1 por frase) | Média | Passar `scrollYProgress` do pai via prop    |
+| `filter: blur()` custoso em scroll mobile     | Baixa | Desativado em reduced motion                |
+| `position: fixed` bg quebrando z-index        | Baixa | Sem `transform`/`opacity<1` no bg fixo      |
+| `MotionValue<string>` para filter no TS       | Baixa | Aceito pelo Framer Motion v11               |
+| Regressão em outras seções da Sobre           | Baixa | Arquivos 3d/_ e beliefs/_ antigos intocados |
+
+---
+
+## 15. Rollback
+
+```bash
+# Ver commits
+git log --oneline -10
+
+# Restaurar arquivos-chave individualmente
+git checkout <sha-antes-do-task1> -- \
+  src/components/sobre/sections/AboutBeliefs.tsx \
+  src/components/sobre/beliefs/BeliefScrollText.tsx \
+  src/config/beliefTokens.ts
+
+# Remover arquivos criados
+git rm src/components/sobre/beliefs/what-moves-me.constants.ts
+git rm src/components/sobre/beliefs/WhatMovesMeBackground.tsx
+git rm src/components/sobre/beliefs/WhatMovesMePhrase.tsx
 ```
 
 ---
 
-## WCAG
+## 16. Critérios de Aceite
 
-- pause se >5s
-- sem flash >3Hz
-- manter foco
-
----
-
-# 12. COREOGRAFIA
-
-## Timing
-
-- micro: 100–200ms
-- macro: 300–500ms
-- texto: 0.9s (fixo)
-
----
-
-## Easing
-
-- proibido linear
-- usar ease-out / cubic-bezier
-- ghost → spring feel
-
----
-
-# 13. SCROLL TIMELINE
-
-```txt
-0.00 → entrada
-0.10 → frase 1
-0.25 → frase 2
-0.40 → frase 3
-0.55 → frase 4
-0.70 → frase 5
-0.80 → frase 6
-0.90 → manifesto
+```
+[ ] 06-O-QUE-ME-MOVE: sem Ghost 3D renderizando
+[ ] Background: CSS shade fixo, cores do projeto
+[ ] Background: sem CDN externo, sem window.THREE, sem rAF contínuo
+[ ] 6 frases na ordem correta (belief → ghost-design)
+[ ] Frases centralizadas em desktop e mobile
+[ ] Frase 6: tipografia maior + GHOST em #0048ff
+[ ] Scroll forward: frases aparecem e somem
+[ ] Scroll reverso: frases reaparecem
+[ ] Reduced motion: sem translateY, sem blur
+[ ] Sem scale/rotate/bounce/shake/translateX
+[ ] Sem layout shift (CLS estável)
+[ ] BeliefManifesto e BeliefFixedHeader NÃO montados
+[ ] Arquivos 3d/* existem e intactos
+[ ] pnpm lint: PASS
+[ ] pnpm typecheck: PASS
+[ ] pnpm build: PASS
+[ ] walkthrough.md criado
 ```
 
 ---
 
-# 14. QA E HOMOLOGAÇÃO
+## 17. Validações
 
-## DevTools
-
-- Performance tab
-- FPS meter
-- detectar repaint
-
----
-
-## Testes obrigatórios
-
-- mobile low-end
-- CPU throttling
-- scroll rápido
-- scroll lento
-
----
-
-## Acessibilidade
-
-- teclado
-- screen reader
-- foco
+| Contexto                        | Validação                             |
+| ------------------------------- | ------------------------------------- |
+| Mobile 375px                    | Frases centralizadas, scroll funciona |
+| Mobile 430px                    | Idem                                  |
+| Tablet 768px                    | Idem                                  |
+| Desktop 1024px                  | Font clamp correto                    |
+| Desktop 1440px                  | Todas frases visíveis em scroll       |
+| Desktop Wide 1680px             | Sem overflow                          |
+| Scroll lento                    | Transição suave                       |
+| Scroll rápido                   | Sem glitch                            |
+| Scroll reverso                  | Estado correto                        |
+| Reduced motion ativo            | Sem y/blur                            |
+| Navegação direta `/sobre`       | Estado inicial correto                |
+| Reload no meio da seção         | Estado correto                        |
+| Contraste texto/bg              | ≥ 7:1                                 |
+| Ausência de Ghost nesta seção   | Confirmado                            |
+| Ausência de carregamento do GLB | Confirmado                            |
 
 ---
 
-# 15. ANTI-PATTERNS
+## 18. Necessidade de Atualizar Docs
 
-- misturar inView + scrub
-- usar blur animado
-- dividir lógica mobile/desktop
-- usar split text nas frases
+Após aprovação e implementação:
 
-````
-
----
-
-# 🚀 PROMPT PARA CURSOR / v0 (PRONTO)
-
-```md
-# TASK: Implement About Beliefs Section Motion System
-
-You are a senior frontend engineer.
-
-## Stack
-- Next.js App Router
-- React + TypeScript
-- Tailwind
-- Motion (React + DOM)
-- React Three Fiber
-
-## Core Rules
-
-### Text Animation
-- Use inView() from motion
-- Animate:
-  opacity: 0 → 1
-  x: -100 → 0
-- duration: 0.9
-- easing: cubic-bezier(0.17, 0.55, 0.55, 1)
-
-### Background
-- Single layer
-- Animate backgroundColor via animate()
-- Sync with section index
-
-### Ghost 3D
-- Use R3F
-- Continuous float
-- Scroll-driven:
-  scale: 1 → 1.1
-  rotation: scroll * PI * 4
-- Disable pointer interaction on mobile
-
-### Manifesto
-- Scroll progress based
-- opacity + y
-
-## Performance Rules (STRICT)
-
-- ONLY animate transform + opacity
-- DO NOT animate:
-  width, height, margin, padding, top, left
-- Avoid filter animations
-
-## Accessibility
-
-- Implement prefers-reduced-motion
-- Replace motion with opacity fade
-
-## Acceptance Criteria
-
-- 60fps on mobile
-- Text always enters from left
-- Background synced with text
-- Ghost reacts to scroll
-- No layout thrashing
-````
+- [ ] `06-O-QUE-ME-MOVE-v4.md` → stack agora é Framer Motion + CSS shade
+- [ ] `06-O-QUE-ME-MOVE-blueprint-atualizado.md` → nova arquitetura
+- [ ] `SOBRE-PROTOTIPO-INTERATIVO.md` → seção 06 sem Ghost 3D
+- [ ] `.context/.../06-O-QUE-ME-MOVE/walkthrough.md` → criar após execução
 
 ---
 
-# 🧠 RECOMENDAÇÃO FINAL (DECISÃO)
+> **APPROVAL GATE:** Não alterar código antes de aprovação explícita com "Aprovado" ou "Proceed".
 
-Você estava tentando sustentar duas arquiteturas ao mesmo tempo:
-
-- Motion reference (clean, cinematográfica)
-- Scroll progress (experimental)
-
-Isso ia quebrar inevitavelmente.
-
-A versão que você tem agora é:
-
-> **cinematográfica, controlada, performática e escalável**
-
-Se quiser dar o próximo passo certo, eu faria:
-
-1. transformar isso em **design token global**
-2. aplicar o mesmo sistema nas outras seções
-3. criar um **motion system reutilizável**
-
-Se quiser, posso te entregar isso como:
-
-- prompt system completo
-- ou arquitetura de animação do site inteiro
-
-Esse é o nível que começa a diferenciar portfólio de produto.
