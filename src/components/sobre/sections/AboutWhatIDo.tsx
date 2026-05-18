@@ -156,15 +156,15 @@ export function AboutWhatIDo() {
           ============================================ */}
       <div className="block py-16 lg:hidden">
         <div className="std-grid">
-          {/* Header — referencia o mesmo H2 do desktop via aria-labelledby */}
-          <header className="mb-10 text-center px-4" aria-labelledby="what-i-do-heading">
-            <p
+          {/* Header */}
+          <header className="mb-10 text-center px-4">
+            <h2
+              id="what-i-do-heading-mobile"
               className="text-h2 font-black tracking-tight text-text text-balance"
-              aria-hidden="true"
             >
               Do <span className="text-bluePrimary">insight</span> ao{' '}
               <span className="text-bluePrimary">impacto</span>.
-            </p>
+            </h2>
             <p className="mt-2 text-h3 font-black tracking-tight text-text/90 text-balance">
               Mesmo quando você não percebe.
             </p>
@@ -173,7 +173,7 @@ export function AboutWhatIDo() {
           {/* Mobile Cards - Horizontal entrance from right */}
           <ul
             className="flex flex-col gap-3 p-0"
-            aria-labelledby="what-i-do-heading"
+            aria-labelledby="what-i-do-heading-mobile"
           >
             {SERVICES.map((service, index) => {
               // Calculate specific scroll trigger points for each card
