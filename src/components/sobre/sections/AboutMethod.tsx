@@ -6,6 +6,9 @@ import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
+import { getAssetUrl } from '@/lib/utils';
 
 import {
   ghostReveal,
@@ -18,8 +21,16 @@ import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 export function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoRefMobile = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useMotionGate();
+
+  const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1080,
+    quality: 60,
+  });
 
   return (
     <section
@@ -29,32 +40,21 @@ export function AboutMethod() {
     >
       {/* Background Video Container */}
       <div className="absolute inset-0 z-[var(--z-layer-base)] h-full w-full overflow-hidden">
-        <video
+        <ResponsiveVideo
           ref={videoRef}
-          src={ABOUT_CONTENT.method.videos.desktop ?? undefined}
+          desktopSrc={RESPONSIVE_VIDEOS.aboutMethod.desktop}
+          mobileSrc={RESPONSIVE_VIDEOS.aboutMethod.mobile}
+          desktopPoster={activePosterDesk}
+          mobilePoster={activePosterMobile}
           autoPlay={!prefersReducedMotion}
           loop={!prefersReducedMotion}
           muted
           playsInline
-          poster={DEFAULT_VIDEO_POSTER}
-          className="hidden h-full w-full object-cover object-center opacity-55 lg:block"
+          className="block h-full w-full object-cover object-center opacity-55"
           aria-hidden="true"
         >
           <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-        </video>
-        <video
-          ref={videoRefMobile}
-          src={ABOUT_CONTENT.method.videos.mobile ?? undefined}
-          autoPlay={!prefersReducedMotion}
-          loop={!prefersReducedMotion}
-          muted
-          playsInline
-          poster={DEFAULT_VIDEO_POSTER}
-          className="block h-full w-full object-cover object-center opacity-55 lg:hidden"
-          aria-hidden="true"
-        >
-          <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-        </video>
+        </ResponsiveVideo>
 
         {/* Global Dark Gradient Overlay */}
         <div

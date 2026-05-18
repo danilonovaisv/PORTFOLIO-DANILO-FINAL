@@ -93,14 +93,14 @@
 :root {
   /* Tipografia Fluida (Mobile -> Desktop) */
   /* Valores exatos do Design System 2.2 */
-  --font-display: clamp(2.5rem, 5vw, 4.5rem);
-  /* 40px -> 72px */
-  --font-h1: clamp(2rem, 4vw, 3.5rem);
-  /* 32px -> 56px */
-  --font-h2: clamp(1.5rem, 3vw, 2.5rem);
-  /* 24px -> 40px */
-  --font-h3: clamp(1.25rem, 2vw, 1.75rem);
-  /* 20px -> 28px */
+  --font-display: clamp(2rem, 5vw, 4.5rem);
+  /* 32px -> 72px */
+  --font-h1: clamp(1.75rem, 4vw, 3.5rem);
+  /* 28px -> 56px */
+  --font-h2: clamp(1.25rem, 3vw, 2.5rem);
+  /* 20px -> 40px */
+  --font-h3: clamp(1.125rem, 2vw, 1.75rem);
+  /* 18px -> 28px */
   --font-body-mobile: clamp(1.25rem, 4.6vw, 1.375rem);
   /* 20px -> 22px - Mobile body inherits H3 readability baseline */
   --font-body-enhanced: clamp(1.125rem, 1.5vw, 1.25rem);
@@ -140,7 +140,7 @@
   /* Ghost Cards */
   --ghost-card-height-desktop: 480px;
   --radius: 0.625rem;
-  --background: #040013;
+  --background: var(--color-background);
   --foreground: #fcffff;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);

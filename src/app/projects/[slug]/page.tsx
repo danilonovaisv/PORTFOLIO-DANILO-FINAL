@@ -8,8 +8,8 @@ import {
   getProjectOgImage,
   getProjectSeoDescription,
   parseLandingPageContent,
-  resolveSiteAssetUrl,
 } from '@/lib/projects/template-schema';
+import { getAssetUrl } from '@/lib/utils';
 import {
   getCanonicalSiteUrl,
   normalizeMetaDescription,
@@ -95,7 +95,10 @@ export async function generateMetadata({
     getProjectSeoDescription(parsed, project.title)
   );
   const ogImageCandidate = getProjectOgImage(parsed, project.cover);
-  const ogResolved = resolveSiteAssetUrl(ogImageCandidate);
+  const ogResolved = getAssetUrl(ogImageCandidate, {
+    width: 1200,
+    quality: 80,
+  });
   const ogImage = toAbsoluteUrl(siteUrl, ogResolved);
 
   return {
@@ -177,7 +180,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           image:
             toAbsoluteUrl(
               siteUrl,
-              resolveSiteAssetUrl(getProjectOgImage(parsed, project.cover))
+              getAssetUrl(getProjectOgImage(parsed, project.cover), {
+                width: 1200,
+                quality: 80,
+              })
             ) ?? `${siteUrl.replace(/\/$/, '')}/opengraph-image`,
           client: projectClient,
           category: projectCategory,

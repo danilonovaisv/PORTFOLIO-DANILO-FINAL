@@ -57,6 +57,14 @@ export function getAssetUrl(
     return trimmed;
   if (/^https?:\/\//.test(trimmed)) return trimmed;
 
+  // Ghost System: Return local paths as-is
+  if (
+    trimmed.startsWith('/') &&
+    (trimmed.startsWith('/site.assets/') || trimmed.startsWith('/assets/'))
+  ) {
+    return trimmed;
+  }
+
   const normalized = normalizeStoragePath(normalizePath(trimmed)) ?? '';
   if (!normalized) return ASSET_PLACEHOLDER;
 

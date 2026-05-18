@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #040013;
+        font-family: var(--font-sans);
+        padding: 24px;
+      }
+      .hero-line {
+        font-size: clamp(3.5rem, 8vw, 6rem);
+        font-weight: 800;
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+        color: #fcffff;
+        margin: 0 0 8px;
+      }
+      .hero-sub {
+        font-size: clamp(1.25rem, 2.5vw, 2rem);
+        font-weight: 400;
+        color: rgba(252, 255, 255, 0.5);
+        margin: 16px 0 28px;
+        letter-spacing: 0.02em;
+      }
+      .tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: #4fe6ff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        opacity: 0.8;
+      }
+      .highlight {
+        color: #0048ff;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 20px 0;
+      }
+      .belief {
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 800;
+        line-height: 1;
+        color: #fcffff;
+        letter-spacing: -0.03em;
+      }
+      .belief em {
+        color: #0048ff;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tag">[BRAND AWARENESS]</div>
+    <div class="hero-line">Você não vê</div>
+    <div class="hero-line">o <span class="highlight">design.</span></div>
+    <div class="hero-sub">Mas ele vê você.</div>
+    <hr class="divider" />
+    <div class="belief">Acredito no <em>design</em></div>
+    <div class="belief">que muda o dia de alguém.</div>
+  </body>
+</html>

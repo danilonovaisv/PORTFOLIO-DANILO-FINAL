@@ -9,7 +9,7 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { getAssetUrl } from '@/lib/utils';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
@@ -64,7 +64,8 @@ function GalleryMedia({
   title: string;
   priority?: boolean;
 }) {
-  const src = resolveSiteAssetUrl(item.src);
+  const isVideo = isVideoAsset(item);
+  const src = getAssetUrl(item.src, { isVideo });
 
   if (!src) {
     return (
@@ -79,7 +80,7 @@ function GalleryMedia({
       <video
         className="h-full w-full rounded-2xl object-cover"
         src={src}
-        poster={resolveSiteAssetUrl(item.poster)}
+        poster={getAssetUrl(item.poster, { width: 1280, quality: 80 })}
         controls
         muted
         playsInline
@@ -123,9 +124,14 @@ export default function MasterProjectTemplate({
   );
 
   const highlightColor = normalizeHighlightColor(project.highlight_color);
-  const heroImage = resolveSiteAssetUrl(project.hero_cover_image.src);
+  const isHeroVideo = isVideoAsset(project.hero_cover_image);
+  const heroImage = getAssetUrl(project.hero_cover_image.src, {
+    isVideo: isHeroVideo,
+    width: isHeroVideo ? undefined : 1920,
+    quality: 90,
+  });
   const heroLogo = project.hero_logo_image?.src
-    ? resolveSiteAssetUrl(project.hero_logo_image.src)
+    ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
     : '';
 
   const introParagraphs = useMemo(() => {
@@ -163,7 +169,10 @@ export default function MasterProjectTemplate({
               <video
                 className="h-full w-full object-cover"
                 src={heroImage}
-                poster={resolveSiteAssetUrl(project.hero_cover_image.poster)}
+                poster={getAssetUrl(project.hero_cover_image.poster, {
+                  width: 1920,
+                  quality: 85,
+                })}
                 autoPlay={!prefersReducedMotion}
                 loop={!prefersReducedMotion}
                 muted

@@ -25,5 +25,13 @@ export default function GhostSceneWrapper({
     );
   }
 
-  return <GhostScene onReady={onReady} />;
+  return (
+    <div
+      className="absolute inset-0 w-full h-full"
+      aria-hidden="true"
+      role="presentation"
+    >
+      <GhostScene onReady={onReady} />
+    </div>
+  );
 }

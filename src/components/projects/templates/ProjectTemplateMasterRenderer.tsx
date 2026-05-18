@@ -9,9 +9,7 @@ import { useMemo } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { supabaseLoader } from '@/lib/utils';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { getAssetUrl, supabaseLoader } from '@/lib/utils';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
@@ -24,6 +22,7 @@ import SectionGrid from '@/components/projects/templates/master-v2/SectionGrid';
 import SectionQuote from '@/components/projects/templates/master-v2/SectionQuote';
 import SectionSplit from '@/components/projects/templates/master-v2/SectionSplit';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 
 // LiquidEther removed as it was unused
@@ -93,9 +92,12 @@ export default function ProjectTemplateMasterRenderer({
   const prefersReducedMotion = useReducedMotion();
   const backHref = useLandingBackLink();
 
-  const heroImage = resolveSiteAssetUrl(project.hero_cover_image.src);
+  const heroImage = getAssetUrl(project.hero_cover_image.src, {
+    width: 1920,
+    quality: 90,
+  });
   const heroLogo = project.hero_logo_image?.src
-    ? resolveSiteAssetUrl(project.hero_logo_image.src)
+    ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
     : '';
 
   const introParagraphs = useMemo(() => {
@@ -200,9 +202,7 @@ export default function ProjectTemplateMasterRenderer({
                   <video
                     className="h-full w-full object-cover"
                     src={heroImage}
-                    poster={resolveSiteAssetUrl(
-                      project.hero_cover_image.poster
-                    )}
+                    poster={getAssetUrl(project.hero_cover_image.poster)}
                     autoPlay={!prefersReducedMotion}
                     loop={!prefersReducedMotion}
                     muted

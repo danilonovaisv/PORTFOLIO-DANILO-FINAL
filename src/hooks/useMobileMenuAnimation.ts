@@ -72,64 +72,70 @@ export function useMobileMenuAnimation(
     return () => ctx.revert();
   }, [motionDisabled]);
 
-  const animateIcon = useCallback((opening: boolean) => {
-    if (motionDisabled) return;
-    const icon = iconRef.current;
-    const h = plusHRef.current;
-    const v = plusVRef.current;
-    if (!icon || !h || !v) return;
+  const animateIcon = useCallback(
+    (opening: boolean) => {
+      if (motionDisabled) return;
+      const icon = iconRef.current;
+      const h = plusHRef.current;
+      const v = plusVRef.current;
+      if (!icon || !h || !v) return;
 
-    spinTweenRef.current?.kill();
+      spinTweenRef.current?.kill();
 
-    if (opening) {
-      gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
-      spinTweenRef.current = gsap
-        .timeline({ defaults: { ease: GSAP_GHOST_EASE } })
-        .to(h, { rotate: 45, duration: MOTION_TOKENS.duration.modal }, 0)
-        .to(v, { rotate: -45, duration: MOTION_TOKENS.duration.modal }, 0);
-    } else {
-      spinTweenRef.current = gsap
-        .timeline({ defaults: { ease: GSAP_GHOST_EASE } })
-        .to(h, { rotate: 0, duration: MOTION_TOKENS.duration.modal }, 0)
-        .to(v, { rotate: 90, duration: MOTION_TOKENS.duration.modal }, 0)
-        .to(icon, { rotate: 0, duration: 0.001 }, 0);
-    }
-  }, []);
+      if (opening) {
+        gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
+        spinTweenRef.current = gsap
+          .timeline({ defaults: { ease: GSAP_GHOST_EASE } })
+          .to(h, { rotate: 45, duration: MOTION_TOKENS.duration.modal }, 0)
+          .to(v, { rotate: -45, duration: MOTION_TOKENS.duration.modal }, 0);
+      } else {
+        spinTweenRef.current = gsap
+          .timeline({ defaults: { ease: GSAP_GHOST_EASE } })
+          .to(h, { rotate: 0, duration: MOTION_TOKENS.duration.modal }, 0)
+          .to(v, { rotate: 90, duration: MOTION_TOKENS.duration.modal }, 0)
+          .to(icon, { rotate: 0, duration: 0.001 }, 0);
+      }
+    },
+    [motionDisabled]
+  );
 
-  const animateText = useCallback((opening: boolean) => {
-    if (motionDisabled) {
-      setTextLines([opening ? 'Close' : 'Menu']);
-      return;
-    }
+  const animateText = useCallback(
+    (opening: boolean) => {
+      if (motionDisabled) {
+        setTextLines([opening ? 'Close' : 'Menu']);
+        return;
+      }
 
-    const inner = textInnerRef.current;
-    if (!inner) return;
+      const inner = textInnerRef.current;
+      if (!inner) return;
 
-    textCycleAnimRef.current?.kill();
+      textCycleAnimRef.current?.kill();
 
-    const currentLabel = opening ? 'Menu' : 'Close';
-    const targetLabel = opening ? 'Close' : 'Menu';
-    const cycles = 1; // Reduce cycles for cleaner transition
+      const currentLabel = opening ? 'Menu' : 'Close';
+      const targetLabel = opening ? 'Close' : 'Menu';
+      const cycles = 1; // Reduce cycles for cleaner transition
 
-    const seq: string[] = [currentLabel];
-    let last = currentLabel;
-    for (let i = 0; i < cycles; i++) {
-      last = last === 'Menu' ? 'Close' : 'Menu';
-    }
-    seq.push(targetLabel);
+      const seq: string[] = [currentLabel];
+      let last = currentLabel;
+      for (let i = 0; i < cycles; i++) {
+        last = last === 'Menu' ? 'Close' : 'Menu';
+      }
+      seq.push(targetLabel);
 
-    setTextLines(seq);
-    gsap.set(inner, { yPercent: 0 });
+      setTextLines(seq);
+      gsap.set(inner, { yPercent: 0 });
 
-    const lineCount = seq.length;
-    const finalShift = ((lineCount - 1) / lineCount) * 100;
+      const lineCount = seq.length;
+      const finalShift = ((lineCount - 1) / lineCount) * 100;
 
-    textCycleAnimRef.current = gsap.to(inner, {
-      yPercent: -finalShift,
-      duration: MOTION_TOKENS.duration.modal,
-      ease: GSAP_GHOST_EASE,
-    });
-  }, []);
+      textCycleAnimRef.current = gsap.to(inner, {
+        yPercent: -finalShift,
+        duration: MOTION_TOKENS.duration.modal,
+        ease: GSAP_GHOST_EASE,
+      });
+    },
+    [motionDisabled]
+  );
 
   const buildOpenTimeline = useCallback(() => {
     if (motionDisabled) return null;
@@ -227,7 +233,7 @@ export function useMobileMenuAnimation(
 
     openTlRef.current = tl;
     return tl;
-  }, []);
+  }, [motionDisabled]);
 
   const playOpen = useCallback(() => {
     if (motionDisabled) return;
@@ -241,7 +247,7 @@ export function useMobileMenuAnimation(
     if (tl) {
       tl.play(0);
     }
-  }, [buildOpenTimeline]);
+  }, [buildOpenTimeline, motionDisabled]);
 
   const playClose = useCallback(() => {
     if (motionDisabled) return;
@@ -279,7 +285,7 @@ export function useMobileMenuAnimation(
         }
       },
     });
-  }, []);
+  }, [motionDisabled]);
 
   // Sync with external isOpen prop
   const syncState = useCallback(() => {

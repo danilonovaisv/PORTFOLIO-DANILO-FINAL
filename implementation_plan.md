@@ -1,639 +1,192 @@
-# implementation_plan.md — 06-O-QUE-ME-MOVE / Página Sobre
+# Implementation Plan — Ghost System Audit (2026-05-17)
 
-## 1. Resumo executivo do problema
-
-A seção `06-O-QUE-ME-MOVE` da página `/sobre` precisa ser alinhada ao backlog descrito em `docs/CODEX_AUDIT_FIX.md`, com foco em narrativa, legibilidade, acessibilidade, SSR/client separation, performance WebGL e reduced motion.
-
-O objetivo não é transformar a seção em uma demo visual, mas estabilizar a experiência editorial e visual com:
-
-- background animado por progresso real da seção;
-- `BeliefFixedHeader` legível e semanticamente correto;
-- manifesto final com foco narrativo;
-- Ghost 3D como camada protagonista apenas quando apropriado;
-- reduced motion como contrato único;
-- fallback formal para loading, erro e WebGL indisponível;
-- melhoria de performance de Canvas/R3F;
-- responsividade desktop/tablet/mobile;
-- preservação de SEO técnico e headings.
-
-Nenhuma implementação deve iniciar antes de aprovação humana explícita.
+> **Role:** Repo Architect + Ghost Design System Guardian
+> **Status:** Planning Phase — Aguardando aprovação humana
+> **Data:** 2026-05-17
+> **Gerado por:** ghost-audit pipeline
 
 ---
 
-## 2. Estado atual confirmado no repo
+## Resumo Executivo
 
-### Repositório e branch
+O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` exibe o aviso de truncamento do GitHub ("1 entries were omitted") como consequência direta de **12.281 arquivos rastreados no git**, número anômalo para um projeto Next.js de portfólio. A causa raiz é multifatorial: cache npm binário comitado, skill library de 6.346 arquivos rastreada, arquivos temporários de trabalho na raiz, diretórios de ferramentas AI duplicados, e ausência de entradas críticas no `.gitignore`.
 
-- Repositório confirmado via GitHub MCP: `danilonovaisv/PORTFOLIO-DANILO-FINAL`.
-- Branch principal confirmada: `main`.
-- SHA observado da branch `main`: `16aa5652d71702ceb0477c0d6f595954f81e5d49`.
-
-### Rota exata de `/sobre`
-
-- Rota `/sobre` confirmada em:
-  - `src/app/sobre/page.tsx`
-- Arquivos auxiliares da rota `/sobre` confirmados:
-  - `src/app/sobre/loading.tsx`
-  - `src/app/sobre/error.tsx`
-  - `src/app/sobre/opengraph-image.tsx`
-
-### Rota adicional relacionada
-
-- Existe também:
-  - `src/app/(sobre)/o-que-me-move/page.tsx`
-  - `src/app/(sobre)/o-que-me-move/loading.tsx`
-  - `src/app/(sobre)/o-que-me-move/error.tsx`
-- Por ser um route group `(sobre)`, esta rota tende a resolver como `/o-que-me-move`, não como `/sobre/o-que-me-move`.
-- Esta rota deve ser tratada como artefato relacionado/auxiliar e não como substituta automática da seção dentro de `/sobre`, salvo confirmação local de navegação/links.
-
-### Boundary server/client atual
-
-- `src/app/sobre/page.tsx` não apresentou ocorrência de `"use client"` em busca indexada; deve ser tratado como Server Component por padrão.
-- A seção de beliefs usa Client Components em `src/components/sobre/sections/beliefs`, incluindo arquivos com `"use client"` detectados em busca:
-  - `BeliefsSection.tsx`
-  - `BeliefSection.tsx`
-  - `BeliefOverlay.tsx`
-  - `BeliefScrollText.tsx`
-  - componentes 3D/fallback relacionados
-- A estratégia atual parece ser: página `/sobre` SSR/server + seção interativa client-side.
-
-### Presença dos componentes solicitados
-
-Confirmados em `src/components/sobre/sections/beliefs`:
-
-- `BeliefBackground.tsx`
-- `BeliefFixedHeader.tsx`
-- `BeliefManifesto.tsx`
-- `BeliefScrollText.tsx`
-- `BeliefOverlay.tsx`
-- `BeliefSection.tsx`
-- `BeliefsSection.tsx`
-
-Não confirmado como presente no código-fonte atual:
-
-- `AboutBeliefsClient.tsx`
-- `BeliefsScrollContext.tsx`
-
-Observação: o audit cita `AboutBeliefsClient.tsx` e `BeliefsScrollContext.tsx`, mas a estrutura atual aparenta usar `BeliefsSection.tsx` e hooks/props como composição real da seção.
-
-### Ghost / Canvas / GLB
-
-Confirmados em `src/components/sobre/sections/beliefs/3d`:
-
-- `GhostCanvas.tsx`
-- `GhostCanvasClient.tsx`
-- `GhostErrorBoundary.tsx`
-- `GhostFallback.tsx`
-- `useWebGLAvailable.ts`
-
-Assets GLB confirmados em `public/models`:
-
-- `public/models/ghost.glb`
-- `public/models/ghost-transformed.glb`
-
-### Hooks existentes
-
-Confirmados:
-
-- `src/hooks/useBeliefsScroll.ts`
-- `src/hooks/useReducedMotion.ts`
-- `src/hooks/usePrefersReducedMotion.ts`
-
-### Contextos existentes
-
-Confirmado:
-
-- `src/contexts/ScrollContext.tsx`
-
-Não confirmado:
-
-- `src/contexts/BeliefsScrollContext.tsx`
-- `src/components/sobre/sections/beliefs/BeliefsScrollContext.tsx`
-
-### Fontes de verdade e documentação
-
-Confirmados:
-
-- `docs/CODEX_AUDIT_FIX.md`
-- `.context/GHOST-DESIGN-SYSTEM.md`
-- `.context/DOCS-PORTFOLIO-PAGES`
-- `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md`
-- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/implementation_plan.md`
-- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/task.md`
-- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/walkthrough.md`
-
-Não confirmados no caminho literal solicitado:
-
-- `MASTER-KNOWLEDGE-MAP`
-- `MASTER-KNOWLEDGE-MAP.md`
-- `.antigravity/rules.md`
-- `AGENTS.md`
-
-Arquivos substitutos/relacionados encontrados:
-
-- `.context/MAP.md`
-- `.context/knowledge-graph.md`
-- `.context/ARCHITECTURE.md`
-- `docs/AGENT.md`
-- `docs/AGENT_FLOW.md`
-- `docs/AGENTS_SYSTEM.md`
+Paralelamente, a auditoria do Ghost Design System identificou violações de motion (uso proibido de `rotate`), ausência de dois primitivos arquiteturais (`MotionLink` e `image-loader.ts`), e o uso de `m.button` para navegação interna no Header Desktop — quebrando o prefetch do Next.js.
 
 ---
 
-## 3. Divergências entre audit e código atual
+## Diagnóstico Detalhado
 
-1. O audit cita `AboutBeliefsClient.tsx`, mas o repositório atual não confirmou esse arquivo.
-   - Divergência provável: refactor posterior ou naming diferente.
-   - Candidato real atual: `BeliefsSection.tsx`.
+### 1. Incidente GitHub — Truncamento de Diretório
 
-2. O audit cita `BeliefsScrollContext.tsx`, mas o repositório atual não confirmou esse arquivo.
-   - Existe `useBeliefsScroll.ts`.
-   - Existe `src/contexts/ScrollContext.tsx`.
-   - Decisão pendente: criar um contexto específico ou consolidar por hook/props.
+| Causa                         | Diretório / Arquivo                                                                                                   | Arquivos Comitados | Severidade |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| Cache npm binário             | `functions/.npm_cache/`                                                                                               | **2.759**          | CRÍTICA    |
+| Skill library de agente       | `.agent/skills/`                                                                                                      | **6.346**          | ALTA       |
+| Relatórios e backups          | `reports/`                                                                                                            | 523                | MÉDIA      |
+| Artefatos temporários na raiz | `*.txt`, `walkthrough.md`, `task.md`, `implementation_plan.md`, `WEEKLY_AUDIT_REPORT.md`                              | ~8                 | MÉDIA      |
+| Output de testes Playwright   | `output/`                                                                                                             | 12                 | BAIXA      |
+| Output gerado (graphify)      | `graphify-out/`                                                                                                       | 47                 | BAIXA      |
+| Diretórios de ferramentas AI  | `.zencoder`, `.junie`, `.goose`, `.factory`, `.crush`, `.continue`, `.commandcode`, `.codebuddy`, `.augment`, `.qwen` | ~130               | BAIXA      |
+| Cache Firebase                | `.firebase-cache/`                                                                                                    | 4                  | BAIXA      |
+| Arquivos de migração Supabase | `supabase-asset-migrate/`                                                                                             | 17                 | BAIXA      |
+| Scratch area                  | `scratch/`                                                                                                            | 16                 | BAIXA      |
 
-3. O audit aponta loading/error/fallback como não formalizados, mas já existem:
-   - `src/app/sobre/loading.tsx`
-   - `src/app/sobre/error.tsx`
-   - `GhostErrorBoundary.tsx`
-   - `GhostFallback.tsx`
-   - `useWebGLAvailable.ts`
-     A implementação deve auditar se eles são realmente usados e suficientes, não recriar sem necessidade.
+**Diagnóstico do `.gitignore` atual:**
 
-4. O audit pede Ghost/Canvas client-only. O repositório já contém:
-   - `GhostCanvasClient.tsx`
-   - `GhostCanvas.tsx`
-     Porém ainda precisa confirmar localmente se o import é `dynamic(..., { ssr: false })`, se há `Suspense`, fallback sem layout shift, DPR controlado e política de render loop.
+- `functions/.npm_cache/` **não está listado** (apenas `.npm_cache_local/` está coberto).
+- `functions/.gitignore` não ignora `functions/.npm_cache/`.
+- Arquivos `.txt` na raiz e arquivos de trabalho (`walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`) não cobertos.
+- `graphify-out/`, `output/`, `scratch/` não cobertos.
+- Diretórios de ferramentas AI (`.zencoder`, `.junie` etc.) não cobertos.
 
-5. O audit aponta reduced motion ausente/insuficiente. O repo contém dois hooks:
-   - `useReducedMotion`
-   - `usePrefersReducedMotion`
-     Isso sugere possível duplicidade de contrato. A correção deve unificar sem quebrar consumidores existentes.
+**Exposição de secrets:** Nenhuma chave real detectada nos arquivos rastreados. As ocorrências retornadas pela busca pertencem a documentação de skills (`.agent/skills/`) sobre gestão de secrets, não a credenciais reais. Risco de exposição: BAIXO. Recomenda-se executar `git secret scan` ou `gitleaks` como validação adicional.
 
-6. O audit aponta scroll-triggered não alinhado a Motion.dev. Busca indexada não confirmou `useScroll`/`useTransform` diretamente em `BeliefBackground.tsx` ou `BeliefsSection.tsx`.
-   - Deve-se validar o conteúdo completo localmente antes de alterar.
-   - Arquitetura-alvo deve usar `useScroll({ target, offset })` com progresso real da seção.
-
-7. Existe rota `src/app/(sobre)/o-que-me-move/page.tsx`, mas o escopo solicitado é a seção `06-O-QUE-ME-MOVE` dentro da página `/sobre`.
-   - Evitar mover o escopo para a rota isolada sem aprovação.
+**Nota sobre `.agent/skills`:** A biblioteca de 6.346 skills é conteúdo editorial/documentação do agente. A decisão de manter no git é legítima, mas representa o maior vetor de crescimento de tamanho do repositório. Proposta: mover para submodule ou `.gitignore` com instrução de install separado.
 
 ---
 
-## 4. Arquitetura alvo
+### 2. Ghost Design System — Violações Identificadas
 
-### 4.1. Princípios
+#### 2.1 Motion Proibido — `CategoryStripe.tsx`
 
-- Manter `/sobre` como rota server-first.
-- Preservar conteúdo editorial no HTML inicial sempre que viável.
-- Isolar apenas browser-only/motion/WebGL em Client Components.
-- Não introduzir GSAP se Motion.dev resolver o problema com qualidade equivalente.
-- Não usar motion proibido pelo Ghost System:
-  - proibido: `scale`, `rotate`, `bounce`;
-  - permitido: `opacity`, `blur`, `translateY`.
-- Preservar identidade Blue Ghost; não usar vermelho como cor de identidade.
-- Preservar Tailwind Oxide:
-  - manter `@import "tailwindcss" source(none)`;
-  - manter `@source` explícitos quando necessários;
-  - não alterar pipeline Tailwind sem necessidade.
+```
+Arquivo: src/components/home/portfolio-showcase/CategoryStripe.tsx
+Linha: 163
+Violação: rotate: isHovered ? 0 : -45
+Regra Ghost: Motion proibido inclui rotate (exceto com regra superior explícita)
+```
 
-### 4.2. Estrutura proposta
+**Trade-off:** A seta usa `rotate` para indicar direção (affordance direcional). A substituição por `translateX` (permitido se documentado) ou ícone alternativo precisa manter a legibilidade do affordance.
 
-#### Server boundary
+#### 2.2 Componente Ausente — `MotionLink`
 
-- `src/app/sobre/page.tsx`
-  - Continua Server Component.
-  - Renderiza estrutura editorial e seções.
-  - Importa `BeliefsSection` apenas se já for o padrão atual.
-  - Garante metadata e heading hierarchy.
+```
+Diagnóstico: Não existe src/components/motion/MotionLink.tsx
+Impacto: Navegação interna usa m.button (quebra prefetch Next.js) ou next/link puro (sem motion)
+Afetado: DesktopFluidHeader.tsx:67-78 (m.button para items internos)
+```
 
-#### Section wrapper
+**Solução proposta:** `MotionLink` como wrapper de `next/link` com `m()` ou `AnimatePresence`, preservando prefetch e scroll behavior do App Router.
 
-- `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
-  - Continua como principal Client Component da seção.
-  - Recebe conteúdo estático por props, se possível.
-  - Cria `sectionRef`.
-  - Usa `useScroll({ target: sectionRef, offset })`.
-  - Define phases derivadas de `scrollYProgress`.
-  - Propaga `scrollYProgress`, `reducedMotion` e phase para filhos por props ou contexto específico.
+#### 2.3 Ausente — `src/lib/supabase/image-loader.ts`
 
-#### Reduced motion
+```
+Diagnóstico: Arquivo não existe. O next.config.mjs usa remotePatterns com a rota
+/storage/v1/render/image/public/** (Supabase Image Transform API) mas não há
+loader customizado que aproveite os parâmetros width/quality via transform URL.
+```
 
-Opção preferencial:
+**Situação atual:** Next.js `<Image>` usa o optimizer interno, que faz um round-trip desnecessário se o Supabase já pode servir imagens redimensionadas via `?width=&quality=`. Não é bug crítico, mas é ineficiência de performance.
 
-- Criar/ajustar um contrato único:
-  - `src/hooks/useReducedMotion.ts` como fonte oficial, ou
-  - `src/hooks/usePrefersReducedMotion.ts` como wrapper compatível.
-- Evitar manter duas verdades com comportamento diferente.
-- Onde reduced motion estiver ativo:
-  - background estático;
-  - sem parallax;
-  - Ghost sem animação contínua;
-  - reveals por opacity apenas ou conteúdo já visível;
-  - sem stagger longo.
+#### 2.4 Header Desktop — Navegação sem Prefetch
 
-#### Scroll context
+```
+Arquivo: src/components/layout/header/DesktopFluidHeader.tsx:67-68
+Problema: const LinkComponent = isExternalHref(...) ? m.a : m.button
+m.button não é um link — não aciona prefetch nem navegação declarativa do Next.js
+```
 
-Opção A — props explícitas:
+**Impacto:** Links de navegação interna no desktop header são buttons, não âncoras, o que quebra abertura em nova aba, bot crawling, e SEO.
 
-- Passar `scrollYProgress`, `reducedMotion` e `phase` para:
-  - `BeliefBackground`
-  - `BeliefFixedHeader`
-  - `BeliefScrollText`
-  - `BeliefManifesto`
-  - `GhostCanvasClient`
+#### 2.5 Cor Vermelha — Status
 
-Vantagens:
-
-- Menos abstração.
-- Mais fácil de revisar.
-
-Opção B — novo `BeliefsScrollContext.tsx`:
-
-- Criar contexto específico se muitos componentes precisam consumir o mesmo contrato.
-- Deve ficar dentro de `src/components/sobre/sections/beliefs`.
-- Deve ser client-only.
-- Deve expor somente:
-  - `scrollYProgress`
-  - `reducedMotion`
-  - `phase`
-  - flags derivadas simples
-
-Vantagens:
-
-- Menos prop drilling.
-- Alinha com o audit se ele espera explicitamente esse arquivo.
-
-Decisão recomendada:
-
-- Começar com props explícitas.
-- Criar contexto apenas se o diff ficar mais claro/menor do que prop drilling.
-
-#### Background animado
-
-- `BeliefBackground.tsx`
-  - Deve receber progresso da seção, não usar scroll global.
-  - Usar `useTransform` para:
-    - `opacity`
-    - `filter: blur(...)`
-    - `y` / `translateY`
-  - Evitar `scale`, `rotate` e efeitos de competição visual.
-  - Em reduced motion, usar valores estáticos.
-  - Blur e gradients devem ser sutis para preservar legibilidade.
-
-#### Header fixo
-
-- `BeliefFixedHeader.tsx`
-  - Deve ser semanticamente um `h2` real ou renderizar um `h2` interno.
-  - Deve estar associado a `section aria-labelledby`.
-  - Deve permanecer legível em todas as fases.
-  - Não deve competir com manifesto final.
-
-#### Texto semântico / AccessibleSplitText
-
-- Criar `AccessibleSplitText` somente se o split atual duplica leitura ou quebra semântica.
-- Requisitos:
-  - preservar tag semântica real (`p`, `h2`, `blockquote`, etc.);
-  - aplicar `aria-label={text}`;
-  - spans visuais com `aria-hidden="true"`;
-  - fallback estático quando reduced motion estiver ativo;
-  - split por palavras no mobile;
-  - evitar animações proibidas.
-
-#### Manifesto final
-
-- `BeliefManifesto.tsx`
-  - Preferencialmente `blockquote` ou `p`, não heading artificial.
-  - Deve receber foco narrativo na fase final.
-  - Background estabilizado.
-  - Ghost reduzido/menos dominante.
-  - Entrada por opacity/translateY/blur sutil.
-
-#### Ghost 3D
-
-- `GhostCanvasClient.tsx`
-  - Deve continuar client-only.
-  - Se ainda não estiver, usar `dynamic(..., { ssr: false })` no ponto de consumo.
-  - Usar `Suspense` com `GhostFallback`.
-  - Usar `GhostErrorBoundary`.
-  - Usar `useWebGLAvailable`.
-  - Canvas decorativo: `aria-hidden`, sem foco indevido.
-  - Em mobile:
-    - `pointer-events: none` quando decorativo;
-    - sem captura de gesto;
-    - interação congelada ou muito leve.
-  - Em reduced motion:
-    - sem rotação/animação contínua;
-    - render estático ou `frameloop="demand"`.
-
-- `GhostCanvas.tsx`
-  - Controlar DPR: desktop máximo moderado; mobile/tablet menor.
-  - Avaliar `frameloop="demand"`.
-  - Não alocar objetos dentro de `useFrame`.
-  - Não usar `setState` em `useFrame`.
-  - Confirmar cleanup de listeners, timers, RAFs e recursos.
-  - Considerar `useGLTF.preload('/models/ghost-transformed.glb')`.
-
-#### SEO e semântica
-
-- Confirmar um único `h1` em `/sobre`.
-- `section aria-labelledby`.
-- `BeliefFixedHeader` como `h2`.
-- Manifesto como `blockquote`/`p`.
-- Canvas decorativo sem texto alternativo enganoso.
-- Conteúdo editorial da seção deve existir no SSR quando possível.
-- Confirmar `metadata` da página `/sobre` e OG atual.
-
-#### Responsividade
-
-- Desktop `1440x900`:
-  - Ghost pode ser protagonista no miolo.
-  - Background com parallax moderado.
-  - Texto com largura controlada.
-
-- Tablet `768x1024`:
-  - menor amplitude de motion;
-  - menor DPR;
-  - texto priorizado;
-  - Ghost menos dominante.
-
-- Mobile `390x844`:
-  - Ghost estático ou muito leve;
-  - sem scroll hijacking;
-  - Canvas não captura gesto;
-  - SplitText por palavras ou fallback estático;
-  - sem overlap/clipping.
+```
+Resultado da auditoria: Nenhuma violação real detectada.
+O grep retornou matches de nomes de variável (featured_on_home) onde "red" é substring.
+#E50914 não está em uso fora de contextos de erro/alerta (conforme permitido).
+```
 
 ---
 
-## 5. Arquivos impactados
+## Matriz de Prioridades
 
-### Prováveis P0
+### P0 — GitHub & Higiene (Deve ser feito antes do próximo commit/deploy)
 
-- `src/hooks/useReducedMotion.ts`
-- `src/hooks/usePrefersReducedMotion.ts`
-- `src/hooks/useBeliefsScroll.ts`
-- `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
-- `src/components/sobre/sections/beliefs/BeliefBackground.tsx`
-- `src/components/sobre/sections/beliefs/3d/GhostCanvas.tsx`
-- `src/components/sobre/sections/beliefs/3d/GhostCanvasClient.tsx`
-- `src/components/sobre/sections/beliefs/3d/GhostFallback.tsx`
-- `src/components/sobre/sections/beliefs/3d/GhostErrorBoundary.tsx`
-- `src/components/sobre/sections/beliefs/3d/useWebGLAvailable.ts`
+| ID    | Ação                                                                                     | Risco de Execução | Reversível   |
+| ----- | ---------------------------------------------------------------------------------------- | ----------------- | ------------ |
+| P0-G1 | Adicionar `functions/.npm_cache/` ao `.gitignore`                                        | ZERO              | Sim          |
+| P0-G2 | Remover `functions/.npm_cache/` do tracking git (`git rm -r --cached`)                   | BAIXO             | Sim (re-add) |
+| P0-G3 | Adicionar arquivos temporários de raiz ao `.gitignore` (`*.txt`, `walkthrough.md`, etc.) | ZERO              | Sim          |
+| P0-G4 | Remover arquivos de trabalho da raiz do tracking                                         | BAIXO             | Sim          |
+| P0-G5 | Adicionar diretórios de output ao `.gitignore` (`output/`, `graphify-out/`, `scratch/`)  | ZERO              | Sim          |
+| P0-G6 | Decisão estratégica sobre `.agent/skills` (submodule vs keep vs gitignore)               | MÉDIO             | Depende      |
 
-### Prováveis P1
+### P0 — Ghost System (Bloqueadores arquiteturais)
 
-- `src/components/sobre/sections/beliefs/BeliefFixedHeader.tsx`
-- `src/components/sobre/sections/beliefs/BeliefManifesto.tsx`
-- `src/components/sobre/sections/beliefs/BeliefScrollText.tsx`
-- possível novo `src/components/sobre/sections/beliefs/AccessibleSplitText.tsx`
-- possível novo `src/components/sobre/sections/beliefs/BeliefsScrollContext.tsx`
-- `src/app/sobre/page.tsx`
-- `src/app/sobre/loading.tsx`
-- `src/app/sobre/error.tsx`
+| ID     | Ação                                                               | Complexidade | Regressão Esperada       |
+| ------ | ------------------------------------------------------------------ | ------------ | ------------------------ |
+| P0-GS1 | Criar `src/components/motion/MotionLink.tsx`                       | BAIXA        | Nenhuma (novo arquivo)   |
+| P0-GS2 | Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx` | BAIXA        | Testar navegação desktop |
+| P0-GS3 | Criar `src/lib/supabase/image-loader.ts` (Supabase Transform)      | MÉDIA        | Testar todas as imagens  |
 
-### Documentação/evidência
+### P1 — Ghost System (Melhorias não bloqueadoras)
 
-- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/implementation_plan.md`
-- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/task.md`
-- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/walkthrough.md`
-- Possível atualização em `.context/DOCS-PORTFOLIO-PAGES` se houver alteração estrutural real.
-
-### Arquivos a evitar alterar sem necessidade
-
-- `src/app/globals.css`, salvo validação de Tailwind Oxide.
-- `tailwind.config.ts`, salvo necessidade comprovada.
-- assets GLB, salvo task específica de otimização de asset.
+| ID     | Ação                                                                               | Complexidade | Regressão Esperada       |
+| ------ | ---------------------------------------------------------------------------------- | ------------ | ------------------------ |
+| P1-GS1 | Corrigir `rotate` em `CategoryStripe.tsx:163` (substituir por translateX ou ícone) | BAIXA        | Testar affordance visual |
+| P1-GS2 | Decidir loader do `next.config.mjs` (referência ao image-loader após P0-GS3)       | BAIXA        | Após P0-GS3              |
+| P1-GS3 | Validar altura dos cards em `FeaturedProjectsSection.tsx` contra spec              | BAIXA        | Nenhuma                  |
+| P1-GS4 | Auditar estado ativo no Header (link corrente vs outros)                           | BAIXA        | Nenhuma                  |
 
 ---
 
-## 6. Dependências e alternativas
+## Trade-offs e Decisões Pendentes
 
-### Dependências existentes esperadas
+### Decisão 1: `.agent/skills` — Keep vs Submodule vs Gitignore
 
-- Next.js App Router
-- React
-- TypeScript
-- Tailwind CSS / Oxide
-- Framer Motion / Motion
-- React Three Fiber
-- Drei
-- Three.js
-- Lenis
+- **Keep (status quo):** 6.346 arquivos no repo. Fácil acesso, mas repositório pesado.
+- **Submodule:** Isola a skill library, preserva histórico separado. Complexidade de manutenção aumenta.
+- **Gitignore + README de install:** Remove do repo, instrução de clone separado. Mais limpo, mas requer disciplina de setup.
 
-### Motion.dev
+**Recomendação:** Submodule se o histórico for crítico; gitignore + README se a library for importada de repo próprio (`.agents/` sugere que já existe um repo central).
 
-Decisão:
+### Decisão 2: Image Loader Strategy
 
-- Usar `useScroll({ target, offset })` para progresso real da seção.
-- Usar `useTransform` para background e estados visuais derivados.
-- Usar `useInView` ou `whileInView` apenas para reveals discretos.
+- **Opção A:** Loader customizado que usa Supabase Transform API (`/render/image/public/`). Elimina round-trip via Next.js.
+- **Opção B:** Manter `remotePatterns` atual com optimizer do Next.js. Mais simples, sem risco de regressão.
 
-Alternativa rejeitada inicialmente:
-
-- GSAP/ScrollTrigger.
-  Motivo:
-- Aumenta bundle e complexidade; só justificar se Motion não entregar o comportamento necessário.
-
-### R3F / Drei
-
-Decisão:
-
-- Manter `Canvas` client-only.
-- Usar `Suspense`, fallback e error boundary.
-- Usar DPR controlado.
-- Considerar `frameloop="demand"` quando animação contínua não for essencial.
-- Usar `useGLTF` / `useGLTF.preload`.
-
-Alternativa:
-
-- Desabilitar Canvas no mobile/reduced motion e renderizar fallback visual estático.
-- Vantagem: melhor performance e menor risco de gestos.
-
-### Context vs props
-
-Decisão inicial:
-
-- Props explícitas se o grafo de componentes permitir.
-- Criar `BeliefsScrollContext.tsx` apenas se simplificar consumo e alinhar melhor com o audit.
+**Recomendação:** Opção A para produção (performance), Opção B aceitável se latência atual for abaixo de 200ms LCP contribution.
 
 ---
 
-## 7. Trade-offs
+## Comandos Propostos (Aguardando aprovação)
 
-1. `frameloop="demand"` pode reduzir custo de GPU, mas exige invalidation correta se houver animação/interação.
-2. Manter conteúdo SSR reduz risco SEO, mas limita uso direto de hooks no wrapper server.
-3. Client Component amplo acelera implementação, mas aumenta bundle e piora SSR/client separation.
-4. SplitText melhora percepção visual, mas pode prejudicar acessibilidade se não for implementado com `aria-label` e `aria-hidden`.
-5. Reduzir Ghost no mobile melhora UX/performance, mas reduz impacto visual.
-6. Criar `BeliefsScrollContext.tsx` alinha com o audit, mas adiciona abstração se props bastarem.
-7. Fallback visual estático para WebGL/reduced motion melhora robustez, mas precisa preservar identidade Blue Ghost.
+```bash
+# P0-G1: Atualizar .gitignore
+# (adicionar entradas: functions/.npm_cache/, output/, graphify-out/, scratch/, *.txt na raiz)
 
----
+# P0-G2: Remover cache do tracking (NÃO executa agora — aguarda aprovação)
+# git rm -r --cached functions/.npm_cache/
+# git rm --cached typecheck_fresh.txt tsc_output_current_v2.txt tsc_output_current.txt typecheck_output_new.txt knip_report.txt
 
-## 8. Riscos
+# P0-GS1: Criar MotionLink
+# touch src/components/motion/MotionLink.tsx
 
-- Regressão no Tailwind Oxide se `globals.css` ou `@source` forem alterados indevidamente.
-- Competição visual entre background, texto e Ghost se phases não forem explícitas.
-- Quebra de heading hierarchy se `BeliefFixedHeader` renderizar heading errado.
-- Duplicidade de leitura por screen reader se SplitText não for acessível.
-- Captura de scroll/gestos no mobile pelo Canvas.
-- Long tasks recorrentes se `useFrame` alocar objetos ou usar setState.
-- Hydration mismatch se conteúdo editorial depender de browser APIs.
-- Divergência entre audit e código atual se `AboutBeliefsClient.tsx`/`BeliefsScrollContext.tsx` forem criados sem necessidade real.
-- Validação visual incompleta sem acesso local ao `anima.mov`.
+# Build check após execução:
+# pnpm run build-check
+```
 
 ---
 
-## 9. Estratégia de rollout incremental
+## Critérios de Sucesso
 
-### Fase 0 — Pré-implementação
-
-- Revisar conteúdo completo dos arquivos localmente.
-- Confirmar imports reais e fluxo de renderização.
-- Confirmar onde `BeliefsSection` é usado em `/sobre`.
-- Confirmar se `src/app/(sobre)/o-que-me-move` é página ativa ou protótipo.
-
-### Fase 1 — Reduced motion e scroll
-
-- Unificar contrato de reduced motion.
-- Ajustar `useBeliefsScroll` ou `BeliefsSection` para `useScroll({ target, offset })`.
-- Propagar `scrollYProgress` e `reducedMotion`.
-- Background passa a ser dirigido por progresso real.
-
-### Fase 2 — Semântica e texto
-
-- Auditar `BeliefScrollText`.
-- Criar `AccessibleSplitText` se necessário.
-- Garantir `aria-label`, spans `aria-hidden`, fallback reduced motion.
-- Garantir que conteúdo textual permanece disponível.
-
-### Fase 3 — Orquestração de camadas
-
-- Definir phases:
-  1. entrada: background sutil + header;
-  2. miolo: Ghost protagonista + texto estável;
-  3. manifesto final: manifesto protagonista + Ghost reduzido.
-- Ajustar opacidades, blur e translateY sem `scale`/`rotate`.
-
-### Fase 4 — Ghost 3D
-
-- Confirmar client-only via dynamic import.
-- Validar `Suspense`, fallback, error boundary e WebGL unavailable.
-- Controlar DPR.
-- Ajustar `frameloop`.
-- Remover alocações por frame.
-- Evitar captura de gestos no mobile.
-
-### Fase 5 — SSR, SEO e responsividade
-
-- Confirmar um único `h1`.
-- Garantir `section aria-labelledby`.
-- Confirmar metadata e OG.
-- Validar breakpoints:
-  - 390x844;
-  - 768x1024;
-  - 1440x900.
-
-### Fase 6 — Evidências e documentação
-
-- Gerar `walkthrough.md`.
-- Registrar arquivos alterados, decisões, validações, evidências e riscos.
-- Atualizar `.context/DOCS-PORTFOLIO-PAGES` se a estrutura mudar.
+1. `git ls-files | wc -l` < 4.000 (após remoção de npm_cache e temporários)
+2. GitHub não exibe aviso de truncamento no diretório raiz
+3. Nenhum erro de TypeScript ou lint introduzido
+4. `pnpm run build-check` passa sem erros
+5. Navegação interna no Header Desktop usa `next/link` (prefetch ativo)
+6. `CategoryStripe.tsx` sem `rotate` em propriedades de motion
+7. Sem secrets expostos (validado por gitleaks ou equivalente)
 
 ---
 
-## 10. Estratégia de validação
+## Plano de Rollback
 
-### Funcional / UX
-
-- Entrar e sair da seção sem jump visual.
-- Background reage continuamente ao scroll.
-- Header permanece legível.
-- Manifesto final tem foco narrativo.
-- Apenas uma camada dominante por fase.
-
-### Motion / Reduced motion
-
-- Em `prefers-reduced-motion: reduce`:
-  - parallax removido/reduzido;
-  - Ghost sem animação contínua;
-  - conteúdo visível sem depender de animação;
-  - sem stagger longo;
-  - sem `scale`, `rotate`, `bounce`.
-
-### 3D / WebGL
-
-- Canvas apenas no client.
-- Fallback durante loading.
-- Fallback em erro.
-- Fallback se WebGL indisponível.
-- DPR controlado.
-- `useFrame` sem alocações por frame.
-- Cleanup garantido.
-- Canvas não captura gesto em mobile.
-
-### Performance
-
-- Sem long tasks recorrentes.
-- FPS aceitável em mobile intermediário.
-- Blur/filter/boxShadow parcimoniosos.
-- Bundle crítico controlado.
-- Sem import pesado desnecessário no Server Component.
-
-### Acessibilidade
-
-- Heading real e legível por screen reader.
-- SplitText não duplica leitura.
-- Contraste suficiente.
-- Canvas decorativo sem foco.
-- Section com `aria-labelledby`.
-
-### SEO técnico
-
-- Um único `h1`.
-- Metadata adequada.
-- Conteúdo principal no HTML inicial quando possível.
-- OG da página `/sobre` preservado.
-
-### Responsividade
-
-- 390x844
-- 768x1024
-- 1440x900
-- Sem clipping.
-- Sem overlap.
-- Sem scroll horizontal.
-- Sem bloqueio de gesto.
+- Todos os `git rm --cached` são reversíveis com `git checkout HEAD -- <arquivo>` ou `git add <arquivo>` antes do commit.
+- Nenhuma alteração de código fonte antes da aprovação.
+- Branch de trabalho recomendada: `claude/exciting-thompson-7tJ75` (já designada).
 
 ---
 
-## 11. Itens que dependem de validação manual local
-
-- Conteúdo interno completo dos componentes, pois o MCP confirmou paths e símbolos, mas não exibiu todo o conteúdo textual dos arquivos.
-- Comparação visual com `anima.mov`.
-- Comparação manual com referência `drinksom.eu`.
-- Validação real de FPS/GPU em mobile.
-- Teste de `prefers-reduced-motion` no navegador.
-- Verificação de screen reader para SplitText.
-- Confirmação de comportamento Lenis + Canvas em touch devices.
-- Confirmação de que `.context/DOCS-PORTFOLIO-PAGES` precisa ou não de atualização estrutural.
-
----
-
-## 12. Adendo de Correção (BUGFIX P0): Vazamento do 3D e Background ("aparecendo em todas as sessões")
-
-**O Problema Relatado:**
-Foi reportado que o elemento 3D (`GhostCanvas`) e o Fundo Dinâmico (`BeliefBackground`) da `BeliefsSection` estão "aparecendo em todas as sessões" do site.
-
-**Análise do Escopo (Causa-Raiz Possíveis):**
-
-1. **Falta de Isolamento Global (`overflow: clip/hidden`)**: Se a estrutura `sticky` de 100vh dentro da `section` de 600vh não tiver seu contêiner pai apropriadamente clipado, a camada de 3D (`z-[70]`) pode vazar verticalmente, sobrepondo os componentes abaixo ou acima na rolagem da página.
-2. **Ausência de Transição e Fade-Out nas Fases**: O 3D e o Background não estavam respeitando a regra de "Apenas uma camada dominante por fase". O modelo ficava carregado em todo o scroll de 600vh e além, o que causava a impressão de ser uma camada persistente ("sempre presente nas seções/frases").
-
-**Plano de Execução para a Correção:**
-
-1. **Fixar Isolamento de Z-Index e Clipping no Root Component**:
-   - `BeliefsSection.tsx` DEVE ter classes como `overflow-clip` ou `contain-paint` diretamente em seu container root `<section>` para proibir matematicamente que qualquer filho (seja em absolute, fixed, ou sticky) ultrapasse a bounding box de 600vh no DOM.
-2. **Fade Estrito baseado no ScrollYProgress da Seção**:
-   - O `GhostCanvasClient` deverá montar/desmontar (ou setar seu estilo como `pointer-events-none opacity-0`) nos primeiros `0.1` de scroll (Fase de Entrada) e nos últimos `0.1` de scroll (Fase de Saída), para que não haja renderização desnecessária nem visualização fantasmal sobre as bordas das outras seções da página.
-   - O `BeliefBackground` precisa retornar à cor `--color-background` transparente ou estritamente escura antes de a seção acabar.
-3. Este adendo torna-se a prioridade principal (T00) e deve ser executado _antes_ de iniciar as tarefas normais de UI.
+_Aguardando aprovação explícita ("Aprovado" ou "Proceed") para iniciar Fase 4: Execution._

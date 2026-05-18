@@ -46,10 +46,14 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "firecrawl-mcp"
-  ],
+  "enabledMcpjsonServers": ["firecrawl-mcp"],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
+  },
+  "remote": {
+    "defaultEnvironmentId": "env_016QDiovkVoWyHB4rWxYFN3m"
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }
 }

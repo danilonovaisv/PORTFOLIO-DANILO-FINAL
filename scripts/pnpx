@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# scripts/pnpx - Shim to guarantee we run the working pnpx from Homebrew
+set -euo pipefail
+
+# Prioritize Homebrew and common paths
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+if command -v pnpx > /dev/null 2>&1; then
+    exec pnpx "$@"
+else
+    echo "❌ Error: pnpx not found in PATH." >&2
+    echo "Current PATH: $PATH" >&2
+    exit 1
+fi

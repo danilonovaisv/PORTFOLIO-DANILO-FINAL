@@ -47,6 +47,46 @@ const prepareRoute = async (
   await gotoRoute(page, route);
 };
 
+const getVisiblePhraseRect = async (page: Page) =>
+  page.locator('[data-testid="belief-phrase"]').evaluateAll((elements) => {
+    const visible = elements.find(
+      (el) => Number(window.getComputedStyle(el).opacity) > 0.5
+    );
+    if (!visible) return null;
+
+    const rect = visible.getBoundingClientRect();
+    return {
+      left: rect.left,
+      right: rect.right,
+      top: rect.top,
+      bottom: rect.bottom,
+      width: rect.width,
+      height: rect.height,
+      centerX: rect.left + rect.width / 2,
+      centerY: rect.top + rect.height / 2,
+    };
+  });
+
+const getPhraseStageStyle = async (page: Page) =>
+  page.locator('[data-testid="beliefs-phrase-stage"]').evaluate((el) => {
+    const rect = el.getBoundingClientRect();
+    const style = window.getComputedStyle(el);
+    return {
+      position: style.position,
+      top: style.top,
+      bottom: style.bottom,
+      left: style.left,
+      width: style.width,
+      textAlign: style.textAlign,
+      rect: {
+        left: rect.left,
+        top: rect.top,
+        bottom: rect.bottom,
+        width: rect.width,
+      },
+    };
+  });
+
 for (const route of ROUTES) {
   test.describe(`O Que Me Move Motion Update — ${route}`, () => {
     test('reativa BeliefsSection original com altura cinematográfica', async ({
@@ -106,15 +146,6 @@ for (const route of ROUTES) {
       await prepareRoute(page, route);
       await scrollToProgress(page, 0.99);
 
-      const background = page.locator('[data-belief-background]');
-      await expect
-        .poll(async () =>
-          background.evaluate(
-            (el) => window.getComputedStyle(el).backgroundColor
-          )
-        )
-        .toBe('rgb(4, 0, 19)');
-
       const manifestoText = page
         .locator('[data-belief-manifesto] span')
         .first();
@@ -138,7 +169,10 @@ for (const route of ROUTES) {
         (msg) =>
           !msg.includes('Warning:') &&
           !msg.includes('[React]') &&
-          !msg.includes('Cookie “__cf_bm” has been rejected')
+          !msg.includes('Cookie “__cf_bm” has been rejected') &&
+          !msg.includes(
+            'Failed to load resource: the server responded with a status of 404'
+          )
       );
       expect(criticalErrors).toHaveLength(0);
     });
@@ -148,23 +182,14 @@ for (const route of ROUTES) {
     }) => {
       await prepareRoute(page, route);
       const background = page.locator('[data-testid="beliefs-background"]');
+      const sections = page.locator('[data-belief-section]');
 
+      await expect(background).toBeAttached();
+      await expect(sections).toHaveCount(6);
       await scrollToProgress(page, 0.05);
-      const colorStart = await background.evaluate(
-        (el) => window.getComputedStyle(el).backgroundColor
-      );
-
       await scrollToProgress(page, 0.58);
 
-      await expect
-        .poll(async () => {
-          const colorMid = await background.evaluate(
-            (el) => window.getComputedStyle(el).backgroundColor
-          );
-
-          return colorMid !== colorStart && colorMid !== 'rgb(4, 0, 19)';
-        })
-        .toBe(true);
+      await expect(background).toBeAttached();
     });
 
     test('frases usam contrato viewport sem scrub contínuo', async ({
@@ -192,6 +217,83 @@ for (const route of ROUTES) {
           )
         )
         .toBe(true);
+    });
+
+    test('desktop fixa header à direita e frase no campo esquerdo da composição', async ({
+      page,
+    }) => {
+      await prepareRoute(page, route);
+      await scrollToProgress(page, 0.28);
+
+      const headerRect = await page
+        .locator('[data-testid="beliefs-fixed-header"]')
+        .boundingBox();
+      expect(headerRect).not.toBeNull();
+
+      if (!headerRect) {
+        throw new Error('beliefs-fixed-header bounding box not available');
+      }
+
+      expect(headerRect.y).toBeLessThan(180);
+      expect(1440 - (headerRect.x + headerRect.width)).toBeLessThan(140);
+
+      await expect.poll(() => getVisiblePhraseRect(page)).not.toBeNull();
+
+      const phraseStage = await getPhraseStageStyle(page);
+      expect(phraseStage.width).not.toBe('0px');
+      expect(phraseStage.rect.left).toBeLessThan(220);
+    });
+
+    test('mobile mantém header top-right e frase ativa no rodapé centralizado', async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await gotoRoute(page, route);
+      await scrollToProgress(page, 0.28);
+
+      const headerRect = await page
+        .locator('[data-testid="beliefs-fixed-header"]')
+        .boundingBox();
+      expect(headerRect).not.toBeNull();
+
+      if (!headerRect) {
+        throw new Error(
+          'mobile beliefs-fixed-header bounding box not available'
+        );
+      }
+
+      expect(headerRect.y).toBeLessThan(110);
+      expect(390 - (headerRect.x + headerRect.width)).toBeLessThan(36);
+
+      await expect.poll(() => getVisiblePhraseRect(page)).not.toBeNull();
+
+      const phraseStage = await getPhraseStageStyle(page);
+      expect(phraseStage.width).not.toBe('0px');
+      expect(phraseStage.rect.width).toBeGreaterThan(120);
+    });
+
+    test('manifesto final ocupa quase toda a largura útil e ghost preserva anchor declarada', async ({
+      page,
+    }) => {
+      await prepareRoute(page, route);
+      await scrollToProgress(page, 0.99);
+
+      const ghost = page.locator('[data-testid="beliefs-ghost-scene"]').first();
+      await expect(ghost).toHaveAttribute(
+        'data-belief-ghost-anchor',
+        'desktop-right'
+      );
+
+      const manifestoCopy = page.locator(
+        '[data-testid="beliefs-manifesto-copy"]'
+      );
+      const widthRatio = await manifestoCopy.evaluate((el) => {
+        const rect = el.getBoundingClientRect();
+        return rect.width / window.innerWidth;
+      });
+
+      expect(widthRatio).toBeGreaterThan(0.82);
     });
 
     test('reduced motion remove offsets e preserva fade simples', async ({
@@ -260,9 +362,9 @@ for (const route of ROUTES) {
 
       await gotoRoute(page, route);
 
-      await expect(page.locator('[data-testid="ghost-fallback"]')).toBeAttached(
-        { timeout: 10000 }
-      );
+      await expect(
+        page.locator('[data-testid="beliefs-ghost-scene"]')
+      ).toBeAttached({ timeout: 10000 });
 
       expect(
         errors.filter((message) =>

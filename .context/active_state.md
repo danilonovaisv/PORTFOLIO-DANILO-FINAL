@@ -1,17 +1,56 @@
-# Active State: ABOUT BELIEFS GSAP FINALIZATION ✅
+# Active State: FLUID NAVIGATION & GHOST HYGIENE ✅
 
-**Phase**: O QUE ME MOVE — GSAP FULL MIGRATION
-**Current Focus**: Finalized GSAP ScrollTrigger migration, removed Framer Motion DOM remnants, and fixed relative script imports.
-**Last Update**: 2026-05-13 04:40
+**Phase**: FLUID NAVIGATION & REPOSITORY HYGIENE
+**Current Focus**: Implementação do componente `MotionLink` no `DesktopFluidHeader` para controle fluido de rotas ativas por Framer Motion e limpeza profunda de logs/relatórios temporários na raiz.
+**Last Update**: 2026-05-17 22:15
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
 ## Deploy Summary
 
 - **Build**: ✅ Next.js 16.2.4 (Webpack) — Stable production build completed
-- **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
-- **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
-- **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+- **Navigation**: ✅ Added `MotionLink` for fluid hover/active animations on Desktop Header
+- **Hygiene**: ✅ Purged git tracking for `.txt` logs, `knip_report.txt`, and temporary MDs
+- **Status**: ✅ All structural changes commit-locked
+
+
+
+## Header & Fluid Navigation Experience (2026-05-17)
+
+- [x] **MotionLink Integration**: Criado o componente `MotionLink.tsx` em `src/components/motion/` utilizando Framer Motion e `Link` do Next.js.
+- [x] **DesktopFluidHeader Dynamic Tracking**: Refatorado `DesktopFluidHeader.tsx` para adotar `MotionLink`. As transições de rotas ativas agora utilizam animações de fade in suaves coordenadas pelo layout-id do Framer Motion, evitando o piscar de tela e otimizando a experiência fluida do usuário em desktop.
+- [x] **Git Cleanliness and Hygiene**: Removidos do controle do repositório arquivos temporários de auditoria como `knip_report.txt`, logs `.txt` de typecheck, e relatórios semanais que poluíam a raiz da árvore Git.
+- [x] **Validation Evidence**:
+  - `git commit` ✅ Concluído.
+  - Testes e builds pendentes de `pnpm install` local no ambiente do usuário (isolado da rede na sandbox).
+
+## Text Layout Recomposition (2026-05-17)
+
+- [x] **Stage Geometry Realigned**: `BeliefFixedHeader`, `BeliefScrollText` e `BeliefManifesto` agora seguem a composição aprovada para desktop/mobile.
+- [x] **Layout SSOT Extended**: `src/config/beliefTokens.ts` concentra anchors, larguras, escalas e `clamp()` da sessão.
+- [x] **Ghost Anchor Declared**: `GhostScene.tsx` expõe `data-belief-ghost-anchor` e `GhostModel.tsx` consome anchors/tamanhos derivados do token layer.
+- [x] **Manifesto Width Contract**: o bloco final passou a expor `data-testid="beliefs-manifesto-copy"` e mantém `GHOST` destacado em `bluePrimary`.
+- [x] **E2E Geometry Coverage**: `test/e2e/about-beliefs.spec.ts` agora valida alinhamento top-right do header, frase fixa por breakpoint e largura útil do manifesto final.
+- [ ] **Validation Evidence**:
+  - `pnpm run typecheck`
+  - `pnpm run lint`
+  - `pnpm run build`
+  - `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
+
+## Orchestration Finalization (2026-05-16)
+
+- [x] **Type Contract Preserved**: `BeliefsScrollContextValue` remains on `scrollYProgress: { get: () => number }`.
+- [x] **Zero Motion in Section Scope**: `SplitTextMotion.tsx` no longer imports `motion/react`; `beliefs/*` + `GhostScene.tsx` are free of Motion DOM helpers.
+- [x] **Ghost DOM Stability**: `AboutBeliefs.tsx` now exposes a static `beliefs-ghost-scene` wrapper with `z-index: 70`, preserving SSR-visible test hooks.
+- [x] **Manifesto Visibility Fix**: manifesto spans now render white in the verified runtime path.
+- [x] **GhostModel Hardening**: `useGLTF.preload(MODEL_PATH)` is client-gated and dispose cleanup clears geometries/materials plus the Drei loader cache on unmount.
+- [x] **E2E Contract Reconciled**: phrase selectors now expose both `data-belief-phrase` and the legacy E2E hooks `data-testid="belief-phrase"` + `data-animation-contract="viewport-x-opacity"`.
+- [x] **Validation Evidence**:
+  - `pnpm run typecheck` ✅
+  - `pnpm run lint` ✅
+  - `pnpm run build` ✅
+  - `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅ `9 passed`
+- [x] **Environment Note**: verification was executed under Node `v26.0.0` / pnpm `11.1.2`; the repo still declares Node `22`, and the CLI emitted only engine warnings during validation.
 
 ## GSAP Final Migration (2026-05-13)
 

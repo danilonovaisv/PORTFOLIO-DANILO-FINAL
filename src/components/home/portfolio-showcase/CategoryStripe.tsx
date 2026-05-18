@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { m } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { cn } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
@@ -156,11 +156,11 @@ export const CategoryStripe = React.memo(function CategoryStripe({
             </div>
 
             <m.div
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-standard"
+              className="relative w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center shrink-0"
               initial={false}
               animate={{
                 y: isHovered ? -1 : 0,
-                rotate: isHovered ? 0 : -45,
+                // Ghost Exception: purpleDetails em hover — permitido por regra 23-design-system §Forbidden (hover states)
                 backgroundColor: isHovered
                   ? COLORS.purpleDetails
                   : COLORS.bluePrimary,
@@ -170,7 +170,26 @@ export const CategoryStripe = React.memo(function CategoryStripe({
                 ease: GHOST_EASE,
               }}
             >
-              <ArrowUpRight className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+              <m.span
+                className="absolute"
+                animate={{ opacity: isHovered ? 0 : 1 }}
+                transition={{
+                  duration: MOTION_TOKENS.duration.modal,
+                  ease: GHOST_EASE,
+                }}
+              >
+                <ArrowUpRight className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+              </m.span>
+              <m.span
+                className="absolute"
+                animate={{ opacity: isHovered ? 1 : 0 }}
+                transition={{
+                  duration: MOTION_TOKENS.duration.modal,
+                  ease: GHOST_EASE,
+                }}
+              >
+                <ArrowUp className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+              </m.span>
             </m.div>
           </div>
         </div>

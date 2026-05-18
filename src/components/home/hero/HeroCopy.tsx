@@ -102,7 +102,7 @@ export default function HeroCopy({
         {/* Headline - Mobile Only (Visual Only) -> md:hidden */}
         <div
           aria-hidden="true"
-          className="md:hidden mb-12 font-display text-[clamp(3rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
+          className="md:hidden mb-12 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
             <React.Fragment key={`mobile-${i}`}>
@@ -143,7 +143,7 @@ export default function HeroCopy({
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-[12] overflow-hidden"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-[var(--z-layer-glass)] overflow-hidden"
           style={{
             WebkitMaskImage: `radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh), rgb(1, 1, 16) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0) 100%)`,
             maskImage: `radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh), rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0) 100%)`,

@@ -9,6 +9,9 @@ import type { Variants, SpringOptions } from 'motion/react';
 type EasingTuple = [number, number, number, number];
 
 export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1];
+export const GHOST_EASE_SOFT: EasingTuple = [0.25, 1, 0.5, 1];
+export const GHOST_EASE_HEAVY: EasingTuple = [0.43, 0.13, 0.23, 0.96];
+export const GHOST_EASE_AMBIENT: EasingTuple = [0.17, 0.55, 0.55, 1];
 
 export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
@@ -16,8 +19,11 @@ export const MOTION_TOKENS = {
   // ─────────────────────────────────────────────────────────────────────────
   ease: {
     ghost: GHOST_EASE,
+    soft: GHOST_EASE_SOFT,
+    heavy: GHOST_EASE_HEAVY,
+    ambient: GHOST_EASE_AMBIENT,
     /** Motion scroll-triggered reference ease — used in Beliefs section */
-    reference: [0.17, 0.55, 0.55, 1] as EasingTuple,
+    reference: GHOST_EASE_AMBIENT,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -29,6 +35,7 @@ export const MOTION_TOKENS = {
     headerOut: 0.5,
     textIn: 0.9,
     textOut: 0.5,
+    textExitFast: 0.32,
     ghostIn: 1.2,
     /** Atmospheric, slow reveals - 1.5s */
     slow: 1.5,

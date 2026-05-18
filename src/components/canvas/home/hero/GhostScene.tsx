@@ -110,9 +110,9 @@ export default function GhostScene({ onReady }: GhostSceneProps) {
       }
 
       // Start Main Animation Loop only after init
-      let animationId = 0;
+      cleanupRefs.current = { animationId: 0, observer };
       const animate = (timestamp: number) => {
-        animationId = requestAnimationFrame(animate);
+        cleanupRefs.current.animationId = requestAnimationFrame(animate);
         if (!isInView) return;
         updateRef.current(timestamp);
       };
@@ -121,9 +121,6 @@ export default function GhostScene({ onReady }: GhostSceneProps) {
 
       // Call onReady callback if provided
       if (onReady) onReady();
-
-      // Store cleanup refs
-      cleanupRefs.current = { animationId, observer };
     };
 
     let idleHandle: number | null = null;

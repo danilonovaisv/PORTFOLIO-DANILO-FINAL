@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# scripts/pnpm - Shim to guarantee we run the working pnpm from Homebrew
+set -euo pipefail
+
+# Prioritize Homebrew and common paths
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+if command -v pnpm > /dev/null 2>&1; then
+    exec pnpm "$@"
+else
+    echo "❌ Error: pnpm not found in PATH." >&2
+    echo "Current PATH: $PATH" >&2
+    exit 1
+fi

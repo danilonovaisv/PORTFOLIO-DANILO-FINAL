@@ -1,344 +1,192 @@
-# task.md — 06-O-QUE-ME-MOVE / Página Sobre
+# Tasks — Ghost System Audit 2026-05-17
 
-## P0 — Planejamento, reduced motion, scroll e Ghost 3D
-
-### [/] T00 — BUGFIX CRÍTICO: Vazamento Global de Visibilidade (3D & Background)
-
-- Prioridade: P0 (CRÍTICO)
-- Owner lógico: frontend-specialist + animation-pipeline
-- Dependências: nenhuma
-- Tempo estimado: até 1h
-- Tarefa:
-  - Analisar por que o 3D (`GhostCanvasClient`) e o fundo animado (`BeliefBackground`) estão aparecendo "em todas as sessões".
-  - Garantir que a `BeliefsSection` possui `overflow: clip`.
-  - Implementar clipping de renderização: se a section `AboutBeliefs` sair de vista, ele deve ficar `opacity: 0`.
-- Critérios de aceite:
-  - O 3D e o Background são visíveis estritamente quando a viewport está dentro dos limites verticais (`[start start, end end]`) da `BeliefsSection`.
-  - As outras seções do site (`AboutHero`, `AboutOrigin`, etc) não sofrem interferência (clipping vazado) do `GhostCanvas` e `BeliefBackground`.
-- Evidência esperada:
-  - [x] Identificado vazamento via positioning (fixed -> absolute)
-  - [/] Implementar fade-out em GhostScene
-  - [/] Implementar fade-out em BeliefBackground
-  - [ ] Verificar overflow: clip robusto
-
-### [x] T01 — Confirmar fluxo real da seção em `/sobre`
-
-- Prioridade: P0
-- Owner lógico: frontend-specialist
-- Dependências: nenhuma
-- Tempo estimado: até 1h
-- Tarefa:
-  - Ler localmente `src/app/sobre/page.tsx`.
-  - Confirmar como `BeliefsSection` é importado/renderizado.
-  - Confirmar se `src/app/(sobre)/o-que-me-move/page.tsx` é protótipo, rota auxiliar ou conteúdo ativo.
-- Critérios de aceite:
-  - Rota `/sobre` documentada.
-  - Ponto exato de render da seção identificado.
-  - Sem suposições sobre rota auxiliar.
-- Evidência esperada:
-  - Nota em `walkthrough.md` com paths e fluxo real.
-
-### [x] T02 — Auditar boundary server/client atual
-
-- Prioridade: P0
-- Owner lógico: frontend-specialist
-- Dependências: T01
-- Tempo estimado: até 1h
-- Tarefa:
-  - Confirmar quais arquivos têm `"use client"`.
-  - Identificar browser-only APIs.
-  - Identificar o menor boundary client possível.
-- Critérios de aceite:
-  - Server Component `/sobre` preservado.
-  - Client-only isolado em seção/motion/Canvas.
-- Evidência esperada:
-  - Lista de boundaries em `walkthrough.md`.
-
-### [x] T03 — Definir contrato único de reduced motion
-
-- Prioridade: P0
-- Owner lógico: accessibility + framer-motion
-- Dependências: T02
-- Tempo estimado: até 1h
-- Tarefa:
-  - Auditar `useReducedMotion.ts`.
-  - Auditar `usePrefersReducedMotion.ts`.
-  - Definir qual hook será fonte oficial.
-  - Criar wrapper compatível se necessário.
-- Critérios de aceite:
-  - Uma única semântica de reduced motion.
-  - Consumidores existentes não quebram.
-  - Sem acesso a `window` fora de client-safe effect.
-- Evidência esperada:
-  - Decisão registrada em `walkthrough.md`.
-  - Teste manual de `prefers-reduced-motion: reduce`.
-
-### [x] T04 — Alinhar scroll-triggered com Motion.dev
-
-- Prioridade: P0
-- Owner lógico: framer-motion + animation-pipeline
-  - Ajustar `useBeliefsScroll` ou `BeliefsSection` para usar `useScroll({ target, offset })`.
-  - Garantir que o progresso vem da seção, não do scroll global.
-  - Expor `scrollYProgress` para background e phases.
-- [x] T00: Fix Global Leakage
-- [x] T01: Infrastructure Stabilization & Cleanup
-  - [x] T01.1: Resolve EPERM issues where possible (fixed via npx wrapper)
-  - [x] T01.2: Hardened environment validation in `src/lib/env.ts`
-  - [x] T01.3: Cleaned up `motion.ts` and `shuffle-projects.ts`
-  - [x] T01.4: Deleted orphan files and legacy templates
-  - [x] T01.5: Updated `AUDITORIA_SEMANAL_CLEANUP.md` to RESOLVED state
-- [x] T02: Phrase Polishing & Migration
-  - [x] T02.1: Migrate `BeliefScrollText` to GSAP ScrollTrigger
-  - [x] T02.2: Refine phrase entry/exit animations (Left-to-Right flow)
-- [x] T03: Responsive & Reduced Motion Final Review
-- Evidência esperada:
-  - Vídeo/GIF ou descrição de teste de scroll.
-  - Registro dos offsets utilizados.
-
-### [x] T05 — Otimizar política do Ghost Canvas
-
-- Prioridade: P0
-- Owner lógico: 3d-webgl-scene + performance-audit
-- Dependências: T02, T03
-- Tempo estimado: até 1h
-- Tarefa:
-  - Auditar `GhostCanvas.tsx`.
-  - Confirmar DPR.
-  - Confirmar `frameloop`.
-  - Confirmar ausência de alocações em `useFrame`.
-  - Confirmar ausência de `setState` em `useFrame`.
-- Critérios de aceite:
-  - DPR controlado por breakpoint/reduced motion.
-  - `useFrame` seguro.
-  - Sem animação contínua em reduced motion.
-- Evidência esperada:
-  - Checklist 3D em `walkthrough.md`.
-
-### [x] T06 — Formalizar fallback WebGL/loading/error
-
-- Prioridade: P0
-- Owner lógico: frontend-developer + 3d-webgl-scene
-- Dependências: T05
-- Tempo estimado: até 1h
-- Tarefa:
-  - Validar uso real de `GhostFallback.tsx`.
-  - Validar uso real de `GhostErrorBoundary.tsx`.
-  - Validar `useWebGLAvailable.ts`.
-  - Garantir fallback sem layout shift.
-- Critérios de aceite:
-  - Loading visível e estável.
-  - Erro renderiza fallback.
-  - WebGL indisponível renderiza alternativa.
-- Evidência esperada:
-  - Capturas ou descrição de cenários testados.
+> **Status:** Planning — Aguardando aprovação humana
+> **Branch:** `claude/exciting-thompson-7tJ75`
+> **Referência:** `implementation_plan.md`
 
 ---
 
-## P1 — Semântica, camadas, responsividade e SEO
+## FASE P0-G — GitHub & Higiene do Repositório
 
-### T07 — Auditar e corrigir heading hierarchy
+### Task P0-G1: Atualizar `.gitignore` com entradas faltantes
 
-- Prioridade: P1
-- Owner lógico: accessibility + seo-technical
-- Dependências: T01
-- Tempo estimado: até 1h
-- Tarefa:
-  - Confirmar um único `h1` em `/sobre`.
-  - Confirmar `BeliefFixedHeader` como `h2`.
-  - Adicionar/ajustar `section aria-labelledby`.
-- Critérios de aceite:
-  - Heading hierarchy válida.
-  - Section nomeada corretamente.
-- Evidência esperada:
-  - Resultado de inspeção DOM em `walkthrough.md`.
+- **Responsável:** Repo Architect
+- **Arquivo:** `.gitignore` (raiz)
+- **Pré-condição:** Aprovação humana recebida
+- **Passos:**
+  1. Adicionar `functions/.npm_cache/` após a seção de Firebase
+  2. Adicionar `output/` (playwright output)
+  3. Adicionar `graphify-out/`
+  4. Adicionar `scratch/`
+  5. Adicionar seção "Arquivos de trabalho temporários": `typecheck_fresh.txt`, `tsc_output_current*.txt`, `typecheck_output_new.txt`, `knip_report.txt`, `walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`
+- **Validação:** `grep "npm_cache\|graphify-out\|output/" .gitignore` retorna entradas
 
-### T08 — Criar ou ajustar AccessibleSplitText
+### Task P0-G2: Remover `functions/.npm_cache/` do tracking git
 
-- Prioridade: P1
-- Owner lógico: accessibility + framer-motion
-- Dependências: T03, T07
-- Tempo estimado: até 1h
-- Tarefa:
-  - Auditar `BeliefScrollText.tsx`.
-  - Se houver split visual, preservar leitura com `aria-label`.
-  - Spans visuais com `aria-hidden`.
-  - Fallback estático reduced motion.
-- Critérios de aceite:
-  - Screen reader lê o texto uma vez.
-  - Texto permanece semântico.
-  - Sem `scale`, `rotate`, `bounce`.
-- Evidência esperada:
-  - Nota de inspeção accessibility em `walkthrough.md`.
+- **Responsável:** Repo Architect
+- **Pré-condição:** P0-G1 concluído
+- **Passos:**
+  1. Executar `git rm -r --cached functions/.npm_cache/`
+  2. Verificar com `git status` que 2.759 arquivos aparecem como deleted (staged)
+  3. Confirmar que `functions/.npm_cache/` existe no disco (não é deletado, apenas untracked)
+- **Validação:** `git ls-files functions/.npm_cache | wc -l` retorna 0
 
-### T09 — Orquestrar fases de protagonismo visual
+### Task P0-G3: Remover arquivos temporários da raiz do tracking
 
-- Prioridade: P1
-- Owner lógico: animation-pipeline + frontend-specialist
-- Dependências: T04, T05
-- Tempo estimado: até 1h
-- Tarefa:
-  - Definir phase `entry`, `middle`, `manifesto`.
-  - Ajustar opacidade/blur/translateY de background, texto, Ghost e manifesto.
-  - Garantir apenas uma camada dominante por fase.
-- Critérios de aceite:
-  - Entrada: background sutil + header.
-  - Miolo: Ghost protagonista + texto estável.
-  - Final: manifesto protagonista + Ghost reduzido.
-- Evidência esperada:
-  - Matriz phase/layer registrada.
+- **Responsável:** Repo Architect
+- **Pré-condição:** P0-G1 concluído
+- **Passos:**
+  1. `git rm --cached typecheck_fresh.txt tsc_output_current_v2.txt tsc_output_current.txt typecheck_output_new.txt knip_report.txt`
+  2. Avaliar se `walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`, `task.md`, `implementation_plan.md` devem permanecer rastreados ou ser movidos para `docs/`
+- **Validação:** `git ls-files | grep -E "^[^/]+\.txt$"` retorna vazio
 
-### T10 — Ajustar BeliefBackground
+### Task P0-G4: Remover diretórios de output do tracking
 
-- Prioridade: P1
-- Owner lógico: framer-motion + frontend-developer
-- Dependências: T04, T09
-- Tempo estimado: até 1h
-- Tarefa:
-  - Receber progresso da seção.
-  - Usar `useTransform`.
-  - Reduzir competição visual.
-  - Aplicar fallback reduced motion.
-- Critérios de aceite:
-  - Background contínuo, sutil e legível.
-  - Sem motion proibido.
-- Evidência esperada:
-  - Antes/depois visual ou descrição de teste.
+- **Responsável:** Repo Architect
+- **Pré-condição:** P0-G1 concluído
+- **Passos:**
+  1. `git rm -r --cached output/` (12 arquivos Playwright)
+  2. `git rm -r --cached graphify-out/` (47 arquivos)
+  3. `git rm -r --cached scratch/` (16 arquivos) — validar se há conteúdo útil antes
+- **Validação:** `git ls-files output/ graphify-out/ scratch/` retorna vazio
 
-### T11 — Ajustar BeliefManifesto
+### Task P0-G5: Decisão estratégica sobre `.agent/skills` (6.346 arquivos)
 
-- Prioridade: P1
-- Owner lógico: frontend-developer + accessibility
-- Dependências: T07, T09
-- Tempo estimado: até 1h
-- Tarefa:
-  - Garantir manifesto como `blockquote` ou `p`.
-  - Dar foco narrativo na fase final.
-  - Evitar heading artificial.
-- Critérios de aceite:
-  - Manifesto é protagonista no final.
-  - Sem competir com Ghost/background.
-- Evidência esperada:
-  - Screenshot/descrição da fase final.
+- **Responsável:** Arquiteto + Danilo (decisão humana)
+- **Opções:**
+  - A) Manter no repositório (sem ação)
+  - B) Converter em git submodule apontando para repo de skills
+  - C) Adicionar ao `.gitignore` e remover do tracking (`git rm -r --cached .agent/skills/`)
+- **Impacto da opção C:** -6.346 arquivos rastreados; repo desce de 12.281 para ~5.900 arquivos
+- **Validação:** Decisão documentada em `AGENTS.md`
 
-### T12 — Responsividade e gestos mobile
+### Task P0-G6: Commit de higiene
 
-- Prioridade: P1
-- Owner lógico: frontend-developer + performance-audit
-- Dependências: T05, T09
-- Tempo estimado: até 1h
-- Tarefa:
-  - Validar desktop, tablet e mobile.
-  - Reduzir DPR/amplitude em tablet.
-  - Congelar ou suavizar Ghost no mobile.
-  - Evitar captura de gesto pelo Canvas.
-- Critérios de aceite:
-  - 390x844 sem clipping/overlap/scroll horizontal.
-  - 768x1024 estável.
-  - 1440x900 preserva impacto visual.
-- Evidência esperada:
-  - Checklist por viewport.
-
-### T13 — Validar SEO técnico da página `/sobre`
-
-- Prioridade: P1
-- Owner lógico: seo-technical
-- Dependências: T07
-- Tempo estimado: até 1h
-- Tarefa:
-  - Confirmar metadata.
-  - Confirmar OG.
-  - Confirmar conteúdo editorial no HTML inicial quando possível.
-- Critérios de aceite:
-  - Metadata preservada/adequada.
-  - Um único `h1`.
-  - Conteúdo principal indexável.
-- Evidência esperada:
-  - Nota SEO em `walkthrough.md`.
+- **Pré-condição:** P0-G1 a P0-G4 concluídos, decisão P0-G5 tomada
+- **Mensagem de commit sugerida:** `chore: remove tracked build artifacts and temp files from git history`
+- **Validação:** `git ls-files | wc -l` < 5.500 (ou < 4.000 se P0-G5 incluir remoção de skills)
 
 ---
 
-## P2 — Ajuste fino e documentação final
+## FASE P0-GS — Ghost System (Bloqueadores Arquiteturais)
 
-### T14 — Comparação manual com `anima.mov`
+### Task P0-GS1: Criar `src/components/motion/MotionLink.tsx`
 
-- Prioridade: P2
-- Owner lógico: animation-pipeline + frontend-code-review
-- Dependências: T09, T10, T11, T12
-- Tempo estimado: até 1h
-- Tarefa:
-  - Comparar localmente a experiência com `anima.mov`.
-  - Ajustar timing apenas se respeitar Ghost System.
-- Critérios de aceite:
-  - Diferenças registradas.
-  - Sem introduzir motion proibido.
-- Evidência esperada:
-  - Notas de comparação em `walkthrough.md`.
+- **Responsável:** Motion Governance Specialist
+- **Arquivo destino:** `src/components/motion/MotionLink.tsx`
+- **Pré-condição:** Aprovação humana recebida
+- **Requisitos do componente:**
+  - Wrapper de `next/link` com suporte a animações Motion (opacity, blur, translateY)
+  - Preservar atributos `prefetch`, `scroll`, `replace` do Next.js
+  - Aceitar `MotionProps` para `whileHover`, `animate`, `initial`, `transition`
+  - Easing padrão: `GHOST_EASE` (`[0.22, 1, 0.36, 1]`) de `@/config/motion`
+  - Exportação nomeada: `export const MotionLink`
+- **Validação:** Componente renderiza sem erros, preserva prefetch (verificar Network tab)
 
-### T15 — Comparação manual com `drinksom.eu`
+### Task P0-GS2: Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx`
 
-- Prioridade: P2
-- Owner lógico: frontend-specialist + animation-pipeline
-- Dependências: T14
-- Tempo estimado: até 1h
-- Tarefa:
-  - Comparar ritmo, profundidade e hierarquia visual.
-  - Não copiar identidade visual externa.
-- Critérios de aceite:
-  - Diferenças finais documentadas.
-  - Ghost System preservado.
-- Evidência esperada:
-  - Registro em `walkthrough.md`.
+- **Responsável:** Motion Governance Specialist
+- **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
+- **Linha alvo:** 67-78 (bloco `const LinkComponent = isExternalHref(...) ? m.a : m.button`)
+- **Pré-condição:** P0-GS1 concluído
+- **Passos:**
+  1. Substituir `m.button` por `MotionLink` para hrefs internos
+  2. Manter `m.a` para hrefs externos e `mailto:`/`tel:`
+  3. Garantir que `onClick` de navegação interna é removido (Next.js cuida do routing)
+- **Validação:**
+  - Navegação desktop funciona em `/`, `/sobre`, `/portfolio`, `/admin`
+  - Abertura em nova aba (Ctrl+Click) funciona
+  - Sem erros de console
 
-### T16 — Revisão final de código
+### Task P0-GS3: Criar `src/lib/supabase/image-loader.ts`
 
-- Prioridade: P2
-- Owner lógico: frontend-code-review + skill-verification-before-completion
-- Dependências: T01-T13
-- Tempo estimado: até 1h
-- Tarefa:
-  - Revisar SSR/client boundaries.
-  - Revisar accessibility.
-  - Revisar performance R3F.
-  - Revisar Tailwind Oxide.
-- Critérios de aceite:
-  - Sem violações de arquitetura.
-  - Sem motion proibido.
-  - Sem regressão Tailwind.
-- Evidência esperada:
-  - Checklist final assinado em `walkthrough.md`.
+- **Responsável:** Supabase Storage Specialist
+- **Arquivo destino:** `src/lib/supabase/image-loader.ts`
+- **Pré-condição:** Aprovação humana recebida
+- **Requisitos:**
+  - Loader para `next/image` usando Supabase Image Transform API
+  - URL pattern: `<base>/storage/v1/render/image/public/<bucket>/<path>?width=<w>&quality=<q>`
+  - Fallback para URL original se transform não disponível
+  - Manter compatibilidade com `remotePatterns` do `next.config.mjs`
+- **Decisão pendente (P0-GS3a):** Referenciar loader em `next.config.mjs` (`images.loader`) ou usar como prop em componentes individuais
+- **Validação:** `next/image` serve imagens do Supabase com parâmetros de transform na URL
 
-### T17 — Gerar walkthrough final
+---
 
-- Prioridade: P2
-- Owner lógico: skill-verification-before-completion
-- Dependências: T16
-- Tempo estimado: até 1h
-- Tarefa:
-  - Criar/atualizar `walkthrough.md`.
-  - Registrar:
-    - arquivos alterados;
-    - decisões arquiteturais;
-    - validações executadas;
-    - evidências coletadas;
-    - riscos remanescentes;
-    - pendências com `anima.mov`;
-    - diferenças finais frente a `drinksom.eu`.
-- Critérios de aceite:
-  - Walkthrough completo.
-  - Pendências manuais explicitadas.
-- Evidência esperada:
-  - `walkthrough.md` final.
+## FASE P1-GS — Ghost System (Melhorias)
 
-### T18 — Verificar necessidade de atualizar `.context/DOCS-PORTFOLIO-PAGES`
+### Task P1-GS1: Corrigir `rotate` em `CategoryStripe.tsx`
 
-- Prioridade: P2
-- Owner lógico: docs-architecture / frontend-specialist
-- Dependências: T17
-- Tempo estimado: até 1h
-- Tarefa:
-  - Se houve alteração estrutural, atualizar documentação contextual.
-  - Se não houve, registrar que não foi necessário.
-- Critérios de aceite:
-  - Contexto do projeto não fica defasado.
-- Evidência esperada:
-  - Nota no `walkthrough.md` e, se aplicável, diff da documentação.
+- **Responsável:** Motion Governance Specialist
+- **Arquivo:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
+- **Linha:** 163 — `rotate: isHovered ? 0 : -45`
+- **Pré-condição:** Aprovação humana recebida
+- **Opções de substituição:**
+  - A) Substituir por `translateX` (ex: seta se move horizontalmente — affordance mantido)
+  - B) Substituir o ícone por um que não requer rotação (ex: `ArrowRight` vs `ArrowUpRight`)
+  - C) Documentar como "regra superior explícita" e manter (requer entrada em GHOST-DESIGN-SYSTEM.md)
+- **Recomendação:** Opção A ou B, dependendo do design do componente
+- **Validação:** Sem uso de `rotate` no bloco de animação do componente
+
+### Task P1-GS2: Referenciar `image-loader` em `next.config.mjs`
+
+- **Responsável:** Next.js Architect
+- **Pré-condição:** P0-GS3 concluído e testado
+- **Passos:**
+  1. Importar `imageLoader` do novo arquivo
+  2. Adicionar `images.loader: 'custom'` e `images.loaderFile: './src/lib/supabase/image-loader.ts'`
+- **Validação:** Build completo sem erros, imagens servidas com transform URL
+
+### Task P1-GS3: Validar altura de cards em `FeaturedProjectsSection.tsx`
+
+- **Responsável:** QA Visual
+- **Arquivo:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
+- **Passos:**
+  1. Comparar altura atual com spec em `.context/DOCS-PORTFOLIO-PAGES/01-HOME`
+  2. Validar responsividade em mobile (375px), tablet (768px), desktop (1440px)
+- **Validação:** Screenshots comparados com spec visual
+
+### Task P1-GS4: Auditar estado ativo no Header
+
+- **Responsável:** QA Visual + Motion Specialist
+- **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
+- **Passos:**
+  1. Verificar se link da rota atual tem estilo de "ativo" diferenciado
+  2. Usar `usePathname()` do Next.js se não implementado
+- **Validação:** Link ativo visualmente destacado em todas as rotas
+
+---
+
+## FASE P2 — Validação Final
+
+### Task P2-V1: Build check completo
+
+- **Comando:** `pnpm run build-check`
+- **Critério:** Zero erros de TypeScript e lint
+
+### Task P2-V2: Verificar contagem de arquivos rastreados
+
+- **Comando:** `git ls-files | wc -l`
+- **Critério:** < 5.500 (sem remover skills) ou < 4.000 (com remoção de skills)
+
+### Task P2-V3: Gerar walkthrough.md final
+
+- **Conteúdo:** Alterações realizadas, arquivos modificados, pendências, plano de rollback
+- **Local:** `docs/walkthrough-audit-2026-05-17.md` (mover da raiz para docs/)
+
+### Task P2-V4: Atualizar `.context/` com novo estado
+
+- **Arquivos a atualizar:** `.context/active_state.md`, `.context/knowledge-graph.md`
+
+---
+
+## Checklist de Aprovação
+
+- [ ] Aprovação humana explícita recebida ("Aprovado" ou "Proceed")
+- [ ] Branch `claude/exciting-thompson-7tJ75` criada/atualizada
+- [ ] P0-G1 a P0-G4 executados
+- [ ] P0-GS1 e P0-GS2 executados
+- [ ] P0-GS3 executado (loader Supabase)
+- [ ] P1-GS1 executado (rotate removido)
+- [ ] Build-check passando
+- [ ] PR criado como draft

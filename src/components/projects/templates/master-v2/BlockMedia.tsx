@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { getAssetUrl } from '@/lib/utils';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
@@ -37,7 +37,10 @@ export default function BlockMedia({
   aspectClassName = 'aspect-[16/10]',
   sizes = '(max-width: 1024px) 100vw, 80vw',
 }: BlockMediaProps) {
-  const src = resolveSiteAssetUrl(item.src);
+  const src = getAssetUrl(
+    item.src,
+    isVideoAsset(item) ? { isVideo: true } : { width: 1600, quality: 85 }
+  );
 
   if (!src) {
     return (
@@ -70,7 +73,7 @@ export default function BlockMedia({
         <video
           className="h-full w-full object-cover"
           src={src}
-          poster={resolveSiteAssetUrl(item.poster)}
+          poster={getAssetUrl(item.poster)}
           controls
           playsInline
           preload={priority ? 'metadata' : 'none'}

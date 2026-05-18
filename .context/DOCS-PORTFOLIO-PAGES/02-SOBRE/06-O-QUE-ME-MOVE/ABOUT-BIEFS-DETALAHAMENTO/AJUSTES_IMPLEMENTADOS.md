@@ -99,7 +99,8 @@ opacity: 1 → 0
 **URL Oficial do GLB:**
 
 ```
-https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
+https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb
+
 ```
 
 **Implementação atual:**

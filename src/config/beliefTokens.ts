@@ -60,20 +60,20 @@ export const beliefMotion = {
   ghostEase: MOTION_TOKENS.ease.ghost,
   /** Motion scroll-triggered reference ease — for Beliefs phrases and background */
   referenceEase: MOTION_TOKENS.ease.reference,
-  softEase: MOTION_TOKENS.ease.ghost,
+  softEase: MOTION_TOKENS.ease.soft,
   microDuration: MOTION_TOKENS.duration.micro,
   revealDuration: MOTION_TOKENS.duration.GHOST_REVEAL,
   exitDuration: MOTION_TOKENS.duration.GHOST_EXIT,
   /** Duration for main phrase entrance */
-  textRevealDuration: 0.9,
+  textRevealDuration: MOTION_TOKENS.duration.textIn,
   /** Duration for main phrase exit */
-  textExitDuration: 0.32,
+  textExitDuration: MOTION_TOKENS.duration.textExitFast,
   /** Duration for background color transition */
-  backgroundDuration: 0.9,
+  backgroundDuration: MOTION_TOKENS.duration.bg,
   /** Duration for fixed header entrance */
-  headerDuration: 0.8,
+  headerDuration: MOTION_TOKENS.duration.headerIn,
   /** Duration for fixed header exit */
-  headerExitDuration: 0.5,
+  headerExitDuration: MOTION_TOKENS.duration.headerOut,
   ghostIntroDuration: MOTION_TOKENS.duration.ghostIn,
   wordStagger: MOTION_TOKENS.duration.WORD_STAGGER,
   manifestoStagger: MOTION_TOKENS.splitText.manifestoStagger,
@@ -85,4 +85,36 @@ export const beliefLayout = {
   desktopPhraseMaxWidth: MOTION_TOKENS.layout.desktopPhraseMaxWidth,
   desktopPhraseLeft: MOTION_TOKENS.layout.desktopPhraseLeft,
   mobilePhraseBottom: MOTION_TOKENS.layout.mobilePhraseBottom,
+  stageMaxWidth: '1680px',
+  stagePaddingX: 'clamp(1.5rem, 4vw, 6rem)',
+  headerTopMobile: '1.5rem',
+  headerTopDesktop: '6rem',
+  headerMaxWidthMobile: '11rem',
+  headerMaxWidthDesktop: '24rem',
+  desktopPhraseTop: '50%',
+  desktopPhraseWidth: 'min(32rem, 34vw)',
+  mobilePhraseWidth: 'min(88vw, 24rem)',
+  ghostDesktopCameraX: 1.18,
+  ghostDesktopCameraY: 0.02,
+  ghostDesktopClimaxX: 0.18,
+  ghostDesktopClimaxY: 0.05,
+  ghostMobileCameraX: -0.96,
+  ghostMobileCameraY: -0.08,
+  ghostMobileClimaxX: 0.04,
+  ghostMobileClimaxY: -0.16,
+  ghostDesktopScale: 0.76,
+  ghostMobileScale: 0.52,
+  manifestoMaxWidth: 'min(90vw, 1520px)',
+  manifestoFontSize: 'clamp(3.4rem, 15vw, 11.5rem)',
 } as const;
+
+// Re-exports for what-moves-me redesign
+export {
+  WHAT_MOVES_ME_PHRASES,
+  GHOST_SHADE_COLORS,
+  GHOST_EASE,
+  PHRASE_COUNT,
+  SECTION_HEIGHT_VH,
+  BAND,
+} from '../components/sobre/beliefs/what-moves-me.constants';
+export type { WhatMovesMePhrase } from '../components/sobre/beliefs/what-moves-me.constants';
