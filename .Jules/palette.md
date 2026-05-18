@@ -1,0 +1,10 @@
+- Visual implementation must strictly adhere to provided reference images, prioritizing absolute fidelity in layout, grid, and behavior over standard defaults.
+- Middleware strictly enforces admin authorization by checking user.app_metadata.role (ignoring user-editable user_metadata) and redirects unauthorized authenticated users to the root path /.
+- Imports utilize the @/ alias mapped to ./src/*.
+- WebGL components (e.g., FluidGlass, GhostCanvas) must be explicitly disabled or degraded (no heavy post-processing, no mouse tracking) on mobile devices and when prefers-reduced-motion is active to preserve performance.
+- Critical UX and accessibility learnings must be recorded in .Jules/palette.md.
+- The functions directory operates as a standalone TypeScript package for Firebase Cloud Functions using Genkit, requiring independent dependency management and enforcing AppCheck (enforceAppCheck: true) on callable functions.
+- Database timestamps (created_at, updated_at) rely on DB-level defaults but are defined as optional ISO strings in application schemas to allow overrides.
+- The project package.json enforces a strict Node.js engine requirement (e.g., version 24), which may necessitate environment overrides (e.g., --ignore-engines) or config adjustments for local execution in mismatched environments.
+- Video dual loading can heavily impact bandwidth on mobile. Ensure `<source>` tags are conditionally rendered.
+- `whitespace-nowrap` on small screens can easily cause horizontal overflows and layout shifts. Prefer `text-balance` or default wrapping combined with `max-w-full` padding classes.
