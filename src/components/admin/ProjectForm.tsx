@@ -251,13 +251,13 @@ export function ProjectForm({
         }
 
         if (galleryItems.length > 0) {
-          for (const item of galleryItems) {
+          const uploadPromises = galleryItems.map(async (item) => {
             if (item.type === 'youtube' && item.youtube_video_id) {
-              galleryEntries.push({
-                type: 'youtube',
+              return {
+                type: 'youtube' as const,
                 youtube_video_id: item.youtube_video_id,
                 caption: item.caption,
-              });
+              };
             } else if (item.file) {
               const path = await uploadToBucket(
                 'portfolio-media',
@@ -271,22 +271,31 @@ export function ProjectForm({
                 }
               );
               if (path) {
-                galleryEntries.push({
+                return {
                   path,
                   caption: item.caption,
-                  type: item.file.type.startsWith('video/') ? 'video' : 'image',
-                });
+                  type: (item.file.type.startsWith('video/')
+                    ? 'video'
+                    : 'image') as 'video' | 'image',
+                };
               }
             } else if (item.path) {
-              galleryEntries.push({
+              return {
                 path: item.path,
                 caption: item.caption,
-                type:
-                  item.type ||
+                type: (item.type ||
                   (item.path.match(/\.(mp4|webm|mov)(\?.*)?$/i)
                     ? 'video'
-                    : 'image'),
-              });
+                    : 'image')) as 'video' | 'image',
+              };
+            }
+            return null;
+          });
+
+          const results = await Promise.all(uploadPromises);
+          for (const res of results) {
+            if (res) {
+              galleryEntries.push(res);
             }
           }
         }

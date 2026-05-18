@@ -16,12 +16,15 @@ export default function Error({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            origem: 'Ghost System Portfolio (ADMIN)',
-            erro_detectado: error.message,
-            componente_afetado: 'src/app/admin',
+            message: error.message,
             stack: error.stack,
-            digest: error.digest,
-            status: 'CRITICAL_ADMIN_FAILURE',
+            component: 'src/app/admin',
+            url: window.location.href,
+            metadata: {
+              digest: error.digest,
+              status: 'CRITICAL_ADMIN_FAILURE',
+              origem: 'Ghost System Portfolio (ADMIN)',
+            },
           }),
           keepalive: true,
         });

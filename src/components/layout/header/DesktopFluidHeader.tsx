@@ -7,6 +7,7 @@ import type { NavItem } from '@/components/layout/header/types';
 
 import dynamic from 'next/dynamic';
 import { m } from 'motion/react';
+import { MotionLink } from '@/components/motion/MotionLink';
 import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useAntigravityStore } from '@/store/antigravity.store';
@@ -65,7 +66,7 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
     : `${baseText} ${hoverText} font-medium`;
 
   const LinkComponent =
-    isExternalHref(item.href) || item.external ? m.a : m.button;
+    isExternalHref(item.href) || item.external ? m.a : MotionLink;
   const linkProps =
     isExternalHref(item.href) || item.external
       ? {
@@ -74,8 +75,12 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
           rel: 'noopener noreferrer',
         }
       : {
-          type: 'button' as const,
-          onClick: () => onNavigate(item.href),
+          href: item.href,
+          onClick: (e: React.MouseEvent) => {
+            if (e.metaKey || e.ctrlKey || e.button === 1) return;
+            e.preventDefault();
+            onNavigate(item.href);
+          },
         };
 
   return (

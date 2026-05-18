@@ -44,7 +44,12 @@
       "Bash(git commit *)",
       "Bash(gh pr *)",
       "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
+<<<<<<< HEAD
       "Bash(node_modules/.bin/next lint *)"
+=======
+      "Bash(git merge *)",
+      "Bash(xargs ls)"
+>>>>>>> main
     ]
   },
   "enableAllProjectMcpServers": true,

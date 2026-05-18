@@ -84,7 +84,7 @@ export function AboutWhatIDo() {
     <section
       ref={targetRef}
       id="04-o-que-eu-faco"
-      className="relative z-[var(--z-layer-content)] w-full bg-background text-text"
+      className="relative z-[var(--z-layer-content)] w-full bg-background text-text overflow-x-clip"
       aria-labelledby="what-i-do-heading"
     >
       {/* ============================================
@@ -221,7 +221,7 @@ export function AboutWhatIDo() {
           Infinite horizontal scroll - keywords
           ============================================ */}
       <div
-        className="relative hidden overflow-hidden border-t border-white/5 bg-background py-6 lg:block"
+        className="relative hidden w-full max-w-full overflow-hidden border-t border-white/5 bg-background py-6 lg:block"
         aria-hidden="true"
       >
         {/* Dual marquee for seamless loop */}

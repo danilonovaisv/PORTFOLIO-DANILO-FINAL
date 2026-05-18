@@ -24,23 +24,25 @@ function SceneInvalidator() {
 
     let isVisible = false;
 
+    const handleUpdate = () => {
+      if (isVisible) invalidate();
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
+        if (isVisible) {
+          window.addEventListener('scroll', handleUpdate, { passive: true });
+          window.addEventListener('mousemove', handleUpdate, { passive: true });
+          invalidate(); // Trigger initial render when entering viewport
+        } else {
+          window.removeEventListener('scroll', handleUpdate);
+          window.removeEventListener('mousemove', handleUpdate);
+        }
       },
       { threshold: 0.01 }
     );
     observer.observe(canvas);
-
-    const handleUpdate = () => {
-      if (!isVisible) return;
-      invalidate();
-    };
-
-    window.addEventListener('scroll', handleUpdate, { passive: true });
-    window.addEventListener('mousemove', handleUpdate, { passive: true });
-
-    invalidate();
 
     return () => {
       observer.disconnect();

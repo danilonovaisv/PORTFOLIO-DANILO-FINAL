@@ -32,13 +32,16 @@ export default function JsonLd({
   const baseUrl = `https://${BRAND.domain}`;
   const logo = toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl);
 
-  // Organization Schema
+  // Organization Schema (TASK-040: logo como string per Google Rich Results spec)
   const organizationSchema = {
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
     name: BRAND.name,
     url: baseUrl,
-    logo,
+    foundingDate: '2015',
+    areaServed: 'BR',
+    logo: logo,
+    image: logo,
     sameAs: [
       'https://github.com/danilonovaisv',
       'https://www.linkedin.com/in/danilonovaisv',
@@ -54,7 +57,9 @@ export default function JsonLd({
     name: BRAND.name,
     url: baseUrl,
     email: 'contato@portfoliodanilo.com',
-    image: logo,
+    image: {
+      '@id': `${baseUrl}/#logo`,
+    },
     jobTitle: 'Head de Criação & Diretor de Criação Sênior',
     worksFor: {
       '@id': `${baseUrl}/#organization`,

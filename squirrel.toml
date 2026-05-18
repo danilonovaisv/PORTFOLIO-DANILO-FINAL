@@ -1,4 +1,5 @@
 [project]
+name = "portfolio"
 domains = []
 
 [crawler]

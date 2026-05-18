@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
 import { useCallback, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
@@ -145,78 +146,65 @@ export default function FeaturedProjectCardFrame({
           <div className="absolute inset-0">
             {baseMediaDiffers ? (
               <>
-                {/* Desktop Media */}
-                {isMounted && desktopThumbIsVideo && desktopThumbUrl ? (
-                  <video
-                    src={desktopThumbUrl}
-                    aria-hidden="true"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={DEFAULT_VIDEO_POSTER}
-                    className={cn(
-                      'hidden md:block h-full w-full',
-                      commonMediaClasses
-                    )}
-                  />
-                ) : !desktopThumbIsVideo && desktopThumbUrl ? (
-                  <Image
-                    loader={supabaseLoader}
-                    src={desktopThumbUrl}
-                    alt={visualAltText}
-                    fill
-                    sizes={cardMediaSizes}
-                    quality={60}
-                    className={cn('hidden md:block', commonMediaClasses)}
-                    loading={priority ? 'eager' : 'lazy'}
-                    priority={priority}
-                    onError={applyImageFallback}
-                  />
-                ) : null}
-                {/* Mobile Media */}
-                {isMounted && mobileThumbIsVideo && mobileThumbUrl ? (
-                  <video
-                    src={mobileThumbUrl}
-                    aria-hidden="true"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={DEFAULT_VIDEO_POSTER}
-                    className={cn(
-                      'block md:hidden h-full w-full',
-                      commonMediaClasses
-                    )}
-                  />
-                ) : !mobileThumbIsVideo && mobileThumbUrl ? (
-                  <Image
-                    loader={supabaseLoader}
-                    src={mobileThumbUrl}
-                    alt={visualAltText}
-                    fill
-                    sizes={cardMediaSizes}
-                    quality={60}
-                    className={cn('block md:hidden', commonMediaClasses)}
-                    loading={priority ? 'eager' : 'lazy'}
-                    priority={priority}
-                    onError={applyImageFallback}
-                  />
-                ) : null}
+                {/* Responsive Video/Image handling */}
+                {isMounted && (desktopThumbIsVideo || mobileThumbIsVideo) ? (
+                   <ResponsiveVideo
+                     desktopSrc={desktopThumbUrl || mobileThumbUrl || ''}
+                     mobileSrc={mobileThumbUrl || desktopThumbUrl || ''}
+                     desktopPoster={DEFAULT_VIDEO_POSTER}
+                     mobilePoster={DEFAULT_VIDEO_POSTER}
+                     aria-hidden="true"
+                     autoPlay
+                     muted
+                     loop
+                     playsInline
+                     preload="metadata"
+                     className={cn('h-full w-full', commonMediaClasses)}
+                   />
+                ) : (
+                  <>
+                    {!desktopThumbIsVideo && desktopThumbUrl ? (
+                      <Image
+                        loader={supabaseLoader}
+                        src={desktopThumbUrl}
+                        alt={visualAltText}
+                        fill
+                        sizes={cardMediaSizes}
+                        quality={60}
+                        className={cn('hidden md:block', commonMediaClasses)}
+                        loading={priority ? 'eager' : 'lazy'}
+                        priority={priority}
+                        onError={applyImageFallback}
+                      />
+                    ) : null}
+                    {!mobileThumbIsVideo && mobileThumbUrl ? (
+                      <Image
+                        loader={supabaseLoader}
+                        src={mobileThumbUrl}
+                        alt={visualAltText}
+                        fill
+                        sizes={cardMediaSizes}
+                        quality={60}
+                        className={cn('block md:hidden', commonMediaClasses)}
+                        loading={priority ? 'eager' : 'lazy'}
+                        priority={priority}
+                        onError={applyImageFallback}
+                      />
+                    ) : null}
+                  </>
+                )}
               </>
             ) : /* Same media for both */
             isMounted && desktopThumbIsVideo && desktopThumbUrl ? (
-              <video
-                src={desktopThumbUrl}
+              <ResponsiveVideo
+                desktopSrc={desktopThumbUrl}
+                desktopPoster={DEFAULT_VIDEO_POSTER}
                 aria-hidden="true"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                poster={DEFAULT_VIDEO_POSTER}
                 className={cn('h-full w-full', commonMediaClasses)}
               />
             ) : !desktopThumbIsVideo && desktopThumbUrl ? (

@@ -1,6 +1,6 @@
 {
   "agent": "agent-supabase-audit",
-  "timestamp_utc": "2026-05-17T08:01:49+00:00",
+  "timestamp_utc": "2026-05-18T08:35:46+00:00",
   "auto_fix": false,
   "storage_security_score": 100,
   "storage_performance_score": 100,
@@ -28,6 +28,6 @@
       "update"
     ],
     "missing_storage_policy_operations": [],
-    "tracked_files_scanned": 2620
+    "tracked_files_scanned": 2665
   }
 }

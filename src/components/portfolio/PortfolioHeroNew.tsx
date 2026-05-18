@@ -8,10 +8,8 @@
 
 import Image from 'next/image';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { PORTFOLIO_CONTENT } from '@/config/content';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 import { COLORS } from '@/config/colors';
 
 const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
@@ -29,16 +27,7 @@ const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
 )}`;
 
 export default function PortfolioHeroNew() {
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const prefersReducedMotion = useMotionGate();
-
-  const videoAssetKey = isMobile
-    ? SITE_ASSET_KEYS.portfolio.heroMobile
-    : SITE_ASSET_KEYS.portfolio.heroDesktop;
-
-  const fallbackVideo = isMobile
-    ? (PORTFOLIO_CONTENT.hero.video.mobile ?? undefined)
-    : (PORTFOLIO_CONTENT.hero.video.desktop ?? undefined);
 
   return (
     <section
@@ -49,14 +38,17 @@ export default function PortfolioHeroNew() {
       {/* Video Background - Responsivo Desktop/Mobile com Sincronização Realtime */}
       <div className="absolute inset-0 z-0">
         {!prefersReducedMotion ? (
-          <DynamicAssetVideo
-            key={isMobile ? 'mobile' : 'desktop'}
-            assetKey={videoAssetKey}
-            fallbackUrl={fallbackVideo}
-            poster={HERO_POSTER}
+          <ResponsiveVideo
+            desktopSrc={RESPONSIVE_VIDEOS.portfolioHero.desktop}
+            mobileSrc={RESPONSIVE_VIDEOS.portfolioHero.mobile}
+            desktopPoster={HERO_POSTER}
+            mobilePoster={HERO_POSTER}
             className="h-full w-screen object-cover"
             preload="auto"
-            disableRealtime={process.env.NODE_ENV === 'production'}
+            autoPlay
+            loop
+            muted
+            playsInline
           />
         ) : (
           <Image

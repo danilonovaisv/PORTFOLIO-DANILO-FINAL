@@ -21,7 +21,7 @@ export const NAVIGATION = {
       { label: 'home', href: '/' },
       { label: 'sobre', href: '/sobre' },
       { label: 'portfólio', href: '/portfolio' },
-      { label: 'contato', href: '/#contact' },
+      { label: 'contato', href: '/contato' },
       { label: 'privacidade', href: '/privacidade' },
     ],
   },

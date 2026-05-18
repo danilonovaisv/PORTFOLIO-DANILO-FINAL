@@ -18,10 +18,11 @@ import {
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { getAssetUrl } from '@/lib/utils';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 export function AboutClosing() {
   const prefersReducedMotion = useMotionGate();
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // Closing Assets
   const closingVideoDesk = useSiteAssetUrl(
@@ -35,32 +36,32 @@ export function AboutClosing() {
   const posterDesk = DEFAULT_VIDEO_POSTER;
   const posterMobile = DEFAULT_VIDEO_POSTER;
 
+  const activePosterDesk = getAssetUrl(posterDesk, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(posterMobile, {
+    width: 1080,
+    quality: 60,
+  });
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasVideoError, setHasVideoError] = useState(false);
 
-  const selectedVideo = isMobile
-    ? closingVideoMobile || closingVideoDesk
-    : closingVideoDesk;
-
-  const activeVideo = hasVideoError ? undefined : selectedVideo;
-
-  const activePoster = isMobile
-    ? posterMobile || posterDesk || DEFAULT_VIDEO_POSTER
-    : posterDesk || DEFAULT_VIDEO_POSTER;
-
+  // Resume play if not reduced motion
   useEffect(() => {
-    setHasVideoError(false);
-  }, [selectedVideo]);
-
-  // Resume play if source changes and not reduced motion
-  useEffect(() => {
-    if (videoRef.current && activeVideo && !prefersReducedMotion) {
+    if (videoRef.current && !prefersReducedMotion && !hasVideoError) {
       videoRef.current.load();
       videoRef.current.play().catch(() => {
         // Safe to ignore autoplay errors (usually permissions)
       });
     }
-  }, [activeVideo, prefersReducedMotion]);
+  }, [
+    prefersReducedMotion,
+    hasVideoError,
+    closingVideoDesk,
+    closingVideoMobile,
+  ]);
 
   return (
     <section
@@ -103,32 +104,33 @@ export function AboutClosing() {
             className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-screen items-center justify-center overflow-hidden bg-background/30 md:mt-11 md:aspect-video md:min-h-[360px]"
             style={{
               marginLeft: 'calc((min(100vw, 1680px) - 100vw) / 2)',
-              backgroundImage: activePoster
-                ? `url(${activePoster})`
-                : undefined,
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'contain',
+              // The poster is handled natively by the ResponsiveVideo component
             }}
           >
             <div className="absolute inset-0 bg-linear-to-t from-background/30 via-background/15 to-transparent pointer-events-none" />
 
-            {activeVideo && (
-              <video
+            {!hasVideoError && (
+              <ResponsiveVideo
                 ref={videoRef}
                 className="relative z-[var(--z-layer-content)] block h-full w-full object-cover"
-                src={activeVideo}
+                desktopSrc={
+                  closingVideoDesk || RESPONSIVE_VIDEOS.aboutClosing.desktop
+                }
+                mobileSrc={
+                  closingVideoMobile || RESPONSIVE_VIDEOS.aboutClosing.mobile
+                }
+                desktopPoster={activePosterDesk}
+                mobilePoster={activePosterMobile}
                 autoPlay={!prefersReducedMotion}
                 loop
                 muted
                 playsInline
                 preload="metadata"
                 aria-label="Demonstração visual de experiências"
-                poster={activePoster}
                 onError={() => setHasVideoError(true)}
               >
                 <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-              </video>
+              </ResponsiveVideo>
             )}
           </div>
         </div>

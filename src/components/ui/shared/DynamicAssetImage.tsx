@@ -89,10 +89,20 @@ export function DynamicAssetImage({
     <div
       className={cn(
         'relative',
-        width && `w-[${width}px]`,
-        height && `h-[${height}px]`,
+        !width && !height && 'w-full h-full',
         className
       )}
+      style={
+        width || height
+          ? {
+              width: '100%',
+              height: '100%',
+              maxWidth: width,
+              maxHeight: height,
+              aspectRatio: width && height ? `${width} / ${height}` : undefined,
+            }
+          : undefined
+      }
     >
       <Image
         loader={supabaseLoader}
@@ -102,15 +112,19 @@ export function DynamicAssetImage({
         width={width}
         height={height}
         priority={priority}
+        loading={priority ? 'eager' : undefined}
         quality={60}
         sizes={
           sizes ||
           (!width && !height ? '(max-width: 768px) 100vw, 50vw' : undefined)
         }
         unoptimized={finalUrl?.toLowerCase().endsWith('.svg')}
-        className={`object-${objectFit} transition-opacity duration-standard ${
+        className={cn(
+          width && height && 'w-full h-full',
+          `object-${objectFit}`,
+          'transition-opacity duration-standard',
           isTransitioning ? 'opacity-0' : 'opacity-100'
-        }`}
+        )}
       />
     </div>
   );

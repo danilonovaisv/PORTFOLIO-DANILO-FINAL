@@ -2,6 +2,7 @@
 
 import React, { forwardRef, RefObject } from 'react';
 import { m } from 'motion/react';
+import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { Instagram, Linkedin } from '@/components/shared/icons/SocialIcons';
 import { SOCIALS } from '@/config/navigation';
@@ -46,28 +47,29 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
         }}
         aria-hidden={open ? 'false' : 'true'}
         onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            onClose();
-          }
+          if (e.target === e.currentTarget) onClose();
         }}
       >
-        {/* Menu items */}
+        {/* Menu items — <Link> for SEO crawlability + prefetching */}
         <ul className="flex flex-col gap-4" role="list">
           {navItems.map((item) => {
             const isActive = isNavItemActive(item.href, activeHref);
-
             return (
               <li key={item.href} className="overflow-hidden leading-none">
-                <button
-                  onClick={() => onNavigate(item.href)}
-                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
+                <Link
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(item.href);
+                  }}
+                  className={`sm-panel-item block w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
                     isActive
                       ? 'text-blueAccent font-medium underline underline-offset-4'
                       : 'text-white/80 hover:text-white font-light'
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               </li>
             );
           })}

@@ -1,17 +1,26 @@
-# Active State: ABOUT BELIEFS ORCHESTRATION ✅
+# Active State: FLUID NAVIGATION & GHOST HYGIENE ✅
 
-**Phase**: O QUE ME MOVE — ORCHESTRATION FINALIZATION
-**Current Focus**: Recomposei a geometria da sessão `O QUE ME MOVE` para o layout aprovado do snippet, preservando GSAP/R3F, contratos E2E e a hierarquia Ghost System.
-**Last Update**: 2026-05-17 12:20
+**Phase**: FLUID NAVIGATION & REPOSITORY HYGIENE
+**Current Focus**: Implementação do componente `MotionLink` no `DesktopFluidHeader` para controle fluido de rotas ativas por Framer Motion e limpeza profunda de logs/relatórios temporários na raiz.
+**Last Update**: 2026-05-17 22:15
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
 ## Deploy Summary
 
 - **Build**: ✅ Next.js 16.2.4 (Webpack) — Stable production build completed
-- **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
-- **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
-- **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+- **Navigation**: ✅ Added `MotionLink` for fluid hover/active animations on Desktop Header
+- **Hygiene**: ✅ Purged git tracking for `.txt` logs, `knip_report.txt`, and temporary MDs
+- **Status**: ✅ All structural changes commit-locked
+
+## Header & Fluid Navigation Experience (2026-05-17)
+
+- [x] **MotionLink Integration**: Criado o componente `MotionLink.tsx` em `src/components/motion/` utilizando Framer Motion e `Link` do Next.js.
+- [x] **DesktopFluidHeader Dynamic Tracking**: Refatorado `DesktopFluidHeader.tsx` para adotar `MotionLink`. As transições de rotas ativas agora utilizam animações de fade in suaves coordenadas pelo layout-id do Framer Motion, evitando o piscar de tela e otimizando a experiência fluida do usuário em desktop.
+- [x] **Git Cleanliness and Hygiene**: Removidos do controle do repositório arquivos temporários de auditoria como `knip_report.txt`, logs `.txt` de typecheck, e relatórios semanais que poluíam a raiz da árvore Git.
+- [x] **Validation Evidence**:
+  - `git commit` ✅ Concluído.
+  - Testes e builds pendentes de `pnpm install` local no ambiente do usuário (isolado da rede na sandbox).
 
 ## Text Layout Recomposition (2026-05-17)
 
@@ -153,3 +162,19 @@
 3. 🔍 **Knip Audit**: Rodar `pnpm run knip` para identificar exports mortos remanescentes em `animated-backgrounds.ts` e `PortfolioModal.tsx`.
 4. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio).
 5. 📊 **Monitoramento**: Lighthouse CI após próximo deploy.
+
+## Asset-Sync + Diagnostics (2026-05-18)
+
+- [x] **`public/test.txt` removido**: Lixo de repositório eliminado.
+- [x] **RLS Fix aplicado**: Policy `memory_select` em `prompt_memory_context` corrigida com `(SELECT auth.uid())` para evitar re-avaliação por linha (migration `fix_rls_initplan_prompt_memory_context`).
+- [x] **Posters placeholder corrigidos** em `brand.ts` e `site-assets.tsx` — `undefined` em vez de `404.webp`; browser renderiza primeiro frame do vídeo.
+- [x] **Orphans removidos**: `DynamicAssetVideo.tsx`, `media-selector.ts`, `image-loader.ts` (sem importadores).
+- [x] **Fontes Manrope legadas removidas** de `public/fonts/` (15 arquivos de peso fixo) — `VariableFont_wght.woff2` mantido e em uso.
+- [x] **`public/privacy-policy.htm` removido** — substituído pela rota `/privacidade`.
+- [x] **`public/assets/3d/bar-v2.glb` removido** — sem referências no código.
+- [x] **PNGs duplicados removidos** — `showcase/Branding-Project.png`, `Key-Visual.png` (versões .webp ativas).
+- [x] **`MotionLink.tsx` TSC fix**: conflito `onDrag`/`onAnimationStart` entre React HTML e Framer Motion resolvido via `CollidingHandlers Omit` + cast JSX.
+- [x] **Typecheck**: `tsc --noEmit` → **exit 0, zero erros**.
+- [x] **Commit**: `779c92582` — chore: asset-sync & diagnostics hygiene pass.
+- [ ] **Habilitar Leaked Password Protection** no Supabase Dashboard [REQUIRES HUMAN REVIEW].
+- [ ] **Split arquivos > 500L**: `template-schema.ts` (886L), `ProjectForm.tsx` (848L) — próximo ciclo.
