@@ -52,6 +52,12 @@ export function DynamicAssetImage({
   }, [asset?.publicUrl, displayUrl]);
 
   const finalUrl = displayUrl || normalizedFallback;
+  const shouldUseSupabaseLoader = Boolean(
+    finalUrl &&
+      !finalUrl.startsWith('/') &&
+      !finalUrl.startsWith('data:') &&
+      !finalUrl.startsWith('blob:')
+  );
 
   if (loading && !fallbackUrl) {
     return (
@@ -105,7 +111,7 @@ export function DynamicAssetImage({
       }
     >
       <Image
-        loader={supabaseLoader}
+        loader={shouldUseSupabaseLoader ? supabaseLoader : undefined}
         src={finalUrl!}
         alt={alt}
         fill={!width && !height}
