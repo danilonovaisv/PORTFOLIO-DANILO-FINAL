@@ -2,23 +2,43 @@
 
 import Link from 'next/link';
 import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
-import { m, HTMLMotionProps } from 'motion/react';
+import { type HTMLMotionProps, m } from 'motion/react';
 
-// Criamos o link animado usando o m() do motion/react
-const MotionNextLink = m(Link);
+// m(Link) produces a component whose HTML handler types (onDrag, onAnimationStart, etc.)
+// conflict with Framer Motion's own handler signatures of the same name.
+// Strategy: build the public prop type from the two leaf types independently,
+// then cast at the JSX boundary to avoid unsolvable overload errors.
 
-type LinkProps = ComponentPropsWithoutRef<typeof Link>;
-type MotionProps = Omit<HTMLMotionProps<'a'>, keyof LinkProps | 'ref'>;
+type NextLinkProps = ComponentPropsWithoutRef<typeof Link>;
 
-// Combinamos as props do Link e as props do motion
-export interface MotionLinkProps extends MotionProps, LinkProps {
+// HTML event handlers that collide with Framer Motion's own props
+type CollidingHandlers =
+  | 'onDrag'
+  | 'onDragEnd'
+  | 'onDragEnter'
+  | 'onDragExit'
+  | 'onDragLeave'
+  | 'onDragOver'
+  | 'onDragStart'
+  | 'onDrop'
+  | 'onAnimationStart'
+  | 'onAnimationEnd'
+  | 'onAnimationIteration';
+
+type CleanLinkProps = Omit<NextLinkProps, CollidingHandlers>;
+type MotionOnlyProps = Omit<HTMLMotionProps<'a'>, keyof CleanLinkProps | 'ref'>;
+
+export interface MotionLinkProps extends CleanLinkProps, MotionOnlyProps {
   children?: React.ReactNode;
 }
+
+const MotionNextLink = m(Link);
 
 export const MotionLink = forwardRef<HTMLAnchorElement, MotionLinkProps>(
   function MotionLink({ children, ...props }, ref) {
     return (
-      <MotionNextLink ref={ref} {...props}>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      <MotionNextLink ref={ref} {...(props as any)}>
         {children}
       </MotionNextLink>
     );
