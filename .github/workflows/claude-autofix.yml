@@ -1,0 +1,49 @@
+name: Claude Auto-Fix CI Failures
+
+on:
+  workflow_run:
+    ["Firebase Deploy", "Deploy to Firebase Hosting on PR", "Deploy Next.js site to Pages", "CodeQL"]
+    workflows:
+      - "Firebase Deploy"
+      - "Deploy to Firebase Hosting on PR"
+      - "Deploy Next.js site to Pages"
+      - "CodeQL"
+    types: [completed]
+
+jobs:
+  audit-and-fix:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code - Audit & Fix
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: |
+            O workflow '${{ github.event.workflow_run.name }}' falhou na execução do ID ${{ github.event.workflow_run.id }}.
+            
+            CONTEXTO DO PROJETO:
+            - Stack: Next.js (App Router), React, TypeScript, Tailwind CSS.
+            - Ferramentas visuais: React Three Fiber, @react-three/drei, Three.js, Framer Motion.
+            - Infraestrutura: Supabase Storage, Firebase Hosting.
+            - Estrutura: Trabalhamos principalmente nas pastas `src/app` e `src/components`.
+            
+            SUA MISSÃO:
+            1. Use o GitHub CLI (`gh`) para baixar e ler os logs detalhados desta execução.
+            2. Analise os logs e identifique a causa raiz. 
+               *Dica: Fique atento a erros comuns da nossa stack, como falta de `"use client"` em componentes do Three.js/Framer Motion, erros de tipagem do TypeScript, ou falhas no build de rotas do Next.js.*
+            3. Edite os arquivos necessários no código-fonte (`src/`) para resolver o problema.
+            4. Quando tiver certeza da correção, crie uma nova branch, faça o commit detalhando o problema e a solução, e abra um Pull Request.
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Usando o modelo Sonnet 3.5 atualizado, ideal para agentic coding
+          claude_args: "--model claude-3-5-sonnet-20241022 --max-turns 15"
