@@ -169,9 +169,14 @@
 
 - [x] **`public/test.txt` removido**: Lixo de repositório eliminado.
 - [x] **RLS Fix aplicado**: Policy `memory_select` em `prompt_memory_context` corrigida com `(SELECT auth.uid())` para evitar re-avaliação por linha (migration `fix_rls_initplan_prompt_memory_context`).
-- [ ] **Substituir posters placeholder** em `brand.ts` — `manifestoPosterDesk/Mobile` apontam para `404.webp`.
-- [ ] **Remover orphans reais confirmados**: `DynamicAssetVideo.tsx`, `media-selector.ts`, `image-loader.ts` (sem importadores).
-- [ ] **Remover fontes Manrope** de `public/fonts/` (18 arquivos) — design system usa TT Norms Pro.
-- [ ] **Remover `public/privacy-policy.htm`** — substituído pela rota `/privacidade`.
-- [ ] **Habilitar Leaked Password Protection** no Supabase Dashboard.
-- [ ] **Split arquivos > 500L**: `template-schema.ts` (886L), `ProjectForm.tsx` (848L), `actions.ts` (605L).
+- [x] **Posters placeholder corrigidos** em `brand.ts` e `site-assets.tsx` — `undefined` em vez de `404.webp`; browser renderiza primeiro frame do vídeo.
+- [x] **Orphans removidos**: `DynamicAssetVideo.tsx`, `media-selector.ts`, `image-loader.ts` (sem importadores).
+- [x] **Fontes Manrope legadas removidas** de `public/fonts/` (15 arquivos de peso fixo) — `VariableFont_wght.woff2` mantido e em uso.
+- [x] **`public/privacy-policy.htm` removido** — substituído pela rota `/privacidade`.
+- [x] **`public/assets/3d/bar-v2.glb` removido** — sem referências no código.
+- [x] **PNGs duplicados removidos** — `showcase/Branding-Project.png`, `Key-Visual.png` (versões .webp ativas).
+- [x] **`MotionLink.tsx` TSC fix**: conflito `onDrag`/`onAnimationStart` entre React HTML e Framer Motion resolvido via `CollidingHandlers Omit` + cast JSX.
+- [x] **Typecheck**: `tsc --noEmit` → **exit 0, zero erros**.
+- [x] **Commit**: `779c92582` — chore: asset-sync & diagnostics hygiene pass.
+- [ ] **Habilitar Leaked Password Protection** no Supabase Dashboard [REQUIRES HUMAN REVIEW].
+- [ ] **Split arquivos > 500L**: `template-schema.ts` (886L), `ProjectForm.tsx` (848L) — próximo ciclo.
