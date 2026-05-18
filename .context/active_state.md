@@ -164,3 +164,14 @@
 3. 🔍 **Knip Audit**: Rodar `pnpm run knip` para identificar exports mortos remanescentes em `animated-backgrounds.ts` e `PortfolioModal.tsx`.
 4. ⚠️ **Pendente**: Versionar `public/site.assets/3d/ghost.glb` com hash/versão (performance médio).
 5. 📊 **Monitoramento**: Lighthouse CI após próximo deploy.
+
+## Asset-Sync + Diagnostics (2026-05-18)
+
+- [x] **`public/test.txt` removido**: Lixo de repositório eliminado.
+- [x] **RLS Fix aplicado**: Policy `memory_select` em `prompt_memory_context` corrigida com `(SELECT auth.uid())` para evitar re-avaliação por linha (migration `fix_rls_initplan_prompt_memory_context`).
+- [ ] **Substituir posters placeholder** em `brand.ts` — `manifestoPosterDesk/Mobile` apontam para `404.webp`.
+- [ ] **Remover orphans reais confirmados**: `DynamicAssetVideo.tsx`, `media-selector.ts`, `image-loader.ts` (sem importadores).
+- [ ] **Remover fontes Manrope** de `public/fonts/` (18 arquivos) — design system usa TT Norms Pro.
+- [ ] **Remover `public/privacy-policy.htm`** — substituído pela rota `/privacidade`.
+- [ ] **Habilitar Leaked Password Protection** no Supabase Dashboard.
+- [ ] **Split arquivos > 500L**: `template-schema.ts` (886L), `ProjectForm.tsx` (848L), `actions.ts` (605L).

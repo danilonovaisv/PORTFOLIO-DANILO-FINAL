@@ -79,8 +79,10 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
     'home.manifesto_video': 'site-assets/home/video.manifesto.desk.mp4',
     'home.manifesto_video_mobile':
       'site-assets/home/video.manifesto.mobile.mp4',
-    'home.manifesto_poster_desk': 'site-assets/global/404.webp',
-    'home.manifesto_poster_mobile': 'site-assets/global/404.webp',
+    // Posters: intentionally omitted — browser auto-generates from first video frame.
+    // Add real poster paths here when dedicated poster assets are available.
+    // 'home.manifesto_poster_desk': 'site-assets/home/poster.desk.webp',
+    // 'home.manifesto_poster_mobile': 'site-assets/home/poster.mobile.webp',
     'about.hero.desktop_video.mp4':
       'site-assets/about/about.hero.desktop_video.mp4',
     'about.hero.mobile_video.mp4':

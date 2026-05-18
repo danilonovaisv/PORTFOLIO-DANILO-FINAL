@@ -54,8 +54,10 @@ export const BRAND = {
     video: {
       manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
       manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-      manifestoPosterDesk: asset('site-assets/global/404.webp'),
-      manifestoPosterMobile: asset('site-assets/global/404.webp'),
+      // Posters: undefined = browser auto-generates from first video frame (correct behavior)
+      // Replace with a real poster asset path when available (e.g. site-assets/home/poster.desk.webp)
+      manifestoPosterDesk: undefined as string | undefined,
+      manifestoPosterMobile: undefined as string | undefined,
       aboutClosing: asset('site-assets/about/closing/video.closing.desk.mp4'),
       aboutClosingMobile: asset(
         'site-assets/about/closing/video.closing.mobile.mp4'
@@ -66,11 +68,12 @@ export const BRAND = {
       mono: 'PPSupplyMono',
     },
   },
+  // @deprecated: Use BRAND.assets.video instead. Kept for backwards compatibility.
   video: {
     manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
     manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-    manifestoPosterDesk: asset('site-assets/global/404.webp'),
-    manifestoPosterMobile: asset('site-assets/global/404.webp'),
+    manifestoPosterDesk: undefined as string | undefined,
+    manifestoPosterMobile: undefined as string | undefined,
     aboutClosing: asset('site-assets/about/closing/video.closing.desk.mp4'),
     aboutClosingMobile: asset(
       'site-assets/about/closing/video.closing.mobile.mp4'
