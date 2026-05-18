@@ -1,12 +1,3 @@
-# AI Self-Healing Agent Workflow
-# Automatically analyzes deployment failures and suggests fixes
-# Triggered when Firebase deploy workflows fail
-#
-# HOW TO USE:
-# - This workflow runs automatically when a deploy fails
-# - You can also trigger it manually via workflow_dispatch
-# - Creates a GitHub issue with AI-generated fix suggestions
-
 name: 🛡️ AI Self-Healing Agent
 
 on:
