@@ -182,11 +182,11 @@ export function AboutHero() {
                 </span>
                 <span>
                   Você <span className="text-bluePrimary">não vê tudo</span>{' '}
-                  <span className="whitespace-nowrap">o que eu faço.</span>
+                  <span>o que eu faço.</span>
                 </span>
                 <span>
                   Mas sente quando{' '}
-                  <span className="text-bluePrimary whitespace-nowrap">
+                  <span className="text-bluePrimary">
                     funciona.
                   </span>
                 </span>
