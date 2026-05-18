@@ -40,7 +40,9 @@
       "Bash(grep -rn \"'main'\\\\|\\\\\"main\\\\\"\\\\|`main`\\\\|<main\\\\b\" /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/ --include=\"*.tsx\")",
       "Bash(git commit *)",
       "Bash(gh pr *)",
-      "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)"
+      "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
+      "Bash(git merge *)",
+      "Bash(xargs ls)"
     ]
   },
   "enableAllProjectMcpServers": true,
