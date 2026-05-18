@@ -1,17 +1,28 @@
-# Active State: ABOUT BELIEFS ORCHESTRATION ✅
+# Active State: FLUID NAVIGATION & GHOST HYGIENE ✅
 
-**Phase**: O QUE ME MOVE — ORCHESTRATION FINALIZATION
-**Current Focus**: Recomposei a geometria da sessão `O QUE ME MOVE` para o layout aprovado do snippet, preservando GSAP/R3F, contratos E2E e a hierarquia Ghost System.
-**Last Update**: 2026-05-17 12:20
+**Phase**: FLUID NAVIGATION & REPOSITORY HYGIENE
+**Current Focus**: Implementação do componente `MotionLink` no `DesktopFluidHeader` para controle fluido de rotas ativas por Framer Motion e limpeza profunda de logs/relatórios temporários na raiz.
+**Last Update**: 2026-05-17 22:15
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
 ## Deploy Summary
 
 - **Build**: ✅ Next.js 16.2.4 (Webpack) — Stable production build completed
-- **Status**: ✅ Resolved CSS Parsing Error (wildcard collision)
-- **Function**: ✅ `ssrportfoliodanilonovai` (us-central1) — Node 20 2nd Gen
-- **Hosting**: Ready for deployment to `portfolio-danilo-novais`
+- **Navigation**: ✅ Added `MotionLink` for fluid hover/active animations on Desktop Header
+- **Hygiene**: ✅ Purged git tracking for `.txt` logs, `knip_report.txt`, and temporary MDs
+- **Status**: ✅ All structural changes commit-locked
+
+
+
+## Header & Fluid Navigation Experience (2026-05-17)
+
+- [x] **MotionLink Integration**: Criado o componente `MotionLink.tsx` em `src/components/motion/` utilizando Framer Motion e `Link` do Next.js.
+- [x] **DesktopFluidHeader Dynamic Tracking**: Refatorado `DesktopFluidHeader.tsx` para adotar `MotionLink`. As transições de rotas ativas agora utilizam animações de fade in suaves coordenadas pelo layout-id do Framer Motion, evitando o piscar de tela e otimizando a experiência fluida do usuário em desktop.
+- [x] **Git Cleanliness and Hygiene**: Removidos do controle do repositório arquivos temporários de auditoria como `knip_report.txt`, logs `.txt` de typecheck, e relatórios semanais que poluíam a raiz da árvore Git.
+- [x] **Validation Evidence**:
+  - `git commit` ✅ Concluído.
+  - Testes e builds pendentes de `pnpm install` local no ambiente do usuário (isolado da rede na sandbox).
 
 ## Text Layout Recomposition (2026-05-17)
 
