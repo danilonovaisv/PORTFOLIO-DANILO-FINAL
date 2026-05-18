@@ -5,7 +5,7 @@ import { m, useScroll, useTransform } from 'motion/react';
 import { GHOST_EASE, viewportConfig, MOTION_TOKENS } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
-import { useIsMobile } from '@/hooks/useIsMobile';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
 import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
@@ -42,7 +42,7 @@ export function VideoManifesto({
   const { asset: assetMobile } = useRealtimeAsset(assetKeyMobile || '');
   const [muted, setMuted] = useState(true);
   const shouldReduceMotion = useMotionGate();
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
