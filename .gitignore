@@ -172,3 +172,4 @@ scratch/
 gha-creds-*.json
 toolbox
 
+.git-hygiene-backup/
