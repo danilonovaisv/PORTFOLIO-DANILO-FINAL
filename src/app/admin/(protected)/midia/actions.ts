@@ -291,7 +291,7 @@ export async function healLandingPagesBucketAction() {
   let fixedCount = 0;
 
   // 2. Fix each asset to rewrite file_path along with the bucket
-  for (const asset of corruptedAssets) {
+  const updatePromises = corruptedAssets.map(async (asset) => {
     // Ensure landing-pages/ prefix exists for storage synchronization.
     let newPath = asset.file_path || '';
     if (newPath && !newPath.startsWith('landing-pages/')) {
@@ -307,9 +307,13 @@ export async function healLandingPagesBucketAction() {
       .eq('id', asset.id);
 
     if (!updateError) {
-      fixedCount++;
+      return 1;
     }
-  }
+    return 0;
+  });
+
+  const results = await Promise.all(updatePromises);
+  fixedCount = results.reduce<number>((acc, curr) => acc + curr, 0);
 
   await logAdminAudit(supabase, user, {
     action: 'system.heal_landing_pages_bucket',
