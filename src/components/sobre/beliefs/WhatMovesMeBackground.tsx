@@ -2,6 +2,7 @@ export function WhatMovesMeBackground() {
   return (
     <div
       aria-hidden="true"
+      data-testid="what-moves-me-background"
       style={{
         position: 'fixed',
         inset: 0,

@@ -1,8 +1,8 @@
-# Active State: FLUID NAVIGATION & GHOST HYGIENE ✅
+# Active State: ABOUT BELIEFS FINAL REDESIGN + GHOST HYGIENE ✅
 
-**Phase**: FLUID NAVIGATION & REPOSITORY HYGIENE
-**Current Focus**: Implementação do componente `MotionLink` no `DesktopFluidHeader` para controle fluido de rotas ativas por Framer Motion e limpeza profunda de logs/relatórios temporários na raiz.
-**Last Update**: 2026-05-17 22:15
+**Phase**: ABOUT BELIEFS FINAL REDESIGN
+**Current Focus**: Registro do estado final da seção `AboutBeliefs`: CSS fixed shade + Framer Motion `useScroll/useTransform`, sem Ghost 3D/GSAP/header/manifesto/context provider na árvore renderizada.
+**Last Update**: 2026-05-18 20:20
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -12,6 +12,20 @@
 - **Navigation**: ✅ Added `MotionLink` for fluid hover/active animations on Desktop Header
 - **Hygiene**: ✅ Purged git tracking for `.txt` logs, `knip_report.txt`, and temporary MDs
 - **Status**: ✅ All structural changes commit-locked
+
+## AboutBeliefs Final Redesign (2026-05-18)
+
+- [x] **SSOT Confirmed**: `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-FINAL.md` substitui o plano antigo com GSAP + Ghost 3D.
+- [x] **Current Render Tree**: `AboutBeliefs.tsx` monta somente `WhatMovesMeBackground` + `BeliefScrollText`, com `BeliefScrollText` renderizando as 6 frases via `WhatMovesMePhrase`.
+- [x] **Legacy Layers Superseded**: `BeliefFixedHeader`, `GhostScene`, `BeliefManifesto`, `BeliefBackground`, `BeliefOverlay` e `BeliefsScrollProvider` permanecem no repositório, mas não fazem parte da seção 06 vigente.
+- [x] **Animation Stack**: stack vigente é CSS fixed shade + Motion `useScroll/useTransform`; sem GSAP `ScrollTrigger`, sem R3F Canvas e sem GLB na seção `O Que Me Move`.
+- [x] **E2E Contract Updated**: `test/e2e/about-beliefs.spec.ts` agora valida ausência das camadas antigas, presença das 6 frases, centralização, reduced motion e ausência de canvas/WebGL na seção.
+- [x] **Validation Evidence**:
+  - `pnpm run typecheck` ✅
+  - `pnpm run lint` ✅
+  - `PLAYWRIGHT_BASE_URL=http://localhost:3000 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium --reporter=line` ✅ `7 passed`
+  - Playwright CLI snapshot em `/sobre` ✅ região `O que me move` presente, sem `canvas` no snapshot YAML, console sem erro crítico.
+  - Ambiente emitiu warning de engine porque repo pede Node 22 e sessão local usa Node `v26.0.0` / pnpm `11.1.1`.
 
 ## Header & Fluid Navigation Experience (2026-05-17)
 
@@ -23,6 +37,8 @@
   - Testes e builds pendentes de `pnpm install` local no ambiente do usuário (isolado da rede na sandbox).
 
 ## Text Layout Recomposition (2026-05-17)
+
+> Superseded 2026-05-18 by `AboutBeliefs Final Redesign`: header/manifesto/Ghost geometry no longer represents the active section-06 render tree.
 
 - [x] **Stage Geometry Realigned**: `BeliefFixedHeader`, `BeliefScrollText` e `BeliefManifesto` agora seguem a composição aprovada para desktop/mobile.
 - [x] **Layout SSOT Extended**: `src/config/beliefTokens.ts` concentra anchors, larguras, escalas e `clamp()` da sessão.
@@ -36,6 +52,8 @@
   - `PLAYWRIGHT_BASE_URL=http://127.0.0.1:5005 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium`
 
 ## Orchestration Finalization (2026-05-16)
+
+> Superseded 2026-05-18 by `06-O-QUE-ME-MOVE-FINAL.md`: `beliefs-ghost-scene`, manifesto and provider contracts are historical, not current acceptance criteria.
 
 - [x] **Type Contract Preserved**: `BeliefsScrollContextValue` remains on `scrollYProgress: { get: () => number }`.
 - [x] **Zero Motion in Section Scope**: `SplitTextMotion.tsx` no longer imports `motion/react`; `beliefs/*` + `GhostScene.tsx` are free of Motion DOM helpers.
@@ -52,6 +70,8 @@
 
 ## GSAP Final Migration (2026-05-13)
 
+> Superseded 2026-05-18: section 06 no longer uses GSAP orchestration.
+
 - [x] **Zero Framer Motion**: Removed `framer-motion` dependencies from `AboutBeliefs`, `GhostScene`, `GhostModel`, `useBeliefsScroll`, and `usePointerParallax`.
 - [x] **GSAP Orchestration**: Consolidated all scroll-driven animations (`BeliefBackground`, `BeliefScrollText`, `BeliefManifesto`, `BeliefOverlay`) into modular GSAP ScrollTrigger implementations.
 - [x] **Performance Optimization**:
@@ -66,12 +86,16 @@
 
 ## Beliefs Section Hardening (2026-05-03)
 
+> Superseded 2026-05-18: `beliefs-ghost-scene` and Ghost/manifesto z-index contracts no longer apply to active `AboutBeliefs`.
+
 - [x] **Animation Contracts**: Added `data-animation-contract="viewport-x-opacity"` to `BeliefScrollText`.
 - [x] **DOM Stability**: Consolidated `beliefs-ghost-scene` test ID into static wrapper in `BeliefsSection`.
 - [x] **Z-Index Governance**: Aligned layer hierarchy (Ghost: 70, Manifesto: 50).
 - [x] **SSR Integrity**: Ensured test IDs are present on first render.
 
 ## Beliefs Section Agent Manager Pass (2026-05-04)
+
+> Superseded 2026-05-18: WebGL fallback evidence remains historical; active section 06 does not mount WebGL.
 
 - [x] **Background Contract** (superseded 2026-05-13): originally documented as Motion `animate() + inView()` with `GHOST_EASE_AMBIENT`; migrated to GSAP `ScrollTrigger` with `GSAP_GHOST_EASE` and `duration: 1.5s` in the May 13 hardening pass.
 - [x] **Tokens SSOT**: `src/config/beliefTokens.ts` centralizes palette, header lines, phrases and manifesto lines.
@@ -81,6 +105,8 @@
 - [x] **Release Gates**: `pnpm run typecheck`, `pnpm run lint`, and `pnpm run build` passed locally.
 
 ## Beliefs Section Editorial Hardening (2026-05-07)
+
+> Superseded 2026-05-18: active stack is Motion `useScroll/useTransform` plus CSS fixed shade, not GSAP.
 
 - [x] **GSAP Integration**: Migrated from Framer Motion to GSAP + ScrollTrigger for ultra-smooth scrubbing (`1.2s`).
 - [x] **Granular Word Reveal**: Implemented word-by-word reveal with opacity, scale, and blur for an "Editorial Minimalism" feel.
@@ -133,6 +159,8 @@
 - [x] **Admin Hygiene**: Sanitizada interface do `LegacyBlockEditor.tsx` e adicionada documentação de depreciação.
 
 ## Beliefs System Consolidation (2026-05-11)
+
+> Superseded 2026-05-18: `BeliefsScrollProvider` and unified context are preserved as historical code paths only, not mounted by `AboutBeliefs`.
 
 - [x] **Context Unification**: Consolidated `BeliefsScrollProvider` and `BeliefsScrollContext` into a single high-performance source of truth.
 - [x] **State Orchestration**: Refactored `AboutBeliefs.tsx` to manage scroll progress, climax detection, and device-specific flags natively via Framer Motion.

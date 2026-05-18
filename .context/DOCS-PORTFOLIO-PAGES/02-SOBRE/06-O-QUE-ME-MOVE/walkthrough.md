@@ -3,6 +3,67 @@
 > Data: 2026-05-18  
 > Escopo: preservar a seção “O que me move” conforme documentação final sem animação Ghost 3D e corrigir regressão de imagens da seção ORIGEM.
 
+## Estado final vigente — AboutBeliefs
+
+Fonte de verdade: `06-O-QUE-ME-MOVE-FINAL.md`.
+
+`AboutBeliefs` foi deliberadamente reduzido para uma composição minimalista:
+
+```txt
+AboutBeliefs.tsx
+  ├── WhatMovesMeBackground
+  └── BeliefScrollText
+        └── WhatMovesMePhrase x6
+```
+
+Essa redução é correta e substitui a arquitetura antiga com GSAP + Ghost 3D. Não tratar como bug a ausência destes itens na árvore renderizada da seção 06:
+
+- `BeliefFixedHeader`
+- `GhostScene`
+- `BeliefManifesto`
+- `BeliefBackground`
+- `BeliefOverlay`
+- `BeliefsScrollProvider`
+
+Esses arquivos podem continuar no repositório para histórico, compatibilidade ou outros ciclos, mas não pertencem ao render vigente de `AboutBeliefs`.
+
+## Contrato técnico vigente
+
+- Background: CSS fixed shade em `WhatMovesMeBackground`, sem canvas, sem CDN externo, sem `requestAnimationFrame`.
+- Texto: 6 frases centralizadas em `BeliefScrollText`, controladas por Motion `useScroll` + `useTransform`.
+- Frase final: `ISSO É / GHOST / DESIGN.` integrada ao fluxo de frases; `GHOST` em Ghost Blue `#0048ff`.
+- Reduced motion: preserva fade, remove translate e blur.
+- Acessibilidade: `section` com `aria-labelledby`, `h2.sr-only`, frases com `aria-label` completo.
+- Performance: nenhum GLB, R3F, WebGL ou GSAP `ScrollTrigger` montado na seção 06.
+
+## Contrato E2E vigente
+
+`test/e2e/about-beliefs.spec.ts` deve validar:
+
+- presença de `beliefs-section`, `what-moves-me-background`, `beliefs-scroll-text` e 6 `belief-phrase`;
+- ausência de `beliefs-ghost-scene`, `beliefs-manifesto`, `beliefs-fixed-header`, `beliefs-background`, `data-belief-section` e `data-belief-manifesto`;
+- ausência de `canvas` dentro de `beliefs-section`;
+- centralização desktop/mobile;
+- scroll forward/reverso mantendo frase visível;
+- reduced motion sem translate/blur;
+- ausência de erro `Error creating WebGL context` quando WebGL é indisponível.
+
+## Registro de validação — 2026-05-18
+
+Validações executadas após registrar o estado final:
+
+- `pnpm run typecheck` passou.
+- `pnpm run lint` passou.
+- `PLAYWRIGHT_BASE_URL=http://localhost:3000 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium --reporter=line` passou com `7 passed`.
+- Playwright CLI abriu `http://localhost:3000/sobre`, gerou snapshot e confirmou a região `O que me move` com as 6 frases.
+- `rg` no snapshot CLI confirmou texto da seção e não encontrou `canvas`.
+- Console CLI mostrou apenas mensagens informativas de React DevTools/HMR, sem erro crítico.
+
+Observações de ambiente:
+
+- A sessão local usa Node `v26.0.0` / pnpm `11.1.1`; o repo declara Node `22`, então `pnpm` emite warning de engine.
+- O Playwright config ainda tenta iniciar `next dev --port 5005`; como já existe servidor em `localhost:3000`, o log mostra `Another next dev server is already running`. O teste usa `PLAYWRIGHT_BASE_URL=http://localhost:3000` e passou contra o servidor ativo.
+
 ## Causa raiz
 
 1. A documentação final de `06-O-QUE-ME-MOVE` substituiu o plano antigo com GSAP + Ghost 3D por uma seção editorial com background CSS fixo e frases centralizadas. Portanto, a reintrodução de animação Ghost 3D nessa seção foi explicitamente cancelada pela aprovação humana.

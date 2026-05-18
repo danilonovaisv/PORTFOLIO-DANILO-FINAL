@@ -12,6 +12,7 @@ export function AboutBeliefs() {
     <section
       ref={sectionRef}
       id="o-que-me-move"
+      data-testid="beliefs-section"
       aria-labelledby="o-que-me-move-title"
       className="relative text-white"
       style={{ minHeight: `${SECTION_HEIGHT_VH}vh` }}
