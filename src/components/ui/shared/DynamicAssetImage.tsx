@@ -89,10 +89,10 @@ export function DynamicAssetImage({
     <div
       className={cn(
         'relative',
-        width && `w-[${width}px]`,
-        height && `h-[${height}px]`,
+        !width && !height && 'w-full h-full',
         className
       )}
+      style={width || height ? { width, height } : undefined}
     >
       <Image
         loader={supabaseLoader}
@@ -108,9 +108,12 @@ export function DynamicAssetImage({
           (!width && !height ? '(max-width: 768px) 100vw, 50vw' : undefined)
         }
         unoptimized={finalUrl?.toLowerCase().endsWith('.svg')}
-        className={`object-${objectFit} transition-opacity duration-standard ${
+        className={cn(
+          width && height && 'w-full h-full',
+          `object-${objectFit}`,
+          'transition-opacity duration-standard',
           isTransitioning ? 'opacity-0' : 'opacity-100'
-        }`}
+        )}
       />
     </div>
   );

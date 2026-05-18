@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { forwardRef } from 'react';
 
 export type ResponsiveVideoProps =
   React.VideoHTMLAttributes<HTMLVideoElement> & {
@@ -36,38 +30,12 @@ export const ResponsiveVideo = forwardRef<
     },
     ref
   ) => {
-    const internalRef = useRef<HTMLVideoElement | null>(null);
-    useImperativeHandle(ref, () => internalRef.current as HTMLVideoElement);
-
-    // SSR-safe: default to desktop. useEffect swaps after hydration.
-    const [activeSrc, setActiveSrc] = useState(desktopSrc);
-    const [activePoster, setActivePoster] = useState<string | undefined>(
-      desktopPoster
-    );
-
-    useEffect(() => {
-      const mq = window.matchMedia('(max-width: 767px)');
-
-      const update = (e: MediaQueryList | MediaQueryListEvent) => {
-        const isMobile = e.matches;
-        setActiveSrc(isMobile ? mobileSrc : desktopSrc);
-        setActivePoster(
-          isMobile ? (mobilePoster ?? desktopPoster) : desktopPoster
-        );
-      };
-
-      update(mq);
-      mq.addEventListener('change', update);
-      return () => mq.removeEventListener('change', update);
-    }, [desktopSrc, mobileSrc, desktopPoster, mobilePoster]);
-
+    // Para resolver o FCP sem flash, o poster do desktop é o padrão
+    // Em dispositivos reais, o <source media> lida com o vídeo correto nativamente.
     return (
-      // key forces a clean video remount when src switches, avoiding stale buffer
       <video
-        key={activeSrc}
-        ref={internalRef}
-        src={activeSrc}
-        poster={activePoster}
+        ref={ref}
+        poster={desktopPoster || mobilePoster}
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}
@@ -75,6 +43,9 @@ export const ResponsiveVideo = forwardRef<
         className={className}
         {...rest}
       >
+        {/* Nativamente resolve SSR e evita remount de React ao hidratar */}
+        <source src={mobileSrc} media="(max-width: 767px)" />
+        <source src={desktopSrc} media="(min-width: 768px)" />
         {children}
       </video>
     );

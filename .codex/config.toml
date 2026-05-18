@@ -1,4 +1,13 @@
 sandbox_mode = "danger-full-access"
-[mcp_servers.blender]
-args = ["blender-mcp"]
-command = "uvx"
+approval_policy = "on-failure"
+ [mcp_servers.blender]
+   args = ["blender-mcp"]
+   command = "uvx"
+ [features]
+   shell_snapshot = true
+   multi_agent = true
+   hooks = true
+   web_search = true
+   web_search_cached = false
+   web_search_request = false
+ #[features].hooks

@@ -310,4 +310,3 @@ Após aprovação e implementação:
 ---
 
 > **APPROVAL GATE:** Não alterar código antes de aprovação explícita com "Aprovado" ou "Proceed".
-

@@ -13,8 +13,6 @@
 - **Hygiene**: ✅ Purged git tracking for `.txt` logs, `knip_report.txt`, and temporary MDs
 - **Status**: ✅ All structural changes commit-locked
 
-
-
 ## Header & Fluid Navigation Experience (2026-05-17)
 
 - [x] **MotionLink Integration**: Criado o componente `MotionLink.tsx` em `src/components/motion/` utilizando Framer Motion e `Link` do Next.js.

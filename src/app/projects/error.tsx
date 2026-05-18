@@ -16,12 +16,15 @@ export default function Error({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            origem: 'Ghost System Projects',
-            erro_detectado: error.message,
-            componente_afetado: 'src/app/projects',
+            message: error.message,
             stack: error.stack,
-            digest: error.digest,
-            status: 'ERROR_BOUNDARY_TRIGGERED',
+            component: 'src/app/projects',
+            url: window.location.href,
+            metadata: {
+              digest: error.digest,
+              status: 'ERROR_BOUNDARY_TRIGGERED',
+              origem: 'Ghost System Projects',
+            },
           }),
           keepalive: true,
         });

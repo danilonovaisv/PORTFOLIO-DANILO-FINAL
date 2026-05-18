@@ -37,7 +37,6 @@ const MotionNextLink = m(Link);
 export const MotionLink = forwardRef<HTMLAnchorElement, MotionLinkProps>(
   function MotionLink({ children, ...props }, ref) {
     return (
-
       <MotionNextLink ref={ref} {...(props as any)}>
         {children}
       </MotionNextLink>

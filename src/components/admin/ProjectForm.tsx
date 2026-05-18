@@ -274,15 +274,16 @@ export function ProjectForm({
                 return {
                   path,
                   caption: item.caption,
-                  type: (item.file.type.startsWith('video/') ? 'video' : 'image') as 'video' | 'image',
+                  type: (item.file.type.startsWith('video/')
+                    ? 'video'
+                    : 'image') as 'video' | 'image',
                 };
               }
             } else if (item.path) {
               return {
                 path: item.path,
                 caption: item.caption,
-                type:
-                  (item.type ||
+                type: (item.type ||
                   (item.path.match(/\.(mp4|webm|mov)(\?.*)?$/i)
                     ? 'video'
                     : 'image')) as 'video' | 'image',

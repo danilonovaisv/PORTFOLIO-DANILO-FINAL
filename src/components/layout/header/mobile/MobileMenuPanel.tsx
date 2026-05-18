@@ -2,6 +2,7 @@
 
 import React, { forwardRef, RefObject } from 'react';
 import { m } from 'motion/react';
+import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { Instagram, Linkedin } from '@/components/shared/icons/SocialIcons';
 import { SOCIALS } from '@/config/navigation';
@@ -19,18 +20,7 @@ interface MobileMenuPanelProps {
 }
 
 const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
-  (
-    {
-      navItems,
-      accentColor,
-      open,
-      socialsRef,
-      onNavigate,
-      onClose,
-      activeHref,
-    },
-    ref
-  ) => {
+  ({ navItems, accentColor, open, socialsRef, onNavigate, onClose, activeHref }, ref) => {
     return (
       <nav
         ref={ref}
@@ -45,63 +35,43 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
           paddingRight: 'max(2rem, env(safe-area-inset-right, 2rem))',
         }}
         aria-hidden={open ? 'false' : 'true'}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            onClose();
-          }
-        }}
+        onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       >
-        {/* Menu items */}
+        {/* Menu items — <Link> for SEO crawlability + prefetching */}
         <ul className="flex flex-col gap-4" role="list">
           {navItems.map((item) => {
             const isActive = isNavItemActive(item.href, activeHref);
-
             return (
               <li key={item.href} className="overflow-hidden leading-none">
-                <button
-                  onClick={() => onNavigate(item.href)}
-                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
+                <Link
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(item.href);
+                  }}
+                  className={`sm-panel-item block w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
                     isActive
                       ? 'text-blueAccent font-medium underline underline-offset-4'
                       : 'text-white/80 hover:text-white font-light'
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               </li>
             );
           })}
         </ul>
 
         {/* Social links */}
-        <div
-          ref={socialsRef}
-          className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4"
-        >
-          <m.h3
-            className="sm-social-title text-sm font-medium uppercase tracking-wider"
-            initial={false}
-            animate={{ color: accentColor }}
-          >
+        <div ref={socialsRef} className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4">
+          <m.h3 className="sm-social-title text-sm font-medium uppercase tracking-wider" initial={false} animate={{ color: accentColor }}>
             Connect
           </m.h3>
           <div className="flex gap-4">
             {[
-              {
-                label: 'LinkedIn',
-                href: SOCIALS.linkedin,
-                icon: <Linkedin className="w-5 h-5" />,
-              },
-              {
-                label: 'InstagramIcon',
-                href: SOCIALS.instagram,
-                icon: <Instagram className="w-5 h-5" />,
-              },
-              {
-                label: 'Email',
-                href: SOCIALS.emailPrimary,
-                icon: <Mail className="w-5 h-5" />,
-              },
+              { label: 'LinkedIn', href: SOCIALS.linkedin, icon: <Linkedin className="w-5 h-5" /> },
+              { label: 'InstagramIcon', href: SOCIALS.instagram, icon: <Instagram className="w-5 h-5" /> },
+              { label: 'Email', href: SOCIALS.emailPrimary, icon: <Mail className="w-5 h-5" /> },
             ].map((s) => (
               <a
                 key={s.label}

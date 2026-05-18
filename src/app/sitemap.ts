@@ -12,7 +12,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getCanonicalSiteUrl().replace(/\/$/, '');
 
   let projectUrls: MetadataRoute.Sitemap = [];
-  const fallbackLandingSlugs = ['brand-video', 'key-vision'];
 
   try {
     const supabase = createStaticClient();
@@ -53,17 +52,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
-
-    // Garante inclusão das landing pages de projetos principais
-    projectUrls = [
-      ...projectUrls,
-      ...fallbackLandingSlugs.map((slug) => ({
-        url: `${baseUrl}/projects/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-      })),
-    ];
+    // Nota: /projects/[slug] depende exclusivamente do Supabase (landing_pages).
+    // Sem acesso ao banco não há fallback estático — omitir para evitar 404 no sitemap.
   }
 
   return [

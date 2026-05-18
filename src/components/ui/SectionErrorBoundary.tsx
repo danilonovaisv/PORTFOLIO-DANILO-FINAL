@@ -49,12 +49,14 @@ export class SectionErrorBoundary extends Component<Props, State> {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          origem: 'Ghost System Section Boundary',
-          secao: this.props.sectionName,
-          erro_detectado: error.message,
+          message: error.message,
           stack: error.stack,
-          component_stack: errorInfo.componentStack,
-          status: 'SECTION_RECOVERY_ACTIVE',
+          component: this.props.sectionName ?? 'Unknown Section',
+          metadata: {
+            origem: 'Ghost System Section Boundary',
+            component_stack: errorInfo.componentStack,
+            status: 'SECTION_RECOVERY_ACTIVE',
+          },
         }),
         keepalive: true,
       });
