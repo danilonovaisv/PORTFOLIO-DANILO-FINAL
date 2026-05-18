@@ -70,7 +70,13 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
     inferPageFromValue(cleanKey) ||
     'global';
 
+  const isOriginImage =
+    resolvedBucket === 'site-assets' &&
+    /^about\/origin\/about\.origin_image\.[1-4]\.webp$/.test(
+      resolvedPath ?? ''
+    );
   const publicUrl =
+    (isOriginImage ? `/site.assets/${resolvedPath}` : null) ||
     buildSupabaseStorageUrl(resolvedBucket, resolvedPath) ||
     (asset.file_path?.startsWith('http') ? asset.file_path : '') ||
     '';

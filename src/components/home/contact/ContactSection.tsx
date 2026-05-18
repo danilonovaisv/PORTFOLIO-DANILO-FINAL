@@ -74,15 +74,21 @@ export default function ContactSection() {
     <section
       id="contact"
       data-light-section
-      aria-label="Contato"
+      aria-labelledby="contact-heading"
       className="bg-backgroundLight py-12 sm:py-16 md:py-24 lg:py-32 relative z-10"
     >
       <Container>
+        <h2 id="contact-heading" className="sr-only">
+          {HOME_CONTENT.contact.title}
+        </h2>
         {/* Título mobile separado para manter ordem: título → formulário → canais */}
         <div className="lg:hidden text-center mb-10">
-          <h2 className="text-5xl md:text-6xl font-bold text-bluePrimary uppercase tracking-tighter mb-3 leading-[0.95]">
+          <div
+            aria-hidden="true"
+            className="text-5xl md:text-6xl font-bold text-bluePrimary uppercase tracking-tighter mb-3 leading-[0.95]"
+          >
             {HOME_CONTENT.contact.title}
-          </h2>
+          </div>
           <p className="text-textInverse text-lg font-medium max-w-md mx-auto">
             {HOME_CONTENT.contact.subtitle}
           </p>
@@ -105,9 +111,12 @@ export default function ContactSection() {
           >
             {/* Header */}
             <div className="hidden lg:block text-center lg:text-left mb-6 lg:mb-10">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-bluePrimary uppercase tracking-tighter mb-4 leading-[0.9]">
+              <div
+                aria-hidden="true"
+                className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-bluePrimary uppercase tracking-tighter mb-4 leading-[0.9]"
+              >
                 {HOME_CONTENT.contact.title}
-              </h2>
+              </div>
               <p className="text-textInverse text-lg md:text-xl font-medium max-w-md mx-auto lg:mx-0">
                 {HOME_CONTENT.contact.subtitle}
               </p>

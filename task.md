@@ -1,192 +1,145 @@
-# Tasks — Ghost System Audit 2026-05-17
+# Task Plan: Correção `/sobre`
 
-> **Status:** Planning — Aguardando aprovação humana
-> **Branch:** `claude/exciting-thompson-7tJ75`
-> **Referência:** `implementation_plan.md`
+## T01
 
----
+- ID: T01
+- Título: Localizar fonte da rota `/sobre`
+- Objetivo: Confirmar arquivos da rota e cadeia de componentes antes de editar.
+- Arquivos prováveis: `src/app/sobre/page.tsx`, `src/components/sobre/sections/*`, `src/config/content.ts`
+- Pré-condições: Repositório em `/Users/danilonovais/PORTFOLIO-DANILO-FINAL`.
+- Passos: localizar `src/app/sobre/page.tsx`; mapear imports de seções; confirmar que `AboutOrigin`, `AboutMethod` e seção de contato aparecem na árvore.
+- Validação: rota `/sobre` mapeada com componentes responsáveis.
+- Critério de aceite: lista clara de componentes de `/sobre` antes de qualquer edição.
+- Risco: editar componente errado se a rota usar wrapper ou lazy import.
 
-## FASE P0-G — GitHub & Higiene do Repositório
+## T02
 
-### Task P0-G1: Atualizar `.gitignore` com entradas faltantes
+- ID: T02
+- Título: Localizar seção “ORIGEM”
+- Objetivo: Confirmar fonte dos blocos, imagem e render.
+- Arquivos prováveis: `src/components/sobre/sections/AboutOrigin.tsx`, `src/components/sobre/origin/data.ts`, `src/components/sobre/origin/OriginComponents.tsx`
+- Pré-condições: T01 concluída.
+- Passos: ler `AboutOrigin.tsx`; ler `data.ts`; ler `OriginComponents.tsx`; confirmar `ORIGIN_CONTENT`, `SITE_ASSET_KEYS.about.originImages`, `DynamicAssetImage`.
+- Validação: origem de `title`, `fallback`, `assetKey`, `fallbackUrl` e `sizes` documentada.
+- Critério de aceite: caminho de render da imagem está rastreado de data até `<Image>`.
+- Risco: provider realtime sobrescrever fallback e mascarar bug.
 
-- **Responsável:** Repo Architect
-- **Arquivo:** `.gitignore` (raiz)
-- **Pré-condição:** Aprovação humana recebida
-- **Passos:**
-  1. Adicionar `functions/.npm_cache/` após a seção de Firebase
-  2. Adicionar `output/` (playwright output)
-  3. Adicionar `graphify-out/`
-  4. Adicionar `scratch/`
-  5. Adicionar seção "Arquivos de trabalho temporários": `typecheck_fresh.txt`, `tsc_output_current*.txt`, `typecheck_output_new.txt`, `knip_report.txt`, `walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`
-- **Validação:** `grep "npm_cache\|graphify-out\|output/" .gitignore` retorna entradas
+## T03
 
-### Task P0-G2: Remover `functions/.npm_cache/` do tracking git
+- ID: T03
+- Título: Auditar helpers Supabase
+- Objetivo: Confirmar comportamento de construção de URL e logs.
+- Arquivos prováveis: `src/lib/supabase/urls.ts`, `src/lib/utils.ts`, `src/contexts/site-assets.tsx`, `src/components/ui/shared/DynamicAssetImage.tsx`
+- Pré-condições: T02 concluída.
+- Passos: revisar `buildSupabaseStorageUrl`; revisar `debugUrl`; revisar `supabaseLoader`; revisar `useSiteAssetUrl`; confirmar tratamento de `/site.assets`.
+- Validação: decisão documentada sobre evitar fallback remoto em Origem.
+- Critério de aceite: causa do loop `[SupabaseURL] checking:` associada a construção de fallback remoto.
+- Risco: remover logs globais em vez de resolver fallback determinístico.
 
-- **Responsável:** Repo Architect
-- **Pré-condição:** P0-G1 concluído
-- **Passos:**
-  1. Executar `git rm -r --cached functions/.npm_cache/`
-  2. Verificar com `git status` que 2.759 arquivos aparecem como deleted (staged)
-  3. Confirmar que `functions/.npm_cache/` existe no disco (não é deletado, apenas untracked)
-- **Validação:** `git ls-files functions/.npm_cache | wc -l` retorna 0
+## T04
 
-### Task P0-G3: Remover arquivos temporários da raiz do tracking
+- ID: T04
+- Título: Validar política de URL e bucket
+- Objetivo: Documentar política Supabase sem alterar permissões.
+- Arquivos prováveis: `next.config.mjs`, `supabase/schemas/02_security.sql`, `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/assets-site.json`
+- Pré-condições: T03 concluída.
+- Passos: confirmar bucket `site-assets` público nas schemas/migrations locais; confirmar `object/public` e `render/image/public` em `next.config.mjs`; confirmar assets no inventário.
+- Validação: decisão registrada em `walkthrough.md` após implementação.
+- Critério de aceite: nenhuma alteração de bucket/policy planejada ou feita.
+- Risco: confundir erro de path com problema de permissão.
 
-- **Responsável:** Repo Architect
-- **Pré-condição:** P0-G1 concluído
-- **Passos:**
-  1. `git rm --cached typecheck_fresh.txt tsc_output_current_v2.txt tsc_output_current.txt typecheck_output_new.txt knip_report.txt`
-  2. Avaliar se `walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`, `task.md`, `implementation_plan.md` devem permanecer rastreados ou ser movidos para `docs/`
-- **Validação:** `git ls-files | grep -E "^[^/]+\.txt$"` retorna vazio
+## T05
 
-### Task P0-G4: Remover diretórios de output do tracking
+- ID: T05
+- Título: Corrigir assets ou caminho de assets
+- Objetivo: Tornar imagens Origem determinísticas e reduzir fallback ruidoso.
+- Arquivos prováveis: `src/components/sobre/sections/AboutOrigin.tsx`, `src/components/sobre/origin/data.ts`
+- Pré-condições: T01-T04 concluídas.
+- Passos: substituir fallback remoto por `/site.assets/about/origin/about.origin_image.N.webp`; alinhar `ORIGIN_CONTENT.assetKey` ao formato `about.origin.about.origin_image.N`; manter `SITE_ASSET_KEYS.about.originImages` como SSOT para provider.
+- Validação: buscar `[SupabaseURL] checking:` durante render local; verificar Network para 4 imagens.
+- Critério de aceite: 4 imagens carregam `200` por path local ou Supabase determinístico.
+- Risco: public URL inválida do provider remoto ainda pode sobrescrever fallback local.
 
-- **Responsável:** Repo Architect
-- **Pré-condição:** P0-G1 concluído
-- **Passos:**
-  1. `git rm -r --cached output/` (12 arquivos Playwright)
-  2. `git rm -r --cached graphify-out/` (47 arquivos)
-  3. `git rm -r --cached scratch/` (16 arquivos) — validar se há conteúdo útil antes
-- **Validação:** `git ls-files output/ graphify-out/ scratch/` retorna vazio
+## T06
 
-### Task P0-G5: Decisão estratégica sobre `.agent/skills` (6.346 arquivos)
+- ID: T06
+- Título: Corrigir texto híbrido
+- Objetivo: Trocar string incorreta na fonte de verdade.
+- Arquivos prováveis: `src/config/content.ts`
+- Pré-condições: T01 concluída.
+- Passos: substituir `Design with propósito, não só beleza` por `Design com propósito, não só beleza`; rodar busca textual para garantir ausência da string antiga fora de docs de auditoria.
+- Validação: `/sobre` mostra texto correto; `rg "Design with propósito" src` não encontra ocorrência.
+- Critério de aceite: string antiga não existe em runtime source.
+- Risco: docs históricas ainda conterem string antiga; não confundir com source runtime.
 
-- **Responsável:** Arquiteto + Danilo (decisão humana)
-- **Opções:**
-  - A) Manter no repositório (sem ação)
-  - B) Converter em git submodule apontando para repo de skills
-  - C) Adicionar ao `.gitignore` e remover do tracking (`git rm -r --cached .agent/skills/`)
-- **Impacto da opção C:** -6.346 arquivos rastreados; repo desce de 12.281 para ~5.900 arquivos
-- **Validação:** Decisão documentada em `AGENTS.md`
+## T07
 
-### Task P0-G6: Commit de higiene
+- ID: T07
+- Título: Auditar headings duplicados
+- Objetivo: Confirmar duplicações semânticas antes de aplicar `aria-hidden`.
+- Arquivos prováveis: `src/components/sobre/origin/OriginComponents.tsx`, `src/config/content.ts`, `src/config/navigation.ts`, componentes de header/footer/contact
+- Pré-condições: T01-T02 concluídas.
+- Passos: inspecionar `h1-h6` na árvore `/sobre`; identificar duplicatas de `O QUE PERMANECE`, `DO TRAÇO À INTENÇÃO`, `A DESCOBERTA DO INVISÍVEL`, `EXPANSÃO COM PROPÓSITO`, `contato`; separar clones visuais de navegação/conteúdo único.
+- Validação: lista de duplicatas com origem por arquivo.
+- Critério de aceite: não aplicar `aria-hidden` em navegação ou link.
+- Risco: esconder conteúdo único ou interativo.
 
-- **Pré-condição:** P0-G1 a P0-G4 concluídos, decisão P0-G5 tomada
-- **Mensagem de commit sugerida:** `chore: remove tracked build artifacts and temp files from git history`
-- **Validação:** `git ls-files | wc -l` < 5.500 (ou < 4.000 se P0-G5 incluir remoção de skills)
+## T08
 
----
+- ID: T08
+- Título: Aplicar solução semântica para clones visuais
+- Objetivo: Preservar visual e remover duplicação semântica.
+- Arquivos prováveis: `src/components/sobre/origin/OriginComponents.tsx`
+- Pré-condições: T07 concluída.
+- Passos: manter desktop `h2 data-origin-title`; trocar mobile `m.h2` por `m.div` ou `m.span`; adicionar `aria-hidden="true"` no clone visual; manter classes e motion permitida.
+- Validação: DOM contém só 1 heading semântico por título Origem.
+- Critério de aceite: visual mobile permanece; accessibility tree não expõe clone visual.
+- Risco: alterar espaçamento por troca de elemento.
 
-## FASE P0-GS — Ghost System (Bloqueadores Arquiteturais)
+## T09
 
-### Task P0-GS1: Criar `src/components/motion/MotionLink.tsx`
+- ID: T09
+- Título: Validar console
+- Objetivo: Confirmar fim do ruído excessivo de URL.
+- Arquivos prováveis: `src/lib/supabase/urls.ts`, `src/components/sobre/sections/AboutOrigin.tsx`
+- Pré-condições: T05 concluída; app local rodando.
+- Passos: abrir `/sobre`; recarregar; observar console; contar logs `[SupabaseURL] checking:`.
+- Validação: sem loop repetitivo de checks para as 4 imagens Origem.
+- Critério de aceite: logs inexistentes ou limitados a chamadas esperadas, sem repetição contínua.
+- Risco: logs vindos de outros assets mascararem resultado.
 
-- **Responsável:** Motion Governance Specialist
-- **Arquivo destino:** `src/components/motion/MotionLink.tsx`
-- **Pré-condição:** Aprovação humana recebida
-- **Requisitos do componente:**
-  - Wrapper de `next/link` com suporte a animações Motion (opacity, blur, translateY)
-  - Preservar atributos `prefetch`, `scroll`, `replace` do Next.js
-  - Aceitar `MotionProps` para `whileHover`, `animate`, `initial`, `transition`
-  - Easing padrão: `GHOST_EASE` (`[0.22, 1, 0.36, 1]`) de `@/config/motion`
-  - Exportação nomeada: `export const MotionLink`
-- **Validação:** Componente renderiza sem erros, preserva prefetch (verificar Network tab)
+## T10
 
-### Task P0-GS2: Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx`
+- ID: T10
+- Título: Validar DOM e accessibility tree
+- Objetivo: Provar headings e `aria-hidden` corretos.
+- Arquivos prováveis: `src/components/sobre/origin/OriginComponents.tsx`, componentes de contato se aplicável
+- Pré-condições: T08 concluída; app local rodando.
+- Passos: inspecionar DOM; verificar `h1-h6`; verificar `[aria-hidden="true"]`; confirmar ausência de `a`, `button`, `input`, `select`, `textarea`, `[tabindex]` dentro de clones escondidos.
+- Validação: DOM e accessibility tree sem duplicata semântica indevida.
+- Critério de aceite: nenhum foco interativo dentro de árvore `aria-hidden`.
+- Risco: ferramenta de accessibility tree indisponível; registrar alternativa textual.
 
-- **Responsável:** Motion Governance Specialist
-- **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
-- **Linha alvo:** 67-78 (bloco `const LinkComponent = isExternalHref(...) ? m.a : m.button`)
-- **Pré-condição:** P0-GS1 concluído
-- **Passos:**
-  1. Substituir `m.button` por `MotionLink` para hrefs internos
-  2. Manter `m.a` para hrefs externos e `mailto:`/`tel:`
-  3. Garantir que `onClick` de navegação interna é removido (Next.js cuida do routing)
-- **Validação:**
-  - Navegação desktop funciona em `/`, `/sobre`, `/portfolio`, `/admin`
-  - Abertura em nova aba (Ctrl+Click) funciona
-  - Sem erros de console
+## T11
 
-### Task P0-GS3: Criar `src/lib/supabase/image-loader.ts`
+- ID: T11
+- Título: Validar build
+- Objetivo: Confirmar que mudanças não quebram pipeline local.
+- Arquivos prováveis: `package.json`, arquivos alterados
+- Pré-condições: T05, T06 e T08 concluídas.
+- Passos: executar `pnpm lint`; executar `pnpm run typecheck`; executar `pnpm build`; ler outputs.
+- Validação: comandos passam ou falhas pré-existentes ficam documentadas.
+- Critério de aceite: PASS confirmado ou limitação documentada com erro real.
+- Risco: build falhar por problema fora do escopo.
 
-- **Responsável:** Supabase Storage Specialist
-- **Arquivo destino:** `src/lib/supabase/image-loader.ts`
-- **Pré-condição:** Aprovação humana recebida
-- **Requisitos:**
-  - Loader para `next/image` usando Supabase Image Transform API
-  - URL pattern: `<base>/storage/v1/render/image/public/<bucket>/<path>?width=<w>&quality=<q>`
-  - Fallback para URL original se transform não disponível
-  - Manter compatibilidade com `remotePatterns` do `next.config.mjs`
-- **Decisão pendente (P0-GS3a):** Referenciar loader em `next.config.mjs` (`images.loader`) ou usar como prop em componentes individuais
-- **Validação:** `next/image` serve imagens do Supabase com parâmetros de transform na URL
+## T12
 
----
-
-## FASE P1-GS — Ghost System (Melhorias)
-
-### Task P1-GS1: Corrigir `rotate` em `CategoryStripe.tsx`
-
-- **Responsável:** Motion Governance Specialist
-- **Arquivo:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
-- **Linha:** 163 — `rotate: isHovered ? 0 : -45`
-- **Pré-condição:** Aprovação humana recebida
-- **Opções de substituição:**
-  - A) Substituir por `translateX` (ex: seta se move horizontalmente — affordance mantido)
-  - B) Substituir o ícone por um que não requer rotação (ex: `ArrowRight` vs `ArrowUpRight`)
-  - C) Documentar como "regra superior explícita" e manter (requer entrada em GHOST-DESIGN-SYSTEM.md)
-- **Recomendação:** Opção A ou B, dependendo do design do componente
-- **Validação:** Sem uso de `rotate` no bloco de animação do componente
-
-### Task P1-GS2: Referenciar `image-loader` em `next.config.mjs`
-
-- **Responsável:** Next.js Architect
-- **Pré-condição:** P0-GS3 concluído e testado
-- **Passos:**
-  1. Importar `imageLoader` do novo arquivo
-  2. Adicionar `images.loader: 'custom'` e `images.loaderFile: './src/lib/supabase/image-loader.ts'`
-- **Validação:** Build completo sem erros, imagens servidas com transform URL
-
-### Task P1-GS3: Validar altura de cards em `FeaturedProjectsSection.tsx`
-
-- **Responsável:** QA Visual
-- **Arquivo:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
-- **Passos:**
-  1. Comparar altura atual com spec em `.context/DOCS-PORTFOLIO-PAGES/01-HOME`
-  2. Validar responsividade em mobile (375px), tablet (768px), desktop (1440px)
-- **Validação:** Screenshots comparados com spec visual
-
-### Task P1-GS4: Auditar estado ativo no Header
-
-- **Responsável:** QA Visual + Motion Specialist
-- **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
-- **Passos:**
-  1. Verificar se link da rota atual tem estilo de "ativo" diferenciado
-  2. Usar `usePathname()` do Next.js se não implementado
-- **Validação:** Link ativo visualmente destacado em todas as rotas
-
----
-
-## FASE P2 — Validação Final
-
-### Task P2-V1: Build check completo
-
-- **Comando:** `pnpm run build-check`
-- **Critério:** Zero erros de TypeScript e lint
-
-### Task P2-V2: Verificar contagem de arquivos rastreados
-
-- **Comando:** `git ls-files | wc -l`
-- **Critério:** < 5.500 (sem remover skills) ou < 4.000 (com remoção de skills)
-
-### Task P2-V3: Gerar walkthrough.md final
-
-- **Conteúdo:** Alterações realizadas, arquivos modificados, pendências, plano de rollback
-- **Local:** `docs/walkthrough-audit-2026-05-17.md` (mover da raiz para docs/)
-
-### Task P2-V4: Atualizar `.context/` com novo estado
-
-- **Arquivos a atualizar:** `.context/active_state.md`, `.context/knowledge-graph.md`
-
----
-
-## Checklist de Aprovação
-
-- [ ] Aprovação humana explícita recebida ("Aprovado" ou "Proceed")
-- [ ] Branch `claude/exciting-thompson-7tJ75` criada/atualizada
-- [ ] P0-G1 a P0-G4 executados
-- [ ] P0-GS1 e P0-GS2 executados
-- [ ] P0-GS3 executado (loader Supabase)
-- [ ] P1-GS1 executado (rotate removido)
-- [ ] Build-check passando
-- [ ] PR criado como draft
+- ID: T12
+- Título: Gerar `walkthrough.md`
+- Objetivo: Registrar evidências finais e riscos.
+- Arquivos prováveis: `walkthrough.md`, `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/03-ORIGEM-CRIATIVA/03-ORIGEM-CRIATIVA.md` se update for necessário
+- Pré-condições: T09-T11 concluídas.
+- Passos: listar arquivos alterados; registrar URLs finais das imagens; registrar console/network; registrar DOM/a11y; registrar lint/typecheck/build; registrar decisão sobre `.context/DOCS-PORTFOLIO-PAGES`.
+- Validação: `walkthrough.md` cobre Definition of Done.
+- Critério de aceite: handoff completo com evidências e riscos remanescentes.
+- Risco: documentar sucesso sem evidência real; proibido.

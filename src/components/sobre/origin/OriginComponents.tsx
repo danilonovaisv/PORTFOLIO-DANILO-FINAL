@@ -33,7 +33,8 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
       <div className="space-y-6 lg:hidden">
         {/* Text Content - Mobile */}
         <div className="text-center px-4">
-          <m.h2
+          <m.div
+            aria-hidden="true"
             initial={
               prefersReducedMotion
                 ? { opacity: 0 }
@@ -53,7 +54,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             className="text-h2 font-bold text-bluePrimary mb-4"
           >
             {block.title}
-          </m.h2>
+          </m.div>
 
           <m.p
             initial={

@@ -3,8 +3,7 @@
 import { useRef } from 'react';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
-import { ORIGIN_CONTENT, FallbackImage } from '@/components/sobre/origin/data';
+import { ORIGIN_CONTENT } from '@/components/sobre/origin/data';
 import {
   OriginInfoBlock,
   OriginStickyGallery,
@@ -18,33 +17,30 @@ export function AboutOrigin() {
   const archRightRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
 
-  const resolveFallbackHost = (path: FallbackImage) =>
-    buildSupabaseStorageUrl('site-assets', path) ?? undefined;
-
   // Resolver cada imagem separadamente para seguir as regras de hooks
   const originImage1 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[0],
-      resolveFallbackHost(ORIGIN_CONTENT[0].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[0].fallback);
+      ORIGIN_CONTENT[0].fallback
+    ) ?? ORIGIN_CONTENT[0].fallback;
 
   const originImage2 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[1],
-      resolveFallbackHost(ORIGIN_CONTENT[1].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[1].fallback);
+      ORIGIN_CONTENT[1].fallback
+    ) ?? ORIGIN_CONTENT[1].fallback;
 
   const originImage3 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[2],
-      resolveFallbackHost(ORIGIN_CONTENT[2].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[2].fallback);
+      ORIGIN_CONTENT[2].fallback
+    ) ?? ORIGIN_CONTENT[2].fallback;
 
   const originImage4 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[3],
-      resolveFallbackHost(ORIGIN_CONTENT[3].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[3].fallback);
+      ORIGIN_CONTENT[3].fallback
+    ) ?? ORIGIN_CONTENT[3].fallback;
 
   const contentBlocks = [
     { ...ORIGIN_CONTENT[0], img: originImage1, priority: true },

@@ -54,13 +54,15 @@ Narrar trajetória criativa em capítulos, com memória visual progressiva e lei
 
 ## 6. Acessibilidade & SEO
 
-- Uso de headings por bloco.
+- Uso de um heading semântico por bloco.
+- Clones visuais mobile dos títulos ficam fora da árvore acessível com `aria-hidden="true"` e não contêm elementos focáveis.
 - Imagens com `alt` derivado do título do bloco.
 - Boa legibilidade de texto sobre fundo escuro.
 
 ## 7. Integrações ou Recursos Especiais
 
-- Imagens em tempo real via `useSiteAssetUrl` + fallback Supabase.
+- Imagens em tempo real via `useSiteAssetUrl` + fallback local determinístico em `/site.assets/about/origin/`.
+- Registros `about.origin.about.origin_image.N` são normalizados para URL local na página, evitando loop ruidoso de fallback Supabase.
 - Scroll animation complexa com `gsap.matchMedia`.
 
 ## 8. Considerações Técnicas
@@ -99,3 +101,9 @@ Narrar trajetória criativa em capítulos, com memória visual progressiva e lei
   - `src/components/sobre/origin/data.ts` foi corrigido para “arte com estratégia”.
 - Conformidade forte:
   - Pin da galeria e reveal com máscara estão alinhados ao comportamento esperado.
+
+## 13. Ajuste operacional — 2026-05-18
+
+- As 4 imagens de Origem usam fallback local `/site.assets/about/origin/about.origin_image.N.webp`.
+- `assetKey` foi alinhado ao padrão `about.origin.about.origin_image.N`.
+- Validação local confirmou imagens `200`, ausência de logs `[SupabaseURL] checking:` para `/about/origin/`, e uma única heading semântica por título de bloco.

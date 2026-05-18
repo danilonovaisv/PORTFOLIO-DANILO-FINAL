@@ -1,192 +1,306 @@
-# Implementation Plan — Ghost System Audit (2026-05-17)
+# Correção `/sobre`: Origem, Texto Híbrido, Headings
 
-> **Role:** Repo Architect + Ghost Design System Guardian
-> **Status:** Planning Phase — Aguardando aprovação humana
-> **Data:** 2026-05-17
-> **Gerado por:** ghost-audit pipeline
+## 1. Resumo executivo
 
----
+Corrigir 3 bugs na rota `/sobre` com mudança mínima e reversível:
 
-## Resumo Executivo
+- As 4 imagens da seção “ORIGEM” devem carregar de forma determinística.
+- A string híbrida `Design with propósito, não só beleza` deve virar `Design com propósito, não só beleza` na fonte de verdade.
+- Headings duplicados devem manter visual intacto, mas expor apenas uma representação semântica por título.
 
-O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` exibe o aviso de truncamento do GitHub ("1 entries were omitted") como consequência direta de **12.281 arquivos rastreados no git**, número anômalo para um projeto Next.js de portfólio. A causa raiz é multifatorial: cache npm binário comitado, skill library de 6.346 arquivos rastreada, arquivos temporários de trabalho na raiz, diretórios de ferramentas AI duplicados, e ausência de entradas críticas no `.gitignore`.
+A execução não altera bucket, permissões Supabase, Firebase Hosting, deploy, dependências ou arquitetura global.
 
-Paralelamente, a auditoria do Ghost Design System identificou violações de motion (uso proibido de `rotate`), ausência de dois primitivos arquiteturais (`MotionLink` e `image-loader.ts`), e o uso de `m.button` para navegação interna no Header Desktop — quebrando o prefetch do Next.js.
+## 2. Escopo e não escopo
 
----
+Escopo:
 
-## Diagnóstico Detalhado
+- Ajustar resolução/fallback das imagens da seção “ORIGEM”.
+- Alinhar asset keys usadas por `AboutOrigin` e `DynamicAssetImage`.
+- Corrigir texto híbrido em `ABOUT_CONTENT`.
+- Corrigir clones visuais de headings com semântica acessível.
+- Gerar `walkthrough.md` após validação.
+- Verificar se `.context/DOCS-PORTFOLIO-PAGES` precisa update.
 
-### 1. Incidente GitHub — Truncamento de Diretório
+Não escopo:
 
-| Causa                         | Diretório / Arquivo                                                                                                   | Arquivos Comitados | Severidade |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| Cache npm binário             | `functions/.npm_cache/`                                                                                               | **2.759**          | CRÍTICA    |
-| Skill library de agente       | `.agent/skills/`                                                                                                      | **6.346**          | ALTA       |
-| Relatórios e backups          | `reports/`                                                                                                            | 523                | MÉDIA      |
-| Artefatos temporários na raiz | `*.txt`, `walkthrough.md`, `task.md`, `implementation_plan.md`, `WEEKLY_AUDIT_REPORT.md`                              | ~8                 | MÉDIA      |
-| Output de testes Playwright   | `output/`                                                                                                             | 12                 | BAIXA      |
-| Output gerado (graphify)      | `graphify-out/`                                                                                                       | 47                 | BAIXA      |
-| Diretórios de ferramentas AI  | `.zencoder`, `.junie`, `.goose`, `.factory`, `.crush`, `.continue`, `.commandcode`, `.codebuddy`, `.augment`, `.qwen` | ~130               | BAIXA      |
-| Cache Firebase                | `.firebase-cache/`                                                                                                    | 4                  | BAIXA      |
-| Arquivos de migração Supabase | `supabase-asset-migrate/`                                                                                             | 17                 | BAIXA      |
-| Scratch area                  | `scratch/`                                                                                                            | 16                 | BAIXA      |
+- Alterar política ou visibilidade do bucket `site-assets`.
+- Usar `SUPABASE_SERVICE_ROLE_KEY` no browser.
+- Trocar loader global do Next.js.
+- Alterar Firebase Hosting, headers, adapters ou deploy.
+- Reescrever componentes inteiros.
+- Introduzir dependência nova.
 
-**Diagnóstico do `.gitignore` atual:**
+## 3. Mapa dos arquivos analisados
 
-- `functions/.npm_cache/` **não está listado** (apenas `.npm_cache_local/` está coberto).
-- `functions/.gitignore` não ignora `functions/.npm_cache/`.
-- Arquivos `.txt` na raiz e arquivos de trabalho (`walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`) não cobertos.
-- `graphify-out/`, `output/`, `scratch/` não cobertos.
-- Diretórios de ferramentas AI (`.zencoder`, `.junie` etc.) não cobertos.
+- `AGENTS.md`: regras do projeto, pnpm, Ghost System, SSOT e validação.
+- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/03-ORIGEM-CRIATIVA/03-ORIGEM-CRIATIVA.md`: contrato local da seção Origem.
+- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md`: referência de conteúdo, assets e texto correto do Processo Criativo.
+- `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/assets-site.json`: inventário local dos assets `about.origin.about.origin_image.N`.
+- `.context/GHOST-DESIGN-SYSTEM.md`: tokens, easing e restrições visuais.
+- `src/config/content.ts`: fonte do texto híbrido e conteúdo antigo da Origem.
+- `src/config/site-assets.ts`: keys públicas dos assets da seção Origem.
+- `src/config/site-assets.json`: snapshot local de asset records.
+- `src/components/sobre/sections/AboutOrigin.tsx`: monta URLs e injeta imagens na seção Origem.
+- `src/components/sobre/origin/data.ts`: fonte atual dos blocos da seção Origem.
+- `src/components/sobre/origin/OriginComponents.tsx`: renderiza headings mobile/desktop e imagens.
+- `src/components/ui/shared/DynamicAssetImage.tsx`: renderiza `next/image` com `supabaseLoader`.
+- `src/contexts/site-assets.tsx`: resolve assets do provider e fallbacks locais.
+- `src/lib/supabase/urls.ts`: normaliza caminhos e constrói URLs Supabase.
+- `src/lib/utils.ts`: loader e fallback local `/site.assets`.
+- `next.config.mjs`: `images.remotePatterns` para `/object/public` e `/render/image/public`.
+- `firebase.json`: Hosting sem necessidade de alteração para esta correção.
+- `public/site.assets/about/origin/*.webp`: fallback local existente das 4 imagens.
 
-**Exposição de secrets:** Nenhuma chave real detectada nos arquivos rastreados. As ocorrências retornadas pela busca pertencem a documentação de skills (`.agent/skills/`) sobre gestão de secrets, não a credenciais reais. Risco de exposição: BAIXO. Recomenda-se executar `git secret scan` ou `gitleaks` como validação adicional.
+## 4. Diagnóstico por erro
 
-**Nota sobre `.agent/skills`:** A biblioteca de 6.346 skills é conteúdo editorial/documentação do agente. A decisão de manter no git é legítima, mas representa o maior vetor de crescimento de tamanho do repositório. Proposta: mover para submodule ou `.gitignore` com instrução de install separado.
+### 4.1 Imagens quebradas em “ORIGEM”
 
----
+As imagens são declaradas em dois lugares:
 
-### 2. Ghost Design System — Violações Identificadas
+- `src/components/sobre/origin/data.ts` declara `fallback` e `assetKey`.
+- `src/config/site-assets.ts` declara `SITE_ASSET_KEYS.about.originImages`.
 
-#### 2.1 Motion Proibido — `CategoryStripe.tsx`
+O componente renderizador é:
 
-```
-Arquivo: src/components/home/portfolio-showcase/CategoryStripe.tsx
-Linha: 163
-Violação: rotate: isHovered ? 0 : -45
-Regra Ghost: Motion proibido inclui rotate (exceto com regra superior explícita)
-```
+- `src/components/sobre/sections/AboutOrigin.tsx`, que chama `useSiteAssetUrl(...)`.
+- `src/components/sobre/origin/OriginComponents.tsx`, que passa `assetKey`, `fallbackUrl` e `sizes` para `DynamicAssetImage`.
 
-**Trade-off:** A seta usa `rotate` para indicar direção (affordance direcional). A substituição por `translateX` (permitido se documentado) ou ícone alternativo precisa manter a legibilidade do affordance.
+Problema principal:
 
-#### 2.2 Componente Ausente — `MotionLink`
+- `ORIGIN_CONTENT.assetKey` usa `about.origin_image.N`.
+- `SITE_ASSET_KEYS.about.originImages` usa `about.origin.about.origin_image.N`.
+- Inventários locais mostram ambos os formatos em lugares diferentes, mas `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/assets-site.json` usa `about.origin.about.origin_image.N`.
+- `AboutOrigin.tsx` constrói fallback com `buildSupabaseStorageUrl`, gerando URL remota Supabase.
+- `useSiteAssetUrl` retorna fallback HTTP como está, sem converter para `/site.assets`.
+- `buildSupabaseStorageUrl` chama `debugUrl`, gerando logs `[SupabaseURL] checking:` em development.
 
-```
-Diagnóstico: Não existe src/components/motion/MotionLink.tsx
-Impacto: Navegação interna usa m.button (quebra prefetch Next.js) ou next/link puro (sem motion)
-Afetado: DesktopFluidHeader.tsx:67-78 (m.button para items internos)
-```
+Arquivos existem localmente:
 
-**Solução proposta:** `MotionLink` como wrapper de `next/link` com `m()` ou `AnimatePresence`, preservando prefetch e scroll behavior do App Router.
+- `public/site.assets/about/origin/about.origin_image.1.webp`
+- `public/site.assets/about/origin/about.origin_image.2.webp`
+- `public/site.assets/about/origin/about.origin_image.3.webp`
+- `public/site.assets/about/origin/about.origin_image.4.webp`
 
-#### 2.3 Ausente — `src/lib/supabase/image-loader.ts`
+Config Next.js:
 
-```
-Diagnóstico: Arquivo não existe. O next.config.mjs usa remotePatterns com a rota
-/storage/v1/render/image/public/** (Supabase Image Transform API) mas não há
-loader customizado que aproveite os parâmetros width/quality via transform URL.
-```
+- `next.config.mjs` já permite `umkmwbkwvulxtdodzmzf.supabase.co`.
+- Paths remotos permitidos incluem `/storage/v1/object/public/**` e `/storage/v1/render/image/public/**`.
 
-**Situação atual:** Next.js `<Image>` usa o optimizer interno, que faz um round-trip desnecessário se o Supabase já pode servir imagens redimensionadas via `?width=&quality=`. Não é bug crítico, mas é ineficiência de performance.
+### 4.2 Texto híbrido
 
-#### 2.4 Header Desktop — Navegação sem Prefetch
+Origem confirmada:
 
-```
-Arquivo: src/components/layout/header/DesktopFluidHeader.tsx:67-68
-Problema: const LinkComponent = isExternalHref(...) ? m.a : m.button
-m.button não é um link — não aciona prefetch nem navegação declarativa do Next.js
-```
+- `src/config/content.ts`
+- `ABOUT_CONTENT.method.steps[2].text`
+- Valor atual: `Design with propósito, não só beleza`
+- Valor correto: `Design com propósito, não só beleza`
 
-**Impacto:** Links de navegação interna no desktop header são buttons, não âncoras, o que quebra abertura em nova aba, bot crawling, e SEO.
+### 4.3 Headings duplicados
 
-#### 2.5 Cor Vermelha — Status
+Origem confirmada:
 
-```
-Resultado da auditoria: Nenhuma violação real detectada.
-O grep retornou matches de nomes de variável (featured_on_home) onde "red" é substring.
-#E50914 não está em uso fora de contextos de erro/alerta (conforme permitido).
-```
+- `src/components/sobre/origin/OriginComponents.tsx`
 
----
+Duplicação:
 
-## Matriz de Prioridades
+- Mobile renderiza `m.h2`.
+- Desktop renderiza `h2 data-origin-title`.
+- CSS esconde por breakpoint, mas DOM mantém duas headings por bloco.
 
-### P0 — GitHub & Higiene (Deve ser feito antes do próximo commit/deploy)
+Solução:
 
-| ID    | Ação                                                                                     | Risco de Execução | Reversível   |
-| ----- | ---------------------------------------------------------------------------------------- | ----------------- | ------------ |
-| P0-G1 | Adicionar `functions/.npm_cache/` ao `.gitignore`                                        | ZERO              | Sim          |
-| P0-G2 | Remover `functions/.npm_cache/` do tracking git (`git rm -r --cached`)                   | BAIXO             | Sim (re-add) |
-| P0-G3 | Adicionar arquivos temporários de raiz ao `.gitignore` (`*.txt`, `walkthrough.md`, etc.) | ZERO              | Sim          |
-| P0-G4 | Remover arquivos de trabalho da raiz do tracking                                         | BAIXO             | Sim          |
-| P0-G5 | Adicionar diretórios de output ao `.gitignore` (`output/`, `graphify-out/`, `scratch/`)  | ZERO              | Sim          |
-| P0-G6 | Decisão estratégica sobre `.agent/skills` (submodule vs keep vs gitignore)               | MÉDIO             | Depende      |
+- Manter desktop como heading semântico.
+- Trocar heading mobile visual para elemento não-heading com `aria-hidden="true"`.
+- Não adicionar `aria-hidden` em elemento focável nem ancestral de foco.
 
-### P0 — Ghost System (Bloqueadores arquiteturais)
+`contato` ainda deve ser auditado na execução. Fontes prováveis:
 
-| ID     | Ação                                                               | Complexidade | Regressão Esperada       |
-| ------ | ------------------------------------------------------------------ | ------------ | ------------------------ |
-| P0-GS1 | Criar `src/components/motion/MotionLink.tsx`                       | BAIXA        | Nenhuma (novo arquivo)   |
-| P0-GS2 | Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx` | BAIXA        | Testar navegação desktop |
-| P0-GS3 | Criar `src/lib/supabase/image-loader.ts` (Supabase Transform)      | MÉDIA        | Testar todas as imagens  |
+- `src/config/content.ts`
+- `src/config/navigation.ts`
+- componentes de header/footer/contact.
 
-### P1 — Ghost System (Melhorias não bloqueadoras)
+## 5. Hipóteses validadas e descartadas
 
-| ID     | Ação                                                                               | Complexidade | Regressão Esperada       |
-| ------ | ---------------------------------------------------------------------------------- | ------------ | ------------------------ |
-| P1-GS1 | Corrigir `rotate` em `CategoryStripe.tsx:163` (substituir por translateX ou ícone) | BAIXA        | Testar affordance visual |
-| P1-GS2 | Decidir loader do `next.config.mjs` (referência ao image-loader após P0-GS3)       | BAIXA        | Após P0-GS3              |
-| P1-GS3 | Validar altura dos cards em `FeaturedProjectsSection.tsx` contra spec              | BAIXA        | Nenhuma                  |
-| P1-GS4 | Auditar estado ativo no Header (link corrente vs outros)                           | BAIXA        | Nenhuma                  |
+Validadas:
 
----
+- Assets locais existem em `public/site.assets/about/origin/`.
+- `next.config.mjs` já cobre host Supabase e endpoints object/render.
+- Texto híbrido está em constante TypeScript.
+- Headings Origem duplicam por render mobile + desktop.
+- Bucket `site-assets` é documentado como público em `supabase/schemas/02_security.sql` e migrations locais.
 
-## Trade-offs e Decisões Pendentes
+Descartadas por enquanto:
 
-### Decisão 1: `.agent/skills` — Keep vs Submodule vs Gitignore
+- Necessidade de nova dependência.
+- Necessidade de alterar Firebase Hosting.
+- Necessidade de service role key no browser.
+- Necessidade de mudar política do bucket.
+- Necessidade de trocar todo `DynamicAssetImage`.
 
-- **Keep (status quo):** 6.346 arquivos no repo. Fácil acesso, mas repositório pesado.
-- **Submodule:** Isola a skill library, preserva histórico separado. Complexidade de manutenção aumenta.
-- **Gitignore + README de install:** Remove do repo, instrução de clone separado. Mais limpo, mas requer disciplina de setup.
+Ainda a validar após aprovação:
 
-**Recomendação:** Submodule se o histórico for crítico; gitignore + README se a library for importada de repo próprio (`.agents/` sugere que já existe um repo central).
+- Se as URLs Supabase remotas retornam `200` em Network.
+- Se o provider `/api/site-assets` entrega keys com prefixo `about.origin.about.origin_image.N`.
+- Se existe duplicação real de heading `contato` na página `/sobre`.
 
-### Decisão 2: Image Loader Strategy
+## 6. Decisão arquitetural recomendada
 
-- **Opção A:** Loader customizado que usa Supabase Transform API (`/render/image/public/`). Elimina round-trip via Next.js.
-- **Opção B:** Manter `remotePatterns` atual com optimizer do Next.js. Mais simples, sem risco de regressão.
+Aplicar correção local, pequena e determinística:
 
-**Recomendação:** Opção A para produção (performance), Opção B aceitável se latência atual for abaixo de 200ms LCP contribution.
+- Usar `/site.assets/about/origin/about.origin_image.N.webp` como fallback local de Origem.
+- Alinhar `ORIGIN_CONTENT.assetKey` ao formato `SITE_ASSET_KEYS.about.originImages`.
+- Remover construção de fallback remoto em `AboutOrigin.tsx`.
+- Corrigir apenas a constante de conteúdo.
+- Transformar headings mobile duplicados em texto visual não semântico.
 
----
+Motivo:
 
-## Comandos Propostos (Aguardando aprovação)
+- Reduz dependência de rede para fallback.
+- Evita loop/log excessivo.
+- Preserva realtime asset override quando provider Supabase tiver public URL válida.
+- Não mexe em bucket, permissões, deploy ou config global.
 
-```bash
-# P0-G1: Atualizar .gitignore
-# (adicionar entradas: functions/.npm_cache/, output/, graphify-out/, scratch/, *.txt na raiz)
+## 7. Estratégia Supabase Storage
 
-# P0-G2: Remover cache do tracking (NÃO executa agora — aguarda aprovação)
-# git rm -r --cached functions/.npm_cache/
-# git rm --cached typecheck_fresh.txt tsc_output_current_v2.txt tsc_output_current.txt typecheck_output_new.txt knip_report.txt
+Manter Supabase como fonte remota quando `SiteAssetsProvider` entregar asset válido.
 
-# P0-GS1: Criar MotionLink
-# touch src/components/motion/MotionLink.tsx
+Fallback local:
 
-# Build check após execução:
-# pnpm run build-check
-```
+- Se provider falhar, usar `/site.assets/about/origin/about.origin_image.N.webp`.
+- Não chamar `buildSupabaseStorageUrl` para fallback de Origem.
 
----
+Política documentada:
 
-## Critérios de Sucesso
+- URLs públicas sem transform devem usar `/storage/v1/object/public/site-assets/...`.
+- URLs transformadas podem usar `/storage/v1/render/image/public/site-assets/...` quando há parâmetros de transformação e plano suporta Image Transformations.
+- Não alterar permissões do bucket.
+- Não usar signed URL para assets públicos da página.
+- Não expor secrets.
 
-1. `git ls-files | wc -l` < 4.000 (após remoção de npm_cache e temporários)
-2. GitHub não exibe aviso de truncamento no diretório raiz
-3. Nenhum erro de TypeScript ou lint introduzido
-4. `pnpm run build-check` passa sem erros
-5. Navegação interna no Header Desktop usa `next/link` (prefetch ativo)
-6. `CategoryStripe.tsx` sem `rotate` em propriedades de motion
-7. Sem secrets expostos (validado por gitleaks ou equivalente)
+## 8. Estratégia Next.js image rendering
 
----
+Manter `DynamicAssetImage` com `next/image` e `supabaseLoader`.
 
-## Plano de Rollback
+Com fallback local:
 
-- Todos os `git rm --cached` são reversíveis com `git checkout HEAD -- <arquivo>` ou `git add <arquivo>` antes do commit.
-- Nenhuma alteração de código fonte antes da aprovação.
-- Branch de trabalho recomendada: `claude/exciting-thompson-7tJ75` (já designada).
+- `src` local `/site.assets/...` passa pelo loader e retorna local sem Supabase.
+- `remotePatterns` continua cobrindo Supabase para public URLs reais.
+- `sizes` existentes permanecem.
+- `priority` existente permanece.
 
----
+Não alterar:
 
-_Aguardando aprovação explícita ("Aprovado" ou "Proceed") para iniciar Fase 4: Execution._
+- `next.config.mjs`
+- loader global
+- Firebase image optimization
+
+## 9. Estratégia de acessibilidade e SEO
+
+Origem:
+
+- Desktop `h2 data-origin-title` fica único heading semântico por bloco.
+- Mobile clone visual vira `m.div` ou `m.span` com `aria-hidden="true"`.
+- Clone visual não terá `tabIndex`, links, botões, inputs ou elementos focáveis.
+
+Contato:
+
+- Auditar DOM real antes de alterar.
+- Se duplicação vier de clone visual, aplicar `aria-hidden="true"` no clone visual.
+- Se duplicação vier de navegação/header/footer, não esconder links ou ancestrais interativos.
+
+Regra:
+
+- `aria-hidden="true"` nunca em elemento focável.
+- `aria-hidden="true"` nunca em ancestral de elemento focável.
+- Não esconder conteúdo único.
+- Preservar ordem lógica de headings.
+
+## 10. Estratégia de correção de conteúdo
+
+Editar somente:
+
+- `src/config/content.ts`
+
+Substituição:
+
+- De: `Design with propósito, não só beleza`
+- Para: `Design com propósito, não só beleza`
+
+Não duplicar o texto em componente, JSON ou docs de runtime.
+
+## 11. Riscos e mitigação
+
+- Risco: provider remoto pode entregar public URL inválida e sobrepor fallback local.
+  - Mitigação: validar Network; se necessário, limitar fallback determinístico no `DynamicAssetImage` com onError em tarefa separada.
+
+- Risco: mudar assetKey quebra realtime asset lookup.
+  - Mitigação: usar o mesmo formato de `SITE_ASSET_KEYS.about.originImages` e inventário `.context`.
+
+- Risco: trocar mobile heading para `div` altera CSS default.
+  - Mitigação: manter mesmas classes visuais.
+
+- Risco: heading `contato` duplicado pode estar em navegação.
+  - Mitigação: auditar DOM antes de aplicar `aria-hidden`; não esconder links.
+
+- Risco: build pode falhar por problemas pré-existentes.
+  - Mitigação: registrar output e separar regressão de baseline em `walkthrough.md`.
+
+## 12. Rollback
+
+Rollback por arquivos:
+
+- Reverter alterações em `src/components/sobre/sections/AboutOrigin.tsx`.
+- Reverter alterações em `src/components/sobre/origin/data.ts`.
+- Reverter alterações em `src/components/sobre/origin/OriginComponents.tsx`.
+- Reverter alteração em `src/config/content.ts`.
+- Remover `walkthrough.md` se criado nesta execução.
+
+Sem rollback Supabase/Firebase porque não haverá mudança externa.
+
+## 13. Plano de validação
+
+Executar após aprovação e implementação:
+
+- `pnpm lint`
+- `pnpm run typecheck`
+- `pnpm build`
+- Teste local `/sobre` desktop.
+- Teste local `/sobre` mobile.
+- Inspeção de Console: confirmar ausência de loop excessivo `[SupabaseURL] checking:`.
+- Inspeção Network: confirmar 4 imagens Origem `200`.
+- Inspeção DOM: confirmar headings alvo com representação semântica única.
+- Inspeção accessibility tree quando possível.
+- Verificar se `.context/DOCS-PORTFOLIO-PAGES` precisa update.
+
+## 14. Definition of Done
+
+- 4 imagens da seção “ORIGEM” carregam corretamente.
+- Não há loop excessivo de `[SupabaseURL] checking:`.
+- Política Supabase path documentada em `walkthrough.md`.
+- String `Design with propósito` não existe mais no código fonte.
+- Página exibe `Design com propósito, não só beleza`.
+- Cada heading investigado tem única representação semântica.
+- Clones visuais estão com `aria-hidden="true"`.
+- Nenhum foco interativo fica dentro de árvore `aria-hidden`.
+- Visual Ghost Design permanece intacto.
+- Motion permanece em opacity, blur, translateY; sem scale, rotate, bounce adicionados.
+- `pnpm lint`, `pnpm run typecheck` e `pnpm build` passam ou limitações ficam documentadas.
+- `walkthrough.md` lista arquivos alterados, evidências e riscos remanescentes.
+- `.context/DOCS-PORTFOLIO-PAGES` foi verificado para necessidade de update.
+
+## 15. Evidências esperadas no `walkthrough.md`
+
+`walkthrough.md` deve conter:
+
+- Arquivos alterados.
+- Antes/depois das URLs das 4 imagens.
+- Resultado de Network para cada imagem.
+- Resultado de busca por `Design with propósito`.
+- Resultado de DOM/a11y para headings Origem.
+- Resultado da auditoria de `contato`.
+- Resultado de `pnpm lint`.
+- Resultado de `pnpm run typecheck`.
+- Resultado de `pnpm build`.
+- Screenshots ou evidência textual da seção “ORIGEM”.
+- Nota sobre `.context/DOCS-PORTFOLIO-PAGES`.
+- Riscos remanescentes.

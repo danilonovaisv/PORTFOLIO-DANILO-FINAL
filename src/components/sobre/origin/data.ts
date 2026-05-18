@@ -11,10 +11,10 @@
  */
 
 export type FallbackImage =
-  | 'about/origin/about.origin_image.1.webp'
-  | 'about/origin/about.origin_image.2.webp'
-  | 'about/origin/about.origin_image.3.webp'
-  | 'about/origin/about.origin_image.4.webp';
+  | '/site.assets/about/origin/about.origin_image.1.webp'
+  | '/site.assets/about/origin/about.origin_image.2.webp'
+  | '/site.assets/about/origin/about.origin_image.3.webp'
+  | '/site.assets/about/origin/about.origin_image.4.webp';
 
 export interface OriginBlock {
   id: number;
@@ -28,9 +28,9 @@ export interface OriginBlock {
 }
 
 /**
- * Content blocks with fallback images stored in Supabase
+ * Content blocks with deterministic local fallbacks.
  * Each block represents a chapter in the origin story
- * Images base path: [SUPABASE_STORAGE]/site-assets/about/origin/
+ * Remote overrides still use SiteAssetsProvider via assetKey.
  */
 export const ORIGIN_CONTENT: OriginBlock[] = [
   {
@@ -43,9 +43,9 @@ não só no que aparecia.
 Enquanto muitos olhavam para o brilho imediato,
 eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.`,
-    fallback: 'about/origin/about.origin_image.1.webp',
+    fallback: '/site.assets/about/origin/about.origin_image.1.webp',
     textAlign: 'right',
-    assetKey: 'about.origin_image.1',
+    assetKey: 'about.origin.about.origin_image.1',
   },
   {
     id: 2,
@@ -59,9 +59,9 @@ Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
 Aos poucos, aquilo que era instinto virou direção.
 Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.`,
-    fallback: 'about/origin/about.origin_image.2.webp',
+    fallback: '/site.assets/about/origin/about.origin_image.2.webp',
     textAlign: 'left',
-    assetKey: 'about.origin_image.2',
+    assetKey: 'about.origin.about.origin_image.2',
   },
   {
     id: 3,
@@ -76,9 +76,9 @@ Descobri que o design verdadeiro não grita — ele conduz.
 Ele está presente nos detalhes que ninguém percebe,
 mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.`,
-    fallback: 'about/origin/about.origin_image.3.webp',
+    fallback: '/site.assets/about/origin/about.origin_image.3.webp',
     textAlign: 'right',
-    assetKey: 'about.origin_image.3',
+    assetKey: 'about.origin.about.origin_image.3',
   },
   {
     id: 4,
@@ -92,8 +92,8 @@ Minha trajetória uniu intuição com método, arte com estratégia.
 O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.`,
-    fallback: 'about/origin/about.origin_image.4.webp',
+    fallback: '/site.assets/about/origin/about.origin_image.4.webp',
     textAlign: 'left',
-    assetKey: 'about.origin_image.4',
+    assetKey: 'about.origin.about.origin_image.4',
   },
 ];

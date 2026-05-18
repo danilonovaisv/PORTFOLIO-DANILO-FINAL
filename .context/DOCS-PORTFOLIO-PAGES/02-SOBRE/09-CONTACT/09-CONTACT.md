@@ -46,6 +46,8 @@ Converter intenção em contato real, mantendo clareza e confiabilidade da inter
 
 ## 6. Acessibilidade & SEO
 
+- A seção usa `aria-labelledby="contact-heading"` com um único `h2` semântico `sr-only`.
+- Títulos visuais responsivos “contato” são clones `div aria-hidden="true"` sem elementos focáveis.
 - Labels explícitas nos campos.
 - `aria-invalid` e `aria-describedby` para erros.
 - Touch targets >= 48px nos elementos clicáveis.
