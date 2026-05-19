@@ -2,21 +2,12 @@
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": [
     "src/app/**/*.{js,jsx,ts,tsx}",
-    "src/pages/**/*.{js,jsx,ts,tsx}",
-    "src/middleware.ts",
-    "scripts/*.{js,ts}",
-    "tailwind.config.ts",
-    "next.config.mjs"
+    "scripts/**/*.{js,ts,cjs,mjs}"
   ],
-  "project": ["src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,ts}"],
+  "project": ["src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,ts,cjs,mjs}"],
   "ignore": [
-    "src/components/ui/**",
-    "src/dataconnect-generated/**",
-    "**/*.d.ts",
-    ".agent/**",
-    ".cache/**",
-    "artifacts/**"
+    "src/components/ui/**"
   ],
   "ignoreExportsUsedInFile": true,
-  "ignoreDependencies": ["postcss", "autoprefixer", "sharp"]
+  "ignoreDependencies": ["sharp"]
 }
