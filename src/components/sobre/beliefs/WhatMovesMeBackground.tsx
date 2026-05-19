@@ -1,7 +1,3 @@
-'use client';
-
-import { ShaderAnimation } from '@/components/ui/shader-lines';
-
 export function WhatMovesMeBackground() {
   return (
     <div
@@ -15,10 +11,7 @@ export function WhatMovesMeBackground() {
         overflow: 'hidden',
       }}
     >
-      {/* Layer 0: WebGL shader lines — contained to this section */}
-      <ShaderAnimation />
-
-      {/* Layer 1: Ghost Blue radial glow */}
+      {/* Ghost Blue radial glow */}
       <div
         style={{
           position: 'absolute',
@@ -32,7 +25,7 @@ export function WhatMovesMeBackground() {
         }}
       />
 
-      {/* Layer 2: grid lines */}
+      {/* Grid lines */}
       <div
         style={{
           position: 'absolute',
@@ -43,7 +36,7 @@ export function WhatMovesMeBackground() {
         }}
       />
 
-      {/* Layer 3: edge vignette */}
+      {/* Edge vignette */}
       <div
         style={{
           position: 'absolute',
