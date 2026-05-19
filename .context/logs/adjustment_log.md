@@ -1784,5 +1784,21 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 **Status:** Concluído.
 
+---
 
+## [2026-05-19T07:20] ♿ Skip Link Accessibility Correction (Page-Level landmark main)
 
+**Context:** Correção do Skip Link de acessibilidade no layout do projeto, que estava quebrado nas páginas de rotas de projetos individuais (`src/app/projects/[slug]/page.tsx`), pois a rota não possuía a landmark correspondente `<main id="main-content">`.
+
+**Changes Applied:**
+
+1. **`src/app/projects/[slug]/page.tsx` — Skip Link Target Fix** ✅
+   - Alterada a tag contêiner de `<div className="min-h-screen">` para `<main id="main-content" className="min-h-screen">`.
+   - Isso garante que a âncora `#main-content` definida no `layout.tsx` (Skip Link "Pular para o conteúdo") tenha um alvo válido e focalizável de forma nativa e sem erros nas páginas de detalhes do projeto.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` executado e aprovado com sucesso (**Exit Code 0**).
+- ✅ Suíte de testes unitários (`pnpm test`) executada e passando com sucesso (38 test suites, 265 tests passed).
+
+**Status:** Concluído.

@@ -32,7 +32,15 @@ export default function JsonLd({
   const baseUrl = `https://${BRAND.domain}`;
   const logo = toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl);
 
-  // Organization Schema (TASK-040: logo como string per Google Rich Results spec)
+  // Logo Image Object Schema to ensure structured data validation resolves '#logo'
+  const logoImageSchema = {
+    '@type': 'ImageObject',
+    '@id': `${baseUrl}/#logo`,
+    url: logo,
+    caption: `${BRAND.name} Logo`,
+  };
+
+  // Organization Schema
   const organizationSchema = {
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
@@ -40,8 +48,12 @@ export default function JsonLd({
     url: baseUrl,
     foundingDate: '2015',
     areaServed: 'BR',
-    logo: logo,
-    image: logo,
+    logo: {
+      '@id': `${baseUrl}/#logo`,
+    },
+    image: {
+      '@id': `${baseUrl}/#logo`,
+    },
     sameAs: [
       'https://github.com/danilonovaisv',
       'https://www.linkedin.com/in/danilonovaisv',
@@ -245,6 +257,7 @@ export default function JsonLd({
   }
 
   const graph = [
+    logoImageSchema,
     organizationSchema,
     personSchema,
     websiteSchema,

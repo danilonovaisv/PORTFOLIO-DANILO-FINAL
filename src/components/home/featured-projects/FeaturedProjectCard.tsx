@@ -128,7 +128,7 @@ export default function FeaturedProjectCard({
     <div className="flex h-full min-h-full w-full flex-1 flex-col">
       <div
         ref={frameRef}
-        className={`relative min-h-0 w-full flex-1 ${frameClassName ?? ''}`}
+        className={`relative min-h-0 w-full flex-1 flex flex-col items-stretch ${frameClassName ?? ''}`}
       >
         <FeaturedProjectCardFrame
           project={project}
@@ -176,7 +176,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full min-h-0 w-full rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+    'group flex flex-col h-full min-h-0 w-full rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
   if (isModalMode) {
     return (

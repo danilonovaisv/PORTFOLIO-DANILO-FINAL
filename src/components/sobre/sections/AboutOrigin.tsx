@@ -39,7 +39,7 @@ export function AboutOrigin() {
   );
 
   const contentBlocks = [
-    { ...ORIGIN_CONTENT[0], img: originImage1, priority: true },
+    { ...ORIGIN_CONTENT[0], img: originImage1, priority: false },
     { ...ORIGIN_CONTENT[1], img: originImage2, priority: false },
     { ...ORIGIN_CONTENT[2], img: originImage3, priority: false },
     { ...ORIGIN_CONTENT[3], img: originImage4, priority: false },
