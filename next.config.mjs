@@ -180,6 +180,8 @@ const createNextConfig = (phase) => ({
       bodySizeLimit: '32mb',
       allowedOrigins: [
         'https://portfoliodanilo.com',
+        'https://portfolio-danilo-novais.web.app',
+        'https://portfolio-danilo-novais.firebaseapp.com',
         'http://localhost:3000',
         'http://127.0.0.1:3000',
       ],

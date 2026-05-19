@@ -32,10 +32,18 @@ jobs:
             exit 1
           fi
 
-      - name: Validate Firebase secrets
+      - name: Validate required secrets
         run: |
           if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
             echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS"
+            exit 1
+          fi
+          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" ]; then
+            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_URL — build would use localhost fallback, breaking all Supabase assets in production."
+            exit 1
+          fi
+          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" ]; then
+            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_ANON_KEY — Supabase client will fail to initialize."
             exit 1
           fi
 
@@ -71,10 +79,9 @@ jobs:
 
       - name: Build application
         env:
-          VALIDATE_ENV_WARN_ONLY: 1
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'http://localhost:54321' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock_key' }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || 'mock_key' }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: pnpm run build
 
       - name: Install Firebase CLI
@@ -90,9 +97,8 @@ jobs:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
-          VALIDATE_ENV_WARN_ONLY: '1'
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'http://localhost:54321' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock_key' }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || 'mock_key' }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"

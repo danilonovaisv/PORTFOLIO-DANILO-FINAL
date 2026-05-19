@@ -148,7 +148,11 @@ export function buildSupabaseStorageUrl(
     !isNonTransformable && options
       ? '/storage/v1/render/image/public/'
       : '/storage/v1/object/public/';
-  let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${normalizedPath}`;
+  const encodedPath = normalizedPath
+    .split('/')
+    .map((segment) => encodeURIComponent(segment))
+    .join('/');
+  let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${encodedPath}`;
 
   if (!isNonTransformable && options) {
     const params = new URLSearchParams();
