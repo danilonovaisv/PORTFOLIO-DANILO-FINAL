@@ -196,5 +196,38 @@ for (const route of ROUTES) {
 
       expect(hydrationErrors).toHaveLength(0);
     });
+
+    test('shader canvas existe dentro da seção e não vaza para o documento', async ({
+      page,
+    }) => {
+      await expect(
+        page.locator(
+          '[data-testid="beliefs-section"] [data-testid="shader-lines-canvas"] canvas'
+        )
+      ).toBeAttached({ timeout: 10000 });
+
+      // Canvas must be a descendant of the section, not a sibling of body
+      const isInsideSection = await page.evaluate(() => {
+        const section = document.querySelector(
+          '[data-testid="beliefs-section"]'
+        );
+        const canvas = document.querySelector(
+          '[data-testid="shader-lines-canvas"] canvas'
+        );
+        return section !== null && canvas !== null && section.contains(canvas);
+      });
+
+      expect(isInsideSection).toBe(true);
+    });
+
+    test('background usa position:absolute (não fixed) — guard de regressão', async ({
+      page,
+    }) => {
+      const position = await page
+        .locator('[data-testid="what-moves-me-background"]')
+        .evaluate((el) => window.getComputedStyle(el).position);
+
+      expect(position).toBe('absolute');
+    });
   });
 }

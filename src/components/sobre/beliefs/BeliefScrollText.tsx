@@ -17,10 +17,12 @@ export function BeliefScrollText({ sectionRef }: BeliefScrollTextProps) {
 
   return (
     <div
+      data-testid="beliefs-scroll-text"
       className="sticky top-0 flex h-dvh items-center justify-center"
       style={{ zIndex: 10 }}
     >
       <div
+        data-testid="beliefs-phrase-stage"
         aria-live="polite"
         className="relative h-full w-full"
         style={{ maxWidth: 'min(90vw, 56rem)' }}

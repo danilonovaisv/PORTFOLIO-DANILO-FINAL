@@ -29,10 +29,10 @@ export const SITE_ASSET_KEYS = {
   },
   about: {
     originImages: [
-      'about.origin.about.origin_image.1',
-      'about.origin.about.origin_image.2',
-      'about.origin.about.origin_image.3',
-      'about.origin.about.origin_image.4',
+      'about.origin_image.1',
+      'about.origin_image.2',
+      'about.origin_image.3',
+      'about.origin_image.4',
     ],
     methodDesktop: 'about.method.about.method.desktop_video',
     methodMobile: 'about.method.about.method.mobile_video',

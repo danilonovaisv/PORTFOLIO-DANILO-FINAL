@@ -1,8 +1,8 @@
 'use client';
 
-import { useReducedMotion } from 'motion/react';
 import { m } from 'motion/react';
 import type { MotionValue } from 'motion/react';
+import { useEffect, useState } from 'react';
 import type { WhatMovesMePhrase as PhraseData } from './what-moves-me.constants';
 
 interface WhatMovesMePhraseProps {
@@ -18,11 +18,25 @@ export function WhatMovesMePhrase({
   y,
   filter,
 }: WhatMovesMePhraseProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const lines = phrase.text.split('\n');
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () =>
+      setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener('change', updatePreference);
+
+    return () => mediaQuery.removeEventListener('change', updatePreference);
+  }, []);
 
   return (
     <m.div
+      data-testid="belief-phrase"
+      data-what-moves-me-phrase
+      data-phrase-id={phrase.id}
       aria-label={phrase.text.replace(/\n/g, ' ')}
       style={{
         position: 'absolute',
