@@ -8,7 +8,6 @@ import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
-import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { createClientComponentClient } from '@/lib/supabase/client';
 
 const ProjectsGallery = dynamic(() => import('@/components/portfolio/ProjectsGallery').then((mod) => mod.ProjectsGallery));
@@ -197,13 +196,6 @@ export default function PortfolioClient({
           initialPage={initialPage}
           totalProjectsCount={totalProjectsCount}
         />
-
-        {/* CTA Section - After Cards, Following AntigravityCTA Pattern */}
-        <section className="relative z-20 bg-background py-16 md:py-24">
-          <div className="mx-auto flex justify-center px-6 md:px-16">
-            <AntigravityCTA text="vamos trabalhar juntos" />
-          </div>
-        </section>
 
         {showClientsBrands ? (
           <ClientsBrandsSection />

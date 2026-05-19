@@ -1,60 +1,74 @@
-# Walkthrough, Mobile Typography and Responsive Video Correction
+# Walkthrough, Portfolio Grid CTA Integration
 
 ## 1. Summary
-This document summarizes the changes made to correct mobile typography issues and properly implement responsive video loading across the Danilo Novais portfolio.
+This document summarizes the changes made to integrate the `/portfolio` CTA into the project grid flow.
 
 ## 2. Files Changed
-* `src/components/ui/shared/ResponsiveVideo.tsx`
-* `src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`
-* `src/components/sobre/sections/AboutHero.tsx`
-* `src/components/home/hero/HeroCopy.tsx`
+* `src/app/portfolio/PortfolioClient.tsx`
+* `src/components/portfolio/ProjectsGallery.tsx`
+* `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/03-GALLERY/03-GALLERY.md`
+* `.context/DOCS-PORTFOLIO-PAGES/walkthrough.md`
 
-## 3. Responsive Typography Fixes
-* **AboutHero:** Removed `whitespace-nowrap` on mobile elements which caused text to bleed horizontally out of the viewport on screens < 375px. Replaced with natural wrapping allowing `text-balance` to handle optimal line breaks.
-* **HeroCopy:** Removed `whitespace-nowrap` on the mobile headline and applied `text-balance`. Replaced `max-w-[90vw]` with `px-6 md:px-0` for the subtitle to ensure it respects standard grid padding constraints safely.
+## 3. Layout Change
+* **PortfolioClient:** Removed the detached CTA section below `ProjectsGallery`.
+* **ProjectsGallery:** Added `AntigravityCTA` as the final grid item after rendered project cards and before pagination controls.
+* **CTA Positioning:** Uses `className="static"` so the design-system CTA stays in document flow instead of using its default fixed position.
 
-## 4. Responsive Video Fixes
-* **ResponsiveVideo Component:** Updated the component to safely handle optional `mobileSrc`. If `mobileSrc` is missing or matches `desktopSrc`, it renders a standard `<source src={desktopSrc}>` avoiding redundant `media` tags and preventing duplicate fetches.
-* **FeaturedProjectCardFrame:** Replaced duplicate `<video>` blocks that used `hidden md:block` and `block md:hidden` (which downloads both files). It now uses the `ResponsiveVideo` component, passing both `desktopSrc` and `mobileSrc` ensuring browsers only download the needed file.
+## 4. Responsive Behavior
+* CTA wrapper spans all grid columns via `col-span-full`.
+* CTA remains centered on desktop/tablet and full-width-safe on mobile.
+* Pagination remains after CTA when multiple pages exist.
 
 ## 5. Asset Resolution Decisions
-The fallback for `mobileSrc` relies entirely on the asset layer or config layer passing valid parameters. The `ResponsiveVideo` handles the ultimate fallback safely.
+N/A. No media or asset pipeline changes.
 
 ## 6. Supabase Storage Notes
-N/A - the URLs continue to be fetched dynamically as before. The new `<source media>` logic natively takes whatever URLs are provided.
+N/A. CTA is static UI and does not enter Supabase project data.
 
 ## 7. Firebase Hosting Notes
-Reducing dual-video downloads significantly drops outbound bandwidth. LCP (Largest Contentful Paint) for mobile should improve since only a compressed mobile variant is fetched.
+N/A. No deploy configuration changes.
 
 ## 8. Ghost Design System Compliance
-The adjustments maintain the standard padding (e.g. `px-6` constraints) and standard `GHOST_EASE` / durations for motion elements without touching visual styling arbitrarily.
+Primary action continues to use `AntigravityCTA`. No new scale animation, no new IntersectionObserver, and no new design tokens were introduced.
 
 ## 9. Accessibility Compliance
-`aria-hidden="true"` and `playsInline` attributes were strictly maintained on decorative videos, ensuring screen readers remain unaffected by looping visuals.
+CTA keeps the existing `AntigravityCTA` focus ring and link semantics.
 
 ## 10. Performance Evidence
-* Eliminated dual video node execution in `FeaturedProjectCardFrame`.
-* Removed potential CLS risks from horizontal layout shifts caused by `whitespace-nowrap` text overflows.
+* CTA is rendered in normal grid flow on first render, reducing CLS risk.
+* CTA is outside `AnimatePresence`, avoiding card reordering/reveal side effects.
 
 ## 11. Commands Executed
-`pnpm run typecheck`
-`pnpm run lint`
+* `pnpm run typecheck`
+* `pnpm run lint`
+* `pnpm run build`
+* `pnpm test`
+* `pnpm exec playwright --version`
+* Playwright browser checks at 375px, 768px, 1024px, 1440px for `/portfolio` and `/portfolio?category=branding`
 
 ## 12. Validation Results
 * Typecheck: PASS
 * Lint: PASS
+* Build: PASS
+* Tests: PASS — 37 suites, 250 tests
+* Browser layout checks: PASS
+* Status: ✅ reviewed
 
 ## 13. Visual QA Evidence
-Verified via code analysis:
-* `text-balance` applied.
-* No `whitespace-nowrap` constraints remaining on mobile.
-* Conditional `<source media="(max-width: 767px)">` correctly applied.
+Playwright validated:
+* `/portfolio` at 375px, 768px, 1024px, 1440px.
+* `/portfolio?category=branding` at 375px, 768px, 1024px, 1440px.
+* CTA found in every viewport.
+* CTA computed position: `static`.
+* CTA center delta: `0`.
+* CTA top is after last project card bottom in every viewport.
+* No horizontal overflow in every viewport.
 
 ## 14. Remaining Risks
-None significant. Standard CSS `text-balance` works well in modern browsers but gracefully falls back in unsupported ones.
+Low. LERP track now includes CTA in normal flow, and browser checks confirmed no fixed positioning or horizontal overflow. Continue watching pagination behavior if `PORTFOLIO_PAGE_SIZE` changes.
 
 ## 15. Documentation Update Decision
-`.context/DOCS-PORTFOLIO-PAGES/task.md` was correctly updated reflecting all tasks as DONE.
+`.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/03-GALLERY/03-GALLERY.md` was updated because the gallery component ownership changed.
 
 ## 16. Final Recommendation
-Merge the changes. The structure matches the expected architecture for `ResponsiveVideo` and correctly prevents double-download overhead.
+Merge the focused CTA integration. The `/portfolio` CTA now behaves as a natural continuation of the grid.
