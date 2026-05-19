@@ -2,26 +2,29 @@
 description: native mobile application development and optimization.
 ---
 
-## 📱 Quy trình Phát triển Di động
+## 📱 Fluxo de Desenvolvimento Mobile
 
-Tối ưu hóa mã nguồn cho môi trường Mobile (React Native / Expo / Flutter).
+Otimização de código para ambientes móveis (React Native, Expo, Flutter).
 
-### 1. Thiết kế Mobile-First
-- Chuyên gia: `mobile-developer`.
-- Áp dụng `mobile-design` skill và `web-design-guidelines`.
-- Kiểm tra Touch Targets, Safe Areas và Accessibility.
+### 1. Design Mobile-First
+- Especialista: `mobile-developer`.
+- Aplicar as habilidades de "mobile-design" e as diretrizes globais de design web.
+- Validar touch targets, áreas seguras (Safe Areas) e acessibilidade.
 
-### 2. Tối ưu Hiệu suất
-- Kiểm tra kích thước bundle, lazy loading image.
-- Tối ưu hóa bộ nhớ và pin.
+### 2. Otimização de Performance
+- Validar tamanho do bundle e carregamento preguiçoso (lazy loading) de imagens.
+- Otimizar consumo de memória e bateria.
 
-### 3. Kiểm thử đa thiết bị (Emulator/Simulator)
+### 3. Testes Multi-Dispositivo (Emuladores e Simuladores)
 - QA: `qa-automation-engineer`.
-- Chạy test trên các độ phân giải màn hình khác nhau.
+- Executar testes em diferentes resoluções de tela.
 
-### 4. Chuẩn bị Store
-- Cấu hình Metadata, Screenshots và App Icons.
-- Kiểm tra các yêu cầu của App Store / Play Store.
+### 4. Preparação para Lançamento nas Lojas (Stores)
+- Configurar metadados, capturas de tela e ícones do aplicativo.
+- Garantir a conformidade com as diretrizes da App Store e Google Play Store.
 
 // turbo
 `npx expo prebuild`
+
+
+---

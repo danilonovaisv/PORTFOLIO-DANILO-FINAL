@@ -6,6 +6,10 @@ import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
+import {
+  buildYoutubeEmbedUrl,
+  extractYoutubeId as extractYoutubeIdFromContract,
+} from '@/lib/media/asset-contract';
 
 // --- STYLING UTILS ---
 
@@ -30,7 +34,6 @@ export const lerp = (start: number, end: number, t: number) =>
 
 export const ASSET_PLACEHOLDER =
   'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-const YOUTUBE_ID_DIRECT_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
 
 function normalizePath(path: string) {
   return path
@@ -252,66 +255,14 @@ export const is3DModel = (path?: string | null): boolean => {
 };
 
 export function extractYouTubeId(value?: string | null): string | null {
-  if (!value) return null;
-
-  const candidate = value.trim();
-  if (!candidate) return null;
-  if (YOUTUBE_ID_DIRECT_PATTERN.test(candidate)) return candidate;
-
-  const withProtocol = candidate.startsWith('http')
-    ? candidate
-    : `https://${candidate}`;
-
-  try {
-    const parsed = new URL(withProtocol);
-    const hostname = parsed.hostname;
-
-    if (hostname === 'youtu.be') {
-      const id = parsed.pathname.replace('/', '');
-      return YOUTUBE_ID_DIRECT_PATTERN.test(id) ? id : null;
-    }
-
-    if (hostname === 'youtube.com' || hostname.endsWith('.youtube.com')) {
-      const vParam = parsed.searchParams.get('v');
-      if (vParam && YOUTUBE_ID_DIRECT_PATTERN.test(vParam)) return vParam;
-
-      const parts = parsed.pathname.split('/').filter(Boolean);
-      const embedIndex = parts.findIndex(
-        (part) => part === 'embed' || part === 'shorts' || part === 'v'
-      );
-
-      if (embedIndex >= 0) {
-        const id = parts[embedIndex + 1];
-        return id && YOUTUBE_ID_DIRECT_PATTERN.test(id) ? id : null;
-      }
-    }
-  } catch {
-    return null;
-  }
-
-  return null;
+  return extractYoutubeIdFromContract(value);
 }
 
 export const isYouTubeUrl = (value?: string | null): boolean =>
   Boolean(extractYouTubeId(value));
 
 export function getYouTubeEmbedUrl(value: string): string | null {
-  const id = extractYouTubeId(value);
-  if (!id) return null;
-  // Ghost Design System v3.1: Mandatory parameters for immersive player
-  const params = new URLSearchParams({
-    autoplay: '1',
-    mute: '1',
-    loop: '1',
-    playlist: id, // Mandatory for loop
-    controls: '0',
-    rel: '0',
-    modestbranding: '1',
-    playsinline: '1',
-    iv_load_policy: '3',
-    fs: '0',
-  });
-  return `https://www.youtube.com/embed/${id}?${params.toString()}`;
+  return buildYoutubeEmbedUrl(value, { autoplay: true, controls: false });
 }
 
 export function getYouTubeThumbnailUrl(value: string): string | null {

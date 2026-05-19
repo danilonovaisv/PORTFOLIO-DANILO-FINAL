@@ -1,5 +1,5 @@
 ---
-description: Task quá chua? Gọi cả hội đồng chuyên gia vào làm theo quy chuẩn Senior.
+description: Tarefa muito complexa? Acione um enxame de agentes especialistas para atuar de forma paralela e integrada.
 ---
 
 # /orchestrate - Multi-Agent Command System
@@ -22,16 +22,16 @@ $ARGUMENTS
 
 ## 🔵 PHASE 2: Agent-First Execution & Routing
 **Agent**: `orchestrator`
-- **Dashboard Hook**: Yêu cầu người dùng bật Terminal phụ chạy lệnh `npm start manager` (hoặc `node cli/index.js manager`) để giám sát Realtime Swarm.
+- **Dashboard Hook**: Recomenda que o usuário ative um terminal secundário executando "npm start manager" (ou "node cli/index.js manager") para monitorar o Swarm em tempo real.
 - **Execution Matrix**:
-  - **Group 0 (Reconnaissance)**: `browser-subagent`. (Kích hoạt `cli/tools/browser.js` để cào web/chụp ảnh nếu Task cần data realtime).
+  - **Group 0 (Reconnaissance)**: `browser-subagent`. (Ativa cli/tools/browser.js para raspagem web/captura de tela se a Task precisar de dados em tempo real).
   - **Group A (Foundation)**: `database-architect`, `security-auditor` (Nhận context từ Group 0).
   - **Group B (Core)**: `backend-specialist`, `frontend-specialist`.
   - **Group C (Optimization)**: `performance-optimizer`, `seo-specialist`.
 
 ## 🔴 PHASE 3: Systemic Review & Self-Healing
 **Agent**: `quality-inspector`
-- **Task**: Xác minh tính gắn kết của Code + Duyệt file ảnh Vision (`.agent/vision/*.png`) do Subagent cung cấp.
+- **Task**: Verificar a coesão do código + Analisar arquivos de imagem (.agent/vision/*.png) fornecidos pelo Subagent.
 - **Automation**: Run `security_scan.sh` and `lint_check.sh`.
 - **Handoff**: Create a unified `walkthrough.md`.
 

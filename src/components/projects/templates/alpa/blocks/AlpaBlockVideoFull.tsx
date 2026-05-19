@@ -3,7 +3,11 @@
 import React from 'react';
 import { m } from 'motion/react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl } from '@/lib/utils';
+import {
+  extractYoutubeId,
+  resolveLandingAsset,
+} from '@/lib/media/asset-contract';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
 interface AlpaBlockVideoFullProps {
   src: string;
@@ -18,8 +22,12 @@ export function AlpaBlockVideoFull({
   revealInitial,
   revealVisible,
 }: AlpaBlockVideoFullProps) {
-  const resolvedSrc = getAssetUrl(src, { isVideo: true });
-  const resolvedPoster = poster ? getAssetUrl(poster) : undefined;
+  const resolved = resolveLandingAsset(src, 'video');
+  const resolvedPoster = resolveLandingAsset(poster, 'image');
+  const youtubeId =
+    resolved.ok && resolved.asset.provider === 'youtube'
+      ? extractYoutubeId(resolved.asset.url)
+      : null;
 
   return (
     <m.div
@@ -30,15 +38,26 @@ export function AlpaBlockVideoFull({
       className="w-full mb-12 md:mb-20 px-4 md:px-0"
     >
       <div className="relative aspect-video w-full overflow-hidden rounded-none bg-neutral/20">
-        <video
-          src={resolvedSrc}
-          poster={resolvedPoster}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        {!resolved.ok ? (
+          <div className="flex h-full w-full items-center justify-center text-sm text-white/55">
+            Mídia indisponível
+          </div>
+        ) : youtubeId ? (
+          <YouTubePlayer
+            videoId={youtubeId}
+            className="absolute inset-0 h-full w-full"
+          />
+        ) : (
+          <video
+            src={resolved.asset.url}
+            poster={resolvedPoster.ok ? resolvedPoster.asset.url : undefined}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
       </div>
     </m.div>
   );

@@ -5,7 +5,11 @@ import { m } from 'motion/react';
 import Image from 'next/image';
 import type { ZoomAsset } from '../../types';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl } from '@/lib/utils';
+import {
+  extractYoutubeId,
+  resolveLandingAsset,
+} from '@/lib/media/asset-contract';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
 interface AlpaBlockGrid2ColProps {
   columns: any[];
@@ -27,18 +31,16 @@ export function AlpaBlockGrid2Col({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-12 md:mb-20 px-4 md:px-0">
       {columns?.map((col, cIdx) => {
         const isImage = col.type === 'image';
-        const isVid = col.type === 'video';
-
-        const resolvedSrc =
-          isImage || isVid
-            ? getAssetUrl(
-                col.src,
-                isVid ? { isVideo: true } : { width: 1200, quality: 85 }
-              )
-            : '';
-
-        const resolvedPoster =
-          isVid && col.poster ? getAssetUrl(col.poster) : undefined;
+        const isVid = col.type === 'video' || col.type === 'youtube';
+        const resolved = resolveLandingAsset(
+          col.src,
+          col.type === 'youtube' ? 'youtube' : isVid ? 'video' : 'image'
+        );
+        const resolvedPoster = resolveLandingAsset(col.poster, 'image');
+        const youtubeId =
+          resolved.ok && resolved.asset.provider === 'youtube'
+            ? extractYoutubeId(resolved.asset.url)
+            : null;
 
         return (
           <m.div
@@ -53,12 +55,21 @@ export function AlpaBlockGrid2Col({
             }}
             className="relative aspect-square md:aspect-auto md:h-[60vh] overflow-hidden rounded-none bg-neutral/20"
           >
-            {isImage ? (
+            {!resolved.ok ? (
+              <div className="flex h-full w-full items-center justify-center text-sm text-white/55">
+                Mídia indisponível
+              </div>
+            ) : youtubeId ? (
+              <YouTubePlayer
+                videoId={youtubeId}
+                className="absolute inset-0 h-full w-full"
+              />
+            ) : isImage ? (
               <button
                 onClick={(e) =>
                   openAsset(
                     {
-                      src: resolvedSrc,
+                      src: resolved.asset.url,
                       kind: 'image',
                       alt: col.alt || '',
                     },
@@ -68,7 +79,7 @@ export function AlpaBlockGrid2Col({
                 className="group relative h-full w-full overflow-hidden"
               >
                 <Image
-                  src={resolvedSrc}
+                  src={resolved.asset.url}
                   alt={col.alt || ''}
                   fill
                   className="object-cover transition-opacity duration-normal group-hover:opacity-90"
@@ -76,8 +87,8 @@ export function AlpaBlockGrid2Col({
               </button>
             ) : isVid ? (
               <video
-                src={resolvedSrc}
-                poster={resolvedPoster}
+                src={resolved.asset.url}
+                poster={resolvedPoster.ok ? resolvedPoster.asset.url : undefined}
                 autoPlay
                 muted
                 loop

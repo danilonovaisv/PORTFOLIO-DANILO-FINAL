@@ -5,7 +5,7 @@ import { m } from 'motion/react';
 import Image from 'next/image';
 import type { ZoomAsset } from '../../types';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl } from '@/lib/utils';
+import { resolveLandingAsset } from '@/lib/media/asset-contract';
 
 interface AlpaBlockImageFullProps {
   src: string;
@@ -27,7 +27,7 @@ export function AlpaBlockImageFull({
   revealVisible,
   openAsset,
 }: AlpaBlockImageFullProps) {
-  const resolvedSrc = getAssetUrl(src, { width: 1920, quality: 90 });
+  const resolved = resolveLandingAsset(src, 'image');
 
   return (
     <m.div
@@ -37,11 +37,16 @@ export function AlpaBlockImageFull({
       transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="w-full mb-12 md:mb-20 px-4 md:px-0"
     >
+      {!resolved.ok ? (
+        <div className="flex min-h-[280px] w-full items-center justify-center bg-neutral/20 text-sm text-white/55">
+          Mídia indisponível
+        </div>
+      ) : (
       <button
         onClick={(e) =>
           openAsset(
             {
-              src: resolvedSrc,
+              src: resolved.asset.url,
               kind: 'image',
               alt: alt || '',
             },
@@ -51,7 +56,7 @@ export function AlpaBlockImageFull({
         className="group relative block w-full overflow-hidden rounded-none bg-neutral/20"
       >
         <Image
-          src={resolvedSrc}
+          src={resolved.asset.url}
           alt={alt || ''}
           width={1920}
           height={1080}
@@ -65,6 +70,7 @@ export function AlpaBlockImageFull({
           </div>
         )}
       </button>
+      )}
     </m.div>
   );
 }

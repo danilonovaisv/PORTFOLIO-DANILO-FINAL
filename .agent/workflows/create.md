@@ -1,5 +1,5 @@
 ---
-description: Muốn tạo tính năng mới hoặc dự án từ A-Z? Sử dụng bộ máy nhân sự chuyên nghiệp.
+description: Quer criar uma nova funcionalidade ou projeto de ponta a ponta? Ative a esteira de desenvolvimento completa.
 ---
 
 # /create - Full-Cycle Product Creation

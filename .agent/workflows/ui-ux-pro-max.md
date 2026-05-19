@@ -1,34 +1,36 @@
 ---
-description: Thiết kế giao diện Visuals Premium với phong cách hiện đại
+description: Crie interfaces de altíssimo nível (Premium Visuals) alinhadas com o Ghost Design System.
 ---
 
 # /ui-ux-pro-max - Premium UI Generator
 
-> **Chế độ**: Premium Visuals (Modern Aesthetic)
-> **Yêu cầu BẮT BUỘC**: Clean, Minimalist, High Contrast.
+> **Modo**: Premium Visuals (Modern Aesthetic)
+> **Requisitos OBRIGATÓRIOS**: Clean, Minimalist, High Contrast.
 
 ## 🎨 Design Standard
 
-Mọi giao diện được tạo bởi workflow này phải tuân thủ chuẩn "Pro Max":
+Todas as interfaces criadas por este workflow devem seguir o padrão "Pro Max":
 
 1.  **Typography**:
-    -   Sử dụng Font phương tây hiện đại (Inter, Roboto, Poppins).
-    -   Heading đậm, Body thanh thoát.
+    -   Utilizar fontes modernas e elegantes (Inter, Outfit, TT Norms Pro).
+    -   Títulos destacados e corpo de texto legível.
 2.  **Color Palette**:
-    -   Sử dụng màu Gradient tinh tế.
-    -   Tránh màu quá chói (Neon) trừ khi là điểm nhấn (Accent).
+    -   Utilizar gradientes de cor sutis e refinados.
+    -   Evitar cores excessivamente saturadas, exceto para pontos de destaque (como o Ghost Blue #0048ff).
 3.  **Layout**:
-    -   Sử dụng Grid/Flexbox chuẩn.
-    -   Whitespace rộng rãi (Breathable design).
+    -   Utilizar sistemas de grid e flexbox robustos.
+    -   Espaçamento generoso (Design respirável).
 4.  **Micro-interactions**:
-    -   Hover effects mượt mà (transition: 0.3s).
-    -   Button có active state rõ ràng.
+    -   Efeitos de hover suaves (ex: transition de 0.3s).
+    -   Botões com estados ativos e de foco claros.
 
-## 🛠️ Quy trình thực hiện
-1. **Analyze**: Hiểu rõ user persona.
-2. **Structure**: HTML5 Semantic (Header, Main, Section, Footer).
-3. **Style**: CSS Variables cho màu sắc, spacing.
-4. **Resposive**: Mobile-first approach.
+## 🛠️ Fluxo de Execução
+1. **Analyze**: Entender a persona do usuário.
+2. **Structure**: Utilizar HTML5 semântico (Header, Main, Section, Footer).
+3. **Style**: Utilizar variáveis CSS para cores e espaçamento.
+4. **Responsive**: Seguir a abordagem Mobile-First.
 
 ---
 **Note**: Focus on Usability and Elegance.
+
+---

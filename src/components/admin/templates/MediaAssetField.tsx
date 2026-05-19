@@ -3,6 +3,10 @@
 import Image from 'next/image';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { extractYouTubeId } from '@/lib/utils';
+import {
+  normalizeYoutubeUrl,
+  resolveLandingAsset,
+} from '@/lib/media/asset-contract';
 import { inputClasses, labelClasses } from './CommonTemplateStyles';
 
 interface MediaAsset {
@@ -37,6 +41,17 @@ export function MediaAssetField({
   const preview = value.previewUrl || value.src;
   const missingAlt = requireAlt && !isVideo && !isYoutube && !value.alt?.trim();
   const youtubeId = preview ? extractYouTubeId(preview) : null;
+  const sourceValidation =
+    value.src && !value.file
+      ? resolveLandingAsset(
+          value.src,
+          isYoutube ? 'youtube' : isVideo ? 'video' : 'image'
+        )
+      : null;
+  const invalidSource = sourceValidation ? !sourceValidation.ok : false;
+  const errorMessage = isYoutube
+    ? 'SYSTEM_ERR: INVALID_YOUTUBE_URL'
+    : 'SYSTEM_ERR: INVALID_ASSET_SOURCE';
 
   return (
     <div className="space-y-3">
@@ -111,14 +126,19 @@ export function MediaAssetField({
                 : 'landing-pages/meu-projeto/hero.webp'
           }
           value={value.src || ''}
-          onChange={(event) =>
+          aria-invalid={invalidSource}
+          onChange={(event) => {
+            const rawValue = event.target.value;
+            const nextSrc = isYoutube
+              ? normalizeYoutubeUrl(rawValue) || rawValue
+              : rawValue;
             onChange({
               ...value,
-              src: event.target.value,
+              src: nextSrc,
               file: null,
               previewUrl: '',
-            })
-          }
+            });
+          }}
         />
       </label>
 
@@ -136,6 +156,8 @@ export function MediaAssetField({
           Alt_Metadata_Required_For_Images.
         </p>
       )}
+
+      {invalidSource && <p className="text-xs text-red-300">{errorMessage}</p>}
 
       {isVideo && (
         <label className="space-y-1">
