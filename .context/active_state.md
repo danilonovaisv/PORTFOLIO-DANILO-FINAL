@@ -1,31 +1,38 @@
-# Active State: ABOUT BELIEFS FINAL REDESIGN + GHOST HYGIENE ✅
+# Active State: MANIFESTO CAROUSEL & WEBGL SHADER REALIGNMENT ✅
 
-**Phase**: ABOUT BELIEFS FINAL REDESIGN
-**Current Focus**: Registro do estado final da seção `AboutBeliefs`: CSS fixed shade + Framer Motion `useScroll/useTransform`, sem Ghost 3D/GSAP/header/manifesto/context provider na árvore renderizada.
-**Last Update**: 2026-05-18 20:20
+**Phase**: MANIFESTO CAROUSEL & WEBGL SHADER REALIGNMENT
+**Current Focus**: Alinhamento do Manifesto "O que me move" na página `/sobre` (e rota `/o-que-me-move`) com a referência HTML: pulsing gradient Three.js fragment shader pixelado + transições CSS scoped stagger por caractere + dots tácteis + autoplay robusto + acessibilidade WCAG.
+**Last Update**: 2026-05-19 02:15
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
 ## Deploy Summary
 
-- **Build**: ✅ Next.js 16.2.4 (Webpack) — Stable production build completed
-- **Navigation**: ✅ Added `MotionLink` for fluid hover/active animations on Desktop Header
-- **Hygiene**: ✅ Purged git tracking for `.txt` logs, `knip_report.txt`, and temporary MDs
-- **Status**: ✅ All structural changes commit-locked
+- **Build**: ✅ Next.js 16.2.6 (Webpack) — Stable production build completed
+- **Manifesto**: ✅ Integrated `ManifestoScrollSection` on `/sobre` and `/o-que-me-move` routes
+- **WebGL**: ✅ Realigned procedural gradient fragment shader (Blue/Purple/Blue) in `shader-lines.tsx`
+- **Validation**: ✅ 100% stable `build-check` and `build` under absolute Node v26 and pnpm resolution path
+- **Visual Regressions**: ✅ Resolved background shader invisible stacking context and closing video unmounting buffering failures
+
+## Manifesto Carousel & WebGL Pulsing Shader Realignment (2026-05-19)
+
+- [x] **SSOT Confirmed**: `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-EXEMPLO.html` adotado como contrato visual e matemático absolutio para a seção 06.
+- [x] **Pulsing Fragment Shader**: `ShaderLines` (`src/components/ui/shader-lines.tsx`) estendido para renderizar o ciclo dinâmico Azul -> Roxo -> Azul pixelado sobre fundo Void Black (`#040013`), preservando compatibilidade com a home.
+- [x] **Static h-dvh Viewport**: Substituído o container de rolagem vertical global de `400vh` por um frame estático de `100vh`, evitando quebras de rolagem e maximizando fluidez em dispositivos de toque.
+- [x] **CSS Scoped Letters Stagger**: Transições de letras animadas via GPU em CSS puro (`@keyframes charReveal` e `charExit`) com desfoque e translação vertical coordenada.
+- [x] **Autoplay and Dot Indicators**: Temporizador robusto de 4500ms com transição de largura em progresso nos dots. A navegação táctil pelos dots cancela o autoplay anterior de forma segura.
+- [x] **WCAG Accessibility Standards**: Inserido elemento oculto `aria-live="polite"` para anúncio das frases limpas a leitores de tela, com `aria-hidden="true"` ocultando os spans visuais.
+- [x] **Motion Preferences Fallback**: Desativação dinâmica de animações e blur se a flag `prefers-reduced-motion: reduce` for ativada no SO do usuário.
+- [x] **Visual Regressions Resolved**:
+  - Shader de fundo em `ManifestoScrollSection.tsx` corrigido de `-z-50` para `z-0` para evitar ocultação sob o background opaco do contêiner `relative` da seção.
+  - Vídeo de encerramento em `AboutClosing.tsx` estabilizado e tornado incondicional (removendo `hasVideoError`), garantindo fallback visual nativo do `poster` HTML5 e conformidade com acessibilidade.
+- [x] **Validation Evidence**:
+  - `PATH="/Users/danilonovais/.local/bin:$PATH" npx pnpm run build-check` ✅ **Exit Code 0** (Typecheck e Linter sem erros).
+  - `npx pnpm run build` ✅ **Exit Code 0** (Geração estática completa com fallback resiliente de sitemap/Supabase).
 
 ## AboutBeliefs Final Redesign (2026-05-18)
 
-- [x] **SSOT Confirmed**: `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-FINAL.md` substitui o plano antigo com GSAP + Ghost 3D.
-- [x] **Current Render Tree**: `AboutBeliefs.tsx` monta somente `WhatMovesMeBackground` + `BeliefScrollText`, com `BeliefScrollText` renderizando as 6 frases via `WhatMovesMePhrase`.
-- [x] **Legacy Layers Superseded**: `BeliefFixedHeader`, `GhostScene`, `BeliefManifesto`, `BeliefBackground`, `BeliefOverlay` e `BeliefsScrollProvider` permanecem no repositório, mas não fazem parte da seção 06 vigente.
-- [x] **Animation Stack**: stack vigente é CSS fixed shade + Motion `useScroll/useTransform`; sem GSAP `ScrollTrigger`, sem R3F Canvas e sem GLB na seção `O Que Me Move`.
-- [x] **E2E Contract Updated**: `test/e2e/about-beliefs.spec.ts` agora valida ausência das camadas antigas, presença das 6 frases, centralização, reduced motion e ausência de canvas/WebGL na seção.
-- [x] **Validation Evidence**:
-  - `pnpm run typecheck` ✅
-  - `pnpm run lint` ✅
-  - `PLAYWRIGHT_BASE_URL=http://localhost:3000 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium --reporter=line` ✅ `7 passed`
-  - Playwright CLI snapshot em `/sobre` ✅ região `O que me move` presente, sem `canvas` no snapshot YAML, console sem erro crítico.
-  - Ambiente emitiu warning de engine porque repo pede Node 22 e sessão local usa Node `v26.0.0` / pnpm `11.1.1`.
+> Superseded 2026-05-19 by `Manifesto Carousel & WebGL Pulsing Shader Realignment`: a seção foi restabelecida com WebGL Three.js shader background e animação stagger por caractere estática para paridade total com o HTML de referência.
 
 ## Header & Fluid Navigation Experience (2026-05-17)
 

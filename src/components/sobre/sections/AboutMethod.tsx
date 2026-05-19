@@ -92,7 +92,7 @@ export function AboutMethod() {
                 >
                   <h2
                     id="method-heading"
-                    className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text"
+                    className="font-display text-display text-[clamp(2.25rem,6.8vw,4.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text [text-shadow:0_0_12px_rgba(0,72,255,0.4),0_0_30px_rgba(0,72,255,0.2),0_4px_20px_rgba(4,0,19,0.85)]"
                   >
                     <span className="text-bluePrimary">Criatividade</span> com{' '}
                     <span className="text-bluePrimary">método</span>.

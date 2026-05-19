@@ -36,7 +36,6 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   size = 'default',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const Component = m[as as keyof typeof m] as any;
   const reduceMotion = useMotionGate();
   const mainColor = color || BRAND.colors.bluePrimary;
   const isCompact = size === 'compact';
@@ -47,27 +46,25 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         ease: GHOST_EASE,
       };
 
-  return (
-    <Component
-      href={as === 'a' ? href : undefined}
-      target={as === 'a' ? target : undefined}
-      rel={as === 'a' ? rel : undefined}
-      type={as === 'button' ? type : undefined}
-      onClick={onClick}
-      className={cn(
-        'relative group cta-button inline-flex items-center cursor-pointer min-w-fit rounded-full text-white no-underline visited:text-white hover:text-white',
-        'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-        className
-      )}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      initial={false}
-      animate={{ y: isHovered ? -1 : 0 }}
-      transition={transition}
-      role="button"
-      tabIndex={0}
-      aria-label={`${text} - Clique para acessar`}
-    >
+  const commonProps = {
+    onClick: onClick as any,
+    className: cn(
+      'relative group cta-button inline-flex items-center cursor-pointer min-w-fit rounded-full text-white no-underline visited:text-white hover:text-white',
+      'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+      className
+    ),
+    onHoverStart: () => setIsHovered(true),
+    onHoverEnd: () => setIsHovered(false),
+    initial: false,
+    animate: { y: isHovered ? -1 : 0 },
+    transition,
+    role: 'button',
+    tabIndex: 0,
+    'aria-label': `${text} - Clique para acessar`,
+  };
+
+  const content = (
+    <>
       <m.div
         className="pointer-events-none absolute inset-0 rounded-full blur-2xl"
         style={{ backgroundColor: 'var(--color-purpleDetails)' }}
@@ -139,7 +136,29 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           />
         </m.div>
       </m.div>
-    </Component>
+    </>
+  );
+
+  if (as === 'button') {
+    return (
+      <m.button type={type} {...commonProps}>
+        {content}
+      </m.button>
+    );
+  }
+
+  if (as === 'div') {
+    return (
+      <m.div {...commonProps}>
+        {content}
+      </m.div>
+    );
+  }
+
+  return (
+    <m.a href={href} target={target} rel={rel} {...commonProps}>
+      {content}
+    </m.a>
   );
 };
 

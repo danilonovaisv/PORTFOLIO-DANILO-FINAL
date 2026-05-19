@@ -23,8 +23,7 @@ export function WhatMovesMePhrase({
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const updatePreference = () =>
-      setPrefersReducedMotion(mediaQuery.matches);
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
 
     updatePreference();
     mediaQuery.addEventListener('change', updatePreference);

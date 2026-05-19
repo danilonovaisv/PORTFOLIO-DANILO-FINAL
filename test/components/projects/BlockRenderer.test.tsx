@@ -12,7 +12,7 @@ jest.mock('next/image', () => ({
 }));
 
 // Mock framer-motion
-jest.mock('framer-motion', () => {
+jest.mock('motion/react', () => {
   const MockComponent = ({
     children,
     className,

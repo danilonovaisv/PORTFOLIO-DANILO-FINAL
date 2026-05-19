@@ -161,10 +161,10 @@ export default function HeroCopy({
       {/* Brilho Global (Aura do Ghost) */}
       <div
         ref={revealRef}
-        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none mix-blend-screen z-10 transition-opacity duration-ghostIn ease-out"
+        className="fixed top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none mix-blend-screen z-10 transition-opacity duration-ghostIn ease-out"
         style={{
-          backgroundColor: 'rgba(0, 72, 255, 0.2)',
-          filter: 'blur(120px)',
+          backgroundColor: 'rgba(0, 72, 255, 0.35)',
+          filter: 'blur(130px)',
           opacity: isLoaded ? 1 : 0,
         }}
       />

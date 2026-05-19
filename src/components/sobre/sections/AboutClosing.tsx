@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -46,22 +46,16 @@ export function AboutClosing() {
   });
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasVideoError, setHasVideoError] = useState(false);
 
   // Resume play if not reduced motion
   useEffect(() => {
-    if (videoRef.current && !prefersReducedMotion && !hasVideoError) {
+    if (videoRef.current && !prefersReducedMotion) {
       videoRef.current.load();
       videoRef.current.play().catch(() => {
         // Safe to ignore autoplay errors (usually permissions)
       });
     }
-  }, [
-    prefersReducedMotion,
-    hasVideoError,
-    closingVideoDesk,
-    closingVideoMobile,
-  ]);
+  }, [prefersReducedMotion, closingVideoDesk, closingVideoMobile]);
 
   return (
     <section
@@ -109,29 +103,26 @@ export function AboutClosing() {
           >
             <div className="absolute inset-0 bg-linear-to-t from-background/30 via-background/15 to-transparent pointer-events-none" />
 
-            {!hasVideoError && (
-              <ResponsiveVideo
-                ref={videoRef}
-                className="relative z-[var(--z-layer-content)] block h-full w-full object-cover"
-                desktopSrc={
-                  closingVideoDesk || RESPONSIVE_VIDEOS.aboutClosing.desktop
-                }
-                mobileSrc={
-                  closingVideoMobile || RESPONSIVE_VIDEOS.aboutClosing.mobile
-                }
-                desktopPoster={activePosterDesk}
-                mobilePoster={activePosterMobile}
-                autoPlay={!prefersReducedMotion}
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="Demonstração visual de experiências"
-                onError={() => setHasVideoError(true)}
-              >
-                <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-              </ResponsiveVideo>
-            )}
+            <ResponsiveVideo
+              ref={videoRef}
+              className="relative z-[var(--z-layer-content)] block h-full w-full object-cover"
+              desktopSrc={
+                closingVideoDesk || RESPONSIVE_VIDEOS.aboutClosing.desktop
+              }
+              mobileSrc={
+                closingVideoMobile || RESPONSIVE_VIDEOS.aboutClosing.mobile
+              }
+              desktopPoster={activePosterDesk}
+              mobilePoster={activePosterMobile}
+              autoPlay={!prefersReducedMotion}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              aria-label="Demonstração visual de experiências"
+            >
+              <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
+            </ResponsiveVideo>
           </div>
         </div>
 

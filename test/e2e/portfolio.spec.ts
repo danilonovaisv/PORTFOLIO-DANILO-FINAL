@@ -11,15 +11,18 @@ test.describe('Portfolio Page', () => {
       timeout: 30000,
     });
 
-    // Validate Hero video source explicitly (no networkidle dependency).
-    const heroVideo = page.locator('#portfolio-hero video').first();
-    await expect(heroVideo).toBeVisible({ timeout: 30000 });
+    // Validate Hero video source by checking the internal source tags
+    const heroVideo = page.locator('#portfolio-hero video');
+    const sources = heroVideo.locator('source');
+    const sourceCount = await sources.count();
+    expect(sourceCount).toBeGreaterThan(0);
 
-    const heroVideoSrc = await heroVideo.getAttribute('src');
-    expect(heroVideoSrc).toBeTruthy();
-    expect(heroVideoSrc ?? '').toMatch(
+    const firstSourceSrc = await sources.first().getAttribute('src');
+    expect(firstSourceSrc).toBeTruthy();
+    expect(firstSourceSrc ?? '').toMatch(
       /portfolio\.hero_(desktop|mobile)_video\.mp4/
     );
+
 
     // Verify that at least one project is rendered
     // The gallery component renders project cards as buttons

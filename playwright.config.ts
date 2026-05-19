@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 import process from 'node:process';
 
 // Define the test port we'll use consistently
-const TEST_PORT = 5005;
+const TEST_PORT = 5099;
 const baseURL =
   process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${TEST_PORT}`;
 
@@ -24,7 +24,12 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { browserName: 'chromium' },
+      use: { 
+        browserName: 'chromium',
+        launchOptions: {
+          args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
+        }
+      },
     },
     {
       name: 'webkit',
@@ -38,7 +43,7 @@ export default defineConfig({
   webServer: {
     command:
       process.env.PLAYWRIGHT_SERVER_COMMAND ||
-      `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true npx pnpm run dev --port ${TEST_PORT}`,
+      `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true npx next dev --port ${TEST_PORT} --hostname 127.0.0.1`,
     port: TEST_PORT,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

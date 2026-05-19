@@ -148,19 +148,19 @@ export default function FeaturedProjectCardFrame({
               <>
                 {/* Responsive Video/Image handling */}
                 {isMounted && (desktopThumbIsVideo || mobileThumbIsVideo) ? (
-                   <ResponsiveVideo
-                     desktopSrc={desktopThumbUrl || mobileThumbUrl || ''}
-                     mobileSrc={mobileThumbUrl || desktopThumbUrl || ''}
-                     desktopPoster={DEFAULT_VIDEO_POSTER}
-                     mobilePoster={DEFAULT_VIDEO_POSTER}
-                     aria-hidden="true"
-                     autoPlay
-                     muted
-                     loop
-                     playsInline
-                     preload="metadata"
-                     className={cn('h-full w-full', commonMediaClasses)}
-                   />
+                  <ResponsiveVideo
+                    desktopSrc={desktopThumbUrl || mobileThumbUrl || ''}
+                    mobileSrc={mobileThumbUrl || desktopThumbUrl || ''}
+                    desktopPoster={DEFAULT_VIDEO_POSTER}
+                    mobilePoster={DEFAULT_VIDEO_POSTER}
+                    aria-hidden="true"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    className={cn('h-full w-full', commonMediaClasses)}
+                  />
                 ) : (
                   <>
                     {!desktopThumbIsVideo && desktopThumbUrl ? (

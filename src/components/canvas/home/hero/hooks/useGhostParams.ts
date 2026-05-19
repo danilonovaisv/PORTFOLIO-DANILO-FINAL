@@ -45,13 +45,13 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       analogJitter: 0.15,
       limboMode: false,
       // Environment & Post-Processing
-      bloomStrength: performanceConfig.quality === 'low' ? 0.15 : 0.25,
-      bloomRadius: 1.25,
+      bloomStrength: performanceConfig.quality === 'low' ? 0.8 : 1.8,
+      bloomRadius: 1.1,
       bloomThreshold: 0.0,
       ambientLightColor: 0x040013,
       ambientLightIntensity: 0.05,
-      rimLightColor1: 0x0048ff, // Ghost System Blue
-      rimLightColor2: 0x0080ff,
+      rimLightColor1: 0x0048ff, // Ghost System Primary Blue
+      rimLightColor2: 0x4fe6ff, // Ghost System Accent Blue
       exposure: 0.95,
     };
   }, [performanceConfig]);
