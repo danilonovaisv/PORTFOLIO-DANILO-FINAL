@@ -1,48 +1,162 @@
+# .github/workflows/claude-auto-fix.yml
 name: Claude Auto-Fix CI Failures
 
 on:
   workflow_run:
-    workflows: 
+    workflows:
       - "Firebase Deploy"
       - "Deploy to Firebase Hosting on PR"
       - "Deploy Next.js site to Pages"
       - "CodeQL"
-    types: 
+    types:
       - completed
+
+concurrency:
+  group: claude-fix-${{ github.event.workflow_run.name }}
+  cancel-in-progress: true
 
 jobs:
   audit-and-fix:
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    if: github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     permissions:
       contents: write
       pull-requests: write
       actions: read
+      checks: read
+      statuses: read
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      FAILED_WORKFLOW: ${{ github.event.workflow_run.name }}
+      FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
+      FAILED_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      FAILED_SHA: ${{ github.event.workflow_run.head_sha }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci --prefer-offline
 
       - name: Claude Code - Audit & Fix
         uses: anthropics/claude-code-action@v1
         with:
-          prompt: |
-            O workflow '${{ github.event.workflow_run.name }}' falhou na execução do ID ${{ github.event.workflow_run.id }}.
-            
-            CONTEXTO DO PROJETO:
-            - Stack: Next.js (App Router), React, TypeScript, Tailwind CSS.
-            - Ferramentas visuais: React Three Fiber, @react-three/drei, Three.js, Framer Motion.
-            - Infraestrutura: Supabase Storage, Firebase Hosting.
-            - Estrutura: Trabalhamos principalmente nas pastas `src/app` e `src/components`.
-            
-            SUA MISSÃO:
-            1. Use a GitHub CLI (`gh`) para baixar e ler os logs detalhados desta execução.
-            2. Analise os logs e identifique a causa raiz. 
-               *Dica: Fique atento a erros comuns da nossa stack, como falta de "use client" em componentes do Three.js/Framer Motion, erros de tipagem do TypeScript, ou falhas no build de rotas do Next.js.*
-            3. Edite os arquivos necessários no código-fonte (`src/`) para resolver o problema.
-            4. Quando tiver certeza da correção, crie uma nova branch, faça o commit detalhando o problema e a solução, e abra um Pull Request.
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          claude_args: "--model claude-3-5-sonnet-20241022 --max-turns 15"
+          claude_args: >-
+            --model claude-3-5-sonnet-20241022
+            --max-turns 12
+            --allowedTools "Bash(gh run view:*),Bash(gh run download:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(git checkout:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(npm run build),Bash(npm run lint),Bash(npm run type-check),Read,Edit,Write"
+          prompt: |
+            ## Contexto da Falha
+
+            O workflow **"${{ env.FAILED_WORKFLOW }}"** falhou.
+            - Run ID: `${{ env.FAILED_RUN_ID }}`
+            - Branch: `${{ env.FAILED_BRANCH }}`
+            - Commit: `${{ env.FAILED_SHA }}`
+
+            ## Stack do Projeto
+
+            - **Framework**: Next.js 14+ com App Router
+            - **Linguagem**: TypeScript (strict mode)
+            - **Estilo**: Tailwind CSS
+            - **3D/Animação**: React Three Fiber, @react-three/drei, Three.js, Framer Motion
+            - **Backend**: Supabase (Storage + Auth), Firebase Hosting
+            - **Estrutura principal**: `src/app/` (rotas e páginas), `src/components/` (componentes)
+
+            ## Erros Comuns desta Stack (priorize ao analisar)
+
+            1. Componentes com Three.js/Framer Motion sem `"use client"` no topo do arquivo
+            2. Erros de tipagem TypeScript em props de componentes ou tipos de retorno de funções async
+            3. Imports dinâmicos ausentes para componentes que usam `window` ou APIs do browser
+            4. Configuração de `next.config.js` incompatível com módulos WebGL/Three.js
+            5. Variáveis de ambiente ausentes ou com nome incorreto no build (prefixo `NEXT_PUBLIC_`)
+            6. Rotas do App Router com `generateStaticParams` faltando em rotas dinâmicas estáticas
+
+            ## Missão (execute nesta ordem)
+
+            ### Passo 1 - Diagnóstico
+            ```bash
+            gh run view ${{ env.FAILED_RUN_ID }} --log-failed
+            ```
+            Leia os logs completos. Identifique o erro raiz (não o sintoma). 
+            Se os logs forem extensos, foque nas últimas 100 linhas do step que falhou.
+
+            ### Passo 2 - Localização
+            Com base no erro, localize o(s) arquivo(s) responsável(is) em `src/`.
+            Leia o arquivo completo antes de qualquer edição.
+
+            ### Passo 3 - Correção
+            Edite apenas o necessário. Não refatore código que não causou a falha.
+            Após cada edição, valide localmente:
+
+            ```bash
+            npm run type-check || npx tsc --noEmit
+            npm run lint
+            npm run build
+            ```
+            Se o build passar, prossiga. Se falhar com novo erro, corrija também.
+
+            ### Passo 4 - Commit e PR
+            Crie uma branch com o padrão: `fix/claude-<workflow-slug>-<run-id-curto>`
+            Exemplo: `fix/claude-firebase-deploy-${{ env.FAILED_RUN_ID }}`
+
+            ```bash
+            WORKFLOW_SLUG=$(echo "${{ env.FAILED_WORKFLOW }}" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]//g')
+            BRANCH_NAME="fix/claude-${WORKFLOW_SLUG}-${{ env.FAILED_RUN_ID }}"
+            git checkout -b "$BRANCH_NAME"
+            git add -A
+            git commit -m "fix: correção automática via Claude
+
+            Workflow: ${{ env.FAILED_WORKFLOW }}
+            Run ID: ${{ env.FAILED_RUN_ID }}
+
+            Causa raiz: <substituir após análise>
+            Solução aplicada: <substituir após correção>"
+            git push origin "$BRANCH_NAME"
+            ```
+
+            Abra o PR com:
+            ```bash
+            gh pr create \
+              --base "${{ env.FAILED_BRANCH }}" \
+              --title "fix: correção automática - ${{ env.FAILED_WORKFLOW }}" \
+              --body "## Falha Corrigida
+
+            **Workflow:** ${{ env.FAILED_WORKFLOW }}
+            **Run ID:** [${{ env.FAILED_RUN_ID }}](https://github.com/${{ github.repository }}/actions/runs/${{ env.FAILED_RUN_ID }})
+
+            ## Diagnóstico
+            <causa raiz identificada nos logs>
+
+            ## Arquivos Modificados
+            <lista dos arquivos e o que foi alterado em cada um>
+
+            ## Validação Local
+            - [ ] \`npm run type-check\` passou
+            - [ ] \`npm run lint\` passou  
+            - [ ] \`npm run build\` passou
+
+            ---
+            *PR gerado automaticamente pelo Claude Code após análise dos logs de CI.*"
+            ```
+
+            ## Restrições
+
+            - **Não modifique** arquivos fora de `src/`, `public/`, `next.config.*`, `tsconfig.json`, `package.json`
+            - **Não remova** dependências, apenas adicione se estritamente necessário
+            - **Não faça commit direto** em `main`, `master` ou na branch que falhou
+            - **Se não encontrar** causa raiz clara nos logs, crie o PR apenas com o diagnóstico no body e marque como draft: `gh pr create --draft ...`
