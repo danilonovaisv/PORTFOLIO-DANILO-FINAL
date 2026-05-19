@@ -288,6 +288,35 @@ function inferProjectDestination({
   };
 }
 
+function resolveCardDestination({
+  storedDestination,
+  landingSlug,
+}: {
+  storedDestination: ProjectDestination | null;
+  landingSlug?: string | null;
+}): ProjectDestination {
+  const inferredDestination = inferProjectDestination({ landingSlug });
+
+  if (!storedDestination) return inferredDestination;
+
+  if (
+    storedDestination.type === 'external_url' ||
+    storedDestination.type === 'page'
+  ) {
+    return storedDestination;
+  }
+
+  if (storedDestination.type === 'internal_landing') {
+    return storedDestination.landingSlug
+      ? storedDestination
+      : inferredDestination;
+  }
+
+  return inferredDestination.type === 'internal_landing'
+    ? inferredDestination
+    : storedDestination;
+}
+
 /**
  * Normalize the destination payload persisted by the admin
  * (`portfolio_projects.destination`) to a strict ProjectDestination,
@@ -456,11 +485,10 @@ export function mapDbProjectToPortfolioProject(
   const storedDestination = normalizeStoredDestination(
     (project as DbProjectWithTags & { destination?: unknown }).destination
   );
-  const destination =
-    storedDestination ??
-    inferProjectDestination({
-      landingSlug: normalizedLandingSlug ?? landingSlugSource,
-    });
+  const destination = resolveCardDestination({
+    storedDestination,
+    landingSlug: normalizedLandingSlug ?? landingSlugSource,
+  });
 
   return {
     id: project.id,
