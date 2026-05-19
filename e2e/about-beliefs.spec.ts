@@ -197,27 +197,28 @@ for (const route of ROUTES) {
       expect(hydrationErrors).toHaveLength(0);
     });
 
-    test('shader canvas existe dentro da seção e não vaza para o documento', async ({
+    test('shader canvas existe no documento com position fixed e -z-50', async ({
       page,
     }) => {
-      await expect(
-        page.locator(
-          '[data-testid="beliefs-section"] [data-testid="shader-lines-canvas"] canvas'
-        )
-      ).toBeAttached({ timeout: 10000 });
+      // ShaderAnimation is fixed inset-0 -z-50 — lives outside the section flow
+      const shaderWrapper = page.locator('[data-testid="shader-lines-canvas"]');
+      await expect(shaderWrapper).toBeAttached({ timeout: 10000 });
 
-      // Canvas must be a descendant of the section, not a sibling of body
-      const isInsideSection = await page.evaluate(() => {
-        const section = document.querySelector(
-          '[data-testid="beliefs-section"]'
-        );
-        const canvas = document.querySelector(
-          '[data-testid="shader-lines-canvas"] canvas'
-        );
-        return section !== null && canvas !== null && section.contains(canvas);
+      const styles = await shaderWrapper.evaluate((el) => {
+        const computed = window.getComputedStyle(el);
+        return {
+          position: computed.position,
+          zIndex:   computed.zIndex,
+        };
       });
 
-      expect(isInsideSection).toBe(true);
+      expect(styles.position).toBe('fixed');
+      expect(Number(styles.zIndex)).toBeLessThan(0);
+
+      // Canvas itself must be present inside the wrapper
+      await expect(
+        page.locator('[data-testid="shader-lines-canvas"] canvas')
+      ).toBeAttached({ timeout: 5000 });
     });
 
     test('background usa position:absolute (não fixed) — guard de regressão', async ({
