@@ -5,3 +5,4 @@ export { AboutWhatIDo } from '@/components/sobre/sections/AboutWhatIDo';
 export { AboutMethod } from '@/components/sobre/sections/AboutMethod';
 export { AboutBeliefs } from '@/components/sobre/sections/AboutBeliefs';
 export { AboutClosing } from '@/components/sobre/sections/AboutClosing';
+export { ManifestoScrollSection } from '@/components/sobre/sections/ManifestoScrollSection';

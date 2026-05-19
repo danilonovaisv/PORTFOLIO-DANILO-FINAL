@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "permissions": {
     "allow": [
       "Bash(pnpm run *)",
@@ -42,18 +45,18 @@
       "Bash(gh pr *)",
       "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
       "Bash(git merge *)",
-      "Bash(xargs ls)"
+      "Bash(xargs ls)",
+      "Bash(echo \"EXIT: $?\")"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["firecrawl-mcp"],
+  "enabledMcpjsonServers": [
+    "firecrawl-mcp"
+  ],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   },
   "remote": {
     "defaultEnvironmentId": "env_016QDiovkVoWyHB4rWxYFN3m"
-  },
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }
 }
