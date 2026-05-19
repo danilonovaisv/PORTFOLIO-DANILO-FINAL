@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { useScroll, useTransform, m } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import { ShaderAnimation } from '@/components/ui/shader-lines';
+import { WhatMovesMeBackground } from '@/components/sobre/beliefs/WhatMovesMeBackground';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
@@ -67,6 +68,7 @@ function PhraseLayer({
   return (
     <m.div
       aria-label={text}
+      className="belief-phrase"
       style={{
         position: 'absolute',
         inset: 0,
@@ -145,6 +147,9 @@ export function ManifestoScrollSection() {
 
       {/* Sticky stage: persists in viewport across the 400vh scroll track */}
       <div className="sticky top-0 h-dvh overflow-hidden">
+        {/* Gradient overlay on top of shader */}
+        <WhatMovesMeBackground />
+
         <div
           data-testid="beliefs-scroll-text"
           className="relative h-full w-full"

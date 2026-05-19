@@ -8,12 +8,10 @@ import {
   AboutWhatIDo,
   AboutMethod,
   AboutClosing,
-  AboutBeliefs,
+  ManifestoScrollSection,
 } from '@/components/sobre/sections';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
-import { SectionErrorBoundary } from '@/components/ui/SectionErrorBoundary';
-import { AboutBeliefsSkeleton } from '@/components/sobre/sections/AboutBeliefsSkeleton';
 
 import { BRAND } from '@/config/brand';
 import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';
@@ -100,13 +98,8 @@ export default function AboutPage() {
       <Suspense fallback={<SectionSkeleton label="Como Eu Trabalho" />}>
         <AboutMethod />
       </Suspense>
-      {/* Seção 05 — O Que Me Move (Beliefs) */}
-      <SectionErrorBoundary
-        sectionName="AboutBeliefs"
-        fallback={<AboutBeliefsSkeleton />}
-      >
-        <AboutBeliefs />
-      </SectionErrorBoundary>
+      {/* Seção 05 — O Que Me Move (Manifesto) */}
+      <ManifestoScrollSection />
       {/* Seção 06 — Fechamento/Confirmação */}
       <Suspense fallback={<SectionSkeleton label="Fechamento" />}>
         <AboutClosing />

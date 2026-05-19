@@ -40,7 +40,7 @@ for (const route of ROUTES) {
       await gotoRoute(page, route);
     });
 
-    test('seção existe com altura cinematográfica de 600vh', async ({
+    test('seção existe com altura cinematográfica (≥400vh)', async ({
       page,
     }) => {
       const section = page.locator('[data-testid="beliefs-section"]');
@@ -50,49 +50,7 @@ for (const route of ROUTES) {
         .poll(async () =>
           section.evaluate((el) => el.scrollHeight / window.innerHeight)
         )
-        .toBeGreaterThanOrEqual(5.8);
-    });
-
-    test('z-index mantém Ghost acima do manifesto no clímax', async ({
-      page,
-    }) => {
-      await scrollToProgress(page, 0.9);
-
-      const ghost = page.locator('[data-testid="beliefs-ghost-scene"]').first();
-      const manifesto = page.locator('[data-testid="beliefs-manifesto"]');
-
-      await expect(ghost).toBeAttached();
-      await expect(manifesto).toBeAttached();
-
-      const ghostZ = await ghost.evaluate((el) =>
-        Number(window.getComputedStyle(el).zIndex)
-      );
-      const manifestoZ = await manifesto.evaluate((el) =>
-        Number(window.getComputedStyle(el).zIndex)
-      );
-
-      expect(ghostZ).toBe(70);
-      expect(manifestoZ).toBe(50);
-      expect(ghostZ).toBeGreaterThan(manifestoZ);
-    });
-
-    test('background troca de cor quando as scroll-sections entram', async ({
-      page,
-    }) => {
-      const background = page.locator('[data-testid="beliefs-background"]');
-
-      await scrollToProgress(page, 0.02);
-      const colorStart = await background.evaluate(
-        (el) => window.getComputedStyle(el).backgroundColor
-      );
-
-      await scrollToProgress(page, 0.34);
-      const colorMid = await background.evaluate(
-        (el) => window.getComputedStyle(el).backgroundColor
-      );
-
-      expect(colorStart).not.toBe(colorMid);
-      expect(colorMid).not.toBe('rgb(4, 0, 19)');
+        .toBeGreaterThanOrEqual(3.8);
     });
 
     test('frases entram com blur e deslocamento em motion normal', async ({
@@ -103,7 +61,7 @@ for (const route of ROUTES) {
       await expect
         .poll(async () => {
           const styles = await page
-            .locator('[data-testid="beliefs-scroll-text"] .belief-phrase span')
+            .locator('[data-testid="beliefs-scroll-text"] .belief-phrase')
             .evaluateAll((elements) => {
               return elements.map((el) => {
                 const computed = window.getComputedStyle(el);
@@ -115,7 +73,7 @@ for (const route of ROUTES) {
             });
           const visiblePhrase = styles.find((style) => style.opacity > 0.5);
 
-          return visiblePhrase && !visiblePhrase.filter.includes('blur(6px)');
+          return visiblePhrase && !visiblePhrase.filter.includes('blur(8px)');
         })
         .toBeTruthy();
     });
@@ -134,7 +92,7 @@ for (const route of ROUTES) {
         if (!section) return true;
 
         const elements = section.querySelectorAll(
-          '[data-testid="beliefs-scroll-text"] .belief-phrase span'
+          '[data-testid="beliefs-scroll-text"] .belief-phrase'
         );
 
         for (const el of elements) {
@@ -157,26 +115,7 @@ for (const route of ROUTES) {
       expect(hasReducedMotionViolation).toBe(false);
     });
 
-    test('mobile posiciona header e texto conforme contrato', async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 390, height: 844 });
-      await gotoRoute(page, route);
-      await scrollToProgress(page, 0.2);
-
-      const headerTop = await page
-        .locator('[data-testid="beliefs-header"]')
-        .evaluate((el) => window.getComputedStyle(el).top);
-      const phraseTextAlign = await page
-        .locator('[data-testid="beliefs-scroll-text"]')
-        .evaluate((el) => window.getComputedStyle(el).textAlign);
-
-      expect(Number.parseFloat(headerTop)).toBeGreaterThanOrEqual(160);
-      expect(Number.parseFloat(headerTop)).toBeLessThanOrEqual(170);
-      expect(phraseTextAlign).toBe('center');
-    });
-
-    test('Canvas R3F existe sem hydration error no console', async ({
+    test('canvas WebGL existe sem hydration error no console', async ({
       page,
     }) => {
       const consoleErrors: string[] = [];
