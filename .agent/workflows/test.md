@@ -1,5 +1,5 @@
 ---
-description: Sợ bug khi sửa code? Viết test tự động theo chuẩn TDD Master.
+description: Evite bugs ao alterar o código escrevendo testes automatizados baseados na metodologia TDD.
 ---
 
 # /test - TDD & Verification Suite

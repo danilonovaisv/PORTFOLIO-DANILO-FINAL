@@ -14,7 +14,7 @@ import { useLandingBackLink } from '@/components/projects/templates/useLandingBa
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { normalizeHexColor, mixHex } from '@/lib/colors';
-import { getYouTubeId } from '@/lib/projects/asset-utils';
+import { extractYoutubeId } from '@/lib/media/asset-contract';
 import { AssetLightbox } from '../AssetLightbox';
 import type { ZoomAsset, IntroBodyBlock } from '../types';
 
@@ -226,7 +226,7 @@ export function AlpaLayout({
               </h2>
               {introBlocks.map((block, paragraphIndex) => {
                 if (block.type === 'video_youtube') {
-                  const videoId = getYouTubeId(block.value);
+                  const videoId = extractYoutubeId(block.value);
                   if (!videoId) return null;
 
                   const shouldAutoplay = block.settings?.autoplay ?? true;

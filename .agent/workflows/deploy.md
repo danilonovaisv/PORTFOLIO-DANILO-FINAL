@@ -1,5 +1,5 @@
 ---
-description: Code xong rồi? Đẩy lên Server/Vercel thôi.
+description: Código pronto? Execute a pipeline de deploy e disponibilize as alterações em produção.
 ---
 
 # /deploy - Production Release System

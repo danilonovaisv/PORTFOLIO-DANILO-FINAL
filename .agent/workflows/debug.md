@@ -1,5 +1,5 @@
 ---
-description: Gặp lỗi khó sửa? Để AI soi log và sửa giúp bạn theo quy trình chuyên nghiệp.
+description: Encontrou um bug complexo? Análise sistemática de logs para diagnóstico e correção guiados por especialistas.
 ---
 
 # /debug - Systematic Debugging System

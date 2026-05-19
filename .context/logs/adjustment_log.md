@@ -1623,3 +1623,30 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 **Status:** Concluído.
 
+---
+
+## [2026-05-19T04:10] 🌐 Auto-Healing: Project Workflows Language Correction (Vietnamite -> Português PT-BR)
+
+**Context:** Correção do idioma de diversos arquivos de workflows localizados em `.agent/workflows/` que estavam parcial ou totalmente em vietnamita, desalinhados com a convenção global de idiomas do projeto (Comunicação/Logs em Português, Código/Identificadores em Inglês).
+
+**Changes Applied:**
+
+1. **`audit.md`, `brainstorm.md`, `create.md`, `debug.md`, `deploy.md`, `test.md`** ✅
+   - Tradução integral dos metadados e descrições técnicas em vietnamita para o Português (PT-BR).
+
+2. **`monitor.md`, `preview.md`, `seo.md`, `status.md`** ✅
+   - Tradução e refinamento semântico das descrições operacionais e metadados.
+
+3. **`orchestrate.md`** ✅
+   - Tradução dos títulos, metadados e blocos explicativos em vietnamita. Mantidas as referências de scripts técnicos (`cli/tools/browser.js`, `npm start manager`) e comandos da CLI.
+
+4. **`ui-ux-pro-max.md`, `mobile.md`, `release-version.md`** ✅
+   - Reescrevendo e traduzindo inteiramente os guias de boas práticas, passos manuais, diagramas de texto explicativos e vantagens operacionais contidos nas especificações de UI, mobile e release.
+
+**Verification:**
+
+- ✅ Executado `git status` validando a higienização de todos os 14 arquivos modificados em `.agent/workflows/`.
+- ✅ Alinhamento integral com a Constituição Soberana do Sistema Ghost (`GEMINI.md`) e regras de governança global do repositório.
+
+**Status:** Concluído.
+

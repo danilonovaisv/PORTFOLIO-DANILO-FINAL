@@ -1,5 +1,5 @@
 ---
-description: Bí ý tưởng? Dùng cái này để AI gợi ý theo chuẩn Senior.
+description: Sem ideias? Utilize esta ferramenta para obter sugestões estratégicas sob a ótica de um engenheiro sênior.
 ---
 
 # /brainstorm - Structured Strategic Exploration

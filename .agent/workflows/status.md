@@ -1,5 +1,5 @@
 ---
-description: Dự án đang đến đâu rồi? Xem Dashboard báo cáo chuyên nghiệp.
+description: Qual o progresso do projeto? Acesse o painel executivo com métricas e status do sistema.
 ---
 
 # /status - Executive Project Dashboard
