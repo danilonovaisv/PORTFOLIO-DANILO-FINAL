@@ -11,6 +11,8 @@ on:
     types:
       - completed
 
+# Evita runs paralelos para o mesmo workflow falho.
+# Se um novo fix chegar enquanto o anterior ainda roda, cancela o anterior.
 concurrency:
   group: claude-fix-${{ github.event.workflow_run.name }}
   cancel-in-progress: true
@@ -25,11 +27,11 @@ jobs:
       contents: write
       pull-requests: write
       actions: read
-      checks: read
+      checks: read        # necessário para gh run view em contexto workflow_run
       statuses: read
 
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # autentica a gh CLI em todos os steps
       FAILED_WORKFLOW: ${{ github.event.workflow_run.name }}
       FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
       FAILED_BRANCH: ${{ github.event.workflow_run.head_branch }}
@@ -42,6 +44,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha }}
 
+      # Necessário para Claude rodar `npm run build` e validar a correção antes do commit
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -57,7 +60,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: >-
-            --model claude-3-5-sonnet-20241022
+            --model claude-sonnet-4-6
             --max-turns 12
             --allowedTools "Bash(gh run view:*),Bash(gh run download:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(git checkout:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(npm run build),Bash(npm run lint),Bash(npm run type-check),Read,Edit,Write"
           prompt: |
@@ -89,7 +92,7 @@ jobs:
             ## Missão (execute nesta ordem)
 
             ### Passo 1 - Diagnóstico
-            ```bash
+            ```
             gh run view ${{ env.FAILED_RUN_ID }} --log-failed
             ```
             Leia os logs completos. Identifique o erro raiz (não o sintoma). 
@@ -102,9 +105,8 @@ jobs:
             ### Passo 3 - Correção
             Edite apenas o necessário. Não refatore código que não causou a falha.
             Após cada edição, valide localmente:
-
-            ```bash
-            npm run type-check || npx tsc --noEmit
+            ```
+            npm run type-check  # se disponível, senão: npx tsc --noEmit
             npm run lint
             npm run build
             ```
@@ -114,30 +116,28 @@ jobs:
             Crie uma branch com o padrão: `fix/claude-<workflow-slug>-<run-id-curto>`
             Exemplo: `fix/claude-firebase-deploy-${{ env.FAILED_RUN_ID }}`
 
-            ```bash
-            WORKFLOW_SLUG=$(echo "${{ env.FAILED_WORKFLOW }}" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]//g')
-            BRANCH_NAME="fix/claude-${WORKFLOW_SLUG}-${{ env.FAILED_RUN_ID }}"
-            git checkout -b "$BRANCH_NAME"
-            git add -A
-            git commit -m "fix: correção automática via Claude
+            ```
+            git checkout -b fix/claude-$(echo "${{ env.FAILED_WORKFLOW }}" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')-${{ env.FAILED_RUN_ID }}
+            git add <arquivos alterados>
+            git commit -m "fix: <descrição curta do problema>
 
             Workflow: ${{ env.FAILED_WORKFLOW }}
             Run ID: ${{ env.FAILED_RUN_ID }}
-
-            Causa raiz: <substituir após análise>
-            Solução aplicada: <substituir após correção>"
-            git push origin "$BRANCH_NAME"
+            
+            Causa raiz: <uma frase explicando o erro>
+            Solução aplicada: <uma frase explicando o que foi mudado>"
+            git push origin HEAD
             ```
 
             Abra o PR com:
-            ```bash
+            ```
             gh pr create \
-              --base "${{ env.FAILED_BRANCH }}" \
-              --title "fix: correção automática - ${{ env.FAILED_WORKFLOW }}" \
+              --base ${{ env.FAILED_BRANCH }} \
+              --title "fix: <título descritivo>" \
               --body "## Falha Corrigida
 
             **Workflow:** ${{ env.FAILED_WORKFLOW }}
-            **Run ID:** [${{ env.FAILED_RUN_ID }}](https://github.com/${{ github.repository }}/actions/runs/${{ env.FAILED_RUN_ID }})
+            **Run ID:** [${{ env.FAILED\_RUN\_ID }}\](https://github.com/${{ github.repository }}/actions/runs/${{ env.FAILED_RUN_ID }})
 
             ## Diagnóstico
             <causa raiz identificada nos logs>
@@ -159,4 +159,4 @@ jobs:
             - **Não modifique** arquivos fora de `src/`, `public/`, `next.config.*`, `tsconfig.json`, `package.json`
             - **Não remova** dependências, apenas adicione se estritamente necessário
             - **Não faça commit direto** em `main`, `master` ou na branch que falhou
-            - **Se não encontrar** causa raiz clara nos logs, crie o PR apenas com o diagnóstico no body e marque como draft: `gh pr create --draft ...`
+            - **Se não encontrar** causa raiz clara nos logs, crie o PR apenas com o diagnóstico no body e marque como draft
