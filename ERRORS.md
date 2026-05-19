@@ -6,8 +6,8 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 9
-- **Đã sửa**: 9
+- **Tổng lỗi**: 11
+- **Đã sửa**: 11
 
 ---
 
@@ -169,3 +169,39 @@
 - **Status**: Fixed (Code compiled and suite verified; execution issue isolated as local system sandbox restriction).
 
 ---
+
+## [2026-05-19 04:30] - Supabase Permissive RLS Policy (client_errors)
+
+- **Type**: Security
+- **Severity**: High
+- **File**: `supabase/migrations/20260518080000_create_client_errors.sql`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: The RLS policy "Allow anonymous insert for errors" on the `public.client_errors` table used an overly permissive expression `WITH CHECK (true)`. This allowed unrestricted INSERT access to anonymous and authenticated users, bypassing standard row-level security protections and triggering the Supabase Linter warning `rls_policy_always_true`.
+- **Error Message**:
+  ```text
+  Table public.client_errors has an RLS policy Allow anonymous insert for errors for INSERT that allows unrestricted access (WITH CHECK clause is always true).
+  ```
+- **Fix Applied**: Replaced `WITH CHECK (true)` with logical domain constraints on input fields: `WITH CHECK (severity IN ('low', 'medium', 'high', 'critical') AND source IN ('browser', 'server', 'edge') AND error_data IS NOT NULL)`. Applied the updated policy on the remote database via SQL execution and synchronized the local migration file. This successfully eliminated the `rls_policy_always_true` security warning from Supabase Advisors.
+- **Prevention**: Never use `WITH CHECK (true)` on writable policies (INSERT, UPDATE) even for anonymous logging tables. Add strict schema-level check constraints or value lists in the policy's condition block to restrict input vectors and satisfy database security linters.
+- **Status**: Fixed
+
+
+
+---
+
+## [2026-05-19 04:45] - YouTube Player Runtime TypeError (event.target.isMuted is not a function)
+
+- **Type**: Runtime TypeError
+- **Severity**: High (Blocks player interaction and breaks callbacks)
+- **File**: `src/components/ui/YouTubePlayer.tsx`
+- **Agent**: Antigravity / Sentinel Prime
+- **Root Cause**: Attempting to call YouTube IFrame API methods like `isMuted()`, `unMute()`, `mute()`, `playVideo()`, or `getPlayerState()` on `event.target` or `playerRef.current` during component unmounting or active hot-reloads (Next.js Fast Refresh) when the underlying player has been destroyed or is in a transient state where these methods are no longer exposed.
+- **Error Message**:
+  ```text
+  TypeError: event.target.isMuted is not a function
+      at YouTubePlayer.useEffect.initPlayer (src/components/ui/YouTubePlayer.tsx:100:39)
+  ```
+- **Fix Applied**: Implemented robust type guards and defensive checks (`typeof ... === 'function'`) before executing any player methods on either `event.target` or `playerRef.current` inside event listeners (`onReady`, `onStateChange`) and interaction/lifecycle handlers.
+- **Prevention**: Always use `typeof ... === 'function'` safeguards when communicating with external asynchronous third-party APIs (like YouTube IFrame Player) inside React lifecycle hooks, especially to handle unmounting or hot reloading state cleanups cleanly.
+- **Status**: Fixed
+

@@ -11,13 +11,13 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       eyeGlowColor: 'violet',
       ghostOpacity: 0.92,
       ghostScale: 2.4,
-      emissiveIntensity: 6.2,
+      emissiveIntensity: 1.8, // Reduced further from 2.8 to 1.8 for an ultra-subtle elegant glow
       pulseSpeed: 1.4,
-      pulseIntensity: 0.5,
-      eyeGlowIntensity: 4.8,
+      pulseIntensity: 0.25, // Reduced from 0.3 to further smooth out pulses
+      eyeGlowIntensity: 2.4, // Reduced from 3.8 to 2.4 to stay soft and balanced
       eyeGlowDecay: 0.96,
       eyeGlowResponse: 0.35,
-      rimLightIntensity: 2.2,
+      rimLightIntensity: 0.75, // Reduced further from 1.1 to 0.75 to soften outer contours
       followSpeed: 0.05,
       wobbleAmount: 0.35,
       floatSpeed: 1.6,
@@ -34,7 +34,7 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       fadeStrength: 1.7,
       baseOpacity: 0.9,
       revealOpacity: 0.05,
-      fireflyGlowIntensity: 4.3,
+      fireflyGlowIntensity: 1.3, // Reduced further from 2.2 to 1.3 to keep the fireflies ethereal and integrated
       fireflySpeed: 0.09,
       analogIntensity: 0.45, // Further refinement for editorial feel
       analogGrain: 0.3,
@@ -45,7 +45,7 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       analogJitter: 0.15,
       limboMode: false,
       // Environment & Post-Processing
-      bloomStrength: performanceConfig.quality === 'low' ? 0.8 : 1.8,
+      bloomStrength: performanceConfig.quality === 'low' ? 0.15 : 0.5, // Reduced from 0.3 : 0.8 to make post-processing bloom very sleek
       bloomRadius: 1.1,
       bloomThreshold: 0.0,
       ambientLightColor: 0x040013,

@@ -1,5 +1,5 @@
-import type { BeliefPhrase } from '../types/beliefs';
-import { MOTION_TOKENS } from './motion';
+import type { BeliefPhrase } from '@/types/beliefs';
+import { MOTION_TOKENS, GHOST_EASE, GHOST_EASE_SOFT, GHOST_EASE_AMBIENT } from '@/config/motion';
 
 export const beliefColors = {
   deepVoid: '#040013',
@@ -57,10 +57,10 @@ export const beliefZIndex = {
 } as const;
 
 export const beliefMotion = {
-  ghostEase: MOTION_TOKENS.ease.ghost,
+  ghostEase: GHOST_EASE,
   /** Motion scroll-triggered reference ease — for Beliefs phrases and background */
-  referenceEase: MOTION_TOKENS.ease.reference,
-  softEase: MOTION_TOKENS.ease.soft,
+  referenceEase: GHOST_EASE_AMBIENT,
+  softEase: GHOST_EASE_SOFT,
   microDuration: MOTION_TOKENS.duration.micro,
   revealDuration: MOTION_TOKENS.duration.GHOST_REVEAL,
   exitDuration: MOTION_TOKENS.duration.GHOST_EXIT,

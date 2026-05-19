@@ -1,7 +1,7 @@
 'use client';
 
 import { Component, type ReactNode } from 'react';
-import { AboutBeliefsSkeleton } from '@/components/sobre/sections/AboutBeliefsSkeleton';
+// Fallback skeleton genérico do Design System
 
 interface Props {
   children: ReactNode;
@@ -70,7 +70,9 @@ export class SectionErrorBoundary extends Component<Props, State> {
       return (
         <div className="relative group">
           {this.props.fallback || (
-            <AboutBeliefsSkeleton className="opacity-50 grayscale" />
+            <div className="w-full min-h-[40vh] bg-background animate-pulse border border-white/5 flex items-center justify-center opacity-50">
+              <div className="h-10 w-40 bg-bluePrimary/10 rounded-md" />
+            </div>
           )}
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm z-50">
             <p className="text-white/60 text-sm mb-4 font-mono">
