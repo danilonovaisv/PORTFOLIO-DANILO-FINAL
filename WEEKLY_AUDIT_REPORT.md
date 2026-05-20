@@ -8,7 +8,8 @@
 - **Branch de auditoria:** claude/weekly-audit-report-2026-05-19
 - **Routine:** Weekly Autonomous Audit — Claude Code Routine
 - **Commit de referência:** 37b98f37
-- **PR:** (gerado após push desta branch)
+- **PR:** https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL/pull/469
+- **Revisão:** v1.1 — 2026-05-19 (correções pós-review Codex: contagem de `any`, AdminShell omitido, falso positivo P1-003 removido)
 - **Auditor:** Ghost Commander — Claude Code Autonomous Audit Agent
 - **Scope:** Auditoria dos 12 pilares: estrutura, Ghost Design System, responsividade, motion/WebGL, performance, roteamento, interações, landing pages, dados/CMS, segurança operacional, Firebase Hosting, acessibilidade
 - **Files changed:** Exclusivamente `WEEKLY_AUDIT_REPORT.md`
@@ -91,12 +92,14 @@ Três achados exigem atenção antes do próximo deploy:
 
 **ID: P0-002**
 - **Severidade:** 🔴 P0 Crítico
-- **Área:** Ghost Motion Protocol — Violação de `scale`
-- **Evidência:** `src/components/sobre/sections/ManifestoScrollSection.tsx:300` — classe `hover:scale-125` aplicada ao dot-indicator de paginação.
-- **Impacto:** Viola explicitamente o Ghost Design System: "Forbidden (content/UI): `scale`". Cria inconsistência visual na seção `/sobre` com o padrão de motion do restante do site.
-- **Arquivos relacionados:** `src/components/sobre/sections/ManifestoScrollSection.tsx`
+- **Área:** Ghost Motion Protocol — Violações de `scale` (2 ocorrências)
+- **Evidência:**
+  - `src/components/sobre/sections/ManifestoScrollSection.tsx:300` — `hover:scale-125` no dot-indicator de paginação (UI pública).
+  - `src/components/admin/AdminShell.tsx:86` — `group-hover:scale-125` em indicador de nav do admin.
+- **Impacto:** Viola explicitamente o Ghost Design System: "Forbidden (content/UI): `scale`". Duas ocorrências confirmadas criam precedente de erosão do protocolo.
+- **Arquivos relacionados:** `src/components/sobre/sections/ManifestoScrollSection.tsx`, `src/components/admin/AdminShell.tsx`
 - **Risco de não corrigir:** Erosão gradual do Ghost Motion Protocol; aprovação de scale em outros componentes por precedente.
-- **Critério de aceite futuro:** `hover:scale-125` substituído por `hover:opacity-100` + `hover:bg-white/40` (mudança de opacidade conforme protocolo). Dot indicator visualmente responsivo sem scale.
+- **Critério de aceite futuro:** Ambas as instâncias de `scale` substituídas por mudança de opacidade/glow. Audit grep `hover:scale|group-hover:scale` em `src/` retorna zero resultados em componentes não-3D.
 
 ---
 
@@ -137,15 +140,6 @@ Três achados exigem atenção antes do próximo deploy:
 
 ---
 
-**ID: P1-003**
-- **Severidade:** 🟡 P1 Estrutural
-- **Área:** Acessibilidade — Dot-navigation sem ARIA labels
-- **Evidência:** `src/components/sobre/sections/ManifestoScrollSection.tsx:300` — botões de paginação (dot indicators) sem `aria-label`.
-- **Impacto:** Usuários de teclado/screen reader não conseguem identificar função dos botões de navegação do carrossel.
-- **Arquivos relacionados:** `src/components/sobre/sections/ManifestoScrollSection.tsx`
-- **Risco de não corrigir:** Falha de acessibilidade AA (WCAG 2.1 - Success Criterion 4.1.2).
-- **Critério de aceite futuro:** Cada dot button com `aria-label="Ir para item X"` e `aria-current` no item ativo.
-
 ---
 
 **ID: P1-004**
@@ -159,14 +153,16 @@ Três achados exigem atenção antes do próximo deploy:
 
 ---
 
-**ID: P1-005**
+**ID: P1-004**
 - **Severidade:** 🟡 P1 Estrutural
 - **Área:** TypeScript Quality — Dívida de `any`
-- **Evidência:** 119 usos de `as any` / `: any` em `src/` (verificado via grep).
+- **Evidência:** 111 usos de `as any` / `: any` em `src/` (grep `\bas any\b|:\s*any\b` em `*.tsx` e `*.ts`).
 - **Impacto:** Acumulação de dívida técnica; riscos de runtime silenciosos; dificulta refatorações seguras.
 - **Arquivos relacionados:** Múltiplos em `src/`
 - **Risco de não corrigir:** Crescimento da dívida com cada sprint; erros de produção não detectados pelo compilador.
 - **Critério de aceite futuro:** Meta: < 30 usos justificados de `any` com comentário `// eslint-disable-next-line @typescript-eslint/no-explicit-any`. `pnpm run typecheck` com zero erros quando `ignoreBuildErrors` for desativado.
+
+---
 
 ---
 
@@ -250,23 +246,25 @@ Três achados exigem atenção antes do próximo deploy:
 
 **Especialista:** `@motion_choreographer` / `motion`
 
-**Arquivos:** `src/components/sobre/sections/ManifestoScrollSection.tsx`
+**Arquivos:**
+- `src/components/sobre/sections/ManifestoScrollSection.tsx`
+- `src/components/admin/AdminShell.tsx`
 
 **Contexto obrigatório:**
 - `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` — Seção 2.3 Allowed vs Forbidden Motion
 - `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/` — documentação da seção de manifesto
 
 **Ações:**
-1. Localizar linha 300 em `ManifestoScrollSection.tsx`.
-2. Substituir a classe `hover:scale-125` por `hover:opacity-100 hover:bg-white/40` na string de classes do dot indicator inativo.
-3. Confirmar que a classe `bg-white/15 w-[0.35rem]` permanece; apenas adicionar/remover classes de hover.
-4. Testar visualmente em `/sobre` que o indicador de paginação responde ao hover com mudança de opacidade e não de escala.
+1. Em `ManifestoScrollSection.tsx:300`: substituir `hover:scale-125` por `hover:opacity-100` na string de classes do dot indicator inativo.
+2. Confirmar que `bg-white/15 w-[0.35rem] hover:bg-white/40` permanece; apenas remover `hover:scale-125`.
+3. Em `AdminShell.tsx:86`: substituir `group-hover:scale-125` por `group-hover:opacity-100` ou `group-hover:brightness-150` no indicador de nav.
+4. Testar visualmente em `/sobre` (dots) e `/admin` (nav indicator) que o hover responde sem scale.
 
-**Regras:** Não alterar `z-index`, `width`, nem `background-color` base. Não usar `transition-transform`. Usar `transition-opacity duration-200 ease-[0.22,1,0.36,1]` se necessário.
+**Regras:** Não alterar `z-index`, `width`, nem `background-color` base. Não usar `transition-transform`. Usar `transition-opacity duration-200` se necessário. Nota: `GhostModel.tsx` usa `scale` em contexto Three.js 3D — essa é uma exceção válida, não alterar.
 
 **Critérios de Aceite:**
-- [ ] Nenhuma classe `scale` no componente.
-- [ ] Dot indicator visualmente responsivo ao hover.
+- [ ] Zero instâncias de `hover:scale` ou `group-hover:scale` em componentes UI não-3D (grep confirm).
+- [ ] Dot indicator e nav indicator visualmente responsivos ao hover.
 - [ ] `pnpm run typecheck` sem novos erros.
 - [ ] Comportamento de reduced-motion preservado.
 
@@ -418,7 +416,7 @@ Três achados exigem atenção antes do próximo deploy:
 | Segredos hardcoded | ✅ Nenhum API key ou token encontrado em `src/` |
 | `.gitignore` cobrindo `.env` | ✅ Confirmado |
 | Font PPSupplyMono — self-hosted | ❌ CDN externo `assets.codepen.io` |
-| `hover:scale` em UI components | ❌ `hover:scale-125` em `ManifestoScrollSection.tsx:300` |
+| `hover:scale` em UI components | ❌ `hover:scale-125` em `ManifestoScrollSection.tsx:300` + `group-hover:scale-125` em `AdminShell.tsx:86` |
 | `typescript: { ignoreBuildErrors }` | ❌ `true` em `next.config.mjs` |
 | URL hardcoded em GhostModel.tsx | ❌ URL Supabase direta, bypassa `SITE_ASSET_KEYS` |
 | Regras Tailwind desatualizadas | ❌ `.claude/rules/` prescrevem v3 mas projeto usa v4 |
@@ -435,6 +433,7 @@ Três achados exigem atenção antes do próximo deploy:
 |:---|:---|:---|
 | PPSupplyMono em CDN externo | `src/styles/fonts.css:21` | `url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')` |
 | `hover:scale-125` em ManifestoScrollSection | `src/components/sobre/sections/ManifestoScrollSection.tsx:300` | `'bg-white/15 w-[0.35rem] hover:bg-white/40 hover:scale-125'` |
+| `group-hover:scale-125` em AdminShell | `src/components/admin/AdminShell.tsx:86` | `group-hover:scale-125` em div de nav indicator |
 | `ignoreBuildErrors: true` | `next.config.mjs` | `typescript: { ignoreBuildErrors: true }` |
 | GhostModel URL hardcoded | `src/components/sobre/3d/GhostModel.tsx:17` | `const MODEL_PATH = 'https://umkmwbkwvulxtdodzmzf.supabase.co/...'` |
 | Ghost ease correto | `src/config/motion.ts:11` | `export const GHOST_EASE: EasingTuple = [0.22, 1, 0.36, 1]` |
@@ -443,7 +442,7 @@ Três achados exigem atenção antes do próximo deploy:
 | ARIA canvas hero | `src/components/canvas/home/hero/GhostSceneWrapper.tsx:31-32` | `aria-hidden="true"`, `role="presentation"` |
 | Tailwind v4 em uso | `postcss.config.cjs` | `'@tailwindcss/postcss': {}` |
 | Regras desatualizadas | `.claude/rules/postcss-tailwind-config.md` | Prescreve v3 mas projeto usa v4 |
-| `as any` count | Grep em `src/` | 119 ocorrências de `as any` / `: any` |
+| `as any` count | Grep em `src/` | 111 ocorrências de `as any` / `: any` |
 | Console statements em prod | `src/components/layout/AssetLoaderWrapper.tsx:40,56,65` | `console.warn(...)` |
 
 ---
@@ -486,7 +485,7 @@ O payload abaixo será enviado via `curl` ao webhook configurado em `SLACK_WEEKL
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "*Projeto:* portfoliodanilo.com\n*Commit:* 37b98f37\n*P0:* 3 | *P1:* 5 | *P2:* 3\n*Top riscos:* PPSupplyMono em CDN externo, TypeScript silenciado, escala proibida no Sobre\n*Código alterado:* ❌ Nenhuma linha de código foi modificada.\n*Ação solicitada:* Responder 'Aprovado' ou 'Proceed' para autorizar a criação de uma rotina separada de correção."
+        "text": "*Projeto:* portfoliodanilo.com\n*Commit:* 37b98f37\n*P0:* 3 | *P1:* 4 | *P2:* 3\n*Top riscos:* PPSupplyMono em CDN externo, TypeScript silenciado, 2x escala proibida (Sobre + AdminShell)\n*Código alterado:* ❌ Nenhuma linha de código foi modificada.\n*Ação solicitada:* Responder 'Aprovado' ou 'Proceed' para autorizar a criação de uma rotina separada de correção."
       }
     },
     {
