@@ -20,7 +20,6 @@ jobs:
 
     env:
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
-      # Removido FORCE_JAVASCRIPT_ACTIONS_TO_NODE24 para não comprometer hooks nativos do actions/checkout
 
     steps:
       - name: Checkout repository
@@ -34,7 +33,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
 
       - name: Validate pnpm lockfile
@@ -45,22 +44,26 @@ jobs:
           fi
 
       - name: Validate required secrets
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
+          if [ -z "$FIREBASE_SA" ]; then
             echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS"
             exit 1
           fi
-          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" ]; then
-            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_URL — build would use localhost fallback, breaking all Supabase assets in production."
+          if [ -z "$SUPABASE_URL" ]; then
+            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_URL"
             exit 1
           fi
-          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" ]; then
+          if [ -z "$SUPABASE_ANON" ]; then
             echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_ANON_KEY"
             exit 1
           fi
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Verify Next.js presence
         run: |
@@ -77,8 +80,10 @@ jobs:
         run: pnpm dlx firebase-tools --version
 
       - name: Write service account credentials
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}' > "${{ runner.temp }}/firebase-service-account.json"
+          echo "$FIREBASE_SA" > "${{ runner.temp }}/firebase-service-account.json"
 
       - name: Deploy to Firebase Hosting
         env:
