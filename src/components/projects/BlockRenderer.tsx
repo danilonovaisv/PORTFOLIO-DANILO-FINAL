@@ -179,7 +179,9 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>{renderMedia(content.media, content.mediaType || 'image')}</div>
+              <div>
+                {renderMedia(content.media, content.mediaType || 'image')}
+              </div>
               <div>{renderText(content.text, content.textConfig)}</div>
             </div>
           </div>

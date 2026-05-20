@@ -1,31 +1,31 @@
 'use client';
- 
+
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { m } from 'motion/react';
 import type { MotionValue } from 'motion/react';
- 
+
 interface ShaderAnimationProps {
   /** Controle de opacidade opcional (suporta MotionValue ou number simples) */
   opacity?: MotionValue<number> | number;
   /** Classe CSS customizada para o container */
   className?: string;
 }
- 
+
 export function ShaderAnimation({ opacity, className }: ShaderAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
- 
+
   useEffect(() => {
     if (!containerRef.current) return;
- 
+
     const container = containerRef.current;
- 
+
     const vertexShader = `
       void main() {
         gl_Position = vec4(position, 1.0);
       }
     `;
- 
+
     const fragmentShader = `
       precision highp float;
       uniform vec2 resolution;
@@ -66,17 +66,17 @@ export function ShaderAnimation({ opacity, className }: ShaderAnimationProps) {
         gl_FragColor = vec4(clamp(gradColor * lineIntensity, 0.0, 1.0), 1.0);
       }
     `;
- 
+
     const camera = new THREE.Camera();
     camera.position.z = 1;
- 
+
     const scene = new THREE.Scene();
     const geometry = new THREE.PlaneGeometry(2, 2);
     const uniforms = {
       time: { value: 1.0 },
       resolution: { value: new THREE.Vector2() },
     };
- 
+
     const material = new THREE.ShaderMaterial({
       uniforms,
       vertexShader,
@@ -84,29 +84,29 @@ export function ShaderAnimation({ opacity, className }: ShaderAnimationProps) {
       transparent: true,
     });
     scene.add(new THREE.Mesh(geometry, material));
- 
+
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
- 
+
     const canvas = renderer.domElement;
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.setAttribute('aria-hidden', 'true');
     container.appendChild(canvas);
- 
+
     const onResize = () => {
       const w = container.clientWidth;
       const h = container.clientHeight;
       renderer.setSize(w, h, false);
       uniforms.resolution.value.set(canvas.width, canvas.height);
     };
- 
+
     onResize();
     window.addEventListener('resize', onResize, { passive: true });
- 
+
     let animationId = 0;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
@@ -114,7 +114,7 @@ export function ShaderAnimation({ opacity, className }: ShaderAnimationProps) {
       renderer.render(scene, camera);
     };
     animate();
- 
+
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', onResize);
@@ -124,7 +124,7 @@ export function ShaderAnimation({ opacity, className }: ShaderAnimationProps) {
       material.dispose();
     };
   }, []);
- 
+
   return (
     <m.div
       ref={containerRef}

@@ -36,7 +36,9 @@ for (const route of ROUTES) {
       await expect(dots).toHaveCount(PHRASES.length);
 
       // Garante que o WebGL Shader local está presente e montado
-      const shaderContainer = section.locator('[data-testid="shader-lines-canvas"]');
+      const shaderContainer = section.locator(
+        '[data-testid="shader-lines-canvas"]'
+      );
       await expect(shaderContainer).toBeAttached();
       await expect(shaderContainer.locator('canvas')).toHaveCount(1);
 
@@ -62,25 +64,33 @@ for (const route of ROUTES) {
       await expect(liveRegion).toBeAttached();
 
       // Verifica se a primeira frase é exibida de forma acessível inicialmente
-      await expect(liveRegion).toHaveText(`${PHRASES[0].line1} ${PHRASES[0].line2}`);
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[0].line1} ${PHRASES[0].line2}`
+      );
 
       // Clica no segundo dot para navegar manualmente
       const secondDot = section.locator('button[aria-label="Ver manifesto 2"]');
       await secondDot.click();
 
       // Verifica se o estado de acessibilidade e o texto são atualizados para a segunda frase
-      await expect(liveRegion).toHaveText(`${PHRASES[1].line1} ${PHRASES[1].line2}`, {
-        timeout: 5000,
-      });
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[1].line1} ${PHRASES[1].line2}`,
+        {
+          timeout: 5000,
+        }
+      );
 
       // Clica no quarto dot
       const fourthDot = section.locator('button[aria-label="Ver manifesto 4"]');
       await fourthDot.click();
 
       // Verifica atualização para a quarta frase
-      await expect(liveRegion).toHaveText(`${PHRASES[3].line1} ${PHRASES[3].line2}`, {
-        timeout: 5000,
-      });
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[3].line1} ${PHRASES[3].line2}`,
+        {
+          timeout: 5000,
+        }
+      );
     });
 
     test('preserva acessibilidade WCAG/WAI-ARIA para leitores de tela', async ({
@@ -137,12 +147,16 @@ for (const route of ROUTES) {
 
       // Se o WebGL falhar, o container do shader e o restante da UI devem continuar estáveis
       const liveRegion = section.locator('#manifesto-phrase-live');
-      await expect(liveRegion).toHaveText(`${PHRASES[0].line1} ${PHRASES[0].line2}`);
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[0].line1} ${PHRASES[0].line2}`
+      );
 
       // Garante que nenhum erro fatal de WebGL travou a página do cliente
       expect(
-        errors.filter((message) =>
-          message.toLowerCase().includes('webgl') || message.toLowerCase().includes('shader')
+        errors.filter(
+          (message) =>
+            message.toLowerCase().includes('webgl') ||
+            message.toLowerCase().includes('shader')
         )
       ).toHaveLength(0);
     });

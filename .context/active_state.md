@@ -2,7 +2,7 @@
 
 **Phase**: MANIFESTO CAROUSEL & WEBGL SHADER REALIGNMENT
 **Current Focus**: Alinhamento do Manifesto "O que me move" na página `/sobre` (e rota `/o-que-me-move`) com a referência HTML: pulsing gradient Three.js fragment shader pixelado + transições CSS scoped stagger por caractere + dots tácteis + autoplay robusto + acessibilidade WCAG.
-**Last Update**: 2026-05-19 02:15
+**Last Update**: 2026-05-20 05:10
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
 
@@ -13,6 +13,17 @@
 - **WebGL**: ✅ Realigned procedural gradient fragment shader (Blue/Purple/Blue) in `shader-lines.tsx`
 - **Validation**: ✅ 100% stable `build-check` and `build` under absolute Node v26 and pnpm resolution path
 - **Visual Regressions**: ✅ Resolved background shader invisible stacking context and closing video unmounting buffering failures
+- **Email Integration**: ✅ Integrated Resend API for contact form submissions dispatching to danilo@portfoliodanilo.com
+
+## Contact Form Email Dispatch & Resend Integration (2026-05-20)
+
+- [x] **Email Sending Endpoint**: Refactored `src/app/api/contact/route.ts` to dispatch messages directly to `danilo@portfoliodanilo.com` via Resend's REST API using native `fetch`.
+- [x] **Responsive HTML Template**: Formatted content structure preserving line breaks (`white-space: pre-wrap`) for user messages, styling it with Ghost Blue accents.
+- [x] **Error Fallback**: Graceful response behavior, redirecting or returning JSON errors if the API is offline or returns an invalid state.
+- [x] **Environment Configuration**: Integrated `RESEND_FROM_EMAIL` into `.env.example` and `.env.local` to allow customizing the sender.
+- [x] **Code Hygiene**: Aligned console logging with strict ESLint settings (`console.warn` instead of `console.log`).
+- [x] **Validation Evidence**:
+  - `pnpm run build-check` ✅ **Exit Code 0** (Zero errors or warnings).
 
 ## Manifesto Carousel & WebGL Pulsing Shader Realignment (2026-05-19)
 

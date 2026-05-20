@@ -24,8 +24,7 @@ export type AssetTypeHint = 'image' | 'video' | 'youtube';
 
 const YOUTUBE_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
 const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov|m4v)(?:[?#].*)?$/i;
-const IMAGE_FILE_PATTERN =
-  /\.(avif|gif|jpe?g|png|svg|webp)(?:[?#].*)?$/i;
+const IMAGE_FILE_PATTERN = /\.(avif|gif|jpe?g|png|svg|webp)(?:[?#].*)?$/i;
 const STORAGE_BUCKET_PATTERN = /^(site-assets|portfolio-media)\//i;
 
 function isAbsoluteHttpUrl(value: string) {
@@ -36,7 +35,10 @@ function isLocalPublicAsset(value: string) {
   return value.startsWith('/site.assets/') || value.startsWith('/assets/');
 }
 
-function inferAssetType(value: string, hint?: AssetTypeHint): 'image' | 'video' {
+function inferAssetType(
+  value: string,
+  hint?: AssetTypeHint
+): 'image' | 'video' {
   if (hint === 'video' || hint === 'youtube') return 'video';
   if (hint === 'image') return 'image';
   return VIDEO_FILE_PATTERN.test(value) ? 'video' : 'image';
@@ -189,7 +191,8 @@ export function resolveLandingAsset(
 
   const inferredType = inferAssetType(trimmed, typeHint);
   const source =
-    trimmed === url || (isAbsoluteHttpUrl(trimmed) && !trimmed.includes('/storage/v1/'))
+    trimmed === url ||
+    (isAbsoluteHttpUrl(trimmed) && !trimmed.includes('/storage/v1/'))
       ? 'new'
       : 'legacy';
 

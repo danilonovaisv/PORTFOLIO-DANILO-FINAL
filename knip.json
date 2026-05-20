@@ -1,13 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "entry": [
-    "src/app/**/*.{js,jsx,ts,tsx}",
-    "scripts/**/*.{js,ts,cjs,mjs}"
-  ],
+  "entry": ["src/app/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,ts,cjs,mjs}"],
   "project": ["src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,ts,cjs,mjs}"],
-  "ignore": [
-    "src/components/ui/**"
-  ],
+  "ignore": ["src/components/ui/**"],
   "ignoreExportsUsedInFile": true,
   "ignoreDependencies": ["sharp"]
 }

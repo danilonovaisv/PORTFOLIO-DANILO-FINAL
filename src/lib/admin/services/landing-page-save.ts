@@ -41,7 +41,8 @@ export async function prepareLandingPageData(ctx: SaveContext) {
       bucket: 'site-assets',
     });
     const url = resolveSupabaseUrl(path, 'site-assets');
-    if (!url) throw new Error('SYSTEM_ERR: STORAGE_PUBLIC_URL_RESOLUTION_FAILED');
+    if (!url)
+      throw new Error('SYSTEM_ERR: STORAGE_PUBLIC_URL_RESOLUTION_FAILED');
     return url;
   };
 
@@ -373,10 +374,7 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
         const path = await upload(block.file, `master-v3-grid-${block.id}-m1`);
         if (path) mediaPath = path;
       } else if (mediaPath) {
-        mediaPath = normalizePersistedAsset(
-          mediaPath,
-          block.content.mediaType
-        );
+        mediaPath = normalizePersistedAsset(mediaPath, block.content.mediaType);
       }
 
       if (block.file2) {

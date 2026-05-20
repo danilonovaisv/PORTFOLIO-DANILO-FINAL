@@ -1,5 +1,25 @@
 # Adjustment Log
 
+## [2026-05-20T05:00] Contact Form Email Dispatch (Resend Integration)
+
+**Context:** Habilitação do envio real de e-mails para mensagens enviadas através do formulário de contato da landing page (`src/components/home/contact/ContactForm.tsx`) para o e-mail central `danilo@portfoliodanilo.com` via API Rest do Resend.
+
+**Changes Applied:**
+
+1. **`src/app/api/contact/route.ts` — Resend integration** ✅
+   - Implementado o disparo de e-mails usando a API do Resend via `fetch` nativo no endpoint de recebimento do formulário.
+   - Criado template HTML elegante e responsivo contendo nome, e-mail, telefone e mensagem do remetente (com `white-space: pre-wrap` para manter a formatação do texto original).
+   - Adicionado tratamento robusto de erros de rede e respostas HTTP inválidas da API do Resend, com fallback seguro para logs e retorno adequado ao frontend.
+   - Substituídos os comandos `console.log` por `console.warn` para conformidade com as restrições rígidas da regra `no-console` do ESLint.
+
+2. **`.env.example` & `.env.local` — Configuração das credenciais** ✅
+   - Declarada a variável de ambiente `RESEND_FROM_EMAIL` para definir o remetente oficial do e-mail (fallback automático para `onboarding@resend.dev`).
+   - Sincronizadas as variáveis locais no arquivo `.env.local` para testes locais e simulação.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` (typecheck + linter) executado e concluído com sucesso (zero erros, zero warnings).
+
 ## [2026-05-11T23:30] Asset Sync & Governance Pipeline
 
 **Context:** Execução do workflow `@/asset-sync` para garantir paridade entre as definições locais e o armazenamento remoto no Supabase.

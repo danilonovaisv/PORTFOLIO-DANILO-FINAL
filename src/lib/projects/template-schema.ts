@@ -407,7 +407,9 @@ const normalizeLandingBlock = (
         fallbackAlt,
       alt2: asString(contentRecord.alt2 ?? record.alt2),
       poster: normalizeAssetReadValue(
-        asString(contentRecord.poster ?? contentRecord.poster1 ?? record.poster),
+        asString(
+          contentRecord.poster ?? contentRecord.poster1 ?? record.poster
+        ),
         'image'
       ),
       poster2: normalizeAssetReadValue(

@@ -39,7 +39,9 @@ export function AlpaBlockMediaText({
   openAsset,
 }: AlpaBlockMediaTextProps) {
   const isVid =
-    mediaType === 'video' || mediaType === 'youtube' || (media && isVideo(media));
+    mediaType === 'video' ||
+    mediaType === 'youtube' ||
+    (media && isVideo(media));
   const resolvedMedia = resolveLandingAsset(
     media,
     mediaType === 'youtube' ? 'youtube' : isVid ? 'video' : 'image'

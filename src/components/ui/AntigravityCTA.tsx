@@ -148,11 +148,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   }
 
   if (as === 'div') {
-    return (
-      <m.div {...commonProps}>
-        {content}
-      </m.div>
-    );
+    return <m.div {...commonProps}>{content}</m.div>;
   }
 
   return (

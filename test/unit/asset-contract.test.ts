@@ -63,15 +63,17 @@ describe('asset contract', () => {
     });
 
     it('rejects insecure external URL', () => {
-      expect(resolveLandingAsset('http://example.com/image.png', 'image')).toEqual(
-        { ok: false, reason: 'invalid-url' }
-      );
+      expect(
+        resolveLandingAsset('http://example.com/image.png', 'image')
+      ).toEqual({ ok: false, reason: 'invalid-url' });
     });
   });
 
   describe('landing asset resolution', () => {
     it('returns image asset for legacy path', () => {
-      expect(resolveLandingAsset('landing-pages/demo/hero.webp', 'image')).toEqual({
+      expect(
+        resolveLandingAsset('landing-pages/demo/hero.webp', 'image')
+      ).toEqual({
         ok: true,
         source: 'legacy',
         asset: {

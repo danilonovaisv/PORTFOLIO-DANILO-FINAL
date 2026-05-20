@@ -88,7 +88,9 @@ export function AlpaBlockGrid2Col({
             ) : isVid ? (
               <video
                 src={resolved.asset.url}
-                poster={resolvedPoster.ok ? resolvedPoster.asset.url : undefined}
+                poster={
+                  resolvedPoster.ok ? resolvedPoster.asset.url : undefined
+                }
                 autoPlay
                 muted
                 loop

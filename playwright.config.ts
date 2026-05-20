@@ -24,11 +24,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { 
+      use: {
         browserName: 'chromium',
         launchOptions: {
-          args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
-        }
+          args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
+        },
       },
     },
     {

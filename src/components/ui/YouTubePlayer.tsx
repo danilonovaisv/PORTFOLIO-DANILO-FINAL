@@ -74,7 +74,10 @@ export function YouTubePlayer({
 
               // Give it a short moment to see if playback actually started (browser autoplay policy)
               setTimeout(() => {
-                if (event.target && typeof event.target.getPlayerState === 'function') {
+                if (
+                  event.target &&
+                  typeof event.target.getPlayerState === 'function'
+                ) {
                   const state = event.target.getPlayerState();
                   // -1 = unstarted, 0 = ended, 1 = playing, 2 = paused, 3 = buffering, 5 = cued
                   if (state !== 1 && state !== 3) {
@@ -90,7 +93,10 @@ export function YouTubePlayer({
 
                     // Double check if muted playback also fails
                     setTimeout(() => {
-                      if (event.target && typeof event.target.getPlayerState === 'function') {
+                      if (
+                        event.target &&
+                        typeof event.target.getPlayerState === 'function'
+                      ) {
                         const stateAfterMute = event.target.getPlayerState();
                         if (stateAfterMute !== 1 && stateAfterMute !== 3) {
                           // Keep paused

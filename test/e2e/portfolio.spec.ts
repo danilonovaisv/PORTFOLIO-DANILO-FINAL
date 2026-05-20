@@ -23,7 +23,6 @@ test.describe('Portfolio Page', () => {
       /portfolio\.hero_(desktop|mobile)_video\.mp4/
     );
 
-
     // Verify that at least one project is rendered
     // The gallery component renders project cards as buttons
     const projects = page.locator('button[data-size]').first();

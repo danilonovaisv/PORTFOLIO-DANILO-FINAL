@@ -675,4 +675,3 @@ export type TablesInsert<T extends keyof Database['public']['Tables']> =
 
 export type TablesUpdate<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T] extends { Update: infer U } ? U : never;
-

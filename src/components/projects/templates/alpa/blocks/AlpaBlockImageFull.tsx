@@ -42,34 +42,34 @@ export function AlpaBlockImageFull({
           Mídia indisponível
         </div>
       ) : (
-      <button
-        onClick={(e) =>
-          openAsset(
-            {
-              src: resolved.asset.url,
-              kind: 'image',
-              alt: alt || '',
-            },
-            e
-          )
-        }
-        className="group relative block w-full overflow-hidden rounded-none bg-neutral/20"
-      >
-        <Image
-          src={resolved.asset.url}
-          alt={alt || ''}
-          width={1920}
-          height={1080}
-          className="w-full h-auto transition-opacity duration-normal group-hover:opacity-90"
-        />
-        {caption && (
-          <div className="absolute bottom-4 left-4 right-4 text-left">
-            <p className="text-sm text-white/60 bg-black/40 backdrop-blur-md px-3 py-1 rounded-none inline-block">
-              {caption}
-            </p>
-          </div>
-        )}
-      </button>
+        <button
+          onClick={(e) =>
+            openAsset(
+              {
+                src: resolved.asset.url,
+                kind: 'image',
+                alt: alt || '',
+              },
+              e
+            )
+          }
+          className="group relative block w-full overflow-hidden rounded-none bg-neutral/20"
+        >
+          <Image
+            src={resolved.asset.url}
+            alt={alt || ''}
+            width={1920}
+            height={1080}
+            className="w-full h-auto transition-opacity duration-normal group-hover:opacity-90"
+          />
+          {caption && (
+            <div className="absolute bottom-4 left-4 right-4 text-left">
+              <p className="text-sm text-white/60 bg-black/40 backdrop-blur-md px-3 py-1 rounded-none inline-block">
+                {caption}
+              </p>
+            </div>
+          )}
+        </button>
       )}
     </m.div>
   );

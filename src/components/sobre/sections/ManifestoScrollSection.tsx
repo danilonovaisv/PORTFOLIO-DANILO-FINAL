@@ -21,7 +21,9 @@ export function ManifestoScrollSection() {
 
   // Separate visual states for each text line to eliminate dynamic inline animation-delay rewrites
   const [line1Status, setLine1Status] = useState<'active' | 'exit'>('active');
-  const [line2Status, setLine2Status] = useState<'inactive' | 'active' | 'exit'>('inactive');
+  const [line2Status, setLine2Status] = useState<
+    'inactive' | 'active' | 'exit'
+  >('inactive');
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const line2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -37,7 +39,8 @@ export function ManifestoScrollSection() {
     if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
 
     // 2. Wait for the exit animation (350ms + small buffer = 450ms) to complete
-    if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+    if (transitionTimeoutRef.current)
+      clearTimeout(transitionTimeoutRef.current);
     transitionTimeoutRef.current = setTimeout(() => {
       // 3. Switch the active text phrase and mount the new content
       setDisplayIndex(nextIndex);
@@ -58,9 +61,12 @@ export function ManifestoScrollSection() {
   useEffect(() => {
     // Initialize first phrase line 2 stagger delay on mount
     const initialLine1Length = PHRASES[displayIndex].line1.length;
-    line2TimeoutRef.current = setTimeout(() => {
-      setLine2Status('active');
-    }, prefersReducedMotion ? 0 : initialLine1Length * 30 + 150);
+    line2TimeoutRef.current = setTimeout(
+      () => {
+        setLine2Status('active');
+      },
+      prefersReducedMotion ? 0 : initialLine1Length * 30 + 150
+    );
 
     timerRef.current = setInterval(() => {
       const nextIndex = (displayIndex + 1) % PHRASES.length;
@@ -71,7 +77,8 @@ export function ManifestoScrollSection() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
-      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+      if (transitionTimeoutRef.current)
+        clearTimeout(transitionTimeoutRef.current);
     };
   }, [displayIndex, prefersReducedMotion]);
 
@@ -191,51 +198,60 @@ export function ManifestoScrollSection() {
           className="flex max-w-[95vw] flex-col items-center justify-center gap-[0.4rem] px-6 text-center select-none"
         >
           {/* Key sets unique context per index to ensure React unmounts/remounts elements on phrase change */}
-          <div key={`phrase-${displayIndex}`} className="text-container-inner flex flex-col items-center gap-[0.4rem]">
+          <div
+            key={`phrase-${displayIndex}`}
+            className="text-container-inner flex flex-col items-center gap-[0.4rem]"
+          >
             {/* Line 1 Stagger Reveal */}
             <div
               className={`text-line-wrapper flex flex-wrap justify-center min-h-[1.4em] ${line1Status}`}
             >
               {(() => {
                 let charCounter = 0;
-                return currentPhrase.line1.split(' ').map((word, wordIdx, wordsArr) => (
-                  <span key={`l1-w-${wordIdx}`} className="inline-block whitespace-nowrap">
-                    {word.split('').map((char, charIdx) => {
-                      const absoluteIdx = charCounter;
-                      charCounter++;
-                      return (
-                        <span
-                          key={`l1-c-${charIdx}`}
-                          className="char"
-                          style={{
-                            animationDelay: prefersReducedMotion
-                              ? '0ms'
-                              : `${absoluteIdx * 30}ms`,
-                          }}
-                        >
-                          {char}
-                        </span>
-                      );
-                    })}
-                    {wordIdx < wordsArr.length - 1 && (() => {
-                      const absoluteIdx = charCounter;
-                      charCounter++;
-                      return (
-                        <span
-                          key={`l1-space-${wordIdx}`}
-                          className="char"
-                          style={{
-                            animationDelay: prefersReducedMotion
-                              ? '0ms'
-                              : `${absoluteIdx * 30}ms`,
-                          }}
-                        >
-                          {'\u00A0'}
-                        </span>
-                      );
-                    })()}
-                  </span>
-                ));
+                return currentPhrase.line1
+                  .split(' ')
+                  .map((word, wordIdx, wordsArr) => (
+                    <span
+                      key={`l1-w-${wordIdx}`}
+                      className="inline-block whitespace-nowrap"
+                    >
+                      {word.split('').map((char, charIdx) => {
+                        const absoluteIdx = charCounter;
+                        charCounter++;
+                        return (
+                          <span
+                            key={`l1-c-${charIdx}`}
+                            className="char"
+                            style={{
+                              animationDelay: prefersReducedMotion
+                                ? '0ms'
+                                : `${absoluteIdx * 30}ms`,
+                            }}
+                          >
+                            {char}
+                          </span>
+                        );
+                      })}
+                      {wordIdx < wordsArr.length - 1 &&
+                        (() => {
+                          const absoluteIdx = charCounter;
+                          charCounter++;
+                          return (
+                            <span
+                              key={`l1-space-${wordIdx}`}
+                              className="char"
+                              style={{
+                                animationDelay: prefersReducedMotion
+                                  ? '0ms'
+                                  : `${absoluteIdx * 30}ms`,
+                              }}
+                            >
+                              {'\u00A0'}
+                            </span>
+                          );
+                        })()}
+                    </span>
+                  ));
               })()}
             </div>
 
@@ -245,44 +261,50 @@ export function ManifestoScrollSection() {
             >
               {(() => {
                 let charCounter = 0;
-                return currentPhrase.line2.split(' ').map((word, wordIdx, wordsArr) => (
-                  <span key={`l2-w-${wordIdx}`} className="inline-block whitespace-nowrap">
-                    {word.split('').map((char, charIdx) => {
-                      const absoluteIdx = charCounter;
-                      charCounter++;
-                      return (
-                        <span
-                          key={`l2-c-${charIdx}`}
-                          className="char"
-                          style={{
-                            animationDelay: prefersReducedMotion
-                              ? '0ms'
-                              : `${absoluteIdx * 30}ms`,
-                          }}
-                        >
-                          {char}
-                        </span>
-                      );
-                    })}
-                    {wordIdx < wordsArr.length - 1 && (() => {
-                      const absoluteIdx = charCounter;
-                      charCounter++;
-                      return (
-                        <span
-                          key={`l2-space-${wordIdx}`}
-                          className="char"
-                          style={{
-                            animationDelay: prefersReducedMotion
-                              ? '0ms'
-                              : `${absoluteIdx * 30}ms`,
-                          }}
-                        >
-                          {'\u00A0'}
-                        </span>
-                      );
-                    })()}
-                  </span>
-                ));
+                return currentPhrase.line2
+                  .split(' ')
+                  .map((word, wordIdx, wordsArr) => (
+                    <span
+                      key={`l2-w-${wordIdx}`}
+                      className="inline-block whitespace-nowrap"
+                    >
+                      {word.split('').map((char, charIdx) => {
+                        const absoluteIdx = charCounter;
+                        charCounter++;
+                        return (
+                          <span
+                            key={`l2-c-${charIdx}`}
+                            className="char"
+                            style={{
+                              animationDelay: prefersReducedMotion
+                                ? '0ms'
+                                : `${absoluteIdx * 30}ms`,
+                            }}
+                          >
+                            {char}
+                          </span>
+                        );
+                      })}
+                      {wordIdx < wordsArr.length - 1 &&
+                        (() => {
+                          const absoluteIdx = charCounter;
+                          charCounter++;
+                          return (
+                            <span
+                              key={`l2-space-${wordIdx}`}
+                              className="char"
+                              style={{
+                                animationDelay: prefersReducedMotion
+                                  ? '0ms'
+                                  : `${absoluteIdx * 30}ms`,
+                              }}
+                            >
+                              {'\u00A0'}
+                            </span>
+                          );
+                        })()}
+                    </span>
+                  ));
               })()}
             </div>
           </div>

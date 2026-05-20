@@ -6,22 +6,19 @@ Gerado em: 5/19/2026, 8:02:10 PM
 
 ## 📦 Dependências não utilizadas
 
-
-
 ## 🧱 Dependências de desenvolvimento não utilizadas
 
-
-
 ## 🌿 Branches no repositório
+
 - remotes/origin/claude/weekly-audit-report-2026-05-19
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
-- * main
+- - main
 - codex/asset-pipeline-repair
 - fix/supabase-storage-firebase-prod-links
 - worktree-responsive-video-plan
 - remotes/origin/worktree-responsive-video-plan
-- + worktree-fix+shader-lines-regression
+- - worktree-fix+shader-lines-regression
 - codex/sobre-origin-a11y-fixes
 - remotes/origin/codex/sobre-origin-a11y-fixes
 - claude/weekly-audit-report-2026-05-16
@@ -48,8 +45,8 @@ Gerado em: 5/19/2026, 8:02:10 PM
 - codex/deploymentvalidationconfigvalidate-teste-de-supabase-and
 - fix/supabase-next-admin-realtime-storage
 
-
 ## 🪓 Branches potencialmente obsoletas
+
 - remotes/origin/claude/weekly-audit-report-2026-05-19
 - remotes/origin/worktree-responsive-video-plan
 - remotes/origin/codex/sobre-origin-a11y-fixes
