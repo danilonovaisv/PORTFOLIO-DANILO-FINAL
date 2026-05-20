@@ -20,6 +20,7 @@ jobs:
 
     env:
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
@@ -50,7 +51,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.33.0
+          version: 11.1.1
           run_install: false
 
       - name: Setup Node.js
@@ -95,10 +96,13 @@ jobs:
         env:
           FIREBASE_PROJECT_ID: portfolio-danilo-novais
           FIREBASE_CLI_EXPERIMENTS: webframeworks
-          PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           pnpm dlx firebase-tools deploy --only hosting,functions --debug --project "${{ env.FIREBASE_PROJECT_ID }}"
+
+      - name: Cleanup credentials
+        if: always()
+        run: rm -f "${{ runner.temp }}/firebase-service-account.json"

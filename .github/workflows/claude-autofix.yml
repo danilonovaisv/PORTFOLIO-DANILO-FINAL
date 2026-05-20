@@ -32,6 +32,7 @@ jobs:
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # autentica a gh CLI em todos os steps
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       FAILED_WORKFLOW: ${{ github.event.workflow_run.name }}
       FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
       FAILED_BRANCH: ${{ github.event.workflow_run.head_branch }}
@@ -44,15 +45,21 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha }}
 
-      # Necessário para Claude rodar `npm run build` e validar a correção antes do commit
+      # Necessário para Claude rodar `pnpm run build` e validar a correção antes do commit
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.1
+          run_install: false
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: "22"
+          cache: "pnpm"
 
       - name: Install Dependencies
-        run: npm ci --prefer-offline
+        run: pnpm install --frozen-lockfile
 
       - name: Claude Code - Audit & Fix
         uses: anthropics/claude-code-action@v1
@@ -62,7 +69,7 @@ jobs:
           claude_args: >-
             --model claude-sonnet-4-6
             --max-turns 12
-            --allowedTools "Bash(gh run view:*),Bash(gh run download:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(git checkout:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(npm run build),Bash(npm run lint),Bash(npm run type-check),Read,Edit,Write"
+            --allowedTools "Bash(gh run view:*),Bash(gh run download:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(git checkout:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(pnpm run build),Bash(pnpm run lint),Bash(pnpm run type-check),Read,Edit,Write"
           prompt: |
             ## Contexto da Falha
 
@@ -106,9 +113,9 @@ jobs:
             Edite apenas o necessário. Não refatore código que não causou a falha.
             Após cada edição, valide localmente:
             ```
-            npm run type-check  # se disponível, senão: npx tsc --noEmit
-            npm run lint
-            npm run build
+            pnpm run type-check  # se disponível, senão: pnpm exec tsc --noEmit
+            pnpm run lint
+            pnpm run build
             ```
             Se o build passar, prossiga. Se falhar com novo erro, corrija também.
 
@@ -146,9 +153,9 @@ jobs:
             <lista dos arquivos e o que foi alterado em cada um>
 
             ## Validação Local
-            - [ ] \`npm run type-check\` passou
-            - [ ] \`npm run lint\` passou  
-            - [ ] \`npm run build\` passou
+            - [ ] \`pnpm run type-check\` passou
+            - [ ] \`pnpm run lint\` passou
+            - [ ] \`pnpm run build\` passou
 
             ---
             *PR gerado automaticamente pelo Claude Code após análise dos logs de CI.*"
