@@ -54,12 +54,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run Claude Auto-Fix Logic
         run: |
-          # O script contendo a logica original do Claude e do GitHub CLI ('gh pr create') entra aqui.
-          # Os comandos pre-validação do Claude (pnpm run type-check, pnpm run lint, etc.)
-          # rodarão com sucesso visto que a runtime foi corretamente isolada acima.
           echo "Processando falha do CI via agente autônomo (Run ID: ${{ env.FAILED_RUN_ID }})"
+          # Mantenha aqui a chamada oficial do seu agente Claude/gh CLI
