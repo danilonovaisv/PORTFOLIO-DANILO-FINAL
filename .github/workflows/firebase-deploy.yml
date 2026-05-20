@@ -20,6 +20,8 @@ jobs:
 
     env:
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
     steps:
       - name: Checkout repository
@@ -46,21 +48,28 @@ jobs:
       - name: Validate required secrets
         env:
           FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
-          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_ANON: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
           if [ -z "$FIREBASE_SA" ]; then
             echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS"
             exit 1
           fi
-          if [ -z "$SUPABASE_URL" ]; then
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then
             echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_URL"
             exit 1
           fi
-          if [ -z "$SUPABASE_ANON" ]; then
+          if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
             echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_ANON_KEY"
             exit 1
           fi
+          case "$NEXT_PUBLIC_SUPABASE_URL" in
+            https://*.supabase.co|https://*.supabase.co/)
+              ;;
+            *)
+              echo "ERROR: NEXT_PUBLIC_SUPABASE_URL must be an https://*.supabase.co URL"
+              exit 1
+              ;;
+          esac
+          echo "Required public Supabase env vars are configured."
 
       - name: Install dependencies
         run: CI=true pnpm install --frozen-lockfile
@@ -77,8 +86,6 @@ jobs:
 
       - name: Build application
         env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: pnpm run build
 
@@ -95,8 +102,6 @@ jobs:
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"

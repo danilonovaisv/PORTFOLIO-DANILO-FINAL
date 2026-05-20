@@ -1,192 +1,190 @@
-# Implementation Plan — Ghost System Audit (2026-05-17)
+# Firebase Supabase Asset Parity Implementation Plan
 
-> **Role:** Repo Architect + Ghost Design System Guardian
-> **Status:** Planning Phase — Aguardando aprovação humana
-> **Data:** 2026-05-17
-> **Gerado por:** ghost-audit pipeline
+## Goal
 
----
+Diagnose and fix CI/Firebase deployment mismatch that makes Supabase media links work locally but break after `.github/workflows/firebase-deploy.yml` deploys production.
 
-## Resumo Executivo
+## Current Constraints
 
-O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` exibe o aviso de truncamento do GitHub ("1 entries were omitted") como consequência direta de **12.281 arquivos rastreados no git**, número anômalo para um projeto Next.js de portfólio. A causa raiz é multifatorial: cache npm binário comitado, skill library de 6.346 arquivos rastreada, arquivos temporários de trabalho na raiz, diretórios de ferramentas AI duplicados, e ausência de entradas críticas no `.gitignore`.
+- Stop at planning artifacts until explicit approval: `Aprovado` or `Proceed`.
+- No workflow, app, Supabase, Firebase, or storage policy changes before approval.
+- Do not expose `SUPABASE_SERVICE_ROLE_KEY` to client bundle or public logs.
+- Keep Firebase Hosting strategy on Next.js SSR/webframeworks path unless investigation proves static export is active.
 
-Paralelamente, a auditoria do Ghost Design System identificou violações de motion (uso proibido de `rotate`), ausência de dois primitivos arquiteturais (`MotionLink` e `image-loader.ts`), e o uso de `m.button` para navegação interna no Header Desktop — quebrando o prefetch do Next.js.
+## Context Review Targets
 
----
+Inspect these before patching:
 
-## Diagnóstico Detalhado
+- Governance/context:
+  - `AGENTS.md`
+  - `.antigravity/rules.md` if present
+  - `.context/DOCS-PORTFOLIO-PAGES/`
+- CI/deploy:
+  - `.github/workflows/firebase-deploy.yml`
+  - `.github/workflows/claude-autofix.yml`
+  - `firebase.json`
+  - `.firebaserc`
+  - `package.json`
+  - `scripts/firebase-preflight.sh`
+  - `scripts/deploy.sh`
+- Next/Firebase config:
+  - `next.config.mjs`
+  - `next.config.*`
+  - `.env.example`
+  - `.npmrc`
+- Supabase and asset URL code:
+  - `src/lib/supabase/**`
+  - `src/lib/**supabase**`
+  - `src/lib/**asset**`
+  - `src/lib/**storage**`
+  - `src/**/site-assets*`
+  - `assets.json`
+  - `site-assets.ts` or equivalent resolver source
+  - components rendering Supabase media in Home, Sobre, Portfolio, Admin preview flows
 
-### 1. Incidente GitHub — Truncamento de Diretório
+## Documentation Baseline
 
-| Causa                         | Diretório / Arquivo                                                                                                   | Arquivos Comitados | Severidade |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| Cache npm binário             | `functions/.npm_cache/`                                                                                               | **2.759**          | CRÍTICA    |
-| Skill library de agente       | `.agent/skills/`                                                                                                      | **6.346**          | ALTA       |
-| Relatórios e backups          | `reports/`                                                                                                            | 523                | MÉDIA      |
-| Artefatos temporários na raiz | `*.txt`, `walkthrough.md`, `task.md`, `implementation_plan.md`, `WEEKLY_AUDIT_REPORT.md`                              | ~8                 | MÉDIA      |
-| Output de testes Playwright   | `output/`                                                                                                             | 12                 | BAIXA      |
-| Output gerado (graphify)      | `graphify-out/`                                                                                                       | 47                 | BAIXA      |
-| Diretórios de ferramentas AI  | `.zencoder`, `.junie`, `.goose`, `.factory`, `.crush`, `.continue`, `.commandcode`, `.codebuddy`, `.augment`, `.qwen` | ~130               | BAIXA      |
-| Cache Firebase                | `.firebase-cache/`                                                                                                    | 4                  | BAIXA      |
-| Arquivos de migração Supabase | `supabase-asset-migrate/`                                                                                             | 17                 | BAIXA      |
-| Scratch area                  | `scratch/`                                                                                                            | 16                 | BAIXA      |
+Context7 findings to apply:
 
-**Diagnóstico do `.gitignore` atual:**
+- Next.js: `NEXT_PUBLIC_*` variables are statically inlined into browser bundles during `next build`. CI must provide exact public Supabase values before build, not only during deploy.
+- Firebase Hosting + Next.js: Firebase CLI Hosting integration deploys Next.js apps and deploys dynamic server logic to Cloud Functions when SSR is present. `firebase deploy --only hosting` can still include pinned SSR function generated by Hosting framework integration.
+- Supabase Storage: `getPublicUrl()` generates public asset URLs for public buckets. Public buckets still need correct read policy/access configuration; non-download operations still require policies.
 
-- `functions/.npm_cache/` **não está listado** (apenas `.npm_cache_local/` está coberto).
-- `functions/.gitignore` não ignora `functions/.npm_cache/`.
-- Arquivos `.txt` na raiz e arquivos de trabalho (`walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`) não cobertos.
-- `graphify-out/`, `output/`, `scratch/` não cobertos.
-- Diretórios de ferramentas AI (`.zencoder`, `.junie` etc.) não cobertos.
+## Root Cause Investigation Plan
 
-**Exposição de secrets:** Nenhuma chave real detectada nos arquivos rastreados. As ocorrências retornadas pela busca pertencem a documentação de skills (`.agent/skills/`) sobre gestão de secrets, não a credenciais reais. Risco de exposição: BAIXO. Recomenda-se executar `git secret scan` ou `gitleaks` como validação adicional.
+1. Confirm env parity:
+   - Compare local `.env.local` variable names with GitHub workflow env names.
+   - Confirm `NEXT_PUBLIC_SUPABASE_URL` exists during every build-like step:
+     - install/postinstall if env validation runs
+     - `build-check` if code statically evaluates env
+     - `firebase:preflight`
+     - `pnpm run build`
+     - `firebase deploy --only hosting`
+   - Confirm `NEXT_PUBLIC_SUPABASE_ANON_KEY` same.
+   - Confirm no code expects alternate names like `SUPABASE_URL`, `PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PROJECT_URL`.
 
-**Nota sobre `.agent/skills`:** A biblioteca de 6.346 skills é conteúdo editorial/documentação do agente. A decisão de manter no git é legítima, mas representa o maior vetor de crescimento de tamanho do repositório. Proposta: mover para submodule ou `.gitignore` com instrução de install separado.
+2. Confirm Firebase target parity:
+   - `.firebaserc` default project must match workflow `FIREBASE_PROJECT_ID`.
+   - `firebase.json` Hosting source/frameworks backend must match local deploy path.
+   - Workflow must not deploy unrelated `functions` codebase unless built intentionally.
 
----
+3. Confirm asset URL resolution:
+   - Locate single resolver used to turn DB/storage paths into URLs.
+   - Identify handling for:
+     - absolute `https://...supabase.co/storage/v1/object/public/...`
+     - Supabase storage object path
+     - relative `/site-assets/...`
+     - malformed `undefined/...`
+     - missing bucket/path
+   - Verify resolver uses Supabase SDK `storage.from(bucket).getPublicUrl(path)` for public bucket paths or deterministic equivalent based on `NEXT_PUBLIC_SUPABASE_URL`.
 
-### 2. Ghost Design System — Violações Identificadas
+4. Confirm bucket/public policy:
+   - Identify bucket IDs used by production assets.
+   - Verify production rendering assumes public bucket URLs.
+   - If bucket private, plan must move reads server-side/signed URL; do not leak service role to client.
 
-#### 2.1 Motion Proibido — `CategoryStripe.tsx`
+5. Confirm build-time vs runtime split:
+   - Client media URLs must use `NEXT_PUBLIC_*` only.
+   - Server-only asset repair/admin flows may use service role server-side only.
+   - Avoid runtime-only env assumption for `NEXT_PUBLIC_*`, because Next inlines those values at build.
 
-```
-Arquivo: src/components/home/portfolio-showcase/CategoryStripe.tsx
-Linha: 163
-Violação: rotate: isHovered ? 0 : -45
-Regra Ghost: Motion proibido inclui rotate (exceto com regra superior explícita)
-```
+## Expected Environment Variables
 
-**Trade-off:** A seta usa `rotate` para indicar direção (affordance direcional). A substituição por `translateX` (permitido se documentado) ou ícone alternativo precisa manter a legibilidade do affordance.
+GitHub Actions secrets/vars checklist:
 
-#### 2.2 Componente Ausente — `MotionLink`
+- Required for client/public asset URL generation:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- Required for Firebase deploy auth:
+  - `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS`
+- Server-only, never exposed to browser:
+  - `SUPABASE_SERVICE_ROLE_KEY`
+- Optional/confirm before requiring:
+  - `NEXT_PUBLIC_SITE_URL`
+  - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+  - any custom bucket variable found in resolver code
 
-```
-Diagnóstico: Não existe src/components/motion/MotionLink.tsx
-Impacto: Navegação interna usa m.button (quebra prefetch Next.js) ou next/link puro (sem motion)
-Afetado: DesktopFluidHeader.tsx:67-78 (m.button para items internos)
-```
+Workflow env rule:
 
-**Solução proposta:** `MotionLink` como wrapper de `next/link` com `m()` ou `AnimatePresence`, preservando prefetch e scroll behavior do App Router.
+- Inject public Supabase vars into `Install dependencies` only if postinstall/env validation needs them.
+- Inject public Supabase vars into `build-check`, `firebase:preflight`, and `build`.
+- Inject service role only into server-side validation/build steps that require it.
+- Do not echo values. Validation must print names only.
 
-#### 2.3 Ausente — `src/lib/supabase/image-loader.ts`
+## Firebase Deploy Strategy
 
-```
-Diagnóstico: Arquivo não existe. O next.config.mjs usa remotePatterns com a rota
-/storage/v1/render/image/public/** (Supabase Image Transform API) mas não há
-loader customizado que aproveite os parâmetros width/quality via transform URL.
-```
+- Keep `pnpm/action-setup@v4` and `pnpm 10.33.0`.
+- Keep Node `22`.
+- Use `CI=true pnpm install --frozen-lockfile`.
+- Add explicit CI preflight step before build:
+  - fail if `NEXT_PUBLIC_SUPABASE_URL` empty
+  - fail if `NEXT_PUBLIC_SUPABASE_ANON_KEY` empty
+  - fail if URL does not start with `https://`
+  - never print values
+- Run:
+  - `pnpm run build-check`
+  - `pnpm run firebase:preflight`
+  - `pnpm run build`
+  - `pnpm dlx firebase-tools deploy --only hosting --project "$FIREBASE_PROJECT_ID"`
+- Do not add `--debug`.
+- Do not deploy `--only functions` unless separate functions build step creates `functions/lib/index.js`.
 
-**Situação atual:** Next.js `<Image>` usa o optimizer interno, que faz um round-trip desnecessário se o Supabase já pode servir imagens redimensionadas via `?width=&quality=`. Não é bug crítico, mas é ineficiência de performance.
+## Supabase URL Resolution Strategy
 
-#### 2.4 Header Desktop — Navegação sem Prefetch
+- Prefer one resolver path for asset URLs.
+- For public bucket object paths, use:
+  - initialized Supabase client with `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - `supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl`
+- Preserve already absolute URLs.
+- Preserve valid local static fallback paths when intentional.
+- Reject or fallback for:
+  - `undefined`
+  - `null`
+  - empty string
+  - relative path accidentally missing bucket context
+  - double-prefix URLs
+- Add non-secret diagnostic warning only in development or server logs.
 
-```
-Arquivo: src/components/layout/header/DesktopFluidHeader.tsx:67-68
-Problema: const LinkComponent = isExternalHref(...) ? m.a : m.button
-m.button não é um link — não aciona prefetch nem navegação declarativa do Next.js
-```
+## Risk Analysis
 
-**Impacto:** Links de navegação interna no desktop header são buttons, não âncoras, o que quebra abertura em nova aba, bot crawling, e SEO.
+- High risk: service role key leaking into client bundle if resolver imports server-only admin client from client components.
+- High risk: `NEXT_PUBLIC_*` missing at CI build creates permanently inlined `undefined` in JS bundle.
+- Medium risk: Firebase webframeworks rebuild may run `next build` again during deploy; deploy step also needs public env vars.
+- Medium risk: public bucket assumption false; private buckets need signed URL/server mediation.
+- Medium risk: fallback paths may hide broken Supabase records and delay true data cleanup.
+- Low risk: adding stricter env preflight may fail CI earlier; desired behavior because current failure is silent broken media.
 
-#### 2.5 Cor Vermelha — Status
+## Validation Plan
 
-```
-Resultado da auditoria: Nenhuma violação real detectada.
-O grep retornou matches de nomes de variável (featured_on_home) onde "red" é substring.
-#E50914 não está em uso fora de contextos de erro/alerta (conforme permitido).
-```
+Before patch:
 
----
+- Capture exact broken URL pattern from production page/network logs.
+- Confirm whether URL contains `undefined`, relative path, wrong project ref, wrong bucket, or 403/404.
+- Confirm GitHub workflow logs show public env validation without values.
 
-## Matriz de Prioridades
+After patch:
 
-### P0 — GitHub & Higiene (Deve ser feito antes do próximo commit/deploy)
+- Local:
+  - `ruby -e 'require "yaml"; YAML.load_file(".github/workflows/firebase-deploy.yml"); puts "YAML OK"'`
+  - `CI=true pnpm install --frozen-lockfile --ignore-scripts`
+  - `pnpm run build-check`
+  - `pnpm run firebase:preflight`
+  - `pnpm run build`
+- CI:
+  - dispatch `Firebase Deploy`
+  - confirm build step has env names present and no secret values printed
+  - confirm deploy uses same Firebase project as `.firebaserc`
+- Production:
+  - curl/smoke pages with Supabase media
+  - inspect generated media URLs
+  - verify URLs are absolute and point to expected Supabase project/bucket
+  - verify HTTP status for representative images/videos is `200`
+  - confirm no `SUPABASE_SERVICE_ROLE_KEY` in client bundle or logs
 
-| ID    | Ação                                                                                     | Risco de Execução | Reversível   |
-| ----- | ---------------------------------------------------------------------------------------- | ----------------- | ------------ |
-| P0-G1 | Adicionar `functions/.npm_cache/` ao `.gitignore`                                        | ZERO              | Sim          |
-| P0-G2 | Remover `functions/.npm_cache/` do tracking git (`git rm -r --cached`)                   | BAIXO             | Sim (re-add) |
-| P0-G3 | Adicionar arquivos temporários de raiz ao `.gitignore` (`*.txt`, `walkthrough.md`, etc.) | ZERO              | Sim          |
-| P0-G4 | Remover arquivos de trabalho da raiz do tracking                                         | BAIXO             | Sim          |
-| P0-G5 | Adicionar diretórios de output ao `.gitignore` (`output/`, `graphify-out/`, `scratch/`)  | ZERO              | Sim          |
-| P0-G6 | Decisão estratégica sobre `.agent/skills` (submodule vs keep vs gitignore)               | MÉDIO             | Depende      |
+## Post-Approval Deliverables
 
-### P0 — Ghost System (Bloqueadores arquiteturais)
-
-| ID     | Ação                                                               | Complexidade | Regressão Esperada       |
-| ------ | ------------------------------------------------------------------ | ------------ | ------------------------ |
-| P0-GS1 | Criar `src/components/motion/MotionLink.tsx`                       | BAIXA        | Nenhuma (novo arquivo)   |
-| P0-GS2 | Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx` | BAIXA        | Testar navegação desktop |
-| P0-GS3 | Criar `src/lib/supabase/image-loader.ts` (Supabase Transform)      | MÉDIA        | Testar todas as imagens  |
-
-### P1 — Ghost System (Melhorias não bloqueadoras)
-
-| ID     | Ação                                                                               | Complexidade | Regressão Esperada       |
-| ------ | ---------------------------------------------------------------------------------- | ------------ | ------------------------ |
-| P1-GS1 | Corrigir `rotate` em `CategoryStripe.tsx:163` (substituir por translateX ou ícone) | BAIXA        | Testar affordance visual |
-| P1-GS2 | Decidir loader do `next.config.mjs` (referência ao image-loader após P0-GS3)       | BAIXA        | Após P0-GS3              |
-| P1-GS3 | Validar altura dos cards em `FeaturedProjectsSection.tsx` contra spec              | BAIXA        | Nenhuma                  |
-| P1-GS4 | Auditar estado ativo no Header (link corrente vs outros)                           | BAIXA        | Nenhuma                  |
-
----
-
-## Trade-offs e Decisões Pendentes
-
-### Decisão 1: `.agent/skills` — Keep vs Submodule vs Gitignore
-
-- **Keep (status quo):** 6.346 arquivos no repo. Fácil acesso, mas repositório pesado.
-- **Submodule:** Isola a skill library, preserva histórico separado. Complexidade de manutenção aumenta.
-- **Gitignore + README de install:** Remove do repo, instrução de clone separado. Mais limpo, mas requer disciplina de setup.
-
-**Recomendação:** Submodule se o histórico for crítico; gitignore + README se a library for importada de repo próprio (`.agents/` sugere que já existe um repo central).
-
-### Decisão 2: Image Loader Strategy
-
-- **Opção A:** Loader customizado que usa Supabase Transform API (`/render/image/public/`). Elimina round-trip via Next.js.
-- **Opção B:** Manter `remotePatterns` atual com optimizer do Next.js. Mais simples, sem risco de regressão.
-
-**Recomendação:** Opção A para produção (performance), Opção B aceitável se latência atual for abaixo de 200ms LCP contribution.
-
----
-
-## Comandos Propostos (Aguardando aprovação)
-
-```bash
-# P0-G1: Atualizar .gitignore
-# (adicionar entradas: functions/.npm_cache/, output/, graphify-out/, scratch/, *.txt na raiz)
-
-# P0-G2: Remover cache do tracking (NÃO executa agora — aguarda aprovação)
-# git rm -r --cached functions/.npm_cache/
-# git rm --cached typecheck_fresh.txt tsc_output_current_v2.txt tsc_output_current.txt typecheck_output_new.txt knip_report.txt
-
-# P0-GS1: Criar MotionLink
-# touch src/components/motion/MotionLink.tsx
-
-# Build check após execução:
-# pnpm run build-check
-```
-
----
-
-## Critérios de Sucesso
-
-1. `git ls-files | wc -l` < 4.000 (após remoção de npm_cache e temporários)
-2. GitHub não exibe aviso de truncamento no diretório raiz
-3. Nenhum erro de TypeScript ou lint introduzido
-4. `pnpm run build-check` passa sem erros
-5. Navegação interna no Header Desktop usa `next/link` (prefetch ativo)
-6. `CategoryStripe.tsx` sem `rotate` em propriedades de motion
-7. Sem secrets expostos (validado por gitleaks ou equivalente)
-
----
-
-## Plano de Rollback
-
-- Todos os `git rm --cached` são reversíveis com `git checkout HEAD -- <arquivo>` ou `git add <arquivo>` antes do commit.
-- Nenhuma alteração de código fonte antes da aprovação.
-- Branch de trabalho recomendada: `claude/exciting-thompson-7tJ75` (já designada).
-
----
-
-_Aguardando aprovação explícita ("Aprovado" ou "Proceed") para iniciar Fase 4: Execution._
+- Patch `.github/workflows/firebase-deploy.yml`.
+- Patch resolver/preflight only if investigation confirms app-side missing guard.
+- Add safe fallback for broken media URLs only in existing resolver/component path.
+- Run validation commands.
+- Produce `walkthrough.md` with before/fix/validation/risks.
