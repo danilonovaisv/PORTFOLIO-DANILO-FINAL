@@ -1,4 +1,3 @@
-# .github/workflows/claude-auto-fix.yml
 name: Claude Auto-Fix CI Failures
 
 on:
