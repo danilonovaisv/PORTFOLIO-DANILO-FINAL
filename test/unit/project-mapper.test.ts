@@ -87,4 +87,37 @@ describe('mapDbProjectToPortfolioProject', () => {
     expect(mapped.featuredOnHome).toBe(true);
     expect(mapped.type).toBe('B');
   });
+
+  it('routes to linked landing page even when stored destination is stale modal', () => {
+    const dbProject = {
+      id: 'proj-landing',
+      slug: 'project-with-landing',
+      title: 'Project With Landing',
+      client_name: 'Client',
+      brand_name: null,
+      year: 2026,
+      project_type: 'Branding',
+      short_label: 'Brand',
+      description: 'Desc',
+      thumbnail_path: 'projects/test/thumb.jpg',
+      hero_image_path: null,
+      gallery: [],
+      featured_on_home: false,
+      featured_on_portfolio: true,
+      is_published: true,
+      created_at: null,
+      updated_at: null,
+      landing_page_id: 'landing-1',
+      landing_page_slug: 'case-landing',
+      destination: { type: 'modal' },
+    };
+
+    const mapped = mapDbProjectToPortfolioProject(dbProject as any, 0);
+
+    expect(mapped.landingPageSlug).toBe('case-landing');
+    expect(mapped.destination).toEqual({
+      type: 'internal_landing',
+      landingSlug: 'case-landing',
+    });
+  });
 });

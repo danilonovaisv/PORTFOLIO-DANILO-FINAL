@@ -1,5 +1,5 @@
 ---
-description: Muốn lên Top Google và AI Search? Tối ưu SEO/GEO ngay.
+description: Deseja alcançar o topo do Google e otimizar para AI Search? Realize a otimização técnica de SEO.
 ---
 
 # /seo - Strategic Visibility & GEO Optimization

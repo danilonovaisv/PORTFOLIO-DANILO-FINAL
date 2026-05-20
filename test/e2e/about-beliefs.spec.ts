@@ -1,8 +1,8 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 const ROUTES = ['/sobre'] as const;
-const PHRASE_COUNT = 6;
 
+// Seletores legados do antigo scroll cinematico que não devem existir na nova versão
 const legacySelectors = [
   '[data-testid="beliefs-ghost-scene"]',
   '[data-testid="beliefs-manifesto"]',
@@ -12,221 +12,110 @@ const legacySelectors = [
   '[data-belief-manifesto]',
 ] as const;
 
-const gotoBeliefsSection = async (page: Page, route: string) => {
-  await page.goto(route, { waitUntil: 'domcontentloaded' });
-  await page.waitForSelector('[data-testid="beliefs-section"]', {
-    state: 'attached',
-  });
-  await page.evaluate(() => {
-    document
-      .querySelector('[data-testid="beliefs-section"]')
-      ?.scrollIntoView({ behavior: 'instant', block: 'start' });
-  });
-  await page.waitForTimeout(300);
-};
-
-const scrollToProgress = async (page: Page, progress: number) => {
-  await page.evaluate((p) => {
-    const section = document.querySelector('[data-testid="beliefs-section"]');
-    if (!section) return;
-
-    const rect = section.getBoundingClientRect();
-    const sectionTop = window.scrollY + rect.top;
-    const start = sectionTop;
-    const end = sectionTop + rect.height - window.innerHeight;
-
-    window.scrollTo({
-      top: start + (end - start) * p,
-      behavior: 'instant',
-    });
-    window.dispatchEvent(new Event('scroll'));
-  }, progress);
-
-  await page.waitForTimeout(350);
-};
-
-const prepareRoute = async (
-  page: Page,
-  route: string,
-  viewport = { width: 1440, height: 900 },
-  reducedMotion: 'reduce' | 'no-preference' = 'no-preference'
-) => {
-  await page.setViewportSize(viewport);
-  await page.emulateMedia({ reducedMotion });
-  await gotoBeliefsSection(page, route);
-};
-
-const getVisiblePhraseRect = async (page: Page) =>
-  page.locator('[data-testid="belief-phrase"]').evaluateAll((elements) => {
-    const visible = elements.find(
-      (el) => Number(window.getComputedStyle(el).opacity) > 0.2
-    );
-    if (!visible) return null;
-
-    const rect = visible.getBoundingClientRect();
-    return {
-      left: rect.left,
-      right: rect.right,
-      top: rect.top,
-      bottom: rect.bottom,
-      width: rect.width,
-      height: rect.height,
-      centerX: rect.left + rect.width / 2,
-      centerY: rect.top + rect.height / 2,
-    };
-  });
+const PHRASES = [
+  { line1: 'Crio o que a marca diz', line2: 'antes mesmo de falar.' },
+  { line1: 'Transformo intenção', line2: 'em presença.' },
+  { line1: 'Entre estética e estratégia,', line2: 'eu construo percepção.' },
+  { line1: 'O que fica não é só a imagem.', line2: 'É a sensação de marca.' },
+] as const;
 
 for (const route of ROUTES) {
   test.describe(`O Que Me Move final redesign — ${route}`, () => {
-    test('monta arquitetura final sem camadas Ghost 3D/GSAP legadas', async ({
+    test.use({ viewport: { width: 1440, height: 900 } });
+
+    test('monta a nova arquitetura do Manifesto sem elementos legados', async ({
       page,
     }) => {
-      await prepareRoute(page, route);
+      await page.goto(route, { waitUntil: 'domcontentloaded' });
 
       const section = page.locator('[data-testid="beliefs-section"]');
-      await expect(section).toBeVisible();
-      await expect(
-        page.locator('[data-testid="what-moves-me-background"]')
-      ).toBeAttached();
-      await expect(
-        page.locator('[data-testid="beliefs-scroll-text"]')
-      ).toBeAttached();
-      await expect(page.locator('[data-testid="belief-phrase"]')).toHaveCount(
-        PHRASE_COUNT
-      );
+      await expect(section).toBeVisible({ timeout: 15000 });
 
+      // O novo Manifesto possui um container para os dots tácteis de navegação
+      const dots = section.locator('button[aria-label^="Ver manifesto"]');
+      await expect(dots).toHaveCount(PHRASES.length);
+
+      // Garante que o WebGL Shader local está presente e montado
+      const shaderContainer = section.locator(
+        '[data-testid="shader-lines-canvas"]'
+      );
+      await expect(shaderContainer).toBeAttached();
+      await expect(shaderContainer.locator('canvas')).toHaveCount(1);
+
+      // Verifica que as classes dos caracteres animados estão presentes no DOM
+      const chars = section.locator('.char');
+      await expect(chars.first()).toBeAttached();
+
+      // Garante que seletores da estrutura legada de scroll/GSAP foram 100% removidos
       for (const selector of legacySelectors) {
         await expect(page.locator(selector)).toHaveCount(0);
       }
-
-      await expect(section.locator('canvas')).toHaveCount(0);
     });
 
-    test('mantém altura cinematográfica e frases centralizadas no desktop', async ({
+    test('permite navegar entre as frases interativamente via dots', async ({
       page,
     }) => {
-      await prepareRoute(page, route);
+      await page.goto(route, { waitUntil: 'domcontentloaded' });
 
       const section = page.locator('[data-testid="beliefs-section"]');
-      await expect
-        .poll(async () =>
-          section.evaluate((el) => el.scrollHeight / window.innerHeight)
-        )
-        .toBeGreaterThanOrEqual(5.8);
+      await expect(section).toBeVisible({ timeout: 15000 });
 
-      await scrollToProgress(page, 0.35);
-      await expect.poll(() => getVisiblePhraseRect(page)).not.toBeNull();
+      const liveRegion = section.locator('#manifesto-phrase-live');
+      await expect(liveRegion).toBeAttached();
 
-      const rect = await getVisiblePhraseRect(page);
-      expect(rect).not.toBeNull();
-      if (!rect) return;
-
-      expect(rect.centerX).toBeGreaterThan(1440 * 0.35);
-      expect(rect.centerX).toBeLessThan(1440 * 0.65);
-      expect(rect.centerY).toBeGreaterThan(900 * 0.32);
-      expect(rect.centerY).toBeLessThan(900 * 0.68);
-    });
-
-    test('mantém frases centralizadas no mobile', async ({ page }) => {
-      await prepareRoute(
-        page,
-        route,
-        { width: 390, height: 844 },
-        'no-preference'
-      );
-      await scrollToProgress(page, 0.35);
-      await expect.poll(() => getVisiblePhraseRect(page)).not.toBeNull();
-
-      const rect = await getVisiblePhraseRect(page);
-      expect(rect).not.toBeNull();
-      if (!rect) return;
-
-      expect(rect.centerX).toBeGreaterThan(390 * 0.2);
-      expect(rect.centerX).toBeLessThan(390 * 0.8);
-      expect(rect.centerY).toBeGreaterThan(844 * 0.25);
-      expect(rect.centerY).toBeLessThan(844 * 0.75);
-    });
-
-    test('scroll forward e reverso mantém alguma frase visível', async ({
-      page,
-    }) => {
-      await prepareRoute(page, route);
-
-      for (const progress of [0.25, 0.42, 0.58, 0.75, 0.92, 0.42]) {
-        await scrollToProgress(page, progress);
-        await expect
-          .poll(async () =>
-            page.locator('[data-testid="belief-phrase"]').evaluateAll(
-              (elements) =>
-                elements.some(
-                  (el) => Number(window.getComputedStyle(el).opacity) > 0.2
-                )
-            )
-          )
-          .toBe(true);
-      }
-    });
-
-    test('frase final integra manifesto e destaca GHOST em Ghost Blue', async ({
-      page,
-    }) => {
-      await prepareRoute(page, route);
-      await scrollToProgress(page, 0.99);
-
-      const finalPhrase = page.locator('[data-testid="belief-phrase"]').last();
-      await expect(finalPhrase).toHaveAttribute(
-        'aria-label',
-        'ISSO É GHOST DESIGN.'
+      // Verifica se a primeira frase é exibida de forma acessível inicialmente
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[0].line1} ${PHRASES[0].line2}`
       );
 
-      const ghostWordColor = await finalPhrase
-        .locator('span', { hasText: 'GHOST' })
-        .evaluate((el) => window.getComputedStyle(el).color);
+      // Clica no segundo dot para navegar manualmente
+      const secondDot = section.locator('button[aria-label="Ver manifesto 2"]');
+      await secondDot.click();
 
-      expect(ghostWordColor).toBe('rgb(0, 72, 255)');
+      // Verifica se o estado de acessibilidade e o texto são atualizados para a segunda frase
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[1].line1} ${PHRASES[1].line2}`,
+        {
+          timeout: 5000,
+        }
+      );
+
+      // Clica no quarto dot
+      const fourthDot = section.locator('button[aria-label="Ver manifesto 4"]');
+      await fourthDot.click();
+
+      // Verifica atualização para a quarta frase
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[3].line1} ${PHRASES[3].line2}`,
+        {
+          timeout: 5000,
+        }
+      );
     });
 
-    test('reduced motion remove translate e blur preservando fade', async ({
+    test('preserva acessibilidade WCAG/WAI-ARIA para leitores de tela', async ({
       page,
     }) => {
-      await prepareRoute(page, route, { width: 1440, height: 900 }, 'reduce');
-      await scrollToProgress(page, 0.35);
+      await page.goto(route, { waitUntil: 'domcontentloaded' });
 
-      const styles = await page
-        .locator('[data-testid="belief-phrase"]')
-        .evaluateAll((elements) =>
-          elements.map((el) => {
-            const computed = window.getComputedStyle(el);
-            return {
-              opacity: Number(computed.opacity),
-              transform: computed.transform,
-              filter: computed.filter,
-            };
-          })
-        );
-      const visibleStyles = styles.filter((style) => style.opacity > 0.2);
+      const section = page.locator('[data-testid="beliefs-section"]');
+      await expect(section).toBeVisible({ timeout: 15000 });
 
-      expect(styles.length).toBe(PHRASE_COUNT);
-      expect(visibleStyles.length).toBeGreaterThan(0);
-      expect(
-        visibleStyles.every(
-          (style) =>
-            style.transform === 'none' ||
-            style.transform === 'matrix(1, 0, 0, 1, 0, 0)'
-        )
-      ).toBe(true);
-      expect(
-        visibleStyles.every(
-          (style) => style.filter === 'none' || style.filter === 'blur(0px)'
-        )
-      ).toBe(true);
+      // Região live com aria-live="polite" para atualizar o leitor de tela sem interrompê-lo
+      const liveRegion = section.locator('#manifesto-phrase-live');
+      await expect(liveRegion).toHaveAttribute('aria-live', 'polite');
+      await expect(liveRegion).toHaveAttribute('aria-atomic', 'true');
+
+      // Cabeçalho da seção é acessível apenas para screen readers (sr-only)
+      const h2 = section.locator('h2#manifesto-section-title');
+      await expect(h2).toHaveText('O que me move');
+      await expect(h2).toHaveClass(/sr-only/);
     });
 
-    test('não tenta montar WebGL quando WebGL está indisponível', async ({
+    test('não quebra o carregamento de interface se o WebGL falhar ou for desabilitado', async ({
       page,
     }) => {
-      await page.setViewportSize({ width: 1440, height: 900 });
-      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      // Mock do WebGL para simular ausência de suporte no hardware/navegador
       await page.addInitScript(() => {
         const originalGetContext = HTMLCanvasElement.prototype.getContext;
 
@@ -238,12 +127,10 @@ for (const route of ROUTES) {
           if (
             type === 'webgl' ||
             type === 'webgl2' ||
-            type === 'experimental-webgl' ||
-            type === 'webgl2-compute'
+            type === 'experimental-webgl'
           ) {
             return null;
           }
-
           return originalGetContext.call(this, type, ...args) as ReturnType<
             typeof originalGetContext
           >;
@@ -252,18 +139,24 @@ for (const route of ROUTES) {
 
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      page.on('console', (msg) => {
-        if (msg.type() === 'error') errors.push(msg.text());
-      });
 
-      await gotoBeliefsSection(page, route);
+      await page.goto(route, { waitUntil: 'domcontentloaded' });
 
-      await expect(
-        page.locator('[data-testid="beliefs-section"] canvas')
-      ).toHaveCount(0);
+      const section = page.locator('[data-testid="beliefs-section"]');
+      await expect(section).toBeVisible({ timeout: 15000 });
+
+      // Se o WebGL falhar, o container do shader e o restante da UI devem continuar estáveis
+      const liveRegion = section.locator('#manifesto-phrase-live');
+      await expect(liveRegion).toHaveText(
+        `${PHRASES[0].line1} ${PHRASES[0].line2}`
+      );
+
+      // Garante que nenhum erro fatal de WebGL travou a página do cliente
       expect(
-        errors.filter((message) =>
-          message.includes('Error creating WebGL context')
+        errors.filter(
+          (message) =>
+            message.toLowerCase().includes('webgl') ||
+            message.toLowerCase().includes('shader')
         )
       ).toHaveLength(0);
     });

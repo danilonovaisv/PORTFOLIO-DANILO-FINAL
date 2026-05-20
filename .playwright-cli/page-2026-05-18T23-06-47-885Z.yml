@@ -1,327 +1,327 @@
 - generic [active] [ref=e1]:
-  - link "Pular para o conteúdo" [ref=e2] [cursor=pointer]:
-    - /url: "#main-content"
-  - generic [ref=e3]:
-    - banner:
-      - generic [ref=e6]:
-        - link "Ir para Home" [ref=e7] [cursor=pointer]:
-          - /url: /
-          - img "Danilo" [ref=e8]
-        - navigation "Navegação principal" [ref=e9]:
-          - link "home" [ref=e10] [cursor=pointer]:
-            - /url: /
-            - generic [ref=e11]: home
-          - link "sobre" [ref=e12] [cursor=pointer]:
-            - /url: /sobre
-            - generic [ref=e13]: sobre
-          - link "portfólio" [ref=e15] [cursor=pointer]:
-            - /url: /portfolio
-            - generic [ref=e16]: portfólio
-          - link "contato" [ref=e17] [cursor=pointer]:
-            - /url: /#contact
-            - generic [ref=e18]: contato
-    - main [ref=e21]:
-      - region "Sou Danilo Novais. Você não vê tudo o que eu faço. Mas sente quando funciona." [ref=e22]:
-        - generic [ref=e23]:
-          - heading "Sou Danilo Novais. Você não vê tudo o que eu faço. Mas sente quando funciona." [level=1] [ref=e24]
-          - generic [ref=e32]:
-            - generic [ref=e33]:
-              - generic [ref=e34]: Sou Danilo Novais.
-              - generic [ref=e35]:
-                - paragraph [ref=e36]: Você não vê tudo o que eu faço. Mas sente
-                - paragraph [ref=e37]: quando funciona.
-            - paragraph [ref=e39]: Crio designs que observam, entendem e guiam experiências com intenção, estratégia e tecnologia, na medida exata.
-      - region "ORIGEM" [ref=e40]:
-        - generic [ref=e41]:
-          - heading "ORIGEM" [level=2] [ref=e43]
-          - generic [ref=e44]:
-            - generic [ref=e45]:
-              - generic [ref=e47]:
-                - heading "O QUE PERMANECE" [level=2] [ref=e48]
-                - paragraph [ref=e49]: Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.
-              - generic [ref=e51]:
-                - heading "DO TRAÇO À INTENÇÃO" [level=2] [ref=e52]
-                - paragraph [ref=e53]: Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.
-              - generic [ref=e55]:
-                - heading "A DESCOBERTA DO INVISÍVEL" [level=2] [ref=e56]
-                - paragraph [ref=e57]: "Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação. Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência."
-              - generic [ref=e59]:
-                - heading "EXPANSÃO COM PROPÓSITO" [level=2] [ref=e60]
-                - paragraph [ref=e61]: "Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado."
-            - generic:
-              - generic:
-                - generic:
-                  - generic:
-                    - img "O QUE PERMANECE"
-                - generic:
-                  - generic:
-                    - img "DO TRAÇO À INTENÇÃO"
-                - generic:
-                  - generic:
-                    - img "A DESCOBERTA DO INVISÍVEL"
-                - generic:
-                  - generic:
-                    - img "EXPANSÃO COM PROPÓSITO"
-      - region "Do insight ao impacto." [ref=e62]:
-        - generic [ref=e64]:
-          - generic [ref=e66]:
-            - heading "Do insight ao impacto." [level=2] [ref=e67]
-            - paragraph [ref=e68]: Mesmo quando você não percebe.
-          - list "Do insight ao impacto." [ref=e69]:
-            - listitem [ref=e70]:
-              - generic [ref=e71]: "01"
-              - paragraph [ref=e72]:
-                - strong [ref=e73]: Direção
-                - generic [ref=e74]: criativa que organiza o caos
-            - listitem [ref=e75]:
-              - generic [ref=e76]: "02"
-              - paragraph [ref=e77]:
-                - strong [ref=e78]: Design
-                - generic [ref=e79]: estratégico que guia decisões
-            - listitem [ref=e80]:
-              - generic [ref=e81]: "03"
-              - paragraph [ref=e82]:
-                - strong [ref=e83]: Identidades
-                - generic [ref=e84]: que permanecem na memória
-            - listitem [ref=e85]:
-              - generic [ref=e86]: "04"
-              - paragraph [ref=e87]:
-                - strong [ref=e88]: Campanhas
-                - generic [ref=e89]: multicanais com lógica e emoção
-            - listitem [ref=e90]:
-              - generic [ref=e91]: "05"
-              - paragraph [ref=e92]:
-                - strong [ref=e93]: Branding
-                - generic [ref=e94]: que não grita — mas marca
-            - listitem [ref=e95]:
-              - generic [ref=e96]: "06"
-              - paragraph [ref=e97]:
-                - strong [ref=e98]: Inteligência Artificial
-                - generic [ref=e99]: aplicada à criação
-            - listitem [ref=e100]:
-              - generic [ref=e101]: "07"
-              - paragraph [ref=e102]:
-                - strong [ref=e103]: Liderança Criativa
-                - generic [ref=e104]: com visão e método
-        - generic [ref=e106]:
-          - generic [ref=e107]: Branding
-          - generic [ref=e108]: Identidade Visual
-          - generic [ref=e109]: Motion Design
-          - generic [ref=e110]: Campanhas
-          - generic [ref=e111]: UI/UX
-          - generic [ref=e112]: Direção de Arte
-          - generic [ref=e113]: Creative Coding
-          - generic [ref=e114]: AI Design
-          - generic [ref=e115]: Branding
-          - generic [ref=e116]: Identidade Visual
-          - generic [ref=e117]: Motion Design
-          - generic [ref=e118]: Campanhas
-          - generic [ref=e119]: UI/UX
-          - generic [ref=e120]: Direção de Arte
-          - generic [ref=e121]: Creative Coding
-          - generic [ref=e122]: AI Design
-      - region "Criatividade com método. Impacto sem ruído." [ref=e123]:
-        - generic [ref=e131]:
-          - paragraph [ref=e132]: Processo criativo
-          - heading "Criatividade com método. Impacto sem ruído." [level=2] [ref=e134]:
-            - text: Criatividade com método.
-            - text: Impacto sem ruído.
-          - generic [ref=e135]:
-            - paragraph [ref=e136]: Antes da estética, existe intenção.
-            - paragraph [ref=e137]: Antes do layout, existe lógica.
-            - paragraph [ref=e138]: Antes do impacto, existe silêncio.
-          - list [ref=e139]:
-            - listitem [ref=e140]:
-              - generic [ref=e141]: "01"
-              - paragraph [ref=e142]: Briefings bem construídos para decisões claras
-            - listitem [ref=e143]:
-              - generic [ref=e144]: "02"
-              - paragraph [ref=e145]: Estratégia como base de qualquer criação
-            - listitem [ref=e146]:
-              - generic [ref=e147]: "03"
-              - paragraph [ref=e148]: Design with propósito, não só beleza
-            - listitem [ref=e149]:
-              - generic [ref=e150]: "04"
-              - paragraph [ref=e151]: Revisões inteligentes, sem ruído desnecessário
-            - listitem [ref=e152]:
-              - generic [ref=e153]: "05"
-              - paragraph [ref=e154]: IA e automações para escalar com qualidade
-            - listitem [ref=e155]:
-              - generic [ref=e156]: "06"
-              - paragraph [ref=e157]: "Métricas criativas: engajamento, retenção e resultado"
-      - region "O que me move" [ref=e159]:
-        - heading "O que me move" [level=2] [ref=e160]
-        - generic [ref=e162]:
-          - generic "Acredito que design é uma linguagem." [ref=e163]:
-            - paragraph [ref=e164]:
-              - generic [ref=e165]: Acredito que design
-              - generic [ref=e166]: é uma linguagem.
-          - generic "Que sistemas criam cultura." [ref=e167]:
-            - paragraph [ref=e168]:
-              - generic [ref=e169]: Que sistemas
-              - generic [ref=e170]: criam cultura.
-          - generic "Que cada escolha visual carrega intenção." [ref=e171]:
-            - paragraph [ref=e172]:
-              - generic [ref=e173]: Que cada escolha visual
-              - generic [ref=e174]: carrega intenção.
-          - generic "Que beleza é estratégia." [ref=e175]:
-            - paragraph [ref=e176]:
-              - generic [ref=e177]: Que beleza
-              - generic [ref=e178]: é estratégia.
-          - generic "Que forma segue propósito." [ref=e179]:
-            - paragraph [ref=e180]:
-              - generic [ref=e181]: Que forma
-              - generic [ref=e182]: segue propósito.
-          - generic "ISSO É GHOST DESIGN." [ref=e183]:
-            - paragraph [ref=e184]:
-              - generic [ref=e185]: ISSO É
-              - generic [ref=e186]: GHOST
-              - generic [ref=e187]: DESIGN.
-      - region "Hoje sou Diretor de Criação, com mais de 10 anos de estrada." [ref=e188]:
-        - generic [ref=e189]:
-          - heading "Hoje sou Diretor de Criação, com mais de 10 anos de estrada." [level=2] [ref=e192]:
-            - text: Hoje sou Diretor de Criação,
-            - text: com mais de 10 anos de estrada.
-          - paragraph [ref=e195]: Já liderei marcas, agências, eventos e criei experiências para todos os canais.
-          - generic [ref=e197]:
-            - paragraph [ref=e198]: Agora, quero criar algo que permaneça — com você.
-            - generic [ref=e199]:
-              - button "fale comigo - Clique para acessar" [ref=e200] [cursor=pointer]:
-                - generic [ref=e201]:
-                  - generic [ref=e203]: fale comigo
-                  - img [ref=e205]
-              - button "baixar curriculum - Clique para acessar" [ref=e208] [cursor=pointer]:
-                - generic [ref=e209]:
-                  - generic [ref=e211]: baixar curriculum
-                  - img [ref=e213]
-      - region "marcas com as quais já trabalhei" [ref=e216]:
-        - generic [ref=e217]:
-          - heading "marcas com as quais já trabalhei" [level=2] [ref=e219]
-          - list "Logotipos das marcas parceiras" [ref=e220]:
-            - listitem [ref=e221]:
-              - img "Logo do cliente 1" [ref=e224]
-            - listitem [ref=e225]:
-              - img "Logo do cliente 2" [ref=e228]
-            - listitem [ref=e229]:
-              - img "Logo do cliente 3" [ref=e232]
-            - listitem [ref=e233]:
-              - img "Logo do cliente 4" [ref=e236]
-            - listitem [ref=e237]:
-              - img "Logo do cliente 5" [ref=e240]
-            - listitem [ref=e241]:
-              - img "Logo do cliente 6" [ref=e244]
-            - listitem [ref=e245]:
-              - img "Logo do cliente 7" [ref=e248]
-            - listitem [ref=e249]:
-              - img "Logo do cliente 8" [ref=e252]
-            - listitem [ref=e253]:
-              - img "Logo do cliente 9" [ref=e256]
-            - listitem [ref=e257]:
-              - img "Logo do cliente 10" [ref=e260]
-            - listitem [ref=e261]:
-              - img "Logo do cliente 11" [ref=e264]
-            - listitem [ref=e265]:
-              - img "Logo do cliente 12" [ref=e268]
-      - region "Contato" [ref=e269]:
-        - generic [ref=e271]:
-          - generic [ref=e272]:
-            - generic [ref=e273]:
-              - heading "contato" [level=2] [ref=e274]
-              - paragraph [ref=e275]: Tem uma pergunta ou quer trabalhar junto?
-            - generic [ref=e276]:
-              - link "Ligar para +55 11 98396-6838" [ref=e277] [cursor=pointer]:
-                - /url: tel:5511983966838
-                - img [ref=e279]
-                - generic [ref=e281]: +55 11 98396-6838
-              - link "Enviar email para danilo@portfoliodanilo.com" [ref=e282] [cursor=pointer]:
-                - /url: mailto:danilo@portfoliodanilo.com
-                - img [ref=e284]
-                - generic [ref=e287]: danilo@portfoliodanilo.com
-              - link "Enviar email para dannovaisv@gmail.com" [ref=e288] [cursor=pointer]:
-                - /url: mailto:dannovaisv@gmail.com
-                - img [ref=e290]
-                - generic [ref=e293]: dannovaisv@gmail.com
-            - generic [ref=e294]:
-              - link "Instagram" [ref=e295] [cursor=pointer]:
-                - /url: https://instagram.com/danilo_novais
-                - img [ref=e296]
-                - generic [ref=e299]: Instagram
-              - link "Facebook" [ref=e300] [cursor=pointer]:
-                - /url: https://facebook.com/danilonovaisvilela
-                - img [ref=e301]
-                - generic [ref=e303]: Facebook
-              - link "LinkedIn" [ref=e304] [cursor=pointer]:
-                - /url: https://www.linkedin.com/in/danilonovaisv
-                - img [ref=e305]
-                - generic [ref=e309]: LinkedIn
-              - link "Twitter" [ref=e310] [cursor=pointer]:
-                - /url: https://twitter.com/danilo_novais
-                - img [ref=e311]
-                - generic [ref=e313]: Twitter
-              - link "Portfolio" [ref=e314] [cursor=pointer]:
-                - /url: https://portfoliodanilo.com
-                - img [ref=e315]
-                - generic [ref=e318]: Portfolio
-          - generic [ref=e322]:
-            - generic [ref=e323]:
-              - generic [ref=e324]:
-                - generic [ref=e325]:
-                  - text: Seu nome
-                  - generic [ref=e326]: "*"
-                - textbox "Seu nome" [ref=e327]:
-                  - /placeholder: João da Silva
-              - generic [ref=e328]:
-                - generic [ref=e329]:
-                  - text: Seu email
-                  - generic [ref=e330]: "*"
-                - textbox "Seu email" [ref=e331]:
-                  - /placeholder: joao@empresa.com
-              - generic [ref=e332]:
-                - generic [ref=e333]: Telefone
-                - textbox "Telefone" [ref=e334]:
-                  - /placeholder: (11) 99999-9999
-              - generic [ref=e335]:
-                - generic [ref=e336]:
-                  - text: Sua mensagem
-                  - generic [ref=e337]: "*"
-                - textbox "Sua mensagem" [ref=e338]:
-                  - /placeholder: Conte-me sobre seu projeto...
-            - generic [ref=e341]: Verificação de segurança carregada sob demanda para priorizar performance.
-            - button "Enviar Mensagem" [ref=e342]:
-              - text: Enviar Mensagem
-              - img [ref=e343]
-      - generic "Rodapé do site" [ref=e345]:
-        - generic [ref=e346]:
-          - paragraph [ref=e348]: © 2025 Danilo Novais Vilela — todos os direitos reservados
-          - navigation "Navegação do rodapé" [ref=e349]:
-            - link "home" [ref=e350] [cursor=pointer]:
-              - /url: /
-              - text: home
-            - link "sobre" [ref=e351] [cursor=pointer]:
-              - /url: /sobre
-              - text: sobre
-            - link "portfólio" [ref=e352] [cursor=pointer]:
-              - /url: /portfolio
-              - text: portfólio
-            - link "contato" [ref=e353] [cursor=pointer]:
-              - /url: /contato
-              - text: contato
-            - link "privacidade" [ref=e354] [cursor=pointer]:
-              - /url: /privacidade
-              - text: privacidade
-          - navigation "Redes sociais" [ref=e355]:
-            - link "Instagram" [ref=e356] [cursor=pointer]:
-              - /url: https://instagram.com/danilo_novais
-              - img [ref=e357]
-              - generic [ref=e360]: Instagram
-            - link "LinkedIn" [ref=e361] [cursor=pointer]:
-              - /url: https://www.linkedin.com/in/danilonovaisv
-              - img [ref=e362]
-              - generic [ref=e366]: LinkedIn
-            - link "Twitter" [ref=e367] [cursor=pointer]:
-              - /url: https://twitter.com/danilo_novais
-              - img [ref=e368]
-              - generic [ref=e370]: Twitter
-  - button "Open Next.js Dev Tools" [ref=e376] [cursor=pointer]:
-    - img [ref=e377]
-  - alert [ref=e380]
+    - link "Pular para o conteúdo" [ref=e2] [cursor=pointer]:
+        - /url: '#main-content'
+    - generic [ref=e3]:
+        - banner:
+            - generic [ref=e6]:
+                - link "Ir para Home" [ref=e7] [cursor=pointer]:
+                    - /url: /
+                    - img "Danilo" [ref=e8]
+                - navigation "Navegação principal" [ref=e9]:
+                    - link "home" [ref=e10] [cursor=pointer]:
+                        - /url: /
+                        - generic [ref=e11]: home
+                    - link "sobre" [ref=e12] [cursor=pointer]:
+                        - /url: /sobre
+                        - generic [ref=e13]: sobre
+                    - link "portfólio" [ref=e15] [cursor=pointer]:
+                        - /url: /portfolio
+                        - generic [ref=e16]: portfólio
+                    - link "contato" [ref=e17] [cursor=pointer]:
+                        - /url: /#contact
+                        - generic [ref=e18]: contato
+        - main [ref=e21]:
+            - region "Sou Danilo Novais. Você não vê tudo o que eu faço. Mas sente quando funciona." [ref=e22]:
+                - generic [ref=e23]:
+                    - heading "Sou Danilo Novais. Você não vê tudo o que eu faço. Mas sente quando funciona." [level=1] [ref=e24]
+                    - generic [ref=e32]:
+                        - generic [ref=e33]:
+                            - generic [ref=e34]: Sou Danilo Novais.
+                            - generic [ref=e35]:
+                                - paragraph [ref=e36]: Você não vê tudo o que eu faço. Mas sente
+                                - paragraph [ref=e37]: quando funciona.
+                        - paragraph [ref=e39]: Crio designs que observam, entendem e guiam experiências com intenção, estratégia e tecnologia, na medida exata.
+            - region "ORIGEM" [ref=e40]:
+                - generic [ref=e41]:
+                    - heading "ORIGEM" [level=2] [ref=e43]
+                    - generic [ref=e44]:
+                        - generic [ref=e45]:
+                            - generic [ref=e47]:
+                                - heading "O QUE PERMANECE" [level=2] [ref=e48]
+                                - paragraph [ref=e49]: Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.
+                            - generic [ref=e51]:
+                                - heading "DO TRAÇO À INTENÇÃO" [level=2] [ref=e52]
+                                - paragraph [ref=e53]: Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.
+                            - generic [ref=e55]:
+                                - heading "A DESCOBERTA DO INVISÍVEL" [level=2] [ref=e56]
+                                - paragraph [ref=e57]: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação. Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência.'
+                            - generic [ref=e59]:
+                                - heading "EXPANSÃO COM PROPÓSITO" [level=2] [ref=e60]
+                                - paragraph [ref=e61]: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado.'
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img "O QUE PERMANECE"
+                                - generic:
+                                    - generic:
+                                        - img "DO TRAÇO À INTENÇÃO"
+                                - generic:
+                                    - generic:
+                                        - img "A DESCOBERTA DO INVISÍVEL"
+                                - generic:
+                                    - generic:
+                                        - img "EXPANSÃO COM PROPÓSITO"
+            - region "Do insight ao impacto." [ref=e62]:
+                - generic [ref=e64]:
+                    - generic [ref=e66]:
+                        - heading "Do insight ao impacto." [level=2] [ref=e67]
+                        - paragraph [ref=e68]: Mesmo quando você não percebe.
+                    - list "Do insight ao impacto." [ref=e69]:
+                        - listitem [ref=e70]:
+                            - generic [ref=e71]: '01'
+                            - paragraph [ref=e72]:
+                                - strong [ref=e73]: Direção
+                                - generic [ref=e74]: criativa que organiza o caos
+                        - listitem [ref=e75]:
+                            - generic [ref=e76]: '02'
+                            - paragraph [ref=e77]:
+                                - strong [ref=e78]: Design
+                                - generic [ref=e79]: estratégico que guia decisões
+                        - listitem [ref=e80]:
+                            - generic [ref=e81]: '03'
+                            - paragraph [ref=e82]:
+                                - strong [ref=e83]: Identidades
+                                - generic [ref=e84]: que permanecem na memória
+                        - listitem [ref=e85]:
+                            - generic [ref=e86]: '04'
+                            - paragraph [ref=e87]:
+                                - strong [ref=e88]: Campanhas
+                                - generic [ref=e89]: multicanais com lógica e emoção
+                        - listitem [ref=e90]:
+                            - generic [ref=e91]: '05'
+                            - paragraph [ref=e92]:
+                                - strong [ref=e93]: Branding
+                                - generic [ref=e94]: que não grita — mas marca
+                        - listitem [ref=e95]:
+                            - generic [ref=e96]: '06'
+                            - paragraph [ref=e97]:
+                                - strong [ref=e98]: Inteligência Artificial
+                                - generic [ref=e99]: aplicada à criação
+                        - listitem [ref=e100]:
+                            - generic [ref=e101]: '07'
+                            - paragraph [ref=e102]:
+                                - strong [ref=e103]: Liderança Criativa
+                                - generic [ref=e104]: com visão e método
+                - generic [ref=e106]:
+                    - generic [ref=e107]: Branding
+                    - generic [ref=e108]: Identidade Visual
+                    - generic [ref=e109]: Motion Design
+                    - generic [ref=e110]: Campanhas
+                    - generic [ref=e111]: UI/UX
+                    - generic [ref=e112]: Direção de Arte
+                    - generic [ref=e113]: Creative Coding
+                    - generic [ref=e114]: AI Design
+                    - generic [ref=e115]: Branding
+                    - generic [ref=e116]: Identidade Visual
+                    - generic [ref=e117]: Motion Design
+                    - generic [ref=e118]: Campanhas
+                    - generic [ref=e119]: UI/UX
+                    - generic [ref=e120]: Direção de Arte
+                    - generic [ref=e121]: Creative Coding
+                    - generic [ref=e122]: AI Design
+            - region "Criatividade com método. Impacto sem ruído." [ref=e123]:
+                - generic [ref=e131]:
+                    - paragraph [ref=e132]: Processo criativo
+                    - heading "Criatividade com método. Impacto sem ruído." [level=2] [ref=e134]:
+                        - text: Criatividade com método.
+                        - text: Impacto sem ruído.
+                    - generic [ref=e135]:
+                        - paragraph [ref=e136]: Antes da estética, existe intenção.
+                        - paragraph [ref=e137]: Antes do layout, existe lógica.
+                        - paragraph [ref=e138]: Antes do impacto, existe silêncio.
+                    - list [ref=e139]:
+                        - listitem [ref=e140]:
+                            - generic [ref=e141]: '01'
+                            - paragraph [ref=e142]: Briefings bem construídos para decisões claras
+                        - listitem [ref=e143]:
+                            - generic [ref=e144]: '02'
+                            - paragraph [ref=e145]: Estratégia como base de qualquer criação
+                        - listitem [ref=e146]:
+                            - generic [ref=e147]: '03'
+                            - paragraph [ref=e148]: Design with propósito, não só beleza
+                        - listitem [ref=e149]:
+                            - generic [ref=e150]: '04'
+                            - paragraph [ref=e151]: Revisões inteligentes, sem ruído desnecessário
+                        - listitem [ref=e152]:
+                            - generic [ref=e153]: '05'
+                            - paragraph [ref=e154]: IA e automações para escalar com qualidade
+                        - listitem [ref=e155]:
+                            - generic [ref=e156]: '06'
+                            - paragraph [ref=e157]: 'Métricas criativas: engajamento, retenção e resultado'
+            - region "O que me move" [ref=e159]:
+                - heading "O que me move" [level=2] [ref=e160]
+                - generic [ref=e162]:
+                    - generic "Acredito que design é uma linguagem." [ref=e163]:
+                        - paragraph [ref=e164]:
+                            - generic [ref=e165]: Acredito que design
+                            - generic [ref=e166]: é uma linguagem.
+                    - generic "Que sistemas criam cultura." [ref=e167]:
+                        - paragraph [ref=e168]:
+                            - generic [ref=e169]: Que sistemas
+                            - generic [ref=e170]: criam cultura.
+                    - generic "Que cada escolha visual carrega intenção." [ref=e171]:
+                        - paragraph [ref=e172]:
+                            - generic [ref=e173]: Que cada escolha visual
+                            - generic [ref=e174]: carrega intenção.
+                    - generic "Que beleza é estratégia." [ref=e175]:
+                        - paragraph [ref=e176]:
+                            - generic [ref=e177]: Que beleza
+                            - generic [ref=e178]: é estratégia.
+                    - generic "Que forma segue propósito." [ref=e179]:
+                        - paragraph [ref=e180]:
+                            - generic [ref=e181]: Que forma
+                            - generic [ref=e182]: segue propósito.
+                    - generic "ISSO É GHOST DESIGN." [ref=e183]:
+                        - paragraph [ref=e184]:
+                            - generic [ref=e185]: ISSO É
+                            - generic [ref=e186]: GHOST
+                            - generic [ref=e187]: DESIGN.
+            - region "Hoje sou Diretor de Criação, com mais de 10 anos de estrada." [ref=e188]:
+                - generic [ref=e189]:
+                    - heading "Hoje sou Diretor de Criação, com mais de 10 anos de estrada." [level=2] [ref=e192]:
+                        - text: Hoje sou Diretor de Criação,
+                        - text: com mais de 10 anos de estrada.
+                    - paragraph [ref=e195]: Já liderei marcas, agências, eventos e criei experiências para todos os canais.
+                    - generic [ref=e197]:
+                        - paragraph [ref=e198]: Agora, quero criar algo que permaneça — com você.
+                        - generic [ref=e199]:
+                            - button "fale comigo - Clique para acessar" [ref=e200] [cursor=pointer]:
+                                - generic [ref=e201]:
+                                    - generic [ref=e203]: fale comigo
+                                    - img [ref=e205]
+                            - button "baixar curriculum - Clique para acessar" [ref=e208] [cursor=pointer]:
+                                - generic [ref=e209]:
+                                    - generic [ref=e211]: baixar curriculum
+                                    - img [ref=e213]
+            - region "marcas com as quais já trabalhei" [ref=e216]:
+                - generic [ref=e217]:
+                    - heading "marcas com as quais já trabalhei" [level=2] [ref=e219]
+                    - list "Logotipos das marcas parceiras" [ref=e220]:
+                        - listitem [ref=e221]:
+                            - img "Logo do cliente 1" [ref=e224]
+                        - listitem [ref=e225]:
+                            - img "Logo do cliente 2" [ref=e228]
+                        - listitem [ref=e229]:
+                            - img "Logo do cliente 3" [ref=e232]
+                        - listitem [ref=e233]:
+                            - img "Logo do cliente 4" [ref=e236]
+                        - listitem [ref=e237]:
+                            - img "Logo do cliente 5" [ref=e240]
+                        - listitem [ref=e241]:
+                            - img "Logo do cliente 6" [ref=e244]
+                        - listitem [ref=e245]:
+                            - img "Logo do cliente 7" [ref=e248]
+                        - listitem [ref=e249]:
+                            - img "Logo do cliente 8" [ref=e252]
+                        - listitem [ref=e253]:
+                            - img "Logo do cliente 9" [ref=e256]
+                        - listitem [ref=e257]:
+                            - img "Logo do cliente 10" [ref=e260]
+                        - listitem [ref=e261]:
+                            - img "Logo do cliente 11" [ref=e264]
+                        - listitem [ref=e265]:
+                            - img "Logo do cliente 12" [ref=e268]
+            - region "Contato" [ref=e269]:
+                - generic [ref=e271]:
+                    - generic [ref=e272]:
+                        - generic [ref=e273]:
+                            - heading "contato" [level=2] [ref=e274]
+                            - paragraph [ref=e275]: Tem uma pergunta ou quer trabalhar junto?
+                        - generic [ref=e276]:
+                            - link "Ligar para +55 11 98396-6838" [ref=e277] [cursor=pointer]:
+                                - /url: tel:5511983966838
+                                - img [ref=e279]
+                                - generic [ref=e281]: +55 11 98396-6838
+                            - link "Enviar email para danilo@portfoliodanilo.com" [ref=e282] [cursor=pointer]:
+                                - /url: mailto:danilo@portfoliodanilo.com
+                                - img [ref=e284]
+                                - generic [ref=e287]: danilo@portfoliodanilo.com
+                            - link "Enviar email para dannovaisv@gmail.com" [ref=e288] [cursor=pointer]:
+                                - /url: mailto:dannovaisv@gmail.com
+                                - img [ref=e290]
+                                - generic [ref=e293]: dannovaisv@gmail.com
+                        - generic [ref=e294]:
+                            - link "Instagram" [ref=e295] [cursor=pointer]:
+                                - /url: https://instagram.com/danilo_novais
+                                - img [ref=e296]
+                                - generic [ref=e299]: Instagram
+                            - link "Facebook" [ref=e300] [cursor=pointer]:
+                                - /url: https://facebook.com/danilonovaisvilela
+                                - img [ref=e301]
+                                - generic [ref=e303]: Facebook
+                            - link "LinkedIn" [ref=e304] [cursor=pointer]:
+                                - /url: https://www.linkedin.com/in/danilonovaisv
+                                - img [ref=e305]
+                                - generic [ref=e309]: LinkedIn
+                            - link "Twitter" [ref=e310] [cursor=pointer]:
+                                - /url: https://twitter.com/danilo_novais
+                                - img [ref=e311]
+                                - generic [ref=e313]: Twitter
+                            - link "Portfolio" [ref=e314] [cursor=pointer]:
+                                - /url: https://portfoliodanilo.com
+                                - img [ref=e315]
+                                - generic [ref=e318]: Portfolio
+                    - generic [ref=e322]:
+                        - generic [ref=e323]:
+                            - generic [ref=e324]:
+                                - generic [ref=e325]:
+                                    - text: Seu nome
+                                    - generic [ref=e326]: '*'
+                                - textbox "Seu nome" [ref=e327]:
+                                    - /placeholder: João da Silva
+                            - generic [ref=e328]:
+                                - generic [ref=e329]:
+                                    - text: Seu email
+                                    - generic [ref=e330]: '*'
+                                - textbox "Seu email" [ref=e331]:
+                                    - /placeholder: joao@empresa.com
+                            - generic [ref=e332]:
+                                - generic [ref=e333]: Telefone
+                                - textbox "Telefone" [ref=e334]:
+                                    - /placeholder: (11) 99999-9999
+                            - generic [ref=e335]:
+                                - generic [ref=e336]:
+                                    - text: Sua mensagem
+                                    - generic [ref=e337]: '*'
+                                - textbox "Sua mensagem" [ref=e338]:
+                                    - /placeholder: Conte-me sobre seu projeto...
+                        - generic [ref=e341]: Verificação de segurança carregada sob demanda para priorizar performance.
+                        - button "Enviar Mensagem" [ref=e342]:
+                            - text: Enviar Mensagem
+                            - img [ref=e343]
+            - generic "Rodapé do site" [ref=e345]:
+                - generic [ref=e346]:
+                    - paragraph [ref=e348]: © 2025 Danilo Novais Vilela — todos os direitos reservados
+                    - navigation "Navegação do rodapé" [ref=e349]:
+                        - link "home" [ref=e350] [cursor=pointer]:
+                            - /url: /
+                            - text: home
+                        - link "sobre" [ref=e351] [cursor=pointer]:
+                            - /url: /sobre
+                            - text: sobre
+                        - link "portfólio" [ref=e352] [cursor=pointer]:
+                            - /url: /portfolio
+                            - text: portfólio
+                        - link "contato" [ref=e353] [cursor=pointer]:
+                            - /url: /contato
+                            - text: contato
+                        - link "privacidade" [ref=e354] [cursor=pointer]:
+                            - /url: /privacidade
+                            - text: privacidade
+                    - navigation "Redes sociais" [ref=e355]:
+                        - link "Instagram" [ref=e356] [cursor=pointer]:
+                            - /url: https://instagram.com/danilo_novais
+                            - img [ref=e357]
+                            - generic [ref=e360]: Instagram
+                        - link "LinkedIn" [ref=e361] [cursor=pointer]:
+                            - /url: https://www.linkedin.com/in/danilonovaisv
+                            - img [ref=e362]
+                            - generic [ref=e366]: LinkedIn
+                        - link "Twitter" [ref=e367] [cursor=pointer]:
+                            - /url: https://twitter.com/danilo_novais
+                            - img [ref=e368]
+                            - generic [ref=e370]: Twitter
+    - button "Open Next.js Dev Tools" [ref=e376] [cursor=pointer]:
+        - img [ref=e377]
+    - alert [ref=e380]

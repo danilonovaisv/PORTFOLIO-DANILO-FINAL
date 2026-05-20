@@ -1,192 +1,124 @@
-# Tasks — Ghost System Audit 2026-05-17
+# Firebase Supabase Asset Parity Task List
 
-> **Status:** Planning — Aguardando aprovação humana
-> **Branch:** `claude/exciting-thompson-7tJ75`
-> **Referência:** `implementation_plan.md`
+## Task 1 — Governance And Source Map
 
----
+- [ ] Read `AGENTS.md`.
+- [ ] Read `.antigravity/rules.md` if present.
+- [ ] Read `.context/DOCS-PORTFOLIO-PAGES/` files relevant to Home, Sobre, Portfolio, and media/assets.
+- [ ] Record constraints that affect deploy, asset URLs, Supabase Storage, and documentation sync.
+- [ ] Do not edit code.
 
-## FASE P0-G — GitHub & Higiene do Repositório
+## Task 2 — Workflow Env Audit
 
-### Task P0-G1: Atualizar `.gitignore` com entradas faltantes
+- [ ] Read `.github/workflows/firebase-deploy.yml`.
+- [ ] List every step that can run app code or `next build`.
+- [ ] For each step, map available env vars:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - `SUPABASE_SERVICE_ROLE_KEY`
+  - `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS`
+  - `FIREBASE_PROJECT_ID`
+- [ ] Identify steps where public Supabase vars are missing.
+- [ ] Identify any step that could print secrets.
 
-- **Responsável:** Repo Architect
-- **Arquivo:** `.gitignore` (raiz)
-- **Pré-condição:** Aprovação humana recebida
-- **Passos:**
-  1. Adicionar `functions/.npm_cache/` após a seção de Firebase
-  2. Adicionar `output/` (playwright output)
-  3. Adicionar `graphify-out/`
-  4. Adicionar `scratch/`
-  5. Adicionar seção "Arquivos de trabalho temporários": `typecheck_fresh.txt`, `tsc_output_current*.txt`, `typecheck_output_new.txt`, `knip_report.txt`, `walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`
-- **Validação:** `grep "npm_cache\|graphify-out\|output/" .gitignore` retorna entradas
+## Task 3 — Firebase Config Audit
 
-### Task P0-G2: Remover `functions/.npm_cache/` do tracking git
+- [ ] Read `firebase.json`.
+- [ ] Read `.firebaserc`.
+- [ ] Read `scripts/firebase-preflight.sh`.
+- [ ] Read `scripts/deploy.sh`.
+- [ ] Confirm workflow Firebase project equals `.firebaserc` default.
+- [ ] Confirm deploy target should remain `--only hosting`.
+- [ ] Confirm no explicit `--debug`.
 
-- **Responsável:** Repo Architect
-- **Pré-condição:** P0-G1 concluído
-- **Passos:**
-  1. Executar `git rm -r --cached functions/.npm_cache/`
-  2. Verificar com `git status` que 2.759 arquivos aparecem como deleted (staged)
-  3. Confirmar que `functions/.npm_cache/` existe no disco (não é deletado, apenas untracked)
-- **Validação:** `git ls-files functions/.npm_cache | wc -l` retorna 0
+## Task 4 — Next Config And Env Audit
 
-### Task P0-G3: Remover arquivos temporários da raiz do tracking
+- [ ] Read `next.config.mjs` and any other `next.config.*`.
+- [ ] Read `.env.example`.
+- [ ] Read `package.json` build/prebuild/postinstall scripts.
+- [ ] Identify env vars evaluated during:
+  - postinstall
+  - validate-env
+  - build-check
+  - build
+  - Firebase webframeworks deploy rebuild
+- [ ] Confirm no static export mode changes URL handling unexpectedly.
 
-- **Responsável:** Repo Architect
-- **Pré-condição:** P0-G1 concluído
-- **Passos:**
-  1. `git rm --cached typecheck_fresh.txt tsc_output_current_v2.txt tsc_output_current.txt typecheck_output_new.txt knip_report.txt`
-  2. Avaliar se `walkthrough.md`, `WEEKLY_AUDIT_REPORT.md`, `task.md`, `implementation_plan.md` devem permanecer rastreados ou ser movidos para `docs/`
-- **Validação:** `git ls-files | grep -E "^[^/]+\.txt$"` retorna vazio
+## Task 5 — Supabase Client Audit
 
-### Task P0-G4: Remover diretórios de output do tracking
+- [ ] Read Supabase client/server files under `src/lib/supabase/**`.
+- [ ] Identify browser client creation.
+- [ ] Identify server/admin client creation.
+- [ ] Confirm browser client only uses `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- [ ] Confirm `SUPABASE_SERVICE_ROLE_KEY` stays server-only.
 
-- **Responsável:** Repo Architect
-- **Pré-condição:** P0-G1 concluído
-- **Passos:**
-  1. `git rm -r --cached output/` (12 arquivos Playwright)
-  2. `git rm -r --cached graphify-out/` (47 arquivos)
-  3. `git rm -r --cached scratch/` (16 arquivos) — validar se há conteúdo útil antes
-- **Validação:** `git ls-files output/ graphify-out/ scratch/` retorna vazio
+## Task 6 — Asset Resolver Audit
 
-### Task P0-G5: Decisão estratégica sobre `.agent/skills` (6.346 arquivos)
+- [ ] Locate asset URL resolver utilities.
+- [ ] Locate asset data sources:
+  - `assets.json`
+  - `site-assets.ts`
+  - Supabase asset tables if referenced
+- [ ] Trace URL resolution for absolute Supabase URLs.
+- [ ] Trace URL resolution for relative storage paths.
+- [ ] Trace fallback URL handling.
+- [ ] Identify where malformed URLs can become production media `src`.
 
-- **Responsável:** Arquiteto + Danilo (decisão humana)
-- **Opções:**
-  - A) Manter no repositório (sem ação)
-  - B) Converter em git submodule apontando para repo de skills
-  - C) Adicionar ao `.gitignore` e remover do tracking (`git rm -r --cached .agent/skills/`)
-- **Impacto da opção C:** -6.346 arquivos rastreados; repo desce de 12.281 para ~5.900 arquivos
-- **Validação:** Decisão documentada em `AGENTS.md`
+## Task 7 — Root Cause Decision
 
-### Task P0-G6: Commit de higiene
+- [ ] Classify failure as one or more:
+  - missing GitHub secret
+  - wrong secret name
+  - env injected after build
+  - wrong Firebase target
+  - private bucket/public URL mismatch
+  - resolver bug with relative paths
+  - malformed stored asset records
+- [ ] Pick minimum fix.
+- [ ] Confirm fix does not require exposing service role key.
 
-- **Pré-condição:** P0-G1 a P0-G4 concluídos, decisão P0-G5 tomada
-- **Mensagem de commit sugerida:** `chore: remove tracked build artifacts and temp files from git history`
-- **Validação:** `git ls-files | wc -l` < 5.500 (ou < 4.000 se P0-G5 incluir remoção de skills)
+## Task 8 — Workflow Patch
 
----
+- [ ] Patch `.github/workflows/firebase-deploy.yml`.
+- [ ] Add safe env validation step before build.
+- [ ] Ensure public Supabase env vars are present in install/build/preflight/deploy steps as required.
+- [ ] Ensure service role is only present where server-side code requires it.
+- [ ] Keep deploy command `pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"`.
+- [ ] Keep logs secret-safe.
 
-## FASE P0-GS — Ghost System (Bloqueadores Arquiteturais)
+## Task 9 — Resolver Patch If Needed
 
-### Task P0-GS1: Criar `src/components/motion/MotionLink.tsx`
+- [ ] Patch existing asset URL resolver only if investigation proves app-side issue.
+- [ ] Preserve absolute URLs.
+- [ ] Use Supabase `getPublicUrl()` for public bucket object paths.
+- [ ] Add fallback for empty/malformed media path.
+- [ ] Do not create duplicate resolver.
 
-- **Responsável:** Motion Governance Specialist
-- **Arquivo destino:** `src/components/motion/MotionLink.tsx`
-- **Pré-condição:** Aprovação humana recebida
-- **Requisitos do componente:**
-  - Wrapper de `next/link` com suporte a animações Motion (opacity, blur, translateY)
-  - Preservar atributos `prefetch`, `scroll`, `replace` do Next.js
-  - Aceitar `MotionProps` para `whileHover`, `animate`, `initial`, `transition`
-  - Easing padrão: `GHOST_EASE` (`[0.22, 1, 0.36, 1]`) de `@/config/motion`
-  - Exportação nomeada: `export const MotionLink`
-- **Validação:** Componente renderiza sem erros, preserva prefetch (verificar Network tab)
+## Task 10 — Verification
 
-### Task P0-GS2: Substituir `m.button` por `MotionLink` em `DesktopFluidHeader.tsx`
+- [ ] Run YAML parse validation.
+- [ ] Run `CI=true pnpm install --frozen-lockfile --ignore-scripts`.
+- [ ] Run `pnpm run build-check`.
+- [ ] Run `pnpm run firebase:preflight`.
+- [ ] Run `pnpm run build`.
+- [ ] Run Firebase deploy dry run if available; otherwise run non-debug deploy only after approval.
+- [ ] Verify no service role key appears in client bundle/logs.
 
-- **Responsável:** Motion Governance Specialist
-- **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
-- **Linha alvo:** 67-78 (bloco `const LinkComponent = isExternalHref(...) ? m.a : m.button`)
-- **Pré-condição:** P0-GS1 concluído
-- **Passos:**
-  1. Substituir `m.button` por `MotionLink` para hrefs internos
-  2. Manter `m.a` para hrefs externos e `mailto:`/`tel:`
-  3. Garantir que `onClick` de navegação interna é removido (Next.js cuida do routing)
-- **Validação:**
-  - Navegação desktop funciona em `/`, `/sobre`, `/portfolio`, `/admin`
-  - Abertura em nova aba (Ctrl+Click) funciona
-  - Sem erros de console
+## Task 11 — Production Smoke
 
-### Task P0-GS3: Criar `src/lib/supabase/image-loader.ts`
+- [ ] Dispatch or observe GitHub `Firebase Deploy`.
+- [ ] Confirm deploy succeeds.
+- [ ] Open production pages using Supabase assets.
+- [ ] Check representative image/video URLs.
+- [ ] Verify URLs are absolute and not `undefined`, accidental relative, wrong bucket, or wrong project.
+- [ ] Verify asset HTTP status `200`.
 
-- **Responsável:** Supabase Storage Specialist
-- **Arquivo destino:** `src/lib/supabase/image-loader.ts`
-- **Pré-condição:** Aprovação humana recebida
-- **Requisitos:**
-  - Loader para `next/image` usando Supabase Image Transform API
-  - URL pattern: `<base>/storage/v1/render/image/public/<bucket>/<path>?width=<w>&quality=<q>`
-  - Fallback para URL original se transform não disponível
-  - Manter compatibilidade com `remotePatterns` do `next.config.mjs`
-- **Decisão pendente (P0-GS3a):** Referenciar loader em `next.config.mjs` (`images.loader`) ou usar como prop em componentes individuais
-- **Validação:** `next/image` serve imagens do Supabase com parâmetros de transform na URL
+## Task 12 — Walkthrough
 
----
-
-## FASE P1-GS — Ghost System (Melhorias)
-
-### Task P1-GS1: Corrigir `rotate` em `CategoryStripe.tsx`
-
-- **Responsável:** Motion Governance Specialist
-- **Arquivo:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
-- **Linha:** 163 — `rotate: isHovered ? 0 : -45`
-- **Pré-condição:** Aprovação humana recebida
-- **Opções de substituição:**
-  - A) Substituir por `translateX` (ex: seta se move horizontalmente — affordance mantido)
-  - B) Substituir o ícone por um que não requer rotação (ex: `ArrowRight` vs `ArrowUpRight`)
-  - C) Documentar como "regra superior explícita" e manter (requer entrada em GHOST-DESIGN-SYSTEM.md)
-- **Recomendação:** Opção A ou B, dependendo do design do componente
-- **Validação:** Sem uso de `rotate` no bloco de animação do componente
-
-### Task P1-GS2: Referenciar `image-loader` em `next.config.mjs`
-
-- **Responsável:** Next.js Architect
-- **Pré-condição:** P0-GS3 concluído e testado
-- **Passos:**
-  1. Importar `imageLoader` do novo arquivo
-  2. Adicionar `images.loader: 'custom'` e `images.loaderFile: './src/lib/supabase/image-loader.ts'`
-- **Validação:** Build completo sem erros, imagens servidas com transform URL
-
-### Task P1-GS3: Validar altura de cards em `FeaturedProjectsSection.tsx`
-
-- **Responsável:** QA Visual
-- **Arquivo:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
-- **Passos:**
-  1. Comparar altura atual com spec em `.context/DOCS-PORTFOLIO-PAGES/01-HOME`
-  2. Validar responsividade em mobile (375px), tablet (768px), desktop (1440px)
-- **Validação:** Screenshots comparados com spec visual
-
-### Task P1-GS4: Auditar estado ativo no Header
-
-- **Responsável:** QA Visual + Motion Specialist
-- **Arquivo:** `src/components/layout/header/DesktopFluidHeader.tsx`
-- **Passos:**
-  1. Verificar se link da rota atual tem estilo de "ativo" diferenciado
-  2. Usar `usePathname()` do Next.js se não implementado
-- **Validação:** Link ativo visualmente destacado em todas as rotas
-
----
-
-## FASE P2 — Validação Final
-
-### Task P2-V1: Build check completo
-
-- **Comando:** `pnpm run build-check`
-- **Critério:** Zero erros de TypeScript e lint
-
-### Task P2-V2: Verificar contagem de arquivos rastreados
-
-- **Comando:** `git ls-files | wc -l`
-- **Critério:** < 5.500 (sem remover skills) ou < 4.000 (com remoção de skills)
-
-### Task P2-V3: Gerar walkthrough.md final
-
-- **Conteúdo:** Alterações realizadas, arquivos modificados, pendências, plano de rollback
-- **Local:** `docs/walkthrough-audit-2026-05-17.md` (mover da raiz para docs/)
-
-### Task P2-V4: Atualizar `.context/` com novo estado
-
-- **Arquivos a atualizar:** `.context/active_state.md`, `.context/knowledge-graph.md`
-
----
-
-## Checklist de Aprovação
-
-- [ ] Aprovação humana explícita recebida ("Aprovado" ou "Proceed")
-- [ ] Branch `claude/exciting-thompson-7tJ75` criada/atualizada
-- [ ] P0-G1 a P0-G4 executados
-- [ ] P0-GS1 e P0-GS2 executados
-- [ ] P0-GS3 executado (loader Supabase)
-- [ ] P1-GS1 executado (rotate removido)
-- [ ] Build-check passando
-- [ ] PR criado como draft
+- [ ] Create `walkthrough.md`.
+- [ ] Include before symptoms.
+- [ ] Include root cause.
+- [ ] Include exact files changed.
+- [ ] Include validation commands/results.
+- [ ] Include production smoke evidence.
+- [ ] Include remaining risks and next improvements.

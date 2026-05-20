@@ -19,6 +19,7 @@ Entregar galeria editorial filtrável com leitura por categorias e ritmo visual 
 - filtro inicial padrão: `All Cases`
 - categorias visíveis: `All Cases`, `Brand & Campaigns`, `Videos & Motions`, `Websites & Tech`
 - grid de cards com padrão de tamanho
+- CTA principal como último item do grid, após os cards visíveis e antes da paginação
 - estado vazio por categoria
 
 ## 3. Identidade visual
@@ -55,8 +56,10 @@ Entregar galeria editorial filtrável com leitura por categorias e ritmo visual 
   - filtros claros e previsíveis.
 - Riscos:
   - `position: fixed` no track exige testes constantes para evitar overlap com header/toolbar.
+  - o CTA final faz parte do track da galeria; validar LERP e paginação juntos para evitar desconexão visual.
 
 ## 8. Inconformidades observadas
 
 - Inconformidade baixa: revisar cobertura de navegação por teclado na mudança de filtro (manter foco contextual quando necessário).
 - Atualização 2026-03-06: `PortfolioClient` passou a assinar `portfolio_projects` via realtime no browser client do Supabase e aciona `router.refresh()` após mutações vindas do admin, reduzindo defasagem visual da galeria pública.
+- Atualização 2026-05-18: CTA principal "vamos trabalhar juntos" deixou de ser uma seção isolada em `PortfolioClient` e passou a renderizar como item final do grid em `ProjectsGallery`, centralizado e no fluxo antes da paginação.

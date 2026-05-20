@@ -5,7 +5,12 @@ import { m } from 'motion/react';
 import Image from 'next/image';
 import type { ZoomAsset } from '../../types';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl, isVideo } from '@/lib/utils';
+import { isVideo } from '@/lib/utils';
+import {
+  extractYoutubeId,
+  resolveLandingAsset,
+} from '@/lib/media/asset-contract';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
 interface AlpaBlockMediaTextProps {
   media: string;
@@ -33,12 +38,19 @@ export function AlpaBlockMediaText({
   revealVisible,
   openAsset,
 }: AlpaBlockMediaTextProps) {
-  const isVid = mediaType === 'video' || (media && isVideo(media));
-  const resolvedMedia = getAssetUrl(
+  const isVid =
+    mediaType === 'video' ||
+    mediaType === 'youtube' ||
+    (media && isVideo(media));
+  const resolvedMedia = resolveLandingAsset(
     media,
-    isVid ? { isVideo: true } : { width: 1200, quality: 85 }
+    mediaType === 'youtube' ? 'youtube' : isVid ? 'video' : 'image'
   );
-  const resolvedPoster = isVid && poster ? getAssetUrl(poster) : undefined;
+  const resolvedPoster = resolveLandingAsset(poster, 'image');
+  const youtubeId =
+    resolvedMedia.ok && resolvedMedia.asset.provider === 'youtube'
+      ? extractYoutubeId(resolvedMedia.asset.url)
+      : null;
 
   const MediaComponent = (
     <m.div
@@ -48,12 +60,21 @@ export function AlpaBlockMediaText({
       transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="relative aspect-square md:aspect-auto md:h-[50vh] overflow-hidden rounded-none bg-neutral/20"
     >
-      {!isVid ? (
+      {!resolvedMedia.ok ? (
+        <div className="flex h-full w-full items-center justify-center text-sm text-white/55">
+          Mídia indisponível
+        </div>
+      ) : youtubeId ? (
+        <YouTubePlayer
+          videoId={youtubeId}
+          className="absolute inset-0 h-full w-full"
+        />
+      ) : resolvedMedia.asset.type === 'image' ? (
         <button
           onClick={(e) =>
             openAsset(
               {
-                src: resolvedMedia,
+                src: resolvedMedia.asset.url,
                 kind: 'image',
                 alt: alt || '',
               },
@@ -63,7 +84,7 @@ export function AlpaBlockMediaText({
           className="group relative h-full w-full overflow-hidden"
         >
           <Image
-            src={resolvedMedia}
+            src={resolvedMedia.asset.url}
             alt={alt || ''}
             fill
             className="object-cover transition-opacity duration-normal group-hover:opacity-90"
@@ -71,8 +92,8 @@ export function AlpaBlockMediaText({
         </button>
       ) : (
         <video
-          src={resolvedMedia}
-          poster={resolvedPoster}
+          src={resolvedMedia.asset.url}
+          poster={resolvedPoster.ok ? resolvedPoster.asset.url : undefined}
           autoPlay
           muted
           loop

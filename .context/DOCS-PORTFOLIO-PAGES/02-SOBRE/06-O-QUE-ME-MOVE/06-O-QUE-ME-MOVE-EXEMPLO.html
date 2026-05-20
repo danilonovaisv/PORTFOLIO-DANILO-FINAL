@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shader Lines + Text Animation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          'Marope',
+          'Inter',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #040013;
+        color: #ffffff;
+        overflow: hidden;
+      }
+
+      #shader-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 30%,
+          #040013 100%
+        );
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .content-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        gap: 2.5rem;
+      }
+
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1.5rem;
+        max-width: 95vw;
+        gap: 0.4rem;
+      }
+
+      .text-line-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-height: 1.4em;
+      }
+
+      .char {
+        display: inline-block;
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(8px);
+        font-size: clamp(1.5rem, 3.8vw, 2.5rem);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        color: #00000;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      }
+
+      .text-line-wrapper.active .char {
+        animation: charReveal 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      @keyframes charReveal {
+        0% {
+          opacity: 0;
+          filter: blur(10px);
+          transform: translateY(8px);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
+        }
+      }
+
+      .text-line-wrapper.exit .char {
+        animation: charExit 0.35s cubic-bezier(0.4, 0, 1, 1) forwards;
+      }
+
+      @keyframes charExit {
+        0% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          filter: blur(8px);
+          transform: translateY(-25px);
+        }
+      }
+
+      .dots-container {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      .dot {
+        height: 0.35rem;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .dot.active {
+        background: #ffffff;
+        width: 1.8rem;
+      }
+
+      .dot:not(.active) {
+        width: 0.35rem;
+      }
+
+      .dot:not(.active):hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: scale(1.25);
+      }
+
+      .subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="shader-container"></div>
+    <div class="overlay"></div>
+
+    <div class="content-wrapper">
+      <p class="subtitle">Direção Criativa</p>
+
+      <div class="text-container" id="textContainer"></div>
+
+      <div class="dots-container" id="dotsContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js"></script>
+    <script>
+      // ==================== THREE.JS SHADER BACKGROUND ====================
+      const shaderContainer = document.getElementById('shader-container');
+      const THREE = window.THREE;
+
+      const camera = new THREE.Camera();
+      camera.position.z = 1;
+
+      const scene = new THREE.Scene();
+      const geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+      const uniforms = {
+        time: { type: 'f', value: 1.0 },
+        resolution: { type: 'v2', value: new THREE.Vector2() },
+      };
+
+      const vertexShader = `
+            void main() {
+                gl_Position = vec4( position, 1.0 );
+            }
+        `;
+
+      const fragmentShader = `
+            precision highp float;
+            uniform vec2 resolution;
+            uniform float time;
+            
+            float random (in float x) {
+                return fract(sin(x)*1e4);
+            }
+            
+            varying vec2 vUv;
+
+            void main(void) {
+                vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+                
+                vec2 fMosaicScal = vec2(4.0, 2.0);
+                vec2 vScreenSize = vec2(256,256);
+                uv.x = floor(uv.x * vScreenSize.x / fMosaicScal.x) / (vScreenSize.x / fMosaicScal.x);
+                uv.y = floor(uv.y * vScreenSize.y / fMosaicScal.y) / (vScreenSize.y / fMosaicScal.y);       
+                  
+                float t = time*0.06+random(uv.x)*0.4;
+                float lineWidth = 0.0008;
+
+                float lineIntensity = 0.0;
+                for(int j = 0; j < 3; j++){
+                    for(int i=0; i < 5; i++){
+                        lineIntensity += lineWidth*float(i*i) / abs(fract(t - 0.01*float(j)+float(i)*0.01)*1.0 - length(uv));        
+                    }
+                }
+                
+                // Blue -> Purple -> Blue gradient mapping
+                vec3 blue1 = vec3(0.15, 0.40, 1.00);
+                vec3 purple = vec3(0.70, 0.15, 1.00);
+                vec3 blue2 = vec3(0.10, 0.30, 0.95);
+                
+                float xNorm = (uv.x + 1.0) * 0.5;
+                vec3 gradColor = mix(blue1, purple, smoothstep(0.0, 0.5, xNorm));
+                gradColor = mix(gradColor, blue2, smoothstep(0.5, 1.0, xNorm));
+                gradColor = mix(gradColor, vec3(0.45, 0.20, 0.90), sin(time * 0.25) * 0.15 + 0.1);
+                
+                gl_FragColor = vec4(gradColor * lineIntensity, 1.0);
+            }
+        `;
+
+      const material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        transparent: true,
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      shaderContainer.appendChild(renderer.domElement);
+
+      function onWindowResize() {
+        const rect = shaderContainer.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height);
+        uniforms.resolution.value.x = renderer.domElement.width;
+        uniforms.resolution.value.y = renderer.domElement.height;
+      }
+
+      onWindowResize();
+      window.addEventListener('resize', onWindowResize);
+
+      let animationId = null;
+      function animate() {
+        animationId = requestAnimationFrame(animate);
+        uniforms.time.value += 0.05;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // ==================== TEXT ANIMATION ====================
+      const phrases = [
+        { line1: 'Crio o que a marca diz', line2: 'antes mesmo de falar.' },
+        { line1: 'Transformo intenção', line2: 'em presença.' },
+        {
+          line1: 'Entre estética e estratégia,',
+          line2: 'eu construo percepção.',
+        },
+        {
+          line1: 'O que fica não é só a imagem.',
+          line2: 'É a sensação de marca.',
+        },
+      ];
+
+      let currentIndex = 0;
+      const textContainer = document.getElementById('textContainer');
+      const dotsContainer = document.getElementById('dotsContainer');
+      const intervalTime = 4500;
+      const staggerTime = 30;
+
+      function createDots() {
+        dotsContainer.innerHTML = '';
+        phrases.forEach((_, idx) => {
+          const dot = document.createElement('button');
+          dot.className = `dot ${idx === currentIndex ? 'active' : ''}`;
+          dot.addEventListener('click', () => switchPhrase(idx));
+          dotsContainer.appendChild(dot);
+        });
+      }
+
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach((dot, idx) => {
+          dot.className = `dot ${idx === currentIndex ? 'active' : ''}`;
+        });
+      }
+
+      function animateChars(lineElement, direction = 'enter') {
+        const chars = lineElement.querySelectorAll('.char');
+        chars.forEach((char, idx) => {
+          char.style.animationDelay = `${idx * staggerTime}ms`;
+        });
+
+        if (direction === 'enter') {
+          lineElement.classList.add('active');
+        } else {
+          lineElement.classList.add('exit');
+        }
+      }
+
+      function createTextElement(phraseObj) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'text-container-inner';
+        wrapper.style.display = 'flex';
+        wrapper.style.flexDirection = 'column';
+        wrapper.style.alignItems = 'center';
+        wrapper.style.gap = '0.4rem';
+
+        const line1Div = document.createElement('div');
+        line1Div.className = 'text-line-wrapper';
+
+        phraseObj.line1.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          line1Div.appendChild(span);
+        });
+
+        const line2Div = document.createElement('div');
+        line2Div.className = 'text-line-wrapper';
+
+        phraseObj.line2.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          line2Div.appendChild(span);
+        });
+
+        wrapper.appendChild(line1Div);
+        wrapper.appendChild(line2Div);
+
+        return wrapper;
+      }
+
+      function switchPhrase(index) {
+        if (index === currentIndex) return;
+        currentIndex = index;
+        updateDots();
+        renderPhrase();
+        resetTimer();
+      }
+
+      function renderPhrase() {
+        textContainer.innerHTML = '';
+        const phraseObj = phrases[currentIndex];
+        const wrapper = createTextElement(phraseObj);
+        textContainer.appendChild(wrapper);
+
+        const line1 = wrapper.querySelector('.text-line-wrapper:first-child');
+        const line2 = wrapper.querySelector('.text-line-wrapper:last-child');
+
+        requestAnimationFrame(() => {
+          animateChars(line1, 'enter');
+          setTimeout(
+            () => {
+              animateChars(line2, 'enter');
+            },
+            phraseObj.line1.length * staggerTime + 150
+          );
+        });
+      }
+
+      let timer = null;
+      function resetTimer() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(() => {
+          currentIndex = (currentIndex + 1) % phrases.length;
+          updateDots();
+
+          const currentWrapper = textContainer.querySelector(
+            '.text-container-inner'
+          );
+          if (currentWrapper) {
+            const lines = currentWrapper.querySelectorAll('.text-line-wrapper');
+            lines.forEach((line) => animateChars(line, 'exit'));
+            setTimeout(() => {
+              renderPhrase();
+            }, 450);
+          } else {
+            renderPhrase();
+          }
+        }, intervalTime);
+      }
+
+      // Initialize
+      createDots();
+      renderPhrase();
+      resetTimer();
+
+      // Cleanup
+      window.addEventListener('beforeunload', () => {
+        if (animationId) cancelAnimationFrame(animationId);
+        renderer.dispose();
+        if (timer) clearInterval(timer);
+      });
+    </script>
+  </body>
+</html>

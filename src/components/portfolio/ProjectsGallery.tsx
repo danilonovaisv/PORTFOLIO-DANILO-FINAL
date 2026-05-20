@@ -14,6 +14,7 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ProjectCard, type ProjectCardSize } from '@/components/portfolio/ProjectCard';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { Container } from '@/components/layout/Container';
@@ -319,6 +320,14 @@ export const ProjectsGallery = ({
                   />
                 ))}
               </AnimatePresence>
+
+              <div className="col-span-full flex w-full justify-center pt-12 pb-4 md:pt-16 md:pb-8 max-sm:pt-10">
+                <AntigravityCTA
+                  text="vamos trabalhar juntos"
+                  href="/#contact"
+                  className="static"
+                />
+              </div>
 
               {/* Pagination Controls */}
               {totalPages > 1 && (

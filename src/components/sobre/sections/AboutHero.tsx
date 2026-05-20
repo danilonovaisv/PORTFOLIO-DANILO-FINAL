@@ -186,9 +186,7 @@ export function AboutHero() {
                 </span>
                 <span>
                   Mas sente quando{' '}
-                  <span className="text-bluePrimary">
-                    funciona.
-                  </span>
+                  <span className="text-bluePrimary">funciona.</span>
                 </span>
               </div>
             </m.div>

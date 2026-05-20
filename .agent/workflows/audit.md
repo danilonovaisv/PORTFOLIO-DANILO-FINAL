@@ -1,5 +1,5 @@
 ---
-description: Sắp bàn giao khách? Kiểm tra lại toàn diện cho chắc theo chuẩn Auditor.
+description: Pronto para a entrega? Auditoria completa para garantir conformidade com os padrões da equipe.
 ---
 
 # /audit - Final Professional Sign-off

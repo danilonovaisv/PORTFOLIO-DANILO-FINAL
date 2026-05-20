@@ -166,7 +166,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     getProjectSeoDescription(parsed, project.title)
   );
   return (
-    <div className="min-h-screen">
+    <main id="main-content" className="min-h-screen">
       <JsonLd
         pageType="project"
         breadcrumbs={[
@@ -193,6 +193,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       />
       <ProjectRenderer project={project} />
       <SiteFooter />
-    </div>
+    </main>
   );
 }

@@ -1,5 +1,5 @@
 ---
-description: Server và Pipeline có ổn không? Cài đặt giám sát ngay.
+description: Como estão os servidores e pipelines? Configure o monitoramento e a observabilidade total.
 ---
 
 # /monitor - Full-Stack Observability & Health

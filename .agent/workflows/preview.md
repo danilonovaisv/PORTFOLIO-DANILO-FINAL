@@ -1,5 +1,5 @@
 ---
-description: Muốn xem trước web chạy thế nào? Bật Preview.
+description: Quer ver como o site está rodando? Ative o servidor de visualização local.
 ---
 
 # /preview - Preview Management

@@ -147,7 +147,7 @@ for (const route of ROUTES) {
         const computed = window.getComputedStyle(el);
         return {
           position: computed.position,
-          zIndex:   computed.zIndex,
+          zIndex: computed.zIndex,
         };
       });
 

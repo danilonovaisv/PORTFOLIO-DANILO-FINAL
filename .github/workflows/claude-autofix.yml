@@ -2,47 +2,141 @@ name: Claude Auto-Fix CI Failures
 
 on:
   workflow_run:
-    workflows: 
+    workflows:
       - "Firebase Deploy"
       - "Deploy to Firebase Hosting on PR"
       - "Deploy Next.js site to Pages"
       - "CodeQL"
-    types: 
+    types:
       - completed
+
+concurrency:
+  group: claude-fix-${{ github.event.workflow_run.name }}
+  cancel-in-progress: true
 
 jobs:
   audit-and-fix:
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    if: github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
       actions: read
+      checks: read
+      issues: write
+      pull-requests: read
+      statuses: read
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      FAILED_WORKFLOW: ${{ github.event.workflow_run.name }}
+      FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
+      FAILED_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      FAILED_SHA: ${{ github.event.workflow_run.head_sha }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch }}
 
-      - name: Claude Code - Audit & Fix
-        uses: anthropics/claude-code-action@v1
+      - name: Setup Git Identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          prompt: |
-            O workflow '${{ github.event.workflow_run.name }}' falhou na execução do ID ${{ github.event.workflow_run.id }}.
-            
-            CONTEXTO DO PROJETO:
-            - Stack: Next.js (App Router), React, TypeScript, Tailwind CSS.
-            - Ferramentas visuais: React Three Fiber, @react-three/drei, Three.js, Framer Motion.
-            - Infraestrutura: Supabase Storage, Firebase Hosting.
-            - Estrutura: Trabalhamos principalmente nas pastas `src/app` e `src/components`.
-            
-            SUA MISSÃO:
-            1. Use a GitHub CLI (`gh`) para baixar e ler os logs detalhados desta execução.
-            2. Analise os logs e identifique a causa raiz. 
-               *Dica: Fique atento a erros comuns da nossa stack, como falta de "use client" em componentes do Three.js/Framer Motion, erros de tipagem do TypeScript, ou falhas no build de rotas do Next.js.*
-            3. Edite os arquivos necessários no código-fonte (`src/`) para resolver o problema.
-            4. Quando tiver certeza da correção, crie uma nova branch, faça o commit detalhando o problema e a solução, e abra um Pull Request.
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          claude_args: "--model claude-3-5-sonnet-20241022 --max-turns 15"
+          version: 10.33.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: CI=true pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Capture failed workflow logs
+        run: |
+          gh run view "$FAILED_RUN_ID" --log-failed > failed-workflow.log 2> gh-log-error.txt || {
+            {
+              echo "Failed to capture workflow logs with gh run view."
+              echo
+              cat gh-log-error.txt
+            } > failed-workflow.log
+          }
+
+          {
+            grep -Ei "error:|err_|warn|failed|failure|exit code|does not exist|invalid|missing|cannot|unsupported|forbidden" failed-workflow.log || true
+          } | tail -n 120 > failed-workflow-excerpt.raw
+
+          if [ ! -s failed-workflow-excerpt.raw ]; then
+            tail -n 120 failed-workflow.log > failed-workflow-excerpt.raw
+          fi
+
+          sed -E \
+            -e 's/(token|secret|password|key|authorization)(["=: ]+)[^", ]+/\1\2[REDACTED]/Ig' \
+            -e 's/([A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,})/[REDACTED_JWT]/g' \
+            -e 's/[A-Za-z0-9_=-]{32,}/[REDACTED_LONG_VALUE]/g' \
+            failed-workflow-excerpt.raw > failed-workflow-excerpt.log
+
+      - name: Create or update CI autofix issue
+        run: |
+          RUN_URL="${{ github.event.workflow_run.html_url }}"
+          ISSUE_TITLE="CI autofix report: ${FAILED_WORKFLOW}"
+
+          gh label create ci-autofix \
+            --description "Automated CI failure audit" \
+            --color "0048ff" \
+            2>/dev/null || true
+
+          EXISTING_ISSUE="$(gh issue list \
+            --state open \
+            --label ci-autofix \
+            --search "$ISSUE_TITLE in:title" \
+            --json number \
+            --jq '.[0].number // empty')"
+
+          {
+            echo "## CI Autofix Report"
+            echo
+            echo "**Workflow:** ${FAILED_WORKFLOW}"
+            echo "**Run ID:** ${FAILED_RUN_ID}"
+            echo "**Branch:** ${FAILED_BRANCH}"
+            echo "**SHA:** ${FAILED_SHA}"
+            echo "**Run URL:** ${RUN_URL}"
+            echo "**Generated:** $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo
+            echo "### Root Cause Signal"
+            echo
+            echo '```text'
+            cat failed-workflow-excerpt.log
+            echo '```'
+            echo
+            echo "### Checklist"
+            echo
+            echo "- [ ] Review failed workflow log"
+            echo "- [ ] Confirm root cause against repository config"
+            echo "- [ ] Apply minimal workflow/code fix"
+            echo "- [ ] Re-run affected workflow"
+            echo "- [ ] Confirm no secrets are printed in logs"
+            echo
+            echo "### Automation Boundary"
+            echo
+            echo "Claude CLI auto-commit is not configured in this runner. This workflow creates an actionable audit issue instead of claiming an automatic fix."
+          } > ci-autofix-issue.md
+
+          if [ -n "$EXISTING_ISSUE" ]; then
+            gh issue comment "$EXISTING_ISSUE" --body-file ci-autofix-issue.md
+            echo "Updated ci-autofix issue #$EXISTING_ISSUE"
+          else
+            gh issue create \
+              --title "$ISSUE_TITLE" \
+              --body-file ci-autofix-issue.md \
+              --label ci-autofix
+          fi

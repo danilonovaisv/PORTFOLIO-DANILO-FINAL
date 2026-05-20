@@ -2,21 +2,32 @@
 description: Personalized portfolio and professional landing page setup.
 ---
 
-## 🎨 Quy trình Xây dựng Portfolio Cá nhân
+## 🎨 Fluxo de Trabalho do Portfólio (portfoliodanilo.com)
 
-Tạo dựng thương hiệu cá nhân với giao diện ấn tượng và tối ưu SEO.
+Construção de um ecossistema digital de alta performance, unindo a arquitetura "Agent-First", gráficos 3D via WebGPU e o sistema de Ghost Design (Design Invisível).
 
-### 1. Định hình Phong cách
-- Sử dụng skills: `ui-ux-pro-max-skill`, `frontend-design`.
-- Lựa chọn Preset: Luxury (Sang trọng), Geek (Công nghệ) hoặc Clean (Sáng sủa).
+### 1. Arquitetura e Experiência (Ghost Design)
 
-### 2. Triển khai Nội dung
-- Cấu hình `BIO`, `PROJECTS` và `SKILLS` trong file metadata.
-- Tự động tối ưu hình ảnh cá nhân.
+* **Agent Skills:** Utilização de `@nextjs-react-expert`, `@3d-web-experience`, e `@framer-motion`.
+* **Filosofia Visual:** Aplicação do **Ghost Design System** (presença sem ruído, alto contraste, cor de destaque exclusiva `bluePrimary #0048ff`, ausência absoluta da cor vermelha).
+* **Experiência 3D e Motion:** Integração do React Three Fiber para o background interativo (ex: *Liquid Ether*) e sincronização entre Framer Motion + GSAP ScrollTrigger com o easing padrão de `[0.22, 1, 0.36, 1]`.
 
-### 3. Lan tỏa (Growth)
-- Sử dụng `/seo` để trang của bạn đứng đầu kết quả tìm kiếm.
-- Tích hợp Analytics để theo dõi lượt truy cập.
+### 2. Conteúdo e CMS Dinâmico (ALPA V3)
 
-// turbo
-`npx create-portfolio-scaffold`
+* **Agent Skills:** Utilização de `@supabase` e `@copy-agent` (para automatizar a geração de copy em markdown).
+* **Gestão via `/admin`:** Sem arquivos de metadados estáticos. Gerenciamento de projetos, tags e mídia diretamente pela interface Admin conectada ao **Supabase** (PostgreSQL, Auth, Storage).
+* **Landing Pages Dinâmicas:** Uso da arquitetura **Template ALPA (V3)** para renderizar os "Case Studies" de forma flexível (suportando até 10 tipos diferentes de blocos editoriais).
+* **Otimização de Mídia:** Otimização automática de imagens/vídeos via Supabase Storage e fallback de segurança para garantir fluidez na interface.
+
+### 3. Performance, SEO e Web Vitals (Growth)
+
+* **Agent Skills:** Utilização de `@audit-website` integrado ao servidor MCP (Chrome DevTools).
+* **SEO Semântico:** Uso do `generateMetadata` dinâmico do Next.js (Server-side) e injeção de JSON-LD (incluindo `VideoObject` para projetos com vídeo) para maximizar a indexação nos mecanismos de busca.
+* **Auditoria:** Execução do comando `squirrel audit` (ou delegar ao Agente) para monitorar os Core Web Vitals (LCP, CLS, INP) e garantir nota de performance A (Score > 90).
+
+```bash
+// Comando de inicialização do Agentic Workflow (Para o Google Antigravity IDE)
+/onboard (escaneia a estrutura e sincroniza as regras)
+pnpm install && pnpm run dev
+
+```

@@ -18,7 +18,11 @@ CREATE POLICY "Allow anonymous insert for errors"
 ON public.client_errors
 FOR INSERT
 TO anon, authenticated
-WITH CHECK (true);
+WITH CHECK (
+    severity IN ('low', 'medium', 'high', 'critical') AND 
+    source IN ('browser', 'server', 'edge') AND 
+    error_data IS NOT NULL
+);
 
 -- Table documentation
 COMMENT ON TABLE public.client_errors IS 'Sentinel Prime audit log — captures client-side runtime failures from all error boundaries.';

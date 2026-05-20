@@ -57,6 +57,25 @@ else
   echo -e "${YELLOW}⚠️  AVISO: .env.local não encontrado${NC}"
 fi
 
+if [ -n "${CI:-}" ]; then
+  if [ -z "${NEXT_PUBLIC_SUPABASE_URL:-}" ]; then
+    echo -e "${RED}❌ ERRO: NEXT_PUBLIC_SUPABASE_URL ausente no ambiente CI${NC}"
+    ERRORS=$((ERRORS + 1))
+  elif [[ "${NEXT_PUBLIC_SUPABASE_URL}" != https://*.supabase.co && "${NEXT_PUBLIC_SUPABASE_URL}" != https://*.supabase.co/ ]]; then
+    echo -e "${RED}❌ ERRO: NEXT_PUBLIC_SUPABASE_URL deve usar https://*.supabase.co${NC}"
+    ERRORS=$((ERRORS + 1))
+  else
+    echo -e "${GREEN}✅ OK: NEXT_PUBLIC_SUPABASE_URL configurado no CI${NC}"
+  fi
+
+  if [ -z "${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}" ]; then
+    echo -e "${RED}❌ ERRO: NEXT_PUBLIC_SUPABASE_ANON_KEY ausente no ambiente CI${NC}"
+    ERRORS=$((ERRORS + 1))
+  else
+    echo -e "${GREEN}✅ OK: NEXT_PUBLIC_SUPABASE_ANON_KEY configurado no CI${NC}"
+  fi
+fi
+
 # Check 3: Verify Next.js config
 echo -e "\n⚙️  Checking Next.js configuration..."
 if [ -f "next.config.mjs" ]; then
