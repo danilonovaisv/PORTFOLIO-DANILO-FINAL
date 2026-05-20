@@ -46,7 +46,8 @@
       "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
       "Bash(git merge *)",
       "Bash(xargs ls)",
-      "Bash(echo \"EXIT: $?\")"
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(echo \"EXIT:$?\")"
     ]
   },
   "enableAllProjectMcpServers": true,
