@@ -6,12 +6,30 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 11
-- **Đã sửa**: 11
+- **Tổng lỗi**: 12
+- **Đã sửa**: 12
 
 ---
 
 <!-- Errors sẽ được agent tự động ghi vào đây -->
+
+## [2026-05-20 04:45] - Resend API 403 Forbidden (Sandbox Restriction)
+
+- **Type**: Integration
+- **Severity**: Medium
+- **File**: `src/app/api/contact/route.ts`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: The Resend API returned a 403 Forbidden validation error because the API key is running in sandbox/testing mode, which restricts sending emails to verified domains or any email other than the account owner's registered email (`danilo_novais@yahoo.com.br`).
+- **Error Message**:
+  ```json
+  {
+    "name": "validation_error",
+    "message": "You can only send testing emails to your own email address (danilo_novais@yahoo.com.br). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain."
+  }
+  ```
+- **Fix Applied**: Hardcoded the target email `to` as `danilo@portfoliodanilo.com` in `src/app/api/contact/route.ts` as requested by the user. Note: To successfully dispatch to this address, the user must verify the `portfoliodanilo.com` domain in the Resend dashboard and update `RESEND_FROM_EMAIL` to a verified sender domain.
+- **Prevention**: Document domain verification requirements for email APIs in production setup guidelines.
+- **Status**: Fixed
 
 ## [2026-04-29 21:11] - IDE Warnings and Syntax Errors
 
