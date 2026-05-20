@@ -20,11 +20,22 @@ jobs:
 
     env:
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      # Removido FORCE_JAVASCRIPT_ACTIONS_TO_NODE24 para não comprometer hooks nativos do actions/checkout
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Validate pnpm lockfile
         run: |
@@ -44,32 +55,9 @@ jobs:
             exit 1
           fi
           if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" ]; then
-            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_ANON_KEY — Supabase client will fail to initialize."
+            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_ANON_KEY"
             exit 1
           fi
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11.1.1
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: 💾 Cache Next.js build
-        uses: actions/cache@v4
-        with:
-          path: |
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('src/**/*.{js,jsx,ts,tsx}') }}
-          # If source files changed but dependencies didn't, we can still use the old cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -94,7 +82,6 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         env:
-          FIREBASE_PROJECT_ID: portfolio-danilo-novais
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -102,7 +89,3 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           pnpm dlx firebase-tools deploy --only hosting,functions --debug --project "${{ env.FIREBASE_PROJECT_ID }}"
-
-      - name: Cleanup credentials
-        if: always()
-        run: rm -f "${{ runner.temp }}/firebase-service-account.json"
