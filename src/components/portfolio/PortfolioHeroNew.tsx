@@ -43,7 +43,8 @@ export default function PortfolioHeroNew() {
             mobileSrc={RESPONSIVE_VIDEOS.portfolioHero.mobile}
             desktopPoster={HERO_POSTER}
             mobilePoster={HERO_POSTER}
-            className="h-full w-screen object-cover"
+            fitPolicy={RESPONSIVE_VIDEOS.portfolioHero.fitPolicy}
+            className="h-full w-screen object-contain"
             preload="auto"
             autoPlay
             loop

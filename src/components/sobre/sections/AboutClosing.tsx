@@ -95,7 +95,7 @@ export function AboutClosing() {
 
           {/* Vídeo em Loop - Ghost Orchestration Logic */}
           <div
-            className="relative mt-12 flex aspect-[9/16] min-h-[180px] w-screen items-center justify-center overflow-hidden bg-background/30 md:mt-11 md:aspect-video md:min-h-[360px]"
+            className="relative mt-12 flex aspect-[10/9] min-h-[180px] w-screen items-center justify-center overflow-hidden bg-background/30 md:mt-11 md:aspect-video md:min-h-[360px]"
             style={{
               marginLeft: 'calc((min(100vw, 1680px) - 100vw) / 2)',
               // The poster is handled natively by the ResponsiveVideo component
@@ -105,7 +105,7 @@ export function AboutClosing() {
 
             <ResponsiveVideo
               ref={videoRef}
-              className="relative z-[var(--z-layer-content)] block h-full w-full object-cover"
+              className="relative z-[var(--z-layer-content)] block h-full w-full object-contain"
               desktopSrc={
                 closingVideoDesk || RESPONSIVE_VIDEOS.aboutClosing.desktop
               }
@@ -114,6 +114,7 @@ export function AboutClosing() {
               }
               desktopPoster={activePosterDesk}
               mobilePoster={activePosterMobile}
+              fitPolicy={RESPONSIVE_VIDEOS.aboutClosing.fitPolicy}
               autoPlay={!prefersReducedMotion}
               loop
               muted

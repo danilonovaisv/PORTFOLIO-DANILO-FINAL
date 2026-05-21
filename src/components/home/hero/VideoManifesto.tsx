@@ -136,7 +136,7 @@ export function VideoManifesto({
       </h2>
       <m.div
         ref={wrapperRef}
-        className="video-wrapper relative aspect-[9/16] w-full overflow-hidden bg-black/5 sm:aspect-video"
+        className="video-wrapper relative aspect-square w-full overflow-hidden bg-black/5 sm:aspect-[752/423]"
         style={
           !isMobile && !shouldReduceMotion
             ? {
@@ -148,12 +148,13 @@ export function VideoManifesto({
       >
         <ResponsiveVideo
           ref={videoRef}
-          className="block h-full w-full object-cover object-center"
+          className="block h-full w-full object-contain object-center"
           desktopSrc={baseSrcDesk}
           mobileSrc={baseSrcMobile}
           desktopPoster={activePosterDesk}
           mobilePoster={activePosterMobile}
           breakpoint="(max-width: 639px)"
+          fitPolicy={RESPONSIVE_VIDEOS.homeManifesto.fitPolicy}
           autoPlay={!shouldReduceMotion}
           loop={!shouldReduceMotion}
           muted={muted}

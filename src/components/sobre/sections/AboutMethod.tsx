@@ -47,11 +47,12 @@ export function AboutMethod() {
           desktopPoster={activePosterDesk}
           mobilePoster={activePosterMobile}
           breakpoint="(max-width: 1023px)"
+          fitPolicy={RESPONSIVE_VIDEOS.aboutMethod.fitPolicy}
           autoPlay={!prefersReducedMotion}
           loop={!prefersReducedMotion}
           muted
           playsInline
-          className="block h-full w-full object-cover object-center opacity-55"
+          className="block h-full w-full object-contain object-center opacity-55"
           aria-hidden="true"
         >
           <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />

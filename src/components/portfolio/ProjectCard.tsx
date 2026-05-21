@@ -205,7 +205,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 preload="metadata"
                 poster={DEFAULT_VIDEO_POSTER}
                 className={cn(
-                  'hidden h-full w-full object-cover object-center transition-opacity duration-modal md:block',
+                  'hidden h-full w-full object-contain object-center transition-opacity duration-modal md:block',
                   hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
                 )}
                 style={{ objectPosition }}
@@ -238,7 +238,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                 preload="metadata"
                 poster={DEFAULT_VIDEO_POSTER}
                 className={cn(
-                  'block h-full w-full object-cover object-center transition-opacity duration-modal md:hidden',
+                  'block h-full w-full object-contain object-center transition-opacity duration-modal md:hidden',
                   hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
                 )}
                 style={{ objectPosition }}
@@ -272,7 +272,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             preload="metadata"
             poster={DEFAULT_VIDEO_POSTER}
             className={cn(
-              'h-full w-full object-cover object-center transition-opacity duration-modal',
+              'h-full w-full object-contain object-center transition-opacity duration-modal',
               hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
             )}
             style={{ objectPosition }}
@@ -306,7 +306,7 @@ export const ProjectCard = React.memo(function ProjectCard({
             playsInline
             preload="none"
             className={cn(
-              'absolute inset-0 h-full w-full object-cover transition-opacity duration-modal',
+              'absolute inset-0 h-full w-full object-contain transition-opacity duration-modal',
               isHovered ? 'opacity-100' : 'opacity-0'
             )}
             style={{ objectPosition }}

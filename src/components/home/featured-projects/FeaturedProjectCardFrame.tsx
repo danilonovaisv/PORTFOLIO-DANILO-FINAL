@@ -120,7 +120,7 @@ export default function FeaturedProjectCardFrame({
   }, []);
 
   const commonMediaClasses =
-    'object-cover opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-micro md:group-hover:duration-fast ease-ghost md:group-hover:-translate-y-px';
+    'object-contain opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-micro md:group-hover:duration-fast ease-ghost md:group-hover:-translate-y-px';
   const cardMediaSizes =
     project.layout.sizes ??
     '(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw';

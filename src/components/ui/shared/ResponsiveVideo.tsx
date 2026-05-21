@@ -1,6 +1,7 @@
 'use client';
 
 import React, { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 
 export type ResponsiveVideoProps =
   React.VideoHTMLAttributes<HTMLVideoElement> & {
@@ -9,6 +10,7 @@ export type ResponsiveVideoProps =
     desktopPoster?: string;
     mobilePoster?: string;
     breakpoint?: string;
+    fitPolicy?: 'contain' | 'cover';
   };
 
 /**
@@ -26,6 +28,7 @@ export const ResponsiveVideo = forwardRef<
       desktopPoster,
       mobilePoster,
       breakpoint = '(max-width: 767px)',
+      fitPolicy = 'contain',
       autoPlay = true,
       muted = true,
       loop = true,
@@ -38,6 +41,8 @@ export const ResponsiveVideo = forwardRef<
   ) => {
     const poster = mobilePoster || desktopPoster;
     const hasMobile = Boolean(mobileSrc && mobileSrc !== desktopSrc);
+    const objectFitClass =
+      fitPolicy === 'cover' ? 'object-cover' : 'object-contain';
 
     return (
       <video
@@ -47,7 +52,7 @@ export const ResponsiveVideo = forwardRef<
         muted={muted}
         loop={loop}
         playsInline={playsInline}
-        className={className}
+        className={cn(objectFitClass, className)}
         {...rest}
       >
         {hasMobile && (

@@ -59,16 +59,17 @@ export function AboutHero() {
         </h1>
 
         {/* Background Video - Native responsive `<source>` implementation */}
-        <div className="relative aspect-square w-full overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
+        <div className="relative aspect-[9/16] w-full overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
           <ResponsiveVideo
             desktopSrc={RESPONSIVE_VIDEOS.aboutHero.desktop}
             mobileSrc={RESPONSIVE_VIDEOS.aboutHero.mobile}
             desktopPoster={activePosterDesk}
             mobilePoster={activePosterMobile}
+            fitPolicy={RESPONSIVE_VIDEOS.aboutHero.fitPolicy}
             autoPlay={shouldPlayVideo}
             muted
             loop={shouldPlayVideo}
-            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78] md:object-center md:z-[var(--z-layer-base)]"
+            className="absolute inset-0 h-full w-full object-contain object-top opacity-[0.78] md:object-center md:z-[var(--z-layer-base)]"
           />
           {/* Mobile Overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)] md:hidden" />
