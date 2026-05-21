@@ -64,17 +64,43 @@ export const ResponsiveVideo = forwardRef<
 
     // Recarrega e tenta tocar o vídeo sempre que o activeSrc mudar
     useEffect(() => {
-      if (mounted && internalRef.current) {
-        internalRef.current.load();
-        if (autoPlay) {
-          internalRef.current.play().catch((err) => {
+      let active = true;
+
+      const playVideo = async () => {
+        if (!internalRef.current) return;
+        try {
+          internalRef.current.load();
+          if (autoPlay) {
+            await internalRef.current.play();
+          }
+        } catch (err: any) {
+          const errName = err?.name;
+          const errMsg = err?.message || '';
+
+          const isAbort =
+            errName === 'AbortError' ||
+            errName === 'NS_ERROR_DOM_ABORT_ERR' ||
+            errMsg.includes('AbortError') ||
+            errMsg.includes('interrupted');
+
+          // Silencia erros de interrupção/abort gerados quando o vídeo é desmontado,
+          // removido ou recarregado durante a reprodução
+          if (active && !isAbort) {
             console.warn(
               '[ResponsiveVideo] Autoplay falhou ou foi bloqueado pelo browser:',
               err
             );
-          });
+          }
         }
+      };
+
+      if (mounted) {
+        playVideo();
       }
+
+      return () => {
+        active = false;
+      };
     }, [activeSrc, autoPlay, mounted]);
 
     return (
