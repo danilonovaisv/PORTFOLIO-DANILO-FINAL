@@ -1863,6 +1863,27 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
    - Preservado o cancelamento e limpeza imediatos de timers e timeouts pendentes (`timerRef.current`, `line2TimeoutRef.current`, `transitionTimeoutRef.current`), permitindo que a nova frase selecionada monte e inicie seu fluxo de animação instantaneamente sem sobreposição de concorrência de loops.
 
 **Verification:**
+
 - ✅ `npx playwright test test/e2e/about-beliefs.spec.ts` — Executado em 3 browsers locais (Chromium, Firefox, WebKit) com 100% de sucesso (12 tests passed).
+
+**Status:** Concluído.
+
+---
+
+## [2026-05-21T02:50] Responsive Video Cross-Browser Re-evaluation (JS-Driven Src Binding)
+
+**Context:** Resolução de falhas na mudança automática de formato dos vídeos do portfólio (desktop para mobile) devido a incompatibilidades cross-browser do padrão HTML5 `<source media>` na tag `<video>`.
+
+**Changes Applied:**
+
+1. **`src/components/ui/shared/ResponsiveVideo.tsx` — Direct Src Attribute Binding & Reload Lifecycle** ✅
+   - Substituído o uso de múltiplas tags `<source media>` internas por binding direto da propriedade `src` no elemento `<video>` a partir do valor reativo `activeSrc`.
+   - Resolvido o bug onde navegadores como Firefox e Safari ignoravam as mudanças dinâmicas e o atributo `media` na tag `<source>`, travando o player na primeira mídia detectada e cortando as laterais de vídeos horizontais (16:9) em viewports de celular retrato (9:16).
+   - Implementado efeito secundário (`useEffect` escutando `activeSrc`) para explicitamente chamar `.load()` e `.play()` no elemento nativo, garantindo transição e início automáticos e limpos de autoplay e streaming da nova fonte de mídia responsiva ao cruzar o breakpoint de 768px.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` — Executado e aprovado com sucesso.
+- ✅ `pnpm run test` — 37 suites de testes Jest executadas com 100% de sucesso.
 
 **Status:** Concluído.

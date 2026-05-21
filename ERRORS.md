@@ -297,6 +297,3 @@
 - **Fix Applied**: Implemented a robust retry loop in `about-beliefs.spec.ts` that clicks on the dot navigation button up to 3 times with a short timeout delay in between, validating if the live region updates to the correct phrase before proceeding.
 - **Prevention**: For E2E tests targetting dynamic SSR web apps, always write interactive tests defensively by incorporating retries or verifying hydration milestones before expecting interaction triggers to succeed under heavy CPU loads.
 - **Status**: Fixed
-
-
-

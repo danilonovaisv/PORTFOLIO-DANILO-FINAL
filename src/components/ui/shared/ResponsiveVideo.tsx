@@ -1,6 +1,12 @@
 'use client';
 
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useState,
+  useRef,
+  useImperativeHandle,
+} from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export type ResponsiveVideoProps =
@@ -9,6 +15,7 @@ export type ResponsiveVideoProps =
     mobileSrc?: string;
     desktopPoster?: string;
     mobilePoster?: string;
+    breakpoint?: string;
   };
 
 export const ResponsiveVideo = forwardRef<
@@ -21,6 +28,7 @@ export const ResponsiveVideo = forwardRef<
       mobileSrc,
       desktopPoster,
       mobilePoster,
+      breakpoint,
       autoPlay = true,
       muted = true,
       loop = true,
@@ -31,7 +39,8 @@ export const ResponsiveVideo = forwardRef<
     },
     ref
   ) => {
-    const isMobile = useMediaQuery('(max-width: 767px)');
+    const query = breakpoint || '(max-width: 767px)';
+    const isMobile = useMediaQuery(query);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -40,21 +49,38 @@ export const ResponsiveVideo = forwardRef<
 
     const hasMobile = mobileSrc && mobileSrc !== desktopSrc;
 
-    // Define o poster ativo com base no breakpoint após a montagem no cliente
+    // Garante compatibilidade de renderização SSR e hidratação dinâmica no client
+    const activeSrc = mounted && isMobile && hasMobile ? mobileSrc : desktopSrc;
+
     const activePoster =
       mounted && isMobile && mobilePoster
         ? mobilePoster
         : desktopPoster || mobilePoster;
 
-    // Chave dinâmica baseada no estado de montagem e no breakpoint para forçar o browser
-    // a reavaliar as tags source e carregar a mídia responsiva adequada no resize dinâmico.
-    const videoKey =
-      mounted && hasMobile ? (isMobile ? 'mobile' : 'desktop') : 'ssr';
+    const internalRef = useRef<HTMLVideoElement | null>(null);
+
+    // Permite que componentes pais usem refs passados
+    useImperativeHandle(ref, () => internalRef.current as HTMLVideoElement);
+
+    // Recarrega e tenta tocar o vídeo sempre que o activeSrc mudar
+    useEffect(() => {
+      if (mounted && internalRef.current) {
+        internalRef.current.load();
+        if (autoPlay) {
+          internalRef.current.play().catch((err) => {
+            console.warn(
+              '[ResponsiveVideo] Autoplay falhou ou foi bloqueado pelo browser:',
+              err
+            );
+          });
+        }
+      }
+    }, [activeSrc, autoPlay, mounted]);
 
     return (
       <video
-        key={videoKey}
-        ref={ref}
+        ref={internalRef}
+        src={activeSrc}
         poster={activePoster}
         autoPlay={autoPlay}
         muted={muted}
@@ -63,14 +89,7 @@ export const ResponsiveVideo = forwardRef<
         className={className}
         {...rest}
       >
-        {hasMobile ? (
-          <>
-            <source src={mobileSrc} media="(max-width: 767px)" />
-            <source src={desktopSrc} media="(min-width: 768px)" />
-          </>
-        ) : (
-          <source src={desktopSrc} />
-        )}
+        <source src={activeSrc} />
         {children}
       </video>
     );

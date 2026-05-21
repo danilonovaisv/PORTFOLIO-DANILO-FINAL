@@ -46,6 +46,7 @@ export function AboutMethod() {
           mobileSrc={RESPONSIVE_VIDEOS.aboutMethod.mobile}
           desktopPoster={activePosterDesk}
           mobilePoster={activePosterMobile}
+          breakpoint="(max-width: 1023px)"
           autoPlay={!prefersReducedMotion}
           loop={!prefersReducedMotion}
           muted

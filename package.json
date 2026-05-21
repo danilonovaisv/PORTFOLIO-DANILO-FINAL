@@ -36,7 +36,7 @@
     "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",
     "validate-env": "node --env-file-if-exists=.env.local --env-file-if-exists=.env --import tsx src/lib/env.ts",
     "validate:structure": "python3 scripts/validate_structure.py",
-    "build": "next build --webpack",
+    "build": "next build --webpack && if [ -d .next/standalone ]; then (cp .env .next/standalone/.env 2>/dev/null || true) && (cp .env.local .next/standalone/.env.local 2>/dev/null || true) && ( [ ! -f .next/standalone/.env ] && [ -f .env.local ] && cp .env.local .next/standalone/.env 2>/dev/null || true ); fi",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "firebase:preflight": "bash scripts/firebase-preflight.sh",
     "predeploy": "bash scripts/firebase-preflight.sh && python3 scripts/audit_assets.py",
