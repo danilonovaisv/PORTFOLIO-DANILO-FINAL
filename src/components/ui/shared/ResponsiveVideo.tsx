@@ -1,13 +1,6 @@
 'use client';
 
-import React, {
-  forwardRef,
-  useEffect,
-  useState,
-  useRef,
-  useImperativeHandle,
-} from 'react';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import React, { forwardRef } from 'react';
 
 export type ResponsiveVideoProps =
   React.VideoHTMLAttributes<HTMLVideoElement> & {
@@ -18,6 +11,10 @@ export type ResponsiveVideoProps =
     breakpoint?: string;
   };
 
+/**
+ * Native breakpoint switching via <source media>.
+ * Browser picks correct source at parse time — no JS hydration, no re-mount, no AbortError storm.
+ */
 export const ResponsiveVideo = forwardRef<
   HTMLVideoElement,
   ResponsiveVideoProps
@@ -28,7 +25,7 @@ export const ResponsiveVideo = forwardRef<
       mobileSrc,
       desktopPoster,
       mobilePoster,
-      breakpoint,
+      breakpoint = '(max-width: 767px)',
       autoPlay = true,
       muted = true,
       loop = true,
@@ -39,49 +36,13 @@ export const ResponsiveVideo = forwardRef<
     },
     ref
   ) => {
-    const query = breakpoint || '(max-width: 767px)';
-    const isMobile = useMediaQuery(query);
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-      setMounted(true);
-    }, []);
-
-    const hasMobile = mobileSrc && mobileSrc !== desktopSrc;
-
-    // Garante compatibilidade de renderização SSR e hidratação dinâmica no client
-    const activeSrc = mounted && isMobile && hasMobile ? mobileSrc : desktopSrc;
-
-    const activePoster =
-      mounted && isMobile && mobilePoster
-        ? mobilePoster
-        : desktopPoster || mobilePoster;
-
-    const internalRef = useRef<HTMLVideoElement | null>(null);
-
-    // Permite que componentes pais usem refs passados
-    useImperativeHandle(ref, () => internalRef.current as HTMLVideoElement);
-
-    // Recarrega e tenta tocar o vídeo sempre que o activeSrc mudar
-    useEffect(() => {
-      if (mounted && internalRef.current) {
-        internalRef.current.load();
-        if (autoPlay) {
-          internalRef.current.play().catch((err) => {
-            console.warn(
-              '[ResponsiveVideo] Autoplay falhou ou foi bloqueado pelo browser:',
-              err
-            );
-          });
-        }
-      }
-    }, [activeSrc, autoPlay, mounted]);
+    const poster = mobilePoster || desktopPoster;
+    const hasMobile = Boolean(mobileSrc && mobileSrc !== desktopSrc);
 
     return (
       <video
-        ref={internalRef}
-        src={activeSrc}
-        poster={activePoster}
+        ref={ref}
+        poster={poster}
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}
@@ -89,7 +50,10 @@ export const ResponsiveVideo = forwardRef<
         className={className}
         {...rest}
       >
-        <source src={activeSrc} />
+        {hasMobile && (
+          <source src={mobileSrc} media={breakpoint} type="video/mp4" />
+        )}
+        <source src={desktopSrc} type="video/mp4" />
         {children}
       </video>
     );

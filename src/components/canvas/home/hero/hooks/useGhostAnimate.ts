@@ -105,18 +105,20 @@ export function useGhostAnimate(
         currentMovementRef.current * params.eyeGlowDecay +
         moveAmt * (1 - params.eyeGlowDecay);
 
-      // Float & Pulse
+      // Float
       ghostGroup.position.y += Math.sin(time * params.floatSpeed * 1.5) * 0.03;
-      ghostMaterial.emissiveIntensity =
+
+      // Pulse — smoothed via lerp to remove visible flicker
+      const targetEmissive =
         params.emissiveIntensity +
         Math.sin(time * params.pulseSpeed) * params.pulseIntensity;
+      ghostMaterial.emissiveIntensity +=
+        (targetEmissive - ghostMaterial.emissiveIntensity) * 0.08;
 
-      // Eyes
+      // Eyes — uniform glow speed regardless of isMoving toggle (no step flash)
       const isMoving = currentMovementRef.current > params.movementThreshold;
       const targetGlow = isMoving ? 1.0 : 0.0;
-      const glowChangeSpeed = isMoving
-        ? params.eyeGlowResponse * 2
-        : params.eyeGlowResponse;
+      const glowChangeSpeed = 0.08;
       const newOpacity =
         eyes.leftEyeMaterial.opacity +
         (targetGlow - eyes.leftEyeMaterial.opacity) * glowChangeSpeed;
