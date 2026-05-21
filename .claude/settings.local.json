@@ -47,6 +47,7 @@
       "Bash(git merge *)",
       "Bash(xargs ls)",
       "Bash(echo \"EXIT: $?\")",
+      "Bash(echo \"EXIT:$?\")",
       "Skill(superpowers:executing-plans)",
       "Skill(superpowers:executing-plans:*)",
       "Skill(ghost-design-system:ghost-design)",
