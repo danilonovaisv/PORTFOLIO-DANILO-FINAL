@@ -95,7 +95,7 @@ describe('Antigravity MCP Configuration', () => {
       if (context7) {
         if (context7.command) {
           expect(context7.command).toMatch(
-            /(^|\/|\\)(node|npx|docker|gk)(\.exe|\.cmd)?$/i
+            /(^|\/|\\)(node|npx|uvx|docker|gk)(\.exe|\.cmd)?$/i
           );
           expect(context7.args).toEqual(
             expect.arrayContaining([expect.stringMatching(/context7/)])
@@ -112,7 +112,7 @@ describe('Antigravity MCP Configuration', () => {
       if (fsServer) {
         if (fsServer.command) {
           expect(fsServer.command).toMatch(
-            /(^|\/|\\)(node|npx|docker|gk)(\.exe|\.cmd)?$/i
+            /(^|\/|\\)(node|npx|uvx|docker|gk)(\.exe|\.cmd)?$/i
           );
           expect(fsServer.args).toEqual(
             expect.arrayContaining([expect.stringMatching(/filesystem/)])
@@ -128,7 +128,7 @@ describe('Antigravity MCP Configuration', () => {
 
       enabledServers.forEach((server: any) => {
         expect(server.command).toMatch(
-          /(^|\/|\\)(node|npx|docker|gk)(\.exe|\.cmd)?$/i
+          /(^|\/|\\)(node|npx|uvx|docker|gk)(\.exe|\.cmd)?$/i
         );
       });
     });

@@ -6,23 +6,33 @@
 
 export const RESPONSIVE_VIDEOS = {
   homeManifesto: {
-    desktop: '/site.assets/home/video.manifesto.desk.mp4',
-    mobile: '/site.assets/home/video.manifesto.mobile.mp4',
+    desktop:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.desk.mp4',
+    mobile:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.mobile.mp4',
   },
   aboutHero: {
-    desktop: '/site.assets/about/hero/about.hero.desktop.compress.mp4',
-    mobile: '/site.assets/about/hero/about.hero.mobile.compress.mp4',
+    desktop:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop.compress.mp4',
+    mobile:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile.compress.mp4',
   },
   aboutClosing: {
-    desktop: '/site.assets/about/closing/video.closing.desk.mp4',
-    mobile: '/site.assets/about/closing/video.closing.mobile.mp4',
+    desktop:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/closing/video.closing.desk.mp4',
+    mobile:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/closing/video.closing.mobile.mp4',
   },
   aboutMethod: {
-    desktop: '/site.assets/about/method/about.method.desktop_video.mp4',
-    mobile: '/site.assets/about/method/about.method.mobile_video.mp4',
+    desktop:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4',
+    mobile:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.mobile_video.mp4',
   },
   portfolioHero: {
-    desktop: '/site.assets/portfolio/portfolio.hero_desktop_video.mp4',
-    mobile: '/site.assets/portfolio/portfolio.hero_mobile_video.mp4',
+    desktop:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_desktop_video.mp4',
+    mobile:
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4',
   },
 } as const;

@@ -13,7 +13,7 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       ghostScale: 2.4,
       emissiveIntensity: 1.8, // Reduced further from 2.8 to 1.8 for an ultra-subtle elegant glow
       pulseSpeed: 1.4,
-      pulseIntensity: 0.25, // Reduced from 0.3 to further smooth out pulses
+      pulseIntensity: 0.12, // Clamp to remove flicker on emissive modulation
       eyeGlowIntensity: 2.4, // Reduced from 3.8 to 2.4 to stay soft and balanced
       eyeGlowDecay: 0.96,
       eyeGlowResponse: 0.35,
@@ -45,9 +45,10 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       analogJitter: 0.15,
       limboMode: false,
       // Environment & Post-Processing
-      bloomStrength: performanceConfig.quality === 'low' ? 0.15 : 0.5, // Reduced from 0.3 : 0.8 to make post-processing bloom very sleek
+      bloomStrength: performanceConfig.quality === 'low' ? 0.18 : 0.35,
       bloomRadius: 1.1,
-      bloomThreshold: 0.0,
+      // Threshold > 0 so only highly emissive pixels bloom — eliminates frame-wide bloom instability
+      bloomThreshold: 0.85,
       ambientLightColor: 0x040013,
       ambientLightIntensity: 0.05,
       rimLightColor1: 0x0048ff, // Ghost System Primary Blue

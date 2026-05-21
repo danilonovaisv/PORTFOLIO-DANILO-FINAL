@@ -1822,3 +1822,68 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ Suíte de testes unitários (`pnpm test`) executada e passando com sucesso (38 test suites, 265 tests passed).
 
 **Status:** Concluído.
+
+---
+
+## [2026-05-20T21:55] CDN Video Routing & Dynamic Responsive Rendering Calibration
+
+**Context:** Auditoria e calibração das URLs de mídia de vídeo e do comportamento responsivo ao cruzar os breakpoints de tela (desktop para mobile) em todas as 5 páginas que utilizam vídeos do portfólio.
+
+**Changes Applied:**
+
+1. **`src/lib/video-assets.ts` — Supabase CDN Assets Realignment** ✅
+   - Substituídas as 10 referências locais de vídeo (`/site.assets/...`) pelas URLs reais de produção hospedadas na CDN oficial do Supabase, permitindo range requests nativas e carregamento instantâneo via streaming de blocos de vídeo, e economizando limite de banda estática do Firebase Hosting.
+
+2. **`src/config/brand.ts` — Brand Asset Utility Modification** ✅
+   - Ajustada a função `asset(...)` para não interceptar arquivos que terminem com `.mp4` direcionando para caminhos locais de build. Isso assegura que qualquer fallback ou referência padrão a vídeos de manifesto ou fechamento em `BRAND.assets.video` utilize a CDN do Supabase.
+
+3. **`src/components/ui/shared/ResponsiveVideo.tsx` — Dynamic Breakpoint Re-instantiation** ✅
+   - Adicionada detecção de breakpoint em tempo de execução usando o hook `useMediaQuery('(max-width: 767px)')`.
+   - Injetada a propriedade dinâmica `key={videoKey}` baseada em `isMobile` no elemento `<video>` nativo. Quando o breakpoint é cruzado, a mudança de chave força o React a remontar o player de vídeo, fazendo com que o navegador reavalie as tags `<source>` e carregue a mídia do tamanho correto dinamicamente.
+   - Implementado um estado local `mounted` para garantir que o primeiro render seja idêntico ao gerado no servidor, prevenindo conflitos de hidratação (Hydration Mismatch) no Next.js App Router.
+
+**Verification:**
+
+- ✅ `pnpm run typecheck` — Concluído com 100% de sucesso.
+- ✅ `pnpm run lint` — Concluído com 100% de sucesso.
+- ✅ `pnpm run build` — Compilação Next.js estática e dinâmica concluída com sucesso absoluto.
+
+**Status:** Concluído.
+
+---
+
+## [2026-05-20T22:15] About Beliefs Manifesto Dot Navigation Click Block Mitigation (E2E Test Fix)
+
+**Context:** Resolução de quebra nos testes E2E do Playwright na rota `/sobre` em virtude de cliques ignorados nos botões de indicador (dots) do Manifesto.
+
+**Changes Applied:**
+
+1. **`src/components/sobre/sections/ManifestoScrollSection.tsx` — Click Transition Guard Removal** ✅
+   - Removida a verificação condicional `|| line1Status === 'exit'` dentro da função `handleDotClick`. Isso garante que cliques em dots de navegação nunca sejam silenciados ou descartados quando uma transição anterior (seja por autoplay ou clique consecutivo) estiver em curso.
+   - Preservado o cancelamento e limpeza imediatos de timers e timeouts pendentes (`timerRef.current`, `line2TimeoutRef.current`, `transitionTimeoutRef.current`), permitindo que a nova frase selecionada monte e inicie seu fluxo de animação instantaneamente sem sobreposição de concorrência de loops.
+
+**Verification:**
+
+- ✅ `npx playwright test test/e2e/about-beliefs.spec.ts` — Executado em 3 browsers locais (Chromium, Firefox, WebKit) com 100% de sucesso (12 tests passed).
+
+**Status:** Concluído.
+
+---
+
+## [2026-05-21T02:50] Responsive Video Cross-Browser Re-evaluation (JS-Driven Src Binding)
+
+**Context:** Resolução de falhas na mudança automática de formato dos vídeos do portfólio (desktop para mobile) devido a incompatibilidades cross-browser do padrão HTML5 `<source media>` na tag `<video>`.
+
+**Changes Applied:**
+
+1. **`src/components/ui/shared/ResponsiveVideo.tsx` — Direct Src Attribute Binding & Reload Lifecycle** ✅
+   - Substituído o uso de múltiplas tags `<source media>` internas por binding direto da propriedade `src` no elemento `<video>` a partir do valor reativo `activeSrc`.
+   - Resolvido o bug onde navegadores como Firefox e Safari ignoravam as mudanças dinâmicas e o atributo `media` na tag `<source>`, travando o player na primeira mídia detectada e cortando as laterais de vídeos horizontais (16:9) em viewports de celular retrato (9:16).
+   - Implementado efeito secundário (`useEffect` escutando `activeSrc`) para explicitamente chamar `.load()` e `.play()` no elemento nativo, garantindo transição e início automáticos e limpos de autoplay e streaming da nova fonte de mídia responsiva ao cruzar o breakpoint de 768px.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` — Executado e aprovado com sucesso.
+- ✅ `pnpm run test` — 37 suites de testes Jest executadas com 100% de sucesso.
+
+**Status:** Concluído.

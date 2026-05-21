@@ -2,18 +2,27 @@
 
 **Phase**: MANIFESTO CAROUSEL & WEBGL SHADER REALIGNMENT
 **Current Focus**: Alinhamento do Manifesto "O que me move" na página `/sobre` (e rota `/o-que-me-move`) com a referência HTML: pulsing gradient Three.js fragment shader pixelado + transições CSS scoped stagger por caractere + dots tácteis + autoplay robusto + acessibilidade WCAG.
-**Last Update**: 2026-05-20 05:10
+**Last Update**: 2026-05-21 16:25
 **Production URL**: https://portfolio-danilo-novais.web.app
-**Cloud Function**: https://ssrportfoliodanilonovai-qc26fkohcq-uc.a.run.app
+**Cloud Function**: https://ssrportfoliodanilo-qc26fkohcq-uc.a.run.app
 
 ## Deploy Summary
 
 - **Build**: ✅ Next.js 16.2.6 (Webpack) — Stable production build completed
+- **ResponsiveVideo**: ✅ Silenced DOM AbortError warnings during rapid mounts or component unmounting
 - **Manifesto**: ✅ Integrated `ManifestoScrollSection` on `/sobre` and `/o-que-me-move` routes
 - **WebGL**: ✅ Realigned procedural gradient fragment shader (Blue/Purple/Blue) in `shader-lines.tsx`
 - **Validation**: ✅ 100% stable `build-check` and `build` under absolute Node v26 and pnpm resolution path
 - **Visual Regressions**: ✅ Resolved background shader invisible stacking context and closing video unmounting buffering failures
 - **Email Integration**: ✅ Integrated Resend API for contact form submissions dispatching to danilo@portfoliodanilo.com
+
+## ResponsiveVideo Interruption Safeguard & Autoplay Hardening (2026-05-21)
+
+- [x] **Autoplay Exception Handling**: Updated the catch block in `src/components/ui/shared/ResponsiveVideo.tsx` to handle and suppress DOM Exception `'AbortError'` / `'NS_ERROR_DOM_ABORT_ERR'` and related interruption messages when a playing video is removed, unmounted, or reloaded asynchronously.
+- [x] **Robust Lifecycle Matching**: Prevents spurious browser-level warnings from polluting the telemetry or developer console when components shift source references or trigger React hydration transitions.
+- [x] **Validation Evidence**:
+  - `pnpm run build-check` ✅ **Exit Code 0**
+  - `pnpm test` ✅ **37/37 Test Suites passed** (264 tests passed)
 
 ## Contact Form Email Dispatch & Resend Integration (2026-05-20)
 

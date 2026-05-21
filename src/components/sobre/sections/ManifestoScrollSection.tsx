@@ -84,7 +84,7 @@ export function ManifestoScrollSection() {
 
   // Dot navigation handler with safe loop reset
   const handleDotClick = (index: number) => {
-    if (index === displayIndex || line1Status === 'exit') return;
+    if (index === displayIndex) return;
 
     if (timerRef.current) clearInterval(timerRef.current);
     setActiveIndex(index);

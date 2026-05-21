@@ -153,6 +153,7 @@ export function VideoManifesto({
           mobileSrc={baseSrcMobile}
           desktopPoster={activePosterDesk}
           mobilePoster={activePosterMobile}
+          breakpoint="(max-width: 639px)"
           autoPlay={!shouldReduceMotion}
           loop={!shouldReduceMotion}
           muted={muted}

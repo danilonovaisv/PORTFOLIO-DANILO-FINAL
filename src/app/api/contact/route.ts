@@ -207,6 +207,7 @@ export async function POST(request: NextRequest) {
   // Enviar e-mail usando Resend API via fetch nativo
   const resendApiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+  const toEmail = 'danilo@portfoliodanilo.com';
 
   if (resendApiKey && resendApiKey !== 're_placeholder_secret') {
     try {
@@ -218,7 +219,7 @@ export async function POST(request: NextRequest) {
         },
         body: JSON.stringify({
           from: `Contato Portfólio <${fromEmail}>`,
-          to: ['danilo@portfoliodanilo.com'],
+          to: [toEmail],
           subject: `Novo contato: ${normalizedPayload.name}`,
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e4e4e7; border-radius: 8px; color: #18181b;">
