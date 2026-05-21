@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 
 
 // Mock hooks
@@ -37,7 +38,7 @@ describe('PortfolioHeroNew Component', () => {
 
         const videoElement = screen.getByTestId('dynamic-video');
         expect(videoElement).toBeInTheDocument();
-        expect(videoElement).toHaveAttribute('data-desktop-src', '/site.assets/portfolio/portfolio.hero_desktop_video.mp4');
+        expect(videoElement).toHaveAttribute('data-desktop-src', RESPONSIVE_VIDEOS.portfolioHero.desktop);
     });
 
     it('renders static image when reduced motion is true', () => {
@@ -58,7 +59,7 @@ describe('PortfolioHeroNew Component', () => {
         render(<PortfolioHeroNew />);
 
         const videoElement = screen.getByTestId('dynamic-video');
-        expect(videoElement).toHaveAttribute('data-mobile-src', '/site.assets/portfolio/portfolio.hero_mobile_video.mp4');
+        expect(videoElement).toHaveAttribute('data-mobile-src', RESPONSIVE_VIDEOS.portfolioHero.mobile);
     });
 
     it('uses desktop asset key when isMobile is false', () => {
@@ -68,6 +69,6 @@ describe('PortfolioHeroNew Component', () => {
         render(<PortfolioHeroNew />);
 
         const videoElement = screen.getByTestId('dynamic-video');
-        expect(videoElement).toHaveAttribute('data-desktop-src', '/site.assets/portfolio/portfolio.hero_desktop_video.mp4');
+        expect(videoElement).toHaveAttribute('data-desktop-src', RESPONSIVE_VIDEOS.portfolioHero.desktop);
     });
 });

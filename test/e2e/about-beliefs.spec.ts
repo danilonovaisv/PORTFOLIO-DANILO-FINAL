@@ -68,29 +68,37 @@ for (const route of ROUTES) {
         `${PHRASES[0].line1} ${PHRASES[0].line2}`
       );
 
-      // Clica no segundo dot para navegar manualmente
+      // Clica no segundo dot para navegar manualmente (com retry simples para aguardar a hidratação do React)
       const secondDot = section.locator('button[aria-label="Ver manifesto 2"]');
-      await secondDot.click();
-
-      // Verifica se o estado de acessibilidade e o texto são atualizados para a segunda frase
-      await expect(liveRegion).toHaveText(
-        `${PHRASES[1].line1} ${PHRASES[1].line2}`,
-        {
-          timeout: 5000,
+      for (let i = 0; i < 3; i++) {
+        await secondDot.click();
+        try {
+          await expect(liveRegion).toHaveText(
+            `${PHRASES[1].line1} ${PHRASES[1].line2}`,
+            { timeout: 1500 }
+          );
+          break;
+        } catch (e) {
+          if (i === 2) throw e;
+          await page.waitForTimeout(500);
         }
-      );
+      }
 
       // Clica no quarto dot
       const fourthDot = section.locator('button[aria-label="Ver manifesto 4"]');
-      await fourthDot.click();
-
-      // Verifica atualização para a quarta frase
-      await expect(liveRegion).toHaveText(
-        `${PHRASES[3].line1} ${PHRASES[3].line2}`,
-        {
-          timeout: 5000,
+      for (let i = 0; i < 3; i++) {
+        await fourthDot.click();
+        try {
+          await expect(liveRegion).toHaveText(
+            `${PHRASES[3].line1} ${PHRASES[3].line2}`,
+            { timeout: 1500 }
+          );
+          break;
+        } catch (e) {
+          if (i === 2) throw e;
+          await page.waitForTimeout(500);
         }
-      );
+      }
     });
 
     test('preserva acessibilidade WCAG/WAI-ARIA para leitores de tela', async ({

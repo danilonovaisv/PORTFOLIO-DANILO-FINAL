@@ -1,6 +1,7 @@
 'use client';
 
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export type ResponsiveVideoProps =
   React.VideoHTMLAttributes<HTMLVideoElement> & {
@@ -30,15 +31,31 @@ export const ResponsiveVideo = forwardRef<
     },
     ref
   ) => {
-    // Para resolver o FCP sem flash, o poster do desktop é o padrão
-    // Em dispositivos reais, o <source media> lida com o vídeo correto nativamente.
+    const isMobile = useMediaQuery('(max-width: 767px)');
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
 
     const hasMobile = mobileSrc && mobileSrc !== desktopSrc;
 
+    // Define o poster ativo com base no breakpoint após a montagem no cliente
+    const activePoster =
+      mounted && isMobile && mobilePoster
+        ? mobilePoster
+        : desktopPoster || mobilePoster;
+
+    // Chave dinâmica baseada no estado de montagem e no breakpoint para forçar o browser
+    // a reavaliar as tags source e carregar a mídia responsiva adequada no resize dinâmico.
+    const videoKey =
+      mounted && hasMobile ? (isMobile ? 'mobile' : 'desktop') : 'ssr';
+
     return (
       <video
+        key={videoKey}
         ref={ref}
-        poster={desktopPoster || mobilePoster}
+        poster={activePoster}
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}
@@ -46,7 +63,6 @@ export const ResponsiveVideo = forwardRef<
         className={className}
         {...rest}
       >
-        {/* Nativamente resolve SSR e evita remount de React ao hidratar */}
         {hasMobile ? (
           <>
             <source src={mobileSrc} media="(max-width: 767px)" />
