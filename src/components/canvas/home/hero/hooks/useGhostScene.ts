@@ -63,7 +63,8 @@ export function useGhostScene(
       preserveDrawingBuffer: false,
     });
 
-    renderer.setPixelRatio(performanceConfig.pixelRatio);
+    // Cap DPR at 1.5 — bloom cost scales quadratically with pixel ratio on retina
+    renderer.setPixelRatio(Math.min(performanceConfig.pixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = params.exposure;
@@ -149,7 +150,7 @@ export function useGhostScene(
 
     const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
     atmosphere.position.z = -50;
-    atmosphere.renderOrder = -100;
+    atmosphere.renderOrder = -1000;
     sceneRef.current.add(atmosphere);
 
     const ambientLight = new THREE.AmbientLight(
