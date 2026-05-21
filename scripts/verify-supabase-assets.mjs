@@ -24,7 +24,9 @@ const URLS = Array.from(
 );
 
 if (URLS.length === 0) {
-  console.error(`[verify-assets] No Supabase MP4 URLs found in ${VIDEO_ASSETS_PATH}`);
+  console.error(
+    `[verify-assets] No Supabase MP4 URLs found in ${VIDEO_ASSETS_PATH}`
+  );
   process.exit(1);
 }
 
