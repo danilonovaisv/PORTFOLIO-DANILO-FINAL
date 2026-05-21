@@ -10,7 +10,7 @@
     "react-three-fiber"
   ],
   "engines": {
-    "node": ">=22.0.0 <23.0.0"
+    "node": "22"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
@@ -84,7 +84,7 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
+    "@hookform/resolvers": "^5.4.0",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
