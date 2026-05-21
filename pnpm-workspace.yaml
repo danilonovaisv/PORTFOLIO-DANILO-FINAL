@@ -19,6 +19,12 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
+minimumReleaseAgeExclude:
+  - framer-motion@12.40.0
+  - motion-dom@12.40.0
+  - motion@12.40.0
+  - ts-jest@29.4.11
+
 overrides:
   '@dataconnect/admin-generated': link:src/dataconnect-admin-generated
   '@dataconnect/generated': link:src/dataconnect-generated

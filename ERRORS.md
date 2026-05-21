@@ -6,12 +6,42 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 16
-- **Đã sửa**: 16
+- **Tổng lỗi**: 18
+- **Đã sửa**: 18
 
 ---
 
 <!-- Errors sẽ được agent tự động ghi vào đây -->
+
+## [2026-05-21 16:21] - ResponsiveVideo Autoplay Interruption Warning (`AbortError`)
+
+- **Type**: Runtime TypeError
+- **Severity**: Low
+- **File**: `src/components/ui/shared/ResponsiveVideo.tsx:80`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: React hydration or DOM unmounting sequence triggered a race condition where the HTML5 `video.play()` promise was rejected with an `AbortError` (due to media removal) before the `useEffect` cleanup hook set the `active` flag to `false`, causing the error to be incorrectly logged as a warning.
+- **Error Message**:
+  ```text
+  [browser] [ResponsiveVideo] Autoplay falhou ou foi bloqueado pelo browser: AbortError: The play() request was interrupted because the media was removed from the document.
+  ```
+- **Fix Applied**: Updated the catch block in `ResponsiveVideo.tsx` to explicitly check and silence any `AbortError` or DOM interruption errors (e.g., matching `'AbortError'`, `'NS_ERROR_DOM_ABORT_ERR'`, or messages containing `'interrupted'`) regardless of the React lifecycle state.
+- **Prevention**: Always use comprehensive name and message string validation when handling HTML5 media play promise rejections, as browser engine interruption notifications can resolve asynchronously outside of React's lifecycle updates.
+- **Status**: Fixed
+
+## [2026-05-21 16:19] - `pnpm dlx` Cache Resolution Failure (`ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND`)
+
+- **Type**: Process & Test Failure
+- **Severity**: Medium
+- **File**: `package.json`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: Running `pnpm dlx npm-check-updates -u` inside the update script fails with a missing manifest error `ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND` because pnpm's global dlx runner in version 11 attempts to locate a `package.json` inside its internal temporary cache directory, causing a crash.
+- **Error Message**:
+  ```
+  [ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND] No package.json (or package.yaml, or package.json5) was found in "/Users/danilonovais/Library/Caches/pnpm/dlx/.../node_modules/npm-check-updates".
+  ```
+- **Fix Applied**: Replaced the single-run call `pnpm dlx npm-check-updates -u` with the native Node execution runner `npx --yes npm-check-updates -u` which safely downloads and executes check-updates without requiring local importer manifests in its cache.
+- **Prevention**: Prefer `npx --yes` over `pnpm dlx` for executing single-use command-line CLI tools from the registry in pnpm-managed monorepos or projects.
+- **Status**: Fixed
 
 ## [2026-05-20 22:05] - Resend API 403 Forbidden (Sandbox Restriction)
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Task List — Video Responsivo, Ghost Hero Glow, Firebase Deploy
 
 > Plan ref: `.context/DOCS-PORTFOLIO-PAGES/implementation_plan.md`
@@ -11,13 +12,38 @@
 **Files:**
 - Modify: `src/components/ui/shared/ResponsiveVideo.tsx`
 - Reference: 7 consumers (sem refactor — API pública mantida)
+=======
+# Task List
+
+A task list is an artifact that the agent uses to approach complex tasks and monitor progress on various action items...
+
+## Phase 1 – Audit (2–3h)
+
+- Mapear todos os componentes de vídeo
+- Identificar uso de object-fit
+- Validar config atual do Firebase
+
+---
+
+## Phase 2 – Media Layer (2h)
+
+- Criar mediaResolver.ts
+- Implementar breakpoint detection
+>>>>>>> main
 
 - [x] **Step 1.1** — Substituir TODO o arquivo:
 
+<<<<<<< HEAD
 ```tsx
 'use client';
 
 import React, { forwardRef } from 'react';
+=======
+## Phase 3 – Component Refactor (3–4h)
+
+- Criar ResponsiveVideo.tsx
+- Substituir vídeos nas páginas
+>>>>>>> main
 
 export type ResponsiveVideoProps =
   React.VideoHTMLAttributes<HTMLVideoElement> & {
@@ -28,6 +54,7 @@ export type ResponsiveVideoProps =
     breakpoint?: string;
   };
 
+<<<<<<< HEAD
 export const ResponsiveVideo = forwardRef<
   HTMLVideoElement,
   ResponsiveVideoProps
@@ -419,3 +446,26 @@ mcp__plugin_supabase_supabase__execute_sql
 # Firebase
 firebase hosting:rollback
 ```
+=======
+## Phase 4 – Ghost Fix (2h)
+
+- Auditar camadas de blur
+- Ajustar z-index
+- Normalizar opacity
+
+---
+
+## Phase 5 – Firebase Fix (2h)
+
+- Ajustar firebase.json
+- Ajustar next.config.js
+- Validar URLs Supabase
+
+---
+
+## Phase 6 – Validation (2–3h)
+
+- Teste em múltiplos devices
+- Teste pós deploy
+- Correção de edge cases
+>>>>>>> main

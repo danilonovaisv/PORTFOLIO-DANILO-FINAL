@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Implementation Plan — Video Responsivo, Ghost Hero Glow, Firebase Deploy
 
 > Plano baseado em exploração real do código (commits até `ef7131783`).
@@ -71,9 +72,56 @@ Eliminar todo JS de breakpoint. Browser escolhe source no parse:
 ```
 
 Manter API pública (`desktopSrc`, `mobileSrc`, `desktopPoster`, `mobilePoster`, `breakpoint`, `forwardRef`) — zero refactor nos 7 consumers. Eliminar `useMediaQuery`, `useState(mounted)`, `useEffect` de load/play.
+=======
+# Implementation Plan
+
+## 1. Root Cause Analysis
+
+### Video Issues
+
+- Uso de object-cover → causa crop inevitável
+- Troca via CSS (hidden/block) → ambos vídeos carregam
+- Ausência de lógica de media selection
+
+### Ghost Glow
+
+- Blur stacking inconsistente
+- Z-index conflitante
+- Opacity não determinística
+
+### Firebase Issues
+
+- URLs externas sendo afetadas no build
+- Falta de assetPrefix/basePath correto
+- Rewrites incompletos
+
+---
+
+## 2. Proposed Architecture
+
+### A. Media Layer (NEW)
+
+Create `mediaResolver.ts`:
+
+Responsável por:
+
+- detectar breakpoint
+- retornar source correto (desktop/mobile)
+
+---
+
+### B. Video Component Refactor
+
+Create `ResponsiveVideo.tsx`:
+
+- usa aspect-ratio container
+- object-fit: contain
+- troca dinâmica de source
+>>>>>>> main
 
 **Wrapper aspect**: para `VideoManifesto.tsx:139` (`aspect-[9/16] sm:aspect-video`), validar com `ffprobe` que o ficheiro mobile MP4 é 9:16 e desktop 16:9. Se não bater → re-encode `ffmpeg`. Manter `object-cover` SE aspect bate.
 
+<<<<<<< HEAD
 ### B. Ghost Hero Glow — clamp + smoothing
 
 `useGhostParams.ts`:
@@ -131,10 +179,31 @@ atmosphere.renderOrder = -1000;
    ```
 5. **Documentar env vars no `next.config.mjs`** — `NEXT_PUBLIC_SUPABASE_URL` no Firebase Functions runtime env.
 
+=======
+### C. Ghost Glow Fix
+
+- limitar blur layers
+- controlar stacking context
+- remover efeitos concorrentes
+
+---
+
+### D. Firebase Fix
+
+Ajustar:
+
+- firebase.json (rewrites)
+- next.config.js:
+  - assetPrefix
+  - images/domains
+- garantir que Supabase URLs não sejam transformadas
+
+>>>>>>> main
 ---
 
 ## 3. Files Affected
 
+<<<<<<< HEAD
 **Modify:**
 - `src/components/ui/shared/ResponsiveVideo.tsx`
 - `src/components/canvas/home/hero/hooks/useGhostParams.ts:48–50`
@@ -166,11 +235,30 @@ atmosphere.renderOrder = -1000;
 | SQL aplicado em prod sem revisão | Idempotente. Testar em branch Supabase |
 | `verify:assets` quebra deploy offline | Opt-in via `SKIP_ASSET_VERIFY=1` |
 | Cache CDN serve versão antiga | `firebase hosting:channel:deploy` antes do live |
+=======
+- components/ResponsiveVideo.tsx
+- lib/mediaResolver.ts
+- next.config.js
+- firebase.json
+- páginas:
+  - home
+  - sobre
+  - portfolio
+
+---
+
+## 4. Risks
+
+- hydration mismatch (SSR vs client)
+- flicker na troca de vídeo
+- cache inconsistente no Firebase
+>>>>>>> main
 
 ---
 
 ## 5. Validation Strategy
 
+<<<<<<< HEAD
 ### Video
 - Network: 1 único request de vídeo por viewport.
 - Resize 1920px → 375px enquanto vídeo toca → swap sem flash.
@@ -205,3 +293,9 @@ atmosphere.renderOrder = -1000;
 9. Merge PR + `pnpm run deploy` live.
 
 Detalhe de cada step: ver `task.md`.
+=======
+- resize contínuo
+- simulação mobile
+- deploy fresh
+- verificação visual frame-by-frame
+>>>>>>> main
