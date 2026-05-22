@@ -257,3 +257,9 @@
 - [x] **Commit**: `779c92582` — chore: asset-sync & diagnostics hygiene pass.
 - [ ] **Habilitar Leaked Password Protection** no Supabase Dashboard [REQUIRES HUMAN REVIEW].
 - [ ] **Split arquivos > 500L**: `template-schema.ts` (886L), `ProjectForm.tsx` (848L) — próximo ciclo.
+
+## Portfolio Hero + Ghost Post-Processing Consistency (2026-05-22)
+
+- [x] **Portfolio Hero full bleed hardening**: `PortfolioHeroNew` moved outside `std-grid` wrapper in `/portfolio` client shell so the first section is no longer constrained by max-width/padding inheritance.
+- [x] **Grid isolation preserved**: `std-grid` kept for gallery + downstream sections (`ProjectsGallery`, brands, contact), preserving Ghost layout tokens for non-bleed content.
+- [x] **Ghost brightness consistency**: low-quality performance profile now keeps post-processing enabled to avoid bloom loss in production/device-adaptive paths.

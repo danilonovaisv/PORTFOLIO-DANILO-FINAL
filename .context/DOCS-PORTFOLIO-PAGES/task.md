@@ -1,43 +1,96 @@
-# Task List — Media Card System
+# task.md — Portfolio Hero + Ghost 3D (Planning Only)
 
-## Phase 1 — Audit
+## Regras desta fase
 
-- [x] Identify project card media consumers.
-- [x] Map current media fallback order.
-- [x] Confirm existing grid/card sizing constraints.
+- Tarefas com duração alvo <= 1h cada.
+- Sem implementação antes de aprovação.
+- Responsável definido por task.
+- Dependências explícitas.
+- Critério de aceite por task.
 
-## Phase 2 — Data Layer
+---
 
-- [x] Add `MediaFormat`, `MediaKind`, `MediaFit`, and `ProjectMedia`.
-- [x] Add optional format metadata fields to `PortfolioProject`.
-- [x] Keep `getCardMediaCandidates()` compatible for legacy string callers.
-- [x] Add `resolveProjectMedia()` for typed card media.
+## Backlog de execução (pós-aprovação)
 
-## Phase 3 — Component
+### T1 — Inventário de pontos de entrada da `/portfolio` (<= 30min)
+- **Responsável:** orchestrator
+- **Dependências:** nenhuma
+- **Descrição:** mapear arquivos reais da hero, wrapper de vídeo e containers de layout.
+- **Aceite:** lista objetiva de arquivos com ownership técnico (hero/layout/video).
 
-- [x] Create `MediaCard.tsx`.
-- [x] Apply `aspect-square` and `aspect-video` by metadata.
-- [x] Render both image and video with shared sizing behavior.
-- [x] Default videos to `object-contain`.
+### T2 — Auditoria do pipeline de cor do Ghost (<= 45min)
+- **Responsável:** spectral-artist
+- **Dependências:** T1
+- **Descrição:** revisar `toneMapping`, `outputColorSpace`, exposure/gamma no canvas/cena.
+- **Aceite:** diagnóstico com divergências dev/build e baseline recomendado.
 
-## Phase 4 — Grid Integration
+### T3 — Auditoria de material emissive do Ghost (<= 45min)
+- **Responsável:** spectral-artist
+- **Dependências:** T1
+- **Descrição:** validar uso de `emissive`/`emissiveIntensity` real nos materiais críticos.
+- **Aceite:** checklist com materiais afetados e valores-alvo.
 
-- [x] Replace duplicated image/video rendering in `ProjectCard`.
-- [x] Replace duplicated image/video rendering in `FeaturedProjectCardFrame`.
-- [x] Keep desktop/mobile media fallback behavior.
-- [x] Preserve hover video behavior.
+### T4 — Auditoria de Bloom / EffectComposer em produção (<= 45min)
+- **Responsável:** spectral-artist
+- **Dependências:** T2
+- **Descrição:** confirmar montagem do composer em build e parâmetros ativos de Bloom.
+- **Aceite:** confirmação de caminho de execução em produção + parâmetros sugeridos.
 
-## Phase 5 — Validation
+### T5 — Auditoria SSR do canvas (<= 20min)
+- **Responsável:** frontend-specialist
+- **Dependências:** T1
+- **Descrição:** verificar import dinâmico com `ssr: false` quando necessário.
+- **Aceite:** decisão documentada (manter/ajustar) com justificativa técnica.
 
-- [x] Add resolver tests.
-- [x] Add `MediaCard` component tests.
-- [x] Run existing `ProjectCard` tests.
-- [x] Run typecheck.
-- [x] Run lint.
-- [x] Run production build with placeholder public env values.
-- [x] Run local browser validation on `/portfolio` desktop/mobile.
+### T6 — Auditoria de assets GLB/textura (<= 40min)
+- **Responsável:** qa.verifier
+- **Dependências:** T1
+- **Descrição:** validar URL/MIME/CORS/cache para assets de cena no ambiente de preview.
+- **Aceite:** log com status de resposta e eventuais bloqueios de rede.
 
-## Remaining Follow-Up
+### T7 — Plano de refator da hero para full bleed (<= 45min)
+- **Responsável:** frontend-specialist
+- **Dependências:** T1
+- **Descrição:** desenhar alteração do topo da `/portfolio` removendo restrição de container.
+- **Aceite:** proposta com classes exatas (`w-screen`, `max-w-none`, `left-1/2`, `-translate-x-1/2`, `overflow-hidden`).
 
-- Replace inferred formats with explicit CMS/project metadata for every portfolio item.
-- Decide whether image cards should also support `fit: 'contain'` for no-crop project thumbnails where visual inspection is more important than uniform fill.
+### T8 — Plano de ajuste do vídeo da hero (<= 30min)
+- **Responsável:** frontend-specialist
+- **Dependências:** T7
+- **Descrição:** definir `object-fit`/`object-position` por breakpoint para preservar composição.
+- **Aceite:** matriz de comportamento desktop/mobile documentada.
+
+### T9 — Plano de validação regressiva (<= 30min)
+- **Responsável:** qa.verifier
+- **Dependências:** T2, T4, T8
+- **Descrição:** preparar checklist de regressão visual e performance (>50 FPS alvo).
+- **Aceite:** checklist pronto com critérios binários por item.
+
+### T10 — Execução de checks obrigatórios (<= 40min)
+- **Responsável:** qa.verifier
+- **Dependências:** implementação concluída
+- **Descrição:** rodar `pnpm run lint` e `pnpm run build` + registrar evidências.
+- **Aceite:** comandos finalizados com logs anexados.
+
+### T11 — Evidências visuais (<= 40min)
+- **Responsável:** qa.verifier
+- **Dependências:** T10
+- **Descrição:** capturar screenshots hero desktop/mobile e comparação brilho before/after.
+- **Aceite:** pacote de evidências com identificação de ambiente (dev/build/preview).
+
+### T12 — Encerramento e documentação final (<= 30min)
+- **Responsável:** orchestrator
+- **Dependências:** T11
+- **Descrição:** consolidar `walkthrough.md` e avaliar atualização de `.context/DOCS-PORTFOLIO-PAGES`.
+- **Aceite:** walkthrough completo com causa raiz, decisões, arquivos alterados, evidências e riscos.
+
+---
+
+## Gate
+
+Aguardando comando explícito: **"Aprovado"** ou **"Proceed"**.
+
+Sem esse comando:
+- não alterar código
+- não rodar build
+- não fazer deploy
