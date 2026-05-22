@@ -1,5 +1,4 @@
 chmod +x scripts/project-tools.sh
-
 ./scripts/project-tools.sh
 ./scripts/project-tools.sh check-env
 ./scripts/project-tools.sh install

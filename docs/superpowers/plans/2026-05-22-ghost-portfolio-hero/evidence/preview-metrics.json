@@ -1,0 +1,170 @@
+[
+  {
+    "name": "preview-home-desktop",
+    "metrics": {
+      "url": "https://portfolio-danilo-novais--codex-ghost-portfolio-hero-08f82fzk.web.app/",
+      "viewport": {
+        "width": 1440,
+        "height": 1100,
+        "dpr": 2
+      },
+      "bodyScrollWidth": 1440,
+      "bodyMargin": "0px",
+      "heroRect": null,
+      "videoRect": null,
+      "headingRect": null,
+      "videoCount": 0,
+      "selectedVideoSrc": null,
+      "videoReadyState": null,
+      "videoObjectFit": null,
+      "videoObjectPosition": null,
+      "canvasRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "canvasOpacity": "1",
+      "canvasGhostQuality": "high",
+      "canvasPostProcessing": "true",
+      "canvasOutputColorSpace": "srgb",
+      "canvasToneMapping": "aces-filmic",
+      "canvasCount": 3
+    },
+    "consoleMessages": [
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: [.WebGL-0x12c004cc600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "warning: [.WebGL-0x12c004cc600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "warning: [.WebGL-0x12c004cc600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "warning: [.WebGL-0x12c004cc600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+      "warning: The resource data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw== was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+    ]
+  },
+  {
+    "name": "preview-portfolio-desktop",
+    "metrics": {
+      "url": "https://portfolio-danilo-novais--codex-ghost-portfolio-hero-08f82fzk.web.app/portfolio",
+      "viewport": {
+        "width": 1440,
+        "height": 1100,
+        "dpr": 2
+      },
+      "bodyScrollWidth": 1440,
+      "bodyMargin": "0px",
+      "heroRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "videoRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "headingRect": {
+        "x": 332.765625,
+        "y": 940,
+        "width": 774.453125,
+        "height": 96,
+        "left": 332.765625,
+        "right": 1107.21875,
+        "top": 940,
+        "bottom": 1036
+      },
+      "videoCount": 1,
+      "selectedVideoSrc": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_desktop_video.mp4",
+      "videoReadyState": 4,
+      "videoObjectFit": "contain",
+      "videoObjectPosition": "50% 50%",
+      "canvasRect": null,
+      "canvasOpacity": null,
+      "canvasGhostQuality": null,
+      "canvasPostProcessing": null,
+      "canvasOutputColorSpace": null,
+      "canvasToneMapping": null,
+      "canvasCount": 1
+    },
+    "consoleMessages": [
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value"
+    ]
+  },
+  {
+    "name": "preview-portfolio-mobile",
+    "metrics": {
+      "url": "https://portfolio-danilo-novais--codex-ghost-portfolio-hero-08f82fzk.web.app/portfolio",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3
+      },
+      "bodyScrollWidth": 390,
+      "bodyMargin": "0px",
+      "heroRect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "left": 0,
+        "right": 390,
+        "top": 0,
+        "bottom": 844
+      },
+      "videoRect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "left": 0,
+        "right": 390,
+        "top": 0,
+        "bottom": 844
+      },
+      "headingRect": {
+        "x": 91.21875,
+        "y": 706.40625,
+        "width": 207.546875,
+        "height": 97.59375,
+        "left": 91.21875,
+        "right": 298.765625,
+        "top": 706.40625,
+        "bottom": 804
+      },
+      "videoCount": 1,
+      "selectedVideoSrc": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4",
+      "videoReadyState": 4,
+      "videoObjectFit": "contain",
+      "videoObjectPosition": "50% 50%",
+      "canvasRect": null,
+      "canvasOpacity": null,
+      "canvasGhostQuality": null,
+      "canvasPostProcessing": null,
+      "canvasOutputColorSpace": null,
+      "canvasToneMapping": null,
+      "canvasCount": 0
+    },
+    "consoleMessages": [
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value"
+    ]
+  }
+]

@@ -1,0 +1,143 @@
+[
+  {
+    "name": "baseline-home-desktop",
+    "metrics": {
+      "url": "http://127.0.0.1:3022/",
+      "viewport": {
+        "width": 1440,
+        "height": 1100,
+        "dpr": 2
+      },
+      "bodyScrollWidth": 1440,
+      "heroRect": null,
+      "videoRect": null,
+      "videoCount": 0,
+      "selectedVideoSrc": null,
+      "videoReadyState": null,
+      "videoObjectFit": null,
+      "videoObjectPosition": null,
+      "canvasRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "sceneHostRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "canvasOpacity": "1",
+      "canvasCount": 3
+    },
+    "consoleMessages": [
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ]
+  },
+  {
+    "name": "baseline-portfolio-desktop",
+    "metrics": {
+      "url": "http://127.0.0.1:3022/portfolio",
+      "viewport": {
+        "width": 1440,
+        "height": 1100,
+        "dpr": 2
+      },
+      "bodyScrollWidth": 1440,
+      "heroRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "videoRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1100,
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 1100
+      },
+      "videoCount": 1,
+      "selectedVideoSrc": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_desktop_video.mp4",
+      "videoReadyState": 4,
+      "videoObjectFit": "contain",
+      "videoObjectPosition": "50% 50%",
+      "canvasRect": null,
+      "sceneHostRect": null,
+      "canvasOpacity": null,
+      "canvasCount": 1
+    },
+    "consoleMessages": [
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ]
+  },
+  {
+    "name": "baseline-portfolio-mobile",
+    "metrics": {
+      "url": "http://127.0.0.1:3022/portfolio",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3
+      },
+      "bodyScrollWidth": 390,
+      "heroRect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "left": 0,
+        "right": 390,
+        "top": 0,
+        "bottom": 844
+      },
+      "videoRect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "left": 0,
+        "right": 390,
+        "top": 0,
+        "bottom": 844
+      },
+      "videoCount": 1,
+      "selectedVideoSrc": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4",
+      "videoReadyState": 4,
+      "videoObjectFit": "contain",
+      "videoObjectPosition": "50% 50%",
+      "canvasRect": null,
+      "sceneHostRect": null,
+      "canvasOpacity": null,
+      "canvasCount": 0
+    },
+    "consoleMessages": [
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "warning: <link rel=preload> uses an unsupported `as` value",
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ]
+  }
+]
