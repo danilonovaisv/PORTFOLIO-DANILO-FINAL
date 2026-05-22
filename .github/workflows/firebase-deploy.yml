@@ -19,9 +19,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      CI: true
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
+      NO_UPDATE_NOTIFIER: '1'
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+      npm_config_legacy_peer_deps: 'true'
 
     steps:
       - name: Checkout repository
@@ -72,7 +76,7 @@ jobs:
           echo "Required public Supabase env vars are configured."
 
       - name: Install dependencies
-        run: CI=true pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Create production env file
         env:
@@ -100,8 +104,18 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: pnpm run build
 
-      - name: Install Firebase CLI
-        run: pnpm dlx firebase-tools --version
+      - name: Verify Firebase CLI
+        run: pnpm exec firebase --version
+
+      - name: Prepare Firebase framework bundler
+        run: |
+          mkdir -p "${{ runner.temp }}/firebase-esbuild"
+          cd "${{ runner.temp }}/firebase-esbuild"
+          npm init -y >/dev/null
+          npm install esbuild@0.19.12 --no-save --no-audit --no-fund
+          echo "${{ runner.temp }}/firebase-esbuild/node_modules/.bin" >> "$GITHUB_PATH"
+          echo "NODE_PATH=${{ runner.temp }}/firebase-esbuild/node_modules" >> "$GITHUB_ENV"
+          "${{ runner.temp }}/firebase-esbuild/node_modules/.bin/esbuild" --version
 
       - name: Write service account credentials
         env:
@@ -110,9 +124,10 @@ jobs:
           echo "$FIREBASE_SA" > "${{ runner.temp }}/firebase-service-account.json"
 
       - name: Deploy to Firebase Hosting
+        timeout-minutes: 12
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"
+          pnpm exec firebase deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}" --non-interactive
