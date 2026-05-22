@@ -11,6 +11,7 @@ export type ResponsiveVideoProps =
     mobilePoster?: string;
     breakpoint?: string;
     fitPolicy?: 'contain' | 'cover';
+    objectPosition?: React.CSSProperties['objectPosition'];
   };
 
 /**
@@ -34,6 +35,8 @@ export const ResponsiveVideo = forwardRef<
       loop = true,
       playsInline = true,
       className = '',
+      objectPosition,
+      style,
       children,
       ...rest
     },
@@ -53,6 +56,7 @@ export const ResponsiveVideo = forwardRef<
         loop={loop}
         playsInline={playsInline}
         className={cn(objectFitClass, className)}
+        style={{ objectPosition, ...style }}
         {...rest}
       >
         {hasMobile && (

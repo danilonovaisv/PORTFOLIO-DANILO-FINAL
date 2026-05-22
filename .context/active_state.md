@@ -1,20 +1,44 @@
-# Active State: MANIFESTO CAROUSEL & WEBGL SHADER REALIGNMENT ✅
+# Active State: GHOST 3D BRIGHTNESS & PORTFOLIO HERO FULL BLEED ✅
 
-**Phase**: MANIFESTO CAROUSEL & WEBGL SHADER REALIGNMENT
-**Current Focus**: Alinhamento do Manifesto "O que me move" na página `/sobre` (e rota `/o-que-me-move`) com a referência HTML: pulsing gradient Three.js fragment shader pixelado + transições CSS scoped stagger por caractere + dots tácteis + autoplay robusto + acessibilidade WCAG.
-**Last Update**: 2026-05-21 16:25
+**Phase**: GHOST 3D BRIGHTNESS & PORTFOLIO HERO FULL BLEED
+**Current Focus**: Consistência do brilho/Bloom do Ghost 3D entre dev/build e hero `/portfolio` em full bleed real com vídeo responsivo sem corte CSS lateral.
+**Last Update**: 2026-05-22 12:08
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilo-qc26fkohcq-uc.a.run.app
 
 ## Deploy Summary
 
 - **Build**: ✅ Next.js 16.2.6 (Webpack) — Stable production build completed
+- **Ghost 3D**: ✅ Renderer explicitado com `SRGBColorSpace`, ACES Filmic e Bloom preservado em desktop `medium`.
+- **Portfolio Hero**: ✅ `section#portfolio-hero` validada em full bleed 0→viewport desktop/mobile, vídeo único e source desktop/mobile correto.
 - **ResponsiveVideo**: ✅ Silenced DOM AbortError warnings during rapid mounts or component unmounting
 - **Manifesto**: ✅ Integrated `ManifestoScrollSection` on `/sobre` and `/o-que-me-move` routes
 - **WebGL**: ✅ Realigned procedural gradient fragment shader (Blue/Purple/Blue) in `shader-lines.tsx`
 - **Validation**: ✅ 100% stable `build-check` and `build` under absolute Node v26 and pnpm resolution path
 - **Visual Regressions**: ✅ Resolved background shader invisible stacking context and closing video unmounting buffering failures
 - **Email Integration**: ✅ Integrated Resend API for contact form submissions dispatching to danilo@portfoliodanilo.com
+
+## Ghost 3D Brightness & Portfolio Hero Full Bleed (2026-05-22)
+
+- [x] **Renderer Determinism**: `src/components/canvas/home/hero/hooks/useGhostScene.ts` now sets `renderer.outputColorSpace = THREE.SRGBColorSpace`, keeps ACES Filmic tone mapping, and exposes canvas QA attributes for output color space, tone mapping, quality, and post-processing.
+- [x] **Bloom Consistency**: `src/hooks/usePerformanceAdaptive.ts` keeps post-processing enabled for desktop `medium` quality while lowering DPR to `1.25`; `low` remains without post-processing.
+- [x] **Ghost Glow Tuning**: `src/components/canvas/home/hero/hooks/useGhostParams.ts` raises emissive/Bloom/exposure values within Ghost Blue/Cyan identity to avoid dim deploy renders.
+- [x] **Portfolio Full Bleed**: `src/components/portfolio/PortfolioHeroNew.tsx` uses `min-h-[100svh]`, `max-w-none`, `w-screen`, and a single `ResponsiveVideo` with full viewport dimensions.
+- [x] **No CSS Side Crop**: `portfolioHero.fitPolicy` remains `contain`; video sides are preserved by CSS. Any partial off-screen cards in frames are part of the source asset composition.
+- [x] **Mobile Title Fit**: Mobile heading stacks `portfólio` over `showcase`, preventing the title from being clipped at 390px width.
+- [x] **Validation Evidence**:
+  - `pnpm exec jest test/unit/hooks/usePerformanceAdaptive.test.ts test/components/portfolio/PortfolioHeroNew.test.tsx --runInBand` ✅ `9 passed`
+  - `pnpm run lint` ✅ exit code 0
+  - `pnpm run build` ✅ exit code 0
+  - `pnpm run typecheck` ✅ exit code 0
+  - Dev and standalone production screenshots saved in `docs/superpowers/plans/2026-05-22-ghost-portfolio-hero/evidence/`
+  - Standalone local validation required copying `.next/static` and `public` into `.next/standalone` before screenshot capture; first run without that copy produced expected static 404s and invalid CSS layout.
+- [x] **Firebase Preview Evidence**:
+  - Preview URL: `https://portfolio-danilo-novais--codex-ghost-portfolio-hero-08f82fzk.web.app` (expires `2026-05-29`)
+  - `/` preview: Ghost canvas visible with `data-post-processing="true"`, `data-output-color-space="srgb"` and `data-tone-mapping="aces-filmic"`.
+  - `/portfolio` preview desktop/mobile: hero and video rects start at `left=0` and end at viewport width; single responsive video selected; `object-fit: contain`.
+  - Firebase framework preview also updated SSR Cloud Function `ssrportfoliodanilonovai`; no explicit production Hosting release was requested.
+  - Predeploy audit still reports 42 pre-existing broken legacy asset links in `src/config/site-assets.json`; current critical portfolio hero video URLs returned HTTP 200.
 
 ## ResponsiveVideo Interruption Safeguard & Autoplay Hardening (2026-05-21)
 

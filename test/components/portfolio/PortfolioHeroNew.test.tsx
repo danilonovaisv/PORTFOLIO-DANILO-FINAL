@@ -18,8 +18,15 @@ jest.mock('next/image', () => ({
     },
 }));
 jest.mock('@/components/ui/shared/ResponsiveVideo', () => ({
-    ResponsiveVideo: ({ desktopSrc, mobileSrc }: { desktopSrc: string; mobileSrc: string }) => (
-        <div data-testid="dynamic-video" data-desktop-src={desktopSrc} data-mobile-src={mobileSrc}>
+    ResponsiveVideo: ({ desktopSrc, mobileSrc, fitPolicy, objectPosition, className }: { desktopSrc: string; mobileSrc: string; fitPolicy?: string; objectPosition?: string; className?: string }) => (
+        <div
+            data-testid="dynamic-video"
+            data-desktop-src={desktopSrc}
+            data-mobile-src={mobileSrc}
+            data-fit-policy={fitPolicy}
+            data-object-position={objectPosition}
+            data-class-name={className}
+        >
             Mock Video
         </div>
     ),
@@ -39,6 +46,9 @@ describe('PortfolioHeroNew Component', () => {
         const videoElement = screen.getByTestId('dynamic-video');
         expect(videoElement).toBeInTheDocument();
         expect(videoElement).toHaveAttribute('data-desktop-src', RESPONSIVE_VIDEOS.portfolioHero.desktop);
+        expect(videoElement).toHaveAttribute('data-fit-policy', RESPONSIVE_VIDEOS.portfolioHero.fitPolicy);
+        expect(videoElement).toHaveAttribute('data-object-position', 'center center');
+        expect(videoElement).toHaveAttribute('data-class-name', 'h-full w-full min-w-full max-w-none');
     });
 
     it('renders static image when reduced motion is true', () => {
