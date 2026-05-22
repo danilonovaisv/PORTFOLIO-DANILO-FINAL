@@ -85,9 +85,13 @@ export const ProjectCard = React.memo(function ProjectCard({
   );
   const desktopMedia = resolveProjectMedia(project, desktopPreferredCover, {
     alt: visualAltText,
+    fit: 'cover',
   });
   const mobileMedia =
-    resolveProjectMedia(project, 'square', { alt: visualAltText }) ??
+    resolveProjectMedia(project, 'square', {
+      alt: visualAltText,
+      fit: 'cover',
+    }) ??
     desktopMedia;
   const baseMediaDiffers =
     !!desktopMedia &&

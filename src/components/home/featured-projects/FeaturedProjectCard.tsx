@@ -109,12 +109,18 @@ export default function FeaturedProjectCard({
       : project.title;
 
   const desktopMedia = useMemo(() => {
-    return resolveProjectMedia(project, 'landscape', { alt: visualAltText });
+    return resolveProjectMedia(project, 'landscape', {
+      alt: visualAltText,
+      fit: 'cover',
+    });
   }, [project, visualAltText]);
 
   const mobileMedia = useMemo(() => {
     return (
-      resolveProjectMedia(project, 'square', { alt: visualAltText }) ??
+      resolveProjectMedia(project, 'square', {
+        alt: visualAltText,
+        fit: 'cover',
+      }) ??
       desktopMedia
     );
   }, [project, desktopMedia, visualAltText]);

@@ -126,6 +126,17 @@ describe('ProjectCard', () => {
         expect(screen.getByRole('img')).toBeInTheDocument();
     });
 
+    it('should render base video thumbnails with cover fit to fill the card frame', () => {
+        const videoProject: PortfolioProject = {
+            ...mockProject,
+            image: '/test-video.mp4',
+        };
+
+        const { container } = render(<ProjectCard project={videoProject} index={0} />);
+
+        expect(container.querySelector('video')).toHaveClass('object-cover');
+    });
+
 
 
     it('should prioritize internal landing route click when landingPageSlug exists', () => {
