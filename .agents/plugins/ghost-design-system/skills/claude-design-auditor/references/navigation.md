@@ -7,6 +7,7 @@ Navigation is how users find their way through a product. Poor navigation is the
 ## The Core Navigation Question
 
 At any moment in the product, a user should be able to answer three questions instantly:
+
 1. **Where am I?** — Current location is clearly indicated
 2. **Where can I go?** — Available destinations are visible
 3. **How do I get back?** — Return path is clear
@@ -18,25 +19,27 @@ If any of these fail, the navigation is broken.
 ## Navigation Types
 
 ### Primary Navigation
+
 The main way to move between top-level sections of the product.
 
-| Pattern | Use When | Platform |
-|---|---|---|
-| **Top nav bar** | 3–7 primary destinations | Desktop |
-| **Side nav / sidebar** | 5–10 destinations, hierarchical | Desktop SaaS/tools |
-| **Bottom nav bar** | 3–5 primary destinations | Mobile |
-| **Hamburger menu** | Secondary items, overflow | Mobile (not primary) |
-| **Tab bar** | Switching views of same context | Both |
+| Pattern                | Use When                        | Platform             |
+| ---------------------- | ------------------------------- | -------------------- |
+| **Top nav bar**        | 3–7 primary destinations        | Desktop              |
+| **Side nav / sidebar** | 5–10 destinations, hierarchical | Desktop SaaS/tools   |
+| **Bottom nav bar**     | 3–5 primary destinations        | Mobile               |
+| **Hamburger menu**     | Secondary items, overflow       | Mobile (not primary) |
+| **Tab bar**            | Switching views of same context | Both                 |
 
 ### Secondary Navigation
+
 Deeper levels within a section.
 
-| Pattern | Use When |
-|---|---|
-| **Tabs** | Parallel views of same content (not different sections) |
-| **Breadcrumbs** | 3+ levels deep in hierarchy |
-| **Sidebar sub-nav** | Multi-level sections in desktop apps |
-| **Segmented control** | 2–4 closely related views |
+| Pattern               | Use When                                                |
+| --------------------- | ------------------------------------------------------- |
+| **Tabs**              | Parallel views of same content (not different sections) |
+| **Breadcrumbs**       | 3+ levels deep in hierarchy                             |
+| **Sidebar sub-nav**   | Multi-level sections in desktop apps                    |
+| **Segmented control** | 2–4 closely related views                               |
 
 ---
 
@@ -45,6 +48,7 @@ Deeper levels within a section.
 The currently active nav item must be **unambiguously distinct** from inactive items.
 
 ### What Works
+
 - **Filled background** on active item (most common, clearest)
 - **Bottom border indicator** (tab bar pattern)
 - **Left border indicator** (sidebar pattern)
@@ -52,16 +56,21 @@ The currently active nav item must be **unambiguously distinct** from inactive i
 - **Different color** for active icon + label
 
 ### What Doesn't Work
+
 - Slightly different shade of the same color (too subtle)
 - Color alone with no weight/position change (fails for colorblind users)
 - Only the icon changes, not the label (too easy to miss)
 
 ### Contrast Requirement
+
 Active nav item must have at least **3:1 contrast** against inactive items — not just visually "different."
 
 ### Code Pattern
+
 ```css
-.nav-item { color: #6b7280; }
+.nav-item {
+  color: #6b7280;
+}
 .nav-item.active {
   color: #111827;
   font-weight: 600;
@@ -77,15 +86,18 @@ Active nav item must have at least **3:1 contrast** against inactive items — n
 Tabs switch between **parallel views of the same content or context**. They are NOT for top-level navigation between different sections.
 
 ### ✅ Correct Tab Usage
+
 - Profile page: Overview | Activity | Settings
 - Message thread: Messages | Files | Members
 - Dashboard: Daily | Weekly | Monthly
 
 ### ❌ Incorrect Tab Usage
+
 - Home | Projects | Settings | Help (these are different sections — use nav)
 - Step 1 | Step 2 | Step 3 (these are sequential — use a stepper)
 
 ### Tab Rules
+
 - **Tabs should be equal weight.** If one tab is visited 90% of the time, reconsider whether tabs are the right pattern.
 - **Always show the active tab clearly** — filled background, bottom border, or bold label.
 - **Don't use tabs for navigation that changes the URL** — tabs are within-page state changes. Use nav for page-level routing.
@@ -99,16 +111,19 @@ Tabs switch between **parallel views of the same content or context**. They are 
 Breadcrumbs show the hierarchical path to the current page.
 
 ### When to Use Breadcrumbs
+
 - Any page **3 or more levels** deep in a hierarchy
 - Products with complex nested navigation (CMS, file management, settings)
 - When users may arrive directly at a deep page (from search, email link)
 
 ### When NOT to Use Breadcrumbs
+
 - Flat sites with only 1–2 levels
 - Single-page apps where URL doesn't reflect hierarchy
 - Mobile (too small — use a back button instead)
 
 ### Breadcrumb Rules
+
 - **Every crumb is a link** — except the current page (last item)
 - **Current page is not a link** — it can be shown in muted color or without underline
 - **Separator character** — use `/` or `›` — avoid `>` (looks like code) or `→` (implies direction)
@@ -133,6 +148,7 @@ Breadcrumbs show the hierarchical path to the current page.
 "Back" is a fundamental navigation primitive — and one of the most commonly broken patterns.
 
 ### Rules
+
 - **Back goes to the previous screen, not the previous URL.** In a multi-step flow, pressing Back should go to the previous step, not the previous browser history entry.
 - **Back in a modal closes the modal to the page behind it** — not to the previous page in history.
 - **Back should not lose user data** — if the user has entered information, warn them before going back ("Go back? Your changes will be lost.") or auto-save.
@@ -140,6 +156,7 @@ Breadcrumbs show the hierarchical path to the current page.
 - **Always provide a way back** — any screen that can be reached should have an exit path. No dead ends.
 
 ### When to Show a Back Button
+
 - Detail pages within a list (e.g. item detail → back to list)
 - Steps in a flow (step 3 → back to step 2)
 - Modals and drawers (close/back button in header)
@@ -150,6 +167,7 @@ Breadcrumbs show the hierarchical path to the current page.
 ## Mobile Navigation
 
 ### Bottom Navigation Bar
+
 - **3–5 destinations** maximum. More than 5 = too crowded.
 - **Always show labels** — icon-only bottom nav fails usability testing consistently.
 - **Active state must be clear** — filled icon, label color change, or indicator dot.
@@ -157,11 +175,13 @@ Breadcrumbs show the hierarchical path to the current page.
 - **Safe area** — respect iOS/Android safe area insets so content isn't hidden behind home indicator.
 
 ### Hamburger Menu
+
 - Acceptable for **secondary or overflow navigation**.
 - **Not acceptable** for primary navigation on mobile — it hides destinations, reducing discoverability by 50%+.
 - If you have 3–5 primary destinations, use a bottom nav bar instead.
 
 ### Gestures
+
 - **Swipe back** — respect native back gestures (iOS swipe from left edge, Android back button).
 - Never intercept swipe gestures for something other than navigation without strong justification.
 
@@ -190,16 +210,16 @@ Breadcrumbs show the hierarchical path to the current page.
 
 ## Common Navigation Mistakes
 
-| Mistake | Fix |
-|---|---|
-| Tabs used for top-level section navigation | Use nav bar or sidebar instead |
-| No active state on current nav item | Add clear visual indicator (background, border, weight) |
-| Breadcrumbs with non-clickable intermediate items | All crumbs except current page must be links |
-| Back button goes to browser history, not app flow | Implement in-app back navigation in multi-step flows |
-| Hamburger menu for primary nav on mobile | Use bottom nav bar for 3–5 primary destinations |
-| Nav changes between sections (items appear/disappear) | Keep nav consistent on every page |
-| No skip navigation link | Add `<a href="#main">Skip to main content</a>` as first element |
-| Active nav item only differs by color | Add weight, background, or position indicator too |
+| Mistake                                               | Fix                                                             |
+| ----------------------------------------------------- | --------------------------------------------------------------- |
+| Tabs used for top-level section navigation            | Use nav bar or sidebar instead                                  |
+| No active state on current nav item                   | Add clear visual indicator (background, border, weight)         |
+| Breadcrumbs with non-clickable intermediate items     | All crumbs except current page must be links                    |
+| Back button goes to browser history, not app flow     | Implement in-app back navigation in multi-step flows            |
+| Hamburger menu for primary nav on mobile              | Use bottom nav bar for 3–5 primary destinations                 |
+| Nav changes between sections (items appear/disappear) | Keep nav consistent on every page                               |
+| No skip navigation link                               | Add `<a href="#main">Skip to main content</a>` as first element |
+| Active nav item only differs by color                 | Add weight, background, or position indicator too               |
 
 ---
 
@@ -208,6 +228,7 @@ Breadcrumbs show the hierarchical path to the current page.
 When auditing HTML/React/Vue navigation code, check these directly.
 
 ### Semantic structure
+
 ```
 <nav> element:
   → Primary nav wrapped in <nav> → ✅
@@ -222,6 +243,7 @@ Nav item elements:
 ```
 
 ### Active state
+
 ```
 aria-current="page":
   → Present on the active nav item → ✅
@@ -240,6 +262,7 @@ Active state contrast:
 ```
 
 ### Skip navigation link
+
 ```
 Pattern to detect:
   First <a> element in DOM should be a skip link:
@@ -262,6 +285,7 @@ Check:
 ```
 
 ### Tab vs nav misuse
+
 ```
 Tabs (same-page view switching):
   Correct HTML: role="tablist" > role="tab" (aria-selected) > role="tabpanel"
@@ -276,6 +300,7 @@ Navigation (cross-page section switching):
 ```
 
 ### Keyboard and dropdown handling
+
 ```
 Dropdown menus:
   → Escape key closes the dropdown → ✅ (check for keydown handler)
@@ -291,6 +316,7 @@ Focus trapping in mobile drawers/hamburger menus:
 ```
 
 ### Breadcrumbs
+
 ```
 Correct structure:
   <nav aria-label="Breadcrumb">

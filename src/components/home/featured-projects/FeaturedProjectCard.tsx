@@ -120,8 +120,7 @@ export default function FeaturedProjectCard({
       resolveProjectMedia(project, 'square', {
         alt: visualAltText,
         fit: 'cover',
-      }) ??
-      desktopMedia
+      }) ?? desktopMedia
     );
   }, [project, desktopMedia, visualAltText]);
 

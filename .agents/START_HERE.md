@@ -21,6 +21,7 @@ Read .agent/rules/GEMINI.md and activate all rules and skills
 ```
 
 The AI will:
+
 - ✅ Load GEMINI.md (master ruleset)
 - ✅ Enable intelligent agent routing
 - ✅ Activate Socratic Gate for better decisions
@@ -33,6 +34,7 @@ The AI will:
 ### **Automatic Skill Activation**
 
 The AI will automatically:
+
 1. Analyze your requests
 2. Select the best specialist agent(s)
 3. Ask clarifying questions when needed
@@ -56,11 +58,13 @@ Before I start, let me ask:
 ## 📋 Available Resources
 
 ### Core Files:
+
 - `GEMINI.md` - Master ruleset (ALWAYS active)
 - `ARCHITECTURE.md` - System architecture
 - `SKILLS.md` - Complete skills inventory (550+)
 
 ### Workflows:
+
 - `/plan` - Task breakdown & Planning
 - `/audit` - Comprehensive project audit
 - `/status` - Check project status
@@ -84,6 +88,7 @@ Before I start, let me ask:
 ### AI Doesn't Seem to Follow Rules?
 
 **Try this:**
+
 ```
 Please read and apply rules from .agent/rules/GEMINI.md
 ```
@@ -91,6 +96,7 @@ Please read and apply rules from .agent/rules/GEMINI.md
 ### AI Asks Too Many/Few Questions?
 
 **Check if Socratic Gate is active:**
+
 ```
 Are you using the Socratic Gate from GEMINI.md?
 ```

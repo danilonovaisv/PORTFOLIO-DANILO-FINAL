@@ -23,6 +23,7 @@ Instead of using `#7c3aed` directly in a component, you reference `color.primary
 ## Token Naming Systems
 
 ### Anti-Pattern: Descriptive Names
+
 Naming tokens after their appearance breaks when values change:
 
 ```
@@ -31,6 +32,7 @@ Naming tokens after their appearance breaks when values change:
 ```
 
 ### Best Practice: Semantic Names
+
 Name tokens by their **purpose**, not their **value**:
 
 ```
@@ -43,6 +45,7 @@ Name tokens by their **purpose**, not their **value**:
 ### Two-Tier Token System (Industry Best Practice)
 
 **Tier 1 — Primitive tokens** (raw values):
+
 ```
 color.purple.500 = #7c3aed
 color.red.500 = #ef4444
@@ -50,6 +53,7 @@ spacing.4 = 16px
 ```
 
 **Tier 2 — Semantic tokens** (reference primitives):
+
 ```
 color.brand.primary = color.purple.500
 color.feedback.danger = color.red.500
@@ -92,6 +96,7 @@ color.feedback.info       — Informational states
 ```
 
 ### Spacing Tokens
+
 ```
 spacing.1  = 4px
 spacing.2  = 8px
@@ -105,6 +110,7 @@ spacing.16 = 64px
 ```
 
 ### Typography Tokens
+
 ```
 font.family.sans    = 'Figtree', sans-serif
 font.family.mono    = 'JetBrains Mono', monospace
@@ -137,6 +143,7 @@ line.height.relaxed = 1.6
 The most important benefit of a semantic token system is clean dark mode support.
 
 ### How It Works
+
 Instead of creating separate dark mode components, you remap semantic token values:
 
 ```css
@@ -149,7 +156,7 @@ Instead of creating separate dark mode components, you remap semantic token valu
 }
 
 /* Dark mode — same tokens, different values */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-background-page: #0f172a;
   --color-text-primary: #f1f5f9;
   --color-background-surface: #1e293b;
@@ -160,6 +167,7 @@ Instead of creating separate dark mode components, you remap semantic token valu
 Components use `var(--color-background-page)` — they don't need to know which mode they're in. The theme switch happens at one level.
 
 ### Signs the Token System is Broken for Dark Mode
+
 - Components have hardcoded hex values that don't change in dark mode
 - Dark mode overrides are scattered across individual component files
 - Dark mode colors are new hardcoded values, not remapped tokens
@@ -170,6 +178,7 @@ Components use `var(--color-background-page)` — they don't need to know which 
 ## Auditing Token Health in a Codebase
 
 ### Signs of a Healthy Token System
+
 - All colors in components reference CSS variables or JS tokens
 - No hardcoded hex values (`#abc123`) in component styles
 - Spacing values are multiples of the base unit (4 or 8)
@@ -179,13 +188,14 @@ Components use `var(--color-background-page)` — they don't need to know which 
 ### Signs of a Broken Token System
 
 **Red flags in CSS/code:**
+
 ```css
 /* ❌ Hardcoded values — no token */
 color: #7c3aed;
 margin: 13px;
 font-size: 15px;
 border-radius: 7px;
-box-shadow: 0 3px 7px rgba(0,0,0,0.11);
+box-shadow: 0 3px 7px rgba(0, 0, 0, 0.11);
 ```
 
 ```css
@@ -198,6 +208,7 @@ box-shadow: var(--shadow-sm);
 ```
 
 **Red flags in Figma:**
+
 - Components use local styles instead of shared library styles
 - Colors show as hex values in the inspector, not style names
 - "Detached" text styles (no linked text style)
@@ -206,6 +217,7 @@ box-shadow: var(--shadow-sm);
 ### Token Coverage Audit
 
 Run a search for hardcoded values in your codebase:
+
 ```bash
 # Find hardcoded hex colors (not in token definition files)
 grep -r "#[0-9a-fA-F]\{3,6\}" src/components/
@@ -223,28 +235,28 @@ Any hits in component files (not token definition files) are candidates for toke
 
 ## Token System Maturity Levels
 
-| Level | Description | Signs |
-|---|---|---|
-| **0 — No system** | All values hardcoded | Hex values everywhere, no variables |
-| **1 — Basic variables** | CSS variables exist but naming is inconsistent | Mix of `--purple`, `--color-primary`, `#7c3aed` |
-| **2 — Consistent naming** | Variables follow a naming convention | All components use tokens, names are meaningful |
-| **3 — Semantic + primitive** | Two-tier system in place | Components only use semantic tokens |
-| **4 — Multi-theme** | Token system supports light/dark/brand themes | Theme switching works by swapping one class |
-| **5 — Cross-platform** | Tokens shared between web, iOS, Android | Single source of truth across platforms |
+| Level                        | Description                                    | Signs                                           |
+| ---------------------------- | ---------------------------------------------- | ----------------------------------------------- |
+| **0 — No system**            | All values hardcoded                           | Hex values everywhere, no variables             |
+| **1 — Basic variables**      | CSS variables exist but naming is inconsistent | Mix of `--purple`, `--color-primary`, `#7c3aed` |
+| **2 — Consistent naming**    | Variables follow a naming convention           | All components use tokens, names are meaningful |
+| **3 — Semantic + primitive** | Two-tier system in place                       | Components only use semantic tokens             |
+| **4 — Multi-theme**          | Token system supports light/dark/brand themes  | Theme switching works by swapping one class     |
+| **5 — Cross-platform**       | Tokens shared between web, iOS, Android        | Single source of truth across platforms         |
 
 ---
 
 ## Common Token Mistakes
 
-| Mistake | Fix |
-|---|---|
-| Naming tokens by value (`--red`, `--purple-500`) | Name by purpose (`--color-danger`, `--color-brand-primary`) |
-| Using primitive tokens directly in components | Create semantic tokens; components reference semantic only |
-| Hardcoding hex values in components | Replace with token references |
-| Different tokens for same concept in different parts of codebase | Audit and consolidate — one token per concept |
-| Dark mode via per-component overrides | Remap semantic tokens at theme level |
-| Tokens defined but not used consistently | Enforce via linting (stylelint, custom ESLint rules) |
-| Spacing that doesn't follow the token scale | Replace with scale tokens, remove magic numbers |
+| Mistake                                                          | Fix                                                         |
+| ---------------------------------------------------------------- | ----------------------------------------------------------- |
+| Naming tokens by value (`--red`, `--purple-500`)                 | Name by purpose (`--color-danger`, `--color-brand-primary`) |
+| Using primitive tokens directly in components                    | Create semantic tokens; components reference semantic only  |
+| Hardcoding hex values in components                              | Replace with token references                               |
+| Different tokens for same concept in different parts of codebase | Audit and consolidate — one token per concept               |
+| Dark mode via per-component overrides                            | Remap semantic tokens at theme level                        |
+| Tokens defined but not used consistently                         | Enforce via linting (stylelint, custom ESLint rules)        |
+| Spacing that doesn't follow the token scale                      | Replace with scale tokens, remove magic numbers             |
 
 ---
 
@@ -256,25 +268,27 @@ Use this formula to quickly assess the health of a token system during an audit:
 
 Check 5 areas, each worth 20 points:
 
-| Area | 20pts (Full) | 10pts (Partial) | 0pts (Missing) |
-|---|---|---|---|
-| **Color** | All colors are tokens, semantic naming | Mix of tokens + hardcoded | Mostly hardcoded hex |
-| **Spacing** | All spacing uses scale tokens | Some tokens, some arbitrary | Mostly arbitrary px values |
-| **Typography** | Font size/weight/line-height tokenized | Partial tokenization | All hardcoded |
-| **Dark Mode** | Single theme swap, no new hex values | Some components adapt | Per-component overrides or no dark mode |
-| **Naming** | Semantic (purpose-based) naming throughout | Mix of semantic + descriptive | Descriptive or no naming convention |
+| Area           | 20pts (Full)                               | 10pts (Partial)               | 0pts (Missing)                          |
+| -------------- | ------------------------------------------ | ----------------------------- | --------------------------------------- |
+| **Color**      | All colors are tokens, semantic naming     | Mix of tokens + hardcoded     | Mostly hardcoded hex                    |
+| **Spacing**    | All spacing uses scale tokens              | Some tokens, some arbitrary   | Mostly arbitrary px values              |
+| **Typography** | Font size/weight/line-height tokenized     | Partial tokenization          | All hardcoded                           |
+| **Dark Mode**  | Single theme swap, no new hex values       | Some components adapt         | Per-component overrides or no dark mode |
+| **Naming**     | Semantic (purpose-based) naming throughout | Mix of semantic + descriptive | Descriptive or no naming convention     |
 
 ### Token Health Score Bands
 
-| Score | Health Level | What It Means |
-|---|---|---|
-| **90–100** | ✅ Excellent | System is production-grade, scalable, and maintainable |
-| **70–89** | 🟡 Good | Minor gaps, easy to clean up |
-| **50–69** | 🟠 Needs Work | Significant hardcoding, inconsistent adoption |
-| **< 50** | 🔴 Broken | Tokens exist in name only — no real system |
+| Score      | Health Level  | What It Means                                          |
+| ---------- | ------------- | ------------------------------------------------------ |
+| **90–100** | ✅ Excellent  | System is production-grade, scalable, and maintainable |
+| **70–89**  | 🟡 Good       | Minor gaps, easy to clean up                           |
+| **50–69**  | 🟠 Needs Work | Significant hardcoding, inconsistent adoption          |
+| **< 50**   | 🔴 Broken     | Tokens exist in name only — no real system             |
 
 ### Quick Audit Command
+
 Run this to get a rough hardcoded value count in a codebase:
+
 ```bash
 # Count hardcoded hex colors in component files
 grep -rE "#[0-9a-fA-F]{3,6}" src/components/ | grep -v "token\|variable\|\.tokens\." | wc -l

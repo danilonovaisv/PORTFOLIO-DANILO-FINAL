@@ -9,17 +9,22 @@ The Figma MCP gives Claude direct read and write access to Figma files. This ref
 ## Reading a Design
 
 ### Tool: `resolve_shortlink`
+
 Use when the user shares a short Figma URL (e.g. `fig.com/abc123`).
+
 ```
 input: { shortlink: "https://fig.com/abc123" }
 output: { nodeId: "123:456", fileKey: "AbCdEfGh" }
 ```
+
 Use the returned nodeId for all subsequent calls.
 
 ### Tool: `get_design_context`
+
 The primary tool for reading design data. Call on any frame, component, or layer.
 
 **What it returns:**
+
 - Layer tree (names, types, parent-child relationships)
 - Typography: fontFamily, fontSize, fontWeight, lineHeight, letterSpacing
 - Colors: fills (hex + opacity), strokes, background colors
@@ -27,12 +32,15 @@ The primary tool for reading design data. Call on any frame, component, or layer
 - Component info: which components are used, their names, any overrides
 
 **Best practices:**
+
 - Start with the top-level frame, not individual layers
 - If the frame is very complex (100+ layers), request specific sections
 - Component names are a signal of design system health — look for names like "Button/Primary/Default" (good) vs "Rectangle 42" (bad)
 
 ### Tool: `get_screenshot`
+
 Always call this alongside `get_design_context`. The visual rendering catches issues that data alone misses:
+
 - Visual density and crowding
 - Color contrast as it actually appears
 - Alignment issues
@@ -44,6 +52,7 @@ output: { imageUrl: "..." }
 ```
 
 ### Tool: `get_design_pages`
+
 Call this on the file key **before** auditing any node. Returns the list of all pages in the file.
 
 **Decision logic based on page count:**
@@ -70,21 +79,26 @@ No node ID given (just file URL) → Always use get_design_pages first,
 ```
 
 **Report header line** (include whenever 2+ pages exist):
+
 - English: `"File: [N] pages — auditing '[page name]' (page [N] of [N])."`
 - Korean: `"파일: [N]개 페이지 — '[페이지 이름]' 감사 중 ([N]/[N])."`
 
 ### Tool: `get_metadata`
+
 Returns file-level info: title, last modified, owner. Use to confirm you're in the right file.
 
 ### Tool: `get_code_connect_suggestions`
+
 Returns AI-suggested mappings between Figma components in the file and code components in the connected repository. Call after `get_design_context` on any Figma audit where a codebase is connected.
 
 **What it returns:**
+
 - Figma component name + node ID
 - Suggested code component path or import name
 - Confidence level per suggestion
 
 **How to use:**
+
 ```
 Call on the same nodeId as get_design_context.
 
@@ -99,12 +113,14 @@ If the call fails or returns empty:
 ```
 
 ### Tool: `get_code_connect_map`
+
 Returns confirmed, user-configured Figma→code component mappings (as opposed to suggestions). More reliable than suggestions when available.
 
 **When to use:**
 Call alongside `get_code_connect_suggestions`. If confirmed mappings exist, prefer them over suggestions for the handoff table. Note in the report header: "Code Connect: [N] confirmed mappings".
 
 **Coverage gap detection:**
+
 ```
 confirmed_components = set of Figma components with a code mapping
 all_components = set of all named components in get_design_context layer tree
@@ -115,9 +131,11 @@ If unmapped is non-empty → flag as 🟡 Warning in Cat 5:
 ```
 
 ### Tool: `create_design_system_rules`
+
 Generates design system enforcement rules for the connected repository based on the Figma file's component structure, tokens, and naming conventions.
 
 **When to offer:**
+
 - Cat 17 score < 70 (significant hardcoding found)
 - Component health < 50% (low coverage)
 - User explicitly asks for design system setup or enforcement
@@ -126,6 +144,7 @@ Generates design system enforcement rules for the connected repository based on 
 **Never call automatically** — always ask the user first. This writes to the codebase.
 
 **Safety pattern:**
+
 ```
 1. Audit completes and significant token/naming issues found
 2. Offer: "Want me to generate design system rules for your repo?"
@@ -142,6 +161,7 @@ Generates design system enforcement rules for the connected repository based on 
 When you have the `get_design_context` output, check these specific fields:
 
 ### Typography Checks
+
 ```
 Look for in context data:
 - fontFamily → Are there more than 2 distinct families?
@@ -152,6 +172,7 @@ Look for in context data:
 ```
 
 ### Color Checks
+
 ```
 Look for:
 - fills[].color → Convert to hex, check contrast against background
@@ -160,6 +181,7 @@ Look for:
 ```
 
 ### Spacing Checks
+
 ```
 Look for:
 - paddingTop, paddingRight, paddingBottom, paddingLeft → Are they consistent? Multiples of 8?
@@ -168,6 +190,7 @@ Look for:
 ```
 
 ### Component Health Checks
+
 ```
 Look for:
 - Layer names like "Frame 12", "Group 7", "Rectangle" → unnamed 🔴
@@ -199,12 +222,14 @@ Issue flags:
 ## Making Edits in Figma
 
 ### Tool: `perform_editing_operations`
+
 Use this to fix issues directly. **Always follow the safety rules below.**
 
 ### Safety Rules for Editing
 
 **Rule 1: Always confirm before editing**
 Never apply edits without asking:
+
 > "I can fix [specific issue] on the [element name] layer. Want me to go ahead?"
 
 **Rule 2: Target specific node IDs**
@@ -224,6 +249,7 @@ After each batch of edits, call `get_screenshot` to verify the result looks corr
 ### Common Edit Patterns
 
 #### Fix node width (snap to grid)
+
 ```
 operation: "SET_WIDTH"
 nodeId: "[frame or component node ID]"
@@ -231,6 +257,7 @@ value: 60  // snapped from 60.17px to nearest 8pt multiple
 ```
 
 #### Fix node height (touch target)
+
 ```
 operation: "SET_HEIGHT"
 nodeId: "[interactive element node ID]"
@@ -238,6 +265,7 @@ value: 44  // WCAG minimum touch target
 ```
 
 #### Fix a text color for contrast
+
 ```
 operation: "SET_FILL_COLOR"
 nodeId: "[text layer node ID]"
@@ -247,6 +275,7 @@ color: { r: 0.2, g: 0.2, b: 0.2, a: 1.0 }  // #333333 — passes 4.5:1 on white
 **Hex to 0–1 conversion:** divide each channel by 255. `#7C3AED` → `{r: 0.486, g: 0.227, b: 0.929, a: 1.0}`
 
 #### Fix font size
+
 ```
 operation: "SET_FONT_SIZE"
 nodeId: "[text layer node ID]"
@@ -254,6 +283,7 @@ fontSize: 16
 ```
 
 #### Fix padding on a frame
+
 ```
 operation: "SET_PADDING"
 nodeId: "[frame node ID]"
@@ -264,6 +294,7 @@ paddingLeft: 16
 ```
 
 #### Fix spacing between auto-layout items
+
 ```
 operation: "SET_ITEM_SPACING"
 nodeId: "[auto-layout frame node ID]"
@@ -271,6 +302,7 @@ itemSpacing: 8
 ```
 
 #### Fix auto-layout direction
+
 ```
 operation: "SET_LAYOUT_MODE"
 nodeId: "[auto-layout frame node ID]"
@@ -278,6 +310,7 @@ layoutMode: "HORIZONTAL"  // or "VERTICAL" or "NONE"
 ```
 
 #### Fix auto-layout alignment
+
 ```
 operation: "SET_PRIMARY_AXIS_ALIGN_ITEMS"
 nodeId: "[auto-layout frame node ID]"
@@ -289,6 +322,7 @@ counterAxisAlignItems: "CENTER"  // MIN, MAX, CENTER, BASELINE
 ```
 
 #### Fix auto-layout sizing (hug vs fixed vs fill)
+
 ```
 operation: "SET_PRIMARY_AXIS_SIZE_TYPE"
 nodeId: "[auto-layout frame node ID]"
@@ -300,6 +334,7 @@ counterAxisSizeType: "AUTO"
 ```
 
 #### Rename a layer (for component hygiene)
+
 ```
 operation: "RENAME_LAYER"
 nodeId: "[layer node ID]"
@@ -315,18 +350,22 @@ name: "Button/Primary/Default"
 **How to detect this:** In `get_design_context`, instances show as `type: "INSTANCE"`. Any child layer of an instance is read-only from outside.
 
 **What to do instead:**
+
 1. Check if the parent frame is an instance — look for `componentId` or `mainComponent` in the context data
 2. If it is an instance: inform the user that the fix must be applied to the **main component**, not the instance
 3. Find the main component node ID (from `componentId` in the context) and apply the edit there — it will propagate to all instances
 4. If the main component is in a different file (shared library), note that it cannot be edited via MCP and give design direction instead
 
 **Example message to user:**
+
 > "The node `68:27912` is inside a component instance. I'll apply this fix to the main component instead, which will update all instances automatically."
 
 ---
 
 ### Rule 6: Always verify with a screenshot after editing
+
 After each `perform_editing_operations` call:
+
 ```
 1. Call get_screenshot on the same nodeId
 2. Show the screenshot to the user
@@ -339,6 +378,7 @@ After each `perform_editing_operations` call:
 ## Reading Component Structure
 
 Well-structured Figma files use a naming convention like:
+
 ```
 ComponentName/Variant/State
 Button/Primary/Default
@@ -353,23 +393,24 @@ When auditing, note if components follow this pattern. If they don't, flag it as
 
 ## Common Figma-Specific Issues to Flag
 
-| Issue | Figma Signal | Severity |
-|---|---|---|
-| No components used | All layers are "Frame", "Rectangle", "Group" | 🟡 |
-| Detached components | Layer shows "⚠ Detached" | 🟡 |
-| Inconsistent text styles | No shared text styles defined | 🟡 |
-| Inconsistent color styles | No shared color styles defined | 🟡 |
-| Missing auto-layout | Fixed-position elements that should flex | 🟢 |
-| No grids defined | Layout grid not applied to frames | 🟢 |
-| Unlabeled frames | Frames named "Frame 1", "Frame 2" | 🟢 |
-| Missing variants | Component has no hover/disabled states | 🟡 |
-| Images not masked | Raw image fills without mask shapes | 🟢 |
+| Issue                     | Figma Signal                                 | Severity |
+| ------------------------- | -------------------------------------------- | -------- |
+| No components used        | All layers are "Frame", "Rectangle", "Group" | 🟡       |
+| Detached components       | Layer shows "⚠ Detached"                     | 🟡       |
+| Inconsistent text styles  | No shared text styles defined                | 🟡       |
+| Inconsistent color styles | No shared color styles defined               | 🟡       |
+| Missing auto-layout       | Fixed-position elements that should flex     | 🟢       |
+| No grids defined          | Layout grid not applied to frames            | 🟢       |
+| Unlabeled frames          | Frames named "Frame 1", "Frame 2"            | 🟢       |
+| Missing variants          | Component has no hover/disabled states       | 🟡       |
+| Images not masked         | Raw image fills without mask shapes          | 🟢       |
 
 ---
 
 ## When Figma MCP Isn't Available
 
 If Figma MCP tools aren't connected, ask the user to:
+
 1. Export a screenshot (PNG) and share it
 2. Or share specific values they see in Figma's right panel (colors, font sizes, spacing)
 3. Or copy-paste the CSS Figma generates (right panel → Inspect → CSS)

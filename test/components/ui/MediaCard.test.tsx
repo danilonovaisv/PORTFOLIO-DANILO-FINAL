@@ -5,7 +5,14 @@ import { MediaCard } from '@/components/ui/media/MediaCard';
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, className, fill: _fill, loader: _loader, ...props }: any) => (
+  default: ({
+    src,
+    alt,
+    className,
+    fill: _fill,
+    loader: _loader,
+    ...props
+  }: any) => (
     <span
       role="img"
       aria-label={alt as string}

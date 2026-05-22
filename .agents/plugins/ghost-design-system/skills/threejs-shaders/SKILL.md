@@ -8,7 +8,7 @@ description: Three.js shaders - GLSL, ShaderMaterial, uniforms, custom effects. 
 ## Quick Start
 
 ```javascript
-import * as THREE from "three";
+import * as THREE from 'three';
 
 const material = new THREE.ShaderMaterial({
   uniforms: {
@@ -404,15 +404,15 @@ material.onBeforeCompile = (shader) => {
 
   // Modify vertex shader
   shader.vertexShader = shader.vertexShader.replace(
-    "#include <begin_vertex>",
+    '#include <begin_vertex>',
     `
     #include <begin_vertex>
     transformed.y += sin(position.x * 10.0 + time) * 0.1;
-    `,
+    `
   );
 
   // Add uniform declaration
-  shader.vertexShader = "uniform float time;\n" + shader.vertexShader;
+  shader.vertexShader = 'uniform float time;\n' + shader.vertexShader;
 };
 
 // Update in animation loop
@@ -425,14 +425,14 @@ if (material.userData.shader) {
 
 ```javascript
 // Vertex shader chunks
-"#include <begin_vertex>"; // After position is calculated
-"#include <project_vertex>"; // After gl_Position
-"#include <beginnormal_vertex>"; // Normal calculation start
+'#include <begin_vertex>'; // After position is calculated
+'#include <project_vertex>'; // After gl_Position
+'#include <beginnormal_vertex>'; // Normal calculation start
 
 // Fragment shader chunks
-"#include <color_fragment>"; // After diffuse color
-"#include <output_fragment>"; // Final output
-"#include <fog_fragment>"; // After fog applied
+'#include <color_fragment>'; // After diffuse color
+'#include <output_fragment>'; // Final output
+'#include <fog_fragment>'; // After fog applied
 ```
 
 ## GLSL Built-in Functions
@@ -497,8 +497,8 @@ const material = new THREE.ShaderMaterial({
   uniforms: {
     /* ... */
   },
-  vertexShader: "/* ... */",
-  fragmentShader: "/* ... */",
+  vertexShader: '/* ... */',
+  fragmentShader: '/* ... */',
 
   // Rendering
   transparent: true,
@@ -533,7 +533,7 @@ const material = new THREE.ShaderMaterial({
 ### Using Three.js Shader Chunks
 
 ```javascript
-import { ShaderChunk } from "three";
+import { ShaderChunk } from 'three';
 
 const fragmentShader = `
   ${ShaderChunk.common}
@@ -554,8 +554,8 @@ const fragmentShader = `
 
 ```javascript
 // With vite/webpack
-import vertexShader from "./shaders/vertex.glsl";
-import fragmentShader from "./shaders/fragment.glsl";
+import vertexShader from './shaders/vertex.glsl';
+import fragmentShader from './shaders/fragment.glsl';
 
 const material = new THREE.ShaderMaterial({
   vertexShader,
@@ -569,7 +569,7 @@ const material = new THREE.ShaderMaterial({
 // Instanced attribute
 const offsets = new Float32Array(instanceCount * 3);
 // Fill offsets...
-geometry.setAttribute("offset", new THREE.InstancedBufferAttribute(offsets, 3));
+geometry.setAttribute('offset', new THREE.InstancedBufferAttribute(offsets, 3));
 
 const material = new THREE.ShaderMaterial({
   vertexShader: `
@@ -593,8 +593,8 @@ const material = new THREE.ShaderMaterial({
 ```javascript
 // Check for compile errors
 material.onBeforeCompile = (shader) => {
-  console.log("Vertex Shader:", shader.vertexShader);
-  console.log("Fragment Shader:", shader.fragmentShader);
+  console.log('Vertex Shader:', shader.vertexShader);
+  console.log('Fragment Shader:', shader.fragmentShader);
 };
 
 // Visual debugging

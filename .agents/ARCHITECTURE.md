@@ -31,13 +31,13 @@ Antigravity Kit is a modular system consisting of:
 
 ## 🤖 Agents (5 Master Specialists)
 
-| Agent | Role | Responsibility |
-| ----- | ---- | -------------- |
-| `orchestrator` | **The Director** | Strategic flow & Final Operation |
-| `frontend-specialist`| **Worker** | UI, UX & Web Performance |
-| `mobile-developer` | **Worker** | Full-stack Mobile Development |
-| `spectral-artist` | **Artist** | WebGL, Shaders & Visual Motion |
-| `database-sentinel` | **Sentinel** | DB Schema & Supabase RLS |
+| Agent                 | Role             | Responsibility                   |
+| --------------------- | ---------------- | -------------------------------- |
+| `orchestrator`        | **The Director** | Strategic flow & Final Operation |
+| `frontend-specialist` | **Worker**       | UI, UX & Web Performance         |
+| `mobile-developer`    | **Worker**       | Full-stack Mobile Development    |
+| `spectral-artist`     | **Artist**       | WebGL, Shaders & Visual Motion   |
+| `database-sentinel`   | **Sentinel**     | DB Schema & Supabase RLS         |
 
 ---
 
@@ -56,11 +56,11 @@ System operates on the classic management framework to ensure continuous quality
 
 Modular knowledge domains that agents can load on-demand based on task context.
 
-| Skill | Description |
-| ----- | ----------- |
-| `ghost-r3f-optimization` | R3F & WebGL performance (60FPS Mandate) |
-| `nextjs-app-router-caching` | Next.js 16 caching & server components |
-| `supabase-rls-auth` | Auth & RLS with @supabase/ssr |
+| Skill                          | Description                                   |
+| ------------------------------ | --------------------------------------------- |
+| `ghost-r3f-optimization`       | R3F & WebGL performance (60FPS Mandate)       |
+| `nextjs-app-router-caching`    | Next.js 16 caching & server components        |
+| `supabase-rls-auth`            | Auth & RLS with @supabase/ssr                 |
 | `tailwind-motion-choreography` | Hybrid animation (Tailwind 4 + Framer Motion) |
 
 ---
@@ -69,26 +69,26 @@ Modular knowledge domains that agents can load on-demand based on task context.
 
 Slash command procedures. Invoke with `/command`.
 
-| Command | Description |
-| ------- | ----------- |
-| `/api` | API Design & Documentation |
-| `/audit` | Comprehensive project audit |
-| `/compliance` | Legal & Data Privacy compliance |
-| `/deploy` | Deployment procedures |
-| `/document` | Documentation automation |
-| `/log-error` | Error tracking & logging |
-| `/monitor` | Server & Pipeline monitoring |
-| `/onboard` | Team onboarding automation |
-| `/performance` | Speed & Performance optimization |
-| `/plan` | Task breakdown & Planning |
-| `/release-version` | Version sync & Documentation |
-| `/scroll-experience` | Immersive scroll-driven design |
-| `/security` | Security scan & audit |
-| `/status` | Project status dashboard |
-| `/tdd-feature` | Test-driven development flow |
-| `/test` | Automated testing |
-| `/update-docs` | Documentation sync |
-| `/orchestrate` | Multi-agent coordination |
+| Command              | Description                      |
+| -------------------- | -------------------------------- |
+| `/api`               | API Design & Documentation       |
+| `/audit`             | Comprehensive project audit      |
+| `/compliance`        | Legal & Data Privacy compliance  |
+| `/deploy`            | Deployment procedures            |
+| `/document`          | Documentation automation         |
+| `/log-error`         | Error tracking & logging         |
+| `/monitor`           | Server & Pipeline monitoring     |
+| `/onboard`           | Team onboarding automation       |
+| `/performance`       | Speed & Performance optimization |
+| `/plan`              | Task breakdown & Planning        |
+| `/release-version`   | Version sync & Documentation     |
+| `/scroll-experience` | Immersive scroll-driven design   |
+| `/security`          | Security scan & audit            |
+| `/status`            | Project status dashboard         |
+| `/tdd-feature`       | Test-driven development flow     |
+| `/test`              | Automated testing                |
+| `/update-docs`       | Documentation sync               |
+| `/orchestrate`       | Multi-agent coordination         |
 
 ---
 
@@ -114,11 +114,11 @@ skill-name/
 
 ### Enhanced Skills (with scripts/references)
 
-| Skill | Files | Coverage |
-| ----- | ----- | -------- |
-| `typescript-expert` | 5 | Utility types, tsconfig, cheatsheet |
-| `ui-ux-pro-max` | 27 | 50 styles, 21 palettes, 50 fonts |
-| `app-builder` | 20 | Full-stack scaffolding |
+| Skill               | Files | Coverage                            |
+| ------------------- | ----- | ----------------------------------- |
+| `typescript-expert` | 5     | Utility types, tsconfig, cheatsheet |
+| `ui-ux-pro-max`     | 27    | 50 styles, 21 palettes, 50 fonts    |
+| `app-builder`       | 20    | Full-stack scaffolding              |
 
 ---
 
@@ -128,9 +128,9 @@ Master validation scripts that orchestrate skill-level scripts.
 
 ### Master Scripts
 
-| Script | Purpose | When to Use |
-| ------ | ------- | ----------- |
-| `checklist.py` | Priority-based validation (Core checks) | Development, pre-commit |
+| Script          | Purpose                                 | When to Use              |
+| --------------- | --------------------------------------- | ------------------------ |
+| `checklist.py`  | Priority-based validation (Core checks) | Development, pre-commit  |
 | `verify_all.py` | Comprehensive verification (All checks) | Pre-deployment, releases |
 
 ### Usage
@@ -169,26 +169,26 @@ For details, see [scripts/README.md](scripts/README.md)
 
 ## 📊 Statistics
 
-| Metric | Value |
-| ------ | ----- |
-| **Total Agents** | 5 |
-| **Total Master Skills** | 4 |
-| **Total Workflows** | 18 |
-| **Total Global Rules** | 28 |
-| **Coverage** | 100% Ghost System Standards |
+| Metric                  | Value                       |
+| ----------------------- | --------------------------- |
+| **Total Agents**        | 5                           |
+| **Total Master Skills** | 4                           |
+| **Total Workflows**     | 18                          |
+| **Total Global Rules**  | 28                          |
+| **Coverage**            | 100% Ghost System Standards |
 
 ---
 
 ## 🔗 Quick Reference
 
-| Need | Agent | Skills |
-| ---- | ----- | ------ |
-| Web App | `frontend-specialist` | nextjs-react-expert, frontend-design |
-| API | `backend-specialist` | api-patterns, nodejs-best-practices |
-| Mobile | `mobile-developer` | mobile-design |
-| Database | `database-architect` | database-design, prisma-expert |
-| Security | `security-auditor` | vulnerability-scanner |
-| Testing | `test-engineer` | testing-patterns, webapp-testing |
-| Debug | `debugger` | systematic-debugging |
-| Plan | `project-planner` | brainstorming, plan-writing |
-| Recon/Scraping | `browser-subagent`| browser-subagent-core |
+| Need           | Agent                 | Skills                               |
+| -------------- | --------------------- | ------------------------------------ |
+| Web App        | `frontend-specialist` | nextjs-react-expert, frontend-design |
+| API            | `backend-specialist`  | api-patterns, nodejs-best-practices  |
+| Mobile         | `mobile-developer`    | mobile-design                        |
+| Database       | `database-architect`  | database-design, prisma-expert       |
+| Security       | `security-auditor`    | vulnerability-scanner                |
+| Testing        | `test-engineer`       | testing-patterns, webapp-testing     |
+| Debug          | `debugger`            | systematic-debugging                 |
+| Plan           | `project-planner`     | brainstorming, plan-writing          |
+| Recon/Scraping | `browser-subagent`    | browser-subagent-core                |

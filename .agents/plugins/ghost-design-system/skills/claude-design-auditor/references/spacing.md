@@ -5,38 +5,43 @@
 The most widely-used spacing system in professional UI design. Every spacing and sizing value should be a **multiple of 8**.
 
 ### The Scale
+
 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 128px
 
 ### Why 8?
+
 - Screens are divisible by 8 (common screen widths: 320, 360, 375, 390, 414, 768, 1024, 1280, 1440...)
 - 8px is small enough for fine-grained control, large enough to be meaningful
 - Values always divide cleanly across pixel densities (1×, 2×, 3×)
 
 ### 4-Point Variant
+
 Some teams use a 4-point base instead. This gives you: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64...
 Fine for dense/compact UIs. Still keep values as multiples of 4.
 
 ### What to Put on the Grid
+
 - Spacing between components
 - Padding inside components
 - Component sizes (widths, heights)
 - Icon sizes (16, 20, 24, 32, 40, 48px)
 
 ### Common Off-Grid Values (Red Flags)
+
 - 3px, 5px, 7px, 9px, 11px, 13px, 17px, 22px, 27px...
-If you see these, ask "why?" — they're usually accidental.
+  If you see these, ask "why?" — they're usually accidental.
 
 ---
 
 ## Spacing Vocabulary
 
-| Term | Meaning |
-|---|---|
-| **Padding** | Space *inside* a container (between content and its border) |
-| **Margin** | Space *outside* a component (between it and adjacent things) |
-| **Gap** | Space between items in a flex or grid container |
-| **Gutter** | Space between columns in a grid layout |
-| **Inset** | Uniform padding on all sides |
+| Term        | Meaning                                                      |
+| ----------- | ------------------------------------------------------------ |
+| **Padding** | Space _inside_ a container (between content and its border)  |
+| **Margin**  | Space _outside_ a component (between it and adjacent things) |
+| **Gap**     | Space between items in a flex or grid container              |
+| **Gutter**  | Space between columns in a grid layout                       |
+| **Inset**   | Uniform padding on all sides                                 |
 
 ---
 
@@ -44,11 +49,11 @@ If you see these, ask "why?" — they're usually accidental.
 
 The space between the screen edge and the content:
 
-| Screen Size | Common Margin |
-|---|---|
-| Mobile (< 768px) | 16px or 20px |
-| Tablet (768–1024px) | 24px or 32px |
-| Desktop (1024–1440px) | 48px, 64px, or 80px |
+| Screen Size            | Common Margin                    |
+| ---------------------- | -------------------------------- |
+| Mobile (< 768px)       | 16px or 20px                     |
+| Tablet (768–1024px)    | 24px or 32px                     |
+| Desktop (1024–1440px)  | 48px, 64px, or 80px              |
 | Wide desktop (1440px+) | Content max-width + auto margins |
 
 **Max Content Width**: Most readable body content caps at **680–800px wide**. Full-width containers can go to 1200–1440px for dashboards/data-heavy layouts.
@@ -59,21 +64,21 @@ The space between the screen edge and the content:
 
 ### Buttons
 
-| Size | Vertical Padding | Horizontal Padding |
-|---|---|---|
-| Small | 6–8px | 12–16px |
-| Medium (default) | 10–12px | 20–24px |
-| Large | 14–16px | 28–32px |
+| Size             | Vertical Padding | Horizontal Padding |
+| ---------------- | ---------------- | ------------------ |
+| Small            | 6–8px            | 12–16px            |
+| Medium (default) | 10–12px          | 20–24px            |
+| Large            | 14–16px          | 28–32px            |
 
 **Touch target rule**: The entire button hit area should be at least **44×44px** (iOS) or **48×48dp** (Android/Material).
 
 ### Cards & Panels
 
-| Size | Padding |
-|---|---|
+| Size                       | Padding |
+| -------------------------- | ------- |
 | Compact (dense dashboards) | 12–16px |
-| Default | 16–24px |
-| Spacious | 24–32px |
+| Default                    | 16–24px |
+| Spacious                   | 24–32px |
 
 Padding should be consistent on all four sides, or use a pattern like more top/bottom than left/right intentionally.
 
@@ -111,14 +116,15 @@ If two groups of content have the same amount of space between them as within th
 
 ### Types of Alignment
 
-| Type | When to Use |
-|---|---|
-| **Left edge** | Most common. Body text, list items, form fields |
+| Type           | When to Use                                              |
+| -------------- | -------------------------------------------------------- |
+| **Left edge**  | Most common. Body text, list items, form fields          |
 | **Right edge** | Numbers in tables, secondary actions (right-side of nav) |
-| **Center** | Short headlines, icons, button labels, hero content |
-| **Baseline** | Text that sits next to each other in a line |
+| **Center**     | Short headlines, icons, button labels, hero content      |
+| **Baseline**   | Text that sits next to each other in a line              |
 
 ### Grid Alignment
+
 Elements should align to a shared invisible grid. Things that aren't aligned to something look accidental.
 
 **Check by drawing invisible lines**: Do your left edges line up? Do your top edges line up? If not, it should be intentional, not accidental.
@@ -130,18 +136,21 @@ Elements should align to a shared invisible grid. Things that aren't aligned to 
 White space (negative space) is **not empty space** — it's an active design element.
 
 ### Why White Space Matters
+
 - Makes content easier to scan
 - Creates focus on what matters
 - Communicates quality and confidence
 - Reduces cognitive load
 
 ### Signs of Insufficient White Space
+
 - Text runs edge-to-edge in containers
 - Elements feel cramped or cluttered
 - Nothing has visual breathing room
 - Too many elements compete for attention
 
 ### Signs of Too Much White Space
+
 - Content feels lost or disconnected
 - Scroll depth becomes excessive for simple content
 - Relationships between elements are unclear
@@ -157,6 +166,7 @@ White space (negative space) is **not empty space** — it's an active design el
 Most layouts use a **12-column grid** (desktop). This divides evenly into 1, 2, 3, 4, 6, and 12 columns.
 
 Common desktop layouts:
+
 - **Full width**: 12 columns
 - **Wide content**: 10 columns, 1-column offset each side
 - **Article**: 8 columns (centered)
@@ -166,13 +176,13 @@ Mobile: Usually **1 column** (stacked), or **2 columns** for grids.
 
 ### Common Layout Patterns
 
-| Pattern | Use Case |
-|---|---|
-| **Holy Grail** | Header + sidebar + content + sidebar + footer |
-| **Card Grid** | Products, blog posts, gallery items |
-| **Dashboard** | Stats + charts + tables |
-| **Single Column** | Mobile, articles, forms |
-| **Split / Two-Pane** | Settings, email clients, sidebars |
+| Pattern              | Use Case                                      |
+| -------------------- | --------------------------------------------- |
+| **Holy Grail**       | Header + sidebar + content + sidebar + footer |
+| **Card Grid**        | Products, blog posts, gallery items           |
+| **Dashboard**        | Stats + charts + tables                       |
+| **Single Column**    | Mobile, articles, forms                       |
+| **Split / Two-Pane** | Settings, email clients, sidebars             |
 
 ---
 
@@ -180,14 +190,14 @@ Mobile: Usually **1 column** (stacked), or **2 columns** for grids.
 
 When elements overlap, they need a clear layer hierarchy:
 
-| Layer | Z-index Range | Examples |
-|---|---|---|
-| Base content | 0–9 | Page content, images |
-| Floating elements | 10–99 | Sticky headers, floating buttons |
-| Dropdowns / tooltips | 100–199 | Dropdown menus, tooltips |
-| Modals / overlays | 200–299 | Modal dialogs, drawers |
-| Notifications / toasts | 300–399 | Toast messages, alerts |
-| Debug / dev tools | 9999+ | Dev tools, onboarding overlays |
+| Layer                  | Z-index Range | Examples                         |
+| ---------------------- | ------------- | -------------------------------- |
+| Base content           | 0–9           | Page content, images             |
+| Floating elements      | 10–99         | Sticky headers, floating buttons |
+| Dropdowns / tooltips   | 100–199       | Dropdown menus, tooltips         |
+| Modals / overlays      | 200–299       | Modal dialogs, drawers           |
+| Notifications / toasts | 300–399       | Toast messages, alerts           |
+| Debug / dev tools      | 9999+         | Dev tools, onboarding overlays   |
 
 **Don't use arbitrary z-index values** like 9999 for normal components. It creates escalation wars.
 
@@ -227,11 +237,13 @@ When aligning multi-line text with single-line text or icons, tiny spacing adjus
 Third-party components, native platform guidelines (iOS HIG, Material Design), or specific browser rendering may impose constraints that conflict with your grid.
 
 ### How to Handle Intentional Breaks
+
 - **Document it** — Add a comment in code: `/* 6px: optical correction for icon padding */`
 - **Keep it local** — Don't make a "6px" token. The break is specific to this context.
 - **Review it** — Off-grid values should be questioned in design reviews. If it doesn't have a reason, it's accidental.
 
 ### The Key Test
+
 > "Can I explain why this value isn't on the grid?"
 
 If yes → intentional, acceptable.  
@@ -244,6 +256,7 @@ If no → accidental, fix it.
 When auditing CSS/React/Vue code, verify these directly rather than estimating visually.
 
 ### Off-grid value detection
+
 ```
 Collect all padding, margin, gap, width, height values in px.
 
@@ -263,6 +276,7 @@ Deduplication rule: same off-grid value in 5+ places → one grouped issue:
 ```
 
 ### Padding consistency
+
 ```
 Cards and panels:
   → Mismatched sides: paddingTop: 16 / paddingLeft: 12 on same component → 🟡
@@ -276,6 +290,7 @@ Mixed shorthand across similar components:
 ```
 
 ### z-index audit
+
 ```
 Expected z-index ranges (from spacing.md z-index table):
   0–9:    base content
@@ -293,6 +308,7 @@ Flag as 🟡 Warning:
 ```
 
 ### Content margin and max-width
+
 ```
   → Body/main container with no max-width → 🟢 Tip
   → max-width > 1440px on text-heavy containers → 🟢 Tip
@@ -301,6 +317,7 @@ Flag as 🟡 Warning:
 ```
 
 ### Logical properties (RTL readiness)
+
 ```
 Physical → Logical property suggestions (flag as 🟢 Tip unless RTL audit active):
   margin-left  → margin-inline-start
