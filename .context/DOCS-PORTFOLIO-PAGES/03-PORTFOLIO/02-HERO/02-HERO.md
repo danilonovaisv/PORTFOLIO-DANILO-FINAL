@@ -3,7 +3,7 @@
 ## 0. Estrutura de arquivos da sessão
 
 - `src/components/portfolio/PortfolioHeroNew.tsx`
-- `src/components/ui/shared/DynamicAssetVideo.tsx`
+- `src/components/ui/shared/ResponsiveVideo.tsx`
 - `src/config/content.ts`
 - `src/config/site-assets.ts`
 - `src/hooks/useMotionGate.ts`
@@ -34,9 +34,10 @@ Abrir a página com presença visual forte (vídeo desktop/mobile), título edit
 ## 5. Responsividade
 
 - Troca de asset por breakpoint (`heroDesktop`/`heroMobile`).
-- Tipografia escala de `text-4xl` até `text-8xl`.
-- Vídeo hero é full-bleed em desktop e mobile: `section#portfolio-hero` rompe o wrapper `.std-grid` com `w-screen` e `left-1/2 -translate-x-1/2`.
-- O vídeo usa `object-cover` e ocupa toda a largura do viewport até as bordas da página.
+- Tipografia escala com `clamp()` no mobile e `md:text-8xl` no desktop.
+- Vídeo hero é full-bleed em desktop e mobile: `section#portfolio-hero` rompe o wrapper `.std-grid` com `w-screen`, `max-w-none`, `min-h-[100svh]` e `left-1/2 -translate-x-1/2`.
+- O vídeo ocupa toda a largura/altura do viewport (`w-full h-full min-w-full max-w-none`) e mantém `object-contain` para preservar as laterais do asset.
+- No mobile, "portfólio" e "showcase" empilham para evitar corte lateral do título.
 
 ## 6. Acessibilidade e SEO
 
@@ -49,8 +50,10 @@ Abrir a página com presença visual forte (vídeo desktop/mobile), título edit
   - bom fallback para ausência de motion.
   - centralização de source via `SITE_ASSET_KEYS`.
   - validação local em `2026-05-02`: `fullBleedX: true` para desktop `1440px` e mobile `390px`, sem erro de mídia.
+  - validação local em `2026-05-22`: dev e standalone production com `heroRect.left=0`, `heroRect.right=viewport`, `videoCount=1`, source desktop/mobile correto e `object-fit: contain`.
 - Riscos:
   - custo de LCP se asset hero não estiver otimizado no storage.
+  - alguns frames do próprio vídeo podem conter cards parcialmente fora da composição; isso é conteúdo do asset, não crop CSS.
 
 ## 8. Inconformidades observadas
 

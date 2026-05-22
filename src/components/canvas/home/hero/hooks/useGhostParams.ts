@@ -11,9 +11,9 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       eyeGlowColor: 'violet',
       ghostOpacity: 0.92,
       ghostScale: 2.4,
-      emissiveIntensity: 1.8, // Reduced further from 2.8 to 1.8 for an ultra-subtle elegant glow
+      emissiveIntensity: 2.4,
       pulseSpeed: 1.4,
-      pulseIntensity: 0.12, // Clamp to remove flicker on emissive modulation
+      pulseIntensity: 0.16,
       eyeGlowIntensity: 2.4, // Reduced from 3.8 to 2.4 to stay soft and balanced
       eyeGlowDecay: 0.96,
       eyeGlowResponse: 0.35,
@@ -45,15 +45,15 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       analogJitter: 0.15,
       limboMode: false,
       // Environment & Post-Processing
-      bloomStrength: performanceConfig.quality === 'low' ? 0.18 : 0.35,
-      bloomRadius: 1.1,
+      bloomStrength: performanceConfig.quality === 'low' ? 0.18 : 0.55,
+      bloomRadius: 1.05,
       // Threshold > 0 so only highly emissive pixels bloom — eliminates frame-wide bloom instability
-      bloomThreshold: 0.85,
+      bloomThreshold: 0.65,
       ambientLightColor: 0x040013,
       ambientLightIntensity: 0.05,
       rimLightColor1: 0x0048ff, // Ghost System Primary Blue
       rimLightColor2: 0x4fe6ff, // Ghost System Accent Blue
-      exposure: 0.95,
+      exposure: 1.05,
     };
   }, [performanceConfig]);
 }

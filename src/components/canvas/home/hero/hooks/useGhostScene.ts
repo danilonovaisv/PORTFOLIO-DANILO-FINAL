@@ -66,6 +66,7 @@ export function useGhostScene(
     // Cap DPR at 1.5 — bloom cost scales quadratically with pixel ratio on retina
     renderer.setPixelRatio(Math.min(performanceConfig.pixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = params.exposure;
     renderer.setClearColor(0x000000, 0);
@@ -88,6 +89,12 @@ export function useGhostScene(
       'Interactive 3D Ghost Portfolio Experience'
     );
     renderer.domElement.setAttribute('role', 'img');
+    renderer.domElement.dataset.ghostQuality = performanceConfig.quality;
+    renderer.domElement.dataset.postProcessing = String(
+      performanceConfig.enablePostProcessing
+    );
+    renderer.domElement.dataset.outputColorSpace = 'srgb';
+    renderer.domElement.dataset.toneMapping = 'aces-filmic';
 
     mountElement.appendChild(renderer.domElement);
     rendererRef.current = renderer;
