@@ -1,7 +1,7 @@
 'use client';
 
 import { RefObject } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
@@ -97,8 +97,10 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           <DynamicAssetImage
             assetKey={block.assetKey}
             alt={block.title}
-            fallbackUrl={block.img}
+            fallbackUrl={block.img || `/site-assets/${block.fallback}`}
             priority={block.priority}
+            width={400}
+            height={400}
             className="w-full h-full"
             sizes="(max-width: 1024px) 92vw, 0px"
           />
@@ -167,8 +169,10 @@ export function OriginStickyGallery({
             <DynamicAssetImage
               assetKey={block.assetKey}
               alt={block.title}
-              fallbackUrl={block.img}
+              fallbackUrl={block.img || `/site-assets/${block.fallback}`}
               priority={block.priority}
+              width={512}
+              height={500}
               className="w-full h-full rounded-3xl overflow-hidden"
               sizes="(max-width: 1024px) 0px, 40vw"
             />

@@ -1,6 +1,6 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { HOME_CONTENT } from '@/config/content';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
@@ -91,6 +91,8 @@ export default function ClientsBrandsSection() {
                     alt={logo.alt}
                     fallbackUrl={logo.src || ''}
                     priority={false}
+                    width={192}
+                    height={96}
                     objectFit="contain"
                     sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
                     className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-modal group-hover:opacity-100"

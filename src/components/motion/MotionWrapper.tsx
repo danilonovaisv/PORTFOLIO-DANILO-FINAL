@@ -1,6 +1,6 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface MotionWrapperProps {

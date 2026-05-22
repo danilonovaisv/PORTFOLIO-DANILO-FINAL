@@ -1,24 +1,39 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { useRef } from 'react';
+import { m, useScroll, useTransform } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
-import {
-  MOTION_TOKENS,
-  GHOST_EASE,
-  ghostFade,
-  viewportConfig,
-} from '@/config/motion';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { MOTION_TOKENS, GHOST_EASE, ghostFade } from '@/config/motion';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
-
-import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
+import { getAssetUrl } from '@/lib/utils';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 
 export function AboutHero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.4], [0, -40]);
+  const blur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
+
   const prefersReducedMotion = useMotionGate();
 
   const shouldPlayVideo = !prefersReducedMotion;
+
+  const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1080,
+    quality: 60,
+  });
 
   const heroSrTitle = [
     ABOUT_CONTENT.hero.title.text,
@@ -33,32 +48,40 @@ export function AboutHero() {
     .join(' ');
 
   return (
-    <section className="bg-background" aria-labelledby="about-hero-title">
+    <section
+      ref={containerRef}
+      className="bg-background"
+      aria-labelledby="about-hero-title"
+    >
       <div className="relative min-h-screen overflow-hidden">
         <h1 id="about-hero-title" className="sr-only">
           {heroSrTitle}
         </h1>
 
-        {/* Background Video - Desktop - Sincronização Realtime */}
-        <DynamicAssetVideo
-          assetKey={SITE_ASSET_KEYS.heroVideos.aboutDesktop}
-          fallbackUrl={ABOUT_CONTENT.hero.videos.desktop || undefined}
-          playbackRate={0.4}
-          autoPlay={shouldPlayVideo}
-          muted
-          loop={shouldPlayVideo}
-          poster={DEFAULT_VIDEO_POSTER}
-          className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.78] z-[var(--z-layer-base)]"
-        />
-
-        {/* Desktop Overlay - Contrast Exception Control */}
-        <div
-          className="hidden lg:block absolute inset-0 pointer-events-none z-[var(--z-layer-glass)] mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
-          aria-hidden="true"
-        />
+        {/* Background Video - Native responsive `<source>` implementation */}
+        <div className="relative aspect-[9/16] w-full overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
+          <ResponsiveVideo
+            desktopSrc={RESPONSIVE_VIDEOS.aboutHero.desktop}
+            mobileSrc={RESPONSIVE_VIDEOS.aboutHero.mobile}
+            desktopPoster={activePosterDesk}
+            mobilePoster={activePosterMobile}
+            fitPolicy={RESPONSIVE_VIDEOS.aboutHero.fitPolicy}
+            autoPlay={shouldPlayVideo}
+            muted
+            loop={shouldPlayVideo}
+            className="absolute inset-0 h-full w-full object-contain object-top opacity-[0.78] md:object-center md:z-[var(--z-layer-base)]"
+          />
+          {/* Mobile Overlay */}
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)] md:hidden" />
+          {/* Desktop Overlay */}
+          <div
+            className="hidden md:block absolute inset-0 pointer-events-none z-[var(--z-layer-glass)] mix-blend-multiply bg-linear-to-l from-background via-background/80 to-background/40"
+            aria-hidden="true"
+          />
+        </div>
 
         {/* Desktop Content - 12 Column Grid Concept */}
-        <div className="relative z-[var(--z-layer-content)] hidden lg:flex h-screen items-center overflow-hidden w-full">
+        <div className="hidden md:flex relative z-[var(--z-layer-content)] h-screen items-center overflow-hidden w-full">
           <div className="std-grid w-full">
             <div className="grid grid-cols-12 w-full gap-8">
               {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
@@ -66,24 +89,16 @@ export function AboutHero() {
 
               {/* Columns 7-12: Content Block */}
               <m.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
+                style={
+                  prefersReducedMotion
+                    ? {}
+                    : { opacity, y, filter: `blur(${blur}px)` }
+                }
                 className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
               >
                 <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
                   {/* Intro & Manifesto - Unified for natural wrapping */}
-                  <m.div
-                    initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
-                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    viewport={viewportConfig}
-                    transition={{
-                      duration: MOTION_TOKENS.duration.slow,
-                      ease: GHOST_EASE,
-                      delay: MOTION_TOKENS.delay.none,
-                    }}
-                    className="mb-12 flex flex-col items-end gap-1"
-                  >
+                  <m.div className="mb-12 flex flex-col items-end gap-1">
                     <div
                       aria-hidden="true"
                       className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
@@ -115,16 +130,7 @@ export function AboutHero() {
                   </m.div>
 
                   {/* Description - Responsive line breaks */}
-                  <m.div
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={viewportConfig}
-                    transition={{
-                      duration: MOTION_TOKENS.duration.slow,
-                      ease: GHOST_EASE,
-                      delay: MOTION_TOKENS.delay.medium,
-                    }}
-                  >
+                  <m.div>
                     <p className="text-h3 text-text text-right font-medium max-w-[520px]">
                       {ABOUT_CONTENT.hero.description.join(' ')}
                     </p>
@@ -138,87 +144,65 @@ export function AboutHero() {
         {/* Gradient Bottom Decay - Suaviza transição para próxima sessão */}
         <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-[var(--z-layer-content)]" />
 
-        {/* Mobile Hero Video - Sincronização Realtime */}
-        <div className="lg:hidden">
-          <div className="relative aspect-square w-full overflow-hidden">
-            <div className="w-full h-full">
-              <DynamicAssetVideo
-                assetKey={SITE_ASSET_KEYS.heroVideos.aboutMobile}
-                fallbackUrl={ABOUT_CONTENT.hero.videos.mobile || undefined}
-                playbackRate={0.4}
-                autoPlay={shouldPlayVideo}
-                muted
-                loop={shouldPlayVideo}
-                poster={DEFAULT_VIDEO_POSTER}
-                className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
-              />
-            </div>
-            <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)]" />
-          </div>
-          <div className="std-grid relative z-[var(--z-layer-content)] pt-10 pb-20 text-center">
+        {/* Mobile Content */}
+        <div className="md:hidden std-grid relative z-[var(--z-layer-content)] pt-10 pb-20 text-center">
+          <m.div
+            initial={prefersReducedMotion ? 'visible' : 'hidden'}
+            animate="visible"
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: MOTION_TOKENS.stagger.normal,
+                  delayChildren: MOTION_TOKENS.delay.medium,
+                },
+              },
+            }}
+            className="space-y-6"
+          >
             <m.div
-              initial={prefersReducedMotion ? 'visible' : 'hidden'}
-              animate="visible"
               variants={{
+                hidden: { opacity: 0.1, y: 20, filter: 'blur(10px)' },
                 visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: 'blur(0px)',
                   transition: {
-                    staggerChildren: MOTION_TOKENS.stagger.normal,
-                    delayChildren: MOTION_TOKENS.delay.medium,
+                    duration: MOTION_TOKENS.duration.slow,
+                    ease: GHOST_EASE,
                   },
                 },
               }}
-              className="space-y-6"
+              className="space-y-4"
             >
-              <m.div
-                variants={{
-                  hidden: { opacity: 0, filter: 'blur(10px)' },
-                  visible: {
-                    opacity: 1,
-                    filter: 'blur(0px)',
-                    transition: {
-                      duration: MOTION_TOKENS.duration.slow,
-                      ease: GHOST_EASE,
-                    },
-                  },
-                }}
-                className="space-y-4"
+              <div
+                aria-hidden="true"
+                className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
               >
-                {/* TÍTULO MOBILE AJUSTADO
-                    1. text-[clamp(1.8rem...)]: Reduzi o mínimo para caber melhor em telas pequenas.
-                    2. text-balance: Garante que as linhas fiquem visualmente equilibradas.
-                */}
-                <div
-                  aria-hidden="true"
-                  className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
-                >
-                  <span>
-                    Sou <span className="text-bluePrimary">Danilo Novais.</span>
-                  </span>
-                  <span>
-                    Você <span className="text-bluePrimary">não vê tudo</span>{' '}
-                    <span className="whitespace-nowrap">o que eu faço.</span>
-                  </span>
-                  <span>
-                    Mas sente quando{' '}
-                    <span className="text-bluePrimary whitespace-nowrap">
-                      funciona.
-                    </span>
-                  </span>
-                </div>
-              </m.div>
-
-              <m.div
-                variants={ghostFade}
-                className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
-              >
-                {ABOUT_CONTENT.hero.description.map((line, index) => (
-                  <span key={index} className="block">
-                    {line}
-                  </span>
-                ))}
-              </m.div>
+                <span>
+                  Sou <span className="text-bluePrimary">Danilo Novais.</span>
+                </span>
+                <span>
+                  Você <span className="text-bluePrimary">não vê tudo</span>{' '}
+                  <span>o que eu faço.</span>
+                </span>
+                <span>
+                  Mas sente quando{' '}
+                  <span className="text-bluePrimary">funciona.</span>
+                </span>
+              </div>
             </m.div>
-          </div>
+
+            <m.div
+              variants={ghostFade}
+              className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
+            >
+              {ABOUT_CONTENT.hero.description.map((line, index) => (
+                <span key={index} className="block">
+                  {line}
+                </span>
+              ))}
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useAntigravityStore } from '@/store/antigravity.store';
 
 export const AntigravityDebugger: React.FC = () => {

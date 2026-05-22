@@ -25,6 +25,7 @@ import {
 } from '@/lib/seo';
 import RotatingHighlights from '@/components/portfolio/RotatingHighlights';
 import ReactMarkdown from 'react-markdown';
+import { extractYoutubeId as extractYoutubeIdFromContract } from '@/lib/media/asset-contract';
 
 export const dynamic = 'force-dynamic';
 
@@ -38,39 +39,7 @@ type PortfolioBodyBlock = {
 };
 
 const extractYoutubeId = (rawValue: string): string | null => {
-  const value = rawValue.trim();
-  if (!value) return null;
-  if (/^[a-zA-Z0-9_-]{11}$/.test(value)) return value;
-
-  const safeUrl = value.startsWith('http') ? value : `https://${value}`;
-
-  try {
-    const parsed = new URL(safeUrl);
-    const host = parsed.hostname.replace(/^www\./, '');
-
-    if (host === 'youtu.be') {
-      const id = parsed.pathname.replace('/', '');
-      return id.length === 11 ? id : null;
-    }
-
-    if (host === 'youtube.com' || host === 'm.youtube.com') {
-      const byQuery = parsed.searchParams.get('v');
-      if (byQuery?.length === 11) return byQuery;
-
-      const parts = parsed.pathname.split('/').filter(Boolean);
-      const embedIndex = parts.findIndex((part) =>
-        ['embed', 'shorts', 'v'].includes(part)
-      );
-      if (embedIndex >= 0) {
-        const id = parts[embedIndex + 1];
-        return id?.length === 11 ? id : null;
-      }
-    }
-  } catch {
-    return null;
-  }
-
-  return null;
+  return extractYoutubeIdFromContract(rawValue);
 };
 
 const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] => {

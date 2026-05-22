@@ -1,6 +1,6 @@
 'use client';
 
-import { m, Variants } from 'framer-motion';
+import { m, Variants } from 'motion/react';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HOME_CONTENT } from '@/config/content';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';

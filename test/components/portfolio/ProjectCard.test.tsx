@@ -13,8 +13,8 @@ jest.mock('next/navigation', () => ({
     useSearchParams: () => new URLSearchParams(),
 }));
 
-// Mock Framer Motion
-jest.mock('framer-motion', () => {
+// Mock Motion/React
+jest.mock('motion/react', () => {
     const mockMotionValue = {
         get: jest.fn(() => 0),
         on: jest.fn(() => () => { }),
@@ -52,6 +52,7 @@ jest.mock('framer-motion', () => {
             scrollYProgress: mockMotionValue,
         })),
         useTransform: jest.fn(() => mockMotionValue),
+        useSpring: jest.fn(() => mockMotionValue),
         useReducedMotion: jest.fn(() => false),
     };
 });

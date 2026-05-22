@@ -1,10 +1,10 @@
 import type { BlockType, LandingPageBlock } from '@/types/landing-page';
 import {
-  buildSupabaseStorageUrl,
-  normalizeStoragePath,
-} from '@/lib/supabase/urls';
-import { BRAND } from '@/config/brand';
-import { getCanonicalSiteUrl } from '@/lib/seo';
+  extractYoutubeId,
+  normalizeYoutubeUrl,
+  resolveLandingAsset,
+  type AssetTypeHint,
+} from '@/lib/media/asset-contract';
 import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
@@ -29,14 +29,6 @@ type TemplateFallback = {
 
 const DEFAULT_HIGHLIGHT = '#0048ff';
 const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
-const LOCAL_PUBLIC_ASSET_PATTERN =
-  /^\/(site\.assets|images|videos|fonts|captions)\//i;
-const STORAGE_PUBLIC_PATH_PATTERN =
-  /^\/?storage\/v1\/object\/public\/([^/]+)\/(.+)$/i;
-const LOCALHOST_URL_PATTERN =
-  /^https?:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0)(?::\d+)?(\/.*)?$/i;
-const YOUTUBE_PATTERN =
-  /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 const V3_BLOCK_TYPES: BlockType[] = [
   'text',
   'image',
@@ -134,7 +126,10 @@ const asV3IntroBlocks = (
 
       return {
         type,
-        value: blockValue,
+        value:
+          type === 'video_youtube'
+            ? normalizeYoutubeUrl(blockValue) || blockValue
+            : blockValue,
         settings: {
           autoplay:
             type === 'video_youtube'
@@ -215,7 +210,7 @@ const inferMediaType = (
   src?: string,
   fallback?: unknown
 ): LandingPageBlock['content']['mediaType'] => {
-  if (src && YOUTUBE_PATTERN.test(src)) return 'youtube';
+  if (src && extractYoutubeId(src)) return 'youtube';
   if (src && VIDEO_FILE_PATTERN.test(src)) return 'video';
 
   if (fallback === 'image' || fallback === 'video' || fallback === 'youtube') {
@@ -224,6 +219,15 @@ const inferMediaType = (
 
   if (!src) return undefined;
   return 'image';
+};
+
+const normalizeAssetReadValue = (
+  value: string | undefined,
+  hint?: AssetTypeHint
+): string | undefined => {
+  if (!value) return undefined;
+  const resolved = resolveLandingAsset(value, hint);
+  return resolved.ok ? resolved.asset.url : value;
 };
 
 const asTextAlign = (
@@ -258,10 +262,14 @@ const normalizeAsset = (
   const record = asRecord(value);
 
   return {
-    src: asString(record?.src) ?? fallbackSrc ?? '',
+    src:
+      normalizeAssetReadValue(
+        asString(record?.src) ?? fallbackSrc,
+        asMediaKind(record?.kind)
+      ) ?? '',
     alt: asString(record?.alt) ?? fallbackAlt,
     kind: asMediaKind(record?.kind),
-    poster: asString(record?.poster),
+    poster: normalizeAssetReadValue(asString(record?.poster), 'image'),
   };
 };
 
@@ -274,7 +282,9 @@ const normalizeGalleryItem = (
   if (!record) return null;
 
   const layout = asGalleryLayout(record.layout);
-  const src = asString(record.src) ?? '';
+  const rawSrc = asString(record.src) ?? '';
+  const kind = asMediaKind(record.kind);
+  const src = normalizeAssetReadValue(rawSrc, kind) ?? rawSrc;
   const requiresMedia = layout !== 'quote-band';
   if (requiresMedia && !src) return null;
 
@@ -282,9 +292,9 @@ const normalizeGalleryItem = (
     id: asString(record.id) ?? `grid-item-${index + 1}`,
     src,
     alt: asString(record.alt) ?? fallbackAlt,
-    kind: asMediaKind(record.kind),
+    kind,
     layout,
-    poster: asString(record.poster),
+    poster: normalizeAssetReadValue(asString(record.poster), 'image'),
     title: asString(record.title),
     eyebrow: asString(record.eyebrow),
     description: asString(record.description),
@@ -328,7 +338,9 @@ const normalizeGalleryItemV2 = (
 
   const legacyLayout = asString(record.layout);
   const layout_type = asGalleryLayoutV2(record.layout_type ?? legacyLayout);
-  const src = asString(record.src) ?? '';
+  const rawSrc = asString(record.src) ?? '';
+  const kind = asMediaKind(record.kind);
+  const src = normalizeAssetReadValue(rawSrc, kind) ?? rawSrc;
   const requiresMedia = layout_type !== 'grid_quote';
   if (requiresMedia && !src) return null;
 
@@ -345,8 +357,8 @@ const normalizeGalleryItemV2 = (
     src,
     alt:
       asString(record.alt) ?? (layout_type === 'grid_quote' ? '' : fallbackAlt),
-    kind: asMediaKind(record.kind),
-    poster: asString(record.poster),
+    kind,
+    poster: normalizeAssetReadValue(asString(record.poster), 'image'),
     title: asString(record.title),
     eyebrow: asString(record.eyebrow),
     description: asString(record.description),
@@ -367,10 +379,14 @@ const normalizeLandingBlock = (
   const type = asBlockType(record.type);
   const contentRecord = asRecord(record.content) ?? {};
 
-  const media = asString(
+  const rawMedia = asString(
     contentRecord.media ?? contentRecord.media1 ?? record.src
   );
-  const media2 = asString(contentRecord.media2 ?? record.src2);
+  const rawMedia2 = asString(contentRecord.media2 ?? record.src2);
+  const mediaType = inferMediaType(rawMedia, contentRecord.mediaType);
+  const mediaType2 = inferMediaType(rawMedia2, contentRecord.mediaType2);
+  const media = normalizeAssetReadValue(rawMedia, mediaType) ?? rawMedia;
+  const media2 = normalizeAssetReadValue(rawMedia2, mediaType2) ?? rawMedia2;
 
   // We no longer return null here. It caused "desaparecimento do bloco de texto"
   // if the user forgot or didn't want to add an image yet.
@@ -390,12 +406,18 @@ const normalizeLandingBlock = (
         asString(contentRecord.alt ?? contentRecord.alt1 ?? record.alt) ??
         fallbackAlt,
       alt2: asString(contentRecord.alt2 ?? record.alt2),
-      poster: asString(
-        contentRecord.poster ?? contentRecord.poster1 ?? record.poster
+      poster: normalizeAssetReadValue(
+        asString(
+          contentRecord.poster ?? contentRecord.poster1 ?? record.poster
+        ),
+        'image'
       ),
-      poster2: asString(contentRecord.poster2 ?? record.poster2),
-      mediaType: inferMediaType(media, contentRecord.mediaType),
-      mediaType2: inferMediaType(media2, contentRecord.mediaType2),
+      poster2: normalizeAssetReadValue(
+        asString(contentRecord.poster2 ?? record.poster2),
+        'image'
+      ),
+      mediaType,
+      mediaType2,
       autoplay: asBoolean(contentRecord.autoplay),
       bandColor: asString(contentRecord.bandColor ?? record.bandColor),
     },
@@ -403,60 +425,6 @@ const normalizeLandingBlock = (
 
   return normalized;
 };
-
-export function resolveSiteAssetUrl(value?: string | null): string {
-  if (!value) return '';
-  const raw = value.trim();
-  if (!raw) return '';
-
-  if (raw.startsWith('blob:') || raw.startsWith('data:')) return raw;
-
-  const localhostMatch = raw.match(LOCALHOST_URL_PATTERN);
-  if (localhostMatch) {
-    const canonical = getCanonicalSiteUrl().replace(/\/$/, '');
-    const path = localhostMatch[1] || '';
-    return `${canonical}${path.startsWith('/') ? path : `/${path}`}`;
-  }
-
-  if (raw.startsWith('http://') || raw.startsWith('https://')) {
-    try {
-      const parsed = new URL(raw);
-      if (parsed.hostname.toLowerCase() === BRAND.domain.toLowerCase()) {
-        parsed.protocol = 'https:';
-        return parsed.toString();
-      }
-    } catch {
-      return raw;
-    }
-    return raw;
-  }
-
-  if (raw.startsWith('#') || LOCAL_PUBLIC_ASSET_PATTERN.test(raw)) {
-    return raw;
-  }
-
-  const storageMatch = raw.match(STORAGE_PUBLIC_PATH_PATTERN);
-  if (storageMatch) {
-    const [, bucket, path] = storageMatch;
-    return buildSupabaseStorageUrl(bucket, path) ?? raw;
-  }
-
-  const noLeadingSlash = raw.replace(/^\/+/, '');
-  const explicitBucketMatch = noLeadingSlash.match(
-    /^(site-assets|portfolio-media)\/(.+)$/i
-  );
-  if (explicitBucketMatch) {
-    const [, bucket, path] = explicitBucketMatch;
-    return buildSupabaseStorageUrl(bucket.toLowerCase(), path) ?? raw;
-  }
-
-  const normalizedPath = normalizeStoragePath(noLeadingSlash) ?? noLeadingSlash;
-  const inferredBucket = normalizedPath.startsWith('projects/')
-    ? 'portfolio-media'
-    : 'site-assets';
-
-  return buildSupabaseStorageUrl(inferredBucket, normalizedPath) ?? raw;
-}
 
 export function createDefaultMasterProjectTemplate(
   fallback: TemplateFallback = {}
@@ -586,47 +554,6 @@ export function createDefaultMasterProjectTemplateV3(
       og_image: fallback.cover ?? '',
     },
   };
-}
-
-export function isMasterProjectTemplateData(
-  value: unknown
-): value is MasterProjectTemplateData {
-  const record = asRecord(value);
-  if (!record) return false;
-
-  return (
-    asString(record.template) === MASTER_PROJECT_TEMPLATE &&
-    asString(record.project_title) !== undefined &&
-    asRecord(record.hero_cover_image) !== null &&
-    Array.isArray(record.gallery_grid)
-  );
-}
-
-export function isMasterProjectTemplateV2Data(
-  value: unknown
-): value is MasterProjectTemplateV2Data {
-  const record = asRecord(value);
-  if (!record) return false;
-
-  return (
-    asString(record.template) === MASTER_PROJECT_TEMPLATE_V2 &&
-    asString(record.project_title) !== undefined &&
-    asRecord(record.hero_cover_image) !== null &&
-    Array.isArray(record.gallery_grid)
-  );
-}
-
-export function isMasterProjectTemplateV3Data(
-  value: unknown
-): value is MasterProjectTemplateV3Data {
-  const record = asRecord(value);
-  if (!record) return false;
-
-  return (
-    asString(record.template) === MASTER_PROJECT_TEMPLATE_V3 &&
-    asString(record.project_title) !== undefined &&
-    Array.isArray(record.gallery_grid)
-  );
 }
 
 function normalizeMasterTemplate(

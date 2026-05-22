@@ -44,28 +44,36 @@ const parsed = envSchema.safeParse(processEnv);
 
 if (!parsed.success) {
   const isServer = typeof window === 'undefined';
-  const isBuild =
-    process.env.NODE_ENV === 'production' ||
-    process.env.NEXT_PHASE === 'phase-production-build' ||
-    process.env.CI === 'true' ||
-    process.env.VALIDATE_ENV_WARN_ONLY === '1';
+  const isProduction = process.env.NODE_ENV === 'production';
+  const shouldBypass =
+    process.env.VALIDATE_ENV_WARN_ONLY === '1' && !isProduction;
 
   if (isServer) {
-    console.error('❌ Invalid environment variables:', parsed.error.format());
+    console.error('❌ Environment validation failed!');
+    console.error('Details:', JSON.stringify(parsed.error.format(), null, 2));
 
-    // During build or in production, we log warnings but don't necessarily crash
-    // unless the user explicitly wants strict validation.
-    if (
-      isBuild ||
-      process.env.NODE_ENV === 'production' ||
-      process.env.VALIDATE_ENV_WARN_ONLY === '1'
-    ) {
+    if (shouldBypass) {
       console.warn(
-        '⚠️ Environment validation failed. Proceeding with caution (Build/Prod/Warn-Only mode).'
+        '⚠️ WARNING: Proceeding with INVALID environment variables due to VALIDATE_ENV_WARN_ONLY=1.'
+      );
+      console.warn(
+        'This may cause runtime errors in features relying on these variables.'
       );
     } else {
+      console.error(
+        '\nFATAL: Critical environment variables are missing or invalid.'
+      );
+      console.error(
+        'To fix this: Add the missing keys to your .env file or environment settings.'
+      );
+      if (!isProduction) {
+        console.error(
+          'For local development, you can temporarily bypass this with: VALIDATE_ENV_WARN_ONLY=1\n'
+        );
+      }
+
       throw new Error(
-        'Invalid environment variables. Set VALIDATE_ENV_WARN_ONLY=1 to bypass.'
+        'Environment validation failed. Build/Process terminated.'
       );
     }
   }

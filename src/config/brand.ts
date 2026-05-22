@@ -12,7 +12,8 @@ export const SUPABASE_STORAGE_URL = `${SUPABASE_PROJECT_URL.replace(
 const asset = (path: string) => {
   const cleanPath = path.replace(/^\/+/, '');
   // Force local path for assets in site-assets bucket to ensure 100% build integrity
-  if (cleanPath.startsWith('site-assets/')) {
+  // EXCEPT for video files which should be served from Supabase CDN for optimized streaming
+  if (cleanPath.startsWith('site-assets/') && !cleanPath.endsWith('.mp4')) {
     return `/site.assets/${cleanPath.slice('site-assets/'.length)}`;
   }
   return `${SUPABASE_STORAGE_URL}/${cleanPath}`;
@@ -54,8 +55,10 @@ export const BRAND = {
     video: {
       manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
       manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-      manifestoPosterDesk: asset('site-assets/global/404.webp'),
-      manifestoPosterMobile: asset('site-assets/global/404.webp'),
+      // Posters: undefined = browser auto-generates from first video frame (correct behavior)
+      // Replace with a real poster asset path when available (e.g. site-assets/home/poster.desk.webp)
+      manifestoPosterDesk: undefined as string | undefined,
+      manifestoPosterMobile: undefined as string | undefined,
       aboutClosing: asset('site-assets/about/closing/video.closing.desk.mp4'),
       aboutClosingMobile: asset(
         'site-assets/about/closing/video.closing.mobile.mp4'
@@ -66,11 +69,12 @@ export const BRAND = {
       mono: 'PPSupplyMono',
     },
   },
+  // @deprecated: Use BRAND.assets.video instead. Kept for backwards compatibility.
   video: {
     manifesto: asset('site-assets/home/video.manifesto.desk.mp4'),
     manifestoMobile: asset('site-assets/home/video.manifesto.mobile.mp4'),
-    manifestoPosterDesk: asset('site-assets/global/404.webp'),
-    manifestoPosterMobile: asset('site-assets/global/404.webp'),
+    manifestoPosterDesk: undefined as string | undefined,
+    manifestoPosterMobile: undefined as string | undefined,
     aboutClosing: asset('site-assets/about/closing/video.closing.desk.mp4'),
     aboutClosingMobile: asset(
       'site-assets/about/closing/video.closing.mobile.mp4'

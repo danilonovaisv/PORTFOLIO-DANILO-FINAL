@@ -1,0 +1,18 @@
+{
+  "name": "ghost-design-system",
+  "displayName": "Ghost Design System",
+  "description": "Danilo Novais portfolio brand system. Design guidelines, colors, typography, assets, and UI kit components for Ghost brand interfaces.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Danilo Novais"
+  },
+  "keywords": [
+    "design-system",
+    "brand",
+    "portfolio",
+    "ghost",
+    "ui-kit",
+    "typography",
+    "css"
+  ]
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState, useEffect, useMemo } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
@@ -11,7 +11,6 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 
-import { injectSupabaseProxy } from '@/lib/supabase/urls';
 import { getContentVariants } from '@/components/portfolio/modal/variants';
 
 interface AdaptiveMediaLayoutProps {
@@ -147,7 +146,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     <div className="relative w-full aspect-video max-h-[70vh] bg-black/40 overflow-hidden flex items-center justify-center">
                         {/* Ghost Media Placeholder */}
                         <AnimatePresence>
-                            {!isLoaded && activeMedia && (
+                            {!isLoaded && activeMedia && activeMedia !== ASSET_PLACEHOLDER && (
                                 <m.div 
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -158,10 +157,19 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 </m.div>
                             )}
                         </AnimatePresence>
-                        {!activeMedia ? (
+                        
+                        {!activeMedia || activeMedia === ASSET_PLACEHOLDER ? (
                             <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
-                                <div className="max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
-                                    Este post nao possui midia interna publicada. A thumb permanece apenas na listagem.
+                                <div className="max-w-md rounded-2xl border border-white/5 bg-white/[0.02] p-8 text-center backdrop-blur-sm">
+                                    <div className="w-12 h-12 bg-bluePrimary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <span className="material-icons-round text-bluePrimary/40">cloud_off</span>
+                                    </div>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">
+                                        System_Media_Unavailable
+                                    </p>
+                                    <p className="mt-2 text-sm text-white/30">
+                                        Este projeto não possui mídia interna publicada no momento.
+                                    </p>
                                 </div>
                             </div>
                         ) : activeYouTubeEmbed ? (
@@ -175,9 +183,10 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         ) : isVid ? (
                                 <video
                                     key={activeMedia}
-                                    src={activeMedia}
+                                    src={getAssetUrl(activeMedia, { isVideo: true })}
                                     autoPlay
-                                    muted={false}
+                                    muted
+                                    loop
                                     playsInline
                                     controls
                                     preload="metadata"
@@ -185,7 +194,9 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     className={`absolute inset-0 w-full h-full object-contain z-0 transition-opacity duration-normal ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
                                     onLoadedData={() => setIsLoaded(true)}
                                     onLoadedMetadata={(event) => {
-                                        event.currentTarget.muted = false;
+                                        // Spec: POP-UP DE PROJETO (SEM LANDING PAGE) §6.2
+                                        // Vídeo do modal deve autoplay com muted obrigatório.
+                                        event.currentTarget.muted = true;
                                         void event.currentTarget.play().catch(() => undefined);
                                     }}
                                 >
@@ -197,7 +208,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                 onClick={() => openLightbox(activeMedia)}
                             >
                                 <Image
-                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80 })}
+                                    src={getAssetUrl(activeMedia, { width: 1920, quality: 80 })}
                                     alt={project.title}
                                     width={1920}
                                     height={1080}
@@ -227,7 +238,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     </div>
 
                     {/* THUMBNAILS CAROUSEL */}
-                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 mt-6 md:mt-8 mb-12">
+                    <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 relative z-30 mt-6 md:mt-8 mb-12">
                         {galleryMedia.length > 0 && (
                             <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                                 {galleryMedia.map((media, idx) => {
@@ -255,14 +266,14 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                 </div>
                                             ) : isThumbVid ? (
                                                 <div className="relative w-full h-full">
-                                                    <video src={`${media}#t=0.001`} className="w-full h-full object-cover bg-black/5" muted playsInline preload="metadata" />
+                                                    <video src={`${getAssetUrl(media, { isVideo: true })}#t=0.001`} className="w-full h-full object-cover bg-black/5" muted playsInline preload="metadata" />
                                                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
                                                         <Play className="w-6 h-6 text-white fill-current opacity-80" />
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <Image
-                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70 })}
+                                                    src={getAssetUrl(media, { width: 400, quality: 70 })}
                                                     alt={`Thumbnail ${idx}`}
                                                     fill
                                                     className="object-cover"
@@ -278,8 +289,8 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     </div>
 
                     {/* DETAILS / TEXT CONTENT */}
-                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 pb-24">
-                        <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-2 drop-shadow-2xl font-display">
+                    <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 relative z-30 pb-24">
+                        <h1 className="text-display font-bold tracking-tight text-white mb-2 drop-shadow-2xl font-display">
                             {project.title}
                         </h1>
                         {project.subtitle && (

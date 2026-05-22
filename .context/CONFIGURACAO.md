@@ -26,10 +26,8 @@ Este documento descreve a configuração do sistema de Agent/AI para o projeto.
 ```
 .context/               ✅ VERSIONADO (Git)
 ├── GHOST-DESIGN-SYSTEM.md          # Design system e regras visuais
-├── *-PROTOTIPO-INTERATIVO.md       # Detalhamento das páginas
-├── *-PORTFOLIO-*.jpg / *.png       # Referências de layout
-├── *-MOBILE-*.jpg                  # Referências mobile
-└── ghost.mp4                       # Referência de motion
+├── DOCS-PORTFOLIO-PAGES/        # Pasta contendo toda a documentação bible do projeto, com todas as páginas e sessões, incluindo imagens para direcionamento visual.
+
 ```
 
 ## 🔧 Configurações Aplicadas

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 
 import { Preloader } from '@/components/ui/Preloader';
 import GhostSceneWrapper from '@/components/canvas/home/hero/GhostSceneWrapper';
@@ -79,10 +79,14 @@ export default function HomeHero() {
 
         {/* Camada: Ghost WebGL (z-layer-3d — acima do texto) */}
         {/* pointer-events gerenciado com cuidado se hover 3D ativo (pointer-events-none no wrapper e deixa canvas lidar) */}
-        <div className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden">
+        <div
+          className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden"
+          aria-hidden="true"
+          role="presentation"
+        >
           <div className="sticky top-0 h-[100svh] md:h-screen w-full">
             {shouldRenderWebGL ? (
-              <GhostSceneWrapper />
+              <GhostSceneWrapper onReady={() => {}} />
             ) : (
               <div
                 className="absolute inset-0 z-[var(--z-layer-base)] opacity-20 bg-[radial-gradient(circle_at_50%_50%,var(--color-neutral)_0%,var(--color-background)_70%)]"

@@ -18,11 +18,13 @@ export default function Error({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            erroMensagem: error.message,
+            message: error.message,
             stack: error.stack,
-            digest: error.digest,
-            componente: 'Client Error Boundary',
+            component: 'Client Error Boundary',
             url: window.location.href,
+            metadata: {
+              digest: error.digest,
+            },
           }),
           keepalive: true,
         });

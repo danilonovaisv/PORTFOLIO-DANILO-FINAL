@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-label="Ghost mark">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#4fe6ff" stop-opacity="0.95"></stop>
+      <stop offset="45%" stop-color="#0048ff" stop-opacity="0.75"></stop>
+      <stop offset="100%" stop-color="#040013" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="#040013"></rect>
+  <circle cx="60" cy="56" r="38" fill="url(#g)"></circle>
+  
+  <path d="M60 26 C44 26 32 38 32 54 L32 92 L40 86 L48 92 L56 86 L64 92 L72 86 L80 92 L88 86 L88 54 C88 38 76 26 60 26 Z" fill="none" stroke="#fcffff" stroke-opacity="0.9" stroke-width="1.5" stroke-linejoin="round"></path>
+  
+  <circle cx="50" cy="56" r="3" fill="#4fe6ff"></circle>
+  <circle cx="70" cy="56" r="3" fill="#4fe6ff"></circle>
+</svg>

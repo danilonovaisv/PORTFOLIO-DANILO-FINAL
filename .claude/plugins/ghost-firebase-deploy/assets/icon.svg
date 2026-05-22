@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ghost Firebase Deploy">
+  <rect width="64" height="64" rx="14" fill="#0048ff"/>
+  <path fill="#fff" d="M18 42V22l14-8 14 8v20L32 50 18 42Zm5-3 9 5 9-5V25l-9-5-9 5v14Z"/>
+  <path fill="#9db8ff" d="M32 24 20 42l12-6 12 6-12-18Z"/>
+</svg>

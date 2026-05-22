@@ -10,7 +10,7 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
-import { shuffleHomeProjects } from '@/lib/portfolio/shuffle-projects';
+import { shuffleProjects } from '@/lib/portfolio/shuffle-projects';
 
 type HomeProjectRow =
   Database['public']['Tables']['portfolio_projects']['Row'] & {
@@ -31,7 +31,7 @@ function normalizeHomeFeaturedProjects(
   projects: PortfolioProject[],
   seed?: number
 ) {
-  return shuffleHomeProjects(projects, seed);
+  return shuffleProjects(projects, seed);
 }
 
 function getProjectsSignature(projects: PortfolioProject[]) {
@@ -181,9 +181,12 @@ export default function FeaturedProjectsRealtime({
         } = await supabase.auth.getSession();
         if (cancelled) return;
 
-        if (session?.access_token) {
-          supabase.realtime.setAuth(session.access_token);
+        if (!session?.access_token) {
+          // Anonymous visitors: polling already active, skip WebSocket
+          return;
         }
+
+        supabase.realtime.setAuth(session.access_token);
 
         const nextChannel = supabase
           .channel(

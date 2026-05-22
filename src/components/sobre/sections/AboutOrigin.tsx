@@ -3,8 +3,7 @@
 import { useRef } from 'react';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
-import { ORIGIN_CONTENT, FallbackImage } from '@/components/sobre/origin/data';
+import { ORIGIN_CONTENT } from '@/components/sobre/origin/data';
 import {
   OriginInfoBlock,
   OriginStickyGallery,
@@ -12,44 +11,37 @@ import {
 import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
-function AboutOrigin() {
+export function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
 
-  const resolveFallbackHost = (path: FallbackImage) =>
-    buildSupabaseStorageUrl('site-assets', path) ?? undefined;
-
   // Resolver cada imagem separadamente para seguir as regras de hooks
-  const originImage1 =
-    useSiteAssetUrl(
-      SITE_ASSET_KEYS.about.originImages[0],
-      resolveFallbackHost(ORIGIN_CONTENT[0].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[0].fallback);
+  const originImage1 = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.originImages[0],
+    ORIGIN_CONTENT[0].fallback
+  );
 
-  const originImage2 =
-    useSiteAssetUrl(
-      SITE_ASSET_KEYS.about.originImages[1],
-      resolveFallbackHost(ORIGIN_CONTENT[1].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[1].fallback);
+  const originImage2 = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.originImages[1],
+    ORIGIN_CONTENT[1].fallback
+  );
 
-  const originImage3 =
-    useSiteAssetUrl(
-      SITE_ASSET_KEYS.about.originImages[2],
-      resolveFallbackHost(ORIGIN_CONTENT[2].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[2].fallback);
+  const originImage3 = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.originImages[2],
+    ORIGIN_CONTENT[2].fallback
+  );
 
-  const originImage4 =
-    useSiteAssetUrl(
-      SITE_ASSET_KEYS.about.originImages[3],
-      resolveFallbackHost(ORIGIN_CONTENT[3].fallback)
-    ) ?? resolveFallbackHost(ORIGIN_CONTENT[3].fallback);
+  const originImage4 = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.originImages[3],
+    ORIGIN_CONTENT[3].fallback
+  );
 
   const contentBlocks = [
-    { ...ORIGIN_CONTENT[0], img: originImage1, priority: true },
-    { ...ORIGIN_CONTENT[1], img: originImage2, priority: true },
-    { ...ORIGIN_CONTENT[2], img: originImage3, priority: true },
+    { ...ORIGIN_CONTENT[0], img: originImage1, priority: false },
+    { ...ORIGIN_CONTENT[1], img: originImage2, priority: false },
+    { ...ORIGIN_CONTENT[2], img: originImage3, priority: false },
     { ...ORIGIN_CONTENT[3], img: originImage4, priority: false },
   ];
 
@@ -96,5 +88,3 @@ function AboutOrigin() {
     </section>
   );
 }
-
-export default AboutOrigin;

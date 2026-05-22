@@ -89,6 +89,9 @@ export function ProjectForm({
       short_label: project?.short_label ?? '',
       description: project?.description ?? '',
       featured_on_home: project?.featured_on_home ?? false,
+      featured_on_portfolio: project?.featured_on_portfolio ?? false,
+      featured_home_order: project?.featured_home_order ?? null,
+      featured_portfolio_order: project?.featured_portfolio_order ?? null,
       home_featured: {
         cardStyle:
           project?.home_featured?.cardStyle ?? DEFAULT_HOME_FEATURED_CARD_STYLE,
@@ -248,13 +251,13 @@ export function ProjectForm({
         }
 
         if (galleryItems.length > 0) {
-          for (const item of galleryItems) {
+          const uploadPromises = galleryItems.map(async (item) => {
             if (item.type === 'youtube' && item.youtube_video_id) {
-              galleryEntries.push({
-                type: 'youtube',
+              return {
+                type: 'youtube' as const,
                 youtube_video_id: item.youtube_video_id,
                 caption: item.caption,
-              });
+              };
             } else if (item.file) {
               const path = await uploadToBucket(
                 'portfolio-media',
@@ -268,22 +271,31 @@ export function ProjectForm({
                 }
               );
               if (path) {
-                galleryEntries.push({
+                return {
                   path,
                   caption: item.caption,
-                  type: item.file.type.startsWith('video/') ? 'video' : 'image',
-                });
+                  type: (item.file.type.startsWith('video/')
+                    ? 'video'
+                    : 'image') as 'video' | 'image',
+                };
               }
             } else if (item.path) {
-              galleryEntries.push({
+              return {
                 path: item.path,
                 caption: item.caption,
-                type:
-                  item.type ||
+                type: (item.type ||
                   (item.path.match(/\.(mp4|webm|mov)(\?.*)?$/i)
                     ? 'video'
-                    : 'image'),
-              });
+                    : 'image')) as 'video' | 'image',
+              };
+            }
+            return null;
+          });
+
+          const results = await Promise.all(uploadPromises);
+          for (const res of results) {
+            if (res) {
+              galleryEntries.push(res);
             }
           }
         }
@@ -306,6 +318,9 @@ export function ProjectForm({
           short_label: values.short_label || null,
           description: values.description || null,
           featured_on_home: values.featured_on_home ?? false,
+          featured_on_portfolio: values.featured_on_portfolio ?? false,
+          featured_home_order: values.featured_home_order ?? null,
+          featured_portfolio_order: values.featured_portfolio_order ?? null,
           home_featured: {
             enabled: values.featured_on_home ?? false,
             cardStyle: homeFeaturedCardStyle,
@@ -579,6 +594,27 @@ export function ProjectForm({
           <input type="checkbox" {...form.register('is_published')} />
           System_Publish_State
         </label>
+        <label className="flex items-center gap-2 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
+          <input type="checkbox" {...form.register('featured_on_portfolio')} />
+          System_Feature_Override: PORTFOLIO_HIGHLIGHT
+        </label>
+        <label className="flex flex-col gap-1 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
+          System_Portfolio_Order
+          <input
+            type="number"
+            min={0}
+            max={9999}
+            inputMode="numeric"
+            placeholder="auto"
+            className="w-full rounded-md border border-white/10 bg-background px-3 py-2 text-sm text-white font-mono outline-none transition-colors focus:border-bluePrimary/50"
+            {...form.register('featured_portfolio_order', {
+              setValueAs: (value) =>
+                value === '' || value === null || value === undefined
+                  ? null
+                  : Number(value),
+            })}
+          />
+        </label>
       </div>
 
       <div className="rounded border border-purple-500/10 bg-purple-500/[0.02] p-6 space-y-6">
@@ -592,10 +628,30 @@ export function ProjectForm({
           </p>
         </div>
 
-        <label className="flex items-center gap-2 font-mono text-[10px] text-white/60 uppercase tracking-widest">
-          <input type="checkbox" {...form.register('featured_on_home')} />
-          System_Feature_Override: EXPOSE_ON_HOME
-        </label>
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="flex items-center gap-2 font-mono text-[10px] text-white/60 uppercase tracking-widest">
+            <input type="checkbox" {...form.register('featured_on_home')} />
+            System_Feature_Override: EXPOSE_ON_HOME
+          </label>
+          <label className="flex flex-col gap-1 font-mono text-[10px] text-white/60 uppercase tracking-widest">
+            System_Home_Order
+            <input
+              type="number"
+              min={0}
+              max={9999}
+              inputMode="numeric"
+              placeholder="auto"
+              disabled={!featuredOnHome}
+              className="w-full rounded-md border border-white/10 bg-background px-3 py-2 text-sm text-white font-mono outline-none transition-colors focus:border-bluePrimary/50 disabled:opacity-50"
+              {...form.register('featured_home_order', {
+                setValueAs: (value) =>
+                  value === '' || value === null || value === undefined
+                    ? null
+                    : Number(value),
+              })}
+            />
+          </label>
+        </div>
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="flex flex-col gap-2">

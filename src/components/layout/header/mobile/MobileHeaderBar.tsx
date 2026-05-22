@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { m, Variants } from 'framer-motion';
+import { m, Variants } from 'motion/react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface MobileHeaderBarProps {

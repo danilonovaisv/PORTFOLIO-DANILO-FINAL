@@ -63,14 +63,20 @@ export function useGhostScene(
       preserveDrawingBuffer: false,
     });
 
-    renderer.setPixelRatio(performanceConfig.pixelRatio);
+    // Cap DPR at 1.5 — bloom cost scales quadratically with pixel ratio on retina
+    renderer.setPixelRatio(Math.min(performanceConfig.pixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = params.exposure;
     renderer.setClearColor(0x000000, 0);
 
     // Canvas Styling
-    renderer.domElement.classList.add('ghost-hero-canvas');
+    renderer.domElement.classList.add(
+      'opacity-0',
+      'transition-opacity',
+      'duration-1000',
+      'ease-in-out'
+    );
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '0';
     renderer.domElement.style.left = '0';
@@ -144,7 +150,7 @@ export function useGhostScene(
 
     const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
     atmosphere.position.z = -50;
-    atmosphere.renderOrder = -100;
+    atmosphere.renderOrder = -1000;
     sceneRef.current.add(atmosphere);
 
     const ambientLight = new THREE.AmbientLight(

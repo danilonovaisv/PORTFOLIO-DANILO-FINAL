@@ -4,7 +4,8 @@ import { render, screen } from '@testing-library/react';
 import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
+
 
 // Mock hooks
 jest.mock('@/hooks/useMotionGate');
@@ -16,9 +17,9 @@ jest.mock('next/image', () => ({
         return <img {...props} alt="Next Image Mock" />;
     },
 }));
-jest.mock('@/components/ui/shared/DynamicAssetVideo', () => ({
-    DynamicAssetVideo: ({ assetKey }: { assetKey: string }) => (
-        <div data-testid="dynamic-video" data-asset-key={assetKey}>
+jest.mock('@/components/ui/shared/ResponsiveVideo', () => ({
+    ResponsiveVideo: ({ desktopSrc, mobileSrc }: { desktopSrc: string; mobileSrc: string }) => (
+        <div data-testid="dynamic-video" data-desktop-src={desktopSrc} data-mobile-src={mobileSrc}>
             Mock Video
         </div>
     ),
@@ -37,7 +38,7 @@ describe('PortfolioHeroNew Component', () => {
 
         const videoElement = screen.getByTestId('dynamic-video');
         expect(videoElement).toBeInTheDocument();
-        expect(videoElement).toHaveAttribute('data-asset-key', SITE_ASSET_KEYS.portfolio.heroDesktop);
+        expect(videoElement).toHaveAttribute('data-desktop-src', RESPONSIVE_VIDEOS.portfolioHero.desktop);
     });
 
     it('renders static image when reduced motion is true', () => {
@@ -58,7 +59,7 @@ describe('PortfolioHeroNew Component', () => {
         render(<PortfolioHeroNew />);
 
         const videoElement = screen.getByTestId('dynamic-video');
-        expect(videoElement).toHaveAttribute('data-asset-key', SITE_ASSET_KEYS.portfolio.heroMobile);
+        expect(videoElement).toHaveAttribute('data-mobile-src', RESPONSIVE_VIDEOS.portfolioHero.mobile);
     });
 
     it('uses desktop asset key when isMobile is false', () => {
@@ -68,6 +69,6 @@ describe('PortfolioHeroNew Component', () => {
         render(<PortfolioHeroNew />);
 
         const videoElement = screen.getByTestId('dynamic-video');
-        expect(videoElement).toHaveAttribute('data-asset-key', SITE_ASSET_KEYS.portfolio.heroDesktop);
+        expect(videoElement).toHaveAttribute('data-desktop-src', RESPONSIVE_VIDEOS.portfolioHero.desktop);
     });
 });

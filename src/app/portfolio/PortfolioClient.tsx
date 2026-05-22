@@ -8,7 +8,6 @@ import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
-import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { createClientComponentClient } from '@/lib/supabase/client';
 
 const ProjectsGallery = dynamic(() => import('@/components/portfolio/ProjectsGallery').then((mod) => mod.ProjectsGallery));
@@ -59,6 +58,54 @@ export default function PortfolioClient({
     };
   }, [router, supabase]);
 
+  // Scroll-to-anchor on first paint when the URL contains a `#portfolio-card-*`
+  // hash. Cards are emitted by ProjectCard with id `portfolio-card-<slug>-<index>`,
+  // so we also try the `-0` suffix when the bare slug hash is provided
+  // (e.g. from useLandingBackLink). The gallery is lazy-loaded, so we poll
+  // briefly via requestAnimationFrame until the target node appears.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const rawHash = window.location.hash;
+    if (!rawHash || !rawHash.startsWith('#portfolio-card-')) return;
+
+    const hashId = rawHash.slice(1);
+    const candidateIds = /-\d+$/.test(hashId)
+      ? [hashId]
+      : [hashId, `${hashId}-0`];
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    const behavior: ScrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
+
+    let cancelled = false;
+    let attempts = 0;
+    const MAX_ATTEMPTS = 30; // ~500ms at 60fps
+
+    const tryScroll = () => {
+      if (cancelled) return;
+      const target = candidateIds
+        .map((id) => document.getElementById(id))
+        .find((node): node is HTMLElement => node !== null);
+
+      if (target) {
+        target.scrollIntoView({ behavior, block: 'center' });
+        return;
+      }
+
+      attempts += 1;
+      if (attempts < MAX_ATTEMPTS) {
+        window.requestAnimationFrame(tryScroll);
+      }
+    };
+
+    window.requestAnimationFrame(tryScroll);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   useEffect(() => {
     const sentinel = brandsSentinelRef.current;
     if (!sentinel || showClientsBrands) return;
@@ -84,12 +131,9 @@ export default function PortfolioClient({
 
   const handleOpenProject = useCallback((project: PortfolioProject) => {
     const destination = project.destination
-      ? project.destination.type === 'external_url'
-        ? { type: 'modal' as const }
-        : project.destination
-      : project.landingPageSlug
+      ?? (project.landingPageSlug
         ? { type: 'internal_landing' as const, landingSlug: project.landingPageSlug }
-        : { type: 'modal' as const };
+        : { type: 'modal' as const });
 
     if (destination.type === 'internal_landing' && destination.landingSlug) {
       const params = new URLSearchParams({
@@ -97,6 +141,25 @@ export default function PortfolioClient({
         originCard: project.slug,
       });
       router.push(`/projects/${destination.landingSlug}?${params.toString()}`);
+      return;
+    }
+
+    // external_url and page destinations are resolved by the admin payload;
+    // fall through to modal only when no concrete URL was provided.
+    const externalTarget =
+      (destination.type === 'external_url' || destination.type === 'page')
+        ? (destination.url ?? destination.href ?? '').trim()
+        : '';
+    if (externalTarget) {
+      if (destination.type === 'page' && externalTarget.startsWith('/')) {
+        router.push(externalTarget);
+        return;
+      }
+      window.open(
+        externalTarget,
+        destination.openInNewTab === false ? '_self' : '_blank',
+        'noopener,noreferrer'
+      );
       return;
     }
 
@@ -134,33 +197,16 @@ export default function PortfolioClient({
           totalProjectsCount={totalProjectsCount}
         />
 
-        {/* CTA Section - After Cards, Following AntigravityCTA Pattern */}
-        <section className="relative z-20 bg-background py-16 md:py-24">
-          <div className="mx-auto flex justify-center px-6 md:px-16">
-            <AntigravityCTA
-              text="vamos trabalhar juntos"
-              href="#contact"
-              className="relative"
-            />
-          </div>
-        </section>
-
-        <div className="relative z-30 bg-background">
+        {showClientsBrands ? (
+          <ClientsBrandsSection />
+        ) : (
           <div
-            ref={brandsSentinelRef}
             aria-hidden="true"
-            className="h-px w-full"
+            className="bg-bluePrimary min-h-64"
+            ref={brandsSentinelRef}
           />
-          {showClientsBrands ? (
-            <ClientsBrandsSection />
-          ) : (
-            <div
-              aria-hidden="true"
-              className="bg-bluePrimary min-h-64"
-            />
-          )}
-          <ContactSection />
-        </div>
+        )}
+        <ContactSection />
       </div>
 
       <SiteFooter />

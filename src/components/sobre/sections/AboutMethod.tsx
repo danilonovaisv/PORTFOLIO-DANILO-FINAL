@@ -1,12 +1,14 @@
 'use client';
 
 import { useRef } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { ABOUT_CONTENT } from '@/config/content';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
+import { getAssetUrl } from '@/lib/utils';
 
 import {
   ghostReveal,
@@ -16,10 +18,19 @@ import {
 } from '@/config/motion';
 import { DEFAULT_VIDEO_POSTER, DEFAULT_CAPTIONS } from '@/lib/video';
 
-export default function AboutMethod() {
+export function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useMotionGate();
-  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1920,
+    quality: 60,
+  });
+  const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, {
+    width: 1080,
+    quality: 60,
+  });
 
   return (
     <section
@@ -28,31 +39,24 @@ export default function AboutMethod() {
       aria-labelledby="method-heading"
     >
       {/* Background Video Container */}
-      <div className="absolute inset-0 w-full h-full z-[var(--z-layer-base)] overflow-hidden flex justify-center">
-        <m.div className="w-full h-full lg:h-[120%]">
-          <video
-            key={isMobile ? 'mobile' : 'desktop'}
-            src={
-              (isMobile
-                ? ABOUT_CONTENT.method.videos.mobile
-                : ABOUT_CONTENT.method.videos.desktop) || undefined
-            }
-            autoPlay={!prefersReducedMotion}
-            loop={!prefersReducedMotion}
-            muted
-            playsInline
-            poster={DEFAULT_VIDEO_POSTER}
-            className={`w-full h-full ${
-              isMobile
-                ? 'object-cover object-center opacity-55'
-                : 'object-cover object-center opacity-55'
-            }`}
-            aria-hidden="true"
-            role="presentation"
-          >
-            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
-          </video>
-        </m.div>
+      <div className="absolute inset-0 z-[var(--z-layer-base)] h-full w-full overflow-hidden">
+        <ResponsiveVideo
+          ref={videoRef}
+          desktopSrc={RESPONSIVE_VIDEOS.aboutMethod.desktop}
+          mobileSrc={RESPONSIVE_VIDEOS.aboutMethod.mobile}
+          desktopPoster={activePosterDesk}
+          mobilePoster={activePosterMobile}
+          breakpoint="(max-width: 1023px)"
+          fitPolicy={RESPONSIVE_VIDEOS.aboutMethod.fitPolicy}
+          autoPlay={!prefersReducedMotion}
+          loop={!prefersReducedMotion}
+          muted
+          playsInline
+          className="block h-full w-full object-contain object-center opacity-55"
+          aria-hidden="true"
+        >
+          <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
+        </ResponsiveVideo>
 
         {/* Global Dark Gradient Overlay */}
         <div
@@ -90,7 +94,7 @@ export default function AboutMethod() {
                 >
                   <h2
                     id="method-heading"
-                    className="font-display text-[clamp(2rem,4.8vw,4rem)] font-bold leading-[1.04] tracking-[-0.03em] text-text"
+                    className="font-display text-display text-[clamp(2.25rem,6.8vw,4.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text [text-shadow:0_0_12px_rgba(0,72,255,0.4),0_0_30px_rgba(0,72,255,0.2),0_4px_20px_rgba(4,0,19,0.85)]"
                   >
                     <span className="text-bluePrimary">Criatividade</span> com{' '}
                     <span className="text-bluePrimary">método</span>.

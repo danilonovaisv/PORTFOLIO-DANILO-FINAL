@@ -41,7 +41,10 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <main
+      id="main-content"
+      className="min-h-screen bg-background text-foreground"
+    >
       <JsonLd
         pageType="contact"
         breadcrumbs={[
@@ -53,6 +56,6 @@ export default function ContactPage() {
       <ClientsBrandsSection />
       <ContactSection />
       <SiteFooter />
-    </div>
+    </main>
   );
 }

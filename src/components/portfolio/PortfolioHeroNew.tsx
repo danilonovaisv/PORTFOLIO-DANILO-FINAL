@@ -8,10 +8,8 @@
 
 import Image from 'next/image';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { PORTFOLIO_CONTENT } from '@/config/content';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 import { COLORS } from '@/config/colors';
 
 const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
@@ -29,16 +27,7 @@ const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
 )}`;
 
 export default function PortfolioHeroNew() {
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const prefersReducedMotion = useMotionGate();
-
-  const videoAssetKey = isMobile
-    ? SITE_ASSET_KEYS.portfolio.heroMobile
-    : SITE_ASSET_KEYS.portfolio.heroDesktop;
-
-  const fallbackVideo = isMobile
-    ? (PORTFOLIO_CONTENT.hero.video.mobile ?? undefined)
-    : (PORTFOLIO_CONTENT.hero.video.desktop ?? undefined);
 
   return (
     <section
@@ -49,14 +38,18 @@ export default function PortfolioHeroNew() {
       {/* Video Background - Responsivo Desktop/Mobile com Sincronização Realtime */}
       <div className="absolute inset-0 z-0">
         {!prefersReducedMotion ? (
-          <DynamicAssetVideo
-            key={isMobile ? 'mobile' : 'desktop'}
-            assetKey={videoAssetKey}
-            fallbackUrl={fallbackVideo}
-            poster={HERO_POSTER}
-            className="h-full w-screen object-cover"
+          <ResponsiveVideo
+            desktopSrc={RESPONSIVE_VIDEOS.portfolioHero.desktop}
+            mobileSrc={RESPONSIVE_VIDEOS.portfolioHero.mobile}
+            desktopPoster={HERO_POSTER}
+            mobilePoster={HERO_POSTER}
+            fitPolicy={RESPONSIVE_VIDEOS.portfolioHero.fitPolicy}
+            className="h-full w-screen object-contain"
             preload="auto"
-            disableRealtime={process.env.NODE_ENV === 'production'}
+            autoPlay
+            loop
+            muted
+            playsInline
           />
         ) : (
           <Image
@@ -77,8 +70,8 @@ export default function PortfolioHeroNew() {
         className="absolute inset-0 z-10 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute inset-0 portfolio-hero-glow-primary opacity-45" />
-        <div className="absolute inset-0 portfolio-hero-glow-accent opacity-25" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_55%,oklch(from_var(--color-primary)_l_c_h_/_0.12),transparent_50%)] blur-[40px] opacity-45" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,oklch(from_var(--color-accent)_l_c_h_/_0.08),transparent_45%)] blur-[40px] opacity-25" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-background via-background/80 to-transparent" />
       </div>
 

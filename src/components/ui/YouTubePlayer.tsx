@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { useInView } from 'motion/react';
 import { VolumeX } from 'lucide-react';
 
 interface YouTubePlayerProps {
@@ -63,32 +63,50 @@ export function YouTubePlayer({
             setIsPlayerReady(true);
             onReady?.();
 
-            if (autoplay) {
+            if (autoplay && event.target) {
               // Try playing unmuted
-              event.target.unMute();
-              event.target.playVideo();
+              if (typeof event.target.unMute === 'function') {
+                event.target.unMute();
+              }
+              if (typeof event.target.playVideo === 'function') {
+                event.target.playVideo();
+              }
 
               // Give it a short moment to see if playback actually started (browser autoplay policy)
               setTimeout(() => {
-                const state = event.target.getPlayerState();
-                // -1 = unstarted, 0 = ended, 1 = playing, 2 = paused, 3 = buffering, 5 = cued
-                if (state !== 1 && state !== 3) {
-                  // Browser blocked autoplay with sound
-                  event.target.mute();
-                  event.target.playVideo();
-                  setIsMuted(true);
-                  setShowUnmuteCTA(true);
-
-                  // Double check if muted playback also fails
-                  setTimeout(() => {
-                    const stateAfterMute = event.target.getPlayerState();
-                    if (stateAfterMute !== 1 && stateAfterMute !== 3) {
-                      // Keep paused
+                if (
+                  event.target &&
+                  typeof event.target.getPlayerState === 'function'
+                ) {
+                  const state = event.target.getPlayerState();
+                  // -1 = unstarted, 0 = ended, 1 = playing, 2 = paused, 3 = buffering, 5 = cued
+                  if (state !== 1 && state !== 3) {
+                    // Browser blocked autoplay with sound
+                    if (typeof event.target.mute === 'function') {
+                      event.target.mute();
                     }
-                  }, 500);
-                } else {
-                  setIsMuted(false);
-                  setShowUnmuteCTA(false);
+                    if (typeof event.target.playVideo === 'function') {
+                      event.target.playVideo();
+                    }
+                    setIsMuted(true);
+                    setShowUnmuteCTA(true);
+
+                    // Double check if muted playback also fails
+                    setTimeout(() => {
+                      if (
+                        event.target &&
+                        typeof event.target.getPlayerState === 'function'
+                      ) {
+                        const stateAfterMute = event.target.getPlayerState();
+                        if (stateAfterMute !== 1 && stateAfterMute !== 3) {
+                          // Keep paused
+                        }
+                      }
+                    }, 500);
+                  } else {
+                    setIsMuted(false);
+                    setShowUnmuteCTA(false);
+                  }
                 }
               }, 500);
             }
@@ -97,7 +115,9 @@ export function YouTubePlayer({
             // Handle state changes
             if (event.data === window.YT.PlayerState.PLAYING) {
               // Video is playing, check if it's currently muted by the user interaction
-              setIsMuted(event.target.isMuted());
+              if (event.target && typeof event.target.isMuted === 'function') {
+                setIsMuted(event.target.isMuted());
+              }
             }
           },
         },
@@ -128,17 +148,23 @@ export function YouTubePlayer({
     if (!isPlayerReady || !playerRef.current || !autoplay) return;
 
     if (isInView) {
-      const state = playerRef.current.getPlayerState();
-      if (state !== 1 && state !== 3) {
-        playerRef.current.playVideo();
+      if (typeof playerRef.current.getPlayerState === 'function') {
+        const state = playerRef.current.getPlayerState();
+        if (state !== 1 && state !== 3) {
+          if (typeof playerRef.current.playVideo === 'function') {
+            playerRef.current.playVideo();
+          }
+        }
       }
     } else {
-      playerRef.current.pauseVideo();
+      if (typeof playerRef.current.pauseVideo === 'function') {
+        playerRef.current.pauseVideo();
+      }
     }
   }, [isInView, isPlayerReady, autoplay]);
 
   const handleUnmute = () => {
-    if (playerRef.current) {
+    if (playerRef.current && typeof playerRef.current.unMute === 'function') {
       playerRef.current.unMute();
       setIsMuted(false);
       setShowUnmuteCTA(false);

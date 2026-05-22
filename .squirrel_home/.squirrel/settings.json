@@ -1,0 +1,17 @@
+{
+  "channel": "stable",
+  "last_update_check": null,
+  "auto_update": true,
+  "notifications": true,
+  "telemetry": true,
+  "dismissed_update_version": null,
+  "update_prompt_snoozed_until": null,
+  "auto_update_disabled_reminder": null,
+  "log_level": "error",
+  "log_compress_after_days": 14,
+  "log_delete_after_days": 60,
+  "id": "019e3a14-e29d-7c08-9349-b1416b04ffdf",
+  "registered": false,
+  "user_feedback_email": null,
+  "auth": null
+}

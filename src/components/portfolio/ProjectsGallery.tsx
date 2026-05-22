@@ -8,12 +8,13 @@ import React, {
   useState,
   type RefObject,
 } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ProjectCard, type ProjectCardSize } from '@/components/portfolio/ProjectCard';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { Container } from '@/components/layout/Container';
@@ -216,7 +217,7 @@ export const ProjectsGallery = ({
 
     switch (scrollState) {
       case 'fixed':
-        return 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-16';
+        return 'fixed left-0 right-0 top-[var(--header-height)] z-10 max-w-[1680px] mx-auto px-6 md:px-16';
       case 'post':
         return 'absolute bottom-0 left-0 right-0 z-10 max-w-[1680px] mx-auto px-6 md:px-16';
       default: // 'pre'
@@ -231,7 +232,7 @@ export const ProjectsGallery = ({
       className="relative z-20 w-full bg-background text-white pb-32"
     >
       {/* Filter Bar - Editorial Positioning */}
-      <div className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
+      <div className="sticky top-[var(--header-height)] z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
         <div className="mx-auto flex max-w-[1400px] items-center justify-center">
           <h2 id="portfolio-gallery-heading" className="sr-only">
             Portfolio Showcase
@@ -284,7 +285,7 @@ export const ProjectsGallery = ({
         role="tabpanel"
         aria-labelledby={`portfolio-filter-${PORTFOLIO_FILTERS[activeFilterIndex]?.id ?? PORTFOLIO_FILTERS[0].id
           }`}
-        className="w-full relative z-[1]"
+        className="w-full relative z-[var(--z-layer-glass)]"
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
         <Container>
@@ -319,6 +320,14 @@ export const ProjectsGallery = ({
                   />
                 ))}
               </AnimatePresence>
+
+              <div className="col-span-full flex w-full justify-center pt-12 pb-4 md:pt-16 md:pb-8 max-sm:pt-10">
+                <AntigravityCTA
+                  text="vamos trabalhar juntos"
+                  href="/#contact"
+                  className="static"
+                />
+              </div>
 
               {/* Pagination Controls */}
               {totalPages > 1 && (

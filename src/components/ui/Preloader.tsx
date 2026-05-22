@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 
 import { BRAND } from '@/config/brand';
-import { GHOST_EASE, MOTION_TOKENS, GHOST_EASE_SOFT_UI } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 const hexToRgba = (hex: string, alpha = 1) => {
   const cleaned = hex.replace('#', '');
@@ -142,7 +142,7 @@ export function Preloader({
                 animate={{ width: '100%' }}
                 transition={{
                   duration: durationMs / 1000,
-                  ease: GHOST_EASE_SOFT_UI as any,
+                  ease: GHOST_EASE,
                 }}
               />
             </div>

@@ -20,10 +20,23 @@ jobs:
 
     env:
       FIREBASE_PROJECT_ID: portfolio-danilo-novais
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Validate pnpm lockfile
         run: |
@@ -32,63 +45,74 @@ jobs:
             exit 1
           fi
 
-      - name: Validate Firebase secrets
+      - name: Validate required secrets
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
+          if [ -z "$FIREBASE_SA" ]; then
             echo "ERROR: Missing secret FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS"
             exit 1
           fi
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.33.0
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: 💾 Cache Next.js build
-        uses: actions/cache@v4
-        with:
-          path: |
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('src/**/*.{js,jsx,ts,tsx}') }}
-          # If source files changed but dependencies didn't, we can still use the old cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then
+            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_URL"
+            exit 1
+          fi
+          if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
+            echo "ERROR: Missing secret NEXT_PUBLIC_SUPABASE_ANON_KEY"
+            exit 1
+          fi
+          case "$NEXT_PUBLIC_SUPABASE_URL" in
+            https://*.supabase.co|https://*.supabase.co/)
+              ;;
+            *)
+              echo "ERROR: NEXT_PUBLIC_SUPABASE_URL must be an https://*.supabase.co URL"
+              exit 1
+              ;;
+          esac
+          echo "Required public Supabase env vars are configured."
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: CI=true pnpm install --frozen-lockfile
+
+      - name: Create production env file
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          echo "NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}" > .env
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}" >> .env
+          echo "SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}" >> .env
+          echo "✅ Production .env file created."
 
       - name: Verify Next.js presence
         run: |
           pnpm exec next --version
 
+      - name: Run quality gates
+        run: pnpm run build-check
+
+      - name: Run Firebase preflight
+        run: pnpm run firebase:preflight
+
       - name: Build application
         env:
-          VALIDATE_ENV_WARN_ONLY: 1
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'http://localhost:54321' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock_key' }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || 'mock_key' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: pnpm run build
 
       - name: Install Firebase CLI
         run: pnpm dlx firebase-tools --version
 
       - name: Write service account credentials
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}' > "${{ runner.temp }}/firebase-service-account.json"
+          echo "$FIREBASE_SA" > "${{ runner.temp }}/firebase-service-account.json"
 
       - name: Deploy to Firebase Hosting
         env:
-          FIREBASE_PROJECT_ID: portfolio-danilo-novais
           FIREBASE_CLI_EXPERIMENTS: webframeworks
-          PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           pnpm dlx firebase-tools deploy --only hosting --project "${{ env.FIREBASE_PROJECT_ID }}"

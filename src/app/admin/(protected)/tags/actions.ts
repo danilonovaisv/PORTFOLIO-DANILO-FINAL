@@ -50,6 +50,8 @@ export async function upsertTagAction(input: TagMutationInput) {
 
     revalidatePath('/admin/tags');
     revalidatePath('/admin/trabalhos');
+    revalidatePath('/portfolio');
+    revalidatePath('/');
 
     return { ok: true as const, data };
   } catch (error: unknown) {
@@ -92,6 +94,8 @@ export async function deleteTagAction(tagId: string) {
 
     revalidatePath('/admin/tags');
     revalidatePath('/admin/trabalhos');
+    revalidatePath('/portfolio');
+    revalidatePath('/');
 
     return { ok: true as const };
   } catch (error: unknown) {

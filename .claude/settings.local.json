@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "permissions": {
     "allow": [
       "Bash(pnpm run *)",
@@ -37,12 +40,31 @@
       "Read(//Users/danilonovais/PROJETOS/**)",
       "Read(//Users/danilonovais/**)",
       "Bash(main)",
-      "Bash(grep -rn \"'main'\\\\|\\\\\"main\\\\\"\\\\|`main`\\\\|<main\\\\b\" /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/ --include=\"*.tsx\")"
+      "Bash(grep -rn \"'main'\\\\|\\\\\"main\\\\\"\\\\|`main`\\\\|<main\\\\b\" /Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/ --include=\"*.tsx\")",
+      "Bash(git commit *)",
+      "Bash(gh pr *)",
+      "Bash(VALIDATE_ENV_WARN_ONLY=1 pnpm run build)",
+      "Bash(git merge *)",
+      "Bash(xargs ls)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(echo \"EXIT:$?\")",
+      "Skill(superpowers:executing-plans)",
+      "Skill(superpowers:executing-plans:*)",
+      "Skill(ghost-design-system:ghost-design)",
+      "Skill(ghost-design-system:ghost-design:*)",
+      "mcp__plugin_firebase_firebase__firebase_get_environment",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\({engines:p.engines,packageManager:p.packageManager},null,2\\)\\)\")",
+      "Bash(node *)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height \"https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.desk.mp4\")",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height \"https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.mobile.mp4\")"
     ]
   },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": ["firecrawl-mcp"],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
+  },
+  "remote": {
+    "defaultEnvironmentId": "env_016QDiovkVoWyHB4rWxYFN3m"
   }
 }

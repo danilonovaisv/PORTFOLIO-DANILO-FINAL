@@ -102,3 +102,10 @@ Regras:
   - links de **ver/editar** agora incluem `aria-label` explícito com contexto do título.
   - links externos usam `rel="noopener noreferrer"` por segurança operacional.
 - Fluxo de exclusão migrou para botão client-side com confirmação explícita (`window.confirm`) antes de executar `deleteLandingPageAction`.
+
+## 10. Atualização de estado — 2026-05-19
+
+- Landing pages passaram a usar contrato central de asset em `src/lib/media/asset-contract.ts`.
+- Uploads do Admin para `site-assets` agora são persistidos como URL pública resolvida, não path cru.
+- Links YouTube aceitos (`watch`, `youtu.be`, `embed`, `shorts`, ID direto) são normalizados para `/embed/VIDEO_ID`.
+- Renderers públicos validam mídia antes do render e exibem fallback estável para legado inválido.

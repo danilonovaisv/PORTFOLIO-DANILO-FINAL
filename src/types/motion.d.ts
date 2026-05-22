@@ -7,7 +7,7 @@ import type {
   UseScrollOptions,
   MotionValue,
   SpringOptions,
-} from 'framer-motion';
+} from 'motion/react';
 
 /**
  * Re-export commonly used Framer Motion types for convenience

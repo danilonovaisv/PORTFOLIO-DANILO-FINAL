@@ -48,3 +48,32 @@ Relatório completo em `AUDIT_PENTEST_SOBRE.md` (17 violações: 4 críticas, 7 
 - [ ] `pnpm run build-check` validado no CI (este ambiente não tem `node_modules`).
 - [ ] Lighthouse `/sobre` ≥ 90 Performance e ≥ 95 A11y.
 - [ ] FPS ≥ 50 medido no Chrome Performance Monitor durante scroll do Beliefs.
+
+---
+
+## Atualização de Auditoria — 2026-05-18
+
+### Fixes aplicados nesta rodada
+
+| Item                            | Arquivo(s)                            | Status                                                        |
+| ------------------------------- | ------------------------------------- | ------------------------------------------------------------- |
+| M1 — z-indices.ts               | `src/config/z-indices.ts`             | ✅ Arquivo já deletado em pass anterior                       |
+| M2/M4 — SceneInvalidator Otimiz | `GhostScene.tsx`                      | ✅ Observers agora acoplam listeners globais condicionalmente |
+| M3 — useGLTF.preload top-level  | `GhostModel.tsx`                      | ✅ Guard `typeof window !== 'undefined'` mitigava SSR; aceito |
+| M5 — `style={{ y: 0 }}` phantom | `AboutMethod.tsx`                     | ✅ Já resolvido em pass anterior                              |
+| M6 — useIsMobile dedup          | `AboutHero.tsx`, `VideoManifesto.tsx` | ✅ Migrados para `useMediaQuery`                              |
+| Hook `useIsMobile.ts`           | `src/hooks/useIsMobile.ts`            | ✅ Deletado — zero callers                                    |
+| B1–B4                           | vários                                | ✅ Todos já resolvidos em passes anteriores                   |
+
+### Validação 2026-05-18
+
+- `pnpm lint` (local ESLint): ✅ zero errors em `src/components/sobre/`
+- `pnpm typecheck`: ✅ zero errors
+- `pnpm build`: ✅ `/sobre` prerendered como `○ (Static)` — `force-static` ativo
+- Hook `useIsMobile.ts` eliminado — substituído por `useMediaQuery` canônico em todo o projeto
+
+### Pendências remanescentes
+
+- `fix/audit-remediation-phase1` branch com 6 commits exclusivos (cache-control headers, GhostCanvas fallback, slug-utils) — requer avaliação de merge separado
+- Lighthouse `/sobre` ≥ 90 Performance e ≥ 95 A11y — ainda não medido
+- FPS ≥ 50 no Chrome Performance Monitor durante scroll do Beliefs — ainda não medido

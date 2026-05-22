@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import {
@@ -6,12 +8,10 @@ import {
   AboutWhatIDo,
   AboutMethod,
   AboutClosing,
-  AboutBeliefs,
+  ManifestoScrollSection,
 } from '@/components/sobre/sections';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
-import { SectionErrorBoundary } from '@/components/ui/SectionErrorBoundary';
-import { AboutBeliefsSkeleton } from '@/components/sobre/sections/AboutBeliefsSkeleton';
 
 import { BRAND } from '@/config/brand';
 import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';
@@ -71,7 +71,10 @@ export default function AboutPage() {
   const selfUrl = toCanonicalUrl('/sobre');
 
   return (
-    <div className="relative min-h-screen bg-background text-text">
+    <main
+      id="main-content"
+      className="relative min-h-screen bg-background text-text"
+    >
       <JsonLd
         pageType="about"
         breadcrumbs={[
@@ -95,13 +98,8 @@ export default function AboutPage() {
       <Suspense fallback={<SectionSkeleton label="Como Eu Trabalho" />}>
         <AboutMethod />
       </Suspense>
-      {/* Seção 05 — O Que Me Move (Beliefs) */}
-      <SectionErrorBoundary
-        sectionName="AboutBeliefs"
-        fallback={<AboutBeliefsSkeleton />}
-      >
-        <AboutBeliefs />
-      </SectionErrorBoundary>
+      {/* Seção 05 — O Que Me Move (Manifesto) */}
+      <ManifestoScrollSection />
       {/* Seção 06 — Fechamento/Confirmação */}
       <Suspense fallback={<SectionSkeleton label="Fechamento" />}>
         <AboutClosing />
@@ -109,6 +107,6 @@ export default function AboutPage() {
       <Suspense fallback={<SectionSkeleton label="Footer" />}>
         <SiteClosure />
       </Suspense>
-    </div>
+    </main>
   );
 }

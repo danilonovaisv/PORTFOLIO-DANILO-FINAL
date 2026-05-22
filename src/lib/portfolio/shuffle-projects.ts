@@ -1,54 +1,21 @@
 import type { PortfolioProject } from '@/types/project';
-import { stableShuffle, stableShuffleByPriority } from '@/lib/utils/stable-shuffle';
 
-function randomShuffle<T>(items: T[]) {
-  if (items.length <= 1) return [...items];
-
-  const shuffled = [...items];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const nextIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[nextIndex]] = [
-      shuffled[nextIndex],
-      shuffled[index],
-    ];
+/**
+ * Shuffles projects for the home page based on a seed or randomly.
+ * This ensures the portfolio feels dynamic.
+ */
+export function shuffleProjects(projects: PortfolioProject[], seed?: number): PortfolioProject[] {
+  if (!projects || projects.length === 0) return [];
+  
+  // Simple deterministic shuffle if seed provided, else random
+  const shuffled = [...projects];
+  let currentSeed = seed ?? Math.floor(Math.random() * 1000000);
+  
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    // Basic LCG-like pseudo-random selection based on currentSeed
+    const j = Math.floor(Math.abs(Math.sin(currentSeed++) * (i + 1)));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-
+  
   return shuffled;
-}
-
-function randomShuffleByPriority<T>(
-  items: T[],
-  isPriority: (_item: T) => boolean
-) {
-  const priority = items.filter(isPriority);
-  const regular = items.filter((item) => !isPriority(item));
-
-  return [...randomShuffle(priority), ...randomShuffle(regular)];
-}
-
-export function shuffleHomeProjects(projects: PortfolioProject[], seed?: number) {
-  return stableShuffle(projects, {
-    window: 'daily',
-    scope: 'home',
-    customSeed: seed,
-  });
-}
-
-export function shufflePortfolioProjects(projects: PortfolioProject[]) {
-  return stableShuffleByPriority(projects, {
-    window: 'daily',
-    scope: 'portfolio',
-    isPriority: (project) => Boolean(project.isFeatured),
-  });
-}
-
-export function shuffleHomeProjectsLive(projects: PortfolioProject[]) {
-  return randomShuffle(projects);
-}
-
-export function shufflePortfolioProjectsLive(projects: PortfolioProject[]) {
-  return randomShuffleByPriority(
-    projects,
-    (project) => Boolean(project.isFeatured)
-  );
 }

@@ -10,7 +10,7 @@ import {
   getNextFeaturedProjectBackgroundVariant,
   type FeaturedProjectBackgroundVariant,
 } from '@/components/home/featured-projects/animated-backgrounds';
-import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
+import { resolveProjectMedia } from '@/lib/portfolio/card-media';
 import type { PortfolioProject } from '@/types/project';
 
 interface FeaturedProjectCardProps {
@@ -103,13 +103,21 @@ export default function FeaturedProjectCard({
     };
   }, [isCardInView, reducedMotion]);
 
-  const desktopMediaSource = useMemo(() => {
-    return getCardMediaCandidates(project, 'landscape')[0];
-  }, [project]);
+  const visualAltText =
+    project.client && project.client !== project.title
+      ? `${project.title} para ${project.client}`
+      : project.title;
 
-  const mobileMediaSource = useMemo(() => {
-    return getCardMediaCandidates(project, 'square')[0] ?? desktopMediaSource;
-  }, [project, desktopMediaSource]);
+  const desktopMedia = useMemo(() => {
+    return resolveProjectMedia(project, 'landscape', { alt: visualAltText });
+  }, [project, visualAltText]);
+
+  const mobileMedia = useMemo(() => {
+    return (
+      resolveProjectMedia(project, 'square', { alt: visualAltText }) ??
+      desktopMedia
+    );
+  }, [project, desktopMedia, visualAltText]);
 
   const handleClick = () => {
     if (onOpen) {
@@ -125,23 +133,23 @@ export default function FeaturedProjectCard({
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
   const CardContent = () => (
-    <div className="flex h-full min-h-0 w-full flex-col">
+    <div className="flex h-full min-h-full w-full flex-1 flex-col">
       <div
         ref={frameRef}
-        className={`relative min-h-0 w-full flex-1 ${frameClassName ?? ''}`}
+        className={`relative min-h-0 w-full flex-1 flex flex-col items-stretch ${frameClassName ?? ''}`}
       >
         <FeaturedProjectCardFrame
           project={project}
           backgroundVariant={resolvedBackgroundVariant}
-          desktopMediaSource={desktopMediaSource}
-          mobileMediaSource={mobileMediaSource}
+          desktopMedia={desktopMedia}
+          mobileMedia={mobileMedia}
           priority={priority}
           reducedMotion={reducedMotion}
         />
       </div>
 
       {/* Metadata - Mobile: text left, arrow right | Desktop: left-aligned */}
-      <div className="mt-6 flex shrink-0 flex-row items-start justify-between gap-4 px-1 text-left md:gap-6">
+      <div className="mt-auto flex shrink-0 flex-row items-start justify-between gap-4 px-1 text-left md:gap-6 pt-6">
         <div className="flex-1">
           {/* Category / Client / Year */}
           <div className="flex items-center justify-start gap-2 text-white/60 text-xs md:text-sm leading-tight mb-2">
@@ -176,7 +184,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full min-h-0 w-full rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+    'group flex flex-col h-full min-h-0 w-full rounded-md text-left transition-transform duration-fast ease-ghost hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
   if (isModalMode) {
     return (
@@ -199,9 +207,16 @@ export default function FeaturedProjectCard({
     );
   }
 
+  // SSR fallback: project without dedicated landing page must reach the
+  // portfolio gallery, which renders the modal client-side per the
+  // "POP-UP DE PROJETO (SEM LANDING PAGE)" spec. Never link to the
+  // legacy `/portfolio/[slug]` page from a featured card without a landing.
+  const portfolioCardAnchor = `portfolio-card-${project.slug
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')}-0`;
   return (
     <Link
-      href={`/portfolio/${project.slug}`}
+      href={`/portfolio#${portfolioCardAnchor}`}
       className={commonClasses}
       aria-labelledby={headingId}
     >

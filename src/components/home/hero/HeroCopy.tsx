@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { m, useAnimate, stagger } from 'framer-motion';
+import { m, useAnimate, stagger } from 'motion/react';
 import type { Group } from 'three';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
@@ -102,7 +102,7 @@ export default function HeroCopy({
         {/* Headline - Mobile Only (Visual Only) -> md:hidden */}
         <div
           aria-hidden="true"
-          className="md:hidden mb-12 font-display text-[clamp(3rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
+          className="md:hidden mb-12 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] text-balance pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
             <React.Fragment key={`mobile-${i}`}>
@@ -116,7 +116,7 @@ export default function HeroCopy({
 
         {/* Subheading */}
         <m.p
-          className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} text-[clamp(1.25rem,4.6vw,2rem)] md:text-[clamp(1.125rem,3vw,2.5rem)] font-medium leading-[1.4] md:leading-[1.2] opacity-60 tracking-[0.02em] md:tracking-[0.03em] max-w-[90vw] md:max-w-none mx-auto`}
+          className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} text-[clamp(1.25rem,4.6vw,2rem)] md:text-[clamp(1.125rem,3vw,2.5rem)] font-medium leading-[1.4] md:leading-[1.2] opacity-60 tracking-[0.02em] md:tracking-[0.03em] max-w-full px-6 md:px-0 md:max-w-none mx-auto`}
           style={initialStyles}
         >
           {HOME_CONTENT.hero.subtitle}
@@ -143,7 +143,7 @@ export default function HeroCopy({
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-[12] overflow-hidden"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-[var(--z-layer-glass)] overflow-hidden"
           style={{
             WebkitMaskImage: `radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh), rgb(1, 1, 16) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0) 100%)`,
             maskImage: `radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh), rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0) 100%)`,
@@ -161,10 +161,10 @@ export default function HeroCopy({
       {/* Brilho Global (Aura do Ghost) */}
       <div
         ref={revealRef}
-        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none mix-blend-screen z-10 transition-opacity duration-ghostIn ease-out"
+        className="fixed top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none mix-blend-screen z-10 transition-opacity duration-ghostIn ease-out"
         style={{
-          backgroundColor: 'rgba(0, 72, 255, 0.2)',
-          filter: 'blur(120px)',
+          backgroundColor: 'rgba(0, 72, 255, 0.35)',
+          filter: 'blur(130px)',
           opacity: isLoaded ? 1 : 0,
         }}
       />

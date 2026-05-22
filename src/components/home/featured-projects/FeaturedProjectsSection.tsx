@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import {
   MOTION_TOKENS,
@@ -135,7 +135,7 @@ export default function FeaturedProjectsSection({
           viewport={{ once: true, amount: 0.18, margin: '-64px 0px' }}
           variants={staggerContainer(0.12)}
           // Layout fixo Bento Grid - 12 colunas com gaps consistentes
-          className="grid grid-cols-4 items-stretch gap-4 md:grid-cols-8 md:gap-6 lg:grid-cols-12"
+          className="grid grid-cols-4 items-stretch gap-4 md:grid-cols-8 md:gap-6 lg:grid-cols-12 lg:gap-8"
         >
           {featuredProjects.slice(0, 4).map((project, index) => {
             if (!project) return null;

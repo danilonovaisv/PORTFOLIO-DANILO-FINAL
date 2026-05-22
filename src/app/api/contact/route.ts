@@ -197,12 +197,75 @@ export async function POST(request: NextRequest) {
     source: 'home-contact-form',
   };
 
-  // Observabilidade básica até integração com provider de email/CRM.
-  console.warn('[contact-form] submission', {
+  // Observabilidade básica e logs de auditoria
+  console.warn('[contact-form] submission received', {
     ip,
     userAgent: request.headers.get('user-agent') || 'unknown',
     ...normalizedPayload,
   });
+
+  // Enviar e-mail usando Resend API via fetch nativo
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+  const toEmail = 'danilo@portfoliodanilo.com';
+
+  if (resendApiKey && resendApiKey !== 're_placeholder_secret') {
+    try {
+      const emailResponse = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendApiKey}`,
+        },
+        body: JSON.stringify({
+          from: `Contato Portfólio <${fromEmail}>`,
+          to: [toEmail],
+          subject: `Novo contato: ${normalizedPayload.name}`,
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e4e4e7; border-radius: 8px; color: #18181b;">
+              <h2 style="color: #0048ff; margin-top: 0;">Nova mensagem de contato</h2>
+              <p style="margin: 10px 0;"><strong>Nome:</strong> ${normalizedPayload.name}</p>
+              <p style="margin: 10px 0;"><strong>E-mail:</strong> <a href="mailto:${normalizedPayload.email}" style="color: #0048ff; text-decoration: none;">${normalizedPayload.email}</a></p>
+              <p style="margin: 10px 0;"><strong>Telefone:</strong> ${normalizedPayload.phone || 'Não informado'}</p>
+              <p style="margin: 20px 0 10px 0;"><strong>Mensagem:</strong></p>
+              <div style="background-color: #f4f4f5; border-left: 4px solid #0048ff; padding: 15px; margin: 10px 0; border-radius: 4px; font-style: italic; white-space: pre-wrap;">${normalizedPayload.message}</div>
+              <hr style="border: 0; border-top: 1px solid #e4e4e7; margin: 20px 0;" />
+              <p style="font-size: 12px; color: #71717a; margin-bottom: 0;">Esta mensagem foi enviada a partir do formulário de contato em portfoliodanilo.com.</p>
+            </div>
+          `,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        const errorData = await emailResponse.json().catch(() => null);
+        console.error('[api/contact] Resend API error details:', errorData);
+        throw new Error(`Resend API returned status ${emailResponse.status}`);
+      }
+
+      console.warn('[api/contact] Email sent successfully via Resend');
+    } catch (emailErr) {
+      console.error('[api/contact] Failed to send email via Resend:', emailErr);
+
+      if (isJson) {
+        return NextResponse.json(
+          {
+            ok: false,
+            message:
+              'Falha ao processar o envio da mensagem. Tente novamente mais tarde.',
+          },
+          { status: 500 }
+        );
+      }
+      return NextResponse.redirect(
+        new URL('/#contact?error=email_failed', request.url),
+        303
+      );
+    }
+  } else {
+    console.warn(
+      '[api/contact] RESEND_API_KEY is not configured or is a placeholder. Skipping email dispatch.'
+    );
+  }
 
   if (isJson) {
     return NextResponse.json({ ok: true }, { status: 200 });

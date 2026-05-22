@@ -168,7 +168,7 @@ const createNextConfig = (phase) => ({
   experimental: {
     optimizePackageImports: [
       'lucide-react',
-      'framer-motion',
+      'motion',
       'three',
       'gsap',
       'clsx',
@@ -180,6 +180,8 @@ const createNextConfig = (phase) => ({
       bodySizeLimit: '32mb',
       allowedOrigins: [
         'https://portfoliodanilo.com',
+        'https://portfolio-danilo-novais.web.app',
+        'https://portfolio-danilo-novais.firebaseapp.com',
         'http://localhost:3000',
         'http://127.0.0.1:3000',
       ],
@@ -274,8 +276,6 @@ const createNextConfig = (phase) => ({
    * Mantida INTACTA
    */
   images: {
-    qualities: [55, 60, 75],
-    unoptimized: false,
     // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
     remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
       {
@@ -291,6 +291,9 @@ const createNextConfig = (phase) => ({
         pathname: '/storage/v1/render/image/public/**',
       },
     ]),
+
+    // Lista de qualidades de compressão aceitas e validadas pelo compilador do Next.js 16
+    qualities: [25, 50, 60, 70, 75, 80, 90, 100],
 
     dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais

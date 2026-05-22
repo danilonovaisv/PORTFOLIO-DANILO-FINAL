@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #040013;
+        font-family: var(--font-sans);
+        padding: 20px 24px;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .section-label {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #4fe6ff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .spacers {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+      }
+      .sp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .sp-bar {
+        background: linear-gradient(to top, #0048ff, rgba(0, 72, 255, 0.3));
+        border-radius: 3px;
+        width: 28px;
+      }
+      .sp-label {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: #a1a3a3;
+      }
+      .sp-val {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: #fcffff;
+        font-weight: 600;
+      }
+      .radii {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .radius-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .rbox {
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 72, 255, 0.25);
+        border: 1px solid rgba(0, 72, 255, 0.5);
+      }
+      .rlabel {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: #a1a3a3;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 14px 0;
+      }
+      .z-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6px;
+      }
+      .z-item {
+        background: var(--color-neutral);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 5px;
+        padding: 7px 6px;
+        text-align: center;
+      }
+      .z-val {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #0048ff;
+        font-weight: 700;
+      }
+      .z-name {
+        font-size: 8px;
+        color: #a1a3a3;
+        margin-top: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      <div class="section-label">Spacing Scale</div>
+      <div class="spacers">
+        <div class="sp">
+          <div class="sp-bar" style="height: 4px"></div>
+          <div class="sp-val">4</div>
+          <div class="sp-label">--space-1</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 8px"></div>
+          <div class="sp-val">8</div>
+          <div class="sp-label">--space-2</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 12px"></div>
+          <div class="sp-val">12</div>
+          <div class="sp-label">--space-3</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 16px"></div>
+          <div class="sp-val">16</div>
+          <div class="sp-label">--space-4</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 24px"></div>
+          <div class="sp-val">24</div>
+          <div class="sp-label">--space-6</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 32px"></div>
+          <div class="sp-val">32</div>
+          <div class="sp-label">--space-8</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 48px"></div>
+          <div class="sp-val">48</div>
+          <div class="sp-label">--space-12</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 64px"></div>
+          <div class="sp-val">64</div>
+          <div class="sp-label">--space-16</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 80px"></div>
+          <div class="sp-val">96</div>
+          <div class="sp-label">--space-24</div>
+        </div>
+        <div class="sp">
+          <div class="sp-bar" style="height: 96px"></div>
+          <div class="sp-val">128</div>
+          <div class="sp-label">--space-32</div>
+        </div>
+      </div>
+    </div>
+    <hr class="divider" />
+    <div class="section">
+      <div class="section-label">Border Radius</div>
+      <div class="radii">
+        <div class="radius-box">
+          <div class="rbox" style="border-radius: 4px"></div>
+          <div class="rlabel">sm 4px</div>
+        </div>
+        <div class="radius-box">
+          <div class="rbox" style="border-radius: 10px"></div>
+          <div class="rlabel">md 10px</div>
+        </div>
+        <div class="radius-box">
+          <div class="rbox" style="border-radius: 16px"></div>
+          <div class="rlabel">lg 16px</div>
+        </div>
+        <div class="radius-box">
+          <div
+            class="rbox"
+            style="border-radius: 9999px; width: 56px; height: 30px"
+          ></div>
+          <div class="rlabel">full pill</div>
+        </div>
+        <div class="radius-box">
+          <div class="rbox" style="border-radius: 9999px"></div>
+          <div class="rlabel">full circle</div>
+        </div>
+      </div>
+    </div>
+    <hr class="divider" />
+    <div class="section">
+      <div class="section-label">Z-Index Layers</div>
+      <div class="z-grid">
+        <div class="z-item">
+          <div class="z-val">0</div>
+          <div class="z-name">base</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">10</div>
+          <div class="z-name">glass</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">20</div>
+          <div class="z-name">content</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">30</div>
+          <div class="z-name">3d</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">40</div>
+          <div class="z-name">cta</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">55</div>
+          <div class="z-name">header</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">70</div>
+          <div class="z-name">lightbox</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">90</div>
+          <div class="z-name">mob-menu</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">100</div>
+          <div class="z-name">modal</div>
+        </div>
+        <div class="z-item">
+          <div class="z-val">110</div>
+          <div class="z-name">cursor</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

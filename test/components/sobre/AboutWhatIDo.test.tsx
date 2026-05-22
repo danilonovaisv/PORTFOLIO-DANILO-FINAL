@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { AboutWhatIDo } from '@/components/sobre/sections/AboutWhatIDo';
 
-jest.mock('framer-motion', () => {
+jest.mock('motion/react', () => {
   const React = require('react');
   const mockComponent = (tag: string) => {
     return React.forwardRef(

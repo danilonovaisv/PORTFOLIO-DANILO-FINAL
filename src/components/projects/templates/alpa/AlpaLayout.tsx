@@ -1,6 +1,6 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
@@ -8,13 +8,13 @@ import { useMemo } from 'react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { getAssetUrl } from '@/lib/utils';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { normalizeHexColor, mixHex } from '@/lib/colors';
-import { getYouTubeId } from '@/lib/projects/asset-utils';
+import { extractYoutubeId } from '@/lib/media/asset-contract';
 import { AssetLightbox } from '../AssetLightbox';
 import type { ZoomAsset, IntroBodyBlock } from '../types';
 
@@ -109,7 +109,7 @@ export function AlpaLayout({
     : DEFAULT_ETHER_COLORS;
 
   const heroLogo = project.hero_logo_image?.src
-    ? resolveSiteAssetUrl(project.hero_logo_image.src)
+    ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
     : '';
 
   return (
@@ -226,7 +226,7 @@ export function AlpaLayout({
               </h2>
               {introBlocks.map((block, paragraphIndex) => {
                 if (block.type === 'video_youtube') {
-                  const videoId = getYouTubeId(block.value);
+                  const videoId = extractYoutubeId(block.value);
                   if (!videoId) return null;
 
                   const shouldAutoplay = block.settings?.autoplay ?? true;

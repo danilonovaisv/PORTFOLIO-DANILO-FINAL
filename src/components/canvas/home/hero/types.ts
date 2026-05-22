@@ -5,7 +5,7 @@ export interface ParticleData {
   currentPos: THREE.Vector3;
   life: number;
   decay: number;
-  rotationSpeed: { x: number; y: number; z: number };
+  rotationSpeed: THREE.Vector3;
   randomScale: number;
 }
 

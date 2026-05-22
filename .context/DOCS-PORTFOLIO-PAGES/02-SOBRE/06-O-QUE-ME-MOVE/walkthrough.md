@@ -1,100 +1,169 @@
-# Walkthrough: O Que Me Move (Motion DOM + Ghost 3D)
+# Walkthrough — 06-O-QUE-ME-MOVE + Origin Images Regression
 
-## 2026-05-04 — Validação pós-APROVADO
+> Data: 2026-05-18  
+> Escopo: preservar a seção “O que me move” conforme documentação final sem animação Ghost 3D e corrigir regressão de imagens da seção ORIGEM.
 
-### Resumo
+## Estado final vigente — AboutBeliefs
 
-A seção `06-O-QUE-ME-MOVE` foi alinhada ao prompt mestre do Agent Manager e às fontes de verdade `requirements.md`, `system-context.md`, ADR-006, `task_list.md` e `motion_implementation_plan.md`.
+Fonte de verdade: `06-O-QUE-ME-MOVE-FINAL.md`.
 
-### Arquivos alterados
+`AboutBeliefs` foi deliberadamente reduzido para uma composição minimalista:
 
-- `src/config/beliefTokens.ts`
-- `src/config/beliefs.ts`
-- `src/types/beliefs.ts`
-- `src/hooks/useMediaQuery.ts`
-- `src/hooks/useBeliefsScroll.ts`
-- `src/components/sobre/sections/AboutBeliefs.tsx`
-- `src/components/sobre/beliefs/BeliefBackground.tsx`
-- `src/components/sobre/beliefs/BeliefOverlay.tsx`
-- `src/components/sobre/beliefs/BeliefFixedHeader.tsx`
-- `src/components/sobre/beliefs/BeliefScrollText.tsx`
-- `src/components/sobre/beliefs/BeliefManifesto.tsx`
-- `src/components/sobre/beliefs/SplitTextMotion.tsx`
-- `src/components/sobre/3d/GhostScene.tsx`
-- `src/components/sobre/3d/GhostModel.tsx`
-- `src/components/sobre/3d/GhostSceneFallback.tsx`
+```txt
+AboutBeliefs.tsx
+  ├── WhatMovesMeBackground
+  └── BeliefScrollText
+        └── WhatMovesMePhrase x6
+```
 
-### Correções aplicadas
+Essa redução é correta e substitui a arquitetura antiga com GSAP + Ghost 3D. Não tratar como bug a ausência destes itens na árvore renderizada da seção 06:
 
-- `BeliefBackground` passou a usar Motion `animate() + inView()` com `GHOST_EASE_AMBIENT` e reset bidirecional.
-- Tokens e conteúdo canônico foram centralizados em `src/config/beliefTokens.ts`.
-- `BeliefScrollText` renderiza as seis frases obrigatórias com `.belief-scroll-section`, `data-index` e contrato E2E `viewport-x-opacity`.
-- `BeliefManifesto` expõe `ISSO É / GHOST / DESIGN` com `z-50`.
-- `GhostScene` permanece em `z-70`, usa `frameloop="demand"` e detecta ausência de WebGL antes de montar `<Canvas>`.
-- `GhostModel` mantém asset por `getAssetUrl()` de `@/lib/utils` e protege `useGLTF.preload()` no client.
-- `prefers-reduced-motion` usa media query local para evitar mismatch de hidratação.
-- `SplitTextMotion` usa `motion.create()` para remover warning de depreciação.
+- `BeliefFixedHeader`
+- `GhostScene`
+- `BeliefManifesto`
+- `BeliefBackground`
+- `BeliefOverlay`
+- `BeliefsScrollProvider`
 
-### Evidência
+Esses arquivos podem continuar no repositório para histórico, compatibilidade ou outros ciclos, mas não pertencem ao render vigente de `AboutBeliefs`.
 
-- `pnpm exec eslint src/config/beliefTokens.ts src/hooks/useMediaQuery.ts src/hooks/useBeliefsScroll.ts src/components/sobre/sections/AboutBeliefs.tsx src/components/sobre/beliefs/BeliefBackground.tsx src/components/sobre/beliefs/BeliefFixedHeader.tsx src/components/sobre/beliefs/BeliefScrollText.tsx src/components/sobre/beliefs/BeliefManifesto.tsx src/components/sobre/3d/GhostScene.tsx src/components/sobre/3d/GhostModel.tsx src/components/sobre/3d/GhostSceneFallback.tsx` ✅
-- `pnpm run typecheck` ✅
-- `pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium` ✅ `12 passed`
-- `pnpm run lint` ✅ `0 errors / 45 warnings preexistentes`
-- `pnpm run build` ✅
+## Contrato técnico vigente
 
-### Riscos remanescentes
+- Background: CSS fixed shade em `WhatMovesMeBackground`, sem canvas, sem CDN externo, sem `requestAnimationFrame`.
+- Texto: 6 frases centralizadas em `BeliefScrollText`, controladas por Motion `useScroll` + `useTransform`.
+- Frase final: `ISSO É / GHOST / DESIGN.` integrada ao fluxo de frases; `GHOST` em Ghost Blue `#0048ff`.
+- Reduced motion: preserva fade, remove translate e blur.
+- Acessibilidade: `section` com `aria-labelledby`, `h2.sr-only`, frases com `aria-label` completo.
+- Performance: nenhum GLB, R3F, WebGL ou GSAP `ScrollTrigger` montado na seção 06.
 
-- Ambiente local executou com Node `v25.9.0`, enquanto `package.json` declara Node `22`.
-- Validação visual manual com screenshots desktop/mobile ainda deve ser feita antes de release.
-- Warnings de lint preexistentes permanecem fora do escopo desta rodada.
+## Contrato E2E vigente
 
----
+`test/e2e/about-beliefs.spec.ts` deve validar:
 
-## 1. Resumo da Execução
+- presença de `beliefs-section`, `what-moves-me-background`, `beliefs-scroll-text` e 6 `belief-phrase`;
+- ausência de `beliefs-ghost-scene`, `beliefs-manifesto`, `beliefs-fixed-header`, `beliefs-background`, `data-belief-section` e `data-belief-manifesto`;
+- ausência de `canvas` dentro de `beliefs-section`;
+- centralização desktop/mobile;
+- scroll forward/reverso mantendo frase visível;
+- reduced motion sem translate/blur;
+- ausência de erro `Error creating WebGL context` quando WebGL é indisponível.
 
-Este documento atesta a conclusão da auditoria e refatoração da seção `06-O-QUE-ME-MOVE` da página `/sobre`. Todas as ações cirúrgicas foram concluídas com sucesso, sanando os erros E1-E8 e garantindo a adequação absoluta aos contratos de motion e hierarquia do Ghost Design System.
+## Registro de validação — 2026-05-18
 
-## 2. Componentes Auditados e Corrigidos
+Validações executadas após registrar o estado final:
 
-### `BeliefsSection.tsx` (E5)
+- `pnpm run typecheck` passou.
+- `pnpm run lint` passou.
+- `PLAYWRIGHT_BASE_URL=http://localhost:3000 pnpm exec playwright test test/e2e/about-beliefs.spec.ts --project=chromium --reporter=line` passou com `7 passed`.
+- Playwright CLI abriu `http://localhost:3000/sobre`, gerou snapshot e confirmou a região `O que me move` com as 6 frases.
+- `rg` no snapshot CLI confirmou texto da seção e não encontrou `canvas`.
+- Console CLI mostrou apenas mensagens informativas de React DevTools/HMR, sem erro crítico.
 
-- **Correção**: Atualizado o `z-index` do `GhostCanvasClient` de `z-[70]` para `z-50`, reconciliando-o com a token nominal `z-layer-lightbox` do sistema de design.
+Observações de ambiente:
 
-### `BeliefBackground.tsx` (E1, E7)
+- A sessão local usa Node `v26.0.0` / pnpm `11.1.1`; o repo declara Node `22`, então `pnpm` emite warning de engine.
+- O Playwright config ainda tenta iniciar `next dev --port 5005`; como já existe servidor em `localhost:3000`, o log mostra `Another next dev server is already running`. O teste usa `PLAYWRIGHT_BASE_URL=http://localhost:3000` e passou contra o servidor ativo.
 
-- **Correção**:
-  - Injeção de `transition: 'none'` no container animado para barrar quaisquer resets não intencionais vindos de CSS global ou Tailwind.
-  - Ajuste do mapeamento linear das cores (`colorValues`), congelando as últimas duas posições na cor `#0048ff` (bluePrimary), garantindo que a transição final do manifesto fique envelopada pelo climax em vez de regredir para escuro.
+## Causa raiz
 
-### `BeliefScrollText.tsx` (E2, E3)
+1. A documentação final de `06-O-QUE-ME-MOVE` substituiu o plano antigo com GSAP + Ghost 3D por uma seção editorial com background CSS fixo e frases centralizadas. Portanto, a reintrodução de animação Ghost 3D nessa seção foi explicitamente cancelada pela aprovação humana.
+2. As imagens da seção ORIGEM usavam chaves de asset divergentes em `SITE_ASSET_KEYS.about.originImages` (`about.origin.about.origin_image.*`), enquanto a fonte exportada do projeto registra `about.origin_image.*`.
+3. Quando a URL de fallback era local (`/site.assets/about/origin/...`), `DynamicAssetImage` ainda passava `supabaseLoader` para `next/image`. Para caminhos locais, o loader retornava a URL sem aplicar `width`, disparando `next-image-missing-loader-width`.
 
-- **Correção**:
-  - O uso do eixo `X` (`translateX`) foi completamente removido da animação das frases.
-  - Movimento remodelado para ocorrer exclusivamente no eixo `Y` através de cálculo responsivo (`isMobile` e `prefersReducedMotion`), com mapeamento seguro de pixels (`18px -> 0px -> -18px`).
-  - Implementação do efeito de `blur(6px) -> blur(0px) -> blur(6px)` acoplado à entrada e saída das frases no scrollytelling.
+## Arquivos alterados
 
-### `BeliefManifesto.tsx` (E4, E6, E5)
+- `src/config/site-assets.ts`
+  - Corrigidas as quatro chaves de `about.originImages` para os nomes reais registrados no export de assets.
+- `src/components/ui/shared/DynamicAssetImage.tsx`
+  - O loader Supabase agora só é aplicado para URLs remotas transformáveis.
+  - Caminhos locais, `data:` e `blob:` usam o comportamento nativo do `next/image`, eliminando o contrato inválido de loader sem `width`.
+- `docs/implementation_plan.md`
+  - Registrada a ressalva humana pós-aprovação: sem animação Ghost 3D em `06-O-QUE-ME-MOVE`.
+- `docs/task.md`
+  - Atualizadas T10/T11 para refletir a decisão de não montar WebGL nessa seção.
+- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/walkthrough.md`
+  - Atualizado este walkthrough com causa, decisões, validações e riscos.
 
-- **Correção**:
-  - `font-size` limitado para a instrução de design restrita: `clamp(4rem, 17vw, 13rem)`.
-  - Z-layer ajustado para `z-40`, colocando o texto do manifesto exatamente abaixo do Canvas 3D e acima das outras camadas visuais.
-  - A cronologia do scroll para o manifesto (o early reveal) foi antecipada mapeando o `opacity` de `[0.56, 0.68]` para ir de `0` para `1`, segurando 100% de visibilidade no arco final `[0.95, 1]`.
+## O que foi preservado/restaurado
 
-### `BeliefFixedHeader.tsx` (E8)
+- A seção “O que me move” permanece alinhada à documentação final:
+  - sem Ghost 3D renderizando;
+  - sem Canvas/WebGL;
+  - background CSS shade fixo;
+  - seis frases centralizadas controladas por scroll;
+  - frase final com `GHOST` em Ghost Blue `#0048ff`.
+- A seção ORIGEM mantém o uso de `DynamicAssetImage`, mas com chaves corretas e sem loader custom em fallback local.
 
-- **Correção**:
-  - Reformatação semântica e visual. Removidas as superdimensionadas classes `text-7xl font-display` para dar lugar ao styling editorial exigido no escopo (`text-xs md:text-sm`, `font-mono`, `tracking-widest`, `opacity-70`).
+## Proteção do Ghost 3D
 
-## 3. Snapshot Final e Validações
+- Nenhum arquivo em `src/components/sobre/3d/*` foi removido.
+- A seção `AboutBeliefs` não reintroduz `GhostScene`, respeitando a documentação final e a ressalva humana.
+- WebGL permanece disponível no projeto para outros contextos, mas não participa de `06-O-QUE-ME-MOVE`.
 
-O blueprint congelado não possui mais animações ou conflitos fora dos domínios do _Ghost System_. O Framer Motion domina todo o scroll-mapping com easing seguro, e não existem loops infinitos no componente pai por transições sobrepostas. A validação obedece às premissas e a interface UI/UX se manterá elegante.
+## Correção do loader `next/image`
 
-## 4. Decisão sobre a atualização do `.context`
+Estratégia aplicada:
 
-O arquivo `06-O-QUE-ME-MOVE-AJUSTE.md` existente em `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/` atua como a documentação primária do escopo.
-**Decisão**: O `06-O-QUE-ME-MOVE-AJUSTE.md` **não requer reescrita** neste exato momento, pois as alterações refletidas neste `walkthrough.md` alinharam o código exatamente às suas prescrições. No entanto, sugere-se incluir um log no `.context/logs/adjustment_log.md` sobre a implementação do `walkthrough.md` e suas correções de z-index para futuras referências de UI.
+```tsx
+loader={shouldUseSupabaseLoader ? supabaseLoader : undefined}
+```
 
----
+Critério:
 
-_Executado via Protocolo Antigravity / Ghost System v3._
+- usa `supabaseLoader` apenas quando `finalUrl` não é local (`/`), `data:` ou `blob:`;
+- deixa `next/image` tratar caminhos locais de `public/site.assets` nativamente;
+- mantém o loader width-aware para URLs Supabase remotas.
+
+## Paths Supabase/local auditados
+
+| Seção | Asset lógico | Path local esperado | Bucket | Path Supabase esperado | Evidência local | Status externo |
+| --- | --- | --- | --- | --- | --- | --- |
+| ORIGEM | Imagem 1 | `/site.assets/about/origin/about.origin_image.1.webp` | `site-assets` | `about/origin/about.origin_image.1.webp` | existe em `public/site.assets` | bloqueado por proxy/envoy 403 |
+| ORIGEM | Imagem 2 | `/site.assets/about/origin/about.origin_image.2.webp` | `site-assets` | `about/origin/about.origin_image.2.webp` | existe em `public/site.assets` | bloqueado por proxy/envoy 403 |
+| ORIGEM | Imagem 3 | `/site.assets/about/origin/about.origin_image.3.webp` | `site-assets` | `about/origin/about.origin_image.3.webp` | existe em `public/site.assets` | bloqueado por proxy/envoy 403 |
+| ORIGEM | Imagem 4 | `/site.assets/about/origin/about.origin_image.4.webp` | `site-assets` | `about/origin/about.origin_image.4.webp` | existe em `public/site.assets` | bloqueado por proxy/envoy 403 |
+
+Observação: o ambiente não expôs Supabase MCP e o acesso HTTP direto ao domínio Supabase retornou bloqueio do túnel (`CONNECT tunnel failed, response 403`). A validação operacional confiável neste ambiente foi o mirror local versionado em `public/site.assets` e o export `src/config/site-assets.json`.
+
+## Evidências de terminal
+
+- `git show 43def5ca^:src/components/sobre/sections/AboutBeliefs.tsx` confirmou que o commit `43def5ca` removeu a montagem antiga do Ghost 3D.
+- `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-FINAL.md` confirma que a versão final documentada remove Ghost 3D e GSAP da seção.
+- `find public/site.assets/about/origin` confirmou os quatro `.webp` locais.
+- `node` sobre `src/config/site-assets.json` confirmou os quatro registros `about.origin_image.{1..4}`.
+
+## Evidências visuais
+
+Validação visual automatizada via navegador não foi concluída neste ambiente antes deste registro. Checklist manual esperado em `pnpm dev`:
+
+1. abrir `/sobre`;
+2. navegar até ORIGEM e confirmar quatro imagens sem erro `next-image-missing-loader-width`;
+3. navegar até “O que me move” e confirmar seção sem Canvas/WebGL/Ghost 3D animado;
+4. confirmar frases centralizadas, background Ghost shade e frase final com `GHOST` em `#0048ff`.
+
+## Validações executadas
+
+- Inspeção de histórico Git para identificar remoção do Ghost 3D.
+- Inspeção de `.context` para reconciliar intenção atual versus plano antigo.
+- Inspeção de `next.config.mjs` para confirmar `remotePatterns` Supabase.
+- Inspeção de `src/config/site-assets.json` e `public/site.assets/about/origin`.
+- Correções programáticas em `src/config/site-assets.ts` e `DynamicAssetImage.tsx`.
+
+## Validações finais executadas após a correção
+
+- `pnpm run lint` passou. O ambiente emitiu apenas warning de engine porque o projeto pede Node 22 e o container usa Node 20.20.2.
+- `pnpm run typecheck` passou. Mesmo warning de engine do ambiente.
+- `pnpm run build` passou. O build usou fallback quando Supabase ficou inacessível por rede (`ENETUNREACH`) e não falhou.
+- `pnpm test` passou: 37 suites e 250 testes.
+- `pnpm run dev` + `curl http://127.0.0.1:3000/sobre` retornou HTTP 200 e o log não apresentou `next-image-missing-loader-width`.
+- Screenshot automatizado via Playwright foi tentado, mas Chromium não abriu por dependência nativa ausente no container (`libatk-1.0.so.0`).
+
+## Riscos remanescentes
+
+- Se o banco `site_assets` em produção ainda contiver keys divergentes, os fallbacks locais continuarão protegendo o layout, mas a origem remota deve ser reconciliada no Supabase Dashboard/MCP.
+- O ambiente atual bloqueou auditoria HTTP real do Supabase; a verificação externa precisa ser repetida em rede sem proxy restritivo.
+- `pnpm build` pode atualizar `public/build-info.json`, que já aparece como artefato gerado no workspace.
+
+## Recomendação sobre blueprints
+
+Manter `06-O-QUE-ME-MOVE-FINAL.md` como fonte de verdade atual. Qualquer retorno de Ghost 3D nessa seção deve exigir novo blueprint e aprovação explícita, porque conflita com a documentação final aprovada.

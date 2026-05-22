@@ -1,16 +1,43 @@
-# Task List — Auditoria PREVC
+# Task List — Media Card System
 
-A task list is an artifact that the agent uses to approach complex tasks and monitor progress on various action items...
+## Phase 1 — Audit
 
-## Tasks
+- [x] Identify project card media consumers.
+- [x] Map current media fallback order.
+- [x] Confirm existing grid/card sizing constraints.
 
-1. Confirmar escopo e governança (AGENTS.md, docs de página, regras locais).
-2. Mapear rotas Home (`/`), Sobre (`/sobre`) e Portfólio (`/portfolio`) no App Router.
-3. Inventariar seções/componentes por rota e breakpoints.
-4. Levantar evidências de metadados/SEO técnico por rota.
-5. Levantar evidências de acessibilidade estrutural e operacional.
-6. Levantar evidências de performance (preload, dynamic import, fallback data).
-7. Levantar evidências de estados loading/empty/error.
-8. Classificar findings em P0/P1/P2 com impacto e causa provável.
-9. Consolidar fix_plan acionável sem implementar mudanças.
-10. Preparar checklist de validação e gate de aprovação humana.
+## Phase 2 — Data Layer
+
+- [x] Add `MediaFormat`, `MediaKind`, `MediaFit`, and `ProjectMedia`.
+- [x] Add optional format metadata fields to `PortfolioProject`.
+- [x] Keep `getCardMediaCandidates()` compatible for legacy string callers.
+- [x] Add `resolveProjectMedia()` for typed card media.
+
+## Phase 3 — Component
+
+- [x] Create `MediaCard.tsx`.
+- [x] Apply `aspect-square` and `aspect-video` by metadata.
+- [x] Render both image and video with shared sizing behavior.
+- [x] Default videos to `object-contain`.
+
+## Phase 4 — Grid Integration
+
+- [x] Replace duplicated image/video rendering in `ProjectCard`.
+- [x] Replace duplicated image/video rendering in `FeaturedProjectCardFrame`.
+- [x] Keep desktop/mobile media fallback behavior.
+- [x] Preserve hover video behavior.
+
+## Phase 5 — Validation
+
+- [x] Add resolver tests.
+- [x] Add `MediaCard` component tests.
+- [x] Run existing `ProjectCard` tests.
+- [x] Run typecheck.
+- [x] Run lint.
+- [x] Run production build with placeholder public env values.
+- [x] Run local browser validation on `/portfolio` desktop/mobile.
+
+## Remaining Follow-Up
+
+- Replace inferred formats with explicit CMS/project metadata for every portfolio item.
+- Decide whether image cards should also support `fit: 'contain'` for no-crop project thumbnails where visual inspection is more important than uniform fill.

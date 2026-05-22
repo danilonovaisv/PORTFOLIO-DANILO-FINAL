@@ -30,6 +30,7 @@ npm-debug.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
 
 # Vercel
 .vercel
@@ -90,9 +91,12 @@ test-results/
 .aiassistant/
 # AI/Agent System (.agent)
 .agent/broken_links_report.json
+.agent/skills/
 .agent/skills-archive/
 .agent/.shared/
 .agent/data/
+# Secondary agent skill library
+.agents/skills/
 .github/*
 !.github/workflows/
 .github/workflows/*
@@ -138,14 +142,37 @@ node_modules
 tmp-npm-cache/
 .npm_cache_local/
 .pnpm-cache/
+functions/.npm_cache/
+
+# Python bytecode (compiled, never commit)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Generated visual exports
+graphify-out/
+
+# Session output artifacts
+output/
 
 # Orphan root-level artifacts from sessions
 build-error.log
 firebase-deploy.log
 *.patch
 .claude/worktrees/
+knip_report.txt
+walkthrough.md
+WEEKLY_AUDIT_REPORT.md
+
+# Scratch / session artifacts (root-level)
+tsc_*.txt
+typecheck_*.txt
+audit-result.txt
+findings.md
+scratch/
 
 .gemini/
 gha-creds-*.json
 toolbox
 
+.git-hygiene-backup/

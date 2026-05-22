@@ -2,15 +2,18 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { LandingPageBlock } from '@/types/landing-page';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
 import { sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { ghostRise } from '@/config/motion';
+import {
+  extractYoutubeId,
+  resolveLandingAsset,
+} from '@/lib/media/asset-contract';
 
 // fadeInUp is deprecated in favor of ghostRise for system consistency
 
@@ -27,18 +30,11 @@ export default function BlockRenderer({
 }: BlockRendererProps) {
   const { type, content } = block;
 
-  const resolveMedia = (path?: string): string => {
-    if (!path) return '';
-    if (path.startsWith('http')) return path;
-    return buildSupabaseStorageUrl('site-assets', path) ?? path;
-  };
-
-  const getYouTubeId = (url: string): string | null => {
-    const regExp =
-      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return match && match[2].length === 11 ? match[2] : null;
-  };
+  const renderAssetFallback = (label = 'Mídia indisponível') => (
+    <div className="flex min-h-[220px] w-full items-center justify-center rounded-2xl border border-white/10 bg-slate-900/50 px-6 text-center text-sm text-white/60">
+      {label}
+    </div>
+  );
 
   const renderText = (text?: string, config?: TextConfig, className = '') => {
     if (!text) return null;
@@ -89,12 +85,15 @@ export default function BlockRenderer({
   ) => {
     if (!src) return null;
 
-    const youtubeId = getYouTubeId(src);
-    const actualType = youtubeId
-      ? 'youtube'
-      : type || (src.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
+    const resolved = resolveLandingAsset(src, type);
+    if (!resolved.ok) return renderAssetFallback();
 
-    if (actualType === 'youtube' && youtubeId) {
+    const youtubeId =
+      resolved.asset.provider === 'youtube'
+        ? extractYoutubeId(resolved.asset.url)
+        : null;
+
+    if (youtubeId) {
       return (
         <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5 aspect-video">
           <YouTubePlayer
@@ -107,12 +106,11 @@ export default function BlockRenderer({
       );
     }
 
-    if (actualType === 'video') {
-      const url = resolveMedia(src);
+    if (resolved.asset.type === 'video') {
       return (
         <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5">
           <video
-            src={url}
+            src={resolved.asset.url}
             className="w-full h-auto"
             autoPlay={autoplay}
             muted={autoplay}
@@ -128,12 +126,11 @@ export default function BlockRenderer({
     }
 
     // Default to image
-    const url = resolveMedia(src);
     return (
       <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50">
         <Image
           loader={supabaseLoader}
-          src={url}
+          src={resolved.asset.url}
           alt={block.content.text || 'Mídia detalhada do projeto'}
           width={1600}
           height={900}
@@ -159,22 +156,22 @@ export default function BlockRenderer({
 
       case 'image':
         return (
-          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
-            {renderMedia(content.media, 'image')}
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
+            {renderMedia(content.media, content.mediaType || 'image')}
           </div>
         );
 
       case 'video':
         return (
-          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
-            {renderMedia(content.media, 'video', false)}
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
+            {renderMedia(content.media, content.mediaType || 'video', false)}
           </div>
         );
 
       case 'video-autoplay':
         return (
-          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
-            {renderMedia(content.media, 'video', true)}
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
+            {renderMedia(content.media, content.mediaType || 'video', true)}
           </div>
         );
 
@@ -182,7 +179,9 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>{renderMedia(content.media, 'image')}</div>
+              <div>
+                {renderMedia(content.media, content.mediaType || 'image')}
+              </div>
               <div>{renderText(content.text, content.textConfig)}</div>
             </div>
           </div>
@@ -196,7 +195,7 @@ export default function BlockRenderer({
                 {renderText(content.text, content.textConfig)}
               </div>
               <div className="order-1 md:order-2">
-                {renderMedia(content.media, 'image')}
+                {renderMedia(content.media, content.mediaType || 'image')}
               </div>
             </div>
           </div>
@@ -206,8 +205,8 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {renderMedia(content.media, 'image')}
-              {renderMedia(content.media2, 'image')}
+              {renderMedia(content.media, content.mediaType || 'image')}
+              {renderMedia(content.media2, content.mediaType2 || 'image')}
             </div>
           </div>
         );
@@ -216,8 +215,8 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              {renderMedia(content.media, 'image')}
-              {renderMedia(content.media2, 'video', true)}
+              {renderMedia(content.media, content.mediaType || 'image')}
+              {renderMedia(content.media2, content.mediaType2 || 'video', true)}
             </div>
           </div>
         );
@@ -226,7 +225,7 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              {renderMedia(content.media, 'video', true)}
+              {renderMedia(content.media, content.mediaType || 'video', true)}
               {renderText(content.text, content.textConfig)}
             </div>
           </div>

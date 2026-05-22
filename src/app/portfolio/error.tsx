@@ -10,19 +10,21 @@ export default function Error({
     reset: () => void;
 }) {
     useEffect(() => {
-        // Report to Sentinel Prime API
         const reportError = async () => {
             try {
                 await fetch('/api/report-error', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        origem: 'Ghost System Portfolio',
-                        erro_detectado: error.message,
-                        componente_afetado: 'src/app/portfolio',
+                        message: error.message,
                         stack: error.stack,
-                        digest: error.digest,
-                        status: 'ERROR_BOUNDARY_TRIGGERED'
+                        component: 'src/app/portfolio',
+                        url: window.location.href,
+                        metadata: {
+                            digest: error.digest,
+                            status: 'ERROR_BOUNDARY_TRIGGERED',
+                            origem: 'Ghost System Portfolio',
+                        },
                     }),
                     keepalive: true,
                 });

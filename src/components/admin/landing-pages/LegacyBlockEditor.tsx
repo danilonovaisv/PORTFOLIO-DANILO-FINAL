@@ -1,6 +1,6 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import {
   Trash2,
   ChevronUp,
@@ -31,10 +31,10 @@ import {
  */
 interface LegacyBlockEditorProps {
   sections: LandingPageBlock[];
-  onAddBlock: (type: BlockType) => void;
-  onRemoveSection: (id: string) => void;
-  onMoveSection: (index: number, direction: 'up' | 'down') => void;
-  onUpdateBlock: (id: string, updates: Partial<LandingPageBlock>) => void;
+  onAddBlock: (_type: BlockType) => void;
+  onRemoveSection: (_id: string) => void;
+  onMoveSection: (_index: number, _direction: 'up' | 'down') => void;
+  onUpdateBlock: (_id: string, _updates: Partial<LandingPageBlock>) => void;
 }
 
 export function LegacyBlockEditor({

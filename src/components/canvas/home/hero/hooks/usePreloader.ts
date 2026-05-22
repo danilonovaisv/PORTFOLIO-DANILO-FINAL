@@ -21,9 +21,13 @@ export function usePreloader() {
 
       setTimeout(() => {
         if (preloaderRef.current) {
-          preloaderRef.current.classList.add('fade-out');
+          preloaderRef.current.classList.add(
+            'opacity-0',
+            'pointer-events-none'
+          );
         }
-        canvas.classList.add('fade-in');
+        canvas.classList.remove('opacity-0');
+        canvas.classList.add('opacity-100');
 
         setTimeout(() => {
           if (preloaderRef.current) {

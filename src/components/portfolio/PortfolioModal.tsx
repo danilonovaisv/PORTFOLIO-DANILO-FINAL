@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
 import { PortfolioProject } from '@/types/project';
@@ -38,8 +38,7 @@ export const PortfolioModal = ({
   useEffect(() => {
     if (isOpen) {
       previousFocusRef.current = document.activeElement as HTMLElement;
-      // Permitir uma renderização curta para o foco
-      setTimeout(() => closeRef.current?.focus(), 50);
+      requestAnimationFrame(() => requestAnimationFrame(() => closeRef.current?.focus()));
     } else {
       if (previousFocusRef.current) {
         previousFocusRef.current.focus();

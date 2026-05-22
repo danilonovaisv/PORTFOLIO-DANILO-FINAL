@@ -9,14 +9,17 @@ import { useGhostInput } from './hooks/useGhostInput';
 import { useGhostAnimate } from './hooks/useGhostAnimate';
 import { useGhostParams } from './hooks/useGhostParams';
 import { Preloader } from './components/Preloader';
-import './GhostScene.css';
+
+interface GhostSceneProps {
+  onReady?: () => void;
+}
 
 /**
  * GhostScene Component
  * Renders the main 3D interactive hero experience.
  * Modularized to comply with file size and architectural standards.
  */
-export default function GhostScene() {
+export default function GhostScene({ onReady }: GhostSceneProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
 
@@ -107,17 +110,17 @@ export default function GhostScene() {
       }
 
       // Start Main Animation Loop only after init
-      let animationId = 0;
+      cleanupRefs.current = { animationId: 0, observer };
       const animate = (timestamp: number) => {
-        animationId = requestAnimationFrame(animate);
+        cleanupRefs.current.animationId = requestAnimationFrame(animate);
         if (!isInView) return;
         updateRef.current(timestamp);
       };
 
       animate(0);
 
-      // Store cleanup refs
-      cleanupRefs.current = { animationId, observer };
+      // Call onReady callback if provided
+      if (onReady) onReady();
     };
 
     let idleHandle: number | null = null;

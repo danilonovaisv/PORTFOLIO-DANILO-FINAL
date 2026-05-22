@@ -20,10 +20,6 @@ interface StableShuffleOptions {
   customSeed?: number | string | Date;
 }
 
-interface StableShufflePriorityOptions<T> extends StableShuffleOptions {
-  isPriority: (_item: T) => boolean;
-}
-
 /**
  * Generate a numeric seed from a string using DJB2 hash.
  * Consistent across server/client for the same input.
@@ -101,18 +97,4 @@ export function stableShuffle<T>(
   }
 
   return shuffled;
-}
-
-export function stableShuffleByPriority<T>(
-  items: T[],
-  options: StableShufflePriorityOptions<T>
-): T[] {
-  const priority = items.filter(options.isPriority);
-  const regular = items.filter((item) => !options.isPriority(item));
-  const scope = options.scope ?? '';
-
-  return [
-    ...stableShuffle(priority, { ...options, scope: `${scope}:priority` }),
-    ...stableShuffle(regular, { ...options, scope: `${scope}:regular` }),
-  ];
 }

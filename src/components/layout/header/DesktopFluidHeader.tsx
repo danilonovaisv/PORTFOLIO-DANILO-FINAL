@@ -6,7 +6,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { NavItem } from '@/components/layout/header/types';
 
 import dynamic from 'next/dynamic';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
+import { MotionLink } from '@/components/motion/MotionLink';
 import { GHOST_EASE } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useAntigravityStore } from '@/store/antigravity.store';
@@ -25,6 +26,7 @@ export interface DesktopFluidHeaderProps {
   onNavigate: (_href: string) => void;
   activeHref?: string;
   isLight?: boolean;
+  accentColor?: string;
 }
 
 function isExternalHref(href: string) {
@@ -64,7 +66,7 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
     : `${baseText} ${hoverText} font-medium`;
 
   const LinkComponent =
-    isExternalHref(item.href) || item.external ? m.a : m.button;
+    isExternalHref(item.href) || item.external ? m.a : MotionLink;
   const linkProps =
     isExternalHref(item.href) || item.external
       ? {
@@ -73,8 +75,12 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
           rel: 'noopener noreferrer',
         }
       : {
-          type: 'button' as const,
-          onClick: () => onNavigate(item.href),
+          href: item.href,
+          onClick: (e: React.MouseEvent) => {
+            if (e.metaKey || e.ctrlKey || e.button === 1) return;
+            e.preventDefault();
+            onNavigate(item.href);
+          },
         };
 
   return (
@@ -112,13 +118,20 @@ const DesktopNavItem = React.memo(function DesktopNavItem({
   );
 });
 
-export default function DesktopFluidHeader({
-  navItems,
-  logoUrl,
-  onNavigate,
-  activeHref,
-  isLight,
-}: DesktopFluidHeaderProps) {
+const DesktopFluidHeader = React.forwardRef<
+  HTMLElement,
+  DesktopFluidHeaderProps
+>(function DesktopFluidHeader(
+  {
+    navItems,
+    logoUrl,
+    onNavigate,
+    activeHref,
+    isLight,
+    accentColor = '#0048ff',
+  },
+  ref
+) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useMotionGate();
   const mountWebGL = useAntigravityStore((state) => state.flags.mountWebGL);
@@ -156,6 +169,7 @@ export default function DesktopFluidHeader({
 
   return (
     <header
+      ref={ref}
       className={`hidden lg:block fixed top-6 left-0 right-0 z-55 w-full pointer-events-none transition-all duration-standard ease-in-out ${
         isLight ? 'header--light' : ''
       }`}
@@ -176,7 +190,7 @@ export default function DesktopFluidHeader({
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-full overflow-hidden opacity-60 pointer-events-none">
               {allowCanvas ? (
-                <HeaderGlassCanvas accentColor="#0048ff" />
+                <HeaderGlassCanvas accentColor={accentColor} />
               ) : (
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,72,255,0.25),rgba(0,0,0,0.25)_65%)]" />
               )}
@@ -226,4 +240,6 @@ export default function DesktopFluidHeader({
       </div>
     </header>
   );
-}
+});
+
+export default DesktopFluidHeader;

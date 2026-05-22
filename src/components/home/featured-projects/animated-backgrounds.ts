@@ -1,10 +1,6 @@
 import type { PortfolioProject } from '@/types/project';
 
-export const FEATURED_PROJECT_BACKGROUND_POOL = [
-  'grainient',
-  'ghost',
-  'aurora',
-] as const;
+export const FEATURED_PROJECT_BACKGROUND_POOL = ['grainient', 'ghost'] as const;
 
 export type FeaturedProjectBackgroundVariant =
   (typeof FEATURED_PROJECT_BACKGROUND_POOL)[number];
@@ -26,12 +22,6 @@ export function getFeaturedProjectBackgroundVariant(
 
   return FEATURED_PROJECT_BACKGROUND_POOL[
     hash % FEATURED_PROJECT_BACKGROUND_POOL.length
-  ];
-}
-
-export function getRandomFeaturedProjectBackgroundVariant(): FeaturedProjectBackgroundVariant {
-  return FEATURED_PROJECT_BACKGROUND_POOL[
-    Math.floor(Math.random() * FEATURED_PROJECT_BACKGROUND_POOL.length)
   ];
 }
 

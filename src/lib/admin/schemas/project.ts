@@ -39,6 +39,15 @@ const nullableOptionalYearField = z.preprocess((value) => {
   return Number.isNaN(parsed) ? value : parsed;
 }, z.number().int('SYSTEM_ERR: YEAR_MUST_BE_INTEGER').min(1900, 'SYSTEM_ERR: INVALID_YEAR_RANGE').max(2100, 'SYSTEM_ERR: INVALID_YEAR_RANGE').nullable().optional());
 
+const featuredOrderField = z.preprocess((value) => {
+  if (value === '' || value === null || value === undefined) {
+    return null;
+  }
+
+  const parsed = typeof value === 'number' ? value : Number(value);
+  return Number.isNaN(parsed) ? value : parsed;
+}, z.number().int('SYSTEM_ERR: ORDER_MUST_BE_INTEGER').min(0, 'SYSTEM_ERR: ORDER_MUST_BE_NON_NEGATIVE').max(9999, 'SYSTEM_ERR: ORDER_OUT_OF_RANGE').nullable().optional());
+
 const projectBaseFieldsSchema = z.object({
   title: z
     .string()
@@ -58,6 +67,9 @@ const projectBaseFieldsSchema = z.object({
   short_label: z.string().trim().max(120).optional(),
   description: z.string().trim().max(4000).optional(),
   featured_on_home: z.boolean().optional(),
+  featured_on_portfolio: z.boolean().optional(),
+  featured_home_order: featuredOrderField,
+  featured_portfolio_order: featuredOrderField,
   home_featured: z
     .object({
       enabled: z.boolean().optional(),

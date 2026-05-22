@@ -69,7 +69,7 @@ test.describe('Ghost System Verification', () => {
 
     // Click on "Sobre" link in header
     // Use a more targeted locator within the nav that already proved visible
-    const aboutButton = nav.getByRole('button', { name: /sobre/i });
+    const aboutButton = nav.getByRole('link', { name: /sobre/i });
     await expect(aboutButton).toBeVisible();
     await aboutButton.click();
 

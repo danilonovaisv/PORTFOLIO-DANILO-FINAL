@@ -29,7 +29,7 @@ const filterMotionProps = (props: Record<string, unknown>) => {
 };
 
 // Mock Framer Motion to render children immediately
-jest.mock('framer-motion', () => {
+jest.mock('motion/react', () => {
   const motionMock = {
     div: ({ children, className, ...props }: any) => (
       <div className={className} {...filterMotionProps(props)}>

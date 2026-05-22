@@ -40,13 +40,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     syncPreference();
 
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', syncPreference);
-      return () => mediaQuery.removeEventListener('change', syncPreference);
-    }
-
-    mediaQuery.addListener(syncPreference);
-    return () => mediaQuery.removeListener(syncPreference);
+    mediaQuery.addEventListener('change', syncPreference);
+    return () => mediaQuery.removeEventListener('change', syncPreference);
   }, []);
 
   useEffect(() => {

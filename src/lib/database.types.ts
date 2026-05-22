@@ -104,6 +104,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      client_errors: {
+        Row: {
+          captured_at: string;
+          error_data: Json;
+          id: number;
+          severity: string;
+          source: string;
+        };
+        Insert: {
+          captured_at?: string;
+          error_data: Json;
+          id?: number;
+          severity?: string;
+          source?: string;
+        };
+        Update: {
+          captured_at?: string;
+          error_data?: Json;
+          id?: number;
+          severity?: string;
+          source?: string;
+        };
+        Relationships: [];
+      };
       content_version: {
         Row: {
           id: boolean;

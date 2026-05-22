@@ -1,0 +1,40 @@
+{
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "threejs-3d-viewer": {
+      "type": "http",
+      "url": "https://example-server.modelcontextprotocol.io/threejs/mcp"
+    },
+    "hugging-face": {
+      "type": "http",
+      "url": "https://huggingface.co/mcp"
+    },
+    "gamma": {
+      "type": "http",
+      "url": "https://mcp.gamma.app/mcp"
+    },
+    "motion-studio": {
+      "type": "http",
+      "url": "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=umkmwbkwvulxtdodzmzf"
+    },
+    "exa": {
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp"
+    },
+    "github": {
+      "type": "http",
+      "url": "api.githubcopilot.com/mcp/"
+    },
+    "firebase-mcp": {
+      "type": "http",
+      "url": "https://github.com/gannonh/firebase-mcp"
+    }
+  }
+}

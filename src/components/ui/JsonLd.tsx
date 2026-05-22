@@ -32,13 +32,28 @@ export default function JsonLd({
   const baseUrl = `https://${BRAND.domain}`;
   const logo = toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl);
 
+  // Logo Image Object Schema to ensure structured data validation resolves '#logo'
+  const logoImageSchema = {
+    '@type': 'ImageObject',
+    '@id': `${baseUrl}/#logo`,
+    url: logo,
+    caption: `${BRAND.name} Logo`,
+  };
+
   // Organization Schema
   const organizationSchema = {
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
     name: BRAND.name,
     url: baseUrl,
-    logo,
+    foundingDate: '2015',
+    areaServed: 'BR',
+    logo: {
+      '@id': `${baseUrl}/#logo`,
+    },
+    image: {
+      '@id': `${baseUrl}/#logo`,
+    },
     sameAs: [
       'https://github.com/danilonovaisv',
       'https://www.linkedin.com/in/danilonovaisv',
@@ -54,7 +69,9 @@ export default function JsonLd({
     name: BRAND.name,
     url: baseUrl,
     email: 'contato@portfoliodanilo.com',
-    image: logo,
+    image: {
+      '@id': `${baseUrl}/#logo`,
+    },
     jobTitle: 'Head de Criação & Diretor de Criação Sênior',
     worksFor: {
       '@id': `${baseUrl}/#organization`,
@@ -240,6 +257,7 @@ export default function JsonLd({
   }
 
   const graph = [
+    logoImageSchema,
     organizationSchema,
     personSchema,
     websiteSchema,

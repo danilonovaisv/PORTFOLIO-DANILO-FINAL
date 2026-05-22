@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
@@ -77,10 +77,8 @@ export default function PortfolioShowcase() {
             id="portfolio-showcase-heading"
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-none"
           >
+            <span className="text-white block sm:inline">portfólio </span>
             <span className="text-bluePrimary italic font-light block sm:inline">
-              portfólio{' '}
-            </span>
-            <span className="text-white font-bold block sm:inline">
               showcase
             </span>
           </h2>

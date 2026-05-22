@@ -2,11 +2,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { uploadSiteAsset } from '@/lib/supabase/storage';
 import {
   sanitizeMasterV3BlockContent,
-  toStoragePath,
   stripMasterDraft,
   stripMasterV2Draft,
   stripMasterV3Draft,
 } from '@/lib/admin/transformers/landing-page';
+import {
+  type AssetTypeHint,
+  requireResolvedAsset,
+  resolveSupabaseUrl,
+} from '@/lib/media/asset-contract';
 import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -29,13 +33,17 @@ interface SaveContext {
 
 export async function prepareLandingPageData(ctx: SaveContext) {
   const handleFileUpload = async (file: File, key: string) => {
-    return await uploadSiteAsset({
+    const path = await uploadSiteAsset({
       file,
       key,
       page: 'landing-pages',
       subPath: ctx.slug || 'general',
       bucket: 'site-assets',
     });
+    const url = resolveSupabaseUrl(path, 'site-assets');
+    if (!url)
+      throw new Error('SYSTEM_ERR: STORAGE_PUBLIC_URL_RESOLUTION_FAILED');
+    return url;
   };
 
   let finalContent: any;
@@ -63,7 +71,7 @@ export async function prepareLandingPageData(ctx: SaveContext) {
 }
 
 async function saveLegacyContent(ctx: SaveContext, upload: Function) {
-  let coverPath = ctx.initialCover || '';
+  let coverPath = normalizePersistedAsset(ctx.initialCover, 'image');
   if (ctx.cover) {
     const path = await upload(ctx.cover, `cover-${uuidv4()}`);
     if (path) coverPath = path;
@@ -73,19 +81,23 @@ async function saveLegacyContent(ctx: SaveContext, upload: Function) {
     ctx.sections.map(async (section) => {
       let mediaPath = section.content.media;
       let media2Path = section.content.media2;
+      const mediaType = section.content.mediaType as AssetTypeHint | undefined;
+      const mediaType2 = section.content.mediaType2 as
+        | AssetTypeHint
+        | undefined;
 
       if (section.file) {
         const path = await upload(section.file, `block-${section.id}-media1`);
         if (path) mediaPath = path;
       } else if (mediaPath) {
-        mediaPath = toStoragePath(mediaPath);
+        mediaPath = normalizePersistedAsset(mediaPath, mediaType);
       }
 
       if (section.file2) {
         const path = await upload(section.file2, `block-${section.id}-media2`);
         if (path) media2Path = path;
       } else if (media2Path) {
-        media2Path = toStoragePath(media2Path);
+        media2Path = normalizePersistedAsset(media2Path, mediaType2);
       }
 
       return {
@@ -118,7 +130,10 @@ async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
     );
     if (path) heroCoverSrc = path;
   } else {
-    heroCoverSrc = toStoragePath(heroCoverSrc);
+    heroCoverSrc = normalizePersistedAsset(
+      heroCoverSrc,
+      nextTemplate.hero_cover_image.kind
+    );
   }
 
   let heroLogo = nextTemplate.hero_logo_image;
@@ -128,7 +143,10 @@ async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
       heroLogo = { ...heroLogo, src: path, file: null, previewUrl: '' };
     }
   } else if (heroLogo?.src) {
-    heroLogo = { ...heroLogo, src: toStoragePath(heroLogo.src) };
+    heroLogo = {
+      ...heroLogo,
+      src: normalizePersistedAsset(heroLogo.src, heroLogo.kind),
+    };
   }
 
   const galleryGrid = await Promise.all(
@@ -138,12 +156,12 @@ async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
         const path = await upload(item.file, `master-grid-${item.id}`);
         if (path) src = path;
       } else {
-        src = toStoragePath(src);
+        src = normalizePersistedAsset(src, item.kind);
       }
       return {
         ...item,
         src,
-        poster: item.poster ? toStoragePath(item.poster) : item.poster,
+        poster: normalizePersistedAsset(item.poster, 'image'),
         file: null,
         previewUrl: '',
       };
@@ -163,7 +181,7 @@ async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
     seo: {
       ...nextTemplate.seo,
       og_image: nextTemplate.seo?.og_image
-        ? toStoragePath(nextTemplate.seo.og_image)
+        ? normalizePersistedAsset(nextTemplate.seo.og_image, 'image')
         : heroCoverSrc,
     },
   });
@@ -195,7 +213,10 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
     );
     if (path) heroCoverSrc = path;
   } else {
-    heroCoverSrc = toStoragePath(heroCoverSrc);
+    heroCoverSrc = normalizePersistedAsset(
+      heroCoverSrc,
+      nextTemplate.hero_cover_image.kind
+    );
   }
 
   let heroLogo = nextTemplate.hero_logo_image;
@@ -205,7 +226,10 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
       heroLogo = { ...heroLogo, src: path, file: null, previewUrl: '' };
     }
   } else if (heroLogo?.src) {
-    heroLogo = { ...heroLogo, src: toStoragePath(heroLogo.src) };
+    heroLogo = {
+      ...heroLogo,
+      src: normalizePersistedAsset(heroLogo.src, heroLogo.kind),
+    };
   }
 
   const galleryGrid = await Promise.all(
@@ -215,12 +239,12 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
         const path = await upload(item.file, `master-v2-grid-${item.id}`);
         if (path) src = path;
       } else {
-        src = toStoragePath(src);
+        src = normalizePersistedAsset(src, item.kind);
       }
       return {
         ...item,
         src,
-        poster: item.poster ? toStoragePath(item.poster) : item.poster,
+        poster: normalizePersistedAsset(item.poster, 'image'),
         file: null,
         previewUrl: '',
       };
@@ -240,7 +264,7 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
     seo: {
       ...nextTemplate.seo,
       og_image: nextTemplate.seo?.og_image
-        ? toStoragePath(nextTemplate.seo.og_image)
+        ? normalizePersistedAsset(nextTemplate.seo.og_image, 'image')
         : heroCoverSrc,
     },
   });
@@ -276,6 +300,10 @@ function normalizeTemplateV3IntroBody(introBody: unknown) {
       if (!value.trim()) return null;
 
       const type = block.type === 'video_youtube' ? 'video_youtube' : 'text';
+      const normalizedValue =
+        type === 'video_youtube'
+          ? normalizePersistedAsset(value, 'youtube')
+          : value;
       const autoplay =
         typeof block.settings?.autoplay === 'boolean'
           ? block.settings.autoplay
@@ -283,7 +311,7 @@ function normalizeTemplateV3IntroBody(introBody: unknown) {
 
       return {
         type,
-        value,
+        value: normalizedValue,
         settings: { autoplay },
       };
     })
@@ -314,7 +342,10 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
     );
     if (path) heroCoverSrc = path;
   } else if (heroCoverSrc) {
-    heroCoverSrc = toStoragePath(heroCoverSrc);
+    heroCoverSrc = normalizePersistedAsset(
+      heroCoverSrc,
+      nextTemplate.hero_cover_image?.kind
+    );
   }
 
   let heroLogo = nextTemplate.hero_logo_image;
@@ -324,7 +355,10 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
       heroLogo = { ...heroLogo, src: path, file: null, previewUrl: '' };
     }
   } else if (heroLogo?.src) {
-    heroLogo = { ...heroLogo, src: toStoragePath(heroLogo.src) };
+    heroLogo = {
+      ...heroLogo,
+      src: normalizePersistedAsset(heroLogo.src, heroLogo.kind),
+    };
   }
 
   const galleryGrid = await Promise.all(
@@ -340,22 +374,25 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
         const path = await upload(block.file, `master-v3-grid-${block.id}-m1`);
         if (path) mediaPath = path;
       } else if (mediaPath) {
-        mediaPath = toStoragePath(mediaPath);
+        mediaPath = normalizePersistedAsset(mediaPath, block.content.mediaType);
       }
 
       if (block.file2) {
         const path = await upload(block.file2, `master-v3-grid-${block.id}-m2`);
         if (path) media2Path = path;
       } else if (media2Path) {
-        media2Path = toStoragePath(media2Path);
+        media2Path = normalizePersistedAsset(
+          media2Path,
+          block.content.mediaType2
+        );
       }
 
       const posterPath = block.content.poster
-        ? toStoragePath(block.content.poster)
-        : block.content.poster;
+        ? normalizePersistedAsset(block.content.poster, 'image')
+        : '';
       const poster2Path = block.content.poster2
-        ? toStoragePath(block.content.poster2)
-        : block.content.poster2;
+        ? normalizePersistedAsset(block.content.poster2, 'image')
+        : '';
 
       return {
         ...block,
@@ -389,10 +426,18 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
     seo: {
       ...nextTemplate.seo,
       og_image: nextTemplate.seo?.og_image
-        ? toStoragePath(nextTemplate.seo.og_image)
+        ? normalizePersistedAsset(nextTemplate.seo.og_image, 'image')
         : heroCoverSrc,
     },
   });
 
   return { coverPath: heroCoverSrc, content: cleanTemplate };
+}
+
+function normalizePersistedAsset(
+  value?: string | null,
+  hint?: AssetTypeHint | 'image' | 'video'
+) {
+  if (!value?.trim()) return '';
+  return requireResolvedAsset(value, hint as AssetTypeHint | undefined);
 }

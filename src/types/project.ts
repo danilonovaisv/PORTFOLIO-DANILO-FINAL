@@ -2,6 +2,8 @@
 // Portfolio Project Types - Ghost Era v2.1
 // =============================================================================
 
+import type { MediaFormat } from '@/lib/media/media-format';
+
 /**
  * Tipo do projeto define o layout do card
  * - A: Cards grandes, hero-style
@@ -44,10 +46,18 @@ export interface HomeFeaturedConfig {
 
 export interface ProjectDestination {
   type: ProjectDestinationType;
+  /**
+   * Canonical destination URL persisted by the admin (`destination.url`).
+   * Always prefer this field when reading the destination target.
+   */
+  url?: string;
+  /**
+   * @deprecated Use `url`. Retained for backwards compatibility with rows
+   * persisted before the field was renamed; mappers normalise both aliases.
+   */
   href?: string;
   landingSlug?: string;
   openInNewTab?: boolean;
-  url?: string; // Padronização sugerida
 }
 
 /**
@@ -100,6 +110,11 @@ export interface PortfolioProject extends Omit<BaseProjectData, 'summary'> {
   image: string;
   imageLandscape?: string;
   imageSquare?: string;
+  imageFormat?: MediaFormat;
+  imageLandscapeFormat?: MediaFormat;
+  imageSquareFormat?: MediaFormat;
+  thumbnailMediaFormat?: MediaFormat;
+  videoPreviewFormat?: MediaFormat;
   hoverImage?: string;
   videoPreview?: string;
   thumbnailMedia?: string;

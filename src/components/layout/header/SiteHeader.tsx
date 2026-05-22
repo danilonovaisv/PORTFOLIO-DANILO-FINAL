@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
 import { BRAND } from '@/config/brand';
@@ -48,6 +54,21 @@ export default function SiteHeader({
   gradient,
   accentColor,
 }: SiteHeaderProps) {
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        document.documentElement.style.setProperty(
+          '--header-height',
+          `${entry.target.clientHeight}px`
+        );
+      }
+    });
+    observer.observe(headerRef.current);
+    return () => observer.disconnect();
+  }, []);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isOnLightSection, setIsOnLightSection] = useState(false);
@@ -149,11 +170,13 @@ export default function SiteHeader({
     <>
       {isDesktop ? (
         <DesktopFluidHeader
+          ref={headerRef}
           navItems={normalizedNavItems}
           logoUrl={logoDesktop}
           isLight={isOnLightSection}
           onNavigate={onNavigate}
           activeHref={activeHref}
+          accentColor={accentColor}
         />
       ) : (
         <MobileStaggeredMenu

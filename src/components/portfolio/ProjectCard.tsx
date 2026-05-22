@@ -1,22 +1,22 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { m } from 'framer-motion';
+import { m, useScroll, useTransform, useSpring } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { MOTION_TOKENS } from '@/config/motion';
+import { MediaCard } from '@/components/ui/media/MediaCard';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
-import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
-import { isLegacyProjectMediaAsset } from '@/lib/portfolio/card-media';
 import {
-  ASSET_PLACEHOLDER,
-  applyImageFallback,
-  getAssetUrl,
+  getPreferredCoverForSlot,
+  isLegacyProjectMediaAsset,
+  resolveProjectMedia,
+} from '@/lib/portfolio/card-media';
+import {
   isVideo,
-  supabaseLoader,
 } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import type { ProjectMedia } from '@/lib/media/media-format';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -50,46 +50,51 @@ export const ProjectCard = React.memo(function ProjectCard({
 }: ProjectCardProps) {
   const reduceMotion = useMotionGate();
 
-  const motionProps = reduceMotion
-    ? {
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-      viewport: { once: false, amount: 0.2 },
-      transition: { duration: MOTION_TOKENS.duration.fast },
-    }
-    : {
-      initial: { opacity: 0, y: MOTION_TOKENS.offset.standard, filter: MOTION_TOKENS.blur.hidden },
-      whileInView: { opacity: 1, y: 0, filter: MOTION_TOKENS.blur.visible },
-      viewport: { once: false, margin: '-10% 0px -10% 0px' },
-      transition: {
-        duration: MOTION_TOKENS.duration.normal,
-        delay: Math.min(0.18, index * 0.03),
-        ease: GHOST_EASE as any,
-      },
-    };
+  const cardRef = React.useRef<HTMLButtonElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', 'center center'],
+  });
 
-  // Resolve best static image (never a video)
-  const prefersSquareOnDesktop = ['sm', 'md', 'tall'].includes(size);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
-  const desktopMediaCandidate =
-    getCardMediaCandidates(project, prefersSquareOnDesktop ? 'square' : 'landscape')[0] ??
-    ASSET_PLACEHOLDER;
+  const scrollOpacity = useTransform(smoothProgress, [0, 0.8], [0, 1]);
+  const scrollY = useTransform(smoothProgress, [0, 0.8], [MOTION_TOKENS.offset.standard, 0]);
+  const scrollBlur = useTransform(smoothProgress, [0, 0.8], [10, 0]);
 
-  const mobileMediaCandidate =
-    getCardMediaCandidates(project, 'square')[0] ?? desktopMediaCandidate;
+  const motionStyle = reduceMotion 
+    ? {} 
+    : { 
+        opacity: scrollOpacity, 
+        y: scrollY, 
+        filter: useTransform(scrollBlur, (v) => `blur(${v}px)`) 
+      };
 
-  const desktopMediaIsVideo = isVideo(desktopMediaCandidate);
-  const mobileMediaIsVideo = isVideo(mobileMediaCandidate);
-  const desktopMedia = getAssetUrl(
-    desktopMediaCandidate,
-    desktopMediaIsVideo ? { isVideo: true } : undefined
+
+  const visualAltText =
+    project.client && project.client !== project.title
+      ? `${project.title} para ${project.client}`
+      : project.title;
+  const desktopPreferredCover = getPreferredCoverForSlot(
+    'portfolio-card-desktop',
+    size
   );
-  const mobileMedia = getAssetUrl(
-    mobileMediaCandidate,
-    mobileMediaIsVideo ? { isVideo: true } : undefined
-  );
+  const desktopMedia = resolveProjectMedia(project, desktopPreferredCover, {
+    alt: visualAltText,
+  });
+  const mobileMedia =
+    resolveProjectMedia(project, 'square', { alt: visualAltText }) ??
+    desktopMedia;
   const baseMediaDiffers =
-    desktopMedia !== mobileMedia || desktopMediaIsVideo !== mobileMediaIsVideo;
+    !!desktopMedia &&
+    !!mobileMedia &&
+    (desktopMedia.src !== mobileMedia.src ||
+      desktopMedia.kind !== mobileMedia.kind ||
+      desktopMedia.format !== mobileMedia.format);
 
   const hoverVideoCandidate =
     [project.videoPreview, project.thumbnailMedia].find(
@@ -98,16 +103,22 @@ export const ProjectCard = React.memo(function ProjectCard({
         isVideo(candidate) &&
         !isLegacyProjectMediaAsset(candidate)
     ) ?? null;
-  const hoverVideoSource = hoverVideoCandidate
-    ? getAssetUrl(hoverVideoCandidate, { isVideo: true })
-    : undefined;
+  const hoverMedia: ProjectMedia | null = hoverVideoCandidate
+    ? {
+        kind: 'video',
+        src: hoverVideoCandidate,
+        format: desktopMedia?.format ?? desktopPreferredCover,
+        fit: 'contain',
+        alt: visualAltText,
+      }
+    : null;
   const hasVideo =
-    !!hoverVideoSource &&
+    !!hoverMedia &&
     !(
-      hoverVideoSource === desktopMedia &&
-      hoverVideoSource === mobileMedia &&
-      desktopMediaIsVideo &&
-      mobileMediaIsVideo
+      hoverMedia.src === desktopMedia?.src &&
+      hoverMedia.src === mobileMedia?.src &&
+      desktopMedia?.kind === 'video' &&
+      mobileMedia?.kind === 'video'
     );
 
   const objectPosition = project.layout?.objectPosition ?? 'center';
@@ -128,14 +139,22 @@ export const ProjectCard = React.memo(function ProjectCard({
     (project.landingPageSlug
       ? { type: 'internal_landing' as const, landingSlug: project.landingPageSlug }
       : project.link && project.category === 'Landing Page'
-        ? { type: 'external_url' as const, href: project.link }
+        ? { type: 'external_url' as const, href: project.link, url: project.link }
         : { type: 'modal' as const });
   const isModalDestination = destination.type === 'modal';
 
   const handleClick = () => {
-    if (destination.type === 'external_url' && destination.href) {
-      window.open(destination.href, '_blank', 'noopener,noreferrer');
-      return;
+    if (destination.type === 'external_url') {
+      // Admin payload uses `url`; legacy code paths set `href`. Both must work.
+      const target = (destination.url ?? destination.href ?? '').trim();
+      if (target) {
+        window.open(
+          target,
+          destination.openInNewTab === false ? '_self' : '_blank',
+          'noopener,noreferrer'
+        );
+        return;
+      }
     }
     onClick?.(project);
   };
@@ -156,6 +175,7 @@ export const ProjectCard = React.memo(function ProjectCard({
 
   return (
     <m.button
+      ref={cardRef}
       layout="position"
       type="button"
       id={cardAnchorId}
@@ -173,127 +193,72 @@ export const ProjectCard = React.memo(function ProjectCard({
       )}
       onMouseEnter={() => { hasHoverRef.current = true; setIsHovered(true); }}
       onMouseLeave={() => setIsHovered(false)}
-      {...motionProps}
+      style={motionStyle}
     >
       <div className="absolute inset-0 h-full z-0">
         {/* Static image — always visible by default */}
-        {baseMediaDiffers ? (
+        {desktopMedia && mobileMedia && baseMediaDiffers ? (
           <>
-            {desktopMediaIsVideo ? (
-              <video
-                src={desktopMedia}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={DEFAULT_VIDEO_POSTER}
-                className={cn(
-                  'hidden h-full w-full object-cover object-center transition-opacity duration-modal md:block',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-              />
-            ) : (
-              <Image
-                loader={supabaseLoader}
-                src={desktopMedia}
-                alt={`Projeto ${project.title}`}
-                fill
-                className={cn(
-                  'hidden md:block object-cover object-center transition-opacity duration-modal',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-                sizes={sizes}
-                quality={60}
-                loading={priority ? 'eager' : 'lazy'}
-                priority={priority}
-                onError={applyImageFallback}
-              />
-            )}
-            {mobileMediaIsVideo ? (
-              <video
-                src={mobileMedia}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={DEFAULT_VIDEO_POSTER}
-                className={cn(
-                  'block h-full w-full object-cover object-center transition-opacity duration-modal md:hidden',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-              />
-            ) : (
-              <Image
-                loader={supabaseLoader}
-                src={mobileMedia}
-                alt={`Projeto ${project.title}`}
-                fill
-                className={cn(
-                  'block md:hidden object-cover object-center transition-opacity duration-modal',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-                sizes={sizes}
-                quality={60}
-                loading={priority ? 'eager' : 'lazy'}
-                priority={priority}
-                onError={applyImageFallback}
-              />
-            )}
+            <MediaCard
+              media={desktopMedia}
+              sizes={sizes}
+              priority={priority}
+              poster={DEFAULT_VIDEO_POSTER}
+              className="absolute inset-0 hidden h-full w-full md:block"
+              mediaClassName={cn(
+                'transition-opacity duration-modal',
+                hasVideo && isHovered
+                  ? 'opacity-0'
+                  : 'opacity-95 group-hover:opacity-100'
+              )}
+              objectPosition={objectPosition}
+            />
+            <MediaCard
+              media={mobileMedia}
+              sizes={sizes}
+              priority={priority}
+              poster={DEFAULT_VIDEO_POSTER}
+              className="absolute inset-0 block h-full w-full md:hidden"
+              mediaClassName={cn(
+                'transition-opacity duration-modal',
+                hasVideo && isHovered
+                  ? 'opacity-0'
+                  : 'opacity-95 group-hover:opacity-100'
+              )}
+              objectPosition={objectPosition}
+            />
           </>
-        ) : desktopMediaIsVideo ? (
-          <video
-            src={desktopMedia}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={DEFAULT_VIDEO_POSTER}
-            className={cn(
-              'h-full w-full object-cover object-center transition-opacity duration-modal',
-              hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-            )}
-            style={{ objectPosition }}
-          />
-        ) : (
-          <Image
-            loader={supabaseLoader}
-            src={desktopMedia}
-            alt={`Projeto ${project.title}`}
-            fill
-            className={cn(
-              'object-cover object-center transition-opacity duration-modal',
-              hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-            )}
-            style={{ objectPosition }}
+        ) : desktopMedia ? (
+          <MediaCard
+            media={desktopMedia}
             sizes={sizes}
-            quality={60}
-            loading={priority ? 'eager' : 'lazy'}
             priority={priority}
-            onError={applyImageFallback}
+            poster={DEFAULT_VIDEO_POSTER}
+            className="absolute inset-0 h-full w-full"
+            mediaClassName={cn(
+              'transition-opacity duration-modal',
+              hasVideo && isHovered
+                ? 'opacity-0'
+                : 'opacity-95 group-hover:opacity-100'
+            )}
+            objectPosition={objectPosition}
           />
-        )}
+        ) : null}
 
         {/* Video — lazy-loaded on first hover */}
-        {hasVideo && hasHoverRef.current && (
-          <video
-            src={hoverVideoSource}
+        {hasVideo && hoverMedia && hasHoverRef.current && (
+          <MediaCard
+            media={hoverMedia}
             autoPlay={isHovered}
-            muted
-            loop
-            playsInline
+            poster={DEFAULT_VIDEO_POSTER}
             preload="none"
-            className={cn(
-              'absolute inset-0 h-full w-full object-cover transition-opacity duration-modal',
+            className="absolute inset-0 h-full w-full"
+            mediaClassName={cn(
+              'transition-opacity duration-modal',
               isHovered ? 'opacity-100' : 'opacity-0'
             )}
-            style={{ objectPosition }}
+            objectPosition={objectPosition}
+            aria-hidden
           />
         )}
       </div>
