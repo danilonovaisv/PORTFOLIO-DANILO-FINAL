@@ -10,7 +10,7 @@ import {
   getNextFeaturedProjectBackgroundVariant,
   type FeaturedProjectBackgroundVariant,
 } from '@/components/home/featured-projects/animated-backgrounds';
-import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
+import { resolveProjectMedia } from '@/lib/portfolio/card-media';
 import type { PortfolioProject } from '@/types/project';
 
 interface FeaturedProjectCardProps {
@@ -103,13 +103,21 @@ export default function FeaturedProjectCard({
     };
   }, [isCardInView, reducedMotion]);
 
-  const desktopMediaSource = useMemo(() => {
-    return getCardMediaCandidates(project, 'landscape')[0];
-  }, [project]);
+  const visualAltText =
+    project.client && project.client !== project.title
+      ? `${project.title} para ${project.client}`
+      : project.title;
 
-  const mobileMediaSource = useMemo(() => {
-    return getCardMediaCandidates(project, 'square')[0] ?? desktopMediaSource;
-  }, [project, desktopMediaSource]);
+  const desktopMedia = useMemo(() => {
+    return resolveProjectMedia(project, 'landscape', { alt: visualAltText });
+  }, [project, visualAltText]);
+
+  const mobileMedia = useMemo(() => {
+    return (
+      resolveProjectMedia(project, 'square', { alt: visualAltText }) ??
+      desktopMedia
+    );
+  }, [project, desktopMedia, visualAltText]);
 
   const handleClick = () => {
     if (onOpen) {
@@ -133,8 +141,8 @@ export default function FeaturedProjectCard({
         <FeaturedProjectCardFrame
           project={project}
           backgroundVariant={resolvedBackgroundVariant}
-          desktopMediaSource={desktopMediaSource}
-          mobileMediaSource={mobileMediaSource}
+          desktopMedia={desktopMedia}
+          mobileMedia={mobileMedia}
           priority={priority}
           reducedMotion={reducedMotion}
         />

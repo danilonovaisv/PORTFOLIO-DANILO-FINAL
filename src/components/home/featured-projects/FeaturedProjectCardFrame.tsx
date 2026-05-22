@@ -1,30 +1,28 @@
 'use client';
 
 import Image from 'next/image';
-import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
 import { useCallback, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
-import { useIsMounted } from '@/hooks/useIsMounted';
-
 import FeaturedProjectAnimatedBackground from '@/components/home/featured-projects/FeaturedProjectAnimatedBackground';
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
+import { MediaCard } from '@/components/ui/media/MediaCard';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import {
   applyImageFallback,
   cn,
   getAssetUrl,
-  isVideo,
   supabaseLoader,
 } from '@/lib/utils';
+import type { ProjectMedia } from '@/lib/media/media-format';
 import type { PortfolioProject } from '@/types/project';
 
 type FeaturedProjectCardFrameProps = {
   project: PortfolioProject;
   backgroundVariant: FeaturedProjectBackgroundVariant;
-  desktopMediaSource?: string;
-  mobileMediaSource?: string;
+  desktopMedia?: ProjectMedia | null;
+  mobileMedia?: ProjectMedia | null;
   priority?: boolean;
   reducedMotion: boolean;
 };
@@ -32,13 +30,12 @@ type FeaturedProjectCardFrameProps = {
 export default function FeaturedProjectCardFrame({
   project,
   backgroundVariant,
-  desktopMediaSource,
-  mobileMediaSource,
+  desktopMedia,
+  mobileMedia,
   priority = false,
   reducedMotion,
 }: FeaturedProjectCardFrameProps) {
   const visualRef = useRef<HTMLDivElement | null>(null);
-  const isMounted = useIsMounted();
   const [logoFailed, setLogoFailed] = useState(false);
   const homeFeatured = resolveHomeFeaturedConfig(
     project.homeFeatured,
@@ -55,41 +52,19 @@ export default function FeaturedProjectCardFrame({
     homeFeatured.cardStyle === 'ANIMATED_BG_INVERTED_LOGO' &&
     !!logoSrc &&
     !logoFailed;
-  const visualAltText =
-    project.client && project.client !== project.title
-      ? `${project.title} para ${project.client}`
-      : project.title;
   const logoAltText = project.client
     ? `Logo de ${project.client}`
     : `Identidade visual de ${project.title}`;
 
   // Decide if we should show standard card thumbnails
-  const showThumb = !showLogo && (!!desktopMediaSource || !!mobileMediaSource);
-
-  const desktopThumbIsVideo =
-    showThumb && !!desktopMediaSource && isVideo(desktopMediaSource);
-  const mobileThumbIsVideo =
-    showThumb && !!mobileMediaSource && isVideo(mobileMediaSource);
-
-  const desktopThumbUrl =
-    showThumb && desktopMediaSource
-      ? getAssetUrl(
-          desktopMediaSource,
-          desktopThumbIsVideo ? { isVideo: true } : undefined
-        )
-      : null;
-
-  const mobileThumbUrl =
-    showThumb && mobileMediaSource
-      ? getAssetUrl(
-          mobileMediaSource,
-          mobileThumbIsVideo ? { isVideo: true } : undefined
-        )
-      : null;
+  const showThumb = !showLogo && (!!desktopMedia || !!mobileMedia);
 
   const baseMediaDiffers =
-    desktopThumbUrl !== mobileThumbUrl ||
-    desktopThumbIsVideo !== mobileThumbIsVideo;
+    !!desktopMedia &&
+    !!mobileMedia &&
+    (desktopMedia.src !== mobileMedia.src ||
+      desktopMedia.kind !== mobileMedia.kind ||
+      desktopMedia.format !== mobileMedia.format);
 
   const topWashClass = showThumb
     ? 'bg-[linear-gradient(180deg,rgba(4,0,19,0.01)_0%,rgba(4,0,19,0.07)_56%,rgba(4,0,19,0.18)_100%)]'
@@ -120,7 +95,7 @@ export default function FeaturedProjectCardFrame({
   }, []);
 
   const commonMediaClasses =
-    'object-contain opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-micro md:group-hover:duration-fast ease-ghost md:group-hover:-translate-y-px';
+    'opacity-100 brightness-[1.06] contrast-[1.04] saturate-[1.02] transition-transform duration-micro md:group-hover:duration-fast ease-ghost md:group-hover:-translate-y-px';
   const cardMediaSizes =
     project.layout.sizes ??
     '(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw';
@@ -144,81 +119,36 @@ export default function FeaturedProjectCardFrame({
 
         {showThumb ? (
           <div className="absolute inset-0">
-            {baseMediaDiffers ? (
+            {desktopMedia && mobileMedia && baseMediaDiffers ? (
               <>
-                {/* Responsive Video/Image handling */}
-                {isMounted && (desktopThumbIsVideo || mobileThumbIsVideo) ? (
-                  <ResponsiveVideo
-                    desktopSrc={desktopThumbUrl || mobileThumbUrl || ''}
-                    mobileSrc={mobileThumbUrl || desktopThumbUrl || ''}
-                    desktopPoster={DEFAULT_VIDEO_POSTER}
-                    mobilePoster={DEFAULT_VIDEO_POSTER}
-                    aria-hidden="true"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className={cn('h-full w-full', commonMediaClasses)}
-                  />
-                ) : (
-                  <>
-                    {!desktopThumbIsVideo && desktopThumbUrl ? (
-                      <Image
-                        loader={supabaseLoader}
-                        src={desktopThumbUrl}
-                        alt={visualAltText}
-                        fill
-                        sizes={cardMediaSizes}
-                        quality={60}
-                        className={cn('hidden md:block', commonMediaClasses)}
-                        loading={priority ? 'eager' : 'lazy'}
-                        priority={priority}
-                        onError={applyImageFallback}
-                      />
-                    ) : null}
-                    {!mobileThumbIsVideo && mobileThumbUrl ? (
-                      <Image
-                        loader={supabaseLoader}
-                        src={mobileThumbUrl}
-                        alt={visualAltText}
-                        fill
-                        sizes={cardMediaSizes}
-                        quality={60}
-                        className={cn('block md:hidden', commonMediaClasses)}
-                        loading={priority ? 'eager' : 'lazy'}
-                        priority={priority}
-                        onError={applyImageFallback}
-                      />
-                    ) : null}
-                  </>
-                )}
+                <MediaCard
+                  media={desktopMedia}
+                  sizes={cardMediaSizes}
+                  priority={priority}
+                  poster={DEFAULT_VIDEO_POSTER}
+                  className="absolute inset-0 hidden h-full w-full md:block"
+                  mediaClassName={commonMediaClasses}
+                  aria-hidden
+                />
+                <MediaCard
+                  media={mobileMedia}
+                  sizes={cardMediaSizes}
+                  priority={priority}
+                  poster={DEFAULT_VIDEO_POSTER}
+                  className="absolute inset-0 block h-full w-full md:hidden"
+                  mediaClassName={commonMediaClasses}
+                  aria-hidden
+                />
               </>
-            ) : /* Same media for both */
-            isMounted && desktopThumbIsVideo && desktopThumbUrl ? (
-              <ResponsiveVideo
-                desktopSrc={desktopThumbUrl}
-                desktopPoster={DEFAULT_VIDEO_POSTER}
-                aria-hidden="true"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className={cn('h-full w-full', commonMediaClasses)}
-              />
-            ) : !desktopThumbIsVideo && desktopThumbUrl ? (
-              <Image
-                loader={supabaseLoader}
-                src={desktopThumbUrl}
-                alt={visualAltText}
-                fill
+            ) : desktopMedia || mobileMedia ? (
+              <MediaCard
+                media={(desktopMedia ?? mobileMedia)!}
                 sizes={cardMediaSizes}
-                quality={60}
-                className={commonMediaClasses}
-                loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
-                onError={applyImageFallback}
+                poster={DEFAULT_VIDEO_POSTER}
+                className="absolute inset-0 h-full w-full"
+                mediaClassName={commonMediaClasses}
+                aria-hidden
               />
             ) : null}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,0,19,0.00)_0%,rgba(4,0,19,0.04)_54%,rgba(4,0,19,0.10)_100%)]" />

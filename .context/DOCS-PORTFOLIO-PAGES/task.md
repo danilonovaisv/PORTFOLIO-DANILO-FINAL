@@ -1,102 +1,43 @@
-# Task List — Media Rendering + Ghost Hero + Firebase Assets
+# Task List — Media Card System
 
-## Task 1 — Clean Planning Artifacts
+## Phase 1 — Audit
 
-- Replace `.context/DOCS-PORTFOLIO-PAGES/implementation_plan.md`.
-- Replace `.context/DOCS-PORTFOLIO-PAGES/task.md`.
-- Confirm no conflict markers remain in `.context`, `src`, `scripts`, `public`, `package.json`, or `firebase.json`.
+- [x] Identify project card media consumers.
+- [x] Map current media fallback order.
+- [x] Confirm existing grid/card sizing constraints.
 
-Expected command:
+## Phase 2 — Data Layer
 
-```bash
-rg -n "^(<<<<<<<|=======$|>>>>>>>)" .context src scripts public package.json firebase.json
-```
+- [x] Add `MediaFormat`, `MediaKind`, `MediaFit`, and `ProjectMedia`.
+- [x] Add optional format metadata fields to `PortfolioProject`.
+- [x] Keep `getCardMediaCandidates()` compatible for legacy string callers.
+- [x] Add `resolveProjectMedia()` for typed card media.
 
-Expected result: no output.
+## Phase 3 — Component
 
-## Task 2 — Enforce Responsive Video Contract
+- [x] Create `MediaCard.tsx`.
+- [x] Apply `aspect-square` and `aspect-video` by metadata.
+- [x] Render both image and video with shared sizing behavior.
+- [x] Default videos to `object-contain`.
 
-- Keep native `<source media>` in `ResponsiveVideo`.
-- Add `fitPolicy?: 'contain' | 'cover'`.
-- Default to `contain`.
-- Preserve existing props and `forwardRef`.
-- Do not reintroduce `useMediaQuery`, mounted flags, or JS source swapping.
+## Phase 4 — Grid Integration
 
-Expected checks:
+- [x] Replace duplicated image/video rendering in `ProjectCard`.
+- [x] Replace duplicated image/video rendering in `FeaturedProjectCardFrame`.
+- [x] Keep desktop/mobile media fallback behavior.
+- [x] Preserve hover video behavior.
 
-```bash
-pnpm run typecheck
-pnpm run lint
-```
+## Phase 5 — Validation
 
-## Task 3 — Add Video Metadata
+- [x] Add resolver tests.
+- [x] Add `MediaCard` component tests.
+- [x] Run existing `ProjectCard` tests.
+- [x] Run typecheck.
+- [x] Run lint.
+- [x] Run production build with placeholder public env values.
+- [x] Run local browser validation on `/portfolio` desktop/mobile.
 
-- Extend `src/lib/video-assets.ts` with:
-  - `desktopAspect`
-  - `mobileAspect`
-  - `fitPolicy`
-- Keep Supabase public URLs as SSOT.
-- Export `CRITICAL_VIDEO_URLS` for deployment verification or future tooling.
+## Remaining Follow-Up
 
-Measured asset aspects:
-
-- Home manifesto: desktop `752 / 423`, mobile `1 / 1`.
-- About hero: desktop `16 / 9`, mobile `9 / 16`.
-- About closing: desktop `16 / 9`, mobile `10 / 9`.
-- About method: desktop `16 / 9`, mobile `1 / 1`.
-- Portfolio hero: desktop `16 / 9`, mobile `4 / 5`.
-
-## Task 4 — Remove Crop From Critical Consumers
-
-- Replace critical `object-cover` video usage with `object-contain`.
-- Align wrappers to measured mobile/desktop aspect where the layout is not full-screen.
-- Keep overlays, captions, motion gates, accessibility labels, and source URLs unchanged.
-
-Primary surfaces:
-
-- `VideoManifesto`
-- `AboutHero`
-- `AboutMethod`
-- `AboutClosing`
-- `PortfolioHeroNew`
-- `FeaturedProjectCardFrame`
-
-## Task 5 — Harden Firebase Asset Preflight
-
-- Update `scripts/verify-supabase-assets.mjs` to parse all Supabase MP4 URLs from `src/lib/video-assets.ts`.
-- Fail if the list is empty.
-- Fail on any failed `HEAD` request.
-- Keep `SKIP_ASSET_VERIFY=1` bypass for controlled emergency use.
-
-Expected command:
-
-```bash
-pnpm run verify:assets
-```
-
-Expected result: all critical videos return OK.
-
-## Task 6 — Validate Build + Deploy Readiness
-
-Run:
-
-```bash
-pnpm run typecheck
-pnpm run lint
-pnpm run build
-pnpm run verify:assets
-plugins/ghost-firebase-deploy/scripts/deploy.sh preflight
-```
-
-Do not run production deploy unless explicitly requested.
-
-## Acceptance Criteria
-
-- No merge markers remain.
-- TypeScript passes.
-- Lint passes.
-- Production build passes.
-- Supabase asset verification passes.
-- Firebase preflight passes.
-- Critical videos render without crop and without distortion.
-- Ghost Hero glow remains stable with no visible flicker regression.
+- Replace inferred formats with explicit CMS/project metadata for every portfolio item.
+- Decide whether image cards should also support `fit: 'contain'` for no-crop project thumbnails where visual inspection is more important than uniform fill.

@@ -2,6 +2,8 @@
 // Portfolio Project Types - Ghost Era v2.1
 // =============================================================================
 
+import type { MediaFormat } from '@/lib/media/media-format';
+
 /**
  * Tipo do projeto define o layout do card
  * - A: Cards grandes, hero-style
@@ -108,6 +110,11 @@ export interface PortfolioProject extends Omit<BaseProjectData, 'summary'> {
   image: string;
   imageLandscape?: string;
   imageSquare?: string;
+  imageFormat?: MediaFormat;
+  imageLandscapeFormat?: MediaFormat;
+  imageSquareFormat?: MediaFormat;
+  thumbnailMediaFormat?: MediaFormat;
+  videoPreviewFormat?: MediaFormat;
   hoverImage?: string;
   videoPreview?: string;
   thumbnailMedia?: string;

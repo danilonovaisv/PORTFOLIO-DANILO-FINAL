@@ -1,22 +1,22 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { m, useScroll, useTransform, useSpring } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { MOTION_TOKENS } from '@/config/motion';
+import { MediaCard } from '@/components/ui/media/MediaCard';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
-import { getCardMediaCandidates } from '@/lib/portfolio/card-media';
-import { isLegacyProjectMediaAsset } from '@/lib/portfolio/card-media';
 import {
-  ASSET_PLACEHOLDER,
-  applyImageFallback,
-  getAssetUrl,
+  getPreferredCoverForSlot,
+  isLegacyProjectMediaAsset,
+  resolveProjectMedia,
+} from '@/lib/portfolio/card-media';
+import {
   isVideo,
-  supabaseLoader,
 } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import type { ProjectMedia } from '@/lib/media/media-format';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -75,28 +75,26 @@ export const ProjectCard = React.memo(function ProjectCard({
       };
 
 
-  // Resolve best static image (never a video)
-  const prefersSquareOnDesktop = ['sm', 'md', 'tall'].includes(size);
-
-  const desktopMediaCandidate =
-    getCardMediaCandidates(project, prefersSquareOnDesktop ? 'square' : 'landscape')[0] ??
-    ASSET_PLACEHOLDER;
-
-  const mobileMediaCandidate =
-    getCardMediaCandidates(project, 'square')[0] ?? desktopMediaCandidate;
-
-  const desktopMediaIsVideo = isVideo(desktopMediaCandidate);
-  const mobileMediaIsVideo = isVideo(mobileMediaCandidate);
-  const desktopMedia = getAssetUrl(
-    desktopMediaCandidate,
-    desktopMediaIsVideo ? { isVideo: true } : undefined
+  const visualAltText =
+    project.client && project.client !== project.title
+      ? `${project.title} para ${project.client}`
+      : project.title;
+  const desktopPreferredCover = getPreferredCoverForSlot(
+    'portfolio-card-desktop',
+    size
   );
-  const mobileMedia = getAssetUrl(
-    mobileMediaCandidate,
-    mobileMediaIsVideo ? { isVideo: true } : undefined
-  );
+  const desktopMedia = resolveProjectMedia(project, desktopPreferredCover, {
+    alt: visualAltText,
+  });
+  const mobileMedia =
+    resolveProjectMedia(project, 'square', { alt: visualAltText }) ??
+    desktopMedia;
   const baseMediaDiffers =
-    desktopMedia !== mobileMedia || desktopMediaIsVideo !== mobileMediaIsVideo;
+    !!desktopMedia &&
+    !!mobileMedia &&
+    (desktopMedia.src !== mobileMedia.src ||
+      desktopMedia.kind !== mobileMedia.kind ||
+      desktopMedia.format !== mobileMedia.format);
 
   const hoverVideoCandidate =
     [project.videoPreview, project.thumbnailMedia].find(
@@ -105,16 +103,22 @@ export const ProjectCard = React.memo(function ProjectCard({
         isVideo(candidate) &&
         !isLegacyProjectMediaAsset(candidate)
     ) ?? null;
-  const hoverVideoSource = hoverVideoCandidate
-    ? getAssetUrl(hoverVideoCandidate, { isVideo: true })
-    : undefined;
+  const hoverMedia: ProjectMedia | null = hoverVideoCandidate
+    ? {
+        kind: 'video',
+        src: hoverVideoCandidate,
+        format: desktopMedia?.format ?? desktopPreferredCover,
+        fit: 'contain',
+        alt: visualAltText,
+      }
+    : null;
   const hasVideo =
-    !!hoverVideoSource &&
+    !!hoverMedia &&
     !(
-      hoverVideoSource === desktopMedia &&
-      hoverVideoSource === mobileMedia &&
-      desktopMediaIsVideo &&
-      mobileMediaIsVideo
+      hoverMedia.src === desktopMedia?.src &&
+      hoverMedia.src === mobileMedia?.src &&
+      desktopMedia?.kind === 'video' &&
+      mobileMedia?.kind === 'video'
     );
 
   const objectPosition = project.layout?.objectPosition ?? 'center';
@@ -193,123 +197,68 @@ export const ProjectCard = React.memo(function ProjectCard({
     >
       <div className="absolute inset-0 h-full z-0">
         {/* Static image — always visible by default */}
-        {baseMediaDiffers ? (
+        {desktopMedia && mobileMedia && baseMediaDiffers ? (
           <>
-            {desktopMediaIsVideo ? (
-              <video
-                src={desktopMedia}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={DEFAULT_VIDEO_POSTER}
-                className={cn(
-                  'hidden h-full w-full object-contain object-center transition-opacity duration-modal md:block',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-              />
-            ) : (
-              <Image
-                loader={supabaseLoader}
-                src={desktopMedia}
-                alt={`Projeto ${project.title}`}
-                fill
-                className={cn(
-                  'hidden md:block object-cover object-center transition-opacity duration-modal',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-                sizes={sizes}
-                quality={60}
-                loading={priority ? 'eager' : 'lazy'}
-                priority={priority}
-                onError={applyImageFallback}
-              />
-            )}
-            {mobileMediaIsVideo ? (
-              <video
-                src={mobileMedia}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={DEFAULT_VIDEO_POSTER}
-                className={cn(
-                  'block h-full w-full object-contain object-center transition-opacity duration-modal md:hidden',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-              />
-            ) : (
-              <Image
-                loader={supabaseLoader}
-                src={mobileMedia}
-                alt={`Projeto ${project.title}`}
-                fill
-                className={cn(
-                  'block md:hidden object-cover object-center transition-opacity duration-modal',
-                  hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-                )}
-                style={{ objectPosition }}
-                sizes={sizes}
-                quality={60}
-                loading={priority ? 'eager' : 'lazy'}
-                priority={priority}
-                onError={applyImageFallback}
-              />
-            )}
+            <MediaCard
+              media={desktopMedia}
+              sizes={sizes}
+              priority={priority}
+              poster={DEFAULT_VIDEO_POSTER}
+              className="absolute inset-0 hidden h-full w-full md:block"
+              mediaClassName={cn(
+                'transition-opacity duration-modal',
+                hasVideo && isHovered
+                  ? 'opacity-0'
+                  : 'opacity-95 group-hover:opacity-100'
+              )}
+              objectPosition={objectPosition}
+            />
+            <MediaCard
+              media={mobileMedia}
+              sizes={sizes}
+              priority={priority}
+              poster={DEFAULT_VIDEO_POSTER}
+              className="absolute inset-0 block h-full w-full md:hidden"
+              mediaClassName={cn(
+                'transition-opacity duration-modal',
+                hasVideo && isHovered
+                  ? 'opacity-0'
+                  : 'opacity-95 group-hover:opacity-100'
+              )}
+              objectPosition={objectPosition}
+            />
           </>
-        ) : desktopMediaIsVideo ? (
-          <video
-            src={desktopMedia}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={DEFAULT_VIDEO_POSTER}
-            className={cn(
-              'h-full w-full object-contain object-center transition-opacity duration-modal',
-              hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-            )}
-            style={{ objectPosition }}
-          />
-        ) : (
-          <Image
-            loader={supabaseLoader}
-            src={desktopMedia}
-            alt={`Projeto ${project.title}`}
-            fill
-            className={cn(
-              'object-cover object-center transition-opacity duration-modal',
-              hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
-            )}
-            style={{ objectPosition }}
+        ) : desktopMedia ? (
+          <MediaCard
+            media={desktopMedia}
             sizes={sizes}
-            quality={60}
-            loading={priority ? 'eager' : 'lazy'}
             priority={priority}
-            onError={applyImageFallback}
+            poster={DEFAULT_VIDEO_POSTER}
+            className="absolute inset-0 h-full w-full"
+            mediaClassName={cn(
+              'transition-opacity duration-modal',
+              hasVideo && isHovered
+                ? 'opacity-0'
+                : 'opacity-95 group-hover:opacity-100'
+            )}
+            objectPosition={objectPosition}
           />
-        )}
+        ) : null}
 
         {/* Video — lazy-loaded on first hover */}
-        {hasVideo && hasHoverRef.current && (
-          <video
-            src={hoverVideoSource}
+        {hasVideo && hoverMedia && hasHoverRef.current && (
+          <MediaCard
+            media={hoverMedia}
             autoPlay={isHovered}
-            muted
-            loop
-            playsInline
+            poster={DEFAULT_VIDEO_POSTER}
             preload="none"
-            className={cn(
-              'absolute inset-0 h-full w-full object-contain transition-opacity duration-modal',
+            className="absolute inset-0 h-full w-full"
+            mediaClassName={cn(
+              'transition-opacity duration-modal',
               isHovered ? 'opacity-100' : 'opacity-0'
             )}
-            style={{ objectPosition }}
+            objectPosition={objectPosition}
+            aria-hidden
           />
         )}
       </div>
