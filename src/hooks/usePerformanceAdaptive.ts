@@ -88,8 +88,8 @@ export function usePerformanceAdaptive(): PerformanceConfig {
       quality: 'medium',
       fireflyCount: 12,
       particleCount: 25,
-      enablePostProcessing: false,
-      pixelRatio: 1.5,
+      enablePostProcessing: true,
+      pixelRatio: 1.25,
     },
     low: {
       quality: 'low',

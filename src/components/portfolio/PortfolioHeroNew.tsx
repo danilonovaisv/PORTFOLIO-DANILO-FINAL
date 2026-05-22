@@ -33,7 +33,7 @@ export default function PortfolioHeroNew() {
     <section
       id="portfolio-hero"
       aria-labelledby="portfolio-hero-heading"
-      className="relative left-1/2 z-10 h-screen w-screen -translate-x-1/2 overflow-hidden bg-background"
+      className="relative left-1/2 z-10 h-screen min-h-[100svh] w-screen max-w-none -translate-x-1/2 overflow-hidden bg-background"
     >
       {/* Video Background - Responsivo Desktop/Mobile com Sincronização Realtime */}
       <div className="absolute inset-0 z-0">
@@ -44,7 +44,8 @@ export default function PortfolioHeroNew() {
             desktopPoster={HERO_POSTER}
             mobilePoster={HERO_POSTER}
             fitPolicy={RESPONSIVE_VIDEOS.portfolioHero.fitPolicy}
-            className="h-full w-screen object-contain"
+            objectPosition="center center"
+            className="h-full w-full min-w-full max-w-none"
             preload="auto"
             autoPlay
             loop
@@ -81,10 +82,10 @@ export default function PortfolioHeroNew() {
           {/* Title - "portfólio showcase" - Centered */}
           <h1
             id="portfolio-hero-heading"
-            className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
+            className="flex max-w-full flex-col items-center justify-center gap-2 text-center text-[clamp(2.5rem,12vw,4rem)] font-bold leading-none tracking-tighter sm:text-6xl md:flex-row md:gap-8 md:text-8xl [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
           >
-            <div className="flex items-center">
-              <span className="text-bluePrimary italic font-light mr-3 md:mr-6">
+            <div className="flex max-w-full flex-col items-center md:flex-row">
+              <span className="text-bluePrimary mb-1 italic font-light md:mb-0 md:mr-6">
                 portfólio
               </span>
               <span className="text-white font-bold">showcase</span>
