@@ -71,6 +71,27 @@ describe('usePerformanceAdaptive', () => {
     expect(result.current.fireflyCount).toBe(20);
   });
 
+  it('keeps post-processing enabled on high-DPR desktop medium quality', () => {
+    Object.defineProperty(global, 'navigator', {
+      value: {
+        userAgent: 'Desktop',
+        hardwareConcurrency: 12,
+        deviceMemory: 16,
+      },
+      configurable: true,
+    });
+    Object.defineProperty(window, 'devicePixelRatio', {
+      value: 3,
+      configurable: true,
+    });
+
+    const { result } = renderHook(() => usePerformanceAdaptive());
+
+    expect(result.current.quality).toBe('medium');
+    expect(result.current.enablePostProcessing).toBe(true);
+    expect(result.current.pixelRatio).toBe(1.25);
+  });
+
   it('should downgrade quality if FPS is low', async () => {
     // Initial high quality
     Object.defineProperty(global, 'navigator', {
