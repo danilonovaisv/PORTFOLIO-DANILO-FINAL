@@ -18,7 +18,7 @@ Synchronize database schema between local and Supabase with comprehensive valida
 
 - MCP connection: Supabase MCP server with read-only access configured
 - Local schema: !`find . -name "schema.sql" -o -name "migrations" -type d | head -3` local database files
-- Project config: !`find . -name "supabase" -type d -o -name ".env*" | grep -v node_modules | head -3` configuration files
+- Project config: !`find . -name "supabase" -type d -o -name ".env*" | grep -v @node_modules | head -3` configuration files
 - Git status: !`git status --porcelain | grep -E "\\.sql$|\\.ts$" | head -5` database-related changes
 
 ## Task

@@ -9,4 +9,4 @@ description: Implementação e auditoria de design de endpoints (Route Handlers 
 3. Verifique o tratamento de erros em blocos `try/catch` dentro das Server Actions, garantindo que erros de validação retornem formatos compatíveis com o frontend.
 4. Conecte-se ao Supabase MCP para analisar schemas de tabelas e resolver conflitos de inferência de tipos.
 5. Invoque o validador de TypeScript focado na tipagem de retorno da API e schemas Zod:
-   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/tsc --project tsconfig.json --noEmit`
+   `// turbo /Users/danilonovais/.local/bin/node @node_modules/.bin/tsc --project tsconfig.json --noEmit`

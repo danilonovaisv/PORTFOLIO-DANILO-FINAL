@@ -8,5 +8,5 @@ description: Resolução sistêmica de bugs visuais, falhas de Server Components
 2. Valide a consistência das classes utilitárias e tokens do Ghost Design System em `@src/styles/` e `tailwind.config.ts`.
 3. Verifique se todas as imagens externas (Supabase Storage) utilizam o componente `next/image` com `placeholder="blur"` e domínios autorizados.
 4. Realize a análise de peso dos chunks e bundle do Next.js:
-   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/next build --debug`
+   `// turbo /Users/danilonovais/.local/bin/node @node_modules/.bin/next build --debug`
 5. Utilize o Chrome DevTools MCP para identificar elementos que causam o Largest Contentful Paint (LCP) e otimizar o carregamento crítico.

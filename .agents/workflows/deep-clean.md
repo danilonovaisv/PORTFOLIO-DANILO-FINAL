@@ -10,6 +10,6 @@ description: Resolve problemas de cache corrompido, dependências dessincronizad
 3. Execute reparos específicos no gerenciador de pacotes e resolva conflitos de `pnpm-lock.yaml`:
    `// turbo bash scripts/fix-pnpm.sh`
 4. Reinstale todas as dependências utilizando o PNPM em modo "frozen-lockfile" para garantir determinismo:
-   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/pnpm install --frozen-lockfile`
+   `// turbo /Users/danilonovais/.local/bin/node @node_modules/.bin/pnpm install --frozen-lockfile`
 5. Realize um build de fumaça para validar que o ambiente foi restaurado com sucesso:
-   `// turbo /Users/danilonovais/.local/bin/node node_modules/.bin/next build`
+   `// turbo /Users/danilonovais/.local/bin/node @node_modules/.bin/next build`
