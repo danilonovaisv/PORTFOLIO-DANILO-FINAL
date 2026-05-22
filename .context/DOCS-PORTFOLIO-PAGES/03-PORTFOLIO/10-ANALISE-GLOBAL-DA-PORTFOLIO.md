@@ -96,3 +96,20 @@ A página `/portfolio` está tecnicamente sólida, com boa base de acessibilidad
   - `/portfolio?category=branding` -> `Portfólio | Brand & Campaigns | Danilo Novais`
   - `/sobre` -> `Sobre — Trajetória e Visão | Danilo Novais`
   - `/portfolio/video-manifesto` -> um único H1 no layout e heading interno rebaixado para H2
+
+---
+
+## Atualização 2026-05-22 — Fluidez do scroll da galeria
+
+### Contrato de movimento
+
+- A galeria mantém um único sistema de scroll suavizado em `useLERPScroll`, aplicado ao track inteiro apenas em desktop, sem `prefers-reduced-motion` e somente quando há mais de 6 projetos filtrados.
+- Os cards deixam de fazer scrub contínuo por `useScroll` individual. A entrada visual passa a ser reveal leve por viewport, com `opacity + y`, `GHOST_EASE` e sem `filter: blur()` animado durante o scroll.
+- `will-change-transform` agora fica condicionado ao LERP ativo, evitando manter hint de compositor em grids sem scroll suavizado.
+- GSAP não foi introduzido nesta página; o contrato atual segue Motion + hook custom para preservar arquitetura existente.
+
+### Impacto esperado
+
+- Menos disputa entre translate do grid e reveal de cada card.
+- Menor custo de pintura por remover blur contínuo em múltiplos cards.
+- Mobile permanece sem LERP, com cards estáveis e sem scroll horizontal.

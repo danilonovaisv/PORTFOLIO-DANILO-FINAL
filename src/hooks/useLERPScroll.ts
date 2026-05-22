@@ -16,6 +16,8 @@ type GalleryRef =
 
 export type ScrollState = 'pre' | 'fixed' | 'post';
 
+const SCROLL_LERP_FACTOR = 0.075;
+
 export const useLERPScroll = (
   trackRef: TrackRef,
   galleryRef: GalleryRef,
@@ -72,7 +74,7 @@ export const useLERPScroll = (
     };
 
     const animate = () => {
-      startY.current = lerp(startY.current, endY.current, 0.05);
+      startY.current = lerp(startY.current, endY.current, SCROLL_LERP_FACTOR);
 
       const rawOffset = startY.current - heroOffset.current;
       const hasScrollableRange = maxScroll.current > 0.5;

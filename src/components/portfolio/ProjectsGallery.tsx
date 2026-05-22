@@ -303,8 +303,9 @@ export const ProjectsGallery = ({
             <div
               ref={trackRef}
               className={cn(
-                'w-full grid grid-cols-8 lg:grid-cols-12 gap-[10px] lg:gap-3 p-0 items-stretch will-change-transform',
+                'w-full grid grid-cols-8 lg:grid-cols-12 gap-[10px] lg:gap-3 p-0 items-stretch',
                 'max-sm:flex max-sm:flex-col max-sm:items-center max-sm:h-auto max-sm:will-change-auto max-sm:static',
+                useLerp && 'will-change-transform',
                 getTrackClasses()
               )}
             >

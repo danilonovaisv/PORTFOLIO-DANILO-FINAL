@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { m, useScroll, useTransform, useSpring } from 'motion/react';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { MOTION_TOKENS } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { MediaCard } from '@/components/ui/media/MediaCard';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
@@ -49,31 +49,6 @@ export const ProjectCard = React.memo(function ProjectCard({
   size = 'md',
 }: ProjectCardProps) {
   const reduceMotion = useMotionGate();
-
-  const cardRef = React.useRef<HTMLButtonElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ['start end', 'center center'],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const scrollOpacity = useTransform(smoothProgress, [0, 0.8], [0, 1]);
-  const scrollY = useTransform(smoothProgress, [0, 0.8], [MOTION_TOKENS.offset.standard, 0]);
-  const scrollBlur = useTransform(smoothProgress, [0, 0.8], [10, 0]);
-
-  const motionStyle = reduceMotion 
-    ? {} 
-    : { 
-        opacity: scrollOpacity, 
-        y: scrollY, 
-        filter: useTransform(scrollBlur, (v) => `blur(${v}px)`) 
-      };
-
 
   const visualAltText =
     project.client && project.client !== project.title
@@ -179,7 +154,6 @@ export const ProjectCard = React.memo(function ProjectCard({
 
   return (
     <m.button
-      ref={cardRef}
       layout="position"
       type="button"
       id={cardAnchorId}
@@ -197,7 +171,13 @@ export const ProjectCard = React.memo(function ProjectCard({
       )}
       onMouseEnter={() => { hasHoverRef.current = true; setIsHovered(true); }}
       onMouseLeave={() => setIsHovered(false)}
-      style={motionStyle}
+      initial={reduceMotion ? false : { opacity: 0, y: MOTION_TOKENS.offset.standard }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.22, margin: '0px 0px -12% 0px' }}
+      transition={{
+        duration: MOTION_TOKENS.duration.normal,
+        ease: GHOST_EASE,
+      }}
     >
       <div className="absolute inset-0 h-full z-0">
         {/* Static image — always visible by default */}
