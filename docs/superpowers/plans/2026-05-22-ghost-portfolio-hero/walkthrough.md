@@ -88,6 +88,10 @@ Important caveat: Firebase's webframeworks deploy path also updated the SSR Clou
 
 Local production validation was completed with `.next/standalone` after copying `.next/static` and `public` into the standalone folder for accurate asset serving.
 
+## PR Recovery Note
+
+This branch was opened after the local merge to restore Pull Request traceability. The Ghost glow and portfolio hero files were verified on `origin/main` before this PR branch was created.
+
 ## Remaining Risks
 
 - The portfolio hero source video itself contains frames where campaign cards are partially outside the composition. CSS now preserves the video frame with `contain`; changing to `cover` would crop more, not less.
