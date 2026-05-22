@@ -95,7 +95,7 @@ export function usePerformanceAdaptive(): PerformanceConfig {
       quality: 'low',
       fireflyCount: 6,
       particleCount: 10,
-      enablePostProcessing: false,
+      enablePostProcessing: true,
       pixelRatio: 1,
     },
   };
