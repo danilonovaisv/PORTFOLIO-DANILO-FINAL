@@ -55,9 +55,27 @@ export function DynamicAssetImage({
   const shouldUseSupabaseLoader = Boolean(
     finalUrl &&
 <<<<<<< ours
+<<<<<<< ours
+<<<<<<< ours
+<<<<<<< ours
     !finalUrl.startsWith('/') &&
     !finalUrl.startsWith('data:') &&
     !finalUrl.startsWith('blob:')
+=======
+      !finalUrl.startsWith('/') &&
+      !finalUrl.startsWith('data:') &&
+      !finalUrl.startsWith('blob:')
+>>>>>>> theirs
+=======
+      !finalUrl.startsWith('/') &&
+      !finalUrl.startsWith('data:') &&
+      !finalUrl.startsWith('blob:')
+>>>>>>> theirs
+=======
+      !finalUrl.startsWith('/') &&
+      !finalUrl.startsWith('data:') &&
+      !finalUrl.startsWith('blob:')
+>>>>>>> theirs
 =======
       !finalUrl.startsWith('/') &&
       !finalUrl.startsWith('data:') &&
