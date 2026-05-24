@@ -9,7 +9,7 @@ export type ResponsiveVideoAsset = {
   mobile: string;
   desktopAspect: string;
   mobileAspect: string;
-  fitPolicy: 'contain';
+  fitPolicy: 'contain' | 'cover';
 };
 
 export const RESPONSIVE_VIDEOS = {
@@ -56,7 +56,7 @@ export const RESPONSIVE_VIDEOS = {
       'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_mobile_video.mp4',
     desktopAspect: '16 / 9',
     mobileAspect: '4 / 5',
-    fitPolicy: 'contain',
+    fitPolicy: 'cover',
   },
 } as const satisfies Record<string, ResponsiveVideoAsset>;
 
