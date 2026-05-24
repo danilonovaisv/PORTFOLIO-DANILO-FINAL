@@ -1,98 +1,159 @@
 # Git Branch and Worktree Hygiene Plan
 
-**Gerado em:** 2026-05-17  
+**Gerado em:** 2026-05-17 | **Atualizado em:** 2026-05-24  
 **Projeto:** portfoliodanilo.com  
 **Operador:** Claude (Staff Git Operations Engineer)  
 **Status:** AGUARDANDO APROVAÇÃO HUMANA — nenhum comando destrutivo executado
+
+> **Nota de revisão (2026-05-24):** Este documento foi re-auditado em nova sessão. O estado do repositório mudou significativamente desde 2026-05-17. Branches classificadas como `candidate-delete-remote` na auditoria anterior já foram removidas do remoto. 2 novos PRs abertos detectados (protegidos por definição). Inventário abaixo reflete o estado atual.
 
 ---
 
 ## 1. Executive Summary
 
-O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` apresenta **acúmulo moderado de branches remotas** resultante de múltiplos ciclos de worktree, deploys via Firebase, agentes autônomos (Codex, Jules, Workspace) e sessões Claude. O estado local está limpo: 2 branches locais, 1 worktree, 0 PRs abertos.
+O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` apresenta **acúmulo moderado de branches remotas** resultante de múltiplos ciclos de worktree, deploys via Firebase, agentes autônomos (Codex, Jules, Workspace) e sessões Claude. O estado local está limpo: 2 branches locais, 1 worktree.
 
-**Objetivo:** Classificar os 13 branches remotos existentes, identificar candidatos a remoção segura com backup completo, e propor política de branch preventiva.
+**Progresso desde 2026-05-17:** As branches `worktree-fix-ghost-desktop-position`, `worktree-spectral-r3f`, `fix/audit-p1-p2`, `jules-ghost-system-audit-report-*` e `docs/sobre-page-technical-analysis-*` foram removidas do remoto (cleanup parcial executado fora desta sessão). Novas branches surgiram: `codex/ghost-portfolio-hero-pr`, `codex/media-card-system`, `codex/sobre-origin-a11y-fixes` e outras.
+
+**Estado atual (2026-05-24):** 2 branches locais, 13 branches remotas, 2 PRs abertos (#469 e #470), 1 worktree.
+
+**Objetivo:** Re-classificar o estado atual, proteger os 2 PRs abertos, identificar candidatos a remoção segura com backup completo, e propor política de branch preventiva.
 
 **Estratégia:** Read-only completo → classificação → aprovação humana → backup → execução.
 
-**Risco principal:** Branches criados por agentes autônomos (Codex, Jules, Workspace) podem conter commits únicos não integrados ao `main`. Nenhum deles deve ser removido sem verificação de merge status via `git branch --merged`.
+**Risco principal identificado em 2026-05-24:** `git fetch --prune --dry-run` revelou que `origin/claude/dazzling-euler-ZhWMf` (tracking ref da branch de trabalho atual) seria removido por prune, pois a branch não existe no remoto GitHub. Nenhuma perda de commit (SHA = main), mas o upstream está ausente. Branches com PRs abertos (#469, #470) devem ser preservadas incondicionalmente.
 
 ---
 
 ## 2. Repository Context
 
+### Estado anterior (2026-05-17)
+
 | Campo | Valor |
 |---|---|
-| Branch atual | `claude/dazzling-euler-4xD4T` |
-| HEAD SHA | `76bbcc65` |
+| Branch anterior | `claude/dazzling-euler-4xD4T` |
+| HEAD SHA anterior | `76bbcc65` |
+| PRs abertos | 0 |
+
+### Estado atual (2026-05-24)
+
+| Campo | Valor |
+|---|---|
+| Branch atual | `claude/dazzling-euler-ZhWMf` |
+| HEAD SHA | `3f91a224294b609e0f2334ee1707b6b6b573a1dd` |
 | Branch padrão | `main` |
-| Remote | `origin` → `http://local_proxy@127.0.0.1:34629/git/danilonovaisv/PORTFOLIO-DANILO-FINAL` |
+| Remote | `origin` → `http://local_proxy@127.0.0.1:42565/git/danilonovaisv/PORTFOLIO-DANILO-FINAL` |
 | GitHub repo | `danilonovaisv/PORTFOLIO-DANILO-FINAL` |
 | Package manager | `pnpm` |
+| Node engine | `22` |
 | Deploy target | Firebase Hosting (webframeworks experiment) |
 | CI/CD | GitHub Actions (`.github/workflows/`) |
-| Branches protegidas | `main` (marcado como padrão; `protected: false` na API mas tratado como protegido) |
-| PRs abertos | **0** |
-| Worktrees | **1** (apenas o principal, limpo) |
-| Branches locais | 2 (`claude/dazzling-euler-4xD4T`, `main`) |
-| Branches remotos (GitHub) | 13 |
-| Remote tracking refs stale | 1 (`origin/claude/dazzling-euler-4xD4T` — branch deletado do remoto) |
+| Branches protegidas (API GitHub) | `main` (`protected: true` confirmado via API) |
+| PRs abertos | **2** — #469 (`claude/weekly-audit-report-2026-05-19`), #470 (`audit/weekly-report-*`, draft) |
+| Worktrees | **1** (principal, limpa, não bloqueada) |
+| Branches locais | 2 (`claude/dazzling-euler-ZhWMf`, `main`) |
+| Branches remotas (GitHub) | 13 |
+| Remote tracking refs que seriam prunados | 1 (`origin/claude/dazzling-euler-ZhWMf` — não existe no GitHub remoto) |
+| Submodule warnings | `.gitmodules` com entrada duplicada para `skills/superpower` |
 
-**Observação crítica:** O remoto `main` está em `76bbcc65` (mesmo SHA do `claude/dazzling-euler-4xD4T`), mas o tracking ref local para `origin/main` ainda aponta para `6a6f0896`. Após `git fetch`, a divergência será resolvida automaticamente.
+**Observação crítica (2026-05-24):** `git fetch --prune --dry-run` mostra que `origin/claude/dazzling-euler-ZhWMf` seria deletado do tracking local pois não existe no GitHub. A branch local `claude/dazzling-euler-ZhWMf` está em SHA idêntico a `main` (3f91a22) — nenhum commit único em risco.
 
 ---
 
 ## 3. Read-Only Commands Executados
+
+### Sessão 2026-05-17 (anterior)
 
 | Comando | Finalidade |
 |---|---|
 | `git status --short --branch` | Branch atual e estado da árvore |
 | `git remote -v` | Remotes configurados |
 | `git branch --all --verbose --verbose` | Inventário completo de branches + tracking |
-| `git branch --merged` | Branches já integrados ao HEAD |
-| `git branch --no-merged` | Branches com commits pendentes |
-| `git worktree list --porcelain` | Inventário de worktrees em formato estável |
-| `git for-each-ref --format='...'` | Metadados de cada ref (SHA, data, autor, upstream, track) |
-| `git log --oneline --decorate --graph --all --max-count=80` | Topologia recente do grafo |
-| `git fetch --all --prune --dry-run` | Simulação de fetch e prune sem execução |
-| `mcp__github__list_pull_requests` (state: open) | PRs abertos no GitHub |
-| `mcp__github__list_branches` | Branches existentes no GitHub + SHA + proteção |
+| `git branch --merged` / `--no-merged` | Status de merge |
+| `git worktree list --porcelain` | Inventário de worktrees |
+| `git for-each-ref --format='...'` | Metadados completos de cada ref |
+| `git log --oneline --decorate --graph --all --max-count=80` | Topologia do grafo |
+| `git fetch --all --prune --dry-run` | Simulação de prune |
+| GitHub MCP: `list_pull_requests`, `list_branches` | Estado do repositório remoto |
+
+### Sessão 2026-05-24 (atual)
+
+| Comando | Finalidade | Resultado |
+|---|---|---|
+| `git status --short --branch` | Branch atual e estado | `claude/dazzling-euler-ZhWMf`, árvore limpa |
+| `git remote -v` | Remotes | `origin` via proxy local |
+| `git branch --all --verbose --verbose` | Inventário branches | 2 locais, 2 remote tracking |
+| `git branch --merged` | Branches mergeados no HEAD | `claude/dazzling-euler-ZhWMf`, `main` |
+| `git branch --no-merged` | Branches não mergeados | nenhum |
+| `git worktree list --porcelain` | Worktrees | 1 principal, limpa |
+| `git for-each-ref --format='...'` | Metadados de refs | SHA, datas, tracking status |
+| `git log --oneline --decorate --graph --all --max-count=80` | Topologia recente | 80 commits exibidos; merge history visível |
+| `git fetch --all --prune --dry-run` | Simulação de prune | 1 tracking a deletar (`origin/claude/dazzling-euler-ZhWMf`); 12 novos remote refs seriam adicionados |
+| `mcp__github__list_pull_requests` (open) | PRs abertos | **2 PRs** — #469 e #470 |
+| `mcp__github__list_branches` | Branches GitHub | 13 branches; `main` com `protected: true` |
 
 ---
 
 ## 4. Branch Inventory
 
-### 4.1 Branches Locais
+### 4.1 Delta entre auditorias (2026-05-17 → 2026-05-24)
+
+**Branches removidas desde a última auditoria (já não existem no remoto):**
+- `worktree-fix-ghost-desktop-position` (era `candidate-delete-remote`) ✅
+- `worktree-spectral-r3f` (era `candidate-delete-remote`) ✅
+- `fix/audit-p1-p2` (era `candidate-delete-remote`) ✅
+- `jules-ghost-system-audit-report-4882938480465184539` (era `candidate-archive`) ✅
+- `docs/sobre-page-technical-analysis-4751686432196136347` (era `unknown-risk`) ✅
+
+**Novas branches detectadas desde a última auditoria:**
+- `audit/weekly-report-4676327557888982331` (PR #470 aberto — draft)
+- `claude/weekly-audit-report-2026-05-19` (PR #469 aberto)
+- `codex/ghost-portfolio-hero-pr`
+- `codex/media-card-system`
+- `codex/sobre-origin-a11y-fixes`
+
+### 4.2 Branches Locais (estado atual 2026-05-24)
 
 | Branch | Local/Remote | SHA | Last Commit | Author | Upstream | Track | PR Status | Merge Status (vs HEAD) | Classificação | Proposta |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `claude/dazzling-euler-4xD4T` | Local + Remote tracking stale | `76bbcc65` | 2026-05-17 | danilonovaisv | nenhum | — | sem PR | **É o HEAD** | **active / current** | Preservar. Push ao remoto quando concluído. |
-| `main` | Local | `6a6f0896` | 2026-05-15 | danilonovaisv | `origin/main` | stale (remoto em `76bbcc65`) | — | merged | **active** | Preservar. Atualizar via `git fetch`. |
+| `claude/dazzling-euler-ZhWMf` | Local (tracking stale — remote não existe no GitHub) | `3f91a22` | 2026-05-24 | danilonovaisv | nenhum | — | sem PR | **É o HEAD; SHA = main** | **active / current** | Preservar; push ao remoto ao final da sessão |
+| `main` | Local + Remote | `3f91a22` | 2026-05-24 | danilonovaisv | `origin/main` | up-to-date | — | merged | **active / protected** | Preservar permanentemente |
 
-### 4.2 Remote Tracking Refs (cache local)
+### 4.3 Remote Tracking Refs (cache local 2026-05-24)
 
 | Ref | SHA | Status |
 |---|---|---|
-| `origin/claude/dazzling-euler-4xD4T` | `76bbcc65` | **STALE** — branch deletado do remoto. Será removido pelo próximo `git fetch --prune`. |
-| `origin/main` | `6a6f0896` | Desatualizado. Remoto em `76bbcc65`. |
+| `origin/claude/dazzling-euler-ZhWMf` | `3f91a22` | **Seria prunado** — branch não existe no GitHub. Detectado via `fetch --prune --dry-run`. Branch local intacto. |
+| `origin/main` | `3f91a22` | Up-to-date |
 
-### 4.3 Branches Remotos (GitHub)
+### 4.4 Branches Remotas (GitHub — estado atual 2026-05-24)
 
-| Branch | SHA | Protected | Last Commit Visível no Log | Merge em main | Classificação | Evidência | Proposta |
+| Branch | SHA | Protected | PR Status | Merge em main | Classificação | Evidência | Proposta |
 |---|---|---|---|---|---|---|---|
-| `main` | `76bbcc65` | Padrão | HEAD do repo | **É main** | **protected** | Branch padrão | Preservar permanentemente |
-| `worktree-fix-06-que-me-move` | `561eec01` | false | `561eec01 chore: update build configuration` | **Mergeado** via PR #452 (visto no log: `ce0cf38f Merge pull request #452`) | **candidate-delete-remote** | PR #452 fechado, commit presente em main | Deletar remoto após backup |
-| `worktree-fix-ghost-desktop-position` | `a541ddf9` | false | `63a54aa2`, `96d575fe` | **Mergeado** via PR #447 (visto no log: `c4f48eb2 Merge pull request #447`) | **candidate-delete-remote** | PR #447 fechado | Deletar remoto após backup |
-| `worktree-spectral-r3f` | `7d27daef` | false | `bd019606`, `bc4c98e9` | **Mergeado** via commit `26c64f37 Merge worktree-spectral-r3f` no log | **candidate-delete-remote** | Merge commit presente | Deletar remoto após backup |
-| `worktree-responsive-video-plan` | `2cebbd6f` | false | `bc78d9fc fix(video): responsive video src swap` | **Mergeado** via commit `7786c99c Merge branch 'worktree-responsive-video-plan'` no log | **candidate-delete-remote** | Merge commit presente | Deletar remoto após backup |
-| `worktree-audit-fixes` | `4f158abe` | false | Não visível nos 80 commits do log | **Desconhecido** — SHA não encontrado no grafo local | **unknown-risk** | Sem evidência de merge | Preservar até verificação manual do SHA |
-| `fix/audit-p1-p2` | `adbe068d` | false | `d3e8440e fix(audit): resolve P1/P2 issues` | **Mergeado** via PR #451 (visto no log: `c371fe61 Merge pull request #451`) | **candidate-delete-remote** | PR #451 fechado | Deletar remoto após backup |
-| `fix/audit-remediation-phase1` | `2a7cc79f` | false | Não visível nos 80 commits | **Desconhecido** | **unknown-risk** | Sem evidência de merge | Preservar até verificação manual |
-| `jules-ghost-system-audit-report-4882938480465184539` | `975934b0` | false | `975934b0 docs: generate Antigravity Ghost System Audit Report` | **Mergeado** via PR #453 (visto no log: `5af4e70c Merge pull request #453`) | **candidate-archive** | PR mergeado; branch de agente autônomo com valor histórico | Arquivar via tag antes de deletar |
-| `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | false | Não visível nos 80 commits | **Desconhecido** | **unknown-risk** | Sem evidência de merge | Preservar até verificação manual |
-| `docs/sobre-page-technical-analysis-4751686432196136347` | `622c71a3` | false | Não visível nos 80 commits | **Desconhecido** | **unknown-risk** | Branch de análise auto-gerada; pode ter valor documental | Preservar até verificação manual |
-| `codex/weekly-cleanup` | `dcf8d0de` | false | Não visível nos 80 commits | **Desconhecido** | **unknown-risk** | Branch de agente Codex; pode ter commits únicos | Preservar até verificação manual |
-| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652` | false | Não visível nos 80 commits | **Desconhecido** | **unknown-risk** | Branch de Workspace; naming incomum | Preservar até verificação manual |
+| `main` | `3f91a22` | **SIM** | — | É main | **protected** | API GitHub `protected: true` | Preservar permanentemente |
+| `audit/weekly-report-4676327557888982331` | `af752857` | Não | **PR #470 ABERTO (draft)** | Não determinado | **preserved-pr** | PR draft ativo (Jules/Google ADK) | NÃO TOCAR até PR fechado |
+| `claude/weekly-audit-report-2026-05-19` | `942afc1f` | Não | **PR #469 ABERTO** | Não determinado | **preserved-pr** | PR aberto com auditoria semanal do portfolio | NÃO TOCAR até PR mergeado ou fechado |
+| `codex/ghost-portfolio-hero-pr` | `bb1fbe0a` | Não | sem PR aberto | Provável (PR #482 no log) | **candidate-archive** | Trabalho de Ghost Hero; PR #482 "fix: add final ghost hero files" mergeado; SHA `bb1fbe0` não confirmado diretamente | Investigar SHA em main → archive via tag → delete remoto |
+| `codex/media-card-system` | `06104ba` | Não | sem PR aberto | **CONFIRMADO** — SHA `06104ba` visível no log de main como `feat: add typed media card system` | **candidate-delete-remote** | SHA presente no log do main | Backup via tag → delete remoto |
+| `codex/sobre-origin-a11y-fixes` | `e03f269` | Não | sem PR aberto | Não confirmado | **unknown-risk** | Nome sugere a11y fixes em `/sobre`; SHA não encontrado no log visível | Investigar commits únicos antes de qualquer ação |
+| `codex/weekly-cleanup` | `dcf8d0de` | Não | sem PR aberto | Não confirmado | **unknown-risk** | Presente desde auditoria anterior sem resolução; SHA sem evidência no log | Investigar; preservar se dúvida |
+| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652` | Não | sem PR aberto | Não confirmado | **unknown-risk** | Namespace de e-mail; branch de Jules Workspace; SHA não confirmado | Investigar; preservar se dúvida |
+| `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | Não | sem PR aberto | Não confirmado | **candidate-archive** | Documentação histórica do Ghost Design System v3; valor documental alto | Archive via tag → avaliar deleção |
+| `fix/audit-remediation-phase1` | `2a7cc79f` | Não | sem PR aberto | Não confirmado | **unknown-risk** | Fase 1 de remediação pós-auditoria; pode ter código funcional | Investigar commits únicos |
+| `worktree-audit-fixes` | `4f158abe` | Não | sem PR aberto | Não confirmado | **unknown-risk** | Presente desde auditoria anterior; SHA sem evidência no log | Investigar antes de qualquer ação |
+| `worktree-fix-06-que-me-move` | `561eec01` | Não | sem PR aberto | Provável (SHA presente no log anterior como `chore: update build configuration`) | **candidate-archive** | SHA `561eec01` visível em commits anteriores; nome sugere fix em seção "que me move" | Archive via tag → delete remoto |
+| `worktree-responsive-video-plan` | `09aab7da` | Não | sem PR aberto | Provável (commit `718f795` sobre responsive video em main) | **candidate-archive** | Trabalho de responsive video; possível integração parcial em main | Investigar overlap → archive → delete |
+
+### 4.5 Resumo de Classificação (2026-05-24)
+
+| Classificação | Branches | Ação |
+|---|---|---|
+| `protected` | `main` | Nunca tocar |
+| `active` | `claude/dazzling-euler-ZhWMf` (local), `main` (local) | Preservar |
+| `preserved-pr` | `audit/weekly-report-*`, `claude/weekly-audit-report-2026-05-19` | NÃO TOCAR |
+| `candidate-delete-remote` | `codex/media-card-system` | Backup → delete remoto |
+| `candidate-archive` | `codex/ghost-portfolio-hero-pr`, `docs/audit-beliefs-ghost-design-v3`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan` | Archive via tag → delete |
+| `unknown-risk` | `codex/sobre-origin-a11y-fixes`, `codex/weekly-cleanup`, `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s`, `fix/audit-remediation-phase1`, `worktree-audit-fixes` | Investigar → preservar se dúvida |
 
 ---
 
@@ -100,9 +161,9 @@ O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` apresenta **acúmulo moder
 
 | Worktree Path | Branch | SHA | Status | Locked | Clean/Dirty | Disk | Classificação | Proposta |
 |---|---|---|---|---|---|---|---|---|
-| `/home/user/PORTFOLIO-DANILO-FINAL` | `claude/dazzling-euler-4xD4T` | `76bbcc65` | Principal | Não | **Limpo** | Existe | **active** | Preservar permanentemente |
+| `/home/user/PORTFOLIO-DANILO-FINAL` | `claude/dazzling-euler-ZhWMf` | `3f91a22` | Principal | Não | **Limpo** | Existe | **active** | Preservar permanentemente |
 
-**Observação:** Nenhuma worktree órfã, bloqueada ou com arquivos não commitados detectada.
+**Observação (2026-05-24):** Nenhuma worktree órfã, bloqueada ou com arquivos não commitados detectada. `git worktree prune --dry-run` não foi executado (requer aprovação); nenhum candidato óbvio a prune dado que há apenas 1 worktree.
 
 ---
 
@@ -122,143 +183,176 @@ O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` apresenta **acúmulo moder
 | `locked-worktree` | Worktree explicitamente bloqueada. Preservar até confirmação. |
 | `unknown-risk` | Merge status não confirmado. Preservar obrigatoriamente. |
 
-### Resumo de Classificação
+### Resumo de Classificação (atualizado 2026-05-24)
 
-| Classificação | Branches |
+Ver Seção 4.5 acima.
+
+**Adições ao Risk Model para 2026-05-24:**
+
+| Classificação | Significado |
 |---|---|
-| `protected` | `main` |
-| `active` | `claude/dazzling-euler-4xD4T`, `main` (local) |
-| `candidate-delete-remote` | `worktree-fix-06-que-me-move`, `worktree-fix-ghost-desktop-position`, `worktree-spectral-r3f`, `worktree-responsive-video-plan`, `fix/audit-p1-p2` |
-| `candidate-archive` | `jules-ghost-system-audit-report-4882938480465184539` |
-| `unknown-risk` | `worktree-audit-fixes`, `fix/audit-remediation-phase1`, `docs/audit-beliefs-ghost-design-v3`, `docs/sobre-page-technical-analysis-4751686432196136347`, `codex/weekly-cleanup`, `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` |
+| `preserved-pr` | Branch com PR aberto. Qualquer ação proibida até PR fechado ou mergeado. |
+
+| Risco adicional identificado | Descrição |
+|---|---|
+| `.gitmodules` com entrada duplicada | `skills/superpower` aparece duplicado; pode causar falha silenciosa em `git submodule update` |
+| Upstream ausente em branch ativa | `claude/dazzling-euler-ZhWMf` não tem upstream configurado; `git push` sem args falhará |
 
 ---
 
 ## 7. Merge and Unification Strategy
 
-### Branches sem ação necessária
-- `main`: preservar, atualizar tracking com `git fetch`
-- `claude/dazzling-euler-4xD4T`: branch de trabalho ativo, push ao final da sessão
+### Branches sem ação necessária (2026-05-24)
+- `main`: protegido, não tocar
+- `claude/dazzling-euler-ZhWMf`: branch de trabalho ativo, push ao final da sessão
+- `audit/weekly-report-4676327557888982331`: PR #470 aberto — preservar até fechamento
+- `claude/weekly-audit-report-2026-05-19`: PR #469 aberto — preservar até fechamento
 
-### Branches candidatos a delete remoto (pós-backup)
-Todos têm merge confirmado via PR ou merge commit visível no log:
-- `worktree-fix-06-que-me-move` → deletar remoto
-- `worktree-fix-ghost-desktop-position` → deletar remoto
-- `worktree-spectral-r3f` → deletar remoto
-- `worktree-responsive-video-plan` → deletar remoto
-- `fix/audit-p1-p2` → deletar remoto
+### Branches candidatos a delete remoto (pós-backup e confirmação)
+- `codex/media-card-system` → SHA `06104ba` confirmado em main → delete remoto após backup
 
-### Branch candidato a archive (pós-backup)
-- `jules-ghost-system-audit-report-4882938480465184539` → criar tag `archive/jules-ghost-audit-2026` → deletar remoto
+### Branches candidatos a archive (pós-investigação)
+- `codex/ghost-portfolio-hero-pr` → investigar SHA em main; se confirmado → tag `archive/codex/ghost-portfolio-hero-pr` → delete
+- `docs/audit-beliefs-ghost-design-v3` → documentação histórica valiosa → tag `archive/docs/ghost-design-v3` → delete
+- `worktree-fix-06-que-me-move` → SHA `561eec01` provavelmente em main → tag → delete
+- `worktree-responsive-video-plan` → verificar SHA `09aab7da` contra main → tag → delete
 
 ### Branches unknown-risk — nenhuma ação automática
-Requerem verificação manual antes de qualquer decisão:
-- `worktree-audit-fixes`: verificar `git log origin/worktree-audit-fixes ^main --oneline`
-- `fix/audit-remediation-phase1`: idem
-- `docs/audit-beliefs-ghost-design-v3`: idem
-- `docs/sobre-page-technical-analysis-4751686432196136347`: idem
-- `codex/weekly-cleanup`: idem
-- `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s`: idem
+Requerem investigação de commits únicos (pós-fetch) antes de qualquer decisão:
+```bash
+git fetch --all
+git log origin/codex/sobre-origin-a11y-fixes ^main --oneline
+git log origin/codex/weekly-cleanup ^main --oneline
+git log "origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" ^main --oneline
+git log origin/fix/audit-remediation-phase1 ^main --oneline
+git log origin/worktree-audit-fixes ^main --oneline
+```
+Regra: se output vazio → candidato a delete/archive; se output não-vazio → escalar para humano.
 
 ---
 
 ## 8. Backup and Rollback Strategy
 
-### Bundle completo (preferencial)
+### Bundle completo (opção preferencial)
 ```bash
-mkdir -p .git-hygiene-backup
-git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
+mkdir -p docs/git-hygiene/backups
+git bundle create docs/git-hygiene/backups/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
 ```
 
-### Tags de backup por branch (complementar)
+### Tags de arquivo por branch (complementar — executar após fetch)
 ```bash
 git fetch --all
-git tag archive/backup/worktree-fix-06-que-me-move        origin/worktree-fix-06-que-me-move
-git tag archive/backup/worktree-fix-ghost-desktop-position origin/worktree-fix-ghost-desktop-position
-git tag archive/backup/worktree-spectral-r3f               origin/worktree-spectral-r3f
-git tag archive/backup/worktree-responsive-video-plan      origin/worktree-responsive-video-plan
-git tag archive/backup/fix-audit-p1-p2                     origin/fix/audit-p1-p2
-git tag archive/jules-ghost-audit-2026                     origin/jules-ghost-system-audit-report-4882938480465184539
+# Candidatos a delete (confirmados ou archive)
+git tag archive/codex/media-card-system          origin/codex/media-card-system
+git tag archive/codex/ghost-portfolio-hero-pr    origin/codex/ghost-portfolio-hero-pr
+git tag archive/docs/ghost-design-v3             origin/docs/audit-beliefs-ghost-design-v3
+git tag archive/worktree-fix-06-que-me-move      origin/worktree-fix-06-que-me-move
+git tag archive/worktree-responsive-video-plan   origin/worktree-responsive-video-plan
 git push origin --tags
 ```
 
-### SHA Map
+### SHA Map (atualizado 2026-05-24)
 
-| Branch | SHA completo | Tag de Backup | Restore Command |
+| Branch | SHA completo | Tag de Arquivo | Restore Command |
 |---|---|---|---|
-| `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `archive/backup/worktree-fix-06-que-me-move` | `git branch worktree-fix-06-que-me-move 561eec01` |
-| `worktree-fix-ghost-desktop-position` | `a541ddf9f2f042de3f12b905a64cf0bf0a43e017` | `archive/backup/worktree-fix-ghost-desktop-position` | `git branch worktree-fix-ghost-desktop-position a541ddf9` |
-| `worktree-spectral-r3f` | `7d27daef0600ba922966233ea139a53b53ee3837` | `archive/backup/worktree-spectral-r3f` | `git branch worktree-spectral-r3f 7d27daef` |
-| `worktree-responsive-video-plan` | `2cebbd6fd92a8b465e4859c85f78be711bcf2a49` | `archive/backup/worktree-responsive-video-plan` | `git branch worktree-responsive-video-plan 2cebbd6f` |
-| `fix/audit-p1-p2` | `adbe068dc5f2d536a84f3cc514731345a7a3ed66` | `archive/backup/fix-audit-p1-p2` | `git branch fix/audit-p1-p2 adbe068d` |
-| `jules-ghost-system-audit-report-*` | `975934b0b81bb74951f468c0b14695cd42a356bb` | `archive/jules-ghost-audit-2026` | `git branch jules-audit 975934b0` |
+| `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `archive/codex/media-card-system` | `git branch codex/media-card-system 06104ba` |
+| `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a` |
+| `docs/audit-beliefs-ghost-design-v3` | `2444b35be4bc5d9809fcdc1ec9f46e62b455a328` | `archive/docs/ghost-design-v3` | `git branch docs/audit-beliefs-ghost-design-v3 2444b35b` |
+| `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `archive/worktree-fix-06-que-me-move` | `git branch worktree-fix-06-que-me-move 561eec01` |
+| `worktree-responsive-video-plan` | `09aab7da9f81910ced8e50d8c29cc03055f3aad3` | `archive/worktree-responsive-video-plan` | `git branch worktree-responsive-video-plan 09aab7da` |
+| `codex/sobre-origin-a11y-fixes` | `e03f269df443e6d1bde3812573468e8057cbebcd` | (não arquivar antes de investigação) | `git branch codex/sobre-origin-a11y-fixes e03f269` |
+| `codex/weekly-cleanup` | `dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0` | (não arquivar antes de investigação) | `git branch codex/weekly-cleanup dcf8d0de` |
+| `danilo-novais-yahoo-com-br/WKSP-1-*` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | (não arquivar antes de investigação) | `git branch danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s 16aa5652` |
+| `fix/audit-remediation-phase1` | `2a7cc79f6198863092eaeb8593828cce12ec0174` | (não arquivar antes de investigação) | `git branch fix/audit-remediation-phase1 2a7cc79f` |
+| `worktree-audit-fixes` | `4f158abeee42fc056e85b67e01c71fdc6e296981` | (não arquivar antes de investigação) | `git branch worktree-audit-fixes 4f158abe` |
+| `audit/weekly-report-*` | `af752857b90684e3a6bbe0c9b3fd6b5ffdbc9baa` | **NÃO ARQUIVAR** (PR #470 aberto) | N/A |
+| `claude/weekly-audit-report-2026-05-19` | `942afc1fc19734b8238dd7198b546f2ef51b2be8` | **NÃO ARQUIVAR** (PR #469 aberto) | N/A |
 
-### Rollback de emergency (reflog)
+### Rollback geral
 ```bash
-git reflog show --all | grep <branch-name>
-git branch <nome-recuperado> <sha-do-reflog>
+# Via tag de arquivo
+git branch <nome-da-branch> archive/<tag>
+git push origin <nome-da-branch>
+
+# Via bundle
+git bundle verify docs/git-hygiene/backups/pre-cleanup-<timestamp>.bundle
+git fetch docs/git-hygiene/backups/pre-cleanup-<timestamp>.bundle <branch>:<branch-local>
+
+# Via reflog (janela de 30 dias)
+git reflog show --all | grep <sha>
+git branch <nome-recuperado> <sha>
 ```
 
 ---
 
-## 9. Proposed Command Plan
+## 9. Proposed Command Plan (2026-05-24)
 
-### Fase A: Read-Only (JÁ EXECUTADO)
+### Fase A: Read-Only — JÁ EXECUTADO (2026-05-24)
 ```bash
 git status --short --branch
 git remote -v
 git branch --all --verbose --verbose
-git branch --merged
-git branch --no-merged
+git branch --merged / --no-merged
 git worktree list --porcelain
 git for-each-ref --format='...'
 git log --oneline --decorate --graph --all --max-count=80
 git fetch --all --prune --dry-run
-# GitHub MCP: list_pull_requests, list_branches
+# GitHub MCP: list_pull_requests (open), list_branches
 ```
 
-### Fase B: Verificação de unknown-risk (requer fetch, não destrutivo)
+### Fase B: Fetch e investigação de unknown-risk (não destrutivo)
 ```bash
-# REQUER APROVAÇÃO NÍVEL B (fetch é não-destrutivo, mas altera estado local)
+# fetch sem --prune: não altera branches, apenas atualiza tracking refs
 git fetch --all
-git log origin/worktree-audit-fixes ^main --oneline
-git log origin/fix/audit-remediation-phase1 ^main --oneline
-git log origin/docs/audit-beliefs-ghost-design-v3 ^main --oneline
-git log "origin/docs/sobre-page-technical-analysis-4751686432196136347" ^main --oneline
+
+# Verificar commits únicos das branches unknown-risk
+git log origin/codex/sobre-origin-a11y-fixes ^main --oneline
 git log origin/codex/weekly-cleanup ^main --oneline
 git log "origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" ^main --oneline
+git log origin/fix/audit-remediation-phase1 ^main --oneline
+git log origin/worktree-audit-fixes ^main --oneline
+git log origin/codex/ghost-portfolio-hero-pr ^main --oneline
+git log origin/worktree-fix-06-que-me-move ^main --oneline
+git log origin/worktree-responsive-video-plan ^main --oneline
 ```
 
-### Fase C: Backup (REQUER APROVAÇÃO)
+### Fase C: Backup [REQUIRES APPROVAL]
 ```bash
-mkdir -p .git-hygiene-backup
-git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
-git tag archive/backup/worktree-fix-06-que-me-move        origin/worktree-fix-06-que-me-move
-git tag archive/backup/worktree-fix-ghost-desktop-position origin/worktree-fix-ghost-desktop-position
-git tag archive/backup/worktree-spectral-r3f               origin/worktree-spectral-r3f
-git tag archive/backup/worktree-responsive-video-plan      origin/worktree-responsive-video-plan
-git tag archive/backup/fix-audit-p1-p2                     origin/fix/audit-p1-p2
-git tag archive/jules-ghost-audit-2026                     origin/jules-ghost-system-audit-report-4882938480465184539
+mkdir -p docs/git-hygiene/backups
+git bundle create docs/git-hygiene/backups/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
+# Tags de arquivo para candidatos confirmados
+git tag archive/codex/media-card-system          origin/codex/media-card-system
+git tag archive/codex/ghost-portfolio-hero-pr    origin/codex/ghost-portfolio-hero-pr
+git tag archive/docs/ghost-design-v3             origin/docs/audit-beliefs-ghost-design-v3
+git tag archive/worktree-fix-06-que-me-move      origin/worktree-fix-06-que-me-move
+git tag archive/worktree-responsive-video-plan   origin/worktree-responsive-video-plan
 git push origin --tags
 ```
 
-### Fase D: Remoção Local (REQUER APROVAÇÃO — sem urgência, estado limpo)
+### Fase D: Remoção local [NÃO APLICÁVEL — estado local já é mínimo]
 ```bash
-# Não há branches locais candidatos a remoção além dos já inexistentes.
-# Após git fetch --prune, o tracking ref stale origin/claude/dazzling-euler-4xD4T será removido automaticamente.
+# Não há branches locais candidatos a deleção.
+# A branch ativa claude/dazzling-euler-ZhWMf é a HEAD — preservar.
+# O tracking ref stale será removido automaticamente com git fetch --prune (fase E ou posterior).
 ```
 
-### Fase E: Remoção Remota dos Confirmados ★ REQUER APROVAÇÃO EXPLÍCITA ★
+### Fase E: Remoção remota — somente candidatos confirmados [REQUIRES APPROVAL + APROVAÇÃO SEPARADA PARA REMOTO]
 ```bash
-git push origin --delete worktree-fix-06-que-me-move         # REQUIRES APPROVAL
-git push origin --delete worktree-fix-ghost-desktop-position # REQUIRES APPROVAL
-git push origin --delete worktree-spectral-r3f               # REQUIRES APPROVAL
-git push origin --delete worktree-responsive-video-plan      # REQUIRES APPROVAL
-git push origin --delete fix/audit-p1-p2                     # REQUIRES APPROVAL
-git push origin --delete jules-ghost-system-audit-report-4882938480465184539  # REQUIRES APPROVAL (após tag criada)
+git push origin --delete codex/media-card-system            # REQUIRES APPROVAL (SHA confirmado em main)
+# As seguintes APENAS após investigação Fase B confirmar integração:
+# git push origin --delete codex/ghost-portfolio-hero-pr    # REQUIRES APPROVAL
+# git push origin --delete docs/audit-beliefs-ghost-design-v3 # REQUIRES APPROVAL
+# git push origin --delete worktree-fix-06-que-me-move      # REQUIRES APPROVAL
+# git push origin --delete worktree-responsive-video-plan   # REQUIRES APPROVAL
 ```
 
-### Fase F: Validação (pós-execução aprovada)
+### Fase F: Worktree cleanup [NÃO APLICÁVEL]
+```bash
+# Apenas 1 worktree, limpa, não bloqueada. Nenhuma ação necessária.
+git worktree prune --dry-run  # validação pós-cleanup
+```
+
+### Fase G: Validação [REQUIRES APPROVAL]
 ```bash
 git status
 git branch --all
@@ -267,21 +361,25 @@ git fetch --all --prune --dry-run
 pnpm run lint
 pnpm run typecheck
 pnpm run build
+# pnpm test (se disponível)
 ```
 
 ---
 
-## 10. Risks and Mitigations
+## 10. Risks and Mitigations (atualizado 2026-05-24)
 
-| Risco | Probabilidade | Mitigação |
-|---|---|---|
-| Branch `unknown-risk` contém commits únicos | Média | Classificados como `unknown-risk`; nenhuma ação proposta sem verificação |
-| Branch agente autônomo (Codex, Jules) com lógica não mergeada | Média | Verificação obrigatória com `git log origin/<branch> ^main` |
-| Remote prune remove tracking ref ativo | Baixa | Tracking ref de `claude/dazzling-euler-4xD4T` é stale (branch deletado do remoto); local branch intacto |
-| Tag de arquivo sobrescreve tag existente | Baixa | Verificar com `git tag --list archive/*` antes de criar |
-| `git push --delete` em branch de CI/CD | Baixa | Nenhuma das branches listadas aparece em `.github/workflows/` como trigger; verificar antes |
-| Build quebrado após cleanup | Baixíssima | Branches remotas não afetam build local; validação pós-execução confirma |
-| Branch `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` com plan ativo | Desconhecida | Classificado `unknown-risk`; verificar conteúdo antes de qualquer ação |
+| Risco | Probabilidade | Impacto | Mitigação |
+|---|---|---|---|
+| Branch `unknown-risk` contém commits únicos não integrados | Média | Alto | Fase B de investigação obrigatória; regra: output não-vazio → escalar para humano |
+| PRs abertos (#469, #470) afetados por cleanup | Baixa | Crítico | Classificação `preserved-pr` bloqueia qualquer ação nessas branches |
+| Branch de agente autônomo (Codex, Jules, Workspace) com commits únicos | Média | Médio | Verificação via `git log origin/<branch> ^main --oneline` antes de qualquer ação |
+| `git fetch --prune` remove tracking de `claude/dazzling-euler-ZhWMf` | Confirmado (dry-run) | Baixo | SHA = main; nenhuma perda de dado; worktree local intacta |
+| Tag de arquivo sobrescreve tag existente | Baixa | Baixo | Verificar `git tag --list archive/*` antes de criar |
+| `git push --delete` em branch usada por CI/CD ou preview | Baixa | Alto | Verificar `.github/workflows/` e `firebase.json` antes do cleanup remoto |
+| Build quebrado após cleanup | Baixíssima | Médio | Branches remotas não afetam build local; validação Fase G confirma |
+| `.gitmodules` duplicado causa falha em submodule update | Baixa | Médio | Registrado como defeito separado; não bloqueia este plano, mas deve ser corrigido independentemente |
+| Branch `danilo-novais-yahoo-com-br/WKSP-1-*` com workspace Jules ativo | Desconhecida | Médio | Classificado `unknown-risk`; nenhuma ação sem investigação e confirmação humana |
+| `codex/sobre-origin-a11y-fixes` contém fixes de acessibilidade não integrados | Média | Médio | Investigar: se tiver commits únicos em `/sobre`, escalar para merge antes de archive |
 
 ---
 
@@ -293,6 +391,12 @@ pnpm run build
 >
 > **Nenhum comando destrutivo será executado até que você responda com `Aprovado` ou `Proceed`.**
 >
-> Após aprovação, a execução seguirá exatamente o Command Plan da Fase B em diante, na sequência proposta, com relatório de cada etapa.
+> Após aprovação, a execução seguirá exatamente o Command Plan das Fases B–G, na sequência proposta, com relatório de cada etapa.
 >
 > Se quiser aprovar apenas algumas fases (ex: "Aprovar Fase B e C, aguardar Fase E"), especifique quais.
+>
+> **Para aprovação granular de remoção remota, a Fase E requer uma confirmação separada específica.**
+
+---
+
+*Documento atualizado em 2026-05-24. Estado anterior preservado para referência histórica. Nenhuma alteração destrutiva foi realizada.*
