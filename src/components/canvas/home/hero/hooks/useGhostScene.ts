@@ -238,10 +238,7 @@ export function useGhostScene(
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(window.innerWidth, window.innerHeight);
       composerRef.current.setSize(window.innerWidth, window.innerHeight);
-      bloomPassRef.current.resolution.set(
-        window.innerWidth,
-        window.innerHeight
-      );
+      bloomPassRef.current.setSize(window.innerWidth, window.innerHeight);
     };
     window.addEventListener('resize', onResizeRef.current);
 

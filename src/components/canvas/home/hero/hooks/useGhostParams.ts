@@ -45,7 +45,12 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       analogJitter: 0.15,
       limboMode: false,
       // Environment & Post-Processing
-      bloomStrength: performanceConfig.quality === 'low' ? 0.18 : 0.55,
+      bloomStrength:
+        performanceConfig.quality === 'low'
+          ? 0.42
+          : performanceConfig.quality === 'medium'
+            ? 0.5
+            : 0.55,
       bloomRadius: 1.05,
       // Threshold > 0 so only highly emissive pixels bloom — eliminates frame-wide bloom instability
       bloomThreshold: 0.65,
