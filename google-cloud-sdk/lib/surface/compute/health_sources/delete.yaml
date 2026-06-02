@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
   help_text:
-    brief: "Delete a health source."
-    description: "Delete a health source."
+    brief: 'Delete a health source.'
+    description: 'Delete a health source.'
     examples: |
       To delete a single health source, run the following command:
 

@@ -9,13 +9,13 @@
       $ {command} my-instance --project=my-project --location=us-central1
   arguments:
     params:
-    - help_text: |-
-        The name of the Memorystore instance.
-        Format: projects/{project}/locations/{location}/instances/{instance}
-      is_positional: true
-      request_id_field: instanceId
-      resource_spec: !REF googlecloudsdk.command_lib.memorystore.resources:instance
-      required: true
+      - help_text: |-
+          The name of the Memorystore instance.
+          Format: projects/{project}/locations/{location}/instances/{instance}
+        is_positional: true
+        request_id_field: instanceId
+        resource_spec: !REF googlecloudsdk.command_lib.memorystore.resources:instance
+        required: true
   request:
     ALPHA:
       api_version: v1alpha

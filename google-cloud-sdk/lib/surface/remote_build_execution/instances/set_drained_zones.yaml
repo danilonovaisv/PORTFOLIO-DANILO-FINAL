@@ -24,17 +24,17 @@
       help_text: |
         Arguments describing the drains to set.
     params:
-    - api_field: googleDevtoolsRemotebuildexecutionAdminV1alphaInstance.zoneDrains
-      arg_name: drains
-      required: true
-      help_text: |
-        A list of zone drains to set.
-      type:
-        arg_dict:
-          flatten: false
-          spec:
-          - api_field: zone
-            arg_name: zone
-          - api_field: percent
-            arg_name: percent
-            type: int
+      - api_field: googleDevtoolsRemotebuildexecutionAdminV1alphaInstance.zoneDrains
+        arg_name: drains
+        required: true
+        help_text: |
+          A list of zone drains to set.
+        type:
+          arg_dict:
+            flatten: false
+            spec:
+              - api_field: zone
+                arg_name: zone
+              - api_field: percent
+                arg_name: percent
+                type: int

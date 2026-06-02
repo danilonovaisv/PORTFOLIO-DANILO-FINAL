@@ -30,8 +30,8 @@
     disable_resource_check: true
     method: getMembershipGraph
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveMembershipParent
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveQuery
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveMembershipParent
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveQuery
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -41,19 +41,19 @@
 
   arguments:
     params:
-    - arg_name: member-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the member to get the membership graph for.
+      - arg_name: member-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the member to get the membership graph for.
 
-    - arg_name: group-email
-      type: str
-      help_text: |
-        The email address of the group to constrain the membership graph with.
+      - arg_name: group-email
+        type: str
+        help_text: |
+          The email address of the group to constrain the membership graph with.
 
-    - arg_name: labels
-      type: str
-      required: true
-      help_text: |
-        The labels of the groups in the membership graph.
+      - arg_name: labels
+        type: str
+        required: true
+        help_text: |
+          The labels of the groups in the membership graph.

@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified ClientTlsPolicy.
   examples: |
-      To delete a ClientTlsPolicy called 'my-client-tls-policy', run:
+    To delete a ClientTlsPolicy called 'my-client-tls-policy', run:
 
-        $ {command} my-client-tls-policy --location=global
+      $ {command} my-client-tls-policy --location=global
 
 arguments:
   resource:

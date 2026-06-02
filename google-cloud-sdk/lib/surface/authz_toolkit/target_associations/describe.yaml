@@ -7,9 +7,9 @@ help_text:
   description: |
     Show details of the specified target association.
   examples: |
-      To show details about a target association named `my-target_association`, run:
+    To show details about a target association named `my-target_association`, run:
 
-        $ {command} my-target_association --location=us-central1
+      $ {command} my-target_association --location=us-central1
 
 arguments:
   resource:

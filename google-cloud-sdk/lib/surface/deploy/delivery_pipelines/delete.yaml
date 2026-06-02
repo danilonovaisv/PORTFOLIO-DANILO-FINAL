@@ -27,10 +27,11 @@
       spec: !REF googlecloudsdk.command_lib.deploy.resources:delivery_pipeline
       is_positional: true
     params:
-    - arg_name: force
-      api_field: force
-      action: store_true
-      help_text: If true, the delivery pipeline with sub-resources will be deleted
-                 and its sub-resources will also be deleted.
+      - arg_name: force
+        api_field: force
+        action: store_true
+        help_text:
+          If true, the delivery pipeline with sub-resources will be deleted
+          and its sub-resources will also be deleted.
   input:
     confirmation_prompt: Once a delivery pipeline is deleted, it cannot be recovered.

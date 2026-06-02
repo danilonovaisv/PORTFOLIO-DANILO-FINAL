@@ -16,7 +16,7 @@ memory:
 
 subnets:
   arg_name: subnets
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   help_text: |
     A comma-separated list of VPC subnets from which the cluster is accessible. Both broker and bootstrap server
     IP addresses and DNS entries are automatically created in each subnet. Only one subnet per
@@ -29,7 +29,7 @@ labels:
   api_field: cluster.labels
   arg_name: labels
   metavar: KEY=VALUE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
   help_text: |
     List of label KEY=VALUE pairs to add.
     Keys must start with a lowercase character and contain only hyphens (`-`),
@@ -54,14 +54,14 @@ auto-rebalance:
     CPUs in the cluster changes. Automatic rebalancing is enabled by default.
     Use --no-auto-rebalance to disable this flag.
   choices:
-  - arg_value: true
-    enum_value: AUTO_REBALANCE_ON_SCALE_UP
-  - arg_value: false
-    enum_value: NO_REBALANCE
+    - arg_value: true
+      enum_value: AUTO_REBALANCE_ON_SCALE_UP
+    - arg_value: false
+      enum_value: NO_REBALANCE
 
 mtls-ca-pools:
   arg_name: mtls-ca-pools
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   help_text: |
     A comma-separated list of CA pools from the Google Cloud Certificate Authority Service.
     The root certificates of these CA pools will be installed in the truststore of each broker
@@ -138,7 +138,7 @@ connect-labels:
   api_field: connectCluster.labels
   arg_name: labels
   metavar: KEY=VALUE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
   help_text: |
     List of label KEY=VALUE pairs to add.
     Keys must start with a lowercase character and contain only hyphens (`-`),
@@ -215,7 +215,7 @@ configs:
   api_field: topic.configs
   arg_name: configs
   metavar: KEY=VALUE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
   help_text: |
     Configuration for the topic that are overridden from the cluster defaults.
     The key of the map is a Kafka topic property name, for example:
@@ -227,7 +227,7 @@ connectCluster-configs:
   arg_name: configs
   api_field: connectCluster.config
   metavar: KEY=VALUE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
   help_text: |
     Configuration for the connect cluster that are overridden from the cluster defaults.
     The key of the map is a Kafka topic property name, for example:
@@ -236,7 +236,7 @@ connectCluster-configs:
 connectCluster-config-file:
   arg_name: config-file
   metavar: JSON|YAML|FILE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgObject:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgObject:'
   help_text: |
     The path to the JSON or YAML file containing the configuration that are overridden
     from the cluster or connector defaults. This also supports inline JSON or YAML.
@@ -245,7 +245,7 @@ connector-configs:
   arg_name: configs
   api_field: connector.configs
   metavar: KEY=VALUE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
   help_text: |
     Configuration for the connector that are overridden from the connector defaults.
     The key of the map is a Kafka topic property name, for example:
@@ -254,7 +254,7 @@ connector-configs:
 connector-config-file:
   arg_name: config-file
   metavar: JSON|YAML|FILE
-  type: "googlecloudsdk.calliope.arg_parsers:ArgObject:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgObject:'
   help_text: |
     The path to the JSON or YAML file containing the configuration that are overridden
     from the connector defaults. This also supports inline JSON or YAML.
@@ -305,7 +305,7 @@ clear-configs:
 # TODO(b/336117815): Provide hard examples and external docs on this flag.
 topics-file:
   arg_name: topics-file
-  type: "googlecloudsdk.calliope.arg_parsers:ArgObject:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgObject:'
   metavar: JSON|YAML|FILE
   help_text: |
     The path to the JSON or YAML file containing the configuration of the topics to be updated for
@@ -336,27 +336,27 @@ acl-entry:
     arg_dict:
       flatten: false
       spec:
-      - api_field: principal
-        arg_name: principal
-        type: str
-        required: true
-      - api_field: operation
-        arg_name: operation
-        type: str
-        required: true
-      - api_field: permissionType
-        arg_name: permission-type
-        type: str
-        required: true
-      - api_field: host
-        arg_name: host
-        type: str
-        required: true
+        - api_field: principal
+          arg_name: principal
+          type: str
+          required: true
+        - api_field: operation
+          arg_name: operation
+          type: str
+          required: true
+        - api_field: permissionType
+          arg_name: permission-type
+          type: str
+          required: true
+        - api_field: host
+          arg_name: host
+          type: str
+          required: true
 
 acl-entries-from-file:
   arg_name: acl-entries-from-file
   api_field: acl
-  type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
+  type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
   processor: googlecloudsdk.core.yaml:load
   help_text: |
     Path to a JSON or YAML file containing the acl entries to use in the acl.
@@ -398,7 +398,7 @@ acl-entry-permission-type:
   api_field: aclEntry.permissionType
   arg_name: permission-type
   type: str
-  default: "ALLOW"
+  default: 'ALLOW'
   help_text: |
     The permission type. Allowed values are: ALLOW, DENY.
 
@@ -419,10 +419,10 @@ full:
     Show detailed information about individual brokers, such as broker id and zone, as well as the
     Kafka version running on the cluster.
   choices:
-  - arg_value: true
-    enum_value: CLUSTER_VIEW_FULL
-  - arg_value: false
-    enum_value: CLUSTER_VIEW_BASIC
+    - arg_value: true
+      enum_value: CLUSTER_VIEW_FULL
+    - arg_value: false
+      enum_value: CLUSTER_VIEW_BASIC
 
 consumer_group_view:
   arg_name: view
@@ -430,9 +430,9 @@ consumer_group_view:
   help_text: |
     The level of detail to return for consumer groups.
   choices:
-  - arg_value: basic
-    enum_value: CONSUMER_GROUP_VIEW_BASIC
-    help_text: Include only the names of consumer groups.
-  - arg_value: full
-    enum_value: CONSUMER_GROUP_VIEW_FULL
-    help_text: Include all available fields (topics, partitions).
+    - arg_value: basic
+      enum_value: CONSUMER_GROUP_VIEW_BASIC
+      help_text: Include only the names of consumer groups.
+    - arg_value: full
+      enum_value: CONSUMER_GROUP_VIEW_FULL
+      help_text: Include all available fields (topics, partitions).

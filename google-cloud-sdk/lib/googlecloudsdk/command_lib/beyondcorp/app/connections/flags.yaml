@@ -60,10 +60,10 @@ connection_type_v1alpha:
   arg_name: type
   required: false
   choices:
-  - arg_value: tcp
-    enum_value: TCP_PROXY
-    help_text: TCP connection
-  default: "TCP_PROXY"
+    - arg_value: tcp
+      enum_value: TCP_PROXY
+      help_text: TCP connection
+  default: 'TCP_PROXY'
   help_text: |-
     The type of network connnectivity used by the connection.
 
@@ -72,10 +72,10 @@ connection_type_v1:
   arg_name: type
   required: false
   choices:
-  - arg_value: tcp
-    enum_value: TCP_PROXY
-    help_text: TCP connection
-  default: "TCP_PROXY"
+    - arg_value: tcp
+      enum_value: TCP_PROXY
+      help_text: TCP connection
+  default: 'TCP_PROXY'
   help_text: |-
     The type of network connnectivity used by the connection.
 

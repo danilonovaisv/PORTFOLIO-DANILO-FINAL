@@ -25,28 +25,28 @@
       help_text: |
         Arguments and flags that specify the Memorystore Redis cluster you want to update.
     params:
-    - arg_name: cluster-endpoint
-      api_field: cluster.clusterEndpoints
-      repeated: true
-      required: true
-      help_text: |
-        Resource details of a redis cluster endpoint
-      type: arg_object
-      spec:
-      - api_field: connections
-        json_name: psc-connection
+      - arg_name: cluster-endpoint
+        api_field: cluster.clusterEndpoints
+        repeated: true
+        required: true
+        help_text: |
+          Resource details of a redis cluster endpoint
         type: arg_object
         spec:
-        - api_field: pscConnection.pscConnectionId
-          json_name: psc-connection-id
-        - api_field: pscConnection.network
-          json_name: network
-        - api_field: pscConnection.address
-          json_name: address
-        - api_field: pscConnection.forwardingRule
-          json_name: forwarding-rule
-        - api_field: pscConnection.serviceAttachment
-          json_name: service-attachment
+          - api_field: connections
+            json_name: psc-connection
+            type: arg_object
+            spec:
+              - api_field: pscConnection.pscConnectionId
+                json_name: psc-connection-id
+              - api_field: pscConnection.network
+                json_name: network
+              - api_field: pscConnection.address
+                json_name: address
+              - api_field: pscConnection.forwardingRule
+                json_name: forwarding-rule
+              - api_field: pscConnection.serviceAttachment
+                json_name: service-attachment
 
   async:
     collection: redis.projects.locations.operations
@@ -59,6 +59,6 @@
     GA:
       api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.redis.psc_update_util:UpdateClusterEndpoints
+      - googlecloudsdk.command_lib.redis.psc_update_util:UpdateClusterEndpoints
     collection: redis.projects.locations.clusters
     method: patch

@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1 SeverityOverride export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- action
-- severity
+  - action
+  - severity
 additionalProperties: false
 properties:
   COMMENT:
@@ -32,18 +32,18 @@ properties:
     description: Threat action override.
     type: string
     enum:
-    - ALERT
-    - ALLOW
-    - DEFAULT_ACTION
-    - DENY
-    - THREAT_ACTION_UNSPECIFIED
+      - ALERT
+      - ALLOW
+      - DEFAULT_ACTION
+      - DENY
+      - THREAT_ACTION_UNSPECIFIED
   severity:
     description: Severity level to match.
     type: string
     enum:
-    - CRITICAL
-    - HIGH
-    - INFORMATIONAL
-    - LOW
-    - MEDIUM
-    - SEVERITY_UNSPECIFIED
+      - CRITICAL
+      - HIGH
+      - INFORMATIONAL
+      - LOW
+      - MEDIUM
+      - SEVERITY_UNSPECIFIED

@@ -17,15 +17,15 @@
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:location
       is_positional: false
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: query
-          api_field: googleCloudDataplexV1QueryCatalogRequest.query
-          help_text: |
-            The SQL query string.
-        - arg_name: reference-id
-          api_field: googleCloudDataplexV1QueryCatalogRequest.referenceId
-          help_text: |
-            The reference ID from a previous query to fetch results.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: query
+              api_field: googleCloudDataplexV1QueryCatalogRequest.query
+              help_text: |
+                The SQL query string.
+            - arg_name: reference-id
+              api_field: googleCloudDataplexV1QueryCatalogRequest.referenceId
+              help_text: |
+                The reference ID from a previous query to fetch results.

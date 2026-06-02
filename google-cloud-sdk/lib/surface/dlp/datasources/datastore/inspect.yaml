@@ -31,29 +31,29 @@
     method: create
     api_version: v2
     modify_request_hooks:
-    - googlecloudsdk.command_lib.dlp.hooks:SetRequestParent
+      - googlecloudsdk.command_lib.dlp.hooks:SetRequestParent
   arguments:
     params:
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:datastore_kind
-      arg_name: datastore_kind
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.storageConfig.datastoreOptions
-      is_positional: true
-      required: true
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:max_item_findings
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:min_time
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:max_time
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:jobs_output_group
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:info_type
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.infoTypes
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:min_likelihood
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.minLikelihood
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:include_quote
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.includeQuote
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:max_findings
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.limits.maxFindingsPerRequest
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:exclude_info_types
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.excludeInfoTypes
-    - _REF_: googlecloudsdk.command_lib.dlp.flags:job_id
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:datastore_kind
+        arg_name: datastore_kind
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.storageConfig.datastoreOptions
+        is_positional: true
+        required: true
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:max_item_findings
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:min_time
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:max_time
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:jobs_output_group
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:info_type
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.infoTypes
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:min_likelihood
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.minLikelihood
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:include_quote
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.includeQuote
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:max_findings
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.limits.maxFindingsPerRequest
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:exclude_info_types
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.inspectConfig.excludeInfoTypes
+      - _REF_: googlecloudsdk.command_lib.dlp.flags:job_id
     resource:
       help_text: |
         The Cloud DLP project to create Job In.

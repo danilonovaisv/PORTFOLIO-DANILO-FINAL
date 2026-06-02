@@ -21,7 +21,7 @@ request:
   ALPHA:
     api_version: alpha
   modify_request_hooks:
-  - googlecloudsdk.command_lib.iam.hooks:UseMaxRequestedPolicyVersion:api_field=optionsRequestedPolicyVersion
+    - googlecloudsdk.command_lib.iam.hooks:UseMaxRequestedPolicyVersion:api_field=optionsRequestedPolicyVersion
 
 arguments:
   resource:

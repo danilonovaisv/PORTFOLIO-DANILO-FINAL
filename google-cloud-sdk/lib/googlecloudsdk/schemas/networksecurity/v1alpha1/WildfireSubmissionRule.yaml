@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 WildfireSubmissionRule export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- direction
-- fileSelectionMode
+  - direction
+  - fileSelectionMode
 additionalProperties: false
 properties:
   COMMENT:
@@ -35,14 +35,14 @@ properties:
     description: Direction for the files to be analyzed by WildFire.
     type: string
     enum:
-    - BOTH
-    - DIRECTION_UNSPECIFIED
-    - DOWNLOAD
-    - UPLOAD
+      - BOTH
+      - DIRECTION_UNSPECIFIED
+      - DOWNLOAD
+      - UPLOAD
   fileSelectionMode:
     description: File selection mode for WildFire analysis.
     type: string
     enum:
-    - ALL_FILE_TYPES
-    - CUSTOM_FILE_TYPES
-    - FILE_SELECTION_MODE_UNSPECIFIED
+      - ALL_FILE_TYPES
+      - CUSTOM_FILE_TYPES
+      - FILE_SELECTION_MODE_UNSPECIFIED

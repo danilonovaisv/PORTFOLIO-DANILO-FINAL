@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkebackup v1 RestoreOrder export schema
 description: A gcloud export/import command YAML validation schema.
@@ -13,8 +13,8 @@ properties:
     items:
       type: object
       required:
-      - requiring
-      - satisfying
+        - requiring
+        - satisfying
       additionalProperties: false
       properties:
         requiring:

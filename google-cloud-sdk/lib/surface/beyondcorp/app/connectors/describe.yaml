@@ -26,8 +26,8 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.beyondcorp.app.connectors.hooks:HideDetailsBeforeDescribing
-    - googlecloudsdk.command_lib.beyondcorp.app.connectors.hooks:PrintMessageInResponse
+      - googlecloudsdk.command_lib.beyondcorp.app.connectors.hooks:HideDetailsBeforeDescribing
+      - googlecloudsdk.command_lib.beyondcorp.app.connectors.hooks:PrintMessageInResponse
 
   arguments:
     resource:
@@ -35,10 +35,10 @@
       spec: !REF googlecloudsdk.command_lib.beyondcorp.app.resources:appconnector
       help_text: The Beyondcorp connector you want to get details about.
     params:
-    - arg_name: details
-      type: bool
-      help_text: |
-        Includes details.
+      - arg_name: details
+        type: bool
+        help_text: |
+          Includes details.
 
   output:
     format: json

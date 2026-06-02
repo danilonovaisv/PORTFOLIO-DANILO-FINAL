@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 OriginRedirect export schema
 description: A gcloud export/import command YAML validation schema.
@@ -31,9 +31,9 @@ properties:
     items:
       type: string
       enum:
-      - FOUND
-      - MOVED_PERMANENTLY
-      - PERMANENT_REDIRECT
-      - REDIRECT_CONDITIONS_UNSPECIFIED
-      - SEE_OTHER
-      - TEMPORARY_REDIRECT
+        - FOUND
+        - MOVED_PERMANENTLY
+        - PERMANENT_REDIRECT
+        - REDIRECT_CONDITIONS_UNSPECIFIED
+        - SEE_OTHER
+        - TEMPORARY_REDIRECT

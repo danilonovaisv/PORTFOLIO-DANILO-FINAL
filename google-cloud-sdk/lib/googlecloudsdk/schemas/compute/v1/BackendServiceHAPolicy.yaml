@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 BackendServiceHAPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -80,8 +80,8 @@ properties:
       set, it cannot be updated.  By default, fastIpMove is set to DISABLED.
     type: string
     enum:
-    - DISABLED
-    - GARP_RA
+      - DISABLED
+      - GARP_RA
   leader:
     description: |-
       Selects one of the network endpoints attached to the backend NEGs of this

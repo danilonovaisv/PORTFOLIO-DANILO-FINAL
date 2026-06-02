@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
   help_text:
-    brief: "Describe a composite health check."
-    description: "Describe a composite health check."
+    brief: 'Describe a composite health check.'
+    description: 'Describe a composite health check.'
     examples: |
       To retrieve a single composite health check and print its properties, run the following
       command:

@@ -1,4 +1,4 @@
- {
+{
   "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
   "language": "python",
   "libraryPackage": "googlecloudsdk.generated_clients.gapic_clients.logging_v2",
@@ -11,219 +11,133 @@
           "libraryClient": "ConfigServiceV2Client",
           "rpcs": {
             "CopyLogEntries": {
-              "methods": [
-                "copy_log_entries"
-              ]
+              "methods": ["copy_log_entries"]
             },
             "CreateBucket": {
-              "methods": [
-                "create_bucket"
-              ]
+              "methods": ["create_bucket"]
             },
             "CreateBucketAsync": {
-              "methods": [
-                "create_bucket_async"
-              ]
+              "methods": ["create_bucket_async"]
             },
             "CreateExclusion": {
-              "methods": [
-                "create_exclusion"
-              ]
+              "methods": ["create_exclusion"]
             },
             "CreateLink": {
-              "methods": [
-                "create_link"
-              ]
+              "methods": ["create_link"]
             },
             "CreateLogScope": {
-              "methods": [
-                "create_log_scope"
-              ]
+              "methods": ["create_log_scope"]
             },
             "CreateSavedQuery": {
-              "methods": [
-                "create_saved_query"
-              ]
+              "methods": ["create_saved_query"]
             },
             "CreateSink": {
-              "methods": [
-                "create_sink"
-              ]
+              "methods": ["create_sink"]
             },
             "CreateView": {
-              "methods": [
-                "create_view"
-              ]
+              "methods": ["create_view"]
             },
             "DeleteBucket": {
-              "methods": [
-                "delete_bucket"
-              ]
+              "methods": ["delete_bucket"]
             },
             "DeleteExclusion": {
-              "methods": [
-                "delete_exclusion"
-              ]
+              "methods": ["delete_exclusion"]
             },
             "DeleteLink": {
-              "methods": [
-                "delete_link"
-              ]
+              "methods": ["delete_link"]
             },
             "DeleteLogScope": {
-              "methods": [
-                "delete_log_scope"
-              ]
+              "methods": ["delete_log_scope"]
             },
             "DeleteSavedQuery": {
-              "methods": [
-                "delete_saved_query"
-              ]
+              "methods": ["delete_saved_query"]
             },
             "DeleteSink": {
-              "methods": [
-                "delete_sink"
-              ]
+              "methods": ["delete_sink"]
             },
             "DeleteView": {
-              "methods": [
-                "delete_view"
-              ]
+              "methods": ["delete_view"]
             },
             "GetBucket": {
-              "methods": [
-                "get_bucket"
-              ]
+              "methods": ["get_bucket"]
             },
             "GetCmekSettings": {
-              "methods": [
-                "get_cmek_settings"
-              ]
+              "methods": ["get_cmek_settings"]
             },
             "GetExclusion": {
-              "methods": [
-                "get_exclusion"
-              ]
+              "methods": ["get_exclusion"]
             },
             "GetLink": {
-              "methods": [
-                "get_link"
-              ]
+              "methods": ["get_link"]
             },
             "GetLogScope": {
-              "methods": [
-                "get_log_scope"
-              ]
+              "methods": ["get_log_scope"]
             },
             "GetSavedQuery": {
-              "methods": [
-                "get_saved_query"
-              ]
+              "methods": ["get_saved_query"]
             },
             "GetSettings": {
-              "methods": [
-                "get_settings"
-              ]
+              "methods": ["get_settings"]
             },
             "GetSink": {
-              "methods": [
-                "get_sink"
-              ]
+              "methods": ["get_sink"]
             },
             "GetView": {
-              "methods": [
-                "get_view"
-              ]
+              "methods": ["get_view"]
             },
             "ListBuckets": {
-              "methods": [
-                "list_buckets"
-              ]
+              "methods": ["list_buckets"]
             },
             "ListExclusions": {
-              "methods": [
-                "list_exclusions"
-              ]
+              "methods": ["list_exclusions"]
             },
             "ListLinks": {
-              "methods": [
-                "list_links"
-              ]
+              "methods": ["list_links"]
             },
             "ListLogScopes": {
-              "methods": [
-                "list_log_scopes"
-              ]
+              "methods": ["list_log_scopes"]
             },
             "ListRecentQueries": {
-              "methods": [
-                "list_recent_queries"
-              ]
+              "methods": ["list_recent_queries"]
             },
             "ListSavedQueries": {
-              "methods": [
-                "list_saved_queries"
-              ]
+              "methods": ["list_saved_queries"]
             },
             "ListSinks": {
-              "methods": [
-                "list_sinks"
-              ]
+              "methods": ["list_sinks"]
             },
             "ListViews": {
-              "methods": [
-                "list_views"
-              ]
+              "methods": ["list_views"]
             },
             "UndeleteBucket": {
-              "methods": [
-                "undelete_bucket"
-              ]
+              "methods": ["undelete_bucket"]
             },
             "UpdateBucket": {
-              "methods": [
-                "update_bucket"
-              ]
+              "methods": ["update_bucket"]
             },
             "UpdateBucketAsync": {
-              "methods": [
-                "update_bucket_async"
-              ]
+              "methods": ["update_bucket_async"]
             },
             "UpdateCmekSettings": {
-              "methods": [
-                "update_cmek_settings"
-              ]
+              "methods": ["update_cmek_settings"]
             },
             "UpdateExclusion": {
-              "methods": [
-                "update_exclusion"
-              ]
+              "methods": ["update_exclusion"]
             },
             "UpdateLogScope": {
-              "methods": [
-                "update_log_scope"
-              ]
+              "methods": ["update_log_scope"]
             },
             "UpdateSavedQuery": {
-              "methods": [
-                "update_saved_query"
-              ]
+              "methods": ["update_saved_query"]
             },
             "UpdateSettings": {
-              "methods": [
-                "update_settings"
-              ]
+              "methods": ["update_settings"]
             },
             "UpdateSink": {
-              "methods": [
-                "update_sink"
-              ]
+              "methods": ["update_sink"]
             },
             "UpdateView": {
-              "methods": [
-                "update_view"
-              ]
+              "methods": ["update_view"]
             }
           }
         },
@@ -231,219 +145,133 @@
           "libraryClient": "ConfigServiceV2AsyncClient",
           "rpcs": {
             "CopyLogEntries": {
-              "methods": [
-                "copy_log_entries"
-              ]
+              "methods": ["copy_log_entries"]
             },
             "CreateBucket": {
-              "methods": [
-                "create_bucket"
-              ]
+              "methods": ["create_bucket"]
             },
             "CreateBucketAsync": {
-              "methods": [
-                "create_bucket_async"
-              ]
+              "methods": ["create_bucket_async"]
             },
             "CreateExclusion": {
-              "methods": [
-                "create_exclusion"
-              ]
+              "methods": ["create_exclusion"]
             },
             "CreateLink": {
-              "methods": [
-                "create_link"
-              ]
+              "methods": ["create_link"]
             },
             "CreateLogScope": {
-              "methods": [
-                "create_log_scope"
-              ]
+              "methods": ["create_log_scope"]
             },
             "CreateSavedQuery": {
-              "methods": [
-                "create_saved_query"
-              ]
+              "methods": ["create_saved_query"]
             },
             "CreateSink": {
-              "methods": [
-                "create_sink"
-              ]
+              "methods": ["create_sink"]
             },
             "CreateView": {
-              "methods": [
-                "create_view"
-              ]
+              "methods": ["create_view"]
             },
             "DeleteBucket": {
-              "methods": [
-                "delete_bucket"
-              ]
+              "methods": ["delete_bucket"]
             },
             "DeleteExclusion": {
-              "methods": [
-                "delete_exclusion"
-              ]
+              "methods": ["delete_exclusion"]
             },
             "DeleteLink": {
-              "methods": [
-                "delete_link"
-              ]
+              "methods": ["delete_link"]
             },
             "DeleteLogScope": {
-              "methods": [
-                "delete_log_scope"
-              ]
+              "methods": ["delete_log_scope"]
             },
             "DeleteSavedQuery": {
-              "methods": [
-                "delete_saved_query"
-              ]
+              "methods": ["delete_saved_query"]
             },
             "DeleteSink": {
-              "methods": [
-                "delete_sink"
-              ]
+              "methods": ["delete_sink"]
             },
             "DeleteView": {
-              "methods": [
-                "delete_view"
-              ]
+              "methods": ["delete_view"]
             },
             "GetBucket": {
-              "methods": [
-                "get_bucket"
-              ]
+              "methods": ["get_bucket"]
             },
             "GetCmekSettings": {
-              "methods": [
-                "get_cmek_settings"
-              ]
+              "methods": ["get_cmek_settings"]
             },
             "GetExclusion": {
-              "methods": [
-                "get_exclusion"
-              ]
+              "methods": ["get_exclusion"]
             },
             "GetLink": {
-              "methods": [
-                "get_link"
-              ]
+              "methods": ["get_link"]
             },
             "GetLogScope": {
-              "methods": [
-                "get_log_scope"
-              ]
+              "methods": ["get_log_scope"]
             },
             "GetSavedQuery": {
-              "methods": [
-                "get_saved_query"
-              ]
+              "methods": ["get_saved_query"]
             },
             "GetSettings": {
-              "methods": [
-                "get_settings"
-              ]
+              "methods": ["get_settings"]
             },
             "GetSink": {
-              "methods": [
-                "get_sink"
-              ]
+              "methods": ["get_sink"]
             },
             "GetView": {
-              "methods": [
-                "get_view"
-              ]
+              "methods": ["get_view"]
             },
             "ListBuckets": {
-              "methods": [
-                "list_buckets"
-              ]
+              "methods": ["list_buckets"]
             },
             "ListExclusions": {
-              "methods": [
-                "list_exclusions"
-              ]
+              "methods": ["list_exclusions"]
             },
             "ListLinks": {
-              "methods": [
-                "list_links"
-              ]
+              "methods": ["list_links"]
             },
             "ListLogScopes": {
-              "methods": [
-                "list_log_scopes"
-              ]
+              "methods": ["list_log_scopes"]
             },
             "ListRecentQueries": {
-              "methods": [
-                "list_recent_queries"
-              ]
+              "methods": ["list_recent_queries"]
             },
             "ListSavedQueries": {
-              "methods": [
-                "list_saved_queries"
-              ]
+              "methods": ["list_saved_queries"]
             },
             "ListSinks": {
-              "methods": [
-                "list_sinks"
-              ]
+              "methods": ["list_sinks"]
             },
             "ListViews": {
-              "methods": [
-                "list_views"
-              ]
+              "methods": ["list_views"]
             },
             "UndeleteBucket": {
-              "methods": [
-                "undelete_bucket"
-              ]
+              "methods": ["undelete_bucket"]
             },
             "UpdateBucket": {
-              "methods": [
-                "update_bucket"
-              ]
+              "methods": ["update_bucket"]
             },
             "UpdateBucketAsync": {
-              "methods": [
-                "update_bucket_async"
-              ]
+              "methods": ["update_bucket_async"]
             },
             "UpdateCmekSettings": {
-              "methods": [
-                "update_cmek_settings"
-              ]
+              "methods": ["update_cmek_settings"]
             },
             "UpdateExclusion": {
-              "methods": [
-                "update_exclusion"
-              ]
+              "methods": ["update_exclusion"]
             },
             "UpdateLogScope": {
-              "methods": [
-                "update_log_scope"
-              ]
+              "methods": ["update_log_scope"]
             },
             "UpdateSavedQuery": {
-              "methods": [
-                "update_saved_query"
-              ]
+              "methods": ["update_saved_query"]
             },
             "UpdateSettings": {
-              "methods": [
-                "update_settings"
-              ]
+              "methods": ["update_settings"]
             },
             "UpdateSink": {
-              "methods": [
-                "update_sink"
-              ]
+              "methods": ["update_sink"]
             },
             "UpdateView": {
-              "methods": [
-                "update_view"
-              ]
+              "methods": ["update_view"]
             }
           }
         },
@@ -451,219 +279,133 @@
           "libraryClient": "ConfigServiceV2Client",
           "rpcs": {
             "CopyLogEntries": {
-              "methods": [
-                "copy_log_entries"
-              ]
+              "methods": ["copy_log_entries"]
             },
             "CreateBucket": {
-              "methods": [
-                "create_bucket"
-              ]
+              "methods": ["create_bucket"]
             },
             "CreateBucketAsync": {
-              "methods": [
-                "create_bucket_async"
-              ]
+              "methods": ["create_bucket_async"]
             },
             "CreateExclusion": {
-              "methods": [
-                "create_exclusion"
-              ]
+              "methods": ["create_exclusion"]
             },
             "CreateLink": {
-              "methods": [
-                "create_link"
-              ]
+              "methods": ["create_link"]
             },
             "CreateLogScope": {
-              "methods": [
-                "create_log_scope"
-              ]
+              "methods": ["create_log_scope"]
             },
             "CreateSavedQuery": {
-              "methods": [
-                "create_saved_query"
-              ]
+              "methods": ["create_saved_query"]
             },
             "CreateSink": {
-              "methods": [
-                "create_sink"
-              ]
+              "methods": ["create_sink"]
             },
             "CreateView": {
-              "methods": [
-                "create_view"
-              ]
+              "methods": ["create_view"]
             },
             "DeleteBucket": {
-              "methods": [
-                "delete_bucket"
-              ]
+              "methods": ["delete_bucket"]
             },
             "DeleteExclusion": {
-              "methods": [
-                "delete_exclusion"
-              ]
+              "methods": ["delete_exclusion"]
             },
             "DeleteLink": {
-              "methods": [
-                "delete_link"
-              ]
+              "methods": ["delete_link"]
             },
             "DeleteLogScope": {
-              "methods": [
-                "delete_log_scope"
-              ]
+              "methods": ["delete_log_scope"]
             },
             "DeleteSavedQuery": {
-              "methods": [
-                "delete_saved_query"
-              ]
+              "methods": ["delete_saved_query"]
             },
             "DeleteSink": {
-              "methods": [
-                "delete_sink"
-              ]
+              "methods": ["delete_sink"]
             },
             "DeleteView": {
-              "methods": [
-                "delete_view"
-              ]
+              "methods": ["delete_view"]
             },
             "GetBucket": {
-              "methods": [
-                "get_bucket"
-              ]
+              "methods": ["get_bucket"]
             },
             "GetCmekSettings": {
-              "methods": [
-                "get_cmek_settings"
-              ]
+              "methods": ["get_cmek_settings"]
             },
             "GetExclusion": {
-              "methods": [
-                "get_exclusion"
-              ]
+              "methods": ["get_exclusion"]
             },
             "GetLink": {
-              "methods": [
-                "get_link"
-              ]
+              "methods": ["get_link"]
             },
             "GetLogScope": {
-              "methods": [
-                "get_log_scope"
-              ]
+              "methods": ["get_log_scope"]
             },
             "GetSavedQuery": {
-              "methods": [
-                "get_saved_query"
-              ]
+              "methods": ["get_saved_query"]
             },
             "GetSettings": {
-              "methods": [
-                "get_settings"
-              ]
+              "methods": ["get_settings"]
             },
             "GetSink": {
-              "methods": [
-                "get_sink"
-              ]
+              "methods": ["get_sink"]
             },
             "GetView": {
-              "methods": [
-                "get_view"
-              ]
+              "methods": ["get_view"]
             },
             "ListBuckets": {
-              "methods": [
-                "list_buckets"
-              ]
+              "methods": ["list_buckets"]
             },
             "ListExclusions": {
-              "methods": [
-                "list_exclusions"
-              ]
+              "methods": ["list_exclusions"]
             },
             "ListLinks": {
-              "methods": [
-                "list_links"
-              ]
+              "methods": ["list_links"]
             },
             "ListLogScopes": {
-              "methods": [
-                "list_log_scopes"
-              ]
+              "methods": ["list_log_scopes"]
             },
             "ListRecentQueries": {
-              "methods": [
-                "list_recent_queries"
-              ]
+              "methods": ["list_recent_queries"]
             },
             "ListSavedQueries": {
-              "methods": [
-                "list_saved_queries"
-              ]
+              "methods": ["list_saved_queries"]
             },
             "ListSinks": {
-              "methods": [
-                "list_sinks"
-              ]
+              "methods": ["list_sinks"]
             },
             "ListViews": {
-              "methods": [
-                "list_views"
-              ]
+              "methods": ["list_views"]
             },
             "UndeleteBucket": {
-              "methods": [
-                "undelete_bucket"
-              ]
+              "methods": ["undelete_bucket"]
             },
             "UpdateBucket": {
-              "methods": [
-                "update_bucket"
-              ]
+              "methods": ["update_bucket"]
             },
             "UpdateBucketAsync": {
-              "methods": [
-                "update_bucket_async"
-              ]
+              "methods": ["update_bucket_async"]
             },
             "UpdateCmekSettings": {
-              "methods": [
-                "update_cmek_settings"
-              ]
+              "methods": ["update_cmek_settings"]
             },
             "UpdateExclusion": {
-              "methods": [
-                "update_exclusion"
-              ]
+              "methods": ["update_exclusion"]
             },
             "UpdateLogScope": {
-              "methods": [
-                "update_log_scope"
-              ]
+              "methods": ["update_log_scope"]
             },
             "UpdateSavedQuery": {
-              "methods": [
-                "update_saved_query"
-              ]
+              "methods": ["update_saved_query"]
             },
             "UpdateSettings": {
-              "methods": [
-                "update_settings"
-              ]
+              "methods": ["update_settings"]
             },
             "UpdateSink": {
-              "methods": [
-                "update_sink"
-              ]
+              "methods": ["update_sink"]
             },
             "UpdateView": {
-              "methods": [
-                "update_view"
-              ]
+              "methods": ["update_view"]
             }
           }
         }
@@ -675,34 +417,22 @@
           "libraryClient": "LoggingServiceV2Client",
           "rpcs": {
             "DeleteLog": {
-              "methods": [
-                "delete_log"
-              ]
+              "methods": ["delete_log"]
             },
             "ListLogEntries": {
-              "methods": [
-                "list_log_entries"
-              ]
+              "methods": ["list_log_entries"]
             },
             "ListLogs": {
-              "methods": [
-                "list_logs"
-              ]
+              "methods": ["list_logs"]
             },
             "ListMonitoredResourceDescriptors": {
-              "methods": [
-                "list_monitored_resource_descriptors"
-              ]
+              "methods": ["list_monitored_resource_descriptors"]
             },
             "TailLogEntries": {
-              "methods": [
-                "tail_log_entries"
-              ]
+              "methods": ["tail_log_entries"]
             },
             "WriteLogEntries": {
-              "methods": [
-                "write_log_entries"
-              ]
+              "methods": ["write_log_entries"]
             }
           }
         },
@@ -710,34 +440,22 @@
           "libraryClient": "LoggingServiceV2AsyncClient",
           "rpcs": {
             "DeleteLog": {
-              "methods": [
-                "delete_log"
-              ]
+              "methods": ["delete_log"]
             },
             "ListLogEntries": {
-              "methods": [
-                "list_log_entries"
-              ]
+              "methods": ["list_log_entries"]
             },
             "ListLogs": {
-              "methods": [
-                "list_logs"
-              ]
+              "methods": ["list_logs"]
             },
             "ListMonitoredResourceDescriptors": {
-              "methods": [
-                "list_monitored_resource_descriptors"
-              ]
+              "methods": ["list_monitored_resource_descriptors"]
             },
             "TailLogEntries": {
-              "methods": [
-                "tail_log_entries"
-              ]
+              "methods": ["tail_log_entries"]
             },
             "WriteLogEntries": {
-              "methods": [
-                "write_log_entries"
-              ]
+              "methods": ["write_log_entries"]
             }
           }
         },
@@ -745,34 +463,22 @@
           "libraryClient": "LoggingServiceV2Client",
           "rpcs": {
             "DeleteLog": {
-              "methods": [
-                "delete_log"
-              ]
+              "methods": ["delete_log"]
             },
             "ListLogEntries": {
-              "methods": [
-                "list_log_entries"
-              ]
+              "methods": ["list_log_entries"]
             },
             "ListLogs": {
-              "methods": [
-                "list_logs"
-              ]
+              "methods": ["list_logs"]
             },
             "ListMonitoredResourceDescriptors": {
-              "methods": [
-                "list_monitored_resource_descriptors"
-              ]
+              "methods": ["list_monitored_resource_descriptors"]
             },
             "TailLogEntries": {
-              "methods": [
-                "tail_log_entries"
-              ]
+              "methods": ["tail_log_entries"]
             },
             "WriteLogEntries": {
-              "methods": [
-                "write_log_entries"
-              ]
+              "methods": ["write_log_entries"]
             }
           }
         }
@@ -784,29 +490,19 @@
           "libraryClient": "MetricsServiceV2Client",
           "rpcs": {
             "CreateLogMetric": {
-              "methods": [
-                "create_log_metric"
-              ]
+              "methods": ["create_log_metric"]
             },
             "DeleteLogMetric": {
-              "methods": [
-                "delete_log_metric"
-              ]
+              "methods": ["delete_log_metric"]
             },
             "GetLogMetric": {
-              "methods": [
-                "get_log_metric"
-              ]
+              "methods": ["get_log_metric"]
             },
             "ListLogMetrics": {
-              "methods": [
-                "list_log_metrics"
-              ]
+              "methods": ["list_log_metrics"]
             },
             "UpdateLogMetric": {
-              "methods": [
-                "update_log_metric"
-              ]
+              "methods": ["update_log_metric"]
             }
           }
         },
@@ -814,29 +510,19 @@
           "libraryClient": "MetricsServiceV2AsyncClient",
           "rpcs": {
             "CreateLogMetric": {
-              "methods": [
-                "create_log_metric"
-              ]
+              "methods": ["create_log_metric"]
             },
             "DeleteLogMetric": {
-              "methods": [
-                "delete_log_metric"
-              ]
+              "methods": ["delete_log_metric"]
             },
             "GetLogMetric": {
-              "methods": [
-                "get_log_metric"
-              ]
+              "methods": ["get_log_metric"]
             },
             "ListLogMetrics": {
-              "methods": [
-                "list_log_metrics"
-              ]
+              "methods": ["list_log_metrics"]
             },
             "UpdateLogMetric": {
-              "methods": [
-                "update_log_metric"
-              ]
+              "methods": ["update_log_metric"]
             }
           }
         },
@@ -844,29 +530,19 @@
           "libraryClient": "MetricsServiceV2Client",
           "rpcs": {
             "CreateLogMetric": {
-              "methods": [
-                "create_log_metric"
-              ]
+              "methods": ["create_log_metric"]
             },
             "DeleteLogMetric": {
-              "methods": [
-                "delete_log_metric"
-              ]
+              "methods": ["delete_log_metric"]
             },
             "GetLogMetric": {
-              "methods": [
-                "get_log_metric"
-              ]
+              "methods": ["get_log_metric"]
             },
             "ListLogMetrics": {
-              "methods": [
-                "list_log_metrics"
-              ]
+              "methods": ["list_log_metrics"]
             },
             "UpdateLogMetric": {
-              "methods": [
-                "update_log_metric"
-              ]
+              "methods": ["update_log_metric"]
             }
           }
         }

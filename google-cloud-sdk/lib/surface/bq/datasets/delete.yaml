@@ -14,7 +14,7 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: Delete a BigQuery dataset.
-    description:  Delete a BigQuery dataset.
+    description: Delete a BigQuery dataset.
     examples: |
       The following command deletes a dataset with ID `my-dataset`
 
@@ -29,9 +29,9 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:dataset
 
     params:
-    - api_field: deleteContents
-      arg_name: remove-tables
-      required: false
-      help_text: |
-        Remove the dataset even if it contains one or more tables. Tables will be removed
-        before deleteing dataset.
+      - api_field: deleteContents
+        arg_name: remove-tables
+        required: false
+        help_text: |
+          Remove the dataset even if it contains one or more tables. Tables will be removed
+          before deleteing dataset.

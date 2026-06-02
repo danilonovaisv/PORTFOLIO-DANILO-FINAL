@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta AttachedDisk export schema
 description: A gcloud export/import command YAML validation schema.
@@ -96,8 +96,8 @@ properties:
       NVMe, see Local SSD performance.
     type: string
     enum:
-    - NVME
-    - SCSI
+      - NVME
+      - SCSI
   kind:
     description: |-
       [Output Only] Type of the resource. Always compute#attachedDisk for
@@ -115,8 +115,8 @@ properties:
       READ_WRITE mode.
     type: string
     enum:
-    - READ_ONLY
-    - READ_WRITE
+      - READ_ONLY
+      - READ_WRITE
   shieldedInstanceInitialState:
     description: '[Output Only] shielded vm initial state stored on disk'
     $ref: InitialStateConfig.yaml
@@ -137,5 +137,5 @@ properties:
       not specified, the default is PERSISTENT.
     type: string
     enum:
-    - PERSISTENT
-    - SCRATCH
+      - PERSISTENT
+      - SCRATCH

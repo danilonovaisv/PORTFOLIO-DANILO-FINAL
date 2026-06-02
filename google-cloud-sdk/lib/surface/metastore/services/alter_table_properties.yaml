@@ -35,67 +35,67 @@
         Arguments and flags that specify the table you want to alter.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:service
     params:
-    - arg_name: table-name
-      api_field: alterTablePropertiesRequest.tableName
-      help_text: |
-        The name of the table containing the properties you're altering in the
-        following format.
+      - arg_name: table-name
+        api_field: alterTablePropertiesRequest.tableName
+        help_text: |
+          The name of the table containing the properties you're altering in the
+          following format.
 
-        `databases/{database_id}/tables/{table_id}`
-      required: true
-    - arg_name: update-mask
-      api_field: alterTablePropertiesRequest.updateMask
-      help_text: |
-        A string where field names are separated by a comma. Specifies the metadata table properties
-         fields that are overwritten by the update. Fields specified in the `update-mask` are
-          relative to the resource (not to the full request). A field is overwritten if it is in
-          the mask.
+          `databases/{database_id}/tables/{table_id}`
+        required: true
+      - arg_name: update-mask
+        api_field: alterTablePropertiesRequest.updateMask
+        help_text: |
+          A string where field names are separated by a comma. Specifies the metadata table properties
+           fields that are overwritten by the update. Fields specified in the `update-mask` are
+            relative to the resource (not to the full request). A field is overwritten if it is in
+            the mask.
 
-        For example, given the target properties:
+          For example, given the target properties:
 
-            properties {
-              a: 1
-              b: 2
-            }
+              properties {
+                a: 1
+                b: 2
+              }
 
-        And an update properties:
+          And an update properties:
 
-            properties {
-              a: 2
-              b: 3
-              c: 4
-            }
+              properties {
+                a: 2
+                b: 3
+                c: 4
+              }
 
-        then if the field mask is:
+          then if the field mask is:
 
-        `properties.b,properties.c`
+          `properties.b,properties.c`
 
-        then the updated result will be:
+          then the updated result will be:
 
-            properties {
-              a: 1
-              b: 3
-              c: 4
-            }
-      required: true
-    - arg_name: properties
-      api_field: alterTablePropertiesRequest.properties.additionalProperties
-      help_text: |
-         A string where field names are separated by a comma. Describes the desired values to mutate.
-         If update-mask is empty, the properties will not update. Otherwise, the properties only
-         alter the values whose associated paths exist in the update mask.
+              properties {
+                a: 1
+                b: 3
+                c: 4
+              }
+        required: true
+      - arg_name: properties
+        api_field: alterTablePropertiesRequest.properties.additionalProperties
+        help_text: |
+          A string where field names are separated by a comma. Describes the desired values to mutate.
+          If update-mask is empty, the properties will not update. Otherwise, the properties only
+          alter the values whose associated paths exist in the update mask.
 
-         For example, the desired key-value pairs.
+          For example, the desired key-value pairs.
 
-         a=2,b=3,c=4
+          a=2,b=3,c=4
 
-      required: true
-      metavar: KEY=VALUE
-      type:
-        arg_dict:
-          flatten: true
-          spec:
-          - api_field: key
-          - api_field: value
+        required: true
+        metavar: KEY=VALUE
+        type:
+          arg_dict:
+            flatten: true
+            spec:
+              - api_field: key
+              - api_field: value
   async:
     collection: metastore.projects.locations.operations

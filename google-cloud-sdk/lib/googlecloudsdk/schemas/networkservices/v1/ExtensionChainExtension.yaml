@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 ExtensionChainExtension export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- service
+  - service
 additionalProperties: false
 properties:
   COMMENT:
@@ -122,9 +122,9 @@ properties:
       for `LbRouteExtension` resources.
     type: string
     enum:
-    - BODY_SEND_MODE_FULL_DUPLEX_STREAMED
-    - BODY_SEND_MODE_STREAMED
-    - BODY_SEND_MODE_UNSPECIFIED
+      - BODY_SEND_MODE_FULL_DUPLEX_STREAMED
+      - BODY_SEND_MODE_STREAMED
+      - BODY_SEND_MODE_UNSPECIFIED
   responseBodySendMode:
     description: |-
       Configures the send mode for response processing. If unspecified,
@@ -138,9 +138,9 @@ properties:
       `service` field of the extension points to a `BackendService`.
     type: string
     enum:
-    - BODY_SEND_MODE_FULL_DUPLEX_STREAMED
-    - BODY_SEND_MODE_STREAMED
-    - BODY_SEND_MODE_UNSPECIFIED
+      - BODY_SEND_MODE_FULL_DUPLEX_STREAMED
+      - BODY_SEND_MODE_STREAMED
+      - BODY_SEND_MODE_UNSPECIFIED
   service:
     description: |-
       The reference to the service that runs the extension. To configure
@@ -175,13 +175,13 @@ properties:
     items:
       type: string
       enum:
-      - EVENT_TYPE_UNSPECIFIED
-      - REQUEST_BODY
-      - REQUEST_HEADERS
-      - REQUEST_TRAILERS
-      - RESPONSE_BODY
-      - RESPONSE_HEADERS
-      - RESPONSE_TRAILERS
+        - EVENT_TYPE_UNSPECIFIED
+        - REQUEST_BODY
+        - REQUEST_HEADERS
+        - REQUEST_TRAILERS
+        - RESPONSE_BODY
+        - RESPONSE_HEADERS
+        - RESPONSE_TRAILERS
   timeout:
     description: |-
       Specifies the timeout for each individual message on the

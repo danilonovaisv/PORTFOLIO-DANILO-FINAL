@@ -1,6 +1,5 @@
+## ASN.1 library for Python
 
-ASN.1 library for Python
-------------------------
 [![PyPI](https://img.shields.io/pypi/v/pyasn1.svg?maxAge=2592000)](https://pypi.org/project/pyasn1)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyasn1.svg)](https://pypi.org/project/pyasn1/)
 [![Build status](https://github.com/pyasn1/pyasn1/actions/workflows/main.yml/badge.svg)](https://github.com/pyasn1/pyasn1/actions/workflows/main.yml)
@@ -13,22 +12,20 @@ protocol (SNMP) but then generalized to be suitable for a wide range
 of protocols based on
 [ASN.1 specification](https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.208-198811-W!!PDF-E&type=items).
 
-**NOTE:** The package is now maintained by *Christian Heimes* and
-*Simon Pichugin* in project https://github.com/pyasn1/pyasn1.
+**NOTE:** The package is now maintained by _Christian Heimes_ and
+_Simon Pichugin_ in project https://github.com/pyasn1/pyasn1.
 
-Features
---------
+## Features
 
-* Generic implementation of ASN.1 types (X.208)
-* Standards compliant BER/CER/DER codecs
-* Can operate on streams of serialized data
-* Dumps/loads ASN.1 structures from Python types
-* 100% Python, works with Python 3.8+
-* MT-safe
-* Contributed ASN.1 compiler [Asn1ate](https://github.com/kimgr/asn1ate)
+- Generic implementation of ASN.1 types (X.208)
+- Standards compliant BER/CER/DER codecs
+- Can operate on streams of serialized data
+- Dumps/loads ASN.1 structures from Python types
+- 100% Python, works with Python 3.8+
+- MT-safe
+- Contributed ASN.1 compiler [Asn1ate](https://github.com/kimgr/asn1ate)
 
-Why using pyasn1
-----------------
+## Why using pyasn1
 
 ASN.1 solves the data serialisation problem. This solution was
 designed long ago by the wise Ancients. Back then, they did not
@@ -41,9 +38,9 @@ That probably explains why many network protocols and file formats
 still rely on the 30+ years old technology. Including a number of
 high-profile Internet protocols and file formats.
 
-Quite a number of books cover the topic of ASN.1. 
+Quite a number of books cover the topic of ASN.1.
 [Communication between heterogeneous systems](http://www.oss.com/asn1/dubuisson.html)
-by Olivier Dubuisson is one of those high quality books freely 
+by Olivier Dubuisson is one of those high quality books freely
 available on the Internet.
 
 The pyasn1 package is designed to help Python programmers tackling
@@ -51,8 +48,7 @@ network protocols and file formats at the comfort of their Python
 prompt. The tool struggles to capture all aspects of a rather
 complicated ASN.1 system and to represent it on the Python terms.
 
-How to use pyasn1
------------------
+## How to use pyasn1
 
 With pyasn1 you can build Python objects from ASN.1 data structures.
 For example, the following ASN.1 data structure:
@@ -84,7 +80,7 @@ class Record(Sequence):
     )
 ```
 
-It is in the spirit of ASN.1 to take abstract data description 
+It is in the spirit of ASN.1 to take abstract data description
 and turn it into a programming language specific form.
 Once you have your ASN.1 data structure expressed in Python, you
 can use it along the lines of similar Python type (e.g. ASN.1
@@ -158,7 +154,7 @@ Record:
 ```
 
 With ASN.1 design, serialisation codecs are decoupled from data objects,
-so you could turn every single ASN.1 object into many different 
+so you could turn every single ASN.1 object into many different
 serialised forms. As of this moment, pyasn1 supports BER, DER, CER and
 Python built-ins codecs. The extremely compact PER encoding is expected
 to be introduced in the upcoming pyasn1 release.
@@ -166,11 +162,10 @@ to be introduced in the upcoming pyasn1 release.
 More information on pyasn1 APIs can be found in the
 [documentation](https://pyasn1.readthedocs.io/en/latest/pyasn1/contents.html),
 compiled ASN.1 modules for different protocols and file formats
-could be found in the pyasn1-modules 
+could be found in the pyasn1-modules
 [repo](https://github.com/pyasn1/pyasn1-modules).
 
-How to get pyasn1
------------------
+## How to get pyasn1
 
 The pyasn1 package is distributed under terms and conditions of 2-clause
 BSD [license](https://pyasn1.readthedocs.io/en/latest/license.html). Source code is freely
@@ -178,10 +173,10 @@ available as a GitHub [repo](https://github.com/pyasn1/pyasn1).
 
 You could `pip install pyasn1` or download it from [PyPI](https://pypi.org/project/pyasn1).
 
-If something does not work as expected, 
+If something does not work as expected,
 [open an issue](https://github.com/epyasn1/pyasn1/issues) at GitHub or
 post your question [on Stack Overflow](https://stackoverflow.com/questions/ask)
-or try browsing pyasn1 
+or try browsing pyasn1
 [mailing list archives](https://sourceforge.net/p/pyasn1/mailman/pyasn1-users/).
 
 Copyright (c) 2005-2020, [Ilya Etingof](mailto:etingof@gmail.com).

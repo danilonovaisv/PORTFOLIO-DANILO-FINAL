@@ -18,11 +18,11 @@ project:
   collection: config.projects
   request_id_field: projectId
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: projects TBD
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: projects TBD
+      property: core/project
   disable_auto_completers: false
 location:
   name: location
@@ -30,12 +30,12 @@ location:
   collection: config.projects.locations
   request_id_field: locationId
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: locations TBD
-    property: infra-manager/location
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: locations TBD
+      property: infra-manager/location
   disable_auto_completers: false
 deployment:
   name: deployment
@@ -43,12 +43,12 @@ deployment:
   collection: config.projects.locations.deployments
   request_id_field: deploymentId
   attributes:
-  - *project
-  - *location
-  - &deployment
-    parameter_name: deploymentsId
-    attribute_name: deployment
-    help: deployments TBD
+    - *project
+    - *location
+    - &deployment
+      parameter_name: deploymentsId
+      attribute_name: deployment
+      help: deployments TBD
   disable_auto_completers: false
 revision:
   name: revision
@@ -56,13 +56,13 @@ revision:
   collection: config.projects.locations.deployments.revisions
   request_id_field: revisionId
   attributes:
-  - *project
-  - *location
-  - *deployment
-  - &revision
-    parameter_name: revisionsId
-    attribute_name: revision
-    help: revisions TBD
+    - *project
+    - *location
+    - *deployment
+    - &revision
+      parameter_name: revisionsId
+      attribute_name: revision
+      help: revisions TBD
   disable_auto_completers: false
 resource:
   name: resource
@@ -70,14 +70,14 @@ resource:
   collection: config.projects.locations.deployments.revisions.resources
   request_id_field: resourceId
   attributes:
-  - *project
-  - *location
-  - *deployment
-  - *revision
-  - &resource
-    parameter_name: resourcesId
-    attribute_name: resource
-    help: resources TBD
+    - *project
+    - *location
+    - *deployment
+    - *revision
+    - &resource
+      parameter_name: resourcesId
+      attribute_name: resource
+      help: resources TBD
   disable_auto_completers: false
 preview:
   name: preview
@@ -85,12 +85,12 @@ preview:
   collection: config.projects.locations.previews
   request_id_field: previewId
   attributes:
-  - *project
-  - *location
-  - &preview
-    parameter_name: previewsId
-    attribute_name: preview
-    help: preview TBD
+    - *project
+    - *location
+    - &preview
+      parameter_name: previewsId
+      attribute_name: preview
+      help: preview TBD
   disable_auto_completers: false
 terraform_version:
   name: terraformVersion
@@ -98,12 +98,12 @@ terraform_version:
   collection: config.projects.locations.terraformVersions
   request_id_field: terraformVersionsId
   attributes:
-  - *project
-  - *location
-  - &terraform_version
-    parameter_name: terraformVersionsId
-    attribute_name: terraform_version
-    help: terraform version TBD
+    - *project
+    - *location
+    - &terraform_version
+      parameter_name: terraformVersionsId
+      attribute_name: terraform_version
+      help: terraform version TBD
   disable_auto_completers: false
 resource_change:
   name: resourceChange
@@ -111,13 +111,13 @@ resource_change:
   collection: config.projects.locations.previews.resourceChanges
   request_id_field: resourceChangeId
   attributes:
-  - *project
-  - *location
-  - *preview
-  - &resource_change
-    parameter_name: resourceChangesId
-    attribute_name: resource_change
-    help: resource change TBD
+    - *project
+    - *location
+    - *preview
+    - &resource_change
+      parameter_name: resourceChangesId
+      attribute_name: resource_change
+      help: resource change TBD
   disable_auto_completers: false
 resource_drift:
   name: resourceDrift
@@ -125,19 +125,19 @@ resource_drift:
   collection: config.projects.locations.previews.resourceDrifts
   request_id_field: resourceDriftId
   attributes:
-  - *project
-  - *location
-  - *preview
-  - &resource_drift
-    parameter_name: resourceDriftsId
-    attribute_name: resource_drift
-    help: resource drift TBD
+    - *project
+    - *location
+    - *preview
+    - &resource_drift
+      parameter_name: resourceDriftsId
+      attribute_name: resource_drift
+      help: resource drift TBD
   disable_auto_completers: false
 automigrationconfig:
   name: autoMigrationConfig
   plural_name: autoMigrationConfigs
   collection: config.projects.locations.autoMigrationConfig
   attributes:
-  - *project
-  - *location
+    - *project
+    - *location
   disable_auto_completers: false

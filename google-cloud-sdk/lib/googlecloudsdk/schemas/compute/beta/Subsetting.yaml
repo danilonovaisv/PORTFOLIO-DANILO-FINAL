@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta Subsetting export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,8 +29,8 @@ properties:
     description: A PolicyValueValuesEnum attribute.
     type: string
     enum:
-    - CONSISTENT_HASH_SUBSETTING
-    - NONE
+      - CONSISTENT_HASH_SUBSETTING
+      - NONE
   subsetSize:
     description: |-
       The number of backends per backend group assigned to each proxy instance

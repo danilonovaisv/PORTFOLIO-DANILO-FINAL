@@ -42,24 +42,24 @@
     api_version: v2
     # If no arguments are provided, create an empty connection.
     static_fields:
-      "connection.githubConfig": {}
+      'connection.githubConfig': {}
 
   arguments:
     resource:
       help_text: Connection to create.
       spec: !REF googlecloudsdk.command_lib.cloudbuild.resources_v2:connection
     params:
-    - group:
-        help_text: Group of arguments for configuring a complete connnection.
-        # if app-installation-id is provided, authorizer-token has to be provided too.
-        params:
-        - api_field: connection.githubConfig.authorizerCredential.oauthTokenSecretVersion
-          arg_name: authorizer-token-secret-version
-          help_text: Secret containing the authorizer user's token.
-          required: true
-        - api_field: connection.githubConfig.appInstallationId
-          arg_name: app-installation-id
-          help_text: Installation ID of the Cloud Build GitHub App.
+      - group:
+          help_text: Group of arguments for configuring a complete connnection.
+          # if app-installation-id is provided, authorizer-token has to be provided too.
+          params:
+            - api_field: connection.githubConfig.authorizerCredential.oauthTokenSecretVersion
+              arg_name: authorizer-token-secret-version
+              help_text: Secret containing the authorizer user's token.
+              required: true
+            - api_field: connection.githubConfig.appInstallationId
+              arg_name: app-installation-id
+              help_text: Installation ID of the Cloud Build GitHub App.
 
   output:
     # Print the installation instruction and link (if any) after creation.

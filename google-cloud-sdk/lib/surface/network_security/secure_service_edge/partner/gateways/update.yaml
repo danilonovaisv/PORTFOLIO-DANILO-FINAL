@@ -19,18 +19,18 @@ arguments:
     help_text: |
       The partner gateway to be updated.
   params:
-  - arg_name: vni
-    api_field: partnerSSEGateway.vni
-    help_text: |
-      Virtual Network Identifier for the customer associated with this gateway.
-  - arg_name: symantec-target-host
-    api_field: partnerSSEGateway.symantecOptions.symantecSiteTargetHost
-    help_text: |
-      IPv4 address used as the destination for customer packets to the partner.
-  - arg_name: symantec-location-uuid
-    api_field: partnerSSEGateway.symantecOptions.symantecLocationUuid
-    help_text: |
-      UUID of the Symantec location associated with this gateway.
+    - arg_name: vni
+      api_field: partnerSSEGateway.vni
+      help_text: |
+        Virtual Network Identifier for the customer associated with this gateway.
+    - arg_name: symantec-target-host
+      api_field: partnerSSEGateway.symantecOptions.symantecSiteTargetHost
+      help_text: |
+        IPv4 address used as the destination for customer packets to the partner.
+    - arg_name: symantec-location-uuid
+      api_field: partnerSSEGateway.symantecOptions.symantecLocationUuid
+      help_text: |
+        UUID of the Symantec location associated with this gateway.
 
 async:
   collection: networksecurity.projects.locations.operations

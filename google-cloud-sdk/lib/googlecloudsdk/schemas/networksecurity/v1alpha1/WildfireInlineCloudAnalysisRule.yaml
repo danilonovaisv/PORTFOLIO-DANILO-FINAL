@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 WildfireInlineCloudAnalysisRule export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- action
-- direction
-- fileSelectionMode
+  - action
+  - direction
+  - fileSelectionMode
 additionalProperties: false
 properties:
   COMMENT:
@@ -35,10 +35,10 @@ properties:
       Analysis. The default Value is DENY.
     type: string
     enum:
-    - ALERT
-    - ALLOW
-    - DENY
-    - WILDFIRE_INLINE_CLOUD_ANALYSIS_ACTION_UNSPECIFIED
+      - ALERT
+      - ALLOW
+      - DENY
+      - WILDFIRE_INLINE_CLOUD_ANALYSIS_ACTION_UNSPECIFIED
   customFileTypes:
     description: Submit a custom list of file types for WildFire analysis.
     $ref: WildfireInlineCloudAnalysisRuleCustomFileTypes.yaml
@@ -47,14 +47,14 @@ properties:
       Direction for the file to be analyzed by WildFire Inline Cloud Analysis.
     type: string
     enum:
-    - BOTH
-    - DIRECTION_UNSPECIFIED
-    - DOWNLOAD
-    - UPLOAD
+      - BOTH
+      - DIRECTION_UNSPECIFIED
+      - DOWNLOAD
+      - UPLOAD
   fileSelectionMode:
     description: File selection mode for WildFire inline cloud analysis.
     type: string
     enum:
-    - ALL_FILE_TYPES
-    - CUSTOM_FILE_TYPES
-    - FILE_SELECTION_MODE_UNSPECIFIED
+      - ALL_FILE_TYPES
+      - CUSTOM_FILE_TYPES
+      - FILE_SELECTION_MODE_UNSPECIFIED

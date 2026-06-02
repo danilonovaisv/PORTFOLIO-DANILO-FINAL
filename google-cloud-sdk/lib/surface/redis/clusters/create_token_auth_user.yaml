@@ -19,10 +19,10 @@
       help_text: |
         Arguments and flags that specify the Memorystore Redis cluster to create a backup for.
     params:
-    - arg_name: token-auth-user
-      api_field: addTokenAuthUserRequest.tokenAuthUser
-      help_text: |
-        The name of the token auth user to be created.
+      - arg_name: token-auth-user
+        api_field: addTokenAuthUserRequest.tokenAuthUser
+        help_text: |
+          The name of the token auth user to be created.
 
   async:
     collection: redis.projects.locations.operations

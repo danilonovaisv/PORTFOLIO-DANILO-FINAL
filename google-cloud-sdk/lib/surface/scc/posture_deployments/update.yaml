@@ -32,36 +32,36 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.scc.resources:posture_deployment
       help_text: |
-          The posture deployment to update. For example organizations/<organizationID>/locations/<location>/postureDeployments/<postureDeploymentID>.
+        The posture deployment to update. For example organizations/<organizationID>/locations/<location>/postureDeployments/<postureDeploymentID>.
 
     params:
-    - group:
-        params:
-        - arg_name: posture-id
-          api_field: postureDeployment.postureId
-          required: true
-          help_text: |
-            Relative name of the posture to be updated, like `organizations/<organizationID>/locations/<location>/postures/<postureID>`.
-        - arg_name: posture-revision-id
-          api_field: postureDeployment.postureRevisionId
-          required: true
-          help_text: |
-            Revision ID of the posture to be updated.
+      - group:
+          params:
+            - arg_name: posture-id
+              api_field: postureDeployment.postureId
+              required: true
+              help_text: |
+                Relative name of the posture to be updated, like `organizations/<organizationID>/locations/<location>/postures/<postureID>`.
+            - arg_name: posture-revision-id
+              api_field: postureDeployment.postureRevisionId
+              required: true
+              help_text: |
+                Revision ID of the posture to be updated.
 
-    - arg_name: description
-      api_field: postureDeployment.description
-      help_text: |
-        Updated description of posture deployment.
+      - arg_name: description
+        api_field: postureDeployment.description
+        help_text: |
+          Updated description of posture deployment.
 
-    - arg_name: update-mask
-      api_field: updateMask
-      help_text: |
-        Comma-separated string containing list of fields to be updated.
+      - arg_name: update-mask
+        api_field: updateMask
+        help_text: |
+          Comma-separated string containing list of fields to be updated.
 
-    - arg_name: etag
-      api_field: postureDeployment.etag
-      required: false
-      help_text: |
+      - arg_name: etag
+        api_field: postureDeployment.etag
+        required: false
+        help_text: |
           Etag is an optional flag. If the provided Etag doesn't match the server generated Etag, the update operation won't proceed.
 
   async:

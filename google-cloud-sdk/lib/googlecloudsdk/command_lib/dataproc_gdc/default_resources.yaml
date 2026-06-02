@@ -20,44 +20,44 @@ project:
   plural_name: projects
   collection: dataprocgdc.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: projects TBD
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: projects TBD
+      property: core/project
   disable_auto_completers: true
 project_location:
   name: location
   plural_name: locations
   collection: dataprocgdc.projects.locations
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: locations TBD
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: locations TBD
   disable_auto_completers: true
 project_location_cluster:
   name: cluster
   plural_name: clusters
   collection: dataprocgdc.projects.locations.clusters
   attributes:
-  - *project
-  - *location
-  - &cluster
-    parameter_name: clustersId
-    attribute_name: cluster
-    help: clusters TBD
+    - *project
+    - *location
+    - &cluster
+      parameter_name: clustersId
+      attribute_name: cluster
+      help: clusters TBD
   disable_auto_completers: true
 project_location_operation:
   name: operation
   plural_name: operations
   collection: dataprocgdc.projects.locations.operations
   attributes:
-  - *project
-  - *location
-  - &operation
-    parameter_name: operationsId
-    attribute_name: operation
-    help: operations TBD
+    - *project
+    - *location
+    - &operation
+      parameter_name: operationsId
+      attribute_name: operation
+      help: operations TBD
   disable_auto_completers: false

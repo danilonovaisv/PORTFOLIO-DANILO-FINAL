@@ -20,6 +20,6 @@ response:
   id_field: name
 output:
   format: |
-     table(
-        name.basename():label=NAME, create_time, regional_multicast_group_range_activation, regional_multicast_producer_association
-      )
+    table(
+       name.basename():label=NAME, create_time, regional_multicast_group_range_activation, regional_multicast_producer_association
+     )

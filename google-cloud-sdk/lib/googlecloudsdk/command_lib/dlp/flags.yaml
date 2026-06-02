@@ -28,16 +28,16 @@ min_likelihood:
   help_text: |
     Only return findings equal to or above this threshold.
   choices:
-  - arg_value: very-unlikely
-    enum_value: VERY_UNLIKELY
-  - arg_value: unlikely
-    enum_value: UNLIKELY
-  - arg_value: possible
-    enum_value: POSSIBLE
-  - arg_value: likely
-    enum_value: LIKELY
-  - arg_value: very-likely
-    enum_value: VERY_LIKELY
+    - arg_value: very-unlikely
+      enum_value: VERY_UNLIKELY
+    - arg_value: unlikely
+      enum_value: UNLIKELY
+    - arg_value: possible
+      enum_value: POSSIBLE
+    - arg_value: likely
+      enum_value: LIKELY
+    - arg_value: very-likely
+      enum_value: VERY_LIKELY
 
 include_quote:
   api_field: googlePrivacyDlpV2InspectContentRequest.inspectConfig.includeQuote
@@ -155,22 +155,22 @@ jobs_output_group:
     mutex: true
     required: false
     params:
-    - arg_name: output-topics
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.actions
-      type: googlecloudsdk.command_lib.dlp.hooks:PubSubTopicAction
-      help_text: |
-        Publishes the results of a Cloud DLP job to one or more Cloud Pub/Sub
-        topics.
+      - arg_name: output-topics
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.actions
+        type: googlecloudsdk.command_lib.dlp.hooks:PubSubTopicAction
+        help_text: |
+          Publishes the results of a Cloud DLP job to one or more Cloud Pub/Sub
+          topics.
 
-        Note: The topic must have given publishing access rights to the DLP
-        API service account executing the Cloud DLP job.
-    - arg_name: output-table
-      repeated: false
-      api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.actions
-      type: googlecloudsdk.command_lib.dlp.hooks:BigQueryTableAction
-      help_text: |
-        Publishes results of a Cloud DLP job a BigQuery table.
-        BigQuery tables are uniquely identified by their project_id,
-        dataset_id, and table_id in the format
-        `<project_id>.<dataset_id>.<table_id>` or `<project_id>.<dataset_id>.<table_id>`. If
-        no table_id is specified, DLP will create a table for you.
+          Note: The topic must have given publishing access rights to the DLP
+          API service account executing the Cloud DLP job.
+      - arg_name: output-table
+        repeated: false
+        api_field: googlePrivacyDlpV2CreateDlpJobRequest.inspectJob.actions
+        type: googlecloudsdk.command_lib.dlp.hooks:BigQueryTableAction
+        help_text: |
+          Publishes results of a Cloud DLP job a BigQuery table.
+          BigQuery tables are uniquely identified by their project_id,
+          dataset_id, and table_id in the format
+          `<project_id>.<dataset_id>.<table_id>` or `<project_id>.<dataset_id>.<table_id>`. If
+          no table_id is specified, DLP will create a table for you.

@@ -80,10 +80,10 @@ delivery-requirement:
   api_field: subscription.deliveryConfig.deliveryRequirement
   arg_name: delivery-requirement
   choices:
-  - arg_value: deliver-immediately
-    enum_value: DELIVER_IMMEDIATELY
-  - arg_value: deliver-after-stored
-    enum_value: DELIVER_AFTER_STORED
+    - arg_value: deliver-immediately
+      enum_value: DELIVER_IMMEDIATELY
+    - arg_value: deliver-after-stored
+      enum_value: DELIVER_AFTER_STORED
   help_text: |
     When this subscription should send messages to subscribers relative to
     messages persistence in storage.
@@ -97,12 +97,11 @@ throughput-capacity:
     Reservation throughput capacity. Every unit of throughput capacity is equivalent to 1 MiB/s of
     published messages or 2 MiB/s of subscribed messages.
 
-
 starting-offset:
   arg_name: starting-offset
   choices:
-  - arg_value: beginning
-  - arg_value: end
+    - arg_value: beginning
+    - arg_value: end
   type: googlecloudsdk.command_lib.util.hooks.types:LowerCaseType
   help_text: |
     The offset at which a newly created or seeked subscription starts receiving messages. A
@@ -132,8 +131,8 @@ operation-done:
   arg_name: done
   # Not a bool type to allow one of: true|false|unspecified
   choices:
-  - arg_value: 'true'
-  - arg_value: 'false'
+    - arg_value: 'true'
+    - arg_value: 'false'
   type: googlecloudsdk.command_lib.util.hooks.types:LowerCaseType
   help_text: |
     Filter operations by completion status. This flag is ignored if `--filter` is set.
@@ -170,10 +169,10 @@ export-desired-state:
   api_field: subscription.exportConfig.desiredState
   arg_name: export-desired-state
   choices:
-  - arg_value: active
-    enum_value: ACTIVE
-  - arg_value: paused
-    enum_value: PAUSED
+    - arg_value: active
+      enum_value: ACTIVE
+    - arg_value: paused
+      enum_value: PAUSED
   type: googlecloudsdk.command_lib.util.hooks.types:LowerCaseType
   help_text: |
     The desired state of the export. Process messages by setting the value to ACTIVE or pause
@@ -185,7 +184,6 @@ export-dead-letter-topic:
   help_text: |
     The name of the Pub/Sub Lite topic to write messages that cannot be exported. Must be in the
     same project and location as the subscription to be created. Note that this is a Lite topic.
-
 
 # Deprecated flag, do not use
 zone:

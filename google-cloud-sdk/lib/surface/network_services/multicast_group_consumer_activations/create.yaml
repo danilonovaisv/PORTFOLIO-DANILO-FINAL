@@ -24,24 +24,24 @@ arguments:
     help_text: |
       Name of the multicast group consumer activation to be created.
   params:
-  - arg_name:  multicast-consumer-association
-    api_field: multicastGroupConsumerActivation.multicastConsumerAssociation
-    help_text: The multicast consumer association to be used.
-    required: true
-  - arg_name:  multicast-group
-    api_field: multicastGroupConsumerActivation.multicastGroup
-    release_tracks: [ALPHA]
-    help_text: The multicast group to be used.
-  - arg_name:  multicast-group-range-activation
-    api_field: multicastGroupConsumerActivation.multicastGroupRangeActivation
-    help_text: The multicast group range activation to be used.
-  - arg_name: description
-    api_field: multicastGroupConsumerActivation.description
-    help_text: The description for the multicast group consumer activation.
-  - arg_name: enable-logging
-    api_field: multicastGroupConsumerActivation.logConfig.enabled
-    help_text: Whether to enable logging for this multicast group consumer activation.
-    action: store_true_false
+    - arg_name: multicast-consumer-association
+      api_field: multicastGroupConsumerActivation.multicastConsumerAssociation
+      help_text: The multicast consumer association to be used.
+      required: true
+    - arg_name: multicast-group
+      api_field: multicastGroupConsumerActivation.multicastGroup
+      release_tracks: [ALPHA]
+      help_text: The multicast group to be used.
+    - arg_name: multicast-group-range-activation
+      api_field: multicastGroupConsumerActivation.multicastGroupRangeActivation
+      help_text: The multicast group range activation to be used.
+    - arg_name: description
+      api_field: multicastGroupConsumerActivation.description
+      help_text: The description for the multicast group consumer activation.
+    - arg_name: enable-logging
+      api_field: multicastGroupConsumerActivation.logConfig.enabled
+      help_text: Whether to enable logging for this multicast group consumer activation.
+      action: store_true_false
   labels:
     api_field: multicastGroupConsumerActivation.labels
 async:

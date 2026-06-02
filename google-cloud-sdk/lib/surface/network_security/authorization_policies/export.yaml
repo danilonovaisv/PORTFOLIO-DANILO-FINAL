@@ -5,9 +5,9 @@ help_text:
   description: |
     Export an authorization policy.
   examples: |
-      To export an authorization policy, run:
+    To export an authorization policy, run:
 
-        $ {command} my-authz-policy --destination=my-authz-policy.yaml --location=global
+      $ {command} my-authz-policy --destination=my-authz-policy.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.authorizationPolicies

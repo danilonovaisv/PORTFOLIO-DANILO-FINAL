@@ -18,9 +18,9 @@
       api_version: v1
     method: revoke
     collection:
-    - privilegedaccessmanager.projects.locations.entitlements.grants
-    - privilegedaccessmanager.folders.locations.entitlements.grants
-    - privilegedaccessmanager.organizations.locations.entitlements.grants
+      - privilegedaccessmanager.projects.locations.entitlements.grants
+      - privilegedaccessmanager.folders.locations.entitlements.grants
+      - privilegedaccessmanager.organizations.locations.entitlements.grants
 
   arguments:
     resource:
@@ -28,10 +28,10 @@
       help_text: |
         Name of the grant to revoke.
     params:
-    - api_field: revokeGrantRequest.reason
-      arg_name: reason
-      help_text: |
-        Reason for revoking the grant.
+      - api_field: revokeGrantRequest.reason
+        arg_name: reason
+        help_text: |
+          Reason for revoking the grant.
 
   async:
     ALPHA:
@@ -39,6 +39,6 @@
     BETA:
       api_version: v1beta
     collection:
-    - privilegedaccessmanager.projects.locations.operations
-    - privilegedaccessmanager.folders.locations.operations
-    - privilegedaccessmanager.organizations.locations.operations
+      - privilegedaccessmanager.projects.locations.operations
+      - privilegedaccessmanager.folders.locations.operations
+      - privilegedaccessmanager.organizations.locations.operations

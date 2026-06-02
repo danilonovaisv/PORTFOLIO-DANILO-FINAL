@@ -9,13 +9,13 @@
       $ {command}
   arguments:
     params:
-    - help_text: |-
-        The name of the operation resource.
-      is_positional: true
-      resource_spec: !REF googlecloudsdk.command_lib.beyondcorp.default_resources:projects_locations_operations
-      required: true
+      - help_text: |-
+          The name of the operation resource.
+        is_positional: true
+        resource_spec: !REF googlecloudsdk.command_lib.beyondcorp.default_resources:projects_locations_operations
+        required: true
   request:
     GA:
       api_version: v1
     collection:
-    - beyondcorp.projects.locations.operations
+      - beyondcorp.projects.locations.operations

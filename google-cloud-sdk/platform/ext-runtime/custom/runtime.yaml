@@ -8,4 +8,4 @@ detect:
   python: bin/detect
 generate_configs:
   files_to_copy:
-  - app.yaml
+    - app.yaml

@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 CDNPolicyAddSignaturesOptions export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- actions
+  - actions
 additionalProperties: false
 properties:
   COMMENT:
@@ -35,10 +35,10 @@ properties:
     items:
       type: string
       enum:
-      - GENERATE_COOKIE
-      - GENERATE_TOKEN_HLS_COOKIELESS
-      - PROPAGATE_TOKEN_HLS_COOKIELESS
-      - SIGNATURE_ACTION_UNSPECIFIED
+        - GENERATE_COOKIE
+        - GENERATE_TOKEN_HLS_COOKIELESS
+        - PROPAGATE_TOKEN_HLS_COOKIELESS
+        - SIGNATURE_ACTION_UNSPECIFIED
   copiedParameters:
     description: |-
       The parameters to copy from the verified token to the generated token.

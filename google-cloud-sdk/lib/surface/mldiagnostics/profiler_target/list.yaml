@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 - release_tracks:
-  - ALPHA
+    - ALPHA
   auto_generated: false
   help_text:
     brief: List profiler targets
@@ -35,16 +35,16 @@
 
   arguments:
     params:
-    - help_text: |-
-        Parent format:
-        projects/{project}/locations/{location}/machineLearningRuns/{machineLearningRun}
-      is_positional: false
-      is_primary_resource: true
-      resource_spec: !REF googlecloudsdk.command_lib.mldiagnostics.machine_learning_run.v1alpha_resources:projects_locations_machine_learning_runs
-      required: true
+      - help_text: |-
+          Parent format:
+          projects/{project}/locations/{location}/machineLearningRuns/{machineLearningRun}
+        is_positional: false
+        is_primary_resource: true
+        resource_spec: !REF googlecloudsdk.command_lib.mldiagnostics.machine_learning_run.v1alpha_resources:projects_locations_machine_learning_runs
+        required: true
   request:
     api_version: v1alpha
     collection:
-    - hypercomputecluster.projects.locations.machineLearningRuns.profilerTargets
+      - hypercomputecluster.projects.locations.machineLearningRuns.profilerTargets
   response:
     id_field: name

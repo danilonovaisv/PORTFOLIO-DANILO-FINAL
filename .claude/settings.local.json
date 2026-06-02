@@ -61,9 +61,7 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "firecrawl-mcp"
-  ],
+  "enabledMcpjsonServers": ["firecrawl-mcp"],
   "enabledPlugins": {
     "Web-Design-plugin@my-plugins": true
   },

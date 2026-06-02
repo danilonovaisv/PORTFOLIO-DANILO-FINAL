@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta SchedulingNodeAffinity export schema
 description: A gcloud export/import command YAML validation schema.
@@ -34,9 +34,9 @@ properties:
       affinity and NOT_IN for anti-affinity.
     type: string
     enum:
-    - IN
-    - NOT_IN
-    - OPERATOR_UNSPECIFIED
+      - IN
+      - NOT_IN
+      - OPERATOR_UNSPECIFIED
   values:
     description: Corresponds to the label values of Node resource.
     type: array

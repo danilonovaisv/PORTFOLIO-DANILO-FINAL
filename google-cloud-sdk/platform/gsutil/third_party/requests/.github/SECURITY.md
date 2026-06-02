@@ -7,9 +7,9 @@ and [Seth](mailto:sethmichaellarson@gmail.com) directly.
 
 Our PGP Key fingerprints are:
 
-- 8722 7E29 AD9C FF5C FAC3  EA6A 44D3 FF97 B80D C864 ([@nateprewitt](https://keybase.io/nateprewitt))
+- 8722 7E29 AD9C FF5C FAC3 EA6A 44D3 FF97 B80D C864 ([@nateprewitt](https://keybase.io/nateprewitt))
 
-- EDD5 6765 A9D8 4653 CBC8  A134 51B0 6736 1740 F5FC ([@sethmlarson](https://keybase.io/sethmlarson))
+- EDD5 6765 A9D8 4653 CBC8 A134 51B0 6736 1740 F5FC ([@sethmlarson](https://keybase.io/sethmlarson))
 
 You can also contact us on [Keybase](https://keybase.io) with the
 profiles above if desired.
@@ -40,7 +40,7 @@ will respond to your disclosure.
 ### Timeline
 
 When you report an issue, one of the project members will respond to you
-within two days *at the outside*. In most cases responses will be
+within two days _at the outside_. In most cases responses will be
 faster, usually within 12 hours. This initial response will at the very
 least confirm receipt of the report.
 
@@ -63,17 +63,17 @@ our reproduction scenario.
 At this point, we will prepare for the release. We will obtain a CVE
 number if one is required, providing you with full credit for the
 discovery. We will also decide on a planned release date, and let you
-know when it is. This release date will *always* be on a weekday.
+know when it is. This release date will _always_ be on a weekday.
 
 At this point we will reach out to our major downstream packagers to
 notify them of an impending security-related patch so they can make
 arrangements. In addition, these packagers will be provided with the
 intended patch ahead of time, to ensure that they are able to promptly
 release their downstream packages. Currently the list of people we
-actively contact *ahead of a public release* is:
+actively contact _ahead of a public release_ is:
 
--   Jeremy Cline, Red Hat (@jeremycline)
--   Daniele Tricoli, Debian (@eriol)
+- Jeremy Cline, Red Hat (@jeremycline)
+- Daniele Tricoli, Debian (@eriol)
 
 We will notify these individuals at least a week ahead of our planned
 release date to ensure that they have sufficient time to prepare. If you

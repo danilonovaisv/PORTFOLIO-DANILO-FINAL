@@ -22,4 +22,4 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.container.vpn:CreateDescribeVPNTableViewResponseHook
+      - googlecloudsdk.command_lib.edge_cloud.container.vpn:CreateDescribeVPNTableViewResponseHook

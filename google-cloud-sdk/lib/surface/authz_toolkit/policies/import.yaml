@@ -7,9 +7,9 @@ help_text:
   description: |
     Import the specified policy.
   examples: |
-      To import a policy called `my-policy`, run:
+    To import a policy called `my-policy`, run:
 
-        $ {command} my-policy --source=my-policy.yaml --location=us-central1
+      $ {command} my-policy --source=my-policy.yaml --location=us-central1
 
 arguments:
   resource:
@@ -27,7 +27,7 @@ request:
     api_version: v1
   collection: authztoolkit.projects.locations.policies
   modify_request_hooks:
-  - googlecloudsdk.command_lib.authz_toolkit.hooks:SetUpdateMask
+    - googlecloudsdk.command_lib.authz_toolkit.hooks:SetUpdateMask
 
 import:
   abort_if_equivalent: true

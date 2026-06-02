@@ -1,12 +1,13 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
-title: networkservices v1 EndpointMatcherMetadataLabelMatcherMetadataLabels export
+title:
+  networkservices v1 EndpointMatcherMetadataLabelMatcherMetadataLabels export
   schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- labelName
-- labelValue
+  - labelName
+  - labelValue
 additionalProperties: false
 properties:
   COMMENT:

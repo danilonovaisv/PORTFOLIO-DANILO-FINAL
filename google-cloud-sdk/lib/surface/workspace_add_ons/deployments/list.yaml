@@ -1,6 +1,6 @@
 - release_tracks: [GA]
   help_text:
-    brief:  List Google Workspace Add-ons deployments
+    brief: List Google Workspace Add-ons deployments
     description: List Google Workspace Add-ons deployments
     examples: |
       To list all deployments, run:

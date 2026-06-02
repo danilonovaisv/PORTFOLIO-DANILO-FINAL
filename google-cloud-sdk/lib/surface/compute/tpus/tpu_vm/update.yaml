@@ -28,11 +28,11 @@
     ALPHA:
       api_version: v2alpha1
       modify_request_hooks:
-      - googlecloudsdk.command_lib.compute.tpus.tpu_vm.util:GenerateUpdateMask:api_version=v2alpha1
+        - googlecloudsdk.command_lib.compute.tpus.tpu_vm.util:GenerateUpdateMask:api_version=v2alpha1
     GA:
       api_version: v2
       modify_request_hooks:
-      - googlecloudsdk.command_lib.compute.tpus.tpu_vm.util:GenerateUpdateMask:api_version=v2
+        - googlecloudsdk.command_lib.compute.tpus.tpu_vm.util:GenerateUpdateMask:api_version=v2
 
   async:
     collection: tpu.projects.locations.operations
@@ -48,47 +48,47 @@
       spec: !REF googlecloudsdk.command_lib.compute.tpus.tpu_vm.resources:tpu
 
     params:
-    - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:description
-    - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:enable_external_ips
-    - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:update_labels
-    - group:
-        required: false
-        mutex: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:clear_labels
-        - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:remove_labels
-    - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:add_tags
-    - group:
-        required: false
-        mutex: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:clear_tags
-        - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:remove_tags
-    - group:
-        required: false
-        mutex: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:metadata_from_file
-        - group:
-            required: false
-            params:
-            - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:update_metadata
+      - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:description
+      - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:enable_external_ips
+      - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:update_labels
+      - group:
+          required: false
+          mutex: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:clear_labels
+            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:remove_labels
+      - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:add_tags
+      - group:
+          required: false
+          mutex: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:clear_tags
+            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:remove_tags
+      - group:
+          required: false
+          mutex: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:metadata_from_file
             - group:
                 required: false
+                params:
+                  - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:update_metadata
+                  - group:
+                      required: false
+                      mutex: true
+                      params:
+                        - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:clear_metadata
+                        - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:remove_metadata
+      - group:
+          required: false
+          params:
+            - group:
                 mutex: true
                 params:
-                - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:clear_metadata
-                - _REF_: googlecloudsdk.command_lib.compute.tpus.flags:remove_metadata
-    - group:
-        required: false
-        params:
-        - group:
-            mutex: true
-            params:
-            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:attach_disk
-            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:detach_disk
-        - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:worker
-          release_tracks: [ALPHA]
+                  - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:attach_disk
+                  - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:detach_disk
+            - _REF_: googlecloudsdk.command_lib.compute.tpus.tpu_vm.flags:worker
+              release_tracks: [ALPHA]
 
   update:
     read_modify_update: true

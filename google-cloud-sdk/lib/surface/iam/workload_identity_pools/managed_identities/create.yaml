@@ -41,5 +41,5 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_managed_identity.description
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_managed_identity.disabled
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_managed_identity.description
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_managed_identity.disabled

@@ -1,20 +1,20 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: configdelivery v1alpha FleetPackage export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- resourceBundleSelector
-- variantSelector
+  - resourceBundleSelector
+  - variantSelector
 additionalProperties: false
 properties:
   deletionPropagationPolicy:
     description: Deletion propagation policy for the fleet package.
     type: string
     enum:
-    - DELETION_PROPAGATION_POLICY_UNSPECIFIED
-    - FOREGROUND
-    - ORPHAN
+      - DELETION_PROPAGATION_POLICY_UNSPECIFIED
+      - FOREGROUND
+      - ORPHAN
   labels:
     description: Labels as key value pairs
     $ref: LabelsValue.yaml
@@ -35,9 +35,9 @@ properties:
     description: The desired state of the fleet package.
     type: string
     enum:
-    - ACTIVE
-    - STATE_UNSPECIFIED
-    - SUSPENDED
+      - ACTIVE
+      - STATE_UNSPECIFIED
+      - SUSPENDED
   target:
     description: The target into which the resource bundle should be installed.
     $ref: Target.yaml

@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a BackendAuthenticationConfig.
   examples: |
-      To export a BackendAuthenticationConfig, run:
+    To export a BackendAuthenticationConfig, run:
 
-        $ {command} my-backend-authentication-config --destination=my-backend-authentication-config.yaml --location=global
+      $ {command} my-backend-authentication-config --destination=my-backend-authentication-config.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.backendAuthenticationConfigs

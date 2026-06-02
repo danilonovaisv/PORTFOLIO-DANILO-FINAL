@@ -16,10 +16,10 @@
       help_text: The Queued Resource you want to perform maintenance on.
       spec: !REF googlecloudsdk.command_lib.compute.tpus.queued_resources.resources:queuedresource
     params:
-    - arg_name: node-names
-      repeated: true
-      help_text: The nodes you want to perform maintenance on.
-      api_field: performMaintenanceQueuedResourceRequest.nodeNames
+      - arg_name: node-names
+        repeated: true
+        help_text: The nodes you want to perform maintenance on.
+        api_field: performMaintenanceQueuedResourceRequest.nodeNames
   async:
     collection: tpu.projects.locations.operations
     ALPHA:

@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe a HTTP filter.
   description: Show details of a HTTP filter.
-
   examples: |
     Show details about a HTTP filter named 'my-http-filter'.
 

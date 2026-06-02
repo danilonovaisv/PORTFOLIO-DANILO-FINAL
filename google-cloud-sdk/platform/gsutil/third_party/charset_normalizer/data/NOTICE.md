@@ -1,5 +1,4 @@
-Included and Redistributed Files
----------------------------------
+## Included and Redistributed Files
 
 17 files are included in the source distribution tar. They are used to verify the standard functions of
 this library. They are mandatory to run `pytest` but not required to make the lib usable after install.

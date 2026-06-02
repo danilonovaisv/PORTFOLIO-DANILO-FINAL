@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified service binding.
   examples: |
-      To delete a service binding called 'my-service-binding', run:
+    To delete a service binding called 'my-service-binding', run:
 
-        $ {command} my-service-binding --location=global
+      $ {command} my-service-binding --location=global
 
 arguments:
   resource:

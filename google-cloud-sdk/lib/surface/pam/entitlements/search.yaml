@@ -45,27 +45,27 @@
       api_version: v1
     method: search
     collection:
-    - privilegedaccessmanager.projects.locations.entitlements
-    - privilegedaccessmanager.folders.locations.entitlements
-    - privilegedaccessmanager.organizations.locations.entitlements
+      - privilegedaccessmanager.projects.locations.entitlements
+      - privilegedaccessmanager.folders.locations.entitlements
+      - privilegedaccessmanager.organizations.locations.entitlements
 
   arguments:
     params:
-    - arg_name: location
-      resource_spec: !REF googlecloudsdk.command_lib.pam.resources:location
-      is_parent_resource: true
-      is_primary_resource: true
-      is_positional: false
-      required: true
-      help_text: |
-        Location of the entitlements.
-    - api_field: callerAccessType
-      arg_name: caller-access-type
-      required: true
-      choices:
-      - arg_value: grant-requester
-        enum_value: GRANT_REQUESTER
-      - arg_value: grant-approver
-        enum_value: GRANT_APPROVER
-      help_text: |
-        Search for entitlements based on whether you are a requester or approver.
+      - arg_name: location
+        resource_spec: !REF googlecloudsdk.command_lib.pam.resources:location
+        is_parent_resource: true
+        is_primary_resource: true
+        is_positional: false
+        required: true
+        help_text: |
+          Location of the entitlements.
+      - api_field: callerAccessType
+        arg_name: caller-access-type
+        required: true
+        choices:
+          - arg_value: grant-requester
+            enum_value: GRANT_REQUESTER
+          - arg_value: grant-approver
+            enum_value: GRANT_APPROVER
+        help_text: |
+          Search for entitlements based on whether you are a requester or approver.

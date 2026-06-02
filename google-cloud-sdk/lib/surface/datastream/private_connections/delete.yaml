@@ -27,9 +27,9 @@
       spec: !REF googlecloudsdk.command_lib.datastream.resources:positional_private_connection
 
     params:
-    - api_field: force
-      arg_name: force
-      required: false
-      help_text: |
-        You must set the force to ensure that the private
-        connectivity configuration is deleted properly.
+      - api_field: force
+        arg_name: force
+        required: false
+        help_text: |
+          You must set the force to ensure that the private
+          connectivity configuration is deleted properly.

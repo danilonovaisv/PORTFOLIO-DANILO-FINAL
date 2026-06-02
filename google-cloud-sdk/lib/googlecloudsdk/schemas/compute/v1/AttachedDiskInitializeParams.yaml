@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 AttachedDiskInitializeParams export schema
 description: A gcloud export/import command YAML validation schema.
@@ -68,9 +68,9 @@ properties:
       is to use the existing disk.
     type: string
     enum:
-    - RECREATE_DISK
-    - RECREATE_DISK_IF_SOURCE_CHANGED
-    - USE_EXISTING_DISK
+      - RECREATE_DISK
+      - RECREATE_DISK_IF_SOURCE_CHANGED
+      - USE_EXISTING_DISK
   provisionedIops:
     description: |-
       Indicates how many IOPS to provision for the disk. This sets the number of

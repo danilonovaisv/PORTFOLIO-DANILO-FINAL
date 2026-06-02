@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 HttpRedirectAction export schema
 description: A gcloud export/import command YAML validation schema.
@@ -65,11 +65,11 @@ properties:
       308. In this case, the request method is retained.
     type: string
     enum:
-    - FOUND
-    - MOVED_PERMANENTLY_DEFAULT
-    - PERMANENT_REDIRECT
-    - SEE_OTHER
-    - TEMPORARY_REDIRECT
+      - FOUND
+      - MOVED_PERMANENTLY_DEFAULT
+      - PERMANENT_REDIRECT
+      - SEE_OTHER
+      - TEMPORARY_REDIRECT
   stripQuery:
     description: |-
       If set to true, any accompanying query portion of the original URL is

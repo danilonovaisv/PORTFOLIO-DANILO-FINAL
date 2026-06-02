@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 SpannerSourceConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- changeStreamName
+  - changeStreamName
 additionalProperties: false
 properties:
   COMMENT:
@@ -58,7 +58,7 @@ properties:
     description: The RPC priority to use for the stream.
     type: string
     enum:
-    - HIGH
-    - LOW
-    - MEDIUM
-    - SPANNER_RPC_PRIORITY_UNSPECIFIED
+      - HIGH
+      - LOW
+      - MEDIUM
+      - SPANNER_RPC_PRIORITY_UNSPECIFIED

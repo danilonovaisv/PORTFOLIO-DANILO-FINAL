@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified service LB policy.
   examples: |
-      To delete a service LB policy named `my-service-lb-policy`, run:
+    To delete a service LB policy named `my-service-lb-policy`, run:
 
-        $ {command} my-service-lb-policy --location=global
+      $ {command} my-service-lb-policy --location=global
 
 arguments:
   resource:

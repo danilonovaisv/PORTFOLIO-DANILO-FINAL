@@ -14,7 +14,7 @@
     api_version: v1
     collection: datacatalog.projects.locations.entryGroups.entries.tags
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.tags.util:UpdateUpdateTagRequestWithInputV1
+      - googlecloudsdk.command_lib.data_catalog.tags.util:UpdateUpdateTagRequestWithInputV1
 
   arguments:
     additional_arguments_hook: googlecloudsdk.command_lib.data_catalog.tags.flags:AddCreateUpdateTagFlags
@@ -24,24 +24,24 @@
       is_positional: true
 
     params:
-    - arg_name: tag-file
-      required: true
-      help_text: |
-        Path to a JSON or YAML file containing the tag.
+      - arg_name: tag-file
+        required: true
+        help_text: |
+          Path to a JSON or YAML file containing the tag.
 
-        The file should contain a JSON/YAML object with a key and value
-        for each field that should be set. See $ gcloud topic datetimes
-        for information on how to specify timestamp fields
+          The file should contain a JSON/YAML object with a key and value
+          for each field that should be set. See $ gcloud topic datetimes
+          for information on how to specify timestamp fields
 
-        For example:
+          For example:
 
-            {
-              "dbl_field": 123,
-              "str_field": "String",
-              "bool_field": true,
-              "ts_field": "1970-01-01T00:00:00.000Z",
-              "enum_field": "ENUM_A",
-            }
+              {
+                "dbl_field": 123,
+                "str_field": "String",
+                "bool_field": true,
+                "ts_field": "1970-01-01T00:00:00.000Z",
+                "enum_field": "ENUM_A",
+              }
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -58,7 +58,7 @@
   request:
     collection: datacatalog.projects.locations.entryGroups.entries.tags
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.tags.util:UpdateUpdateTagRequestWithInput
+      - googlecloudsdk.command_lib.data_catalog.tags.util:UpdateUpdateTagRequestWithInput
 
   arguments:
     additional_arguments_hook: googlecloudsdk.command_lib.data_catalog.tags.flags:AddCreateUpdateTagFlags
@@ -68,21 +68,21 @@
       is_positional: true
 
     params:
-    - arg_name: tag-file
-      required: true
-      help_text: |
-        Path to a JSON or YAML file containing the tag.
+      - arg_name: tag-file
+        required: true
+        help_text: |
+          Path to a JSON or YAML file containing the tag.
 
-        The file should contain a JSON/YAML object with a key and value
-        for each field that should be set. See $ gcloud topic datetimes
-        for information on how to specify timestamp fields
+          The file should contain a JSON/YAML object with a key and value
+          for each field that should be set. See $ gcloud topic datetimes
+          for information on how to specify timestamp fields
 
-        For example:
+          For example:
 
-            {
-              "dbl_field": 123,
-              "str_field": "String",
-              "bool_field": true,
-              "ts_field": "1970-01-01T00:00:00.000Z",
-              "enum_field": "ENUM_A",
-            }
+              {
+                "dbl_field": 123,
+                "str_field": "String",
+                "bool_field": true,
+                "ts_field": "1970-01-01T00:00:00.000Z",
+                "enum_field": "ENUM_A",
+              }

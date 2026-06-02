@@ -15,7 +15,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.api_lib.bigtable.schema_bundles:PrintParsedProtoDescriptorsInGetResponse
+      - googlecloudsdk.api_lib.bigtable.schema_bundles:PrintParsedProtoDescriptorsInGetResponse
 
   arguments:
     resource:

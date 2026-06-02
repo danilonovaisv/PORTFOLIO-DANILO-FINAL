@@ -27,16 +27,16 @@
         Arguments and flags that define the Dataplex Job running a particular Datascan you want to retrieve.
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:datascanjob
     params:
-    - arg_name: view
-      api_field: view
-      help_text: |
-        There are two possible views: 'basic' and 'full'. The default view is 'basic'.
-      choices:
-      - enum_value: BASIC
-        arg_value: basic
+      - arg_name: view
+        api_field: view
         help_text: |
-          Does not include spec and result data in response.
-      - enum_value: FULL
-        arg_value: full
-        help_text: |
-          Includes spec and result data in response.
+          There are two possible views: 'basic' and 'full'. The default view is 'basic'.
+        choices:
+          - enum_value: BASIC
+            arg_value: basic
+            help_text: |
+              Does not include spec and result data in response.
+          - enum_value: FULL
+            arg_value: full
+            help_text: |
+              Includes spec and result data in response.

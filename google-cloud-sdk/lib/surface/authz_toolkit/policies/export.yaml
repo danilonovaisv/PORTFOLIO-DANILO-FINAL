@@ -7,9 +7,9 @@ help_text:
   description: |
     Export the specified policy.
   examples: |
-      To export a policy named `my-policy`, run:
+    To export a policy named `my-policy`, run:
 
-        $ {command} my-policy --destination=my-policy.yaml --location=us-central1
+      $ {command} my-policy --destination=my-policy.yaml --location=us-central1
 
 arguments:
   resource:

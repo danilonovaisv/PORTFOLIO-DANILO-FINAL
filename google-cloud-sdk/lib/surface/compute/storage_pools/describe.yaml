@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA, PREVIEW]
   help_text:
-    brief: "Describe a storage pool."
-    description: "Describe a storage pool."
+    brief: 'Describe a storage pool.'
+    description: 'Describe a storage pool.'
     examples: |
       To retrieve a single storage pool and print its properties, run the following command:
 

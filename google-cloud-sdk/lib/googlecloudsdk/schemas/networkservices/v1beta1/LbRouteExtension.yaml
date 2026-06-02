@@ -1,13 +1,13 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1beta1 LbRouteExtension export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- extensionChains
-- forwardingRules
-- loadBalancingScheme
-- name
+  - extensionChains
+  - forwardingRules
+  - loadBalancingScheme
+  - name
 additionalProperties: false
 properties:
   COMMENT:
@@ -70,9 +70,9 @@ properties:
       service).
     type: string
     enum:
-    - EXTERNAL_MANAGED
-    - INTERNAL_MANAGED
-    - LOAD_BALANCING_SCHEME_UNSPECIFIED
+      - EXTERNAL_MANAGED
+      - INTERNAL_MANAGED
+      - LOAD_BALANCING_SCHEME_UNSPECIFIED
   metadata:
     description: |-
       The metadata provided here is included as part of the

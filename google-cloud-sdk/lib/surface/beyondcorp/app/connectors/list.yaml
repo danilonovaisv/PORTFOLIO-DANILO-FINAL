@@ -26,7 +26,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.beyondcorp.app.connectors.hooks:PrintMessageInResponse
+      - googlecloudsdk.command_lib.beyondcorp.app.connectors.hooks:PrintMessageInResponse
 
   arguments:
     resource:
@@ -36,12 +36,12 @@
 
   output:
     format: |
-        table(
-          name.basename():label=NAME,
-          displayName:label=DISPLAY_NAME,
-          state:label=CONNECTOR_STATE,
-          principalInfo.serviceAccount.email:label=MEMBER,
-          createTime.date():label=CREATE_TIME,
-          updateTime.date():label=UPDATE_TIME,
-          labels.list():label=LABELS
-        )
+      table(
+        name.basename():label=NAME,
+        displayName:label=DISPLAY_NAME,
+        state:label=CONNECTOR_STATE,
+        principalInfo.serviceAccount.email:label=MEMBER,
+        createTime.date():label=CREATE_TIME,
+        updateTime.date():label=UPDATE_TIME,
+        labels.list():label=LABELS
+      )

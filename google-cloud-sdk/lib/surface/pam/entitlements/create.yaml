@@ -30,11 +30,11 @@
     GA:
       api_version: v1
     collection:
-    - privilegedaccessmanager.projects.locations.entitlements
-    - privilegedaccessmanager.folders.locations.entitlements
-    - privilegedaccessmanager.organizations.locations.entitlements
+      - privilegedaccessmanager.projects.locations.entitlements
+      - privilegedaccessmanager.folders.locations.entitlements
+      - privilegedaccessmanager.organizations.locations.entitlements
     modify_request_hooks:
-    - googlecloudsdk.command_lib.pam.util:ParseEntitlementNameIntoCreateEntitlementRequest
+      - googlecloudsdk.command_lib.pam.util:ParseEntitlementNameIntoCreateEntitlementRequest
 
   arguments:
     resource:
@@ -42,13 +42,13 @@
       help_text: |
         Name of the entitlement to create.
     params:
-    - arg_name: entitlement-file
-      api_field: entitlement
-      required: true
-      type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-      processor: googlecloudsdk.core.yaml:load
-      help_text: |
-        YAML file containing the configuration of the entitlement.
+      - arg_name: entitlement-file
+        api_field: entitlement
+        required: true
+        type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+        processor: googlecloudsdk.core.yaml:load
+        help_text: |
+          YAML file containing the configuration of the entitlement.
 
   async:
     ALPHA:
@@ -56,9 +56,9 @@
     BETA:
       api_version: v1beta
     collection:
-    - privilegedaccessmanager.projects.locations.operations
-    - privilegedaccessmanager.folders.locations.operations
-    - privilegedaccessmanager.organizations.locations.operations
+      - privilegedaccessmanager.projects.locations.operations
+      - privilegedaccessmanager.folders.locations.operations
+      - privilegedaccessmanager.organizations.locations.operations
 
   output:
     format: yaml

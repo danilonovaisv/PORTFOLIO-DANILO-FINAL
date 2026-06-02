@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `SwpSecurityExtension` resource.
   examples: |
-      To delete an `SwpSecurityExtension` resource named
-      `my-swp-security-extension` in `us-central1`, run:
+    To delete an `SwpSecurityExtension` resource named
+    `my-swp-security-extension` in `us-central1`, run:
 
-        $ {command} my-swp-security-extension --location=us-central1
+      $ {command} my-swp-security-extension --location=us-central1
 
 arguments:
   resource:

@@ -37,7 +37,7 @@
   response:
     ALPHA:
       modify_response_hooks:
-      - googlecloudsdk.command_lib.redis.instances_describe_util:FormatResponse
+        - googlecloudsdk.command_lib.redis.instances_describe_util:FormatResponse
     BETA:
       modify_response_hooks:
-      - googlecloudsdk.command_lib.redis.instances_describe_util:FormatResponse
+        - googlecloudsdk.command_lib.redis.instances_describe_util:FormatResponse

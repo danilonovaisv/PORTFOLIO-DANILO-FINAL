@@ -13,7 +13,7 @@ request:
   collection: pubsublite.admin.projects.locations.topics.subscriptions
   method: list
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
 
 arguments:
   resource:
@@ -23,9 +23,9 @@ arguments:
     is_positional: true
     command_level_fallthroughs:
       location:
-      - arg_name: 'zone'
+        - arg_name: 'zone'
   params:
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
 
 response:
   result_attribute: subscriptions

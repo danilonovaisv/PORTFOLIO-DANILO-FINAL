@@ -45,9 +45,9 @@
   request:
     collection: bigtableadmin.projects.instances.tables
     modify_request_hooks:
-    - googlecloudsdk.api_lib.bigtable.tables:UpdateRequestWithInput
-    - googlecloudsdk.api_lib.bigtable.tables:HandleAutomatedBackupPolicyCreateTableArgs
-    - googlecloudsdk.api_lib.bigtable.tables:HandleRowKeySchemaCreateTableArgs
+      - googlecloudsdk.api_lib.bigtable.tables:UpdateRequestWithInput
+      - googlecloudsdk.api_lib.bigtable.tables:HandleAutomatedBackupPolicyCreateTableArgs
+      - googlecloudsdk.api_lib.bigtable.tables:HandleRowKeySchemaCreateTableArgs
 
   arguments:
     resource:
@@ -56,74 +56,74 @@
     additional_arguments_hook: googlecloudsdk.api_lib.bigtable.tables:AddAutomatedBackupPolicyCreateTableArgs
 
     params:
-    - api_field: createTableRequest.table.columnFamilies
-      arg_name: column-families
-      required: true
-      type: "arg_list"
-      help_text: |
-        A double-quote (`"`) wrapped list of family name and corresponding garbage collection rules
-        concatenated by `:`, where the rules are optional. For example:
-        `"family_1,family_2:maxage=5d&&maxversions=2,family_3:maxage=10d||maxversions=5"`
-      processor: googlecloudsdk.api_lib.bigtable.tables:ParseColumnFamilies
-    - api_field: createTableRequest.initialSplits
-      arg_name: splits
-      help_text: |
-        Row keys where the table should initially be split. For example: `car,key`
-      type: "arg_list"
-      processor: googlecloudsdk.api_lib.bigtable.tables:MakeSplits
-    - api_field: createTableRequest.table.changeStreamConfig.retentionPeriod
-      arg_name: change-stream-retention-period
-      help_text: |
-        The length of time to retain change stream data for the table, in the range of
-        [1 day, 7 days]. Acceptable units are days (d), hours (h), minutes (m), and seconds (s).
-        Passing in a value for this option enables a change stream for the table. Examples: `5d` or
-        `48h`.
-      processor: googlecloudsdk.api_lib.bigtable.tables:ParseChangeStreamRetentionPeriod
-    - api_field: createTableRequest.table.tieredStorageConfig.infrequentAccess.includeIfOlderThan
-      arg_name: tiered-storage-infrequent-access-older-than
-      release_tracks: [ALPHA, BETA]
-      help_text: |
-        The age at which data should be moved to infrequent access storage.
+      - api_field: createTableRequest.table.columnFamilies
+        arg_name: column-families
+        required: true
+        type: 'arg_list'
+        help_text: |
+          A double-quote (`"`) wrapped list of family name and corresponding garbage collection rules
+          concatenated by `:`, where the rules are optional. For example:
+          `"family_1,family_2:maxage=5d&&maxversions=2,family_3:maxage=10d||maxversions=5"`
+        processor: googlecloudsdk.api_lib.bigtable.tables:ParseColumnFamilies
+      - api_field: createTableRequest.initialSplits
+        arg_name: splits
+        help_text: |
+          Row keys where the table should initially be split. For example: `car,key`
+        type: 'arg_list'
+        processor: googlecloudsdk.api_lib.bigtable.tables:MakeSplits
+      - api_field: createTableRequest.table.changeStreamConfig.retentionPeriod
+        arg_name: change-stream-retention-period
+        help_text: |
+          The length of time to retain change stream data for the table, in the range of
+          [1 day, 7 days]. Acceptable units are days (d), hours (h), minutes (m), and seconds (s).
+          Passing in a value for this option enables a change stream for the table. Examples: `5d` or
+          `48h`.
+        processor: googlecloudsdk.api_lib.bigtable.tables:ParseChangeStreamRetentionPeriod
+      - api_field: createTableRequest.table.tieredStorageConfig.infrequentAccess.includeIfOlderThan
+        arg_name: tiered-storage-infrequent-access-older-than
+        release_tracks: [ALPHA, BETA]
+        help_text: |
+          The age at which data should be moved to infrequent access storage.
 
-        See `$ gcloud topic datetimes` for information on absolute duration formats.
-      processor: googlecloudsdk.api_lib.bigtable.tables:ParseTieredStorageConfigDuration
-    - api_field: createTableRequest.table.deletionProtection
-      arg_name: deletion-protection
-      type: bool
-      help_text: |
-        Once specified, the table is deletion protected.
-    - arg_name: row-key-schema-definition-file
-      required: false
-      help_text: |
-        The row key schema for the table. The schema is defined in a YAML or JSON file, equivalent
-        to the StructType protobuf message.
+          See `$ gcloud topic datetimes` for information on absolute duration formats.
+        processor: googlecloudsdk.api_lib.bigtable.tables:ParseTieredStorageConfigDuration
+      - api_field: createTableRequest.table.deletionProtection
+        arg_name: deletion-protection
+        type: bool
+        help_text: |
+          Once specified, the table is deletion protected.
+      - arg_name: row-key-schema-definition-file
+        required: false
+        help_text: |
+          The row key schema for the table. The schema is defined in a YAML or JSON file, equivalent
+          to the StructType protobuf message.
 
-        Example YAML:
+          Example YAML:
 
-        ```yaml
-        encoding:
-          delimitedBytes:
-            delimiter: '#'
-        fields:
-        - fieldName: field1
-          type:
-            bytesType:
-              encoding:
-                raw: {}
-        - fieldName: field2
-          type:
-            bytesType:
-              encoding:
-                raw: {}
-        ```
+          ```yaml
+          encoding:
+            delimitedBytes:
+              delimiter: '#'
+          fields:
+          - fieldName: field1
+            type:
+              bytesType:
+                encoding:
+                  raw: {}
+          - fieldName: field2
+            type:
+              bytesType:
+                encoding:
+                  raw: {}
+          ```
 
-    - arg_name: row-key-schema-pre-encoded-bytes
-      type: bool
-      default: false
-      required: false
-      help_text: |
-        By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for
-        example, `encoding.delimitedBytes.delimiter`).
+      - arg_name: row-key-schema-pre-encoded-bytes
+        type: bool
+        default: false
+        required: false
+        help_text: |
+          By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for
+          example, `encoding.delimitedBytes.delimiter`).
 
-        Use this to indicate that all binary fields are already encoded in the YAML/JSON file and
-        should not be encoded again.
+          Use this to indicate that all binary fields are already encoded in the YAML/JSON file and
+          should not be encoded again.

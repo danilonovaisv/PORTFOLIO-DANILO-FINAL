@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
   help_text:
-    brief: "Describe a health source."
-    description: "Describe a health source."
+    brief: 'Describe a health source.'
+    description: 'Describe a health source.'
     examples: |
       To retrieve a single health source and print its properties, run the following
       command:

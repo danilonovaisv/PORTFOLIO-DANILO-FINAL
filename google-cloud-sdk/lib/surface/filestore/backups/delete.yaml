@@ -17,17 +17,16 @@
 
   arguments:
     params:
-    - arg_name: backup
-      required: true
-      is_positional: true
-      help_text: |
-        Arguments and flags that specify the Filestore backup you want to
-        delete.
-    - arg_name: region
-      required: true
-      help_text: |
-        Compute region (e.g. us-central1) for the backup.
-
+      - arg_name: backup
+        required: true
+        is_positional: true
+        help_text: |
+          Arguments and flags that specify the Filestore backup you want to
+          delete.
+      - arg_name: region
+        required: true
+        help_text: |
+          Compute region (e.g. us-central1) for the backup.
 
   async:
     collection: file.projects.locations.operations
@@ -49,4 +48,4 @@
     collection: file.projects.locations.backups
     disable_resource_check: true
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupAccessRequest
+      - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupAccessRequest

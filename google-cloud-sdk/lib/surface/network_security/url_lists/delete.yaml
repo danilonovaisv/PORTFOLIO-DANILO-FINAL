@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified Url List.
   examples: |
-      To delete a Url List called 'my-url-list', run:
+    To delete a Url List called 'my-url-list', run:
 
-        $ {command} my-url-list --location=global
+      $ {command} my-url-list --location=global
 
 arguments:
   resource:

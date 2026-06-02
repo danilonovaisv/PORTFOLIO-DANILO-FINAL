@@ -2,35 +2,35 @@ project:
   name: project
   collection: dataplex.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: |
-      Name of the Cloud project to use.
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: |
+        Name of the Cloud project to use.
+      property: core/project
 
 organization:
   name: organization
   collection: dataplex.organizations
   attributes:
-  - &organization
-    parameter_name: organizationsId
-    attribute_name: organization
-    help: |
-      Name of the Cloud organization to use.
+    - &organization
+      parameter_name: organizationsId
+      attribute_name: organization
+      help: |
+        Name of the Cloud organization to use.
 
 location:
   name: location
   collection: dataplex.projects.locations
   disable_auto_completers: false
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: |
-      Location of the Dataplex resource.
-    property: dataplex/location
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: |
+        Location of the Dataplex resource.
+      property: dataplex/location
 
 lake:
   name: lake
@@ -38,13 +38,13 @@ lake:
   request_id_field: lakeId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &lake
-    parameter_name: lakesId
-    attribute_name: lake
-    help: |
-      Identifier of the Dataplex lake resource.
+    - *project
+    - *location
+    - &lake
+      parameter_name: lakesId
+      attribute_name: lake
+      help: |
+        Identifier of the Dataplex lake resource.
 
 zone:
   name: zone
@@ -52,14 +52,14 @@ zone:
   request_id_field: zoneId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - &zone
-    parameter_name: zonesId
-    attribute_name: zone
-    help: |
-      Identifier of the Dataplex zone resource.
+    - *project
+    - *location
+    - *lake
+    - &zone
+      parameter_name: zonesId
+      attribute_name: zone
+      help: |
+        Identifier of the Dataplex zone resource.
 
 asset:
   name: asset
@@ -67,15 +67,15 @@ asset:
   request_id_field: assetId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - *zone
-  - &asset
-    parameter_name: assetsId
-    attribute_name: asset
-    help: |
-      Identifier of the Dataplex asset resource.
+    - *project
+    - *location
+    - *lake
+    - *zone
+    - &asset
+      parameter_name: assetsId
+      attribute_name: asset
+      help: |
+        Identifier of the Dataplex asset resource.
 
 task:
   name: task
@@ -83,14 +83,14 @@ task:
   request_id_field: taskId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - &task
-    parameter_name: tasksId
-    attribute_name: task
-    help: |
-      Identifier of the Dataplex task resource.
+    - *project
+    - *location
+    - *lake
+    - &task
+      parameter_name: tasksId
+      attribute_name: task
+      help: |
+        Identifier of the Dataplex task resource.
 
 job:
   name: job
@@ -98,15 +98,15 @@ job:
   request_id_field: jobID
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - *task
-  - &job
-    parameter_name: jobsId
-    attribute_name: job
-    help: |
-      Job_id of the Job running a particular Task in Dataplex.
+    - *project
+    - *location
+    - *lake
+    - *task
+    - &job
+      parameter_name: jobsId
+      attribute_name: job
+      help: |
+        Job_id of the Job running a particular Task in Dataplex.
 
 environment:
   name: environment
@@ -114,14 +114,14 @@ environment:
   request_id_field: environmentID
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - &environment
-    parameter_name: environmentsId
-    attribute_name: environment
-    help: |
-      Environment_id of a particular Environment in Dataplex.
+    - *project
+    - *location
+    - *lake
+    - &environment
+      parameter_name: environmentsId
+      attribute_name: environment
+      help: |
+        Environment_id of a particular Environment in Dataplex.
 
 session:
   name: session
@@ -129,15 +129,15 @@ session:
   request_id_field: sessionID
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - *environment
-  - &session
-    parameter_name: sessionsId
-    attribute_name: session
-    help: |
-      Session_id of a particular Session of an Environment in Dataplex.
+    - *project
+    - *location
+    - *lake
+    - *environment
+    - &session
+      parameter_name: sessionsId
+      attribute_name: session
+      help: |
+        Session_id of a particular Session of an Environment in Dataplex.
 
 content:
   name: content
@@ -145,14 +145,14 @@ content:
   request_id_field: contentId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *lake
-  - &content
-    parameter_name: contentitemsId
-    attribute_name: content
-    help: |
-      Content_id for the Content Resource of the Dataplex service.
+    - *project
+    - *location
+    - *lake
+    - &content
+      parameter_name: contentitemsId
+      attribute_name: content
+      help: |
+        Content_id for the Content Resource of the Dataplex service.
 
 data_taxonomy:
   name: data taxonomy
@@ -160,13 +160,13 @@ data_taxonomy:
   request_id_field: dataTaxonomyId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &data_taxonomy
-    parameter_name: dataTaxonomiesId
-    attribute_name: data_taxonomy
-    help: |
-      Identifier of the Dataplex DataTaxonomy resource.
+    - *project
+    - *location
+    - &data_taxonomy
+      parameter_name: dataTaxonomiesId
+      attribute_name: data_taxonomy
+      help: |
+        Identifier of the Dataplex DataTaxonomy resource.
 
 data_attribute:
   name: data attribute
@@ -174,14 +174,14 @@ data_attribute:
   request_id_field: dataAttributeId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *data_taxonomy
-  - &data_attribute
-    parameter_name: attributesId
-    attribute_name: data_attribute
-    help: |
-      Identifier of the Dataplex task resource.
+    - *project
+    - *location
+    - *data_taxonomy
+    - &data_attribute
+      parameter_name: attributesId
+      attribute_name: data_attribute
+      help: |
+        Identifier of the Dataplex task resource.
 
 datascan:
   name: datascan
@@ -189,13 +189,13 @@ datascan:
   request_id_field: dataScansId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &datascan
-    parameter_name: dataScansId
-    attribute_name: datascan
-    help: |
-      Datascan ID of the Dataplex datascan resource.
+    - *project
+    - *location
+    - &datascan
+      parameter_name: dataScansId
+      attribute_name: datascan
+      help: |
+        Datascan ID of the Dataplex datascan resource.
 
 datascanjob:
   name: job
@@ -203,14 +203,14 @@ datascanjob:
   request_id_field: jobID
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *datascan
-  - &datascanjob
-    parameter_name: jobsId
-    attribute_name: job
-    help: |
-      Job ID of the Job running a particular Datascan in Dataplex.
+    - *project
+    - *location
+    - *datascan
+    - &datascanjob
+      parameter_name: jobsId
+      attribute_name: job
+      help: |
+        Job ID of the Job running a particular Datascan in Dataplex.
 
 data_attribute_binding:
   name: data attribute binding
@@ -218,13 +218,13 @@ data_attribute_binding:
   request_id_field: dataAttributeBindingId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &data_attribute_binding
-    parameter_name: dataAttributeBindingsId
-    attribute_name: data_attribute_binding
-    help: |
-      Identifier of the Dataplex Data Attribute Binding
+    - *project
+    - *location
+    - &data_attribute_binding
+      parameter_name: dataAttributeBindingsId
+      attribute_name: data_attribute_binding
+      help: |
+        Identifier of the Dataplex Data Attribute Binding
 
 entry_group:
   name: entry group
@@ -232,13 +232,13 @@ entry_group:
   request_id_field: entryGroupId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &entry_group
-    parameter_name: entryGroupsId
-    attribute_name: entry_group
-    help: |
-      Entry group containing Dataplex Entries.
+    - *project
+    - *location
+    - &entry_group
+      parameter_name: entryGroupsId
+      attribute_name: entry_group
+      help: |
+        Entry group containing Dataplex Entries.
 
 aspect_type:
   name: aspect type
@@ -246,13 +246,13 @@ aspect_type:
   request_id_field: aspectTypeId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &aspect_type
-    parameter_name: aspectTypesId
-    attribute_name: aspect_type
-    help: |
-      Identifier of the Dataplex Aspect Type resource.
+    - *project
+    - *location
+    - &aspect_type
+      parameter_name: aspectTypesId
+      attribute_name: aspect_type
+      help: |
+        Identifier of the Dataplex Aspect Type resource.
 
 entry_type:
   name: entry type
@@ -260,13 +260,13 @@ entry_type:
   request_id_field: entryTypeId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &entry_type
-    parameter_name: entryTypesId
-    attribute_name: entry_type
-    help: |
-      Identifier of the Dataplex Entry Type resource.
+    - *project
+    - *location
+    - &entry_type
+      parameter_name: entryTypesId
+      attribute_name: entry_type
+      help: |
+        Identifier of the Dataplex Entry Type resource.
 
 entry:
   name: entry
@@ -274,14 +274,14 @@ entry:
   request_id_field: entryId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *entry_group
-  - &entry
-    parameter_name: entriesId
-    attribute_name: entry
-    help: |
-      Entry containing metadata about some resource.
+    - *project
+    - *location
+    - *entry_group
+    - &entry
+      parameter_name: entriesId
+      attribute_name: entry
+      help: |
+        Entry containing metadata about some resource.
 
 governance_rule:
   name: governance rule
@@ -289,13 +289,13 @@ governance_rule:
   request_id_field: governanceRuleId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &governance_rule
-    parameter_name: governanceRulesId
-    attribute_name: governance_rule
-    help: |
-      Identifier of the Dataplex Governance Rule resource.
+    - *project
+    - *location
+    - &governance_rule
+      parameter_name: governanceRulesId
+      attribute_name: governance_rule
+      help: |
+        Identifier of the Dataplex Governance Rule resource.
 
 encryption_config:
   name: encryption config
@@ -303,13 +303,13 @@ encryption_config:
   request_id_field: encryptionConfigId
   disable_auto_completers: false
   attributes:
-  - *organization
-  - *location
-  - &encryption_config
-    parameter_name: encryptionConfigsId
-    attribute_name: encryption_config
-    help: |
-      Identifier of the Dataplex Encryption Config resource.
+    - *organization
+    - *location
+    - &encryption_config
+      parameter_name: encryptionConfigsId
+      attribute_name: encryption_config
+      help: |
+        Identifier of the Dataplex Encryption Config resource.
 
 glossary:
   name: glossary
@@ -317,13 +317,13 @@ glossary:
   request_id_field: glossaryId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &glossary
-    parameter_name: glossariesId
-    attribute_name: glossary
-    help: |
-      Identifier of the Dataplex Glossary resource.
+    - *project
+    - *location
+    - &glossary
+      parameter_name: glossariesId
+      attribute_name: glossary
+      help: |
+        Identifier of the Dataplex Glossary resource.
 
 glossary_category:
   name: glossary category
@@ -331,14 +331,14 @@ glossary_category:
   request_id_field: categoryId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *glossary
-  - &glossary_category
-    parameter_name: categoriesId
-    attribute_name: glossary_category
-    help: |
-      Identifier of the Dataplex Glossary Category resource.
+    - *project
+    - *location
+    - *glossary
+    - &glossary_category
+      parameter_name: categoriesId
+      attribute_name: glossary_category
+      help: |
+        Identifier of the Dataplex Glossary Category resource.
 
 glossary_term:
   name: glossary term
@@ -346,14 +346,14 @@ glossary_term:
   request_id_field: termId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *glossary
-  - &glossary_term
-    parameter_name: termsId
-    attribute_name: glossary_term
-    help: |
-      Identifier of the Dataplex Glossary Term resource.
+    - *project
+    - *location
+    - *glossary
+    - &glossary_term
+      parameter_name: termsId
+      attribute_name: glossary_term
+      help: |
+        Identifier of the Dataplex Glossary Term resource.
 
 metadata_job:
   name: metadata job
@@ -361,13 +361,13 @@ metadata_job:
   request_id_field: metadataJobId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &metadata_job
-    parameter_name: metadataJobsId
-    attribute_name: metadata_job
-    help: |
-      Identifier of the Dataplex Metadata Job resource.
+    - *project
+    - *location
+    - &metadata_job
+      parameter_name: metadataJobsId
+      attribute_name: metadata_job
+      help: |
+        Identifier of the Dataplex Metadata Job resource.
 
 entry_link:
   name: entry link
@@ -375,13 +375,13 @@ entry_link:
   request_id_field: entryLinkId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *entry_group
-  - &entry_link
-    parameter_name: entryLinksId
-    attribute_name: entry_link
-    help: |
+    - *project
+    - *location
+    - *entry_group
+    - &entry_link
+      parameter_name: entryLinksId
+      attribute_name: entry_link
+      help: |
         Entry Link between two entries.
 
 data_product:
@@ -390,13 +390,13 @@ data_product:
   request_id_field: dataProductId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - &data_product
-    parameter_name: dataProductsId
-    attribute_name: data_product
-    help: |
-      Identifier of the Dataplex Data Product resource.
+    - *project
+    - *location
+    - &data_product
+      parameter_name: dataProductsId
+      attribute_name: data_product
+      help: |
+        Identifier of the Dataplex Data Product resource.
 
 data_asset:
   name: data asset
@@ -404,11 +404,11 @@ data_asset:
   request_id_field: dataAssetId
   disable_auto_completers: false
   attributes:
-  - *project
-  - *location
-  - *data_product
-  - &data_asset
-    parameter_name: dataAssetsId
-    attribute_name: data_asset
-    help: |
-      Identifier of the Dataplex Data Asset resource.
+    - *project
+    - *location
+    - *data_product
+    - &data_asset
+      parameter_name: dataAssetsId
+      attribute_name: data_asset
+      help: |
+        Identifier of the Dataplex Data Asset resource.

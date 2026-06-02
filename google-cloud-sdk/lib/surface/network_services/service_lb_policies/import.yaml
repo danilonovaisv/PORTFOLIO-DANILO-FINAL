@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a service LB policy.
   examples: |
-      To import a service LB policy named `my-service-lb-policy` from a YAML file, run:
+    To import a service LB policy named `my-service-lb-policy` from a YAML file, run:
 
-        $ {command} my-service-lb-policy --source=my-service-lb-policy.yaml --location=global
+      $ {command} my-service-lb-policy --source=my-service-lb-policy.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.serviceLbPolicies

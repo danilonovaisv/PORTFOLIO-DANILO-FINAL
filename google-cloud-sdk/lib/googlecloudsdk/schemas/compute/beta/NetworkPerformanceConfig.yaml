@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta NetworkPerformanceConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,5 +29,5 @@ properties:
     description: A TotalEgressBandwidthTierValueValuesEnum attribute.
     type: string
     enum:
-    - DEFAULT
-    - TIER_1
+      - DEFAULT
+      - TIER_1

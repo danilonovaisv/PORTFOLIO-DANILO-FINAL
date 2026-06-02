@@ -32,4 +32,4 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.privateca.hooks:CheckResponseSubordinateTypeHook:version=v1
+      - googlecloudsdk.command_lib.privateca.hooks:CheckResponseSubordinateTypeHook:version=v1

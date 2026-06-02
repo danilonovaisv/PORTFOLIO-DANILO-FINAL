@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkeonprem v1 BareMetalNodePoolConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- nodeConfigs
+  - nodeConfigs
 additionalProperties: false
 properties:
   COMMENT:
@@ -46,8 +46,8 @@ properties:
     description: 'Specifies the nodes operating system (default: LINUX).'
     type: string
     enum:
-    - LINUX
-    - OPERATING_SYSTEM_UNSPECIFIED
+      - LINUX
+      - OPERATING_SYSTEM_UNSPECIFIED
   taints:
     description: The initial taints assigned to nodes of this node pool.
     type: array

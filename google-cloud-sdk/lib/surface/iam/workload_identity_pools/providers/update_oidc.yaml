@@ -50,11 +50,11 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.display_name
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.description
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.disabled
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.attribute_condition
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.attribute_mapping
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.oidc_issuer_uri
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.oidc_allowed_audiences
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.oidc_jwks_json_path
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.display_name
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.description
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.disabled
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.attribute_condition
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.attribute_mapping
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.oidc_issuer_uri
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.oidc_allowed_audiences
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workload_identity_pool_provider.oidc_jwks_json_path

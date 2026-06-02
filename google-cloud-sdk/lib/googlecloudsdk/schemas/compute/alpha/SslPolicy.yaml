@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha SslPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -55,10 +55,10 @@ properties:
       field must be set to RESTRICTED.
     type: string
     enum:
-    - TLS_1_0
-    - TLS_1_1
-    - TLS_1_2
-    - TLS_1_3
+      - TLS_1_0
+      - TLS_1_1
+      - TLS_1_2
+      - TLS_1_3
   name:
     description: |-
       Name of the resource. The name must be 1-63 characters long, and
@@ -80,9 +80,9 @@ properties:
       exchange until October 2027, and allows it afterward.
     type: string
     enum:
-    - DEFAULT
-    - DEFERRED
-    - ENABLED
+      - DEFAULT
+      - DEFERRED
+      - ENABLED
   profile:
     description: |-
       Profile specifies the set of SSL features that can be used by the load
@@ -93,11 +93,11 @@ properties:
       field must be set to TLS_1_2.
     type: string
     enum:
-    - COMPATIBLE
-    - CUSTOM
-    - FIPS_202205
-    - MODERN
-    - RESTRICTED
+      - COMPATIBLE
+      - CUSTOM
+      - FIPS_202205
+      - MODERN
+      - RESTRICTED
   tlsSettings:
     description: |-
       Security settings for the proxy. This field is only applicable to a

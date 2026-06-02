@@ -12,7 +12,7 @@
     collection: vision.projects.locations.productSets
     method: removeProduct
     modify_request_hooks:
-    - googlecloudsdk.command_lib.ml.vision.product_search.utils:FixProductInRemoveProductFromProductSetRequest
+      - googlecloudsdk.command_lib.ml.vision.product_search.utils:FixProductInRemoveProductFromProductSetRequest
 
   arguments:
     resource:
@@ -20,9 +20,9 @@
       spec: !REF googlecloudsdk.command_lib.ml.vision.resources:product_set
 
     params:
-    - api_field: removeProductFromProductSetRequest.product
-      arg_name: product
-      required: true
-      help_text: |-
-        The id of the product to remove from the product set. The product must be in the same
-        project and location as the specified product set.
+      - api_field: removeProductFromProductSetRequest.product
+        arg_name: product
+        required: true
+        help_text: |-
+          The id of the product to remove from the product set. The product must be in the same
+          project and location as the specified product set.

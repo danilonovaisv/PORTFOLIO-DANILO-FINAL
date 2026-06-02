@@ -26,12 +26,12 @@
           $ {command} user-id-attr --location=global --format=json
   arguments:
     params:
-    - help_text: |-
-        Flag Attribute ID of the Flag Attribute to describe.
-      is_positional: true
-      resource_spec: !REF googlecloudsdk.command_lib.saas_runtime.resources:flag_attribute
-      required: true
+      - help_text: |-
+          Flag Attribute ID of the Flag Attribute to describe.
+        is_positional: true
+        resource_spec: !REF googlecloudsdk.command_lib.saas_runtime.resources:flag_attribute
+        required: true
   request:
     api_version: v1beta1
     collection:
-    - saasservicemgmt.projects.locations.flagAttributes
+      - saasservicemgmt.projects.locations.flagAttributes

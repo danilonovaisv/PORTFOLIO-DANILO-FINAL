@@ -14,12 +14,11 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: Update a BigQuery dataset.
-    description:  Update a BigQuery dataset.
+    description: Update a BigQuery dataset.
     examples: |
       The following command updates the description on a dataset with ID `my-dataset`
 
         $ {command}  my-dataset --description 'My New Dataset Description'
-
 
   request:
     collection: bigquery.datasets
@@ -31,5 +30,5 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:dataset
 
     params:
-    - _REF_: googlecloudsdk.command_lib.bq.flags:permissions_file
-    - _REF_: googlecloudsdk.command_lib.bq.flags:dataset.description
+      - _REF_: googlecloudsdk.command_lib.bq.flags:permissions_file
+      - _REF_: googlecloudsdk.command_lib.bq.flags:dataset.description

@@ -18,9 +18,9 @@
       spec: !REF googlecloudsdk.command_lib.ml.vision.resources:product_set
 
     params:
-    - api_field: productSet.displayName
-      arg_name: display-name
-      required: true
-      help_text: |-
-        The user provided name for this product set. It must not be empty and can be up to 4096
-        characters long.
+      - api_field: productSet.displayName
+        arg_name: display-name
+        required: true
+        help_text: |-
+          The user provided name for this product set. It must not be empty and can be up to 4096
+          characters long.

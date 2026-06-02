@@ -28,7 +28,7 @@ help_text:
 request:
   collection: managedkafka.projects.locations.connectClusters.connectors
   modify_request_hooks:
-  - googlecloudsdk.command_lib.managed_kafka.util:ConnectorCreateReadConfigAndTaskRestartPolicy
+    - googlecloudsdk.command_lib.managed_kafka.util:ConnectorCreateReadConfigAndTaskRestartPolicy
 
 arguments:
   resource:
@@ -36,18 +36,18 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.managed_kafka.resources:connector
     is_positional: true
   params:
-  - group:
-      required: true
-      mutex: true
-      params:
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connector-configs
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connector-config-file
-  - group:
+    - group:
+        required: true
+        mutex: true
+        params:
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connector-configs
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connector-config-file
+    - group:
+        required: false
+        params:
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:task-restart-min-backoff
+            required: true
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:task-restart-max-backoff
+            required: true
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:task-retry-disabled
       required: false
-      params:
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:task-restart-min-backoff
-        required: true
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:task-restart-max-backoff
-        required: true
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:task-retry-disabled
-    required: false

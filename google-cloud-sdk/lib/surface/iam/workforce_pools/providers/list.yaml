@@ -35,7 +35,7 @@
       is_positional: false
 
     params:
-    - api_field: showDeleted
-      arg_name: show-deleted
-      help_text: Show soft-deleted workforce pool providers by specifying this flag.
-      required: false
+      - api_field: showDeleted
+        arg_name: show-deleted
+        help_text: Show soft-deleted workforce pool providers by specifying this flag.
+        required: false

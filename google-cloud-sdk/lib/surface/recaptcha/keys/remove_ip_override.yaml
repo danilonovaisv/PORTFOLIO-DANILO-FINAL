@@ -14,14 +14,14 @@
       help_text: The reCAPTCHA key from which to remove the IP override.
 
     params:
-    - arg_name: ip
-      required: true
-      api_field: googleCloudRecaptchaenterpriseV1RemoveIpOverrideRequest.ipOverrideData.ip
-      help_text: IP address to override for the key.
-    - arg_name: override
-      required: true
-      api_field: googleCloudRecaptchaenterpriseV1RemoveIpOverrideRequest.ipOverrideData.overrideType
-      help_text: If set to allow, the IP address/CIDR range will be removed from the allowlisted IPs.
+      - arg_name: ip
+        required: true
+        api_field: googleCloudRecaptchaenterpriseV1RemoveIpOverrideRequest.ipOverrideData.ip
+        help_text: IP address to override for the key.
+      - arg_name: override
+        required: true
+        api_field: googleCloudRecaptchaenterpriseV1RemoveIpOverrideRequest.ipOverrideData.overrideType
+        help_text: If set to allow, the IP address/CIDR range will be removed from the allowlisted IPs.
 
   output:
     format: none

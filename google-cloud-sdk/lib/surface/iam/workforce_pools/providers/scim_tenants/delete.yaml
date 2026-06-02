@@ -30,7 +30,7 @@
     collection: iam.locations.workforcePools.providers.scimTenants
     api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.iam.hooks:ModifyHardDeleteFlagInRequest
+      - googlecloudsdk.command_lib.iam.hooks:ModifyHardDeleteFlagInRequest
 
   arguments:
     resource:
@@ -39,7 +39,7 @@
       is_positional: true
 
     params:
-    - arg_name: hard-delete
-      api_field: hardDelete
-      required: false
-      help_text: Deletes the SCIM tenant immediately. This operation cannot be undone.
+      - arg_name: hard-delete
+        api_field: hardDelete
+        required: false
+        help_text: Deletes the SCIM tenant immediately. This operation cannot be undone.

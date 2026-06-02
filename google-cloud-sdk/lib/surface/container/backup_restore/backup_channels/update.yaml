@@ -29,8 +29,8 @@
       spec: !REF googlecloudsdk.command_lib.container.backup_restore.resources:positional_backup_channel
 
     params:
-    - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:backup_channel_etag
-    - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:backup_channel_description
+      - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:backup_channel_etag
+      - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:backup_channel_description
 
     labels:
       api_field: backupChannel.labels

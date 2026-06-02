@@ -19,8 +19,7 @@
   arguments:
     resource:
       spec: !REF googlecloudsdk.command_lib.redis.resources:auth_token
-      help_text:
-        Arguments and flags that specify the Redis auth token you want to delete.
+      help_text: Arguments and flags that specify the Redis auth token you want to delete.
       is_positional: true
 
   async:

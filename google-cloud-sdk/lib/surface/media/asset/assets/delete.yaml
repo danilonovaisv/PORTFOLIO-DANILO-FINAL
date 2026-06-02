@@ -18,12 +18,12 @@
       help_text: The Cloud Media Asset asset to delete.
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:asset
     params:
-    - arg_name: etag
-      api_field: etag
-      required: false
-      help_text: |
-        The current etag of the asset. If an etag is provided and does not match the current etag of the asset, deletion will be blocked and a FAILED_PRECONDITION error will be returned.
+      - arg_name: etag
+        api_field: etag
+        required: false
+        help_text: |
+          The current etag of the asset. If an etag is provided and does not match the current etag of the asset, deletion will be blocked and a FAILED_PRECONDITION error will be returned.
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.media.asset.assets.hooks:ProcessOutput
+      - googlecloudsdk.command_lib.media.asset.assets.hooks:ProcessOutput

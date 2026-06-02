@@ -16,7 +16,8 @@ release_tracks: [GA]
 
 help_text:
   brief: Set the IAM policy for a workload identity pool.
-  description: Replaces the existing IAM policy for a workload identity pool given a workload identity pool ID
+  description:
+    Replaces the existing IAM policy for a workload identity pool given a workload identity pool ID
     and a file encoded in JSON or YAML that contains the IAM policy.
 
   examples: |

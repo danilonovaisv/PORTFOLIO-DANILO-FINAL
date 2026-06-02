@@ -20,50 +20,50 @@ projects_locations:
   plural_name: locations
   collection: iamconnectors.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_access_events:
   name: accessEvent
   plural_name: accessEvents
   collection: iamconnectors.projects.locations.accessEvents
   attributes:
-  - *project
-  - *location
-  - &accessEvent
-    parameter_name: accessEventsId
-    attribute_name: access_event
-    help: The accessEvent id of the {resource} resource.
+    - *project
+    - *location
+    - &accessEvent
+      parameter_name: accessEventsId
+      attribute_name: access_event
+      help: The accessEvent id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_connectors:
   name: connector
   plural_name: connectors
   collection: iamconnectors.projects.locations.connectors
   attributes:
-  - *project
-  - *location
-  - &connector
-    parameter_name: connectorsId
-    attribute_name: connector
-    help: The connector id of the {resource} resource.
+    - *project
+    - *location
+    - &connector
+      parameter_name: connectorsId
+      attribute_name: connector
+      help: The connector id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_connectors_authorizations:
   name: authorization
   plural_name: authorizations
   collection: iamconnectors.projects.locations.connectors.authorizations
   attributes:
-  - *project
-  - *location
-  - *connector
-  - &authorization
-    parameter_name: authorizationsId
-    attribute_name: authorization
-    help: The authorization id of the {resource} resource.
+    - *project
+    - *location
+    - *connector
+    - &authorization
+      parameter_name: authorizationsId
+      attribute_name: authorization
+      help: The authorization id of the {resource} resource.
   disable_auto_completers: false

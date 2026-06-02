@@ -17,17 +17,17 @@ arguments:
     help_text: |
       Name of the multicast consumer association to be created.
   params:
-  - arg_name:  multicast-domain-activation
-    api_field: multicastConsumerAssociation.multicastDomainActivation
-    help_text: The multicast domain activation to be used.
-    required: true
-  - arg_name:  network
-    api_field: multicastConsumerAssociation.network
-    help_text: The path of the multicast consumer VPC network.
-    required: true
-  - arg_name: description
-    api_field: multicastConsumerAssociation.description
-    help_text: The description for the multicast consumer association.
+    - arg_name: multicast-domain-activation
+      api_field: multicastConsumerAssociation.multicastDomainActivation
+      help_text: The multicast domain activation to be used.
+      required: true
+    - arg_name: network
+      api_field: multicastConsumerAssociation.network
+      help_text: The path of the multicast consumer VPC network.
+      required: true
+    - arg_name: description
+      api_field: multicastConsumerAssociation.description
+      help_text: The description for the multicast consumer association.
   labels:
     api_field: multicastConsumerAssociation.labels
 async:

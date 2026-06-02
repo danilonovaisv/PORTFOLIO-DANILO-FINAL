@@ -20,15 +20,15 @@ arguments:
     help_text: |
       The environment to be modified.
   params:
-  - arg_name: dns-suffix
-    required: true
-    api_field: addDNSPeeringZoneRequest.dnsSuffix
-    help_text: |
-      Name of the DNS suffix for the DNS peering zone (like example.com).
-  - arg_name: dns-network
-    api_field: addDNSPeeringZoneRequest.targetNetwork
-    help_text: |
-      Fully qualified name of the network for the DNS peering zone (like `projects/my-project/global/networks/my-network`). Defaults to the partnerNetwork of this SSE Environment.
+    - arg_name: dns-suffix
+      required: true
+      api_field: addDNSPeeringZoneRequest.dnsSuffix
+      help_text: |
+        Name of the DNS suffix for the DNS peering zone (like example.com).
+    - arg_name: dns-network
+      api_field: addDNSPeeringZoneRequest.targetNetwork
+      help_text: |
+        Fully qualified name of the network for the DNS peering zone (like `projects/my-project/global/networks/my-network`). Defaults to the partnerNetwork of this SSE Environment.
 
 async:
   collection: networksecurity.projects.locations.operations

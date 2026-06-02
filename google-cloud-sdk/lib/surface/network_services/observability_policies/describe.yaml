@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe an observability policy.
   description: Show details of an observability policy.
-
   examples: |
     Show details about an observability policy named 'my-observability-policy'.
 

@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Gets the metrics for a Cloud Healthcare API FHIR store.
+    brief: Gets the metrics for a Cloud Healthcare API FHIR store.
     description: Gets the metrics for a Cloud Healthcare API FHIR store.
     examples: |
       To get metrics for the FHIR store 'test-fhir-store', run:

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta MetadataFilter export schema
 description: A gcloud export/import command YAML validation schema.
@@ -41,6 +41,6 @@ properties:
       must have a matching label in the provided metadata. -
     type: string
     enum:
-    - MATCH_ALL
-    - MATCH_ANY
-    - NOT_SET
+      - MATCH_ALL
+      - MATCH_ANY
+      - NOT_SET

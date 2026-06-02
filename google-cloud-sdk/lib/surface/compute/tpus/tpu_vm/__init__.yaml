@@ -22,4 +22,4 @@ create_request:
     nodeId: '{nodesId}'
   use_relative_name: false
   modify_request_hooks:
-  - googlecloudsdk.command_lib.util.hooks.request_modifiers:SetParentRequestHook
+    - googlecloudsdk.command_lib.util.hooks.request_modifiers:SetParentRequestHook

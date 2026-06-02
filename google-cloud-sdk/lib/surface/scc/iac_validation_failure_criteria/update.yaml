@@ -14,21 +14,21 @@
     method: updateIacValidationFailureCriteria
   arguments:
     params:
-    - arg_name: iac_validation_failure_criteria
-      api_field: name
-      is_positional: true
-      required: true
-      help_text: |
-        Relative resource name of the IaC validation failure criteria, like `organizations/<organizationID>/locations/<location>/iacValidationFailureCriteria`.
-    - arg_name: failure_criteria_file
-      api_field: iacValidationFailureCriteria
-      type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-      processor: googlecloudsdk.core.yaml:load
-      required: true
-      help_text: |
-        Path to a YAML file containing failure criteria fields to update. Currently supports 'severityCountThresholds'.
-    - arg_name: allow_missing
-      api_field: allowMissing
-      type: bool
-      help_text: |
-        If set to true, and the resource is not found, a new resource will be created.
+      - arg_name: iac_validation_failure_criteria
+        api_field: name
+        is_positional: true
+        required: true
+        help_text: |
+          Relative resource name of the IaC validation failure criteria, like `organizations/<organizationID>/locations/<location>/iacValidationFailureCriteria`.
+      - arg_name: failure_criteria_file
+        api_field: iacValidationFailureCriteria
+        type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+        processor: googlecloudsdk.core.yaml:load
+        required: true
+        help_text: |
+          Path to a YAML file containing failure criteria fields to update. Currently supports 'severityCountThresholds'.
+      - arg_name: allow_missing
+        api_field: allowMissing
+        type: bool
+        help_text: |
+          If set to true, and the resource is not found, a new resource will be created.

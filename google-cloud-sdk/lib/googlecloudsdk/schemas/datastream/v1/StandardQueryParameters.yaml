@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 StandardQueryParameters export schema
 description: A gcloud export/import command YAML validation schema.
@@ -32,9 +32,9 @@ properties:
     description: Data format for response.
     type: string
     enum:
-    - json
-    - media
-    - proto
+      - json
+      - media
+      - proto
   callback:
     description: JSONP
     type: string
@@ -42,8 +42,8 @@ properties:
     description: V1 error format.
     type: string
     enum:
-    - _1
-    - _2
+      - _1
+      - _2
   fields:
     description: |-
       Selector specifying which fields to include in a partial response.

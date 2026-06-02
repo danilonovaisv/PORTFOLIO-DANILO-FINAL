@@ -29,12 +29,12 @@
       spec: !REF googlecloudsdk.command_lib.container.backup_restore.resources:restore
 
     params:
-    - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:restore_etag
-    - arg_name: description
-      api_field: restore.description
-      type: str
-      help_text: |
-        Optional text description for the restore.
+      - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:restore_etag
+      - arg_name: description
+        api_field: restore.description
+        type: str
+        help_text: |
+          Optional text description for the restore.
 
     labels:
       api_field: restore.labels

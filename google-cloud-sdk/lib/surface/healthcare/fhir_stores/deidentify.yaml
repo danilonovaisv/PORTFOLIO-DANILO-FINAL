@@ -25,13 +25,13 @@
       spec: !REF googlecloudsdk.command_lib.healthcare.resources:fhir_store
 
     params:
-    - arg_name: destination-store
-      api_field: deidentifyFhirStoreRequest.destinationStore
-      required: true
-      help_text: |
-        The name of the FHIR store to which the redacted data should be written
-        (e.g., projects/{projectId}/locations/{locationId}/datasets/{datasetId}/fhirStores/{fhirStoreId}).
-        The destination FHIR store must already exist, or the request will fail.
+      - arg_name: destination-store
+        api_field: deidentifyFhirStoreRequest.destinationStore
+        required: true
+        help_text: |
+          The name of the FHIR store to which the redacted data should be written
+          (e.g., projects/{projectId}/locations/{locationId}/datasets/{datasetId}/fhirStores/{fhirStoreId}).
+          The destination FHIR store must already exist, or the request will fail.
 
   async:
     collection: healthcare.projects.locations.datasets.operations

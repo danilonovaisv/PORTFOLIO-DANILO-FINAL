@@ -1,4 +1,4 @@
- {
+{
   "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
   "language": "python",
   "libraryPackage": "googlecloudsdk.generated_clients.gapic_clients.spanner_v1",
@@ -11,84 +11,52 @@
           "libraryClient": "SpannerClient",
           "rpcs": {
             "BatchCreateSessions": {
-              "methods": [
-                "batch_create_sessions"
-              ]
+              "methods": ["batch_create_sessions"]
             },
             "BatchWrite": {
-              "methods": [
-                "batch_write"
-              ]
+              "methods": ["batch_write"]
             },
             "BeginTransaction": {
-              "methods": [
-                "begin_transaction"
-              ]
+              "methods": ["begin_transaction"]
             },
             "Commit": {
-              "methods": [
-                "commit"
-              ]
+              "methods": ["commit"]
             },
             "CreateSession": {
-              "methods": [
-                "create_session"
-              ]
+              "methods": ["create_session"]
             },
             "DeleteSession": {
-              "methods": [
-                "delete_session"
-              ]
+              "methods": ["delete_session"]
             },
             "ExecuteBatchDml": {
-              "methods": [
-                "execute_batch_dml"
-              ]
+              "methods": ["execute_batch_dml"]
             },
             "ExecuteSql": {
-              "methods": [
-                "execute_sql"
-              ]
+              "methods": ["execute_sql"]
             },
             "ExecuteStreamingSql": {
-              "methods": [
-                "execute_streaming_sql"
-              ]
+              "methods": ["execute_streaming_sql"]
             },
             "GetSession": {
-              "methods": [
-                "get_session"
-              ]
+              "methods": ["get_session"]
             },
             "ListSessions": {
-              "methods": [
-                "list_sessions"
-              ]
+              "methods": ["list_sessions"]
             },
             "PartitionQuery": {
-              "methods": [
-                "partition_query"
-              ]
+              "methods": ["partition_query"]
             },
             "PartitionRead": {
-              "methods": [
-                "partition_read"
-              ]
+              "methods": ["partition_read"]
             },
             "Read": {
-              "methods": [
-                "read"
-              ]
+              "methods": ["read"]
             },
             "Rollback": {
-              "methods": [
-                "rollback"
-              ]
+              "methods": ["rollback"]
             },
             "StreamingRead": {
-              "methods": [
-                "streaming_read"
-              ]
+              "methods": ["streaming_read"]
             }
           }
         },
@@ -96,84 +64,52 @@
           "libraryClient": "SpannerAsyncClient",
           "rpcs": {
             "BatchCreateSessions": {
-              "methods": [
-                "batch_create_sessions"
-              ]
+              "methods": ["batch_create_sessions"]
             },
             "BatchWrite": {
-              "methods": [
-                "batch_write"
-              ]
+              "methods": ["batch_write"]
             },
             "BeginTransaction": {
-              "methods": [
-                "begin_transaction"
-              ]
+              "methods": ["begin_transaction"]
             },
             "Commit": {
-              "methods": [
-                "commit"
-              ]
+              "methods": ["commit"]
             },
             "CreateSession": {
-              "methods": [
-                "create_session"
-              ]
+              "methods": ["create_session"]
             },
             "DeleteSession": {
-              "methods": [
-                "delete_session"
-              ]
+              "methods": ["delete_session"]
             },
             "ExecuteBatchDml": {
-              "methods": [
-                "execute_batch_dml"
-              ]
+              "methods": ["execute_batch_dml"]
             },
             "ExecuteSql": {
-              "methods": [
-                "execute_sql"
-              ]
+              "methods": ["execute_sql"]
             },
             "ExecuteStreamingSql": {
-              "methods": [
-                "execute_streaming_sql"
-              ]
+              "methods": ["execute_streaming_sql"]
             },
             "GetSession": {
-              "methods": [
-                "get_session"
-              ]
+              "methods": ["get_session"]
             },
             "ListSessions": {
-              "methods": [
-                "list_sessions"
-              ]
+              "methods": ["list_sessions"]
             },
             "PartitionQuery": {
-              "methods": [
-                "partition_query"
-              ]
+              "methods": ["partition_query"]
             },
             "PartitionRead": {
-              "methods": [
-                "partition_read"
-              ]
+              "methods": ["partition_read"]
             },
             "Read": {
-              "methods": [
-                "read"
-              ]
+              "methods": ["read"]
             },
             "Rollback": {
-              "methods": [
-                "rollback"
-              ]
+              "methods": ["rollback"]
             },
             "StreamingRead": {
-              "methods": [
-                "streaming_read"
-              ]
+              "methods": ["streaming_read"]
             }
           }
         },
@@ -181,84 +117,52 @@
           "libraryClient": "SpannerClient",
           "rpcs": {
             "BatchCreateSessions": {
-              "methods": [
-                "batch_create_sessions"
-              ]
+              "methods": ["batch_create_sessions"]
             },
             "BatchWrite": {
-              "methods": [
-                "batch_write"
-              ]
+              "methods": ["batch_write"]
             },
             "BeginTransaction": {
-              "methods": [
-                "begin_transaction"
-              ]
+              "methods": ["begin_transaction"]
             },
             "Commit": {
-              "methods": [
-                "commit"
-              ]
+              "methods": ["commit"]
             },
             "CreateSession": {
-              "methods": [
-                "create_session"
-              ]
+              "methods": ["create_session"]
             },
             "DeleteSession": {
-              "methods": [
-                "delete_session"
-              ]
+              "methods": ["delete_session"]
             },
             "ExecuteBatchDml": {
-              "methods": [
-                "execute_batch_dml"
-              ]
+              "methods": ["execute_batch_dml"]
             },
             "ExecuteSql": {
-              "methods": [
-                "execute_sql"
-              ]
+              "methods": ["execute_sql"]
             },
             "ExecuteStreamingSql": {
-              "methods": [
-                "execute_streaming_sql"
-              ]
+              "methods": ["execute_streaming_sql"]
             },
             "GetSession": {
-              "methods": [
-                "get_session"
-              ]
+              "methods": ["get_session"]
             },
             "ListSessions": {
-              "methods": [
-                "list_sessions"
-              ]
+              "methods": ["list_sessions"]
             },
             "PartitionQuery": {
-              "methods": [
-                "partition_query"
-              ]
+              "methods": ["partition_query"]
             },
             "PartitionRead": {
-              "methods": [
-                "partition_read"
-              ]
+              "methods": ["partition_read"]
             },
             "Read": {
-              "methods": [
-                "read"
-              ]
+              "methods": ["read"]
             },
             "Rollback": {
-              "methods": [
-                "rollback"
-              ]
+              "methods": ["rollback"]
             },
             "StreamingRead": {
-              "methods": [
-                "streaming_read"
-              ]
+              "methods": ["streaming_read"]
             }
           }
         }

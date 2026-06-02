@@ -15,11 +15,11 @@
 
   arguments:
     params:
-    - arg_name: operation
-      api_field: name
-      is_positional: true
-      required: true
-      help_text: |
-        Full name of the operation to describe.
+      - arg_name: operation
+        api_field: name
+        is_positional: true
+        required: true
+        help_text: |
+          Full name of the operation to describe.
   output:
     format: json

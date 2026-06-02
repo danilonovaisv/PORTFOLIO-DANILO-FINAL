@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified ServerTlsPolicy.
   examples: |
-      To delete a ServerTlsPolicy called 'my-server-tls-policy', run:
+    To delete a ServerTlsPolicy called 'my-server-tls-policy', run:
 
-        $ {command} my-server-tls-policy --location=global
+      $ {command} my-server-tls-policy --location=global
 
 arguments:
   resource:

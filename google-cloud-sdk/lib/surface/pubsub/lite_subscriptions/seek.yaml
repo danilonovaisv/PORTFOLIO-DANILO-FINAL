@@ -28,8 +28,8 @@ request:
   collection: pubsublite.admin.projects.locations.subscriptions
   method: seek
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
-  - googlecloudsdk.command_lib.pubsub.lite_util:SetSeekTarget
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:SetSeekTarget
 
 async:
   collection: pubsublite.admin.projects.locations.operations
@@ -42,10 +42,10 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.pubsub.resources:lite_subscription
 
   params:
-  - group:
-      mutex: true
-      required: true
-      params:
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:starting-offset
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:publish-time
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:event-time
+    - group:
+        mutex: true
+        required: true
+        params:
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:starting-offset
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:publish-time
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:event-time

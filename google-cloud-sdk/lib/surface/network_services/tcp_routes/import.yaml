@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a tcp route.
   examples: |
-      To import a tcp route named 'my-tcp-route' from a YAML file, run:
+    To import a tcp route named 'my-tcp-route' from a YAML file, run:
 
-        $ {command} my-tcp-route --source=my-tcp-route.yaml --location=global
+      $ {command} my-tcp-route --source=my-tcp-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.tcpRoutes

@@ -20,7 +20,7 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_token.display_name
-      required: false
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_token.display_name
+        required: false
   output:
     format: yaml

@@ -16,16 +16,16 @@
       help_text: |
         Arguments and flags that specify the cluster to update.
     params:
-    - arg_name: display-name
-      api_field: workstationCluster.displayName
-      type: str
-      help_text: |
-        Human-readable name for this workstation cluster.
-    - arg_name: enable-http2
-      api_field: workstationCluster.gatewayConfig.http2Enabled
-      type: bool
-      help_text: |
-        Enable or disable HTTP/2 for the workstation cluster.
+      - arg_name: display-name
+        api_field: workstationCluster.displayName
+        type: str
+        help_text: |
+          Human-readable name for this workstation cluster.
+      - arg_name: enable-http2
+        api_field: workstationCluster.gatewayConfig.http2Enabled
+        type: bool
+        help_text: |
+          Enable or disable HTTP/2 for the workstation cluster.
     labels:
       api_field: workstationCluster.labels
 

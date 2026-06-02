@@ -7,9 +7,9 @@ help_text:
   description: |
     List all policies in the specified location of the current project.
   examples: |
-      To list policies in the current project, run:
+    To list policies in the current project, run:
 
-        $ {command} --location=us-central1
+      $ {command} --location=us-central1
 
 request:
   ALPHA:
@@ -29,6 +29,6 @@ response:
 
 output:
   format: |
-     table(
-        name.basename():label=NAME
-      )
+    table(
+       name.basename():label=NAME
+     )

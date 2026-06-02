@@ -11,7 +11,7 @@
     collection: compute.hosts
     method: get
     modify_request_hooks:
-    - googlecloudsdk.command_lib.compute.hosts.util:CreateAssociationHook
+      - googlecloudsdk.command_lib.compute.hosts.util:CreateAssociationHook
 
   arguments:
     resource:
@@ -19,11 +19,11 @@
       spec: !REF googlecloudsdk.command_lib.compute.resources:host
 
     params:
-    - arg_name: reservation
-      required: false
-      help_text: |
-        Name of the reservation the host is associated with.
-    - arg_name: reservation-block
-      required: false
-      help_text: |
-        Name of the reservation block the host is associated with.
+      - arg_name: reservation
+        required: false
+        help_text: |
+          Name of the reservation the host is associated with.
+      - arg_name: reservation-block
+        required: false
+        help_text: |
+          Name of the reservation block the host is associated with.

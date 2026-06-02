@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha AdvancedMachineFeatures export schema
 description: A gcloud export/import command YAML validation schema.
@@ -55,9 +55,9 @@ properties:
       The set of performance measurement counters to enable for the instance.
     type: string
     enum:
-    - ARCHITECTURAL
-    - STANDARD
-    - ENHANCED
+      - ARCHITECTURAL
+      - STANDARD
+      - ENHANCED
   enableWatchdogTimer:
     description: |-
       Whether to enable watchdog timer device during instance creation.

@@ -18,9 +18,9 @@
         Arguments and flags that define the Dataplex Aspect Type you want to delete.
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:aspect_type
     params:
-    - arg_name: etag
-      api_field: etag
-      help_text: |
-        etag for the Aspect Type you want to delete.
+      - arg_name: etag
+        api_field: etag
+        help_text: |
+          etag for the Aspect Type you want to delete.
   async:
     collection: dataplex.projects.locations.operations

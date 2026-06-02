@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 AgentGatewayGoogleManaged export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,6 +29,6 @@ properties:
     description: Operating Mode of Agent Gateway.
     type: string
     enum:
-    - AGENT_TO_ANYWHERE
-    - CLIENT_TO_AGENT
-    - GOVERNED_ACCESS_PATH_UNSPECIFIED
+      - AGENT_TO_ANYWHERE
+      - CLIENT_TO_AGENT
+      - GOVERNED_ACCESS_PATH_UNSPECIFIED

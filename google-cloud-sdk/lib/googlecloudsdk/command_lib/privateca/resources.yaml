@@ -2,23 +2,23 @@ project:
   name: project
   collection: privateca.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project ID.
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project ID.
+      property: core/project
   disable_auto_completers: true
 
 location:
   name: location
   collection: privateca.projects.locations
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location of the {resource}.
-    property: privateca/location
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location of the {resource}.
+      property: privateca/location
   disable_auto_completers: true
 
 certificate_template:
@@ -26,12 +26,12 @@ certificate_template:
   collection: privateca.projects.locations.certificateTemplates
   request_id_field: certificate_template.name
   attributes:
-  - *project
-  - *location
-  - &certificate_template
-    parameter_name: certificateTemplatesId
-    attribute_name: certificate_template
-    help: The ID of the certificate template.
+    - *project
+    - *location
+    - &certificate_template
+      parameter_name: certificateTemplatesId
+      attribute_name: certificate_template
+      help: The ID of the certificate template.
   disable_auto_completers: true
 
 ca_pool:
@@ -39,12 +39,12 @@ ca_pool:
   collection: privateca.projects.locations.caPools
   request_id_field: caPool.name
   attributes:
-  - *project
-  - *location
-  - &ca_pool
-    parameter_name: caPoolsId
-    attribute_name: pool
-    help: The ID of the CA Pool.
+    - *project
+    - *location
+    - &ca_pool
+      parameter_name: caPoolsId
+      attribute_name: pool
+      help: The ID of the CA Pool.
   disable_auto_completers: true
 
 cert_authority:
@@ -52,13 +52,13 @@ cert_authority:
   collection: privateca.projects.locations.caPools.certificateAuthorities
   request_id_field: certificateAuthority.name
   attributes:
-  - *project
-  - *location
-  - *ca_pool
-  - &cert_authority
-    parameter_name: certificateAuthoritiesId
-    attribute_name: certificate_authority
-    help: The ID of the certificate authority.
+    - *project
+    - *location
+    - *ca_pool
+    - &cert_authority
+      parameter_name: certificateAuthoritiesId
+      attribute_name: certificate_authority
+      help: The ID of the certificate authority.
   disable_auto_completers: true
 
 cert:
@@ -66,18 +66,18 @@ cert:
   collection: privateca.projects.locations.caPools.certificates
   request_id_field: certificate.name
   attributes:
-  - *project
-  - &cert_issuer_location
-    parameter_name: locationsId
-    attribute_name: issuer-location
-    help: The location of the {resource}.
-    property: privateca/location
-  - &issuer_pool
-    parameter_name: caPoolsId
-    attribute_name: issuer-pool
-    help: The ID of the issuing CA Pool.
-  - &cert
-    parameter_name: certificatesId
-    attribute_name: certificate
-    help: The ID of the certificate.
+    - *project
+    - &cert_issuer_location
+      parameter_name: locationsId
+      attribute_name: issuer-location
+      help: The location of the {resource}.
+      property: privateca/location
+    - &issuer_pool
+      parameter_name: caPoolsId
+      attribute_name: issuer-pool
+      help: The ID of the issuing CA Pool.
+    - &cert
+      parameter_name: certificatesId
+      attribute_name: certificate
+      help: The ID of the certificate.
   disable_auto_completers: true

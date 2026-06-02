@@ -35,4 +35,4 @@
     # the 'name' parameter, here the client must explicitly provide the full resource name
     # including the suffix.
     modify_request_hooks:
-    - googlecloudsdk.command_lib.memorystore.util:UpdateGetSharedRegionalCARequestPath
+      - googlecloudsdk.command_lib.memorystore.util:UpdateGetSharedRegionalCARequestPath

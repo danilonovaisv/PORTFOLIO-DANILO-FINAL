@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a Url List.
   examples: |
-      To export a Url List, run:
+    To export a Url List, run:
 
-        $ {command} my-url-list --destination=my-url-list.yaml --location=global
+      $ {command} my-url-list --destination=my-url-list.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.urlLists

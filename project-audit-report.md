@@ -6,25 +6,22 @@ Gerado em: 5/24/2026, 1:23:39 AM
 
 ## 📦 Dependências não utilizadas
 
-
-
 ## 🧱 Dependências de desenvolvimento não utilizadas
 
-
-
 ## 🌿 Branches no repositório
-- * main
+
+- - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
-- + codex/fix-firebase-deploy-workflow
-- + codex/ghost-final-files
-- + codex/ghost-portfolio-hero-pr
+- - codex/fix-firebase-deploy-workflow
+- - codex/ghost-final-files
+- - codex/ghost-portfolio-hero-pr
 - remotes/origin/codex/ghost-portfolio-hero-pr
 - codex/base-before-ghost-final
 - docs/sobre-page-technical-analysis-4751686432196136347
 - codex/media-card-system
 - remotes/origin/codex/media-card-system
-- + worktree-fix+shader-lines-regression
+- - worktree-fix+shader-lines-regression
 - worktree-fix-media-glow-deploy
 - fix/claude-autofix-expression-syntax
 - remotes/origin/claude/weekly-audit-report-2026-05-19
@@ -47,8 +44,8 @@ Gerado em: 5/24/2026, 1:23:39 AM
 - palette-footer-focus-styles-6264653163697014194
 - codex/deploymentvalidationconfigvalidate-teste-de-supabase-and
 
-
 ## 🪓 Branches potencialmente obsoletas
+
 - remotes/origin/codex/ghost-portfolio-hero-pr
 - remotes/origin/codex/media-card-system
 - remotes/origin/claude/weekly-audit-report-2026-05-19

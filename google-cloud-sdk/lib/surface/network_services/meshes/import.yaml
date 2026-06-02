@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a mesh.
   examples: |
-      To import a mesh named 'my-mesh' from a YAML file, run:
+    To import a mesh named 'my-mesh' from a YAML file, run:
 
-        $ {command} my-mesh --source=my-mesh.yaml --location=global
+      $ {command} my-mesh --source=my-mesh.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.meshes
@@ -15,7 +15,6 @@ request:
     api_version: v1alpha1
   GA:
     api_version: v1
-
 
 arguments:
   resource:

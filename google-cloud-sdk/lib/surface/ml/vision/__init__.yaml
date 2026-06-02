@@ -53,7 +53,7 @@ args:
       Model version to use for the feature.
     type: str
     choices:
-    - arg_value: builtin/stable
-      enum_value: builtin/stable
-    - arg_value: builtin/latest
-      enum_value: builtin/latest
+      - arg_value: builtin/stable
+        enum_value: builtin/stable
+      - arg_value: builtin/latest
+        enum_value: builtin/latest

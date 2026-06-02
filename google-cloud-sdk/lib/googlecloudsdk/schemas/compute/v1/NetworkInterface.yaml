@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 NetworkInterface export schema
 description: A gcloud export/import command YAML validation schema.
@@ -66,9 +66,9 @@ properties:
       IPV4_IPV6.
     type: string
     enum:
-    - EXTERNAL
-    - INTERNAL
-    - UNSPECIFIED_IPV6_ACCESS_TYPE
+      - EXTERNAL
+      - INTERNAL
+      - UNSPECIFIED_IPV6_ACCESS_TYPE
   ipv6Address:
     description: |-
       [Output Only] An IPv6 internal network address for this
@@ -112,9 +112,9 @@ properties:
       gVNIC or VirtioNet.
     type: string
     enum:
-    - GVNIC
-    - UNSPECIFIED_NIC_TYPE
-    - VIRTIO_NET
+      - GVNIC
+      - UNSPECIFIED_NIC_TYPE
+      - VIRTIO_NET
   queueCount:
     description: |-
       The networking queue count that's specified by users for the
@@ -129,9 +129,9 @@ properties:
       creation and update network interface operations.
     type: string
     enum:
-    - IPV4_IPV6
-    - IPV4_ONLY
-    - UNSPECIFIED_STACK_TYPE
+      - IPV4_IPV6
+      - IPV4_ONLY
+      - UNSPECIFIED_STACK_TYPE
   subnetwork:
     description: |-
       The URL of the Subnetwork resource for this instance. If the
@@ -153,8 +153,8 @@ properties:
   igmpQuery:
     type: string
     enum:
-    - IGMP_QUERY_V2
-    - IGMP_QUERY_DISABLED
+      - IGMP_QUERY_V2
+      - IGMP_QUERY_DISABLED
     description: |-
       Indicate whether igmp query is enabled on the network interface
       or not. If enabled, also indicates the version of IGMP supported.

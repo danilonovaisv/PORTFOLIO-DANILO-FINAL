@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified grpc route.
   examples: |
-      To delete a grpc route named 'my-grpc-route', run:
+    To delete a grpc route named 'my-grpc-route', run:
 
-        $ {command} my-grpc-route --location=global
+      $ {command} my-grpc-route --location=global
 
 arguments:
   resource:

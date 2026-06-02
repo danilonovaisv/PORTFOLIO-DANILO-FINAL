@@ -35,20 +35,20 @@
         Arguments and flags that specify the resource and the location you want to alter.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:service
     params:
-    - arg_name: resource_name
-      api_field: alterMetadataResourceLocationRequest.resourceName
-      help_text: |
-        The relative metadata resource name in the following format.
-         `databases/{database_id}`
-         or
-         `databases/{database_id}/tables/{table_id}`
-         or
-         `databases/{database_id}/tables/{table_id}/partitions/{partition_id}`
-      required: true
-    - arg_name: location_uri
-      api_field: alterMetadataResourceLocationRequest.locationUri
-      help_text: |
-        The new location URI for the metadata resource.
-      required: true
+      - arg_name: resource_name
+        api_field: alterMetadataResourceLocationRequest.resourceName
+        help_text: |
+          The relative metadata resource name in the following format.
+           `databases/{database_id}`
+           or
+           `databases/{database_id}/tables/{table_id}`
+           or
+           `databases/{database_id}/tables/{table_id}/partitions/{partition_id}`
+        required: true
+      - arg_name: location_uri
+        api_field: alterMetadataResourceLocationRequest.locationUri
+        help_text: |
+          The new location URI for the metadata resource.
+        required: true
   async:
     collection: metastore.projects.locations.operations

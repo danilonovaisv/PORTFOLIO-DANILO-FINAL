@@ -20,51 +20,51 @@ projects_locations:
   plural_name: locations
   collection: vectorsearch.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_collections:
   name: collection
   plural_name: collections
   collection: vectorsearch.projects.locations.collections
   attributes:
-  - *project
-  - *location
-  - &collection
-    parameter_name: collectionsId
-    attribute_name: collection
-    help: The collection id of the {resource} resource.
+    - *project
+    - *location
+    - &collection
+      parameter_name: collectionsId
+      attribute_name: collection
+      help: The collection id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_collections_data_objects:
   name: dataObject
   plural_name: dataObjects
   collection: vectorsearch.projects.locations.collections.dataObjects
   attributes:
-  - *project
-  - *location
-  - *collection
-  - &dataObject
-    parameter_name: dataObjectsId
-    attribute_name: data_object
-    help: The dataObject id of the {resource} resource.
+    - *project
+    - *location
+    - *collection
+    - &dataObject
+      parameter_name: dataObjectsId
+      attribute_name: data_object
+      help: The dataObject id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_collections_indexes:
   name: index
   plural_name: indexes
   collection: vectorsearch.projects.locations.collections.indexes
   attributes:
-  - *project
-  - *location
-  - *collection
-  - &index
-    parameter_name: indexesId
-    attribute_name: index
-    help: The index id of the {resource} resource.
+    - *project
+    - *location
+    - *collection
+    - &index
+      parameter_name: indexesId
+      attribute_name: index
+      help: The index id of the {resource} resource.
   disable_auto_completers: false

@@ -8,7 +8,7 @@ assign_issues:
 
 assign_issues_by:
   - labels:
-      - "samples"
+      - 'samples'
     to:
       - googleapis/python-samples-reviewers
       - googleapis/googleapis-auth

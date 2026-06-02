@@ -3,11 +3,11 @@ project:
   plural_name: projects
   collection: saasservicemgmt.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: Project ID
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: Project ID
+      property: core/project
   disable_auto_completers: true
 
 project_location:
@@ -15,11 +15,11 @@ project_location:
   plural_name: locations
   collection: saasservicemgmt.projects.locations
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: Location ID
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: Location ID
   disable_auto_completers: true
 
 # This is for the 'parent' argument for list commands. It is the same as project_location, but with
@@ -29,15 +29,15 @@ project_location_with_default:
   plural_name: locations
   collection: saasservicemgmt.projects.locations
   attributes:
-  - *project
-  - &project_location_with_default
-    parameter_name: locationsId
-    attribute_name: location
-    help: Location ID
-    fallthroughs:
-    - value: "-"
-      hint: |-
-        if left empty, will use the wildcard '-' to list all locations
+    - *project
+    - &project_location_with_default
+      parameter_name: locationsId
+      attribute_name: location
+      help: Location ID
+      fallthroughs:
+        - value: '-'
+          hint: |-
+            if left empty, will use the wildcard '-' to list all locations
   disable_auto_completers: true
 
 flag:
@@ -45,12 +45,12 @@ flag:
   plural_name: flags
   collection: saasservicemgmt.projects.locations.flags
   attributes:
-  - *project
-  - *location
-  - &flagId
-    parameter_name: flagsId
-    attribute_name: flag
-    help: Flag ID
+    - *project
+    - *location
+    - &flagId
+      parameter_name: flagsId
+      attribute_name: flag
+      help: Flag ID
   disable_auto_completers: false
 
 flag_release:
@@ -58,12 +58,12 @@ flag_release:
   plural_name: flagReleases
   collection: saasservicemgmt.projects.locations.flagReleases
   attributes:
-  - *project
-  - *location
-  - &flagRelease
-    parameter_name: flagReleasesId
-    attribute_name: flag_release
-    help: Flag Release ID
+    - *project
+    - *location
+    - &flagRelease
+      parameter_name: flagReleasesId
+      attribute_name: flag_release
+      help: Flag Release ID
   disable_auto_completers: false
 
 flag_revision:
@@ -71,12 +71,12 @@ flag_revision:
   plural_name: flagRevisions
   collection: saasservicemgmt.projects.locations.flagRevisions
   attributes:
-  - *project
-  - *location
-  - &flagRevision
-    parameter_name: flagRevisionsId
-    attribute_name: flag_revision
-    help: Flag Revision ID
+    - *project
+    - *location
+    - &flagRevision
+      parameter_name: flagRevisionsId
+      attribute_name: flag_revision
+      help: Flag Revision ID
   disable_auto_completers: false
 
 flag_attribute:
@@ -84,12 +84,12 @@ flag_attribute:
   plural_name: flagAttributes
   collection: saasservicemgmt.projects.locations.flagAttributes
   attributes:
-  - *project
-  - *location
-  - &flagAttribute
-    parameter_name: flagAttributesId
-    attribute_name: flag_attribute
-    help: Flag Attribute ID
+    - *project
+    - *location
+    - &flagAttribute
+      parameter_name: flagAttributesId
+      attribute_name: flag_attribute
+      help: Flag Attribute ID
   disable_auto_completers: false
 
 rollout_kind:
@@ -97,12 +97,12 @@ rollout_kind:
   plural_name: rolloutKinds
   collection: saasservicemgmt.projects.locations.rolloutKinds
   attributes:
-  - *project
-  - *location
-  - &rolloutKindId
-    parameter_name: rolloutKindsId
-    attribute_name: rollout_kind
-    help: Rollout Kind ID.
+    - *project
+    - *location
+    - &rolloutKindId
+      parameter_name: rolloutKindsId
+      attribute_name: rollout_kind
+      help: Rollout Kind ID.
   disable_auto_completers: false
 
 rollout:
@@ -110,12 +110,12 @@ rollout:
   plural_name: rollouts
   collection: saasservicemgmt.projects.locations.rollouts
   attributes:
-  - *project
-  - *location
-  - &rolloutId
-    parameter_name: rolloutsId
-    attribute_name: rollout
-    help: Rollout ID
+    - *project
+    - *location
+    - &rolloutId
+      parameter_name: rolloutsId
+      attribute_name: rollout
+      help: Rollout ID
   disable_auto_completers: false
 
 saas:
@@ -123,12 +123,12 @@ saas:
   plural_name: saas
   collection: saasservicemgmt.projects.locations.saas
   attributes:
-  - *project
-  - *location
-  - &saas
-    parameter_name: saasId
-    attribute_name: saas
-    help: Saas ID
+    - *project
+    - *location
+    - &saas
+      parameter_name: saasId
+      attribute_name: saas
+      help: Saas ID
   disable_auto_completers: false
 
 tenant:
@@ -136,12 +136,12 @@ tenant:
   plural_name: tenants
   collection: saasservicemgmt.projects.locations.tenants
   attributes:
-  - *project
-  - *location
-  - &tenant
-    parameter_name: tenantsId
-    attribute_name: tenant
-    help: Tenant ID
+    - *project
+    - *location
+    - &tenant
+      parameter_name: tenantsId
+      attribute_name: tenant
+      help: Tenant ID
   disable_auto_completers: false
 
 unit_kind:
@@ -149,12 +149,12 @@ unit_kind:
   plural_name: unitKinds
   collection: saasservicemgmt.projects.locations.unitKinds
   attributes:
-  - *project
-  - *location
-  - &unitKind
-    parameter_name: unitKindsId
-    attribute_name: unit_kind
-    help: Unit Kind ID
+    - *project
+    - *location
+    - &unitKind
+      parameter_name: unitKindsId
+      attribute_name: unit_kind
+      help: Unit Kind ID
   disable_auto_completers: false
 
 unit:
@@ -162,12 +162,12 @@ unit:
   plural_name: units
   collection: saasservicemgmt.projects.locations.units
   attributes:
-  - *project
-  - *location
-  - &unit
-    parameter_name: unitsId
-    attribute_name: unit
-    help: Unit ID
+    - *project
+    - *location
+    - &unit
+      parameter_name: unitsId
+      attribute_name: unit
+      help: Unit ID
   disable_auto_completers: false
 
 unit_operation:
@@ -175,12 +175,12 @@ unit_operation:
   plural_name: unitOperations
   collection: saasservicemgmt.projects.locations.unitOperations
   attributes:
-  - *project
-  - *location
-  - &unitOperation
-    parameter_name: unitOperationsId
-    attribute_name: unit_operation
-    help: Unit Operation ID
+    - *project
+    - *location
+    - &unitOperation
+      parameter_name: unitOperationsId
+      attribute_name: unit_operation
+      help: Unit Operation ID
   disable_auto_completers: false
 
 parent_unit_operation:
@@ -188,12 +188,12 @@ parent_unit_operation:
   plural_name: parentUnitOperations
   collection: saasservicemgmt.projects.locations.unitOperations
   attributes:
-  - *project
-  - *location
-  - &parentUnitOperation
-    parameter_name: unitOperationsId
-    attribute_name: unit_operation
-    help: Unit Operation ID
+    - *project
+    - *location
+    - &parentUnitOperation
+      parameter_name: unitOperationsId
+      attribute_name: unit_operation
+      help: Unit Operation ID
   disable_auto_completers: false
 
 release:
@@ -201,12 +201,12 @@ release:
   plural_name: releases
   collection: saasservicemgmt.projects.locations.releases
   attributes:
-  - *project
-  - *location
-  - &release
-    parameter_name: releasesId
-    attribute_name: release
-    help: Release ID
+    - *project
+    - *location
+    - &release
+      parameter_name: releasesId
+      attribute_name: release
+      help: Release ID
   disable_auto_completers: false
 
 operation:
@@ -214,10 +214,10 @@ operation:
   plural_name: operations
   collection: saasservicemgmt.projects.locations.operations
   attributes:
-  - *project
-  - *location
-  - &operation
-    parameter_name: operationsId
-    attribute_name: operation
-    help: Operation ID
+    - *project
+    - *location
+    - &operation
+      parameter_name: operationsId
+      attribute_name: operation
+      help: Operation ID
   disable_auto_completers: false

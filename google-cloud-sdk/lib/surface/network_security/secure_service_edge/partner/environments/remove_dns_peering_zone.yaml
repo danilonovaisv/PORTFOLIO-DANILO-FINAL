@@ -16,11 +16,11 @@ arguments:
     help_text: |
       The environment to be modified.
   params:
-  - arg_name: dns-suffix
-    required: true
-    api_field: removeDNSPeeringZoneRequest.dnsSuffix
-    help_text: |
-      Name of the DNS suffix to be removed (like example.com).
+    - arg_name: dns-suffix
+      required: true
+      api_field: removeDNSPeeringZoneRequest.dnsSuffix
+      help_text: |
+        Name of the DNS suffix to be removed (like example.com).
 
 async:
   collection: networksecurity.projects.locations.operations

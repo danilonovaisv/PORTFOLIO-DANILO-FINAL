@@ -20,9 +20,9 @@
       help_text: The connector for which to test permissions.
       spec: !REF googlecloudsdk.command_lib.agent_identity.v1alpha_resources:projects_locations_connectors
     params:
-    - arg_name: permissions
-      api_field: testIamPermissionsRequest.permissions
-      required: true
-      repeated: true
-      help_text: |-
-        The permissions to test.
+      - arg_name: permissions
+        api_field: testIamPermissionsRequest.permissions
+        required: true
+        repeated: true
+        help_text: |-
+          The permissions to test.

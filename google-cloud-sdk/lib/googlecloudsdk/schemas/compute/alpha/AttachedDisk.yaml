@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha AttachedDisk export schema
 description: A gcloud export/import command YAML validation schema.
@@ -102,9 +102,9 @@ properties:
       NVMe, see Local SSD performance.
     type: string
     enum:
-    - NVDIMM
-    - NVME
-    - SCSI
+      - NVDIMM
+      - NVME
+      - SCSI
   kind:
     description: |-
       [Output Only] Type of the resource. Always compute#attachedDisk for
@@ -122,8 +122,8 @@ properties:
       READ_WRITE mode.
     type: string
     enum:
-    - READ_ONLY
-    - READ_WRITE
+      - READ_ONLY
+      - READ_WRITE
   savedState:
     description: |-
       For LocalSSD disks on VM Instances in STOPPED or SUSPENDED state,
@@ -132,8 +132,8 @@ properties:
       discard_local_ssd option on Stop/Suspend). Read-only in the api.
     type: string
     enum:
-    - DISK_SAVED_STATE_UNSPECIFIED
-    - PRESERVED
+      - DISK_SAVED_STATE_UNSPECIFIED
+      - PRESERVED
   shieldedInstanceInitialState:
     description: '[Output Only] shielded vm initial state stored on disk'
     $ref: InitialStateConfig.yaml
@@ -154,8 +154,8 @@ properties:
       not specified, the default is PERSISTENT.
     type: string
     enum:
-    - PERSISTENT
-    - SCRATCH
+      - PERSISTENT
+      - SCRATCH
   userLicenses:
     description: |-
       [Output Only] A list of user provided licenses. It represents a

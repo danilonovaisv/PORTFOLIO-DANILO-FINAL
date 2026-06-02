@@ -15,10 +15,10 @@
 
   arguments:
     params:
-    - arg_name: catalog
-      resource_spec: !REF googlecloudsdk.command_lib.biglake.resources:hive_catalog
-      required: true
-      is_positional: true
-      is_primary_resource: true
-      help_text: |
-        The Hive Catalog to describe.
+      - arg_name: catalog
+        resource_spec: !REF googlecloudsdk.command_lib.biglake.resources:hive_catalog
+        required: true
+        is_positional: true
+        is_primary_resource: true
+        help_text: |
+          The Hive Catalog to describe.

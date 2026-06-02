@@ -5,9 +5,9 @@
     description: |
       Displays all details of an Entry Group given a valid Entry Group ID.
     examples: |
-       To describe a Dataplex Entry Group `test-entry-group` in location `us-central1` and in project `test-project`, run:
+      To describe a Dataplex Entry Group `test-entry-group` in location `us-central1` and in project `test-project`, run:
 
-          $ {command} test-entry-group --location=us-central1 --project=test-project
+         $ {command} test-entry-group --location=us-central1 --project=test-project
   request:
     ALPHA:
       api_version: v1

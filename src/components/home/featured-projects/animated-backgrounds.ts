@@ -34,5 +34,3 @@ export function getNextFeaturedProjectBackgroundVariant(
 
   return candidates[Math.floor(Math.random() * candidates.length)] ?? current;
 }
-
-

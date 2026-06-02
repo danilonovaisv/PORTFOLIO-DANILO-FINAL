@@ -6,10 +6,10 @@ help_text:
   description: |
     Show details of an `LbTrafficExtension` resource.
   examples: |
-      To show details about the `LbTrafficExtension` resource named
-      `my-traffic-extension` located in `us-central1`.
+    To show details about the `LbTrafficExtension` resource named
+    `my-traffic-extension` located in `us-central1`.
 
-        $ {command} my-traffic-extension --location=us-central1
+      $ {command} my-traffic-extension --location=us-central1
 
 arguments:
   resource:

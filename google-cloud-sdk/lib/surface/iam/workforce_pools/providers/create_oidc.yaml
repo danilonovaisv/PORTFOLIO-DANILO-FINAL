@@ -42,7 +42,7 @@
   request:
     collection: iam.locations.workforcePools.providers
     modify_request_hooks:
-    - googlecloudsdk.command_lib.iam.hooks:AddCreateExtendedAttributesConfigToRequest
+      - googlecloudsdk.command_lib.iam.hooks:AddCreateExtendedAttributesConfigToRequest
 
   arguments:
     resource:
@@ -51,27 +51,26 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.display_name
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.description
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.disabled
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.detailed_audit_logging
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.attribute_mapping
-      required: true
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.attribute_condition
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_issuer_uri
-      required: true
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_client_id
-      required: true
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_client_secret_value
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_web_sso_group
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_jwks_json_path
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.scim_usage
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.vendor_type
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.attribute_sync_interval
-      hidden: true
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.create_extra_attributes_group
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.display_name
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.description
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.disabled
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.detailed_audit_logging
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.attribute_mapping
+        required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.attribute_condition
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_issuer_uri
+        required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_client_id
+        required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_client_secret_value
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_web_sso_group
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.oidc_jwks_json_path
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.scim_usage
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.vendor_type
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.attribute_sync_interval
+        hidden: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider.create_extra_attributes_group
     additional_arguments_hook: googlecloudsdk.command_lib.iam.workforce_pools.flags:AddExtendedAttributesOAuth2Client
-
 
   async:
     collection: iam.locations.workforcePools.providers.operations

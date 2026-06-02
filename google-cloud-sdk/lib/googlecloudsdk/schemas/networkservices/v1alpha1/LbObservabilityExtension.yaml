@@ -1,13 +1,13 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 LbObservabilityExtension export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- forwardingRules
-- loadBalancingScheme
-- name
-- service
+  - forwardingRules
+  - loadBalancingScheme
+  - name
+  - service
 additionalProperties: false
 properties:
   COMMENT:
@@ -60,9 +60,9 @@ properties:
       balancing/docs/backend-service).
     type: string
     enum:
-    - EXTERNAL_MANAGED
-    - INTERNAL_MANAGED
-    - LOAD_BALANCING_SCHEME_UNSPECIFIED
+      - EXTERNAL_MANAGED
+      - INTERNAL_MANAGED
+      - LOAD_BALANCING_SCHEME_UNSPECIFIED
   name:
     description: |-
       Identifier. Name of the LbObservabilityExtension resource in the
@@ -89,8 +89,8 @@ properties:
     items:
       type: string
       enum:
-      - EVENT_TYPE_UNSPECIFIED
-      - REQUEST_BODY
-      - REQUEST_HEADERS
-      - RESPONSE_BODY
-      - RESPONSE_HEADERS
+        - EVENT_TYPE_UNSPECIFIED
+        - REQUEST_BODY
+        - REQUEST_HEADERS
+        - RESPONSE_BODY
+        - RESPONSE_HEADERS

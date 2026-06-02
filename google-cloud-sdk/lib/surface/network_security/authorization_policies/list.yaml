@@ -6,9 +6,9 @@ help_text:
   description: |
     List all authorization policies in the specified location of the current project.
   examples: |
-      To list authorization policies in the current project, run:
+    To list authorization policies in the current project, run:
 
-        $ {command} --location=global
+      $ {command} --location=global
 
 request: &request
   ALPHA:
@@ -30,6 +30,6 @@ response:
 
 output:
   format: |
-     table(
-        name.basename():label=NAME
-      )
+    table(
+       name.basename():label=NAME
+     )

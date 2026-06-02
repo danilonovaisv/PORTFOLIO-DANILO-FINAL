@@ -25,4 +25,4 @@
       api_version: v1
     collection: workflowexecutions.projects.locations.workflows.executions
     modify_request_hooks:
-    - googlecloudsdk.command_lib.workflows.hooks:print_default_location_warning
+      - googlecloudsdk.command_lib.workflows.hooks:print_default_location_warning

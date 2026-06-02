@@ -17,15 +17,15 @@
 
   arguments:
     params:
-    - arg_name: iac_validation_report_metrics
-      api_field: name
-      is_positional: true
-      required: true
-      help_text: |
-        Relative resource name of the IaC validation report metrics, like `organizations/<organizationID>/locations/<location>/iacValidationReportMetrics`.
-    - arg_name: duration_days
-      api_field: duration_days
-      required: false
-      help_text: |
-        Duration for which the metrics are to be fetched which must be in integer format.
-        Duration must be greater than 0 and less than 30 days.
+      - arg_name: iac_validation_report_metrics
+        api_field: name
+        is_positional: true
+        required: true
+        help_text: |
+          Relative resource name of the IaC validation report metrics, like `organizations/<organizationID>/locations/<location>/iacValidationReportMetrics`.
+      - arg_name: duration_days
+        api_field: duration_days
+        required: false
+        help_text: |
+          Duration for which the metrics are to be fetched which must be in integer format.
+          Duration must be greater than 0 and less than 30 days.

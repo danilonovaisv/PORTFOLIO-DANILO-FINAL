@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 Mesh export schema
 description: A gcloud export/import command YAML validation schema.
@@ -36,9 +36,9 @@ properties:
       will not insert any debug headers.
     type: string
     enum:
-    - DEBUG_HEADERS
-    - ENVOY_HEADERS_UNSPECIFIED
-    - NONE
+      - DEBUG_HEADERS
+      - ENVOY_HEADERS_UNSPECIFIED
+      - NONE
   forwardProxyServiceAttachments:
     description: |-
       Specifies a list of service attachments containing forward proxies

@@ -22,12 +22,12 @@
         Arguments and flags that specify the Looker instance you want
         to delete.
     params:
-    - arg_name: force
-      api_field: force
-      required: false
-      type: bool
-      help_text: |
-        Force delete an instance.
+      - arg_name: force
+        api_field: force
+        required: false
+        type: bool
+        help_text: |
+          Force delete an instance.
 
   input:
     confirmation_prompt: |

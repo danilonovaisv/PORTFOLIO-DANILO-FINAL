@@ -36,8 +36,8 @@ backup_plan_tags:
     arg_dict:
       flatten: true
       spec:
-      - api_field: key
-      - api_field: value
+        - api_field: key
+        - api_field: value
 
 backup_delete_lock_days:
   arg_name: backup-delete-lock-days
@@ -288,8 +288,8 @@ restore_plan_tags:
     arg_dict:
       flatten: true
       spec:
-      - api_field: key
-      - api_field: value
+        - api_field: key
+        - api_field: value
 
 restore_channel_description:
   arg_name: description
@@ -313,19 +313,19 @@ volume_data_restore_policy:
     Define how data is populated for restored volumes. If this flag is not specified,
     'no-volume-data-restoration' will be used.
   choices:
-  - arg_value: restore-volume-data-from-backup
-    help_text: |
-      Selecting 'restore-volume-data-from-backup' means a new PV will be restored using the
-      corresponding volume backup data in the Backup.
-  - arg_value: reuse-volume-handle-from-backup
-    help_text: |
-      Selecting 'reuse-volume-handle-from-backup' means a PV will be pre-provisioned using the
-      volume handle of the original PV in the Backup.
-  - arg_value: no-volume-data-restoration
-    help_text: |
-      Selecting 'no-volume-data-restoration' means PV will not be restored. The restoration will
-      ONLY restore selected PVCs and expects corresponding Kubernetes controllers to either
-      dynamically provision blank PVs or bind them to pre-provisioned PVs created out-of-band.
+    - arg_value: restore-volume-data-from-backup
+      help_text: |
+        Selecting 'restore-volume-data-from-backup' means a new PV will be restored using the
+        corresponding volume backup data in the Backup.
+    - arg_value: reuse-volume-handle-from-backup
+      help_text: |
+        Selecting 'reuse-volume-handle-from-backup' means a PV will be pre-provisioned using the
+        volume handle of the original PV in the Backup.
+    - arg_value: no-volume-data-restoration
+      help_text: |
+        Selecting 'no-volume-data-restoration' means PV will not be restored. The restoration will
+        ONLY restore selected PVCs and expects corresponding Kubernetes controllers to either
+        dynamically provision blank PVs or bind them to pre-provisioned PVs created out-of-band.
   default: no-volume-data-restoration
 
 volume_data_restore_policy_bindings:
@@ -336,28 +336,28 @@ volume_data_restore_policy_bindings:
     arg_dict:
       flatten: true
       spec:
-      - api_field: volumeType
-        type: str
-        choices:
-        - arg_value: gce-persistent-disk
-          help_text: Compute Engine Persistent Disk volume.
-      - api_field: policy
-        type: str
-        choices:
-        - arg_value: restore-volume-data-from-backup
-          help_text: |
-            Selecting 'restore-volume-data-from-backup' means a new PV will be restored using the
-            corresponding volume backup data in the Backup.
-        - arg_value: reuse-volume-handle-from-backup
-          help_text: |
-            Selecting 'reuse-volume-handle-from-backup' means a PV will be pre-provisioned using the
-            volume handle of the original PV in the Backup.
-        - arg_value: no-volume-data-restoration
-          help_text: |
-            Selecting 'no-volume-data-restoration' means PV will not be restored. The restoration
-            will ONLY restore selected PVCs and expects corresponding Kubernetes controllers to
-            either dynamically provision blank PVs or bind them to pre-provisioned PVs created
-            out-of-band.
+        - api_field: volumeType
+          type: str
+          choices:
+            - arg_value: gce-persistent-disk
+              help_text: Compute Engine Persistent Disk volume.
+        - api_field: policy
+          type: str
+          choices:
+            - arg_value: restore-volume-data-from-backup
+              help_text: |
+                Selecting 'restore-volume-data-from-backup' means a new PV will be restored using the
+                corresponding volume backup data in the Backup.
+            - arg_value: reuse-volume-handle-from-backup
+              help_text: |
+                Selecting 'reuse-volume-handle-from-backup' means a PV will be pre-provisioned using the
+                volume handle of the original PV in the Backup.
+            - arg_value: no-volume-data-restoration
+              help_text: |
+                Selecting 'no-volume-data-restoration' means PV will not be restored. The restoration
+                will ONLY restore selected PVCs and expects corresponding Kubernetes controllers to
+                either dynamically provision blank PVs or bind them to pre-provisioned PVs created
+                out-of-band.
   help_text: |
     Dict that binds a supported volume type to a volume data restore policy.
     e.g. `gce-persistent-disk=restore-volume-data-from-backup` for
@@ -370,17 +370,17 @@ cluster_resource_conflict_policy:
   help_text: |
     Define how to handle restore-time conflicts for cluster-scoped resources.
   choices:
-  - arg_value: use-existing-version
-    help_text: |
-      Selecting 'use-existing-version' means no conflicting resources will be restored.
-  - arg_value: use-backup-version
-    help_text: |
-      Selecting 'use-backup-version' means deleting the existing version of the conflicting
-      resources before re-creating them from the Backup.
+    - arg_value: use-existing-version
+      help_text: |
+        Selecting 'use-existing-version' means no conflicting resources will be restored.
+    - arg_value: use-backup-version
+      help_text: |
+        Selecting 'use-backup-version' means deleting the existing version of the conflicting
+        resources before re-creating them from the Backup.
 
-      Note that this is a dangerous option which
-      could cause unintentional data loss if used inappropriately. For example, deleting a CRD will
-      cause Kubernetes to delete all CRs of that type.
+        Note that this is a dangerous option which
+        could cause unintentional data loss if used inappropriately. For example, deleting a CRD will
+        cause Kubernetes to delete all CRs of that type.
 
 namespaced_resource_restore_mode:
   arg_name: namespaced-resource-restore-mode
@@ -388,49 +388,48 @@ namespaced_resource_restore_mode:
   help_text: |
     Define how to handle restore-time conflicts for namespaced resources.
   choices:
-  - arg_value: delete-and-restore
-    help_text: |
-      When conflicting top-level resources (either Namespaces or ProtectedApplications, depending
-      upon the scope) are encountered, this will first trigger a delete of the conflicting resource
-      AND ALL OF ITS REFERENCED RESOURCES (e.g., all resources in the Namespace or all resources
-      referenced by the ProtectedApplication) before restoring the resources from the Backup. This
-      mode should only be used when you are intending to revert some portion of a cluster to an
-      earlier state.
-  - arg_value: fail-on-conflict
-    help_text: |
-      If conflicting top-level resources (either Namespaces or ProtectedApplications, depending upon
-      the scope) are encountered at the beginning of a restore process, the Restore will fail. If a
-      conflict occurs during the restore process itself (e.g., because an out of band process
-      creates conflicting resources), a conflict will be reported.
-  - arg_value: merge-skip-on-conflict
-    help_text: |
-      This mode merges the backup and the target cluster and skips the conflicting resources. If a
-      single resource to restore exists in the cluster before restoration, the resource will be
-      skipped, otherwise it will be restored.
-  - arg_value: merge-replace-volume-on-conflict
-    help_text: |
-      This mode merges the backup and the target cluster and skips the conflicting resources except
-      volume data. If a PVC to restore already exists, this mode will restore/reconnect the volume
-      without overwriting the PVC. It is similar to MERGE_SKIP_ON_CONFLICT except that it will apply
-      the volume data policy for the conflicting PVCs
-      "RESTORE_VOLUME_DATA_FROM_BACKUP:" restore data only and respect the reclaim policy of the
-      original PV;
-      "REUSE_VOLUME_HANDLE_FROM_BACKUP:" reconnect and respect the reclaim policy of the original
-      PV;
-      "NO_VOLUME_DATA_RESTORATION:" new provision and respect the reclaim policy of the original PV.
-      Note that this mode could cause data loss as the original PV can be retained or deleted
-      depending on its reclaim policy.
-  - arg_value: merge-replace-on-conflict
-    help_text: |
-      This mode merges the backup and the target cluster and replaces the conflicting resources with
-      the ones in the backup. If a single resource to restore exists in the cluster before
-      restoration, the resource will be replaced with the one from the backup. To replace an
-      existing resource, the first attempt is to update the resource to match the one from the
-      backup; if the update fails, the second attempt is to delete the resource and restore it from
-      the backup. Note that this mode could cause data loss as it replaces the existing resources
-      in the target cluster, and the original PV can be retained or deleted depending on its reclaim
-      policy.
-
+    - arg_value: delete-and-restore
+      help_text: |
+        When conflicting top-level resources (either Namespaces or ProtectedApplications, depending
+        upon the scope) are encountered, this will first trigger a delete of the conflicting resource
+        AND ALL OF ITS REFERENCED RESOURCES (e.g., all resources in the Namespace or all resources
+        referenced by the ProtectedApplication) before restoring the resources from the Backup. This
+        mode should only be used when you are intending to revert some portion of a cluster to an
+        earlier state.
+    - arg_value: fail-on-conflict
+      help_text: |
+        If conflicting top-level resources (either Namespaces or ProtectedApplications, depending upon
+        the scope) are encountered at the beginning of a restore process, the Restore will fail. If a
+        conflict occurs during the restore process itself (e.g., because an out of band process
+        creates conflicting resources), a conflict will be reported.
+    - arg_value: merge-skip-on-conflict
+      help_text: |
+        This mode merges the backup and the target cluster and skips the conflicting resources. If a
+        single resource to restore exists in the cluster before restoration, the resource will be
+        skipped, otherwise it will be restored.
+    - arg_value: merge-replace-volume-on-conflict
+      help_text: |
+        This mode merges the backup and the target cluster and skips the conflicting resources except
+        volume data. If a PVC to restore already exists, this mode will restore/reconnect the volume
+        without overwriting the PVC. It is similar to MERGE_SKIP_ON_CONFLICT except that it will apply
+        the volume data policy for the conflicting PVCs
+        "RESTORE_VOLUME_DATA_FROM_BACKUP:" restore data only and respect the reclaim policy of the
+        original PV;
+        "REUSE_VOLUME_HANDLE_FROM_BACKUP:" reconnect and respect the reclaim policy of the original
+        PV;
+        "NO_VOLUME_DATA_RESTORATION:" new provision and respect the reclaim policy of the original PV.
+        Note that this mode could cause data loss as the original PV can be retained or deleted
+        depending on its reclaim policy.
+    - arg_value: merge-replace-on-conflict
+      help_text: |
+        This mode merges the backup and the target cluster and replaces the conflicting resources with
+        the ones in the backup. If a single resource to restore exists in the cluster before
+        restoration, the resource will be replaced with the one from the backup. To replace an
+        existing resource, the first attempt is to update the resource to match the one from the
+        backup; if the update fails, the second attempt is to delete the resource and restore it from
+        the backup. Note that this mode could cause data loss as it replaces the existing resources
+        in the target cluster, and the original PV can be retained or deleted depending on its reclaim
+        policy.
 
 namespaced_resource_restore_mode_update:
   arg_name: namespaced-resource-restore-mode
@@ -438,48 +437,48 @@ namespaced_resource_restore_mode_update:
   help_text: |
     Define how to handle restore-time conflicts for namespaced resources.
   choices:
-  - arg_value: delete-and-restore
-    help_text: |
-      When conflicting top-level resources (either Namespaces or ProtectedApplications, depending
-      upon the scope) are encountered, this will first trigger a delete of the conflicting resource
-      AND ALL OF ITS REFERENCED RESOURCES (e.g., all resources in the Namespace or all resources
-      referenced by the ProtectedApplication) before restoring the resources from the Backup. This
-      mode should only be used when you are intending to revert some portion of a cluster to an
-      earlier state.
-  - arg_value: fail-on-conflict
-    help_text: |
-      If conflicting top-level resources (either Namespaces or ProtectedApplications, depending upon
-      the scope) are encountered at the beginning of a restore process, the Restore will fail. If a
-      conflict occurs during the restore process itself (e.g., because an out of band process
-      creates conflicting resources), a conflict will be reported.
-  - arg_value: merge-skip-on-conflict
-    help_text: |
-      This mode merges the backup and the target cluster and skips the conflicting resources. If a
-      single resource to restore exists in the cluster before restoration, the resource will be
-      skipped, otherwise it will be restored.
-  - arg_value: merge-replace-volume-on-conflict
-    help_text: |
-      This mode merges the backup and the target cluster and skips the conflicting resources except
-      volume data. If a PVC to restore already exists, this mode will restore/reconnect the volume
-      without overwriting the PVC. It is similar to MERGE_SKIP_ON_CONFLICT except that it will apply
-      the volume data policy for the conflicting PVCs
-      "RESTORE_VOLUME_DATA_FROM_BACKUP:" restore data only and respect the reclaim policy of the
-      original PV;
-      "REUSE_VOLUME_HANDLE_FROM_BACKUP:" reconnect and respect the reclaim policy of the original
-      PV;
-      "NO_VOLUME_DATA_RESTORATION:" new provision and respect the reclaim policy of the original PV.
-      Note that this mode could cause data loss as the original PV can be retained or deleted
-      depending on its reclaim policy.
-  - arg_value: merge-replace-on-conflict
-    help_text: |
-      This mode merges the backup and the target cluster and replaces the conflicting resources with
-      the ones in the backup. If a single resource to restore exists in the cluster before
-      restoration, the resource will be replaced with the one from the backup. To replace an
-      existing resource, the first attempt is to update the resource to match the one from the
-      backup; if the update fails, the second attempt is to delete the resource and restore it from
-      the backup. Note that this mode could cause data loss as it replaces the existing resources
-      in the target cluster, and the original PV can be retained or deleted depending on its reclaim
-      policy.
+    - arg_value: delete-and-restore
+      help_text: |
+        When conflicting top-level resources (either Namespaces or ProtectedApplications, depending
+        upon the scope) are encountered, this will first trigger a delete of the conflicting resource
+        AND ALL OF ITS REFERENCED RESOURCES (e.g., all resources in the Namespace or all resources
+        referenced by the ProtectedApplication) before restoring the resources from the Backup. This
+        mode should only be used when you are intending to revert some portion of a cluster to an
+        earlier state.
+    - arg_value: fail-on-conflict
+      help_text: |
+        If conflicting top-level resources (either Namespaces or ProtectedApplications, depending upon
+        the scope) are encountered at the beginning of a restore process, the Restore will fail. If a
+        conflict occurs during the restore process itself (e.g., because an out of band process
+        creates conflicting resources), a conflict will be reported.
+    - arg_value: merge-skip-on-conflict
+      help_text: |
+        This mode merges the backup and the target cluster and skips the conflicting resources. If a
+        single resource to restore exists in the cluster before restoration, the resource will be
+        skipped, otherwise it will be restored.
+    - arg_value: merge-replace-volume-on-conflict
+      help_text: |
+        This mode merges the backup and the target cluster and skips the conflicting resources except
+        volume data. If a PVC to restore already exists, this mode will restore/reconnect the volume
+        without overwriting the PVC. It is similar to MERGE_SKIP_ON_CONFLICT except that it will apply
+        the volume data policy for the conflicting PVCs
+        "RESTORE_VOLUME_DATA_FROM_BACKUP:" restore data only and respect the reclaim policy of the
+        original PV;
+        "REUSE_VOLUME_HANDLE_FROM_BACKUP:" reconnect and respect the reclaim policy of the original
+        PV;
+        "NO_VOLUME_DATA_RESTORATION:" new provision and respect the reclaim policy of the original PV.
+        Note that this mode could cause data loss as the original PV can be retained or deleted
+        depending on its reclaim policy.
+    - arg_value: merge-replace-on-conflict
+      help_text: |
+        This mode merges the backup and the target cluster and replaces the conflicting resources with
+        the ones in the backup. If a single resource to restore exists in the cluster before
+        restoration, the resource will be replaced with the one from the backup. To replace an
+        existing resource, the first attempt is to update the resource to match the one from the
+        backup; if the update fails, the second attempt is to delete the resource and restore it from
+        the backup. Note that this mode could cause data loss as it replaces the existing resources
+        in the target cluster, and the original PV can be retained or deleted depending on its reclaim
+        policy.
 
 cluster_resource_selected_group_kinds:
   arg_name: cluster-resource-scope-selected-group-kinds

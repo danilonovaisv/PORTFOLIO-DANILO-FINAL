@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified TrustConfig.
   examples: |
-      To delete a TrustConfig called 'my-trust-config', run:
+    To delete a TrustConfig called 'my-trust-config', run:
 
-        $ {command} my-trust-config --location=global
+      $ {command} my-trust-config --location=global
 
 request: &request
   api_version: v1
@@ -20,11 +20,11 @@ arguments:
     help_text: |
       Name of the TrustConfig you want to delete.
   params:
-  - arg_name: etag
-    api_field: etag
-    required: false
-    help_text: |
-      The current etag of the asset. If an etag is provided and does not match the current etag of the asset, the deletion will be blocked.
+    - arg_name: etag
+      api_field: etag
+      required: false
+      help_text: |
+        The current etag of the asset. If an etag is provided and does not match the current etag of the asset, the deletion will be blocked.
 
 async:
   collection: certificatemanager.projects.locations.operations

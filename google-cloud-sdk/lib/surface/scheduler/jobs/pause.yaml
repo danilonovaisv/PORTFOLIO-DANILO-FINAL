@@ -19,7 +19,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.scheduler.util:LogPauseSuccess
+      - googlecloudsdk.command_lib.scheduler.util:LogPauseSuccess
 
   output:
     format: none

@@ -111,7 +111,7 @@ service_account:
 scopes:
   api_field: imageImport.machineImageTargetDefaults.serviceAccount.scopes
   arg_name: scopes
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   required: false
   help_text: |
     The list of scopes to be made available for the service account.
@@ -119,7 +119,7 @@ scopes:
 additional_licenses:
   api_field: imageImport.machineImageTargetDefaults.additionalLicenses
   arg_name: additional-licenses
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   required: false
   help_text: |
     Comma-separated list of the additional licenses to assign to the machine image.
@@ -133,15 +133,15 @@ labels:
     arg_dict:
       flatten: true
       spec:
-      - api_field: key
-      - api_field: value
+        - api_field: key
+        - api_field: value
   help_text: |
     A map of labels to associate with the machine image.
 
 tags:
   api_field: imageImport.machineImageTargetDefaults.tags
   arg_name: tags
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   required: false
   help_text: |
     The tags to apply to the instance created by the machine image.
@@ -178,12 +178,12 @@ network_interface:
   type:
     arg_dict:
       spec:
-      - api_field: network
-        required: false
-      - api_field: subnetwork
-        required: false
-      - api_field: networkTier
-        required: false
+        - api_field: network
+          required: false
+        - api_field: subnetwork
+          required: false
+        - api_field: networkTier
+          required: false
   help_text: |
     The network interface to use for the instance created by the machine image.
     This is a dicionary with the following keys:

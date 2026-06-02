@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a ServerTlsPolicy.
   examples: |
-      To export a ServerTlsPolicy, run:
+    To export a ServerTlsPolicy, run:
 
-        $ {command} my-server-tls-policy --destination=my-server-tls-policy.yaml --location=global
+      $ {command} my-server-tls-policy --destination=my-server-tls-policy.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.serverTlsPolicies

@@ -4,9 +4,9 @@
     brief: List reCAPTCHA Firewall Policies.
     description: List all of the reCAPTCHA Firewall Policies that exist in a given project.
     examples: |
-        To list all the reCAPTCHA firewall policies existing for your project, run:
+      To list all the reCAPTCHA firewall policies existing for your project, run:
 
-          $ {command}
+        $ {command}
 
   request:
     collection: recaptchaenterprise.projects.firewallpolicies

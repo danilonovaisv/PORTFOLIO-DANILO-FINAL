@@ -20,17 +20,17 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.dialogflow.resources:project
     is_parent_resource: true
   params:
-  - arg_name: destination
-    help_text: |
-      Path to a file or the URI to a Google Cloud Storage to save the agent to. Note: A URI must
-      start with "gs://".
-    required: true
+    - arg_name: destination
+      help_text: |
+        Path to a file or the URI to a Google Cloud Storage to save the agent to. Note: A URI must
+        start with "gs://".
+      required: true
 
 request:
   collection: dialogflow.projects.agent
   method: export
   modify_request_hooks:
-  - googlecloudsdk.command_lib.dialogflow.agent.hooks:SetAgentUri
+    - googlecloudsdk.command_lib.dialogflow.agent.hooks:SetAgentUri
 
 async:
   collection: dialogflow.projects.operations
@@ -38,7 +38,7 @@ async:
 
 response:
   modify_response_hooks:
-  - googlecloudsdk.command_lib.dialogflow.agent.hooks:SaveAgentToFile
+    - googlecloudsdk.command_lib.dialogflow.agent.hooks:SaveAgentToFile
   result_attribute: response
 
 output:

@@ -11,12 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-$schema: "http://json-schema.org/draft-07/schema#"
-
+$schema: 'http://json-schema.org/draft-07/schema#'
 
 title: apitoolstokrm
 description: The specification for and Apitools message To Krm file mapping
-
 
 definitions:
   apitools_krm_mapping:
@@ -25,13 +23,13 @@ definitions:
     patternProperties:
       .*:
         oneOf:
-        - {type: string}
-        - type: object
-          additionalProperties: false
-          properties:
-            yaml_path: {type: string}
-            repeatable: {type: boolean}
-            submessage_template: {$ref: "#/definitions/apitools_krm_mapping"}
+          - { type: string }
+          - type: object
+            additionalProperties: false
+            properties:
+              yaml_path: { type: string }
+              repeatable: { type: boolean }
+              submessage_template:
+                { $ref: '#/definitions/apitools_krm_mapping' }
 
-
-$ref: "#/definitions/apitools_krm_mapping"
+$ref: '#/definitions/apitools_krm_mapping'

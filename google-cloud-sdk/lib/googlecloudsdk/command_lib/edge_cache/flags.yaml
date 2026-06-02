@@ -13,8 +13,8 @@ origin:
       arg_dict:
         flatten: true
         spec:
-        - api_field: key
-        - api_field: value
+          - api_field: key
+          - api_field: value
     help_text: |
       List of KEY=VALUE labels to attach to this resource.
 
@@ -88,22 +88,22 @@ origin:
     arg_name: protocol
     api_field: edgeCacheOrigin.protocol
     choices:
-    - arg_value: "HTTP2"
-      enum_value: HTTP2
-      help_text: |
-        HTTP/2 protocol. HTTP/2 refers to "h2", which requires TLS (HTTPS).
-        Requires a valid (public, unexpired) TLS
-        certificate to be present on the origin.
-    - arg_value: "HTTPS"
-      enum_value: HTTPS
-      help_text: |
-        HTTP/1.1 with TLS (SSL). Requires a valid (public, unexpired) TLS
-        certificate to be present on the origin.
-    - arg_value: "HTTP"
-      enum_value: HTTP
-      help_text: |
-        HTTP without TLS (SSL). This is not recommended, as communication outside
-        of Google's network will be unencrypted to the public endpoint (origin).
+      - arg_value: 'HTTP2'
+        enum_value: HTTP2
+        help_text: |
+          HTTP/2 protocol. HTTP/2 refers to "h2", which requires TLS (HTTPS).
+          Requires a valid (public, unexpired) TLS
+          certificate to be present on the origin.
+      - arg_value: 'HTTPS'
+        enum_value: HTTPS
+        help_text: |
+          HTTP/1.1 with TLS (SSL). Requires a valid (public, unexpired) TLS
+          certificate to be present on the origin.
+      - arg_value: 'HTTP'
+        enum_value: HTTP
+        help_text: |
+          HTTP without TLS (SSL). This is not recommended, as communication outside
+          of Google's network will be unencrypted to the public endpoint (origin).
     help_text: |
       Protocol to use to connect to the configured origin. Defaults to HTTP2,
       and it is strongly recommended that users use HTTP2 for both security &
@@ -187,21 +187,21 @@ origin:
     arg_name: flex-shielding
     api_field: edgeCacheOrigin.flexShielding
     choices:
-    - arg_value: "ME_CENTRAL1"
-      enum_value: ME_CENTRAL1
-      help_text: |
-        Origin fetch from near me-central1.
-    - arg_value: "AFRICA_SOUTH1"
-      enum_value: AFRICA_SOUTH1
-      help_text: |
-        Origin fetch from near africa-south1.
-    - arg_value: "US_EAST5"
-      enum_value: US_EAST5
-      help_text: |
-        Origin fetch from near us-east5.
-    - arg_value: ""
-      help_text: |
-        Turn off flexible shielding and use the default global origin shielding.
+      - arg_value: 'ME_CENTRAL1'
+        enum_value: ME_CENTRAL1
+        help_text: |
+          Origin fetch from near me-central1.
+      - arg_value: 'AFRICA_SOUTH1'
+        enum_value: AFRICA_SOUTH1
+        help_text: |
+          Origin fetch from near africa-south1.
+      - arg_value: 'US_EAST5'
+        enum_value: US_EAST5
+        help_text: |
+          Origin fetch from near us-east5.
+      - arg_value: ''
+        help_text: |
+          Turn off flexible shielding and use the default global origin shielding.
     ALPHA:
       processor: googlecloudsdk.command_lib.edge_cache.util:GetFlexShieldingAlpha
     GA:
@@ -226,8 +226,8 @@ keyset:
       arg_dict:
         flatten: true
         spec:
-        - api_field: key
-        - api_field: value
+          - api_field: key
+          - api_field: value
     help_text: |
       List of KEY=VALUE labels to attach to this resource.
 
@@ -238,14 +238,14 @@ keyset:
     type:
       arg_dict:
         spec:
-        - api_field: id
-          arg_name: id
-        - api_field: value
-          arg_name: value
-          required: false
-        - api_field: managed
-          arg_name: managed
-          required: false
+          - api_field: id
+            arg_name: id
+          - api_field: value
+            arg_name: value
+            required: false
+          - api_field: managed
+            arg_name: managed
+            required: false
     help_text: |
       Set of public keys to use for validating signed requests, when associated with a route.
       This flag can be repeated to create a Keyset with multiple public keys.
@@ -278,8 +278,8 @@ keyset:
     type:
       arg_dict:
         spec:
-        - api_field: secretVersion
-          arg_name: secret_version
+          - api_field: secretVersion
+            arg_name: secret_version
     help_text: |
       An ordered list of shared keys to use for validating signed requests.
 
@@ -309,8 +309,8 @@ service:
       arg_dict:
         flatten: true
         spec:
-        - api_field: key
-        - api_field: value
+          - api_field: key
+          - api_field: value
     help_text: |
       List of KEY=VALUE labels to attach to this resource.
 

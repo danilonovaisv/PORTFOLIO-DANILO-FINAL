@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1beta1 AgentGateway export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- protocols
+  - protocols
 additionalProperties: false
 properties:
   COMMENT:
@@ -58,8 +58,8 @@ properties:
     items:
       type: string
       enum:
-      - MCP
-      - PROTOCOL_UNSPECIFIED
+        - MCP
+        - PROTOCOL_UNSPECIFIED
   registries:
     description: |-
       A list of Agent registries containing the agents, MCP servers and

@@ -11,7 +11,7 @@
   request:
     collection: spanner.projects.instances.backups
     modify_request_hooks:
-    - googlecloudsdk.api_lib.spanner.backups:CheckBackupExists
+      - googlecloudsdk.api_lib.spanner.backups:CheckBackupExists
   arguments:
     resource:
       help_text: Cloud Spanner backup to delete.

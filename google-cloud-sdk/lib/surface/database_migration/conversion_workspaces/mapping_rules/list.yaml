@@ -14,7 +14,7 @@
   response:
     id_field: name
     modify_response_hooks:
-    - googlecloudsdk.command_lib.database_migration.conversion_workspaces.hooks:ModifyMappingRuleResponse
+      - googlecloudsdk.command_lib.database_migration.conversion_workspaces.hooks:ModifyMappingRuleResponse
 
   arguments:
     resource:

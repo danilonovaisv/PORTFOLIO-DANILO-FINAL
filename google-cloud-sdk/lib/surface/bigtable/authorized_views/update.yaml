@@ -24,54 +24,54 @@
     collection: bigtableadmin.projects.instances.tables.authorizedViews
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.api_lib.bigtable.authorized_views:ModifyUpdateAuthorizedViewRequest
+      - googlecloudsdk.api_lib.bigtable.authorized_views:ModifyUpdateAuthorizedViewRequest
 
   arguments:
     resource:
       help_text: Cloud Bigtable authorized view to update.
       spec: !REF googlecloudsdk.command_lib.bigtable.resources:authorized_view
     params:
-    - arg_name: definition-file
-      help_text: |
-        Path to a JSON or YAML file containing a valid authorized view protobuf.
+      - arg_name: definition-file
+        help_text: |
+          Path to a JSON or YAML file containing a valid authorized view protobuf.
 
-        The `name` field is ignored. The name is deduced from the other command line arguments.
+          The `name` field is ignored. The name is deduced from the other command line arguments.
 
-        Example:
-        {
-          "subsetView":
+          Example:
           {
-            "rowPrefixes": ["store1"],
-            "familySubsets":
+            "subsetView":
             {
-              "column_family_name":
+              "rowPrefixes": ["store1"],
+              "familySubsets":
               {
-                "qualifiers":["address"],
-                "qualifierPrefixes":["tel"]
+                "column_family_name":
+                {
+                  "qualifiers":["address"],
+                  "qualifierPrefixes":["tel"]
+                }
               }
-            }
-          },
-          "deletionProtection": true
-        }
-    - arg_name: interactive
-      type: bool
-      default: true
-      help_text: |
-        If provided, a diff is displayed with a prompt to proceed or cancel the update.
-    - arg_name: pre-encoded
-      type: bool
-      default: false
-      help_text: |
-        By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
-        "qualifierPrefixes") in the JSON or YAML definition file.
+            },
+            "deletionProtection": true
+          }
+      - arg_name: interactive
+        type: bool
+        default: true
+        help_text: |
+          If provided, a diff is displayed with a prompt to proceed or cancel the update.
+      - arg_name: pre-encoded
+        type: bool
+        default: false
+        help_text: |
+          By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
+          "qualifierPrefixes") in the JSON or YAML definition file.
 
-        Use this to indicate that all binary fields are already Base64-encoded and should be used
-        directly.
-    - arg_name: ignore-warnings
-      type: bool
-      default: false
-      help_text: |
-        If true, changes that make the authorized view more restrictive are allowed.
+          Use this to indicate that all binary fields are already Base64-encoded and should be used
+          directly.
+      - arg_name: ignore-warnings
+        type: bool
+        default: false
+        help_text: |
+          If true, changes that make the authorized view more restrictive are allowed.
 
   async:
     collection: bigtableadmin.operations

@@ -26,7 +26,7 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.managed_kafka.resources:acl
 
   params:
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-principal
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-operation
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-permission-type
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-host
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-principal
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-operation
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-permission-type
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:acl-entry-host

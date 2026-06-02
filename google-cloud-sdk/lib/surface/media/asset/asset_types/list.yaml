@@ -14,7 +14,7 @@
   request:
     collection: mediaasset.projects.locations.assetTypes
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
+      - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
     ALPHA:
       api_version: v1alpha
 

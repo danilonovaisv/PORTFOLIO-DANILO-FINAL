@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Describe a Cloud Healthcare API FHIR store.
+    brief: Describe a Cloud Healthcare API FHIR store.
     description: Describe a Cloud Healthcare API FHIR store.
     examples: |
       To describe the FHIR store 'test-fhir-store', run:

@@ -34,18 +34,18 @@
         Arguments and flags that specify the Filestore instance to promote.
       command_level_fallthroughs:
         zone:
-        - arg_name: location
-          release_tracks: [BETA, GA]
+          - arg_name: location
+            release_tracks: [BETA, GA]
     params:
-    - arg_name: location
-      release_tracks: [BETA, GA]
-      help_text: |
-        Location of the Filestore instance to promote.
-    - arg_name: peer-instance
-      release_tracks: [BETA, GA]
-      api_field: promoteReplicaRequest.peerInstance
-      help_text: |
-        The name of the standby peer instance to promote.
+      - arg_name: location
+        release_tracks: [BETA, GA]
+        help_text: |
+          Location of the Filestore instance to promote.
+      - arg_name: peer-instance
+        release_tracks: [BETA, GA]
+        api_field: promoteReplicaRequest.peerInstance
+        help_text: |
+          The name of the standby peer instance to promote.
 
   request:
     BETA:

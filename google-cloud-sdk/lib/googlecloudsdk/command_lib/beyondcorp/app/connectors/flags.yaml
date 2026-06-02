@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 service_account_v1alpha:
   api_field: googleCloudBeyondcorpAppconnectorsV1alphaAppConnector.principalInfo.serviceAccount.email
   arg_name: member

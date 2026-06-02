@@ -20,16 +20,16 @@
       approveBuildRequest.approvalResult.decision: APPROVED
   arguments:
     resource:
-      help_text: "Build."
+      help_text: 'Build.'
       spec: !REF googlecloudsdk.command_lib.cloudbuild.resources:build
 
     params:
-    - api_field: approveBuildRequest.approvalResult.comment
-      arg_name: comment
-      help_text: Optional comment to annotate the build's approval.
-    - api_field: approveBuildRequest.approvalResult.url
-      arg_name: url
-      help_text: Optional URL to annotate the build's approval.
+      - api_field: approveBuildRequest.approvalResult.comment
+        arg_name: comment
+        help_text: Optional comment to annotate the build's approval.
+      - api_field: approveBuildRequest.approvalResult.url
+        arg_name: url
+        help_text: Optional URL to annotate the build's approval.
 
 - release_tracks: [ALPHA]
   command_type: GENERIC
@@ -53,13 +53,13 @@
       approveBuildRequest.approvalResult.decision: APPROVED
   arguments:
     resource:
-      help_text: "Build."
+      help_text: 'Build.'
       spec: !REF googlecloudsdk.command_lib.cloudbuild.regional_approval:build
 
     params:
-    - api_field: approveBuildRequest.approvalResult.comment
-      arg_name: comment
-      help_text: Optional comment to annotate the build's approval.
-    - api_field: approveBuildRequest.approvalResult.url
-      arg_name: url
-      help_text: Optional URL to annotate the build's approval.
+      - api_field: approveBuildRequest.approvalResult.comment
+        arg_name: comment
+        help_text: Optional comment to annotate the build's approval.
+      - api_field: approveBuildRequest.approvalResult.url
+        arg_name: url
+        help_text: Optional URL to annotate the build's approval.

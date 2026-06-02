@@ -9,9 +9,9 @@
 
       LRO operation ID is returned as the response of the command.
     examples: |
-     Create an Iac Validation report on parent `organizations/123/locations/global`:
+      Create an Iac Validation report on parent `organizations/123/locations/global`:
 
-        $ {command} organizations/123/locations/global --tf-plan-file=planFile.json
+         $ {command} organizations/123/locations/global --tf-plan-file=planFile.json
 
   request:
     collection: securityposture.organizations.locations.reports
@@ -23,21 +23,21 @@
 
   arguments:
     params:
-    - arg_name: parent
-      api_field: parent
-      is_positional: true
-      required: true
-      help_text: |
-        Name of the organization where IaC Validation Report is to be created. Format:
-        organizations/<organizationID>/locations/<location>
+      - arg_name: parent
+        api_field: parent
+        is_positional: true
+        required: true
+        help_text: |
+          Name of the organization where IaC Validation Report is to be created. Format:
+          organizations/<organizationID>/locations/<location>
 
-    - arg_name: tf-plan-file
-      api_field: createIaCValidationReportRequest.iac.tfPlan
-      required: true
-      type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-      processor: googlecloudsdk.command_lib.scc.hooks:ProcessTFPlanFile
-      help_text: |
-        Path to a JSON file containing the IaC plan to be validated.
+      - arg_name: tf-plan-file
+        api_field: createIaCValidationReportRequest.iac.tfPlan
+        required: true
+        type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+        processor: googlecloudsdk.command_lib.scc.hooks:ProcessTFPlanFile
+        help_text: |
+          Path to a JSON file containing the IaC plan to be validated.
 
   async:
     collection: securityposture.organizations.locations.operations

@@ -4,9 +4,9 @@
     description: |
       List BigLake Hive tables in a database.
     examples: |-
-        To list all BigLake Hive tables in database `my-database` and catalog `my-catalog`, run:
+      To list all BigLake Hive tables in database `my-database` and catalog `my-catalog`, run:
 
-          $ {command} --database=my-database --catalog=my-catalog
+        $ {command} --database=my-database --catalog=my-catalog
 
   request:
     collection: biglake.hive.v1beta.projects.catalogs.databases.tables

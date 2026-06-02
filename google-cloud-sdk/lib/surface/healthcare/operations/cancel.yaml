@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA]
 
   help_text:
-    brief:  Cancel a Cloud Healthcare API operation.
+    brief: Cancel a Cloud Healthcare API operation.
     description: Cancel a Cloud Healthcare API operation.
     examples: |
       To cancel the operation '1234567890' in the dataset 'test-dataset', run:

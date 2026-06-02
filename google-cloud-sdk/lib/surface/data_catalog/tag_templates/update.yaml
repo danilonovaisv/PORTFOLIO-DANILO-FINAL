@@ -19,9 +19,9 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template
 
     params:
-    - api_field: googleCloudDatacatalogV1TagTemplate.displayName
-      arg_name: display-name
-      help_text: New human-readable name for the tag template.
+      - api_field: googleCloudDatacatalogV1TagTemplate.displayName
+        arg_name: display-name
+        help_text: New human-readable name for the tag template.
 
 - release_tracks: [ALPHA, BETA]
 
@@ -43,6 +43,6 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template
 
     params:
-    - api_field: googleCloudDatacatalogV1beta1TagTemplate.displayName
-      arg_name: display-name
-      help_text: New human-readable name for the tag template.
+      - api_field: googleCloudDatacatalogV1beta1TagTemplate.displayName
+        arg_name: display-name
+        help_text: New human-readable name for the tag template.

@@ -14,6 +14,6 @@
   request:
     api_version: v1beta1
     collection:
-    - saasservicemgmt.projects.locations.units
+      - saasservicemgmt.projects.locations.units
   response:
     id_field: name

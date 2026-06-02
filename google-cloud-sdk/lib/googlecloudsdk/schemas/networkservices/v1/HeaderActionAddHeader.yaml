@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 HeaderActionAddHeader export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- headerName
-- headerValue
+  - headerName
+  - headerValue
 additionalProperties: false
 properties:
   COMMENT:

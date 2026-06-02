@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Delete a Cloud Healthcare API dataset.
+    brief: Delete a Cloud Healthcare API dataset.
     description: Deletes a Cloud Healthcare API dataset.
     examples: |
       To delete the dataset 'test-dataset', run:

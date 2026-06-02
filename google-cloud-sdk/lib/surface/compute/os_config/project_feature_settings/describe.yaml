@@ -22,4 +22,4 @@
     collection: osconfig.projects.locations.global
     method: getProjectFeatureSettings
     modify_request_hooks:
-    - googlecloudsdk.command_lib.compute.os_config.utils:UpdateProjectFeatureSettingsResource
+      - googlecloudsdk.command_lib.compute.os_config.utils:UpdateProjectFeatureSettingsResource

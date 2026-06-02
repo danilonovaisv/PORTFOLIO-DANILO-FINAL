@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 TargetHttpsProxy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -100,9 +100,9 @@ properties:
       - If the quic-override flag is not specified, NONE is implied.
     type: string
     enum:
-    - DISABLE
-    - ENABLE
-    - NONE
+      - DISABLE
+      - ENABLE
+      - NONE
   serverTlsPolicy:
     description: |-
       A URL referring to a networksecurity.ServerTlsPolicy resource that
@@ -163,10 +163,10 @@ properties:
       value is DISABLED.
     type: string
     enum:
-    - DISABLED
-    - PERMISSIVE
-    - STRICT
-    - UNRESTRICTED
+      - DISABLED
+      - PERMISSIVE
+      - STRICT
+      - UNRESTRICTED
   urlMap:
     description: |-
       A fully-qualified or valid partial URL to the UrlMap resource that

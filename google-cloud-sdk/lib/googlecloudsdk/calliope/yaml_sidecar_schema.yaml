@@ -1,8 +1,8 @@
 # JSON schema for validating gcloud command sidecar metadata files (.yaml).
 # This schema ensures that sidecar files follow a consistent structure.
-$schema: "http://json-schema.org/draft-07/schema#"
-title: "YAML Sidecar Metadata Schema"
-description: "Schema for gcloud command sidecar metadata files."
+$schema: 'http://json-schema.org/draft-07/schema#'
+title: 'YAML Sidecar Metadata Schema'
+description: 'Schema for gcloud command sidecar metadata files.'
 
 # LINT.IfChange
 # The root must be an array of configurations.
@@ -19,7 +19,7 @@ items:
   # declarative commands in the same file (hybrid files).
   if:
     properties:
-      is_python_command: {const: true}
+      is_python_command: { const: true }
     required: [is_python_command]
   then:
     properties:
@@ -36,10 +36,10 @@ items:
           Static metadata describing the command's execution behavior and
           side effects.
         properties:
-          read_only: {type: boolean}
-          destructive: {type: boolean}
-          idempotent: {type: boolean}
-          open_world: {type: boolean}
+          read_only: { type: boolean }
+          destructive: { type: boolean }
+          idempotent: { type: boolean }
+          open_world: { type: boolean }
         additionalProperties: false
     required: [release_tracks, hints]
     additionalProperties: false

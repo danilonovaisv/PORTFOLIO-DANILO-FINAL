@@ -20,11 +20,11 @@
       help_text: |
         Arguments and flags that specify the Filestore instance to revert.
     params:
-    - arg_name: target-snapshot
-      required: true
-      api_field: revertInstanceRequest.targetSnapshotId
-      help_text: |
-        Name of the Filestore snapshot to revert to.
+      - arg_name: target-snapshot
+        required: true
+        api_field: revertInstanceRequest.targetSnapshotId
+        help_text: |
+          Name of the Filestore snapshot to revert to.
 
   request:
     BETA:

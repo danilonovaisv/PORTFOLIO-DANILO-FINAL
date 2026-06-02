@@ -1,7 +1,7 @@
 release_tracks: [ALPHA, BETA]
 help_text:
   brief: Delete an Investigation.
-  description:  Delete a Gemini Cloud Assist Investigation.
+  description: Delete a Gemini Cloud Assist Investigation.
   examples: |
     The following command deletes an Investigation with ID `foo-bar-1`
 

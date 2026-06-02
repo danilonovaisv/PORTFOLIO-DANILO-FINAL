@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a Gateway Security Policy Rule.
   examples: |
-      To export a Gateway Security Policy Rule, run:
+    To export a Gateway Security Policy Rule, run:
 
-        $ {command} my-rule --destination=my-rule.yaml --location={region} --gateway-security-policy={policy-name}
+      $ {command} my-rule --destination=my-rule.yaml --location={region} --gateway-security-policy={policy-name}
 
 request:
   collection: networksecurity.projects.locations.gatewaySecurityPolicies.rules

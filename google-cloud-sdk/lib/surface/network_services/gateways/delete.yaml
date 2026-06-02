@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified Network Services gateway.
   examples: |
-      To delete a gateway named 'my-gateway', run:
+    To delete a gateway named 'my-gateway', run:
 
-        $ {command} my-gateway --location=global
+      $ {command} my-gateway --location=global
 
 arguments:
   resource:

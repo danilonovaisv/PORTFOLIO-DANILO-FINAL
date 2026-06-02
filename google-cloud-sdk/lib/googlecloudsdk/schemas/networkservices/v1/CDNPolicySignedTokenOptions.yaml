@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 CDNPolicySignedTokenOptions export schema
 description: A gcloud export/import command YAML validation schema.
@@ -33,10 +33,10 @@ properties:
     items:
       type: string
       enum:
-      - ED25519
-      - HMAC_SHA1
-      - HMAC_SHA_256
-      - SIGNATURE_ALGORITHM_UNSPECIFIED
+        - ED25519
+        - HMAC_SHA1
+        - HMAC_SHA_256
+        - SIGNATURE_ALGORITHM_UNSPECIFIED
   tokenQueryParameter:
     description: |-
       The query parameter in which to find the token. The name must be 1-64

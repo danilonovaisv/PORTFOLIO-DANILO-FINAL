@@ -4,10 +4,10 @@ about: Create a report to help us improve
 title: ''
 labels: bug
 assignees: tkem
-
 ---
 
 Before reporting a bug, please make sure you have the latest `cachetools` version installed:
+
 ```
 pip install --upgrade cachetools
 ```

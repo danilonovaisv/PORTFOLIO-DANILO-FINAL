@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 - release_tracks:
-  - ALPHA
-  - BETA
+    - ALPHA
+    - BETA
   help_text:
     brief: List Cluster Director resources
     description: |
@@ -25,20 +25,20 @@
       $ {command} --location=us-central1-a
   arguments:
     params:
-    - help_text: |-
-        Identifier. Parent collection which own list of clusters.
-        Format: location | projects/{project}/locations/{location}
-      is_positional: false
-      is_primary_resource: true
-      request_id_field: parent
-      resource_spec: !REF googlecloudsdk.command_lib.cluster_director.clusters.resources:projects_locations
-      required: true
+      - help_text: |-
+          Identifier. Parent collection which own list of clusters.
+          Format: location | projects/{project}/locations/{location}
+        is_positional: false
+        is_primary_resource: true
+        request_id_field: parent
+        resource_spec: !REF googlecloudsdk.command_lib.cluster_director.clusters.resources:projects_locations
+        required: true
   request:
     ALPHA:
       api_version: v1alpha
     BETA:
       api_version: v1beta
     collection:
-    - hypercomputecluster.projects.locations.clusters
+      - hypercomputecluster.projects.locations.clusters
   response:
     id_field: name

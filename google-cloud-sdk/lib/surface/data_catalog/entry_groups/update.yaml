@@ -19,8 +19,8 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:entry_group
       is_positional: true
     params:
-    - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.v1_flags:display_name
-    - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.v1_flags:description
+      - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.v1_flags:display_name
+      - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.v1_flags:description
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -42,5 +42,5 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:entry_group
       is_positional: true
     params:
-    - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.flags:display_name
-    - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.flags:description
+      - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.flags:display_name
+      - !REF googlecloudsdk.command_lib.data_catalog.entry_groups.flags:description

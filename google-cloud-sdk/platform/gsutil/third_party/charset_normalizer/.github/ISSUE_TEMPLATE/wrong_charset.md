@@ -1,14 +1,14 @@
 ---
 name: Wrong charset / Detection issue
 about: Create a report to help us improve the detection mechanism
-title: "[DETECTION]"
+title: '[DETECTION]'
 labels: help wanted, detection
 assignees: ''
-
 ---
 
 **Notice**
 I hereby announce that my raw input is not :
+
 - Too small content (<=32 characters) as I do know that ANY charset detector heavily depends on content
 - Encoded in a deprecated/abandoned encoding that is not even supported by my interpreter
 
@@ -31,9 +31,10 @@ A clear and concise description of what you expected as encoding. Any more detai
 is very much appreciated.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Linux, Windows or Mac]
- - Python version [e.g. 3.5]
- - Package version [eg. 2.0.0]
+
+- OS: [e.g. Linux, Windows or Mac]
+- Python version [e.g. 3.5]
+- Package version [eg. 2.0.0]
 
 **Additional context**
 Add any other context about the problem here.

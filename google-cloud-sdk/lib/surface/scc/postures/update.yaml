@@ -68,30 +68,30 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.scc.resources:posture
       help_text: |
-          Arguments and flags that specify the Posture instance to be updated.
+        Arguments and flags that specify the Posture instance to be updated.
 
     params:
-    - arg_name: posture-from-file
-      api_field: posture
-      required: true
-      type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-      processor: googlecloudsdk.core.yaml:load
-      help_text: |
-        Path of the file containing the details of the field to be updated. Contents include the name of the
-        posture to be updated and value of the fields to be updated.
+      - arg_name: posture-from-file
+        api_field: posture
+        required: true
+        type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+        processor: googlecloudsdk.core.yaml:load
+        help_text: |
+          Path of the file containing the details of the field to be updated. Contents include the name of the
+          posture to be updated and value of the fields to be updated.
 
-    - arg_name: revision-id
-      api_field: revisionId
-      required: true
-      help_text: |
-        Revision ID of the posture to be updated. The same revision ID will be updated in case the posture
-        revision is not deployed on any workload. A new revision will be created for a deployed
-        posture.
+      - arg_name: revision-id
+        api_field: revisionId
+        required: true
+        help_text: |
+          Revision ID of the posture to be updated. The same revision ID will be updated in case the posture
+          revision is not deployed on any workload. A new revision will be created for a deployed
+          posture.
 
-    - arg_name: update-mask
-      api_field: updateMask
-      help_text: |
-        Comma separated string containing list of fields to be updated.
+      - arg_name: update-mask
+        api_field: updateMask
+        help_text: |
+          Comma separated string containing list of fields to be updated.
 
   async:
     collection: securityposture.organizations.locations.operations

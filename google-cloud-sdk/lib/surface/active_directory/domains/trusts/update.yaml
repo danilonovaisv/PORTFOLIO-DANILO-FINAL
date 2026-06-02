@@ -4,16 +4,16 @@
     brief: |
       Update target DNS IP addresses for a Managed Microsoft AD trust.
     description: |
-     Update target DNS IP addresses for a Managed Microsoft AD trust between the
-     managed domain and the target domain.
+      Update target DNS IP addresses for a Managed Microsoft AD trust between the
+      managed domain and the target domain.
 
-      This command can fail for the following reasons:
-        * The domain specified does not exist.
-        * The active account does not have permission to access the given
-          domain.
-        * The AD trust specified does not exist.
-        * The active account does not have permission to access the given
-          AD trust.
+       This command can fail for the following reasons:
+         * The domain specified does not exist.
+         * The active account does not have permission to access the given
+           domain.
+         * The AD trust specified does not exist.
+         * The active account does not have permission to access the given
+           AD trust.
     examples: |
       The following command updates the target DNS IP address for the AD trust
       between `my-domain.com` and ` my-target-domain.com` to `10.177.0.3`.
@@ -36,15 +36,15 @@
         Name of the Managed Microsoft AD trust for which you want to update
         target DNS IP Addresses.
     params:
-    - arg_name: target-domain-name
-      api_field: reconfigureTrustRequest.targetDomainName
-      required: true
-      help_text: |
-        Target domain name for the Managed Microsoft AD trust you want to update.
-    - arg_name: target-dns-ip-addresses
-      api_field: reconfigureTrustRequest.targetDnsIpAddresses
-      required: true
-      help_text: |
-        DNS server IP addresses that can resolve the target domain.
+      - arg_name: target-domain-name
+        api_field: reconfigureTrustRequest.targetDomainName
+        required: true
+        help_text: |
+          Target domain name for the Managed Microsoft AD trust you want to update.
+      - arg_name: target-dns-ip-addresses
+        api_field: reconfigureTrustRequest.targetDnsIpAddresses
+        required: true
+        help_text: |
+          DNS server IP addresses that can resolve the target domain.
 
-        Only IPv4 is supported.
+          Only IPv4 is supported.

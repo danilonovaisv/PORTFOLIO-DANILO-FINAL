@@ -22,15 +22,14 @@
     method: inspect
     api_version: v2
 
-
   arguments:
     params:
-    - _COMMON_: text_args.inspect_content_arg
-    - !REF googlecloudsdk.command_lib.dlp.flags:info_type
-    - !REF googlecloudsdk.command_lib.dlp.flags:min_likelihood
-    - !REF googlecloudsdk.command_lib.dlp.flags:include_quote
-    - !REF googlecloudsdk.command_lib.dlp.flags:exclude_info_types
-    - !REF googlecloudsdk.command_lib.dlp.flags:max_findings
+      - _COMMON_: text_args.inspect_content_arg
+      - !REF googlecloudsdk.command_lib.dlp.flags:info_type
+      - !REF googlecloudsdk.command_lib.dlp.flags:min_likelihood
+      - !REF googlecloudsdk.command_lib.dlp.flags:include_quote
+      - !REF googlecloudsdk.command_lib.dlp.flags:exclude_info_types
+      - !REF googlecloudsdk.command_lib.dlp.flags:max_findings
     resource:
       help_text: Project to use to inspect text.
       spec: !REF googlecloudsdk.command_lib.dlp.resources:content

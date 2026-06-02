@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 UrlFilter export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- filteringAction
-- priority
-- urls
+  - filteringAction
+  - priority
+  - urls
 additionalProperties: false
 properties:
   COMMENT:
@@ -33,9 +33,9 @@ properties:
     description: The action taken when this filter is applied.
     type: string
     enum:
-    - ALLOW
-    - DENY
-    - URL_FILTERING_ACTION_UNSPECIFIED
+      - ALLOW
+      - DENY
+      - URL_FILTERING_ACTION_UNSPECIFIED
   priority:
     description: |-
       The priority of this filter within the URL Filtering Profile. Lower

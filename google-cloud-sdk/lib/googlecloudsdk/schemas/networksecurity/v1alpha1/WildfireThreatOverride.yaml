@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 WildfireThreatOverride export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- action
-- threatId
+  - action
+  - threatId
 additionalProperties: false
 properties:
   COMMENT:
@@ -32,11 +32,11 @@ properties:
     description: Threat action override.
     type: string
     enum:
-    - WILDFIRE_ALERT
-    - WILDFIRE_ALLOW
-    - WILDFIRE_DEFAULT_ACTION
-    - WILDFIRE_DENY
-    - WILDFIRE_THREAT_ACTION_UNSPECIFIED
+      - WILDFIRE_ALERT
+      - WILDFIRE_ALLOW
+      - WILDFIRE_DEFAULT_ACTION
+      - WILDFIRE_DENY
+      - WILDFIRE_THREAT_ACTION_UNSPECIFIED
   threatId:
     description: Threat ID to match.
     type: string

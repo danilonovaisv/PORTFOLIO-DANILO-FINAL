@@ -20,7 +20,7 @@
     api_version: v1
     collection: datacatalog.projects.locations.tagTemplates.fields
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateUpdateTagTemplateFieldRequestWithInputV1
+      - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateUpdateTagTemplateFieldRequestWithInputV1
 
   arguments:
     resource:
@@ -28,22 +28,22 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: googleCloudDatacatalogV1TagTemplateField.displayName
-      arg_name: display-name
-      help_text: Display name of the tag template field.
-    - arg_name: enum-values
-      type: arg_list
-      help_text: |
-        Comma-separated list of enum values. The list of enum values passed with this flag replaces the existing one in tag template enum field. That means:
-        - the enum values passed to the flag and not present in tag template enum field get created
-        - the enum values present in tag template enum field and missing in the list get removed
-        - the order of the items on the list is preserved
+      - api_field: googleCloudDatacatalogV1TagTemplateField.displayName
+        arg_name: display-name
+        help_text: Display name of the tag template field.
+      - arg_name: enum-values
+        type: arg_list
+        help_text: |
+          Comma-separated list of enum values. The list of enum values passed with this flag replaces the existing one in tag template enum field. That means:
+          - the enum values passed to the flag and not present in tag template enum field get created
+          - the enum values present in tag template enum field and missing in the list get removed
+          - the order of the items on the list is preserved
 
-        Enum values can only be removed from optional enum fields for now.
-    - api_field: googleCloudDatacatalogV1TagTemplateField.isRequired
-      arg_name: required
-      help_text: |
-        Indicates if the tag template field is required. Updating from FALSE (optional) to TRUE (required) is NOT allowed.
+          Enum values can only be removed from optional enum fields for now.
+      - api_field: googleCloudDatacatalogV1TagTemplateField.isRequired
+        arg_name: required
+        help_text: |
+          Indicates if the tag template field is required. Updating from FALSE (optional) to TRUE (required) is NOT allowed.
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -66,7 +66,7 @@
   request:
     collection: datacatalog.projects.locations.tagTemplates.fields
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateUpdateTagTemplateFieldRequestWithInput
+      - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateUpdateTagTemplateFieldRequestWithInput
 
   arguments:
     resource:
@@ -74,19 +74,19 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: googleCloudDatacatalogV1beta1TagTemplateField.displayName
-      arg_name: display-name
-      help_text: Display name of the tag template field.
-    - arg_name: enum-values
-      type: arg_list
-      help_text: |
-        Comma-separated list of enum values. The list of enum values passed with this flag replaces the existing one in tag template enum field. That means:
-        - the enum values passed to the flag and not present in tag template enum field get created
-        - the enum values present in tag template enum field and missing in the list get removed
-        - the order of the items on the list is preserved
+      - api_field: googleCloudDatacatalogV1beta1TagTemplateField.displayName
+        arg_name: display-name
+        help_text: Display name of the tag template field.
+      - arg_name: enum-values
+        type: arg_list
+        help_text: |
+          Comma-separated list of enum values. The list of enum values passed with this flag replaces the existing one in tag template enum field. That means:
+          - the enum values passed to the flag and not present in tag template enum field get created
+          - the enum values present in tag template enum field and missing in the list get removed
+          - the order of the items on the list is preserved
 
-        Enum values can only be removed from optional enum fields for now.
-    - api_field: googleCloudDatacatalogV1beta1TagTemplateField.isRequired
-      arg_name: required
-      help_text: |
-        Indicates if the tag template field is required. Updating from FALSE (optional) to TRUE (required) is NOT allowed.
+          Enum values can only be removed from optional enum fields for now.
+      - api_field: googleCloudDatacatalogV1beta1TagTemplateField.isRequired
+        arg_name: required
+        help_text: |
+          Indicates if the tag template field is required. Updating from FALSE (optional) to TRUE (required) is NOT allowed.

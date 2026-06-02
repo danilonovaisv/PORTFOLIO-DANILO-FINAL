@@ -20,19 +20,19 @@
       is_positional: false
       arg_name: service-account
     params:
-    - arg_name: ca-cert-path
-      api_field: generateServiceAccountKeyRequest.caCertPath
-      help_text: File that contains the CA certificate of the Google Distributed Cloud zone.
-    - arg_name: output_file
-      is_positional: true
-      required: true
-      help_text: Output file to write the service account key.
-    - arg_name: validity
-      api_field: generateServiceAccountKeyRequest.validity
-      help_text: Validity of the service account key.
-      type: googlecloudsdk.core.util.times:ParseDuration
-      processor: googlecloudsdk.core.util.times:FormatDurationForJson
+      - arg_name: ca-cert-path
+        api_field: generateServiceAccountKeyRequest.caCertPath
+        help_text: File that contains the CA certificate of the Google Distributed Cloud zone.
+      - arg_name: output_file
+        is_positional: true
+        required: true
+        help_text: Output file to write the service account key.
+      - arg_name: validity
+        api_field: generateServiceAccountKeyRequest.validity
+        help_text: Validity of the service account key.
+        type: googlecloudsdk.core.util.times:ParseDuration
+        processor: googlecloudsdk.core.util.times:FormatDurationForJson
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.service_account.hooks:PossiblyWritePrivateKeyToOutputFile
+      - googlecloudsdk.command_lib.edge_cloud.service_account.hooks:PossiblyWritePrivateKeyToOutputFile

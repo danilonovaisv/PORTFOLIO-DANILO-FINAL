@@ -28,8 +28,8 @@
   request:
     collection: websecurityscanner.projects.scanConfigs
     modify_request_hooks:
-    - googlecloudsdk.command_lib.web_security_scanner.auth:SetScanConfigAuth
-    - googlecloudsdk.command_lib.web_security_scanner.auth:AddAuthFieldMask
+      - googlecloudsdk.command_lib.web_security_scanner.auth:SetScanConfigAuth
+      - googlecloudsdk.command_lib.web_security_scanner.auth:AddAuthFieldMask
 
   arguments:
     resource:
@@ -37,14 +37,14 @@
       spec: !REF googlecloudsdk.command_lib.web_security_scanner.resources:scan_config
       is_positional: true
     params:
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:display_name
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:starting_urls
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:max_qps
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:schedule_interval_days
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:schedule_next_start
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:target_platforms
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:user_agent
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:blacklist_patterns
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:export_to_security_center
-    - !REF googlecloudsdk.command_lib.web_security_scanner.flags:risk_level
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:display_name
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:starting_urls
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:max_qps
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:schedule_interval_days
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:schedule_next_start
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:target_platforms
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:user_agent
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:blacklist_patterns
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:export_to_security_center
+      - !REF googlecloudsdk.command_lib.web_security_scanner.flags:risk_level
     additional_arguments_hook: googlecloudsdk.command_lib.web_security_scanner.auth:AuthFlags

@@ -28,4 +28,4 @@
       spec: !REF googlecloudsdk.command_lib.beyondcorp.client_connector.resources:client_gateway
 
     params:
-    - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.gateways.flags:client_connector_service
+      - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.gateways.flags:client_connector_service

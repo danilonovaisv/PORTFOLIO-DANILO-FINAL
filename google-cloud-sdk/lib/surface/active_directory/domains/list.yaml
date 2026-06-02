@@ -16,7 +16,7 @@
   request: &request
     collection: managedidentities.projects.locations.global.domains
     modify_request_hooks:
-    - googlecloudsdk.command_lib.active_directory.util:AppendLocationsGlobalToParent
+      - googlecloudsdk.command_lib.active_directory.util:AppendLocationsGlobalToParent
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -33,37 +33,37 @@
   output:
     ALPHA:
       format: |
-         table(
-            name.basename():label=DOMAIN_NAME,
-            state:label=DOMAIN_STATE,
-            reservedIpRange:label=RESERVED_IP_RANGE,
-            locations:label=REGIONS,
-            labels:label=LABELS,
-            managedIdentitiesAdminName:label=ADMIN_NAME,
-            auditLogsEnabled:label=AUDIT_LOGS_ENABLED,
-            createTime.date():sort=1
-          )
+        table(
+           name.basename():label=DOMAIN_NAME,
+           state:label=DOMAIN_STATE,
+           reservedIpRange:label=RESERVED_IP_RANGE,
+           locations:label=REGIONS,
+           labels:label=LABELS,
+           managedIdentitiesAdminName:label=ADMIN_NAME,
+           auditLogsEnabled:label=AUDIT_LOGS_ENABLED,
+           createTime.date():sort=1
+         )
     BETA:
       format: |
-         table(
-            name.basename():label=DOMAIN_NAME,
-            state:label=DOMAIN_STATE,
-            reservedIpRange:label=RESERVED_IP_RANGE,
-            locations:label=REGIONS,
-            labels:label=LABELS,
-            admin:label=ADMIN_NAME,
-            auditLogsEnabled:label=AUDIT_LOGS_ENABLED,
-            createTime.date():sort=1
-          )
+        table(
+           name.basename():label=DOMAIN_NAME,
+           state:label=DOMAIN_STATE,
+           reservedIpRange:label=RESERVED_IP_RANGE,
+           locations:label=REGIONS,
+           labels:label=LABELS,
+           admin:label=ADMIN_NAME,
+           auditLogsEnabled:label=AUDIT_LOGS_ENABLED,
+           createTime.date():sort=1
+         )
     GA:
       format: |
-         table(
-            name.basename():label=DOMAIN_NAME,
-            state:label=DOMAIN_STATE,
-            reservedIpRange:label=RESERVED_IP_RANGE,
-            locations:label=REGIONS,
-            labels:label=LABELS,
-            admin:label=ADMIN_NAME,
-            auditLogsEnabled:label=AUDIT_LOGS_ENABLED,
-            createTime.date():sort=1
-          )
+        table(
+           name.basename():label=DOMAIN_NAME,
+           state:label=DOMAIN_STATE,
+           reservedIpRange:label=RESERVED_IP_RANGE,
+           locations:label=REGIONS,
+           labels:label=LABELS,
+           admin:label=ADMIN_NAME,
+           auditLogsEnabled:label=AUDIT_LOGS_ENABLED,
+           createTime.date():sort=1
+         )

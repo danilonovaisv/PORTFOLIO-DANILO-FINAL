@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkebackup v1 exclusion windows export schema
 description: Specifying the exclusion windows yaml definition
@@ -19,8 +19,8 @@ properties:
     items:
       type: object
       required:
-      - duration
-      - startTime
+        - duration
+        - startTime
       additionalProperties: false
       properties:
         daily:
@@ -39,14 +39,14 @@ properties:
               items:
                 type: string
                 enum:
-                - DAY_OF_WEEK_UNSPECIFIED
-                - FRIDAY
-                - MONDAY
-                - SATURDAY
-                - SUNDAY
-                - THURSDAY
-                - TUESDAY
-                - WEDNESDAY
+                  - DAY_OF_WEEK_UNSPECIFIED
+                  - FRIDAY
+                  - MONDAY
+                  - SATURDAY
+                  - SUNDAY
+                  - THURSDAY
+                  - TUESDAY
+                  - WEDNESDAY
         duration:
           description: |-
             Specifies duration of the window. Restrictions for duration based on the

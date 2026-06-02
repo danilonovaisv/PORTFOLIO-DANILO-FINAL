@@ -24,7 +24,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.container.locations:ExtractZonesFromLocations
+      - googlecloudsdk.command_lib.edge_cloud.container.locations:ExtractZonesFromLocations
 
   output:
     format: |

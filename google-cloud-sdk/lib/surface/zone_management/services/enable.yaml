@@ -22,23 +22,23 @@
       is_parent_resource: true
       is_positional: false
     params:
-    - arg_name: id
-      api_field: enableZonalServiceRequest.zonalServiceId
-      required: false
-      help_text: Zonal service ID.
-    - arg_name: zone
-      api_field: enableZonalServiceRequest.zonalService.zone
-      help_text: |
-        Distributed Cloud Zone.
-    - arg_name: cluster
-      api_field: enableZonalServiceRequest.zonalService.cluster
-      help_text: Cluster name.
-    - arg_name: service_selector
-      api_field: enableZonalServiceRequest.zonalService.serviceSelector
-      required: true
-      is_positional: true
-      help_text: |
-        service name.
+      - arg_name: id
+        api_field: enableZonalServiceRequest.zonalServiceId
+        required: false
+        help_text: Zonal service ID.
+      - arg_name: zone
+        api_field: enableZonalServiceRequest.zonalService.zone
+        help_text: |
+          Distributed Cloud Zone.
+      - arg_name: cluster
+        api_field: enableZonalServiceRequest.zonalService.cluster
+        help_text: Cluster name.
+      - arg_name: service_selector
+        api_field: enableZonalServiceRequest.zonalService.serviceSelector
+        required: true
+        is_positional: true
+        help_text: |
+          service name.
 
   async:
     collection: edgecontainer.projects.locations.operations

@@ -17,25 +17,25 @@
 
   arguments:
     params:
-    - arg_name: backup
-      is_positional: true
-      required: true
-      help_text: |
-        Arguments and flags that specify the Filestore backup you want to
-        update.
-    - arg_name: region
-      required: true
-      help_text: |
-        Compute region (e.g. us-central1) for the backup.
-    - arg_name: description
-      api_field: backup.description
-      help_text: |
-        Description of the backup.
+      - arg_name: backup
+        is_positional: true
+        required: true
+        help_text: |
+          Arguments and flags that specify the Filestore backup you want to
+          update.
+      - arg_name: region
+        required: true
+        help_text: |
+          Compute region (e.g. us-central1) for the backup.
+      - arg_name: description
+        api_field: backup.description
+        help_text: |
+          Description of the backup.
     additional_arguments_hook: googlecloudsdk.command_lib.filestore.update_util:UpdateLabelsFlags
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.filestore.backups.update_util:FormatBackupUpdateResponse
+      - googlecloudsdk.command_lib.filestore.backups.update_util:FormatBackupUpdateResponse
 
   async:
     collection: file.projects.locations.operations
@@ -50,7 +50,7 @@
     display_resource_type: backup
     collection: file.projects.locations.backups
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupAccessRequest
-    - googlecloudsdk.command_lib.filestore.backups.update_util:GetExistingBackup
-    - googlecloudsdk.command_lib.filestore.backups.update_util:AddDescription
-    - googlecloudsdk.command_lib.filestore.backups.update_util:UpdateLabels
+      - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupAccessRequest
+      - googlecloudsdk.command_lib.filestore.backups.update_util:GetExistingBackup
+      - googlecloudsdk.command_lib.filestore.backups.update_util:AddDescription
+      - googlecloudsdk.command_lib.filestore.backups.update_util:UpdateLabels

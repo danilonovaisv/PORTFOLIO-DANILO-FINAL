@@ -18,10 +18,10 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: force
-      arg_name: force
-      help_text: |-
-        If True, this tag template field will be deleted from any existing tags.
+      - api_field: force
+        arg_name: force
+        help_text: |-
+          If True, this tag template field will be deleted from any existing tags.
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -42,7 +42,7 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: force
-      arg_name: force
-      help_text: |-
-        If True, this tag template field will be deleted from any existing tags.
+      - api_field: force
+        arg_name: force
+        help_text: |-
+          If True, this tag template field will be deleted from any existing tags.

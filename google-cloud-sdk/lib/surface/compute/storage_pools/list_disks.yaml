@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA, PREVIEW]
   help_text:
-    brief: "View the disks that are in a storage pool."
-    description: "View the disks that are in a given storage pool."
+    brief: 'View the disks that are in a storage pool.'
+    description: 'View the disks that are in a given storage pool.'
     examples: |
       The following command retrieves all disks belonging to a storage pool and lists them:
 
@@ -26,7 +26,7 @@
 
   output:
     flatten:
-    - "items"
+      - 'items'
     format: |
       table(
         items.name,

@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified http route.
   examples: |
-      To delete a route named 'my-route', run:
+    To delete a route named 'my-route', run:
 
-        $ {command} my-route --location=global
+      $ {command} my-route --location=global
 
 arguments:
   resource:

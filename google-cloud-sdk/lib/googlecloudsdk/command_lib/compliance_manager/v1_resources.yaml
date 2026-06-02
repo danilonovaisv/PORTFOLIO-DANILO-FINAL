@@ -20,62 +20,60 @@ organizations_locations:
   plural_name: locations
   collection: cloudsecuritycompliance.organizations.locations
   attributes:
-  - &organization
-    parameter_name: organizationsId
-    attribute_name: organization
-    help: The organization id of the {resource} resource.
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &organization
+      parameter_name: organizationsId
+      attribute_name: organization
+      help: The organization id of the {resource} resource.
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 organizations_locations_cloud_control_deployments:
   name: cloudControlDeployment
   plural_name: cloudControlDeployments
-  collection:
-    cloudsecuritycompliance.organizations.locations.cloudControlDeployments
+  collection: cloudsecuritycompliance.organizations.locations.cloudControlDeployments
   attributes:
-  - *organization
-  - *location
-  - &cloudControlDeployment
-    parameter_name: cloudControlDeploymentsId
-    attribute_name: cloud_control_deployment
-    help: The cloudControlDeployment id of the {resource} resource.
+    - *organization
+    - *location
+    - &cloudControlDeployment
+      parameter_name: cloudControlDeploymentsId
+      attribute_name: cloud_control_deployment
+      help: The cloudControlDeployment id of the {resource} resource.
   disable_auto_completers: false
 organizations_locations_cloud_controls:
   name: cloudControl
   plural_name: cloudControls
   collection: cloudsecuritycompliance.organizations.locations.cloudControls
   attributes:
-  - *organization
-  - *location
-  - &cloudControl
-    parameter_name: cloudControlsId
-    attribute_name: cloud_control
-    help: The cloudControl id of the {resource} resource.
+    - *organization
+    - *location
+    - &cloudControl
+      parameter_name: cloudControlsId
+      attribute_name: cloud_control
+      help: The cloudControl id of the {resource} resource.
   disable_auto_completers: false
 organizations_locations_framework_deployments:
   name: frameworkDeployment
   plural_name: frameworkDeployments
-  collection:
-    cloudsecuritycompliance.organizations.locations.frameworkDeployments
+  collection: cloudsecuritycompliance.organizations.locations.frameworkDeployments
   attributes:
-  - *organization
-  - *location
-  - &frameworkDeployment
-    parameter_name: frameworkDeploymentsId
-    attribute_name: framework_deployment
-    help: The frameworkDeployment id of the {resource} resource.
+    - *organization
+    - *location
+    - &frameworkDeployment
+      parameter_name: frameworkDeploymentsId
+      attribute_name: framework_deployment
+      help: The frameworkDeployment id of the {resource} resource.
   disable_auto_completers: false
 organizations_locations_frameworks:
   name: framework
   plural_name: frameworks
   collection: cloudsecuritycompliance.organizations.locations.frameworks
   attributes:
-  - *organization
-  - *location
-  - &framework
-    parameter_name: frameworksId
-    attribute_name: framework
-    help: The framework id of the {resource} resource.
+    - *organization
+    - *location
+    - &framework
+      parameter_name: frameworksId
+      attribute_name: framework
+      help: The framework id of the {resource} resource.
   disable_auto_completers: false

@@ -19,7 +19,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.iam.hooks:DisableIamAccountConfirmation
+      - googlecloudsdk.command_lib.iam.hooks:DisableIamAccountConfirmation
 
   output:
     format: none

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 StopBackfillJobRequest export schema
 description: A gcloud export/import command YAML validation schema.

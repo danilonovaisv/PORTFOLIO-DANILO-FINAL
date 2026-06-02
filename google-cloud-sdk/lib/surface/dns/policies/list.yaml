@@ -27,7 +27,6 @@
       help_text: The project you want to list policies for.
       spec: !REF googlecloudsdk.command_lib.dns.resources:project
 
-
   output:
     format: |
       table(name,

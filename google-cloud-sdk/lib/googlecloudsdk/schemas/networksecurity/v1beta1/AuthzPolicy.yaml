@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1beta1 AuthzPolicy export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- action
-- name
-- target
+  - action
+  - name
+  - target
 additionalProperties: false
 properties:
   COMMENT:
@@ -46,10 +46,10 @@ properties:
       request.
     type: string
     enum:
-    - ALLOW
-    - AUTHZ_ACTION_UNSPECIFIED
-    - CUSTOM
-    - DENY
+      - ALLOW
+      - AUTHZ_ACTION_UNSPECIFIED
+      - CUSTOM
+      - DENY
   customProvider:
     description: |-
       Required if the action is `CUSTOM`. Allows delegating authorization
@@ -87,9 +87,9 @@ properties:
       once AuthzPolicy is created.
     type: string
     enum:
-    - CONTENT_AUTHZ
-    - POLICY_PROFILE_UNSPECIFIED
-    - REQUEST_AUTHZ
+      - CONTENT_AUTHZ
+      - POLICY_PROFILE_UNSPECIFIED
+      - REQUEST_AUTHZ
   target:
     description: |-
       Specifies the set of resources to which this policy should be applied

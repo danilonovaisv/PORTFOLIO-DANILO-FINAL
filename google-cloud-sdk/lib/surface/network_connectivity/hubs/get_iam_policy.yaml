@@ -25,7 +25,6 @@
       policy: GoogleIamV1Policy
       set_iam_policy_request: NetworkconnectivityProjectsLocationsGlobalHubsSetIamPolicyRequest
 
-
 - release_tracks: [GA]
 
   help_text:

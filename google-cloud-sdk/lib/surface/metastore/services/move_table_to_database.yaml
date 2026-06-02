@@ -30,20 +30,20 @@
         Arguments and flags that specify the table and the destination database you want to move to.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:service
     params:
-    - arg_name: table_name
-      api_field: moveTableToDatabaseRequest.tableName
-      help_text: |
-        The name of the table to be moved.
-      required: true
-    - arg_name: source_db_name
-      api_field: moveTableToDatabaseRequest.dbName
-      help_text: |
-        The name of the database where the table resides.
-      required: true
-    - arg_name: destination_db_name
-      api_field: moveTableToDatabaseRequest.destinationDbName
-      help_text: |
-        The name of the database where the table should be moved.
-      required: true
+      - arg_name: table_name
+        api_field: moveTableToDatabaseRequest.tableName
+        help_text: |
+          The name of the table to be moved.
+        required: true
+      - arg_name: source_db_name
+        api_field: moveTableToDatabaseRequest.dbName
+        help_text: |
+          The name of the database where the table resides.
+        required: true
+      - arg_name: destination_db_name
+        api_field: moveTableToDatabaseRequest.destinationDbName
+        help_text: |
+          The name of the database where the table should be moved.
+        required: true
   async:
     collection: metastore.projects.locations.operations

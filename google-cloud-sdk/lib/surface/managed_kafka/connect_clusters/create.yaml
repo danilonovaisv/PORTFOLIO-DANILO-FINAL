@@ -19,8 +19,8 @@ help_text:
 request:
   collection: managedkafka.projects.locations.connectClusters
   modify_request_hooks:
-  - googlecloudsdk.command_lib.managed_kafka.util:PrepareConnectClusterCreate
-  - googlecloudsdk.command_lib.managed_kafka.util:MapConnectParamsToNetworkConfig
+    - googlecloudsdk.command_lib.managed_kafka.util:PrepareConnectClusterCreate
+    - googlecloudsdk.command_lib.managed_kafka.util:MapConnectParamsToNetworkConfig
 
 async:
   collection: managedkafka.projects.locations.operations
@@ -30,20 +30,20 @@ arguments:
     help_text: Identifies the connect cluster that is created.
     spec: !REF googlecloudsdk.command_lib.managed_kafka.resources:connect_cluster
   params:
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:kafka-cluster
-    required: true
-  - group:
-      mutex: true
-      params:
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connectCluster-configs
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connectCluster-config-file
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-cpu
-    required: true
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-memory
-    required: true
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-primary-subnet
-    required: true
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-additional-subnet
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:dns-name
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:secret
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-labels
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:kafka-cluster
+      required: true
+    - group:
+        mutex: true
+        params:
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connectCluster-configs
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connectCluster-config-file
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-cpu
+      required: true
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-memory
+      required: true
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-primary-subnet
+      required: true
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-additional-subnet
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:dns-name
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:secret
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:connect-labels

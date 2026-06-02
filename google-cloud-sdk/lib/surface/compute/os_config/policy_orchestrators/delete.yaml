@@ -12,9 +12,9 @@
 
   request:
     collection:
-    - osconfig.projects.locations.global.policyOrchestrators
-    - osconfig.folders.locations.global.policyOrchestrators
-    - osconfig.organizations.locations.global.policyOrchestrators
+      - osconfig.projects.locations.global.policyOrchestrators
+      - osconfig.folders.locations.global.policyOrchestrators
+      - osconfig.organizations.locations.global.policyOrchestrators
     ALPHA:
       api_version: v2alpha
     BETA:
@@ -30,9 +30,9 @@
 
   async:
     collection:
-    - osconfig.projects.locations.operations
-    - osconfig.folders.locations.operations
-    - osconfig.organizations.locations.operations
+      - osconfig.projects.locations.operations
+      - osconfig.folders.locations.operations
+      - osconfig.organizations.locations.operations
     ALPHA:
       api_version: v2alpha
     BETA:

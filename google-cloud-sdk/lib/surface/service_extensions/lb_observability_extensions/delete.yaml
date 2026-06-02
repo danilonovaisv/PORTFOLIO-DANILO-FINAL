@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `LbObservabilityExtension` resource.
   examples: |
-      To delete an `LbObservabilityExtension` resource named
-      `my-observability-extension` in `us-central1`, run:
+    To delete an `LbObservabilityExtension` resource named
+    `my-observability-extension` in `us-central1`, run:
 
-        $ {command} my-observability-extension --location=us-central1
+      $ {command} my-observability-extension --location=us-central1
 
 arguments:
   resource:

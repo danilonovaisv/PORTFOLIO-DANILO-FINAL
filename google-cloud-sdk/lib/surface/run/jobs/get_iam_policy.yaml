@@ -17,7 +17,7 @@
   request:
     collection: run.projects.locations.jobs
     modify_request_hooks:
-    - googlecloudsdk.command_lib.run.platforms:ValidatePlatformIsManaged
+      - googlecloudsdk.command_lib.run.platforms:ValidatePlatformIsManaged
     ALPHA:
       regional_endpoint_compatibility: SUPPORTED
     BETA:
@@ -31,4 +31,4 @@
       removed_flags: ['region']
       command_level_fallthroughs:
         region:
-        - arg_name: 'region'
+          - arg_name: 'region'

@@ -6,8 +6,8 @@ schema:
     arg_dict:
       flatten: true
       spec:
-      - api_field: column
-      - api_field: type
+        - api_field: column
+        - api_field: type
   help_text: |-
     Inline schema for the entry. When specifying a schema via this argument, only column names
     and types should be provided. Column modes will default to NULLABLE, and column descriptions
@@ -15,7 +15,7 @@ schema:
 schema_from_file:
   arg_name: schema-from-file
   api_field: googleCloudDatacatalogV1Entry.schema
-  type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
+  type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
   processor: googlecloudsdk.command_lib.data_catalog.entries.v1_util:ProcessSchemaFromFile
   help_text: |-
     Path to a JSON or YAML file containing the schema for the entry. This can be used to specify

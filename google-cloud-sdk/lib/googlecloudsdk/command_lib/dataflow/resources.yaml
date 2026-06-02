@@ -2,17 +2,17 @@ project:
   name: project
   collection: dataflow.projects
   attributes:
-  - &project
-    parameter_name: projectId
-    attribute_name: project
-    help: The project name.
-    property: core/project
+    - &project
+      parameter_name: projectId
+      attribute_name: project
+      help: The project name.
+      property: core/project
 
 job:
   name: job
   collection: dataflow.projects.jobs
   attributes:
-  - *project
-  - parameter_name: jobId
-    attribute_name: job
-    help: The job name.
+    - *project
+    - parameter_name: jobId
+      attribute_name: job
+      help: The job name.

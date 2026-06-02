@@ -48,20 +48,20 @@
 
   arguments:
     params:
-    - api_field: title
-      arg_name: title
-      required: true
-      help_text: Short human-readable title of the access policy.
-    - api_field: parent
-      arg_name: organization
-      required: true
-      type: googlecloudsdk.command_lib.util.hooks.types:Resource:collection=cloudresourcemanager.organizations
-      processor: googlecloudsdk.command_lib.util.hooks.processors:RelativeName
-      help_text: Parent organization for the access policies.
-    - api_field: scopes
-      arg_name: scopes
-      required: false
-      help_text: |
-        Folder or project on which this policy is applicable. You can specify only one folder or
-        project as the scope and the scope must exist within the specified organization. If you
-        don't specify a scope, the policy applies to the entire organization.
+      - api_field: title
+        arg_name: title
+        required: true
+        help_text: Short human-readable title of the access policy.
+      - api_field: parent
+        arg_name: organization
+        required: true
+        type: googlecloudsdk.command_lib.util.hooks.types:Resource:collection=cloudresourcemanager.organizations
+        processor: googlecloudsdk.command_lib.util.hooks.processors:RelativeName
+        help_text: Parent organization for the access policies.
+      - api_field: scopes
+        arg_name: scopes
+        required: false
+        help_text: |
+          Folder or project on which this policy is applicable. You can specify only one folder or
+          project as the scope and the scope must exist within the specified organization. If you
+          don't specify a scope, the policy applies to the entire organization.

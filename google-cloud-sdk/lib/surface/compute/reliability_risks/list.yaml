@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA]
   help_text:
-    brief: "List reliability risks."
-    description: "List reliability risks."
+    brief: 'List reliability risks.'
+    description: 'List reliability risks.'
     examples: |
       The following command lists all reliability risks.
         $ {command} my-reliability-risk

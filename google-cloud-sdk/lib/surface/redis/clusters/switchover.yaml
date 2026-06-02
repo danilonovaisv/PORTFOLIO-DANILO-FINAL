@@ -36,4 +36,4 @@
     collection: redis.projects.locations.clusters
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.command_lib.redis.clusters_ccr_util:Switchover
+      - googlecloudsdk.command_lib.redis.clusters_ccr_util:Switchover

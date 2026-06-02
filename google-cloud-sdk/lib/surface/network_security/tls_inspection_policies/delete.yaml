@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified TLS Inspection Policy.
   examples: |
-      To delete a TLS Inspection Policy called 'my-tls-inspection-policy', run:
+    To delete a TLS Inspection Policy called 'my-tls-inspection-policy', run:
 
-        $ {command} my-tls-inspection-policy --location=$REGION
+      $ {command} my-tls-inspection-policy --location=$REGION
 
 arguments:
   resource:

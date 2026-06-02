@@ -8,12 +8,12 @@
       $ {command}
   arguments:
     params:
-    - help_text: |-
-        Name of the resource
-      is_positional: true
-      resource_spec: !REF googlecloudsdk.command_lib.saas_runtime.resources:unit_kind
-      required: true
+      - help_text: |-
+          Name of the resource
+        is_positional: true
+        resource_spec: !REF googlecloudsdk.command_lib.saas_runtime.resources:unit_kind
+        required: true
   request:
     api_version: v1beta1
     collection:
-    - saasservicemgmt.projects.locations.unitKinds
+      - saasservicemgmt.projects.locations.unitKinds

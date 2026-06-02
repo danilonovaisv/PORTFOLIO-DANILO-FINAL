@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 DatasetTemplate export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- location
+  - location
 additionalProperties: false
 properties:
   COMMENT:

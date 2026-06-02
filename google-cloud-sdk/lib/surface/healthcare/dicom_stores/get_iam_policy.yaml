@@ -1,6 +1,5 @@
 - release_tracks: [ALPHA, BETA, GA]
 
-
   help_text:
     brief: Retrieve the IAM policy for a Cloud Healthcare API DICOM store.
     description: Retrieve the IAM policy for a Cloud Healthcare API DICOM store.

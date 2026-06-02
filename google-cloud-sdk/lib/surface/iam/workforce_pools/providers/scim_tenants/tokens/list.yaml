@@ -38,10 +38,10 @@
       spec: !REF googlecloudsdk.command_lib.iam.resources:workforce_pool_provider_scim_tenant
 
     params:
-    - arg_name: show-deleted
-      api_field: showDeleted
-      required: false
-      help_text: Include soft-deleted tokens in the results.
+      - arg_name: show-deleted
+        api_field: showDeleted
+        required: false
+        help_text: Include soft-deleted tokens in the results.
 
   output:
     format: |

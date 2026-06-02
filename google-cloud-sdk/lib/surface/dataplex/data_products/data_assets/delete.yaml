@@ -20,9 +20,9 @@
         Arguments and flags that specify the Dataplex Data Asset you want to delete.
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:data_asset
     params:
-    - arg_name: etag
-      api_field: etag
-      help_text: |
-        Etag of the data asset to delete.
+      - arg_name: etag
+        api_field: etag
+        help_text: |
+          Etag of the data asset to delete.
   async:
     collection: dataplex.projects.locations.operations

@@ -28,11 +28,11 @@
 
   output:
     format: |
-       table(
-          name.basename():label=OPERATION_NAME,
-          metadata.verb:label=TYPE,
-          metadata.target.basename(),
-          done,
-          metadata.createTime.date():sort=1,
-          duration(start=metadata.createTime,end=metadata.endTime,precision=0,calendar=false).slice(2:).join("").yesno(no="<1S"):label=DURATION
-        )
+      table(
+         name.basename():label=OPERATION_NAME,
+         metadata.verb:label=TYPE,
+         metadata.target.basename(),
+         done,
+         metadata.createTime.date():sort=1,
+         duration(start=metadata.createTime,end=metadata.endTime,precision=0,calendar=false).slice(2:).join("").yesno(no="<1S"):label=DURATION
+       )

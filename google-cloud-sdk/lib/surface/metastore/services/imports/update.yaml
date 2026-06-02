@@ -29,7 +29,7 @@
       api_version: v1beta
     collection: metastore.projects.locations.services.metadataImports
     modify_request_hooks:
-    - googlecloudsdk.command_lib.metastore.services.imports.util:UpdateDescription
+      - googlecloudsdk.command_lib.metastore.services.imports.util:UpdateDescription
 
   arguments:
     resource:
@@ -38,11 +38,11 @@
         you want to create.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:import
     params:
-    - arg_name: description
-      api_field: metadataImport.description
-      processor: googlecloudsdk.command_lib.metastore.validators:ValidateStringField:arg_name=--description
-      help_text: |
-        The description of the metadata import.
+      - arg_name: description
+        api_field: metadataImport.description
+        processor: googlecloudsdk.command_lib.metastore.validators:ValidateStringField:arg_name=--description
+        help_text: |
+          The description of the metadata import.
 
   async:
     collection: metastore.projects.locations.operations

@@ -15,11 +15,11 @@
       api_version: v1
     method: updateSettings
     collection:
-    - observability.projects.locations
-    - observability.folders.locations
-    - observability.organizations.locations
+      - observability.projects.locations
+      - observability.folders.locations
+      - observability.organizations.locations
     modify_request_hooks:
-    - googlecloudsdk.command_lib.observability.util:UpdateSettingsResource
+      - googlecloudsdk.command_lib.observability.util:UpdateSettingsResource
 
   arguments:
     resource:
@@ -30,28 +30,28 @@
         The project/organization/folder location for which the settings are to be updated.
 
     params:
-    - arg_name: default-storage-location
-      api_field: settings.defaultStorageLocation
-      help_text: |
-        Updated default storage location.
+      - arg_name: default-storage-location
+        api_field: settings.defaultStorageLocation
+        help_text: |
+          Updated default storage location.
 
-    - arg_name: kms-key-name
-      api_field: settings.kmsKeyName
-      help_text: |
-        Updated kms key name.
+      - arg_name: kms-key-name
+        api_field: settings.kmsKeyName
+        help_text: |
+          Updated kms key name.
 
-    - arg_name: update-mask
-      api_field: updateMask
-      help_text: |
-        Comma-separated string containing list of fields to be updated.
+      - arg_name: update-mask
+        api_field: updateMask
+        help_text: |
+          Comma-separated string containing list of fields to be updated.
 
   async:
     ALPHA:
       api_version: v1
     collection:
-    - observability.projects.locations.operations
-    - observability.folders.locations.operations
-    - observability.organizations.locations.operations
+      - observability.projects.locations.operations
+      - observability.folders.locations.operations
+      - observability.organizations.locations.operations
     extract_resource_result: false
     result_attribute: response
 

@@ -3,14 +3,14 @@
   help_text:
     brief: Get the IAM policy for a certificate template.
     description: |
-     Gets the IAM policy for the given certificate template.
+      Gets the IAM policy for the given certificate template.
 
-      Returns an empty policy if the resource does not have a policy
-      set.
+       Returns an empty policy if the resource does not have a policy
+       set.
     examples: |
-     To get the IAM policy for the certificate template 'mtls-template' with the location 'us-west1', run:
+      To get the IAM policy for the certificate template 'mtls-template' with the location 'us-west1', run:
 
-       $ {command} mtls-template --location=us-west1
+        $ {command} mtls-template --location=us-west1
 
   request:
     collection: privateca.projects.locations.certificateTemplates

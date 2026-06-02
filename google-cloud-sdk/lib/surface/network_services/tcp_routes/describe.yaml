@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe a TCP route.
   description: Show details of a TCP route.
-
   examples: |
     Show details about a TCP route named 'my-tcp-route'.
 

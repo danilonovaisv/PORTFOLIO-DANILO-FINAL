@@ -22,11 +22,11 @@
     api_version: v1
     method: getSettings
     collection:
-    - observability.projects.locations
-    - observability.folders.locations
-    - observability.organizations.locations
+      - observability.projects.locations
+      - observability.folders.locations
+      - observability.organizations.locations
     modify_request_hooks:
-    - googlecloudsdk.command_lib.observability.util:UpdateSettingsResource
+      - googlecloudsdk.command_lib.observability.util:UpdateSettingsResource
   arguments:
     resource:
       arg_name: location

@@ -12,7 +12,7 @@ request:
   collection: pubsublite.admin.projects.locations.subscriptions
   method: get
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
 
 arguments:
   resource:
@@ -20,7 +20,7 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.pubsub.resources:lite_subscription
     command_level_fallthroughs:
       location:
-      - arg_name: 'zone'
+        - arg_name: 'zone'
 
   params:
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone

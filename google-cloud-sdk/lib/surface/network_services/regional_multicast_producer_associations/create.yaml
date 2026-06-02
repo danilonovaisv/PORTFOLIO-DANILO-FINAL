@@ -18,17 +18,17 @@ arguments:
     help_text: |
       Name of the regional multicast producer association to be created.
   params:
-  - arg_name: regional-multicast-domain-activation
-    api_field: regionalMulticastProducerAssociation.regionalMulticastDomainActivation
-    help_text: The regional multicast domain activation to be used.
-    required: true
-  - arg_name: network
-    api_field: regionalMulticastProducerAssociation.network
-    help_text: The network to be used.
-    required: true
-  - arg_name: description
-    api_field: regionalMulticastProducerAssociation.description
-    help_text: The description for the regional multicast producer association.
+    - arg_name: regional-multicast-domain-activation
+      api_field: regionalMulticastProducerAssociation.regionalMulticastDomainActivation
+      help_text: The regional multicast domain activation to be used.
+      required: true
+    - arg_name: network
+      api_field: regionalMulticastProducerAssociation.network
+      help_text: The network to be used.
+      required: true
+    - arg_name: description
+      api_field: regionalMulticastProducerAssociation.description
+      help_text: The description for the regional multicast producer association.
   labels:
     api_field: regionalMulticastProducerAssociation.labels
 async:

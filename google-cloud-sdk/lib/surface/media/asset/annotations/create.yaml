@@ -10,8 +10,8 @@
     collection: mediaasset.projects.locations.assetTypes.assets.annotationSets.annotations
     method: create
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.annotations.hooks:AddParentInfoToAnnotationRequests
-    - googlecloudsdk.command_lib.media.asset.annotations.hooks:ParseAnnotationRequest
+      - googlecloudsdk.command_lib.media.asset.annotations.hooks:AddParentInfoToAnnotationRequests
+      - googlecloudsdk.command_lib.media.asset.annotations.hooks:ParseAnnotationRequest
     ALPHA:
       api_version: v1alpha
 
@@ -21,6 +21,6 @@
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:annotation
 
     params:
-    - _REF_: googlecloudsdk.command_lib.media.asset.flags:annotation-data-file
+      - _REF_: googlecloudsdk.command_lib.media.asset.flags:annotation-data-file
     labels:
       api_field: annotation.labels

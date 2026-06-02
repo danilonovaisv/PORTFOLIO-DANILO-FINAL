@@ -25,8 +25,8 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.managed_kafka.resources:topic
 
   params:
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:partitions
-    required: true
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:replication-factor
-    required: true
-  - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:configs
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:partitions
+      required: true
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:replication-factor
+      required: true
+    - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:configs

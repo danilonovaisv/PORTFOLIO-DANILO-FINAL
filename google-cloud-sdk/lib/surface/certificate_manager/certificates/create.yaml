@@ -28,8 +28,8 @@
     collection: certificatemanager.projects.locations.certificates
     api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.certificate_manager.hooks:SetAuthorizationURL
-    - googlecloudsdk.command_lib.certificate_manager.hooks:SetIssuanceConfigURL
+      - googlecloudsdk.command_lib.certificate_manager.hooks:SetAuthorizationURL
+      - googlecloudsdk.command_lib.certificate_manager.hooks:SetIssuanceConfigURL
 
   async:
     collection: certificatemanager.projects.locations.operations
@@ -40,109 +40,109 @@
       spec: !REF googlecloudsdk.command_lib.certificate_manager.resources:certificate
 
     params:
-    - group:
-        mutex: true
-        required: true
-        help_text: |
-          Configuration for creating and uploading certificates to Cloud Certificate Manager.
-        params:
-        - group:
-            help_text: |
-              Configuration for creating new managed certificates.
-            params:
-            - arg_name: domains
-              api_field: certificate.managed.domains
-              repeated: true
-              required: true
-              help_text: |
-                Public domain name(s) to create a certificate for.
-
-                * If a DNS authorization is provided for the domain, the certificate will be
-                validated against the DNS record you added as part of the authorization flow.
-                * If no DNS authorization is provided, Certificate Manager will attempt to validate
-                the domain against the serving endpoint directly.
-
-                You may list multiple, comma-separated domain names to include multiple
-                names as Subject Alternative Names on the issued certificate.
+      - group:
+          mutex: true
+          required: true
+          help_text: |
+            Configuration for creating and uploading certificates to Cloud Certificate Manager.
+          params:
             - group:
-                mutex: true
+                help_text: |
+                  Configuration for creating new managed certificates.
                 params:
-                - arg_name: dns-authorizations
-                  api_field: certificate.managed.dnsAuthorizations
-                  repeated: true
-                  help_text: |
-                    Name(s) of the DNS authorizations for each listed domain.
+                  - arg_name: domains
+                    api_field: certificate.managed.domains
+                    repeated: true
+                    required: true
+                    help_text: |
+                      Public domain name(s) to create a certificate for.
 
-                    Note that each domain requires a matching authorization, and any domain that
-                    fails authorization will prevent issuance and/or renewal of the certificate.
+                      * If a DNS authorization is provided for the domain, the certificate will be
+                      validated against the DNS record you added as part of the authorization flow.
+                      * If no DNS authorization is provided, Certificate Manager will attempt to validate
+                      the domain against the serving endpoint directly.
 
-                    To reference multiple DNS authorizations, provide a list of comma separated DNS
-                    authorization resource names or URLs. For example:
+                      You may list multiple, comma-separated domain names to include multiple
+                      names as Subject Alternative Names on the issued certificate.
+                  - group:
+                      mutex: true
+                      params:
+                        - arg_name: dns-authorizations
+                          api_field: certificate.managed.dnsAuthorizations
+                          repeated: true
+                          help_text: |
+                            Name(s) of the DNS authorizations for each listed domain.
 
-                     $ {command} --dns-authorizations=api-example-com,www-example-com
-                - arg_name: issuance-config
-                  api_field: certificate.managed.issuanceConfig
-                  help_text: |
-                    Name of the Certificate Issuance Config to use for issuance.
-        - group:
+                            Note that each domain requires a matching authorization, and any domain that
+                            fails authorization will prevent issuance and/or renewal of the certificate.
+
+                            To reference multiple DNS authorizations, provide a list of comma separated DNS
+                            authorization resource names or URLs. For example:
+
+                             $ {command} --dns-authorizations=api-example-com,www-example-com
+                        - arg_name: issuance-config
+                          api_field: certificate.managed.issuanceConfig
+                          help_text: |
+                            Name of the Certificate Issuance Config to use for issuance.
+            - group:
+                help_text: |
+                  Configuration for uploading self-managed certificates and keys.
+                params:
+                  - arg_name: certificate-file
+                    api_field: certificate.selfManaged.pemCertificate
+                    required: true
+                    type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+                    help_text: |
+                      Certificate data in PEM-encoded form.
+                  - arg_name: private-key-file
+                    api_field: certificate.selfManaged.pemPrivateKey
+                    required: true
+                    type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+                    help_text: |
+                      Private key data in PEM-encoded form
+      - arg_name: scope
+        api_field: certificate.scope
+        default: DEFAULT
+        help_text: |
+          Scope of the managed certificate. This determines which services the certificate can
+          be attached to/associated with. Defaults to `DEFAULT`.
+        choices:
+          - arg_value: 'default'
+            enum_value: DEFAULT
             help_text: |
-              Configuration for uploading self-managed certificates and keys.
-            params:
-            - arg_name: certificate-file
-              api_field: certificate.selfManaged.pemCertificate
-              required: true
-              type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-              help_text: |
-                Certificate data in PEM-encoded form.
-            - arg_name: private-key-file
-              api_field: certificate.selfManaged.pemPrivateKey
-              required: true
-              type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-              help_text: |
-                Private key data in PEM-encoded form
-    - arg_name: scope
-      api_field: certificate.scope
-      default: DEFAULT
-      help_text: |
-        Scope of the managed certificate. This determines which services the certificate can
-        be attached to/associated with. Defaults to `DEFAULT`.
-      choices:
-      - arg_value: "default"
-        enum_value: DEFAULT
-        help_text: |
-          Certificates with DEFAULT scope are used for Load Balancing and Cloud CDN.
+              Certificates with DEFAULT scope are used for Load Balancing and Cloud CDN.
 
-          If unsure, choose this option.
-      - arg_value: "edge-cache"
-        enum_value: EDGE_CACHE
+              If unsure, choose this option.
+          - arg_value: 'edge-cache'
+            enum_value: EDGE_CACHE
+            help_text: |
+              Certificates with scope EDGE_CACHE are special-purposed certificates,
+              scoped for use with Media Edge services only.
+          - arg_value: 'all-regions'
+            enum_value: ALL_REGIONS
+            help_text: |
+              Certificates with scope ALL_REGIONS are currently used for
+              Cross-region Internal Application Load Balancer only.
+          - arg_value: 'client-auth'
+            enum_value: CLIENT_AUTH
+            help_text: |
+              Certificates with scope CLIENT_AUTH are used for client authentication.
+      - arg_name: description
+        api_field: certificate.description
         help_text: |
-          Certificates with scope EDGE_CACHE are special-purposed certificates,
-          scoped for use with Media Edge services only.
-      - arg_value: "all-regions"
-        enum_value: ALL_REGIONS
+          Human-readable description of the resource.
+      - arg_name: tags
+        hidden: true
+        api_field: certificate.tags.additionalProperties
+        metavar: KEY=VALUE
         help_text: |
-          Certificates with scope ALL_REGIONS are currently used for
-          Cross-region Internal Application Load Balancer only.
-      - arg_value: "client-auth"
-        enum_value: CLIENT_AUTH
-        help_text: |
-          Certificates with scope CLIENT_AUTH are used for client authentication.
-    - arg_name: description
-      api_field: certificate.description
-      help_text: |
-        Human-readable description of the resource.
-    - arg_name: tags
-      hidden: true
-      api_field: certificate.tags.additionalProperties
-      metavar: KEY=VALUE
-      help_text: |
-        List of tag KEY=VALUE pairs to add.
-      type:
-        arg_dict:
-          flatten: true
-          spec:
-          - api_field: key
-          - api_field: value
+          List of tag KEY=VALUE pairs to add.
+        type:
+          arg_dict:
+            flatten: true
+            spec:
+              - api_field: key
+              - api_field: value
 
     labels:
       api_field: certificate.labels

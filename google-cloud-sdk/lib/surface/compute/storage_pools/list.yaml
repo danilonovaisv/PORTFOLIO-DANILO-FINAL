@@ -6,7 +6,7 @@
     open_world: true
 
   help_text:
-    brief: "View storage pools."
+    brief: 'View storage pools.'
     description: |
       View storage pools.
 
@@ -44,9 +44,9 @@
       provisioned values.
 
     examples: |
-        To display all storage pools in all regions and zones, run the following command:
+      To display all storage pools in all regions and zones, run the following command:
 
-        $ {command}
+      $ {command}
 
   request:
     ALPHA:
@@ -76,9 +76,9 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.api_lib.compute.response_hooks:flatten_aggregated_list:field_name=storagePools
-    - googlecloudsdk.api_lib.compute.storage_pools.modify_response_hooks:make_serializable
-    - googlecloudsdk.api_lib.compute.storage_pools.list_formatter:format_for_listing
+      - googlecloudsdk.api_lib.compute.response_hooks:flatten_aggregated_list:field_name=storagePools
+      - googlecloudsdk.api_lib.compute.storage_pools.modify_response_hooks:make_serializable
+      - googlecloudsdk.api_lib.compute.storage_pools.list_formatter:format_for_listing
 
   output:
     format: |

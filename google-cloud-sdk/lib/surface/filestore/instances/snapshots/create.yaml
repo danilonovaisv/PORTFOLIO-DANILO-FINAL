@@ -1,6 +1,6 @@
 - release_tracks: [BETA, GA]
   help_text:
-    brief:  Create a Filestore snapshot.
+    brief: Create a Filestore snapshot.
     description: |
       Create a Filestore snapshot of an instance.
 
@@ -17,42 +17,42 @@
 
   arguments:
     params:
-    - arg_name: snapshot
-      is_positional: true
-      required: true
-      help_text: |
-        Name of the Filestore snapshot to be created.
-    - arg_name: instance
-      required: true
-      help_text: |
-        Name of the Filestore instance that you want to create a snapshot of.
-    - group:
-        mutex: true
+      - arg_name: snapshot
+        is_positional: true
         required: true
-        params:
-        - arg_name: instance-region
-          help_text: |
-            Region of the Filestore instance.
-        - arg_name: instance-location
-          help_text: |
-            Location of the Filestore instance.
-    - api_field: snapshot.description
-      arg_name: description
-      required: false
-      help_text: |
-        Description of the snapshot. Limit: 2048 characters.
-    - api_field: snapshot.labels.additionalProperties
-      arg_name: labels
-      metavar: KEY=VALUE
-      required: false
-      help_text: |
-        List of label KEY=VALUE pairs to add.
-      type:
-        arg_dict:
-          flatten: true
-          spec:
-          - api_field: key
-          - api_field: value
+        help_text: |
+          Name of the Filestore snapshot to be created.
+      - arg_name: instance
+        required: true
+        help_text: |
+          Name of the Filestore instance that you want to create a snapshot of.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: instance-region
+              help_text: |
+                Region of the Filestore instance.
+            - arg_name: instance-location
+              help_text: |
+                Location of the Filestore instance.
+      - api_field: snapshot.description
+        arg_name: description
+        required: false
+        help_text: |
+          Description of the snapshot. Limit: 2048 characters.
+      - api_field: snapshot.labels.additionalProperties
+        arg_name: labels
+        metavar: KEY=VALUE
+        required: false
+        help_text: |
+          List of label KEY=VALUE pairs to add.
+        type:
+          arg_dict:
+            flatten: true
+            spec:
+              - api_field: key
+              - api_field: value
 
   async:
     collection: file.projects.locations.operations
@@ -68,4 +68,4 @@
     # file.projects.locations.instances.snapshots collection). This collection is populated manually.
     disable_resource_check: true
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.instances.snapshots.util:FormatSnapshotCreateRequest
+      - googlecloudsdk.command_lib.filestore.instances.snapshots.util:FormatSnapshotCreateRequest

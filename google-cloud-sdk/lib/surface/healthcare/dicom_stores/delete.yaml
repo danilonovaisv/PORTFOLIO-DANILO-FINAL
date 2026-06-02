@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Delete a Cloud Healthcare API DICOM store.
+    brief: Delete a Cloud Healthcare API DICOM store.
     description: Delete a Cloud Healthcare API DICOM store.
     examples: |
       To delete the dicom-store 'test-dicom-store', run:

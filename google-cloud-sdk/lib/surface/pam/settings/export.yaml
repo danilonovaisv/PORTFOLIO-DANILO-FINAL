@@ -29,11 +29,11 @@
       api_version: v1beta
     method: getSettings
     collection:
-    - privilegedaccessmanager.projects.locations
-    - privilegedaccessmanager.folders.locations
-    - privilegedaccessmanager.organizations.locations
+      - privilegedaccessmanager.projects.locations
+      - privilegedaccessmanager.folders.locations
+      - privilegedaccessmanager.organizations.locations
     modify_request_hooks:
-    - googlecloudsdk.command_lib.pam.util:UpdateSettingsResource
+      - googlecloudsdk.command_lib.pam.util:UpdateSettingsResource
 
   arguments:
     resource:

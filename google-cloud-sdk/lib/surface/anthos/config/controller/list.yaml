@@ -24,12 +24,12 @@
       help_text: List of Anthos Config Controller instances.
       spec: !REF googlecloudsdk.command_lib.anthos.config.controller.resources:instance-list
     params:
-    - arg_name: full-name
-      action: store_true
-      default: false
-      disable_unused_arg_check: true
-      help_text: |
-        Print the fully specified name of the instance.
+      - arg_name: full-name
+        action: store_true
+        default: false
+        disable_unused_arg_check: true
+        help_text: |
+          Print the fully specified name of the instance.
 
   output:
     format: table(

@@ -16,7 +16,7 @@
   request:
     collection: tpu.projects.locations.queuedResources
     modify_request_hooks:
-    - googlecloudsdk.command_lib.compute.tpus.queued_resources.util:SetForce
+      - googlecloudsdk.command_lib.compute.tpus.queued_resources.util:SetForce
     ALPHA:
       api_version: v2alpha1
     GA:
@@ -36,4 +36,4 @@
       spec: !REF googlecloudsdk.command_lib.compute.tpus.queued_resources.resources:queuedresource
 
     params:
-    - _REF_: googlecloudsdk.command_lib.compute.tpus.queued_resources.flags:force
+      - _REF_: googlecloudsdk.command_lib.compute.tpus.queued_resources.flags:force

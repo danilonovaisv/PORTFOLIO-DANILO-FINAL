@@ -25,10 +25,10 @@
       spec: !REF googlecloudsdk.command_lib.edge_cache.resources:edgeCacheService
 
     params:
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.description
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.labels
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.edge_security_policy
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.edge_ssl_certificate
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.enable_logging
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.logging_sample_rate
-    - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.require_tls
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.description
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.labels
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.edge_security_policy
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.edge_ssl_certificate
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.enable_logging
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.logging_sample_rate
+      - _REF_: googlecloudsdk.command_lib.edge_cache.flags:service.require_tls

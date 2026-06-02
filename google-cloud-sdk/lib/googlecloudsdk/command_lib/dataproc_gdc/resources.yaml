@@ -2,35 +2,35 @@ project:
   name: project
   collection: dataprocgdc.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: |
-      The cloud project to use.
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: |
+        The cloud project to use.
+      property: core/project
 
 location:
   name: location
   collection: dataprocgdc.projects.locations
   disable_auto_completers: false
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: |
-      Location of the Dataproc GDC resource.
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: |
+        Location of the Dataproc GDC resource.
 
 operation:
   name: operation
   collection: dataprocgdc.projects.locations.operations
   attributes:
-  - *project
-  - *location
-  - &operation
-    parameter_name: operationsId
-    attribute_name: operation
-    help: The id of the Dataproc GDC operation.
+    - *project
+    - *location
+    - &operation
+      parameter_name: operationsId
+      attribute_name: operation
+      help: The id of the Dataproc GDC operation.
 
 # NOTE: this is only included to make the deprecated `gcloud alpha dataproc-gdc instances` command
 # work. Prefer to use the service_instance resource instead.
@@ -40,12 +40,12 @@ instance:
   disable_auto_completers: false
   request_id_field: serviceInstanceId
   attributes:
-  - *project
-  - *location
-  - &instance
-    parameter_name: serviceInstancesId
-    attribute_name: instance
-    help: The id of the Dataproc GDC instance.
+    - *project
+    - *location
+    - &instance
+      parameter_name: serviceInstancesId
+      attribute_name: instance
+      help: The id of the Dataproc GDC instance.
 
 service_instance:
   name: service_instance
@@ -53,12 +53,12 @@ service_instance:
   disable_auto_completers: false
   request_id_field: serviceInstanceId
   attributes:
-  - *project
-  - *location
-  - &serviceInstance
-    parameter_name: serviceInstancesId
-    attribute_name: service-instance
-    help: The id of the Dataproc GDC instance.
+    - *project
+    - *location
+    - &serviceInstance
+      parameter_name: serviceInstancesId
+      attribute_name: service-instance
+      help: The id of the Dataproc GDC instance.
 
 spark_application:
   name: spark_application
@@ -66,13 +66,13 @@ spark_application:
   disable_auto_completers: false
   request_id_field: sparkApplicationsId
   attributes:
-  - *project
-  - *location
-  - *serviceInstance
-  - &sparkApplication
-    parameter_name: sparkApplicationsId
-    attribute_name: spark_application
-    help: The id of the Dataproc GDC spark Application.
+    - *project
+    - *location
+    - *serviceInstance
+    - &sparkApplication
+      parameter_name: sparkApplicationsId
+      attribute_name: spark_application
+      help: The id of the Dataproc GDC spark Application.
 
 application_environment:
   name: application_environment
@@ -80,10 +80,10 @@ application_environment:
   disable_auto_completers: false
   request_id_field: applicationEnvironmentsId
   attributes:
-  - *project
-  - *location
-  - *serviceInstance
-  - &applicationEnvironment
-    parameter_name: applicationEnvironmentsId
-    attribute_name: application_environment
-    help: The id of the Dataproc GDC applicatin environment.
+    - *project
+    - *location
+    - *serviceInstance
+    - &applicationEnvironment
+      parameter_name: applicationEnvironmentsId
+      attribute_name: application_environment
+      help: The id of the Dataproc GDC applicatin environment.

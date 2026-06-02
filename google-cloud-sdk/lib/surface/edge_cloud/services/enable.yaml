@@ -22,21 +22,21 @@
       is_parent_resource: true
       is_positional: false
     params:
-    - arg_name: id
-      api_field: enableZonalServiceRequest.zonalServiceId
-      required: false
-      help_text: Service ID.
-    - arg_name: zone
-      api_field: enableZonalServiceRequest.zonalService.zone
-      required: true
-      help_text: |
-        Google Distributed Cloud zone.
-    - arg_name: service_name
-      api_field: enableZonalServiceRequest.zonalService.serviceName
-      required: true
-      is_positional: true
-      help_text: |
-        Google Cloud Platform service name.
+      - arg_name: id
+        api_field: enableZonalServiceRequest.zonalServiceId
+        required: false
+        help_text: Service ID.
+      - arg_name: zone
+        api_field: enableZonalServiceRequest.zonalService.zone
+        required: true
+        help_text: |
+          Google Distributed Cloud zone.
+      - arg_name: service_name
+        api_field: enableZonalServiceRequest.zonalService.serviceName
+        required: true
+        is_positional: true
+        help_text: |
+          Google Cloud Platform service name.
 
   async:
     collection: edgecontainer.projects.locations.operations

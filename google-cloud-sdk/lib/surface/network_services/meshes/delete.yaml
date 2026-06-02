@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified mesh.
   examples: |
-      To delete a mesh named 'my-mesh', run:
+    To delete a mesh named 'my-mesh', run:
 
-        $ {command} my-mesh --location=global
+      $ {command} my-mesh --location=global
 
 arguments:
   resource:

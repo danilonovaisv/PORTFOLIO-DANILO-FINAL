@@ -19,7 +19,7 @@
     collection: config.projects.locations
     method: updateAutoMigrationConfig
     modify_request_hooks:
-    - googlecloudsdk.api_lib.infra_manager.configmanager_util:SetEnableAutoMigrationInRequest
+      - googlecloudsdk.api_lib.infra_manager.configmanager_util:SetEnableAutoMigrationInRequest
   async:
     collection: config.projects.locations.operations
     extract_resource_result: false

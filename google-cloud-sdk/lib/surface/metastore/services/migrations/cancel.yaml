@@ -1,6 +1,6 @@
 - release_tracks: [ALPHA, BETA]
   help_text:
-    brief:  |
+    brief: |
       Cancel the migration to Dataproc Metastore service.
     description: |
       Cancel the migration to Dataproc Metastore service.

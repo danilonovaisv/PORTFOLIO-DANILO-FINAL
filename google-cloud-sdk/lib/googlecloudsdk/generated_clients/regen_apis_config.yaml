@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # This file lists apis used by gcloud (CloudSDK).
 # It is configuration for regen_apis.py script, which needs to be rerun
 # everytime some input discovery doc is added/updated or apitools generation
@@ -77,8 +76,7 @@ apis:
         bug: b/142448542
       discovery_doc: admin_v1.json
       default: true
-      mtls_endpoint_override: 
-        https://www.mtls.googleapis.com/admin/directory/v1/
+      mtls_endpoint_override: https://www.mtls.googleapis.com/admin/directory/v1/
       resources:
         customer:
           path: customer/{customerId}
@@ -86,32 +84,24 @@ apis:
     v1beta1:
       default: true
       discovery_doc: aiplatform_v1beta1.json
-      gcloud_gapic_library: 
-        google/cloud/aiplatform/v1beta1:aiplatform_v1beta1_py
+      gcloud_gapic_library: google/cloud/aiplatform/v1beta1:aiplatform_v1beta1_py
       resources:
         projects.locations:
           path: projects/{projectsId}/locations/{locationsId}
         projects.locations.models.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/models/{modelsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/models/{modelsId}/operations/{operationsId}
         projects.locations.indexes.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/indexes/{indexesId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/indexes/{indexesId}/operations/{operationsId}
         projects.locations.endpoints.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/endpoints/{endpointsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/endpoints/{endpointsId}/operations/{operationsId}
         projects.locations.indexEndpoints.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/indexEndpoints/{indexEndpointsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/indexEndpoints/{indexEndpointsId}/operations/{operationsId}
         projects.locations.semanticGovernancePolicies:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicies/{semanticGovernancePoliciesId}
+          path: projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicies/{semanticGovernancePoliciesId}
         projects.locations.semanticGovernancePolicies.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicies/{semanticGovernancePoliciesId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicies/{semanticGovernancePoliciesId}/operations/{operationsId}
         projects.locations.semanticGovernancePolicyEngine.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicyEngine/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicyEngine/operations/{operationsId}
         projects.locations.semanticGovernancePolicyEngine:
           path: projects/{projectsId}/locations/{locationsId}/semanticGovernancePolicyEngine
     v1:
@@ -121,17 +111,13 @@ apis:
         projects.locations:
           path: projects/{projectsId}/locations/{locationsId}
         projects.locations.models.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/models/{modelsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/models/{modelsId}/operations/{operationsId}
         projects.locations.indexes.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/indexes/{indexesId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/indexes/{indexesId}/operations/{operationsId}
         projects.locations.endpoints.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/endpoints/{endpointsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/endpoints/{endpointsId}/operations/{operationsId}
         projects.locations.indexEndpoints.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/indexEndpoints/{indexEndpointsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/indexEndpoints/{indexEndpointsId}/operations/{operationsId}
   alloydb:
     v1alpha:
       discovery_doc: alloydb_v1alpha.json
@@ -181,8 +167,7 @@ apis:
       default: true
       resources:
         projects.locations.keyRings.cryptoKeys:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
   appengine:
     v1alpha:
       discovery_doc: appengine_v1alpha.json
@@ -305,8 +290,7 @@ apis:
         projects:
           path: projects/{projectId}
         projects.instances.tables.authorizedViews:
-          path:
-            projects/{projectsId}/instances/{instancesId}/tables/{tablesId}/authorizedViews/{authorizedViewsId}
+          path: projects/{projectsId}/instances/{instancesId}/tables/{tablesId}/authorizedViews/{authorizedViewsId}
   binaryauthorization:
     v1alpha2:
       default: true
@@ -335,8 +319,7 @@ apis:
         systempolicy:
           path: locations/{locationsId}/policy
         projects.platforms.policies:
-          path: 
-            projects/{projectsId}/platforms/{platformsId}/policies/{policyId}
+          path: projects/{projectsId}/platforms/{platformsId}/policies/{policyId}
   billingbudgets:
     v1beta1:
       discovery_doc: billingbudgets_v1beta1.json
@@ -353,11 +336,9 @@ apis:
       default: true
       resources:
         projects.locations.blockchainNodes:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/blockchainNodes/{blockchainNodeId}
+          path: projects/{projectsId}/locations/{locationsId}/blockchainNodes/{blockchainNodeId}
         projects.locations.secrets:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}
+          path: projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}
         projects.secrets:
           path: projects/{projectsId}/secrets/{secretsId}
     v1:
@@ -365,11 +346,9 @@ apis:
       default: false
       resources:
         projects.locations.blockchainNodes:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/blockchainNodes/{blockchainNodeId}
+          path: projects/{projectsId}/locations/{locationsId}/blockchainNodes/{blockchainNodeId}
         projects.locations.secrets:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}
+          path: projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}
         projects.secrets:
           path: projects/{projectsId}/secrets/{secretsId}
   config:
@@ -416,7 +395,7 @@ apis:
     v1:
       discovery_doc: cloudbilling_v1.json
       unelidable_request_methods:
-      - cloudbilling.projects.updateBillingInfo
+        - cloudbilling.projects.updateBillingInfo
       resources:
         projects:
           path: projects/{projectsId}
@@ -430,8 +409,8 @@ apis:
       # The following stanza is a workaround for b/24867445. It prevents elision
       # of a request containing (project_id + xyz) into just an Xyz object.
       unelidable_request_methods:
-      - cloudbuild.projects.builds.create
-      - cloudbuild.projects.builds.cancel
+        - cloudbuild.projects.builds.create
+        - cloudbuild.projects.builds.cancel
     v1alpha1:
       discovery_doc: cloudbuild_v1alpha1.json
       resources:
@@ -440,8 +419,8 @@ apis:
       # The following stanza is a workaround for b/24867445. It prevents elision
       # of a request containing (project_id + xyz) into just an Xyz object.
       unelidable_request_methods:
-      - cloudbuild.projects.builds.create
-      - cloudbuild.projects.workerPools.patch
+        - cloudbuild.projects.builds.create
+        - cloudbuild.projects.workerPools.patch
     v1alpha2:
       discovery_doc: cloudbuild_v1alpha2.json
       resources:
@@ -590,11 +569,9 @@ apis:
       discovery_doc: compute_alpha.json
       resources:
         globalVmExtensionPolicies:
-          path: 
-            projects/{project}/global/vmExtensionPolicies/{globalVmExtensionPolicy}
+          path: projects/{project}/global/vmExtensionPolicies/{globalVmExtensionPolicy}
         regionAcceleratorTypes:
-          path: 
-            projects/{project}/regions/{region}/acceleratorTypes/{acceleratorType}
+          path: projects/{project}/regions/{region}/acceleratorTypes/{acceleratorType}
         regionMachineTypes:
           path: projects/{project}/regions/{region}/machineTypes/{machineType}
         nextHopGateways:
@@ -602,57 +579,44 @@ apis:
         previewFeatures:
           path: projects/{project}/global/previewFeatures/{previewFeature}
         regionSecurityPolicyRules:
-          path: 
-            projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         securityPolicyRules:
-          path: 
-            projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         wireGroups:
-          path: 
-            projects/{project}/global/crossSiteNetworks/{crossSiteNetwork}/wireGroups/{wireGroup}
+          path: projects/{project}/global/crossSiteNetworks/{crossSiteNetwork}/wireGroups/{wireGroup}
         zones:
           path: projects/{project}/zones/{zone}
         zoneVmExtensionPolicies:
-          path: 
-            projects/{project}/zones/{zone}/vmExtensionPolicies/{vmExtensionPolicy}
+          path: projects/{project}/zones/{zone}/vmExtensionPolicies/{vmExtensionPolicy}
         reservationSubBlocks:
-          path: 
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
         reservationBlocks:
-          path: 
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
     beta:
       discovery_doc: compute_beta.json
       unelidable_request_methods:
-      - compute.disks.resize
+        - compute.disks.resize
       resources:
         globalVmExtensionPolicies:
-          path: 
-            projects/{project}/global/vmExtensionPolicies/{globalVmExtensionPolicy}
+          path: projects/{project}/global/vmExtensionPolicies/{globalVmExtensionPolicy}
         regionAcceleratorTypes:
-          path: 
-            projects/{project}/regions/{region}/acceleratorTypes/{acceleratorType}
+          path: projects/{project}/regions/{region}/acceleratorTypes/{acceleratorType}
         nextHopGateways:
           path: projects/{project}/global/gateways/{nextHopGateway}
         previewFeatures:
           path: projects/{project}/global/previewFeatures/{previewFeature}
         regionSecurityPolicyRules:
-          path: 
-            projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         securityPolicyRules:
-          path: 
-            projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         zones:
           path: projects/{project}/zones/{zone}
         zoneVmExtensionPolicies:
-          path: 
-            projects/{project}/zones/{zone}/vmExtensionPolicies/{vmExtensionPolicy}
+          path: projects/{project}/zones/{zone}/vmExtensionPolicies/{vmExtensionPolicy}
         reservationBlocks:
-          path: 
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
         reservationSubBlocks:
-          path: 
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
     v1:
       discovery_doc: compute_v1.json
       default: true
@@ -660,17 +624,13 @@ apis:
         nextHopGateways:
           path: projects/{project}/global/gateways/{nextHopGateway}
         regionSecurityPolicyRules:
-          path: 
-            projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         reservationBlocks:
-          path: 
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
         reservationSubBlocks:
-          path: 
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
         securityPolicyRules:
-          path: 
-            projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         zones:
           path: projects/{project}/zones/{zone}
     preview:
@@ -679,17 +639,13 @@ apis:
         nextHopGateways:
           path: projects/{project}/global/gateways/{nextHopGateway}
         regionSecurityPolicyRules:
-          path:
-            projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/regions/{region}/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         reservationBlocks:
-          path:
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}
         reservationSubBlocks:
-          path:
-            projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
+          path: projects/{project}/zones/{zone}/reservations/{reservationsId}/reservationBlocks/{reservationBlocksId}/reservationSubBlocks/{reservationSubBlocksId}
         securityPolicyRules:
-          path:
-            projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
+          path: projects/{project}/global/securityPolicies/{securityPolicy}/securityPolicyRules/{securityPolicyRule}
         zones:
           path: projects/{project}/zones/{zone}
   configdelivery:
@@ -698,20 +654,17 @@ apis:
       default: true
       resources:
         projects.locations.connections.repositories:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/repositories/{repositoriesId}
+          path: projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/repositories/{repositoriesId}
     v1beta:
       discovery_doc: configdelivery_v1beta.json
       resources:
         projects.locations.connections.repositories:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/repositories/{repositoriesId}
+          path: projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/repositories/{repositoriesId}
     v1:
       discovery_doc: configdelivery_v1.json
       resources:
         projects.locations.connections.repositories:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/repositories/{repositoriesId}
+          path: projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/repositories/{repositoriesId}
   connectgateway:
     v1alpha1:
       discovery_doc: connectgateway_v1alpha1.json
@@ -766,14 +719,11 @@ apis:
         entries:
           path: entries
         projects.locations.tagTemplates.fields:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}
+          path: projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}
         projects.locations.tagTemplates.fields.enumValues:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}/enumValues/{enumValuesId}
+          path: projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}/enumValues/{enumValuesId}
         projects.locations.entryGroups.entries.tags:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/entryGroups/{entryGroupsId}/entries/{entriesId}/tags/{tagsId}
+          path: projects/{projectsId}/locations/{locationsId}/entryGroups/{entryGroupsId}/entries/{entriesId}/tags/{tagsId}
     v1:
       discovery_doc: datacatalog_v1.json
       resources:
@@ -782,14 +732,11 @@ apis:
         entries:
           path: entries
         projects.locations.tagTemplates.fields:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}
+          path: projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}
         projects.locations.tagTemplates.fields.enumValues:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}/enumValues/{enumValuesId}
+          path: projects/{projectsId}/locations/{locationsId}/tagTemplates/{tagTemplatesId}/fields/{fieldsId}/enumValues/{enumValuesId}
         projects.locations.entryGroups.entries.tags:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/entryGroups/{entryGroupsId}/entries/{entriesId}/tags/{tagsId}
+          path: projects/{projectsId}/locations/{locationsId}/entryGroups/{entryGroupsId}/entries/{entriesId}/tags/{tagsId}
   dataflow:
     v1b3:
       discovery_doc: dataflow_v1b3.json
@@ -808,8 +755,7 @@ apis:
       enable_mtls: true
       resources:
         projects.locations.keyRings.cryptoKeys:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
   datamigration:
     v1alpha2:
       discovery_doc: datamigration_v1alpha2.json
@@ -821,22 +767,18 @@ apis:
       discovery_doc: datapipelines_v1.json
       resources:
         projects.locations.pipelines.jobs:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/pipelines/{pipelinesId}/jobs/{jobsId}
+          path: projects/{projectsId}/locations/{locationsId}/pipelines/{pipelinesId}/jobs/{jobsId}
   dataplex:
     v1:
       discovery_doc: dataplex_v1.json
       default: true
       resources:
         projects.locations.lakes.actions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/lakes/{lakesId}/actions/{actionsId}
+          path: projects/{projectsId}/locations/{locationsId}/lakes/{lakesId}/actions/{actionsId}
         projects.locations.lakes.zones.actions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/lakes/{lakesId}/zones/{zonesId}/actions/{actionsId}
+          path: projects/{projectsId}/locations/{locationsId}/lakes/{lakesId}/zones/{zonesId}/actions/{actionsId}
         projects.locations.lakes.zones.assets.actions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/lakes/{lakesId}/zones/{zonesId}/assets/{assetsId}/actions/{actionsId}
+          path: projects/{projectsId}/locations/{locationsId}/lakes/{lakesId}/zones/{zonesId}/assets/{assetsId}/actions/{actionsId}
   dataproc:
     v1:
       discovery_doc: dataproc_v1.json
@@ -848,26 +790,22 @@ apis:
         projects.regions.clusters:
           path: projects/{projectId}/regions/{region}/clusters/{clusterName}
         projects.regions.clusters.gceNodePools:
-          path: 
-            projects/{projectId}/regions/{region}/clusters/{clusterName}/gceNodePools/{gceNodePoolsId}
+          path: projects/{projectId}/regions/{region}/clusters/{clusterName}/gceNodePools/{gceNodePoolsId}
         projects.regions.clusters.nodeGroups:
-          path: 
-            projects/{projectId}/regions/{region}/clusters/{clusterName}/nodeGroups/{nodeGroupsId}
+          path: projects/{projectId}/regions/{region}/clusters/{clusterName}/nodeGroups/{nodeGroupsId}
       default: true
   dataprocgdc:
     v1alpha1:
       discovery_doc: dataprocgdc_v1alpha1.json
       resources:
         projects.locations.clusters:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/clusters/{clustersId}
+          path: projects/{projectsId}/locations/{locationsId}/clusters/{clustersId}
     v1:
       discovery_doc: dataprocgdc_v1.json
       default: true
       resources:
         projects.locations.clusters:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/clusters/{clustersId}
+          path: projects/{projectsId}/locations/{locationsId}/clusters/{clustersId}
   datastore:
     v1beta1:
       discovery_doc: datastore_v1beta1.json
@@ -889,17 +827,14 @@ apis:
   deploymentmanager:
     alpha:
       discovery_doc: deploymentmanager_alpha.json
-      mtls_endpoint_override: 
-        https://www.mtls.googleapis.com/deploymentmanager/alpha/
+      mtls_endpoint_override: https://www.mtls.googleapis.com/deploymentmanager/alpha/
     v2:
       discovery_doc: deploymentmanager_v2.json
-      mtls_endpoint_override: 
-        https://www.mtls.googleapis.com/deploymentmanager/v2/
+      mtls_endpoint_override: https://www.mtls.googleapis.com/deploymentmanager/v2/
       default: true
     v2beta:
       discovery_doc: deploymentmanager_v2beta.json
-      mtls_endpoint_override: 
-        https://www.mtls.googleapis.com/deploymentmanager/v2beta/
+      mtls_endpoint_override: https://www.mtls.googleapis.com/deploymentmanager/v2beta/
   developerconnect:
     v1:
       default: true
@@ -910,17 +845,13 @@ apis:
         projects.secrets.versions:
           path: projects/{projectsId}/secrets/{secretsId}/versions/{versionsId}
         projects.locations.secrets.versions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}
+          path: projects/{projectsId}/locations/{locationsId}/secrets/{secretsId}/versions/{versionsId}
         projects.locations.keyRings.cryptoKeys:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
         projects.locations.namespaces.services:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/namespaces/{namespacesId}/services/{servicesId}
+          path: projects/{projectsId}/locations/{locationsId}/namespaces/{namespacesId}/services/{servicesId}
         projects.locations.instances:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+          path: projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
     v1alpha:
       discovery_doc: developerconnect_v1alpha.json
       resources:
@@ -939,15 +870,13 @@ apis:
       discovery_doc: designcenter_v1alpha.json
       resources:
         projects.locations.connections.gitRepositoryLinks:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/gitRepositoryLinks/{gitRepositoryLinksId}
+          path: projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/gitRepositoryLinks/{gitRepositoryLinksId}
     v1:
       discovery_doc: designcenter_v1.json
       default: true
       resources:
         projects.locations.connections.gitRepositoryLinks:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/gitRepositoryLinks/{gitRepositoryLinksId}
+          path: projects/{projectsId}/locations/{locationsId}/connections/{connectionsId}/gitRepositoryLinks/{gitRepositoryLinksId}
   discovery:
     v1:
       discovery_doc: discovery_v1.json
@@ -977,8 +906,7 @@ apis:
       default: true
       resources:
         projects.locations.processors.humanReviewConfig:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/processors/{processorsId}/humanReviewConfig
+          path: projects/{projectsId}/locations/{locationsId}/processors/{processorsId}/humanReviewConfig
   domains:
     v1:
       discovery_doc: domains_v1.json
@@ -1058,8 +986,7 @@ apis:
       discovery_doc: firestore_v1beta2.json
       resources:
         projects.databases.operations:
-          path: 
-            projects/{projectsId}/databases/{databasesId}/operations/{operationsId}
+          path: projects/{projectsId}/databases/{databasesId}/operations/{operationsId}
     v1beta1:
       discovery_doc: firestore_v1beta1.json
     v1:
@@ -1098,8 +1025,7 @@ apis:
       default: true
       resources:
         projects.locations.memberships:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/memberships/{membershipsId}
+          path: projects/{projectsId}/locations/{locationsId}/memberships/{membershipsId}
     v2alpha:
       discovery_doc: gkehub_v2alpha.json
     v2beta:
@@ -1123,9 +1049,9 @@ apis:
       discovery_doc: gsuiteaddons_v1.json
       default: true
       unelidable_request_methods:
-      # This is required in order to properly generate a replaceDeployment message due to the
-      # signature issue as specified in b/174574785
-      - gsuiteaddons.projects.deployments.replaceDeployment
+        # This is required in order to properly generate a replaceDeployment message due to the
+        # signature issue as specified in b/174574785
+        - gsuiteaddons.projects.deployments.replaceDeployment
   healthcare:
     v1alpha2:
       discovery_doc: healthcare_v1alpha2.json
@@ -1134,8 +1060,7 @@ apis:
       # that do not have a GET method.
       resources:
         projects.locations.services.deidentify:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/services/deidentify
+          path: projects/{projectsId}/locations/{locationsId}/services/deidentify
         projects.locations.services.nlp:
           path: projects/{projectsId}/locations/{locationsId}/services/nlp
     v1beta1:
@@ -1186,14 +1111,11 @@ apis:
       discovery_doc: osconfig_v1alpha.json
       resources:
         projects.locations.instances:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+          path: projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
         projects.locations.instances.vulnerabilityReports:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/instances/{instancesId}/vulnerabilityReport
+          path: projects/{projectsId}/locations/{locationsId}/instances/{instancesId}/vulnerabilityReport
         projects.locations.instances.inventories:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/instances/{instancesId}/inventory
+          path: projects/{projectsId}/locations/{locationsId}/instances/{instancesId}/inventory
     v1beta:
       discovery_doc: osconfig_v1beta.json
     v1:
@@ -1409,29 +1331,23 @@ apis:
       default: true
       resources:
         projects.locations.keyRings.cryptoKeys:
-          path:
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
         projects.locations.caPools:
-          path:
-            projects/{projectsId}/locations/{locationsId}/caPools/{caPoolsId}
+          path: projects/{projectsId}/locations/{locationsId}/caPools/{caPoolsId}
     v1alpha:
       discovery_doc: memorystore_v1alpha.json
       resources:
         projects.locations.keyRings.cryptoKeys:
-          path:
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
         projects.locations.caPools:
-          path:
-            projects/{projectsId}/locations/{locationsId}/caPools/{caPoolsId}
+          path: projects/{projectsId}/locations/{locationsId}/caPools/{caPoolsId}
     v1beta:
       discovery_doc: memorystore_v1beta.json
       resources:
         projects.locations.keyRings.cryptoKeys:
-          path:
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
         projects.locations.caPools:
-          path:
-            projects/{projectsId}/locations/{locationsId}/caPools/{caPoolsId}
+          path: projects/{projectsId}/locations/{locationsId}/caPools/{caPoolsId}
   metastore:
     v1alpha:
       skip:
@@ -1439,22 +1355,18 @@ apis:
       discovery_doc: metastore_v1alpha.json
       resources:
         projects.locations.services.databases:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}
+          path: projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}
         projects.locations.services.databases.tables:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}/tables/{tablesId}
+          path: projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}/tables/{tablesId}
     v1beta:
       skip:
         bug: b/511170151
       discovery_doc: metastore_v1beta.json
       resources:
         projects.locations.services.databases:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}
+          path: projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}
         projects.locations.services.databases.tables:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}/tables/{tablesId}
+          path: projects/{projectsId}/locations/{locationsId}/services/{servicesId}/databases/{databasesId}/tables/{tablesId}
     v1:
       skip:
         bug: b/511170151
@@ -1473,20 +1385,19 @@ apis:
       mtls_endpoint_override: https://monitoring.mtls.googleapis.com/
       resources:
         projects.alertPolicies.conditions:
-          path: 
-            projects/{projectsId}/alertPolicies/{alertPoliciesId}/conditions/{conditionsId}
+          path: projects/{projectsId}/alertPolicies/{alertPoliciesId}/conditions/{conditionsId}
         uptimeCheckIps:
           path: uptimeCheckIps
       unelidable_request_methods:
-      - monitoring.projects.alertPolicies.create
-      - monitoring.projects.notificationChannels.create
+        - monitoring.projects.alertPolicies.create
+        - monitoring.projects.notificationChannels.create
     v1:
       discovery_doc: monitoring_v1.json
       default: false
       unelidable_request_methods:
-      # This is required in order to properly generate a PatchRequest message. Without this, the
-      # generated client will simply use the Dashboard message as the request message for PATCH.
-      - monitoring.projects.dashboards.patch
+        # This is required in order to properly generate a PatchRequest message. Without this, the
+        # generated client will simply use the Dashboard message as the request message for PATCH.
+        - monitoring.projects.dashboards.patch
   netapp:
     v1alpha1:
       discovery_doc: netapp_v1alpha1.json
@@ -1568,7 +1479,7 @@ apis:
       discovery_doc: orgpolicy_v2.json
       default: true
       unelidable_request_methods:
-      - orgpolicy.organizations.customConstraints.patch
+        - orgpolicy.organizations.customConstraints.patch
   parallelstore:
     v1alpha:
       discovery_doc: parallelstore_v1alpha.json
@@ -1577,8 +1488,7 @@ apis:
         projects.networks:
           path: projects/{projectsId}/global/networks/{networksId}
         projects.regions.addresses:
-          path: 
-            projects/{projectsId}/regions/{regionsId}/addresses/{addressesId}
+          path: projects/{projectsId}/regions/{regionsId}/addresses/{addressesId}
         projects.serviceAccounts:
           path: projects/{projectsId}/serviceAccounts/{serviceAccountsId}
     v1beta:
@@ -1587,8 +1497,7 @@ apis:
         projects.networks:
           path: projects/{projectsId}/global/networks/{networksId}
         projects.regions.addresses:
-          path: 
-            projects/{projectsId}/regions/{regionsId}/addresses/{addressesId}
+          path: projects/{projectsId}/regions/{regionsId}/addresses/{addressesId}
         projects.serviceAccounts:
           path: projects/{projectsId}/serviceAccounts/{serviceAccountsId}
     v1:
@@ -1597,8 +1506,7 @@ apis:
         projects.networks:
           path: projects/{projectsId}/global/networks/{networksId}
         projects.regions.addresses:
-          path: 
-            projects/{projectsId}/regions/{regionsId}/addresses/{addressesId}
+          path: projects/{projectsId}/regions/{regionsId}/addresses/{addressesId}
         projects.serviceAccounts:
           path: projects/{projectsId}/serviceAccounts/{serviceAccountsId}
   policytroubleshooter:
@@ -1696,17 +1604,13 @@ apis:
       discovery_doc: pubsublite_v1.json
       resources:
         admin.projects.locations.operations:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+          path: projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
         admin.projects.locations.topics.subscriptions:
-          path: 
-            admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}/subscriptions
+          path: admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}/subscriptions
         admin.projects.locations.reservations.topics:
-          path: 
-            admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}/topics
+          path: admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}/topics
         cursor.projects.locations.subscriptions:
-          path: 
-            cursor/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}
+          path: cursor/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}
   recaptchaenterprise:
     v1:
       discovery_doc: recaptchaenterprise_v1.json
@@ -1729,11 +1633,9 @@ apis:
         projects.locations.jobs:
           path: projects/{projectsId}/locations/{locationsId}/jobs/{jobsId}
         projects.locations.instances:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+          path: projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
         projects.locations.workerpools:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/workerpools/{workerpoolsId}
+          path: projects/{projectsId}/locations/{locationsId}/workerpools/{workerpoolsId}
     v2:
       discovery_doc: run_v2.json
       gcloud_gapic_library: google/cloud/run/v2:run_v2_py
@@ -1773,48 +1675,37 @@ apis:
       discovery_doc: securitycenter_v1.json
       resources:
         organizations.sources.findings:
-          path: 
-            organizations/{organizationsId}/sources/{sourcesId}/findings/{findingId}
+          path: organizations/{organizationsId}/sources/{sourcesId}/findings/{findingId}
         organizations.assets:
           path: organizations/{organizationsId}/assets/{assetsId}
         organizations.bigQueryExports:
-          path: 
-            organizations/{organizationsId}/bigQueryExports/{bigQueryExportId}
+          path: organizations/{organizationsId}/bigQueryExports/{bigQueryExportId}
         organizations.notificationConfigs:
-          path: 
-            organizations/{organizationsId}/notificationConfigs/{notificationConfigsId}
+          path: organizations/{organizationsId}/notificationConfigs/{notificationConfigsId}
         # We have to explicitly add this resource collection for bulk mute API.
         organizations.findings:
           path: organizations/{organizationsId}/findings/{findingId}
         organizations.securityHealthAnalyticsSettings.customModules:
-          path: 
-            organizations/{organizationsId}/securityHealthAnalyticsSettings/customModules/{customModulesId}
+          path: organizations/{organizationsId}/securityHealthAnalyticsSettings/customModules/{customModulesId}
       default: true
     v2:
       discovery_doc: securitycenter_v2.json
       resources:
         organizations.sources.locations.findings:
-          path: 
-            organizations/{organizationsId}/sources/{sourcesId}/locations/{locationId}/findings/{findingId}
+          path: organizations/{organizationsId}/sources/{sourcesId}/locations/{locationId}/findings/{findingId}
         organizations.locations.bigQueryExports:
-          path: 
-            organizations/{organizationsId}/locations/{locationId}/bigQueryExports/{bigQueryExportId}
+          path: organizations/{organizationsId}/locations/{locationId}/bigQueryExports/{bigQueryExportId}
         organizations.locations.notificationConfigs:
-          path: 
-            organizations/{organizationsId}/locations/{locationId}/notificationConfigs/{notificationConfigsId}
+          path: organizations/{organizationsId}/locations/{locationId}/notificationConfigs/{notificationConfigsId}
         organizations.sources.findings:
-          path: 
-            organizations/{organizationsId}/sources/{sourcesId}/findings/{findingId}
+          path: organizations/{organizationsId}/sources/{sourcesId}/findings/{findingId}
         organizations.bigQueryExports:
-          path: 
-            organizations/{organizationsId}/bigQueryExports/{bigQueryExportId}
+          path: organizations/{organizationsId}/bigQueryExports/{bigQueryExportId}
         organizations.notificationConfigs:
-          path: 
-            organizations/{organizationsId}/notificationConfigs/{notificationConfigsId}
+          path: organizations/{organizationsId}/notificationConfigs/{notificationConfigsId}
         # We have to explicitly add this resource collection for bulk mute API.
         organizations.locations.findings:
-          path: 
-            organizations/{organizationsId}/locations/{locationId}/findings/{findingId}
+          path: organizations/{organizationsId}/locations/{locationId}/findings/{findingId}
         organizations.findings:
           path: organizations/{organizationsId}/findings/{findingId}
       default: false
@@ -1828,8 +1719,7 @@ apis:
       default: false
       resources:
         organizations.locations.iacValidationReportMetrics:
-          path: 
-            organizations/{organizationsId}/locations/{locationsId}/iacValidationReportMetrics
+          path: organizations/{organizationsId}/locations/{locationsId}/iacValidationReportMetrics
     v1:
       discovery_doc: securityposture_v1.json
       default: true
@@ -1896,8 +1786,7 @@ apis:
       gcloud_gapic_library: google/spanner/v1:spanner_v1_py
       resources:
         projects.instances.databases.roles:
-          path: 
-            projects/{projectsId}/instances/{instancesId}/databases/{databasesId}/databaseRoles/{rolesName}
+          path: projects/{projectsId}/instances/{instancesId}/databases/{databasesId}/databaseRoles/{rolesName}
           gapic_compatible: false
       default: true
   speech:
@@ -1918,7 +1807,7 @@ apis:
     v1beta4:
       discovery_doc: sqladmin_v1beta4.json
       unelidable_request_methods:
-      - sql.instances.insert
+        - sql.instances.insert
       resources:
         projects:
           path: projects/{project}
@@ -1947,15 +1836,13 @@ apis:
         projects.buckets:
           path: projects/{project}/buckets/{bucket}
         projects.buckets.notificationConfigs:
-          path: 
-            projects/{project}/buckets/{bucket}/notificationConfigs/{notification_config}
+          path: projects/{project}/buckets/{bucket}/notificationConfigs/{notification_config}
         projects.locations:
           path: projects/{project}/locations/{location}
         projects.locations.keyRings:
           path: projects/{project}/locations/{location}/keyRings/{key_ring}
         projects.locations.keyRings.cryptoKeys:
-          path: 
-            projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}
+          path: projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}
   storagebatchoperations:
     v1:
       discovery_doc: storagebatchoperations_v1.json
@@ -1978,7 +1865,7 @@ apis:
       # url and the value in the request body should be different and the
       # request message is still needed.
       unelidable_request_methods:
-      - testing.projects.testMatrices.create
+        - testing.projects.testMatrices.create
       resources:
         projects:
           path: projects/{projectsId}
@@ -2002,8 +1889,7 @@ apis:
       discovery_doc: tpu_v2alpha1.json
       resources:
         projects.locations.reservations:
-          path: 
-            projects/{projectId}/locations/{locationId}/reservations/{reservationId}
+          path: projects/{projectId}/locations/{locationId}/reservations/{reservationId}
     v2:
       discovery_doc: tpu_v2.json
   videointelligence:
@@ -2020,8 +1906,7 @@ apis:
         images:
           path: images
         projects.locations.productSets.products:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/productSets/{productSetsId}/products
+          path: projects/{projectsId}/locations/{locationsId}/productSets/{productSetsId}/products
         files:
           path: files
   dlp:
@@ -2077,15 +1962,13 @@ apis:
       default: true
       resources:
         projects.scanConfigs.scanRuns.crawledUrls:
-          path: 
-            projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}
+          path: projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}
           enable_uri_parsing: false
     v1:
       discovery_doc: websecurityscanner_v1.json
       resources:
         projects.scanConfigs.scanRuns.crawledUrls:
-          path: 
-            projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}
+          path: projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}
           enable_uri_parsing: false
   recommender:
     v1alpha2:
@@ -2126,8 +2009,7 @@ apis:
       default: true
       resources:
         projects.locations.privateClouds.dnsForwarding:
-          path: 
-            projects/{project}/locations/{location}/privateClouds/{private_cloud}/dnsForwarding
+          path: projects/{project}/locations/{location}/privateClouds/{private_cloud}/dnsForwarding
   ondemandscanning:
     v1beta1:
       discovery_doc: ondemandscanning_v1beta1.json
@@ -2136,16 +2018,14 @@ apis:
         projects.locations.scans:
           path: projects/{projectsId}/locations/{locationsId}/scans/{scansId}
         projects.locations.scans.vulnerabilities:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/scans/{scansId}/vulnerabilities
+          path: projects/{projectsId}/locations/{locationsId}/scans/{scansId}/vulnerabilities
     v1:
       discovery_doc: ondemandscanning_v1.json
       resources:
         projects.locations.scans:
           path: projects/{projectsId}/locations/{locationsId}/scans/{scansId}
         projects.locations.scans.vulnerabilities:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/scans/{scansId}/vulnerabilities
+          path: projects/{projectsId}/locations/{locationsId}/scans/{scansId}/vulnerabilities
   mediaasset:
     v1alpha:
       discovery_doc: mediaasset_v1alpha.json
@@ -2160,8 +2040,7 @@ apis:
       enable_mtls: true
       resources:
         projects.locations.sshKeys:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/sshKeys/{sshKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/sshKeys/{sshKeysId}
           enable_uri_parsing: true
   marketplacesolutions:
     v1alpha1:
@@ -2193,14 +2072,11 @@ apis:
         projects.regions:
           path: projects/{projectsId}/regions/{regionsId}
         projects.regions.networkAttachments:
-          path: 
-            projects/{projectsId}/regions/{regionsId}/networkAttachments/{networkAttachmentsId}
+          path: projects/{projectsId}/regions/{regionsId}/networkAttachments/{networkAttachmentsId}
         projects.locations.services:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/services/{servicesId}
+          path: projects/{projectsId}/locations/{locationsId}/services/{servicesId}
         projects.locations.functions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/functions/{functionsId}
+          path: projects/{projectsId}/locations/{locationsId}/functions/{functionsId}
   agentregistry:
     v1alpha:
       discovery_doc: agentregistry_v1alpha.json
@@ -2240,60 +2116,44 @@ apis:
       default: true
       resources:
         projects.locations.autonomousDatabaseCharacterSets:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/autonomousDatabaseCharacterSets/{autonomousDatabaseCharacterSetsId}
+          path: projects/{projectsId}/locations/{locationsId}/autonomousDatabaseCharacterSets/{autonomousDatabaseCharacterSetsId}
         projects.locations.autonomousDbVersions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/autonomousDbVersions/{autonomousDbVersionsId}
+          path: projects/{projectsId}/locations/{locationsId}/autonomousDbVersions/{autonomousDbVersionsId}
         projects.locations.cloudExadataInfrastructures.dbServers:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/cloudExadataInfrastructures/{cloudExadataInfrastructuresId}/dbServers/{dbServersId}
+          path: projects/{projectsId}/locations/{locationsId}/cloudExadataInfrastructures/{cloudExadataInfrastructuresId}/dbServers/{dbServersId}
         projects.locations.cloudVmClusters.dbNodes:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/cloudVmClusters/{cloudVmClustersId}/dbNodes/{dbNodesId}
+          path: projects/{projectsId}/locations/{locationsId}/cloudVmClusters/{cloudVmClustersId}/dbNodes/{dbNodesId}
         projects.locations.exadbVmClusters.dbNodes:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/exadbVmClusters/{exadbVmClustersId}/dbNodes/{dbNodesId}
+          path: projects/{projectsId}/locations/{locationsId}/exadbVmClusters/{exadbVmClustersId}/dbNodes/{dbNodesId}
         projects.locations.dbSystemShapes:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/dbSystemShapes/{dbSystemShapesId}
+          path: projects/{projectsId}/locations/{locationsId}/dbSystemShapes/{dbSystemShapesId}
         projects.locations.giVersions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/giVersions/{giVersionsId}
+          path: projects/{projectsId}/locations/{locationsId}/giVersions/{giVersionsId}
         projects.locations.entitlements:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/entitlements/{entitlementsId}
+          path: projects/{projectsId}/locations/{locationsId}/entitlements/{entitlementsId}
         projects.locations.autonomousDatabaseBackups:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/autonomousDatabaseBackups/{autonomousDatabaseBackupsId}
+          path: projects/{projectsId}/locations/{locationsId}/autonomousDatabaseBackups/{autonomousDatabaseBackupsId}
         projects.networks:
           path: projects/{projectsId}/global/networks/{networksId}
         projects.locations.databaseCharacterSets:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/databaseCharacterSets/{databaseCharacterSetsId}
+          path: projects/{projectsId}/locations/{locationsId}/databaseCharacterSets/{databaseCharacterSetsId}
         projects.locations.dbSystemInitialStorageSizes:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/dbSystemInitialStorageSizes/{dbSystemInitialStorageSizesId}
+          path: projects/{projectsId}/locations/{locationsId}/dbSystemInitialStorageSizes/{dbSystemInitialStorageSizesId}
         projects.locations.dbVersions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/dbVersions/{dbVersionsId}
+          path: projects/{projectsId}/locations/{locationsId}/dbVersions/{dbVersionsId}
         projects.locations.giVersions.minorVersions:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/giVersions/{giVersionsId}/minorVersions/{minorVersionsId}
+          path: projects/{projectsId}/locations/{locationsId}/giVersions/{giVersionsId}/minorVersions/{minorVersionsId}
         projects.locations.keyRings.cryptoKeys:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
     v1alpha:
       discovery_doc: oracledatabase_v1alpha.json
       resources:
         projects.locations.autonomousDatabaseBackups:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/autonomousDatabaseBackups/{autonomousDatabaseBackupsId}
+          path: projects/{projectsId}/locations/{locationsId}/autonomousDatabaseBackups/{autonomousDatabaseBackupsId}
         projects.networks:
           path: projects/{projectsId}/global/networks/{networksId}
         projects.locations.keyRings.cryptoKeys:
-          path: 
-            projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
+          path: projects/{projectsId}/locations/{locationsId}/keyRings/{keyRingsId}/cryptoKeys/{cryptoKeysId}
   geminicloudassist:
     v1alpha:
       discovery_doc: geminicloudassist_v1alpha.json

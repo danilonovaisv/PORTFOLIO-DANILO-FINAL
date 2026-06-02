@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1beta1 SecurityProfile export schema
 description: A gcloud export/import command YAML validation schema.
@@ -54,11 +54,11 @@ properties:
       configures.
     type: string
     enum:
-    - CUSTOM_INTERCEPT
-    - CUSTOM_MIRRORING
-    - PROFILE_TYPE_UNSPECIFIED
-    - THREAT_PREVENTION
-    - URL_FILTERING
+      - CUSTOM_INTERCEPT
+      - CUSTOM_MIRRORING
+      - PROFILE_TYPE_UNSPECIFIED
+      - THREAT_PREVENTION
+      - URL_FILTERING
   urlFilteringProfile:
     description: The URL filtering configuration for the SecurityProfile.
     $ref: UrlFilteringProfile.yaml

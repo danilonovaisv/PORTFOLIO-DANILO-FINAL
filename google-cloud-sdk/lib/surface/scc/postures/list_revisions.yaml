@@ -23,4 +23,4 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.scc.resources:posture
       help_text: |
-          The posture whose revisions are to be listed. For example organizations/<organizationID>/locations/<location>/postures/<postureID>.
+        The posture whose revisions are to be listed. For example organizations/<organizationID>/locations/<location>/postures/<postureID>.

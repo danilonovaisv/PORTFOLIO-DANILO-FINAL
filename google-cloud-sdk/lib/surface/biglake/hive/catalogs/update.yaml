@@ -14,18 +14,18 @@
       api_version: v1beta
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.command_lib.biglake.hooks:ValidateCatalogUpdateArgs
+      - googlecloudsdk.command_lib.biglake.hooks:ValidateCatalogUpdateArgs
 
   arguments:
     params:
-    - arg_name: catalog
-      resource_spec: !REF googlecloudsdk.command_lib.biglake.resources:hive_catalog
-      required: true
-      is_positional: true
-      is_primary_resource: true
-      help_text: |
-        The Hive Catalog to update.
-    - arg_name: description
-      api_field: hiveCatalog.description
-      help_text: |
-        Description of the Hive catalog.
+      - arg_name: catalog
+        resource_spec: !REF googlecloudsdk.command_lib.biglake.resources:hive_catalog
+        required: true
+        is_positional: true
+        is_primary_resource: true
+        help_text: |
+          The Hive Catalog to update.
+      - arg_name: description
+        api_field: hiveCatalog.description
+        help_text: |
+          Description of the Hive catalog.

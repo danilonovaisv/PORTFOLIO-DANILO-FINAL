@@ -1,14 +1,14 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1beta1 GatewaySecurityPolicyRule export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- basicProfile
-- enabled
-- name
-- priority
-- sessionMatcher
+  - basicProfile
+  - enabled
+  - name
+  - priority
+  - sessionMatcher
 additionalProperties: false
 properties:
   COMMENT:
@@ -38,9 +38,9 @@ properties:
     description: Profile which tells what the primitive action should be.
     type: string
     enum:
-    - ALLOW
-    - BASIC_PROFILE_UNSPECIFIED
-    - DENY
+      - ALLOW
+      - BASIC_PROFILE_UNSPECIFIED
+      - DENY
   description:
     description: Free-text description of the resource.
     type: string

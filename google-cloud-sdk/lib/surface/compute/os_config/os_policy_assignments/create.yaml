@@ -14,7 +14,7 @@
   request:
     collection: osconfig.projects.locations.osPolicyAssignments
     modify_request_hooks:
-    - googlecloudsdk.command_lib.compute.os_config.utils:ParseOSConfigAssignmentFile
+      - googlecloudsdk.command_lib.compute.os_config.utils:ParseOSConfigAssignmentFile
     ALPHA:
       api_version: v1alpha
     GA:
@@ -29,11 +29,11 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.compute.os_config.utils:LogOutOperationCommandForAsyncResponse
+      - googlecloudsdk.command_lib.compute.os_config.utils:LogOutOperationCommandForAsyncResponse
 
   arguments:
     resource:
       help_text: Location to create the OS policy assignment in.
       spec: !REF googlecloudsdk.command_lib.compute.os_config.resources:create_os_policy_assignment
     params:
-    - _REF_: googlecloudsdk.command_lib.compute.os_config.flags:file
+      - _REF_: googlecloudsdk.command_lib.compute.os_config.flags:file

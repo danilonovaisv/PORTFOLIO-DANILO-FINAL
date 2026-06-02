@@ -36,6 +36,6 @@
   request:
     api_version: v1beta1
     collection:
-    - saasservicemgmt.projects.locations.flagRevisions
+      - saasservicemgmt.projects.locations.flagRevisions
   response:
     id_field: name

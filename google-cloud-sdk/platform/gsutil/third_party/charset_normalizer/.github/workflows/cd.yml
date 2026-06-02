@@ -48,8 +48,8 @@ jobs:
     needs: pre_flight_check
     strategy:
       matrix:
-        os: [ ubuntu-22.04, windows-latest, macos-13 ]
-        qemu: [ '' ]
+        os: [ubuntu-22.04, windows-latest, macos-13]
+        qemu: ['']
         include:
           # Split ubuntu job for the sake of speed-up
           - os: ubuntu-22.04
@@ -87,7 +87,7 @@ jobs:
           CIBW_ENVIRONMENT: CHARSET_NORMALIZER_USE_MYPYC='1'
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND: pytest -c {package} {package}/tests
-          CIBW_SKIP: "pp* cp31?t-*"
+          CIBW_SKIP: 'pp* cp31?t-*'
       - name: Upload artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
@@ -169,6 +169,6 @@ jobs:
           done
       - name: Upload dists to GitHub Release
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         run: |
           gh release upload ${{ github.ref_name }} dist/* --repo ${{ github.repository }}

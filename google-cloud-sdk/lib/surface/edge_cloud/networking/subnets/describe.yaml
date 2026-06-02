@@ -3,7 +3,7 @@ release_tracks: [ALPHA, GA]
 help_text:
   brief: Show details about the Distributed Cloud Edge Network subnet.
   description: |
-      Show details about the Distributed Cloud Edge Network subnet.
+    Show details about the Distributed Cloud Edge Network subnet.
   examples: |
     To show details about a subnet named 'my-subnet' in the edge zone 'us-central1-edge-den1', run:
 

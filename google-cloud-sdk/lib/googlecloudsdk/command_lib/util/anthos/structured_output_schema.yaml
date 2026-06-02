@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-$schema: "http://json-schema.org/draft-07/schema#"
+$schema: 'http://json-schema.org/draft-07/schema#'
 title: OutputMessage
 type: object
 additionalProperties: false
@@ -23,7 +23,7 @@ definitions:
   error_details:
     type: object
     required:
-    - error
+      - error
     properties:
       error:
         type: string
@@ -34,20 +34,20 @@ definitions:
         type: string
         description: Any stack-trace or additional error context.
 oneOf:
-# version, timestamp, body required & error_details NOT specified.
-- required: [version, timestamp, body]
-  not:
-    required: [error_details]
-# OR version, timestamp, error_details required & body, resource_body NOT specfied.
-- required: [version, timestamp, error_details]
-  not:
-    required: [body, resource_body]
+  # version, timestamp, body required & error_details NOT specified.
+  - required: [version, timestamp, body]
+    not:
+      required: [error_details]
+  # OR version, timestamp, error_details required & body, resource_body NOT specfied.
+  - required: [version, timestamp, error_details]
+    not:
+      required: [body, resource_body]
 properties:
   version:
     type: string
     description: |-
-     Semantic version of the message format e.g. v1.0.0. Useful if message
-      format changes before binary is updated.
+      Semantic version of the message format e.g. v1.0.0. Useful if message
+       format changes before binary is updated.
   timestamp:
     type: string
     format: date-time
@@ -61,13 +61,13 @@ properties:
       plain text.
   resource_body:
     oneOf:
-    - {type: object}
-    - {type: array}
+      - { type: object }
+      - { type: array }
     description: |-
       Structured resource/resource list content e.g. YAML or JSON serializable
       content representing some resource or set of resources.
   error_details:
-    "$ref": "#/definitions/error_details"
+    '$ref': '#/definitions/error_details'
     description: Only present if the message is related to an error.
   level:
     type: string

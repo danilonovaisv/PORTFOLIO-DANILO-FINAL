@@ -20,87 +20,87 @@ projects_locations:
   plural_name: locations
   collection: faulttesting.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_exclusion_windows:
   name: exclusionWindow
   plural_name: exclusionWindows
   collection: faulttesting.projects.locations.exclusionWindows
   attributes:
-  - *project
-  - *location
-  - &exclusionWindow
-    parameter_name: exclusionWindowsId
-    attribute_name: exclusion_window
-    help: The exclusionWindow id of the {resource} resource.
+    - *project
+    - *location
+    - &exclusionWindow
+      parameter_name: exclusionWindowsId
+      attribute_name: exclusion_window
+      help: The exclusionWindow id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_experiment_templates:
   name: experimentTemplate
   plural_name: experimentTemplates
   collection: faulttesting.projects.locations.experimentTemplates
   attributes:
-  - *project
-  - *location
-  - &experimentTemplate
-    parameter_name: experimentTemplatesId
-    attribute_name: experiment_template
-    help: The experimentTemplate id of the {resource} resource.
+    - *project
+    - *location
+    - &experimentTemplate
+      parameter_name: experimentTemplatesId
+      attribute_name: experiment_template
+      help: The experimentTemplate id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_experiments:
   name: experiment
   plural_name: experiments
   collection: faulttesting.projects.locations.experiments
   attributes:
-  - *project
-  - *location
-  - &experiment
-    parameter_name: experimentsId
-    attribute_name: experiment
-    help: The experiment id of the {resource} resource.
+    - *project
+    - *location
+    - &experiment
+      parameter_name: experimentsId
+      attribute_name: experiment
+      help: The experiment id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_validations:
   name: validation
   plural_name: validations
   collection: faulttesting.projects.locations.validations
   attributes:
-  - *project
-  - *location
-  - &validation
-    parameter_name: validationsId
-    attribute_name: validation
-    help: The validation id of the {resource} resource.
+    - *project
+    - *location
+    - &validation
+      parameter_name: validationsId
+      attribute_name: validation
+      help: The validation id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_experiments_affected_resources:
   name: affectedResource
   plural_name: affectedResources
   collection: faulttesting.projects.locations.experiments.affectedResources
   attributes:
-  - *project
-  - *location
-  - *experiment
-  - &affectedResource
-    parameter_name: affectedResourcesId
-    attribute_name: affected_resource
-    help: The affectedResource id of the {resource} resource.
+    - *project
+    - *location
+    - *experiment
+    - &affectedResource
+      parameter_name: affectedResourcesId
+      attribute_name: affected_resource
+      help: The affectedResource id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_validations_validation_resources:
   name: validationResource
   plural_name: validationResources
   collection: faulttesting.projects.locations.validations.validationResources
   attributes:
-  - *project
-  - *location
-  - *validation
-  - &validationResource
-    parameter_name: validationResourcesId
-    attribute_name: validation_resource
-    help: The validationResource id of the {resource} resource.
+    - *project
+    - *location
+    - *validation
+    - &validationResource
+      parameter_name: validationResourcesId
+      attribute_name: validation_resource
+      help: The validationResource id of the {resource} resource.
   disable_auto_completers: false

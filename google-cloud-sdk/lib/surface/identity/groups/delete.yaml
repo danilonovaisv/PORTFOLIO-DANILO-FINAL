@@ -23,11 +23,11 @@
 
   arguments:
     params:
-    - arg_name: email
-      is_positional: true
-      required: true
-      help_text: |
-        The email address of the group being deleted.
+      - arg_name: email
+        is_positional: true
+        required: true
+        help_text: |
+          The email address of the group being deleted.
 
   input:
     confirmation_prompt: |
@@ -38,7 +38,7 @@
     disable_resource_check: true
     method: delete
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.hooks:SetResourceName
+      - googlecloudsdk.command_lib.identity.groups.hooks:SetResourceName
     ALPHA:
       api_version: v1alpha1
     BETA:

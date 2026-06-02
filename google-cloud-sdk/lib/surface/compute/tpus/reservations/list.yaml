@@ -26,12 +26,12 @@
 
   output:
     format: table(
-           name.basename():label=NAME,
-           name.segment(-3):label=ZONE,
-           standard.size:label=SIZE,
-           standard.capacityUnits:label=CAPACITY_UNITS,
-           standard.resourceType:label=RESOURCE_TYPE,
-           standard.Interval.start_time:label=START_TIME,
-           standard.Interval.end_time:label=END_TIME,
-           standard.usage.total:label=USAGE
-           )
+      name.basename():label=NAME,
+      name.segment(-3):label=ZONE,
+      standard.size:label=SIZE,
+      standard.capacityUnits:label=CAPACITY_UNITS,
+      standard.resourceType:label=RESOURCE_TYPE,
+      standard.Interval.start_time:label=START_TIME,
+      standard.Interval.end_time:label=END_TIME,
+      standard.usage.total:label=USAGE
+      )

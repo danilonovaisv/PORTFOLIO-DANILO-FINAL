@@ -20,37 +20,37 @@ projects_locations:
   plural_name: locations
   collection: appoptimize.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_applications:
   name: application
   plural_name: applications
   collection: appoptimize.projects.locations.applications
   attributes:
-  - *project
-  - *location
-  - &application
-    parameter_name: applicationsId
-    attribute_name: application
-    help: The application id of the {resource} resource.
+    - *project
+    - *location
+    - &application
+      parameter_name: applicationsId
+      attribute_name: application
+      help: The application id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_reports:
   name: report
   plural_name: reports
   collection: appoptimize.projects.locations.reports
   attributes:
-  - *project
-  - *location
-  - &report
-    parameter_name: reportsId
-    attribute_name: report
-    help: The report id of the {resource} resource.
+    - *project
+    - *location
+    - &report
+      parameter_name: reportsId
+      attribute_name: report
+      help: The report id of the {resource} resource.
   disable_auto_completers: false

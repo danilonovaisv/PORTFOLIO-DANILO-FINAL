@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a tls route.
   examples: |
-      To export a tls route named `my-tls-route` to a YAML file, run:
+    To export a tls route named `my-tls-route` to a YAML file, run:
 
-        $ {command} my-tls-route --destination=my-tls-route.yaml --location=global
+      $ {command} my-tls-route --destination=my-tls-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.tlsRoutes

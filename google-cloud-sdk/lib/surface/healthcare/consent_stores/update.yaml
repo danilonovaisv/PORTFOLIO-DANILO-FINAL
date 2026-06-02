@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Update a Cloud Healthcare API consent store.
+    brief: Update a Cloud Healthcare API consent store.
     description: |
       Update a Cloud Healthcare API consent store.
     examples: |

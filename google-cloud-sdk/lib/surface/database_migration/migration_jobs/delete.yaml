@@ -23,10 +23,10 @@
       spec: !REF googlecloudsdk.command_lib.database_migration.resources:migration_job
 
     params:
-    - api_field: force
-      arg_name: force
-      required: false
-      help_text: |
-        The destination Cloud SQL connection profile is always deleted with the
-        migration job. In case of force delete, the destination Cloud SQL replica
-        database is also deleted.
+      - api_field: force
+        arg_name: force
+        required: false
+        help_text: |
+          The destination Cloud SQL connection profile is always deleted with the
+          migration job. In case of force delete, the destination Cloud SQL replica
+          database is also deleted.

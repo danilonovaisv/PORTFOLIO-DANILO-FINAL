@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a http route.
   examples: |
-      To export a route named 'my-route' to a YAML file, run:
+    To export a route named 'my-route' to a YAML file, run:
 
-        $ {command} my-route --destination=my-route.yaml --location=global
+      $ {command} my-route --destination=my-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.httpRoutes

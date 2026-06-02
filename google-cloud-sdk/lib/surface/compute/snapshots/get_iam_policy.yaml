@@ -19,7 +19,7 @@ request:
   use_relative_name: false
   api_version: v1
   modify_request_hooks:
-  - googlecloudsdk.command_lib.iam.hooks:UseMaxRequestedPolicyVersion:api_field=optionsRequestedPolicyVersion
+    - googlecloudsdk.command_lib.iam.hooks:UseMaxRequestedPolicyVersion:api_field=optionsRequestedPolicyVersion
   BETA:
     api_version: beta
   ALPHA:

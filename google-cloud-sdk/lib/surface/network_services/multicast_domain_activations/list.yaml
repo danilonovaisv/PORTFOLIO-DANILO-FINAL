@@ -24,6 +24,6 @@ response:
   id_field: name
 output:
   format: |
-     table(
-        name.basename():label=NAME, create_time, multicast_domain, admin_network
-      )
+    table(
+       name.basename():label=NAME, create_time, multicast_domain, admin_network
+     )

@@ -16,11 +16,11 @@
       help_text: The Cloud TPU on which to simulate maintenance.
       spec: !REF googlecloudsdk.command_lib.compute.tpus.resources:tpu
     params:
-    - api_field: simulateMaintenanceEventRequest.workerIds
-      arg_name: workers
-      help_text: |
-        The zero-based ID(s) of workers on which to simulate maintenance. By default, only
-        the first (ID 0) worker VM is flagged for maintenance.
+      - api_field: simulateMaintenanceEventRequest.workerIds
+        arg_name: workers
+        help_text: |
+          The zero-based ID(s) of workers on which to simulate maintenance. By default, only
+          the first (ID 0) worker VM is flagged for maintenance.
   async:
     collection: tpu.projects.locations.operations
     ALPHA:

@@ -5,10 +5,10 @@
     description: |
       List all Dataplex Actions under a specific asset.
     examples: |
-       To list all actions of a Dataplex asset `test-asset` defined in location `us-central1` with
-       lake `test-lake`, zone `test-zone`, run:
+      To list all actions of a Dataplex asset `test-asset` defined in location `us-central1` with
+      lake `test-lake`, zone `test-zone`, run:
 
-         $ {command} --project=test-project --location=us-central1 --lake=test-lake --zone=test-zone --asset=test-asset
+        $ {command} --project=test-project --location=us-central1 --lake=test-lake --zone=test-zone --asset=test-asset
 
   command_type: LIST
   request:

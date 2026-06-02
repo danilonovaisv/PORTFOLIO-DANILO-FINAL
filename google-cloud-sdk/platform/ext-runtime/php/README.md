@@ -1,12 +1,9 @@
-
-PHP Externalized Runtime
-============================
+# PHP Externalized Runtime
 
 This is the PHP runtime definition that is used by gcloud to generate
 Dockerfiles for GAE.
 
-How to Run Tests
-============================
+# How to Run Tests
 
 In order to test your runtime changes you will need to run the following
 commands.

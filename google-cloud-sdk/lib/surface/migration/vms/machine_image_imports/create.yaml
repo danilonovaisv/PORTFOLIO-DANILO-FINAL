@@ -21,7 +21,7 @@
   request:
     collection: vmmigration.projects.locations.imageImports
     modify_request_hooks:
-    - googlecloudsdk.command_lib.migration.vms.image_import.hooks:FixCreateMachineImageImportRequest
+      - googlecloudsdk.command_lib.migration.vms.image_import.hooks:FixCreateMachineImageImportRequest
 
   arguments:
     resource:
@@ -29,41 +29,41 @@
       spec: !REF googlecloudsdk.command_lib.migration.vms.resources:imageImport
 
     params:
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.flags:source_file
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:machine_image_name
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:target_project
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.flags:kms_key
-    - group:
-        help_text: OS adaptation parameters.
-        required: false
-        mutex: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:skip_os_adaptation
-        - group:
-            params:
-            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:generalize
-            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:license_type
-            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:boot_conversion
-            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.disk_image_import.flags:adaptation_modifiers
-            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.disk_image_import.flags:rootfs_uuid
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.flags:source_file
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:machine_image_name
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:target_project
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.flags:kms_key
+      - group:
+          help_text: OS adaptation parameters.
+          required: false
+          mutex: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:skip_os_adaptation
+            - group:
+                params:
+                  - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:generalize
+                  - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:license_type
+                  - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:boot_conversion
+                  - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.disk_image_import.flags:adaptation_modifiers
+                  - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.disk_image_import.flags:rootfs_uuid
 
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:description
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:single_region_storage
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:machine_type
-    - group:
-        help_text: The service account to assign to the instance created by the machine image.
-        required: false
-        params:
-        - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:service_account
-        - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:scopes
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:additional_licenses
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:labels
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:tags
-    - group:
-        help_text: Shielded instance configuration.
-        required: false
-        params:
-        - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:secure_boot
-        - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:enable_vtpm
-        - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:enable_integrity_monitoring
-    - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:network_interface
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:description
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:single_region_storage
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:machine_type
+      - group:
+          help_text: The service account to assign to the instance created by the machine image.
+          required: false
+          params:
+            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:service_account
+            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:scopes
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:additional_licenses
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:labels
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:tags
+      - group:
+          help_text: Shielded instance configuration.
+          required: false
+          params:
+            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:secure_boot
+            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:enable_vtpm
+            - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:enable_integrity_monitoring
+      - _REF_: googlecloudsdk.command_lib.migration.vms.image_import.machine_image_import.flags:network_interface

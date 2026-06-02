@@ -40,4 +40,4 @@ arguments:
     removed_flags: ['location']
     command_level_fallthroughs:
       location:
-      - arg_name: 'location'
+        - arg_name: 'location'

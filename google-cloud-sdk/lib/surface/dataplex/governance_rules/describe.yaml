@@ -6,9 +6,9 @@
     description: |
       Displays all details of an Governance Rule given a valid Governance Rule name.
     examples: |
-       To describe a Dataplex Governance Rule `test-governance-rule` in location `us-central1` and in project `test-project`, run:
+      To describe a Dataplex Governance Rule `test-governance-rule` in location `us-central1` and in project `test-project`, run:
 
-          $ {command} test-governance-rule --location=us-central1 --project=test-project
+         $ {command} test-governance-rule --location=us-central1 --project=test-project
   request:
     ALPHA:
       api_version: v1

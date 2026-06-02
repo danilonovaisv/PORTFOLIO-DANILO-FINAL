@@ -38,11 +38,11 @@ If you have a question on using pyparsing, there are a number of resources avail
 
 If you have an example you wish to submit, please follow these guidelines.
 
-- **License - Submitted example code must be available for distribution with the rest of pyparsing under the MIT 
+- **License - Submitted example code must be available for distribution with the rest of pyparsing under the MIT
   open source license.**
 
 - Please follow PEP8 name and coding guidelines, and use the black formatter
-  to auto-format code. 
+  to auto-format code.
 
 - Examples should import pyparsing and the common namespace classes as:
 
@@ -51,7 +51,7 @@ If you have an example you wish to submit, please follow these guidelines.
       ppc = pp.pyparsing_common
       ppu = pp.pyparsing_unicode
 
-- Submitted examples *must* be Python 3.6.8 or later compatible. (It is acceptable if examples use Python
+- Submitted examples _must_ be Python 3.6.8 or later compatible. (It is acceptable if examples use Python
   features added after 3.6)
 
 - Where possible use operators to create composite parse expressions:
@@ -88,11 +88,11 @@ intended on prior versions of Python (currently back to Python 3.6.8).
 
 ## Some design points
 
-- Minimize additions to the module namespace. Over time, pyparsing's namespace has acquired a *lot* of names.
+- Minimize additions to the module namespace. Over time, pyparsing's namespace has acquired a _lot_ of names.
   New features have been encapsulated into namespace classes to try to hold back the name flooding when importing
   pyparsing.
 
-- New operator overloads for ParserElement will need to show broad applicability, and should be related to 
+- New operator overloads for ParserElement will need to show broad applicability, and should be related to
   parser construction.
 
 - Performance tuning should focus on parse time performance. Optimizing parser definition performance is secondary.
@@ -108,7 +108,7 @@ These coding styles are encouraged whether submitting code for core pyparsing or
   name casing. I had just finished several years of Java and Smalltalk development, and camel case seemed to be the
   future trend in coding styles. As of version 3.0.0, pyparsing is moving over to PEP8 naming, while maintaining
   compatibility with existing parser code by defining synonyms using the legacy names. These names will be
-  retained until a future release (probably 4.0), to provide a migration path for current pyparsing-dependent 
+  retained until a future release (probably 4.0), to provide a migration path for current pyparsing-dependent
   applications - DO NOT MODIFY OR REMOVE THESE NAMES.
   See more information at the [PEP8 wiki page](https://github.com/pyparsing/pyparsing/wiki/PEP-8-planning).
 

@@ -27,10 +27,10 @@ arguments:
     help_text: |
       Name of the Cloud OAuth brand to create a Cloud IAP OAuth client under.
   params:
-  - arg_name: display_name
-    api_field: identityAwareProxyClient.displayName
-    required: true
-    help_text: |
-      User friendly name for the Cloud IAP OAuth client.
+    - arg_name: display_name
+      api_field: identityAwareProxyClient.displayName
+      required: true
+      help_text: |
+        User friendly name for the Cloud IAP OAuth client.
 output:
   format: yaml

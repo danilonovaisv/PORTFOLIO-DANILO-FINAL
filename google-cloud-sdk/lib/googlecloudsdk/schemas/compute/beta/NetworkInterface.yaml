@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta NetworkInterface export schema
 description: A gcloud export/import command YAML validation schema.
@@ -90,9 +90,9 @@ properties:
       or VirtioNet.
     type: string
     enum:
-    - GVNIC
-    - UNSPECIFIED_NIC_TYPE
-    - VIRTIO_NET
+      - GVNIC
+      - UNSPECIFIED_NIC_TYPE
+      - VIRTIO_NET
   subnetwork:
     description: |-
       The URL of the Subnetwork resource for this instance. If the
@@ -113,8 +113,8 @@ properties:
   igmpQuery:
     type: string
     enum:
-    - IGMP_QUERY_V2
-    - IGMP_QUERY_DISABLED
+      - IGMP_QUERY_V2
+      - IGMP_QUERY_DISABLED
     description: |-
       Indicate whether igmp query is enabled on the network interface
       or not. If enabled, also indicates the version of IGMP supported.

@@ -14,9 +14,9 @@
       api_version: v1beta
     method: withdraw
     collection:
-    - privilegedaccessmanager.projects.locations.entitlements.grants
-    - privilegedaccessmanager.folders.locations.entitlements.grants
-    - privilegedaccessmanager.organizations.locations.entitlements.grants
+      - privilegedaccessmanager.projects.locations.entitlements.grants
+      - privilegedaccessmanager.folders.locations.entitlements.grants
+      - privilegedaccessmanager.organizations.locations.entitlements.grants
 
   arguments:
     resource:
@@ -26,4 +26,4 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.pam.util:FormatWithdrawResponse
+      - googlecloudsdk.command_lib.pam.util:FormatWithdrawResponse

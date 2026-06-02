@@ -20,39 +20,38 @@ projects_locations:
   plural_name: locations
   collection: cloudaicompanion.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_code_repository_indexes:
   name: codeRepositoryIndex
   plural_name: codeRepositoryIndexes
   collection: cloudaicompanion.projects.locations.codeRepositoryIndexes
   attributes:
-  - *project
-  - *location
-  - &codeRepositoryIndex
-    parameter_name: codeRepositoryIndexesId
-    attribute_name: code_repository_index
-    help: The codeRepositoryIndex id of the {resource} resource.
+    - *project
+    - *location
+    - &codeRepositoryIndex
+      parameter_name: codeRepositoryIndexesId
+      attribute_name: code_repository_index
+      help: The codeRepositoryIndex id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_code_repository_indexes_repository_groups:
   name: repositoryGroup
   plural_name: repositoryGroups
-  collection:
-    cloudaicompanion.projects.locations.codeRepositoryIndexes.repositoryGroups
+  collection: cloudaicompanion.projects.locations.codeRepositoryIndexes.repositoryGroups
   attributes:
-  - *project
-  - *location
-  - *codeRepositoryIndex
-  - &repositoryGroup
-    parameter_name: repositoryGroupsId
-    attribute_name: repository_group
-    help: The repositoryGroup id of the {resource} resource.
+    - *project
+    - *location
+    - *codeRepositoryIndex
+    - &repositoryGroup
+      parameter_name: repositoryGroupsId
+      attribute_name: repository_group
+      help: The repositoryGroup id of the {resource} resource.
   disable_auto_completers: false

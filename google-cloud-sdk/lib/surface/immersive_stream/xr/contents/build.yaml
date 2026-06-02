@@ -22,11 +22,11 @@
       spec: !REF googlecloudsdk.command_lib.immersive_stream.xr.resources:content
 
     params:
-    - arg_name: version
-      api_field: buildStreamContentRequest.contentVersionTag
-      required: true
-      help_text: |
-        User-specified version tag of content build.
+      - arg_name: version
+        api_field: buildStreamContentRequest.contentVersionTag
+        required: true
+        help_text: |
+          User-specified version tag of content build.
 
   async:
     collection: stream.projects.locations.operations

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha Backend export schema
 description: A gcloud export/import command YAML validation schema.
@@ -39,11 +39,11 @@ properties:
       combination will be rejected.
     type: string
     enum:
-    - CONNECTION
-    - CUSTOM_METRICS
-    - IN_FLIGHT
-    - RATE
-    - UTILIZATION
+      - CONNECTION
+      - CUSTOM_METRICS
+      - IN_FLIGHT
+      - RATE
+      - UTILIZATION
   capacityScaler:
     description: |-
       A multiplier applied to the backend's target capacity of its balancing
@@ -157,9 +157,9 @@ properties:
       based on the load balancing algorithm you use. This is the    default
     type: string
     enum:
-    - DEFAULT
-    - PREFERENCE_UNSPECIFIED
-    - PREFERRED
+      - DEFAULT
+      - PREFERENCE_UNSPECIFIED
+      - PREFERRED
   service:
     description: |-
       Represents a service backend (e.g., Cloud Run service, PSC Service
@@ -173,6 +173,6 @@ properties:
     description: A TrafficDurationValueValuesEnum attribute.
     type: string
     enum:
-    - LONG
-    - SHORT
-    - TRAFFIC_DURATION_UNSPECIFIED
+      - LONG
+      - SHORT
+      - TRAFFIC_DURATION_UNSPECIFIED

@@ -27,7 +27,7 @@
       spec: !REF googlecloudsdk.command_lib.container.backup_restore.resources:positional_backup_plan
 
     params:
-    - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:etag
+      - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:etag
 
   async:
     collection: gkebackup.projects.locations.operations

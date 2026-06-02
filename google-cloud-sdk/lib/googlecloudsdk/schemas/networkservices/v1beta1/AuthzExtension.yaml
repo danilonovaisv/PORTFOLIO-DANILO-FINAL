@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1beta1 AuthzExtension export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- name
-- service
-- timeout
+  - name
+  - service
+  - timeout
 additionalProperties: false
 properties:
   COMMENT:
@@ -89,9 +89,9 @@ properties:
       service).
     type: string
     enum:
-    - EXTERNAL_MANAGED
-    - INTERNAL_MANAGED
-    - LOAD_BALANCING_SCHEME_UNSPECIFIED
+      - EXTERNAL_MANAGED
+      - INTERNAL_MANAGED
+      - LOAD_BALANCING_SCHEME_UNSPECIFIED
   metadata:
     description: |-
       The metadata provided here is included as part of the
@@ -134,6 +134,6 @@ properties:
       wire format.
     type: string
     enum:
-    - EXT_AUTHZ_GRPC
-    - EXT_PROC_GRPC
-    - WIRE_FORMAT_UNSPECIFIED
+      - EXT_AUTHZ_GRPC
+      - EXT_PROC_GRPC
+      - WIRE_FORMAT_UNSPECIFIED

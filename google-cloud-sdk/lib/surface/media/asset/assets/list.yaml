@@ -10,7 +10,7 @@
   request:
     collection: mediaasset.projects.locations.assetTypes.assets
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.assets.hooks:AddParentInfoToAssetRequests
+      - googlecloudsdk.command_lib.media.asset.assets.hooks:AddParentInfoToAssetRequests
     ALPHA:
       api_version: v1alpha
 
@@ -19,8 +19,8 @@
       help_text: The Cloud Media Asset asset types to list all assets.
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:asset_type
     params:
-    - arg_name: read-mask
-      api_field: readMask
-      required: false
-      help_text: |
-        Extra fields to be poplulated as part of the asset resource in the response.
+      - arg_name: read-mask
+        api_field: readMask
+        required: false
+        help_text: |
+          Extra fields to be poplulated as part of the asset resource in the response.

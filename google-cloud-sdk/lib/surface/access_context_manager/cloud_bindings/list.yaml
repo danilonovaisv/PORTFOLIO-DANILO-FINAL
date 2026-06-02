@@ -172,7 +172,7 @@
     ALPHA:
       api_version: v1alpha
       modify_request_hooks:
-      - googlecloudsdk.command_lib.accesscontextmanager.cloud_bindings:ProcessFilter
+        - googlecloudsdk.command_lib.accesscontextmanager.cloud_bindings:ProcessFilter
 
   arguments:
     resource:

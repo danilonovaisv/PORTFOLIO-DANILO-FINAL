@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: certificatemanager v1 CertificateAuthorityServiceConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- caPool
+  - caPool
 additionalProperties: false
 properties:
   COMMENT:

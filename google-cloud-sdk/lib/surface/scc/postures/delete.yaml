@@ -27,13 +27,13 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.scc.resources:posture
       help_text: |
-          The name of the posture to be deleted. For example organizations/<organizationID>/locations/<location>/postures/<postureID>.
+        The name of the posture to be deleted. For example organizations/<organizationID>/locations/<location>/postures/<postureID>.
 
     params:
-    - arg_name: etag
-      api_field: etag
-      required: false
-      help_text: |
+      - arg_name: etag
+        api_field: etag
+        required: false
+        help_text: |
           Etag is an optional flag. If the provided Etag doesn't match the server generated Etag, the delete operation won't proceed.
 
   input:

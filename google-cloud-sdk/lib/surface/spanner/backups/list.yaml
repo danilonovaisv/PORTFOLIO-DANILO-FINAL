@@ -15,23 +15,23 @@
   request:
     collection: spanner.projects.instances.backups
     modify_request_hooks:
-    - googlecloudsdk.api_lib.spanner.backups:ModifyListRequest
+      - googlecloudsdk.api_lib.spanner.backups:ModifyListRequest
 
   arguments:
     params:
-    - arg_name: database
-      api_field: filter
-      required: false
-      help_text: |
-        ID of the source database. The database flag will take precedence over filters added for
-        database.
+      - arg_name: database
+        api_field: filter
+        required: false
+        help_text: |
+          ID of the source database. The database flag will take precedence over filters added for
+          database.
     resource:
       help_text: Cloud Spanner instance ID.
       spec: !REF googlecloudsdk.command_lib.spanner.resources:instance
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.api_lib.spanner.backups:FormatListBackups
+      - googlecloudsdk.api_lib.spanner.backups:FormatListBackups
 
   # TODO: b/358133268 - Remove the alpha and beta track overrides once we have the instance
   # partitions column in the GA track.

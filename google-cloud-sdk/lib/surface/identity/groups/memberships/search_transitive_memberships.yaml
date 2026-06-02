@@ -26,7 +26,7 @@
     method: searchTransitiveMemberships
     disable_pagination: true
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveMembershipParent
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveMembershipParent
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -36,20 +36,20 @@
 
   arguments:
     params:
-    - arg_name: group-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group to search transitive memberships for.
+      - arg_name: group-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the group to search transitive memberships for.
 
-    - arg_name: page-size
-      type: int
-      api_field: pageSize
-      help_text: |
-        The maximum number of results to return.
+      - arg_name: page-size
+        type: int
+        api_field: pageSize
+        help_text: |
+          The maximum number of results to return.
 
-    - arg_name: page-token
-      type: str
-      api_field: pageToken
-      help_text: |
-        The next_page_token value returned from a previous search request, if any.
+      - arg_name: page-token
+        type: str
+        api_field: pageToken
+        help_text: |
+          The next_page_token value returned from a previous search request, if any.

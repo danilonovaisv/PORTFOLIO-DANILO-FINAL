@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta AuthenticationPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -58,9 +58,9 @@ properties:
       authentication.
     type: string
     enum:
-    - INVALID
-    - USE_ORIGIN
-    - USE_PEER
+      - INVALID
+      - USE_ORIGIN
+      - USE_PEER
   serverTlsContext:
     description: |-
       Configures the mechanism to obtain server-side security

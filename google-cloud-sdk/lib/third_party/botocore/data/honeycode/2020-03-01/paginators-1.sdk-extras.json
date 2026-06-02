@@ -3,27 +3,16 @@
   "merge": {
     "pagination": {
       "ListTableColumns": {
-        "non_aggregate_keys": [
-          "workbookCursor"
-        ]
+        "non_aggregate_keys": ["workbookCursor"]
       },
       "ListTableRows": {
-        "non_aggregate_keys": [
-          "workbookCursor",
-          "columnIds",
-          "rowIdsNotFound"
-        ]
+        "non_aggregate_keys": ["workbookCursor", "columnIds", "rowIdsNotFound"]
       },
       "ListTables": {
-        "non_aggregate_keys": [
-          "workbookCursor"
-        ]
+        "non_aggregate_keys": ["workbookCursor"]
       },
       "QueryTableRows": {
-        "non_aggregate_keys": [
-          "workbookCursor",
-          "columnIds"
-        ]
+        "non_aggregate_keys": ["workbookCursor", "columnIds"]
       }
     }
   }

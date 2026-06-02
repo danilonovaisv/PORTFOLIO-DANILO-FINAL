@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe an address group.
   description: Show details of an address group.
-
   examples: |
     Show details about an address group named ``my-address-group''.
 

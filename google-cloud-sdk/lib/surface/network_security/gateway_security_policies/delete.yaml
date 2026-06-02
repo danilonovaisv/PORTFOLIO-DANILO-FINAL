@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified Gateway Security Policy.
   examples: |
-      To delete a Gateway Security Policy called 'my-gateway-security-policy', run:
+    To delete a Gateway Security Policy called 'my-gateway-security-policy', run:
 
-        $ {command} my-gateway-security-policy --location=global
+      $ {command} my-gateway-security-policy --location=global
 
 arguments:
   resource:

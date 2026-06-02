@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 - release_tracks:
-  - ALPHA
-  - BETA
+    - ALPHA
+    - BETA
   help_text:
     brief: Deletes a Cluster Director resource
     description: |
@@ -25,21 +25,21 @@
       $ {command} my-cluster --location=us-central1-a
   arguments:
     params:
-    - help_text: |-
-        Identifier. Name of the cluster to delete.
-        Formats: cluster | projects/{project}/locations/{locations}/clusters/{cluster}
-      is_positional: true
-      is_primary_resource: true
-      request_id_field: name
-      resource_spec: !REF googlecloudsdk.command_lib.cluster_director.clusters.resources:projects_locations_clusters
-      required: true
+      - help_text: |-
+          Identifier. Name of the cluster to delete.
+          Formats: cluster | projects/{project}/locations/{locations}/clusters/{cluster}
+        is_positional: true
+        is_primary_resource: true
+        request_id_field: name
+        resource_spec: !REF googlecloudsdk.command_lib.cluster_director.clusters.resources:projects_locations_clusters
+        required: true
   request:
     ALPHA:
       api_version: v1alpha
     BETA:
       api_version: v1beta
     collection:
-    - hypercomputecluster.projects.locations.clusters
+      - hypercomputecluster.projects.locations.clusters
   async:
     collection:
-    - hypercomputecluster.projects.locations.operations
+      - hypercomputecluster.projects.locations.operations

@@ -28,8 +28,8 @@ labels:
     arg_dict:
       flatten: true
       spec:
-      - api_field: key
-      - api_field: value
+        - api_field: key
+        - api_field: value
   help_text: |
     A map of labels to associate with the disk.
 

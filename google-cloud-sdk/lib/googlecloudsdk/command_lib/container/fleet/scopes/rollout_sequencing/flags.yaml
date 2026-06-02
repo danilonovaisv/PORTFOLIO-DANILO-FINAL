@@ -28,7 +28,7 @@ add_upgrade_soaking_override:
 upgrade_selector:
   arg_name: upgrade-selector
   required: true
-  type: "googlecloudsdk.command_lib.container.fleet.scopes.rollout_sequencing.util:UpgradeSelector:"
+  type: 'googlecloudsdk.command_lib.container.fleet.scopes.rollout_sequencing.util:UpgradeSelector:'
   help_text: | #TODO(b/233397411): Add link to documentation here.
     Name and version of the upgrade to be overridden where version is a full GKE version. Currently,
     name can be either `k8s_control_plane` or `k8s_node`.

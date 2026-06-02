@@ -5,9 +5,9 @@ help_text:
   description: |
     Export an endpoit policy.
   examples: |
-      To export an endpoint policy named 'my-endpoint-policy', run:
+    To export an endpoint policy named 'my-endpoint-policy', run:
 
-        $ {command} my-endpoint-policy --destination=my-endpoint-policy.yaml --location=global
+      $ {command} my-endpoint-policy --destination=my-endpoint-policy.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.endpointPolicies

@@ -227,9 +227,11 @@ export function ManifestoScrollSection() {
                           <span
                             key={`l1-c-${charIdx}`}
                             className="char"
-                            style={{
-                              '--char-idx': absoluteIdx,
-                            } as React.CSSProperties}
+                            style={
+                              {
+                                '--char-idx': absoluteIdx,
+                              } as React.CSSProperties
+                            }
                           >
                             {char}
                           </span>
@@ -243,9 +245,11 @@ export function ManifestoScrollSection() {
                             <span
                               key={`l1-space-${wordIdx}`}
                               className="char"
-                              style={{
-                                '--char-idx': absoluteIdx,
-                              } as React.CSSProperties}
+                              style={
+                                {
+                                  '--char-idx': absoluteIdx,
+                                } as React.CSSProperties
+                              }
                             >
                               {'\u00A0'}
                             </span>
@@ -276,9 +280,11 @@ export function ManifestoScrollSection() {
                           <span
                             key={`l2-c-${charIdx}`}
                             className="char"
-                            style={{
-                              '--char-idx': absoluteIdx,
-                            } as React.CSSProperties}
+                            style={
+                              {
+                                '--char-idx': absoluteIdx,
+                              } as React.CSSProperties
+                            }
                           >
                             {char}
                           </span>
@@ -292,9 +298,11 @@ export function ManifestoScrollSection() {
                             <span
                               key={`l2-space-${wordIdx}`}
                               className="char"
-                              style={{
-                                '--char-idx': absoluteIdx,
-                              } as React.CSSProperties}
+                              style={
+                                {
+                                  '--char-idx': absoluteIdx,
+                                } as React.CSSProperties
+                              }
                             >
                               {'\u00A0'}
                             </span>

@@ -1,11 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
-title: networksecurity v1beta1 AuthzPolicyAuthzRuleToRequestOperationHeaderSet export
+title:
+  networksecurity v1beta1 AuthzPolicyAuthzRuleToRequestOperationHeaderSet export
   schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- headers
+  - headers
 additionalProperties: false
 properties:
   COMMENT:

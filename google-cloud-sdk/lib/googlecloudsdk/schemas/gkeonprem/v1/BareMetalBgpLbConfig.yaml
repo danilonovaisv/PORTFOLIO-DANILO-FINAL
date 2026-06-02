@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkeonprem v1 BareMetalBgpLbConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- addressPools
-- asn
-- bgpPeerConfigs
+  - addressPools
+  - asn
+  - bgpPeerConfigs
 additionalProperties: false
 properties:
   COMMENT:

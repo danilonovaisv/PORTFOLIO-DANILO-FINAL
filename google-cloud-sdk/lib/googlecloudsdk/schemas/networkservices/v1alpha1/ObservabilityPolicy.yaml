@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 ObservabilityPolicy export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- name
+  - name
 additionalProperties: false
 properties:
   COMMENT:
@@ -47,8 +47,8 @@ properties:
       resource.
     type: string
     enum:
-    - PROJECT
-    - SCOPE_UNSPECIFIED
+      - PROJECT
+      - SCOPE_UNSPECIFIED
   serviceGraph:
     description: |-
       Service graph represents a graph visualization of services defined by the

@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1 TlsInspectionPolicy export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- caPool
-- name
+  - caPool
+  - name
 additionalProperties: false
 properties:
   COMMENT:
@@ -71,11 +71,11 @@ properties:
       this field.
     type: string
     enum:
-    - TLS_1_0
-    - TLS_1_1
-    - TLS_1_2
-    - TLS_1_3
-    - TLS_VERSION_UNSPECIFIED
+      - TLS_1_0
+      - TLS_1_1
+      - TLS_1_2
+      - TLS_1_3
+      - TLS_VERSION_UNSPECIFIED
   name:
     description: |-
       Name of the resource. Name is of the form projects/{projec
@@ -92,11 +92,11 @@ properties:
       or servers. Note that Secure Web Proxy does not yet honor this field.
     type: string
     enum:
-    - PROFILE_COMPATIBLE
-    - PROFILE_CUSTOM
-    - PROFILE_MODERN
-    - PROFILE_RESTRICTED
-    - PROFILE_UNSPECIFIED
+      - PROFILE_COMPATIBLE
+      - PROFILE_CUSTOM
+      - PROFILE_MODERN
+      - PROFILE_RESTRICTED
+      - PROFILE_UNSPECIFIED
   trustConfig:
     description: |-
       A TrustConfig resource used when making a connection to the TLS

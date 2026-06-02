@@ -7,9 +7,9 @@ help_text:
   description: |
     Import the specified target association.
   examples: |
-      To import a target association called `my-target_association`, run:
+    To import a target association called `my-target_association`, run:
 
-        $ {command} my-target_association --source=my-target_association.yaml --location=us-central1
+      $ {command} my-target_association --source=my-target_association.yaml --location=us-central1
 
 arguments:
   resource:
@@ -27,7 +27,7 @@ request:
     api_version: v1
   collection: authztoolkit.projects.locations.targetAssociations
   modify_request_hooks:
-  - googlecloudsdk.command_lib.authz_toolkit.hooks:SetUpdateMask
+    - googlecloudsdk.command_lib.authz_toolkit.hooks:SetUpdateMask
 
 import:
   abort_if_equivalent: true

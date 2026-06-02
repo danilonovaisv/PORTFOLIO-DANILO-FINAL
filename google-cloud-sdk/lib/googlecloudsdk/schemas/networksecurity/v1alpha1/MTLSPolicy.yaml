@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 MTLSPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -40,9 +40,9 @@ properties:
       empty.
     type: string
     enum:
-    - ALLOW_INVALID_OR_MISSING_CLIENT_CERT
-    - CLIENT_VALIDATION_MODE_UNSPECIFIED
-    - REJECT_INVALID
+      - ALLOW_INVALID_OR_MISSING_CLIENT_CERT
+      - CLIENT_VALIDATION_MODE_UNSPECIFIED
+      - REJECT_INVALID
   clientValidationTrustConfig:
     description: |-
       Reference to the TrustConfig from certificatemanager.googleapis.com

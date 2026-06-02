@@ -26,4 +26,4 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.scc.resources:posture_deployment
       help_text: |
-          The posture deployment to describe. For example organizations/<organizationID>/locations/<location>/postureDeployments/<postureDeploymentID>.
+        The posture deployment to describe. For example organizations/<organizationID>/locations/<location>/postureDeployments/<postureDeploymentID>.

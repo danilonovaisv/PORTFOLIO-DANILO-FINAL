@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 - release_tracks:
-  - ALPHA
+    - ALPHA
   auto_generated: false
   help_text:
     brief: Delete a machine learning run
@@ -36,31 +36,30 @@
             Deleted machine_learning_run [my-run].
           ```
 
-
   arguments:
     params:
-    - help_text: |-
-        projects/{project}/locations/{location}/machineLearningRuns/{machineLearningRun}
-      is_positional: true
-      is_primary_resource: true
-      resource_spec: !REF googlecloudsdk.command_lib.mldiagnostics.machine_learning_run.v1alpha_resources:projects_locations_machine_learning_runs
-      required: true
-    - arg_name: force
-      api_field: force
-      action: store_true
-      required: false
-      default: false
-      type: bool
-      help_text: |-
-        If force=false and if a user tries to delete an ml run resource that still
-        has child resources (e.g., ProfilerTarget), the request should fail with a
-        FAILED_PRECONDITION error.
-        If force=true, the delete request should delete both parent and child
-        resources that exist.
+      - help_text: |-
+          projects/{project}/locations/{location}/machineLearningRuns/{machineLearningRun}
+        is_positional: true
+        is_primary_resource: true
+        resource_spec: !REF googlecloudsdk.command_lib.mldiagnostics.machine_learning_run.v1alpha_resources:projects_locations_machine_learning_runs
+        required: true
+      - arg_name: force
+        api_field: force
+        action: store_true
+        required: false
+        default: false
+        type: bool
+        help_text: |-
+          If force=false and if a user tries to delete an ml run resource that still
+          has child resources (e.g., ProfilerTarget), the request should fail with a
+          FAILED_PRECONDITION error.
+          If force=true, the delete request should delete both parent and child
+          resources that exist.
   request:
     api_version: v1alpha
     collection:
-    - hypercomputecluster.projects.locations.machineLearningRuns
+      - hypercomputecluster.projects.locations.machineLearningRuns
   async:
     collection:
-    - hypercomputecluster.projects.locations.operations
+      - hypercomputecluster.projects.locations.operations

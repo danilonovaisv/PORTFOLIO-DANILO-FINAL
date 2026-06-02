@@ -69,15 +69,15 @@ labels:
     arg_dict:
       flatten: true
       spec:
-      - api_field: key
-      - api_field: value
+        - api_field: key
+        - api_field: value
   help_text: |
     A map of labels to associate with the image.
 
 additional_licenses:
   api_field: imageImport.diskImageTargetDefaults.additionalLicenses
   arg_name: additional-licenses
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   required: false
   help_text: |
     Comma-separated list of the additional licenses to assign to the image.
@@ -95,7 +95,7 @@ skip_os_adaptation:
 guest_os_features:
   api_field: imageImport.diskImageTargetDefaults.dataDiskImageImport.guestOsFeatures
   arg_name: guest-os-features
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   required: false
   help_text: |
     Guest OS features to enable on the imported image.
@@ -115,10 +115,10 @@ boot_conversion:
   api_field: imageImport.diskImageTargetDefaults.osAdaptationParameters.bootConversion
   required: false
   help_text: |
-     This property will trigger an internal process which will convert the
-      image from using the existing boot option to another.
-      The size of the boot disk might be increased to allow the conversion.
-      Currently only support BIOS_TO_EFI.
+    This property will trigger an internal process which will convert the
+     image from using the existing boot option to another.
+     The size of the boot disk might be increased to allow the conversion.
+     Currently only support BIOS_TO_EFI.
 
 adaptation_modifiers:
   arg_name: adaptation-modifiers

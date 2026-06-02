@@ -18,22 +18,22 @@
       help_text: Identity Provider
       spec: !REF googlecloudsdk.command_lib.zone_management.identity_provider.resources:identityProvider
     params:
-    - group:
-        mutex: true
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: oidc-config
+              help_text: OIDC Identity Provider configuration file.
+              api_field: identityProvider.oidcConfig
+              processor: googlecloudsdk.command_lib.zone_management.identity_provider.hooks:LoadConfigFromFile
+            - arg_name: saml-config
+              help_text: SAML Identity Provider configuration file.
+              api_field: identityProvider.samlConfig
+              processor: googlecloudsdk.command_lib.zone_management.identity_provider.hooks:LoadConfigFromFile
+      - arg_name: zone
+        api_field: identityProvider.zoneId
         required: true
-        params:
-        - arg_name: oidc-config
-          help_text: OIDC Identity Provider configuration file.
-          api_field: identityProvider.oidcConfig
-          processor: googlecloudsdk.command_lib.zone_management.identity_provider.hooks:LoadConfigFromFile
-        - arg_name: saml-config
-          help_text: SAML Identity Provider configuration file.
-          api_field: identityProvider.samlConfig
-          processor: googlecloudsdk.command_lib.zone_management.identity_provider.hooks:LoadConfigFromFile
-    - arg_name: zone
-      api_field: identityProvider.zoneId
-      required: true
-      help_text: Google Distributed Cloud zone name.
+        help_text: Google Distributed Cloud zone name.
 
   async:
     collection: edgecontainer.organizations.locations.operations

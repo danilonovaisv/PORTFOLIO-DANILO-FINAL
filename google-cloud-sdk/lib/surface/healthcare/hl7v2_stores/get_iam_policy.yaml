@@ -1,6 +1,5 @@
 - release_tracks: [ALPHA, BETA, GA]
 
-
   help_text:
     brief: Retrieve the IAM policy for a Cloud Healthcare API HL7v2 store.
     description: Retrieve the IAM policy for a Cloud Healthcare API HL7v2 store.

@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified authorization policy.
   examples: |
-      To delete an authorization policy called 'my-authz-policy', run:
+    To delete an authorization policy called 'my-authz-policy', run:
 
-        $ {command} my-authz-policy --location=global
+      $ {command} my-authz-policy --location=global
 
 arguments:
   resource:

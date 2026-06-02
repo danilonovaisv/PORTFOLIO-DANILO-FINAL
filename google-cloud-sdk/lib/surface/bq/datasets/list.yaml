@@ -14,7 +14,7 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: List all BigQuery datasets in a project.
-    description:  List all BigQuery datasets in a project.
+    description: List all BigQuery datasets in a project.
     examples: |
       The following command list all datasets in current project (including hidden)
 
@@ -29,10 +29,10 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:project
 
     params:
-    - api_field: all
-      arg_name: all
-      required: false
-      help_text: List even hidden datasets.
+      - api_field: all
+        arg_name: all
+        required: false
+        help_text: List even hidden datasets.
 
   output:
     format: |

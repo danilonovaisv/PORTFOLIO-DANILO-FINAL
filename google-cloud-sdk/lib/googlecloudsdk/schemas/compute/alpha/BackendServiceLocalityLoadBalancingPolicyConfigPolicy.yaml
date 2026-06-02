@@ -1,6 +1,7 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
-title: compute alpha BackendServiceLocalityLoadBalancingPolicyConfigPolicy export
+title:
+  compute alpha BackendServiceLocalityLoadBalancingPolicyConfigPolicy export
   schema
 description: A gcloud export/import command YAML validation schema.
 type: object
@@ -35,13 +36,13 @@ properties:
       rejected.
     type: string
     enum:
-    - INVALID_LB_POLICY
-    - LEAST_REQUEST
-    - MAGLEV
-    - ORIGINAL_DESTINATION
-    - RANDOM
-    - RING_HASH
-    - ROUND_ROBIN
-    - WEIGHTED_GCP_RENDEZVOUS
-    - WEIGHTED_MAGLEV
-    - WEIGHTED_ROUND_ROBIN
+      - INVALID_LB_POLICY
+      - LEAST_REQUEST
+      - MAGLEV
+      - ORIGINAL_DESTINATION
+      - RANDOM
+      - RING_HASH
+      - ROUND_ROBIN
+      - WEIGHTED_GCP_RENDEZVOUS
+      - WEIGHTED_MAGLEV
+      - WEIGHTED_ROUND_ROBIN

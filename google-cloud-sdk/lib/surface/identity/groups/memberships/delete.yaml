@@ -26,7 +26,7 @@
     disable_resource_check: true
     method: delete
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipResourceName
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipResourceName
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -36,17 +36,17 @@
 
   arguments:
     params:
-    - arg_name: group-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group the new membership is being removed from.
+      - arg_name: group-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the group the new membership is being removed from.
 
-    - arg_name: member-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group or user being removed from the group identified by group-email.
+      - arg_name: member-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the group or user being removed from the group identified by group-email.
 
   input:
     confirmation_prompt: |

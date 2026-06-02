@@ -41,9 +41,9 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.description
-    - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.display_name
-    - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.disabled
-    - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.allowed_grant_types
-    - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.allowed_scopes
-    - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.allowed_redirect_uris
+      - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.description
+      - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.display_name
+      - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.disabled
+      - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.allowed_grant_types
+      - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.allowed_scopes
+      - _REF_: googlecloudsdk.command_lib.iam.flags:oauth_client.allowed_redirect_uris

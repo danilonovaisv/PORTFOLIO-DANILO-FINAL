@@ -5,9 +5,9 @@ help_text:
   description: |
     Import the configuration for a Network Services gateway.
   examples: |
-      To import a gateway named 'my-gateway' from a YAML file, run:
+    To import a gateway named 'my-gateway' from a YAML file, run:
 
-        $ {command} my-gateway --source=my-gateway.yaml --location=global
+      $ {command} my-gateway --source=my-gateway.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.gateways

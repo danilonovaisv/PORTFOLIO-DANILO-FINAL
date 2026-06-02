@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta MutualTls export schema
 description: A gcloud export/import command YAML validation schema.
@@ -33,6 +33,6 @@ properties:
       omitted, connection can be either plaintext or TLS.
     type: string
     enum:
-    - INVALID
-    - PERMISSIVE
-    - STRICT
+      - INVALID
+      - PERMISSIVE
+      - STRICT

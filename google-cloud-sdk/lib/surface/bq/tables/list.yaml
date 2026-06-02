@@ -14,7 +14,7 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: List all BigQuery tables and views in a dataset.
-    description:  List all BigQuery tables and views in a dataset.
+    description: List all BigQuery tables and views in a dataset.
     examples: |
       The following command list all tables the specified dataset
 

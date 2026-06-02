@@ -18,23 +18,23 @@
       help_text: Zonal Project
       spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:zonalProject
     params:
-    - arg_name: organization
-      resource_spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:organization
-      required: true
-      help_text: |
-        Organization of the zonal project.
-    - arg_name: location
-      resource_spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:location
-      required: true
-      help_text: |
-        Location of the zonal project.
-    - arg_name: zone
-      resource_spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:zone
-      is_parent_resource: true
-      is_primary_resource: false
-      required: true
-      help_text: |
-        Zone of the zonal project.
+      - arg_name: organization
+        resource_spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:organization
+        required: true
+        help_text: |
+          Organization of the zonal project.
+      - arg_name: location
+        resource_spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:location
+        required: true
+        help_text: |
+          Location of the zonal project.
+      - arg_name: zone
+        resource_spec: !REF googlecloudsdk.command_lib.zone_management.project.resources:zone
+        is_parent_resource: true
+        is_primary_resource: false
+        required: true
+        help_text: |
+          Zone of the zonal project.
 
   async:
     collection: edgecontainer.organizations.locations.operations

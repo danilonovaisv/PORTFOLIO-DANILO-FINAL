@@ -30,6 +30,6 @@ response:
 
 output:
   format: |
-     table(
-        name.basename():label=NAME
-      )
+    table(
+       name.basename():label=NAME
+     )

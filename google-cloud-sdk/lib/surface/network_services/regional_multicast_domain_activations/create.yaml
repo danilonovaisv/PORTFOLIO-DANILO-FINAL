@@ -17,22 +17,22 @@ arguments:
     help_text: |
       Name of the regional multicast domain activation to be created.
   params:
-  - arg_name: multicast-domain
-    api_field: regionalMulticastDomainActivation.multicastDomain
-    help_text: The multicast domain to be used.
-    required: true
-  - arg_name: description
-    api_field: regionalMulticastDomainActivation.description
-    help_text: The description for the regional multicast domain activation.
-  - arg_name: pim-mode
-    api_field: regionalMulticastDomainActivation.pimSpec.pimMode
-    help_text: The PIM mode for the regional multicast domain activation.
-  - arg_name: rp-ip-address
-    api_field: regionalMulticastDomainActivation.pimSpec.rpIpAddress
-    help_text: The Rendezvous Point IP address for the regional multicast domain activation.
-  - arg_name: multicast-source-location
-    api_field: regionalMulticastDomainActivation.pimSpec.multicastSourceLocation
-    help_text: The location of the multicast source.
+    - arg_name: multicast-domain
+      api_field: regionalMulticastDomainActivation.multicastDomain
+      help_text: The multicast domain to be used.
+      required: true
+    - arg_name: description
+      api_field: regionalMulticastDomainActivation.description
+      help_text: The description for the regional multicast domain activation.
+    - arg_name: pim-mode
+      api_field: regionalMulticastDomainActivation.pimSpec.pimMode
+      help_text: The PIM mode for the regional multicast domain activation.
+    - arg_name: rp-ip-address
+      api_field: regionalMulticastDomainActivation.pimSpec.rpIpAddress
+      help_text: The Rendezvous Point IP address for the regional multicast domain activation.
+    - arg_name: multicast-source-location
+      api_field: regionalMulticastDomainActivation.pimSpec.multicastSourceLocation
+      help_text: The location of the multicast source.
   labels:
     api_field: regionalMulticastDomainActivation.labels
 async:

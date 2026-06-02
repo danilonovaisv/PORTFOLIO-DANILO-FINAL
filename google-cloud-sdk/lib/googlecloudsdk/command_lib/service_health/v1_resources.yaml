@@ -20,64 +20,64 @@ organizations_locations:
   plural_name: locations
   collection: servicehealth.organizations.locations
   attributes:
-  - &organization
-    parameter_name: organizationsId
-    attribute_name: organization
-    help: The organization id of the {resource} resource.
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    property: servicehealth/location
-    help: |
-     The location to use when working with Service Health resources.
+    - &organization
+      parameter_name: organizationsId
+      attribute_name: organization
+      help: The organization id of the {resource} resource.
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      property: servicehealth/location
+      help: |
+        The location to use when working with Service Health resources.
 
-     If not specified, will use `default` servicehealth/location.
+        If not specified, will use `default` servicehealth/location.
   disable_auto_completers: true
 projects_locations:
   name: location
   plural_name: locations
   collection: servicehealth.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - *location
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - *location
   disable_auto_completers: true
 organizations_locations_organization_events:
   name: organizationEvent
   plural_name: organizationEvents
   collection: servicehealth.organizations.locations.organizationEvents
   attributes:
-  - *organization
-  - *location
-  - &organizationEvent
-    parameter_name: organizationEventsId
-    attribute_name: organization_event
-    help: The organizationEvent id of the {resource} resource.
+    - *organization
+    - *location
+    - &organizationEvent
+      parameter_name: organizationEventsId
+      attribute_name: organization_event
+      help: The organizationEvent id of the {resource} resource.
   disable_auto_completers: false
 organizations_locations_organization_impacts:
   name: organizationImpact
   plural_name: organizationImpacts
   collection: servicehealth.organizations.locations.organizationImpacts
   attributes:
-  - *organization
-  - *location
-  - &organizationImpact
-    parameter_name: organizationImpactsId
-    attribute_name: organization_impact
-    help: The organizationImpact id of the {resource} resource.
+    - *organization
+    - *location
+    - &organizationImpact
+      parameter_name: organizationImpactsId
+      attribute_name: organization_impact
+      help: The organizationImpact id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_events:
   name: event
   plural_name: events
   collection: servicehealth.projects.locations.events
   attributes:
-  - *project
-  - *location
-  - &event
-    parameter_name: eventsId
-    attribute_name: event
-    help: The event id of the {resource} resource.
+    - *project
+    - *location
+    - &event
+      parameter_name: eventsId
+      attribute_name: event
+      help: The event id of the {resource} resource.
   disable_auto_completers: false

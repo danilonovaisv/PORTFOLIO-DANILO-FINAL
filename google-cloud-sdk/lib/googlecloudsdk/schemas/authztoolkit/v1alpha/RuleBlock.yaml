@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: authztoolkit v1alpha RuleBlock export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,9 +29,9 @@ properties:
     description: Action type of this policy.
     type: string
     enum:
-    - ACTION_UNSPECIFIED
-    - ALLOW
-    - DENY
+      - ACTION_UNSPECIFIED
+      - ALLOW
+      - DENY
   rules:
     description: Rules that must be evaluated for this policy action.
     type: array

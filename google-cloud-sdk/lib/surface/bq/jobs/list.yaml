@@ -14,7 +14,7 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: List all BigQuery jobs in a project.
-    description:  List all BigQuery jobs in a project.
+    description: List all BigQuery jobs in a project.
     examples: |
       The following command list all jobs in current project (for all users)
 
@@ -29,17 +29,17 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:project
 
     params:
-    - api_field: allUsers
-      arg_name: show-all-users
-      required: false
-      help_text: List jobs from all users.
-    - api_field: projection
-      arg_name: show-config
-      action: store_true
-      processor: googlecloudsdk.command_lib.bq.hooks:JobListProjectionProcessor
-      required: false
-      default: false
-      help_text: Include job configuration in listing. Default is False.
+      - api_field: allUsers
+        arg_name: show-all-users
+        required: false
+        help_text: List jobs from all users.
+      - api_field: projection
+        arg_name: show-config
+        action: store_true
+        processor: googlecloudsdk.command_lib.bq.hooks:JobListProjectionProcessor
+        required: false
+        default: false
+        help_text: Include job configuration in listing. Default is False.
 
   output:
     format: |

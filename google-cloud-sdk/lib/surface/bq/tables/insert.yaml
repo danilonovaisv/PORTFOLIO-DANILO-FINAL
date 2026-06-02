@@ -13,9 +13,9 @@
 # limitations under the License.
 - release_tracks: [ALPHA]
   help_text:
-    brief:   Insert records specified into an existing table.
+    brief: Insert records specified into an existing table.
     description: |-
-        Insert records specified into an existing table.
+      Insert records specified into an existing table.
     examples: |
       The following command inserts rows from `data_file.json` into `my-table` in `my-dataset`:
 
@@ -31,20 +31,20 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:table
 
     params:
-    - arg_name: data
-      api_field: tableDataInsertAllRequest.rows
-      required: true
-      repeated: false
-      type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-      processor: googlecloudsdk.command_lib.bq.hooks:BqTableDataFileProcessor
-      help_text: |-
-        The file containing the newline-delimited array of JSON objects representing rows to insert.
+      - arg_name: data
+        api_field: tableDataInsertAllRequest.rows
+        required: true
+        repeated: false
+        type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+        processor: googlecloudsdk.command_lib.bq.hooks:BqTableDataFileProcessor
+        help_text: |-
+          The file containing the newline-delimited array of JSON objects representing rows to insert.
 
-        * For example:
-           [
-            {"string_col": "value1", "bool_col": false},
-            {"string_col": "value2", "bool_col": true},
-            {"string_col": "value3", "bool_col": false},
-            {"string_col": "value4", "bool_col": true},
-            {"string_col": "value5", "bool_col": false},
-          ]
+          * For example:
+             [
+              {"string_col": "value1", "bool_col": false},
+              {"string_col": "value2", "bool_col": true},
+              {"string_col": "value3", "bool_col": false},
+              {"string_col": "value4", "bool_col": true},
+              {"string_col": "value5", "bool_col": false},
+            ]

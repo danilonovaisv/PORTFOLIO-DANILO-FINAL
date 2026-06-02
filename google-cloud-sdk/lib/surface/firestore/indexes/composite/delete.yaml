@@ -17,4 +17,4 @@
       help_text: Index to delete.
       spec: !REF googlecloudsdk.command_lib.firestore.resources:index
       removed_flags:
-      - collection-group
+        - collection-group

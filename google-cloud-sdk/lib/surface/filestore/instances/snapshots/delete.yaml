@@ -17,26 +17,25 @@
 
   arguments:
     params:
-    - arg_name: snapshot
-      required: true
-      is_positional: true
-      help_text: |
-        Name of the Filestore snapshot to be deleted.
-    - arg_name: instance
-      required: true
-      help_text: |
-        Name of the Filestore instance the snapshot belongs to.
-    - group:
-        mutex: true
+      - arg_name: snapshot
         required: true
-        params:
-        - arg_name: instance-region
-          help_text: |
-            Region of the Filestore instance.
-        - arg_name: instance-location
-          help_text: |
-            Location of the Filestore instance.
-
+        is_positional: true
+        help_text: |
+          Name of the Filestore snapshot to be deleted.
+      - arg_name: instance
+        required: true
+        help_text: |
+          Name of the Filestore instance the snapshot belongs to.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: instance-region
+              help_text: |
+                Region of the Filestore instance.
+            - arg_name: instance-location
+              help_text: |
+                Location of the Filestore instance.
 
   async:
     collection: file.projects.locations.operations
@@ -58,4 +57,4 @@
     # file.projects.locations.instances.snapshots collection). This collection is populated manually.
     disable_resource_check: true
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.instances.snapshots.util:FormatSnapshotAccessRequest
+      - googlecloudsdk.command_lib.filestore.instances.snapshots.util:FormatSnapshotAccessRequest

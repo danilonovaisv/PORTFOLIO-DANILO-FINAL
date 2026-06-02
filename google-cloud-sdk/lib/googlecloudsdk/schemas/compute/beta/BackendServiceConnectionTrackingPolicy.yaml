@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta BackendServiceConnectionTrackingPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -47,9 +47,9 @@ properties:
       balancing/docs/internal#connection-persistence).
     type: string
     enum:
-    - ALWAYS_PERSIST
-    - DEFAULT_FOR_PROTOCOL
-    - NEVER_PERSIST
+      - ALWAYS_PERSIST
+      - DEFAULT_FOR_PROTOCOL
+      - NEVER_PERSIST
   enableStrongAffinity:
     description: |-
       Enable Strong Session Affinity for external passthrough Network Load
@@ -81,6 +81,6 @@ properties:
       balancing/docs/internal#tracking-mode).
     type: string
     enum:
-    - INVALID_TRACKING_MODE
-    - PER_CONNECTION
-    - PER_SESSION
+      - INVALID_TRACKING_MODE
+      - PER_CONNECTION
+      - PER_SESSION

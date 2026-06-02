@@ -1,7 +1,8 @@
 - release_tracks: [BETA]
   help_text:
     brief: Update a BeyondCorp client connector service (Deprecated).
-    description: Update a BeyondCorp client connector service. Note - Mutable fields include - \
+    description:
+      Update a BeyondCorp client connector service. Note - Mutable fields include - \
       display_name, ingress.config.destination_routes.
     examples: |
       Note - Mutable fields include: display_name, ingress.config.destination_routes.
@@ -21,8 +22,8 @@
   request:
     collection: beyondcorp.projects.locations.clientConnectorServices
     modify_request_hooks:
-    - googlecloudsdk.command_lib.beyondcorp.client_connector.services.hooks:CheckUpdateFieldsSpecified
-    - googlecloudsdk.command_lib.beyondcorp.client_connector.services.hooks:ParseUpdatedConfig
+      - googlecloudsdk.command_lib.beyondcorp.client_connector.services.hooks:CheckUpdateFieldsSpecified
+      - googlecloudsdk.command_lib.beyondcorp.client_connector.services.hooks:ParseUpdatedConfig
     BETA:
       api_version: v1
 
@@ -35,13 +36,13 @@
       spec: !REF googlecloudsdk.command_lib.beyondcorp.client_connector.resources:client_connector_service
 
     params:
-    - group:
-        help_text: Updated client connector service configuration.
-        required: true
-        mutex: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:config_from_file_update
-        - group:
-            params:
-            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:ingress_config_update
-            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:display_name
+      - group:
+          help_text: Updated client connector service configuration.
+          required: true
+          mutex: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:config_from_file_update
+            - group:
+                params:
+                  - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:ingress_config_update
+                  - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:display_name

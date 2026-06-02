@@ -17,14 +17,13 @@
   arguments:
     resource:
       spec: !REF googlecloudsdk.command_lib.redis.resources:backup
-      help_text:
-        Arguments and flags that specify the Redis backup you want to export.
+      help_text: Arguments and flags that specify the Redis backup you want to export.
     params:
-    - arg_name: gcs-bucket
-      api_field: exportBackupRequest.gcsBucket
-      required: true
-      help_text: |
-        The name of the Google Cloud Storage bucket to export the backup to.
+      - arg_name: gcs-bucket
+        api_field: exportBackupRequest.gcsBucket
+        required: true
+        help_text: |
+          The name of the Google Cloud Storage bucket to export the backup to.
 
   async:
     collection: redis.projects.locations.operations

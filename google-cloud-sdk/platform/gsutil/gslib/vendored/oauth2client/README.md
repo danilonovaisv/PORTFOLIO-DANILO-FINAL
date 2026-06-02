@@ -8,8 +8,7 @@ This is a client library for accessing resources protected by OAuth 2.0.
 libraries and the core team is turning down support. We recommend you use
 [google-auth](https://google-auth.readthedocs.io) and [oauthlib](http://oauthlib.readthedocs.io/). For more details on the deprecation, see [oauth2client deprecation](https://google-auth.readthedocs.io/en/latest/oauth2client-deprecation.html).
 
-Installation
-============
+# Installation
 
 To install, simply run the following command in your terminal:
 
@@ -17,15 +16,13 @@ To install, simply run the following command in your terminal:
 $ pip install --upgrade oauth2client
 ```
 
-Contributing
-============
+# Contributing
 
 Please see the [CONTRIBUTING page][1] for more information. In particular, we
 love pull requests -- but please make sure to sign the contributor license
 agreement.
 
-Supported Python Versions
-=========================
+# Supported Python Versions
 
 We support Python 2.7 and 3.4+. More information [in the docs][2].
 

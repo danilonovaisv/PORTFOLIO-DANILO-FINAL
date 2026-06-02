@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: privilegedaccessmanager v1alpha GcpIamAccess export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- resource
-- resourceType
-- roleBindings
+  - resource
+  - resourceType
+  - roleBindings
 additionalProperties: false
 properties:
   COMMENT:

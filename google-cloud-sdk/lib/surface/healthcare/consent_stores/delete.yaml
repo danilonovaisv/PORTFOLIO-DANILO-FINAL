@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Delete a Cloud Healthcare API consent store.
+    brief: Delete a Cloud Healthcare API consent store.
     description: Delete a Cloud Healthcare API consent store.
     examples: |
       To delete the consent-store 'test-consent-store', run:

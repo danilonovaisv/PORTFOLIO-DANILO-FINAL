@@ -39,15 +39,15 @@
 This project offers you an alternative to **Universal Charset Encoding Detector**, also known as **Chardet**.
 
 | Feature                                          | [Chardet](https://github.com/chardet/chardet) |                                         Charset Normalizer                                         | [cChardet](https://github.com/PyYoshi/cChardet) |
-|--------------------------------------------------|:---------------------------------------------:|:--------------------------------------------------------------------------------------------------:|:-----------------------------------------------:|
-| `Fast`                                           |                       ❌                       |                                                 ✅                                                  |                        ✅                        |
-| `Universal**`                                    |                       ❌                       |                                                 ✅                                                  |                        ❌                        |
-| `Reliable` **without** distinguishable standards |                       ❌                       |                                                 ✅                                                  |                        ✅                        |
-| `Reliable` **with** distinguishable standards    |                       ✅                       |                                                 ✅                                                  |                        ✅                        |
+| ------------------------------------------------ | :-------------------------------------------: | :------------------------------------------------------------------------------------------------: | :---------------------------------------------: |
+| `Fast`                                           |                      ❌                       |                                                 ✅                                                 |                       ✅                        |
+| `Universal**`                                    |                      ❌                       |                                                 ✅                                                 |                       ❌                        |
+| `Reliable` **without** distinguishable standards |                      ❌                       |                                                 ✅                                                 |                       ✅                        |
+| `Reliable` **with** distinguishable standards    |                      ✅                       |                                                 ✅                                                 |                       ✅                        |
 | `License`                                        |           LGPL-2.1<br>_restrictive_           |                                                MIT                                                 |            MPL-1.1<br>_restrictive_             |
-| `Native Python`                                  |                       ✅                       |                                                 ✅                                                  |                        ❌                        |
-| `Detect spoken language`                         |                       ❌                       |                                                 ✅                                                  |                       N/A                       |
-| `UnicodeDecodeError Safety`                      |                       ❌                       |                                                 ✅                                                  |                        ❌                        |
+| `Native Python`                                  |                      ✅                       |                                                 ✅                                                 |                       ❌                        |
+| `Detect spoken language`                         |                      ❌                       |                                                 ✅                                                 |                       N/A                       |
+| `UnicodeDecodeError Safety`                      |                      ❌                       |                                                 ✅                                                 |                       ❌                        |
 | `Whl Size (min)`                                 |                   193.6 kB                    |                                               42 kB                                                |                     ~200 kB                     |
 | `Supported Encoding`                             |                      33                       | 🎉 [99](https://charset-normalizer.readthedocs.io/en/latest/user/support.html#supported-encodings) |                       40                        |
 
@@ -55,19 +55,19 @@ This project offers you an alternative to **Universal Charset Encoding Detector*
 <img src="https://i.imgflip.com/373iay.gif" alt="Reading Normalized Text" width="226"/><img src="https://media.tenor.com/images/c0180f70732a18b4965448d33adba3d0/tenor.gif" alt="Cat Reading Text" width="200"/>
 </p>
 
-*\*\* : They are clearly using specific code for a specific encoding even if covering most of used one*<br>
+_\*\* : They are clearly using specific code for a specific encoding even if covering most of used one_<br>
 
 ## ⚡ Performance
 
 This package offer better performance than its counterpart Chardet. Here are some numbers.
 
 | Package                                       | Accuracy | Mean per file (ms) | File per sec (est) |
-|-----------------------------------------------|:--------:|:------------------:|:------------------:|
+| --------------------------------------------- | :------: | :----------------: | :----------------: |
 | [chardet](https://github.com/chardet/chardet) |   86 %   |       63 ms        |    16 file/sec     |
 | charset-normalizer                            | **98 %** |     **10 ms**      |    100 file/sec    |
 
 | Package                                       | 99th percentile | 95th percentile | 50th percentile |
-|-----------------------------------------------|:---------------:|:---------------:|:---------------:|
+| --------------------------------------------- | :-------------: | :-------------: | :-------------: |
 | [chardet](https://github.com/chardet/chardet) |     265 ms      |      71 ms      |      7 ms       |
 | charset-normalizer                            |     100 ms      |      50 ms      |      5 ms       |
 
@@ -92,6 +92,7 @@ pip install charset-normalizer -U
 ## 🚀 Basic Usage
 
 ### CLI
+
 This package comes with a CLI.
 
 ```
@@ -139,39 +140,35 @@ python -m charset_normalizer ./data/sample.1.fr.srt
 
 ```json
 {
-    "path": "/home/default/projects/charset_normalizer/data/sample.1.fr.srt",
-    "encoding": "cp1252",
-    "encoding_aliases": [
-        "1252",
-        "windows_1252"
-    ],
-    "alternative_encodings": [
-        "cp1254",
-        "cp1256",
-        "cp1258",
-        "iso8859_14",
-        "iso8859_15",
-        "iso8859_16",
-        "iso8859_3",
-        "iso8859_9",
-        "latin_1",
-        "mbcs"
-    ],
-    "language": "French",
-    "alphabets": [
-        "Basic Latin",
-        "Latin-1 Supplement"
-    ],
-    "has_sig_or_bom": false,
-    "chaos": 0.149,
-    "coherence": 97.152,
-    "unicode_path": null,
-    "is_preferred": true
+  "path": "/home/default/projects/charset_normalizer/data/sample.1.fr.srt",
+  "encoding": "cp1252",
+  "encoding_aliases": ["1252", "windows_1252"],
+  "alternative_encodings": [
+    "cp1254",
+    "cp1256",
+    "cp1258",
+    "iso8859_14",
+    "iso8859_15",
+    "iso8859_16",
+    "iso8859_3",
+    "iso8859_9",
+    "latin_1",
+    "mbcs"
+  ],
+  "language": "French",
+  "alphabets": ["Basic Latin", "Latin-1 Supplement"],
+  "has_sig_or_bom": false,
+  "chaos": 0.149,
+  "coherence": 97.152,
+  "unicode_path": null,
+  "is_preferred": true
 }
 ```
 
 ### Python
-*Just print out normalized text*
+
+_Just print out normalized text_
+
 ```python
 from charset_normalizer import from_path
 
@@ -180,7 +177,8 @@ results = from_path('./my_subtitle.srt')
 print(str(results.best()))
 ```
 
-*Upgrade your code without effort*
+_Upgrade your code without effort_
+
 ```python
 from charset_normalizer import detect
 ```
@@ -204,25 +202,25 @@ Don't confuse package **ftfy** with charset-normalizer or chardet. ftfy goal is 
 
 ## 🍰 How
 
-  - Discard all charset encoding table that could not fit the binary content.
-  - Measure noise, or the mess once opened (by chunks) with a corresponding charset encoding.
-  - Extract matches with the lowest mess detected.
-  - Additionally, we measure coherence / probe for a language.
+- Discard all charset encoding table that could not fit the binary content.
+- Measure noise, or the mess once opened (by chunks) with a corresponding charset encoding.
+- Extract matches with the lowest mess detected.
+- Additionally, we measure coherence / probe for a language.
 
 **Wait a minute**, what is noise/mess and coherence according to **YOU ?**
 
-*Noise :* I opened hundred of text files, **written by humans**, with the wrong encoding table. **I observed**, then
+_Noise :_ I opened hundred of text files, **written by humans**, with the wrong encoding table. **I observed**, then
 **I established** some ground rules about **what is obvious** when **it seems like** a mess (aka. defining noise in rendered text).
- I know that my interpretation of what is noise is probably incomplete, feel free to contribute in order to
- improve or rewrite it.
+I know that my interpretation of what is noise is probably incomplete, feel free to contribute in order to
+improve or rewrite it.
 
-*Coherence :* For each language there is on earth, we have computed ranked letter appearance occurrences (the best we can). So I thought
+_Coherence :_ For each language there is on earth, we have computed ranked letter appearance occurrences (the best we can). So I thought
 that intel is worth something here. So I use those records against decoded text to check if I can detect intelligent design.
 
 ## ⚡ Known limitations
 
-  - Language detection is unreliable when text contains two or more languages sharing identical letters. (eg. HTML (english tags) + Turkish content (Sharing Latin characters))
-  - Every charset detector heavily depends on sufficient content. In common cases, do not bother run detection on very tiny content.
+- Language detection is unreliable when text contains two or more languages sharing identical letters. (eg. HTML (english tags) + Turkish content (Sharing Latin characters))
+- Every charset detector heavily depends on sufficient content. In common cases, do not bother run detection on very tiny content.
 
 ## ⚠️ About Python EOLs
 

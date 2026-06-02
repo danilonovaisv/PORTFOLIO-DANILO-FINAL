@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 Scheduling export schema
 description: A gcloud export/import command YAML validation schema.
@@ -45,9 +45,9 @@ properties:
     description: Specifies the termination action for the instance.
     type: string
     enum:
-    - DELETE
-    - INSTANCE_TERMINATION_ACTION_UNSPECIFIED
-    - STOP
+      - DELETE
+      - INSTANCE_TERMINATION_ACTION_UNSPECIFIED
+      - STOP
   localSsdRecoveryTimeout:
     description: |-
       Specifies the maximum amount of time a Local Ssd Vm should wait while
@@ -88,12 +88,12 @@ properties:
       information, see Setting Instance Scheduling Options.
     type: string
     enum:
-    - MIGRATE
-    - TERMINATE
+      - MIGRATE
+      - TERMINATE
   onInstanceStopAction:
     description: |-
-        Defines the behaviour for instances at termination timestamp when used with auto termination
-        and instance_termination_action STOP
+      Defines the behaviour for instances at termination timestamp when used with auto termination
+      and instance_termination_action STOP
     $ref: OnInstanceStopAction.yaml
   preemptible:
     description: |-
@@ -106,10 +106,10 @@ properties:
     description: Specifies the provisioning model of the instance.
     type: string
     enum:
-    - SPOT
-    - STANDARD
-    - RESERVATION_BOUND
-    - FLEX_START
+      - SPOT
+      - STANDARD
+      - RESERVATION_BOUND
+      - FLEX_START
   terminationTime:
     description: |-
       Specifies the timestamp, when the instance will be terminated, in

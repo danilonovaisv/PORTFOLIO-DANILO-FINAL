@@ -26,12 +26,12 @@
           $ {command} my-release --location=global --format=json
   arguments:
     params:
-    - help_text: |-
-        Flag Release ID of the Flag Release to describe.
-      is_positional: true
-      resource_spec: !REF googlecloudsdk.command_lib.saas_runtime.resources:flag_release
-      required: true
+      - help_text: |-
+          Flag Release ID of the Flag Release to describe.
+        is_positional: true
+        resource_spec: !REF googlecloudsdk.command_lib.saas_runtime.resources:flag_release
+        required: true
   request:
     api_version: v1beta1
     collection:
-    - saasservicemgmt.projects.locations.flagReleases
+      - saasservicemgmt.projects.locations.flagReleases

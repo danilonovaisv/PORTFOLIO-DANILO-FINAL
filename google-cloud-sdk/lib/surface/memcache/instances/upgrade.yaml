@@ -18,19 +18,19 @@ arguments:
       Arguments and flags that specify the Memorystore for Memcached instance you
       want to upgrade.
   params:
-  - arg_name: memcached-version
-    ALPHA:
-      api_field: googleCloudMemcacheV1beta2UpgradeInstanceRequest.memcacheVersion
-    BETA:
-      api_field: googleCloudMemcacheV1beta2UpgradeInstanceRequest.memcacheVersion
-    GA:
-      api_field: googleCloudMemcacheV1UpgradeInstanceRequest.memcacheVersion
-    required: true
-    choices:
-    - arg_value: 1.6.15
-      enum_value: MEMCACHE_1_6_15
-      help_text: Memcached engine version 1.6.15
-    help_text: Memcached engine version to which instance should be upgraded to.
+    - arg_name: memcached-version
+      ALPHA:
+        api_field: googleCloudMemcacheV1beta2UpgradeInstanceRequest.memcacheVersion
+      BETA:
+        api_field: googleCloudMemcacheV1beta2UpgradeInstanceRequest.memcacheVersion
+      GA:
+        api_field: googleCloudMemcacheV1UpgradeInstanceRequest.memcacheVersion
+      required: true
+      choices:
+        - arg_value: 1.6.15
+          enum_value: MEMCACHE_1_6_15
+          help_text: Memcached engine version 1.6.15
+      help_text: Memcached engine version to which instance should be upgraded to.
 
 async:
   collection: memcache.projects.locations.operations

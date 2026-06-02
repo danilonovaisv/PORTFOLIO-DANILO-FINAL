@@ -14,6 +14,6 @@
     collection: config.projects.locations.previews
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.infra_manager.deploy_util:DeleteCleanupStagedObjects
+      - googlecloudsdk.command_lib.infra_manager.deploy_util:DeleteCleanupStagedObjects
   async:
     collection: config.projects.locations.operations

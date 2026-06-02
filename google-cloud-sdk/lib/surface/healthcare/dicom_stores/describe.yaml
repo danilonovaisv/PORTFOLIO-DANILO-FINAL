@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Describe a Cloud Healthcare API DICOM store.
+    brief: Describe a Cloud Healthcare API DICOM store.
     description: Describe a Cloud Healthcare API DICOM store.
     examples: |
       To describe the dicom-store 'test-dicom-store', run:

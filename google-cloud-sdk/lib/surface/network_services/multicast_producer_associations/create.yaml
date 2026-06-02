@@ -17,17 +17,17 @@ arguments:
     help_text: |
       Name of the multicast producer association to be created.
   params:
-  - arg_name:  multicast-domain-activation
-    api_field: multicastProducerAssociation.multicastDomainActivation
-    help_text: The multicast domain activation to be used.
-    required: true
-  - arg_name:  network
-    api_field: multicastProducerAssociation.network
-    help_text: The path of the multicast producer VPC network.
-    required: true
-  - arg_name: description
-    api_field: multicastProducerAssociation.description
-    help_text: The description for the multicast producer association.
+    - arg_name: multicast-domain-activation
+      api_field: multicastProducerAssociation.multicastDomainActivation
+      help_text: The multicast domain activation to be used.
+      required: true
+    - arg_name: network
+      api_field: multicastProducerAssociation.network
+      help_text: The path of the multicast producer VPC network.
+      required: true
+    - arg_name: description
+      api_field: multicastProducerAssociation.description
+      help_text: The description for the multicast producer association.
   labels:
     api_field: multicastProducerAssociation.labels
 async:

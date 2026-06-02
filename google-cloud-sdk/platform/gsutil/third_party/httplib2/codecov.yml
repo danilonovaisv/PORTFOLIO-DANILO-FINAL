@@ -1,5 +1,5 @@
 comment:
-  layout: "files"
+  layout: 'files'
   require_changes: yes
 
 coverage:

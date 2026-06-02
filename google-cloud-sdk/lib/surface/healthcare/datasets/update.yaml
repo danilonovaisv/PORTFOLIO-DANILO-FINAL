@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Update a Cloud Healthcare API dataset.
+    brief: Update a Cloud Healthcare API dataset.
     description: Update a Cloud Healthcare API dataset.
     examples: |
       To update the dataset 'test-dataset', run:
@@ -23,7 +23,7 @@
       spec: !REF googlecloudsdk.command_lib.healthcare.resources:dataset
 
     params:
-    - arg_name: time-zone
-      api_field: dataset.timeZone
-      help_text: |
-        Default timezone used by this dataset.
+      - arg_name: time-zone
+        api_field: dataset.timeZone
+        help_text: |
+          Default timezone used by this dataset.

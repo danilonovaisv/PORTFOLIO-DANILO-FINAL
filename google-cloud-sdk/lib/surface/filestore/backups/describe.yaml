@@ -17,16 +17,16 @@
 
   arguments:
     params:
-    - arg_name: backup
-      required: true
-      is_positional: true
-      help_text: |
-        Arguments and flags that specify the Filestore backup you want to
-        create.
-    - arg_name: region
-      required: true
-      help_text: |
-        Region (e.g. us-central1) for the backup.
+      - arg_name: backup
+        required: true
+        is_positional: true
+        help_text: |
+          Arguments and flags that specify the Filestore backup you want to
+          create.
+      - arg_name: region
+        required: true
+        help_text: |
+          Region (e.g. us-central1) for the backup.
 
   request:
     ALPHA:
@@ -38,4 +38,4 @@
     collection: file.projects.locations.backups
     disable_resource_check: true
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupAccessRequest
+      - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupAccessRequest

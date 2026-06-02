@@ -20,71 +20,71 @@ project:
   plural_name: projects
   collection: blockchainvalidatormanager.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
   disable_auto_completers: true
 project_location_or_project:
   name: locationOrProject
   plural_name: locationsOrProjects
   resources:
-  - name: project
-    plural_name: projects
-    collection: blockchainvalidatormanager.projects
-    attributes:
-    - *project
-    disable_auto_completers: true
-  - name: location
-    plural_name: locations
-    collection: blockchainvalidatormanager.projects.locations
-    attributes:
-    - *project
-    - &location
-      parameter_name: locationsId
-      attribute_name: location
-      help: The location id of the {resource} resource.
-    disable_auto_completers: true
+    - name: project
+      plural_name: projects
+      collection: blockchainvalidatormanager.projects
+      attributes:
+        - *project
+      disable_auto_completers: true
+    - name: location
+      plural_name: locations
+      collection: blockchainvalidatormanager.projects.locations
+      attributes:
+        - *project
+        - &location
+          parameter_name: locationsId
+          attribute_name: location
+          help: The location id of the {resource} resource.
+      disable_auto_completers: true
 project_location:
   name: location
   plural_name: locations
   collection: blockchainvalidatormanager.projects.locations
   attributes:
-  - *project
-  - *location
+    - *project
+    - *location
   disable_auto_completers: true
 project_location_or_project_secret:
   name: secret
   plural_name: secrets
   resources:
-  - name: secret
-    plural_name: secrets
-    collection: blockchainvalidatormanager.projects.locations.secrets
-    attributes:
-    - *project
-    - *location
-    - &secret
-      parameter_name: secretsId
-      attribute_name: secret
-      help: The secret id of the {resource} resource.
-    disable_auto_completers: true
-  - name: secret
-    plural_name: secrets
-    collection: blockchainvalidatormanager.projects.secrets
-    attributes:
-    - *project
-    - *secret
-    disable_auto_completers: true
+    - name: secret
+      plural_name: secrets
+      collection: blockchainvalidatormanager.projects.locations.secrets
+      attributes:
+        - *project
+        - *location
+        - &secret
+          parameter_name: secretsId
+          attribute_name: secret
+          help: The secret id of the {resource} resource.
+      disable_auto_completers: true
+    - name: secret
+      plural_name: secrets
+      collection: blockchainvalidatormanager.projects.secrets
+      attributes:
+        - *project
+        - *secret
+      disable_auto_completers: true
 project_location_blockchain_validator_config:
   name: blockchainValidatorConfig
   plural_name: blockchainValidatorConfigs
   collection: blockchainvalidatormanager.projects.locations.blockchainValidatorConfigs
   attributes:
-  - *project
-  - *location
-  - &blockchainValidatorConfig
-    parameter_name: blockchainValidatorConfigsId
-    attribute_name: blockchain_validator_config
-    help: The blockchainValidatorConfig id of the {resource} resource.
+    - *project
+    - *location
+    - &blockchainValidatorConfig
+      parameter_name: blockchainValidatorConfigsId
+      attribute_name: blockchain_validator_config
+      help: The blockchainValidatorConfig id of the {resource} resource.
   disable_auto_completers: false

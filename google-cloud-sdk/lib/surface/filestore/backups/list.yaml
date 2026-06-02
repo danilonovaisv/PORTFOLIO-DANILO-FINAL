@@ -13,9 +13,9 @@
 
   arguments:
     params:
-    - arg_name: region
-      help_text: |
-        The region of the Backups to display. If unspecified, all backups will be listed.
+      - arg_name: region
+        help_text: |
+          The region of the Backups to display. If unspecified, all backups will be listed.
     resource:
       help_text: |
         Project name.
@@ -31,7 +31,7 @@
       api_version: v1
     collection: file.projects.locations.backups
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.util:AddDefaultLocationToListRequest
+      - googlecloudsdk.command_lib.filestore.util:AddDefaultLocationToListRequest
 
   response:
     id_field: name

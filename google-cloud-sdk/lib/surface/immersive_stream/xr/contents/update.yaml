@@ -16,21 +16,21 @@
       api_version: v1
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.command_lib.immersive_stream.xr.util:SetContentUpdateMask
+      - googlecloudsdk.command_lib.immersive_stream.xr.util:SetContentUpdateMask
   arguments:
     resource:
       help_text: Immersive Stream for XR content resource to be updated.
       spec: !REF googlecloudsdk.command_lib.immersive_stream.xr.resources:content
 
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: bucket
-          api_field: streamContent.bucketName
-          help_text: |
-            The name of the Cloud Storage bucket in the consumer project that stores the content source.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: bucket
+              api_field: streamContent.bucketName
+              help_text: |
+                The name of the Cloud Storage bucket in the consumer project that stores the content source.
 
   async:
     collection: stream.projects.locations.operations

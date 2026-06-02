@@ -21,7 +21,7 @@
       api_version: v1beta
     collection: networkconnectivity.projects.locations.spokes.gatewayAdvertisedRoutes
     modify_request_hooks:
-    - googlecloudsdk.command_lib.network_connectivity.util:CheckRegionSpecifiedIfSpokeSpecified
+      - googlecloudsdk.command_lib.network_connectivity.util:CheckRegionSpecifiedIfSpokeSpecified
 
   arguments:
     resource:

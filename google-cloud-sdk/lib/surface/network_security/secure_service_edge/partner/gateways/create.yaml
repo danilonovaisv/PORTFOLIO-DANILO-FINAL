@@ -18,20 +18,20 @@ arguments:
     help_text: |
       The partner gateway to be created.
   params:
-  - arg_name: gateway-reference
-    required: true
-    api_field: partnerSSEGateway.sseGatewayReferenceId
-    help_text: |
-      Reference ID of the customer gateway to be paired with this partner gateway.
-  - arg_name: partner-subnet-range
-    required: true
-    api_field: partnerSSEGateway.partnerSubnetRange
-    help_text: |
-      Address range (in CIDR format) for the partner-owned subnet which will support this gateway.
-  - arg_name: sse-subnet-range
-    api_field: partnerSSEGateway.sseSubnetRange
-    help_text: |
-      Subnet range where partner facing side of NCCGW is deployed. Default value is set to "100.88.255.0/24". The CIDR suffix should be less than or equal to 25.
+    - arg_name: gateway-reference
+      required: true
+      api_field: partnerSSEGateway.sseGatewayReferenceId
+      help_text: |
+        Reference ID of the customer gateway to be paired with this partner gateway.
+    - arg_name: partner-subnet-range
+      required: true
+      api_field: partnerSSEGateway.partnerSubnetRange
+      help_text: |
+        Address range (in CIDR format) for the partner-owned subnet which will support this gateway.
+    - arg_name: sse-subnet-range
+      api_field: partnerSSEGateway.sseSubnetRange
+      help_text: |
+        Subnet range where partner facing side of NCCGW is deployed. Default value is set to "100.88.255.0/24". The CIDR suffix should be less than or equal to 25.
 
 async:
   collection: networksecurity.projects.locations.operations

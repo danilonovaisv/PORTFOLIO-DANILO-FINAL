@@ -22,8 +22,8 @@
     collection: mediaasset.projects.locations.complexTypes
     method: create
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
-    - googlecloudsdk.command_lib.media.asset.complex_types.hooks:ParseComplexTypeConfigFile
+      - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
+      - googlecloudsdk.command_lib.media.asset.complex_types.hooks:ParseComplexTypeConfigFile
     ALPHA:
       api_version: v1alpha
 
@@ -33,11 +33,11 @@
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:complex_type
 
     params:
-    - _REF_: googlecloudsdk.command_lib.media.asset.flags:complex-type-config-file
+      - _REF_: googlecloudsdk.command_lib.media.asset.flags:complex-type-config-file
 
     labels:
       api_field: complexType.labels
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.media.asset.complex_types.hooks:ProcessOutput
+      - googlecloudsdk.command_lib.media.asset.complex_types.hooks:ProcessOutput

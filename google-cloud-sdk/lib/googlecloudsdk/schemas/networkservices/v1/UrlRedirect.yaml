@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 UrlRedirect export schema
 description: A gcloud export/import command YAML validation schema.
@@ -61,11 +61,11 @@ properties:
       supported values, see RedirectResponseCode.
     type: string
     enum:
-    - FOUND
-    - MOVED_PERMANENTLY_DEFAULT
-    - PERMANENT_REDIRECT
-    - SEE_OTHER
-    - TEMPORARY_REDIRECT
+      - FOUND
+      - MOVED_PERMANENTLY_DEFAULT
+      - PERMANENT_REDIRECT
+      - SEE_OTHER
+      - TEMPORARY_REDIRECT
   stripQuery:
     description: |-
       Determines whether accompanying query portions of the original URL are

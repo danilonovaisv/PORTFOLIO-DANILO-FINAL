@@ -6,9 +6,9 @@ help_text:
   description: |
     List all BackendAuthenticationConfigs in the current project.
   examples: |
-      To list BackendAuthenticationConfigs in the current project, run:
+    To list BackendAuthenticationConfigs in the current project, run:
 
-        $ {command}
+      $ {command}
 
 request: &request
   ALPHA:
@@ -30,11 +30,11 @@ response:
 
 output:
   format: |
-     table(
-        name.basename():label=NAME:sort=1,
-        name.segment(3):label=LOCATION,
-        wellKnownRoots:label=WELL_KNOWN_ROOTS,
-        description:label=DESCRIPTION,
-        createTime:label=CREATE_TIME,
-        updateTime:label=UPDATE_TIME
-      )
+    table(
+       name.basename():label=NAME:sort=1,
+       name.segment(3):label=LOCATION,
+       wellKnownRoots:label=WELL_KNOWN_ROOTS,
+       description:label=DESCRIPTION,
+       createTime:label=CREATE_TIME,
+       updateTime:label=UPDATE_TIME
+     )

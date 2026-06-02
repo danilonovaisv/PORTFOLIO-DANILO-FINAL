@@ -4,9 +4,9 @@
     description: Delete one or more reCAPTCHA Keys from a given cloud project.
     brief: Delete one or more reCAPTCHA Keys.
     examples: |
-        To delete a reCAPTCHA key, run:
+      To delete a reCAPTCHA key, run:
 
-          $ {command} test-key
+        $ {command} test-key
 
   request:
     collection: recaptchaenterprise.projects.keys

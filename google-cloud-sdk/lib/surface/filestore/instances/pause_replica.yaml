@@ -19,13 +19,13 @@
         Arguments and flags that specify the Filestore instance to pause.
       command_level_fallthroughs:
         zone:
-        - arg_name: location
-          release_tracks: [BETA, GA]
+          - arg_name: location
+            release_tracks: [BETA, GA]
     params:
-    - arg_name: location
-      release_tracks: [BETA, GA]
-      help_text: |
-        Location of the Filestore instance to pause.
+      - arg_name: location
+        release_tracks: [BETA, GA]
+        help_text: |
+          Location of the Filestore instance to pause.
 
   request:
     BETA:

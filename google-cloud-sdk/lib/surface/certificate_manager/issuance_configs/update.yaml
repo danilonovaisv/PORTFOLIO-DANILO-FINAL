@@ -22,10 +22,10 @@
       spec: !REF googlecloudsdk.command_lib.certificate_manager.resources:certificateIssuanceConfig
 
     params:
-    - arg_name: description
-      api_field: certificateIssuanceConfig.description
-      help_text: |
-        Human-readable description of the resource.
+      - arg_name: description
+        api_field: certificateIssuanceConfig.description
+        help_text: |
+          Human-readable description of the resource.
 
     labels:
       api_field: certificateIssuanceConfig.labels

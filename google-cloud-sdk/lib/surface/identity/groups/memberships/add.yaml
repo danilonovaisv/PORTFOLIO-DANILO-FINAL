@@ -33,40 +33,40 @@
     GA:
       api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembership
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipParent
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetEntityKey
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipRoles
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetExpiryDetail
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembership
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipParent
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetEntityKey
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipRoles
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetExpiryDetail
 
   arguments:
     params:
-    - arg_name: group-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group the new membership is being added to.
+      - arg_name: group-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the group the new membership is being added to.
 
-    - arg_name: member-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group or user being added to a group.
+      - arg_name: member-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the group or user being added to a group.
 
-    - arg_name: organization
-      release_tracks: [ALPHA, BETA]
-      type: str
-      help_text: |
-        The organization ID of the group the new membership is being added to.
+      - arg_name: organization
+        release_tracks: [ALPHA, BETA]
+        type: str
+        help_text: |
+          The organization ID of the group the new membership is being added to.
 
-    - arg_name: expiration
-      type: str
-      help_text: |
-        Optional time of expiration for the membership. This is given as a duration from now, for
-        example '30d', '6m', '3y' for 30 days, 6 months, or 3 years respectively.
+      - arg_name: expiration
+        type: str
+        help_text: |
+          Optional time of expiration for the membership. This is given as a duration from now, for
+          example '30d', '6m', '3y' for 30 days, 6 months, or 3 years respectively.
 
-    - arg_name: roles
-      type: arg_list
-      help_text: |
-        A comma-separated list of roles for a member within the Group. If not specified,
-        MEMBER will be used as a default value.
+      - arg_name: roles
+        type: arg_list
+        help_text: |
+          A comma-separated list of roles for a member within the Group. If not specified,
+          MEMBER will be used as a default value.

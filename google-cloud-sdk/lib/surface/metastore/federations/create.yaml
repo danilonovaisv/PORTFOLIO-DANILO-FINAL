@@ -24,7 +24,7 @@
     GA:
       api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.metastore.federations.util:GenerateCreateBackends
+      - googlecloudsdk.command_lib.metastore.federations.util:GenerateCreateBackends
     collection: metastore.projects.locations.federations
 
   arguments:
@@ -34,21 +34,21 @@
         you want to create.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:federation
     params:
-    - arg_name: hive-metastore-version
-      api_field: federation.version
-      choices:
-      - arg_value: 3.1.2
-        enum_value: 3.1.2
-      - arg_value: 2.3.6
-        enum_value: 2.3.6
-      help_text:  |
+      - arg_name: hive-metastore-version
+        api_field: federation.version
+        choices:
+          - arg_value: 3.1.2
+            enum_value: 3.1.2
+          - arg_value: 2.3.6
+            enum_value: 2.3.6
+        help_text: |
           Hive metastore schema version of the Metastore federation.
-    - arg_name: backends
-      api_field:  federation.backendMetastores
-      required: true
-      metavar: RANK=BACKEND
-      processor: googlecloudsdk.command_lib.metastore.validators:ValidateBackendsAndReturnMetastoreDict
-      help_text:  |
+      - arg_name: backends
+        api_field: federation.backendMetastores
+        required: true
+        metavar: RANK=BACKEND
+        processor: googlecloudsdk.command_lib.metastore.validators:ValidateBackendsAndReturnMetastoreDict
+        help_text: |
           Backends from which the federation service serves metadata at query time. The backends are specified as a comma-separated
           list of `RANK=BACKEND` pairs.
           For example: `1=dpms:dpms1,2=dpms:projects/my-project/locations/us-central1/services/dpms2`.
@@ -56,17 +56,17 @@
           `BACKEND` is specified as `METASTORE_TYPE:METASTORE_NAME` where `METASTORE_TYPE` is the type of backend metastore and
           `METASTORE_NAME` is the relative resource name of the metastore. If only the name of the metastore is specified (e.g. `dpms1`),
           project and location will be inferred from the project and location used to create the federation.
-    - arg_name: tags
-      api_field: federation.tags.additionalProperties
-      metavar: KEY=VALUE
-      help_text: |
-        List of tag KEY=VALUE pairs to add.
-      type:
-        arg_dict:
-          flatten: true
-          spec:
-          - api_field: key
-          - api_field: value
+      - arg_name: tags
+        api_field: federation.tags.additionalProperties
+        metavar: KEY=VALUE
+        help_text: |
+          List of tag KEY=VALUE pairs to add.
+        type:
+          arg_dict:
+            flatten: true
+            spec:
+              - api_field: key
+              - api_field: value
     labels:
       api_field: federation.labels
 

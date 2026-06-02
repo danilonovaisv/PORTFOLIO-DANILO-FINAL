@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha ServerTlsSettings export schema
 description: A gcloud export/import command YAML validation schema.
@@ -47,6 +47,6 @@ properties:
       authentication.
     type: string
     enum:
-    - INVALID
-    - MUTUAL
-    - SIMPLE
+      - INVALID
+      - MUTUAL
+      - SIMPLE

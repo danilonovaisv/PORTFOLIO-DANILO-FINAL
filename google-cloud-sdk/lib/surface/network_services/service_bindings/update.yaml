@@ -16,9 +16,9 @@ arguments:
     help_text: |
       Name of the service binding to be updated.
   params:
-  - arg_name: description
-    api_field: serviceBinding.description
-    help_text: The description for the service binding.
+    - arg_name: description
+      api_field: serviceBinding.description
+      help_text: The description for the service binding.
 
 async:
   collection: networkservices.projects.locations.operations

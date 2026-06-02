@@ -5,9 +5,9 @@ help_text:
   description: |
     Export the configuration for a Network Services gateway.
   examples: |
-      To export a gateway named 'my-gateway' to a YAML file, run:
+    To export a gateway named 'my-gateway' to a YAML file, run:
 
-        $ {command} my-gateway --destination=my-gateway.yaml --location=global
+      $ {command} my-gateway --destination=my-gateway.yaml --location=global
 request:
   collection: networkservices.projects.locations.gateways
   ALPHA:

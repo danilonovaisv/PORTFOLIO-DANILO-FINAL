@@ -1,12 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 Stream export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- destinationConfig
-- displayName
-- sourceConfig
+  - destinationConfig
+  - displayName
+  - sourceConfig
 additionalProperties: false
 properties:
   COMMENT:
@@ -64,12 +64,12 @@ properties:
     description: The state of the stream.
     type: string
     enum:
-    - DRAINING
-    - FAILED
-    - FAILED_PERMANENTLY
-    - MAINTENANCE
-    - NOT_STARTED
-    - PAUSED
-    - RUNNING
-    - STARTING
-    - STATE_UNSPECIFIED
+      - DRAINING
+      - FAILED
+      - FAILED_PERMANENTLY
+      - MAINTENANCE
+      - NOT_STARTED
+      - PAUSED
+      - RUNNING
+      - STARTING
+      - STATE_UNSPECIFIED

@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified tls route.
   examples: |
-      To delete a tls route named `my-tls-route`, run:
+    To delete a tls route named `my-tls-route`, run:
 
-        $ {command} my-tls-route --location=global
+      $ {command} my-tls-route --location=global
 
 arguments:
   resource:

@@ -24,14 +24,14 @@
       help_text: |
         Arguments describing the instance to update backend IAM bindings for.
     params:
-    - api_field: googleDevtoolsRemotebuildexecutionAdminV1alphaCreateBackendIAMBindingRequest.backendIamBinding.principal
-      arg_name: principal
-      required: true
-      help_text: |
-        The IAM binding principal formatted as <PRINCIPAL_TYPE_IDENTIFIER>:<PRINCIPAL>. For example,
-        `user:foo@google.com`.
-    - api_field: googleDevtoolsRemotebuildexecutionAdminV1alphaCreateBackendIAMBindingRequest.backendIamBinding.role
-      arg_name: role
-      required: true
-      help_text: |
-        The IAM binding role formatted as roles/<ROLE>. For example, `roles/editor`.
+      - api_field: googleDevtoolsRemotebuildexecutionAdminV1alphaCreateBackendIAMBindingRequest.backendIamBinding.principal
+        arg_name: principal
+        required: true
+        help_text: |
+          The IAM binding principal formatted as <PRINCIPAL_TYPE_IDENTIFIER>:<PRINCIPAL>. For example,
+          `user:foo@google.com`.
+      - api_field: googleDevtoolsRemotebuildexecutionAdminV1alphaCreateBackendIAMBindingRequest.backendIamBinding.role
+        arg_name: role
+        required: true
+        help_text: |
+          The IAM binding role formatted as roles/<ROLE>. For example, `roles/editor`.

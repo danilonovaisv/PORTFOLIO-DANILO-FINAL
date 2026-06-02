@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha TlsCertificateContext export schema
 description: A gcloud export/import command YAML validation schema.
@@ -34,9 +34,9 @@ properties:
     description: Defines how TLS certificates are obtained.
     type: string
     enum:
-    - INVALID
-    - USE_PATH
-    - USE_SDS
+      - INVALID
+      - USE_PATH
+      - USE_SDS
   sdsConfig:
     description: |-
       Specifies the config to retrieve certificates through SDS. This field is

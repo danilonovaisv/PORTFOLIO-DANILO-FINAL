@@ -1,14 +1,15 @@
 /* Copyright 2015 Google LLC. All Rights Reserved. */
 
 .hidden {
-  display:none;
+  display: none;
 }
 .visible {
-  display:block;
+  display: block;
 }
-ul, li {
+ul,
+li {
   font-family: Arial, Helvetica, sans-serif;
-  font-size:14px;
-  margin-left:2px;
-  padding-left:2px;
+  font-size: 14px;
+  margin-left: 2px;
+  padding-left: 2px;
 }

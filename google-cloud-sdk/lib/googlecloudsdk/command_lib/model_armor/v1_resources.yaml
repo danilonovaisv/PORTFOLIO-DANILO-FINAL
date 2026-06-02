@@ -20,32 +20,32 @@ project:
   plural_name: projects
   collection: modelarmor.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
   disable_auto_completers: true
 project_location:
   name: location
   plural_name: locations
   collection: modelarmor.projects.locations
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 project_location_template:
   name: template
   plural_name: templates
   collection: modelarmor.projects.locations.templates
   attributes:
-  - *project
-  - *location
-  - &template
-    parameter_name: templatesId
-    attribute_name: template
-    help: The template id of the {resource} resource.
+    - *project
+    - *location
+    - &template
+      parameter_name: templatesId
+      attribute_name: template
+      help: The template id of the {resource} resource.
   disable_auto_completers: false

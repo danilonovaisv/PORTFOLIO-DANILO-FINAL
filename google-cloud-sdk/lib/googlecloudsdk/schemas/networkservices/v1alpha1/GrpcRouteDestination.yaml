@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 GrpcRouteDestination export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- serviceName
+  - serviceName
 additionalProperties: false
 properties:
   COMMENT:

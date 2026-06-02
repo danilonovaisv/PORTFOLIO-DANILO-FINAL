@@ -20,24 +20,24 @@ organizations_locations:
   plural_name: locations
   collection: orglifecycle.organizations.locations
   attributes:
-  - &organization
-    parameter_name: organizationsId
-    attribute_name: organization
-    help: The organization id of the {resource} resource.
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &organization
+      parameter_name: organizationsId
+      attribute_name: organization
+      help: The organization id of the {resource} resource.
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 organizations_locations_managed_organizations:
   name: managedOrganization
   plural_name: managedOrganizations
   collection: orglifecycle.organizations.locations.managedOrganizations
   attributes:
-  - *organization
-  - *location
-  - &managedOrganization
-    parameter_name: managedOrganizationsId
-    attribute_name: managed_organization
-    help: The managedOrganization id of the {resource} resource.
+    - *organization
+    - *location
+    - &managedOrganization
+      parameter_name: managedOrganizationsId
+      attribute_name: managed_organization
+      help: The managedOrganization id of the {resource} resource.
   disable_auto_completers: false

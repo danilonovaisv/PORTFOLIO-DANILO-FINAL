@@ -24,8 +24,8 @@
       spec: !REF googlecloudsdk.command_lib.database_migration.resources:connection_profile
 
     params:
-    - api_field: force
-      arg_name: force
-      required: false
-      help_text: |
-        Cloud SQL replica database is also deleted (only for Cloud SQL connection profiles).
+      - api_field: force
+        arg_name: force
+        required: false
+        help_text: |
+          Cloud SQL replica database is also deleted (only for Cloud SQL connection profiles).

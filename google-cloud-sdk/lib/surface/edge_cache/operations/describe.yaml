@@ -25,4 +25,4 @@
       help_text: operation to describe.
       spec: !REF googlecloudsdk.command_lib.edge_cache.resources:operation
       removed_flags:
-      - location
+        - location

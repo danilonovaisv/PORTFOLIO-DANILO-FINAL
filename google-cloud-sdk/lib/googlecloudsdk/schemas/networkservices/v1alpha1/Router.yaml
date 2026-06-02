@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 Router export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- name
-- type
+  - name
+  - type
 additionalProperties: false
 properties:
   COMMENT:
@@ -79,7 +79,7 @@ properties:
     description: The type of the Router resource.
     type: string
     enum:
-    - PROXY
-    - PROXYLESS_GRPC
-    - SIDECAR
-    - TYPE_UNSPECIFIED
+      - PROXY
+      - PROXYLESS_GRPC
+      - SIDECAR
+      - TYPE_UNSPECIFIED

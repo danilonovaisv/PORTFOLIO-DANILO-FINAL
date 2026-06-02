@@ -12,8 +12,8 @@ request:
   api_version: v1alpha
   method: get
   collection:
-  - artifactscanguard.organizations.locations.operations
-  - artifactscanguard.projects.locations.operations
+    - artifactscanguard.organizations.locations.operations
+    - artifactscanguard.projects.locations.operations
 
 arguments:
   resource:

@@ -27,12 +27,12 @@
       api_version: v1beta
     method: updateSettings
     collection:
-    - privilegedaccessmanager.projects.locations
-    - privilegedaccessmanager.folders.locations
-    - privilegedaccessmanager.organizations.locations
+      - privilegedaccessmanager.projects.locations
+      - privilegedaccessmanager.folders.locations
+      - privilegedaccessmanager.organizations.locations
     modify_request_hooks:
-    - googlecloudsdk.command_lib.pam.util:SetUpdateMaskInUpdateSettingsRequest
-    - googlecloudsdk.command_lib.pam.util:UpdateSettingsResource
+      - googlecloudsdk.command_lib.pam.util:SetUpdateMaskInUpdateSettingsRequest
+      - googlecloudsdk.command_lib.pam.util:UpdateSettingsResource
 
   arguments:
     resource:
@@ -43,21 +43,21 @@
         The project/organization/folder location for which the settings are to be updated.
 
     params:
-    - arg_name: settings-file
-      api_field: settings
-      required: true
-      type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-      processor: googlecloudsdk.core.yaml:load
-      help_text: |
-        YAML file containing the new configuration of the PAM settings.
+      - arg_name: settings-file
+        api_field: settings
+        required: true
+        type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+        processor: googlecloudsdk.core.yaml:load
+        help_text: |
+          YAML file containing the new configuration of the PAM settings.
 
   async:
     ALPHA:
       api_version: v1alpha
     collection:
-    - privilegedaccessmanager.projects.locations.operations
-    - privilegedaccessmanager.folders.locations.operations
-    - privilegedaccessmanager.organizations.locations.operations
+      - privilegedaccessmanager.projects.locations.operations
+      - privilegedaccessmanager.folders.locations.operations
+      - privilegedaccessmanager.organizations.locations.operations
     extract_resource_result: false
     result_attribute: response
 

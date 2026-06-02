@@ -32,16 +32,16 @@ request:
   collection: pubsublite.admin.projects.locations.operations
   method: list
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateListOperationsFilter
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateListOperationsFilter
 
 arguments:
   resource:
     help_text: Location to list operations for.
     spec: !REF googlecloudsdk.command_lib.pubsub.resources:location
   params:
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:operation-done
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:operation-subscription
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:operation-done
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:operation-subscription
 
 output:
   format: |

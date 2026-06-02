@@ -24,17 +24,17 @@
       help_text: Connection to update.
       spec: !REF googlecloudsdk.command_lib.cloudbuild.resources_v2:connection
     params:
-    - api_field: connection.bitbucketCloudConfig.workspace
-      arg_name: workspace
-      help_text: Workspace of the Bitbucket Cloud instance.
-    - api_field: connection.bitbucketCloudConfig.authorizerCredential.userTokenSecretVersion
-      arg_name: authorizer-token-secret-version
-      help_text: Secret containing the `repository_read`,`repository_admin`, `pullrequest_read`, `webhook` access token. It can be a repository, project or workspace access token.
-    - api_field: connection.bitbucketCloudConfig.readAuthorizerCredential.userTokenSecretVersion
-      arg_name: read-authorizer-token-secret-version
-      help_text: Secret containing the `repository_read` access token. It can be a repository, project or workspace access token.
-    - api_field: connection.bitbucketCloudConfig.webhookSecretSecretVersion
-      arg_name: webhook-secret-secret-version
-      help_text: Secret containing the webhook secret string for validating webhook events sent by Bitbucket Cloud.
+      - api_field: connection.bitbucketCloudConfig.workspace
+        arg_name: workspace
+        help_text: Workspace of the Bitbucket Cloud instance.
+      - api_field: connection.bitbucketCloudConfig.authorizerCredential.userTokenSecretVersion
+        arg_name: authorizer-token-secret-version
+        help_text: Secret containing the `repository_read`,`repository_admin`, `pullrequest_read`, `webhook` access token. It can be a repository, project or workspace access token.
+      - api_field: connection.bitbucketCloudConfig.readAuthorizerCredential.userTokenSecretVersion
+        arg_name: read-authorizer-token-secret-version
+        help_text: Secret containing the `repository_read` access token. It can be a repository, project or workspace access token.
+      - api_field: connection.bitbucketCloudConfig.webhookSecretSecretVersion
+        arg_name: webhook-secret-secret-version
+        help_text: Secret containing the webhook secret string for validating webhook events sent by Bitbucket Cloud.
   async:
     collection: cloudbuild.projects.locations.operations

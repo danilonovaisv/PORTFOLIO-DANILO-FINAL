@@ -23,7 +23,7 @@
   response:
     id_field: name
     modify_response_hooks:
-    - googlecloudsdk.command_lib.redis.operations_util:FilterListResponse
+      - googlecloudsdk.command_lib.redis.operations_util:FilterListResponse
 
   output:
     format: |

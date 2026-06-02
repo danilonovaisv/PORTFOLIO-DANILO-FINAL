@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Delete a Cloud Healthcare API HL7v2 store.
+    brief: Delete a Cloud Healthcare API HL7v2 store.
     description: Delete a Cloud Healthcare API HL7v2 store.
     examples: |
       To delete the HL7v2 store 'test-hl7v2-store', run:

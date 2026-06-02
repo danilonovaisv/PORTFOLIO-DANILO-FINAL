@@ -19,20 +19,20 @@
     collection: dataplex.projects.locations
     method: lookupEntry
     modify_request_hooks:
-    - googlecloudsdk.command_lib.dataplex.request_hooks:TransformEntryRootPath
+      - googlecloudsdk.command_lib.dataplex.request_hooks:TransformEntryRootPath
 
   arguments:
     params:
-    - arg_name: entry
-      help_text: Arguments and flags that define the Dataplex Entry you want to lookup.
-      is_positional: true
-      required: true
-      override_resource_collection: true
-      resource_spec: !REF googlecloudsdk.command_lib.dataplex.resources:entry
-      # Here we populate two fields from a single resource argument.
-      resource_method_params:
-        name: 'projects/{projectsId}/locations/{locationsId}'
-        entry: '{__relative_name__}'
-    - !REF googlecloudsdk.command_lib.dataplex.flags:get_entry_view
-    - !REF googlecloudsdk.command_lib.dataplex.flags:aspect_types
-    - !REF googlecloudsdk.command_lib.dataplex.flags:paths
+      - arg_name: entry
+        help_text: Arguments and flags that define the Dataplex Entry you want to lookup.
+        is_positional: true
+        required: true
+        override_resource_collection: true
+        resource_spec: !REF googlecloudsdk.command_lib.dataplex.resources:entry
+        # Here we populate two fields from a single resource argument.
+        resource_method_params:
+          name: 'projects/{projectsId}/locations/{locationsId}'
+          entry: '{__relative_name__}'
+      - !REF googlecloudsdk.command_lib.dataplex.flags:get_entry_view
+      - !REF googlecloudsdk.command_lib.dataplex.flags:aspect_types
+      - !REF googlecloudsdk.command_lib.dataplex.flags:paths

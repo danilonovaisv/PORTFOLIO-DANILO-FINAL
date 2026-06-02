@@ -14,7 +14,7 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: Describe a BigQuery dataset.
-    description:  Describe a BigQuery dataset.
+    description: Describe a BigQuery dataset.
     examples: |
       The following command fetches details about a dataset with ID `my-dataset`
 

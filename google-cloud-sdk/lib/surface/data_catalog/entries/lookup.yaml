@@ -17,24 +17,24 @@
 
   deprecate:
     is_removed: false
-    warning: "This command is deprecated. Please use `gcloud dataplex entries` instead."
-    error: "This command has been removed. Please use `gcloud dataplex entries` instead."
+    warning: 'This command is deprecated. Please use `gcloud dataplex entries` instead.'
+    error: 'This command has been removed. Please use `gcloud dataplex entries` instead.'
 
   request:
     api_version: v1
     collection: datacatalog.entries
     method: lookup
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.entries.v1_util:ParseResourceIntoLookupRequest
+      - googlecloudsdk.command_lib.data_catalog.entries.v1_util:ParseResourceIntoLookupRequest
 
   arguments:
     params:
-    - arg_name: resource
-      is_positional: true
-      help_text: |-
-        The name of the target resource to lookup. This can be either the Google Cloud Platform
-        resource name or the SQL name of a Google Cloud Platform resource. SQL names follow Standard
-        SQL lexical structure: https://cloud.google.com/bigquery/docs/reference/standard-sql/lexical
+      - arg_name: resource
+        is_positional: true
+        help_text: |-
+          The name of the target resource to lookup. This can be either the Google Cloud Platform
+          resource name or the SQL name of a Google Cloud Platform resource. SQL names follow Standard
+          SQL lexical structure: https://cloud.google.com/bigquery/docs/reference/standard-sql/lexical
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -55,20 +55,20 @@
 
   deprecate:
     is_removed: false
-    warning: "This command is deprecated. Please use `gcloud dataplex entries` instead."
-    error: "This command has been removed. Please use `gcloud dataplex entries` instead."
+    warning: 'This command is deprecated. Please use `gcloud dataplex entries` instead.'
+    error: 'This command has been removed. Please use `gcloud dataplex entries` instead.'
 
   request:
     collection: datacatalog.entries
     method: lookup
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.entries.util:ParseResourceIntoLookupRequest
+      - googlecloudsdk.command_lib.data_catalog.entries.util:ParseResourceIntoLookupRequest
 
   arguments:
     params:
-    - arg_name: resource
-      is_positional: true
-      help_text: |-
-        The name of the target resource to lookup. This can be either the Google Cloud Platform
-        resource name or the SQL name of a Google Cloud Platform resource. SQL names follow Standard
-        SQL lexical structure: https://cloud.google.com/bigquery/docs/reference/standard-sql/lexical
+      - arg_name: resource
+        is_positional: true
+        help_text: |-
+          The name of the target resource to lookup. This can be either the Google Cloud Platform
+          resource name or the SQL name of a Google Cloud Platform resource. SQL names follow Standard
+          SQL lexical structure: https://cloud.google.com/bigquery/docs/reference/standard-sql/lexical

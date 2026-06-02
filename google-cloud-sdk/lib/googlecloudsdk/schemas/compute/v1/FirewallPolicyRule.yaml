@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 FirewallPolicyRule export schema
 description: A gcloud export/import command YAML validation schema.
@@ -39,8 +39,8 @@ properties:
     description: The direction in which this rule applies.
     type: string
     enum:
-    - EGRESS
-    - INGRESS
+      - EGRESS
+      - INGRESS
   disabled:
     description: |-
       Denotes whether the firewall policy rule is disabled. When set to true,
@@ -129,8 +129,8 @@ properties:
       INSTANCES.
     type: string
     enum:
-    - INSTANCES
-    - INTERNAL_MANAGED_LB
+      - INSTANCES
+      - INTERNAL_MANAGED_LB
   tlsInspect:
     description: |-
       Boolean flag indicating if the traffic should be TLS

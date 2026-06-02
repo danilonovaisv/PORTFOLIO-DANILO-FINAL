@@ -8,40 +8,39 @@ var menu_hover_delay = 500;
 var selected = 1;
 
 function menu_navigate(id, click) {
-
-  var path = id.split("_");
+  var path = id.split('_');
   if (click || selected > path.length) {
     selected = path.length;
   }
 
   // Mark all visible elements hidden.
-  var visible = document.getElementsByClassName("visible");
+  var visible = document.getElementsByClassName('visible');
   // Traverse in reverse order because visible changes each iteration.
   for (var i = visible.length - 1; i >= 0; --i) {
-    visible[i].className = "hidden";
+    visible[i].className = 'hidden';
   }
 
   // Mark elements on path visible.
-  var id = "";
+  var id = '';
   var next = path[0];
   var element = undefined;
   for (var i = 1; i <= path.length; ++i) {
     id = next;
     if (i < path.length) {
-      next += "_" + path[i];
+      next += '_' + path[i];
     } else {
       next = '__';
     }
     element = document.getElementById(id);
-    element.className = "visible";
+    element.className = 'visible';
     if (i >= selected) {
-      group = element.getElementsByTagName("ul");
+      group = element.getElementsByTagName('ul');
       if (group.length) {
         var children = group[0];
-        var child = children.getElementsByTagName("li");
+        var child = children.getElementsByTagName('li');
         for (var j = 0; j < child.length; ++j) {
           if (child[j].parentNode == children) {
-            child[j].className = "visible";
+            child[j].className = 'visible';
           }
           if (child[j].id == next) {
             break;
@@ -56,19 +55,19 @@ function menu_select(id) {
   // Reset the navigation breadcrumbs.
   menu_navigate(id, true);
   // Load the man page in the main section.
-  parent.main.location.href = id + ".html";
+  parent.main.location.href = id + '.html';
 }
 
 function disable_propagation(event) {
   if (event.stopPropagation) {
     event.stopPropagation();
-  } else if(window.event) {
+  } else if (window.event) {
     window.event.cancelBubble = true;
   }
 }
 
 function navigate(href) {
-  menu_navigate(href.split("/").pop().split(".")[0], true);
+  menu_navigate(href.split('/').pop().split('.')[0], true);
 }
 
 function select(event, id) {
@@ -80,14 +79,19 @@ var hover_timeout;
 
 function hover(event, id) {
   disable_propagation(event);
-  hover_timeout = setTimeout(
-      function() { menu_navigate(id, false); }, menu_hover_delay);
+  hover_timeout = setTimeout(function () {
+    menu_navigate(id, false);
+  }, menu_hover_delay);
 }
 
-window.onload = function() {
-  var items = document.getElementsByTagName("li");
+window.onload = function () {
+  var items = document.getElementsByTagName('li');
   for (var i = items.length - 1; i >= 0; --i) {
-    items[i].onmouseover = function(event) { hover(event, this.id); }
-    items[i].onmouseout = function() { clearTimeout(hover_timeout); }
+    items[i].onmouseover = function (event) {
+      hover(event, this.id);
+    };
+    items[i].onmouseout = function () {
+      clearTimeout(hover_timeout);
+    };
   }
-}
+};

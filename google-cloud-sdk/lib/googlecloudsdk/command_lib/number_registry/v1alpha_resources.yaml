@@ -20,73 +20,73 @@ projects_locations:
   plural_name: locations
   collection: cloudnumberregistry.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_custom_ranges:
   name: customRange
   plural_name: customRanges
   collection: cloudnumberregistry.projects.locations.customRanges
   attributes:
-  - *project
-  - *location
-  - &customRange
-    parameter_name: customRangesId
-    attribute_name: custom_range
-    help: The customRange id of the {resource} resource.
+    - *project
+    - *location
+    - &customRange
+      parameter_name: customRangesId
+      attribute_name: custom_range
+      help: The customRange id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_discovered_ranges:
   name: discoveredRange
   plural_name: discoveredRanges
   collection: cloudnumberregistry.projects.locations.discoveredRanges
   attributes:
-  - *project
-  - *location
-  - &discoveredRange
-    parameter_name: discoveredRangesId
-    attribute_name: discovered_range
-    help: The discoveredRange id of the {resource} resource.
+    - *project
+    - *location
+    - &discoveredRange
+      parameter_name: discoveredRangesId
+      attribute_name: discovered_range
+      help: The discoveredRange id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_ipam_admin_scopes:
   name: ipamAdminScope
   plural_name: ipamAdminScopes
   collection: cloudnumberregistry.projects.locations.ipamAdminScopes
   attributes:
-  - *project
-  - *location
-  - &ipamAdminScope
-    parameter_name: ipamAdminScopesId
-    attribute_name: ipam_admin_scope
-    help: The ipamAdminScope id of the {resource} resource.
+    - *project
+    - *location
+    - &ipamAdminScope
+      parameter_name: ipamAdminScopesId
+      attribute_name: ipam_admin_scope
+      help: The ipamAdminScope id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_realms:
   name: realm
   plural_name: realms
   collection: cloudnumberregistry.projects.locations.realms
   attributes:
-  - *project
-  - *location
-  - &realm
-    parameter_name: realmsId
-    attribute_name: realm
-    help: The realm id of the {resource} resource.
+    - *project
+    - *location
+    - &realm
+      parameter_name: realmsId
+      attribute_name: realm
+      help: The realm id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_registry_books:
   name: registryBook
   plural_name: registryBooks
   collection: cloudnumberregistry.projects.locations.registryBooks
   attributes:
-  - *project
-  - *location
-  - &registryBook
-    parameter_name: registryBooksId
-    attribute_name: registry_book
-    help: The registryBook id of the {resource} resource.
+    - *project
+    - *location
+    - &registryBook
+      parameter_name: registryBooksId
+      attribute_name: registry_book
+      help: The registryBook id of the {resource} resource.
   disable_auto_completers: false

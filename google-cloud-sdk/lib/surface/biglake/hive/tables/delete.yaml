@@ -15,10 +15,10 @@
 
   arguments:
     params:
-    - arg_name: table
-      resource_spec: !REF googlecloudsdk.command_lib.biglake.resources:hive_table
-      required: true
-      is_positional: true
-      is_primary_resource: true
-      help_text: |
-        The Hive Table to delete.
+      - arg_name: table
+        resource_spec: !REF googlecloudsdk.command_lib.biglake.resources:hive_table
+        required: true
+        is_positional: true
+        is_primary_resource: true
+        help_text: |
+          The Hive Table to delete.

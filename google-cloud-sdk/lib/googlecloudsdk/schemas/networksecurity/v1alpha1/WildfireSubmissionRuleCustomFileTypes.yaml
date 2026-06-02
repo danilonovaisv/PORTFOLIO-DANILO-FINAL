@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 WildfireSubmissionRuleCustomFileTypes export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- fileTypes
+  - fileTypes
 additionalProperties: false
 properties:
   COMMENT:
@@ -33,14 +33,14 @@ properties:
     items:
       type: string
       enum:
-      - APK
-      - ARCHIVE
-      - EMAIL_LINK
-      - FILE_TYPE_UNSPECIFIED
-      - FLASH
-      - JAR
-      - LINUX
-      - MS_OFFICE
-      - PDF
-      - PE
-      - SCRIPT
+        - APK
+        - ARCHIVE
+        - EMAIL_LINK
+        - FILE_TYPE_UNSPECIFIED
+        - FLASH
+        - JAR
+        - LINUX
+        - MS_OFFICE
+        - PDF
+        - PE
+        - SCRIPT

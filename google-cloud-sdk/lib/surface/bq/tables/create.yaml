@@ -34,87 +34,87 @@
     collection: bigquery.tables
     method: insert
     modify_request_hooks:
-    - googlecloudsdk.command_lib.bq.hooks:ProcessTableOverwrite
-    - googlecloudsdk.command_lib.bq.hooks:SetViewParameters
-    - googlecloudsdk.command_lib.util.hooks.request_modifiers:SetFieldFromName:api_field=table.tableReference.tableId
+      - googlecloudsdk.command_lib.bq.hooks:ProcessTableOverwrite
+      - googlecloudsdk.command_lib.bq.hooks:SetViewParameters
+      - googlecloudsdk.command_lib.util.hooks.request_modifiers:SetFieldFromName:api_field=table.tableReference.tableId
   arguments:
     resource:
       help_text: The BigQuery table you want to create.
       spec: !REF googlecloudsdk.command_lib.bq.resources:table
 
     params:
-    - _REF_: googlecloudsdk.command_lib.bq.flags:overwrite
-    - _REF_: googlecloudsdk.command_lib.bq.flags:table.description
-    - _REF_: googlecloudsdk.command_lib.bq.flags:table.expiration
+      - _REF_: googlecloudsdk.command_lib.bq.flags:overwrite
+      - _REF_: googlecloudsdk.command_lib.bq.flags:table.description
+      - _REF_: googlecloudsdk.command_lib.bq.flags:table.expiration
 
-    - group:
-        mutex: true
-        required: false
-        help_text: Specify the table schema.
-        params:
-        - arg_name: schema
-          metavar: FIELD_NAME=FIELD_TYPE
-          api_field: table.schema.fields
-          type:
-            arg_dict:
-              flatten: true
-              spec:
-              - api_field: name
-              - api_field: type
-          help_text: |-
-            A comma-separated list of entries of the form FIELD_NAME[=FIELD_TYPE] specifying field names
-            and types for the table being created. FIELD_TYPE defaults to string if not present.
-            Possible FIELD_TYPES are `string`, `integer`, `float`, `boolean`, `record`, and `timestamp`.
-
-            For more details on BigQuery schemas see: https://cloud.google.com/bigquery/docs/schemas.
-        - arg_name: schema-file
-          api_field: table.schema
-          type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-          processor: googlecloudsdk.command_lib.bq.hooks:BqTableSchemaFileProcessor
-          help_text: |-
-            The name of a JSON file containing a single object containing an array each element
-            of which is an object with properties name, type, and, optionally a
-            mode (one of: `NULLABLE`, `REQUIRED` or `REPEATED`), specifying a schema for the table
-            being created. If mode is omitted the default is 'NULLABLE'.
-
-            For example:
-            {
-              'schema':
-                [
-                  {
-                    'name': 'field1',
-                    'type': 'string',
-                    'mode': 'REQUIRED'
-                  },
-                  {
-                    'name': 'field2',
-                    'type': 'integer',
-                    'mode': 'REPEATED'
-                  },
-                  [
-                    {
-                      'name': 'fieldN',
-                      'type': TYPE,
-                      ['mode': MODE]
-                    }
-                    ...
-                  ]
-                ]
-            }
-
-            For more details on BigQuery schemas see: https://cloud.google.com/bigquery/docs/schemas.
-        - group:
-            help_text: Create a view instead of regular table.
-            required: false
-            params:
-            - api_field: table.view.query
-              arg_name: view
-              required: true
+      - group:
+          mutex: true
+          required: false
+          help_text: Specify the table schema.
+          params:
+            - arg_name: schema
+              metavar: FIELD_NAME=FIELD_TYPE
+              api_field: table.schema.fields
+              type:
+                arg_dict:
+                  flatten: true
+                  spec:
+                    - api_field: name
+                    - api_field: type
               help_text: |-
-                Create a view with this SQL query. (If this flag is not specified, a table is created.)
-            - api_field: table.view.useLegacySql
-              arg_name: use-legacy-sql
-              action: store_true
+                A comma-separated list of entries of the form FIELD_NAME[=FIELD_TYPE] specifying field names
+                and types for the table being created. FIELD_TYPE defaults to string if not present.
+                Possible FIELD_TYPES are `string`, `integer`, `float`, `boolean`, `record`, and `timestamp`.
+
+                For more details on BigQuery schemas see: https://cloud.google.com/bigquery/docs/schemas.
+            - arg_name: schema-file
+              api_field: table.schema
+              type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+              processor: googlecloudsdk.command_lib.bq.hooks:BqTableSchemaFileProcessor
               help_text: |-
-                If specified, query will use BigQuery's legacy SQL syntax. If not specified, query will use
-                BigQuery's standard SQL dialect by default (https://cloud.google.com/bigquery/sql-reference/).
+                The name of a JSON file containing a single object containing an array each element
+                of which is an object with properties name, type, and, optionally a
+                mode (one of: `NULLABLE`, `REQUIRED` or `REPEATED`), specifying a schema for the table
+                being created. If mode is omitted the default is 'NULLABLE'.
+
+                For example:
+                {
+                  'schema':
+                    [
+                      {
+                        'name': 'field1',
+                        'type': 'string',
+                        'mode': 'REQUIRED'
+                      },
+                      {
+                        'name': 'field2',
+                        'type': 'integer',
+                        'mode': 'REPEATED'
+                      },
+                      [
+                        {
+                          'name': 'fieldN',
+                          'type': TYPE,
+                          ['mode': MODE]
+                        }
+                        ...
+                      ]
+                    ]
+                }
+
+                For more details on BigQuery schemas see: https://cloud.google.com/bigquery/docs/schemas.
+            - group:
+                help_text: Create a view instead of regular table.
+                required: false
+                params:
+                  - api_field: table.view.query
+                    arg_name: view
+                    required: true
+                    help_text: |-
+                      Create a view with this SQL query. (If this flag is not specified, a table is created.)
+                  - api_field: table.view.useLegacySql
+                    arg_name: use-legacy-sql
+                    action: store_true
+                    help_text: |-
+                      If specified, query will use BigQuery's legacy SQL syntax. If not specified, query will use
+                      BigQuery's standard SQL dialect by default (https://cloud.google.com/bigquery/sql-reference/).

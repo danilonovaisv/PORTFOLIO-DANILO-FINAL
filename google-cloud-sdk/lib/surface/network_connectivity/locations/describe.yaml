@@ -15,7 +15,7 @@
       help_text: |
         Name of the location to describe.
 
-  request:  &request
+  request: &request
     BETA:
       api_version: v1beta
     GA:

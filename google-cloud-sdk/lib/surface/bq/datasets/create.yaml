@@ -14,7 +14,7 @@
 - release_tracks: [ALPHA]
   help_text:
     brief: Create a new BigQuery dataset.
-    description:  Create a new BigQuery dataset.
+    description: Create a new BigQuery dataset.
     examples: |
       The following command creates a dataset with ID `my-dataset`
 
@@ -29,8 +29,8 @@
     collection: bigquery.datasets
     method: insert
     modify_request_hooks:
-    - 'googlecloudsdk.command_lib.util.hooks.request_modifiers:SetFieldFromName:api_field=dataset.datasetReference.datasetId'
-    - googlecloudsdk.command_lib.bq.hooks:ProcessDatasetOverwrite
+      - 'googlecloudsdk.command_lib.util.hooks.request_modifiers:SetFieldFromName:api_field=dataset.datasetReference.datasetId'
+      - googlecloudsdk.command_lib.bq.hooks:ProcessDatasetOverwrite
 
   arguments:
     resource:
@@ -40,6 +40,6 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:dataset
 
     params:
-    - _REF_: googlecloudsdk.command_lib.bq.flags:dataset.description
-    - _REF_: googlecloudsdk.command_lib.bq.flags:permissions_file
-    - _REF_: googlecloudsdk.command_lib.bq.flags:overwrite
+      - _REF_: googlecloudsdk.command_lib.bq.flags:dataset.description
+      - _REF_: googlecloudsdk.command_lib.bq.flags:permissions_file
+      - _REF_: googlecloudsdk.command_lib.bq.flags:overwrite

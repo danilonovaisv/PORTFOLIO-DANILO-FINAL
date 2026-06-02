@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a mesh.
   examples: |
-      To export a mesh named 'my-mesh' to a YAML file, run:
+    To export a mesh named 'my-mesh' to a YAML file, run:
 
-        $ {command} my-mesh --destination=my-mesh.yaml --location=global
+      $ {command} my-mesh --destination=my-mesh.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.meshes

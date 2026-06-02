@@ -13,7 +13,7 @@ request:
   collection: pubsublite.admin.projects.locations.reservations.topics
   method: list
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
 
 arguments:
   resource:

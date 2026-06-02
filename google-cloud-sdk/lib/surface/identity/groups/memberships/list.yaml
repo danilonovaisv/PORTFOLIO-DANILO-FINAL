@@ -26,8 +26,8 @@
     disable_resource_check: true
     method: list
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipParent
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetPageSize
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetMembershipParent
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetPageSize
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -37,28 +37,28 @@
 
   arguments:
     params:
-    - arg_name: group-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group to show members for.
-
-    - arg_name: view
-      api_field: view
-      help_text: |
-        There are two possible views, 'basic' and 'full', default is 'basic'
-      choices:
-      - enum_value: BASIC
-        arg_value: basic
+      - arg_name: group-email
+        type: str
+        required: true
         help_text: |
-          Response only basic information of the Groups. (e.g. 'display_name', 'name')
-      - enum_value: FULL
-        arg_value: full
-        help_text: |
-          Response includes all the fields of the Groups
-      default: basic
+          The email address of the group to show members for.
 
-    - arg_name: page-token
-      api_field: pageToken
-      help_text: |
-        The next_page_token value returned from a previous list request, if any.
+      - arg_name: view
+        api_field: view
+        help_text: |
+          There are two possible views, 'basic' and 'full', default is 'basic'
+        choices:
+          - enum_value: BASIC
+            arg_value: basic
+            help_text: |
+              Response only basic information of the Groups. (e.g. 'display_name', 'name')
+          - enum_value: FULL
+            arg_value: full
+            help_text: |
+              Response includes all the fields of the Groups
+        default: basic
+
+      - arg_name: page-token
+        api_field: pageToken
+        help_text: |
+          The next_page_token value returned from a previous list request, if any.

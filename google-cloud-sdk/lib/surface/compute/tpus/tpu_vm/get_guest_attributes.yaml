@@ -29,7 +29,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.compute.tpus.tpu_vm.util:TransformGuestAttributes
+      - googlecloudsdk.command_lib.compute.tpus.tpu_vm.util:TransformGuestAttributes
 
   arguments:
     resource:
@@ -37,12 +37,12 @@
       spec: !REF googlecloudsdk.command_lib.compute.tpus.tpu_vm.resources:tpu
 
     params:
-    - arg_name: query-path
-      api_field: getGuestAttributesRequest.queryPath
-      required: false
-      help_text: |
-        Attribute path to query. Can be empty string or of the form `<namespace>/` or
-        `<namespace>/<key>`. Default is the empty string.
+      - arg_name: query-path
+        api_field: getGuestAttributesRequest.queryPath
+        required: false
+        help_text: |
+          Attribute path to query. Can be empty string or of the form `<namespace>/` or
+          `<namespace>/<key>`. Default is the empty string.
 
   output:
     format: |

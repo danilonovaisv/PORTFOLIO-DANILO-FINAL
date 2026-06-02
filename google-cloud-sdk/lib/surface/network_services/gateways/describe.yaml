@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe a gateway.
   description: Show the details of a Network Services gateway.
-
   examples: |
     Show details about a gateway named 'my-gateway'.
 

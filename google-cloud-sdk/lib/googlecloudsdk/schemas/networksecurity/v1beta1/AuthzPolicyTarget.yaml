@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1beta1 AuthzPolicyTarget export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- resources
+  - resources
 additionalProperties: false
 properties:
   COMMENT:
@@ -36,10 +36,10 @@ properties:
       balancing/docs/backend-service).
     type: string
     enum:
-    - EXTERNAL_MANAGED
-    - INTERNAL_MANAGED
-    - INTERNAL_SELF_MANAGED
-    - LOAD_BALANCING_SCHEME_UNSPECIFIED
+      - EXTERNAL_MANAGED
+      - INTERNAL_MANAGED
+      - INTERNAL_SELF_MANAGED
+      - LOAD_BALANCING_SCHEME_UNSPECIFIED
   resources:
     description: |-
       A list of references to the Forwarding Rules on which this policy will be

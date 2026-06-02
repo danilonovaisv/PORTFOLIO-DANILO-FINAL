@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `AuthzPolicy` resource.
   examples: |
-      To delete an `AuthzPolicy` resource named
-      `my-authz-policy` in `us-central1`, run:
+    To delete an `AuthzPolicy` resource named
+    `my-authz-policy` in `us-central1`, run:
 
-        $ {command} my-authz-policy --location=us-central1
+      $ {command} my-authz-policy --location=us-central1
 
 arguments:
   resource:

@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe a tls route.
   description: Show details of a tls route.
-
   examples: |
     Show details about a tls route named `my-tls-route`.
 

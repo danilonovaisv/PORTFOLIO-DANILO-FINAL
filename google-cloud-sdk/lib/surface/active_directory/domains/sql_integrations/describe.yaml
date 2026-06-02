@@ -12,7 +12,6 @@
 
         $ {command} my-integration --domain=my-domain --project=my-project
 
-
   request:
     ALPHA:
       api_version: v1alpha1

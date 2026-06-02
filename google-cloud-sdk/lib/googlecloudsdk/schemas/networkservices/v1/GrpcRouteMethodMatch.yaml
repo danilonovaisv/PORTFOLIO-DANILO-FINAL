@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 GrpcRouteMethodMatch export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- grpcMethod
-- grpcService
+  - grpcMethod
+  - grpcService
 additionalProperties: false
 properties:
   COMMENT:
@@ -49,6 +49,6 @@ properties:
       of "EXACT" is used.
     type: string
     enum:
-    - EXACT
-    - REGULAR_EXPRESSION
-    - TYPE_UNSPECIFIED
+      - EXACT
+      - REGULAR_EXPRESSION
+      - TYPE_UNSPECIFIED

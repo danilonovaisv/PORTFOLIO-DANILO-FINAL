@@ -20,58 +20,58 @@ project:
   plural_name: projects
   collection: dataprocgdc.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: projects TBD
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: projects TBD
+      property: core/project
   disable_auto_completers: true
 project_location:
   name: location
   plural_name: locations
   collection: dataprocgdc.projects.locations
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: locations TBD
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: locations TBD
   disable_auto_completers: true
 project_location_service_instance:
   name: serviceInstance
   plural_name: serviceInstances
   collection: dataprocgdc.projects.locations.serviceInstances
   attributes:
-  - *project
-  - *location
-  - &serviceInstance
-    parameter_name: serviceInstancesId
-    attribute_name: service_instance
-    help: serviceInstances TBD
+    - *project
+    - *location
+    - &serviceInstance
+      parameter_name: serviceInstancesId
+      attribute_name: service_instance
+      help: serviceInstances TBD
   disable_auto_completers: false
 project_location_service_instance_application_environment:
   name: applicationEnvironment
   plural_name: applicationEnvironments
   collection: dataprocgdc.projects.locations.serviceInstances.applicationEnvironments
   attributes:
-  - *project
-  - *location
-  - *serviceInstance
-  - &applicationEnvironment
-    parameter_name: applicationEnvironmentsId
-    attribute_name: application_environment
-    help: applicationEnvironments TBD
+    - *project
+    - *location
+    - *serviceInstance
+    - &applicationEnvironment
+      parameter_name: applicationEnvironmentsId
+      attribute_name: application_environment
+      help: applicationEnvironments TBD
   disable_auto_completers: false
 project_location_service_instance_spark_application:
   name: application
   plural_name: sparkApplications
   collection: dataprocgdc.projects.locations.serviceInstances.sparkApplications
   attributes:
-  - *project
-  - *location
-  - *serviceInstance
-  - &application
-    parameter_name: sparkApplicationsId
-    attribute_name: application
-    help: sparkApplications TBD
+    - *project
+    - *location
+    - *serviceInstance
+    - &application
+      parameter_name: sparkApplicationsId
+      attribute_name: application
+      help: sparkApplications TBD
   disable_auto_completers: false

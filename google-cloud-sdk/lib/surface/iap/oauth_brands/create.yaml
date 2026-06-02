@@ -19,7 +19,6 @@ help_text:
 
         $  {command} --application_title=APPLICATION_TITLE --support_email=SUPPORT_EMAIL --project=PROJECT_ID
 
-
 request:
   collection: iap.projects.brands
   api_version: v1
@@ -31,16 +30,16 @@ arguments:
     help_text: |
       Name of the project to create a Cloud OAuth brand under.
   params:
-  - arg_name: support_email
-    api_field: brand.supportEmail
-    required: true
-    help_text: |
-      Support email displayed on the OAuth consent screen.
-  - arg_name: application_title
-    api_field: brand.applicationTitle
-    required: true
-    help_text: |
-      Application name displayed on the OAuth consent screen.
+    - arg_name: support_email
+      api_field: brand.supportEmail
+      required: true
+      help_text: |
+        Support email displayed on the OAuth consent screen.
+    - arg_name: application_title
+      api_field: brand.applicationTitle
+      required: true
+      help_text: |
+        Application name displayed on the OAuth consent screen.
 
 output:
   format: yaml

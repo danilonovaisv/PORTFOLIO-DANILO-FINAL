@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1beta1 AuthzPolicyAuthzRulePrincipal export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- principal
+  - principal
 additionalProperties: false
 properties:
   COMMENT:
@@ -40,7 +40,7 @@ properties:
       against. If not specified, the PrincipalSelector is CLIENT_CERT_URI_SAN.
     type: string
     enum:
-    - CLIENT_CERT_COMMON_NAME
-    - CLIENT_CERT_DNS_NAME_SAN
-    - CLIENT_CERT_URI_SAN
-    - PRINCIPAL_SELECTOR_UNSPECIFIED
+      - CLIENT_CERT_COMMON_NAME
+      - CLIENT_CERT_DNS_NAME_SAN
+      - CLIENT_CERT_URI_SAN
+      - PRINCIPAL_SELECTOR_UNSPECIFIED

@@ -18,19 +18,19 @@ help_text:
 request:
   collection: managedkafka.projects.locations.clusters.topics
   modify_request_hooks:
-  - googlecloudsdk.command_lib.managed_kafka.util:PatchConfigs
+    - googlecloudsdk.command_lib.managed_kafka.util:PatchConfigs
 
 arguments:
   resource:
     help_text: Identifies the topic to be updated.
     spec: !REF googlecloudsdk.command_lib.managed_kafka.resources:topic
   params:
-  - group:
-      required: true
-      params:
-      - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:partitions
-      - group:
-          mutex: true
-          params:
-          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:configs
-          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:clear-configs
+    - group:
+        required: true
+        params:
+          - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:partitions
+          - group:
+              mutex: true
+              params:
+                - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:configs
+                - _REF_: googlecloudsdk.command_lib.managed_kafka.flags:clear-configs

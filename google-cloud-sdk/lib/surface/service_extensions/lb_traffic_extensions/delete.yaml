@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `LbTrafficExtension` resource.
   examples: |
-      To delete an `LbTrafficExtension` resource named `my-traffic-extension` in
-      `us-central1`, run:
+    To delete an `LbTrafficExtension` resource named `my-traffic-extension` in
+    `us-central1`, run:
 
-        $ {command} my-traffic-extension --location=us-central1
+      $ {command} my-traffic-extension --location=us-central1
 
 arguments:
   resource:

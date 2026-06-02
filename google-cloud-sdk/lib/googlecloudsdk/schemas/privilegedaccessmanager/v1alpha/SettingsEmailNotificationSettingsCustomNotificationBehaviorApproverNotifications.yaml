@@ -1,6 +1,7 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
-title: privilegedaccessmanager v1alpha SettingsEmailNotificationSettingsCustomNotificationBehaviorApproverNotifications
+title:
+  privilegedaccessmanager v1alpha SettingsEmailNotificationSettingsCustomNotificationBehaviorApproverNotifications
   export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
@@ -30,6 +31,6 @@ properties:
     description: Notification mode for pending approval.
     type: string
     enum:
-    - DISABLED
-    - ENABLED
-    - NOTIFICATION_MODE_UNSPECIFIED
+      - DISABLED
+      - ENABLED
+      - NOTIFICATION_MODE_UNSPECIFIED

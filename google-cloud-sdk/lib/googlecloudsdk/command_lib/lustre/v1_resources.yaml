@@ -20,47 +20,47 @@ projects_locations:
   plural_name: locations
   collection: lustre.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_service_accounts:
   name: serviceAccount
   plural_name: serviceAccounts
   collection: lustre.projects.serviceAccounts
   attributes:
-  - *project
-  - &serviceAccount
-    parameter_name: serviceAccountsId
-    attribute_name: service_account
-    help: The serviceAccount id of the {resource} resource.
+    - *project
+    - &serviceAccount
+      parameter_name: serviceAccountsId
+      attribute_name: service_account
+      help: The serviceAccount id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_instances:
   name: instance
   plural_name: instances
   collection: lustre.projects.locations.instances
   attributes:
-  - *project
-  - *location
-  - &instance
-    parameter_name: instancesId
-    attribute_name: instance
-    help: The instance id of the {resource} resource.
+    - *project
+    - *location
+    - &instance
+      parameter_name: instancesId
+      attribute_name: instance
+      help: The instance id of the {resource} resource.
   disable_auto_completers: false
 projects_none_networks:
   name: network
   plural_name: networks
   collection: lustre.projects.networks
   attributes:
-  - *project
-  - &network
-    parameter_name: networksId
-    attribute_name: network
-    help: The network id of the {resource} resource.
+    - *project
+    - &network
+      parameter_name: networksId
+      attribute_name: network
+      help: The network id of the {resource} resource.
   disable_auto_completers: true

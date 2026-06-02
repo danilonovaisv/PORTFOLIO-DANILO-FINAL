@@ -19,10 +19,10 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: googleCloudDatacatalogV1RenameTagTemplateFieldRequest.newTagTemplateFieldId
-      arg_name: new-id
-      required: true
-      help_text: New ID of the tag template field.
+      - api_field: googleCloudDatacatalogV1RenameTagTemplateFieldRequest.newTagTemplateFieldId
+        arg_name: new-id
+        required: true
+        help_text: New ID of the tag template field.
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -44,7 +44,7 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: googleCloudDatacatalogV1beta1RenameTagTemplateFieldRequest.newTagTemplateFieldId
-      arg_name: new-id
-      required: true
-      help_text: New ID of the tag template field.
+      - api_field: googleCloudDatacatalogV1beta1RenameTagTemplateFieldRequest.newTagTemplateFieldId
+        arg_name: new-id
+        required: true
+        help_text: New ID of the tag template field.

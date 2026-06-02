@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 BackendAuthenticationConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -54,8 +54,8 @@ properties:
       trusted by the TrustConfig.
     type: string
     enum:
-    - NONE
-    - PUBLIC_ROOTS
+      - NONE
+      - PUBLIC_ROOTS
   etag:
     description: |-
       This checksum is computed by the server based on the value of other

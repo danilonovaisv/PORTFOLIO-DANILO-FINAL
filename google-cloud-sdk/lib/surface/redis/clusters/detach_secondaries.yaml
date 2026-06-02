@@ -22,12 +22,12 @@
       help_text: |
         Arguments and flags that specify the Memorystore Redis cluster you want to update.
     params:
-    - arg_name: clusters-to-detach
-      required: true
-      help_text: |
-        Comma separated list of secondary clusters to detach from the primary cluster.
+      - arg_name: clusters-to-detach
+        required: true
+        help_text: |
+          Comma separated list of secondary clusters to detach from the primary cluster.
 
-        Each element in the list should be in the format: `projects/PROJECT_ID/locations/REGION/clusters/CLUSTER_ID`.
+          Each element in the list should be in the format: `projects/PROJECT_ID/locations/REGION/clusters/CLUSTER_ID`.
 
   async:
     collection: redis.projects.locations.operations
@@ -42,4 +42,4 @@
     collection: redis.projects.locations.clusters
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.command_lib.redis.clusters_ccr_util:DetachSecondaries
+      - googlecloudsdk.command_lib.redis.clusters_ccr_util:DetachSecondaries

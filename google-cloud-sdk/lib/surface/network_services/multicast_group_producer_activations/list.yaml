@@ -25,16 +25,16 @@ response:
 output:
   GA:
     format: |
-     table(
-        name.basename():label=NAME, create_time, multicast_producer_association, multicast_group_range_activation
-      )
+      table(
+         name.basename():label=NAME, create_time, multicast_producer_association, multicast_group_range_activation
+       )
   ALPHA:
     format: |
-     table(
-        name.basename():label=NAME, create_time, multicast_producer_association, multicast_group
-      )
+      table(
+         name.basename():label=NAME, create_time, multicast_producer_association, multicast_group
+       )
   BETA:
     format: |
-     table(
-        name.basename():label=NAME, create_time, multicast_producer_association, multicast_group_range_activation
-      )
+      table(
+         name.basename():label=NAME, create_time, multicast_producer_association, multicast_group_range_activation
+       )

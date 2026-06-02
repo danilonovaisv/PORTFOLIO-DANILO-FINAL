@@ -20,32 +20,32 @@ project:
   plural_name: projects
   collection: firebasedataconnect.projects
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: projects TBD
-    property: core/project
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: projects TBD
+      property: core/project
   disable_auto_completers: true
 project_location:
   name: location
   plural_name: locations
   collection: firebasedataconnect.projects.locations
   attributes:
-  - *project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: locations TBD
+    - *project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: locations TBD
   disable_auto_completers: true
 project_location_operation:
   name: operation
   plural_name: operations
   collection: firebasedataconnect.projects.locations.operations
   attributes:
-  - *project
-  - *location
-  - &operation
-    parameter_name: operationsId
-    attribute_name: operation
-    help: operations TBD
+    - *project
+    - *location
+    - &operation
+      parameter_name: operationsId
+      attribute_name: operation
+      help: operations TBD
   disable_auto_completers: false

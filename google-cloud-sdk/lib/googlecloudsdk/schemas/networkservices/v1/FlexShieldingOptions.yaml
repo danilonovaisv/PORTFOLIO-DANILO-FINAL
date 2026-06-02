@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 FlexShieldingOptions export schema
 description: A gcloud export/import command YAML validation schema.
@@ -34,7 +34,7 @@ properties:
     items:
       type: string
       enum:
-      - AFRICA_SOUTH1
-      - FLEX_SHIELDING_REGION_UNSPECIFIED
-      - ME_CENTRAL1
-      - US_EAST5
+        - AFRICA_SOUTH1
+        - FLEX_SHIELDING_REGION_UNSPECIFIED
+        - ME_CENTRAL1
+        - US_EAST5

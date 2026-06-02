@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA]
   help_text:
-    brief: "Describe a reliability risk."
-    description: "Describe a reliability risk."
+    brief: 'Describe a reliability risk.'
+    description: 'Describe a reliability risk.'
     examples: |
       The following command retrieves a single reliability risk and prints its properties.
         $ {command} my-reliability-risk

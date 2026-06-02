@@ -1,4 +1,4 @@
- {
+{
   "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
   "language": "python",
   "libraryPackage": "googlecloudsdk.generated_clients.gapic_clients.run_v2",
@@ -11,9 +11,7 @@
           "libraryClient": "BuildsClient",
           "rpcs": {
             "SubmitBuild": {
-              "methods": [
-                "submit_build"
-              ]
+              "methods": ["submit_build"]
             }
           }
         },
@@ -21,9 +19,7 @@
           "libraryClient": "BuildsAsyncClient",
           "rpcs": {
             "SubmitBuild": {
-              "methods": [
-                "submit_build"
-              ]
+              "methods": ["submit_build"]
             }
           }
         },
@@ -31,9 +27,7 @@
           "libraryClient": "BuildsClient",
           "rpcs": {
             "SubmitBuild": {
-              "methods": [
-                "submit_build"
-              ]
+              "methods": ["submit_build"]
             }
           }
         }
@@ -45,24 +39,16 @@
           "libraryClient": "ExecutionsClient",
           "rpcs": {
             "CancelExecution": {
-              "methods": [
-                "cancel_execution"
-              ]
+              "methods": ["cancel_execution"]
             },
             "DeleteExecution": {
-              "methods": [
-                "delete_execution"
-              ]
+              "methods": ["delete_execution"]
             },
             "GetExecution": {
-              "methods": [
-                "get_execution"
-              ]
+              "methods": ["get_execution"]
             },
             "ListExecutions": {
-              "methods": [
-                "list_executions"
-              ]
+              "methods": ["list_executions"]
             }
           }
         },
@@ -70,24 +56,16 @@
           "libraryClient": "ExecutionsAsyncClient",
           "rpcs": {
             "CancelExecution": {
-              "methods": [
-                "cancel_execution"
-              ]
+              "methods": ["cancel_execution"]
             },
             "DeleteExecution": {
-              "methods": [
-                "delete_execution"
-              ]
+              "methods": ["delete_execution"]
             },
             "GetExecution": {
-              "methods": [
-                "get_execution"
-              ]
+              "methods": ["get_execution"]
             },
             "ListExecutions": {
-              "methods": [
-                "list_executions"
-              ]
+              "methods": ["list_executions"]
             }
           }
         },
@@ -95,24 +73,16 @@
           "libraryClient": "ExecutionsClient",
           "rpcs": {
             "CancelExecution": {
-              "methods": [
-                "cancel_execution"
-              ]
+              "methods": ["cancel_execution"]
             },
             "DeleteExecution": {
-              "methods": [
-                "delete_execution"
-              ]
+              "methods": ["delete_execution"]
             },
             "GetExecution": {
-              "methods": [
-                "get_execution"
-              ]
+              "methods": ["get_execution"]
             },
             "ListExecutions": {
-              "methods": [
-                "list_executions"
-              ]
+              "methods": ["list_executions"]
             }
           }
         }
@@ -124,49 +94,31 @@
           "libraryClient": "JobsClient",
           "rpcs": {
             "CreateJob": {
-              "methods": [
-                "create_job"
-              ]
+              "methods": ["create_job"]
             },
             "DeleteJob": {
-              "methods": [
-                "delete_job"
-              ]
+              "methods": ["delete_job"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetJob": {
-              "methods": [
-                "get_job"
-              ]
+              "methods": ["get_job"]
             },
             "ListJobs": {
-              "methods": [
-                "list_jobs"
-              ]
+              "methods": ["list_jobs"]
             },
             "RunJob": {
-              "methods": [
-                "run_job"
-              ]
+              "methods": ["run_job"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateJob": {
-              "methods": [
-                "update_job"
-              ]
+              "methods": ["update_job"]
             }
           }
         },
@@ -174,49 +126,31 @@
           "libraryClient": "JobsAsyncClient",
           "rpcs": {
             "CreateJob": {
-              "methods": [
-                "create_job"
-              ]
+              "methods": ["create_job"]
             },
             "DeleteJob": {
-              "methods": [
-                "delete_job"
-              ]
+              "methods": ["delete_job"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetJob": {
-              "methods": [
-                "get_job"
-              ]
+              "methods": ["get_job"]
             },
             "ListJobs": {
-              "methods": [
-                "list_jobs"
-              ]
+              "methods": ["list_jobs"]
             },
             "RunJob": {
-              "methods": [
-                "run_job"
-              ]
+              "methods": ["run_job"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateJob": {
-              "methods": [
-                "update_job"
-              ]
+              "methods": ["update_job"]
             }
           }
         },
@@ -224,49 +158,31 @@
           "libraryClient": "JobsClient",
           "rpcs": {
             "CreateJob": {
-              "methods": [
-                "create_job"
-              ]
+              "methods": ["create_job"]
             },
             "DeleteJob": {
-              "methods": [
-                "delete_job"
-              ]
+              "methods": ["delete_job"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetJob": {
-              "methods": [
-                "get_job"
-              ]
+              "methods": ["get_job"]
             },
             "ListJobs": {
-              "methods": [
-                "list_jobs"
-              ]
+              "methods": ["list_jobs"]
             },
             "RunJob": {
-              "methods": [
-                "run_job"
-              ]
+              "methods": ["run_job"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateJob": {
-              "methods": [
-                "update_job"
-              ]
+              "methods": ["update_job"]
             }
           }
         }
@@ -278,19 +194,13 @@
           "libraryClient": "RevisionsClient",
           "rpcs": {
             "DeleteRevision": {
-              "methods": [
-                "delete_revision"
-              ]
+              "methods": ["delete_revision"]
             },
             "GetRevision": {
-              "methods": [
-                "get_revision"
-              ]
+              "methods": ["get_revision"]
             },
             "ListRevisions": {
-              "methods": [
-                "list_revisions"
-              ]
+              "methods": ["list_revisions"]
             }
           }
         },
@@ -298,19 +208,13 @@
           "libraryClient": "RevisionsAsyncClient",
           "rpcs": {
             "DeleteRevision": {
-              "methods": [
-                "delete_revision"
-              ]
+              "methods": ["delete_revision"]
             },
             "GetRevision": {
-              "methods": [
-                "get_revision"
-              ]
+              "methods": ["get_revision"]
             },
             "ListRevisions": {
-              "methods": [
-                "list_revisions"
-              ]
+              "methods": ["list_revisions"]
             }
           }
         },
@@ -318,19 +222,13 @@
           "libraryClient": "RevisionsClient",
           "rpcs": {
             "DeleteRevision": {
-              "methods": [
-                "delete_revision"
-              ]
+              "methods": ["delete_revision"]
             },
             "GetRevision": {
-              "methods": [
-                "get_revision"
-              ]
+              "methods": ["get_revision"]
             },
             "ListRevisions": {
-              "methods": [
-                "list_revisions"
-              ]
+              "methods": ["list_revisions"]
             }
           }
         }
@@ -342,44 +240,28 @@
           "libraryClient": "ServicesClient",
           "rpcs": {
             "CreateService": {
-              "methods": [
-                "create_service"
-              ]
+              "methods": ["create_service"]
             },
             "DeleteService": {
-              "methods": [
-                "delete_service"
-              ]
+              "methods": ["delete_service"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetService": {
-              "methods": [
-                "get_service"
-              ]
+              "methods": ["get_service"]
             },
             "ListServices": {
-              "methods": [
-                "list_services"
-              ]
+              "methods": ["list_services"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateService": {
-              "methods": [
-                "update_service"
-              ]
+              "methods": ["update_service"]
             }
           }
         },
@@ -387,44 +269,28 @@
           "libraryClient": "ServicesAsyncClient",
           "rpcs": {
             "CreateService": {
-              "methods": [
-                "create_service"
-              ]
+              "methods": ["create_service"]
             },
             "DeleteService": {
-              "methods": [
-                "delete_service"
-              ]
+              "methods": ["delete_service"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetService": {
-              "methods": [
-                "get_service"
-              ]
+              "methods": ["get_service"]
             },
             "ListServices": {
-              "methods": [
-                "list_services"
-              ]
+              "methods": ["list_services"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateService": {
-              "methods": [
-                "update_service"
-              ]
+              "methods": ["update_service"]
             }
           }
         },
@@ -432,44 +298,28 @@
           "libraryClient": "ServicesClient",
           "rpcs": {
             "CreateService": {
-              "methods": [
-                "create_service"
-              ]
+              "methods": ["create_service"]
             },
             "DeleteService": {
-              "methods": [
-                "delete_service"
-              ]
+              "methods": ["delete_service"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetService": {
-              "methods": [
-                "get_service"
-              ]
+              "methods": ["get_service"]
             },
             "ListServices": {
-              "methods": [
-                "list_services"
-              ]
+              "methods": ["list_services"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateService": {
-              "methods": [
-                "update_service"
-              ]
+              "methods": ["update_service"]
             }
           }
         }
@@ -481,14 +331,10 @@
           "libraryClient": "TasksClient",
           "rpcs": {
             "GetTask": {
-              "methods": [
-                "get_task"
-              ]
+              "methods": ["get_task"]
             },
             "ListTasks": {
-              "methods": [
-                "list_tasks"
-              ]
+              "methods": ["list_tasks"]
             }
           }
         },
@@ -496,14 +342,10 @@
           "libraryClient": "TasksAsyncClient",
           "rpcs": {
             "GetTask": {
-              "methods": [
-                "get_task"
-              ]
+              "methods": ["get_task"]
             },
             "ListTasks": {
-              "methods": [
-                "list_tasks"
-              ]
+              "methods": ["list_tasks"]
             }
           }
         },
@@ -511,14 +353,10 @@
           "libraryClient": "TasksClient",
           "rpcs": {
             "GetTask": {
-              "methods": [
-                "get_task"
-              ]
+              "methods": ["get_task"]
             },
             "ListTasks": {
-              "methods": [
-                "list_tasks"
-              ]
+              "methods": ["list_tasks"]
             }
           }
         }
@@ -530,44 +368,28 @@
           "libraryClient": "WorkerPoolsClient",
           "rpcs": {
             "CreateWorkerPool": {
-              "methods": [
-                "create_worker_pool"
-              ]
+              "methods": ["create_worker_pool"]
             },
             "DeleteWorkerPool": {
-              "methods": [
-                "delete_worker_pool"
-              ]
+              "methods": ["delete_worker_pool"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetWorkerPool": {
-              "methods": [
-                "get_worker_pool"
-              ]
+              "methods": ["get_worker_pool"]
             },
             "ListWorkerPools": {
-              "methods": [
-                "list_worker_pools"
-              ]
+              "methods": ["list_worker_pools"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateWorkerPool": {
-              "methods": [
-                "update_worker_pool"
-              ]
+              "methods": ["update_worker_pool"]
             }
           }
         },
@@ -575,44 +397,28 @@
           "libraryClient": "WorkerPoolsAsyncClient",
           "rpcs": {
             "CreateWorkerPool": {
-              "methods": [
-                "create_worker_pool"
-              ]
+              "methods": ["create_worker_pool"]
             },
             "DeleteWorkerPool": {
-              "methods": [
-                "delete_worker_pool"
-              ]
+              "methods": ["delete_worker_pool"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetWorkerPool": {
-              "methods": [
-                "get_worker_pool"
-              ]
+              "methods": ["get_worker_pool"]
             },
             "ListWorkerPools": {
-              "methods": [
-                "list_worker_pools"
-              ]
+              "methods": ["list_worker_pools"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateWorkerPool": {
-              "methods": [
-                "update_worker_pool"
-              ]
+              "methods": ["update_worker_pool"]
             }
           }
         },
@@ -620,44 +426,28 @@
           "libraryClient": "WorkerPoolsClient",
           "rpcs": {
             "CreateWorkerPool": {
-              "methods": [
-                "create_worker_pool"
-              ]
+              "methods": ["create_worker_pool"]
             },
             "DeleteWorkerPool": {
-              "methods": [
-                "delete_worker_pool"
-              ]
+              "methods": ["delete_worker_pool"]
             },
             "GetIamPolicy": {
-              "methods": [
-                "get_iam_policy"
-              ]
+              "methods": ["get_iam_policy"]
             },
             "GetWorkerPool": {
-              "methods": [
-                "get_worker_pool"
-              ]
+              "methods": ["get_worker_pool"]
             },
             "ListWorkerPools": {
-              "methods": [
-                "list_worker_pools"
-              ]
+              "methods": ["list_worker_pools"]
             },
             "SetIamPolicy": {
-              "methods": [
-                "set_iam_policy"
-              ]
+              "methods": ["set_iam_policy"]
             },
             "TestIamPermissions": {
-              "methods": [
-                "test_iam_permissions"
-              ]
+              "methods": ["test_iam_permissions"]
             },
             "UpdateWorkerPool": {
-              "methods": [
-                "update_worker_pool"
-              ]
+              "methods": ["update_worker_pool"]
             }
           }
         }

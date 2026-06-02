@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha NetworkPerformanceConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,11 +29,11 @@ properties:
     description: A ExternalIpEgressBandwidthTierValueValuesEnum attribute.
     type: string
     enum:
-    - DEFAULT
-    - TIER_1
+      - DEFAULT
+      - TIER_1
   totalEgressBandwidthTier:
     description: A TotalEgressBandwidthTierValueValuesEnum attribute.
     type: string
     enum:
-    - DEFAULT
-    - TIER_1
+      - DEFAULT
+      - TIER_1

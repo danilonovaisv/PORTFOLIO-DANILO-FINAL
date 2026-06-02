@@ -29,6 +29,6 @@
   request:
     api_version: v1beta1
     collection:
-    - saasservicemgmt.projects.locations.flags
+      - saasservicemgmt.projects.locations.flags
   response:
     id_field: name

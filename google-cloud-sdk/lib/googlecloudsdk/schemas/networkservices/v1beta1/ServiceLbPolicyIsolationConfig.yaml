@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1beta1 ServiceLbPolicyIsolationConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,12 +29,12 @@ properties:
     description: The isolation granularity of the load balancer.
     type: string
     enum:
-    - ISOLATION_GRANULARITY_UNSPECIFIED
-    - REGION
+      - ISOLATION_GRANULARITY_UNSPECIFIED
+      - REGION
   isolationMode:
     description: The isolation mode of the load balancer.
     type: string
     enum:
-    - ISOLATION_MODE_UNSPECIFIED
-    - NEAREST
-    - STRICT
+      - ISOLATION_MODE_UNSPECIFIED
+      - NEAREST
+      - STRICT

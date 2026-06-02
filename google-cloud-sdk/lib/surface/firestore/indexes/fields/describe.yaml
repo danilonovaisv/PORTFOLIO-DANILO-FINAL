@@ -17,7 +17,7 @@
   request:
     collection: firestore.projects.databases.collectionGroups.fields
     modify_request_hooks:
-    - googlecloudsdk.command_lib.firestore.util:ValidateFieldArg
+      - googlecloudsdk.command_lib.firestore.util:ValidateFieldArg
 
   arguments:
     resource:

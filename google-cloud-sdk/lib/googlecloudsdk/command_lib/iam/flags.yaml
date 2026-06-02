@@ -19,10 +19,10 @@ oauth_client:
     help_text: |-
       The type of OAuth client.
     choices:
-    - arg_value: confidential-client
-      enum_value: CONFIDENTIAL_CLIENT
-    - arg_value: public-client
-      enum_value: PUBLIC_CLIENT
+      - arg_value: confidential-client
+        enum_value: CONFIDENTIAL_CLIENT
+      - arg_value: public-client
+        enum_value: PUBLIC_CLIENT
   description:
     api_field: oauthClient.description
     arg_name: description
@@ -146,7 +146,7 @@ workload_identity_pool:
       The mode of the pool.
   inline_certificate_issuance_config_file:
     api_field: workloadIdentityPool.inlineCertificateIssuanceConfig
-    type: "googlecloudsdk.calliope.arg_parsers:YAMLFileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:YAMLFileContents:'
     processor: googlecloudsdk.command_lib.iam.iam_util:ParseYamlOrJsonToInlineCertificateIssuanceConfig
     arg_name: inline-certificate-issuance-config-file
     help_text: |-
@@ -188,7 +188,7 @@ workload_identity_pool:
       as the workload. Enabling this flag clears any existing CA pools configuration.
   inline_trust_config_file:
     api_field: workloadIdentityPool.inlineTrustConfig
-    type: "googlecloudsdk.calliope.arg_parsers:YAMLFileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:YAMLFileContents:'
     processor: googlecloudsdk.command_lib.iam.iam_util:ParseYamlOrJsonToInlineTrustConfig
     arg_name: inline-trust-config-file
     help_text: |-
@@ -263,7 +263,7 @@ workload_identity_pool_provider:
       api_field: googleIamV1betaWorkloadIdentityPoolProvider.attributeMapping
     arg_name: attribute-mapping
     metavar: KEY=VALUE
-    type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+    type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
     help_text: |-
       Maps attributes from authentication credentials issued by an external
       identity provider to Google Cloud attributes, such as `subject` and
@@ -395,7 +395,7 @@ workload_identity_pool_provider:
 
   oidc_jwks_json_path:
     api_field: workloadIdentityPoolProvider.oidc.jwksJson
-    type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
     ALPHA:
       api_field: googleIamV1betaWorkloadIdentityPoolProvider.oidc.jwksJson
     BETA:
@@ -446,7 +446,7 @@ workload_identity_pool_provider:
       ```
   saml_idp_metadata_path:
     api_field: workloadIdentityPoolProvider.saml.idpMetadataXml
-    type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
     arg_name: idp-metadata-path
     help_text: |-
       XML file with configuration metadata for the SAML identity provider. The metadata file must
@@ -454,7 +454,7 @@ workload_identity_pool_provider:
       [SAML 2.0 metadata specification](https://www.oasis-open.org/committees/download.php/35391/sstc-saml-metadata-errata-2.0-wd-04-diff.pdf).
   trust_store_config_path:
     api_field: workloadIdentityPoolProvider.x509.trustStore
-    type: "googlecloudsdk.calliope.arg_parsers:YAMLFileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:YAMLFileContents:'
     processor: googlecloudsdk.command_lib.iam.iam_util:ParseYamlToTrustStore
     arg_name: trust-store-config-path
     help_text: |-
@@ -566,7 +566,7 @@ workforce_pool_provider_scim_tenant:
     api_field: workforcePoolProviderScimTenant.claimMapping
     arg_name: claim-mapping
     metavar: KEY=VALUE
-    type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+    type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
     # TODO(b/412401165): Add specific SCIM claim mapping examples and link to relevant docs when available.
     help_text: |-
       A comma-separated list of KEY=VALUE pairs defining attribute mappings.
@@ -617,7 +617,7 @@ workforce_pool_provider:
     api_field: workforcePoolProvider.attributeMapping
     arg_name: attribute-mapping
     metavar: KEY=VALUE
-    type: "googlecloudsdk.calliope.arg_parsers:ArgDict:"
+    type: 'googlecloudsdk.calliope.arg_parsers:ArgDict:'
     help_text: |-
       Maps claims from the authentication credentials issued by the Identity Provider into Google
       Cloud IAM attributes, e.g. subject, segment.
@@ -722,13 +722,13 @@ workforce_pool_provider:
     group:
       mutex: true
       params:
-      - arg_name: clear-client-secret
-        api_field: workforcePoolProvider.oidc.clientSecret
-        action: store_true
-        processor: googlecloudsdk.command_lib.iam.hooks:ClearFlag
-        help_text: |-
-          Clear the OIDC client secret.
-      - *oidc_client_secret_value
+        - arg_name: clear-client-secret
+          api_field: workforcePoolProvider.oidc.clientSecret
+          action: store_true
+          processor: googlecloudsdk.command_lib.iam.hooks:ClearFlag
+          help_text: |-
+            Clear the OIDC client secret.
+        - *oidc_client_secret_value
   oidc_web_sso_response_type:
     api_field: workforcePoolProvider.oidc.webSsoConfig.responseType
     arg_name: web-sso-response-type
@@ -763,42 +763,42 @@ workforce_pool_provider:
     group:
       required: true
       params:
-      - api_field: workforcePoolProvider.oidc.webSsoConfig.responseType
-        arg_name: web-sso-response-type
-        required: true
-        help_text: |-
-          Response Type to request for in the OIDC Authorization Request for web sign-in.
+        - api_field: workforcePoolProvider.oidc.webSsoConfig.responseType
+          arg_name: web-sso-response-type
+          required: true
+          help_text: |-
+            Response Type to request for in the OIDC Authorization Request for web sign-in.
 
-          Use `code` to select the [authorization code flow](https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth)
+            Use `code` to select the [authorization code flow](https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth)
 
-          Use `id-token` to select the [implicit flow](https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth).
-      - api_field: workforcePoolProvider.oidc.webSsoConfig.assertionClaimsBehavior
-        arg_name: web-sso-assertion-claims-behavior
-        required: true
-        help_text: |-
-          The behavior for how OIDC Claims are included in the `assertion` object used for attribute mapping and attribute condition.
+            Use `id-token` to select the [implicit flow](https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth).
+        - api_field: workforcePoolProvider.oidc.webSsoConfig.assertionClaimsBehavior
+          arg_name: web-sso-assertion-claims-behavior
+          required: true
+          help_text: |-
+            The behavior for how OIDC Claims are included in the `assertion` object used for attribute mapping and attribute condition.
 
-          Use `merge-user-info-over-id-token-claims` to merge the UserInfo Endpoint Claims with ID Token
-          Claims, preferring UserInfo Claim Values for the same Claim Name. Currently this option is only
-          available for Authorization Code flow.
+            Use `merge-user-info-over-id-token-claims` to merge the UserInfo Endpoint Claims with ID Token
+            Claims, preferring UserInfo Claim Values for the same Claim Name. Currently this option is only
+            available for Authorization Code flow.
 
-          Use `only-id-token-claims` to include only ID token claims.
-      - api_field: workforcePoolProvider.oidc.webSsoConfig.additionalScopes
-        arg_name: web-sso-additional-scopes
-        help_text: |-
-          Additional scopes to request for the OIDC authentication on
-          top of scopes requested by default. By default, the `openid`, `profile`
-          and `email` scopes that are supported by the identity provider are
-          requested.
+            Use `only-id-token-claims` to include only ID token claims.
+        - api_field: workforcePoolProvider.oidc.webSsoConfig.additionalScopes
+          arg_name: web-sso-additional-scopes
+          help_text: |-
+            Additional scopes to request for the OIDC authentication on
+            top of scopes requested by default. By default, the `openid`, `profile`
+            and `email` scopes that are supported by the identity provider are
+            requested.
 
-          Each additional scope may be at most 256
-          characters. A maximum of 10 additional scopes may be configured.
+            Each additional scope may be at most 256
+            characters. A maximum of 10 additional scopes may be configured.
 
-          Updating this field replaces any existing values.
-          Include the full list of additional scopes to avoid losing existing values.
+            Updating this field replaces any existing values.
+            Include the full list of additional scopes to avoid losing existing values.
   oidc_jwks_json_path:
     api_field: workforcePoolProvider.oidc.jwksJson
-    type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
     arg_name: jwk-json-path
     help_text: |-
       Optional file containing JSON Web Key (JWK) public keys. The file format must follow
@@ -823,7 +823,7 @@ workforce_pool_provider:
       .
   saml_idp_metadata_path:
     api_field: workforcePoolProvider.saml.idpMetadataXml
-    type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
+    type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
     arg_name: idp-metadata-path
     help_text: |-
       XML file with configuration metadata for the SAML identity provider. The metadata file must
@@ -893,57 +893,57 @@ workforce_pool_provider:
   create_extra_attributes_group:
     group:
       params:
-      - <<: *extra_attributes_issuer_uri
-        required: true
-      - <<: *extra_attributes_client_id
-        required: true
-      - <<: *extra_attributes_client_secret_value
-        required: true
-      - <<: *extra_attributes_type
-        required: true
-      - <<: *extra_attributes_filter
+        - <<: *extra_attributes_issuer_uri
+          required: true
+        - <<: *extra_attributes_client_id
+          required: true
+        - <<: *extra_attributes_client_secret_value
+          required: true
+        - <<: *extra_attributes_type
+          required: true
+        - <<: *extra_attributes_filter
 
   update_extra_attributes_group: &update_extra_attributes_group
     group:
       params:
-      - *extra_attributes_issuer_uri
-      - *extra_attributes_client_id
-      - *extra_attributes_client_secret_value
-      - *extra_attributes_type
-      - *extra_attributes_filter
+        - *extra_attributes_issuer_uri
+        - *extra_attributes_client_id
+        - *extra_attributes_client_secret_value
+        - *extra_attributes_type
+        - *extra_attributes_filter
 
   clearable_extra_attributes_group:
     group:
       mutex: true
       params:
-      - *clear_extra_attributes_config
-      - *update_extra_attributes_group
+        - *clear_extra_attributes_config
+        - *update_extra_attributes_group
 
   vendor_type: &vendor_type
     arg_name: vendor-type
     api_field: workforcePoolProvider.vendorType
     hidden: true
     choices:
-    - arg_value: entra-id
-      enum_value: ENTRA_ID
-    - arg_value: okta
-      enum_value: OKTA
-    - arg_value: ping-federate
-      enum_value: PING_FEDERATE
-    - arg_value: adfs
-      enum_value: ADFS
-    - arg_value: keycloak
-      enum_value: KEYCLOAK
-    - arg_value: forge-rock
-      enum_value: FORGE_ROCK
-    - arg_value: jump-cloud
-      enum_value: JUMP_CLOUD
-    - arg_value: one-login
-      enum_value: ONE_LOGIN
-    - arg_value: generic
-      enum_value: GENERIC
-    - arg_value: vendor-type-unspecified
-      enum_value: VENDOR_TYPE_UNSPECIFIED
+      - arg_value: entra-id
+        enum_value: ENTRA_ID
+      - arg_value: okta
+        enum_value: OKTA
+      - arg_value: ping-federate
+        enum_value: PING_FEDERATE
+      - arg_value: adfs
+        enum_value: ADFS
+      - arg_value: keycloak
+        enum_value: KEYCLOAK
+      - arg_value: forge-rock
+        enum_value: FORGE_ROCK
+      - arg_value: jump-cloud
+        enum_value: JUMP_CLOUD
+      - arg_value: one-login
+        enum_value: ONE_LOGIN
+      - arg_value: generic
+        enum_value: GENERIC
+      - arg_value: vendor-type-unspecified
+        enum_value: VENDOR_TYPE_UNSPECIFIED
     help_text: |-
       The vendor type of the third-party identity provider.
 
@@ -962,10 +962,10 @@ workforce_pool_provider:
     arg_name: scim-usage
     api_field: workforcePoolProvider.scimUsage
     choices:
-    - arg_value: enabled-for-groups
-      enum_value: ENABLED_FOR_GROUPS
-    - arg_value: scim-usage-unspecified
-      enum_value: SCIM_USAGE_UNSPECIFIED
+      - arg_value: enabled-for-groups
+        enum_value: ENABLED_FOR_GROUPS
+      - arg_value: scim-usage-unspecified
+        enum_value: SCIM_USAGE_UNSPECIFIED
     help_text: |-
       Specifies whether the workforce identity pool provider uses SCIM-managed
       groups instead of the `google.groups` attribute mapping for authorization checks.
@@ -978,12 +978,12 @@ workforce_pool_provider:
       Use `scim-usage-unspecified` to disable SCIM-managed groups.
     ALPHA:
       choices:
-      - arg_value: enabled-for-groups
-        enum_value: ENABLED_FOR_GROUPS
-      - arg_value: scim-usage-unspecified
-        enum_value: SCIM_USAGE_UNSPECIFIED
-      - arg_value: enabled-for-users-groups
-        enum_value: ENABLED_FOR_USERS_GROUPS
+        - arg_value: enabled-for-groups
+          enum_value: ENABLED_FOR_GROUPS
+        - arg_value: scim-usage-unspecified
+          enum_value: SCIM_USAGE_UNSPECIFIED
+        - arg_value: enabled-for-users-groups
+          enum_value: ENABLED_FOR_USERS_GROUPS
       help_text: |-
         Specifies whether the workforce identity pool provider uses SCIM-managed
         groups instead of the `google.groups` attribute mapping for authorization checks.
@@ -1000,13 +1000,13 @@ workforce_pool_provider:
     group:
       mutex: true
       params:
-      - arg_name: clear-scim-usage
-        api_field: workforcePoolProvider.scimUsage
-        action: store_true
-        processor: googlecloudsdk.command_lib.iam.hooks:ClearScimUsage
-        help_text: |-
-          Clear the SCIM usage configuration, resetting it to unspecified.
-      - *scim_usage
+        - arg_name: clear-scim-usage
+          api_field: workforcePoolProvider.scimUsage
+          action: store_true
+          processor: googlecloudsdk.command_lib.iam.hooks:ClearScimUsage
+          help_text: |-
+            Clear the SCIM usage configuration, resetting it to unspecified.
+        - *scim_usage
   attribute_sync_interval: &attribute_sync_interval
     arg_name: attribute-sync-interval
     api_field: workforcePoolProvider.attributeSyncInterval
@@ -1026,14 +1026,14 @@ workforce_pool_provider:
       hidden: true
       mutex: true
       params:
-      - api_field: workforcePoolProvider.attributeSyncInterval
-        arg_name: clear-attribute-sync-interval
-        hidden: true
-        action: store_true
-        processor: googlecloudsdk.command_lib.iam.hooks:ClearFlag
-        help_text: |-
-          Clear the attribute sync interval.
-      - *attribute_sync_interval
+        - api_field: workforcePoolProvider.attributeSyncInterval
+          arg_name: clear-attribute-sync-interval
+          hidden: true
+          action: store_true
+          processor: googlecloudsdk.command_lib.iam.hooks:ClearFlag
+          help_text: |-
+            Clear the attribute sync interval.
+        - *attribute_sync_interval
 
 workforce_pool_provider_key:
   use:

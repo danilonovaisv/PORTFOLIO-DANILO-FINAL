@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA, PREVIEW]
   help_text:
-    brief: "Delete a storage pool."
-    description: "Deleta a storage pool."
+    brief: 'Delete a storage pool.'
+    description: 'Deleta a storage pool.'
     examples: |
       To delete a single storage pool named `my-storage-pool`, run the following command:
 

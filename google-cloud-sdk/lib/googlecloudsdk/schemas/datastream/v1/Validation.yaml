@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 Validation export schema
 description: A gcloud export/import command YAML validation schema.
@@ -40,7 +40,7 @@ properties:
     description: Validation execution status.
     type: string
     enum:
-    - FAILED
-    - NOT_EXECUTED
-    - PASSED
-    - STATE_UNSPECIFIED
+      - FAILED
+      - NOT_EXECUTED
+      - PASSED
+      - STATE_UNSPECIFIED

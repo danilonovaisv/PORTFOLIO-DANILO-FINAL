@@ -69,31 +69,31 @@
     </div>
     <div id="loading"></div>
     <script>
-      "use strict";
+      'use strict';
 
       function sleep(s) {
         return new Promise((resolve) => setTimeout(resolve, s));
       }
 
       async function main() {
-        let indexURL = "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/";
+        let indexURL = 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/';
         const urlParams = new URLSearchParams(window.location.search);
-        const buildParam = urlParams.get("build");
+        const buildParam = urlParams.get('build');
         if (buildParam) {
-          if (["full", "debug", "pyc"].includes(buildParam)) {
+          if (['full', 'debug', 'pyc'].includes(buildParam)) {
             indexURL = indexURL.replace(
-              "/full/",
-              "/" + urlParams.get("build") + "/",
+              '/full/',
+              '/' + urlParams.get('build') + '/'
             );
           } else {
             console.warn(
               'Invalid URL parameter: build="' +
                 buildParam +
-                '". Using default "full".',
+                '". Using default "full".'
             );
           }
         }
-        const { loadPyodide } = await import(indexURL + "pyodide.mjs");
+        const { loadPyodide } = await import(indexURL + 'pyodide.mjs');
         // to facilitate debugging
         globalThis.loadPyodide = loadPyodide;
 
@@ -106,13 +106,13 @@
           },
         });
         let { repr_shorten, BANNER, PyodideConsole } =
-          pyodide.pyimport("pyodide.console");
+          pyodide.pyimport('pyodide.console');
         BANNER =
           `Welcome to the Pyodide ${pyodide.version} terminal emulator 🐍\n` +
           BANNER;
         const pyconsole = PyodideConsole(pyodide.globals);
 
-        const namespace = pyodide.globals.get("dict")();
+        const namespace = pyodide.globals.get('dict')();
         const await_fut = pyodide.runPython(
           `
           import builtins
@@ -126,20 +126,20 @@
 
           await_fut
           `,
-          { globals: namespace },
+          { globals: namespace }
         );
         namespace.destroy();
 
         const echo = (msg, ...opts) =>
           term.echo(
             msg
-              .replaceAll("]]", "&rsqb;&rsqb;")
-              .replaceAll("[[", "&lsqb;&lsqb;"),
-            ...opts,
+              .replaceAll(']]', '&rsqb;&rsqb;')
+              .replaceAll('[[', '&lsqb;&lsqb;'),
+            ...opts
           );
 
-        const ps1 = ">>> ";
-        const ps2 = "... ";
+        const ps1 = '>>> ';
+        const ps2 = '... ';
 
         async function lock() {
           let resolve;
@@ -153,17 +153,17 @@
           const unlock = await lock();
           term.pause();
           // multiline should be split (useful when pasting)
-          for (const c of command.split("\n")) {
-            const escaped = c.replaceAll(/\u00a0/g, " ");
+          for (const c of command.split('\n')) {
+            const escaped = c.replaceAll(/\u00a0/g, ' ');
             const fut = pyconsole.push(escaped);
-            term.set_prompt(fut.syntax_check === "incomplete" ? ps2 : ps1);
+            term.set_prompt(fut.syntax_check === 'incomplete' ? ps2 : ps1);
             switch (fut.syntax_check) {
-              case "syntax-error":
+              case 'syntax-error':
                 term.error(fut.formatted_error.trimEnd());
                 continue;
-              case "incomplete":
+              case 'incomplete':
                 continue;
-              case "complete":
+              case 'complete':
                 break;
               default:
                 throw new Error(`Unexpected type ${ty}`);
@@ -179,15 +179,15 @@
               if (value !== undefined) {
                 echo(
                   repr_shorten.callKwargs(value, {
-                    separator: "\n<long output truncated>\n",
-                  }),
+                    separator: '\n<long output truncated>\n',
+                  })
                 );
               }
               if (value instanceof pyodide.ffi.PyProxy) {
                 value.destroy();
               }
             } catch (e) {
-              if (e.constructor.name === "PythonError") {
+              if (e.constructor.name === 'PythonError') {
                 const message = fut.formatted_error || e.message;
                 term.error(message.trimEnd());
               } else {
@@ -203,7 +203,7 @@
           unlock();
         }
 
-        term = $("body").terminal(interpreter, {
+        term = $('body').terminal(interpreter, {
           greetings: BANNER,
           prompt: ps1,
           completionEscape: false,
@@ -211,18 +211,18 @@
             callback(pyconsole.complete(command).toJs()[0]);
           },
           keymap: {
-            "CTRL+C": async function (event, original) {
+            'CTRL+C': async function (event, original) {
               pyconsole.buffer.clear();
               term.enter();
-              echo("KeyboardInterrupt");
-              term.set_command("");
+              echo('KeyboardInterrupt');
+              term.set_command('');
               term.set_prompt(ps1);
             },
             TAB: (event, original) => {
               const command = term.before_cursor();
               // Disable completion for whitespaces.
-              if (command.trim() === "") {
-                term.insert("\t");
+              if (command.trim() === '') {
+                term.insert('\t');
                 return false;
               }
               return original(event);
@@ -236,16 +236,16 @@
         };
         term.ready = Promise.resolve();
         pyodide._api.on_fatal = async (e) => {
-          if (e.name === "Exit") {
+          if (e.name === 'Exit') {
             term.error(e);
-            term.error("Pyodide exited and can no longer be used.");
+            term.error('Pyodide exited and can no longer be used.');
           } else {
             term.error(
-              "Pyodide has suffered a fatal error. Please report this to the Pyodide maintainers.",
+              'Pyodide has suffered a fatal error. Please report this to the Pyodide maintainers.'
             );
-            term.error("The cause of the fatal error was:");
+            term.error('The cause of the fatal error was:');
             term.error(e);
-            term.error("Look in the browser console for more details.");
+            term.error('Look in the browser console for more details.');
           }
           await term.ready;
           term.pause();
@@ -254,16 +254,18 @@
         };
 
         const searchParams = new URLSearchParams(window.location.search);
-        if (searchParams.has("noblink")) {
-          $(".cmd-cursor").addClass("noblink");
+        if (searchParams.has('noblink')) {
+          $('.cmd-cursor').addClass('noblink');
         }
         await term.ready;
-        await term.exec("import micropip\n");
-        await term.exec("micropip.list()\n");
-        await term.exec('await micropip.install("http://localhost:8000/urllib3-2.2.0-py3-none-any.whl")')
-        await term.exec("micropip.list()");
-        await term.exec("import urllib3");
-        await term.exec("urllib3.__version__");
+        await term.exec('import micropip\n');
+        await term.exec('micropip.list()\n');
+        await term.exec(
+          'await micropip.install("http://localhost:8000/urllib3-2.2.0-py3-none-any.whl")'
+        );
+        await term.exec('micropip.list()');
+        await term.exec('import urllib3');
+        await term.exec('urllib3.__version__');
       }
       window.console_ready = main();
     </script>

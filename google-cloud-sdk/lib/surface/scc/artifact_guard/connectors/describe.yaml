@@ -10,8 +10,8 @@ help_text:
       $ {command} myConnector --location=global --organization=123
 request:
   collection:
-  - artifactscanguard.organizations.locations.connectors
-  - artifactscanguard.projects.locations.connectors
+    - artifactscanguard.organizations.locations.connectors
+    - artifactscanguard.projects.locations.connectors
   api_version: v1alpha
   method: get
 arguments:

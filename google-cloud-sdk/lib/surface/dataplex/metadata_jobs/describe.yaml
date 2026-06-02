@@ -5,9 +5,9 @@
     description: |
       Displays all details of a Dataplex Metadata Job given a valid Metadata Job ID.
     examples: |
-       To describe a Dataplex Metadata Job `test-metadata-job` within location `us-central1` and in project `test-project`
+      To describe a Dataplex Metadata Job `test-metadata-job` within location `us-central1` and in project `test-project`
 
-          $ {command} test-metadata-job --location=us-central1 --project=test-project
+         $ {command} test-metadata-job --location=us-central1 --project=test-project
   request:
     ALPHA:
       api_version: v1

@@ -28,28 +28,28 @@
       spec: !REF googlecloudsdk.command_lib.container.fleet.resources:membership
       help_text: membership resource representing a cluster in Fleet.
     params:
-    - arg_name: async
-      type: bool
-      help_text: Return immediately, without waiting for the operation in progress to complete.
-    - api_field: membership.externalId
-      hidden: true
-      arg_name: external-id
-      help_text:  Update external-id of the membership resource.
-    - api_field: membership.infrastructureType
-      release_tracks: [ALPHA, BETA]
-      hidden: true
-      arg_name: infra-type
-      choices:
-      - arg_value: on-prem
-        enum_value: ON_PREM
+      - arg_name: async
+        type: bool
+        help_text: Return immediately, without waiting for the operation in progress to complete.
+      - api_field: membership.externalId
+        hidden: true
+        arg_name: external-id
+        help_text: Update external-id of the membership resource.
+      - api_field: membership.infrastructureType
+        release_tracks: [ALPHA, BETA]
+        hidden: true
+        arg_name: infra-type
+        choices:
+          - arg_value: on-prem
+            enum_value: ON_PREM
+            help_text: |
+              Specifies a cluster is running on an on-prem environment.
+          - arg_value: multi-cloud
+            enum_value: MULTI_CLOUD
+            help_text: |
+              Specified a cluster is running on public cloud infrastructure.
         help_text: |
-          Specifies a cluster is running on an on-prem environment.
-      - arg_value: multi-cloud
-        enum_value: MULTI_CLOUD
-        help_text: |
-          Specified a cluster is running on public cloud infrastructure.
-      help_text: |
-        Specifies the infrastructure type that the cluster is running on.
+          Specifies the infrastructure type that the cluster is running on.
     labels:
       api_field: membership.labels
 

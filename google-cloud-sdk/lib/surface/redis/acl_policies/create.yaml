@@ -15,25 +15,25 @@ arguments:
     help_text: The ACL Policy to create.
     is_positional: true
   params:
-  - arg_name: rules
-    api_field: aclPolicy.rules
-    required: true
-    repeated: true
-    help_text: |
-      The ACL rules within the ACL policy. Specify this flag multiple times for multiple rules.
-      Each rule consists of 'username' and 'rule'.
-    spec:
-    - api_field: username
+    - arg_name: rules
+      api_field: aclPolicy.rules
+      required: true
+      repeated: true
       help_text: |
-        The username for the ACL rule.
-    - api_field: rule
+        The ACL rules within the ACL policy. Specify this flag multiple times for multiple rules.
+        Each rule consists of 'username' and 'rule'.
+      spec:
+        - api_field: username
+          help_text: |
+            The username for the ACL rule.
+        - api_field: rule
+          help_text: |
+            The Redis ACL rule string.
+    - arg_name: request-id
+      api_field: requestId
+      required: false
       help_text: |
-        The Redis ACL rule string.
-  - arg_name: request-id
-    api_field: requestId
-    required: false
-    help_text: |
-      Idempotent request UUID.
+        Idempotent request UUID.
 
 request:
   api_version: v1

@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA, PREVIEW]
   help_text:
-    brief: "Describe a network profile."
-    description: "Describe a network profile."
+    brief: 'Describe a network profile.'
+    description: 'Describe a network profile.'
     examples: |
       To retrieve a single network profile and print its properties, run the following command:
       $ {command} my-network-profile

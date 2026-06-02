@@ -12,8 +12,7 @@
     collection: vision.projects.locations.products
     method: purge
     modify_request_hooks:
-    - googlecloudsdk.command_lib.ml.vision.product_search.utils:PromptDeleteAll
-
+      - googlecloudsdk.command_lib.ml.vision.product_search.utils:PromptDeleteAll
 
   arguments:
     resource:
@@ -21,23 +20,22 @@
       spec: !REF googlecloudsdk.command_lib.ml.vision.resources:non_primary_location
       is_parent_resource: true
     params:
-
-    - api_field: purgeProductsRequest.force
-      arg_name: force
-      help_text: |
-        If specified, user will not be prompted and all the products in specified set will
-        be deleted. If not specified, user will be prompted to continue the delete.
-    - group:
-        mutex: true
-        required: true
-        params:
-        - api_field: purgeProductsRequest.productSetPurgeConfig.productSetId
-          arg_name: product-set
-          help_text: |
-            Delete all Products that are in a ProductSet. Even if the Product is in multiple
-            ProductSets, the Product is still deleted.
-        - api_field: purgeProductsRequest.deleteOrphanProducts
-          action: store_true
-          arg_name: orphan-products
-          help_text: |
-            Delete all Products that are in no ProductSet.
+      - api_field: purgeProductsRequest.force
+        arg_name: force
+        help_text: |
+          If specified, user will not be prompted and all the products in specified set will
+          be deleted. If not specified, user will be prompted to continue the delete.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - api_field: purgeProductsRequest.productSetPurgeConfig.productSetId
+              arg_name: product-set
+              help_text: |
+                Delete all Products that are in a ProductSet. Even if the Product is in multiple
+                ProductSets, the Product is still deleted.
+            - api_field: purgeProductsRequest.deleteOrphanProducts
+              action: store_true
+              arg_name: orphan-products
+              help_text: |
+                Delete all Products that are in no ProductSet.

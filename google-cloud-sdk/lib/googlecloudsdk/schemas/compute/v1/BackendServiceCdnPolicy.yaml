@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 BackendServiceCdnPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -55,10 +55,10 @@ properties:
       to CACHE_ALL_STATIC.
     type: string
     enum:
-    - CACHE_ALL_STATIC
-    - FORCE_CACHE_ALL
-    - INVALID_CACHE_MODE
-    - USE_ORIGIN_HEADERS
+      - CACHE_ALL_STATIC
+      - FORCE_CACHE_ALL
+      - INVALID_CACHE_MODE
+      - USE_ORIGIN_HEADERS
   clientTtl:
     description: |-
       Specifies a separate client (e.g. browser client) maximum TTL. This is

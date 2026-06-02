@@ -90,10 +90,10 @@ export_to_security_center:
   action: store_true
   default: true
   choices:
-  - arg_value: true
-    enum_value: ENABLED
-  - arg_value: false
-    enum_value: DISABLED
+    - arg_value: true
+      enum_value: ENABLED
+    - arg_value: false
+      enum_value: DISABLED
   help_text: |
     If True, the scanner will export scan results to Cloud Security Command Center. Defaults to
     true.
@@ -105,9 +105,9 @@ risk_level:
   required: false
   default: normal
   choices:
-  - arg_value: normal
-    enum_value: NORMAL
-  - arg_value: low
-    enum_value: LOW
+    - arg_value: normal
+      enum_value: NORMAL
+    - arg_value: low
+      enum_value: LOW
   help_text: |
     The risk level selected for the scan. Defaults to normal scanning.

@@ -18,22 +18,22 @@
       override_resource_collection: true
 
     params:
-    - group:
-        mutex: true
-        params:
-        - arg_name: zone
-          help_text: |
-            The zone of the Local Snapshots to display. If unspecified, all snapshots will be
-            listed.
-        - arg_name: region
-          help_text: |
-            The region of the Snapshots to display. If unspecified, all snapshots will be listed.
+      - group:
+          mutex: true
+          params:
+            - arg_name: zone
+              help_text: |
+                The zone of the Local Snapshots to display. If unspecified, all snapshots will be
+                listed.
+            - arg_name: region
+              help_text: |
+                The region of the Snapshots to display. If unspecified, all snapshots will be listed.
 
   request:
     api_version: v1p1alpha1
     collection: file.projects.locations.snapshots
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.util:AddDefaultLocationToListRequest
+      - googlecloudsdk.command_lib.filestore.util:AddDefaultLocationToListRequest
 
   response:
     id_field: name

@@ -5,8 +5,8 @@ help_text:
   description: |
     List all TLS Inspection Policies in the specified location of the current project.
   examples: |
-      To list TLS Inspection Policies in the current project, run:
-        $ {command} --location=$REGION
+    To list TLS Inspection Policies in the current project, run:
+      $ {command} --location=$REGION
 request: &request
   ALPHA:
     api_version: v1alpha1
@@ -24,6 +24,6 @@ response:
   id_field: name
 output:
   format: |
-     table(
-        name.basename():label=NAME
-      )
+    table(
+       name.basename():label=NAME
+     )

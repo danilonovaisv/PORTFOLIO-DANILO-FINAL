@@ -17,7 +17,7 @@
       help_text: Index to describe.
       spec: !REF googlecloudsdk.command_lib.firestore.resources:index
       removed_flags:
-      - collection-group
+        - collection-group
 
   output:
     # This format string gets the field config table (fieldPath,order,arrayConfig) to show up as
@@ -38,14 +38,14 @@
     #
     # TODO(b/120985936): Use an inline nested table when that's made possible
     format: "table[all-box](\
-               name.basename(),\
-               name.segment(-3):label=COLLECTION_GROUP,\
-               queryScope,\
-               state,\
-               apiScope,\
-               fields.*extract('fieldPath').*flatten().join('\n'):label=FIELD_PATHS,\
-               fields.*extract('order').*flatten().join('\n'):label=ORDER,\
-               fields.*extract('arrayConfig').*flatten().join('\n'):label=ARRAY_CONFIG,\
-               fields.*extract('vectorConfig').*extract('dimension').*flatten().join('\n'):label=VECTOR_CONFIG,\
-               fields.*extract('searchConfig').*flatten().join('\n'):label=SEARCH_CONFIG)"
+      name.basename(),\
+      name.segment(-3):label=COLLECTION_GROUP,\
+      queryScope,\
+      state,\
+      apiScope,\
+      fields.*extract('fieldPath').*flatten().join('\n'):label=FIELD_PATHS,\
+      fields.*extract('order').*flatten().join('\n'):label=ORDER,\
+      fields.*extract('arrayConfig').*flatten().join('\n'):label=ARRAY_CONFIG,\
+      fields.*extract('vectorConfig').*extract('dimension').*flatten().join('\n'):label=VECTOR_CONFIG,\
+      fields.*extract('searchConfig').*flatten().join('\n'):label=SEARCH_CONFIG)"
     release_tracks: [BETA, GA]

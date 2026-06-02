@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified endpoint policy.
   examples: |
-      To delete an endpoint policy called 'my-endpoint-policy', run:
+    To delete an endpoint policy called 'my-endpoint-policy', run:
 
-        $ {command} my-endpoint-policy --location=global
+      $ {command} my-endpoint-policy --location=global
 
 arguments:
   resource:

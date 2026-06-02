@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 CustomMirroringProfile export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- mirroringEndpointGroup
+  - mirroringEndpointGroup
 additionalProperties: false
 properties:
   COMMENT:

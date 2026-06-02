@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha ImageOptimizationPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -30,5 +30,5 @@ properties:
       Specifies whether to interpret query parameters for image optimization.
     type: string
     enum:
-    - DISABLED
-    - ENABLED
+      - DISABLED
+      - ENABLED

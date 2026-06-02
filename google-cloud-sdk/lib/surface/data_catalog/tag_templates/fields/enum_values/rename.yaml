@@ -19,10 +19,10 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:enum_value
 
     params:
-    - api_field: googleCloudDatacatalogV1RenameTagTemplateFieldEnumValueRequest.newEnumValueDisplayName
-      arg_name: new-id
-      required: true
-      help_text: New display name of the enum value.
+      - api_field: googleCloudDatacatalogV1RenameTagTemplateFieldEnumValueRequest.newEnumValueDisplayName
+        arg_name: new-id
+        required: true
+        help_text: New display name of the enum value.
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -44,7 +44,7 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:enum_value
 
     params:
-    - api_field: googleCloudDatacatalogV1beta1RenameTagTemplateFieldEnumValueRequest.newEnumValueDisplayName
-      arg_name: new-id
-      required: true
-      help_text: New display name of the enum value.
+      - api_field: googleCloudDatacatalogV1beta1RenameTagTemplateFieldEnumValueRequest.newEnumValueDisplayName
+        arg_name: new-id
+        required: true
+        help_text: New display name of the enum value.

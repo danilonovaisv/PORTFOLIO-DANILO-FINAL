@@ -4,7 +4,6 @@ help_text:
   brief: |
     Describe a grpc route.
   description: Show details of a grpc route.
-
   examples: |
     Show details about a grpc route named 'my-grpc-route'.
 

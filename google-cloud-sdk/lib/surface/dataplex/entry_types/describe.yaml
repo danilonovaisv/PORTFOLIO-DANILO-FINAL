@@ -5,9 +5,9 @@
     description: |
       Displays all details of an Entry Type given a valid Entry Type ID.
     examples: |
-       To describe a Dataplex Entry Type `test-entry-type` in location `us-central1` and in project `test-project`, run:
+      To describe a Dataplex Entry Type `test-entry-type` in location `us-central1` and in project `test-project`, run:
 
-          $ {command} test-entry-type --location=us-central1 --project=test-project
+         $ {command} test-entry-type --location=us-central1 --project=test-project
   request:
     ALPHA:
       api_version: v1

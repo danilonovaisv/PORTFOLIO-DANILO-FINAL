@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkeonprem v1 BareMetalStorageConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- lvpNodeMountsConfig
-- lvpShareConfig
+  - lvpNodeMountsConfig
+  - lvpShareConfig
 additionalProperties: false
 properties:
   COMMENT:

@@ -4,9 +4,9 @@
     description: Get the details of a reCAPTCHA Firewall Policy.
     brief: Describe reCAPTCHA Firewall Policy.
     examples: |
-        To get details on a reCAPTCHA firewall policy, run:
+      To get details on a reCAPTCHA firewall policy, run:
 
-          $ {command} policy-id
+        $ {command} policy-id
 
   request:
     collection: recaptchaenterprise.projects.firewallpolicies

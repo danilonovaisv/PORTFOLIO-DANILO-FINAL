@@ -36,9 +36,9 @@
       spec: !REF googlecloudsdk.command_lib.edge_cache.resources:edgeCacheService
 
     params:
-    - group:
-        required: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.edge_cache.flags:invalidateCacheRequest.host
-        - _REF_: googlecloudsdk.command_lib.edge_cache.flags:invalidateCacheRequest.path
-        - _REF_: googlecloudsdk.command_lib.edge_cache.flags:invalidateCacheRequest.tags
+      - group:
+          required: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.edge_cache.flags:invalidateCacheRequest.host
+            - _REF_: googlecloudsdk.command_lib.edge_cache.flags:invalidateCacheRequest.path
+            - _REF_: googlecloudsdk.command_lib.edge_cache.flags:invalidateCacheRequest.tags

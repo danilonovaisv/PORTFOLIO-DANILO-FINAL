@@ -28,31 +28,30 @@
     api_version: v1
     method: list
     modify_request_hooks:
-    - googlecloudsdk.command_lib.scc.custom_modules.sha.request_hooks:ListEffectiveSecurityHealthAnalyticsCustomModulesReqHook
+      - googlecloudsdk.command_lib.scc.custom_modules.sha.request_hooks:ListEffectiveSecurityHealthAnalyticsCustomModulesReqHook
 
   arguments:
-
     params:
-    - group:
-        required: true
-        mutex: true
-        params:
-        - arg_name: organization
-          api_field: parent
-          help_text: |
-            Organization for listing the effective Security Health Analytics custom modules created
-            at the organization level. Formatted as `organizations/123` or just `123`.
+      - group:
+          required: true
+          mutex: true
+          params:
+            - arg_name: organization
+              api_field: parent
+              help_text: |
+                Organization for listing the effective Security Health Analytics custom modules created
+                at the organization level. Formatted as `organizations/123` or just `123`.
 
-        - arg_name: folder
-          api_field: parent
-          help_text: |
-            Folder for listing the effective Security Health Analytics custom modules created at the
-            current folder level and inherited modules from CRM ancestors. Formatted as `folders/456`
-            or just `456`.
+            - arg_name: folder
+              api_field: parent
+              help_text: |
+                Folder for listing the effective Security Health Analytics custom modules created at the
+                current folder level and inherited modules from CRM ancestors. Formatted as `folders/456`
+                or just `456`.
 
-        - arg_name: project
-          api_field: parent
-          help_text: |
-            ID or number of the project for listing the effective Security Health Analytics custom modules
-            for the current project level and inherited modules from CRM ancestors. Formatted as
-            `projects/789` or just `789`.
+            - arg_name: project
+              api_field: parent
+              help_text: |
+                ID or number of the project for listing the effective Security Health Analytics custom modules
+                for the current project level and inherited modules from CRM ancestors. Formatted as
+                `projects/789` or just `789`.

@@ -1,13 +1,13 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 BlmtConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- bucket
-- connectionName
-- fileFormat
-- tableFormat
+  - bucket
+  - connectionName
+  - fileFormat
+  - tableFormat
 additionalProperties: false
 properties:
   COMMENT:
@@ -40,8 +40,8 @@ properties:
     description: The file format.
     type: string
     enum:
-    - FILE_FORMAT_UNSPECIFIED
-    - PARQUET
+      - FILE_FORMAT_UNSPECIFIED
+      - PARQUET
   rootPath:
     description: The root path inside the Cloud Storage bucket.
     type: string
@@ -49,5 +49,5 @@ properties:
     description: The table format.
     type: string
     enum:
-    - ICEBERG
-    - TABLE_FORMAT_UNSPECIFIED
+      - ICEBERG
+      - TABLE_FORMAT_UNSPECIFIED

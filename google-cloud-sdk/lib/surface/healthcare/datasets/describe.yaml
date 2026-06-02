@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Describe a Cloud Healthcare API dataset.
+    brief: Describe a Cloud Healthcare API dataset.
     description: Describe a Cloud Healthcare API dataset.
     examples: |
       To describe the dataset 'test-dataset', run:

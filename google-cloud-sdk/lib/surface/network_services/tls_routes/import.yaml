@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a tls route.
   examples: |
-      To import a tls route named `my-tls-route` from a YAML file, run:
+    To import a tls route named `my-tls-route` from a YAML file, run:
 
-        $ {command} my-tls-route --source=my-tls-route.yaml --location=global
+      $ {command} my-tls-route --source=my-tls-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.tlsRoutes

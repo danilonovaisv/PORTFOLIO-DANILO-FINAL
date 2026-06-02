@@ -73,21 +73,21 @@
         The dashboard to update.
       spec: !REF googlecloudsdk.command_lib.monitoring.resources:dashboard
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: config
-          api_field: dashboard
-          processor: googlecloudsdk.core.yaml:load
-          help_text: |
-            Dashboard configuration, in either JSON or YAML format, as a string.
-        - arg_name: config-from-file
-          api_field: dashboard
-          type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-          processor: googlecloudsdk.core.yaml:load
-          help_text: |
-            Path to a JSON or YAML file containing the dashboard configuration.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: config
+              api_field: dashboard
+              processor: googlecloudsdk.core.yaml:load
+              help_text: |
+                Dashboard configuration, in either JSON or YAML format, as a string.
+            - arg_name: config-from-file
+              api_field: dashboard
+              type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+              processor: googlecloudsdk.core.yaml:load
+              help_text: |
+                Path to a JSON or YAML file containing the dashboard configuration.
 
   request:
     collection: monitoring.projects.dashboards

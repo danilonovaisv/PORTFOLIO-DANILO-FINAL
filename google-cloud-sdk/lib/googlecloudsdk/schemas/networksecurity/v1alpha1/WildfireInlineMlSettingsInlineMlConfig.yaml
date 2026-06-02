@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 WildfireInlineMlSettingsInlineMlConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- action
-- fileType
+  - action
+  - fileType
 additionalProperties: false
 properties:
   COMMENT:
@@ -32,20 +32,20 @@ properties:
     description: Action to take when a threat is detected using Inline ML.
     type: string
     enum:
-    - ALERT
-    - DISABLE
-    - ENABLE
-    - INLINE_ML_ACTION_UNSPECIFIED
+      - ALERT
+      - DISABLE
+      - ENABLE
+      - INLINE_ML_ACTION_UNSPECIFIED
   fileType:
     description: File type to configure Inline ML for.
     type: string
     enum:
-    - ELF
-    - INLINE_ML_CONFIG_UNSPECIFIED
-    - MACHO
-    - MS_OFFICE
-    - OOXML
-    - POWERSHELL_SCRIPT1
-    - POWERSHELL_SCRIPT2
-    - SHELL
-    - WINDOWS_EXECUTABLE
+      - ELF
+      - INLINE_ML_CONFIG_UNSPECIFIED
+      - MACHO
+      - MS_OFFICE
+      - OOXML
+      - POWERSHELL_SCRIPT1
+      - POWERSHELL_SCRIPT2
+      - SHELL
+      - WINDOWS_EXECUTABLE

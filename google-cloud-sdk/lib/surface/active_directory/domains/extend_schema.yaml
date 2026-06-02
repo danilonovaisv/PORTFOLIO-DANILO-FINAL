@@ -38,14 +38,14 @@
       spec: !REF googlecloudsdk.command_lib.active_directory.resources:domain
 
     params:
-    - arg_name: description
-      api_field: extendSchemaRequest.description
-      required: true
-      help_text: |
-        Description of schema change.
-    - arg_name: ldif-file
-      type: googlecloudsdk.calliope.arg_parsers:FileContents:binary=True
-      api_field: extendSchemaRequest.fileContents
-      required: true
-      help_text: |
-        Local LDIF file path that contains commands for schema extension. The file size can't be larger than 1 MB.
+      - arg_name: description
+        api_field: extendSchemaRequest.description
+        required: true
+        help_text: |
+          Description of schema change.
+      - arg_name: ldif-file
+        type: googlecloudsdk.calliope.arg_parsers:FileContents:binary=True
+        api_field: extendSchemaRequest.fileContents
+        required: true
+        help_text: |
+          Local LDIF file path that contains commands for schema extension. The file size can't be larger than 1 MB.

@@ -16,7 +16,7 @@
     api_version: v1
     collection: datacatalog.projects.locations.tagTemplates.fields
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateCreateTagTemplateFieldRequestWithInputV1
+      - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateCreateTagTemplateFieldRequestWithInputV1
 
   arguments:
     resource:
@@ -24,19 +24,19 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: googleCloudDatacatalogV1TagTemplateField.displayName
-      arg_name: display-name
-      help_text: Display name of the tag template field.
-    - arg_name: type
-      required: true
-      help_text: |
-        Type of the tag template field. Choices are double, string, bool, timestamp, and enum.
+      - api_field: googleCloudDatacatalogV1TagTemplateField.displayName
+        arg_name: display-name
+        help_text: Display name of the tag template field.
+      - arg_name: type
+        required: true
+        help_text: |
+          Type of the tag template field. Choices are double, string, bool, timestamp, and enum.
 
-          To specify a string field:
-            `type=string`
+            To specify a string field:
+              `type=string`
 
-          To specify an enum field with values 'A' and 'B':
-            `type="enum(A|B)"`
+            To specify an enum field with values 'A' and 'B':
+              `type="enum(A|B)"`
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -55,7 +55,7 @@
   request:
     collection: datacatalog.projects.locations.tagTemplates.fields
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateCreateTagTemplateFieldRequestWithInput
+      - googlecloudsdk.command_lib.data_catalog.tag_templates.util:UpdateCreateTagTemplateFieldRequestWithInput
 
   arguments:
     resource:
@@ -63,16 +63,16 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:tag_template_field
 
     params:
-    - api_field: googleCloudDatacatalogV1beta1TagTemplateField.displayName
-      arg_name: display-name
-      help_text: Display name of the tag template field.
-    - arg_name: type
-      required: true
-      help_text: |
-        Type of the tag template field. Choices are double, string, bool, timestamp, and enum.
+      - api_field: googleCloudDatacatalogV1beta1TagTemplateField.displayName
+        arg_name: display-name
+        help_text: Display name of the tag template field.
+      - arg_name: type
+        required: true
+        help_text: |
+          Type of the tag template field. Choices are double, string, bool, timestamp, and enum.
 
-          To specify a string field:
-            `type=string`
+            To specify a string field:
+              `type=string`
 
-          To specify an enum field with values 'A' and 'B':
-            `type="enum(A|B)"`
+            To specify an enum field with values 'A' and 'B':
+              `type="enum(A|B)"`

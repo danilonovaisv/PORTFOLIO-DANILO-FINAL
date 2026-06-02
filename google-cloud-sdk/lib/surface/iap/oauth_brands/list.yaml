@@ -13,7 +13,6 @@
 
         $  {command} --project=PROJECT_ID
 
-
   request:
     collection: iap.projects.brands
     api_version: v1

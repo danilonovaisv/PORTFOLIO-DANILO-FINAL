@@ -1,11 +1,11 @@
 - release_tracks: [ALPHA, BETA, GA, PREVIEW]
   help_text:
-    brief: "View preview features."
-    description: "View preview features."
+    brief: 'View preview features.'
+    description: 'View preview features.'
     examples: |
-        To display all preview features, run the following command:
+      To display all preview features, run the following command:
 
-        $ {command}
+      $ {command}
 
   request:
     ALPHA:

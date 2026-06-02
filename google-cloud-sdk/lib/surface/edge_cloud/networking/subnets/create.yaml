@@ -16,7 +16,7 @@
     GA:
       api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.networking.resources:SetResourcesPathForSubnet
+      - googlecloudsdk.command_lib.edge_cloud.networking.resources:SetResourcesPathForSubnet
 
   arguments:
     resource:
@@ -26,35 +26,35 @@
       spec: !REF googlecloudsdk.command_lib.edge_cloud.networking.resources:subnet
 
     params:
-    - arg_name: description
-      api_field: subnet.description
-      help_text: |
-        An optional, textual description for the subnet.
-    - arg_name: ipv4-range
-      api_field: subnet.ipv4Cidr
-      type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
-      help_text: |
-        The ranges of ipv4 addresses that are owned by this subnetwork in CIDR format.
-    - arg_name: ipv6-range
-      api_field: subnet.ipv6Cidr
-      type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
-      help_text: |
-        The ranges of ipv6 addresses that are owned by this subnetwork in CIDR format.
-    - arg_name: network
-      api_field: subnet.network
-      required: true
-      help_text: |
-        The network that this subnetwork belongs to.
-    - arg_name: vlan-id
-      api_field: subnet.vlanId
-      type: int
-      help_text: |
-        The ID of the VLAN to tag the subnetwork. If not specified we assign one automatically.
-    - arg_name: bonding-type
-      api_field: subnet.bondingType
-      help_text: |
-        Whether or not the VLAN being created will be present on bonded or non-bonded port types. If not specified, the VLAN will be created on both port types by default.
-      release_tracks: [ALPHA]
+      - arg_name: description
+        api_field: subnet.description
+        help_text: |
+          An optional, textual description for the subnet.
+      - arg_name: ipv4-range
+        api_field: subnet.ipv4Cidr
+        type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
+        help_text: |
+          The ranges of ipv4 addresses that are owned by this subnetwork in CIDR format.
+      - arg_name: ipv6-range
+        api_field: subnet.ipv6Cidr
+        type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
+        help_text: |
+          The ranges of ipv6 addresses that are owned by this subnetwork in CIDR format.
+      - arg_name: network
+        api_field: subnet.network
+        required: true
+        help_text: |
+          The network that this subnetwork belongs to.
+      - arg_name: vlan-id
+        api_field: subnet.vlanId
+        type: int
+        help_text: |
+          The ID of the VLAN to tag the subnetwork. If not specified we assign one automatically.
+      - arg_name: bonding-type
+        api_field: subnet.bondingType
+        help_text: |
+          Whether or not the VLAN being created will be present on bonded or non-bonded port types. If not specified, the VLAN will be created on both port types by default.
+        release_tracks: [ALPHA]
     labels:
       api_field: subnet.labels
 

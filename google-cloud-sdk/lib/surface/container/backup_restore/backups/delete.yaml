@@ -14,7 +14,7 @@
   request:
     collection: gkebackup.projects.locations.backupPlans.backups
     modify_request_hooks:
-    - googlecloudsdk.command_lib.container.backup_restore.hooks:AddForceToDeleteRequest
+      - googlecloudsdk.command_lib.container.backup_restore.hooks:AddForceToDeleteRequest
     api_version: v1
 
   arguments:
@@ -29,7 +29,7 @@
       spec: !REF googlecloudsdk.command_lib.container.backup_restore.resources:backup
 
     params:
-    - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:etag
+      - _REF_: googlecloudsdk.command_lib.container.backup_restore.flags:etag
 
   async:
     collection: gkebackup.projects.locations.operations

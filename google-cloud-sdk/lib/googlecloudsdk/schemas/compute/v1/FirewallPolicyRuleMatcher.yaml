@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 FirewallPolicyRuleMatcher export schema
 description: A gcloud export/import command YAML validation schema.
@@ -54,30 +54,30 @@ properties:
       NON_INTERNET
     type: string
     enum:
-    - INTERNET
-    - INTRA_VPC
-    - NON_INTERNET
-    - UNSPECIFIED
-    - VPC_NETWORKS
+      - INTERNET
+      - INTRA_VPC
+      - NON_INTERNET
+      - UNSPECIFIED
+      - VPC_NETWORKS
   destNetworkScope:
     description: Network scope of the traffic destination.
     type: string
     enum:
-    - INTERNET
-    - INTRA_VPC
-    - NON_INTERNET
-    - UNSPECIFIED
-    - VPC_NETWORKS
+      - INTERNET
+      - INTRA_VPC
+      - NON_INTERNET
+      - UNSPECIFIED
+      - VPC_NETWORKS
   destNetworkType:
     description: |-
       Network type of the traffic destination. Allowed values
     type: string
     enum:
-    - INTERNET
-    - INTRA_VPC
-    - NON_INTERNET
-    - UNSPECIFIED
-    - VPC_NETWORKS
+      - INTERNET
+      - INTRA_VPC
+      - NON_INTERNET
+      - UNSPECIFIED
+      - VPC_NETWORKS
   destRegionCodes:
     description: |-
       Region codes whose IP addresses will be used to match for
@@ -130,21 +130,21 @@ properties:
       Allowed values
     type: string
     enum:
-    - INTERNET
-    - INTRA_VPC
-    - NON_INTERNET
-    - UNSPECIFIED
-    - VPC_NETWORKS
+      - INTERNET
+      - INTRA_VPC
+      - NON_INTERNET
+      - UNSPECIFIED
+      - VPC_NETWORKS
   srcNetworkScope:
     description: |-
       Network scope of the traffic source.
     type: string
     enum:
-    - INTERNET
-    - INTRA_VPC
-    - NON_INTERNET
-    - UNSPECIFIED
-    - VPC_NETWORKS
+      - INTERNET
+      - INTRA_VPC
+      - NON_INTERNET
+      - UNSPECIFIED
+      - VPC_NETWORKS
   srcNetworkType:
     description: |-
       Network type of the traffic source.
@@ -153,11 +153,11 @@ properties:
       NON_INTERNET - VPC_NETWORKS
     type: string
     enum:
-    - INTERNET
-    - INTRA_VPC
-    - NON_INTERNET
-    - UNSPECIFIED
-    - VPC_NETWORKS
+      - INTERNET
+      - INTRA_VPC
+      - NON_INTERNET
+      - UNSPECIFIED
+      - VPC_NETWORKS
   srcNetworks:
     description: |-
       Networks of the traffic source. It can

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 JsonFileFormat export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,13 +29,13 @@ properties:
     description: Compression of the loaded JSON file.
     type: string
     enum:
-    - GZIP
-    - JSON_COMPRESSION_UNSPECIFIED
-    - NO_COMPRESSION
+      - GZIP
+      - JSON_COMPRESSION_UNSPECIFIED
+      - NO_COMPRESSION
   schemaFileFormat:
     description: The schema file format along JSON data files.
     type: string
     enum:
-    - AVRO_SCHEMA_FILE
-    - NO_SCHEMA_FILE
-    - SCHEMA_FILE_FORMAT_UNSPECIFIED
+      - AVRO_SCHEMA_FILE
+      - NO_SCHEMA_FILE
+      - SCHEMA_FILE_FORMAT_UNSPECIFIED

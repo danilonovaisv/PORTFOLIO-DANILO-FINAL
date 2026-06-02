@@ -37,27 +37,27 @@ arguments:
     is_positional: false
     command_level_fallthroughs:
       location:
-      - arg_name: 'zone'
+        - arg_name: 'zone'
 
   params:
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:subscription-name
-    required: true
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:subscription-topic-name
-    required: true
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:delivery-requirement
-    default: deliver-immediately
-  - group:
-      mutex: true
-      params:
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:starting-offset
-        default: end
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:publish-time
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:event-time
-  - group:
-      params:
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:export-desired-state
-        default: active
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:export-pubsub-topic
-        required: true
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:export-dead-letter-topic
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:subscription-name
+      required: true
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:subscription-topic-name
+      required: true
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:delivery-requirement
+      default: deliver-immediately
+    - group:
+        mutex: true
+        params:
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:starting-offset
+            default: end
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:publish-time
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:event-time
+    - group:
+        params:
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:export-desired-state
+            default: active
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:export-pubsub-topic
+            required: true
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:export-dead-letter-topic

@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a BackendAuthenticationConfigs.
   examples: |
-      To import a BackendAuthenticationConfigs from a YAML file, run:
+    To import a BackendAuthenticationConfigs from a YAML file, run:
 
-        $ {command} my-backend-authentication-config --source=my-backend-authentication-config.yaml --location=global
+      $ {command} my-backend-authentication-config --source=my-backend-authentication-config.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.backendAuthenticationConfigs

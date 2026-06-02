@@ -13,8 +13,8 @@ help_text:
 request:
   api_version: v1alpha
   collection:
-  - artifactscanguard.organizations.locations.policies
-  - artifactscanguard.projects.locations.policies
+    - artifactscanguard.organizations.locations.policies
+    - artifactscanguard.projects.locations.policies
   method: delete
 
 arguments:
@@ -27,7 +27,7 @@ arguments:
       `projects/123/locations/global/policies/myPolicy`.
 
   params:
-  - arg_name: etag
-    api_field: etag
-    help_text: |
-      The etag of the policy to delete.
+    - arg_name: etag
+      api_field: etag
+      help_text: |
+        The etag of the policy to delete.

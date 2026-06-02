@@ -1,6 +1,6 @@
 - release_tracks: [GA, BETA, ALPHA]
   help_text:
-    brief:  Create a Filestore backup.
+    brief: Create a Filestore backup.
     description: |
       Create a Filestore backup of an instance file share.
 
@@ -16,78 +16,78 @@
 
   arguments:
     params:
-    - arg_name: backup
-      is_positional: true
-      required: true
-      help_text: |
-        Arguments and flags that specify the Filestore backup you want to
-        create.
-    - arg_name: instance
-      required: true
-      help_text: |
-        Share name of the Filestore instance you want to backup.
-    - arg_name: region
-      required: true
-      help_text: |
-        Region (e.g. us-central1) for the backup.
-    - group:
-        mutex: true
+      - arg_name: backup
+        is_positional: true
         required: true
-        params:
-        - arg_name: instance-zone
-          help_text: |
-            Zone of the Filestore instance.
-        - arg_name: instance-location
-          release_tracks: [BETA, GA]
-          help_text: |
-            Region of the Filestore instance.
-    - api_field: backup.description
-      arg_name: description
-      required: false
-      help_text: |
-        Description for the backup. Limit: 2048 characters.
-    - api_field: backup.kmsKeyName
-      arg_name: kms-key
-      required: false
-      release_tracks: [BETA]
-      help_text: |
-        CMEK for backup in the form of `projects/{project}/locations/{location}/keyRings/{key-ring}/cryptoKeys/{crypto-key}`
-    - api_field: backup.kmsKey
-      arg_name: kms-key
-      required: false
-      release_tracks: [GA]
-      help_text: |
-        CMEK for backup in the form of `projects/{project}/locations/{location}/keyRings/{key-ring}/cryptoKeys/{crypto-key}`
-    - api_field: backup.sourceFileShare
-      arg_name: file-share
-      required: true
-      help_text: |
-        File share name on the Filestore instance to backup.
-    - api_field: backup.labels.additionalProperties
-      arg_name: labels
-      metavar: KEY=VALUE
-      required: false
-      help_text: |
-        List of label KEY=VALUE pairs to add.
-      type:
-        arg_dict:
-          flatten: true
-          spec:
-          - api_field: key
-          - api_field: value
-    - api_field: backup.tags.additionalProperties
-      arg_name: tags
-      release_tracks: [BETA, GA]
-      required: false
-      metavar: KEY=VALUE
-      help_text: |
-        List of tag KEY=VALUE pairs to add.
-      type:
-        arg_dict:
-          flatten: true
-          spec:
-          - api_field: key
-          - api_field: value
+        help_text: |
+          Arguments and flags that specify the Filestore backup you want to
+          create.
+      - arg_name: instance
+        required: true
+        help_text: |
+          Share name of the Filestore instance you want to backup.
+      - arg_name: region
+        required: true
+        help_text: |
+          Region (e.g. us-central1) for the backup.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: instance-zone
+              help_text: |
+                Zone of the Filestore instance.
+            - arg_name: instance-location
+              release_tracks: [BETA, GA]
+              help_text: |
+                Region of the Filestore instance.
+      - api_field: backup.description
+        arg_name: description
+        required: false
+        help_text: |
+          Description for the backup. Limit: 2048 characters.
+      - api_field: backup.kmsKeyName
+        arg_name: kms-key
+        required: false
+        release_tracks: [BETA]
+        help_text: |
+          CMEK for backup in the form of `projects/{project}/locations/{location}/keyRings/{key-ring}/cryptoKeys/{crypto-key}`
+      - api_field: backup.kmsKey
+        arg_name: kms-key
+        required: false
+        release_tracks: [GA]
+        help_text: |
+          CMEK for backup in the form of `projects/{project}/locations/{location}/keyRings/{key-ring}/cryptoKeys/{crypto-key}`
+      - api_field: backup.sourceFileShare
+        arg_name: file-share
+        required: true
+        help_text: |
+          File share name on the Filestore instance to backup.
+      - api_field: backup.labels.additionalProperties
+        arg_name: labels
+        metavar: KEY=VALUE
+        required: false
+        help_text: |
+          List of label KEY=VALUE pairs to add.
+        type:
+          arg_dict:
+            flatten: true
+            spec:
+              - api_field: key
+              - api_field: value
+      - api_field: backup.tags.additionalProperties
+        arg_name: tags
+        release_tracks: [BETA, GA]
+        required: false
+        metavar: KEY=VALUE
+        help_text: |
+          List of tag KEY=VALUE pairs to add.
+        type:
+          arg_dict:
+            flatten: true
+            spec:
+              - api_field: key
+              - api_field: value
 
   async:
     collection: file.projects.locations.operations
@@ -105,5 +105,5 @@
     # file.projects.locations.backups collection). This collection is populated manually.
     disable_resource_check: true
     modify_request_hooks:
-    - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupCreateRequest
-    - googlecloudsdk.command_lib.filestore.backups.util:AddInstanceNameToRequest
+      - googlecloudsdk.command_lib.filestore.backups.util:FormatBackupCreateRequest
+      - googlecloudsdk.command_lib.filestore.backups.util:AddInstanceNameToRequest

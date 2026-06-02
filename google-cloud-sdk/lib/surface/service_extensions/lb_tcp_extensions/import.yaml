@@ -15,7 +15,6 @@ request:
   BETA:
     api_version: v1beta1
 
-
 arguments:
   resource:
     spec: !REF googlecloudsdk.command_lib.service_extensions.resources:lbTcpExtension

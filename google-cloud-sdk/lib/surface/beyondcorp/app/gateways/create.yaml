@@ -35,9 +35,9 @@
       help_text: The Beyondcorp appconnector gateway you want to create.
 
     params:
-    - _REF_: googlecloudsdk.command_lib.beyondcorp.app.gateways.flags:host_type
-    - _REF_: googlecloudsdk.command_lib.beyondcorp.app.gateways.flags:gateway_type
-    - _REF_: googlecloudsdk.command_lib.beyondcorp.app.gateways.flags:display_name
+      - _REF_: googlecloudsdk.command_lib.beyondcorp.app.gateways.flags:host_type
+      - _REF_: googlecloudsdk.command_lib.beyondcorp.app.gateways.flags:gateway_type
+      - _REF_: googlecloudsdk.command_lib.beyondcorp.app.gateways.flags:display_name
 
     labels:
       api_field: appGateway.labels

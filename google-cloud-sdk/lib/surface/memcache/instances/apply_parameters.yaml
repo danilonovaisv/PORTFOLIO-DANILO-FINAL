@@ -24,19 +24,19 @@
       help_text: |
         Arguments and flags that specify the Memcached instance on which to apply parameter update.
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: node-ids
-          api_field: applyParametersRequest.nodeIds
-          type: arg_list
-          help_text: |
-            Nodes on which to apply the parameter update.
-        - arg_name: apply-all
-          api_field: applyParametersRequest.applyAll
-          help_text: |
-            Apply the parameter update onto all nodes.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: node-ids
+              api_field: applyParametersRequest.nodeIds
+              type: arg_list
+              help_text: |
+                Nodes on which to apply the parameter update.
+            - arg_name: apply-all
+              api_field: applyParametersRequest.applyAll
+              help_text: |
+                Apply the parameter update onto all nodes.
 
   async:
     collection: memcache.projects.locations.operations

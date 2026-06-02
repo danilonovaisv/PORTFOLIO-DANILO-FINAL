@@ -3,7 +3,10 @@
 import { useFormContext } from 'react-hook-form';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import { MarkdownCaseSection } from './MarkdownCaseSection';
-import { PROJECT_TYPE_OPTIONS, type ProjectFormValues } from '@/lib/admin/schemas/project';
+import {
+  PROJECT_TYPE_OPTIONS,
+  type ProjectFormValues,
+} from '@/lib/admin/schemas/project';
 import type { DbTag } from '@/types/admin';
 
 interface ProjectBasicDetailsSectionProps {

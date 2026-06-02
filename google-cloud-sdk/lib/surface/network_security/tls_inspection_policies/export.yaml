@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a TLS Inspection Policy.
   examples: |
-      To export a TLS Inspection Policy, run:
+    To export a TLS Inspection Policy, run:
 
-        $ {command} my-tls-inspection-policy --destination=my-tls-inspection-policy.yaml --location=$REGION
+      $ {command} my-tls-inspection-policy --destination=my-tls-inspection-policy.yaml --location=$REGION
 
 request:
   collection: networksecurity.projects.locations.tlsInspectionPolicies

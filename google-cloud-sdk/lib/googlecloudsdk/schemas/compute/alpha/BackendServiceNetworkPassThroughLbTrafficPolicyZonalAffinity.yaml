@@ -1,6 +1,7 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
-title: compute alpha BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity
+title:
+  compute alpha BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity
   export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
@@ -34,9 +35,9 @@ properties:
       connections to all    healthy backend endpoints across all zones.    -
     type: string
     enum:
-    - ZONAL_AFFINITY_DISABLED
-    - ZONAL_AFFINITY_SPILL_CROSS_ZONE
-    - ZONAL_AFFINITY_STAY_WITHIN_ZONE
+      - ZONAL_AFFINITY_DISABLED
+      - ZONAL_AFFINITY_SPILL_CROSS_ZONE
+      - ZONAL_AFFINITY_STAY_WITHIN_ZONE
   spilloverRatio:
     description: |-
       The value of the field must be in [0, 1]. When the ratio of the count of

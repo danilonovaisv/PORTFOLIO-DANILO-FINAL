@@ -27,7 +27,7 @@
 
   output:
     format: |
-        table(
-        name.basename():label=NAME:sort=1,
-           resourceState.state:label=STATE
-         )
+      table(
+      name.basename():label=NAME:sort=1,
+         resourceState.state:label=STATE
+       )

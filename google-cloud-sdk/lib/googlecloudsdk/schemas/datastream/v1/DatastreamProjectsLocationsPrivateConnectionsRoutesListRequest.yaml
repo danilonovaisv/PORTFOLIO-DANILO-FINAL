@@ -1,11 +1,12 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
-title: datastream v1 DatastreamProjectsLocationsPrivateConnectionsRoutesListRequest
+title:
+  datastream v1 DatastreamProjectsLocationsPrivateConnectionsRoutesListRequest
   export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- parent
+  - parent
 additionalProperties: false
 properties:
   COMMENT:

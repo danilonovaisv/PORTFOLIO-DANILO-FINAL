@@ -1,15 +1,15 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkeonprem v1 BareMetalCluster export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- adminClusterMembership
-- bareMetalVersion
-- controlPlane
-- loadBalancer
-- networkConfig
-- storage
+  - adminClusterMembership
+  - bareMetalVersion
+  - controlPlane
+  - loadBalancer
+  - networkConfig
+  - storage
 additionalProperties: false
 properties:
   COMMENT:

@@ -34,4 +34,4 @@
       spec: !REF googlecloudsdk.command_lib.compute.tpus.queued_resources.resources:queuedresource
 
   input:
-    confirmation_prompt: "You are about to reset queued_resource [{__name__}]"
+    confirmation_prompt: 'You are about to reset queued_resource [{__name__}]'

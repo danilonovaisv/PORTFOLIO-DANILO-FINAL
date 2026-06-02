@@ -24,7 +24,7 @@ async:
 
 response:
   modify_response_hooks:
-  - googlecloudsdk.command_lib.dialogflow.agent.hooks:LogTrainSuccess
+    - googlecloudsdk.command_lib.dialogflow.agent.hooks:LogTrainSuccess
 
 output:
   format: none

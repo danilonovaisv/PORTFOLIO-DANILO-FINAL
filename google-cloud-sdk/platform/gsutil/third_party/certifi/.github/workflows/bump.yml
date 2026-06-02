@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # Run daily
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
 
 permissions:
   contents: read
@@ -14,8 +14,8 @@ jobs:
     if: github.repository_owner == 'certifi'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # for peter-evans/create-pull-request to create branch
-      pull-requests: write  # for peter-evans/create-pull-request to create a PR
+      contents: write # for peter-evans/create-pull-request to create branch
+      pull-requests: write # for peter-evans/create-pull-request to create a PR
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - run: make update
@@ -31,7 +31,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
         with:
-          commit-message: "${{ steps.update-date.outputs.DATE }}"
-          title: "${{ steps.update-date.outputs.DATE }}"
+          commit-message: '${{ steps.update-date.outputs.DATE }}'
+          title: '${{ steps.update-date.outputs.DATE }}'
           token: ${{ secrets.GITHUB_TOKEN }}
         if: steps.update-date.outputs.DATE

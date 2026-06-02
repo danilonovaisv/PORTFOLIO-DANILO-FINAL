@@ -20,50 +20,50 @@ projects_locations:
   plural_name: locations
   collection: networkconnectivity.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_multicloud_data_transfer_configs:
   name: multicloudDataTransferConfig
   plural_name: multicloudDataTransferConfigs
   collection: networkconnectivity.projects.locations.multicloudDataTransferConfigs
   attributes:
-  - *project
-  - *location
-  - &multicloudDataTransferConfig
-    parameter_name: multicloudDataTransferConfigsId
-    attribute_name: multicloud_data_transfer_config
-    help: The multicloudDataTransferConfig id of the {resource} resource.
+    - *project
+    - *location
+    - &multicloudDataTransferConfig
+      parameter_name: multicloudDataTransferConfigsId
+      attribute_name: multicloud_data_transfer_config
+      help: The multicloudDataTransferConfig id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_multicloud_data_transfer_supported_services:
   name: multicloudDataTransferSupportedService
   plural_name: multicloudDataTransferSupportedServices
   collection: networkconnectivity.projects.locations.multicloudDataTransferSupportedServices
   attributes:
-  - *project
-  - *location
-  - &multicloudDataTransferSupportedService
-    parameter_name: multicloudDataTransferSupportedServicesId
-    attribute_name: multicloud_data_transfer_supported_service
-    help: The multicloudDataTransferSupportedService id of the {resource} resource.
+    - *project
+    - *location
+    - &multicloudDataTransferSupportedService
+      parameter_name: multicloudDataTransferSupportedServicesId
+      attribute_name: multicloud_data_transfer_supported_service
+      help: The multicloudDataTransferSupportedService id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_multicloud_data_transfer_configs_destinations:
   name: destination
   plural_name: destinations
   collection: networkconnectivity.projects.locations.multicloudDataTransferConfigs.destinations
   attributes:
-  - *project
-  - *location
-  - *multicloudDataTransferConfig
-  - &destination
-    parameter_name: destinationsId
-    attribute_name: destination
-    help: The destination id of the {resource} resource.
+    - *project
+    - *location
+    - *multicloudDataTransferConfig
+    - &destination
+      parameter_name: destinationsId
+      attribute_name: destination
+      help: The destination id of the {resource} resource.
   disable_auto_completers: false

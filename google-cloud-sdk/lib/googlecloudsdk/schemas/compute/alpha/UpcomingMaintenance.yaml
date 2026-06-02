@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha UpcomingMaintenance export schema
 description: A gcloud export/import command YAML validation schema.
@@ -43,6 +43,6 @@ properties:
     description: Defines the type of maintenance.
     type: string
     enum:
-    - SCHEDULED
-    - UNKNOWN_TYPE
-    - UNSCHEDULED
+      - SCHEDULED
+      - UNKNOWN_TYPE
+      - UNSCHEDULED

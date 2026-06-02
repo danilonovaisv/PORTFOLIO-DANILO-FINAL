@@ -14,8 +14,8 @@ request:
   api_version: v1alpha
   method: list
   collection:
-  - artifactscanguard.organizations.locations.connectors
-  - artifactscanguard.projects.locations.connectors
+    - artifactscanguard.organizations.locations.connectors
+    - artifactscanguard.projects.locations.connectors
 
 arguments:
   resource:

@@ -24,10 +24,10 @@
       spec: !REF googlecloudsdk.command_lib.database_migration.resources:migration_job
 
     params:
-    - arg_name: skip-validation
-      release_tracks: [GA]
-      GA:
-        api_field: startMigrationJobRequest.skipValidation
-      required: false
-      help_text: |
-        Start the migration job without running prior configuration verification.
+      - arg_name: skip-validation
+        release_tracks: [GA]
+        GA:
+          api_field: startMigrationJobRequest.skipValidation
+        required: false
+        help_text: |
+          Start the migration job without running prior configuration verification.

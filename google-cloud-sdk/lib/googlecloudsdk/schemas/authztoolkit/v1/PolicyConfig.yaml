@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: authztoolkit v1 PolicyConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- policy
+  - policy
 additionalProperties: false
 properties:
   COMMENT:

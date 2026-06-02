@@ -18,7 +18,7 @@
   request:
     collection: beyondcorp.projects.locations.clientConnectorServices
     modify_request_hooks:
-    - googlecloudsdk.command_lib.beyondcorp.client_connector.services.hooks:ParseConfig
+      - googlecloudsdk.command_lib.beyondcorp.client_connector.services.hooks:ParseConfig
     BETA:
       api_version: v1
 
@@ -30,16 +30,16 @@
       help_text: The BeyondCorp client connector service you want to create.
       spec: !REF googlecloudsdk.command_lib.beyondcorp.client_connector.resources:client_connector_service
     params:
-    - group:
-        help_text: Client connector service configuration.
-        required: true
-        mutex: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:config_from_file
-        - group:
-            params:
-            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:ingress_config
-              required: true
-            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:egress_peered_vpc
-              required: true
-            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:display_name
+      - group:
+          help_text: Client connector service configuration.
+          required: true
+          mutex: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:config_from_file
+            - group:
+                params:
+                  - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:ingress_config
+                    required: true
+                  - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:egress_peered_vpc
+                    required: true
+                  - _REF_: googlecloudsdk.command_lib.beyondcorp.client_connector.services.flags:display_name

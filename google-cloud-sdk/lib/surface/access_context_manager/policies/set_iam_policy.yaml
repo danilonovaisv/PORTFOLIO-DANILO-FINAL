@@ -28,7 +28,7 @@
       api_version: v1
       method: setIamPolicy
     modify_request_hooks:
-    - googlecloudsdk.command_lib.iam.hooks:UseMaxRequestedPolicyVersion:api_field=setIamPolicyRequest.policy.version
+      - googlecloudsdk.command_lib.iam.hooks:UseMaxRequestedPolicyVersion:api_field=setIamPolicyRequest.policy.version
   arguments:
     resource:
       help_text: The access policy to set the IAM policy for.

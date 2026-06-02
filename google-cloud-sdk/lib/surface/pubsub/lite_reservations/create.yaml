@@ -13,7 +13,7 @@ request:
   collection: pubsublite.admin.projects.locations.reservations
   method: create
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
 
 arguments:
   resource:
@@ -23,6 +23,6 @@ arguments:
     is_positional: false
 
   params:
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:reservation-name
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:throughput-capacity
-    required: true
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:reservation-name
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:throughput-capacity
+      required: true

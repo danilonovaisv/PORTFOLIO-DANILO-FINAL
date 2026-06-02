@@ -43,4 +43,4 @@ options described in `service.proto`, and outputs a much more thorough
 `Service` descriptor based on the information it infers from the protos
 themselves.
 
-  [api-compiler]: https://github.com/googleapis/api-compiler
+[api-compiler]: https://github.com/googleapis/api-compiler

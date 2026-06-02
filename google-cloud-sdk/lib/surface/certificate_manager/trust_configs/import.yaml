@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a TrustConfig.
   examples: |
-      To import a TrustConfig from a YAML file, run:
+    To import a TrustConfig from a YAML file, run:
 
-        $ {command} my-trust-config --source=my-trust-config.yaml --location=global
+      $ {command} my-trust-config --source=my-trust-config.yaml --location=global
 
 request:
   collection: certificatemanager.projects.locations.trustConfigs
@@ -19,13 +19,13 @@ arguments:
     help_text: |
       Name of the TrustConfig to import.
   params:
-  - arg_name: update-mask
-    api_field: updateMask
-    help_text: |
-      Update mask used to specify fields to be overwritten in the TrustConfig by import.
-      TrustConfig must already exist. Fields specified in the update-mask are relative to the
-      TrustConfig. The flag can be a comma-separated list of updatable non-nested fields,
-      e.g. description or trust_stores. Valid example: --update-mask=description,trust_stores.
+    - arg_name: update-mask
+      api_field: updateMask
+      help_text: |
+        Update mask used to specify fields to be overwritten in the TrustConfig by import.
+        TrustConfig must already exist. Fields specified in the update-mask are relative to the
+        TrustConfig. The flag can be a comma-separated list of updatable non-nested fields,
+        e.g. description or trust_stores. Valid example: --update-mask=description,trust_stores.
 
 async:
   collection: certificatemanager.projects.locations.operations

@@ -24,6 +24,6 @@ response:
   id_field: name
 output:
   format: |
-     table(
-        name.basename():label=NAME, create_time, connection, adminNetwork, nccHub, multicastDomainGroup
-      )
+    table(
+       name.basename():label=NAME, create_time, connection, adminNetwork, nccHub, multicastDomainGroup
+     )

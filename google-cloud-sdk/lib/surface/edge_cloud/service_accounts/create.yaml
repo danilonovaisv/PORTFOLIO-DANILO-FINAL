@@ -18,10 +18,10 @@
       help_text: Google Distributed Cloud Service Account
       spec: !REF googlecloudsdk.command_lib.edge_cloud.service_account.resources:serviceAccount
     params:
-    - arg_name: zone
-      api_field: serviceAccount.zone
-      required: true
-      help_text: Google Distributed Cloud zone name.
+      - arg_name: zone
+        api_field: serviceAccount.zone
+        required: true
+        help_text: Google Distributed Cloud zone name.
 
   async:
     collection: edgecontainer.projects.locations.operations

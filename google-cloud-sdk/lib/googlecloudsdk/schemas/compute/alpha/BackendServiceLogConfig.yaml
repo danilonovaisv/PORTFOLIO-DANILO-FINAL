@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha BackendServiceLogConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -39,10 +39,10 @@ properties:
       EXCLUDE_ALL_OPTIONAL.
     type: string
     enum:
-    - CUSTOM
-    - EXCLUDE_ALL_OPTIONAL
-    - INCLUDE_ALL_OPTIONAL
-    - UNSPECIFIED_OPTIONAL_MODE
+      - CUSTOM
+      - EXCLUDE_ALL_OPTIONAL
+      - INCLUDE_ALL_OPTIONAL
+      - UNSPECIFIED_OPTIONAL_MODE
   optionalFields:
     description: |-
       This field can only be specified if logging is enabled for this backend
@@ -60,10 +60,10 @@ properties:
       EXCLUDE_ALL_OPTIONAL.
     type: string
     enum:
-    - CUSTOM
-    - EXCLUDE_ALL_OPTIONAL
-    - INCLUDE_ALL_OPTIONAL
-    - UNSPECIFIED_OPTIONAL_MODE
+      - CUSTOM
+      - EXCLUDE_ALL_OPTIONAL
+      - INCLUDE_ALL_OPTIONAL
+      - UNSPECIFIED_OPTIONAL_MODE
   sampleRate:
     description: |-
       This field can only be specified if logging is enabled for this

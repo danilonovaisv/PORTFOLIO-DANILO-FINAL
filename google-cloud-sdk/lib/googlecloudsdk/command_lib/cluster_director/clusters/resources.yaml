@@ -17,25 +17,25 @@ projects_locations:
   plural_name: locations
   collection: hypercomputecluster.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_clusters:
   name: cluster
   plural_name: clusters
   collection: hypercomputecluster.projects.locations.clusters
   attributes:
-  - *project
-  - *location
-  - &cluster
-    parameter_name: clustersId
-    attribute_name: cluster
-    help: The cluster id of the {resource} resource.
+    - *project
+    - *location
+    - &cluster
+      parameter_name: clustersId
+      attribute_name: cluster
+      help: The cluster id of the {resource} resource.
   disable_auto_completers: true

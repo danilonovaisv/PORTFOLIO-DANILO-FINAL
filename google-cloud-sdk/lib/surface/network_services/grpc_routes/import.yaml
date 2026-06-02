@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a grpc route.
   examples: |
-      To import a grpc route named 'my-grpc-route' from a YAML file, run:
+    To import a grpc route named 'my-grpc-route' from a YAML file, run:
 
-        $ {command} my-grpc-route --source=my-grpc-route.yaml --location=global
+      $ {command} my-grpc-route --source=my-grpc-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.grpcRoutes

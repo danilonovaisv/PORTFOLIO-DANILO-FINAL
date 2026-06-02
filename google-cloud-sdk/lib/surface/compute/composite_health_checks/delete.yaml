@@ -1,7 +1,7 @@
 release_tracks: [ALPHA, BETA, GA]
 help_text:
-  brief: "Delete a composite health check."
-  description: "Delete a composite health check."
+  brief: 'Delete a composite health check.'
+  description: 'Delete a composite health check.'
   examples: |
     To delete a single composite health check, run the following command:
 

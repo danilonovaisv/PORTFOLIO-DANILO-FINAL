@@ -29,27 +29,27 @@
 
   arguments:
     params:
-    - api_field: requests.inputConfig.gcsSource
-      arg_name: input_file
-      is_positional: true
-      help_text: |
-        Google Cloud Storage location to read the input from. It must be in
-        Google Cloud Storage format (gs://bucket/object)
-      processor: googlecloudsdk.command_lib.ml.vision.util:GetGcsSourceFromPath
-    - api_field: requests.outputConfig.gcsDestination
-      arg_name: output_path
-      is_positional: true
-      help_text: |
-        Google Cloud Storage location to store the output file. It must be in
-        Google Cloud Storage format (gs://bucket/object)
-      processor: googlecloudsdk.command_lib.ml.vision.util:GetGcsDestinationFromPath
-    - api_field: requests.outputConfig.batchSize
-      arg_name: batch-size
-      help_text: |
-        Maximum number of response protos to put into each output JSON file on
-        Google Cloud Storage.
-        The valid range is [1, 100]. If not specified, the default value is 20.
-    - _COMMON_: args.model_field
+      - api_field: requests.inputConfig.gcsSource
+        arg_name: input_file
+        is_positional: true
+        help_text: |
+          Google Cloud Storage location to read the input from. It must be in
+          Google Cloud Storage format (gs://bucket/object)
+        processor: googlecloudsdk.command_lib.ml.vision.util:GetGcsSourceFromPath
+      - api_field: requests.outputConfig.gcsDestination
+        arg_name: output_path
+        is_positional: true
+        help_text: |
+          Google Cloud Storage location to store the output file. It must be in
+          Google Cloud Storage format (gs://bucket/object)
+        processor: googlecloudsdk.command_lib.ml.vision.util:GetGcsDestinationFromPath
+      - api_field: requests.outputConfig.batchSize
+        arg_name: batch-size
+        help_text: |
+          Maximum number of response protos to put into each output JSON file on
+          Google Cloud Storage.
+          The valid range is [1, 100]. If not specified, the default value is 20.
+      - _COMMON_: args.model_field
 
   output:
     format: json

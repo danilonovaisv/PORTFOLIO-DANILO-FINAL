@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta OnInstanceStopAction export schema
 description: A gcloud export/import command YAML validation schema.
@@ -28,10 +28,10 @@ properties:
   discardLocalSsd:
     type: boolean
     description: If set to false, when the VM's terminationTimestamp is reached,
-          Compute Engine will include the --discard-local-ssd=false flag in the
-          automatic termination command. The --discard-local-ssd=false flag
-          (https://cloud.google.com/compute/docs/disks/local-ssd#stop_instance)
-          preserves local SSD data by migrating it to persistent storage until
-          you rerun the VM. You can only use this flag if the VM uses
-          --termination-action=STOP (default) and either --max-run-duration or
-          --termination-time.
+      Compute Engine will include the --discard-local-ssd=false flag in the
+      automatic termination command. The --discard-local-ssd=false flag
+      (https://cloud.google.com/compute/docs/disks/local-ssd#stop_instance)
+      preserves local SSD data by migrating it to persistent storage until
+      you rerun the VM. You can only use this flag if the VM uses
+      --termination-action=STOP (default) and either --max-run-duration or
+      --termination-time.

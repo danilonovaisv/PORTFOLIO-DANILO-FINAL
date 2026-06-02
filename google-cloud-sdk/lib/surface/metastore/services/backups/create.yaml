@@ -27,10 +27,10 @@
         you want to create.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:backup
     params:
-    - arg_name: description
-      api_field: backup.description
-      help_text: |
-        The description of this backup.
+      - arg_name: description
+        api_field: backup.description
+        help_text: |
+          The description of this backup.
 
   async:
     collection: metastore.projects.locations.operations

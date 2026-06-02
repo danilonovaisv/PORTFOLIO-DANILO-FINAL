@@ -18,8 +18,8 @@
     collection: mediaasset.projects.locations.assetTypes.assets
     method: create
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.assets.hooks:AddParentInfoToAssetRequests
-    - googlecloudsdk.command_lib.media.asset.assets.hooks:ParseAssetConfigFile
+      - googlecloudsdk.command_lib.media.asset.assets.hooks:AddParentInfoToAssetRequests
+      - googlecloudsdk.command_lib.media.asset.assets.hooks:ParseAssetConfigFile
     ALPHA:
       api_version: v1alpha
 
@@ -29,10 +29,10 @@
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:asset
 
     params:
-    - _REF_: googlecloudsdk.command_lib.media.asset.flags:asset-config-file
+      - _REF_: googlecloudsdk.command_lib.media.asset.flags:asset-config-file
     labels:
       api_field: asset.labels
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.media.asset.assets.hooks:ProcessOutput
+      - googlecloudsdk.command_lib.media.asset.assets.hooks:ProcessOutput

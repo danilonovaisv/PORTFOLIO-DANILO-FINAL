@@ -5,9 +5,9 @@ help_text:
   description: |
     Import an authorization policy.
   examples: |
-      To import an authorization policy from a YAML file, run:
+    To import an authorization policy from a YAML file, run:
 
-        $ {command} my-authz-policy --source=my-authz-policy.yaml --location=global
+      $ {command} my-authz-policy --source=my-authz-policy.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.authorizationPolicies

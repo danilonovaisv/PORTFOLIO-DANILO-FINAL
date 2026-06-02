@@ -1,6 +1,6 @@
 - release_tracks: [ALPHA, GA]
   help_text:
-    brief:  Describe a Cloud Security Command Center (SCC) posture long running operation.
+    brief: Describe a Cloud Security Command Center (SCC) posture long running operation.
     description: Describe a Cloud Security Command Center (SCC) posture long running operation.
     examples: |
       To return long running operation status for operation (operation-1694515698847-605272e4bcd7c-f93dade6-067467ae) of parent organizations/123/locations/global, run:
@@ -17,12 +17,12 @@
 
   arguments:
     params:
-    - arg_name: operation_name
-      api_field: name
-      is_positional: true
-      required: true
-      help_text: |
-        Relative resource name of the operation, of the format: organizations/<organizationID>/locations/<location>/operations/<operationID>.
+      - arg_name: operation_name
+        api_field: name
+        is_positional: true
+        required: true
+        help_text: |
+          Relative resource name of the operation, of the format: organizations/<organizationID>/locations/<location>/operations/<operationID>.
 
   output:
     format: yaml

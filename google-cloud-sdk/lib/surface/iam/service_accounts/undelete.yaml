@@ -14,14 +14,14 @@
 
   arguments:
     params:
-    - arg_name: account_id
-      api_field: name
-      required: true
-      is_positional: true
-      help_text: |
+      - arg_name: account_id
+        api_field: name
+        required: true
+        is_positional: true
+        help_text: |
           The deleted service account's unique ID must be provided when using the undelete command.
           Unique IDs are a 21 digit number, such as 103271949540120710052.
-      processor: googlecloudsdk.command_lib.iam.hooks:CreateFullServiceAccountNameFromId
+        processor: googlecloudsdk.command_lib.iam.hooks:CreateFullServiceAccountNameFromId
   request:
     collection: iam.projects.serviceAccounts
     disable_resource_check: true

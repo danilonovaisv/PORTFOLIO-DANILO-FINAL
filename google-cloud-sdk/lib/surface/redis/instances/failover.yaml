@@ -24,18 +24,18 @@ arguments:
       Arguments and flags that specify the standard tier Cloud Memorystore for Redis instance you
       want to failover.
   params:
-  - arg_name: data-protection-mode
-    api_field: failoverInstanceRequest.dataProtectionMode
-    choices:
-    - arg_value: force-data-loss
-      enum_value: FORCE_DATA_LOSS
-      help_text: Failover without data loss protection. Can cause significant data loss.
-    - arg_value: limited-data-loss
-      enum_value: LIMITED_DATA_LOSS
-      help_text: Failover with data loss protection that ensures loss is within system thresholds.
-    help_text: |
-      Data protection mode to use for the failover. If not specified, defaults to
-      'limited-data-loss'.
+    - arg_name: data-protection-mode
+      api_field: failoverInstanceRequest.dataProtectionMode
+      choices:
+        - arg_value: force-data-loss
+          enum_value: FORCE_DATA_LOSS
+          help_text: Failover without data loss protection. Can cause significant data loss.
+        - arg_value: limited-data-loss
+          enum_value: LIMITED_DATA_LOSS
+          help_text: Failover with data loss protection that ensures loss is within system thresholds.
+      help_text: |
+        Data protection mode to use for the failover. If not specified, defaults to
+        'limited-data-loss'.
 
 input:
   confirmation_prompt: |-

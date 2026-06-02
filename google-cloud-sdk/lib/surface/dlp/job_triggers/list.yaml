@@ -21,8 +21,8 @@
     collection: dlp.projects.jobTriggers
     api_version: v2
     modify_request_hooks:
-    - googlecloudsdk.command_lib.dlp.hooks:SetRequestParent
-    - googlecloudsdk.command_lib.dlp.hooks:SetOrderByFromSortBy
+      - googlecloudsdk.command_lib.dlp.hooks:SetRequestParent
+      - googlecloudsdk.command_lib.dlp.hooks:SetOrderByFromSortBy
   response:
     id_field: name
 
@@ -31,7 +31,6 @@
       help_text: The project to list job triggers for.
       spec: !REF googlecloudsdk.command_lib.dlp.resources:project
       removed_flags: [project]
-
 
   output:
     format: |

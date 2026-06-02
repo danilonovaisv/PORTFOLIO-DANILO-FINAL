@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 ForwardingRule export schema
 description: A gcloud export/import command YAML validation schema.
@@ -42,13 +42,13 @@ properties:
       s_from_the_load_balancer_to_the_backends).
     type: string
     enum:
-    - AH
-    - ESP
-    - ICMP
-    - L3_DEFAULT
-    - SCTP
-    - TCP
-    - UDP
+      - AH
+      - ESP
+      - ICMP
+      - L3_DEFAULT
+      - SCTP
+      - TCP
+      - UDP
   allPorts:
     description: |-
       The ports, portRange, and allPorts fields are mutually exclusive. Only
@@ -106,9 +106,9 @@ properties:
       EXTERNAL or PREPARE can be used to migrate all traffic back to EXTERNAL.
     type: string
     enum:
-    - PREPARE
-    - TEST_ALL_TRAFFIC
-    - TEST_BY_PERCENTAGE
+      - PREPARE
+      - TEST_ALL_TRAFFIC
+      - TEST_BY_PERCENTAGE
   externalManagedBackendBucketMigrationTestingPercentage:
     description: |-
       Determines the fraction of requests to backend buckets that should be
@@ -135,9 +135,9 @@ properties:
       are IPV4 or IPV6.
     type: string
     enum:
-    - IPV4
-    - IPV6
-    - UNSPECIFIED_VERSION
+      - IPV4
+      - IPV6
+      - UNSPECIFIED_VERSION
   isMirroringCollector:
     description: |-
       Indicates whether or not this load balancer can be used as a collector for
@@ -168,12 +168,12 @@ properties:
       rules, refer to Forwarding rule concepts.
     type: string
     enum:
-    - EXTERNAL
-    - EXTERNAL_MANAGED
-    - INTERNAL
-    - INTERNAL_MANAGED
-    - INTERNAL_SELF_MANAGED
-    - INVALID
+      - EXTERNAL
+      - EXTERNAL_MANAGED
+      - INTERNAL
+      - INTERNAL_MANAGED
+      - INTERNAL_SELF_MANAGED
+      - INVALID
   metadataFilters:
     description: |-
       Opaque filter criteria used by load balancer to restrict routing
@@ -229,10 +229,10 @@ properties:
       Address.
     type: string
     enum:
-    - FIXED_STANDARD
-    - PREMIUM
-    - STANDARD
-    - STANDARD_OVERRIDES_FIXED_STANDARD
+      - FIXED_STANDARD
+      - PREMIUM
+      - STANDARD
+      - STANDARD_OVERRIDES_FIXED_STANDARD
   noAutomateDnsZone:
     description: |-
       This is used in PSC consumer ForwardingRule to control whether it
@@ -281,12 +281,12 @@ properties:
     description: A PscConnectionStatusValueValuesEnum attribute.
     type: string
     enum:
-    - ACCEPTED
-    - CLOSED
-    - NEEDS_ATTENTION
-    - PENDING
-    - REJECTED
-    - STATUS_UNSPECIFIED
+      - ACCEPTED
+      - CLOSED
+      - NEEDS_ATTENTION
+      - PENDING
+      - REJECTED
+      - STATUS_UNSPECIFIED
   serviceDirectoryRegistrations:
     description: |-
       Service Directory resources to register this forwarding rule with.

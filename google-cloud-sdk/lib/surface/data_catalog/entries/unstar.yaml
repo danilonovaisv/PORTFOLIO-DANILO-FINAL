@@ -11,8 +11,8 @@ help_text:
 
 deprecate:
   is_removed: false
-  warning: "This command is deprecated."
-  error: "This command has been removed."
+  warning: 'This command is deprecated.'
+  error: 'This command has been removed.'
 
 request:
   api_version: v1
@@ -27,4 +27,4 @@ arguments:
 
 response:
   modify_response_hooks:
-  - googlecloudsdk.command_lib.data_catalog.entries.util:LogUnstarSuccess
+    - googlecloudsdk.command_lib.data_catalog.entries.util:LogUnstarSuccess

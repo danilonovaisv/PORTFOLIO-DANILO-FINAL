@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha HaControllerNetworkingAutoConfigurationInternal export schema
 description: A gcloud export/import command YAML validation schema.
@@ -19,6 +19,6 @@ properties:
       naming consistent with NetworkInterface configuration on Instances.
     type: string
     enum:
-    - IPV4_IPV6
-    - IPV4_ONLY
-    - IPV6_ONLY
+      - IPV4_IPV6
+      - IPV4_ONLY
+      - IPV6_ONLY

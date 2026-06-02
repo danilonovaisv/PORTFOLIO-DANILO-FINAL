@@ -17,10 +17,10 @@
       help_text: Repository to create.
       spec: !REF googlecloudsdk.command_lib.cloudbuild.resources_v2:repository
     params:
-    - api_field: repository.remoteUri
-      arg_name: remote-uri
-      help_text: The remote git clone URL of the repository.
-      required: true
+      - api_field: repository.remoteUri
+        arg_name: remote-uri
+        help_text: The remote git clone URL of the repository.
+        required: true
 
   async:
     collection: cloudbuild.projects.locations.operations

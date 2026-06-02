@@ -13,7 +13,7 @@
     collection: remotebuildexecution.projects.instances
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.command_lib.remote_build_execution.instance_update_util:RemoveZoneDrains
+      - googlecloudsdk.command_lib.remote_build_execution.instance_update_util:RemoveZoneDrains
 
   async:
     collection: remotebuildexecution.projects.operations

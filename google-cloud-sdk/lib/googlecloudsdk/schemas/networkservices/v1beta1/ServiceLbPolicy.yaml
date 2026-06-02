@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1beta1 ServiceLbPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -51,11 +51,11 @@ properties:
       WATERFALL_BY_REGION.
     type: string
     enum:
-    - LOAD_BALANCING_ALGORITHM_UNSPECIFIED
-    - SPRAY_TO_REGION
-    - SPRAY_TO_WORLD
-    - WATERFALL_BY_REGION
-    - WATERFALL_BY_ZONE
+      - LOAD_BALANCING_ALGORITHM_UNSPECIFIED
+      - SPRAY_TO_REGION
+      - SPRAY_TO_WORLD
+      - WATERFALL_BY_REGION
+      - WATERFALL_BY_ZONE
   name:
     description: |-
       Identifier. Name of the ServiceLbPolicy resource. It matches pattern

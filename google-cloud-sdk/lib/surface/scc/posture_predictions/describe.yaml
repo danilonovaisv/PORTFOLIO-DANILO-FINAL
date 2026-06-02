@@ -26,6 +26,6 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.scc.resources:prediction
       help_text: |
-          Posture prediction resource to be described. For example `organizations/123/locations/global/predictions/abcd-ef`.
+        Posture prediction resource to be described. For example `organizations/123/locations/global/predictions/abcd-ef`.
   output:
     format: yaml

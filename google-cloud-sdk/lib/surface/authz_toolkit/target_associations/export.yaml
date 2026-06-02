@@ -7,9 +7,9 @@ help_text:
   description: |
     Export the specified target association.
   examples: |
-      To export a target association named `my-target_association`, run:
+    To export a target association named `my-target_association`, run:
 
-        $ {command} my-target_association --destination=my-target_association.yaml --location=us-central1
+      $ {command} my-target_association --destination=my-target_association.yaml --location=us-central1
 
 arguments:
   resource:

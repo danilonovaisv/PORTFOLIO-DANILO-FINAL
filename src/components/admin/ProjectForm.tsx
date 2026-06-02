@@ -3,7 +3,12 @@
 import { useMemo, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, FormProvider, type Resolver, type SubmitHandler } from 'react-hook-form';
+import {
+  useForm,
+  FormProvider,
+  type Resolver,
+  type SubmitHandler,
+} from 'react-hook-form';
 
 import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag, DbLandingPage } from '@/types/admin';
@@ -18,9 +23,7 @@ import {
   projectFormSchema,
   type ProjectFormValues,
 } from '@/lib/admin/schemas/project';
-import {
-  DEFAULT_HOME_FEATURED_CARD_STYLE,
-} from '@/lib/portfolio/home-featured';
+import { DEFAULT_HOME_FEATURED_CARD_STYLE } from '@/lib/portfolio/home-featured';
 import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
@@ -52,12 +55,12 @@ export function ProjectForm({
   const hasExistingSquare = Boolean(
     project?.url_square ?? project?.hero_image_path
   );
-  
+
   const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
   const [squareVariant, setSquareVariant] = useState<File | null>(null);
   const [homeFeaturedLogoVariant, setHomeFeaturedLogoVariant] =
     useState<File | null>(null);
-  
+
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
     Array.isArray(project?.gallery)
       ? project?.gallery.map((g, i) => ({
@@ -69,13 +72,13 @@ export function ProjectForm({
         }))
       : []
   );
-  
+
   const [availableTags, setAvailableTags] = useState<DbTag[]>(() =>
     [...tags].sort((a, b) =>
       a.label.localeCompare(b.label, 'pt-BR', { sensitivity: 'base' })
     )
   );
-  
+
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -352,7 +355,10 @@ export function ProjectForm({
             System_Publish_State
           </label>
           <label className="flex items-center gap-2 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
-            <input type="checkbox" {...form.register('featured_on_portfolio')} />
+            <input
+              type="checkbox"
+              {...form.register('featured_on_portfolio')}
+            />
             System_Feature_Override: PORTFOLIO_HIGHLIGHT
           </label>
           <label className="flex flex-col gap-1 font-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">
@@ -408,8 +414,8 @@ export function ProjectForm({
               ))}
             </select>
             <p className="font-mono text-[9px] text-white/20 uppercase tracking-tight italic">
-              System_Route_Note: When linked, project entry triggers landing page
-              routing instead of modal kernel.
+              System_Route_Note: When linked, project entry triggers landing
+              page routing instead of modal kernel.
             </p>
           </label>
         </div>

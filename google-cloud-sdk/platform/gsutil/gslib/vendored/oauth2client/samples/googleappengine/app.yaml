@@ -5,6 +5,5 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /.*
-  script: call_compute_service_from_gae.app
-
+  - url: /.*
+    script: call_compute_service_from_gae.app

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha HaController export schema
 description: A gcloud export/import command YAML validation schema.
@@ -21,8 +21,8 @@ properties:
     description: Indicates how failover should be initiated.
     type: string
     enum:
-    - FAILOVER_INITIATION_UNSPECIFIED
-    - MANUAL_ONLY
+      - FAILOVER_INITIATION_UNSPECIFIED
+      - MANUAL_ONLY
   instanceName:
     description: |-
       Name of the instance that HaController is in charge of. If not
@@ -44,8 +44,8 @@ properties:
     description: Indicates the capacity guarantees in the secondary zone.
     type: string
     enum:
-    - BEST_EFFORT_CAPACITY
-    - FAILOVER_CAPACITY_UNSPECIFIED
+      - BEST_EFFORT_CAPACITY
+      - FAILOVER_CAPACITY_UNSPECIFIED
   zoneConfigurations:
     description: 'Map of zone configurations Key: name of the zone'
     $ref: ZoneConfigurationsValue.yaml

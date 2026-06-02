@@ -29,8 +29,8 @@
     # extracted from the response). This hook replaces 'locations/{zone}' with
     # 'locations/{region}'.
     modify_request_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.container.locations:ReplaceResourceZoneWithRegion
+      - googlecloudsdk.command_lib.edge_cloud.container.locations:ReplaceResourceZoneWithRegion
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.container.locations:ExtractZoneFromLocation
+      - googlecloudsdk.command_lib.edge_cloud.container.locations:ExtractZoneFromLocation

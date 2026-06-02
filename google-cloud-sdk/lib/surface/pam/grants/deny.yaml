@@ -18,9 +18,9 @@
       api_version: v1
     method: deny
     collection:
-    - privilegedaccessmanager.projects.locations.entitlements.grants
-    - privilegedaccessmanager.folders.locations.entitlements.grants
-    - privilegedaccessmanager.organizations.locations.entitlements.grants
+      - privilegedaccessmanager.projects.locations.entitlements.grants
+      - privilegedaccessmanager.folders.locations.entitlements.grants
+      - privilegedaccessmanager.organizations.locations.entitlements.grants
 
   arguments:
     resource:
@@ -28,7 +28,7 @@
       help_text: |
         Name of the grant to deny.
     params:
-    - api_field: denyGrantRequest.reason
-      arg_name: reason
-      help_text: |
-        Reason for denying the grant.
+      - api_field: denyGrantRequest.reason
+        arg_name: reason
+        help_text: |
+          Reason for denying the grant.

@@ -43,8 +43,8 @@
     resource_method_params:
       googleFirestoreAdminV1Field.name: '{__relative_name__}'
     modify_request_hooks:
-    - googlecloudsdk.command_lib.firestore.util:ValidateFieldUpdateRequest
-    - googlecloudsdk.command_lib.firestore.util:AddIndexConfigToUpdateRequest
+      - googlecloudsdk.command_lib.firestore.util:ValidateFieldUpdateRequest
+      - googlecloudsdk.command_lib.firestore.util:AddIndexConfigToUpdateRequest
 
   async:
     collection: firestore.projects.databases.operations
@@ -62,10 +62,10 @@
       spec: !REF googlecloudsdk.command_lib.firestore.resources:field
 
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - _REF_: googlecloudsdk.command_lib.firestore.flags:index
-        - _REF_: googlecloudsdk.command_lib.firestore.flags:disable_indexes
-        - _REF_: googlecloudsdk.command_lib.firestore.flags:clear_exemption
+      - group:
+          mutex: true
+          required: true
+          params:
+            - _REF_: googlecloudsdk.command_lib.firestore.flags:index
+            - _REF_: googlecloudsdk.command_lib.firestore.flags:disable_indexes
+            - _REF_: googlecloudsdk.command_lib.firestore.flags:clear_exemption

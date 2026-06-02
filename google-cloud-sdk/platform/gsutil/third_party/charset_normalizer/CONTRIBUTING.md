@@ -6,14 +6,14 @@ and the fact that you’re even considering contributing to this project is very
 
 ## Questions
 
-The GitHub issue tracker is for *bug reports* and *feature requests*.
+The GitHub issue tracker is for _bug reports_ and _feature requests_.
 Questions are allowed only when no answer are provided in docs.
 
 ## Good Bug Reports
 
 Please be aware of the following things when filing bug reports:
 
-1. Avoid raising duplicate issues. *Please* use the GitHub issue search feature
+1. Avoid raising duplicate issues. _Please_ use the GitHub issue search feature
    to check whether your bug report or feature request has been mentioned in
    the past. Duplicate bug reports and feature requests are a huge maintenance
    burden on the limited resources of the project. If it is clear from your
@@ -21,14 +21,13 @@ Please be aware of the following things when filing bug reports:
    if searching for a selection of words in your issue title would have found
    the duplicate then the issue will likely be closed extremely abruptly.
 2. When filing bug reports about exceptions or tracebacks, please include the
-   *complete* traceback. Partial tracebacks, or just the exception text, are
+   _complete_ traceback. Partial tracebacks, or just the exception text, are
    not helpful. Issues that do not contain complete tracebacks may be closed
    without warning.
 3. Make sure you provide a suitable amount of information to work with. This
    means you should provide:
-
    - Guidance on **how to reproduce the issue**. Ideally, this should be a
-     *small* code sample that can be run immediately by the maintainers.
+     _small_ code sample that can be run immediately by the maintainers.
      Failing that, let us know what you're doing, how often it happens, what
      environment you're using, etc. Be thorough: it prevents us needing to ask
      further questions.
@@ -36,7 +35,7 @@ Please be aware of the following things when filing bug reports:
      what are we expecting to happen? What does "success" look like for your
      code?
    - Tell us **what actually happens**. It's not helpful for you to say "it
-     doesn't work" or "it fails". Tell us *how* it fails: do you get an
+     doesn't work" or "it fails". Tell us _how_ it fails: do you get an
      exception? A None answer? How was the actual result
      different from your expected result?
    - Tell us **what version of Charset Normalizer you're using**, and
@@ -47,7 +46,6 @@ Please be aware of the following things when filing bug reports:
    fix your problem. If we ask you to clarify these, and you never respond, we
    will close your issue without fixing it.
 
-
 ## What PR are we accepting?
 
 Mostly anything, from cosmetic to the detection-mechanism improvement at the solo condition that you do not break
@@ -55,14 +53,16 @@ the backward-compatibility.
 
 ## What PR may be doomed?
 
-  - Add support for a Python unsupported charset/encoding
-> If you looked carefully at the project, you would see that it aims to be generic whenever possible. So adding a specific prober is out of the question.
+- Add support for a Python unsupported charset/encoding
 
-  - Of course, if the CI/CD are failing
-> Getting the discussion started often mean doing the minimum effort to get it Green! (Be reassured, maintainers will look into it, given a reasonable amount of time)
+  > If you looked carefully at the project, you would see that it aims to be generic whenever possible. So adding a specific prober is out of the question.
 
-  - Submitting a PR without any description OR viable commit description
-> This is obvious, maintainers need to understand as fast as possible what are you trying to submit without putting too much effort.
+- Of course, if the CI/CD are failing
+
+  > Getting the discussion started often mean doing the minimum effort to get it Green! (Be reassured, maintainers will look into it, given a reasonable amount of time)
+
+- Submitting a PR without any description OR viable commit description
+  > This is obvious, maintainers need to understand as fast as possible what are you trying to submit without putting too much effort.
 
 ## How to run tests locally?
 

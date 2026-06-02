@@ -19,8 +19,7 @@
     id_field: ipAddress
 
   arguments:
-    params:
-      []
+    params: []
 
   output:
     format: yaml

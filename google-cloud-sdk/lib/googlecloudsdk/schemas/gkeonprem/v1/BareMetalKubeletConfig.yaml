@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkeonprem v1 BareMetalKubeletConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -50,8 +50,8 @@ properties:
       policies/#configuration.
     type: string
     enum:
-    - NONE
-    - STATIC
+      - NONE
+      - STATIC
   featureGates:
     description: |-
       A map of feature names to bools that enable or disable experimental

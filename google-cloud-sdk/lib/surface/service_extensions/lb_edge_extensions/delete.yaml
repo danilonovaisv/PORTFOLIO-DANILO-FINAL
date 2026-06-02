@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `LbEdgeExtension` resource.
   examples: |
-      To delete a global `LbEdgeExtension` resource named
-      `my-edge-extension`, run:
+    To delete a global `LbEdgeExtension` resource named
+    `my-edge-extension`, run:
 
-        $ {command} my-edge-extension --location=global
+      $ {command} my-edge-extension --location=global
 
 arguments:
   resource:

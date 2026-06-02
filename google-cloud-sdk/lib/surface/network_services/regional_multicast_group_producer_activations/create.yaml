@@ -18,21 +18,21 @@ arguments:
     help_text: |
       Name of the regional multicast group producer activation to be created.
   params:
-  - arg_name: regional-multicast-group-range-activation
-    api_field: regionalMulticastGroupProducerActivation.regionalMulticastGroupRangeActivation
-    help_text: The regional multicast group range activation to be used.
-    required: true
-  - arg_name: regional-multicast-producer-association
-    api_field: regionalMulticastGroupProducerActivation.regionalMulticastProducerAssociation
-    help_text: The regional multicast producer association to be used.
-    required: true
-  - arg_name: interconnect-attachments
-    api_field: regionalMulticastGroupProducerActivation.interconnectAttachments
-    repeated: true
-    help_text: The interconnect attachments to be used.
-  - arg_name: description
-    api_field: regionalMulticastGroupProducerActivation.description
-    help_text: The description for the regional multicast group producer activation.
+    - arg_name: regional-multicast-group-range-activation
+      api_field: regionalMulticastGroupProducerActivation.regionalMulticastGroupRangeActivation
+      help_text: The regional multicast group range activation to be used.
+      required: true
+    - arg_name: regional-multicast-producer-association
+      api_field: regionalMulticastGroupProducerActivation.regionalMulticastProducerAssociation
+      help_text: The regional multicast producer association to be used.
+      required: true
+    - arg_name: interconnect-attachments
+      api_field: regionalMulticastGroupProducerActivation.interconnectAttachments
+      repeated: true
+      help_text: The interconnect attachments to be used.
+    - arg_name: description
+      api_field: regionalMulticastGroupProducerActivation.description
+      help_text: The description for the regional multicast group producer activation.
   labels:
     api_field: regionalMulticastGroupProducerActivation.labels
 async:

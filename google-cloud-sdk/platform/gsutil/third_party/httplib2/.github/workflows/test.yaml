@@ -3,10 +3,10 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: "34 4 */7 * *" # every week, time chosen by RNG
+    - cron: '34 4 */7 * *' # every week, time chosen by RNG
 jobs:
   test:
-    name: "test ${{ matrix.py }}"
+    name: 'test ${{ matrix.py }}'
     continue-on-error: ${{ matrix.ignore-error }}
     runs-on: ubuntu-latest
     # https://github.community/t/duplicate-checks-on-push-and-pull-request-simultaneous-event/18012/5
@@ -50,7 +50,7 @@ jobs:
       - run: codecov --flags=$(echo ${{ matrix.py }} |tr -d -- '-.')
 
   test_py37_openssl11:
-    name: "TODO FIXME test py37-openssl11"
+    name: 'TODO FIXME test py37-openssl11'
     runs-on: ubuntu-latest
     # https://github.community/t/duplicate-checks-on-push-and-pull-request-simultaneous-event/18012/5
     # FIXME Permission denied /usr/local/lib/python3.8/dist-packages/

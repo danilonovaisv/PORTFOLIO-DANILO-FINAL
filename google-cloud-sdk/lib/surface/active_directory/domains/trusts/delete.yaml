@@ -35,10 +35,10 @@
     resource:
       spec: !REF googlecloudsdk.command_lib.active_directory.resources:domain
       help_text: |
-       Name of the Managed Microsoft AD domain you want to delete a trust from.
+        Name of the Managed Microsoft AD domain you want to delete a trust from.
     params:
-    - arg_name: target-domain-name
-      api_field: detachTrustRequest.trust.targetDomainName
-      required: true
-      help_text: |
-        Target domain name for the Managed Microsoft AD trust you want to delete.
+      - arg_name: target-domain-name
+        api_field: detachTrustRequest.trust.targetDomainName
+        required: true
+        help_text: |
+          Target domain name for the Managed Microsoft AD trust you want to delete.

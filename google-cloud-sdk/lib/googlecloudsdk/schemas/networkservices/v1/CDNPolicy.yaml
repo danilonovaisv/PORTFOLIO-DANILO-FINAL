@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 CDNPolicy export schema
 description: A gcloud export/import command YAML validation schema.
@@ -40,11 +40,11 @@ properties:
       client. Use client_ttl to override what is sent to the client.
     type: string
     enum:
-    - BYPASS_CACHE
-    - CACHE_ALL_STATIC
-    - CACHE_MODE_UNSPECIFIED
-    - FORCE_CACHE_ALL
-    - USE_ORIGIN_HEADERS
+      - BYPASS_CACHE
+      - CACHE_ALL_STATIC
+      - CACHE_MODE_UNSPECIFIED
+      - FORCE_CACHE_ALL
+      - USE_ORIGIN_HEADERS
   clientTtl:
     description: |-
       Specifies a separate client (such as browser client) TTL, separate from
@@ -142,10 +142,10 @@ properties:
       also logged.
     type: string
     enum:
-    - DISABLED
-    - REQUIRE_SIGNATURES
-    - REQUIRE_TOKENS
-    - SIGNED_REQUEST_MODE_UNSPECIFIED
+      - DISABLED
+      - REQUIRE_SIGNATURES
+      - REQUIRE_TOKENS
+      - SIGNED_REQUEST_MODE_UNSPECIFIED
   signedTokenOptions:
     description: |-
       Any additional options for signed tokens. `signed_token_options` can only

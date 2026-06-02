@@ -26,35 +26,34 @@
     api_version: v1
     method: get
     modify_request_hooks:
-    - googlecloudsdk.command_lib.scc.custom_modules.sha.request_hooks:GetSecurityHealthAnalyticsCustomModuleReqHook
+      - googlecloudsdk.command_lib.scc.custom_modules.sha.request_hooks:GetSecurityHealthAnalyticsCustomModuleReqHook
 
   arguments:
-
     params:
-    - arg_name: custom_module
-      api_field: name
-      is_positional: true
-      required: true
-      help_text: |
-        ID or the full resource name of the Security Health Analytics custom module. If you specify the full resource name, you do not need to specify the --organization, --folder, or --project flags.
+      - arg_name: custom_module
+        api_field: name
+        is_positional: true
+        required: true
+        help_text: |
+          ID or the full resource name of the Security Health Analytics custom module. If you specify the full resource name, you do not need to specify the --organization, --folder, or --project flags.
 
-    - group:
-        mutex: true
-        params:
-        - arg_name: organization
-          api_field: name
-          help_text: |
-            Organization from which to get the custom module details. Formatted as
-            `organizations/123` or just `123`.
+      - group:
+          mutex: true
+          params:
+            - arg_name: organization
+              api_field: name
+              help_text: |
+                Organization from which to get the custom module details. Formatted as
+                `organizations/123` or just `123`.
 
-        - arg_name: folder
-          api_field: name
-          help_text: |
-            Folder from which to get the custom module details. Formatted as `folders/456`
-            or just `456`.
+            - arg_name: folder
+              api_field: name
+              help_text: |
+                Folder from which to get the custom module details. Formatted as `folders/456`
+                or just `456`.
 
-        - arg_name: project
-          api_field: name
-          help_text: |
-            ID or number of the project from which to get the custom module details. Formatted as
-            `projects/789` or just `789`.
+            - arg_name: project
+              api_field: name
+              help_text: |
+                ID or number of the project from which to get the custom module details. Formatted as
+                `projects/789` or just `789`.

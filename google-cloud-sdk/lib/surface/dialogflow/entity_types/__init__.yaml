@@ -10,10 +10,10 @@ flags:
     action: store_true
     type: bool
     choices:
-    - enum_value: AUTO_EXPANSION_MODE_DEFAULT
-      arg_value: true
-    - enum_value: AUTO_EXPANSION_MODE_UNSPECIFIED
-      arg_value: false
+      - enum_value: AUTO_EXPANSION_MODE_DEFAULT
+        arg_value: true
+      - enum_value: AUTO_EXPANSION_MODE_UNSPECIFIED
+        arg_value: false
     help_text: |
       Whether or not the entity type can be automatically expanded to
       idenitify entities not explicitly included.

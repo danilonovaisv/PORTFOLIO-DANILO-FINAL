@@ -20,18 +20,18 @@
       help_text: |
         Arguments and flags that specify the Memorystore Redis cluster to create a backup for.
     params:
-    - arg_name: backup-id
-      api_field: backupClusterRequest.backupId
-      help_text: |
-        The ID of the backup.
-    - arg_name: ttl
-      api_field: backupClusterRequest.ttl
-      type: googlecloudsdk.core.util.times:ParseDuration
-      processor: googlecloudsdk.core.util.times:FormatDurationForJson
-      help_text: |
-        The time to live for the backup. The backup will be deleted automatically after the TTL
-        is reached. For example, "10d" for 10 days. The minimum value is 1 day. If not specified, the
-        default value is 100 years.
+      - arg_name: backup-id
+        api_field: backupClusterRequest.backupId
+        help_text: |
+          The ID of the backup.
+      - arg_name: ttl
+        api_field: backupClusterRequest.ttl
+        type: googlecloudsdk.core.util.times:ParseDuration
+        processor: googlecloudsdk.core.util.times:FormatDurationForJson
+        help_text: |
+          The time to live for the backup. The backup will be deleted automatically after the TTL
+          is reached. For example, "10d" for 10 days. The minimum value is 1 day. If not specified, the
+          default value is 100 years.
 
   async:
     collection: redis.projects.locations.operations

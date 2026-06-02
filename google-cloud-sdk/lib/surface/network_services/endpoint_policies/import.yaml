@@ -5,9 +5,9 @@ help_text:
   description: |
     Import an endpoint policy.
   examples: |
-      To import an endpoint policy named 'my-endpoint-policy' from a YAML file, run:
+    To import an endpoint policy named 'my-endpoint-policy' from a YAML file, run:
 
-        $ {command} my-endpoint-policy --source=my-endpoint-policy.yaml --location=global
+      $ {command} my-endpoint-policy --source=my-endpoint-policy.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.endpointPolicies

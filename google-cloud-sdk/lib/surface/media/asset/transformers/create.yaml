@@ -22,8 +22,8 @@
     collection: mediaasset.projects.locations.transformers
     method: create
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
-    - googlecloudsdk.command_lib.media.asset.transformers.hooks:ParseTransformerConfigFile
+      - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
+      - googlecloudsdk.command_lib.media.asset.transformers.hooks:ParseTransformerConfigFile
     ALPHA:
       api_version: v1alpha
 
@@ -33,11 +33,11 @@
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:transformer
 
     params:
-    - _REF_: googlecloudsdk.command_lib.media.asset.flags:create-transformer-configs-file
+      - _REF_: googlecloudsdk.command_lib.media.asset.flags:create-transformer-configs-file
 
     labels:
       api_field: transformer.labels
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.media.asset.transformers.hooks:ProcessOutput
+      - googlecloudsdk.command_lib.media.asset.transformers.hooks:ProcessOutput

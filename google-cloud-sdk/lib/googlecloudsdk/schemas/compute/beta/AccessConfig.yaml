@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta AccessConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -54,8 +54,8 @@ properties:
       networkTier associated with the Address resource owning that IP.
     type: string
     enum:
-    - PREMIUM
-    - STANDARD
+      - PREMIUM
+      - STANDARD
   publicPtrDomainName:
     description: |-
       The DNS domain name for the public PTR record. You can set this field only
@@ -71,4 +71,4 @@ properties:
       The type of configuration. The default and only option is ONE_TO_ONE_NAT.
     type: string
     enum:
-    - ONE_TO_ONE_NAT
+      - ONE_TO_ONE_NAT

@@ -14,7 +14,7 @@
   request:
     collection: dataplex.projects.locations.entryGroups.entries
     modify_request_hooks:
-    - googlecloudsdk.command_lib.dataplex.request_hooks:TransformEntryRootPath
+      - googlecloudsdk.command_lib.dataplex.request_hooks:TransformEntryRootPath
 
   arguments:
     resource:
@@ -22,6 +22,6 @@
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:entry
       is_positional: true
     params:
-    - !REF googlecloudsdk.command_lib.dataplex.flags:get_entry_view
-    - !REF googlecloudsdk.command_lib.dataplex.flags:aspect_types
-    - !REF googlecloudsdk.command_lib.dataplex.flags:paths
+      - !REF googlecloudsdk.command_lib.dataplex.flags:get_entry_view
+      - !REF googlecloudsdk.command_lib.dataplex.flags:aspect_types
+      - !REF googlecloudsdk.command_lib.dataplex.flags:paths

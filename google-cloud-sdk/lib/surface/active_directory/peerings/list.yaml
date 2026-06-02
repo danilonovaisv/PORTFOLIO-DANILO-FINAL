@@ -19,7 +19,7 @@
   request: &request
     collection: managedidentities.projects.locations.global.peerings
     modify_request_hooks:
-    - googlecloudsdk.command_lib.active_directory.util:AppendLocationsGlobalToParent
+      - googlecloudsdk.command_lib.active_directory.util:AppendLocationsGlobalToParent
     ALPHA:
       api_version: v1alpha1
     BETA:

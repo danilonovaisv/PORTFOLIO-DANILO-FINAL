@@ -26,23 +26,22 @@
 
   arguments:
     params:
-    - arg_name: job-type
-      api_field: type
-      is_positional: false
-      required: false
-      help_text: |
-        The type of Cloud DLP jobs to list.
-      default: inspect
-      choices:
-      - arg_value: inspect
-        enum_value: INSPECT_JOB
-      - arg_value: risk-analysis
-        enum_value: RISK_ANALYSIS_JOB
+      - arg_name: job-type
+        api_field: type
+        is_positional: false
+        required: false
+        help_text: |
+          The type of Cloud DLP jobs to list.
+        default: inspect
+        choices:
+          - arg_value: inspect
+            enum_value: INSPECT_JOB
+          - arg_value: risk-analysis
+            enum_value: RISK_ANALYSIS_JOB
 
     resource:
       help_text: The location to list jobs for.
       spec: !REF googlecloudsdk.command_lib.dlp.resources:location
-
 
   output:
     format: |

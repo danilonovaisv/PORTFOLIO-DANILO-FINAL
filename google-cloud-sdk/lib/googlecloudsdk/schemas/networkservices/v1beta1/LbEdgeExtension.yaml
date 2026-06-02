@@ -1,13 +1,13 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1beta1 LbEdgeExtension export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- extensionChains
-- forwardingRules
-- loadBalancingScheme
-- name
+  - extensionChains
+  - forwardingRules
+  - loadBalancingScheme
+  - name
 additionalProperties: false
 properties:
   COMMENT:
@@ -69,9 +69,9 @@ properties:
       balancing/docs/backend-service).
     type: string
     enum:
-    - EXTERNAL_MANAGED
-    - INTERNAL_MANAGED
-    - LOAD_BALANCING_SCHEME_UNSPECIFIED
+      - EXTERNAL_MANAGED
+      - INTERNAL_MANAGED
+      - LOAD_BALANCING_SCHEME_UNSPECIFIED
   name:
     description: |-
       Identifier. Name of the `LbEdgeExtension` resource in the

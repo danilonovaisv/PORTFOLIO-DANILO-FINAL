@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Import HL7v2 messages from Google Cloud Storage into a Cloud Healthcare API HL7v2 store.
+    brief: Import HL7v2 messages from Google Cloud Storage into a Cloud Healthcare API HL7v2 store.
     description: Import HL7v2 messages from Google Cloud Storage into a Cloud Healthcare API HL7v2 store.
     examples: |
       To import the HL7v2 messages from the existing bucket 'testGcsBucket' in the folder 'someFolder' into the HL7v2 store 'test-hl7v2-store', run:
@@ -24,13 +24,13 @@
       spec: !REF googlecloudsdk.command_lib.healthcare.resources:hl7v2_store
 
     params:
-    - arg_name: gcs-uri
-      api_field: importMessagesRequest.gcsSource.uri
-      required: true
-      help_text: |
-        Cloud Storage source data locations. Each Cloud Storage object should
-        be a text file that contains newline-delimited JSON objects. Each JSON
-        object has a data field that contains a base64-encoded HL7v2 message.
+      - arg_name: gcs-uri
+        api_field: importMessagesRequest.gcsSource.uri
+        required: true
+        help_text: |
+          Cloud Storage source data locations. Each Cloud Storage object should
+          be a text file that contains newline-delimited JSON objects. Each JSON
+          object has a data field that contains a base64-encoded HL7v2 message.
 
   async:
     collection: healthcare.projects.locations.datasets.operations

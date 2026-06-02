@@ -30,7 +30,7 @@
     collection: managedidentities.projects.locations.global.domains
     method: attachTrust
     modify_request_hooks:
-    - googlecloudsdk.command_lib.active_directory.trust_create_util:AddExtraTrustCreateArgs
+      - googlecloudsdk.command_lib.active_directory.trust_create_util:AddExtraTrustCreateArgs
 
   arguments:
     resource:
@@ -38,39 +38,39 @@
       help_text: |
         Name of the Managed Microsoft AD domain you want to create an AD trust from.
     params:
-    - arg_name: target-domain-name
-      api_field: attachTrustRequest.trust.targetDomainName
-      required: true
-      help_text: |
-        Target domain name for the Managed Microsoft AD Trust.
-    - arg_name: target-dns-ip-addresses
-      api_field: attachTrustRequest.trust.targetDnsIpAddresses
-      required: true
-      help_text: |
-        Target DNS server IP addresses that can resolve the target domain.
+      - arg_name: target-domain-name
+        api_field: attachTrustRequest.trust.targetDomainName
+        required: true
+        help_text: |
+          Target domain name for the Managed Microsoft AD Trust.
+      - arg_name: target-dns-ip-addresses
+        api_field: attachTrustRequest.trust.targetDnsIpAddresses
+        required: true
+        help_text: |
+          Target DNS server IP addresses that can resolve the target domain.
 
-        Only IPv4 is supported.
-    - arg_name: type
-      default: "FOREST"
-      api_field: attachTrustRequest.trust.trustType
-      help_text: |
-        Type of the trust. Must be FOREST or EXTERNAL. Default is FOREST.
-    - arg_name: direction
-      default: "BIDIRECTIONAL"
-      api_field: attachTrustRequest.trust.trustDirection
-      help_text: |
-        Direction of the trust.
+          Only IPv4 is supported.
+      - arg_name: type
+        default: 'FOREST'
+        api_field: attachTrustRequest.trust.trustType
+        help_text: |
+          Type of the trust. Must be FOREST or EXTERNAL. Default is FOREST.
+      - arg_name: direction
+        default: 'BIDIRECTIONAL'
+        api_field: attachTrustRequest.trust.trustDirection
+        help_text: |
+          Direction of the trust.
 
-        Must be one of: INBOUND, OUTBOUND, BIDIRECTIONAL. Default is BIDIRECTIONAL.
-    - arg_name: selective-authentication
-      default: false
-      api_field: attachTrustRequest.trust.selectiveAuthentication
-      help_text: |
-        If specified, trusted side will only have selective access to approved set of resources.
+          Must be one of: INBOUND, OUTBOUND, BIDIRECTIONAL. Default is BIDIRECTIONAL.
+      - arg_name: selective-authentication
+        default: false
+        api_field: attachTrustRequest.trust.selectiveAuthentication
+        help_text: |
+          If specified, trusted side will only have selective access to approved set of resources.
 
-        Otherwise, the trusted side has forest/domain wide access. Default is false.
-    - arg_name: handshake-secret
-      api_field: attachTrustRequest.trust.trustHandshakeSecret
-      help_text: |
-       Trust handshake secret with target domain. The secret will not be stored. If not specified,
-       command will prompt user for secret.
+          Otherwise, the trusted side has forest/domain wide access. Default is false.
+      - arg_name: handshake-secret
+        api_field: attachTrustRequest.trust.trustHandshakeSecret
+        help_text: |
+          Trust handshake secret with target domain. The secret will not be stored. If not specified,
+          command will prompt user for secret.

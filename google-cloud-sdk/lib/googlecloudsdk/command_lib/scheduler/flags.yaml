@@ -10,12 +10,12 @@ clearable_retry_attempts:
   group:
     mutex: true
     params:
-    - *retry_attempts
-    - arg_name: clear-max-retry-attempts
-      action: store_true
-      processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
-      help_text: |
-        Clear the field corresponding to `--max-retry-attempts`.
+      - *retry_attempts
+      - arg_name: clear-max-retry-attempts
+        action: store_true
+        processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
+        help_text: |
+          Clear the field corresponding to `--max-retry-attempts`.
 
 retry_duration: &retry_duration
   api_field: job.retryConfig.maxRetryDuration
@@ -33,12 +33,12 @@ clearable_retry_duration:
   group:
     mutex: true
     params:
-    - *retry_duration
-    - arg_name: clear-max-retry-duration
-      action: store_true
-      processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
-      help_text: |
-        Clear the field corresponding to `--max-retry-duration`.
+      - *retry_duration
+      - arg_name: clear-max-retry-duration
+        action: store_true
+        processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
+        help_text: |
+          Clear the field corresponding to `--max-retry-duration`.
 
 min_backoff: &min_backoff
   api_field: job.retryConfig.minBackoffDuration
@@ -54,12 +54,12 @@ clearable_min_backoff:
   group:
     mutex: true
     params:
-    - *min_backoff
-    - arg_name: clear-min-backoff
-      action: store_true
-      processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
-      help_text: |
-        Clear the field corresponding to `--min-backoff`.
+      - *min_backoff
+      - arg_name: clear-min-backoff
+        action: store_true
+        processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
+        help_text: |
+          Clear the field corresponding to `--min-backoff`.
 
 max_backoff: &max_backoff
   api_field: job.retryConfig.maxBackoffDuration
@@ -75,12 +75,12 @@ clearable_max_backoff:
   group:
     mutex: true
     params:
-    - *max_backoff
-    - arg_name: clear-max-backoff
-      action: store_true
-      processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
-      help_text: |
-        Clear the field corresponding to `--max-backoff`.
+      - *max_backoff
+      - arg_name: clear-max-backoff
+        action: store_true
+        processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
+        help_text: |
+          Clear the field corresponding to `--max-backoff`.
 
 max_doublings: &max_doublings
   api_field: job.retryConfig.maxDoublings
@@ -94,12 +94,12 @@ clearable_max_doublings:
   group:
     mutex: true
     params:
-    - *max_doublings
-    - arg_name: clear-max-doublings
-      action: store_true
-      processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
-      help_text: |
-        Clear the field corresponding to `--max-doublings`.
+      - *max_doublings
+      - arg_name: clear-max-doublings
+        action: store_true
+        processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
+        help_text: |
+          Clear the field corresponding to `--max-doublings`.
 
 schedule:
   api_field: job.schedule
@@ -142,12 +142,12 @@ clearable_timezone:
   group:
     mutex: true
     params:
-    - *timezone
-    - arg_name: clear-time-zone
-      action: store_true
-      processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
-      help_text: |
-            Clear the field corresponding to `--time-zone`.
+      - *timezone
+      - arg_name: clear-time-zone
+        action: store_true
+        processor: googlecloudsdk.command_lib.scheduler.util:ClearFlag
+        help_text: |
+          Clear the field corresponding to `--time-zone`.
 
 attempt_deadline:
   api_field: job.attemptDeadline
@@ -179,87 +179,87 @@ auth_tokens:
       authenticated.
     mutex: true
     params:
-    - group:
-        help_text: OpenId Connect
-        params:
-        - api_field: job.httpTarget.oidcToken.serviceAccountEmail
-          arg_name: oidc-service-account-email
-          required: true
-          help_text: |
-            The service account email to be used for generating an OpenId
-            Connect token to be included in the request sent to the target
-            when executing the job. The service account must be within the
-            same project as the job. The caller must have
-            iam.serviceAccounts.actAs permission for the service account.
-        - api_field: job.httpTarget.oidcToken.audience
-          arg_name: oidc-token-audience
-          help_text: |
-            The audience to be used when generating an OpenId Connect token
-            to be included in the request sent to the target when executing
-            the job. If not specified, the URI specified in target will be
-            used.
-    - group:
-        help_text: OAuth2
-        params:
-        - api_field: job.httpTarget.oauthToken.serviceAccountEmail
-          arg_name: oauth-service-account-email
-          required: true
-          help_text: |
-            The service account email to be used for generating an OAuth2
-            access token to be included in the request sent to the target
-            when executing the job. The service account must be within the
-            same project as the job. The caller must have
-            iam.serviceAccounts.actAs permission for the service account.
-        - api_field: job.httpTarget.oauthToken.scope
-          arg_name: oauth-token-scope
-          help_text: |
-            The scope to be used when generating an OAuth2 access token to
-            be included in the request sent to the target when executing the
-            job. If not specified,
-            "https://www.googleapis.com/auth/cloud-platform" will be used.
+      - group:
+          help_text: OpenId Connect
+          params:
+            - api_field: job.httpTarget.oidcToken.serviceAccountEmail
+              arg_name: oidc-service-account-email
+              required: true
+              help_text: |
+                The service account email to be used for generating an OpenId
+                Connect token to be included in the request sent to the target
+                when executing the job. The service account must be within the
+                same project as the job. The caller must have
+                iam.serviceAccounts.actAs permission for the service account.
+            - api_field: job.httpTarget.oidcToken.audience
+              arg_name: oidc-token-audience
+              help_text: |
+                The audience to be used when generating an OpenId Connect token
+                to be included in the request sent to the target when executing
+                the job. If not specified, the URI specified in target will be
+                used.
+      - group:
+          help_text: OAuth2
+          params:
+            - api_field: job.httpTarget.oauthToken.serviceAccountEmail
+              arg_name: oauth-service-account-email
+              required: true
+              help_text: |
+                The service account email to be used for generating an OAuth2
+                access token to be included in the request sent to the target
+                when executing the job. The service account must be within the
+                same project as the job. The caller must have
+                iam.serviceAccounts.actAs permission for the service account.
+            - api_field: job.httpTarget.oauthToken.scope
+              arg_name: oauth-token-scope
+              help_text: |
+                The scope to be used when generating an OAuth2 access token to
+                be included in the request sent to the target when executing the
+                job. If not specified,
+                "https://www.googleapis.com/auth/cloud-platform" will be used.
 
 auth_token_openid:
   group:
     help_text: OpenId Connect
     params:
-    - api_field: job.httpTarget.oidcToken.serviceAccountEmail
-      arg_name: oidc-service-account-email
-      required: true
-      help_text: |
-        The service account email to be used for generating an OpenId
-        Connect token to be included in the request sent to the target
-        when executing the job. The service account must be within the
-        same project as the job. The caller must have
-        iam.serviceAccounts.actAs permission for the service account. The
-        OIDC token is generally used *except* for Google APIs hosted on
-        `*.googleapis.com`: these APIs expect an OAuth token.
-    - api_field: job.httpTarget.oidcToken.audience
-      arg_name: oidc-token-audience
-      help_text: |
-        The audience to be used when generating an OpenId Connect token
-        to be included in the request sent to the target when executing
-        the job. If not specified, the URI specified in target will be
-        used.
+      - api_field: job.httpTarget.oidcToken.serviceAccountEmail
+        arg_name: oidc-service-account-email
+        required: true
+        help_text: |
+          The service account email to be used for generating an OpenId
+          Connect token to be included in the request sent to the target
+          when executing the job. The service account must be within the
+          same project as the job. The caller must have
+          iam.serviceAccounts.actAs permission for the service account. The
+          OIDC token is generally used *except* for Google APIs hosted on
+          `*.googleapis.com`: these APIs expect an OAuth token.
+      - api_field: job.httpTarget.oidcToken.audience
+        arg_name: oidc-token-audience
+        help_text: |
+          The audience to be used when generating an OpenId Connect token
+          to be included in the request sent to the target when executing
+          the job. If not specified, the URI specified in target will be
+          used.
 
 auth_token_oauth:
   group:
     help_text: OAuth2
     params:
-    - api_field: job.httpTarget.oauthToken.serviceAccountEmail
-      arg_name: oauth-service-account-email
-      required: true
-      help_text: |
-        The service account email to be used for generating an OAuth2
-        access token to be included in the request sent to the target
-        when executing the job. The service account must be within the
-        same project as the job. The caller must have
-        iam.serviceAccounts.actAs permission for the service account. The
-        token must be OAuth if the target is a Google APIs service
-        with URL `*.googleapis.com`.
-    - api_field: job.httpTarget.oauthToken.scope
-      arg_name: oauth-token-scope
-      help_text: |
-        The scope to be used when generating an OAuth2 access token to
-        be included in the request sent to the target when executing the
-        job. If not specified,
-        "https://www.googleapis.com/auth/cloud-platform" will be used.
+      - api_field: job.httpTarget.oauthToken.serviceAccountEmail
+        arg_name: oauth-service-account-email
+        required: true
+        help_text: |
+          The service account email to be used for generating an OAuth2
+          access token to be included in the request sent to the target
+          when executing the job. The service account must be within the
+          same project as the job. The caller must have
+          iam.serviceAccounts.actAs permission for the service account. The
+          token must be OAuth if the target is a Google APIs service
+          with URL `*.googleapis.com`.
+      - api_field: job.httpTarget.oauthToken.scope
+        arg_name: oauth-token-scope
+        help_text: |
+          The scope to be used when generating an OAuth2 access token to
+          be included in the request sent to the target when executing the
+          job. If not specified,
+          "https://www.googleapis.com/auth/cloud-platform" will be used.

@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Delete a Cloud Healthcare API FHIR store.
+    brief: Delete a Cloud Healthcare API FHIR store.
     description: Delete a Cloud Healthcare API FHIR store.
     examples: |
       To delete the FHIR store 'test-fhir-store', run:

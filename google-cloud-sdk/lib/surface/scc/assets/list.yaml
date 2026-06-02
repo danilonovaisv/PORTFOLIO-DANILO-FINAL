@@ -68,30 +68,30 @@
     collection: securitycenter.organizations.assets
     api_version: v1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.scc.assets.request_hooks:ListAssetsReqHook
+      - googlecloudsdk.command_lib.scc.assets.request_hooks:ListAssetsReqHook
 
   arguments:
     additional_arguments_hook: googlecloudsdk.command_lib.scc.hooks:AppendParentArg
 
     params:
-    - !REF googlecloudsdk.command_lib.scc.flags:read_time
-    - !REF googlecloudsdk.command_lib.scc.assets.flags:compare_duration
+      - !REF googlecloudsdk.command_lib.scc.flags:read_time
+      - !REF googlecloudsdk.command_lib.scc.assets.flags:compare_duration
 
-    - arg_name: field-mask
-      api_field: fieldMask
-      help_text: |
-        Field mask to specify the Asset fields to be listed in the response. An empty field mask will list all fields.
-        Example field mask: "asset.security_center_properties.resource_type,asset.security_center_properties.resource_parent"
+      - arg_name: field-mask
+        api_field: fieldMask
+        help_text: |
+          Field mask to specify the Asset fields to be listed in the response. An empty field mask will list all fields.
+          Example field mask: "asset.security_center_properties.resource_type,asset.security_center_properties.resource_parent"
 
-    - arg_name: order-by
-      api_field: orderBy
-      help_text: |
-        Expression that defines what fields and order to use for sorting.
-        Example order by: "resource_properties.sort_prop ASC"
+      - arg_name: order-by
+        api_field: orderBy
+        help_text: |
+          Expression that defines what fields and order to use for sorting.
+          Example order by: "resource_properties.sort_prop ASC"
 
-    - arg_name: page-token
-      api_field: pageToken
-      help_text: |
-        The value returned by the last 'ListAssetsResponse'; indicates
-        that this is a continuation of a prior 'ListAssets' call, and that the
-        system should return the next page of data.
+      - arg_name: page-token
+        api_field: pageToken
+        help_text: |
+          The value returned by the last 'ListAssetsResponse'; indicates
+          that this is a continuation of a prior 'ListAssets' call, and that the
+          system should return the next page of data.

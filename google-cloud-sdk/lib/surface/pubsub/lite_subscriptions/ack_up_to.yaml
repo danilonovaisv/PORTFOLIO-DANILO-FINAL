@@ -17,7 +17,7 @@ request:
   collection: pubsublite.cursor.projects.locations.subscriptions
   method: commitCursor
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateCommitCursorRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateCommitCursorRequest
 
 arguments:
   resource:
@@ -25,11 +25,11 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.pubsub.resources:lite_cursor_subscription
     command_level_fallthroughs:
       location:
-      - arg_name: 'zone'
+        - arg_name: 'zone'
 
   params:
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:partition
-    required: true
-  - _REF_: googlecloudsdk.command_lib.pubsub.flags:offset
-    required: true
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:zone
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:partition
+      required: true
+    - _REF_: googlecloudsdk.command_lib.pubsub.flags:offset
+      required: true

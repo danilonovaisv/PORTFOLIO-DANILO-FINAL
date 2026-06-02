@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1alpha1 TlsCertificateFiles export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- certificatePath
-- privateKeyPath
+  - certificatePath
+  - privateKeyPath
 additionalProperties: false
 properties:
   COMMENT:

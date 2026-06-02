@@ -32,42 +32,42 @@
         you want to create.
       spec: !REF googlecloudsdk.command_lib.metastore.resources:import
     params:
-    - arg_name: description
-      api_field: metadataImport.description
-      help_text: |
-        The description of this metadata import.
-    - arg_name: database-type
-      api_field: metadataImport.databaseDump.databaseType
-      help_text: |
-        The type of the database. If unspecified, defaults to `MYSQL`.
-      choices:
-      - arg_value: MYSQL
-        enum_value: MYSQL
-        help_text:  |
-          MySQL Database
-      default: MYSQL
-      action:
-        deprecated:
-          removed: false
-          warn: |
-            The --database-type option is deprecated; use --database-dump-type instead.
-    - arg_name: database-dump-type
-      api_field: metadataImport.databaseDump.type
-      help_text: |
-        The type of the database dump. If unspecified, defaults to `MYSQL`
-      choices:
-      - arg_value: MYSQL
-        enum_value: MYSQL
-        help_text:  |
-          Database dump is a MYSQL dump file.
-      default: MYSQL
-    - arg_name: database-dump
-      required: true
-      api_field: metadataImport.databaseDump.gcsUri
-      processor: googlecloudsdk.command_lib.metastore.validators:ValidateGcsUri:arg_name=--database-dump
-      help_text: |
-        A Cloud Storage object URI that specifies a database dump from which to import metadata.
-        It must begin with `gs://`.
+      - arg_name: description
+        api_field: metadataImport.description
+        help_text: |
+          The description of this metadata import.
+      - arg_name: database-type
+        api_field: metadataImport.databaseDump.databaseType
+        help_text: |
+          The type of the database. If unspecified, defaults to `MYSQL`.
+        choices:
+          - arg_value: MYSQL
+            enum_value: MYSQL
+            help_text: |
+              MySQL Database
+        default: MYSQL
+        action:
+          deprecated:
+            removed: false
+            warn: |
+              The --database-type option is deprecated; use --database-dump-type instead.
+      - arg_name: database-dump-type
+        api_field: metadataImport.databaseDump.type
+        help_text: |
+          The type of the database dump. If unspecified, defaults to `MYSQL`
+        choices:
+          - arg_value: MYSQL
+            enum_value: MYSQL
+            help_text: |
+              Database dump is a MYSQL dump file.
+        default: MYSQL
+      - arg_name: database-dump
+        required: true
+        api_field: metadataImport.databaseDump.gcsUri
+        processor: googlecloudsdk.command_lib.metastore.validators:ValidateGcsUri:arg_name=--database-dump
+        help_text: |
+          A Cloud Storage object URI that specifies a database dump from which to import metadata.
+          It must begin with `gs://`.
 
   async:
     collection: metastore.projects.locations.operations

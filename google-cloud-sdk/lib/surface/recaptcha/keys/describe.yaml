@@ -4,9 +4,9 @@
     description: Get the details of a reCAPTCHA Key.
     brief: Describe reCAPTCHA Key.
     examples: |
-        To get details on a reCAPTCHA key, run:
+      To get details on a reCAPTCHA key, run:
 
-          $ {command} test-key
+        $ {command} test-key
 
   request:
     collection: recaptchaenterprise.projects.keys

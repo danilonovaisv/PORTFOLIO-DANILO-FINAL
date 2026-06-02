@@ -19,9 +19,9 @@
         Arguments and flags that specify the Dataplex Data Product you want to delete.
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:data_product
     params:
-    - arg_name: etag
-      api_field: etag
-      help_text: |
-        Etag of the data product. If this is provided, it must match the server's etag.
+      - arg_name: etag
+        api_field: etag
+        help_text: |
+          Etag of the data product. If this is provided, it must match the server's etag.
   async:
     collection: dataplex.projects.locations.operations

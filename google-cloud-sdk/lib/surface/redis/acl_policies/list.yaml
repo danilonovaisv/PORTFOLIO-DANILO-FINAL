@@ -20,11 +20,10 @@ arguments:
   resource:
     spec: !REF googlecloudsdk.command_lib.redis.resources:region
     help_text: |
-        The region of the acl policies to display.
+      The region of the acl policies to display.
 
 response:
   id_field: name
-
 
 output:
   format: table(name.segment(5):label=ACL_POLICY_ID, name.segment(3):label=REGION)

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 EndpointMatcherMetadataLabelMatcher export schema
 description: A gcloud export/import command YAML validation schema.
@@ -49,9 +49,9 @@ properties:
       label <A:1,B:1,D:1> connects), an error will be thrown.
     type: string
     enum:
-    - MATCH_ALL
-    - MATCH_ANY
-    - METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED
+      - MATCH_ALL
+      - MATCH_ANY
+      - METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED
   metadataLabels:
     description: |-
       The list of label value pairs that must match labels in the provided

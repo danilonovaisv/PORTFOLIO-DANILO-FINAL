@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 EdgeCacheOrigin export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- name
-- originAddress
+  - name
+  - originAddress
 additionalProperties: false
 properties:
   COMMENT:
@@ -112,10 +112,10 @@ properties:
       unexpired TLS (SSL) certificate must be presented by the origin server.
     type: string
     enum:
-    - HTTP
-    - HTTP2
-    - HTTPS
-    - PROTOCOL_UNSPECIFIED
+      - HTTP
+      - HTTP2
+      - HTTPS
+      - PROTOCOL_UNSPECIFIED
   retryConditions:
     description: |-
       Specifies one or more retry conditions for the configured origin. If the
@@ -131,13 +131,13 @@ properties:
     items:
       type: string
       enum:
-      - CONNECT_FAILURE
-      - FORBIDDEN
-      - GATEWAY_ERROR
-      - HTTP_5XX
-      - NOT_FOUND
-      - RETRIABLE_4XX
-      - RETRY_CONDITIONS_UNSPECIFIED
+        - CONNECT_FAILURE
+        - FORBIDDEN
+        - GATEWAY_ERROR
+        - HTTP_5XX
+        - NOT_FOUND
+        - RETRIABLE_4XX
+        - RETRY_CONDITIONS_UNSPECIFIED
   timeout:
     description: |-
       The connection and HTTP timeout configuration for this origin.

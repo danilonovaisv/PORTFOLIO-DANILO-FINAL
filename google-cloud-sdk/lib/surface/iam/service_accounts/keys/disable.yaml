@@ -23,8 +23,8 @@
     collection: iam.projects.serviceAccounts.keys
     method: disable
     modify_request_hooks:
-    - googlecloudsdk.command_lib.iam.hooks:EraseProjectHook
+      - googlecloudsdk.command_lib.iam.hooks:EraseProjectHook
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.iam.hooks:DisableIamKeyConfirmation
+      - googlecloudsdk.command_lib.iam.hooks:DisableIamKeyConfirmation

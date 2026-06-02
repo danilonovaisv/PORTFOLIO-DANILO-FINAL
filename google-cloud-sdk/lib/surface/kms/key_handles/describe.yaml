@@ -4,10 +4,10 @@
     brief: Get metadata for a KeyHandle.
     description: Get metadata for a KeyHandle.
     examples: |
-     The following command gets metadata for a KeyHandle named `my-key-handle` in the locations
-     `us-central1`.
+      The following command gets metadata for a KeyHandle named `my-key-handle` in the locations
+      `us-central1`.
 
-      $ {command} my-key-handle --location=us-central1
+       $ {command} my-key-handle --location=us-central1
 
   request:
     collection: cloudkms.projects.locations.keyHandles

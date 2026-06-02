@@ -13,7 +13,7 @@ request:
   collection: pubsublite.admin.projects.locations.reservations
   method: patch
   modify_request_hooks:
-  - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
+    - googlecloudsdk.command_lib.pubsub.lite_util:UpdateAdminRequest
 
 arguments:
   resource:
@@ -21,7 +21,7 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.pubsub.resources:lite_reservation
 
   params:
-  - group:
-      required: true
-      params:
-      - _REF_: googlecloudsdk.command_lib.pubsub.flags:throughput-capacity
+    - group:
+        required: true
+        params:
+          - _REF_: googlecloudsdk.command_lib.pubsub.flags:throughput-capacity

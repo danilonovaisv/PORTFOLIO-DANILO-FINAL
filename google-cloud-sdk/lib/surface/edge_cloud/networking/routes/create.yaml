@@ -19,7 +19,7 @@
     collection: edgenetwork.projects.locations.zones.routes
     api_version: v1alpha1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.networking.resources:SetResourcesPathForRoute
+      - googlecloudsdk.command_lib.edge_cloud.networking.resources:SetResourcesPathForRoute
 
   arguments:
     resource:
@@ -29,25 +29,25 @@
       spec: !REF googlecloudsdk.command_lib.edge_cloud.networking.resources:route
 
     params:
-    - arg_name: network
-      api_field: route.network
-      required: true
-      help_text: |
-        Network that this route belongs to.
-    - arg_name: destination-range
-      api_field: route.destinationCidr
-      required: true
-      help_text: |
-        Destination subnet of this route (in CIDR format).
-    - arg_name: next-hop-address
-      api_field: route.nextHopAddress
-      required: true
-      help_text: |
-        IP address of the next hop along this route.
-    - arg_name: description
-      api_field: route.description
-      help_text: |
-        An optional, textual description for the route.
+      - arg_name: network
+        api_field: route.network
+        required: true
+        help_text: |
+          Network that this route belongs to.
+      - arg_name: destination-range
+        api_field: route.destinationCidr
+        required: true
+        help_text: |
+          Destination subnet of this route (in CIDR format).
+      - arg_name: next-hop-address
+        api_field: route.nextHopAddress
+        required: true
+        help_text: |
+          IP address of the next hop along this route.
+      - arg_name: description
+        api_field: route.description
+        help_text: |
+          An optional, textual description for the route.
     labels:
       api_field: route.labels
 

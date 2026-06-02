@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified Gateway Security Policy Rule.
   examples: |
-      To delete a Gateway Security Policy Rule called 'my-rule', run:
+    To delete a Gateway Security Policy Rule called 'my-rule', run:
 
-        $ {command} my-rule --location={region} --gateway-security-policy={policy-name}
+      $ {command} my-rule --location={region} --gateway-security-policy={policy-name}
 
 arguments:
   resource:

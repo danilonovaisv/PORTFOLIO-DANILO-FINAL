@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a Gateway Security Policy.
   examples: |
-      To import a Gateway Security Policy from a YAML file, run:
+    To import a Gateway Security Policy from a YAML file, run:
 
-        $ {command} my-gateway-security-policy --source=my-gateway-security-policy-list.yaml --location=global
+      $ {command} my-gateway-security-policy --source=my-gateway-security-policy-list.yaml --location=global
 
 request:
   collection: networksecurity.projects.locations.gatewaySecurityPolicies
@@ -18,7 +18,7 @@ request:
   GA:
     api_version: v1
   modify_request_hooks:
-  - googlecloudsdk.command_lib.network_security.hooks:SetUpdateMask
+    - googlecloudsdk.command_lib.network_security.hooks:SetUpdateMask
 
 arguments:
   resource:

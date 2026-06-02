@@ -20,7 +20,7 @@
       api_version: v1
     collection: networkconnectivity.projects.locations.remoteTransportProfiles
     modify_request_hooks:
-    - googlecloudsdk.command_lib.network_connectivity.util:AddDefaultLocationToList
+      - googlecloudsdk.command_lib.network_connectivity.util:AddDefaultLocationToList
 
   arguments:
     resource:
@@ -28,9 +28,9 @@
       help_text: Project of the remote transport profiles to list
       override_resource_collection: true
     params:
-    - arg_name: region
-      help_text: The region of the remote transport profiles to list. Use "-" to list all profiles.
-      default: "-"
+      - arg_name: region
+        help_text: The region of the remote transport profiles to list. Use "-" to list all profiles.
+        default: '-'
 
   response:
     id_field: name

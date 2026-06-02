@@ -19,6 +19,6 @@ response:
   id_field: name
 output:
   format: |
-     table(
-        name.basename():label=NAME, create_time, multicast_group_definition, multicast_domain_activation, ip_cidr_range
-      )
+    table(
+       name.basename():label=NAME, create_time, multicast_group_definition, multicast_domain_activation, ip_cidr_range
+     )

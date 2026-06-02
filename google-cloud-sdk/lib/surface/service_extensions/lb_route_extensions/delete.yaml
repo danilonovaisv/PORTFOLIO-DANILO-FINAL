@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `LbRouteExtension` resource.
   examples: |
-      To delete an `LbRouteExtension` resource named
-      `my-route-extension` in `us-central1`, run:
+    To delete an `LbRouteExtension` resource named
+    `my-route-extension` in `us-central1`, run:
 
-        $ {command} my-route-extension --location=us-central1
+      $ {command} my-route-extension --location=us-central1
 
 arguments:
   resource:

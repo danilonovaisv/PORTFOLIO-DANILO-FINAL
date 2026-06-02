@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 Mesh export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- name
+  - name
 additionalProperties: false
 properties:
   COMMENT:
@@ -38,9 +38,9 @@ properties:
       will not insert any debug headers.
     type: string
     enum:
-    - DEBUG_HEADERS
-    - ENVOY_HEADERS_UNSPECIFIED
-    - NONE
+      - DEBUG_HEADERS
+      - ENVOY_HEADERS_UNSPECIFIED
+      - NONE
   interceptionPort:
     description: |-
       If set to a valid TCP port (1-65535), instructs the SIDECAR proxy to

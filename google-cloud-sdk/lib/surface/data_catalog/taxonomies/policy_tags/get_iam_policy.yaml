@@ -21,6 +21,5 @@
     resource:
       help_text: Policy tag for which to display the IAM policy.
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:policy_tag
-
 # 3. read endor stuff
 # 4. write some tests

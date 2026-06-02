@@ -39,14 +39,14 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_tenant.display_name
-      required: false
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_tenant.display_name
+        required: false
 
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_tenant.description
-      required: false
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_tenant.description
+        required: false
 
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_tenant.claim_mapping
-      required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_tenant.claim_mapping
+        required: true
 
   output:
     format: yaml

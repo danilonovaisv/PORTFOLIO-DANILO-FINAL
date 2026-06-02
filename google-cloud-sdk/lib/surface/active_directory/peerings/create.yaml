@@ -25,7 +25,7 @@
     collection: managedidentities.projects.locations.global.peerings
     method: create
     modify_request_hooks:
-    - googlecloudsdk.command_lib.active_directory.util:AppendLocationsGlobalToParent
+      - googlecloudsdk.command_lib.active_directory.util:AppendLocationsGlobalToParent
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -39,13 +39,13 @@
       help_text: |
         Name of the managed Managed Microsoft AD domain peering you want to create.
     params:
-    - arg_name: domain
-      required: true
-      api_field: peering.domainResource
-      help_text: |
+      - arg_name: domain
+        required: true
+        api_field: peering.domainResource
+        help_text: |
           Name of the managed Managed Microsoft AD domain you want to peer to.
-    - arg_name: authorized-network
-      required: true
-      api_field: peering.authorizedNetwork
-      help_text: |
+      - arg_name: authorized-network
+        required: true
+        api_field: peering.authorizedNetwork
+        help_text: |
           Name of the Network that is authorized to communicate with Managed Microsoft AD domain. This is usually the full path name of the network in the peer project.

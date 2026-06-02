@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta FileContentBuffer export schema
 description: A gcloud export/import command YAML validation schema.
@@ -32,6 +32,6 @@ properties:
     description: The file type of source file.
     type: string
     enum:
-    - BIN
-    - UNDEFINED
-    - X509
+      - BIN
+      - UNDEFINED
+      - X509

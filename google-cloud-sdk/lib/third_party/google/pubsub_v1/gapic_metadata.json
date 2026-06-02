@@ -1,4 +1,4 @@
- {
+{
   "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
   "language": "python",
   "libraryPackage": "google.pubsub_v1",
@@ -11,49 +11,31 @@
           "libraryClient": "PublisherClient",
           "rpcs": {
             "CreateTopic": {
-              "methods": [
-                "create_topic"
-              ]
+              "methods": ["create_topic"]
             },
             "DeleteTopic": {
-              "methods": [
-                "delete_topic"
-              ]
+              "methods": ["delete_topic"]
             },
             "DetachSubscription": {
-              "methods": [
-                "detach_subscription"
-              ]
+              "methods": ["detach_subscription"]
             },
             "GetTopic": {
-              "methods": [
-                "get_topic"
-              ]
+              "methods": ["get_topic"]
             },
             "ListTopicSnapshots": {
-              "methods": [
-                "list_topic_snapshots"
-              ]
+              "methods": ["list_topic_snapshots"]
             },
             "ListTopicSubscriptions": {
-              "methods": [
-                "list_topic_subscriptions"
-              ]
+              "methods": ["list_topic_subscriptions"]
             },
             "ListTopics": {
-              "methods": [
-                "list_topics"
-              ]
+              "methods": ["list_topics"]
             },
             "Publish": {
-              "methods": [
-                "publish"
-              ]
+              "methods": ["publish"]
             },
             "UpdateTopic": {
-              "methods": [
-                "update_topic"
-              ]
+              "methods": ["update_topic"]
             }
           }
         },
@@ -61,49 +43,31 @@
           "libraryClient": "PublisherAsyncClient",
           "rpcs": {
             "CreateTopic": {
-              "methods": [
-                "create_topic"
-              ]
+              "methods": ["create_topic"]
             },
             "DeleteTopic": {
-              "methods": [
-                "delete_topic"
-              ]
+              "methods": ["delete_topic"]
             },
             "DetachSubscription": {
-              "methods": [
-                "detach_subscription"
-              ]
+              "methods": ["detach_subscription"]
             },
             "GetTopic": {
-              "methods": [
-                "get_topic"
-              ]
+              "methods": ["get_topic"]
             },
             "ListTopicSnapshots": {
-              "methods": [
-                "list_topic_snapshots"
-              ]
+              "methods": ["list_topic_snapshots"]
             },
             "ListTopicSubscriptions": {
-              "methods": [
-                "list_topic_subscriptions"
-              ]
+              "methods": ["list_topic_subscriptions"]
             },
             "ListTopics": {
-              "methods": [
-                "list_topics"
-              ]
+              "methods": ["list_topics"]
             },
             "Publish": {
-              "methods": [
-                "publish"
-              ]
+              "methods": ["publish"]
             },
             "UpdateTopic": {
-              "methods": [
-                "update_topic"
-              ]
+              "methods": ["update_topic"]
             }
           }
         },
@@ -111,49 +75,31 @@
           "libraryClient": "PublisherClient",
           "rpcs": {
             "CreateTopic": {
-              "methods": [
-                "create_topic"
-              ]
+              "methods": ["create_topic"]
             },
             "DeleteTopic": {
-              "methods": [
-                "delete_topic"
-              ]
+              "methods": ["delete_topic"]
             },
             "DetachSubscription": {
-              "methods": [
-                "detach_subscription"
-              ]
+              "methods": ["detach_subscription"]
             },
             "GetTopic": {
-              "methods": [
-                "get_topic"
-              ]
+              "methods": ["get_topic"]
             },
             "ListTopicSnapshots": {
-              "methods": [
-                "list_topic_snapshots"
-              ]
+              "methods": ["list_topic_snapshots"]
             },
             "ListTopicSubscriptions": {
-              "methods": [
-                "list_topic_subscriptions"
-              ]
+              "methods": ["list_topic_subscriptions"]
             },
             "ListTopics": {
-              "methods": [
-                "list_topics"
-              ]
+              "methods": ["list_topics"]
             },
             "Publish": {
-              "methods": [
-                "publish"
-              ]
+              "methods": ["publish"]
             },
             "UpdateTopic": {
-              "methods": [
-                "update_topic"
-              ]
+              "methods": ["update_topic"]
             }
           }
         }
@@ -165,54 +111,34 @@
           "libraryClient": "SchemaServiceClient",
           "rpcs": {
             "CommitSchema": {
-              "methods": [
-                "commit_schema"
-              ]
+              "methods": ["commit_schema"]
             },
             "CreateSchema": {
-              "methods": [
-                "create_schema"
-              ]
+              "methods": ["create_schema"]
             },
             "DeleteSchema": {
-              "methods": [
-                "delete_schema"
-              ]
+              "methods": ["delete_schema"]
             },
             "DeleteSchemaRevision": {
-              "methods": [
-                "delete_schema_revision"
-              ]
+              "methods": ["delete_schema_revision"]
             },
             "GetSchema": {
-              "methods": [
-                "get_schema"
-              ]
+              "methods": ["get_schema"]
             },
             "ListSchemaRevisions": {
-              "methods": [
-                "list_schema_revisions"
-              ]
+              "methods": ["list_schema_revisions"]
             },
             "ListSchemas": {
-              "methods": [
-                "list_schemas"
-              ]
+              "methods": ["list_schemas"]
             },
             "RollbackSchema": {
-              "methods": [
-                "rollback_schema"
-              ]
+              "methods": ["rollback_schema"]
             },
             "ValidateMessage": {
-              "methods": [
-                "validate_message"
-              ]
+              "methods": ["validate_message"]
             },
             "ValidateSchema": {
-              "methods": [
-                "validate_schema"
-              ]
+              "methods": ["validate_schema"]
             }
           }
         },
@@ -220,54 +146,34 @@
           "libraryClient": "SchemaServiceAsyncClient",
           "rpcs": {
             "CommitSchema": {
-              "methods": [
-                "commit_schema"
-              ]
+              "methods": ["commit_schema"]
             },
             "CreateSchema": {
-              "methods": [
-                "create_schema"
-              ]
+              "methods": ["create_schema"]
             },
             "DeleteSchema": {
-              "methods": [
-                "delete_schema"
-              ]
+              "methods": ["delete_schema"]
             },
             "DeleteSchemaRevision": {
-              "methods": [
-                "delete_schema_revision"
-              ]
+              "methods": ["delete_schema_revision"]
             },
             "GetSchema": {
-              "methods": [
-                "get_schema"
-              ]
+              "methods": ["get_schema"]
             },
             "ListSchemaRevisions": {
-              "methods": [
-                "list_schema_revisions"
-              ]
+              "methods": ["list_schema_revisions"]
             },
             "ListSchemas": {
-              "methods": [
-                "list_schemas"
-              ]
+              "methods": ["list_schemas"]
             },
             "RollbackSchema": {
-              "methods": [
-                "rollback_schema"
-              ]
+              "methods": ["rollback_schema"]
             },
             "ValidateMessage": {
-              "methods": [
-                "validate_message"
-              ]
+              "methods": ["validate_message"]
             },
             "ValidateSchema": {
-              "methods": [
-                "validate_schema"
-              ]
+              "methods": ["validate_schema"]
             }
           }
         },
@@ -275,54 +181,34 @@
           "libraryClient": "SchemaServiceClient",
           "rpcs": {
             "CommitSchema": {
-              "methods": [
-                "commit_schema"
-              ]
+              "methods": ["commit_schema"]
             },
             "CreateSchema": {
-              "methods": [
-                "create_schema"
-              ]
+              "methods": ["create_schema"]
             },
             "DeleteSchema": {
-              "methods": [
-                "delete_schema"
-              ]
+              "methods": ["delete_schema"]
             },
             "DeleteSchemaRevision": {
-              "methods": [
-                "delete_schema_revision"
-              ]
+              "methods": ["delete_schema_revision"]
             },
             "GetSchema": {
-              "methods": [
-                "get_schema"
-              ]
+              "methods": ["get_schema"]
             },
             "ListSchemaRevisions": {
-              "methods": [
-                "list_schema_revisions"
-              ]
+              "methods": ["list_schema_revisions"]
             },
             "ListSchemas": {
-              "methods": [
-                "list_schemas"
-              ]
+              "methods": ["list_schemas"]
             },
             "RollbackSchema": {
-              "methods": [
-                "rollback_schema"
-              ]
+              "methods": ["rollback_schema"]
             },
             "ValidateMessage": {
-              "methods": [
-                "validate_message"
-              ]
+              "methods": ["validate_message"]
             },
             "ValidateSchema": {
-              "methods": [
-                "validate_schema"
-              ]
+              "methods": ["validate_schema"]
             }
           }
         }
@@ -334,84 +220,52 @@
           "libraryClient": "SubscriberClient",
           "rpcs": {
             "Acknowledge": {
-              "methods": [
-                "acknowledge"
-              ]
+              "methods": ["acknowledge"]
             },
             "CreateSnapshot": {
-              "methods": [
-                "create_snapshot"
-              ]
+              "methods": ["create_snapshot"]
             },
             "CreateSubscription": {
-              "methods": [
-                "create_subscription"
-              ]
+              "methods": ["create_subscription"]
             },
             "DeleteSnapshot": {
-              "methods": [
-                "delete_snapshot"
-              ]
+              "methods": ["delete_snapshot"]
             },
             "DeleteSubscription": {
-              "methods": [
-                "delete_subscription"
-              ]
+              "methods": ["delete_subscription"]
             },
             "GetSnapshot": {
-              "methods": [
-                "get_snapshot"
-              ]
+              "methods": ["get_snapshot"]
             },
             "GetSubscription": {
-              "methods": [
-                "get_subscription"
-              ]
+              "methods": ["get_subscription"]
             },
             "ListSnapshots": {
-              "methods": [
-                "list_snapshots"
-              ]
+              "methods": ["list_snapshots"]
             },
             "ListSubscriptions": {
-              "methods": [
-                "list_subscriptions"
-              ]
+              "methods": ["list_subscriptions"]
             },
             "ModifyAckDeadline": {
-              "methods": [
-                "modify_ack_deadline"
-              ]
+              "methods": ["modify_ack_deadline"]
             },
             "ModifyPushConfig": {
-              "methods": [
-                "modify_push_config"
-              ]
+              "methods": ["modify_push_config"]
             },
             "Pull": {
-              "methods": [
-                "pull"
-              ]
+              "methods": ["pull"]
             },
             "Seek": {
-              "methods": [
-                "seek"
-              ]
+              "methods": ["seek"]
             },
             "StreamingPull": {
-              "methods": [
-                "streaming_pull"
-              ]
+              "methods": ["streaming_pull"]
             },
             "UpdateSnapshot": {
-              "methods": [
-                "update_snapshot"
-              ]
+              "methods": ["update_snapshot"]
             },
             "UpdateSubscription": {
-              "methods": [
-                "update_subscription"
-              ]
+              "methods": ["update_subscription"]
             }
           }
         },
@@ -419,84 +273,52 @@
           "libraryClient": "SubscriberAsyncClient",
           "rpcs": {
             "Acknowledge": {
-              "methods": [
-                "acknowledge"
-              ]
+              "methods": ["acknowledge"]
             },
             "CreateSnapshot": {
-              "methods": [
-                "create_snapshot"
-              ]
+              "methods": ["create_snapshot"]
             },
             "CreateSubscription": {
-              "methods": [
-                "create_subscription"
-              ]
+              "methods": ["create_subscription"]
             },
             "DeleteSnapshot": {
-              "methods": [
-                "delete_snapshot"
-              ]
+              "methods": ["delete_snapshot"]
             },
             "DeleteSubscription": {
-              "methods": [
-                "delete_subscription"
-              ]
+              "methods": ["delete_subscription"]
             },
             "GetSnapshot": {
-              "methods": [
-                "get_snapshot"
-              ]
+              "methods": ["get_snapshot"]
             },
             "GetSubscription": {
-              "methods": [
-                "get_subscription"
-              ]
+              "methods": ["get_subscription"]
             },
             "ListSnapshots": {
-              "methods": [
-                "list_snapshots"
-              ]
+              "methods": ["list_snapshots"]
             },
             "ListSubscriptions": {
-              "methods": [
-                "list_subscriptions"
-              ]
+              "methods": ["list_subscriptions"]
             },
             "ModifyAckDeadline": {
-              "methods": [
-                "modify_ack_deadline"
-              ]
+              "methods": ["modify_ack_deadline"]
             },
             "ModifyPushConfig": {
-              "methods": [
-                "modify_push_config"
-              ]
+              "methods": ["modify_push_config"]
             },
             "Pull": {
-              "methods": [
-                "pull"
-              ]
+              "methods": ["pull"]
             },
             "Seek": {
-              "methods": [
-                "seek"
-              ]
+              "methods": ["seek"]
             },
             "StreamingPull": {
-              "methods": [
-                "streaming_pull"
-              ]
+              "methods": ["streaming_pull"]
             },
             "UpdateSnapshot": {
-              "methods": [
-                "update_snapshot"
-              ]
+              "methods": ["update_snapshot"]
             },
             "UpdateSubscription": {
-              "methods": [
-                "update_subscription"
-              ]
+              "methods": ["update_subscription"]
             }
           }
         },
@@ -504,84 +326,52 @@
           "libraryClient": "SubscriberClient",
           "rpcs": {
             "Acknowledge": {
-              "methods": [
-                "acknowledge"
-              ]
+              "methods": ["acknowledge"]
             },
             "CreateSnapshot": {
-              "methods": [
-                "create_snapshot"
-              ]
+              "methods": ["create_snapshot"]
             },
             "CreateSubscription": {
-              "methods": [
-                "create_subscription"
-              ]
+              "methods": ["create_subscription"]
             },
             "DeleteSnapshot": {
-              "methods": [
-                "delete_snapshot"
-              ]
+              "methods": ["delete_snapshot"]
             },
             "DeleteSubscription": {
-              "methods": [
-                "delete_subscription"
-              ]
+              "methods": ["delete_subscription"]
             },
             "GetSnapshot": {
-              "methods": [
-                "get_snapshot"
-              ]
+              "methods": ["get_snapshot"]
             },
             "GetSubscription": {
-              "methods": [
-                "get_subscription"
-              ]
+              "methods": ["get_subscription"]
             },
             "ListSnapshots": {
-              "methods": [
-                "list_snapshots"
-              ]
+              "methods": ["list_snapshots"]
             },
             "ListSubscriptions": {
-              "methods": [
-                "list_subscriptions"
-              ]
+              "methods": ["list_subscriptions"]
             },
             "ModifyAckDeadline": {
-              "methods": [
-                "modify_ack_deadline"
-              ]
+              "methods": ["modify_ack_deadline"]
             },
             "ModifyPushConfig": {
-              "methods": [
-                "modify_push_config"
-              ]
+              "methods": ["modify_push_config"]
             },
             "Pull": {
-              "methods": [
-                "pull"
-              ]
+              "methods": ["pull"]
             },
             "Seek": {
-              "methods": [
-                "seek"
-              ]
+              "methods": ["seek"]
             },
             "StreamingPull": {
-              "methods": [
-                "streaming_pull"
-              ]
+              "methods": ["streaming_pull"]
             },
             "UpdateSnapshot": {
-              "methods": [
-                "update_snapshot"
-              ]
+              "methods": ["update_snapshot"]
             },
             "UpdateSubscription": {
-              "methods": [
-                "update_subscription"
-              ]
+              "methods": ["update_subscription"]
             }
           }
         }

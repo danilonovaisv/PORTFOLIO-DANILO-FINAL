@@ -1,14 +1,14 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 IntegerRangePartition export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 additionalProperties: false
 required:
-- column
-- start
-- end
-- interval
+  - column
+  - start
+  - end
+  - interval
 properties:
   COMMENT:
     type: object

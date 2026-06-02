@@ -15,27 +15,27 @@
     api_version: v1
     method: replaceDeployment
     modify_request_hooks:
-    - googlecloudsdk.command_lib.workspace_add_ons.util:HandleEscapingInNamePath
+      - googlecloudsdk.command_lib.workspace_add_ons.util:HandleEscapingInNamePath
   arguments:
     resource:
       help_text: Google Workspace Add-ons deployment to replace
       spec: !REF googlecloudsdk.command_lib.workspace_add_ons.resources:deployment
     params:
-    - api_field: googleCloudGsuiteaddonsV1Deployment.etag
-      arg_name: etag
-      help_text: etag of the deployment file
-      type: str
-    - group:
-        mutex: true
-        required: true
-        params:
-        - api_field: googleCloudGsuiteaddonsV1Deployment
-          arg_name: deployment-object
-          help_text: json string of the deploymentObject
-          processor: googlecloudsdk.command_lib.workspace_add_ons.util:LoadJsonString
-        - api_field: googleCloudGsuiteaddonsV1Deployment
-          arg_name: deployment-file
-          help_text: path to the deployment file
-          processor: googlecloudsdk.command_lib.workspace_add_ons.util:ParseJsonFileToDeployment
+      - api_field: googleCloudGsuiteaddonsV1Deployment.etag
+        arg_name: etag
+        help_text: etag of the deployment file
+        type: str
+      - group:
+          mutex: true
+          required: true
+          params:
+            - api_field: googleCloudGsuiteaddonsV1Deployment
+              arg_name: deployment-object
+              help_text: json string of the deploymentObject
+              processor: googlecloudsdk.command_lib.workspace_add_ons.util:LoadJsonString
+            - api_field: googleCloudGsuiteaddonsV1Deployment
+              arg_name: deployment-file
+              help_text: path to the deployment file
+              processor: googlecloudsdk.command_lib.workspace_add_ons.util:ParseJsonFileToDeployment
   output:
     format: json

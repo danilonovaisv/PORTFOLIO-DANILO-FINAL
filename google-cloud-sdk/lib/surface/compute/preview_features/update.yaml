@@ -24,36 +24,36 @@
       spec: !REF googlecloudsdk.command_lib.compute.resources:preview_feature
 
     params:
-    - arg_name: activation-status
-      api_field: previewFeatureResource.activationStatus
-      help_text: |
-        The activation status of the preview feature.
-      required: true
-      choices:
-      - arg_value: enabled
-        enum_value: ENABLED
-      - arg_value: unspecified
-        enum_value: ACTIVATION_STATE_UNSPECIFIED
-
-    - group:
-        mutex: true
-        required: true
+      - arg_name: activation-status
+        api_field: previewFeatureResource.activationStatus
         help_text: |
-          The rollout plan of the preview feature.
-        params:
-        - arg_name: rollout-plan
-          api_field: previewFeatureResource.rolloutOperation.rolloutInput.predefinedRolloutPlan
-          required: false
-          help_text: |-
-            Use a predefined rollout plan.
-          choices:
-          - arg_value: fast-rollout
-            enum_value: ROLLOUT_PLAN_FAST_ROLLOUT
-          - arg_value: two-day-rollout
-            enum_value: ROLLOUT_PLAN_TWO_DAY_ROLLOUT
-        - arg_name: custom-rollout-plan
-          api_field: previewFeatureResource.rolloutOperation.rolloutInput.name
-          required: false
-          help_text: |-
-            Use a custom rollout plan by name.
-          type: str
+          The activation status of the preview feature.
+        required: true
+        choices:
+          - arg_value: enabled
+            enum_value: ENABLED
+          - arg_value: unspecified
+            enum_value: ACTIVATION_STATE_UNSPECIFIED
+
+      - group:
+          mutex: true
+          required: true
+          help_text: |
+            The rollout plan of the preview feature.
+          params:
+            - arg_name: rollout-plan
+              api_field: previewFeatureResource.rolloutOperation.rolloutInput.predefinedRolloutPlan
+              required: false
+              help_text: |-
+                Use a predefined rollout plan.
+              choices:
+                - arg_value: fast-rollout
+                  enum_value: ROLLOUT_PLAN_FAST_ROLLOUT
+                - arg_value: two-day-rollout
+                  enum_value: ROLLOUT_PLAN_TWO_DAY_ROLLOUT
+            - arg_name: custom-rollout-plan
+              api_field: previewFeatureResource.rolloutOperation.rolloutInput.name
+              required: false
+              help_text: |-
+                Use a custom rollout plan by name.
+              type: str

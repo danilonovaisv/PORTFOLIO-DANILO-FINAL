@@ -33,16 +33,16 @@
 
   deprecate:
     is_removed: false
-    warning: "This command is deprecated. Please use `gcloud dataplex entries` instead."
-    error: "This command has been removed. Please use `gcloud dataplex entries` instead."
+    warning: 'This command is deprecated. Please use `gcloud dataplex entries` instead.'
+    error: 'This command has been removed. Please use `gcloud dataplex entries` instead.'
 
   request:
     api_version: v1
     collection: datacatalog.projects.locations.entryGroups.entries
     modify_request_hooks:
-    - googlecloudsdk.command_lib.data_catalog.entries.v1_util:DetectType
-    - googlecloudsdk.command_lib.data_catalog.entries.v1_util:ParseFilesetRequirements
-    - googlecloudsdk.command_lib.data_catalog.entries.v1_util:ParsePhysicalSchema
+      - googlecloudsdk.command_lib.data_catalog.entries.v1_util:DetectType
+      - googlecloudsdk.command_lib.data_catalog.entries.v1_util:ParseFilesetRequirements
+      - googlecloudsdk.command_lib.data_catalog.entries.v1_util:ParsePhysicalSchema
 
   arguments:
     resource:
@@ -50,88 +50,88 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:entry
       is_positional: true
     params:
-    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:display_name
-    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:description
-    - group:
-        params:
-        - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:fully_qualified_name
-    - group:
-        mutex: true
-        required: true
-        help_text: |
-          Types can either be specified as a built-in type or described as a custom type.
-        params:
-        - group:
-            help_text: |
-              Built-in type can be specified for an entry. For types FILESET,
-              a file pattern must be specified.
-            params:
-            - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:type
-            - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:gcs_file_patterns
-        - group:
-            params:
-            - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:required_user_specified_system
+      - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:display_name
+      - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:description
+      - group:
+          params:
+            - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:fully_qualified_name
+      - group:
+          mutex: true
+          required: true
+          help_text: |
+            Types can either be specified as a built-in type or described as a custom type.
+          params:
             - group:
-                mutex: true
-                required: true
+                help_text: |
+                  Built-in type can be specified for an entry. For types FILESET,
+                  a file pattern must be specified.
                 params:
-                - group:
-                    help_text: |
-                      For externally ingested resources, `--user-specified-type` and `--user-specified-system`
-                      are required. Linked resource and source system time stamps are optional.
-                    params:
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:required_user_specified_type
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:linked_resource
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:source_system_create_time
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:source_system_update_time
-                - group:
-                    hidden: true
-                    help_text: |
-                      Create a Kafka Cluster entry.
-                    params:
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:kafka_cluster_bootstrap_servers_required
-                - group:
-                    hidden: true
-                    params:
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:kafka_cluster_required
-                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:kafka_topic_required
-                    - group:
-                        params:
-                        - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:physical_schema_type
-                        - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:physical_schema_file
-    - group:
-        mutex: true
-        help_text: |
-          Column schema for the entry. A schema consists of a list of column names along with
-          their types, descriptions, modes, and nested subcolumns. For example:
+                  - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:type
+                  - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:gcs_file_patterns
+            - group:
+                params:
+                  - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:required_user_specified_system
+                  - group:
+                      mutex: true
+                      required: true
+                      params:
+                        - group:
+                            help_text: |
+                              For externally ingested resources, `--user-specified-type` and `--user-specified-system`
+                              are required. Linked resource and source system time stamps are optional.
+                            params:
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:required_user_specified_type
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:linked_resource
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:source_system_create_time
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:source_system_update_time
+                        - group:
+                            hidden: true
+                            help_text: |
+                              Create a Kafka Cluster entry.
+                            params:
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:kafka_cluster_bootstrap_servers_required
+                        - group:
+                            hidden: true
+                            params:
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:kafka_cluster_required
+                              - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:kafka_topic_required
+                              - group:
+                                  params:
+                                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:physical_schema_type
+                                    - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:physical_schema_file
+      - group:
+          mutex: true
+          help_text: |
+            Column schema for the entry. A schema consists of a list of column names along with
+            their types, descriptions, modes, and nested subcolumns. For example:
 
-          ```
-          - column: first_name
-            description: First name
-            mode: REQUIRED
-            type: STRING
-          - column: last_name
-            description: Last name
-            mode: REQUIRED
-            type: STRING
-          - column: addresses
-            description: Addresses
-            mode: REPEATED
-            type: RECORD
-            subcolumns:
-            - column: city
-              description: City
-              mode: NULLABLE
+            ```
+            - column: first_name
+              description: First name
+              mode: REQUIRED
               type: STRING
-            - column: state
-              description: State
-              mode: NULLABLE
+            - column: last_name
+              description: Last name
+              mode: REQUIRED
               type: STRING
+            - column: addresses
+              description: Addresses
+              mode: REPEATED
+              type: RECORD
+              subcolumns:
+              - column: city
+                description: City
+                mode: NULLABLE
+                type: STRING
+              - column: state
+                description: State
+                mode: NULLABLE
+                type: STRING
 
-          ```
-        params:
-        - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:schema
-        - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:schema_from_file
+            ```
+          params:
+            - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:schema
+            - !REF googlecloudsdk.command_lib.data_catalog.entries.v1_flags:schema_from_file
 
 - release_tracks: [ALPHA, BETA]
   help_text:
@@ -161,8 +161,8 @@
 
   deprecate:
     is_removed: false
-    warning: "This command is deprecated. Please use `gcloud dataplex entries` instead."
-    error: "This command has been removed. Please use `gcloud dataplex entries` instead."
+    warning: 'This command is deprecated. Please use `gcloud dataplex entries` instead.'
+    error: 'This command has been removed. Please use `gcloud dataplex entries` instead.'
 
   request:
     collection: datacatalog.projects.locations.entryGroups.entries
@@ -175,39 +175,39 @@
       spec: !REF googlecloudsdk.command_lib.data_catalog.resources:entry
       is_positional: true
     params:
-    - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:display_name
-    - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:description
-    - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:gcs_file_patterns
-    - group:
-        mutex: true
-        help_text: |
-          Column schema for the entry. A schema consists of a list of column names along with
-          their types, descriptions, modes, and nested subcolumns. For example:
+      - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:display_name
+      - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:description
+      - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:gcs_file_patterns
+      - group:
+          mutex: true
+          help_text: |
+            Column schema for the entry. A schema consists of a list of column names along with
+            their types, descriptions, modes, and nested subcolumns. For example:
 
-          ```
-          - column: first_name
-            description: First name
-            mode: REQUIRED
-            type: STRING
-          - column: last_name
-            description: Last name
-            mode: REQUIRED
-            type: STRING
-          - column: addresses
-            description: Addresses
-            mode: REPEATED
-            type: RECORD
-            subcolumns:
-            - column: city
-              description: City
-              mode: NULLABLE
+            ```
+            - column: first_name
+              description: First name
+              mode: REQUIRED
               type: STRING
-            - column: state
-              description: State
-              mode: NULLABLE
+            - column: last_name
+              description: Last name
+              mode: REQUIRED
               type: STRING
+            - column: addresses
+              description: Addresses
+              mode: REPEATED
+              type: RECORD
+              subcolumns:
+              - column: city
+                description: City
+                mode: NULLABLE
+                type: STRING
+              - column: state
+                description: State
+                mode: NULLABLE
+                type: STRING
 
-          ```
-        params:
-        - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:schema
-        - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:schema_from_file
+            ```
+          params:
+            - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:schema
+            - !REF googlecloudsdk.command_lib.data_catalog.entries.flags:schema_from_file

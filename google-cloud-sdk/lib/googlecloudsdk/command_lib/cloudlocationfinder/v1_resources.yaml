@@ -20,17 +20,17 @@ projects_locations_cloud_locations:
   plural_name: cloudLocations
   collection: cloudlocationfinder.projects.locations.cloudLocations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
-  - &cloudLocation
-    parameter_name: cloudLocationsId
-    attribute_name: cloud_location
-    help: The cloudLocation id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
+    - &cloudLocation
+      parameter_name: cloudLocationsId
+      attribute_name: cloud_location
+      help: The cloudLocation id of the {resource} resource.
   disable_auto_completers: false

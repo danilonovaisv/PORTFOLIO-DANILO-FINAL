@@ -32,13 +32,13 @@
   response:
     ALPHA:
       modify_response_hooks:
-      - googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseReplaceServicePerimetersResponseAlpha
+        - googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseReplaceServicePerimetersResponseAlpha
     BETA:
       modify_response_hooks:
-      - googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseReplaceServicePerimetersResponseGA
+        - googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseReplaceServicePerimetersResponseGA
     GA:
       modify_response_hooks:
-      - googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseReplaceServicePerimetersResponseGA
+        - googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseReplaceServicePerimetersResponseGA
 
   arguments:
     resource:
@@ -47,45 +47,45 @@
       override_resource_collection: true
 
     params:
-    - api_field: replaceServicePerimetersRequest.etag
-      arg_name: etag
-      required: false
-      help_text: |
-        An etag which specifies the version of the Access Policy. Only etags
-        that represent the latest version of the Access Policy will be accepted.
-      repeated: false
-    - api_field: replaceServicePerimetersRequest.servicePerimeters
-      arg_name: source-file
-      required: true
-      help_text: |
-        Path to a file containing a list of service perimeters.
+      - api_field: replaceServicePerimetersRequest.etag
+        arg_name: etag
+        required: false
+        help_text: |
+          An etag which specifies the version of the Access Policy. Only etags
+          that represent the latest version of the Access Policy will be accepted.
+        repeated: false
+      - api_field: replaceServicePerimetersRequest.servicePerimeters
+        arg_name: source-file
+        required: true
+        help_text: |
+          Path to a file containing a list of service perimeters.
 
-        An service perimeter file is a YAML-formatted list of service perimeters,
-        which are YAML objects representing a Condition as described in
-        the API reference. For example:
+          An service perimeter file is a YAML-formatted list of service perimeters,
+          which are YAML objects representing a Condition as described in
+          the API reference. For example:
 
-        ```
-        - name: my_perimeter
-          title: My Perimeter
-          description: Perimeter for foo.
-          perimeterType: PERIMETER_TYPE_REGULAR
-          status:
-            resources:
-            - projects/0123456789
-            accessLevels:
-            - accessPolicies/my_policy/accessLevels/my_level
-            restrictedServices:
-            - storage.googleapis.com
-        ```
+          ```
+          - name: my_perimeter
+            title: My Perimeter
+            description: Perimeter for foo.
+            perimeterType: PERIMETER_TYPE_REGULAR
+            status:
+              resources:
+              - projects/0123456789
+              accessLevels:
+              - accessPolicies/my_policy/accessLevels/my_level
+              restrictedServices:
+              - storage.googleapis.com
+          ```
 
-        For more information about the alpha version, see:
-        https://cloud.google.com/access-context-manager/docs/reference/rest/v1alpha/accessPolicies.servicePerimeters
-        For other versions, see:
-        https://cloud.google.com/access-context-manager/docs/reference/rest/v1/accessPolicies.servicePerimeters
-      repeated: false
-      ALPHA:
-        processor: googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseServicePerimetersAlpha
-      BETA:
-        processor: googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseServicePerimetersGA
-      GA:
-        processor: googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseServicePerimetersGA
+          For more information about the alpha version, see:
+          https://cloud.google.com/access-context-manager/docs/reference/rest/v1alpha/accessPolicies.servicePerimeters
+          For other versions, see:
+          https://cloud.google.com/access-context-manager/docs/reference/rest/v1/accessPolicies.servicePerimeters
+        repeated: false
+        ALPHA:
+          processor: googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseServicePerimetersAlpha
+        BETA:
+          processor: googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseServicePerimetersGA
+        GA:
+          processor: googlecloudsdk.command_lib.accesscontextmanager.perimeters:ParseServicePerimetersGA

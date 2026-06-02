@@ -6,9 +6,9 @@ help_text:
   description: |
     List all ServerTlsPolicies in the current project.
   examples: |
-      To list ServerTlsPolicies in the current project, run:
+    To list ServerTlsPolicies in the current project, run:
 
-        $ {command}
+      $ {command}
 
 request: &request
   ALPHA:
@@ -30,10 +30,10 @@ response:
 
 output:
   format: |
-     table(
-        name.basename():label=NAME:sort=1,
-        name.segment(3):label=LOCATION,
-        description:label=DESCRIPTION,
-        create_time:label=CREATE_TIME,
-        update_time:label=UPDATE_TIME
-      )
+    table(
+       name.basename():label=NAME:sort=1,
+       name.segment(3):label=LOCATION,
+       description:label=DESCRIPTION,
+       create_time:label=CREATE_TIME,
+       update_time:label=UPDATE_TIME
+     )

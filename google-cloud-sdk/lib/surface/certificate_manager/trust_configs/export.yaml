@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a TrustConfig.
   examples: |
-      To export a TrustConfig, run:
+    To export a TrustConfig, run:
 
-        $ {command} my-trust-config --destination=my-trust-config.yaml --location=global
+      $ {command} my-trust-config --destination=my-trust-config.yaml --location=global
 
 request:
   collection: certificatemanager.projects.locations.trustConfigs

@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 ValidationMessage export schema
 description: A gcloud export/import command YAML validation schema.
@@ -32,9 +32,9 @@ properties:
     description: Message severity level (warning or error).
     type: string
     enum:
-    - ERROR
-    - LEVEL_UNSPECIFIED
-    - WARNING
+      - ERROR
+      - LEVEL_UNSPECIFIED
+      - WARNING
   message:
     description: The result of the validation.
     type: string

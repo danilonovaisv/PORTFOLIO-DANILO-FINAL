@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Describe a Cloud Healthcare API HL7v2 store.
+    brief: Describe a Cloud Healthcare API HL7v2 store.
     description: Describe a Cloud Healthcare API HL7v2 store.
     examples: |
       To describe the HL7v2 store 'test-hl7v2-store', run:

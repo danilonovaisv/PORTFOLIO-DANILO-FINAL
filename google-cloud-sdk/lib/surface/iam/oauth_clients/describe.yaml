@@ -17,10 +17,10 @@ help_text:
   brief: Describe an OAuth client.
   description: Describe an OAuth client.
   examples: |
-      The following command describes the OAuth client with the ID ``my-oauth-client''
-      in the default project:
+    The following command describes the OAuth client with the ID ``my-oauth-client''
+    in the default project:
 
-      $ {command} my-oauth-client --location="global"
+    $ {command} my-oauth-client --location="global"
 
 request:
   collection: iam.projects.locations.oauthClients

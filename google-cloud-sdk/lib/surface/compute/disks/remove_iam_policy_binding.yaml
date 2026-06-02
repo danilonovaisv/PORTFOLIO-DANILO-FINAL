@@ -28,7 +28,6 @@ request:
   ALPHA:
     api_version: alpha
 
-
 arguments:
   resource:
     help_text: The disk for which to remove IAM policy binding from.

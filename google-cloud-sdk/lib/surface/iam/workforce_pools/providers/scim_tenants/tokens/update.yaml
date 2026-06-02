@@ -35,8 +35,8 @@
       spec: !REF googlecloudsdk.command_lib.iam.resources:workforce_pool_provider_scim_token
       is_positional: true
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_token.display_name
-      required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_scim_token.display_name
+        required: true
 
   output:
     format: yaml

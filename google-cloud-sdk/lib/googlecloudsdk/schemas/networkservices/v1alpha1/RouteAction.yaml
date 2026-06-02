@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 RouteAction export schema
 description: A gcloud export/import command YAML validation schema.
@@ -36,9 +36,9 @@ properties:
       doesn't compress uncompressed responses received from the origin.
     type: string
     enum:
-    - AUTOMATIC
-    - COMPRESSION_MODE_UNSPECIFIED
-    - DISABLED
+      - AUTOMATIC
+      - COMPRESSION_MODE_UNSPECIFIED
+      - DISABLED
   corsPolicy:
     description: |-
       The Cross-Origin Resource Sharing (CORS) policy for requests that match

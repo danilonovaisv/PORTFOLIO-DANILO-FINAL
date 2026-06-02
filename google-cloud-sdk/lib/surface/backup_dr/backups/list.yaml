@@ -19,7 +19,7 @@
       api_version: v1alpha
     collection: backupdr.projects.locations.backupVaults.dataSources.backups
     modify_request_hooks:
-    - googlecloudsdk.command_lib.backupdr.declarative:SetBasicViewByDefaultRequestHook
+      - googlecloudsdk.command_lib.backupdr.declarative:SetBasicViewByDefaultRequestHook
 
   response:
     id_field: name

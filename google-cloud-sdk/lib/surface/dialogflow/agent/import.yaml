@@ -26,25 +26,24 @@ arguments:
     spec: !REF googlecloudsdk.command_lib.dialogflow.resources:project
     is_parent_resource: true
   params:
-  - arg_name: source
-    help_text: |
-      Path to a file or the URI to a Google Cloud Storage file containing the agent to import.
-      Note: A URI must start with "gs://".
-    required: true
-  - arg_name: replace-all
-    type: bool
-    action: store_true
-    help_text: |
-      If true, replace the current agent version with a new one. All the intents and entity types
-      in the older version will be deleted.
+    - arg_name: source
+      help_text: |
+        Path to a file or the URI to a Google Cloud Storage file containing the agent to import.
+        Note: A URI must start with "gs://".
+      required: true
+    - arg_name: replace-all
+      type: bool
+      action: store_true
+      help_text: |
+        If true, replace the current agent version with a new one. All the intents and entity types
+        in the older version will be deleted.
 
 request:
   collection: dialogflow.projects.agent
   method: import
-  modify_method_hook:
-    googlecloudsdk.command_lib.dialogflow.agent.hooks:ChooseImportOrRestoreMethod
+  modify_method_hook: googlecloudsdk.command_lib.dialogflow.agent.hooks:ChooseImportOrRestoreMethod
   modify_request_hooks:
-  - googlecloudsdk.command_lib.dialogflow.agent.hooks:ModifyImportOrRestoreRequest
+    - googlecloudsdk.command_lib.dialogflow.agent.hooks:ModifyImportOrRestoreRequest
 
 async:
   collection: dialogflow.projects.operations
@@ -52,7 +51,7 @@ async:
 
 response:
   modify_response_hooks:
-  - googlecloudsdk.command_lib.dialogflow.agent.hooks:LogImportSuccess
+    - googlecloudsdk.command_lib.dialogflow.agent.hooks:LogImportSuccess
 
 output:
   format: none

@@ -24,18 +24,18 @@
     ALPHA:
       api_version: v1alpha1
       modify_request_hooks:
-      - googlecloudsdk.command_lib.active_directory.backup_util:UpdatePatchRequest
-      - googlecloudsdk.command_lib.active_directory.backup_util:UpdateLabels
+        - googlecloudsdk.command_lib.active_directory.backup_util:UpdatePatchRequest
+        - googlecloudsdk.command_lib.active_directory.backup_util:UpdateLabels
     BETA:
       api_version: v1beta1
       modify_request_hooks:
-      - googlecloudsdk.command_lib.active_directory.backup_util:UpdatePatchRequest
-      - googlecloudsdk.command_lib.active_directory.backup_util:UpdateLabels
+        - googlecloudsdk.command_lib.active_directory.backup_util:UpdatePatchRequest
+        - googlecloudsdk.command_lib.active_directory.backup_util:UpdateLabels
     GA:
       api_version: v1
       modify_request_hooks:
-      - googlecloudsdk.command_lib.active_directory.backup_util:UpdatePatchRequest
-      - googlecloudsdk.command_lib.active_directory.backup_util:UpdateLabels
+        - googlecloudsdk.command_lib.active_directory.backup_util:UpdatePatchRequest
+        - googlecloudsdk.command_lib.active_directory.backup_util:UpdateLabels
     method: patch
 
   arguments:

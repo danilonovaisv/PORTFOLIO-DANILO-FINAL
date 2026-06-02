@@ -29,30 +29,30 @@
     api_version: v1
     method: list
     modify_request_hooks:
-    - googlecloudsdk.command_lib.scc.assets.request_hooks:GetProjectAssetReqHook
+      - googlecloudsdk.command_lib.scc.assets.request_hooks:GetProjectAssetReqHook
 
   arguments:
     additional_arguments_hook: googlecloudsdk.command_lib.scc.hooks:AppendOrgArg
 
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: asset
-          help_text: |
-            Cloud SCC specific asset. It's derived from the the asset's relative resource name.
-            See: https://cloud.google.com/apis/design/resource_names#relative_resource_name.
-            For Example, for the given asset name: "organizations/123/assets/456", 456 represents
-            asset id.
-        - arg_name: resource-name
-          help_text: |
-            Asset's resource name. Full resource name of the Google Cloud Platform resource
-            this asset represents. This field is immutable after create time. See:
-            https://cloud.google.com/apis/design/resource_names#full_resource_name.
-            For Example: "//cloudresourcemanager.googleapis.com/projects/1234567890123" could be the
-            resource-name for a project.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: asset
+              help_text: |
+                Cloud SCC specific asset. It's derived from the the asset's relative resource name.
+                See: https://cloud.google.com/apis/design/resource_names#relative_resource_name.
+                For Example, for the given asset name: "organizations/123/assets/456", 456 represents
+                asset id.
+            - arg_name: resource-name
+              help_text: |
+                Asset's resource name. Full resource name of the Google Cloud Platform resource
+                this asset represents. This field is immutable after create time. See:
+                https://cloud.google.com/apis/design/resource_names#full_resource_name.
+                For Example: "//cloudresourcemanager.googleapis.com/projects/1234567890123" could be the
+                resource-name for a project.
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.scc.assets.response_hooks:ExtractMatchingAssetFromGetProjectResponse
+      - googlecloudsdk.command_lib.scc.assets.response_hooks:ExtractMatchingAssetFromGetProjectResponse

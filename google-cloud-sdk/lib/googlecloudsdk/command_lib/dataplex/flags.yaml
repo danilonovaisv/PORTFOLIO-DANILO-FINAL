@@ -18,22 +18,22 @@ get_entry_view:
   help_text: Controls which parts of an entry are to be returned.
   # Listing choices here explicitly to prevent "UNSPECIFIED" value appearing as a valid option.
   choices:
-  - arg_value: basic
-    enum_value: BASIC
-    help_text: Returns entry only, without aspects.
-  - arg_value: full
-    enum_value: FULL
-    help_text: |
-      Default value. Returns all required aspects, as well as the keys of all non-required aspects.
-  - arg_value: custom
-    enum_value: CUSTOM
-    help_text: |
-      Returns aspects filtered based on `--aspect-types` AND `--paths` arguments specified.
-      When used, at least one of `--aspect-types` and `--paths` arguments must be specified.
-      If the number of aspects would exceed 100, the first 100 will be returned.
-  - arg_value: all
-    enum_value: ALL
-    help_text: |
+    - arg_value: basic
+      enum_value: BASIC
+      help_text: Returns entry only, without aspects.
+    - arg_value: full
+      enum_value: FULL
+      help_text: |
+        Default value. Returns all required aspects, as well as the keys of all non-required aspects.
+    - arg_value: custom
+      enum_value: CUSTOM
+      help_text: |
+        Returns aspects filtered based on `--aspect-types` AND `--paths` arguments specified.
+        When used, at least one of `--aspect-types` and `--paths` arguments must be specified.
+        If the number of aspects would exceed 100, the first 100 will be returned.
+    - arg_value: all
+      enum_value: ALL
+      help_text: |
         Returns all aspects.
         If the number of aspects would exceed 100, the first 100 will be returned.
 

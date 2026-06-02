@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute beta ReservationAffinity export schema
 description: A gcloud export/import command YAML validation schema.
@@ -32,11 +32,11 @@ properties:
       NO_RESERVATION. See Consuming reserved instances for examples.
     type: string
     enum:
-    - ANY_RESERVATION
-    - NO_RESERVATION
-    - SPECIFIC_RESERVATION
-    - SPECIFIC_THEN_ANY_RESERVATION
-    - UNSPECIFIED
+      - ANY_RESERVATION
+      - NO_RESERVATION
+      - SPECIFIC_RESERVATION
+      - SPECIFIC_THEN_ANY_RESERVATION
+      - UNSPECIFIED
   key:
     description: |-
       Corresponds to the label key of a reservation resource. To target a

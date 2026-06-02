@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  Update a Cloud Healthcare API DICOM store.
+    brief: Update a Cloud Healthcare API DICOM store.
     description: Update a Cloud Healthcare API DICOM store.
     examples: |
       To update the Cloud Pub/Sub topic on a dicom store 'test-dicom-store', run:
@@ -23,31 +23,31 @@
       spec: !REF googlecloudsdk.command_lib.healthcare.resources:dicom_store
 
     params:
-    - api_field: dicomStore.notificationConfig.pubsubTopic
-      arg_name: pubsub-topic
-      help_text: |
-        Google Cloud Pub/Sub topic to send updates to.
+      - api_field: dicomStore.notificationConfig.pubsubTopic
+        arg_name: pubsub-topic
+        help_text: |
+          Google Cloud Pub/Sub topic to send updates to.
 
-        Note: A topic must be created before publishing or subscribing to it. For instructions
-        on creating topics, refer to: https://cloud.google.com/pubsub/docs/admin#create_a_topic
+          Note: A topic must be created before publishing or subscribing to it. For instructions
+          on creating topics, refer to: https://cloud.google.com/pubsub/docs/admin#create_a_topic
 
-    - api_field: dicomStore.notificationConfig.sendForBulkImport
-      arg_name: send-for-bulk-import
-      type: bool
-      help_text: |
-        Indicates whether or not to send Cloud Pub/Sub notifications on bulk import.
-        Only supported for DICOM imports.
+      - api_field: dicomStore.notificationConfig.sendForBulkImport
+        arg_name: send-for-bulk-import
+        type: bool
+        help_text: |
+          Indicates whether or not to send Cloud Pub/Sub notifications on bulk import.
+          Only supported for DICOM imports.
 
-    - api_field: dicomStore.streamConfigs
-      arg_name: stream-configs
-      repeated: false
-      ALPHA:
-        processor: googlecloudsdk.command_lib.healthcare.util:InsertDicomStreamConfig:api_version=v1alpha2
-      BETA:
-        processor: googlecloudsdk.command_lib.healthcare.util:InsertDicomStreamConfig:api_version=v1beta1
-      GA:
-        processor: googlecloudsdk.command_lib.healthcare.util:InsertDicomStreamConfig:api_version=v1
-      help_text:
-        Configuration that indicates the BigQuery destinations for streaming instances of a DICOM store.
-        To specify StreamConfigs, list all BigQuery destinations into one string separated by comma.
-        (e.g., --stream-configs bq://{bigqueryProjectId1}.{bigqueryDatasetId1}.{bigqueryTableId1},bq://{bigqueryProjectId2}.{bigqueryDatasetId2}.{bigqueryTableId2}).
+      - api_field: dicomStore.streamConfigs
+        arg_name: stream-configs
+        repeated: false
+        ALPHA:
+          processor: googlecloudsdk.command_lib.healthcare.util:InsertDicomStreamConfig:api_version=v1alpha2
+        BETA:
+          processor: googlecloudsdk.command_lib.healthcare.util:InsertDicomStreamConfig:api_version=v1beta1
+        GA:
+          processor: googlecloudsdk.command_lib.healthcare.util:InsertDicomStreamConfig:api_version=v1
+        help_text:
+          Configuration that indicates the BigQuery destinations for streaming instances of a DICOM store.
+          To specify StreamConfigs, list all BigQuery destinations into one string separated by comma.
+          (e.g., --stream-configs bq://{bigqueryProjectId1}.{bigqueryDatasetId1}.{bigqueryTableId1},bq://{bigqueryProjectId2}.{bigqueryDatasetId2}.{bigqueryTableId2}).

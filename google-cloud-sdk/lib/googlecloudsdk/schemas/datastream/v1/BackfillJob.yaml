@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: datastream v1 BackfillJob export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,18 +29,18 @@ properties:
     description: Backfill job state.
     type: string
     enum:
-    - ACTIVE
-    - COMPLETED
-    - FAILED
-    - NOT_STARTED
-    - PENDING
-    - STATE_UNSPECIFIED
-    - STOPPED
-    - UNSUPPORTED
+      - ACTIVE
+      - COMPLETED
+      - FAILED
+      - NOT_STARTED
+      - PENDING
+      - STATE_UNSPECIFIED
+      - STOPPED
+      - UNSUPPORTED
   trigger:
     description: Backfill job's triggering reason.
     type: string
     enum:
-    - AUTOMATIC
-    - MANUAL
-    - TRIGGER_UNSPECIFIED
+      - AUTOMATIC
+      - MANUAL
+      - TRIGGER_UNSPECIFIED

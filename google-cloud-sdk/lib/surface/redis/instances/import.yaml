@@ -18,12 +18,12 @@
         Arguments and flags that specify the Memorystore Redis instance you want
         to import to.
     params:
-    - arg_name: source
-      api_field: importInstanceRequest.inputConfig.gcsSource.uri
-      help_text: |
-        The Cloud Storage object path to import the instance from. Must have
-        the redis DB file extension *.rdb*.
-      is_positional: true
+      - arg_name: source
+        api_field: importInstanceRequest.inputConfig.gcsSource.uri
+        help_text: |
+          The Cloud Storage object path to import the instance from. Must have
+          the redis DB file extension *.rdb*.
+        is_positional: true
 
   async:
     collection: redis.projects.locations.operations

@@ -20,39 +20,39 @@ projects_locations:
   plural_name: locations
   collection: beyondcorp.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
-          We support only global location.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
+        We support only global location.
   disable_auto_completers: true
 projects_locations_security_gateways:
   name: securityGateway
   plural_name: securityGateways
   collection: beyondcorp.projects.locations.securityGateways
   attributes:
-  - *project
-  - *location
-  - &securityGateway
-    parameter_name: securityGatewaysId
-    attribute_name: security_gateway
-    help: The securityGateway id of the {resource} resource.
+    - *project
+    - *location
+    - &securityGateway
+      parameter_name: securityGatewaysId
+      attribute_name: security_gateway
+      help: The securityGateway id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_security_gateways_applications:
   name: application
   plural_name: applications
   collection: beyondcorp.projects.locations.securityGateways.applications
   attributes:
-  - *project
-  - *location
-  - *securityGateway
-  - &application
-    parameter_name: applicationsId
-    attribute_name: application
-    help: The application id of the {resource} resource.
+    - *project
+    - *location
+    - *securityGateway
+    - &application
+      parameter_name: applicationsId
+      attribute_name: application
+      help: The application id of the {resource} resource.
   disable_auto_completers: false

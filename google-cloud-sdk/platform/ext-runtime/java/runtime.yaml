@@ -17,6 +17,6 @@ author: mmuller@google.com
 description: Official Google Java runtime definition.
 api_version: 0.1
 detect:
-    python: bin/detect
+  python: bin/detect
 generate_configs:
-    python: bin/generate_configs
+  python: bin/generate_configs

@@ -20,4 +20,4 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.media.asset.complex_types.hooks:ProcessOutput
+      - googlecloudsdk.command_lib.media.asset.complex_types.hooks:ProcessOutput

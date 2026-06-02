@@ -14,7 +14,7 @@
   request:
     collection: mediaasset.projects.locations.complexTypes
     modify_request_hooks:
-    - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
+      - googlecloudsdk.command_lib.media.asset.hooks:AddDefaultParentInfoToAssetTypeRequests
     ALPHA:
       api_version: v1alpha
 
@@ -24,7 +24,7 @@
       spec: !REF googlecloudsdk.command_lib.media.asset.resources:location
 
     params:
-    - arg_name: page-token
-      api_field: pageToken
-      help_text: |
-        The next page token value returned from a previous List request, if any.
+      - arg_name: page-token
+        api_field: pageToken
+        help_text: |
+          The next page token value returned from a previous List request, if any.

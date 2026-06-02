@@ -6,76 +6,75 @@ help_text:
     Currently English, Spanish, and Japanese are supported.
   language_examples:
     AE: |
-        To analyze entites in raw content 'puppies':
+      To analyze entites in raw content 'puppies':
 
-          $ {command} --content='puppies'
+        $ {command} --content='puppies'
 
-        To analyze entites in file 'myfile.txt':
+      To analyze entites in file 'myfile.txt':
 
-          $ {command} --content-file='myfile.txt'
+        $ {command} --content-file='myfile.txt'
 
-        To analyze entites in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
-        UTF-8 encoding:
+      To analyze entites in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
+      UTF-8 encoding:
 
-          $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
+        $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
     AES: |
-        To analyze entity sentiment in raw content 'puppies':
+      To analyze entity sentiment in raw content 'puppies':
 
-          $ {command} --content='puppies'
+        $ {command} --content='puppies'
 
-        To analyze entity sentiment in file 'myfile.txt':
+      To analyze entity sentiment in file 'myfile.txt':
 
-          $ {command} --content-file='myfile.txt'
+        $ {command} --content-file='myfile.txt'
 
-        To  analyze entity sentiment in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
-        UTF-8 encoding:
+      To  analyze entity sentiment in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
+      UTF-8 encoding:
 
-          $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
+        $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
     AS: |
-        To analyze sentiment in raw content 'I love puppies.':
+      To analyze sentiment in raw content 'I love puppies.':
 
-          $ {command} --content='I love puppies.'
+        $ {command} --content='I love puppies.'
 
-        To analyze sentiment in file 'myfile.txt':
+      To analyze sentiment in file 'myfile.txt':
 
-          $ {command} --content-file='myfile.txt'
+        $ {command} --content-file='myfile.txt'
 
-        To analyze sentiment in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
-        UTF-8 encoding:
+      To analyze sentiment in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
+      UTF-8 encoding:
 
-          $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
+        $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
     ASX: |
-        To analyze syntax in raw content 'They drink.':
+      To analyze syntax in raw content 'They drink.':
 
-          $ {command} --content='They drink'
+        $ {command} --content='They drink'
 
-        To analyze syntax in file 'myfile.txt':
+      To analyze syntax in file 'myfile.txt':
 
-          $ {command} --content-file='myfile.txt'
+        $ {command} --content-file='myfile.txt'
 
-        To analyze syntax in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
-        UTF-8 encoding:
+      To analyze syntax in a remote file 'gs://bucket_name/mycontent.html' for Japanese language using
+      UTF-8 encoding:
 
-          $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
+        $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML --encoding-type=utf8 --language=ja-JP
     CT: |
-        To classify text in raw content 'Long Political Text.':
+      To classify text in raw content 'Long Political Text.':
 
-          $ {command} --content='Long Political Text.'
+        $ {command} --content='Long Political Text.'
 
-        To classify text in file 'myfile.txt':
+      To classify text in file 'myfile.txt':
 
-          $ {command} --content-file='myfile.txt'
+        $ {command} --content-file='myfile.txt'
 
-        To classify text in a remote file 'gs://bucket_name/mycontent.html' for Japanese language:
+      To classify text in a remote file 'gs://bucket_name/mycontent.html' for Japanese language:
 
-          $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML  --language=ja-JP
-
+        $ {command} --content-file='gs://bucket_name/mycontent.html' --content-type=HTML  --language=ja-JP
 
 request:
   collection: language.documents
   api_version: v1
   modify_request_hooks:
-  - googlecloudsdk.command_lib.ml.language.util:UpdateRequestWithInput
+    - googlecloudsdk.command_lib.ml.language.util:UpdateRequestWithInput
 
 args:
   content:
@@ -83,10 +82,10 @@ args:
     arg_name: content-type
     default: plain-text
     choices:
-    - arg_value: plain-text
-      enum_value: PLAIN_TEXT
-    - arg_value: html
-      enum_value: HTML
+      - arg_value: plain-text
+        enum_value: PLAIN_TEXT
+      - arg_value: html
+        enum_value: HTML
     help_text: Specify the format of the input text.
 
   language:
@@ -112,12 +111,12 @@ args:
       mutex: true
       required: true
       params:
-      - arg_name: content
-        help_text: |
-          Specify input text on the command line. Useful for experiments, or
-          for extremely short text.
-      - arg_name: content-file
-        help_text: |
-          Specify a local file or Google Cloud Storage (format
-          `gs://bucket/object`) file path containing the text to be analyzed.
-          More useful for longer text or data output from another system.
+        - arg_name: content
+          help_text: |
+            Specify input text on the command line. Useful for experiments, or
+            for extremely short text.
+        - arg_name: content-file
+          help_text: |
+            Specify a local file or Google Cloud Storage (format
+            `gs://bucket/object`) file path containing the text to be analyzed.
+            More useful for longer text or data output from another system.

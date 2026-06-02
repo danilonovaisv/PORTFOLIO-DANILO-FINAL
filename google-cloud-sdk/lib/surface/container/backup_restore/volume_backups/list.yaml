@@ -19,7 +19,6 @@
 
         $ {command} --project=my-project
 
-
   request:
     collection: gkebackup.projects.locations.backupPlans.backups.volumeBackups
     api_version: v1

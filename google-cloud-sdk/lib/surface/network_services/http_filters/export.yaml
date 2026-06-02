@@ -1,7 +1,7 @@
 release_tracks: [ALPHA]
 help_text:
   brief: |
-      Export http filter.
+    Export http filter.
   description: |
     Export an http filter.
 

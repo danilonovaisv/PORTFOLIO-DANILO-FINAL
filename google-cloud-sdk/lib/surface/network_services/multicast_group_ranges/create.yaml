@@ -17,31 +17,31 @@ arguments:
     help_text: |
       Name of the multicast group range to be created.
   params:
-  - arg_name:  reserved-internal-range
-    api_field: multicastGroupRange.reservedInternalRange
-    help_text: The reserved internal range to be used.
-    required: true
-  - arg_name:  multicast-domain
-    api_field: multicastGroupRange.multicastDomain
-    help_text: The multicast domain to be used.
-    required: true
-  - arg_name: consumer-accept-list
-    repeated: true
-    api_field: multicastGroupRange.consumerAcceptList
-    help_text: An optional list of consumer projects that can use this multicast group range.
-  - arg_name: require-explicit-accept
-    api_field: multicastGroupRange.requireExplicitAccept
-    help_text: Whether an empty consumer accept list will reject all consumer projects.
-  - arg_name: enable-logging
-    api_field: multicastGroupRange.logConfig.enabled
-    help_text: Whether to enable logging for this multicast group range.
-    action: store_true_false
-  - arg_name: distribution-scope
-    api_field: multicastGroupRange.distributionScope
-    help_text: Distribution scope of this multicast group range.
-  - arg_name: description
-    api_field: multicastGroupRange.description
-    help_text: The description for the multicast group range.
+    - arg_name: reserved-internal-range
+      api_field: multicastGroupRange.reservedInternalRange
+      help_text: The reserved internal range to be used.
+      required: true
+    - arg_name: multicast-domain
+      api_field: multicastGroupRange.multicastDomain
+      help_text: The multicast domain to be used.
+      required: true
+    - arg_name: consumer-accept-list
+      repeated: true
+      api_field: multicastGroupRange.consumerAcceptList
+      help_text: An optional list of consumer projects that can use this multicast group range.
+    - arg_name: require-explicit-accept
+      api_field: multicastGroupRange.requireExplicitAccept
+      help_text: Whether an empty consumer accept list will reject all consumer projects.
+    - arg_name: enable-logging
+      api_field: multicastGroupRange.logConfig.enabled
+      help_text: Whether to enable logging for this multicast group range.
+      action: store_true_false
+    - arg_name: distribution-scope
+      api_field: multicastGroupRange.distributionScope
+      help_text: Distribution scope of this multicast group range.
+    - arg_name: description
+      api_field: multicastGroupRange.description
+      help_text: The description for the multicast group range.
   labels:
     api_field: multicastGroupRange.labels
 async:

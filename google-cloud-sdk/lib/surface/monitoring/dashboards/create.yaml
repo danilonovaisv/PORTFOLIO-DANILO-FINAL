@@ -88,27 +88,27 @@
       is_parent_resource: true
       spec: !REF googlecloudsdk.command_lib.monitoring.resources:project
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: config
-          processor: googlecloudsdk.core.yaml:load
-          api_field: dashboard
-          help_text: |
-            Dashboard configuration, in either JSON or YAML format, as a string.
-        - arg_name: config-from-file
-          type: "googlecloudsdk.calliope.arg_parsers:FileContents:"
-          processor: googlecloudsdk.core.yaml:load
-          api_field: dashboard
-          help_text: |
-            Path to a JSON or YAML file containing the dashboard configuration.
-    - arg_name: validate-only
-      type: bool
-      default: false
-      api_field: validateOnly
-      help_text: |
-        When set, validate the dashboard but do not save it.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: config
+              processor: googlecloudsdk.core.yaml:load
+              api_field: dashboard
+              help_text: |
+                Dashboard configuration, in either JSON or YAML format, as a string.
+            - arg_name: config-from-file
+              type: 'googlecloudsdk.calliope.arg_parsers:FileContents:'
+              processor: googlecloudsdk.core.yaml:load
+              api_field: dashboard
+              help_text: |
+                Path to a JSON or YAML file containing the dashboard configuration.
+      - arg_name: validate-only
+        type: bool
+        default: false
+        api_field: validateOnly
+        help_text: |
+          When set, validate the dashboard but do not save it.
 
   request:
     collection: monitoring.projects.dashboards

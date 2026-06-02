@@ -28,7 +28,7 @@
     BETA:
       api_version: v1beta1
     modify_request_hooks:
-    - googlecloudsdk.command_lib.active_directory.migration_util:UpdateOnPremSIDDetails
+      - googlecloudsdk.command_lib.active_directory.migration_util:UpdateOnPremSIDDetails
 
   input:
     confirmation_prompt: |
@@ -42,12 +42,12 @@
       spec: !REF googlecloudsdk.command_lib.active_directory.resources:domain
 
     params:
-    - arg_name: onprem-domains
-      required: true
-      type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
-      help_text: |
-        List of trusted domains that are being migrated.
-    - arg_name: disable-sid-filtering-domains
-      type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
-      help_text: |
-        List of migrating domains on which SID Filtering must be disabled. The list is empty by default.
+      - arg_name: onprem-domains
+        required: true
+        type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
+        help_text: |
+          List of trusted domains that are being migrated.
+      - arg_name: disable-sid-filtering-domains
+        type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
+        help_text: |
+          List of migrating domains on which SID Filtering must be disabled. The list is empty by default.

@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
   help_text:
-    brief: "Delete a health aggregation policy."
-    description: "Delete a health aggregation policy."
+    brief: 'Delete a health aggregation policy.'
+    description: 'Delete a health aggregation policy.'
     examples: |
       To delete a single health aggregation policy, run the following command:
 

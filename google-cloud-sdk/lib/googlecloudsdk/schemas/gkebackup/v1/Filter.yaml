@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkebackup v1 Filter export schema
 description: Schema of Backup for GKE fine-grained restore Filter.

@@ -14,21 +14,21 @@
       spec: !REF googlecloudsdk.command_lib.network_connectivity.resources:spoke
       help_text: Name of the spoke to update.
     params:
-    - arg_name: description
-      BETA:
-        api_field: googleCloudNetworkconnectivityV1betaSpoke.description
-      help_text: New description of the spoke.
-    - arg_name: capacity
-      BETA:
-        api_field: googleCloudNetworkconnectivityV1betaSpoke.gateway.capacity
-      choices:
-      - enum_value: CAPACITY_1_GBPS
-        arg_value: 1g
-      - enum_value: CAPACITY_10_GBPS
-        arg_value: 10g
-      - enum_value: CAPACITY_100_GBPS
-        arg_value: 100g
-      help_text: New gateway capacity of the spoke.
+      - arg_name: description
+        BETA:
+          api_field: googleCloudNetworkconnectivityV1betaSpoke.description
+        help_text: New description of the spoke.
+      - arg_name: capacity
+        BETA:
+          api_field: googleCloudNetworkconnectivityV1betaSpoke.gateway.capacity
+        choices:
+          - enum_value: CAPACITY_1_GBPS
+            arg_value: 1g
+          - enum_value: CAPACITY_10_GBPS
+            arg_value: 10g
+          - enum_value: CAPACITY_100_GBPS
+            arg_value: 100g
+        help_text: New gateway capacity of the spoke.
     labels:
       BETA:
         api_field: googleCloudNetworkconnectivityV1betaSpoke.labels

@@ -17,4 +17,4 @@ requestsize:
 path:
   pullrequest: true
   paths:
-    samples: "samples"
+    samples: 'samples'

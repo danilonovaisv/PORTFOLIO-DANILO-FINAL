@@ -31,13 +31,13 @@
       spec: !REF googlecloudsdk.command_lib.bq.resources:table
 
     params:
-    - arg_name: limit
-      api_field: maxResults
-      required: false
-      default: 100
-      help_text: How many rows to return in the result.
-    - arg_name: start
-      api_field: startIndex
-      required: false
-      default: 0
-      help_text: First row to return in the result.
+      - arg_name: limit
+        api_field: maxResults
+        required: false
+        default: 100
+        help_text: How many rows to return in the result.
+      - arg_name: start
+        api_field: startIndex
+        required: false
+        default: 0
+        help_text: First row to return in the result.

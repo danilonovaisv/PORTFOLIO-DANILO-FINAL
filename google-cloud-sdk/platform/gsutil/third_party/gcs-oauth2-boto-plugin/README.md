@@ -15,7 +15,6 @@ If you wish to use this plugin without using the PyPI install as instructed in
 the documentation (e.g., for development), then you will need to manually
 acquire the modules from the requirements.txt file.
 
-
 When using this plugin, you must specify a client ID and secret. We offer the
 following methods for providing this information; if multiple methods are used,
 we will choose them in the following order:
@@ -33,7 +32,6 @@ another locking mechanism by calling SetLock. Example:
 ```
 SetLock(multiprocessing.Manager().Lock())
 ```
-
 
 Before submitting any code, please run the tests (e.g., by creating a new
 virtualenv and running the following commands from the root of this repository):

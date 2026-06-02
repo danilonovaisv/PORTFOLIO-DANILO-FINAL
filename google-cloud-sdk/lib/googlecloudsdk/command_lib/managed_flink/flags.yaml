@@ -57,7 +57,7 @@ staging-location:
 
 args:
   arg_name: args
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   help_text: |
     List of arguments to pass to the Flink job.
 
@@ -72,7 +72,7 @@ class:
 managed-kafka-clusters:
   api_field: job.jobSpec.managedKafkaConfig.managedKafkaClusters
   arg_name: managed-kafka-clusters
-  type: "googlecloudsdk.calliope.arg_parsers:ArgList:"
+  type: 'googlecloudsdk.calliope.arg_parsers:ArgList:'
   help_text: |
     a list of Managed Kafka clusters for the Flink job to connect to. For example:
     `projects/123456789/locations/us-central1/clusters/my-cluster`.

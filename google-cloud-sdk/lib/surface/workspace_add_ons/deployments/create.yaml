@@ -18,15 +18,15 @@
       help_text: Google Workspace Add-ons deployment to create
       spec: !REF googlecloudsdk.command_lib.workspace_add_ons.resources:deployment
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - api_field: googleCloudGsuiteaddonsV1Deployment
-          arg_name: deployment-object
-          help_text: json string of the deploymentObject
-          processor: googlecloudsdk.command_lib.workspace_add_ons.util:LoadJsonString
-        - api_field: googleCloudGsuiteaddonsV1Deployment
-          arg_name: deployment-file
-          help_text: path to the deployment file
-          processor: googlecloudsdk.command_lib.workspace_add_ons.util:ParseJsonFileToDeployment
+      - group:
+          mutex: true
+          required: true
+          params:
+            - api_field: googleCloudGsuiteaddonsV1Deployment
+              arg_name: deployment-object
+              help_text: json string of the deploymentObject
+              processor: googlecloudsdk.command_lib.workspace_add_ons.util:LoadJsonString
+            - api_field: googleCloudGsuiteaddonsV1Deployment
+              arg_name: deployment-file
+              help_text: path to the deployment file
+              processor: googlecloudsdk.command_lib.workspace_add_ons.util:ParseJsonFileToDeployment

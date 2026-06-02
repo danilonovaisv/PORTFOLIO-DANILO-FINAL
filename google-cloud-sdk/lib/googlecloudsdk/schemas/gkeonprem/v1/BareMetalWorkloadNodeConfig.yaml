@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: gkeonprem v1 BareMetalWorkloadNodeConfig export schema
 description: A gcloud export/import command YAML validation schema.
@@ -29,8 +29,8 @@ properties:
     description: Specifies which container runtime will be used.
     type: string
     enum:
-    - CONTAINERD
-    - CONTAINER_RUNTIME_UNSPECIFIED
+      - CONTAINERD
+      - CONTAINER_RUNTIME_UNSPECIFIED
   maxPodsPerNode:
     description: |-
       The maximum number of pods a node can run. The size of the CIDR range

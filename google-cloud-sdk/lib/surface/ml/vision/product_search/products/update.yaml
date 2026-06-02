@@ -20,7 +20,7 @@
   request:
     collection: vision.projects.locations.products
     modify_request_hooks:
-    - googlecloudsdk.command_lib.ml.vision.product_search.utils:UpdateLabelsAndUpdateMaskForProductUpdateRequest
+      - googlecloudsdk.command_lib.ml.vision.product_search.utils:UpdateLabelsAndUpdateMaskForProductUpdateRequest
 
   arguments:
     resource:
@@ -28,13 +28,13 @@
       spec: !REF googlecloudsdk.command_lib.ml.vision.resources:product
 
     params:
-    - api_field: product.displayName
-      arg_name: display-name
-      help_text: |-
-        The display name of this product. It must not be empty and can be up to 4096 characters
-        long.
-    - api_field: product.description
-      arg_name: description
-      help_text: |-
-        An optional description of this product. It can be up to 4096 characters long.
+      - api_field: product.displayName
+        arg_name: display-name
+        help_text: |-
+          The display name of this product. It must not be empty and can be up to 4096 characters
+          long.
+      - api_field: product.description
+        arg_name: description
+        help_text: |-
+          An optional description of this product. It can be up to 4096 characters long.
     additional_arguments_hook: googlecloudsdk.command_lib.ml.vision.product_search.utils:ProductLabelsArgumentsForUpdate

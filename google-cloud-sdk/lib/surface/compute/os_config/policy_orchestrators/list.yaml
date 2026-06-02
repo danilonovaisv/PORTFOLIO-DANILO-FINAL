@@ -13,11 +13,11 @@
 
   request:
     collection:
-    - osconfig.projects.locations.global.policyOrchestrators
-    - osconfig.folders.locations.global.policyOrchestrators
-    - osconfig.organizations.locations.global.policyOrchestrators
+      - osconfig.projects.locations.global.policyOrchestrators
+      - osconfig.folders.locations.global.policyOrchestrators
+      - osconfig.organizations.locations.global.policyOrchestrators
     modify_request_hooks:
-    - googlecloudsdk.command_lib.compute.os_config.utils:ModifyOrchestrorPolicyListRequest
+      - googlecloudsdk.command_lib.compute.os_config.utils:ModifyOrchestrorPolicyListRequest
     ALPHA:
       api_version: v2alpha
     BETA:

@@ -14,7 +14,6 @@
 #
 # Implementation definition for gcloud iam workforce-pools providers scim-tenants describe
 
-
 - release_tracks: [ALPHA, BETA, GA]
   help_text:
     brief: Describe an IAM workforce identity pool provider SCIM tenant.
@@ -25,11 +24,9 @@
 
       $ {command} my-tenant --location=global --workforce-pool=my-pool --provider=my-provider
 
-
   request:
     collection: iam.locations.workforcePools.providers.scimTenants
     api_version: v1
-
 
   arguments:
     resource:

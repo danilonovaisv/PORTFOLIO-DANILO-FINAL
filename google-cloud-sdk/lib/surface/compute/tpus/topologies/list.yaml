@@ -22,7 +22,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.compute.tpus.util:ListTopologiesResponseHook
+      - googlecloudsdk.command_lib.compute.tpus.util:ListTopologiesResponseHook
 
   output:
     format: table(

@@ -28,7 +28,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.redis.operations_util:LogCanceledOperation
+      - googlecloudsdk.command_lib.redis.operations_util:LogCanceledOperation
 
   input:
     confirmation_prompt: |

@@ -20,67 +20,64 @@ projects_locations:
   plural_name: locations
   collection: networkmanagement.projects.locations
   attributes:
-  - &project
-    parameter_name: projectsId
-    attribute_name: project
-    help: The project id of the {resource} resource.
-    property: core/project
-  - &location
-    parameter_name: locationsId
-    attribute_name: location
-    help: The location id of the {resource} resource.
+    - &project
+      parameter_name: projectsId
+      attribute_name: project
+      help: The project id of the {resource} resource.
+      property: core/project
+    - &location
+      parameter_name: locationsId
+      attribute_name: location
+      help: The location id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_network_monitoring_providers:
   name: networkMonitoringProvider
   plural_name: networkMonitoringProviders
   collection: networkmanagement.projects.locations.networkMonitoringProviders
   attributes:
-  - *project
-  - *location
-  - &networkMonitoringProvider
-    parameter_name: networkMonitoringProvidersId
-    attribute_name: network_monitoring_provider
-    help: The networkMonitoringProvider id of the {resource} resource.
+    - *project
+    - *location
+    - &networkMonitoringProvider
+      parameter_name: networkMonitoringProvidersId
+      attribute_name: network_monitoring_provider
+      help: The networkMonitoringProvider id of the {resource} resource.
   disable_auto_completers: true
 projects_locations_network_monitoring_providers_monitoring_points:
   name: monitoringPoint
   plural_name: monitoringPoints
-  collection:
-    networkmanagement.projects.locations.networkMonitoringProviders.monitoringPoints
+  collection: networkmanagement.projects.locations.networkMonitoringProviders.monitoringPoints
   attributes:
-  - *project
-  - *location
-  - *networkMonitoringProvider
-  - &monitoringPoint
-    parameter_name: monitoringPointsId
-    attribute_name: monitoring_point
-    help: The monitoringPoint id of the {resource} resource.
+    - *project
+    - *location
+    - *networkMonitoringProvider
+    - &monitoringPoint
+      parameter_name: monitoringPointsId
+      attribute_name: monitoring_point
+      help: The monitoringPoint id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_network_monitoring_providers_network_paths:
   name: networkPath
   plural_name: networkPaths
-  collection:
-    networkmanagement.projects.locations.networkMonitoringProviders.networkPaths
+  collection: networkmanagement.projects.locations.networkMonitoringProviders.networkPaths
   attributes:
-  - *project
-  - *location
-  - *networkMonitoringProvider
-  - &networkPath
-    parameter_name: networkPathsId
-    attribute_name: network_path
-    help: The networkPath id of the {resource} resource.
+    - *project
+    - *location
+    - *networkMonitoringProvider
+    - &networkPath
+      parameter_name: networkPathsId
+      attribute_name: network_path
+      help: The networkPath id of the {resource} resource.
   disable_auto_completers: false
 projects_locations_network_monitoring_providers_web_paths:
   name: webPath
   plural_name: webPaths
-  collection:
-    networkmanagement.projects.locations.networkMonitoringProviders.webPaths
+  collection: networkmanagement.projects.locations.networkMonitoringProviders.webPaths
   attributes:
-  - *project
-  - *location
-  - *networkMonitoringProvider
-  - &webPath
-    parameter_name: webPathsId
-    attribute_name: web_path
-    help: The webPath id of the {resource} resource.
+    - *project
+    - *location
+    - *networkMonitoringProvider
+    - &webPath
+      parameter_name: webPathsId
+      attribute_name: web_path
+      help: The webPath id of the {resource} resource.
   disable_auto_completers: false

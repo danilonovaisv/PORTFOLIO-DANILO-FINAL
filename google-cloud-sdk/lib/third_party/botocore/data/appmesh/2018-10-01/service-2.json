@@ -811,11 +811,7 @@
     },
     "MeshStatusCode": {
       "type": "string",
-      "enum": [
-        "ACTIVE",
-        "DELETED",
-        "INACTIVE"
-      ]
+      "enum": ["ACTIVE", "DELETED", "INACTIVE"]
     },
     "PortNumber": {
       "type": "integer",
@@ -861,10 +857,7 @@
     },
     "DeleteVirtualNodeInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualNodeName"
-      ],
+      "required": ["meshName", "virtualNodeName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -969,10 +962,7 @@
     },
     "VirtualNodeData": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualNodeName"
-      ],
+      "required": ["meshName", "virtualNodeName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1038,10 +1028,7 @@
     },
     "DescribeVirtualRouterInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "virtualRouterName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1124,11 +1111,7 @@
     },
     "CreateVirtualRouterInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "spec",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "spec", "virtualRouterName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -1207,9 +1190,7 @@
     },
     "ListMeshesOutput": {
       "type": "structure",
-      "required": [
-        "meshes"
-      ],
+      "required": ["meshes"],
       "members": {
         "meshes": {
           "shape": "MeshList",
@@ -1251,11 +1232,7 @@
     },
     "RouteData": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "routeName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "routeName", "virtualRouterName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1304,11 +1281,7 @@
     },
     "UpdateVirtualNodeInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "spec",
-        "virtualNodeName"
-      ],
+      "required": ["meshName", "spec", "virtualNodeName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -1336,11 +1309,7 @@
     },
     "DeleteRouteInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "routeName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "routeName", "virtualRouterName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1386,10 +1355,7 @@
     },
     "ListRoutesInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "virtualRouterName"],
       "members": {
         "limit": {
           "shape": "ListRoutesLimit",
@@ -1437,9 +1403,7 @@
     },
     "ListRoutesOutput": {
       "type": "structure",
-      "required": [
-        "routes"
-      ],
+      "required": ["routes"],
       "members": {
         "nextToken": {
           "shape": "String",
@@ -1464,10 +1428,7 @@
     },
     "DescribeVirtualNodeInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualNodeName"
-      ],
+      "required": ["meshName", "virtualNodeName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1504,17 +1465,11 @@
     },
     "VirtualRouterStatusCode": {
       "type": "string",
-      "enum": [
-        "ACTIVE",
-        "DELETED",
-        "INACTIVE"
-      ]
+      "enum": ["ACTIVE", "DELETED", "INACTIVE"]
     },
     "ListVirtualNodesOutput": {
       "type": "structure",
-      "required": [
-        "virtualNodes"
-      ],
+      "required": ["virtualNodes"],
       "members": {
         "nextToken": {
           "shape": "String",
@@ -1540,11 +1495,7 @@
     },
     "UpdateVirtualRouterInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "spec",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "spec", "virtualRouterName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -1587,11 +1538,7 @@
     },
     "DescribeRouteInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "routeName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "routeName", "virtualRouterName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1616,9 +1563,7 @@
     },
     "ListVirtualRoutersOutput": {
       "type": "structure",
-      "required": [
-        "virtualRouters"
-      ],
+      "required": ["virtualRouters"],
       "members": {
         "nextToken": {
           "shape": "String",
@@ -1661,10 +1606,7 @@
     },
     "PortProtocol": {
       "type": "string",
-      "enum": [
-        "http",
-        "tcp"
-      ]
+      "enum": ["http", "tcp"]
     },
     "MeshList": {
       "type": "list",
@@ -1700,9 +1642,7 @@
     },
     "CreateMeshInput": {
       "type": "structure",
-      "required": [
-        "meshName"
-      ],
+      "required": ["meshName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -1732,18 +1672,11 @@
     },
     "VirtualNodeStatusCode": {
       "type": "string",
-      "enum": [
-        "ACTIVE",
-        "DELETED",
-        "INACTIVE"
-      ]
+      "enum": ["ACTIVE", "DELETED", "INACTIVE"]
     },
     "DeleteVirtualRouterInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "virtualRouterName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1772,12 +1705,7 @@
     },
     "UpdateRouteInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "routeName",
-        "spec",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "routeName", "spec", "virtualRouterName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -1822,9 +1750,7 @@
     },
     "DescribeMeshInput": {
       "type": "structure",
-      "required": [
-        "meshName"
-      ],
+      "required": ["meshName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1848,10 +1774,7 @@
     },
     "VirtualRouterData": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "virtualRouterName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -1942,9 +1865,7 @@
     },
     "ListVirtualRoutersInput": {
       "type": "structure",
-      "required": [
-        "meshName"
-      ],
+      "required": ["meshName"],
       "members": {
         "limit": {
           "shape": "ListVirtualRoutersLimit",
@@ -1969,11 +1890,7 @@
     },
     "CreateVirtualNodeInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "spec",
-        "virtualNodeName"
-      ],
+      "required": ["meshName", "spec", "virtualNodeName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -2014,10 +1931,7 @@
     },
     "MeshData": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "metadata"
-      ],
+      "required": ["meshName", "metadata"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -2048,9 +1962,7 @@
     },
     "DeleteMeshInput": {
       "type": "structure",
-      "required": [
-        "meshName"
-      ],
+      "required": ["meshName"],
       "members": {
         "meshName": {
           "shape": "ResourceName",
@@ -2090,12 +2002,7 @@
     },
     "CreateRouteInput": {
       "type": "structure",
-      "required": [
-        "meshName",
-        "routeName",
-        "spec",
-        "virtualRouterName"
-      ],
+      "required": ["meshName", "routeName", "spec", "virtualRouterName"],
       "members": {
         "clientToken": {
           "shape": "String",
@@ -2137,9 +2044,7 @@
     },
     "ListVirtualNodesInput": {
       "type": "structure",
-      "required": [
-        "meshName"
-      ],
+      "required": ["meshName"],
       "members": {
         "limit": {
           "shape": "ListVirtualNodesLimit",
@@ -2186,11 +2091,7 @@
     },
     "RouteStatusCode": {
       "type": "string",
-      "enum": [
-        "ACTIVE",
-        "DELETED",
-        "INACTIVE"
-      ]
+      "enum": ["ACTIVE", "DELETED", "INACTIVE"]
     },
     "UpdateVirtualNodeOutput": {
       "type": "structure",

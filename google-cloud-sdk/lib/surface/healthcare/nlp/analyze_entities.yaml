@@ -22,13 +22,13 @@
       spec: !REF googlecloudsdk.command_lib.healthcare.resources:nlp
 
     params:
-    - arg_name: nlp-service
-      api_field: nlpService
-      required: true
-      help_text: |
-        The NLP Service name to be used.
-    - arg_name: document-content
-      api_field: analyzeEntitiesRequest.documentContent
-      required: true
-      help_text: |
-        The input text to be analyzed.
+      - arg_name: nlp-service
+        api_field: nlpService
+        required: true
+        help_text: |
+          The NLP Service name to be used.
+      - arg_name: document-content
+        api_field: analyzeEntitiesRequest.documentContent
+        required: true
+        help_text: |
+          The input text to be analyzed.

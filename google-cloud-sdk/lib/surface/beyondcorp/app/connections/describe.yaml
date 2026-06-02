@@ -26,7 +26,7 @@
 
   response:
     modify_response_hooks:
-    - googlecloudsdk.command_lib.beyondcorp.app.connections.hooks:PrintMessageInResponse
+      - googlecloudsdk.command_lib.beyondcorp.app.connections.hooks:PrintMessageInResponse
 
   arguments:
     resource:

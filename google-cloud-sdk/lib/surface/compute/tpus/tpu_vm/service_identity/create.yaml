@@ -3,19 +3,19 @@
   help_text:
     brief: Create a Cloud TPU VM service identity for a project.
     description: |
-       Create a Cloud TPU VM service identity for a project.
+      Create a Cloud TPU VM service identity for a project.
 
-       The Cloud TPU VM creates a service identity (Google-owned service account) for management of
-       resources when the first Cloud TPU VM is created in a project after TPU service activation.
-       However, there are cases where the service identity may need to be created
-       beforehand to grant specific IAM permissions to it, like access to a Google Cloud Storage
-       bucket. This method generates the service account without need to first create a Cloud TPU
-       VM.
+      The Cloud TPU VM creates a service identity (Google-owned service account) for management of
+      resources when the first Cloud TPU VM is created in a project after TPU service activation.
+      However, there are cases where the service identity may need to be created
+      beforehand to grant specific IAM permissions to it, like access to a Google Cloud Storage
+      bucket. This method generates the service account without need to first create a Cloud TPU
+      VM.
 
-       This command generates a service identity valid for Cloud TPU VMs across all zones in a
-       project. The zone is required (either set in the gcloud config defaults, as an environment
-       variable, or `--zone` flag), but the service identity generated will work across all Cloud
-       TPU VM zones.
+      This command generates a service identity valid for Cloud TPU VMs across all zones in a
+      project. The zone is required (either set in the gcloud config defaults, as an environment
+      variable, or `--zone` flag), but the service identity generated will work across all Cloud
+      TPU VM zones.
     examples: |
       To generate a Cloud TPU VM service identity for a project (using zone `europe-west4-a`), run:
 

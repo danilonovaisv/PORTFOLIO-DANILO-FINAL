@@ -16,7 +16,6 @@
 
         $ {command}  https://osconfig.googleapis.com/v1alpha/projects/my-project/locations/us-central1-a/instances/instance-name/osPolicyAssignments/assignment-id/report
 
-
   request:
     collection: osconfig.projects.locations.instances.osPolicyAssignments.reports
     ALPHA:

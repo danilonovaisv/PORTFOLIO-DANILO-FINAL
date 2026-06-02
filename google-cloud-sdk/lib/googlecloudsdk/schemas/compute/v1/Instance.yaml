@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute v1 Instance export schema
 description: A gcloud export/import command YAML validation schema.
@@ -128,9 +128,9 @@ properties:
     description: KeyRevocationActionType of the instance.
     type: string
     enum:
-    - NONE
-    - STOP
-    - KEY_REVOCATION_ACTION_TYPE_UNSPECIFIED
+      - NONE
+      - STOP
+      - KEY_REVOCATION_ACTION_TYPE_UNSPECIFIED
   machineType:
     description: |-
       Full or partial URL of the machine type resource to use for this
@@ -190,9 +190,9 @@ properties:
       specified, use INHERIT_FROM_SUBNETWORK as default.
     type: string
     enum:
-    - ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE
-    - ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE
-    - INHERIT_FROM_SUBNETWORK
+      - ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE
+      - ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE
+      - INHERIT_FROM_SUBNETWORK
   reservationAffinity:
     description: |-
       Specifies the reservations that this instance can consume
@@ -251,16 +251,16 @@ properties:
       following
     type: string
     enum:
-    - DEPROVISIONING
-    - PROVISIONING
-    - REPAIRING
-    - RUNNING
-    - STAGING
-    - STOPPED
-    - STOPPING
-    - SUSPENDED
-    - SUSPENDING
-    - TERMINATED
+      - DEPROVISIONING
+      - PROVISIONING
+      - REPAIRING
+      - RUNNING
+      - STAGING
+      - STOPPED
+      - STOPPING
+      - SUSPENDED
+      - SUSPENDING
+      - TERMINATED
   statusMessage:
     description: |-
       [Output Only] An optional, human-readable explanation

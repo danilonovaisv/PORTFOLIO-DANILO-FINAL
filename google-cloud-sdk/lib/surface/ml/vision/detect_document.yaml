@@ -13,7 +13,6 @@
 
       {language_hints}
     language_hints: !COMMON help_text.language_hints
-
     examples: |
       To detect dense text in image 'gs://my_bucket/input_file':
 
@@ -29,8 +28,8 @@
 
   arguments:
     params:
-    - _COMMON_: args.image_field
-    - _COMMON_: args.language_hints_field
+      - _COMMON_: args.image_field
+      - _COMMON_: args.language_hints_field
 
   output:
     format: json
@@ -64,9 +63,9 @@
 
   arguments:
     params:
-    - _COMMON_: args.image_field
-    - _COMMON_: args.language_hints_field
-    - _COMMON_: args.model_field
+      - _COMMON_: args.image_field
+      - _COMMON_: args.language_hints_field
+      - _COMMON_: args.model_field
 
   output:
     format: json

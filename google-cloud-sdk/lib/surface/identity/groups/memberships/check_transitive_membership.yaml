@@ -26,8 +26,8 @@
     disable_resource_check: true
     method: checkTransitiveMembership
     modify_request_hooks:
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveMembershipParent
-    - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveQuery
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveMembershipParent
+      - googlecloudsdk.command_lib.identity.groups.memberships.hooks:SetTransitiveQuery
     ALPHA:
       api_version: v1alpha1
     BETA:
@@ -37,14 +37,14 @@
 
   arguments:
     params:
-    - arg_name: member-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the member to check transitive membership for.
+      - arg_name: member-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the member to check transitive membership for.
 
-    - arg_name: group-email
-      type: str
-      required: true
-      help_text: |
-        The email address of the group to check transitive membership for.
+      - arg_name: group-email
+        type: str
+        required: true
+        help_text: |
+          The email address of the group to check transitive membership for.

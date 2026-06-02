@@ -30,19 +30,19 @@
       help_text: |
         Arguments and flags that specify the Memcached instance on which to apply software update.
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - arg_name: node-ids
-          api_field: applySoftwareUpdateRequest.nodeIds
-          type: arg_list
-          help_text: |
-            Nodes on which to apply the software update.
-        - arg_name: apply-all
-          api_field: applySoftwareUpdateRequest.applyAll
-          help_text: |
-            Apply the software update onto all nodes.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: node-ids
+              api_field: applySoftwareUpdateRequest.nodeIds
+              type: arg_list
+              help_text: |
+                Nodes on which to apply the software update.
+            - arg_name: apply-all
+              api_field: applySoftwareUpdateRequest.applyAll
+              help_text: |
+                Apply the software update onto all nodes.
 
   async:
     collection: memcache.projects.locations.operations

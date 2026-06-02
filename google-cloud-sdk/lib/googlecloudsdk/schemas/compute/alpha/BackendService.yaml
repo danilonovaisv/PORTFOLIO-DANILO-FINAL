@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha BackendService export schema
 description: A gcloud export/import command YAML validation schema.
@@ -59,8 +59,8 @@ properties:
       client's Accept-Encoding header.
     type: string
     enum:
-    - AUTOMATIC
-    - DISABLED
+      - AUTOMATIC
+      - DISABLED
   connectionDraining:
     description: connectionDraining cannot be specified with haPolicy.
     $ref: ConnectionDraining.yaml
@@ -146,9 +146,9 @@ properties:
       can be used to migrate all traffic back to EXTERNAL.
     type: string
     enum:
-    - PREPARE
-    - TEST_ALL_TRAFFIC
-    - TEST_BY_PERCENTAGE
+      - PREPARE
+      - TEST_ALL_TRAFFIC
+      - TEST_BY_PERCENTAGE
   externalManagedMigrationTestingPercentage:
     description: |-
       Determines the fraction of requests that should be
@@ -263,10 +263,10 @@ properties:
       scheme    INTERNAL_SELF_MANAGED).
     type: string
     enum:
-    - IPV4_ONLY
-    - IPV6_ONLY
-    - IP_ADDRESS_SELECTION_POLICY_UNSPECIFIED
-    - PREFER_IPV6
+      - IPV4_ONLY
+      - IPV6_ONLY
+      - IP_ADDRESS_SELECTION_POLICY_UNSPECIFIED
+      - PREFER_IPV6
   loadBalancingScheme:
     description: |-
       Specifies the load balancer type. A backend service
@@ -275,13 +275,13 @@ properties:
       load balancer.
     type: string
     enum:
-    - EXTERNAL
-    - EXTERNAL_MANAGED
-    - EXTERNAL_PASSTHROUGH
-    - INTERNAL
-    - INTERNAL_MANAGED
-    - INTERNAL_SELF_MANAGED
-    - INVALID_LOAD_BALANCING_SCHEME
+      - EXTERNAL
+      - EXTERNAL_MANAGED
+      - EXTERNAL_PASSTHROUGH
+      - INTERNAL
+      - INTERNAL_MANAGED
+      - INTERNAL_SELF_MANAGED
+      - INVALID_LOAD_BALANCING_SCHEME
   localityLbPolicies:
     description: |-
       A list of locality load-balancing policies to be used
@@ -328,16 +328,16 @@ properties:
       Software Network Load Balancer.    -
     type: string
     enum:
-    - INVALID_LB_POLICY
-    - LEAST_REQUEST
-    - MAGLEV
-    - ORIGINAL_DESTINATION
-    - RANDOM
-    - RING_HASH
-    - ROUND_ROBIN
-    - WEIGHTED_GCP_RENDEZVOUS
-    - WEIGHTED_MAGLEV
-    - WEIGHTED_ROUND_ROBIN
+      - INVALID_LB_POLICY
+      - LEAST_REQUEST
+      - MAGLEV
+      - ORIGINAL_DESTINATION
+      - RANDOM
+      - RING_HASH
+      - ROUND_ROBIN
+      - WEIGHTED_GCP_RENDEZVOUS
+      - WEIGHTED_MAGLEV
+      - WEIGHTED_ROUND_ROBIN
   logConfig:
     description: |-
       This field denotes the logging options for the
@@ -485,16 +485,16 @@ properties:
       bound to target gRPC proxy.
     type: string
     enum:
-    - ALL
-    - GRPC
-    - H2C
-    - HTTP
-    - HTTP2
-    - HTTPS
-    - SSL
-    - TCP
-    - UDP
-    - UNSPECIFIED
+      - ALL
+      - GRPC
+      - H2C
+      - HTTP
+      - HTTP2
+      - HTTPS
+      - SSL
+      - TCP
+      - UDP
+      - UNSPECIFIED
   securitySettings:
     description: |-
       This field specifies the security settings that
@@ -535,15 +535,15 @@ properties:
       cannot be specified with haPolicy.
     type: string
     enum:
-    - CLIENT_IP
-    - CLIENT_IP_NO_DESTINATION
-    - CLIENT_IP_PORT_PROTO
-    - CLIENT_IP_PROTO
-    - GENERATED_COOKIE
-    - HEADER_FIELD
-    - HTTP_COOKIE
-    - NONE
-    - STRONG_COOKIE_AFFINITY
+      - CLIENT_IP
+      - CLIENT_IP_NO_DESTINATION
+      - CLIENT_IP_PORT_PROTO
+      - CLIENT_IP_PROTO
+      - GENERATED_COOKIE
+      - HEADER_FIELD
+      - HTTP_COOKIE
+      - NONE
+      - STRONG_COOKIE_AFFINITY
   strongSessionAffinityCookie:
     description: |-
       Describes the HTTP cookie used for stateful
@@ -593,5 +593,5 @@ properties:
       GLOBAL_VPC_NETWORK will be used.
     type: string
     enum:
-    - GLOBAL_VPC_NETWORK
-    - REGIONAL_VPC_NETWORK
+      - GLOBAL_VPC_NETWORK
+      - REGIONAL_VPC_NETWORK

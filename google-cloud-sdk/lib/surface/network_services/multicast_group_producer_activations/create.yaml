@@ -24,20 +24,20 @@ arguments:
     help_text: |
       Name of the multicast group producer activation to be created.
   params:
-  - arg_name:  multicast-producer-association
-    api_field: multicastGroupProducerActivation.multicastProducerAssociation
-    help_text: The multicast producer association to be used.
-    required: true
-  - arg_name:  multicast-group
-    api_field: multicastGroupProducerActivation.multicastGroup
-    release_tracks: [ALPHA]
-    help_text: The multicast group to be used.
-  - arg_name:  multicast-group-range-activation
-    api_field: multicastGroupProducerActivation.multicastGroupRangeActivation
-    help_text: The multicast group range activation to be used.
-  - arg_name: description
-    api_field: multicastGroupProducerActivation.description
-    help_text: The description for the multicast group producer activation.
+    - arg_name: multicast-producer-association
+      api_field: multicastGroupProducerActivation.multicastProducerAssociation
+      help_text: The multicast producer association to be used.
+      required: true
+    - arg_name: multicast-group
+      api_field: multicastGroupProducerActivation.multicastGroup
+      release_tracks: [ALPHA]
+      help_text: The multicast group to be used.
+    - arg_name: multicast-group-range-activation
+      api_field: multicastGroupProducerActivation.multicastGroupRangeActivation
+      help_text: The multicast group range activation to be used.
+    - arg_name: description
+      api_field: multicastGroupProducerActivation.description
+      help_text: The description for the multicast group producer activation.
   labels:
     api_field: multicastGroupProducerActivation.labels
 async:

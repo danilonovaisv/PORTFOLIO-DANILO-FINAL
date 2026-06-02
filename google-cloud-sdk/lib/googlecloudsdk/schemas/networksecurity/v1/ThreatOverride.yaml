@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1 ThreatOverride export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- action
-- threatId
+  - action
+  - threatId
 additionalProperties: false
 properties:
   COMMENT:
@@ -34,11 +34,11 @@ properties:
       applies.
     type: string
     enum:
-    - ALERT
-    - ALLOW
-    - DEFAULT_ACTION
-    - DENY
-    - THREAT_ACTION_UNSPECIFIED
+      - ALERT
+      - ALLOW
+      - DEFAULT_ACTION
+      - DENY
+      - THREAT_ACTION_UNSPECIFIED
   threatId:
     description: Vendor-specific ID of a threat to override.
     type: string

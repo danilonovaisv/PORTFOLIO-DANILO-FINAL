@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1 Gateway export schema
 description: A gcloud export/import command YAML validation schema.
@@ -71,9 +71,9 @@ properties:
       default, envoy will not insert any debug headers.
     type: string
     enum:
-    - DEBUG_HEADERS
-    - ENVOY_HEADERS_UNSPECIFIED
-    - NONE
+      - DEBUG_HEADERS
+      - ENVOY_HEADERS_UNSPECIFIED
+      - NONE
   gatewaySecurityPolicy:
     description: |-
       A fully-qualified GatewaySecurityPolicy URL reference. Defines how
@@ -88,9 +88,9 @@ properties:
       are IPV4 or IPV6. Default is IPV4.
     type: string
     enum:
-    - IPV4
-    - IPV6
-    - IP_VERSION_UNSPECIFIED
+      - IPV4
+      - IPV6
+      - IP_VERSION_UNSPECIFIED
   labels:
     description: Set of label tags associated with the Gateway resource.
     $ref: LabelsValue.yaml
@@ -123,8 +123,8 @@ properties:
       required for gateways of type SECURE_WEB_GATEWAY.
     type: string
     enum:
-    - EXPLICIT_ROUTING_MODE
-    - NEXT_HOP_ROUTING_MODE
+      - EXPLICIT_ROUTING_MODE
+      - NEXT_HOP_ROUTING_MODE
   scope:
     description: |-
       Scope determines how configuration across multiple Gateway
@@ -161,6 +161,6 @@ properties:
       field is required. If unspecified, an error is returned.
     type: string
     enum:
-    - OPEN_MESH
-    - SECURE_WEB_GATEWAY
-    - TYPE_UNSPECIFIED
+      - OPEN_MESH
+      - SECURE_WEB_GATEWAY
+      - TYPE_UNSPECIFIED

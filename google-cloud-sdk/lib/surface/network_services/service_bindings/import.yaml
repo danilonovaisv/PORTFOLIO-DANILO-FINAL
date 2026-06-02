@@ -6,9 +6,9 @@ help_text:
   description: |
     Import a service binding from a YAML file.
   examples: |
-      To import a service binding named `my-service-binding` from a YAML file, run:
+    To import a service binding named `my-service-binding` from a YAML file, run:
 
-        $ {command} my-service-binding --source=my-service-binding.yaml --location=global
+      $ {command} my-service-binding --source=my-service-binding.yaml --location=global
 
 arguments:
   resource:

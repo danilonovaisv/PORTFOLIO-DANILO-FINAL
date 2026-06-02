@@ -5,9 +5,9 @@ help_text:
   description: |
     Import a http route.
   examples: |
-      To import a route named 'my-route' from a YAML file, run:
+    To import a route named 'my-route' from a YAML file, run:
 
-        $ {command} my-route --source=my-route.yaml --location=global
+      $ {command} my-route --source=my-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.httpRoutes

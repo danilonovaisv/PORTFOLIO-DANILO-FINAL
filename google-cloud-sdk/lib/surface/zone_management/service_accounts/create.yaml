@@ -18,10 +18,10 @@
       help_text: Service Account to create.
       spec: !REF googlecloudsdk.command_lib.zone_management.service_account.resources:serviceAccount
     params:
-    - arg_name: zone
-      api_field: serviceAccount.zone
-      required: true
-      help_text: Zone name.
+      - arg_name: zone
+        api_field: serviceAccount.zone
+        required: true
+        help_text: Zone name.
 
   async:
     collection: edgecontainer.projects.locations.operations

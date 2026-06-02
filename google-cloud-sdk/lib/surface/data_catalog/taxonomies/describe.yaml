@@ -12,7 +12,6 @@
     GA:
       api_version: v1
 
-
   arguments:
     resource:
       help_text: Policy tag taxonomy to describe.

@@ -17,7 +17,7 @@
   request:
     collection: run.projects.locations.workerpools
     modify_request_hooks:
-    - googlecloudsdk.command_lib.run.platforms:ValidatePlatformIsManaged
+      - googlecloudsdk.command_lib.run.platforms:ValidatePlatformIsManaged
 
   arguments:
     resource:

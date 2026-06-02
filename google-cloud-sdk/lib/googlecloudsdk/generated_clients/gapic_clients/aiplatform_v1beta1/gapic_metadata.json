@@ -1,4 +1,4 @@
- {
+{
   "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
   "language": "python",
   "libraryPackage": "googlecloudsdk.generated_clients.gapic_clients.aiplatform_v1beta1",
@@ -11,99 +11,61 @@
           "libraryClient": "PredictionServiceClient",
           "rpcs": {
             "ChatCompletions": {
-              "methods": [
-                "chat_completions"
-              ]
+              "methods": ["chat_completions"]
             },
             "CountTokens": {
-              "methods": [
-                "count_tokens"
-              ]
+              "methods": ["count_tokens"]
             },
             "DirectPredict": {
-              "methods": [
-                "direct_predict"
-              ]
+              "methods": ["direct_predict"]
             },
             "DirectRawPredict": {
-              "methods": [
-                "direct_raw_predict"
-              ]
+              "methods": ["direct_raw_predict"]
             },
             "EmbedContent": {
-              "methods": [
-                "embed_content"
-              ]
+              "methods": ["embed_content"]
             },
             "Explain": {
-              "methods": [
-                "explain"
-              ]
+              "methods": ["explain"]
             },
             "FetchPredictOperation": {
-              "methods": [
-                "fetch_predict_operation"
-              ]
+              "methods": ["fetch_predict_operation"]
             },
             "GenerateContent": {
-              "methods": [
-                "generate_content"
-              ]
+              "methods": ["generate_content"]
             },
             "Invoke": {
-              "methods": [
-                "invoke"
-              ]
+              "methods": ["invoke"]
             },
             "Predict": {
-              "methods": [
-                "predict"
-              ]
+              "methods": ["predict"]
             },
             "PredictLongRunning": {
-              "methods": [
-                "predict_long_running"
-              ]
+              "methods": ["predict_long_running"]
             },
             "RawPredict": {
-              "methods": [
-                "raw_predict"
-              ]
+              "methods": ["raw_predict"]
             },
             "ServerStreamingPredict": {
-              "methods": [
-                "server_streaming_predict"
-              ]
+              "methods": ["server_streaming_predict"]
             },
             "StreamDirectPredict": {
-              "methods": [
-                "stream_direct_predict"
-              ]
+              "methods": ["stream_direct_predict"]
             },
             "StreamDirectRawPredict": {
-              "methods": [
-                "stream_direct_raw_predict"
-              ]
+              "methods": ["stream_direct_raw_predict"]
             },
             "StreamGenerateContent": {
-              "methods": [
-                "stream_generate_content"
-              ]
+              "methods": ["stream_generate_content"]
             },
             "StreamRawPredict": {
-              "methods": [
-                "stream_raw_predict"
-              ]
+              "methods": ["stream_raw_predict"]
             },
             "StreamingPredict": {
-              "methods": [
-                "streaming_predict"
-              ]
+              "methods": ["streaming_predict"]
             },
             "StreamingRawPredict": {
-              "methods": [
-                "streaming_raw_predict"
-              ]
+              "methods": ["streaming_raw_predict"]
             }
           }
         },
@@ -111,99 +73,61 @@
           "libraryClient": "PredictionServiceAsyncClient",
           "rpcs": {
             "ChatCompletions": {
-              "methods": [
-                "chat_completions"
-              ]
+              "methods": ["chat_completions"]
             },
             "CountTokens": {
-              "methods": [
-                "count_tokens"
-              ]
+              "methods": ["count_tokens"]
             },
             "DirectPredict": {
-              "methods": [
-                "direct_predict"
-              ]
+              "methods": ["direct_predict"]
             },
             "DirectRawPredict": {
-              "methods": [
-                "direct_raw_predict"
-              ]
+              "methods": ["direct_raw_predict"]
             },
             "EmbedContent": {
-              "methods": [
-                "embed_content"
-              ]
+              "methods": ["embed_content"]
             },
             "Explain": {
-              "methods": [
-                "explain"
-              ]
+              "methods": ["explain"]
             },
             "FetchPredictOperation": {
-              "methods": [
-                "fetch_predict_operation"
-              ]
+              "methods": ["fetch_predict_operation"]
             },
             "GenerateContent": {
-              "methods": [
-                "generate_content"
-              ]
+              "methods": ["generate_content"]
             },
             "Invoke": {
-              "methods": [
-                "invoke"
-              ]
+              "methods": ["invoke"]
             },
             "Predict": {
-              "methods": [
-                "predict"
-              ]
+              "methods": ["predict"]
             },
             "PredictLongRunning": {
-              "methods": [
-                "predict_long_running"
-              ]
+              "methods": ["predict_long_running"]
             },
             "RawPredict": {
-              "methods": [
-                "raw_predict"
-              ]
+              "methods": ["raw_predict"]
             },
             "ServerStreamingPredict": {
-              "methods": [
-                "server_streaming_predict"
-              ]
+              "methods": ["server_streaming_predict"]
             },
             "StreamDirectPredict": {
-              "methods": [
-                "stream_direct_predict"
-              ]
+              "methods": ["stream_direct_predict"]
             },
             "StreamDirectRawPredict": {
-              "methods": [
-                "stream_direct_raw_predict"
-              ]
+              "methods": ["stream_direct_raw_predict"]
             },
             "StreamGenerateContent": {
-              "methods": [
-                "stream_generate_content"
-              ]
+              "methods": ["stream_generate_content"]
             },
             "StreamRawPredict": {
-              "methods": [
-                "stream_raw_predict"
-              ]
+              "methods": ["stream_raw_predict"]
             },
             "StreamingPredict": {
-              "methods": [
-                "streaming_predict"
-              ]
+              "methods": ["streaming_predict"]
             },
             "StreamingRawPredict": {
-              "methods": [
-                "streaming_raw_predict"
-              ]
+              "methods": ["streaming_raw_predict"]
             }
           }
         },
@@ -211,99 +135,61 @@
           "libraryClient": "PredictionServiceClient",
           "rpcs": {
             "ChatCompletions": {
-              "methods": [
-                "chat_completions"
-              ]
+              "methods": ["chat_completions"]
             },
             "CountTokens": {
-              "methods": [
-                "count_tokens"
-              ]
+              "methods": ["count_tokens"]
             },
             "DirectPredict": {
-              "methods": [
-                "direct_predict"
-              ]
+              "methods": ["direct_predict"]
             },
             "DirectRawPredict": {
-              "methods": [
-                "direct_raw_predict"
-              ]
+              "methods": ["direct_raw_predict"]
             },
             "EmbedContent": {
-              "methods": [
-                "embed_content"
-              ]
+              "methods": ["embed_content"]
             },
             "Explain": {
-              "methods": [
-                "explain"
-              ]
+              "methods": ["explain"]
             },
             "FetchPredictOperation": {
-              "methods": [
-                "fetch_predict_operation"
-              ]
+              "methods": ["fetch_predict_operation"]
             },
             "GenerateContent": {
-              "methods": [
-                "generate_content"
-              ]
+              "methods": ["generate_content"]
             },
             "Invoke": {
-              "methods": [
-                "invoke"
-              ]
+              "methods": ["invoke"]
             },
             "Predict": {
-              "methods": [
-                "predict"
-              ]
+              "methods": ["predict"]
             },
             "PredictLongRunning": {
-              "methods": [
-                "predict_long_running"
-              ]
+              "methods": ["predict_long_running"]
             },
             "RawPredict": {
-              "methods": [
-                "raw_predict"
-              ]
+              "methods": ["raw_predict"]
             },
             "ServerStreamingPredict": {
-              "methods": [
-                "server_streaming_predict"
-              ]
+              "methods": ["server_streaming_predict"]
             },
             "StreamDirectPredict": {
-              "methods": [
-                "stream_direct_predict"
-              ]
+              "methods": ["stream_direct_predict"]
             },
             "StreamDirectRawPredict": {
-              "methods": [
-                "stream_direct_raw_predict"
-              ]
+              "methods": ["stream_direct_raw_predict"]
             },
             "StreamGenerateContent": {
-              "methods": [
-                "stream_generate_content"
-              ]
+              "methods": ["stream_generate_content"]
             },
             "StreamRawPredict": {
-              "methods": [
-                "stream_raw_predict"
-              ]
+              "methods": ["stream_raw_predict"]
             },
             "StreamingPredict": {
-              "methods": [
-                "streaming_predict"
-              ]
+              "methods": ["streaming_predict"]
             },
             "StreamingRawPredict": {
-              "methods": [
-                "streaming_raw_predict"
-              ]
+              "methods": ["streaming_raw_predict"]
             }
           }
         }
@@ -315,29 +201,19 @@
           "libraryClient": "SemanticGovernancePolicyServiceClient",
           "rpcs": {
             "CreateSemanticGovernancePolicy": {
-              "methods": [
-                "create_semantic_governance_policy"
-              ]
+              "methods": ["create_semantic_governance_policy"]
             },
             "DeleteSemanticGovernancePolicy": {
-              "methods": [
-                "delete_semantic_governance_policy"
-              ]
+              "methods": ["delete_semantic_governance_policy"]
             },
             "GetSemanticGovernancePolicy": {
-              "methods": [
-                "get_semantic_governance_policy"
-              ]
+              "methods": ["get_semantic_governance_policy"]
             },
             "ListSemanticGovernancePolicies": {
-              "methods": [
-                "list_semantic_governance_policies"
-              ]
+              "methods": ["list_semantic_governance_policies"]
             },
             "UpdateSemanticGovernancePolicy": {
-              "methods": [
-                "update_semantic_governance_policy"
-              ]
+              "methods": ["update_semantic_governance_policy"]
             }
           }
         },
@@ -345,29 +221,19 @@
           "libraryClient": "SemanticGovernancePolicyServiceAsyncClient",
           "rpcs": {
             "CreateSemanticGovernancePolicy": {
-              "methods": [
-                "create_semantic_governance_policy"
-              ]
+              "methods": ["create_semantic_governance_policy"]
             },
             "DeleteSemanticGovernancePolicy": {
-              "methods": [
-                "delete_semantic_governance_policy"
-              ]
+              "methods": ["delete_semantic_governance_policy"]
             },
             "GetSemanticGovernancePolicy": {
-              "methods": [
-                "get_semantic_governance_policy"
-              ]
+              "methods": ["get_semantic_governance_policy"]
             },
             "ListSemanticGovernancePolicies": {
-              "methods": [
-                "list_semantic_governance_policies"
-              ]
+              "methods": ["list_semantic_governance_policies"]
             },
             "UpdateSemanticGovernancePolicy": {
-              "methods": [
-                "update_semantic_governance_policy"
-              ]
+              "methods": ["update_semantic_governance_policy"]
             }
           }
         },
@@ -375,29 +241,19 @@
           "libraryClient": "SemanticGovernancePolicyServiceClient",
           "rpcs": {
             "CreateSemanticGovernancePolicy": {
-              "methods": [
-                "create_semantic_governance_policy"
-              ]
+              "methods": ["create_semantic_governance_policy"]
             },
             "DeleteSemanticGovernancePolicy": {
-              "methods": [
-                "delete_semantic_governance_policy"
-              ]
+              "methods": ["delete_semantic_governance_policy"]
             },
             "GetSemanticGovernancePolicy": {
-              "methods": [
-                "get_semantic_governance_policy"
-              ]
+              "methods": ["get_semantic_governance_policy"]
             },
             "ListSemanticGovernancePolicies": {
-              "methods": [
-                "list_semantic_governance_policies"
-              ]
+              "methods": ["list_semantic_governance_policies"]
             },
             "UpdateSemanticGovernancePolicy": {
-              "methods": [
-                "update_semantic_governance_policy"
-              ]
+              "methods": ["update_semantic_governance_policy"]
             }
           }
         }

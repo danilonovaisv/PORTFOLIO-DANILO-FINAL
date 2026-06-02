@@ -18,7 +18,7 @@
       api_version: v1
     collection: networkconnectivity.projects.locations.transports
     modify_request_hooks:
-    - googlecloudsdk.command_lib.network_connectivity.util:AddDefaultLocationToList
+      - googlecloudsdk.command_lib.network_connectivity.util:AddDefaultLocationToList
 
   arguments:
     resource:
@@ -26,9 +26,9 @@
       help_text: Project of the transports to list
       override_resource_collection: true
     params:
-    - arg_name: region
-      help_text: The region of the transports to list. Provide "-" to list all transports.
-      default: '-'
+      - arg_name: region
+        help_text: The region of the transports to list. Provide "-" to list all transports.
+        default: '-'
 
   response:
     id_field: name

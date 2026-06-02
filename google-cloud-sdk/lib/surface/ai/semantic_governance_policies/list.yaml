@@ -14,12 +14,12 @@ arguments:
       name: location
       collection: aiplatform.projects.locations
       attributes:
-      - parameter_name: projectsId
-        attribute_name: project
-        help: The project containing the policies.
-      - parameter_name: locationsId
-        attribute_name: location
-        help: The location containing the policies.
+        - parameter_name: projectsId
+          attribute_name: project
+          help: The project containing the policies.
+        - parameter_name: locationsId
+          attribute_name: location
+          help: The location containing the policies.
 request:
   api_version: v1beta1
   collection: aiplatform.projects.locations.semanticGovernancePolicies

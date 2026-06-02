@@ -16,7 +16,7 @@
   <a href="https://bestpractices.coreinfrastructure.org/projects/6227"><img alt="CII Best Practices" src="https://bestpractices.coreinfrastructure.org/projects/6227/badge" /></a>
 </p>
 
-urllib3 is a powerful, *user-friendly* HTTP client for Python. Much of the
+urllib3 is a powerful, _user-friendly_ HTTP client for Python. Much of the
 Python ecosystem already uses urllib3 and you should too.
 urllib3 brings many critical features that are missing from the Python
 standard libraries:
@@ -57,17 +57,14 @@ $ cd urllib3
 $ pip install .
 ```
 
-
 ## Documentation
 
 urllib3 has usage and reference documentation at [urllib3.readthedocs.io](https://urllib3.readthedocs.io).
-
 
 ## Community
 
 urllib3 has a [community Discord channel](https://discord.gg/urllib3) for asking questions and
 collaborating with other contributors. Drop by and say hello 👋
-
 
 ## Contributing
 
@@ -75,13 +72,11 @@ urllib3 happily accepts contributions. Please see our
 [contributing documentation](https://urllib3.readthedocs.io/en/latest/contributing.html)
 for some tips on getting started.
 
-
 ## Security Disclosures
 
 To report a security vulnerability, please use the
 [Tidelift security contact](https://tidelift.com/security).
 Tidelift will coordinate the fix and disclosure with maintainers.
-
 
 ## Maintainers
 
@@ -96,17 +91,15 @@ Tidelift will coordinate the fix and disclosure with maintainers.
 
 👋
 
-
 ## Sponsorship
 
 If your company benefits from this library, please consider [sponsoring its
 development](https://urllib3.readthedocs.io/en/latest/sponsors.html).
 
-
 ## For Enterprise
 
 Professional support for urllib3 is available as part of the [Tidelift
-Subscription][1].  Tidelift gives software development teams a single source for
+Subscription][1]. Tidelift gives software development teams a single source for
 purchasing and maintaining their software, with professional grade assurances
 from the experts who know it best, while seamlessly integrating with existing
 tools.

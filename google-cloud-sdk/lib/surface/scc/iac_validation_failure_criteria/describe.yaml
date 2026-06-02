@@ -16,9 +16,9 @@
 
   arguments:
     params:
-    - arg_name: iac_validation_failure_criteria
-      api_field: name
-      is_positional: true
-      required: true
-      help_text: |
-        Relative resource name of the IaC validation failure criteria, like `organizations/<organizationID>/locations/<location>/iacValidationFailureCriteria`.
+      - arg_name: iac_validation_failure_criteria
+        api_field: name
+        is_positional: true
+        required: true
+        help_text: |
+          Relative resource name of the IaC validation failure criteria, like `organizations/<organizationID>/locations/<location>/iacValidationFailureCriteria`.

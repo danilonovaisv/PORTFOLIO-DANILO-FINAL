@@ -14,7 +14,7 @@
     collection: remotebuildexecution.projects.instances
     method: patch
     modify_request_hooks:
-    - googlecloudsdk.command_lib.remote_build_execution.instance_update_util:RemoveFeaturePolicy
+      - googlecloudsdk.command_lib.remote_build_execution.instance_update_util:RemoveFeaturePolicy
 
   async:
     collection: remotebuildexecution.projects.operations

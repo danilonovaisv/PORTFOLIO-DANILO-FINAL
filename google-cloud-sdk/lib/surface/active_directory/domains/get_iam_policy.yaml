@@ -1,7 +1,7 @@
 - release_tracks: [GA, BETA, ALPHA]
 
   help_text:
-    brief:  |
+    brief: |
       Describe the IAM policy for a Managed Microsoft AD domain.
     description: |
       *{command}* displays the IAM policy associated with an Managed Microsoft AD domain.

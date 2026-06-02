@@ -16,9 +16,9 @@
     GA:
       api_version: v1
     collection:
-    - privilegedaccessmanager.projects.locations.operations
-    - privilegedaccessmanager.folders.locations.operations
-    - privilegedaccessmanager.organizations.locations.operations
+      - privilegedaccessmanager.projects.locations.operations
+      - privilegedaccessmanager.folders.locations.operations
+      - privilegedaccessmanager.organizations.locations.operations
 
   arguments:
     resource:

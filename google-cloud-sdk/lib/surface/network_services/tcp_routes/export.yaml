@@ -5,9 +5,9 @@ help_text:
   description: |
     Export a tcp route.
   examples: |
-      To export a tcp route named 'my-tcp-route' to a YAML file, run:
+    To export a tcp route named 'my-tcp-route' to a YAML file, run:
 
-        $ {command} my-tcp-route --destination=my-tcp-route.yaml --location=global
+      $ {command} my-tcp-route --destination=my-tcp-route.yaml --location=global
 
 request:
   collection: networkservices.projects.locations.tcpRoutes

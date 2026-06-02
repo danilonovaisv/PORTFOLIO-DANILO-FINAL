@@ -34,4 +34,4 @@ request:
   method: getAuthString
 
 output:
-  format: "yaml[private]"
+  format: 'yaml[private]'

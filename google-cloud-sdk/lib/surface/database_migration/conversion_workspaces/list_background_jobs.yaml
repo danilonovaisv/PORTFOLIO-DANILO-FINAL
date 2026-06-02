@@ -22,16 +22,16 @@
       spec: !REF googlecloudsdk.command_lib.database_migration.resources:conversion_workspace
 
     params:
-    - api_field: maxSize
-      arg_name: max-size
-      help_text: |
-        The maximum number of jobs to return. The service may return fewer than this value. If
-        unspecified, at most 100 jobs will be returned. The maximum value is 100; values above 100
-        will be coerced to 100.
-    - api_field: returnMostRecentPerJobType
-      arg_name: most-recent-per-job-type
-      help_text: |
-        Returns only the most recent job per job type.
+      - api_field: maxSize
+        arg_name: max-size
+        help_text: |
+          The maximum number of jobs to return. The service may return fewer than this value. If
+          unspecified, at most 100 jobs will be returned. The maximum value is 100; values above 100
+          will be coerced to 100.
+      - api_field: returnMostRecentPerJobType
+        arg_name: most-recent-per-job-type
+        help_text: |
+          Returns only the most recent job per job type.
 
   output:
     format: |

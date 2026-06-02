@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: privilegedaccessmanager v1alpha Entitlement export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- maxRequestDuration
-- requesterJustificationConfig
+  - maxRequestDuration
+  - requesterJustificationConfig
 additionalProperties: false
 properties:
   COMMENT:

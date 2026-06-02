@@ -18,25 +18,25 @@ arguments:
     help_text: |
       Name of the regional multicast group consumer activation to be created.
   params:
-  - arg_name: regional-multicast-group-range-activation
-    api_field: regionalMulticastGroupConsumerActivation.regionalMulticastGroupRangeActivation
-    help_text: The regional multicast group range activation to be used.
-    required: true
-  - arg_name: regional-multicast-consumer-association
-    api_field: regionalMulticastGroupConsumerActivation.regionalMulticastConsumerAssociation
-    help_text: The regional multicast consumer association to be used.
-    required: true
-  - arg_name: interconnect-attachments
-    api_field: regionalMulticastGroupConsumerActivation.interconnectAttachments
-    repeated: true
-    help_text: The interconnect attachments to be used.
-  - arg_name: description
-    api_field: regionalMulticastGroupConsumerActivation.description
-    help_text: The description for the regional multicast group consumer activation.
-  - arg_name: enable-logging
-    api_field: regionalMulticastGroupConsumerActivation.logConfig.enabled
-    action: store_true
-    help_text: Enable logging for the regional multicast group consumer activation.
+    - arg_name: regional-multicast-group-range-activation
+      api_field: regionalMulticastGroupConsumerActivation.regionalMulticastGroupRangeActivation
+      help_text: The regional multicast group range activation to be used.
+      required: true
+    - arg_name: regional-multicast-consumer-association
+      api_field: regionalMulticastGroupConsumerActivation.regionalMulticastConsumerAssociation
+      help_text: The regional multicast consumer association to be used.
+      required: true
+    - arg_name: interconnect-attachments
+      api_field: regionalMulticastGroupConsumerActivation.interconnectAttachments
+      repeated: true
+      help_text: The interconnect attachments to be used.
+    - arg_name: description
+      api_field: regionalMulticastGroupConsumerActivation.description
+      help_text: The description for the regional multicast group consumer activation.
+    - arg_name: enable-logging
+      api_field: regionalMulticastGroupConsumerActivation.logConfig.enabled
+      action: store_true
+      help_text: Enable logging for the regional multicast group consumer activation.
   labels:
     api_field: regionalMulticastGroupConsumerActivation.labels
 async:

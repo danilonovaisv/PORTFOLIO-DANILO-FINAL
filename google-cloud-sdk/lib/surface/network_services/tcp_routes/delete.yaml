@@ -6,9 +6,9 @@ help_text:
   description: |
     Delete the specified tcp route.
   examples: |
-      To delete a tcp route named 'my-tcp-route', run:
+    To delete a tcp route named 'my-tcp-route', run:
 
-        $ {command} my-tcp-route --location=global
+      $ {command} my-tcp-route --location=global
 
 arguments:
   resource:

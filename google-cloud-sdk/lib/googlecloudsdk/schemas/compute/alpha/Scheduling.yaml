@@ -1,4 +1,4 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: compute alpha Scheduling export schema
 description: A gcloud export/import command YAML validation schema.
@@ -62,9 +62,9 @@ properties:
     description: Specifies the termination action for the instance.
     type: string
     enum:
-    - DELETE
-    - INSTANCE_TERMINATION_ACTION_UNSPECIFIED
-    - STOP
+      - DELETE
+      - INSTANCE_TERMINATION_ACTION_UNSPECIFIED
+      - STOP
   latencyTolerant:
     description: |-
       Defines whether the instance is tolerant of higher cpu latency.  This can
@@ -96,9 +96,9 @@ properties:
       are: `PERIODIC`.
     type: string
     enum:
-    - AS_NEEDED
-    - PERIODIC
-    - RECURRENT
+      - AS_NEEDED
+      - PERIODIC
+      - RECURRENT
   maxRunDuration:
     description: |-
       Specifies the max run duration for the given instance. If specified, the
@@ -126,8 +126,8 @@ properties:
       information, see  Set  VM host maintenance policy.
     type: string
     enum:
-    - MIGRATE
-    - TERMINATE
+      - MIGRATE
+      - TERMINATE
   onInstanceStopAction:
     description: A SchedulingOnInstanceStopAction attribute.
     $ref: SchedulingOnInstanceStopAction.yaml
@@ -149,10 +149,10 @@ properties:
     description: Specifies the provisioning model of the instance.
     type: string
     enum:
-    - FLEX_START
-    - RESERVATION_BOUND
-    - SPOT
-    - STANDARD
+      - FLEX_START
+      - RESERVATION_BOUND
+      - SPOT
+      - STANDARD
   shutdownTimeout:
     description: |-
       DEPRECATED: please use skipGuestOsShutdown. Timeout between GCE ACPI
@@ -180,10 +180,10 @@ properties:
       unspecified, the default mode is `OFF`.
     type: string
     enum:
-    - AUTO
-    - BALANCED
-    - COST_OPTIMIZED
-    - MANAGED
-    - 'OFF'
-    - PERFORMANCE
-    - UNSPECIFIED
+      - AUTO
+      - BALANCED
+      - COST_OPTIMIZED
+      - MANAGED
+      - 'OFF'
+      - PERFORMANCE
+      - UNSPECIFIED

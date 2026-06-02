@@ -18,21 +18,21 @@
     ALPHA:
       api_version: v1alpha
     modify_request_hooks:
-    - googlecloudsdk.command_lib.edge_cloud.zone.hooks:SetParentForZonesList
+      - googlecloudsdk.command_lib.edge_cloud.zone.hooks:SetParentForZonesList
 
   response:
     id_field: name
 
   arguments:
     params:
-    - arg_name: location
-      required: true
-      help_text: Google Cloud Platform location.
-    - group:
-        mutex: true
+      - arg_name: location
         required: true
-        params:
-        - arg_name: organization
-          help_text: Google Distributed Cloud organization number to list zones for.
-        - arg_name: project
-          help_text: Google Cloud Platform project ID to list zones for.
+        help_text: Google Cloud Platform location.
+      - group:
+          mutex: true
+          required: true
+          params:
+            - arg_name: organization
+              help_text: Google Distributed Cloud organization number to list zones for.
+            - arg_name: project
+              help_text: Google Cloud Platform project ID to list zones for.

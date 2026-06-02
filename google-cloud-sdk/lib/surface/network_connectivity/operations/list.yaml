@@ -31,11 +31,11 @@
   output:
     # Columns: ID, TYPE, TARGET, CREATE_TIME, END_TIME, DONE
     format: |
-       table(
-          name.basename():label=ID,
-          metadata.verb:label=TYPE,
-          metadata.target.basename(),
-          metadata.createTime.date('%Y-%m-%d %H:%M:%S %Oz', undefined=''):sort=1,
-          metadata.endTime.date('%Y-%m-%d %H:%M:%S %Oz', undefined=''),
-          done
-        )
+      table(
+         name.basename():label=ID,
+         metadata.verb:label=TYPE,
+         metadata.target.basename(),
+         metadata.createTime.date('%Y-%m-%d %H:%M:%S %Oz', undefined=''):sort=1,
+         metadata.endTime.date('%Y-%m-%d %H:%M:%S %Oz', undefined=''),
+         done
+       )

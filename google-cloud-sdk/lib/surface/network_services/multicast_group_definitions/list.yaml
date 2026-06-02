@@ -19,6 +19,6 @@ response:
   id_field: name
 output:
   format: |
-     table(
-        name.basename():label=NAME, create_time, reserved_internal_range, multicast_domain, ip_cidr_range, consumer_accept_list, require_explicit_accept
-      )
+    table(
+       name.basename():label=NAME, create_time, reserved_internal_range, multicast_domain, ip_cidr_range, consumer_accept_list, require_explicit_accept
+     )

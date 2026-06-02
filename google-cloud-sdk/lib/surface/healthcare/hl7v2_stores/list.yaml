@@ -1,7 +1,7 @@
 - release_tracks: [ALPHA, BETA, GA]
 
   help_text:
-    brief:  List Cloud Healthcare API HL7v2 stores.
+    brief: List Cloud Healthcare API HL7v2 stores.
     description: List Cloud Healthcare API HL7v2 stores.
     examples: |
       To list the HL7v2 stores in 'test-dataset', run:

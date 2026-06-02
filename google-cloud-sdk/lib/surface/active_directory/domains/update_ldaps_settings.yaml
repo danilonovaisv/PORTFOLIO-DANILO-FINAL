@@ -30,9 +30,9 @@
       api_version: v1
     method: updateLdapssettings
     modify_request_hooks:
-    - googlecloudsdk.command_lib.active_directory.domains_update_util:ProcessPfxFile
-    - googlecloudsdk.command_lib.active_directory.domains_update_util:ReadPfxPasswordIfNeeded
-    - googlecloudsdk.command_lib.active_directory.domains_update_util:ClearCertificates
+      - googlecloudsdk.command_lib.active_directory.domains_update_util:ProcessPfxFile
+      - googlecloudsdk.command_lib.active_directory.domains_update_util:ReadPfxPasswordIfNeeded
+      - googlecloudsdk.command_lib.active_directory.domains_update_util:ClearCertificates
 
   arguments:
     resource:
@@ -41,24 +41,24 @@
       spec: !REF googlecloudsdk.command_lib.active_directory.resources:domain
 
     params:
-    - group:
-        mutex: true
-        required: true
-        params:
-        - group:
-            params:
-            - arg_name: certificate-pfx-file
-              type: googlecloudsdk.calliope.arg_parsers:FileContents:binary=True
-              help_text: |-
-                PKCS#12-formatted pfx file that specifies the certificate chain used to configure LDAPS.
-                If certificate-password is not specified, command will prompt user for secret.
-              required: true
-            - arg_name: certificate-password
+      - group:
+          mutex: true
+          required: true
+          params:
+            - group:
+                params:
+                  - arg_name: certificate-pfx-file
+                    type: googlecloudsdk.calliope.arg_parsers:FileContents:binary=True
+                    help_text: |-
+                      PKCS#12-formatted pfx file that specifies the certificate chain used to configure LDAPS.
+                      If certificate-password is not specified, command will prompt user for secret.
+                    required: true
+                  - arg_name: certificate-password
+                    help_text: |
+                      Password used to encrypt the PKCS#12 certificate. If not specified, command will prompt user for secret.
+            - arg_name: clear-certificates
+              type: bool
               help_text: |
-                Password used to encrypt the PKCS#12 certificate. If not specified, command will prompt user for secret.
-        - arg_name: clear-certificates
-          type: bool
-          help_text: |
-            Disable LDAPS by deleting all existing certificates. Certificates will need to be re-uploaded if LDAPS is to be re-enabled.
+                Disable LDAPS by deleting all existing certificates. Certificates will need to be re-uploaded if LDAPS is to be re-enabled.
   async:
     collection: managedidentities.projects.locations.global.operations

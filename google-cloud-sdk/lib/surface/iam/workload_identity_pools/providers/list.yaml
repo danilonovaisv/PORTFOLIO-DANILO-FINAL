@@ -39,7 +39,7 @@
       is_positional: false
 
     params:
-    - api_field: showDeleted
-      arg_name: show-deleted
-      required: false
-      help_text: Whether to return soft-deleted resources.
+      - api_field: showDeleted
+        arg_name: show-deleted
+        required: false
+        help_text: Whether to return soft-deleted resources.

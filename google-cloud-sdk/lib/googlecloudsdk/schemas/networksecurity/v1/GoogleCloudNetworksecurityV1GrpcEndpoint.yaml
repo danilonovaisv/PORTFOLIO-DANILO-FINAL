@@ -1,10 +1,10 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networksecurity v1 GoogleCloudNetworksecurityV1GrpcEndpoint export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- targetUri
+  - targetUri
 additionalProperties: false
 properties:
   COMMENT:

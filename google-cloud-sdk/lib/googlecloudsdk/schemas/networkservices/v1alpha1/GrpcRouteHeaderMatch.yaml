@@ -1,11 +1,11 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: networkservices v1alpha1 GrpcRouteHeaderMatch export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- key
-- value
+  - key
+  - value
 additionalProperties: false
 properties:
   COMMENT:
@@ -37,9 +37,9 @@ properties:
       a default value of EXACT is used.
     type: string
     enum:
-    - EXACT
-    - REGULAR_EXPRESSION
-    - TYPE_UNSPECIFIED
+      - EXACT
+      - REGULAR_EXPRESSION
+      - TYPE_UNSPECIFIED
   value:
     description: The value of the header.
     type: string

@@ -1,13 +1,13 @@
-$schema: "http://json-schema.org/draft-06/schema#"
+$schema: 'http://json-schema.org/draft-06/schema#'
 
 title: certificatemanager v1 CertificateIssuanceConfig export schema
 description: A gcloud export/import command YAML validation schema.
 type: object
 required:
-- certificateAuthorityConfig
-- keyAlgorithm
-- lifetime
-- rotationWindowPercentage
+  - certificateAuthorityConfig
+  - keyAlgorithm
+  - lifetime
+  - rotationWindowPercentage
 additionalProperties: false
 properties:
   COMMENT:
@@ -43,12 +43,12 @@ properties:
     description: The key algorithm to use when generating the private key.
     type: string
     enum:
-    - ECDSA_P256
-    - ECDSA_P384
-    - KEY_ALGORITHM_UNSPECIFIED
-    - RSA_2048
-    - RSA_3072
-    - RSA_4096
+      - ECDSA_P256
+      - ECDSA_P384
+      - KEY_ALGORITHM_UNSPECIFIED
+      - RSA_2048
+      - RSA_3072
+      - RSA_4096
   labels:
     description: Set of labels associated with a CertificateIssuanceConfig.
     $ref: LabelsValue.yaml

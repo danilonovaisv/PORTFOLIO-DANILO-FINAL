@@ -17,9 +17,9 @@
         Arguments and flags that define the Dataplex Glossary you want to delete.
       spec: !REF googlecloudsdk.command_lib.dataplex.resources:glossary
     params:
-    - arg_name: etag
-      api_field: etag
-      help_text: |
-        etag value for particular Glossary.
+      - arg_name: etag
+        api_field: etag
+        help_text: |
+          etag value for particular Glossary.
   async:
     collection: dataplex.projects.locations.operations

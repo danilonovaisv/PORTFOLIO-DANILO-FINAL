@@ -16,7 +16,7 @@
   request:
     collection: gkehub.projects.locations.memberships
     modify_request_hooks:
-    - googlecloudsdk.command_lib.container.fleet.memberships.util:SetMembershipLocation
+      - googlecloudsdk.command_lib.container.fleet.memberships.util:SetMembershipLocation
     ALPHA:
       api_version: v1alpha
     BETA:

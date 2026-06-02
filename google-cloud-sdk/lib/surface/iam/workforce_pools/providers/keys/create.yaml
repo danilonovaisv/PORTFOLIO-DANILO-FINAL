@@ -38,10 +38,10 @@
       is_positional: true
 
     params:
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_key.use
-      required: true
-    - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_key.spec
-      required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_key.use
+        required: true
+      - _REF_: googlecloudsdk.command_lib.iam.flags:workforce_pool_provider_key.spec
+        required: true
 
   async:
     collection: iam.locations.workforcePools.providers.keys.operations

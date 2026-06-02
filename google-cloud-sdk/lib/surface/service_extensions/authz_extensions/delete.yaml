@@ -6,10 +6,10 @@ help_text:
   description: |
     Delete the specified `AuthzExtension` resource.
   examples: |
-      To delete an `AuthzExtension` resource named
-      `my-authz-extension` in `us-central1`, run:
+    To delete an `AuthzExtension` resource named
+    `my-authz-extension` in `us-central1`, run:
 
-        $ {command} my-authz-extension --location=us-central1
+      $ {command} my-authz-extension --location=us-central1
 
 arguments:
   resource:

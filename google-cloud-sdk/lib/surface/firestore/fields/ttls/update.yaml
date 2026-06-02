@@ -32,7 +32,7 @@
   request:
     collection: firestore.projects.databases.collectionGroups.fields
     modify_request_hooks:
-    - googlecloudsdk.command_lib.firestore.util:UpdateFieldRequestTtls
+      - googlecloudsdk.command_lib.firestore.util:UpdateFieldRequestTtls
 
   output:
     format: yaml(name, ttlConfig)
@@ -51,24 +51,24 @@
       spec: !REF googlecloudsdk.command_lib.firestore.resources:field
 
     params:
-    # Define --enable-ttl and --disable-ttl as an arg group, required and mutually exclusive.
-    - group:
-        required: true
-        mutex: true
-        params:
-        - group:
-            params:
-            - help_text: Set to enable this field as the TTL for its collection group.
-              arg_name: "enable-ttl"
+      # Define --enable-ttl and --disable-ttl as an arg group, required and mutually exclusive.
+      - group:
+          required: true
+          mutex: true
+          params:
+            - group:
+                params:
+                  - help_text: Set to enable this field as the TTL for its collection group.
+                    arg_name: 'enable-ttl'
+                    action: store_true
+                    type: bool
+                    required: true
+                  - help_text: |
+                      The offset, relative to the timestamp value from the TTL-enabled field, used to
+                      determine the document's expiration time. If unset, defaults to 0.
+                    arg_name: 'expiration-offset'
+                    type: 'googlecloudsdk.calliope.arg_parsers:Duration:'
+            - help_text: Set to make this field no longer the TTL for its collection group.
+              arg_name: 'disable-ttl'
               action: store_true
               type: bool
-              required: true
-            - help_text: |
-                The offset, relative to the timestamp value from the TTL-enabled field, used to
-                determine the document's expiration time. If unset, defaults to 0.
-              arg_name: "expiration-offset"
-              type: "googlecloudsdk.calliope.arg_parsers:Duration:"
-        - help_text: Set to make this field no longer the TTL for its collection group.
-          arg_name: "disable-ttl"
-          action: store_true
-          type: bool
