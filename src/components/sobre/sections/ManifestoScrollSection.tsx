@@ -118,6 +118,7 @@ export function ManifestoScrollSection() {
           color: #fcffff;
           text-shadow: 0 0 10px rgba(0, 72, 255, 0.4), 0 0 25px rgba(0, 72, 255, 0.2), 0 0 50px rgba(0, 0, 0, 0.6);
           will-change: transform, opacity, filter;
+          animation-delay: calc(var(--char-idx, 0) * 30ms);
         }
 
         .text-line-wrapper.active .char {
@@ -200,6 +201,10 @@ export function ManifestoScrollSection() {
           {/* Key sets unique context per index to ensure React unmounts/remounts elements on phrase change */}
           <div
             key={`phrase-${displayIndex}`}
+            id="manifesto-phrase-panel"
+            role="tabpanel"
+            aria-roledescription="slide"
+            aria-label={`Manifesto ${displayIndex + 1} de ${PHRASES.length}`}
             className="text-container-inner flex flex-col items-center gap-[0.4rem]"
           >
             {/* Line 1 Stagger Reveal */}
@@ -223,10 +228,8 @@ export function ManifestoScrollSection() {
                             key={`l1-c-${charIdx}`}
                             className="char"
                             style={{
-                              animationDelay: prefersReducedMotion
-                                ? '0ms'
-                                : `${absoluteIdx * 30}ms`,
-                            }}
+                              '--char-idx': absoluteIdx,
+                            } as React.CSSProperties}
                           >
                             {char}
                           </span>
@@ -241,10 +244,8 @@ export function ManifestoScrollSection() {
                               key={`l1-space-${wordIdx}`}
                               className="char"
                               style={{
-                                animationDelay: prefersReducedMotion
-                                  ? '0ms'
-                                  : `${absoluteIdx * 30}ms`,
-                              }}
+                                '--char-idx': absoluteIdx,
+                              } as React.CSSProperties}
                             >
                               {'\u00A0'}
                             </span>
@@ -276,10 +277,8 @@ export function ManifestoScrollSection() {
                             key={`l2-c-${charIdx}`}
                             className="char"
                             style={{
-                              animationDelay: prefersReducedMotion
-                                ? '0ms'
-                                : `${absoluteIdx * 30}ms`,
-                            }}
+                              '--char-idx': absoluteIdx,
+                            } as React.CSSProperties}
                           >
                             {char}
                           </span>
@@ -294,10 +293,8 @@ export function ManifestoScrollSection() {
                               key={`l2-space-${wordIdx}`}
                               className="char"
                               style={{
-                                animationDelay: prefersReducedMotion
-                                  ? '0ms'
-                                  : `${absoluteIdx * 30}ms`,
-                              }}
+                                '--char-idx': absoluteIdx,
+                              } as React.CSSProperties}
                             >
                               {'\u00A0'}
                             </span>
@@ -311,11 +308,19 @@ export function ManifestoScrollSection() {
         </div>
 
         {/* Navigation Indicator Dots */}
-        <div className="flex items-center gap-[0.6rem]">
+        <div
+          role="tablist"
+          aria-label="Controle de frases do manifesto"
+          className="flex items-center gap-[0.6rem]"
+        >
           {PHRASES.map((_, idx) => (
             <button
               key={idx}
               onClick={() => handleDotClick(idx)}
+              role="tab"
+              aria-selected={idx === activeIndex ? 'true' : 'false'}
+              aria-controls="manifesto-phrase-panel"
+              tabIndex={idx === activeIndex ? 0 : -1}
               className={`dot h-[0.35rem] rounded-full border-none cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                 idx === activeIndex
                   ? 'bg-white w-[1.8rem]'

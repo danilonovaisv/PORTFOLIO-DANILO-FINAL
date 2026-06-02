@@ -19,6 +19,8 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
+minimumReleaseAge: 0
+
 minimumReleaseAgeExclude:
   - framer-motion@12.40.0
   - motion-dom@12.40.0

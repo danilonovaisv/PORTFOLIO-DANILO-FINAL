@@ -87,10 +87,38 @@ export default function GhostScene({ onReady }: GhostSceneProps) {
 
       // Visibility Observer (Performance Optimization)
       let isInView = true;
+      let animId: number | null = null;
+
+      const animate = (timestamp: number) => {
+        if (!isInView) {
+          animId = null;
+          cleanupRefs.current.animationId = undefined;
+          return;
+        }
+        animId = requestAnimationFrame(animate);
+        cleanupRefs.current.animationId = animId;
+        updateRef.current(timestamp);
+      };
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            isInView = entry.isIntersecting;
+            const nextInView = entry.isIntersecting;
+            if (nextInView !== isInView) {
+              isInView = nextInView;
+              if (isInView) {
+                if (animId === null) {
+                  animId = requestAnimationFrame(animate);
+                  cleanupRefs.current.animationId = animId;
+                }
+              } else {
+                if (animId !== null) {
+                  cancelAnimationFrame(animId);
+                  animId = null;
+                  cleanupRefs.current.animationId = undefined;
+                }
+              }
+            }
           });
         },
         { rootMargin: '200px' }
@@ -110,14 +138,11 @@ export default function GhostScene({ onReady }: GhostSceneProps) {
       }
 
       // Start Main Animation Loop only after init
-      cleanupRefs.current = { animationId: 0, observer };
-      const animate = (timestamp: number) => {
-        cleanupRefs.current.animationId = requestAnimationFrame(animate);
-        if (!isInView) return;
-        updateRef.current(timestamp);
-      };
-
-      animate(0);
+      cleanupRefs.current = { animationId: undefined, observer };
+      if (isInView) {
+        animId = requestAnimationFrame(animate);
+        cleanupRefs.current.animationId = animId;
+      }
 
       // Call onReady callback if provided
       if (onReady) onReady();

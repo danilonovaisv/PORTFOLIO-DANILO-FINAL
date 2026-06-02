@@ -35,10 +35,4 @@ export function getNextFeaturedProjectBackgroundVariant(
   return candidates[Math.floor(Math.random() * candidates.length)] ?? current;
 }
 
-export function buildFeaturedProjectBackgroundAssignment(
-  projects: Pick<PortfolioProject, 'id'>[]
-): FeaturedProjectBackgroundVariant[] {
-  return projects.map((project) =>
-    getFeaturedProjectBackgroundVariant(project.id)
-  );
-}
+

@@ -170,20 +170,6 @@ export function useGhostScene(
     sceneRef.current.add(ghostGroupRef.current);
 
     const ghostGeometry = new THREE.SphereGeometry(2, 40, 40);
-    const positions = ghostGeometry.getAttribute('position')
-      .array as Float32Array;
-    for (let i = 0; i < positions.length; i += 3) {
-      if (positions[i + 1] < -0.2) {
-        const x = positions[i];
-        const z = positions[i + 2];
-        const noise =
-          Math.sin(x * 5) * 0.35 +
-          Math.cos(z * 4) * 0.25 +
-          Math.sin((x + z) * 3) * 0.15;
-        positions[i + 1] = -2.0 + noise;
-      }
-    }
-    ghostGeometry.computeVertexNormals();
 
     const ghostMaterial = new THREE.MeshStandardMaterial({
       color: params.bodyColor,
@@ -196,6 +182,21 @@ export function useGhostScene(
       side: THREE.DoubleSide,
       alphaTest: 0.1,
     });
+
+    ghostMaterial.onBeforeCompile = (shader) => {
+      shader.vertexShader = shader.vertexShader.replace(
+        '#include <begin_vertex>',
+        `
+        vec3 transformed = vec3( position );
+        if (transformed.y < -0.2) {
+          float noise = sin(transformed.x * 5.0) * 0.35 +
+                        cos(transformed.z * 4.0) * 0.25 +
+                        sin((transformed.x + transformed.z) * 3.0) * 0.15;
+          transformed.y = -2.0 + noise;
+        }
+        `
+      );
+    };
     ghostMaterialRef.current = ghostMaterial;
 
     const ghostBody = new THREE.Mesh(ghostGeometry, ghostMaterial);

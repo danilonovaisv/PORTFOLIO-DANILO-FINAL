@@ -170,11 +170,43 @@ export default function PortfolioClient({
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
+    const activeProject = selectedProject;
+
     window.setTimeout(() => {
       setSelectedProject(null);
-      lastFocusedRef.current?.focus();
+      try {
+        let restored = false;
+
+        if (
+          lastFocusedRef.current &&
+          lastFocusedRef.current !== document.body &&
+          document.body.contains(lastFocusedRef.current)
+        ) {
+          lastFocusedRef.current.focus();
+          restored = true;
+        } else if (activeProject) {
+          const cardSlug = activeProject.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+          const cardIndex = projects.indexOf(activeProject);
+          const cardId = `portfolio-card-${cardSlug}-${cardIndex}`;
+          const cardElement = document.getElementById(cardId);
+          if (cardElement) {
+            cardElement.focus();
+            restored = true;
+          }
+        }
+
+        if (!restored) {
+          const fallback = document.getElementById('portfolio-gallery') || document.getElementById('main-content');
+          if (fallback) {
+            fallback.setAttribute('tabindex', '-1');
+            fallback.focus();
+          }
+        }
+      } catch (err) {
+        console.warn('A11y: Failed to restore keyboard focus safely.', err);
+      }
     }, 220);
-  }, []);
+  }, [projects, selectedProject]);
 
   return (
     <div className="min-h-screen bg-background text-text">

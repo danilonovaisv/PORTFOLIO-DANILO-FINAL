@@ -1887,3 +1887,29 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ `pnpm run test` — 37 suites de testes Jest executadas com 100% de sucesso.
 
 **Status:** Concluído.
+
+---
+
+## [2026-06-02T04:25] Asset Synchronization & Database Sanity Cleanup
+
+**Context:** Execução do workflow `/asset-sync` para sincronizar os metadados dos assets locais com o banco de dados Supabase e realizar auditoria de caminhos de mídia, registros inconsistentes e mídias órfãs.
+
+**Changes Applied:**
+
+1. **Sincronização de Metadados (`pnpm run assets:sync`)** ✅
+   - Sincronizados 311 assets na tabela `site_assets` do Supabase via upsert usando a lista consolidada em `assets.json`.
+
+2. **Resolução de Registros Inconsistentes (`scripts/fix-duplicate-assets.ts`)** ✅
+   - Varredura de registros no banco Supabase completada.
+   - Identificados e corrigidos 48 registros de assets com caminhos inconsistentes ou prefixos incorretos (como `key:`, `updated_at:` ou prefixos duplicados de bucket).
+   - Zero registros duplicados pendentes para deleção.
+
+3. **Varredura de Mídias Não-Referenciadas (`scripts/check-unused-assets.cjs`)** ✅
+   - Varredura no diretório `/public` identificou 4 arquivos potencialmente não-referenciados no código-fonte (`404.css`, `404.html`, `404.js`, e `site.assets/images-videos/404.png`).
+
+**Verification:**
+
+- ✅ Execução direta do script de sincronização e do script de correção de duplicatas retornou sucesso (Exit Code 0).
+- ✅ Atualização no Knowledge Graph do projeto para refletir a sincronização em 2026-06-02.
+
+**Status:** Concluído.

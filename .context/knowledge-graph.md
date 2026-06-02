@@ -42,11 +42,11 @@ The central orchestration layer for the portfolio.
 
 ## Current Status (Post-Audit 2026-04-26)
 
-- **Last Sync:** 2026-05-11
+- **Last Sync:** 2026-06-02
 - **Architecture & Topography:** Next.js 16.2.6 (App Router) + React 19 + R3F v9 + Tailwind 4 + Supabase SSR & Firebase Admin.
-- **Last Audit:** Asset Synchronization and Governance (282 assets synced, 48 records fixed).
+- **Last Audit:** Asset Synchronization and Governance (311 assets synced, 48 records fixed/updated).
 - **Focus:** Stability of the Ghost Engine (Zero-Jank WebGL), Mobile UX, and reliable Supabase asset fetching.
-- **Storage Status:** Synchronized. 48 duplicate/inconsistent records fixed. Potential unused files identified in public/ directory (Manrope fonts, 404 assets).
+- **Storage Status:** Synchronized. 48 duplicate/inconsistent records fixed. Potential unused files identified in public/ directory (404.css, 404.html, 404.js, site.assets/images-videos/404.png).
 - **Production Bundle:** Optimized. Reference images moved to docs/.
 
 ### Recent Optimizations (2026-03-07)
@@ -78,12 +78,13 @@ The central orchestration layer for the portfolio.
 - **KI-006: WebGL Performance Patterns** - Object pooling, ref-based state, Vanilla Three.js mutation.
 - **KI-007: Deep Clean Protocol** - SafetyGuardian and quarantine procedures.
 - **KI-008: Node Permissions (EPERM)** - Documented lifecycle of permission issues in CI/CD environments.
-- **KI-009: Tailwind Oxide Scanner — CSS Parsing Error (PERSISTENT BUG)** ⚠️
+- [KI-009: Tailwind Oxide Scanner — CSS Parsing Error (PERSISTENT BUG)](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context/logs/adjustment_log.md#L81) ⚠️
   - **Symptom:** `pnpm dev` / `pnpm build` falham com `"Unexpected token .bg-\[\.\4 \!\]"` e `"background-color: .!"`.
   - **Root Cause:** `@tailwindcss/oxide` (Rust/WASM) em modo auto-detecção varre **todos** os arquivos do projeto, incluindo imagens JPEG e logs com ANSI escapes (caracteres de controle U+0004). O LightningCSS rejeita os seletores CSS inválidos gerados.
   - **Fix:** Em `src/app/globals.css`, substituir `@import 'tailwindcss'` por `@import "tailwindcss" source(none)` + `@source` explícitos com filtros de extensão (`*.{tsx,ts,jsx,js,css,mdx}`).
   - **Diagnóstico Rápido:** Se o erro retornar, verificar primeiro se `globals.css` ainda tem `source(none)`. Sem ele, o oxide varre binários e recria o bug.
   - **Referência Completa:** `.context/logs/adjustment_log.md` → entrada `[2026-03-04T01:15]`.
+- [KI-010: Master Knowledge Map v2.0](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context/knowledge/KI-010-Master-Knowledge-Map-v2.0.md) - Diretrizes centrais de design tokens, restrições WebGL, acessibilidade WCAG e CDN.
 
 ## 5. Security & Data Engineering
 
