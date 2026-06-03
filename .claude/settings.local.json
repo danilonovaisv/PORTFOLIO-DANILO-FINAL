@@ -59,7 +59,8 @@
       "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height \"https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.mobile.mp4\")",
       "Skill(superpowers:writing-plans)",
       "mcp__claude_ai_supabase__list_tables",
-      "mcp__claude_ai_supabase__execute_sql"
+      "mcp__claude_ai_supabase__execute_sql",
+      "Bash(pnpm typecheck *)"
     ]
   },
   "enableAllProjectMcpServers": true,

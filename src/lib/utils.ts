@@ -156,15 +156,18 @@ export function supabaseLoader({
       );
 
       if (isObject || isRender) {
-        if (isObject) {
+        // Image Transformations endpoint returns 403 on current Supabase plan.
+        // Serve direct object URL until transforms are re-enabled.
+        if (isRender) {
           url.pathname = url.pathname.replace(
-            '/storage/v1/object/public/',
-            '/storage/v1/render/image/public/'
+            '/storage/v1/render/image/public/',
+            '/storage/v1/object/public/'
           );
         }
-        url.searchParams.set('width', width.toString());
-        url.searchParams.set('quality', (quality || 75).toString());
-        url.searchParams.set('format', 'webp');
+        url.searchParams.delete('width');
+        url.searchParams.delete('quality');
+        url.searchParams.delete('format');
+        url.searchParams.delete('resize');
         return url.toString();
       }
       return src;
