@@ -122,7 +122,6 @@ import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import { shuffleProjects } from '@/lib/portfolio/shuffle-projects';
 
 import JsonLd from '@/components/ui/JsonLd';
-import { generateVideoSchema } from '@/lib/schema';
 import { preload } from 'react-dom';
 
 export default async function PortfolioPage(_props: PortfolioPageProps) {
@@ -229,22 +228,6 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
           { name: 'Home', url: toCanonicalUrl('/') },
           { name: 'Portfolio', url: toCanonicalUrl('/portfolio') },
         ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            generateVideoSchema({
-              name: 'Showcase de Vídeo | Portfólio Danilo Novais',
-              description:
-                'Vídeo de apresentação e amostras de motion no portfólio de Danilo Novais.',
-              thumbnailUrl: `https://${BRAND.domain}/portfolio/opengraph-image`,
-              uploadDate: '2025-01-01',
-              contentUrl: BRAND.assets.video.manifesto,
-              embedUrl: `https://${BRAND.domain}/portfolio`,
-            })
-          ),
-        }}
       />
       <PortfolioClient
         projects={projects}

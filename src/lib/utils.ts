@@ -86,7 +86,6 @@ export function getAssetUrl(
     'global/',
     'home/',
     'landing-pages/',
-    'projects/',
   ];
   const bucket = explicitBucketMatch
     ? explicitBucketMatch[1].toLowerCase()
