@@ -3,9 +3,6 @@ import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 const siteAsset = (path: string) =>
   buildSupabaseStorageUrl('site-assets', path);
 
-const projectMedia = (path: string) =>
-  buildSupabaseStorageUrl('portfolio-media', path);
-
 export const HOME_CONTENT = {
   hero: {
     tag: '[BRAND AWARENESS]',
@@ -73,7 +70,7 @@ export const HOME_CONTENT = {
       client: 'Magic',
       year: 2023,
       tags: ['Branding', 'Campaign'],
-      img: projectMedia('projects/creative-direction/hero.webp'),
+      img: siteAsset('projects/creative-direction/hero.webp'),
       layout: {
         // Otimizado: 'min-h' previne overflow de texto, 'aspect' mantém proporção visual
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
@@ -89,7 +86,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2022,
       tags: ['Strategy', 'Identity'],
-      img: projectMedia('projects/campaign/cover.webp'),
+      img: siteAsset('projects/campaign/cover.webp'),
       layout: {
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
         cols: 'md:col-span-7',
@@ -104,7 +101,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2021,
       tags: ['Art Direction'],
-      img: projectMedia('projects/key-vision/gallery/converted-5-webp.webp'),
+      img: siteAsset('projects/key-vision/gallery/converted-5-webp.webp'),
       layout: {
         // Otimizado: Altura maior para destaque full-width
         h: 'min-h-[400px] md:h-[600px]',
@@ -120,7 +117,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2023,
       tags: ['UX/UI', 'Animation'],
-      img: projectMedia('projects/key_vision/hero.webp'),
+      img: siteAsset('projects/key_vision/hero.webp'),
       layout: {
         h: 'min-h-[400px] md:h-[400px] aspect-video md:aspect-auto',
         cols: 'md:col-span-8',

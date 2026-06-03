@@ -1,54 +1,75 @@
 export const runtime = 'nodejs';
+// NOTE: force-no-store is intentional for admin session/auth checks.
+// Dashboard stat counts are cached separately via unstable_cache (60s TTL).
 export const fetchCache = 'force-no-store';
 
+import { unstable_cache } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { StatCard } from '@/components/admin/StatCard';
 import { Suspense } from 'react';
 
-async function DashboardStats() {
-  const supabase = await createClient();
+/**
+ * Cached aggregation of dashboard counts — TTL 60s.
+ * These counters are admin-only summary data; they don’t need
+ * real-time accuracy (unlike live visitor counts or lead alerts).
+ * Using unstable_cache reduces one roundtrip per page visit.
+ */
+const getDashboardCounts = unstable_cache(
+  async () => {
+    const supabase = await createClient();
+    const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
+      await Promise.all([
+        supabase.from('portfolio_projects').select('id', { count: 'exact', head: true }),
+        supabase.from('portfolio_tags').select('id', { count: 'exact', head: true }),
+        supabase
+          .from('portfolio_projects')
+          .select('id', { count: 'exact', head: true })
+          .eq('featured_on_home', true),
+        supabase
+          .from('portfolio_projects')
+          .select('id', { count: 'exact', head: true })
+          .eq('featured_on_portfolio', true),
+      ]);
+    return {
+      projects: { count: projectsRes.count ?? 0, error: projectsRes.error?.message },
+      tags: { count: tagsRes.count ?? 0, error: tagsRes.error?.message },
+      featuredHome: { count: featuredHomeRes.count ?? 0, error: featuredHomeRes.error?.message },
+      featuredPortfolio: { count: featuredPortfolioRes.count ?? 0, error: featuredPortfolioRes.error?.message },
+    };
+  },
+  ['dashboard-stats'],
+  {
+    // 60s TTL — balances freshness vs Supabase roundtrips.
+    // Revalidated automatically after project create/update via revalidateTag.
+    revalidate: 60,
+    tags: ['dashboard-stats'],
+  }
+);
 
-  const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
-    await Promise.all([
-      supabase.from('portfolio_projects').select('id', {
-        count: 'exact',
-        head: true,
-      }),
-      supabase.from('portfolio_tags').select('id', {
-        count: 'exact',
-        head: true,
-      }),
-      supabase
-        .from('portfolio_projects')
-        .select('id', { count: 'exact', head: true })
-        .eq('featured_on_home', true),
-      supabase
-        .from('portfolio_projects')
-        .select('id', { count: 'exact', head: true })
-        .eq('featured_on_portfolio', true),
-    ]);
+async function DashboardStats() {
+  const counts = await getDashboardCounts();
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <StatCard
         title="SYSTEM_TOTAL_PROJECTS"
-        value={projectsRes.count ?? 0}
-        error={projectsRes.error?.message}
+        value={counts.projects.count}
+        error={counts.projects.error}
       />
       <StatCard
         title="SYSTEM_ACTIVE_TAGS"
-        value={tagsRes.count ?? 0}
-        error={tagsRes.error?.message}
+        value={counts.tags.count}
+        error={counts.tags.error}
       />
       <StatCard
         title="SYSTEM_HOME_FEATURED"
-        value={featuredHomeRes.count ?? 0}
-        error={featuredHomeRes.error?.message}
+        value={counts.featuredHome.count}
+        error={counts.featuredHome.error}
       />
       <StatCard
         title="SYSTEM_PORTFOLIO_FEATURED"
-        value={featuredPortfolioRes.count ?? 0}
-        error={featuredPortfolioRes.error?.message}
+        value={counts.featuredPortfolio.count}
+        error={counts.featuredPortfolio.error}
       />
     </div>
   );

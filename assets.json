@@ -2,14 +2,6 @@
   {
     "export_json": [
       {
-        "id": "0d2c734e-de01-45e1-9a2f-c896cd23524c",
-        "key": "landing-pages.key-vision.master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
-        "file_path": "landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
-        "updated_at": "2026-02-23 19:24:49.935811+00"
-      },
-      {
         "id": "8692430d-9804-404e-83e3-227e4db840da",
         "key": "global.logos.LOGO-DANILO2.1",
         "bucket": "site-assets",
@@ -24,14 +16,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-4.webp",
         "file_path": "projects/key-visual/section-4.webp",
         "updated_at": "2026-01-21 23:01:50.008822+00"
-      },
-      {
-        "id": "ee6bc800-282b-4482-963a-71b269abc648",
-        "key": "landing-pages.key-vision.",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/.emptyFolderPlaceholder",
-        "file_path": "landing-pages/key-vision/.emptyFolderPlaceholder",
-        "updated_at": "2026-02-22 08:32:24.819935+00"
       },
       {
         "id": "913afa1e-8432-410f-8a01-83307f3c00f2",
@@ -96,6 +80,22 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/portfolio.hero_desktop_video.mp4",
         "file_path": "portfolio/portfolio.hero_desktop_video.mp4",
         "updated_at": "2026-05-12 23:29:50.380773+00"
+      },
+      {
+        "id": "ee6bc800-282b-4482-963a-71b269abc648",
+        "key": "landing-pages.key-vision.",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/.emptyFolderPlaceholder",
+        "file_path": "landing-pages/key-vision/.emptyFolderPlaceholder",
+        "updated_at": "2026-05-19 06:57:55.109626+00"
+      },
+      {
+        "id": "0d2c734e-de01-45e1-9a2f-c896cd23524c",
+        "key": "landing-pages.key-vision.master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
+        "file_path": "landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
+        "updated_at": "2026-05-19 06:58:02.875302+00"
       },
       {
         "id": "210412a6-02ec-4193-b895-114e1694faf1",
@@ -186,14 +186,6 @@
         "updated_at": "2026-03-06 07:46:21.328411+00"
       },
       {
-        "id": "3cede0e6-27ae-4128-91f8-20748cf86261",
-        "key": "3d.ghost-v1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb",
-        "file_path": "3d/ghost-v1.glb",
-        "updated_at": "2026-05-02 07:51:24.735456+00"
-      },
-      {
         "id": "90970c00-636a-4064-81c8-d8dcd348cd30",
         "key": "clients.clients.strip.10",
         "bucket": "site-assets",
@@ -282,22 +274,6 @@
         "updated_at": "2026-05-12 23:29:20.320048+00"
       },
       {
-        "id": "4e155c48-0a5d-4cfe-8d47-b9ea79bbc32d",
-        "key": "3d.fallback-ghost-mobile",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/fallback-ghost-mobile.png",
-        "file_path": "3d/fallback-ghost-mobile.png",
-        "updated_at": "2026-05-12 23:29:08.944596+00"
-      },
-      {
-        "id": "78ba5ff8-de59-4cca-b047-5d77b82e7921",
-        "key": "3d.fallback-ghost",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/fallback-ghost.jpg",
-        "file_path": "3d/fallback-ghost.jpg",
-        "updated_at": "2026-05-12 23:29:09.69407+00"
-      },
-      {
         "id": "9b72d642-9a25-4d9a-a6f4-674a70e62e81",
         "key": "about.origin.about.origin_image.3",
         "bucket": "site-assets",
@@ -320,14 +296,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
         "file_path": "swift/swift-week/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
         "updated_at": "2026-03-09 10:02:16.566469+00"
-      },
-      {
-        "id": "bddbc797-1380-4f66-82db-f7c69fea86e3",
-        "key": "landing-pages.key-vision.master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
-        "file_path": "landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
-        "updated_at": "2026-02-23 19:24:50.678123+00"
       },
       {
         "id": "cf0c140e-adcd-4745-b4f9-592ad97192f0",
@@ -354,14 +322,6 @@
         "updated_at": "2026-05-12 23:29:30.838304+00"
       },
       {
-        "id": "d6ebb665-6e0c-47ed-a06f-b245798ac875",
-        "key": "landing-pages.key-vision.master-v3-block-image-10-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-10-media1.webp",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-10-media1.webp",
-        "updated_at": "2026-02-23 19:24:51.546142+00"
-      },
-      {
         "id": "9c6c50fe-916e-44fa-bba2-4429f1501083",
         "key": "swift.swift-week.assets-do-projeto.gallery.11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef",
         "bucket": "portfolio-media",
@@ -378,6 +338,14 @@
         "updated_at": "2026-03-06 17:29:14.879741+00"
       },
       {
+        "id": "d6ebb665-6e0c-47ed-a06f-b245798ac875",
+        "key": "landing-pages.key-vision.master-v3-block-image-10-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-10-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-10-media1.webp",
+        "updated_at": "2026-05-19 06:57:55.702585+00"
+      },
+      {
         "id": "6c396a65-5bea-46a3-b4bf-ac27f237db34",
         "key": "projects.campaign.section-5",
         "bucket": "site-assets",
@@ -386,20 +354,20 @@
         "updated_at": "2026-01-21 22:55:03.225937+00"
       },
       {
+        "id": "bddbc797-1380-4f66-82db-f7c69fea86e3",
+        "key": "landing-pages.key-vision.master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
+        "file_path": "landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
+        "updated_at": "2026-05-19 06:58:03.376733+00"
+      },
+      {
         "id": "7048e9f4-dbc1-4bc4-854f-d387ca261561",
         "key": "clients.clients.strip.1",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.1.svg",
         "file_path": "clients/clients.strip.1.svg",
         "updated_at": "2026-05-12 23:29:19.337657+00"
-      },
-      {
-        "id": "adcb8b4b-10b7-4a1f-b0b5-263ee6b71a47",
-        "key": "landing-pages.key-vision.master-v3-block-text-image-5-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
-        "file_path": "landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
-        "updated_at": "2026-02-23 19:24:51.756515+00"
       },
       {
         "id": "e5faaaf1-ea55-451d-a071-6cd74507623d",
@@ -480,6 +448,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/section-7.webp",
         "file_path": "projects/campaign/section-7.webp",
         "updated_at": "2026-01-21 22:55:02.865367+00"
+      },
+      {
+        "id": "adcb8b4b-10b7-4a1f-b0b5-263ee6b71a47",
+        "key": "landing-pages.key-vision.master-v3-block-text-image-5-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
+        "updated_at": "2026-05-19 06:58:01.918601+00"
       },
       {
         "id": "4617ea29-fbf3-4827-ace7-63c65be23088",
@@ -594,14 +570,6 @@
         "updated_at": "2026-03-01 05:52:35.749131+00"
       },
       {
-        "id": "9aa417b4-630c-45f2-ab0e-fc0d10d88e76",
-        "key": "landing-pages.key-vision.master-v3-block-image-image-6-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
-        "updated_at": "2026-02-23 19:24:51.921857+00"
-      },
-      {
         "id": "58cad750-2f70-45a6-a150-794aef66aac7",
         "key": "landing-pages.swift.master-v3-hero-0bc56401-3b58-481b-9be5-365180d22ab4",
         "bucket": "site-assets",
@@ -698,20 +666,12 @@
         "updated_at": "2026-01-21 23:01:49.979027+00"
       },
       {
-        "id": "7fff13f5-fdae-434d-8073-d623f9d84da8",
-        "key": "landing-pages.key-vision.master-v3-block-image-3-media1",
+        "id": "a792a76f-93c1-45b7-870d-0fc076724690",
+        "key": "about.beliefs.",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-3-media1.webp",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-3-media1.webp",
-        "updated_at": "2026-02-23 19:24:51.93226+00"
-      },
-      {
-        "id": "47911ff3-3c1f-4257-880e-9a4f2b28f0b5",
-        "key": "landing-pages.key-vision.master-v3-block-image-image-8-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
-        "updated_at": "2026-02-23 19:24:52.065271+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/.emptyFolderPlaceholder",
+        "file_path": "about/beliefs/.emptyFolderPlaceholder",
+        "updated_at": "2026-05-18 09:08:30.97181+00"
       },
       {
         "id": "03748ea5-5c98-463f-994c-73ca5e3621c8",
@@ -794,6 +754,14 @@
         "updated_at": "2026-01-21 23:01:49.941436+00"
       },
       {
+        "id": "47911ff3-3c1f-4257-880e-9a4f2b28f0b5",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-8-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
+        "updated_at": "2026-05-19 06:57:59.430909+00"
+      },
+      {
         "id": "b6c28237-4758-4197-b729-419fa1d7ccc1",
         "key": "landing-pages.animale.master-v3-logo-0132ab50-1e23-4a11-bc7d-9d5cf6c66ede",
         "bucket": "site-assets",
@@ -874,20 +842,20 @@
         "updated_at": "2026-03-09 11:11:17.768168+00"
       },
       {
-        "id": "026f8dea-3408-47c7-bc71-4026f4d19bea",
-        "key": "landing-pages.key-vision.master-v3-block-image-image-11-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
-        "updated_at": "2026-02-23 19:24:52.332087+00"
-      },
-      {
         "id": "a257cfef-9011-4917-846d-88b8c763f30f",
         "key": "landing-pages.key-vision.master-v3-block-image-7-media1",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-7-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-7-media1.webp",
-        "updated_at": "2026-02-23 19:24:52.360948+00"
+        "updated_at": "2026-05-19 06:57:56.781666+00"
+      },
+      {
+        "id": "026f8dea-3408-47c7-bc71-4026f4d19bea",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-11-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
+        "updated_at": "2026-05-19 06:57:57.445863+00"
       },
       {
         "id": "445c37a5-8d71-432a-b96c-bb4499a46c46",
@@ -895,7 +863,7 @@
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
-        "updated_at": "2026-02-23 19:24:52.383124+00"
+        "updated_at": "2026-05-19 06:58:00.82622+00"
       },
       {
         "id": "f34613eb-e435-4a50-bc06-aa2703048be8",
@@ -946,14 +914,6 @@
         "updated_at": "2026-03-06 18:07:26.515924+00"
       },
       {
-        "id": "d9415176-9126-4541-9864-12a2c1d4d400",
-        "key": "landing-pages.key-vision.master-v3-block-image-image-6-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
-        "updated_at": "2026-02-23 19:24:53.011233+00"
-      },
-      {
         "id": "645200a7-e0d8-480c-bb08-8d5c3b20a496",
         "key": "landing-pages.dntro.master-v3-logo-97f0046d-fb00-4875-8ed8-4a8d49396634",
         "bucket": "site-assets",
@@ -992,6 +952,22 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/dntro/master-v3-grid-block-1773048116531-2-m1.webp",
         "file_path": "landing-pages/dntro/master-v3-grid-block-1773048116531-2-m1.webp",
         "updated_at": "2026-03-09 09:29:15.858781+00"
+      },
+      {
+        "id": "7fff13f5-fdae-434d-8073-d623f9d84da8",
+        "key": "landing-pages.key-vision.master-v3-block-image-3-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-3-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-3-media1.webp",
+        "updated_at": "2026-05-19 06:57:56.236502+00"
+      },
+      {
+        "id": "d9415176-9126-4541-9864-12a2c1d4d400",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-6-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
+        "updated_at": "2026-05-19 06:57:58.965024+00"
       },
       {
         "id": "24abedb3-9e0f-4e6d-9d0e-ccd860285f25",
@@ -1058,14 +1034,6 @@
         "updated_at": "2026-02-20 16:26:29.017094+00"
       },
       {
-        "id": "c0ab00d2-8cda-41aa-8a60-debcaa07746a",
-        "key": "landing-pages.key-vision.master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad.webp",
-        "file_path": "landing-pages/key-vision/master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad.webp",
-        "updated_at": "2026-03-02 08:06:14.05888+00"
-      },
-      {
         "id": "af19ecf6-a78e-4a94-9874-e6ce3dbac86b",
         "key": "assets-prop.FOOTER-FOLHA-TIMBRADA",
         "bucket": "portfolio-assets",
@@ -1087,7 +1055,15 @@
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
-        "updated_at": "2026-02-23 19:24:53.046057+00"
+        "updated_at": "2026-05-19 06:58:00.050087+00"
+      },
+      {
+        "id": "c0ab00d2-8cda-41aa-8a60-debcaa07746a",
+        "key": "landing-pages.key-vision.master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad.webp",
+        "file_path": "landing-pages/key-vision/master-v3-cover-05a39fb4-e759-4a01-b0f3-c91c83ae4fad.webp",
+        "updated_at": "2026-05-19 06:58:02.428978+00"
       },
       {
         "id": "fbb29d6b-5555-49cf-962d-4851bca62597",
@@ -1096,22 +1072,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/swift/master-v3-grid-block-1773054525019-25-m1.webp",
         "file_path": "landing-pages/swift/master-v3-grid-block-1773054525019-25-m1.webp",
         "updated_at": "2026-03-09 11:11:17.884933+00"
-      },
-      {
-        "id": "adc9d3da-eae7-49c1-b946-93b4965ec781",
-        "key": "landing-pages.key-vision.master-v3-block-image-image-11-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
-        "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
-        "updated_at": "2026-02-23 19:24:53.204717+00"
-      },
-      {
-        "id": "beb43dfa-7069-4b52-a659-f59f4ad7efb4",
-        "key": "landing-pages.key-vision.master-v3-logo-d5944868-3777-47ef-817b-5b824098d593",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
-        "file_path": "landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
-        "updated_at": "2026-03-02 08:06:15.461882+00"
       },
       {
         "id": "d4ad4c93-983d-4a66-9a28-16cd0296c3b2",
@@ -1186,12 +1146,28 @@
         "updated_at": "2026-03-09 14:35:21.835945+00"
       },
       {
+        "id": "adc9d3da-eae7-49c1-b946-93b4965ec781",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-11-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
+        "updated_at": "2026-05-19 06:57:57.980055+00"
+      },
+      {
         "id": "9203f7cc-1510-43c9-8136-05f62ebff6ff",
         "key": "landing-pages.key-vision.master-v3-block-image-image-9-media2",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
         "file_path": "landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
-        "updated_at": "2026-02-23 19:24:53.510465+00"
+        "updated_at": "2026-05-19 06:58:01.443111+00"
+      },
+      {
+        "id": "beb43dfa-7069-4b52-a659-f59f4ad7efb4",
+        "key": "landing-pages.key-vision.master-v3-logo-d5944868-3777-47ef-817b-5b824098d593",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
+        "file_path": "landing-pages/key-vision/master-v3-logo-d5944868-3777-47ef-817b-5b824098d593.webp",
+        "updated_at": "2026-05-19 06:58:04.151098+00"
       },
       {
         "id": "f40bcd76-6484-4b2b-921c-7c340bbf9ef1",
@@ -1474,14 +1450,6 @@
         "updated_at": "2026-03-09 14:35:22.599353+00"
       },
       {
-        "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
-        "key": "about.beliefs.ghost",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb",
-        "file_path": "about/beliefs/ghost.glb",
-        "updated_at": "2026-02-20 05:28:27.214163+00"
-      },
-      {
         "id": "1aaddd1f-4d41-414e-906a-83288252c0eb",
         "key": "landing-pages.animale.master-v3-grid-block-1773066108334-8-m1",
         "bucket": "site-assets",
@@ -1674,6 +1642,14 @@
         "updated_at": "2026-03-08 10:12:12.638464+00"
       },
       {
+        "id": "07bf919c-37ff-40a4-a0f2-579743a841a1",
+        "key": "landing-pages.key-vision.master-v3-hero-d2b503d1-5595-4ac2-9f21-c17ef44069f3",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-hero-d2b503d1-5595-4ac2-9f21-c17ef44069f3.webp",
+        "file_path": "landing-pages/key-vision/master-v3-hero-d2b503d1-5595-4ac2-9f21-c17ef44069f3.webp",
+        "updated_at": "2026-05-19 03:47:24.953136+00"
+      },
+      {
         "id": "8d697ce4-df68-4013-b7ef-101c2d093ba1",
         "key": "dolce-gusto.campaign.assets-do-projeto.gallery.converted-2.ba95967101ca4223",
         "bucket": "portfolio-media",
@@ -1712,14 +1688,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/animale/animale/assets-do-projeto/cover-1x1/thumb-animale-1-1.54723c79bed30c41.mp4",
         "file_path": "animale/animale/assets-do-projeto/cover-1x1/thumb-animale-1-1.54723c79bed30c41.mp4",
         "updated_at": "2026-03-09 14:39:19.582525+00"
-      },
-      {
-        "id": "4115da49-8795-4765-b6fb-77c3e7bce9b8",
-        "key": "civic.key-visual.assets-do-projeto.home-featured-logo.logo-honda.a85702e811bf9bb0",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda.a85702e811bf9bb0.webp",
-        "file_path": "civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda.a85702e811bf9bb0.webp",
-        "updated_at": "2026-03-02 08:53:28.726915+00"
       },
       {
         "id": "21d55e04-6577-4dc2-84c2-15e8dae46781",
@@ -1786,6 +1754,14 @@
         "updated_at": "2026-03-11 03:55:48.179478+00"
       },
       {
+        "id": "0c9c916b-6890-4168-9802-8e85528e6249",
+        "key": "landing-pages.key-vision.master-v3-logo-fe8e2e66-9497-4b70-b6ea-8b66fb817caa",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-fe8e2e66-9497-4b70-b6ea-8b66fb817caa.webp",
+        "file_path": "landing-pages/key-vision/master-v3-logo-fe8e2e66-9497-4b70-b6ea-8b66fb817caa.webp",
+        "updated_at": "2026-05-19 03:47:25.696847+00"
+      },
+      {
         "id": "ed76499f-ec68-4cd4-a88c-1d5506da11d2",
         "key": "landing-pages.mapfre.master-v3-grid-block-1773201214547-16-m2",
         "bucket": "site-assets",
@@ -1808,6 +1784,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/cbre/master-v3-grid-block-1773068769866-0-m1.webp",
         "file_path": "landing-pages/cbre/master-v3-grid-block-1773068769866-0-m1.webp",
         "updated_at": "2026-03-09 15:06:59.016856+00"
+      },
+      {
+        "id": "621f8aeb-6019-4e29-a160-9c3ccb7508d5",
+        "key": "civic.key-visual.assets-do-projeto.home-featured-logo.logo-honda-a85702e811bf9bb0.b265753cbbc12865",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp",
+        "file_path": "civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp",
+        "updated_at": "2026-05-19 03:52:06.267733+00"
       },
       {
         "id": "cb816e56-bc79-4a0c-aa94-aa749cabfb1c",
@@ -1912,6 +1896,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/cbre/master-v3-grid-block-1773134592387-10-m1.webp",
         "file_path": "landing-pages/cbre/master-v3-grid-block-1773134592387-10-m1.webp",
         "updated_at": "2026-03-10 09:36:08.686188+00"
+      },
+      {
+        "id": "9aa417b4-630c-45f2-ab0e-fc0d10d88e76",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-6-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
+        "updated_at": "2026-05-19 06:57:58.416304+00"
       },
       {
         "id": "3a29b66f-c6d1-4a2b-b9fd-f82728d31aaf",
@@ -2392,22 +2384,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/demo/cs5.webp",
         "file_path": "demo/cs5.webp",
         "updated_at": "2026-05-12 23:29:27.003483+00"
-      },
-      {
-        "id": "1d3971b2-af37-4f7e-8528-c3afeb298c0f",
-        "key": "3d.ghost",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost.glb",
-        "file_path": "3d/ghost.glb",
-        "updated_at": "2026-04-05 21:58:28.226049+00"
-      },
-      {
-        "id": "fd3d5450-9530-456d-86a6-7b2ee145100b",
-        "key": "3d.Ghost",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/Ghost.jsx",
-        "file_path": "3d/Ghost.jsx",
-        "updated_at": "2026-05-02 07:51:22.075621+00"
       },
       {
         "id": "11aa7099-390e-4a09-a1ba-1318946cf796",

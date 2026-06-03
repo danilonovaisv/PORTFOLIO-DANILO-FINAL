@@ -176,3 +176,4 @@ gha-creds-*.json
 toolbox
 
 .git-hygiene-backup/
+firebase-admin-key.json

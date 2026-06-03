@@ -146,7 +146,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                     <div className="relative w-full aspect-video max-h-[70vh] bg-black/40 overflow-hidden flex items-center justify-center">
                         {/* Ghost Media Placeholder */}
                         <AnimatePresence>
-                            {!isLoaded && activeMedia && activeMedia !== ASSET_PLACEHOLDER && (
+                            {!isLoaded && !activeYouTubeEmbed && activeMedia && activeMedia !== ASSET_PLACEHOLDER && (
                                 <m.div 
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -174,11 +174,15 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                             </div>
                         ) : activeYouTubeEmbed ? (
                             <iframe
+                                key={activeYouTubeEmbed}
                                 src={activeYouTubeEmbed}
                                 title={project.title}
                                 className="absolute inset-0 w-full h-full border-none z-0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                onLoad={() => setIsLoaded(true)}
                             />
                         ) : isVid ? (
                                 <video

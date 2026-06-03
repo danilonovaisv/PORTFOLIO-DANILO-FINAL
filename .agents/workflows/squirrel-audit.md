@@ -13,7 +13,7 @@ description: Audita rotas do portfoliodanilo.com localmente e corrige problemas 
 
 ## 1. Gatilho
 
-Este workflow é ativado quando o usuário executa o comando `/squirrel-audit [ROUTE]`. Se `[ROUTE]` não for fornecido, assuma `sobre`.
+Este workflow é ativado quando o usuário executa o comando `/squirrel-audit [ROUTE]`. Se `[ROUTE]` não for fornecido, assuma `todas`. Use para realização a skill ".agents/skills/audit-website".
 
 ## 2. Execução de Coleta de Dados (Terminal)
 
@@ -51,7 +51,8 @@ Após a aprovação, implemente as correções diretamente nos arquivos. Adicion
 Gere um arquivo `artifacts/audit-report-[ROUTE].md` contendo um resumo executivo dos problemas encontrados e resolvidos, escrito em termos simples (ROI, impacto no SEO, taxa de conversão e acessibilidade).
 
 ´´´´
-#!/bin/bash
+
+# !/bin/bash
 
 # file: scripts/audit-route.sh
 
@@ -63,5 +64,5 @@ squirrel report "$AUDIT_ID" --format llm > temp_report.md
 
 # Envia para a CLI do agente (ex: Claude Code / Antigravity CLI)
 
-ag-ask "Leia o temp_report.md. Priorize os problemas de Next.js, R3F e Framer Motion. Crie um plano de correção e aguarde."
+ag-ask "Leia o temp_report.md. Priorize os problemas de Next.js, R3F e Framer Motion. Crie um plano de correção e aguarde." ps: não implementar a assessibilidade de legendas de videos.
 ´´´´´´

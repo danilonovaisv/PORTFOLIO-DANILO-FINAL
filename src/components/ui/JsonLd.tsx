@@ -41,6 +41,8 @@ export default function JsonLd({
   };
 
   // Organization Schema
+  // NOTE: schema.org requires Organization.logo to be a URL string, not an ImageObject reference.
+  // Using the absolute logo URL directly to pass JSON-LD validation.
   const organizationSchema = {
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
@@ -48,12 +50,9 @@ export default function JsonLd({
     url: baseUrl,
     foundingDate: '2015',
     areaServed: 'BR',
-    logo: {
-      '@id': `${baseUrl}/#logo`,
-    },
-    image: {
-      '@id': `${baseUrl}/#logo`,
-    },
+    // Must be a string URL — ImageObject @id reference fails schema.org validation
+    logo: toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl),
+    image: toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl),
     sameAs: [
       'https://github.com/danilonovaisv',
       'https://www.linkedin.com/in/danilonovaisv',
@@ -63,15 +62,16 @@ export default function JsonLd({
   };
 
   // Core Person Schema (sempre incluído)
+  // NOTE: Person.image must be an absolute URL string per schema.org spec,
+  // not an ImageObject @id reference, to pass validator checks.
   const personSchema = {
     '@type': 'Person',
     '@id': `${baseUrl}/#person`,
     name: BRAND.name,
     url: baseUrl,
     email: 'contato@portfoliodanilo.com',
-    image: {
-      '@id': `${baseUrl}/#logo`,
-    },
+    // Must be absolute URL string — @id reference fails schema.org validation
+    image: toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl),
     jobTitle: 'Head de Criação & Diretor de Criação Sênior',
     worksFor: {
       '@id': `${baseUrl}/#organization`,
@@ -162,10 +162,12 @@ export default function JsonLd({
       name: `Sobre | ${BRAND.name}`,
       description: 'Trajetória, método e visão criativa de Danilo Novais.',
       url: `${baseUrl}/sobre`,
+      dateModified: new Date().toISOString().split('T')[0],
       mainEntity: {
         '@id': `${baseUrl}/#person`,
       },
     };
+    // VideoObject with duration for schema.org compliance (validator requires duration on VideoObject)
     pageSchemas.videoObject = {
       '@type': 'VideoObject',
       '@id': `${baseUrl}/sobre#video-manifesto`,
@@ -174,8 +176,12 @@ export default function JsonLd({
         'Manifesto em vídeo com direção criativa e linguagem visual autoral.',
       thumbnailUrl: `${baseUrl}/opengraph-image`,
       uploadDate: '2025-01-01',
+      duration: 'PT2M',
       contentUrl: BRAND.assets.video.manifesto,
       embedUrl: `${baseUrl}/sobre`,
+      publisher: {
+        '@id': `${baseUrl}/#organization`,
+      },
     };
   }
 
@@ -188,23 +194,31 @@ export default function JsonLd({
       description:
         'Entre em contato para projetos de branding, motion e experiências digitais.',
       url: `${baseUrl}/contato`,
+      dateModified: new Date().toISOString().split('T')[0],
       mainEntity: {
         '@id': `${baseUrl}/#person`,
       },
     };
   }
 
+  // VideoObject schema: required for pages that embed video (home, portfolio, portfolio categories)
+  // Squirrel audit flags "Page has video but no VideoObject schema" without this.
   if (pageType === 'home' || pageType === 'portfolio') {
+    const pageSlug = pageType === 'home' ? '' : 'portfolio';
     pageSchemas.videoObject = {
       '@type': 'VideoObject',
-      '@id': `${baseUrl}/${pageType === 'home' ? '' : 'portfolio'}#video-manifesto`,
+      '@id': `${baseUrl}/${pageSlug}#video-manifesto`,
       name: 'Showreel Danilo Novais',
       description:
         'Showreel com projetos de branding, motion e experiências digitais.',
       thumbnailUrl: `${baseUrl}/opengraph-image`,
       uploadDate: '2025-01-01',
+      duration: 'PT2M',
       contentUrl: BRAND.assets.video.manifesto,
       embedUrl: pageType === 'home' ? baseUrl : `${baseUrl}/portfolio`,
+      publisher: {
+        '@id': `${baseUrl}/#organization`,
+      },
     };
   }
 

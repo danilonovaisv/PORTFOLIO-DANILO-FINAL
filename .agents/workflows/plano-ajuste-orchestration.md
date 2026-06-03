@@ -4,9 +4,13 @@ description: Analisar uma nova feature com base na documentação e preparar o p
 
 # /plan-feature [nome_da_feature]
 
-**INVOQUE OS AGENTES** ".agents/agents/orchestrator.md", ".agents/agents/frontend-developer.md", ".agents/agents/spectral-artist.md", ".agents/agents/frontend-specialist.md" e ".agents/agents/ui-ux-designer.md"
+## Utilizar o ".agents/agents/orchestrator.md" para que distribias as funções em paralelo para
 
-**USE AS SKILLS** ".agents/skills/orchestration/",".agents/skills/graphify/",".agents/skills/nextjs-react-expert/",".agents/skills/framer-motion/", ".agents/skills/ui-design-system/", ".agents/skills/ui-ux-pro-max/", ".agents/skills/using-superpowers/" e ".agents/skills/caveman/"
+**INVOQUE OS AGENTES** ".agents/agents/frontend-developer.md", ".agents/agents/spectral-artist.md", ".agents/agents/frontend-specialist.md" e ".agents/agents/ui-ux-designer.md"
+
+## E sempre ativar as habilidades
+
+**USE AS SKILLS** ".agents/skills/orchestration/",".agents/skills/graphify/",".agents/skills/nextjs-react-expert/",".agents/skills/framer-motion/", ".agents/skills/ui-design-system/", ".agents/skills/ui-ux-pro-max/", ".agents/skills/using-superpowers/write-plan" e ".agents/skills/caveman/"
 
 ## Objetivo
 

@@ -25,7 +25,6 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
-      npm_config_legacy_peer_deps: 'true'
 
     steps:
       - name: Checkout repository

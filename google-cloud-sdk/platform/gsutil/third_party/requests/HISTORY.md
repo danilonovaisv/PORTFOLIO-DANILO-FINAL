@@ -1587,7 +1587,7 @@ This is not a backwards compatible change.
 - If no `Response.encoding` is specified and `chardet` is available,
   `Response.text` will guess an encoding.
 - Default to ISO-8859-1 (Western) encoding for "text" subtypes.
-- Removal of decode_unicode. (_Backwards Incompatible_)
+- Removal of decode*unicode. (\_Backwards Incompatible*)
 - New multiple-hooks system.
 - New `Response.register_hook` for registering hooks within the
   pipeline.

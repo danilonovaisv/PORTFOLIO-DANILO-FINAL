@@ -39,7 +39,9 @@ export function AboutOrigin() {
   );
 
   const contentBlocks = [
-    { ...ORIGIN_CONTENT[0], img: originImage1, priority: false },
+    // First image is the LCP candidate for /sobre — hero is text-only (WebGL).
+    // priority: true prevents lazy-load penalty on the first visible image.
+    { ...ORIGIN_CONTENT[0], img: originImage1, priority: true },
     { ...ORIGIN_CONTENT[1], img: originImage2, priority: false },
     { ...ORIGIN_CONTENT[2], img: originImage3, priority: false },
     { ...ORIGIN_CONTENT[3], img: originImage4, priority: false },
