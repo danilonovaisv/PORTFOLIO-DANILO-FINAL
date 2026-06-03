@@ -11,13 +11,13 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       eyeGlowColor: 'violet',
       ghostOpacity: 0.92,
       ghostScale: 2.4,
-      emissiveIntensity: 2.4,
-      pulseSpeed: 1.4,
-      pulseIntensity: 0.16,
+      emissiveIntensity: 5.8,
+      pulseSpeed: 1.6,
+      pulseIntensity: 0.6,
       eyeGlowIntensity: 2.4, // Reduced from 3.8 to 2.4 to stay soft and balanced
       eyeGlowDecay: 0.96,
       eyeGlowResponse: 0.35,
-      rimLightIntensity: 0.75, // Reduced further from 1.1 to 0.75 to soften outer contours
+      rimLightIntensity: 1.8, // Adjusted to match CodePen 1.8
       followSpeed: 0.05,
       wobbleAmount: 0.35,
       floatSpeed: 1.6,
@@ -47,18 +47,18 @@ export function useGhostParams(performanceConfig: any): GhostSceneParams {
       // Environment & Post-Processing
       bloomStrength:
         performanceConfig.quality === 'low'
-          ? 0.42
+          ? 0.2
           : performanceConfig.quality === 'medium'
-            ? 0.5
-            : 0.55,
-      bloomRadius: 1.05,
-      // Threshold > 0 so only highly emissive pixels bloom — eliminates frame-wide bloom instability
-      bloomThreshold: 0.65,
+            ? 0.25
+            : 0.3,
+      bloomRadius: 1.25,
+      // Threshold 0.0 to match CodePen exactly, allowing full bloom integration
+      bloomThreshold: 0.0,
       ambientLightColor: 0x040013,
       ambientLightIntensity: 0.05,
       rimLightColor1: 0x0048ff, // Ghost System Primary Blue
       rimLightColor2: 0x4fe6ff, // Ghost System Accent Blue
-      exposure: 1.05,
+      exposure: 0.9,
     };
   }, [performanceConfig]);
 }

@@ -69,7 +69,7 @@ export function AboutHero() {
             autoPlay={shouldPlayVideo}
             muted
             loop={shouldPlayVideo}
-            className="absolute inset-0 h-full w-full object-contain object-top opacity-[0.78] md:object-center md:z-[var(--z-layer-base)]"
+            className="absolute inset-0 h-full w-full object-contain md:object-cover object-top opacity-[0.78] md:object-center md:z-[var(--z-layer-base)]"
           />
           {/* Mobile Overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent z-[var(--z-layer-glass)] md:hidden" />
@@ -85,7 +85,7 @@ export function AboutHero() {
           <div className="std-grid w-full">
             <div className="grid grid-cols-12 w-full gap-8">
               {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
-              <div className="col-span-6" aria-hidden="true" />
+              <div className="col-span-4 lg:col-span-5 xl:col-span-6" aria-hidden="true" />
 
               {/* Columns 7-12: Content Block */}
               <m.div
@@ -94,7 +94,7 @@ export function AboutHero() {
                     ? {}
                     : { opacity, y, filter: `blur(${blur}px)` }
                 }
-                className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
+                className="col-span-8 lg:col-span-7 xl:col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
               >
                 <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
                   {/* Intro & Manifesto - Unified for natural wrapping */}

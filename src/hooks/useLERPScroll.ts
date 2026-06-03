@@ -45,7 +45,15 @@ export const useLERPScroll = (
       return undefined;
     }
 
-    const resolveStickyTop = () => (window.innerWidth >= 768 ? 96 : 88);
+    const resolveStickyTop = () => {
+      if (typeof window === 'undefined') return 88;
+      const headerHeight = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--header-height')
+      ) || (window.innerWidth >= 768 ? 96 : 88);
+      const filterBar = gallery.previousElementSibling as HTMLElement;
+      const filterBarHeight = filterBar ? filterBar.offsetHeight : 72;
+      return headerHeight + filterBarHeight;
+    };
 
     // Calculate gallery start offset from page top
     const calculateHeroOffset = () => {
@@ -96,14 +104,16 @@ export const useLERPScroll = (
         stickyState.current = newScrollState;
         setScrollState(newScrollState);
 
-        // Reset transform if not fixed to avoid conflicting with CSS positioning
+        // Reset transform and top offset if not fixed to avoid conflicting with CSS positioning
         if (newScrollState !== 'fixed' && track) {
           track.style.transform = '';
+          track.style.top = '';
         }
       }
 
       if (track && newScrollState === 'fixed') {
         track.style.transform = `translateY(-${clampedOffset}px)`;
+        track.style.top = `${stickyTopOffset.current}px`;
       }
 
       if (Math.abs(startY.current - endY.current) > 0.1) {

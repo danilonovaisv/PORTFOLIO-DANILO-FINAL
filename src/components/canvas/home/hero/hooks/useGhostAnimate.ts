@@ -108,10 +108,12 @@ export function useGhostAnimate(
       // Float
       ghostGroup.position.y += Math.sin(time * params.floatSpeed * 1.5) * 0.03;
 
-      // Pulse — smoothed via lerp to remove visible flicker
+      // Pulse — organic and non-monotonous dynamic pulse to match CodePen exactly
       const targetEmissive =
         params.emissiveIntensity +
-        Math.sin(time * params.pulseSpeed) * params.pulseIntensity;
+        Math.sin(time * params.pulseSpeed) * params.pulseIntensity +
+        Math.cos(time * params.pulseSpeed * 1.4) * params.pulseIntensity * 0.6 +
+        Math.sin(time * 0.6) * 0.12;
       ghostMaterial.emissiveIntensity +=
         (targetEmissive - ghostMaterial.emissiveIntensity) * 0.08;
 
