@@ -23,7 +23,7 @@ jest.mock('@/store/antigravity.store', () => ({
 }));
 
 // ---------- MediaQuery mock ----------
-type MQLListener = (e: MediaQueryListEvent) => void;
+type MQLListener = (_e: MediaQueryListEvent) => void;
 
 let mqlListeners: MQLListener[] = [];
 let mqlMatches = false;
