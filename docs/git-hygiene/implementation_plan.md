@@ -204,21 +204,26 @@ Tags adicionais (pós-verificação de candidate-archive):
 git tag archive/codex/ghost-portfolio-hero-pr origin/codex/ghost-portfolio-hero-pr
 git tag archive/codex/media-card-system        origin/codex/media-card-system
 git tag archive/codex/sobre-origin-a11y-fixes  origin/codex/sobre-origin-a11y-fixes
-git push origin --tags
+# Push apenas as tags de arquivo criadas acima (não --tags, que publicaria todas as tags locais):
+git push origin \
+  archive/backup/worktree-fix-06-que-me-move \
+  archive/codex/ghost-portfolio-hero-pr \
+  archive/codex/media-card-system \
+  archive/codex/sobre-origin-a11y-fixes
 ```
 
 ### SHA Map
 
 | Branch | SHA Completo | Tag de Backup | Restore Command |
 |---|---|---|---|
-| `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `archive/backup/worktree-fix-06-que-me-move` | `git branch worktree-fix-06-que-me-move 561eec01` |
+| `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `archive/backup/worktree-fix-06-que-me-move` | `git branch worktree-fix-06-que-me-move 561eec01 && git push origin worktree-fix-06-que-me-move` |
 | `worktree-responsive-video-plan` | `09aab7da9f81910ced8e50d8c29cc03055f3aad3` | (pendente verificação) | `git branch worktree-responsive-video-plan 09aab7da` |
 | `worktree-audit-fixes` | `4f158abeee42fc056e85b67e01c71fdc6e296981` | (pendente verificação) | `git branch worktree-audit-fixes 4f158abe` |
 | `fix/audit-remediation-phase1` | `2a7cc79f6198863092eaeb8593828cce12ec0174` | (pendente verificação) | `git branch fix/audit-remediation-phase1 2a7cc79f` |
 | `docs/audit-beliefs-ghost-design-v3` | `2444b35be4bc5d9809fcdc1ec9f46e62b455a328` | (pendente verificação) | `git branch docs/audit-beliefs-ghost-design-v3 2444b35b` |
-| `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a` |
-| `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `archive/codex/media-card-system` | `git branch codex/media-card-system 06104ba2` |
-| `codex/sobre-origin-a11y-fixes` | `e03f269df443e6d1bde3812573468e8057cbebcd` | `archive/codex/sobre-origin-a11y-fixes` | `git branch codex/sobre-origin-a11y-fixes e03f269d` |
+| `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a && git push origin codex/ghost-portfolio-hero-pr` |
+| `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `archive/codex/media-card-system` | `git branch codex/media-card-system 06104ba2 && git push origin codex/media-card-system` |
+| `codex/sobre-origin-a11y-fixes` | `e03f269df443e6d1bde3812573468e8057cbebcd` | `archive/codex/sobre-origin-a11y-fixes` | `git branch codex/sobre-origin-a11y-fixes e03f269d && git push origin codex/sobre-origin-a11y-fixes` |
 | `codex/weekly-cleanup` | `dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0` | (pendente verificação) | `git branch codex/weekly-cleanup dcf8d0de` |
 | `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | (pendente verificação) | `git branch danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s 16aa5652` |
 
@@ -297,10 +302,13 @@ git push origin --delete codex/sobre-origin-a11y-fixes     # REQUIRES APPROVAL (
 
 ### Fase F: Validação (pós-execução aprovada)
 ```bash
+# Após a Fase E deletar branches remotas, os tracking refs origin/<branch> ainda existem
+# até que um prune real seja executado. Executar antes do dry-run para zerá-los:
+git fetch --all --prune                                                                # Limpa tracking refs dos branches deletados na Fase E
 git status
 git branch --all
 git worktree list
-git fetch --all --prune --dry-run
+git fetch --all --prune --dry-run                                                     # Deve reportar 0 refs a remover após o prune acima
 pnpm run lint
 pnpm run typecheck
 pnpm run build
