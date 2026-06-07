@@ -169,10 +169,11 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 
 ## Phase 8 — Validation
 
+- [ ] Executar `git fetch --all --prune` — limpa tracking refs dos branches deletados na Phase 7c antes da validação.
 - [ ] Verificar `git status` — árvore limpa, sem conflitos.
 - [ ] Verificar `git branch --all` — listar estado final e confirmar ausência de branches deletadas acidentalmente.
 - [ ] Verificar `git worktree list` — confirmar que nenhuma worktree legítima foi afetada.
-- [ ] Executar `git fetch --all --prune --dry-run` — confirmar 0 itens a remover após cleanup.
+- [ ] Executar `git fetch --all --prune --dry-run` — confirmar 0 itens a remover após o prune acima.
 - [ ] Executar `pnpm run lint` e verificar saída sem erros.
 - [ ] Executar `pnpm run typecheck` e verificar saída sem erros de tipo.
 - [ ] Executar `pnpm run build` e verificar build completo sem falhas.
