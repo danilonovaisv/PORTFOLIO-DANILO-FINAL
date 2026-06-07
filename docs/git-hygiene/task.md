@@ -33,7 +33,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [x] Identificar branch padrão.
   - `main`
 - [x] Identificar remotes configurados.
-  - `origin` → `http://local_proxy@127.0.0.1:33267/git/danilonovaisv/PORTFOLIO-DANILO-FINAL`
+  - `origin` → `https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL`
 - [x] Identificar package manager e scripts de validação.
   - `pnpm`; scripts: `lint`, `typecheck`, `build`, `test`, `test:e2e`
 - [x] Identificar premissas de branch protection.
@@ -135,7 +135,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 ## Phase 7 — Verified Execution (pós-aprovação)
 
 ### 7a. Verificação dos unknown-risk e candidate-archive (não destrutivo, requer fetch)
-- [ ] Executar `git fetch --all` para atualizar todos os tracking refs.
+- [ ] Executar `git fetch --all --prune` para atualizar tracking refs e remover stale (ex: `origin/claude/dazzling-euler-q4KbP`).
 - [ ] `git log origin/worktree-responsive-video-plan ^main --oneline` → registrar resultado.
 - [ ] `git log origin/worktree-audit-fixes ^main --oneline` → registrar resultado.
 - [ ] `git log origin/fix/audit-remediation-phase1 ^main --oneline` → registrar resultado.
@@ -152,7 +152,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [ ] Executar `git bundle create .git-hygiene-backup/pre-cleanup-<timestamp>.bundle --all`.
 - [ ] Criar tag `archive/backup/worktree-fix-06-que-me-move`.
 - [ ] Criar tags para candidate-archive (pós-verificação 7a): `archive/codex/ghost-portfolio-hero-pr`, `archive/codex/media-card-system`, `archive/codex/sobre-origin-a11y-fixes`.
-- [ ] Push de todas as tags: `git push origin --tags`.
+- [ ] Push apenas das tags criadas nesta sessão (não `--tags` overbroad): `git push origin archive/backup/worktree-fix-06-que-me-move archive/codex/ghost-portfolio-hero-pr archive/codex/media-card-system archive/codex/sobre-origin-a11y-fixes`.
 - [ ] Verificar que tags estão presentes no remoto.
 
 ### 7c. Remoção remota dos confirmados ★ REQUER APROVAÇÃO SEPARADA ★

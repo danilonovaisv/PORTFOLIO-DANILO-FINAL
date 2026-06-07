@@ -33,7 +33,7 @@ O repositório `danilonovaisv/PORTFOLIO-DANILO-FINAL` apresenta **acúmulo moder
 | Branch atual | `claude/dazzling-euler-q4KbP` |
 | HEAD SHA | `940e0a69` |
 | Branch padrão | `main` |
-| Remote | `origin` → `http://local_proxy@127.0.0.1:33267/git/danilonovaisv/PORTFOLIO-DANILO-FINAL` |
+| Remote | `origin` → `https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL` |
 | GitHub repo | `danilonovaisv/PORTFOLIO-DANILO-FINAL` |
 | Package manager | `pnpm` |
 | Deploy target | Firebase Hosting (webframeworks experiment) |
@@ -249,7 +249,7 @@ git worktree prune --dry-run
 
 ### Fase B: Verificação de unknown-risk e candidate-archive (REQUER APROVAÇÃO — fetch altera estado local)
 ```bash
-git fetch --all                                                                      # REQUIRES APPROVAL
+git fetch --all --prune                                                              # REQUIRES APPROVAL — remove tracking refs stale (ex: origin/claude/dazzling-euler-q4KbP)
 git log origin/worktree-responsive-video-plan ^main --oneline                        # REQUIRES APPROVAL
 git log origin/worktree-audit-fixes ^main --oneline                                  # REQUIRES APPROVAL
 git log origin/fix/audit-remediation-phase1 ^main --oneline                          # REQUIRES APPROVAL
@@ -270,14 +270,20 @@ git tag archive/backup/worktree-fix-06-que-me-move origin/worktree-fix-06-que-me
 git tag archive/codex/ghost-portfolio-hero-pr origin/codex/ghost-portfolio-hero-pr    # REQUIRES APPROVAL
 git tag archive/codex/media-card-system        origin/codex/media-card-system          # REQUIRES APPROVAL
 git tag archive/codex/sobre-origin-a11y-fixes  origin/codex/sobre-origin-a11y-fixes    # REQUIRES APPROVAL
-git push origin --tags                                                                 # REQUIRES APPROVAL
+# Push apenas as tags de backup criadas acima (não git push --tags, que publicaria todas as tags locais):
+git push origin \
+  archive/backup/worktree-fix-06-que-me-move \
+  archive/codex/ghost-portfolio-hero-pr \
+  archive/codex/media-card-system \
+  archive/codex/sobre-origin-a11y-fixes                                                # REQUIRES APPROVAL
 ```
 
 ### Fase D: Remoção Local (sem urgência — estado local já é mínimo)
 ```bash
-# Nenhum branch local candidato a remoção além do tracking stale.
-# git fetch --prune removerá origin/claude/dazzling-euler-q4KbP automaticamente (stale).
-# Branch local claude/dazzling-euler-q4KbP permanece intacta.
+# Nenhum branch local candidato a remoção.
+# O tracking ref stale origin/claude/dazzling-euler-q4KbP é removido pelo git fetch --all --prune
+# já executado na Fase B. Branch local claude/dazzling-euler-q4KbP permanece intacta.
+# Nenhum comando adicional necessário nesta fase.
 ```
 
 ### Fase E: Remoção Remota dos Confirmados ★ REQUER APROVAÇÃO EXPLÍCITA E SEPARADA ★
