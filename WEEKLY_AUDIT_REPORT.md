@@ -427,25 +427,26 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 
 ### 🛠️ Prompt #07 — Documentar Redundância de Content Array em tailwind.config.ts (P1-005)
 
-**Objetivo:** Adicionar comentário explícito em `tailwind.config.ts` esclarecendo que o array `content` é inerte em Tailwind v4 e que a varredura de classes ocorre via `@source` em `globals.css`, prevenindo que futuros agentes o tratem como configuração ativa.
+**Objetivo:** Adicionar comentário de cabeçalho em `tailwind.config.ts` esclarecendo que o arquivo **inteiro** é inerte em Tailwind v4: `src/app/globals.css` não usa `@config "../../tailwind.config.ts"`, e Tailwind v4 não auto-detecta arquivos JS de config sem essa diretiva. Isso significa que tanto o array `content` quanto os valores de `theme.extend` (cores, fontes, z-index, etc.) são completamente ignorados pelo engine — futuros agentes que adicionarem tokens em `theme.extend` não verão os utilities gerados.
 
 **Especialista:** `@ghost_architect` (Tailwind v4, documentação de config)
 
 **Arquivos:** `tailwind.config.ts`
 
 **Contexto obrigatório:**
-- `src/app/globals.css` (directivas `@source` ativas)
-- Context7 MCP: Tailwind CSS v4 content scanning / `@source` directive
+- `src/app/globals.css` (confirmar ausência de `@config` directive)
+- Context7 MCP: Tailwind CSS v4 upgrade guide / JavaScript config file / `@config` directive
 
 **Ações:**
 1. Ler `tailwind.config.ts` completo.
-2. Localizar o array `content`.
-3. Adicionar comentário inline explicando: em Tailwind v4 o array `content` é ignorado pelo engine; a varredura de classes é feita pelos `@source` directives em `globals.css`. O array permanece para compatibilidade de tooling mas não deve ser editado como se fosse ativo.
+2. Verificar que `src/app/globals.css` não contém `@config "tailwind.config.ts"` (confirmação do contexto).
+3. Adicionar comentário de cabeçalho no arquivo explicando: este arquivo está **completamente inativo** em Tailwind v4 — não é carregado via `@config` em `globals.css`. O array `content` e `theme.extend` são ignorados pelo engine; a varredura de classes usa `@source` em `globals.css`. Para ativar tokens customizados em v4, usar `@theme` em CSS ou adicionar `@config "../../tailwind.config.ts"` em `globals.css`.
 
-**Regras:** Não remover o array `content`. Não modificar `globals.css` nem `postcss.config.cjs`. Apenas adicionar comentário.
+**Regras:** Não remover nenhum conteúdo do arquivo. Não modificar `globals.css` nem `postcss.config.cjs`. Apenas adicionar comentário.
 
 **Critérios de Aceite:**
-- [ ] `tailwind.config.ts` contém comentário explícito sobre `content` array ser inerte em v4
+- [ ] `tailwind.config.ts` contém comentário de cabeçalho explícito sobre o arquivo estar inativo em v4 (não apenas o `content` array)
+- [ ] Comentário menciona ausência de `@config` e inatividade de `theme.extend`
 - [ ] Nenhuma outra linha do arquivo modificada
 - [ ] `pnpm run build-check` exit code 0
 
@@ -662,11 +663,11 @@ Os dois P0 representam riscos concretos em produção agora:
 
 **P0-001** (42 assets quebrados) está causando degradação visual silenciosa. Correção é direta: executar `pnpm run verify:assets`, mapear os 42 URLs quebrados para assets válidos no Supabase Storage. Estimativa: 2–4h.
 
-**P0-002** (CSP com `unsafe-eval` em `/api/view-cv`) é um vetor de segurança com correção de 15 minutos — remover `'unsafe-eval'` da CSP inline. O arquivo HTML servido é estático e não requer eval.
+**P0-002** (CSP com `unsafe-eval` em `/api/view-cv`) é um vetor de segurança, mas **não é uma correção de 15 minutos de rota única**: `public/CURRICULUM-2026.html` carrega `https://cdn.tailwindcss.com` (runtime JIT que requer eval) e usa `onclick="window.print()"` inline. Remover `unsafe-eval` apenas da rota sem modificar o HTML quebrará a página do CV. A correção completa requer substituir o CDN por CSS compilado e o handler inline por listener externo — conforme escopo do Prompt #01. Estimativa real: 1–2h.
 
 Os P1 são estruturais e podem ser executados em paralelo ou na semana seguinte, com prioridade para P1-001 (regras de agente conflitantes com Tailwind v4) que representa o maior risco de regressão em sessões de agente autônomo.
 
-**Bloquear execução por risco crítico não mapeado?** Não. Os riscos foram identificados e há planos de ação claros. O projeto está em estado operacional. Build passa. Recomendação é avançar com as correções P0 na próxima sessão aprovada.
+**Bloquear execução por risco crítico não mapeado?** Não. Os riscos foram identificados e há planos de ação claros. O projeto está em estado operacional. **Nota:** `pnpm build` e testes não foram executados nesta sessão (rotina READ-ONLY); o último build confirmado data de 2026-05-22 e houve commits em `src/` desde então — um `pnpm run build-check` fresco é obrigatório antes de executar qualquer correção P0. Recomendação é executar a verificação de build e então avançar com as correções P0 na próxima sessão aprovada.
 
 ---
 
