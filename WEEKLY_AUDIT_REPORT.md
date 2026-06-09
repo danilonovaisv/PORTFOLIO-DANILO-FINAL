@@ -244,14 +244,20 @@ O repositório está em estado **funcional com alertas de manutenção identific
 3. Atualizar `src/app/api/view-cv/route.ts` com a nova CSP.
 4. Testar que `/api/view-cv` renderiza o currículo sem erros de console CSP.
 
-**Regras:** Não alterar `public/CURRICULUM-2026.html`. Não usar `unsafe-eval`. CSP resultante deve ser mais restritiva que a atual.
+**Dependência crítica:** `public/CURRICULUM-2026.html` usa `<script src="https://cdn.tailwindcss.com">` (runtime JIT que requer `unsafe-eval`) e um handler `onclick="window.print()"` inline. Uma CSP restritiva **não é possível sem modificar o HTML**. O escopo desta tarefa deve incluir:
+- Substituir o CDN do Tailwind por CSS compilado (ex: gerar `public/curriculum.css` com Tailwind CLI a partir do HTML)
+- Substituir `onclick="window.print()"` por um event listener externo não-inline
+Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inline` com segurança.
+
+**Regras:** Não usar `unsafe-eval`. Não usar `unsafe-inline` para scripts. CSP resultante deve ser mais restritiva que a atual. Modificações limitadas a `src/app/api/view-cv/route.ts` e `public/CURRICULUM-2026.html`.
 
 **Critérios de Aceite:**
 - [ ] Header CSP sem `unsafe-eval`
-- [ ] Header CSP sem `https://*`
+- [ ] Header CSP sem `https://*` irrestrito
+- [ ] `public/CURRICULUM-2026.html` não usa CDN externo de runtime
+- [ ] Print button funciona sem handler inline
 - [ ] Currículo HTML renderiza corretamente em browser
 - [ ] `pnpm run build-check` exit code 0
-- [ ] Nenhum outro arquivo modificado
 
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
@@ -271,16 +277,16 @@ O repositório está em estado **funcional com alertas de manutenção identific
 - Supabase Storage MCP para verificar quais assets existem no bucket `site-assets`
 
 **Ações:**
-1. Executar `pnpm run verify:assets` e capturar lista dos 42 links quebrados com seus keys.
+1. Executar `python3 scripts/audit_assets.py` e capturar lista dos 42 links quebrados em `src/config/site-assets.json` com seus keys. (**Nota:** `pnpm run verify:assets` chama `scripts/verify-supabase-assets.mjs` que cobre apenas MP4s em `src/lib/video-assets.ts` — não valida `site-assets.json`.)
 2. Para cada link quebrado: verificar se o asset existe no Supabase Storage com nome similar.
-3. Para assets existentes: atualizar URL em `site-assets.json`.
+3. Para assets existentes: atualizar o campo `file_url` em `site-assets.json`.
 4. Para assets inexistentes: marcar entry com `"status": "removed"` ou substituir por asset placeholder aprovado.
-5. Executar `pnpm run verify:assets` novamente — deve retornar 0 warnings.
+5. Executar `python3 scripts/audit_assets.py` novamente — deve retornar 0 warnings.
 
 **Regras:** Não alterar código de componentes. Não usar URLs de placeholder externos (ex: via.placeholder.com). Supabase Storage como único CDN.
 
 **Critérios de Aceite:**
-- [ ] `pnpm run verify:assets` exit code 0 sem warnings
+- [ ] `python3 scripts/audit_assets.py` retorna 0 warnings de broken links
 - [ ] Todos os assets críticos (hero, featured projects, clients logos) com URL HTTP 200
 - [ ] `pnpm run build-check` exit code 0
 - [ ] Nenhum arquivo além de `src/config/site-assets.json` modificado
@@ -357,7 +363,7 @@ O repositório está em estado **funcional com alertas de manutenção identific
 
 **Especialista:** `@ghost_architect` (Next.js App Router, ISR, Supabase SSR)
 
-**Arquivos:** `src/app/portfolio/[slug]/page.tsx`
+**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/app/admin/(protected)/trabalhos/actions.ts`
 
 **Contexto obrigatório:**
 - Context7 MCP: Next.js ISR/revalidate documentation
@@ -369,6 +375,9 @@ O repositório está em estado **funcional com alertas de manutenção identific
 2. Se lista de slugs for razoável: implementar `generateStaticParams` + `revalidate = 3600`.
 3. Se não: substituir `dynamic = 'force-dynamic'` por `revalidate = 600` com `unstable_cache` nas queries.
 4. Testar com `pnpm run build` que geração estática funciona.
+5. **Cache invalidation em admin actions** (obrigatório junto com ISR): Em `src/app/admin/(protected)/trabalhos/actions.ts`:
+   - `upsertProjectAction`: ao renomear slug, chamar `revalidatePath('/portfolio/${oldSlug}')` antes da atualização, além do `revalidatePath('/portfolio/${updatedProject.slug}')` já existente.
+   - `deleteProjectAction`: adicionar `revalidatePath('/portfolio/${slugDoProjetoExcluído}')` — atualmente não invalida a página específica do projeto excluído, deixando cache obsoleto ativo até o próximo revalidate.
 
 **Regras:** Manter fallback `notFound()` para slugs inexistentes. Ghost Design System inalterado. Sem alterações em componentes visuais.
 
@@ -376,6 +385,8 @@ O repositório está em estado **funcional com alertas de manutenção identific
 - [ ] `dynamic = 'force-dynamic'` removido
 - [ ] TTFB < 500ms em `/portfolio/[slug]` testado localmente
 - [ ] Conteúdo atualizado em até 1 hora (revalidate <= 3600)
+- [ ] Rename de projeto invalida imediatamente o slug antigo (sem cache stale)
+- [ ] Delete de projeto invalida imediatamente o slug do projeto excluído
 - [ ] `pnpm run build` sem erros
 - [ ] `pnpm run build-check` exit code 0
 
