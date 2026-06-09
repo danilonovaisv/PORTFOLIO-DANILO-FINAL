@@ -19,7 +19,7 @@
 
 ## 1️⃣ Visão Geral
 
-O repositório está em estado **funcional com alertas de manutenção identificados**. O build mais recente (2026-05-22, Next.js 16.2.6 via Webpack) passou com exit code 0 em `build-check`, `lint`, `typecheck` e `jest`. A stack principal — Tailwind v4.3.0, React 19.2.7, React Three Fiber 9.6.1, Three.js 0.184.0, Motion 12.40.0, Supabase SSR, Firebase Hosting via webframeworks experiment — está operacional e consistente.
+O repositório está em estado **funcional com alertas de manutenção identificados**. O build mais recente (2026-05-22, Next.js 16.2.7 via Webpack, pnpm 11.5.1) passou com exit code 0 em `build-check`, `lint`, `typecheck` e `jest`. A stack principal — Tailwind v4.3.0, React 19.2.7, React Three Fiber 9.6.1, Three.js 0.184.0, Motion 12.40.0, Supabase SSR, Firebase Hosting via webframeworks experiment — está operacional e consistente.
 
 **Página `/`:** Estrutura em 8 sessões conforme SSOT. O `HomeHero` usa `GhostSceneWrapper` com `ssr: false`, `aria-hidden="true"`, `useMotionGate()` para reduced motion, e fallback para dispositivos sem WebGL. Realtime de projetos via `FeaturedProjectsRealtime` com polling de 45s e canal Supabase Realtime. Design tokens Ghost Blue `#0048ff` e ease `cubic-bezier(0.22, 1, 0.36, 1)` presentes em `globals.css`. `std-grid` com `max-width: 1680px` e `padding-left: 4rem` desktop implementado.
 
@@ -81,7 +81,7 @@ O repositório está em estado **funcional com alertas de manutenção identific
 - ✅ Resend API para dispatch de email (`RESEND_API_KEY`)
 - ✅ `useMotionGate()` aplicado às animações de entrada
 - ✅ Validação client-side de campos antes de submit
-- ⚠ Sem rate limiting server-side explícito na rota `/api/contact` além do Turnstile
+- ✅ Rate limiting server-side via IP em memória (`isRateLimited`, 5 req/60s, `Map` local) — detalhes e risco de non-durability entre instâncias serverless em P2-003
 
 ---
 
@@ -232,7 +232,7 @@ O repositório está em estado **funcional com alertas de manutenção identific
 
 **Especialista:** `@ghost_architect` (segurança, Next.js API Routes)
 
-**Arquivos:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`
+**Arquivos:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`, `public/curriculum.css` (novo), `public/curriculum-print.js` (novo, se necessário para event listener externo)
 
 **Contexto obrigatório:**
 - `next.config.mjs` para ver a CSP global de referência
@@ -249,7 +249,7 @@ O repositório está em estado **funcional com alertas de manutenção identific
 - Substituir `onclick="window.print()"` por um event listener externo não-inline
 Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inline` com segurança.
 
-**Regras:** Não usar `unsafe-eval`. Não usar `unsafe-inline` para scripts. CSP resultante deve ser mais restritiva que a atual. Modificações limitadas a `src/app/api/view-cv/route.ts` e `public/CURRICULUM-2026.html`.
+**Regras:** Não usar `unsafe-eval`. Não usar `unsafe-inline` para scripts. CSP resultante deve ser mais restritiva que a atual. Modificações limitadas a `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`, e novos assets estáticos sob `public/` necessários para substituir o CDN/inline handler.
 
 **Critérios de Aceite:**
 - [ ] Header CSP sem `unsafe-eval`
@@ -269,7 +269,7 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 
 **Especialista:** `@audit_sentinel` + `storage-sentinel` MCP
 
-**Arquivos:** `src/config/site-assets.json`, `scripts/verify-supabase-assets.mjs`, `scripts/audit_assets.py`
+**Arquivos:** `src/config/site-assets.json`, `src/lib/video-assets.ts`, `scripts/verify-supabase-assets.mjs`, `scripts/audit_assets.py`
 
 **Contexto obrigatório:**
 - `.context/active_state.md` para histórico do problema
@@ -277,19 +277,20 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 - Supabase Storage MCP para verificar quais assets existem no bucket `site-assets`
 
 **Ações:**
-1. Executar `python3 scripts/audit_assets.py` e capturar lista dos 42 links quebrados em `src/config/site-assets.json` com seus keys. (**Nota:** `pnpm run verify:assets` chama `scripts/verify-supabase-assets.mjs` que cobre apenas MP4s em `src/lib/video-assets.ts` — não valida `site-assets.json`.)
+1. Executar `python3 scripts/audit_assets.py` e capturar todos os links quebrados (cobre tanto `src/config/site-assets.json` quanto `src/lib/video-assets.ts`). (**Nota:** o script atualmente sai com exit 0 mesmo ao encontrar erros — verificar `.agent/broken_links_report.json` para lista completa.)
 2. Para cada link quebrado: verificar se o asset existe no Supabase Storage com nome similar.
-3. Para assets existentes: atualizar o campo `file_url` em `site-assets.json`.
-4. Para assets inexistentes: marcar entry com `"status": "removed"` ou substituir por asset placeholder aprovado.
-5. Executar `python3 scripts/audit_assets.py` novamente — deve retornar 0 warnings.
+3. Para assets de `site-assets.json`: atualizar o campo `file_url`.
+4. Para assets de `video-assets.ts`: atualizar a URL correspondente.
+5. Para assets inexistentes em nenhum bucket: marcar entry com `"status": "removed"` ou substituir por asset placeholder aprovado.
+6. Executar `python3 scripts/audit_assets.py` novamente — deve retornar 0 links quebrados no relatório.
 
 **Regras:** Não alterar código de componentes. Não usar URLs de placeholder externos (ex: via.placeholder.com). Supabase Storage como único CDN.
 
 **Critérios de Aceite:**
-- [ ] `python3 scripts/audit_assets.py` retorna 0 warnings de broken links
-- [ ] Todos os assets críticos (hero, featured projects, clients logos) com URL HTTP 200
+- [ ] `python3 scripts/audit_assets.py` + `.agent/broken_links_report.json` reporta 0 broken links
+- [ ] Todos os assets críticos (hero, featured projects, clients logos, portfolio hero video) com URL HTTP 200
 - [ ] `pnpm run build-check` exit code 0
-- [ ] Nenhum arquivo além de `src/config/site-assets.json` modificado
+- [ ] Apenas `src/config/site-assets.json` e/ou `src/lib/video-assets.ts` modificados
 
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
@@ -363,7 +364,7 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 
 **Especialista:** `@ghost_architect` (Next.js App Router, ISR, Supabase SSR)
 
-**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/app/admin/(protected)/trabalhos/actions.ts`
+**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/app/admin/(protected)/trabalhos/actions.ts`, `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/` (atualizar após mudanças em `src/`)
 
 **Contexto obrigatório:**
 - Context7 MCP: Next.js ISR/revalidate documentation
