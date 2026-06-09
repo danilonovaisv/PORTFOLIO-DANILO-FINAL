@@ -216,7 +216,7 @@ O repositório está em estado **funcional com alertas de manutenção identific
 **Evidência:** `src/lib/env.ts` valida `NEXT_PUBLIC_SUPABASE_ANON_KEY` (chave histórica). `.env.example` também contém `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` (chave nova da Supabase SDK v2). Ambas coexistem como variáveis públicas para o mesmo propósito.
 **Impacto:** Redundância que pode gerar confusão em novos deploys.
 **Arquivos relacionados:** `src/lib/env.ts`, `.env.example`, `src/lib/supabase/client.ts`
-**Critério de aceite futuro:** Consolidar em uma única variável com alias de backward compatibility ou migração completa documentada.
+**Critério de aceite futuro:** Consolidar em uma única variável com alias de backward compatibility ou migração completa documentada. **Atenção:** qualquer migração para `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` deve incluir atualização do schema Zod em `src/lib/env.ts` — que atualmente requer `NEXT_PUBLIC_SUPABASE_ANON_KEY` — ou builds falharão se a chave legada for removida.
 
 ---
 
@@ -281,7 +281,7 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 2. Para cada link quebrado: verificar se o asset existe no Supabase Storage com nome similar.
 3. Para assets de `site-assets.json`: atualizar o campo `file_url`.
 4. Para assets de `video-assets.ts`: atualizar a URL correspondente.
-5. Para assets inexistentes em nenhum bucket: marcar entry com `"status": "removed"` ou substituir por asset placeholder aprovado.
+5. Para assets inexistentes em nenhum bucket: definir `"is_active": false` no registro (campo correto do schema — `audit_assets.py` escaneia URLs por regex e ignora qualquer campo `"status"`) e substituir o `file_url` por string vazia ou asset placeholder aprovado já existente no Supabase. **Não usar `"status": "removed"`** — esse campo não existe no schema e não impede que o script ou loaders acessem o URL quebrado.
 6. Executar `python3 scripts/audit_assets.py` novamente — deve retornar 0 links quebrados no relatório.
 
 **Regras:** Não alterar código de componentes. Não usar URLs de placeholder externos (ex: via.placeholder.com). Supabase Storage como único CDN.
@@ -377,8 +377,8 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 3. Se não: substituir `dynamic = 'force-dynamic'` por `revalidate = 600` com `unstable_cache` nas queries.
 4. Testar com `pnpm run build` que geração estática funciona.
 5. **Cache invalidation em admin actions** (obrigatório junto com ISR): Em `src/app/admin/(protected)/trabalhos/actions.ts`:
-   - `upsertProjectAction`: ao renomear slug, chamar `revalidatePath('/portfolio/${oldSlug}')` antes da atualização, além do `revalidatePath('/portfolio/${updatedProject.slug}')` já existente.
-   - `deleteProjectAction`: adicionar `revalidatePath('/portfolio/${slugDoProjetoExcluído}')` — atualmente não invalida a página específica do projeto excluído, deixando cache obsoleto ativo até o próximo revalidate.
+   - `upsertProjectAction`: ao renomear slug, chamar `` revalidatePath(`/portfolio/${oldSlug}`) `` (template literal com backticks) antes da atualização, além do `` revalidatePath(`/portfolio/${updatedProject.slug}`) `` já existente.
+   - `deleteProjectAction`: adicionar `` revalidatePath(`/portfolio/${slugDoProjetoExcluído}`) `` (template literal) — atualmente não invalida a página específica do projeto excluído, deixando cache obsoleto ativo até o próximo revalidate.
 
 **Regras:** Manter fallback `notFound()` para slugs inexistentes. Ghost Design System inalterado. Sem alterações em componentes visuais.
 
@@ -389,6 +389,64 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 - [ ] Rename de projeto invalida imediatamente o slug antigo (sem cache stale)
 - [ ] Delete de projeto invalida imediatamente o slug do projeto excluído
 - [ ] `pnpm run build` sem erros
+- [ ] `pnpm run build-check` exit code 0
+
+**Approval Gate:** Não executar sem aprovação humana explícita.
+
+---
+
+### 🛠️ Prompt #06 — Corrigir Drift de Nomes de Componentes no SSOT (P1-003)
+
+**Objetivo:** Atualizar a documentação em `.context/DOCS-PORTFOLIO-PAGES/` para refletir os nomes reais dos componentes, eliminando referências a `LogoMarquee` e `ShowcaseGrid` que não existem em `src/`.
+
+**Especialista:** `@ghost_architect` (documentação SSOT, governança de componentes)
+
+**Arquivos:** `.context/DOCS-PORTFOLIO-PAGES/` (todos os arquivos que referenciam `LogoMarquee` ou `ShowcaseGrid`)
+
+**Contexto obrigatório:**
+- `src/components/home/clients/ClientsBrandsSection.tsx` (substituto real de `LogoMarquee`)
+- `src/components/home/portfolio-showcase/PortfolioShowcase.tsx` + `CategoryStripe.tsx` (substitutos reais de `ShowcaseGrid`)
+
+**Ações:**
+1. Executar `grep -r "LogoMarquee\|ShowcaseGrid" .context/` para listar todos os arquivos afetados.
+2. Para cada ocorrência de `LogoMarquee`: substituir por `ClientsBrandsSection` com nota de que é um grid estático (não marquee animado).
+3. Para cada ocorrência de `ShowcaseGrid`: substituir por `PortfolioShowcase` + `CategoryStripe` com descrição correta das responsabilidades de cada um.
+4. Verificar que `grep -r "LogoMarquee\|ShowcaseGrid" .context/` retorna vazio após as correções.
+
+**Regras:** Não alterar nenhum arquivo em `src/`. Apenas `.context/`.
+
+**Critérios de Aceite:**
+- [ ] `grep -r "LogoMarquee" .context/` retorna vazio
+- [ ] `grep -r "ShowcaseGrid" .context/` retorna vazio
+- [ ] Documentação atualizada cita `ClientsBrandsSection`, `PortfolioShowcase`, `CategoryStripe`
+- [ ] `pnpm run build-check` exit code 0
+
+**Approval Gate:** Não executar sem aprovação humana explícita.
+
+---
+
+### 🛠️ Prompt #07 — Documentar Redundância de Content Array em tailwind.config.ts (P1-005)
+
+**Objetivo:** Adicionar comentário explícito em `tailwind.config.ts` esclarecendo que o array `content` é inerte em Tailwind v4 e que a varredura de classes ocorre via `@source` em `globals.css`, prevenindo que futuros agentes o tratem como configuração ativa.
+
+**Especialista:** `@ghost_architect` (Tailwind v4, documentação de config)
+
+**Arquivos:** `tailwind.config.ts`
+
+**Contexto obrigatório:**
+- `src/app/globals.css` (directivas `@source` ativas)
+- Context7 MCP: Tailwind CSS v4 content scanning / `@source` directive
+
+**Ações:**
+1. Ler `tailwind.config.ts` completo.
+2. Localizar o array `content`.
+3. Adicionar comentário inline explicando: em Tailwind v4 o array `content` é ignorado pelo engine; a varredura de classes é feita pelos `@source` directives em `globals.css`. O array permanece para compatibilidade de tooling mas não deve ser editado como se fosse ativo.
+
+**Regras:** Não remover o array `content`. Não modificar `globals.css` nem `postcss.config.cjs`. Apenas adicionar comentário.
+
+**Critérios de Aceite:**
+- [ ] `tailwind.config.ts` contém comentário explícito sobre `content` array ser inerte em v4
+- [ ] Nenhuma outra linha do arquivo modificada
 - [ ] `pnpm run build-check` exit code 0
 
 **Approval Gate:** Não executar sem aprovação humana explícita.
