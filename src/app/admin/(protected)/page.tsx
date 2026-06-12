@@ -19,8 +19,12 @@ const getDashboardCounts = unstable_cache(
     const supabase = await createClient();
     const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
       await Promise.all([
-        supabase.from('portfolio_projects').select('id', { count: 'exact', head: true }),
-        supabase.from('portfolio_tags').select('id', { count: 'exact', head: true }),
+        supabase
+          .from('portfolio_projects')
+          .select('id', { count: 'exact', head: true }),
+        supabase
+          .from('portfolio_tags')
+          .select('id', { count: 'exact', head: true }),
         supabase
           .from('portfolio_projects')
           .select('id', { count: 'exact', head: true })
@@ -31,10 +35,19 @@ const getDashboardCounts = unstable_cache(
           .eq('featured_on_portfolio', true),
       ]);
     return {
-      projects: { count: projectsRes.count ?? 0, error: projectsRes.error?.message },
+      projects: {
+        count: projectsRes.count ?? 0,
+        error: projectsRes.error?.message,
+      },
       tags: { count: tagsRes.count ?? 0, error: tagsRes.error?.message },
-      featuredHome: { count: featuredHomeRes.count ?? 0, error: featuredHomeRes.error?.message },
-      featuredPortfolio: { count: featuredPortfolioRes.count ?? 0, error: featuredPortfolioRes.error?.message },
+      featuredHome: {
+        count: featuredHomeRes.count ?? 0,
+        error: featuredHomeRes.error?.message,
+      },
+      featuredPortfolio: {
+        count: featuredPortfolioRes.count ?? 0,
+        error: featuredPortfolioRes.error?.message,
+      },
     };
   },
   ['dashboard-stats'],

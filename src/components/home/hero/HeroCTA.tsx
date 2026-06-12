@@ -1,24 +1,10 @@
 'use client';
 
-import { m, Variants } from 'motion/react';
+import { m } from 'motion/react';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HOME_CONTENT } from '@/config/content';
-import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-
+import { ctaVariants } from '@/lib/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
-
-const itemAnimation: Variants = {
-  initial: { opacity: 0, y: MOTION_TOKENS.offset.standard },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: MOTION_TOKENS.duration.normal,
-      ease: GHOST_EASE,
-      delay: 1.0,
-    },
-  },
-};
 
 export default function HeroCTA() {
   const shouldReduceMotion = useMotionGate();
@@ -30,7 +16,7 @@ export default function HeroCTA() {
     <m.div
       initial={shouldReduceMotion ? { opacity: 1, y: 0 } : 'initial'}
       animate={shouldReduceMotion ? { opacity: 1, y: 0 } : 'animate'}
-      variants={itemAnimation}
+      variants={ctaVariants}
       className="flex justify-center pointer-events-auto"
     >
       <AntigravityCTA

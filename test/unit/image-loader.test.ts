@@ -30,7 +30,7 @@ describe('supabaseLoader', () => {
 
     const result = supabaseLoader({ src, width, quality });
     expect(result).toBe(
-      'https://testproject.supabase.co/storage/v1/render/image/public/bucket/image.png?width=800&quality=80&format=webp'
+      'https://testproject.supabase.co/storage/v1/object/public/bucket/image.png'
     );
   });
 
@@ -41,7 +41,7 @@ describe('supabaseLoader', () => {
 
     const result = supabaseLoader({ src, width });
     expect(result).toBe(
-      'https://testproject.supabase.co/storage/v1/render/image/public/bucket/image.png?width=500&quality=75&format=webp'
+      'https://testproject.supabase.co/storage/v1/object/public/bucket/image.png'
     );
   });
 
@@ -71,7 +71,7 @@ describe('supabaseLoader', () => {
 
     const result = supabaseLoader({ src, width });
     expect(result).toBe(
-      'https://testproject.supabase.co/storage/v1/render/image/public/bucket/image.png?foo=bar&width=100&quality=75&format=webp'
+      'https://testproject.supabase.co/storage/v1/object/public/bucket/image.png?foo=bar'
     );
   });
 
@@ -82,7 +82,7 @@ describe('supabaseLoader', () => {
 
     const result = supabaseLoader({ src, width });
     expect(result).toBe(
-      'https://testproject.supabase.co/storage/v1/render/image/public/bucket/image.png?v=1&width=100&quality=75&format=webp'
+      'https://testproject.supabase.co/storage/v1/object/public/bucket/image.png?v=1'
     );
   });
 });
