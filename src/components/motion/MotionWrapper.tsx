@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'motion/react';
-import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { pageTransitionVariants } from '@/lib/motion';
 
 interface MotionWrapperProps {
   children: React.ReactNode;
@@ -21,12 +21,9 @@ export default function MotionWrapper({
   return (
     <m.div
       key={pathname}
-      initial={{ opacity: 0, y: MOTION_TOKENS.offset.standard }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: MOTION_TOKENS.duration.textIn,
-        ease: GHOST_EASE,
-      }}
+      initial="initial"
+      animate="animate"
+      variants={pageTransitionVariants}
       className="w-full flex-col flex grow"
     >
       {children}

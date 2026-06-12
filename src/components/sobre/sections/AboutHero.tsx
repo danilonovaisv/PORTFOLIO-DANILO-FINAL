@@ -5,7 +5,13 @@ import { m, useScroll, useTransform } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
-import { MOTION_TOKENS, GHOST_EASE, ghostFade } from '@/config/motion';
+import {
+  MOTION_TOKENS,
+  titleLineVariants,
+  subtitleVariants,
+  staggerContainer,
+} from '@/lib/motion';
+
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { getAssetUrl } from '@/lib/utils';
 import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
@@ -85,7 +91,10 @@ export function AboutHero() {
           <div className="std-grid w-full">
             <div className="grid grid-cols-12 w-full gap-8">
               {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
-              <div className="col-span-4 lg:col-span-5 xl:col-span-6" aria-hidden="true" />
+              <div
+                className="col-span-4 lg:col-span-5 xl:col-span-6"
+                aria-hidden="true"
+              />
 
               {/* Columns 7-12: Content Block */}
               <m.div
@@ -96,46 +105,55 @@ export function AboutHero() {
                 }
                 className="col-span-8 lg:col-span-7 xl:col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
               >
-                <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">
+                <m.div
+                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                  animate="visible"
+                  variants={staggerContainer(0.08, 0.2)}
+                  className="w-full flex flex-col items-end max-w-[750px] ml-auto"
+                >
                   {/* Intro & Manifesto - Unified for natural wrapping */}
-                  <m.div className="mb-12 flex flex-col items-end gap-1">
-                    <div
-                      aria-hidden="true"
-                      className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
-                    >
-                      {ABOUT_CONTENT.hero.title.text}
-                      {ABOUT_CONTENT.hero.title.highlight && (
-                        <span className="text-bluePrimary font-black ml-2">
-                          {ABOUT_CONTENT.hero.title.highlight}
-                        </span>
-                      )}
+                  <div className="mb-12 flex flex-col items-end gap-1">
+                    <div className="overflow-hidden">
+                      <m.div
+                        variants={titleLineVariants}
+                        className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
+                      >
+                        {ABOUT_CONTENT.hero.title.text}
+                        {ABOUT_CONTENT.hero.title.highlight && (
+                          <span className="text-bluePrimary font-black ml-2">
+                            {ABOUT_CONTENT.hero.title.highlight}
+                          </span>
+                        )}
+                      </m.div>
                     </div>
 
                     <div className="flex flex-col items-end" aria-hidden="true">
                       {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
-                        <p
-                          key={index}
-                          className="text-[clamp(44px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-bold text-right"
-                        >
-                          {item.text}
-                          {item.highlight && (
-                            <span className="text-bluePrimary font-black ml-2">
-                              {item.highlight}
-                            </span>
-                          )}
-                          {item.textEnd}
-                        </p>
+                        <div key={index} className="overflow-hidden">
+                          <m.p
+                            variants={titleLineVariants}
+                            className="text-[clamp(44px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-bold text-right"
+                          >
+                            {item.text}
+                            {item.highlight && (
+                              <span className="text-bluePrimary font-black ml-2">
+                                {item.highlight}
+                              </span>
+                            )}
+                            {item.textEnd}
+                          </m.p>
+                        </div>
                       ))}
                     </div>
-                  </m.div>
+                  </div>
 
                   {/* Description - Responsive line breaks */}
-                  <m.div>
+                  <m.div variants={subtitleVariants}>
                     <p className="text-h3 text-text text-right font-medium max-w-[520px]">
                       {ABOUT_CONTENT.hero.description.join(' ')}
                     </p>
                   </m.div>
-                </div>
+                </m.div>
               </m.div>
             </div>
           </div>
@@ -149,51 +167,36 @@ export function AboutHero() {
           <m.div
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             animate="visible"
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: MOTION_TOKENS.stagger.normal,
-                  delayChildren: MOTION_TOKENS.delay.medium,
-                },
-              },
-            }}
+            variants={staggerContainer(MOTION_TOKENS.stagger.normal, 0.2)}
             className="space-y-6"
           >
-            <m.div
-              variants={{
-                hidden: { opacity: 0.1, y: 20, filter: 'blur(10px)' },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  filter: 'blur(0px)',
-                  transition: {
-                    duration: MOTION_TOKENS.duration.slow,
-                    ease: GHOST_EASE,
-                  },
-                },
-              }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <div
                 aria-hidden="true"
                 className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
               >
-                <span>
-                  Sou <span className="text-bluePrimary">Danilo Novais.</span>
-                </span>
-                <span>
-                  Você <span className="text-bluePrimary">não vê tudo</span>{' '}
-                  <span>o que eu faço.</span>
-                </span>
-                <span>
-                  Mas sente quando{' '}
-                  <span className="text-bluePrimary">funciona.</span>
-                </span>
+                <div className="overflow-hidden">
+                  <m.span className="inline-block" variants={titleLineVariants}>
+                    Sou <span className="text-bluePrimary">Danilo Novais.</span>
+                  </m.span>
+                </div>
+                <div className="overflow-hidden">
+                  <m.span className="inline-block" variants={titleLineVariants}>
+                    Você <span className="text-bluePrimary">não vê tudo</span>{' '}
+                    <span>o que eu faço.</span>
+                  </m.span>
+                </div>
+                <div className="overflow-hidden">
+                  <m.span className="inline-block" variants={titleLineVariants}>
+                    Mas sente quando{' '}
+                    <span className="text-bluePrimary">funciona.</span>
+                  </m.span>
+                </div>
               </div>
-            </m.div>
+            </div>
 
             <m.div
-              variants={ghostFade}
+              variants={subtitleVariants}
               className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (

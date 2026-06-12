@@ -177,3 +177,5 @@ toolbox
 
 .git-hygiene-backup/
 firebase-admin-key.json
+google-cloud-sdk/
+

@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import { m, useAnimate, stagger } from 'motion/react';
 import type { Group } from 'three';
-import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { GHOST_EASE, MOTION_TOKENS } from '@/lib/motion';
 
 import { useGhostReveal } from '@/hooks/useGhostReveal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
