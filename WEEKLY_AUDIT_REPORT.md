@@ -290,7 +290,7 @@ Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inl
 - [ ] `python3 scripts/audit_assets.py` + `.agent/broken_links_report.json` reporta 0 broken links
 - [ ] Todos os assets críticos (hero, featured projects, clients logos, portfolio hero video) com URL HTTP 200
 - [ ] `pnpm run build-check` exit code 0
-- [ ] Apenas `src/config/site-assets.json`, `src/lib/video-assets.ts` e/ou `.context/active_state.md` modificados (`.context/active_state.md` deve ser atualizado para refletir a nova contagem de assets — exigido pelo AGENTS.md)
+- [ ] Apenas `src/config/site-assets.json`, `src/lib/video-assets.ts`, `.context/active_state.md` e/ou `scripts/audit_assets.py` modificados (`.context/active_state.md` deve refletir nova contagem de assets; `scripts/audit_assets.py` pode ser modificado para habilitar `sys.exit(1)` ao detectar links quebrados — necessário para bloquear CI em regressões futuras, conforme critério da linha P0-001)
 
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
