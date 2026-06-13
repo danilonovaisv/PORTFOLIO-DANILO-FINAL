@@ -96,8 +96,8 @@ describe('useLERPScroll', () => {
 
     renderHook(() => useLERPScroll(trackRef, galleryRef, true));
 
-    // Initial calculation should happen (2000px content + 96px sticky offset)
-    expect(galleryMock.style.height).toBe('2096px');
+    // Initial calculation should happen (2000px content + 168px sticky offset)
+    expect(galleryMock.style.height).toBe('2168px');
   });
 
   it('updates scrollState based on scroll position', () => {

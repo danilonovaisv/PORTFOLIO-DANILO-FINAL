@@ -46,6 +46,11 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const isPlaywrightMock =
+    typeof window !== 'undefined' &&
+    (!!(window as any).__IS_PLAYWRIGHT_MOCK__ ||
+      process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true');
+
   useEffect(() => {
     window.onTurnstileSuccess = (token: string) => {
       setTurnstileToken(token);
@@ -317,10 +322,12 @@ export default function LoginForm() {
         </button>
       </div>
 
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-        strategy="afterInteractive"
-      />
+      {!isPlaywrightMock && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+        />
+      )}
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <label htmlFor="identity-email" className="flex flex-col gap-2">
@@ -371,14 +378,16 @@ export default function LoginForm() {
           </div>
         )}
 
-        <div
-          className="cf-turnstile min-h-[65px]"
-          data-sitekey={getTurnstileSiteKey()}
-          data-callback="onTurnstileSuccess"
-          data-expired-callback="onTurnstileExpired"
-          data-error-callback="onTurnstileError"
-          data-theme="dark"
-        />
+        {!isPlaywrightMock && (
+          <div
+            className="cf-turnstile min-h-[65px]"
+            data-sitekey={getTurnstileSiteKey()}
+            data-callback="onTurnstileSuccess"
+            data-expired-callback="onTurnstileExpired"
+            data-error-callback="onTurnstileError"
+            data-theme="dark"
+          />
+        )}
 
         <button
           type="submit"

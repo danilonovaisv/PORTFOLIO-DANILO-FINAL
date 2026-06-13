@@ -47,9 +47,12 @@ export const useLERPScroll = (
 
     const resolveStickyTop = () => {
       if (typeof window === 'undefined') return 88;
-      const headerHeight = parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue('--header-height')
-      ) || (window.innerWidth >= 768 ? 96 : 88);
+      const headerHeight =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            '--header-height'
+          )
+        ) || (window.innerWidth >= 768 ? 96 : 88);
       const filterBar = gallery.previousElementSibling as HTMLElement;
       const filterBarHeight = filterBar ? filterBar.offsetHeight : 72;
       return headerHeight + filterBarHeight;

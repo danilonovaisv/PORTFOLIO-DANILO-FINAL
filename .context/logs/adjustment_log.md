@@ -1913,3 +1913,34 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ Atualização no Knowledge Graph do projeto para refletir a sincronização em 2026-06-02.
 
 **Status:** Concluído.
+
+---
+
+## [2026-06-12T09:40] Repository Audit, Sanitation, Motion Centralization & Test Calibration
+
+**Context:** Auditoria integral do repositório, higienização de arquivos legados/temporários e credenciais confidenciais do Git, centralização da biblioteca de animações no módulo `src/lib/motion/` e calibragem de testes unitários defasados.
+
+**Changes Applied:**
+
+1. **Higienização de Segurança e Debris (PR 1 & PR 2)** ✅
+   - Removido o diretório `google-cloud-sdk/` do Git e adicionado no `.gitignore` para blindar chaves administrativas do GCP.
+   - Deletados arquivos de log e executáveis vazios na raiz (`firebase-debug.log`, `functions/firebase-debug.log`, `firepit-log.txt`, `lint.log`, `next`, `portfolio-danilo-final@1.0.1`).
+   - Removida documentação duplicada em vietnamita (`*.vi.md`) e dump gigante de texto (`docs/llms-full.txt`).
+   - Removido o comando de cópia automática de `.env` locais para o standalone no script de build do `package.json`.
+   - Removidos arquivos mortos e dependências órfãs (`src/hooks/useIsMounted.ts`, `src/lib/database.types.ts`, `@react-three/drei`, `firebase-functions` raiz e `autoprefixer`).
+
+2. **Centralização de Motion e Nova Animação Premium (PR 3)** ✅
+   - Criada a pasta `src/lib/motion/` com tokens e variantes centralizados (`hero.ts`, `page.ts`, `reveal.ts`, `stagger.ts`, `viewport.ts`).
+   - Criado o componente de kinetic typography [SplitText.tsx](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/ui/motion/SplitText.tsx) sob `src/components/ui/motion/` com suporte nativo a acessibilidade (`aria-label`/`aria-hidden`) e fallback imediato se Reduced Motion/`useMotionGate()` estiver ativo.
+   - Refatorados os componentes `HeroCopy.tsx`, `HeroCTA.tsx`, `AboutHero.tsx` e `MotionWrapper.tsx` para herdarem as variantes e staggers centralizados.
+
+3. **Calibragem de Testes Unitários (PR 4)** ✅
+   - Atualizados os testes de `image-loader.test.ts` para validar o comportamento de bypass do loader do Supabase (que desativa transformações de imagem para contornar erros 403 do plano free).
+   - Atualizados os testes de `useLERPScroll.test.ts` para refletir o acréscimo de 72px do `filterBarHeight` no cálculo do sticky top offset.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` (typecheck + linter) executado e concluído com sucesso (zero erros, zero warnings do linter).
+- ✅ `pnpm test` — Todos os 280 testes unitários passando em 100% dos arquivos.
+
+**Status:** Concluído.

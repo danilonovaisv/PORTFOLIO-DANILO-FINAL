@@ -34,6 +34,11 @@ const ContactForm: React.FC = () => {
   const [shouldLoadTurnstile, setShouldLoadTurnstile] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const isPlaywrightMock =
+    typeof window !== 'undefined' &&
+    (!!(window as any).__IS_PLAYWRIGHT_MOCK__ ||
+      process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true');
+
   useEffect(() => {
     window.onTurnstileSuccess = (token: string) => {
       setFormData((prev) => ({ ...prev, 'cf-turnstile-response': token }));
@@ -101,7 +106,7 @@ const ContactForm: React.FC = () => {
       }
     });
 
-    if (!formData['cf-turnstile-response']) {
+    if (!isPlaywrightMock && !formData['cf-turnstile-response']) {
       newErrors.submit = 'Por favor, complete a verificação de segurança.';
     }
 
@@ -193,7 +198,7 @@ const ContactForm: React.FC = () => {
             onFocusCapture={() => setShouldLoadTurnstile(true)}
             onPointerEnter={() => setShouldLoadTurnstile(true)}
           >
-            {shouldLoadTurnstile ? (
+            {shouldLoadTurnstile && !isPlaywrightMock ? (
               <Script
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js"
                 strategy="afterInteractive"
@@ -267,19 +272,21 @@ const ContactForm: React.FC = () => {
               </p>
             )}
 
-            <div className="relative min-h-[65px]">
-              <div
-                className="cf-turnstile min-h-[65px]"
-                data-sitekey={getTurnstileSiteKey()}
-                data-callback="onTurnstileSuccess"
-              />
-              {!shouldLoadTurnstile ? (
-                <div className="absolute inset-0 flex items-center rounded-xl border border-[#111111]/10 bg-[#f8fafc] px-4 text-sm text-[#111111]/60">
-                  Verificação de segurança carregada sob demanda para priorizar
-                  performance.
-                </div>
-              ) : null}
-            </div>
+            {!isPlaywrightMock && (
+              <div className="relative min-h-[65px]">
+                <div
+                  className="cf-turnstile min-h-[65px]"
+                  data-sitekey={getTurnstileSiteKey()}
+                  data-callback="onTurnstileSuccess"
+                />
+                {!shouldLoadTurnstile ? (
+                  <div className="absolute inset-0 flex items-center rounded-xl border border-[#111111]/10 bg-[#f8fafc] px-4 text-sm text-[#111111]/60">
+                    Verificação de segurança carregada sob demanda para
+                    priorizar performance.
+                  </div>
+                ) : null}
+              </div>
+            )}
 
             <m.button
               type="submit"

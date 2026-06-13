@@ -12,14 +12,22 @@
  */
 
 import { renderHook, act } from '@testing-library/react';
-import { describe, expect, it, jest, beforeEach, afterEach } from '@jest/globals';
+import {
+  describe,
+  expect,
+  it,
+  jest,
+  beforeEach,
+  afterEach,
+} from '@jest/globals';
 
 // ---------- Zustand store mock ----------
 // Must be hoisted before hook import so Jest can replace the module
 const mockFlags = { reducedMotion: false };
 jest.mock('@/store/antigravity.store', () => ({
-  useAntigravityStore: (_selector: (_s: { flags: typeof mockFlags }) => unknown) =>
-    _selector({ flags: mockFlags }),
+  useAntigravityStore: (
+    _selector: (_s: { flags: typeof mockFlags }) => unknown
+  ) => _selector({ flags: mockFlags }),
 }));
 
 // ---------- MediaQuery mock ----------
@@ -62,7 +70,9 @@ describe('useMotionGate — ghost system motion gate (62 dependents)', () => {
     mqlListeners = [];
     mockFlags.reducedMotion = false;
     mqlMock = createMqlMock();
-    window.matchMedia = jest.fn().mockReturnValue(mqlMock) as unknown as typeof window.matchMedia;
+    window.matchMedia = jest
+      .fn()
+      .mockReturnValue(mqlMock) as unknown as typeof window.matchMedia;
   });
 
   afterEach(() => {
