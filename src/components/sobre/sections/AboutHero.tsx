@@ -153,6 +153,28 @@ export function AboutHero() {
                       {ABOUT_CONTENT.hero.description.join(' ')}
                     </p>
                   </m.div>
+
+                  {/* Functional subline + micro-CTA (clareza em <5s) */}
+                  <m.div
+                    variants={subtitleVariants}
+                    className="mt-6 flex flex-col items-end gap-3"
+                  >
+                    <p className="text-small font-medium uppercase tracking-[0.18em] text-textSecondary">
+                      Direção de criação · Branding · Design estratégico
+                    </p>
+                    <a
+                      href="#04-o-que-eu-faco"
+                      className="group inline-flex items-center gap-1.5 text-small font-medium text-text/70 transition-colors hover:text-bluePrimary focus-visible:outline-none focus-visible:text-bluePrimary"
+                    >
+                      ver como trabalho
+                      <span
+                        aria-hidden="true"
+                        className="transition-transform duration-fast group-hover:translate-y-0.5"
+                      >
+                        ↓
+                      </span>
+                    </a>
+                  </m.div>
                 </m.div>
               </m.div>
             </div>
@@ -204,6 +226,28 @@ export function AboutHero() {
                   {line}
                 </span>
               ))}
+            </m.div>
+
+            {/* Functional subline + micro-CTA (mobile) */}
+            <m.div
+              variants={subtitleVariants}
+              className="flex flex-col items-center gap-3 pt-2"
+            >
+              <p className="text-small font-medium uppercase tracking-[0.16em] text-textSecondary">
+                Direção · Branding · Design estratégico
+              </p>
+              <a
+                href="#04-o-que-eu-faco"
+                className="group inline-flex items-center gap-1.5 text-small font-medium text-text/70 transition-colors hover:text-bluePrimary"
+              >
+                ver como trabalho
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-fast group-hover:translate-y-0.5"
+                >
+                  ↓
+                </span>
+              </a>
             </m.div>
           </m.div>
         </div>

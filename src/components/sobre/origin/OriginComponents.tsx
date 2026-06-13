@@ -12,6 +12,24 @@ interface OriginInfoBlockProps {
 }
 
 /**
+ * Renderiza o parágrafo destacando a frase-âncora (highlight) em bluePrimary.
+ * Preserva quebras com whitespace-pre-line (nós de texto). Se highlight ausente
+ * ou não encontrada, retorna o texto puro.
+ */
+function renderParagraph(paragraph: string, highlight?: string) {
+  if (!highlight) return paragraph;
+  const idx = paragraph.indexOf(highlight);
+  if (idx === -1) return paragraph;
+  return (
+    <>
+      {paragraph.slice(0, idx)}
+      <span className="text-bluePrimary">{highlight}</span>
+      {paragraph.slice(idx + highlight.length)}
+    </>
+  );
+}
+
+/**
  * Individual content block with subtitle marker, title, text, and mobile image
  * Mobile: Layout intercalado (texto → imagem) com ordem via CSS
  * Desktop: Static content acts as scroll anchor for GSAP
@@ -74,7 +92,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             }}
             className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
           >
-            {block.paragraph}
+            {renderParagraph(block.paragraph, block.highlight)}
           </m.p>
         </div>
 
@@ -120,7 +138,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           data-origin-copy
           className="text-body font-normal text-white/88 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100"
         >
-          {block.paragraph}
+          {renderParagraph(block.paragraph, block.highlight)}
         </p>
       </div>
     </div>
