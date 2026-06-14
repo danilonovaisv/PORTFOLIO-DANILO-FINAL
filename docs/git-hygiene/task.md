@@ -229,7 +229,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [ ] `git fetch --all --prune --dry-run` — confirmar 0 itens a remover após o prune acima.
 - [ ] `pnpm run lint` — sem erros.
 - [ ] `pnpm run typecheck` — sem erros de tipo.
-- [ ] `pnpm run build` — build completo sem falhas.
+- [ ] `pnpm run build-check` — build completo sem falhas (typecheck + lint em paralelo).
 - [ ] `pnpm test` — suite verde (se disponível).
 
 ---

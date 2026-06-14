@@ -181,8 +181,11 @@ Depois `git push origin --delete <branch>` após aprovação separada.
 
 ### Branches unknown-risk — análise obrigatória antes de qualquer decisão
 
-Executar para cada branch (sem destruição):
+Executar para cada branch (sem destruição), nesta sequência:
 ```bash
+git remote update
+git log origin/<branch> ^origin/main --oneline
+git merge-base origin/<branch> origin/main
 git diff origin/main...origin/<branch> --stat
 ```
 
@@ -204,13 +207,13 @@ git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle 
 | Branch | SHA Completo | Tag de Backup | Restore Command |
 |---|---|---|---|
 | `claude/dazzling-euler-mwbicc` | `8ee5ce62e22065428687a8c6402273ff3125cb72` | `backup/pre-cleanup/dazzling-euler-mwbicc` | `git branch claude/dazzling-euler-mwbicc 8ee5ce62` |
-| `audit/weekly-report-4676327557888982331` | `af752857b90684e3a6bbe0c9b3fd6b5ffdbc9baa` | `archive/audit/weekly-report/af752857` | `git branch audit/weekly-report-restored af752857 && git push origin audit/weekly-report-restored` |
+| `audit/weekly-report-4676327557888982331` | `af752857b90684e3a6bbe0c9b3fd6b5ffdbc9baa` | `archive/audit/weekly-report/af752857` | `git branch audit/weekly-report-4676327557888982331 af752857 && git push origin audit/weekly-report-4676327557888982331` |
 | `claude/beautiful-rubin-MVYRs` | `ac6526c0c049fd8160e504c174f435d3fb9dd5b1` | `archive/claude/beautiful-rubin-MVYRs/ac6526c0` | `git branch claude/beautiful-rubin-MVYRs ac6526c0` |
 | `claude/dazzling-euler-ZhWMf` | `762cf69719d83da848f6da31a68ffd98bea65cd3` | `archive/claude/dazzling-euler-ZhWMf/762cf697` | `git branch claude/dazzling-euler-ZhWMf 762cf697` |
 | `claude/weekly-audit-report-2026-05-19` | `942afc1fc19734b8238dd7198b546f2ef51b2be8` | `archive/claude/weekly-audit-2026-05-19/942afc1f` | `git branch claude/weekly-audit-report-2026-05-19 942afc1f` |
 | `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr/bb1fbe0a` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a` |
 | `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `backup/codex/media-card-system/06104ba2` | `git branch codex/media-card-system 06104ba2` |
-| `chore-audit-report-12176814106024817247` | `632024b4ce8a248378417705231dda77e9b50389` | `backup/chore-audit-report/632024b4` | `git branch chore-audit-report-restored 632024b4` |
+| `chore-audit-report-12176814106024817247` | `632024b4ce8a248378417705231dda77e9b50389` | `backup/chore-audit-report/632024b4` | `git branch chore-audit-report-12176814106024817247 632024b4` |
 | `fix/audit-remediation-phase1` | `2a7cc79f6198863092eaeb8593828cce12ec0174` | `backup/fix/audit-remediation-phase1/2a7cc79f` | `git branch fix/audit-remediation-phase1 2a7cc79f` |
 | `worktree-audit-fixes` | `4f158abeee42fc056e85b67e01c71fdc6e296981` | `backup/worktree-audit-fixes/4f158abe` | `git branch worktree-audit-fixes 4f158abe` |
 | `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `backup/worktree-fix-06-que-me-move/561eec01` | `git branch worktree-fix-06-que-me-move 561eec01` |
@@ -218,7 +221,7 @@ git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle 
 | `codex/sobre-origin-a11y-fixes` | `e03f269df443e6d1bde3812573468e8057cbebcd` | `backup/codex/sobre-origin-a11y-fixes/e03f269d` | `git branch codex/sobre-origin-a11y-fixes e03f269d` |
 | `codex/weekly-cleanup` | `dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0` | `backup/codex/weekly-cleanup/dcf8d0de` | `git branch codex/weekly-cleanup dcf8d0de` |
 | `docs/audit-beliefs-ghost-design-v3` | `2444b35be4bc5d9809fcdc1ec9f46e62b455a328` | `backup/docs/audit-beliefs-ghost-design-v3/2444b35b` | `git branch docs/audit-beliefs-ghost-design-v3 2444b35b` |
-| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | `backup/wksp1-planning/16aa5652` | `git branch wksp1-planning-restored 16aa5652` |
+| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | `backup/wksp1-planning/16aa5652` | `git branch danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s 16aa5652` |
 
 ### Rollback de Emergência (reflog)
 ```bash
@@ -339,7 +342,7 @@ git worktree list --porcelain
 git fetch --all --prune --dry-run  # deve reportar 0 itens após o prune acima
 pnpm run lint
 pnpm run typecheck
-pnpm run build
+pnpm run build-check
 pnpm test
 ```
 
