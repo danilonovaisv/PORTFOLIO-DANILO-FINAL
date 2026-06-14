@@ -19,7 +19,10 @@ function trackContactClick() {
     gtag?: (..._args: unknown[]) => void;
     dataLayer?: unknown[];
   };
-  w.gtag?.('event', 'cta_click', { location: 'sobre_sticky', label: 'fale comigo' });
+  w.gtag?.('event', 'cta_click', {
+    location: 'sobre_sticky',
+    label: 'fale comigo',
+  });
   w.dataLayer?.push({ event: 'cta_click', location: 'sobre_sticky' });
 }
 

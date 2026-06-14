@@ -85,6 +85,7 @@ Mudança estrutural na ordem de seções (prova antes da decisão) e ganhos ráp
 **Nova ordem:** Hero → Origem → O que eu faço → Como eu trabalho → O que me move → **Prova & Autoridade (NOVO)** → Fechamento → SiteClosure. CTA persistente (`StickyContactCTA`) global.
 
 **Implementado:**
+
 - `AboutProof.tsx` (`#prova`): logos reais (Supabase, 12) + slots de métricas/depoimentos lidos de `ABOUT_CONTENT.proof`. Slots vazios não renderizam — sem dados inventados (Real Content Only).
 - `StickyContactCTA.tsx`: CTA "fale comigo" aparece pós-Hero, oculta-se ao chegar em `#contact` (IntersectionObserver + scroll). Analytics opcional (gtag/dataLayer).
 - `AboutHero`: sublinha funcional ("Direção de criação · Branding · Design estratégico") + micro-CTA "ver como trabalho ↓" → `#04-o-que-eu-faco`.

@@ -204,7 +204,6 @@ export function AboutWhatIDo() {
           </ul>
         </div>
       </div>
-
     </section>
   );
 }

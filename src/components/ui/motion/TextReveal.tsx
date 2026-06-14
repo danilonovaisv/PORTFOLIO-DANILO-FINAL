@@ -109,15 +109,16 @@ export function TextReveal({
         }
 
         const k = wordIndex++;
-        const range: [number, number] = [
-          k / totalWords,
-          (k + 1) / totalWords,
-        ];
-        const highlighted =
-          hiStart !== -1 && start >= hiStart && start < hiEnd;
+        const range: [number, number] = [k / totalWords, (k + 1) / totalWords];
+        const highlighted = hiStart !== -1 && start >= hiStart && start < hiEnd;
 
         return (
-          <Word key={i} progress={scrollYProgress} range={range} highlighted={highlighted}>
+          <Word
+            key={i}
+            progress={scrollYProgress}
+            range={range}
+            highlighted={highlighted}
+          >
             {token}
           </Word>
         );

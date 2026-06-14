@@ -45,7 +45,8 @@ não só no que aparecia.
 Enquanto muitos olhavam para o brilho imediato,
 eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.`,
-    highlight: 'A essência das coisas sempre falou mais alto do que a superfície.',
+    highlight:
+      'A essência das coisas sempre falou mais alto do que a superfície.',
     fallback: 'about/origin/about.origin_image.1.webp',
     textAlign: 'right',
     assetKey: 'about.origin_image.1',
@@ -97,7 +98,8 @@ Minha trajetória uniu intuição com método, arte com estratégia.
 O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.`,
-    highlight: 'Minha trajetória uniu intuição com método, arte com estratégia.',
+    highlight:
+      'Minha trajetória uniu intuição com método, arte com estratégia.',
     fallback: 'about/origin/about.origin_image.4.webp',
     textAlign: 'left',
     assetKey: 'about.origin_image.4',

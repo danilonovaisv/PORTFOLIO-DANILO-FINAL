@@ -43,6 +43,12 @@ export VALIDATE_ENV_WARN_ONLY="${VALIDATE_ENV_WARN_ONLY:-1}"
 # Ensure we use global pnpm but scoped to this directory
 PNPM="pnpm --dir $PROJECT_ROOT"
 
+# Resolve local firebase CLI for PATH and node isolation
+FIREBASE="./node_modules/.bin/firebase"
+if [ ! -f "$FIREBASE" ]; then
+  FIREBASE="firebase"
+fi
+
 require_command() {
   if ! command -v "$1" >/dev/null 2>&1; then
     echo "❌ Missing required command: $1" >&2
@@ -55,7 +61,7 @@ print_versions() {
   echo "Project: $PROJECT_ID"
   echo "Node: $(node --version)"
   echo "pnpm: $($PNPM --version 2>/dev/null || echo 'not found')"
-  echo "Firebase: $(firebase --version 2>/dev/null || echo 'not found')"
+  echo "Firebase: $($FIREBASE --version 2>/dev/null || echo 'not found')"
   echo "------------------------"
 }
 
@@ -76,7 +82,7 @@ run_preview() {
   run_preflight
   run_build
   echo "☁️  Deploying to preview channel: $CHANNEL_ID"
-  firebase hosting:channel:deploy "$CHANNEL_ID" \
+  $FIREBASE hosting:channel:deploy "$CHANNEL_ID" \
     --project "$PROJECT_ID" \
     --expires "$EXPIRES"
 }
@@ -85,7 +91,7 @@ run_live() {
   run_preflight
   run_build
   echo "🔥 Deploying to LIVE production environment"
-  firebase deploy --only hosting --project "$PROJECT_ID"
+  $FIREBASE deploy --only hosting --project "$PROJECT_ID"
 }
 
 # Validation
