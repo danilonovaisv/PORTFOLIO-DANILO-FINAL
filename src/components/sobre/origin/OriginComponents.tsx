@@ -4,6 +4,7 @@ import { RefObject } from 'react';
 import { m } from 'motion/react';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
+import { TextReveal } from '@/components/ui/motion/TextReveal';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -73,27 +74,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             {block.title}
           </m.h2>
 
-          <m.p
-            initial={
-              prefersReducedMotion
-                ? { opacity: 0 }
-                : {
-                    opacity: 0,
-                    y: MOTION_TOKENS.offset.standard,
-                    filter: 'blur(8px)',
-                  }
-            }
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={viewportConfig}
-            transition={{
-              duration: MOTION_TOKENS.duration.GHOST_EXIT,
-              delay: 0.3,
-              ease: GHOST_EASE,
-            }}
-            className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
-          >
-            {renderParagraph(block.paragraph, block.highlight)}
-          </m.p>
+          <TextReveal
+            text={block.paragraph}
+            highlight={block.highlight}
+            className="text-h3 font-medium text-white/88 leading-relaxed text-pretty"
+          />
         </div>
 
         {/* Image - Mobile (400px dimensions per spec) */}

@@ -284,7 +284,11 @@ export const ABOUT_CONTENT = {
   proof: {
     eyebrow: 'PROVA',
     title: ['Marcas que', 'confiaram no processo.'],
-    metrics: [] as Array<{ value: string; label: string }>,
+    metrics: [
+      { value: '12 anos', label: 'de mercado' },
+      { value: '+14 marcas', label: 'atendidas' },
+      { value: '+100 mil', label: 'peças por ano' },
+    ] as Array<{ value: string; label: string }>,
     testimonials: [] as Array<{
       quote: string;
       author: string;

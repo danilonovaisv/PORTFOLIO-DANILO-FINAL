@@ -98,3 +98,14 @@ Mudança estrutural na ordem de seções (prova antes da decisão) e ganhos ráp
 **Validação:** `pnpm typecheck` ✅ · `pnpm lint` ✅ (0 erros) · SSR `/sobre` renderiza `#prova` com 12 logos, sublinha, highlights e CTAs.
 
 **Backlog (Fases 2-3 da consultoria):** modal/scroll-foco no "fale comigo"; gate do shader por viewport (M2/M4) + Lighthouse; reframe dor→solução nos serviços; aterrissagem do clímax "O que me move"; reavaliar `translateX` do scroll horizontal. Detalhe completo no plano da consultoria.
+
+### Motion 03-ORIGEM + TextReveal — 2026-06-13
+
+Animações de texto e entrada de imagem do Origem ajustadas (ref. Magic UI text-reveal + scroll-cards, adaptado ao Ghost).
+
+- **NOVO `src/components/ui/motion/TextReveal.tsx`:** word-reveal scroll-driven (opacity + blur), preserva highlight `bluePrimary`, fallback reduced-motion. Sem dep nova (`motion/react`), sem registry install.
+- **Origem mobile** (`OriginComponents.tsx`): parágrafo passou de `whileInView` fade para `TextReveal` (revelação palavra-a-palavra). Desktop (`data-origin-copy`) **inalterado** — dirigido por GSAP, evita conflito de motores.
+- **Entrada de imagem desktop** (`useOriginAnimations.ts`): `clipPath inset` → **stacked translateY + opacity + blur**. Pin sticky, triggers discretos e parallax mantidos. Mask overlay legado desativado (`autoAlpha:0`). Sem `scale`/`rotate`.
+- Movimento: só opacity/blur/translateY; easing Ghost. Tailwind Oxide: arquivo novo coberto por `@source "../components/**"`, zero mudança de config.
+- **Validação:** `pnpm typecheck` ✅ · `pnpm lint` ✅ (0 erros) · SSR ✅ · zero console errors · clipPath removido confirmado. Captura visual do entrance pendente de validação manual (bug na preview headless: viewport reporta 1px, Lenis intercepta scroll).
+- Detalhe: `docs/plans/sobre-origem-motion/{implementation_plan,task,walkthrough}.md`.
