@@ -70,16 +70,16 @@ A página `/portfolio` está tecnicamente sólida, com boa base de acessibilidad
 
 ### O que foi corrigido
 
-- [src/components/ui/JsonLd.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/ui/JsonLd.tsx)
+- [src/components/ui/JsonLd.tsx](../../../src/components/ui/JsonLd.tsx)
   - `Organization.logo` agora sai como URL absoluta string.
-- [src/lib/seo.ts](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/seo.ts)
+- [src/lib/seo.ts](../../../src/lib/seo.ts)
   - nova normalização para títulos templated.
-- [src/app/portfolio/page.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/app/portfolio/page.tsx)
+- [src/app/portfolio/page.tsx](../../../src/app/portfolio/page.tsx)
   - títulos de categorias deixaram de embutir a marca no valor base.
-- [src/app/portfolio/[slug]/page.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/app/portfolio/[slug]/page.tsx)
+- [src/app/portfolio/[slug]/page.tsx](../../../src/app/portfolio/[slug]/page.tsx)
   - título do case passou a respeitar o template.
   - H1 do markdown foi rebaixado para H2 na renderização pública.
-- [src/components/home/featured-projects/FeaturedProjectCardFrame.tsx](/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/home/featured-projects/FeaturedProjectCardFrame.tsx)
+- [src/components/home/featured-projects/FeaturedProjectCardFrame.tsx](../../../src/components/home/featured-projects/FeaturedProjectCardFrame.tsx)
   - thumbs e logos agora expõem `alt` descritivo.
 
 ### Decisão de escopo
