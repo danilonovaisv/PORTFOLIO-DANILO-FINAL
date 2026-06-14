@@ -8,7 +8,9 @@ import {
   AboutWhatIDo,
   AboutMethod,
   AboutClosing,
+  AboutProof,
   ManifestoScrollSection,
+  StickyContactCTA,
 } from '@/components/sobre/sections';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
@@ -100,13 +102,19 @@ export default function AboutPage() {
       </Suspense>
       {/* Seção 05 — O Que Me Move (Manifesto) */}
       <ManifestoScrollSection />
-      {/* Seção 06 — Fechamento/Confirmação */}
+      {/* Seção 06 — Prova & Autoridade (âncora antes da decisão) */}
+      <Suspense fallback={<SectionSkeleton label="Prova" />}>
+        <AboutProof />
+      </Suspense>
+      {/* Seção 07 — Fechamento/Confirmação */}
       <Suspense fallback={<SectionSkeleton label="Fechamento" />}>
         <AboutClosing />
       </Suspense>
       <Suspense fallback={<SectionSkeleton label="Footer" />}>
         <SiteClosure />
       </Suspense>
+      {/* CTA persistente de conversão */}
+      <StickyContactCTA />
     </main>
   );
 }

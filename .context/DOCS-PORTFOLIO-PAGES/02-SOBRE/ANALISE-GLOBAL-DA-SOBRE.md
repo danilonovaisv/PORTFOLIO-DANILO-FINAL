@@ -77,3 +77,36 @@ Relatório completo em `AUDIT_PENTEST_SOBRE.md` (17 violações: 4 críticas, 7 
 - `fix/audit-remediation-phase1` branch com 6 commits exclusivos (cache-control headers, GhostCanvas fallback, slug-utils) — requer avaliação de merge separado
 - Lighthouse `/sobre` ≥ 90 Performance e ≥ 95 A11y — ainda não medido
 - FPS ≥ 50 no Chrome Performance Monitor durante scroll do Beliefs — ainda não medido
+
+### Consultoria CRO/UX + Fase 1 + Prova — 2026-06-13
+
+Mudança estrutural na ordem de seções (prova antes da decisão) e ganhos rápidos de copy/CRO.
+
+**Nova ordem:** Hero → Origem → O que eu faço → Como eu trabalho → O que me move → **Prova & Autoridade (NOVO)** → Fechamento → SiteClosure. CTA persistente (`StickyContactCTA`) global.
+
+**Implementado:**
+
+- `AboutProof.tsx` (`#prova`): logos reais (Supabase, 12) + slots de métricas/depoimentos lidos de `ABOUT_CONTENT.proof`. Slots vazios não renderizam — sem dados inventados (Real Content Only).
+- `StickyContactCTA.tsx`: CTA "fale comigo" aparece pós-Hero, oculta-se ao chegar em `#contact` (IntersectionObserver + scroll). Analytics opcional (gtag/dataLayer).
+- `AboutHero`: sublinha funcional ("Direção de criação · Branding · Design estratégico") + micro-CTA "ver como trabalho ↓" → `#04-o-que-eu-faco`.
+- `content.ts`: typo "Design with propósito"→"com propósito"; CTA "baixar curriculum"→"baixar apresentação" (PDF `public/cv-danilo-novais.pdf` confirmado, 968KB).
+- `AboutWhatIDo`: marquee redundante removido (duplicava os 7 serviços).
+- `ManifestoScrollSection`: easing do reveal padronizado para o Ghost ease `cubic-bezier(0.22,1,0.36,1)`.
+- `AboutOrigin`/`origin/data.ts`: frase-âncora por bloco destacada em `bluePrimary` (escaneabilidade mobile).
+
+**Dependência aberta:** métricas e depoimentos reais (preencher `ABOUT_CONTENT.proof.metrics`/`.testimonials`).
+
+**Validação:** `pnpm typecheck` ✅ · `pnpm lint` ✅ (0 erros) · SSR `/sobre` renderiza `#prova` com 12 logos, sublinha, highlights e CTAs.
+
+**Backlog (Fases 2-3 da consultoria):** modal/scroll-foco no "fale comigo"; gate do shader por viewport (M2/M4) + Lighthouse; reframe dor→solução nos serviços; aterrissagem do clímax "O que me move"; reavaliar `translateX` do scroll horizontal. Detalhe completo no plano da consultoria.
+
+### Motion 03-ORIGEM + TextReveal — 2026-06-13
+
+Animações de texto e entrada de imagem do Origem ajustadas (ref. Magic UI text-reveal + scroll-cards, adaptado ao Ghost).
+
+- **NOVO `src/components/ui/motion/TextReveal.tsx`:** word-reveal scroll-driven (opacity + blur), preserva highlight `bluePrimary`, fallback reduced-motion. Sem dep nova (`motion/react`), sem registry install.
+- **Origem mobile** (`OriginComponents.tsx`): parágrafo passou de `whileInView` fade para `TextReveal` (revelação palavra-a-palavra). Desktop (`data-origin-copy`) **inalterado** — dirigido por GSAP, evita conflito de motores.
+- **Entrada de imagem desktop** (`useOriginAnimations.ts`): `clipPath inset` → **stacked translateY + opacity + blur**. Pin sticky, triggers discretos e parallax mantidos. Mask overlay legado desativado (`autoAlpha:0`). Sem `scale`/`rotate`.
+- Movimento: só opacity/blur/translateY; easing Ghost. Tailwind Oxide: arquivo novo coberto por `@source "../components/**"`, zero mudança de config.
+- **Validação:** `pnpm typecheck` ✅ · `pnpm lint` ✅ (0 erros) · SSR ✅ · zero console errors · clipPath removido confirmado. Captura visual do entrance pendente de validação manual (bug na preview headless: viewport reporta 1px, Lenis intercepta scroll).
+- Detalhe: `docs/plans/sobre-origem-motion/{implementation_plan,task,walkthrough}.md`.

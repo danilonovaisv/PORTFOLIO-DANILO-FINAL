@@ -48,17 +48,6 @@ const SERVICES = [
   },
 ];
 
-const MARQUEE_KEYWORDS = [
-  'Branding',
-  'Identidade Visual',
-  'Motion Design',
-  'Campanhas',
-  'UI/UX',
-  'Direção de Arte',
-  'Creative Coding',
-  'AI Design',
-];
-
 export function AboutWhatIDo() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -214,43 +203,6 @@ export function AboutWhatIDo() {
             })}
           </ul>
         </div>
-      </div>
-
-      {/* ============================================
-          MARQUEE FOOTER (Ghost Design)
-          Infinite horizontal scroll - keywords
-          ============================================ */}
-      <div
-        className="relative hidden w-full max-w-full overflow-hidden border-t border-white/5 bg-background py-6 lg:block"
-        aria-hidden="true"
-      >
-        {/* Dual marquee for seamless loop */}
-        <div
-          className={`flex w-max gap-12 hover:[animation-play-state:paused] ${prefersReducedMotion ? '' : 'animate-marquee'}`}
-        >
-          {/* First set */}
-          {MARQUEE_KEYWORDS.map((keyword, i) => (
-            <span
-              key={`a-${i}`}
-              className="text-sm font-medium uppercase tracking-[0.2em] text-white/60"
-            >
-              {keyword}
-            </span>
-          ))}
-          {/* Duplicate for seamless loop */}
-          {MARQUEE_KEYWORDS.map((keyword, i) => (
-            <span
-              key={`b-${i}`}
-              className="text-sm font-medium uppercase tracking-[0.2em] text-white/60"
-            >
-              {keyword}
-            </span>
-          ))}
-        </div>
-
-        {/* Ghost gradient edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-background to-transparent" />
       </div>
     </section>
   );

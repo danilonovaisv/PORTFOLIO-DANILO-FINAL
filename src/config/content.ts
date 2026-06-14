@@ -24,7 +24,7 @@ export const HOME_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'baixar curriculum',
+        label: 'baixar apresentação',
         href: '/cv-danilo-novais.pdf',
         variant: 'secondary',
         external: true,
@@ -260,7 +260,7 @@ export const ABOUT_CONTENT = {
     steps: [
       { id: '1', text: 'Briefings bem construídos para decisões claras' },
       { id: '2', text: 'Estratégia como base de qualquer criação' },
-      { id: '3', text: 'Design with propósito, não só beleza' },
+      { id: '3', text: 'Design com propósito, não só beleza' },
       { id: '4', text: 'Revisões inteligentes, sem ruído desnecessário' },
       { id: '5', text: 'IA e automações para escalar com qualidade' },
       {
@@ -277,6 +277,24 @@ export const ABOUT_CONTENT = {
     { text: 'Mesmo quando não estou ali.', highlight: 'Mesmo' },
     { text: 'Mesmo quando ninguém percebe o esforço.', highlight: 'Mesmo' },
   ],
+  // Bloco de Prova/Autoridade — âncora de credibilidade antes do Fechamento.
+  // ⚠️ REAL CONTENT ONLY: métricas e depoimentos DEVEM ser dados reais.
+  // Slots vazios não renderizam (nada de números/depoimentos inventados).
+  // Logos vêm de HOME_CONTENT.clients.logos (reais, via Supabase).
+  proof: {
+    eyebrow: 'PROVA',
+    title: ['Marcas que', 'confiaram no processo.'],
+    metrics: [
+      { value: '12 anos', label: 'de mercado' },
+      { value: '+14 marcas', label: 'atendidas' },
+      { value: '+100 mil', label: 'peças por ano' },
+    ] as Array<{ value: string; label: string }>,
+    testimonials: [] as Array<{
+      quote: string;
+      author: string;
+      role: string;
+    }>,
+  },
   closing: {
     title: 'Hoje sou Diretor de Criação, com mais de 10 anos de estrada.',
     text: [
@@ -290,7 +308,7 @@ export const ABOUT_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'baixar curriculum',
+        label: 'baixar apresentação',
         href: '/cv-danilo-novais.pdf',
         variant: 'secondary',
         external: true,

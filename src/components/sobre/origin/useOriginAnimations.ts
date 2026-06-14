@@ -47,18 +47,19 @@ export function useOriginAnimations({
         if (blocks.length === 0 || images.length === 0) return;
 
         const setInitialState = () => {
+          // Stacked entrance (Ghost: translateY + opacity + blur). Sem clipPath/scale.
           gsap.set(images, {
-            clipPath: 'inset(100% 0% 0% 0%)',
-            opacity: 0.85,
-            filter: 'blur(4px)',
+            y: MOTION_TOKENS.offset.standard,
+            opacity: 0,
+            filter: 'blur(8px)',
           });
           gsap.set(images[0], {
-            clipPath: 'inset(0% 0% 0% 0%)',
+            y: 0,
             opacity: 1,
             filter: 'blur(0px)',
           });
-          gsap.set(maskOverlays, { top: 0, height: '100%' });
-          gsap.set(maskOverlays[0], { height: '0%' });
+          // Mask overlay legado desativado — entrance agora é translateY stack.
+          gsap.set(maskOverlays, { autoAlpha: 0 });
 
           gsap.set(titles, {
             opacity: 0.45,
@@ -104,24 +105,17 @@ export function useOriginAnimations({
 
           images.forEach((img, i) => {
             const isActive = i === activeIndex;
+            const isPast = i < activeIndex;
+            const isVisible = isActive || isPast;
             gsap.to(img, {
-              clipPath: isActive
-                ? 'inset(0% 0% 0% 0%)'
-                : i < activeIndex
-                  ? 'inset(0% 0% 0% 0%)'
-                  : direction === 'down'
-                    ? 'inset(100% 0% 0% 0%)'
-                    : 'inset(0% 0% 100% 0%)',
-              opacity: isActive ? 1 : 0.85,
-              filter: isActive ? 'blur(0px)' : 'blur(4px)',
-              duration,
-              ease,
-            });
-          });
-
-          maskOverlays.forEach((mask, i) => {
-            gsap.to(mask, {
-              height: i <= activeIndex ? '0%' : '100%',
+              // Empilha: ativa/passadas em y:0; futuras deslocadas conforme direção.
+              y: isVisible
+                ? 0
+                : direction === 'down'
+                  ? MOTION_TOKENS.offset.standard
+                  : -MOTION_TOKENS.offset.standard,
+              opacity: isVisible ? 1 : 0,
+              filter: isVisible ? 'blur(0px)' : 'blur(8px)',
               duration,
               ease,
             });
@@ -169,9 +163,9 @@ export function useOriginAnimations({
           const lastImage = images[contentCount - 1];
           if (lastImage) {
             gsap.to(lastImage, {
-              clipPath: 'inset(100% 0% 0% 0%)',
-              opacity: 0.85,
-              filter: 'blur(4px)',
+              y: MOTION_TOKENS.offset.standard,
+              opacity: 0,
+              filter: 'blur(8px)',
               duration: MOTION_TOKENS.duration.normal,
               ease: GSAP_GHOST_EASE,
             });

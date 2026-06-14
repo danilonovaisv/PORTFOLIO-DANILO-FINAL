@@ -1,5 +1,63 @@
 # Adjustment Log
 
+## [2026-06-14T00:28] Firebase Preview Deployment & Dependency Alignment
+
+**Context:** Execução do pipeline de deploy (`/firebase-pipeline`) para implantação e validação do portfólio no Firebase Hosting.
+
+**Changes Applied:**
+
+1. **Priorização do Firebase CLI Scoped (`deploy.sh`)** ✅
+   - Atualizado o script de deploy para preferir o executável local `./node_modules/.bin/firebase` em vez do executável do Homebrew, isolando problemas de PATH no macOS.
+   - Forçada a paridade do build SSR com Node.js v22 via NVM.
+
+2. **Alinhamento do Override de Segurança (`package.json`)** ✅
+   - Alterado o override do `esbuild` de `"0.28.0"` para `">=0.19.2"`. Isso destravou o empacotador de Cloud Functions do Firebase que requer esbuild local para bundles de arquivo de configuração do Next.js.
+
+3. **Correção do .npmrc** ✅
+   - Reinserida a diretiva `legacy-peer-deps=true` no arquivo `.npmrc` para compatibilizar dependências do `sharp` no Firebase Cloud Build remoto.
+
+4. **Implantação de Preview Concluída** ✅
+   - Criado com sucesso o canal de preview `ghost-preview`.
+   - URL gerada: `https://portfolio-danilo-novais--ghost-preview-jyus6714.web.app`.
+
+**Verification:**
+
+- ✅ `pnpm run validate:structure` finalizado com sucesso (18/18 checks passados).
+- ✅ `pnpm run build` bem-sucedido.
+- ✅ Deploy finalizado e link ativo no Hosting.
+
+---
+
+## [2026-06-14T00:13] Deep Clean, Cache Sanitization & Environment Restore
+
+**Context:** Execução da workflow `/deep-clean` para manutenção preventiva do repositório, remoção de caches corrompidos/antigos, reconfiguração segura de dependências do pnpm e validação completa do build do Next.js + Tailwind CSS v4.
+
+**Changes Applied:**
+
+1. **Sanitização de Arquivos Temporários (`cleanup-project.sh`)** ✅
+   - Removidos arquivos desnecessários de desenvolvimento legados no diretório do projeto.
+   - Listagem e auditoria de branches obsoletas sugeridas para remoção.
+
+2. **Remoção de Caches e Dependências Antigas** ✅
+   - Excluídos de forma profunda os diretórios `.next/`, `node_modules/`, `pnpm-lock.yaml` e `.pnpm-store/`.
+   - Garantido que a pasta local `.npmrc` continue forçando a resolução correta de hoisting do `@react-three` e `three`.
+
+3. **Reinstalação do Pacote e Resolução de Conflitos** ✅
+   - Executada a instalação limpa das dependências através do `pnpm install`, resultando na geração de um `pnpm-lock.yaml` íntegro.
+   - O processo usou com sucesso o pnpm v11.6.0.
+
+4. **Build de Fumaça & Linter Check** ✅
+   - Executado `pnpm run build` compilando com sucesso as 21 rotas estáticas/dinâmicas em 15.5 segundos sem erros ou avisos.
+   - Executada a verificação e autocorreção estática `pnpm run lint:fix` sem falhas.
+
+**Verification:**
+
+- ✅ `pnpm run build` finalizado com sucesso (Exit Code 0).
+- ✅ `pnpm run lint:fix` finalizado com sucesso.
+- ✅ Caches limpos e `node_modules` íntegro.
+
+---
+
 ## [2026-05-20T05:00] Contact Form Email Dispatch (Resend Integration)
 
 **Context:** Habilitação do envio real de e-mails para mensagens enviadas através do formulário de contato da landing page (`src/components/home/contact/ContactForm.tsx`) para o e-mail central `danilo@portfoliodanilo.com` via API Rest do Resend.

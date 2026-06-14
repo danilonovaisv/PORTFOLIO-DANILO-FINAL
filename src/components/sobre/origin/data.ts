@@ -21,6 +21,8 @@ export interface OriginBlock {
   title: string;
   subtitle: string;
   paragraph: string;
+  /** Frase-âncora (já presente em `paragraph`) destacada em bluePrimary para escaneabilidade. */
+  highlight?: string;
   fallback: FallbackImage;
   textAlign: 'left' | 'right';
   img?: string;
@@ -43,6 +45,8 @@ não só no que aparecia.
 Enquanto muitos olhavam para o brilho imediato,
 eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.`,
+    highlight:
+      'A essência das coisas sempre falou mais alto do que a superfície.',
     fallback: 'about/origin/about.origin_image.1.webp',
     textAlign: 'right',
     assetKey: 'about.origin_image.1',
@@ -59,6 +63,7 @@ Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
 Aos poucos, aquilo que era instinto virou direção.
 Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.`,
+    highlight: 'aprendi a dar forma ao invisível',
     fallback: 'about/origin/about.origin_image.2.webp',
     textAlign: 'left',
     assetKey: 'about.origin_image.2',
@@ -76,6 +81,7 @@ Descobri que o design verdadeiro não grita — ele conduz.
 Ele está presente nos detalhes que ninguém percebe,
 mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.`,
+    highlight: 'o design verdadeiro não grita — ele conduz.',
     fallback: 'about/origin/about.origin_image.3.webp',
     textAlign: 'right',
     assetKey: 'about.origin_image.3',
@@ -92,6 +98,8 @@ Minha trajetória uniu intuição com método, arte com estratégia.
 O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.`,
+    highlight:
+      'Minha trajetória uniu intuição com método, arte com estratégia.',
     fallback: 'about/origin/about.origin_image.4.webp',
     textAlign: 'left',
     assetKey: 'about.origin_image.4',
