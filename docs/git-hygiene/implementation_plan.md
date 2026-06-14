@@ -214,14 +214,14 @@ git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle 
 | `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr/bb1fbe0a` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a && git push origin codex/ghost-portfolio-hero-pr` |
 | `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `backup/codex/media-card-system/06104ba2` | `git branch codex/media-card-system 06104ba2 && git push origin codex/media-card-system` |
 | `chore-audit-report-12176814106024817247` | `632024b4ce8a248378417705231dda77e9b50389` | `backup/chore-audit-report/632024b4` | `git branch chore-audit-report-12176814106024817247 632024b4 && git push origin chore-audit-report-12176814106024817247` |
-| `fix/audit-remediation-phase1` | `2a7cc79f6198863092eaeb8593828cce12ec0174` | `backup/fix/audit-remediation-phase1/2a7cc79f` | `git branch fix/audit-remediation-phase1 2a7cc79f` |
-| `worktree-audit-fixes` | `4f158abeee42fc056e85b67e01c71fdc6e296981` | `backup/worktree-audit-fixes/4f158abe` | `git branch worktree-audit-fixes 4f158abe` |
-| `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `backup/worktree-fix-06-que-me-move/561eec01` | `git branch worktree-fix-06-que-me-move 561eec01` |
-| `worktree-responsive-video-plan` | `09aab7da9f81910ced8e50d8c29cc03055f3aad3` | `backup/worktree-responsive-video-plan/09aab7da` | `git branch worktree-responsive-video-plan 09aab7da` |
-| `codex/sobre-origin-a11y-fixes` | `e03f269df443e6d1bde3812573468e8057cbebcd` | `backup/codex/sobre-origin-a11y-fixes/e03f269d` | `git branch codex/sobre-origin-a11y-fixes e03f269d` |
-| `codex/weekly-cleanup` | `dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0` | `backup/codex/weekly-cleanup/dcf8d0de` | `git branch codex/weekly-cleanup dcf8d0de` |
-| `docs/audit-beliefs-ghost-design-v3` | `2444b35be4bc5d9809fcdc1ec9f46e62b455a328` | `backup/docs/audit-beliefs-ghost-design-v3/2444b35b` | `git branch docs/audit-beliefs-ghost-design-v3 2444b35b` |
-| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | `backup/wksp1-planning/16aa5652` | `git branch danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s 16aa5652` |
+| `fix/audit-remediation-phase1` | `2a7cc79f6198863092eaeb8593828cce12ec0174` | `backup/fix/audit-remediation-phase1/2a7cc79f` | `git branch fix/audit-remediation-phase1 2a7cc79f && git push origin fix/audit-remediation-phase1` |
+| `worktree-audit-fixes` | `4f158abeee42fc056e85b67e01c71fdc6e296981` | `backup/worktree-audit-fixes/4f158abe` | `git branch worktree-audit-fixes 4f158abe && git push origin worktree-audit-fixes` |
+| `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `backup/worktree-fix-06-que-me-move/561eec01` | `git branch worktree-fix-06-que-me-move 561eec01 && git push origin worktree-fix-06-que-me-move` |
+| `worktree-responsive-video-plan` | `09aab7da9f81910ced8e50d8c29cc03055f3aad3` | `backup/worktree-responsive-video-plan/09aab7da` | `git branch worktree-responsive-video-plan 09aab7da && git push origin worktree-responsive-video-plan` |
+| `codex/sobre-origin-a11y-fixes` | `e03f269df443e6d1bde3812573468e8057cbebcd` | `backup/codex/sobre-origin-a11y-fixes/e03f269d` | `git branch codex/sobre-origin-a11y-fixes e03f269d && git push origin codex/sobre-origin-a11y-fixes` |
+| `codex/weekly-cleanup` | `dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0` | `backup/codex/weekly-cleanup/dcf8d0de` | `git branch codex/weekly-cleanup dcf8d0de && git push origin codex/weekly-cleanup` |
+| `docs/audit-beliefs-ghost-design-v3` | `2444b35be4bc5d9809fcdc1ec9f46e62b455a328` | `backup/docs/audit-beliefs-ghost-design-v3/2444b35b` | `git branch docs/audit-beliefs-ghost-design-v3 2444b35b && git push origin docs/audit-beliefs-ghost-design-v3` |
+| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | `backup/wksp1-planning/16aa5652` | `git branch danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s 16aa5652 && git push origin danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` |
 
 ### Rollback de Emergência (reflog)
 ```bash
@@ -302,6 +302,21 @@ git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle 
 
 ### FASE 5 — Tags de Arquivo para candidate-archive (REQUER APROVAÇÃO)
 ```bash
+# ⚠️ SAFETY CHECK — executar PRIMEIRO se tempo passou desde a auditoria de 2026-06-14
+# Se qualquer branch recebeu commits pós-auditoria, o SHA auditado estará desatualizado.
+# Nesse caso, criar a tag a partir do HEAD atual da branch (não do SHA auditado).
+git fetch --all
+
+# Verificar se SHAs auditados ainda correspondem às branches candidatas a delete
+git rev-parse origin/audit/weekly-report-4676327557888982331   # esperado: af752857
+git rev-parse origin/claude/weekly-audit-report-2026-05-19    # esperado: 942afc1f
+git rev-parse origin/claude/dazzling-euler-ZhWMf               # esperado: 762cf697
+git rev-parse origin/claude/beautiful-rubin-MVYRs              # esperado: ac6526c0
+git rev-parse origin/codex/ghost-portfolio-hero-pr             # esperado: bb1fbe0a
+git rev-parse origin/codex/media-card-system                   # esperado: 06104ba2
+git rev-parse origin/chore-audit-report-12176814106024817247   # esperado: 632024b4
+# Se SHA divergir: git tag <tag-name> origin/<branch>   (aponta para HEAD atual, não SHA auditado)
+
 # ⚠️ REQUIRES APPROVAL — criar tags localmente
 git tag archive/audit/weekly-report/af752857 af752857b90684e3a6bbe0c9b3fd6b5ffdbc9baa
 git tag archive/claude/weekly-audit-2026-05-19/942afc1f 942afc1fc19734b8238dd7198b546f2ef51b2be8
