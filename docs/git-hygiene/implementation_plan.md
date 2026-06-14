@@ -208,12 +208,12 @@ git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle 
 |---|---|---|---|
 | `claude/dazzling-euler-mwbicc` | `8ee5ce62e22065428687a8c6402273ff3125cb72` | `backup/pre-cleanup/dazzling-euler-mwbicc` | `git branch claude/dazzling-euler-mwbicc 8ee5ce62` |
 | `audit/weekly-report-4676327557888982331` | `af752857b90684e3a6bbe0c9b3fd6b5ffdbc9baa` | `archive/audit/weekly-report/af752857` | `git branch audit/weekly-report-4676327557888982331 af752857 && git push origin audit/weekly-report-4676327557888982331` |
-| `claude/beautiful-rubin-MVYRs` | `ac6526c0c049fd8160e504c174f435d3fb9dd5b1` | `archive/claude/beautiful-rubin-MVYRs/ac6526c0` | `git branch claude/beautiful-rubin-MVYRs ac6526c0` |
-| `claude/dazzling-euler-ZhWMf` | `762cf69719d83da848f6da31a68ffd98bea65cd3` | `archive/claude/dazzling-euler-ZhWMf/762cf697` | `git branch claude/dazzling-euler-ZhWMf 762cf697` |
-| `claude/weekly-audit-report-2026-05-19` | `942afc1fc19734b8238dd7198b546f2ef51b2be8` | `archive/claude/weekly-audit-2026-05-19/942afc1f` | `git branch claude/weekly-audit-report-2026-05-19 942afc1f` |
-| `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr/bb1fbe0a` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a` |
-| `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `backup/codex/media-card-system/06104ba2` | `git branch codex/media-card-system 06104ba2` |
-| `chore-audit-report-12176814106024817247` | `632024b4ce8a248378417705231dda77e9b50389` | `backup/chore-audit-report/632024b4` | `git branch chore-audit-report-12176814106024817247 632024b4` |
+| `claude/beautiful-rubin-MVYRs` | `ac6526c0c049fd8160e504c174f435d3fb9dd5b1` | `archive/claude/beautiful-rubin-MVYRs/ac6526c0` | `git branch claude/beautiful-rubin-MVYRs ac6526c0 && git push origin claude/beautiful-rubin-MVYRs` |
+| `claude/dazzling-euler-ZhWMf` | `762cf69719d83da848f6da31a68ffd98bea65cd3` | `archive/claude/dazzling-euler-ZhWMf/762cf697` | `git branch claude/dazzling-euler-ZhWMf 762cf697 && git push origin claude/dazzling-euler-ZhWMf` |
+| `claude/weekly-audit-report-2026-05-19` | `942afc1fc19734b8238dd7198b546f2ef51b2be8` | `archive/claude/weekly-audit-2026-05-19/942afc1f` | `git branch claude/weekly-audit-report-2026-05-19 942afc1f && git push origin claude/weekly-audit-report-2026-05-19` |
+| `codex/ghost-portfolio-hero-pr` | `bb1fbe0a2f211b3deef142be2287a0744a6b139f` | `archive/codex/ghost-portfolio-hero-pr/bb1fbe0a` | `git branch codex/ghost-portfolio-hero-pr bb1fbe0a && git push origin codex/ghost-portfolio-hero-pr` |
+| `codex/media-card-system` | `06104ba2b92a755a7dd841d59fa8cfbf37f60cb4` | `backup/codex/media-card-system/06104ba2` | `git branch codex/media-card-system 06104ba2 && git push origin codex/media-card-system` |
+| `chore-audit-report-12176814106024817247` | `632024b4ce8a248378417705231dda77e9b50389` | `backup/chore-audit-report/632024b4` | `git branch chore-audit-report-12176814106024817247 632024b4 && git push origin chore-audit-report-12176814106024817247` |
 | `fix/audit-remediation-phase1` | `2a7cc79f6198863092eaeb8593828cce12ec0174` | `backup/fix/audit-remediation-phase1/2a7cc79f` | `git branch fix/audit-remediation-phase1 2a7cc79f` |
 | `worktree-audit-fixes` | `4f158abeee42fc056e85b67e01c71fdc6e296981` | `backup/worktree-audit-fixes/4f158abe` | `git branch worktree-audit-fixes 4f158abe` |
 | `worktree-fix-06-que-me-move` | `561eec01b9af584a2fedff08b4f57fc454730f36` | `backup/worktree-fix-06-que-me-move/561eec01` | `git branch worktree-fix-06-que-me-move 561eec01` |
@@ -252,9 +252,20 @@ git log --oneline <branch> --not origin/main  # para branches de risco
 # GitHub MCP: list_pull_requests, list_branches
 ```
 
-### FASE 1 — Diff das unknown-risk (READ-ONLY, sem aprovação adicional)
+### FASE 1 — Diff das unknown-risk e candidate-archive de alta divergência (READ-ONLY, sem aprovação adicional)
 ```bash
-# Executar para cada branch unknown-risk:
+# Sequência para cada branch (unknown-risk + candidate-archive com >100 commits únicos):
+# 1. Atualizar refs remotas
+git remote update
+
+# 2. Verificar commits exclusivos e ancestry
+git log origin/<branch> ^origin/main --oneline
+git merge-base origin/<branch> origin/main
+
+# 3. Medir delta real de código
+git diff origin/main...origin/<branch> --stat
+
+# Executar para as 8 unknown-risk:
 git diff origin/main...origin/fix/audit-remediation-phase1 --stat
 git diff origin/main...origin/worktree-audit-fixes --stat
 git diff origin/main...origin/worktree-fix-06-que-me-move --stat
@@ -263,6 +274,10 @@ git diff origin/main...origin/codex/sobre-origin-a11y-fixes --stat
 git diff origin/main..."origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" --stat
 git diff origin/main...origin/docs/audit-beliefs-ghost-design-v3 --stat
 git diff origin/main...origin/codex/weekly-cleanup --stat
+
+# Executar também para candidate-archive com alta divergência (>100 commits únicos):
+git diff origin/main...origin/audit/weekly-report-4676327557888982331 --stat
+git diff origin/main...origin/claude/weekly-audit-report-2026-05-19 --stat
 ```
 
 ### FASE 2 — Atualização Local (REQUER APROVAÇÃO)
@@ -298,7 +313,7 @@ git tag archive/codex/ghost-portfolio-hero-pr/bb1fbe0a bb1fbe0a2f211b3deef142be2
 git tag backup/codex/media-card-system/06104ba2 06104ba2b92a755a7dd841d59fa8cfbf37f60cb4
 git tag backup/chore-audit-report/632024b4 632024b4ce8a248378417705231dda77e9b50389
 
-# Push apenas das tags criadas nesta sessão
+# Push apenas das tags criadas nesta sessão (candidate-archive + candidate-delete-remote)
 git push origin \
   archive/audit/weekly-report/af752857 \
   archive/claude/weekly-audit-2026-05-19/942afc1f \
@@ -307,6 +322,27 @@ git push origin \
   archive/codex/ghost-portfolio-hero-pr/bb1fbe0a \
   backup/codex/media-card-system/06104ba2 \
   backup/chore-audit-report/632024b4
+
+# Tags de backup para unknown-risk — gate obrigatório antes de qualquer delete na Fase 8
+# Criadas aqui para garantir preservação no remoto independente da decisão futura
+git tag backup/fix/audit-remediation-phase1/2a7cc79f 2a7cc79f6198863092eaeb8593828cce12ec0174
+git tag backup/worktree-audit-fixes/4f158abe 4f158abeee42fc056e85b67e01c71fdc6e296981
+git tag backup/worktree-fix-06-que-me-move/561eec01 561eec01b9af584a2fedff08b4f57fc454730f36
+git tag backup/worktree-responsive-video-plan/09aab7da 09aab7da9f81910ced8e50d8c29cc03055f3aad3
+git tag backup/codex/sobre-origin-a11y-fixes/e03f269d e03f269df443e6d1bde3812573468e8057cbebcd
+git tag backup/wksp1-planning/16aa5652 16aa5652d71702ceb0477c0d6f595954f81e5d49
+git tag backup/docs/audit-beliefs-ghost-design-v3/2444b35b 2444b35be4bc5d9809fcdc1ec9f46e62b455a328
+git tag backup/codex/weekly-cleanup/dcf8d0de dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0
+
+git push origin \
+  backup/fix/audit-remediation-phase1/2a7cc79f \
+  backup/worktree-audit-fixes/4f158abe \
+  backup/worktree-fix-06-que-me-move/561eec01 \
+  backup/worktree-responsive-video-plan/09aab7da \
+  backup/codex/sobre-origin-a11y-fixes/e03f269d \
+  backup/wksp1-planning/16aa5652 \
+  backup/docs/audit-beliefs-ghost-design-v3/2444b35b \
+  backup/codex/weekly-cleanup/dcf8d0de
 ```
 
 ### FASE 6 — Delete Remoto dos candidate-delete-remote ★ REQUER APROVAÇÃO SEPARADA ★

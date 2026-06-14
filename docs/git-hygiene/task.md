@@ -166,6 +166,8 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [ ] `git diff origin/main..."origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/docs/audit-beliefs-ghost-design-v3 --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/codex/weekly-cleanup --stat` → registrar arquivos alterados.
+- [ ] `git diff origin/main...origin/audit/weekly-report-4676327557888982331 --stat` → registrar arquivos alterados (candidate-archive, alta divergência — 1423 commits únicos).
+- [ ] `git diff origin/main...origin/claude/weekly-audit-report-2026-05-19 --stat` → registrar arquivos alterados (candidate-archive, alta divergência — 1428 commits únicos).
 - [ ] Reclassificar cada branch com base no resultado:
   - Somente docs/audit: → `candidate-archive`
   - Mudanças em `src/`, `.github/`, `supabase/`, `functions/`, `public/`: → escalar ao humano
@@ -194,7 +196,16 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [ ] Criar tag `archive/claude/beautiful-rubin-MVYRs/ac6526c0` apontando para `ac6526c0`.
 - [ ] Criar tag `archive/codex/ghost-portfolio-hero-pr/bb1fbe0a` apontando para `bb1fbe0a`.
 - [ ] Criar tags de backup para candidate-delete-remote: `backup/codex/media-card-system/06104ba2`, `backup/chore-audit-report/632024b4`.
-- [ ] Push explícito apenas das tags acima (não `git push --tags` genérico).
+- [ ] Criar tags de backup para as 8 unknown-risk (gate obrigatório antes de qualquer delete na Phase 8f):
+  - `backup/fix/audit-remediation-phase1/2a7cc79f` → `2a7cc79f`
+  - `backup/worktree-audit-fixes/4f158abe` → `4f158abe`
+  - `backup/worktree-fix-06-que-me-move/561eec01` → `561eec01`
+  - `backup/worktree-responsive-video-plan/09aab7da` → `09aab7da`
+  - `backup/codex/sobre-origin-a11y-fixes/e03f269d` → `e03f269d`
+  - `backup/wksp1-planning/16aa5652` → `16aa5652`
+  - `backup/docs/audit-beliefs-ghost-design-v3/2444b35b` → `2444b35b`
+  - `backup/codex/weekly-cleanup/dcf8d0de` → `dcf8d0de`
+- [ ] Push explícito das tags candidate-archive, candidate-delete-remote e unknown-risk (não `git push --tags` genérico).
 - [ ] Confirmar que todas as tags estão visíveis no remoto.
 
 ### 8e. Delete remoto dos confirmados ★ REQUER APROVAÇÃO SEPARADA ★
