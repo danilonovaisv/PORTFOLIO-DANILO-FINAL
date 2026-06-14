@@ -181,6 +181,10 @@
    - R3F Canvas must define `dpr={[1, 2]}`.
    - Parallax e animações atreladas ao scroll via **ScrollTrigger** devem ser declarativas. Uso de `onUpdate` per-frame para CSSOM é **proibido** por impactar lagginess; mapeie o `yPercent` nativamente no GSAP para não ferir o Core Web Vitals (INP e TBT).
    - Otimizar o **LCP** utilizando preload programático de `posters` e/ou `videos` no root layout ou view do Hero (`fetchPriority="high"`).
+   - **Pipeline de Cores e Pós-Processamento (WebGL):**
+     - Para garantir consistência do brilho (\`emissive\`) do Ghost entre desenvolvimento e produção, configure o \`renderer.outputColorSpace = THREE.SRGBColorSpace\` em R152+.
+     - **EVITE DUPLA APLICAÇÃO sRGB:** Se usar \`EffectComposer\`, remova o \`OutputPass\` caso a renderização final já integre o espaço de cores nativo (ou utilize-o com cuidado). O duplo tone-mapping esmaga o bloom e desbota cores em produção.
+     - Parâmetros do Bloom (\`bloomStrength\`, \`bloomThreshold\`) devem ter um piso mínimo seguro para mobile/DPR baixo, assegurando que o brilho se mantenha constante independente do ambiente.
 4. **Acessibility:**
    - Contrast AA+ is mandatory.
    - `prefers-reduced-motion` must disable "Ghost" easing.

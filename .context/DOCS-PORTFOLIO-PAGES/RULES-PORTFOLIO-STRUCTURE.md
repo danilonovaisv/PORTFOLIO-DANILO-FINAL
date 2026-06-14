@@ -274,6 +274,12 @@ _(Sessões 08, 09, 10 seguem estrutura padrão de Clients, Contact e Footer)_
 8. `08-CONTACT`
 9. `09-FOOTER`
 
+
+
+- **Full Bleed Hero:** Em heros que necessitam ocupar 100% da tela (\`Full Bleed\`), **proíba** o uso de hacks de container como \`w-screen left-1/2 -translate-x-1/2\`.
+  - **Motivo:** O hack de viewport ignora barras de scroll e gera overflow horizontal / paddings fantasmas e cortes laterais em vídeos responsivos, especialmente no Mobile.
+  - **Padrão:** O Hero deve adotar \`w-full\` naturalmente, ou o container pai (e.g., \`PortfolioClient\`) deve acomodar extensões edge-to-edge sem restringir o conteúdo principal.
+
 ---
 
 ### Sessão 03 – GALLERY
