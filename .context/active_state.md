@@ -2,7 +2,7 @@
 
 **Phase**: GHOST 3D BRIGHTNESS & PORTFOLIO HERO FULL BLEED
 **Current Focus**: Consistência do brilho/Bloom do Ghost 3D entre dev/build e hero `/portfolio` em full bleed real com vídeo responsivo sem corte CSS lateral.
-**Last Update**: 2026-05-22 12:08
+**Last Update**: 2026-06-14 19:55
 **Production URL**: https://portfolio-danilo-novais.web.app
 **Cloud Function**: https://ssrportfoliodanilo-qc26fkohcq-uc.a.run.app
 
@@ -263,3 +263,13 @@
 - [x] **Portfolio Hero full bleed hardening**: `PortfolioHeroNew` moved outside `std-grid` wrapper in `/portfolio` client shell so the first section is no longer constrained by max-width/padding inheritance.
 - [x] **Grid isolation preserved**: `std-grid` kept for gallery + downstream sections (`ProjectsGallery`, brands, contact), preserving Ghost layout tokens for non-bleed content.
 - [x] **Ghost brightness consistency**: low-quality performance profile now keeps post-processing enabled to avoid bloom loss in production/device-adaptive paths.
+
+## Fallow Cleanup & Workspace Sanitization (2026-06-14)
+
+- [x] **Fallow dead code scan**: Executed deterministic scan via Fallow to discover structural debt, circular dependencies, and dead files.
+- [x] **Orphaned files pruned**: Deletado `SplitText.tsx`, `image-loader.mjs`, `GhostScene.tsx`, e `Ghost.jsx` após validação completa de referências e dependências de build.
+- [x] **False positives resolved**: Arquivos críticos para testes (`test/setup.ts`), funções de backend (`functions/src/index.ts`), plugins PostCSS e dependências de otimização de imagem (`sharp`) preservados e garantidos no pipeline.
+- [x] **Validation Evidence**:
+  - `pnpm run build-check` ✅ Aprovado com zero erros de typecheck/lint.
+  - `pnpm test` ✅ 280/280 testes unitários passando.
+  - `pnpm run build` ✅ Next.js standalone production build compilado com sucesso.

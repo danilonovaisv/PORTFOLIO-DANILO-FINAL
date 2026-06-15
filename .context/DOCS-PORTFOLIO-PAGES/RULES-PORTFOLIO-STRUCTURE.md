@@ -12,10 +12,12 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 
 | Página           | Ordem | Caminho Real              | Nº Sessões | Dependências Críticas                                      |
 | :--------------- | :---- | :------------------------ | :--------- | :--------------------------------------------------------- |
-| **01-HOME**      | 01    | `/app/page.tsx`           | 08         | `Header`, `Hero`, `Showcase`, `Contact`                    |
-| **02-SOBRE**     | 02    | `/app/sobre/page.tsx`     | 10         | `Header`, `MotionGate`, `Assets`, `Footer`                 |
+| **01-HOME**      | 01    | `/app/page.tsx`           | 09         | `Header`, `Hero`, `Showcase`, `ShaderSection`, `SiteClosure`|
+| **02-SOBRE**     | 02    | `/app/sobre/page.tsx`     | 12         | `Header`, `MotionGate`, `Proof`, `SiteClosure`, `StickyCTA` |
 | **03-PORTFOLIO** | 03    | `/app/portfolio/page.tsx` | 09         | `Gallery` (pagination 15pp), `Modal`, `ProjectSlug`, `CMS` |
 | **04-ADMIN**     | 04    | `/app/admin/*`            | Multi      | `Auth`, `Supabase`, `ProtectedLayout`                      |
+| **05-CONTATO**   | 05    | `/app/contato/page.tsx`   | 03         | `ClientsBrandsSection`, `ContactSection`, `SiteFooter`     |
+| **06-PRIVACIDADE**| 06    | `/app/privacidade/page.tsx`| 02         | `PrivacyText`, `SiteFooter`                                |
 
 ---
 
@@ -32,9 +34,10 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 3. `03-VIDEO-MANIFESTO`
 4. `04-PORTFOLIO-SHOWCASE`
 5. `05-FEATURED-PROJECTS`
-6. `06-CLIENTS-BRANDS`
-7. `07-CONTACT`
-8. `08-FOOTER`
+6. `06-SHADER-SECTION`
+7. `07-CLIENTS-BRANDS`
+8. `08-CONTACT`
+9. `09-FOOTER`
 
 ---
 
@@ -122,51 +125,64 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 
 ---
 
-### Sessão 06 – CLIENTS-BRANDS
+### Seção 06 – SHADER-SECTION
 
-- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/06-CLIENTS-BRANDS`
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/06-SHADER-SECTION`
+- **Objetivo estratégico:** Reforçar a identidade cibernética "Ghost Era" com elementos interativos e texturas procedimentais.
+- **Papel narrativo:** TRANSIÇÃO.
+- **Componentes envolvidos:** `ShaderSection`.
+- **Dependências técnicas:** Canvas 3D, WebGL shaders (`shader-lines.tsx`), `usePerformanceAdaptive` para degradar DPI sob estresse gráfico.
+- **Estados interativos:** Pulsação de cor (Azul ➔ Roxo ➔ Azul).
+- **Comportamento responsivo:** Ajuste de densidade de linhas e bounding boxes responsivas.
+- **Critérios de validação:** 60FPS estáveis sem engasgos de processamento.
+
+---
+
+### Seção 07 – CLIENTS-BRANDS
+
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/07-CLIENTS-BRANDS`
 - **Objetivo estratégico:** Autoridade. Marcas que confiam no trabalho.
 - **Papel narrativo:** CREDIBILIDADE.
-- **Componentes envolvidos:** `LogoMarquee`, `ClientGrid`.
+- **Componentes envolvidos:** `ClientsBrandsSection` (unificada em `SiteClosure`).
 - **Dependências técnicas:** Infinite loop animation.
 - **Estados interativos:** Pause on hover (opcional).
 - **Comportamento responsivo:** Ajuste de tamanho de logos e quantidade visível.
 - **Critérios de validação:** Logos alinhados visualmente (mesmo peso visual), loop suave.
 - **Referência Visual:**
-  - Desktop: `.../06-CLIENTS-BRANDS/06-CLIENTS-BRANDS-DESKTOP.jpg`
-  - Mobile: `.../06-CLIENTS-BRANDS/06-CLIENTS-BRANDS-MOBILE.jpg`
+  - Desktop: `.../07-CLIENTS-BRANDS/06-CLIENTS-BRANDS-DESKTOP.jpg`
+  - Mobile: `.../07-CLIENTS-BRANDS/06-CLIENTS-BRANDS-MOBILE.jpg`
 
 ---
 
-### Sessão 07 – CONTACT
+### Seção 08 – CONTACT
 
-- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/07-CONTACT`
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/08-CONTACT`
 - **Objetivo estratégico:** Conversão. Levar o lead para WhatsApp ou Email.
 - **Papel narrativo:** CHAMADA PARA AÇÃO.
-- **Componentes envolvidos:** `ContactForm` ou `ContactLinks`, `SocialList`.
-- **Dependências técnicas:** Form API (se houver), Clipboard copy.
+- **Componentes envolvidos:** `ContactSection` (unificada em `SiteClosure`), `SocialList`.
+- **Dependências técnicas:** Resend API (servidor local).
 - **Estados interativos:** Hover em links, validação de inputs (se form).
 - **Comportamento responsivo:** Layout amigável ao toque, botões grandes.
 - **Critérios de validação:** Links funcionam, email correto, feedback visual ao clicar.
 - **Referência Visual:**
-  - Desktop: `.../07-CONTACT/07-CONTACT-DESKTOP.jpg`
-  - Mobile: `.../07-CONTACT/07-CONTACT-MOBILE.jpg`
+  - Desktop: `.../08-CONTACT/07-CONTACT-DESKTOP.jpg`
+  - Mobile: `.../08-CONTACT/07-CONTACT-MOBILE.jpg`
 
 ---
 
-### Sessão 08 – FOOTER
+### Seção 09 – FOOTER
 
-- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/08-FOOTER`
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/01-HOME/09-FOOTER`
 - **Objetivo estratégico:** Encerramento e navegação secundária.
 - **Papel narrativo:** RODAPÉ. Informações legais, sitemap rápido.
-- **Componentes envolvidos:** `SiteFooter`.
+- **Componentes envolvidos:** `SiteFooter` (unificada em `SiteClosure`).
 - **Dependências técnicas:** N/A.
 - **Estados interativos:** Links hover.
 - **Comportamento responsivo:** Stack vertical vs colunas.
 - **Critérios de validação:** Copyright atualizado, links funcionais.
 - **Referência Visual:**
-  - Desktop: `.../08-FOOTER/08-FOOTER-DESKTOP.jpg`
-  - Mobile: `.../08-FOOTER/08-FOOTER-MOBILE.jpg`
+  - Desktop: `.../09-FOOTER/08-FOOTER-DESKTOP.jpg`
+  - Mobile: `.../09-FOOTER/08-FOOTER-MOBILE.jpg`
 
 ---
 
@@ -180,10 +196,12 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 4. `04-O-QUE-EU-FACO`
 5. `05-COMO-EU-TRABALHO`
 6. `06-O-QUE-ME-MOVE`
-7. `07-FECHAMENTO-CONFIRMACAO`
-8. `08-CLIENTS-BRANDS` (Reuso)
-9. `09-CONTACT` (Reuso)
-10. `10-FOOTER` (Compartilhado/Instância)
+7. `07-PROVA-AUTORIDADE`
+8. `08-FECHAMENTO-CONFIRMACAO`
+9. `09-CLIENTS-BRANDS` (Reuso)
+10. `10-CONTACT` (Reuso)
+11. `11-FOOTER` (Compartilhado/Instância)
+12. `12-STICKY-CONTACT-CTA`
 
 ---
 
@@ -235,28 +253,46 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 
 ---
 
-### Sessão 06 – O-QUE-ME-MOVE
+### Seção 06 – O-QUE-ME-MOVE
 
 - **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE`
-- **Objetivo estratégico:** Valores e Filosofia.
+- **Objetivo estratégico:** Valores e Filosofia criativa por stagger animado de letras em CSS.
 - **Papel narrativo:** PROPÓSITO.
-- **Componentes envolvidos:** `ValuesGrid`, `QuoteBlock`.
+- **Componentes envolvidos:** `ManifestoScrollSection`, `WhatMovesMeBackground`, `ShaderAnimation` (background).
 - **Referência Visual:**
   - Desktop: `.../06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE-DESKTOP.jpg`
   - Mobile: `.../06-O-QUE-ME-MOVE-MOBILE-FINAL.png`
 
 ---
 
-### Sessão 07 – FECHAMENTO-CONFIRMACAO
+### Seção 07 – PROVA-AUTORIDADE
 
-- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/07-FECHAMENTO-CONFIRMACAO`
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/07-PROVA-AUTORIDADE`
+- **Objetivo estratégico:** Apresentar depoimentos, métricas reais e marcas parceiras de confiança.
+- **Papel narrativo:** PROVA SOCIAL.
+- **Componentes envolvidos:** `AboutProof`, `DynamicAssetImage`.
+
+---
+
+### Seção 08 – FECHAMENTO-CONFIRMACAO
+
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/08-FECHAMENTO-CONFIRMACAO`
 - **Objetivo estratégico:** Reforço da mensagem antes da conversão.
 - **Papel narrativo:** CONCLUSÃO.
 - **Referência Visual:**
-  - Desktop: `.../07-FECHAMENTO-CONFIRMACAO/07-FECHAMENTO-CONFIRMACAO-DESKTOP.jpg`
-  - Mobile: `.../07-FECHAMENTO-CONFIRMACAO/07-FECHAMENTO-CONFIRMACAO-MOBILE.jpg`
+  - Desktop: `.../08-FECHAMENTO-CONFIRMACAO/07-FECHAMENTO-CONFIRMACAO-DESKTOP.jpg`
+  - Mobile: `.../08-FECHAMENTO-CONFIRMACAO/07-FECHAMENTO-CONFIRMACAO-MOBILE.jpg`
 
-_(Sessões 08, 09, 10 seguem estrutura padrão de Clients, Contact e Footer)_
+---
+
+### Seção 12 – STICKY-CONTACT-CTA
+
+- **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/12-STICKY-CONTACT-CTA`
+- **Objetivo estratégico:** Facilitar a conversão fluida do usuário em telas grandes ou mobile durante a leitura.
+- **Papel narrativo:** ENGAGEMENT.
+- **Componentes envolvidos:** `StickyContactCTA`, `AntigravityCTA`.
+
+_(Seções 09, 10, 11 seguem a estrutura padrão do SiteClosure: Clients, Contact e Footer)_
 
 ---
 

@@ -1,4 +1,4 @@
-.
+.context/DOCS-PORTFOLIO-PAGES
 ├── 01-HOME
 │   ├── 01-HEADER
 │   │   ├── 01-HEADER-DESKTOP.jpg
@@ -20,19 +20,22 @@
 │   ├── 05-FEATURED-PROJECTS
 │   │   ├── 05-FEATURED-PROJECTS-DESKTOP.jpg
 │   │   ├── 05-FEATURED-PROJECTS-MOBILE.jpg
-│   │   └── 05-FEATURED-PROJECTS.md
-│   ├── 06-CLIENTS-BRANDS
+│   │   ├── 05-FEATURED-PROJECTS.md
+│   │   └── 05-PROTOTIOPO-FEATURED-PROJECTS.md
+│   ├── 06-SHADER-SECTION
+│   │   └── 06-SHADER-SECTION.md
+│   ├── 07-CLIENTS-BRANDS
 │   │   ├── 06-CLIENTS-BRANDS-DESKTOP.jpg
 │   │   ├── 06-CLIENTS-BRANDS-MOBILE.jpg
-│   │   └── 06-CLIENTS-BRANDS.md
-│   ├── 07-CONTACT
+│   │   └── 07-CLIENTS-BRANDS.md
+│   ├── 08-CONTACT
 │   │   ├── 07-CONTACT-DESKTOP.jpg
 │   │   ├── 07-CONTACT-MOBILE.jpg
-│   │   └── 07-CONTACT.md
-│   ├── 08-FOOTER
+│   │   └── 08-CONTACT.md
+│   ├── 09-FOOTER
 │   │   ├── 08-FOOTER-DESKTOP.jpg
 │   │   ├── 08-FOOTER-MOBILE.jpg
-│   │   └── 08-FOOTER.md
+│   │   └── 09-FOOTER.md
 │   ├── 09-MODAL-ROOT.md
 │   ├── HOME - PROTOTIPO INTERATIVO.md
 │   ├── HOME-DESKTOP.jpg
@@ -62,31 +65,38 @@
 │   │   ├── 06-O-QUE-ME-MOVE-DESKTOP-FINAL.jpg
 │   │   ├── 06-O-QUE-ME-MOVE-DESKTOP-INICIAL.jpg
 │   │   ├── 06-O-QUE-ME-MOVE-DESKTOP.jpg
+│   │   ├── 06-O-QUE-ME-MOVE-EXEMPLO.html
 │   │   ├── 06-O-QUE-ME-MOVE-MOBILE-FINAL.png
 │   │   ├── 06-O-QUE-ME-MOVE-MOBILE-INICIAL.png
 │   │   └── 06-O-QUE-ME-MOVE.md
-│   ├── 07-FECHAMENTO-CONFIRMACAO
+│   ├── 07-PROVA-AUTORIDADE
+│   │   └── 07-PROVA-AUTORIDADE.md
+│   ├── 08-FECHAMENTO-CONFIRMACAO
 │   │   ├── 07-FECHAMENTO-CONFIRMACAO-DESKTOP.jpg
 │   │   ├── 07-FECHAMENTO-CONFIRMACAO-MOBILE.jpg
-│   │   └── 07-FECHAMENTO-CONFIRMACAO.md
-│   ├── 08-CLIENTS-BRANDS
+│   │   └── 08-FECHAMENTO-CONFIRMACAO.md
+│   ├── 09-CLIENTS-BRANDS
 │   │   ├── 08-CLIENTS-BRANDS-DESKTOP.jpg
 │   │   ├── 08-CLIENTS-BRANDS-MOBILE.jpg
-│   │   └── 08-CLIENTS-BRANDS.md
-│   ├── 09-CONTACT
+│   │   └── 09-CLIENTS-BRANDS.md
+│   ├── 10-CONTACT
 │   │   ├── 09-CONTACT-DESKTOP.jpg
 │   │   ├── 09-CONTACT-MOBILE.jpg
-│   │   └── 09-CONTACT.md
-│   ├── 10-FOOTER
+│   │   └── 10-CONTACT.md
+│   ├── 11-FOOTER
 │   │   ├── 10-FOOTER-DESKTOP.jpg
 │   │   ├── 10-FOOTER-MOBILE.jpg
-│   │   └── 10-FOOTER.md
+│   │   └── 11-FOOTER.md
+│   ├── 12-STICKY-CONTACT-CTA
+│   │   └── 12-STICKY-CONTACT-CTA.md
 │   ├── ANALISE-GLOBAL-DA-SOBRE.md
+│   ├── AUDIT_PENTEST_SOBRE.md
 │   ├── SOBRE-DESCKTOP-INICIAL.jpg
 │   ├── SOBRE-DESKTOP-FINAL.jpg
 │   ├── SOBRE-MOBILE-FINAL.jpg
 │   ├── SOBRE-MOBILE-INICIAL.jpg
-│   └── SOBRE-PROTOTIPO-INTERATIVO.md
+│   ├── SOBRE-PROTOTIPO-INTERATIVO.md
+│   └── walkthrough.md
 ├── 03-PORTFOLIO
 │   ├── 01-HEADER
 │   │   ├── 01-HEADER-DESKTOP.jpg
@@ -101,10 +111,10 @@
 │   │   ├── 03-GALLERY-MOBILE.jpg
 │   │   └── 03-GALLERY.md
 │   ├── 04-PROJECT-CARDS
-│   │   ├── 04-PROJECT-CARDS-DESKTOP.jpg
-│   │   ├── 04-PROJECT-CARDS-MOBILE.jpg
 │   │   └── 04-PROJECT-CARDS.md
 │   ├── 05-MODAL
+│   │   ├── 05-MODAL-ZOOM.jpg
+│   │   ├── 05-MODAL.jpg
 │   │   └── 05-MODAL.md
 │   ├── 06-PROJETO-SLUG
 │   │   ├── 06-PROJETO-SLUG.md
@@ -129,6 +139,7 @@
 │   ├── PORTFOLIO-MOBILE.jpg
 │   └── PORTFOLIO-PROTOTIPO-INTERATIVO.md
 ├── 04-ADMIN
+│   ├──  System Prompt CENAS PUBLICITÁRIAS.md
 │   ├── 01-AUTH-LOGIN.md
 │   ├── 02-PROTECTED-LAYOUT-SHELL.md
 │   ├── 03-DASHBOARD.md
@@ -141,15 +152,44 @@
 │   ├── 10-SCENE-GENERATOR.md
 │   ├── 12-INDEX-DOCUMENTACAO-ADMIN.md
 │   ├── 13-REFERENCIAS-CONTEXT7.md
+│   ├── 14-TASK-01-MARKDOWN-ADMIN.md
+│   ├── 15-TASK-02-MOBILE-STAGGERED-MENU.md
+│   ├── 16-TASK-03-POST-MODAL-MIDIA.md
+│   ├── 17-TASK-04-POST-MODAL-TAGS.md
+│   ├── 18-TASK-02-LANDING-PAGE-V3-FIXES.md
+│   ├── 19-TASK-08-PORTFOLIO-SHOWCASE-MODAL-VALIDATION.md
+│   ├── 20-TASK-01-LANDING-V3-YOUTUBE-AUTOPLAY.md
+│   ├── 21-TASK-02-LANDING-V3-FULL-IMAGE.md
+│   ├── 22-TASK-03-THUMBS-MP4.md
+│   ├── 23-TASK-04-HOME-PORTFOLIO-LIVE-CARD-ROTATION.md
+│   ├── 24-TASK-05-HOME-GHOST-CURSOR-INTERACTION.md
+│   ├── 25-TASK-06-HOME-ANIMATED-BACKGROUNDS-AURORA.md
+│   ├── 26-TASK-07-PORTFOLIO-SHOWCASE-MEDIA-FRAMING.md
+│   ├── 27-TASK-08-CTA-MOTION-SYNC.md
+│   ├── 28-TASK-09-ABOUT-BELIEFS-MOBILE.md
 │   ├── ADMIN - PROTOTIPO INTERATIVO.md
-│   ├── IMAGENS
+│   ├── assets-site.json
 │   ├── LANDING-PAGE-DESKTOP.jpg
 │   ├── LANDING-PAGE-MOBILE.jpg
+│   ├── listas peças.json
 │   ├── POP-UP DE PROJETO (SEM LANDING PAGE).md
+│   ├── PROMPT-COPY-LANDING-PAGE.md
+│   ├── PROMPT-COPY-POST SIMPLES (MODAL).md
 │   ├── PROTOTIPO INTERATIVO DA LANDING PAGE.md
-│   └── REFERENCIAS
+│   ├── Security Advisor - erros.csv
+│   ├── Security Advisor-infos.csv
+│   ├── SUPER-TEMPLATE-COPY.md
+│   └── TIPOS DE CENA.json
+├── 05-CONTATO
+│   └── 05-CONTATO.md
+├── 06-PRIVACIDADE
+│   └── 06-PRIVACIDADE.md
 ├── Antigravity Documentation & Prompt Engine — Workspace Template.md
+├── audit_report_final.md
+├── estrutura-site-portfolio.txt
 ├── GHOST-DESIGN-SYSTEM.md
-└── estrutura.txt
-
-34 directories, 119 files
+├── implementation_plan.md
+├── risk_assessment.md
+├── RULES-PORTFOLIO-STRUCTURE.md
+├── task.md
+└── walkthrough.md

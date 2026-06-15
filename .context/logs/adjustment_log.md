@@ -2002,3 +2002,29 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ `pnpm test` — Todos os 280 testes unitários passando em 100% dos arquivos.
 
 **Status:** Concluído.
+
+---
+
+## [2026-06-14T22:55] Fallow Cleanup & Deep Workspace Sanitization
+
+**Context:** Execução do workflow `/fallow-cleanup` utilizando a ferramenta de análise estática Fallow para auditar, identificar e remover código morto (dead code), arquivos órfãos e exports não utilizados na base de código.
+
+**Changes Applied:**
+
+1. **Remoção de Arquivos Órfãos** ✅
+   - Deletado [SplitText.tsx](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/ui/motion/SplitText.tsx) (kinetic typography componente não mais referenciado).
+   - Deletado [image-loader.mjs](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/supabase/image-loader.mjs) (legacy Next image loader, sem referências).
+   - Deletado [GhostScene.tsx](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/docs/HOME/GhostScene.tsx) (código legado sob a pasta `docs/`).
+   - Deletado [Ghost.jsx](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/public/site.assets/3d/Ghost.jsx) (código R3F gerado não utilizado).
+
+2. **Auditoria e Preservação de Falsos Positivos** ✅
+   - Preservados arquivos essenciais reportados pelo scanner que atuam como entry points de build ou scripts administrativos (como `test/setup.ts`, `functions/src/index.ts`, `postcss-plugins/remove-invalid-tailwind-selectors.cjs`, e scripts sob `/scripts`).
+   - Preservada a dependência de imagem `sharp`, necessária para compressão e otimização dinâmica no Next.js em produção.
+
+**Verification:**
+
+- ✅ `pnpm run build-check` — Aprovado com sucesso (zero erros, zero warnings fatais).
+- ✅ `pnpm test` — Todos os 280 testes unitários Jest em 40 suites passando com 100% de sucesso.
+- ✅ `pnpm run build` — Bundle de produção Next.js compilado com sucesso em modo standalone.
+
+**Status:** Concluído.
