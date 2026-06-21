@@ -69,13 +69,14 @@ Estas tarefas são seguras (somente leitura) mas ainda não executadas. Recomend
 
 ## Phase 6 — Backup and Rollback Planning (REQUIRES APPROVAL)
 
-- [ ] Confirmar localização de armazenamento para bundle: `.git-hygiene-backup/`
-- [ ] Executar `mkdir -p .git-hygiene-backup`
+- [ ] Confirmar localização de armazenamento para bundle: `../git-hygiene-backup/` (fora do repo — root proibido por CLAUDE.md)
+- [ ] Executar `mkdir -p ../git-hygiene-backup`
 - [ ] **Antes do bundle:** fetch de todas as branches candidatas com refspecs explícitos (ver Fase 2 do `GIT_HYGIENE_PLAN.md`) — `git bundle --all` só empacota refs presentes localmente; branches não fetchadas serão omitidas do backup
-- [ ] Executar `git bundle create .git-hygiene-backup/pre-cleanup-<timestamp>.bundle --all`
-- [ ] Criar tags de backup para as 13 branches candidatas (ver SHA Map na seção 8 do `GIT_HYGIENE_PLAN.md`)
-- [ ] Confirmar que tags foram criadas: `git tag --list 'backup/pre-cleanup/*'`
-- [ ] **Publicar tags no remoto** (obrigatório antes de qualquer `push --delete` — tags locais são perdidas em clones efêmeros): `git push origin 'refs/tags/backup/pre-cleanup/*'`
+- [ ] Confirmar que o fetch acima **não falhou** antes de criar o bundle (se falhou, alguma branch sumiu do remoto — ABORTAR e re-auditar)
+- [ ] Executar `git bundle create ../git-hygiene-backup/pre-cleanup-<timestamp>.bundle --all`
+- [ ] Criar tags de backup com `-f` (força atualização em reruns): ver SHA Map na seção 8 do `GIT_HYGIENE_PLAN.md`
+- [ ] Confirmar que tags foram criadas e apontam para os SHAs auditados: `git rev-parse backup/pre-cleanup/codex-media-card-system | head -c8` (deve mostrar `06104ba2`)
+- [ ] **Publicar tags no remoto** com `--force` (obrigatório antes de qualquer `push --delete` — tags locais são perdidas em clones efêmeros): `git push --force origin 'refs/tags/backup/pre-cleanup/*'`
 - [ ] Confirmar que bundle existe no disco e tem tamanho > 0
 
 ---
@@ -125,11 +126,11 @@ _Esta fase requer aprovação explícita adicional, independente da Fase 7._
 - [ ] **NÃO deletar sem inspeção individual** — cada uma requer `git diff main...origin/<branch>` e decisão explícita:
   - [ ] `codex/sobre-origin-a11y-fixes` — commits de a11y/Ghost Design; avaliar cherry-pick antes de deletar
   - [ ] `codex/weekly-cleanup` — plano anterior: unknown-risk com alta contagem de commits; diff obrigatório
-  - [ ] `docs/audit-beliefs-ghost-design-v3` — unknown-ancestry†; alta divergência reportada; diff obrigatório
-  - [ ] `docs/ghost-design-updates-12336613816235341544` — unknown-ancestry†; diff obrigatório
   - [ ] `fix/audit-remediation-phase1` — unknown-ancestry†; conteúdo funcional (cache headers, TypeScript, assets); diff obrigatório
 - [ ] Branches `unknown-risk` NÃO estão nesta fase — requerem aprovação individual própria:
   - `worktree-audit-fixes`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan`
+  - `docs/audit-beliefs-ghost-design-v3` — reclassificada `unknown-risk` (unknown-ancestry†; alta divergência reportada)
+  - `docs/ghost-design-updates-12336613816235341544` — reclassificada `unknown-risk` (unknown-ancestry†; diff obrigatório)
 
 ---
 

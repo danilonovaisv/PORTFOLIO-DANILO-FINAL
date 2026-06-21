@@ -82,8 +82,8 @@ _Gerado em: 2026-06-21 | Auditor: Claude Code — Staff Git Operations Engineer_
 | `codex/ghost-portfolio-hero-pr` | `bb1fbe0a` | `docs: restore ghost hero pr traceability` | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar — docs de rastreabilidade (**REQUIRES APPROVAL**) |
 | `codex/sobre-origin-a11y-fixes` | `e03f269d` | `fix origens` | NOT-MERGED* | nenhum | não | `candidate-archive` | Inspecionar antes de arquivar (pode ter a11y útil) (**REQUIRES APPROVAL**) |
 | `codex/weekly-cleanup` | `dcf8d0de` | `chore(deps): update project dependencies and knip configuration` | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
-| `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `candidate-archive` | Arquivar — design docs históricos (**REQUIRES APPROVAL**) |
-| `docs/ghost-design-updates-12336613816235341544` | `c5c18920` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
+| `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — unknown-ancestry†; alta divergência reportada (**REQUIRES APPROVAL**) |
+| `docs/ghost-design-updates-12336613816235341544` | `c5c18920` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — unknown-ancestry†; diff obrigatório antes de qualquer ação (**REQUIRES APPROVAL**) |
 | `fix/audit-remediation-phase1` | `2a7cc79f` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `candidate-archive` | Inspecionar obrigatoriamente antes de arquivar — pode ter fixes de segurança (**REQUIRES APPROVAL**) |
 | `worktree-audit-fixes` | `4f158abe` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo RLS rules, audit fixes e TypeScript changes (**REQUIRES APPROVAL**) |
 | `worktree-fix-06-que-me-move` | `561eec01` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo motion-layer fixes com avaliação de merge pendente (**REQUIRES APPROVAL**) |
@@ -146,7 +146,7 @@ _†unknown-ancestry: SHA não confirmado como presente localmente. `git merge-b
 
 ```bash
 mkdir -p .git-hygiene-backup
-git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
+git bundle create ../git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
 ```
 
 O bundle captura todas as refs locais no momento da execução. Para incluir branches remotas, fetch antes do bundle.
@@ -154,19 +154,37 @@ O bundle captura todas as refs locais no momento da execução. Para incluir bra
 ### Tags de Backup por Branch (REQUIRES APPROVAL)
 
 ```bash
-git tag backup/pre-cleanup/codex-media-card-system            06104ba2
-git tag backup/pre-cleanup/audit-weekly-report                af752857
-git tag backup/pre-cleanup/chore-audit-report                 632024b4
-git tag backup/pre-cleanup/claude-weekly-audit-2026-05-19     942afc1f
-git tag backup/pre-cleanup/codex-ghost-portfolio-hero-pr      bb1fbe0a
-git tag backup/pre-cleanup/codex-sobre-origin-a11y-fixes      e03f269d
-git tag backup/pre-cleanup/codex-weekly-cleanup               dcf8d0de
-git tag backup/pre-cleanup/docs-audit-beliefs-ghost-v3        2444b35b
-git tag backup/pre-cleanup/docs-ghost-design-updates          c5c18920
-git tag backup/pre-cleanup/fix-audit-remediation-phase1       2a7cc79f
-git tag backup/pre-cleanup/worktree-audit-fixes               4f158abe
-git tag backup/pre-cleanup/worktree-fix-06-que-me-move        561eec01
-git tag backup/pre-cleanup/worktree-responsive-video-plan     09aab7da
+# -f força atualização se tag já existir (evita gate de backup satisfeito por tag stale de rerun anterior)
+git tag -f backup/pre-cleanup/codex-media-card-system            06104ba2
+git tag -f backup/pre-cleanup/audit-weekly-report                af752857
+git tag -f backup/pre-cleanup/chore-audit-report                 632024b4
+git tag -f backup/pre-cleanup/claude-weekly-audit-2026-05-19     942afc1f
+git tag -f backup/pre-cleanup/codex-ghost-portfolio-hero-pr      bb1fbe0a
+git tag -f backup/pre-cleanup/codex-sobre-origin-a11y-fixes      e03f269d
+git tag -f backup/pre-cleanup/codex-weekly-cleanup               dcf8d0de
+git tag -f backup/pre-cleanup/docs-audit-beliefs-ghost-v3        2444b35b
+git tag -f backup/pre-cleanup/docs-ghost-design-updates          c5c18920
+git tag -f backup/pre-cleanup/fix-audit-remediation-phase1       2a7cc79f
+git tag -f backup/pre-cleanup/worktree-audit-fixes               4f158abe
+git tag -f backup/pre-cleanup/worktree-fix-06-que-me-move        561eec01
+git tag -f backup/pre-cleanup/worktree-responsive-video-plan     09aab7da
+
+# Verificar que cada tag aponta para o SHA auditado (segurança contra tag stale)
+declare -A tag_sha_map=(
+  ["backup/pre-cleanup/codex-media-card-system"]="06104ba2"
+  ["backup/pre-cleanup/audit-weekly-report"]="af752857"
+  ["backup/pre-cleanup/chore-audit-report"]="632024b4"
+  ["backup/pre-cleanup/claude-weekly-audit-2026-05-19"]="942afc1f"
+  ["backup/pre-cleanup/codex-ghost-portfolio-hero-pr"]="bb1fbe0a"
+)
+for tag in "${!tag_sha_map[@]}"; do
+  expected="${tag_sha_map[$tag]}"
+  actual=$(git rev-parse "$tag" 2>/dev/null | head -c8)
+  if [ "$actual" != "$expected" ]; then
+    echo "TAG TARGET MISMATCH: $tag aponta para $actual, esperado $expected — ABORTAR"
+    exit 1
+  fi
+done
 
 # Publicar tags de backup no remoto — obrigatório antes de qualquer push --delete
 # Em clones efêmeros, tags locais são perdidas ao fim da sessão; tags remotas garantem recuperação
@@ -279,11 +297,12 @@ git fetch origin \
   "fix/audit-remediation-phase1:refs/remotes/origin/fix/audit-remediation-phase1" \
   "worktree-audit-fixes:refs/remotes/origin/worktree-audit-fixes" \
   "worktree-fix-06-que-me-move:refs/remotes/origin/worktree-fix-06-que-me-move" \
-  "worktree-responsive-video-plan:refs/remotes/origin/worktree-responsive-video-plan"
+  "worktree-responsive-video-plan:refs/remotes/origin/worktree-responsive-video-plan" \
+  || { echo "ERROR: pre-bundle fetch falhou — verificar se branches ainda existem no remoto antes de prosseguir. ABORTAR."; exit 1; }
 
 # 2. Criar bundle (agora inclui todos os objetos fetchados acima)
-mkdir -p .git-hygiene-backup
-git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
+mkdir -p ../git-hygiene-backup
+git bundle create ../git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
 
 # 3. Criar tags de backup conforme seção 8
 ```
