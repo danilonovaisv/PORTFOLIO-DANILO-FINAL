@@ -71,10 +71,10 @@ _Gerado em: 2026-06-21 | Auditor: Claude Code — Staff Git Operations Engineer_
 | Branch | SHA | Commit Tip | Merged em main? | PR | Proteção | Classificação | Ação Proposta |
 |---|---|---|---|---|---|---|---|
 | `main` | `14869153` | `update` | — | — | **SIM** | `protected` | Preservar sempre |
-| `claude/weekly-audit-report-2026-06-16` | `55c53302` | (não fetchado localmente) | NOT-MERGED | **#496 OPEN** | não | `protected` | Preservar — PR aberto |
-| `claude/beautiful-rubin-MVYRs` | `ac6526c0` | (não fetchado localmente) | NOT-MERGED | nenhum | não | `unknown-risk` | Preservar até inspeção manual |
-| `claude/dazzling-euler-ZhWMf` | `762cf697` | (não fetchado localmente) | NOT-MERGED | nenhum | não | `unknown-risk` | Preservar até inspeção manual |
-| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652` | (não fetchado localmente) | NOT-MERGED | nenhum | não | `unknown-risk` | Preservar — branch de usuário |
+| `claude/weekly-audit-report-2026-06-16` | `55c53302` | (não fetchado localmente) | NOT-MERGED (via PR #496) | **#496 OPEN** | não | `protected` | Preservar — PR aberto |
+| `claude/beautiful-rubin-MVYRs` | `ac6526c0` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual |
+| `claude/dazzling-euler-ZhWMf` | `762cf697` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual |
+| `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar — branch de usuário |
 | `codex/media-card-system` | `06104ba2` | `feat: add typed media card system` | **CONFIRMED MERGED** | nenhum | não | `candidate-delete-remote` | Candidata a remoção remota após backup (**REQUIRES APPROVAL**) |
 | `audit/weekly-report-4676327557888982331` | `af752857` | `docs: add WEEKLY_AUDIT_REPORT.md` | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar ou deletar após backup (**REQUIRES APPROVAL**) |
 | `chore-audit-report-12176814106024817247` | `632024b4` | `chore: generate audit cleanup report` | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar ou deletar após backup (**REQUIRES APPROVAL**) |
@@ -82,16 +82,16 @@ _Gerado em: 2026-06-21 | Auditor: Claude Code — Staff Git Operations Engineer_
 | `codex/ghost-portfolio-hero-pr` | `bb1fbe0a` | `docs: restore ghost hero pr traceability` | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar — docs de rastreabilidade (**REQUIRES APPROVAL**) |
 | `codex/sobre-origin-a11y-fixes` | `e03f269d` | `fix origens` | NOT-MERGED* | nenhum | não | `candidate-archive` | Inspecionar antes de arquivar (pode ter a11y útil) (**REQUIRES APPROVAL**) |
 | `codex/weekly-cleanup` | `dcf8d0de` | `chore(deps): update project dependencies and knip configuration` | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
-| `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar — design docs históricos (**REQUIRES APPROVAL**) |
-| `docs/ghost-design-updates-12336613816235341544` | `c5c18920` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
-| `fix/audit-remediation-phase1` | `2a7cc79f` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Inspecionar obrigatoriamente antes de arquivar — pode ter fixes de segurança (**REQUIRES APPROVAL**) |
+| `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `candidate-archive` | Arquivar — design docs históricos (**REQUIRES APPROVAL**) |
+| `docs/ghost-design-updates-12336613816235341544` | `c5c18920` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
+| `fix/audit-remediation-phase1` | `2a7cc79f` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `candidate-archive` | Inspecionar obrigatoriamente antes de arquivar — pode ter fixes de segurança (**REQUIRES APPROVAL**) |
 | `worktree-audit-fixes` | `4f158abe` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo RLS rules, audit fixes e TypeScript changes (**REQUIRES APPROVAL**) |
 | `worktree-fix-06-que-me-move` | `561eec01` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo motion-layer fixes com avaliação de merge pendente (**REQUIRES APPROVAL**) |
 | `worktree-responsive-video-plan` | `09aab7da` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — docs de projeto indicam fixes de video responsivo (Firefox/Safari source selection) com avaliação de merge pendente (**REQUIRES APPROVAL**) |
 
 _*NOT-MERGED via `git merge-base --is-ancestor` para SHAs presentes localmente (confirmados por `git log --oneline <sha> -1`). Aplicável a: `audit/weekly-report-*`, `chore-audit-report-*`, `claude/weekly-audit-report-2026-05-19`, `codex/ghost-portfolio-hero-pr`, `codex/sobre-origin-a11y-fixes`, `codex/weekly-cleanup`. Nota: grafted history em `6cf2dbbc` pode gerar falsos-negativos para squash-merges anteriores ao boundary._
 
-_†unknown-ancestry: SHA não confirmado como presente localmente. `git merge-base --is-ancestor` pode ter saído com erro de objeto ausente (exit ≠ 1) em vez de "not ancestor" (exit 1). Tratar como `unknown-risk` até fetch e verificação explícita. Aplicável a: `docs/audit-beliefs-ghost-design-v3`, `docs/ghost-design-updates-*`, `fix/audit-remediation-phase1`, `worktree-audit-fixes`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan`._
+_†unknown-ancestry: SHA não confirmado como presente localmente. `git merge-base --is-ancestor` pode ter saído com erro de objeto ausente (exit ≠ 1) em vez de "not ancestor" (exit 1). Tratar como `unknown-risk` até fetch e verificação explícita. Aplicável a: `claude/beautiful-rubin-MVYRs`, `claude/dazzling-euler-ZhWMf`, `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s`, `docs/audit-beliefs-ghost-design-v3`, `docs/ghost-design-updates-*`, `fix/audit-remediation-phase1`, `worktree-audit-fixes`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan`._
 
 ### 4.3 Ref Stale (Remote-tracking)
 
