@@ -76,7 +76,20 @@ Estas tarefas são seguras (somente leitura) mas ainda não executadas. Recomend
 - [ ] Executar `git bundle create ../git-hygiene-backup/pre-cleanup-<timestamp>.bundle --all`
 - [ ] Criar tags de backup com `-f` (força atualização em reruns): ver SHA Map na seção 8 do `GIT_HYGIENE_PLAN.md`
 - [ ] Confirmar que tags foram criadas e apontam para os SHAs auditados: `git rev-parse backup/pre-cleanup/codex-media-card-system | head -c8` (deve mostrar `06104ba2`)
-- [ ] **Publicar tags no remoto** com `--force` (obrigatório antes de qualquer `push --delete` — tags locais são perdidas em clones efêmeros): `git push --force origin 'refs/tags/backup/pre-cleanup/*'`
+- [ ] **Publicar tags no remoto** — uma por uma (obrigatório antes de qualquer `push --delete` — tags locais são perdidas em clones efêmeros; explícito para rastrear qual falhou):
+  - `git push origin refs/tags/backup/pre-cleanup/codex-media-card-system`
+  - `git push origin refs/tags/backup/pre-cleanup/audit-weekly-report`
+  - `git push origin refs/tags/backup/pre-cleanup/chore-audit-report`
+  - `git push origin refs/tags/backup/pre-cleanup/claude-weekly-audit-2026-05-19`
+  - `git push origin refs/tags/backup/pre-cleanup/codex-ghost-portfolio-hero-pr`
+  - `git push origin refs/tags/backup/pre-cleanup/codex-sobre-origin-a11y-fixes`
+  - `git push origin refs/tags/backup/pre-cleanup/codex-weekly-cleanup`
+  - `git push origin refs/tags/backup/pre-cleanup/docs-audit-beliefs-ghost-v3`
+  - `git push origin refs/tags/backup/pre-cleanup/docs-ghost-design-updates`
+  - `git push origin refs/tags/backup/pre-cleanup/fix-audit-remediation-phase1`
+  - `git push origin refs/tags/backup/pre-cleanup/worktree-audit-fixes`
+  - `git push origin refs/tags/backup/pre-cleanup/worktree-fix-06-que-me-move`
+  - `git push origin refs/tags/backup/pre-cleanup/worktree-responsive-video-plan`
 - [ ] Confirmar que bundle existe no disco e tem tamanho > 0
 
 ---

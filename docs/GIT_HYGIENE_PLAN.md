@@ -128,7 +128,7 @@ _†unknown-ancestry: SHA não confirmado como presente localmente. `git merge-b
 
 ## 7. Merge and Unification Strategy
 
-**`claude/beautiful-rubin-MVYRs` e `claude/dazzling-euler-ZhWMf`:** Inspecionar com `git diff --stat main origin/<branch>` antes de qualquer decisão. Se contêm código funcional não mergeado, avaliar cherry-pick seletivo. Se somente docs, arquivar.
+**`claude/beautiful-rubin-MVYRs` e `claude/dazzling-euler-ZhWMf`:** Inspecionar com `git diff --stat main...origin/<branch>` antes de qualquer decisão. Se contêm código funcional não mergeado, avaliar cherry-pick seletivo. Se somente docs, arquivar.
 
 **`codex/sobre-origin-a11y-fixes`:** Commit tip `fix origens` sugere a11y fixes para a seção "Origens/O que me move". A11y é prioridade do projeto (WCAG 2.1 AA). Inspecionar diff obrigatoriamente antes de arquivar; se relevante, cherry-pick para `main`.
 
@@ -145,7 +145,7 @@ _†unknown-ancestry: SHA não confirmado como presente localmente. `git merge-b
 ### Bundle Completo (Preferencial — REQUIRES APPROVAL)
 
 ```bash
-mkdir -p .git-hygiene-backup
+mkdir -p ../git-hygiene-backup
 git bundle create ../git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
 ```
 
@@ -176,6 +176,14 @@ declare -A tag_sha_map=(
   ["backup/pre-cleanup/chore-audit-report"]="632024b4"
   ["backup/pre-cleanup/claude-weekly-audit-2026-05-19"]="942afc1f"
   ["backup/pre-cleanup/codex-ghost-portfolio-hero-pr"]="bb1fbe0a"
+  ["backup/pre-cleanup/codex-sobre-origin-a11y-fixes"]="e03f269d"
+  ["backup/pre-cleanup/codex-weekly-cleanup"]="dcf8d0de"
+  ["backup/pre-cleanup/docs-audit-beliefs-ghost-v3"]="2444b35b"
+  ["backup/pre-cleanup/docs-ghost-design-updates"]="c5c18920"
+  ["backup/pre-cleanup/fix-audit-remediation-phase1"]="2a7cc79f"
+  ["backup/pre-cleanup/worktree-audit-fixes"]="4f158abe"
+  ["backup/pre-cleanup/worktree-fix-06-que-me-move"]="561eec01"
+  ["backup/pre-cleanup/worktree-responsive-video-plan"]="09aab7da"
 )
 for tag in "${!tag_sha_map[@]}"; do
   expected="${tag_sha_map[$tag]}"
