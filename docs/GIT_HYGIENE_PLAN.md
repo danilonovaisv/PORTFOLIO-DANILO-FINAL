@@ -285,26 +285,36 @@ git worktree prune  # somente se dry-run na Fase 1 mostrar entradas stale
 ### Fase 4 — Cleanup Remoto — Merged Only (REQUIRES APPROVAL)
 
 ```bash
-# Única branch confirmada merged — backup tag já criada
+# Verificar SHA remoto antes de deletar (evita remover commits adicionados pós-auditoria)
+expected_sha="06104ba2"
+actual_sha=$(git ls-remote origin refs/heads/codex/media-card-system | cut -f1 | head -c8)
+if [ "$actual_sha" != "$expected_sha" ]; then
+  echo "SHA MISMATCH: remoto=$actual_sha esperado=$expected_sha — ABORTAR e re-auditar antes de deletar"
+  exit 1
+fi
 git push origin --delete codex/media-card-system
 ```
 
 ### Fase 5 — Cleanup Remoto — Archive Candidates (REQUIRES SEPARATE APPROVAL)
 
 ```bash
-# Executar por lote apenas após aprovação explícita por grupo ou individual
+# LOTE SEGURO: audit reports e docs históricos — NOT-MERGED* confirmado, sem conteúdo funcional identificado
+# Para cada branch: verificar SHA remoto antes de deletar (git ls-remote origin refs/heads/<branch>)
 git push origin --delete audit/weekly-report-4676327557888982331
 git push origin --delete chore-audit-report-12176814106024817247
 git push origin --delete claude/weekly-audit-report-2026-05-19
 git push origin --delete codex/ghost-portfolio-hero-pr
-git push origin --delete codex/sobre-origin-a11y-fixes    # somente após inspeção
-git push origin --delete codex/weekly-cleanup
-git push origin --delete docs/audit-beliefs-ghost-design-v3
-git push origin --delete docs/ghost-design-updates-12336613816235341544
-git push origin --delete fix/audit-remediation-phase1     # somente após inspeção
-git push origin --delete worktree-audit-fixes
-git push origin --delete worktree-fix-06-que-me-move
-git push origin --delete worktree-responsive-video-plan
+
+# NÃO INCLUIR NO LOTE — REQUEREM INSPEÇÃO INDIVIDUAL ANTES DE QUALQUER AÇÃO:
+#   codex/sobre-origin-a11y-fixes       → commits de a11y/Ghost Design com valor funcional; diff obrigatório
+#   codex/weekly-cleanup                → plano anterior classifica unknown-risk (alta contagem de commits); diff obrigatório
+#   docs/audit-beliefs-ghost-design-v3  → unknown-ancestry†; plano anterior indica alta divergência; diff obrigatório
+#   docs/ghost-design-updates-12336613816235341544  → unknown-ancestry†; inspecionar antes de qualquer ação
+#   fix/audit-remediation-phase1        → unknown-ancestry†; conteúdo funcional (cache headers, TypeScript, assets); diff obrigatório
+# Cada uma requer aprovação individual após inspeção explícita via `git diff main...origin/<branch>`.
+
+# EXCLUÍDAS DESTA FASE — unknown-risk, requerem aprovação individual própria:
+#   worktree-audit-fixes, worktree-fix-06-que-me-move, worktree-responsive-video-plan
 ```
 
 ### Fase 6 — Validação (após execuções aprovadas)

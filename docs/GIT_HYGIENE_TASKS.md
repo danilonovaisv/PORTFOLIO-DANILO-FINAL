@@ -103,6 +103,7 @@ _Executar somente após aprovação da Fase 7._
 _Esta fase requer aprovação explícita própria, independente da Fase 7 (cleanup local) e da Fase 10 (archive candidates). A aprovação da Fase 7 autoriza apenas cleanup local e worktrees — não autoriza deleção remota de nenhuma branch._
 
 - [ ] Verificar backup tag existe: `git tag --list 'backup/pre-cleanup/codex-media-card-system'`
+- [ ] Verificar SHA remoto ainda é `06104ba2`: `git ls-remote origin refs/heads/codex/media-card-system` — se diferente, PARAR e re-auditar
 - [ ] Executar `git push origin --delete codex/media-card-system`
 - [ ] Confirmar remoção: verificar que branch não aparece mais em `git branch -r`
 
@@ -114,20 +115,20 @@ _Esta fase requer aprovação explícita adicional, independente da Fase 7._
 
 - [ ] Aguardar segunda aprovação explícita do humano para esta fase
 - [ ] Confirmar que todas as tags de backup foram criadas antes de qualquer `push --delete`
-- [ ] Executar remoções individualmente ou por lote conforme aprovado:
+- [ ] Executar remoções do **lote seguro** (audit reports/docs sem conteúdo funcional identificado):
+  - [ ] Verificar SHA remoto antes de cada delete: `git ls-remote origin refs/heads/<branch>`
   - [ ] `git push origin --delete audit/weekly-report-4676327557888982331`
   - [ ] `git push origin --delete chore-audit-report-12176814106024817247`
   - [ ] `git push origin --delete claude/weekly-audit-report-2026-05-19`
   - [ ] `git push origin --delete codex/ghost-portfolio-hero-pr`
-  - [ ] `git push origin --delete codex/sobre-origin-a11y-fixes` (somente após inspeção Fase 5)
-  - [ ] `git push origin --delete codex/weekly-cleanup`
-  - [ ] `git push origin --delete docs/audit-beliefs-ghost-design-v3`
-  - [ ] `git push origin --delete docs/ghost-design-updates-12336613816235341544`
-  - [ ] `git push origin --delete fix/audit-remediation-phase1` (somente após inspeção Fase 5)
-  - [ ] `git push origin --delete worktree-audit-fixes`
-  - [ ] `git push origin --delete worktree-fix-06-que-me-move`
-  - [ ] `git push origin --delete worktree-responsive-video-plan`
-- [ ] Branches `unknown-risk` NÃO estão nesta fase — requerem aprovação individual própria
+- [ ] **NÃO deletar sem inspeção individual** — cada uma requer `git diff main...origin/<branch>` e decisão explícita:
+  - [ ] `codex/sobre-origin-a11y-fixes` — commits de a11y/Ghost Design; avaliar cherry-pick antes de deletar
+  - [ ] `codex/weekly-cleanup` — plano anterior: unknown-risk com alta contagem de commits; diff obrigatório
+  - [ ] `docs/audit-beliefs-ghost-design-v3` — unknown-ancestry†; alta divergência reportada; diff obrigatório
+  - [ ] `docs/ghost-design-updates-12336613816235341544` — unknown-ancestry†; diff obrigatório
+  - [ ] `fix/audit-remediation-phase1` — unknown-ancestry†; conteúdo funcional (cache headers, TypeScript, assets); diff obrigatório
+- [ ] Branches `unknown-risk` NÃO estão nesta fase — requerem aprovação individual própria:
+  - `worktree-audit-fixes`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan`
 
 ---
 
