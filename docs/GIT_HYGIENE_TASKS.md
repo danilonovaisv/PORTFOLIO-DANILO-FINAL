@@ -49,7 +49,7 @@ _Gerado em: 2026-06-21 | Repositório: danilonovaisv/PORTFOLIO-DANILO-FINAL_
 - [x] Classify local deletion candidates. → `claude/dazzling-euler-mp4s71` (candidata após fim da sessão, SHA idêntico a main)
 - [x] Classify remote deletion candidates. → `codex/media-card-system` (única confirmada merged)
 - [x] Classify orphaned worktrees. → Nenhuma detectada
-- [x] Classify unknown-risk items. → 3 branches: `claude/beautiful-rubin-MVYRs`, `claude/dazzling-euler-ZhWMf`, `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s`
+- [x] Classify unknown-risk items. → 8 branches: `claude/beautiful-rubin-MVYRs`, `claude/dazzling-euler-ZhWMf`, `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` (originais); `docs/audit-beliefs-ghost-design-v3`, `docs/ghost-design-updates-12336613816235341544` (reclassificadas de candidate-archive); `worktree-audit-fixes`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan`
 
 ---
 
@@ -57,11 +57,14 @@ _Gerado em: 2026-06-21 | Repositório: danilonovaisv/PORTFOLIO-DANILO-FINAL_
 
 Estas tarefas são seguras (somente leitura) mas ainda não executadas. Recomendadas antes da aprovação para cleanup.
 
-- [ ] Fetch `claude/beautiful-rubin-MVYRs` e inspecionar `git log --oneline main..origin/claude/beautiful-rubin-MVYRs` e `git diff --stat main...origin/claude/beautiful-rubin-MVYRs`
-- [ ] Fetch `claude/dazzling-euler-ZhWMf` e inspecionar diff vs main
+- [ ] Executar `git fetch origin main` para garantir base de comparação atualizada antes de qualquer diff/log
+- [ ] Fetch `claude/beautiful-rubin-MVYRs` e inspecionar `git log --oneline origin/main..origin/claude/beautiful-rubin-MVYRs` e `git diff --stat origin/main...origin/claude/beautiful-rubin-MVYRs`
+- [ ] Fetch `claude/dazzling-euler-ZhWMf` e inspecionar diff vs `origin/main`
 - [ ] Fetch `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` e inspecionar conteúdo
-- [ ] Fetch `codex/sobre-origin-a11y-fixes` e inspecionar diff vs main (prioridade: pode ter a11y útil)
-- [ ] Fetch `fix/audit-remediation-phase1` e inspecionar diff vs main (prioridade: pode ter fixes de segurança)
+- [ ] Fetch `codex/sobre-origin-a11y-fixes` e inspecionar diff vs `origin/main` (prioridade: pode ter a11y útil)
+- [ ] Fetch `fix/audit-remediation-phase1` e inspecionar diff vs `origin/main` (prioridade: pode ter fixes de segurança)
+- [ ] Fetch `audit/weekly-report-4676327557888982331` e inspecionar `git diff --stat origin/main...origin/audit/weekly-report-4676327557888982331` (prioridade: alta divergência de commits reportada — confirmar que é somente docs antes do lote)
+- [ ] Fetch `claude/weekly-audit-report-2026-05-19` e inspecionar diff vs `origin/main` (mesma prioridade que item acima)
 - [ ] Run `git worktree prune --dry-run` para verificar entradas stale de worktree
 - [ ] Verificar `firebase.json` e `.firebaserc` para confirmar que nenhuma branch candidata a remoção está associada a preview channel
 

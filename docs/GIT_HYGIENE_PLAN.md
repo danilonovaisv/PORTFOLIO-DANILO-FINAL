@@ -249,6 +249,10 @@ Todos os comandos listados na seção 3 foram executados em modo read-only.
 ### Fase 1 — Inspeção Adicional — `unknown-risk` (somente leitura, pré-aprovação)
 
 ```bash
+# Atualizar origin/main antes das inspeções — garante base de comparação correta
+# mesmo em clones onde main local está desatualizado ou ausente
+git fetch origin main
+
 # Fetch com refspecs explícitos para garantir criação de remote-tracking refs (origin/<branch>)
 # Sem isso, git log/diff com origin/<branch> pode ler refs stale ou falhar
 git fetch origin \
@@ -260,14 +264,18 @@ git fetch origin \
   "worktree-fix-06-que-me-move:refs/remotes/origin/worktree-fix-06-que-me-move" \
   "docs/audit-beliefs-ghost-design-v3:refs/remotes/origin/docs/audit-beliefs-ghost-design-v3" \
   "worktree-audit-fixes:refs/remotes/origin/worktree-audit-fixes" \
-  "worktree-responsive-video-plan:refs/remotes/origin/worktree-responsive-video-plan"
+  "worktree-responsive-video-plan:refs/remotes/origin/worktree-responsive-video-plan" \
+  "audit/weekly-report-4676327557888982331:refs/remotes/origin/audit/weekly-report-4676327557888982331" \
+  "claude/weekly-audit-report-2026-05-19:refs/remotes/origin/claude/weekly-audit-report-2026-05-19"
 
-# Inspecionar diffs após fetch
-git log --oneline main..origin/claude/beautiful-rubin-MVYRs
-git log --oneline main..origin/claude/dazzling-euler-ZhWMf
-git diff --stat main...origin/codex/sobre-origin-a11y-fixes
-git diff --stat main...origin/fix/audit-remediation-phase1
-git diff --stat main...origin/worktree-fix-06-que-me-move
+# Inspecionar diffs após fetch — comparar vs origin/main (atualizado acima)
+git log --oneline origin/main..origin/claude/beautiful-rubin-MVYRs
+git log --oneline origin/main..origin/claude/dazzling-euler-ZhWMf
+git diff --stat origin/main...origin/codex/sobre-origin-a11y-fixes
+git diff --stat origin/main...origin/fix/audit-remediation-phase1
+git diff --stat origin/main...origin/worktree-fix-06-que-me-move
+git diff --stat origin/main...origin/audit/weekly-report-4676327557888982331
+git diff --stat origin/main...origin/claude/weekly-audit-report-2026-05-19
 
 # Re-verificar merge-base agora que objetos estão localmente presentes
 # (diferencia exit 1 = not-ancestor de erro = objeto ausente)
@@ -277,7 +285,7 @@ for branch in claude/beautiful-rubin-MVYRs claude/dazzling-euler-ZhWMf \
   sha=$(git rev-parse --verify "refs/remotes/origin/$branch" 2>/dev/null)
   if [ -z "$sha" ]; then
     echo "FETCH-FAILED: $branch"
-  elif git merge-base --is-ancestor "$sha" main 2>/dev/null; then
+  elif git merge-base --is-ancestor "$sha" origin/main 2>/dev/null; then
     echo "MERGED: $branch ($sha)"
   else
     echo "NOT-MERGED: $branch ($sha)"
