@@ -97,9 +97,9 @@ _Executar somente após aprovação da Fase 7._
 
 ---
 
-## Phase 9 — Approved Execution: Remote Cleanup — Confirmed Merged (REQUIRES APPROVAL)
+## Phase 9 — Approved Execution: Remote Cleanup — Confirmed Merged (REQUIRES SEPARATE APPROVAL)
 
-_Executar somente após aprovação da Fase 7. Não requer aprovação separada da Fase 10._
+_Esta fase requer aprovação explícita própria, independente da Fase 7 (cleanup local) e da Fase 10 (archive candidates). A aprovação da Fase 7 autoriza apenas cleanup local e worktrees — não autoriza deleção remota de nenhuma branch._
 
 - [ ] Verificar backup tag existe: `git tag --list 'backup/pre-cleanup/codex-media-card-system'`
 - [ ] Executar `git push origin --delete codex/media-card-system`

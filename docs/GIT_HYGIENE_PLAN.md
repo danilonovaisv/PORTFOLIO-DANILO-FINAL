@@ -86,10 +86,12 @@ _Gerado em: 2026-06-21 | Auditor: Claude Code — Staff Git Operations Engineer_
 | `docs/ghost-design-updates-12336613816235341544` | `c5c18920` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
 | `fix/audit-remediation-phase1` | `2a7cc79f` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Inspecionar obrigatoriamente antes de arquivar — pode ter fixes de segurança (**REQUIRES APPROVAL**) |
 | `worktree-audit-fixes` | `4f158abe` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar — branch de worktree sem worktree associada (**REQUIRES APPROVAL**) |
-| `worktree-fix-06-que-me-move` | `561eec01` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
+| `worktree-fix-06-que-me-move` | `561eec01` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo motion-layer fixes com avaliação de merge pendente (**REQUIRES APPROVAL**) |
 | `worktree-responsive-video-plan` | `09aab7da` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
 
-_*NOT-MERGED via `git merge-base --is-ancestor`. Nota: repositório com grafted history em `6cf2dbbc` — resultado pode ser falso-negativo para squash-merges anteriores ao boundary. Tratar todos como `candidate-archive` (não `candidate-delete`) sem inspeção prévia._
+_*NOT-MERGED via `git merge-base --is-ancestor` para SHAs presentes localmente (confirmados por `git log --oneline <sha> -1`). Aplicável a: `audit/weekly-report-*`, `chore-audit-report-*`, `claude/weekly-audit-report-2026-05-19`, `codex/ghost-portfolio-hero-pr`, `codex/sobre-origin-a11y-fixes`, `codex/weekly-cleanup`. Nota: grafted history em `6cf2dbbc` pode gerar falsos-negativos para squash-merges anteriores ao boundary._
+
+_†unknown-ancestry: SHA não confirmado como presente localmente. `git merge-base --is-ancestor` pode ter saído com erro de objeto ausente (exit ≠ 1) em vez de "not ancestor" (exit 1). Tratar como `unknown-risk` até fetch e verificação explícita. Aplicável a: `docs/audit-beliefs-ghost-design-v3`, `docs/ghost-design-updates-*`, `fix/audit-remediation-phase1`, `worktree-audit-fixes`, `worktree-fix-06-que-me-move`, `worktree-responsive-video-plan`._
 
 ### 4.3 Ref Stale (Remote-tracking)
 
@@ -205,16 +207,40 @@ Todos os comandos listados na seção 3 foram executados em modo read-only.
 ### Fase 1 — Inspeção Adicional — `unknown-risk` (somente leitura, pré-aprovação)
 
 ```bash
-# Fetch sem prune para inspecionar conteúdo sem destruir nada
-git fetch origin claude/beautiful-rubin-MVYRs claude/dazzling-euler-ZhWMf \
-  danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s \
-  codex/sobre-origin-a11y-fixes fix/audit-remediation-phase1
+# Fetch com refspecs explícitos para garantir criação de remote-tracking refs (origin/<branch>)
+# Sem isso, git log/diff com origin/<branch> pode ler refs stale ou falhar
+git fetch origin \
+  "claude/beautiful-rubin-MVYRs:refs/remotes/origin/claude/beautiful-rubin-MVYRs" \
+  "claude/dazzling-euler-ZhWMf:refs/remotes/origin/claude/dazzling-euler-ZhWMf" \
+  "danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s:refs/remotes/origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" \
+  "codex/sobre-origin-a11y-fixes:refs/remotes/origin/codex/sobre-origin-a11y-fixes" \
+  "fix/audit-remediation-phase1:refs/remotes/origin/fix/audit-remediation-phase1" \
+  "worktree-fix-06-que-me-move:refs/remotes/origin/worktree-fix-06-que-me-move" \
+  "docs/audit-beliefs-ghost-design-v3:refs/remotes/origin/docs/audit-beliefs-ghost-design-v3" \
+  "worktree-audit-fixes:refs/remotes/origin/worktree-audit-fixes" \
+  "worktree-responsive-video-plan:refs/remotes/origin/worktree-responsive-video-plan"
 
-# Inspecionar diffs
+# Inspecionar diffs após fetch
 git log --oneline main..origin/claude/beautiful-rubin-MVYRs
 git log --oneline main..origin/claude/dazzling-euler-ZhWMf
 git diff --stat main origin/codex/sobre-origin-a11y-fixes
 git diff --stat main origin/fix/audit-remediation-phase1
+git diff --stat main origin/worktree-fix-06-que-me-move
+
+# Re-verificar merge-base agora que objetos estão localmente presentes
+# (diferencia exit 1 = not-ancestor de erro = objeto ausente)
+for branch in claude/beautiful-rubin-MVYRs claude/dazzling-euler-ZhWMf \
+  fix/audit-remediation-phase1 worktree-fix-06-que-me-move \
+  docs/audit-beliefs-ghost-design-v3 worktree-audit-fixes worktree-responsive-video-plan; do
+  sha=$(git rev-parse "refs/remotes/origin/$branch" 2>/dev/null)
+  if [ -z "$sha" ]; then
+    echo "FETCH-FAILED: $branch"
+  elif git merge-base --is-ancestor "$sha" main 2>/dev/null; then
+    echo "MERGED: $branch ($sha)"
+  else
+    echo "NOT-MERGED: $branch ($sha)"
+  fi
+done
 
 # Worktree prune dry-run
 git worktree prune --dry-run
@@ -223,9 +249,27 @@ git worktree prune --dry-run
 ### Fase 2 — Backup (REQUIRES APPROVAL)
 
 ```bash
+# 1. Fetch todas as branches candidatas a remoção ANTES do bundle
+# git bundle --all só empacota refs presentes localmente; branches não fetchadas não são incluídas
+git fetch origin \
+  "audit/weekly-report-4676327557888982331:refs/remotes/origin/audit/weekly-report-4676327557888982331" \
+  "chore-audit-report-12176814106024817247:refs/remotes/origin/chore-audit-report-12176814106024817247" \
+  "claude/weekly-audit-report-2026-05-19:refs/remotes/origin/claude/weekly-audit-report-2026-05-19" \
+  "codex/ghost-portfolio-hero-pr:refs/remotes/origin/codex/ghost-portfolio-hero-pr" \
+  "codex/sobre-origin-a11y-fixes:refs/remotes/origin/codex/sobre-origin-a11y-fixes" \
+  "codex/weekly-cleanup:refs/remotes/origin/codex/weekly-cleanup" \
+  "docs/audit-beliefs-ghost-design-v3:refs/remotes/origin/docs/audit-beliefs-ghost-design-v3" \
+  "docs/ghost-design-updates-12336613816235341544:refs/remotes/origin/docs/ghost-design-updates-12336613816235341544" \
+  "fix/audit-remediation-phase1:refs/remotes/origin/fix/audit-remediation-phase1" \
+  "worktree-audit-fixes:refs/remotes/origin/worktree-audit-fixes" \
+  "worktree-fix-06-que-me-move:refs/remotes/origin/worktree-fix-06-que-me-move" \
+  "worktree-responsive-video-plan:refs/remotes/origin/worktree-responsive-video-plan"
+
+# 2. Criar bundle (agora inclui todos os objetos fetchados acima)
 mkdir -p .git-hygiene-backup
 git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
-# Criar tags de backup conforme seção 8
+
+# 3. Criar tags de backup conforme seção 8
 ```
 
 ### Fase 3 — Cleanup Local (REQUIRES APPROVAL)
