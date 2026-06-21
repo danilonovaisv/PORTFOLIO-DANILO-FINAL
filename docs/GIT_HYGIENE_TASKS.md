@@ -71,6 +71,7 @@ Estas tarefas são seguras (somente leitura) mas ainda não executadas. Recomend
 
 - [ ] Confirmar localização de armazenamento para bundle: `.git-hygiene-backup/`
 - [ ] Executar `mkdir -p .git-hygiene-backup`
+- [ ] **Antes do bundle:** fetch de todas as branches candidatas com refspecs explícitos (ver Fase 2 do `GIT_HYGIENE_PLAN.md`) — `git bundle --all` só empacota refs presentes localmente; branches não fetchadas serão omitidas do backup
 - [ ] Executar `git bundle create .git-hygiene-backup/pre-cleanup-<timestamp>.bundle --all`
 - [ ] Criar tags de backup para as 13 branches candidatas (ver SHA Map na seção 8 do `GIT_HYGIENE_PLAN.md`)
 - [ ] Confirmar que tags foram criadas: `git tag --list 'backup/pre-cleanup/*'`

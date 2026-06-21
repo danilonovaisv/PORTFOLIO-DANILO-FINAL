@@ -85,9 +85,9 @@ _Gerado em: 2026-06-21 | Auditor: Claude Code — Staff Git Operations Engineer_
 | `docs/audit-beliefs-ghost-design-v3` | `2444b35b` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar — design docs históricos (**REQUIRES APPROVAL**) |
 | `docs/ghost-design-updates-12336613816235341544` | `c5c18920` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
 | `fix/audit-remediation-phase1` | `2a7cc79f` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Inspecionar obrigatoriamente antes de arquivar — pode ter fixes de segurança (**REQUIRES APPROVAL**) |
-| `worktree-audit-fixes` | `4f158abe` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar — branch de worktree sem worktree associada (**REQUIRES APPROVAL**) |
+| `worktree-audit-fixes` | `4f158abe` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo RLS rules, audit fixes e TypeScript changes (**REQUIRES APPROVAL**) |
 | `worktree-fix-06-que-me-move` | `561eec01` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — referenciada em outros docs como contendo motion-layer fixes com avaliação de merge pendente (**REQUIRES APPROVAL**) |
-| `worktree-responsive-video-plan` | `09aab7da` | (não fetchado localmente) | NOT-MERGED* | nenhum | não | `candidate-archive` | Arquivar (**REQUIRES APPROVAL**) |
+| `worktree-responsive-video-plan` | `09aab7da` | (não fetchado localmente) | unknown-ancestry† | nenhum | não | `unknown-risk` | Preservar até inspeção manual — docs de projeto indicam fixes de video responsivo (Firefox/Safari source selection) com avaliação de merge pendente (**REQUIRES APPROVAL**) |
 
 _*NOT-MERGED via `git merge-base --is-ancestor` para SHAs presentes localmente (confirmados por `git log --oneline <sha> -1`). Aplicável a: `audit/weekly-report-*`, `chore-audit-report-*`, `claude/weekly-audit-report-2026-05-19`, `codex/ghost-portfolio-hero-pr`, `codex/sobre-origin-a11y-fixes`, `codex/weekly-cleanup`. Nota: grafted history em `6cf2dbbc` pode gerar falsos-negativos para squash-merges anteriores ao boundary._
 
@@ -223,16 +223,16 @@ git fetch origin \
 # Inspecionar diffs após fetch
 git log --oneline main..origin/claude/beautiful-rubin-MVYRs
 git log --oneline main..origin/claude/dazzling-euler-ZhWMf
-git diff --stat main origin/codex/sobre-origin-a11y-fixes
-git diff --stat main origin/fix/audit-remediation-phase1
-git diff --stat main origin/worktree-fix-06-que-me-move
+git diff --stat main...origin/codex/sobre-origin-a11y-fixes
+git diff --stat main...origin/fix/audit-remediation-phase1
+git diff --stat main...origin/worktree-fix-06-que-me-move
 
 # Re-verificar merge-base agora que objetos estão localmente presentes
 # (diferencia exit 1 = not-ancestor de erro = objeto ausente)
 for branch in claude/beautiful-rubin-MVYRs claude/dazzling-euler-ZhWMf \
   fix/audit-remediation-phase1 worktree-fix-06-que-me-move \
   docs/audit-beliefs-ghost-design-v3 worktree-audit-fixes worktree-responsive-video-plan; do
-  sha=$(git rev-parse "refs/remotes/origin/$branch" 2>/dev/null)
+  sha=$(git rev-parse --verify "refs/remotes/origin/$branch" 2>/dev/null)
   if [ -z "$sha" ]; then
     echo "FETCH-FAILED: $branch"
   elif git merge-base --is-ancestor "$sha" main 2>/dev/null; then
