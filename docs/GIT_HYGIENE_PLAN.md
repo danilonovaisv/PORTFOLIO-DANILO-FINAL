@@ -167,6 +167,22 @@ git tag backup/pre-cleanup/fix-audit-remediation-phase1       2a7cc79f
 git tag backup/pre-cleanup/worktree-audit-fixes               4f158abe
 git tag backup/pre-cleanup/worktree-fix-06-que-me-move        561eec01
 git tag backup/pre-cleanup/worktree-responsive-video-plan     09aab7da
+
+# Publicar tags de backup no remoto — obrigatório antes de qualquer push --delete
+# Em clones efêmeros, tags locais são perdidas ao fim da sessão; tags remotas garantem recuperação
+git push origin refs/tags/backup/pre-cleanup/codex-media-card-system
+git push origin refs/tags/backup/pre-cleanup/audit-weekly-report
+git push origin refs/tags/backup/pre-cleanup/chore-audit-report
+git push origin refs/tags/backup/pre-cleanup/claude-weekly-audit-2026-05-19
+git push origin refs/tags/backup/pre-cleanup/codex-ghost-portfolio-hero-pr
+git push origin refs/tags/backup/pre-cleanup/codex-sobre-origin-a11y-fixes
+git push origin refs/tags/backup/pre-cleanup/codex-weekly-cleanup
+git push origin refs/tags/backup/pre-cleanup/docs-audit-beliefs-ghost-v3
+git push origin refs/tags/backup/pre-cleanup/docs-ghost-design-updates
+git push origin refs/tags/backup/pre-cleanup/fix-audit-remediation-phase1
+git push origin refs/tags/backup/pre-cleanup/worktree-audit-fixes
+git push origin refs/tags/backup/pre-cleanup/worktree-fix-06-que-me-move
+git push origin refs/tags/backup/pre-cleanup/worktree-responsive-video-plan
 ```
 
 ### SHA Map Completo
@@ -299,11 +315,22 @@ git push origin --delete codex/media-card-system
 
 ```bash
 # LOTE SEGURO: audit reports e docs históricos — NOT-MERGED* confirmado, sem conteúdo funcional identificado
-# Para cada branch: verificar SHA remoto antes de deletar (git ls-remote origin refs/heads/<branch>)
-git push origin --delete audit/weekly-report-4676327557888982331
-git push origin --delete chore-audit-report-12176814106024817247
-git push origin --delete claude/weekly-audit-report-2026-05-19
-git push origin --delete codex/ghost-portfolio-hero-pr
+# Verificar SHA remoto vs auditado antes de cada delete; abortar se divergir (proteção contra commits pós-auditoria)
+declare -A expected_shas=(
+  ["audit/weekly-report-4676327557888982331"]="af752857"
+  ["chore-audit-report-12176814106024817247"]="632024b4"
+  ["claude/weekly-audit-report-2026-05-19"]="942afc1f"
+  ["codex/ghost-portfolio-hero-pr"]="bb1fbe0a"
+)
+for branch in "${!expected_shas[@]}"; do
+  expected="${expected_shas[$branch]}"
+  actual=$(git ls-remote origin "refs/heads/$branch" | cut -f1 | head -c8)
+  if [ "$actual" != "$expected" ]; then
+    echo "SHA MISMATCH em $branch: remoto=$actual esperado=$expected — ABORTAR e re-auditar"
+    exit 1
+  fi
+  git push origin --delete "$branch"
+done
 
 # NÃO INCLUIR NO LOTE — REQUEREM INSPEÇÃO INDIVIDUAL ANTES DE QUALQUER AÇÃO:
 #   codex/sobre-origin-a11y-fixes       → commits de a11y/Ghost Design com valor funcional; diff obrigatório

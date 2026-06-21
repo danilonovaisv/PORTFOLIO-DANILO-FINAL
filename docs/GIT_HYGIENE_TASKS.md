@@ -57,7 +57,7 @@ _Gerado em: 2026-06-21 | Repositório: danilonovaisv/PORTFOLIO-DANILO-FINAL_
 
 Estas tarefas são seguras (somente leitura) mas ainda não executadas. Recomendadas antes da aprovação para cleanup.
 
-- [ ] Fetch `claude/beautiful-rubin-MVYRs` e inspecionar `git log --oneline main..origin/claude/beautiful-rubin-MVYRs` e `git diff --stat main origin/claude/beautiful-rubin-MVYRs`
+- [ ] Fetch `claude/beautiful-rubin-MVYRs` e inspecionar `git log --oneline main..origin/claude/beautiful-rubin-MVYRs` e `git diff --stat main...origin/claude/beautiful-rubin-MVYRs`
 - [ ] Fetch `claude/dazzling-euler-ZhWMf` e inspecionar diff vs main
 - [ ] Fetch `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` e inspecionar conteúdo
 - [ ] Fetch `codex/sobre-origin-a11y-fixes` e inspecionar diff vs main (prioridade: pode ter a11y útil)
@@ -75,6 +75,7 @@ Estas tarefas são seguras (somente leitura) mas ainda não executadas. Recomend
 - [ ] Executar `git bundle create .git-hygiene-backup/pre-cleanup-<timestamp>.bundle --all`
 - [ ] Criar tags de backup para as 13 branches candidatas (ver SHA Map na seção 8 do `GIT_HYGIENE_PLAN.md`)
 - [ ] Confirmar que tags foram criadas: `git tag --list 'backup/pre-cleanup/*'`
+- [ ] **Publicar tags no remoto** (obrigatório antes de qualquer `push --delete` — tags locais são perdidas em clones efêmeros): `git push origin 'refs/tags/backup/pre-cleanup/*'`
 - [ ] Confirmar que bundle existe no disco e tem tamanho > 0
 
 ---
