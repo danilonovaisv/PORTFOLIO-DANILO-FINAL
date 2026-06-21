@@ -63,7 +63,7 @@ _Gerado em: 2026-06-21 | Auditor: Claude Code — Staff Git Operations Engineer_
 
 | Branch | Status | SHA | Data Último Commit | Autor | Upstream | Ahead/Behind | PR | Merge Status | Classificação | Evidência | Ação Proposta |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| `claude/dazzling-euler-mp4s71` | **CURRENT** | `14869153` | 2026-06-15 | danilonovaisv | nenhum | — | nenhum | Idêntico a `main` | `active` | Preservar durante sessão; candidata a delete-local após merge final |
+| `claude/dazzling-euler-mp4s71` | **CURRENT** | `14869153` | 2026-06-15 | danilonovaisv | nenhum | — | nenhum | Idêntico a `main` | `active` | `git status --branch` + SHA coincide com `origin/main` | Preservar durante sessão; candidata a delete-local após merge final |
 | `main` | local | `14869153` | 2026-06-15 | danilonovaisv | `origin/main` | 0/0 | — | — | `protected` | Branch padrão, protection ativa no GitHub | Preservar sempre |
 
 ### 4.2 Branches Remotas

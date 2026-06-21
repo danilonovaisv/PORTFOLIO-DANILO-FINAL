@@ -145,17 +145,19 @@ _Esta fase requer aprovação explícita adicional, independente da Fase 7._
 
 ## Phase 12 — Confirmation and Documentation
 
-- [ ] Gerar `docs/GIT_HYGIENE_WALKTHROUGH.md` com:
+> **Precondição:** Esta fase documenta o resultado das fases executadas. Se apenas as Fases 8–9 foram aprovadas (sem Fase 10), gerar o walkthrough refletindo o estado parcial — não aguardar a Fase 10 para documentar.
+
+- [ ] **Phase 12.1 (após qualquer execução aprovada):** Gerar `docs/GIT_HYGIENE_WALKTHROUGH.md` documentando o estado real alcançado. Se a Fase 10 foi diferida ou negada, registrar explicitamente quais fases foram executadas e quais permanecem pendentes:
   - estado inicial (capturado nesta auditoria)
-  - plano aprovado
+  - plano aprovado (fases executadas vs. diferidas)
   - evidências de backup
   - comandos executados
   - branches preservadas, arquivadas, deletadas
   - worktrees removidas e preservadas
   - resultados de validação
   - comandos de rollback
-  - estado final
-- [ ] Documentar política futura de branches (ver seção abaixo)
+  - estado final (parcial ou completo, conforme o caso)
+- [ ] **Phase 12.2 (independente de 12.1):** Documentar política futura de branches (ver seção abaixo)
 - [ ] Decidir se `.context/DOCS-PORTFOLIO-PAGES` precisa de atualização (impacto: nenhum identificado — cleanup não altera rotas ou componentes)
 - [ ] Commit dos artefatos de documentação desta auditoria: `docs/GIT_HYGIENE_PLAN.md`, `docs/GIT_HYGIENE_TASKS.md`
 
