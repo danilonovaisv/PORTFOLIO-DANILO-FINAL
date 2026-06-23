@@ -2,86 +2,92 @@
 
 ## 0. Metadata
 
-- **Date:** 2026-06-09
-- **Repository:** `danilonovaisv/portfolio-danilo-final`
-- **Branch at Audit Time:** `claude/beautiful-rubin-awlalm`
-- **Audit Branch (documental):** `claude/weekly-audit-report-2026-06-09`
-- **Routine:** Weekly Audit — Ghost System Portfolio
-- **Commit at Audit Time:** `940e0a6911bb6ec9551e5a976e81e2432ecc07e0`
-- **PR:** _Pending creation after commit_
-- **Auditor:** Claude Code — Ghost Commander Routine (read-only)
-- **Scope:** Pilares 1–12: Arquitetura, Design System, Responsividade, Animação, Performance, Roteamento, Interações, Landing Pages, Dados CMS, Segurança Operacional, Firebase/Supabase Hosting, Acessibilidade
-- **Files changed by this routine:** `WEEKLY_AUDIT_REPORT.md` (único)
-- **Approval status:** Pending human approval
-- **Nota sobre tamanho do arquivo:** Este relatório de auditoria tem 600+ linhas. A regra de 500 linhas do CLAUDE.md se aplica a arquivos de código-fonte (`src/`). Documentos de auditoria gerados por rotinas autônomas em `WEEKLY_AUDIT_REPORT.md` estão isentos dessa restrição por natureza e necessidade de rastreabilidade.
+| Campo | Valor |
+|---|---|
+| **Date** | 2026-06-23 |
+| **Repository** | danilonovaisv/portfolio-danilo-final |
+| **Branch** | claude/beautiful-rubin-8duvkb |
+| **Routine** | weekly-portfolio-audit |
+| **Commit HEAD** | 14869153 |
+| **PR** | Criado nesta execução |
+| **Auditor** | Claude Code Routine — Ghost System Audit |
+| **Scope** | 9 pilares + segurança operacional, Firebase, acessibilidade |
+| **Files changed** | 1 (apenas WEEKLY_AUDIT_REPORT.md) |
+| **Approval status** | Pending human approval |
 
 ---
 
 ## 1️⃣ Visão Geral
 
-O repositório está em estado **funcional com alertas de manutenção identificados**. O build mais recente (2026-05-22, Next.js 16.2.7 via Webpack, pnpm 11.5.1) passou com exit code 0 em `build-check`, `lint`, `typecheck` e `jest`. A stack principal — Tailwind v4.3.0, React 19.2.7, React Three Fiber 9.6.1, Three.js 0.184.0, Motion 12.40.0, Supabase SSR, Firebase Hosting via webframeworks experiment — está operacional e consistente.
+O repositório está em estado **operacional estável**, sem bloqueios críticos de produção identificados na análise estática. A arquitetura Next.js 16.2.9 com App Router está bem estruturada, o Ghost Design System está coerente nos tokens CSS, e a estratégia de ISR/SSG está implementada conforme o esperado (homepage `revalidate=3600`, about `force-static`, portfolio `revalidate=3600`, admin `force-dynamic`).
 
-**Página `/`:** Estrutura em 8 sessões conforme SSOT. O `HomeHero` usa `GhostSceneWrapper` com `ssr: false`, `aria-hidden="true"`, `useMotionGate()` para reduced motion, e fallback para dispositivos sem WebGL. Realtime de projetos via `FeaturedProjectsRealtime` com polling de 45s e canal Supabase Realtime. Design tokens Ghost Blue `#0048ff` e ease `cubic-bezier(0.22, 1, 0.36, 1)` presentes em `globals.css`. `std-grid` com `max-width: 1680px` e `padding-left: 4rem` desktop implementado.
+### Páginas auditadas
 
-**Página `/sobre`:** 6 seções exportadas (`AboutHero`, `AboutOrigin`, `AboutWhatIDo`, `AboutMethod`, `AboutClosing`, `ManifestoScrollSection`). Usa `force-static`, `Suspense` com `SectionSkeleton` per-section. ManifestoScrollSection integra `ShaderLines` WebGL com aria-live announcer para leitores de tela e `prefers-reduced-motion` fallback.
+**Home (`/`):** Estrutura de camadas estratificada correta: gradiente base → texto (z-layer-content) → WebGL (z-layer-3d) → CTA (z-layer-cta). Preloader com AnimatePresence presente. WebGL gating com `useWebGLSupport()` e variável `NEXT_PUBLIC_DISABLE_3D` implementados. ISR 1 hora ativo.
 
-**Página `/portfolio`:** `revalidate = 3600`, SSR + paginação `PORTFOLIO_PAGE_SIZE` via Supabase, `PortfolioClient` com filtros de categoria. Modal `PortfolioModal` para projetos sem landing page. Commit recente (c3ffed23) corrigiu 403 nos thumbnails de cartões via Supabase render path.
+**Sobre (`/sobre`):** `force-static` correto. Oito seções confirmadas (Hero, Origin, WhatIDo, Method, ManifestoScroll, Proof, Closing, StickyContactCTA + SiteClosure). Estrutura alinhada com SSOT em `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/`.
 
-**Página `/portfolio/[slug]`:** `dynamic = 'force-dynamic'`. Dados de projeto via `createStaticClient`. Suporte a blocos de conteúdo JSON (`text`, `video_youtube`). `ReactMarkdown` para corpo de texto.
+**Portfolio (`/portfolio`):** Paginação (15 projetos/página), filtro por categoria (branding/creative/motion/web), metadata dinâmica por categoria, ISR 1 hora. Estrutura alinhada com SSOT.
 
-**Página `/admin`:** Protegida por middleware Supabase SSR + `isAdminUser()` com verificação de `role` em `app_metadata` (não `user_metadata`). Roles aceitos: `admin`, `owner`, `super_admin`, `editor`; há fallback por `ADMIN_ALLOWED_EMAILS`. Layout em `(protected)` e `(auth)`. 12+ sub-rotas com CRUD completo via Server Actions.
+**Admin (`/admin`):** Route groups `(auth)` e `(protected)` presentes. CRUD completo para projetos, tags, mídia e landing pages. `force-dynamic` em config page. `revalidatePath` chamado corretamente em Server Actions após mutações.
 
-**Fator de risco operacional ativo:** O audit de predeploy confirma **42 links legados quebrados** em `src/config/site-assets.json`. Este número vem do log da `active_state.md` ("Predeploy audit still reports 42 pre-existing broken legacy asset links"). Nenhuma ação de correção foi tomada ainda e o risco de renderização visual quebrada em tempo de execução é real.
+**Portfolio Slug (`/portfolio/[slug]`):** Rota dinâmica presente. Templates de projeto (master-v2, alpa) com `std-grid` em uso.
+
+### Estado do Design System
+
+Tokens de cor corretamente definidos em `globals.css` via `@theme {}`:
+- `--color-bluePrimary: #0048ff` ✅
+- `--color-background: #040013` ✅
+- `--ease-ghost: cubic-bezier(0.22, 1, 0.36, 1)` ✅
+
+Hierarquia de z-index com 16 layers nomeados, alinhada com Ghost DS §1.3 v3.2 ✅.
+
+Grid `.std-grid` com max-width 1680px aplicado em 44 instâncias no codebase ✅.
+
+**Divergências encontradas:** 3 violações de motion (scale), 1 inconsistência crítica de documentação de regras, 1 risco de segurança com SVGs, e 1 problema operacional com testes E2E.
 
 ---
 
 ## 2️⃣ Diagnóstico por Seção
 
-### Home Hero (`HomeHero`, `GhostSceneWrapper`, `HeroCopy`, `HeroCTA`)
-- ✅ `aria-hidden="true"` + `role="presentation"` no wrapper do Canvas
-- ✅ Fallback gradient `radial-gradient` para mobile/reduced motion
-- ✅ `useMotionGate()` integrado; WebGL desativado se `shouldReduceMotion`
-- ✅ `useWebGLSupport()` para detecção de capacidade
-- ✅ `z-[var(--z-layer-3d)]` = `z-30` conforme SSOT
-- ✅ `min-h-[100svh]` com `overflow-hidden isolate`
-- ⚠ Preloader de 500ms fixo — se assets demorarem, conteúdo aparece antes do 3D estar pronto
+### Home Hero
+- **Layering:** Correto. z-layer-base → z-layer-content → z-layer-3d → z-layer-cta.
+- **WebGL:** `GhostSceneWrapper.tsx` usa `aria-hidden="true"` e `ssr: false` via dynamic import. ✅
+- **Motion Entry (CTA):** `ctaVariants` em `src/lib/motion/hero.ts` usa `scale: 0.97` no estado hidden. Violação do Ghost DS (scale proibido).
+- **Preloader:** AnimatePresence presente. Inferido como correto.
+- **Mobile:** `useMediaQuery('(min-width: 1024px)')` para condicionar WebGL ao desktop. ✅
 
-### Manifesto / VideoManifesto
-- ✅ Carregamento dinâmico (`dynamic(() => import(...))`)
-- ✅ `ManifestoScrollSection` em `/sobre` com `aria-live="polite"` para leitores de tela
-- ✅ `prefers-reduced-motion` desativa animações de caractere no manifesto
-- ✅ Shader de fundo fixo com `z-0` (sem conflito de stacking context)
+### Video Manifesto
+- Presente como componente `VideoManifesto` na ordem correta da homepage.
+- Sem evidências de violação de motion identificadas na análise estática.
 
-### Featured Projects (`FeaturedProjectsRealtime`, `FeaturedProjectsSection`, `FeaturedProjectCard`)
-- ✅ Grid Bento com `FEATURED_GRID_LAYOUT` 5col+7col / 12col / 8col+4col (12 colunas)
-- ✅ Polling a 45_000ms com canal Supabase Realtime como fallback
-- ✅ Skeleton de carregamento via `FeaturedProjectsSkeleton`
-- ✅ `min-h-[420px] lg:min-h-[520px]` garante alturas mínimas coerentes em cards
-- ⚠ Cards na mesma linha usam `min-h` mas não `h-full` explícito; alinhamento exato depende de conteúdo variável no CMS — risco de desalinhamento vertical se título/client for muito longo em um card
+### Portfolio Showcase / Featured Projects
+- `FeaturedProjectsRealtime.tsx` conectado ao Supabase Realtime. ✅
+- `FeaturedProjectCard.tsx` usa IntersectionObserver, timer de rotação de background, `useMotionGate()`. ✅
+- Sem violações de motion identificadas nos arquivos lidos.
 
 ### About Origin / Method / What I Do
-- ✅ `force-static` + `Suspense` com skeleton por seção
-- ✅ `SectionSkeleton` com `aria-busy="true"` durante carregamento
-- ⚠ `AboutClosing.tsx` — vídeo de encerramento incondicional (sem `hasVideoError`); poster HTML5 como fallback nativo. Correto conforme active_state.md, mas sem monitoramento de falha de mídia.
+- Oito seções completas presentes em `src/components/sobre/sections/`.
+- `ManifestoScrollSection.tsx` presente. `StickyContactCTA.tsx` presente.
 
 ### Portfolio Grid / Project Detail
-- ✅ Paginação `PORTFOLIO_PAGE_SIZE` (15pp) via Supabase com `listProjectsPaged`
-- ✅ `ProjectCard` com `PortfolioModal` para projetos sem landing page
-- ✅ `PortfolioHeroNew.tsx` validado em full bleed 0→viewport
-- ⚠ `dynamic = 'force-dynamic'` em `/portfolio/[slug]` implica SSR completo a cada request sem cache — consultar possibilidade de `revalidate` ou ISR se o conteúdo for semi-estático
+- `PortfolioClient.tsx` separado para interatividade no cliente. ✅
+- Templates `master-v2` e `alpa` usam `std-grid` corretamente.
+- `ProjectTemplateMasterRenderer.tsx` usa `std-grid` em 4 pontos confirmados.
 
 ### Admin
-- ✅ Middleware Supabase SSR com `isAdminUser()` + redirect para login
-- ✅ Server Actions em rotas protegidas com verificação de `role: 'admin'`
-- ✅ `SUPABASE_SERVICE_ROLE_KEY` apenas server-side (não exposto via NEXT_PUBLIC_)
-- ⚠ `copy-agent` e `scene-generator` dependem de `OPENAI_API_KEY` configurado no banco via `/admin/settings` — se não configurado, ações retornam mensagem de erro sem crash, mas experiência de usuário fica degradada sem indicação visual proativa
+- Estrutura de route groups correta. Server Actions com `revalidatePath` em landing-pages e mídia. ✅
+- `force-dynamic` em config page. Supabase e Firebase integrados.
 
-### Contact Form (`ContactForm`, `ContactSection`)
-- ✅ Cloudflare Turnstile integrado com lazy load via IntersectionObserver (margem 240px)
-- ✅ Resend API para dispatch de email (`RESEND_API_KEY`)
-- ✅ `useMotionGate()` aplicado às animações de entrada
-- ✅ Validação client-side de campos antes de submit
-- ✅ Rate limiting server-side via IP em memória (`isRateLimited`, 5 req/60s, `Map` local) — detalhes e risco de non-durability entre instâncias serverless em P2-003
+### Contact Form
+- Cloudflare Turnstile carregado lazily via IntersectionObserver. ✅
+- Submit via `/api/contact` (interno). CSP permite `formsubmit.co` que pode ser desnecessário.
+
+### Global CSS / Design System
+- **Problema:** Z-index CSS vars duplicadas em `@theme {}` (linhas 61-79) e `:root {}` (linhas 116-135). Risco de conflito de precedência em Tailwind v4.
+- **Problema:** `--font-family-outfit` marcado como `@deprecated` ainda presente.
+- **Violação Ghost DS:** `.touch-feedback:active { transform: scale(0.97); }` (linha 483) — scale proibido.
+- **Violação Ghost DS:** `@keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }` — translateX efetivo, proibido pela regra de motion.
 
 ---
 
@@ -89,587 +95,417 @@ O repositório está em estado **funcional com alertas de manutenção identific
 
 ### 🔴 P0 Crítico
 
----
-
-**ID:** P0-001
-**Severidade:** 🔴 Crítico
-**Área:** Assets / CMS
-**Evidência:** `active_state.md` linha: _"Predeploy audit still reports 42 pre-existing broken legacy asset links in `src/config/site-assets.json`"_. Arquivo tem 4835 linhas e 632 ocorrências do campo `file_url`. Script de auditoria primário: `scripts/audit_assets.py` (audita assets gerais); nota: `scripts/verify-supabase-assets.mjs` verifica apenas URLs de vídeo MP4 via `src/lib/video-assets.ts` e **não** cobre `site-assets.json`. Ambos detectam problemas com warning, mas não bloqueiam o build.
-**Impacto:** Imagens e vídeos com URLs quebradas retornam falhas silenciosas em runtime (404 do Supabase Storage), resultando em seções da home com visuais ausentes para usuários finais.
-**Arquivos relacionados:** `src/config/site-assets.json`, `scripts/audit_assets.py`, `scripts/verify-supabase-assets.mjs`
-**Risco de não corrigir:** Degradação visual permanente em produção. Afeta showcase de trabalhos, seções de clientes e hero da home se algum asset crítico for referenciado via URL quebrada.
-**Critério de aceite futuro:** `scripts/audit_assets.py` retorna exit code 0 sem warnings de broken assets (atualmente sai com exit 0 mesmo ao detectar erros — esse comportamento precisa ser corrigido para bloquear CI). Todos os 42 links devem resolver HTTP 200 no Supabase Storage.
-
----
-
-**ID:** P0-002
-**Severidade:** 🔴 Crítico
-**Área:** Segurança / CSP
-**Evidência:** `/src/app/api/view-cv/route.ts:13` define header `Content-Security-Policy` inline com `'unsafe-eval'` e `https://*` irrestrito para uma rota que serve HTML estático de um currículo.
-```typescript
-'Content-Security-Policy':
-  "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*; img-src 'self' data: https://*;"
-```
-**Impacto:** O HTML do currículo (`public/CURRICULUM-2026.html`) é servido com uma CSP extremamente permissiva que neutraliza as proteções XSS globais do `next.config.mjs`. Qualquer conteúdo injetado neste documento pode executar código arbitrário.
-**Arquivos relacionados:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`, `next.config.mjs`
-**Risco de não corrigir:** Vetor XSS em rota pública com CSP comprometida. OWASP A03 — Injection.
-**Critério de aceite futuro:** Header CSP em `/api/view-cv` remove `'unsafe-eval'` e restringe `https://*` para apenas domínios necessários. A rota serve um arquivo HTML estático — não requer `eval` em nenhum cenário legítimo.
+**ID:** P0-01
+**Severidade:** 🔴 P0 Crítico — Segurança
+**Área:** Configuração Next.js / Segurança de Imagens
+**Evidência:** `next.config.mjs:299` — `dangerouslyAllowSVG: true` sem Content Security Policy de sandbox para o Image Optimizer. A propriedade `contentSecurityPolicy` que deveria acompanhar `dangerouslyAllowSVG` foi comentada com nota "Movido para headers globais", mas os headers globais não fornecem sandbox isolada para SVGs processados pelo `/next/image/`.
+**Impacto:** SVGs maliciosos armazenados no Supabase Storage e servidos via `next/image` podem executar JavaScript no contexto de `portfoliodanilo.com` (vetor de XSS via asset upload).
+**Arquivos relacionados:** `next.config.mjs:299-300`
+**Risco de não corrigir:** Se um asset SVG comprometido for enviado ao Supabase Storage e servido via `next/image`, pode executar scripts no contexto da origem do site.
+**Critério de aceite futuro:** Reativar `contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"` em `images.contentSecurityPolicy`, ou implementar validação de conteúdo SVG antes do upload no Admin.
 
 ---
 
 ### 🟡 P1 Estrutural
 
----
-
-**ID:** P1-001
-**Severidade:** 🟡 Estrutural
-**Área:** Documentação de Agente / Regras
-**Evidência:** `.claude/rules/README-POSTCSS.md` e `.claude/rules/postcss-tailwind-config.md` declaram explicitamente `"NUNCA USE: @tailwindcss/postcss"` e instrução de downgrade para `tailwindcss@3.4.19`. O projeto usa corretamente `@tailwindcss/postcss: ^4.3.0`, `tailwindcss: 4.3.0` e `@import 'tailwindcss'` no globals.css, que é a sintaxe correta para Tailwind v4.
-**Impacto:** Um agente autônomo que seguir essas regras irá degradar o projeto de v4 para v3, quebrando o build e os tokens CSS definidos em `@theme`.
-**Arquivos relacionados:** `.claude/rules/README-POSTCSS.md`, `.claude/rules/postcss-tailwind-config.md`, `postcss.config.cjs`, `src/app/globals.css`
-**Risco de não corrigir:** Alto risco de regressão em sessões de agente autônomo.
-**Critério de aceite futuro:** Regras atualizadas refletem stack real: Tailwind v4 com `@tailwindcss/postcss`, `@import 'tailwindcss'`, e `@source` explícitos. Conteúdo antigo de v3 removido.
+**ID:** P1-01
+**Severidade:** 🟡 P1 Estrutural — Qualidade e Débito Técnico
+**Área:** Build / TypeScript
+**Evidência:** `next.config.mjs:303-305` — `typescript: { ignoreBuildErrors: true }` ativo.
+**Impacto:** Erros de tipo são silenciados no build de produção. Regressões de tipo nunca bloqueiam deploy, mascarando potenciais bugs em runtime.
+**Arquivos relacionados:** `next.config.mjs:303`
+**Risco de não corrigir:** Deploy de código com erros de tipo sem visibilidade. Acúmulo de débito técnico crescente.
+**Critério de aceite futuro:** Remover `ignoreBuildErrors: true`. Corrigir todos os erros de tipo até `pnpm typecheck` passar limpo. Configurar CI para falhar em erros de tipo.
 
 ---
 
-**ID:** P1-002
-**Severidade:** 🟡 Estrutural
-**Área:** Organização de Arquivos / Governança
-**Evidência:** Os seguintes arquivos estão na raiz do projeto, violando a regra "NEVER save to root folder" do CLAUDE.md: `implementation_plan.md`, `task.md`, `temp_report.md`, `package.json.bak`.
-**Impacto:** Poluição do diretório raiz, possível conflito com scripts que listam arquivos, confusão entre artefatos de agente e documentação oficial.
-**Arquivos relacionados:** `/implementation_plan.md`, `/task.md`, `/temp_report.md`, `/package.json.bak`
-**Risco de não corrigir:** Degradação da organização do repositório; `package.json.bak` pode causar confusão sobre qual é o `package.json` ativo.
-**Critério de aceite futuro:** `ls /` não retorna `*.bak`, `temp_*.md`, `implementation_plan.md` nem `task.md` na raiz. Artefatos movidos para `docs/plans/` ou `.context/logs/`.
+**ID:** P1-02
+**Severidade:** 🟡 P1 Estrutural — Ghost Design System
+**Área:** Motion — Regra de scale proibido
+**Evidência:**
+- `src/lib/motion/hero.ts:73,78` — `ctaVariants.hidden.scale: 0.97` → `ctaVariants.visible.scale: 1`
+- `src/app/globals.css:483` — `.touch-feedback:active { transform: scale(0.97); }`
+**Impacto:** Viola a regra imutável do Ghost DS: "Motion proibido: `scale`, `rotate`, `bounce`." Estabelece padrão de exceções não documentadas que pode propagar-se.
+**Arquivos relacionados:** `src/lib/motion/hero.ts:73,78`, `src/app/globals.css:483`
+**Risco de não corrigir:** Erosão progressiva da disciplina de motion do Ghost DS.
+**Critério de aceite futuro:** Substituir `scale: 0.97 → 1` por `filter: blur(4px) → blur(0px)` no hero. `.touch-feedback:active` usar `opacity: 0.85` ao invés de `scale`.
 
 ---
 
-**ID:** P1-003
-**Severidade:** 🟡 Estrutural
-**Área:** Design System / Componentes
-**Evidência:** O SSOT e o brief da rotina referenciam `LogoMarquee` como componente crítico. O componente real é `ClientsBrandsSection.tsx` — um grid estático de logos sem marquee. Não existe nenhuma referência a `LogoMarquee` em `src/`. Similarmente, `ShowcaseGrid` não existe — o componente real é `PortfolioShowcase.tsx` + `CategoryStripe.tsx`.
-**Impacto:** Drift entre documentação e implementação. Futuros agentes que buscarem por `LogoMarquee` ou `ShowcaseGrid` não encontrarão os componentes.
-**Arquivos relacionados:** `src/components/home/clients/ClientsBrandsSection.tsx`, `src/components/home/portfolio-showcase/PortfolioShowcase.tsx`, `.context/DOCS-PORTFOLIO-PAGES/`
-**Risco de não corrigir:** Agentes criam componentes duplicados ou deixam de identificar corretamente os existentes.
-**Critério de aceite futuro:** SSOT `.context/` atualizado com nomes reais dos componentes. `LogoMarquee` → `ClientsBrandsSection`. `ShowcaseGrid` → `PortfolioShowcase`.
+**ID:** P1-03
+**Severidade:** 🟡 P1 Estrutural — Governança de Documentação
+**Área:** Regras de Agente / PostCSS / Tailwind
+**Evidência:**
+- `.claude/rules/README-POSTCSS.md` diz "Tailwind CSS v4 detectado - Requer downgrade para v3.4.x" (status: ATIVO)
+- `.claude/rules/postcss-tailwind-config.md` diz "❌ NUNCA USE `@tailwindcss/postcss`"
+- Implementação real: `package.json` tem `tailwindcss: 4.3.1`, `postcss.config.cjs` usa `@tailwindcss/postcss`, `globals.css` usa `@import 'tailwindcss'` (sintaxe v4)
+- `CLAUDE.md` tech stack especifica "Tailwind CSS | 4" como stack oficial
+**Impacto:** Agentes lendo `.claude/rules/` entrarão em conflito com o estado real. Um agente seguindo as regras poderia fazer downgrade para v3.4.x e quebrar o projeto.
+**Arquivos relacionados:** `.claude/rules/README-POSTCSS.md`, `.claude/rules/postcss-tailwind-config.md`
+**Risco de não corrigir:** Confusão operacional severa. Risco de regressão se agente executar o downgrade proposto pelas regras.
+**Critério de aceite futuro:** Atualizar ambos os arquivos de regras para refletir Tailwind CSS v4 como stack oficial aprovado.
 
 ---
 
-**ID:** P1-004
-**Severidade:** 🟡 Estrutural
-**Área:** Performance / ISR / Caching
-**Evidência:** `/portfolio/[slug]/page.tsx` usa `dynamic = 'force-dynamic'` sem nenhum `revalidate`. Páginas de projeto SSR são recalculadas a cada request, incluindo queries Supabase, mesmo que o conteúdo raramente mude.
-**Impacto:** TTFB elevado em páginas de projeto. Cada visita a `/portfolio/[slug]` dispara uma query Supabase. Se Supabase estiver lento, o usuário sofre. Não há fallback de conteúdo em cache.
-**Arquivos relacionados:** `src/app/portfolio/[slug]/page.tsx`
-**Risco de não corrigir:** Performance degradada para usuários. Potencial de timeout se Supabase response for > 3s.
-**Critério de aceite futuro:** Implementar `revalidate = 3600` ou `generateStaticParams` com ISR. TTFB < 500ms testado localmente.
+**ID:** P1-04
+**Severidade:** 🟡 P1 Estrutural — CSS Architecture
+**Área:** globals.css / Z-index Governance
+**Evidência:** `globals.css` define as mesmas 16 variáveis `--z-layer-*` duas vezes: em `@theme {}` (linhas 61-79) e em `:root {}` (linhas 116-135). Em Tailwind v4, `@theme {}` é o bloco canônico para tokens; a duplicata em `:root {}` cria redundância e risco de inconsistência futura.
+**Impacto:** Manutenção mais difícil — alterações precisam ser feitas em dois lugares. Risco de inconsistência silenciosa.
+**Arquivos relacionados:** `src/app/globals.css:61-79`, `src/app/globals.css:116-135`
+**Risco de não corrigir:** Ao atualizar um z-index layer, o engenheiro pode atualizar apenas um bloco, criando divergência.
+**Critério de aceite futuro:** Remover duplicatas em `:root {}`. Manter apenas o bloco `@theme {}`. Build deve passar sem regressões.
 
 ---
 
-**ID:** P1-005
-**Severidade:** 🟡 Estrutural
-**Área:** Tailwind v4 / Config Redundância
-**Evidência:** `tailwind.config.ts` tem um array `content` com caminhos de varredura em estilo Tailwind v3. Em Tailwind v4, a varredura é feita pelos `@source` directives no `globals.css`. O array `content` em `tailwind.config.ts` é inerte para v4.
-**Impacto:** Nenhum impacto funcional imediato, mas cria confusão sobre qual mecanismo está ativo e aumenta risco do P1-001.
-**Arquivos relacionados:** `tailwind.config.ts`, `src/app/globals.css`
-**Risco de não corrigir:** Baixo funcional; alto como vetor de confusão documental.
-**Critério de aceite futuro:** `tailwind.config.ts` com comentário explícito sobre v4 — content array ignorado, varredura via `@source` no CSS.
+**ID:** P1-05
+**Severidade:** 🟡 P1 Estrutural — Operacional
+**Área:** CI / E2E Tests / Typecheck
+**Evidência:** `pnpm typecheck` falhou neste ambiente com erro `pnpm install` → Playwright Chromium download bloqueado (HTTP 403 em `cdn.playwright.dev`).
+**Impacto:** Suite de testes E2E não executável em ambiente remoto. Validação visual autônoma bloqueada. Pipeline de typecheck dependente de install falha.
+**Arquivos relacionados:** `package.json:scripts.test`
+**Risco de não corrigir:** Auditoria semanal não pode executar validação comportamental. Regressões visuais passam despercebidas.
+**Critério de aceite futuro:** Separar script `typecheck` de `install`. Configurar Playwright para skip de download em ambientes de auditoria (`PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`).
 
 ---
 
 ### 🟢 P2 Polimento Rápido
 
----
-
-**ID:** P2-001
-**Severidade:** 🟢 Polimento
-**Área:** CSS / Design Tokens
-**Evidência:** `src/app/globals.css` contém token `--font-family-outfit` com comentário `@deprecated — Outfit not used in production; scheduled for removal`. Nenhuma referência ativa encontrada em `src/`.
-**Impacto:** Bloat de CSS, token obsoleto carregado em todos os requests. Risco de agentes usarem o token deprecated por engano.
-**Arquivos relacionados:** `src/app/globals.css`
-**Critério de aceite futuro:** Token removido. `grep -r "font-outfit\|--font-family-outfit" src/` retorna vazio.
+**ID:** P2-01
+**Severidade:** 🟢 P2 Polimento
+**Área:** globals.css — Typography
+**Evidência:** `globals.css:53-54` — `--font-family-outfit: 'Outfit', sans-serif;` com comentário `@deprecated — Outfit not used in production; scheduled for removal`.
+**Impacto:** Baixo. Variável não utilizada gera ruído.
+**Critério de aceite futuro:** Confirmar via grep e remover as 2 linhas.
 
 ---
 
-**ID:** P2-002
-**Severidade:** 🟢 Polimento
-**Área:** Supabase Storage / Monitoramento
-**Evidência:** Commit `c3ffed23` "fix: restore portfolio card thumbnails (Supabase render 403)" indica que thumbnails falharam por problema de path no render endpoint. Foi corrigido, mas sem evidência de monitoring automático que alertaria regressão futura.
-**Impacto:** Se a correção de paths for revertida ou o Supabase mudar configuração de CORS/RLS, cards voltarão a aparecer sem imagem sem alerta proativo.
-**Arquivos relacionados:** `src/components/home/featured-projects/FeaturedProjectCard.tsx`, `src/config/site-assets.json`, scripts de audit
-**Critério de aceite futuro:** Script `pnpm run verify:assets` adicionado a rotina semanal de CI. Alertas para URLs com status != 200.
+**ID:** P2-02
+**Severidade:** 🟢 P2 Polimento
+**Área:** Motion / Marquee Animation
+**Evidência:** `globals.css:643-646` — `@keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }`. `translate3d(-50%, 0, 0)` é funcionalmente `translateX(-50%)`, listado como proibido pelo Ghost DS.
+**Impacto:** Baixo — o marquee tem justificativa funcional (não é decorativo puro). Ausência de exceção documentada gera questionamento em auditorias.
+**Critério de aceite futuro:** Documentar exceção explícita para marquee na SSOT, ou migrar para alternativa CSS sem translateX.
 
 ---
 
-**ID:** P2-003
-**Severidade:** 🟢 Polimento
-**Área:** Rate Limiting / Segurança de API
-**Evidência:** `/src/app/api/contact/route.ts` já possui rate limiting em memória (`isRateLimited(ip)`, janela de 60 s, limite de 5 requisições por IP via `ipRequestHistory: Map<string, number[]>`). O Cloudflare Turnstile é uma camada adicional de proteção.
-**Impacto:** O rate limiting em memória (`Map` local ao processo) não persiste entre instâncias do Cloud Run. Em caso de múltiplas instâncias simultâneas, o limite efetivo por IP é `5 × N instâncias`. O risco é baixo em volume normal, mas se eleva sob tráfego paralelo ou cold-start de novas instâncias.
-**Arquivos relacionados:** `src/app/api/contact/route.ts`, `src/middleware.ts`
-**Critério de aceite futuro:** Migrar para Upstash Redis ou Vercel KV com rate limiting distribuído para garantir consistência entre instâncias serverless. Manter Turnstile como segunda camada.
+**ID:** P2-03
+**Severidade:** 🟢 P2 Polimento
+**Área:** CSP / Segurança
+**Evidência:** `next.config.mjs:91` — `form-action` permite `formsubmit.co`. ContactForm submete para `/api/contact` (interno).
+**Impacto:** CSP desnecessariamente permissivo.
+**Critério de aceite futuro:** Verificar uso e remover `formsubmit.co` da diretiva `form-action` se não utilizado.
 
 ---
 
-**ID:** P2-004
-**Severidade:** 🟢 Polimento
-**Área:** Duplicate ENV Key
-**Evidência:** `src/lib/env.ts` valida `NEXT_PUBLIC_SUPABASE_ANON_KEY` (chave histórica). `.env.example` também contém `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` (chave nova da Supabase SDK v2). Ambas coexistem como variáveis públicas para o mesmo propósito.
-**Impacto:** Redundância que pode gerar confusão em novos deploys.
-**Arquivos relacionados:** `src/lib/env.ts`, `.env.example`, `src/lib/supabase/client.ts`
-**Critério de aceite futuro:** Consolidar em uma única variável com alias de backward compatibility ou migração completa documentada. **Atenção:** qualquer migração para `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` deve incluir atualização do schema Zod em `src/lib/env.ts` — que atualmente requer `NEXT_PUBLIC_SUPABASE_ANON_KEY` — ou builds falharão se a chave legada for removida.
+**ID:** P2-04
+**Severidade:** 🟢 P2 Polimento
+**Área:** Documentação / CLAUDE.md
+**Evidência:** `CLAUDE.md` tech stack informa "Next.js | 16.2.2" mas `package.json` mostra `"next": "16.2.9"`.
+**Critério de aceite futuro:** Atualizar CLAUDE.md com versão correta.
 
 ---
 
-## 4️⃣ Prompts Técnicos para Agentes Google Antigravity Atômicos
-
-> **Regra absoluta:** Nenhum prompt abaixo pode ser executado sem aprovação humana explícita ("Aprovado" ou "Proceed" no canal de revisão). Cada prompt é atômico — toca apenas nos arquivos listados.
+**ID:** P2-05
+**Severidade:** 🟢 P2 Polimento
+**Área:** CSP / Google Fonts
+**Evidência:** CSP permite `fonts.googleapis.com` e `fonts.gstatic.com`. Fontes Manrope e PPSupplyMono parecem auto-hospedadas em `public/fonts/` com `src/styles/fonts.css`.
+**Critério de aceite futuro:** Verificar `src/styles/fonts.css`. Se self-hosted, remover entradas Google Fonts do CSP.
 
 ---
 
-### 🛠️ Prompt #01 — Corrigir CSP da Rota /api/view-cv
+## 4️⃣ Prompts Técnicos para Agentes Atômicos
 
-**Objetivo:** Remover `'unsafe-eval'` e restringir `https://*` na CSP inline da rota que serve o currículo HTML, preservando o funcionamento do documento.
+### 🛠️ Prompt #01 — Restaurar contentSecurityPolicy no Image Optimizer (P0-01)
 
-**Especialista:** `@ghost_architect` (segurança, Next.js API Routes)
-
-**Arquivos:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`, `public/curriculum.css` (novo), `public/curriculum-print.js` (novo, se necessário para event listener externo)
-
-**Contexto obrigatório:**
-- `next.config.mjs` para ver a CSP global de referência
-- OWASP A03 — Injection Prevention
-
+**Objetivo:** Eliminar risco de XSS via SVG no Image Optimizer do Next.js.
+**Especialista:** `security-architect`, `@ghost_architect`
+**Arquivos:** `next.config.mjs`
+**Contexto obrigatório:** `.claude/rules/security.md`, `.context/GHOST-DESIGN-SYSTEM.md`
 **Ações:**
-1. Ler `public/CURRICULUM-2026.html` e identificar recursos externos necessários (fontes, imagens, scripts).
-2. Construir CSP mínima que permita apenas os recursos identificados, sem `unsafe-eval` e sem `https://*` irrestrito.
-3. Atualizar `src/app/api/view-cv/route.ts` com a nova CSP.
-4. Testar que `/api/view-cv` renderiza o currículo sem erros de console CSP.
-
-**Dependência crítica:** `public/CURRICULUM-2026.html` usa `<script src="https://cdn.tailwindcss.com">` (runtime JIT que requer `unsafe-eval`) e um handler `onclick="window.print()"` inline. Uma CSP restritiva **não é possível sem modificar o HTML**. O escopo desta tarefa deve incluir:
-- Substituir o CDN do Tailwind por CSS compilado (ex: gerar `public/curriculum.css` com Tailwind CLI a partir do HTML)
-- Substituir `onclick="window.print()"` por um event listener externo não-inline
-Só após essas mudanças no HTML a CSP pode remover `unsafe-eval` e `unsafe-inline` com segurança.
-
-**Regras:** Não usar `unsafe-eval`. Não usar `unsafe-inline` para scripts. CSP resultante deve ser mais restritiva que a atual. Modificações limitadas a `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`, e novos assets estáticos sob `public/` necessários para substituir o CDN/inline handler.
-
-**Critérios de Aceite:**
-- [ ] Header CSP sem `unsafe-eval`
-- [ ] Header CSP sem `https://*` irrestrito
-- [ ] `public/CURRICULUM-2026.html` não usa CDN externo de runtime
-- [ ] Print button funciona sem handler inline
-- [ ] Currículo HTML renderiza corretamente em browser
-- [ ] `pnpm run build-check` exit code 0
-
+1. Em `next.config.mjs`, dentro do bloco `images: {}`, adicionar `contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"` ao lado de `dangerouslyAllowSVG: true`.
+2. Verificar que headers globais não conflitam com este sandbox.
+3. Testar que imagens JPEG/WebP/PNG do Supabase continuam carregando.
+**Regras:** Não alterar nenhum outro header. Não remover `dangerouslyAllowSVG: true`. Apenas adicionar a propriedade ausente.
+**Critérios de Aceite:** `next.config.mjs` tem `contentSecurityPolicy` em `images`. Build passa. Imagens continuam carregando.
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #02 — Corrigir 42 Links Quebrados em site-assets.json
+### 🛠️ Prompt #02 — Remover scale de ctaVariants no Hero (P1-02a)
 
-**Objetivo:** Identificar e corrigir os 42 links de assets legados quebrados em `src/config/site-assets.json`, substituindo por URLs válidas do Supabase Storage ou marcando como removidos.
-
-**Especialista:** `@audit_sentinel` + `storage-sentinel` MCP
-
-**Arquivos:** `src/config/site-assets.json`, `src/lib/video-assets.ts`, `scripts/verify-supabase-assets.mjs`, `scripts/audit_assets.py`
-
-**Contexto obrigatório:**
-- `.context/active_state.md` para histórico do problema
-- `assets.json` na raiz (mapa de assets canônico)
-- Supabase Storage MCP para verificar quais assets existem no bucket `site-assets`
-
+**Objetivo:** Alinhar `ctaVariants` com Ghost DS (scale proibido).
+**Especialista:** `@motion_choreographer`, `motion`
+**Arquivos:** `src/lib/motion/hero.ts`
+**Contexto obrigatório:** `.context/GHOST-DESIGN-SYSTEM.md` §2.0, `.context/DOCS-PORTFOLIO-PAGES/01-HOME/02-HERO-HOME/`
 **Ações:**
-1. Executar `python3 scripts/audit_assets.py` e capturar todos os links quebrados (cobre tanto `src/config/site-assets.json` quanto `src/lib/video-assets.ts`). (**Nota:** o script atualmente sai com exit 0 mesmo ao encontrar erros — verificar `.agent/broken_links_report.json` para lista completa.)
-2. Para cada link quebrado: verificar se o asset existe no Supabase Storage com nome similar.
-3. Para assets de `site-assets.json`: atualizar o campo `file_url`.
-4. Para assets de `video-assets.ts`: atualizar a URL correspondente.
-5. Para assets inexistentes em nenhum bucket: definir `"is_active": false` no registro (campo correto do schema — `audit_assets.py` escaneia URLs por regex e ignora qualquer campo `"status"`) e substituir o `file_url` por string vazia ou asset placeholder aprovado já existente no Supabase. **Não usar `"status": "removed"`** — esse campo não existe no schema e não impede que o script ou loaders acessem o URL quebrado.
-6. Executar `python3 scripts/audit_assets.py` novamente — deve retornar 0 links quebrados no relatório.
-
-**Regras:** Não alterar código de componentes. Não usar URLs de placeholder externos (ex: via.placeholder.com). Supabase Storage como único CDN.
-
-**Critérios de Aceite:**
-- [ ] `python3 scripts/audit_assets.py` + `.agent/broken_links_report.json` reporta 0 broken links
-- [ ] Todos os assets críticos (hero, featured projects, clients logos, portfolio hero video) com URL HTTP 200
-- [ ] `pnpm run build-check` exit code 0
-- [ ] Apenas `src/config/site-assets.json`, `src/lib/video-assets.ts`, `.context/active_state.md` e/ou `scripts/audit_assets.py` modificados (`.context/active_state.md` deve refletir nova contagem de assets; `scripts/audit_assets.py` pode ser modificado para habilitar `sys.exit(1)` ao detectar links quebrados — necessário para bloquear CI em regressões futuras, conforme critério da linha P0-001)
-
+1. Em `ctaVariants.hidden`: remover `scale: 0.97`. Adicionar `filter: 'blur(4px)'`.
+2. Em `ctaVariants.visible`: remover `scale: 1`. Adicionar `filter: 'blur(0px)'`.
+3. Verificar que nenhum componente depende de `scale` em `ctaVariants` para posicionamento.
+**Regras:** Usar apenas `opacity`, `blur`, `translateY` (máx 18px). Ghost Ease obrigatório.
+**Critérios de Aceite:** `grep -n "scale" src/lib/motion/hero.ts` retorna zero resultados. CTA continua animando com entrada suave.
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #03 — Atualizar Regras de Agente (PostCSS/Tailwind v4)
+### 🛠️ Prompt #03 — Substituir scale por opacity em .touch-feedback (P1-02b)
 
-**Objetivo:** Corrigir `.claude/rules/README-POSTCSS.md` e `.claude/rules/postcss-tailwind-config.md` para refletir o stack Tailwind v4 real do projeto, removendo instruções incorretas de downgrade para v3.
+**Objetivo:** Alinhar `.touch-feedback:active` com Ghost DS.
+**Especialista:** `@motion_choreographer`, `frontend-specialist`
+**Arquivos:** `src/app/globals.css`
+**Contexto obrigatório:** `.context/GHOST-DESIGN-SYSTEM.md`, `.claude/rules/23-design-system.md`
+**Ações:**
+1. Localizar `.touch-feedback:active` em `globals.css` (~linha 479).
+2. Substituir `transform: scale(0.97);` por `opacity: 0.82;`.
+3. Remover `transform` da lista de propriedades em `transition:` se não for mais necessário.
+**Regras:** Scale proibido. Feedback tátil deve usar opacidade.
+**Critérios de Aceite:** `.touch-feedback:active` sem `scale`. Feedback visual mantido em dispositivos touch.
+**Approval Gate:** Não executar sem aprovação humana explícita.
 
-**Especialista:** `@ghost_architect` (documentação de agente, governança)
+---
 
+### 🛠️ Prompt #04 — Atualizar rule docs de PostCSS para Tailwind v4 (P1-03)
+
+**Objetivo:** Eliminar conflito de documentação antes que agente futuro faça downgrade acidental.
+**Especialista:** `doc-specialist`
 **Arquivos:** `.claude/rules/README-POSTCSS.md`, `.claude/rules/postcss-tailwind-config.md`
-
-**Contexto obrigatório:**
-- `postcss.config.cjs` (implementação real)
-- `src/app/globals.css` (sintaxe real)
-- `package.json` (versão real: tailwindcss 4.3.0)
-- Context7 MCP: buscar docs Tailwind CSS v4 PostCSS integration
-
+**Contexto obrigatório:** `CLAUDE.md` (seção Tech Stack), `package.json:dependencies.tailwindcss`, `postcss.config.cjs`
 **Ações:**
-1. Ler os dois arquivos de regra completos.
-2. Identificar todas as instruções que contradizem Tailwind v4.
-3. Reescrever os dois arquivos refletindo stack aprovado v4: `@tailwindcss/postcss`, `@import 'tailwindcss'` + `@source`.
-4. Remover toda seção de downgrade para v3.
-
-**Regras:** Não alterar `postcss.config.cjs`, `globals.css` ou `tailwind.config.ts`. Somente os dois arquivos de rule.
-
-**Critérios de Aceite:**
-- [ ] Nenhuma menção a downgrade para v3 nas regras
-- [ ] Nenhuma proibição de `@tailwindcss/postcss` nas regras
-- [ ] Regras consistentes com `package.json` atual
-- [ ] `pnpm run build-check` exit code 0
-
+1. Em `.claude/rules/README-POSTCSS.md`: substituir conteúdo que menciona "downgrade para v3.4.x" por declaração de que o projeto usa Tailwind CSS v4.3.1 com `@tailwindcss/postcss`. Atualizar exemplos de "Configuração Correta" para v4.
+2. Em `.claude/rules/postcss-tailwind-config.md`: atualizar seção "NUNCA USE" e "Versões Aprovadas" para refletir que Tailwind v4 + `@tailwindcss/postcss` é a configuração oficial e aprovada.
+3. Não alterar `postcss.config.cjs`, `globals.css`, ou `package.json`.
+**Regras:** Apenas documentação. Zero alteração de código.
+**Critérios de Aceite:** Ambos os arquivos `.claude/rules/` descrevem Tailwind v4 como stack oficial.
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #04 — Limpar Artefatos de Agente na Raiz do Projeto
+### 🛠️ Prompt #05 — Eliminar duplicação de z-index em globals.css (P1-04)
 
-**Objetivo:** Mover ou remover arquivos de artefatos de agente que estão na raiz do repositório em violação da regra "NEVER save to root folder".
-
-**Especialista:** `@ghost_architect` (governança de repositório)
-
-**Arquivos:** `implementation_plan.md`, `task.md`, `temp_report.md`, `package.json.bak`
-
-**Contexto obrigatório:**
-- CLAUDE.md regra: "NEVER save working files, text/mds, or tests to the root folder"
-- `.context/logs/` como destino para artefatos históricos
-
+**Objetivo:** Corrigir duplicação de variáveis CSS de z-index.
+**Especialista:** `frontend-specialist`, `@audit_sentinel`
+**Arquivos:** `src/app/globals.css`
+**Contexto obrigatório:** `.context/GHOST-DESIGN-SYSTEM.md` §1.3
 **Ações:**
-1. Verificar se `implementation_plan.md` e `task.md` têm conteúdo útil. Se sim, mover para `docs/plans/` ou `.context/logs/` com data no nome.
-2. Verificar se `temp_report.md` tem conteúdo relevante. Se sim, mover para `docs/`. Se não, deletar.
-3. Deletar `package.json.bak` após confirmar que o `package.json` está correto.
-4. Verificar que `git status` não mostra arquivos de artefatos na raiz.
-
-**Regras:** Não modificar `package.json`. Não deletar sem ler primeiro.
-
-**Critérios de Aceite:**
-- [ ] Nenhum dos 4 arquivos na raiz do repositório
-- [ ] Conteúdo útil preservado em `docs/` ou `.context/`
-- [ ] `git status` limpo após commit
-- [ ] `pnpm run build-check` exit code 0
-
+1. Identificar as 16 variáveis `--z-layer-*` em `@theme {}` (linhas ~61-79) como fonte de verdade.
+2. Remover APENAS as duplicatas em `:root {}` (linhas ~116-135).
+3. Verificar via grep que `var(--z-layer-*)` continua funcionando após remoção.
+**Regras:** Não alterar valores. Manter o bloco `@theme {}` intacto.
+**Critérios de Aceite:** `--z-layer-*` definido apenas uma vez em `globals.css`. Build passa. Hierarquia visual não muda.
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #05 — Implementar ISR em /portfolio/[slug]
+### 🛠️ Prompt #06 — Remover variável @deprecated Outfit (P2-01)
 
-**Objetivo:** Adicionar `revalidate` ou ISR em `/portfolio/[slug]/page.tsx` para reduzir TTFB e melhorar performance de páginas de projeto.
-
-**Especialista:** `@ghost_architect` (Next.js App Router, ISR, Supabase SSR)
-
-**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/app/admin/(protected)/trabalhos/actions.ts`, `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/` (atualizar após mudanças em `src/`)
-
-**Contexto obrigatório:**
-- Context7 MCP: Next.js ISR/revalidate documentation
-- `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/` para regras de comportamento da página
-- `src/lib/supabase/queries/projects.ts` para entender o padrão de queries
-
+**Objetivo:** Limpeza de token CSS depreciado.
+**Especialista:** `frontend-specialist`
+**Arquivos:** `src/app/globals.css`
 **Ações:**
-1. Avaliar se `generateStaticParams` é viável para projetos (lista de slugs do Supabase em build time).
-2. Se lista de slugs for razoável: implementar `generateStaticParams` + `revalidate = 3600`.
-3. Se não: substituir `dynamic = 'force-dynamic'` por `revalidate = 600` com `unstable_cache` nas queries.
-4. Testar com `pnpm run build` que geração estática funciona.
-5. **Cache invalidation em admin actions** (obrigatório junto com ISR): Em `src/app/admin/(protected)/trabalhos/actions.ts`:
-   - `upsertProjectAction`: ao renomear slug, chamar `` revalidatePath(`/portfolio/${oldSlug}`) `` (template literal com backticks) antes da atualização, além do `` revalidatePath(`/portfolio/${updatedProject.slug}`) `` já existente.
-   - `deleteProjectAction`: adicionar `` revalidatePath(`/portfolio/${slugDoProjetoExcluído}`) `` (template literal) — atualmente não invalida a página específica do projeto excluído, deixando cache obsoleto ativo até o próximo revalidate.
-
-**Regras:** Manter fallback `notFound()` para slugs inexistentes. Ghost Design System inalterado. Sem alterações em componentes visuais.
-
-**Critérios de Aceite:**
-- [ ] `dynamic = 'force-dynamic'` removido
-- [ ] TTFB < 500ms em `/portfolio/[slug]` testado localmente
-- [ ] Conteúdo atualizado em até 1 hora (revalidate <= 3600)
-- [ ] Rename de projeto invalida imediatamente o slug antigo (sem cache stale)
-- [ ] Delete de projeto invalida imediatamente o slug do projeto excluído
-- [ ] `pnpm run build` sem erros
-- [ ] `pnpm run build-check` exit code 0
-
+1. Verificar com `grep -rn "font-family-outfit\|font-outfit" src/` que a variável não é usada.
+2. Se zero resultados: remover linhas 53-54 de `globals.css`.
+**Regras:** Apenas se confirmado que não é usado. Zero alterações em outros arquivos.
+**Critérios de Aceite:** `grep -rn "outfit" src/` retorna zero resultados (exceto comentários).
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #06 — Corrigir Drift de Nomes de Componentes no SSOT (P1-003)
+### 🛠️ Prompt #07 — Auditar e remover formsubmit.co do CSP (P2-03)
 
-**Objetivo:** Atualizar a documentação em `.context/DOCS-PORTFOLIO-PAGES/` para refletir os nomes reais dos componentes, eliminando referências a `LogoMarquee` e `ShowcaseGrid` que não existem em `src/`.
-
-**Especialista:** `@ghost_architect` (documentação SSOT, governança de componentes)
-
-**Arquivos:** `.context/DOCS-PORTFOLIO-PAGES/` (todos os arquivos que referenciam `LogoMarquee` ou `ShowcaseGrid`)
-
-**Contexto obrigatório:**
-- `src/components/home/clients/ClientsBrandsSection.tsx` (substituto real de `LogoMarquee`)
-- `src/components/home/portfolio-showcase/PortfolioShowcase.tsx` + `CategoryStripe.tsx` (substitutos reais de `ShowcaseGrid`)
-
+**Objetivo:** Reduzir superfície de ataque do CSP.
+**Especialista:** `security-architect`
+**Arquivos:** `next.config.mjs`, `src/components/home/contact/ContactForm.tsx`
 **Ações:**
-1. Executar `grep -r "LogoMarquee\|ShowcaseGrid" .context/` para listar todos os arquivos afetados.
-2. Para cada ocorrência de `LogoMarquee`: substituir por `ClientsBrandsSection` com nota de que é um grid estático (não marquee animado).
-3. Para cada ocorrência de `ShowcaseGrid`: substituir por `PortfolioShowcase` + `CategoryStripe` com descrição correta das responsabilidades de cada um.
-4. Verificar que `grep -r "LogoMarquee\|ShowcaseGrid" .context/` retorna vazio após as correções.
-
-**Regras:** Não alterar nenhum arquivo em `src/`. Apenas `.context/`.
-
-**Critérios de Aceite:**
-- [ ] `grep -r "LogoMarquee" .context/` retorna vazio
-- [ ] `grep -r "ShowcaseGrid" .context/` retorna vazio
-- [ ] Documentação atualizada cita `ClientsBrandsSection`, `PortfolioShowcase`, `CategoryStripe`
-- [ ] `pnpm run build-check` exit code 0
-
+1. Verificar `ContactForm.tsx` e Server Actions de contato para confirmar que não usam `formsubmit.co`.
+2. Se confirmado não utilizado: remover `'https://formsubmit.co'` da diretiva `form-action` em `next.config.mjs:91`.
+**Regras:** Apenas se confirmado que o serviço não é mais usado.
+**Critérios de Aceite:** `formsubmit.co` removido do CSP. Formulário de contato continua via `/api/contact`.
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #07 — Documentar Redundância de Content Array em tailwind.config.ts (P1-005)
+### 🛠️ Prompt #08 — Atualizar versão do Next.js no CLAUDE.md (P2-04)
 
-**Objetivo:** Adicionar comentário de cabeçalho em `tailwind.config.ts` esclarecendo que o arquivo **inteiro** é inerte em Tailwind v4: `src/app/globals.css` não usa `@config "../../tailwind.config.ts"`, e Tailwind v4 não auto-detecta arquivos JS de config sem essa diretiva. Isso significa que tanto o array `content` quanto os valores de `theme.extend` (cores, fontes, z-index, etc.) são completamente ignorados pelo engine — futuros agentes que adicionarem tokens em `theme.extend` não verão os utilities gerados.
-
-**Especialista:** `@ghost_architect` (Tailwind v4, documentação de config)
-
-**Arquivos:** `tailwind.config.ts`
-
-**Contexto obrigatório:**
-- `src/app/globals.css` (confirmar ausência de `@config` directive)
-- Context7 MCP: Tailwind CSS v4 upgrade guide / JavaScript config file / `@config` directive
-
+**Objetivo:** Sincronizar documentação de versão.
+**Especialista:** `doc-specialist`
+**Arquivos:** `CLAUDE.md`
 **Ações:**
-1. Ler `tailwind.config.ts` completo.
-2. Verificar que `src/app/globals.css` não contém `@config "tailwind.config.ts"` (confirmação do contexto).
-3. Adicionar comentário de cabeçalho no arquivo explicando: este arquivo está **completamente inativo** em Tailwind v4 — não é carregado via `@config` em `globals.css`. O array `content` e `theme.extend` são ignorados pelo engine; a varredura de classes usa `@source` em `globals.css`. Para ativar tokens customizados em v4, usar `@theme` em CSS ou adicionar `@config "../../tailwind.config.ts"` em `globals.css`.
-
-**Regras:** Não remover nenhum conteúdo do arquivo. Não modificar `globals.css` nem `postcss.config.cjs`. Apenas adicionar comentário.
-
-**Critérios de Aceite:**
-- [ ] `tailwind.config.ts` contém comentário de cabeçalho explícito sobre o arquivo estar inativo em v4 (não apenas o `content` array)
-- [ ] Comentário menciona ausência de `@config` e inatividade de `theme.extend`
-- [ ] Nenhuma outra linha do arquivo modificada
-- [ ] `pnpm run build-check` exit code 0
-
+1. Localizar tabela de Tech Stack em `CLAUDE.md`.
+2. Atualizar campo Next.js de "16.2.2" para "16.2.9".
+**Regras:** Apenas este campo.
+**Critérios de Aceite:** `CLAUDE.md` mostra versão correta alinhada com `package.json`.
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
 ## 5️⃣ Validação Técnica Executada
 
-| Verificação | Método | Resultado |
+| Comando | Resultado | Observação |
 |---|---|---|
-| Estado git | `git status --short` | Clean — sem uncommitted changes |
-| Branch ativa | `git branch --show-current` | `claude/beautiful-rubin-awlalm` |
-| Últimos commits | `git log --oneline -5` | 940e0a69, c3ffed23, d59f763f... |
-| Versão Tailwind | grep `package.json` | `4.3.0` |
-| Versão PostCSS plugin | grep `package.json` | `@tailwindcss/postcss: ^4.3.0` |
-| Sintaxe globals.css | Leitura direta | `@import 'tailwindcss'` — v4 correto |
-| tailwind.config.ts | Leitura direta | Content array redundante mas não prejudicial |
-| `aria-hidden` WebGL | grep `GhostSceneWrapper.tsx` | ✅ Presente |
-| Segredos hardcoded | grep src/ por patterns de chaves | ✅ Nenhum encontrado |
-| `dispose()` WebGL | grep em canvas/ | ✅ Geometry, material, renderer, composer |
-| `useMotionGate()` | grep em src/ | ✅ HomeHero, ContactForm, ClientsBrandsSection, PortfolioShowcase |
-| `prefers-reduced-motion` | grep em src/ | ✅ 7+ implementações |
-| `focus-visible` | grep em src/ | ✅ 18+ implementações |
-| `std-grid` compliance | grep em src/ | ✅ 42 ocorrências |
-| Artefatos na raiz | `ls /` grep | ⚠ 4 arquivos em violação (P1-002) |
-| CSP global | Leitura `next.config.mjs` | ✅ Sem unsafe-eval em produção |
-| CSP `/api/view-cv` | Leitura `route.ts` | 🔴 `unsafe-eval` presente (P0-002) |
-| Assets quebrados | `active_state.md` log | 🔴 42 links legados quebrados (P0-001) |
-| Middleware admin | `src/middleware.ts` + `supabase/middleware.ts` | ✅ Auth check + redirect corretos |
-| Firebase headers | `firebase.json` | ✅ HSTS, X-Frame-Options: DENY, X-Content-Type-Options |
-| `@deprecated` token | `globals.css` grep | ⚠ `--font-family-outfit` ainda presente (P2-001) |
-| `dangerouslySetInnerHTML` | grep src/ | ✅ 2 ocorrências — ambas seguras (JSON-LD, ReactMarkdown) |
-| InstancedMesh | grep src/ | ✅ Partículas usam InstancedMesh |
-| Commitados | git check | ✅ Nenhum `.env` ou secret commitado |
-
-**Limitações desta auditoria:**
-- Ambiente headless — sem acesso a browser ou screenshots. Auditoria via análise estática de código.
-- `pnpm test` e `pnpm build` não executados nesta sessão (rotina é READ-ONLY).
-- Sem acesso ao Supabase Storage ou Firebase Console para verificar estado de assets em produção.
-- Lighthouse / Core Web Vitals não executados.
+| `git log --oneline -5` | ✅ | HEAD: `14869153 update`. Último audit: PR #493 (2026-06-09) |
+| `git status --short` | ✅ | Working tree clean antes do relatório |
+| `git branch --show-current` | ✅ | Branch: `claude/beautiful-rubin-8duvkb` |
+| `cat postcss.config.cjs` | ✅ Lido | Usa `@tailwindcss/postcss` (v4 correto) |
+| `cat src/app/globals.css` | ✅ Lido | 742 linhas. Tokens Ghost DS corretos. Duplicação z-index identificada |
+| `cat tailwind.config.ts` | ✅ Lido | Config mínima v4. Tokens via CSS vars |
+| `cat next.config.mjs` | ✅ Lido | CSP rigorosa. `dangerouslyAllowSVG` sem sandbox. `ignoreBuildErrors: true` |
+| `grep scale src/lib/motion/hero.ts` | ✅ | Scale em ctaVariants (linhas 73, 78) — violação |
+| `grep scale src/app/globals.css` | ✅ | Scale em .touch-feedback:active (linha 483) — violação |
+| `grep aria-hidden src/components/canvas/` | ✅ OK | Ambos canvas components têm `aria-hidden="true"` |
+| `grep std-grid src/` | ✅ | 44 instâncias — conformidade ampla |
+| `grep revalidate src/app/` | ✅ | ISR configurado corretamente por rota |
+| `echo $SLACK_WEEKLY_AUDIT_WEBHOOK_URL` | ✅ Disponível | Variável presente no ambiente |
+| `pnpm typecheck` | ❌ Falhou | Playwright download bloqueado (403). TypeScript check não pôde ser executado via este comando |
+| `npx tsc --noEmit` | ⚠️ Silencioso | Executou sem output de erro — inferido como sucesso, mas não confirmado |
+| `pnpm lint` | ❌ Não executado | Dependeria de install que falhou |
+| Build completo | ❌ Não executado | Ambiente de auditoria (read-only) |
 
 ---
 
 ## 6️⃣ Evidências
 
-### Arquivos-chave lidos nesta sessão
-
-| Arquivo | Observação |
-|---|---|
-| `src/app/globals.css` | Tokens Ghost DS, sintaxe Tailwind v4, `std-grid` |
-| `src/app/layout.tsx` | Root layout, preload de fontes Manrope, providers |
-| `src/app/page.tsx` | Home page, componentes, `revalidate = 3600` |
-| `src/app/sobre/page.tsx` | `force-static`, Suspense, sections |
-| `src/app/portfolio/page.tsx` | `revalidate = 3600`, paginação |
-| `src/app/portfolio/[slug]/page.tsx` | `force-dynamic` identificado (P1-004) |
-| `src/components/home/hero/HomeHero.tsx` | `useMotionGate`, `GhostSceneWrapper` |
-| `src/components/canvas/home/hero/GhostSceneWrapper.tsx` | `aria-hidden`, `ssr:false` |
-| `src/components/canvas/header/HeaderGlassCanvas.tsx` | `useFrame` sem alocações |
-| `src/components/home/featured-projects/FeaturedProjectsSection.tsx` | Grid Bento layout |
-| `src/components/home/featured-projects/FeaturedProjectsRealtime.tsx` | Polling 45s, Realtime |
-| `src/components/home/portfolio-showcase/PortfolioShowcase.tsx` | CategoryStripe accordion |
-| `src/components/home/contact/ContactForm.tsx` | Turnstile, Resend |
-| `src/components/home/clients/ClientsBrandsSection.tsx` | Grid estático (P1-003) |
-| `src/app/api/view-cv/route.ts` | CSP `unsafe-eval` (P0-002) |
-| `src/middleware.ts` | matcher pattern |
-| `src/lib/supabase/middleware.ts` | `updateSession`, `isAdminUser` |
-| `next.config.mjs` | CSP global, output standalone, Supabase hosts |
-| `postcss.config.cjs` | `@tailwindcss/postcss` confirmado |
-| `tailwind.config.ts` | content array redundante (P1-005) |
-| `firebase.json` | security headers, Cloud Run 2GiB, `us-central1` |
-| `tsconfig.json` | `strict: true`, paths |
-| `.context/active_state.md` | 42 broken assets confirmados (P0-001) |
-| `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md` | tokens v3.1 |
-| `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md` | estrutura imutável |
-| `.claude/rules/README-POSTCSS.md` | Regras v3 conflitantes (P1-001) |
-| `.claude/rules/postcss-tailwind-config.md` | Regras v3 conflitantes (P1-001) |
-| `package.json` | versões, scripts, `engines.node: "22"` |
-
-### Evidências textuais críticas
-
-**P0-001 (42 broken assets):**
-```text
-.context/active_state.md:
-"Predeploy audit still reports 42 pre-existing broken legacy asset links
-in src/config/site-assets.json; current critical portfolio hero video
-URLs returned HTTP 200."
-```
-
-**P0-002 (CSP unsafe-eval em /api/view-cv):**
+### Scale em Motion (P1-02)
 ```typescript
-// src/app/api/view-cv/route.ts:13
-'Content-Security-Policy':
-  "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*; img-src 'self' data: https://*;"
+// src/lib/motion/hero.ts:67-85
+export const ctaVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: MOTION_TOKENS.offset.standard,
+    scale: 0.97,           // VIOLAÇÃO Ghost DS
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,              // VIOLAÇÃO Ghost DS
+    transition: { duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE, delay: 1.0 },
+  },
+};
 ```
 
-**P1-001 (regras conflitantes com stack real):**
-```text
-.claude/rules/postcss-tailwind-config.md: "❌ NUNCA USE: @tailwindcss/postcss"
-package.json (real): "@tailwindcss/postcss": "^4.3.0"
+```css
+/* src/app/globals.css:476-485 */
+.touch-feedback:active {
+  transform: scale(0.97);  /* VIOLAÇÃO Ghost DS */
+  opacity: 0.9;
+}
 ```
 
-**P1-002 (raiz poluída):**
-```bash
-ls / | grep -E "\.bak$|temp_|implementation_plan|^task\.md"
-Output: implementation_plan.md, package.json.bak, task.md, temp_report.md
+### SVG Security Gap (P0-01)
+```javascript
+// next.config.mjs:296-300
+images: {
+  dangerouslyAllowSVG: true,
+  // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // COMENTADO — gap de segurança
+}
 ```
 
-**P1-003 (LogoMarquee inexistente):**
-```bash
-grep -r "LogoMarquee" src/
-Output: (nenhum resultado)
-Componente real: src/components/home/clients/ClientsBrandsSection.tsx
+### TypeScript Suppression (P1-01)
+```javascript
+// next.config.mjs:302-305
+typescript: {
+  ignoreBuildErrors: true, // Silencia erros de tipo em produção
+},
+```
+
+### Z-index Duplication (P1-04)
+```css
+/* globals.css:61 — bloco @theme (canônico em v4) */
+@theme {
+  --z-layer-base: 0;
+  --z-layer-preloader: 1000;
+  /* ... 14 outros layers ... */
+}
+
+/* globals.css:116 — :root (DUPLICADO — mesmo valor, segunda definição) */
+:root {
+  --z-layer-base: 0;
+  --z-layer-preloader: 1000;
+  /* ... as mesmas 14 variáveis ... */
+}
+```
+
+### Rule Doc Contradiction (P1-03)
+```
+.claude/rules/postcss-tailwind-config.md:
+  "❌ NUNCA USE: module.exports = { plugins: { '@tailwindcss/postcss': {} } }"
+
+postcss.config.cjs (implementação real):
+  module.exports = { plugins: { '@tailwindcss/postcss': {} } }
+```
+
+### Arquitetura Correta: WebGL Gating (confirmado OK)
+```typescript
+// src/components/canvas/home/hero/GhostSceneWrapper.tsx
+<div className="absolute inset-0 w-full h-full" aria-hidden="true">
+  <GhostScene onReady={onReady} /> // dynamic import, ssr: false
+</div>
+```
+
+### Ghost Design System Tokens: Conformes (confirmado OK)
+```css
+--color-bluePrimary: #0048ff;
+--color-background: #040013;
+--ease-ghost: cubic-bezier(0.22, 1, 0.36, 1);
 ```
 
 ---
 
 ## 7️⃣ Riscos Operacionais
 
-### Segredos e Credenciais
-- ✅ Nenhum segredo hardcoded encontrado em `src/`
-- ✅ `.gitignore` inclui `.env`, `.env.local`
-- ✅ Zod validation bloqueia build se `NEXT_PUBLIC_SUPABASE_URL` ou `NEXT_PUBLIC_SUPABASE_ANON_KEY` ausentes
-- ⚠ `NEXT_PUBLIC_SUPABASE_ANON_KEY` é exposta ao cliente — intencional na arquitetura Supabase (chave pública com RLS), mas deve ser documentado como design decision
+### Segurança da Rotina
+- **Secrets:** Nenhuma chave API ou credencial exposta neste relatório. `SLACK_WEEKLY_AUDIT_WEBHOOK_URL` existe no ambiente mas não foi registrada em texto.
+- **Escopo de escrita:** Apenas `WEEKLY_AUDIT_REPORT.md` criado. Verificado via `git status` antes do commit.
+- **Comandos destrutivos:** Nenhum executado. Apenas leitura, grep e log de git.
 
-### Webhooks e Variáveis desta Rotina
-- ⚠ `SLACK_WEEKLY_AUDIT_WEBHOOK_URL` não encontrada no ambiente de execução. Envio Slack não realizado. Registrado na seção 8.
-- Nenhuma credencial foi exposta neste relatório.
+### Firebase Hosting
+- `firebase.json` configura `frameworksBackend: { region: "us-central1", memory: "2GiB" }`. A flag `FIREBASE_CLI_EXPERIMENTS: webframeworks` deve estar ativa no CI/CD (documentada em `.claude/rules/ci-cd.md`). Node.js 22 em `functions` alinhado com `package.json:engines:node:22`. ✅
 
-### Riscos de Firebase Hosting
-- ✅ `firebase.json` usa `frameworksBackend` com Cloud Run (webframeworks experiment)
-- ✅ Security headers: HSTS, X-Frame-Options: DENY, X-Content-Type-Options: nosniff
-- ⚠ `FIREBASE_CLI_EXPERIMENTS=webframeworks` obrigatório no CI/CD — se omitido, deploy Next.js falha
-- ⚠ Firebase Functions em `us-central1` com `memory: 2GiB` — sem monitoramento de cold start latency documentado
+### Supabase Storage
+- URL do projeto Supabase está em `.env.example` — esperado para URL pública. Reforça necessidade de RLS rigoroso nas tabelas.
+- `dangerouslyAllowSVG: true` (P0-01) é o único risco ativo relacionado ao Supabase Storage identificado.
 
-### Riscos de Supabase Storage
-- 🔴 42 links legados quebrados (P0-001) — assets produção com URLs inválidas
-- ⚠ Thumbnails de portfolio corrigidos via #491, mas sem teste de regressão automatizado para URLs de Supabase render
-- ✅ RLS configurado via migrations Supabase: `supabase/migrations/20240320_fix_rls_and_storage.sql` e `supabase/migrations/20260208000002_storage_rls.sql` (nota: `firestore.rules` e `storage.rules` são regras do Firebase, não do Supabase)
+### WebGL / Performance
+- Sem acesso a browser neste ambiente, métricas FPS e Core Web Vitals não foram medidas.
+- Análise estática: `GhostSceneWrapper` tem `aria-hidden`, dynamic import com `ssr:false`, e kill-switch `NEXT_PUBLIC_DISABLE_3D`. Implementação correta.
 
-### Riscos de WebGL / Performance
-- ✅ DPR limitado a `min(performanceConfig.pixelRatio, 1.5)` — Bloom cost quadrático controlado
-- ✅ `dispose()` implementado para geometrias, materiais, renderers, composers
-- ✅ `InstancedMesh` para sistema de partículas
-- ⚠ Sem evidência de benchmark de FPS em dispositivos de médio desempenho após mudanças recentes de Bloom
-
-### Riscos desta Rotina Autônoma
-- ✅ Rotina estritamente READ-ONLY para código
-- ✅ Apenas `WEEKLY_AUDIT_REPORT.md` foi escrito
-- ✅ Nenhuma correção automática executada
-- ✅ Branch documental isolada sem impacto no código de produção
+### Testes e CI
+- Playwright bloqueado em downloads (403 no CDN) neste ambiente. E2E tests não executáveis.
+- `pnpm typecheck` falhou por dependência do install. `npx tsc --noEmit` executou silenciosamente (sem output de erro).
 
 ---
 
 ## 8️⃣ Slack Approval Request
 
-**Status do envio:** ❌ FALHA — Variável `SLACK_WEEKLY_AUDIT_WEBHOOK_URL` não encontrada no ambiente de execução. Nenhuma tentativa de envio realizada. URL não impressa.
+**Status:** Notificação enviada via `SLACK_WEEKLY_AUDIT_WEBHOOK_URL` (URL presente no ambiente, não exposta neste relatório).
 
-**Payload que seria enviado:**
-```json
-{
-  "text": "Weekly Audit - Aprovação necessária",
-  "blocks": [
-    {
-      "type": "header",
-      "text": {"type": "plain_text", "text": "🔔 Auditoria Semanal Concluída — portfoliodanilo.com"}
-    },
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "*Projeto:* portfoliodanilo.com\n*Data:* 2026-06-09\n*Branch:* claude/weekly-audit-report-2026-06-09\n*P0 Crítico:* 2 | *P1 Estrutural:* 5 | *P2 Polimento:* 4\n\n*Top 3 Riscos:*\n• 🔴 P0-001: 42 assets quebrados em site-assets.json\n• 🔴 P0-002: unsafe-eval no CSP de /api/view-cv\n• 🟡 P1-001: Regras de agente contradizem stack Tailwind v4 real\n\n✅ Nenhum arquivo de código foi alterado nesta rotina."
-      }
-    },
-    {
-      "type": "actions",
-      "elements": [
-        {
-          "type": "button",
-          "text": {"type": "plain_text", "text": "✅ Aprovar Correções"},
-          "style": "primary",
-          "action_id": "approve_routine",
-          "value": "audit_2026-06-09"
-        },
-        {
-          "type": "button",
-          "text": {"type": "plain_text", "text": "❌ Rejeitar"},
-          "style": "danger",
-          "action_id": "reject_routine",
-          "value": "audit_2026-06-09"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "Responder *Aprovado* ou *Proceed* para autorizar a criação de uma rotina separada de correção para os itens P0 e P1 acima."
-      }
-    }
-  ]
-}
+**Conteúdo enviado ao Slack:**
 ```
+Projeto: portfoliodanilo.com
+Data: 2026-06-23
+P0 Crítico: 1 | P1 Estrutural: 5 | P2 Polimento: 5
 
-**Ação alternativa:** Aprovação pode ser dada via comentário no PR documental ou resposta direta ao Claude Code nesta sessão.
+Top 3 Riscos:
+1. P0-01: dangerouslyAllowSVG sem contentSecurityPolicy sandbox (XSS via SVG upload)
+2. P1-01: typescript.ignoreBuildErrors ativo — erros de tipo silenciados em produção
+3. P1-03: Rule docs de PostCSS contradizem implementação real (risco de downgrade acidental)
+
+Nenhum arquivo de código foi alterado.
+Responder "Aprovado" ou "Proceed" para autorizar rotina separada de correção.
+```
 
 ---
 
 ## 9️⃣ Próximo Passo Recomendado
 
-**Recomendação: Aprovar e executar correções P0 imediatamente, P1 dentro de 72h.**
+**Recomendação:** Aprovar execução imediata do Prompt #01 (P0-01 — SVG Security) e do Prompt #04 (P1-03 — Atualização da documentação de regras PostCSS). São as correções de maior impacto de risco com menor superfície de alteração.
 
-Os dois P0 representam riscos concretos em produção agora:
+Os itens P1-01 (TypeScript ignoreBuildErrors) e P1-02 (scale em motion) requerem sessão dedicada com validação visual antes do commit.
 
-**P0-001** (42 assets quebrados) está causando degradação visual silenciosa. Correção é direta: executar `pnpm run verify:assets`, mapear os 42 URLs quebrados para assets válidos no Supabase Storage. Estimativa: 2–4h.
+Os P2 podem ser agrupados em uma única PR de housekeeping.
 
-**P0-002** (CSP com `unsafe-eval` em `/api/view-cv`) é um vetor de segurança, mas **não é uma correção de 15 minutos de rota única**: `public/CURRICULUM-2026.html` carrega `https://cdn.tailwindcss.com` (runtime JIT que requer eval) e usa `onclick="window.print()"` inline. Remover `unsafe-eval` apenas da rota sem modificar o HTML quebrará a página do CV. A correção completa requer substituir o CDN por CSS compilado e o handler inline por listener externo — conforme escopo do Prompt #01. Estimativa real: 1–2h.
-
-Os P1 são estruturais e podem ser executados em paralelo ou na semana seguinte, com prioridade para P1-001 (regras de agente conflitantes com Tailwind v4) que representa o maior risco de regressão em sessões de agente autônomo.
-
-**Bloquear execução por risco crítico não mapeado?** Não. Os riscos foram identificados e há planos de ação claros. O projeto está em estado operacional. **Nota:** `pnpm build` e testes não foram executados nesta sessão (rotina READ-ONLY); o último build confirmado data de 2026-05-22 e houve commits em `src/` desde então — um `pnpm run build-check` fresco é obrigatório antes de executar qualquer correção P0. Recomendação é executar a verificação de build e então avançar com as correções P0 na próxima sessão aprovada.
-
----
-
-_Relatório gerado por rotina autônoma semanal — Claude Code — Ghost System Portfolio_
-_Data: 2026-06-09 | Commit: 940e0a69 | Rotina: READ-ONLY | Files changed: 1 (WEEKLY_AUDIT_REPORT.md)_
+**Ordem de prioridade para próxima sessão:**
+1. P0-01: 1 linha adicionada em `next.config.mjs`. Alto impacto de segurança, baixo risco de regressão.
+2. P1-03: Atualizar dois arquivos de documentação. Zero risco técnico.
+3. P1-02: Motion fixes (requer validação visual em browser).
+4. P1-04: Remover duplicatas de z-index (alto valor de manutenção, baixo risco).
+5. P2-01 a P2-05: Housekeeping consolidado em única PR.
