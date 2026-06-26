@@ -6,7 +6,8 @@ description: # Orquestrador de tarefas complexas e multi-domínio. Executa Disco
 
 name: agents-orquestrator
 description: Orquestrador de tarefas complexas e multi-domínio. Executa Discovery, Planning, Delegação (A2A), MCP fetching e Quality Assurance.
-allowed-tools: Bash(*), Read, Write, Edit, Glob, Grep, MCP(*)
+allowed-tools: Bash(_), Read, Write, Edit, Glob, Grep, MCP(_)
+
 ---
 
 # /agents-orquestrator
@@ -19,7 +20,7 @@ Este workflow orquestra a resolução de demandas de engenharia de software de a
 
 1. Leia o `NOME_DO_PROJETO` e analise a solicitação inicial.
 2. Identifique quais Servidores MCP são necessários para a tarefa atual (Ex: Supabase MCP para esquemas de banco, Figma MCP para tokens de design, n8n MCP para workflows).
-3. Se os requisitos da UI/UX forem vagos, pare e exija os requisitos do usuário. Priorize layouts de grid responsivos *mobile-first* aderentes a padrões de usabilidade; rejeite comportamentos desnecessários como *3D parallax* a menos que explicitamente exigido.
+3. Se os requisitos da UI/UX forem vagos, pare e exija os requisitos do usuário. Priorize layouts de grid responsivos _mobile-first_ aderentes a padrões de usabilidade; rejeite comportamentos desnecessários como _3D parallax_ a menos que explicitamente exigido.
 
 ## 🔍 FASE 1: Discovery & Planning
 
@@ -32,8 +33,8 @@ Este workflow orquestra a resolução de demandas de engenharia de software de a
 
 Distribua as tarefas da Task List para os agentes específicos. Forneça a eles apenas o contexto necessário, nunca a base de código inteira.
 
-* **Frontend:** Invoque `@frontend-specialist`. Restrições: Usar Tailwind CSS v4, React 19, TypeScript estrito. Buscar assets de repositórios de storage privados configurados, não utilizar placeholders externos genéricos. Carregar a skill `ui-ux-pro-max`.
-* **Backend / Dados:** Invoque `@database-architect` e `@backend-specialist`. Restrições: Integração via Supabase. Avaliar Row Level Security (RLS). Carregar as skills `api-patterns` e `database-design`.
+- **Frontend:** Invoque `@frontend-specialist`. Restrições: Usar Tailwind CSS v4, React 19, TypeScript estrito. Buscar assets de repositórios de storage privados configurados, não utilizar placeholders externos genéricos. Carregar a skill `ui-ux-pro-max`.
+- **Backend / Dados:** Invoque `@database-architect` e `@backend-specialist`. Restrições: Integração via Supabase. Avaliar Row Level Security (RLS). Carregar as skills `api-patterns` e `database-design`.
 
 ## 🛡️ FASE 3: Verification & Security Audit
 

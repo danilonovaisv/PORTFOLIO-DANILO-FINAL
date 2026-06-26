@@ -20,6 +20,7 @@ Oferecer uma rota dedicada de conversão direta e contato institucional. A pági
 ## 2. Estrutura de Conteúdo
 
 A página `/contato` é composta por uma sequência vertical de componentes estruturados:
+
 1. **Marcas e Clientes (ClientsBrandsSection):** Exibe a parede de marcas atendidas para passar credibilidade antes da ação.
 2. **Formulário de Contato (ContactSection):** Formulário de envio de mensagem de contato com inputs validados para Nome, E-mail, Telefone/WhatsApp e Mensagem.
 3. **Rodapé (SiteFooter):** Fechamento padrão do site com direitos autorais e links de termos/privacidade.

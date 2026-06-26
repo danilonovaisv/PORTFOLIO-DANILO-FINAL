@@ -4,8 +4,7 @@ description: # Workflow de auditoria determinística e limpeza profunda de repos
 
 ---
 
-description: Workflow de auditoria determinística e limpeza profunda de repositório utilizando Fallow
----
+## description: Workflow de auditoria determinística e limpeza profunda de repositório utilizando Fallow
 
 # /cleanup-fallow
 

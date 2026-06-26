@@ -21,10 +21,10 @@ Apresentar a filosofia de design e a visão criativa do profissional ("o que me 
 
 - **Category Label:** "Direção Criativa" em caixa alta com espaçamento largo (`tracking-[0.18em]`).
 - **Frases do Manifesto:** Ciclo de 4 frases sobre design e marca:
-  1. *Crio o que a marca diz / antes mesmo de falar.*
-  2. *Transformo intenção / em presença.*
-  3. *Entre estética e estratégia, / eu construo percepção.*
-  4. *O que fica não é só a imagem. / É a sensação de marca.*
+  1. _Crio o que a marca diz / antes mesmo de falar._
+  2. _Transformo intenção / em presença._
+  3. _Entre estética e estratégia, / eu construo percepção._
+  4. _O que fica não é só a imagem. / É a sensação de marca._
 - **Navegação (Dots):** 4 indicadores em formato de pílulas horizontais na parte inferior que revelam a frase ativa e permitem navegação manual.
 
 ## 3. Identidade Visual

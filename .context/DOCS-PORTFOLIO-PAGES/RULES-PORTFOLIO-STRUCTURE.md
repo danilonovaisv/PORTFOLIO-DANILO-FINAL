@@ -10,14 +10,14 @@ Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alt
 
 # 1. Tabela Resumo Geral
 
-| Página           | Ordem | Caminho Real              | Nº Sessões | Dependências Críticas                                      |
-| :--------------- | :---- | :------------------------ | :--------- | :--------------------------------------------------------- |
-| **01-HOME**      | 01    | `/app/page.tsx`           | 09         | `Header`, `Hero`, `Showcase`, `ShaderSection`, `SiteClosure`|
-| **02-SOBRE**     | 02    | `/app/sobre/page.tsx`     | 12         | `Header`, `MotionGate`, `Proof`, `SiteClosure`, `StickyCTA` |
-| **03-PORTFOLIO** | 03    | `/app/portfolio/page.tsx` | 09         | `Gallery` (pagination 15pp), `Modal`, `ProjectSlug`, `CMS` |
-| **04-ADMIN**     | 04    | `/app/admin/*`            | Multi      | `Auth`, `Supabase`, `ProtectedLayout`                      |
-| **05-CONTATO**   | 05    | `/app/contato/page.tsx`   | 03         | `ClientsBrandsSection`, `ContactSection`, `SiteFooter`     |
-| **06-PRIVACIDADE**| 06    | `/app/privacidade/page.tsx`| 02         | `PrivacyText`, `SiteFooter`                                |
+| Página             | Ordem | Caminho Real                | Nº Sessões | Dependências Críticas                                        |
+| :----------------- | :---- | :-------------------------- | :--------- | :----------------------------------------------------------- |
+| **01-HOME**        | 01    | `/app/page.tsx`             | 09         | `Header`, `Hero`, `Showcase`, `ShaderSection`, `SiteClosure` |
+| **02-SOBRE**       | 02    | `/app/sobre/page.tsx`       | 12         | `Header`, `MotionGate`, `Proof`, `SiteClosure`, `StickyCTA`  |
+| **03-PORTFOLIO**   | 03    | `/app/portfolio/page.tsx`   | 09         | `Gallery` (pagination 15pp), `Modal`, `ProjectSlug`, `CMS`   |
+| **04-ADMIN**       | 04    | `/app/admin/*`              | Multi      | `Auth`, `Supabase`, `ProtectedLayout`                        |
+| **05-CONTATO**     | 05    | `/app/contato/page.tsx`     | 03         | `ClientsBrandsSection`, `ContactSection`, `SiteFooter`       |
+| **06-PRIVACIDADE** | 06    | `/app/privacidade/page.tsx` | 02         | `PrivacyText`, `SiteFooter`                                  |
 
 ---
 
@@ -309,8 +309,6 @@ _(Seções 09, 10, 11 seguem a estrutura padrão do SiteClosure: Clients, Contac
 7. `07-CLIENTS-BRANDS`
 8. `08-CONTACT`
 9. `09-FOOTER`
-
-
 
 - **Full Bleed Hero:** Em heros que necessitam ocupar 100% da tela (\`Full Bleed\`), **proíba** o uso de hacks de container como \`w-screen left-1/2 -translate-x-1/2\`.
   - **Motivo:** O hack de viewport ignora barras de scroll e gera overflow horizontal / paddings fantasmas e cortes laterais em vídeos responsivos, especialmente no Mobile.

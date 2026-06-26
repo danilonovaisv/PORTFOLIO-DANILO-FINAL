@@ -23,10 +23,12 @@ Exibir casos de estudo detalhados e específicos de cada projeto do portfólio. 
 ## 2. Rota Clássica: `/portfolio/[slug]`
 
 ### Estratégia de Dados
+
 - **Consulta ao Banco:** Tenta buscar o projeto no banco de dados primeiro através da view `public_projects_view` comparando o slug recebido e suas variações com traço/sublinhado.
 - **Fallback Estático:** Se o banco de dados estiver inacessível ou o registro não for encontrado, realiza fallback resiliente para as informações estáticas mapeadas em `HOME_CONTENT.featuredProjects`.
 
 ### Estrutura de Conteúdo e Layout
+
 1. **Navegação Superior:** Link simplificado "Back to Portfolio" com ícone de seta.
 2. **Meta Header:** Exibe o título do projeto em grande destaque tipográfico (`text-4xl md:text-7xl`), o cliente, a categoria e o ano do projeto separados por bordas.
 3. **Mídia Principal (Hero):** Banner em proporção adaptativa (`aspect-video md:aspect-[2.4/1]`) contendo a imagem de destaque ou um vídeo de reprodução automática silenciado em loop.
@@ -40,9 +42,11 @@ Exibir casos de estudo detalhados e específicos de cada projeto do portfólio. 
 ## 3. Rota de Landing Page (Template ALPA V3): `/projects/[slug]`
 
 ### Estratégia de Dados
+
 - Busca os dados estruturados do case diretamente na tabela `landing_pages` no Supabase pelo slug do projeto.
 
 ### Arquitetura de Renderização
+
 - **Dispatcher (`ProjectRenderer`):** Intercepta o formato de conteúdo armazenado e despacha para o renderizador master apropriado caso o template corresponda a `MASTER_PROJECT_TEMPLATE`, `MASTER_PROJECT_TEMPLATE_V2` ou `MASTER_PROJECT_TEMPLATE_V3`.
 - **Renderizador ALPA V3 (`ProjectTemplateMasterRenderer`):** Controla e empilha até 10 blocos editoriais dinâmicos e flexíveis criados na interface administrativa (como blocos de texto, vídeos, imagens em tela cheia, colunas com imagem e texto, grids de mídias, etc.).
 - **Fechamento:** Exibe o rodapé do site (`SiteFooter`).

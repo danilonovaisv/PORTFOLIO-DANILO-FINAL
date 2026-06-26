@@ -17,6 +17,7 @@ Garantir conformidade regulatória e transparência legal sobre o tratamento de 
 ## 2. Estrutura de Conteúdo
 
 A página `/privacidade` é estruturada com:
+
 1. **Título Principal (h1):** "Política de Privacidade".
 2. **Introdução:** Texto explicativo sobre o compromisso com a privacidade do usuário.
 3. **Seção de Coleta de Dados (h2):** Detalha quais campos do formulário (nome, e-mail, telefone, mensagem) são armazenados e tratados.
