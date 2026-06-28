@@ -235,7 +235,7 @@ Se o diff mostrar mudanças em `src/`, `public/`, `.github/`, `supabase/` ou `fu
 ```bash
 mkdir -p .git-hygiene-backup
 git fetch origin  # obrigatório antes do bundle para incluir objetos remotos
-git bundle create .git-hygiene-backup/pre-cleanup-2026-06-28.bundle --all
+git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all
 ```
 
 ### SHA Map Completo — 2026-06-28
@@ -259,6 +259,7 @@ git bundle create .git-hygiene-backup/pre-cleanup-2026-06-28.bundle --all
 | `codex/weekly-cleanup` | `dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0` | `backup/codex/weekly-cleanup/dcf8d0de` | `git branch codex/weekly-cleanup dcf8d0de && git push origin codex/weekly-cleanup` |
 | `docs/audit-beliefs-ghost-design-v3` | `2444b35be4bc5d9809fcdc1ec9f46e62b455a328` | `backup/docs/audit-beliefs-ghost-design-v3/2444b35b` | `git branch docs/audit-beliefs-ghost-design-v3 2444b35b && git push origin docs/audit-beliefs-ghost-design-v3` |
 | `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` | `16aa5652d71702ceb0477c0d6f595954f81e5d49` | `backup/wksp1-planning/16aa5652` | `git branch danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s 16aa5652 && git push origin danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` |
+| `docs/ghost-design-updates-12336613816235341544` | `c5c18920c1eda0c6cb92cdab4ab0448a5ae38fea` | `backup/docs/ghost-design-updates/c5c18920` | `git branch docs/ghost-design-updates-12336613816235341544 c5c18920 && git push origin docs/ghost-design-updates-12336613816235341544` |
 
 ### Rollback de Emergência (reflog)
 ```bash
@@ -315,6 +316,7 @@ git diff origin/main...origin/codex/sobre-origin-a11y-fixes --stat
 git diff origin/main..."origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" --stat
 git diff origin/main...origin/docs/audit-beliefs-ghost-design-v3 --stat
 git diff origin/main...origin/codex/weekly-cleanup --stat
+git diff origin/main..."origin/docs/ghost-design-updates-12336613816235341544" --stat
 
 # Executar também para candidate-archive com alta divergência (>100 commits únicos):
 git diff origin/main...origin/audit/weekly-report-4676327557888982331 --stat
@@ -389,6 +391,7 @@ git tag backup/codex/sobre-origin-a11y-fixes/e03f269d e03f269df443e6d1bde3812573
 git tag backup/wksp1-planning/16aa5652 16aa5652d71702ceb0477c0d6f595954f81e5d49
 git tag backup/docs/audit-beliefs-ghost-design-v3/2444b35b 2444b35be4bc5d9809fcdc1ec9f46e62b455a328
 git tag backup/codex/weekly-cleanup/dcf8d0de dcf8d0de3490dc2995ee4b3aa0b5d222bab8a4c0
+git tag backup/docs/ghost-design-updates/c5c18920 c5c18920c1eda0c6cb92cdab4ab0448a5ae38fea
 
 git push origin \
   backup/fix/audit-remediation-phase1/2a7cc79f \
@@ -398,7 +401,8 @@ git push origin \
   backup/codex/sobre-origin-a11y-fixes/e03f269d \
   backup/wksp1-planning/16aa5652 \
   backup/docs/audit-beliefs-ghost-design-v3/2444b35b \
-  backup/codex/weekly-cleanup/dcf8d0de
+  backup/codex/weekly-cleanup/dcf8d0de \
+  backup/docs/ghost-design-updates/c5c18920
 ```
 
 ### FASE 6 — Delete Remoto dos candidate-delete-remote ★ REQUER APROVAÇÃO SEPARADA ★
@@ -446,7 +450,7 @@ pnpm test
 |---|---|---|---|
 | Branch `unknown-risk` contém código funcional exclusivo | Alta | Alto | Diff obrigatório (Fase 1) antes de qualquer reclassificação ou ação |
 | `worktree-fix-06-que-me-move` reclassificado prematuramente como "mergeado" | Confirmada (auditoria anterior) | Alto | Rebaixado para `unknown-risk`; diff obrigatório nesta auditoria |
-| `main` local desatualizado (-7 commits) causar conflito de merge ou diff errado | Alta | Médio | `git pull origin main` como primeiro passo de execução |
+| `main` local desatualizado (-1 commit) causar conflito de merge ou diff errado | Alta | Médio | `git pull origin main` como primeiro passo de execução |
 | Tag de arquivo sobrescrever tag existente | Baixa | Baixo | Verificar `git tag --list archive/*` antes de criar; usar SHAs nos nomes de tag |
 | `git push --tags` publicar tags não relacionadas a este cleanup | Baixa | Baixo | Usar `git push origin <tag1> <tag2>` explicitamente, nunca `--tags` genérico |
 | Branch `preserved-pr` (#493) deletada por engano | Muito baixa | Alto | Classificada como `preserved-pr`; nenhum delete gerado para ela |

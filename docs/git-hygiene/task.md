@@ -41,7 +41,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 ## Phase 1 — Repository Intake
 
 - [x] Confirmar branch atual e status da árvore de trabalho.
-  - Branch: `claude/dazzling-euler-ad7pi8`, árvore limpa. SHA: `dfd51a25`.
+  - Branch: `claude/dazzling-euler-ad7pi8`, árvore limpa. SHA: `dfd51a251`.
 - [x] Identificar branch padrão.
   - `main` (SHA: `dfd51a251` no remoto; SHA `14869153` localmente — behind 1 commit)
 - [x] Identificar remotes configurados.
@@ -146,7 +146,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 ## Phase 5 — Backup and Rollback Planning
 
 - [x] Criar SHA map completo.
-  - Documentado em `implementation_plan.md`, Seção 8 — 16 branches mapeados com SHA completo, tag e restore command.
+  - Documentado em `implementation_plan.md`, Seção 8 — 17 branches mapeados com SHA completo, tag e restore command.
 - [x] Redigir comando git bundle.
   - `git bundle create .git-hygiene-backup/pre-cleanup-$(date +%Y%m%d-%H%M%S).bundle --all`
 - [x] Redigir comandos de backup tags por branch.
@@ -170,9 +170,9 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 > Aprovação mínima para o ciclo 2026-06-28:
 > - **Phase 7 (Fetch + Diff das unknown-risk):** leitura pura após fetch; pode aprovar imediatamente.
 > - **Phase 8a–8c (Update local + bundle + tags):** requer `Aprovado`.
-> - **Phase 8d (Delete remoto dos candidate-delete-remote):** aprovação separada e explícita.
-> - **Phase 8e (Delete remoto dos candidate-archive):** aprovação separada e explícita.
-> - **Phase 8f (unknown-risk):** decisão humana por branch após análise dos diffs.
+> - **Phase 8e (Delete remoto dos candidate-delete-remote):** aprovação separada e explícita.
+> - **Phase 8f (Delete remoto dos candidate-archive):** aprovação separada e explícita.
+> - **Phase 8g (unknown-risk):** decisão humana por branch após análise dos diffs.
 > - **Preservados sem aprovação necessária:** PRs #496, #497, #498 e suas branches.
 
 ---
@@ -230,21 +230,22 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
   - `backup/wksp1-planning/16aa5652` → `16aa5652`
   - `backup/docs/audit-beliefs-ghost-design-v3/2444b35b` → `2444b35b`
   - `backup/codex/weekly-cleanup/dcf8d0de` → `dcf8d0de`
+  - `backup/docs/ghost-design-updates/c5c18920` → `c5c18920c1eda0c6cb92cdab4ab0448a5ae38fea`
 - [ ] Push explícito das tags candidate-archive, candidate-delete-remote e unknown-risk (não `git push --tags` genérico).
 - [ ] Confirmar que todas as tags estão visíveis no remoto.
 
-### 8d. Delete remoto dos candidate-delete-remote ★ REQUER APROVAÇÃO SEPARADA ★
+### 8e. Delete remoto dos candidate-delete-remote ★ REQUER APROVAÇÃO SEPARADA ★
 - [ ] `git push origin --delete codex/media-card-system` (MERGED confirmado)
 - [ ] `git push origin --delete chore-audit-report-12176814106024817247` (1 chore commit, PR #488 fechado)
 
-### 8e. Delete remoto dos candidate-archive ★ REQUER APROVAÇÃO SEPARADA ★
+### 8f. Delete remoto dos candidate-archive ★ REQUER APROVAÇÃO SEPARADA ★
 - [ ] `git push origin --delete audit/weekly-report-4676327557888982331` (archive tag criada)
 - [ ] `git push origin --delete claude/weekly-audit-report-2026-05-19` (archive tag criada)
 - [ ] `git push origin --delete claude/dazzling-euler-ZhWMf` (archive tag criada)
 - [ ] `git push origin --delete claude/beautiful-rubin-MVYRs` (archive tag criada)
 - [ ] `git push origin --delete codex/ghost-portfolio-hero-pr` (archive tag criada)
 
-### 8f. Delete ou merge das unknown-risk ★ REQUER DECISÃO HUMANA INDIVIDUAL ★
+### 8g. Delete ou merge das unknown-risk ★ REQUER DECISÃO HUMANA INDIVIDUAL ★
 - [ ] Aguardar análise dos resultados da Phase 7 pelo humano.
 - [ ] Para cada branch, executar ação aprovada explicitamente:
   - `fix/audit-remediation-phase1` → aguardar decisão
@@ -261,7 +262,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 
 ## Phase 9 — Validation
 
-- [ ] `git fetch --all --prune` — limpa tracking refs dos branches deletados na Phase 8e.
+- [ ] `git fetch --all --prune` — limpa tracking refs dos branches deletados nas Phases 8e e 8f.
 - [ ] `git status` — árvore limpa, sem conflitos.
 - [ ] `git branch --all` — confirmar ausência de branches deletadas acidentalmente e presença das preservadas.
 - [ ] `git worktree list --porcelain` — confirmar que nenhuma worktree legítima foi afetada.
