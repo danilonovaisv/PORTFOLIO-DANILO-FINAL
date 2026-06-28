@@ -4,40 +4,52 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 
 **Projeto:** portfoliodanilo.com  
 **Criado em:** 2026-05-17  
-**Atualizado em:** 2026-06-14  
-**Status:** Phases 1–5 concluídas. Aguardando aprovação humana para Phase 6+.
+**Atualizado em:** 2026-06-28  
+**Status:** Ciclo 2026-06-28 — Phases 1–5 concluídas. Aguardando aprovação humana para Phase 6+.
 
 ---
 
-## Resumo de Status
+## Resumo de Status — Ciclo 2026-06-28
 
 | Fase | Status |
 |---|---|
-| Phase 1 — Repository Intake | ✅ Concluído |
-| Phase 2 — Read-Only Git Audit | ✅ Concluído |
-| Phase 3 — GitHub and PR Audit | ✅ Concluído |
-| Phase 4 — Classification | ✅ Concluído |
-| Phase 5 — Backup and Rollback Planning | ✅ Concluído |
+| Phase 1 — Repository Intake | ✅ Concluído (2026-06-28) |
+| Phase 2 — Read-Only Git Audit | ✅ Concluído (2026-06-28) |
+| Phase 3 — GitHub and PR Audit | ✅ Concluído (2026-06-28) |
+| Phase 4 — Classification | ✅ Concluído (2026-06-28) |
+| Phase 5 — Backup and Rollback Planning | ✅ Concluído (documentação) |
 | Phase 6 — Approval Gate | ⏸️ **Aguardando aprovação humana** |
-| Phase 7 — Diff das unknown-risk (Fase 1 do plano) | 🔒 Bloqueado |
+| Phase 7 — Fetch + Diff das unknown-risk | 🔒 Bloqueado até aprovação |
 | Phase 8 — Verified Execution | 🔒 Bloqueado |
 | Phase 9 — Validation | 🔒 Bloqueado |
 | Phase 10 — Confirmation and Documentation | 🔒 Bloqueado |
+
+## Resumo de Status — Ciclo 2026-06-14 (histórico)
+
+| Fase | Status |
+|---|---|
+| Phase 1 — Repository Intake | ✅ |
+| Phase 2 — Read-Only Git Audit | ✅ |
+| Phase 3 — GitHub and PR Audit | ✅ |
+| Phase 4 — Classification | ✅ |
+| Phase 5 — Backup and Rollback Planning | ✅ |
+| Phase 6 — Approval Gate | ⏸️ Nunca aprovado — sessão encerrada |
+| Phase 7+ | 🔒 Nunca executado |
 
 ---
 
 ## Phase 1 — Repository Intake
 
 - [x] Confirmar branch atual e status da árvore de trabalho.
-  - Branch: `claude/dazzling-euler-mwbicc`, árvore limpa. SHA: `8ee5ce62`.
+  - Branch: `claude/dazzling-euler-ad7pi8`, árvore limpa. SHA: `dfd51a25`.
 - [x] Identificar branch padrão.
-  - `main` (SHA: `8ee5ce62` no remoto; SHA `940e0a69` localmente — behind 7 commits)
+  - `main` (SHA: `dfd51a251` no remoto; SHA `14869153` localmente — behind 1 commit)
 - [x] Identificar remotes configurados.
   - `origin` → `danilonovaisv/PORTFOLIO-DANILO-FINAL` via proxy local
 - [x] Identificar package manager e scripts de validação.
   - `pnpm`; scripts: `lint`, `typecheck`, `build-check`, `test`, `test:e2e`
 - [x] Identificar premissas de branch protection.
-  - `main` retorna `protected: true` via GitHub API (confirmado nesta auditoria).
+  - `main` retorna `protected: true` via GitHub API (confirmado via `list_branches`).
   - Nenhuma outra branch protegida via API.
 - [x] Confirmar presença de CI/CD vinculado a branches específicas.
   - Firebase Hosting via webframeworks experiment. CI em `.github/workflows/`.
@@ -48,45 +60,49 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 ## Phase 2 — Read-Only Git Audit
 
 - [x] Listar branches locais com verbose.
-  - `claude/dazzling-euler-mwbicc` (HEAD), `main`
-- [x] Listar branches remotas (GitHub API + fetch).
-  - 17 branches remotas confirmadas.
-- [x] Listar branches mergeados vs HEAD.
-  - `main` (local) mergeada — mesmo SHA `8ee5ce62` que a branch atual.
-- [x] Listar branches não mergeados.
+  - `claude/dazzling-euler-ad7pi8` (HEAD), `main`
+- [x] Listar branches remotas (GitHub API).
+  - 20 branches remotas confirmadas via `list_branches` MCP.
+- [x] Listar branches mergeados vs HEAD (local).
+  - `claude/dazzling-euler-ad7pi8` e `main` aparecem em `--merged`.
+- [x] Listar branches não mergeados (local).
   - Nenhum localmente.
 - [x] Verificar upstream tracking status de cada branch.
-  - `main` → `origin/main` (behind 7)
-  - `claude/dazzling-euler-mwbicc` → sem upstream (remote deletado após PR #494 merge)
+  - `main` → `origin/main` (behind 1)
+  - `claude/dazzling-euler-ad7pi8` → `origin/claude/dazzling-euler-ad7pi8` (stale)
 - [x] Listar worktrees em formato porcelain.
   - 1 worktree principal, limpa, não bloqueada.
-- [x] Visualizar grafo de commits recente (all branches, max 40).
-  - Executado. Topologia com merges de PRs recentes (inclusive #491, #484, #482) visível.
+- [x] Visualizar grafo de commits recente (all branches, max 80).
+  - Executado. Topologia com merges de PRs recentes visível.
 - [x] Executar dry-run de `git fetch --prune`.
-  - `origin/claude/dazzling-euler-mwbicc` marcado como `[deleted]` (remote deletado após PR #494).
-  - 16 novos remote tracking refs detectados.
-- [x] Confirmar ausência de worktrees a remover.
-  - `git worktree list --porcelain` retornou apenas o worktree principal.
+  - `origin/claude/dazzling-euler-ad7pi8` marcado como `[deleted]` (stale).
+  - 19 novos remote tracking refs seriam criados.
+  - `origin/main` seria atualizado de `14869153` para `dfd51a251`.
+  - ⚠️ **Dry-run apenas — objetos NÃO baixados.**
+- [x] Executar dry-run de `git worktree prune`.
+  - Sem output — nenhuma worktree órfã.
+- [x] Confirmar merge status de `codex/media-card-system`.
+  - `merge-base --is-ancestor 06104ba2 HEAD` → MERGED (SHA estava no store local).
 
 ---
 
 ## Phase 3 — GitHub and PR Audit
 
 - [x] Verificar PRs abertos via GitHub MCP.
-  - **1 PR aberto:** PR #493 — `claude/weekly-audit-report-2026-06-09` (open, não draft).
-  - PRs anteriores (#469, #470, #487, #488, #489) confirmados FECHADOS.
+  - **3 PRs abertos:**
+    - PR #498 — `claude/weekly-audit-report-2026-06-23` (open)
+    - PR #497 — `claude/dazzling-euler-mp4s71` (open)
+    - PR #496 — `claude/weekly-audit-report-2026-06-16` (open)
+  - PR #493 (`claude/weekly-audit-report-2026-06-09`) não aparece mais — resolvido.
 - [x] Verificar branches protegidas via API.
   - `main` com `protected: true` confirmado.
   - Nenhuma outra branch protegida.
 - [x] Marcar branches linked a PRs ativos como preserved.
-  - `claude/weekly-audit-report-2026-06-09` → `preserved-pr` (PR #493 aberto).
-- [x] Confirmar status dos PRs anteriores.
-  - 5 branches ex-`preserved-pr` liberadas para reclassificação:
-    - `claude/beautiful-rubin-MVYRs` (PR #489 fechado)
-    - `chore-audit-report-12176814106024817247` (PR #488 fechado)
-    - `claude/dazzling-euler-ZhWMf` (PR #487 fechado)
-    - `audit/weekly-report-4676327557888982331` (PR #470 fechado)
-    - `claude/weekly-audit-report-2026-05-19` (PR #469 fechado)
+  - `claude/weekly-audit-report-2026-06-23` → `preserved-pr` (PR #498)
+  - `claude/dazzling-euler-mp4s71` → `preserved-pr` (PR #497)
+  - `claude/weekly-audit-report-2026-06-16` → `preserved-pr` (PR #496)
+- [x] Confirmar novas branches detectadas.
+  - `docs/ghost-design-updates-12336613816235341544` (nova, sem PR, sem contexto — `unknown-risk`)
 
 ---
 
@@ -95,30 +111,33 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [x] Classificar branches protegidas.
   - `main` (remote) → `protected`
 - [x] Classificar branches ativas.
-  - `claude/dazzling-euler-mwbicc` (local, current, remote deletado) → `candidate-delete-local`
-  - `main` (local, behind 7) → `active / protected`
+  - `claude/dazzling-euler-ad7pi8` (local, current) → `active`
+  - `main` (local, behind 1) → `active / protected`
 - [x] Classificar `preserved-pr`.
-  - `claude/weekly-audit-report-2026-06-09` → `preserved-pr` (PR #493 aberto)
+  - `claude/weekly-audit-report-2026-06-23` → `preserved-pr` (PR #498)
+  - `claude/dazzling-euler-mp4s71` → `preserved-pr` (PR #497)
+  - `claude/weekly-audit-report-2026-06-16` → `preserved-pr` (PR #496)
 - [x] Classificar candidatos a delete local.
-  - `claude/dazzling-euler-mwbicc` (após switch para `main`)
-- [x] Classificar candidatos a delete remoto (zero commits ou chore UUID com PR fechado).
-  - `codex/media-card-system` (0 commits únicos — mergeada)
-  - `chore-audit-report-12176814106024817247` (1 commit chore, PR #488 fechado)
+  - Nenhum novo — branch atual não mergeada localmente; `main` apenas needs pull
+- [x] Classificar candidatos a delete remoto.
+  - `codex/media-card-system` (MERGED confirmado — merge-base)
+  - `chore-audit-report-12176814106024817247` (1 chore commit, PR #488 fechado)
 - [x] Classificar candidate-archive (valor histórico, PR fechado ou sem PR, 1 commit).
-  - `audit/weekly-report-4676327557888982331` (PR #470 fechado, relatório automatizado)
-  - `claude/weekly-audit-report-2026-05-19` (PR #469 fechado, relatório superado)
-  - `claude/dazzling-euler-ZhWMf` (PR #487 fechado, 1 commit único)
-  - `claude/beautiful-rubin-MVYRs` (PR #489 fechado, 1 commit único)
+  - `audit/weekly-report-4676327557888982331` (PR #470 fechado)
+  - `claude/weekly-audit-report-2026-05-19` (PR #469 fechado)
+  - `claude/dazzling-euler-ZhWMf` (PR #487 fechado, 1 commit)
+  - `claude/beautiful-rubin-MVYRs` (PR #489 fechado, 1 commit)
   - `codex/ghost-portfolio-hero-pr` (sem PR, 1 commit docs)
 - [x] Classificar itens unknown-risk.
-  - `fix/audit-remediation-phase1` (1141 commits únicos, commits funcionais confirmados)
-  - `worktree-audit-fixes` (1268 commits únicos, commits de RLS e fixes)
-  - `worktree-fix-06-que-me-move` (1278 commits únicos — ⚠️ reclassificado de `candidate-delete-remote`)
-  - `worktree-responsive-video-plan` (1403 commits únicos, SHA mudou desde auditoria anterior)
-  - `codex/sobre-origin-a11y-fixes` (1382 commits únicos, a11y fixes reais)
-  - `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` (1123 commits únicos, motion e WebGL)
-  - `docs/audit-beliefs-ghost-design-v3` (948 commits únicos, docs Ghost Design)
-  - `codex/weekly-cleanup` (1197 commits únicos, cleanup — natureza não verificada)
+  - `fix/audit-remediation-phase1` (1141 commits únicos — dado de 2026-06-14)
+  - `worktree-audit-fixes` (1268 commits — dado de 2026-06-14)
+  - `worktree-fix-06-que-me-move` (1278 commits — reclassificado em 2026-06-14)
+  - `worktree-responsive-video-plan` (1403 commits — dado de 2026-06-14)
+  - `codex/sobre-origin-a11y-fixes` (1382 commits — dado de 2026-06-14)
+  - `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` (1123 commits — dado de 2026-06-14)
+  - `docs/audit-beliefs-ghost-design-v3` (948 commits — dado de 2026-06-14)
+  - `codex/weekly-cleanup` (1197 commits — dado de 2026-06-14)
+  - `docs/ghost-design-updates-12336613816235341544` (nova — sem dados de commit count)
 - [x] Classificar worktrees órfãs.
   - Nenhuma detectada.
 
@@ -148,26 +167,32 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 
 > ⚠️ Nenhuma tarefa abaixo desta linha pode ser iniciada antes da aprovação explícita.
 >
-> Aprovação mínima para esta sessão:
-> - **Phase 7 (Diff das unknown-risk):** leitura pura; pode aprovar imediatamente.
+> Aprovação mínima para o ciclo 2026-06-28:
+> - **Phase 7 (Fetch + Diff das unknown-risk):** leitura pura após fetch; pode aprovar imediatamente.
 > - **Phase 8a–8c (Update local + bundle + tags):** requer `Aprovado`.
-> - **Phase 8d–8e (Delete remoto):** aprovação separada e explícita.
+> - **Phase 8d (Delete remoto dos candidate-delete-remote):** aprovação separada e explícita.
+> - **Phase 8e (Delete remoto dos candidate-archive):** aprovação separada e explícita.
 > - **Phase 8f (unknown-risk):** decisão humana por branch após análise dos diffs.
+> - **Preservados sem aprovação necessária:** PRs #496, #497, #498 e suas branches.
 
 ---
 
-## Phase 7 — Diff das unknown-risk (READ-ONLY, pós-aprovação para contexto)
+## Phase 7 — Fetch + Diff das unknown-risk (READ-ONLY, pós-aprovação)
 
+> **Pré-requisito:** `git fetch origin` — obrigatório para ter os objetos no store local.
+
+- [ ] `git fetch origin` → baixar todos os objetos remotos.
 - [ ] `git diff origin/main...origin/fix/audit-remediation-phase1 --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/worktree-audit-fixes --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/worktree-fix-06-que-me-move --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/worktree-responsive-video-plan --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/codex/sobre-origin-a11y-fixes --stat` → registrar arquivos alterados.
-- [ ] `git diff origin/main..."origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" --stat` → registrar arquivos alterados.
+- [ ] `git diff origin/main..."origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s" --stat` → registrar.
 - [ ] `git diff origin/main...origin/docs/audit-beliefs-ghost-design-v3 --stat` → registrar arquivos alterados.
 - [ ] `git diff origin/main...origin/codex/weekly-cleanup --stat` → registrar arquivos alterados.
-- [ ] `git diff origin/main...origin/audit/weekly-report-4676327557888982331 --stat` → registrar arquivos alterados (candidate-archive, alta divergência — 1423 commits únicos).
-- [ ] `git diff origin/main...origin/claude/weekly-audit-report-2026-05-19 --stat` → registrar arquivos alterados (candidate-archive, alta divergência — 1428 commits únicos).
+- [ ] `git diff origin/main..."origin/docs/ghost-design-updates-12336613816235341544" --stat` → nova branch — registrar.
+- [ ] `git diff origin/main...origin/audit/weekly-report-4676327557888982331 --stat` → candidate-archive, alta divergência.
+- [ ] `git diff origin/main...origin/claude/weekly-audit-report-2026-05-19 --stat` → candidate-archive, alta divergência.
 - [ ] Reclassificar cada branch com base no resultado:
   - Somente docs/audit: → `candidate-archive`
   - Mudanças em `src/`, `.github/`, `supabase/`, `functions/`, `public/`: → escalar ao humano
@@ -178,11 +203,11 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 
 ### 8a. Atualização local
 - [ ] `git checkout main`
-- [ ] `git pull origin main` (atualiza local main de `940e0a69` para `8ee5ce62`)
+- [ ] `git pull origin main` (atualiza local main de `14869153` para `dfd51a251`)
 
-### 8b. Delete local da branch mergeada
-- [ ] `git branch -d claude/dazzling-euler-mwbicc`
-- [ ] Confirmar que branch local foi removida sem erro (deve ser `-d` sem erro pois SHA = HEAD de `main`).
+### 8b. Delete local da branch mergeada (quando aplicável)
+- [ ] Após confirmação de PR mergeado para `claude/dazzling-euler-ad7pi8`: `git checkout main && git branch -d claude/dazzling-euler-ad7pi8`
+- [ ] Confirmar que branch local foi removida sem erro.
 
 ### 8c. Bundle de backup completo
 - [ ] `mkdir -p .git-hygiene-backup`
@@ -208,9 +233,11 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 - [ ] Push explícito das tags candidate-archive, candidate-delete-remote e unknown-risk (não `git push --tags` genérico).
 - [ ] Confirmar que todas as tags estão visíveis no remoto.
 
-### 8e. Delete remoto dos confirmados ★ REQUER APROVAÇÃO SEPARADA ★
-- [ ] `git push origin --delete codex/media-card-system` (0 commits únicos — mergeada)
+### 8d. Delete remoto dos candidate-delete-remote ★ REQUER APROVAÇÃO SEPARADA ★
+- [ ] `git push origin --delete codex/media-card-system` (MERGED confirmado)
 - [ ] `git push origin --delete chore-audit-report-12176814106024817247` (1 chore commit, PR #488 fechado)
+
+### 8e. Delete remoto dos candidate-archive ★ REQUER APROVAÇÃO SEPARADA ★
 - [ ] `git push origin --delete audit/weekly-report-4676327557888982331` (archive tag criada)
 - [ ] `git push origin --delete claude/weekly-audit-report-2026-05-19` (archive tag criada)
 - [ ] `git push origin --delete claude/dazzling-euler-ZhWMf` (archive tag criada)
@@ -228,6 +255,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
   - `danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s` → aguardar decisão
   - `docs/audit-beliefs-ghost-design-v3` → aguardar decisão
   - `codex/weekly-cleanup` → aguardar decisão
+  - `docs/ghost-design-updates-12336613816235341544` → nova branch; diff obrigatório antes de qualquer decisão
 
 ---
 
