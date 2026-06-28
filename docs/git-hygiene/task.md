@@ -169,7 +169,7 @@ A task list is an artifact that the agent uses to approach complex tasks and mon
 >
 > Aprovação mínima para o ciclo 2026-06-28:
 > - **Phase 7 (Fetch + Diff das unknown-risk):** leitura pura após fetch; pode aprovar imediatamente.
-> - **Phase 8a–8c (Update local + bundle + tags):** requer `Aprovado`.
+> - **Phase 8a–8d (Update local + bundle + tags de arquivo e backup):** requer `Aprovado`.
 > - **Phase 8e (Delete remoto dos candidate-delete-remote):** aprovação separada e explícita.
 > - **Phase 8f (Delete remoto dos candidate-archive):** aprovação separada e explícita.
 > - **Phase 8g (unknown-risk):** decisão humana por branch após análise dos diffs.
