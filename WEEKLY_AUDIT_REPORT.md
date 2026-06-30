@@ -77,6 +77,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 - **Positivo:** WebGL nativo (Three.js sem R3F) com cleanup via refs. Uniforms `resolution` e `time` atualizados em loop. Cores do shader: cyan `≈ #4FE6FF` (Ghost Cyan ✓), pink `≈ #F501D3` (pinkDetails ✓), bg `≈ #040013` (Void Black ✓).
 - **Gap:** `uniforms: any` — violação de TypeScript strict. Tipo correto: `{ resolution: THREE.Uniform<THREE.Vector2>; time: THREE.Uniform<number> }`.
 - **Gap:** Cores do shader são valores literais RGB, não tokens CSS. Se Ghost Design System atualizar tokens, o shader ficará dessincronizado.
+- **Gap:** `requestAnimationFrame` roda indefinidamente enquanto o componente está montado — sem `IntersectionObserver`, sem gate de `prefers-reduced-motion`. Loop consome FPS e bateria quando o usuário rola além da seção. Ghost Design System exige: "nenhuma animação rodando fora da viewport". Ver AUDIT-009 e Prompt #04.
 
 ### Clients & Brands (`ClientsBrandsSection`)
 - **Positivo:** Logos com `m.div` animado via `whileInView`. `aria-labelledby="clients-heading"`. `useMotionGate()` aplicado. Fundo `bg-bluePrimary` (#0048ff ✓).
@@ -487,7 +488,7 @@ src/components/
 │       ├── GhostScene.tsx              ← ssr:false ✓
 │       └── hooks/ (6 hooks de WebGL)
 ├── home/
-│   ├── ShaderSection.tsx               ← uniforms: any ⚠️, cores corretas ✓
+│   ├── ShaderSection.tsx               ← uniforms: any ⚠️, RAF sem viewport gate ⚠️, cores corretas ✓
 │   ├── clients/ClientsBrandsSection.tsx ← bg-bluePrimary ✓, slice(12) ⚠️
 │   ├── contact/ContactForm.tsx         ← Turnstile lazy ✓
 │   ├── featured-projects/
