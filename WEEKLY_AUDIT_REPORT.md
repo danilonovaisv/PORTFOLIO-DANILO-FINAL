@@ -111,9 +111,9 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **ID:** AUDIT-002  
 **Severidade:** 🔴 P0 Crítico  
 **Área:** Build / TypeScript  
-**Evidência:** `next.config.ts` contém `typescript: { ignoreBuildErrors: true }`. Deployments de produção não verificam erros de tipo.  
+**Evidência:** `next.config.mjs` contém `typescript: { ignoreBuildErrors: true }`. Deployments de produção não verificam erros de tipo.  
 **Impacto:** Código com erros TypeScript pode chegar a produção sem sinalização de CI.  
-**Arquivos relacionados:** `next.config.ts`  
+**Arquivos relacionados:** `next.config.mjs`  
 **Risco de não corrigir:** Regressões de tipo invisíveis em produção. Runtime errors que seriam catch-time no build.  
 **Critério de aceite futuro:** `ignoreBuildErrors` removido ou CI executa `pnpm typecheck` como gate obrigatório antes de qualquer merge para main.
 
@@ -124,13 +124,13 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 ---
 
 **ID:** AUDIT-003  
-**Severidade:** 🟡 P1 Estrutural  
+**Severidade:** 🟢 P2 Polimento _(corrigido: downgrade de P1 — verificação pós-auditoria confirmou facade)_  
 **Área:** Tokens de Motion / Arquitetura  
-**Evidência:** `src/components/home/hero/HeroCopy.tsx` importa `GHOST_EASE`, `MOTION_TOKENS` de `@/lib/motion`. Todos os outros componentes auditados importam de `@/config/motion`. O diretório `src/lib/motion/` existe com múltiplos sub-módulos (index.ts, page.ts, reveal.ts, stagger.ts, hero.ts, viewport.ts, gsapGhostEase.ts).  
-**Impacto:** Dois módulos com tokens de animação — risco de divergência silenciosa se um for atualizado sem o outro.  
+**Evidência:** `src/components/home/hero/HeroCopy.tsx` importa `GHOST_EASE`, `MOTION_TOKENS` de `@/lib/motion`. Verificação direta de `src/lib/motion/index.ts` confirmou que o módulo é uma facade de re-export: `export { GHOST_EASE, MOTION_TOKENS } from '@/config/motion'` — sem valores próprios divergentes.  
+**Impacto:** Baixo — o import aponta para fonte diferente superficialmente, mas os valores são idênticos em runtime pois `@/lib/motion` apenas re-exporta `@/config/motion`. Sem risco de divergência silenciosa.  
 **Arquivos relacionados:** `src/lib/motion/index.ts`, `src/config/motion.ts`, `src/components/home/hero/HeroCopy.tsx`  
-**Risco de não corrigir:** Inconsistência de easing ou duração entre o Hero principal e o restante do site.  
-**Critério de aceite futuro:** Um único módulo canônico para tokens de motion. HeroCopy e quaisquer outros outliers apontam para `@/config/motion` ou `@/lib/motion` é explicitamente um re-export.
+**Risco de não corrigir:** Cosmético — potencial confusão para futuros agentes sobre qual módulo é canônico.  
+**Critério de aceite futuro:** JSDoc em `src/lib/motion/index.ts` explicita que é facade de `@/config/motion`, ou todos os imports são unificados para `@/config/motion` diretamente.
 
 ---
 
@@ -157,21 +157,21 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 ---
 
 **ID:** AUDIT-006  
-**Severidade:** 🟡 P1 Estrutural  
+**Severidade:** 🟢 P2 Polimento _(corrigido: downgrade de P1 — verificação pós-auditoria confirmou slice)_  
 **Área:** FeaturedProjects / Integridade de Grid  
-**Evidência:** `FEATURED_GRID_LAYOUT` em `FeaturedProjectsSection.tsx` tem 4 posições fixas mapeadas por índice. O fallback `buildFallbackProjects()` pode não retornar exatamente 4 projetos, e a query do Supabase por `featuredOnHome: true` não garante LIMIT de 4.  
-**Impacto:** Layout visual quebrado com slots de grid vazios ou overflow de card quando o CMS tem menos de 4 projetos destacados.  
-**Arquivos relacionados:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/lib/portfolio/fallbacks.ts`, `src/lib/supabase/queries/projects.ts`  
-**Risco de não corrigir:** Regressão visual silenciosa quando o admin gerencia projetos.  
-**Critério de aceite futuro:** Grid renderiza apenas os cards disponíveis com layout adaptativo, ou a query garante exatamente 4 projetos via LIMIT e ORDER BY.
+**Evidência:** Verificação direta de `FeaturedProjectsSection.tsx` confirmou que os cards são renderizados via `featuredProjects.slice(0, 4).map(...)` — não via `FEATURED_GRID_LAYOUT.map()`. Com menos de 4 projetos, o map produz apenas os itens disponíveis, sem slots vazios mapeados.  
+**Impacto:** Menor que o originalmente estimado — o map de projetos não cria slots vazios. Potencial gap visual no CSS grid se os estilos esperarem exatamente 4 células, mas nenhuma renderização vazia de slot.  
+**Arquivos relacionados:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/lib/portfolio/fallbacks.ts`  
+**Risco de não corrigir:** Possível quebra visual de CSS grid com menos de 4 projetos (dependendo da implementação do grid). A query Supabase ainda não garante LIMIT de 4.  
+**Critério de aceite futuro:** Verificar layout visual com 1, 2, 3 projetos no CMS. Adicionar `LIMIT 4` explícito na query se necessário para garantir consistência.
 
 ---
 
 **ID:** AUDIT-007  
 **Severidade:** 🟡 P1 Estrutural  
 **Área:** Versioning de Stack / Consistência Documental  
-**Evidência:** `CLAUDE.md` declara `Next.js 16.2.2`. `.claude/rules/20-tech-stack.md` diz `Next.js 14+, currently 16.1.6`. `AGENTS.md` diz `Next.js 16.2.2`. Os números de versão diferem entre documentos governanciais.  
-**Impacto:** Inconsistência de documentação cria ambiguidade para agentes que usam as regras como referência para tomada de decisão.  
+**Evidência:** `package.json` declara `"next": "16.2.9"`. `CLAUDE.md` diz `16.2.2`. `.claude/rules/20-tech-stack.md` diz `Next.js 14+, currently 16.1.6`. `AGENTS.md` diz `16.2.2`. A versão real é `16.2.9` — todos os documentos estão desatualizados.  
+**Impacto:** Inconsistência de documentação cria ambiguidade para agentes que usam as regras como referência para tomada de decisão. Risco operacional: validações de compatibilidade de adapter/plugin podem apontar para versão errada.  
 **Arquivos relacionados:** `CLAUDE.md`, `.claude/rules/20-tech-stack.md`, `AGENTS.md`, `package.json`  
 **Risco de não corrigir:** Agentes tomam decisões técnicas baseados na versão errada documentada.  
 **Critério de aceite futuro:** Uma fonte de verdade única para versões de stack (package.json como referência), com documentação sincronizada via script de bump ou anotação explícita.
@@ -212,6 +212,39 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Arquivos relacionados:** `src/app/globals.css`, `tailwind.config.ts`  
 **Risco de não corrigir:** Pequeno overhead de carregamento e limpeza técnica pendente.  
 **Critério de aceite futuro:** `grep -r "font-outfit\|fontOutfit\|font-family-outfit\|Outfit" src/` retorna zero. Variável removida de `globals.css` e `tailwind.config.ts`.
+
+---
+
+**ID:** AUDIT-011  
+**Severidade:** 🟡 P1 Segurança  
+**Área:** CSP / Rota Pública  
+**Evidência:** `src/app/api/view-cv/route.ts` define `Content-Security-Policy: "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*; img-src 'self' data: https://*;"`. A diretiva `'unsafe-eval'` habilita execução de código dinâmico (eval, Function constructor) e `'unsafe-inline'` habilita scripts inline. A rota é pública (`/api/view-cv`) e serve HTML de currículo.  
+**Impacto:** Risco de XSS se o conteúdo do HTML do currículo for corrompido ou manipulado. `'unsafe-eval'` abre vetor para injeção de código arbitrário via conteúdo dinâmico.  
+**Arquivos relacionados:** `src/app/api/view-cv/route.ts`  
+**Risco de não corrigir:** Vulnerabilidade de segurança em rota pública servindo HTML. Em auditoria de segurança (PCI/SOC2), seria flag imediata.  
+**Critério de aceite futuro:** CSP restritiva para `/api/view-cv` — remover `'unsafe-eval'`, escopar `'unsafe-inline'` apenas se necessário para estilo inline do HTML do CV, restringir `https://*` às origens específicas usadas pelo CV.
+
+---
+
+**ID:** AUDIT-012  
+**Severidade:** 🟡 P1 Performance  
+**Área:** ISR / Cache de Rotas  
+**Evidência:** `src/app/portfolio/[slug]/page.tsx` exporta `export const dynamic = 'force-dynamic'`. Isso desabilita completamente o ISR (Incremental Static Regeneration) e faz cada requisição de projeto individual bater no Supabase em tempo real.  
+**Impacto:** TTFB elevado para páginas de projeto. Com tráfego intenso, pode saturar o connection pool do Supabase. Nenhum benefício de cache para conteúdo que raramente muda.  
+**Arquivos relacionados:** `src/app/portfolio/[slug]/page.tsx`  
+**Risco de não corrigir:** Performance degradada em picos de tráfego. Custo Supabase desnecessário. LCP prejudicado em páginas de projeto.  
+**Critério de aceite futuro:** Migrar para `revalidate = 3600` (ou outro intervalo) com `generateStaticParams()` para projetos principais, mantendo `force-dynamic` apenas se conteúdo realmente requer dados de sessão por requisição.
+
+---
+
+**ID:** AUDIT-013  
+**Severidade:** 🟡 P1 Assets / Integridade  
+**Área:** Links de Asset / Legado  
+**Evidência:** `.context/active_state.md` documenta: _"Predeploy audit still reports 42 pre-existing broken legacy asset links in `src/config/site-assets.json`"_. Links ativos de portfolio hero retornaram HTTP 200, mas 42 links legados permanecem quebrados.  
+**Impacto:** Assets referenciados em `site-assets.json` com URLs quebradas podem causar imagens/vídeos ausentes em partes do site não auditadas nesta rodada.  
+**Arquivos relacionados:** `src/config/site-assets.json`  
+**Risco de não corrigir:** Regressões visuais silenciosas em seções que dependem dos assets legados.  
+**Critério de aceite futuro:** `pnpm run audit:assets` (ou script equivalente) retorna zero links quebrados. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
 
 ---
 
@@ -324,15 +357,49 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 **Objetivo:** Garantir que erros TypeScript bloqueiem deploys de produção (AUDIT-002).  
 **Especialista:** `@ghost_architect`  
-**Arquivos:** `next.config.ts`, `.github/workflows/` (pipeline CI/CD relevante)  
+**Arquivos:** `next.config.mjs`, `.github/workflows/` (pipeline CI/CD relevante)  
 **Contexto obrigatório:** `.claude/rules/code-quality.md` (§Anti-Patterns Any Type), `CLAUDE.md` (Build & Test)  
 **Ações:**
-1. Em `next.config.ts`, remover ou comentar `typescript: { ignoreBuildErrors: true }` — substituir por `typescript: { ignoreBuildErrors: false }`.
+1. Em `next.config.mjs`, remover ou comentar `typescript: { ignoreBuildErrors: true }` — substituir por `typescript: { ignoreBuildErrors: false }`.
 2. Se o build falhar com erros de tipo ao remover a flag: listar os erros (`pnpm typecheck 2>&1 | tee typecheck.log`) e criar tarefas para corrigi-los antes de habilitar o gate.
 3. Alternativa menos invasiva: manter a flag temporariamente mas adicionar `pnpm typecheck` como step obrigatório no workflow de CI antes do step de deploy — qualquer erro de tipo bloqueia o merge.
 4. Verificar se `pnpm typecheck` já existe em algum workflow em `.github/workflows/` e, se não, adicionar.  
 **Regras:** Não remover a flag sem primeiro mapear se há erros de tipo existentes no projeto — uma remoção abrupta pode quebrar o build de CI. Prefira a abordagem de gate de CI se o volume de erros for desconhecido.  
-**Critérios de Aceite:** `pnpm typecheck` executa no CI como gate obrigatório. Erros de tipo impedem merge para main. `ignoreBuildErrors: false` (ou ausente) em `next.config.ts`.  
+**Critérios de Aceite:** `pnpm typecheck` executa no CI como gate obrigatório. Erros de tipo impedem merge para main. `ignoreBuildErrors: false` (ou ausente) em `next.config.mjs`.  
+**Approval Gate:** Não executar sem aprovação humana explícita.
+
+---
+
+### 🛠️ Prompt #08 — Restringir CSP da Rota `/api/view-cv`
+
+**Objetivo:** Remover `'unsafe-eval'` e escopar corretamente a Content-Security-Policy da rota pública de CV (AUDIT-011).  
+**Especialista:** `@ghost_architect` / skill `database-sentinel`  
+**Arquivos:** `src/app/api/view-cv/route.ts`  
+**Contexto obrigatório:** `.claude/rules/security.md`, `next.config.mjs` (CSP global como referência)  
+**Ações:**
+1. Abrir `src/app/api/view-cv/route.ts` e inspecionar o HTML do currículo (`public/CURRICULUM-2026.html`) para identificar origens externas reais (fontes, imagens, estilos).
+2. Remover `'unsafe-eval'` da diretiva CSP — não há justificativa para execução de código dinâmico em um documento HTML estático de CV.
+3. Manter `'unsafe-inline'` apenas se o HTML do CV usa `<style>` inline (verificar). Se não, remover também.
+4. Restringir `https://*` às origens específicas identificadas no passo 1 (ex: fonts.googleapis.com, cdn.example.com).  
+**Regras:** Não alterar a lógica de leitura de arquivo ou a estrutura da resposta. Apenas restringir o header CSP.  
+**Critérios de Aceite:** CSP de `/api/view-cv` não contém `'unsafe-eval'`. Score de CSP Evaluator ≥ B. O CV continua renderizando corretamente.  
+**Approval Gate:** Não executar sem aprovação humana explícita.
+
+---
+
+### 🛠️ Prompt #09 — Migrar `portfolio/[slug]` de `force-dynamic` para ISR
+
+**Objetivo:** Habilitar cache estático/ISR nas páginas de projeto individual para reduzir TTFB e carga no Supabase (AUDIT-012).  
+**Especialista:** `@ghost_architect`  
+**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/lib/supabase/queries/projects.ts`  
+**Contexto obrigatório:** `.context/DOCS-PORTFOLIO-PAGES/02-PORTFOLIO/`, `CLAUDE.md` (Architecture: Server Components por padrão)  
+**Ações:**
+1. Remover `export const dynamic = 'force-dynamic'`.
+2. Verificar se há dados de sessão/usuário na página — se não, adicionar `export const revalidate = 3600`.
+3. Adicionar `generateStaticParams()` para pré-gerar as páginas dos projetos mais acessados em build time.
+4. Testar que o fallback `notFound()` ainda funciona para slugs inválidos com `dynamicParams = true`.  
+**Regras:** Se a página usa dados de sessão de usuário (ex: favoritos, analytics pessoais), manter `force-dynamic` e documentar a razão. Não sacrificar personalização por cache.  
+**Critérios de Aceite:** TTFB de `/portfolio/[slug]` < 200ms em hit de cache. `pnpm build` gera páginas estáticas para projetos existentes. Zero erros 500 em slugs válidos.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -343,10 +410,10 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 |------------------------------------------------------|---------------------------------------------------------------------------|
 | `git status --short`                                 | Clean working tree — nenhum arquivo alterado antes desta auditoria         |
 | `git log --oneline -10`                              | Commits ativos até `dfd51a25` (2026-06-30)                               |
-| Leitura de `next.config.ts`                          | CSP headers, HSTS, `output: standalone`, `reactStrictMode: true`, `ignoreBuildErrors: true` ⚠️ |
+| Leitura de `next.config.mjs`                         | CSP headers, HSTS, `output: standalone`, `reactStrictMode: true`, `ignoreBuildErrors: true` ⚠️ |
 | Leitura de `src/app/globals.css` (741 linhas)        | Tailwind v4 `@import`, `@theme`, `@source` — tokens completos ✓           |
 | Leitura de `postcss.config.cjs`                      | `@tailwindcss/postcss` — correto para v4, inconsistente com regras ⚠️     |
-| Leitura de `tailwind.config.ts`                      | Configuração mínima v4 com extensões de cores via CSS vars ✓              |
+| Leitura de `tailwind.config.ts`                      | Configuração mínima com extensões de cores — **⚠️ não carregada via `@config` em globals.css** — em Tailwind v4, arquivos JS não são detectados automaticamente sem `@config "./tailwind.config.ts"` |
 | Leitura de `src/middleware.ts`                       | Supabase SSR auth, matcher completo ✓                                     |
 | Leitura de `src/lib/supabase/middleware.ts`          | `isAdminUser` + `shouldEnforceAdminRole` + throw fatal ⚠️                 |
 | `package.json` — versões críticas                    | tailwindcss@4.3.1, @tailwindcss/postcss@4.3.1, node engine "22" ✓       |
@@ -451,7 +518,7 @@ As regras `.claude/rules/postcss-tailwind-config.md` marcam `@tailwindcss/postcs
 
 ### Risco 2 — Firebase Hosting + Next.js Standalone + Adapter
 **Severidade:** 🟡 Médio  
-O projeto usa `output: 'standalone'` com `adapterPath: firebaseAdapterPath` (apenas durante `PHASE_PRODUCTION_BUILD`). O adapter em `scripts/firebase-next-adapter.cjs` deve ser compatível com Next.js 16.2.2. Se houver incompatibilidade, podem ocorrer falhas silenciosas de SSR em Cloud Functions. Verificar compatibilidade do adapter periodicamente.
+O projeto usa `output: 'standalone'` com `adapterPath: firebaseAdapterPath` (apenas durante `PHASE_PRODUCTION_BUILD`). O adapter em `scripts/firebase-next-adapter.cjs` deve ser compatível com Next.js 16.2.9 (`package.json` — versão real). Se houver incompatibilidade, podem ocorrer falhas silenciosas de SSR em Cloud Functions. Verificar compatibilidade do adapter periodicamente.
 
 ### Risco 3 — Middleware Fatal sem Fallback
 **Severidade:** 🟡 Médio  
@@ -530,9 +597,13 @@ O arquivo `WEEKLY_AUDIT_REPORT.md` já existia na raiz (43 KB) da execução ant
 **Sequência recomendada após aprovação humana:**
 1. **#01** — Atualizar regras PostCSS (5 min, zero risco de código, elimina AUDIT-001)
 2. **#07** — Remover `ignoreBuildErrors` / gate TypeCheck no CI (30–60 min, risco médio, elimina AUDIT-002) — **P0, paralelo a #01 possível**
-3. **#02** — Unificar módulo de motion (30 min, risco baixo, elimina AUDIT-003)
+3. **#08** — Restringir CSP de `/api/view-cv` (15 min, risco baixo, elimina AUDIT-011) — **Segurança, prioridade elevada**
 4. **#03** — Modo degradado no middleware (45 min, risco médio, elimina AUDIT-004)
-5. **#04, #05, #06** — Polimentos técnicos (15 min cada, AUDIT-009, 008, 010)
+5. **#09** — Migrar `portfolio/[slug]` para ISR (30 min, risco médio, elimina AUDIT-012)
+6. **#04, #05, #06** — Polimentos técnicos (15 min cada, AUDIT-009, 008, 010)
+7. **#02** — Documentar facade `@/lib/motion` (10 min, zero risco, resolve AUDIT-003 como P2)
+
+**Nota:** AUDIT-013 (42 asset links quebrados) requer auditoria dedicada de assets via `scripts/` — não incluído na sequência acima por requerer mapeamento de URLs antes de qualquer ação.
 
 **Bloqueador atual:** A ausência do webhook Slack impede notificação automática. Esta rotina deve ser complementada com notificação manual ao responsável técnico (dannovaisv@gmail.com).
 
