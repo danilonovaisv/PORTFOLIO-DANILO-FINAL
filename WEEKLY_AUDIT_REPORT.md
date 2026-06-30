@@ -101,11 +101,11 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **ID:** AUDIT-001  
 **Severidade:** 🔴 P0 Crítico  
 **Área:** Governança de Documentação / Regras de Agente  
-**Evidência:** `.claude/rules/README-POSTCSS.md` e `.claude/rules/postcss-tailwind-config.md` exigem `tailwindcss@3.4.x` e plugin `tailwindcss` no PostCSS. O projeto usa `tailwindcss@4.3.1` e `@tailwindcss/postcss@4.3.1` — correto para v4. As regras contradizem a implementação atual e estão desatualizadas.  
-**Impacto:** Rotinas autônomas futuras que leiam essas regras podem tentar fazer downgrade para v3, quebrando o projeto completamente.  
+**Evidência:** `.claude/rules/README-POSTCSS.md` e `.claude/rules/postcss-tailwind-config.md` exigem `tailwindcss@3.4.x` e plugin `tailwindcss` no PostCSS. O projeto usa `tailwindcss@4.3.1` e `@tailwindcss/postcss@4.3.1` — correto para v4. As regras contradizem a implementação atual e estão desatualizadas. **Adicionalmente (KI-009):** `src/app/globals.css` linha 1 usa `@import 'tailwindcss'` bare, sem `source(none)`. `.context/knowledge-graph.md` (KI-009) e `.context/logs/adjustment_log.md` (2026-03-04) documentam que esta é a causa raiz de um PERSISTENT BUG — o Tailwind Oxide Scanner varre binários e logs, causando `RangeError: Invalid code point`. O padrão seguro e obrigatório para este projeto é `@import "tailwindcss" source(none)` + diretivas `@source` explícitas. O arquivo atual está em estado de regressão.  
+**Impacto:** (1) Rotinas autônomas futuras que leiam essas regras podem tentar fazer downgrade para v3, quebrando o projeto completamente. (2) O `globals.css` atual sem `source(none)` expõe o projeto ao crash do Oxide Scanner documentado em KI-009, que pode ocorrer a qualquer momento em que novos binários/logs sejam adicionados ao workspace.  
 **Arquivos relacionados:** `.claude/rules/README-POSTCSS.md`, `.claude/rules/postcss-tailwind-config.md`, `postcss.config.cjs`, `package.json`, `src/app/globals.css`  
-**Risco de não corrigir:** Quebra catastrófica do build em próxima rodada autônoma que siga as regras literalmente.  
-**Critério de aceite futuro:** Regras documentam Tailwind v4 como padrão atual. `postcss.config.cjs` com `@tailwindcss/postcss` é documentado como correto para v4. `globals.css` com `@import 'tailwindcss'` é correto para v4.
+**Risco de não corrigir:** Quebra catastrófica do build em próxima rodada autônoma que siga as regras literalmente; reintrodução do crash KI-009 se novos binários/logs forem escaneados pelo Oxide.  
+**Critério de aceite futuro:** Regras documentam Tailwind v4 com `@import "tailwindcss" source(none)` como padrão seguro obrigatório para este projeto. `postcss.config.cjs` com `@tailwindcss/postcss` documentado como correto para v4. `globals.css` restaurado para `@import "tailwindcss" source(none)` preservando todas as diretivas `@source` existentes.
 
 ---
 
@@ -208,7 +208,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Impacto:** Assets referenciados em `site-assets.json` com URLs quebradas podem causar imagens/vídeos ausentes em partes do site não auditadas nesta rodada.  
 **Arquivos relacionados:** `src/config/site-assets.json`  
 **Risco de não corrigir:** Regressões visuais silenciosas em seções que dependem dos assets legados.  
-**Critério de aceite futuro:** `pnpm run assets:audit` (ou `pnpm run verify:assets`) retorna zero links quebrados. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
+**Critério de aceite futuro:** `pnpm run assets:audit` (via `scripts/audit_assets.py`) retorna zero links quebrados em `src/config/site-assets.json`. **Nota:** `pnpm run verify:assets` (via `scripts/verify-supabase-assets.mjs`) verifica apenas URLs de vídeo em `src/lib/video-assets.ts` e NÃO cobre `site-assets.json` — não usar como critério de aceite para este item. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
 
 ---
 
@@ -223,7 +223,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Impacto:** Minor — alguns leitores de tela podem anunciar o canvas de forma genérica.  
 **Arquivos relacionados:** `src/components/canvas/home/hero/GhostSceneWrapper.tsx`, `src/components/canvas/header/HeaderGlassCanvas.tsx`  
 **Risco de não corrigir:** Reduz compliance de acessibilidade AA em elementos WebGL.  
-**Critério de aceite futuro:** `aria-label="Animação decorativa Ghost — atmosfera visual"` adicionado aos wrappers de canvas decorativos.
+**Critério de aceite futuro:** Elementos decorativos com `aria-hidden="true"` confirmados sem `aria-label` simultâneo (combinação é semanticamente inválida — `aria-hidden` remove o elemento da árvore de acessibilidade e qualquer label é ignorado). `axe-core` não sinaliza violação ARIA em `GhostSceneWrapper` ou `HeaderGlassCanvas`. Ver Prompt #05 para ação correta.
 
 ---
 
@@ -259,16 +259,17 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 **Objetivo:** Remover contradição entre regras documentadas (que exigem v3) e implementação real (v4.3.1), eliminando risco de downgrade acidental por rotina autônoma.  
 **Especialista:** `@ghost_architect` / skill `doc-specialist`  
-**Arquivos:** `.claude/rules/README-POSTCSS.md`, `.claude/rules/postcss-tailwind-config.md`  
-**Contexto obrigatório:** `CLAUDE.md` (Tech Stack: Tailwind CSS 4), `package.json` (tailwindcss@4.3.1), `postcss.config.cjs` (usa `@tailwindcss/postcss`), `src/app/globals.css` (usa `@import 'tailwindcss'`)  
+**Arquivos:** `.claude/rules/README-POSTCSS.md`, `.claude/rules/postcss-tailwind-config.md`, `src/app/globals.css`  
+**Contexto obrigatório:** `CLAUDE.md` (Tech Stack: Tailwind CSS 4), `package.json` (tailwindcss@4.3.1), `postcss.config.cjs` (usa `@tailwindcss/postcss`), `.context/knowledge-graph.md` (KI-009 — PERSISTENT BUG), `.context/logs/adjustment_log.md` (2026-03-04 — fix histórico)  
 **Ações:**
 1. Reescrever `README-POSTCSS.md` para documentar Tailwind v4 como padrão oficial, removendo referências a v3.4.x.
-2. Reescrever `postcss-tailwind-config.md` marcando `@tailwindcss/postcss` como correto para v4 e `@import 'tailwindcss'` como sintaxe v4 correta.
-3. Atualizar exemplos de código correto/incorreto para refletir v4.
-4. Adicionar nota de data da atualização.
-5. **Escalação manual:** `.agent/rules/README-POSTCSS.md` e `.agent/rules/postcss-tailwind-config.md` contêm as mesmas instruções desatualizadas, mas `.agent/` é READ-ONLY por governança (`CLAUDE.md`). Reportar ao responsável humano para atualização manual ou reclassificação como fonte primária.  
-**Regras:** Apenas editar arquivos de documentação em `.claude/rules/`. Não tocar em código. `.agent/rules/` requer intervenção humana.  
-**Critérios de Aceite:** `rg "v3\.4|downgrade|3\.4\.19|3\.4\.x" .claude/rules/` retorna zero resultados. As regras documentam v4 consistentemente. Responsável notificado sobre `.agent/rules/`.  
+2. Reescrever `postcss-tailwind-config.md` marcando `@tailwindcss/postcss` como correto para v4. Documentar que o padrão obrigatório para este projeto é `@import "tailwindcss" source(none)` (não `@import 'tailwindcss'` bare) — KI-009: sem `source(none)`, o Tailwind Oxide Scanner varre binários e logs causando `RangeError: Invalid code point`.
+3. Atualizar exemplos de código: correto = `@import "tailwindcss" source(none)` + `@source` explícitos; incorreto = bare `@import 'tailwindcss'` sem `source(none)`.
+4. Em `src/app/globals.css` linha 1: verificar se usa `@import 'tailwindcss'` sem `source(none)`. Se sim (REGRESSÃO KI-009 confirmada): substituir por `@import "tailwindcss" source(none)` preservando todas as diretivas `@source` que seguem inalteradas.
+5. Adicionar nota de data da atualização nas regras.
+6. **Escalação manual:** `.agent/rules/README-POSTCSS.md` e `.agent/rules/postcss-tailwind-config.md` contêm as mesmas instruções desatualizadas, mas `.agent/` é READ-ONLY por governança (`CLAUDE.md`). Reportar ao responsável humano para atualização manual ou reclassificação como fonte primária.  
+**Regras:** Editar `.claude/rules/` e `src/app/globals.css`. `.agent/rules/` requer intervenção humana. Não remover diretivas `@source` existentes em `globals.css`.  
+**Critérios de Aceite:** `rg "v3\.4|downgrade|3\.4\.19|3\.4\.x" .claude/rules/` retorna zero resultados. Regras documentam `source(none)` como padrão obrigatório. `globals.css` linha 1 contém `@import "tailwindcss" source(none)`. Responsável notificado sobre `.agent/rules/`.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -294,32 +295,34 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 **Objetivo:** Evitar que ausência de credenciais Supabase quebre toda a aplicação em ambientes de preview/staging.  
 **Especialista:** `@ghost_architect` / skill `database-sentinel`  
-**Arquivos:** `src/lib/supabase/middleware.ts`, `src/lib/env.ts`, `src/app/layout.tsx`  
+**Arquivos:** `src/lib/supabase/middleware.ts`, `src/lib/supabase/server.ts`, `src/lib/env.ts`, `src/app/layout.tsx`, `src/app/projects/[slug]/page.tsx`  
 **Contexto obrigatório:** `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/01-AUTH-LOGIN.md`, `.claude/rules/security.md`  
-**Contexto crítico:** Alterar apenas `src/lib/supabase/middleware.ts` é insuficiente. `src/app/layout.tsx` (linha 11) importa `env` de `src/lib/env.ts`, e esse módulo lança `throw new Error('Environment validation failed')` quando `NEXT_PUBLIC_SUPABASE_URL` ou `NEXT_PUBLIC_SUPABASE_ANON_KEY` estão ausentes — antes mesmo de qualquer rota pública renderizar. O fallback deve cobrir o módulo `env.ts` também.  
+**Contexto crítico:** Alterar apenas `src/lib/supabase/middleware.ts` é insuficiente por dois motivos: (1) `src/app/layout.tsx` (linha 11) importa `env` de `src/lib/env.ts`, e esse módulo lança `throw new Error('Environment validation failed')` antes de qualquer rota renderizar; (2) `src/lib/supabase/server.ts` lança exceção quando `SUPABASE_URL` ou `SUPABASE_PUBLIC_KEY` estão ausentes, e é chamado diretamente por `src/app/projects/[slug]/page.tsx` (linhas 75 e 128) — rota pública que retornaria 500 mesmo com middleware e env.ts corrigidos. O fallback deve cobrir todos os três módulos.  
 **Ações:**
 1. Em `src/lib/env.ts`: ampliar a condição de bypass para cobrir ambientes sem credenciais Supabase — a flag `VALIDATE_ENV_WARN_ONLY=1` já existe como mecanismo de bypass (linha ~46); padronizar o uso desta flag ao invés de heurísticas de plataforma (`VERCEL_ENV`, `FIREBASE_ENV`) que não são definidas em todos os ambientes de produção e podem dar falso negativo em Cloud Run/Firebase. Alternativa segura: verificar `process.env.NODE_ENV !== 'production'` antes de lançar erro fatal, garantindo que ambientes de produção sempre falhem ruidosamente enquanto staging/development degradam graciosamente.
 2. Em `src/lib/supabase/middleware.ts`: substituir `throw new Error(...)` por verificação: se credenciais ausentes em rotas públicas, retornar `NextResponse.next()`. Se em rotas `/admin`, redirecionar para `/`.
 3. Logar os problemas via `console.error` sem expor URLs ou chaves.
 4. Garantir que rotas públicas não sofram nenhum impacto em modo degradado.  
 **Regras:** Não alterar lógica de autenticação para rotas admin válidas. Não expor mensagens de erro ao usuário final. A flag `VALIDATE_ENV_WARN_ONLY=1` já existe para bypass em CI — usar como referência de padrão.  
-**Critérios de Aceite:** Em ambiente de teste sem `NEXT_PUBLIC_SUPABASE_URL`: rotas públicas retornam 200 (sem throw de env.ts), `/admin` retorna redirect para `/` sem 500. `src/app/layout.tsx` renderiza sem erro com credenciais ausentes.  
+**Critérios de Aceite:** Em ambiente de teste sem `NEXT_PUBLIC_SUPABASE_URL`: `/` (home) retorna 200 sem throw de `env.ts`; `/projects/[slug]` retorna 200 ou 404 sem 500 (modo degradado com dados ausentes); `/admin` retorna redirect para `/` sem 500. `src/app/layout.tsx` renderiza sem erro. `src/lib/supabase/server.ts` tem fallback gracioso em vez de throw fatal quando credenciais ausentes em non-production.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #04 — Corrigir Tipagem de Uniforms no ShaderSection
+### 🛠️ Prompt #04 — Corrigir ShaderSection: Tipagem, Viewport Gate e Reduced-Motion
 
-**Objetivo:** Eliminar `any` type no objeto de uniforms Three.js em `ShaderSection.tsx`.  
+**Objetivo:** Eliminar `any` type nos uniforms Three.js, pausar o loop `requestAnimationFrame` quando fora da viewport, e respeitar `prefers-reduced-motion` em `ShaderSection.tsx` (AUDIT-009).  
 **Especialista:** `@spectral_artist`  
 **Arquivos:** `src/components/home/ShaderSection.tsx`  
-**Contexto obrigatório:** `.claude/rules/code-quality.md` (Anti-Patterns §3 Any Type)  
+**Contexto obrigatório:** `.claude/rules/code-quality.md` (Anti-Patterns §3 Any Type), `.claude/rules/21-webgl-performance.md`, `.context/GHOST-DESIGN-SYSTEM.md` (§ Performance — nenhuma animação fora da viewport)  
 **Ações:**
 1. Definir interface `ShaderUniforms` com `resolution: THREE.Uniform<THREE.Vector2>` e `time: THREE.Uniform<number>`.
 2. Substituir `uniforms: any` por `uniforms: ShaderUniforms` na `sceneRef`.
-3. Verificar que todos os acessos a `uniforms.resolution.value` e `uniforms.time.value` passam na verificação de tipo.  
-**Regras:** Não alterar lógica de shader ou valores de uniforms. Apenas adicionar tipagem.  
-**Critérios de Aceite:** `pnpm typecheck` sem erros relacionados a `ShaderSection`. Nenhum `any` no arquivo.  
+3. Verificar que todos os acessos a `uniforms.resolution.value` e `uniforms.time.value` passam na verificação de tipo.
+4. Adicionar `IntersectionObserver` no `useEffect` de inicialização: pausar o loop com `cancelAnimationFrame(animationId)` quando `isIntersecting: false`; retomar chamando `animate()` quando `true`. Cleanup do observer no return do useEffect.
+5. Adicionar gate de `prefers-reduced-motion` na inicialização: se `window.matchMedia('(prefers-reduced-motion: reduce)').matches`, não iniciar o loop RAF (renderizar frame estático ou não iniciar a cena).  
+**Regras:** Não alterar lógica de shader ou valores de uniforms. Não alterar cores RGB literais. Apenas adicionar tipagem e gating de performance/acessibilidade.  
+**Critérios de Aceite:** `pnpm typecheck` sem erros relacionados a `ShaderSection`. Nenhum `any` no arquivo. Loop RAF cancelado quando seção sai da viewport (verificar em DevTools Performance > Animation frames). `prefers-reduced-motion: reduce` impede início do loop (verificar com `@media (prefers-reduced-motion: reduce)` no browser).  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -416,15 +419,16 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 **Objetivo:** Evitar falha de validação de variáveis de ambiente em ambientes novos que usem a nomenclatura atual do Supabase (AUDIT-005).  
 **Especialista:** `@ghost_architect`  
-**Arquivos:** `src/lib/env.ts`, `src/lib/supabase/env.ts`, `.env.example`  
+**Arquivos:** `src/lib/env.ts`, `src/lib/supabase/env.ts`, `.env.example`, `.github/workflows/firebase-deploy.yml`  
 **Contexto obrigatório:** `.claude/rules/security.md`, `CLAUDE.md` (Regras de Execução: nunca commitar secrets)  
 **Ações:**
 1. Verificar qual chave `getSupabasePublicKey()` em `src/lib/supabase/env.ts` efetivamente lê — `NEXT_PUBLIC_SUPABASE_ANON_KEY` ou `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`.
 2. Atualizar `src/lib/env.ts` para aceitar as três nomenclaturas em cascata, alinhado com `getSupabasePublicKey()`: `process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 3. Atualizar `.env.example` para listar as três variáveis com comentário explicando a cascata de migração Supabase.
-4. Documentar em `.context/active_state.md` que a migração de nomenclatura está em andamento.  
+4. Verificar o step de escrita de variáveis em `.github/workflows/firebase-deploy.yml` — se o workflow injeta apenas `NEXT_PUBLIC_SUPABASE_ANON_KEY` no step de build, adicionar também `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` (ou renomear o secret do GitHub Actions para corresponder ao alias primário usado). Caso contrário, deployments com as novas nomenclaturas falharão em CI mesmo após o fix de `env.ts`.
+5. Documentar em `.context/active_state.md` que a migração de nomenclatura está em andamento.  
 **Regras:** Não expor valores de chaves reais em nenhum arquivo. Apenas nomes de variáveis como referência.  
-**Critérios de Aceite:** `env.ts` valida sem erro com qualquer uma das três variantes (`ANON_KEY`, `PUBLISHABLE_KEY`, `PUBLISHABLE_DEFAULT_KEY`). `.env.example` documenta as três variações com comentário de migração. Zero breaking changes em ambientes existentes.  
+**Critérios de Aceite:** `env.ts` valida sem erro com qualquer uma das três variantes (`ANON_KEY`, `PUBLISHABLE_KEY`, `PUBLISHABLE_DEFAULT_KEY`). `.env.example` documenta as três variações com comentário de migração. `.github/workflows/firebase-deploy.yml` injeta pelo menos uma das três variáveis reconhecidas no step de build. Zero breaking changes em ambientes existentes.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
