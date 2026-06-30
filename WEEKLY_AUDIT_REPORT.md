@@ -148,11 +148,11 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **ID:** AUDIT-005  
 **Severidade:** 🟡 P1 Estrutural  
 **Área:** Chave Supabase / Nomenclatura de Env Vars  
-**Evidência:** `src/lib/env.ts` valida `NEXT_PUBLIC_SUPABASE_ANON_KEY`. O Supabase migrou a nomenclatura para `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`. O `.env.example` lista ambas as variações. O middleware usa `getSupabasePublicKey()` de `src/lib/supabase/env.ts`.  
-**Impacto:** Em ambientes novos configurados com a nova nomenclatura Supabase, o `env.ts` pode sinalizar erro de validação.  
+**Evidência:** `src/lib/env.ts` valida apenas `NEXT_PUBLIC_SUPABASE_ANON_KEY`. O middleware usa `getSupabasePublicKey()` de `src/lib/supabase/env.ts`, que lê três aliases em cascata: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` → `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` → `NEXT_PUBLIC_SUPABASE_ANON_KEY`. O `env.ts` só valida o terceiro — os dois aliases mais novos são aceitos pelo middleware mas rejeitados pela validação de env.  
+**Impacto:** Em ambientes configurados com qualquer um dos dois aliases mais novos (nomenclatura Supabase atual), o `env.ts` sinaliza erro de validação falso-positivo, bloqueando o start da aplicação mesmo quando as credenciais estão corretas.  
 **Arquivos relacionados:** `src/lib/env.ts`, `src/lib/supabase/env.ts`, `.env.example`  
-**Risco de não corrigir:** Validação de env falha em ambientes novos que usem a nomenclatura Supabase atualizada.  
-**Critério de aceite futuro:** `env.ts` aceita ambas as nomenclaturas com fallback documentado, ou alinha com a chave que `getSupabasePublicKey()` realmente usa.
+**Risco de não corrigir:** Validação de env falha em ambientes novos que usem a nomenclatura Supabase atualizada (`PUBLISHABLE_DEFAULT_KEY` ou `PUBLISHABLE_KEY`).  
+**Critério de aceite futuro:** `env.ts` aceita todas as três nomenclaturas em cascata, alinhado com `getSupabasePublicKey()`.
 
 ---
 
@@ -178,43 +178,6 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 ---
 
-### 🟢 P2 Polimento Rápido
-
----
-
-**ID:** AUDIT-008  
-**Severidade:** 🟢 P2 Polimento  
-**Área:** Acessibilidade / WebGL  
-**Evidência:** `GhostSceneWrapper` tem `aria-hidden="true"` e `role="presentation"` mas não tem `aria-label`. `HeaderGlassCanvas` tem apenas `aria-hidden="true"` sem role ou label.  
-**Impacto:** Minor — alguns leitores de tela podem anunciar o canvas de forma genérica.  
-**Arquivos relacionados:** `src/components/canvas/home/hero/GhostSceneWrapper.tsx`, `src/components/canvas/header/HeaderGlassCanvas.tsx`  
-**Risco de não corrigir:** Reduz compliance de acessibilidade AA em elementos WebGL.  
-**Critério de aceite futuro:** `aria-label="Animação decorativa Ghost — atmosfera visual"` adicionado aos wrappers de canvas decorativos.
-
----
-
-**ID:** AUDIT-009  
-**Severidade:** 🟢 P2 Polimento  
-**Área:** TypeScript / Qualidade de Código  
-**Evidência:** `src/components/home/ShaderSection.tsx` — `uniforms: any` no objeto de cena Three.js referenciado via `sceneRef`.  
-**Impacto:** Perda de type safety em uniforms de shader. Violação do padrão `any` proibido do código-quality.md.  
-**Arquivos relacionados:** `src/components/home/ShaderSection.tsx`  
-**Risco de não corrigir:** Erros de tipo em uniforms não detectados pelo compilador.  
-**Critério de aceite futuro:** `uniforms` tipado como interface específica com `THREE.Uniform<T>` para cada campo.
-
----
-
-**ID:** AUDIT-010  
-**Severidade:** 🟢 P2 Polimento  
-**Área:** Fonte Deprecada / Bundle  
-**Evidência:** `globals.css` marca `--font-family-outfit` como `@deprecated` com nota "Outfit not used in production; scheduled for removal". `tailwind.config.ts` ainda pode ter extensão para esta família.  
-**Impacto:** Potencial bundle de fonte desnecessário e referência deprecada nas regras.  
-**Arquivos relacionados:** `src/app/globals.css`, `tailwind.config.ts`  
-**Risco de não corrigir:** Pequeno overhead de carregamento e limpeza técnica pendente.  
-**Critério de aceite futuro:** `grep -r "font-outfit\|fontOutfit\|font-family-outfit\|Outfit" src/` retorna zero. Variável removida de `globals.css` e `tailwind.config.ts`.
-
----
-
 **ID:** AUDIT-011  
 **Severidade:** 🟡 P1 Segurança  
 **Área:** CSP / Rota Pública  
@@ -222,7 +185,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Impacto:** A CSP atual é tecnicamente necessária para o funcionamento do CV, mas cria uma superfície de ataque ampla em uma rota pública. A remediação real requer substituir o Tailwind CDN runtime por CSS pré-compilado.  
 **Arquivos relacionados:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`  
 **Risco de não corrigir:** Rota pública aceita execução de código arbitrário se o HTML for comprometido. `https://*` como fonte de script é particularmente arriscado.  
-**Critério de aceite futuro:** `CURRICULUM-2026.html` reescrito sem Tailwind CDN browser runtime (usar CSS pré-compilado). CSP resultante sem `'unsafe-eval'`, com `'unsafe-inline'` restrito apenas se necessário para print handler inline, e `script-src` sem `https://*`.
+**Critério de aceite futuro:** `CURRICULUM-2026.html` reescrito sem Tailwind CDN browser runtime (usar CSS pré-compilado). CSP resultante sem `'unsafe-eval'`, com `'unsafe-inline'` eliminado via handler externo em `public/curriculum-print.js`, e `script-src` sem `https://*`.
 
 ---
 
@@ -248,6 +211,43 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 ---
 
+### 🟢 P2 Polimento Rápido
+
+---
+
+**ID:** AUDIT-008  
+**Severidade:** 🟢 P2 Polimento  
+**Área:** Acessibilidade / WebGL  
+**Evidência:** `GhostSceneWrapper` tem `aria-hidden="true"` e `role="presentation"` mas não tem `aria-label`. `HeaderGlassCanvas` tem apenas `aria-hidden="true"` sem role ou label.  
+**Impacto:** Minor — alguns leitores de tela podem anunciar o canvas de forma genérica.  
+**Arquivos relacionados:** `src/components/canvas/home/hero/GhostSceneWrapper.tsx`, `src/components/canvas/header/HeaderGlassCanvas.tsx`  
+**Risco de não corrigir:** Reduz compliance de acessibilidade AA em elementos WebGL.  
+**Critério de aceite futuro:** `aria-label="Animação decorativa Ghost — atmosfera visual"` adicionado aos wrappers de canvas decorativos.
+
+---
+
+**ID:** AUDIT-009  
+**Severidade:** 🟢 P2 Polimento  
+**Área:** TypeScript / Qualidade de Código / Performance WebGL  
+**Evidência:** `src/components/home/ShaderSection.tsx` — `uniforms: any` no objeto de cena Three.js referenciado via `sceneRef` (linha ~100). Adicionalmente, o `requestAnimationFrame` corre indefinidamente enquanto o componente está montado — sem `IntersectionObserver`, sem gate de `prefers-reduced-motion`. Violação da diretriz Ghost DS de "nenhuma animação rodando fora da viewport".  
+**Impacto:** Perda de type safety em uniforms de shader. FPS e bateria consumidos desnecessariamente quando o usuário rola além do ShaderSection.  
+**Arquivos relacionados:** `src/components/home/ShaderSection.tsx`  
+**Risco de não corrigir:** Erros de tipo em uniforms não detectados pelo compilador. Regressão de performance em scroll com animação rodando fora da viewport.  
+**Critério de aceite futuro:** `uniforms` tipado com interface `ShaderUniforms` usando `THREE.Uniform<T>`. Loop de `requestAnimationFrame` pausado via `IntersectionObserver` quando seção sair da viewport. `prefers-reduced-motion: reduce` interrompe o loop.
+
+---
+
+**ID:** AUDIT-010  
+**Severidade:** 🟢 P2 Polimento  
+**Área:** Fonte Deprecada / Bundle  
+**Evidência:** `globals.css` marca `--font-family-outfit` como `@deprecated` com nota "Outfit not used in production; scheduled for removal". `tailwind.config.ts` ainda pode ter extensão para esta família.  
+**Impacto:** Potencial bundle de fonte desnecessário e referência deprecada nas regras.  
+**Arquivos relacionados:** `src/app/globals.css`, `tailwind.config.ts`  
+**Risco de não corrigir:** Pequeno overhead de carregamento e limpeza técnica pendente.  
+**Critério de aceite futuro:** `rg "font-outfit|fontOutfit|font-family-outfit|Outfit" src/` retorna zero resultados. Variável removida de `globals.css` e `tailwind.config.ts`.
+
+---
+
 ## 4️⃣ Prompts Técnicos para Agentes Atômicos
 
 > **APPROVAL GATE OBRIGATÓRIO:** Nenhum dos prompts abaixo deve ser executado sem aprovação humana explícita via Slack ou resposta direta neste PR. A rotina para aqui.
@@ -267,7 +267,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 4. Adicionar nota de data da atualização.
 5. **Escalação manual:** `.agent/rules/README-POSTCSS.md` e `.agent/rules/postcss-tailwind-config.md` contêm as mesmas instruções desatualizadas, mas `.agent/` é READ-ONLY por governança (`CLAUDE.md`). Reportar ao responsável humano para atualização manual ou reclassificação como fonte primária.  
 **Regras:** Apenas editar arquivos de documentação em `.claude/rules/`. Não tocar em código. `.agent/rules/` requer intervenção humana.  
-**Critérios de Aceite:** `grep -r "v3.4\|downgrade\|3.4.19\|3.4.x" .claude/rules/` retorna zero resultados. As regras documentam v4 consistentemente. Responsável notificado sobre `.agent/rules/`.  
+**Critérios de Aceite:** `rg "v3\.4|downgrade|3\.4\.19|3\.4\.x" .claude/rules/` retorna zero resultados. As regras documentam v4 consistentemente. Responsável notificado sobre `.agent/rules/`.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -279,12 +279,12 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Arquivos:** `src/lib/motion/index.ts`, `src/config/motion.ts`, `src/components/home/hero/HeroCopy.tsx`  
 **Contexto obrigatório:** `.context/GHOST-DESIGN-SYSTEM.md` (§2 Motion Principles), `.context/DOCS-PORTFOLIO-PAGES/01-HOME/02-HERO-HOME/`  
 **Ações:**
-1. Mapear todos os imports: `grep -rn "from '@/lib/motion'\|from '@/config/motion'" src/`.
+1. Mapear todos os imports: `rg "from '@/lib/motion'|from '@/config/motion'" src/`.
 2. Determinar qual módulo é mais completo e atual (verificar se `@/lib/motion` re-exporta de `@/config/motion` ou é independente).
 3. Se `@/lib/motion` é legado: migrar imports de HeroCopy para `@/config/motion`.
 4. Se `@/lib/motion` tem conteúdo único: documentar a distinção e adicionar JSDoc explicando responsabilidades.  
 **Regras:** Easing padrão `[0.22, 1, 0.36, 1]` preservado. Não alterar valores de tokens.  
-**Critérios de Aceite:** `grep -rn "from '@/lib/motion'" src/components/home/hero/HeroCopy.tsx` retorna zero, ou os dois módulos têm responsabilidades documentadas e distintas.  
+**Critérios de Aceite:** `rg "from '@/lib/motion'" src/components/home/hero/HeroCopy.tsx` retorna zero, ou os dois módulos têm responsabilidades documentadas e distintas.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -297,7 +297,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Contexto obrigatório:** `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/01-AUTH-LOGIN.md`, `.claude/rules/security.md`  
 **Contexto crítico:** Alterar apenas `src/lib/supabase/middleware.ts` é insuficiente. `src/app/layout.tsx` (linha 11) importa `env` de `src/lib/env.ts`, e esse módulo lança `throw new Error('Environment validation failed')` quando `NEXT_PUBLIC_SUPABASE_URL` ou `NEXT_PUBLIC_SUPABASE_ANON_KEY` estão ausentes — antes mesmo de qualquer rota pública renderizar. O fallback deve cobrir o módulo `env.ts` também.  
 **Ações:**
-1. Em `src/lib/env.ts`: ampliar a condição de bypass para cobrir ambientes sem credenciais Supabase — adicionar `process.env.NEXT_PUBLIC_SUPABASE_URL` como verificação antes de lançar o erro fatal (ex: se ausente em `development` ou em ambiente sem `VERCEL_ENV`/`FIREBASE_ENV`, logar e continuar com `undefined` em vez de lançar).
+1. Em `src/lib/env.ts`: ampliar a condição de bypass para cobrir ambientes sem credenciais Supabase — a flag `VALIDATE_ENV_WARN_ONLY=1` já existe como mecanismo de bypass (linha ~46); padronizar o uso desta flag ao invés de heurísticas de plataforma (`VERCEL_ENV`, `FIREBASE_ENV`) que não são definidas em todos os ambientes de produção e podem dar falso negativo em Cloud Run/Firebase. Alternativa segura: verificar `process.env.NODE_ENV !== 'production'` antes de lançar erro fatal, garantindo que ambientes de produção sempre falhem ruidosamente enquanto staging/development degradam graciosamente.
 2. Em `src/lib/supabase/middleware.ts`: substituir `throw new Error(...)` por verificação: se credenciais ausentes em rotas públicas, retornar `NextResponse.next()`. Se em rotas `/admin`, redirecionar para `/`.
 3. Logar os problemas via `console.error` sem expor URLs ou chaves.
 4. Garantir que rotas públicas não sofram nenhum impacto em modo degradado.  
@@ -330,11 +330,11 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Arquivos:** `src/components/canvas/home/hero/GhostSceneWrapper.tsx`, `src/components/canvas/header/HeaderGlassCanvas.tsx`  
 **Contexto obrigatório:** `.context/GHOST-DESIGN-SYSTEM.md` (§Accessibility), `.claude/rules/21-webgl-performance.md`  
 **Ações:**
-1. Adicionar `aria-label="Animação decorativa Ghost — atmosfera visual do hero"` ao div wrapper em `GhostSceneWrapper`.
-2. Verificar e adicionar `aria-label` adequado em `HeaderGlassCanvas` se necessário.
-3. Confirmar que `aria-hidden="true"` permanece presente em ambos.  
-**Regras:** Não alterar lógica de rendering ou condicionais. Apenas adicionar atributos ARIA.  
-**Critérios de Aceite:** Auditor de acessibilidade não sinaliza "Canvas/element without accessible name" em ambos os componentes.  
+1. Definir a semântica correta antes de agir: `aria-hidden="true"` remove o elemento inteiramente da árvore de acessibilidade — qualquer `aria-label` no mesmo elemento será ignorado pelos leitores de tela. As duas abordagens são mutuamente exclusivas; combinar ambas é semanticamente inválido.
+2. Para `GhostSceneWrapper` (puramente decorativo): manter `aria-hidden="true"` e `role="presentation"`. NÃO adicionar `aria-label` — o elemento não deve ser anunciado por AT.
+3. Para `HeaderGlassCanvas` (puramente decorativo): confirmar que `aria-hidden="true"` está presente. Se ausente, adicionar. NÃO adicionar `aria-label`.  
+**Regras:** Não alterar lógica de rendering ou condicionais. Não combinar `aria-hidden="true"` com `aria-label` no mesmo elemento.  
+**Critérios de Aceite:** Nenhum canvas decorativo tem `aria-hidden="true"` e `aria-label` simultaneamente. `axe-core` não sinaliza violação de ARIA em ambos os componentes.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -346,7 +346,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Arquivos:** `src/app/globals.css`, `tailwind.config.ts`  
 **Contexto obrigatório:** `.context/GHOST-DESIGN-SYSTEM.md` (§1.2 Typography — Manrope + PPSupplyMono como únicas fontes oficiais)  
 **Ações:**
-1. Confirmar: `grep -rn "font-outfit\|fontOutfit\|font-family-outfit\|Outfit" src/` — verificar se há usos reais.
+1. Confirmar: `rg "font-outfit|fontOutfit|font-family-outfit|Outfit" src/` — verificar se há usos reais.
 2. Se zero usos reais: remover `--font-family-outfit` de `globals.css`.
 3. Remover entrada correspondente de `tailwind.config.ts` se existir.
 4. Se houver usos: listar quais componentes devem migrar para Manrope antes da remoção.  
@@ -365,7 +365,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Ações:**
 1. Confirmar: `.github/workflows/firebase-deploy.yml` já executa `pnpm run build-check` (= `pnpm typecheck && pnpm lint`) antes do deploy — CI gate está ativo.
 2. Em `next.config.mjs`, remover ou comentar `typescript: { ignoreBuildErrors: true }` — substituir por `typescript: { ignoreBuildErrors: false }`.
-3. Se o `next build` falhar com erros de tipo ao remover a flag: listar com `pnpm typecheck 2>&1 | tee typecheck.log`, corrigir os erros, depois remover a flag.
+3. Se o `next build` falhar com erros de tipo ao remover a flag: rodar `pnpm typecheck` diretamente (sem pipe — `pnpm typecheck 2>&1 | tee typecheck.log` mascara o exit code via pipe sem `set -o pipefail` e grava arquivo na raiz em violação do CLAUDE.md), ler o output no terminal, corrigir os erros, depois remover a flag.
 4. Não adicionar novo step de CI — o gate já existe via `build-check`.  
 **Regras:** O CI já tem proteção. O objetivo desta tarefa é alinhar `next.config.mjs` com a realidade do CI, eliminando a flag que permite builds locais com erros de tipo.  
 **Critérios de Aceite:** `ignoreBuildErrors: false` (ou ausente) em `next.config.mjs`. `next build` local falha corretamente quando há erros de tipo.  
@@ -384,7 +384,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 1. Inspecionar `public/CURRICULUM-2026.html` e mapear: (a) todas as classes Tailwind usadas, (b) todas as regras CSS customizadas não-Tailwind dentro do `<style type="text/tailwindcss">` — incluindo `@page`, `.page` (dimensões A4), media queries de print, `.no-print`, `.circular-chart` e classes de gráficos SVG.
 2. Criar `public/curriculum.css` em dois blocos: primeiro, as regras customizadas (copiadas integralmente do bloco `<style>`); segundo, o CSS Tailwind compilado — gerar via `pnpm dlx @tailwindcss/cli` (CLI do Tailwind v4; `npx tailwindcss` usaria o binário v3) com safelist cobrindo todas as classes encontradas no CV.
 3. Substituir `<script src="https://cdn.tailwindcss.com">` e `<style type="text/tailwindcss">` por `<link rel="stylesheet" href="/curriculum.css">`.
-4. Substituir `onclick="window.print()"` por `id="print-btn"` e adicionar um `<script>` dedicado com `document.getElementById('print-btn').addEventListener('click', () => window.print())` — ou manter o inline handler apenas se `'unsafe-inline'` for estritamente necessário.
+4. Substituir `onclick="window.print()"` por `id="print-btn"`. Criar `public/curriculum-print.js` contendo `document.getElementById('print-btn').addEventListener('click', () => window.print())` e referenciar via `<script src="/curriculum-print.js"></script>` — NÃO usar `<script>` inline, pois bloco inline ainda requer `'unsafe-inline'` na CSP, anulando o benefício da migração.
 5. Atualizar a CSP em `src/app/api/view-cv/route.ts`: remover `'unsafe-eval'`, escopar `script-src` sem `https://*`.
 6. Validar visualmente: layout de impressão A4, gráficos circulares SVG e botão de impressão devem funcionar identicamente após a migração.  
 **Regras:** O CV deve continuar funcionando identicamente após a reescrita. Não alterar o design ou conteúdo textual. Preservar `window.print()` como funcionalidade.  
@@ -419,11 +419,11 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Contexto obrigatório:** `.claude/rules/security.md`, `CLAUDE.md` (Regras de Execução: nunca commitar secrets)  
 **Ações:**
 1. Verificar qual chave `getSupabasePublicKey()` em `src/lib/supabase/env.ts` efetivamente lê — `NEXT_PUBLIC_SUPABASE_ANON_KEY` ou `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`.
-2. Atualizar `src/lib/env.ts` para aceitar ambas as nomenclaturas com fallback: `process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-3. Atualizar `.env.example` para listar ambas as variáveis com comentário explicando a migração Supabase.
+2. Atualizar `src/lib/env.ts` para aceitar as três nomenclaturas em cascata, alinhado com `getSupabasePublicKey()`: `process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Atualizar `.env.example` para listar as três variáveis com comentário explicando a cascata de migração Supabase.
 4. Documentar em `.context/active_state.md` que a migração de nomenclatura está em andamento.  
 **Regras:** Não expor valores de chaves reais em nenhum arquivo. Apenas nomes de variáveis como referência.  
-**Critérios de Aceite:** `env.ts` valida sem erro tanto com `ANON_KEY` quanto com `PUBLISHABLE_DEFAULT_KEY`. `.env.example` documenta ambas as variações. Zero breaking changes em ambientes existentes.  
+**Critérios de Aceite:** `env.ts` valida sem erro com qualquer uma das três variantes (`ANON_KEY`, `PUBLISHABLE_KEY`, `PUBLISHABLE_DEFAULT_KEY`). `.env.example` documenta as três variações com comentário de migração. Zero breaking changes em ambientes existentes.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
