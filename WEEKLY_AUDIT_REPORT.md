@@ -293,14 +293,16 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 **Objetivo:** Evitar que ausência de credenciais Supabase quebre toda a aplicação em ambientes de preview/staging.  
 **Especialista:** `@ghost_architect` / skill `database-sentinel`  
-**Arquivos:** `src/lib/supabase/middleware.ts`  
+**Arquivos:** `src/lib/supabase/middleware.ts`, `src/lib/env.ts`, `src/app/layout.tsx`  
 **Contexto obrigatório:** `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/01-AUTH-LOGIN.md`, `.claude/rules/security.md`  
+**Contexto crítico:** Alterar apenas `src/lib/supabase/middleware.ts` é insuficiente. `src/app/layout.tsx` (linha 11) importa `env` de `src/lib/env.ts`, e esse módulo lança `throw new Error('Environment validation failed')` quando `NEXT_PUBLIC_SUPABASE_URL` ou `NEXT_PUBLIC_SUPABASE_ANON_KEY` estão ausentes — antes mesmo de qualquer rota pública renderizar. O fallback deve cobrir o módulo `env.ts` também.  
 **Ações:**
-1. Substituir `throw new Error(...)` por verificação: se credenciais ausentes em rotas públicas, retornar `NextResponse.next()`. Se em rotas `/admin`, redirecionar para `/`.
-2. Logar o problema via `console.error` sem expor a URL/chave.
-3. Garantir que rotas públicas não sofram nenhum impacto em modo degradado.  
-**Regras:** Não alterar lógica de autenticação para rotas admin válidas. Não expor mensagens de erro ao usuário final.  
-**Critérios de Aceite:** Em ambiente de teste sem `NEXT_PUBLIC_SUPABASE_URL`: rotas públicas retornam 200, `/admin` retorna redirect para `/` sem 500.  
+1. Em `src/lib/env.ts`: ampliar a condição de bypass para cobrir ambientes sem credenciais Supabase — adicionar `process.env.NEXT_PUBLIC_SUPABASE_URL` como verificação antes de lançar o erro fatal (ex: se ausente em `development` ou em ambiente sem `VERCEL_ENV`/`FIREBASE_ENV`, logar e continuar com `undefined` em vez de lançar).
+2. Em `src/lib/supabase/middleware.ts`: substituir `throw new Error(...)` por verificação: se credenciais ausentes em rotas públicas, retornar `NextResponse.next()`. Se em rotas `/admin`, redirecionar para `/`.
+3. Logar os problemas via `console.error` sem expor URLs ou chaves.
+4. Garantir que rotas públicas não sofram nenhum impacto em modo degradado.  
+**Regras:** Não alterar lógica de autenticação para rotas admin válidas. Não expor mensagens de erro ao usuário final. A flag `VALIDATE_ENV_WARN_ONLY=1` já existe para bypass em CI — usar como referência de padrão.  
+**Critérios de Aceite:** Em ambiente de teste sem `NEXT_PUBLIC_SUPABASE_URL`: rotas públicas retornam 200 (sem throw de env.ts), `/admin` retorna redirect para `/` sem 500. `src/app/layout.tsx` renderiza sem erro com credenciais ausentes.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -379,11 +381,12 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Contexto obrigatório:** `.claude/rules/security.md`, `next.config.mjs` (CSP global como referência)  
 **Contexto crítico:** `public/CURRICULUM-2026.html` usa `<script src="https://cdn.tailwindcss.com">` (runtime browser) e `<style type="text/tailwindcss">`. Esse runtime processa CSS via `eval()`, o que EXIGE `'unsafe-eval'` na CSP atual. Remover apenas o header sem reescrever o HTML **quebrará** o CV.  
 **Ações:**
-1. Inspecionar `public/CURRICULUM-2026.html` para mapear todas as classes Tailwind usadas.
-2. Substituir o `<script src="https://cdn.tailwindcss.com">` por CSS pré-compilado — gerar via `npx tailwindcss` com safelist das classes usadas no CV, produzindo um arquivo `public/curriculum.css`.
-3. Substituir `<style type="text/tailwindcss">` por `<link rel="stylesheet" href="/curriculum.css">`.
-4. Substituir `onclick="window.print()"` por `id="print-btn"` e adicionar um `<script>` dedicado (ou remover o onclick se `'unsafe-inline'` for eliminado).
-5. Atualizar a CSP em `src/app/api/view-cv/route.ts`: remover `'unsafe-eval'`, escopar `script-src` sem `https://*`.  
+1. Inspecionar `public/CURRICULUM-2026.html` e mapear: (a) todas as classes Tailwind usadas, (b) todas as regras CSS customizadas não-Tailwind dentro do `<style type="text/tailwindcss">` — incluindo `@page`, `.page` (dimensões A4), media queries de print, `.no-print`, `.circular-chart` e classes de gráficos SVG.
+2. Criar `public/curriculum.css` em dois blocos: primeiro, as regras customizadas (copiadas integralmente do bloco `<style>`); segundo, o CSS Tailwind compilado — gerar via `pnpm dlx @tailwindcss/cli` (CLI do Tailwind v4; `npx tailwindcss` usaria o binário v3) com safelist cobrindo todas as classes encontradas no CV.
+3. Substituir `<script src="https://cdn.tailwindcss.com">` e `<style type="text/tailwindcss">` por `<link rel="stylesheet" href="/curriculum.css">`.
+4. Substituir `onclick="window.print()"` por `id="print-btn"` e adicionar um `<script>` dedicado com `document.getElementById('print-btn').addEventListener('click', () => window.print())` — ou manter o inline handler apenas se `'unsafe-inline'` for estritamente necessário.
+5. Atualizar a CSP em `src/app/api/view-cv/route.ts`: remover `'unsafe-eval'`, escopar `script-src` sem `https://*`.
+6. Validar visualmente: layout de impressão A4, gráficos circulares SVG e botão de impressão devem funcionar identicamente após a migração.  
 **Regras:** O CV deve continuar funcionando identicamente após a reescrita. Não alterar o design ou conteúdo textual. Preservar `window.print()` como funcionalidade.  
 **Critérios de Aceite:** `public/CURRICULUM-2026.html` não referencia `cdn.tailwindcss.com`. CSP de `/api/view-cv` não contém `'unsafe-eval'`. O CV renderiza corretamente e o botão de impressão funciona.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
