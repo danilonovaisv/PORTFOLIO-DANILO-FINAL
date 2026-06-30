@@ -208,7 +208,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Impacto:** Assets referenciados em `site-assets.json` com URLs quebradas podem causar imagens/vídeos ausentes em partes do site não auditadas nesta rodada.  
 **Arquivos relacionados:** `src/config/site-assets.json`  
 **Risco de não corrigir:** Regressões visuais silenciosas em seções que dependem dos assets legados.  
-**Critério de aceite futuro:** `pnpm run assets:audit` (via `scripts/audit_assets.py`) retorna zero links quebrados em `src/config/site-assets.json`. **Nota:** `pnpm run verify:assets` (via `scripts/verify-supabase-assets.mjs`) verifica apenas URLs de vídeo em `src/lib/video-assets.ts` e NÃO cobre `site-assets.json` — não usar como critério de aceite para este item. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
+**Critério de aceite futuro:** `pnpm run assets:audit` (via `scripts/audit_assets.py`) retorna zero links quebrados em `src/config/site-assets.json` **e** sai com exit code 1 quando há links quebrados. **Atenção:** `scripts/audit_assets.py` linhas 110-111 têm o bloco `sys.exit(1)` comentado e sempre retorna exit 0 mesmo com links quebrados — a remediação DEVE incluir descomentar essas linhas (`# if broken_links: / # sys.exit(1)`); sem isso, o critério de aceite não é verificável em CI. **Nota:** `pnpm run verify:assets` (via `scripts/verify-supabase-assets.mjs`) verifica apenas URLs de vídeo em `src/lib/video-assets.ts` e NÃO cobre `site-assets.json` — não usar como critério de aceite para este item. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
 
 ---
 
@@ -389,10 +389,10 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 2. Criar `public/curriculum.css` em dois blocos: primeiro, as regras customizadas (copiadas integralmente do bloco `<style>`); segundo, o CSS Tailwind compilado — gerar via `pnpm dlx @tailwindcss/cli` (CLI do Tailwind v4; `npx tailwindcss` usaria o binário v3) com safelist cobrindo todas as classes encontradas no CV.
 3. Substituir `<script src="https://cdn.tailwindcss.com">` e `<style type="text/tailwindcss">` por `<link rel="stylesheet" href="/curriculum.css">`.
 4. Substituir `onclick="window.print()"` por `id="print-btn"`. Criar `public/curriculum-print.js` contendo `document.getElementById('print-btn').addEventListener('click', () => window.print())` e referenciar via `<script src="/curriculum-print.js"></script>` — NÃO usar `<script>` inline, pois bloco inline ainda requer `'unsafe-inline'` na CSP, anulando o benefício da migração.
-5. Atualizar a CSP em `src/app/api/view-cv/route.ts`: remover `'unsafe-eval'`, escopar `script-src` sem `https://*`.
-6. Validar visualmente: layout de impressão A4, gráficos circulares SVG e botão de impressão devem funcionar identicamente após a migração.  
+5. Atualizar a CSP em `src/app/api/view-cv/route.ts`: remover `'unsafe-eval'`; escopar `script-src` sem `https://*`; **preservar fontes** — `public/CURRICULUM-2026.html` linhas 8-9 carregam Outfit, Inter e Material Symbols Outlined via `https://fonts.googleapis.com` (stylesheet) e `https://fonts.gstatic.com` (arquivos de fonte): adicionar `fonts.googleapis.com` ao `style-src` e `fonts.gstatic.com` ao `font-src`, ou auto-hospedar ambos antes de remover o fallback `https://*` — sem isso o CV perderá tipografia e todos os ícones `material-symbols-outlined`.
+6. Validar visualmente: layout de impressão A4, gráficos circulares SVG, botão de impressão e ícones Material Symbols devem funcionar identicamente após a migração.  
 **Regras:** O CV deve continuar funcionando identicamente após a reescrita. Não alterar o design ou conteúdo textual. Preservar `window.print()` como funcionalidade.  
-**Critérios de Aceite:** `public/CURRICULUM-2026.html` não referencia `cdn.tailwindcss.com`. CSP de `/api/view-cv` não contém `'unsafe-eval'`. O CV renderiza corretamente e o botão de impressão funciona.  
+**Critérios de Aceite:** `public/CURRICULUM-2026.html` não referencia `cdn.tailwindcss.com`. CSP de `/api/view-cv` não contém `'unsafe-eval'`. O CV renderiza corretamente com tipografia Outfit/Inter preservada e ícones Material Symbols visíveis. O botão de impressão funciona.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -452,12 +452,15 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 | Busca `from '@/lib/motion'` vs `from '@/config/motion'` | HeroCopy usa `@/lib/motion`, demais usam `@/config/motion` ⚠️         |
 | Leitura de `firebase.json`                           | `frameworksBackend: { region: "us-central1", memory: "2GiB" }` ✓        |
 | Verificação de `.env.example`                        | Apenas nomes de variáveis — sem valores expostos ✓                       |
-| `pnpm build` / `pnpm typecheck` / `pnpm lint`        | **Não executados** — ambiente remoto sem credenciais de produção          |
+| `pnpm typecheck` (`tsc --noEmit --strict`)            | ✅ **0 erros TypeScript** — exit 0 (executado nesta auditoria; `node_modules` disponíveis; não requer credenciais Supabase) |
+| `pnpm lint` (`eslint src test tailwind.config.ts`)   | ⚠️ **5 avisos `no-unused-vars`** — exit 0 — HomeFeaturedSection.tsx:13, MediaUploadSection.tsx:8-9, TagsSection.tsx:14, animated-backgrounds.ts:1 — CI não bloqueado (avisos sem `--max-warnings 0`) |
+| `pnpm build`                                          | **Não executado** — requer credenciais de produção (`validate-env` no `prebuild`) |
 | Testes E2E (Playwright)                              | **Não executados** — requer browser e servidor local                     |
 
 ### Limitações desta Auditoria
-- Build não executado: sem `.env.local` com credenciais não é possível executar `pnpm build`.
-- Testes E2E não executados: Playwright requer browser e servidor.
+- Build não executado: sem `.env.local` com credenciais de produção não é possível executar `pnpm build` (validate-env no prebuild lança exceção).
+- `pnpm typecheck` e `pnpm lint` executados diretamente via `node_modules/.bin/{tsc,eslint}` — não requerem credenciais Supabase.
+- Testes E2E não executados: Playwright requer browser e servidor local.
 - Supabase Realtime não validado ao vivo: apenas análise estática de código.
 - Screenshots visuais não capturados: ambiente remoto sem browser para este contexto.
 - `pnpm install` não executado: ambiente remoto de auditoria read-only.
