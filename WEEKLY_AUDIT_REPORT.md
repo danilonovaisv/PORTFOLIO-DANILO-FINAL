@@ -109,13 +109,13 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 ---
 
 **ID:** AUDIT-002  
-**Severidade:** 🔴 P0 Crítico  
+**Severidade:** 🟡 P1 Estrutural _(corrigido: downgrade de P0 — CI já tem gate de typecheck)_  
 **Área:** Build / TypeScript  
-**Evidência:** `next.config.mjs` contém `typescript: { ignoreBuildErrors: true }`. Deployments de produção não verificam erros de tipo.  
-**Impacto:** Código com erros TypeScript pode chegar a produção sem sinalização de CI.  
-**Arquivos relacionados:** `next.config.mjs`  
-**Risco de não corrigir:** Regressões de tipo invisíveis em produção. Runtime errors que seriam catch-time no build.  
-**Critério de aceite futuro:** `ignoreBuildErrors` removido ou CI executa `pnpm typecheck` como gate obrigatório antes de qualquer merge para main.
+**Evidência:** `next.config.mjs` contém `typescript: { ignoreBuildErrors: true }`. Verificação de `.github/workflows/firebase-deploy.yml` confirma que o workflow já executa `pnpm run build-check` (= `pnpm typecheck && pnpm lint`) antes do deploy — logo, builds de CI têm gate. O risco é limitado a builds locais (`next build` puro sem CI) e ao false sense of security que a flag cria.  
+**Impacto:** `next build` local pode concluir com sucesso mesmo com erros TypeScript, sem nenhuma sinalização. Builds diretos fora do CI podem produzir artefatos com erros de tipo silenciosos.  
+**Arquivos relacionados:** `next.config.mjs`, `.github/workflows/firebase-deploy.yml`  
+**Risco de não corrigir:** Deploy local emergencial fora do CI pode incluir código com erros de tipo. A flag normaliza a ignorância de tipos como aceitável.  
+**Critério de aceite futuro:** `ignoreBuildErrors` removido de `next.config.mjs`. O CI gate já existe — manter e documentar que `pnpm run build-check` é obrigatório.
 
 ---
 
@@ -218,11 +218,11 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **ID:** AUDIT-011  
 **Severidade:** 🟡 P1 Segurança  
 **Área:** CSP / Rota Pública  
-**Evidência:** `src/app/api/view-cv/route.ts` define `Content-Security-Policy: "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*; img-src 'self' data: https://*;"`. A diretiva `'unsafe-eval'` habilita execução de código dinâmico (eval, Function constructor) e `'unsafe-inline'` habilita scripts inline. A rota é pública (`/api/view-cv`) e serve HTML de currículo.  
-**Impacto:** Risco de XSS se o conteúdo do HTML do currículo for corrompido ou manipulado. `'unsafe-eval'` abre vetor para injeção de código arbitrário via conteúdo dinâmico.  
-**Arquivos relacionados:** `src/app/api/view-cv/route.ts`  
-**Risco de não corrigir:** Vulnerabilidade de segurança em rota pública servindo HTML. Em auditoria de segurança (PCI/SOC2), seria flag imediata.  
-**Critério de aceite futuro:** CSP restritiva para `/api/view-cv` — remover `'unsafe-eval'`, escopar `'unsafe-inline'` apenas se necessário para estilo inline do HTML do CV, restringir `https://*` às origens específicas usadas pelo CV.
+**Evidência:** `src/app/api/view-cv/route.ts` define CSP com `'unsafe-inline'` e `'unsafe-eval'`. Verificação de `public/CURRICULUM-2026.html` confirma que `'unsafe-eval'` é **necessário funcionalmente** — o CV carrega o runtime browser do Tailwind CSS via `<script src="https://cdn.tailwindcss.com">` e usa `<style type="text/tailwindcss">`, que processam CSS via eval em runtime. Adicionalmente, há handler `onclick="window.print()"` (necessita `'unsafe-inline'`). Remover `'unsafe-eval'` sem reescrever o CV HTML **quebrará** o rendering do CV.  
+**Impacto:** A CSP atual é tecnicamente necessária para o funcionamento do CV, mas cria uma superfície de ataque ampla em uma rota pública. A remediação real requer substituir o Tailwind CDN runtime por CSS pré-compilado.  
+**Arquivos relacionados:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`  
+**Risco de não corrigir:** Rota pública aceita execução de código arbitrário se o HTML for comprometido. `https://*` como fonte de script é particularmente arriscado.  
+**Critério de aceite futuro:** `CURRICULUM-2026.html` reescrito sem Tailwind CDN browser runtime (usar CSS pré-compilado). CSP resultante sem `'unsafe-eval'`, com `'unsafe-inline'` restrito apenas se necessário para print handler inline, e `script-src` sem `https://*`.
 
 ---
 
@@ -244,7 +244,7 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Impacto:** Assets referenciados em `site-assets.json` com URLs quebradas podem causar imagens/vídeos ausentes em partes do site não auditadas nesta rodada.  
 **Arquivos relacionados:** `src/config/site-assets.json`  
 **Risco de não corrigir:** Regressões visuais silenciosas em seções que dependem dos assets legados.  
-**Critério de aceite futuro:** `pnpm run audit:assets` (ou script equivalente) retorna zero links quebrados. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
+**Critério de aceite futuro:** `pnpm run assets:audit` (ou `pnpm run verify:assets`) retorna zero links quebrados. Links inválidos removidos ou substituídos por URLs ativas no Supabase Storage.
 
 ---
 
@@ -264,9 +264,10 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 1. Reescrever `README-POSTCSS.md` para documentar Tailwind v4 como padrão oficial, removendo referências a v3.4.x.
 2. Reescrever `postcss-tailwind-config.md` marcando `@tailwindcss/postcss` como correto para v4 e `@import 'tailwindcss'` como sintaxe v4 correta.
 3. Atualizar exemplos de código correto/incorreto para refletir v4.
-4. Adicionar nota de data da atualização.  
-**Regras:** Apenas editar arquivos de documentação em `.claude/rules/`. Não tocar em código.  
-**Critérios de Aceite:** `grep -r "v3.4\|downgrade\|3.4.19\|3.4.x" .claude/rules/` retorna zero resultados. As regras documentam v4 consistentemente.  
+4. Adicionar nota de data da atualização.
+5. **Escalação manual:** `.agent/rules/README-POSTCSS.md` e `.agent/rules/postcss-tailwind-config.md` contêm as mesmas instruções desatualizadas, mas `.agent/` é READ-ONLY por governança (`CLAUDE.md`). Reportar ao responsável humano para atualização manual ou reclassificação como fonte primária.  
+**Regras:** Apenas editar arquivos de documentação em `.claude/rules/`. Não tocar em código. `.agent/rules/` requer intervenção humana.  
+**Critérios de Aceite:** `grep -r "v3.4\|downgrade\|3.4.19\|3.4.x" .claude/rules/` retorna zero resultados. As regras documentam v4 consistentemente. Responsável notificado sobre `.agent/rules/`.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -360,29 +361,31 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 **Arquivos:** `next.config.mjs`, `.github/workflows/` (pipeline CI/CD relevante)  
 **Contexto obrigatório:** `.claude/rules/code-quality.md` (§Anti-Patterns Any Type), `CLAUDE.md` (Build & Test)  
 **Ações:**
-1. Em `next.config.mjs`, remover ou comentar `typescript: { ignoreBuildErrors: true }` — substituir por `typescript: { ignoreBuildErrors: false }`.
-2. Se o build falhar com erros de tipo ao remover a flag: listar os erros (`pnpm typecheck 2>&1 | tee typecheck.log`) e criar tarefas para corrigi-los antes de habilitar o gate.
-3. Alternativa menos invasiva: manter a flag temporariamente mas adicionar `pnpm typecheck` como step obrigatório no workflow de CI antes do step de deploy — qualquer erro de tipo bloqueia o merge.
-4. Verificar se `pnpm typecheck` já existe em algum workflow em `.github/workflows/` e, se não, adicionar.  
-**Regras:** Não remover a flag sem primeiro mapear se há erros de tipo existentes no projeto — uma remoção abrupta pode quebrar o build de CI. Prefira a abordagem de gate de CI se o volume de erros for desconhecido.  
-**Critérios de Aceite:** `pnpm typecheck` executa no CI como gate obrigatório. Erros de tipo impedem merge para main. `ignoreBuildErrors: false` (ou ausente) em `next.config.mjs`.  
+1. Confirmar: `.github/workflows/firebase-deploy.yml` já executa `pnpm run build-check` (= `pnpm typecheck && pnpm lint`) antes do deploy — CI gate está ativo.
+2. Em `next.config.mjs`, remover ou comentar `typescript: { ignoreBuildErrors: true }` — substituir por `typescript: { ignoreBuildErrors: false }`.
+3. Se o `next build` falhar com erros de tipo ao remover a flag: listar com `pnpm typecheck 2>&1 | tee typecheck.log`, corrigir os erros, depois remover a flag.
+4. Não adicionar novo step de CI — o gate já existe via `build-check`.  
+**Regras:** O CI já tem proteção. O objetivo desta tarefa é alinhar `next.config.mjs` com a realidade do CI, eliminando a flag que permite builds locais com erros de tipo.  
+**Critérios de Aceite:** `ignoreBuildErrors: false` (ou ausente) em `next.config.mjs`. `next build` local falha corretamente quando há erros de tipo.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
 
-### 🛠️ Prompt #08 — Restringir CSP da Rota `/api/view-cv`
+### 🛠️ Prompt #08 — Restringir CSP e Reescrever CV HTML sem Tailwind CDN Runtime
 
-**Objetivo:** Remover `'unsafe-eval'` e escopar corretamente a Content-Security-Policy da rota pública de CV (AUDIT-011).  
-**Especialista:** `@ghost_architect` / skill `database-sentinel`  
-**Arquivos:** `src/app/api/view-cv/route.ts`  
+**Objetivo:** Eliminar `'unsafe-eval'` da rota `/api/view-cv` substituindo o Tailwind CDN browser runtime por CSS pré-compilado no HTML do CV (AUDIT-011).  
+**Especialista:** `@ghost_architect` / skill `frontend-specialist`  
+**Arquivos:** `src/app/api/view-cv/route.ts`, `public/CURRICULUM-2026.html`  
 **Contexto obrigatório:** `.claude/rules/security.md`, `next.config.mjs` (CSP global como referência)  
+**Contexto crítico:** `public/CURRICULUM-2026.html` usa `<script src="https://cdn.tailwindcss.com">` (runtime browser) e `<style type="text/tailwindcss">`. Esse runtime processa CSS via `eval()`, o que EXIGE `'unsafe-eval'` na CSP atual. Remover apenas o header sem reescrever o HTML **quebrará** o CV.  
 **Ações:**
-1. Abrir `src/app/api/view-cv/route.ts` e inspecionar o HTML do currículo (`public/CURRICULUM-2026.html`) para identificar origens externas reais (fontes, imagens, estilos).
-2. Remover `'unsafe-eval'` da diretiva CSP — não há justificativa para execução de código dinâmico em um documento HTML estático de CV.
-3. Manter `'unsafe-inline'` apenas se o HTML do CV usa `<style>` inline (verificar). Se não, remover também.
-4. Restringir `https://*` às origens específicas identificadas no passo 1 (ex: fonts.googleapis.com, cdn.example.com).  
-**Regras:** Não alterar a lógica de leitura de arquivo ou a estrutura da resposta. Apenas restringir o header CSP.  
-**Critérios de Aceite:** CSP de `/api/view-cv` não contém `'unsafe-eval'`. Score de CSP Evaluator ≥ B. O CV continua renderizando corretamente.  
+1. Inspecionar `public/CURRICULUM-2026.html` para mapear todas as classes Tailwind usadas.
+2. Substituir o `<script src="https://cdn.tailwindcss.com">` por CSS pré-compilado — gerar via `npx tailwindcss` com safelist das classes usadas no CV, produzindo um arquivo `public/curriculum.css`.
+3. Substituir `<style type="text/tailwindcss">` por `<link rel="stylesheet" href="/curriculum.css">`.
+4. Substituir `onclick="window.print()"` por `id="print-btn"` e adicionar um `<script>` dedicado (ou remover o onclick se `'unsafe-inline'` for eliminado).
+5. Atualizar a CSP em `src/app/api/view-cv/route.ts`: remover `'unsafe-eval'`, escopar `script-src` sem `https://*`.  
+**Regras:** O CV deve continuar funcionando identicamente após a reescrita. Não alterar o design ou conteúdo textual. Preservar `window.print()` como funcionalidade.  
+**Critérios de Aceite:** `public/CURRICULUM-2026.html` não referencia `cdn.tailwindcss.com`. CSP de `/api/view-cv` não contém `'unsafe-eval'`. O CV renderiza corretamente e o botão de impressão funciona.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -391,15 +394,33 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 **Objetivo:** Habilitar cache estático/ISR nas páginas de projeto individual para reduzir TTFB e carga no Supabase (AUDIT-012).  
 **Especialista:** `@ghost_architect`  
-**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/lib/supabase/queries/projects.ts`  
-**Contexto obrigatório:** `.context/DOCS-PORTFOLIO-PAGES/02-PORTFOLIO/`, `CLAUDE.md` (Architecture: Server Components por padrão)  
+**Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/lib/supabase/queries/projects.ts`, `src/app/admin/(protected)/trabalhos/actions.ts`  
+**Contexto obrigatório:** `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/`, `CLAUDE.md` (Architecture: Server Components por padrão)  
 **Ações:**
 1. Remover `export const dynamic = 'force-dynamic'`.
 2. Verificar se há dados de sessão/usuário na página — se não, adicionar `export const revalidate = 3600`.
 3. Adicionar `generateStaticParams()` para pré-gerar as páginas dos projetos mais acessados em build time.
-4. Testar que o fallback `notFound()` ainda funciona para slugs inválidos com `dynamicParams = true`.  
+4. Testar que o fallback `notFound()` ainda funciona para slugs inválidos com `dynamicParams = true`.
+5. Em `src/app/admin/(protected)/trabalhos/actions.ts`, função `deleteProjectAction` (linha ~317): adicionar `revalidatePath(\`/portfolio/${oldProject.slug}\`)` após `revalidatePath('/portfolio')` — sem isso, páginas de projeto deletadas permanecem em cache mesmo após remoção do banco.  
 **Regras:** Se a página usa dados de sessão de usuário (ex: favoritos, analytics pessoais), manter `force-dynamic` e documentar a razão. Não sacrificar personalização por cache.  
-**Critérios de Aceite:** TTFB de `/portfolio/[slug]` < 200ms em hit de cache. `pnpm build` gera páginas estáticas para projetos existentes. Zero erros 500 em slugs válidos.  
+**Critérios de Aceite:** TTFB de `/portfolio/[slug]` < 200ms em hit de cache. `pnpm build` gera páginas estáticas para projetos existentes. Zero erros 500 em slugs válidos. Após deletar projeto no admin, `/portfolio/${slug}` retorna 404 no próximo request sem cache stale.  
+**Approval Gate:** Não executar sem aprovação humana explícita.
+
+---
+
+### 🛠️ Prompt #10 — Alinhar Nomenclatura de Chave Supabase no env.ts
+
+**Objetivo:** Evitar falha de validação de variáveis de ambiente em ambientes novos que usem a nomenclatura atual do Supabase (AUDIT-005).  
+**Especialista:** `@ghost_architect`  
+**Arquivos:** `src/lib/env.ts`, `src/lib/supabase/env.ts`, `.env.example`  
+**Contexto obrigatório:** `.claude/rules/security.md`, `CLAUDE.md` (Regras de Execução: nunca commitar secrets)  
+**Ações:**
+1. Verificar qual chave `getSupabasePublicKey()` em `src/lib/supabase/env.ts` efetivamente lê — `NEXT_PUBLIC_SUPABASE_ANON_KEY` ou `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`.
+2. Atualizar `src/lib/env.ts` para aceitar ambas as nomenclaturas com fallback: `process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Atualizar `.env.example` para listar ambas as variáveis com comentário explicando a migração Supabase.
+4. Documentar em `.context/active_state.md` que a migração de nomenclatura está em andamento.  
+**Regras:** Não expor valores de chaves reais em nenhum arquivo. Apenas nomes de variáveis como referência.  
+**Critérios de Aceite:** `env.ts` valida sem erro tanto com `ANON_KEY` quanto com `PUBLISHABLE_DEFAULT_KEY`. `.env.example` documenta ambas as variações. Zero breaking changes em ambientes existentes.  
 **Approval Gate:** Não executar sem aprovação humana explícita.
 
 ---
@@ -525,8 +546,8 @@ O projeto usa `output: 'standalone'` com `adapterPath: firebaseAdapterPath` (ape
 Middleware lança erro fatal se credenciais Supabase ausentes. Em deploys de preview/staging sem todas as variáveis configuradas, isso derruba toda a aplicação (ver AUDIT-004).
 
 ### Risco 4 — `ignoreBuildErrors: true`
-**Severidade:** 🔴 Crítico  
-Erros TypeScript não bloqueiam deploys de produção. A linha de CI/CD deve incluir `pnpm typecheck` como gate separado antes de qualquer merge.
+**Severidade:** 🟡 Médio  
+A flag `ignoreBuildErrors: true` em `next.config.mjs` permite que `next build` local conclua silenciosamente com erros TypeScript. O CI já tem gate via `pnpm run build-check` (= `pnpm typecheck && pnpm lint`) em `.github/workflows/firebase-deploy.yml` — risco limitado a builds locais emergenciais fora do pipeline.
 
 ### Risco 5 — Supabase ANON Key vs Publishable Key
 **Severidade:** 🟡 Baixo-Médio  
@@ -560,7 +581,7 @@ O arquivo `WEEKLY_AUDIT_REPORT.md` já existia na raiz (43 KB) da execução ant
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "*Projeto:* portfoliodanilo.com\n*Data:* 2026-06-30\n*PR:* <PR_URL|Ver PR Documental>\n*P0 Crítico:* 2 | *P1 Estrutural:* 5 | *P2 Polimento:* 3\n\n*Top 3 Riscos:*\n1. 🔴 Regras PostCSS desatualizadas — risco de downgrade acidental de Tailwind v4 para v3\n2. 🟡 Middleware sem fallback — ausência de credenciais derruba toda a aplicação\n3. 🔴 ignoreBuildErrors: true — erros TypeScript chegam a produção sem bloqueio\n\n*Nenhum arquivo de código foi alterado nesta rodada.*\nResponda *Aprovado* ou *Proceed* para autorizar a criação de uma rotina separada de correção."
+        "text": "*Projeto:* portfoliodanilo.com\n*Data:* 2026-06-30\n*PR:* <PR_URL|Ver PR Documental>\n*P0 Crítico:* 1 | *P1 Estrutural:* 7 | *P2 Polimento:* 5\n\n*Top 3 Riscos:*\n1. 🔴 Regras PostCSS desatualizadas — risco de downgrade acidental de Tailwind v4 para v3\n2. 🟡 Middleware sem fallback — ausência de credenciais derruba toda a aplicação\n3. 🟡 ignoreBuildErrors: true em next.config.mjs — builds locais fora do CI ignoram erros de tipo\n\n*Nenhum arquivo de código foi alterado nesta rodada.*\nResponda *Aprovado* ou *Proceed* para autorizar a criação de uma rotina separada de correção."
       }
     },
     {
@@ -596,12 +617,13 @@ O arquivo `WEEKLY_AUDIT_REPORT.md` já existia na raiz (43 KB) da execução ant
 
 **Sequência recomendada após aprovação humana:**
 1. **#01** — Atualizar regras PostCSS (5 min, zero risco de código, elimina AUDIT-001)
-2. **#07** — Remover `ignoreBuildErrors` / gate TypeCheck no CI (30–60 min, risco médio, elimina AUDIT-002) — **P0, paralelo a #01 possível**
-3. **#08** — Restringir CSP de `/api/view-cv` (15 min, risco baixo, elimina AUDIT-011) — **Segurança, prioridade elevada**
+2. **#07** — Remover `ignoreBuildErrors` de `next.config.mjs` (30–60 min, risco médio, elimina AUDIT-002) — paralelo a #01 possível
+3. **#08** — Restringir CSP de `/api/view-cv` + reescrever CV HTML (2–4h, risco baixo-médio, elimina AUDIT-011) — segurança, prioridade elevada
 4. **#03** — Modo degradado no middleware (45 min, risco médio, elimina AUDIT-004)
-5. **#09** — Migrar `portfolio/[slug]` para ISR (30 min, risco médio, elimina AUDIT-012)
-6. **#04, #05, #06** — Polimentos técnicos (15 min cada, AUDIT-009, 008, 010)
-7. **#02** — Documentar facade `@/lib/motion` (10 min, zero risco, resolve AUDIT-003 como P2)
+5. **#10** — Alinhar nomenclatura de chave Supabase no env.ts (10 min, risco baixo, elimina AUDIT-005)
+6. **#09** — Migrar `portfolio/[slug]` para ISR + corrigir revalidação no deleteProjectAction (30–45 min, risco médio, elimina AUDIT-012)
+7. **#04, #05, #06** — Polimentos técnicos (15 min cada, AUDIT-009, 008, 010)
+8. **#02** — Documentar facade `@/lib/motion` (10 min, zero risco, resolve AUDIT-003 como P2)
 
 **Nota:** AUDIT-013 (42 asset links quebrados) requer auditoria dedicada de assets via `scripts/` — não incluído na sequência acima por requerer mapeamento de URLs antes de qualquer ação.
 
