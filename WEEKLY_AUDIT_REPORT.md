@@ -320,6 +320,23 @@ O portfolio portfoliodanilo.com está em estado de desenvolvimento ativo, com co
 
 ---
 
+### 🛠️ Prompt #07 — Remover `ignoreBuildErrors` ou Adicionar Gate de TypeCheck no CI
+
+**Objetivo:** Garantir que erros TypeScript bloqueiem deploys de produção (AUDIT-002).  
+**Especialista:** `@ghost_architect`  
+**Arquivos:** `next.config.ts`, `.github/workflows/` (pipeline CI/CD relevante)  
+**Contexto obrigatório:** `.claude/rules/code-quality.md` (§Anti-Patterns Any Type), `CLAUDE.md` (Build & Test)  
+**Ações:**
+1. Em `next.config.ts`, remover ou comentar `typescript: { ignoreBuildErrors: true }` — substituir por `typescript: { ignoreBuildErrors: false }`.
+2. Se o build falhar com erros de tipo ao remover a flag: listar os erros (`pnpm typecheck 2>&1 | tee typecheck.log`) e criar tarefas para corrigi-los antes de habilitar o gate.
+3. Alternativa menos invasiva: manter a flag temporariamente mas adicionar `pnpm typecheck` como step obrigatório no workflow de CI antes do step de deploy — qualquer erro de tipo bloqueia o merge.
+4. Verificar se `pnpm typecheck` já existe em algum workflow em `.github/workflows/` e, se não, adicionar.  
+**Regras:** Não remover a flag sem primeiro mapear se há erros de tipo existentes no projeto — uma remoção abrupta pode quebrar o build de CI. Prefira a abordagem de gate de CI se o volume de erros for desconhecido.  
+**Critérios de Aceite:** `pnpm typecheck` executa no CI como gate obrigatório. Erros de tipo impedem merge para main. `ignoreBuildErrors: false` (ou ausente) em `next.config.ts`.  
+**Approval Gate:** Não executar sem aprovação humana explícita.
+
+---
+
 ## 5️⃣ Validação Técnica Executada
 
 | Comando / Análise                                    | Resultado                                                                 |
@@ -441,7 +458,7 @@ O projeto usa `output: 'standalone'` com `adapterPath: firebaseAdapterPath` (ape
 Middleware lança erro fatal se credenciais Supabase ausentes. Em deploys de preview/staging sem todas as variáveis configuradas, isso derruba toda a aplicação (ver AUDIT-004).
 
 ### Risco 4 — `ignoreBuildErrors: true`
-**Severidade:** 🟡 Médio  
+**Severidade:** 🔴 Crítico  
 Erros TypeScript não bloqueiam deploys de produção. A linha de CI/CD deve incluir `pnpm typecheck` como gate separado antes de qualquer merge.
 
 ### Risco 5 — Supabase ANON Key vs Publishable Key
@@ -476,7 +493,7 @@ O arquivo `WEEKLY_AUDIT_REPORT.md` já existia na raiz (43 KB) da execução ant
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "*Projeto:* portfoliodanilo.com\n*Data:* 2026-06-30\n*PR:* <PR_URL|Ver PR Documental>\n*P0 Crítico:* 2 | *P1 Estrutural:* 5 | *P2 Polimento:* 3\n\n*Top 3 Riscos:*\n1. 🔴 Regras PostCSS desatualizadas — risco de downgrade acidental de Tailwind v4 para v3\n2. 🟡 Middleware sem fallback — ausência de credenciais derruba toda a aplicação\n3. 🟡 ignoreBuildErrors: true — erros TypeScript chegam a produção sem bloqueio\n\n*Nenhum arquivo de código foi alterado nesta rodada.*\nResponda *Aprovado* ou *Proceed* para autorizar a criação de uma rotina separada de correção."
+        "text": "*Projeto:* portfoliodanilo.com\n*Data:* 2026-06-30\n*PR:* <PR_URL|Ver PR Documental>\n*P0 Crítico:* 2 | *P1 Estrutural:* 5 | *P2 Polimento:* 3\n\n*Top 3 Riscos:*\n1. 🔴 Regras PostCSS desatualizadas — risco de downgrade acidental de Tailwind v4 para v3\n2. 🟡 Middleware sem fallback — ausência de credenciais derruba toda a aplicação\n3. 🔴 ignoreBuildErrors: true — erros TypeScript chegam a produção sem bloqueio\n\n*Nenhum arquivo de código foi alterado nesta rodada.*\nResponda *Aprovado* ou *Proceed* para autorizar a criação de uma rotina separada de correção."
       }
     },
     {
@@ -512,9 +529,10 @@ O arquivo `WEEKLY_AUDIT_REPORT.md` já existia na raiz (43 KB) da execução ant
 
 **Sequência recomendada após aprovação humana:**
 1. **#01** — Atualizar regras PostCSS (5 min, zero risco de código, elimina AUDIT-001)
-2. **#02** — Unificar módulo de motion (30 min, risco baixo, elimina AUDIT-003)
-3. **#03** — Modo degradado no middleware (45 min, risco médio, elimina AUDIT-004)
-4. **#04, #05, #06** — Polimentos técnicos (15 min cada, AUDIT-009, 008, 010)
+2. **#07** — Remover `ignoreBuildErrors` / gate TypeCheck no CI (30–60 min, risco médio, elimina AUDIT-002) — **P0, paralelo a #01 possível**
+3. **#02** — Unificar módulo de motion (30 min, risco baixo, elimina AUDIT-003)
+4. **#03** — Modo degradado no middleware (45 min, risco médio, elimina AUDIT-004)
+5. **#04, #05, #06** — Polimentos técnicos (15 min cada, AUDIT-009, 008, 010)
 
 **Bloqueador atual:** A ausência do webhook Slack impede notificação automática. Esta rotina deve ser complementada com notificação manual ao responsável técnico (dannovaisv@gmail.com).
 
