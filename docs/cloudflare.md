@@ -140,8 +140,8 @@ Peça ao agente:
 
 ```
 No dashboard do Supabase, em Authentication → URL Configuration, atualiza:
-- Site URL: https://seudominio.com.br
-- Redirect URLs: adiciona https://seudominio.com.br/auth/callback*
+- Site URL: https://portfoliodanilo.com
+- Redirect URLs: adiciona https://portfoliodanilo.com/auth/callback*
 
 E em Settings → API, verifica se as URLs permitidas estão corretas.
 ```

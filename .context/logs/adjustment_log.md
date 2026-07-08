@@ -2059,3 +2059,30 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ Navegador E2E — Subagente de browser validou o site `https://portfolio-danilo-final.pages.dev` renderizando sem erros de console ou de infraestrutura na tela.
 
 **Status:** Concluído.
+
+---
+
+## [2026-07-08T21:32] Custom Domain Integration & Supabase Auth Configuration Sync
+
+**Context:** Configuração e homologação do domínio personalizado `portfoliodanilo.com` no projeto Cloudflare Pages e sincronização das URLs permitidas de autenticação do Supabase.
+
+**Changes Applied:**
+
+1. **Custom Domain Setup (Cloudflare Pages)** ✅
+   - Cadastrado o domínio personalizado `portfoliodanilo.com` no projeto Pages `portfolio-danilo-final` utilizando a REST API da Cloudflare. O domínio foi integrado com status `pending` aguardando a propagação de Nameservers.
+   - Mapeadas as rotas de Nameservers recomendadas (`dilbert.ns.cloudflare.com` e `ziggy.ns.cloudflare.com`) e os métodos de apontamento CNAME alternativo.
+
+2. **Supabase Auth Config Sync** ✅
+   - Atualizadas as configurações de autenticação do GoTrue (`site_url` e `uri_allow_list`) do projeto `umkmwbkwvulxtdodzmzf` via PATCH na Supabase Management API.
+   - Definida a URL base do site (`Site URL`) como `https://portfoliodanilo.com`.
+   - Adicionada a URL de callback com suporte a curingas (`https://portfoliodanilo.com/auth/callback*` e `https://portfoliodanilo.com/auth/callback**`) na lista de permissões `uri_allow_list`, preservando as configurações de localhost e do Firebase do portfólio.
+
+3. **Validação de CORS** ✅
+   - Verificado que as chamadas CORS na API do Supabase funcionam automaticamente e sem restrições específicas por IP/Domínio para o cliente público `anon`, eliminando riscos de bloqueio de chamadas no novo domínio.
+
+**Verification:**
+
+- ✅ Chamada de PATCH na Supabase Management API concluída com sucesso (status 200).
+- ✅ Inclusão de domínio no Cloudflare Pages concluída e no status `initializing`/`pending` aguardando ativação de Nameservers.
+
+**Status:** Concluído.

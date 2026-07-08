@@ -1,0 +1,18 @@
+portfoliodanilo.com. 300 IN A 199.36.158.100
+portfoliodanilo.com. 21600 IN NS dilbert.ns.cloudflare.com.
+portfoliodanilo.com. 21600 IN NS ziggy.ns.cloudflare.com.
+portfoliodanilo.com. 21600 IN SOA ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 259200 300
+portfoliodanilo.com. 300 IN TXT "hosting-site=portfolio-danilo-novais"
+portfoliodanilo.com. 300 IN TXT "site-dns.bolt.host"
+portfoliodanilo.com. 300 IN TXT "fah-claim=002-02-3585c701-aaf3-4f59-994b-72a8ad2246d4"
+portfoliodanilo.com. 300 IN TXT "openai-domain-verification=dv-LrOOzwVU6BcXqCgKBfSgWpIm"
+portfoliodanilo.com. 300 IN TXT "apple-domain=bfW6eSLa7ermuePs"
+portfoliodanilo.com. 300 IN TXT "v=spf1 include:icloud.com ~all"
+_acme-challenge_gvsrh3lss5wifiym.portfoliodanilo.com. 300 IN CNAME cf631b54-3d7a-45fa-b1f8-711b492d1fad.18.authorize.certificatemanager.goog.
+resend._domainkey.portfoliodanilo.com. 300 IN TXT "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDFwumPn5HRposntRD221KH8/oNuyI9Tx+aBAWgPC94xBr49OlLdt2tgNA6w7usaf8eeh+euqsQeFPwHu3ZyLHV2fYpbyxfaUwQZCfUil/UcrIsdCUkFwq40T/UiWroTgL7P0cNkHwdE4MIs8Zma4up23xmWPaiuyezD60EvKWrywIDAQAB"
+sig1._domainkey.portfoliodanilo.com. 300 IN CNAME sig1.dkim.portfoliodanilo.com.at.icloudmailadmin.com.
+_github-pages-challenge-danilonovaisv.portfoliodanilo.com. 300 IN TXT "8fc0fe8e8ad6b16c5ecafac09882be"
+_twilio.portfoliodanilo.com. 300 IN TXT "twilio-domain-verification=32a3948156aa6c493f49886b59e32f67"
+api.portfoliodanilo.com. 300 IN CNAME canva-app-5f36c.web.app.
+send.portfoliodanilo.com. 300 IN MX 10 feedback-smtp.sa-east-1.amazonses.com.
+send.portfoliodanilo.com. 300 IN TXT "v=spf1" "include:amazonses.com" "~all"
