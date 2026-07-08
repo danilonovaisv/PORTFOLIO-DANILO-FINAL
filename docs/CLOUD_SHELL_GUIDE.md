@@ -38,17 +38,17 @@ Para evitar expor chaves sensíveis em código ou em builds não seguros, salve 
 
 ```bash
 # 1. Armazenar a URL do Supabase
-echo -n "SUA_SUPABASE_URL_AQUI" | gcloud secrets create SUPABASE_URL \
+echo -n "https://umkmwbkwvulxtdodzmzf.supabase.co" | gcloud secrets create SUPABASE_URL \
     --data-file=- \
     --replication-policy="automatic"
 
 # 2. Armazenar a Anon Key do Supabase
-echo -n "SUA_SUPABASE_ANON_KEY_AQUI" | gcloud secrets create SUPABASE_ANON_KEY \
+echo -n "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta213Ymt3dnVseHRkb2R6bXpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNDE4MzcsImV4cCI6MjA4MzkxNzgzN30.wssvD9W-yzRyLpq8aMCw57E4wNz7OnQ58ujLzYmF6CA" | gcloud secrets create SUPABASE_ANON_KEY \
     --data-file=- \
     --replication-policy="automatic"
 
 # 3. Armazenar a Service Role Key do Supabase (para rotas /admin)
-echo -n "SUA_SUPABASE_SERVICE_ROLE_KEY_AQUI" | gcloud secrets create SUPABASE_SERVICE_ROLE_KEY \
+echo -n "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta213Ymt3dnVseHRkb2R6bXpmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODM0MTgzNywiZXhwIjoyMDgzOTE3ODM3fQ.pJ5jSvUcN-zZDOMzvsvkWsk983kr3LLa-zJ9CVBC65I" | gcloud secrets create SUPABASE_SERVICE_ROLE_KEY \
     --data-file=- \
     --replication-policy="automatic"
 ```
