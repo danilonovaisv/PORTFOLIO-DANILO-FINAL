@@ -148,13 +148,14 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Botão de envio do formulário | Default, Hover, Focus, Disabled, Loading | Submit do formulário | Implementado |
-| Modal | Não há modal principal para contato | N/A | N/A | Não se aplica |
-| Formulário | Formulário de captação de contato | Idle, Validating, Loading, Error, Success | Input, submit, validação | Implementado |
-| Slider | Não aplicável | N/A | N/A | Não se aplica |
-| Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
+
+| Componente  | Descrição                           | Estados                                   | Interações               | Status                |
+| ----------- | ----------------------------------- | ----------------------------------------- | ------------------------ | --------------------- |
+| Botão CTA   | Botão de envio do formulário        | Default, Hover, Focus, Disabled, Loading  | Submit do formulário     | Implementado          |
+| Modal       | Não há modal principal para contato | N/A                                       | N/A                      | Não se aplica         |
+| Formulário  | Formulário de captação de contato   | Idle, Validating, Loading, Error, Success | Input, submit, validação | Implementado          |
+| Slider      | Não aplicável                       | N/A                                       | N/A                      | Não se aplica         |
+| Menu Mobile | Global via header                   | Closed/Open                               | Navegação global         | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

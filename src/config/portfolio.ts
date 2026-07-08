@@ -7,10 +7,7 @@ export const PORTFOLIO_PAGE_SIZE = 15;
 export const ENABLE_SERVER_PAGINATION = true;
 
 export type PortfolioFilterId =
-  | 'all-cases'
-  | 'brand-campaigns'
-  | 'videos-motions'
-  | 'web-tech';
+  'all-cases' | 'brand-campaigns' | 'videos-motions' | 'web-tech';
 
 type PortfolioFilterDefinition = {
   id: PortfolioFilterId;

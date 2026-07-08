@@ -26,13 +26,7 @@ declare global {
 
 type AuthMode = 'login' | 'signup';
 type BusyAction =
-  | 'login'
-  | 'signup'
-  | 'magic-link'
-  | 'recovery'
-  | 'google'
-  | 'github'
-  | null;
+  'login' | 'signup' | 'magic-link' | 'recovery' | 'google' | 'github' | null;
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');

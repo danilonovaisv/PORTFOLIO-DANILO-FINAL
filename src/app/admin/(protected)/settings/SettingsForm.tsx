@@ -330,9 +330,7 @@ export function SettingsForm({
                     setTokenDraft((current) => ({
                       ...current,
                       environment: event.target.value as
-                        | 'development'
-                        | 'staging'
-                        | 'production',
+                        'development' | 'staging' | 'production',
                     }))
                   }
                 >

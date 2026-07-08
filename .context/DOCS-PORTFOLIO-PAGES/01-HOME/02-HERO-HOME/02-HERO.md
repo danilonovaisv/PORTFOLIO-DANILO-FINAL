@@ -155,13 +155,14 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Ação principal de conversão no hero | Default, Hover, Focus, Pressed | Scroll/roteamento para contato e portfólio | Implementado |
-| Modal | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Formulário | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Slider | Não há slider dedicado no hero | N/A | N/A | Não se aplica |
-| Menu Mobile | Consumido indiretamente via header global | Closed/Open | Acesso via topo | Implementado (global) |
+
+| Componente  | Descrição                                 | Estados                        | Interações                                 | Status                |
+| ----------- | ----------------------------------------- | ------------------------------ | ------------------------------------------ | --------------------- |
+| Botão CTA   | Ação principal de conversão no hero       | Default, Hover, Focus, Pressed | Scroll/roteamento para contato e portfólio | Implementado          |
+| Modal       | Não aplicável nesta sessão                | N/A                            | N/A                                        | Não se aplica         |
+| Formulário  | Não aplicável nesta sessão                | N/A                            | N/A                                        | Não se aplica         |
+| Slider      | Não há slider dedicado no hero            | N/A                            | N/A                                        | Não se aplica         |
+| Menu Mobile | Consumido indiretamente via header global | Closed/Open                    | Acesso via topo                            | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

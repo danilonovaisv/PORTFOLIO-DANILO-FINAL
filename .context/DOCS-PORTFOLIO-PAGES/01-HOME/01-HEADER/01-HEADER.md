@@ -156,13 +156,14 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Ações primárias de navegação no topo (links prioritários) | Default, Hover, Focus, Active | Navegação entre rotas e âncora | Implementado |
-| Modal | Não aplicável no header | N/A | N/A | Não se aplica |
-| Formulário | Não aplicável no header | N/A | N/A | Não se aplica |
-| Slider | Não há slider funcional no header | N/A | N/A | Não se aplica |
-| Menu Mobile | Menu colapsável com trap de foco e fechamento por Esc | Closed, Opening, Open, Closing | Clique, teclado, outside click, Esc | Implementado |
+
+| Componente  | Descrição                                                 | Estados                        | Interações                          | Status        |
+| ----------- | --------------------------------------------------------- | ------------------------------ | ----------------------------------- | ------------- |
+| Botão CTA   | Ações primárias de navegação no topo (links prioritários) | Default, Hover, Focus, Active  | Navegação entre rotas e âncora      | Implementado  |
+| Modal       | Não aplicável no header                                   | N/A                            | N/A                                 | Não se aplica |
+| Formulário  | Não aplicável no header                                   | N/A                            | N/A                                 | Não se aplica |
+| Slider      | Não há slider funcional no header                         | N/A                            | N/A                                 | Não se aplica |
+| Menu Mobile | Menu colapsável com trap de foco e fechamento por Esc     | Closed, Opening, Open, Closing | Clique, teclado, outside click, Esc | Implementado  |
 
 🔄 **Estados e Transições:**
 

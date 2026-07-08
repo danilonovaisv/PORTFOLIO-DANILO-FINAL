@@ -83,8 +83,7 @@ async function saveLegacyContent(ctx: SaveContext, upload: Function) {
       let media2Path = section.content.media2;
       const mediaType = section.content.mediaType as AssetTypeHint | undefined;
       const mediaType2 = section.content.mediaType2 as
-        | AssetTypeHint
-        | undefined;
+        AssetTypeHint | undefined;
 
       if (section.file) {
         const path = await upload(section.file, `block-${section.id}-media1`);

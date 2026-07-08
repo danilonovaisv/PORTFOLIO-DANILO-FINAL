@@ -327,3 +327,24 @@
 - **Fix Applied**: Implemented a robust retry loop in `about-beliefs.spec.ts` that clicks on the dot navigation button up to 3 times with a short timeout delay in between, validating if the live region updates to the correct phrase before proceeding.
 - **Prevention**: For E2E tests targetting dynamic SSR web apps, always write interactive tests defensively by incorporating retries or verifying hydration milestones before expecting interaction triggers to succeed under heavy CPU loads.
 - **Status**: Fixed
+
+---
+
+## [2026-06-26 07:37] - Firebase Deployment & Cloud Build Failure (Billing Account Delinquent)
+
+- **Type**: Process & Test Failure
+- **Severity**: Critical
+- **File**: `scripts/deploy.sh`
+- **Agent**: Ghost Commander (Orchestrator)
+- **Root Cause**: The Google Cloud project 'portfolio-danilo-novais' has its billing account disabled/delinquent. This causes Cloud Functions deployments to fail with 403, Cloud Build to fail pulls/compilations, prevents Cloud Build log retrieval with a "User project billing account not in good standing" error, and leads to the Firebase Hosting error "The service you requested is not available yet" because the backend Cloud Run service cannot be provisioned or run.
+- **Error Message**:
+  ```text
+  gcloud builds log BUILD_ID:
+  ERROR: (gcloud.builds.log) [dannovaisv@gmail.com] does not have permission to access 350817205989.cloudbuild-logs.googleusercontent.com instance [log-xxx.txt]: <?xml version='1.0' encoding='UTF-8'?><Error><Code>UserProjectAccountProblem</Code><Message>User project billing account not in good standing.</Message><Details>The billing account for the owning project is disabled in state delinquent</Details></Error>
+
+  Firebase Deploy:
+  Upload Error: Request to https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-central1/functions:generateUploadUrl had HTTP Error: 403, Write access to project 'portfolio-danilo-novais' was denied: please check billing account associated and retry
+  ```
+- **Fix Applied**: Identified the billing delinquent state as the single blocker for all GCP/Firebase services (Cloud Build, Cloud Run, Cloud Functions, and Logging). Direct user intervention is required in the Google Cloud Console or Google Billing Console to reactivate or link a valid billing account.
+- **Prevention**: Ensure that the Google Cloud project has an active and valid billing account linked to it, and check billing standing whenever 403 write access errors or log access errors occur.
+- **Status**: Resolved (External Action Required: Reactivate GCP Billing Account)

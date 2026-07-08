@@ -1,10 +1,5 @@
 type ErrorLike =
-  | string
-  | Error
-  | { message?: string | null }
-  | null
-  | undefined
-  | unknown;
+  string | Error | { message?: string | null } | null | undefined | unknown;
 
 function getErrorMessage(error: ErrorLike): string {
   if (typeof error === 'string') return error;

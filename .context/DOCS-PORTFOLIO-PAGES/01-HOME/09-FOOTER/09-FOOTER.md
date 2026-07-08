@@ -140,13 +140,14 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Links de ação secundária (social/institucional) | Default, Hover, Focus, Active | Navegação externa/interna | Implementado |
-| Modal | Não aplicável no footer | N/A | N/A | Não se aplica |
-| Formulário | Não aplicável no footer atual | N/A | N/A | Não se aplica |
-| Slider | Não aplicável | N/A | N/A | Não se aplica |
-| Menu Mobile | Recurso global, não pertencente ao footer | Closed/Open | Navegação global | Implementado (global) |
+
+| Componente  | Descrição                                       | Estados                       | Interações                | Status                |
+| ----------- | ----------------------------------------------- | ----------------------------- | ------------------------- | --------------------- |
+| Botão CTA   | Links de ação secundária (social/institucional) | Default, Hover, Focus, Active | Navegação externa/interna | Implementado          |
+| Modal       | Não aplicável no footer                         | N/A                           | N/A                       | Não se aplica         |
+| Formulário  | Não aplicável no footer atual                   | N/A                           | N/A                       | Não se aplica         |
+| Slider      | Não aplicável                                   | N/A                           | N/A                       | Não se aplica         |
+| Menu Mobile | Recurso global, não pertencente ao footer       | Closed/Open                   | Navegação global          | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

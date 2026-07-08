@@ -149,13 +149,14 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | CTA “vamos trabalhar juntos” e ações secundárias de projeto | Default, Hover, Focus, Active | Anchor e navegação para projetos | Implementado |
-| Modal | Abertura de detalhe de projeto (quando configurado) | Closed, Opening, Open, Closing | Click/Enter em card, Esc para fechar | Implementado |
-| Formulário | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Slider | Faixas/categorias com comportamento de movimento horizontal contextual | Idle, Moving | Scroll-driven transform | Parcial |
-| Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
+
+| Componente  | Descrição                                                              | Estados                        | Interações                           | Status                |
+| ----------- | ---------------------------------------------------------------------- | ------------------------------ | ------------------------------------ | --------------------- |
+| Botão CTA   | CTA “vamos trabalhar juntos” e ações secundárias de projeto            | Default, Hover, Focus, Active  | Anchor e navegação para projetos     | Implementado          |
+| Modal       | Abertura de detalhe de projeto (quando configurado)                    | Closed, Opening, Open, Closing | Click/Enter em card, Esc para fechar | Implementado          |
+| Formulário  | Não aplicável nesta sessão                                             | N/A                            | N/A                                  | Não se aplica         |
+| Slider      | Faixas/categorias com comportamento de movimento horizontal contextual | Idle, Moving                   | Scroll-driven transform              | Parcial               |
+| Menu Mobile | Global via header                                                      | Closed/Open                    | Navegação global                     | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

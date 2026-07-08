@@ -146,13 +146,14 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Controle contextual (ex.: áudio/play quando disponível) | Idle, Hover, Focus, Active | Toggle de áudio/reprodução | Implementado |
-| Modal | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Formulário | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Slider | Não há slider dedicado | N/A | N/A | Não se aplica |
-| Menu Mobile | Recurso global externo à sessão | Closed/Open | Acesso pelo header | Implementado (global) |
+
+| Componente  | Descrição                                               | Estados                    | Interações                 | Status                |
+| ----------- | ------------------------------------------------------- | -------------------------- | -------------------------- | --------------------- |
+| Botão CTA   | Controle contextual (ex.: áudio/play quando disponível) | Idle, Hover, Focus, Active | Toggle de áudio/reprodução | Implementado          |
+| Modal       | Não aplicável nesta sessão                              | N/A                        | N/A                        | Não se aplica         |
+| Formulário  | Não aplicável nesta sessão                              | N/A                        | N/A                        | Não se aplica         |
+| Slider      | Não há slider dedicado                                  | N/A                        | N/A                        | Não se aplica         |
+| Menu Mobile | Recurso global externo à sessão                         | Closed/Open                | Acesso pelo header         | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

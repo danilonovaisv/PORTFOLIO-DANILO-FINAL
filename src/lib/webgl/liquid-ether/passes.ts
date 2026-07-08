@@ -16,8 +16,7 @@ export class ShaderPass {
   constructor(props: ShaderPassProps) {
     this.props = props || {};
     this.uniforms = this.props.material?.uniforms as
-      | Record<string, THREE.IUniform>
-      | undefined;
+      Record<string, THREE.IUniform> | undefined;
   }
 
   init(..._args: any[]) {

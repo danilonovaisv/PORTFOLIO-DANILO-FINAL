@@ -11,11 +11,7 @@
 export type PromptSeverity = 'critical' | 'high' | 'medium' | 'low';
 export type PromptStatus = 'pending' | 'in_progress' | 'completed' | 'failed';
 export type PromptCategory =
-  | 'layout'
-  | 'mobile'
-  | 'motion'
-  | 'accessibility'
-  | 'performance';
+  'layout' | 'mobile' | 'motion' | 'accessibility' | 'performance';
 
 export interface AtomicPrompt {
   id: string;

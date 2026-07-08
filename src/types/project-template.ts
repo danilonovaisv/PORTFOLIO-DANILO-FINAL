@@ -12,8 +12,7 @@ export type MasterProjectTemplateId =
   | typeof MASTER_PROJECT_TEMPLATE_V3;
 
 export type ProjectTemplateId =
-  | typeof LEGACY_PROJECT_TEMPLATE
-  | MasterProjectTemplateId;
+  typeof LEGACY_PROJECT_TEMPLATE | MasterProjectTemplateId;
 
 export type MasterProjectMediaKind = 'image' | 'video';
 

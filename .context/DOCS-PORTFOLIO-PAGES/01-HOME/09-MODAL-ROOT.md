@@ -143,13 +143,14 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Ações internas do modal (ex.: visitar projeto) | Default, Hover, Focus, Active | Navegação/ação contextual | Implementado |
-| Modal | Componente de diálogo acessível com portal | Closed, Opening, Open, Closing | Esc, backdrop click, close button | Implementado |
-| Formulário | Não aplicável por padrão | N/A | N/A | Não se aplica |
-| Slider | Não aplicável por padrão | N/A | N/A | Não se aplica |
-| Menu Mobile | Independente do modal; recurso global | Closed/Open | Navegação global | Implementado (global) |
+
+| Componente  | Descrição                                      | Estados                        | Interações                        | Status                |
+| ----------- | ---------------------------------------------- | ------------------------------ | --------------------------------- | --------------------- |
+| Botão CTA   | Ações internas do modal (ex.: visitar projeto) | Default, Hover, Focus, Active  | Navegação/ação contextual         | Implementado          |
+| Modal       | Componente de diálogo acessível com portal     | Closed, Opening, Open, Closing | Esc, backdrop click, close button | Implementado          |
+| Formulário  | Não aplicável por padrão                       | N/A                            | N/A                               | Não se aplica         |
+| Slider      | Não aplicável por padrão                       | N/A                            | N/A                               | Não se aplica         |
+| Menu Mobile | Independente do modal; recurso global          | Closed/Open                    | Navegação global                  | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

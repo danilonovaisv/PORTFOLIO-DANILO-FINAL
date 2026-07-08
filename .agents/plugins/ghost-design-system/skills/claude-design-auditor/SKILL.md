@@ -1368,11 +1368,12 @@ This category audits for manipulative or deceptive design patterns — not desig
 **When to run:** Always. Every design can be checked for ethical patterns regardless of input type or stage.
 
 **Ethics severity model** (different from standard audit severity):
-| Level | Label | Meaning | Score impact |
-|---|---|---|---|
-| 🔴 | Deceptive | Actively misleads or coerces. Violates user trust, often consumer law. | −15 pts |
-| 🟡 | Questionable | Exploitative depending on context. Warrants review. | −7 pts |
-| 🟢 | Noted | Persuasive element present. Ethical in standard use. | 0 pts |
+
+| Level | Label        | Meaning                                                                | Score impact |
+| ----- | ------------ | ---------------------------------------------------------------------- | ------------ |
+| 🔴    | Deceptive    | Actively misleads or coerces. Violates user trust, often consumer law. | −15 pts      |
+| 🟡    | Questionable | Exploitative depending on context. Warrants review.                    | −7 pts       |
+| 🟢    | Noted        | Persuasive element present. Ethical in standard use.                   | 0 pts        |
 
 **Ethics Score** is separate from the Overall Score. Start at 100, apply ethics deductions only.
 Display as: **Ethics Score: X/100** alongside Accessibility Score.

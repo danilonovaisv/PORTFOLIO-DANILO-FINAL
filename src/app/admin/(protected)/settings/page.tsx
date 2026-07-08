@@ -69,9 +69,7 @@ export default async function SettingsPage() {
         description: row.description,
         status: row.status as 'active' | 'inactive',
         environment: row.environment as
-          | 'development'
-          | 'staging'
-          | 'production',
+          'development' | 'staging' | 'production',
         maskedSecret: maskTokenSecret(row.secret),
         createdAt: row.created_at,
         updatedAt: row.updated_at,

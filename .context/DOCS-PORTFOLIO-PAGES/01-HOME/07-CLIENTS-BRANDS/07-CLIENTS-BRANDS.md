@@ -144,13 +144,14 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | Não há CTA principal dedicado | N/A | N/A | Não se aplica |
-| Modal | Não há modal dedicado na sessão | N/A | N/A | Não se aplica |
-| Formulário | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Slider | Trilho/grade de marcas com comportamento visual sequencial | Idle, Scrolling | Scroll/auto-flow visual | Parcial |
-| Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
+
+| Componente  | Descrição                                                  | Estados         | Interações              | Status                |
+| ----------- | ---------------------------------------------------------- | --------------- | ----------------------- | --------------------- |
+| Botão CTA   | Não há CTA principal dedicado                              | N/A             | N/A                     | Não se aplica         |
+| Modal       | Não há modal dedicado na sessão                            | N/A             | N/A                     | Não se aplica         |
+| Formulário  | Não aplicável nesta sessão                                 | N/A             | N/A                     | Não se aplica         |
+| Slider      | Trilho/grade de marcas com comportamento visual sequencial | Idle, Scrolling | Scroll/auto-flow visual | Parcial               |
+| Menu Mobile | Global via header                                          | Closed/Open     | Navegação global        | Implementado (global) |
 
 🔄 **Estados e Transições:**
 

@@ -14,10 +14,7 @@ export type ResolvedAsset =
   | {
       ok: false;
       reason:
-        | 'empty'
-        | 'invalid-url'
-        | 'invalid-youtube'
-        | 'unsupported-provider';
+        'empty' | 'invalid-url' | 'invalid-youtube' | 'unsupported-provider';
     };
 
 export type AssetTypeHint = 'image' | 'video' | 'youtube';

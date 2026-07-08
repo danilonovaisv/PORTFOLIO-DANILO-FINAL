@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
 export type ActionResponse<T = any> =
-  | { ok: true; data: T }
-  | { ok: false; error: string; issues?: string[] };
+  { ok: true; data: T } | { ok: false; error: string; issues?: string[] };
 
 /**
  * Returns a standardized error response without exposing sensitive details,
