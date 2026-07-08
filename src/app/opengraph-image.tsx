@@ -1,9 +1,8 @@
 import { ImageResponse } from 'next/og';
 import { BRAND } from '@/config/brand';
-import { promises as fs } from 'fs';
-import path from 'path';
 
 export const dynamic = 'force-static';
+export const runtime = 'edge';
 
 // Image metadata
 export const alt =
@@ -16,39 +15,44 @@ export const contentType = 'image/png';
 
 /**
  * OG Image for the root page.
- * Attempts to fetch the real OG image from Supabase Storage.
- * Falls back to an inline branded image if the network/DNS is unavailable
- * (e.g., CI without external access, local dev without Supabase reachable).
+ * Attempts to fetch the real OG image from public URL.
+ * Falls back to an inline branded image if the network/DNS is unavailable.
  */
 
 export default async function Image() {
-  // Try to use the local physical image first (migrated to public/)
+  // Try to use the absolute URL of the image asset
   try {
-    const localPath = path.join(process.cwd(), 'public', 'og-image.png');
-    const imageData = await fs.readFile(localPath);
-    return new ImageResponse(
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <img
-          src={`data:image/png;base64,${Buffer.from(imageData).toString('base64')}`}
-          alt="Danilo Novais | Head de Criação & Diretor de Criação Sênior"
-          width={1200}
-          height={630}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      </div>,
-      { ...size }
-    );
-  } catch {
-    // If local file is missing, fall through to branded fallback
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://portfoliodanilo.com';
+    const imageUrl = `${siteUrl}/og-image.png`;
+    const response = await fetch(imageUrl);
+    
+    if (response.ok) {
+      const imageData = await response.arrayBuffer();
+      return new ImageResponse(
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img
+            src={`data:image/png;base64,${Buffer.from(imageData).toString('base64')}`}
+            alt="Danilo Novais | Head de Criação & Diretor de Criação Sênior"
+            width={1200}
+            height={630}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>,
+        { ...size }
+      );
+    }
+  } catch (err) {
+    console.error('Error loading local OG image:', err);
   }
+
 
   // Fallback: Ghost-branded inline OG image (same style as /portfolio, /sobre, /contato)
   return new ImageResponse(
