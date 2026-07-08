@@ -126,7 +126,7 @@ Configura o domínio personalizado "portfoliodanilo.com" no projeto do Cloudflar
 Passos que o agente deve seguir:
 1. Adiciona o domínio no projeto Pages → Custom domains → Set up a domain
 2. Se o domínio já estiver na Cloudflare (nameservers apontando), faz o CNAME automático
-3. Se NÃO estiver na Cloudflare, me orienta a criar um registro CNAME no meu DNS apontando de "seudominio.com.br" para "<projeto>.pages.dev"
+3. Se NÃO estiver na Cloudflare, me orienta a criar um registro CNAME no meu DNS apontando de "portfoliodanilo.com" para "<projeto>.pages.dev"
 4. Ativa SSL/TLS automático
 ```
 

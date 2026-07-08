@@ -25,7 +25,7 @@ import {
   toCanonicalUrl,
 } from '@/lib/seo';
 import RotatingHighlights from '@/components/portfolio/RotatingHighlights';
-import ReactMarkdown from 'react-markdown';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { extractYoutubeId as extractYoutubeIdFromContract } from '@/lib/media/asset-contract';
 
 export const dynamic = 'force-dynamic';
@@ -220,14 +220,6 @@ type Props = {
 
 import JsonLd from '@/components/ui/JsonLd';
 
-const projectMarkdownComponents = {
-  h1: ({ children }: { children?: ReactNode }) => (
-    <h2 className="mt-10 mb-4 text-2xl md:text-3xl font-semibold text-white">
-      {children}
-    </h2>
-  ),
-};
-
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = await getProject(slug);
@@ -404,14 +396,11 @@ export default async function ProjectPage({ params }: Props) {
               }
 
               return (
-                <div
+                <GhostMarkdown
                   key={`${project.id}-markdown-${index}`}
-                  className="prose prose-invert max-w-none font-figtree prose-headings:text-bluePrimary"
-                >
-                  <ReactMarkdown components={projectMarkdownComponents}>
-                    {block.value}
-                  </ReactMarkdown>
-                </div>
+                  content={block.value}
+                  className="font-figtree prose-headings:text-bluePrimary"
+                />
               );
             })
           ) : narrativeParagraphs.length > 0 ? (
