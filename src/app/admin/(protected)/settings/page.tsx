@@ -1,5 +1,4 @@
 export const runtime = 'edge';
-export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import { getSupabasePublicKey } from '@/lib/supabase/env';

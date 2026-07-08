@@ -29,8 +29,6 @@ function invalidPath(path: string) {
   return path.length === 0 || path.includes('..');
 }
 
-export const runtime = 'nodejs';
-
 export async function POST(request: Request) {
   try {
     const { supabase } = await requireAdminAccess({ requireServiceRole: true });

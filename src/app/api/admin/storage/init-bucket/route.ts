@@ -5,8 +5,6 @@ import {
   AdminAccessError,
 } from '@/lib/admin/server-access';
 
-export const runtime = 'nodejs';
-
 export async function POST(_request: Request) {
   try {
     const { supabase } = await requireAdminAccess({ requireServiceRole: true });
