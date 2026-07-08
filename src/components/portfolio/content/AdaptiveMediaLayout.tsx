@@ -219,7 +219,6 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     className={`max-h-full h-auto w-auto max-w-full object-contain transition-all duration-normal ${isLoaded ? 'opacity-90' : 'opacity-0'}`}
                                     sizes="100vw"
                                     priority
-                                    unoptimized
                                     onLoadingComplete={() => setIsLoaded(true)}
                                     onError={applyImageFallback}
                                 />
@@ -263,7 +262,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                         >
                                             {youtubeThumb ? (
                                                 <div className="relative w-full h-full">
-                                                    <Image src={youtubeThumb} alt={`Thumbnail ${idx}`} fill className="object-cover" sizes="200px" unoptimized />
+                                                    <Image src={youtubeThumb} alt={`Thumbnail ${idx}`} fill className="object-cover" sizes="200px" />
                                                     <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                                                         <Play className="w-6 h-6 text-white fill-current opacity-90" />
                                                     </div>
@@ -282,7 +281,6 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                     fill
                                                     className="object-cover"
                                                     sizes="200px"
-                                                    unoptimized
                                                 />
                                             )}
                                         </button>

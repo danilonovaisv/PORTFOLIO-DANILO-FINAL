@@ -225,6 +225,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
     <main id="main-content" className="flex-1 w-full flex flex-col">
       <JsonLd
         pageType="portfolio"
+        projects={projects}
         breadcrumbs={[
           { name: 'Home', url: toCanonicalUrl('/') },
           { name: 'Portfolio', url: toCanonicalUrl('/portfolio') },

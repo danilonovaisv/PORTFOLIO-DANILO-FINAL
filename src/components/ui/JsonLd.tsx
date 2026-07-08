@@ -1,5 +1,6 @@
 import { BRAND } from '@/config/brand';
 import { toAbsoluteUrl } from '@/lib/seo';
+import type { PortfolioProject } from '@/types/project';
 
 type BreadcrumbItem = {
   name: string;
@@ -21,6 +22,7 @@ type JsonLdProps = {
   pageType?: 'home' | 'about' | 'contact' | 'portfolio' | 'project' | 'legal';
   breadcrumbs?: BreadcrumbItem[];
   project?: ProjectSchema;
+  projects?: PortfolioProject[];
 };
 
 export default function JsonLd({
@@ -28,6 +30,7 @@ export default function JsonLd({
   pageType = 'home',
   breadcrumbs,
   project,
+  projects,
 }: JsonLdProps) {
   const baseUrl = `https://${BRAND.domain}`;
   const logo = toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl);
@@ -220,6 +223,32 @@ export default function JsonLd({
         '@id': `${baseUrl}/#organization`,
       },
     };
+
+    // Adiciona esquemas de vídeo dinâmicos para cada projeto que contenha conteúdo de vídeo
+    if (projects && projects.length > 0) {
+      projects.forEach((proj) => {
+        const isMotion = proj.category === 'motion';
+        const hasVideo = !!proj.videoPreview || !!proj.thumbnailMedia;
+        if (isMotion || hasVideo) {
+          const rawVideoUrl = proj.videoPreview || proj.thumbnailMedia || BRAND.assets.video.manifesto;
+          const videoUrl = toAbsoluteUrl(rawVideoUrl, baseUrl);
+          pageSchemas[`video-${proj.id}`] = {
+            '@type': 'VideoObject',
+            '@id': `${baseUrl}/portfolio#video-${proj.slug}`,
+            name: proj.title,
+            description: proj.shortDescription || proj.subtitle || `Projeto de ${proj.displayCategory} por Danilo Novais.`,
+            thumbnailUrl: toAbsoluteUrl(proj.image || BRAND.assets.logos.logoLight, baseUrl),
+            uploadDate: proj.year ? `${proj.year}-01-01` : '2025-01-01',
+            duration: 'PT2M',
+            contentUrl: videoUrl,
+            embedUrl: `${baseUrl}/portfolio?project=${proj.slug}`,
+            publisher: {
+              '@id': `${baseUrl}/#organization`,
+            },
+          };
+        }
+      });
+    }
   }
 
   // Project/Case Study (CreativeWork)
