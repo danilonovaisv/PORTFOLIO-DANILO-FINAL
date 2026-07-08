@@ -146,7 +146,7 @@ export default async function HomePage() {
 
   return (
     <main id="main-content" className="flex-1 w-full flex flex-col">
-      <JsonLd pageType="home" breadcrumbs={[{ name: 'Home', url: siteUrl }]} />
+      <JsonLd pageType="home" projects={featuredProjects} breadcrumbs={[{ name: 'Home', url: siteUrl }]} />
       <HomeHero />
       <VideoManifesto
         src={BRAND.assets.video.manifesto}

@@ -11,7 +11,6 @@ import {
   applyImageFallback,
   cn,
   getAssetUrl,
-  supabaseLoader,
 } from '@/lib/utils';
 
 type MediaCardProps = {
@@ -79,7 +78,6 @@ export function MediaCard({
         />
       ) : (
         <Image
-          loader={supabaseLoader}
           src={resolvedSrc}
           alt={media.alt ?? ''}
           fill

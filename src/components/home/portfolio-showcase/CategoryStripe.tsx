@@ -131,8 +131,8 @@ export const CategoryStripe = React.memo(function CategoryStripe({
                     fill
                     className="object-cover object-center"
                     sizes="288px"
-                    loading="lazy"
-                    priority={false}
+                    loading={index < 2 ? undefined : 'lazy'}
+                    priority={index < 2}
                     onError={applyImageFallback}
                   />
                 )}

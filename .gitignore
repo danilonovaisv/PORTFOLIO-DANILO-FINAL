@@ -13,6 +13,10 @@ coverage/
 .next/
 out/
 
+# OpenNext / Cloudflare Workers build output (may contain secrets from .env.local)
+.open-next/
+.wrangler/
+
 # Production
 build/
 dist/
