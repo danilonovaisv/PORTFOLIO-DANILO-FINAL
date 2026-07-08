@@ -2,7 +2,6 @@ import { ImageResponse } from 'next/og';
 import { BRAND } from '@/config/brand';
 
 export const dynamic = 'force-static';
-export const runtime = 'edge';
 
 // Image metadata
 export const alt =

@@ -66,7 +66,7 @@ export async function POST(request: Request) {
     let upsert = true;
 
     if (bucket === 'portfolio-media') {
-      const hash = hashContent(payload);
+      const hash = await hashContent(payload);
 
       if (!brand || !project) {
         return NextResponse.json(

@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 export function normalizeBrand(brand: string): string {
   return brand
     .toLowerCase()
@@ -16,11 +14,13 @@ export function normalizeProject(project: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export function hashContent(buffer: ArrayBuffer | Buffer): string {
-  const hash = crypto.createHash('sha256');
-  hash.update(Buffer.from(buffer as ArrayBuffer));
-  return hash.digest('hex').slice(0, 16);
+export async function hashContent(buffer: ArrayBuffer | Buffer): Promise<string> {
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer as ArrayBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex.slice(0, 16);
 }
+
 
 export interface BuildV4PathParams {
   brand: string;
