@@ -2028,3 +2028,34 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ `pnpm run build` — Bundle de produção Next.js compilado com sucesso em modo standalone.
 
 **Status:** Concluído.
+
+---
+
+## [2026-07-08T20:18] Next.js Edge Runtime Compliance & Cloudflare Pages Successful Deploy
+
+**Context:** Migração completa da aplicação Next.js para compatibilidade estrita com a Edge Runtime da Cloudflare e resolução de erros de empacotamento do Webpack e runtime do Workers.
+
+**Changes Applied:**
+
+1. **Edge Runtime Compliance** ✅
+   - Adicionada a declaração `export const runtime = 'edge';` em 23 arquivos de páginas dinâmicas, APIs e rotas protegidas do painel administrativo.
+   - Removida a diretiva duplicada conflitante `export const runtime = 'nodejs';` em páginas de tags e configurações administrativas.
+
+2. **Remoção de Dependências Node.js Nativas** ✅
+   - **Visualizador de Currículo (`src/app/api/view-cv/route.ts`)**: Migrada a leitura com `fs.readFile` do Node para um redirecionamento HTTP nativo (`NextResponse.redirect`) apontando para o arquivo estático público `/CURRICULUM-2026.html`.
+   - **Imagem OpenGraph (`src/app/opengraph-image.tsx`)**: Removida a dependência do módulo `fs` de leitura local. Agora busca a imagem por HTTP absoluto via URL do site.
+   - **Substituição de `crypto` do Node (`src/lib/assets/storagePath.ts`)**: Substituída a biblioteca nativa `crypto` do Node pela **Web Crypto API** (`crypto.subtle.digest`) para geração assíncrona de hashes SHA-256 compatível com a borda.
+
+3. **Isolamento de Componentes de Cliente** ✅
+   - **Portfólio Slug (`src/app/portfolio/[slug]/page.tsx`)**: Migrado o uso direto de `react-markdown` (que consome hooks do cliente como `useState`) para o wrapper interno `'use client'` [GhostMarkdown.tsx](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/ui/GhostMarkdown.tsx), isolando-o da Edge Runtime do servidor.
+
+4. **Configuração de Compatibilidade Cloudflare Pages** ✅
+   - Ativada a flag de compatibilidade **`nodejs_compat`** e a data de compatibilidade `2026-07-08` nos ambientes de produção e preview da Cloudflare Pages via API PATCH direta do projeto.
+
+**Verification:**
+
+- ✅ `npx @cloudflare/next-on-pages@1` — Compilação e empacotamento local finalizados com 100% de sucesso sem warnings ou falhas.
+- ✅ Deploy na Nuvem (ID `ed7b2555`) — Compilação bem-sucedida e deploy publicado com sucesso no Pages.
+- ✅ Navegador E2E — Subagente de browser validou o site `https://portfolio-danilo-final.pages.dev` renderizando sem erros de console ou de infraestrutura na tela.
+
+**Status:** Concluído.
