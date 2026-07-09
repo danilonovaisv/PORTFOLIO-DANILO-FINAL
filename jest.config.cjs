@@ -3,7 +3,7 @@ const tsJestConfig = {
   tsconfig: {
     jsx: 'react-jsx',
     rootDir: '.',
-    ignoreDeprecations: '6.0',
+    ignoreDeprecations: '5.0',
     moduleResolution: 'bundler',
   },
 };
@@ -23,6 +23,7 @@ const baseConfig = {
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
   modulePathIgnorePatterns: [
     '<rootDir>/.agent/',
+    '<rootDir>/.agents/',
     '<rootDir>/functions/',
     '<rootDir>/.firebase/',
     '<rootDir>/.next/',

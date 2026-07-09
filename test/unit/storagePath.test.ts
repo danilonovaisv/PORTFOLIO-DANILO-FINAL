@@ -26,17 +26,17 @@ describe('storagePath generator', () => {
   });
 
   describe('hashContent', () => {
-    it('generates a 16 chars SHA-256 hash', () => {
+    it('generates a 16 chars SHA-256 hash', async () => {
       const buffer1 = Buffer.from('hello world');
       const buffer2 = Buffer.from('hello world!');
 
-      const hash1 = hashContent(buffer1);
-      const hash2 = hashContent(buffer2);
+      const hash1 = await hashContent(buffer1);
+      const hash2 = await hashContent(buffer2);
 
       expect(hash1).toHaveLength(16);
       expect(hash2).toHaveLength(16);
       expect(hash1).not.toBe(hash2);
-      expect(hashContent(Buffer.from('hello world'))).toBe(hash1); // determinism
+      expect(await hashContent(Buffer.from('hello world'))).toBe(hash1); // determinism
     });
   });
 

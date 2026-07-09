@@ -3,6 +3,20 @@
  * Configura mocks necessários para o ambiente de testes
  */
 import '@testing-library/jest-dom/jest-globals';
+import { webcrypto } from 'node:crypto';
+
+// Polyfill SubtleCrypto for JSDOM/Jest tests running in Node environment
+if (!globalThis.crypto) {
+  Object.defineProperty(globalThis, 'crypto', {
+    value: webcrypto,
+    writable: true,
+  });
+} else if (!globalThis.crypto.subtle) {
+  Object.defineProperty(globalThis.crypto, 'subtle', {
+    value: webcrypto.subtle,
+    writable: true,
+  });
+}
 
 // Provide safe defaults for tests so Supabase helpers don't throw on missing env
 process.env.NEXT_PUBLIC_SUPABASE_URL ??= 'https://test-project.supabase.co';
