@@ -88,49 +88,36 @@ git push -u origin main
 
 ---
 
-## Etapa 3 — Criar o projeto no Cloudflare Pages via agente
+## Etapa 3 — Configurar o Deploy no Cloudflare Workers com Assets
 
-Agora o prompt principal. Cole isto no seu agente:
+Como a estrutura do projeto usa Next.js 16, React 19 e `@opennextjs/cloudflare` v1.x, o deploy deve ser feito como um **Cloudflare Worker com Assets** (utilizando o arquivo `wrangler.toml` existente).
 
-```
-Cria um novo projeto no Cloudflare Pages usando o repositório GitHub "danilonovaisv/PORTFOLIO-DANILO-FINAL" com estas configurações:
+Para configurar o deploy automático via GitHub Actions:
 
-1. Conecta o GitHub e seleciona o repositório "PORTFOLIO-DANILO-FINAL"
-2. Configura a branch de produção como "main"
-3. Framework preset: detecta automaticamente (ou "None" se for HTML/CSS/JS puro)
-4. Build command: <comando de build do seu projeto> (ex: "npm run build" para React/Vite, ou "exit 0" para site estático puro)
-5. Build output directory: <pasta de saída> (ex: "dist" para Vite, "build" para React, ou a raiz "." para HTML puro)
-6. Root directory: (deixar vazio a menos que o projeto esteja numa subpasta)
+1. **Adicione os segredos (Secrets) no seu repositório GitHub**:
+   - Vá no seu repositório no GitHub → **Settings** → **Secrets and variables** → **Actions**.
+   - Crie as seguintes variáveis de repositório (Repository secrets):
+     - `CLOUDFLARE_API_TOKEN`: Token de API da Cloudflare com permissões para editar Workers e Assets (crie em `dash.cloudflare.com` → My Profile → API Tokens → template "Edit Cloudflare Workers").
+     - `CLOUDFLARE_ACCOUNT_ID`: ID da sua conta Cloudflare (disponível na barra lateral direita do seu painel Cloudflare).
+     - `NEXT_PUBLIC_SUPABASE_URL`: A URL do seu projeto Supabase.
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: A chave anônima do seu projeto Supabase.
 
-Depois de criar, adiciona as variáveis de ambiente do Supabase:
-- NEXT_PUBLIC_SUPABASE_URL = https://umkmwbkwvulxtdodzmzf.supabase.co
-- NEXT_PUBLIC_SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta213Ymt3dnVseHRkb2R6bXpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNDE4MzcsImV4cCI6MjA4MzkxNzgzN30.wssvD9W-yzRyLpq8aMCw57E4wNz7OnQ58ujLzYmF6CA
+2. **Habilite o deploy automático**:
+   - O workflow está configurado no arquivo `.github/workflows/cloudflare-deploy.yml`. Toda vez que você fizer `git push` para a branch `main`, o GitHub Actions fará o build do Next.js + OpenNext e publicará o Worker com Assets automaticamente.
 
-Faz o primeiro deploy e me dá a URL *.pages.dev gerada.
-```
-
-> **Importante:** Substitua:
-> - `SEU_USUARIO` pelo seu username do GitHub
-> - O build command e a pasta de saída conforme seu framework
-> - A URL e chave do Supabase (pegue no dashboard do Supabase em Settings → API)
+3. **Desative o build automático no Cloudflare Pages**:
+   - Se você tinha conectado o repositório diretamente no painel do Cloudflare Pages (com deploy automático), **desative ou delete** esse projeto de Pages para evitar builds redundantes e conflitos de compilação da pasta `functions` do Firebase.
 
 ---
 
-## Etapa 4 — Configurar domínio personalizado
+## Etapa 4 — Configurar domínio personalizado no Cloudflare Worker
 
-Depois do deploy funcionando, peça ao agente:
+Depois que o primeiro deploy for concluído pelo GitHub Actions, configure seu domínio personalizado:
 
-```
-Configura o domínio personalizado "portfoliodanilo.com" no projeto do Cloudflare Pages que acabamos de criar.
-
-Passos que o agente deve seguir:
-1. Adiciona o domínio no projeto Pages → Custom domains → Set up a domain
-2. Se o domínio já estiver na Cloudflare (nameservers apontando), faz o CNAME automático
-3. Se NÃO estiver na Cloudflare, me orienta a criar um registro CNAME no meu DNS apontando de "portfoliodanilo.com" para "https://9f65f657.portfolio-danilo-final.pages.dev/"
-4. Ativa SSL/TLS automático
-```
-
-> Se seu domínio já estiver com DNS na Cloudflare, o agente faz tudo sozinho via API. Se estiver em outro provedor (Registro.br, HostGator, etc.), o agente vai te instruir a criar um registro CNAME.
+1. Acesse o painel da **Cloudflare** → **Workers & Pages**.
+2. Clique no Worker do seu projeto (`portfolio-danilo-final`).
+3. Vá na aba **Settings** (ou **Triggers**) → **Custom Domains** → **Add Custom Domain**.
+4. Insira seu domínio (ex: `portfoliodanilo.com`) e siga os passos para apontá-lo automaticamente (se o seu DNS já estiver na Cloudflare) ou crie o apontamento CNAME fornecido.
 
 ---
 
@@ -167,12 +154,9 @@ No Firebase Console, desativa o hosting do projeto antigo para não gerar cobran
 | **Configurar Cloudflare no Cursor** | `/add-plugin cloudflare` |
 | **Configurar Cloudflare no Windsurf** | `npx skills add https://github.com/cloudflare/skills` + configurar MCP no `mcp_config.json` |
 | **Criar repositório e fazer push** | `Inicializa git, cria repo GitHub "meu-portfolio", commit e push` |
-| **Criar projeto Cloudflare Pages** | `Cria um Pages project conectado ao repo "meu-portfolio", branch main, com build command <seu_comando>, output dir <sua_pasta>, e adiciona as env vars do Supabase` |
-| **Adicionar domínio** | `Configura o domínio "seudominio.com.br" no projeto Cloudflare Pages recém-criado` |
-| **Atualizar variáveis de ambiente** | `Adiciona/modifica a variável NEXT_PUBLIC_SUPABASE_URL no Cloudflare Pages para o valor https://meuprojeto.supabase.co` |
-| **Fazer novo deploy manual** | `Faz um novo deploy do projeto para o Cloudflare Pages usando a branch main` |
-| **Ver logs do deploy** | `Verifica o status e logs do último deploy no Cloudflare Pages` |
-| **Configurar preview deployments** | `Ativa preview deployments para PRs no repositório GitHub no Cloudflare Pages` |
+| **Fazer deploy manual local** | `Executa pnpm run cf:deploy para buildar e enviar o projeto para o Cloudflare Workers via Wrangler CLI` |
+| **Verificar logs da build** | `Exibe os logs ou status da última execução do workflow de deploy no GitHub Actions` |
+| **Adicionar nova variável de ambiente** | `Adiciona uma nova env var no wrangler.toml e no segredo do GitHub Actions correspondente` |
 
 ---
 
