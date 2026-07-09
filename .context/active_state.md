@@ -1,22 +1,26 @@
-# Active State: GHOST 3D BRIGHTNESS & PORTFOLIO HERO FULL BLEED ✅
+# Active State: CLOUDFLARE WORKERS (OPENNEXT) MIGRATION & ASSET CLEANUP ✅
 
-**Phase**: GHOST 3D BRIGHTNESS & PORTFOLIO HERO FULL BLEED
-**Current Focus**: Consistência do brilho/Bloom do Ghost 3D entre dev/build e hero `/portfolio` em full bleed real com vídeo responsivo sem corte CSS lateral.
-**Last Update**: 2026-06-14 19:55
-**Production URL**: https://portfolio-danilo-novais.web.app
-**Cloud Function**: https://ssrportfoliodanilo-qc26fkohcq-uc.a.run.app
+**Phase**: CLOUDFLARE WORKERS MIGRATION
+**Current Focus**: Migração do deploy do Firebase Hosting/Pages para Cloudflare Workers utilizando @opennextjs/cloudflare e correção de links de assets quebrados no Supabase.
+**Last Update**: 2026-07-09 09:25
+**Production URL**: https://portfoliodanilo.com
 
 ## Deploy Summary
 
-- **Build**: ✅ Next.js 16.2.6 (Webpack) — Stable production build completed
-- **Ghost 3D**: ✅ Renderer explicitado com `SRGBColorSpace`, ACES Filmic e Bloom preservado em desktop `medium`.
-- **Portfolio Hero**: ✅ `section#portfolio-hero` validada em full bleed 0→viewport desktop/mobile, vídeo único e source desktop/mobile correto.
-- **ResponsiveVideo**: ✅ Silenced DOM AbortError warnings during rapid mounts or component unmounting
-- **Manifesto**: ✅ Integrated `ManifestoScrollSection` on `/sobre` and `/o-que-me-move` routes
-- **WebGL**: ✅ Realigned procedural gradient fragment shader (Blue/Purple/Blue) in `shader-lines.tsx`
-- **Validation**: ✅ 100% stable `build-check` and `build` under absolute Node v26 and pnpm resolution path
-- **Visual Regressions**: ✅ Resolved background shader invisible stacking context and closing video unmounting buffering failures
-- **Email Integration**: ✅ Integrated Resend API for contact form submissions dispatching to danilo@portfoliodanilo.com
+- **Build**: ✅ Next.js 16.2.10 (Turbopack + OpenNext) — Cloudflare Worker build completed
+- **Hosting**: ✅ Cloudflare Workers (com assets integrados via .open-next/assets)
+- **Ghost 3D**: ✅ Carregamento do modelo GLB redirecionado para pasta estática local (`/site.assets/3d/ghost-v1.glb`), evitando requisições remotas quebradas ao Supabase.
+- **Limpeza de Assets**: ✅ Removido do banco Supabase o registro do vídeo obsoleto de 19.9MB (`VIDEOMANIFESTOGLAD.mp4`), o modelo `Ghost.jsx`, e ajustada a chave do logo da Honda para a versão correta.
+
+## Cloudflare Workers Migration & Supabase Asset Cleanup (2026-07-09)
+
+- [x] **OpenNext Integration**: Instalado o `@opennextjs/cloudflare` e configurado o `open-next.config.ts`.
+- [x] **Wrangler Worker Setup**: wrangler.toml atualizado com `main = ".open-next/worker.js"` e `[assets]` binding para a pasta `.open-next/assets`.
+- [x] **Env Validation Bypass**: Ajustada a lógica de `src/lib/env.ts` para que `VALIDATE_ENV_WARN_ONLY=1` ignore erros fatais de validação de env vars em produção durante o build do Cloudflare.
+- [x] **Edge Runtime Middleware**: Removido o arquivo experimental `src/proxy.ts` (Next.js 16 local Node.js proxy) e recriado o `src/middleware.ts` tradicional rodando na Edge Runtime, compatível com a borda.
+- [x] **Firebase Clean**: Removidos do repositório os arquivos de configuração do Firebase (`firebase.json`, regras, etc.) e arquivados em `scripts/archive/firebase/`.
+- [x] **Playwright Optimization**: Removida a instalação automática de navegadores (~400MB) do script `postinstall` no `package.json`, transferindo a ação para o script dedicado `pnpm run test:e2e:install`.
+- [x] **Asset Repair**: Redirecionados os caminhos do modelo 3D do Ghost em `src/contexts/site-assets.tsx` para carregar o modelo local, e executado script para remover chaves de vídeo inativas e consertar o logo Honda no banco de dados.
 
 ## Ghost 3D Brightness & Portfolio Hero Full Bleed (2026-05-22)
 

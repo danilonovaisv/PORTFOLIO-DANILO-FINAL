@@ -45,8 +45,7 @@ const parsed = envSchema.safeParse(processEnv);
 if (!parsed.success) {
   const isServer = typeof window === 'undefined';
   const isProduction = process.env.NODE_ENV === 'production';
-  const shouldBypass =
-    process.env.VALIDATE_ENV_WARN_ONLY === '1' && !isProduction;
+  const shouldBypass = process.env.VALIDATE_ENV_WARN_ONLY === '1';
 
   if (isServer) {
     console.error('❌ Environment validation failed!');

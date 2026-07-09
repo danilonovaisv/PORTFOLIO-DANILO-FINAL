@@ -15,12 +15,10 @@
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
-    "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "*": ["./*"]
     },
-    "types": ["node", "react", "react-dom", "three"],
     "allowImportingTsExtensions": true,
     "declaration": true,
     "noEmit": true,

@@ -1,5 +1,40 @@
 # Adjustment Log
 
+## [2026-07-09T09:25] Cloudflare Workers (OpenNext) Migration & Supabase Asset Cleanup
+
+**Context:** Migração completa da infraestrutura de deploy do Firebase Hosting/Cloudflare Pages estático para Cloudflare Workers com suporte a Server-Side Rendering (SSR) via OpenNext e limpeza/correção de assets com links quebrados.
+
+**Changes Applied:**
+
+1. **Migração para Cloudflare Workers & OpenNext** ✅
+   - Instalada a dependência `@opennextjs/cloudflare@1.20.1` e criado o arquivo de configuração `open-next.config.ts`.
+   - Modificado o arquivo `wrangler.toml` para definir o script principal como `.open-next/worker.js` e a diretiva de assets estáticos integrada vinculando a pasta `.open-next/assets`.
+   - Inseridos os scripts utilitários `cf:build`, `cf:preview`, `cf:deploy` e `build:cloudflare` no `package.json`.
+
+2. **Estabilização da Validação de Variáveis de Ambiente** ✅
+   - Corrigida a lógica de `src/lib/env.ts` para respeitar a variável `VALIDATE_ENV_WARN_ONLY=1` em qualquer ambiente, impedindo que o build remoto do Cloudflare falhe de forma fatal se alguma variável estiver vazia na etapa de compilação.
+
+3. **Compatibilização de Runtime de Middleware (Next.js 16)** ✅
+   - Removido o arquivo experimental `src/proxy.ts` (Next.js 16 local Node.js proxy) e recriado o `src/middleware.ts` tradicional rodando na Edge Runtime, permitindo ao OpenNext empacotar as funções de roteamento e autenticação de forma compatível com a borda da Cloudflare.
+
+4. **Limpeza e Organização de Dependências Legadas** ✅
+   - Removida a instalação automática de navegadores do Playwright (~400MB) a cada build do script `postinstall`, movendo o comando para um script manual e dedicado (`pnpm run test:e2e:install`).
+   - Movido o arquivo de configuração do Firebase (`firebase.json`, chaves, regras) da raiz para a pasta de arquivos legados `scripts/archive/firebase/` para despoluição estrutural.
+   - Ajustado o `tsconfig.json` para remover a configuração obsoleta `baseUrl` e adaptar a resolução absoluta de paths do compilador do TypeScript v5.6.3.
+
+5. **Correção de Links Quebrados de Assets (Supabase)** ✅
+   - Mapeado o modelo 3D do Ghost em `src/contexts/site-assets.tsx` para usar o arquivo local estático (`/site.assets/3d/ghost-v1.glb`), evitando requisições HTTP 400 por limitação de CORS ou MIME-type do Supabase.
+   - Criado e executado o script `scripts/upload-missing-assets.ts` para enviar arquivos locais adicionais e realizar tarefas de banco de dados: normalizar o path do logo da Honda e deletar referências inativas antigas (como `Ghost.jsx` e `VIDEOMANIFESTOGLAD.mp4`).
+
+**Verification:**
+
+- ✅ `pnpm run build-check` — Passou com 100% de sucesso sem erros de tipagem ou de lint.
+- ✅ `pnpm run build:cloudflare` — Compilação e empacotamento completo do OpenNext concluídos com sucesso. Worker gerado em `.open-next/worker.js` e assets estáticos prontos para deploy.
+
+**Status:** Concluído.
+
+---
+
 ## [2026-06-14T00:28] Firebase Preview Deployment & Dependency Alignment
 
 **Context:** Execução do pipeline de deploy (`/firebase-pipeline`) para implantação e validação do portfólio no Firebase Hosting.

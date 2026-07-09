@@ -9,6 +9,7 @@ allowBuilds:
   re2: false
   sharp: false
   unrs-resolver: false
+  workerd: true
 
 ignoredBuiltDependencies:
   - '@firebase/util'

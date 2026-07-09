@@ -96,10 +96,10 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
       'site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4',
     'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4':
       'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4',
-    '3d.ghost-v1': 'site-assets/3d/ghost-v1.glb',
-    'about.beliefs.ghost': 'site-assets/3d/ghost-v1.glb',
-    'about.beliefs.ghost_model': 'site-assets/3d/ghost-v1.glb',
-    'about.beliefs.ghost-transformed': 'site-assets/3d/ghost-v1.glb',
+    '3d.ghost-v1': '/site.assets/3d/ghost-v1.glb',
+    'about.beliefs.ghost': '/site.assets/3d/ghost-v1.glb',
+    'about.beliefs.ghost_model': '/site.assets/3d/ghost-v1.glb',
+    'about.beliefs.ghost-transformed': '/site.assets/3d/ghost-v1.glb',
     'video.closing.desk': 'site-assets/about/closing/video.closing.desk.mp4',
     'video.closing.mobile':
       'site-assets/about/closing/video.closing.mobile.mp4',
