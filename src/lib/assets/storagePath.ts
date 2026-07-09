@@ -14,13 +14,19 @@ export function normalizeProject(project: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export async function hashContent(buffer: ArrayBuffer | Buffer): Promise<string> {
-  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer as ArrayBuffer);
+export async function hashContent(
+  buffer: ArrayBuffer | Buffer
+): Promise<string> {
+  const hashBuffer = await crypto.subtle.digest(
+    'SHA-256',
+    buffer as ArrayBuffer
+  );
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
   return hashHex.slice(0, 16);
 }
-
 
 export interface BuildV4PathParams {
   brand: string;

@@ -230,14 +230,23 @@ export default function JsonLd({
         const isMotion = proj.category === 'motion';
         const hasVideo = !!proj.videoPreview || !!proj.thumbnailMedia;
         if (isMotion || hasVideo) {
-          const rawVideoUrl = proj.videoPreview || proj.thumbnailMedia || BRAND.assets.video.manifesto;
+          const rawVideoUrl =
+            proj.videoPreview ||
+            proj.thumbnailMedia ||
+            BRAND.assets.video.manifesto;
           const videoUrl = toAbsoluteUrl(rawVideoUrl, baseUrl);
           pageSchemas[`video-${proj.id}`] = {
             '@type': 'VideoObject',
             '@id': `${baseUrl}/portfolio#video-${proj.slug}`,
             name: proj.title,
-            description: proj.shortDescription || proj.subtitle || `Projeto de ${proj.displayCategory} por Danilo Novais.`,
-            thumbnailUrl: toAbsoluteUrl(proj.image || BRAND.assets.logos.logoLight, baseUrl),
+            description:
+              proj.shortDescription ||
+              proj.subtitle ||
+              `Projeto de ${proj.displayCategory} por Danilo Novais.`,
+            thumbnailUrl: toAbsoluteUrl(
+              proj.image || BRAND.assets.logos.logoLight,
+              baseUrl
+            ),
             uploadDate: proj.year ? `${proj.year}-01-01` : '2025-01-01',
             duration: 'PT2M',
             contentUrl: videoUrl,

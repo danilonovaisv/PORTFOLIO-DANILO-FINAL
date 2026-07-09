@@ -1,4 +1,4 @@
-export const runtime = 'edge';
+// export const runtime = 'edge';
 import Link from 'next/link';
 import { Edit, ExternalLink, Plus } from 'lucide-react';
 import { listLandingPagesAction } from '@/app/admin/(protected)/landing-pages/actions';

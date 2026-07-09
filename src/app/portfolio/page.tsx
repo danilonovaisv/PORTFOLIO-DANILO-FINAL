@@ -1,4 +1,3 @@
-export const runtime = 'edge';
 import type { Metadata } from 'next';
 import PortfolioClient from '@/app/portfolio/PortfolioClient';
 import { listProjects, listProjectsPaged } from '@/lib/supabase/queries/projects';

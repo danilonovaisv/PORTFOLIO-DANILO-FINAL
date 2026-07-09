@@ -1,4 +1,4 @@
-export const runtime = 'edge';
+// export const runtime = 'edge';
 // NOTE: force-no-store is intentional for admin session/auth checks.
 // Dashboard stat counts are cached separately via unstable_cache (60s TTL).
 export const fetchCache = 'force-no-store';

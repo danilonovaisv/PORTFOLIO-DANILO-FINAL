@@ -1,4 +1,4 @@
-export const runtime = 'edge';
+// export const runtime = 'edge';
 import LandingPageForm from '@/components/admin/LandingPageForm';
 import { getLandingPageAction } from '@/app/admin/(protected)/landing-pages/actions';
 import { AdminHeader } from '@/components/admin/AdminHeader';

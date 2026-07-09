@@ -1,8 +1,6 @@
 'use client';
 
-
-
-export const runtime = 'edge';
+// export const runtime = 'edge';
 import { useActionState, useState, type ChangeEvent } from 'react';
 import { generateProjectCopy } from '@/app/admin/(protected)/copy-agent/actions';
 import { Loader2, Copy, Check } from 'lucide-react';

@@ -7,11 +7,7 @@ import {
   MEDIA_FORMAT_CLASS,
   getDefaultMediaFit,
 } from '@/lib/media/media-format';
-import {
-  applyImageFallback,
-  cn,
-  getAssetUrl,
-} from '@/lib/utils';
+import { applyImageFallback, cn, getAssetUrl } from '@/lib/utils';
 
 type MediaCardProps = {
   media: ProjectMedia;

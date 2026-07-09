@@ -21,10 +21,11 @@ export const contentType = 'image/png';
 export default async function Image() {
   // Try to use the absolute URL of the image asset
   try {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://portfoliodanilo.com';
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://portfoliodanilo.com';
     const imageUrl = `${siteUrl}/og-image.png`;
     const response = await fetch(imageUrl);
-    
+
     if (response.ok) {
       const imageData = await response.arrayBuffer();
       return new ImageResponse(
@@ -51,7 +52,6 @@ export default async function Image() {
   } catch (err) {
     console.error('Error loading local OG image:', err);
   }
-
 
   // Fallback: Ghost-branded inline OG image (same style as /portfolio, /sobre, /contato)
   return new ImageResponse(

@@ -19,7 +19,9 @@ async function main() {
   );
 
   if (!supabaseUrl || !serviceRoleKey) {
-    console.error('❌ Erro: Configure NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no .env.local');
+    console.error(
+      '❌ Erro: Configure NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no .env.local'
+    );
     process.exit(1);
   }
 
@@ -41,16 +43,22 @@ async function main() {
     },
   ];
 
-  console.log('⚡ Iniciando upload dos assets locais de modelo 3D para o Supabase Storage...\n');
+  console.log(
+    '⚡ Iniciando upload dos assets locais de modelo 3D para o Supabase Storage...\n'
+  );
 
   for (const asset of assetsToUpload) {
     const fullLocalPath = path.resolve(process.cwd(), asset.localPath);
     if (!fs.existsSync(fullLocalPath)) {
-      console.warn(`⚠️ Arquivo local não encontrado: ${asset.localPath} - Pulando...`);
+      console.warn(
+        `⚠️ Arquivo local não encontrado: ${asset.localPath} - Pulando...`
+      );
       continue;
     }
 
-    console.log(`📤 Enviando ${asset.localPath} para bucket "${asset.bucket}" no caminho "${asset.supabasePath}"...`);
+    console.log(
+      `📤 Enviando ${asset.localPath} para bucket "${asset.bucket}" no caminho "${asset.supabasePath}"...`
+    );
     const fileBuffer = fs.readFileSync(fullLocalPath);
 
     const { data, error } = await supabase.storage
@@ -61,13 +69,18 @@ async function main() {
       });
 
     if (error) {
-      console.error(`❌ Erro no upload de ${asset.supabasePath}:`, error.message);
+      console.error(
+        `❌ Erro no upload de ${asset.supabasePath}:`,
+        error.message
+      );
     } else {
       console.log(`✅ Upload bem-sucedido: ${data.path}`);
     }
   }
 
-  console.log('\n🔧 Ajustando referências no banco de dados Supabase (tabela site_assets)...');
+  console.log(
+    '\n🔧 Ajustando referências no banco de dados Supabase (tabela site_assets)...'
+  );
 
   // Atualizar o registro da Honda para o path válido se ele existir
   const { data: hondaAsset, error: findError } = await supabase
@@ -77,24 +90,34 @@ async function main() {
     .single();
 
   if (!findError && hondaAsset) {
-    const correctPath = 'civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp';
+    const correctPath =
+      'civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp';
     if (hondaAsset.file_path !== correctPath) {
-      console.log(`✏️ Corrigindo path do logo Honda no banco: ${hondaAsset.file_path} -> ${correctPath}`);
+      console.log(
+        `✏️ Corrigindo path do logo Honda no banco: ${hondaAsset.file_path} -> ${correctPath}`
+      );
       const { error: updateError } = await supabase
         .from('site_assets')
         .update({ file_path: correctPath })
         .eq('id', hondaAsset.id);
 
       if (updateError) {
-        console.error('❌ Erro ao atualizar o path do logo Honda:', updateError.message);
+        console.error(
+          '❌ Erro ao atualizar o path do logo Honda:',
+          updateError.message
+        );
       } else {
-        console.log('✅ Path do logo Honda atualizado com sucesso no banco de dados!');
+        console.log(
+          '✅ Path do logo Honda atualizado com sucesso no banco de dados!'
+        );
       }
     } else {
       console.log('✅ Path do logo Honda já está correto no banco de dados.');
     }
   } else {
-    console.log('ℹ️ Registro de chave logo-honda.a85702e811bf9bb0 não encontrado ou já normalizado.');
+    console.log(
+      'ℹ️ Registro de chave logo-honda.a85702e811bf9bb0 não encontrado ou já normalizado.'
+    );
   }
 
   // Deletar registro do Ghost.jsx se ele for considerado quebrado ou inativo no banco
@@ -104,7 +127,10 @@ async function main() {
     .eq('key', 'Ghost.jsx');
 
   if (deleteError) {
-    console.error('❌ Erro ao remover Ghost.jsx do banco:', deleteError.message);
+    console.error(
+      '❌ Erro ao remover Ghost.jsx do banco:',
+      deleteError.message
+    );
   } else {
     console.log('✅ Limpeza de referências a Ghost.jsx concluída.');
   }
@@ -116,9 +142,14 @@ async function main() {
     .like('file_path', '%VIDEOMANIFESTOGLAD%');
 
   if (deleteVideoError) {
-    console.error('❌ Erro ao remover VIDEOMANIFESTOGLAD do banco:', deleteVideoError.message);
+    console.error(
+      '❌ Erro ao remover VIDEOMANIFESTOGLAD do banco:',
+      deleteVideoError.message
+    );
   } else {
-    console.log('✅ Limpeza de referências a VIDEOMANIFESTOGLAD no banco concluída.');
+    console.log(
+      '✅ Limpeza de referências a VIDEOMANIFESTOGLAD no banco concluída.'
+    );
   }
 
   console.log('\n🎉 Script de upload e normalização concluído!');

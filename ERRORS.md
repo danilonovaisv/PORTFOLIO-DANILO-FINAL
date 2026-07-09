@@ -6,12 +6,27 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 18
-- **Đã sửa**: 18
+- **Tổng lỗi**: 19
+- **Đã sửa**: 19
 
 ---
 
 <!-- Errors sẽ được agent tự động ghi vào đây -->
+
+## [2026-07-09 10:15] - OpenNext Runtime TypeError on Edge Pages (`interopDefault`)
+
+- **Type**: Runtime TypeError
+- **Severity**: High
+- **File**: `src/app/portfolio/page.tsx:1`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**: Next.js compiled pages using `export const runtime = 'edge'` as separate Serverless Edge Functions. When bundled by `@opennextjs/cloudflare`, the dynamic imports in `PortfolioClient.tsx` (using `next/dynamic`) failed to load because the CJS/ESM interop resolved to `undefined` on the Edge runtime in workerd, throwing `TypeError: Cannot read properties of undefined (reading 'default')` at `interopDefault`.
+- **Error Message**:
+  ```text
+  TypeError: Cannot read properties of undefined (reading 'default') at interopDefault (handler.mjs:107:15698)
+  ```
+- **Fix Applied**: Commented out the `export const runtime = 'edge';` segment configurations from all page files under `src/app/` (including `/portfolio`, `/portfolio/[slug]`, `/projects/[slug]` and all `/admin` routes) to force Next.js to package them inside the unified, Node-compatible bundle structure unmapped in OpenNext.
+- **Prevention**: Avoid using the `edge` segment runtime configuration config in Next.js dependency tree unless required, allowing the OpenNext bundler to automatically handle optimal runtime integration.
+- **Status**: Fixed
 
 ## [2026-05-21 16:21] - ResponsiveVideo Autoplay Interruption Warning (`AbortError`)
 
