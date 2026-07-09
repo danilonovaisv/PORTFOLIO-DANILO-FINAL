@@ -137,9 +137,6 @@ const createNextConfig = (phase) => ({
    * Mantém exatamente como você já tinha
    */
   output: 'standalone',
-  ...(phase === PHASE_PRODUCTION_BUILD
-    ? { adapterPath: firebaseAdapterPath }
-    : {}),
   distDir: deployDistDir,
   reactStrictMode: true,
   staticPageGenerationTimeout: 180,

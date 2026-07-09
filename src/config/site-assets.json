@@ -242,21 +242,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/demo/cs3.webp"
       },
       {
-        "id": "e408ad2c-579c-4e4b-9877-852577398ded",
-        "key": "VIDEOMANIFESTOGLAD",
-        "bucket": "site-assets",
-        "file_path": "images-videos/VIDEOMANIFESTOGLAD.mp4",
-        "asset_type": "video",
-        "page": "images-videos",
-        "description": null,
-        "is_active": true,
-        "sort_order": null,
-        "created_at": "2026-06-03T03:24:12.24612+00:00",
-        "updated_at": "2026-06-03T03:24:12.24612+00:00",
-        "metadata": {},
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/images-videos/VIDEOMANIFESTOGLAD.mp4"
-      },
-      {
         "id": "f99b579c-03cb-4d11-9e88-fa6e5132a92b",
         "key": "nescau",
         "bucket": "site-assets",
@@ -285,21 +270,6 @@
         "updated_at": "2026-06-03T03:24:12.24612+00:00",
         "metadata": {},
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.11.svg"
-      },
-      {
-        "id": "df2d59aa-4814-4fdd-8efe-79239a43c9b3",
-        "key": "Ghost",
-        "bucket": "site-assets",
-        "file_path": "3d/Ghost.jsx",
-        "asset_type": "image",
-        "page": "3d",
-        "description": null,
-        "is_active": true,
-        "sort_order": null,
-        "created_at": "2026-06-03T02:59:56.024051+00:00",
-        "updated_at": "2026-06-03T03:24:12.24612+00:00",
-        "metadata": {},
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/Ghost.jsx"
       },
       {
         "id": "d7316c35-72a3-49c2-8395-c21fefe13d8e",
@@ -675,21 +645,6 @@
         "updated_at": "2026-06-03T03:24:12.24612+00:00",
         "metadata": {},
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/images-videos/converted-(6).webp"
-      },
-      {
-        "id": "b4decdc9-03b1-48c3-9d34-11066c2319f8",
-        "key": "ghost-v1",
-        "bucket": "site-assets",
-        "file_path": "3d/ghost-v1.glb",
-        "asset_type": "image",
-        "page": "3d",
-        "description": null,
-        "is_active": true,
-        "sort_order": null,
-        "created_at": "2026-06-03T02:59:56.024051+00:00",
-        "updated_at": "2026-06-03T03:24:12.24612+00:00",
-        "metadata": {},
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost-v1.glb"
       },
       {
         "id": "4eaed388-719d-43c9-97e0-59f35639ea1a",
@@ -4697,25 +4652,10 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/swift/master-v3-grid-block-1773053892403-0-m1.webp"
       },
       {
-        "id": "d8e770ed-e956-43a6-96f0-aad3f475d20e",
-        "key": "ghost",
-        "bucket": "site-assets",
-        "file_path": "3d/ghost.glb",
-        "asset_type": "image",
-        "page": "3d",
-        "description": null,
-        "is_active": true,
-        "sort_order": null,
-        "created_at": "2026-06-03T02:59:56.024051+00:00",
-        "updated_at": "2026-06-03T02:59:56.024051+00:00",
-        "metadata": {},
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/3d/ghost.glb"
-      },
-      {
         "id": "c091ab5a-a11a-41ef-b9e7-6f0dbb6b50e5",
         "key": "logo-honda.a85702e811bf9bb0",
         "bucket": "portfolio-media",
-        "file_path": "civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda.a85702e811bf9bb0.webp",
+        "file_path": "civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp",
         "asset_type": "image",
         "page": "civic",
         "description": null,
@@ -4724,7 +4664,7 @@
         "created_at": "2026-06-03T02:59:56.024051+00:00",
         "updated_at": "2026-06-03T02:59:56.024051+00:00",
         "metadata": {},
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda.a85702e811bf9bb0.webp"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp"
       },
       {
         "id": "c3fed8d7-b080-4e7c-b824-2e4f70dc4709",
