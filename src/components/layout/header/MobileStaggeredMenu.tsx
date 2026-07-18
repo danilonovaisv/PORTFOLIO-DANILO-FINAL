@@ -7,9 +7,21 @@ import {
   MobileHeaderBar,
 } from '@/components/layout/header/mobile';
 
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useMobileMenuAnimation } from '@/hooks/useMobileMenuAnimation';
+import { useBodyLock } from '@/hooks/useBodyLock';
 import type { MobileStaggeredMenuProps } from '@/components/layout/header/types';
+
+const MENU_PANEL_ID = 'mobile-menu-panel';
+
+function focusMainContent() {
+  window.requestAnimationFrame(() => {
+    const mainContent =
+      document.getElementById('main-content') ??
+      document.getElementById('site-content');
+    mainContent?.focus({ preventScroll: true });
+  });
+}
 
 export default function MobileStaggeredMenu({
   navItems,
@@ -35,52 +47,85 @@ export default function MobileStaggeredMenu({
       textInnerRef,
     },
     state: { open, textLines },
-    actions: { toggleMenu, syncState },
-  } = useMobileMenuAnimation(isOpen, onOpen, onClose);
+  } = useMobileMenuAnimation(isOpen);
 
-  // Sync with external isOpen prop
-  useEffect(() => {
-    syncState();
-  }, [isOpen, syncState]);
+  useBodyLock(open);
 
-  // Lock body scroll and set aria-hidden on main content
   useEffect(() => {
-    const mainContent = document.getElementById('main-content');
+    const siteContent = document.getElementById('site-content');
+    if (!siteContent) return;
+
+    const previousAriaHidden = siteContent.getAttribute('aria-hidden');
+    const hadInert = siteContent.hasAttribute('inert');
+
     if (open) {
-      document.body.style.overflow = 'hidden';
-      if (mainContent) mainContent.setAttribute('aria-hidden', 'true');
+      siteContent.setAttribute('aria-hidden', 'true');
+      siteContent.setAttribute('inert', '');
     } else {
-      document.body.style.overflow = '';
-      if (mainContent) mainContent.removeAttribute('aria-hidden');
+      if (previousAriaHidden === null) siteContent.removeAttribute('aria-hidden');
+      else siteContent.setAttribute('aria-hidden', previousAriaHidden);
+      if (!hadInert) siteContent.removeAttribute('inert');
     }
+
     return () => {
-      document.body.style.overflow = '';
-      if (mainContent) mainContent.removeAttribute('aria-hidden');
+      if (previousAriaHidden === null) siteContent.removeAttribute('aria-hidden');
+      else siteContent.setAttribute('aria-hidden', previousAriaHidden);
+      if (!hadInert) siteContent.removeAttribute('inert');
     };
   }, [open]);
 
-  // Handle ESC key
+  useEffect(() => {
+    if (open) toggleBtnRef.current?.focus({ preventScroll: true });
+  }, [open, toggleBtnRef]);
+
+  const closeAndRestoreFocus = useCallback(() => {
+    onClose();
+    window.requestAnimationFrame(() => {
+      toggleBtnRef.current?.focus({ preventScroll: true });
+    });
+  }, [onClose, toggleBtnRef]);
+
+  const handleToggle = useCallback(() => {
+    if (open) {
+      closeAndRestoreFocus();
+    } else {
+      onOpen();
+      window.requestAnimationFrame(() => {
+        toggleBtnRef.current?.focus({ preventScroll: true });
+      });
+    }
+  }, [closeAndRestoreFocus, onOpen, open, toggleBtnRef]);
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && open) onClose();
+      if (e.key === 'Escape' && open) {
+        e.preventDefault();
+        closeAndRestoreFocus();
+      }
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [closeAndRestoreFocus, open]);
 
-  // Focus trap
   useEffect(() => {
     if (!open || !panelRef.current) return;
-    const focusableElements = panelRef.current.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[
-      focusableElements.length - 1
-    ] as HTMLElement;
 
     const handleTab = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return;
+      const panelFocusables = Array.from(
+        panelRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      );
+      const trigger = toggleBtnRef.current;
+      const focusableElements = trigger
+        ? [trigger, ...panelFocusables]
+        : panelFocusables;
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (!firstElement || !lastElement) return;
+
       if (e.shiftKey) {
         if (document.activeElement === firstElement) {
           lastElement.focus();
@@ -94,10 +139,9 @@ export default function MobileStaggeredMenu({
       }
     };
 
-    firstElement?.focus();
     window.addEventListener('keydown', handleTab);
     return () => window.removeEventListener('keydown', handleTab);
-  }, [open]);
+  }, [open, panelRef, toggleBtnRef]);
 
   return (
     <div className="lg:hidden relative z-[var(--z-layer-mobile-header)]">
@@ -108,16 +152,18 @@ export default function MobileStaggeredMenu({
           onClose();
         }}
         isLight={open ? false : isLight}
+        menuOpen={open}
       >
         <MobileMenuButton
           ref={toggleBtnRef}
           open={open}
+          controlsId={MENU_PANEL_ID}
           textLines={textLines}
           textInnerRef={textInnerRef}
           iconRef={iconRef}
           plusHRef={plusHRef}
           plusVRef={plusVRef}
-          onToggle={toggleMenu}
+          onToggle={handleToggle}
         />
       </MobileHeaderBar>
 
@@ -129,8 +175,11 @@ export default function MobileStaggeredMenu({
         accentColor={accentColor}
         open={open}
         socialsRef={socialsRef}
-        onNavigate={onNavigate}
-        onClose={onClose}
+        onNavigate={(href) => {
+          onNavigate(href);
+          focusMainContent();
+        }}
+        onClose={closeAndRestoreFocus}
         activeHref={activeHref}
       />
     </div>

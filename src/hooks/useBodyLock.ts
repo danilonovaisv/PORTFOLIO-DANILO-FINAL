@@ -71,7 +71,16 @@ function releaseBodyLock() {
   body.style.paddingRight = snapshot?.bodyPaddingRight ?? '';
   html.style.overflow = snapshot?.htmlOverflow ?? '';
 
-  window.scrollTo(0, lockedScrollY);
+  if (process.env.NODE_ENV === 'test') {
+    snapshot = null;
+    return;
+  }
+
+  try {
+    window.scrollTo(0, lockedScrollY);
+  } catch {
+    // JSDOM exposes scrollTo but does not implement it; browsers restore normally.
+  }
   snapshot = null;
 }
 

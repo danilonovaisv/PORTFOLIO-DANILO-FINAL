@@ -98,6 +98,10 @@ export default function SiteHeader({
     [pathname, activeSection, normalizedNavItems]
   );
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   const onNavigate = useCallback(
     (href: string) => {
       const hash = getHashFromHref(href);
