@@ -3,7 +3,7 @@ import process from 'node:process';
 
 // Define the test port we'll use consistently
 const TEST_PORT = 5099;
-const TEST_SUPABASE_URL = 'https://test-project.supabase.co';
+const TEST_SUPABASE_URL = 'https://supabase.test.invalid';
 const TEST_SUPABASE_KEY = 'test-anon-key-placeholder';
 const baseURL =
   process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${TEST_PORT}`;
@@ -47,7 +47,7 @@ export default defineConfig({
       process.env.PLAYWRIGHT_SERVER_COMMAND ||
       `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true NEXT_PUBLIC_SUPABASE_URL=${TEST_SUPABASE_URL} NEXT_PUBLIC_SUPABASE_ANON_KEY=${TEST_SUPABASE_KEY} NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=${TEST_SUPABASE_KEY} pnpm exec next dev --port ${TEST_PORT} --hostname 127.0.0.1`,
     port: TEST_PORT,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });

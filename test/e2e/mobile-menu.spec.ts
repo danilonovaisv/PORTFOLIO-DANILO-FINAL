@@ -1,7 +1,52 @@
-import { expect, test } from '@playwright/test';
+import { Buffer } from 'node:buffer';
+import { expect, test, type Page } from '@playwright/test';
+
+const SYNTHETIC_SUPABASE_ORIGIN = 'https://supabase.test.invalid';
+const ONE_PIXEL_GIF = Buffer.from(
+  'R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
+  'base64'
+);
+
+async function stubSyntheticSupabase(page: Page) {
+  await page.route(`${SYNTHETIC_SUPABASE_ORIGIN}/**`, async (route) => {
+    const pathname = new URL(route.request().url()).pathname;
+
+    if (pathname.startsWith('/storage/')) {
+      await route.fulfill({
+        status: 200,
+        contentType: 'image/gif',
+        body: ONE_PIXEL_GIF,
+      });
+      return;
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: pathname.startsWith('/auth/') ? '{"user":null}' : '[]',
+    });
+  });
+
+  await page.route('**/_next/image**', async (route) => {
+    const source = new URL(route.request().url()).searchParams.get('url');
+    if (!source?.startsWith(SYNTHETIC_SUPABASE_ORIGIN)) {
+      await route.continue();
+      return;
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: 'image/gif',
+      body: ONE_PIXEL_GIF,
+    });
+  });
+}
 
 test.describe('mobile menu overlay regressions', () => {
   test.use({ viewport: { width: 375, height: 812 } });
+  test.beforeEach(async ({ page }) => {
+    await stubSyntheticSupabase(page);
+  });
 
   test('closed reduced-motion panel neither intercepts nor wins hit-testing', async ({
     page,
@@ -77,8 +122,33 @@ test.describe('mobile menu overlay regressions', () => {
       };
     });
 
-    expect.soft(hitTest.resolvesToTrigger).toBe(true);
+    expect(hitTest.resolvesToTrigger).toBe(true);
     await page.mouse.click(hitTest.x, hitTest.y);
     await expect(openTrigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('moves focus through the open menu and restores it after Escape', async ({
+    page,
+  }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    const openTrigger = page.getByRole('button', { name: 'Abrir menu' });
+    await expect(openTrigger).toBeVisible();
+    await openTrigger.click();
+
+    const closeTrigger = page.getByRole('button', { name: 'Fechar menu' });
+    const panel = page.locator('#mobile-menu-panel');
+    await expect(panel).toHaveAttribute('aria-hidden', 'false');
+    await expect(panel).not.toHaveAttribute('inert');
+    await expect.soft(closeTrigger).toBeFocused({ timeout: 1_000 });
+
+    await page.keyboard.press('Tab');
+    await expect
+      .soft(panel.getByRole('link').first())
+      .toBeFocused({ timeout: 1_000 });
+
+    await page.keyboard.press('Escape');
+    await expect(panel).toHaveAttribute('aria-hidden', 'true');
+    await expect(openTrigger).toBeFocused({ timeout: 1_000 });
   });
 });

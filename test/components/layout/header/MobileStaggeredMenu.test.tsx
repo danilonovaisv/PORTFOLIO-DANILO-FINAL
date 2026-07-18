@@ -19,13 +19,28 @@ jest.mock('gsap/dist/CustomEase', () => ({
 }));
 
 jest.mock('gsap', () => {
+  const runOnComplete = (args: unknown[]) => {
+    const vars = args.find(
+      (arg) =>
+        typeof arg === 'object' &&
+        arg !== null &&
+        'onComplete' in arg &&
+        typeof arg.onComplete === 'function'
+    ) as { onComplete?: () => void } | undefined;
+
+    vars?.onComplete?.();
+  };
+
   const createAnimation = () => {
     const animation = {
       kill: jest.fn(),
       play: jest.fn(),
       to: jest.fn(),
     };
-    animation.to.mockReturnValue(animation);
+    animation.to.mockImplementation((...args: unknown[]) => {
+      runOnComplete(args);
+      return animation;
+    });
     return animation;
   };
 
@@ -37,7 +52,11 @@ jest.mock('gsap', () => {
     registerPlugin: jest.fn(),
     set: jest.fn(),
     timeline: jest.fn(createAnimation),
-    to: jest.fn(createAnimation),
+    to: jest.fn((...args: unknown[]) => {
+      const animation = createAnimation();
+      runOnComplete(args);
+      return animation;
+    }),
   };
 
   return { __esModule: true, default: gsap, gsap };
