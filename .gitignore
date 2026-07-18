@@ -105,6 +105,7 @@ test-results/
 !.github/workflows/
 .github/workflows/*
 !.github/workflows/firebase-deploy.yml
+!.github/workflows/cloudflare-deploy.yml
 !.github/workflows/ai-healing.yml
 !.github/workflows/codeql.yml
 !.github/codeql/
@@ -182,4 +183,3 @@ toolbox
 .git-hygiene-backup/
 firebase-admin-key.json
 google-cloud-sdk/
-
