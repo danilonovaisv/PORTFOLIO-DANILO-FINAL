@@ -1,9 +1,11 @@
 'use client';
 
 import React, { forwardRef, RefObject } from 'react';
+import { Menu, X } from 'lucide-react';
 
 interface MobileMenuButtonProps {
   open: boolean;
+  controlsId: string;
   textLines: string[];
   textInnerRef: RefObject<HTMLSpanElement | null>;
   iconRef: RefObject<HTMLSpanElement | null>;
@@ -14,7 +16,16 @@ interface MobileMenuButtonProps {
 
 const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
   (
-    { open, textLines, textInnerRef, iconRef, plusHRef, plusVRef, onToggle },
+    {
+      open,
+      controlsId,
+      textLines,
+      textInnerRef,
+      iconRef,
+      plusHRef,
+      plusVRef,
+      onToggle,
+    },
     ref
   ) => {
     return (
@@ -24,6 +35,7 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
         onClick={onToggle}
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
         aria-expanded={open ? 'true' : 'false'}
+        aria-controls={controlsId}
         className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-12 min-w-12 px-3 transition-colors duration-fast ${
           open ? 'text-white' : 'text-white hover:text-primary'
         }`}
@@ -47,20 +59,28 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
           </span>
         </span>
 
-        {/* Animated plus/X icon */}
+        {/* Static icon crossfade; transforms are reserved for opacity/blur/Y motion. */}
         <span
           ref={iconRef}
-          className="relative w-[18px] h-[18px] shrink-0 inline-flex items-center justify-center will-change-transform"
+          className="relative w-[18px] h-[18px] shrink-0 inline-flex items-center justify-center"
           aria-hidden="true"
         >
           <span
             ref={plusHRef}
-            className="absolute left-1/2 top-1/2 w-full h-[1.5px] bg-current rounded-sm -translate-x-1/2 -translate-y-1/2 will-change-transform"
-          />
+            className={`absolute inset-0 inline-flex items-center justify-center transition-opacity duration-fast ${
+              open ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            <Menu className="h-[18px] w-[18px]" aria-hidden="true" />
+          </span>
           <span
             ref={plusVRef}
-            className="absolute left-1/2 top-1/2 w-full h-[1.5px] bg-current rounded-sm -translate-x-1/2 -translate-y-1/2 will-change-transform"
-          />
+            className={`absolute inset-0 inline-flex items-center justify-center transition-opacity duration-fast ${
+              open ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <X className="h-[18px] w-[18px]" aria-hidden="true" />
+          </span>
         </span>
       </button>
     );

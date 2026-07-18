@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import type { ReactNode } from 'react';
 import { HOME_CONTENT } from '@/config/content';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -260,7 +259,11 @@ export default async function ProjectPage({ params }: Props) {
   const galleryMedia = Array.from(gallerySet);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white"
+    >
       <JsonLd
         pageType="project"
         breadcrumbs={[
@@ -474,6 +477,6 @@ export default async function ProjectPage({ params }: Props) {
       </section>
 
       <SiteClosure />
-    </div>
+    </main>
   );
 }

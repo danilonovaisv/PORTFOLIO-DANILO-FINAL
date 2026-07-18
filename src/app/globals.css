@@ -72,6 +72,7 @@
   --z-layer-mobile-header: 80; /* fixed mobile bar */
   --z-layer-mobile-pre: 85; /* pre-menu curtain layers */
   --z-layer-mobile-menu: 90; /* fullscreen mobile menu */
+  --z-layer-mobile-menu-control: 92; /* mobile trigger while dialog is open */
   --z-layer-modal-scrim: 95; /* modal backdrop */
   --z-layer-modal: 100; /* modal surface */
   --z-layer-modal-close: 105; /* modal close button */
@@ -127,6 +128,7 @@
   --z-layer-mobile-header: 80;
   --z-layer-mobile-pre: 85;
   --z-layer-mobile-menu: 90;
+  --z-layer-mobile-menu-control: 92;
   --z-layer-modal-scrim: 95;
   --z-layer-modal: 100;
   --z-layer-modal-close: 105;

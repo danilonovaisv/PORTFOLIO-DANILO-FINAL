@@ -49,7 +49,9 @@ export default function ClientLayout({
   return (
     <>
       <Header />
-      <div className="relative grow">{children}</div>
+      <div id="site-content" className="relative grow" tabIndex={-1}>
+        {children}
+      </div>
       {process.env.NODE_ENV === 'development' && <AntigravityDebugger />}
     </>
   );
