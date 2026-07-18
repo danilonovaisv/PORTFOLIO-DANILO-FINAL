@@ -192,3 +192,16 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 - A troca de logo agora acompanha `isOnLightSection`, preservando contraste quando o header atravessa fundos claros.
 - `DesktopFluidHeader.tsx` e `MobileHeaderBar.tsx` usam sizing estável com `img` nativa e `object-contain`, evitando o desaparecimento/corte do logo observado no runtime.
 - Validação em build (`next start`) confirmou o logo desktop visível com caixa estável de aproximadamente `150x47px`.
+
+## 13. Atualização de Estado — 2026-07-18
+
+- O menu mobile agora tem estado funcional controlado por `SiteHeader`; `useMobileMenuAnimation` não mantém uma segunda fonte de verdade para open/closed.
+- O estado fechado é declarativo: `MobileMenuPanel` fica `aria-hidden`, `inert`, invisível, sem pointer events e com links fora da tab order mesmo com reduced motion ou falha de GSAP.
+- A superfície mobile é um `role="dialog"` com `aria-modal` quando aberta e contém um `<nav aria-label="Navegação principal">` interno.
+- O botão do menu declara `aria-controls="mobile-menu-panel"`, mantém `aria-expanded` coerente e usa ícones estáticos `Menu`/`X` com crossfade, sem rotação.
+- O close fica acima do painel enquanto aberto via token `--z-layer-mobile-menu-control: 92`, aplicado no header mobile por style inline para evitar perda de classe dinâmica.
+- O body lock reutiliza `useBodyLock`; o painel recebe `data-lenis-prevent`, scroll interno e `overscroll-contain` para landscape.
+- `ClientLayout` expõe `#site-content`, isolado com `inert`/`aria-hidden` enquanto o menu abre. A rota `/portfolio/[slug]` expõe `#main-content` para skip link e restauração de foco.
+- `SiteHeader` fecha o menu em mudanças de `pathname`, cobrindo navegação interna e histórico do App Router.
+- `siteViewport` agora usa `viewportFit: 'cover'`; o header e o painel consomem safe-area insets.
+- Validação registrada em `docs/mobile-menu-audit/walkthrough.md`: unitário do menu `8/8`, Playwright Chromium/WebKit `6/6`, typecheck, lint e build.
