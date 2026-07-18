@@ -50,7 +50,7 @@ Correção arquitetural: o controle de fechamento precisa participar da mesma ca
 
 - **Toolchain:** `package.json` e `pnpm-lock.yaml` para Node 22 + TypeScript 6.0.2 reproduzíveis.
 - **Estado/roteamento:** `src/components/layout/header/SiteHeader.tsx` e `src/hooks/useMobileMenuAnimation.ts`.
-- **Overlay/a11y:** `src/components/layout/header/MobileStaggeredMenu.tsx`, `mobile/MobileMenuPanel.tsx`, `MobileMenuButton.tsx`, `MobileHeaderBar.tsx` e `MobilePreLayers.tsx`.
+- **Overlay/a11y:** `src/components/layout/header/MobileStaggeredMenu.tsx`, `src/components/layout/header/mobile/MobileMenuPanel.tsx`, `src/components/layout/header/mobile/MobileMenuButton.tsx`, `src/components/layout/header/mobile/MobileHeaderBar.tsx` e `src/components/layout/header/mobile/MobilePreLayers.tsx`.
 - **Documento global e viewport:** `src/app/layout.tsx`, `src/config/metadata.ts` e, se necessário para locks/insets, `src/app/globals.css` e o wrapper de smooth scroll existente.
 - **Testes:** suites unitárias do header/hook e suites E2E responsivas sob `test/`, sem criar um runner paralelo.
 - **SSOT documental:** documentação de Header em `.context/DOCS-PORTFOLIO-PAGES/` e walkthrough correspondente, atualizados somente após a implementação validada.
