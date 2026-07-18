@@ -7,7 +7,90 @@ const ONE_PIXEL_GIF = Buffer.from(
   'base64'
 );
 
+function createPostgresChangeBindings(payload: unknown) {
+  if (typeof payload !== 'object' || payload === null) return [];
+
+  const config = (payload as { config?: unknown }).config;
+  if (typeof config !== 'object' || config === null) return [];
+
+  const filters = (config as { postgres_changes?: unknown }).postgres_changes;
+  if (!Array.isArray(filters)) return [];
+
+  return filters.map((filter, index) => ({
+    ...(typeof filter === 'object' && filter !== null ? filter : {}),
+    id: index + 1,
+  }));
+}
+
+function createPhoenixReply(message: string | Buffer) {
+  try {
+    const frame: unknown = JSON.parse(message.toString());
+
+    if (Array.isArray(frame) && frame.length >= 5) {
+      const [joinRef, ref, topic, event, payload] = frame;
+      if (event !== 'phx_join' && event !== 'heartbeat') return null;
+
+      return JSON.stringify([
+        joinRef,
+        ref,
+        topic,
+        'phx_reply',
+        {
+          status: 'ok',
+          response:
+            event === 'phx_join'
+              ? { postgres_changes: createPostgresChangeBindings(payload) }
+              : {},
+        },
+      ]);
+    }
+
+    if (typeof frame !== 'object' || frame === null) return null;
+
+    const phoenixFrame = frame as {
+      event?: unknown;
+      join_ref?: unknown;
+      payload?: unknown;
+      ref?: unknown;
+      topic?: unknown;
+    };
+    if (
+      phoenixFrame.event !== 'phx_join' &&
+      phoenixFrame.event !== 'heartbeat'
+    ) {
+      return null;
+    }
+
+    return JSON.stringify({
+      topic: phoenixFrame.topic,
+      event: 'phx_reply',
+      payload: {
+        status: 'ok',
+        response:
+          phoenixFrame.event === 'phx_join'
+            ? {
+                postgres_changes: createPostgresChangeBindings(
+                  phoenixFrame.payload
+                ),
+              }
+            : {},
+      },
+      ref: phoenixFrame.ref,
+      join_ref: phoenixFrame.join_ref,
+    });
+  } catch {
+    return null;
+  }
+}
+
 async function stubSyntheticSupabase(page: Page) {
+  await page.routeWebSocket('wss://supabase.test.invalid/**', (webSocket) => {
+    webSocket.onMessage((message) => {
+      const reply = createPhoenixReply(message);
+      if (reply) webSocket.send(reply);
+    });
+  });
+
   await page.route(`${SYNTHETIC_SUPABASE_ORIGIN}/**`, async (route) => {
     const pathname = new URL(route.request().url()).pathname;
 
@@ -81,7 +164,7 @@ test.describe('mobile menu overlay regressions', () => {
     const focusIsInsidePanel = await panel.evaluate((element) =>
       element.contains(document.activeElement)
     );
-    expect.soft(focusIsInsidePanel).toBe(false);
+    expect(focusIsInsidePanel).toBe(false);
   });
 
   test('open trigger remains the hit target and a physical click closes the menu', async ({
@@ -125,12 +208,13 @@ test.describe('mobile menu overlay regressions', () => {
     expect(hitTest.resolvesToTrigger).toBe(true);
     await page.mouse.click(hitTest.x, hitTest.y);
     await expect(openTrigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(openTrigger).toBeFocused({ timeout: 1_000 });
   });
 
   test('moves focus through the open menu and restores it after Escape', async ({
     page,
   }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await page.goto('/privacidade', { waitUntil: 'domcontentloaded' });
 
     const openTrigger = page.getByRole('button', { name: 'Abrir menu' });
     await expect(openTrigger).toBeVisible();
@@ -140,12 +224,12 @@ test.describe('mobile menu overlay regressions', () => {
     const panel = page.locator('#mobile-menu-panel');
     await expect(panel).toHaveAttribute('aria-hidden', 'false');
     await expect(panel).not.toHaveAttribute('inert');
-    await expect.soft(closeTrigger).toBeFocused({ timeout: 1_000 });
+    await expect(closeTrigger).toBeFocused({ timeout: 1_000 });
 
     await page.keyboard.press('Tab');
-    await expect
-      .soft(panel.getByRole('link').first())
-      .toBeFocused({ timeout: 1_000 });
+    await expect(panel.getByRole('link').first()).toBeFocused({
+      timeout: 1_000,
+    });
 
     await page.keyboard.press('Escape');
     await expect(panel).toHaveAttribute('aria-hidden', 'true');

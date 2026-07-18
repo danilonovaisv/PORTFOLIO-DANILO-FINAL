@@ -201,7 +201,19 @@ describe('MobileStaggeredMenu accessibility contract', () => {
     expect(getPanel()).toHaveAttribute('aria-hidden', 'false');
   });
 
-  it('opens and closes from the trigger, then restores focus', async () => {
+  it('keeps focus on the trigger after opening', async () => {
+    renderMenu();
+
+    const openTrigger = screen.getByRole('button', { name: 'Abrir menu' });
+    openTrigger.focus();
+    fireEvent.click(openTrigger);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Fechar menu' })).toHaveFocus();
+    });
+  });
+
+  it('restores focus after closing from the trigger', async () => {
     renderMenu();
 
     const openTrigger = screen.getByRole('button', { name: 'Abrir menu' });
@@ -209,7 +221,8 @@ describe('MobileStaggeredMenu accessibility contract', () => {
     fireEvent.click(openTrigger);
 
     const firstMenuLink = within(getPanel()).getAllByRole('link')[0];
-    await waitFor(() => expect(firstMenuLink).toHaveFocus());
+    firstMenuLink.focus();
+    expect(firstMenuLink).toHaveFocus();
 
     fireEvent.click(screen.getByRole('button', { name: 'Fechar menu' }));
 
@@ -226,7 +239,8 @@ describe('MobileStaggeredMenu accessibility contract', () => {
     fireEvent.click(openTrigger);
 
     const firstMenuLink = within(getPanel()).getAllByRole('link')[0];
-    await waitFor(() => expect(firstMenuLink).toHaveFocus());
+    firstMenuLink.focus();
+    expect(firstMenuLink).toHaveFocus();
 
     fireEvent.keyDown(window, { key: 'Escape' });
 
