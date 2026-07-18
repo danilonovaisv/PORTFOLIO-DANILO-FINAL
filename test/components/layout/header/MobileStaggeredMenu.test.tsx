@@ -155,7 +155,7 @@ describe('MobileStaggeredMenu accessibility contract', () => {
     renderMenu();
 
     const panel = getPanel();
-    expect(panel).not.toHaveClass('pointer-events-auto');
+    expect(panel).toHaveClass('pointer-events-none');
   });
 
   it('removes closed-panel links from the tab order', () => {
@@ -221,7 +221,7 @@ describe('MobileStaggeredMenu accessibility contract', () => {
 
     const panel = getPanel();
     expect(panel).toHaveAttribute('aria-hidden', 'true');
-    expect(panel).not.toHaveClass('pointer-events-auto');
+    expect(panel).toHaveClass('pointer-events-none');
     expect(panel).toHaveAttribute('inert');
   });
 });
