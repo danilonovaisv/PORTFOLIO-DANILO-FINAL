@@ -18,7 +18,7 @@ Cada tarefa tem duração máxima planejada de 1 hora. O status deve ser atualiz
 | T9 | concluída parcial | ≤1h | T8 | debugger | Executar matriz portrait por rota e preferência de motion. | Regressão automatizada passou em Chromium/WebKit para reduced motion fechado, hit-test do close e foco/Escape; matriz completa pré-auditoria permanece como evidência de escopo. |
 | T10 | bloqueada parcial | ≤1h | T8 | mobile consultant | Validar landscape, rotação e Safari mobile. | Simulação WebKit passou; Safari em iPhone real, edge-swipe e barras dinâmicas exigem aparelho/acesso manual fora deste ambiente. |
 | T11 | concluída | ≤1h | T9, T10 | orchestrator | Atualizar documentação do header e produzir walkthrough. | `.context/.../01-HEADER.md` e `walkthrough.md` atualizados com solução, evidência, limitações e OPS-001. |
-| T12 | em andamento | ≤1h | T11 | orchestrator | Fazer revisão final e commits atômicos. | Commits atômicos em andamento; nenhum deploy executado e alterações alheias preservadas. |
+| T12 | concluída | ≤1h | T11 | orchestrator | Fazer revisão final e commits atômicos. | Worktree da branch limpo, checks lidos, commits atômicos criados, nenhum deploy executado e alterações alheias preservadas. |
 
 ## Comandos e evidências — T1
 
