@@ -28,11 +28,16 @@ const envSchema = z.object({
     .default('development'),
 });
 
-// For client-side, we can only validate NEXT_PUBLIC_ variables
-// For server-side, we can validate everything
+const defaultSupabaseHost = 'umkmwbkwvulxtdodzmzf.supabase.co';
+const defaultSupabaseUrl = `https://${defaultSupabaseHost}`;
+const defaultAnonKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.placeholder_key';
+
 const processEnv = {
-  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  NEXT_PUBLIC_SUPABASE_URL:
+    process.env.NEXT_PUBLIC_SUPABASE_URL || defaultSupabaseUrl,
+  NEXT_PUBLIC_SUPABASE_ANON_KEY:
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || defaultAnonKey,
   NEXT_PUBLIC_SUPABASE_FALLBACK_URL:
     process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL,
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

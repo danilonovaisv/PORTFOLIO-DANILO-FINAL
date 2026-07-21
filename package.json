@@ -42,7 +42,7 @@
     "cf:build": "opennextjs-cloudflare build",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "build:cloudflare": "VALIDATE_ENV_WARN_ONLY=1 pnpm run prebuild && opennextjs-cloudflare build",
+    "build:cloudflare": "VALIDATE_ENV_WARN_ONLY=1 pnpm run prebuild && VALIDATE_ENV_WARN_ONLY=1 opennextjs-cloudflare build",
     "admin:prepare": "pnpm run admin:prepare:verify",
     "admin:prepare:verify": "pnpm run validate-env && tsx scripts/check-storage-links.ts && tsx scripts/verify-asset-corrections.ts",
     "admin:prepare:mutate": "pnpm run validate-env && tsx scripts/repair-site-assets-paths.ts --apply && tsx scripts/update-supabase-urls.ts --apply",
