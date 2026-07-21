@@ -363,3 +363,29 @@
 - **Fix Applied**: Identified the billing delinquent state as the single blocker for all GCP/Firebase services (Cloud Build, Cloud Run, Cloud Functions, and Logging). Direct user intervention is required in the Google Cloud Console or Google Billing Console to reactivate or link a valid billing account.
 - **Prevention**: Ensure that the Google Cloud project has an active and valid billing account linked to it, and check billing standing whenever 403 write access errors or log access errors occur.
 - **Status**: Resolved (External Action Required: Reactivate GCP Billing Account)
+
+---
+
+## [2026-07-21 19:36] - Cloudflare Worker Script Size Exceeded 3 MiB Limit (Code 10027)
+
+- **Type**: Deployment & Infrastructure Failure
+- **Severity**: High
+- **File**: `package.json`, `.github/workflows/cloudflare-deploy.yml`, `src/lib/env.ts`
+- **Agent**: Antigravity / Ghost Commander / Incident Commander
+- **Root Cause**: Next.js 16 (App Router) bundled with `@opennextjs/cloudflare` produced an uncompressed Worker script `.open-next/server-functions/default/handler.mjs` of 9.8 MiB (+ 1.3 MiB `@vercel/og` WASM binaries). Cloudflare Workers Free Tier enforces a strict 3 MiB limit per Worker script version, causing `npx wrangler deploy` to fail with HTTP 400 (code 10027).
+- **Error Message**:
+  ```text
+  ✘ [ERROR] Your Worker failed validation because it exceeded size limits.
+    A request to the Cloudflare API (/accounts/f48c066525478bcaf66928b32ed721d2/workers/scripts/portfolio-danilo-final/versions) failed.
+    - Your Worker exceeded the size limit of 3 MiB. Please upgrade to a paid plan to deploy Workers up to 10 MiB.
+  ```
+- **Fix Applied**:
+  1. Synchronized `pnpm` versions in `.github/workflows/cloudflare-deploy.yml` to defer to `package.json` (`pnpm@11.15.1`).
+  2. Added `wrangler` (`^3.114.0`) to `devDependencies` in `package.json`.
+  3. Added build-time environment fallback values in `src/lib/env.ts` and `VALIDATE_ENV_WARN_ONLY=1` to allow static bundling without environment credentials.
+  4. Configured Cloudflare build command to `pnpm run build:cloudflare`.
+- **Resolution Path**:
+  - **Option 1 (Recommended)**: Upgrade Cloudflare Workers account to Workers Paid ($5/month) to increase Worker size limit from 3 MiB to 10 MiB (compressed) / 50 MiB.
+  - **Option 2**: Switch to Static Export (`output: 'export'`) or deploy to Firebase Hosting / Cloudflare Pages.
+- **Status**: Identified (Action Required: Upgrade Cloudflare Workers Plan or Enable Static Export)
+
