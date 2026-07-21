@@ -58,7 +58,7 @@ export default function JsonLd({
     image: toAbsoluteUrl(logoUrl ?? BRAND.assets.logos.logoLight, baseUrl),
     sameAs: [
       'https://github.com/danilonovaisv',
-      'https://www.linkedin.com/in/danilonovaisv',
+      'https://linkedin.com/in/danilonovais',
       'https://instagram.com/_novais',
       'https://x.com/_novais',
     ],
@@ -91,7 +91,7 @@ export default function JsonLd({
     },
     sameAs: [
       'https://github.com/danilonovaisv',
-      'https://www.linkedin.com/in/danilonovaisv',
+      'https://linkedin.com/in/danilonovais',
       'https://instagram.com/_novais',
       'https://x.com/_novais',
     ],

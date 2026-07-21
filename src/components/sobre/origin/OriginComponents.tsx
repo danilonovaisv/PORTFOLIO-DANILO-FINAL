@@ -101,7 +101,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             assetKey={block.assetKey}
             alt={block.title}
             fallbackUrl={block.img || `/site-assets/${block.fallback}`}
-            priority={block.priority}
+            priority={block.id === 1 || block.priority}
             width={400}
             height={400}
             className="w-full h-full"

@@ -8,9 +8,10 @@
       "computedHash": "cb669fba9289d500872584ea0daab1c5114f1c8f12a991f90871431d3fadbf3c"
     },
     "audit-website": {
-      "source": "squirrelscan/skills",
+      "source": "squirrelscan/squirrelscan",
       "sourceType": "github",
-      "computedHash": "2c060290f90340e8bb6009502ec936b8ebb3ff889332a43e24bf210528ebba9f"
+      "skillPath": "skills/audit-website/SKILL.md",
+      "computedHash": "1ec7fd69b54e956f12035344ef07e4c9b0d8682e135f69d5d3c35521e2a77e44"
     },
     "caveman": {
       "source": "JuliusBrussee/caveman",
@@ -192,6 +193,12 @@
       "source": "shadcn/ui",
       "sourceType": "github",
       "computedHash": "91c02eb706f046fb9d6a061efbb96496e4be751b5b14c283cf82baaa50f3a985"
+    },
+    "squirrelscan": {
+      "source": "squirrelscan/squirrelscan",
+      "sourceType": "github",
+      "skillPath": "skills/squirrelscan/SKILL.md",
+      "computedHash": "dd9337e704bbf7af2d7bdcd7a68a9cd56e60d7e2c558b6ccebe926ce4fd08d04"
     },
     "supabase-postgres-best-practices": {
       "source": "supabase/agent-skills",

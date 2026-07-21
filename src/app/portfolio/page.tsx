@@ -36,7 +36,6 @@ export async function generateMetadata({
   const categoryRaw = Array.isArray(resolved?.category)
     ? resolved?.category[0]
     : (resolved as { category?: string })?.category;
-  const category = normalizePortfolioCategoryQuery(categoryRaw);
   const categoryMeta: Record<
     string,
     { label: string; description: string; keywords: string[] }
@@ -66,6 +65,11 @@ export async function generateMetadata({
       keywords: ['Web Design', 'Next.js', 'React', 'WebGL', 'Three.js', 'User Experience', 'Front-end Engineering'],
     },
   };
+
+  const normalizedRaw = categoryRaw?.trim().toLowerCase();
+  const category = (normalizedRaw && normalizedRaw in categoryMeta)
+    ? normalizedRaw
+    : normalizePortfolioCategoryQuery(categoryRaw);
 
   const metaForCategory = category ? categoryMeta[category] : undefined;
   const rawTitle = metaForCategory

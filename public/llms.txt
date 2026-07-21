@@ -1,0 +1,31 @@
+# Danilo Novais — Portfolio & Creative Technology
+
+> Senior Creative Technologist, Product Designer & Fullstack Engineer specializing in Design Systems, 3D WebGL / React Three Fiber, Interactive Animations, and Scalable Web Applications.
+
+## About
+- **Name**: Danilo Novais
+- **Role**: Staff Creative Technologist / Lead Designer & Developer
+- **Location**: São Paulo, Brazil
+- **Website**: https://portfoliodanilo.com
+- **LinkedIn**: https://linkedin.com/in/danilonovais
+- **Contact**: danilo@portfoliodanilo.com
+
+## Tech Stack & Expertise
+- **Frontend**: Next.js (App Router), React 19, TypeScript, Tailwind CSS v4, Framer Motion, GSAP, Lenis Smooth Scroll
+- **3D & WebGL**: React Three Fiber (R3F), Three.js, GLSL Custom Shaders, Instanced Meshes, GLTF/GLB optimization
+- **Backend & Cloud**: Cloudflare Workers (@opennextjs/cloudflare), Supabase (PostgreSQL, Realtime, Storage, RLS), Firebase
+- **Design Systems**: Editorial Aesthetics, High-Performance Micro-interactions, Grid Governance
+
+## Portfolio Projects
+- **Honda Civic Key Visual**: Interactive 3D presentation and branding showcase for Honda.
+- **MyBees (Ambev)**: Performance marketing campaigns and web applications for global beverage distribution platform.
+- **Eudora**: Visual identity and high-impact digital campaign materials.
+- **CBRE**: Digital experiences and brand collateral for commercial real estate leader.
+- **Dolce Gusto**: Interactive campaign assets and digital media executions.
+
+## Key Pages
+- [/](https://portfoliodanilo.com/): Home Page with interactive Ghost 3D scene and featured project highlights.
+- [/portfolio](https://portfoliodanilo.com/portfolio): Curated showcase of Branding, Motion, Interactive Web, and Campaign projects.
+- [/sobre](https://portfoliodanilo.com/sobre): Biography, philosophy, manifesto, and technical background.
+- [/contato](https://portfoliodanilo.com/contato): Direct contact channel and collaboration inquiry form.
+- [/privacidade](https://portfoliodanilo.com/privacidade): Privacy policy and data governance details.

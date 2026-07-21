@@ -50,6 +50,7 @@ A essência das coisas sempre falou mais alto do que a superfície.`,
     fallback: 'about/origin/about.origin_image.1.webp',
     textAlign: 'right',
     assetKey: 'about.origin_image.1',
+    img: undefined,
   },
   {
     id: 2,

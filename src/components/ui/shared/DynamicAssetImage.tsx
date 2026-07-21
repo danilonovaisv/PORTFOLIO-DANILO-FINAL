@@ -119,6 +119,7 @@ export function DynamicAssetImage({
         height={height}
         priority={priority}
         loading={priority ? 'eager' : undefined}
+        fetchPriority={priority ? 'high' : undefined}
         quality={60}
         sizes={
           sizes ||
