@@ -33,92 +33,107 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
     ref
   ) => {
     return (
-      <nav
+      <section
         ref={ref}
         id="mobile-menu-panel"
-        aria-label="Navegação principal"
+        role="dialog"
+        aria-modal={open ? true : undefined}
+        aria-label="Menu de navegação"
         data-testid="site-navigation"
-        className="fixed inset-0 bg-bluePrimary backdrop-blur-xl flex flex-col justify-center px-8 z-[var(--z-layer-mobile-menu)] pointer-events-auto sm:px-12 md:px-16"
+        data-lenis-prevent
+        className={`fixed inset-0 z-[var(--z-layer-mobile-menu)] flex min-h-[100svh] flex-col overflow-y-auto overscroll-contain bg-bluePrimary px-8 backdrop-blur-xl transition-opacity duration-modal sm:px-12 md:px-16 ${
+          open
+            ? 'visible pointer-events-auto opacity-100'
+            : 'invisible pointer-events-none opacity-0'
+        }`}
         style={{
-          paddingTop: 'env(safe-area-inset-top, 2rem)',
-          paddingBottom: 'env(safe-area-inset-bottom, 2rem)',
+          minHeight: '100dvh',
+          paddingTop: 'max(6rem, env(safe-area-inset-top, 2rem))',
+          paddingBottom: 'max(2rem, env(safe-area-inset-bottom, 2rem))',
           paddingLeft: 'max(2rem, env(safe-area-inset-left, 2rem))',
           paddingRight: 'max(2rem, env(safe-area-inset-right, 2rem))',
         }}
         aria-hidden={open ? 'false' : 'true'}
+        inert={open ? undefined : true}
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
         }}
       >
-        {/* Menu items — <Link> for SEO crawlability + prefetching */}
-        <ul className="flex flex-col gap-4" role="list">
-          {navItems.map((item) => {
-            const isActive = isNavItemActive(item.href, activeHref);
-            return (
-              <li key={item.href} className="overflow-hidden leading-none">
-                <Link
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onNavigate(item.href);
-                  }}
-                  className={`sm-panel-item block w-full py-4 text-4xl sm:text-5xl tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
-                    isActive
-                      ? 'text-blueAccent font-medium underline underline-offset-4'
-                      : 'text-white/80 hover:text-white font-light'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="my-auto flex w-full flex-col py-4">
+          <nav aria-label="Navegação principal">
+            <ul className="flex flex-col gap-2" role="list">
+              {navItems.map((item) => {
+                const isActive = isNavItemActive(item.href, activeHref);
+                return (
+                  <li key={item.href} className="overflow-hidden leading-none">
+                    <Link
+                      href={item.href}
+                      tabIndex={open ? 0 : -1}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onNavigate(item.href);
+                      }}
+                      className={`sm-panel-item block min-h-14 w-full py-4 text-left text-4xl font-light uppercase leading-none tracking-wide transition-colors duration-fast sm:text-5xl ${
+                        isActive
+                          ? 'text-blueAccent font-medium underline underline-offset-4'
+                          : 'text-white/80 hover:text-white'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
 
-        {/* Social links */}
-        <div
-          ref={socialsRef}
-          className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4"
-        >
-          <m.h3
-            className="sm-social-title text-sm font-medium uppercase tracking-wider"
-            initial={false}
-            animate={{ color: accentColor }}
+          {/* Social links */}
+          <div
+            ref={socialsRef}
+            className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8"
           >
-            Connect
-          </m.h3>
-          <div className="flex gap-4">
-            {[
-              {
-                label: 'LinkedIn',
-                href: SOCIALS.linkedin,
-                icon: <Linkedin className="w-5 h-5" />,
-              },
-              {
-                label: 'InstagramIcon',
-                href: SOCIALS.instagram,
-                icon: <Instagram className="w-5 h-5" />,
-              },
-              {
-                label: 'Email',
-                href: SOCIALS.emailPrimary,
-                icon: <Mail className="w-5 h-5" />,
-              },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary"
-              >
-                {s.icon}
-              </a>
-            ))}
+            <m.h3
+              className="sm-social-title text-sm font-medium uppercase tracking-wider"
+              initial={false}
+              animate={{ color: accentColor }}
+            >
+              Connect
+            </m.h3>
+            <div className="flex gap-4">
+              {[
+                {
+                  label: 'LinkedIn',
+                  href: SOCIALS.linkedin,
+                  icon: <Linkedin className="w-5 h-5" />,
+                },
+                {
+                  label: 'Instagram',
+                  href: SOCIALS.instagram,
+                  icon: <Instagram className="w-5 h-5" />,
+                },
+                {
+                  label: 'Email',
+                  href: SOCIALS.emailPrimary,
+                  icon: <Mail className="w-5 h-5" />,
+                },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  tabIndex={open ? 0 : -1}
+                  className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors duration-fast hover:border-primary hover:bg-primary"
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      </nav>
+      </section>
     );
   }
 );

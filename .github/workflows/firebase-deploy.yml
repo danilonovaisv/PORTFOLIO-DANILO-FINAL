@@ -1,9 +1,9 @@
 name: Firebase Deploy
 
 on:
-  push:
-    branches:
-      - main
+  # Firebase Hosting production deploy is intentionally manual after the
+  # Cloudflare Workers/OpenNext migration. The root firebase.json was archived
+  # under scripts/archive/firebase/, so automatic push deploys are invalid.
   workflow_dispatch:
 
 permissions:
