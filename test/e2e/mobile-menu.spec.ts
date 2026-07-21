@@ -112,7 +112,22 @@ async function stubSyntheticSupabase(page: Page) {
 
   await page.route('**/_next/image**', async (route) => {
     const source = new URL(route.request().url()).searchParams.get('url');
-    if (!source?.startsWith(SYNTHETIC_SUPABASE_ORIGIN)) {
+    const allowedOrigin = new URL(SYNTHETIC_SUPABASE_ORIGIN);
+
+    let isAllowedSource = false;
+    if (source) {
+      try {
+        const sourceUrl = new URL(source);
+        isAllowedSource =
+          sourceUrl.protocol === allowedOrigin.protocol &&
+          sourceUrl.hostname === allowedOrigin.hostname &&
+          sourceUrl.port === allowedOrigin.port;
+      } catch {
+        isAllowedSource = false;
+      }
+    }
+
+    if (!isAllowedSource) {
       await route.continue();
       return;
     }
