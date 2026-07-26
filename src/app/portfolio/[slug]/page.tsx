@@ -352,6 +352,7 @@ export default async function ProjectPage({ params }: Props) {
               muted
               loop
               playsInline
+              preload="metadata"
               poster={DEFAULT_VIDEO_POSTER}
               className="absolute inset-0 w-full h-full object-cover"
             >
@@ -451,6 +452,7 @@ export default async function ProjectPage({ params }: Props) {
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     poster={DEFAULT_VIDEO_POSTER}
                     className="absolute inset-0 h-full w-full object-cover"
                   >

@@ -55,6 +55,7 @@ export function AlpaBlockVideoFull({
             muted
             loop
             playsInline
+            preload="metadata"
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}

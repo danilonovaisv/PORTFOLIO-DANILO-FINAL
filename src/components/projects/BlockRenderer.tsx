@@ -117,6 +117,7 @@ export default function BlockRenderer({
             loop={autoplay}
             controls={!autoplay}
             playsInline
+            preload={autoplay ? 'metadata' : 'none'}
             poster={DEFAULT_VIDEO_POSTER}
           >
             <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />

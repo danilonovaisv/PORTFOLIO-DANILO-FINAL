@@ -46,7 +46,7 @@ export default function PortfolioHeroNew() {
             fitPolicy={RESPONSIVE_VIDEOS.portfolioHero.fitPolicy}
             objectPosition="center center"
             className="h-full w-full min-w-full max-w-none"
-            preload="auto"
+            preload="metadata"
             autoPlay
             loop
             muted

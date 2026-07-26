@@ -119,6 +119,7 @@ export const CategoryStripe = React.memo(function CategoryStripe({
                     loop
                     muted
                     playsInline
+                    preload="metadata"
                     poster={DEFAULT_VIDEO_POSTER}
                     className="h-full w-full object-cover"
                   >
