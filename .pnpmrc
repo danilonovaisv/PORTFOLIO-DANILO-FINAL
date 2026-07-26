@@ -5,3 +5,4 @@ public-hoist-pattern[]=*three*
 public-hoist-pattern[]=*@react-three*
 link-workspace-packages=true
 legacy-peer-deps=true
+ignore-workspace-root-check=true

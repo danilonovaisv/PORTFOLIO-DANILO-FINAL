@@ -1,0 +1,12 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://zenmux.ai/api/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "sk-ai-v1-cd7b25c7f32edcf1014f385a48cd737f0c0d63f17355591c15a91e095efa0fa6",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION": "moonshotai/kimi-k3",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "kimi-k3",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION": "Experimental gateway-routed model",
+    "API_TIMEOUT_MS": "600000",
+    "ENABLE_TOOL_SEARCH": "false"
+  },
+  "model": "moonshotai/kimi-k3"
+}

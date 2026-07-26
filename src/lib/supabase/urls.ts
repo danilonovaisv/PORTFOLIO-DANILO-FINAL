@@ -150,7 +150,13 @@ export function buildSupabaseStorageUrl(
       : '/storage/v1/object/public/';
   const encodedPath = normalizedPath
     .split('/')
-    .map((segment) => encodeURIComponent(segment))
+    .map((segment) => {
+      try {
+        return encodeURIComponent(decodeURIComponent(segment));
+      } catch {
+        return encodeURIComponent(segment);
+      }
+    })
     .join('/');
   let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${encodedPath}`;
 
