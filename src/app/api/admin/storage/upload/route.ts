@@ -148,7 +148,7 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ path: data.path }, { status: 200 });
+    return NextResponse.json({ path: data?.path || path }, { status: 200 });
   } catch (error) {
     if (error instanceof AdminAccessError) {
       const status = error.code === 'unauthorized' ? 401 : 403;

@@ -36,11 +36,18 @@ async function uploadThroughAdminRoute({
     error?: string;
   };
 
-  if (!response.ok || !payload.path) {
-    throw new Error(payload.error || 'SYSTEM_ERR: STORAGE_UPLOAD_FAILURE');
+  if (!response.ok) {
+    throw new Error(
+      payload.error || `SYSTEM_ERR: STORAGE_UPLOAD_HTTP_${response.status}`
+    );
   }
 
-  return payload.path;
+  const returnedPath = payload.path || path;
+  if (!returnedPath) {
+    throw new Error(payload.error || 'SYSTEM_ERR: STORAGE_UPLOAD_EMPTY_PATH');
+  }
+
+  return returnedPath;
 }
 
 function buildPath(base: string, slug: string) {
