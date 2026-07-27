@@ -62,13 +62,15 @@ export default function MobileStaggeredMenu({
       siteContent.setAttribute('aria-hidden', 'true');
       siteContent.setAttribute('inert', '');
     } else {
-      if (previousAriaHidden === null) siteContent.removeAttribute('aria-hidden');
+      if (previousAriaHidden === null)
+        siteContent.removeAttribute('aria-hidden');
       else siteContent.setAttribute('aria-hidden', previousAriaHidden);
       if (!hadInert) siteContent.removeAttribute('inert');
     }
 
     return () => {
-      if (previousAriaHidden === null) siteContent.removeAttribute('aria-hidden');
+      if (previousAriaHidden === null)
+        siteContent.removeAttribute('aria-hidden');
       else siteContent.setAttribute('aria-hidden', previousAriaHidden);
       if (!hadInert) siteContent.removeAttribute('inert');
     };

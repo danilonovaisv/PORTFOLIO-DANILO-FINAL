@@ -23,10 +23,19 @@ const getDashboardCounts = unstable_cache(
 
       if (!supabaseUrl || !supabaseKey) {
         return {
-          projects: { count: 0, error: 'Missing Supabase environment variables' },
+          projects: {
+            count: 0,
+            error: 'Missing Supabase environment variables',
+          },
           tags: { count: 0, error: 'Missing Supabase environment variables' },
-          featuredHome: { count: 0, error: 'Missing Supabase environment variables' },
-          featuredPortfolio: { count: 0, error: 'Missing Supabase environment variables' },
+          featuredHome: {
+            count: 0,
+            error: 'Missing Supabase environment variables',
+          },
+          featuredPortfolio: {
+            count: 0,
+            error: 'Missing Supabase environment variables',
+          },
         };
       }
 

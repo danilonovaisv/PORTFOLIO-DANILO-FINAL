@@ -147,9 +147,11 @@ const ContactForm: React.FC = () => {
       const friendlyMsg =
         msg.includes('CAPTCHA') || msg.includes('captcha')
           ? 'Por favor, complete a verificação de segurança (CAPTCHA).'
-          : msg.startsWith('SYSTEM_ERR') || msg === 'Submission failed' || msg === 'Falha ao enviar mensagem'
-          ? 'Falha ao enviar mensagem. Por favor, tente novamente ou entre em contato via e-mail (danilo@portfoliodanilo.com).'
-          : msg;
+          : msg.startsWith('SYSTEM_ERR') ||
+              msg === 'Submission failed' ||
+              msg === 'Falha ao enviar mensagem'
+            ? 'Falha ao enviar mensagem. Por favor, tente novamente ou entre em contato via e-mail (danilo@portfoliodanilo.com).'
+            : msg;
 
       setErrors({
         submit: friendlyMsg,

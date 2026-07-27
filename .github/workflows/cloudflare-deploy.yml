@@ -16,7 +16,6 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -40,4 +39,3 @@ jobs:
           command: deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
-

@@ -44,7 +44,10 @@ export async function POST(request: Request) {
     try {
       formData = await request.formData();
     } catch (formErr) {
-      console.error('[API Admin Storage Upload] FormData parsing error:', formErr);
+      console.error(
+        '[API Admin Storage Upload] FormData parsing error:',
+        formErr
+      );
       return NextResponse.json(
         { error: 'SYSTEM_ERR: INVALID_FORM_DATA_PAYLOAD' },
         { status: 400 }

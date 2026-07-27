@@ -13,6 +13,7 @@ allowed-tools: Bash(_), Read, Write, Edit, Glob, Grep, MCP(_)
 # /agents-orquestrator
 
 Este workflow orquestra a resolução de demandas de engenharia de software de alta complexidade. Você atua estritamente como **Orchestrator**. Não implemente código diretamente. Delegue.
+
 ###### # INVOQUE OS AGE`NTS:` ` "`.agents/agents/orchestrator.md"`` para organizar as tarefas, o ".agents/agents/frontend-specialist.md" para analizar o projeto e ver a melhor soluçao usando os MC´s disponiveis, e os agents ".agents/agents/spectral-artist.md" e ".agents/agents/ui-ux-designer.md" responsaveis pela execusçao e auditoria dos ajustes.
 
 ```

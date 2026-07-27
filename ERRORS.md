@@ -6,8 +6,32 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 19
-- **Đã sửa**: 19
+- **Tổng lỗi**: 20
+- **Đã sửa**: 20
+
+---
+
+## [2026-07-27 17:20] - HTTP 500 & `SYSTEM_ERR: STORAGE_UPLOAD_FAILURE` em `/api/admin/storage/upload`
+
+- **Type**: Integration / Runtime Error
+- **Severity**: High
+- **File**: `src/app/api/admin/storage/upload/route.ts`, `src/lib/admin/server-access.ts`, `src/lib/supabase/storage.ts`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**:
+  1. `src/app/api/admin/storage/upload/route.ts` executava no Edge Runtime (`export const runtime = 'edge'`) e invocava `Buffer.from(bytes)`. O objeto global `Buffer` não existe nativamente em isolados Cloudflare Workers sem polyfills, gerando `ReferenceError: Buffer is not defined` e fazendo o OpenNext/Cloudflare retornar HTTP 500 cru.
+  2. O Supabase remoto não possuía os buckets `portfolio-media` e `site-assets` cadastrados em `storage.buckets`, nem as políticas de RLS em `storage.objects` permitindo upload por usuários autenticados e leitura pública.
+- **Error Message**:
+  ```text
+  POST https://portfoliodanilo.com/api/admin/storage/upload 500 (Internal Server Error)
+  SYSTEM_ERR: STORAGE_UPLOAD_FAILURE
+  ```
+- **Fix Applied**:
+  1. Substituído `Buffer.from(bytes)` por `new Uint8Array(bytes)` nativo no Edge Runtime e adicionada validação de tamanho de arquivo (`file.size > 25MB`).
+  2. Envolvido `createClient()` em `try/catch` no `requireAdminAccess` para retornar JSON de permissão 401/403 em vez de exceção de infraestrutura 500.
+  3. Criados os buckets `site-assets` e `portfolio-media` e aplicadas as políticas de RLS (`Public read` e `Authenticated upload/update/delete`) na tabela `storage.objects` via Supabase MCP (`execute_sql`).
+  4. Atualizada a função `uploadThroughAdminRoute` em `src/lib/supabase/storage.ts` para capturar e repassar a mensagem real do erro do Supabase (`payload.error`) ao formulário.
+- **Prevention**: Usar sempre `Uint8Array` em vez de `Buffer` em Route Handlers configurados como Edge Runtime. Garantir a verificação dos buckets e políticas RLS de storage via Supabase MCP antes de testar fluxos de persistência no admin.
+- **Status**: Fixed
 
 ---
 
@@ -388,4 +412,3 @@
   - **Option 1 (Recommended)**: Upgrade Cloudflare Workers account to Workers Paid ($5/month) to increase Worker size limit from 3 MiB to 10 MiB (compressed) / 50 MiB.
   - **Option 2**: Switch to Static Export (`output: 'export'`) or deploy to Firebase Hosting / Cloudflare Pages.
 - **Status**: Identified (Action Required: Upgrade Cloudflare Workers Plan or Enable Static Export)
-

@@ -124,7 +124,11 @@ export async function POST(request: NextRequest) {
 
   const secretKey = process.env.TURNSTILE_SECRET_KEY?.trim();
 
-  if (secretKey && secretKey !== '0x4AAAAAAAreplaceMe_secret' && secretKey !== '1x0000000000000000000000000000000AA') {
+  if (
+    secretKey &&
+    secretKey !== '0x4AAAAAAAreplaceMe_secret' &&
+    secretKey !== '1x0000000000000000000000000000000AA'
+  ) {
     try {
       const turnstileVerify = await fetch(
         'https://challenges.cloudflare.com/turnstile/v0/siteverify',
@@ -135,7 +139,9 @@ export async function POST(request: NextRequest) {
         }
       );
 
-      const turnstileData = (await turnstileVerify.json().catch(() => null)) as {
+      const turnstileData = (await turnstileVerify
+        .json()
+        .catch(() => null)) as {
         success?: boolean;
         'error-codes'?: string[];
       } | null;
@@ -154,7 +160,11 @@ export async function POST(request: NextRequest) {
           );
           if (isJson) {
             return NextResponse.json(
-              { ok: false, message: 'Validação de segurança (CAPTCHA) falhou. Por favor, recarregue a verificação.' },
+              {
+                ok: false,
+                message:
+                  'Validação de segurança (CAPTCHA) falhou. Por favor, recarregue a verificação.',
+              },
               { status: 400 }
             );
           }
@@ -215,7 +225,11 @@ export async function POST(request: NextRequest) {
   const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
   const toEmail = 'danilo@portfoliodanilo.com';
 
-  if (resendApiKey && resendApiKey !== 're_placeholder_secret' && !resendApiKey.includes('replaceMe')) {
+  if (
+    resendApiKey &&
+    resendApiKey !== 're_placeholder_secret' &&
+    !resendApiKey.includes('replaceMe')
+  ) {
     try {
       const emailResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',

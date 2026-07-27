@@ -245,4 +245,3 @@ O desenvolvimento local e a CI usam **pnpm** como gerenciador principal, mas o d
 5. Se o Cloud Build falhar com `npm ci` e mensagem de lockfile fora de sincronia, a primeira verificação deve ser esse passo de geração temporária de lockfiles.
 
 [![squirrelscan score](https://reports.squirrelscan.com/b/4BF74EB19BY4K02J2DVQQ0WQ.svg?theme=dark)](https://reports.squirrelscan.com/b/4BF74EB19BY4K02J2DVQQ0WQ)
-

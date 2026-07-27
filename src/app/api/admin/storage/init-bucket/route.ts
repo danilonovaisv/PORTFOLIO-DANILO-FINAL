@@ -7,7 +7,9 @@ import {
 
 export async function POST(_request: Request) {
   try {
-    const { supabase } = await requireAdminAccess({ requireServiceRole: false });
+    const { supabase } = await requireAdminAccess({
+      requireServiceRole: false,
+    });
 
     // Attempt to update the site-assets bucket to enable public access and image transformations
     const { data, error } = await supabase.storage.updateBucket('site-assets', {
@@ -25,7 +27,10 @@ export async function POST(_request: Request) {
     });
 
     if (error) {
-      console.error('[API Admin Storage InitBucket] updateBucket failed:', error);
+      console.error(
+        '[API Admin Storage InitBucket] updateBucket failed:',
+        error
+      );
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 

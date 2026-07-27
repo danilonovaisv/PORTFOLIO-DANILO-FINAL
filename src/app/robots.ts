@@ -12,7 +12,14 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin', '/api/*', '/_next/*'],
       },
       {
-        userAgent: ['GPTBot', 'ChatGPT-User', 'CCBot', 'Google-Extended', 'ClaudeBot', 'PerplexityBot'],
+        userAgent: [
+          'GPTBot',
+          'ChatGPT-User',
+          'CCBot',
+          'Google-Extended',
+          'ClaudeBot',
+          'PerplexityBot',
+        ],
         allow: '/',
         disallow: ['/admin', '/api/*'],
       },
