@@ -4,19 +4,32 @@
 export const fetchCache = 'force-no-store';
 
 import { unstable_cache } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
+import type { Database } from '@/lib/supabase.types';
 import { StatCard } from '@/components/admin/StatCard';
 import { Suspense } from 'react';
 
 /**
  * Cached aggregation of dashboard counts — TTL 60s.
- * These counters are admin-only summary data; they don’t need
- * real-time accuracy (unlike live visitor counts or lead alerts).
- * Using unstable_cache reduces one roundtrip per page visit.
+ * Uses a stateless client without request cookies so it can safely execute
+ * inside unstable_cache without throwing dynamic server usage errors.
  */
 const getDashboardCounts = unstable_cache(
   async () => {
-    const supabase = await createClient();
+    const supabaseUrl = getSupabasePublicUrl();
+    const supabaseKey = getSupabasePublicKey();
+
+    if (!supabaseUrl || !supabaseKey) {
+      return {
+        projects: { count: 0, error: 'Missing Supabase environment variables' },
+        tags: { count: 0, error: 'Missing Supabase environment variables' },
+        featuredHome: { count: 0, error: 'Missing Supabase environment variables' },
+        featuredPortfolio: { count: 0, error: 'Missing Supabase environment variables' },
+      };
+    }
+
+    const supabase = createSupabaseClient<Database>(supabaseUrl, supabaseKey);
     const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
       await Promise.all([
         supabase
@@ -52,8 +65,6 @@ const getDashboardCounts = unstable_cache(
   },
   ['dashboard-stats'],
   {
-    // 60s TTL — balances freshness vs Supabase roundtrips.
-    // Revalidated automatically after project create/update via revalidateTag.
     revalidate: 60,
     tags: ['dashboard-stats'],
   }

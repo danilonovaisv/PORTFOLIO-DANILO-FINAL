@@ -7,59 +7,68 @@ const SUPABASE_URL = getSupabasePublicUrl();
 const SUPABASE_PUBLIC_KEY = getSupabasePublicKey();
 
 export async function updateSession(request: NextRequest) {
-  if (!SUPABASE_URL || !SUPABASE_PUBLIC_KEY) {
-    throw new Error(
-      'Missing Supabase middleware credentials. Define NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY.'
-    );
-  }
-
-  // 1. Create an unmodified response
   let supabaseResponse = NextResponse.next({
     request,
   });
-
-  const supabase = createServerClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY, {
-    cookieOptions: {
-      name: '__session',
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-    },
-    cookies: {
-      getAll() {
-        return request.cookies.getAll();
-      },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options: _options }) =>
-          request.cookies.set(name, value)
-        );
-        supabaseResponse = NextResponse.next({
-          request,
-        });
-        cookiesToSet.forEach(({ name, value, options }) =>
-          supabaseResponse.cookies.set(name, value, options)
-        );
-      },
-    },
-  });
-
-  // 2. Validate User
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   const pathname = request.nextUrl.pathname;
   const isLoginPage = pathname === '/admin/login';
   const isAdminRoute = pathname.startsWith('/admin');
   const isAuthCallbackRoute = pathname.startsWith('/auth/callback');
 
-  // 3. Handle Auth Logic
-
-  // Skip auth callback route
   if (isAuthCallbackRoute) {
     return supabaseResponse;
   }
 
-  // If user is logged in and trying to access login page, redirect to dashboard
+  if (!SUPABASE_URL || !SUPABASE_PUBLIC_KEY) {
+    console.warn(
+      '[Middleware] Missing Supabase credentials. Define NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY.'
+    );
+    if (isAdminRoute && !isLoginPage) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/admin/login';
+      return NextResponse.redirect(url);
+    }
+    return supabaseResponse;
+  }
+
+  let user = null;
+
+  try {
+    const supabase = createServerClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY, {
+      cookieOptions: {
+        name: '__session',
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+      },
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options: _options }) =>
+            request.cookies.set(name, value)
+          );
+          supabaseResponse = NextResponse.next({
+            request,
+          });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          );
+        },
+      },
+    });
+
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (error) {
+    console.error(
+      '[Middleware] Auth verification error:',
+      error instanceof Error ? error.message : error
+    );
+  }
+
+  // Handle Auth Logic
   if (user && isLoginPage) {
     const url = request.nextUrl.clone();
     url.pathname = '/admin';
@@ -81,6 +90,5 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  // 4. Return response with updated cookies
   return supabaseResponse;
 }
