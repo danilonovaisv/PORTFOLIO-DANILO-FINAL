@@ -38,7 +38,16 @@ export function assertAdminAccess(user: User | null | undefined) {
 export async function requireAdminAccess(
   options: RequireAdminAccessOptions = {}
 ) {
-  const requestScopedSupabase = await createClient();
+  let requestScopedSupabase: SupabaseClient<Database>;
+  try {
+    requestScopedSupabase = await createClient();
+  } catch (clientErr) {
+    throw new AdminAccessError(
+      `SYSTEM_ERR: SUPABASE_CLIENT_UNAVAILABLE — ${clientErr instanceof Error ? clientErr.message : 'ENV_CONFIG_MISSING'}`,
+      'unauthorized'
+    );
+  }
+
   const {
     data: { user },
     error,

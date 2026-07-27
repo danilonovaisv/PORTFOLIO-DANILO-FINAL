@@ -68,6 +68,17 @@ export async function POST(request: Request) {
       );
     }
 
+    const MAX_FILE_SIZE_BYTES = 26214400; // 25 MB
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      return NextResponse.json(
+        {
+          error: 'SYSTEM_ERR: FILE_SIZE_EXCEEDS_LIMIT',
+          message: `File size (${(file.size / 1024 / 1024).toFixed(2)} MB) exceeds maximum allowed size of 25 MB.`,
+        },
+        { status: 400 }
+      );
+    }
+
     const bytes = await file.arrayBuffer();
     const payload = new Uint8Array(bytes);
 
