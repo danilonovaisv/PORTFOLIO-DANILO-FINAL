@@ -1,4 +1,4 @@
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 import { NextResponse } from 'next/server';
 import {
   requireAdminAccess,
@@ -11,6 +11,11 @@ const ALLOWED_BUCKETS = new Set<UploadBucket>([
   'portfolio-media',
   'site-assets',
 ]);
+
+const MAX_FILE_SIZE_BY_BUCKET: Record<UploadBucket, number> = {
+  'portfolio-media': 25 * 1024 * 1024,
+  'site-assets': 10 * 1024 * 1024,
+};
 
 import {
   buildV4Path,
@@ -30,9 +35,11 @@ function invalidPath(path: string) {
 }
 
 export async function POST(request: Request) {
+  const requestId = crypto.randomUUID();
+
   try {
-    const { supabase } = await requireAdminAccess({ requireServiceRole: false });
-    
+    const { supabase } = await requireAdminAccess({ requireServiceRole: true });
+
     let formData: FormData;
     try {
       formData = await request.formData();
@@ -68,14 +75,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const MAX_FILE_SIZE_BYTES = 26214400; // 25 MB
-    if (file.size > MAX_FILE_SIZE_BYTES) {
+    const maxFileSizeBytes = MAX_FILE_SIZE_BY_BUCKET[bucket as UploadBucket];
+    if (file.size > maxFileSizeBytes) {
+      const maxFileSizeMb = maxFileSizeBytes / 1024 / 1024;
       return NextResponse.json(
         {
           error: 'SYSTEM_ERR: FILE_SIZE_EXCEEDS_LIMIT',
-          message: `File size (${(file.size / 1024 / 1024).toFixed(2)} MB) exceeds maximum allowed size of 25 MB.`,
+          message: `File size (${(file.size / 1024 / 1024).toFixed(2)} MB) exceeds the ${maxFileSizeMb} MB limit for ${bucket}.`,
+          requestId,
         },
-        { status: 400 }
+        { status: 413 }
       );
     }
 
@@ -133,7 +142,12 @@ export async function POST(request: Request) {
       });
 
     if (error) {
-      console.error('[API Admin Storage Upload] Supabase upload failed:', error);
+      console.error('[API Admin Storage Upload] Supabase upload failed:', {
+        requestId,
+        bucket,
+        path,
+        error,
+      });
       const alreadyExists = error.message
         .toLowerCase()
         .includes('already exists');
@@ -143,7 +157,11 @@ export async function POST(request: Request) {
       }
 
       return NextResponse.json(
-        { error: error.message || 'SYSTEM_ERR: SUPABASE_STORAGE_UPLOAD_ERROR' },
+        {
+          error: 'SYSTEM_ERR: SUPABASE_STORAGE_UPLOAD_ERROR',
+          message: error.message || 'The storage provider rejected the upload.',
+          requestId,
+        },
         { status: 400 }
       );
     }
@@ -155,13 +173,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status });
     }
 
-    console.error('[API Admin Storage Upload] Critical unhandled failure:', error);
-    const message =
-      error instanceof Error ? error.message : 'SYSTEM_ERR: UPLOAD_FAILED';
+    console.error('[API Admin Storage Upload] Critical unhandled failure:', {
+      requestId,
+      error,
+    });
     return NextResponse.json(
       {
-        error: message,
-        details: error instanceof Error ? error.stack : String(error),
+        error: 'SYSTEM_ERR: UPLOAD_FAILED',
+        message: 'The upload could not be completed.',
+        requestId,
       },
       { status: 500 }
     );

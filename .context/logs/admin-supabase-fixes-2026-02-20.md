@@ -16,6 +16,12 @@
 - Mitigated hydration mismatch in `AdminShell` by mounting mobile `Sheet` only after client mount.
 - Made `src/app/error.tsx` reporter optional and quiet in development when endpoint is unavailable.
 - Added maintenance SQL: `supabase/sql/2026-02-20_admin_claim_and_cached_egress_cleanup.sql`.
+- Hardened the admin upload route to require the server-side service role, use
+  the Node.js runtime for multipart buffering, enforce bucket-specific size
+  limits (`portfolio-media`: 25 MB, `site-assets`: 10 MB), and return a safe
+  request ID instead of server stack traces.
+- Allowed the official Cloudflare Web Analytics script and beacon endpoint in
+  the global CSP.
 
 ## Notes
 

@@ -34,12 +34,18 @@ async function uploadThroughAdminRoute({
   const payload = (await response.json().catch(() => ({}))) as {
     path?: string;
     error?: string;
+    message?: string;
+    requestId?: string;
   };
 
   if (!response.ok) {
-    throw new Error(
-      payload.error || `SYSTEM_ERR: STORAGE_UPLOAD_HTTP_${response.status}`
-    );
+    const errorCode =
+      payload.error || `SYSTEM_ERR: STORAGE_UPLOAD_HTTP_${response.status}`;
+    const details = payload.message ? ` ${payload.message}` : '';
+    const requestId = payload.requestId
+      ? ` Request ID: ${payload.requestId}.`
+      : '';
+    throw new Error(`${errorCode}.${details}${requestId}`);
   }
 
   const returnedPath = payload.path || path;
