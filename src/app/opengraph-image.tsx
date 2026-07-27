@@ -1,4 +1,3 @@
-import { ImageResponse } from 'next/og';
 import { BRAND } from '@/config/brand';
 
 export const dynamic = 'force-static';
@@ -10,111 +9,33 @@ export const size = {
   width: 1200,
   height: 630,
 };
-export const contentType = 'image/png';
+export const contentType = 'image/svg+xml';
 
 /**
  * OG Image for the root page.
- * Attempts to fetch the real OG image from public URL.
- * Falls back to an inline branded image if the network/DNS is unavailable.
+ * Returns a lightweight SVG Response to prevent bundling @vercel/og (resvg.wasm) into Cloudflare Worker.
  */
-
 export default async function Image() {
-  // Try to use the absolute URL of the image asset
-  try {
-    const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || 'https://portfoliodanilo.com';
-    const imageUrl = `${siteUrl}/og-image.png`;
-    const response = await fetch(imageUrl);
+  const svg = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="630" fill="${BRAND.colors.background}"/>
+    <radialGradient id="grad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#0048ff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="${BRAND.colors.background}" stop-opacity="1"/>
+    </radialGradient>
+    <rect width="1200" height="630" fill="url(#grad)"/>
+    <g transform="translate(568, 140) scale(1.6)">
+      <path d="M9 11.2c0-1.2 1-2.2 2.2-2.2h12.2c6.4 0 11.6 5.2 11.6 11.6S29.8 32.2 23.4 32.2H11.2C10 32.2 9 31.2 9 30V11.2Z" stroke="white" stroke-width="2" stroke-opacity="0.9" fill="none"/>
+      <path d="M14 14l12 12M26 14 14 26" stroke="white" stroke-width="1.6" stroke-opacity="0.55" fill="none"/>
+    </g>
+    <text x="600" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-0.04em">Danilo Novais</text>
+    <text x="600" y="410" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="500" fill="#4fe6ff" text-anchor="middle" letter-spacing="0.12em">HEAD DE CRIAÇÃO &amp; DIRETOR DE CRIAÇÃO SÊNIOR</text>
+  </svg>`;
 
-    if (response.ok) {
-      const imageData = await response.arrayBuffer();
-      return new ImageResponse(
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img
-            src={`data:image/png;base64,${Buffer.from(imageData).toString('base64')}`}
-            alt="Danilo Novais | Head de Criação & Diretor de Criação Sênior"
-            width={1200}
-            height={630}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>,
-        { ...size }
-      );
-    }
-  } catch (err) {
-    console.error('Error loading local OG image:', err);
-  }
-
-  // Fallback: Ghost-branded inline OG image (same style as /portfolio, /sobre, /contato)
-  return new ImageResponse(
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: BRAND.colors.background,
-        backgroundImage: `radial-gradient(circle at 50% 40%, #0048ff 0%, ${BRAND.colors.background} 55%)`,
-      }}
-    >
-      <svg
-        width="64"
-        height="64"
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ marginBottom: 32 }}
-      >
-        <path
-          d="M9 11.2c0-1.2 1-2.2 2.2-2.2h12.2c6.4 0 11.6 5.2 11.6 11.6S29.8 32.2 23.4 32.2H11.2C10 32.2 9 31.2 9 30V11.2Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeOpacity="0.9"
-        />
-        <path
-          d="M14 14l12 12M26 14 14 26"
-          stroke="white"
-          strokeWidth="1.6"
-          strokeOpacity="0.55"
-        />
-      </svg>
-      <h1
-        style={{
-          fontSize: 72,
-          fontWeight: 900,
-          color: 'white',
-          margin: 0,
-          marginBottom: 16,
-          letterSpacing: '-0.04em',
-          textAlign: 'center',
-        }}
-      >
-        Danilo Novais
-      </h1>
-      <p
-        style={{
-          fontSize: 26,
-          color: '#4fe6ff',
-          margin: 0,
-          letterSpacing: '0.12em',
-          textAlign: 'center',
-          textTransform: 'uppercase',
-          fontWeight: 500,
-        }}
-      >
-        Head de Criação & Diretor de Criação Sênior
-      </p>
-    </div>,
-    { ...size }
-  );
+  return new Response(svg, {
+    headers: {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': 'public, max-age=31536000, immutable',
+    },
+  });
 }
+

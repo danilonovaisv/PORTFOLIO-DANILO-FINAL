@@ -80,7 +80,11 @@ export default async function ProtectedLayout({
 
     const isMissingEnv =
       error instanceof Error &&
-      error.message.includes('Missing Supabase server client credentials');
+      (error.message.includes('Missing Supabase server client credentials') ||
+        error.message.includes('ENV_MISSING') ||
+        error.message.includes('SUPABASE_URL') ||
+        error.message.includes('SUPABASE_PUBLISHABLE_KEY') ||
+        error.message.includes('NOT_DEFINED'));
 
     return (
       <AdminErrorDisplay

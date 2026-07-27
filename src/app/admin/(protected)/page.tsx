@@ -17,51 +17,63 @@ import { Suspense } from 'react';
  */
 const getDashboardCounts = unstable_cache(
   async () => {
-    const supabaseUrl = getSupabasePublicUrl();
-    const supabaseKey = getSupabasePublicKey();
+    try {
+      const supabaseUrl = getSupabasePublicUrl();
+      const supabaseKey = getSupabasePublicKey();
 
-    if (!supabaseUrl || !supabaseKey) {
+      if (!supabaseUrl || !supabaseKey) {
+        return {
+          projects: { count: 0, error: 'Missing Supabase environment variables' },
+          tags: { count: 0, error: 'Missing Supabase environment variables' },
+          featuredHome: { count: 0, error: 'Missing Supabase environment variables' },
+          featuredPortfolio: { count: 0, error: 'Missing Supabase environment variables' },
+        };
+      }
+
+      const supabase = createSupabaseClient<Database>(supabaseUrl, supabaseKey);
+      const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
+        await Promise.all([
+          supabase
+            .from('portfolio_projects')
+            .select('id', { count: 'exact', head: true }),
+          supabase
+            .from('portfolio_tags')
+            .select('id', { count: 'exact', head: true }),
+          supabase
+            .from('portfolio_projects')
+            .select('id', { count: 'exact', head: true })
+            .eq('featured_on_home', true),
+          supabase
+            .from('portfolio_projects')
+            .select('id', { count: 'exact', head: true })
+            .eq('featured_on_portfolio', true),
+        ]);
       return {
-        projects: { count: 0, error: 'Missing Supabase environment variables' },
-        tags: { count: 0, error: 'Missing Supabase environment variables' },
-        featuredHome: { count: 0, error: 'Missing Supabase environment variables' },
-        featuredPortfolio: { count: 0, error: 'Missing Supabase environment variables' },
+        projects: {
+          count: projectsRes.count ?? 0,
+          error: projectsRes.error?.message,
+        },
+        tags: { count: tagsRes.count ?? 0, error: tagsRes.error?.message },
+        featuredHome: {
+          count: featuredHomeRes.count ?? 0,
+          error: featuredHomeRes.error?.message,
+        },
+        featuredPortfolio: {
+          count: featuredPortfolioRes.count ?? 0,
+          error: featuredPortfolioRes.error?.message,
+        },
+      };
+    } catch (err) {
+      console.warn('[Admin Dashboard] getDashboardCounts error:', err);
+      const message =
+        err instanceof Error ? err.message : 'Failed to fetch dashboard stats';
+      return {
+        projects: { count: 0, error: message },
+        tags: { count: 0, error: message },
+        featuredHome: { count: 0, error: message },
+        featuredPortfolio: { count: 0, error: message },
       };
     }
-
-    const supabase = createSupabaseClient<Database>(supabaseUrl, supabaseKey);
-    const [projectsRes, tagsRes, featuredHomeRes, featuredPortfolioRes] =
-      await Promise.all([
-        supabase
-          .from('portfolio_projects')
-          .select('id', { count: 'exact', head: true }),
-        supabase
-          .from('portfolio_tags')
-          .select('id', { count: 'exact', head: true }),
-        supabase
-          .from('portfolio_projects')
-          .select('id', { count: 'exact', head: true })
-          .eq('featured_on_home', true),
-        supabase
-          .from('portfolio_projects')
-          .select('id', { count: 'exact', head: true })
-          .eq('featured_on_portfolio', true),
-      ]);
-    return {
-      projects: {
-        count: projectsRes.count ?? 0,
-        error: projectsRes.error?.message,
-      },
-      tags: { count: tagsRes.count ?? 0, error: tagsRes.error?.message },
-      featuredHome: {
-        count: featuredHomeRes.count ?? 0,
-        error: featuredHomeRes.error?.message,
-      },
-      featuredPortfolio: {
-        count: featuredPortfolioRes.count ?? 0,
-        error: featuredPortfolioRes.error?.message,
-      },
-    };
   },
   ['dashboard-stats'],
   {
@@ -71,7 +83,20 @@ const getDashboardCounts = unstable_cache(
 );
 
 async function DashboardStats() {
-  const counts = await getDashboardCounts();
+  let counts;
+  try {
+    counts = await getDashboardCounts();
+  } catch (err) {
+    console.warn('[Admin Dashboard] DashboardStats fetch error:', err);
+    const message =
+      err instanceof Error ? err.message : 'Cache or stats service unavailable';
+    counts = {
+      projects: { count: 0, error: message },
+      tags: { count: 0, error: message },
+      featuredHome: { count: 0, error: message },
+      featuredPortfolio: { count: 0, error: message },
+    };
+  }
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

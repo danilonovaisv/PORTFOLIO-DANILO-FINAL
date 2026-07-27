@@ -163,6 +163,7 @@ const createNextConfig = (phase) => ({
   },
 
   experimental: {
+    useTypeScriptCli: true,
     optimizePackageImports: [
       'lucide-react',
       'motion',
