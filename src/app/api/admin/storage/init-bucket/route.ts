@@ -7,7 +7,7 @@ import {
 
 export async function POST(_request: Request) {
   try {
-    const { supabase } = await requireAdminAccess({ requireServiceRole: true });
+    const { supabase } = await requireAdminAccess({ requireServiceRole: false });
 
     // Attempt to update the site-assets bucket to enable public access and image transformations
     const { data, error } = await supabase.storage.updateBucket('site-assets', {
@@ -25,11 +25,10 @@ export async function POST(_request: Request) {
     });
 
     if (error) {
+      console.error('[API Admin Storage InitBucket] updateBucket failed:', error);
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    // Attempt to update portfolio-media if needed, although it wasn't requested
-    // This route is specific to configuring the necessary buckets for this project
     return NextResponse.json(
       {
         success: true,
@@ -45,8 +44,15 @@ export async function POST(_request: Request) {
       return NextResponse.json({ error: error.message }, { status });
     }
 
+    console.error('[API Admin Storage InitBucket] Critical failure:', error);
     const message =
       error instanceof Error ? error.message : 'SYSTEM_ERR: BUCKET_INIT_FAILED';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: message,
+        details: error instanceof Error ? error.stack : String(error),
+      },
+      { status: 500 }
+    );
   }
 }

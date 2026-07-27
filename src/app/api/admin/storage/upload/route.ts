@@ -31,8 +31,18 @@ function invalidPath(path: string) {
 
 export async function POST(request: Request) {
   try {
-    const { supabase } = await requireAdminAccess({ requireServiceRole: true });
-    const formData = await request.formData();
+    const { supabase } = await requireAdminAccess({ requireServiceRole: false });
+    
+    let formData: FormData;
+    try {
+      formData = await request.formData();
+    } catch (formErr) {
+      console.error('[API Admin Storage Upload] FormData parsing error:', formErr);
+      return NextResponse.json(
+        { error: 'SYSTEM_ERR: INVALID_FORM_DATA_PAYLOAD' },
+        { status: 400 }
+      );
+    }
 
     const bucket = formData.get('bucket');
     const rawPath = formData.get('path');
@@ -59,14 +69,14 @@ export async function POST(request: Request) {
     }
 
     const bytes = await file.arrayBuffer();
-    const payload = Buffer.from(bytes);
+    const payload = new Uint8Array(bytes);
 
     let path = '';
     let cacheControl = '3600';
     let upsert = true;
 
     if (bucket === 'portfolio-media') {
-      const hash = await hashContent(payload);
+      const hash = await hashContent(bytes);
 
       if (!brand || !project) {
         return NextResponse.json(
@@ -112,6 +122,7 @@ export async function POST(request: Request) {
       });
 
     if (error) {
+      console.error('[API Admin Storage Upload] Supabase upload failed:', error);
       const alreadyExists = error.message
         .toLowerCase()
         .includes('already exists');
@@ -120,7 +131,10 @@ export async function POST(request: Request) {
         return NextResponse.json({ path }, { status: 200 });
       }
 
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json(
+        { error: error.message || 'SYSTEM_ERR: SUPABASE_STORAGE_UPLOAD_ERROR' },
+        { status: 400 }
+      );
     }
 
     return NextResponse.json({ path: data.path }, { status: 200 });
@@ -130,8 +144,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status });
     }
 
+    console.error('[API Admin Storage Upload] Critical unhandled failure:', error);
     const message =
       error instanceof Error ? error.message : 'SYSTEM_ERR: UPLOAD_FAILED';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: message,
+        details: error instanceof Error ? error.stack : String(error),
+      },
+      { status: 500 }
+    );
   }
 }
