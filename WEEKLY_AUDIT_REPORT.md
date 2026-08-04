@@ -1,46 +1,63 @@
 ### 1️⃣ Visão Geral
-A auditoria semanal automatizada revisou as três páginas principais do portfólio (Home, Sobre e Portfolio), bem como seus respectivos componentes, garantindo a adesão às diretrizes do Ghost Design System (`AGENTS.md` e `.context`). A estrutura de roteamento e abertura de páginas usando o Next.js App Router está perfeitamente funcional. Animações via Framer Motion estão com os devidos fallbacks (`prefers-reduced-motion`) ativos.
+A auditoria semanal automatizada varreu os diretórios `src/app` e `src/components`, avaliando as páginas Home, Sobre, Portfolio e a área de Admin do projeto Ghost Era. A estrutura base do Next.js App Router está implementada com páginas e rotas corretas. O roteamento (SPA) está sendo utilizado com `MotionLink`, mas ainda há melhorias necessárias para o design system. A performance está criticamente ameaçada pela ausência do Loader Customizado de Imagens do Supabase. Animações e a integração R3F precisam de ajustes estruturais para se adequarem às diretrizes da arquitetura V3.
 
 ### 2️⃣ Diagnóstico por Seção
 
 - **Home Hero:**
-  - O controle do Z-index segue a arquitetura correta: Preloader (`z-50`) > WebGL (`z-layer-3d`) > Texto Editorial (`z-layer-content`) > CTA (`z-layer-cta`).
-  - O componente `GhostSceneWrapper` é adequadamente envelopado e lida corretamente com as otimizações de pointer-events e fallback de carregamento.
+  O Hero implementa o preloader corretamente e renderiza as camadas de z-index conforme o protocolo Ghost. No entanto, a organização de pastas de componentes 3D viola o padrão. O `GhostSceneWrapper` está em `src/components/canvas/home/hero/`, mas a arquitetura estrita exige que esteja em `src/components/home/webgl/`.
 
 - **Manifesto:**
-  - O `VideoManifesto.tsx` possui a semântica correta, respeitando acessibilidade (`aria-label` no botão de mute).
-  - O scroll behavior (`useScroll`) está sincronizado com a viewport (ativando o som quando o scroll atinge 99%). Os fallbacks responsivos para desktop/mobile estão adequados via tag `ResponsiveVideo`.
+  O componente `VideoManifesto.tsx` está isolado e bem implementado, com as lógicas de mute e autoplay configuradas. O comportamento de fullscreen no desktop segue a responsividade mobile-first através do fallback para o componente `ResponsiveVideo`.
 
 - **Featured Projects:**
-  - A renderização do Bento Grid em `FeaturedProjectsSection.tsx` está impecável.
-  - **Verificação de uniformidade de altura dos cards (Mandatória):** Os containers utilizam `items-stretch`, e as definições de classes internas (`h-full min-h-0 w-full self-stretch`) combinadas ao container filho (`flex h-full min-h-full flex-1 flex-col` em `FeaturedProjectCard.tsx`) asseguram que **todos os cards na mesma linha preencham 100% da altura vertical disponível**. Regra Absoluta garantida.
+  A renderização usa a estrutura do Bento Grid com CSS Grid classes do Tailwind. O requisito de que todos os cards na mesma linha tenham a mesma altura vertical está devidamente respeitado pelo uso contínuo de `h-full min-h-0 self-stretch` ao longo das diretivas do `FeaturedProjectsSection.tsx` e `FeaturedProjectCard.tsx`.
 
 - **About (Origin/Method/What I Do):**
-  - Textos e headers seguem os tokens de typography do Tailwind.
-  - Comportamento mobile-first rigorosamente mantido (ex: `AboutWhatIDo.tsx` alterna a renderização inteiramente baseado no viewport, empilhando verticalmente para devices menores e mantendo rolagem horizontal vinculada ao scroll somente no Desktop).
-  - Componentes carregados dinamicamente utilizam os *Skeletons* providos pela árvore de `Suspense`.
+  A seção Sobre obedece à semântica geral do Tailwind e à paleta de cores. As hierarquias de fonte seguem a tabela fluid scale estipulada em `GHOST-DESIGN-SYSTEM.md`.
 
 - **Portfolio Grid:**
-  - Renderiza o grid sob a classe container mandatória `.std-grid` para alinhar com o design cibernético silencioso (Ghost Era).
-  - O componente `PortfolioClient.tsx` despacha modais e lazy loading baseando-se no viewport `IntersectionObserver` sem vazamento de memória.
-  - Sistema ALPA V3 (landing pages de projetos dinâmicas) devidamente integrado na lógica de abertura dos cards, que navega ou ativa o popup.
+  O grid (`.std-grid`) está bem formatado. A visualização de landing pages via ALPA V3 (em `/portfolio/[slug]`) apresenta integridade com o redirecionamento. O componente `PortfolioHeroNew.tsx` foi migrado para Tailwind e não faz mais uso de CSS Modules legados.
 
 ### 3️⃣ Lista de Problemas e Backlog Priorizado
 
-- 🔴 **P0 (Crítico): 42 links legados quebrados.**
-  O arquivo `.context/active_state.md` aponta a existência de 42 assets quebrados em `site-assets.json`.
-- 🔴 **P0 (Crítico): CSP `unsafe-eval` na rota /api/view-cv/route.ts.**
-  Identificado pelo histórico do projeto que há um risco de segurança XSS devido ao CSP `unsafe-eval`.
-- 🟡 **P1 (Estrutural): Regras conflitantes no `.claude/rules/`.**
-  O uso do `@tailwindcss/postcss` está documentado como proibido em `.claude/rules/postcss-tailwind-config.md`, mas está instalado no `package.json`.
-- 🟢 **P2 (Polimento Rápido): Refatorar classes CSS legadas.**
-  O arquivo `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md` aponta inconsistências de estilos entre CSS Modules (`PortfolioHeroGallery.module.css`), Tailwind CSS, e estilos inline, que devem ser padronizados.
+- 🔴 **P0 (Crítico): Ausência do Supabase Image Loader (`src/lib/supabase/image-loader.ts`).**
+  O arquivo não existe, mas está sendo referenciado nas memórias do projeto e configurações essenciais. O Firebase Hosting falhará ao otimizar imagens, necessitando da declaração no `next.config.mjs`.
+
+- 🟡 **P1 (Estrutural): Arquitetura WebGL Fora do Padrão.**
+  Componentes da `GhostScene` estão alocados em `canvas/home/hero` e precisam ser migrados estritamente para `src/components/home/webgl/` conforme a regra SSoT (`AGENTS.md`).
+
+- 🟡 **P1 (Estrutural): Estado Ativo do Header sem `scaleX`.**
+  O componente `DesktopFluidHeader.tsx` continua utilizando a animação baseada em alteração de `width` no pseudo-sublinhado, ao passo que a regra do projeto estipula explicitamente a utilização de `animate={{ scaleX: isActive ? 1 : 0 }}`.
+
+- 🟢 **P2 (Polimento Rápido): Refinamento do `CategoryStripe.tsx`.**
+  As interações da seta não estão empregando a propriedade `translateX` como recomendado para o padrão de movimento "Ghost Ease", estando baseadas unicamente em transições de opacidade estática entre SVGs.
 
 ### 4️⃣ Prompts Técnicos para Agentes Google Antigravity (Atômicos)
 
-> **### 🛠️ Prompt #01 — Unificação de Módulos CSS Legacy**
-> **Objetivo:** Migrar totalmente classes soltas e módulos CSS legados para Tailwind no componente de Hero do Portfolio.
-> **Arquivos:** `src/components/portfolio/PortfolioHeroNew.tsx`, `src/components/portfolio/PortfolioHeroGallery.module.css` (se houver).
-> **Ações:** 1. Identificar classes do tipo `styles.container`. 2. Substituí-las por utilitários Tailwind equivalentes. 3. Apagar o módulo CSS.
-> **Regras:** Manter compatibilidade Mobile-first. Respeitar o Ghost Design System (.std-grid).
-> **Critérios de Aceite:** O componente PortfolioHeroNew continua perfeitamente funcional usando exclusivamente o Tailwind, sem erros no console ou perda de integridade do layout de grade.
+> **### 🛠️ Prompt #01 — Setup Custom Image Loader (Supabase/Firebase)**
+> **Objetivo:** Criar e configurar o loader customizado de imagens para evitar quebras de build e sobrecarga no Firebase Hosting.
+> **Arquivos:** `next.config.mjs`, `src/lib/supabase/image-loader.ts`
+> **Ações:** 1. Criar o arquivo `src/lib/supabase/image-loader.ts` com a lógica para transformar as URLs do bucket do Supabase em `/render/image/public`. 2. Atualizar o `next.config.mjs` para incluir a configuração `images: { loader: 'custom', loaderFile: './src/lib/supabase/image-loader.ts' }`.
+> **Regras:** Seguir as guidelines de performance e prover fallback seguro caso a URL não pertença ao Supabase.
+> **Critérios de Aceite:** O projeto deve buildar corretamente sem erros e a propriedade do Next Image deve redirecionar corretamente a request.
+
+> **### 🛠️ Prompt #02 — Refatorar Arquitetura WebGL da Home**
+> **Objetivo:** Isolar e migrar componentes 3D/WebGL da Home para o diretório correto conforme documentado.
+> **Arquivos:** `src/components/home/hero/HomeHero.tsx`, `src/components/canvas/home/hero/*`, `src/components/home/webgl/ghost-canvas/*`
+> **Ações:** 1. Mover todos os arquivos R3F de `src/components/canvas/home/hero/` para o diretório `src/components/home/webgl/ghost-canvas/`. 2. Atualizar todos os imports em `HomeHero.tsx`.
+> **Regras:** Manter o uso do Dynamic Import e `ssr: false` para o Wrapper R3F.
+> **Critérios de Aceite:** O projeto compila com `next build` sem erros de importação e o canvas 3D é renderizado corretamente.
+
+> **### 🛠️ Prompt #03 — Consertar Animação do Estado "Active" no Header**
+> **Objetivo:** Substituir a animação de `width` pelo uso de `scaleX` no indicador de aba ativa para o padrão Framer.
+> **Arquivos:** `src/components/layout/header/DesktopFluidHeader.tsx`
+> **Ações:** 1. Localizar o componente `DesktopNavItem`. 2. Substituir os variants (initial, hover, active) da barra de sublinhado. Definir o width fixo ou 100% e animar através de `scaleX`, configurando `origin-center` ou `origin-left`.
+> **Regras:** Respeitar a documentação explícita que proíbe o método puramente *width-based* sem layoutId, em detrimento do uso explícito do transform scale.
+> **Critérios de Aceite:** A animação sublinha suavemente e não causa repaint/layout shift.
+
+> **### 🛠️ Prompt #04 — Refinar Animação da Seta em CategoryStripe**
+> **Objetivo:** Adequar a seta do *Showcase* aos princípios Ghost System usando `translateX`.
+> **Arquivos:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
+> **Ações:** 1. Reduzir para um único ícone de `ArrowRight` (ou ArrowUpRight rotacionado nativamente) e injetar `animate={{ x: isHovered ? 4 : 0 }}`. 2. Remover opacidades duplas de ícones.
+> **Regras:** Animações devem ser declarativas pelo Framer Motion, respeitando a curva `GHOST_EASE`.
+> **Critérios de Aceite:** A interação flui apenas movendo a seta para a direita ao se aproximar.
